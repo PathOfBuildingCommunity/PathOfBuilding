@@ -35,6 +35,77 @@ local socketDropList = {
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
+local leagueDropList = {
+	{ label = "League SC", name = "tmpstandard" },
+	{ label = "League HC", name = "tmphardcore" },
+	{ label = "Standard", name = "Standard" },
+	{ label = "Hardcore", name = "Hardcore" },
+	{ label = "Event SC", name = "eventstandard" },
+	{ label = "Event HC", name = "eventhardcore" }
+}
+
+local currencyConversionTradeMap = { }
+currencyConversionTradeMap["Orb of Alteration"] = "alt"
+currencyConversionTradeMap["Orb of Fusing"] = "fusing"
+currencyConversionTradeMap["Orb of Alchemy"] = "alch"
+currencyConversionTradeMap["Chaos Orb"] = "chaos"
+currencyConversionTradeMap["Gemcutter's Prism"] = "gcp"
+currencyConversionTradeMap["Exalted Orb"] = "exalted"
+currencyConversionTradeMap["Chromatic Orb"] = "chrome"
+currencyConversionTradeMap["Jeweller's Orb"] = "jewellers"
+currencyConversionTradeMap["Engineer's Orb"] = "engineers"
+currencyConversionTradeMap["Infused Engineer's Orb"] = "infused-engineers-orb"
+currencyConversionTradeMap["Orb of Chance"] = "chance"
+currencyConversionTradeMap["Cartographer's Chisel"] = "chisel"
+currencyConversionTradeMap["Orb of Scouring"] = "scour"
+currencyConversionTradeMap["Blessed Orb"] = "blessed"
+currencyConversionTradeMap["Orb of Regret"] = "regret"
+currencyConversionTradeMap["Regal Orb"] = "regal"
+currencyConversionTradeMap["Divine Orb"] = "divine"
+currencyConversionTradeMap["Vaal Orb"] = "vaal"
+currencyConversionTradeMap["Orb of Annulment"] = "annul"
+currencyConversionTradeMap["Orb of Binding"] = "orb-of-binding"
+currencyConversionTradeMap["Ancient Orb"] = "ancient-orb"
+currencyConversionTradeMap["Orb of Horizons"] = "orb-of-horizons"
+currencyConversionTradeMap["Harbinger's Orb"] = "harbingers-orb"
+currencyConversionTradeMap["Scroll of Wisdom"] = "wisdom"
+currencyConversionTradeMap["Portal Scroll"] = "portal"
+currencyConversionTradeMap["Armourer's Scrap"] = "scrap"
+currencyConversionTradeMap["Blacksmith's Whetstone"] = "whetstone"
+currencyConversionTradeMap["Glassblower's Bauble"] = "bauble"
+currencyConversionTradeMap["Orb of Transmutation"] = "transmute"
+currencyConversionTradeMap["Orb of Augmentation"] = "aug"
+currencyConversionTradeMap["Mirror of Kalandra"] = "mirror"
+currencyConversionTradeMap["Eternal Orb"] = "eternal"
+currencyConversionTradeMap["Rogue's Marker"] = "rogues-marker"
+currencyConversionTradeMap["Silver Coin"] = "silver"
+currencyConversionTradeMap["Crusader's Exalted Orb"] = "crusaders-exalted-orb"
+currencyConversionTradeMap["Redeemer's Exalted Orb"] = "redeemers-exalted-orb"
+currencyConversionTradeMap["Hunter's Exalted Orb"] = "hunters-exalted-orb"
+currencyConversionTradeMap["Warlord's Exalted Orb"] = "warlords-exalted-orb"
+currencyConversionTradeMap["Awakener's Orb"] = "awakeners-orb"
+currencyConversionTradeMap["Maven's Orb"] = "mavens-orb"
+currencyConversionTradeMap["Facetor's Lens"] = "facetors"
+currencyConversionTradeMap["Prime Regrading Lens"] = "prime-regrading-lens"
+currencyConversionTradeMap["Secondary Regrading Lens"] = "secondary-regrading-lens"
+currencyConversionTradeMap["Tempering Orb"] = "tempering-orb"
+currencyConversionTradeMap["Tailoring Orb"] = "tailoring-orb"
+currencyConversionTradeMap["Stacked Deck"] = "stacked-deck"
+currencyConversionTradeMap["Simple Sextant"] = "simple-sextant"
+currencyConversionTradeMap["Prime Sextant"] = "prime-sextant"
+currencyConversionTradeMap["Awakened Sextant"] = "awakened-sextant"
+currencyConversionTradeMap["Elevated Sextant"] = "elevated-sextant"
+currencyConversionTradeMap["Orb of Unmaking"] = "orb-of-unmaking"
+currencyConversionTradeMap["Blessing of Xoph"] = "blessing-xoph"
+currencyConversionTradeMap["Blessing of Tul"] = "blessing-tul"
+currencyConversionTradeMap["Blessing of Esh"] = "blessing-esh"
+currencyConversionTradeMap["Blessing of Uul-Netol"] = "blessing-uul-netol"
+currencyConversionTradeMap["Blessing of Chayula"] = "blessing-chayula"
+currencyConversionTradeMap["Veiled Chaos Orb"] = "veiled-chaos-orb"
+currencyConversionTradeMap["Enkindling Orb"] = "enkindling-orb"
+currencyConversionTradeMap["Instilling Orb"] = "instilling-orb"
+currencyConversionTradeMap["Sacred Orb"] = "sacred-orb"
+
 local influenceInfo = itemLib.influenceInfo
 
 local catalystQualityFormat = {
@@ -1813,8 +1884,6 @@ function ItemsTabClass:PriceItem()
 
 	-- default set of trade item sort selection
 	self.pbSortSelectionIndex = 1
-	self.pbLeague = "Scourge"
-	self.pbCurrencyConversionNames = { }
 	self.pbCurrencyConversion = { }
 	self.lastCurrencyConversionRequest = 0
 	self.lastCurrencyFileTime = nil
@@ -1845,7 +1914,7 @@ function ItemsTabClass:PriceItem()
 		"Highest DPS",
 		"DPS / Price",
 	}
-	controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -24, 15, 100, 20, sortSelectionList, function(index, value)
+	controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -12, 15, 100, 20, sortSelectionList, function(index, value)
 		self.pbSortSelectionIndex = index
 	end)
 	controls.itemSortSelectionLabel = new("LabelControl",  {"TOPRIGHT",controls.itemSortSelection,"TOPRIGHT"}, -106, 0, 60, 18,  "^8Item Sort Selection:")
@@ -1877,6 +1946,35 @@ function ItemsTabClass:PriceItem()
 	controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, row_height, "Done", function()
 		main:ClosePopup()
 	end)
+	controls.league = new("DropDownControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -12, pane_height - 30, 100, 18, leagueDropList, function(index, value)
+		self.pbLeague = value.name
+		self:SetCurrencyConversionButton(controls)
+	end)
+	controls.league.selIndex = 1
+	self.pbLeague = leagueDropList[controls.league.selIndex].name
+	controls.leagueLabel = new("LabelControl", {"TOPRIGHT",controls.league,"TOPLEFT"}, -4, 0, 20, 16, "League:")
+
+	controls.updateCurrencyConversion = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, pane_height - 30, 240, row_height, "", function()
+		self:PullPoENinjaCurrencyConversion(self.pbLeague, controls)
+	end)
+	self:SetCurrencyConversionButton(controls)
+	controls.updateCurrencyConversion.enabled = function()
+		return self.pbFileTimestampDiff == nil or self.pbFileTimestampDiff >= 3600
+	end
+	controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
+		if self.pbFileTimestampDiff == nil or self.pbFileTimestampDiff >= 3600 then
+			tooltip:Clear()
+			tooltip:AddLine(16, colorCodes.WARNING .. "Currency Conversion rates are pulled from PoE Ninja leveraging their API.")
+			tooltip:AddLine(16, colorCodes.WARNING .. "Updates are limited to once per hour and not necessary more than once per day.")
+			tooltip:AddLine(16, "")
+			tooltip:AddLine(16, colorCodes.NEGATIVE .. "NOTE: This will expose your IP address to poe.ninja.")
+			tooltip:AddLine(16, colorCodes.NEGATIVE .. "If you are concerned about this please do not click this button.")
+		end
+	end
+	main:OpenPopup(pane_width, pane_height, "Build Pricer", controls)
+end
+
+function ItemsTabClass:SetCurrencyConversionButton(controls)
 	local currencyLabel = colorCodes.WARNING .. "Update Currency Conversion Rates"
 	self.pbFileTimestampDiff = nil
 	local foo = io.open("../"..self.pbLeague.."_currency_values.json", "r")
@@ -1896,23 +1994,7 @@ function ItemsTabClass:PriceItem()
 	else
 		currencyLabel = colorCodes.NEGATIVE .. "Get Currency Conversion Rates"
 	end
-	controls.updateCurrencyConversion = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, pane_height - 30, 240, row_height, currencyLabel, function()
-		self:PullPoENinjaCurrencyConversion(self.pbLeague, controls)
-	end)
-	controls.updateCurrencyConversion.enabled = function()
-		return self.pbFileTimestampDiff == nil or self.pbFileTimestampDiff >= 3600
-	end
-	controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
-		if self.pbFileTimestampDiff == nil or self.pbFileTimestampDiff >= 3600 then
-			tooltip:Clear()
-			tooltip:AddLine(16, colorCodes.WARNING .. "Currency Conversion rates are pulled from PoE Ninja leveraging their API.")
-			tooltip:AddLine(16, colorCodes.WARNING .. "Updates are limited to once per hour and not necessary more than once per day.")
-			tooltip:AddLine(16, "")
-			tooltip:AddLine(16, colorCodes.NEGATIVE .. "NOTE: This will expose your IP address to poe.ninja.")
-			tooltip:AddLine(16, colorCodes.NEGATIVE .. "If you are concerned about this please do not click this button.")
-		end
-	end
-	main:OpenPopup(pane_width, pane_height, "Build Pricer", controls)
+	controls.updateCurrencyConversion.label = currencyLabel
 end
 
 function ItemsTabClass:GenerateTotalPriceString(editPane)
@@ -1953,7 +2035,7 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 		return validURL and self:PriceBuilderCanSearch(controls) and self:PriceBuilderCanFetch(controls)
 	end
 	controls['resultIndex'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 60, row_height, "#", nil, "%D", 3, function(buf)
-		controls['resultIndex'..str_cnt].buf = tostring(m_min(m_max(tonumber(buf) or 1, 1), self.resultTbl[str_cnt] and #self.resultTbl[str_cnt] or 1))
+		controls['resultIndex'..str_cnt].buf = tostring(m_min(m_max(tonumber(buf) or 1, 1), self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1))
 	end)
 	controls['resultIndex'..str_cnt].tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(controls['resultIndex'..str_cnt].buf) then
@@ -2020,39 +2102,14 @@ function ItemsTabClass:PriceBuilderPoENinjaCurrencyRequest()
 	self.lastCurrencyConversionRequest = get_time()
 end
 
-function ItemsTabClass:ParseUTCTimeString(datetimeString)
-	local inYear, inMonth, inDay, inHour, inMinute, inSecond, inZone =      
-	string.match(datetimeString, '^(%d%d%d%d)-(%d%d)-(%d%d)T(%d%d):(%d%d):(%d%d)(.-)$')
-
-	local zHours, zMinutes = string.match(inZone, '^(.-):(%d%d)$')
-		
-	local returnTime = os.time({year=inYear, month=inMonth, day=inDay, hour=inHour, min=inMinute, sec=inSecond, isdst=false})
-	
-	if zHours then
-		returnTime = returnTime - ((tonumber(zHours)*3600) + (tonumber(zMinutes)*60))
-	end
-	
-	return returnTime
-end
-
 function ItemsTabClass:PriceBuilderProcessPoENinjaResponse(resp, controls)
 	if resp then
-		-- Populate the matching tradeId name conversion first
-		for _, entryTbl in ipairs(resp.currencyDetails) do
-			self.pbCurrencyConversionNames[entryTbl.name] = entryTbl.tradeId
-		end
 		-- Populate the chaos-converted values for each tradeId
-		local amountAnchor = "chaosEquivalent"
-		local nameAnchor = "currencyTypeName"
-		for _, entryTbl in ipairs(resp.lines) do
-			local currencyName = self.pbCurrencyConversionNames[entryTbl[nameAnchor]]
-			if currencyName then
-				self.pbCurrencyConversion[self.pbLeague][currencyName] = entryTbl[amountAnchor]
+		for currencyName, chaosEquivalent in pairs(resp) do
+			if currencyConversionTradeMap[currencyName] then
+				self.pbCurrencyConversion[self.pbLeague][currencyConversionTradeMap[currencyName]] = chaosEquivalent
 			else
-				ConPrintf("Unhandled Currency Name: '"..entryTbl[nameAnchor].."'")
-			end
-			if not self.lastCurrencyFileTime then
-				self.lastCurrencyFileTime = entryTbl.pay.sample_time_utc
+				ConPrintf("Unhandled Currency Name: '"..currencyName.."'")
 			end
 		end
 	else
@@ -2069,7 +2126,7 @@ function ItemsTabClass:PullPoENinjaCurrencyConversion(league, controls)
 			local page = ""
 			local easy = curl.easy()
 			easy:setopt{
-				url = "https://poe.ninja/api/data/CurrencyOverview?league=]]..league..[[&type=Currency&language=en",
+				url = "https://poe.ninja/api/data/CurrencyRates?league=]]..league..[[",
 				httpheader = {'Content-Type: application/json', 'Accept: application/json', 'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)'}
 			}
 			easy:setopt_writefunction(function(data)
@@ -2087,9 +2144,6 @@ function ItemsTabClass:PullPoENinjaCurrencyConversion(league, controls)
 					self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
 					return "POE NINJA ERROR", "Error: "..errMsg
 				else
-					--local foo = io.open("../poe_ninja_currency_conversion.json", "w")
-					--foo:write(response)
-					--foo:close()
 					local json_data = self:ProcessJSON(response)
 					if not json_data then
 						self:SetNotice(controls.pbNotice, "Failed to Get PoE Ninja response")
@@ -2145,9 +2199,13 @@ function ItemsTabClass:SortFetchResults(slot_name, trade_index)
 			end
 			if self.pbSortSelectionIndex == 3 then
 				local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
-				t_insert(newTbl, { outputAttr = newDPS / chaosAmount, index = index })
+				if chaosAmount > 0 then
+					t_insert(newTbl, { outputAttr = newDPS / chaosAmount, index = index })
+				end
 			else
-				t_insert(newTbl, { outputAttr = newDPS, index = index })
+				if tbl.amount > 0 then
+					t_insert(newTbl, { outputAttr = newDPS, index = index })
+				end
 			end
 			GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		end
@@ -2155,7 +2213,9 @@ function ItemsTabClass:SortFetchResults(slot_name, trade_index)
 	else
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
-			t_insert(newTbl, { outputAttr = chaosAmount, index = index })
+			if chaosAmount > 0 then
+				t_insert(newTbl, { outputAttr = chaosAmount, index = index })
+			end
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr < b.outputAttr end)
 	end
@@ -2232,6 +2292,8 @@ function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantit
 				end
 				if current_fetch_block == quantity_found then
 					self.sortedResultTbl[index] = self:SortFetchResults(slot_name, index)
+					local str_quantity_found = quantity_found == 100 and "100+" or tostring(#self.sortedResultTbl[index])
+					controls['resultCount'..index]:SetText("out of " .. str_quantity_found)
 					controls['resultIndex'..index]:SetText("1")
 					local pb_index = self.sortedResultTbl[index][1].index
 					controls['importButtonText'..index]:SetText(self.resultTbl[index][pb_index].item_string)
@@ -2253,7 +2315,6 @@ function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantit
 end
 
 function ItemsTabClass:SearchItem(league, json_data, slot_name, controls, index)
-	self.pbLeague = league
 	local id = LaunchSubScript([[
 		local json_data = ...
 		local curl = require("lcurl.safe")
@@ -2292,8 +2353,6 @@ function ItemsTabClass:SearchItem(league, json_data, slot_name, controls, index)
 					self:SetNotice(controls.pbNotice, "")
 				end
 				local quantity_found = m_min(#response_1.result, 100)
-				local str_quantity_found = quantity_found == 100 and "100+" or tostring(quantity_found)
-				controls['resultCount'..index]:SetText("out of " .. str_quantity_found)
 				local current_fetch_block = 0
 				self.resultTbl[index] = {}
 				self:FetchItem(slot_name, controls, response_1, index, quantity_found, current_fetch_block)
