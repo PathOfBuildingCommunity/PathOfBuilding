@@ -2055,7 +2055,7 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 		self:AddDisplayItem(true)
 		-- Autoequip it
 		local slot = self.slots[uri]
-		if uri == slot.label and slot:IsShown() and self:IsItemValidForSlot(item, slot.slotName) then
+		if slot and uri == slot.label and slot:IsShown() and self:IsItemValidForSlot(item, slot.slotName) then
 			slot:SetSelItemId(item.id)
 			self:PopulateSlots()
 			self:AddUndoState()
