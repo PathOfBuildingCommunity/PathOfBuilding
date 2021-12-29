@@ -1958,19 +1958,6 @@ function ItemsTabClass:PriceItem()
 		self:PullPoENinjaCurrencyConversion(self.pbLeague, controls)
 	end)
 	self:SetCurrencyConversionButton(controls)
-	controls.updateCurrencyConversion.enabled = function()
-		return self.pbFileTimestampDiff == nil or self.pbFileTimestampDiff >= 3600
-	end
-	controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
-		if self.pbFileTimestampDiff == nil or self.pbFileTimestampDiff >= 3600 then
-			tooltip:Clear()
-			tooltip:AddLine(16, colorCodes.WARNING .. "Currency Conversion rates are pulled from PoE Ninja leveraging their API.")
-			tooltip:AddLine(16, colorCodes.WARNING .. "Updates are limited to once per hour and not necessary more than once per day.")
-			tooltip:AddLine(16, "")
-			tooltip:AddLine(16, colorCodes.NEGATIVE .. "NOTE: This will expose your IP address to poe.ninja.")
-			tooltip:AddLine(16, colorCodes.NEGATIVE .. "If you are concerned about this please do not click this button.")
-		end
-	end
 	main:OpenPopup(pane_width, pane_height, "Build Pricer", controls)
 end
 
@@ -1995,6 +1982,25 @@ function ItemsTabClass:SetCurrencyConversionButton(controls)
 		currencyLabel = colorCodes.NEGATIVE .. "Get Currency Conversion Rates"
 	end
 	controls.updateCurrencyConversion.label = currencyLabel
+	controls.updateCurrencyConversion.enabled = function()
+		return self.pbFileTimestampDiff == nil or self.pbFileTimestampDiff >= 3600
+	end
+	controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		if self.lastCurrencyFileTime ~= nil then
+			self.pbFileTimestampDiff = get_time() - self.lastCurrencyFileTime
+		end
+		if self.pbFileTimestampDiff == nil or self.pbFileTimestampDiff >= 3600 then
+			tooltip:AddLine(16, colorCodes.WARNING .. "Currency Conversion rates are pulled from PoE Ninja leveraging their API.")
+			tooltip:AddLine(16, colorCodes.WARNING .. "Updates are limited to once per hour and not necessary more than once per day.")
+			tooltip:AddLine(16, "")
+			tooltip:AddLine(16, colorCodes.NEGATIVE .. "NOTE: This will expose your IP address to poe.ninja.")
+			tooltip:AddLine(16, colorCodes.NEGATIVE .. "If you are concerned about this please do not click this button.")
+		elseif self.pbFileTimestampDiff ~= nil and self.pbFileTimestampDiff < 3600 then
+			tooltip:AddLine(16, "Conversion Rates are less than an hour old (" .. tostring(self.pbFileTimestampDiff) .. " seconds old)")
+			tooltip:AddLine(16, "Button is DISABLED")
+		end
+	end
 end
 
 function ItemsTabClass:GenerateTotalPriceString(editPane)
@@ -2157,7 +2163,7 @@ function ItemsTabClass:PullPoENinjaCurrencyConversion(league, controls)
 					foo = io.open("../"..self.pbLeague.."_currency_values.json", "w")
 					foo:write("{" .. print_str .. '"updateTime": ' .. tostring(get_time()) .. "}")
 					foo:close()
-					controls.updateCurrencyConversion.label = "^8Currency Rates are Very Recent"
+					self:SetCurrencyConversionButton(controls)
 				end
 			end)
 		end
