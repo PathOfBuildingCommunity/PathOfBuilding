@@ -938,6 +938,8 @@ function ItemsTabClass:Load(xml, dbFileName)
 						itemSet[slotName].active = child.attrib.active == "true"
 						itemSet[slotName].pbURL = child.attrib.itemPbURL or ""
 					end
+				elseif child.elem == "Socket" then
+					itemSet["socketNodes"][tonumber(child.attrib.nodeId)] = tonumber(child.attrib.itemId)
 				end
 			end
 			t_insert(self.itemSetOrderList, itemSet.id)
@@ -1008,6 +1010,15 @@ function ItemsTabClass:Save(xml)
 		for slotName, slot in pairs(self.slots) do
 			if not slot.nodeId then
 				t_insert(child, { elem = "Slot", attrib = { name = slotName, itemId = tostring(itemSet[slotName].selItemId), itemPbURL = itemSet[slotName].pbURL or "", active = itemSet[slotName].active and "true" }})
+			end
+		end
+		if itemSet["socketNodes"] then
+			for nodeId, itemId in pairs(itemSet["socketNodes"]) do
+				if self.sockets[nodeId] then
+					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(itemId) } })
+				else
+					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(0) } })
+				end
 			end
 		end
 		t_insert(xml, child)
@@ -1141,6 +1152,12 @@ function ItemsTabClass:NewItemSet(itemSetId)
 			itemSet[slotName] = { selItemId = 0 }
 		end
 	end
+	itemSet["socketNodes"] = { }
+	if self.activeItemSet and self.activeItemSet["socketNodes"] then
+		for nodeId, _ in pairs(self.activeItemSet["socketNodes"]) do
+			itemSet["socketNodes"][nodeId] = 0
+		end
+	end
 	self.itemSets[itemSet.id] = itemSet
 	return itemSet
 end
@@ -1168,6 +1185,36 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 				slot.controls.activate.state = slot.active
 			end
 		end
+	end
+
+	-- Copy over Jewel Sockets
+	if prevSet then
+		if curSet["socketNodes"] then
+			prevSet["socketNodes"] = { }
+			for nodeId, _ in pairs(curSet["socketNodes"]) do
+				if self.sockets[nodeId] then
+					prevSet["socketNodes"][nodeId] = self.sockets[nodeId].selItemId
+					local item = self.items[self.sockets[nodeId].selItemId]
+					if item and item.clusterJewel then
+						self.build.spec.jewels[nodeId] = nil
+					end
+				else
+					prevSet["socketNodes"][nodeId] = 0
+				end
+			end
+		end
+	end
+	if curSet["socketNodes"] then
+		for nodeId, itemId in pairs(curSet["socketNodes"]) do
+			self.sockets[nodeId].selItemId = itemId
+			local item = self.items[itemId]
+			if self.build.spec and item and item.clusterJewel then
+				self.build.spec.jewels[nodeId] = itemId
+			end
+		end
+	end
+	if self.build.spec then
+		self.build.spec:BuildClusterJewelGraphs()
 	end
 	self.build.buildFlag = true
 	self:PopulateSlots()
@@ -1210,6 +1257,10 @@ function ItemsTabClass:PopulateSlots()
 	for _, slot in pairs(self.slots) do
 		slot:Populate()
 	end
+	-- Populate the jewels
+	for nodeId, slot in pairs(self.sockets) do
+		slot:Populate()
+	end
 end
 
 -- Updates the status and position of the socket controls
@@ -1228,9 +1279,11 @@ function ItemsTabClass:UpdateSockets()
 
 	-- Update the state of the active socket controls
 	self.lastSlot = self.slots[baseSlots[#baseSlots]]
+	self.activeItemSet["socketNodes"] = { }
 	for index, nodeId in ipairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
 		self.lastSlot = self.sockets[nodeId]
+		self.activeItemSet["socketNodes"][nodeId] = self.sockets[nodeId].selItemId
 	end
 
 	if main.portraitMode then
