@@ -769,23 +769,25 @@ skills["ChargedAttack"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "1 Stage",
+			name = "Building Stages",
+			stages = true,
 		},
 		{
-			name = "6 Stages",
-		},
-		{
-			name = "Release at 6 Stages",
+			name = "Release",
+			stages = true,
 		},
 	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
+		["charged_attack_damage_per_stack_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "BladeFlurryStage" }, { type = "SkillPart", skillPart = 1 }),
+		},
 		["blade_flurry_elemental_damage_+%_while_channeling"] = {
-			mod("ElementalDamage", "INC", nil, 0, 0, { type = "SkillPart", skillPartList = {1, 2} })
+			mod("ElementalDamage", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
 		},
 		["blade_flurry_final_flurry_area_of_effect_+%"] = {
-			mod("AreaOfEffect", "INC", nil, 0, 0,  { type = "SkillPart", skillPart = 3 })
+			mod("AreaOfEffect", "INC", nil, 0, 0,  { type = "SkillPart", skillPart = 2 })
 		}
 	},
 	baseFlags = {
@@ -794,9 +796,9 @@ skills["ChargedAttack"] = {
 		area = true,
 	},
 	baseMods = {
+		mod("Multiplier:BladeFlurryMaxStages", "BASE", 6),
 		skill("radius", 14),
-		mod("Damage", "MORE", 120, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
-		skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 3 }),
+		skill("dpsMultiplier", 1, { type = "Multiplier", var = "BladeFlurryStage" }, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
