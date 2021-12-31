@@ -917,6 +917,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 				self.items[item.id] = item
 				t_insert(self.itemOrderList, item.id)
 			end
+		-- Below is OBE and left for legacy compatibility (all Slots are part of ItemSets now)
 		elseif node.elem == "Slot" then
 			local slot = self.slots[node.attrib.name or ""]
 			if slot then
@@ -939,7 +940,10 @@ function ItemsTabClass:Load(xml, dbFileName)
 						itemSet[slotName].pbURL = child.attrib.itemPbURL or ""
 					end
 				elseif child.elem == "Socket" then
-					itemSet["socketNodes"][tonumber(child.attrib.nodeId)] = tonumber(child.attrib.itemId)
+					itemSet["socketNodes"][tonumber(child.attrib.nodeId)] = {
+						selItemId = tonumber(child.attrib.itemId),
+						pbURL = child.attrib.itemPbURL or ""
+					}
 				end
 			end
 			t_insert(self.itemSetOrderList, itemSet.id)
@@ -999,11 +1003,6 @@ function ItemsTabClass:Save(xml)
 		end
 		t_insert(xml, child)
 	end
-	for slotName, slot in pairs(self.slots) do
-		if slot.selItemId ~= 0 and not slot.nodeId then
-			t_insert(xml, { elem = "Slot", attrib = { name = slotName, itemId = tostring(slot.selItemId), active = slot.active and "true" }})
-		end
-	end
 	for _, itemSetId in ipairs(self.itemSetOrderList) do
 		local itemSet = self.itemSets[itemSetId]
 		local child = { elem = "ItemSet", attrib = { id = tostring(itemSetId), title = itemSet.title, useSecondWeaponSet = tostring(itemSet.useSecondWeaponSet) } }
@@ -1013,11 +1012,11 @@ function ItemsTabClass:Save(xml)
 			end
 		end
 		if itemSet["socketNodes"] then
-			for nodeId, itemId in pairs(itemSet["socketNodes"]) do
+			for nodeId, tbl in pairs(itemSet["socketNodes"]) do
 				if self.sockets[nodeId] then
-					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(itemId) } })
+					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(tbl.selItemId), itemPbURL = itemSet["socketNodes"][nodeId].pbURL or "" }})
 				else
-					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(0) } })
+					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(0), itemPbURL = itemSet["socketNodes"][nodeId].pbURL or "" }})
 				end
 			end
 		end
@@ -1155,7 +1154,7 @@ function ItemsTabClass:NewItemSet(itemSetId)
 	itemSet["socketNodes"] = { }
 	if self.activeItemSet and self.activeItemSet["socketNodes"] then
 		for nodeId, _ in pairs(self.activeItemSet["socketNodes"]) do
-			itemSet["socketNodes"][nodeId] = 0
+			itemSet["socketNodes"][nodeId] = { selItemId = 0 }
 		end
 	end
 	self.itemSets[itemSet.id] = itemSet
@@ -1193,23 +1192,25 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 			prevSet["socketNodes"] = { }
 			for nodeId, _ in pairs(curSet["socketNodes"]) do
 				if self.sockets[nodeId] then
-					prevSet["socketNodes"][nodeId] = self.sockets[nodeId].selItemId
+					prevSet["socketNodes"][nodeId] = {
+						selItemId = self.sockets[nodeId].selItemId
+					}
 					local item = self.items[self.sockets[nodeId].selItemId]
 					if item and item.clusterJewel then
 						self.build.spec.jewels[nodeId] = nil
 					end
 				else
-					prevSet["socketNodes"][nodeId] = 0
+					prevSet["socketNodes"][nodeId].selItemId = 0
 				end
 			end
 		end
 	end
 	if curSet["socketNodes"] then
-		for nodeId, itemId in pairs(curSet["socketNodes"]) do
-			self.sockets[nodeId].selItemId = itemId
-			local item = self.items[itemId]
+		for nodeId, tbl in pairs(curSet["socketNodes"]) do
+			self.sockets[nodeId].selItemId = tbl.selItemId
+			local item = self.items[tbl.selItemId]
 			if self.build.spec and item and item.clusterJewel then
-				self.build.spec.jewels[nodeId] = itemId
+				self.build.spec.jewels[nodeId] = tbl.selItemId
 			end
 		end
 	end
@@ -1283,7 +1284,7 @@ function ItemsTabClass:UpdateSockets()
 	for index, nodeId in ipairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
 		self.lastSlot = self.sockets[nodeId]
-		self.activeItemSet["socketNodes"][nodeId] = self.sockets[nodeId].selItemId
+		self.activeItemSet["socketNodes"][nodeId] = { selItemId = self.sockets[nodeId].selItemId }
 	end
 
 	if main.portraitMode then
@@ -1975,7 +1976,7 @@ function ItemsTabClass:PriceItem()
 	top_pane_alignment_ref = {"TOPLEFT",controls.itemSetLabel,"TOPLEFT"}
 	for _, slotName in ipairs(baseSlots) do
 		local str_cnt = tostring(cnt)
-		self:PriceItemRowDisplay(controls, str_cnt, slotName, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+		self:PriceItemRowDisplay(controls, str_cnt, {name = slotName}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
 		top_pane_alignment_ref = {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}
 		top_pane_alignment_width = 0
 		top_pane_alignment_height = 28
@@ -1990,7 +1991,7 @@ function ItemsTabClass:PriceItem()
 	table.sort(activeSocketList)
 	for _, nodeId in pairs(activeSocketList) do
 		local str_cnt = tostring(cnt)
-		self:PriceItemRowDisplay(controls, str_cnt, self.sockets[nodeId].label, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+		self:PriceItemRowDisplay(controls, str_cnt, {name = self.sockets[nodeId].label, ref = nodeId}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
 		top_pane_alignment_ref = {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}
 		top_pane_alignment_width = 0
 		top_pane_alignment_height = 28
@@ -2075,21 +2076,26 @@ function ItemsTabClass:GenerateTotalPriceString(editPane)
 	editPane:SetText(text)
 end
 
-function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-	controls['name'..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^8"..uri)
+function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+	local activeItemRef = slotTbl.ref and self.activeItemSet["socketNodes"][slotTbl.ref] or self.activeItemSet[slotTbl.name]
+	controls['name'..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^8"..slotTbl.name)
 	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 500, row_height, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
-	if self.activeItemSet[uri] and self.activeItemSet[uri].pbURL ~= "" then
-		controls['uri'..str_cnt]:SetText(self.activeItemSet[uri].pbURL)
+	if activeItemRef and activeItemRef.pbURL ~= "" and activeItemRef.pbURL ~= nil then
+		controls['uri'..str_cnt]:SetText(activeItemRef.pbURL)
 	else
-		controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. uri)
+		controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. slotTbl.name)
 	end
 	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 8, 0, 100, row_height, "Price Item", function()
-		self:PublicTrade(controls['uri'..str_cnt].buf, uri, controls, str_cnt)
+		self:PublicTrade(controls['uri'..str_cnt].buf, slotTbl, controls, str_cnt)
 	end)
 	controls['priceButton'..str_cnt].enabled = function()
 		local validURL = controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil
-		if validURL and self.activeItemSet[uri] then
-			self.activeItemSet[uri].pbURL = controls['uri'..str_cnt].buf
+		if activeItemRef then
+			if validURL then
+				activeItemRef.pbURL = controls['uri'..str_cnt].buf
+			elseif controls['uri'..str_cnt].buf == "" then
+				activeItemRef.pbURL = ""
+			end
 		end
 		return validURL and self:PriceBuilderCanSearch(controls) and self:PriceBuilderCanFetch(controls)
 	end
@@ -2139,6 +2145,9 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, uri, top_pane_alig
 	controls['whisperButtonText'..str_cnt].shown = false
 	-- Whisper store in clipboard (CTLR+C)
 	controls['whisperButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['importButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 100, row_height, "Whisper", function()
+		local foo = io.open("../whisper.txt", "w")
+		foo:write(controls['whisperButtonText'..str_cnt].buf)
+		foo:close()
 		Copy(controls['whisperButtonText'..str_cnt].buf)
 	end)
 	controls['whisperButton'..str_cnt].enabled = function()
@@ -2241,11 +2250,11 @@ function ItemsTabClass:CovertCurrencyToChaos(currency, amount)
 	end
 end
 
-function ItemsTabClass:SortFetchResults(slot_name, trade_index)
+function ItemsTabClass:SortFetchResults(slotTbl, trade_index)
 	local newTbl = {}
 	if self.pbSortSelectionIndex ~= 1 then
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
-		local slot = self.slots[slot_name]
+		local slot = slotTbl.ref and self.activeItemSet["socketNodes"][slotTbl.ref] or self.slots[slotTbl.name]
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local selItem = self.items[slot.selItemId]
 			local item = new("Item", tbl.item_string)
@@ -2295,7 +2304,7 @@ function ItemsTabClass:SetFetchResultReturn(controls, index, pb_index)
 	end
 end
 
-function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantity_found, current_fetch_block)
+function ItemsTabClass:FetchItem(slotTbl, controls, response_1, index, quantity_found, current_fetch_block)
 	local max_block_size = 10
 	local res_lines = ""
 	for response_index, res_line in ipairs(response_1.result) do
@@ -2350,7 +2359,7 @@ function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantit
 					}
 				end
 				if current_fetch_block == quantity_found then
-					self.sortedResultTbl[index] = self:SortFetchResults(slot_name, index)
+					self.sortedResultTbl[index] = self:SortFetchResults(slotTbl, index)
 					local str_quantity_found = quantity_found == 100 and "100+" or tostring(#self.sortedResultTbl[index])
 					controls['resultCount'..index]:SetText("out of " .. str_quantity_found)
 					controls['resultIndex'..index]:SetText("1")
@@ -2361,10 +2370,11 @@ function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantit
 						amount = self.resultTbl[index][pb_index].amount,
 					}
 					controls['priceAmount'..index]:SetText(self.totalPrice[index].amount .. " " .. self.totalPrice[index].currency)
-					controls['whisperButtonText'..index]:SetText(self.totalPrice[index].whisper)
+					controls['whisperButtonText'..index]:SetText(self.resultTbl[index][pb_index].whisper)
+					ConPrintf(self.resultTbl[index][pb_index].whisper)
 					self:GenerateTotalPriceString(controls.fullPrice)
 				else
-					self:FetchItem(slot_name, controls, response_1, index, quantity_found, current_fetch_block)
+					self:FetchItem(slotTbl, controls, response_1, index, quantity_found, current_fetch_block)
 				end
 			end
 		end)
@@ -2373,7 +2383,7 @@ function ItemsTabClass:FetchItem(slot_name, controls, response_1, index, quantit
 	end
 end
 
-function ItemsTabClass:SearchItem(league, json_data, slot_name, controls, index)
+function ItemsTabClass:SearchItem(league, json_data, slotTbl, controls, index)
 	local id = LaunchSubScript([[
 		local json_data = ...
 		local curl = require("lcurl.safe")
@@ -2414,7 +2424,7 @@ function ItemsTabClass:SearchItem(league, json_data, slot_name, controls, index)
 				local quantity_found = m_min(#response_1.result, 100)
 				local current_fetch_block = 0
 				self.resultTbl[index] = {}
-				self:FetchItem(slot_name, controls, response_1, index, quantity_found, current_fetch_block)
+				self:FetchItem(slotTbl, controls, response_1, index, quantity_found, current_fetch_block)
 			end
 		end)
 	end
@@ -2425,7 +2435,7 @@ function ItemsTabClass:ParseURL(url)
 	return league, "https://www.pathofexile.com/api/trade/search/" .. query
 end
 
-function ItemsTabClass:PublicTrade(url, slot_name, controls, index)
+function ItemsTabClass:PublicTrade(url, slotTbl, controls, index)
 	local league, url = self:ParseURL(url)
 	local id = LaunchSubScript([[
 		local url = ...
@@ -2453,7 +2463,7 @@ function ItemsTabClass:PublicTrade(url, slot_name, controls, index)
 				self:PriceBuilderInsertSearchRequest()
 				local trimmed = response:sub(1, -2)
 				local json_query = trimmed .. ', "sort": {"price": "asc"}}'
-				self:SearchItem(league, json_query, slot_name, controls, index)
+				self:SearchItem(league, json_query, slotTbl, controls, index)
 			end
 		end)
 	end
