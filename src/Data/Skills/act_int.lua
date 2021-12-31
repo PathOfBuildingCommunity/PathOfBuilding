@@ -3702,14 +3702,6 @@ skills["VaalFlameblast"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Hit] = true, [SkillType.Area] = true, [SkillType.SkillCanTotem] = true, [SkillType.Vaal] = true, [SkillType.FireSkill] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
-	parts = {
-		{
-			name = "1 Stage",
-		},
-		{
-			name = "Max Stages",
-		},
-	},
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "VaalFlameblastStage" }),
@@ -3726,7 +3718,7 @@ skills["VaalFlameblast"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:VaalFlameblastStage", "BASE", 14, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:VaalFlameblastMaxStages", "BASE", 15),
 		skill("radius", 35),
 	},
 	qualityStats = {
