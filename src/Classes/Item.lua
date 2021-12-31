@@ -319,7 +319,9 @@ function ItemClass:ParseRaw(raw)
 				elseif specName == "CatalystQuality" then
 					self.catalystQuality = tonumber(specVal)
 				elseif specName == "Note" then
-					self.note = specValue
+					self.note = specVal
+				elseif specName == "Str" or specName == "Dex" or specName == "Int" then
+					self.requirements[specName:lower()] = tonumber(specVal)
 				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
 				elseif not (self.name:match(specName) and self.name:match(specVal)) then
 					foundExplicit = true
