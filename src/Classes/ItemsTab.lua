@@ -1280,11 +1280,11 @@ function ItemsTabClass:UpdateSockets()
 
 	-- Update the state of the active socket controls
 	self.lastSlot = self.slots[baseSlots[#baseSlots]]
-	self.activeItemSet["socketNodes"] = { }
+	--self.activeItemSet["socketNodes"] = { }
 	for index, nodeId in ipairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
 		self.lastSlot = self.sockets[nodeId]
-		self.activeItemSet["socketNodes"][nodeId] = { selItemId = self.sockets[nodeId].selItemId }
+		self.activeItemSet["socketNodes"][nodeId].selItemId = self.sockets[nodeId].selItemId
 	end
 
 	if main.portraitMode then
@@ -2299,7 +2299,7 @@ function ItemsTabClass:SetFetchResultReturn(controls, index, pb_index)
 			amount = self.resultTbl[index][pb_index].amount,
 		}
 		controls['priceAmount'..index]:SetText(self.totalPrice[index].amount .. " " .. self.totalPrice[index].currency)
-		controls['whisperButtonText'..index]:SetText(self.totalPrice[index].whisper)
+		controls['whisperButtonText'..index]:SetText(self.resultTbl[index][pb_index].whisper)
 		self:GenerateTotalPriceString(controls.fullPrice)
 	end
 end
