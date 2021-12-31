@@ -2119,8 +2119,8 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_
 		-- pass "true" to not auto equip it as we will have our own logic
 		self:AddDisplayItem(true)
 		-- Autoequip it
-		local slot = self.slots[uri]
-		if slot and uri == slot.label and slot:IsShown() and self:IsItemValidForSlot(item, slot.slotName) then
+		local slot = slotTbl.ref and self.sockets[slotTbl.ref] or self.slots[slotTbl.name]
+		if slot and slotTbl.name == slot.label and slot:IsShown() and self:IsItemValidForSlot(item, slot.slotName) then
 			slot:SetSelItemId(item.id)
 			self:PopulateSlots()
 			self:AddUndoState()
@@ -2145,9 +2145,6 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_
 	controls['whisperButtonText'..str_cnt].shown = false
 	-- Whisper store in clipboard (CTLR+C)
 	controls['whisperButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['importButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 100, row_height, "Whisper", function()
-		local foo = io.open("../whisper.txt", "w")
-		foo:write(controls['whisperButtonText'..str_cnt].buf)
-		foo:close()
 		Copy(controls['whisperButtonText'..str_cnt].buf)
 	end)
 	controls['whisperButton'..str_cnt].enabled = function()
@@ -2222,7 +2219,7 @@ function ItemsTabClass:PullPoENinjaCurrencyConversion(league, controls)
 					for key, value in pairs(self.pbCurrencyConversion[self.pbLeague]) do
 						print_str = print_str .. '"'..key..'": '..tostring(value)..','
 					end
-					foo = io.open("../"..self.pbLeague.."_currency_values.json", "w")
+					local foo = io.open("../"..self.pbLeague.."_currency_values.json", "w")
 					foo:write("{" .. print_str .. '"updateTime": ' .. tostring(get_time()) .. "}")
 					foo:close()
 					self:SetCurrencyConversionButton(controls)
@@ -2371,7 +2368,6 @@ function ItemsTabClass:FetchItem(slotTbl, controls, response_1, index, quantity_
 					}
 					controls['priceAmount'..index]:SetText(self.totalPrice[index].amount .. " " .. self.totalPrice[index].currency)
 					controls['whisperButtonText'..index]:SetText(self.resultTbl[index][pb_index].whisper)
-					ConPrintf(self.resultTbl[index][pb_index].whisper)
 					self:GenerateTotalPriceString(controls.fullPrice)
 				else
 					self:FetchItem(slotTbl, controls, response_1, index, quantity_found, current_fetch_block)
