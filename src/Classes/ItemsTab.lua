@@ -1284,7 +1284,13 @@ function ItemsTabClass:UpdateSockets()
 	for index, nodeId in ipairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
 		self.lastSlot = self.sockets[nodeId]
-		self.activeItemSet["socketNodes"][nodeId].selItemId = self.sockets[nodeId].selItemId
+		if self.activeItemSet["socketNodes"][nodeId] then
+			self.activeItemSet["socketNodes"][nodeId].selItemId = self.sockets[nodeId].selItemId
+		else
+			self.activeItemSet["socketNodes"][nodeId] = {
+				selItemId = self.sockets[nodeId].selItemId
+			}
+		end
 	end
 
 	if main.portraitMode then
