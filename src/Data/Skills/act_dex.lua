@@ -769,21 +769,23 @@ skills["ChargedAttack"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Building Stages",
+			name = "Channelling",
 			stages = true,
 		},
 		{
-			name = "Release",
+			name = "Channel & Release",
 			stages = true,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
-		local numStages = activeSkill.skillData.numStages
-		local channelMulti = 0
-		for i = 1, numStages do
-			channelMulti = channelMulti + (0.8 + (0.2 * i))
+		if activeSkill.skillPart == 2 and activeSkill.skillData.numStages > 0 then
+			local numStages = activeSkill.skillData.numStages
+			local channelMulti = 0
+			for i = 1, numStages do
+				channelMulti = channelMulti + (0.8 + (0.2 * i))
+			end
+			activeSkill.skillData.dpsMultiplier = (channelMulti + ((0.8 + (0.2 * numStages)) * numStages))/numStages
 		end
-		activeSkill.skillData.dpsMultiplier = (channelMulti + (2 * numStages))/numStages
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
