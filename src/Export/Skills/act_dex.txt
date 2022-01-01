@@ -145,14 +145,15 @@ local skills, mod, flag, skill = ...
 			for i = 1, numStages do
 				channelMulti = channelMulti + (0.8 + (0.2 * i))
 			end
-			activeSkill.skillData.dpsMultiplier = (channelMulti + ((0.8 + (0.2 * numStages)) * numStages))/numStages
+			channelMulti = channelMulti / (0.8 + (0.2 * numStages))
+			activeSkill.skillData.dpsMultiplier = channelMulti / numStages + 1
 		end
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["charged_attack_damage_per_stack_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "BladeFlurryStage" }, { type = "SkillPart", skillPart = 1 }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "BladeFlurryStage" }),
 		},
 		["blade_flurry_elemental_damage_+%_while_channeling"] = {
 			mod("ElementalDamage", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
