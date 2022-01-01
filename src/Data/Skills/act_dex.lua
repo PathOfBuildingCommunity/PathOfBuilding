@@ -783,7 +783,7 @@ skills["ChargedAttack"] = {
 		for i = 1, numStages do
 			channelMulti = channelMulti + (0.8 + (0.2 * i))
 		end
-		activeSkill.skillData.dpsMultiplier = (channelMulti + ( 2 * numStages ))/numStages
+		activeSkill.skillData.dpsMultiplier = (channelMulti + (2 * numStages))/numStages
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
