@@ -777,6 +777,14 @@ skills["ChargedAttack"] = {
 			stages = true,
 		},
 	},
+	preDamageFunc = function(activeSkill, output)
+		local numStages = activeSkill.skillData.numStages
+		local channelMulti = 0
+		for i = 1, numStages do
+			channelMulti = channelMulti + (0.8 + (0.2 * i))
+		end
+		activeSkill.skillData.dpsMultiplier = (channelMulti + ( 2 * numStages ))/numStages
+	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
@@ -797,8 +805,8 @@ skills["ChargedAttack"] = {
 	},
 	baseMods = {
 		mod("Multiplier:BladeFlurryMaxStages", "BASE", 6),
+		skill("numStages", 1, { type = "Multiplier", var = "BladeFlurryStage" }),
 		skill("radius", 14),
-		skill("dpsMultiplier", 1, { type = "Multiplier", var = "BladeFlurryStage" }, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
