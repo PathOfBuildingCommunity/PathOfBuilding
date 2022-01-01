@@ -1192,6 +1192,9 @@ skills["BoneOffering"] = {
 	statDescriptionScope = "offering_skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
+		["cast_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 		["monster_base_block_%"] = {
 			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
