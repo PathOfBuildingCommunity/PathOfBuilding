@@ -47,10 +47,11 @@ local function writeMods(outName, condFunc)
 					out:write('type = "Scourge", ')
 				end
 				out:write('affix = "', mod.Name, '", ')
-				out:write('"', table.concat(stats, '", "'), '", ')
-				if string.find(mod.Family, "LocalDisplayNearbyEnemy") and #orders > 1 then
+				if string.find(mod.Family, "LocalDisplayNearbyEnemy") and #stats > 1 and #orders > 1 then
+					table.remove(stats, 1)
 					table.remove(orders, 1)
 				end
+				out:write('"', table.concat(stats, '", "'), '", ')
 				out:write('statOrderKey = "', table.concat(orders, ','), '", ')
 				out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
 				out:write('level = ', mod.Level, ', group = "', mod.Family, '", ')
