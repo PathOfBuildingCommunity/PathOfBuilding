@@ -1045,17 +1045,19 @@ function calcs.offence(env, actor, activeSkill)
 			if skillData.debuff then
 				output.Duration = output.Duration * debuffDurationMult
 			end
+			output.Duration = m_ceil(output.Duration * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown and output.Duration ~= durationBase then
 				breakdown.Duration = {
 					s_format("%.2fs ^8(base)", durationBase),
 				}
 				if output.DurationMod ~= 1 then
-					t_insert(breakdown.Duration, s_format("x %.2f ^8(duration modifier)", output.DurationMod))
+					t_insert(breakdown.Duration, s_format("x %.4f ^8(duration modifier)", output.DurationMod))
 				end
 				if skillData.debuff and debuffDurationMult ~= 1 then
-					t_insert(breakdown.Duration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+					t_insert(breakdown.Duration, s_format("/ %.3f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
 				end
-				t_insert(breakdown.Duration, s_format("= %.2fs", output.Duration))
+				t_insert(breakdown.Duration, s_format("rounded up to nearest server tick"))
+				t_insert(breakdown.Duration, s_format("= %.3fs", output.Duration))
 			end
 		end
 		durationBase = (skillData.durationSecondary or 0) + skillModList:Sum("BASE", skillCfg, "Duration", "SecondaryDuration")
@@ -1065,6 +1067,7 @@ function calcs.offence(env, actor, activeSkill)
 			if skillData.debuffSecondary then
 				output.DurationSecondary = output.DurationSecondary * debuffDurationMult
 			end
+			output.DurationSecondary = m_ceil(output.DurationSecondary * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown and output.DurationSecondary ~= durationBase then
 				breakdown.SecondaryDurationMod = breakdown.mod(skillModList, skillCfg, "Duration", "SecondaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 				if breakdown.SecondaryDurationMod then
@@ -1074,23 +1077,26 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("%.2fs ^8(base)", durationBase),
 				}
 				if output.DurationMod ~= 1 then
-					t_insert(breakdown.DurationSecondary, s_format("x %.2f ^8(duration modifier)", durationMod))
+					t_insert(breakdown.DurationSecondary, s_format("x %.4f ^8(duration modifier)", durationMod))
 				end
 				if skillData.debuffSecondary and debuffDurationMult ~= 1 then
-					t_insert(breakdown.DurationSecondary, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+					t_insert(breakdown.DurationSecondary, s_format("/ %.3f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
 				end
-				t_insert(breakdown.DurationSecondary, s_format("= %.2fs", output.DurationSecondary))
+				t_insert(breakdown.DurationSecondary, s_format("rounded up to nearest server tick"))
+				t_insert(breakdown.DurationSecondary, s_format("= %.3fs", output.DurationSecondary))
 			end
 		end
 		durationBase = (skillData.auraDuration or 0)
 		if durationBase > 0 then
 			local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "SkillAndDamagingAilmentDuration")
 			output.AuraDuration = durationBase * durationMod
+			output.AuraDuration = m_ceil(output.AuraDuration * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown and output.AuraDuration ~= durationBase then
 				breakdown.AuraDuration = {
 					s_format("%.2fs ^8(base)", durationBase),
-					s_format("x %.2f ^8(duration modifier)", durationMod),
-					s_format("= %.2fs", output.AuraDuration),
+					s_format("x %.4f ^8(duration modifier)", durationMod),
+					s_format("rounded up to nearest server tick"),
+					s_format("= %.3fs", output.AuraDuration),
 				}
 			end
 		end
@@ -1098,11 +1104,13 @@ function calcs.offence(env, actor, activeSkill)
 		if durationBase > 0 then
 			local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "SkillAndDamagingAilmentDuration")
 			output.ReserveDuration = durationBase * durationMod
+			output.ReserveDuration = m_ceil(output.ReserveDuration * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown and output.ReserveDuration ~= durationBase then
 				breakdown.ReserveDuration = {
 					s_format("%.2fs ^8(base)", durationBase),
-					s_format("x %.2f ^8(duration modifier)", durationMod),
-					s_format("= %.2fs", output.ReserveDuration),
+					s_format("x %.4f ^8(duration modifier)", durationMod),
+					s_format("rounded up to nearest server tick"),
+					s_format("= %.3fs", output.ReserveDuration),
 				}
 			end
 		end
