@@ -905,11 +905,13 @@ function calcs.offence(env, actor, activeSkill)
 		local baseCooldown = skillData.trapCooldown or skillData.cooldown
 		if baseCooldown then
 			output.TrapCooldown = baseCooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
+			output.TrapCooldown = m_ceil(output.TrapCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown then
 				breakdown.TrapCooldown = {
 					s_format("%.2fs ^8(base)", skillData.trapCooldown or skillData.cooldown or 4),
 					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
-					s_format("= %.2fs", output.TrapCooldown)
+					s_format("rounded up to nearest server tick"),
+					s_format("= %.3fs", output.TrapCooldown)
 				}
 			end
 		end
@@ -927,7 +929,7 @@ function calcs.offence(env, actor, activeSkill)
 				s_format("%.2fs ^8(base)", skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")),
 				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
 				s_format("rounded up to nearest server tick"),
-				s_format("= %.2fs", output.Cooldown)
+				s_format("= %.3fs", output.Cooldown)
 			}
 		end
 	end
