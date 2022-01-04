@@ -1906,6 +1906,8 @@ end
 
 -- Opens the item pricing popup
 function ItemsTabClass:PriceItem()
+	self.poe_sessid = ""
+
 	-- Note: Per each Check Price button click we do 2 search requests
 	--       Search is the most rate limiting behavior we need to track
 	-- SEARCH REQUEST RATE LIMIT DATA (as of Feb 2021)
@@ -2013,6 +2015,11 @@ function ItemsTabClass:PriceItem()
 	controls.league.selIndex = 1
 	self.pbLeague = leagueDropList[controls.league.selIndex].name
 	controls.leagueLabel = new("LabelControl", {"TOPRIGHT",controls.league,"TOPLEFT"}, -4, 0, 20, 16, "League:")
+	controls.sessionInput = new("EditControl", {"TOPLEFT",controls.leagueLabel,"TOPLEFT"}, -354, 0, 350, 18, "<PASTE POESESSID FROM BROWSER>", "POESESSID", "%X", 32, function(buf)
+		if #controls.sessionInput.buf == 32 then
+			self.poe_sessid = controls.sessionInput.buf
+		end
+	end)
 
 	controls.updateCurrencyConversion = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, pane_height - 30, 240, row_height, "", function()
 		self:PullPoENinjaCurrencyConversion(self.pbLeague, controls)
@@ -2258,16 +2265,13 @@ function ItemsTabClass:SortFetchResults(slotTbl, trade_index)
 	if self.pbSortSelectionIndex ~= 1 then
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 		local slot = slotTbl.ref and self.activeItemSet["socketNodes"][slotTbl.ref] or self.slots[slotTbl.name]
+		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local selItem = self.items[slot.selItemId]
 			local item = new("Item", tbl.item_string)
-			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-			GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
-			local newDPS = output.TotalDPS
-			if GlobalCache.useFullDPS then
-				newDPS = output.FullDPS
-			end
+			local output = calcFunc({ repSlotName = slot.label, repItem = item ~= selItem and item }, {})
+			local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS
 			if self.pbSortSelectionIndex == 3 then
 				local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
 				if chaosAmount > 0 then
@@ -2278,8 +2282,8 @@ function ItemsTabClass:SortFetchResults(slotTbl, trade_index)
 					t_insert(newTbl, { outputAttr = newDPS, index = index })
 				end
 			end
-			GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		end
+		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
 	else
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
@@ -2394,7 +2398,12 @@ function ItemsTabClass:SearchItem(league, json_data, slotTbl, controls, index)
 		easy:setopt{
 			url = "https://www.pathofexile.com/api/trade/search/]]..league..[[",
 			post = true,
-			httpheader = {'Content-Type: application/json', 'Accept: application/json', 'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)'},
+			httpheader = {
+				'Content-Type: application/json',
+				'Accept: application/json',
+				'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)',
+				'Cookie: POESESSID=]]..self.poe_sessid..[['
+			},
 			postfields = json_data
 		}
 		easy:setopt_writefunction(function(data)
@@ -2463,9 +2472,7 @@ function ItemsTabClass:PublicTrade(url, slotTbl, controls, index)
 				return "TRADE ERROR", "Error: "..errMsg
 			else
 				self:PriceBuilderInsertSearchRequest()
-				local trimmed = response:sub(1, -2)
-				local json_query = trimmed .. ', "sort": {"price": "asc"}}'
-				self:SearchItem(league, json_query, slotTbl, controls, index)
+				self:SearchItem(league, response, slotTbl, controls, index)
 			end
 		end)
 	end
