@@ -133,6 +133,9 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.items = { }
 	self.itemOrderList = { }
 
+	-- Store POESESSID (when provided)
+	self.poe_sessid = ""
+
 	-- Set selector
 	self.controls.setSelect = new("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 8, 200, 20, nil, function(index, value)
 		self:SetActiveItemSet(self.itemSetOrderList[index])
@@ -1906,8 +1909,6 @@ end
 
 -- Opens the item pricing popup
 function ItemsTabClass:PriceItem()
-	self.poe_sessid = ""
-
 	-- Note: Per each Check Price button click we do 2 search requests
 	--       Search is the most rate limiting behavior we need to track
 	-- SEARCH REQUEST RATE LIMIT DATA (as of Feb 2021)
@@ -1969,7 +1970,7 @@ function ItemsTabClass:PriceItem()
 	local controls = { }
 	local cnt = 1
 	controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 16, 15, 60, 18, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
-	controls.pbNotice = new("EditControl",  {"TOP",nil,"TOP"}, 0, 15, 240, 16, "", nil, nil)
+	controls.pbNotice = new("EditControl",  {"TOP",nil,"TOP"}, 0, 15, 300, 16, "", nil, nil)
 	controls.pbNotice.textCol = colorCodes.CUSTOM
 	local sortSelectionList = {
 		"Cheapest",
@@ -2015,7 +2016,7 @@ function ItemsTabClass:PriceItem()
 	controls.league.selIndex = 1
 	self.pbLeague = leagueDropList[controls.league.selIndex].name
 	controls.leagueLabel = new("LabelControl", {"TOPRIGHT",controls.league,"TOPLEFT"}, -4, 0, 20, 16, "League:")
-	controls.sessionInput = new("EditControl", {"TOPLEFT",controls.leagueLabel,"TOPLEFT"}, -354, 0, 350, 18, "<PASTE POESESSID FROM BROWSER>", "POESESSID", "%X", 32, function(buf)
+	controls.sessionInput = new("EditControl", {"TOPLEFT",controls.leagueLabel,"TOPLEFT"}, -354, 0, 350, 18, #self.poe_sessid == 32 and self.poe_sessid or "<PASTE POESESSID FROM BROWSER>", "POESESSID", "%X", 32, function(buf)
 		if #controls.sessionInput.buf == 32 then
 			self.poe_sessid = controls.sessionInput.buf
 		end
@@ -2427,7 +2428,7 @@ function ItemsTabClass:SearchItem(league, json_data, slotTbl, controls, index)
 					return
 				end
 				if not response_1.result or #response_1.result == 0 then
-					self:SetNotice(controls.pbNotice, colorCodes.NEGATIVE .. "No Matching Results Found")
+					self:SetNotice(controls.pbNotice, colorCodes.NEGATIVE .. "No Matching Results Found (Outdated POESESSID?)")
 					return
 				else
 					self:SetNotice(controls.pbNotice, "")
