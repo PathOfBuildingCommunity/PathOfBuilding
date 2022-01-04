@@ -240,6 +240,11 @@ You can get this from your web browser's cookies while logged into the Path of E
 			self.controls.importCodeMode.selIndex = 2
 		end
 	end)
+	self.controls.importCodeIn.enterFunc = function()
+		if self.importCodeState == "VALID" then
+			self.controls.importCodeGo.onClick()
+		end
+	end
 	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 4, 0, 0, 16)
 	self.controls.importCodeState.label = function()
 		return (self.importCodeState == "VALID" and colorCodes.POSITIVE.."Code is valid") or (self.importCodeState == "INVALID" and colorCodes.NEGATIVE.."Invalid code") or ""
@@ -909,6 +914,7 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 		{ label = "Ghostbin", id = "Ghostbin", matchURL = "ghostbin%.co/paste/%w+", regexURL = "ghostbin%.co/paste/(%w+)%s*$", downloadURL = "ghostbin.co/paste/%1/raw" },
 		{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
 		{ label = "TinyPaste", id = "TinyPaste", matchURL = "penyacom%.org/%w+", regexURL = "penyacom%.org/[pr]%?q=(%w+)%s*$", downloadURL = "penyacom.org/r?q=%1" },
+		{ label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1" },
 	}
 	local controls = { }
 
@@ -921,6 +927,13 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 	controls.editLabel = new("LabelControl", { "TOPLEFT", controls.importAnchorPoint, "BOTTOMLEFT"}, 15, 44, 0, 16, "Enter website link:")
 	controls.edit = new("EditControl", nil, 0, 64, 250, 18, "", nil, "^%w%p%s", nil, function(buf)
 		controls.msg.label = ""
+		if #controls.edit.buf > 0 then
+			for j=1,#importWebsiteList do
+				if controls.edit.buf:match(importWebsiteList[j].matchURL) then
+					controls.importFrom:SelByValue(importWebsiteList[j].id, "id")
+				end
+			end
+		end
 	end)
 	controls.msg = new("LabelControl", nil, 0, 82, 0, 16, "")
 	controls.import = new("ButtonControl", nil, -45, 104, 80, 20, "Import", function()
@@ -939,6 +952,7 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 			else
 				self.controls.importCodeIn:SetText(page, true)
 				main:ClosePopup()
+				main:SelectControl(self.controls.importCodeIn)
 			end
 		end)
 	end)
