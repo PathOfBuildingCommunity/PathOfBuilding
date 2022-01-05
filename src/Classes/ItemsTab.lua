@@ -1947,6 +1947,55 @@ function ItemsTabClass:GenerateWeightedSearch(itembase)
 	return retStr
 end
 
+local function convertMod(mod)
+	local ret = mod:gsub('\n',' '):gsub("^# ", "%+# ")
+	return ret
+end
+
+local function isInvalidMod(mod)
+	if mod:find("%(") then return true end
+	if mod:find("Monster") then return true end
+	if mod:find("Boss") then return true end
+	if mod:find("Extra gore") then return true end
+	if mod:find("^Area") then return true end
+	if mod:find("^Breaches") then return true end
+	if mod:find("Map") then return true end
+	if mod:find("Pack size") then return true end
+	if mod:find("Zana") then return true end
+	if mod:find("Master") then return true end
+	if mod:find("Incursion") then return true end
+	if mod:find("Heist") then return true end
+	if mod:find("^Performing") then return true end
+	if mod:find("Lockdown Timer") then return true end
+	if mod:find("Alert Level") then return true end
+	if mod:find("Footprints") then return true end
+	if mod:find("Fishing") then return true end
+	if mod:find("Added Small Passive") then return true end
+	if mod:find("Added Passive") then return true end
+end
+
+function ItemsTabClass:GenerateSearchMods()
+	local file = io.open("Data/WebStats.json", "r")
+	local json_data = self:ProcessJSON(file:read "*a")
+	file:close()
+	if json_data then
+		local p_file = io.open("Data/ExplicitModList.lua", "w")
+		p_file:write("-- The following data is auto-generated\n\n")
+		p_file:write("e_mods = {}\n")
+		for _, resTbl in ipairs(json_data.result) do
+			if resTbl.label == "Explicit" then
+				for _, entry in ipairs(resTbl.entries) do
+					if not isInvalidMod(entry.text) then
+						p_file:write('e_mods["' .. convertMod(entry.text) .. '"] = { stat = { "' .. entry.id .. '" } }\n')
+					end
+				end
+			end
+		end
+		p_file:write("return e_mods")
+		p_file:close()
+	end
+end
+
 function ItemsTabClass:OrderSearchMods()
 	local val = LoadModule("Data/SearchModList")
 	local newTbl = {}
@@ -1955,15 +2004,28 @@ function ItemsTabClass:OrderSearchMods()
 	local scaleFactor = 2000
 	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-	for _, slotType in pairs({"Common", slotName}) do
-		local selItem = self.items[self.slots[slotName].selItemId]
+	local selItem = self.items[self.slots[slotName].selItemId]
+	for _, slotType in ipairs({"Common", slotName}) do
 		if val[slotType] then
-			for _, affixType in pairs({"Prefix", "Suffix"}) do
-				for line, statTbl in pairs(val[slotType][affixType]) do
-					local newDPS = 0
-					local newEHP = 0
+			for line, statTbl in pairs(val[slotType]) do
+				local newDPS = 0
+				local newEHP = 0
+				if line:find("# to #") then
+					local corrected_line = line:gsub('# to #', statTbl.low .. " to " .. statTbl.high)
+					local item = new("Item", "New Item\nEternal Burgonet\n"..corrected_line)
+					local output = calcFunc({ repSlotName = slotName, repItem = item ~= selItem and item }, {})
+					newDPS = newDPS + (GlobalCache.useFullDPS and (output.FullDPS - calcBase.FullDPS) or (output.TotalDPS - calcBase.TotalDPS)) / ((statTbl.low + statTbl.high)/2)
+					local physEHP = (output.PhysicalTotalEHP - calcBase.PhysicalTotalEHP)
+					local coldEHP = (output.ColdTotalEHP - calcBase.ColdTotalEHP)
+					local fireEHP = (output.FireTotalEHP - calcBase.FireTotalEHP)
+					local lightEHP = (output.LightningTotalEHP - calcBase.LightningTotalEHP)
+					local chaosEHP = (output.ChaosTotalEHP - calcBase.ChaosTotalEHP)
+					newEHP = newEHP + m_max(m_max(m_max(physEHP, coldEHP), m_max(fireEHP, lightEHP)), chaosEHP) / ((statTbl.low + statTbl.high)/2)
+					t_insert(newTbl, { dps = newDPS / scaleFactor, ehp = newEHP / scaleFactor, modName = statTbl.stat[1], text = corrected_line })
+				else
+					local corrected_line = "<MISSING>"
 					for _, key in pairs({"low", "high"}) do
-						local corrected_line = line:gsub('#', tostring(statTbl[key]))
+						corrected_line = line:gsub('#', statTbl[key])
 						local item = new("Item", "New Item\nEternal Burgonet\n"..corrected_line)
 						local output = calcFunc({ repSlotName = slotName, repItem = item ~= selItem and item }, {})
 						newDPS = newDPS + (GlobalCache.useFullDPS and (output.FullDPS - calcBase.FullDPS) or (output.TotalDPS - calcBase.TotalDPS)) / statTbl[key]
@@ -1974,16 +2036,18 @@ function ItemsTabClass:OrderSearchMods()
 						local chaosEHP = (output.ChaosTotalEHP - calcBase.ChaosTotalEHP)
 						newEHP = newEHP + m_max(m_max(m_max(physEHP, coldEHP), m_max(fireEHP, lightEHP)), chaosEHP) / statTbl[key]
 					end
-					t_insert(newTbl, { dps = newDPS / (2*scaleFactor), ehp = newEHP / (2*scaleFactor), modName = statTbl.stat[1] })
+					t_insert(newTbl, { dps = newDPS / (2 * scaleFactor), ehp = newEHP / (2 * scaleFactor), modName = statTbl.stat[1], text = corrected_line })
 				end
 			end
 		end
 	end
 	GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	table.sort(newTbl, function(a,b) return (a.dps + a.ehp) > (b.dps + b.ehp) end)
+	local fMods = io.open('../ModSorting.log', 'w')
 	for _, t in ipairs(newTbl) do
-		ConPrintf(t.modName .. " DPS: " .. tostring(t.dps) .. ", EHP: " .. tostring(t.ehp))
+		fMods:write(t.text .. " DPS: " .. tostring(t.dps) .. ", EHP: " .. tostring(t.ehp) .. "\n")
 	end
+	fMods:close()
 	return newTbl
 end
 
@@ -2180,9 +2244,9 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_
 		controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. slotTbl.name)
 	end
 	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 8, 0, 100, row_height, "Price Item", function()
-		self:PublicTrade(controls['uri'..str_cnt].buf, slotTbl, controls, str_cnt)
-		--self:PriceBuilderInsertSearchRequest()
-		--self:SearchItem("Scourge", self:GenerateWeightedSearch(slotTbl.name), slotTbl, controls, str_cnt)
+		--self:PublicTrade(controls['uri'..str_cnt].buf, slotTbl, controls, str_cnt)
+		self:PriceBuilderInsertSearchRequest()
+		self:SearchItem("Scourge", self:GenerateWeightedSearch(slotTbl.name), slotTbl, controls, str_cnt)
 	end)
 	controls['priceButton'..str_cnt].enabled = function()
 		local validURL = controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil
