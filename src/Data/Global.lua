@@ -137,7 +137,7 @@ function MatchKeywordFlags(keywordFlags, modKeywordFlags)
 end
 
 -- Active skill types, used in ActiveSkills.dat and GrantedEffects.dat
--- Had to reverse engineer this, not sure what all of the values mean
+-- Names taken from ActiveSkillType.dat as of PoE 3.17
 SkillType = {
 	Attack = 1,
 	Spell = 2,
