@@ -1934,10 +1934,15 @@ end
 
 function ItemsTabClass:GenerateWeightedSearch(itembase)
 	local searchTbl = self:OrderSearchMods()
-	local desiredMinWeight = 35 * m_min(#searchTbl, 6)
+	local desiredMinWeight = 100 --25 * m_min(#searchTbl, 6)
 	local retStr = '{"query":{"stats":[{"type":"and","filters":[],"disabled":false},{"type":"weight","value":{"min":'..tostring(desiredMinWeight)..'},"filters":['
+	local count = 0
 	for _, modTbl in ipairs(searchTbl) do
 		retStr = retStr .. SetFilterParameter(modTbl.modName, modTbl.dps + modTbl.ehp)
+		count = count + 1
+		if count >= 6 then
+			break
+		end
 	end
 	retStr = retStr:sub(1, -2) .. '],"disabled":false}],"status":{"option":"online"},"filters":{"type_filters":{"filters":{"rarity":{"option":"nonunique"}'
 	retStr = retStr .. ',"category":{"option":"'..GetItemCategoryFilter(itembase)..'"}},"disabled":false}}}}'
