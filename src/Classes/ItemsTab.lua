@@ -1907,6 +1907,86 @@ function ItemsTabClass:PriceBuilderCanFetch(controls)
 	end
 end
 
+local function SetFilterParameter(id, value)
+	return '{"id":"'..id..'","value":{"weight":'..tostring(value)..'},"disabled":false},'
+end
+
+local function GetItemCategoryFilter(itembase)
+	if itembase:lower():find('ring') then
+		return "accessory.ring"
+	elseif itembase:lower():find('amulet') then
+		return "accessory.amulet"
+	elseif itembase:lower():find('belt') then
+		return "accessory.belt"
+	elseif itembase:lower():find('weapon') then
+		return "weapon"
+	elseif itembase:lower():find('socket') then
+		return "jewel"
+	elseif itembase:lower():find('flask') then
+		return "flask"
+	elseif itembase:lower():find('body') then
+		return "armour.chest"
+	else
+		-- covers: helmet, gloves, boots
+		return "armour."..itembase:lower()
+	end
+end
+
+function ItemsTabClass:GenerateWeightedSearch(itembase)
+	local searchTbl = self:OrderSearchMods()
+	local desiredMinWeight = 35 * m_min(#searchTbl, 6)
+	local retStr = '{"query":{"stats":[{"type":"and","filters":[],"disabled":false},{"type":"weight","value":{"min":'..tostring(desiredMinWeight)..'},"filters":['
+	for _, modTbl in ipairs(searchTbl) do
+		retStr = retStr .. SetFilterParameter(modTbl.modName, modTbl.dps + modTbl.ehp)
+	end
+	retStr = retStr:sub(1, -2) .. '],"disabled":false}],"status":{"option":"online"},"filters":{"type_filters":{"filters":{"rarity":{"option":"nonunique"}'
+	retStr = retStr .. ',"category":{"option":"'..GetItemCategoryFilter(itembase)..'"}},"disabled":false}}}}'
+	local foo = io.open('../test.json', 'w')
+	foo:write(retStr)
+	foo:close()
+	return retStr
+end
+
+function ItemsTabClass:OrderSearchMods()
+	local val = LoadModule("Data/SearchModList")
+	local newTbl = {}
+	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
+	local slotName = "Helmet"
+	local scaleFactor = 2000
+	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+	for _, slotType in pairs({"Common", slotName}) do
+		local selItem = self.items[self.slots[slotName].selItemId]
+		if val[slotType] then
+			for _, affixType in pairs({"Prefix", "Suffix"}) do
+				for line, statTbl in pairs(val[slotType][affixType]) do
+					local newDPS = 0
+					local newEHP = 0
+					for _, key in pairs({"low", "high"}) do
+						local corrected_line = line:gsub('#', tostring(statTbl[key]))
+						local item = new("Item", "New Item\nEternal Burgonet\n"..corrected_line)
+						local output = calcFunc({ repSlotName = slotName, repItem = item ~= selItem and item }, {})
+						newDPS = newDPS + (GlobalCache.useFullDPS and (output.FullDPS - calcBase.FullDPS) or (output.TotalDPS - calcBase.TotalDPS)) / statTbl[key]
+						local physEHP = (output.PhysicalTotalEHP - calcBase.PhysicalTotalEHP)
+						local coldEHP = (output.ColdTotalEHP - calcBase.ColdTotalEHP)
+						local fireEHP = (output.FireTotalEHP - calcBase.FireTotalEHP)
+						local lightEHP = (output.LightningTotalEHP - calcBase.LightningTotalEHP)
+						local chaosEHP = (output.ChaosTotalEHP - calcBase.ChaosTotalEHP)
+						newEHP = newEHP + m_max(m_max(m_max(physEHP, coldEHP), m_max(fireEHP, lightEHP)), chaosEHP) / statTbl[key]
+					end
+					t_insert(newTbl, { dps = newDPS / (2*scaleFactor), ehp = newEHP / (2*scaleFactor), modName = statTbl.stat[1] })
+				end
+			end
+		end
+	end
+	GlobalCache.useFullDPS = storedGlobalCacheDPSView
+	table.sort(newTbl, function(a,b) return (a.dps + a.ehp) > (b.dps + b.ehp) end)
+	for _, t in ipairs(newTbl) do
+		ConPrintf(t.modName .. " DPS: " .. tostring(t.dps) .. ", EHP: " .. tostring(t.ehp))
+	end
+	return newTbl
+end
+
 -- Opens the item pricing popup
 function ItemsTabClass:PriceItem()
 	-- Note: Per each Check Price button click we do 2 search requests
@@ -2101,6 +2181,8 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_
 	end
 	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 8, 0, 100, row_height, "Price Item", function()
 		self:PublicTrade(controls['uri'..str_cnt].buf, slotTbl, controls, str_cnt)
+		--self:PriceBuilderInsertSearchRequest()
+		--self:SearchItem("Scourge", self:GenerateWeightedSearch(slotTbl.name), slotTbl, controls, str_cnt)
 	end)
 	controls['priceButton'..str_cnt].enabled = function()
 		local validURL = controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil
@@ -2433,6 +2515,7 @@ function ItemsTabClass:SearchItem(league, json_data, slotTbl, controls, index)
 				else
 					self:SetNotice(controls.pbNotice, "")
 				end
+				controls['uri'..index]:SetText("https://www.pathofexile.com/trade/search/"..league.."/"..response_1.id)
 				local quantity_found = m_min(#response_1.result, 100)
 				local current_fetch_block = 0
 				self.resultTbl[index] = {}
@@ -2473,6 +2556,9 @@ function ItemsTabClass:PublicTrade(url, slotTbl, controls, index)
 				return "TRADE ERROR", "Error: "..errMsg
 			else
 				self:PriceBuilderInsertSearchRequest()
+				local foo = io.open('../item.json', 'w')
+				foo:write(response)
+				foo:close()
 				self:SearchItem(league, response, slotTbl, controls, index)
 			end
 		end)
