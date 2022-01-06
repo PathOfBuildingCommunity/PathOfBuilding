@@ -990,7 +990,7 @@ function buildMode:OnFrame(inputEvents)
 	SetDrawColor(0.1, 0.1, 0.1)
 	DrawImage(nil, 0, 32, sideBarWidth - 4, main.screenH - 32)
 	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, sideBarWidth - 4, 32, 4, main.screenH - 32)	
+	DrawImage(nil, sideBarWidth - 4, 32, 4, main.screenH - 32)
 
 	self:DrawControls(main.viewPort)
 end
