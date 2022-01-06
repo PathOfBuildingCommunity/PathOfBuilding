@@ -775,6 +775,7 @@ skills["ChargedAttack"] = {
 		{
 			name = "Channel & Release",
 			stages = true,
+			stagesMin = 1,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
