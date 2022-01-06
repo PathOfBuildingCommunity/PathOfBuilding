@@ -165,6 +165,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod mod("Multiplier:BladeFlurryMaxStages", "BASE", 6)
 #baseMod skill("numStages", 1, { type = "Multiplier", var = "BladeFlurryStage" })
+#baseMod skill("stackMultiplier", 2, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 14)
 #mods
 

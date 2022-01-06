@@ -810,6 +810,7 @@ skills["ChargedAttack"] = {
 	baseMods = {
 		mod("Multiplier:BladeFlurryMaxStages", "BASE", 6),
 		skill("numStages", 1, { type = "Multiplier", var = "BladeFlurryStage" }),
+		skill("stackMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 14),
 	},
 	qualityStats = {
