@@ -669,14 +669,6 @@ local skills, mod, flag, skill = ...
 
 #skill VaalFlameblast
 #flags spell area
-	parts = {
-		{
-			name = "1 Stage",
-		},
-		{
-			name = "Max Stages",
-		},
-	},
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "VaalFlameblastStage" }),
@@ -688,7 +680,7 @@ local skills, mod, flag, skill = ...
 			skill("radiusExtra", nil, { type = "Multiplier", var = "VaalFlameblastStage" }),
 		},
 	},
-#baseMod mod("Multiplier:VaalFlameblastStage", "BASE", 14, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:VaalFlameblastMaxStages", "BASE", 15)
 #baseMod skill("radius", 35)
 #mods
 
