@@ -848,7 +848,13 @@ function buildMode:OnFrame(inputEvents)
 					self:CloseBuild()
 				end
 		elseif IsKeyDown("CTRL") then
-				if event.key == "s" then
+				if event.key == "i" then
+					if self.viewMode == "IMPORT" then
+						self.importTab.controls.importCodePastebin:Click()
+					else
+						self.viewMode = "IMPORT"
+					end
+				elseif event.key == "s" then
 					self:SaveDBFile()
 					inputEvents[id] = nil
 				elseif event.key == "w" then
@@ -1137,14 +1143,18 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
 					end
 					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
+					if activeEffect.grantedEffect.parts[activeEffect.srcInstance["skillPart"..suffix]].stages then
+						controls.mainSkillStageCount.shown = true
+						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeEffect.grantedEffect.parts[activeEffect.srcInstance["skillPart"..suffix]].stagesMin or 0)
+					end
 				end
 				if activeSkill.skillFlags.mine then
 					controls.mainSkillMineCount.shown = true
 					controls.mainSkillMineCount.buf = tostring(activeEffect.srcInstance["skillMineCount"..suffix] or "")
 				end
-				if activeSkill.skillFlags.multiStage then
+				if activeSkill.skillFlags.multiStage and not (activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1) then
 					controls.mainSkillStageCount.shown = true
-					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or "")
+					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMin or 0)
 				end
 				if not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)
