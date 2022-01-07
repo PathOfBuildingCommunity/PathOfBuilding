@@ -34,7 +34,7 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=150
+			width=250
 		},
 		[2]={
 			list=false,

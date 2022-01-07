@@ -11723,7 +11723,7 @@ return {
 		},
 		name="plague_bearer_maximum",
 		stats={
-			[1]="corrosive_shroud_maximum_stored_poison_damage"
+			[1]="virtual_plague_bearer_maximum_stored_poison_damage"
 		}
 	},
 	[380]={
@@ -35463,7 +35463,6 @@ return {
 	["corpse_warp_area_of_effect_+%_final_when_consuming_corpse"]=571,
 	["corrosive_shroud_%_of_stored_poison_damage_to_deal_per_second"]=380,
 	["corrosive_shroud_gains_%_of_damage_from_inflicted_poisons"]=378,
-	["corrosive_shroud_maximum_stored_poison_damage"]=379,
 	["corrosive_shroud_poison_damage_+%_final_while_accumulating_poison"]=377,
 	["corrosive_shroud_poison_dot_multiplier_+_while_aura_active"]=381,
 	["corrupting_fever_apply_additional_corrupted_blood_%"]=572,
@@ -36447,6 +36446,7 @@ return {
 	["virtual_number_of_forks_for_projectiles_final"]=230,
 	["virtual_number_of_spirit_strikes"]=826,
 	["virtual_onslaught_on_hit_%_chance"]=1161,
+	["virtual_plague_bearer_maximum_stored_poison_damage"]=379,
 	["virtual_projectile_number_to_split"]=229,
 	["virtual_projectiles_cannot_pierce"]=91,
 	["virtual_regenerate_x_life_over_1_second_on_skill_use_or_trigger"]=1162,

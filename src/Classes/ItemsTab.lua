@@ -2170,6 +2170,18 @@ function ItemsTabClass:PriceItem()
 			self.poe_sessid = controls.sessionInput.buf
 		end
 	end)
+	controls.sessionInput.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, colorCodes.WARNING .. "Your POESESSID is needed for certain more complex queries and all weighted sum queries.")
+		tooltip:AddLine(16, colorCodes.WARNING .. "If all the URLs for items are simple queries you don't need to provide this information.")
+		tooltip:AddLine(16, "\n")
+		tooltip:AddLine(16, "^7To find your POESESSID value (a 32-bit hexadecimal string) do the following in Google Chrome:")
+		tooltip:AddLine(16, "^7  1) Make sure you are logged into your PoE acccount on any valid and official PoE website.")
+		tooltip:AddLine(16, "^7  2) Use the shortcut: CTRL+SHIFT+I to bring up 'Developer Tools'")
+		tooltip:AddLine(16, "^7  3) Select 'Application' Pane on top and 'Cookies' on the left hand menu sidebar.")
+		tooltip:AddLine(16, "^7  4) Under 'Cookies' click on 'https://www.pathofexile.com' which will populate the right hand side.")
+		tooltip:AddLine(16, "^7  5) Find the entry named 'POESESSID' and copy the Value into this text box.")
+	end
 
 	controls.updateCurrencyConversion = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, pane_height - 30, 240, row_height, "", function()
 		self:PullPoENinjaCurrencyConversion(self.pbLeague, controls)
@@ -2579,7 +2591,15 @@ function ItemsTabClass:SearchItem(league, json_data, slotTbl, controls, index)
 					return
 				end
 				if not response_1.result or #response_1.result == 0 then
-					self:SetNotice(controls.pbNotice, colorCodes.NEGATIVE .. "No Matching Results Found (Outdated POESESSID?)")
+					if response_1.error then
+						if response_1.error.code == 2 then
+							self:SetNotice(controls.pbNotice, colorCodes.RELIC .. "Complex Query - Please provide your POESESSID")
+						elseif response_1.error.message then
+							self:SetNotice(controls.pbNotice, colorCodes.NEGATIVE .. response_1.error.message)
+						end
+					else
+						self:SetNotice(controls.pbNotice, colorCodes.WARNING .. "No Matching Results Found")
+					end
 					return
 				else
 					self:SetNotice(controls.pbNotice, "")
