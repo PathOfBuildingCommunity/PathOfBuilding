@@ -945,7 +945,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			masteryColor = colorCodes.DEXTERITY
 		end
 		-- If allocated on Left, but not Right, match the colour of the other unallocated nodes.
-		if node.alloc and not compareNode then
+		if self.compareSpec and node.alloc and not compareNode then
 			masteryColor = colorCodes.STRENGTH
 		end
 		-- If both are allocated but are different text ...
