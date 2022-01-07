@@ -1913,22 +1913,22 @@ end
 
 local function GetItemCategoryFilter(itembase)
 	if itembase:lower():find('ring') then
-		return "accessory.ring", 1.0
+		return "accessory.ring", 4.0
 	elseif itembase:lower():find('amulet') then
-		return "accessory.amulet", 1.0
+		return "accessory.amulet", 7.5
 	elseif itembase:lower():find('belt') then
-		return "accessory.belt", 0.75
+		return "accessory.belt", 6.0
 	elseif itembase:lower():find('weapon') then
 		return "weapon", 1.0
 	elseif itembase:lower():find('socket') then
-		return "jewel", 0.5
+		return "jewel", 3.0
 	elseif itembase:lower():find('flask') then
-		return "flask", 0.1
+		return "flask", 0.01
 	elseif itembase:lower():find('body') then
-		return "armour.chest", 1.0
+		return "armour.chest", 8.0
 	else
 		-- covers: helmet, gloves, boots
-		return "armour."..itembase:lower(), 1.0
+		return "armour."..itembase:lower(), 4.0
 	end
 end
 
@@ -1941,7 +1941,7 @@ function ItemsTabClass:GenerateWeightedSearch(itembase)
 	for _, modTbl in ipairs(searchTbl) do
 		retStr = retStr .. SetFilterParameter(modTbl.modName, modTbl.dps + modTbl.ehp)
 		count = count + 1
-		if count >= 6 then
+		if count >= 16 then
 			break
 		end
 	end
@@ -2006,19 +2006,21 @@ function ItemsTabClass:OrderSearchMods()
 	local val = LoadModule("Data/SearchModList")
 	local newTbl = {}
 	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
-	local slotName = "Helmet"
+	local slotName = "Amulet"
 	local scaleFactor = 2000
 	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 	local selItem = self.items[self.slots[slotName].selItemId]
-	for _, slotType in ipairs({"Common", slotName}) do
+	for _, slotType in ipairs({"Common"}) do
 		if val[slotType] then
 			for line, statTbl in pairs(val[slotType]) do
 				local newDPS = 0
 				local newEHP = 0
 				if line:find("# to #") then
 					local corrected_line = line:gsub('# to #', statTbl.low .. " to " .. statTbl.high)
-					local item = new("Item", "New Item\nEternal Burgonet\n"..corrected_line)
+					local item = new("Item", selItem:BuildRaw())
+					t_insert(item.explicitModLines, { line = corrected_line, order = #item.explicitModLines })
+					item:BuildAndParseRaw()
 					local output = calcFunc({ repSlotName = slotName, repItem = item ~= selItem and item }, {})
 					newDPS = newDPS + (GlobalCache.useFullDPS and (output.FullDPS - calcBase.FullDPS) or (output.TotalDPS - calcBase.TotalDPS)) / ((statTbl.low + statTbl.high)/2)
 					local physEHP = (output.PhysicalTotalEHP - calcBase.PhysicalTotalEHP)
@@ -2026,13 +2028,16 @@ function ItemsTabClass:OrderSearchMods()
 					local fireEHP = (output.FireTotalEHP - calcBase.FireTotalEHP)
 					local lightEHP = (output.LightningTotalEHP - calcBase.LightningTotalEHP)
 					local chaosEHP = (output.ChaosTotalEHP - calcBase.ChaosTotalEHP)
-					newEHP = newEHP + m_max(m_max(m_max(physEHP, coldEHP), m_max(fireEHP, lightEHP)), chaosEHP) / ((statTbl.low + statTbl.high)/2)
-					t_insert(newTbl, { dps = newDPS / scaleFactor, ehp = newEHP / scaleFactor, modName = statTbl.stat[1], text = corrected_line })
+					local deltaEHP = physEHP + coldEHP + fireEHP + lightEHP + chaosEHP
+					newEHP = newEHP + deltaEHP / ((statTbl.low + statTbl.high)/2)
+					t_insert(newTbl, { dps = newDPS / scaleFactor, ehp = newEHP / (scaleFactor / 100), modName = statTbl.stat[1], text = corrected_line })
 				else
 					local corrected_line = "<MISSING>"
 					for _, key in pairs({"low", "high"}) do
 						corrected_line = line:gsub('#', statTbl[key])
-						local item = new("Item", "New Item\nEternal Burgonet\n"..corrected_line)
+						local item = new("Item", selItem:BuildRaw())
+						t_insert(item.explicitModLines, { line = corrected_line, order = #item.explicitModLines })
+						item:BuildAndParseRaw()
 						local output = calcFunc({ repSlotName = slotName, repItem = item ~= selItem and item }, {})
 						newDPS = newDPS + (GlobalCache.useFullDPS and (output.FullDPS - calcBase.FullDPS) or (output.TotalDPS - calcBase.TotalDPS)) / statTbl[key]
 						local physEHP = (output.PhysicalTotalEHP - calcBase.PhysicalTotalEHP)
@@ -2040,9 +2045,10 @@ function ItemsTabClass:OrderSearchMods()
 						local fireEHP = (output.FireTotalEHP - calcBase.FireTotalEHP)
 						local lightEHP = (output.LightningTotalEHP - calcBase.LightningTotalEHP)
 						local chaosEHP = (output.ChaosTotalEHP - calcBase.ChaosTotalEHP)
-						newEHP = newEHP + m_max(m_max(m_max(physEHP, coldEHP), m_max(fireEHP, lightEHP)), chaosEHP) / statTbl[key]
+						local deltaEHP = physEHP + coldEHP + fireEHP + lightEHP + chaosEHP
+						newEHP = newEHP + deltaEHP / statTbl[key]
 					end
-					t_insert(newTbl, { dps = newDPS / (2 * scaleFactor), ehp = newEHP / (2 * scaleFactor), modName = statTbl.stat[1], text = corrected_line })
+					t_insert(newTbl, { dps = newDPS / (2 * scaleFactor), ehp = newEHP / (2 * scaleFactor / 100), modName = statTbl.stat[1], text = corrected_line })
 				end
 			end
 		end
