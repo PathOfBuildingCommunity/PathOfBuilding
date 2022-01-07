@@ -1913,28 +1913,29 @@ end
 
 local function GetItemCategoryFilter(itembase)
 	if itembase:lower():find('ring') then
-		return "accessory.ring"
+		return "accessory.ring", 1.0
 	elseif itembase:lower():find('amulet') then
-		return "accessory.amulet"
+		return "accessory.amulet", 1.0
 	elseif itembase:lower():find('belt') then
-		return "accessory.belt"
+		return "accessory.belt", 0.75
 	elseif itembase:lower():find('weapon') then
-		return "weapon"
+		return "weapon", 1.0
 	elseif itembase:lower():find('socket') then
-		return "jewel"
+		return "jewel", 0.5
 	elseif itembase:lower():find('flask') then
-		return "flask"
+		return "flask", 0.1
 	elseif itembase:lower():find('body') then
-		return "armour.chest"
+		return "armour.chest", 1.0
 	else
 		-- covers: helmet, gloves, boots
-		return "armour."..itembase:lower()
+		return "armour."..itembase:lower(), 1.0
 	end
 end
 
 function ItemsTabClass:GenerateWeightedSearch(itembase)
 	local searchTbl = self:OrderSearchMods()
-	local desiredMinWeight = 100 --25 * m_min(#searchTbl, 6)
+	local category, scaleFactor = GetItemCategoryFilter(itembase)
+	local desiredMinWeight = 100 * scaleFactor
 	local retStr = '{"query":{"stats":[{"type":"and","filters":[],"disabled":false},{"type":"weight","value":{"min":'..tostring(desiredMinWeight)..'},"filters":['
 	local count = 0
 	for _, modTbl in ipairs(searchTbl) do
@@ -1945,10 +1946,10 @@ function ItemsTabClass:GenerateWeightedSearch(itembase)
 		end
 	end
 	retStr = retStr:sub(1, -2) .. '],"disabled":false}],"status":{"option":"online"},"filters":{"type_filters":{"filters":{"rarity":{"option":"nonunique"}'
-	retStr = retStr .. ',"category":{"option":"'..GetItemCategoryFilter(itembase)..'"}},"disabled":false}}}}'
-	local foo = io.open('../test.json', 'w')
-	foo:write(retStr)
-	foo:close()
+	retStr = retStr .. ',"category":{"option":"'..category..'"}},"disabled":false}}}}'
+	--local foo = io.open('../test.json', 'w')
+	--foo:write(retStr)
+	--foo:close()
 	return retStr
 end
 
@@ -2048,7 +2049,7 @@ function ItemsTabClass:OrderSearchMods()
 	end
 	GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	table.sort(newTbl, function(a,b) return (a.dps + a.ehp) > (b.dps + b.ehp) end)
-	local fMods = io.open('../ModSorting.log', 'w')
+	local fMods = io.open('../ModSorting.json', 'w')
 	for _, t in ipairs(newTbl) do
 		fMods:write(t.text .. " DPS: " .. tostring(t.dps) .. ", EHP: " .. tostring(t.ehp) .. "\n")
 	end
