@@ -880,11 +880,6 @@ skills["SupportCastWhileChannellingTriggeredPlus"] = {
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, },
 	plusVersionOf = "SupportCastWhileChannellingTriggered",
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {
