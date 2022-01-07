@@ -2116,7 +2116,7 @@ function ItemsTabClass:PriceItem()
 	local top_pane_alignment_width = 0
 	local top_pane_alignment_height = row_height + 8
 	local pane_height = (top_pane_alignment_height) * row_count + 15
-	local pane_width = 1246
+	local pane_width = 1264
 	local controls = { }
 	local cnt = 1
 	controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 16, 15, 60, 18, colorCodes.CUSTOM .. "ItemSet: " .. (self.activeItemSet.title or "Default"))
@@ -2262,9 +2262,7 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_
 		controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. slotTbl.name)
 	end
 	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 8, 0, 100, row_height, "Price Item", function()
-		--self:PublicTrade(controls['uri'..str_cnt].buf, slotTbl, controls, str_cnt)
-		self:PriceBuilderInsertSearchRequest()
-		self:SearchItem("Scourge", self:GenerateWeightedSearch(slotTbl.name), slotTbl, controls, str_cnt)
+		self:PublicTrade(controls['uri'..str_cnt].buf, slotTbl, controls, str_cnt)
 	end)
 	controls['priceButton'..str_cnt].enabled = function()
 		local validURL = controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil
@@ -2277,7 +2275,11 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_
 		end
 		return validURL and self:PriceBuilderCanSearch(controls) and self:PriceBuilderCanFetch(controls)
 	end
-	controls['resultIndex'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 60, row_height, "#", nil, "%D", 3, function(buf)
+	controls['bestButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 10, row_height, "", function()
+		self:PriceBuilderInsertSearchRequest()
+		self:SearchItem("Scourge", self:GenerateWeightedSearch(slotTbl.name), slotTbl, controls, str_cnt)
+	end)
+	controls['resultIndex'..str_cnt] = new("EditControl", {"TOPLEFT",controls['bestButton'..str_cnt],"TOPLEFT"}, 10 + 8, 0, 60, row_height, "#", nil, "%D", 3, function(buf)
 		controls['resultIndex'..str_cnt].buf = tostring(m_min(m_max(tonumber(buf) or 1, 1), self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1))
 	end)
 	controls['resultIndex'..str_cnt].tooltipFunc = function(tooltip)
@@ -2430,12 +2432,13 @@ function ItemsTabClass:SortFetchResults(slotTbl, trade_index)
 	if self.pbSortSelectionIndex ~= 1 then
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 		local slot = slotTbl.ref and self.activeItemSet["socketNodes"][slotTbl.ref] or self.slots[slotTbl.name]
+		local slotName = slotTbl.ref and slot.slotName or slotTbl.name
 		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local selItem = self.items[slot.selItemId]
 			local item = new("Item", tbl.item_string)
-			local output = calcFunc({ repSlotName = slot.label, repItem = item ~= selItem and item }, {})
+			local output = calcFunc({ repSlotName = slotName, repItem = item ~= selItem and item }, {})
 			local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS
 			if self.pbSortSelectionIndex == 3 then
 				local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)

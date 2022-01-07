@@ -37,6 +37,7 @@ consideration_mods.Common["+#% to Damage over Time Multiplier"] = { low = 4, hig
 consideration_mods.Common["+#% to Physical Damage over Time Multiplier"] = { low = 6, high = 75, stat = { "explicit.stat_1314617696" } }
 consideration_mods.Common["+#% to Fire Damage over Time Multiplier"] = { low = 6, high = 75, stat = { "explicit.stat_3382807662" } }
 consideration_mods.Common["+#% to Cold Damage over Time Multiplier"] = { low = 6, high = 75, stat = { "explicit.stat_1950806024" } }
+consideration_mods.Common["+#% to Chaos Damage over Time Multiplier"] = { low = 6, high = 75, stat = { "explicit.stat_4055307827" } }
 
 consideration_mods.Common["#% chance to Poison on Hit"] = { low = 3, high = 30, stat = { "explicit.stat_795138349" } }
 
