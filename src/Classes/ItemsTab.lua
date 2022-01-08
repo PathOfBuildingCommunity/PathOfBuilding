@@ -1919,7 +1919,7 @@ local function GetItemCategoryFilter(itembase)
 	elseif itembase:lower():find('belt') then
 		return "accessory.belt", 6.0
 	elseif itembase:lower():find('weapon') then
-		return "weapon", 1.0
+		return "weapon", 3.5
 	elseif itembase:lower():find('socket') then
 		return "jewel", 3.0
 	elseif itembase:lower():find('flask') then
@@ -2023,14 +2023,16 @@ function ItemsTabClass:OrderSearchMods()
 					item:BuildAndParseRaw()
 					local output = calcFunc({ repSlotName = slotName, repItem = item ~= selItem and item }, {})
 					newDPS = newDPS + (GlobalCache.useFullDPS and (output.FullDPS - calcBase.FullDPS) or (output.TotalDPS - calcBase.TotalDPS)) / ((statTbl.low + statTbl.high)/2)
-					local physEHP = (output.PhysicalTotalEHP - calcBase.PhysicalTotalEHP)
-					local coldEHP = (output.ColdTotalEHP - calcBase.ColdTotalEHP)
-					local fireEHP = (output.FireTotalEHP - calcBase.FireTotalEHP)
-					local lightEHP = (output.LightningTotalEHP - calcBase.LightningTotalEHP)
-					local chaosEHP = (output.ChaosTotalEHP - calcBase.ChaosTotalEHP)
-					local deltaEHP = physEHP + coldEHP + fireEHP + lightEHP + chaosEHP
-					newEHP = newEHP + deltaEHP / ((statTbl.low + statTbl.high)/2)
-					t_insert(newTbl, { dps = newDPS / scaleFactor, ehp = newEHP / (scaleFactor / 100), modName = statTbl.stat[1], text = corrected_line })
+					if self.eHPtoDPSratio > 0 then
+						local physEHP = (output.PhysicalTotalEHP - calcBase.PhysicalTotalEHP)
+						local coldEHP = (output.ColdTotalEHP - calcBase.ColdTotalEHP)
+						local fireEHP = (output.FireTotalEHP - calcBase.FireTotalEHP)
+						local lightEHP = (output.LightningTotalEHP - calcBase.LightningTotalEHP)
+						local chaosEHP = (output.ChaosTotalEHP - calcBase.ChaosTotalEHP)
+						local deltaEHP = physEHP + coldEHP + fireEHP + lightEHP + chaosEHP
+						newEHP = newEHP + deltaEHP / ((statTbl.low + statTbl.high)/2)
+					end
+					t_insert(newTbl, { dps = newDPS / scaleFactor, ehp = self.eHPtoDPSratio * newEHP / (scaleFactor / 100), modName = statTbl.stat[1], text = corrected_line })
 				else
 					local corrected_line = "<MISSING>"
 					for _, key in pairs({"low", "high"}) do
@@ -2040,15 +2042,17 @@ function ItemsTabClass:OrderSearchMods()
 						item:BuildAndParseRaw()
 						local output = calcFunc({ repSlotName = slotName, repItem = item ~= selItem and item }, {})
 						newDPS = newDPS + (GlobalCache.useFullDPS and (output.FullDPS - calcBase.FullDPS) or (output.TotalDPS - calcBase.TotalDPS)) / statTbl[key]
-						local physEHP = (output.PhysicalTotalEHP - calcBase.PhysicalTotalEHP)
-						local coldEHP = (output.ColdTotalEHP - calcBase.ColdTotalEHP)
-						local fireEHP = (output.FireTotalEHP - calcBase.FireTotalEHP)
-						local lightEHP = (output.LightningTotalEHP - calcBase.LightningTotalEHP)
-						local chaosEHP = (output.ChaosTotalEHP - calcBase.ChaosTotalEHP)
-						local deltaEHP = physEHP + coldEHP + fireEHP + lightEHP + chaosEHP
-						newEHP = newEHP + deltaEHP / statTbl[key]
+						if self.eHPtoDPSratio > 0 then
+							local physEHP = (output.PhysicalTotalEHP - calcBase.PhysicalTotalEHP)
+							local coldEHP = (output.ColdTotalEHP - calcBase.ColdTotalEHP)
+							local fireEHP = (output.FireTotalEHP - calcBase.FireTotalEHP)
+							local lightEHP = (output.LightningTotalEHP - calcBase.LightningTotalEHP)
+							local chaosEHP = (output.ChaosTotalEHP - calcBase.ChaosTotalEHP)
+							local deltaEHP = physEHP + coldEHP + fireEHP + lightEHP + chaosEHP
+							newEHP = newEHP + deltaEHP / statTbl[key]
+						end
 					end
-					t_insert(newTbl, { dps = newDPS / (2 * scaleFactor), ehp = newEHP / (2 * scaleFactor / 100), modName = statTbl.stat[1], text = corrected_line })
+					t_insert(newTbl, { dps = newDPS / (2 * scaleFactor), ehp = self.eHPtoDPSratio * newEHP / (2 * scaleFactor), modName = statTbl.stat[1], text = corrected_line })
 				end
 			end
 		end
@@ -2106,6 +2110,11 @@ function ItemsTabClass:PriceItem()
 	self.pbCurrencyConversion = { }
 	self.lastCurrencyConversionRequest = 0
 	self.lastCurrencyFileTime = nil
+
+	-- comparison of eHP vs DPS for weighted filter sorting
+	-- E.g., ratio of 100 means 1 eHP gain == 100 DPS gain
+	--       ratio of 0 means we only care about DPS
+	self.eHPtoDPSratio = 100
 
 	-- Count number of rows to render
 	local row_count = 3 + #baseSlots
