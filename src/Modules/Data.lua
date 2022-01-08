@@ -541,6 +541,7 @@ data.uniques = { }
 for _, type in pairs(itemTypes) do
 	data.uniques[type] = LoadModule("Data/Uniques/"..type)
 end
+data.uniques['race'] = LoadModule("Data/Uniques/race")
 data.uniqueMods = { }
 data.uniqueMods["Watcher's Eye"] = { }
 local unsortedMods = LoadModule("Data/Uniques/Special/WatchersEye")
