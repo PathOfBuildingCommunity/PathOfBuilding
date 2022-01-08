@@ -38,6 +38,22 @@ consideration_mods.Common["+#% to Cold and Chaos Resistances"] = { low = 1, high
 consideration_mods.Common["+#% to Lightning and Chaos Resistances"] = { low = 1, high = 30, stat = { "explicit.stat_3465022881" } }
 
 -- Offensive
+consideration_mods.Common["+# to Level of all Spell Skill Gems"] = { low = 1, high = 2, stat = { "explicit.stat_124131830" } }
+consideration_mods.Common["+# to Level of all Physical Skill Gems"] = { low = 1, high = 3, stat = { "explicit.stat_619213329" } }
+consideration_mods.Common["+# to Level of all Physical Spell Skill Gems"] = { low = 1, high = 3, stat = { "explicit.stat_1600707273" } }
+consideration_mods.Common["+# to Level of all Fire Skill Gems"] = { low = 1, high = 3, stat = { "explicit.stat_599749213" } }
+consideration_mods.Common["+# to Level of all Fire Spell Skill Gems"] = { low = 1, high = 3, stat = { "explicit.stat_591105508" } }
+consideration_mods.Common["+# to Level of all Cold Skill Gems"] = { low = 1, high = 3, stat = { "explicit.stat_1078455967" } }
+consideration_mods.Common["+# to Level of all Cold Spell Skill Gems"] = { low = 1, high = 3, stat = { "explicit.stat_2254480358" } }
+consideration_mods.Common["+# to Level of all Lightning Skill Gems"] = { low = 1, high = 3, stat = { "explicit.stat_1147690586" } }
+consideration_mods.Common["+# to Level of all Lightning Spell Skill Gems"] = { low = 1, high = 3, stat = { "explicit.stat_1545858329" } }
+consideration_mods.Common["+# to Level of all Chaos Skill Gems"] = { low = 1, high = 3, stat = { "explicit.stat_67169579" } }
+consideration_mods.Common["+# to Level of all Chaos Spell Skill Gems"] = { low = 1, high = 3, stat = { "explicit.stat_4226189338" } }
+consideration_mods.Common["+# to Level of all Strength Skill Gems"] = { low = 1, high = 2, stat = { "explicit.stat_2339012908" } }
+consideration_mods.Common["+# to Level of all Dexterity Skill Gems"] = { low = 1, high = 2, stat = { "explicit.stat_146924886" } }
+consideration_mods.Common["+# to Level of all Intelligence Skill Gems"] = { low = 1, high = 2, stat = { "explicit.stat_493812998" } }
+consideration_mods.Common["+# to Level of all Minion Skill Gems"] = { low = 1, high = 2, stat = { "explicit.stat_2162097452" } }
+
 consideration_mods.Common["#% increased Attack Speed"] = { low = 3, high = 30, stat = { "explicit.stat_681332047" } }
 consideration_mods.Common["#% increased Cast Speed"] = { low = 3, high = 30, stat = { "explicit.stat_2891184298" } }
 
