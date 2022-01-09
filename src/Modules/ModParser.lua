@@ -3172,6 +3172,7 @@ local specialModList = {
 	["socketed lightning spells [hd][ae][va][el] (%d+)%% increased spell damage if triggered"] = { },
 	["manifeste?d? dancing dervish disables both weapon slots"] = { },
 	["manifeste?d? dancing dervish dies when rampage ends"] = { },
+	["leftmost (%d+) magic utility flasks constantly apply their flask effects to you"] = function(num) return { } end,
 	-- Legion modifiers
 	["bathed in the blood of (%d+) sacrificed in the name of (.+)"] =  function(num, _, name)
 		return { mod("JewelData", "LIST",
