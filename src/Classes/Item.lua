@@ -161,7 +161,8 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif gameModeStage == "EXPLICIT" then
 					gameModeStage = "DONE"
-				elseif gameModeStage == "FINDIMPLICIT" and self.itemLevel and not line:match(" %(implicit%)") and not line:match(" %(enchant%)") then
+				elseif gameModeStage == "FINDIMPLICIT" and self.itemLevel and not line:match(" %(implicit%)") and
+						not line:match(" %(enchant%)") and not line:find("Talisman Tier") then
 					gameModeStage = "EXPLICIT"
 					foundExplicit = true
 				end
