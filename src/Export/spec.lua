@@ -38,8 +38,8 @@ return {
 		},
 		[2]={
 			list=false,
-			name="",
-			refTo="",
+			name="FlagStat",
+			refTo="Stats",
 			type="Key",
 			width=150
 		}
@@ -145,10 +145,10 @@ return {
 		},
 		[15]={
 			list=false,
-			name="",
+			name="ManuallyCasted",
 			refTo="",
 			type="Bool",
-			width=40
+			width=100
 		},
 		[16]={
 			list=true,
@@ -198,6 +198,55 @@ return {
 			refTo="SkillMines",
 			type="Enum",
 			width=80
+		},
+		[23]={
+			list=false,
+			name="TargetingBehaviours",
+			refTo="AlternateSkillTargetingBehaviours",
+			type="Key",
+			width=250
+		},
+		[24]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[25]={
+			list=false,
+			name="TotemAI",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[26]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[27]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[28]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[29]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		}
 	},
 	Acts={
@@ -620,6 +669,13 @@ return {
 	AlternateQualityTypes={
 	},
 	AlternateSkillTargetingBehaviours={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=270
+		}
 	},
 	AlternateTreePassiveSizes={
 	},
@@ -1111,7 +1167,7 @@ return {
 		[8]={
 			list=false,
 			name="MergeMode",
-			refTo="",
+			refTo="BuffMergeModes",
 			type="Enum",
 			width=70
 		},
@@ -1145,8 +1201,8 @@ return {
 		},
 		[13]={
 			list=false,
-			name="Catagory",
-			refTo="BuffCatagory",
+			name="",
+			refTo="",
 			type="Enum",
 			width=60
 		},
@@ -1282,6 +1338,118 @@ return {
 			refTo="",
 			type="Bool",
 			width=70
+		},
+		[33]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[34]={
+			list=true,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[35]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[36]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[37]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[38]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[39]={
+			list=true,
+			name="Stats",
+			refTo="Stats",
+			type="Key",
+			width=250
+		},
+		[40]={
+			list=true,
+			name="GrantedFlags",
+			refTo="Stats",
+			type="Key",
+			width=250
+		},
+		[41]={
+			list=true,
+			name="GrantedStats",
+			refTo="Stats",
+			type="Key",
+			width=450
+		},
+		[42]={
+			list=true,
+			name="ConditionStats",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[43]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[44]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[45]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[46]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[47]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[48]={
+			list=false,
+			name="",
+			refTo="Stats",
+			type="Key",
+			width=150
 		}
 	},
 	BuffGroups={
@@ -1303,146 +1471,84 @@ return {
 			name="BuffDefinition",
 			refTo="BuffDefinitions",
 			type="Key",
-			width=150
+			width=400
 		},
 		[3]={
-			list=false,
-			name="",
+			list=true,
+			name="StatValues",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[4]={
 			list=false,
+			name="AuraRadius",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[5]={
+			list=true,
 			name="",
 			refTo="",
 			type="Int",
-			width=150
-		},
-		[5]={
-			list=false,
-			name="",
-			refTo="Stats",
-			type="Key",
 			width=150
 		},
 		[6]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[7]={
-			list=false,
+			list=true,
 			name="",
 			refTo="Mods",
 			type="Int",
 			width=150
 		},
+		[7]={
+			list=false,
+			name="Visual",
+			refTo="BuffVisuals",
+			type="Key",
+			width=350
+		},
 		[8]={
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
-			width=150
+			type="Float",
+			width=50
 		},
 		[9]={
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
-			width=150
+			type="Bool",
+			width=50
 		},
 		[10]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[11]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[12]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[13]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[14]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[15]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[16]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[17]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[18]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[19]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[20]={
-			list=false,
-			name="",
-			refTo="",
+			list=true,
+			name="Stats",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=350
+		}
+	},
+	BuffVisualArtVariations={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
 		}
 	},
 	BuffVisualOrbArt={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		}
 	},
 	BuffVisualOrbTypes={
-	},
-	BuffVisualOrbs={
-	},
-	BuffVisualSetEntries={
-	},
-	BuffVisualSets={
-	},
-	BuffVisuals={
 		[1]={
 			list=false,
 			name="Id",
@@ -1452,10 +1558,158 @@ return {
 		},
 		[2]={
 			list=false,
-			name="Icon",
+			name="",
+			refTo="",
+			type="Float",
+			width=70
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Float",
+			width=50
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Float",
+			width=50
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Float",
+			width=50
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[8]={
+			list=false,
+			name="RadiusStat",
+			refTo="Stats",
+			type="Key",
+			width=200
+		},
+		[9]={
+			list=false,
+			name="HeightStat",
+			refTo="Stats",
+			type="Key",
+			width=200
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		}
+	},
+	BuffVisualOrbs={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="OrbType",
+			refTo="BuffVisualOrbTypes",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=true,
+			name="OrbArt",
+			refTo="BuffVisualOrbArt",
+			type="Key",
+			width=250
+		},
+		[4]={
+			list=true,
+			name="OrbArtPlayer",
+			refTo="BuffVisualOrbArt",
+			type="Key",
+			width=250
+		},
+		[5]={
+			list=true,
+			name="OrbArt2",
+			refTo="BuffVisualOrbArt",
+			type="Key",
+			width=150
+		}
+	},
+	BuffVisualSetEntries={
+		[1]={
+			list=false,
+			name="Id",
 			refTo="",
 			type="String",
 			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[3]={
+			list=false,
+			name="Visual",
+			refTo="BuffVisuals",
+			type="Key",
+			width=250
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		}
+	},
+	BuffVisualSets={
+	},
+	BuffVisuals={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="Icon",
+			refTo="",
+			type="String",
+			width=250
 		},
 		[3]={
 			list=true,
@@ -1479,25 +1733,111 @@ return {
 			width=150
 		},
 		[6]={
-			list=true,
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[7]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[8]={
+			list=false,
 			name="",
 			refTo="",
 			type="Key",
 			width=150
 		},
-		[7]={
+		[9]={
 			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="Description",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="EPKFile",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[14]={
+			list=true,
 			name="",
 			refTo="",
 			type="Int",
 			width=150
 		},
-		[8]={
+		[15]={
 			list=true,
+			name="EPKFiles",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[16]={
+			list=true,
+			name="Orbs",
+			refTo="BuffVisualOrbs",
+			type="Key",
+			width=150
+		},
+		[17]={
+			list=false,
 			name="",
 			refTo="",
 			type="Key",
 			width=150
+		}
+	},
+	BuffVisualsArtVariations={
+		[1]={
+			list=false,
+			name="Buff",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=true,
+			name="Visuals",
+			refTo="BuffVisuals",
+			type="Key",
+			width=350
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
 		}
 	},
 	CharacterAudioEvents={
@@ -2812,6 +3152,13 @@ return {
 	GemTypes={
 	},
 	GenericBuffAuras={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	GeometryAttack={
 	},
@@ -5334,6 +5681,27 @@ return {
 			refTo="",
 			type="String",
 			width=350
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[3]={
+			list=false,
+			name="Achievement",
+			refTo="AchievementItems",
+			type="Key",
+			width=210
+		},
+		[4]={
+			list=false,
+			name="Threshold",
+			refTo="",
+			type="Int",
+			width=50
 		}
 	},
 	Music={
@@ -5665,7 +6033,116 @@ return {
 	},
 	PassiveSkillFilterOptions={
 	},
+	PassiveSkillMasteryEffects={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Hash",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[3]={
+			list=true,
+			name="Stats",
+			refTo="Stats",
+			type="Key",
+			width=450
+		},
+		[4]={
+			list=false,
+			name="Stat1",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[5]={
+			list=false,
+			name="Stat2",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[6]={
+			list=false,
+			name="Stat3",
+			refTo="",
+			type="Int",
+			width=80
+		}
+	},
+	PassiveSkillMasteryGroups={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=true,
+			name="MasteryEffects",
+			refTo="PassiveSkillMasteryEffects",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="IconInactive",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="IconActive",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="Background",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[7]={
+			list=false,
+			name="SoundEffect",
+			refTo="SoundEffects",
+			type="Key",
+			width=150
+		}
+	},
 	PassiveSkillStatCategories={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	PassiveSkillTreeTutorial={
 	},
@@ -5738,9 +6215,9 @@ return {
 		[10]={
 			list=true,
 			name="ClassStart",
-			refTo="",
-			type="Int",
-			width=70
+			refTo="Characters",
+			type="Key",
+			width=80
 		},
 		[11]={
 			list=false,
@@ -5772,10 +6249,10 @@ return {
 		},
 		[15]={
 			list=false,
-			name="",
-			refTo="",
+			name="Achievement",
+			refTo="AchievementItems",
 			type="Key",
-			width=40
+			width=150
 		},
 		[16]={
 			list=false,
@@ -5836,7 +6313,7 @@ return {
 		[24]={
 			list=true,
 			name="Buffs",
-			refTo="PassiveSkillBuffs",
+			refTo="BuffTemplates",
 			type="Key",
 			width=150
 		},
@@ -5874,6 +6351,20 @@ return {
 			refTo="",
 			type="Bool",
 			width=60
+		},
+		[30]={
+			list=false,
+			name="Type",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[31]={
+			list=false,
+			name="MasteryGroup",
+			refTo="PassiveSkillMasteryGroups",
+			type="Key",
+			width=150
 		}
 	},
 	PassiveTreeExpansionJewelSizes={
@@ -6381,17 +6872,17 @@ return {
 		},
 		[4]={
 			list=false,
-			name="Proxied",
+			name="WeaponLocal",
 			refTo="",
 			type="Bool",
-			width=50
+			width=80
 		},
 		[5]={
 			list=false,
-			name="",
-			refTo="",
+			name="Semantic",
+			refTo="StatSemantics",
 			type="Enum",
-			width=50
+			width=70
 		},
 		[6]={
 			list=false,
@@ -6402,10 +6893,10 @@ return {
 		},
 		[7]={
 			list=false,
-			name="",
+			name="Name",
 			refTo="",
 			type="String",
-			width=160
+			width=300
 		},
 		[8]={
 			list=false,
@@ -6425,15 +6916,15 @@ return {
 			list=false,
 			name="Main Hand Stat",
 			refTo="Stats",
-			type="Enum",
-			width=150
+			type="ShortKey",
+			width=350
 		},
 		[11]={
 			list=false,
 			name="Off Hand Stat",
 			refTo="Stats",
-			type="Enum",
-			width=150
+			type="ShortKey",
+			width=350
 		},
 		[12]={
 			list=false,
@@ -6458,8 +6949,8 @@ return {
 		},
 		[15]={
 			list=false,
-			name="",
-			refTo="",
+			name="PassiveCategory",
+			refTo="PassiveSkillStatCategories",
 			type="Key",
 			width=110
 		},
@@ -6476,6 +6967,20 @@ return {
 			refTo="",
 			type="Bool",
 			width=50
+		},
+		[18]={
+			list=false,
+			name="IsScalable",
+			refTo="",
+			type="Bool",
+			width=70
+		},
+		[19]={
+			list=true,
+			name="ContextFlags",
+			refTo="VirtualStatContextFlags",
+			type="Key",
+			width=130
 		}
 	},
 	StrDexIntMissionExtraRequirement={
@@ -6545,6 +7050,13 @@ return {
 			refTo="",
 			type="String",
 			width=210
+		},
+		[4]={
+			list=false,
+			name="Text",
+			refTo="",
+			type="String",
+			width=150
 		}
 	},
 	TalismanMonsterMods={
@@ -6612,6 +7124,20 @@ return {
 	UniqueStashTypes={
 	},
 	VirtualStatContextFlags={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		}
 	},
 	VoteState={
 	},
