@@ -15,6 +15,9 @@ local m_ceil = math.ceil
 local m_floor = math.floor
 local m_modf = math.modf
 
+local inspect = LoadModule("inspect")
+
+
 local rarityDropList = { 
 	{ label = colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
 	{ label = colorCodes.MAGIC.."Magic", rarity = "MAGIC" },
@@ -969,6 +972,12 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 				local newItem = Paste()
 				if newItem then
 					self:CreateDisplayItemFromRaw(newItem, true)
+				end
+			elseif event.key == "e" then
+				local mOverControl = self:GetMouseOverControl()
+				if mOverControl and mOverControl._className == "ItemSlotControl" and mOverControl.selItemId ~= 0 then
+					-- Trigger itemList's double click procedure
+					self.controls.itemList:OnSelClick(0, mOverControl.selItemId, true)
 				end
 			elseif event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
