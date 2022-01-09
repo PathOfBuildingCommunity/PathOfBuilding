@@ -79,7 +79,9 @@ function ModListClass:SumInternal(context, modType, cfg, flags, keywordFlags, so
 				if mod[1] then
 					result = result + (context:EvalMod(mod, cfg) or 0)
 				else
-					result = result + mod.value
+					if mod.value then
+						result = result + mod.value
+					end
 				end
 			end
 		end
