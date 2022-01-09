@@ -434,7 +434,6 @@ Rampage
 ]],[[
 Gravebind
 Hydrascale Gauntlets
-League: Scourge
 Requires Level 59, 45 Str, 45 Dex
 Implicits: 0
 (100-150)% increased Armour and Evasion

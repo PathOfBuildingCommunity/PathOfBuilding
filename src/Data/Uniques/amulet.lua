@@ -887,7 +887,7 @@ Implicits: 1
 ]],[[
 Stranglegasp
 Onyx Amulet
-League: Scourge
+Source: Drops in Blight-ravaged Maps
 Requires Level 52
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes

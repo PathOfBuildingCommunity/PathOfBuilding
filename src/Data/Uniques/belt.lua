@@ -480,7 +480,6 @@ Implicits: 1
 ]],[[
 Mageblood
 Heavy Belt
-League: Scourge
 Requires Level 44
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength

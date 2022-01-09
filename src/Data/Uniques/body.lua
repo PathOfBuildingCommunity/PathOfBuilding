@@ -1175,7 +1175,7 @@ Has 6 Abyssal Sockets
 ]],[[
 Stasis Prison
 Carnal Armour
-League: Scourge
+Source: Drops in Uber Timeless Conflict
 Requires Level 71, 88 Dex, 122 Int
 Implicits: 1
 +(20-25) to maximum Mana
