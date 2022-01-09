@@ -885,6 +885,14 @@ Implicits: 1
 {tags:caster}(10-15)% increased Cast Speed
 {tags:mana}+(30-50) to maximum Mana
 ]],[[
+Stranglegasp
+Onyx Amulet
+League: Scourge
+Requires Level 52
+Implicits: 1
+{tags:jewellery_attribute}+(10-16) to all Attributes
+Can have 3 additional Enchantment Modifiers
+]],[[
 Tavukai
 Coral Amulet
 League: Legion

@@ -1173,6 +1173,18 @@ Implicits: 1
 +(20-25) to maximum Mana
 Has 6 Abyssal Sockets
 ]],[[
+Stasis Prison
+Carnal Armour
+League: Scourge
+Requires Level 71, 88 Dex, 122 Int
+Implicits: 1
++(20-25) to maximum Mana
+(140-160)% increased Evasion and Energy Shield
++(80-100) to maximum Life
+Temporal Rift has no Reservation
+(80-100)% of Damage taken Recouped as Life
+Debuffs on you Expire (80-100)% faster
+]],[[
 Tinkerskin
 Sadist Garb
 Requires Level 68, 103 Dex, 109 Int
