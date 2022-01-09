@@ -1912,36 +1912,38 @@ local function SetFilterParameter(id, value)
 end
 
 local function GetItemCategoryFilter(itembase)
-	if itembase:lower():find('ring') then
+	if itembase:find('ring') then
 		return "accessory.ring", 4.0
-	elseif itembase:lower():find('amulet') then
+	elseif itembase:find('amulet') then
 		return "accessory.amulet", 7.5
-	elseif itembase:lower():find('belt') then
+	elseif itembase:find('belt') then
 		return "accessory.belt", 6.0
-	elseif itembase:lower():find('weapon') then
+	elseif itembase:find('weapon') then
 		return "weapon", 3.5
-	elseif itembase:lower():find('socket') then
+	elseif itembase:find('socket') then
 		return "jewel", 3.0
-	elseif itembase:lower():find('flask') then
+	elseif itembase:find('flask') then
 		return "flask", 0.01
-	elseif itembase:lower():find('body') then
+	elseif itembase:find('body') then
 		return "armour.chest", 8.0
+	elseif itembase:find('helmet') then
+		return "armour.helmet", 10.0
 	else
-		-- covers: helmet, gloves, boots
-		return "armour."..itembase:lower(), 4.0
+		-- covers: gloves, boots
+		return "armour."..itembase, 4.0
 	end
 end
 
 function ItemsTabClass:GenerateWeightedSearch(itembase)
-	local searchTbl = self:OrderSearchMods()
-	local category, scaleFactor = GetItemCategoryFilter(itembase)
+	local searchTbl = self:OrderSearchMods(itembase)
+	local category, scaleFactor = GetItemCategoryFilter(itembase:lower())
 	local desiredMinWeight = 100 * scaleFactor
 	local retStr = '{"query":{"stats":[{"type":"and","filters":[],"disabled":false},{"type":"weight","value":{"min":'..tostring(desiredMinWeight)..'},"filters":['
 	local count = 0
 	for _, modTbl in ipairs(searchTbl) do
 		retStr = retStr .. SetFilterParameter(modTbl.modName, modTbl.dps + modTbl.ehp)
 		count = count + 1
-		if count >= 16 then
+		if count >= 30 then
 			break
 		end
 	end
@@ -2002,15 +2004,17 @@ function ItemsTabClass:GenerateSearchMods()
 	end
 end
 
-function ItemsTabClass:OrderSearchMods()
+function ItemsTabClass:OrderSearchMods(slotName)
 	local val = LoadModule("Data/SearchModList")
-	local newTbl = {}
-	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
-	local slotName = "Amulet"
-	local scaleFactor = 2000
 	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+	local newTbl = {}
 	local selItem = self.items[self.slots[slotName].selItemId]
+	local blankItemBaseName = selItem and selItem.baseName or "Unset Amulet"
+	local blankItem = new("Item", "Comp Item\n" .. blankItemBaseName .. "\n")
+	local calcFunc, _ = self.build.calcsTab:GetMiscCalculator()
+	local calcBase = calcFunc({ repSlotName = slotName, repItem = blankItem }, {})
+	local scaleFactor = 2000
 	for _, slotType in ipairs({"Common"}) do
 		if val[slotType] then
 			for line, statTbl in pairs(val[slotType]) do
@@ -2018,7 +2022,7 @@ function ItemsTabClass:OrderSearchMods()
 				local newEHP = 0
 				if line:find("# to #") then
 					local corrected_line = line:gsub('# to #', statTbl.low .. " to " .. statTbl.high)
-					local item = new("Item", selItem:BuildRaw())
+					local item = new("Item", blankItem:BuildRaw())
 					t_insert(item.explicitModLines, { line = corrected_line, order = #item.explicitModLines })
 					item:BuildAndParseRaw()
 					local output = calcFunc({ repSlotName = slotName, repItem = item ~= selItem and item }, {})
@@ -2037,7 +2041,7 @@ function ItemsTabClass:OrderSearchMods()
 					local corrected_line = "<MISSING>"
 					for _, key in pairs({"low", "high"}) do
 						corrected_line = line:gsub('#', statTbl[key])
-						local item = new("Item", selItem:BuildRaw())
+						local item = new("Item", blankItem:BuildRaw())
 						t_insert(item.explicitModLines, { line = corrected_line, order = #item.explicitModLines })
 						item:BuildAndParseRaw()
 						local output = calcFunc({ repSlotName = slotName, repItem = item ~= selItem and item }, {})
@@ -2290,7 +2294,7 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_
 		end
 		return validURL and self:PriceBuilderCanSearch(controls) and self:PriceBuilderCanFetch(controls)
 	end
-	controls['bestButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 10, row_height, "", function()
+	controls['bestButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 10, row_height, "?", function()
 		self:PriceBuilderInsertSearchRequest()
 		self:SearchItem("Scourge", self:GenerateWeightedSearch(slotTbl.name), slotTbl, controls, str_cnt)
 	end)

@@ -28,11 +28,16 @@ consideration_mods.Common["+# to Dexterity and Intelligence"] = { low = 1, high 
 consideration_mods.Common["+# to all Attributes"] = { low = 1, high = 35, stat = { "explicit.stat_1379411836" } }
 consideration_mods.Common["#% increased Attributes"] = { low = 4, high = 12, stat = { "explicit.stat_3143208761" } }
 
-consideration_mods.Common["+#% to Fire Resistance"] = { low = 1, high = 30, stat = { "explicit.stat_3372524247" } }
-consideration_mods.Common["+#% to Cold Resistance"] = { low = 1, high = 30, stat = { "explicit.stat_4220027924" } }
-consideration_mods.Common["+#% to Lightning Resistance"] = { low = 1, high = 30, stat = { "explicit.stat_1671376347" } }
+consideration_mods.Common["+#% to maximum Fire Resistance"] = { low = 1, high = 3, stat = { "explicit.stat_4095671657" } }
+consideration_mods.Common["+#% to maximum Cold Resistance"] = { low = 1, high = 3, stat = { "explicit.stat_3676141501" } }
+consideration_mods.Common["+#% to maximum Lightning Resistance"] = { low = 1, high = 3, stat = { "explicit.stat_1011760251" } }
+consideration_mods.Common["+#% to maximum Chaos Resistance"] = { low = 1, high = 3, stat = { "explicit.stat_1301765461" } }
+
+consideration_mods.Common["+#% to Fire Resistance"] = { low = 1, high = 48, stat = { "explicit.stat_3372524247" } }
+consideration_mods.Common["+#% to Cold Resistance"] = { low = 1, high = 48, stat = { "explicit.stat_4220027924" } }
+consideration_mods.Common["+#% to Lightning Resistance"] = { low = 1, high = 48, stat = { "explicit.stat_1671376347" } }
 consideration_mods.Common["+#% to all Elemental Resistances"] = { low = 3, high = 22, stat = { "explicit.stat_2901986750" } }
-consideration_mods.Common["+#% to Chaos Resistance"] = { low = 1, high = 30, stat = { "explicit.stat_2923486259" } }
+consideration_mods.Common["+#% to Chaos Resistance"] = { low = 1, high = 48, stat = { "explicit.stat_2923486259" } }
 consideration_mods.Common["+#% to Fire and Chaos Resistances"] = { low = 1, high = 30, stat = { "explicit.stat_378817135" } }
 consideration_mods.Common["+#% to Cold and Chaos Resistances"] = { low = 1, high = 30, stat = { "explicit.stat_3393628375" } }
 consideration_mods.Common["+#% to Lightning and Chaos Resistances"] = { low = 1, high = 30, stat = { "explicit.stat_3465022881" } }
