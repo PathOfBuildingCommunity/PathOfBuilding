@@ -23,7 +23,7 @@ League: Endless Races
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
-{tags:attack}40% increased Global Accuracy Rating
+40% increased Global Accuracy Rating
 Adds 2 to 6 Physical Damage
 2% Increased Movement Speed per Frenzy Charge
 +1 to Maximum Frenzy Charges
@@ -36,7 +36,7 @@ League: Endless Races
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
-{tags:critical}30% increased Global Critical Strike Chance
+30% increased Global Critical Strike Chance
 Adds 1 to 4 Physical Damage
 10% Increased Attack Speed
 100% Increased Critical Strike Chance
@@ -62,7 +62,7 @@ EvasionBasePercentile: 1
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
-{tags:speed}3% increased Movement Speed
+3% increased Movement Speed
 30% Chance to Block Spell Damage
 +15 to Maximum Life
 +3% to All Elemental Resistances per Endurance Charge
@@ -88,7 +88,7 @@ League: Endless Races
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
-{tags:resource,life,attack}+3 Life gained for each Enemy hit by Attacks
++3 Life gained for each Enemy hit by Attacks
 Socketed Gems have 50% Reduced Mana Cost
 Grants Level 20 Hatred Skill
 Adds 2 to 6 Physical Damage
@@ -100,7 +100,7 @@ League: Endless Races
 Quality: 0
 LevelReq: 1
 Implicits: 1
-{tags:physical_damage,damage,physical,attack}Adds 1 to 4 Physical Damage to Bow Attacks
+Adds 1 to 4 Physical Damage to Bow Attacks
 +10% To All Elemental Resistances
 50% Increased Duration of Elmental Ailments on Enemies
 10% Chance to Freeze
@@ -114,7 +114,7 @@ League: Endless Races
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
-{tags:caster_damage,damage,caster}{range:0.5}(8-12)% increased Spell Damage
+(8-12)% increased Spell Damage
 20% Increased Spell Damage
 12% Increased Cast Speed
 Regenerate 2 Mana Per Second
@@ -128,7 +128,7 @@ League: Endless Races
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
-{tags:attack}40% increased Global Accuracy Rating
+40% increased Global Accuracy Rating
 Adds 1 to 9 Lightning Damage
 +40% To Lightning Resistance
 9% Chance to Shock
@@ -141,7 +141,7 @@ League: Endless Races
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
-{tags:block}+18% Chance to Block Attack Damage while wielding a Staff
++18% Chance to Block Attack Damage while wielding a Staff
 16% Chance to Block Attack Damage
 Adds 2 to 4 Physical Damage
 15% Increased Area of Effect
