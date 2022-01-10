@@ -5,7 +5,7 @@ return {
 [[
 Ashes of the Sun
 Driftwood Club
-League: Endless Races
+League: Race Events
 Quality: 0
 Sockets: W-W-W
 LevelReq: 1
@@ -19,7 +19,7 @@ Adds 3 to 6 Fire Damage
 ]],[[
 Blood of Summer
 Rusted Sword
-League: Endless Races
+League: Race Events
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
@@ -32,7 +32,7 @@ Adds 2 to 6 Physical Damage
 ]],[[
 Fragment of Eternity
 Glass Shank
-League: Endless Races
+League: Race Events
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
@@ -45,7 +45,7 @@ Adds 1 to 4 Physical Damage
 ]],[[
 Relic of the Cycle
 Crude Bow
-League: Endless Races
+League: Race Events
 Quality: 0
 Sockets: W-W-W
 Implicits: 0
@@ -56,7 +56,7 @@ Projectiles Return to you from Final Target
 ]],[[
 Remnant of Empires
 Goathide Buckler
-League: Endless Races
+League: Race Events
 Evasion: 24
 EvasionBasePercentile: 1
 Quality: 0
@@ -72,7 +72,7 @@ Reflects 4 to 8 Physical Damage to Attackers on Block
 ]],[[
 Rust of Winter
 Rusted Hatchet
-League: Endless Races
+League: Race Events
 Quality: 0
 Sockets: W-W-W
 LevelReq: 1
@@ -84,7 +84,7 @@ Your Physical Damage can Chill
 ]],[[
 Scar of Fate
 Nailed Fist
-League: Endless Races
+League: Race Events
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
@@ -96,7 +96,7 @@ Adds 2 to 6 Physical Damage
 ]],[[
 Slivers of Providence
 Serrated Arrow Quiver
-League: Endless Races
+League: Race Events
 Quality: 0
 LevelReq: 1
 Implicits: 1
@@ -110,7 +110,7 @@ Gain 25% of Weapon Physical Damage as Extra Damage of a Random Element
 ]],[[
 Splinter of the Moon
 Driftwood Wand
-League: Endless Races
+League: Race Events
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
@@ -124,7 +124,7 @@ Regenerate 2 Mana Per Second
 ]],[[
 Thunder of Dawn
 Corroded Blade
-League: Endless Races
+League: Race Events
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
@@ -137,7 +137,7 @@ When you kill a Shocked Enemy, Inflict an Equivalent Shock on Each Nearby Enemy
 ]],[[
 Vestige of Divinity
 Gnarled Branch
-League: Endless Races
+League: Race Events
 Quality: 0
 Sockets: W-W-W
 Implicits: 1
