@@ -45,8 +45,8 @@ Requires Level 65, 177 Str
 {variant:1}10% reduced Movement Speed
 {variant:1}50% increased Shock Duration on You
 Take no Extra Damage from Critical Strikes
-{variant:2}+(1-2) to all maximum Resistances
-{variant:2}Gain no inherent bonuses from Strength
+{variant:2}+(1-5) to all maximum Elemental Resistances
+{variant:2}Strength provides no bonus to Maximum Life 
 ]],[[
 Craiceann's Carapace
 Golden Plate
@@ -1172,6 +1172,18 @@ Requires Level 71, 88 Dex, 122 Int
 Implicits: 1
 +(20-25) to maximum Mana
 Has 6 Abyssal Sockets
+]],[[
+Stasis Prison
+Carnal Armour
+Source: Drops in Uber Timeless Conflict
+Requires Level 71, 88 Dex, 122 Int
+Implicits: 1
++(20-25) to maximum Mana
+(140-160)% increased Evasion and Energy Shield
++(80-100) to maximum Life
+Temporal Rift has no Reservation
+(80-100)% of Damage taken Recouped as Life
+Debuffs on you Expire (80-100)% faster
 ]],[[
 Tinkerskin
 Sadist Garb

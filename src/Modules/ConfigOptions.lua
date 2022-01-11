@@ -16,7 +16,7 @@ return {
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse Life:", tooltip = "Sets the maximum life of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base life, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },
-	{ var = "conditionStationary", type = "count", label = "Are you stationary?", ifFlag = "Condition:Stationary",
+	{ var = "conditionStationary", type = "count", label = "Time spent stationary", ifCond = "Stationary",
 		tooltip = "Applies mods that use `while stationary` and `per/every second while stationary`",
 		apply = function(val, modList, enemyModList)
 		if type(val) == "boolean" then
@@ -41,8 +41,14 @@ return {
 	{ var = "conditionLowLife", type = "check", label = "Are you always on Low Life?", ifCond = "LowLife", tooltip = "You will automatically be considered to be on Low Life if you have at least 50% life reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LowLife", "FLAG", true, "Config")
 	end },
+	{ var = "conditionLowMana", type = "check", label = "Are you always on Low Mana?", ifCond = "LowMana", tooltip = "You will automatically be considered to be on Low Mana if you have at least 50% life reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:LowMana", "FLAG", true, "Config")
+	end },
 	{ var = "conditionFullEnergyShield", type = "check", label = "Are you always on Full Energy Shield?", ifCond = "FullEnergyShield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FullEnergyShield", "FLAG", true, "Config")
+	end },
+	{ var = "conditionLowEnergyShield", type = "check", label = "Are you always on Low Energy Shield?", tooltip = "You will automatically be considered to be on Low Energy Shield if you have at least 50% ES reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:LowEnergyShield", "FLAG", true, "Config")
 	end },
 	{ var = "conditionHaveEnergyShield", type = "check", label = "Do you always have Energy Shield?", ifCond = "HaveEnergyShield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:HaveEnergyShield", "FLAG", true, "Config")
@@ -62,7 +68,13 @@ return {
 			modList:NewMod("Condition:LifeRegenBurstFull", "FLAG", true, "Config")
 		end
 	end },
-	{ var = "armourCalculationMode", type = "list", label = "Armour calculation mode:", tooltip = "Controls how Defending with Double Armour is calculated:\n\tMinimum: never Defend with Double Armour\n\tAverage: Damage Reduction from Defending with Double Armour is proportional to chance\n\tMaximum: always Defend with Double Armour\nThis setting has no effect if you have 100% chance to Defend with Double Armour.", list = {{val="MIN",label="Minimum"},{val="AVERAGE",label="Average"},{val="MAX",label="Maximum"}} },
+	{ var = "armourCalculationMode", type = "list", label = "Armour calculation mode:", tooltip = "Controls how Defending with Double Armour is calculated:\n\tMinimum: never Defend with Double Armour\n\tAverage: Damage Reduction from Defending with Double Armour is proportional to chance\n\tMaximum: always Defend with Double Armour\nThis setting has no effect if you have 100% chance to Defend with Double Armour.", list = {{val="MIN",label="Minimum"},{val="AVERAGE",label="Average"},{val="MAX",label="Maximum"}}, apply = function(val, modList, enemyModList)
+		if val == "MAX" then
+			modList:NewMod("Condition:ArmourMax", "FLAG", true, "Config")
+		elseif val == "AVERAGE" then
+			modList:NewMod("Condition:ArmourAvg", "FLAG", true, "Config")
+		end
+	end },
 	{ var = "EhpCalcMode", type = "list", label = "EHP calculation mode:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\tMinimum: calculates each one and uses the worst\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Minimum",label="Minimum"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
 	{ var = "warcryMode", type = "list", label = "Warcry calculation mode:", ifSkillList = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry", "Battlemage's Cry" }, tooltip = "Controls how exerted attacks from Warcries are calculated:\nAverage: Averages out Warcry usage with cast time, attack speed and warcry cooldown .\nMax Hit: Shows maximum hit for lining up all warcries.", list = {{val="AVERAGE",label="Average"},{val="MAX",label="Max Hit"}}, apply = function(val, modList, enemyModList)
 		if val == "MAX" then
@@ -101,12 +113,12 @@ return {
 	{ var = "aspectOfTheSpiderWebStacks", type = "count", label = "# of Spider's Web Stacks:", ifSkill = "Aspect of the Spider", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraSkillMod", "LIST", { mod = modLib.createMod("Multiplier:SpiderWebApplyStack", "BASE", val) }, "Config", { type = "SkillName", skillName = "Aspect of the Spider" })
 	end },
-	{ label = "Banner Skills:", ifSkillList = { "Dread Banner", "War Banner" } },
-	{ var = "bannerPlanted", type = "check", label = "Is Banner Planted?", ifSkillList = { "Dread Banner", "War Banner" }, apply = function(val, modList, enemyModList)
+	{ label = "Banner Skills:", ifSkillList = { "Dread Banner", "War Banner", "Defiance Banner" } },
+	{ var = "bannerPlanted", type = "check", label = "Is Banner Planted?", ifSkillList = { "Dread Banner", "War Banner", "Defiance Banner" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BannerPlanted", "FLAG", true, "Config")
 	end },
-	{ var = "bannerStages", type = "count", label = "Banner Stages:", ifSkillList = { "Dread Banner", "War Banner" }, apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:BannerStage", "BASE", m_min(val, 50), "Config", { type = "SkillName", skillNameList = { "Dread Banner", "War Banner" } })
+	{ var = "bannerStages", type = "count", label = "Banner Stages:", ifSkillList = { "Dread Banner", "War Banner", "Defiance Banner" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:BannerStage", "BASE", m_min(val, 50), "Config")
 	end },
 	{ label = "Bladestorm:", ifSkill = "Bladestorm" },
 	{ var = "bladestormInBloodstorm", type = "check", label = "Are you in a Bloodstorm?", ifSkill = "Bladestorm", apply = function(val, modList, enemyModList)
@@ -167,6 +179,10 @@ return {
 		elseif val == "Lightning" then
 			modList:NewMod("LightningExposureChance", "BASE", 100, "Config")
 		end
+	end },
+	{ label = "Embrace Madness:", ifSkill = "Embrace Madness" },
+	{ var = "embraceMadnessActive", type = "check", label = "Is Embrace Madness active?", ifSkill = "Embrace Madness", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:AffectedByGloriousMadness", "FLAG", true, "Config")
 	end },
 	{ label = "Feeding Frenzy:", ifSkill = "Feeding Frenzy" },
 	{ var = "feedingFrenzyFeedingFrenzyActive", type = "check", label = "Is Feeding Frenzy active?", ifSkill = "Feeding Frenzy", tooltip = "Feeding Frenzy grants:\n\t10% more Minion Damage\n\t10% increased Minion Movement Speed\n\t10% increased Minion Attack and Cast Speed", apply = function(val, modList, enemyModList)
@@ -335,6 +351,10 @@ return {
 	{ label = "Herald of Ash:", ifSkill = "Herald of Ash" },
 	{ var = "hoaOverkill", type = "count", label = "Overkill damage:", tooltip = "Herald of Ash's base burning damage is equal to 25% of Overkill damage.", ifSkill = "Herald of Ash", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "hoaOverkill", value = val }, "Config", { type = "SkillName", skillName = "Herald of Ash" })
+	end },
+	{ label = "Voltaxic Burst:", ifSkill = "Voltaxic Burst" },
+	{ var = "voltaxicBurstSpellsQueued", type = "count", label = "# of Casts currently waiting:", ifSkill = "Voltaxic Burst", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:VoltaxicWaitingStages", "BASE", val, "Config")
 	end },
 	{ label = "Vortex:", ifSkill = "Vortex" },
 	{ var = "vortexCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Vortex", apply = function(val, modList, enemyModList)
@@ -601,8 +621,9 @@ return {
 	{ var = "buffPhasing", type = "check", label = "Do you have Phasing?", ifCond = "Phasing", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Phasing", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffFortify", type = "check", label = "Do you have Fortify?", tooltip = "In addition to allowing any 'while you have Fortify' modifiers to apply,\n this will enable the Fortify buff itself. (Grants 20% less Damage taken from Hits)", ifCond = "Fortify", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:Fortify", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	{ var = "multiplierFortification", type = "count", label = "# of Fortification Stacks:", tooltip = "You have 1% less damage taken from hits per stack of fortification:\nHas a default cap of 20 stacks.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:Fortification", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:Fortified", "FLAG", val >= 1, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffTailwind", type = "check", label = "Do you have Tailwind?", tooltip = "In addition to allowing any 'while you have Tailwind' modifiers to apply,\nthis will enable the Tailwind buff itself. (Grants 8% increased Action Speed)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Tailwind", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -616,7 +637,7 @@ return {
 	{ var = "buffVaalArcLuckyHits", type = "check", label = "Do you have Vaal Arc's Lucky Buff?", ifCond = "CanBeLucky",  tooltip = "Causes Damage with Arc Hits to be rolled twice, and the maximum roll used.", apply = function(val, modList, enemyModList)
 		modList:NewMod("LuckyHits", "FLAG", true, "Config", { type = "Condition", varList = { "Combat", "CanBeLucky" } }, { type = "SkillName", skillNameList = { "Arc", "Vaal Arc" } })
 	end },
-	{ var = "buffElusive", type = "check", label = "Are you Elusive?", ifFlag = "Condition:CanBeElusive", tooltip = "In addition to allowing any 'while Elusive' modifiers to apply,\nthis will enable the Elusive buff itself:\n\t15% Chance to Dodge Attack and Spell Hits\n\t30% increased Movement Speed\nThe effect of Elusive decays over time.", apply = function(val, modList, enemyModList)
+	{ var = "buffElusive", type = "check", label = "Are you Elusive?", ifFlag = "Condition:CanBeElusive", tooltip = "In addition to allowing any 'while Elusive' modifiers to apply,\nthis will enable the Elusive buff itself:\n\t15% Chance to Avoid all Damage from Hits\n\t30% increased Movement Speed\nThe effect of Elusive decays over time.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Elusive", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanBeElusive" })
 		modList:NewMod("Elusive", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanBeElusive" })
 	end },
@@ -835,6 +856,9 @@ return {
 	{ var = "multiplierBeenHitRecently", type = "count", label = "# of times you have been Hit Recently:", ifMult = "BeenHitRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:BeenHitRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:BeenHitRecently", "FLAG", 1 <= val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionBeenHitByAttackRecently", type = "check", label = "Have you been Hit by an Attack Recently?", ifCond = "BeenHitByAttackRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BeenHitByAttackRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionBeenCritRecently", type = "check", label = "Have you been Crit Recently?", ifCond = "BeenCritRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BeenCritRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1199,6 +1223,9 @@ return {
 	end },
 	{ var = "conditionEnemyIntimidated", type = "check", label = "Is the enemy Intimidated?", tooltip = "Intimidated enemies take 10% increased Attack Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Intimidated", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyCrushed", type = "check", label = "Is the enemy Crushed?", tooltip = "Crushed enemies have 15% reduced Physical Damage Reduction.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:Crushed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionNearLinkedTarget", type = "check", label = "Is the enemy near you Linked target?", ifEnemyCond = "NearLinkedTarget", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:NearLinkedTarget", "FLAG", true, "Config", { type = "Condition", var = "Effective" })

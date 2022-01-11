@@ -78,7 +78,7 @@ Implicits: 1
 {variant:2}{tags:mana}(16-24)% increased maximum Mana
 {variant:1}{tags:mana}(40-60)% increased Mana Regeneration Rate
 {variant:2}{tags:mana}(80-100)% increased Mana Regeneration Rate
-{tags:jewellery_attribute}Items and Gems have 25% reduced Attribute Requirements
+Items and Gems have 25% reduced Attribute Requirements
 ]],[[
 Replica Atziri's Foible
 Paua Amulet
@@ -478,11 +478,15 @@ Hinekora's Sight
 Onyx Amulet
 Source: Any prophecy{Prophecy} enemy
 Requires Level 20
+Variant: Pre 3.16.0
+Variant: Current
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
-{tags:attack}+1000 to Accuracy Rating
-(6-10)% chance to Dodge Attacks
-(6-10)% chance to Dodge Spell Damage
+{variant:1}{tags:attack}+1000 to Accuracy Rating
+{variant:2}{tags:attack}+(600-1000) to Accuracy Rating
+{variant:2}{tags:jewellery_defense}+(600-1000) to Evasion Rating
+{variant:1}(12-20)% chance to Suppress Spell Damage
+{variant:2}Prevent +3% of Suppressed Spell Damage
 Cannot be Blinded
 ]],[[
 Hyrri's Truth
@@ -743,7 +747,7 @@ Implicits: 1
 {tags:life}+(40-80) to maximum Life
 {tags:mana}+(20-40) to maximum Mana
 {tags:jewellery_elemental}20% increased Duration of Elemental Ailments on Enemies
-{tags:jewellery_attribute}Items and Gems have 10% reduced Attribute Requirements
+Items and Gems have 10% reduced Attribute Requirements
 {tags:jewellery_elemental}5% chance to Freeze, Shock and Ignite
 Cannot gain Power Charges
 ]],[[
@@ -881,6 +885,14 @@ Implicits: 1
 {tags:caster}(10-15)% increased Cast Speed
 {tags:mana}+(30-50) to maximum Mana
 ]],[[
+Stranglegasp
+Onyx Amulet
+Source: Drops in Blight-ravaged Maps
+Requires Level 52
+Implicits: 1
+{tags:jewellery_attribute}+(10-16) to all Attributes
+Can have 3 additional Enchantment Modifiers
+]],[[
 Tavukai
 Coral Amulet
 League: Legion
@@ -921,6 +933,18 @@ Implicits: 1
 {tags:mana}+(30-50) to maximum Mana
 40% increased Stun and Block Recovery
 Your Critical Strikes do not deal extra Damage
+]],[[
+Uul-Netol's Vow
+Unset Amulet
+Source: Drops from Flawless Breachlords
+Requires Level 72
+Implicits: 1
+Has 1 Socket
+Socketed Support Gems can also Support Skills from your Body Armour
+{tags:jewellery_resistance}+(-30-30)% to Fire Resistance
+{tags:jewellery_resistance}+(-30-30)% to Cold Resistance
+{tags:jewellery_resistance}+(-30-30)% to Lightning Resistance
+{tags:chaos,jewellery_resistance}+(-23-23)% to Chaos Resistance
 ]],[[
 Victario's Acuity
 Turquoise Amulet

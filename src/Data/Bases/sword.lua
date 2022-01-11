@@ -79,8 +79,8 @@ itemBases["Hook Sword"] = {
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { maraketh = true, onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
-	implicit = "4% chance to Dodge Attack Hits",
-	implicitModTypes = { { "dodge" }, },
+	implicit = "15% chance to Maim on Hit",
+	implicitModTypes = { { "attack" }, },
 	weapon = { PhysicalMin = 28, PhysicalMax = 60, CritChanceBase = 5, AttackRateBase = 1.15, Range = 11, },
 	req = { level = 34, str = 64, dex = 64, },
 }
@@ -151,8 +151,8 @@ itemBases["Grappler"] = {
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { maraketh = true, onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
-	implicit = "4% chance to Dodge Attack Hits",
-	implicitModTypes = { { "dodge" }, },
+	implicit = "15% chance to Maim on Hit",
+	implicitModTypes = { { "attack" }, },
 	weapon = { PhysicalMin = 44, PhysicalMax = 94, CritChanceBase = 5, AttackRateBase = 1.15, Range = 11, },
 	req = { level = 55, str = 99, dex = 99, },
 }
@@ -223,8 +223,8 @@ itemBases["Tiger Hook"] = {
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { maraketh = true, onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
-	implicit = "6% chance to Dodge Attack Hits",
-	implicitModTypes = { { "dodge" }, },
+	implicit = "20% chance to Maim on Hit",
+	implicitModTypes = { { "attack" }, },
 	weapon = { PhysicalMin = 37, PhysicalMax = 80, CritChanceBase = 5, AttackRateBase = 1.4, Range = 11, },
 	req = { level = 70, str = 119, dex = 119, },
 }

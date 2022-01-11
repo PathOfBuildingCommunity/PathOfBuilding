@@ -43,8 +43,14 @@ local function writeMods(outName, condFunc)
 					out:write('type = "Suffix", ')
 				elseif mod.GenerationType == 5 then
 					out:write('type = "Corrupted", ')
+				elseif mod.GenerationType == 25 or mod.GenerationType == 24 then
+					out:write('type = "Scourge", ')
 				end
 				out:write('affix = "', mod.Name, '", ')
+				if string.find(mod.Family, "LocalDisplayNearbyEnemy") and #stats > 1 and #orders > 1 then
+					table.remove(stats, 1)
+					table.remove(orders, 1)
+				end
 				out:write('"', table.concat(stats, '", "'), '", ')
 				out:write('statOrderKey = "', table.concat(orders, ','), '", ')
 				out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
@@ -81,7 +87,9 @@ local function writeMods(outName, condFunc)
 end
 
 writeMods("../Data/ModItem.lua", function(mod)
-	return (mod.Domain == 1 or mod.Domain == 16) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
+	return (mod.Domain == 1 or mod.Domain == 16)
+			and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5 or mod.GenerationType == 25 or mod.GenerationType == 24)
+			and not mod.Id:match("^Hellscape[UpDown]+sideMap")
 end)
 writeMods("../Data/ModFlask.lua", function(mod)
 	return mod.Domain == 2 and (mod.GenerationType == 1 or mod.GenerationType == 2)
@@ -93,7 +101,7 @@ writeMods("../Data/ModJewelAbyss.lua", function(mod)
 	return (mod.Domain == 13 or mod.Domain == 16) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
 end)
 writeMods("../Data/ModJewelCluster.lua", function(mod)
-	return mod.Domain == 21 and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5)
+	return (mod.Domain == 21 and (mod.GenerationType == 1 or mod.GenerationType == 2)) or (mod.Domain == 10 and mod.GenerationType == 5)
 end)
 writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)
 	return mod.Family == "AuraBonus" and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")

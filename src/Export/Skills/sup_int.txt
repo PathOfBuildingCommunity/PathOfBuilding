@@ -9,22 +9,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAddedChaosDamagePlus
-	statMap = {
-		["supported_active_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
-		},
-	},
 #mods
 
 #skill SupportAddedLightningDamage
 #mods
 
 #skill SupportAddedLightningDamagePlus
-	statMap = {
-		["supported_lightning_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.LightningSkill }),
-		},
-	},
 #mods
 
 #skill SupportArcaneSurge
@@ -63,11 +53,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBlasphemyPlus
-	statMap = {
-		["supported_curse_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, KeywordFlag.Curse),
-		},
-	},
 #mods
 
 #skill SupportBonechill
@@ -85,7 +70,7 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannelling
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
 			div = 1000,
 		},
 	},
@@ -97,18 +82,13 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannellingPlus
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
 			div = 1000,
 		},
 	},
 #mods
 
 #skill SupportCastWhileChannellingTriggeredPlus
-	statMap = {
-		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
-		},
-	},
 #mods
 
 #skill SupportChanceToIgnite
@@ -317,8 +297,11 @@ local skills, mod, flag, skill = ...
 #skill ViciousHexExplosion
 #flags spell area
 	statMap = {
-		["doom_blast_damage_+%_final_per_5_doom_on_hex"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
+		["doom_blast_hit_damage_+%_final_per_5_doom_on_hex"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
+		},
+		["doom_blast_ailment_damage_+%_final_per_5_doom_on_hex"] = {
+			mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
 		},
 	},
 #baseMod skill("radius", 20)
@@ -393,11 +376,11 @@ local skills, mod, flag, skill = ...
 			mod("InfusionEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
-#baseMod flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.PhysicalSkill })
-#baseMod flag("Condition:FireInfusion", { type = "SkillType", skillType = SkillType.FireSkill })
-#baseMod flag("Condition:ColdInfusion", { type = "SkillType", skillType = SkillType.ColdSkill })
-#baseMod flag("Condition:LightningInfusion", { type = "SkillType", skillType = SkillType.LightningSkill })
-#baseMod flag("Condition:ChaosInfusion", { type = "SkillType", skillType = SkillType.ChaosSkill })
+#baseMod flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.Physical })
+#baseMod flag("Condition:FireInfusion", { type = "SkillType", skillType = SkillType.Fire })
+#baseMod flag("Condition:ColdInfusion", { type = "SkillType", skillType = SkillType.Cold })
+#baseMod flag("Condition:LightningInfusion", { type = "SkillType", skillType = SkillType.Lightning })
+#baseMod flag("Condition:ChaosInfusion", { type = "SkillType", skillType = SkillType.Chaos })
 #mods
 
 #skill SupportOnslaughtOnSlayingShockedEnemy
@@ -543,7 +526,7 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
-			skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanMine }),
+			skill("showAverage", true, { type = "SkillType", skillType = SkillType.Mineable }),
 		},
 		["support_gem_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Mine),

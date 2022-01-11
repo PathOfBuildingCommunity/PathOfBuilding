@@ -30,6 +30,7 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/SummonedSkull/SummonedSkull SummonedRagingSpirit
+#mod mod("SkillPhysicalDamageConvertToFire", "BASE", 100)
 #limit ActiveRagingSpiritLimit
 #emit
 

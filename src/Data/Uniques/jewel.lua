@@ -28,7 +28,7 @@ Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds
 Apparitions
 Viridian Jewel
 Minions have (5-10)% increased Movement Speed
-Minions have (2-5)% additional chance to Dodge Attacks
+Minions have +(2-5)% chance to Suppress Spell Damage
 ]],[[
 The Blue Dream
 Cobalt Jewel
@@ -265,14 +265,18 @@ Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 The Green Nightmare
+Variant: Pre 3.16.0
+Variant: Current
 Viridian Jewel
 League: Breach
 Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
 Gain 5% of Cold Damage as Extra Chaos Damage
-Passives granting Cold Resistance or all Elemental Resistances in Radius
-also grant Chance to Dodge Attack Hits at 35% of its value
+{variant:1}Passives granting Cold Resistance or all Elemental Resistances in Radius
+{variant:1}also grant Chance to Suppress Spell Damage at 35% of its value
+{variant:2}Passives granting Cold Resistance or all Elemental Resistances in Radius
+{variant:2}also grant Chance to Suppress Spell Damage at 50% of its value
 Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
@@ -1019,11 +1023,17 @@ With 40 total Dexterity and Strength in Radius, Prismatic Skills deal 50% less L
 Collateral Damage
 Viridian Jewel
 Limited to: 2
+Variant: Pre 3.9.0
+Variant: Current
 Radius: Medium
-(10-15)% increased Physical Damage
-With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
-With at least 40 Dexterity in Radius, Shrapnel Shot's
+(10-15)% increased Global Physical Damage
+{variant:1}With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
+{variant:1}With at least 40 Dexterity in Radius, Shrapnel Shot's
 cone has a 50% chance to deal Double Damage
+{variant:2}With at least 40 Dexterity in Radius, Galvanic Arrow deals
+50% increased Area Damage
+{variant:2}With at least 40 Dexterity in Radius, Galvanic Arrow has
+25% increased Area of Effect
 ]],[[
 Dead Reckoning
 Cobalt Jewel
@@ -1539,33 +1549,36 @@ Projectiles Pierce an additional Target
 ]],[[
 Survival Instincts
 Viridian Jewel
-Limited to: 1
+Limited to: 1 Survival
 Variant: Pre 3.16.0
 Variant: Current
 {variant:1}+20 to Dexterity
 {variant:1}+6% to all Elemental Resistances
-{variant:2}50% chance for Flasks you use to not consume Charges
-{variant:2}70% less Flask Charges gained from Kills
+{variant:2}20% reduced Flask Charges gained
+{variant:2}50% increased Flask Effect Duration
+Survival
 ]],[[
 Survival Secrets
 Cobalt Jewel
-Limited to: 1
+Limited to: 1 Survival
 Variant: Pre 3.16.0
 Variant: Current
 {variant:1}3 Mana Regenerated per second
 {variant:1}10% increased Elemental Damage
-{variant:2}Flasks gain 2 Charges every 3 seconds while they are inactive
-{variant:2}50% less Flask Effect Duration
+{variant:2}Flasks applied to you have 20% reduced Effect
+{variant:2}Flasks gain 3 Charges every 3 seconds while they are inactive
+Survival
 ]],[[
 Survival Skills
 Crimson Jewel
-Limited to: 1
+Limited to: 1 Survival
 Variant: Pre 3.16.0
 Variant: Current
 {variant:1}10% increased Global Physical Damage
 {variant:1}+50 to Armour
 {variant:2}Flasks gain 2 Charges when you hit a Non-Unique Enemy, no more than once per second
 {variant:2}80% less Flask Charges gained from Kills
+Survival
 ]],[[
 Warlord's Reach
 Crimson Jewel

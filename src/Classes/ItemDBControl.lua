@@ -11,7 +11,7 @@ local m_floor = math.floor
 
 
 local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab, db, dbType)
-	self.ListControl(anchor, x, y, width, height, 16, false, false)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab
 	self.db = db
 	self.dbType = dbType
@@ -185,6 +185,7 @@ function ItemDBClass:BuildSortOrder()
 	end
 	wipeTable(self.sortOrder)
 	if self.controls.sort then
+		self.controls.sort:CheckDroppedWidth(true)
 		self.controls.sort.selIndex = 1
 		self.controls.sort:SelByValue(self.sortMode, "sortMode")
 		self.sortDetail = self.controls.sort.list[self.controls.sort.selIndex]

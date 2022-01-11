@@ -275,7 +275,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			elseif hoverNode.path then
 				-- Node is unallocated and can be allocated, so allocate it
 				if hoverNode.type == "Mastery" and hoverNode.masteryEffects then
-					build.treeTab:OpenMasteryPopup(hoverNode)
+					build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 				else
 					spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
 					spec:AddUndoState()
@@ -303,10 +303,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		elseif hoverNode and hoverNode.conqueredBy and hoverNode.type ~= "Keystone" and
 				(hoverNode.conqueredBy.conqueror.type == "vaal"
 				or hoverNode.isNotable) then
-			build.treeTab:ModifyNodePopup(hoverNode)
+			build.treeTab:ModifyNodePopup(hoverNode, viewPort)
 			build.buildFlag = true
 		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
-			build.treeTab:OpenMasteryPopup(hoverNode)
+			build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 			build.buildFlag = true
 		end
 	end
@@ -372,24 +372,26 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		renderGroup(subGraph.group, true)
 	end
 
+	local connectorColor = { 1, 1, 1 }
+	local function setConnectorColor(r, g, b)
+		connectorColor[1], connectorColor[2], connectorColor[3] = r, g, b
+	end
+	local function getState(n1, n2)
+		-- Determine the connector state
+		local state = "Normal"
+		if n1.alloc and n2.alloc then
+			state = "Active"
+		elseif hoverPath then
+			if (n1.alloc or n1 == hoverNode or hoverPath[n1]) and (n2.alloc or n2 == hoverNode or hoverPath[n2]) then
+				state = "Intermediate"
+			end
+		end
+		return state
+	end
 	local function renderConnector(connector)
 		local node1, node2 = spec.nodes[connector.nodeId1], spec.nodes[connector.nodeId2]
-		local connectorColor = {1,1,1}
-
-
-		local function getState(n1, n2)
-			-- Determine the connector state
-			local state = "Normal"
-			if n1.alloc and n2.alloc then
-				state = "Active"
-			elseif hoverPath then
-				if (n1.alloc or n1 == hoverNode or hoverPath[n1]) and (n2.alloc or n2 == hoverNode or hoverPath[n2]) then
-					state = "Intermediate"
-				end
-			end
-			return state
-		end
-		local state = getState(node1, node2);
+		setConnectorColor(1, 1, 1)
+		local state = getState(node1, node2)
 		local baseState = state
 		if self.compareSpec then
 			local cNode1, cNode2 = self.compareSpec.nodes[connector.nodeId1], self.compareSpec.nodes[connector.nodeId2]
@@ -400,10 +402,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 		if baseState == "Active" and state ~= "Active" then
 			state = "Active"
-			connectorColor = {0,1,0}
+			setConnectorColor(0, 1, 0)
 		end
 		if baseState ~= "Active" and state == "Active" then
-			connectorColor = {1,0,0}
+			setConnectorColor(1, 0, 0)
 		end
 
 		-- Convert vertex coordinates to screen-space and add them to the coordinate array
@@ -415,13 +417,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 		if hoverDep and hoverDep[node1] and hoverDep[node2] then
 			-- Both nodes depend on the node currently being hovered over, so color the line red
-			SetDrawColor(1, 0, 0)
+			setConnectorColor(1, 0, 0)
 		elseif connector.ascendancyName and connector.ascendancyName ~= spec.curAscendClassName then
 			-- Fade out lines in ascendancy classes other than the current one
-			SetDrawColor(0.75, 0.75, 0.75)
-		else
-			SetDrawColor(connectorColor[1], connectorColor[2], connectorColor[3])
+			setConnectorColor(0.75, 0.75, 0.75)
 		end
+		SetDrawColor(unpack(connectorColor))
 		DrawImageQuad(tree.assets[connector.type..state].handle, unpack(connector.c))
 	end
 
@@ -913,25 +914,76 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
-	if node.sd[1] then
-		tooltip:AddLine(16, "")
-		for i, line in ipairs(node.sd) do
-			if node.mods[i].list then
-				if launch.devModeAlt then
-					-- Modifier debugging info
-					local modStr
-					for _, mod in pairs(node.mods[i].list) do
-						modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
-					end
-					if node.mods[i].extra then
-						modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
-					end
-					if modStr then
-						line = line .. "  " .. modStr
-					end
+	local function addModInfoToTooltip(node, i, line)
+		if node.mods[i].list then
+			if launch.devModeAlt then
+				-- Modifier debugging info
+				local modStr
+				for _, mod in pairs(node.mods[i].list) do
+					modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
+				end
+				if node.mods[i].extra then
+					modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
+				end
+				if modStr then
+					line = line .. "  " .. modStr
 				end
 			end
-			tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+		end
+		tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+	end
+
+	-- If node is a Mastery node, check if compare tree is on
+	-- If so, check if the left hand tree is unallocated, but the right hand tree is allocated.
+	-- If so, set the node variable to be the node element from the right hand tree and change the Mastery color
+	-- Then continue processing as normal
+	local masteryColor = ""
+	local mNode = node
+	local compareNode = self.compareSpec and self.compareSpec.nodes[node.id].alloc or false
+	if node.type == "Mastery" then
+		if not node.alloc and compareNode then
+			mNode = self.compareSpec.nodes[node.id]
+			masteryColor = colorCodes.DEXTERITY
+		end
+		-- If allocated on Left, but not Right, match the colour of the other unallocated nodes.
+		if self.compareSpec and node.alloc and not compareNode then
+			masteryColor = colorCodes.STRENGTH
+		end
+		-- If both are allocated but are different text ...
+		if node.alloc and compareNode then
+			mNode = self.compareSpec.nodes[node.id]
+			if node.sd[1] ~= mNode.sd[1] then
+				for i, line in ipairs(node.sd) do
+					addModInfoToTooltip(node, i, "<- "..line)
+					masteryColor = colorCodes.DEXTERITY.."-> "
+				end
+			end
+		end
+	end
+
+	if mNode.sd[1] and mNode.allMasteryOptions then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, "^7Mastery node options are:")
+		tooltip:AddLine(6, "")
+		local lineCount = 0
+		for n, effect in ipairs(mNode.masteryEffects) do
+			effect = build.spec.tree.masteryEffects[effect.effect]
+			for _, line in ipairs(effect.sd) do
+				lineCount = lineCount + 1
+				addModInfoToTooltip(mNode, lineCount, line)
+			end
+			if n < #mNode.masteryEffects then
+				tooltip:AddLine(6, "")
+			end
+		end
+		tooltip:AddSeparator(24)
+	end
+
+	-- This stanza actives for both Mastery and non Mastery tooltips. Proof: add '"Blah "..' to addModInfoToTooltip
+	if mNode.sd[1] and not mNode.allMasteryOptions then
+		tooltip:AddLine(16, "")
+		for i, line in ipairs(mNode.sd) do
+			addModInfoToTooltip(mNode, i, masteryColor..line)
 		end
 	end
 
@@ -962,25 +1014,42 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			pathNodes[node] = true
 		end
 		local nodeOutput, pathOutput
-		if node.alloc then
+		local isGranted = build.calcsTab.mainEnv.grantedPassives[node.id]
+		local realloc = false
+		if node.alloc and node.type == "Mastery" and main.popups[1] then
+			realloc = true
+			nodeOutput = calcFunc({ addNodes = { [node] = true } })
+		elseif node.alloc then
 			-- Calculate the differences caused by deallocating this node and its dependent nodes
 			nodeOutput = calcFunc({ removeNodes = { [node] = true } })
 			if pathLength > 1 then
 				pathOutput = calcFunc({ removeNodes = pathNodes })
 			end
+		elseif isGranted then
+			-- Calculate the differences caused by deallocating this node
+			nodeOutput = calcFunc({ removeNodes = { [node.id] = true } })
 		else
 			-- Calculated the differences caused by allocating this node and all nodes along the path to it
-			nodeOutput = calcFunc({ addNodes = { [node] = true } })
+			if node.type == "Mastery" and node.allMasteryOptions then
+				pathNodes[node] = nil
+				nodeOutput = calcFunc()
+			else
+				nodeOutput = calcFunc({ addNodes = { [node] = true } })
+			end
 			if pathLength > 1 then
 				pathOutput = calcFunc({ addNodes = pathNodes })
 			end
 		end
-		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
-		if pathLength > 1 then
+		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, realloc and "^7Reallocating this node will give you:" or node.alloc and "^7Unallocating this node will give you:" or isGranted and "^7This node is granted by an item. Removing it will give you:" or "^7Allocating this node will give you:")
+		if pathLength > 1 and not isGranted then
 			count = count + build:AddStatComparesToTooltip(tooltip, calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
 		end
 		if count == 0 then
-			tooltip:AddLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
+			if isGranted then
+				tooltip:AddLine(14, string.format("^7This node is granted by an item. Removing it will cause no changes"))
+			else
+				tooltip:AddLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
+			end
 		end
 		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
 	else

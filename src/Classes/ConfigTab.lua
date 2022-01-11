@@ -45,7 +45,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		else
 			local control
 			if varData.type == "check" then
-				control = new("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 18, nil, function(state)
+				control = new("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 18, varData.label, function(state)
 					self.input[varData.var] = state
 					self:AddUndoState()
 					self:BuildModList()
@@ -216,8 +216,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			else
 				control.tooltipText = varData.tooltip
 			end
-			if varData.label then
-			t_insert(self.controls, new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
+			if varData.label and varData.type ~= "check" then
+				t_insert(self.controls, new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
 			end
 			if varData.var then
 				self.varControls[varData.var] = control

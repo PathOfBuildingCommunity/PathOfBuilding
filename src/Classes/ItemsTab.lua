@@ -64,6 +64,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		self:SetActiveItemSet(self.itemSetOrderList[index])
 		self:AddUndoState()
 	end)
+	self.controls.setSelect.enableDroppedWidth = true
 	self.controls.setSelect.enabled = function()
 		return #self.itemSetOrderList > 1
 	end
@@ -970,6 +971,12 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 				if newItem then
 					self:CreateDisplayItemFromRaw(newItem, true)
 				end
+			elseif event.key == "e" then
+				local mOverControl = self:GetMouseOverControl()
+				if mOverControl and mOverControl._className == "ItemSlotControl" and mOverControl.selItemId ~= 0 then
+					-- Trigger itemList's double click procedure
+					self.controls.itemList:OnSelClick(0, mOverControl.selItemId, true)
+				end
 			elseif event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
 				self.build.buildFlag = true
@@ -1010,14 +1017,15 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 
 	main:DrawBackground(viewPort)
 
-	wipeTable(self.controls.setSelect.list)
+	local newItemList = { }
 	for index, itemSetId in ipairs(self.itemSetOrderList) do
 		local itemSet = self.itemSets[itemSetId]
-		t_insert(self.controls.setSelect.list, itemSet.title or "Default")
+		t_insert(newItemList, itemSet.title or "Default")
 		if itemSetId == self.activeItemSetId then
 			self.controls.setSelect.selIndex = index
 		end
 	end
+	self.controls.setSelect:SetList(newItemList)
 
 	if self.displayItem then
 		local x, y = self.controls.displayItemTooltipAnchor:GetPos()
@@ -1448,7 +1456,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	end
 	local affixList = { }
 	for modId, mod in pairs(item.affixes) do
-		if mod.type == type and not excludeGroups[mod.group] and item:GetModSpawnWeight(mod, extraTags) > 0 then
+		if mod.type == type and not excludeGroups[mod.group] and item:GetModSpawnWeight(mod, extraTags) > 0 and not item:CheckIfModIsDelve(mod) then
 			t_insert(affixList, modId)
 		end
 	end
@@ -2102,7 +2110,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	controls.close = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(540, 100, "Corrupt Item", controls)
+	main:OpenPopup(540, 100, modType .. " Item", controls)
 end
 
 -- Opens the custom modifier popup
@@ -2202,6 +2210,25 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
+		elseif sourceId == "DELVE" then
+			for i, mod in pairs(self.displayItem.affixes) do
+				if self.displayItem:CheckIfModIsDelve(mod) and self.displayItem:GetModSpawnWeight(mod) > 0 then
+					t_insert(modList, {
+						label =  table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						mod = mod,
+						affixType = mod.type,
+						type = "custom",
+						defaultOrder = i,
+					})
+				end
+			end
+			table.sort(modList, function(a, b)
+				if a.affixType ~= b.affixType then
+					return a.affixType == "Prefix" and b.affixType == "Suffix"
+				else
+					return a.defaultOrder < b.defaultOrder
+				end
+			end)
 		end
 	end
 	if self.displayItem.type ~= "Jewel" then
@@ -2212,6 +2239,9 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	end
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
+	end
+	if self.displayItem.type ~= "Flask" then
+		t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
 	end
 	if not self.displayItem.crafted then
 		t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })

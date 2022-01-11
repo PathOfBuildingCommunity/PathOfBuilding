@@ -94,7 +94,7 @@ Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:attack,physical}Adds (5-7) to (11-12) Physical Damage to Attacks
 (20-30)% increased Stun Duration on Enemies
-Nearby Enemies are Crushed while you have least 25 Rage
+Nearby Enemies are Crushed while you have at least 25 Rage
 {tags:physical}(4-6)% increased Physical Damage per 10 Rage
 +20 to Maximum Rage
 ]],[[
@@ -188,8 +188,8 @@ Variant: Current
 Implicits: 1
 Has 1 Abyssal Socket
 Has 1 Abyssal Socket
-{variant:1}50% increased Effect of Socketed Jewels
-{variant:2}75% increased Effect of Socketed Jewels
+{variant:1}50% increased Effect of Socketed Abyss Jewels
+{variant:2}75% increased Effect of Socketed Abyss Jewels
 ]],[[
 Doryani's Invitation
 Heavy Belt
@@ -477,6 +477,18 @@ Implicits: 1
 50% increased Flask Charges gained
 {tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
 {tags:critical}(50-60)% increased Critical Strike Chance while you have at least 200 Intelligence
+]],[[
+Mageblood
+Heavy Belt
+Requires Level 44
+Implicits: 1
+{tags:jewellery_attribute}+(25-35) to Strength
+{tags:jewellery_attribute}+(30-50) to Dexterity
+{tags:jewellery_resistance}+(15-25)% to Fire Resistance
+{tags:jewellery_resistance}+(15-25)% to Cold Resistance
+Magic Utility Flask cannot be Used
+Leftmost (2-4) Magic Utility Flasks constantly apply their Flask Effects to you
+Magic Utility Flask Effects cannot be removed
 ]],[[
 Maligaro's Restraint
 Chain Belt
