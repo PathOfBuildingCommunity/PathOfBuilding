@@ -984,6 +984,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			pathNodes[node] = true
 		end
 		local nodeOutput, pathOutput
+		local isGranted = build.calcsTab.mainEnv.grantedPassives[node.id]
 		local realloc = false
 		if node.alloc and node.type == "Mastery" and main.popups[1] then
 			realloc = true
@@ -994,6 +995,9 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			if pathLength > 1 then
 				pathOutput = calcFunc({ removeNodes = pathNodes })
 			end
+		elseif isGranted then
+			-- Calculate the differences caused by deallocating this node
+			nodeOutput = calcFunc({ removeNodes = { [node.id] = true } })
 		else
 			-- Calculated the differences caused by allocating this node and all nodes along the path to it
 			if node.type == "Mastery" and node.allMasteryOptions then
@@ -1006,12 +1010,16 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 				pathOutput = calcFunc({ addNodes = pathNodes })
 			end
 		end
-		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, realloc and "^7Reallocating this node will give you:" or node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
-		if pathLength > 1 then
+		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, realloc and "^7Reallocating this node will give you:" or node.alloc and "^7Unallocating this node will give you:" or isGranted and "^7This node is granted by an item. Removing it will give you:" or "^7Allocating this node will give you:")
+		if pathLength > 1 and not isGranted then
 			count = count + build:AddStatComparesToTooltip(tooltip, calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
 		end
 		if count == 0 then
-			tooltip:AddLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
+			if isGranted then
+				tooltip:AddLine(14, string.format("^7This node is granted by an item. Removing it will cause no changes"))
+			else
+				tooltip:AddLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
+			end
 		end
 		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
 	else
