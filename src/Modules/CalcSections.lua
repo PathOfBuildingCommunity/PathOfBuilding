@@ -313,8 +313,14 @@ return {
 	{ label = "Life Cost", haveOutput = "LifeCost", { format = "{0:output:LifeCost}", { breakdown = "LifeCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
 	{ label = "ES Cost", haveOutput = "ESCost", { format = "{0:output:ESCost}", { breakdown = "ESCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
 	{ label = "Rage Cost", haveOutput = "RageCost", { format = "{0:output:RageCost}", { breakdown = "RageCost" }, { modName = { "RageCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Mana % Cost", haveOutput = "ManaPercentCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = { "ManaPercentCost", "ManaCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Life % Cost", haveOutput = "LifePercentCost", { format = "{0:output:LifePercentCost}", { breakdown = "LifePercentCost" }, { modName = { "LifePercentCost", "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Mana % Cost", haveOutput = "ManaPercentCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life % Cost", haveOutput = "LifePercentCost", { format = "{0:output:LifePercentCost}", { breakdown = "LifePercentCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Mana Cost", haveOutput = "ManaPerSecondCost", { format = "{2:output:ManaPerSecondCost}/s", { breakdown = "ManaPerSecondCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life Cost", haveOutput = "LifePerSecondCost", { format = "{2:output:LifePerSecondCost}/s", { breakdown = "LifePerSecondCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Mana % Cost", haveOutput = "ManaPercentPerSecondCost", { format = "{2:output:ManaPercentPerSecondCost}/s", { breakdown = "ManaPercentPerSecondCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life % Cost", haveOutput = "LifePercentPerSecondCost", { format = "{2:output:LifePercentPerSecondCost}/s", { breakdown = "LifePercentPerSecondCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "ES Cost", haveOutput = "ESPerSecondCost", { format = "{2:output:ESPerSecondCost}/s", { breakdown = "ESPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "ES % Cost", haveOutput = "ESPercentPerSecondCost", { format = "{2:output:ESPercentPerSecondCost}/s", { breakdown = "ESPercentPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
 } }
 } },
 { 3, "Warcries", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Exerting Warcries", data = {

@@ -2059,7 +2059,14 @@ return {
 			name="ResourceString",
 			refTo="",
 			type="String",
-			width=150
+			width=190
+		},
+		[4]={
+			list=false,
+			name="Divisor",
+			refTo="",
+			type="Int",
+			width=50
 		}
 	},
 	CraftingBenchCustomActions={
