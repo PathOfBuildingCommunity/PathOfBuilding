@@ -2073,6 +2073,8 @@ end
 
 -- Opens the item pricing popup
 function ItemsTabClass:PriceItem()
+	self.tradeQueryGenerator = new("TradeQueryGenerator", self)
+
 	-- Note: Per each Check Price button click we do 2 search requests
 	--       Search is the most rate limiting behavior we need to track
 	-- SEARCH REQUEST RATE LIMIT DATA (as of Feb 2021)
@@ -2296,8 +2298,7 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_
 		return validURL and self:PriceBuilderCanSearch(controls) and self:PriceBuilderCanFetch(controls)
 	end
 	controls['bestButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 10, row_height, "?", function()
-		self:PriceBuilderInsertSearchRequest()
-		self:SearchItem("Scourge", self:GenerateWeightedSearch(slotTbl.name), slotTbl, controls, str_cnt)
+		self.tradeQueryGenerator:GenerateQuery(slotTbl, controls, str_cnt)
 	end)
 	controls['resultIndex'..str_cnt] = new("EditControl", {"TOPLEFT",controls['bestButton'..str_cnt],"TOPLEFT"}, 10 + 8, 0, 60, row_height, "#", nil, "%D", 3, function(buf)
 		controls['resultIndex'..str_cnt].buf = tostring(m_min(m_max(tonumber(buf) or 1, 1), self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1))
