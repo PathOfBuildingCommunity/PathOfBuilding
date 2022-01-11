@@ -49,22 +49,38 @@ local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, f
 		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
 	end
 
-	local modActionCooldown = baseActionCooldown / (icdr)
+	-- check if there is a hard cooldown recovery override
+	local cooldownOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
+
+	local modActionCooldown = cooldownOverride or (baseActionCooldown / icdr)
 	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
 	if breakdown then
-		breakdown.ActionTriggerRate = {
-			s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
-			s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-			s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
-			s_format(""),
-			s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
-			s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
-			s_format(""),
-			s_format("Trigger rate:"),
-			s_format("1 / %.3f", rateCapAdjusted),
-			s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
-		}
+		if cooldownOverride then
+			env.player.mainSkill.skillFlags.hasOverride = true
+			breakdown.ActionTriggerRate = {
+				s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride),
+				s_format(""),
+				s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+				s_format(""),
+				s_format("Trigger rate:"),
+				s_format("1 / %.3f", rateCapAdjusted),
+				s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
+			}
+		else
+			breakdown.ActionTriggerRate = {
+				s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
+				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+				s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
+				s_format(""),
+				s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+				s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
+				s_format(""),
+				s_format("Trigger rate:"),
+				s_format("1 / %.3f", rateCapAdjusted),
+				s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
+			}
+		end
 	end
 	return 1 / rateCapAdjusted
 end
@@ -139,8 +155,7 @@ end
 -- Calculate the actual Trigger rate of active skill causing the trigger
 local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)
 	-- Get action trigger rate
-	if sourceAPS == nil and source.skillTypes[SkillType.Channelled] then
-		--ConPrintf(source.activeEffect.grantedEffect.name)
+	if sourceAPS == nil and source.skillTypes[SkillType.Channel] then
 		output.ActionTriggerRate = 1 / (source.skillData.triggerTime or 1)
 		if breakdown then
 			breakdown.ActionTriggerRate = {
@@ -439,7 +454,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 			elseif actor.mainSkill.skillFlags.spell then
 				condList["CastSpellRecently"] = true
 			end
-			if actor.mainSkill.skillTypes[SkillType.MovementSkill] then
+			if actor.mainSkill.skillTypes[SkillType.Movement] then
 				condList["UsedMovementSkillRecently"] = true
 			end
 			if actor.mainSkill.skillFlags.minion then
@@ -448,7 +463,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 			if actor.mainSkill.skillTypes[SkillType.Vaal] then
 				condList["UsedVaalSkillRecently"] = true
 			end
-			if actor.mainSkill.skillTypes[SkillType.Channelled] then
+			if actor.mainSkill.skillTypes[SkillType.Channel] then
 				condList["Channelling"] = true
 			end
 		end
@@ -1055,9 +1070,9 @@ function calcs.perform(env, avoidCache)
 			modDB.multipliers["BrandsAttachedToEnemy"] = m_max(actual, modDB.multipliers["BrandsAttachedToEnemy"] or 0)
 			enemyDB.multipliers["BrandsAttached"] = m_max(actual, enemyDB.multipliers["BrandsAttached"] or 0)
 		end
-		-- The actual hexes as opposed to hex related skills all have the curse flag. DamageCannotBeReflected is to remove blasphemy
+		-- The actual hexes as opposed to hex related skills all have the curse flag. TotemCastsWhenNotDetached is to remove blasphemy
 		-- Note that this doesn't work for triggers yet, insufficient support
-		if activeSkill.skillFlags.hex and activeSkill.skillFlags.curse and not activeSkill.skillTypes[SkillType.DamageCannotBeReflected] then
+		if activeSkill.skillFlags.hex and activeSkill.skillFlags.curse and not activeSkill.skillTypes[SkillType.TotemCastsWhenNotDetached] then
 			local hexDoom = modDB:Sum("BASE", nil, "Multiplier:HexDoomStack")
 			local maxDoom = activeSkill.skillModList:Sum("BASE", nil, "MaxDoom") or 30
 			local doomEffect = activeSkill.skillModList:More(nil, "DoomEffect")
@@ -1370,7 +1385,7 @@ function calcs.perform(env, avoidCache)
 		breakdown.ManaReserved = { reservations = { } }
 	end
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.skillTypes[SkillType.ManaCostReserved] and not activeSkill.skillFlags.totem then
+		if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.totem then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
 			local mult = skillModList:More(skillCfg, "SupportManaMultiplier")
@@ -1547,7 +1562,7 @@ function calcs.perform(env, avoidCache)
 	if env.mode_buffs then
 		local auraList = { }
 		for _, activeSkill in ipairs(env.player.activeSkillList) do
-			if activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.Mine] and not activeSkill.skillData.auraCannotAffectSelf and not auraList[activeSkill.skillCfg.skillName] then
+			if activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.RemoteMined] and not activeSkill.skillData.auraCannotAffectSelf and not auraList[activeSkill.skillCfg.skillName] then
 				auraList[activeSkill.skillCfg.skillName] = true
 				modDB.multipliers["AuraAffectingSelf"] = (modDB.multipliers["AuraAffectingSelf"] or 0) + 1
 			end
@@ -1564,6 +1579,16 @@ function calcs.perform(env, avoidCache)
 		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
 		modDB:NewMod("LifeRegenPercent", "BASE", 5 * effect, "Consecrated Ground")
 		modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
+	end
+
+	if modDB:Flag(nil, "ManaAppliesToShockEffect") then
+		-- Maximum Mana conversion from Lightning Mastery
+		local multiplier = modDB:Max(nil, "ImprovedManaAppliesToShockEffect") / 100
+		for _, value in ipairs(modDB:Tabulate("INC", nil, "Mana")) do
+			local mod = value.mod
+			local modifiers = calcLib.getConvertedModTags(mod, multiplier)
+			modDB:NewMod("EnemyShockEffect", "INC", m_floor(mod.value * multiplier), mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
+		end
 	end
 
 	-- Combine buffs/debuffs 
@@ -2103,7 +2128,7 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill then
+			if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.skillData.triggeredByMjolner and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
@@ -2403,7 +2428,7 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft then
+			if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft then
 				source, trigRate = skill, 0
 			end
 			if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
@@ -2528,29 +2553,30 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
+			local cooldownOverride = skill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
 			if uniqueTriggerName == "Poet's Pen" then
 				triggerName = "Poet"
-				if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= env.player.mainSkill and not skill.skillData.triggeredByUnique then
+				if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= env.player.mainSkill and not skill.skillData.triggeredByUnique then
 					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 				end
 				if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell] then
-					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
+					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = cooldownOverride or (skill.skillData.cooldown / icdr), next_trig = 0, count = 0 })
 				end
 			elseif uniqueTriggerName == "Maloney's Mechanism" then
 				triggerName = "Maloney"
 				if skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= env.player.mainSkill and not skill.skillData.triggeredByUnique then
 					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 				end
-				if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.ProjectileAttack] then
-					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
+				if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.RangedAttack] then
+					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = cooldownOverride or (skill.skillData.cooldown / icdr), next_trig = 0, count = 0 })
 				end
 			elseif uniqueTriggerName == "Asenath's Chant" then
 				triggerName = "Asenath"
-				if (skill.skillTypes[SkillType.Hit] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= env.player.mainSkill and not skill.skillData.triggeredByUnique then
+				if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= env.player.mainSkill and not skill.skillData.triggeredByUnique then
 					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 				end
 				if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell] then
-					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
+					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = cooldownOverride or (skill.skillData.cooldown / icdr), next_trig = 0, count = 0 })
 				end
 			end
 		end
@@ -2592,7 +2618,8 @@ function calcs.perform(env, avoidCache)
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.skillData.triggeredByCoC and (match1 or match2) then
-				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
+				local cooldownOverride = skill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
+				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = cooldownOverride or (skill.skillData.cooldown / icdr), next_trig = 0, count = 0 })
 			end
 		end
 		if not source or #spellCount < 1 then
@@ -2643,7 +2670,8 @@ function calcs.perform(env, avoidCache)
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.skillData.triggeredByMeleeKill and (match1 or match2) then
-				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
+				local cooldownOverride = skill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
+				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = cooldownOverride or (skill.skillData.cooldown / icdr), next_trig = 0, count = 0 })
 			end
 		end
 		if not source or #spellCount < 1 then
@@ -2687,7 +2715,7 @@ function calcs.perform(env, avoidCache)
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local match1 = (skill.activeEffect.grantedEffect.fromItem or 0) and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-			if skill.skillTypes[SkillType.Channelled] and skill ~= env.player.mainSkill and (match1 or match2) then
+			if skill.skillTypes[SkillType.Channel] and skill ~= env.player.mainSkill and (match1 or match2) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.skillData.triggeredWhileChannelling and (match1 or match2) then

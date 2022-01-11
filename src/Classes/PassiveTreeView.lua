@@ -932,28 +932,57 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
 	end
 
-	if node.sd[1] and node.allMasteryOptions then
+	-- If node is a Mastery node, check if compare tree is on
+	-- If so, check if the left hand tree is unallocated, but the right hand tree is allocated.
+	-- If so, set the node variable to be the node element from the right hand tree and change the Mastery color
+	-- Then continue processing as normal
+	local masteryColor = ""
+	local mNode = node
+	local compareNode = self.compareSpec and self.compareSpec.nodes[node.id].alloc or false
+	if node.type == "Mastery" then
+		if not node.alloc and compareNode then
+			mNode = self.compareSpec.nodes[node.id]
+			masteryColor = colorCodes.DEXTERITY
+		end
+		-- If allocated on Left, but not Right, match the colour of the other unallocated nodes.
+		if self.compareSpec and node.alloc and not compareNode then
+			masteryColor = colorCodes.STRENGTH
+		end
+		-- If both are allocated but are different text ...
+		if node.alloc and compareNode then
+			mNode = self.compareSpec.nodes[node.id]
+			if node.sd[1] ~= mNode.sd[1] then
+				for i, line in ipairs(node.sd) do
+					addModInfoToTooltip(node, i, "<- "..line)
+					masteryColor = colorCodes.DEXTERITY.."-> "
+				end
+			end
+		end
+	end
+
+	if mNode.sd[1] and mNode.allMasteryOptions then
 		tooltip:AddSeparator(14)
 		tooltip:AddLine(14, "^7Mastery node options are:")
 		tooltip:AddLine(6, "")
 		local lineCount = 0
-		for n, effect in ipairs(node.masteryEffects) do
+		for n, effect in ipairs(mNode.masteryEffects) do
 			effect = build.spec.tree.masteryEffects[effect.effect]
 			for _, line in ipairs(effect.sd) do
 				lineCount = lineCount + 1
-				addModInfoToTooltip(node, lineCount, line)
+				addModInfoToTooltip(mNode, lineCount, line)
 			end
-			if n < #node.masteryEffects then
+			if n < #mNode.masteryEffects then
 				tooltip:AddLine(6, "")
 			end
 		end
 		tooltip:AddSeparator(24)
 	end
 
-	if node.sd[1] and not node.allMasteryOptions then
+	-- This stanza actives for both Mastery and non Mastery tooltips. Proof: add '"Blah "..' to addModInfoToTooltip
+	if mNode.sd[1] and not mNode.allMasteryOptions then
 		tooltip:AddLine(16, "")
-		for i, line in ipairs(node.sd) do
-			addModInfoToTooltip(node, i, line)
+		for i, line in ipairs(mNode.sd) do
+			addModInfoToTooltip(mNode, i, masteryColor..line)
 		end
 	end
 
@@ -984,6 +1013,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			pathNodes[node] = true
 		end
 		local nodeOutput, pathOutput
+		local isGranted = build.calcsTab.mainEnv.grantedPassives[node.id]
 		local realloc = false
 		if node.alloc and node.type == "Mastery" and main.popups[1] then
 			realloc = true
@@ -994,6 +1024,9 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			if pathLength > 1 then
 				pathOutput = calcFunc({ removeNodes = pathNodes })
 			end
+		elseif isGranted then
+			-- Calculate the differences caused by deallocating this node
+			nodeOutput = calcFunc({ removeNodes = { [node.id] = true } })
 		else
 			-- Calculated the differences caused by allocating this node and all nodes along the path to it
 			if node.type == "Mastery" and node.allMasteryOptions then
@@ -1006,12 +1039,16 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 				pathOutput = calcFunc({ addNodes = pathNodes })
 			end
 		end
-		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, realloc and "^7Reallocating this node will give you:" or node.alloc and "^7Unallocating this node will give you:" or "^7Allocating this node will give you:")
-		if pathLength > 1 then
+		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, realloc and "^7Reallocating this node will give you:" or node.alloc and "^7Unallocating this node will give you:" or isGranted and "^7This node is granted by an item. Removing it will give you:" or "^7Allocating this node will give you:")
+		if pathLength > 1 and not isGranted then
 			count = count + build:AddStatComparesToTooltip(tooltip, calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
 		end
 		if count == 0 then
-			tooltip:AddLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
+			if isGranted then
+				tooltip:AddLine(14, string.format("^7This node is granted by an item. Removing it will cause no changes"))
+			else
+				tooltip:AddLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
+			end
 		end
 		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
 	else

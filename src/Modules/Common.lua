@@ -527,6 +527,19 @@ function round(val, dec)
 	end
 end
 
+--- Rounds down a number to the nearest <dec> decimal places
+---@param val number
+---@param dec number
+---@return number
+function floor(val, dec)
+	if dec then
+		local mult = 10 ^ dec
+		return m_floor(val * mult + 0.0001) / mult
+	else
+		return m_floor(val)
+	end
+end
+
 ---@param n number
 ---@return number
 function triangular(n)

@@ -368,6 +368,14 @@ data.enchantments = {
 data.essences = LoadModule("Data/Essence")
 data.veiledMods = LoadModule("Data/ModVeiled")
 data.pantheons = LoadModule("Data/Pantheons")
+data.costs = LoadModule("Data/Costs")
+do
+	local map = { }
+	for i, value in ipairs(data.costs) do
+		map[value.Resource] = i
+	end
+	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
+end
 
 -- Cluster jewel data
 data.clusterJewels = LoadModule("Data/ClusterJewels")
