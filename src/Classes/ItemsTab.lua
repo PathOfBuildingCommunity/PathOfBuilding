@@ -14,6 +14,7 @@ local m_min = math.min
 local m_ceil = math.ceil
 local m_floor = math.floor
 local m_modf = math.modf
+local inspect = LoadModule("inspect")
 
 local rarityDropList = { 
 	{ label = colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
@@ -2115,14 +2116,18 @@ end
 
 -- Opens the custom modifier popup
 function ItemsTabClass:AddCustomModifierToDisplayItem()
+	local modifiersDDList = { { label = "All Modifiers", modId = "MODIFIERS" }, { label = "Prefix", modId = "PREFIX" }, { label = "Suffix", modId = "SUFFIX" } }
 	local controls = { }
 	local sourceList = { }
 	local modList = { }
+	local currentSourceId
+	local currentModId = "MODIFIERS"
+
 	---Mutates modList to contain mods from the specified source
 	---@param sourceId string @The crafting source id to build the list of mods for
-	local function buildMods(sourceId)
+	local function buildMods()
 		wipeTable(modList)
-		if sourceId == "MASTER" then
+		if currentSourceId == "MASTER" then
 			local excludeGroups = { }
 			for _, modLine in ipairs({ self.displayItem.prefixes, self.displayItem.suffixes }) do
 				for i = 1, self.displayItem.affixLimit / 2 do
@@ -2133,13 +2138,25 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end
 			for i, craft in ipairs(self.build.data.masterMods) do
 				if craft.types[self.displayItem.type] and not excludeGroups[craft.group] then
-					t_insert(modList, {
+					local currMod = {
 						label = table.concat(craft, "/") .. " ^8(" .. craft.type .. ")",
+						-- label = table.concat(craft, "/"),
 						mod = craft,
 						type = "crafted",
 						affixType = craft.type,
 						defaultOrder = i,
-					})
+					}
+					if currentModId == "MODIFIERS" then
+						t_insert(modList, currMod)
+					end
+					if craft.type == "Prefix" and currentModId == "PREFIX" then
+						currMod.label = table.concat(craft, "/")
+						t_insert(modList, currMod)
+					end
+					if craft.type == "Suffix" and currentModId == "SUFFIX" then
+						currMod.label = table.concat(craft, "/")
+						t_insert(modList, currMod)
+					end
 				end
 			end
 			table.sort(modList, function(a, b)
@@ -2149,16 +2166,24 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
-		elseif sourceId == "ESSENCE" then
+		elseif currentSourceId == "ESSENCE" then
 			for _, essence in pairs(self.build.data.essences) do
 				local modId = essence.mods[self.displayItem.type]
 				local mod = self.displayItem.affixes[modId]
-				t_insert(modList, {
-					label = essence.name .. "   " .. "^8[" .. table.concat(mod, "/") .. "]" .. " (" .. mod.type .. ")",
+				local currMod = {
+					label = essence.name .. "   " .. "^8[" .. table.concat(mod, "/") .. "]",
 					mod = mod,
 					type = "custom",
 					essence = essence,
-				})
+				}
+				if currentModId == "MODIFIERS" then
+					currMod.label =  currMod.label .. " (" .. mod.type .. ")"
+					t_insert(modList, currMod)
+				elseif currMod.mod.type == "Prefix" and currentModId == "PREFIX" then
+					t_insert(modList, currMod)
+				elseif currMod.mod.type == "Suffix" and currentModId == "SUFFIX" then
+					t_insert(modList, currMod)
+				end
 			end
 			table.sort(modList, function(a, b)
 				if a.essence.type ~= b.essence.type then
@@ -2167,9 +2192,9 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.essence.tier > b.essence.tier
 				end
 			end)
-		elseif sourceId == "PREFIX" or sourceId == "SUFFIX" then
+		elseif currentSourceId == "PREFIX" or currentSourceId == "SUFFIX" then
 			for _, mod in pairs(self.displayItem.affixes) do
-				if sourceId:lower() == mod.type:lower() and self.displayItem:GetModSpawnWeight(mod) > 0 then
+				if currentSourceId:lower() == mod.type:lower() and self.displayItem:GetModSpawnWeight(mod) > 0 then
 					t_insert(modList, {
 						label = mod.affix .. "   ^8[" .. table.concat(mod, "/") .. "]",
 						mod = mod,
@@ -2191,16 +2216,25 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				end
 				return modA.level > modB.level
 			end)
-		elseif sourceId == "VEILED" then
+		elseif currentSourceId == "VEILED" then
 			for i, mod in pairs(self.build.data.veiledMods) do
 				if self.displayItem:GetModSpawnWeight(mod) > 0 then
-					t_insert(modList, {
-						label =  table.concat(mod, "/") .. " (" .. mod.type .. ")",
+					local currMod = {
+						label = table.concat(mod, "/"),
 						mod = mod,
 						affixType = mod.type,
 						type = "custom",
 						defaultOrder = i,
-					})
+					}
+					if currentModId == "MODIFIERS" then
+						currMod.label =  currMod.label .. " (" .. mod.type .. ")"
+						t_insert(modList, currMod)
+					elseif currMod.mod.type == "Prefix" and currentModId == "PREFIX" then
+						t_insert(modList, currMod)
+					elseif currMod.mod.type == "Suffix" and currentModId == "SUFFIX" then
+						currMod.label = table.concat(mod, "/")
+						t_insert(modList, currMod)
+					end
 				end
 			end
 			table.sort(modList, function(a, b)
@@ -2210,16 +2244,24 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
-		elseif sourceId == "DELVE" then
+		elseif currentSourceId == "DELVE" then
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:CheckIfModIsDelve(mod) and self.displayItem:GetModSpawnWeight(mod) > 0 then
-					t_insert(modList, {
-						label =  table.concat(mod, "/") .. " (" .. mod.type .. ")",
+					local currMod = {
+						label = table.concat(mod, "/"),
 						mod = mod,
 						affixType = mod.type,
 						type = "custom",
 						defaultOrder = i,
-					})
+					}
+					if currentModId == "MODIFIERS" then
+						currMod.label =  currMod.label .. " (" .. mod.type .. ")"
+						t_insert(modList, currMod)
+					elseif currMod.mod.type == "Prefix" and currentModId == "PREFIX" then
+						t_insert(modList, currMod)
+					elseif currMod.mod.type == "Suffix" and currentModId == "SUFFIX" then
+						t_insert(modList, currMod)
+					end
 				end
 			end
 			table.sort(modList, function(a, b)
@@ -2230,7 +2272,8 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				end
 			end)
 		end
-	end
+	end -- buildMods
+
 	if self.displayItem.type ~= "Jewel" then
 		t_insert(sourceList, { label = "Crafting Bench", sourceId = "MASTER" })
 	end
@@ -2248,7 +2291,8 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		t_insert(sourceList, { label = "Suffix", sourceId = "SUFFIX" })
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
-	buildMods(sourceList[1].sourceId)
+	currentSourceId = sourceList[1].sourceId
+	buildMods()
 	local function addModifier()
 		local item = new("Item", self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
@@ -2268,11 +2312,25 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	end
 	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
 	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 150, 18, sourceList, function(index, value)
-		buildMods(value.sourceId)
+		currentSourceId = value.sourceId
+		buildMods()
 		controls.modSelect:SetSel(1)
 	end)
 	controls.source.enabled = #sourceList > 1
 	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Modifier:")
+	controls.modSelectLabel.shown = function()
+		local sourceId = sourceList[controls.source.selIndex].sourceId
+		return sourceId == "CUSTOM" or sourceId == "PREFIX" or sourceId == "SUFFIX"
+	end
+	controls.modSelectDropDown = new("DropDownControl", {"TOPRIGHT",nil,"TOPLEFT"}, 94, 45, 90, 18, modifiersDDList , function(index, value)
+		currentModId = value.modId
+		buildMods()
+		controls.modSelect:SetSel(1)
+	end)
+	controls.modSelectDropDown.shown = function()
+		local sourceId = sourceList[controls.source.selIndex].sourceId
+		return sourceId ~= "CUSTOM" and sourceId ~= "PREFIX" and sourceId ~= "SUFFIX"
+	end
 	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 600, 18, modList)
 	controls.modSelect.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
@@ -2300,7 +2358,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	controls.close = new("ButtonControl", nil, 45, 75, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(710, 105, "Add Modifier to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")	
+	main:OpenPopup(710, 105, "Add Modifier to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")
 end
 
 function ItemsTabClass:AddItemSetTooltip(tooltip, itemSet)
