@@ -21,13 +21,13 @@ jobs:
             - name: Install changelog generator
               run: sudo gem install github_changelog_generator --version 1.15.2
             - name: Generate Release notes
-              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ github.event.inputs.releaseVersion }} --since-tag ${{ github.event.inputs.sinceTag }} --max-issues 0 --no-issues true --date-format %Y/%m/%d
+              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate,technical --future-release ${{ github.event.inputs.releaseVersion }} --since-tag ${{ github.event.inputs.sinceTag }} --max-issues 0 --no-issues true --date-format %Y/%m/%d
             - name: Tweak changelogs
               run: >
                 sed -i '$d' temp_change.md;
                 sed -i 's/\[Quotae\]/\[Quote_a\]/' temp_change.md;
                 sed -i 's/\[learn2draw\]/\[Lexy\]/' temp_change.md;
-                sed -i 's/\[Voronoff\]/\[tcid\]/' temp_change.md;
+                sed -i 's/\[Voronoff\]/\[Tom Clancy Is Dead\]/' temp_change.md;
                 echo "VERSION[${{ github.event.inputs.releaseVersion }}][`date +'%Y/%m/%d'`]" | cat - temp_change.md | sed '2,6d' | sed -e '/^\*\*.*/,+1 d' | sed -r 's/\[\\#.* \(\[(.*)\]\(.*/\(\1\)/' | sed 's/^-/*/' | cat - changelog.txt > changelog_new.txt;
                 cat CHANGELOG.md | sed '1d' >> temp_change.md;
                 mv temp_change.md CHANGELOG.md;

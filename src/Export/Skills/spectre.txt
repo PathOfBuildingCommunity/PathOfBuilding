@@ -762,8 +762,8 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
 			div = 100,
 		},
-		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+		["explosive_arrow_hit_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
 	},
 #baseMod skill("radius", 15)
@@ -838,4 +838,64 @@ local skills, mod, flag, skill = ...
 
 #skill MeleeAtAnimationSpeed Default Attack
 #flags attack melee projectile
+#mods
+
+#skill MeleeKaruiArcher Cold Arrow
+#flags attack projectile melee
+#mods
+
+#skill LegionKaruiArcherSnipe Snipe
+#flags attack projectile hit
+#mods
+
+#skill MeleeAtAnimationSpeedFire Default Attack
+#flags attack projectile melee
+#mods
+
+#skill GAHellscapeDemonElite1DashSlash Dash Slash
+#flags attack hit area triggerable
+#mods
+
+#skill GSHellscapeDemonElite1Screech Screech
+#flags attack hit area triggerable
+#mods
+
+#skill TBHellscapePaleLightningBoltSpammableLeft Lightning Bolt
+#flags spell hit triggerable
+#mods
+
+#skill GSHellscapePaleEliteBoltImpact Bolt Impact
+#flags spell area hit triggerable
+#mods
+
+#skill GSHellscapePaleEliteOmegaBeam Omega Beam
+#flags spell area hit triggerable
+#mods
+
+#skill MMSHellscapeDemonEliteTripleMortar Triple Mortal
+#flags spell hit triggerable area projectile
+#mods
+
+#skill MMSHellscapeDemonEliteVomitMortar Vomit Mortar
+#flags spell hit triggerable area projectile
+#mods
+
+#skill GSHellscapeDemonEliteBeamNuke Beam Nuke
+#flags spell hit triggerable area
+#mods
+
+#skill DTTHellscapeStabWeb Web Debuff
+#flags spell hit movement
+#mods
+
+#skill GAHellscapeStabbyCleave1 Cleave
+#flags attack hit triggerable area
+#mods
+
+#skill GAHellscapePaleEliteSkyStab Stab Attack
+#flags attack hit triggerable area
+#mods
+
+#skill HellscapeFleshFodderArc Scourge Arc
+#flags spell chaining triggerable
 #mods

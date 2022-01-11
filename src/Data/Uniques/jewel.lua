@@ -28,7 +28,7 @@ Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds
 Apparitions
 Viridian Jewel
 Minions have (5-10)% increased Movement Speed
-Minions have (2-5)% additional chance to Dodge Attacks
+Minions have +(2-5)% chance to Suppress Spell Damage
 ]],[[
 The Blue Dream
 Cobalt Jewel
@@ -265,14 +265,18 @@ Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 The Green Nightmare
+Variant: Pre 3.16.0
+Variant: Current
 Viridian Jewel
 League: Breach
 Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
 Gain 5% of Cold Damage as Extra Chaos Damage
-Passives granting Cold Resistance or all Elemental Resistances in Radius
-also grant Chance to Dodge Attack Hits at 35% of its value
+{variant:1}Passives granting Cold Resistance or all Elemental Resistances in Radius
+{variant:1}also grant Chance to Suppress Spell Damage at 35% of its value
+{variant:2}Passives granting Cold Resistance or all Elemental Resistances in Radius
+{variant:2}also grant Chance to Suppress Spell Damage at 50% of its value
 Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
@@ -500,8 +504,7 @@ Limited to: 1
 Radius: Medium
 Minions have (12-16)% increased Attack Speed
 Minions have (12-16)% increased Cast Speed
-Minions have (10-12)% chance to Dodge Attack Hits
-Minions have (10-12)% chance to Dodge Spell Hits
+Minions have (20-24)% chance to Suppress Spell Damage
 Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
 ]],[[
 Rain of Splinters
@@ -1020,11 +1023,17 @@ With 40 total Dexterity and Strength in Radius, Prismatic Skills deal 50% less L
 Collateral Damage
 Viridian Jewel
 Limited to: 2
+Variant: Pre 3.9.0
+Variant: Current
 Radius: Medium
-(10-15)% increased Physical Damage
-With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
-With at least 40 Dexterity in Radius, Shrapnel Shot's
+(10-15)% increased Global Physical Damage
+{variant:1}With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
+{variant:1}With at least 40 Dexterity in Radius, Shrapnel Shot's
 cone has a 50% chance to deal Double Damage
+{variant:2}With at least 40 Dexterity in Radius, Galvanic Arrow deals
+50% increased Area Damage
+{variant:2}With at least 40 Dexterity in Radius, Galvanic Arrow has
+25% increased Area of Effect
 ]],[[
 Dead Reckoning
 Cobalt Jewel
@@ -1040,12 +1049,15 @@ Minions have +(7-10)% to all Elemental Resistances
 ]],[[
 Seething Fury
 Viridian Jewel
+Variant: Pre 3.16.0
+Variant: Current
 League: Legion
 Requires Level: 20
 Limited to: 1
 Radius: Medium
 (10-15)% increased Attack Damage while holding a Shield
-+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
+{variant:1}+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
+{variant:2}+0.15% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
 +4% to Off Hand Critical Strike Multiplier per 10 Maximum Energy Shield on Shield
 ]],[[
 Fight for Survival
@@ -1167,12 +1179,14 @@ With at least 40 Strength in Radius, Cleave has +1 to Radius per Nearby Enemy, u
 Pitch Darkness
 Viridian Jewel
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Radius: Medium
 {variant:1}(5-15)% increased Fire Damage
-{variant:2}(10-15)% increased Fire Damage
+{variant:2,3}(10-15)% increased Fire Damage
+{variant:3}+10% to Fire Damage over Time Multiplier
 With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
-With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
+{variant:2}With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
 ]],[[
 Rapid Expansion
 Crimson Jewel
@@ -1265,12 +1279,14 @@ Radius: Medium
 {variant:2}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 5% increased Damage each time it Hits.
 ]],[[
 Sudden Ignition
+Variant: Pre 3.16.0
+Variant: Current
 Viridian Jewel
 Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage 
-With at least 40 Dexterity in Radius, Burning
-Arrow can inflict an additional Ignite on an Enemy
+{variant:1}With at least 40 Dexterity in Radius, Burning Arrow can inflict an additional Ignite on an Enemy
+{Variant:2}Ignited Enemies Killed by your Hits are destroyed
 ]],[[
 Unending Hunger 
 Cobalt Jewel
@@ -1496,7 +1512,7 @@ Crimson Jewel
 Limited to: 1
 3% reduced Mana Cost of Skills
 4% increased Skill Effect Duration
-2% reduced Reservation of Skills
+4% increased Mana Reservation Efficiency of Skills
 ]],[[
 Replica Conqueror's Efficiency
 Crimson Jewel
@@ -1508,10 +1524,15 @@ Non-Channelling Skills have -9 to Total Mana Cost
 ]],[[
 Conqueror's Longevity
 Viridian Jewel
+Variant: Pre 3.16.0
+Variant: Current
 Limited to: 1
-3% chance to Avoid Elemental Ailments
-8% increased Life Recovery from Flasks
-2% chance to Dodge Attacks
+{variant:1}3% chance to Avoid Elemental Ailments
+{variant:2}10% chance to Avoid Elemental Ailments
+{variant:1}8% increased Life Recovery from Flasks
+{variant:2}10% increased Life Recovery from Flasks
+{variant:1}3% chance to Suppress Spell Damage
+{variant:2}5% chance to Suppress Spell Damage
 ]],[[
 Conqueror's Potency
 Cobalt Jewel
@@ -1528,27 +1549,46 @@ Projectiles Pierce an additional Target
 ]],[[
 Survival Instincts
 Viridian Jewel
-Limited to: 1
-+20 to Dexterity
-+6% to all Elemental Resistances
+Limited to: 1 Survival
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}+20 to Dexterity
+{variant:1}+6% to all Elemental Resistances
+{variant:2}20% reduced Flask Charges gained
+{variant:2}50% increased Flask Effect Duration
+Survival
 ]],[[
 Survival Secrets
 Cobalt Jewel
-Limited to: 1
-3 Mana Regenerated per second
-10% increased Elemental Damage
+Limited to: 1 Survival
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}3 Mana Regenerated per second
+{variant:1}10% increased Elemental Damage
+{variant:2}Flasks applied to you have 20% reduced Effect
+{variant:2}Flasks gain 3 Charges every 3 seconds while they are inactive
+Survival
 ]],[[
 Survival Skills
 Crimson Jewel
-Limited to: 1
-10% increased Global Physical Damage
-+50 to Armour
+Limited to: 1 Survival
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}10% increased Global Physical Damage
+{variant:1}+50 to Armour
+{variant:2}Flasks gain 2 Charges when you hit a Non-Unique Enemy, no more than once per second
+{variant:2}80% less Flask Charges gained from Kills
+Survival
 ]],[[
 Warlord's Reach
 Crimson Jewel
+Variant: Pre 3.16.0
+Variant: Current
 Limited to: 1
-8% increased Attack Damage
-+1 Melee Strike Range
+{variant:1}8% increased Attack Damage
+{variant:1}+1 Melee Strike Range
+{variant:2}10% increased Attack Damage
+{variant:2}+2 Melee Strike Range
 ]],
 -- Jewel: Labyrinth rewards
 [[

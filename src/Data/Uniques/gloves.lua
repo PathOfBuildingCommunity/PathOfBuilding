@@ -7,14 +7,16 @@ Atziri's Acuity
 Vaal Gauntlets
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Variant: Pre 3.1.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 75, 100 Str
 +(60-80) to Intelligence
 +(60-75) to maximum Life
 (200-220)% increased Armour
-(25-35)% increased Global Critical Strike Chance
+{variant:2}(25-35)% increased Global Critical Strike Chance
+{variant:3}(40-60)% increased Global Critical Strike Chance
 {variant:1}Life and Mana Leech from Critical Strikes are instant
-{variant:2}You have Vaal Pact if you've dealt a Critical Strike Recently
+{variant:2,3}You have Vaal Pact if you've dealt a Critical Strike Recently
 ]],[[
 Replica Atziri's Acuity
 Vaal Gauntlets
@@ -213,12 +215,15 @@ Your Mark transfers to another Enemy when Marked Enemy dies
 ]],[[
 Oskarm
 Nubuck Gloves
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 52, 50 Dex
 Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy
 (30-40)% increased Accuracy Rating
 +(40-50) to maximum Life
 -(20-10)% to Chaos Resistance
-(7-8)% chance to Dodge Spell Damage
+{variant:1}(7-8)% chance to Suppress Spell Damage
+{variant:2}(10-12)% chance to Suppress Spell Damage
 2% increased Attack Critical Strike Chance per 200 Accuracy Rating
 ]],[[
 Painseeker
@@ -426,6 +431,15 @@ Requires Level 15
 Recover 20% of your Maximum Life on Rampage
 Kills grant an additional Vaal Soul if you have Rampaged Recently
 Rampage
+]],[[
+Gravebind
+Hydrascale Gauntlets
+Requires Level 59, 45 Str, 45 Dex
+Implicits: 0
+(100-150)% increased Armour and Evasion
++(19-29)% to Chaos Resistance
++(15-25) Life gained on kill
+Nearby Enemies Killed by anyone count as being Killed by you instead
 ]],[[
 Haemophilia
 Serpentscale Gauntlets
@@ -900,11 +914,14 @@ Flasks gain 1 Charge per second if you've Hit a Unique Enemy Recently
 ]],[[
 Nightgrip
 Runic Gages
+Variant: Pre 3.16.0
+Variant: Current
 League: Expedition
 Requires Level 48, 31 Str, 31 Dex, 31 Int
 (33–48)% increased Ward
 +(17–23)% to Chaos Resistance
-Gain Added Chaos Damage equal to 25% of Ward
+{variant:1}Gain Added Chaos Damage equal to 25% of Ward
+{variant:2}Gain Added Chaos Damage equal to 20% of Ward
 75% of Damage bypasses Ward
 ]],
 }

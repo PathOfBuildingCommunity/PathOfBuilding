@@ -172,7 +172,7 @@ Adds (5-10) to (13-20) Physical Damage
 {variant:2}(80-95)% increased Physical Damage
 {variant:1}(10-15)% increased Attack Speed
 {variant:2}(20-25)% increased Attack Speed
-5% reduced Reservation of Skills
+10% increased Mana Reservation Efficiency of Skills
 Allies' Aura Buffs do not affect you
 Your Aura Buffs do not affect allies
 10% increased Effect of Buffs on you
@@ -465,17 +465,20 @@ Cutlass
 Source: Upgraded from unique{Severed in Sleep} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.16.0
 Variant: Current
 League: Breach
 Requires Level 69, 55 Str, 79 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}40% increased Global Accuracy Rating
-Grants level 15 Envy Skill
-Minions deal (30-40)% increased Damage
+{variant:2,3,4}40% increased Global Accuracy Rating
+{variant:1,2,3}Grants level 15 Envy Skill
+{variant:4}Grants level 25 Envy Skill
+{variant:1,2,3}Minions deal (30-40)% increased Damage
+{variant:4}Minions deal (60-80)% increased Damage
 Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
-{variant:3}Minions have 60% chance to Poison Enemies on Hit
+{variant:3,4}Minions have 60% chance to Poison Enemies on Hit
 Minions Leech 5% of Damage as Life against Poisoned Enemies
 ]],[[
 Story of the Vaal

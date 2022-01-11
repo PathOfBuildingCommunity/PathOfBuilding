@@ -9,7 +9,7 @@ itemBases["Iron Greaves"] = {
 	socketLimit = 4,
 	tags = { boots = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 6, },
+	armour = { ArmourBaseMin = 6, ArmourBaseMax = 9, },
 	req = { str = 8, },
 }
 itemBases["Steel Greaves"] = {
@@ -18,7 +18,7 @@ itemBases["Steel Greaves"] = {
 	socketLimit = 4,
 	tags = { boots = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 32, },
+	armour = { ArmourBaseMin = 32, ArmourBaseMax = 42, },
 	req = { level = 9, str = 21, },
 }
 itemBases["Plated Greaves"] = {
@@ -27,7 +27,7 @@ itemBases["Plated Greaves"] = {
 	socketLimit = 4,
 	tags = { boots = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 77, },
+	armour = { ArmourBaseMin = 77, ArmourBaseMax = 96, },
 	req = { level = 23, str = 44, },
 }
 itemBases["Reinforced Greaves"] = {
@@ -36,7 +36,7 @@ itemBases["Reinforced Greaves"] = {
 	socketLimit = 4,
 	tags = { boots = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 109, },
+	armour = { ArmourBaseMin = 109, ArmourBaseMax = 120, },
 	req = { level = 33, str = 61, },
 }
 itemBases["Antique Greaves"] = {
@@ -45,7 +45,7 @@ itemBases["Antique Greaves"] = {
 	socketLimit = 4,
 	tags = { boots = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 122, },
+	armour = { ArmourBaseMin = 122, ArmourBaseMax = 144, },
 	req = { level = 37, str = 67, },
 }
 itemBases["Ancient Greaves"] = {
@@ -54,7 +54,7 @@ itemBases["Ancient Greaves"] = {
 	socketLimit = 4,
 	tags = { boots = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 151, },
+	armour = { ArmourBaseMin = 151, ArmourBaseMax = 174, },
 	req = { level = 46, str = 82, },
 }
 itemBases["Goliath Greaves"] = {
@@ -63,7 +63,7 @@ itemBases["Goliath Greaves"] = {
 	socketLimit = 4,
 	tags = { boots = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 177, },
+	armour = { ArmourBaseMin = 177, ArmourBaseMax = 209, },
 	req = { level = 54, str = 95, },
 }
 itemBases["Vaal Greaves"] = {
@@ -72,7 +72,7 @@ itemBases["Vaal Greaves"] = {
 	socketLimit = 4,
 	tags = { boots = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 220, },
+	armour = { ArmourBaseMin = 220, ArmourBaseMax = 253, },
 	req = { level = 62, str = 117, },
 }
 itemBases["Titan Greaves"] = {
@@ -81,7 +81,7 @@ itemBases["Titan Greaves"] = {
 	socketLimit = 4,
 	tags = { boots = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 241, },
+	armour = { ArmourBaseMin = 241, ArmourBaseMax = 278, },
 	req = { level = 68, str = 120, },
 }
 itemBases["Basemetal Treads"] = {
@@ -91,7 +91,7 @@ itemBases["Basemetal Treads"] = {
 	tags = { boots = true, str_armour = true, not_for_sale = true, armour = true, default = true, },
 	implicit = "+(4-5)% Chance to Block Attack Damage\nYou take 20% of Damage from Blocked Hits",
 	implicitModTypes = { { "block" }, { "block" }, },
-	armour = { ArmourBase = 68, },
+	armour = { ArmourBaseMin = 68, ArmourBaseMax = 78, },
 	req = { level = 20, str = 39, },
 }
 itemBases["Darksteel Treads"] = {
@@ -101,7 +101,7 @@ itemBases["Darksteel Treads"] = {
 	tags = { boots = true, str_armour = true, not_for_sale = true, armour = true, default = true, },
 	implicit = "+(4-5)% Chance to Block Attack Damage\nYou take 20% of Damage from Blocked Hits",
 	implicitModTypes = { { "block" }, { "block" }, },
-	armour = { ArmourBase = 164, },
+	armour = { ArmourBaseMin = 164, ArmourBaseMax = 189, },
 	req = { level = 50, str = 89, },
 }
 itemBases["Brimstone Treads"] = {
@@ -111,7 +111,7 @@ itemBases["Brimstone Treads"] = {
 	tags = { boots = true, str_armour = true, not_for_sale = true, armour = true, default = true, },
 	implicit = "+(4-5)% Chance to Block Attack Damage\nYou take 20% of Damage from Blocked Hits",
 	implicitModTypes = { { "block" }, { "block" }, },
-	armour = { ArmourBase = 236, },
+	armour = { ArmourBaseMin = 236, ArmourBaseMax = 271, },
 	req = { level = 80, str = 124, },
 }
 
@@ -121,7 +121,7 @@ itemBases["Rawhide Boots"] = {
 	socketLimit = 4,
 	tags = { dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 13, },
+	armour = { EvasionBaseMin = 13, EvasionBaseMax = 18, },
 	req = { dex = 11, },
 }
 itemBases["Goathide Boots"] = {
@@ -130,7 +130,7 @@ itemBases["Goathide Boots"] = {
 	socketLimit = 4,
 	tags = { dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 42, },
+	armour = { EvasionBaseMin = 42, EvasionBaseMax = 54, },
 	req = { level = 12, dex = 26, },
 }
 itemBases["Deerskin Boots"] = {
@@ -139,7 +139,7 @@ itemBases["Deerskin Boots"] = {
 	socketLimit = 4,
 	tags = { dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 74, },
+	armour = { EvasionBaseMin = 74, EvasionBaseMax = 92, },
 	req = { level = 22, dex = 42, },
 }
 itemBases["Nubuck Boots"] = {
@@ -148,7 +148,7 @@ itemBases["Nubuck Boots"] = {
 	socketLimit = 4,
 	tags = { dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 113, },
+	armour = { EvasionBaseMin = 113, EvasionBaseMax = 126, },
 	req = { level = 34, dex = 62, },
 }
 itemBases["Eelskin Boots"] = {
@@ -157,7 +157,7 @@ itemBases["Eelskin Boots"] = {
 	socketLimit = 4,
 	tags = { dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 129, },
+	armour = { EvasionBaseMin = 129, EvasionBaseMax = 148, },
 	req = { level = 39, dex = 70, },
 }
 itemBases["Sharkskin Boots"] = {
@@ -166,7 +166,7 @@ itemBases["Sharkskin Boots"] = {
 	socketLimit = 4,
 	tags = { dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 145, },
+	armour = { EvasionBaseMin = 145, EvasionBaseMax = 171, },
 	req = { level = 44, dex = 79, },
 }
 itemBases["Shagreen Boots"] = {
@@ -175,7 +175,7 @@ itemBases["Shagreen Boots"] = {
 	socketLimit = 4,
 	tags = { dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 180, },
+	armour = { EvasionBaseMin = 180, EvasionBaseMax = 216, },
 	req = { level = 55, dex = 97, },
 }
 itemBases["Stealth Boots"] = {
@@ -184,7 +184,7 @@ itemBases["Stealth Boots"] = {
 	socketLimit = 4,
 	tags = { dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 220, },
+	armour = { EvasionBaseMin = 220, EvasionBaseMax = 253, },
 	req = { level = 62, dex = 117, },
 }
 itemBases["Slink Boots"] = {
@@ -193,7 +193,7 @@ itemBases["Slink Boots"] = {
 	socketLimit = 4,
 	tags = { dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 246, },
+	armour = { EvasionBaseMin = 246, EvasionBaseMax = 283, },
 	req = { level = 69, dex = 120, },
 }
 itemBases["Cloudwhisper Boots"] = {
@@ -203,7 +203,7 @@ itemBases["Cloudwhisper Boots"] = {
 	tags = { boots = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
 	implicit = "1 to (5-6) Added Attack Lightning Damage per 200 Accuracy Rating\n25% less Accuracy Rating",
 	implicitModTypes = { { "attack" }, { "attack" }, },
-	armour = { EvasionBase = 68, },
+	armour = { EvasionBaseMin = 68, EvasionBaseMax = 78, },
 	req = { level = 20, dex = 39, },
 }
 itemBases["Windbreak Boots"] = {
@@ -213,7 +213,7 @@ itemBases["Windbreak Boots"] = {
 	tags = { boots = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
 	implicit = "1 to (5-6) Added Attack Lightning Damage per 200 Accuracy Rating\n25% less Accuracy Rating",
 	implicitModTypes = { { "attack" }, { "attack" }, },
-	armour = { EvasionBase = 164, },
+	armour = { EvasionBaseMin = 164, EvasionBaseMax = 189, },
 	req = { level = 50, dex = 89, },
 }
 itemBases["Stormrider Boots"] = {
@@ -223,7 +223,7 @@ itemBases["Stormrider Boots"] = {
 	tags = { boots = true, dex_armour = true, armour = true, not_for_sale = true, default = true, },
 	implicit = "1 to (5-6) Added Attack Lightning Damage per 200 Accuracy Rating\n25% less Accuracy Rating",
 	implicitModTypes = { { "attack" }, { "attack" }, },
-	armour = { EvasionBase = 236, },
+	armour = { EvasionBaseMin = 236, EvasionBaseMax = 271, },
 	req = { level = 80, dex = 124, },
 }
 
@@ -233,7 +233,7 @@ itemBases["Wool Shoes"] = {
 	socketLimit = 4,
 	tags = { int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 4, },
+	armour = { EnergyShieldBaseMin = 5, EnergyShieldBaseMax = 7, },
 	req = { int = 11, },
 }
 itemBases["Velvet Slippers"] = {
@@ -242,7 +242,7 @@ itemBases["Velvet Slippers"] = {
 	socketLimit = 4,
 	tags = { int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 8, },
+	armour = { EnergyShieldBaseMin = 8, EnergyShieldBaseMax = 11, },
 	req = { level = 9, int = 21, },
 }
 itemBases["Silk Slippers"] = {
@@ -251,7 +251,7 @@ itemBases["Silk Slippers"] = {
 	socketLimit = 4,
 	tags = { int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 15, },
+	armour = { EnergyShieldBaseMin = 17, EnergyShieldBaseMax = 21, },
 	req = { level = 22, int = 42, },
 }
 itemBases["Scholar Boots"] = {
@@ -260,7 +260,7 @@ itemBases["Scholar Boots"] = {
 	socketLimit = 4,
 	tags = { int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 21, },
+	armour = { EnergyShieldBaseMin = 23, EnergyShieldBaseMax = 25, },
 	req = { level = 32, int = 59, },
 }
 itemBases["Satin Slippers"] = {
@@ -269,7 +269,7 @@ itemBases["Satin Slippers"] = {
 	socketLimit = 4,
 	tags = { int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 25, },
+	armour = { EnergyShieldBaseMin = 26, EnergyShieldBaseMax = 30, },
 	req = { level = 38, int = 69, },
 }
 itemBases["Samite Slippers"] = {
@@ -278,7 +278,7 @@ itemBases["Samite Slippers"] = {
 	socketLimit = 4,
 	tags = { int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 29, },
+	armour = { EnergyShieldBaseMin = 30, EnergyShieldBaseMax = 35, },
 	req = { level = 44, int = 79, },
 }
 itemBases["Conjurer Boots"] = {
@@ -287,7 +287,7 @@ itemBases["Conjurer Boots"] = {
 	socketLimit = 4,
 	tags = { int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 34, },
+	armour = { EnergyShieldBaseMin = 36, EnergyShieldBaseMax = 42, },
 	req = { level = 53, int = 94, },
 }
 itemBases["Arcanist Slippers"] = {
@@ -296,7 +296,7 @@ itemBases["Arcanist Slippers"] = {
 	socketLimit = 4,
 	tags = { int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 45, },
+	armour = { EnergyShieldBaseMin = 47, EnergyShieldBaseMax = 55, },
 	req = { level = 61, int = 119, },
 }
 itemBases["Sorcerer Boots"] = {
@@ -305,7 +305,7 @@ itemBases["Sorcerer Boots"] = {
 	socketLimit = 4,
 	tags = { int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 49, },
+	armour = { EnergyShieldBaseMin = 51, EnergyShieldBaseMax = 59, },
 	req = { level = 67, int = 123, },
 }
 itemBases["Duskwalk Slippers"] = {
@@ -315,7 +315,7 @@ itemBases["Duskwalk Slippers"] = {
 	tags = { boots = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
 	implicit = "10% reduced Movement Speed\n(30-40)% increased Cooldown Recovery Rate of Movement Skills",
 	implicitModTypes = { { "speed" }, { "speed" }, },
-	armour = { EnergyShieldBase = 14, },
+	armour = { EnergyShieldBaseMin = 15, EnergyShieldBaseMax = 18, },
 	req = { level = 20, int = 39, },
 }
 itemBases["Nightwind Slippers"] = {
@@ -325,7 +325,7 @@ itemBases["Nightwind Slippers"] = {
 	tags = { boots = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
 	implicit = "10% reduced Movement Speed\n(30-40)% increased Cooldown Recovery Rate of Movement Skills",
 	implicitModTypes = { { "speed" }, { "speed" }, },
-	armour = { EnergyShieldBase = 32, },
+	armour = { EnergyShieldBaseMin = 34, EnergyShieldBaseMax = 39, },
 	req = { level = 50, int = 89, },
 }
 itemBases["Dreamquest Slippers"] = {
@@ -335,7 +335,7 @@ itemBases["Dreamquest Slippers"] = {
 	tags = { boots = true, int_armour = true, armour = true, not_for_sale = true, default = true, },
 	implicit = "10% reduced Movement Speed\n(30-40)% increased Cooldown Recovery Rate of Movement Skills",
 	implicitModTypes = { { "speed" }, { "speed" }, },
-	armour = { EnergyShieldBase = 47, },
+	armour = { EnergyShieldBaseMin = 50, EnergyShieldBaseMax = 57, },
 	req = { level = 80, int = 124, },
 }
 
@@ -345,7 +345,7 @@ itemBases["Leatherscale Boots"] = {
 	socketLimit = 4,
 	tags = { str_dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 12, EvasionBase = 12, },
+	armour = { ArmourBaseMin = 12, ArmourBaseMax = 17, EvasionBaseMin = 12, EvasionBaseMax = 17, },
 	req = { level = 6, str = 9, dex = 9, },
 }
 itemBases["Ironscale Boots"] = {
@@ -354,7 +354,7 @@ itemBases["Ironscale Boots"] = {
 	socketLimit = 4,
 	tags = { str_dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 34, EvasionBase = 34, },
+	armour = { ArmourBaseMin = 34, ArmourBaseMax = 44, EvasionBaseMin = 34, EvasionBaseMax = 44, },
 	req = { level = 18, str = 19, dex = 19, },
 }
 itemBases["Bronzescale Boots"] = {
@@ -363,7 +363,7 @@ itemBases["Bronzescale Boots"] = {
 	socketLimit = 4,
 	tags = { str_dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 55, EvasionBase = 55, },
+	armour = { ArmourBaseMin = 55, ArmourBaseMax = 63, EvasionBaseMin = 55, EvasionBaseMax = 63, },
 	req = { level = 30, str = 30, dex = 30, },
 }
 itemBases["Steelscale Boots"] = {
@@ -372,7 +372,7 @@ itemBases["Steelscale Boots"] = {
 	socketLimit = 4,
 	tags = { str_dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 65, EvasionBase = 65, },
+	armour = { ArmourBaseMin = 65, ArmourBaseMax = 75, EvasionBaseMin = 65, EvasionBaseMax = 75, },
 	req = { level = 36, str = 35, dex = 35, },
 }
 itemBases["Serpentscale Boots"] = {
@@ -381,7 +381,7 @@ itemBases["Serpentscale Boots"] = {
 	socketLimit = 4,
 	tags = { str_dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 76, EvasionBase = 76, },
+	armour = { ArmourBaseMin = 76, ArmourBaseMax = 90, EvasionBaseMin = 76, EvasionBaseMax = 90, },
 	req = { level = 42, str = 40, dex = 40, },
 }
 itemBases["Wyrmscale Boots"] = {
@@ -390,7 +390,7 @@ itemBases["Wyrmscale Boots"] = {
 	socketLimit = 4,
 	tags = { str_dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 92, EvasionBase = 92, },
+	armour = { ArmourBaseMin = 92, ArmourBaseMax = 103, EvasionBaseMin = 92, EvasionBaseMax = 103, },
 	req = { level = 51, str = 48, dex = 48, },
 }
 itemBases["Hydrascale Boots"] = {
@@ -399,7 +399,7 @@ itemBases["Hydrascale Boots"] = {
 	socketLimit = 4,
 	tags = { str_dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 106, EvasionBase = 106, },
+	armour = { ArmourBaseMin = 106, ArmourBaseMax = 122, EvasionBaseMin = 106, EvasionBaseMax = 122, },
 	req = { level = 59, str = 56, dex = 56, },
 }
 itemBases["Dragonscale Boots"] = {
@@ -408,7 +408,7 @@ itemBases["Dragonscale Boots"] = {
 	socketLimit = 4,
 	tags = { str_dex_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 121, EvasionBase = 121, },
+	armour = { ArmourBaseMin = 121, ArmourBaseMax = 139, EvasionBaseMin = 121, EvasionBaseMax = 139, },
 	req = { level = 65, str = 62, dex = 62, },
 }
 itemBases["Two-Toned Boots (Armour/Evasion)"] = {
@@ -418,7 +418,7 @@ itemBases["Two-Toned Boots (Armour/Evasion)"] = {
 	tags = { boots = true, str_dex_armour = true, not_for_sale = true, atlas_base_type = true, armour = true, bootsatlas2 = true, default = true, },
 	implicit = "+(8-12)% to Fire and Cold Resistances",
 	implicitModTypes = { { "elemental", "fire", "cold", "resistance" }, },
-	armour = { ArmourBase = 126, EvasionBase = 126, },
+	armour = { ArmourBaseMin = 126, ArmourBaseMax = 145, EvasionBaseMin = 126, EvasionBaseMax = 145, },
 	req = { level = 70, str = 62, dex = 62, },
 }
 
@@ -428,7 +428,7 @@ itemBases["Chain Boots"] = {
 	socketLimit = 4,
 	tags = { str_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 11, EnergyShieldBase = 3, },
+	armour = { ArmourBaseMin = 11, ArmourBaseMax = 15, EnergyShieldBaseMin = 3, EnergyShieldBaseMax = 5, },
 	req = { level = 5, str = 8, int = 8, },
 }
 itemBases["Ringmail Boots"] = {
@@ -437,7 +437,7 @@ itemBases["Ringmail Boots"] = {
 	socketLimit = 4,
 	tags = { str_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 25, EnergyShieldBase = 5, },
+	armour = { ArmourBaseMin = 25, ArmourBaseMax = 32, EnergyShieldBaseMin = 6, EnergyShieldBaseMax = 8, },
 	req = { level = 13, str = 15, int = 15, },
 }
 itemBases["Mesh Boots"] = {
@@ -446,7 +446,7 @@ itemBases["Mesh Boots"] = {
 	socketLimit = 4,
 	tags = { str_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 51, EnergyShieldBase = 10, },
+	armour = { ArmourBaseMin = 51, ArmourBaseMax = 64, EnergyShieldBaseMin = 11, EnergyShieldBaseMax = 14, },
 	req = { level = 28, str = 28, int = 28, },
 }
 itemBases["Riveted Boots"] = {
@@ -455,7 +455,7 @@ itemBases["Riveted Boots"] = {
 	socketLimit = 4,
 	tags = { str_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 65, EnergyShieldBase = 13, },
+	armour = { ArmourBaseMin = 65, ArmourBaseMax = 71, EnergyShieldBaseMin = 14, EnergyShieldBaseMax = 15, },
 	req = { level = 36, str = 35, int = 35, },
 }
 itemBases["Zealot Boots"] = {
@@ -464,7 +464,7 @@ itemBases["Zealot Boots"] = {
 	socketLimit = 4,
 	tags = { str_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 73, EnergyShieldBase = 14, },
+	armour = { ArmourBaseMin = 73, ArmourBaseMax = 87, EnergyShieldBaseMin = 15, EnergyShieldBaseMax = 18, },
 	req = { level = 40, str = 39, int = 39, },
 }
 itemBases["Soldier Boots"] = {
@@ -473,7 +473,7 @@ itemBases["Soldier Boots"] = {
 	socketLimit = 4,
 	tags = { str_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 88, EnergyShieldBase = 17, },
+	armour = { ArmourBaseMin = 88, ArmourBaseMax = 99, EnergyShieldBaseMin = 18, EnergyShieldBaseMax = 20, },
 	req = { level = 49, str = 47, int = 47, },
 }
 itemBases["Legion Boots"] = {
@@ -482,7 +482,7 @@ itemBases["Legion Boots"] = {
 	socketLimit = 4,
 	tags = { str_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 104, EnergyShieldBase = 20, },
+	armour = { ArmourBaseMin = 104, ArmourBaseMax = 120, EnergyShieldBaseMin = 21, EnergyShieldBaseMax = 25, },
 	req = { level = 58, str = 54, int = 54, },
 }
 itemBases["Crusader Boots"] = {
@@ -491,7 +491,7 @@ itemBases["Crusader Boots"] = {
 	socketLimit = 4,
 	tags = { str_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 121, EnergyShieldBase = 24, },
+	armour = { ArmourBaseMin = 121, ArmourBaseMax = 139, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 28, },
 	req = { level = 64, str = 62, int = 62, },
 }
 itemBases["Two-Toned Boots (Armour/Energy Shield)"] = {
@@ -501,7 +501,7 @@ itemBases["Two-Toned Boots (Armour/Energy Shield)"] = {
 	tags = { bootsatlas3 = true, boots = true, not_for_sale = true, atlas_base_type = true, armour = true, str_int_armour = true, default = true, },
 	implicit = "+(8-12)% to Fire and Lightning Resistances",
 	implicitModTypes = { { "elemental", "fire", "lightning", "resistance" }, },
-	armour = { ArmourBase = 126, EnergyShieldBase = 24, },
+	armour = { ArmourBaseMin = 126, ArmourBaseMax = 145, EnergyShieldBaseMin = 26, EnergyShieldBaseMax = 30, },
 	req = { level = 70, str = 62, int = 62, },
 }
 
@@ -511,7 +511,7 @@ itemBases["Wrapped Boots"] = {
 	socketLimit = 4,
 	tags = { dex_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 12, EnergyShieldBase = 3, },
+	armour = { EvasionBaseMin = 12, EvasionBaseMax = 17, EnergyShieldBaseMin = 4, EnergyShieldBaseMax = 5, },
 	req = { level = 6, dex = 9, int = 9, },
 }
 itemBases["Strapped Boots"] = {
@@ -520,7 +520,7 @@ itemBases["Strapped Boots"] = {
 	socketLimit = 4,
 	tags = { dex_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 30, EnergyShieldBase = 6, },
+	armour = { EvasionBaseMin = 30, EvasionBaseMax = 39, EnergyShieldBaseMin = 7, EnergyShieldBaseMax = 9, },
 	req = { level = 16, dex = 18, int = 18, },
 }
 itemBases["Clasped Boots"] = {
@@ -529,7 +529,7 @@ itemBases["Clasped Boots"] = {
 	socketLimit = 4,
 	tags = { dex_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 50, EnergyShieldBase = 10, },
+	armour = { EvasionBaseMin = 50, EvasionBaseMax = 57, EnergyShieldBaseMin = 11, EnergyShieldBaseMax = 12, },
 	req = { level = 27, dex = 27, int = 27, },
 }
 itemBases["Shackled Boots"] = {
@@ -538,7 +538,7 @@ itemBases["Shackled Boots"] = {
 	socketLimit = 4,
 	tags = { dex_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 62, EnergyShieldBase = 12, },
+	armour = { EvasionBaseMin = 62, EvasionBaseMax = 71, EnergyShieldBaseMin = 13, EnergyShieldBaseMax = 15, },
 	req = { level = 34, dex = 34, int = 34, },
 }
 itemBases["Trapper Boots"] = {
@@ -547,7 +547,7 @@ itemBases["Trapper Boots"] = {
 	socketLimit = 4,
 	tags = { dex_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 74, EnergyShieldBase = 15, },
+	armour = { EvasionBaseMin = 74, EvasionBaseMax = 85, EnergyShieldBaseMin = 16, EnergyShieldBaseMax = 18, },
 	req = { level = 41, dex = 40, int = 40, },
 }
 itemBases["Ambush Boots"] = {
@@ -556,7 +556,7 @@ itemBases["Ambush Boots"] = {
 	socketLimit = 4,
 	tags = { dex_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 85, EnergyShieldBase = 17, },
+	armour = { EvasionBaseMin = 85, EvasionBaseMax = 95, EnergyShieldBaseMin = 18, EnergyShieldBaseMax = 20, },
 	req = { level = 47, dex = 45, int = 45, },
 }
 itemBases["Carnal Boots"] = {
@@ -565,7 +565,7 @@ itemBases["Carnal Boots"] = {
 	socketLimit = 4,
 	tags = { dex_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 99, EnergyShieldBase = 19, },
+	armour = { EvasionBaseMin = 99, EvasionBaseMax = 117, EnergyShieldBaseMin = 20, EnergyShieldBaseMax = 24, },
 	req = { level = 55, dex = 52, int = 52, },
 }
 itemBases["Assassin's Boots"] = {
@@ -574,7 +574,7 @@ itemBases["Assassin's Boots"] = {
 	socketLimit = 4,
 	tags = { dex_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 121, EnergyShieldBase = 24, },
+	armour = { EvasionBaseMin = 121, EvasionBaseMax = 139, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 28, },
 	req = { level = 63, dex = 62, int = 62, },
 }
 itemBases["Murder Boots"] = {
@@ -583,7 +583,7 @@ itemBases["Murder Boots"] = {
 	socketLimit = 4,
 	tags = { dex_int_armour = true, armour = true, boots = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 185, EnergyShieldBase = 17, },
+	armour = { EvasionBaseMin = 185, EvasionBaseMax = 213, EnergyShieldBaseMin = 18, EnergyShieldBaseMax = 21, },
 	req = { level = 69, dex = 82, int = 42, },
 }
 itemBases["Fugitive Boots"] = {
@@ -593,7 +593,7 @@ itemBases["Fugitive Boots"] = {
 	tags = { boots = true, bootsatlasdexint = true, not_for_sale = true, atlas_base_type = true, armour = true, dex_int_armour = true, default = true, },
 	implicit = "+(13-17)% to Chaos Resistance",
 	implicitModTypes = { { "chaos", "resistance" }, },
-	armour = { EvasionBase = 112, EnergyShieldBase = 31, },
+	armour = { EvasionBaseMin = 112, EvasionBaseMax = 129, EnergyShieldBaseMin = 32, EnergyShieldBaseMax = 37, },
 	req = { level = 70, dex = 56, int = 76, },
 }
 itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
@@ -603,7 +603,7 @@ itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
 	tags = { boots = true, dex_int_armour = true, not_for_sale = true, atlas_base_type = true, armour = true, bootsatlas1 = true, default = true, },
 	implicit = "+(8-12)% to Cold and Lightning Resistances",
 	implicitModTypes = { { "elemental", "cold", "lightning", "resistance" }, },
-	armour = { EvasionBase = 126, EnergyShieldBase = 24, },
+	armour = { EvasionBaseMin = 126, EvasionBaseMax = 145, EnergyShieldBaseMin = 26, EnergyShieldBaseMax = 30, },
 	req = { level = 70, dex = 62, int = 62, },
 }
 
@@ -613,7 +613,7 @@ itemBases["Runic Greaves"] = {
 	socketLimit = 4,
 	tags = { boots = true, not_for_sale = true, armour = true, ward_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { WardBase = 20, },
+	armour = { WardBaseMin = 24, WardBaseMax = 28, },
 	req = { level = 24, str = 20, dex = 20, int = 20, },
 }
 itemBases["Runic Sollerets"] = {
@@ -622,7 +622,7 @@ itemBases["Runic Sollerets"] = {
 	socketLimit = 4,
 	tags = { boots = true, not_for_sale = true, armour = true, ward_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { WardBase = 52, },
+	armour = { WardBaseMin = 62, WardBaseMax = 71, },
 	req = { level = 48, str = 37, dex = 37, int = 37, },
 }
 itemBases["Runic Sabatons"] = {
@@ -631,7 +631,7 @@ itemBases["Runic Sabatons"] = {
 	socketLimit = 4,
 	tags = { boots = true, not_for_sale = true, armour = true, ward_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { WardBase = 85, },
+	armour = { WardBaseMin = 102, WardBaseMax = 117, },
 	req = { level = 69, str = 46, dex = 46, int = 46, },
 }
 

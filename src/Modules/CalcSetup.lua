@@ -22,6 +22,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("ChaosResistMax", "BASE", 75, "Base")
 	modDB:NewMod("BlockChanceMax", "BASE", 75, "Base")
 	modDB:NewMod("SpellBlockChanceMax", "BASE", 75, "Base")
+	modDB:NewMod("SpellDodgeChanceMax", "BASE", 75, "Base")
 	modDB:NewMod("PowerChargesMax", "BASE", 3, "Base")
 	modDB:NewMod("FrenzyChargesMax", "BASE", 3, "Base")
 	modDB:NewMod("EnduranceChargesMax", "BASE", 3, "Base")
@@ -49,7 +50,6 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("TotemPlacementTime", "BASE", 0.6, "Base")
 	modDB:NewMod("BallistaPlacementTime", "BASE", 0.35, "Base")
 	modDB:NewMod("ActiveTotemLimit", "BASE", 1, "Base")
-	modDB:NewMod("LifeRegenPercent", "BASE", 6, "Base", { type = "Condition", var = "OnConsecratedGround" })
 	modDB:NewMod("MovementSpeed", "INC", -30, "Base", { type = "Condition", var = "Maimed" })
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Attack, { type = "Condition", var = "Intimidated"})
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Spell, { type = "Condition", var = "Unnerved"})
@@ -60,6 +60,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("Chill", "FLAG", true, "Base", { type = "Condition", var = "Chilled" })
 	modDB:NewMod("Freeze", "FLAG", true, "Base", { type = "Condition", var = "Frozen" })
 	modDB:NewMod("Fortify", "FLAG", true, "Base", { type = "Condition", var = "Fortify" })
+	modDB:NewMod("Fortified", "FLAG", true, "Base", { type = "Condition", var = "Fortified" })
 	modDB:NewMod("Fanaticism", "FLAG", true, "Base", { type = "Condition", var = "Fanaticism" })
 	modDB:NewMod("Onslaught", "FLAG", true, "Base", { type = "Condition", var = "Onslaught" })
 	modDB:NewMod("UnholyMight", "FLAG", true, "Base", { type = "Condition", var = "UnholyMight" })
@@ -68,6 +69,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("AlchemistsGenius", "FLAG", true, "Base", { type = "Condition", var = "AlchemistsGenius" })
 	modDB:NewMod("LuckyHits", "FLAG", true, "Base", { type = "Condition", var = "LuckyHits" })
 	modDB:NewMod("Convergence", "FLAG", true, "Base", { type = "Condition", var = "Convergence" })
+	modDB:NewMod("PhysicalDamageReduction", "BASE", -15, "Base", { type = "Condition", var = "Crushed" })
 	modDB.conditions["Buffed"] = env.mode_buffs
 	modDB.conditions["Combat"] = env.mode_combat
 	modDB.conditions["Effective"] = env.mode_effective
@@ -388,6 +390,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("MaximumRage", "BASE", 50, "Base")
 		modDB:NewMod("Multiplier:GaleForce", "BASE", 0, "Base")
 		modDB:NewMod("MaximumGaleForce", "BASE", 10, "Base")
+		modDB:NewMod("Multiplier:Fortification", "BASE", 0, "Base")
+		modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
 		modDB:NewMod("Multiplier:IntensityLimit", "BASE", 3, "Base")
 		modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
 		modDB:NewMod("MovementSpeed", "INC", 1, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
@@ -395,15 +399,18 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("ActiveMineLimit", "BASE", 15, "Base")
 		modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
 		modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
+		modDB:NewMod("SocketedCursesHexLimitValue", "BASE", 1, "Base")
 		modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
 		modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
-		modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" })
+		modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true})
 		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 		modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
 		modDB:NewMod("Condition:PrideMinEffect", "FLAG", true, "Base", { type = "Condition", var = "PrideMaxEffect", neg = true })
 		modDB:NewMod("PerBrutalTripleDamageChance", "BASE", 3, "Base")
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
+		modDB:NewMod("Multiplier:PerAllocatedNotable", "BASE", env.spec.allocatedNotableCount, "")
+		modDB:NewMod("Multiplier:PerAllocatedMastery", "BASE", env.spec.allocatedMasteryCount, "")
 
 		-- Add bandit mods
 		if build.bandit == "Alira" then
@@ -545,6 +552,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if item and item.type == "Flask" then
 				if slot.active then
 					env.flasks[item] = true
+				end
+				if item.base.subType == "Life" then
+					local highestLifeRecovery = env.itemModDB.multipliers["LifeFlaskRecovery"] or 0
+					if item.flaskData.lifeTotal > highestLifeRecovery then
+						env.itemModDB.multipliers["LifeFlaskRecovery"] = item.flaskData.lifeTotal
+					end
 				end
 				item = nil
 			end
@@ -702,7 +715,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	if not accelerate.nodeAlloc then
 		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 			local node = env.spec.tree.notableMap[passive]
-			if node then
+			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
 				if env.spec.nodes[node.id] and env.spec.nodes[node.id].conqueredBy and env.spec.tree.legion.editedNodes and env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id] then
 					env.allocNodes[node.id] = env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id][node.id] or node
 				else
@@ -822,7 +835,21 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 		-- Build list of active skills
 		local groupCfg = wipeTable(tempTable1)
+
+		-- Below we re-order the socket group list in order to support modifiers introduced in 3.16
+		-- which allow a Shield (Weapon 2) to link to a Main Hand and an Amulet to link to a Body Armour
+		-- as we need their support gems and effects to be processed before we cross-link them to those slots
+		local indexOrder = { }
 		for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
+			if socketGroup.slot == "Amulet" or socketGroup.slot == "Weapon 2" then
+				t_insert(indexOrder, 1, index)
+			else
+				t_insert(indexOrder, index)
+			end
+		end
+		local crossLinkedSupportList = { }
+		for _, index in ipairs(indexOrder) do
+			socketGroup = build.skillsTab.socketGroupList[index]
 			local socketGroupSkillList = { }
 			local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
 			socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
@@ -852,6 +879,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				end
+				if crossLinkedSupportList[socketGroup.slot] then
+					for _, supportItem in ipairs(crossLinkedSupportList[socketGroup.slot]) do
+						t_insert(supportList, supportItem)
+					end
+				end
 				for _, gemInstance in ipairs(socketGroup.gemList) do
 					-- Add support gems from this group
 					if env.mode == "MAIN" then
@@ -879,7 +911,18 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 							if gemInstance.gemData then
 								for _, value in ipairs(propertyModList) do
-									if calcLib.gemIsType(supportEffect.gemData, value.keyword) then
+									local match = true
+									if value.keywordList then
+										for _, keyword in ipairs(value.keywordList) do
+											if not calcLib.gemIsType(supportEffect.gemData, keyword) then
+												match = false
+												break
+											end
+										end
+									elseif not calcLib.gemIsType(supportEffect.gemData, value.keyword) then
+										match = false
+									end
+									if match then
 										supportEffect[value.key] = (supportEffect[value.key] or 0) + value.value
 									end
 								end
@@ -920,6 +963,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 							processGrantedEffect(gemInstance.gemData.secondaryGrantedEffect)
 						else
 							processGrantedEffect(gemInstance.grantedEffect)
+						end
+						-- Store extra supports for other items that are linked
+						for _, value in ipairs(env.modDB:List(groupCfg, "LinkedSupport")) do
+							crossLinkedSupportList[value.targetSlotName] = { }
+							for _, supportItem in ipairs(supportList) do
+								t_insert(crossLinkedSupportList[value.targetSlotName], supportItem)
+							end
 						end
 					end
 				end

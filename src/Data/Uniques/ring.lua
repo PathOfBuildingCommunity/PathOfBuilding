@@ -234,8 +234,8 @@ Variant: Fire Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Strength
 {tags:jewellery_elemental}Adds (20-25) to (26-35) Fire Damage
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{variant:1}Herald of Ash has (30-40)% reduced Reservation
-{variant:2}Herald of Ash has (15-20)% reduced Reservation
+{variant:1}Herald of Ash has (60-80)% increased Mana Reservation Efficiency
+{variant:2}Herald of Ash has (30-40)% increased Mana Reservation Efficiency
 {variant:3}{tags:jewellery_elemental}(40-60)% increased Fire Damage while affected by Herald of Ash
 {variant:4}Herald of Ash has (70-100)% increased Buff Effect
 {variant:5}Herald of Ash has (40-60)% increased Buff Effect
@@ -260,8 +260,8 @@ Variant: Cold Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_elemental}Adds (20-25) to (26-35) Cold Damage
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
-{variant:1}Herald of Ice has (30-40)% reduced Reservation
-{variant:2}Herald of Ice has (15-20)% reduced Reservation
+{variant:1}Herald of Ice has (60-80)% increased Mana Reservation Efficiency
+{variant:2}Herald of Ice has (30-40)% increased Mana Reservation Efficiency
 {variant:3}{tags:jewellery_elemental}(40-60)% increased Cold Damage while affected by Herald of Ice
 {variant:4}Herald of Ice has (70-100)% increased Buff Effect
 {variant:5}Herald of Ice has (40-60)% increased Buff Effect
@@ -286,8 +286,8 @@ Variant: Damage Reduction
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
 {tags:physical}Adds (8-10) to (13-15) Physical Damage
 {tags:jewellery_defense}+(350-400) to Armour
-{variant:1}Herald of Purity has (30-40)% reduced Reservation
-{variant:2}Herald of Purity has (15-20)% reduced Reservation
+{variant:1}Herald of Purity has (60-80)% increased Mana Reservation Efficiency
+{variant:2}Herald of Purity has (30-40)% increased Mana Reservation Efficiency
 {variant:3}{tags:physical}(40-60)% increased Physical Damage while affected by Herald of Purity
 {variant:4}Herald of Purity has (70-100)% increased Buff Effect
 {variant:5}Herald of Purity has (40-60)% increased Buff Effect
@@ -312,8 +312,8 @@ Variant: Chaos Resistance
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
 {tags:chaos}Adds (15-20) to (21-30) Chaos Damage
 {tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-{variant:1}Herald of Agony has (30-40)% reduced Reservation
-{variant:2}Herald of Agony has (15-20)% reduced Reservation
+{variant:1}Herald of Agony has (60-80)% increased Mana Reservation Efficiency
+{variant:2}Herald of Agony has (30-40)% increased Mana Reservation Efficiency
 {variant:3}{tags:chaos}(40-60)% increased Chaos Damage while affected by Herald of Agony
 {variant:4}Herald of Agony has (70-100)% increased Buff Effect
 {variant:5}Herald of Agony has (40-60)% increased Buff Effect
@@ -338,8 +338,8 @@ Variant: Lightning Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:jewellery_elemental}Adds 1 to (48-60) Lightning Damage
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
-{variant:1}Herald of Thunder has (30-40)% reduced Reservation
-{variant:2}Herald of Thunder has (15-20)% reduced Reservation
+{variant:1}Herald of Thunder has (60-80)% increased Mana Reservation Efficiency
+{variant:2}Herald of Thunder has (30-40)% increased Mana Reservation Efficiency
 {variant:3}{tags:jewellery_elemental}(40-60)% increased Lightning Damage while affected by Herald of Thunder
 {variant:4}Herald of Thunder has (70-100)% increased Buff Effect
 {variant:5}Herald of Thunder has (40-60)% increased Buff Effect
@@ -374,6 +374,8 @@ Implicits: 1
 ]],[[
 Replica Doedre's Damning
 Paua Ring
+Variant: Pre 3.16.0
+Variant: Current
 League: Heist
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
@@ -381,7 +383,8 @@ Implicits: 1
 {tags:jewellery_resistance}+5% to all Elemental Resistances
 {tags:mana}+5 Mana gained on Kill
 {tags:caster}You can apply one fewer Curse
-{tags:caster}(25-35)% increased Effect of your Curses
+{variant:1}{tags:caster}(25-35)% increased Effect of your Curses
+{variant:2}{tags:caster}(15-25)% increased Effect of your Curses
 ]],[[
 Dream Fragments
 Sapphire Ring
@@ -400,20 +403,22 @@ Emberwake
 Ruby Ring
 Variant: Pre 3.0.0
 Variant: Pre 3.9.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:1}{tags:jewellery_elemental}(15-25)% increased Fire Damage
-{variant:2,3}{tags:jewellery_elemental}(30-40)% increased Fire Damage
+{variant:2,3,4}{tags:jewellery_elemental}(30-40)% increased Fire Damage
 {tags:caster,speed}(5-10)% increased Cast Speed
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
-{variant:2,3}{tags:jewellery_elemental}10% chance to Ignite
+{variant:2,3,4}{tags:jewellery_elemental}10% chance to Ignite
 You can inflict an additional Ignite on an Enemy
 {variant:1}Your Critical Strikes do not deal extra Damage
 {variant:1}{tags:jewellery_elemental}Ignited Enemies Burn 80% slower
 {variant:2}{tags:jewellery_elemental}Ignited Enemies Burn 65% slower
 {variant:3}{tags:jewellery_elemental}Ignited Enemies Burn (65-50)% slower
+{variant:4}{tags:jewellery_elemental}40% less Burning Damage
 ]],[[
 Replica Emberwake
 Ruby Ring
@@ -429,12 +434,15 @@ Implicits: 1
 ]],[[
 Essence Worm
 Unset Ring
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 38
 Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Aura Gems
 Socketed Gems Have no Reservation
-40% increased Reservation of Skills
+{variant:1}80% reduced Mana Reservation Efficiency of Skills
+{variant:2}80% reduced Reservation Efficiency
 ]],[[
 Fated End
 Paua Ring
@@ -523,28 +531,34 @@ Implicits: 1
 ]],[[
 Kaom's Way
 Coral Ring
+Variant: Pre 3.16.0
+Variant: Current
 Source: Upgraded from unique{Kaom's Sign} using prophecy{The King's Path}
 Requires Level 32
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {tags:jewellery_attribute}+(10-20) to Strength
-{tags:life}0.4% of maximum Life Regenerated per second per Endurance Charge
+{variant:1}{tags:life}0.4% of maximum Life Regenerated per second per Endurance Charge
+{variant:2}{tags:life}0.2% of maximum Life Regenerated per second per Endurance Charge
+{variant:2}2% increased Area of Effect per Endurance Charge
 {tags:attack,life}+(2-4) Life gained for each Enemy hit by your Attacks
 +1 Maximum Endurance Charge
 ]],[[
 Kikazaru
 Topaz Ring
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 20
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {tags:jewellery_attribute}+(10-15) to all Attributes
 {variant:1}{tags:life}(13-17) Life Regenerated per second
-{variant:2}{tags:life}1 Life Regenerated per second per Level
+{variant:2,3}{tags:life}1 Life Regenerated per second per Level
 {tags:mana}(20-40)% increased Mana Regeneration Rate
 {variant:1}{tags:caster}20% reduced Effect of Curses on You
 {variant:2}{tags:caster}40% reduced Effect of Curses on You
+{variant:3}{tags:caster}60% reduced Effect of Curses on You
 ]],[[
 Le Heup of All
 Iron Ring
@@ -673,20 +687,21 @@ Mutewind Seal
 Unset Ring
 League: Warbands
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 45
 Implicits: 1
 Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
-{variant:2}+3 to Level of Socketed Golem Gems
+{variant:2,3}+3 to Level of Socketed Golem Gems
 {variant:1}Socketed Gems are Supported by Level 13 Faster Attacks
-{variant:2}{tags:attack,caster,speed}Socketed Golem Skills have 20% increased Attack and Cast Speed
+{variant:2,3}{tags:attack,caster,speed}Socketed Golem Skills have 20% increased Attack and Cast Speed
 {tags:attack,physical}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack,speed}(5-10)% increased Attack Speed
 {variant:1}(1-2)% chance to Dodge Attack Hits
 {variant:2}(3-5)% chance to Dodge Attack Hits
 {variant:1}Socketed Gems are Supported by Level 16 Increased Minion Speed
-{variant:2}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
+{variant:2,3}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
 ]],[[
 Ngamahu's Sign
 Ruby Ring
@@ -854,12 +869,15 @@ Lose all Power Charges on Critical Strike
 Rotblood Promise
 Unset Ring
 League: Ritual
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 56
 Implicits: 1
 Has 1 Socket
 Socketed Gems are Supported by Level 20 Blasphemy
 Curse Auras from Socketed Skills also affect you
-{tags:caster}Socketed Curse Gems have 50% reduced Reservation
+{variant:1}{tags:caster}Socketed Curse Gems have 100% increased Mana Reservation Efficiency
+{variant:2}{tags:caster}Socketed Curse Gems have 80% increased Reservation Efficiency
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:caster}20% reduced Effect of Curses on you
 (15-25)% increased Damage with Hits and Ailments against Cursed Enemies
@@ -914,7 +932,7 @@ Implicits: 1
 {variant:1}{tags:jewellery_elemental}(20-40)% increased Cold Damage
 {variant:2}{tags:caster}(20-40)% increased Spell Damage
 {tags:caster,speed}(5-10)% increased Cast Speed
-{variant:1}Spells have an additional Projectile
+{variant:1}Spells fire an additional Projectile
 {variant:2}Left ring slot: Projectiles from Spells cannot Chain
 {variant:2}Left ring slot: Projectiles from Spells Fork
 {variant:2}Right ring slot: Projectiles from Spells Chain +1 times
@@ -1178,6 +1196,17 @@ Implicits: 1
 Vivinsect
 Unset Ring
 League: Betrayal
+Variant: Fire and Chaos Resistances Pre 3.16.0
+Variant: Cold and Chaos Resistances Pre 3.16.0
+Variant: Lightning and Chaos Resistances Pre 3.16.0
+Variant: Strength and Dexterity Pre 3.16.0
+Variant: Dexterity and Intelligence Pre 3.16.0
+Variant: Strength and Intelligence Pre 3.16.0
+Variant: Effect of non-Damaging Ailments Pre 3.16.0
+Variant: Focus Shock Nearby Enemies Pre 3.16.0
+Variant: Minimum Frenzy Charges Pre 3.16.0
+Variant: Minimum Power Charges Pre 3.16.0
+Variant: Minimum Endurance Charges Pre 3.16.0
 Variant: Fire and Chaos Resistances
 Variant: Cold and Chaos Resistances
 Variant: Lightning and Chaos Resistances
@@ -1193,21 +1222,22 @@ Requires Level 45
 Implicits: 1
 Has 1 Socket
 +5 to Level of Socketed Aura Gems
-Socketed Gems have 10% increased Reservation
+{variant:1,2,3,4,5,6,7,8,9,10,11}Socketed Gems have 20% reduced Mana Reservation Efficiency
+{variant:13,14,15,16,17,18,19,20,21,22}Socketed Gems have 20% reduced Reservation Efficiency
 {tags:jewellery_attribute}+(15-25) to all Attributes
 {tags:life}15 Life Regenerated per second for each Uncorrupted Item Equipped
 {tags:mana}-2 to Total Mana Cost of Skills for each Corrupted Item Equipped
-{variant:1}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
-{variant:2}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:3}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
-{variant:4}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
-{variant:5}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
-{variant:6}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
-{variant:7}{crafted}(11-30)% increased Effect of non-Damaging Ailments on Enemies
-{variant:8}{crafted}Shock nearby Enemies for (2-4) Seconds when you Focus
-{variant:9}{crafted}+1 to Minimum Frenzy Charges
-{variant:10}{crafted}+1 to Minimum Power Charges
-{variant:11}{crafted}+1 to Minimum Endurance Charges
+{variant:1,12}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
+{variant:2,13}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
+{variant:3,14}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
+{variant:4,15}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
+{variant:5,16}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
+{variant:6,17}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
+{variant:7,18}{crafted}(11-30)% increased Effect of non-Damaging Ailments on Enemies
+{variant:8,19}{crafted}Shock nearby Enemies for (2-4) Seconds when you Focus
+{variant:9,20}{crafted}+1 to Minimum Frenzy Charges
+{variant:10,21}{crafted}+1 to Minimum Power Charges
+{variant:11,22}{crafted}+1 to Minimum Endurance Charges
 ]],[[
 Voideye
 Unset Ring

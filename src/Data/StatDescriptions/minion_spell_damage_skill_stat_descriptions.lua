@@ -358,6 +358,23 @@ return {
 					},
 					limit={
 						[1]={
+							[1]=100,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="This Spell and Minions always Freeze Enemies"
+				},
+				[3]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextFreeze"
+					},
+					limit={
+						[1]={
 							[1]=1,
 							[2]=99
 						},
@@ -2041,6 +2058,7 @@ return {
 				}
 			}
 		},
+		name="support_damage_full_es_incr",
 		stats={
 			[1]="support_energy_shield_leech_damage_+%_on_full_energy_shield_final"
 		}

@@ -120,7 +120,6 @@ local skillMap = {
 	["ShockNova"] = "Shock Nova",
 	["SpectralThrow"] = "Spectral Throw",
 	["TectonicSlam"] = "Tectonic Slam",
-	["TornadoShot"] = "Tornado Shot",
 	["VolatileDead"] = "Volatile Dead",
 	["BoneLance"] = "Unearth",
 	["CorpseEruption"] = "Cremation",
@@ -202,6 +201,9 @@ local skillMap = {
 	["Boneshatter"] = "Boneshatter",
 	["SpectralHelix"] = "Spectral Helix",
 	["DefianceBanner"] = "Defiance Banner",
+	["EnergyBlade"] = "Energy Blade",
+	["Tornado"] = "Tornado",
+	["TornadoShot"] = "Tornado Shot",
 }
 
 local bySkill = { }

@@ -6,6 +6,7 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_sort = table.sort
+local t_concat = table.concat
 local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
@@ -33,6 +34,10 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			self:OpenSpecManagePopup()
 		end
 	end)
+	self.controls.specSelect.maxDroppedWidth = 1000
+	self.controls.specSelect.enableDroppedWidth = true
+	self.controls.specSelect.enableChangeBoxWidth = true
+	self.controls.specSelect.controls.scrollBar.enabled = true
 	self.controls.specSelect.tooltipFunc = function(tooltip, mode, selIndex, selVal)
 		tooltip:Clear()
 		if mode ~= "OUT" then
@@ -54,7 +59,10 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 					if spec.curClassId == self.build.spec.curClassId then
 						local respec = 0
 						for nodeId, node in pairs(self.build.spec.allocNodes) do
-							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and not spec.allocNodes[nodeId] then
+							-- Assumption: Nodes >= 65536 are small cluster passives.
+							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" 
+							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536 
+							and not spec.allocNodes[nodeId] then
 								if node.ascendancyName then
 									respec = respec + 5
 								else
@@ -87,9 +95,13 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		end
 	end)
 	self.controls.compareSelect.shown = false
+	self.controls.compareSelect.maxDroppedWidth = 1000
+	self.controls.compareSelect.enableDroppedWidth = true
+	self.controls.compareSelect.enableChangeBoxWidth = true
 	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
 		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
 			self.build.spec:ResetNodes()
+			self.build.spec:BuildAllDependsAndPaths()
 			self.build.spec:AddUndoState()
 			self.build.buildFlag = true
 		end)
@@ -207,18 +219,20 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.viewer.compareSpec = self.isComparing and self.specList[self.activeCompareSpec] or nil
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
+	local newSpecList = { }
 	self.controls.compareSelect.selIndex = self.activeCompareSpec
-	wipeTable(self.controls.compareSelect.list)
 	for id, spec in ipairs(self.specList) do
-		t_insert(self.controls.compareSelect.list, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
+	self.controls.compareSelect:SetList(newSpecList)
 
 	self.controls.specSelect.selIndex = self.activeSpec
-	wipeTable(self.controls.specSelect.list)
+	wipeTable(newSpecList)
 	for id, spec in ipairs(self.specList) do
-		t_insert(self.controls.specSelect.list, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
-	t_insert(self.controls.specSelect.list, "Manage trees...")
+	t_insert(newSpecList, "Manage trees...")
+	self.controls.specSelect:SetList(newSpecList)
 
 	if not self.controls.treeSearch.hasFocus then
 		self.controls.treeSearch:SetText(self.viewer.searchStr)
@@ -227,6 +241,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
 	self.controls.treeHeatMapStatSelect.list = self.powerStatList
 	self.controls.treeHeatMapStatSelect.selIndex = 1
+	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
 	if self.build.calcsTab.powerStat then
 		self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
 	end
@@ -316,6 +331,7 @@ function TreeTabClass:SetActiveSpec(specId)
 	local prevSpec = self.build.spec
 	self.activeSpec = m_min(specId, #self.specList)
 	local curSpec = self.specList[self.activeSpec]
+	data.setJewelRadiiGlobally(curSpec.treeVersion)
 	self.build.spec = curSpec
 	self.build.buildFlag = true
 	self.build.spec:SetWindowTitleWithBuildClass()
@@ -474,6 +490,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				})
 			end
 		end
+		table.sort(modGroups, function(a, b) return a.label < b.label end)
 	end
 	local function addModifier(selectedNode)
 		local newLegionNode = self.build.spec.tree.legion.nodes[modGroups[controls.modSelect.selIndex].id]
@@ -585,6 +602,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.mods = {""}
 			selectedNode.modList = new("ModList")
 			selectedNode.modKey = ""
+			selectedNode.reminderText = { }
 		elseif selectedNode.conqueredBy.conqueror.type == "vaal" and selectedNode.type == "Notable" then
 			local legionNode = self.build.spec.tree.legion.nodes["vaal_notable_curse_1"]
 			selectedNode.dn = "Vaal notable node"
@@ -593,6 +611,16 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.mods = {""}
 			selectedNode.modList = new("ModList")
 			selectedNode.modKey = ""
+			selectedNode.reminderText = { }
+		elseif selectedNode.conqueredBy.conqueror.type == "eternal" and selectedNode.type == "Notable" then
+			local legionNode = self.build.spec.tree.legion.nodes["eternal_notable_fire_resistance_1"]
+			selectedNode.dn = "Eternal Empire notable node"
+			selectedNode.sd = {"Right click to set mod"}
+			selectedNode.sprites = legionNode.sprites
+			selectedNode.mods = {""}
+			selectedNode.modList = new("ModList")
+			selectedNode.modKey = ""
+			selectedNode.reminderText = { }
 		else
 			self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 			if selectedNode.conqueredBy.conqueror.type == "templar" then
@@ -608,6 +636,52 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end)
 	main:OpenPopup(800, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[1])
+end
+
+function TreeTabClass:SaveMasteryPopup(node, listControl)
+		if listControl.selValue == nil then
+			return
+		end
+		local effect = self.build.spec.tree.masteryEffects[listControl.selValue.id]
+		node.sd = effect.sd
+		node.allMasteryOptions = false
+		node.reminderText = { "Tip: Right click to select a different effect" }
+		self.build.spec.tree:ProcessStats(node)
+		self.build.spec.masterySelections[node.id] = effect.id
+		if not node.alloc then
+			self.build.spec:AllocNode(node, self.viewer.tracePath and node == self.viewer.tracePath[#self.viewer.tracePath] and self.viewer.tracePath)
+		end
+		self.build.spec:AddUndoState()
+		self.modFlag = true
+		self.build.buildFlag = true
+		main:ClosePopup()
+end
+
+function TreeTabClass:OpenMasteryPopup(node, viewPort)
+	local controls = { }
+	local effects = { }
+	local cachedSd = node.sd
+	local cachedAllMasteryOption = node.allMasteryOptions
+
+	wipeTable(effects)
+	for _, effect in pairs(node.masteryEffects) do
+		local assignedNodeId = isValueInTable(self.build.spec.masterySelections, effect.effect)
+		if not assignedNodeId or assignedNodeId == node.id then
+			t_insert(effects, {label = t_concat(effect.stats, " / "), id = effect.effect})
+		end
+	end
+	--Check to make sure that the effects list has a potential mod to apply to a mastery
+	if not (next(effects) == nil) then
+		local passiveMasteryControlHeight = (#effects + 1) * 14 + 2
+		controls.close =  new("ButtonControl", nil, 0, 30 + passiveMasteryControlHeight, 90, 20, "Cancel", function()
+			node.sd = cachedSd
+			node.allMasteryOptions = cachedAllMasteryOption
+			self.build.spec.tree:ProcessStats(node)
+			main:ClosePopup()
+		end)
+		controls.effect = new("PassiveMasteryControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 25, 0, passiveMasteryControlHeight, effects, self, node, controls.save)
+		main:OpenPopup(controls.effect.width + 12, controls.effect.height + 60, node.name, controls)
+	end
 end
 
 function TreeTabClass:SetPowerCalc(selection)

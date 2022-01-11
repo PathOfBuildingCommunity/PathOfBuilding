@@ -5,6 +5,8 @@
 --
 local ipairs = ipairs
 local t_insert = table.insert
+local b_rshift = bit.rshift
+local band = bit.band
 
 local realmList = {
 	{ label = "PC", id = "PC", realmCode = "pc", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
@@ -67,6 +69,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		self.controls.accountName.buf = self.controls.accountHistory.list[self.controls.accountHistory.selIndex]
 	end)
 	self.controls.accountHistory:SelByValue(main.lastAccountName)
+	self.controls.accountHistory:CheckDroppedWidth(true)
 
 	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, 0, 16, 0, 14, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
 	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, "^x4040FFhttps://www.urlencoder.org/", function()
@@ -82,7 +85,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 2. The account's privacy settings hide the characters tab (this is the default setting).
 If this is your account, you can either:
 1. Change your privacy settings to show you characters tab and then retry, or
-2. Enter a valid POESESSID below. 
+2. Enter a valid POESESSID below.
 You can get this from your web browser's cookies while logged into the Path of Exile website.
 		]]
 	end
@@ -156,6 +159,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 			table.sort(historyList, function(a,b)
 				return a:lower() < b:lower()
 			end)
+			self.controls.accountHistory:CheckDroppedWidth(true)
 		end
 	end)
 
@@ -238,6 +242,11 @@ You can get this from your web browser's cookies while logged into the Path of E
 			self.controls.importCodeMode.selIndex = 2
 		end
 	end)
+	self.controls.importCodeIn.enterFunc = function()
+		if self.importCodeState == "VALID" then
+			self.controls.importCodeGo.onClick()
+		end
+	end
 	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 4, 0, 0, 16)
 	self.controls.importCodeState.label = function()
 		return (self.importCodeState == "VALID" and colorCodes.POSITIVE.."Code is valid") or (self.importCodeState == "INVALID" and colorCodes.NEGATIVE.."Invalid code") or ""
@@ -374,7 +383,7 @@ function ImportTabClass:DownloadCharacterList()
 					label = league,
 					league = league,
 				})
-			end				
+			end
 			if self.controls.charSelectLeague.selIndex > #self.controls.charSelectLeague.list then
 				self.controls.charSelectLeague.selIndex = 1
 			end
@@ -460,6 +469,20 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	--local out = io.open("get-passive-skills.json", "w")
 	--writeLuaTable(out, charPassiveData, 1)
 	--out:close()
+
+	-- 3.16+
+	if charPassiveData.mastery_effects then
+		local mastery, effect = 0, 0
+		for key, value in pairs(charPassiveData.mastery_effects) do
+			if type(value) ~= "string" then
+				break
+			end
+			mastery = band(tonumber(value), 65535)
+			effect = b_rshift(tonumber(value), 16)
+			t_insert(charPassiveData.mastery_effects, mastery, effect)
+		end
+	end
+
 	if errMsg then
 		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
 		return
@@ -480,7 +503,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
-	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes)
+	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.mastery_effects or {})
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.controls.characterLevel:SetText(charData.level)
@@ -665,6 +688,12 @@ function ImportTabClass:ImportItem(itemData, slotName)
 					item.base = self.build.data.itemBases[item.baseName]
 				end
 			end
+			if property.name == "Energy Shield" or property.name == "Ward" or property.name == "Armour" or property.name == "Evasion Rating" then
+				item.armourData = item.armourData or { }
+				for _, value in ipairs(property.values) do
+					item.armourData[property.name:gsub(" Rating", ""):gsub(" ", "")] = (item.armourData[property.name:gsub(" Rating", ""):gsub(" ", "")] or 0) + tonumber(value[1])
+				end
+			end
 		end
 	end
 	item.corrupted = itemData.corrupted
@@ -689,6 +718,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		end
 	end
 	item.enchantModLines = { }
+	item.scourgeModLines = { }
 	item.implicitModLines = { }
 	item.explicitModLines = { }
 	if itemData.enchantMods then
@@ -696,6 +726,14 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
 				t_insert(item.enchantModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+			end
+		end
+	end
+	if itemData.scourgeMods then
+		for _, line in ipairs(itemData.scourgeMods) do
+			for line in line:gmatch("[^\n]+") do
+				local modList, extra = modLib.parseMod(line)
+				t_insert(item.scourgeModLines, { line = line, extra = extra, mods = modList or { }, scourge = true })
 			end
 		end
 	end
@@ -791,7 +829,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			abyssalSocketId = abyssalSocketId + 1
 		else
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
-			local gemId = self.build.data.gemForBaseName[normalizedBasename] 
+			local gemId = self.build.data.gemForBaseName[normalizedBasename]
 			if not gemId and socketedItem.hybrid then
 				-- Dual skill gems (currently just Stormbind) show the second skill as the typeLine, which won't match the actual gem
 				-- Luckily the primary skill name is also there, so we can find the gem using that
@@ -855,13 +893,13 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			t_insert(self.build.skillsTab.socketGroupList, itemSocketGroup)
 		end
 		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup)
-	end	
+	end
 end
 
 function HexToChar(x)
 	return string.char(tonumber(x, 16))
 end
-  
+
 function UrlDecode(url)
 	if url == nil then
 		return
@@ -874,9 +912,11 @@ end
 function ImportTabClass:OpenImportFromWebsitePopup()
 	local importWebsiteList = {
 		{ label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1" },
+		{ label = "PastebinP.com", id = "PastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
 		{ label = "Ghostbin", id = "Ghostbin", matchURL = "ghostbin%.co/paste/%w+", regexURL = "ghostbin%.co/paste/(%w+)%s*$", downloadURL = "ghostbin.co/paste/%1/raw" },
 		{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
 		{ label = "TinyPaste", id = "TinyPaste", matchURL = "penyacom%.org/%w+", regexURL = "penyacom%.org/[pr]%?q=(%w+)%s*$", downloadURL = "penyacom.org/r?q=%1" },
+		{ label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1" },
 	}
 	local controls = { }
 
@@ -889,6 +929,13 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 	controls.editLabel = new("LabelControl", { "TOPLEFT", controls.importAnchorPoint, "BOTTOMLEFT"}, 15, 44, 0, 16, "Enter website link:")
 	controls.edit = new("EditControl", nil, 0, 64, 250, 18, "", nil, "^%w%p%s", nil, function(buf)
 		controls.msg.label = ""
+		if #controls.edit.buf > 0 then
+			for j=1,#importWebsiteList do
+				if controls.edit.buf:match(importWebsiteList[j].matchURL) then
+					controls.importFrom:SelByValue(importWebsiteList[j].id, "id")
+				end
+			end
+		end
 	end)
 	controls.msg = new("LabelControl", nil, 0, 82, 0, 16, "")
 	controls.import = new("ButtonControl", nil, -45, 104, 80, 20, "Import", function()
@@ -907,6 +954,7 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 			else
 				self.controls.importCodeIn:SetText(page, true)
 				main:ClosePopup()
+				main:SelectControl(self.controls.importCodeIn)
 			end
 		end)
 	end)

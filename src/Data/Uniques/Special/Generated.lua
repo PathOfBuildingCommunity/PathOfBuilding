@@ -59,8 +59,10 @@ for _, gemData in pairs(data.gems) do
 end
 table.sort(gems)
 for index, name in ipairs(gems) do
-	table.insert(forbiddenShako, "Variant: "..name)
-	table.insert(forbiddenShako, "{variant:"..index.."}Socketed Gems are Supported by Level (15-25) "..name)
+	table.insert(forbiddenShako, "Variant: "..name.. " (Low Level)")
+	table.insert(forbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
+	table.insert(forbiddenShako, "Variant: "..name.. " (High Level)")
+	table.insert(forbiddenShako, "{variant:"..(index * 2).."}Socketed Gems are Supported by Level (25-35) "..name)
 	table.insert(replicaForbiddenShako, "Variant: "..name.. " (Low Level)")
 	table.insert(replicaForbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
 	table.insert(replicaForbiddenShako, "Variant: "..name.. " (High Level)")
@@ -83,7 +85,7 @@ local enduranceChargeMods = {
 	},
 	[2] = {
 		["Block Attacks"] = "1% Chance to Block Attack Damage per Endurance Charge",
-		["Dodge Attacks"] = "1% Chance to Dodge Attack Hits per Endurance Charge",
+		["Spell Suppression"] = "1% chance to Suppress Spell Damage per Endurance Charge",
 		["Chaos Res"] = "+4% to Chaos Resistance per Endurance Charge",
 		["Fire as Chaos"] = "Gain 1% of Fire Damage as Extra Chaos Damage per Endurance Charge",
 		["Attack and Cast Speed"] = "1% increased Attack and Cast Speed per Endurance Charge",
@@ -111,7 +113,7 @@ local frenzyChargeMods = {
 	},
 	[2] = {
 		["Block Attacks"] = "1% Chance to Block Attack Damage per Frenzy Charge",
-		["Dodge Attacks"] = "1% Chance to Dodge Attack Hits per Frenzy Charge",
+		["Spell Suppression"] = "1% chance to Suppress Spell Damage per Frenzy Charge",
 		["Accuracy Rating"] = "10% increased Accuracy Rating per Frenzy Charge",
 		["Cold as Chaos"] = "Gain 1% of Cold Damage as Extra Chaos Damage per Frenzy Charge",
 		["Attack and Cast Speed"] = "1% increased Attack and Cast Speed per Frenzy Charge",
@@ -139,7 +141,7 @@ local powerChargeMods = {
 	},
 	[2] = {
 		["Block Attacks"] = "1% Chance to Block Attack Damage per Power Charge",
-		["Dodge Attacks"] = "1% Chance to Dodge Attack Hits per Power Charge",
+		["Spell Suppression"] = "1% chance to Suppress Spell Damage per Power Charge",
 		["Phys. Damage Red."] = "1% additional Physical Damage Reduction per Power Charge",
 		["Lightning as Chaos"] = "Gain 1% of Lightning Damage as Extra Chaos Damage per Power Charge",
 		["Attack and Cast Speed"] = "1% increased Attack and Cast Speed per Power Charge",
@@ -248,7 +250,7 @@ for _, name in ipairs(keystones) do
 end
 table.insert(skinOfTheLords, "Implicits: 0")
 table.insert(skinOfTheLords, "Sockets cannot be modified")
-table.insert(skinOfTheLords, "+1 to Level of Socketed Gems")
+table.insert(skinOfTheLords, "+2 to Level of Socketed Gems")
 table.insert(skinOfTheLords, "100% increased Global Defences")
 table.insert(skinOfTheLords, "You can only Socket Corrupted Gems in this item")
 for index, name in ipairs(keystones) do
