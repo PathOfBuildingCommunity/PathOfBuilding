@@ -539,7 +539,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("Condition:CanEnsnare")
-#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanEnsnare" })
 #mods
 
 #skill EtherealKnives
@@ -1514,7 +1513,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" })
-#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" })
 #baseMod skill("radius", 26)
 #mods
 
