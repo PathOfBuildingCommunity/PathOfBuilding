@@ -461,8 +461,6 @@ function DropDownClass:SetList(textList)
 		self.list = textList
 		  --check width on new list
 		self:CheckDroppedWidth(self.enableDroppedWidth)
-	else
-		return
 	end
 end
 
@@ -477,8 +475,7 @@ function DropDownClass:CheckDroppedWidth(enable)
 
 		  -- do not be smaller than the created width
 		local dWidth = self.width
-		for j=1,#self.list do
-			local line = self.list[j]
+		for line in self.list do
 			if type(line) == "table" then
 				line = line.label
 			end
