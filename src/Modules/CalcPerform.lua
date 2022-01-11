@@ -829,13 +829,14 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Elusive") then
 			if modDB:Flag(nil, "HasRemovableElusiveBuff") then
 				local inc = 0
-				local skillCount = 0
-				local avgSkillInc = 0
+				local maxSkillInc = 0
 				for indx, value in ipairs(modDB:Tabulate("INC", nil, "ElusiveEffect")) do
 					if value.mod.source:find("Skill") then
-						avgSkillInc = avgSkillInc + value.mod.value
-						skillCount = skillCount + 1
-						modDB.mods[value.mod.name][indx] = nil
+						if value.mod.value > maxSkillInc then
+							maxSkillInc = value.mod.value
+						end
+						-- if we want to remove the skills from being displayed, uncomment below
+						--modDB.mods[value.mod.name][indx] = nil
 					else
 						inc = inc + value.mod.value
 					end
@@ -843,9 +844,10 @@ local function doActorMisc(env, actor)
 				for _, value in ipairs(modDB:Tabulate("INC", nil, "BuffEffectOnSelf")) do
 					inc = inc + value.mod.value
 				end
-				inc = inc + avgSkillInc / skillCount
+				inc = inc + maxSkillInc
 				output.ElusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
-				modDB:NewMod("ElusiveEffect", "INC", avgSkillInc / skillCount, "Skill Avg Effect")
+				-- if we want the max skill to not be noted as its own breakdown table entry, comment out below
+				modDB:NewMod("ElusiveEffect", "INC", maxSkillInc, "Max Skill Effect")
 			else
 				output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
 			end
