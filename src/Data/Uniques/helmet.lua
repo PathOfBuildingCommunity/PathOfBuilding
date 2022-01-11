@@ -222,7 +222,7 @@ Silken Hood
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 60, 138 Dex
-Trigger Level 20 Tornado when you gain Avian's Might or Avian's Flight
+Trigger Level 20 Twister when you gain Avian's Might or Avian's Flight
 (60-80)% increased Evasion Rating
 +(40-60) to maximum Life
 +(30-40)% to Lightning Resistance

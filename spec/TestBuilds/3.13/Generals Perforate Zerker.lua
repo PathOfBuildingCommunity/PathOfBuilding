@@ -1321,7 +1321,7 @@ Gain 50 Life when you Stun an Enemy
 ["TotalDot"] = 0,
 ["ColdGuardAbsorbRate"] = 75,
 ["ManaLeechGainRate"] = 134.4,
-["DoubleArmourChance"] = 0,
+["MoreArmourChance"] = 0,
 ["LightningGuardAbsorb"] = 3444.4,
 ["FireResist"] = 76,
 ["RemovableFrenzyCharges"] = 3,

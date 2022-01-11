@@ -1,3 +1,82 @@
+VERSION[2.13.0][2021/11/02]
+
+* Add Ravenous Misshapen Spectre (LocalIdentity)
+* Add Pale Seraphim Spectre (LocalIdentity)
+* Add Pale Angel Spectre (Kayella)
+* Add Demon Harpy Spectre (Kayella)
+* Add Demon Herder Spectre (Kayella)
+* Add dynamically changing width for dropdown box when selecting tree (pHiney)
+* Add support for gem level modifiers of socketed active skill gems (etojuice)
+* Add support for "chance to Defend with x% of Armour" masteries (Nostrademous)
+
+* Fix crash when attempting to save build after character import (Peechey)
+* Fix build list loading crash (PJacek)
+* Fix Multistrike Support not applying its damage multiplier to Ailments (LocalIdentity)
+* Fix Multistrike Support not providing attack speed to gems with multiple skill parts (LocalIdentity)
+	* Molten Strike, Lightning Strike, Wild Strike and Frost Blades
+* Fix Attack/Cast rate cap (LocalIdentity)
+* Fix Stationary setting box sometimes not showing up (randomflyingtaco)
+* Fix eHP double dipping on damage taken modifiers (Lothrik)
+* Fix Small Curse Cluster Jewels rendering on the tree when socketed (Peechey)
+* Fix Mines incorrectly counting towards "number of Auras affecting you" mastery (LocalIdentity)
+* Fix Spell Suppression mastery giving double Critical Strike chance (LocalIdentity)
+* Fix Voltaxic Burst's "number of Casts currently waiting" not adding damage (LocalIdentity)
+* Fix Flame Totem Consecrated Ground enchantment (LocalIdentity)
+* Fix parsing for Curse on Hit rings (LocalIdentity)
+* Fix parsing for mod on The Taming ring (LocalIdentity)
+* Fix parsing for Impresence Mana Reservation mod (LocalIdentity)
+
+VERSION[2.12.3][2021/10/28]
+
+* Fix crash when importing/opening builds (LocalIdentity)
+
+VERSION[2.12.2][2021/10/28]
+
+* Fix crash when using Blood Magic Keystone (LocalIdentity)
+
+VERSION[2.12.1][2021/10/28]
+
+* Fix several bugs relating to armour calculations on items (Wires77)
+
+VERSION[2.12.0][2021/10/28]
+
+* Add support for Nightblade Dagger Mastery (mthjones)
+* Add support for Sword Mastery for Offhand Accuracy (Nostrademous)
+* Add support for +3 levels Critical support gem mastery (Wires77)
+* Add support for variable ES bypass for Chaos Damage mastery (Dullson)
+* Add support for Active Aura Multiplier and Active Herald/Aura mods (Dullson)
+* Add support for "Enemies Ignited or Chilled by you have -5% to Elemental Resistances" (Peechey)
+* Change Timeless Jewel passive nodes in dropdown selection menu to appear in alphabetical order (etojuice)
+* Update passive tree (LocalIdentity)
+* Update Dodge breakdown on Calcs page (etojuice)
+* Update Uniques that previously used Dodge (LocalIdentity)
+* Update The Squire, The Oppressor, Uul-Netol's Vow with ranges and modifiers (Nostrademous)
+
+* Fix importing passive tree data from player profiles (Peechey)
+* Fix import/export of passive tree on the tree tab (hdwatts)
+* Fix scourged mods not importing properly (Wires77)
+* Fix masteries persisting after resetting the tree (etojuice)
+* Fix overcap display for Spell Block (LocalIdentity)
+* Fix calculations for variable base armour values (Wires77)
+* Fix Mana Efficiency rounding (HPSource)
+* Fix bug on builds that had 100% reduced Reservation Efficiency and were using Arcane Cloak (Peechey)
+* Fix rounding for attribute bonuses (etojuice)
+* Fix Flask More/Less Duration applying globally instead of locally (Peechey)
+* Fix new uniques to use exceptional gems (Lexy)
+* Fix Collateral Damage Jewel to affect Galvanic Arrow (randomflyingtaco)
+* Fix Righteous Fire to use 3.16 Life multiplier (Lilylicious)
+* Fix Arcanist Brand not applying more damage with Hits (LocalIdentity)
+* Fix Awakened Elemental Focus not giving +1 to supported elemental gems (randomflyingtaco)
+* Fix Nightblade Crit Multi not scaling with Elusive effect (mthjones)
+* Fix Divergent Fortify not working (LocalIdentity)
+* Fix Awakened Cast on Critical Strike not applying cooldown recovery to skills (LocalIdentity)
+* Fix Explosive Arrow skill on Spectres (LocalIdentity)
+
+VERSION[2.11.1][2021/10/23]
+
+* Fix mods when crafting Cluster Jewels + items (Wires77)
+* Fix Storm + Armageddon Brand hit damage (Lilylicious)
+
 VERSION[2.11.0][2021/10/22]
 
 * Add Scourge mods and base type values (Wires77)

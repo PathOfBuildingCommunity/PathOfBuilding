@@ -22,6 +22,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("ChaosResistMax", "BASE", 75, "Base")
 	modDB:NewMod("BlockChanceMax", "BASE", 75, "Base")
 	modDB:NewMod("SpellBlockChanceMax", "BASE", 75, "Base")
+	modDB:NewMod("SpellDodgeChanceMax", "BASE", 75, "Base")
 	modDB:NewMod("PowerChargesMax", "BASE", 3, "Base")
 	modDB:NewMod("FrenzyChargesMax", "BASE", 3, "Base")
 	modDB:NewMod("EnduranceChargesMax", "BASE", 3, "Base")
@@ -744,7 +745,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	if not accelerate.nodeAlloc then
 		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 			local node = env.spec.tree.notableMap[passive]
-			if node then
+			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
 				if env.spec.nodes[node.id] and env.spec.nodes[node.id].conqueredBy and env.spec.tree.legion.editedNodes and env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id] then
 					env.allocNodes[node.id] = env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id][node.id] or node
 				else
@@ -940,7 +941,18 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 							if gemInstance.gemData then
 								for _, value in ipairs(propertyModList) do
-									if calcLib.gemIsType(supportEffect.gemData, value.keyword) then
+									local match = true
+									if value.keywordList then
+										for _, keyword in ipairs(value.keywordList) do
+											if not calcLib.gemIsType(supportEffect.gemData, keyword) then
+												match = false
+												break
+											end
+										end
+									elseif not calcLib.gemIsType(supportEffect.gemData, value.keyword) then
+										match = false
+									end
+									if match then
 										supportEffect[value.key] = (supportEffect[value.key] or 0) + value.value
 									end
 								end
@@ -983,12 +995,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 							processGrantedEffect(gemInstance.grantedEffect)
 						end
 						-- Store extra supports for other items that are linked
-						for _, value in ipairs(env.modDB:List(groupCfg, "LinkedNonExceptionSupport")) do
+						for _, value in ipairs(env.modDB:List(groupCfg, "LinkedSupport")) do
 							crossLinkedSupportList[value.targetSlotName] = { }
 							for _, supportItem in ipairs(supportList) do
-								if supportItem.grantedEffect.name ~= "Empower" and supportItem.grantedEffect.name ~= "Enlighten" and supportItem.grantedEffect.name ~= "Enhance" then
-									t_insert(crossLinkedSupportList[value.targetSlotName], supportItem)
-								end
+								t_insert(crossLinkedSupportList[value.targetSlotName], supportItem)
 							end
 						end
 					end

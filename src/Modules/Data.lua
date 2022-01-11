@@ -92,6 +92,8 @@ data.powerStatList = {
 	{ stat="Life", label="Life" },
 	{ stat="LifeRegen", label="Life regen" },
 	{ stat="LifeLeechRate", label="Life leech" },
+	{ stat="Armour", label="Armour" },
+	{ stat="Evasion", label="Evasion" },
 	{ stat="EnergyShield", label="Energy Shield" },
 	{ stat="EnergyShieldRecoveryCap", label="Recoverable ES" },
 	{ stat="EnergyShieldRegen", label="Energy Shield regen" },
@@ -279,7 +281,7 @@ data.keystones = {
 	"Iron Reflexes",
 	"Iron Will",
 	"Lethe Shade",
-	"MageBane",
+	"Magebane",
 	"Mind Over Matter",
 	"Minion Instability",
 	"Mortal Conviction",
@@ -366,6 +368,14 @@ data.enchantments = {
 data.essences = LoadModule("Data/Essence")
 data.veiledMods = LoadModule("Data/ModVeiled")
 data.pantheons = LoadModule("Data/Pantheons")
+data.costs = LoadModule("Data/Costs")
+do
+	local map = { }
+	for i, value in ipairs(data.costs) do
+		map[value.Resource] = i
+	end
+	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
+end
 
 -- Cluster jewel data
 data.clusterJewels = LoadModule("Data/ClusterJewels")

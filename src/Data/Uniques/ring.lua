@@ -687,20 +687,21 @@ Mutewind Seal
 Unset Ring
 League: Warbands
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 45
 Implicits: 1
 Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
-{variant:2}+3 to Level of Socketed Golem Gems
+{variant:2,3}+3 to Level of Socketed Golem Gems
 {variant:1}Socketed Gems are Supported by Level 13 Faster Attacks
-{variant:2}{tags:attack,caster,speed}Socketed Golem Skills have 20% increased Attack and Cast Speed
+{variant:2,3}{tags:attack,caster,speed}Socketed Golem Skills have 20% increased Attack and Cast Speed
 {tags:attack,physical}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack,speed}(5-10)% increased Attack Speed
 {variant:1}(1-2)% chance to Dodge Attack Hits
 {variant:2}(3-5)% chance to Dodge Attack Hits
 {variant:1}Socketed Gems are Supported by Level 16 Increased Minion Speed
-{variant:2}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
+{variant:2,3}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
 ]],[[
 Ngamahu's Sign
 Ruby Ring

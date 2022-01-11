@@ -10,6 +10,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
+local m_floor = math.floor
 local m_huge = math.huge
 local s_format = string.format
 
@@ -45,10 +46,14 @@ end
 --- Calculates Damage Reduction from Armour
 ---@param armour number
 ---@param damage number
----@param doubleChance number @Chance to Defend with Double Armour 
+---@param moreChance number @Chance to Defend with More Armour
+---@param moreValue number multiplier to apply to armour (defaults to 2)
 ---@return number @Damage Reduction
-function calcs.armourReductionDouble(armour, damage, doubleChance)
-	return calcs.armourReduction(armour, damage) * (1 - doubleChance) + calcs.armourReduction(armour * 2, damage) * doubleChance
+function calcs.armourReductionDouble(armour, damage, moreChance, moreValue)
+	if moreValue and moreValue > 0 then
+		return calcs.armourReduction(armour * (1 + moreValue), damage)
+	end
+	return calcs.armourReduction(armour, damage) * (1 - moreChance) + calcs.armourReduction(armour * 2, damage) * moreChance
 end
 
 function calcs.actionSpeedMod(actor)
@@ -130,8 +135,9 @@ function calcs.defence(env, actor)
 		output.SpellProjectileBlockChance = output.ProjectileBlockChance
 		output.SpellBlockChanceOverCap = output.BlockChanceOverCap
 	else
-		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax)
-		output.SpellBlockChanceOverCap = m_max(0, output.SpellBlockChance - output.SpellBlockChanceMax)
+		local totalSpellBlockChance = modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance")
+		output.SpellBlockChance = m_min(totalSpellBlockChance, output.SpellBlockChanceMax)
+		output.SpellBlockChanceOverCap = m_max(0, totalSpellBlockChance - output.SpellBlockChanceMax)
 		output.SpellProjectileBlockChance = output.SpellBlockChance
 	end
 	if breakdown then
@@ -161,10 +167,16 @@ function calcs.defence(env, actor)
 		output.ShowBlockEffect = true
 		output.DamageTakenOnBlock = 100 - output.BlockEffect
 	end
-	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
-	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
-	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
-	output.EnergyShieldOnSpellBlock = modDB:Sum("BASE", nil, "EnergyShieldOnSpellBlock")
+
+	if modDB:Flag(nil, "ArmourAppliesToEnergyShieldRecharge") then
+		-- Armour to ES Recharge conversion from Armour and Energy Shield Mastery
+		local multiplier = modDB:Max(nil, "ImprovedArmourAppliesToEnergyShieldRecharge") / 100
+		for _, value in ipairs(modDB:Tabulate("INC", nil, "Armour")) do
+			local mod = value.mod
+			local modifiers = calcLib.getConvertedModTags(mod, multiplier)
+			modDB:NewMod("EnergyShieldRecharge", "INC", m_floor(mod.value * multiplier), mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
+		end
+	end
 
 	-- Primary defences: Energy shield, evasion and armour
 	do
@@ -389,7 +401,9 @@ function calcs.defence(env, actor)
 		end
 		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
 		output.Armour = m_max(round(armour), 0)
-		output.DoubleArmourChance = m_min(modDB:Sum("BASE", nil, "DoubleArmourChance"), 100)
+		output.MoreArmourChance = m_min(modDB:Sum("BASE", nil, "MoreArmourChance"), 100)
+		output.ArmourDefense = (modDB:Max(nil, "ArmourDefense") / 100) or 0
+		output.RawArmourDefense = output.ArmourDefense > 0 and ((1 + output.ArmourDefense) * 100) or nil
 		output.Evasion = m_max(round(evasion), 0)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
 		output.Ward = m_max(round(ward), 0)
@@ -446,17 +460,33 @@ function calcs.defence(env, actor)
 		modDB:NewMod("SpellDodgeChance", "BASE", SpellSuppressionChance / 2, "Acrobatics")
 	end
 
+	local baseDodgeChance = 0
 	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
 	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
+	local attackDodgeChanceMax = data.misc.DodgeChanceCap
+	local spellDodgeChanceMax = modDB:Override(nil, "SpellDodgeChanceMax") or modDB:Sum("BASE", nil, "SpellDodgeChanceMax")
 
-	output.AttackDodgeChance = m_min(totalAttackDodgeChance, data.misc.DodgeChanceCap)
-	output.SpellDodgeChance = m_min(totalSpellDodgeChance, data.misc.DodgeChanceCap)
+	output.AttackDodgeChance = m_min(totalAttackDodgeChance, attackDodgeChanceMax)
+	output.SpellDodgeChance = m_min(totalSpellDodgeChance, spellDodgeChanceMax)
 	if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
 		output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
 		output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
 	end
-	output.AttackDodgeChanceOverCap = m_max(0, totalAttackDodgeChance - data.misc.DodgeChanceCap)
-	output.SpellDodgeChanceOverCap = m_max(0, totalSpellDodgeChance - data.misc.DodgeChanceCap)
+	output.AttackDodgeChanceOverCap = m_max(0, totalAttackDodgeChance - attackDodgeChanceMax)
+	output.SpellDodgeChanceOverCap = m_max(0, totalSpellDodgeChance - spellDodgeChanceMax)
+
+	if breakdown then
+		breakdown.AttackDodgeChance = {
+			"Base: "..baseDodgeChance.."%",
+			"Max: "..attackDodgeChanceMax.."%",
+			"Total: "..output.AttackDodgeChance+output.AttackDodgeChanceOverCap.."%",
+		}
+		breakdown.SpellDodgeChance = {
+			"Base: "..baseDodgeChance.."%",
+			"Max: "..spellDodgeChanceMax.."%",
+			"Total: "..output.SpellDodgeChance+output.SpellDodgeChanceOverCap.."%",
+		}
+	end
 
 	-- Recovery modifiers
 	output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
@@ -681,13 +711,16 @@ function calcs.defence(env, actor)
 			total = s_format("= %.2f ^8(effective movement speed modifier)", output.EffectiveMovementSpeedMod)
 		})
 	end
-	if modDB:Flag(nil, "Elusive") then
-		output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
-	end
 
 	if enemyDB:Flag(nil, "Blind") then
 		output.BlindEffectMod = calcLib.mod(enemyDB, nil, "BlindEffect", "BuffEffectOnSelf") * 100
 	end
+	
+	-- recovery on block, needs to be after primary defences
+	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
+	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
+	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
+	output.EnergyShieldOnSpellBlock = modDB:Sum("BASE", nil, "EnergyShieldOnSpellBlock")
 	
 	-- damage avoidances
 	for _, damageType in ipairs(dmgTypeList) do
@@ -1101,7 +1134,7 @@ function calcs.defence(env, actor)
 	end
 
 	-- Incoming hit damage multipliers
-	local doubleArmourChance = (output.DoubleArmourChance == 100 or env.configInput.armourCalculationMode == "MAX") and 1 or env.configInput.armourCalculationMode == "MIN" and 0 or output.DoubleArmourChance / 100
+	local moreArmourChance = (output.MoreArmourChance == 100 or env.configInput.armourCalculationMode == "MAX") and 1 or env.configInput.armourCalculationMode == "MIN" and 0 or output.MoreArmourChance / 100
 	actor.damageShiftTable = wipeTable(actor.damageShiftTable)
 	for _, damageType in ipairs(dmgTypeList) do
 		-- Build damage shift table
@@ -1158,13 +1191,13 @@ function calcs.defence(env, actor)
 					local portionArmour = 100
 					if destType == "Physical" then
 						if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
-							armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100, doubleArmourChance)
+							armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100, moreArmourChance, output.ArmourDefense)
 							resist = m_min(output.DamageReductionMax, resist + armourReduct)
 						end
 						resist = m_max(resist, 0)
 					else
 						portionArmour = 100 - resist
-						armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100 * portionArmour / 100, doubleArmourChance)
+						armourReduct = calcs.armourReductionDouble(output.Armour, damage * portion / 100 * portionArmour / 100, moreArmourChance, output.ArmourDefense)
 						resist = resist + m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
 					end
 					if damageType == destType then
@@ -1210,8 +1243,8 @@ function calcs.defence(env, actor)
 		end
 		output[damageType.."TakenHitMult"] = mult
 		for _, hitType in ipairs(hitSourceList) do
-			local baseTakenInc = modDB:Sum("INC", nil, "DamageTaken", hitType.."DamageTaken")
-			local baseTakenMore = modDB:More(nil, "DamageTaken", hitType.."DamageTaken")
+			local baseTakenInc = modDB:Sum("INC", nil, hitType.."DamageTaken")
+			local baseTakenMore = modDB:More(nil, hitType.."DamageTaken")
 			do
 				-- Hit
 				output[hitType.."TakenHitMult"] = m_max((1 + baseTakenInc / 100) * baseTakenMore)

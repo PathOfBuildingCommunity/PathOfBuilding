@@ -34,6 +34,10 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			self:OpenSpecManagePopup()
 		end
 	end)
+	self.controls.specSelect.maxDroppedWidth = 1000
+	self.controls.specSelect.enableDroppedWidth = true
+	self.controls.specSelect.enableChangeBoxWidth = true
+	self.controls.specSelect.controls.scrollBar.enabled = true
 	self.controls.specSelect.tooltipFunc = function(tooltip, mode, selIndex, selVal)
 		tooltip:Clear()
 		if mode ~= "OUT" then
@@ -91,9 +95,13 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		end
 	end)
 	self.controls.compareSelect.shown = false
+	self.controls.compareSelect.maxDroppedWidth = 1000
+	self.controls.compareSelect.enableDroppedWidth = true
+	self.controls.compareSelect.enableChangeBoxWidth = true
 	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
 		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
 			self.build.spec:ResetNodes()
+			self.build.spec:BuildAllDependsAndPaths()
 			self.build.spec:AddUndoState()
 			self.build.buildFlag = true
 		end)
@@ -211,18 +219,20 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.viewer.compareSpec = self.isComparing and self.specList[self.activeCompareSpec] or nil
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
+	local newSpecList = { }
 	self.controls.compareSelect.selIndex = self.activeCompareSpec
-	wipeTable(self.controls.compareSelect.list)
 	for id, spec in ipairs(self.specList) do
-		t_insert(self.controls.compareSelect.list, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
+	self.controls.compareSelect:SetList(newSpecList)
 
 	self.controls.specSelect.selIndex = self.activeSpec
-	wipeTable(self.controls.specSelect.list)
+	wipeTable(newSpecList)
 	for id, spec in ipairs(self.specList) do
-		t_insert(self.controls.specSelect.list, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
-	t_insert(self.controls.specSelect.list, "Manage trees...")
+	t_insert(newSpecList, "Manage trees...")
+	self.controls.specSelect:SetList(newSpecList)
 
 	if not self.controls.treeSearch.hasFocus then
 		self.controls.treeSearch:SetText(self.viewer.searchStr)
@@ -231,6 +241,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
 	self.controls.treeHeatMapStatSelect.list = self.powerStatList
 	self.controls.treeHeatMapStatSelect.selIndex = 1
+	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
 	if self.build.calcsTab.powerStat then
 		self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
 	end
@@ -479,6 +490,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				})
 			end
 		end
+		table.sort(modGroups, function(a, b) return a.label < b.label end)
 	end
 	local function addModifier(selectedNode)
 		local newLegionNode = self.build.spec.tree.legion.nodes[modGroups[controls.modSelect.selIndex].id]

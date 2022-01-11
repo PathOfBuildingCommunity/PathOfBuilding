@@ -563,12 +563,12 @@ Implicits: 3
 {variant:3}+(8-12)% to Cold and Lightning Resistances
 Grants Level 1 Embrace Madness Skill
 30% increased Movement Speed
-{variant:1}Enemies you Kill while affected by Glorious Madness have a 40% chance to Explode, dealing a quarter of their Life as Chaos Damage
-{variant:1}All Damage inflicts Poison while affected by Glorious Madness
+{variant:1}+15 to maximum Fortification while affected by Glorious Madness
+{variant:1}20% chance to deal Double Damage while affected by Glorious Madness
 {variant:2}You have Igniting, Chilling and Shocking Conflux while affected by Glorious Madness
 {variant:2}Immune to Elemental Ailments while affected by Glorious Madness
-{variant:3}60% increased Effect of Fortify on you while affected by Glorious Madness
-{variant:3}20% chance to deal Double Damage while affected by Glorious Madness
+{variant:3}Enemies you Kill while affected by Glorious Madness have a 40% chance to Explode, dealing a quarter of their Life as Chaos Damage
+{variant:3}All Damage inflicts Poison while affected by Glorious Madness
 ]],[[
 Darkray Vectors
 Dragonscale Boots
