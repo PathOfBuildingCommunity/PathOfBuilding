@@ -567,7 +567,7 @@ return {
 { 1, "SkillTypeStats", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill type-specific Stats", data = {
 	{ label = "Active Minion Limit", haveOutput = "ActiveMinionLimit", { format = "{0:output:ActiveMinionLimit}" } },
 	{ label = "Quantity Multiplier", haveOutput = "QuantityMultiplier", { format = "{0:output:QuantityMultiplier}", { modName = "QuantityMultiplier", cfg = "skill" }, }, },
-	{ label = "Skill Cooldown", haveOutput = "Cooldown", { format = "{2:output:Cooldown}s", 
+	{ label = "Skill Cooldown", haveOutput = "Cooldown", { format = "{3:output:Cooldown}s",
 		{ breakdown = "Cooldown" }, 
 		{ modName = "CooldownRecovery", cfg = "skill" },
 	}, },
@@ -629,7 +629,7 @@ return {
 	}, },
 	{ label = "Trap Throw Time", flag = "trap", { format = "{2:output:TrapThrowingTime}s", { breakdown = "TrapThrowingTime" }, }, },
 	{ label = "Active Trap Limit", flag = "trap", { format = "{0:output:ActiveTrapLimit}", { modName = "ActiveTrapLimit", cfg = "skill" }, }, },
-	{ label = "Trap Cooldown", haveOutput = "TrapCooldown", { format = "{2:output:TrapCooldown}s", 
+	{ label = "Trap Cooldown", haveOutput = "TrapCooldown", { format = "{3:output:TrapCooldown}s",
 		{ breakdown = "TrapCooldown" }, 
 		{ modName = "CooldownRecovery", cfg = "skill" },
 	}, },
