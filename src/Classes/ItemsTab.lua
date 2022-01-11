@@ -1948,7 +1948,7 @@ function ItemsTabClass:GenerateWeightedSearch(itembase)
 		end
 	end
 	retStr = retStr:sub(1, -2) .. '],"disabled":false}],"status":{"option":"online"},"filters":{"type_filters":{"filters":{"rarity":{"option":"nonunique"}'
-	retStr = retStr .. ',"category":{"option":"'..category..'"}},"disabled":false}}}}'
+	retStr = retStr .. ',"category":{"option":"'..category..'"}},"disabled":false}}}, "sort":{"statgroup.0": "desc"}}'
 	--local foo = io.open('../test.json', 'w')
 	--foo:write(retStr)
 	--foo:close()
@@ -2142,6 +2142,7 @@ function ItemsTabClass:PriceItem()
 	controls.pbNotice = new("EditControl",  {"TOP",nil,"TOP"}, 0, 15, 300, 16, "", nil, nil)
 	controls.pbNotice.textCol = colorCodes.CUSTOM
 	local sortSelectionList = {
+		"Default",
 		"Cheapest",
 		"Highest DPS",
 		"DPS / Price",
@@ -2448,7 +2449,13 @@ end
 
 function ItemsTabClass:SortFetchResults(slotTbl, trade_index)
 	local newTbl = {}
-	if self.pbSortSelectionIndex ~= 1 then
+	if self.pbSortSelectionIndex == 1 then
+		for index, tbl in pairs(self.resultTbl[trade_index]) do
+			t_insert(newTbl, { outputAttr = index, index = index })
+		end
+		return newTbl
+	end
+	if self.pbSortSelectionIndex > 2 then
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 		local slot = slotTbl.ref and self.activeItemSet["socketNodes"][slotTbl.ref] or self.slots[slotTbl.name]
 		local slotName = slotTbl.ref and slot.slotName or slotTbl.name
@@ -2459,12 +2466,12 @@ function ItemsTabClass:SortFetchResults(slotTbl, trade_index)
 			local item = new("Item", tbl.item_string)
 			local output = calcFunc({ repSlotName = slotName, repItem = item ~= selItem and item }, {})
 			local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS
-			if self.pbSortSelectionIndex == 3 then
+			if self.pbSortSelectionIndex == 4 then
 				local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
 				if chaosAmount > 0 then
 					t_insert(newTbl, { outputAttr = newDPS / chaosAmount, index = index })
 				end
-			else
+			else -- it's 3
 				if tbl.amount > 0 then
 					t_insert(newTbl, { outputAttr = newDPS, index = index })
 				end
@@ -2472,7 +2479,7 @@ function ItemsTabClass:SortFetchResults(slotTbl, trade_index)
 		end
 		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	else
+	else -- it's 2
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
 			if chaosAmount > 0 then
