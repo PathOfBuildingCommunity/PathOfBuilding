@@ -478,6 +478,18 @@ Implicits: 1
 {tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
 {tags:critical}(50-60)% increased Critical Strike Chance while you have at least 200 Intelligence
 ]],[[
+Mageblood
+Heavy Belt
+Requires Level 44
+Implicits: 1
+{tags:jewellery_attribute}+(25-35) to Strength
+{tags:jewellery_attribute}+(30-50) to Dexterity
+{tags:jewellery_resistance}+(15-25)% to Fire Resistance
+{tags:jewellery_resistance}+(15-25)% to Cold Resistance
+Magic Utility Flask cannot be Used
+Leftmost (2-4) Magic Utility Flasks constantly apply their Flask Effects to you
+Magic Utility Flask Effects cannot be removed
+]],[[
 Maligaro's Restraint
 Chain Belt
 Requires Level 44

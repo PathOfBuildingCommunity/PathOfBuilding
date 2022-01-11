@@ -3085,7 +3085,7 @@ skills["GeneralsCrySupport"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_spiritual_cry_damage_+%_final"] = {
-			mod("GeneralsCryMirageWarriorLessDamage", "BASE", nil),
+			mod("Damage", "MORE", nil),
 		},
 	},
 	baseMods = {

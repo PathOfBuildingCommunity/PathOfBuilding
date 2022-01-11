@@ -10,6 +10,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
+local m_floor = math.floor
 local m_huge = math.huge
 local s_format = string.format
 
@@ -165,6 +166,16 @@ function calcs.defence(env, actor)
 	else
 		output.ShowBlockEffect = true
 		output.DamageTakenOnBlock = 100 - output.BlockEffect
+	end
+
+	if modDB:Flag(nil, "ArmourAppliesToEnergyShieldRecharge") then
+		-- Armour to ES Recharge conversion from Armour and Energy Shield Mastery
+		local multiplier = modDB:Max(nil, "ImprovedArmourAppliesToEnergyShieldRecharge") / 100
+		for _, value in ipairs(modDB:Tabulate("INC", nil, "Armour")) do
+			local mod = value.mod
+			local modifiers = calcLib.getConvertedModTags(mod, multiplier)
+			modDB:NewMod("EnergyShieldRecharge", "INC", m_floor(mod.value * multiplier), mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
+		end
 	end
 
 	-- Primary defences: Energy shield, evasion and armour

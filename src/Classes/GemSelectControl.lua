@@ -45,7 +45,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 		self:BuildList(self.buf)
 		self:UpdateGem()
 	end
-	self.costs = LoadModule("Data/Costs")
+	self.costs = data.costs
 	self.reservationMap = {
 		manaReservationFlat = "Mana",
 		manaReservationPercent = "ManaPercent",
@@ -510,7 +510,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 		local cost
 		for _, res in ipairs(self.costs) do
 			if grantedEffectLevel.cost[res.Resource] then
-				cost = (cost and (cost..", ") or "")..res.ResourceString:gsub("{0}", string.format("%d", grantedEffectLevel.cost[res.Resource]))
+				cost = (cost and (cost..", ") or "")..res.ResourceString:gsub("{0}", string.format("%g", round(grantedEffectLevel.cost[res.Resource] / res.Divisor, 2)))
 			end
 		end
 		if cost then
