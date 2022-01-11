@@ -475,7 +475,7 @@ function DropDownClass:CheckDroppedWidth(enable)
 
 		  -- do not be smaller than the created width
 		local dWidth = self.width
-		for line in self.list do
+		for _, line in ipairs(self.list) do
 			if type(line) == "table" then
 				line = line.label
 			end
