@@ -10,6 +10,7 @@ Used as a key, so you can reference this mod elsewhere in PoB.  Can really be an
 - "MORE": used for more and less mods that stack multiplicatively.  Use a negative value to represent "less".
 - "OVERRIDE": used when you want to ignore any calculations done on this mod and just use the value (e.g. "your resistances are 78%" from Loreweave)
 - "FLAG": used for conditions.  Value will be true/false when this type is used.
+  - When you need the "FLAG" ModType, consider using the function `flag(name, source, modFlags, keywordFlags, extraTags)` instead. This method shortens the code and clarifies the intent. For example, `flag("ZealotsOath", { type = "Condition", var = "UsingFlask" })` is the same as `mod("ZealotsOath", "FLAG", true, { type = "Condition", var = "UsingFlask" })`
 ### Value
 This represents the raw value of the mod.  When it's used in the skills to map from the skill data, this will be `nil`, as it pulls the number from the gem based on the level.
 ### Source
