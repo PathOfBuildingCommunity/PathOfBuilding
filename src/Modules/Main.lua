@@ -207,6 +207,8 @@ the "Releases" section of the GitHub page.]])
 		self:SetMode("BUILD", false, "Unnamed build")
 	end
 	self:LoadSettings(ignoreBuild)
+
+	self.onFrameFuncs = { }
 end
 
 function main:LoadTree(treeVersion)
@@ -368,6 +370,11 @@ function main:OnFrame()
 	DrawImage(nil, 500, par + 200, 759, 2)]]
 
 	wipeTable(self.inputEvents)
+
+	-- TODO: this pattern may pose memory management issues for classes that don't exist for the lifetime of the program
+	for _, onFrameFunc in pairs(self.onFrameFuncs) do
+		onFrameFunc()
+	end
 end
 
 function main:OnKeyDown(key, doubleClick)
