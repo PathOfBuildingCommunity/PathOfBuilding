@@ -113,8 +113,7 @@ skills["VaalArcChain"] = {
 		chaining = true,
 	},
 	baseMods = {
-		flag("Condition:CanBeLucky"),
-		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeLucky" }),
+		flag("Condition:CanBeLucky", { type = "GlobalEffect", effectType = "Buff" }),
 	},
 	qualityStats = {
 		Default = {
