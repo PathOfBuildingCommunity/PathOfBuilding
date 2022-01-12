@@ -359,6 +359,11 @@ end
 
 function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
     local start = GetTime()
+
+    -- determine if we are using FullDPS or not (store prior setting)
+    local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+    GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+
     for _, entry in pairs(modsToTest) do
         if entry[self.calcContext.itemCategory] ~= nil then
             if self.alreadyWeightedMods[entry.tradeMod.id] ~= nil then -- Don't calculate the same thing twice (can happen with corrupted vs implicit)
@@ -380,7 +385,7 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
             end
 
             local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-            local meanDPSDiff = output.TotalDPS - self.calcContext.baseDPS
+            local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS) - self.calcContext.baseDPS
             if meanDPSDiff > 0.01 then
                 table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanDPSDiff / modValue, meanDPSDiff = meanDPSDiff, invert = entry.sign == "-" and true or false })
                 self.alreadyWeightedMods[entry.tradeMod.id] = true
@@ -395,6 +400,7 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
         end
         ::continue::
     end
+    GlobalCache.useFullDPS = storedGlobalCacheDPSView
 end
 
 function TradeQueryGeneratorClass:OnFrame()
@@ -494,14 +500,14 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
     if options.influence2 > 1 then
         testItem[itemLib.influenceInfo[options.influence2 - 1].key] = true
     end
-
-    local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
-
-	-- Unequip item in requested slot and replace with test item
-	local originalItemId = slot.selItemId
-    self.itemsTab:AddItem(testItem, true)
-	slot:SetSelItemId(testItem.id)
-	self.itemsTab:PopulateSlots()
+    
+    -- Calculate base output with a blank item
+    local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
+    local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+    GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+    local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
+    local compDPS = GlobalCache.useFullDPS and baseOutput.FullDPS or baseOutput.TotalDPS
+    GlobalCache.useFullDPS = storedGlobalCacheDPSView
 
 	-- Test each mod one at a time and cache the normalized DPS diff to use as weight
     self.modWeights = { }
@@ -511,11 +517,11 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
         itemCategoryQueryStr = itemCategoryQueryStr,
         itemCategory = itemCategory,
         testItem = testItem,
-        baseDPS = calcBase.TotalDPS,
+        baseDPS = compDPS,
         calcFunc = calcFunc,
         options = options,
         slot = slot,
-        originalItemId = originalItemId
+        originalItemId = slot.selItemId
     }
 
     -- OnFrame will pick this up and begin the work
@@ -552,17 +558,12 @@ function TradeQueryGeneratorClass:FinishQuery()
         table.insert(self.calcContext.testItem.explicitModLines, modLine)
 	end
     self.calcContext.testItem:BuildAndParseRaw()
-    local currentDPSDiff = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = originalItem }, {}).TotalDPS - self.calcContext.baseDPS
+    local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = originalItem }, {})
+    local currentDPSDiff = (GlobalCache.useFullDPS and originalOutput.FullDps or originalOutput.TotalDPS) - self.calcContext.baseDPS
 
     -- This DPS diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
     -- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
     local minWeight = currentDPSDiff * 0.7
-
-	-- Restore original item to slot
-    self.itemsTab:DeleteItem(self.calcContext.testItem)
-	self.calcContext.slot:SetSelItemId(self.calcContext.originalItemId)
-	self.itemsTab:PopulateSlots()
-	self.itemsTab.build.buildFlag = true
 
     -- Sort by mean DPS diff rather than weight to more accurately prioritize stats that can contribute more
     table.sort(self.modWeights, function(a, b)
