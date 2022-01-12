@@ -418,22 +418,6 @@ function TradeQueryGeneratorClass:OnFrame()
     end
 end
 
-function TradeQueryGeneratorClass:GetDPS()
-    local build = self.itemsTab.build
-
-	-- Manually refresh build calcs (skip updating stat display)
-	build.outputRevision = build.outputRevision + 1
-	build.calcsTab:BuildOutput()
-
-    local calcs = build.calcsTab.calcs
-    local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
-	calcs.perform(env)
-	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env})
-	--env.player.output.SkillDPS = fullDPS.skills
-
-	return fullDPS.combinedDPS
-end
-
 function TradeQueryGeneratorClass:StartQuery(slot, options)
     -- Figure out what type of item we're searching for
     local existingItem = self.itemsTab.items[slot.selItemId]
