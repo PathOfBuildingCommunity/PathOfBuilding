@@ -614,8 +614,6 @@ function TradeQueryGeneratorClass:FinishQuery()
 
         local queryJson = dkjson.encode(queryTable)
 
-        ConPrintf("FINISHED")
-
         local league = "Scourge" -- TODO
         self.itemsTab:SearchItem(league, queryJson, self.its, self.itc, self.iti)
     else
