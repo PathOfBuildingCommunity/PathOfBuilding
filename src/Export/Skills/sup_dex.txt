@@ -328,11 +328,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportPuncturingWeapon
-	statMap = {
-		["elusive_effect_+%"] = {
-			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }),
-		},
-	},
 #baseMod flag("SupportedByNightblade")
 #baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" })
 #baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" })
