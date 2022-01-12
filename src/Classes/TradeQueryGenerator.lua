@@ -62,7 +62,6 @@ local modData = {
 }
 
 local MAX_FILTERS = 30
-local CALCS_PER_FRAME = 20
 
 local function logToFile(...)
     --ConPrintf(...)
@@ -75,8 +74,7 @@ end
 local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, itemsTab)
     self:InitMods()
     self.itemsTab = itemsTab
-    self.queuedWeightCalcs = { }
-    self.finishedQuery = nil
+    self.calcContext = { }
 
     table.insert(main.onFrameFuncs, function()
         self:OnFrame()
@@ -360,130 +358,58 @@ function TradeQueryGeneratorClass:InitMods()
 end
 
 function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
+    local start = GetTime()
     for _, entry in pairs(modsToTest) do
         if entry[self.calcContext.itemCategory] ~= nil then
-            if self.calcContext.options.includeTalisman == false and entry[self.calcContext.itemCategory].subType == "Talisman" then -- Talisman implicits take up a lot of query slots, so we have an option to skip them
+            if self.alreadyWeightedMods[entry.tradeMod.id] ~= nil then -- Don't calculate the same thing twice (can happen with corrupted vs implicit)
+                goto continue
+            elseif self.calcContext.options.includeTalisman == false and entry[self.calcContext.itemCategory].subType == "Talisman" then -- Talisman implicits take up a lot of query slots, so we have an option to skip them
                 goto continue
             end
 
-            -- Calcing all relevant mods in a single frame can take a while and cause the program to appear to freeze. Instead, queue the requests and process them over multiple frames.
-            table.insert(self.queuedWeightCalcs, entry)
+            -- Test with a value halfway between the min and max available for this mod in this slot. Note that this can generate slightly different values for the same mod as implicit vs explicit.
+            local modValue = math.ceil((entry[self.calcContext.itemCategory].max - entry[self.calcContext.itemCategory].min) / 2 + entry[self.calcContext.itemCategory].min)
+            local modValueStr = (entry.sign and entry.sign or "") .. tostring(modValue)
+            local modLine = entry.tradeMod.text:gsub("#",modValueStr)
+
+            self.calcContext.testItem.explicitModLines[1] = { line = modLine, custom = true }
+            self.calcContext.testItem:BuildAndParseRaw()
+
+            if (self.calcContext.testItem.modList ~= nil and #self.calcContext.testItem.modList == 0) or (self.calcContext.testItem.slotModList ~= nil and #self.calcContext.testItem.slotModList[1] == 0 and #self.calcContext.testItem.slotModList[2] == 0) then
+                logToFile("Failed to test %s mod: %s", self.calcContext.itemCategory, modLine)
+            end
+
+            local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
+            local meanDPSDiff = output.TotalDPS - self.calcContext.baseDPS
+            if meanDPSDiff > 0.01 then
+                table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanDPSDiff / modValue, meanDPSDiff = meanDPSDiff, invert = entry.sign == "-" and true or false })
+                self.alreadyWeightedMods[entry.tradeMod.id] = true
+            end
+
+            local now = GetTime()
+			if now - start > 50 then
+                -- Would be nice to update x/y progress on the popup here, but getting y ahead of time has a cost, and the visual seems to update on a significant delay anyways so it's not very useful
+				coroutine.yield()
+				start = now
+			end
         end
         ::continue::
     end
 end
 
 function TradeQueryGeneratorClass:OnFrame()
-    if #self.queuedWeightCalcs == 0 then
+    if self.calcContext.co == nil then
         return
     end
 
-    for i = 1, math.min(CALCS_PER_FRAME,#self.queuedWeightCalcs) do
-        local entry = table.remove(self.queuedWeightCalcs)
-
-        -- Test with a value halfway between the min and max available for this mod in this slot. Note that this can generate slightly different values for the same mod as implicit vs explicit.
-        local modValue = math.ceil((entry[self.calcContext.itemCategory].max - entry[self.calcContext.itemCategory].min) / 2 + entry[self.calcContext.itemCategory].min)
-        local modValueStr = (entry.sign and entry.sign or "") .. tostring(modValue)
-        local modLine = entry.tradeMod.text:gsub("#",modValueStr)
-
-        self.calcContext.testItem.explicitModLines[1] = { line = modLine, custom = true }
-        self.calcContext.testItem:BuildAndParseRaw()
-
-        if (self.calcContext.testItem.modList ~= nil and #self.calcContext.testItem.modList == 0) or (self.calcContext.testItem.slotModList ~= nil and #self.calcContext.testItem.slotModList[1] == 0 and #self.calcContext.testItem.slotModList[2] == 0) then
-            logToFile("Failed to test %s mod: %s", self.calcContext.itemCategory, modLine)
-        end
-
-        local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-        local meanDPSDiff = output.TotalDPS - self.calcContext.baseDPS
-        if meanDPSDiff > 0.01 and self.alreadyWeightedMods[entry.tradeMod.id] == nil then
-            table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanDPSDiff / modValue, meanDPSDiff = meanDPSDiff, invert = entry.sign == "-" and true or false })
-            self.alreadyWeightedMods[entry.tradeMod.id] = true
-        end
+    local res, errMsg = coroutine.resume(self.calcContext.co, self)
+    if launch.devMode and not res then
+        error(errMsg)
     end
-
-	self.calcContext.popup.controls.progressText.label = string.format("Calculating Mod Weights (%d / %d)", self.calcContext.numMods - #self.queuedWeightCalcs, self.calcContext.numMods)
-
-    if #self.queuedWeightCalcs == 0 then
+    if coroutine.status(self.calcContext.co) == "dead" then
+        self.calcContext.co = nil
         self:FinishQuery()
     end
-end
-
-function TradeQueryGeneratorClass:FinishQuery()
-    -- Calc original item DPS without anoint or enchant, and use that diff as a basis for default min sum.
-    local originalItem = self.itemsTab.items[self.calcContext.originalItemId]
-    self.calcContext.testItem.explicitModLines = { }
-    for _, modLine in ipairs(originalItem.explicitModLines) do
-        table.insert(self.calcContext.testItem.explicitModLines, modLine)
-    end
-    for _, modLine in ipairs(originalItem.scourgeModLines) do
-        table.insert(self.calcContext.testItem.explicitModLines, modLine)
-    end
-    for _, modLine in ipairs(originalItem.implicitModLines) do
-        table.insert(self.calcContext.testItem.explicitModLines, modLine)
-    end
-    self.calcContext.testItem:BuildAndParseRaw()
-    local currentDPSDiff = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = originalItem }, {}).TotalDPS - self.calcContext.baseDPS
-
-    -- This DPS diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
-    -- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
-    local minWeight = currentDPSDiff * 0.7
-
-	-- Restore original item to slot
-    self.itemsTab:DeleteItem(self.calcContext.testItem)
-	self.calcContext.slot:SetSelItemId(self.calcContext.originalItemId)
-	self.itemsTab:PopulateSlots()
-	self.itemsTab.build.buildFlag = true
-
-    -- Sort by mean DPS diff rather than weight to more accurately prioritize stats that can contribute more
-    table.sort(self.modWeights, function(a, b)
-        return a.meanDPSDiff > b.meanDPSDiff
-    end)
-
-	-- Generate trade query str and open in browser
-    if #self.modWeights > 0 then
-        local filters = 0
-
-        -- TODO: this would be much easier to build as a lua table, but we'd need a lua to json translator
-        local queryString = "{\"query\":{\"filters\":{\"type_filters\":{\"filters\":{\"category\":{\"option\":\"" .. self.calcContext.itemCategoryQueryStr .. "\"},\"rarity\": {\"option\": \"nonunique\"}}}},\"status\":{\"option\":\"online\"},\"stats\":["
-
-        local options = self.calcContext.options
-        if options.influence1 > 1 or options.influence2 > 1 then
-            queryString = queryString .. "{\"type\":\"and\",\"filters\":["
-
-            if options.influence1 > 1 then
-                queryString = queryString .. "{\"id\": \"" .. hasInfluenceModIds[options.influence1 - 1] .. "\"}"
-                filters = filters + 1
-            end
-            if options.influence2 > 1 then
-                if options.influence1 > 1 then
-                    queryString = queryString .. ","
-                end
-                queryString = queryString .. "{\"id\": \"" .. hasInfluenceModIds[options.influence2 - 1] .. "\"}"
-                filters = filters + 1
-            end
-            queryString = queryString .. "]},"
-        end
-
-        queryString = queryString .. "{\"type\":\"weight\",\"value\":{\"min\":" .. minWeight .. "},\"filters\":["
-
-        for _, entry in pairs(self.modWeights) do
-            queryString = queryString .. "{\"id\": \"" .. entry.tradeModId .. "\",\"value\": {\"weight\": " .. (entry.invert == true and "-" or "") .. entry.weight .. "}},"
-            filters = filters + 1
-            if filters == MAX_FILTERS then
-                break
-            end
-        end
-
-        queryString = queryString:sub(1, #queryString - 1)
-        queryString = queryString .. "]}]},\"sort\":{\"statgroup.0\": \"desc\"}}"
-
-        --self.itemsTab.finishedQuery = queryString
-        ConPrintf("FINISHED")
-        self.itemsTab:SearchItem("Scourge", queryString, self.its, self.itc, self.iti)
-    end
-
-    -- Close blocker popup
-    main:ClosePopup()
 end
 
 function TradeQueryGeneratorClass:GetDPS()
@@ -502,7 +428,7 @@ function TradeQueryGeneratorClass:GetDPS()
 	return fullDPS.combinedDPS
 end
 
-function TradeQueryGeneratorClass:ExecuteQuery(slot, options)
+function TradeQueryGeneratorClass:StartQuery(slot, options)
     -- Figure out what type of item we're searching for
     local existingItem = self.itemsTab.items[slot.selItemId]
     local testItemType = existingItem and existingItem.baseName or "Unset Amulet"
@@ -580,7 +506,7 @@ function TradeQueryGeneratorClass:ExecuteQuery(slot, options)
 	-- Test each mod one at a time and cache the normalized DPS diff to use as weight
     self.modWeights = { }
     self.alreadyWeightedMods = { }
-    
+
     self.calcContext = {
         itemCategoryQueryStr = itemCategoryQueryStr,
         itemCategory = itemCategory,
@@ -592,23 +518,121 @@ function TradeQueryGeneratorClass:ExecuteQuery(slot, options)
         originalItemId = originalItemId
     }
 
-    self:GenerateModWeights(modData["Explicit"])
-    self:GenerateModWeights(modData["Implicit"])
-    if options.includeCorrupted then
-        self:GenerateModWeights(modData["Corrupted"])
-    end
-    if options.includeScourge then
-        self:GenerateModWeights(modData["Scourge"])
-    end
+    -- OnFrame will pick this up and begin the work
+    self.calcContext.co = coroutine.create(self.ExecuteQuery)
 
     -- Open progress tracking blocker popup
     local controls = { }
-    self.calcContext.numMods = #self.queuedWeightCalcs
-    controls.progressText = new("LabelControl", {"TOP",nil,"TOP"}, 0, 30, 0, 16, string.format("Calculating Mod Weights (0 / %d)", self.calcContext.numMods))
-	self.calcContext.popup = main:OpenPopup(280, 65, "Please Wait...", controls)
+    controls.progressText = new("LabelControl", {"TOP",nil,"TOP"}, 0, 30, 0, 16, string.format("Calculating Mod Weights..."))
+	self.calcContext.popup = main:OpenPopup(280, 65, "Please Wait", controls)
 end
 
-function TradeQueryGeneratorClass:GenerateQuery(slotTbl, itemsTabControls, itemsTabIndex)
+function TradeQueryGeneratorClass:ExecuteQuery()
+    self:GenerateModWeights(modData["Explicit"])
+    self:GenerateModWeights(modData["Implicit"])
+    if self.calcContext.options.includeCorrupted then
+        self:GenerateModWeights(modData["Corrupted"])
+    end
+    if self.calcContext.options.includeScourge then
+        self:GenerateModWeights(modData["Scourge"])
+    end
+end
+
+function TradeQueryGeneratorClass:FinishQuery()
+    -- Calc original item DPS without anoint or enchant, and use that diff as a basis for default min sum.
+    local originalItem = self.itemsTab.items[self.calcContext.originalItemId]
+    self.calcContext.testItem.explicitModLines = { }
+    for _, modLine in ipairs(originalItem.explicitModLines) do
+        table.insert(self.calcContext.testItem.explicitModLines, modLine)
+    end
+    for _, modLine in ipairs(originalItem.scourgeModLines) do
+        table.insert(self.calcContext.testItem.explicitModLines, modLine)
+	end
+	for _, modLine in ipairs(originalItem.implicitModLines) do
+        table.insert(self.calcContext.testItem.explicitModLines, modLine)
+	end
+    self.calcContext.testItem:BuildAndParseRaw()
+    local currentDPSDiff = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = originalItem }, {}).TotalDPS - self.calcContext.baseDPS
+
+    -- This DPS diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
+    -- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
+    local minWeight = currentDPSDiff * 0.7
+
+	-- Restore original item to slot
+    self.itemsTab:DeleteItem(self.calcContext.testItem)
+	self.calcContext.slot:SetSelItemId(self.calcContext.originalItemId)
+	self.itemsTab:PopulateSlots()
+	self.itemsTab.build.buildFlag = true
+
+    -- Sort by mean DPS diff rather than weight to more accurately prioritize stats that can contribute more
+    table.sort(self.modWeights, function(a, b)
+        return a.meanDPSDiff > b.meanDPSDiff
+    end)
+
+	-- Generate trade query str and open in browser
+    if #self.modWeights > 0 then
+        local filters = 0
+        local queryTable = {
+            query = {
+                filters = {
+                    type_filters = {
+                        filters = {
+                            category = { option = self.calcContext.itemCategoryQueryStr },
+                            rarity = {  option = "nonunique" }
+                        }
+                    }
+                },
+                status = { option = "online" },
+                stats = {
+                    {
+                        type = "weight",
+                        value = { min = minWeight },
+                        filters = { }
+                    }
+                }
+            },
+            sort = { ["statgroup.0"] = "desc" }
+        }
+
+        local andFilters = { type = "and", filters = { } }
+
+        local options = self.calcContext.options
+        if options.influence1 > 1 then
+            table.insert(andFilters.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
+            filters = filters + 1
+        end
+        if options.influence2 > 1 then
+            table.insert(andFilters.filters, { id = hasInfluenceModIds[options.influence2 - 1] })
+            filters = filters + 1
+        end
+
+        if #andFilters.filters > 0 then
+            table.insert(queryTable.query.stats, andFilters)
+        end
+
+        for _, entry in pairs(self.modWeights) do
+            table.insert(queryTable.query.stats[1].filters, { id = entry.tradeModId, value = { weight = (entry.invert == true and entry.weight * -1 or entry.weight) } })
+            filters = filters + 1
+            if filters == MAX_FILTERS then
+                break
+            end
+        end
+
+        local queryJson = dkjson.encode(queryTable)
+
+        ConPrintf("FINISHED")
+
+        local league = "Scourge" -- TODO
+        self.itemsTab:SearchItem(league, queryJson, self.its, self.itc, self.iti)
+    else
+        -- TODO no valid mods error messaging
+    end
+
+    -- Close blocker popup
+    main:ClosePopup()
+end
+
+function TradeQueryGeneratorClass:RequestQuery(slotTbl, itemsTabControls, itemsTabIndex)
     local slot = slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
     self.its = slotTbl
     self.itc = itemsTabControls
@@ -683,7 +707,7 @@ function TradeQueryGeneratorClass:GenerateQuery(slotTbl, itemsTabControls, items
             options.jewelType = controls.jewelType.list[controls.jewelType.selIndex]
         end
 
-        self:ExecuteQuery(slot, options)
+        self:StartQuery(slot, options)
     end)
 	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 45, -10, 80, 20, "Cancel", function()
 		main:ClosePopup()
