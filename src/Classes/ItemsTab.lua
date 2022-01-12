@@ -2016,22 +2016,32 @@ function ItemsTabClass:PriceItem()
 	controls.league.selIndex = 1
 	self.pbLeague = leagueDropList[controls.league.selIndex].name
 	controls.leagueLabel = new("LabelControl", {"TOPRIGHT",controls.league,"TOPLEFT"}, -4, 0, 20, 16, "League:")
-	controls.sessionInput = new("EditControl", {"TOPLEFT",controls.leagueLabel,"TOPLEFT"}, -354, 0, 350, 18, #self.poe_sessid == 32 and self.poe_sessid or "<PASTE POESESSID FROM BROWSER>", "POESESSID", "%X", 32, function(buf)
-		if #controls.sessionInput.buf == 32 then
-			self.poe_sessid = controls.sessionInput.buf
+	controls.poesessidButton = new("ButtonControl", {"TOPLEFT",controls.leagueLabel,"TOPLEFT"}, -256, 0, 240, row_height, self.poe_sessid ~= "" and "HAVE POESESSID" or colorCodes.WARNING.."NEED POESESSID", function()
+		local poesessid_controls = {}
+		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, #self.poe_sessid == 32 and self.poe_sessid or "<PASTE POESESSID FROM BROWSER>", "POESESSID", "%X", 32, function(buf)
+			if #poesessid_controls.sessionInput.buf == 32 then
+				self.poe_sessid = poesessid_controls.sessionInput.buf
+				controls.poesessidButton.label = "HAVE POESESSID"
+			end
+		end)
+		poesessid_controls.sessionInput.tooltipFunc = function(tooltip)
+			tooltip:Clear()
+			tooltip:AddLine(16, "^7To find your POESESSID value (a 32-bit hexadecimal string) do the following in Google Chrome:")
+			tooltip:AddLine(16, "^7  1) Make sure you are logged into your PoE acccount on any valid and official PoE website.")
+			tooltip:AddLine(16, "^7  2) Use the shortcut: CTRL+SHIFT+I to bring up 'Developer Tools'")
+			tooltip:AddLine(16, "^7  3) Select 'Application' Pane on top and 'Cookies' on the left hand menu sidebar.")
+			tooltip:AddLine(16, "^7  4) Under 'Cookies' click on 'https://www.pathofexile.com' which will populate the right hand side.")
+			tooltip:AddLine(16, "^7  5) Find the entry named 'POESESSID' and copy the Value into this text box.")
 		end
+		poesessid_controls.close = new("ButtonControl", {"TOP",poesessid_controls.sessionInput,"TOP"}, 0, 24, 90, row_height, "Done", function()
+			main:ClosePopup()
+		end)
+		main:OpenPopup(364, 72, "POESESSID", poesessid_controls)
 	end)
-	controls.sessionInput.tooltipFunc = function(tooltip)
+	controls.poesessidButton.tooltipFunc = function(tooltip)
 		tooltip:Clear()
 		tooltip:AddLine(16, colorCodes.WARNING .. "Your POESESSID is needed for certain more complex queries and all weighted sum queries.")
 		tooltip:AddLine(16, colorCodes.WARNING .. "If all the URLs for items are simple queries you don't need to provide this information.")
-		tooltip:AddLine(16, "\n")
-		tooltip:AddLine(16, "^7To find your POESESSID value (a 32-bit hexadecimal string) do the following in Google Chrome:")
-		tooltip:AddLine(16, "^7  1) Make sure you are logged into your PoE acccount on any valid and official PoE website.")
-		tooltip:AddLine(16, "^7  2) Use the shortcut: CTRL+SHIFT+I to bring up 'Developer Tools'")
-		tooltip:AddLine(16, "^7  3) Select 'Application' Pane on top and 'Cookies' on the left hand menu sidebar.")
-		tooltip:AddLine(16, "^7  4) Under 'Cookies' click on 'https://www.pathofexile.com' which will populate the right hand side.")
-		tooltip:AddLine(16, "^7  5) Find the entry named 'POESESSID' and copy the Value into this text box.")
 	end
 
 	controls.updateCurrencyConversion = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, pane_height - 30, 240, row_height, "", function()
@@ -2278,12 +2288,12 @@ function ItemsTabClass:SortFetchResults(slotTbl, trade_index)
 	if self.pbSortSelectionIndex ~= 1 then
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 		local slot = slotTbl.ref and self.activeItemSet["socketNodes"][slotTbl.ref] or self.slots[slotTbl.name]
+		local slotName = slotTbl.ref and slot.slotName or slotTbl.name
 		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
-			local selItem = self.items[slot.selItemId]
 			local item = new("Item", tbl.item_string)
-			local output = calcFunc({ repSlotName = slot.label, repItem = item ~= selItem and item }, {})
+			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
 			local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS
 			if self.pbSortSelectionIndex == 3 then
 				local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
