@@ -2310,19 +2310,19 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		item:BuildAndParseRaw()
 		return item
 	end
-	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
-	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 150, 18, sourceList, function(index, value)
+	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 100, 20, 0, 16, "^7Source:")
+	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 105, 20, 150, 18, sourceList, function(index, value)
 		currentSourceId = value.sourceId
 		buildMods()
 		controls.modSelect:SetSel(1)
 	end)
 	controls.source.enabled = #sourceList > 1
-	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Modifier:")
+	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 100, 45, 0, 16, "^7Modifier:")
 	controls.modSelectLabel.shown = function()
 		local sourceId = sourceList[controls.source.selIndex].sourceId
 		return sourceId == "CUSTOM" or sourceId == "PREFIX" or sourceId == "SUFFIX"
 	end
-	controls.modSelectDropDown = new("DropDownControl", {"TOPRIGHT",nil,"TOPLEFT"}, 94, 45, 90, 18, modifiersDDList , function(index, value)
+	controls.modSelectDropDown = new("DropDownControl", {"TOPRIGHT",nil,"TOPLEFT"}, 99, 45, 90, 18, modifiersDDList , function(index, value)
 		currentModId = value.modId
 		buildMods()
 		controls.modSelect:SetSel(1)
@@ -2331,7 +2331,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		local sourceId = sourceList[controls.source.selIndex].sourceId
 		return sourceId ~= "CUSTOM" and sourceId ~= "PREFIX" and sourceId ~= "SUFFIX"
 	end
-	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 600, 18, modList)
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 105, 45, 600, 18, modList)
 	controls.modSelect.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
@@ -2343,11 +2343,11 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end
 		end
 	end
-	controls.custom = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 440, 18)
+	controls.custom = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 105, 45, 440, 18)
 	controls.custom.shown = function()
 		return sourceList[controls.source.selIndex].sourceId == "CUSTOM"
 	end
-	controls.save = new("ButtonControl", nil, -45, 75, 80, 20, "Add", function()
+	controls.save = new("ButtonControl", nil, -50, 75, 80, 20, "Add", function()
 		self:SetDisplayItem(addModifier())
 		main:ClosePopup()
 	end)
@@ -2355,10 +2355,10 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		tooltip:Clear()
 		self:AddItemTooltip(tooltip, addModifier())
 	end	
-	controls.close = new("ButtonControl", nil, 45, 75, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, 50, 75, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(710, 105, "Add Modifier to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")
+	main:OpenPopup(718, 105, "Add Modifier to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")
 end
 
 function ItemsTabClass:AddItemSetTooltip(tooltip, itemSet)
