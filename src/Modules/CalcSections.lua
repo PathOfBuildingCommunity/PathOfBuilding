@@ -22,23 +22,19 @@ local chaosHitTaken = {
 }
 local physicalConvert = { 
 	"SkillPhysicalDamageConvertToLightning", "SkillPhysicalDamageConvertToCold", "SkillPhysicalDamageConvertToFire", "SkillPhysicalDamageConvertToChaos", 
-	"PhysicalDamageConvertToLightning", "PhysicalDamageConvertToCold", "PhysicalDamageConvertToFire", "PhysicalDamageConvertToChaos", "NonChaosDamageConvertToChaos", 
-	"PhysicalDamageGainAsLightning", "PhysicalDamageGainAsCold", "PhysicalDamageGainAsFire", "PhysicalDamageGainAsChaos", "NonChaosDamageGainAsChaos" 
+	"PhysicalDamageConvertToLightning", "PhysicalDamageConvertToCold", "PhysicalDamageConvertToFire", "PhysicalDamageConvertToChaos", "NonChaosDamageConvertToChaos"
 }
 local lightningConvert = {
 	"SkillLightningDamageConvertToCold", "SkillLightningDamageConvertToFire", "SkillLightningDamageConvertToChaos",
-	"LightningDamageConvertToCold", "LightningDamageConvertToFire", "LightningDamageConvertToChaos", "ElementalDamageConvertToChaos", "NonChaosDamageConvertToChaos", 
-	"LightningDamageGainAsCold", "LightningDamageGainAsFire", "LightningDamageGainAsChaos", "ElementalDamageGainAsChaos", "NonChaosDamageGainAsChaos"
+	"LightningDamageConvertToCold", "LightningDamageConvertToFire", "LightningDamageConvertToChaos", "ElementalDamageConvertToChaos", "NonChaosDamageConvertToChaos"
 }
 local coldConvert = { 
 	"SkillColdDamageConvertToFire", "SkillColdDamageConvertToChaos",
-	"ColdDamageConvertToFire", "ColdDamageConvertToChaos", "ElementalDamageConvertToChaos", "NonChaosDamageConvertToChaos",
-	"ColdDamageGainAsFire", "ColdDamageGainAsChaos", "ElementalDamageGainAsChaos", "NonChaosDamageGainAsChaos"
+	"ColdDamageConvertToFire", "ColdDamageConvertToChaos", "ElementalDamageConvertToChaos", "NonChaosDamageConvertToChaos"
 }
 local fireConvert = {
 	"SkillFireDamageConvertToChaos",
-	"FireDamageConvertToChaos", "ElementalDamageConvertToChaos", "NonChaosDamageConvertToChaos", 
-	"FireDamageGainAsChaos", "ElementalDamageGainAsChaos", "NonChaosDamageGainAsChaos"
+	"FireDamageConvertToChaos", "ElementalDamageConvertToChaos", "NonChaosDamageConvertToChaos"
 }
 
 -- format {width, id, group, color, subection:{default hidden, label, data:{}}}

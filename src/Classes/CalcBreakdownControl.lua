@@ -354,7 +354,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			row.displayValue = self:FormatModValue(row.value, row.mod.type)
 		else
 			section.colList[1].right = true
-			row.displayValue = formatRound(row.value, 2)
+			row.displayValue = formatRound(row.value, 2) .. (string.find(row.mod.name, "Convert") and "%" or "")
 		end
 		if modList or type(sectionData.modName) == "table" then
 			-- Multiple stat names specified, add this modifier's stat to the table
