@@ -156,7 +156,7 @@ local function generateModData(mods, tradeQueryStatsParsed)
                 specialCaseData.overrideModLine = "+#% Chance to Block"
                 modLine = modLine .. " (Shields)"
             elseif statOrder == 1725 then
-                specialCaseData.overrideModLineSingular = "You can apply an additional curse"
+                specialCaseData.overrideModLineSingular = "You can apply an additional Curse"
                 if modLine == specialCaseData.overrideModLineSingular then
                     modLine = "You can apply 1 additional Curses"
                 end
@@ -292,7 +292,7 @@ function TradeQueryGeneratorClass:InitMods()
 
                 -- If this is the first tier for this mod, init the entry
                 if modData[modType][statOrder] == nil then
-                    modData[modType][statOrder] = { tradeMod = tradeMod }
+                    modData[modType][statOrder] = { tradeMod = tradeMod, specialCaseData = { } }
                 end
 
                 -- tokenize the numerical variables for this mod and store the sign if there is one
@@ -359,11 +359,6 @@ end
 
 function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
     local start = GetTime()
-
-    -- determine if we are using FullDPS or not (store prior setting)
-    local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-    GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-
     for _, entry in pairs(modsToTest) do
         if entry[self.calcContext.itemCategory] ~= nil then
             if self.alreadyWeightedMods[entry.tradeMod.id] ~= nil then -- Don't calculate the same thing twice (can happen with corrupted vs implicit)
@@ -375,7 +370,17 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
             -- Test with a value halfway between the min and max available for this mod in this slot. Note that this can generate slightly different values for the same mod as implicit vs explicit.
             local modValue = math.ceil((entry[self.calcContext.itemCategory].max - entry[self.calcContext.itemCategory].min) / 2 + entry[self.calcContext.itemCategory].min)
             local modValueStr = (entry.sign and entry.sign or "") .. tostring(modValue)
-            local modLine = entry.tradeMod.text:gsub("#",modValueStr)
+
+            -- Apply override text for special cases
+            local modLine
+            if modValue == 1 and entry.specialCaseData.overrideModLineSingular ~= nil then
+                modLine = entry.specialCaseData.overrideModLineSingular
+            elseif entry.specialCaseData.overrideModLine ~= nil then
+                modLine = entry.specialCaseData.overrideModLine
+            else
+                modLine = entry.tradeMod.text
+            end
+            modLine = modLine:gsub("#",modValueStr)
 
             self.calcContext.testItem.explicitModLines[1] = { line = modLine, custom = true }
             self.calcContext.testItem:BuildAndParseRaw()
@@ -400,7 +405,6 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
         end
         ::continue::
     end
-    GlobalCache.useFullDPS = storedGlobalCacheDPSView
 end
 
 function TradeQueryGeneratorClass:OnFrame()
@@ -484,14 +488,15 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
     if options.influence2 > 1 then
         testItem[itemLib.influenceInfo[options.influence2 - 1].key] = true
     end
-    
-    -- Calculate base output with a blank item
-    local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
+
+    -- Set global cache full DPS
     local storedGlobalCacheDPSView = GlobalCache.useFullDPS
     GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+
+    -- Calculate base output with a blank item
+    local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
     local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
     local compDPS = GlobalCache.useFullDPS and baseOutput.FullDPS or baseOutput.TotalDPS
-    GlobalCache.useFullDPS = storedGlobalCacheDPSView
 
 	-- Test each mod one at a time and cache the normalized DPS diff to use as weight
     self.modWeights = { }
@@ -505,7 +510,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
         calcFunc = calcFunc,
         options = options,
         slot = slot,
-        originalItemId = slot.selItemId
+        globalCacheUseFullDPS = storedGlobalCacheDPSView
     }
 
     -- OnFrame will pick this up and begin the work
@@ -530,7 +535,7 @@ end
 
 function TradeQueryGeneratorClass:FinishQuery()
     -- Calc original item DPS without anoint or enchant, and use that diff as a basis for default min sum.
-    local originalItem = self.itemsTab.items[self.calcContext.originalItemId]
+    local originalItem = self.itemsTab.items[self.calcContext.slot.selItemId]
     self.calcContext.testItem.explicitModLines = { }
     for _, modLine in ipairs(originalItem.explicitModLines) do
         table.insert(self.calcContext.testItem.explicitModLines, modLine)
@@ -542,8 +547,12 @@ function TradeQueryGeneratorClass:FinishQuery()
         table.insert(self.calcContext.testItem.explicitModLines, modLine)
 	end
     self.calcContext.testItem:BuildAndParseRaw()
-    local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = originalItem }, {})
-    local currentDPSDiff = (GlobalCache.useFullDPS and originalOutput.FullDps or originalOutput.TotalDPS) - self.calcContext.baseDPS
+
+    local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
+    local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or originalOutput.TotalDPS) - self.calcContext.baseDPS
+
+    -- Restore global cache full DPS
+    GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
 
     -- This DPS diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
     -- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
