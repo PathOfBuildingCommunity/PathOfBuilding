@@ -107,6 +107,7 @@ function ItemClass:ParseRaw(raw)
 			l = l + 1
 		end
 	end
+	self.checkSection = false
 	self.sockets = { }
 	self.buffModLines = { }
 	self.enchantModLines = { }
@@ -139,17 +140,7 @@ function ItemClass:ParseRaw(raw)
 		if flaskBuffLines and flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
 		elseif line == "--------" then
-			if gameModeStage == "IMPLICIT" then
-				if foundImplicit then
-					-- There were definitely implicits, so any following modifiers must be explicits
-					gameModeStage = "EXPLICIT"
-					foundExplicit = true
-				else
-					gameModeStage = "FINDEXPLICIT"
-				end
-			elseif gameModeStage == "EXPLICIT" then
-				gameModeStage = "DONE"
-			end
+			self.checkSection = true
 		elseif line == "Corrupted" then
 			self.corrupted = true
 		elseif line == "Fractured Item" then
@@ -159,6 +150,24 @@ function ItemClass:ParseRaw(raw)
 		elseif processInfluenceLine(line) then
 			-- self already updated within the helper function
 		else
+			if self.checkSection then
+				if gameModeStage == "IMPLICIT" then
+					if foundImplicit then
+						-- There were definitely implicits, so any following modifiers must be explicits
+						gameModeStage = "EXPLICIT"
+						foundExplicit = true
+					else
+						gameModeStage = "FINDEXPLICIT"
+					end
+				elseif gameModeStage == "EXPLICIT" then
+					gameModeStage = "DONE"
+				elseif gameModeStage == "FINDIMPLICIT" and self.itemLevel and not line:match(" %(implicit%)") and
+						not line:match(" %(enchant%)") and not line:find("Talisman Tier") then
+					gameModeStage = "EXPLICIT"
+					foundExplicit = true
+				end
+				self.checkSection = false
+			end
 			local specName, specVal = line:match("^([%a ]+): (%x+)$")
 			if not specName then
 				specName, specVal = line:match("^([%a ]+): %+?([%d+%-%.,]+)")
@@ -310,6 +319,13 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif specName == "CatalystQuality" then
 					self.catalystQuality = tonumber(specVal)
+				elseif specName == "Note" then
+					self.note = specVal
+				elseif specName == "Str" or specName == "Dex" or specName == "Int" then
+					self.requirements[specName:lower()] = tonumber(specVal)
+				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or "Weapon Range" or
+				       specName == "Physical Damage" or specName == "Elemental Damage" or specName == "Chaos Damage" then
+					self.hidden_specs = true
 				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
 				elseif not (self.name:match(specName) and self.name:match(specVal)) then
 					foundExplicit = true
@@ -508,7 +524,6 @@ function ItemClass:ParseRaw(raw)
 				elseif foundExplicit then
 					t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
 				end
-					
 			end
 		end
 		l = l + 1
