@@ -842,7 +842,12 @@ local function doActorMisc(env, actor)
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + (output.ActivePhantasmLimit or 1) - 1 -- slight hack to not double count the initial buff
 		end
 		if modDB:Flag(nil, "Elusive") then
-			output.ElusiveEffectMod = calcLib.mod(modDB, nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+			local maxSkillInc = modDB:Max({ source = "Skill" }, "ElusiveEffect")
+			local inc = modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf")
+			inc = inc + maxSkillInc
+			output.ElusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+			-- if we want the max skill to not be noted as its own breakdown table entry, comment out below
+			modDB:NewMod("ElusiveEffect", "INC", maxSkillInc, "Max Skill Effect")
 			-- Override elusive effect if set.
 			if modDB:Override(nil, "ElusiveEffect") then
 				output.ElusiveEffectMod = m_min(modDB:Override(nil, "ElusiveEffect"), output.ElusiveEffectMod)
@@ -1581,6 +1586,16 @@ function calcs.perform(env, avoidCache)
 		modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
 	end
 
+	if modDB:Flag(nil, "ManaAppliesToShockEffect") then
+		-- Maximum Mana conversion from Lightning Mastery
+		local multiplier = modDB:Max(nil, "ImprovedManaAppliesToShockEffect") / 100
+		for _, value in ipairs(modDB:Tabulate("INC", nil, "Mana")) do
+			local mod = value.mod
+			local modifiers = calcLib.getConvertedModTags(mod, multiplier)
+			modDB:NewMod("EnemyShockEffect", "INC", m_floor(mod.value * multiplier), mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
+		end
+	end
+
 	-- Combine buffs/debuffs 
 	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit") + (output.GemCurseLimit or 0)
 	local buffs = { }
@@ -2237,102 +2252,6 @@ function calcs.perform(env, avoidCache)
 			end
 		else
 			env.player.mainSkill.infoMessage2 = "No Mirage Archer active skill found"
-		end
-	end
-
-	-- General's Cry Support
-	-- This creates and populates env.player.mainSkill.mirage table
-	if env.player.mainSkill.skillData.triggeredByGeneralsCry and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked then
-		local usedSkill = nil
-		local mirageActiveSkill = nil
-		local uuid = cacheSkillUUID(env.player.mainSkill)
-		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
-
-		-- cache a new copy of this skill that's affected by General's Cry
-		if avoidCache then
-			usedSkill = env.player.mainSkill
-			env.dontCache = true
-		else
-			if not GlobalCache.cachedData[calcMode][uuid] then
-				calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
-			end
-
-			if GlobalCache.cachedData[calcMode][uuid] and not avoidCache then
-				usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
-			end
-		end
-
-		-- find the active General's Cry gem to get active properties
-		for _, activeSkill in ipairs(env.player.activeSkillList) do
-			if activeSkill.activeEffect.grantedEffect.name == "General's Cry" and env.player.mainSkill.socketGroup.slot == activeSkill.socketGroup.slot then
-				mirageActiveSkill = activeSkill
-				break
-			end
-		end
-
-		if usedSkill then
-			local moreDamage = usedSkill.skillModList:Sum("BASE", usedSkill.skillCfg, "GeneralsCryMirageWarriorLessDamage")
-			local exertInc = env.modDB:Sum("INC", usedSkill.skillCfg, "ExertIncrease")
-			local exertMore = env.modDB:Sum("MORE", usedSkill.skillCfg, "ExertIncrease")
-
-			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
-
-			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
-			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "General's Cry", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
-			newSkill.skillModList:NewMod("Damage", "INC", exertInc, "General's Cry Exerted Attacks", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
-			newSkill.skillModList:NewMod("Damage", "MORE", exertMore, "General's Cry Exerted Attacks", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
-			local maxMirageWarriors = 0
-			if mirageActiveSkill then
-				for i, value in ipairs(mirageActiveSkill.skillModList:Tabulate("BASE", env.player.mainSkill.skillCfg, "GeneralsCryDoubleMaxCount")) do
-					local mod = value.mod
-					maxMirageWarriors = maxMirageWarriors + mod.value
-				end
-			end
-			maxMirageWarriors = m_max(maxMirageWarriors, 1)
-
-			env.player.mainSkill.mirage = { }
-			env.player.mainSkill.mirage.count = maxMirageWarriors
-			env.player.mainSkill.mirage.name = usedSkill.activeEffect.grantedEffect.name
-
-			if usedSkill.skillPartName then
-				env.player.mainSkill.mirage.skillPart = usedSkill.skillPart
-				env.player.mainSkill.mirage.skillPartName = usedSkill.skillPartName
-				env.player.mainSkill.mirage.infoMessage2 = usedSkill.activeEffect.grantedEffect.name
-			else
-				env.player.mainSkill.mirage.skillPartName = nil
-			end
-			env.player.mainSkill.mirage.infoTrigger = "GC"
-
-			-- Recalculate the offensive/defensive aspects of the Mirage Warrior influence on skill
-			newEnv.player.mainSkill = newSkill
-			-- mark it so we don't recurse infinitely
-			newSkill.marked = true
-			newEnv.dontCache = true
-			calcs.perform(newEnv)
-
-			env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " GC Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
-
-			-- Re-link over the output
-			env.player.mainSkill.mirage.output = newEnv.player.output
-
-			if newSkill.minion then
-				env.player.mainSkill.mirage.minion = {}
-				env.player.mainSkill.mirage.minion.output = newEnv.minion.output
-			end
-
-			-- Make any necessary corrections to output
-			env.player.mainSkill.mirage.output.ManaCost = 0
-
-			if newEnv.player.breakdown then
-				env.player.mainSkill.mirage.breakdown = newEnv.player.breakdown
-				-- Make any necessary corrections to breakdown
-				env.player.mainSkill.mirage.breakdown.ManaCost = nil
-				if newSkill.minion then
-					env.player.mainSkill.mirage.minion.breakdown = newEnv.minion.breakdown
-				end
-			end
-		else
-			env.player.mainSkill.infoMessage2 = "No General's Cry active skill found"
 		end
 	end
 

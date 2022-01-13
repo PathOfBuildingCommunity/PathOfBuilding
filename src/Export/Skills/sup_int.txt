@@ -89,11 +89,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCastWhileChannellingTriggeredPlus
-	statMap = {
-		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
-		},
-	},
 #mods
 
 #skill SupportChanceToIgnite

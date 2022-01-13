@@ -432,6 +432,15 @@ Recover 20% of your Maximum Life on Rampage
 Kills grant an additional Vaal Soul if you have Rampaged Recently
 Rampage
 ]],[[
+Gravebind
+Hydrascale Gauntlets
+Requires Level 59, 45 Str, 45 Dex
+Implicits: 0
+(100-150)% increased Armour and Evasion
++(19-29)% to Chaos Resistance
++(15-25) Life gained on kill
+Nearby Enemies Killed by anyone count as being Killed by you instead
+]],[[
 Haemophilia
 Serpentscale Gauntlets
 Requires Level 43, 34 Str, 34 Dex

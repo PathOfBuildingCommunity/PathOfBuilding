@@ -2889,9 +2889,6 @@ skills["SupportPuncturingWeapon"] = {
 	},
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
-		["elusive_effect_+%"] = {
-			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }),
-		},
 	},
 	baseMods = {
 		flag("SupportedByNightblade"),
