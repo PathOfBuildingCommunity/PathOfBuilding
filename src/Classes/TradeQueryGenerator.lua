@@ -139,18 +139,7 @@ local function generateModData(mods, tradeQueryStatsParsed)
             local statOrder = modLine:find("Nearby Enemies have %-") ~= nil and mod.statOrder[index + 1] or mod.statOrder[index] -- hack to get minus res mods associated with the correct statOrder
             local modType = (mod.type == "Prefix" or mod.type == "Suffix") and "Explicit" or mod.type
 
-            -- Special cases. Should try to clean these up a bit at some point if we can find reasonable patterns to systemize
-            -- TODO:
-            -- Curse Enemies with Despair on Hit
-            -- Curse Enemies with Elemental Weakness on Hit
-            -- Curse Enemies with Vulnerability on Hit
-            -- Curse Enemies with Conductivity on Hit
-            -- Curse Enemies with Frostbite on Hit
-            -- Curse Enemies with Enfeeble on Hit
-            -- Unnerve Enemies for 4 seconds on Hit
-            -- Intimidate Enemies for 4 seconds on Hit
-            -- Cover Enemies in Ash when they Hit you
-            -- Gain Alchemist's Genius when you use a Flask
+            -- Special cases
             local specialCaseData = { }
             if statOrder == 1802 then
                 specialCaseData.overrideModLine = "+#% Chance to Block"
@@ -564,71 +553,65 @@ function TradeQueryGeneratorClass:FinishQuery()
     end)
 
 	-- Generate trade query str and open in browser
-    if #self.modWeights > 0 then
-        local filters = 0
-        local queryTable = {
-            query = {
-                filters = {
-                    type_filters = {
-                        filters = {
-                            category = { option = self.calcContext.itemCategoryQueryStr },
-                            rarity = {  option = "nonunique" }
-                        }
-                    }
-                },
-                status = { option = "online" },
-                stats = {
-                    {
-                        type = "weight",
-                        value = { min = minWeight },
-                        filters = { }
+    local filters = 0
+    local queryTable = {
+        query = {
+            filters = {
+                type_filters = {
+                    filters = {
+                        category = { option = self.calcContext.itemCategoryQueryStr },
+                        rarity = {  option = "nonunique" }
                     }
                 }
             },
-            sort = { ["statgroup.0"] = "desc" }
-        }
+            status = { option = "online" },
+            stats = {
+                {
+                    type = "weight",
+                    value = { min = minWeight },
+                    filters = { }
+                }
+            }
+        },
+        sort = { ["statgroup.0"] = "desc" }
+    }
 
-        local andFilters = { type = "and", filters = { } }
+    local andFilters = { type = "and", filters = { } }
 
-        local options = self.calcContext.options
-        if options.influence1 > 1 then
-            table.insert(andFilters.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
-            filters = filters + 1
-        end
-        if options.influence2 > 1 then
-            table.insert(andFilters.filters, { id = hasInfluenceModIds[options.influence2 - 1] })
-            filters = filters + 1
-        end
-
-        if #andFilters.filters > 0 then
-            table.insert(queryTable.query.stats, andFilters)
-        end
-
-        for _, entry in pairs(self.modWeights) do
-            table.insert(queryTable.query.stats[1].filters, { id = entry.tradeModId, value = { weight = (entry.invert == true and entry.weight * -1 or entry.weight) } })
-            filters = filters + 1
-            if filters == MAX_FILTERS then
-                break
-            end
-        end
-
-        local queryJson = dkjson.encode(queryTable)
-
-        local league = "Scourge" -- TODO
-        self.itemsTab:SearchItem(league, queryJson, self.its, self.itc, self.iti)
-    else
-        -- TODO no valid mods error messaging
+    local options = self.calcContext.options
+    if options.influence1 > 1 then
+        table.insert(andFilters.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
+        filters = filters + 1
     end
+    if options.influence2 > 1 then
+        table.insert(andFilters.filters, { id = hasInfluenceModIds[options.influence2 - 1] })
+        filters = filters + 1
+    end
+
+    if #andFilters.filters > 0 then
+        table.insert(queryTable.query.stats, andFilters)
+    end
+
+    for _, entry in pairs(self.modWeights) do
+        table.insert(queryTable.query.stats[1].filters, { id = entry.tradeModId, value = { weight = (entry.invert == true and entry.weight * -1 or entry.weight) } })
+        filters = filters + 1
+        if filters == MAX_FILTERS then
+            break
+        end
+    end
+
+    local queryJson = dkjson.encode(queryTable)
+
+    self.requesterCallback(self.requesterContext, queryJson)
 
     -- Close blocker popup
     main:ClosePopup()
 end
 
-function TradeQueryGeneratorClass:RequestQuery(slotTbl, itemsTabControls, itemsTabIndex)
-    local slot = slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
-    self.its = slotTbl
-    self.itc = itemsTabControls
-    self.iti = itemsTabIndex
+function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
+    self.requesterCallback = callback
+    self.requesterContext = context
+
     local controls = { }
     local options = { }
     local popupHeight = 95

@@ -2220,7 +2220,9 @@ function ItemsTabClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_
 		return validURL and self:PriceBuilderCanSearch(controls) and self:PriceBuilderCanFetch(controls)
 	end
 	controls['bestButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 10, row_height, "?", function()
-		self.tradeQueryGenerator:RequestQuery(slotTbl, controls, str_cnt)
+		self.tradeQueryGenerator:RequestQuery((slotTbl.ref and self.sockets[slotTbl.ref] or self.slots[slotTbl.name]), { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query)
+			self:SearchItem("Scourge", query, context.slotTbl, context.controls, context.str_cnt)
+		end)
 	end)
 	controls['resultIndex'..str_cnt] = new("EditControl", {"TOPLEFT",controls['bestButton'..str_cnt],"TOPLEFT"}, 10 + 8, 0, 60, row_height, "#", nil, "%D", 3, function(buf)
 		controls['resultIndex'..str_cnt].buf = tostring(m_min(m_max(tonumber(buf) or 1, 1), self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1))
