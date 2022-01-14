@@ -447,6 +447,20 @@ function calcs.offence(env, actor, activeSkill)
 	-- set flask scaling
 	output.LifeFlaskRecovery = env.itemModDB.multipliers["LifeFlaskRecovery"]
 
+	if skillModList:Flag(nil, "Condition:EnergyBladeActive") then
+		local dmgMod = calcLib.mod(skillModList, skillCfg, "EnergyBladeDamage")
+		local critMod = calcLib.mod(skillModList, skillCfg, "EnergyBladeCritChance")
+		for slotName, weaponData in pairs({ ["Weapon 1"] = "weaponData1", ["Weapon 2"] = "weaponData2" }) do
+			if actor.itemList[slotName] and actor.itemList[slotName].weaponData and actor.itemList[slotName].weaponData[1] then
+				actor[weaponData].CritChance = actor[weaponData].CritChance * critMod
+				for _, damageType in ipairs(dmgTypeList) do
+					actor[weaponData][damageType.."Min"] = (actor[weaponData][damageType.."Min"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMin"..damageType) * dmgMod)
+					actor[weaponData][damageType.."Max"] = (actor[weaponData][damageType.."Max"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMax"..damageType) * dmgMod)
+				end
+			end
+		end
+	end
+
 	-- account for Battlemage
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
 	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
