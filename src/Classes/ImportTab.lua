@@ -628,6 +628,18 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		end
 	else
 		item.name = itemLib.sanitiseItemText(itemData.typeLine)
+		if item.name:match("Energy Blade") then
+			local oneHanded = false
+			for _, p in ipairs(itemData.properties) do
+				if self.build.data.weaponTypeInfo[p.name].oneHand then
+					oneHanded = true
+					break
+				end
+			end
+			item.name = oneHanded and "Energy Blade One Handed" or "Energy Blade Two Handed"
+			itemData.implicitMods = nil
+			itemData.explicitMods = nil
+		end
 		for baseName, baseData in pairs(self.build.data.itemBases) do
 			local s, e = item.name:find(baseName, 1, true)
 			if s then
