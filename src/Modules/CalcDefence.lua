@@ -170,7 +170,7 @@ function calcs.defence(env, actor)
 
 	if modDB:Flag(nil, "ArmourAppliesToEnergyShieldRecharge") then
 		-- Armour to ES Recharge conversion from Armour and Energy Shield Mastery
-		local multiplier = modDB:Max(nil, "ImprovedArmourAppliesToEnergyShieldRecharge") / 100
+		local multiplier = (modDB:Max(nil, "ImprovedArmourAppliesToEnergyShieldRecharge") or 100) / 100
 		for _, value in ipairs(modDB:Tabulate("INC", nil, "Armour")) do
 			local mod = value.mod
 			local modifiers = calcLib.getConvertedModTags(mod, multiplier)
@@ -402,7 +402,7 @@ function calcs.defence(env, actor)
 		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
 		output.Armour = m_max(round(armour), 0)
 		output.MoreArmourChance = m_min(modDB:Sum("BASE", nil, "MoreArmourChance"), 100)
-		output.ArmourDefense = (modDB:Max(nil, "ArmourDefense") / 100) or 0
+		output.ArmourDefense = (modDB:Max(nil, "ArmourDefense") or 0) / 100
 		output.RawArmourDefense = output.ArmourDefense > 0 and ((1 + output.ArmourDefense) * 100) or nil
 		output.Evasion = m_max(round(evasion), 0)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
