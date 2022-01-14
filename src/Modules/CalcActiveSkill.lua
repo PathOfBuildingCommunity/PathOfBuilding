@@ -224,7 +224,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		-- Special handling for Spectral Shield Throw
 		skillFlags.weapon2Attack = true
 		activeSkill.weapon2Flags = 0
-	elseif skillFlags.attack then
+	else
 		-- Set weapon flags
 		local weaponTypes = { activeGrantedEffect.weaponTypes }
 		for _, skillEffect in pairs(activeSkill.effectList) do
@@ -238,12 +238,14 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			weapon1Flags, weapon1Info = ModFlag[env.data.weaponTypeInfo["None"].flag], env.data.weaponTypeInfo["None"]
 		end
 		if weapon1Flags then
-			activeSkill.weapon1Flags = weapon1Flags
-			skillFlags.weapon1Attack = true
-			if weapon1Info.melee and skillFlags.melee then
-				skillFlags.projectile = nil
-			elseif not weapon1Info.melee and skillFlags.projectile then
-				skillFlags.melee = nil
+			if skillFlags.attack then
+				activeSkill.weapon1Flags = weapon1Flags
+				skillFlags.weapon1Attack = true
+				if weapon1Info.melee and skillFlags.melee then
+					skillFlags.projectile = nil
+				elseif not weapon1Info.melee and skillFlags.projectile then
+					skillFlags.melee = nil
+				end
 			end
 		elseif skillTypes[SkillType.DualWieldOnly] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand or weapon1Info then
 			-- Skill requires a compatible main hand weapon
@@ -253,19 +255,22 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		if not skillTypes[SkillType.MainHandOnly] and not skillFlags.forceMainHand then
 			local weapon2Flags, weapon2Info = getWeaponFlags(env, activeSkill.actor.weaponData2, weaponTypes)
 			if weapon2Flags then
-				activeSkill.weapon2Flags = weapon2Flags
-				skillFlags.weapon2Attack = true
+				if skillFlags.attack then
+					activeSkill.weapon2Flags = weapon2Flags
+					skillFlags.weapon2Attack = true
+				end
 			elseif skillTypes[SkillType.DualWieldOnly] or weapon2Info then
 				-- Skill requires a compatible off hand weapon
 				skillFlags.disable = true
 				activeSkill.disableReason = activeSkill.disableReason or "Off Hand weapon is not usable with this skill"
-			elseif not skillFlags.weapon1Attack then
+			elseif skillFlags.disable then
 				-- Neither weapon is compatible
-				skillFlags.disable = true
 				activeSkill.disableReason = "No usable weapon equipped"
 			end
 		end
-		skillFlags.bothWeaponAttack = skillFlags.weapon1Attack and skillFlags.weapon2Attack
+		if skillFlags.attack then
+			skillFlags.bothWeaponAttack = skillFlags.weapon1Attack and skillFlags.weapon2Attack
+		end
 	end
 
 	-- Build skill mod flag set
