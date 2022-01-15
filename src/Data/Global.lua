@@ -267,3 +267,5 @@ GlobalCache = {
 	useFullDPS = false,
 	numActiveSkillInFullDPS = 0,
 }
+
+POESESSID = ""
