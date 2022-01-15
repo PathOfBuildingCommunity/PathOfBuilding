@@ -61,7 +61,7 @@ local modData = {
     ["Scourge"] = { },
 }
 
-local MAX_FILTERS = 30
+local MAX_FILTERS = 36
 
 local function logToFile(...)
     --ConPrintf(...)
@@ -316,7 +316,7 @@ function TradeQueryGeneratorClass:InitMods()
                 for category, categoryTags in pairs(itemCategoryTags) do
                     local tagMatch = false
                     for tag, value in pairs(entry.tags) do
-                        if categoryTags[tag] == true then
+                        if tag ~= "default" and categoryTags[tag] == true then
                             tagMatch = true
                             break
                         end
