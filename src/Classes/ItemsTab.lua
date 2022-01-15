@@ -2294,11 +2294,11 @@ end
 function ItemsTabClass:SortFetchResults(slotTbl, trade_index)
 	local newTbl = {}
 	if self.pbSortSelectionIndex ~= 1 then
-		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 		local slot = slotTbl.ref and self.activeItemSet["socketNodes"][slotTbl.ref] or self.slots[slotTbl.name]
-		local slotName = slotTbl.ref and slot.slotName or slotTbl.name
+		local slotName = slotTbl.ref and "Jewel " .. tostring(slotTbl.ref) or slotTbl.name
 		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local item = new("Item", tbl.item_string)
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
