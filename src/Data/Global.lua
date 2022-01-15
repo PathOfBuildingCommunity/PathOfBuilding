@@ -136,11 +136,6 @@ function MatchKeywordFlags(keywordFlags, modKeywordFlags)
 	return modKeywordFlags == 0 or band(keywordFlags, modKeywordFlags) ~= 0
 end
 
--- As of 3.16.2b, all brand skills have exactly the same base attachment range:
--- https://www.poewiki.net/wiki/File:Brand-attach-distance-0-percent.jpg
--- https://www.poewiki.net/wiki/File:Brand-attach-distance-40-percent.jpg
-baseBrandAttachmentRange = 30
-
 -- Active skill types, used in ActiveSkills.dat and GrantedEffects.dat
 -- Had to reverse engineer this, not sure what all of the values mean
 SkillType = {
