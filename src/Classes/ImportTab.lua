@@ -316,7 +316,7 @@ function ImportTabClass:DownloadCharacterList()
 	self.charImportStatus = "Retrieving character list..."
 	local accountName = self.controls.accountName.buf
 	local realm = realmList[self.controls.accountRealm.selIndex]
-	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
+	POESESSID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(page, errMsg)
 		if errMsg == "Response code: 403" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Account profile is private."
@@ -366,7 +366,7 @@ function ImportTabClass:DownloadCharacterList()
 			self.lastAccountHash = common.sha1(accountName)
 			main.lastAccountName = accountName
 			main.gameAccounts[accountName] = main.gameAccounts[accountName] or { }
-			main.gameAccounts[accountName].sessionID = sessionID
+			main.gameAccounts[accountName].sessionID = POESESSID
 			local leagueList = { }
 			for i, char in ipairs(charList) do
 				if not isValueInArray(leagueList, char.league) then
@@ -389,8 +389,8 @@ function ImportTabClass:DownloadCharacterList()
 			end
 			self.lastCharList = charList
 			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValue("league"))
-		end, sessionID and "POESESSID="..sessionID)
-	end, sessionID and "POESESSID="..sessionID)
+		end, POESESSID and "POESESSID="..POESESSID)
+	end, POESESSID and "POESESSID="..POESESSID)
 end
 
 function ImportTabClass:BuildCharacterList(league)
@@ -422,7 +422,7 @@ function ImportTabClass:DownloadPassiveTree()
 	self.charImportStatus = "Retrieving character passive tree..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local accountName = self.controls.accountName.buf
-	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
+	POESESSID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
 	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(page, errMsg)
@@ -436,7 +436,7 @@ function ImportTabClass:DownloadPassiveTree()
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
 		self:ImportPassiveTreeAndJewels(page, charData)
-	end, sessionID and "POESESSID="..sessionID)
+	end, POESESSID and "POESESSID="..POESESSID)
 end
 
 function ImportTabClass:DownloadItems()
@@ -444,7 +444,7 @@ function ImportTabClass:DownloadItems()
 	self.charImportStatus = "Retrieving character items..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local accountName = self.controls.accountName.buf
-	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
+	POESESSID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
 	launch:DownloadPage(realm.hostName.."character-window/get-items?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(page, errMsg)
@@ -458,7 +458,7 @@ function ImportTabClass:DownloadItems()
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
 		self:ImportItemsAndSkills(page)
-	end, sessionID and "POESESSID="..sessionID)
+	end, POESESSID and "POESESSID="..POESESSID)
 end
 
 function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)

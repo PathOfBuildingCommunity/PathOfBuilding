@@ -71,9 +71,10 @@ local function logToFile(...)
     --f:close()
 end
 
-local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, itemsTab)
+local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, queryTab)
     self:InitMods()
-    self.itemsTab = itemsTab
+    self.queryTab = queryTab
+    self.itemsTab = queryTab.itemsTab
     self.calcContext = { }
 
     table.insert(main.onFrameFuncs, function()
