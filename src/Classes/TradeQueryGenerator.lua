@@ -54,13 +54,6 @@ local localOnlyModGroups = {
     ["DefencesPercentSuffix"] = true
 }
 
-local modData = {
-    ["Explicit"] = { },
-    ["Implicit"] = { },
-    ["Corrupted"] = { },
-    ["Scourge"] = { },
-}
-
 local MAX_FILTERS = 36
 
 local function logToFile(...)
@@ -82,13 +75,11 @@ local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, 
     end)
 end)
 
--- TODO: fetching stats this way is almost certainly abusing the API. If this code gets merged, need to swap this to storing a local copy. If storing
--- a local copy, it would also make sense to run the entire InitMods logic offline as well and store that resulting table instead of this raw data.
 local function fetchStats()
     local tradeStats = ""
 	local easy = common.curl.easy()
 	easy:setopt_url("https://www.pathofexile.com/api/trade/data/stats")
-    easy:setopt_useragent("Chrome/79")
+    easy:setopt_useragent("Path of Building/" .. launch.versionNumber)
 	easy:setopt_writefunction(function(data)
 		tradeStats = tradeStats..data
 		return true
@@ -123,7 +114,7 @@ local function canModSpawnForItemCategory(mod, tags)
     return false
 end
 
-local function generateModData(mods, tradeQueryStatsParsed)
+function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
     for modId, mod in pairs(mods) do
         if localOnlyModGroups[mod.group] == true or (modId:find("Local") ~= nil and modId:find("Socketed") == nil) then -- skip all local mods other than socket level mods
             --logToFile("Skipping local mod: %s", modId)
@@ -158,7 +149,7 @@ local function generateModData(mods, tradeQueryStatsParsed)
             end
 
             -- If this is the first tier for this mod, find matching trade mod and init the entry
-            if modData[modType][statOrder] == nil then
+            if self.modData[modType][statOrder] == nil then
                 local tradeMod = nil
                 local matchStr = modLine:gsub("[#()0-9%-%+%.]","")
                 for _, entry in ipairs(tradeQueryStatsParsed.result[tradeStatCategoryIndices[modType]].entries) do
@@ -173,21 +164,21 @@ local function generateModData(mods, tradeQueryStatsParsed)
                     goto nextModLine
                 end
 
-                modData[modType][statOrder] = { tradeMod = tradeMod, specialCaseData = specialCaseData }
+                self.modData[modType][statOrder] = { tradeMod = tradeMod, specialCaseData = specialCaseData }
             end
 
             -- tokenize the numerical variables for this mod and store the sign if there is one
             local tokens = { }
             local poundPos, tokenizeOffset = 0, 0
             while true do
-                poundPos = modData[modType][statOrder].tradeMod.text:find("#", poundPos + 1)
+                poundPos = self.modData[modType][statOrder].tradeMod.text:find("#", poundPos + 1)
                 if poundPos == nil then
                     break
                 end
                 startPos, endPos, sign, min, max = modLine:find("([%+%-]?)%(?(%d+%.?%d*)%-?(%d*%.?%d*)%)?", poundPos + tokenizeOffset)
 
                 if endPos == nil then
-                    logToFile("Error extracting tokens from '%s' for tradeMod '%s'", modLine, modData[modType][statOrder].tradeMod.text)
+                    logToFile("Error extracting tokens from '%s' for tradeMod '%s'", modLine, self.modData[modType][statOrder].tradeMod.text)
                     goto nextModLine
                 end
 
@@ -195,7 +186,7 @@ local function generateModData(mods, tradeQueryStatsParsed)
                 table.insert(tokens, min)
                 table.insert(tokens, #max > 0 and tonumber(max) or tonumber(min))
                 if sign ~= nil then
-                    modData[modType][statOrder].sign = sign
+                    self.modData[modType][statOrder].sign = sign
                 end
             end
 
@@ -207,11 +198,11 @@ local function generateModData(mods, tradeQueryStatsParsed)
             -- Update the min and max values available for each item category
             for category, tags in pairs(itemCategoryTags) do
                 if canModSpawnForItemCategory(mod, tags) then
-                    if modData[modType][statOrder][category] == nil then
-                        modData[modType][statOrder][category] = { min = 999999, max = -999999 }
+                    if self.modData[modType][statOrder][category] == nil then
+                        self.modData[modType][statOrder][category] = { min = 999999, max = -999999 }
                     end
 
-                    local modRange = modData[modType][statOrder][category]
+                    local modRange = self.modData[modType][statOrder][category]
                     if #tokens == 0 then
                         modRange.min = 1
                         modRange.max = 1
@@ -231,27 +222,32 @@ local function generateModData(mods, tradeQueryStatsParsed)
 end
 
 function TradeQueryGeneratorClass:InitMods()
-    -- read the files from locally stored full stat list by GGG
-    -- originates from: https://www.pathofexile.com/api/trade/data/stats
-    local tradeQueryStatsParsed = {}
-    local jsonFile = io.open('Data/WebStats.json', 'r')
-    if jsonFile then
-        tradeQueryStatsParsed = dkjson.decode(jsonFile:read "*a")
-        jsonFile:close()
-    else
-        local tradeStats = fetchStats()
-        tradeStats:gsub("\n", " ")
-        local jsonFile = io.open('Data/WebStats.json', 'w')
-        jsonFile:write(tradeStats)
-        jsonFile:close()
-        tradeQueryStatsParsed = dkjson.decode(tradeStats)
+    local queryModFilePath = "Data/QueryMods.lua"
+
+    local file = io.open(queryModFilePath,"r")
+    if file then
+        file:close()
+        self.modData = LoadModule(queryModFilePath)
+        return
     end
 
+    self.modData = {
+        ["Explicit"] = { },
+        ["Implicit"] = { },
+        ["Corrupted"] = { },
+        ["Scourge"] = { },
+    }
+
+    -- originates from: https://www.pathofexile.com/api/trade/data/stats
+    local tradeStats = fetchStats()
+    tradeStats:gsub("\n", " ")
+    local tradeQueryStatsParsed = dkjson.decode(tradeStats)
+
     -- explicit, corrupted, scourge, and jewel mods
-    generateModData(data.itemMods.Item, tradeQueryStatsParsed)
-    generateModData(data.veiledMods, tradeQueryStatsParsed)
-    generateModData(data.itemMods.Jewel, tradeQueryStatsParsed)
-    generateModData(data.itemMods.JewelAbyss, tradeQueryStatsParsed)
+    self:GenerateModData(data.itemMods.Item, tradeQueryStatsParsed)
+    self:GenerateModData(data.veiledMods, tradeQueryStatsParsed)
+    self:GenerateModData(data.itemMods.Jewel, tradeQueryStatsParsed)
+    self:GenerateModData(data.itemMods.JewelAbyss, tradeQueryStatsParsed)
 
     -- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
     for baseName, entry in pairs(data.itemBases) do
@@ -281,22 +277,22 @@ function TradeQueryGeneratorClass:InitMods()
                 local statOrder = tradeMod.id
 
                 -- If this is the first tier for this mod, init the entry
-                if modData[modType][statOrder] == nil then
-                    modData[modType][statOrder] = { tradeMod = tradeMod, specialCaseData = { } }
+                if self.modData[modType][statOrder] == nil then
+                    self.modData[modType][statOrder] = { tradeMod = tradeMod, specialCaseData = { } }
                 end
 
                 -- tokenize the numerical variables for this mod and store the sign if there is one
                 local tokens = { }
                 local poundPos, tokenizeOffset = 0, 0
                 while true do
-                    poundPos = modData[modType][statOrder].tradeMod.text:find("#", poundPos + 1)
+                    poundPos = self.modData[modType][statOrder].tradeMod.text:find("#", poundPos + 1)
                     if poundPos == nil then
                         break
                     end
                     startPos, endPos, sign, min, max = modLine:find("([%+%-]?)%(?(%d+%.?%d*)%-?(%d*%.?%d*)%)?", poundPos + tokenizeOffset)
 
                     if endPos == nil then
-                        logToFile("Error extracting tokens from '%s' for tradeMod '%s'", modLine, modData[modType][statOrder].tradeMod.text)
+                        logToFile("Error extracting tokens from '%s' for tradeMod '%s'", modLine, self.modData[modType][statOrder].tradeMod.text)
                         goto continue
                     end
 
@@ -304,7 +300,7 @@ function TradeQueryGeneratorClass:InitMods()
                     table.insert(tokens, min)
                     table.insert(tokens, #max > 0 and tonumber(max) or tonumber(min))
                     if sign ~= nil then
-                        modData[modType][statOrder].sign = sign
+                        self.modData[modType][statOrder].sign = sign
                     end
                 end
 
@@ -324,11 +320,11 @@ function TradeQueryGeneratorClass:InitMods()
                     end
 
                     if tagMatch then
-                        if modData[modType][statOrder][category] == nil then
-                            modData[modType][statOrder][category] = { min = 999999, max = -999999, subType = entry.subType }
+                        if self.modData[modType][statOrder][category] == nil then
+                            self.modData[modType][statOrder][category] = { min = 999999, max = -999999, subType = entry.subType }
                         end
 
-                        local modRange = modData[modType][statOrder][category]
+                        local modRange = self.modData[modType][statOrder][category]
                         if #tokens == 0 then
                             modRange.min = 1
                             modRange.max = 1
@@ -345,6 +341,11 @@ function TradeQueryGeneratorClass:InitMods()
             end
         end
     end
+
+    local queryModsFile = io.open(queryModFilePath, 'w')
+    queryModsFile:write("-- This file is automatically generated, do not edit!\n-- Stat data (c) Grinding Gear Games\n\n")
+    queryModsFile:write("return " .. stringify(self.modData))
+    queryModsFile:close()
 end
 
 function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
@@ -513,13 +514,13 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 end
 
 function TradeQueryGeneratorClass:ExecuteQuery()
-    self:GenerateModWeights(modData["Explicit"])
-    self:GenerateModWeights(modData["Implicit"])
+    self:GenerateModWeights(self.modData["Explicit"])
+    self:GenerateModWeights(self.modData["Implicit"])
     if self.calcContext.options.includeCorrupted then
-        self:GenerateModWeights(modData["Corrupted"])
+        self:GenerateModWeights(self.modData["Corrupted"])
     end
     if self.calcContext.options.includeScourge then
-        self:GenerateModWeights(modData["Scourge"])
+        self:GenerateModWeights(self.modData["Scourge"])
     end
 end
 

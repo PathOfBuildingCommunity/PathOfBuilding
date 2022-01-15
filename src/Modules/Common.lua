@@ -760,3 +760,34 @@ function supportEnabled(skillName, activeSkill)
 	end
 	return true
 end
+
+function stringify(thing)
+	if type(thing) == 'string' then
+		return thing
+	elseif type(thing) == 'number' then
+		return ""..thing;
+	elseif type(thing) == 'table' then
+		local s = "{";
+		for k,v in pairs(thing) do
+			s = s.."\n\t"
+			if type(k) == 'number' then
+				s = s.."["..k.."] = "
+			else
+				s = s.."[\""..k.."\"] = "
+			end
+			if type(v) == 'string' then
+				s = s.."\""..stringify(v).."\", "
+			else
+				if type(v) == "boolean" then
+					v = v and "true" or "false"
+				end
+				val = stringify(v)..", "
+				if type(v) == "table" then
+					val = string.gsub(val, "\n", "\n\t")
+				end
+				s = s..val;
+			end
+		end
+		return s.."\n}"
+	end
+end
