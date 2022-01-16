@@ -8702,6 +8702,9 @@ skills["SupportBrandSupport"] = {
 	excludeSkillTypes = { SkillType.Trap, SkillType.Mine, SkillType.Totem, SkillType.ManaCostReserved, SkillType.TriggeredGrantedSkill, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	addFlags = {
+		brand = true,
+	},
 	statMap = {
 		["support_brand_damage_+%_final"] = {
 			mod("TriggeredDamage", "MORE", nil),
