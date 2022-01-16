@@ -310,14 +310,6 @@ function TreeTabClass:Save(xml)
 		activeSpec = tostring(self.activeSpec)
 	}
 	for specId, spec in ipairs(self.specList) do
-		if specId == self.activeSpec then
-			-- Update this spec's jewels from the socket slots
-			for _, slot in pairs(self.build.itemsTab.slots) do
-				if slot.nodeId then
-					spec.jewels[slot.nodeId] = slot.selItemId
-				end
-			end
-		end
 		local child = {
 			elem = "Spec"
 		}
@@ -344,6 +336,9 @@ function TreeTabClass:SetActiveSpec(specId)
 			if curSpec.jewels[slot.nodeId] then
 				-- Socket the jewel for the new spec
 				slot.selItemId = curSpec.jewels[slot.nodeId]
+			else
+				-- Unsocket the old jewel from the previous spec
+				slot.selItemId = 0
 			end
 		end
 	end
