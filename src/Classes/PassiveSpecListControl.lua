@@ -119,5 +119,5 @@ function PassiveSpecListClass:UpdateItemsTabPassiveTreeDropdown()
 		newSpecList[i] = self.list[i].title
 	end
 	secondarySpecList:SetList(newSpecList)
-    secondarySpecList.selIndex = self.treeTab.activeSpec
+        secondarySpecList.selIndex = self.treeTab.activeSpec
 end
