@@ -869,11 +869,9 @@ function ItemsTabClass:Load(xml, dbFileName)
 						itemSet[slotName].active = child.attrib.active == "true"
 						itemSet[slotName].pbURL = child.attrib.itemPbURL or ""
 					end
-				elseif child.elem == "Socket" then
-					itemSet["socketNodes"][tonumber(child.attrib.nodeId)] = {
-						selItemId = tonumber(child.attrib.itemId),
-						pbURL = child.attrib.itemPbURL or ""
-					}
+				elseif child.elem == "SocketIdURL" then
+					local id = tonumber(child.attrib.nodeId)
+					itemSet[id] = { pbURL = child.attrib.itemPbURL or "" }
 				end
 			end
 			t_insert(self.itemSetOrderList, itemSet.id)
@@ -939,14 +937,9 @@ function ItemsTabClass:Save(xml)
 		for slotName, slot in pairs(self.slots) do
 			if not slot.nodeId then
 				t_insert(child, { elem = "Slot", attrib = { name = slotName, itemId = tostring(itemSet[slotName].selItemId), itemPbURL = itemSet[slotName].pbURL or "", active = itemSet[slotName].active and "true" }})
-			end
-		end
-		if itemSet["socketNodes"] then
-			for nodeId, tbl in pairs(itemSet["socketNodes"]) do
-				if self.sockets[nodeId] then
-					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(tbl.selItemId), itemPbURL = itemSet["socketNodes"][nodeId].pbURL or "" }})
-				else
-					t_insert(child, { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(0), itemPbURL = itemSet["socketNodes"][nodeId].pbURL or "" }})
+			else
+				if self.build.spec.allocNodes[slot.nodeId] then
+					t_insert(child, { elem = "SocketIdURL", attrib = { name = slotName, nodeId = tostring(slot.nodeId), itemPbURL = itemSet[slot.nodeId] and itemSet[slot.nodeId].pbURL or ""}})
 				end
 			end
 		end
@@ -1088,12 +1081,6 @@ function ItemsTabClass:NewItemSet(itemSetId)
 			itemSet[slotName] = { selItemId = 0 }
 		end
 	end
-	itemSet["socketNodes"] = { }
-	if self.activeItemSet and self.activeItemSet["socketNodes"] then
-		for nodeId, _ in pairs(self.activeItemSet["socketNodes"]) do
-			itemSet["socketNodes"][nodeId] = { selItemId = 0 }
-		end
-	end
 	self.itemSets[itemSet.id] = itemSet
 	return itemSet
 end
@@ -1121,38 +1108,6 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 				slot.controls.activate.state = slot.active
 			end
 		end
-	end
-
-	-- Copy over Jewel Sockets
-	if prevSet then
-		if curSet["socketNodes"] then
-			prevSet["socketNodes"] = { }
-			for nodeId, _ in pairs(curSet["socketNodes"]) do
-				if self.sockets[nodeId] then
-					prevSet["socketNodes"][nodeId] = {
-						selItemId = self.sockets[nodeId].selItemId
-					}
-					local item = self.items[self.sockets[nodeId].selItemId]
-					if item and item.clusterJewel then
-						self.build.spec.jewels[nodeId] = nil
-					end
-				else
-					prevSet["socketNodes"][nodeId].selItemId = 0
-				end
-			end
-		end
-	end
-	if curSet["socketNodes"] then
-		for nodeId, tbl in pairs(curSet["socketNodes"]) do
-			self.sockets[nodeId].selItemId = tbl.selItemId
-			local item = self.items[tbl.selItemId]
-			if self.build.spec and item and item.clusterJewel then
-				self.build.spec.jewels[nodeId] = tbl.selItemId
-			end
-		end
-	end
-	if self.build.spec then
-		self.build.spec:BuildClusterJewelGraphs()
 	end
 	self.build.buildFlag = true
 	self:PopulateSlots()
@@ -1195,10 +1150,6 @@ function ItemsTabClass:PopulateSlots()
 	for _, slot in pairs(self.slots) do
 		slot:Populate()
 	end
-	-- Populate the jewels
-	for nodeId, slot in pairs(self.sockets) do
-		slot:Populate()
-	end
 end
 
 -- Updates the status and position of the socket controls
@@ -1217,17 +1168,9 @@ function ItemsTabClass:UpdateSockets()
 
 	-- Update the state of the active socket controls
 	self.lastSlot = self.slots[baseSlots[#baseSlots]]
-	--self.activeItemSet["socketNodes"] = { }
 	for index, nodeId in ipairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
 		self.lastSlot = self.sockets[nodeId]
-		if self.activeItemSet["socketNodes"][nodeId] then
-			self.activeItemSet["socketNodes"][nodeId].selItemId = self.sockets[nodeId].selItemId
-		else
-			self.activeItemSet["socketNodes"][nodeId] = {
-				selItemId = self.sockets[nodeId].selItemId
-			}
-		end
 	end
 
 	if main.portraitMode then
