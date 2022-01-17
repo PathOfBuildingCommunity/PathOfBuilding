@@ -11,7 +11,7 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local toolTipText = "Prefix tag searches with a colon. EG. ice:melee or :fire:spell"
+local toolTipText = "Prefix tag searches with a colon. EG. ice:melee or :spell:fire"
 local altQualMap = {
 	["Default"] = "",
 	["Alternate1"] = "Anomalous ",
@@ -20,7 +20,7 @@ local altQualMap = {
 }
 
 local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc)
-	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a':")
+	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a':-")
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
 	self.controls.scrollBar.y = function()
 		local width, height = self:GetSize()
@@ -107,7 +107,8 @@ function GemSelectClass:BuildList(buf)
 	self.controls.scrollBar.offset = 0
 	wipeTable(self.list)
 	self.searchStr = buf
-	if self.searchStr:match("%S") then
+	-- if self.searchStr:match("%S") then
+	if #self.searchStr > 0 then
 		local added = { }
 
 		-- split the buffer using :
@@ -132,6 +133,8 @@ function GemSelectClass:BuildList(buf)
 						if #tagsList > 0 then
 							for i, v in ipairs(tagsList) do
 								local tagName = string.gsub(v, "%s+", ""):lower()
+								local negateTag = string.sub(tagName, 1, 1) == '-'
+								if negateTag then tagName = tagName:sub(2) end
 								if tagName == "active" then
 									tagName = "active_skill"
 								elseif tagName == "int" then
@@ -141,7 +144,14 @@ function GemSelectClass:BuildList(buf)
 								elseif tagName == "dex" then
 									tagName = "dexterity"
 								end
-								if gemData.tags[tagName] == nil or gemData.tags[tagName] == false then addThisGem = false end
+								-- for :melee we want to exclude gems that DON'T have this tag
+								-- for :-melee we want to exclude gems that DO have this tag
+								  -- EG: :active:fire:-aura		<-- No Anger (Calming ?)
+								if negateTag then
+									if gemData.tags[tagName] and gemData.tags[tagName] == true then addThisGem = false end
+								else
+									if gemData.tags[tagName] == nil or gemData.tags[tagName] == false then addThisGem = false end
+								end
 							end
 						end
 						if addThisGem then
