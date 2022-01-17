@@ -527,6 +527,8 @@ function ImportTabClass:ImportItemsAndSkills(json)
 			end
 		end
 	end
+
+	local mainSkillEmpty = #self.build.controls.mainSocketGroup.list == 1 and self.build.controls.mainSocketGroup.list[1]["label"] == "<No skills added yet>"
 	local skillOrder
 	if self.controls.charImportItemsClearSkills.state then
 		skillOrder = { }
@@ -580,6 +582,9 @@ function ImportTabClass:ImportItemsAndSkills(json)
 				return orderA
 			end
 		end)
+	end
+	if mainSkillEmpty then
+		self.build.mainSocketGroup = self:GuessMainSocketGroup()
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
@@ -830,7 +835,6 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	end
 end
 
-
 function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	-- Build socket group list
 	local itemSocketGroupList = { }
@@ -906,6 +910,19 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 		end
 		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup)
 	end
+end
+
+-- Return the index of the group with the most gems
+function ImportTabClass:GuessMainSocketGroup()
+	local largestGroupSize = 0
+	local largestGroupIndex = 1
+	for i, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+		if #socketGroup["gemList"] > largestGroupSize then
+			largestGroupSize = #socketGroup["gemList"]
+			largestGroupIndex = i
+		end
+	end
+	return largestGroupIndex
 end
 
 function HexToChar(x)
