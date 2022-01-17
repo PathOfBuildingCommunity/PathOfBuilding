@@ -645,7 +645,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 		return newTbl
 	end
 	if self.pbSortSelectionIndex > 2 then
-		local slot = slotTbl.ref and self.itemsTab.activeItemSet["socketNodes"][slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
+		local slot = slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
 		local slotName = slotTbl.ref and "Jewel " .. tostring(slotTbl.ref) or slotTbl.name
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
@@ -717,16 +717,16 @@ end
 
 -- Method to generate pane elements for each item slot
 function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-	local activeItemRef = slotTbl.ref and self.itemsTab.activeItemSet["socketNodes"][slotTbl.ref] or self.itemsTab.activeItemSet[slotTbl.name]
+	local activeSlotRef = slotTbl.ref and self.itemsTab.activeItemSet[slotTbl.ref] or self.itemsTab.activeItemSet[slotTbl.name]
 	controls['name'..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^8"..slotTbl.name)
-    controls['bestButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 10, row_height, "?", function()
-		self.tradeQueryGenerator:RequestQuery((slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]), { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query)
+	controls['bestButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 10, row_height, "?", function()
+		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query)
 			self:SearchItem("Scourge", query, context.slotTbl, context.controls, context.str_cnt)
 		end)
 	end)
 	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['bestButton'..str_cnt],"TOPLEFT"}, 10 + 8, 0, 500, row_height, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
-	if activeItemRef and activeItemRef.pbURL ~= "" and activeItemRef.pbURL ~= nil then
-		controls['uri'..str_cnt]:SetText(activeItemRef.pbURL)
+	if activeSlotRef and activeSlotRef.pbURL ~= "" and activeSlotRef.pbURL ~= nil then
+		controls['uri'..str_cnt]:SetText(activeSlotRef.pbURL)
 	else
 		controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. slotTbl.name)
 	end
@@ -735,12 +735,14 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 	end)
 	controls['priceButton'..str_cnt].enabled = function()
 		local validURL = controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil
-		if activeItemRef then
-			if validURL then
-				activeItemRef.pbURL = controls['uri'..str_cnt].buf
-			elseif controls['uri'..str_cnt].buf == "" then
-				activeItemRef.pbURL = ""
-			end
+		if not activeSlotRef and slotTbl.ref then
+			self.itemsTab.activeItemSet[slotTbl.ref] = { pbURL = "" }
+			activeSlotRef = self.itemsTab.activeItemSet[slotTbl.ref]
+		end
+		if validURL then
+			activeSlotRef.pbURL = controls['uri'..str_cnt].buf
+		elseif controls['uri'..str_cnt].buf == "" then
+			activeSlotRef.pbURL = ""
 		end
 		return validURL and self:PriceBuilderCanSearch(controls) and self:PriceBuilderCanFetch(controls)
 	end
