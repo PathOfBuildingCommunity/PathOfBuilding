@@ -93,7 +93,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		t_insert(self.controls, slot)
 	end
 	for index, slotName in ipairs(baseSlots) do
-		local slot = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName)
+		local slot = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName)
 		addSlot(slot)
 		if slotName:match("Weapon") then
 			-- Add alternate weapon slot
@@ -101,14 +101,14 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 			slot.shown = function()
 				return not self.activeItemSet.useSecondWeaponSet
 			end
-			local swapSlot = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName.." Swap", slotName)
+			local swapSlot = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName.." Swap", slotName)
 			addSlot(swapSlot)
 			swapSlot.weaponSet = 2
 			swapSlot.shown = function()
 				return self.activeItemSet.useSecondWeaponSet
 			end
 			for i = 1, 6 do
-				local abyssal = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName.."Swap Abyssal Socket "..i, "Abyssal #"..i)			
+				local abyssal = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName.."Swap Abyssal Socket "..i, "Abyssal #"..i)			
 				addSlot(abyssal)
 				abyssal.parentSlot = swapSlot
 				abyssal.weaponSet = 2
@@ -121,7 +121,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		if slotName == "Weapon 1" or slotName == "Weapon 2" or slotName == "Helmet" or slotName == "Gloves" or slotName == "Body Armour" or slotName == "Boots" or slotName == "Belt" then
 			-- Add Abyssal Socket slots
 			for i = 1, 6 do
-				local abyssal = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName.." Abyssal Socket "..i, "Abyssal #"..i)			
+				local abyssal = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName.." Abyssal Socket "..i, "Abyssal #"..i)			
 				addSlot(abyssal)
 				abyssal.parentSlot = slot
 				if slotName:match("Weapon") then
@@ -134,6 +134,23 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 			end
 		end
 	end
+
+	-- Passive tree dropdown controls
+	self.controls.specSelect = new("DropDownControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 8, 200, 20, nil, function(index, value)
+		if self.build.treeTab.specList[index] then
+			self.build.modFlag = true
+			self.build.treeTab:SetActiveSpec(index)
+		end
+	end)
+	self.controls.specSelect.enabled = function()
+		return #self.controls.specSelect.list > 1
+	end
+	prevSlot = self.controls.specSelect
+	self.controls.specButton = new("ButtonControl", {"LEFT",prevSlot,"RIGHT"}, 2, 0, 90, 20, "Manage...", function()
+		self.build.treeTab:OpenSpecManagePopup()
+	end)
+	self.controls.specLabel = new("LabelControl", {"RIGHT",prevSlot,"LEFT"}, -2, 0, 0, 16, "^7Passive tree:")
+
 	self.sockets = { }
 	local socketOrder = { }
 	for _, node in pairs(build.latestTree.nodes) do
@@ -145,7 +162,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		return a.id < b.id
 	end)
 	for _, node in ipairs(socketOrder) do
-		local socketControl = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, "Jewel "..node.id, "Socket", node.id)
+		local socketControl = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, "Jewel "..node.id, "Socket", node.id)
 		self.sockets[node.id] = socketControl
 		addSlot(socketControl)
 	end

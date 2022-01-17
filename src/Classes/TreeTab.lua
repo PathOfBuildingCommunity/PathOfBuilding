@@ -231,6 +231,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	for id, spec in ipairs(self.specList) do
 		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
+	self.build.itemsTab.controls.specSelect:SetList(copyTable(newSpecList)) -- Update the passive tree dropdown control in itemsTab
 	t_insert(newSpecList, "Manage trees...")
 	self.controls.specSelect:SetList(newSpecList)
 
@@ -347,6 +348,8 @@ function TreeTabClass:SetActiveSpec(specId)
 		-- Update item slots if items have been loaded already
 		self.build.itemsTab:PopulateSlots()
 	end
+    -- Update the passive tree dropdown control in itemsTab
+    self.build.itemsTab.controls.specSelect.selIndex = specId
 end
 
 function TreeTabClass:SetCompareSpec(specId)

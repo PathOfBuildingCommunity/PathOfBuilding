@@ -39,6 +39,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		newSpec:SelectAscendClass(treeTab.build.spec.curAscendClassId)
 		self:RenameSpec(newSpec, true)
 	end)
+	self:UpdateItemsTabPassiveTreeDropdown()
 end)
 
 function PassiveSpecListClass:RenameSpec(spec, addOnName)
@@ -55,6 +56,7 @@ function PassiveSpecListClass:RenameSpec(spec, addOnName)
 			self.selIndex = #self.list
 			self.selValue = spec
 		end
+		self:UpdateItemsTabPassiveTreeDropdown()
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false
@@ -77,6 +79,7 @@ end
 function PassiveSpecListClass:OnOrderChange()
 	self.treeTab.activeSpec = isValueInArray(self.list, self.treeTab.build.spec)
 	self.treeTab.modFlag = true
+	self:UpdateItemsTabPassiveTreeDropdown()
 end
 
 function PassiveSpecListClass:OnSelClick(index, spec, doubleClick)
@@ -97,6 +100,7 @@ function PassiveSpecListClass:OnSelDelete(index, spec)
 				self.treeTab.activeSpec = isValueInArray(self.list, self.treeTab.build.spec)
 			end
 			self.treeTab.modFlag = true
+			self:UpdateItemsTabPassiveTreeDropdown()
 		end)
 	end
 end
@@ -105,4 +109,15 @@ function PassiveSpecListClass:OnSelKeyDown(index, spec, key)
 	if key == "F2" then
 		self:RenameSpec(spec)
 	end
+end
+
+-- Update the passive tree dropdown control in itemsTab
+function PassiveSpecListClass:UpdateItemsTabPassiveTreeDropdown()
+	local secondarySpecList = self.treeTab.build.itemsTab.controls.specSelect
+	local newSpecList = { }
+	for i = 1, #self.list do
+		newSpecList[i] = self.list[i].title
+	end
+	secondarySpecList:SetList(newSpecList)
+    secondarySpecList.selIndex = self.treeTab.activeSpec
 end
