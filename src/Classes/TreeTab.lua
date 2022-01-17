@@ -348,8 +348,8 @@ function TreeTabClass:SetActiveSpec(specId)
 		-- Update item slots if items have been loaded already
 		self.build.itemsTab:PopulateSlots()
 	end
-    -- Update the passive tree dropdown control in itemsTab
-    self.build.itemsTab.controls.specSelect.selIndex = specId
+	-- Update the passive tree dropdown control in itemsTab
+	self.build.itemsTab.controls.specSelect.selIndex = specId
 end
 
 function TreeTabClass:SetCompareSpec(specId)
