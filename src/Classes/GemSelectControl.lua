@@ -5,11 +5,13 @@
 --
 
 local t_insert = table.insert
+local t_remove = table.remove
 local t_sort = table.sort
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
+local toolTipText = "Prefix tag searches with a colon. EG. ice:melee or :fire:spell"
 local altQualMap = {
 	["Default"] = "",
 	["Alternate1"] = "Anomalous ",
@@ -18,7 +20,7 @@ local altQualMap = {
 }
 
 local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc)
-	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a'")
+	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a':")
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
 	self.controls.scrollBar.y = function()
 		local width, height = self:GetSize()
@@ -88,49 +90,74 @@ function GemSelectClass:FilterSupport(gemId, gemData)
 end
 
 function GemSelectClass:BuildList(buf)
+	function string:split(sep)
+		-- Initially from http://lua-users.org/wiki/SplitJoin
+		-- function will ignore duplicate separators
+		local sep, fields = sep or ":", {}
+		local pattern = string.format("([^%s]+)", sep)
+		-- inject a blank entry if self begins with a colon
+		if string.sub(self, 1, 1) == ":" then t_insert(fields, "") end
+		self:gsub(pattern, function(c) fields[#fields+1] = c end)
+		return fields
+	end
+
+	local searchTerm = ""
+	local tagsList = {}
+
 	self.controls.scrollBar.offset = 0
 	wipeTable(self.list)
 	self.searchStr = buf
 	if self.searchStr:match("%S") then
-		-- Search for gem name using increasingly broad search patterns
-		local patternList = {
-			"^ "..self.searchStr:lower().."$", -- Exact match
-			"^"..self.searchStr:lower():gsub("%a", " %0%%l+").."$", -- Simple abbreviation ("CtF" -> "Cold to Fire")
-			"^ "..self.searchStr:lower(), -- Starts with
-			self.searchStr:lower(), -- Contains
-		}
 		local added = { }
-		for i, pattern in ipairs(patternList) do
-			local matchList = { }
-			for gemId, gemData in pairs(self.gems) do
-				if self:FilterSupport(gemId, gemData) and not added[gemId] and ((" "..gemData.name:lower()):match(pattern) or altQualMap[self:GetQualityType(gemId)]:lower():match(pattern)) then
-					t_insert(matchList, gemId)
-					added[gemId] = true
+
+		-- split the buffer using :
+		-- Remove the first entry as the name search term
+		tagsList = self.searchStr:split(':')
+		searchTerm = tagsList[1]
+		t_remove(tagsList,1)
+
+		if searchTerm then
+			-- Search for gem name using increasingly broad search patterns
+			local patternList = {
+				"^ "..searchTerm:lower().."$", -- Exact match
+				"^"..searchTerm:lower():gsub("%a", " %0%%l+").."$", -- Simple abbreviation ("CtF" -> "Cold to Fire")
+				"^ "..searchTerm:lower(), -- Starts with
+				searchTerm:lower(), -- Contains
+			}
+			for i, pattern in ipairs(patternList) do
+				local matchList = { }
+				for gemId, gemData in pairs(self.gems) do
+					if self:FilterSupport(gemId, gemData) and not added[gemId] and ((" "..gemData.name:lower()):match(pattern) or altQualMap[self:GetQualityType(gemId)]:lower():match(pattern)) then
+						addThisGem = true
+						if #tagsList > 0 then
+							for i, v in ipairs(tagsList) do
+								local tagName = string.gsub(v, "%s+", ""):lower()
+								if tagName == "active" then
+									tagName = "active_skill"
+								elseif tagName == "int" then
+									tagName = "intelligence"
+								elseif tagName == "str" then
+									tagName = "strength"
+								elseif tagName == "dex" then
+									tagName = "dexterity"
+								end
+								if gemData.tags[tagName] == nil or gemData.tags[tagName] == false then addThisGem = false end
+							end
+						end
+						if addThisGem then
+							t_insert(matchList, gemId)
+							added[gemId] = true
+						end
+					end
 				end
-			end
-			self:SortGemList(matchList)
-			for _, gemId in ipairs(matchList) do
-				t_insert(self.list, gemId)
-			end
-		end
-		local tagName = self.searchStr:match("^%s*(%a+)%s*$")
-		if tagName then
-			local matchList = { }
-			if tagName == "active" then
-				tagName = "active_skill"
-			end
-			for gemId, gemData in pairs(self.gems) do
-				if self:FilterSupport(gemId, gemData) and not added[gemId] and gemData.tags[tagName:lower()] == true then
-					t_insert(matchList, gemId)
-					added[gemId] = true
+				self:SortGemList(matchList)
+				for _, gemId in ipairs(matchList) do
+					t_insert(self.list, gemId)
 				end
-			end
-			self:SortGemList(matchList)
-			for _, gemId in ipairs(matchList) do
-				t_insert(self.list, gemId)
 			end
 		end
 	else
+		--nothing in buffer
 		for gemId, gemData in pairs(self.gems) do
 			if self:FilterSupport(gemId, gemData) then
 				t_insert(self.list, gemId)
@@ -409,6 +436,7 @@ function GemSelectClass:Draw(viewPort)
 		end
 		SetDrawLayer(nil, 0)
 	else
+		-- not dropped
 		local hoverControl 
 		if self.skillsTab.selControl and self.skillsTab.selControl._className == "GemSelectControl" then
 			hoverControl = self.skillsTab.selControl
@@ -426,17 +454,19 @@ function GemSelectClass:Draw(viewPort)
 		end
 		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) then
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
+			SetDrawLayer(nil, 10)
+			self.tooltip:Clear()
 			if gemInstance and gemInstance.gemData then
 				-- Check valid qualityId, set to 'Default' if missing
 				if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
 					gemInstance.qualityId = "Default"
 				end
-				SetDrawLayer(nil, 10)
-				self.tooltip:Clear()
 				self:AddGemTooltip(gemInstance)
-				self.tooltip:Draw(x, y, width, height, viewPort)
-				SetDrawLayer(nil, 0)
+			else
+				self.tooltip:AddLine(16, toolTipText )
 			end
+			self.tooltip:Draw(x, y, width, height, viewPort)
+			SetDrawLayer(nil, 0)
 		end
 	end
 end
