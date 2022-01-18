@@ -609,6 +609,7 @@ return {
 	end },
 	{ var = "buffLifetap", type = "check", label = "Do you have Lifetap?", ifCond = "Lifetap", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Lifetap", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("FlaskLifeRecovery", "INC", 20, "Config")
 	end },
 	{ var = "buffOnslaught", type = "check", label = "Do you have Onslaught?", tooltip = "In addition to allowing any 'while you have Onslaught' modifiers to apply,\nthis will enable the Onslaught buff itself. (Grants 20% increased Attack, Cast, and Movement Speed)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Onslaught", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
