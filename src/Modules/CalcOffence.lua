@@ -2217,9 +2217,11 @@ function calcs.offence(env, actor, activeSkill)
 								if isElemental[elementUsed] then
 									pen = skillModList:Sum("BASE", cfg, elementUsed.."Penetration", "ElementalPenetration")
 									takenInc = enemyDB:Sum("INC", cfg, "DamageTaken", elementUsed.."DamageTaken", "ElementalDamageTaken")
+									takenMore = enemyDB:More(cfg, "DamageTaken", elementUsed.."DamageTaken", "ElementalDamageTaken")
 								elseif elementUsed == "Chaos" then
 									pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 									takenInc = enemyDB:Sum("INC", cfg, "DamageTaken", "ChaosDamageTaken")
+									takenMore = enemyDB:More(cfg, "DamageTaken", "ChaosDamageTaken")
 								end
 								sourceRes = elementUsed
 							elseif isElemental[damageType] then
