@@ -116,7 +116,7 @@ function PassiveSpecListClass:UpdateItemsTabPassiveTreeDropdown()
 	local secondarySpecList = self.treeTab.build.itemsTab.controls.specSelect
 	local newSpecList = { }
 	for i = 1, #self.list do
-		newSpecList[i] = self.list[i].title
+		newSpecList[i] = self.list[i].title or "Default"
 	end
 	secondarySpecList:SetList(newSpecList)
         secondarySpecList.selIndex = self.treeTab.activeSpec
