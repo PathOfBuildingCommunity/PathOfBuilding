@@ -2213,11 +2213,13 @@ function calcs.offence(env, actor, activeSkill)
 										end
 									end
 								end
-								-- Update the penetration based on the element used
+								-- Update the penetration (and damage taken) based on the element used
 								if isElemental[elementUsed] then
 									pen = skillModList:Sum("BASE", cfg, elementUsed.."Penetration", "ElementalPenetration")
+									takenInc = enemyDB:Sum("INC", cfg, "DamageTaken", elementUsed.."DamageTaken", "ElementalDamageTaken")
 								elseif elementUsed == "Chaos" then
 									pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
+									takenInc = enemyDB:Sum("INC", cfg, "DamageTaken", "ChaosDamageTaken")
 								end
 								sourceRes = elementUsed
 							elseif isElemental[damageType] then
