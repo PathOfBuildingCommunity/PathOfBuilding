@@ -570,7 +570,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 		local inc = modDB:Sum("INC", nil, "Life")
 		local more = modDB:More(nil, "Life")
 		local conv = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield")
-		output.Life = round(base * (1 + inc/100) * more * (1 - conv/100))
+		output.Life = m_max(round(base * (1 + inc/100) * more * (1 - conv/100)), 1)
 		if breakdown then
 			if inc ~= 0 or more ~= 1 or conv ~= 0 then
 				breakdown.Life = { }
