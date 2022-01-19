@@ -6,6 +6,14 @@ data.uniques.new = {
 
 -- New
 
+[[
+Melding of the Flesh
+Cobalt Jewel
+Limited to: 1
+-(75-76)% to All Elemental Resistances
+Elemental Resistances are limited by your highest Maximum Elemental Resistance instead
+]]
+
 -- Reworked
 
 }

@@ -81,10 +81,25 @@ function calcs.defence(env, actor)
 	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
 	output.PhysicalResist = m_min(output.DamageReductionMax, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
 	output.PhysicalResistWhenHit = m_min(output.DamageReductionMax, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
+
+	-- Get the highest Maximum Elemental Resistance for Melding of the Flesh
+	local highestResistMax = 0;
+	if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") then
+		for _, elem in ipairs(resistTypeList) do
+			local resistMax = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
+			if resistMax > highestResistMax and elem ~= "Chaos" then
+				highestResistMax = resistMax;
+			end
+		end
+	end
+
 	for _, elem in ipairs(resistTypeList) do
 		local min, max, total
 		min = data.misc.ResistFloor
 			max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
+			if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") and elem ~= "Chaos" then
+				max = highestResistMax;
+			end
 			total = modDB:Override(nil, elem.."Resist")
 			if not total then
 				local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
