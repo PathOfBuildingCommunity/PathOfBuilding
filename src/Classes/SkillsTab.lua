@@ -317,31 +317,71 @@ function SkillsTabClass:Save(xml)
 			mainActiveSkill = tostring(socketGroup.mainActiveSkill),
 			mainActiveSkillCalcs = tostring(socketGroup.mainActiveSkillCalcs),
 		} }
+		-- Prevent saving useless minion data to XML for socket groups that do not create minions
+		local socketGroupCreatesMinion = false
 		for _, gemInstance in ipairs(socketGroup.gemList) do
-			t_insert(node, { elem = "Gem", attrib = {
-				nameSpec = gemInstance.nameSpec,
-				skillId = gemInstance.skillId,
-				gemId = gemInstance.gemId,
-				level = tostring(gemInstance.level),
-				quality = tostring(gemInstance.quality),
-				qualityId = gemInstance.qualityId,
-				enabled = tostring(gemInstance.enabled),
-				enableGlobal1 = tostring(gemInstance.enableGlobal1),
-				enableGlobal2 = tostring(gemInstance.enableGlobal2),
-				count = tostring(gemInstance.count),
-				skillPart = gemInstance.skillPart and tostring(gemInstance.skillPart),
-				skillPartCalcs = gemInstance.skillPartCalcs and tostring(gemInstance.skillPartCalcs),
-				skillStageCount = gemInstance.skillStageCount and tostring(gemInstance.skillStageCount),
-				skillStageCountCalcs = gemInstance.skillStageCountCalcs and tostring(gemInstance.skillStageCountCalcs),
-				skillMineCount = gemInstance.skillMineCount and tostring(gemInstance.skillMineCount),
-				skillMineCountCalcs = gemInstance.skillMineCountCalcs and tostring(gemInstance.skillMineCountCalcs),
-				skillMinion = gemInstance.skillMinion,
-				skillMinionCalcs = gemInstance.skillMinionCalcs,
-				skillMinionItemSet = gemInstance.skillMinionItemSet and tostring(gemInstance.skillMinionItemSet),
-				skillMinionItemSetCalcs = gemInstance.skillMinionItemSetCalcs and tostring(gemInstance.skillMinionItemSetCalcs),
-				skillMinionSkill = gemInstance.skillMinionSkill and tostring(gemInstance.skillMinionSkill),
-				skillMinionSkillCalcs = gemInstance.skillMinionSkillCalcs and tostring(gemInstance.skillMinionSkillCalcs),
-			} })
+			local gemData = data.skills[gemInstance.skillId]
+			if gemData.skillTypes and gemData.skillTypes[SkillType.CreatesMinion] then
+				socketGroupCreatesMinion = true
+				break
+			elseif gemData.addSkillTypes then
+				for i = 1, #gemData.addSkillTypes do
+					if gemData.addSkillTypes[i] == SkillType.CreatesMinion then
+						socketGroupCreatesMinion = true
+						break
+					end
+				end
+				if socketGroupCreatesMinion then
+					break
+				end
+			end
+		end
+		for _, gemInstance in ipairs(socketGroup.gemList) do
+			if socketGroupCreatesMinion then
+				t_insert(node, { elem = "Gem", attrib = {
+					nameSpec = gemInstance.nameSpec,
+					skillId = gemInstance.skillId,
+					gemId = gemInstance.gemId,
+					level = tostring(gemInstance.level),
+					quality = tostring(gemInstance.quality),
+					qualityId = gemInstance.qualityId,
+					enabled = tostring(gemInstance.enabled),
+					enableGlobal1 = tostring(gemInstance.enableGlobal1),
+					enableGlobal2 = tostring(gemInstance.enableGlobal2),
+					count = tostring(gemInstance.count),
+					skillPart = gemInstance.skillPart and tostring(gemInstance.skillPart),
+					skillPartCalcs = gemInstance.skillPartCalcs and tostring(gemInstance.skillPartCalcs),
+					skillStageCount = gemInstance.skillStageCount and tostring(gemInstance.skillStageCount),
+					skillStageCountCalcs = gemInstance.skillStageCountCalcs and tostring(gemInstance.skillStageCountCalcs),
+					skillMineCount = gemInstance.skillMineCount and tostring(gemInstance.skillMineCount),
+					skillMineCountCalcs = gemInstance.skillMineCountCalcs and tostring(gemInstance.skillMineCountCalcs),
+					skillMinion = gemInstance.skillMinion,
+					skillMinionCalcs = gemInstance.skillMinionCalcs,
+					skillMinionItemSet = gemInstance.skillMinionItemSet and tostring(gemInstance.skillMinionItemSet),
+					skillMinionItemSetCalcs = gemInstance.skillMinionItemSetCalcs and tostring(gemInstance.skillMinionItemSetCalcs),
+					skillMinionSkill = gemInstance.skillMinionSkill and tostring(gemInstance.skillMinionSkill),
+					skillMinionSkillCalcs = gemInstance.skillMinionSkillCalcs and tostring(gemInstance.skillMinionSkillCalcs),
+				} })
+			else
+				t_insert(node, { elem = "Gem", attrib = {
+					nameSpec = gemInstance.nameSpec,
+					skillId = gemInstance.skillId,
+					gemId = gemInstance.gemId,
+					level = tostring(gemInstance.level),
+					quality = tostring(gemInstance.quality),
+					qualityId = gemInstance.qualityId,
+					enabled = tostring(gemInstance.enabled),
+					enableGlobal1 = tostring(gemInstance.enableGlobal1),
+					enableGlobal2 = tostring(gemInstance.enableGlobal2),
+					count = tostring(gemInstance.count),
+					skillPart = gemInstance.skillPart and tostring(gemInstance.skillPart),
+					skillPartCalcs = gemInstance.skillPartCalcs and tostring(gemInstance.skillPartCalcs),
+					skillStageCount = gemInstance.skillStageCount and tostring(gemInstance.skillStageCount),
+					skillStageCountCalcs = gemInstance.skillStageCountCalcs and tostring(gemInstance.skillStageCountCalcs),
+					skillMineCount = gemInstance.skillMineCount and tostring(gemInstance.skillMineCount),
+					skillMineCountCalcs = gemInstance.skillMineCountCalcs and tostring(gemInstance.skillMineCountCalcs),
+				} })
+			end
 		end
 		t_insert(xml, node)
 	end
