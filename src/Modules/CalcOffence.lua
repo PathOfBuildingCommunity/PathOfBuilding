@@ -2850,11 +2850,9 @@ function calcs.offence(env, actor, activeSkill)
 				output.BleedPhysicalMax = max
 				if sub_pass == 2 then
 					output.CritBleedDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100
-					--sourceCritDmg = (min + max) / 2 * output.CritBleedDotMulti
 					sourceCritDmg = (min + (max - min) / m_pow(2, bleedStacks / (bleedStacks + 1))) * output.CritBleedDotMulti
 				else
 					output.BleedDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100
-					--sourceHitDmg = (min + max) / 2 * output.BleedDotMulti
 					sourceHitDmg = (min + (max - min) / m_pow(2, bleedStacks / (bleedStacks + 1))) * output.BleedDotMulti
 				end
 			end
@@ -2883,7 +2881,6 @@ function calcs.offence(env, actor, activeSkill)
 						globalBreakdown.BleedEffMult = breakdown.effMult("Physical", resist, 0, takenInc, effMult, takenMore)
 					end
 				end
-				--local mult = skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier", "BleedMultiplier")
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
 				output.BaseBleedDPS = baseVal * effectMod * rateMod * effMult
 				output.BleedDPS = (baseVal * effectMod * rateMod * effMult) * bleedStacks
