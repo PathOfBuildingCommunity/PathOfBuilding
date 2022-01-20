@@ -2832,12 +2832,12 @@ function calcs.offence(env, actor, activeSkill)
 			local maxStacks = skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax")
 			local bleedStacks = configStacks > 0 and m_min(configStacks, maxStacks) or maxStacks
 			globalOutput.BleedStacksMax = maxStacks
-			globalOutput.BleedStacks = bleedStacks
 			local durationBase = skillData.bleedDurationIsSkillDuration and skillData.duration or data.misc.BleedDurationBase
 			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
 			local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster") + enemyDB:Sum("INC", nil, "SelfBleedFaster")  / 100
 			globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
 			bleedStacks = m_min(bleedStacks, globalOutput.BleedDuration / output.Time)
+			globalOutput.BleedStacks = bleedStacks
 
 			for sub_pass = 1, 2 do
 				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or sub_pass == 1 then
