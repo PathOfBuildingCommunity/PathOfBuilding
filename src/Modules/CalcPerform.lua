@@ -776,7 +776,8 @@ local function doActorMisc(env, actor)
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
-		if modDB:Flag(nil, "Fortified") then
+		-- Fortify from a mod, or minions getting stacks from Kingmaker
+		if modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
 			local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
 			local modList = modDB:List(nil, "convertFortificationBuff")
 			local changeMod = modList[#modList]
