@@ -131,8 +131,7 @@ Sometimes a change will be made that intends to change the stats garnered by PoB
 Docker alternative:
 
 1. Add the new build XML (if applicable) to the `TestBuilds` folder
-2. Run `docker-compose up -d` to generate a LUA file that contains the current stats of that build
-3. Run `docker-compose up -d` and the tests should pass
+2. Run `docker-compose up -d` to generate a LUA file that contains the current stats of that build and run the tests
 
 ## Keeping your fork up to date
 
