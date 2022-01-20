@@ -2911,13 +2911,28 @@ skills["ElementalHit"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Fire",
+			name = "Fire Attack",
+			area = false,
 		},
 		{
-			name = "Cold",
+			name = "Fire AoE",
+			area = true,
 		},
 		{
-			name = "Lightning",
+			name = "Cold Attack",
+			area = false,
+		},
+		{
+			name = "Cold AoE",
+			area = true,
+		},
+		{
+			name = "Lightning Attack",
+			area = false,
+		},
+		{
+			name = "Lightning AoE",
+			area = true,
 		},
 	},
 	baseFlags = {
@@ -2928,15 +2943,15 @@ skills["ElementalHit"] = {
 	baseMods = {
 		flag("DealNoPhysical"),
 		flag("DealNoChaos"),
-		flag("DealNoFire", { type = "SkillPart", skillPart = 2 }),
-		flag("DealNoFire", { type = "SkillPart", skillPart = 3 }),
-		flag("DealNoCold", { type = "SkillPart", skillPart = 1 }),
-		flag("DealNoCold", { type = "SkillPart", skillPart = 3 }),
-		flag("DealNoLightning", { type = "SkillPart", skillPart = 1 }),
-		flag("DealNoLightning", { type = "SkillPart", skillPart = 2 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 1 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 2 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 3 }),
+		flag("DealNoFire", { type = "SkillPart", skillPartList = { 3, 4 } }),
+		flag("DealNoFire", { type = "SkillPart", skillPartList = { 5, 6 } }),
+		flag("DealNoCold", { type = "SkillPart", skillPartList = { 1, 2 } }),
+		flag("DealNoCold", { type = "SkillPart", skillPartList = { 5, 6 } }),
+		flag("DealNoLightning", { type = "SkillPart", skillPartList = { 1, 2 } }),
+		flag("DealNoLightning", { type = "SkillPart", skillPartList = { 3, 4 } }),
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 2 }),
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 4 }),
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 6 }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
@@ -2945,7 +2960,7 @@ skills["ElementalHit"] = {
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Brittle" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Sapped" }),
 		mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
-		skill("radius", 10),
+		skill("radius", 10, { type = "SkillPart", skillPartList = { 2, 4, 6 } }),
 	},
 	qualityStats = {
 		Default = {
