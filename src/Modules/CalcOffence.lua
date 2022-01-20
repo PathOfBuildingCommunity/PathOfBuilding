@@ -1384,6 +1384,38 @@ function calcs.offence(env, actor, activeSkill)
 			else
 				output[stat] = output.MainHand[stat] or output.OffHand[stat]
 			end
+		elseif mdoe == "CHANCE_AILMENT" then
+			if output.MainHand[stat] and output.OffHand[stat] then
+				local mainChance = output.MainHand[...] * output.MainHand.HitChance
+				local offChance = output.OffHand[...] * output.OffHand.HitChance
+				local mainPortion = mainChance / (mainChance + offChance)
+				local offPortion = offChance / (mainChance + offChance)
+				local maxInstance = m_max(output.MainHand[stat] * mainPortion, output.OffHand[stat] * offPortion)
+				local minInstance = m_min(output.MainHand[stat] * mainPortion, output.OffHand[stat] * offPortion)
+				local maxInstanceStacks = m_min(1, globalOutput.BleedStacks / globalOutput.BleedStacksMax)
+				output[stat] = maxInstance * maxInstanceStacks + minInstance * (1 - maxInstanceStacks)
+				if breakdown then
+					if not breakdown[stat] then
+						breakdown[stat] = { }
+					end
+					t_insert(breakdown[stat], "Contribution from Main Hand:")
+					t_insert(breakdown[stat], s_format("%.1f", output.MainHand[stat]))
+					t_insert(breakdown[stat], s_format("x %.3f ^8(portion of instances created by main hand)", mainPortion))
+					t_insert(breakdown[stat], s_format("= %.1f", output.MainHand[stat] * mainPortion))
+					t_insert(breakdown[stat], "Contribution from Off Hand:")
+					t_insert(breakdown[stat], s_format("%.1f", output.OffHand[stat]))
+					t_insert(breakdown[stat], s_format("x %.3f ^8(portion of instances created by off hand)", offPortion))
+					t_insert(breakdown[stat], s_format("= %.1f", output.OffHand[stat] * offPortion))
+					t_insert(breakdown[stat], "Highest Stack % Breakdown based on Bleed Duration vs. Attack Time:")
+					t_insert(breakdown[stat], s_format("%.1f for Max Bleeds", maxInstanceStacks))
+					t_insert(breakdown[stat], s_format("%.1f for Non-Max Bleeds", 1-maxInstanceStacks))
+					t_insert(breakdown[stat], "Total:")
+					t_insert(breakdown[stat], s_format("%.1f + %.1f", maxInstance * maxInstanceStacks, minInstance * (1 - maxInstanceStacks)))
+					t_insert(breakdown[stat], s_format("= %.1f", output[stat]))
+				end
+			else
+				output[stat] = output.MainHand[stat] or output.OffHand[stat]
+			end
 		elseif mode == "DPS" then
 			output[stat] = (output.MainHand[stat] or 0) + (output.OffHand[stat] or 0)
 			if not skillData.doubleHitsWhenDualWielding then
@@ -3713,7 +3745,7 @@ function calcs.offence(env, actor, activeSkill)
 	-- Combine secondary effect stats
 	if isAttack then
 		combineStat("BleedChance", "AVERAGE")
-		combineStat("BleedDPS", "CHANCE", "BleedChance")
+		combineStat("BleedDPS", "CHANCE_AILMENT", "BleedChance")
 		combineStat("PoisonChance", "AVERAGE")
 		combineStat("PoisonDPS", "CHANCE", "PoisonChance")
 		combineStat("TotalPoisonDPS", "DPS")
