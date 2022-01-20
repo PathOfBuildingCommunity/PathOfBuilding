@@ -647,7 +647,7 @@ local function determineCursePriority(curseName, slot, source)
 	local basePriority = data.cursePriority[curseName]
 	local sourcePriority = source ~= nil and 200 or 100
 	local slotPriority = 2000
-	if string.match(curseName or "", "'s Mark") ~= nil then
+	if string.match(curseName, "'s Mark") ~= nil then
 		slotPriority = 1000
 	elseif string.match(slot or "", "Ring ") ~= nil then
 		slotPriority = 3000
