@@ -50,6 +50,9 @@ local damageStatsForTypes = setmetatable({ }, { __index = function(t, k)
 	return modNames
 end })
 
+globalOutput = nil
+globalBreakdown = nil
+
 -- Calculate min/max damage for the given damage type
 local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags, convDst)
 	local skillModList = activeSkill.skillModList
@@ -1390,31 +1393,36 @@ function calcs.offence(env, actor, activeSkill)
 				local offChance = output.OffHand[...] * output.OffHand.HitChance
 				local mainPortion = mainChance / (mainChance + offChance)
 				local offPortion = offChance / (mainChance + offChance)
-				local maxInstance = m_max(output.MainHand[stat] * mainPortion, output.OffHand[stat] * offPortion)
-				local minInstance = m_min(output.MainHand[stat] * mainPortion, output.OffHand[stat] * offPortion)
-				local maxInstanceStacks = 1 -- m_min(1, globalOutput.BleedStacks /  globalOutput.MainHand.BleedStacksMax)
+				local maxInstance = m_max(output.MainHand[stat], output.OffHand[stat])
+				local minInstance = m_min(output.MainHand[stat], output.OffHand[stat])
+				local maxInstanceStacks = m_min(1, globalOutput.BleedStacks /  globalOutput.BleedStacksMax)
 				output[stat] = maxInstance * maxInstanceStacks + minInstance * (1 - maxInstanceStacks)
 				if breakdown then
-					if not breakdown[stat] then
-						breakdown[stat] = { }
+					breakdown[stat] = { }
+					t_insert(breakdown[stat], colorCodes.CUSTOM.."NOTE: Calculation use new Weighted Avg Ailment formula")
+					t_insert(breakdown[stat], "")
+					t_insert(breakdown[stat], s_format("%.2f%% of ailment stacks use maximum damage", maxInstanceStacks * 100))
+					t_insert(breakdown[stat], s_format("Max Damage comes from %s", output.MainHand[stat] > output.OffHand[stat] and "Main Hand" or "Off Hand"))
+					t_insert(breakdown[stat], s_format("= %.1f", maxInstance * maxInstanceStacks))
+					if maxInstanceStacks < 1 then
+						t_insert(breakdown[stat], s_format("%.2f%% of ailment stacks use non-maximum damage", (1-maxInstanceStacks) * 100))
+						t_insert(breakdown[stat], s_format("= %.1f", minInstance * (1 - maxInstanceStacks)))
 					end
-					t_insert(breakdown[stat], "Contribution from Main Hand:")
-					t_insert(breakdown[stat], s_format("%.1f", output.MainHand[stat]))
-					t_insert(breakdown[stat], s_format("x %.3f ^8(portion of instances created by main hand)", mainPortion))
-					t_insert(breakdown[stat], s_format("= %.1f", output.MainHand[stat] * mainPortion))
-					t_insert(breakdown[stat], "Contribution from Off Hand:")
-					t_insert(breakdown[stat], s_format("%.1f", output.OffHand[stat]))
-					t_insert(breakdown[stat], s_format("x %.3f ^8(portion of instances created by off hand)", offPortion))
-					t_insert(breakdown[stat], s_format("= %.1f", output.OffHand[stat] * offPortion))
-					t_insert(breakdown[stat], "Highest Stack % Breakdown based on Bleed Duration vs. Attack Time:")
-					t_insert(breakdown[stat], s_format("%.1f for Max Bleeds", maxInstanceStacks))
-					t_insert(breakdown[stat], s_format("%.1f for Non-Max Bleeds", 1-maxInstanceStacks))
+					t_insert(breakdown[stat], "")
 					t_insert(breakdown[stat], "Total:")
-					t_insert(breakdown[stat], s_format("%.1f + %.1f", maxInstance * maxInstanceStacks, minInstance * (1 - maxInstanceStacks)))
+					if maxInstanceStacks < 1 then
+						t_insert(breakdown[stat], s_format("%.1f + %.1f", maxInstance * maxInstanceStacks, minInstance * (1 - maxInstanceStacks)))
+					end
 					t_insert(breakdown[stat], s_format("= %.1f", output[stat]))
 				end
 			else
 				output[stat] = output.MainHand[stat] or output.OffHand[stat]
+				if breakdown then
+					breakdown[stat] = { }
+					t_insert(breakdown[stat], colorCodes.CUSTOM.."NOTE: Calculation use new Weighted Avg Ailment formula")
+					t_insert(breakdown[stat], "")
+					t_insert(breakdown[stat], s_format("All ailment stacks comes from %s", output.MainHand[stat] and "Main Hand" or "Off Hand"))
+				end
 			end
 		elseif mode == "DPS" then
 			output[stat] = (output.MainHand[stat] or 0) + (output.OffHand[stat] or 0)
@@ -1426,7 +1434,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	local storedMainHandAccuracy = nil
 	for _, pass in ipairs(passList) do
-		local globalOutput, globalBreakdown = output, breakdown
+		globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
 		
 		-- Calculate hit chance 
@@ -2867,8 +2875,8 @@ function calcs.offence(env, actor, activeSkill)
 			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
 			local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster") + enemyDB:Sum("INC", nil, "SelfBleedFaster")  / 100
 			globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
-			local bleedStacks = (globalOutput.BleedDuration / output.Time) / maxStacks
-			globalOutput.BleedStacks = bleedStacks
+			local bleedStacks = (output.HitChance / 100) * (globalOutput.BleedDuration / output.Time) / maxStacks
+			bleedStacks = configStacks > 0 and m_min(bleedStacks, configStacks / maxStacks) or bleedStacks 
 
 			for sub_pass = 1, 2 do
 				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or sub_pass == 1 then
@@ -2893,7 +2901,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			if globalBreakdown then
 				globalBreakdown.BleedDPS = {
-					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+					s_format(colorCodes.CUSTOM.."NOTE: Calculation use new Weighted Avg Ailment formula")
 				}
 			end
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
@@ -2913,9 +2921,12 @@ function calcs.offence(env, actor, activeSkill)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
-				bleedStacks = configStacks > 0 and m_min(configStacks, maxStacks) or maxStacks
 				output.BaseBleedDPS = baseVal * effectMod * rateMod * effMult
-				output.BleedDPS = (baseVal * effectMod * rateMod * effMult) * bleedStacks
+				bleedStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.BleedDuration / output.Time)
+				local chanceToHitInOneSecInterval = 1 - m_pow(1 - (output.HitChance / 100), output.Speed)
+				output.BleedDPS = (baseVal * effectMod * rateMod * effMult) * bleedStacks * chanceToHitInOneSecInterval
+				-- reset bleed stacks to actual number doing damage after weighted avg DPS calculatino is done
+				globalOutput.BleedStacks = bleedStacks
 				globalOutput.BleedDamage = output.BaseBleedDPS * globalOutput.BleedDuration
 				if breakdown then
 					if output.CritBleedDotMulti and (output.CritBleedDotMulti ~= output.BleedDotMulti) then
@@ -2946,6 +2957,8 @@ function calcs.offence(env, actor, activeSkill)
 						{ "%.2f ^8(ailment effect modifier)", effectMod },
 						{ "%.2f ^8(damage rate modifier)", rateMod },
 						{ "%.3f ^8(effective DPS modifier)", effMult },
+						{ "%d ^8(bleed stacks)", globalOutput.BleedStacks },
+						{ "%.3f ^8(bleed chance based on HitChance in 1 second interval)", chanceToHitInOneSecInterval },
 						total = s_format("= %.1f ^8per second", output.BleedDPS),
 					})
 					if globalOutput.BleedDuration ~= durationBase then
