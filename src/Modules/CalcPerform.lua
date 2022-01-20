@@ -2081,7 +2081,42 @@ function calcs.perform(env, avoidCache)
 			env.minion.modDB:AddList(modList)
 		end
 	end
-	for _, modList in pairs(debuffs) do
+	for debuffName, modList in pairs(debuffs) do
+		-- Flesh and Stone stacks with Maim Support, but ONLY when they're linked together.
+		if debuffName == "Maim" then
+			local maimAuraIndex = -1
+			local maimSupportIndex = -1
+			for i = 1, #modList do
+				if modList[i].source == "Skill:BloodSandArmour" then
+					maimAuraIndex = i
+				elseif modList[i].source == "Skill:SupportMaim" then
+					maimSupportIndex = i
+				end
+			end
+			local maimAuraLinkedToMaimSupport = false
+			if maimAuraIndex ~= -1 and maimSupportIndex ~= -1 then
+				for i = 1, #env.player.activeSkillList do
+					if env.player.activeSkillList[i].activeEffect.gemData.id == "Metadata/Items/Gems/SkillGemFleshAndStone" then
+						for k = 1, #env.player.activeSkillList[i].supportList do
+							if env.player.activeSkillList[i].supportList[k].gemData.id == "Metadata/Items/Gems/SupportGemMaim" then
+								maimAuraLinkedToMaimSupport = true
+								break
+							end
+						end
+					end
+					if maimAuraLinkedToMaimSupport then
+						break
+					end
+				end
+			end
+			if maimAuraLinkedToMaimSupport then
+				modList = { modList[maimAuraIndex], modList[maimSupportIndex] }
+			elseif maimAuraIndex ~= -1 then
+				modList = { modList[maimAuraIndex] }
+			elseif maimSupportIndex ~= -1 then
+				modList = { modList[maimSupportIndex] }
+			end
+		end
 		enemyDB:AddList(modList)
 	end
 	modDB.multipliers["CurseOnEnemy"] = #curseSlots
