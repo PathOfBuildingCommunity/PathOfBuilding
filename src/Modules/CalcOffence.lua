@@ -15,6 +15,7 @@ local m_ceil = math.ceil
 local m_min = math.min
 local m_max = math.max
 local m_sqrt = math.sqrt
+local m_pow = math.pow
 local bor = bit.bor
 local band = bit.band
 local bnot = bit.bnot
@@ -2825,6 +2826,19 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				breakdown.BleedPhysical = { damageTypes = { } }
 			end
+
+			-- For bleeds we will be using a weighted average calculation
+			local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:BleedStacks")
+			local maxStacks = skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax")
+			local bleedStacks = configStacks > 0 and m_min(configStacks, maxStacks) or maxStacks
+			globalOutput.BleedStacksMax = maxStacks
+			globalOutput.BleedStacks = bleedStacks
+			local durationBase = skillData.bleedDurationIsSkillDuration and skillData.duration or data.misc.BleedDurationBase
+			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
+			local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster") + enemyDB:Sum("INC", nil, "SelfBleedFaster")  / 100
+			globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
+			bleedStacks = m_min(bleedStacks, globalOutput.BleedDuration / output.Time)
+
 			for sub_pass = 1, 2 do
 				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or sub_pass == 1 then
 					dotCfg.skillCond["CriticalStrike"] = false
@@ -2836,10 +2850,12 @@ function calcs.offence(env, actor, activeSkill)
 				output.BleedPhysicalMax = max
 				if sub_pass == 2 then
 					output.CritBleedDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100
-					sourceCritDmg = (min + max) / 2 * output.CritBleedDotMulti
+					--sourceCritDmg = (min + max) / 2 * output.CritBleedDotMulti
+					sourceCritDmg = (min + (max - min) / m_pow(2, bleedStacks / (bleedStacks + 1))) * output.CritBleedDotMulti
 				else
 					output.BleedDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100
-					sourceHitDmg = (min + max) / 2 * output.BleedDotMulti
+					--sourceHitDmg = (min + max) / 2 * output.BleedDotMulti
+					sourceHitDmg = (min + (max - min) / m_pow(2, bleedStacks / (bleedStacks + 1))) * output.BleedDotMulti
 				end
 			end
 			local igniteMode = env.configInput.igniteMode or "AVERAGE"
@@ -2867,25 +2883,11 @@ function calcs.offence(env, actor, activeSkill)
 						globalBreakdown.BleedEffMult = breakdown.effMult("Physical", resist, 0, takenInc, effMult, takenMore)
 					end
 				end
-				local mult = skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier", "BleedMultiplier")
+				--local mult = skillModList:Sum("BASE", dotCfg, "PhysicalDotMultiplier", "BleedMultiplier")
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
-				local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster") + enemyDB:Sum("INC", nil, "SelfBleedFaster")  / 100
-				local maxStacks = skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax")
-				local configStacks = enemyDB:Sum("BASE", nil, "Multiplier:BleedStacks")
-				local bleedStacks = configStacks > 0 and m_min(configStacks, maxStacks) or maxStacks
 				output.BaseBleedDPS = baseVal * effectMod * rateMod * effMult
 				output.BleedDPS = (baseVal * effectMod * rateMod * effMult) * bleedStacks
-				local durationBase
-				if skillData.bleedDurationIsSkillDuration then
-					durationBase = skillData.duration
-				else
-					durationBase = data.misc.BleedDurationBase
-				end
-				local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration")
-				globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
 				globalOutput.BleedDamage = output.BaseBleedDPS * globalOutput.BleedDuration
-				globalOutput.BleedStacksMax = maxStacks
-				globalOutput.BleedStacks = bleedStacks
 				if breakdown then
 					if output.CritBleedDotMulti and (output.CritBleedDotMulti ~= output.BleedDotMulti) then
 						local chanceFromHit = output.BleedChanceOnHit / 100 * (1 - globalOutput.CritChance / 100)
