@@ -83,9 +83,9 @@ function calcs.defence(env, actor)
 	output.PhysicalResistWhenHit = m_min(output.DamageReductionMax, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
 
 	-- Highest Maximum Elemental Resistance for Melding of the Flesh
-	local highestResistMax = 0;
-	local highestResistMaxType = "";
 	if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") then
+		local highestResistMax = 0;
+		local highestResistMaxType = "";
 		for _, elem in ipairs(resistTypeList) do
 			local resistMax = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
 			if resistMax > highestResistMax and elem ~= "Chaos" then
