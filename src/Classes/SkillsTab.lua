@@ -74,8 +74,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.optionSection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 50, 374, 154, "Gem Options")
 	self.controls.sortGemsByDPS = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 70, 20, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
-	end)
-	self.controls.sortGemsByDPS.state = true
+	end, nil, true)
 	self.controls.sortGemsByDPSFieldControl = new("DropDownControl", {"LEFT", self.controls.sortGemsByDPS, "RIGHT"}, 10, 0, 120, 20, sortGemTypeList, function(index, value)
 		self.sortGemsByDPSField = value.type
 	end)
