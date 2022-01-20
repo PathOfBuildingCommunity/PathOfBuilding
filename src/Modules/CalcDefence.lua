@@ -93,15 +93,16 @@ function calcs.defence(env, actor)
 				highestResistMaxType = elem;
 			end
 		end
+		for _, elem in ipairs(resistTypeList) do
+			if elem ~= "Chaos" then
+				modDB:NewMod(elem.."ResistMax", "OVERRIDE", highestResistMax, highestResistMaxType.." Melding of the Flesh");
+			end
+		end
 	end
 	
 	for _, elem in ipairs(resistTypeList) do
 		local min, max, total
 		min = data.misc.ResistFloor
-			local capped = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
-			if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") and elem ~= "Chaos" then
-				modDB:NewMod(elem.."ResistMax", "OVERRIDE", highestResistMax, highestResistMaxType.." Melding of the Flesh");
-			end
 			local max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
 			total = modDB:Override(nil, elem.."Resist")
 			if not total then
@@ -111,14 +112,13 @@ function calcs.defence(env, actor)
 		local final = m_max(m_min(total, max), min)
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
-		output[elem.."ResistOverCap"] = m_max(0, total - capped)
+		output[elem.."ResistOverCap"] = m_max(0, total - max)
 		output[elem.."ResistOver75"] = m_max(0, final - 75)
-		output["Missing"..elem.."Resist"] = m_max(0, capped - final)
+		output["Missing"..elem.."Resist"] = m_max(0, max - final)
 		if breakdown then
 			breakdown[elem.."Resist"] = {
 				"Min: "..min.."%",
 				"Max: "..max.."%",
-				"Cap: "..capped.."%",
 				"Total: "..total.."%",
 			}
 		end
