@@ -252,6 +252,22 @@ data.specialBaseTags = {
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
+data.cursePriority = {
+	["Warlord's Mark"] = 1,
+	["Despair"] = 2, -- Vulnerability
+	["Temporal Chains"] = 3,
+	["Sniper's Mark"] = 4,
+	["Punishment"] = 5,
+	["Poacher's Mark"] = 6,
+	["Vulnerability"] = 7, -- NewVulnerability
+	["Frostbite"] = 8,
+	["Flammability"] = 9,
+	["Enfeeble"] = 10,
+	["Elemental Weakness"] = 11,
+	["Conductivity"] = 12,
+	["Assassin's Mark"] = 13,
+}
+
 ---@type string[] @List of all keystones not exclusive to timeless jewels.
 data.keystones = {
 	"Acrobatics",
