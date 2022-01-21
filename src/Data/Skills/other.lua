@@ -1772,6 +1772,9 @@ skills["UniqueAnimateWeapon"] = {
 		["attack_speed_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, ModFlag.Attack) }),
 		},
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
 	},
 	baseFlags = {
 		spell = true,

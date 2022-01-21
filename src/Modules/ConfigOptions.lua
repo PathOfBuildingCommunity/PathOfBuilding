@@ -288,10 +288,6 @@ return {
 	{ var = "raiseSpidersSpiderCount", type = "count", label = "# of Spiders:", ifSkill = "Raise Spiders", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:RaisedSpider", "BASE", m_min(val, 20), "Config")
 	end },
-	{ label = "Animate Weapon:", ifSkillList = {"Animate Weapon","Animate Guardian's Weapon"} },
-	{ var = "animateWeaponWeaponCount", type = "count", label = "# of Weapons:", ifSkillList = {"Animate Weapon","Animate Guardian's Weapon"}, apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:AnimatedWeapon", "BASE", m_min(val, 50), "Config")
-	end },
 	{ var = "animateWeaponLingeringBlade", type = "check", label = "Are you animating Lingering Blades?", ifSkill = "Animate Weapon", tooltip = "Enables additional damage given to Lingering Blades\nThe exact weapon is unknown but should be similar to Glass Shank", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AnimatingLingeringBlades", "FLAG", true, "Config")
 	end },
