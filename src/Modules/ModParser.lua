@@ -3298,8 +3298,7 @@ local flagTypes = {
 	["blinded"] = "Condition:Blinded",
 	["no life regeneration"] = "NoLifeRegen",
 	["hexproof"] = { name = "CurseEffectOnSelf", value = -100, type = "MORE" },
-	["hindered, with 15% reduced movement speed"] = "Condition:Hindered",
-	["hindered, with 25% reduced movement speed"] = "Condition:Hindered",
+	["hindered, with (%d+)%% reduced movement speed"] = "Condition:Hindered",
 	["unnerved"] = "Condition:Unnerved",
 }
 
@@ -3782,7 +3781,7 @@ local function parseMod(line, order)
 		local _
 		_, line = scan(line, modNameList, true)
 	elseif modForm == "FLAG" then
-		formCap[1], line = scan(line, flagTypes, true)
+		formCap[1], line = scan(line, flagTypes, false)
 		if not formCap[1] then
 			return nil, line
 		end
