@@ -78,7 +78,7 @@ Sockets: W-W-W
 LevelReq: 1
 Implicits: 0
 Adds 2 to 4 Physical Damage
-Adds 2 to 44 Cold Damage
+Adds 2 to 4 Cold Damage
 50% Chance to avoid being Chilled
 Your Physical Damage can Chill
 ]],[[
@@ -103,9 +103,7 @@ Implicits: 1
 Adds 1 to 4 Physical Damage to Bow Attacks
 +10% To All Elemental Resistances
 50% Increased Duration of Elmental Ailments on Enemies
-10% Chance to Freeze
-10% Chance to Shock
-10% Chance to Ignite
+10% Chance to Freeze, Shock, and Ignite
 Gain 25% of Weapon Physical Damage as Extra Damage of a Random Element
 ]],[[
 Splinter of the Moon
@@ -118,11 +116,9 @@ Implicits: 1
 20% Increased Spell Damage
 12% Increased Cast Speed
 Regenerate 2 Mana Per Second
-4% Chance to Freeze
-4% Chance to Shock
-4% Chance to Ignite
+4% Chance to Freeze, Shock, and Ignite
 ]],[[
-Thunder of Dawn
+Thunder of the Dawn
 Corroded Blade
 League: Race Events
 Quality: 0
