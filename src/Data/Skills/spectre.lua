@@ -5406,6 +5406,37 @@ skills["UltimatumGuardConeArrowCold"] = {
 		[2] = { 100, 250, cooldown = 8, levelRequirement = 83, statInterpolation = { 1, 2, }, cost = { }, },
 	},
 }
+skills["MPWVaalGuardBarrage"] = {
+	name = "Barrage",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_cold",
+		"monster_projectile_variation",
+		"projectile_random_angle_based_on_distance_to_target_location_%",
+		"active_skill_damage_+%_final",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+		"maintain_projectile_direction_when_using_contact_position",
+	},
+	levels = {
+		[1] = { 80, 141, 60, -70, levelRequirement = 1, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
+		[2] = { 80, 141, 60, 0, levelRequirement = 83, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
+	},
+}
 skills["MeleeAtAnimationSpeed"] = {
 	name = "Default Attack",
 	hidden = true,
@@ -5892,5 +5923,200 @@ skills["HellscapeFleshFodderArc"] = {
 	},
 	levels = {
 		[1] = { 0.5, 1.5, 10, 0, -50, 2, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
+	},
+}
+skills["EmptyActionSpellWarlordGrandmaster"] = {
+	name = "Arena Master's Presence",
+	hidden = true,
+	color = 4,
+	skillTypes = { },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 4,
+	baseFlags = {
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { cooldown = 12, levelRequirement = 0, statInterpolation = { }, cost = { }, },
+	},
+}
+skills["HellionRallyingCry"] = {
+	name = "Rallying Cry",
+	hidden = true,
+	color = 1,
+	description = "Performs a warcry, granting increased damage and mana regeneration to the user and nearby allies if there are nearby enemies. The damage increase is proportional to the number of surrounding enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.25,
+	baseFlags = {
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"damage_+%",
+		"base_skill_effect_duration",
+		"taunted_enemies_damage_+%_final_vs_non_taunt_target",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 8, 8000, -30, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
+		[2] = { 10, 8000, -30, cooldown = 8, levelRequirement = 50, statInterpolation = { 1, 1, 1, }, cost = { }, },
+		[3] = { 12, 8000, -30, cooldown = 8, levelRequirement = 68, statInterpolation = { 1, 1, 1, }, cost = { }, },
+		[4] = { 15, 8000, -30, cooldown = 8, levelRequirement = 77, statInterpolation = { 1, 1, 1, }, cost = { }, },
+	},
+}
+skills["WraithEtherealKnives"] = {
+	name = "Ethereal Knives",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 1.7000000476837,
+	incrementalEffectiveness = 0.037999998778105,
+	description = "Fires an arc of knives in front of the caster which deals physical damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, [SkillType.Duration] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.8,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"number_of_additional_projectiles",
+		"base_cast_speed_+%",
+		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+		"active_skill_damage_+%_final",
+		"base_projectile_speed_+%",
+		"fixed_projectile_spread",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 9, -25, 0, -15, 25, 20, critChance = 5, levelRequirement = 51, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 0.60000002384186, 0.89999997615814, 9, -25, -25, -15, 25, 20, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 0.60000002384186, 0.89999997615814, 9, -25, -25, -15, 25, 20, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+	},
+}
+skills["SynthesisSoulstealerProjectilePhysical"] = {
+	name = "Projectile",
+	hidden = true,
+	color = 4,
+	incrementalEffectiveness = 0.037999998778105,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.33,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"monster_projectile_variation",
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+	},
+	levels = {
+		[1] = { 104, 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 1, 3, 3, }, cost = { }, },
+	},
+}
+skills["SynthesisPhysicalTripleMortar"] = {
+	name = "Triple Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 3.67,
+	baseFlags = {
+		area = true,
+		spell = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"projectile_spread_radius",
+		"projectile_minimum_range",
+		"number_of_additional_projectiles",
+		"mortar_projectile_distance_override",
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"number_of_projectiles_override",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"mortar_projectile_scale_animation_speed_instead_of_projectile_speed",
+	},
+	levels = {
+		[1] = { 25, 20, 0, 0, 0.80000001192093, 1.2000000476837, 0, 2, critChance = 5, cooldown = 12, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, cost = { }, },
+	},
+}
+skills["SynthesisSoulstealerQuicksand"] = {
+	name = "Quicksand",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.045000001788139,
+	skillTypes = { [SkillType.Area] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.67,
+	baseFlags = {
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"ground_quicksand_art_variation",
+		"base_physical_damage_to_deal_per_minute",
+	},
+	levels = {
+		[1] = { 6000, 4, 16.666667039196, cooldown = 8, levelRequirement = 0, statInterpolation = { 1, 1, 3, }, cost = { }, },
+	},
+}
+skills["SynthesisPhysicalVolatileSlam"] = {
+	name = "Volatile Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0, levelRequirement = 0, statInterpolation = { 1, }, cost = { }, },
 	},
 }
