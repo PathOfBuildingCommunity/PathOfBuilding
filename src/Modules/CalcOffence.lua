@@ -556,7 +556,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-   if skillModList:Flag(nil, "ClawCritMultiplierAppliesToMinions") then
+	if skillModList:Flag(nil, "ClawCritMultiplierAppliesToMinions") then
 		-- Claw Crit Multi conversion from Law of the Wilds
 		for i, value in ipairs(skillModList:Tabulate("BASE", { flags = bor(ModFlag.Claw, ModFlag.Hit) }, "CritMultiplier")) do
 			local mod = value.mod
@@ -838,11 +838,16 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark]then
+	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark] then
 		output.CurseEffectMod = calcLib.mod(skillModList, skillCfg, "CurseEffect")
 		if breakdown then
 			breakdown.CurseEffectMod = breakdown.mod(skillModList, skillCfg, "CurseEffect")
 		end
+	end
+	if (skillFlags.trap or skillFlags.mine) and not (skillData.trapCooldown or skillData.cooldown) then
+		skillFlags.notAverage = true
+		skillFlags.showAverage = false
+		skillData.showAverage = false
 	end
 	if skillFlags.trap then
 		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "TrapThrowingTime")
