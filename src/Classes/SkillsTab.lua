@@ -875,7 +875,7 @@ function SkillsTabClass:MatchGemLevelToCharacterLevel(gemData, fallbackGemLevel)
 			maxGemLevel = #gemData.grantedEffect.levels
 		end
 		for gemLevel = maxGemLevel, 1, -1 do
-			if gemData.grantedEffect.levels[gemLevel] and gemData.grantedEffect.levels[gemLevel].levelRequirement <= self.build.characterLevel then
+			if gemData.grantedEffect.levels[gemLevel].levelRequirement <= self.build.characterLevel then
 				return gemLevel
 			end
 		end
