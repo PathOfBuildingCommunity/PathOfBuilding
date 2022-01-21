@@ -193,6 +193,8 @@ Implicits: 1
 ]],[[
 Blightwell
 Clutching Talisman
+Variant: Pre 3.16.0
+Variant: Current
 League: Talisman Hardcore
 Talisman Tier: 2
 Requires Level 28
@@ -201,8 +203,10 @@ Implicits: 1
 +(20-30) to maximum Energy Shield
 +(15-30)% to Fire Resistance
 +(15-30)% to Lightning Resistance
-30% slower start of Energy Shield Recharge during Flask Effect
-400% increased Energy Shield Recharge Rate during Flask Effect
+{variant:1}30% slower start of Energy Shield Recharge during Flask Effect
+{variant:2}50% slower start of Energy Shield Recharge during Flask Effect
+{variant:1}400% increased Energy Shield Recharge Rate during Flask Effect
+{variant:2}(150-200)% increased Energy Shield Recharge Rate during Flask Effect
 Corrupted
 ]],[[
 Blood of Corruption
@@ -852,7 +856,7 @@ Implicits: 1
 {tags:life}+(50-70) to maximum Life
 {variant:1}{tags:mana}(2-3) Mana Regenerated per second
 {variant:2}{tags:mana}(8-10) Mana Regenerated per second
-{tags:mana}Temporal Chains has 100% reduced Reservation if Cast as an Aura
+{tags:mana}Temporal Chains has no Reservation if Cast as an Aura
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
 Star of Wraeclast
