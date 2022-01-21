@@ -90,5 +90,5 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
 
 [MIT](https://opensource.org/licenses/MIT)
 
-For 3rd-party licences, see [LICENSE](LICENSE).
+For 3rd-party licences, see [LICENSE](LICENSE.md).
 The licencing information is considered to be part of the documentation.

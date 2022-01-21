@@ -919,7 +919,7 @@ local preFlagList = {
 	["^enemies shocked or frozen by you take "] = { tag = { type = "Condition", varList = {"Shocked","Frozen"} }, applyToEnemy = true, modSuffix = "Taken" },
 	["^enemies affected by your spider's webs [th]a[vk]e "] = { tag = { type = "MultiplierThreshold", var = "Spider's WebStack", threshold = 1 }, applyToEnemy = true },
 	["^enemies you curse take "] = { tag = { type = "Condition", var = "Cursed" }, applyToEnemy = true, modSuffix = "Taken" },
-	["^enemies you curse have "] = { tag = { type = "Condition", var = "Cursed" }, applyToEnemy = true },
+	["^enemies you curse ?h?a?v?e? "] = { tag = { type = "Condition", var = "Cursed" }, applyToEnemy = true },
 	["^nearby enemies take "] = { modSuffix = "Taken", applyToEnemy = true },
 	["^nearby enemies have "] = { applyToEnemy = true },
 	["^nearby enemies deal "] = { applyToEnemy = true },
@@ -1899,7 +1899,6 @@ local specialModList = {
 	["regenerate (%d+)%% of mana over 2 seconds when you consume a corpse"] = function(num) return { mod("ManaRegen", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num / 2 }, { type = "Condition", var = "ConsumedCorpseInPast2Sec" }) } end,
 	-- Occultist
 	["enemies you curse have malediction"] = { mod("AffectedByCurseMod", "LIST", { mod = flag("HasMalediction") }) },
-	["enemies you curse are unnerved"] = { mod("EnemyModifier", "LIST", { mod = mod("Condition:Unnerved", "FLAG", true)}, { type = "ActorCondition", actor = "enemy", var = "Cursed" } )},
 	["when you kill an enemy, for each curse on that enemy, gain (%d+)%% of non%-chaos damage as extra chaos damage for 4 seconds"] = function(num) return {
 		mod("NonChaosDamageGainAsChaos", "BASE", num, { type = "Condition", var = "KilledRecently" }, { type = "Multiplier", var = "CurseOnEnemy" }),
 	} end,
@@ -1967,6 +1966,16 @@ local specialModList = {
 		mod("PhysicalDamageGainAsColdOrLightning", "BASE", num / 2, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding"}, { type = "SkillType", skillType = SkillType.Attack }),
 		mod("PhysicalDamageGainAsColdOrLightning", "BASE", num, nil, ModFlag.Hit, { type = "Condition", var = "DualWielding", neg = true}, { type = "SkillType", skillType = SkillType.Attack })
 	} end,
+	["hits with this weapon shock enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("ShockAsThoughDealing", "MORE", num, nil, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) } end,
+	["hits with this weapon freeze enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num, nil, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) } end,
+	["ignites inflicted with this weapon deal (%d+)%% more damage"] = function(num) return {
+		mod("Damage", "MORE", num, nil, 0, KeywordFlag.Ignite, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+	} end,
+	["hits with this weapon always ignite, freeze, and shock"] = {
+		mod("EnemyIgniteChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+		mod("EnemyFreezeChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+		mod("EnemyShockChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+	},
 	["attacks with this weapon deal double damage to chilled enemies"] = { mod("DoubleDamageChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) },
 	["life leech from hits with this weapon applies instantly"] = { flag("InstantLifeLeech", { type = "Condition", var = "{Hand}Attack" }) },
 	["life leech from hits with this weapon is instant"] = { flag("InstantLifeLeech", { type = "Condition", var = "{Hand}Attack" }) },
@@ -2580,7 +2589,6 @@ local specialModList = {
 		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 50, { type = "Condition", neg = true, var = "NeverCrit"}) }),
 		mod("MinionModifier", "LIST", { mod = mod("ChaosDegen", "BASE", 1, {type = "PercentStat", stat = "Life", percent = 20},{ type = "Condition", neg = true, var = "NeverCrit"}) }),
 	} end,
-	
 	-- Projectiles
 	["skills chain %+(%d) times"] = function(num) return { mod("ChainCountMax", "BASE", num) } end,
 	["skills chain an additional time while at maximum frenzy charges"] = { mod("ChainCountMax", "BASE", 1, { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
@@ -2809,7 +2817,7 @@ local specialModList = {
 	["permanently intimidate enemies on block"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "Condition", var = "BlockedRecently" } )},
 	["with a murderous eye jewel socketed, intimidate enemies for (%d) seconds on hit with attacks"] = function(jewelName, num) return  { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated")}, { type = "Condition", var = "HaveMurderousEyeJewelIn{SlotName}" }) } end,
 	["enemies taunted by your warcries are intimidated"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated", { type = "Condition", var = "Taunted" }) }, { type = "Condition", var = "UsedWarcryRecently" }) },
-	["intimidate enemies for (%d) seconds on block while holding a shield"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated")}, { type = "Condition", var = "BlockedRecently" }, { type = "Condition", var = "UsingShield" } )},
+	["intimidate enemies for (%d) seconds on block while holding a shield"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "Condition", var = "BlockedRecently" }, { type = "Condition", var = "UsingShield" } )},
 	-- Flasks
 	["flasks do not apply to you"] = { flag("FlasksDoNotApplyToPlayer") },
 	["flasks apply to your zombies and spectres"] = { flag("FlasksApplyToMinion", { type = "SkillName", skillNameList = { "Raise Zombie", "Raise Spectre" } }) },
@@ -2904,6 +2912,7 @@ local specialModList = {
 	["added small passive skills have (%d+)%% increased effect"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelIncEffect", value = num }) } end,
 	["this jewel's socket has (%d+)%% increased effect per allocated passive skill between it and your class' starting location"] = function(num) return { mod("JewelData", "LIST", { key = "jewelIncEffectFromClassStart", value = num }) } end,
 	-- Misc
+	["leftmost (%d+) magic utility flasks constantly apply their flask effects to you"] = function(num) return { mod("ActiveMagicUtilityFlasks", "BASE", num) } end,
 	["marauder: melee skills have (%d+)%% increased area of effect"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "Condition", var = "ConnectedToMarauderStart" }, { type = "SkillType", skillType = SkillType.Melee }) } end,
 	["intelligence provides no inherent bonus to energy shield"] = { flag("NoIntBonusToES") },
 	["intelligence is added to accuracy rating with wands"] = { mod("Accuracy", "BASE", 1, nil, ModFlag.Wand, { type = "PerStat", stat = "Int" } ) },
@@ -3300,7 +3309,7 @@ local flagTypes = {
 	["blinded"] = "Condition:Blinded",
 	["no life regeneration"] = "NoLifeRegen",
 	["hexproof"] = { name = "CurseEffectOnSelf", value = -100, type = "MORE" },
-	["hindered, with 25% reduced movement speed"] = "Condition:Hindered",
+	["hindered, with (%d+)%% reduced movement speed"] = "Condition:Hindered",
 	["unnerved"] = "Condition:Unnerved",
 }
 
@@ -3783,7 +3792,7 @@ local function parseMod(line, order)
 		local _
 		_, line = scan(line, modNameList, true)
 	elseif modForm == "FLAG" then
-		formCap[1], line = scan(line, flagTypes, true)
+		formCap[1], line = scan(line, flagTypes, false)
 		if not formCap[1] then
 			return nil, line
 		end
