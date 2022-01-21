@@ -511,6 +511,11 @@ function SkillsTabClass:CreateGemSlot(index)
 		gemInstance.gemId = gemId
 		gemInstance.skillId = nil
 		self:ProcessSocketGroup(self.displayGroup)
+		-- New gems need to be constrained by matchGemLevelToCharacterLevel if enabled
+		if self.matchGemLevelToCharacterLevel and gemInstance.gemData then
+			gemInstance.level = self:MatchGemLevelToCharacterLevel(gemInstance.gemData)
+			gemInstance.defaultLevel = gemInstance.level
+		end
 		-- Gem changed, update the list and default the quality id
 		slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 		slot.qualityId:SelByValue(qualityId or "Default", "type")
@@ -948,10 +953,6 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			end
 			if prevDefaultLevel and gemInstance.gemData and gemInstance.gemData.defaultLevel ~= prevDefaultLevel then
 				gemInstance.level = m_min(self.defaultGemLevel or gemInstance.gemData.defaultLevel, gemInstance.gemData.defaultLevel + 1)
-				gemInstance.defaultLevel = gemInstance.level
-			end
-			if self.matchGemLevelToCharacterLevel and gemInstance.gemData then
-				gemInstance.level = self:MatchGemLevelToCharacterLevel(gemInstance.gemData)
 				gemInstance.defaultLevel = gemInstance.level
 			end
 			calcLib.validateGemLevel(gemInstance)
