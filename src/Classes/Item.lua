@@ -516,8 +516,26 @@ function ItemClass:ParseRaw(raw)
 						foundExplicit = true
 					end
 				elseif mode == "GAME" then
-					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and not data.itemBases[line]) then
+					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" then
 						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
+					elseif gameModeStage == "FINDIMPLICIT" then
+						local foundAnchor = 0
+						local foundImplicit = 0
+						for index, l in pairs(self.rawLines) do
+							if line == l then
+								foundAnchor = index
+							end
+							if l:find("Implicits:") then
+								foundImplicit = index
+							end
+						end
+						if not data.itemBases[line] then
+							if foundImplicit > 0 and (foundImplicit - foundAnchor == 0) then
+								gameModeStage = "IMPLICIT"
+							elseif foundImplicit == 0 then
+								t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
+							end
+						end
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
