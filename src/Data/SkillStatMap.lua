@@ -1636,6 +1636,13 @@ return {
 	value = 10
 },
 --
+-- Spectre or Minion-specific stats
+--
+["physical_damage_reduction_rating_+%"] = {
+	mod("Armour", "INC", nil),
+},
+
+--
 -- Gem Levels
 --
 --Fire

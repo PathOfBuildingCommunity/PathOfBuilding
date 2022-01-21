@@ -159,9 +159,9 @@ directiveTable.emit = function(state, args, out)
 					for _, extra in ipairs(newMod) do
 						out:write(', ', tableToString(extra))
 					end
-					out:write('), --', modStats, '\n')
+					out:write('), -- ', mod.Id, modStats, '\n')
 				else
-					out:write('\t\t--', modStats, '\n')
+					out:write('\t\t-- ', mod.Id, modStats, '\n')
 				end
 			end
 		end
