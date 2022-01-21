@@ -1291,8 +1291,19 @@ function ItemsTabClass:DeleteItem(item)
 		for nodeId, itemId in pairs(spec.jewels) do
 			if itemId == item.id then
 				spec.jewels[nodeId] = 0
+				-- Deallocate all nodes that required this jewel
+				if spec.nodes[nodeId] then
+					for depNodeId, depNode in ipairs(spec.nodes[nodeId].depends) do
+						depNode.alloc = false
+						spec.allocNodes[depNodeId] = nil
+					end
+					spec.nodes[nodeId].alloc = false
+					spec.allocNodes[nodeId] = nil
+				end
 			end
 		end
+		-- Rebuild cluster jewel graphs
+		spec:BuildClusterJewelGraphs()
 	end
 	self.items[item.id] = nil
 	self:PopulateSlots()

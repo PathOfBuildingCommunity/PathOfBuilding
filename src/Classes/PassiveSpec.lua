@@ -510,7 +510,6 @@ end
 
 -- Deallocate the given node, and all nodes which depend on it (i.e. which are only connected to the tree through this node)
 function PassiveSpecClass:DeallocNode(node)
-	local effect
 	for _, depNode in ipairs(node.depends) do
 		self:DeallocSingleNode(depNode)
 	end
