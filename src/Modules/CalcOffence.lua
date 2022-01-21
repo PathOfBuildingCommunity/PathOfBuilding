@@ -993,8 +993,11 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillFlags.brand then
-		output.BrandAttachmentRange = calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
+		output.BrandAttachmentRange = data.misc.BrandAttachmentRangeBase * calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
 		output.ActiveBrandLimit = skillModList:Sum("BASE", skillCfg, "ActiveBrandLimit")
+		if breakdown then
+			breakdown.BrandAttachmentRange = { radius = output.BrandAttachmentRange }
+		end
 	end
 	
 	if skillFlags.warcry then
