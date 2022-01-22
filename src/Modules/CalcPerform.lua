@@ -534,6 +534,19 @@ local function doActorAttribsPoolsConditions(env, actor)
 			modDB:NewMod("Omni", "BASE", (modDB:Sum("BASE", nil, stat) - base), stat.." conversion Omniscience")
 			modDB:NewMod("Omni", "INC", modDB:Sum("INC", nil, stat), "Omniscience")
 		end
+		
+		-- Subtract out double and triple dips
+		local conv = { }
+		local reduction = { }
+		for _, type in pairs({"BASE", "INC", "MORE"}) do
+			conv[type] = { }
+			for _, stat in pairs({"StrDex", "StrInt", "DexInt", "All"}) do
+				conv[type][stat] = modDB:Sum(type, nil, stat) or 0
+			end
+			reduction[type] = conv[type].StrDex + conv[type].StrInt + conv[type].DexInt + 2*conv[type].All
+		end
+		modDB:NewMod("Omni", "BASE", -reduction["BASE"], "Reduction from Double/Triple Dipped attributes to Omniscience")
+		modDB:NewMod("Omni", "INC", -reduction["INC"], "Reduction from Double/Triple Dipped attributes to Omniscience")
 
 		output["Omni"] = m_max(round(calcLib.val(modDB, "Omni")), 0)
 		if breakdown then
