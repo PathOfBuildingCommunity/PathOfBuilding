@@ -18,8 +18,8 @@ Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 Modifiers to Attributes instead apply to Omniscience
-+1% to all Elemental Resistance per 10 Omniscience
-Penetrate 1% Elemental Resistance per 10 Omniscience
++1% to all Elemental Resistances per 10 Omniscience
+Penetrate 1% Elemental Resistances per 10 Omniscience
 Attribute Requirements can be satisfied by 23% of Omniscience
 ]]
 
