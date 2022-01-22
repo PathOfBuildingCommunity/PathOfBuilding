@@ -533,6 +533,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 
 			modDB:NewMod("Omni", "BASE", (modDB:Sum("BASE", nil, stat) - base), stat.." conversion Omniscience")
 			modDB:NewMod("Omni", "INC", modDB:Sum("INC", nil, stat), "Omniscience")
+			modDB:NewMod("Omni", "MORE", modDB:Sum("MORE", nil, stat), "Omniscience")
 		end
 		
 		-- Subtract out double and triple dips
@@ -547,6 +548,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 		end
 		modDB:NewMod("Omni", "BASE", -reduction["BASE"], "Reduction from Double/Triple Dipped attributes to Omniscience")
 		modDB:NewMod("Omni", "INC", -reduction["INC"], "Reduction from Double/Triple Dipped attributes to Omniscience")
+		modDB:NewMod("Omni", "MORE", -reduction["MORE"], "Reduction from Double/Triple Dipped attributes to Omniscience")
 
 		output["Omni"] = m_max(round(calcLib.val(modDB, "Omni")), 0)
 		if breakdown then
