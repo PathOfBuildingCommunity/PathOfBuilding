@@ -1675,7 +1675,7 @@ function calcs.perform(env, avoidCache)
 		limit = output.EnemyCurseLimit,
 	}
 	local minionCurses = {
-		limit = 1 + (env.minion.modDB:Sum("BASE", nil, "EnemyCurseLimit") or 0),
+		limit = 1 + (env.minion and env.minion.modDB:Sum("BASE", nil, "EnemyCurseLimit") or 0),
 	}
 	local affectedByAura = { }
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
@@ -1899,6 +1899,28 @@ function calcs.perform(env, avoidCache)
 							end
 							mergeBuff(srcList, debuffs, buff.name)
 						end
+					end
+				end
+			end
+		end
+	end
+
+	-- Limited support for handling buffs originating from Spectres.
+	if env.minion then
+		for _, activeSkill in ipairs(env.minion.activeSkillList) do
+			local skillModList = activeSkill.skillModList
+			local skillCfg = activeSkill.skillCfg
+			for _, buff in ipairs(activeSkill.buffList) do
+				if buff.type == "Buff" then
+					if buff.applyAllies then
+						activeSkill.buffSkill = true
+						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+						mergeBuff(buff.modList, buffs, buff.name)
+					end
+					if buff.applyMinions then
+						activeSkill.minionBuffSkill = true
+						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+						mergeBuff(buff.modList, minionBuffs, buff.name)
 					end
 				end
 			end

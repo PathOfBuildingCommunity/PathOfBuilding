@@ -5932,16 +5932,41 @@ skills["EmptyActionSpellWarlordGrandmaster"] = {
 	skillTypes = { },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 4,
-	baseFlags = {
-	},
-	baseMods = {
-	},
-	qualityStats = {
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
+	statMap = {
+		["auras_grant_damage_+%_to_you_and_your_allies"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+		["cast_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+		["attack_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
 	},
 	stats = {
+		"auras_grant_damage_+%_to_you_and_your_allies",
+		"attack_speed_+%_granted_from_skill",
+		"cast_speed_+%_granted_from_skill",
+		"base_movement_velocity_+%",
 	},
 	levels = {
-		[1] = { cooldown = 12, levelRequirement = 0, statInterpolation = { }, cost = { }, },
+		[1] = { 20, 20, 20, 20, duration = 4, cooldown = 12, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1 }, cost = { }, },
+	},
+	baseFlags = {
+		spell = true,
+		buff = true,
+		duration = true,
+		cooldown = true,
+	},
+	baseMods = {
+		skill("buffAllies", true),
+		skill("buffMinions", true),
+	},
+	qualityStats = {
 	},
 }
 skills["HellionRallyingCry"] = {
@@ -6029,7 +6054,7 @@ skills["Enfeeble"] = {
 		},
 	},
 	levels = {
-		[21] = { 9700, 4, -13, -24, -12, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 9700, 4, -13, -24, -12, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 	baseFlags = {
 		spell = true,
