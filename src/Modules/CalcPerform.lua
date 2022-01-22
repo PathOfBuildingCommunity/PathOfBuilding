@@ -515,9 +515,41 @@ local function doActorAttribsPoolsConditions(env, actor)
 		condList["StrHigherThanInt"] = output.Str > output.Int
 	end
 	
+	if not modDB:Flag(nil, "Omniscience") then
 	-- Calculate twice because of circular dependency
-	calculateAttributes()
-	calculateAttributes()
+		calculateAttributes()
+		calculateAttributes()
+	end
+
+	local calculateOmniscience = function ()
+		local classStats = env.spec.tree.characterData and env.spec.tree.characterData[env.classId] or env.spec.tree.classes[env.classId]
+
+		for _, stat in pairs({"Str","Dex","Int"}) do
+			local base = classStats["base_"..stat:lower()]
+			output[stat] = m_min(round(calcLib.val(modDB, stat)), base)
+			if breakdown then
+				breakdown[stat] = breakdown.simple(nil, nil, output[stat], stat)
+			end
+
+			modDB:NewMod("Omni", "BASE", (modDB:Sum("BASE", nil, stat) - base), stat.." conversion Omniscience")
+			modDB:NewMod("Omni", "INC", modDB:Sum("INC", nil, stat), "Omniscience")
+		end
+
+		output["Omni"] = m_max(round(calcLib.val(modDB, "Omni")), 0)
+		if breakdown then
+			breakdown["Omni"] = breakdown.simple(nil, nil, output["Omni"], "Omni")
+		end
+
+		output.LowestAttribute = m_min(output.Str, output.Dex, output.Int)
+		condList["DexHigherThanInt"] = output.Dex > output.Int
+		condList["StrHigherThanDex"] = output.Str > output.Dex
+		condList["IntHigherThanStr"] = output.Int > output.Str
+		condList["StrHigherThanInt"] = output.Str > output.Int
+	end
+
+	if modDB:Flag(nil, "Omniscience") then
+		calculateOmniscience()
+	end
 
 	-- Calculate total attributes
 	output.TotalAttr = output.Str + output.Dex + output.Int
@@ -1500,7 +1532,11 @@ function calcs.perform(env, avoidCache)
 	-- Process attribute requirements
 	do
 		local reqMult = calcLib.mod(modDB, nil, "GlobalAttributeRequirements")
-		for _, attr in ipairs({"Str","Dex","Int"}) do
+		for _, attr in ipairs({"Omni","Str","Dex","Int"}) do
+			local breakdownAttr = attr
+			if modDB:Flag(nil, "OmniscienceRequirements") then
+				breakdownAttr = "Omni"
+			end
 			if breakdown then
 				breakdown["Req"..attr] = {
 					rowList = { },
@@ -1515,10 +1551,14 @@ function calcs.perform(env, avoidCache)
 			for _, reqSource in ipairs(env.requirementsTable) do
 				if reqSource[attr] and reqSource[attr] > 0 then
 					local req = m_floor(reqSource[attr] * reqMult)
+					if modDB:Flag(nil, "OmniscienceRequirements") then
+						local omniReqMult = 1 / (calcLib.mod(modDB, nil, "OmniAttributeRequirements") - 1)
+						req = m_floor(reqSource[attr] * (reqMult * omniReqMult))
+					end
 					out = m_max(out, req)
 					if breakdown then
 						local row = {
-							req = req > output[attr] and colorCodes.NEGATIVE..req or req,
+							req = req > output[breakdownAttr] and colorCodes.NEGATIVE..req or req,
 							reqNum = req,
 							source = reqSource.source,
 						}
@@ -1531,17 +1571,19 @@ function calcs.perform(env, avoidCache)
 						elseif reqSource.source == "Gem" then
 							row.sourceName = s_format("%s%s ^7%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.nameSpec, reqSource.sourceGem.level, reqSource.sourceGem.quality)
 						end
-						t_insert(breakdown["Req"..attr].rowList, row)
+						t_insert(breakdown["Req"..breakdownAttr].rowList, row)
 					end
 				end
 			end
 			if modDB:Flag(nil, "IgnoreAttributeRequirements") then
 				out = 0
 			end
-			output["Req"..attr] = out
+			output["Req"..attr.."String"] = 0
+			output["Req"..breakdownAttr.."String"] = out
+			output["Req"..breakdownAttr] = out
 			if breakdown then
-				output["Req"..attr.."String"] = out > output[attr] and colorCodes.NEGATIVE..out or out
-				table.sort(breakdown["Req"..attr].rowList, function(a, b)
+				output["Req"..breakdownAttr.."String"] = out > (output[breakdownAttr] or 0) and colorCodes.NEGATIVE..out or out
+				table.sort(breakdown["Req"..breakdownAttr].rowList, function(a, b)
 					if a.reqNum ~= b.reqNum then
 						return a.reqNum > b.reqNum
 					elseif a.source ~= b.source then

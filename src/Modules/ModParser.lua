@@ -100,6 +100,7 @@ local modNameList = {
 	["strength"] = "Str",
 	["dexterity"] = "Dex",
 	["intelligence"] = "Int",
+	["omniscience"] = "Omni",
 	["strength and dexterity"] = { "Str", "Dex" },
 	["strength and intelligence"] = { "Str", "Int" },
 	["dexterity and intelligence"] = { "Dex", "Int" },
@@ -599,6 +600,7 @@ local modNameList = {
 	["strength requirement"] = "StrRequirement",
 	["dexterity requirement"] = "DexRequirement",
 	["intelligence requirement"] = "IntRequirement",
+	["omni requirement"] = "OmniRequirement",
 	["strength and intelligence requirement"] = { "StrRequirement", "IntRequirement" },
 	["attribute requirements"] = { "StrRequirement", "DexRequirement", "IntRequirement" },
 	["effect of socketed jewels"] = "SocketedJewelEffect",
@@ -1037,6 +1039,7 @@ local modTagList = {
 	["per (%d+) strength"] = function(num) return { tag = { type = "PerStat", stat = "Str", div = num } } end,
 	["per (%d+) dexterity"] = function(num) return { tag = { type = "PerStat", stat = "Dex", div = num } } end,
 	["per (%d+) intelligence"] = function(num) return { tag = { type = "PerStat", stat = "Int", div = num } } end,
+	["per (%d+) omniscience"] = function(num) return { tag = { type = "PerStat", stat = "Omni", div = num } } end,
 	["per (%d+) total attributes"] = function(num) return { tag = { type = "PerStat", statList = { "Str", "Dex", "Int" }, div = num } } end,
 	["per (%d+) of your lowest attribute"] = function(num) return { tag = { type = "PerStat", stat = "LowestAttribute", div = num } } end,
 	["per (%d+) reserved life"] = function(num) return { tag = { type = "PerStat", stat = "LifeReserved", div = num } } end,
@@ -2704,6 +2707,7 @@ local specialModList = {
 	},
 	["you have no intelligence"] = {
 		mod("Int", "MORE", -100),
+		mod("Omni", "MORE", -100),
 	},
 	["elemental resistances are zero"] = {
 		mod("FireResist", "OVERRIDE", 0),
@@ -3014,6 +3018,11 @@ local specialModList = {
 	["every 8 seconds, gain avatar of fire for 4 seconds"] = {
 		flag("Condition:HaveVulconus"),
 	},
+	["modifiers to attributes instead apply to omniscience"] = { flag("Omniscience") },
+	["attribute requirements can be satisfied by (%d+)%% of omniscience"] = function(num) return { 
+		mod("OmniAttributeRequirements", "INC", num),
+		flag("OmniscienceRequirements")
+	} end,
 	["you have far shot while you do not have iron reflexes"] = { flag("FarShot", { neg = true, type = "Condition", var = "HaveIronReflexes" }) },
 	["you have resolute technique while you do not have elemental overload"] = { mod("Keystone", "LIST", "Resolute Technique", { neg = true, type = "Condition", var = "HaveElementalOverload" }) },
 	["hits ignore enemy monster fire resistance while you are ignited"] = { flag("IgnoreFireResistance", { type = "Condition", var = "Ignited" }) },

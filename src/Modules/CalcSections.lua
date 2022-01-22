@@ -1112,9 +1112,11 @@ return {
 	{ label = "Strength", { format = "{0:output:Str}", { breakdown = "Str" }, { modName = "Str" }, }, },
 	{ label = "Dexterity", { format = "{0:output:Dex}", { breakdown = "Dex" }, { modName = "Dex" }, }, },
 	{ label = "Intelligence", { format = "{0:output:Int}", { breakdown = "Int" }, { modName = "Int" }, }, },
+	{ label = "Omniscience", { format = "{0:output:Omni}", { breakdown = "Omni" }, { modName = "Omni" }, }, },
 	{ notFlag = "minionSkill", label = "Str. Required", { format = "{output:ReqStrString}", { breakdown = "ReqStr" }, }, },
 	{ notFlag = "minionSkill", label = "Dex. Required", { format = "{output:ReqDexString}", { breakdown = "ReqDex" }, }, },
 	{ notFlag = "minionSkill", label = "Int. Required", { format = "{output:ReqIntString}", { breakdown = "ReqInt" }, }, },
+	{ notFlag = "minionSkill", label = "Omni. Required", { format = "{output:ReqOmniString}", { breakdown = "ReqOmni" }, }, },
 } }
 } },
 --defence
