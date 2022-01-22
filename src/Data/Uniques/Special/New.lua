@@ -15,7 +15,7 @@ Implicits: 1
 Modifiers to Attributes instead Apply to Omniscience
 +1% to All Elemental Resistances per 10 Omniscience
 Penetrate 1% Elemental Resistances per 10 Omniscience
-{tags:jewellery_attribute}Attribute Requirements can be satisfied by (20-25)% of Omniscience
+Attribute Requirements can be satisfied by (20-25)% of Omniscience
 ]]
 
 -- Reworked
