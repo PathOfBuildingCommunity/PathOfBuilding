@@ -90,12 +90,13 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 	statMap = {
 		["ball_lightning_superball_%_chance"] = {
-			mod("Damage", "MORE", nil),
-			mod("AreaOfEffect", "MORE", nil),
-			div = 2
+			mod("ball_lightning_superball_%_chance", "BASE", nil)
 		},
 	},
 #baseMod skill("radius", 18)
+#baseMod skill("strikeInterval", 0.15)
+#baseMod skill("projectileSpeed", 48)
+#baseMod skill("duration", 2)
 #mods
 
 #skill DarkRitual
