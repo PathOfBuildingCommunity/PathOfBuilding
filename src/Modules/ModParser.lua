@@ -104,7 +104,7 @@ local modNameList = {
 	["strength and dexterity"] = { "Str", "Dex", "StrDex" },
 	["strength and intelligence"] = { "Str", "Int", "StrInt" },
 	["dexterity and intelligence"] = { "Dex", "Int", "DexInt" },
-	["attributes"] = { "Str", "Dex", "Int" },
+	["attributes"] = { "Str", "Dex", "Int", "All" },
 	["all attributes"] = { "Str", "Dex", "Int", "All" },
 	["devotion"] = "Devotion",
 	-- Life/mana
