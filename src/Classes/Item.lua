@@ -515,6 +515,7 @@ function ItemClass:ParseRaw(raw)
 					else
 						foundExplicit = true
 					end
+				elseif line == "Requirements:" then
 				elseif mode == "GAME" then
 					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" then
 						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
