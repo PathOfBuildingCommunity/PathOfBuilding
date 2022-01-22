@@ -1675,8 +1675,18 @@ function calcs.perform(env, avoidCache)
 		limit = output.EnemyCurseLimit,
 	}
 	local minionCurses = {
-		limit = 1 + (env.minion and env.minion.modDB:Sum("BASE", nil, "EnemyCurseLimit") or 0),
+		limit = 1,
 	}
+	for spectreId = 1, #env.spec.build.spectreList do
+		local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
+		for modId = 1, #spectreData.modList do
+			local modData = spectreData.modList[modId]
+			if modData.name == "EnemyCurseLimit" then
+				minionCurses.limit = modData.value + 1
+				break
+			end
+		end
+	end
 	local affectedByAura = { }
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		local skillModList = activeSkill.skillModList
@@ -1981,11 +1991,11 @@ function calcs.perform(env, avoidCache)
 	local markSlotted = false
 	for _, source in ipairs({curses, minionCurses}) do
 		for _, curse in ipairs(source) do
-			-- calculate curses that ignore hex limit after
-			if not curse.ignoreHexLimit and not curse.socketedCursesHexLimit then 
+			-- Calculate curses that ignore hex limit after
+			if not curse.ignoreHexLimit and not curse.socketedCursesHexLimit then
 				local slot
 				for i = 1, source.limit do
-					--Prevent multiple marks from being considered
+					-- Prevent multiple marks from being considered
 					if curse.isMark then
 						if markSlotted then
 							slot = nil

@@ -5925,166 +5925,6 @@ skills["HellscapeFleshFodderArc"] = {
 		[1] = { 0.5, 1.5, 10, 0, -50, 2, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
-skills["EmptyActionSpellWarlordGrandmaster"] = {
-	name = "Arena Master's Presence",
-	hidden = true,
-	color = 4,
-	skillTypes = { },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 4,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
-	statMap = {
-		["auras_grant_damage_+%_to_you_and_your_allies"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
-		},
-		["cast_speed_+%_granted_from_skill"] = {
-			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
-		},
-		["attack_speed_+%_granted_from_skill"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
-		},
-		["base_movement_velocity_+%"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
-		},
-	},
-	stats = {
-		"auras_grant_damage_+%_to_you_and_your_allies",
-		"attack_speed_+%_granted_from_skill",
-		"cast_speed_+%_granted_from_skill",
-		"base_movement_velocity_+%",
-	},
-	levels = {
-		[1] = { 20, 20, 20, 20, duration = 4, cooldown = 12, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1 }, cost = { }, },
-	},
-	baseFlags = {
-		spell = true,
-		buff = true,
-		duration = true,
-		cooldown = true,
-	},
-	baseMods = {
-		skill("buffAllies", true),
-		skill("buffMinions", true),
-	},
-	qualityStats = {
-	},
-}
-skills["HellionRallyingCry"] = {
-	name = "Rallying Cry",
-	hidden = true,
-	color = 1,
-	description = "Performs a warcry, granting increased damage and mana regeneration to the user and nearby allies if there are nearby enemies. The damage increase is proportional to the number of surrounding enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
-	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 0.25,
-	baseFlags = {
-		area = true,
-		duration = true,
-	},
-	baseMods = {
-	},
-	qualityStats = {
-	},
-	stats = {
-		"damage_+%",
-		"base_skill_effect_duration",
-		"taunted_enemies_damage_+%_final_vs_non_taunt_target",
-		"base_deal_no_damage",
-	},
-	levels = {
-		[1] = { 8, 8000, -30, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
-		[2] = { 10, 8000, -30, cooldown = 8, levelRequirement = 50, statInterpolation = { 1, 1, 1, }, cost = { }, },
-		[3] = { 12, 8000, -30, cooldown = 8, levelRequirement = 68, statInterpolation = { 1, 1, 1, }, cost = { }, },
-		[4] = { 15, 8000, -30, cooldown = 8, levelRequirement = 77, statInterpolation = { 1, 1, 1, }, cost = { }, },
-	},
-}
-skills["WraithEtherealKnives"] = {
-	name = "Ethereal Knives",
-	hidden = true,
-	color = 2,
-	baseEffectiveness = 1.7000000476837,
-	incrementalEffectiveness = 0.037999998778105,
-	description = "Fires an arc of knives in front of the caster which deals physical damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, [SkillType.Duration] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 0.8,
-	baseFlags = {
-		spell = true,
-		projectile = true,
-		duration = true,
-	},
-	baseMods = {
-	},
-	qualityStats = {
-	},
-	stats = {
-		"spell_minimum_base_physical_damage",
-		"spell_maximum_base_physical_damage",
-		"number_of_additional_projectiles",
-		"base_cast_speed_+%",
-		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
-		"active_skill_damage_+%_final",
-		"base_projectile_speed_+%",
-		"fixed_projectile_spread",
-		"base_is_projectile",
-	},
-	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 9, -25, 0, -15, 25, 20, critChance = 5, levelRequirement = 51, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[2] = { 0.60000002384186, 0.89999997615814, 9, -25, -25, -15, 25, 20, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[3] = { 0.60000002384186, 0.89999997615814, 9, -25, -25, -15, 25, 20, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
-	},
-}
-skills["Enfeeble"] = {
-	name = "Enfeeble",
-	color = 3,
-	baseEffectiveness = 0,
-	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
-	statDescriptionScope = "curse_skill_stat_descriptions",
-	castTime = 0.5,
-	statMap = {
-		["enfeeble_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
-		},
-		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
-		},
-		["accuracy_rating_+%"] = {
-			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-	},
-	levels = {
-		[1] = { 9700, 4, -13, -24, -12, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-	},
-	baseFlags = {
-		spell = true,
-		curse = true,
-		area = true,
-		duration = true,
-	},
-	baseMods = {
-	},
-	qualityStats = {
-		Default = {
-			{ "curse_effect_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "hex_doom_gain_rate_+%", 2 },
-		},
-		Alternate2 = {
-			{ "curse_cast_speed_+%", 0.5 },
-		},
-	},
-	stats = {
-		"base_skill_effect_duration",
-		"active_skill_base_radius_+",
-		"accuracy_rating_+%",
-		"enfeeble_damage_+%_final",
-		"enfeeble_damage_+%_vs_rare_or_unique_final",
-		"base_curse_skill_doom_gain_per_minute_if_cast_yourself",
-		"base_deal_no_damage",
-	},
-}
 skills["SynthesisSoulstealerProjectilePhysical"] = {
 	name = "Projectile",
 	hidden = true,
@@ -6194,5 +6034,255 @@ skills["SynthesisPhysicalVolatileSlam"] = {
 	},
 	levels = {
 		[1] = { 0, levelRequirement = 0, statInterpolation = { 1, }, cost = { }, },
+	},
+}
+skills["EmptyActionSpellWarlordGrandmaster"] = {
+	name = "Arena Master's Presence",
+	hidden = true,
+	color = 4,
+	skillTypes = { },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 4,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
+	statMap = {
+		["auras_grant_damage_+%_to_you_and_your_allies"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+		["cast_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+		["attack_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+	},
+	stats = {
+		"auras_grant_damage_+%_to_you_and_your_allies",
+		"attack_speed_+%_granted_from_skill",
+		"cast_speed_+%_granted_from_skill",
+		"base_movement_velocity_+%",
+	},
+	levels = {
+		[1] = { 20, 20, 20, 20, duration = 4, cooldown = 12, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1 }, cost = { }, },
+	},
+	baseFlags = {
+		spell = true,
+		buff = true,
+		duration = true,
+		cooldown = true,
+	},
+	baseMods = {
+		skill("buffAllies", true),
+		skill("buffMinions", true),
+	},
+	qualityStats = {
+	},
+}
+skills["HellionRallyingCry"] = {
+	name = "Rallying Cry",
+	hidden = true,
+	color = 1,
+	description = "Performs a warcry, granting increased damage and mana regeneration to the user and nearby allies if there are nearby enemies. The damage increase is proportional to the number of surrounding enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.25,
+	baseFlags = {
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"damage_+%",
+		"base_skill_effect_duration",
+		"taunted_enemies_damage_+%_final_vs_non_taunt_target",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 8, 8000, -30, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
+		[2] = { 10, 8000, -30, cooldown = 8, levelRequirement = 50, statInterpolation = { 1, 1, 1, }, cost = { }, },
+		[3] = { 12, 8000, -30, cooldown = 8, levelRequirement = 68, statInterpolation = { 1, 1, 1, }, cost = { }, },
+		[4] = { 15, 8000, -30, cooldown = 8, levelRequirement = 77, statInterpolation = { 1, 1, 1, }, cost = { }, },
+	},
+}
+skills["DelveWraithScreechChaos"] = {
+	name = "Chaos Screech",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.7999999523163,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_chaos_damage",
+		"spell_maximum_base_chaos_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, cost = { }, },
+	},
+}
+skills["TemporalChainsSpectre"] = {
+	name = "Temporal Chains",
+	color = 2,
+	baseEffectiveness = 0,
+	description = "Curses all enemies in an area, lowering their action speed and making other effects on them expire more slowly.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["temporal_chains_action_speed_+%_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["buff_time_passed_+%_other_than_temporal_chains"] = {
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["curse_effect_+%_final_vs_players"] = {
+			mod("CurseEffectAgainstPlayer", "MORE", nil),
+		},
+		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+		hex = true,
+	},
+	baseMods = {
+		skill("debuff", true),
+		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
+	},
+	qualityStats = {
+		Default = {
+			{ "curse_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "hex_doom_gain_rate_+%", 2 },
+		},
+		Alternate2 = {
+			{ "base_curse_duration_+%", 1 },
+		},
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"active_skill_base_radius_+",
+		"temporal_chains_action_speed_+%_final",
+		"buff_time_passed_+%_other_than_temporal_chains",
+		"curse_effect_+%_final_vs_players",
+		"temporal_chains_action_speed_+%_vs_rare_or_unique_final",
+		"base_curse_skill_doom_gain_per_minute_if_cast_yourself",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 5000, 0, -20, -40, -50, -10, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+	},
+}
+
+skills["WraithEtherealKnives"] = {
+	name = "Ethereal Knives",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 1.7000000476837,
+	incrementalEffectiveness = 0.037999998778105,
+	description = "Fires an arc of knives in front of the caster which deals physical damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, [SkillType.Duration] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.8,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"number_of_additional_projectiles",
+		"base_cast_speed_+%",
+		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+		"active_skill_damage_+%_final",
+		"base_projectile_speed_+%",
+		"fixed_projectile_spread",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 9, -25, 0, -15, 25, 20, critChance = 5, levelRequirement = 51, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 0.60000002384186, 0.89999997615814, 9, -25, -25, -15, 25, 20, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 0.60000002384186, 0.89999997615814, 9, -25, -25, -15, 25, 20, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+	},
+}
+skills["EnfeebleSpectre"] = {
+	name = "Enfeeble",
+	color = 3,
+	baseEffectiveness = 0,
+	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+		hex = true,
+	},
+	baseMods = {
+		skill("debuff", true),
+		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
+	},
+	qualityStats = {
+		Default = {
+			{ "curse_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "hex_doom_gain_rate_+%", 2 },
+		},
+		Alternate2 = {
+			{ "curse_cast_speed_+%", 0.5 },
+		},
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"active_skill_base_radius_+",
+		"accuracy_rating_+%",
+		"enfeeble_damage_+%_final",
+		"enfeeble_damage_+%_vs_rare_or_unique_final",
+		"base_curse_skill_doom_gain_per_minute_if_cast_yourself",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 9700, 4, -13, -24, -12, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }

@@ -3258,6 +3258,38 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spe
 	modList = {
 	},
 }
+-- Aurid Synthete
+minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
+	name = "Aurid Synthete",
+	life = 5,
+	energyShield = 0.8,
+	fireResist = 42,
+	coldResist = 42,
+	lightningResist = 42,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"SynthesisSoulstealerProjectilePhysical",
+		"SynthesisSoulstealerQuicksand",
+		"SynthesisSoulstealerDrones",
+		"EmptyActionSynthesisEnrageDrones",
+		"SynthesisSoulstealerDroneEnrage",
+		"GeometrySpellSynthesisPhysical",
+		"SynthesisPhysicalTripleMortar",
+		"SynthesisSoulstealerBombDetonate",
+		"SynthesisSoulstealerDronesOnSelf",
+		"SynthesisPhysicalVolatileSlam",
+		"SynthesisQuicksandStartEffect",
+	},
+	modList = {
+		-- MonsterTagSynthesised
+		-- MonsterSynthesisLargeDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 700] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
+	},
+}
 -- Arena Master
 minions["Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGrandMasterSpectre"] = {
 	name = "Arena Master",
@@ -3306,6 +3338,31 @@ minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
 	modList = {
 	},
 }
+-- Ancient Suffering
+minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
+	name = "Ancient Suffering",
+	life = 1.68,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"DelveWraithScreechChaos",
+		"DelveWraithScreechChaosGeometrySpell",
+		"TemporalChainsSpectre",
+	},
+	modList = {
+		-- MonsterDelveLargeDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 200] [monster_dropped_item_rarity_+% = 1000] [monster_no_map_drops = 0]
+		-- MonsterChanceToTemporalChainsOnHit1 [curse_on_hit_%_temporal_chains = 100]
+		mod("EnemyCurseLimit", "BASE", 1), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
+	},
+}
 -- Ancient Wraith
 minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 	name = "Ancient Wraith",
@@ -3323,43 +3380,11 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 	skillList = {
 		"WraithEtherealKnives",
 		"Melee",
-		"Enfeeble",
+		"EnfeebleSpectre",
 	},
 	modList = {
 		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
 		-- DelveMonsterEnfeebleOnHit [curse_on_hit_level_enfeeble = 8]
 		mod("EnemyCurseLimit", "BASE", 1), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
-	},
-}
--- Aurid Synthete
-minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
-	name = "Aurid Synthete",
-	life = 5,
-	energyShield = 0.8,
-	fireResist = 42,
-	coldResist = 42,
-	lightningResist = 42,
-	chaosResist = 0,
-	damage = 1.5,
-	damageSpread = 0.2,
-	attackTime = 1.305,
-	attackRange = 8,
-	accuracy = 1,
-	skillList = {
-		"SynthesisSoulstealerProjectilePhysical",
-		"SynthesisSoulstealerQuicksand",
-		"SynthesisSoulstealerDrones",
-		"EmptyActionSynthesisEnrageDrones",
-		"SynthesisSoulstealerDroneEnrage",
-		"GeometrySpellSynthesisPhysical",
-		"SynthesisPhysicalTripleMortar",
-		"SynthesisSoulstealerBombDetonate",
-		"SynthesisSoulstealerDronesOnSelf",
-		"SynthesisPhysicalVolatileSlam",
-		"SynthesisQuicksandStartEffect",
-	},
-	modList = {
-		-- MonsterTagSynthesised
-		-- MonsterSynthesisLargeDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 700] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
 	},
 }
