@@ -2707,7 +2707,6 @@ local specialModList = {
 	},
 	["you have no intelligence"] = {
 		mod("Int", "MORE", -100),
-		mod("Omni", "MORE", -100),
 	},
 	["elemental resistances are zero"] = {
 		mod("FireResist", "OVERRIDE", 0),
