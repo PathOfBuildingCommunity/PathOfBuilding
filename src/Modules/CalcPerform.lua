@@ -1674,8 +1674,8 @@ function calcs.perform(env, avoidCache)
 	local curses = { 
 		limit = output.EnemyCurseLimit,
 	}
-	local minionCurses = { 
-		limit = 1,
+	local minionCurses = {
+		limit = 1 + (env.minion.modDB:Sum("BASE", nil, "EnemyCurseLimit") or 0),
 	}
 	local affectedByAura = { }
 	for _, activeSkill in ipairs(env.player.activeSkillList) do

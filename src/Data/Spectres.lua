@@ -3323,11 +3323,12 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 	skillList = {
 		"WraithEtherealKnives",
 		"Melee",
+		"Enfeeble",
 	},
 	modList = {
 		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
 		-- DelveMonsterEnfeebleOnHit [curse_on_hit_level_enfeeble = 8]
-		-- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
+		mod("EnemyCurseLimit", "BASE", 1), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
 	},
 }
 -- Aurid Synthete

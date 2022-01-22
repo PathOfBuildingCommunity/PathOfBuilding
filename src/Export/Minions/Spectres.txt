@@ -215,6 +215,6 @@ local minions, mod = ...
 -- Ruins Hellion
 #spectre Metadata/Monsters/Hellion/Hellion3Spectre
 -- Ancient Wraith
-#spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith
+#spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # Enfeeble
 -- Aurid Synthete
 #spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre
