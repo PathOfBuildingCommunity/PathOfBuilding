@@ -6325,7 +6325,7 @@ skills["DelveWraithEnfeeble"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 9700, 4, -13, -24, -12, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[8] = { 9700, 4, -13, -24, -12, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 
