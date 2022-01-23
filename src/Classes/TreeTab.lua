@@ -139,6 +139,17 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.showPowerReport = not self.showPowerReport
 		self:TogglePowerReport()
 	end)
+	self.controls.powerReport.enabled = function()
+		return self.build.calcsTab and self.build.calcsTab.powerBuilderInitialized
+	end
+	self.controls.powerReport.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		if not (self.build.calcsTab and self.build.calcsTab.powerBuilderInitialized) then
+			tooltip:AddLine(14, "Show Power Report is disabled until the first time")
+			tooltip:AddLine(14, "an evaluation of all nodes and clusters completes.")
+			tooltip:AddLine(14, "Thank you for your patience.")
+		end
+	end
 	self.showPowerReport = false
 
 	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
