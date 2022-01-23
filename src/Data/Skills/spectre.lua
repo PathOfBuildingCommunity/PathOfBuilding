@@ -6120,11 +6120,11 @@ skills["BreachBlizzardSpectre"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
 	statMap = {
 		["avoid_damage_%"] = {
-			mod("AvoidPhysicalDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
-			mod("AvoidLightningDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
-			mod("AvoidColdDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
-			mod("AvoidFireDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
-			mod("AvoidChaosDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidPhysicalDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidLightningDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidColdDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidFireDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidChaosDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
 		},
 	},
 	baseFlags = {
