@@ -1919,19 +1919,39 @@ function calcs.perform(env, avoidCache)
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.minion then
 			for _, activeMinionSkill in ipairs(activeSkill.minion.activeSkillList) do
-				local skillModList = activeMinionSkill.skillModList
-				local skillCfg = activeMinionSkill.skillCfg
-				for _, buff in ipairs(activeMinionSkill.buffList) do
-					if buff.type == "Buff" then
-						if buff.applyAllies then
-							activeMinionSkill.buffSkill = true
-							modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-							mergeBuff(buff.modList, buffs, buff.name)
-						end
-						if buff.applyMinions then
-							activeMinionSkill.minionBuffSkill = true
-							activeSkill.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-							mergeBuff(buff.modList, minionBuffs, buff.name)
+				if activeMinionSkill.skillData.enable then
+					local skillModList = activeMinionSkill.skillModList
+					local skillCfg = activeMinionSkill.skillCfg
+					for _, buff in ipairs(activeMinionSkill.buffList) do
+						if buff.type == "Buff" then
+							local skillCfg = buff.activeSkillBuff and skillCfg
+							local modStore = buff.activeSkillBuff and skillModList or modDB
+							if buff.applyAllies then
+								activeMinionSkill.buffSkill = true
+								modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+								local srcList = new("ModList")
+								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer") + skillModList:Sum("INC", skillCfg, buff.name:gsub(" ", "").."Effect")
+								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								mergeBuff(srcList, buffs, buff.name)
+								mergeBuff(buff.modList, buffs, buff.name)
+								if activeMinionSkill.skillData.thisIsNotABuff then
+									buffs[buff.name].notBuff = true
+								end
+							end
+							if buff.applyMinions then
+								activeMinionSkill.minionBuffSkill = true
+								activeSkill.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+								local srcList = new("ModList")
+								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnMinion") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf")
+								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnMinion") * env.minion.modDB:More(nil, "BuffEffectOnSelf")
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								mergeBuff(srcList, minionBuffs, buff.name)
+								mergeBuff(buff.modList, minionBuffs, buff.name)
+								if activeMinionSkill.skillData.thisIsNotABuff then
+									buffs[buff.name].notBuff = true
+								end
+							end
 						end
 					end
 				end
