@@ -11,7 +11,7 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local toolTipText = "Prefix tag searches with a colon. EG. ice:melee or :spell:fire"
+local toolTipText = "If used, prefix tag searches with a colon and exclude tags with a dash. e.g. :fire:lightning:-cold:area"
 local altQualMap = {
 	["Default"] = "",
 	["Alternate1"] = "Anomalous ",
@@ -96,7 +96,6 @@ function GemSelectClass:BuildList(buf)
 	self.controls.scrollBar.offset = 0
 	wipeTable(self.list)
 	self.searchStr = buf
-	-- if self.searchStr:match("%S") then
 	if #self.searchStr > 0 then
 		local added = { }
 
@@ -120,8 +119,8 @@ function GemSelectClass:BuildList(buf)
 					if self:FilterSupport(gemId, gemData) and not added[gemId] and ((" "..gemData.name:lower()):match(pattern) or altQualMap[self:GetQualityType(gemId)]:lower():match(pattern)) then
 						addThisGem = true
 						if #tagsList > 0 then
-							for i, v in ipairs(tagsList) do
-								local tagName = string.gsub(v, "%s+", ""):lower()
+							for _, tag in ipairs(tagsList) do
+								local tagName = string.gsub(tag, "%s+", ""):lower()
 								local negateTag = string.sub(tagName, 1, 1) == '-'
 								if negateTag then tagName = tagName:sub(2) end
 								if tagName == "active" then
