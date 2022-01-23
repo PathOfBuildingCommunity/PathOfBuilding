@@ -9,7 +9,7 @@ local m_max = math.max
 local s_format = string.format
 
 local ItemSetListClass = newClass("ItemSetListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
-	self.ListControl(anchor, x, y, width, height, 16, false, true, itemsTab.itemSetOrderList)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, itemsTab.itemSetOrderList)
 	self.itemsTab = itemsTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, 2, -4, 60, 18, "Copy", function()
 		local newSet = copyTable(itemsTab.itemSets[self.selValue])

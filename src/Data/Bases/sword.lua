@@ -79,8 +79,8 @@ itemBases["Hook Sword"] = {
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { maraketh = true, onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
-	implicit = "4% chance to Dodge Attack Hits",
-	implicitModTypes = { { "dodge" }, },
+	implicit = "15% chance to Maim on Hit",
+	implicitModTypes = { { "attack" }, },
 	weapon = { PhysicalMin = 28, PhysicalMax = 60, CritChanceBase = 5, AttackRateBase = 1.15, Range = 11, },
 	req = { level = 34, str = 64, dex = 64, },
 }
@@ -151,8 +151,8 @@ itemBases["Grappler"] = {
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { maraketh = true, onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
-	implicit = "4% chance to Dodge Attack Hits",
-	implicitModTypes = { { "dodge" }, },
+	implicit = "15% chance to Maim on Hit",
+	implicitModTypes = { { "attack" }, },
 	weapon = { PhysicalMin = 44, PhysicalMax = 94, CritChanceBase = 5, AttackRateBase = 1.15, Range = 11, },
 	req = { level = 55, str = 99, dex = 99, },
 }
@@ -223,8 +223,8 @@ itemBases["Tiger Hook"] = {
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { maraketh = true, onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
-	implicit = "6% chance to Dodge Attack Hits",
-	implicitModTypes = { { "dodge" }, },
+	implicit = "20% chance to Maim on Hit",
+	implicitModTypes = { { "attack" }, },
 	weapon = { PhysicalMin = 37, PhysicalMax = 80, CritChanceBase = 5, AttackRateBase = 1.4, Range = 11, },
 	req = { level = 70, str = 119, dex = 119, },
 }
@@ -264,6 +264,16 @@ itemBases["Charan's Sword"] = {
 	implicitModTypes = { { "attack" }, },
 	weapon = { PhysicalMin = 5, PhysicalMax = 11, CritChanceBase = 5, AttackRateBase = 1.45, Range = 11, },
 	req = { str = 9, dex = 9, },
+}
+
+itemBases["Energy Blade One Handed"] = {
+	type = "One Handed Sword",
+	hidden = true,
+	socketLimit = 3,
+	tags = { onehand = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
+	implicitModTypes = { },
+	weapon = { PhysicalMin = 0, PhysicalMax = 0, CritChanceBase = 7, AttackRateBase = 1.7, Range = 11, },
+	req = { },
 }
 
 itemBases["Rusted Spike"] = {
@@ -725,4 +735,14 @@ itemBases["Banishing Blade"] = {
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 61, PhysicalMax = 114, CritChanceBase = 6, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 70, str = 130, dex = 130, },
+}
+
+itemBases["Energy Blade Two Handed"] = {
+	type = "Two Handed Sword",
+	hidden = true,
+	socketLimit = 6,
+	tags = { two_hand_weapon = true, weapon = true, sword = true, twohand = true, default = true, },
+	implicitModTypes = { },
+	weapon = { PhysicalMin = 0, PhysicalMax = 0, CritChanceBase = 7, AttackRateBase = 1.6, Range = 13, },
+	req = { },
 }

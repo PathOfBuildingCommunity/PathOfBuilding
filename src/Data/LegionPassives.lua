@@ -316,8 +316,8 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "Recovery from Life Leech is not applied", 
-				[2] = "1% less Damage taken for every 2% Recovery per second from Life Leech", 
+				[1] = "Life Recovery from Non-Instant Leech is not applied", 
+				[2] = "1% less Damage taken for every 2% Life Recovery per second from Leech", 
 			}, 
 			["dn"] = "Strength of Blood", 
 			["isJewelSocket"] = false, 
@@ -700,7 +700,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(10-15)% increased Effect of your Curses", 
+				[1] = "(7-10)% increased Effect of your Curses", 
 				[2] = "Curse Skills have 20% increased Skill Effect Duration", 
 			}, 
 			["dn"] = "Ancient Hex", 
@@ -714,8 +714,8 @@ return {
 			}, 
 			["stats"] = {
 				["curse_effect_+%"] = {
-					["max"] = 15, 
-					["min"] = 10, 
+					["max"] = 10, 
+					["min"] = 7, 
 					["fmt"] = "d", 
 				}, 
 				["curse_skill_effect_duration_+%"] = {
@@ -1268,7 +1268,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "50% chance to Avoid being Chilled", 
+				[1] = "80% chance to Avoid being Chilled", 
 			}, 
 			["dn"] = "Rites of Solaris", 
 			["isJewelSocket"] = false, 
@@ -1281,8 +1281,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_avoid_chill_%"] = {
-					["max"] = 50, 
-					["min"] = 50, 
+					["max"] = 80, 
+					["min"] = 80, 
 					["fmt"] = "d", 
 				}, 
 			}, 
@@ -1803,8 +1803,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "(8-10)% chance to Avoid being Stunned", 
-				[2] = "4% chance to Dodge Attack Hits", 
+				[1] = "(8-10)% chance to Avoid Elemental Ailments", 
+				[2] = "(8-10)% chance to Avoid being Stunned", 
 			}, 
 			["dn"] = "Jungle Paths", 
 			["isJewelSocket"] = false, 
@@ -1816,12 +1816,12 @@ return {
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["base_chance_to_dodge_%"] = {
-					["max"] = 4, 
-					["min"] = 4, 
+				["base_avoid_stun_%"] = {
+					["max"] = 10, 
+					["min"] = 8, 
 					["fmt"] = "d", 
 				}, 
-				["base_avoid_stun_%"] = {
+				["avoid_all_elemental_status_%"] = {
 					["max"] = 10, 
 					["min"] = 8, 
 					["fmt"] = "d", 
@@ -1843,9 +1843,9 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "20% less Damage taken if you haven't been Hit Recently", 
-				[2] = "40% less Evasion Rating if you haven't been Hit Recently", 
-				[3] = "20% more Evasion Rating if you've been Hit Recently", 
+				[1] = "20% less Attack Damage taken if you haven't been Hit by an Attack Recently", 
+				[2] = "40% more Evasion Rating if you have been Hit by an Attack Recently", 
+				[3] = "20% more Attack Damage taken if you have been Hit by an Attack Recently", 
 			}, 
 			["dn"] = "Wind Dancer", 
 			["isJewelSocket"] = false, 
@@ -2231,9 +2231,9 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "1% chance to Dodge Attack Hits", 
+				[1] = "3% chance to Avoid Elemental Ailments", 
 			}, 
-			["dn"] = "Attack Dodge", 
+			["dn"] = "Avoid Elemental Ailments", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/VaalDefensive.dds", 
@@ -2243,9 +2243,9 @@ return {
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["base_chance_to_dodge_%"] = {
-					["max"] = 1, 
-					["min"] = 1, 
+				["avoid_all_elemental_status_%"] = {
+					["max"] = 3, 
+					["min"] = 3, 
 					["fmt"] = "d", 
 				}, 
 			}, 
@@ -2401,7 +2401,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "6% chance to Dodge Spell Hits", 
+				[1] = "+12% chance to Suppress Spell Damage", 
 			}, 
 			["dn"] = "Purity Rebel", 
 			["isJewelSocket"] = false, 
@@ -2413,9 +2413,9 @@ return {
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["base_chance_to_dodge_spells_%"] = {
-					["max"] = 6, 
-					["min"] = 6, 
+				["base_spell_suppression_chance_%"] = {
+					["max"] = 12, 
+					["min"] = 12, 
 					["fmt"] = "d", 
 				}, 
 			}, 
@@ -2648,7 +2648,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(3-5)% increased effect of Non-Curse Auras from your Skills", 
+				[1] = "(2-4)% increased effect of Non-Curse Auras from your Skills", 
 			}, 
 			["dn"] = "Aura Effect", 
 			["isJewelSocket"] = false, 
@@ -2661,8 +2661,8 @@ return {
 			}, 
 			["stats"] = {
 				["non_curse_aura_effect_+%"] = {
-					["max"] = 5, 
-					["min"] = 3, 
+					["max"] = 4, 
+					["min"] = 2, 
 					["fmt"] = "d", 
 				}, 
 			}, 
@@ -3046,7 +3046,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "15% increased effect of Non-Curse Auras from your Skills", 
+				[1] = "12% increased effect of Non-Curse Auras from your Skills", 
 			}, 
 			["dn"] = "Superiority", 
 			["isJewelSocket"] = false, 
@@ -3059,8 +3059,8 @@ return {
 			}, 
 			["stats"] = {
 				["non_curse_aura_effect_+%"] = {
-					["max"] = 15, 
-					["min"] = 15, 
+					["max"] = 12, 
+					["min"] = 12, 
 					["fmt"] = "d", 
 				}, 
 			}, 
@@ -3081,7 +3081,7 @@ return {
 			["not"] = true, 
 			["sd"] = {
 				[1] = "20% increased Area of Effect of Aura Skills", 
-				[2] = "(10-15)% increased effect of Non-Curse Auras from your Skills", 
+				[2] = "(7-10)% increased effect of Non-Curse Auras from your Skills", 
 			}, 
 			["dn"] = "Commanding Presence", 
 			["isJewelSocket"] = false, 
@@ -3094,8 +3094,8 @@ return {
 			}, 
 			["stats"] = {
 				["non_curse_aura_effect_+%"] = {
-					["max"] = 15, 
-					["min"] = 10, 
+					["max"] = 10, 
+					["min"] = 7, 
 					["fmt"] = "d", 
 				}, 
 				["base_aura_area_of_effect_+%"] = {
@@ -3913,7 +3913,7 @@ return {
 				[3] = "Lose 5% of Energy Shield per second",
 				[4] = "Life Leech effects are not removed at Full Life",
 				[5] = "Life Leech effects Recover Energy Shield instead while on Full Life",
-			},
+			}, 
 			["dn"] = "Immortal Ambition", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
@@ -4387,7 +4387,7 @@ return {
 			["not"] = false, 
 			["sd"] = {
 				[1] = "Armour applies to Fire, Cold and Lightning Damage taken from Hits instead of Physical Damage", 
-				[2] = "-5% to all maximum Elemental Resistances", 
+				[2] = "-15% to all maximum Elemental Resistances", 
 			}, 
 			["dn"] = "Transcendence", 
 			["isJewelSocket"] = false, 
@@ -4642,7 +4642,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "50% chance to Avoid being Shocked", 
+				[1] = "80% chance to Avoid being Shocked", 
 			}, 
 			["dn"] = "Rural Life", 
 			["isJewelSocket"] = false, 
@@ -4655,8 +4655,8 @@ return {
 			}, 
 			["stats"] = {
 				["base_avoid_shock_%"] = {
-					["max"] = 50, 
-					["min"] = 50, 
+					["max"] = 80, 
+					["min"] = 80, 
 					["fmt"] = "d", 
 				}, 
 			}, 
@@ -4784,7 +4784,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "(3-5)% increased Effect of your Curses", 
+				[1] = "(2-4)% increased Effect of your Curses", 
 			}, 
 			["dn"] = "Curse Effect", 
 			["isJewelSocket"] = false, 
@@ -4797,8 +4797,8 @@ return {
 			}, 
 			["stats"] = {
 				["curse_effect_+%"] = {
-					["max"] = 5, 
-					["min"] = 3, 
+					["max"] = 4, 
+					["min"] = 2, 
 					["fmt"] = "d", 
 				}, 
 			}, 
@@ -4920,7 +4920,7 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "Gain 4 Flask Charges per empty Flask Slot every 5 seconds", 
+				[1] = "Flasks Gain 4 Charges per empty Flask Slot every 5 seconds", 
 			}, 
 			["dn"] = "The Traitor", 
 			["isJewelSocket"] = false, 
@@ -4954,7 +4954,7 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "6% chance to Dodge Attack Hits", 
+				[1] = "20% chance to Avoid Elemental Ailments", 
 			}, 
 			["dn"] = "Secret Tunnels", 
 			["isJewelSocket"] = false, 
@@ -4966,9 +4966,9 @@ return {
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["base_chance_to_dodge_%"] = {
-					["max"] = 6, 
-					["min"] = 6, 
+				["avoid_all_elemental_status_%"] = {
+					["max"] = 20, 
+					["min"] = 20, 
 					["fmt"] = "d", 
 				}, 
 			}, 
@@ -5561,9 +5561,9 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "1% chance to Dodge Spell Hits", 
+				[1] = "+2% chance to Suppress Spell Damage", 
 			}, 
-			["dn"] = "Spell Dodge", 
+			["dn"] = "Spell Suppression", 
 			["isJewelSocket"] = false, 
 			["m"] = false, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/VaalDefensive.dds", 
@@ -5573,9 +5573,9 @@ return {
 			["spc"] = {
 			}, 
 			["stats"] = {
-				["base_chance_to_dodge_spells_%"] = {
-					["max"] = 1, 
-					["min"] = 1, 
+				["base_spell_suppression_chance_%"] = {
+					["max"] = 2, 
+					["min"] = 2, 
 					["fmt"] = "d", 
 				}, 
 			}, 
@@ -5595,8 +5595,8 @@ return {
 			}, 
 			["not"] = true, 
 			["sd"] = {
-				[1] = "+(8-10)% to all Elemental Resistances", 
-				[2] = "4% chance to Dodge Spell Hits", 
+				[1] = "+6% chance to Suppress Spell Damage", 
+				[2] = "+(8-10)% to all Elemental Resistances", 
 			}, 
 			["dn"] = "Temple Paths", 
 			["isJewelSocket"] = false, 
@@ -5608,14 +5608,14 @@ return {
 			["spc"] = {
 			}, 
 			["stats"] = {
+				["base_spell_suppression_chance_%"] = {
+					["max"] = 6, 
+					["min"] = 6, 
+					["fmt"] = "d", 
+				}, 
 				["base_resist_all_elements_%"] = {
 					["max"] = 10, 
 					["min"] = 8, 
-					["fmt"] = "d", 
-				}, 
-				["base_chance_to_dodge_spells_%"] = {
-					["max"] = 4, 
-					["min"] = 4, 
 					["fmt"] = "d", 
 				}, 
 			}, 
@@ -5709,14 +5709,14 @@ return {
 		}, 
 		["vaal_small_attack_dodge"] = {
 			["stats"] = {
-				["base_chance_to_dodge_%"] = {
-					["max"] = 1, 
-					["min"] = 1, 
+				["avoid_all_elemental_status_%"] = {
+					["max"] = 3, 
+					["min"] = 3, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["sd"] = {
-				[1] = "1% chance to Dodge Attack Hits", 
+				[1] = "3% chance to Avoid Elemental Ailments", 
 			}, 
 			["id"] = "vaal_small_attack_dodge", 
 			["dn"] = "Attack Dodge", 
@@ -5751,14 +5751,14 @@ return {
 		}, 
 		["vaal_small_spell_dodge"] = {
 			["stats"] = {
-				["base_chance_to_dodge_spells_%"] = {
-					["max"] = 1, 
-					["min"] = 1, 
+				["base_spell_suppression_chance_%"] = {
+					["max"] = 2, 
+					["min"] = 2, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["sd"] = {
-				[1] = "1% chance to Dodge Spell Hits", 
+				[1] = "+2% chance to Suppress Spell Damage", 
 			}, 
 			["id"] = "vaal_small_spell_dodge", 
 			["dn"] = "Spell Dodge", 
@@ -5920,13 +5920,13 @@ return {
 		["vaal_small_aura_effect"] = {
 			["stats"] = {
 				["non_curse_aura_effect_+%"] = {
-					["max"] = 5, 
-					["min"] = 3, 
+					["max"] = 4, 
+					["min"] = 2, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["sd"] = {
-				[1] = "(3-5)% increased effect of Non-Curse Auras from your Skills", 
+				[1] = "(2-4)% increased effect of Non-Curse Auras from your Skills", 
 			}, 
 			["id"] = "vaal_small_aura_effect", 
 			["dn"] = "Aura Effect", 
@@ -6493,14 +6493,14 @@ return {
 		}, 
 		["maraketh_notable_add_flask_effect"] = {
 			["stats"] = {
-				["non_unique_flask_effect_+%"] = {
-					["max"] = 8, 
-					["min"] = 8, 
+				["gain_alchemists_genius_on_flask_use_%"] = {
+					["max"] = 25, 
+					["min"] = 25, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["sd"] = {
-				[1] = "Non-Unique Flasks applied to you have 8% increased Effect", 
+				[1] = "25% chance to gain Alchemist's Genius when you use a Flask", 
 			}, 
 			["id"] = "maraketh_notable_add_flask_effect", 
 			["dn"] = "Add Flask Effect", 
@@ -6620,13 +6620,13 @@ return {
 		["maraketh_notable_add_ailment_avoid"] = {
 			["stats"] = {
 				["base_avoid_stun_%"] = {
-					["max"] = 10, 
-					["min"] = 10, 
+					["max"] = 20, 
+					["min"] = 20, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["sd"] = {
-				[1] = "10% chance to Avoid being Stunned", 
+				[1] = "20% chance to Avoid being Stunned", 
 			}, 
 			["id"] = "maraketh_notable_add_ailment_avoid", 
 			["dn"] = "Add Ailment Avoid", 
@@ -6676,13 +6676,13 @@ return {
 		["maraketh_notable_add_aura_effect"] = {
 			["stats"] = {
 				["non_curse_aura_effect_+%"] = {
-					["max"] = 10, 
-					["min"] = 10, 
+					["max"] = 8, 
+					["min"] = 8, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["sd"] = {
-				[1] = "10% increased effect of Non-Curse Auras from your Skills", 
+				[1] = "8% increased effect of Non-Curse Auras from your Skills", 
 			}, 
 			["id"] = "maraketh_notable_add_aura_effect", 
 			["dn"] = "Add Aura Effect", 
@@ -6871,14 +6871,14 @@ return {
 		}, 
 		["karui_notable_add_fortify_effect"] = {
 			["stats"] = {
-				["fortify_effect_on_self_+%"] = {
-					["max"] = 10, 
-					["min"] = 10, 
+				["base_max_fortification"] = {
+					["max"] = 1, 
+					["min"] = 1, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["sd"] = {
-				[1] = "10% increased Effect of Fortify on you", 
+				[1] = "+1 to maximum Fortification", 
 			}, 
 			["id"] = "karui_notable_add_fortify_effect", 
 			["dn"] = "Add Fortify Effect", 
@@ -6886,13 +6886,13 @@ return {
 		["vaal_small_curse_effect"] = {
 			["stats"] = {
 				["curse_effect_+%"] = {
-					["max"] = 5, 
-					["min"] = 3, 
+					["max"] = 4, 
+					["min"] = 2, 
 					["fmt"] = "d", 
 				}, 
 			}, 
 			["sd"] = {
-				[1] = "(3-5)% increased Effect of your Curses", 
+				[1] = "(2-4)% increased Effect of your Curses", 
 			}, 
 			["id"] = "vaal_small_curse_effect", 
 			["dn"] = "Curse Effect", 

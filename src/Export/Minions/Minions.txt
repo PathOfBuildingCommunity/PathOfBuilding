@@ -30,6 +30,7 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/SummonedSkull/SummonedSkull SummonedRagingSpirit
+#mod mod("SkillPhysicalDamageConvertToFire", "BASE", 100)
 #limit ActiveRagingSpiritLimit
 #emit
 
@@ -95,6 +96,9 @@ local minions, mod = ...
 #monster Metadata/Monsters/Axis/AxisEliteSoldierDominatingBlow AxisEliteSoldierDominatingBlow
 #emit
 
+#monster Metadata/Monsters/TemplarJudge/AbsolutionTemplarJudge AbsolutionTemplarJudge
+#emit
+
 #monster Metadata/Monsters/Rhoas/RhoaUniqueSummoned RhoaUniqueSummoned
 #limit ActiveBeastMinionLimit
 #emit
@@ -115,4 +119,7 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/Skitterbot/SkitterbotLightning SkitterbotLightning
+#emit
+
+#monster Metadata/Monsters/SummonedReaper/SummonedReaper SummonedReaper
 #emit

@@ -67,6 +67,17 @@ Adds (5-15) to (100-140) Lightning Damage to Spells
 40% increased Strength Requirement
 Damage Penetrates 20% Lightning Resistance
 ]],[[
+Atziri's Rule
+Judgement Staff
+Requires Level 68, 113 Str, 113 Int
+Implicits: 1
++20% Chance to Block Spell Damage while wielding a Staff
+Grants Level 20 Queen's Demand Skill
+Queen's Demand can Trigger Level 20 Flames of Judgement
+Queen's Demand can Trigger Level 20 Storm of Judgement
+Cannot be Stunned
+Damage cannot be Reflected
+]],[[
 The Blood Thorn
 Gnarled Branch
 Variant: Pre 2.6.0
@@ -90,6 +101,13 @@ Implicits: 1
 (5-10)% increased Attack Speed
 Curse Enemies with Flammability on Block, with 20% increased Effect
 Reflects (22-44) Fire Damage to Attackers on Block
+]],[[
+Cane of Kulemak
+Serpentine Staff
+Requires Level 68, 85 Str, 85 Int
+Implicits: 1
++20% Chance to Block Attack Damage while wielding a Staff
+(60-90)% increased Unveiled Modifier magnitudes
 ]],[[
 Cane of Unravelling
 Ezomyte Staff
@@ -118,7 +136,7 @@ Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 2
 {variant:1,2}20% Chance to Block Attack Damage while wielding a Staff
-{variant:3}25% Chance to Block Attack Damage while wielding a Staff
+{variant:3,4}25% Chance to Block Attack Damage while wielding a Staff
 {variant:1}Adds (270-300) to (340-380) Physical Damage
 {variant:2}Adds (250-280) to (315-355) Physical Damage
 {variant:3,4}Adds (220-240) to (270-300) Physical Damage
@@ -368,15 +386,17 @@ League: Legion
 Source: Drops from Vaal Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 3
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}20% Chance to Block Spell Damage while wielding a Staff
+{variant:3,4}20% Chance to Block Spell Damage while wielding a Staff
 Socketed Gems are Supported by level 30 Greater Spell Echo
 (120-160)% increased Spell Damage
-100% increased maximum Mana
+{variant:1,2,3}100% increased maximum Mana
+{variant:4}50% increased maximum Mana
 ]],[[
 Realmshaper
 Iron Staff

@@ -12,14 +12,14 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 
 	self.originalList = report
 
-	self.ListControl(anchor, 0, 50, width, height-50, 16, false, false, self:ReList())
+	self.ListControl(anchor, x, y, width, height-50, 16, "VERTICAL", false, self:ReList())
 
 	self.colList = {
 		{ width = width * 0.15, label = "Type", sortable = true },
 		{ width = width * 0.45, label = "Node Name" },
-		{ width = width * 0.13, label = powerLabel, sortable = true },
-		{ width = width * 0.11, label = "Points", sortable = true },
-		{ width = width * 0.10, label = "Per Point", sortable = true },
+		{ width = width * 0.16, label = powerLabel, sortable = true },
+		{ width = width * 0.05, label = "Points", sortable = true },
+		{ width = width * 0.16, label = "Per Point", sortable = true },
 	}
 	self.label = "Click to focus node on tree"
 	self.colLabels = true

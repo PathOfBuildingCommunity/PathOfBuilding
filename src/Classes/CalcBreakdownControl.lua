@@ -169,6 +169,7 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 				{ label = "MCM", key = "mult" },
 				{ label = "More/less", key = "more" },
 				{ label = "Inc/red", key = "inc" },
+				{ label = "Efficiency", key = "efficiency" },
 				{ label = "Reservation", key = "total" },
 			}
 		}

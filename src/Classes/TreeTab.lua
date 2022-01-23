@@ -6,6 +6,7 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_sort = table.sort
+local t_concat = table.concat
 local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
@@ -24,7 +25,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self:SetActiveSpec(1)
 	self:SetCompareSpec(1)
 
-	self.anchorControls = new("Control", nil, 0, -200, 0, 20)
+	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
 	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self.build.modFlag = true
@@ -33,6 +34,10 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			self:OpenSpecManagePopup()
 		end
 	end)
+	self.controls.specSelect.maxDroppedWidth = 1000
+	self.controls.specSelect.enableDroppedWidth = true
+	self.controls.specSelect.enableChangeBoxWidth = true
+	self.controls.specSelect.controls.scrollBar.enabled = true
 	self.controls.specSelect.tooltipFunc = function(tooltip, mode, selIndex, selVal)
 		tooltip:Clear()
 		if mode ~= "OUT" then
@@ -54,7 +59,10 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 					if spec.curClassId == self.build.spec.curClassId then
 						local respec = 0
 						for nodeId, node in pairs(self.build.spec.allocNodes) do
-							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and not spec.allocNodes[nodeId] then
+							-- Assumption: Nodes >= 65536 are small cluster passives.
+							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" 
+							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536 
+							and not spec.allocNodes[nodeId] then
 								if node.ascendancyName then
 									respec = respec + 5
 								else
@@ -87,9 +95,13 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		end
 	end)
 	self.controls.compareSelect.shown = false
+	self.controls.compareSelect.maxDroppedWidth = 1000
+	self.controls.compareSelect.enableDroppedWidth = true
+	self.controls.compareSelect.enableChangeBoxWidth = true
 	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
 		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
 			self.build.spec:ResetNodes()
+			self.build.spec:BuildAllDependsAndPaths()
 			self.build.spec:AddUndoState()
 			self.build.buildFlag = true
 		end)
@@ -100,16 +112,34 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.export = new("ButtonControl", {"LEFT",self.controls.import,"RIGHT"}, 8, 0, 90, 20, "Export Tree", function()
 		self:OpenExportPopup()
 	end)
-	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, 300, 20, "", "Search", "%c%(%)", 100, function(buf)
+	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
 	end)
-	self.controls.powerReport = new("ButtonControl", {"LEFT", self.controls.treeSearch, "RIGHT"}, 8, 0, 140, 20, self.viewer.showHeatMap and "Hide Power Report" or "Show Power Report", function()
-		self.viewer.showHeatMap = not self.viewer.showHeatMap
+  self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
+	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)
+		self.viewer.showHeatMap = state
+		self.controls.treeHeatMapStatSelect.shown = state
+	end)
+	self.controls.treeHeatMapStatSelect = new("DropDownControl", {"LEFT",self.controls.treeHeatMap,"RIGHT"}, 8, 0, 150, 20, nil, function(index, value)
+		self:SetPowerCalc(value)
+	end)
+	self.controls.treeHeatMap.tooltipText = function()
+		local offCol, defCol = main.nodePowerTheme:match("(%a+)/(%a+)")
+		return "When enabled, an estimate of the offensive and defensive strength of\neach unallocated passive is calculated and displayed visually.\nOffensive power shows as "..offCol:lower()..", defensive power as "..defCol:lower().."."
+	end
+
+	self.powerStatList = { }
+	for _, stat in ipairs(data.powerStatList) do
+		if not stat.ignoreForNodes then
+			t_insert(self.powerStatList, stat)
+		end
+	end
+
+	self.controls.powerReport = new("ButtonControl", {"LEFT", self.controls.treeHeatMapStatSelect, "RIGHT"}, 8, 0, 150, 20, self.showPowerReport and "Hide Power Report" or "Show Power Report", function()
+		self.showPowerReport = not self.showPowerReport
 		self:TogglePowerReport()
 	end)
-
-	-- Sets up UI elements and power report calculations if the heatmap is already shown
-	self:TogglePowerReport()
+	self.showPowerReport = false
 
 	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
@@ -119,6 +149,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
+		newSpec.tree.legion.editedNodes = self.build.spec.tree.legion.editedNodes
 		newSpec:RestoreUndoState(self.build.spec:CreateUndoState())
 		newSpec:BuildClusterJewelGraphs()
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
@@ -153,14 +184,34 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self:ProcessControlsInput(inputEvents, viewPort)
 
 	-- Determine positions if one line of controls doesn't fit in the screen width
-	local bottomDrawerHeight = 200
-	self.controls.specSelect.y = -198
-	if not self.viewer.showHeatMap then
-		bottomDrawerHeight = 0
-		self.controls.specSelect.y = 0
+	local twoLineHeight = self.controls.treeHeatMap.y == 24 and 26 or 0
+	if(select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize()) > viewPort.x + viewPort.width) then
+		twoLineHeight = 26
+		self.controls.treeHeatMap:SetAnchor("BOTTOMLEFT",self.controls.specSelect,"BOTTOMLEFT",nil,nil,nil)
+		self.controls.treeHeatMap.y = 24
+		self.controls.treeHeatMap.x = 125
+
+		self.controls.specSelect.y = -24
+		self.controls.specConvertText.y = -16
+		if self.controls.powerReportList then
+			self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.treeHeatMap.y + self.controls.treeHeatMap.height)
+			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"BOTTOMLEFT", 0, 4)
+		end
+	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize())) - viewPort.x  then
+		twoLineHeight = 0
+		self.controls.treeHeatMap:SetAnchor("LEFT",self.controls.treeSearch,"RIGHT",nil,nil,nil)
+		self.controls.treeHeatMap.y = 0
+		self.controls.treeHeatMap.x = 130
+		if self.controls.powerReportList then
+			self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.specSelect.height + 4)
+			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"TOPRIGHT", 8, 4)
+		end
 	end
 
-	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 64 + bottomDrawerHeight or 32 + bottomDrawerHeight)}
+	local bottomDrawerHeight = self.showPowerReport and 200 or 0
+	self.controls.specSelect.y = -bottomDrawerHeight - twoLineHeight
+
+	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 64 + bottomDrawerHeight + twoLineHeight or 32 + bottomDrawerHeight + twoLineHeight)}
 	if self.jumpToNode then
 		self.viewer:Focus(self.jumpToX, self.jumpToY, treeViewPort, self.build)
 		self.jumpToNode = false
@@ -168,43 +219,52 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.viewer.compareSpec = self.isComparing and self.specList[self.activeCompareSpec] or nil
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
+	local newSpecList = { }
 	self.controls.compareSelect.selIndex = self.activeCompareSpec
-	wipeTable(self.controls.compareSelect.list)
 	for id, spec in ipairs(self.specList) do
-		t_insert(self.controls.compareSelect.list, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
+	self.controls.compareSelect:SetList(newSpecList)
 
 	self.controls.specSelect.selIndex = self.activeSpec
-	wipeTable(self.controls.specSelect.list)
+	wipeTable(newSpecList)
 	for id, spec in ipairs(self.specList) do
-		t_insert(self.controls.specSelect.list, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
-	t_insert(self.controls.specSelect.list, "Manage trees...")
-	
+	t_insert(newSpecList, "Manage trees...")
+	self.controls.specSelect:SetList(newSpecList)
+
 	if not self.controls.treeSearch.hasFocus then
 		self.controls.treeSearch:SetText(self.viewer.searchStr)
 	end
 
-	if self.viewer.showHeatMap then
-		self.controls.treeHeatMapStatSelect.list = self.powerStatList
-		self.controls.treeHeatMapStatSelect.selIndex = 1
-		if self.build.calcsTab.powerStat then
-			self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
+	self.controls.treeHeatMap.state = self.viewer.showHeatMap
+	self.controls.treeHeatMapStatSelect.list = self.powerStatList
+	self.controls.treeHeatMapStatSelect.selIndex = 1
+	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
+	if self.build.calcsTab.powerStat then
+		self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
+	end
+	if self.controls.powerReportList then
+		if self.build.calcsTab.powerStat and self.build.calcsTab.powerStat.stat then
+			self.controls.powerReportList.label = self.build.calcsTab.powerBuilder and "Building table..." or "Click to focus node on tree"
+		else
+			self.controls.powerReportList.label = "^7\"Offense/Defense\" not supported.  Select a specific stat from the dropdown."
 		end
 	end
-	
+
 	SetDrawLayer(1)
 
 	SetDrawColor(0.05, 0.05, 0.05)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (28 + bottomDrawerHeight), viewPort.width, 28 + bottomDrawerHeight)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (28 + bottomDrawerHeight + twoLineHeight), viewPort.width, 28 + bottomDrawerHeight + twoLineHeight)
 	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (32 + bottomDrawerHeight), viewPort.width, 4)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (32 + bottomDrawerHeight + twoLineHeight), viewPort.width, 4)
 
 	if self.showConvert then
 		SetDrawColor(0.05, 0.05, 0.05)
-		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (60 + bottomDrawerHeight), viewPort.width, 28)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (60 + bottomDrawerHeight + twoLineHeight), viewPort.width, 28)
 		SetDrawColor(0.85, 0.85, 0.85)
-		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (64 + bottomDrawerHeight), viewPort.width, 4)
+		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (64 + bottomDrawerHeight + twoLineHeight), viewPort.width, 4)
 	end
 
 	self:DrawControls(viewPort)
@@ -271,6 +331,7 @@ function TreeTabClass:SetActiveSpec(specId)
 	local prevSpec = self.build.spec
 	self.activeSpec = m_min(specId, #self.specList)
 	local curSpec = self.specList[self.activeSpec]
+	data.setJewelRadiiGlobally(curSpec.treeVersion)
 	self.build.spec = curSpec
 	self.build.buildFlag = true
 	self.build.spec:SetWindowTitleWithBuildClass()
@@ -429,6 +490,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				})
 			end
 		end
+		table.sort(modGroups, function(a, b) return a.label < b.label end)
 	end
 	local function addModifier(selectedNode)
 		local newLegionNode = self.build.spec.tree.legion.nodes[modGroups[controls.modSelect.selIndex].id]
@@ -463,7 +525,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			if self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] and self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id][selectedNode.id] then
 				self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 			end
-			self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
+			self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, " \n"..modDesc, false)
 		end
 		self.build.spec:ReconnectNodeToClassStart(selectedNode)
 		if not self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] then
@@ -540,6 +602,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.mods = {""}
 			selectedNode.modList = new("ModList")
 			selectedNode.modKey = ""
+			selectedNode.reminderText = { }
 		elseif selectedNode.conqueredBy.conqueror.type == "vaal" and selectedNode.type == "Notable" then
 			local legionNode = self.build.spec.tree.legion.nodes["vaal_notable_curse_1"]
 			selectedNode.dn = "Vaal notable node"
@@ -548,6 +611,16 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			selectedNode.mods = {""}
 			selectedNode.modList = new("ModList")
 			selectedNode.modKey = ""
+			selectedNode.reminderText = { }
+		elseif selectedNode.conqueredBy.conqueror.type == "eternal" and selectedNode.type == "Notable" then
+			local legionNode = self.build.spec.tree.legion.nodes["eternal_notable_fire_resistance_1"]
+			selectedNode.dn = "Eternal Empire notable node"
+			selectedNode.sd = {"Right click to set mod"}
+			selectedNode.sprites = legionNode.sprites
+			selectedNode.mods = {""}
+			selectedNode.modList = new("ModList")
+			selectedNode.modKey = ""
+			selectedNode.reminderText = { }
 		else
 			self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 			if selectedNode.conqueredBy.conqueror.type == "templar" then
@@ -565,27 +638,69 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	constructUI(modGroups[1])
 end
 
-function TreeTabClass:BuildPowerReportUI()
-	self.controls.treeHeatMapStatSelect = new("DropDownControl", {"TOPLEFT",self.controls.powerReportList,"TOPRIGHT"}, 8, 0, 150, 20, nil, function(index, value)
+function TreeTabClass:SaveMasteryPopup(node, listControl)
+		if listControl.selValue == nil then
+			return
+		end
+		local effect = self.build.spec.tree.masteryEffects[listControl.selValue.id]
+		node.sd = effect.sd
+		node.allMasteryOptions = false
+		node.reminderText = { "Tip: Right click to select a different effect" }
+		self.build.spec.tree:ProcessStats(node)
+		self.build.spec.masterySelections[node.id] = effect.id
+		if not node.alloc then
+			self.build.spec:AllocNode(node, self.viewer.tracePath and node == self.viewer.tracePath[#self.viewer.tracePath] and self.viewer.tracePath)
+		end
+		self.build.spec:AddUndoState()
+		self.modFlag = true
 		self.build.buildFlag = true
-		self.build.calcsTab.powerBuildFlag = true
-		self.build.calcsTab.powerStat = value
+		main:ClosePopup()
+end
+
+function TreeTabClass:OpenMasteryPopup(node, viewPort)
+	local controls = { }
+	local effects = { }
+	local cachedSd = node.sd
+	local cachedAllMasteryOption = node.allMasteryOptions
+
+	wipeTable(effects)
+	for _, effect in pairs(node.masteryEffects) do
+		local assignedNodeId = isValueInTable(self.build.spec.masterySelections, effect.effect)
+		if not assignedNodeId or assignedNodeId == node.id then
+			t_insert(effects, {label = t_concat(effect.stats, " / "), id = effect.effect})
+		end
+	end
+	--Check to make sure that the effects list has a potential mod to apply to a mastery
+	if not (next(effects) == nil) then
+		local passiveMasteryControlHeight = (#effects + 1) * 14 + 2
+		controls.close =  new("ButtonControl", nil, 0, 30 + passiveMasteryControlHeight, 90, 20, "Cancel", function()
+			node.sd = cachedSd
+			node.allMasteryOptions = cachedAllMasteryOption
+			self.build.spec.tree:ProcessStats(node)
+			main:ClosePopup()
+		end)
+		controls.effect = new("PassiveMasteryControl", {"TOPLEFT",nil,"TOPLEFT"}, 6, 25, 0, passiveMasteryControlHeight, effects, self, node, controls.save)
+		main:OpenPopup(controls.effect.width + 12, controls.effect.height + 60, node.name, controls)
+	end
+end
+
+function TreeTabClass:SetPowerCalc(selection)
+	self.viewer.showHeatMap = true
+	self.build.buildFlag = true
+	self.build.calcsTab.powerBuildFlag = true
+	self.build.calcsTab.powerStat = selection
+	if self.showPowerReport then
 		self.controls.allocatedNodeToggle.enabled = false
 		self.controls.allocatedNodeDistance.enabled = false
 		self.controls.powerReportList.label = "Building table..."
 		self.build.calcsTab:BuildPower({ func = self.TogglePowerReport, caller = self })
-	end)
-
-	self.powerStatList = { }
-	for _, stat in ipairs(data.powerStatList) do
-		if not stat.ignoreForNodes then
-			t_insert(self.powerStatList, stat)
-		end
 	end
+end
 
+function TreeTabClass:BuildPowerReportUI()
 	self.controls.powerReport.tooltipText = "A report of node efficacy based on current heat map selection"
 
-	self.controls.allocatedNodeToggle = new("ButtonControl", {"TOPLEFT",self.controls.treeHeatMapStatSelect,"BOTTOMLEFT"}, 0, 4, 175, 20, "Show allocated nodes", function()
+	self.controls.allocatedNodeToggle = new("ButtonControl", {"TOPLEFT",self.controls.powerReportList,"TOPRIGHT"}, 8, 4, 160, 20, "Show allocated nodes", function()
 		self.controls.powerReportList.allocated = not self.controls.powerReportList.allocated
 		self.controls.allocatedNodeDistance.shown = self.controls.powerReportList.allocated
 		self.controls.allocatedNodeDistance.enabled = self.controls.powerReportList.allocated
@@ -602,12 +717,17 @@ end
 
 function TreeTabClass:TogglePowerReport(caller)
 	self = self or caller
-	self.controls.powerReport.label = self.viewer.showHeatMap and "Hide Power Report" or "Show Power Report"
+	self.controls.powerReport.label = self.showPowerReport and "Hide Power Report" or "Show Power Report"
 	local currentStat = self.build.calcsTab and self.build.calcsTab.powerStat or nil
 	local report = {}
+	if not self.showPowerReport and self.controls.powerReportList then
+		self.controls.powerReportList.shown = false
+		return
+	end
 
 	report = self:BuildPowerReportList(currentStat)
-	self.controls.powerReportList = new("PowerReportListControl", {"TOPLEFT",self.controls.specSelect,"TOPLEFT"}, -2, 24, 700, 220, report, currentStat and currentStat.label or "", function(selectedNode)
+	local yPos = self.controls.treeHeatMap.y == 0 and self.controls.specSelect.height + 4 or self.controls.specSelect.height * 2 + 8
+	self.controls.powerReportList = new("PowerReportListControl", {"TOPLEFT",self.controls.specSelect,"BOTTOMLEFT"}, 0, yPos, 700, 220, report, currentStat and currentStat.label or "", function(selectedNode)
 		-- this code is called by the list control when the user "selects" one of the passives in the list.
 		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
 		if selectedNode.x then
@@ -617,9 +737,11 @@ function TreeTabClass:TogglePowerReport(caller)
 		end
 	end)
 
-	if not self.controls.treeHeatMapStatSelect then
+	if not self.controls.allocatedNodeToggle then
 		self:BuildPowerReportUI()
 	end
+	self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList, main.portraitMode and "BOTTOMLEFT" or"TOPRIGHT")
+	self.controls.powerReportList.shown = self.showPowerReport
 
 	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and im unsure how to quantify numerically
 	-- especially given the heatmap's current approach of using the sqrt() of both components. that number is cryptic to users, i suspect.

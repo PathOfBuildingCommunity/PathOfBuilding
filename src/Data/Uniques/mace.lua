@@ -165,20 +165,22 @@ Gavel
 Variant: Pre 2.0.0
 Variant: Pre 2.4.0
 Variant: Pre 2.6.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 60, 412 Str, 300 Int
 Implicits: 2
 {variant:1,2,3}40% increased Stun Duration on Enemies
-{variant:4}15% reduced Enemy Stun Threshold
+{variant:4,5}15% reduced Enemy Stun Threshold
 (80-120)% increased Physical Damage
 Skills Chain +1 times
-(30-40)% increased Lightning Damage with Attack Skills
+{variant:1,2,3,4}(30-40)% increased Lightning Damage with Attack Skills
+{variant:5}(80-100)% increased Lightning Damage
 +200 Strength Requirement
 +300 Intelligence Requirement
 {variant:1}50% chance to Cast a Socketed Lightning Spell on Hit
 {variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
-{variant:3,4}Trigger a Socketed Lightning Spell on Hit
-Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
+{variant:3,4,5}Trigger a Socketed Lightning Spell on Hit, with a 0.15 second Cooldown
+{variant:1,2,3,4}Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
 ]],[[
 Nebulis
 Void Sceptre
@@ -278,7 +280,7 @@ Socketed Gems are Supported by level 1 Ice Bite
 Socketed Gems are Supported by level 1 Cold Penetration
 {variant:1,2}Socketed Gems are Supported by level 1 Mana Leech
 Socketed Gems are Supported by level 10 Added Cold Damage
-Socketed Gems are Supported by level 1 Reduced Mana
+Socketed Gems are Supported by level 1 Inspiration
 ]],[[
 Replica Bitterdream
 Shadow Sceptre
@@ -344,6 +346,7 @@ Blood Sceptre
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
 Requires Level 47, 81 Str, 81 Int
+Implicits: 1
 24% increased Elemental Damage
 (70-100)% increased Spell Damage
 (15-20)% increased Cast Speed
@@ -548,6 +551,17 @@ Implicits: 2
 {variant:2,3}3% increased Experience gain
 20% increased Elemental Damage
 60% increased Intelligence Requirement
+]],[[
+Yaomac's Accord
+Vaal Sceptre
+League: Ultimatum
+Requires Level 64, 113 Str, 113 Int
+Implicits: 1
+32% increased Elemental Damage
+(80-120)% increased Damage with Vaal Skills
+(6-8)% reduced Soul Gain Prevention Duration
+Gain an Endurance Charge, Frenzy Charge, and Power Charge when you use a Vaal Skill
+Shepherd of Souls
 ]],
 -- Weapon: Two Handed Mace
 [[

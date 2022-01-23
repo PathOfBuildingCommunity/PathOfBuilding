@@ -107,15 +107,12 @@ local function matchLimit(lang, val)
 	end
 end
 
-function describeModTags(modType)
-	if not modType then
+function describeModTags(modTags)
+	if not modTags then
 		return ""
 	end
 
-	local modTypesDat = dat("ModType")
 	local tagsDat = dat("Tags")
-	local modTypeIndex = modType._rowIndex
-	local modTags = modTypesDat:ReadCell(modTypeIndex, 3)
 	local modTagsText = ""
 	for i=1,#modTags do
 		local curModTagIndex = modTags[i]._rowIndex
@@ -152,6 +149,12 @@ function describeStats(stats)
 			for _, spec in ipairs(desc) do
 				if spec.k == "negate" then
 					val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
+				elseif spec.k == "negate_and_double" then
+					val[spec.v].max, val[spec.v].min = -2 * val[spec.v].min, -2 * val[spec.v].max
+				elseif spec.k == "divide_by_five" then
+					val[spec.v].min = round(val[spec.v].min / 5, 1)
+					val[spec.v].max = round(val[spec.v].max / 5, 1)
+					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_six" then
 					val[spec.v].min = round(val[spec.v].min / 6, 1)
 					val[spec.v].max = round(val[spec.v].max / 6, 1)
@@ -165,6 +168,10 @@ function describeStats(stats)
 					val[spec.v].max = round(val[spec.v].max / 100, 1)
 					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_one_hundred_2dp" then
+					val[spec.v].min = round(val[spec.v].min / 100, 2)
+					val[spec.v].max = round(val[spec.v].max / 100, 2)
+					val[spec.v].fmt = "g"
+				elseif spec.k == "divide_by_one_hundred_2dp_if_required" then
 					val[spec.v].min = round(val[spec.v].min / 100, 2)
 					val[spec.v].max = round(val[spec.v].max / 100, 2)
 					val[spec.v].fmt = "g"
@@ -210,9 +217,15 @@ function describeStats(stats)
 				elseif spec.k == "multiply_by_four" then
 					val[spec.v].min = val[spec.v].min * 4
 					val[spec.v].max = val[spec.v].max * 4
+				elseif spec.k == "times_one_point_five" then
+					val[spec.v].min = val[spec.v].min * 1.5
+					val[spec.v].max = val[spec.v].max * 1.5
 				elseif spec.k == "times_twenty" then
 					val[spec.v].min = val[spec.v].min * 20
 					val[spec.v].max = val[spec.v].max * 20
+				elseif spec.k == "double" then
+					val[spec.v].min = val[spec.v].min * 2
+					val[spec.v].max = val[spec.v].max * 2
 				elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
 				elseif spec.k then
 					ConPrintf("Unknown description function: %s", spec.k)
@@ -255,8 +268,6 @@ function describeStats(stats)
 			end
 		end
 	end
-
-	out.modTags = describeModTags(stats.Type)
 	return out, orders
 end
 
@@ -270,5 +281,7 @@ function describeMod(mod)
 	if mod.Type then
 		stats.Type = mod.Type
 	end
-	return describeStats(stats)
+	local out, orders = describeStats(stats)
+	out.modTags = describeModTags(mod.ImplicitTags)
+	return out, orders
 end

@@ -146,7 +146,7 @@ Requires Level 45
 Implicits: 1
 Has 1 Socket
 Has 2 Sockets
-Trigger a Socketed Bow Skill when you Attack with a Bow
+Trigger a Socketed Bow Skill when you Attack with a Bow, with a 1 second Cooldown
 (7-12)% increased Attack Speed
 +(50-70) to maximum Life
 5% chance to Blind Enemies on Hit with Attacks
@@ -245,6 +245,17 @@ Implicits: 1
 (20-30)% increased Mana Regeneration Rate
 0.2% of Physical Attack Damage Leeched as Mana
 Attack skills can have 1 additional Totem Summoned at a time
+]],[[
+Steelworm
+Broadhead Arrow Quiver
+Requires Level 52
+Implicits: 1
+6 to 12 Added Physical Damage with Bow Attacks
+Grants Call of Steel
+(30-60)% increased Evasion Rating and Armour
+Deal no Non-Physical Damage
+Attacks that Fire Projectiles Consume up to 1 additional Steel Shard
+Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 12 Steel Shards
 ]],[[
 Soul Strike
 Spike-Point Arrow Quiver

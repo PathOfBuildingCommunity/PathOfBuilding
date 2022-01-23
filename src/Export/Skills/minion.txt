@@ -84,7 +84,7 @@ local skills, mod, flag, skill = ...
 #flags attack melee area
 #mods
 
-#skill RockGolemWhirlingBlades Roll
+#skill RockGolemMinionWhirlingBlades Roll
 #flags attack melee movement
 #mods
 
@@ -140,6 +140,14 @@ local skills, mod, flag, skill = ...
 
 #skill DominatingBlowMinionCharge
 #flags attack melee
+#mods
+
+#skill AbsolutionMinion
+#flags area spell duration
+#mods
+
+#skill AbsolutionMinionEmpowered
+#flags area spell duration
 #mods
 
 #skill SummonedRhoaShieldCharge
@@ -238,6 +246,28 @@ skills["SiegebreakerCausticGround"] = {
 		[1] = { cost = { } },
 	},
 }
+skills["ReplicaSiegebreakerBurningGround"] = {
+	name = "Burning Ground",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		cast = true,
+		area = true,
+		fire = true,
+	},
+	skillTypes = { },
+	baseMods = {
+		skill("FireDot", 1, { type = "PerStat", stat = "Life", div = 5 }),
+		skill("dotIsArea", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { cost = { } },
+	},
+}
 skills["InfernalLegion"] = {
 	name = "Infernal Legion",
 	hidden = true,
@@ -259,3 +289,27 @@ skills["InfernalLegion"] = {
 		[1] = { cost = { } },
 	},
 }
+
+#skill MeleeAtAnimationSpeedUnique Default Attack
+#flags attack melee projectile
+#mods
+
+#skill SummonedReaperMelee Default Attack
+#flags attack melee projectile
+#mods
+
+#skill SummonedReaperUltimate Ultimate
+#flags attack area melee
+#mods
+
+#skill GASummonReaperUltimateLeftSlash Ultimate Slash
+#flags attack area
+#mods
+
+#skill GASummonReaperComboWhirl Whirl
+#flags attack area
+#mods
+
+#skill GASummonReaperComboLeftSlash Combo Slash
+#flags attack area
+#mods

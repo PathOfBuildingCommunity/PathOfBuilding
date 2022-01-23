@@ -679,7 +679,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Cursed enemies have {0}% more Evasion"
+					text="Cursed enemies have {0}% more Evasion Rating"
 				},
 				[2]={
 					[1]={
@@ -692,7 +692,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Cursed enemies have {0}% less Evasion"
+					text="Cursed enemies have {0}% less Evasion Rating"
 				}
 			}
 		},
@@ -1686,7 +1686,7 @@ return {
 		},
 		name="reflect_overkill_damage_on_death",
 		stats={
-			[1]="reflect_%_overkill_damage_to_nearby_allies_on_death"
+			[1]="punishment_reflect_%_overkill_damage_to_nearby_allies_on_death"
 		}
 	},
 	[70]={
@@ -1784,6 +1784,7 @@ return {
 				}
 			}
 		},
+		name="curse_triggers_doom_blast",
 		stats={
 			[1]="trigger_vicious_hex_explosion_when_curse_ends"
 		}
@@ -1857,8 +1858,8 @@ return {
 	["projectile_damage_taken_+%"]=30,
 	["projectiles_always_pierce_you"]=27,
 	["projectiles_hitting_self_split_into_x"]=67,
+	["punishment_reflect_%_overkill_damage_to_nearby_allies_on_death"]=69,
 	["receive_bleeding_chance_%_when_hit_by_attack"]=68,
-	["reflect_%_overkill_damage_to_nearby_allies_on_death"]=69,
 	["self_elemental_status_duration_-%"]=70,
 	["temporal_chains_action_speed_+%_final"]=2,
 	["temporal_chains_action_speed_+%_vs_rare_or_unique_final"]=71,

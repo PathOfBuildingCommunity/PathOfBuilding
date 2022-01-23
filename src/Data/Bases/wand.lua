@@ -125,7 +125,7 @@ itemBases["Demon's Horn"] = {
 	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
 	implicit = "(31-35)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
-	weapon = { PhysicalMin = 38, PhysicalMax = 70, CritChanceBase = 7, AttackRateBase = 1.2, Range = 120, },
+	weapon = { PhysicalMin = 38, PhysicalMax = 71, CritChanceBase = 7, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 56, int = 179, },
 }
 itemBases["Imbued Wand"] = {
@@ -134,7 +134,7 @@ itemBases["Imbued Wand"] = {
 	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
 	implicit = "(33-37)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
-	weapon = { PhysicalMin = 28, PhysicalMax = 53, CritChanceBase = 7, AttackRateBase = 1.5, Range = 120, },
+	weapon = { PhysicalMin = 29, PhysicalMax = 53, CritChanceBase = 7, AttackRateBase = 1.5, Range = 120, },
 	req = { level = 59, int = 188, },
 }
 itemBases["Opal Wand"] = {
@@ -207,6 +207,6 @@ itemBases["Convoking Wand"] = {
 	tags = { onehand = true, not_for_sale = true, wandatlas1 = true, weapon_can_roll_minion_modifiers = true, default = true, wand = true, atlas_base_type = true, ranged = true, one_hand_weapon = true, weapon = true, },
 	implicit = "Can roll Minion Modifiers",
 	implicitModTypes = { { "minion" }, },
-	weapon = { PhysicalMin = 30, PhysicalMax = 56, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },
+	weapon = { PhysicalMin = 30, PhysicalMax = 55, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 72, int = 242, },
 }

@@ -80,6 +80,13 @@ itemBases["Ruby Amulet"] = {
 	implicitModTypes = { { "elemental", "fire", "resistance" }, },
 	req = { },
 }
+itemBases["Unset Amulet"] = {
+	type = "Amulet",
+	tags = { not_for_sale = true, default = true, amulet = true, },
+	implicit = "Has 1 Socket",
+	implicitModTypes = { {  }, },
+	req = { level = 5, },
+}
 itemBases["Blue Pearl Amulet"] = {
 	type = "Amulet",
 	tags = { amuletatlas1 = true, not_for_sale = true, atlas_base_type = true, amulet = true, default = true, },
@@ -92,6 +99,13 @@ itemBases["Marble Amulet"] = {
 	tags = { amuletatlas2 = true, not_for_sale = true, atlas_base_type = true, amulet = true, default = true, },
 	implicit = "Regenerate (1.2-1.6)% of Life per second",
 	implicitModTypes = { { "resource", "life" }, },
+	req = { level = 74, },
+}
+itemBases["Seaglass Amulet"] = {
+	type = "Amulet",
+	tags = { not_for_sale = true, atlas_base_type = true, amuletatlas3 = true, amulet = true, default = true, },
+	implicit = "(10-15)% faster start of Energy Shield Recharge",
+	implicitModTypes = { { "energy_shield", "defences" }, },
 	req = { level = 74, },
 }
 itemBases["Astrolabe Amulet"] = {
@@ -111,7 +125,7 @@ itemBases["Simplex Amulet"] = {
 itemBases["Jet Amulet"] = {
 	type = "Amulet",
 	hidden = true,
-	tags = { not_for_sale = true, default = true, amulet = true, },
+	tags = { demigods = true, not_for_sale = true, default = true, amulet = true, },
 	implicit = "+(8-12)% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, },
 	req = { level = 12, },
@@ -170,7 +184,7 @@ itemBases["Deadhand Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, talisman = true, amulet = true, },
 	implicit = "(19-31)% increased Chaos Damage",
-	implicitModTypes = { { "damage", "chaos" }, },
+	implicitModTypes = { { "chaos_damage", "damage", "chaos" }, },
 	req = { },
 }
 itemBases["Undying Flesh Talisman"] = {
@@ -346,7 +360,7 @@ itemBases["Longtooth Talisman"] = {
 	subType = "Talisman",
 	tags = { default = true, talisman = true, amulet = true, },
 	implicit = "(4-6)% additional Physical Damage Reduction",
-	implicitModTypes = { {  }, },
+	implicitModTypes = { { "physical" }, },
 	req = { },
 }
 itemBases["Rotfeather Talisman"] = {

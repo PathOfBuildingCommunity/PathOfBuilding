@@ -195,7 +195,7 @@ Implicits: 1
 +1 to Level of Socketed Active Skill Gems per 25 Player Levels 
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
 (8-12)% increased Attack Speed 
-Trigger a Socketed Spell when you Attack with this Weapon
+Trigger a Socketed Spell when you Attack with this Weapon, with a 0.15 second Cooldown
 ]],[[
 Reverberation Rod
 Spiraled Wand
@@ -211,6 +211,15 @@ Implicits: 2
 {variant:3}+2 to Level of Socketed Gems
 Socketed Gems are Supported by Level 10 Spell Echo
 +(10-30) to Intelligence
+]],[[
+Relic of the Pact
+Spiraled Wand
+League: Ultimatum
+Requires Level 24, 83 Int
+Implicits: 1
+(15-19)% increased Spell Damage
+Grants Level 1 Blood Sacrament Skill
+Your Critical Strike Chance is Lucky while on Low Life
 ]],[[
 Amplification Rod
 Spiraled Wand
@@ -286,17 +295,21 @@ Adds 10 to 20 Cold Damage to Spells per Power Charge
 ]],[[
 Tulfall
 Tornado Wand
+Variant: Pre 3.16.0
+Variant: Current
 League: Breach
 Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
 Requires Level 65, 212 Int
 Implicits: 1
 (35-39)% increased Spell Damage
 (10-15)% increased Cast Speed
-50% chance to gain a Power Charge on Killing a Frozen Enemy
+{variant:1}50% chance to gain a Power Charge on Killing a Frozen Enemy
+{variant:2}Gain a Power Charge on Killing a Frozen Enemy
 Adds 15 to 25 Cold Damage to Spells per Power Charge
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
-(10-15)% increased Cold Damage per Frenzy Charge
+{variant:1}(10-15)% increased Cold Damage per Frenzy Charge
+{variant:1}(15-20)% increased Cold Damage per Frenzy Charge
 ]],[[
 Replica Tulfall
 Tornado Wand

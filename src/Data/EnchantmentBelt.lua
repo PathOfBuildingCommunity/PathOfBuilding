@@ -2,9 +2,9 @@
 -- Item data (c) Grinding Gear Games
 
 return {
-	["HARVEST"] = {
+	["DEDICATION"] = {
 		"15% increased Area of Effect while you have Arcane Surge",
-		"+300 to Armour while you have Fortify",
+		"+300 to Armour while Fortified",
 		"Recover 2% of Life when you Kill an Enemy while you have Rage",
 		"+300 to Evasion Rating while you have Phasing",
 		"20% chance to Avoid Elemental Ailments while you have Elusive",
