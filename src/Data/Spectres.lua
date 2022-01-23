@@ -3290,6 +3290,27 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
 		-- MonsterSynthesisLargeDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 700] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
 	},
 }
+-- Ruins Hellion
+minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
+	name = "Ruins Hellion",
+	life = 1,
+	armour = 0.1,
+	fireResist = 40,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"HellionRallyingCry",
+	},
+	modList = {
+	},
+}
 -- Arena Master
 minions["Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGrandMasterSpectre"] = {
 	name = "Arena Master",
@@ -3317,25 +3338,30 @@ minions["Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorG
 	modList = {
 	},
 }
--- Ruins Hellion
-minions["Metadata/Monsters/Hellion/Hellion3Spectre"] = {
-	name = "Ruins Hellion",
-	life = 1,
-	armour = 0.1,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.25,
+-- They of Tul
+minions["Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre"] = {
+	name = "They of Tul",
+	life = 3,
+	armour = 0.5,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.2,
 	damageSpread = 0.2,
-	attackTime = 1.5,
-	attackRange = 10,
+	attackTime = 1.755,
+	attackRange = 9,
 	accuracy = 1,
 	skillList = {
 		"Melee",
-		"HellionRallyingCry",
+		"BreachBlizzardSpectre",
+		"SummonBreachIceTotem",
 	},
 	modList = {
+		-- MonsterBreachQuantityCommander [monster_dropped_item_quantity_+% = 700]
+		-- MonsterBreachRarityCommander [monster_dropped_item_rarity_+% = 1000]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
+		-- MonsterKillTrapsMinesTotemsOnDeath [kill_traps_mines_and_totems_on_death = 1]
 	},
 }
 -- Ancient Suffering
@@ -3355,7 +3381,7 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
 	skillList = {
 		"DelveWraithScreechChaos",
 		"DelveWraithScreechChaosGeometrySpell",
-		"TemporalChainsSpectre",
+		"DelveWraithTemporalChains",
 	},
 	modList = {
 		-- MonsterDelveLargeDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 200] [monster_dropped_item_rarity_+% = 1000] [monster_no_map_drops = 0]
@@ -3380,7 +3406,7 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 	skillList = {
 		"WraithEtherealKnives",
 		"Melee",
-		"EnfeebleSpectre",
+		"DelveWraithEnfeeble",
 	},
 	modList = {
 		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]

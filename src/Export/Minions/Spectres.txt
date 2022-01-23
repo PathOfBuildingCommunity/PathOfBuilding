@@ -212,11 +212,13 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre
 -- Aurid Synthete
 #spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre
--- Arena Master
-#spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGrandMasterSpectre
 -- Ruins Hellion
 #spectre Metadata/Monsters/Hellion/Hellion3Spectre
+-- Arena Master
+#spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGrandMasterSpectre
+-- They of Tul
+#spectre Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre
 -- Ancient Suffering
-#spectre Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple # TemporalChainsSpectre
+#spectre Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple # DelveWraithTemporalChains
 -- Ancient Wraith
-#spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # EnfeebleSpectre
+#spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveWraithEnfeeble

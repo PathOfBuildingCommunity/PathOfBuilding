@@ -919,9 +919,13 @@ local skills, mod, flag, skill = ...
 #flags attack area
 #mods
 
+#skill HellionRallyingCry Rallying Cry
+#flags area duration
+#mods
+
 #skill EmptyActionSpellWarlordGrandmaster Arena Master's Presence
-#flags spell buff duration cooldown
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
+#flags spell buff area duration cooldown
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
 	statMap = {
 		["auras_grant_damage_+%_to_you_and_your_allies"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
@@ -947,18 +951,31 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("buffAllies", true)
 #baseMod skill("buffMinions", true)
-#mods noStats noLevels
+#mods noSkillTypes noStats noLevels
 
-#skill HellionRallyingCry Rallying Cry
-#flags area duration
-#mods
+#skill BreachBlizzardSpectre Snow Cloak
+#flags spell buff area duration cooldown
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
+	statMap = {
+		["avoid_damage_%"] = {
+			mod("AvoidPhysicalDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidLightningDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidColdDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidFireDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidChaosDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+		},
+	},
+#baseMod skill("buffAllies", true)
+#baseMod skill("buffMinions", true)
+#mods noSkillTypes
 
 #skill DelveWraithScreechChaos Chaos Screech
 #flags spell area
 #mods
 
-skills["TemporalChainsSpectre"] = {
+skills["DelveWraithTemporalChains"] = {
 	name = "Temporal Chains",
+	hidden = true,
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Curses all enemies in an area, lowering their action speed and making other effects on them expire more slowly.",
@@ -1021,8 +1038,9 @@ skills["TemporalChainsSpectre"] = {
 #flags spell projectile duration
 #mods
 
-skills["EnfeebleSpectre"] = {
+skills["DelveWraithEnfeeble"] = {
 	name = "Enfeeble",
+	hidden = true,
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",

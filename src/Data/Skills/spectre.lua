@@ -6036,50 +6036,6 @@ skills["SynthesisPhysicalVolatileSlam"] = {
 		[1] = { 0, levelRequirement = 0, statInterpolation = { 1, }, cost = { }, },
 	},
 }
-skills["EmptyActionSpellWarlordGrandmaster"] = {
-	name = "Arena Master's Presence",
-	hidden = true,
-	color = 4,
-	skillTypes = { },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 4,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
-	statMap = {
-		["auras_grant_damage_+%_to_you_and_your_allies"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
-		},
-		["cast_speed_+%_granted_from_skill"] = {
-			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
-		},
-		["attack_speed_+%_granted_from_skill"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
-		},
-		["base_movement_velocity_+%"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
-		},
-	},
-	stats = {
-		"auras_grant_damage_+%_to_you_and_your_allies",
-		"attack_speed_+%_granted_from_skill",
-		"cast_speed_+%_granted_from_skill",
-		"base_movement_velocity_+%",
-	},
-	levels = {
-		[1] = { 20, 20, 20, 20, duration = 4, cooldown = 12, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1 }, cost = { }, },
-	},
-	baseFlags = {
-		spell = true,
-		buff = true,
-		duration = true,
-		cooldown = true,
-	},
-	baseMods = {
-		skill("buffAllies", true),
-		skill("buffMinions", true),
-	},
-	qualityStats = {
-	},
-}
 skills["HellionRallyingCry"] = {
 	name = "Rallying Cry",
 	hidden = true,
@@ -6109,6 +6065,90 @@ skills["HellionRallyingCry"] = {
 		[4] = { 15, 8000, -30, cooldown = 8, levelRequirement = 77, statInterpolation = { 1, 1, 1, }, cost = { }, },
 	},
 }
+skills["EmptyActionSpellWarlordGrandmaster"] = {
+	name = "Arena Master's Presence",
+	hidden = true,
+	color = 4,
+	skillTypes = { },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 4,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
+	statMap = {
+		["auras_grant_damage_+%_to_you_and_your_allies"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+		["cast_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+		["attack_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+	},
+	stats = {
+		"auras_grant_damage_+%_to_you_and_your_allies",
+		"attack_speed_+%_granted_from_skill",
+		"cast_speed_+%_granted_from_skill",
+		"base_movement_velocity_+%",
+	},
+	levels = {
+		[1] = { 20, 20, 20, 20, duration = 4, cooldown = 12, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1 }, cost = { }, },
+	},
+	baseFlags = {
+		spell = true,
+		buff = true,
+		area = true,
+		duration = true,
+		cooldown = true,
+	},
+	baseMods = {
+		skill("buffAllies", true),
+		skill("buffMinions", true),
+	},
+	qualityStats = {
+	},
+}
+skills["BreachBlizzardSpectre"] = {
+	name = "Snow Cloak",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
+	statMap = {
+		["avoid_damage_%"] = {
+			mod("AvoidPhysicalDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidLightningDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidColdDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidFireDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidChaosDamageChance", "BASE", 15, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		buff = true,
+		area = true,
+		duration = true,
+		cooldown = true,
+	},
+	baseMods = {
+		skill("buffAllies", true),
+		skill("buffMinions", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_damage_taken_+%",
+		"avoid_damage_%",
+		"base_skill_effect_duration",
+	},
+	levels = {
+		[1] = { 0, 15, 10000, cooldown = 9, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
+	},
+}
 skills["DelveWraithScreechChaos"] = {
 	name = "Chaos Screech",
 	hidden = true,
@@ -6135,8 +6175,9 @@ skills["DelveWraithScreechChaos"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, cost = { }, },
 	},
 }
-skills["TemporalChainsSpectre"] = {
+skills["DelveWraithTemporalChains"] = {
 	name = "Temporal Chains",
+	hidden = true,
 	color = 2,
 	baseEffectiveness = 0,
 	description = "Curses all enemies in an area, lowering their action speed and making other effects on them expire more slowly.",
@@ -6231,8 +6272,9 @@ skills["WraithEtherealKnives"] = {
 		[3] = { 0.60000002384186, 0.89999997615814, 9, -25, -25, -15, 25, 20, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
-skills["EnfeebleSpectre"] = {
+skills["DelveWraithEnfeeble"] = {
 	name = "Enfeeble",
+	hidden = true,
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
