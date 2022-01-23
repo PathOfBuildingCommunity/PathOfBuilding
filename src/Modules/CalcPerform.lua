@@ -1924,14 +1924,12 @@ function calcs.perform(env, avoidCache)
 					local skillCfg = activeMinionSkill.skillCfg
 					for _, buff in ipairs(activeMinionSkill.buffList) do
 						if buff.type == "Buff" then
-							local skillCfg = buff.activeSkillBuff and skillCfg
-							local modStore = buff.activeSkillBuff and skillModList or modDB
 							if buff.applyAllies then
 								activeMinionSkill.buffSkill = true
 								modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 								local srcList = new("ModList")
-								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer") + skillModList:Sum("INC", skillCfg, buff.name:gsub(" ", "").."Effect")
-								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
+								local inc = skillModList:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnPlayer")
+								local more = skillModList:More(skillCfg, "BuffEffect", "BuffEffectOnPlayer")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, buffs, buff.name)
 								mergeBuff(buff.modList, buffs, buff.name)
@@ -1943,8 +1941,8 @@ function calcs.perform(env, avoidCache)
 								activeMinionSkill.minionBuffSkill = true
 								activeSkill.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 								local srcList = new("ModList")
-								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnMinion") + activeSkill.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf")
-								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnMinion") * activeSkill.minion.modDB:More(nil, "BuffEffectOnSelf")
+								local inc = skillModList:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnMinion")
+								local more = skillModList:More(skillCfg, "BuffEffect", "BuffEffectOnMinion")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, minionBuffs, buff.name)
 								mergeBuff(buff.modList, minionBuffs, buff.name)
