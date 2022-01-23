@@ -574,7 +574,7 @@ skills["BallLightning"] = {
 			-- Compute DPS changes as if we get exactly 1 strike per ball.
 			if superchance > 0 then
 				dpsMultiplier = 1 + 0.5 * superchance
-				if breakdown ~= nil then
+				if breakdown then
 					local breakdownDpsMult = {}
 					t_insert(breakdownDpsMult, "Average DPS multiplier")
 					t_insert(breakdownDpsMult, s_format("^8= 1 * (^7super chance^8) + 1.5 * (1 - ^7super chance^8)"))
@@ -635,11 +635,10 @@ skills["BallLightning"] = {
 					-- distance for normal bolt strikes.
 					castDist = baseStrikeRadius
 				end
-				local absMaxProjDist = 150
 				local firstStrikeIdxThatHits =
 					math.max(1,  -- 1 not 0 here: strike seems to happen at the end of the interval, not start
 						     math.ceil((castDist - strikeRadius) / ballDistPerStrike))
-				local lastStrikeIdxThatHits = math.floor(math.min(absMaxProjDist, castDist + strikeRadius) / ballDistPerStrike)
+				local lastStrikeIdxThatHits = math.floor(math.min(data.misc.ProjectileDistanceCap, castDist + strikeRadius) / ballDistPerStrike)
 				local numStrikes = math.max(0, math.min(maxStrikes, lastStrikeIdxThatHits + 1 - firstStrikeIdxThatHits))
 				lastStrikeIdxThatHits = firstStrikeIdxThatHits + numStrikes - 1
 
@@ -652,7 +651,7 @@ skills["BallLightning"] = {
 					dpsMultiplier = dpsMultiplier + effNumStrikes
 				end
 
-				if breakdown ~= nil then
+				if breakdown then
 					local breakdownHits = {}
 					local ballsName
 					if superchance > 0 then
@@ -688,7 +687,7 @@ skills["BallLightning"] = {
 					end
 				end
 			end
-			if breakdown ~= nil then
+			if breakdown then
 				if (dpsMultiplier ~= 1) and (superchance > 0) then
 					local breakdownDpsMult = {}
 					t_insert(breakdownDpsMult, "Average DPS multiplier")
