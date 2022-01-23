@@ -1566,7 +1566,8 @@ function calcs.perform(env, avoidCache)
 					local req = m_floor(reqSource[attr] * reqMult)
 					if modDB:Flag(nil, "OmniscienceRequirements") then
 						local omniReqMult = 1 / (calcLib.mod(modDB, nil, "OmniAttributeRequirements") - 1)
-						req = m_floor(reqSource[attr] * (reqMult * omniReqMult))
+						local attributereq =  m_floor(reqSource[attr] * reqMult)
+						req = m_floor(attributereq * omniReqMult)
 					end
 					out = m_max(out, req)
 					if breakdown then
@@ -1592,11 +1593,15 @@ function calcs.perform(env, avoidCache)
 				out = 0
 			end
 			output["Req"..attr.."String"] = 0
-			output["Req"..breakdownAttr.."String"] = out
-			output["Req"..breakdownAttr] = out
+			if out > (output["Req"..breakdownAttr] or 0) then 
+				output["Req"..breakdownAttr.."String"] = out
+				output["Req"..breakdownAttr] = out
+				if breakdown then
+					output["Req"..breakdownAttr.."String"] = out > (output[breakdownAttr] or 0) and colorCodes.NEGATIVE..out or out
+				end
+			end
 			if breakdown then
-				output["Req"..breakdownAttr.."String"] = out > (output[breakdownAttr] or 0) and colorCodes.NEGATIVE..out or out
-				table.sort(breakdown["Req"..breakdownAttr].rowList, function(a, b)
+				table.sort(breakdown["ReqOmni"].rowList, function(a, b)
 					if a.reqNum ~= b.reqNum then
 						return a.reqNum > b.reqNum
 					elseif a.source ~= b.source then
