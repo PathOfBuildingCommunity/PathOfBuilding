@@ -358,7 +358,7 @@ local skills, mod, flag, skill = ...
 #skill AtziriUniqueStaffFlameblast
 #flags area
 	fromItem = true,
-#baseMod skill("triggerSource", "QueensDemand")
+#baseMod skill("triggerSource", "Queen's Demand")
 #mods
 
 #skill Focus
@@ -612,7 +612,7 @@ local skills, mod, flag, skill = ...
 #skill AtziriUniqueStaffStormCall
 #flags area
 	fromItem = true,
-#baseMod skill("triggerSource", "QueensDemand")
+#baseMod skill("triggerSource", "Queen's Demand")
 #mods
 
 #skill SummonBeastialRhoa
