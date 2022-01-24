@@ -1464,7 +1464,7 @@ local function triggerExtraSkill(name, level, noSupports)
 end
 local function triggerExtraSkillWithSource(name, level, sourceSkill, noSupports)
 	name = name:gsub(" skill","")
-	sourceSkill = sourceSkill:gsub(" ", ""):gsub("'","")
+	sourceSkill = sourceSkill:gsub(" skill","")
 	if gemIdLookup[name] then
 		return {
 			mod("ExtraSkill", "LIST", { skillId = gemIdLookup[name], level = level, noSupports = noSupports, triggered = true, source = sourceSkill })
