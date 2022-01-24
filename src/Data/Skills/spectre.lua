@@ -6175,7 +6175,7 @@ skills["DelveWraithScreechChaos"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, cost = { }, },
 	},
 }
-skills["DelveWraithTemporalChains"] = {
+skills["MonsterChanceToTemporalChainsOnHit1"] = {
 	name = "Temporal Chains",
 	hidden = true,
 	color = 2,
@@ -6272,7 +6272,7 @@ skills["WraithEtherealKnives"] = {
 		[3] = { 0.60000002384186, 0.89999997615814, 9, -25, -25, -15, 25, 20, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
-skills["DelveWraithEnfeeble"] = {
+skills["DelveMonsterEnfeebleOnHit"] = {
 	name = "Enfeeble",
 	hidden = true,
 	color = 3,

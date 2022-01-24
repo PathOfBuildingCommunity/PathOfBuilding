@@ -219,6 +219,6 @@ local minions, mod = ...
 -- They of Tul
 #spectre Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre
 -- Ancient Suffering
-#spectre Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple # DelveWraithTemporalChains
+#spectre Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple # MonsterChanceToTemporalChainsOnHit1
 -- Ancient Wraith
-#spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveWraithEnfeeble
+#spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveMonsterEnfeebleOnHit

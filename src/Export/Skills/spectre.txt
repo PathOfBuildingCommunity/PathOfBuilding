@@ -973,7 +973,7 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
-skills["DelveWraithTemporalChains"] = {
+skills["MonsterChanceToTemporalChainsOnHit1"] = {
 	name = "Temporal Chains",
 	hidden = true,
 	color = 2,
@@ -1038,7 +1038,7 @@ skills["DelveWraithTemporalChains"] = {
 #flags spell projectile duration
 #mods
 
-skills["DelveWraithEnfeeble"] = {
+skills["DelveMonsterEnfeebleOnHit"] = {
 	name = "Enfeeble",
 	hidden = true,
 	color = 3,

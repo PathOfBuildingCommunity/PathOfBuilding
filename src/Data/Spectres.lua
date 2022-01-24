@@ -3381,7 +3381,7 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
 	skillList = {
 		"DelveWraithScreechChaos",
 		"DelveWraithScreechChaosGeometrySpell",
-		"DelveWraithTemporalChains",
+		"MonsterChanceToTemporalChainsOnHit1",
 	},
 	modList = {
 		-- MonsterDelveLargeDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 200] [monster_dropped_item_rarity_+% = 1000] [monster_no_map_drops = 0]
@@ -3406,7 +3406,7 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 	skillList = {
 		"WraithEtherealKnives",
 		"Melee",
-		"DelveWraithEnfeeble",
+		"DelveMonsterEnfeebleOnHit",
 	},
 	modList = {
 		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
