@@ -681,45 +681,6 @@ Adds 3 to 7 Fire Damage
 ]],
 -- Weapon: Two Handed Sword
 [[
-The Dancing Dervish
-Reaver Sword
-Upgrade: Upgrades to unique{The Dancing Duo} via prophecy{Dance of Steel}
-Variant: Pre 2.6.0
-Variant: Pre 3.11.0
-Variant: Current
-Requires Level 59, 82 Str, 119 Dex
-Implicits: 3
-{variant:1}18% increased Accuracy Rating
-{variant:2}40% increased Global Accuracy Rating
-{variant:3}60% increased Global Accuracy Rating
-{variant:1,2}(160-190)% increased Physical Damage
-{variant:3}(130-160)% increased Physical Damage
-(25-30)% increased Attack Speed
-5% increased Movement Speed
-Rampage
-Triggers Level 15 Manifest Dancing Dervish on Rampage
-Manifested Dancing Dervish disables both weapon slots
-Manifested Dancing Dervish dies when Rampage ends
-]],[[
-The Dancing Duo
-Reaver Sword
-Source: Upgraded from unique{The Dancing Dervish} via prophecy{Dance of Steel}
-Variant: Pre 3.11.0
-Variant: Current
-Requires Level 65, 82 Str, 119 Dex
-Implicits: 2
-{variant:1}40% increased Global Accuracy Rating
-{variant:2}60% increased Global Accuracy Rating
-{variant:1}(160-190)% increased Physical Damage
-{variant:2}(130-160)% increased Physical Damage
-(25-30)% increased Attack Speed
-5% increased Movement Speed
-Rampage
-Triggers Level 15 Manifest Dancing Dervish on Rampage
-Manifested Dancing Dervish disables both weapon slots
-Manifested Dancing Dervish dies when Rampage ends
-Manifested Dancing Dervish also manifests a copy of Dancing Dervish
-]],[[
 Doomsower
 Lion Sword
 Variant: Pre 2.6.0
