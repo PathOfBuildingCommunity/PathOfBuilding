@@ -308,14 +308,14 @@ end
 
 -- Find unique item trigger name
 local function getUniqueItemTriggerName(skill)
-	if skill.supportList and #skill.supportList >= 1 then
+	if skill.skillData.triggerSource then
+		return skill.skillData.triggerSource
+	elseif skill.supportList and #skill.supportList >= 1 then
 		for _, gemInstance in ipairs(skill.supportList) do
 			if gemInstance.grantedEffect and gemInstance.grantedEffect.fromItem then
 				return gemInstance.grantedEffect.name
 			end
 		end
-	elseif skill.skillData.triggerSource then
-		return skill.skillData.triggerSource
 	end
 	return ""
 end
@@ -2513,7 +2513,7 @@ function calcs.perform(env, avoidCache)
 				if skill.activeEffect.grantedEffect.name == uniqueTriggerName then
 					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 				end
-				if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
+				if skill.skillData.triggeredByUnique then
 					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = cooldownOverride or (skill.skillData.cooldown / icdr), next_trig = 0, count = 0 })
 				end
 			else
