@@ -1323,6 +1323,14 @@ function calcs.defence(env, actor)
 	function numberOfHitsToDie(DamageIn)
 		local numHits = 0
 		
+		local permaWard = false --implement "Ward does not Break"
+		--apply perma ward early so can breakout if it is enough to compleatly mitigate
+		if permaWard and output.Ward > 0 then
+			for _, damageType in ipairs(dmgTypeList) do
+				DamageIn[damageType] = m_max(DamageIn[damageType] - output.Ward, 0)
+			end
+		end
+		
 		--check damage in isnt 0
 		for _, damageType in ipairs(dmgTypeList) do
 			numHits = numHits + DamageIn[damageType]
@@ -1336,6 +1344,10 @@ function calcs.defence(env, actor)
 		local life = output.LifeUnreserved or 0
 		local mana = output.ManaUnreserved or 0
 		local energyShield = output.EnergyShield or 0
+		local ward = output.Ward or 0
+		if (DamageIn["c"] or 0) > 0 then -- this is so it only applies once
+			ward = 0
+		end
 		local aegis = {}
 		aegis["shared"] = output["sharedAegis"] or 0
 		aegis["sharedElemental"] = output["sharedElementalAegis"] or 0
@@ -1360,6 +1372,11 @@ function calcs.defence(env, actor)
 			end
 			for _, damageType in ipairs(dmgTypeList) do
 				if Damage[damageType] > 0 then
+					if not permaWard and ward > 0 then
+						local tempDamage = m_min(Damage[damageType], ward)
+						ward = ward - tempDamage
+						Damage[damageType] = Damage[damageType] - tempDamage
+					end
 					--frost sheild goes here in this order when implemented
 					if aegis[damageType] > 0 then
 						local tempDamage = m_min(Damage[damageType], aegis[damageType])
@@ -1408,6 +1425,9 @@ function calcs.defence(env, actor)
 					end
 					life = life - Damage[damageType]
 				end
+			end
+			if not permaWard and ward > 0 then
+				ward = 0
 			end
 			if DamageIn.GainWhenHit and life > 0 then
 				life = m_min(life + DamageIn.LifeWhenHit * itterationMultiplier, output.LifeUnreserved or 0)
