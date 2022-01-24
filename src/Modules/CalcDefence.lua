@@ -459,6 +459,20 @@ function calcs.defence(env, actor)
 		local SpellSuppressionChance = modDB:Sum("BASE", nil, "SpellSuppressionChance")
 		modDB:NewMod("SpellDodgeChance", "BASE", SpellSuppressionChance / 2, "Acrobatics")
 	end
+	
+	local totalSpellSuppressionChance = modDB:Override(nil, "SpellSuppressionChance") or modDB:Sum("BASE", nil, "SpellSuppressionChance")
+	
+	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
+	output.SpellSuppressionEffect = data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect")
+	
+	if env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
+		output.SpellSuppressionChance = output.SpellSuppressionChance / 100 * output.SpellSuppressionChance
+	elseif env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
+		output.SpellSuppressionChance = (1 - (1 - output.SpellSuppressionChance / 100) ^ 2) * 100
+	end
+	
+	output.SpellSuppressionChanceOverCap = m_max(0, totalSpellSuppressionChance - data.misc.SuppressionChanceCap)
+	
 	if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
 		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
 	end
@@ -505,6 +519,7 @@ function calcs.defence(env, actor)
 	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
 	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
 
+	-- Dodge
 	local baseDodgeChance = 0
 	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
 	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
@@ -1428,48 +1443,14 @@ function calcs.defence(env, actor)
 		end
 		output["NumberOfDamagingHits"] = numberOfHitsToDie(DamageIn)
 	end
-	
-	--chance to take reduced damage if hit and number of hits needed to be taken to die becouse of it
-	function chanceSuppressDamage(outputText, outputName, suppressionChance, suppressionEffect)
-		output[outputName] = 100 - (1 - suppressionChance * suppressionEffect / 100 / 100 ) * 100
-		if breakdown then
-			breakdown[outputName] = { }
-			if output.ShowBlockEffect then
-				breakdown.multiChain(breakdown[outputName], {
-					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
-					{ "%d%% Damage taken from suppressed hits", 100 - suppressionEffect },
-					total = s_format("= %d%% ^8(Suppressed damage taken from spells)", 100 - output[outputName]),
-				})
-			else
-				breakdown.multiChain(breakdown[outputName], {
-					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
-					total = s_format("= %d%% ^8(Suppressed damage taken from spells)", 100 - output[outputName]),
-				})
-			end
-		end
-	end
-	
-	-- Spell Suppression
-	local totalSpellSuppressionChance = modDB:Override(nil, "SpellSuppressionChance") or modDB:Sum("BASE", nil, "SpellSuppressionChance")
-	
-	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
-	output.SpellSuppressionEffect = data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect")
-	
-	if env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
-		output.SpellSuppressionChance = output.SpellSuppressionChance / 100 * output.SpellSuppressionChance
-	elseif env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
-		output.SpellSuppressionChance = (1 - (1 - output.SpellSuppressionChance / 100) ^ 2) * 100
-	end
-	
-	output.SpellSuppressionChanceOverCap = m_max(0, totalSpellSuppressionChance - data.misc.SuppressionChanceCap)
-	
-	chanceSuppressDamage("Spell hit", "SpellSuppressionEffectiveChance", output.SpellSuppressionChance, output.SpellSuppressionEffect)
 
 	
 	do --fix this to not just be average, have config for: average, worst of 2 rolls (unlucky), worst of 4 rolls (Very unlucky)
 		local DamageIn = {}
 		local BlockChance = 0
 		local blockEffect = 1
+		local suppressChance = 0
+		local suppressionEffect = output.SpellSuppressionEffect
 		local ExtraAvoidChance = 0
 		local averageAvoidChance = 0
 		local worstOf = env.configInput.EHPUnluckyWorstOf or 1
@@ -1490,6 +1471,21 @@ function calcs.defence(env, actor)
 		DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
 		DamageIn.ManaWhenHit = output.ManaOnBlock * BlockChance
 		DamageIn.EnergyShieldWhenHit = output.EnergyShieldOnBlock * BlockChance
+		--supression
+		if damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" or damageCategoryConfig == "Average" then
+			suppressChance = output.SpellSuppressionChance / 100
+		end
+		--unlucky config to lower the value of block, dodge, evade etc for ehp
+		if worstOf > 1 then
+			suppressChance = suppressChance * suppressChance
+			if worstOf == 4 then
+				suppressChance = suppressChance * suppressChance
+			end
+		end
+		if damageCategoryConfig == "Average" then
+			suppressChance = suppressChance / 2
+		end
+		suppressionEffect = (1 - suppressChance * output.SpellSuppressionEffect / 100)
 		--extra avoid chance
 		if damageCategoryConfig == "Projectile" or damageCategoryConfig == "SpellProjectile" then
 			ExtraAvoidChance = ExtraAvoidChance + output.AvoidProjectilesChance
@@ -1513,17 +1509,20 @@ function calcs.defence(env, actor)
 				end
 			end
 			averageAvoidChance = averageAvoidChance + AvoidChance
-			DamageIn[damageType] = output[damageType.."TakenHit"] * (blockEffect * (1 - AvoidChance / 100))
+			DamageIn[damageType] = output[damageType.."TakenHit"] * (blockEffect * suppressionEffect * (1 - AvoidChance / 100))
 		end
 		output["NumberOfMitigatedDamagingHits"] = numberOfHitsToDie(DamageIn)
 		averageAvoidChance = averageAvoidChance / 5
-		output["ConfiguredDamageChance"] = 100 * (blockEffect * (1 - averageAvoidChance / 100))
+		output["ConfiguredDamageChance"] = 100 * (blockEffect * suppressionEffect * (1 - averageAvoidChance / 100))
 		if breakdown then
 			breakdown["ConfiguredDamageChance"] = {
 				s_format("%.2f ^8(chance for block to fail)", 1 - BlockChance)
 			}	
 			if output.ShowBlockEffect then
 				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.2f ^8(block effect)", output.BlockEffect / 100))
+			end
+			if suppressionEffect > 0 then
+				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.2f ^8(suppression effect)", suppressionEffect))
 			end
 			if averageAvoidChance > 0 then
 				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - averageAvoidChance / 100))

@@ -1601,12 +1601,6 @@ return {
 	},
 	{ label = "# of dmging hits",{ format = "{output:NumberOfDamagingHits}", },
 	}
-}, }, { defaultCollapsed = false, label = "Chance to suppress Damage when Hit", data = {
-	{ label = "Spell Ch.", 
-		{ format = "{1:output:SpellSuppressionEffectiveChance}%", 
-			{ breakdown = "SpellSuppressionEffectiveChance" }, 
-	},
-		}, 
 }, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {
 	extra = "{0:output:TotalEHP}",
 	{ label = "CH. % dmg hit", { format = "{0:output:ConfiguredDamageChance}%", { breakdown = "ConfiguredDamageChance" }, }, },
