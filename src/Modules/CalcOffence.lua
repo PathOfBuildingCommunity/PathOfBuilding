@@ -1453,6 +1453,24 @@ function calcs.offence(env, actor, activeSkill)
 			output.TriggerTime = output.Time
 			output.Speed = 1 / output.Time
 		elseif skillData.triggerRate and skillData.triggered then
+			-- Account for trigger unleash
+			if skillData.triggerUnleash then
+				-- process the source trigger skill to get it's full data
+				local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
+				for _, triggerSkill in ipairs(actor.activeSkillList) do
+					if cacheSkillUUID(triggerSkill) == skillData.triggerSourceUUID then
+						calcs.buildActiveSkill(env, calcMode, triggerSkill)
+						break
+					end
+				end
+				local cachedSourceSkill = GlobalCache.cachedData[calcMode][skillData.triggerSourceUUID]
+				-- if properly processed, get it's dpsMultiplier to increase triggerRate
+				if cachedSourceSkill then
+					skillData.triggerRate = skillData.triggerRate * (cachedSourceSkill.ActiveSkill.skillData.dpsMultiplier or 1)
+				end
+				-- give this activeSkill "HasSeals" flag so Configuration Option for UseMaxUnleash is available
+				activeSkill.skillFlags.HasSeals = true
+			end
 			output.Time = 1 / skillData.triggerRate
 			output.TriggerTime = output.Time
 			output.Speed = skillData.triggerRate
