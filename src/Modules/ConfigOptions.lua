@@ -1327,13 +1327,14 @@ return {
 	{ var = "enemyFireDamage", type = "integer", label = "Enemy Skill Fire Damage:"},
 	{ var = "enemyFirePen", type = "integer", label = "Enemy Skill Fire Pen:"},
 	{ var = "enemyChaosDamage", type = "integer", label = "Enemy Skill Chaos Damage:"},
+	
 	-- Section: Custom mods
 	{ section = "Custom Modifiers", col = 1 },
+	{ var = "customMods", type = "text", label = "", apply = function(val, modList, enemyModList)
 		for line in val:gmatch("([^\n]*)\n?") do
 			local mods, extra = modLib.parseMod(line)
 
 			if mods then
-	{ var = "customMods", type = "text", label = "", apply = function(val, modList, enemyModList)
 				local source = "Custom"
 				for i = 1, #mods do
 					local mod = mods[i]

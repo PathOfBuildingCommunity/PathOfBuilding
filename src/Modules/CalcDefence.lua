@@ -810,6 +810,17 @@ function calcs.defence(env, actor)
 	if breakdown then
 		breakdown.LightRadiusMod = breakdown.mod(modDB, nil, "LightRadius")
 	end
+
+	-- Ailment duration on self	
+	output.SelfFreezeDuration = 100 * modDB:More(nil, "SelfFreezeDuration") * (1 + modDB:Sum("INC", nil, "SelfFreezeDuration") / 100) 
+	output.SelfBlindDuration = 100 * modDB:More(nil, "SelfBlindDuration") * (1 + modDB:Sum("INC", nil, "SelfBlindDuration") / 100)  
+	output.SelfShockDuration = 100 * modDB:More(nil, "SelfShockDuration") * (1 + modDB:Sum("INC", nil, "SelfShockDuration") / 100) 
+	output.SelfChillDuration = 100 * modDB:More(nil, "SelfChillDuration") * (1 + modDB:Sum("INC", nil, "SelfChillDuration") / 100) 
+	output.SelfIgniteDuration = 100 * modDB:More(nil, "SelfIgniteDuration") * (1 + modDB:Sum("INC", nil, "SelfIgniteDuration") / 100) 
+	output.SelfBleedDuration = 100 * modDB:More(nil, "SelfBleedDuration") * (1 + modDB:Sum("INC", nil, "SelfBleedDuration") / 100) 
+	output.SelfPoisonDuration = 100 * modDB:More(nil, "SelfPoisonDuration") * (1 + modDB:Sum("INC", nil, "SelfPoisonDuration") / 100)
+	output.SelfChillEffect = 100 * modDB:More(nil, "SelfChillEffect") * (1 + modDB:Sum("INC", nil, "SelfChillEffect") / 100)
+	output.SelfShockEffect = 100 * modDB:More(nil, "SelfShockEffect") * (1 + modDB:Sum("INC", nil, "SelfShockEffect") / 100)
 	
 	--Enemy damage input and modifications
 	do
@@ -938,17 +949,6 @@ function calcs.defence(env, actor)
 		end
 	end
 
-	-- Ailment duration on self	
-	output.SelfFreezeDuration = 100 * modDB:More(nil, "SelfFreezeDuration") * (1 + modDB:Sum("INC", nil, "SelfFreezeDuration") / 100) 
-	output.SelfBlindDuration = 100 * modDB:More(nil, "SelfBlindDuration") * (1 + modDB:Sum("INC", nil, "SelfBlindDuration") / 100)  
-	output.SelfShockDuration = 100 * modDB:More(nil, "SelfShockDuration") * (1 + modDB:Sum("INC", nil, "SelfShockDuration") / 100) 
-	output.SelfChillDuration = 100 * modDB:More(nil, "SelfChillDuration") * (1 + modDB:Sum("INC", nil, "SelfChillDuration") / 100) 
-	output.SelfIgniteDuration = 100 * modDB:More(nil, "SelfIgniteDuration") * (1 + modDB:Sum("INC", nil, "SelfIgniteDuration") / 100) 
-	output.SelfBleedDuration = 100 * modDB:More(nil, "SelfBleedDuration") * (1 + modDB:Sum("INC", nil, "SelfBleedDuration") / 100) 
-	output.SelfPoisonDuration = 100 * modDB:More(nil, "SelfPoisonDuration") * (1 + modDB:Sum("INC", nil, "SelfPoisonDuration") / 100)
-	output.SelfChillEffect = 100 * modDB:More(nil, "SelfChillEffect") * (1 + modDB:Sum("INC", nil, "SelfChillEffect") / 100)
-	output.SelfShockEffect = 100 * modDB:More(nil, "SelfShockEffect") * (1 + modDB:Sum("INC", nil, "SelfShockEffect") / 100)
-
 	-- Damage taken multipliers/Degen calculations
 	output.AnyTakenReflect = false
 	local damageCategoryConfig = env.configInput.enemyDamageType or "Average"
@@ -967,6 +967,13 @@ function calcs.defence(env, actor)
 				takenMore = takenMore * modDB:More(nil, "ElementalDamageTakenWhenHit")
 			end
 			output[damageType.."TakenHitMult"] = m_max((1 + takenInc / 100) * takenMore, 0)
+			
+			for _, hitType in ipairs(hitSourceList) do
+				local baseTakenIncType = baseTakenInc + modDB:Sum("INC", nil, hitType.."DamageTaken")
+				local baseTakenMoreType = baseTakenMore * modDB:More(nil, hitType.."DamageTaken")
+				output[hitType.."TakenHitMult"] = m_max((1 + baseTakenIncType / 100) * baseTakenMoreType, 0)
+				output[damageType..hitType.."TakenHitMult"] = output[hitType.."TakenHitMult"]
+			end
 			do
 				-- Reflect
 				takenInc = takenInc + modDB:Sum("INC", nil, damageType.."ReflectedDamageTaken")
@@ -1007,7 +1014,7 @@ function calcs.defence(env, actor)
 	end
 
 	-- Incoming hit damage multipliers
-	local doubleArmourChance = (output.DoubleArmourChance == 100 or env.configInput.armourCalculationMode == "MAX") and 1 or env.configInput.armourCalculationMode == "MIN" and 0 or output.DoubleArmourChance / 100
+	local moreArmourChance = (output.MoreArmourChance == 100 or env.configInput.armourCalculationMode == "MAX") and 1 or env.configInput.armourCalculationMode == "MIN" and 0 or output.MoreArmourChance / 100
 	output["totalTakenHit"] = 0
 	if breakdown then
 		breakdown["totalTakenHit"] = { 
@@ -1037,13 +1044,13 @@ function calcs.defence(env, actor)
 			local portionArmour = 100
 			if damageType == "Physical" then
 				if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
-					armourReduct = calcs.armourReductionDouble(output.Armour, damage, doubleArmourChance)
+					armourReduct = calcs.armourReductionDouble(output.Armour, damage, moreArmourChance)
 					resist = m_min(output.DamageReductionMax, resist - enemyPen + armourReduct)
 				end
 				resist = m_max(resist, 0)
 			else
 				portionArmour = 100 - (resist - enemyPen)
-				armourReduct = calcs.armourReductionDouble(output.Armour, damage * portionArmour / 100, doubleArmourChance)
+				armourReduct = calcs.armourReductionDouble(output.Armour, damage * portionArmour / 100, moreArmourChance)
 				resist = resist + m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
 			end
 			output[damageType.."DamageReduction"] = damageType == "Physical" and resist or m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
@@ -1058,6 +1065,13 @@ function calcs.defence(env, actor)
 			end
 		end
 		local takenMult = output[damageType.."TakenHitMult"]
+		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
+			takenMult = output[damageType.."AttackTakenHitMult"]
+		elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" then
+			takenMult = output[damageType.."SpellTakenHitMult"]
+		elseif damageCategoryConfig == "Average" then
+			takenMult = (output[damageType.."SpellTakenHitMult"] + output[damageType.."AttackTakenHitMult"]) / 2
+		end
 		output[damageType.."BaseTakenHitMult"] = (1 - resist / 100) * takenMult
 		local takenMultReflect = output[damageType.."TakenReflect"]
 		local finalReflect = (1 - (resist - enemyPen) / 100) * takenMultReflect
@@ -1074,30 +1088,30 @@ function calcs.defence(env, actor)
 			if enemyPen > 0 then
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("Enemy Pen: %.2f", enemyPen))
 			end
-			t_insert(breakdown[damageType.."TakenHitMult"], s_format("+ Flat: %.2f", takenFlat))
-			t_insert(breakdown[damageType.."TakenHitMult"], s_format("x Taken: %.2f", takenMult))
-			t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.2f", output[damageType.."TakenHitMult"]))
+			t_insert(breakdown[damageType.."TakenHitMult"], s_format("+ Flat: %.3f", takenFlat))
+			t_insert(breakdown[damageType.."TakenHitMult"], s_format("x Taken: %.3f", takenMult))
+			t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.3f", output[damageType.."TakenHitMult"]))
 			breakdown[damageType.."TakenHit"] = {
 				s_format("Final %s Damage taken:", damageType),
 				s_format("%.1f incoming damage", output[damageType.."TakenDamage"]),
-				s_format("x %.2f damage mult", output[damageType.."TakenHitMult"]),
+				s_format("x %.3f damage mult", output[damageType.."TakenHitMult"]),
 				s_format("= %.1f", output[damageType.."TakenHit"]),
 			}
 			t_insert(breakdown["totalTakenHit"].rowList, {
 				type = s_format("%s", damageType),
 				incoming = s_format("%.1f incoming damage", output[damageType.."TakenDamage"]),
-				mult = s_format("x %.2f damage mult", output[damageType.."TakenHitMult"] ),
+				mult = s_format("x %.3f damage mult", output[damageType.."TakenHitMult"] ),
 				value = s_format("%d", output[damageType.."TakenHit"]),
 			})
 			if output.AnyTakenReflect then
 				breakdown[damageType.."TakenReflectMult"] = {
-					s_format("Resistance: %.2f", 1 - resist / 100),
+					s_format("Resistance: %.3f", 1 - resist / 100),
 				}
 				if enemyPen > 0 then
 					t_insert(breakdown[damageType.."TakenReflectMult"], s_format("Enemy Pen: %.2f", enemyPen))
 				end
-				t_insert(breakdown[damageType.."TakenReflectMult"], s_format("Taken: %.2f", takenMultReflect))
-				t_insert(breakdown[damageType.."TakenReflectMult"], s_format("= %.2f", finalReflect))
+				t_insert(breakdown[damageType.."TakenReflectMult"], s_format("Taken: %.3f", takenMultReflect))
+				t_insert(breakdown[damageType.."TakenReflectMult"], s_format("= %.3f", finalReflect))
 			end
 		end
 	end
@@ -1416,6 +1430,42 @@ function calcs.defence(env, actor)
 	end
 	
 	--chance to take reduced damage if hit and number of hits needed to be taken to die becouse of it
+	function chanceSuppressDamage(outputText, outputName, suppressionChance, suppressionEffect)
+		output[outputName] = 100 - (1 - suppressionChance * suppressionEffect / 100 / 100 ) * 100
+		if breakdown then
+			breakdown[outputName] = { }
+			if output.ShowBlockEffect then
+				breakdown.multiChain(breakdown[outputName], {
+					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
+					{ "%d%% Damage taken from suppressed hits", 100 - suppressionEffect },
+					total = s_format("= %d%% ^8(Suppressed damage taken from spells)", 100 - output[outputName]),
+				})
+			else
+				breakdown.multiChain(breakdown[outputName], {
+					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
+					total = s_format("= %d%% ^8(Suppressed damage taken from spells)", 100 - output[outputName]),
+				})
+			end
+		end
+	end
+	
+	-- Spell Suppression
+	local totalSpellSuppressionChance = modDB:Override(nil, "SpellSuppressionChance") or modDB:Sum("BASE", nil, "SpellSuppressionChance")
+	
+	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
+	output.SpellSuppressionEffect = data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect")
+	
+	if env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
+		output.SpellSuppressionChance = output.SpellSuppressionChance / 100 * output.SpellSuppressionChance
+	elseif env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
+		output.SpellSuppressionChance = (1 - (1 - output.SpellSuppressionChance / 100) ^ 2) * 100
+	end
+	
+	output.SpellSuppressionChanceOverCap = m_max(0, totalSpellSuppressionChance - data.misc.SuppressionChanceCap)
+	
+	chanceSuppressDamage("Spell hit", "SpellSuppressionEffectiveChance", output.SpellSuppressionChance, output.SpellSuppressionEffect)
+
+	
 	do --fix this to not just be average, have config for: average, worst of 2 rolls (unlucky), worst of 4 rolls (Very unlucky)
 		local DamageIn = {}
 		local BlockChance = 0
@@ -1691,45 +1741,12 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-
-	chanceSuppressDamage("Spell hit", "SpellSuppressionEffectiveChance", output.SpellSuppressionChance, output.SpellSuppressionEffect)
-
-	output.SpellSuppressionChanceOverCap = m_max(0, totalSpellSuppressionChance - data.misc.SuppressionChanceCap)
-
-	end
-		output.SpellSuppressionChance = (1 - (1 - output.SpellSuppressionChance / 100) ^ 2) * 100
-	elseif env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
-		output.SpellSuppressionChance = output.SpellSuppressionChance / 100 * output.SpellSuppressionChance
-	if env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
-
-	output.SpellSuppressionEffect = data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect")
-	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
-
-	local totalSpellSuppressionChance = modDB:Override(nil, "SpellSuppressionChance") or modDB:Sum("BASE", nil, "SpellSuppressionChance")
-	-- Spell Suppression
-
-	function chanceSuppressDamage(outputText, outputName, suppressionChance, suppressionEffect)
-		output[outputName] = 100 - (1 - suppressionChance * suppressionEffect / 100 / 100 ) * 100
-		if breakdown then
-			breakdown[outputName] = { }
-			if output.ShowBlockEffect then
-				breakdown.multiChain(breakdown[outputName], {
-					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
-					{ "%d%% Damage taken from suppressed hits", 100 - suppressionEffect },
-					total = s_format("= %d%% ^8(Suppressed damage taken from spells)", 100 - output[outputName]),
-				})
-			else
-				breakdown.multiChain(breakdown[outputName], {
-					{ "%.2f ^8(chance for suppression to fail)", 1 - suppressionChance / 100 },
-					total = s_format("= %d%% ^8(Suppressed damage taken from spells)", 100 - output[outputName]),
-				})
-			end
-		end
-	end
-
+	
+	
 	--maximum hit taken
 	-- this is not done yet, using old max hit taken
 	--fix total pools, as they arnt used anymore
+	local damageCategoryConfig = env.configInput.EhpCalcMode or "Average"
 	for _, damageType in ipairs(dmgTypeList) do
 		--base + aegis
 		output[damageType.."TotalHitPool"] = output[damageType.."TotalPool"] + output[damageType.."Aegis"] or 0 + output[damageType.."sharedAegis"] or 0 + isElemental[damageType] and output[damageType.."sharedElementalAegis"] or 0
@@ -1762,6 +1779,15 @@ function calcs.defence(env, actor)
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
 				local hitTaken = output[damageConvertedType.."TotalHitPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageConvertedType.."BaseTakenHitMult"]
+				if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
+					hitTaken = hitTaken * (1 / output.AttackTakenHitMult)
+				end
+				if damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" then
+					hitTaken = hitTaken * (1 / output.SpellTakenHitMult)
+				end
+				if damageCategoryConfig == "Average" then
+					hitTaken = hitTaken * (1 / ((output.SpellTakenHitMult + output.AttackTakenHitMult) / 2))
+				end
 				if hitTaken < output[damageType.."MaximumHitTaken"] then
 					output[damageType.."MaximumHitTaken"] = hitTaken
 				end
