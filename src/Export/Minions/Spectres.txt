@@ -194,3 +194,17 @@ local minions, mod = ...
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__
 -- Flickershade
 #spectre Metadata/Monsters/Maligaro/SecretDesecrateMonster
+-- Trail Galecaller
+#spectre Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre
+-- Hyrri's Watch
+#spectre Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre
+-- Demon Harpy
+#spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre
+-- Pale Angel
+#spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectre
+-- Demon Herder
+#spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spectre
+-- Pale Seraphim
+#spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre
+-- Ravenous Mishapen
+#spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre

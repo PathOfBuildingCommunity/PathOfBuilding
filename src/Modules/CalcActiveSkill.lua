@@ -93,7 +93,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	-- Initialise skill flag set ('attack', 'projectile', etc)
 	local skillFlags = copyTable(activeGrantedEffect.baseFlags)
 	activeSkill.skillFlags = skillFlags
-	skillFlags.hit = skillFlags.hit or activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Hit] or activeSkill.skillTypes[SkillType.Projectile]
+	skillFlags.hit = skillFlags.hit or activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Damage] or activeSkill.skillTypes[SkillType.Projectile]
 
 	-- Process support skills
 	activeSkill.effectList = { activeEffect }
@@ -145,9 +145,13 @@ local function getWeaponFlags(env, weaponData, weaponTypes)
 	if not info then
 		return
 	end
-	if weaponTypes and not weaponTypes[weaponData.type] and 
-		(not weaponData.countsAsAll1H or not (weaponTypes["Claw"] or weaponTypes["Dagger"] or weaponTypes["One Handed Axe"] or weaponTypes["One Handed Mace"] or weaponTypes["One Handed Sword"])) then
-		return nil, info
+	if weaponTypes then
+		for _, types in ipairs(weaponTypes) do
+			if not types[weaponData.type] and
+			(not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"])) then
+				return nil, info
+			end
+		end
 	end
 	local flags = ModFlag[info.flag]
 	if weaponData.countsAsAll1H then
@@ -210,7 +214,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		skillFlags.multiPart = #activeGemParts > 1
 	end
 
-	if (skillTypes[SkillType.Shield] or skillFlags.shieldAttack) and not activeSkill.summonSkill and (not activeSkill.actor.itemList["Weapon 2"] or activeSkill.actor.itemList["Weapon 2"].type ~= "Shield") then
+	if (skillTypes[SkillType.RequiresShield] or skillFlags.shieldAttack) and not activeSkill.summonSkill and (not activeSkill.actor.itemList["Weapon 2"] or activeSkill.actor.itemList["Weapon 2"].type ~= "Shield") then
 		-- Skill requires a shield to be equipped
 		skillFlags.disable = true
 		activeSkill.disableReason = "This skill requires a Shield"
@@ -220,23 +224,30 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		-- Special handling for Spectral Shield Throw
 		skillFlags.weapon2Attack = true
 		activeSkill.weapon2Flags = 0
-	elseif skillFlags.attack then
+	else
 		-- Set weapon flags
-		local weaponTypes = activeGrantedEffect.weaponTypes
+		local weaponTypes = { activeGrantedEffect.weaponTypes }
+		for _, skillEffect in pairs(activeSkill.effectList) do
+			if skillEffect.grantedEffect.support and skillEffect.grantedEffect.weaponTypes then
+				t_insert(weaponTypes, skillEffect.grantedEffect.weaponTypes)
+			end
+		end
 		local weapon1Flags, weapon1Info = getWeaponFlags(env, activeSkill.actor.weaponData1, weaponTypes)
 		if not weapon1Flags and activeSkill.summonSkill then
 			-- Minion skills seem to ignore weapon types
 			weapon1Flags, weapon1Info = ModFlag[env.data.weaponTypeInfo["None"].flag], env.data.weaponTypeInfo["None"]
 		end
 		if weapon1Flags then
-			activeSkill.weapon1Flags = weapon1Flags
-			skillFlags.weapon1Attack = true
-			if weapon1Info.melee and skillFlags.melee then
-				skillFlags.projectile = nil
-			elseif not weapon1Info.melee and skillFlags.projectile then
-				skillFlags.melee = nil
+			if skillFlags.attack then
+				activeSkill.weapon1Flags = weapon1Flags
+				skillFlags.weapon1Attack = true
+				if weapon1Info.melee and skillFlags.melee then
+					skillFlags.projectile = nil
+				elseif not weapon1Info.melee and skillFlags.projectile then
+					skillFlags.melee = nil
+				end
 			end
-		elseif skillTypes[SkillType.DualWield] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand or weapon1Info then
+		elseif skillTypes[SkillType.DualWieldOnly] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand or weapon1Info then
 			-- Skill requires a compatible main hand weapon
 			skillFlags.disable = true
 			activeSkill.disableReason = "Main Hand weapon is not usable with this skill"
@@ -244,19 +255,22 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		if not skillTypes[SkillType.MainHandOnly] and not skillFlags.forceMainHand then
 			local weapon2Flags, weapon2Info = getWeaponFlags(env, activeSkill.actor.weaponData2, weaponTypes)
 			if weapon2Flags then
-				activeSkill.weapon2Flags = weapon2Flags
-				skillFlags.weapon2Attack = true
-			elseif skillTypes[SkillType.DualWield] or weapon2Info then
+				if skillFlags.attack then
+					activeSkill.weapon2Flags = weapon2Flags
+					skillFlags.weapon2Attack = true
+				end
+			elseif skillTypes[SkillType.DualWieldOnly] or weapon2Info then
 				-- Skill requires a compatible off hand weapon
 				skillFlags.disable = true
 				activeSkill.disableReason = activeSkill.disableReason or "Off Hand weapon is not usable with this skill"
-			elseif not skillFlags.weapon1Attack then
+			elseif skillFlags.disable then
 				-- Neither weapon is compatible
-				skillFlags.disable = true
 				activeSkill.disableReason = "No usable weapon equipped"
 			end
 		end
-		skillFlags.bothWeaponAttack = skillFlags.weapon1Attack and skillFlags.weapon2Attack
+		if skillFlags.attack then
+			skillFlags.bothWeaponAttack = skillFlags.weapon1Attack and skillFlags.weapon2Attack
+		end
 	end
 
 	-- Build skill mod flag set
@@ -296,22 +310,22 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if skillTypes[SkillType.Warcry] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Warcry)
 	end
-	if skillTypes[SkillType.MovementSkill] then
+	if skillTypes[SkillType.Movement] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Movement)
 	end
 	if skillTypes[SkillType.Vaal] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Vaal)
 	end
-	if skillTypes[SkillType.LightningSkill] then
+	if skillTypes[SkillType.Lightning] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Lightning)
 	end
-	if skillTypes[SkillType.ColdSkill] then
+	if skillTypes[SkillType.Cold] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Cold)
 	end
-	if skillTypes[SkillType.FireSkill] then
+	if skillTypes[SkillType.Fire] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Fire)
 	end
-	if skillTypes[SkillType.ChaosSkill] then
+	if skillTypes[SkillType.Chaos] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Chaos)
 	end
 	if skillFlags.weapon1Attack and band(activeSkill.weapon1Flags, ModFlag.Bow) ~= 0 then
@@ -437,6 +451,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if level.damageMultiplier then
 		skillModList:NewMod("Damage", "MORE", level.damageMultiplier, activeEffect.grantedEffect.modSource, ModFlag.Attack)
 	end
+	if level.attackTime then
+		activeSkill.skillData.attackTime = level.attackTime
+	end
 	if level.attackSpeedMultiplier then
 		skillModList:NewMod("Speed", "MORE", level.attackSpeedMultiplier, activeEffect.grantedEffect.modSource, ModFlag.Attack)
 	end
@@ -461,6 +478,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeSkill.activeMineCount = (env.mode == "CALCS" and activeEffect.srcInstance.skillMineCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillMineCount)
 		if activeSkill.activeMineCount and activeSkill.activeMineCount > 0 then
 			skillModList:NewMod("Multiplier:ActiveMineCount", "BASE", activeSkill.activeMineCount, "Base")
+			env.enemy.modDB.multipliers["ActiveMineCount"] = m_max(activeSkill.activeMineCount or 0, env.enemy.modDB.multipliers["ActiveMineCount"] or 0)
 		end
 	end
 	

@@ -64,7 +64,7 @@ function main:Init()
 	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
 		self.allowTreeDownload = true
 	end
-	
+
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
 
@@ -160,7 +160,7 @@ function main:Init()
 	end
 	self.controls.versionLabel = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 148, -2, 0, 16, "")
 	self.controls.versionLabel.label = function()
-		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or "")
+		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or launch.versionBranch == "beta" and " (Beta)" or "")
 	end
 	self.controls.devMode = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -26, 0, 20, "^1Dev Mode")
 	self.controls.devMode.shown = function()
@@ -211,8 +211,10 @@ end
 
 function main:LoadTree(treeVersion)
 	if self.tree[treeVersion] then
+		data.setJewelRadiiGlobally(treeVersion)
 		return self.tree[treeVersion]
 	elseif isValueInTable(treeVersionList, treeVersion) then
+		data.setJewelRadiiGlobally(treeVersion)
 		--ConPrintf("[main:LoadTree] - Lazy Loading Tree " .. treeVersion)
 		self.tree[treeVersion] = new("PassiveTree", treeVersion)
 		return self.tree[treeVersion]
@@ -344,7 +346,7 @@ function main:OnFrame()
 		DrawString(cursorX + 1, cursorY - 7, "LEFT", 16, "VAR", self.showDragText)
 		self.showDragText = nil
 	end
-	
+
 	--[[local par = 300
 	for x = 0, 750 do
 		for y = 0, 750 do
@@ -516,6 +518,15 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.showTitlebarName then
 					self.showTitlebarName = node.attrib.showTitlebarName == "true"
 				end
+				if node.attrib.betaTest then
+					self.betaTest = node.attrib.betaTest == "true"
+				end
+				if node.attrib.defaultGemQuality then
+					self.defaultGemQuality = m_min(tonumber(node.attrib.defaultGemQuality) or 0, 23)
+				end
+				if node.attrib.defaultCharLevel then
+					self.defaultCharLevel = m_min(tonumber(node.attrib.defaultCharLevel) or 1, 100)
+				end
 			end
 		end
 	end
@@ -553,15 +564,18 @@ function main:SaveSettings()
 		t_insert(sharedItemList, set)
 	end
 	t_insert(setXML, sharedItemList)
-	t_insert(setXML, { elem = "Misc", attrib = { 
-		buildSortMode = self.buildSortMode, 
-		proxyURL = launch.proxyURL, 
+	t_insert(setXML, { elem = "Misc", attrib = {
+		buildSortMode = self.buildSortMode,
+		proxyURL = launch.proxyURL,
 		buildPath = (self.buildPath ~= self.defaultBuildPath and self.buildPath or nil),
 		nodePowerTheme = self.nodePowerTheme,
 		showThousandsSeparators = tostring(self.showThousandsSeparators),
 		thousandsSeparator = self.thousandsSeparator,
 		decimalSeparator = self.decimalSeparator,
 		showTitlebarName = tostring(self.showTitlebarName),
+		betaTest = tostring(self.betaTest),
+		defaultGemQuality = tostring(self.defaultGemQuality or 0),
+		defaultCharLevel = tostring(self.defaultCharLevel or 1),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -572,60 +586,129 @@ end
 
 function main:OpenOptionsPopup()
 	local controls = { }
-	controls.proxyType = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 20, 80, 18, {
+
+	local currentY = 20
+	local popupWidth = 600
+
+	-- local func to make a new line with a heightModifier
+	local function nextRow(heightModifier)
+		local pxPerLine = 26
+		heightModifier = heightModifier or 1
+		currentY = currentY + heightModifier * pxPerLine
+	end
+
+	-- local func to make a new section header
+	local function drawSectionHeader(id, title)
+		local headerBGColor ={ .2, .2, .2}
+		controls["section-"..id .. "-bg"] = new("HorizontalLineControl", { "TOPLEFT", nil, "TOPLEFT" }, 2, currentY, popupWidth - 4, 24, headerBGColor)
+		nextRow(.2)
+		controls["section-"..id .. "-label"] = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, popupWidth / 2 - 60, currentY, 0, 16, "^7" .. title)
+		nextRow(1.5)
+	end
+
+	local defaultLabelSpacingPx = -4
+	local defaultLabelPlacementX = 240
+
+
+
+	drawSectionHeader("app", "Application options")
+
+    controls.proxyType = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 80, 18, {
 		{ label = "HTTP", scheme = "http" },
 		{ label = "SOCKS", scheme = "socks5" },
 		{ label = "SOCKS5H", scheme = "socks5h" },
 	})
-	controls.proxyLabel = new("LabelControl", {"RIGHT",controls.proxyType,"LEFT"}, -4, 0, 0, 16, "^7Proxy server:")
+	controls.proxyLabel = new("LabelControl", {"RIGHT",controls.proxyType,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Proxy server:")
 	controls.proxyURL = new("EditControl", {"LEFT",controls.proxyType,"RIGHT"}, 4, 0, 206, 18)
+
 	if launch.proxyURL then
 		local scheme, url = launch.proxyURL:match("(%w+)://(.+)")
 		controls.proxyType:SelByValue(scheme, "scheme")
 		controls.proxyURL:SetText(url)
 	end
-	controls.buildPath = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 44, 290, 18)
-	controls.buildPathLabel = new("LabelControl", {"RIGHT",controls.buildPath,"LEFT"}, -4, 0, 0, 16, "^7Build save path:")
+
+	nextRow()
+    controls.buildPath = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 290, 18)
+	controls.buildPathLabel = new("LabelControl", {"RIGHT",controls.buildPath,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Build save path:")
 	if self.buildPath ~= self.defaultBuildPath then
 		controls.buildPath:SetText(self.buildPath)
 	end
 	controls.buildPath.tooltipText = "Overrides the default save location for builds.\nThe default location is: '"..self.defaultBuildPath.."'"
-	controls.nodePowerTheme = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 150, 68, 100, 18, {
+
+    nextRow()
+	controls.nodePowerTheme = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 100, 18, {
 		{ label = "Red & Blue", theme = "RED/BLUE" },
 		{ label = "Red & Green", theme = "RED/GREEN" },
 		{ label = "Green & Blue", theme = "GREEN/BLUE" },
 	}, function(index, value)
 		self.nodePowerTheme = value.theme
 	end)
-	controls.nodePowerThemeLabel = new("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, -4, 0, 0, 16, "^7Node Power colours:")
+	controls.nodePowerThemeLabel = new("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
-	controls.separatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 94, 0, 16, "^7Show thousands separators:")
-	controls.thousandsSeparators = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 92, 20, nil, function(state)
-		self.showThousandsSeparators = state
-	end)
-	controls.thousandsSeparators.state = self.showThousandsSeparators
 
-	controls.thousandsSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 116, 20, 20, self.thousandsSeparator, nil, "%%^", 1, function(buf)
+
+	nextRow()
+	controls.betaTest = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "Opt-in to weekly beta test builds:", function(state)
+		self.betaTest = state
+	end)
+
+	nextRow()
+	drawSectionHeader("build", "Build-related options")
+
+
+	controls.showThousandsSeparators = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show thousands separators:", function(state)
+    self.showThousandsSeparators = state
+	end)
+	controls.showThousandsSeparators.state = self.showThousandsSeparators
+
+    nextRow()
+    controls.thousandsSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 30, 20, self.thousandsSeparator, nil, "%%^", 1, function(buf)
 		self.thousandsSeparator = buf
 	end)
-	controls.thousandsSeparatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 116, 92, 16, "Thousands Separator:")
+	controls.thousandsSeparatorLabel = new("LabelControl",  {"RIGHT",controls.thousandsSeparator,"LEFT"}, defaultLabelSpacingPx, 0, 92, 16, "^7Thousands separator:")
 
-	controls.decimalSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 280, 138, 20, 20, self.decimalSeparator, nil, "%%^", 1, function(buf)
+    nextRow()
+    controls.decimalSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 30, 20, self.decimalSeparator, nil, "%%^", 1, function(buf)
 		self.decimalSeparator = buf
 	end)
-	controls.decimalSeparatorLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 210, 138, 92, 16, "Decimal Separator:")
+	controls.decimalSeparatorLabel = new("LabelControl", {"RIGHT",controls.decimalSeparator,"LEFT"}, defaultLabelSpacingPx, 0, 92, 16, "^7Decimal separator:")
 
-	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, 230, 160, 20, "Show build name in window title:", function(state)
+    nextRow()
+	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show build name in window title:", function(state)
 		self.showTitlebarName = state
 	end)
+
+    nextRow()
+	controls.defaultGemQuality = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 60, 20, self.defaultGemQuality, nil, "%D", 2, function(gemQuality)
+		self.defaultGemQuality = m_min(tonumber(gemQuality) or 0, 23)
+	end)
+	controls.defaultGemQuality.tooltipText="Set the default quality that can be overwritten by build-related quality settings in the skill panel."
+	controls.defaultGemQualityLabel = new("LabelControl", {"RIGHT",controls.defaultGemQuality,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Default gem quality:")
+
+
+    nextRow()
+	controls.defaultCharLevel = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 80, 20, self.defaultCharLevel, nil, "%D", 3, function(charLevel)
+		self.defaultCharLevel = m_min(tonumber(charLevel) or 1, 100)
+	end)
+	controls.defaultCharLevel.tooltipText="Set the default char level that can be overwritten by build-related level settings."
+	controls.defaultCharLevelLabel = new("LabelControl", {"RIGHT",controls.defaultCharLevel,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Default character level:")
+
+	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
 	local initialThousandsSeparator = self.thousandsSeparator
 	local initialDecimalSeparator = self.decimalSeparator
-	controls.save = new("ButtonControl", nil, -45, 182, 80, 20, "Save", function()
+	local initialBetaTest = self.betaTest
+	local initialDefaultGemQuality = self.defaultGemQuality or 0
+	local initialDefaultCharLevel = self.defaultCharLevel or 1
+
+    -- last line with buttons has more spacing
+    nextRow(1.5)
+
+    controls.save = new("ButtonControl", nil, -45, currentY, 80, 20, "Save", function()
 		if controls.proxyURL.buf:match("%w") then
 			launch.proxyURL = controls.proxyType.list[controls.proxyType.selIndex].scheme .. "://" .. controls.proxyURL.buf
 		else
@@ -642,17 +725,42 @@ function main:OpenOptionsPopup()
 		if self.mode == "LIST" then
 			self.modes.LIST:BuildList()
 		end
+		main:SetManifestBranch(self.betaTest and "beta" or "master")
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 182, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, currentY, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
 		self.showThousandsSeparators = initialThousandsSeparatorDisplay
 		self.thousandsSeparator = initialThousandsSeparator
 		self.decimalSeparator = initialDecimalSeparator
 		self.showTitlebarName = initialTitlebarName
+		self.betaTest = initialBetaTest
+		self.defaultGemQuality = initialDefaultGemQuality
+		self.defaultCharLevel = initialDefaultCharLevel
 		main:ClosePopup()
 	end)
-	self:OpenPopup(450, 218, "Options", controls, "save", nil, "cancel")
+    nextRow(1.5)
+	self:OpenPopup(popupWidth, currentY, "Options", controls, "save", nil, "cancel")
+end
+
+function main:SetManifestBranch(branchName)
+	local xml = require("xml")
+	local manifestLocation = "manifest.xml"
+	local localManXML = xml.LoadXMLFile(manifestLocation)
+	if not localManXML then
+		manifestLocation = "../manifest.xml"
+		xml.LoadXMLFile(manifestLocation)
+	end
+	if localManXML and localManXML[1].elem == "PoBVersion" then
+		for _, node in ipairs(localManXML[1]) do
+			if type(node) == "table" then
+				if node.elem == "Version" then
+					node.attrib.branch = branchName
+				end
+			end
+		end
+	end
+	xml.SaveXMLFile(localManXML[1], manifestLocation)
 end
 
 function main:OpenUpdatePopup()
@@ -718,7 +826,11 @@ end
 function main:DrawBackground(viewPort)
 	SetDrawLayer(nil, -100)
 	SetDrawColor(0.5, 0.5, 0.5)
-	DrawImage(self.tree[latestTreeVersion].assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
+	if self.tree[latestTreeVersion].assets.Background2 then
+		DrawImage(self.tree[latestTreeVersion].assets.Background2.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
+	else
+		DrawImage(self.tree[latestTreeVersion].assets.Background1.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
+	end
 	SetDrawLayer(nil, 0)
 end
 
@@ -827,7 +939,7 @@ function main:MoveFolder(name, srcPath, dstPath)
 	end
 
 	-- Move files
-	handle = NewFileSearch(srcPath..name.."/*") 
+	handle = NewFileSearch(srcPath..name.."/*")
 	while handle do
 		local fileName = handle:GetFileName()
 		local srcName = srcPath..name.."/"..fileName
@@ -839,7 +951,7 @@ function main:MoveFolder(name, srcPath, dstPath)
 		end
 		if not handle:NextFile() then
 			break
-		end		
+		end
 	end
 
 	-- Remove source folder
@@ -869,7 +981,7 @@ function main:CopyFolder(srcName, dstName)
 	end
 
 	-- Copy files
-	handle = NewFileSearch(srcName.."/*") 
+	handle = NewFileSearch(srcName.."/*")
 	while handle do
 		local fileName = handle:GetFileName()
 		local srcName = srcName.."/"..fileName
@@ -881,7 +993,7 @@ function main:CopyFolder(srcName, dstName)
 		end
 		if not handle:NextFile() then
 			break
-		end		
+		end
 	end
 end
 
@@ -951,7 +1063,7 @@ function main:OpenNewFolderPopup(path, onClose)
 		end
 		main:ClosePopup()
 	end)
-	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")	
+	main:OpenPopup(370, 100, "New Folder", controls, "create", "edit", "cancel")
 end
 
 function main:SetWindowTitleSubtext(subtext)

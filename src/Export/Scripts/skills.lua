@@ -2,65 +2,65 @@ local skillTypes = {
 	"Attack",
 	"Spell",
 	"Projectile",
-	"DualWield",
+	"DualWieldOnly",
 	"Buff",
 	"Minion",
-	"Hit",
+	"Damage",
 	"Area",
 	"Duration",
-	"Shield",
-	"ProjectileDamage",
-	"ManaCostReserved",
-	"ManaCostPercent",
-	"SkillCanTrap",
-	"SkillCanTotem",
-	"SkillCanMine",
-	"CauseElementalStatus",
-	"CreateMinion",
-	"Chaining",
+	"RequiresShield",
+	"ProjectileSpeed",
+	"HasReservation",
+	"ReservationBecomesCost",
+	"Trappable",
+	"Totemable",
+	"Mineable",
+	"ElementalStatus",
+	"MinionsCanExplode",
+	"Chains",
 	"Melee",
 	"MeleeSingleTarget",
-	"SpellCanRepeat",
-	"Type27",
-	"AttackCanRepeat",
+	"Multicastable",
+	"TotemCastsAlone",
+	"Multistrikeable",
 	"CausesBurning",
-	"Totem",
-	"DamageCannotBeReflected",
-	"PhysicalSkill",
-	"FireSkill",
-	"ColdSkill",
-	"LightningSkill",
+	"SummonsTotem",
+	"TotemCastsWhenNotDetached",
+	"Physical",
+	"Fire",
+	"Cold",
+	"Lightning",
 	"Triggerable",
-	"Trap",
-	"MovementSkill",
+	"Trapped",
+	"Movement",
 	"DamageOverTime",
-	"Mine",
+	"RemoteMined",
 	"Triggered",
 	"Vaal",
 	"Aura",
-	"Type46",
-	"ProjectileAttack",
-	"ChaosSkill",
-	"Type51",
-	"Type53",
-	"MinionProjectile",
-	"Type55",
-	"AnimateWeapon",
-	"Channelled",
-	"Type59",
-	"TriggeredGrantedSkill",
+	"CanTargetUnusableCorpse",
+	"RangedAttack",
+	"Chaos",
+	"FixedSpeedProjectile",
+	"ThresholdJewelArea",
+	"ThresholdJewelProjectile",
+	"ThresholdJewelDuration",
+	"ThresholdJewelRangedAttack",
+	"Channel",
+	"DegenOnlySpellDamage",
+	"InbuiltTrigger",
 	"Golem",
 	"Herald",
-	"AuraDebuff",
-	"Type65",
-	"Type66",
-	"SpellCanCascade",
-	"SkillCanVolley",
-	"SkillCanMirageArcher",
-	"LaunchesSeriesOfProjectiles",
-	"Type71",
-	"Type72",
-	"Type73",
+	"AuraAffectsEnemies",
+	"NoRuthless",
+	"ThresholdJewelSpellDamage",
+	"Cascadable",
+	"ProjectilesFromUser",
+	"MirageArcherCanUse",
+	"ProjectileSpiral",
+	"SingleMainProjectile",
+	"MinionsPersistWhenSkillRemoved",
+	"ProjectileNumber",
 	"Warcry",
 	"Instant",
 	"Brand",
@@ -74,36 +74,42 @@ local skillTypes = {
 	"OR",
 	"AND",
 	"NOT",
-	"Maims",
+	"AppliesMaim",
 	"CreatesMinion",
-	"GuardSkill",
-	"TravelSkill",
-	"BlinkSkill",
+	"Guard",
+	"Travel",
+	"Blink",
 	"CanHaveBlessing",
-	"FiresProjectilesFromSecondaryLocation",
-	"Ballista",
-	"NovaSpell",
-	"Type91",
-	"Type92",
-	"CanDetonate",
+	"ProjectilesNotFromUser",
+	"AttackInPlaceIsDefault",
+	"Nova",
+	"InstantNoRepeatWhenHeld",
+	"InstantShiftAttackForLeftMouse",
+	"AuraNotOnCaster",
 	"Banner",
-	"FiresArrowsAtTargetLocation",
-	"SecondWindSupport",
-	"Type97",
-	"SlamSkill",
-	"StanceSkill",
-	"CreatesMirageWarrior",
-	"UsesSupportedTriggerSkill",
-	"SteelSkill",
+	"Rain",
+	"Cooldown",
+	"ThresholdJewelChaining",
+	"Slam",
+	"Stance",
+	"NonRepeatable",
+	"OtherThingUsesSkill",
+	"Steel",
 	"Hex",
 	"Mark",
 	"Aegis",
 	"Orb",
-	"Type112",
+	"KillNoDamageModifiers",
+	"RandomElement",
+	"LateConsumeCooldown",
+	"Arcane",
+	"FixedCastTime",
+	"RequiresOffHandNotWeapon",
+	"Link",
 }
 
 local function mapAST(ast)
-	return "SkillType."..(skillTypes[ast] or ("Unknown"..ast))
+	return "SkillType."..(skillTypes[ast._rowIndex] or ("Unknown"..ast._rowIndex))
 end
 
 local weaponClassMap = {
@@ -115,6 +121,7 @@ local weaponClassMap = {
 	["One Hand Axe"] = "One Handed Axe",
 	["One Hand Mace"] = "One Handed Mace",
 	["Bow"] = "Bow",
+	["Fishing Rod"] = "Fishing Rod",
 	["Staff"] = "Staff",
 	["Two Hand Sword"] = "Two Handed Sword",
 	["Two Hand Axe"] = "Two Handed Axe",
@@ -216,6 +223,19 @@ directiveTable.skill = function(state, args, out)
 		if granted.PlusVersionOf then
 			out:write('\tplusVersionOf = "', granted.PlusVersionOf.Id, '",\n')
 		end
+		local weaponTypes = { }
+		for _, class in ipairs(granted.WeaponRestrictions) do
+			if weaponClassMap[class.Id] then
+				weaponTypes[weaponClassMap[class.Id]] = true
+			end
+		end
+		if next(weaponTypes) then
+			out:write('\tweaponTypes = {\n')
+			for type in pairs(weaponTypes) do
+				out:write('\t\t["', type, '"] = true,\n')
+			end
+			out:write('\t},\n')
+		end
 		out:write('\tstatDescriptionScope = "gem_stat_descriptions",\n')
 	else
 		if #granted.ActiveSkill.Description > 0 then
@@ -283,11 +303,17 @@ directiveTable.skill = function(state, args, out)
 		if levelRow.SpellCritChance ~= 0 then
 			level.extra.critChance = levelRow.SpellCritChance / 100
 		end
+		if levelRow.OffhandCritChance ~= 0 then
+			level.extra.critChance = levelRow.OffhandCritChance / 100
+		end
 		if levelRow.DamageMultiplier and levelRow.DamageMultiplier ~= 0 then
 			level.extra.baseMultiplier = levelRow.DamageMultiplier / 10000 + 1
 		end
 		if levelRow.AttackSpeedMultiplier and levelRow.AttackSpeedMultiplier ~= 0 then
 			level.extra.attackSpeedMultiplier = levelRow.AttackSpeedMultiplier
+		end
+		if levelRow.AttackTime ~= 0 then
+			level.extra.attackTime = levelRow.AttackTime
 		end
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
 			level.extra.cooldown = levelRow.Cooldown / 1000

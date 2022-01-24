@@ -444,6 +444,18 @@ function isValueInArray(tbl, val)
 	end
 end
 
+---Returns the array index of the first element for which the predicate evaluates to true
+---@param table table
+---@param predicate fun(value:any):any
+---@return number
+function isValueInArrayPred(table, predicate)
+	for i, v in ipairs(table) do
+		if predicate(v) then
+			return i
+		end
+	end
+end
+
 -- Pretty-prints a table
 function prettyPrintTable(tbl, pre)
 	pre = pre or ""
@@ -512,6 +524,19 @@ function round(val, dec)
 		return m_floor(val * 10 ^ dec + 0.5) / 10 ^ dec
 	else
 		return m_floor(val + 0.5)
+	end
+end
+
+--- Rounds down a number to the nearest <dec> decimal places
+---@param val number
+---@param dec number
+---@return number
+function floor(val, dec)
+	if dec then
+		local mult = 10 ^ dec
+		return m_floor(val * mult + 0.0001) / mult
+	else
+		return m_floor(val)
 	end
 end
 

@@ -51,6 +51,7 @@ minions["SummonedChaosGolem"] = {
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
 	},
 }
 
@@ -77,6 +78,7 @@ minions["SummonedFlameGolem"] = {
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
 		-- MonsterSpeedAndDamageFixupLarge [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 22]
+		-- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
 	},
 }
 
@@ -101,6 +103,7 @@ minions["SummonedIceGolem"] = {
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
 	},
 }
 
@@ -127,6 +130,7 @@ minions["SummonedLightningGolem"] = {
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
 		-- MonsterSpeedAndDamageFixupLarge [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 22]
+		-- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
 	},
 }
 
@@ -148,9 +152,10 @@ minions["SummonedStoneGolem"] = {
 	skillList = {
 		"Melee",
 		"RockGolemSlam",
-		"RockGolemWhirlingBlades",
+		"RockGolemMinionWhirlingBlades",
 	},
 	modList = {
+		-- SummonedGolemLifeRegenerationStone [life_regeneration_rate_per_minute_% = 120]
 	},
 }
 
@@ -171,11 +176,12 @@ minions["SummonedRagingSpirit"] = {
 		"Melee",
 	},
 	modList = {
-		mod("PhysicalDamageConvertToFire", "BASE", 50), -- MonsterSummonedElementalFire [base_physical_damage_%_to_convert_to_fire = 50]
+		-- RagingSpiritConvertPhysToFire [base_physical_damage_%_to_convert_to_fire = 100]
 		mod("PhysicalMin", "BASE", 4, ModFlag.Attack), -- RagingSpiritAddedPhys [attack_minimum_added_physical_damage = 4] [attack_maximum_added_physical_damage = 5]
 		mod("PhysicalMax", "BASE", 5, ModFlag.Attack), -- RagingSpiritAddedPhys [attack_minimum_added_physical_damage = 4] [attack_maximum_added_physical_damage = 5]
 		-- CannotGainAfflictedMods [cannot_have_affliction_mods = 1]
 		mod("Speed", "MORE", 40, ModFlag.Attack), -- MonsterSummonedSkullFastAttack1 [active_skill_attack_speed_+%_final = 40]
+		mod("SkillPhysicalDamageConvertToFire", "BASE", 100),
 	},
 }
 
@@ -470,7 +476,7 @@ minions["HeraldOfAgonySpiderPlated"] = {
 
 minions["AxisEliteSoldierHeraldOfLight"] = {
 	name = "Sentinel of Purity",
-	life = 5.6,
+	life = 3.4,
 	armour = 0.5,
 	fireResist = 40,
 	coldResist = 40,
@@ -542,6 +548,30 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	},
 }
 
+minions["AbsolutionTemplarJudge"] = {
+	name = "Sentinel of Absolution",
+	life = 4,
+	energyShield = 0.2,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.8,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	skillList = {
+		"Melee",
+		"AbsolutionMinion",
+		"AbsolutionMinionEmpowered",
+	},
+	modList = {
+	},
+}
+
 minions["RhoaUniqueSummoned"] = {
 	name = "Summoned Rhoa",
 	life = 7.5,
@@ -553,11 +583,11 @@ minions["RhoaUniqueSummoned"] = {
 	damage = 3.42,
 	damageSpread = 0.2,
 	attackTime = 0.93,
-	attackRange = 12,
+	attackRange = 14,
 	accuracy = 3.4,
 	limit = "ActiveBeastMinionLimit",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeedUnique",
 		"SummonedRhoaShieldCharge",
 	},
 	modList = {
@@ -597,15 +627,15 @@ minions["DropBearUniqueSummoned"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 2.55,
+	damage = 2.81,
 	damageSpread = 0.2,
 	attackTime = 1.1,
-	attackRange = 6,
+	attackRange = 10,
 	accuracy = 3.4,
 	weaponType1 = "One Handed Mace",
 	limit = "ActiveBeastMinionLimit",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeedUnique",
 		"DropBearSummonedGroundSlam",
 		"DropBearSummonedRallyingCry",
 	},
@@ -635,6 +665,7 @@ minions["SummonedCarrionGolem"] = {
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
 	},
 }
 
@@ -674,6 +705,41 @@ minions["SkitterbotLightning"] = {
 	skillList = {
 		"SkitterbotDetonateMines",
 		"SkitterbotWait",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+	},
+}
+
+minions["SummonedReaper"] = {
+	name = "Reaper",
+	life = 3,
+	armour = 1,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.4,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 3.4,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "One Handed Sword",
+	skillList = {
+		"ReaperConsumeMinionForHeal",
+		"ReaperConsumeMinionForBuff",
+		"SummonedReaperMelee",
+		"SummonedReaperDash",
+		"SummonedReaperUltimate",
+		"GASummonReaperUltimateLeftSlash",
+		"GASummonReaperUltimateRightSlash",
+		"EAASummonedReaperComboAttack",
+		"GASummonReaperComboWhirl",
+		"GASummonReaperComboLeftSlash",
+		"GASummonReaperComboRightSlash",
+		"GASummonReaperDashImpactSlash",
+		"GASummonReaperDash",
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]

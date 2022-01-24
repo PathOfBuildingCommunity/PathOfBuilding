@@ -7,7 +7,7 @@ local pairs = pairs
 local t_insert = table.insert
 
 local ItemListClass = newClass("ItemListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
-	self.ListControl(anchor, x, y, width, height, 16, false, true, itemsTab.itemOrderList)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, itemsTab.itemOrderList)
 	self.itemsTab = itemsTab
 	self.label = "^7All items:"
 	self.defaultText = "^x7F7F7FThis is the list of items that have been added to this build.\nYou can add items to this list by dragging them from\none of the other lists, or by clicking 'Add to build' when\nviewing an item."
@@ -140,5 +140,15 @@ function ItemListClass:OnSelDelete(index, itemId)
 		self.itemsTab:DeleteItem(item)
 		self.selIndex = nil
 		self.selValue = nil
+	end
+end
+
+function ItemListClass:OnHoverKeyUp(key)
+	if itemLib.wiki.matchesKey(key) then
+		local itemId = self.ListControl:GetHoverValue()
+		if itemId then
+			local item = self.itemsTab.items[itemId]
+			itemLib.wiki.openItem(item)
+		end
 	end
 end

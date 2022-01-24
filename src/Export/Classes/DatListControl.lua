@@ -4,7 +4,7 @@
 -- Dat list control.
 --
 local DatListClass = newClass("DatListControl", "ListControl", function(self, anchor, x, y, width, height)
-	self.ListControl(anchor, x, y, width, height, 14, false, false, main.datFileList)
+	self.ListControl(anchor, x, y, width, height, 14, "VERTICAL", false, main.datFileList)
 end)
 
 function DatListClass:GetRowValue(column, index, datFile)

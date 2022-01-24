@@ -78,16 +78,19 @@ Implicits: 1
 {variant:2}{tags:mana}(16-24)% increased maximum Mana
 {variant:1}{tags:mana}(40-60)% increased Mana Regeneration Rate
 {variant:2}{tags:mana}(80-100)% increased Mana Regeneration Rate
-{tags:jewellery_attribute}Items and Gems have 25% reduced Attribute Requirements
+Items and Gems have 25% reduced Attribute Requirements
 ]],[[
 Replica Atziri's Foible
 Paua Amulet
+Variant: Pre 3.16.0
+Variant: Current
 League: Heist
 Requires Level 16
 Implicits: 1
 {tags:life}Regenerate (1.00-2.00)% of Life per second
 {tags:life}+100 to maximum Life
-{tags:life}(20-25)% increased Life Recovery rate
+{variant:1}{tags:life}(20-25)% increased Life Recovery rate
+{variant:2}{tags:life}(20-25)% increased Life Regeneration rate
 Items and Gems have 25% reduced Attribute Requirements
 ]],[[
 Aul's Uprising
@@ -190,6 +193,8 @@ Implicits: 1
 ]],[[
 Blightwell
 Clutching Talisman
+Variant: Pre 3.16.0
+Variant: Current
 League: Talisman Hardcore
 Talisman Tier: 2
 Requires Level 28
@@ -198,8 +203,10 @@ Implicits: 1
 +(20-30) to maximum Energy Shield
 +(15-30)% to Fire Resistance
 +(15-30)% to Lightning Resistance
-30% slower start of Energy Shield Recharge during Flask Effect
-400% increased Energy Shield Recharge Rate during Flask Effect
+{variant:1}30% slower start of Energy Shield Recharge during Flask Effect
+{variant:2}50% slower start of Energy Shield Recharge during Flask Effect
+{variant:1}400% increased Energy Shield Recharge Rate during Flask Effect
+{variant:2}(150-200)% increased Energy Shield Recharge Rate during Flask Effect
 Corrupted
 ]],[[
 Blood of Corruption
@@ -380,7 +387,7 @@ Implicits: 32
 {variant:9}(40-60)% increased Global Physical Damage
 {variant:10}(40-60)% increased maximum Mana
 {variant:11}(50-70)% increased Damage
-{variant:12}(8-12)% increased Physical Damage Reduction
+{variant:12}(8-12)% additional Physical Damage Reduction
 {variant:13}(8-12)% chance to Freeze, Shock and Ignite
 {variant:14}(80-100)% increased Global Critical Strike Chance
 {variant:15}(10-16)% increased Area of Effect
@@ -475,17 +482,23 @@ Hinekora's Sight
 Onyx Amulet
 Source: Any prophecy{Prophecy} enemy
 Requires Level 20
+Variant: Pre 3.16.0
+Variant: Current
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
-{tags:attack}+1000 to Accuracy Rating
-(6-10)% chance to Dodge Attacks
-(6-10)% chance to Dodge Spell Damage
+{variant:1}{tags:attack}+1000 to Accuracy Rating
+{variant:2}{tags:attack}+(600-1000) to Accuracy Rating
+{variant:2}{tags:jewellery_defense}+(600-1000) to Evasion Rating
+{variant:1}(12-20)% chance to Suppress Spell Damage
+{variant:2}Prevent +3% of Suppressed Spell Damage
 Cannot be Blinded
 ]],[[
 Hyrri's Truth
 Jade Amulet
 League: Synthesis
 Requires Level 64
+Variant: Pre 3.16.0
+Variant: Current
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Precision Skill
@@ -494,11 +507,14 @@ Grants Level 22 Precision Skill
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 +(23-28)% to Global Critical Strike Multiplier
 {tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
-{tags:mana}Precision has 50% less Reservation
+{variant:1}Precision has 50% less Reservation
+{variant:2}Precision has 100% increased Mana Reservation Efficiency
 ]],[[
 Replica Hyrri's Truth
 Jade Amulet
 League: Heist
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
@@ -508,7 +524,8 @@ Grants Level 22 Hatred Skill
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 {tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
-{tags:mana}Hatred has 50% less Mana Reservation
+{variant:1}Hatred has 50% less Reservation
+{variant:2}Hatred has 100% increased Mana Reservation Efficiency
 ]],[[
 The Ignomon
 Gold Amulet
@@ -563,11 +580,11 @@ Implicits: 1
 {variant:3}{tags:jewellery_resistance}+(20-25)% to Cold Resistance
 {variant:4}{tags:jewellery_resistance}+(20-25)% to Lightning Resistance
 {variant:5}{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-{variant:1}Vulnerability has 100% reduced Reservation if Cast as an Aura
-{variant:2}Flammability has 100% reduced Reservation if Cast as an Aura
-{variant:3}Frostbite has 100% reduced Reservation if Cast as an Aura
-{variant:4}Conductivity has 100% reduced Reservation if Cast as an Aura
-{variant:5}Despair has 100% reduced Reservation if Cast as an Aura
+{variant:1}Vulnerability has no Reservation if Cast as an Aura
+{variant:2}Flammability has no Reservation if Cast as an Aura
+{variant:3}Frostbite has no Reservation if Cast as an Aura
+{variant:4}Conductivity has no Reservation if Cast as an Aura
+{variant:5}Despair has no Reservation if Cast as an Aura
 Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
 Elder Item
 ]],[[
@@ -613,6 +630,18 @@ Implicits: 1
 {tags:speed}30% increased Projectile Speed
 {tags:speed}10% increased Movement Speed
 ]],[[
+Leadership's Price
+Onyx Amulet
+Requires Level 68
+Implicits: 1
+{tags:jewellery_attribute}+(10–16) to all Attributes
+{tags:jewellery_resistance}+(-3–3)% to maximum Fire Resistance
+{tags:jewellery_resistance}+(-3–3)% to maximum Cold Resistance
+{tags:jewellery_resistance}+(-3–3)% to maximum Lightning Resistance
+You have Scorching Conflux, Brittle Conflux and Sapping Conflux while your two highest Attributes are equal
+Cannot Ignite, Chill, Freeze or Shock
+Corrupted
+]],[[
 Maligaro's Cruelty
 Turquoise Amulet
 Requires Level 20
@@ -626,13 +655,17 @@ Implicits: 1
 ]],[[
 The Jinxed Juju
 Citrine Amulet
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 48
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-40) to Intelligence
 {tags:chaos,jewellery_resistance}+(23-31)% to Chaos Resistance
-{tags:caster}(10-15)% increased Effect of your Curses
-(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:1}{tags:caster}(10-15)% increased Effect of your Curses
+{variant:2}{tags:caster}(5-10)% increased Effect of your Curses
+{variant:1}(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:2}(5-10)% increased effect of Non-Curse Auras from your Skills
 10% of Damage from Hits is taken from your Spectres' Life before you
 (The damage they take will be divided evenly between them)
 ]],[[
@@ -718,7 +751,7 @@ Implicits: 1
 {tags:life}+(40-80) to maximum Life
 {tags:mana}+(20-40) to maximum Mana
 {tags:jewellery_elemental}20% increased Duration of Elemental Ailments on Enemies
-{tags:jewellery_attribute}Items and Gems have 10% reduced Attribute Requirements
+Items and Gems have 10% reduced Attribute Requirements
 {tags:jewellery_elemental}5% chance to Freeze, Shock and Ignite
 Cannot gain Power Charges
 ]],[[
@@ -743,7 +776,7 @@ Requires Level 28
 Implicits: 2
 {variant:1}+(16-24)% to Global Critical Strike Multiplier
 {variant:2}+(24-36)% to Global Critical Strike Multiplier
-+7% Base Unarmed Critical Strike Chance
++7% to Unarmed Melee Attack Critical Strike Chance
 Modifiers to Claw Damage also apply to Unarmed Attack Damage
 Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed
 Modifiers to Claw Critical Strike Chance also apply to Unarmed Attack Critical Strike Chance
@@ -800,6 +833,7 @@ Paua Amulet
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
+Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
 {tags:jewellery_resistance}+25% to Cold Resistance
 {variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
@@ -822,7 +856,7 @@ Implicits: 1
 {tags:life}+(50-70) to maximum Life
 {variant:1}{tags:mana}(2-3) Mana Regenerated per second
 {variant:2}{tags:mana}(8-10) Mana Regenerated per second
-{tags:mana}Temporal Chains has 100% reduced Mana Reservation
+{tags:mana}Temporal Chains has no Reservation if Cast as an Aura
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
 Star of Wraeclast
@@ -856,6 +890,14 @@ Implicits: 1
 {tags:caster}(10-15)% increased Cast Speed
 {tags:mana}+(30-50) to maximum Mana
 ]],[[
+Stranglegasp
+Onyx Amulet
+Source: Drops in Blight-ravaged Maps
+Requires Level 52
+Implicits: 1
+{tags:jewellery_attribute}+(10-16) to all Attributes
+Can have 3 additional Enchantment Modifiers
+]],[[
 Tavukai
 Coral Amulet
 League: Legion
@@ -872,13 +914,16 @@ Summoned Raging Spirits deal (60-80)% increased Damage
 ]],[[
 Tear of Purity
 Lapis Amulet
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 20
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 Grants level 10 Purity of Elements Skill
 {tags:jewellery_attribute}+(5-10) to all Attributes
 {tags:life}+(20-40) to maximum Life
-5% chance to avoid Elemental Ailments
+{variant:1}5% chance to avoid Elemental Ailments
+{variant:2}+5% to all Elemental Resistances
 ]],[[
 Ungil's Harmony
 Turquoise Amulet
@@ -893,6 +938,18 @@ Implicits: 1
 {tags:mana}+(30-50) to maximum Mana
 40% increased Stun and Block Recovery
 Your Critical Strikes do not deal extra Damage
+]],[[
+Uul-Netol's Vow
+Unset Amulet
+Source: Drops from Flawless Breachlords
+Requires Level 72
+Implicits: 1
+Has 1 Socket
+Socketed Support Gems can also Support Skills from your Body Armour
+{tags:jewellery_resistance}+(-30-30)% to Fire Resistance
+{tags:jewellery_resistance}+(-30-30)% to Cold Resistance
+{tags:jewellery_resistance}+(-30-30)% to Lightning Resistance
+{tags:chaos,jewellery_resistance}+(-23-23)% to Chaos Resistance
 ]],[[
 Victario's Acuity
 Turquoise Amulet
@@ -912,19 +969,23 @@ Lapis Amulet
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 40
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 Trigger Level 12 Lightning Bolt when you deal a Critical Strike
 {tags:jewellery_attribute}+(10-15) to all Attributes
 {tags:mana}(10-20)% increased maximum Mana
-Critical Strike Chance is increased by Lightning Resistance
+{variant:1}Critical Strike Chance is increased by Lightning Resistance
+{variant:2}Critical Strike Chance is increased by Overcapped Lightning Resistance
 ]],[[
 Choir of the Storm
 Lapis Amulet
 League: Breach
 Source: Upgraded from unique{Voice of the Storm} using currency{Blessing of Esh}
 Variant: Pre 3.0.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 69
 Implicits: 1
@@ -932,8 +993,9 @@ Implicits: 1
 Trigger Level 20 Lightning Bolt when you deal a Critical Strike
 {tags:jewellery_elemental}50% increased Lightning Damage
 {tags:mana}(10-20)% increased maximum Mana
-{variant:1}{tags:jewellery_resistance}-30% to Lightning Resistance
-Critical Strike Chance is increased by Lightning Resistance
+{variant:1,2}Critical Strike Chance is increased by Lightning Resistance
+{variant:1,3}{tags:jewellery_resistance}-30% to Lightning Resistance
+{variant:3}Critical Strike Chance is increased by Overcapped Lightning Resistance
 ]],[[
 Voll's Devotion
 Agate Amulet

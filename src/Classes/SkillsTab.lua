@@ -63,14 +63,16 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.sortGemsByDPSField = "CombinedDPS"
 	self.showSupportGemTypes = "ALL"
 	self.showAltQualityGems = false
+	self.matchGemLevelToCharacterLevel = false
+	self.defaultGemQuality = main.defaultGemQuality
 
 	-- Socket group list
 	self.controls.groupList = new("SkillListControl", {"TOPLEFT",self,"TOPLEFT"}, 20, 24, 360, 300, self)
 	self.controls.groupTip = new("LabelControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 8, 0, 14, "^7Tip: You can copy/paste socket groups using Ctrl+C and Ctrl+V.")
 
 	-- Gem options
-	local optionInputsX = 204
-	self.controls.optionSection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 50, 374, 154, "Gem Options")
+	local optionInputsX = 211
+	self.controls.optionSection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 50, 375, 180, "Gem Options")
 	self.controls.sortGemsByDPS = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 70, 20, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end)
@@ -78,19 +80,22 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.sortGemsByDPSFieldControl = new("DropDownControl", {"LEFT", self.controls.sortGemsByDPS, "RIGHT"}, 10, 0, 120, 20, sortGemTypeList, function(index, value)
 		self.sortGemsByDPSField = value.type
 	end)
-	self.controls.defaultLevel = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 94, 60, 20, nil, nil, "%D", 2, function(buf)
+	self.controls.matchGemLevelToCharacterLevel = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 94, 20, "^7Match gems to character level:", function(state)
+		self.matchGemLevelToCharacterLevel = state
+	end)
+	self.controls.defaultLevel = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 118, 60, 20, nil, nil, "%D", 2, function(buf)
 		self.defaultGemLevel = m_max(m_min(tonumber(buf) or 20, 21), 1)
 	end)
 	self.controls.defaultLevelLabel = new("LabelControl", {"RIGHT",self.controls.defaultLevel,"LEFT"}, -4, 0, 0, 16, "^7Default gem level:")
-	self.controls.defaultQuality = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 118, 60, 20, nil, nil, "%D", 2, function(buf)
+	self.controls.defaultQuality = new("EditControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 142, 60, 20, nil, nil, "%D", 2, function(buf)
 		self.defaultGemQuality = m_min(tonumber(buf) or 0, 23)
 	end)
 	self.controls.defaultQualityLabel = new("LabelControl", {"RIGHT",self.controls.defaultQuality,"LEFT"}, -4, 0, 0, 16, "^7Default gem quality:")
-	self.controls.showSupportGemTypes = new("DropDownControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 142, 120, 20, showSupportGemTypeList, function(index, value)
+	self.controls.showSupportGemTypes = new("DropDownControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 166, 120, 20, showSupportGemTypeList, function(index, value)
 		self.showSupportGemTypes = value.show
 	end)
 	self.controls.showSupportGemTypesLabel = new("LabelControl", {"RIGHT",self.controls.showSupportGemTypes,"LEFT"}, -4, 0, 0, 16, "^7Show support gems:")
-	self.controls.showAltQualityGems = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 166, 20, "^7Show gem quality variants:", function(state)
+	self.controls.showAltQualityGems = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 190, 20, "^7Show gem quality variants:", function(state)
 		self.showAltQualityGems = state
 	end)
 
@@ -207,12 +212,12 @@ function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
 		end
 	end
 	-- no alt qual found, return gemTypeLine as is and either existing quality or Default if none is set
-    return gemTypeLine, quality or 'Default'
+	return gemTypeLine, quality or 'Default'
 end
 
 function SkillsTabClass:Load(xml, fileName)
-	self.defaultGemLevel = tonumber(xml.attrib.defaultGemLevel)
-	self.defaultGemQuality = tonumber(xml.attrib.defaultGemQuality)
+	self.defaultGemLevel = m_max(m_min(tonumber(xml.attrib.defaultGemLevel) or 20, 21), 1)
+	self.defaultGemQuality = m_max(m_min(tonumber(xml.attrib.defaultGemQuality) or 0, 23), 0)
 	self.controls.defaultLevel:SetText(self.defaultGemLevel or "")
 	self.controls.defaultQuality:SetText(self.defaultGemQuality or "")
 	if xml.attrib.sortGemsByDPS then
@@ -223,6 +228,10 @@ function SkillsTabClass:Load(xml, fileName)
 		self.showAltQualityGems = xml.attrib.showAltQualityGems == "true"
 	end
 	self.controls.showAltQualityGems.state = self.showAltQualityGems
+	if xml.attrib.matchGemLevelToCharacterLevel then
+		self.matchGemLevelToCharacterLevel = xml.attrib.matchGemLevelToCharacterLevel == "true"
+	end
+	self.controls.matchGemLevelToCharacterLevel.state = self.matchGemLevelToCharacterLevel
 	self.controls.showSupportGemTypes:SelByValue(xml.attrib.showSupportGemTypes or "ALL", "show")
 	self.controls.sortGemsByDPSFieldControl:SelByValue(xml.attrib.sortGemsByDPSField or "CombinedDPS", "type") 
 	self.showSupportGemTypes = self.controls.showSupportGemTypes:GetSelValue("show")
@@ -302,7 +311,8 @@ function SkillsTabClass:Save(xml)
 		sortGemsByDPS = tostring(self.sortGemsByDPS),
 		showSupportGemTypes = self.showSupportGemTypes,
 		sortGemsByDPSField = self.sortGemsByDPSField,
-		showAltQualityGems = tostring(self.showAltQualityGems)
+		showAltQualityGems = tostring(self.showAltQualityGems),
+		matchGemLevelToCharacterLevel = tostring(self.matchGemLevelToCharacterLevel)
 	}
 	for _, socketGroup in ipairs(self.socketGroupList) do
 		local node = { elem = "Skill", attrib = {
@@ -501,6 +511,11 @@ function SkillsTabClass:CreateGemSlot(index)
 		gemInstance.gemId = gemId
 		gemInstance.skillId = nil
 		self:ProcessSocketGroup(self.displayGroup)
+		-- New gems need to be constrained by matchGemLevelToCharacterLevel if enabled
+		if self.matchGemLevelToCharacterLevel and gemInstance.gemData then
+			gemInstance.level = self:MatchGemLevelToCharacterLevel(gemInstance.gemData)
+			gemInstance.defaultLevel = gemInstance.level
+		end
 		-- Gem changed, update the list and default the quality id
 		slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 		slot.qualityId:SelByValue(qualityId or "Default", "type")
@@ -617,7 +632,10 @@ function SkillsTabClass:CreateGemSlot(index)
 				local tempQual = self.displayGroup.gemList[index].qualityId
 				self.displayGroup.gemList[index].qualityId = hoveredQuality.type
 				self:ProcessSocketGroup(self.displayGroup)
+				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+				GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
 				local output = calcFunc({}, {})
+				GlobalCache.useFullDPS = storedGlobalCacheDPSView
 				self.displayGroup.gemList[index].qualityId = tempQual
 				tooltip:AddSeparator(10)
 				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Switching to this quality variant will give you:")
@@ -642,6 +660,23 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	slot.quality.tooltipFunc = function(tooltip)
+		if tooltip:CheckForUpdate(self.build.outputRevision, self.displayGroup) then
+			if self.displayGroup.gemList[index] then
+				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+				if calcFunc then
+					local storedQuality = self.displayGroup.gemList[index].quality
+					self.displayGroup.gemList[index].quality = 20
+					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+					GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+					local output = calcFunc({}, {})
+					GlobalCache.useFullDPS = storedGlobalCacheDPSView
+					self.displayGroup.gemList[index].quality = storedQuality
+					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Setting to 20 quality will give you:")
+				end
+			end
+		end
+	end
 	slot.quality:AddToTabGroup(self.controls.groupLabel)
 	slot.quality.enabled = function()
 		return index <= #self.displayGroup.gemList
@@ -836,6 +871,22 @@ function SkillsTabClass:FindSkillGem(nameSpec)
 		end
 	end
 	return "Unrecognised gem name '"..nameSpec.."'"
+end
+
+function SkillsTabClass:MatchGemLevelToCharacterLevel(gemData, fallbackGemLevel)
+	if self.matchGemLevelToCharacterLevel then
+		local maxGemLevel = m_min(self.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1)
+		if not gemData.grantedEffect.levels[maxGemLevel] then
+			maxGemLevel = #gemData.grantedEffect.levels
+		end
+		for gemLevel = maxGemLevel, 1, -1 do
+			if gemData.grantedEffect.levels[gemLevel].levelRequirement <= self.build.characterLevel then
+				return gemLevel
+			end
+		end
+		return 1
+	end
+	return fallbackGemLevel or 1
 end
 
 -- Processes the given socket group, filling in information that will be used for display or calculations

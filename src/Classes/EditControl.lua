@@ -106,6 +106,13 @@ function EditClass:SelectAll()
 	self:ScrollCaretIntoView()
 end
 
+function EditClass:GetSelText()
+	local left = m_min(self.caret, self.sel)
+	local right = m_max(self.caret, self.sel)
+	local newBuf = self.buf:sub(left, right - 1)
+	return newBuf
+end
+
 function EditClass:ReplaceSel(text)
 	text = text:gsub("\r","")
 	if text:match(self.filterPattern) then
@@ -132,6 +139,9 @@ function EditClass:Insert(text)
 	text = text:gsub("\r","")
 	-- Remove any illegal chars from the "text" variable, to stop resulting in no text when an illegal character is found.
 	text = text:gsub(self.filterPattern,"")
+	if text == "" then
+		return
+	end
 	local newBuf = self.buf:sub(1, self.caret - 1) .. text .. self.buf:sub(self.caret)
 	if self.limit and #newBuf > self.limit then
 		return

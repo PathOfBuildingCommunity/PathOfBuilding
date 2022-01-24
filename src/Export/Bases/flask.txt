@@ -17,5 +17,3 @@ local itemBases = ...
 #subType Utility
 #baseTags flask utility_flask
 #baseMatch Metadata/Items/Flasks/FlaskUtility
-#baseTags flask utility_flask critical_utility_flask
-#base Metadata/Items/Flasks/FlaskUtility1

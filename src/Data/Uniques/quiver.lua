@@ -146,7 +146,7 @@ Requires Level 45
 Implicits: 1
 Has 1 Socket
 Has 2 Sockets
-Trigger a Socketed Bow Skill when you Attack with a Bow
+Trigger a Socketed Bow Skill when you Attack with a Bow, with a 1 second Cooldown
 (7-12)% increased Attack Speed
 +(50-70) to maximum Life
 5% chance to Blind Enemies on Hit with Attacks

@@ -9,32 +9,18 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAddedChaosDamagePlus
-	statMap = {
-		["supported_active_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
-		},
-	},
 #mods
 
 #skill SupportAddedLightningDamage
 #mods
 
 #skill SupportAddedLightningDamagePlus
-	statMap = {
-		["supported_lightning_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.LightningSkill }),
-		},
-	},
 #mods
 
 #skill SupportArcaneSurge
 	statMap = {
-		["support_arcane_surge_cast_speed_+%"] = {
-			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
-		},
-		["support_arcane_surge_mana_regeneration_rate_per_minute_%"] = {
-			mod("ManaRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
-			div = 60.0001,
+		["support_arcane_surge_mana_regeneration_rate_+%"] = {
+			mod("ManaRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
 		},
 		["support_arcane_surge_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
@@ -67,20 +53,15 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBlasphemyPlus
-	statMap = {
-		["supported_curse_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, KeywordFlag.Curse),
-		},
-	},
 #mods
 
 #skill SupportBonechill
+#baseMod skill("supportBonechill", true)
 	statMap = {
-		["support_chills_also_grant_cold_damage_taken_per_minute_+%"] = {
-			mod("ColdDamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Bonechill", effectEnemyCond = "Chilled" }),
+		["support_bonechill_cold_damage_+%_final"] = {
+			mod("ColdDamage", "MORE", nil),
 		},
 	},
-#baseMod skill("supportBonechill", true)
 #mods
 
 #skill SupportCastOnStunned
@@ -89,35 +70,25 @@ local skills, mod, flag, skill = ...
 #skill SupportCastWhileChannelling
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
 			div = 1000,
 		},
 	},
 #mods
 
 #skill SupportCastWhileChannellingTriggered
-	statMap = {
-		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
-		},
-	},
 #mods
 
 #skill SupportCastWhileChannellingPlus
 	statMap = {
 		["cast_while_channelling_time_ms"] = {
-			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channelled } ),
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
 			div = 1000,
 		},
 	},
 #mods
 
 #skill SupportCastWhileChannellingTriggeredPlus
-	statMap = {
-		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
-			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggerable }),
-		},
-	},
 #mods
 
 #skill SupportChanceToIgnite
@@ -161,6 +132,9 @@ local skills, mod, flag, skill = ...
 		["support_controlled_destruction_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell),
 		},
+		["support_controlled_destruction_critical_strike_chance_+%_final"] = {
+			mod("CritChance", "MORE", nil),
+		},
 	},
 #mods
 
@@ -168,6 +142,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["support_controlled_destruction_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell),
+		},
+		["support_controlled_destruction_critical_strike_chance_+%_final"] = {
+			mod("CritChance", "MORE", nil),
 		},
 	},
 #mods
@@ -187,7 +164,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCurseOnHitCursePlus
-    statMap = {
+	statMap = {
 		["number_of_additional_curses_allowed"] = {
 			mod("AdditionalCurse", "BASE", nil),
 			flag("CanHaveAdditionalCurse"),
@@ -203,10 +180,10 @@ local skills, mod, flag, skill = ...
 		["support_minion_focus_fire_damage_+%_final_vs_focussed_target"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
 		},
-		["support_minion_focus_fire_critical_strike_chance_+%_final_vs_focussed_target"] = {
-			mod("MinionModifier", "LIST", { mod = mod("CritChance", "BASE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
+		["support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
 		},
-		["support_minion_focus_fire_critical_strike_multiplier_+%_final_vs_focussed_target"] = {
+		["support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
 		},
 	},
@@ -318,12 +295,16 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ViciousHexExplosion
-#flags spell area chaos
-    statMap = {
-		["doom_blast_damage_+%_final_per_5_doom_on_hex"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
+#flags spell area
+	statMap = {
+		["doom_blast_hit_damage_+%_final_per_5_doom_on_hex"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
+		},
+		["doom_blast_ailment_damage_+%_final_per_5_doom_on_hex"] = {
+			mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
 		},
 	},
+#baseMod skill("radius", 20)
 #baseMod skill("showAverage", true)
 #mods
 
@@ -355,7 +336,7 @@ local skills, mod, flag, skill = ...
 			div = 60,
 			mod("ExtraMinionSkill", "LIST", { skillId = "InfernalLegion" }),
 		},
-		["minion_burning_damage_"] = {
+		["minion_burning_damage_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("FireDamage", "INC", nil, 0, KeywordFlag.FireDot) }),
 		},
 		["minion_fire_damage_taken_+%"] = {
@@ -395,11 +376,11 @@ local skills, mod, flag, skill = ...
 			mod("InfusionEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
-#baseMod flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.PhysicalSkill })
-#baseMod flag("Condition:FireInfusion", { type = "SkillType", skillType = SkillType.FireSkill })
-#baseMod flag("Condition:ColdInfusion", { type = "SkillType", skillType = SkillType.ColdSkill })
-#baseMod flag("Condition:LightningInfusion", { type = "SkillType", skillType = SkillType.LightningSkill })
-#baseMod flag("Condition:ChaosInfusion", { type = "SkillType", skillType = SkillType.ChaosSkill })
+#baseMod flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.Physical })
+#baseMod flag("Condition:FireInfusion", { type = "SkillType", skillType = SkillType.Fire })
+#baseMod flag("Condition:ColdInfusion", { type = "SkillType", skillType = SkillType.Cold })
+#baseMod flag("Condition:LightningInfusion", { type = "SkillType", skillType = SkillType.Lightning })
+#baseMod flag("Condition:ChaosInfusion", { type = "SkillType", skillType = SkillType.Chaos })
 #mods
 
 #skill SupportOnslaughtOnSlayingShockedEnemy
@@ -460,6 +441,9 @@ local skills, mod, flag, skill = ...
 		["support_minion_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 		},
+		["minion_chance_to_deal_double_damage_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", nil) }),
+		},
 		["minion_ailment_damage_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, KeywordFlag.Ailment) }),
 		},
@@ -515,8 +499,8 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportProjectileIntensity
-    statMap = {
-	    ["additional_projectiles_per_intensity"] = {
+	statMap = {
+		["additional_projectiles_per_intensity"] = {
 			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
 		},
 		["support_greater_projectile_intensity_projectile_damage_+%_final"] = {
@@ -542,7 +526,7 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
-			skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanMine }),
+			skill("showAverage", true, { type = "SkillType", skillType = SkillType.Mineable }),
 		},
 		["support_gem_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Mine),
@@ -677,7 +661,33 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportHandcastAnticipation
+	statMap = {
+		["support_anticipation_rapid_fire_count"] = {
+			mod("SealCount", "BASE", nil),
+		},
+		["support_anticipation_charge_gain_interval_ms"] = {
+			mod("SealGainFrequency", "BASE", nil),
+			div = 1000,
+		},
+		["support_spell_rapid_fire_repeat_use_damage_+%_final"] = {
+			mod("SealRepeatPenalty", "MORE", nil),
+		},
+	},
+#baseMod flag("HasSeals")
 #mods
 
 #skill SupportUnleashPlus
+	statMap = {
+		["support_anticipation_rapid_fire_count"] = {
+			mod("SealCount", "BASE", nil),
+		},
+		["support_anticipation_charge_gain_interval_ms"] = {
+			mod("SealGainFrequency", "BASE", nil),
+			div = 1000,
+		},
+		["support_spell_rapid_fire_repeat_use_damage_+%_final"] = {
+			mod("SealRepeatPenalty", "MORE", nil),
+		},
+	},
+#baseMod flag("HasSeals")
 #mods
