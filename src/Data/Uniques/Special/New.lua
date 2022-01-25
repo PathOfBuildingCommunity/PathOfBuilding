@@ -41,7 +41,7 @@ Implicits: 3
 {variant:3,4}(130-160)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
-{variant:1,2,3}Rampage
+{variant:1,2,3,4}Rampage
 Triggers Level 15 Manifest Dancing Dervish on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
@@ -61,7 +61,7 @@ Implicits: 2
 {variant:2,3}(130-160)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
-{variant:1,2}Rampage
+{variant:1,2,3}Rampage
 Triggers Level 15 Manifest Dancing Dervish on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
