@@ -15,6 +15,9 @@ Settings.xml
 
 # Testing
 luajit/
+spec/test_results.log
+spec/test_generation.log
+src/luacov.stats.out
 
 # Release
 manifest-updated.xml

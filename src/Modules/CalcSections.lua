@@ -622,7 +622,7 @@ return {
 		{ label = "Area of Effect modifiers", modName = "AreaOfEffectTertiary", cfg = "skill" },
 	}, },
 	{ label = "Weapon Range", haveOutput = "WeaponRange", { format = "{0:output:WeaponRange}", { breakdown = "WeaponRange" }, }, },
-	{ label = "Attachment Range", flag = "brand", { format = "x {2:output:BrandAttachmentRange}",
+	{ label = "Attachment Range", flag = "brand", { format = "{0:output:BrandAttachmentRange}",
 		{ breakdown = "BrandAttachmentRange" },
 		{ modName = "BrandAttachmentRange", cfg = "skill"},
 	}, },

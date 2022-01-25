@@ -7312,6 +7312,10 @@ skills["Vitality"] = {
 		["damage_+%_when_on_full_life"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "FullLife" })
 		},
+		["life_leech_from_physical_attack_damage_permyriad"] = {
+			mod("PhysicalDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 100,
+		},
 	},
 	baseFlags = {
 		spell = true,
