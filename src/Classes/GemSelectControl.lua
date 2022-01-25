@@ -11,7 +11,7 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local toolTipText = "If used, prefix tag searches with a colon and exclude tags with a dash. e.g. :fire:lightning:-cold:area"
+local toolTipText = "Prefix tag searches with a colon and exclude tags with a dash. e.g. :fire:lightning:-cold:area"
 local altQualMap = {
 	["Default"] = "",
 	["Alternate1"] = "Anomalous ",
