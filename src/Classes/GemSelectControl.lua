@@ -100,58 +100,73 @@ function GemSelectClass:BuildList(buf)
 		local added = { }
 
 		-- split the buffer using :
-		-- Remove the first entry as the name search term
+		-- Remove the first entry as the name search term (can be blank)
 		tagsList = self.searchStr:split(':')
 		searchTerm = tagsList[1]
 		t_remove(tagsList,1)
 
-		if searchTerm then
-			-- Search for gem name using increasingly broad search patterns
-			local patternList = {
-				"^ "..searchTerm:lower().."$", -- Exact match
-				"^"..searchTerm:lower():gsub("%a", " %0%%l+").."$", -- Simple abbreviation ("CtF" -> "Cold to Fire")
-				"^ "..searchTerm:lower(), -- Starts with
-				searchTerm:lower(), -- Contains
-			}
-			for i, pattern in ipairs(patternList) do
-				local matchList = { }
-				for gemId, gemData in pairs(self.gems) do
-					if self:FilterSupport(gemId, gemData) and not added[gemId] and ((" "..gemData.name:lower()):match(pattern) or altQualMap[self:GetQualityType(gemId)]:lower():match(pattern)) then
-						addThisGem = true
-						if #tagsList > 0 then
-							for _, tag in ipairs(tagsList) do
-								local tagName = string.gsub(tag, "%s+", ""):lower()
-								local negateTag = string.sub(tagName, 1, 1) == '-'
-								if negateTag then tagName = tagName:sub(2) end
-								if tagName == "active" then
-									tagName = "active_skill"
-								elseif tagName == "int" then
-									tagName = "intelligence"
-								elseif tagName == "str" then
-									tagName = "strength"
-								elseif tagName == "dex" then
-									tagName = "dexterity"
-								end
-								-- for :melee we want to exclude gems that DON'T have this tag
-								-- for :-melee we want to exclude gems that DO have this tag
-								  -- EG: :active:fire:-aura		<-- No Anger (Calming ?)
-								if negateTag then
-									if gemData.tags[tagName] and gemData.tags[tagName] == true then addThisGem = false end
-								else
-									if gemData.tags[tagName] == nil or gemData.tags[tagName] == false then addThisGem = false end
-								end
+		-- Search for gem name using increasingly broad search patterns
+		local patternList = {
+			"^ "..searchTerm:lower().."$", -- Exact match
+			"^"..searchTerm:lower():gsub("%a", " %0%%l+").."$", -- Simple abbreviation ("CtF" -> "Cold to Fire")
+			"^ "..searchTerm:lower(), -- Starts with
+			searchTerm:lower(), -- Contains
+		}
+		for i, pattern in ipairs(patternList) do
+			local matchList = { }
+			for gemId, gemData in pairs(self.gems) do
+				if self:FilterSupport(gemId, gemData) and not added[gemId] and ((" "..gemData.name:lower()):match(pattern) or altQualMap[self:GetQualityType(gemId)]:lower():match(pattern)) then
+					addThisGem = true
+					if #tagsList > 0 then
+						for _, tag in ipairs(tagsList) do
+							local tagName = tag:gsub("%s+", ""):lower()
+							local negateTag = tagName:sub(1, 1) == '-'
+							if negateTag then tagName = tagName:sub(2) end
+							if tagName == "active" then
+								tagName = "active_skill"
+							elseif tagName == "int" then
+								tagName = "intelligence"
+							elseif tagName == "str" then
+								tagName = "strength"
+							elseif tagName == "dex" then
+								tagName = "dexterity"
+							end
+							-- for :melee we want to exclude gems that DON'T have this tag
+							-- for :-melee we want to exclude gems that DO have this tag
+							  -- EG: :active:fire:-aura		<-- No Anger (Calming ?)
+							if negateTag then
+								if gemData.tags[tagName] and gemData.tags[tagName] == true then addThisGem = false end
+							else
+								if gemData.tags[tagName] == nil or gemData.tags[tagName] == false then addThisGem = false end
 							end
 						end
-						if addThisGem then
-							t_insert(matchList, gemId)
-							added[gemId] = true
-						end
+					end
+					if addThisGem then
+						t_insert(matchList, gemId)
+						added[gemId] = true
+					end
+				else
+					-- This stanza is to support the original tag search
+					-- Name matching above failed, so lets use searchTerm to look for the tagName
+					-- aura:cold is now illogical and can't work (:aura:cold is the way to do it)
+					if searchTerm == "active" then
+						searchTerm = "active_skill"
+					elseif searchTerm == "int" then
+						searchTerm = "intelligence"
+					elseif searchTerm == "str" then
+						searchTerm = "strength"
+					elseif searchTerm == "dex" then
+						searchTerm = "dexterity"
+					end
+					if self:FilterSupport(gemId, gemData) and not added[gemId] and gemData.tags[searchTerm:lower()] == true then
+						t_insert(matchList, gemId)
+						added[gemId] = true
 					end
 				end
-				self:SortGemList(matchList)
-				for _, gemId in ipairs(matchList) do
-					t_insert(self.list, gemId)
-				end
+			end
+			self:SortGemList(matchList)
+			for _, gemId in ipairs(matchList) do
+				t_insert(self.list, gemId)
 			end
 		end
 	else
