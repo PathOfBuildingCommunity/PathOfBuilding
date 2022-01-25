@@ -57,7 +57,7 @@ function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)
 					matchActive = true
 					outputString = ""
 				else
-					outputString = spec.title
+					outputString = spec.title or "Default"
 				end
 			end
 		end
