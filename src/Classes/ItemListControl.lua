@@ -45,15 +45,39 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	end)
 end)
 
+function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)
+	local treeTab = self.itemsTab.build.treeTab
+	local matchActive = false
+	local outputString = ""
+	for specId = #treeTab.specList, 1, -1 do
+		local spec = treeTab.specList[specId]
+		for nodeId, itemId in pairs(spec.jewels) do
+			if itemId == jewelId and spec.nodes[nodeId] and spec.nodes[nodeId].alloc then
+				if excludeActiveSpec and (specId == treeTab.activeSpec or matchActive) then
+					matchActive = true
+					outputString = ""
+				else
+					outputString = spec.title or "Default"
+				end
+			end
+		end
+	end
+	return outputString
+end
+
 function ItemListClass:GetRowValue(column, index, itemId)
 	local item = self.itemsTab.items[itemId]
 	if column == 1 then
-		local used = ""
-		local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
-		if not slot then
-			used = "  ^9(Unused)"
-		elseif itemSet then
-			used = "  ^9(Used in '" .. (itemSet.title or "Default") .. "')"
+		local used = self:FindSocketedJewel(itemId, true)
+		if used == "" then
+			local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
+			if not slot then
+				used = "  ^9(Unused)"
+			elseif itemSet then
+				used = "  ^9(Used in '" .. (itemSet.title or "Default") .. "')"
+			end
+		else
+			used = "  ^9(Used in '" .. used .. "')"
 		end
 		return colorCodes[item.rarity] .. item.name .. used
 	end
@@ -137,9 +161,18 @@ function ItemListClass:OnSelDelete(index, itemId)
 			self.selValue = nil
 		end)
 	else
-		self.itemsTab:DeleteItem(item)
-		self.selIndex = nil
-		self.selValue = nil
+		local equipTree = self:FindSocketedJewel(itemId, true)
+		if equipTree ~= "" then
+			main:OpenConfirmPopup("Delete Item", item.name.." is currently equipped in passive tree '"..equipTree.."'.\nAre you sure you want to delete it?", "Delete", function()
+				self.itemsTab:DeleteItem(item)
+				self.selIndex = nil
+				self.selValue = nil
+			end)
+		else
+			self.itemsTab:DeleteItem(item)
+			self.selIndex = nil
+			self.selValue = nil
+		end
 	end
 end
 
