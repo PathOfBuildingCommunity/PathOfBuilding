@@ -560,7 +560,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-   if skillModList:Flag(nil, "ClawCritMultiplierAppliesToMinions") then
+	if skillModList:Flag(nil, "ClawCritMultiplierAppliesToMinions") then
 		-- Claw Crit Multi conversion from Law of the Wilds
 		for i, value in ipairs(skillModList:Tabulate("BASE", { flags = bor(ModFlag.Claw, ModFlag.Hit) }, "CritMultiplier")) do
 			local mod = value.mod
@@ -842,11 +842,16 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark]then
+	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark] then
 		output.CurseEffectMod = calcLib.mod(skillModList, skillCfg, "CurseEffect")
 		if breakdown then
 			breakdown.CurseEffectMod = breakdown.mod(skillModList, skillCfg, "CurseEffect")
 		end
+	end
+	if (skillFlags.trap or skillFlags.mine) and not (skillData.trapCooldown or skillData.cooldown) then
+		skillFlags.notAverage = true
+		skillFlags.showAverage = false
+		skillData.showAverage = false
 	end
 	if skillFlags.trap then
 		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "TrapThrowingTime")
@@ -997,8 +1002,11 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillFlags.brand then
-		output.BrandAttachmentRange = calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
+		output.BrandAttachmentRange = data.misc.BrandAttachmentRangeBase * calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
 		output.ActiveBrandLimit = skillModList:Sum("BASE", skillCfg, "ActiveBrandLimit")
+		if breakdown then
+			breakdown.BrandAttachmentRange = { radius = output.BrandAttachmentRange }
+		end
 	end
 	
 	if skillFlags.warcry then
@@ -2240,6 +2248,7 @@ function calcs.offence(env, actor, activeSkill)
 								local elementUsed = damageType
 								if isElemental[damageType] then
 									resist = m_min(enemyDB:Sum("BASE", nil, damageType.."Resist", "ElementalResist") * calcLib.mod(enemyDB, nil, damageType.."Resist", "ElementalResist"), data.misc.EnemyMaxResist)
+									takenInc = takenInc + enemyDB:Sum("INC", cfg, "ElementalDamageTaken")
 								elseif damageType == "Chaos" then
 									resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
 								end

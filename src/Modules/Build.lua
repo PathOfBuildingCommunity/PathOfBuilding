@@ -335,6 +335,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "SealMax", label = "Max Number of Seals", fmt = "d" },
 		{ stat = "TimeMaxSeals", label = "Time to Gain Max Seals", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
+		{ stat = "BrandAttachmentRange", label = "Attachment Range", fmt = "d", flag = "brand" },
 		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
 		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ stat = "LifeCost", label = "Life Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
@@ -843,11 +844,15 @@ function buildMode:Save(xml)
 	for _, id in ipairs(self.spectreList) do
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
 	end
+	local addedStatNames = { SkillDPS = true }
 	for index, statData in ipairs(self.displayStats) do
-		if statData.stat then
-			local statVal = self.calcsTab.mainOutput[statData.stat]
-			if statVal then
-				t_insert(xml, { elem = "PlayerStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
+		if not statData.flag or self.calcsTab.mainEnv.player.mainSkill.skillFlags[statData.flag] then
+			if statData.stat and not addedStatNames[statData.stat] then
+				local statVal = self.calcsTab.mainOutput[statData.stat]
+				if statVal and (statData.condFunc and statData.condFunc(statVal, self.calcsTab.mainOutput) or true) then
+					t_insert(xml, { elem = "PlayerStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
+					addedStatNames[statData.stat] = true
+				end
 			end
 		end
 	end
