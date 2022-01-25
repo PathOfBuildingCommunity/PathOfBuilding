@@ -500,7 +500,7 @@ Implicits: 1
 {variant:2}Hits with this Weapon Shock Enemies as though dealing (150-200)% more Damage
 {variant:2}Ignites inflicted with this Weapon deal (50-75)% more Damage
 50% of Physical Damage from Hits with this Weapon is Converted to a random Element
-Hits with this Weapon always inflict Elemental Ailments
+Hits with this Weapon always Ignite, Freeze, and Shock
 ]],[[
 Fate of the Vaal
 Gemstone Sword
@@ -515,7 +515,7 @@ Implicits: 1
 {variant:2}(180-210)% increased Physical Damage
 (10-15)% increased Attack Speed
 100% of Physical Damage from Hits with this Weapon is Converted to a random Element
-Hits with this Weapon always inflict Elemental Ailments
+Hits with this Weapon always Ignite, Freeze, and Shock
 Hits with this Weapon deal (30-60)% increased Damage to Ignited Enemies
 Hits with this Weapon deal (30-60)% increased Damage to Frozen Enemies
 Hits with this Weapon deal (30-60)% increased Damage to Shocked Enemies

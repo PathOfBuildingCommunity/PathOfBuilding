@@ -554,9 +554,6 @@ Variant: Two-Toned Boots (Evasion/Energy Shield)
 {variant:3}Two-Toned Boots (Evasion/Energy Shield)
 League: Delirium
 Source: Drops from the Simulacrum Encounter
-{variant:1}Requires Level 70, 62 Str, 62 Dex
-{variant:2}Requires Level 70, 62 Str, 62 Int
-{variant:3}Requires Level 70, 62 Dex, 62 Int
 Implicits: 3
 {variant:1}+(8-12)% to Fire and Cold Resistances
 {variant:2}+(8-12)% to Fire and Lightning Resistances

@@ -46,13 +46,6 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 			end)
 		end)
 	end
-	self.controls.accountNameGo = new("ButtonControl", {"LEFT",self.controls.accountName,"RIGHT"}, 8, 0, 60, 20, "Start", function()
-		self.controls.sessionInput.buf = ""
-		self:DownloadCharacterList()
-	end)
-	self.controls.accountNameGo.enabled = function()
-		return self.controls.accountName.buf:match("%S")
-	end
 	-- accountHistory Control
 	if not historyList then
 		historyList = { }
@@ -64,6 +57,13 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 			return a:lower() < b:lower()
 		end)
 	end -- don't load the list many times
+	self.controls.accountNameGo = new("ButtonControl", {"LEFT",self.controls.accountName,"RIGHT"}, 8, 0, 60, 20, "Start", function()
+		self.controls.sessionInput.buf = ""
+		self:DownloadCharacterList()
+	end)
+	self.controls.accountNameGo.enabled = function()
+		return self.controls.accountName.buf:match("%S")
+	end
 
 	self.controls.accountHistory = new("DropDownControl", {"LEFT",self.controls.accountNameGo,"RIGHT"}, 8, 0, 200, 20, historyList, function()
 		self.controls.accountName.buf = self.controls.accountHistory.list[self.controls.accountHistory.selIndex]
@@ -148,19 +148,9 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charImportItemsClearItems.tooltipText = "Delete all equipped items when importing."
 	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
 
-	self.controls.charDone = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Done", function()
+	self.controls.charClose = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Close", function()
 		self.charImportMode = "GETACCOUNTNAME"
 		self.charImportStatus = "Idle"
-		-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
-		if not historyList[self.controls.accountName.buf] then
-			t_insert(historyList, self.controls.accountName.buf)
-			historyList[self.controls.accountName.buf] = true
-			self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
-			table.sort(historyList, function(a,b)
-				return a:lower() < b:lower()
-			end)
-			self.controls.accountHistory:CheckDroppedWidth(true)
-		end
 	end)
 
 	-- Build import/export
@@ -389,6 +379,8 @@ function ImportTabClass:DownloadCharacterList()
 			end
 			self.lastCharList = charList
 			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValue("league"))
+			-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
+			self:SaveAccountHistory()
 		end, POESESSID and "POESESSID="..POESESSID)
 	end, POESESSID and "POESESSID="..POESESSID)
 end
@@ -414,6 +406,18 @@ function ImportTabClass:BuildCharacterList(league)
 				break
 			end
 		end
+	end
+end
+
+function ImportTabClass:SaveAccountHistory()
+	if not historyList[self.controls.accountName.buf] then
+		t_insert(historyList, self.controls.accountName.buf)
+		historyList[self.controls.accountName.buf] = true
+		self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
+		table.sort(historyList, function(a,b)
+			return a:lower() < b:lower()
+		end)
+		self.controls.accountHistory:CheckDroppedWidth(true)
 	end
 end
 
@@ -527,6 +531,8 @@ function ImportTabClass:ImportItemsAndSkills(json)
 			end
 		end
 	end
+
+	local mainSkillEmpty = #self.build.skillsTab.socketGroupList == 0
 	local skillOrder
 	if self.controls.charImportItemsClearSkills.state then
 		skillOrder = { }
@@ -580,6 +586,9 @@ function ImportTabClass:ImportItemsAndSkills(json)
 				return orderA
 			end
 		end)
+	end
+	if mainSkillEmpty then
+		self.build.mainSocketGroup = self:GuessMainSocketGroup()
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
@@ -830,7 +839,6 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	end
 end
 
-
 function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	-- Build socket group list
 	local itemSocketGroupList = { }
@@ -908,6 +916,19 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	end
 end
 
+-- Return the index of the group with the most gems
+function ImportTabClass:GuessMainSocketGroup()
+	local largestGroupSize = 0
+	local largestGroupIndex = 1
+	for i, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+		if #socketGroup.gemList > largestGroupSize then
+			largestGroupSize = #socketGroup.gemList
+			largestGroupIndex = i
+		end
+	end
+	return largestGroupIndex
+end
+
 function HexToChar(x)
 	return string.char(tonumber(x, 16))
 end
@@ -925,10 +946,9 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 	local importWebsiteList = {
 		{ label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1" },
 		{ label = "PastebinP.com", id = "PastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
-		{ label = "Ghostbin", id = "Ghostbin", matchURL = "ghostbin%.co/paste/%w+", regexURL = "ghostbin%.co/paste/(%w+)%s*$", downloadURL = "ghostbin.co/paste/%1/raw" },
 		{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
-		{ label = "TinyPaste", id = "TinyPaste", matchURL = "penyacom%.org/%w+", regexURL = "penyacom%.org/[pr]%?q=(%w+)%s*$", downloadURL = "penyacom.org/r?q=%1" },
 		{ label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1" },
+		{ label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/%w+", regexURL = "pobb%.in/([%w-_]+)%s*$", downloadURL = "pobb.in/pob/%1" },
 	}
 	local controls = { }
 
