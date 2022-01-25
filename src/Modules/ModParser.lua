@@ -2722,6 +2722,7 @@ local specialModList = {
 	["fire resistance is (%d+)%%"] = function(num) return { mod("FireResist", "OVERRIDE", num) } end,
 	["cold resistance is (%d+)%%"] = function(num) return { mod("ColdResist", "OVERRIDE", num) } end,
 	["lightning resistance is (%d+)%%"] = function(num) return { mod("LightningResist", "OVERRIDE", num) } end,
+	["elemental resistances are capped by your highest maximum elemental resistance instead"] = { flag("ElementalResistMaxIsHighestResistMax") },
 	["chaos resistance is doubled"] = { mod("ChaosResist", "MORE", 100) },
 	["nearby enemies have (%d+)%% increased fire and cold resistances"] = function(num) return { 
 		mod("EnemyModifier", "LIST", { mod = mod("FireResist", "INC", num) }),
