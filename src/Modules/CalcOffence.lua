@@ -4096,11 +4096,11 @@ function calcs.offence(env, actor, activeSkill)
 	if skillFlags.ignite then
 		if skillFlags.igniteCanStack then
 			if skillData.showAverage then
-				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS
+				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS / globalOutput.TotalIgniteStacks
 				output.CombinedAvg = output.CombinedDPS + output.IgniteDamage
 			else
-				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS
-				output.WithIgniteDPS = baseDPS + output.TotalIgniteDPS
+				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS / globalOutput.TotalIgniteStacks
+				output.WithIgniteDPS = baseDPS + output.TotalIgniteDPS / globalOutput.TotalIgniteStacks
 			end
 		elseif skillData.showAverage then
 			output.WithIgniteDPS = baseDPS + output.IgniteDamage
