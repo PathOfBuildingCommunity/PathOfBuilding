@@ -1297,6 +1297,8 @@ function ItemsTabClass:DeleteItem(item)
 						depNode.alloc = false
 						spec.allocNodes[depNodeId] = nil
 					end
+					spec.nodes[nodeId].alloc = false
+					spec.allocNodes[nodeId] = nil
 				end
 			end
 		end
