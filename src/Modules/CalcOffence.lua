@@ -1612,7 +1612,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	for _, pass in ipairs(passList) do
-		local globalOutput, globalBreakdown = output, breakdown
+		globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
 
 		-- Exerted Attack members
@@ -2623,7 +2623,7 @@ function calcs.offence(env, actor, activeSkill)
 	skillFlags.brittle = false
 	skillFlags.sap = false
 	for _, pass in ipairs(passList) do
-		local globalOutput, globalBreakdown = output, breakdown
+		globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
 
 		-- Calculate chance to inflict secondary dots/status effects
@@ -2885,7 +2885,7 @@ function calcs.offence(env, actor, activeSkill)
 			local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster") + enemyDB:Sum("INC", nil, "SelfBleedFaster")  / 100
 			globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
 			local bleedStacks = (output.HitChance / 100) * (globalOutput.BleedDuration / output.Time) / maxStacks
-			bleedStacks = configStacks > 0 and m_min(bleedStacks, configStacks / maxStacks) or bleedStacks 
+			bleedStacks = configStacks > 0 and m_min(bleedStacks, configStacks / maxStacks) or bleedStacks
 
 			for sub_pass = 1, 2 do
 				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or sub_pass == 1 then
@@ -3193,6 +3193,20 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.IgniteFire = { damageTypes = { } }
 				breakdown.IgniteChaos = { damageTypes = { } }
 			end
+
+			-- For ignites we will be using a weighted average calculation
+			local maxStacks = 1
+			if skillFlags.igniteCanStack then
+				maxStacks = maxStacks + skillModList:Sum("BASE", cfg, "IgniteStacks")
+			end
+			globalOutput.TotalIgniteStacks = maxStacks
+
+			local rateMod = (calcLib.mod(skillModList, cfg, "IgniteBurnFaster") + enemyDB:Sum("INC", nil, "SelfIgniteBurnFaster") / 100)  / calcLib.mod(skillModList, cfg, "IgniteBurnSlower")
+			local durationBase = data.misc.IgniteDurationBase
+			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration") * calcLib.mod(enemyDB, nil, "SelfIgniteDuration")
+			globalOutput.IgniteDuration = durationBase * durationMod / rateMod * debuffDurationMult
+			local igniteStacks = (globalOutput.IgniteDuration / output.Time) / maxStacks
+
 			for sub_pass = 1, 2 do
 				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or sub_pass == 1 then
 					dotCfg.skillCond["CriticalStrike"] = false
@@ -3237,10 +3251,10 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if sub_pass == 2 then
 					output.CritIgniteDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "FireDotMultiplier") / 100
-					sourceCritDmg = (totalMin + totalMax) / 2 * output.CritIgniteDotMulti
+					sourceCritDmg = (totalMin + (totalMax - totalMin) / m_pow(2, 1 / (igniteStacks + 1))) * output.CritIgniteDotMulti
 				else
 					output.IgniteDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "FireDotMultiplier") / 100
-					sourceHitDmg = (totalMin + totalMax) / 2 * output.IgniteDotMulti
+					sourceHitDmg = (totalMin + (totalMax - totalMin) / m_pow(2, 1 / (igniteStacks + 1))) * output.IgniteDotMulti
 				end
 			end
 			local igniteMode = env.configInput.igniteMode or "AVERAGE"
@@ -3249,7 +3263,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			if globalBreakdown then
 				globalBreakdown.IgniteDPS = {
-					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+					s_format(colorCodes.CUSTOM.."NOTE: Calculation use new Weighted Avg Ailment formula")
 				}
 			end
 			local baseVal = calcAilmentDamage("Ignite", sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
@@ -3278,17 +3292,15 @@ function calcs.offence(env, actor, activeSkill)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
-				local rateMod = (calcLib.mod(skillModList, cfg, "IgniteBurnFaster") + enemyDB:Sum("INC", nil, "SelfIgniteBurnFaster") / 100)  / calcLib.mod(skillModList, cfg, "IgniteBurnSlower")
-				output.IgniteDPS = baseVal * effectMod * rateMod * effMult
-				local durationBase = data.misc.IgniteDurationBase
-				local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration") * calcLib.mod(enemyDB, nil, "SelfIgniteDuration")
-				globalOutput.IgniteDuration = durationBase * durationMod / rateMod * debuffDurationMult
+				igniteStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.IgniteDuration / output.Time)
+				output.IgniteDPS = baseVal * effectMod * rateMod * effMult * igniteStacks
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
-					output.TotalIgniteStacks = 1 + skillModList:Sum("BASE", cfg, "IgniteStacks")
+					output.TotalIgniteStacks = maxStacks
 					output.TotalIgniteDPS = output.IgniteDPS * output.TotalIgniteStacks
 				end
+				
 				if breakdown then
 					t_insert(breakdown.IgniteDPS, "x 1.25 ^8(ignite deals 125% per second)")
 					t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
@@ -3298,6 +3310,7 @@ function calcs.offence(env, actor, activeSkill)
 						{ "%.2f ^8(ailment effect modifier)", effectMod },
 						{ "%.2f ^8(burn rate modifier)", rateMod },
 						{ "%.3f ^8(effective DPS modifier)", effMult },
+						{ "%d ^8(ignite stacks)", output.TotalIgniteStacks },
 						total = s_format("= %.1f ^8per second", output.IgniteDPS),
 					})
 					if output.CritIgniteDotMulti and (output.CritIgniteDotMulti ~= output.IgniteDotMulti) then
@@ -3778,7 +3791,7 @@ function calcs.offence(env, actor, activeSkill)
 			combineStat("TotalPoisonStacks", "DPS")
 		end
 		combineStat("IgniteChance", "AVERAGE")
-		combineStat("IgniteDPS", "CHANCE", "IgniteChance")
+		combineStat("IgniteDPS", "CHANCE_AILMENT", "IgniteChance")
 		if skillFlags.igniteCanStack then
 			combineStat("IgniteDamage", "CHANCE", "IgniteChance")
 			if skillData.showAverage then

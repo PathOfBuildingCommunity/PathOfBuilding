@@ -827,7 +827,7 @@ return {
 		{ label = "Player modifiers", modName = { "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration", "IgniteBurnFaster", "IgniteBurnSlower" }, cfg = "skill" },
 		{ label = "Enemy modifiers", modName = {"SelfIgniteDuration", "SelfIgniteBurnFaster"}, enemy = true },
 	}, },
-	{ label = "Dmg. per Ignite", flag = "igniteCanStack", { format = "{1:output:IgniteDamage}",
+	{ label = "Dmg. per Ignite", { format = "{1:output:IgniteDamage}",
 		{ breakdown = "MainHand.IgniteDamage" },
 		{ breakdown = "OffHand.IgniteDamage" },
 		{ breakdown = "IgniteDamage" },
