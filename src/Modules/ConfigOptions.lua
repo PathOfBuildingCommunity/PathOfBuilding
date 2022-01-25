@@ -66,7 +66,8 @@ return {
 			modList:NewMod("Condition:LifeRegenBurstFull", "FLAG", true, "Config")
 		end
 	end },
-	{ var = "EHPUnluckyWorstOf", type = "list", label = "EHP calc unlucky:", tooltip = "LL", list = {{val=1,label="Average"},{val=2,label="Unlucky"},{val=4,label="Very Unlucky"}} },
+	{ var = "EHPUnluckyWorstOf", type = "list", label = "EHP calc unlucky:", tooltip = "Sets the EHP calc to pretend its unlucky and reduce the effects of random events", list = {{val=1,label="Average"},{val=2,label="Unlucky"},{val=4,label="Very Unlucky"}} },
+	{ var = "EhpCalcMode", type = "list", label = "EHP calculation mode:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\tMinimum: calculates each one and uses the worst\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Minimum",label="Minimum"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
 	{ var = "armourCalculationMode", type = "list", label = "Armour calculation mode:", tooltip = "Controls how Defending with Double Armour is calculated:\n\tMinimum: never Defend with Double Armour\n\tAverage: Damage Reduction from Defending with Double Armour is proportional to chance\n\tMaximum: always Defend with Double Armour\nThis setting has no effect if you have 100% chance to Defend with Double Armour.", list = {{val="MIN",label="Minimum"},{val="AVERAGE",label="Average"},{val="MAX",label="Maximum"}}, apply = function(val, modList, enemyModList)
 		if val == "MAX" then
 			modList:NewMod("Condition:ArmourMax", "FLAG", true, "Config")
@@ -74,7 +75,6 @@ return {
 			modList:NewMod("Condition:ArmourAvg", "FLAG", true, "Config")
 		end
 	end },
-	{ var = "EhpCalcMode", type = "list", label = "EHP calculation mode:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\tMinimum: calculates each one and uses the worst\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Minimum",label="Minimum"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
 	{ var = "warcryMode", type = "list", label = "Warcry calculation mode:", ifSkillList = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry", "Battlemage's Cry" }, tooltip = "Controls how exerted attacks from Warcries are calculated:\nAverage: Averages out Warcry usage with cast time, attack speed and warcry cooldown .\nMax Hit: Shows maximum hit for lining up all warcries.", list = {{val="AVERAGE",label="Average"},{val="MAX",label="Max Hit"}}, apply = function(val, modList, enemyModList)
 		if val == "MAX" then
 			modList:NewMod("Condition:WarcryMaxHit", "FLAG", true, "Config")
