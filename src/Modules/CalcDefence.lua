@@ -867,28 +867,23 @@ function calcs.defence(env, actor)
 				enemyDamage = env.configInput["enemy"..damageType.."Damage"] or 0
 			elseif stringVal == "Default" then
 				if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (not specificaly uber ziri)
+					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.stdBossDPSMult
 					if damageType == "Chaos" then
-						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (2.5 / 4 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
-					else
-						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (2.5 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
+						enemyDamage = enemyDamage / 4
 					end
 				elseif env.configInput["enemyIsBoss"] == "Shaper" then
+					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.shaperDPSMult
 					if damageType == "Chaos" then
-						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (5 / 4 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
+						enemyDamage = enemyDamage / 4
 					elseif isElemental[damageType] then
-						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (5 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
-						output[damageType.."EnemyPen"] = 25 / 5 -- Penetrates 25% / 5 types of damage
-					else
-						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (5 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
+						output[damageType.."EnemyPen"] = data.misc.shaperPen
 					end
 				elseif env.configInput["enemyIsBoss"] == "Sirus" then
+					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.sirusDPSMult
 					if damageType == "Chaos" then
-						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (7 / 4 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
+						enemyDamage = enemyDamage / 4
 					elseif isElemental[damageType] then
-						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (7 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
-						output[damageType.."EnemyPen"] = 40 / 5 -- Penetrates 40% / 5 types of damage
-					else
-						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (7 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
+						output[damageType.."EnemyPen"] = data.misc.sirusPen
 					end
 				else
 					if damageType == "Physical" then
@@ -1503,7 +1498,7 @@ function calcs.defence(env, actor)
 		local BlockChance = 0
 		local blockEffect = 1
 		local suppressChance = 0
-		local suppressionEffect = output.SpellSuppressionEffect
+		local suppressionEffect = 1
 		local ExtraAvoidChance = 0
 		local averageAvoidChance = 0
 		local worstOf = env.configInput.EHPUnluckyWorstOf or 1

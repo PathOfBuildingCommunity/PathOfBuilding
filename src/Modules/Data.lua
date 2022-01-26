@@ -336,6 +336,11 @@ data.misc = { -- magic numbers
 	LowPoolThreshold = 0.5,
 	AccuracyPerDexBase = 2,
 	BrandAttachmentRangeBase = 30,
+	stdBossDPSMult = 2.5 / 4.25,
+	shaperDPSMult = 5 / 4.25,
+	shaperPen = 25 / 5,
+	sirusDPSMult = 5 / 4.25,
+	sirusPen = 40 / 5,
 }
 
 -- Misc data tables
