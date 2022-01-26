@@ -497,26 +497,41 @@ local skills, mod, flag, skill = ...
 #flags attack melee projectile
 	parts = {
 		{
-			name = "Fire",
+			name = "Fire Attack",
+			area = false,
 		},
 		{
-			name = "Cold",
+			name = "Fire AoE",
+			area = true,
 		},
 		{
-			name = "Lightning",
+			name = "Cold Attack",
+			area = false,
+		},
+		{
+			name = "Cold AoE",
+			area = true,
+		},
+		{
+			name = "Lightning Attack",
+			area = false,
+		},
+		{
+			name = "Lightning AoE",
+			area = true,
 		},
 	},
 #baseMod flag("DealNoPhysical")
 #baseMod flag("DealNoChaos")
-#baseMod flag("DealNoFire", { type = "SkillPart", skillPart = 2 })
-#baseMod flag("DealNoFire", { type = "SkillPart", skillPart = 3 })
-#baseMod flag("DealNoCold", { type = "SkillPart", skillPart = 1 })
-#baseMod flag("DealNoCold", { type = "SkillPart", skillPart = 3 })
-#baseMod flag("DealNoLightning", { type = "SkillPart", skillPart = 1 })
-#baseMod flag("DealNoLightning", { type = "SkillPart", skillPart = 2 })
-#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 1 })
-#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 2 })
-#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 3 })
+#baseMod flag("DealNoFire", { type = "SkillPart", skillPartList = { 3, 4 } })
+#baseMod flag("DealNoFire", { type = "SkillPart", skillPartList = { 5, 6 } })
+#baseMod flag("DealNoCold", { type = "SkillPart", skillPartList = { 1, 2 } })
+#baseMod flag("DealNoCold", { type = "SkillPart", skillPartList = { 5, 6 } })
+#baseMod flag("DealNoLightning", { type = "SkillPart", skillPartList = { 1, 2 } })
+#baseMod flag("DealNoLightning", { type = "SkillPart", skillPartList = { 3, 4 } })
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 4 })
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 6 })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" })
@@ -525,7 +540,7 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Brittle" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Sapped" })
 #baseMod mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" })
-#baseMod skill("radius", 10)
+#baseMod skill("radius", 10, { type = "SkillPart", skillPartList = { 2, 4, 6 } })
 #mods
 
 #skill EnsnaringArrow

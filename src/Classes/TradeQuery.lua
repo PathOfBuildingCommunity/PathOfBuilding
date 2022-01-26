@@ -14,8 +14,8 @@ local m_min = math.min
 local m_ceil = math.ceil
 
 local leagueDropList = {
-	{ label = "League SC", name = "tmpstandard" },
-	{ label = "League HC", name = "tmphardcore" },
+	{ label = "League SC", name = "tmpstandard", realname = "Scourge" },
+	{ label = "League HC", name = "tmphardcore", realname = "Hardcore%20Scourge" },
 	{ label = "Standard", name = "Standard" },
 	{ label = "Hardcore", name = "Hardcore" },
 	{ label = "Event SC", name = "eventstandard" },
@@ -130,7 +130,8 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.pbSortSelectionIndex = 1
 	self.pbCurrencyConversion = { }
 	self.lastCurrencyConversionRequest = 0
-	self.lastCurrencyFileTime = nil
+	self.lastCurrencyFileTime = { }
+	self.pbFileTimestampDiff = { }
 
     -- set 
     self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
@@ -296,10 +297,12 @@ function TradeQueryClass:PriceItem()
 	end)
 	controls.league = new("DropDownControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -12, pane_height - 30, 100, 18, leagueDropList, function(index, value)
 		self.pbLeague = value.name
+		self.pbLeagueRealName = value.realname or value.name
 		self:SetCurrencyConversionButton(controls)
 	end)
 	controls.league.selIndex = 1
 	self.pbLeague = leagueDropList[controls.league.selIndex].name
+	self.pbLeagueRealName = leagueDropList[controls.league.selIndex].realname or self.pbLeague
 	controls.leagueLabel = new("LabelControl", {"TOPRIGHT",controls.league,"TOPLEFT"}, -4, 0, 20, 16, "League:")
 	controls.poesessidButton = new("ButtonControl", {"TOPLEFT",controls.leagueLabel,"TOPLEFT"}, -256, 0, 240, row_height, POESESSID ~= "" and "HAVE POESESSID" or colorCodes.WARNING.."NEED POESESSID", function()
 		local poesessid_controls = {}
@@ -339,18 +342,18 @@ end
 -- Method to update the Currency Conversion button label
 function TradeQueryClass:SetCurrencyConversionButton(controls)
 	local currencyLabel = colorCodes.WARNING .. "Update Currency Conversion Rates"
-	self.pbFileTimestampDiff = nil
+	self.pbFileTimestampDiff[controls.league.selIndex] = nil
 	local foo = io.open("../"..self.pbLeague.."_currency_values.json", "r")
 	if foo then
 		local lines = foo:read "*a"
 		foo:close()
 		self.pbCurrencyConversion[self.pbLeague] = self:ProcessJSON(lines)
-		self.lastCurrencyFileTime = self.pbCurrencyConversion[self.pbLeague]["updateTime"]
-		self.pbFileTimestampDiff = get_time() - self.lastCurrencyFileTime
-		if self.pbFileTimestampDiff < 3600 then
+		self.lastCurrencyFileTime[controls.league.selIndex]  = self.pbCurrencyConversion[self.pbLeague]["updateTime"]
+		self.pbFileTimestampDiff[controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[controls.league.selIndex] 
+		if self.pbFileTimestampDiff[controls.league.selIndex] < 3600 then
 			-- Less than 1 hour (60 * 60 = 3600)
 			currencyLabel = "^8Currency Rates are Very Recent"
-		elseif self.pbFileTimestampDiff < (24 * 3600) then
+		elseif self.pbFileTimestampDiff[controls.league.selIndex] < (24 * 3600) then
 			-- Less than 1 day
 			currencyLabel = "^7Currency Rates are Recent"
 		end
@@ -359,21 +362,21 @@ function TradeQueryClass:SetCurrencyConversionButton(controls)
 	end
 	controls.updateCurrencyConversion.label = currencyLabel
 	controls.updateCurrencyConversion.enabled = function()
-		return self.pbFileTimestampDiff == nil or self.pbFileTimestampDiff >= 3600
+		return self.pbFileTimestampDiff[controls.league.selIndex] == nil or self.pbFileTimestampDiff[controls.league.selIndex] >= 3600
 	end
 	controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		if self.lastCurrencyFileTime ~= nil then
-			self.pbFileTimestampDiff = get_time() - self.lastCurrencyFileTime
+		if self.lastCurrencyFileTime[controls.league.selIndex] ~= nil then
+			self.pbFileTimestampDiff[controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[controls.league.selIndex] 
 		end
-		if self.pbFileTimestampDiff == nil or self.pbFileTimestampDiff >= 3600 then
+		if self.pbFileTimestampDiff[controls.league.selIndex] == nil or self.pbFileTimestampDiff[controls.league.selIndex] >= 3600 then
 			tooltip:AddLine(16, colorCodes.WARNING .. "Currency Conversion rates are pulled from PoE Ninja leveraging their API.")
 			tooltip:AddLine(16, colorCodes.WARNING .. "Updates are limited to once per hour and not necessary more than once per day.")
 			tooltip:AddLine(16, "")
 			tooltip:AddLine(16, colorCodes.NEGATIVE .. "NOTE: This will expose your IP address to poe.ninja.")
 			tooltip:AddLine(16, colorCodes.NEGATIVE .. "If you are concerned about this please do not click this button.")
-		elseif self.pbFileTimestampDiff ~= nil and self.pbFileTimestampDiff < 3600 then
-			tooltip:AddLine(16, "Conversion Rates are less than an hour old (" .. tostring(self.pbFileTimestampDiff) .. " seconds old)")
+		elseif self.pbFileTimestampDiff[controls.league.selIndex] ~= nil and self.pbFileTimestampDiff[controls.league.selIndex] < 3600 then
+			tooltip:AddLine(16, "Conversion Rates are less than an hour old (" .. tostring(self.pbFileTimestampDiff[controls.league.selIndex]) .. " seconds old)")
 			tooltip:AddLine(16, "Button is DISABLED")
 		end
 	end
@@ -721,14 +724,22 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 	controls['name'..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^8"..slotTbl.name)
 	controls['bestButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 10, row_height, "?", function()
 		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query)
-			self:SearchItem("Scourge", query, context.slotTbl, context.controls, context.str_cnt)
+			self:SearchItem(self.pbLeagueRealName, query, context.slotTbl, context.controls, context.str_cnt)
 		end)
 	end)
-	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['bestButton'..str_cnt],"TOPLEFT"}, 10 + 8, 0, 500, row_height, "Trade Site URL", nil, "^%C\t\n", nil, nil, 16)
+	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['bestButton'..str_cnt],"TOPLEFT"}, 10 + 8, 0, 500, row_height, "Trade Site URL", nil, "^%C\t\n", nil, nil, nil)
 	if activeSlotRef and activeSlotRef.pbURL ~= "" and activeSlotRef.pbURL ~= nil then
 		controls['uri'..str_cnt]:SetText(activeSlotRef.pbURL)
 	else
 		controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. slotTbl.name)
+	end
+	controls['uri'..str_cnt].tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		if controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil then
+			tooltip:AddLine(16, "CTRL click to open in web-browser or click 'Price Item' to do it in PoB")
+			tooltip:AddLine(16, "")
+			tooltip:AddLine(14, colorCodes.NEGATIVE .. "NOTE: you will need to re-sort until GGG fixes")
+		end
 	end
 	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 8, 0, 100, row_height, "Price Item", function()
 		self:PublicTrade(controls['uri'..str_cnt].buf, slotTbl, controls, str_cnt)
