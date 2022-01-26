@@ -777,24 +777,16 @@ local function doActorMisc(env, actor)
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
 		if modDB:Flag(nil, "Fortified") then
-			local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
-			local modList = modDB:List(nil, "convertFortificationBuff")
-			local changeMod = modList[#modList]
-			if changeMod then
-				local mod = changeMod.mod
-				if not mod.originValue then
-					mod.originValue = mod.value
-				end
-				mod.value = m_floor(mod.originValue * effectScale)
-				mod.source = "Fortification"
-				modDB:AddMod(mod)
-			else
-				local effectMax = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
-				local effect = m_floor(effectScale * m_min(modDB:Sum("BASE", nil, "Multiplier:Fortification"), effectMax))
+			local maxStacks = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
+			local stacks = modDB:Override(nil, "FortificationStacks") or maxStacks
+			output.FortificationStacks = stacks
+			if not modDB:Flag(nil,"Condition:NoFortificationMitigation") then
+				local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
+				local effect = m_floor(effectScale * stacks)
 				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortification")
-				if modDB:Sum("BASE", nil, "Multiplier:Fortification") >= effectMax then
-					modDB:NewMod("Condition:HaveMaximumFortification", "FLAG", true, "")
-				end
+			end
+			if stacks >= maxStacks then
+				modDB:NewMod("Condition:HaveMaximumFortification", "FLAG", true, "")
 			end
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 		end
