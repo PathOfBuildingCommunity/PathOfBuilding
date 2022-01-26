@@ -104,7 +104,7 @@ function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, sour
 							if globalLimits[mod[1].globalLimitKey] + value > mod[1].globalLimit then
 								value = mod[1].globalLimit - globalLimits[mod[1].globalLimitKey]
 							end
-							globalLimits[mod[1].globalLimitKey] = m_min(mod[1].globalLimit, globalLimits[mod[1].globalLimitKey] + value)
+							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] + value
 						end
 						result = result + value
 					else
@@ -232,7 +232,7 @@ function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywo
 							if globalLimits[mod[1].globalLimitKey] + value > mod[1].globalLimit then
 								value = mod[1].globalLimit - globalLimits[mod[1].globalLimitKey]
 							end
-							globalLimits[mod[1].globalLimitKey] = m_min(mod[1].globalLimit, globalLimits[mod[1].globalLimitKey] + value)
+							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] + value
 						end
 					else
 						value = mod.value
