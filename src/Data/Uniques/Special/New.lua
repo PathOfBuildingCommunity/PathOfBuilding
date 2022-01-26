@@ -23,6 +23,14 @@ Penetrate 1% Elemental Resistances per 10 Omniscience
 Attribute Requirements can be satisfied by 23% of Omniscience
 ]],
 
+[[
+Melding of the Flesh
+Cobalt Jewel
+Limited to: 1
+-(75-76)% to All Elemental Resistances
+Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
+]]
+
 -- Reworked
 [[
 The Dancing Dervish
