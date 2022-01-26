@@ -3298,7 +3298,7 @@ function calcs.offence(env, actor, activeSkill)
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 					output.TotalIgniteStacks = maxStacks
-					output.TotalIgniteDPS = output.IgniteDPS * output.TotalIgniteStacks
+					output.TotalIgniteDPS = output.IgniteDPS
 				end
 				
 				if breakdown then
@@ -4096,11 +4096,11 @@ function calcs.offence(env, actor, activeSkill)
 	if skillFlags.ignite then
 		if skillFlags.igniteCanStack then
 			if skillData.showAverage then
-				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS / globalOutput.TotalIgniteStacks
+				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS
 				output.CombinedAvg = output.CombinedDPS + output.IgniteDamage
 			else
-				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS / globalOutput.TotalIgniteStacks
-				output.WithIgniteDPS = baseDPS + output.TotalIgniteDPS / globalOutput.TotalIgniteStacks
+				output.CombinedDPS = output.CombinedDPS + output.TotalIgniteDPS
+				output.WithIgniteDPS = baseDPS + output.TotalIgniteDPS
 			end
 		elseif skillData.showAverage then
 			output.WithIgniteDPS = baseDPS + output.IgniteDamage
