@@ -312,7 +312,8 @@ end
 function ImportTabClass:DownloadCharacterList()
 	self.charImportMode = "DOWNLOADCHARLIST"
 	self.charImportStatus = "Retrieving character list..."
-	local accountName = string.gsub(self.controls.accountName.buf, '%s+', '')  -- Trim Trailing/Leading spaces
+	  -- Trim Trailing/Leading spaces
+	local accountName = self.controls.accountName.buf:gsub('%s+', '')
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(page, errMsg)
