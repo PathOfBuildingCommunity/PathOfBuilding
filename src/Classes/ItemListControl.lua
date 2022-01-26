@@ -40,7 +40,24 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	self.controls.deleteAll.enabled = function()
 		return #self.list > 0
 	end
-	self.controls.sort = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 60, 18, "Sort", function()
+	self.controls.deleteUnused = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 100, 18, "Delete Unused", function()
+		local delList = {}
+		for _, itemId in pairs(self.list) do
+			local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(self.itemsTab.items[itemId])
+			if not slot then
+				t_insert(delList, itemId)
+			end
+		end
+		-- delete in reverse order so as to not delete the wrong item whilst deleting
+		for i = #delList, 1, -1 do
+			value = delList[i]
+			self.itemsTab:DeleteItem(self.itemsTab.items[delList[i]])
+		end
+	end)
+	self.controls.deleteUnused.enabled = function()
+		return #self.list > 0
+	end
+	self.controls.sort = new("ButtonControl", {"RIGHT",self.controls.deleteUnused,"LEFT"}, -4, 0, 60, 18, "Sort", function()
 		itemsTab:SortItemList()
 	end)
 end)
