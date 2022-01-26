@@ -393,7 +393,10 @@ skills["Barrage"] = {
 		["non_damaging_ailments_as_though_damage_+%_final"] = {
 			mod("ShockAsThoughDealing", "MORE", nil),
 			mod("ChillAsThoughDealing", "MORE", nil),
-			mod("FreezeAsThoughDealing", "MORE", nil)
+			mod("FreezeAsThoughDealing", "MORE", nil),
+			mod("ScorchAsThoughDealing", "MORE", nil),
+			mod("BrittleAsThoughDealing", "MORE", nil),
+			mod("SapAsThoughDealing", "MORE", nil),
 		}
 	},
 	baseFlags = {

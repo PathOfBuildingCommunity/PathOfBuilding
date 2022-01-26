@@ -2275,7 +2275,10 @@ local specialModList = {
 	["inflict non%-damaging ailments as though dealing (%d+)%% more damage"] = function(num) return {
 		mod("ShockAsThoughDealing", "MORE", num),
 		mod("ChillAsThoughDealing", "MORE", num),
-		mod("FreezeAsThoughDealing", "MORE", num)
+		mod("FreezeAsThoughDealing", "MORE", num),
+		mod("ScorchAsThoughDealing", "MORE", num),
+		mod("BrittleAsThoughDealing", "MORE", num),
+		mod("SapAsThoughDealing", "MORE", num),
 	} end,
 	["freeze chilled enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num, { type = "ActorCondition", actor = "enemy", var = "Chilled" } ) } end,
 	["(%d+)%% chance to shock attackers for (%d+) seconds on block"] = { mod("ShockBase", "BASE", 15) },
