@@ -854,17 +854,36 @@ function calcs.defence(env, actor)
 				},
 			}
 		end
+		local stringVal = "Default"
 		for _, damageType in ipairs(dmgTypeList) do
-			local stringVal = "Default"
+			if env.configInput["enemy"..damageType.."Damage"] or env.configInput["enemy"..damageType.."Pen"] then
+				stringVal = "Config"
+			end
+		end
+		for _, damageType in ipairs(dmgTypeList) do
 			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) --missing taunt from allies
 			local enemyDamage = 0
-			if damageType == "Physical" then
-				enemyDamage = env.configInput["enemy"..damageType.."Damage"] or env.data.monsterDamageTable[env.enemyLevel] * 1.5
-			else
+			if stringVal == "Config" then
 				enemyDamage = env.configInput["enemy"..damageType.."Damage"] or 0
-			end
-			if env.configInput["enemy"..damageType.."Damage"] then
-				stringVal = "Config"
+			elseif stringVal == "Default" then
+				if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (nor specificaly uber ziri)
+					if damageType ~= "Chaos" then
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (2.5 / 4) -- random boss multiplier / 4 damage types
+					end
+				elseif env.configInput["enemyIsBoss"] == "Shaper" then  -- AtlasBossAcceleratingProjectiles
+					if damageType == "Cold" then
+						enemyDamage = 7049 -- Deals 5639 to 8459 Cold Damage
+						output[damageType.."EnemyPen"] = 25 -- Penetrates 25% Cold Resistance
+					end
+				elseif env.configInput["enemyIsBoss"] == "Sirus" then  -- AtlasExileOrionCorridorBlast
+					if damageType ~= "Cold" then
+						enemyDamage = 821 -- Deals 2628 to 3942 Physical Damage, 25% of Physical Damage Converted to Lightning Damage, 25% of Physical Damage Converted to Chaos Damage, 25% of Physical Damage Converted to Fire Damage
+					end
+				else
+					if damageType == "Physical" then
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5
+					end
+				end
 			end
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
 			output[damageType.."EnemyDamage"] = enemyDamage * enemyDamageMult
@@ -1046,7 +1065,7 @@ function calcs.defence(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		-- Calculate incoming damage multiplier
 		local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
-		local enemyPen = env.configInput["enemy"..damageType.."Pen"] or 0
+		local enemyPen = env.configInput["enemy"..damageType.."Pen"] or output[damageType.."EnemyPen"] or 0
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks")
@@ -1067,6 +1086,9 @@ function calcs.defence(env, actor)
 				portionArmour = 100 - (resist - enemyPen)
 				armourReduct = calcs.armourReductionDouble(output.Armour, damage * portionArmour / 100, moreArmourChance)
 				resist = resist + m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
+			end
+			if resist ~= resist then -- resist == nan (caused somtimes by a div by 0 in armour calcs if damage passed in is 0)
+				resist = 0
 			end
 			output[damageType.."DamageReduction"] = damageType == "Physical" and resist or m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
 			if breakdown then
