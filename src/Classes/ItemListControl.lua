@@ -43,14 +43,19 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	self.controls.deleteUnused = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 100, 18, "Delete Unused", function()
 		local delList = {}
 		for _, itemId in pairs(self.list) do
-			local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(self.itemsTab.items[itemId])
-			if not slot then
-				t_insert(delList, itemId)
+			if self.itemsTab.items[itemId].type == "Jewel" then
+				if self:FindSocketedJewel(itemId, false) == "" then
+					t_insert(delList, itemId)
+				end
+			else
+				local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(self.itemsTab.items[itemId])
+				if not slot then
+					t_insert(delList, itemId)
+				end
 			end
 		end
 		-- delete in reverse order so as to not delete the wrong item whilst deleting
 		for i = #delList, 1, -1 do
-			value = delList[i]
 			self.itemsTab:DeleteItem(self.itemsTab.items[delList[i]])
 		end
 	end)
