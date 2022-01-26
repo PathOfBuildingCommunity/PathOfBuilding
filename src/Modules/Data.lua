@@ -339,7 +339,7 @@ data.misc = { -- magic numbers
 	stdBossDPSMult = 2.5 / 4.25,
 	shaperDPSMult = 5 / 4.25,
 	shaperPen = 25 / 5,
-	sirusDPSMult = 5 / 4.25,
+	sirusDPSMult = 7 / 4.25,
 	sirusPen = 40 / 5,
 }
 

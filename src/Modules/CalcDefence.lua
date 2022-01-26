@@ -1351,19 +1351,13 @@ function calcs.defence(env, actor)
 	function numberOfHitsToDie(DamageIn)
 		local numHits = 0
 		
-		local permaWard = false --implement "Ward does not Break"
-		--apply perma ward early so can breakout if it is enough to compleatly mitigate
-		if permaWard and output.Ward > 0 then
-			for _, damageType in ipairs(dmgTypeList) do
-				DamageIn[damageType] = m_max(DamageIn[damageType] - output.Ward, 0)
-			end
-		end
-		
-		--check damage in isnt 0
+		--check damage in isnt 0 and that ward doesnt mitigate all damage
 		for _, damageType in ipairs(dmgTypeList) do
 			numHits = numHits + DamageIn[damageType]
 		end
 		if numHits == 0 then
+			return m_huge
+		elseif modDB:Flag(nil, "WardNotBreak") and output.Ward > 0 and  numHits < output.Ward then
 			return m_huge
 		else
 			numHits = 0
@@ -1373,8 +1367,10 @@ function calcs.defence(env, actor)
 		local mana = output.ManaUnreserved or 0
 		local energyShield = output.EnergyShield or 0
 		local ward = output.Ward or 0
-		if (DamageIn["c"] or 0) > 0 then -- this is so it only applies once
+		local restoreWard = modDB:Flag(nil, "WardNotBreak") and ward or 0
+		if (DamageIn["c"] or 0) ~= 0 then -- this is so it only applies once
 			ward = 0
+			restoreWard = 0
 		end
 		local aegis = {}
 		aegis["shared"] = output["sharedAegis"] or 0
@@ -1385,7 +1381,7 @@ function calcs.defence(env, actor)
 			aegis[damageType] = output[damageType.."Aegis"] or 0
 			guard[damageType] = output[damageType.."GuardAbsorb"] or 0
 			if not DamageIn[damageType.."EnergyShieldBypass"] then
-				DamageIn[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"]
+				DamageIn[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] or 0
 			end
 		end
 		
@@ -1400,7 +1396,7 @@ function calcs.defence(env, actor)
 			end
 			for _, damageType in ipairs(dmgTypeList) do
 				if Damage[damageType] > 0 then
-					if not permaWard and ward > 0 then
+					if ward > 0 then
 						local tempDamage = m_min(Damage[damageType], ward)
 						ward = ward - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
@@ -1454,7 +1450,9 @@ function calcs.defence(env, actor)
 					life = life - Damage[damageType]
 				end
 			end
-			if not permaWard and ward > 0 then
+			if modDB:Flag(nil, "WardNotBreak") then
+				ward = restoreWard
+			elseif ward > 0 then
 				ward = 0
 			end
 			if DamageIn.GainWhenHit and life > 0 then
