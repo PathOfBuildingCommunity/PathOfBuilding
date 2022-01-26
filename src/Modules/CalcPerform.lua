@@ -931,11 +931,6 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("DamageTaken", "INC", 10, "Malediction")
 			modDB:NewMod("Damage", "INC", -10, "Malediction")
 		end
-		if modDB:Sum("INC", nil, "VastPowerAoE") > 0 then
-			local incFromVastPower = modDB:Sum("INC", nil, "VastPowerAoE")
-			local maxVastPower = data.misc.VastPowerMaxAoEPercent
-			modDB:NewMod("AreaOfEffect", "INC", incFromVastPower, "Vast Power", { type = "Multiplier", var = "PowerCharge", limit = maxVastPower, limitTotal = true })
-		end
 	end	
 end
 
@@ -1689,14 +1684,6 @@ function calcs.perform(env, avoidCache)
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList")
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect", "SkillAuraEffectOnSelf")
-
-						-- Take the Purposeful Harbinger buffs into account.
-						-- These are capped to 40% increased buff effect, no matter the amount allocated
-						local incFromPurposefulHarbinger = math.min(
-							skillModList:Sum("INC", skillCfg, "PurpHarbAuraBuffEffect"),
-							data.misc.PurposefulHarbingerMaxBuffPercent)
-						inc = inc + incFromPurposefulHarbinger
-
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect", "SkillAuraEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
