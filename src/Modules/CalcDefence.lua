@@ -866,18 +866,29 @@ function calcs.defence(env, actor)
 			if stringVal == "Config" then
 				enemyDamage = env.configInput["enemy"..damageType.."Damage"] or 0
 			elseif stringVal == "Default" then
-				if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (nor specificaly uber ziri)
-					if damageType ~= "Chaos" then
-						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (2.5 / 4) -- random boss multiplier / 4 damage types
+				if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (not specificaly uber ziri)
+					if damageType == "Chaos" then
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (2.5 / 4 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
+					else
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (2.5 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
 					end
-				elseif env.configInput["enemyIsBoss"] == "Shaper" then  -- AtlasBossAcceleratingProjectiles
-					if damageType == "Cold" then
-						enemyDamage = 7049 -- Deals 5639 to 8459 Cold Damage
-						output[damageType.."EnemyPen"] = 25 -- Penetrates 25% Cold Resistance
+				elseif env.configInput["enemyIsBoss"] == "Shaper" then
+					if damageType == "Chaos" then
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (5 / 4 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
+					elseif isElemental[damageType] then
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (5 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
+						output[damageType.."EnemyPen"] = 25 / 5 -- Penetrates 25% / 5 types of damage
+					else
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (5 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
 					end
-				elseif env.configInput["enemyIsBoss"] == "Sirus" then  -- AtlasExileOrionCorridorBlast
-					if damageType ~= "Cold" then
-						enemyDamage = 821 -- Deals 2628 to 3942 Physical Damage, 25% of Physical Damage Converted to Lightning Damage, 25% of Physical Damage Converted to Chaos Damage, 25% of Physical Damage Converted to Fire Damage
+				elseif env.configInput["enemyIsBoss"] == "Sirus" then
+					if damageType == "Chaos" then
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (7 / 4 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
+					elseif isElemental[damageType] then
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (7 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
+						output[damageType.."EnemyPen"] = 40 / 5 -- Penetrates 40% / 5 types of damage
+					else
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5 * (7 / 4.25) -- random boss multiplier / 5 damage types (chaos is 1/4 value)
 					end
 				else
 					if damageType == "Physical" then
