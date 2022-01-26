@@ -342,7 +342,7 @@ local modNameList = {
 	["aspect of the avian buff effect"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Aspect of the Avian" } },
 	["maximum rage"] = "MaximumRage",
 	["maximum fortification"] = "MaximumFortification",
-	["fortification"] = "Multiplier:Fortification",
+	["fortification"] = "FortificationStacks",
 	-- Charges
 	["maximum power charge"] = "PowerChargesMax",
 	["maximum power charges"] = "PowerChargesMax",
@@ -934,7 +934,6 @@ local preFlagList = {
 	["^nearby allies [hgd][ae][via][enl] "] = { newAura = true, newAuraOnlyAllies = true },
 	["^you and allies affected by auras from your skills [hgd][ae][via][enl] "] = { affectedByAura = true },
 	["^take "] = { modSuffix = "Taken" },
-	["^fortify buffs you create instead grant "] = { convertFortifyEffect = true },
 	["^marauder: "] = { tag = { type = "Condition", var = "ConnectedToMarauderStart" } },
 	["^duelist: "] = { tag = { type = "Condition", var = "ConnectedToDuelistStart" } },
 	["^ranger: "] = { tag = { type = "Condition", var = "ConnectedToRangerStart" } },
@@ -1074,6 +1073,7 @@ local modTagList = {
 	["per (%d+)%% missing fire resistance, up to a maximum of (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "MissingFireResist", div = num, limit = tonumber(limit), limitTotal = true } } end,
 	["per (%d+)%% missing cold resistance, up to a maximum of (%d+)%%"] = function(num, _, limit) return { tag = { type = "PerStat", stat = "MissingColdResist", div = num, limit = tonumber(limit), limitTotal = true } } end,
 	["per endurance, frenzy or power charge"] = { tag = { type = "PerStat", stat = "TotalCharges" } },
+	["per fortification"] = { tag = { type = "PerStat", stat = "FortificationStacks" } },
 	["per totem"] = { tag = { type = "PerStat", stat = "TotemsSummoned" } }, 
 	["per summoned totem"] =  { tag = { type = "PerStat", stat = "TotemsSummoned" } },
 	["for each summoned totem"] =  { tag = { type = "PerStat", stat = "TotemsSummoned" } },
@@ -1189,8 +1189,9 @@ local modTagList = {
 	["while at maximum frenzy charges"] = { tag = { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" } },
 	["while on full frenzy charges"] = { tag = { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" } },
 	["while at maximum endurance charges"] = { tag = { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" } },
+	["while at maximum fortification"] = { tag = { type = "Condition", var = "HaveMaximumFortification" } },
 	["while you have at least (%d+) crab barriers"] = function(num) return { tag = { type = "StatThreshold", stat = "CrabBarriers", threshold = num } } end,
-	["while you have at least (%d+) fortification"] = function(num) return { tag = { type = "MultiplierThreshold", var = "Fortification", threshold = num } } end,
+	["while you have at least (%d+) fortification"] = function(num) return { tag = { type = "StatThreshold", stat = "FortificationStacks", threshold = num } } end,
 	["while you have at least (%d+) total endurance, frenzy and power charges"] = function(num) return { tag = { type = "MultiplierThreshold", var = "TotalCharges", threshold = num } } end,
 	["while you have a totem"] = { tag = { type = "Condition", var = "HaveTotem" } },
 	["while you have at least one nearby ally"] = { tag = { type = "MultiplierThreshold", var = "NearbyAlly", threshold = 1 } },
@@ -1659,10 +1660,9 @@ local specialModList = {
 	["exerted attacks deal (%d+)%% more damage if a warcry sacrificed rage recently"] = function(num) return { mod("ExertIncrease", "MORE", num, nil, ModFlag.Attack, 0) } end,
 	-- Champion
 	["cannot be stunned while you have fortify"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Fortify" }) },
+	["cannot be stunned while fortified"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Fortified" }) },
 	["fortify"] = { flag("Condition:Fortify") },
-	["you have (%d+) fortification"] = function(num) return { 
-		mod("MaximumFortification", "OVERRIDE", num), 
-		mod("Multiplier:Fortification", "BASE", num),
+	["you have (%d+) fortification"] = function(num) return {
 		flag("Condition:Fortified") 
 	} end,
 	["enemies taunted by you cannot evade attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Taunted" }) }) },
@@ -2722,6 +2722,7 @@ local specialModList = {
 	["fire resistance is (%d+)%%"] = function(num) return { mod("FireResist", "OVERRIDE", num) } end,
 	["cold resistance is (%d+)%%"] = function(num) return { mod("ColdResist", "OVERRIDE", num) } end,
 	["lightning resistance is (%d+)%%"] = function(num) return { mod("LightningResist", "OVERRIDE", num) } end,
+	["elemental resistances are capped by your highest maximum elemental resistance instead"] = { flag("ElementalResistMaxIsHighestResistMax") },
 	["chaos resistance is doubled"] = { mod("ChaosResist", "MORE", 100) },
 	["nearby enemies have (%d+)%% increased fire and cold resistances"] = function(num) return { 
 		mod("EnemyModifier", "LIST", { mod = mod("FireResist", "INC", num) }),
@@ -3077,6 +3078,7 @@ local specialModList = {
 	},
 	["you count as dual wielding while you are unencumbered"] = { flag("Condition:DualWielding", { type = "Condition", var = "Unencumbered" }) },
 	["dual wielding does not inherently grant chance to block attack damage"] = { flag("Condition:NoInherentBlock") },
+	["you do not inherently take less damage for having fortification"] = { flag("Condition:NoFortificationMitigation") },
 	["skills supported by intensify have %+(%d) to maximum intensity"] = function(num) return { mod("Multiplier:IntensityLimit", "BASE", num) } end,
 	["spells which can gain intensity have %+(%d) to maximum intensity"] = function(num) return { mod("Multiplier:IntensityLimit", "BASE", num) } end,
 	["hexes you inflict have %+(%d+) to maximum doom"] = function(num) return { mod("MaxDoom", "BASE", num) } end,
@@ -3943,10 +3945,6 @@ local function parseMod(line, order)
 			-- Skill enchants or socketed gem modifiers that add additional effects
 			for i, effectMod in ipairs(modList) do
 				modList[i] = mod("ExtraSkillMod", "LIST", { mod = effectMod }, misc.addToSkill)
-			end
-		elseif misc.convertFortifyEffect then
-			for i, effectMod in ipairs(modList) do
-				modList[i] = mod("convertFortifyBuff", "LIST", { mod = effectMod })
 			end
 		elseif misc.applyToEnemy then
 			for i, effectMod in ipairs(modList) do
