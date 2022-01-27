@@ -266,6 +266,12 @@ data.cursePriority = {
 	["Elemental Weakness"] = 11,
 	["Conductivity"] = 12,
 	["Assassin's Mark"] = 13,
+	["CurseFromSkillGem"] = 100,
+	["CurseFromEquipment"] = 200,
+	["AnySlotMarkType"] = 1000,
+	["AnySlotHexType"] = 2000,
+	["RingSlotHexType"] = 3000,
+	["CurseAura"] = 10000,
 }
 
 ---@type string[] @List of all keystones not exclusive to timeless jewels.
