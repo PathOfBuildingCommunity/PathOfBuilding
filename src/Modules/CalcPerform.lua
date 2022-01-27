@@ -2081,7 +2081,7 @@ function calcs.perform(env, avoidCache)
 			env.minion.modDB:AddList(modList)
 		end
 	end
-	for debuffName, modList in pairs(debuffs) do
+	for _, modList in pairs(debuffs) do
 		enemyDB:AddList(modList)
 	end
 	modDB.multipliers["CurseOnEnemy"] = #curseSlots
