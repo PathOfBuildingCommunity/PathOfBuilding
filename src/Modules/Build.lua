@@ -502,7 +502,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.buildFlag = true
 	end)
 	self.controls.bandit.maxDroppedWidth = 500
-	self.controls.bandit.enableDroppedWidth = true
 	self.controls.bandit:CheckDroppedWidth(true)
 	self.controls.banditLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.bandit,"TOPLEFT"}, 0, 0, 0, 14, "^7Bandit:")
 	-- The Pantheon
