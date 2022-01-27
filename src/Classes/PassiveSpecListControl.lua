@@ -64,7 +64,7 @@ function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 		main:ClosePopup()
 	end)
 	-- main:OpenPopup(370, 100, spec.title and "Rename" or "Set Name", controls, "save", "edit")
-	main:OpenPopup(370, 100, title or spec.title, controls, "save", "edit")
+	main:OpenPopup(370, 100, title, controls, "save", "edit")
 end
 
 function PassiveSpecListClass:GetRowValue(column, index, spec)
