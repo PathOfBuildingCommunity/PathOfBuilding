@@ -1763,36 +1763,32 @@ skills["ChargedDash"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-parts = {
-    {
-        name = "Channelling, No Stages",
-    },
-    {
-        name = "Channelling, Max Stages",
-    },
-    {
-        name = "Release",
-    },
-},
-preDamageFunc = function(activeSkill, output)
-       if activeSkill.skillPart == 3 then
-           local finalWaveDamageModifier = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "chargedDashFinalDamageModifier")
-           activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDash", ModFlag.Attack, { type = "Release Damage", skillPart = 3})
-       end
-end,
-statMap = {
-    ["base_skill_show_average_damage_instead_of_dps"] = {
-    },
-    ["charged_dash_damage_+%_final"] = {
-        mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, {type="BaseReleaseDamage", skillPart = 3}),
-    },
-    ["charged_dash_damage_+%_final_per_stack"] = {
-        mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, {type="Multiplier", skillPart = 3, var = "ChargedDashStage"}),
-    },
-    ["charged_dash_channelling_damage_at_full_stacks_+%_final"] = {
-        mod("Damage", "MORE", nil, 0, 0, { type= "SkillPart", skillPart = 2 }),
-    },
-},
+	parts = {
+		{
+			name = "Channelling",
+		{
+			name = "Release",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		   if activeSkill.skillPart == 2 then
+			   local finalWaveDamageModifier = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "chargedDashFinalDamageModifier")
+			   activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDash", ModFlag.Attack, { type = "Release Damage", skillPart = 3 })
+		   end
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["charged_dash_damage_+%_final"] = {
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type="BaseReleaseDamage", skillPart = 2 }),
+		},
+		["charged_dash_damage_+%_final_per_stack"] = {
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type="Multiplier", skillPart = 2, var = "ChargedDashStage" }),
+		},
+		["charged_dash_channelling_damage_at_full_stacks_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type= "MultiplierThreshold", var= "ChargedDashStage", threshold = 15 }, { type = "SkillPart", skillPart = 1 }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -1803,9 +1799,9 @@ statMap = {
 		skill("radiusLabel", "Start of Dash:"),
 		skill("radiusSecondary", 26),
 		skill("radiusSecondaryLabel", "End of Dash:"),
-		skill("hitTimeMultiplier", 2, { type = "Skill", skillPartList = {1, 2} }),
+		skill("hitTimeMultiplier", 2, { type = "Skill", skillPart = 1 }),,
 		mod("Multiplier:ChargedDashMaxStages", "BASE", 15),
-		skill("showAverage", true, { type = "SkillPart", skillPart = 3 }),
+		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
