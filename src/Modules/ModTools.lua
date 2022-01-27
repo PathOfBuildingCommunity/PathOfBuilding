@@ -71,7 +71,7 @@ function modLib.compareModParams(modA, modB, activeSkillList)
 					supportGem = modA.source
 				end
 				for i = 1, #activeSkillList do
-					if activeGem:match(activeSkillList[i].activeEffect.gemData.grantedEffectId) then
+					if activeSkillList[i].activeEffect.gemData and activeGem:match(activeSkillList[i].activeEffect.gemData.grantedEffectId) then
 						for k = 1, #activeSkillList[i].socketGroup.gemList do
 							if activeSkillList[i].socketGroup.gemList[k].enabled and supportGem:match(activeSkillList[i].socketGroup.gemList[k].skillId) then
 								activeLinkedToSupport = true
