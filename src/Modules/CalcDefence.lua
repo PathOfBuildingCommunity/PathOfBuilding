@@ -1629,8 +1629,9 @@ function calcs.defence(env, actor)
 	
 	--survival time
 	do
-		local enemySkillTime = env.configInput.enemySpeed or 700 --should be modifed by enemy speed eg temp chains/chill
-		enemySkillTime = enemySkillTime / 1000
+		local enemySkillTime = env.configInput.enemySpeed or 700
+		local enemyActionSpeed = calcs.actionSpeedMod(actor.enemy)
+		enemySkillTime = enemySkillTime / 1000 / enemyActionSpeed
 		output["EHPsurvivalTime"] = output["TotalNumberOfHits"] * enemySkillTime
 		if breakdown then
 			breakdown["EHPsurvivalTime"] = {

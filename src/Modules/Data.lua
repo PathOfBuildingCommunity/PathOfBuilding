@@ -336,10 +336,10 @@ data.misc = { -- magic numbers
 	LowPoolThreshold = 0.5,
 	AccuracyPerDexBase = 2,
 	BrandAttachmentRangeBase = 30,
-	stdBossDPSMult = 2.5 / 4.25,
-	shaperDPSMult = 5 / 4.25,
+	stdBossDPSMult = 4 / 4.25,
+	shaperDPSMult = 8 / 4.25,
 	shaperPen = 25 / 5,
-	sirusDPSMult = 7 / 4.25,
+	sirusDPSMult = 10 / 4.25,
 	sirusPen = 40 / 5,
 }
 
