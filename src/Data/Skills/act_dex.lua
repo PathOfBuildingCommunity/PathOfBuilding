@@ -1766,6 +1766,7 @@ skills["ChargedDash"] = {
 	parts = {
 		{
 			name = "Channelling",
+		},
 		{
 			name = "Release",
 		},
@@ -1799,7 +1800,7 @@ skills["ChargedDash"] = {
 		skill("radiusLabel", "Start of Dash:"),
 		skill("radiusSecondary", 26),
 		skill("radiusSecondaryLabel", "End of Dash:"),
-		skill("hitTimeMultiplier", 2, { type = "Skill", skillPart = 1 }),,
+		skill("hitTimeMultiplier", 2, { type = "Skill", skillPart = 1 }),
 		mod("Multiplier:ChargedDashMaxStages", "BASE", 15),
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
 	},

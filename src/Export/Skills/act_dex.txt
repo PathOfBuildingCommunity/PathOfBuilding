@@ -317,6 +317,7 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Channelling",
+		},
 		{
 			name = "Release",
 		},
@@ -344,7 +345,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Start of Dash:")
 #baseMod skill("radiusSecondary", 26)
 #baseMod skill("radiusSecondaryLabel", "End of Dash:")
-#baseMod skill("hitTimeMultiplier", 2, { type = "Skill", skillPart = 1 }),
+#baseMod skill("hitTimeMultiplier", 2, { type = "Skill", skillPart = 1 })
 #baseMod mod("Multiplier:ChargedDashMaxStages", "BASE", 15)
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
 #mods
