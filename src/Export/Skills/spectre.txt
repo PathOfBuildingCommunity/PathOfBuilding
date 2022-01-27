@@ -522,6 +522,23 @@ local skills, mod, flag, skill = ...
 #flags spell duration area
 #mods
 
+#skill SeawitchVulnerability Vulnerability
+#flags spell curse area duration
+	statMap = {
+		["receive_bleeding_chance_%_when_hit_by_attack"] = {
+			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
+			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#mods
+
 #skill SkeletonBlackAbyssBoneLance Unearth
 #flags spell projectile area
 #mods
@@ -720,10 +737,100 @@ local skills, mod, flag, skill = ...
 #flags spell projectile triggerable
 #mods
 
+#skill GAHarvestCrabDashSlam Dash Slam
+#flags attack hit area triggerable
+	levels = {
+		[1] = { 50, -30, baseMultiplier = 2, cooldown = 4, levelRequirement = 1, statInterpolation = { 1, 2, }, cost = { }, },
+		[2] = { 50, 0, baseMultiplier = 2, cooldown = 4, levelRequirement = 19, statInterpolation = { 1, 2, }, cost = { }, },
+		[3] = { 50, 1, baseMultiplier = 2, cooldown = 4, levelRequirement = 20, statInterpolation = { 1, 2, }, cost = { }, },
+		[4] = { 50, 60, baseMultiplier = 2, cooldown = 4, levelRequirement = 84, statInterpolation = { 1, 2, }, cost = { }, },
+	},
+#baseMod skill("showAverage", true)
+#mods noLevels
+
 #skill HarvestCrabAbyssSlam Slam Attack
 #flags attack hit area triggerable
 #baseMod skill("showAverage", true)
 #mods
+
+#skill HarvestNessaCrabScreech Screech
+#flags spell hit area triggerable
+#mods
+
+skills["HarvestNessaCrabScreechDebuff"] = {
+	name = "Frigid Roar",
+	hidden = true,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statMap = {
+		["frigid_roar_lightning_damage_taken_+%"] = {
+			mod("ColdDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Frigid Roar" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"frigid_roar_lightning_damage_taken_+%",
+	},
+	levels = {
+		[1] = { 20, cooldown = 8, levelRequirement = 0, statInterpolation = { 1, }, cost = { }, },
+	},
+}
+
+#skill HarvestRhexLeapSlam Leap Slam
+#flags attack melee area
+#baseMod skill("showAverage", true)
+#mods
+
+#skill GAHarvestRhexDashSlash Dash Slash
+#flags attack hit area triggerable
+	levels = {
+		[1] = { 50, -30, baseMultiplier = 2.2, cooldown = 4, levelRequirement = 1, statInterpolation = { 1, 2, }, cost = { }, },
+		[2] = { 50, 0, baseMultiplier = 2.2, cooldown = 4, levelRequirement = 19, statInterpolation = { 1, 2, }, cost = { }, },
+		[3] = { 50, 1, baseMultiplier = 2.2, cooldown = 4, levelRequirement = 20, statInterpolation = { 1, 2, }, cost = { }, },
+		[4] = { 50, 60, baseMultiplier = 2.2, cooldown = 4, levelRequirement = 84, statInterpolation = { 1, 2, }, cost = { }, },
+	},
+#baseMod skill("showAverage", true)
+#mods noLevels
+
+#skill GSHarvestRhexScreech Screech
+#flags spell hit area triggerable
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, duration = 4, cooldown = 8, levelRequirement = 1, statInterpolation = { 3, 3, }, cost = { }, },
+	},
+#mods noLevels
+
+skills["HarvestRhexScreechDebuff"] = {
+	name = "Thunderous Roar",
+	hidden = true,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statMap = {
+		["thunderous_roar_lightning_damage_taken_+%"] = {
+			mod("LightningDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Thunderous Roar" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"thunderous_roar_lightning_damage_taken_+%",
+	},
+	levels = {
+		[1] = { 10, cooldown = 8, levelRequirement = 0, statInterpolation = { 1, }, cost = { }, },
+	},
+}
 
 #skill LegionTemplarJudgeBallLightning Ball Lightning
 #flags spell hit triggerable area projectile
@@ -1094,20 +1201,3 @@ skills["DelveMonsterEnfeebleOnHit"] = {
 		[8] = { 9700, 4, -13, -24, -12, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
-
-#skill SeawitchVulnerability Vulnerability
-#flags spell curse area duration
-	statMap = {
-		["receive_bleeding_chance_%_when_hit_by_attack"] = {
-			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["physical_damage_taken_+%"] = {
-			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
-			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-	},
-#mods

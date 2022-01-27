@@ -2827,6 +2827,36 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 		"HarvestNessaCrabScreech",
 		"HarvestCrabAbyssSlam",
 		"EASHarvestEmerge",
+		"HarvestNessaCrabScreechDebuff",
+	},
+	modList = {
+		-- MonsterHarvestT3DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 720] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
+		-- MapMonsterReducedCurseEffect [unique_boss_curse_effect_on_self_+%_final = -33]
+	},
+}
+-- Primal Rhex Matriarch
+minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre"] = {
+	name = "Primal Rhex Matriarch",
+	life = 4.2,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.26,
+	damageSpread = 0.2,
+	attackTime = 0.99,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"HarvestRhexLeapSlam",
+		"EAAHarvestRhexDashSlash",
+		"EASHarvestRhexScreech",
+		"GAHarvestRhexDashSlash",
+		"GSHarvestRhexScreech",
+		"EASHarvestEmerge",
+		"HarvestRhexScreechDebuff",
 	},
 	modList = {
 		-- MonsterHarvestT3DropModifiers [monster_slain_experience_+% = 0]

@@ -177,7 +177,9 @@ local minions, mod = ...
 -- Redemption Knight
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_
 -- Primal Crushclaw
-#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre # HarvestNessaCrabScreechDebuff
+-- Primal Rhex Matriarch
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre # HarvestRhexScreechDebuff
 -- Templar Tactician
 #spectre Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre
 -- Frost Auto-Scout
