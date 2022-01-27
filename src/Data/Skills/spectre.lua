@@ -4791,7 +4791,6 @@ skills["HarvestNessaCrabScreech"] = {
 		triggerable = true,
 	},
 	baseMods = {
-		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
@@ -4806,7 +4805,7 @@ skills["HarvestNessaCrabScreechDebuff"] = {
 	hidden = true,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
 	statMap = {
-		["frigid_roar_lightning_damage_taken_+%"] = {
+		["frigid_roar_cold_damage_taken_+%"] = {
 			mod("ColdDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Frigid Roar" }),
 		},
 	},
@@ -4820,10 +4819,10 @@ skills["HarvestNessaCrabScreechDebuff"] = {
 	qualityStats = {
 	},
 	stats = {
-		"frigid_roar_lightning_damage_taken_+%",
+		"frigid_roar_cold_damage_taken_+%",
 	},
 	levels = {
-		[1] = { 20, cooldown = 8, levelRequirement = 0, statInterpolation = { 1, }, cost = { }, },
+		[1] = { 20, cooldown = 12, levelRequirement = 0, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 
@@ -4918,7 +4917,6 @@ skills["GSHarvestRhexScreech"] = {
 		triggerable = true,
 	},
 	baseMods = {
-		skill("showAverage", true),
 	},
 	qualityStats = {
 	},
