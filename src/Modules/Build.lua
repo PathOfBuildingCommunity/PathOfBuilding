@@ -15,7 +15,7 @@ local s_format = string.format
 local banditDropList = {
 	{ label = "2 Passive Points", id = "None" },
 	{ label = "Oak (Life Regen, Phys.Dmg. Reduction, Phys.Dmg)", id = "Oak" },
-	{ label = "Kraityn (Attack/Cast Speed, Attack Dodge, Move Speed)", id = "Kraityn" },
+	{ label = "Kraityn (Attack/Cast Speed, Avoid.Ele.Ailments, Move Speed)", id = "Kraityn" },
 	{ label = "Alira (Mana Regen, Crit Multiplier, Resists)", id = "Alira" },
 }
 
