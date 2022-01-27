@@ -16,7 +16,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		newSpec.jewels = copyTable(self.selValue.jewels)
 		newSpec:RestoreUndoState(self.selValue:CreateUndoState())
 		newSpec:BuildClusterJewelGraphs()
-		self:RenameSpec(newSpec, true)
+		self:RenameSpec(newSpec, "Copy Tree", true)
 	end)
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil
@@ -28,7 +28,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		return self.selValue ~= nil and #self.list > 1
 	end
 	self.controls.rename = new("ButtonControl", {"BOTTOMRIGHT",self,"TOP"}, -2, -4, 60, 18, "Rename", function()
-		self:RenameSpec(self.selValue)
+		self:RenameSpec(self.selValue, "Rename Tree")
 	end)
 	self.controls.rename.enabled = function()
 		return self.selValue ~= nil
@@ -37,12 +37,12 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		local newSpec = new("PassiveSpec", treeTab.build, latestTreeVersion)
 		newSpec:SelectClass(treeTab.build.spec.curClassId)
 		newSpec:SelectAscendClass(treeTab.build.spec.curAscendClassId)
-		self:RenameSpec(newSpec, true)
+		self:RenameSpec(newSpec, "New Tree", true)
 	end)
 	self:UpdateItemsTabPassiveTreeDropdown()
 end)
 
-function PassiveSpecListClass:RenameSpec(spec, addOnName)
+function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 	local controls = { }
 	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this passive tree:")
 	controls.edit = new("EditControl", nil, 0, 40, 350, 20, spec.title, nil, nil, 100, function(buf)
@@ -63,7 +63,8 @@ function PassiveSpecListClass:RenameSpec(spec, addOnName)
 	controls.cancel = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(370, 100, spec.title and "Rename" or "Set Name", controls, "save", "edit")
+	-- main:OpenPopup(370, 100, spec.title and "Rename" or "Set Name", controls, "save", "edit")
+	main:OpenPopup(370, 100, title or spec.title, controls, "save", "edit")
 end
 
 function PassiveSpecListClass:GetRowValue(column, index, spec)
@@ -90,7 +91,7 @@ end
 
 function PassiveSpecListClass:OnSelDelete(index, spec)
 	if #self.list > 1 then
-		main:OpenConfirmPopup("Delete Spec", "Are you sure you want to delete '"..(spec.title or "Default").."'?", "Delete", function()
+		main:OpenConfirmPopup("Delete Tree", "Are you sure you want to delete '"..(spec.title or "Default").."'?", "Delete", function()
 			t_remove(self.list, index)
 			self.selIndex = nil
 			self.selValue = nil
