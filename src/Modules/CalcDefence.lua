@@ -1491,7 +1491,7 @@ function calcs.defence(env, actor)
 	end
 
 	
-	do --fix this to not just be average, have config for: average, worst of 2 rolls (unlucky), worst of 4 rolls (Very unlucky)
+	do
 		local DamageIn = {}
 		local BlockChance = 0
 		local blockEffect = 1
@@ -1792,7 +1792,6 @@ function calcs.defence(env, actor)
 	--maximum hit taken
 	-- this is not done yet, using old max hit taken
 	--fix total pools, as they arnt used anymore
-	local damageCategoryConfig = env.configInput.EhpCalcMode or "Average"
 	for _, damageType in ipairs(dmgTypeList) do
 		--base + aegis
 		output[damageType.."TotalHitPool"] = output[damageType.."TotalPool"] + output[damageType.."Aegis"] or 0 + output[damageType.."sharedAegis"] or 0 + isElemental[damageType] and output[damageType.."sharedElementalAegis"] or 0
