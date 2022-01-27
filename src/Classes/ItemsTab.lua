@@ -2631,13 +2631,31 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * (1 + effectInc / 100)
 				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
 				local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
-				if inst > 0 and grad > 0 then
-					t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
-				elseif inst + grad ~= flaskData.lifeTotal or (inst == 0 and lifeDur ~= flaskData.duration) then
+
+				-- LocalLifeFlaskAdditionalLifeRecovery flask mods
+				if flaskData.lifeAdditional > 0 and not self.build.configTab.input.conditionFullLife then
+					local totalAdditionalAmount = (flaskData.lifeAdditional/100) * flaskData.lifeTotal
+					local additionalGrad = (lifeDur/10) * totalAdditionalAmount
+					local leftoverDur = 10.00 - lifeDur
+					local leftoverAmount = totalAdditionalAmount - additionalGrad
+
 					if inst > 0 then
-						t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
-					elseif grad > 0 then
-						t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
+						t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8), and an additional ^7%d ^8over subsequent ^7%.2fs",
+						inst + grad + additionalGrad, inst, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
+					else
+						t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs",
+						grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
+					end
+				else
+					if inst > 0 and grad > 0 then
+						t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
+					-- modifiers to recovery amount or duration
+					elseif inst + grad ~= flaskData.lifeTotal or (inst == 0 and lifeDur ~= flaskData.duration) then
+						if inst > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
+						elseif grad > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
+						end
 					end
 				end
 				if modDB:Flag(nil, "LifeFlaskAppliesToEnergyShield") then
