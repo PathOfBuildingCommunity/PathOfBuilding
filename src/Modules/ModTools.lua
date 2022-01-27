@@ -47,13 +47,46 @@ end
 
 modLib.parseMod, modLib.parseModCache = LoadModule("Modules/ModParser", launch)
 
-function modLib.compareModParams(modA, modB)
+function modLib.compareModParams(modA, modB, activeSkillList)
 	if modA.name ~= modB.name or modA.type ~= modB.type or modA.flags ~= modB.flags or modA.keywordFlags ~= modB.keywordFlags or #modA ~= #modB then
 		return false
 	end
 	for i, tag in ipairs(modA) do
 		if tag.type ~= modB[i].type then
 			return false
+		end
+		if tag.effectName ~= modB[i].effectName then
+			return false
+		end
+		if tag.effectType and modB[i].effectType and activeSkillList then
+			if tag.effectType:match(modB[i].effectType) or modB[i].effectType:match(tag.effectType) then
+				local activeLinkedToSupport = false
+				local activeGem
+				local supportGem
+				if tag.effectType:match("Aura") then
+					activeGem = modA.source
+					supportGem = modB.source
+				else
+					activeGem = modB.source
+					supportGem = modA.source
+				end
+				for i = 1, #activeSkillList do
+					if activeGem:match(activeSkillList[i].activeEffect.gemData.grantedEffectId) then
+						for k = 1, #activeSkillList[i].socketGroup.gemList do
+							if activeSkillList[i].socketGroup.gemList[k].enabled and supportGem:match(activeSkillList[i].socketGroup.gemList[k].skillId) then
+								activeLinkedToSupport = true
+								break
+							end
+						end
+					end
+					if activeLinkedToSupport then
+						break
+					end
+				end
+				return not activeLinkedToSupport
+			else
+				return false
+			end
 		end
 		if modLib.formatTag(tag) ~= modLib.formatTag(modB[i]) then
 			return false
