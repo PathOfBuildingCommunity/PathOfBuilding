@@ -371,7 +371,7 @@ skills["BloodSacramentUnique"] = {
 	fromItem = true,
 	initialFunc = function(activeSkill, output)
 		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
-		local lifeReserved = activeSkill.skillData["LifeReservedBase"]
+		local lifeReserved = activeSkill.skillData["LifeReservedBase"] or math.huge
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPercentPerStage", "BASE", lifeReservedPercent, "Blood Sacrament")
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPerStage", "BASE", lifeReserved, "Blood Sacrament")
 	end,
