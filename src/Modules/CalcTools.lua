@@ -45,7 +45,12 @@ function calcLib.validateGemLevel(gemInstance)
 		-- Try limiting to the level range of the skill
 		gemInstance.level = m_max(1, gemInstance.level)
 		if #grantedEffect.levels > 0 then
-			gemInstance.level = m_min(#grantedEffect.levels, gemInstance.level)
+			-- Can't use #grantedEffect.levels here, as some skills don't have contiguous levels
+			local maxLevel = 1
+			for level, _ in pairs(grantedEffect.levels) do
+				maxLevel = m_max(maxLevel, level)
+			end
+			gemInstance.level = m_min(maxLevel, gemInstance.level)
 		end
 	end
 	if not grantedEffect.levels[gemInstance.level] and gemInstance.gemData and gemInstance.gemData.defaultLevel then
