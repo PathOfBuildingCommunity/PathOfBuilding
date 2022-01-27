@@ -644,8 +644,9 @@ end
 
 -- Helper function to determine curse priority when processing curses beyond the curse limit
 local function determineCursePriority(curseName, skillTypes, source, slot)
+	local curseName = curseName or ""
 	local slot = slot or ""
-	local basePriority = data.cursePriority[curseName]
+	local basePriority = data.cursePriority[curseName] or 0
 	local typePriority = skillTypes[SkillType.Aura] and data.cursePriority["CurseAura"] or 0
 	local sourcePriority = source and data.cursePriority["CurseFromEquipment"] or data.cursePriority["CurseFromSkillGem"]
 	local slotPriority = data.cursePriority["AnySlotHexType"]
