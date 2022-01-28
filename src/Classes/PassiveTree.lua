@@ -256,6 +256,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	ConPrintf("Processing tree...")
+	self.ascendancyMap = { }
 	self.keystoneMap = { }
 	self.notableMap = { }
 	self.clusterNodeMap = { }
@@ -368,6 +369,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				elseif node.g then
 					self.notableMap[node.dn:lower()] = node
 				end
+			else
+				self.ascendancyMap[node.dn:lower()] = node
 			end
 		else
 			node.type = "Normal"

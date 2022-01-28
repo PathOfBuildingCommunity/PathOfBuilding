@@ -181,6 +181,9 @@ function ItemClass:ParseRaw(raw)
 				specName, specVal = line:match("^([%a ]+): (.+)$")
 			end
 			if not specName then
+				specName, specVal = line:match("^(Requires Class) (.+)$")
+			end
+			if not specName then
 				specName, specVal = line:match("^(Requires) (.+)$")
 			end
 			if specName then
@@ -188,6 +191,8 @@ function ItemClass:ParseRaw(raw)
 					self.uniqueID = specVal
 				elseif specName == "Item Level" then
 					self.itemLevel = tonumber(specVal)
+				elseif specName == "Requires Class" then
+					self.classRestriction = specVal
 				elseif specName == "Quality" then
 					self.quality = tonumber(specVal)
 				elseif specName == "Sockets" then
@@ -787,6 +792,9 @@ function ItemClass:BuildRaw()
 	end
 	if self.limit then
 		t_insert(rawLines, "Limited to: "..self.limit)
+	end
+	if self.classRestriction then
+		t_insert(rawLines, "Requires Class "..self.classRestriction)
 	end
 	t_insert(rawLines, "Implicits: "..(#self.enchantModLines + #self.implicitModLines + #self.scourgeModLines))
 	for _, modLine in ipairs(self.enchantModLines) do

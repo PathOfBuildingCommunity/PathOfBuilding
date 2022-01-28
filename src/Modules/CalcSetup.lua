@@ -759,6 +759,23 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
 
+	-- Add granted ascendancy node (e.g., Forbidden Flame/Flesh combo)
+	local matchedName = { }
+	for _, ascTbl in pairs(env.modDB:List(nil, "GrantedAscendancyNode")) do
+		local name = ascTbl.name
+		if matchedName[name] and matchedName[name].side ~= ascTbl.side and matchedName[name].matched == false then
+			matchedName[name].matched = true
+			local node = env.spec.tree.ascendancyMap[name]
+			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
+				--print("HI: " .. env.spec.curClassName)
+				env.allocNodes[node.id] = node
+				env.grantedPassives[node.id] = true
+			end
+		else
+			matchedName[name] = { side = ascTbl.side, matched = false }
+		end
+	end
+
 	-- Merge modifiers for allocated passives
 	env.modDB:AddList(calcs.buildModListForNodeList(env, env.allocNodes, true))
 
