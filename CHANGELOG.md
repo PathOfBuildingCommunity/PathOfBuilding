@@ -1,5 +1,103 @@
 # Changelog
 
+## [v2.14.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.14.0) (2022/01/28)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.13.0...v2.14.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Implemented Enhancements
+* add armour and evasion to unqiue sorting by @learn2draw in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3697
+* Add support for Champion's Inspirational banner life regen by @mthjones in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3742
+* Add support for Master of Fear notable by @LocalIdentity in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3803
+* feat: Moved over new SimpleGraphic DLL from other project by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3855
+* Add QoL improvements for import tab by @Dullson in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3818
+* Add support for "Arrows gain Critical Strike Chance as they travel farther, up to 100% increased Critical Strike Chance" and "Arrows gain Damage as they travel farther, up to 50% increased Damage with Hits to targets" by @Peechey in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3543
+* Cluster jewel corruptions by @randomflyingtaco in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3848
+* Ctrl I for import by @pHiney in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3813
+* fix: Add support for 'inflicted with this weapon' parsing by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3776
+* feat: Enable stages for multi-part skills at a per-part level by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3859
+* Fix: Viper Strike Poison Stacks with Dual Wield by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3868
+* Showing stat difference on anointed nodes by @KillerMZE in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3827
+* Add support for ongoing costs by @PJacek in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3663
+* Add support for new mod conversion modifiers by @PJacek in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3335
+* Add Mastery tooltip for an unallocated node when comparing trees by @pHiney in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3840
+* Add hotkey to edit equipped item by @pHiney in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3876
+* Round Duration of skills to server ticks by @LocalIdentity in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3864
+* Move delve mods to "Add modifier..." menu while crafting items by @Voronoff in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3213
+* Add support for Energy Blade by @PJacek in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3580
+* Add warnings when the build is impossible in-game by @KillerMZE in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3836
+* Add feature to guess the main socket group when importing a character by @raylu in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3899
+* Add "Cursed Enemies are Hindered" Mastery by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3919
+* Add starter race uniques by @pHiney in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3874
+* Add support for Mageblood by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3883
+* Add full support for brand attachment range by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3896
+* Add Lifetap's "20% increased Life Recovery from Flasks" modifier by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3906
+* Add ability to show DPS for non-cooldown traps and mines by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3907
+* Add support for Anomalous Vitality by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3910
+* Update Blightwell and Solstice Vigil to 3.16.0 by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3916
+* Add missing Fate/Story of the Vaal modifiers by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3918
+* Add feature to match gem level to character level by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3917
+* Add improvements to multiple passive tree jewel socket management by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3897
+* Add separate calculations for Elemental Hit area component by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3926
+* Add ability to search skills using multiple tags by @pHiney in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3921
+* Add Melding of the Flesh by @learn2draw in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3923
+* feat: add support for Triple Elemental Damage by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3946
+* feat: add 3.17 skill tree (with support for new skillsPerOrbit values) by @dbjorge in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3972
+* Fix Charged Dash DPS by @VaticViolet in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3125
+### Fixed Bugs
+* Fix bleed damage against poisoned enemy mastery by @Peechey in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3700
+* update saqawals flock to 3.16 by @learn2draw in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3707
+* Update wording for Darkness Enthroned by @Wires77 in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3710
+* Fix Two-Toned boots getting the wrong base type by @Wires77 in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3714
+* Fix rounding on base percentiles by @Wires77 in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3715
+* Poet's Pen total dps calc not working. by @wrzoski in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3724
+* Fix new max res range for Brass Dome by @olop4444 in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3739
+* Various fixes for Beacon of Madness boots by @mthjones in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3741
+* Fix casing of Magebane keystone in data by @mthjones in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3744
+* fix: Increased Wither Effect does not affect minions by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3769
+* fix: Awakened Elemental Focus +1 level by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3770
+* fix: Enemy Physical Damage Reduction should be capped at 90% by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3775
+* fix: Fixes possible crash with FullDPS and disabled socket groups by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3766
+* fix: stacking Armour Masteries only taking largest value by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3696
+* Fix Rage Support with Ancestral Totems by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3798
+* Fix Phantasmal Sigil of Power spell damage buff not working by @LocalIdentity in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3800
+* Fix Elementalist exposure node not working with exposure mastery by @LocalIdentity in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3801
+* Fix parsing for charges used mod on flasks by @LocalIdentity in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3802
+* Update Survival Jewels by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3799
+* Add missing Bone Offering quality effect by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3860
+* Fix Projectile Attack Mod Parsing by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3851
+* Fix Summon Raging Spirit to 100% fire conversion by @Kayella in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3808
+* Correct stat on Brass Dome by @Lilylicious in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3871
+* fix: Fix trigger rate of hard-overridden skills by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3832
+* Add Special Case modifier for Pure Talent jewel and Marauder by @pHiney in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3875
+* Change skill cooldown to display in milliseconds by @LocalIdentity in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3865
+* Improve damage calculation for General's Cry by @Helyos96 in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3220
+* fix: Fix Elusive Buff effect from Skills with Withering Step by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3814
+* fix: implemented better raw string item parsing by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3889
+* Fixed copying magic Two-Toned Boots from trade by @Wires77 in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3891
+* Fix issue where culling DPS wasn't factored in for Full DPS totals by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3894
+* Fix triggering skill not properly selected when trigger support came from an item by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3905
+* Fix broken link by @Gomsoo in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3934
+* Fix bug where maximum Life could be negative by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3908
+* Fix incorrect reservation on some legacy builds by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3909
+* Fix missing implicit on Sidhebreath by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3911
+* Fix elemental damage taken when using The Admiral by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3913
+* Fix converted passive tree save error by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3912
+* Fix Soul of Solaris not displaying "Nearby Enemies" config option by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3925
+* Fix various item parsing bugs by @Nostrademous in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3914
+* Add support for Willowgift by @randomflyingtaco in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3763
+* Fix infinite reservation error with Relic of the Pact by @Lothrik in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3952
+### Other changes
+* Add poe.ninja/pob to import website list by @rasmuskl in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3732
+* Dropdown auto width by @pHiney in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3726
+* Relabel character import "Done" button to "Cancel"  by @raylu in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3898
+* Relabel character import "Cancel" button to "Close" by @raylu in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3939
+* Add pobb.in to website import list by @Dav1dde in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3942
+* Updated Kraityn's passive attributes based on 3.16 by @Prismateria in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3959
+
+
 ## [2.13.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.13.0) (2021/11/02)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.12.3...v2.13.0)
