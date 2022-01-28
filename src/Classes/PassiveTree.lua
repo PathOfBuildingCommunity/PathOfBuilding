@@ -300,7 +300,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 
 		if versionNum < 3.17 then
-			-- In 3.17, orbits 2 and 3 expanded from 12 to 16 slots.
+			-- In 3.17, orbits 2 and 3 expanded from 12 to 16 slots
 			-- See https://github.com/grindinggear/skilltree-export/blob/3.17.0/README.md
 			if node.o == 2 or node.o == 3 then
 				local oidxMigrationMapping = { [0] = 0, 1, 3, 4, 5, 7, 8, 9, 11, 12, 13, 15 }
