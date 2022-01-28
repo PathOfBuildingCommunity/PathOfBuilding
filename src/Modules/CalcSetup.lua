@@ -563,6 +563,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 				item = nil
 			end
+			if item and item.type == "Jewel" and item.name == "Forbidden Flame, Prismatic Jewel" then 
+				env.itemModDB.conditions["ForbiddenFlame"] = item.classRestriction
+			end
+			if item and item.type == "Jewel" and item.name == "Forbidden Flesh, Prismatic Jewel" then 
+				env.itemModDB.conditions["ForbiddenFlesh"] = item.classRestriction
+			end
 			local scale = 1
 			if item and item.type == "Jewel" and item.base.subType == "Abyss" and slot.parentSlot then
 				-- Check if the item in the parent slot has enough Abyssal Sockets
@@ -767,9 +773,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 			matchedName[name].matched = true
 			local node = env.spec.tree.ascendancyMap[name]
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
-				--print("HI: " .. env.spec.curClassName)
-				env.allocNodes[node.id] = node
-				env.grantedPassives[node.id] = true
+				if env.itemModDB.conditions["ForbiddenFlesh"] == env.spec.curClassName and env.itemModDB.conditions["ForbiddenFlame"] == env.spec.curClassName then
+					env.allocNodes[node.id] = node
+					env.grantedPassives[node.id] = true
+				end
 			end
 		else
 			matchedName[name] = { side = ascTbl.side, matched = false }
