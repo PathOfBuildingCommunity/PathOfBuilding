@@ -240,11 +240,11 @@ Variant: Pre 3.17.0
 Variant: Current
 Requires Level 29, 74 Dex
 Implicits: 1
-{variant:3}9% increased Movement Speed
+{variant:3,4}9% increased Movement Speed
 +1 to Level of Socketed Curse Gems
 (30-50)% increased Evasion Rating
-{variant:2,3}+(40-50) to maximum Life
-{variant:2,3}+(50-70) to maximum Energy Shield
+{variant:2,3,4}+(40-50) to maximum Life
+{variant:2,3,4}+(50-70) to maximum Energy Shield
 {variant:1,2,3}100% increased Curse Duration
 {variant:4}1% of Damage Leeched as Life against Cursed Enemies
 +5% Chance to Block

@@ -1041,9 +1041,9 @@ Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {tags:attack,speed}(10-15)% increased Attack Speed
 {variant:1}{tags:caster,speed}(5-8)% increased Cast Speed
-{variant:2}{tags:caster,speed}(5-10)% increased Cast Speed
+{variant:2,3}{tags:caster,speed}(5-10)% increased Cast Speed
 {variant:1}{tags:mana}15% reduced Mana Regeneration Rate
-{variant:2}{tags:mana}15% increased Mana Regeneration Rate
+{variant:2,3}{tags:mana}15% increased Mana Regeneration Rate
 {variant:1}{tags:jewellery_defense}+(10-25) to maximum Energy Shield
 {variant:2}{tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {variant:3}{tags:jewellery_defense}+(40-45) to maximum Energy Shield
