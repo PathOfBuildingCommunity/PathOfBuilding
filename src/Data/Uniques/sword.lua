@@ -684,17 +684,19 @@ The Dancing Dervish
 Reaver Sword
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 59, 82 Str, 119 Dex
 Implicits: 3
 {variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
-{variant:3}60% increased Global Accuracy Rating
+{variant:3,4}60% increased Global Accuracy Rating
 {variant:1,2}(160-190)% increased Physical Damage
-{variant:3}(130-160)% increased Physical Damage
+{variant:3,4}(130-160)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
 Rampage
+{variant:4}Melee Hits count as Rampage Kills
 Triggers Level 15 Manifest Dancing Dervishes on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends

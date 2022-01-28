@@ -805,7 +805,7 @@ Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
 50% reduced Attack Speed
-All Attacks with this Weapon are Critical Strikes
+This Weapon's Critical Strike Chance is 100%
 ]],[[
 Replica Trypanon
 Great Mallet
@@ -814,7 +814,7 @@ Requires Level 40, 131 Str
 Implicits: 1
 30% increased Stun Duration on Enemies
 -5000 to Accuracy Rating
-All Attacks with this Weapon are Critical Strikes
+This Weapon's Critical Strike Chance is 100%
 ]],[[
 Voidhome
 Dread Maul

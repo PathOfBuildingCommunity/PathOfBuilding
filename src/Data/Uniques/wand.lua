@@ -32,7 +32,7 @@ Implicits: 2
 (25-30)% increased Cast Speed
 +(5-10)% to Chaos Resistance
 {variant:1,2,3}40% increased Mana Cost of Skills
-{variant:4}+40 to Total Mana Cost of Skills
+{variant:4}Lose 40 Mana when you use a Skill
 {variant:3,4}Poisons you inflict deal Damage 20% faster
 ]],[[
 Ashcaller

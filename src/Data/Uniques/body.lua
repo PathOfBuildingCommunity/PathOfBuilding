@@ -170,7 +170,7 @@ Variant: Defiance Banner
 You can have two different Banners at the same time
 Banners you are carrying gain 1 Stage on Melee Hit, up to 5 per second
 {variant:1}War Banner has (100-200)% increased Adrenaline duration
-{variant:2}Dread Banner has (100-200)% increased Fortify duration
+{variant:2}Dread Banner grants an additional +(2-4) to maximum Fortification when placing the Banner
 {variant:3}Defiance Banner has (100-200)% increased Taunt duration
 ]],[[
 Solaris Lorica

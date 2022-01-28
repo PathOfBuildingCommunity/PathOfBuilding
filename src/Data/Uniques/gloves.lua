@@ -381,7 +381,7 @@ Requires Level 55, 79 Int
 {variant:3,4}(180-250)% increased Energy Shield
 {variant:1}80% increased Mana Cost of Skills
 {variant:2,3}(40-80)% increased Mana Cost of Skills
-{variant:4}+(40-80) to Total Mana Cost of Skills
+{variant:4}Lose 40-80 Mana when you use a Skill
 +(15-20) Energy Shield gained on Kill
 ]],
 -- Gloves: Armour/Evasion
