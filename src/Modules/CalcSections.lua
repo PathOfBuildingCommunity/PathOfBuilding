@@ -950,7 +950,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "EleAilments", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Elemental Ailments", data = {
+{ 1, "EleAilments", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Non-Damaging Ailments", data = {
 	{ label = "Scorch Effect Mod", bgCol = colorCodes.SCORCHBG, flag = "scorch", { format = "x {2:output:ScorchEffectMod}",
 		{ breakdown = "ScorchEffectMod" },
 		{ breakdown = "MainHand.ScorchDPS" },
