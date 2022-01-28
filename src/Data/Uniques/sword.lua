@@ -610,7 +610,7 @@ Adds (40-60) to (90-110) Cold Damage to Spells
 (8-14)% increased Attack Speed
 +257 Intelligence Requirement
 60% increased Critical Strike Chance against Chilled Enemies
-Trigger a Socketed Cold Spell on Melee Critical Strike, with a 0.15 second Cooldown
+Trigger a Socketed Cold Spell on Melee Critical Strike, with a 0.25 second Cooldown
 ]],[[
 Daresso's Passion
 Estoc

@@ -602,6 +602,7 @@ Spidersilk Robe
 Variant: Pre 1.2.0
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 49, 134 Int
 {variant:1,2}Socketed Gems are Supported by level 14 Spell Totem
@@ -611,7 +612,7 @@ Requires Level 49, 134 Int
 {variant:1}25% increased Totem Life
 {variant:2,3}50% increased Totem Life
 {variant:4}(20-30)% increased Totem Life
-Can have up to 1 additional Totem summoned at a time
+{variant:1,2,3,4}Can have up to 1 additional Totem summoned at a time
 Inflicts a random Hex on you when your Totems die, with 80% more Effect
 ]],[[
 Tabula Rasa
