@@ -1537,6 +1537,9 @@ function calcs.offence(env, actor, activeSkill)
 			if skillFlags.brand then
 				output.BrandTicks = m_floor(output.Duration * output.HitSpeed)
 			end
+		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
+			output.HitTime = output.Time * skillData.hitTimeMultiplier
+			output.HitSpeed = 1 / output.HitTime
 		end
 	end
 
