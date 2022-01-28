@@ -31,7 +31,7 @@ local classArt = {
 
 local function nonuniformOrbitAngles(anglesInDegrees)
 	anglesInRadians = {}
-	for i, degrees in ipairs(anglesInDegrees) do
+	for i, degrees in pairs(anglesInDegrees) do
 		anglesInRadians[i] = m_rad(degrees)
 	end
 	return anglesInRadians
