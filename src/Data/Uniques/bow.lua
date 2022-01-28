@@ -139,7 +139,6 @@ Implicits: 2
 ]],[[
 Death's Harp
 Death Bow
-Upgrade: Upgrades to unique{Death's Opus} via prophecy{The Bowstring's Music}
 Variant: Pre 1.2.0
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
@@ -157,7 +156,7 @@ Adds an additional Arrow
 ]],[[
 Death's Opus
 Death Bow
-Source: Upgraded from unique{Death's Harp} via prophecy{The Bowstring's Music}
+Source: Drops from any endgame map boss
 Variant: Pre 1.2.0
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
@@ -176,7 +175,6 @@ Adds (10-20) to (30-35) Physical Damage
 ]],[[
 Doomfletch
 Royal Bow
-Upgrade: Upgrades to unique{Doomfletch's Prism} via prophecy{Ancient Doom}
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
@@ -195,7 +193,7 @@ Implicits: 2
 ]],[[
 Doomfletch's Prism
 Royal Bow
-Source: Upgraded from unique{Doomfletch} via prophecy{Ancient Doom}
+Source: Drops from any endgame map boss
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
@@ -364,7 +362,6 @@ Socketed Gems are Supported by Level 1 Arrow Nova
 ]],[[
 Reach of the Council
 Spine Bow
-Source: prophecy{The Feral Lord V}
 Variant: Pre 2.4.0
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
@@ -401,7 +398,6 @@ Skills Chain +1 times
 ]],[[
 Silverbranch
 Crude Bow
-Upgrade: Upgrades to unique{Silverbough} via prophecy{The Silverwood}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 2
@@ -414,7 +410,7 @@ Requires Level 2
 ]],[[
 Silverbough
 Crude Bow
-Source: Upgraded from unique{Silverbranch} using prophecy{The Silverwood}
+Source: No longer obtainable
 Requires Level 36
 +1 to Level of Socketed Gems
 +1 to Level of Socketed Bow Gems
@@ -443,7 +439,6 @@ Implicits: 1
 ]],[[
 Storm Cloud
 Long Bow
-Upgrade: Upgrades to unique{The Tempest} via prophecy{The Servant's Heart}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 9, 38 Dex
@@ -454,7 +449,7 @@ No Physical Damage
 ]],[[
 The Tempest
 Long Bow
-Source: Upgraded from unique{Storm Cloud} using prophecy{The Servant's Heart}
+Source: Drops from any endgame map boss
 Requires Level 32, 38 Dex
 No Physical Damage
 100% increased Lightning Damage

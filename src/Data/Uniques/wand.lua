@@ -52,7 +52,6 @@ Adds (4-6) to (7-9) Fire Damage to Spells
 ]],[[
 Eclipse Solaris
 Crystal Wand
-Upgrade: Upgrades to unique{Corona Solaris} via prophecy{Blinding Light}
 Variant: Pre 2.2.0
 Variant: Pre 2.3.0
 Variant: Pre 3.10.0
@@ -72,9 +71,9 @@ Nearby Enemies are Blinded
 ]],[[
 Corona Solaris
 Crystal Wand
-Source: Upgraded from unique{Eclipse Solaris} via prophecy{Blinding Light}
+Source: No longer obtainable
 Variant: Pre 3.10.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 63, 146 Int
 Implicits: 1
 (29-33)% increased Spell Damage
@@ -199,7 +198,6 @@ Trigger a Socketed Spell when you Attack with this Weapon, with a 0.15 second Co
 ]],[[
 Reverberation Rod
 Spiraled Wand
-Upgrade: Upgrades to unique{Amplification Rod} via prophecy{Power Magnified}
 Variant: Pre 2.3.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -223,7 +221,7 @@ Your Critical Strike Chance is Lucky while on Low Life
 ]],[[
 Amplification Rod
 Spiraled Wand
-Source: Upgraded from unique{Reverberation Rod} using prophecy{Power Magnified}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 36, 83 Int

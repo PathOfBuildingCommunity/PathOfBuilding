@@ -129,7 +129,6 @@ Requires Level 37, 67 Str
 ]],[[
 Windscream
 Reinforced Greaves
-Upgrade: Upgrades to unique{Windshriek} via prophecy{Darktongue's Shriek}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 33, 60 Str
@@ -143,7 +142,7 @@ Enemies can have 1 additional Curse
 ]],[[
 Windshriek
 Reinforced Greaves
-Source: Upgraded from unique{Windscream} via prophecy{Darktongue's Shriek}
+Source: Drops from any endgame map boss
 Requires Level 60, 60 Str
 (200-250)% increased Armour
 +(10-15)% to all Elemental Resistances
@@ -410,7 +409,6 @@ Requires Level 67, 120 Int
 ]],[[
 Inya's Epiphany
 Arcanist Slippers
-Source: Drops from The Pale Council
 Requires Level 61, 119 Int
 +(50-70) to maximum Life
 25% increased Movement Speed
@@ -450,7 +448,6 @@ Requires Level 53, 94 Int
 ]],[[
 Shavronne's Pace
 Scholar Boots
-Upgrade: Upgrades to unique{Shavronne's Gambit} via prophecy{The Flow of Energy}
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
@@ -467,9 +464,9 @@ Requires Level 32, 54 Int
 ]],[[
 Shavronne's Gambit
 Scholar Boots
-Source: Upgraded from unique{Shavronne's Pace} via prophecy{The Flow of Energy}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 32, 54 Int
 +10 to Dexterity
 +(20-30) to Intelligence
@@ -520,7 +517,6 @@ Cannot be Frozen
 ]],[[
 Wondertrap
 Velvet Slippers
-Upgrade: Upgrades to unique{Greedtrap} via prophecy{Greed's Folly}
 Variant: Pre 1.0.0
 Variant: Current
 Requires Level 9, 21 Int
@@ -534,7 +530,7 @@ Requires Level 9, 21 Int
 ]],[[
 Greedtrap
 Velvet Slippers
-Source: Upgraded from unique{Wondertrap} via prophecy{Greed's Folly}
+Source: No longer obtainable
 Requires Level 52, 21 Int
 +(5-10) to Strength
 +(5-10) to Dexterity
@@ -585,7 +581,6 @@ Requires Level 65, 62 Str, 62 Dex
 ]],[[
 Dusktoe
 Ironscale Boots
-Upgrade: Upgrades to unique{Duskblight} via prophecy{Agony at Dusk}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 18, 19 Str, 19 Dex
@@ -613,7 +608,7 @@ Requires Level 18, 19 Str, 19 Dex
 ]],[[
 Duskblight
 Ironscale Boots
-Source: Upgraded from unique{Dusktoe} via prophecy{Agony at Dusk}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 40, 19 Str, 19 Dex
@@ -905,7 +900,6 @@ This item can be anointed by Cassia
 ]],[[
 Sundance
 Clasped Boots
-Upgrade: Upgrades to unique{Sunspite} via prophecy{Sun's Punishment}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 27, 27 Dex, 27 Int
@@ -918,7 +912,7 @@ Requires Level 27, 27 Dex, 27 Int
 ]],[[
 Sunspite
 Clasped Boots
-Source: Upgraded from unique{Sundance} via prophecy{Sun's Punishment}
+Source: No longer obtainable
 Requires Level 59, 27 Dex, 27 Int
 10% increased Attack Speed
 (260-300)% increased Evasion and Energy Shield

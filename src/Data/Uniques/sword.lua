@@ -333,7 +333,6 @@ Implicits: 2
 ]],[[
 Redbeak
 Rusted Sword
-Upgrade: Upgrades to unique{Dreadbeak} via prophecy{The Dreaded Rhoa}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 2
@@ -349,7 +348,7 @@ Adds 2 to 6 Physical Damage
 ]],[[
 Dreadbeak
 Rusted Sword
-Source: Upgraded from unique{Redbeak} via prophecy{The Dreaded Rhoa}
+Source: Drops from any endgame map boss
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 61
@@ -683,7 +682,6 @@ Adds 3 to 7 Fire Damage
 [[
 The Dancing Dervish
 Reaver Sword
-Upgrade: Upgrades to unique{The Dancing Duo} via prophecy{Dance of Steel}
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -697,15 +695,15 @@ Implicits: 3
 (25-30)% increased Attack Speed
 5% increased Movement Speed
 Rampage
-Triggers Level 15 Manifest Dancing Dervish on Rampage
+Triggers Level 15 Manifest Dancing Dervishes on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
 ]],[[
 The Dancing Duo
 Reaver Sword
-Source: Upgraded from unique{The Dancing Dervish} via prophecy{Dance of Steel}
+Source: No longer obtainable
 Variant: Pre 3.11.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 65, 82 Str, 119 Dex
 Implicits: 2
 {variant:1}40% increased Global Accuracy Rating
@@ -715,10 +713,9 @@ Implicits: 2
 (25-30)% increased Attack Speed
 5% increased Movement Speed
 Rampage
-Triggers Level 15 Manifest Dancing Dervish on Rampage
+Triggers Level 15 Manifest Dancing Dervishes on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
-Manifested Dancing Dervish also manifests a copy of Dancing Dervish
 ]],[[
 Doomsower
 Lion Sword
@@ -832,7 +829,6 @@ Gain an Endurance Charge if an Attack Freezes an Enemy
 ]],[[
 Queen's Decree
 Ornate Sword
-Upgrade: Upgrades to unique{Queen's Escape} via prophecy{The Misunderstood Queen}
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
@@ -852,7 +848,7 @@ Implicits: 2
 ]],[[
 Queen's Escape
 Ornate Sword
-Source: Upgraded from unique{Queen's Decree} using prophecy{The Misunderstood Queen}
+Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current

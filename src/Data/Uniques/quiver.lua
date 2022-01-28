@@ -21,7 +21,6 @@ Hexes on Slain Enemies are transferred to a nearby Enemy
 ]],[[
 Blackgleam
 Fire Arrow Quiver
-Upgrade: Upgrades to unique{The Signal Fire} via prophecy{Fire and Brimstone}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 22
@@ -38,7 +37,7 @@ The Signal Fire
 Fire Arrow Quiver
 Variant: Pre 3.14.0
 Variant: Current
-Source: Upgraded from unique{Blackgleam} using prophecy{Fire and Brimstone}
+Source: Drops from any endgame map boss
 Requires Level 24
 Implicits: 1
 Adds 4 to 8 Fire Damage to Attacks with Bows
@@ -52,18 +51,20 @@ Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
 Craghead
 Serrated Arrow Quiver
-Upgrade: Upgrades to unique{Cragfall} via prophecy{Heavy Blows}
+Variant: Pre 3.17.0
+Variant: Current
 Requires Level 5
 Implicits: 1
 Adds 1 to 4 Physical Damage to Attacks with Bows
 (20-25)% reduced Enemy Stun Threshold
 25% reduced Projectile Speed
-(60-80)% increased Stun Duration on Enemies
+{variant:1}(60-80)% increased Stun Duration on Enemies
+{variant:2}(140-200)% increased Stun Duration on Enemies
 Adds 6 to 10 Physical Damage to Attacks with Bows
 ]],[[
 Cragfall
 Serrated Arrow Quiver
-Source: Upgraded from unique{Craghead} using prophecy{Heavy Blows}
+Source: No longer obtainable
 Requires Level 5
 Implicits: 1
 Adds 1 to 4 Physical Damage to Attacks with Bows
@@ -112,7 +113,6 @@ Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
 ]],[[
 Hyrri's Bite
 Sharktooth Arrow Quiver
-Upgrade: Upgrades to unique{Hyrri's Demise} via prophecy{A Dishonourable Death}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 10
@@ -128,7 +128,7 @@ Implicits: 1
 ]],[[
 Hyrri's Demise
 Sharktooth Arrow Quiver
-Source: Upgraded from unique{Hyrri's Bite} via prophecy{A Dishonourable Death}
+Source: Drops from any endgame map boss
 Requires Level 45
 Implicits: 1
 +(3-4) Life gained for each Enemy hit by your Attacks

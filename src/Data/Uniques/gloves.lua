@@ -154,7 +154,6 @@ Adds (8-12) to (15-20) Physical Damage to Attacks
 ]],[[
 Hrimsorrow
 Goathide Gloves
-Upgrade: Upgrades to unique{Hrimburn} via prophecy{Fire and Ice}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 9, 17 Dex
@@ -170,7 +169,7 @@ Reflects 10 Cold Damage to Melee Attackers
 ]],[[
 Hrimburn
 Goathide Gloves
-Source: Upgraded from unique{Hrimsorrow} via prophecy{Fire and Ice}
+Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24, 17 Dex
@@ -290,7 +289,6 @@ Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
 ]],[[
 Doedre's Tenure
 Velvet Gloves
-Upgrade: Upgrades to unique{Doedre's Malevolence} via prophecy{The Malevolent Witch}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 12, 21 Int
@@ -305,7 +303,7 @@ Requires Level 12, 21 Int
 ]],[[
 Doedre's Malevolence
 Velvet Gloves
-Source: Upgraded from unique{Doedre's Tenure} via prophecy{The Malevolent Witch}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 21 Int
@@ -319,7 +317,6 @@ Adds (48-56) to (73-84) Chaos Damage to Spells
 ]],[[
 Grip of the Council
 Arcanist Gloves
-Source: prophecy{The Unbreathing Queen V}
 Requires Level 60, 95 Int
 +30 to Strength
 +(30-50) to maximum Life
@@ -664,7 +661,6 @@ Minions have (5-10)% chance to Freeze, Shock and Ignite
 ]],[[
 Volkuur's Guidance
 Zealot Gloves
-Source: Drops from The Pale Council
 Variant: Fire
 Variant: Cold
 Variant: Lightning

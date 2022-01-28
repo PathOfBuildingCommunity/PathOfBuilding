@@ -35,7 +35,6 @@ All Attack Damage Chills when you Stun
 ]],[[
 Cameria's Maul
 Gavel
-Upgrade: Upgrades to unique{Cameria's Avarice} via prophecy{Cold Greed}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 60, 212 Str
@@ -50,7 +49,7 @@ Adds (10-20) to (30-50) Cold Damage
 ]],[[
 Cameria's Avarice
 Gavel
-Source: Upgraded from unique{Cameria's Maul} via prophecy{Cold Greed}
+Source: Drops from any endgame map boss
 Requires Level 60, 212 Str
 Implicits: 1
 15% reduced Enemy Stun Threshold
@@ -309,7 +308,6 @@ Each Summoned Phantasm grants you Phantasmal Might
 ]],[[
 Breath of the Council
 Carnal Sceptre
-Source: prophecy{The Plaguemaw V}
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 66, 113 Str, 113 Int
@@ -589,7 +587,6 @@ Enemies you Shock have 20% reduced Movement Speed
 ]],[[
 Chober Chaber
 Great Mallet
-Upgrade: Upgrades to unique{Chaber Cairn} via prophecy{Faith Exhumed}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
@@ -608,7 +605,7 @@ Minions have (20-40)% increased maximum Life
 ]],[[
 Chaber Cairn
 Great Mallet
-Source: Upgraded from unique{Chober Chaber} via prophecy{Faith Exhumed}
+Source: Drops from any endgame map boss
 Requires Level 60, 131 Str
 Implicits: 1
 30% increased Stun Duration on Enemies
@@ -622,7 +619,6 @@ Minions have (20-40)% increased maximum Life
 ]],[[
 Geofri's Baptism
 Brass Maul
-Upgrade: Upgrades to unique{Geofri's Devotion} via prophecy{Black Devotion}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 27, 92 Str
@@ -636,7 +632,7 @@ Never deal Critical Strikes
 ]],[[
 Geofri's Devotion
 Brass Maul
-Source: Upgraded from unique{Geofri's Baptism} via prophecy{Black Devotion}
+Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -654,7 +650,6 @@ Never deal Critical Strikes
 ]],[[
 Hrimnor's Hymn
 Sledgehammer
-Upgrade: Upgrades to unique{Hrimnor's Dirge} via prophecy{Winter's Mournful Melodies}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 17, 62 Str
@@ -669,9 +664,9 @@ Implicits: 2
 ]],[[
 Hrimnor's Dirge
 Sledgehammer
-Source: Upgraded from unique{Hrimnor's Hymn} using prophecy{Winter's Mournful Melodies}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 36, 62 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
@@ -760,7 +755,6 @@ Implicits: 3
 ]],[[
 Quecholli
 Jagged Maul
-Upgrade: Upgrades to unique{Panquetzaliztli} via prophecy{The Fall of an Empire}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 22, 77 Str
@@ -775,7 +769,7 @@ Enemies killed explode dealing 10% of their Life as Fire Damage
 ]],[[
 Panquetzaliztli
 Jagged Maul
-Source: Upgraded from unique{Quecholli} via prophecy{The Fall of an Empire}
+Source: No longer obtainable
 Requires Level 61, 77 Str
 Implicits: 1
 30% increased Stun Duration on Enemies

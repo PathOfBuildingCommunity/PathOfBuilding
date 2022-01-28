@@ -21,7 +21,6 @@ Gain Brutal Charges instead of Endurance Charges
 ]],[[
 Ascent From Flesh
 Chain Belt
-Source: prophecy{Thaumaturgical History IV}
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
@@ -446,8 +445,6 @@ Offering Skills have 50% reduced Duration
 ]],[[
 The Magnate
 Studded Belt
-Upgrade: Upgrades to unique{The Nomad} via prophecy{The Great Leader of the North}
-Upgrade: Upgrades to unique{The Tactician} via prophecy{The Great Mind of the North}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16
@@ -460,7 +457,7 @@ Implicits: 1
 ]],[[
 The Nomad
 Studded Belt
-Source: Upgraded from unique{The Magnate} via prophecy{The Great Leader of the North}
+Source: Drops from any endgame map boss
 Requires Level 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
@@ -473,7 +470,7 @@ Implicits: 1
 ]],[[
 The Tactician
 Studded Belt
-Source: Upgraded from unique{The Magnate} via prophecy{The Great Mind of the North}
+Source: Drops from any endgame map boss
 Requires Level 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies

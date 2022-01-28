@@ -17,7 +17,6 @@ You have Lesser Massive Shrine Buff
 ]],[[
 Bramblejack
 Plate Vest
-Upgrade: Upgrades to unique{Wall of Brambles} via prophecy{The King and the Brambles}
 Adds 2 to 4 Physical Damage to Attacks
 +(12-20) to maximum Life
 −2 Physical Damage taken from Attacks
@@ -25,7 +24,7 @@ Adds 2 to 4 Physical Damage to Attacks
 ]],[[
 Wall of Brambles
 Plate Vest
-Source: Upgraded from unique{Bramblejack} using prophecy{The King and the Brambles}
+Source: No longer obtainable
 Requires Level 30
 Adds 2 to 4 Physical Damage to Attacks
 +2000 to Armour
@@ -139,7 +138,7 @@ Enemy Projectiles Pierce you
 ]],[[
 Iron Heart
 Crusader Plate
-Upgrade: Upgrades to unique{The Iron Fortress} via prophecy{Battle Hardened}
+Source: No longer obtainable
 Requires Level 59, 160 Str
 (80-100)% increased Armour 
 10% reduced Movement Speed 
@@ -149,8 +148,7 @@ Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10
 ]],[[
 The Iron Fortress
 Crusader Plate
-Source: Upgraded from unique{Iron Heart} via prophecy{Battle Hardened}
-Requires Level 68, 160 Str
+Requires Level 59, 160 Str
 +1% Chance to Block Attack Damage per 50 Strength
 Chance to Block Spell Damage is Unlucky
 +(60-120) to Strength
@@ -205,7 +203,6 @@ Cannot be Ignited
 ]],[[
 Briskwrap
 Strapped Leather
-Upgrade: Upgrades to unique{Wildwrap} via prophecy{Last of the Wildmen}
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
@@ -221,7 +218,7 @@ Requires Level 9, 32 Dex
 ]],[[
 Wildwrap
 Strapped Leather
-Source: Upgraded from unique{Briskwrap} via prophecy{Last of the Wildmen}
+Source: Drops from any endgame map boss
 Requires Level 57, 32 Dex
 10% increased Attack Speed
 +(600-700) to Evasion Rating
@@ -260,7 +257,6 @@ Your Hexes can affect Hexproof Enemies
 ]],[[
 Foxshade
 Wild Leather
-Upgrade: Upgrades to unique{Fox's Fortune} via prophecy{Dark Instincts}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 25, 73 Dex
@@ -273,7 +269,7 @@ Adds 5 to 12 Physical Damage to Attacks
 ]],[[
 Fox's Fortune
 Wild Leather
-Source: Upgraded from unique{Foxshade} via prophecy{Dark Instincts}
+Source: No longer obtainable
 Requires level 54, 73 Dex
 Adds 5 to 12 Physical Damage to Attacks
 +(20-30) to Dexterity
@@ -306,7 +302,6 @@ Requires Level 65, 197 Dex
 ]],[[
 Kintsugi
 Exquisite Leather
-Source: prophecy{Deadly Rivalry V}
 Requires Level 62, 170 Dex
 (100-120)% increased Evasion Rating
 +(60-80) to maximum Life
@@ -407,7 +402,6 @@ Offering Skills Triggered this way also affect you
 ]],[[
 Yriel's Fostering
 Exquisite Leather
-Source: Drops from The Pale Council
 Variant: Rhoa
 Variant: Snake
 Variant: Ursa
@@ -851,7 +845,6 @@ Zealot's Oath
 ]],[[
 Icetomb
 Latticed Ringmail
-Upgrade: Upgrades to unique{Crystal Vault} via prophecy{End of the Light}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 39, 59 Str, 59 Int
@@ -866,7 +859,7 @@ Cannot be Chilled
 ]],[[
 Crystal Vault
 Latticed Ringmail
-Source: Upgraded from unique{Icetomb} via prophecy{End of the Light}
+Source: No longer obtainable
 Requires Level 49, 59 Str, 59 Int
 +(30-40) to Strength
 +(30-40) to Intelligence

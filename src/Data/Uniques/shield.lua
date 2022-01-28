@@ -202,10 +202,10 @@ Mortal Conviction
 [[
 Atziri's Mirror
 Golden Buckler
-Upgrade: Upgrades to unique{Atziri's Reflection} via prophecy{The Queen's Sacrifice}
+Upgrade: No longer obtainable
 Variant: Pre 2.0.0
 Variant: Pre 3.0.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 54, 130 Dex
 Implicits: 1
 {variant:3}6% increased Movement Speed
@@ -220,7 +220,7 @@ Hex Reflection
 ]],[[
 Atziri's Reflection
 Golden Buckler
-Source: Upgraded from unique{Atziri's Mirror} via prophecy{The Queen's Sacrifice}
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Requires Level 68, 130 Dex
 Implicits: 1
 6% increased Movement Speed
@@ -234,9 +234,9 @@ Unaffected by Curses
 ]],[[
 Chalice of Horrors
 War Buckler
-Upgrade: Upgrades to unique{Thirst for Horrors} via prophecy{Mouth of Horrors}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 29, 74 Dex
 Implicits: 1
@@ -245,16 +245,17 @@ Implicits: 1
 (30-50)% increased Evasion Rating
 {variant:2,3}+(40-50) to maximum Life
 {variant:2,3}+(50-70) to maximum Energy Shield
-100% increased Curse Duration
+{variant:1,2,3}100% increased Curse Duration
+{variant:4}1% of Damage Leeched as Life against Cursed Enemies
 +5% Chance to Block
 10% Chance to Cause Monster to Flee on Block
 ]],[[
 Thirst for Horrors
 War Buckler
-Source: Upgraded from unique{Chalice of Horrors} using prophecy{Mouth of Horrors}
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 32, 74 Dex
 Implicits: 1
 {variant:3}9% increased Movement Speed
@@ -296,7 +297,6 @@ Adds (8-12) to (15-20) Physical Damage to Attacks
 ]],[[
 Kaltenhalt
 Painted Buckler
-Upgrade: Upgrades to unique{Kaltensoul} via prophecy{The Snuffed Flame}
 Variant: Pre 1.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
@@ -314,10 +314,10 @@ Implicits: 1
 ]],[[
 Kaltensoul
 Painted Buckler
-Source: Upgraded from unique{Kaltenhalt} using prophecy{The Snuffed Flame}
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 16, 44 Dex
 Implicits: 1
 {variant:3}6% increased Movement Speed
@@ -590,7 +590,6 @@ equal to 25% of Sacrificed Mana for 4 seconds
 ]],[[
 Matua Tupuna
 Tarnished Spirit Shield
-Source: Upgrades to unique{Whakatutuki o Matua} via prophecy{The Mentor}
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 23, 60 Int
@@ -606,7 +605,7 @@ Spreads Tar when you take a Critical Strike
 ]],[[
 Whakatutuki o Matua
 Tarnished Spirit Shield
-Source: Upgraded from unique{Matua Tupuna} via prophecy{The Mentor}
+Source: Drops from any endgame map boss
 Requires Level 63, 60 Int
 Implicits: 1
 (5-10)% increased Spell Damage
@@ -899,7 +898,6 @@ Cannot Block Attacks
 ]],[[
 Springleaf
 Plank Kite Shield
-Upgrade: Upgrades to unique{The Oak} via prophecy{Nature's Resilience}
 Variant: Pre 1.1.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
@@ -918,9 +916,9 @@ Implicits: 2
 ]],[[
 The Oak
 Plank Kite Shield
-Source: Upgraded from unique{Springleaf} using prophecy{Nature's Resilience}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 40
 Implicits: 1
 +4% to all Elemental Resistances
