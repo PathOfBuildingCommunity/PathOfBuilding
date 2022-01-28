@@ -2634,9 +2634,9 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 
 				-- LocalLifeFlaskAdditionalLifeRecovery flask mods
 				if flaskData.lifeAdditional > 0 and not self.build.configTab.input.conditionFullLife then
-					local totalAdditionalAmount = (flaskData.lifeAdditional/100) * flaskData.lifeTotal
+					local totalAdditionalAmount = (flaskData.lifeAdditional/100) * flaskData.lifeTotal * output.LifeRecoveryRateMod
 					local additionalGrad = (lifeDur/10) * totalAdditionalAmount
-					local leftoverDur = 10.00 - lifeDur
+					local leftoverDur = 10 - lifeDur
 					local leftoverAmount = totalAdditionalAmount - additionalGrad
 
 					if inst > 0 then
