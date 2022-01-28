@@ -29,34 +29,34 @@ local classArt = {
 	[6] = "centershadow"
 }
 
-local function nonuniformOrbitAngles(anglesInDegrees)
-	anglesInRadians = {}
-	for i, degrees in pairs(anglesInDegrees) do
-		anglesInRadians[i] = m_rad(degrees)
+-- These values are from the 3.6 tree; older trees are missing values for these constants
+local legacySkillsPerOrbit = { 1, 6, 12, 12, 40 }
+local legacyOrbitRadii = { 0, 82, 162, 335, 493 }
+
+local function calculateOrbitAngles(skillsPerOrbit)
+	local orbitAngles = {}
+	ConPrintf("== calculateOrbitAngles ==")
+	for orbit, skillsInOrbit in ipairs(skillsPerOrbit) do
+		if skillsInOrbit == 16 then
+			-- Every 30 and 15 degrees, per https://github.com/grindinggear/skilltree-export/blob/3.17.0/README.md
+			orbitAngles[orbit] = { 0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330 }
+		elseif skillsInOrbit == 40 then
+			-- Every 10 and 45 degrees
+			orbitAngles[orbit] = { 0, 10, 20, 30, 40, 45, 50, 60, 70, 80, 90, 100, 110, 120, 130, 135, 140, 150, 160, 170, 180, 190, 200, 210, 220, 225, 230, 240, 250, 260, 270, 280, 290, 300, 310, 315, 320, 330, 340, 350 }
+		else
+			-- Uniformly spaced
+			orbitAngles[orbit] = {}
+			for i = 0, skillsInOrbit do
+				orbitAngles[orbit][i + 1] = 360 * i / skillsInOrbit
+			end
+		end
+
+		for i, degrees in ipairs(orbitAngles[orbit]) do
+			orbitAngles[orbit][i] = m_rad(degrees)
+		end
 	end
-	return anglesInRadians
+	return orbitAngles
 end
-
-local function uniformOrbitAngles(count)
-	angles = {}
-	for i = 0, count do
-		angles[i] = m_pi * 2 * i / count
-	end
-	return angles
-end
-
-local orbitAngles = {
-	[0] = { [0] = 0 },
-	[1] = uniformOrbitAngles(6),
-	-- Orbits 2 and 3 per https://github.com/grindinggear/skilltree-export/blob/3.17.0/README.md
-	[2] = nonuniformOrbitAngles({ [0] = 0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330 }),
-	[3] = nonuniformOrbitAngles({ [0] = 0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330 }),
-	[4] = nonuniformOrbitAngles({ [0] = 0, 10, 20, 30, 40, 45, 50, 60, 70, 80, 90, 100, 110, 120, 130, 135, 140, 150, 160, 170, 180, 190, 200, 210, 220, 225, 230, 240, 250, 260, 270, 280, 290, 300, 310, 315, 320, 330, 340, 350 }),
-	[5] = uniformOrbitAngles(72),
-	[6] = uniformOrbitAngles(72),
-}
-
-local orbitDist = { [0] = 0, 82, 162, 335, 493, 662, 845 }
 
 -- Retrieve the file at the given URL
 local function getFile(URL)
@@ -142,6 +142,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			}
 		end
 	end
+
+	self.orbitAngles = calculateOrbitAngles(self.constants.skillsPerOrbit or legacySkillsPerOrbit)
+	self.orbitRadii = self.constants.orbitRadii or legacyOrbitRadii
 
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
@@ -299,15 +302,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			node.passivePointsGranted = node.grantedPassivePoints or 0
 		end
 
-		if versionNum < 3.17 then
-			-- In 3.17, orbits 2 and 3 expanded from 12 to 16 slots
-			-- See https://github.com/grindinggear/skilltree-export/blob/3.17.0/README.md
-			if node.o == 2 or node.o == 3 then
-				local oidxMigrationMapping = { [0] = 0, 1, 3, 4, 5, 7, 8, 9, 11, 12, 13, 15 }
-				node.oidx = oidxMigrationMapping[node.oidx]
-			end
-		end
-
 		if versionNum <= 3.09 and node.passivePointsGranted > 0 then
 			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
 		end
@@ -367,10 +361,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			if node.isAscendancyStart then
 				group.isAscendancyStart = true
 			end
-			node.angle = orbitAngles[node.o][node.oidx]
-			local dist = orbitDist[node.o]
-			node.x = group.x + m_sin(node.angle) * dist
-			node.y = group.y - m_cos(node.angle) * dist
 		elseif node.type == "Notable" or node.type == "Keystone" then
 			self.clusterNodeMap[node.dn] = node
 		end
@@ -560,10 +550,10 @@ function PassiveTreeClass:ProcessNode(node)
 
 	-- Derive the true position of the node
 	if node.group then
-		node.angle = orbitAngles[node.o][node.oidx]
-		local dist = orbitDist[node.o]
-		node.x = node.group.x + m_sin(node.angle) * dist
-		node.y = node.group.y - m_cos(node.angle) * dist
+		node.angle = self.orbitAngles[node.o + 1][node.oidx + 1]
+		local orbitRadius = self.orbitRadii[node.o + 1]
+		node.x = node.group.x + m_sin(node.angle) * orbitRadius
+		node.y = node.group.y - m_cos(node.angle) * orbitRadius
 	end
 
 	self:ProcessStats(node)
