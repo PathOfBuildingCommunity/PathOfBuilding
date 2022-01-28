@@ -629,12 +629,15 @@ Requires Level 40, 19 Str, 19 Dex
 ]],[[
 Legacy of Fury
 Wyrmscale Boots
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 51, 48 Str, 48 Dex
 (200-300)% increased Armour and Evasion
--(15-10)% to all Elemental Resistances
+{variant:1}-(15-10)% to all Elemental Resistances
 30% increased Movement Speed
-Drops Scorched Ground while moving, lasting 4 seconds
+{variant:1}Drops Scorched Ground while moving, lasting 4 seconds
+{variant:2}Nearby Enemies are Scorched
 (30-50)% increased Effect of Scorch
 (30-40)% chance when you Kill a Scorched Enemy to Burn Each surrounding Enemy for 4 seconds, dealing 8% of the Killed Enemy's Life as Fire Damage per second
 ]],[[

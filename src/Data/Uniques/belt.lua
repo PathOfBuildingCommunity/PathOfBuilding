@@ -5,6 +5,8 @@ return {
 [[
 Arn's Anguish
 Cloth Belt
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68
 Implicits: 1
@@ -15,6 +17,7 @@ Implicits: 1
 Modifiers to Minimum Endurance Charges instead apply to Minimum Brutal Charges
 Maximum Brutal Charges is equal to Maximum Endurance Charges
 Gain Brutal Charges instead of Endurance Charges
+{variant:2}+1 to Maximum Endurance Charges
 ]],[[
 Ascent From Flesh
 Chain Belt
@@ -332,6 +335,8 @@ You have no Armour or Maximum Energy Shield
 ]],[[
 Graven's Secret
 Cloth Belt
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68
 Implicits: 1
@@ -342,6 +347,7 @@ Implicits: 1
 Modifiers to Minimum Power Charges instead apply to Minimum Absorption Charges
 Maximum Absorption Charges is equal to Maximum Power Charges
 Gain Absorption Charges instead of Power Charges
+{variant:2}+1 to Maximum Power Charges
 ]],[[
 Headhunter
 Leather Belt
@@ -529,6 +535,8 @@ Minions have (50-80)% increased Flask Effect Duration
 ]],[[
 Olesya's Delight
 Cloth Belt
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68
 Implicits: 1
@@ -539,6 +547,7 @@ Implicits: 1
 Modifiers to Minimum Frenzy Charges instead apply to Minimum Affliction Charges
 Maximum Affliction Charges is equal to Maximum Frenzy Charges
 Gain Affliction Charges instead of Frenzy Charges
+{variant:2}+1 to Maximum Frenzy Charges
 ]],[[
 Perandus Blazon
 Cloth Belt

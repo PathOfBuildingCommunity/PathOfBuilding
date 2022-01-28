@@ -84,13 +84,16 @@ Gore Footprints
 ]],[[
 Doppelgänger Guise
 Sadist Garb
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68, 103 Dex, 109 Int
 Implicits: 0
 Grants Level 20 Unhinge Skill
 (40-60)% more Critical Strike Chance while Insane
 Enemies Killed by your Hits are destroyed while Insane
-(15-25)% less Physical and Chaos Damage Taken while Sane
+{variant:1}(15-25)% less Physical and Chaos Damage Taken while Sane
+{variant:2}(30-40)% less Physical and Chaos Damage Taken while Sane
 Regenerate 10% Life over one second when Hit while Sane
 ]],[[
 Greed's Embrace
