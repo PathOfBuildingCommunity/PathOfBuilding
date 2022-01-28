@@ -38,7 +38,7 @@ local function calculateOrbitAngles(skillsPerOrbit)
 	ConPrintf("== calculateOrbitAngles ==")
 	for orbit, skillsInOrbit in ipairs(skillsPerOrbit) do
 		if skillsInOrbit == 16 then
-			-- Every 30 and 15 degrees, per https://github.com/grindinggear/skilltree-export/blob/3.17.0/README.md
+			-- Every 30 and 45 degrees, per https://github.com/grindinggear/skilltree-export/blob/3.17.0/README.md
 			orbitAngles[orbit] = { 0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330 }
 		elseif skillsInOrbit == 40 then
 			-- Every 10 and 45 degrees
