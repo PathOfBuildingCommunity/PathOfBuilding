@@ -1038,6 +1038,10 @@ function calcs.offence(env, actor, activeSkill)
 				local mod = value.mod
 				skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
 			end
+			for _, value in ipairs(env.modDB:Tabulate("MORE", skillCfg, "ExertAttackIncrease")) do
+				local mod = value.mod
+				skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+			end
 			for _, value in ipairs(env.modDB:Tabulate("BASE", skillCfg, "ExertDoubleDamageChance")) do
 				local mod = value.mod
 				skillModList:NewMod("DoubleDamageChance", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
@@ -1854,14 +1858,18 @@ function calcs.offence(env, actor, activeSkill)
 				if globalOutput.ExertedAttackUptimeRatio > 0 then
 					local incExertedAttacks = skillModList:Sum("INC", cfg, "ExertIncrease")
 					local moreExertedAttacks = skillModList:Sum("MORE", cfg, "ExertIncrease")
+					local moreExertedAttackDamage = skillModList:Sum("MORE", cfg, "ExertAttackIncrease")
 					if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
 						skillModList:NewMod("Damage", "INC", incExertedAttacks, "Exerted Attacks")
 						skillModList:NewMod("Damage", "MORE", moreExertedAttacks, "Exerted Attacks")
+						skillModList:NewMod("Damage", "MORE", moreExertedAttackDamage, "Exerted Attack Damage", ModFlag.Attack)
 					else
 						skillModList:NewMod("Damage", "INC", incExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks")
 						skillModList:NewMod("Damage", "MORE", moreExertedAttacks * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attacks")
+						skillModList:NewMod("Damage", "MORE", moreExertedAttackDamage * globalOutput.ExertedAttackUptimeRatio / 100, "Uptime Scaled Exerted Attack Damage", ModFlag.Attack)
 					end
 					globalOutput.ExertedAttackAvgDmg = calcLib.mod(skillModList, skillCfg, "ExertIncrease")
+					globalOutput.ExertedAttackAvgDmg = globalOutput.ExertedAttackAvgDmg * calcLib.mod(skillModList, skillCfg, "ExertAttackIncrease")
 					globalOutput.ExertedAttackHitEffect = globalOutput.ExertedAttackAvgDmg * globalOutput.ExertedAttackUptimeRatio / 100
 					globalOutput.ExertedAttackMaxHitEffect = globalOutput.ExertedAttackAvgDmg
 					if globalBreakdown then
