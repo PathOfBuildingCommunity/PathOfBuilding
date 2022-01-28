@@ -15,7 +15,9 @@ jobs:
               with:
                 ref: 'dev'
             - name: Generate Release notes
-              run: gh release view $(basename $(gh release create v${{ github.event.inputs.releaseVersion }} --title "Release ${{ github.event.inputs.releaseVersion }}" --draft --generate-notes)) > temp_change.md
+              run: >
+                gh auth login;
+                gh release view $(basename $(gh release create v${{ github.event.inputs.releaseVersion }} --title "Release ${{ github.event.inputs.releaseVersion }}" --draft --generate-notes)) > temp_change.md
             - name: Tweak changelogs
               run: >
                 sed -i '1,8d' temp_change.md;
