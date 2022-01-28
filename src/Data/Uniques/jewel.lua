@@ -1071,6 +1071,7 @@ With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile 
 ]],[[
 First Snow
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (7-10)% increased Projectile Damage 
@@ -1080,6 +1081,7 @@ you've Shattered an Enemy Recently
 ]],[[
 Frozen Trail
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (7-10)% increased Projectile Damage
@@ -1089,8 +1091,9 @@ Speed per second
 ]],[[
 Growing Agony
 Viridian Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Limited to: 1
 Radius: Medium
 {variant:1}(4-12)% increased Damage over Time
@@ -1100,12 +1103,14 @@ With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage wit
 ]],[[
 Hazardous Research
 Cobalt Jewel
+Variant: Pre 3.17.0
+Variant: Current
 Limited to: 1
 Radius: Medium
 (10-15)% increased Lightning Damage
-With at least 40 Intelligence in Radius, Spark fires 2 additional Projectiles
+{variant:1}With at least 40 Intelligence in Radius, Spark fires 2 additional Projectiles
 With at least 40 Intelligence in Radius, Spark fires Projectiles in a Nova
-(20-15)% reduced Spark Duration
+{variant:1}(20-15)% reduced Spark Duration
 ]],[[
 Inevitability
 Cobalt Jewel
@@ -1170,6 +1175,7 @@ With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
 ]],[[
 Overwhelming Odds
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 1
 Radius: Medium
 (10-15)% increased Global Physical Damage
@@ -1190,9 +1196,10 @@ With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread B
 ]],[[
 Rapid Expansion
 Crimson Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.3.0
-Variant: Current
+Variant: Pre 3.17.0
 Limited to: 2
 Radius: Medium
 {variant:1}(4-12)% increased Physical Damage
@@ -1206,6 +1213,7 @@ Radius: Medium
 Ring of Blades
 Viridian Jewel
 Variant: Pre 3.0.0
+Variant: Pre 3.17.0
 Variant: Current
 Limited to: 1
 Radius: Medium
@@ -1260,18 +1268,21 @@ With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over
 Spreading Rot
 Cobalt Jewel
 Variant: Pre 3.6.0
+Variant: Pre 3.17.0
 Variant: Current
-Limited to: 2
+Limited to: 1
 Radius: Medium
 (7-13)% increased Chaos Damage
-With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration
+{variant:1,2}With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration
+{variant:3}With at least 40 Intelligence in Radius, Blight has 30% reduced Cast Speed
 {variant:1}With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage
 {variant:2}With at least 40 Intelligence in Radius, Blight inflicts Withered for 2 seconds
 ]],[[
 Steel Spirit
 Viridian Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Radius: Medium
 {variant:1}(6-10)% increased Projectile Damage
 {variant:2}(7-10)% increased Projectile Damage
@@ -1334,6 +1345,7 @@ Radius: Medium
 ]],[[
 Weight of the Empire
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (8-12)% increased Physical Damage
@@ -1354,6 +1366,7 @@ Radius: Medium
 ]],[[
 Winter Burial
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (10-15)% increased Cold Damage
