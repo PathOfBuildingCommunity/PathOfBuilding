@@ -326,7 +326,6 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemRangeLines()
 	end)
 	self.controls.displayItemAltVariant2.maxDroppedWidth = 1000
-	self.controls.displayItemAltVariant2:CheckDroppedWidth(true)
 	self.controls.displayItemAltVariant2.shown = function()
 		return self.displayItem.hasAltVariant2
 	end
@@ -337,7 +336,6 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemRangeLines()
 	end)
 	self.controls.displayItemAltVariant3.maxDroppedWidth = 1000
-	self.controls.displayItemAltVariant3:CheckDroppedWidth(true)
 	self.controls.displayItemAltVariant3.shown = function()
 		return self.displayItem.hasAltVariant3
 	end
@@ -348,7 +346,6 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemRangeLines()
 	end)
 	self.controls.displayItemAltVariant4.maxDroppedWidth = 1000
-	self.controls.displayItemAltVariant4:CheckDroppedWidth(true)
 	self.controls.displayItemAltVariant4.shown = function()
 		return self.displayItem.hasAltVariant4
 	end
@@ -359,7 +356,6 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemRangeLines()
 	end)
 	self.controls.displayItemAltVariant5.maxDroppedWidth = 1000
-	self.controls.displayItemAltVariant5:CheckDroppedWidth(true)
 	self.controls.displayItemAltVariant5.shown = function()
 		return self.displayItem.hasAltVariant5
 	end
