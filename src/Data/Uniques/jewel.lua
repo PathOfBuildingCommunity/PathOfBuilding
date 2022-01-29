@@ -1396,8 +1396,8 @@ Corrupted
 Blood Sacrifice
 Crimson Jewel
 1% of maximum Mana gained on Kill
-Removes 1% of maximum Life on Kill
-Removes 1% of maximum Energy Shield on Kill
+Removes 1% of Life on Kill
+Removes 1% of Energy Shield on Kill
 Corrupted
 ]],[[
 Replica Blood Sacrifice

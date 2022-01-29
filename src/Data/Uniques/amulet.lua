@@ -304,7 +304,7 @@ Implicits: 1
 {variant:2}10% chance to gain Unholy Might for 10 seconds on Kill
 {variant:1}{tags:caster,attack}5% chance to gain Onslaught for 10 seconds on Kill
 {variant:2}{tags:caster,attack}10% chance to gain Onslaught for 10 seconds on Kill
-{tags:life}Recover 1% of Maximum Life on Kill
+{tags:life}Recover 1% of Life on Kill
 ]],[[
 Eye of Chayula
 Onyx Amulet
