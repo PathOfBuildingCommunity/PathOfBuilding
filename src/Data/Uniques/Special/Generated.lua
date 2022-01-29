@@ -97,7 +97,30 @@ end
 table.insert(paradoxica, "Attacks with this Weapon deal Double Damage")
 table.insert(data.uniques.generated, table.concat(paradoxica, "\n"))
 
---local caneOfKulemakMods = getVeiledWeaponMods()
+local caneOfKulemakMods = getVeiledWeaponMods("staff", true)
+local caneOfKulemak = {
+	"Cane of Kulemak",
+	"Serpentine Staff",
+	"Has Alt Variant: true",
+	"Has Alt Variant Two: true",
+}
+
+for index, mod in pairs(caneOfKulemakMods) do
+	table.insert(caneOfKulemak, "Variant: "..mod.veiledName)
+end
+
+table.insert(caneOfKulemak, "Requires Level 68, 85 Str, 85 Int")
+table.insert(caneOfKulemak, "Implicits: 1")
+table.insert(caneOfKulemak, "+20% Chance to Block Attack Damage while wielding a Staff")
+table.insert(caneOfKulemak, "(60-90)% increased Unveiled Modifier magnitudes")
+
+for index, mod in pairs(caneOfKulemakMods) do
+	for _, value in pairs(mod.veiledLines) do
+		table.insert(caneOfKulemak, "{variant:"..index.."}"..value.."")
+	end
+end
+
+table.insert(data.uniques.generated, table.concat(caneOfKulemak, "\n"))
 
 
 local forbiddenShako = {
