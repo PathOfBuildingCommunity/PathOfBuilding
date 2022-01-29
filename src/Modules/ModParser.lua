@@ -1022,6 +1022,7 @@ local modTagList = {
 	["to you and allies"] = { },
 	["per red socket"] = { tag = { type = "Multiplier", var = "RedSocketIn{SlotName}" } },
 	["per green socket on main hand weapon"] = { tag = { type = "Multiplier", var = "GreenSocketInWeapon 1" } },
+	["per green socket on"] = { tag = { type = "Multiplier", var = "GreenSocketInWeapon 1" } },
 	["per red socket on main hand weapon"] = { tag = { type = "Multiplier", var = "RedSocketInWeapon 1" } },
 	["per green socket"] = { tag = { type = "Multiplier", var = "GreenSocketIn{SlotName}" } },
 	["per blue socket"] = { tag = { type = "Multiplier", var = "BlueSocketIn{SlotName}" } },
@@ -1149,6 +1150,7 @@ local modTagList = {
 	["while wielding two different weapon types"] = { tag = { type = "Condition", var = "WieldingDifferentWeaponTypes" } },
 	["while unarmed"] = { tag = { type = "Condition", var = "Unarmed" } },
 	["while you are unencumbered"] = { tag = { type = "Condition", var = "Unencumbered" } },
+	["equipped bow"] = { tag = { type = "Condition", var = "UsingBow" } },
 	["with a normal item equipped"] = { tag = { type = "MultiplierThreshold", var = "NormalItem", threshold = 1 } },
 	["with a magic item equipped"] = { tag = { type = "MultiplierThreshold", var = "MagicItem", threshold = 1 } },
 	["with a rare item equipped"] = { tag = { type = "MultiplierThreshold", var = "RareItem", threshold = 1 } },
@@ -2185,6 +2187,7 @@ local specialModList = {
 	["increases and reductions to light radius also apply to damage"] = { flag("LightRadiusAppliesToDamage") },
 	["increases and reductions to cast speed also apply to trap throwing speed"] = { flag("CastSpeedAppliesToTrapThrowingSpeed") },
 	["increases and reductions to armour also apply to energy shield recharge rate at (%d+)%% of their value"] = function(num) return { flag("ArmourAppliesToEnergyShieldRecharge"), mod("ImprovedArmourAppliesToEnergyShieldRecharge", "MAX", num) } end,
+	["increases and reductions to projectile speed also apply to damage with bows"] = { flag("ProjectileSpeedAppliesToBowDamage") },
 	["gain (%d+)%% of bow physical damage as extra damage of each element"] = function(num) return {
 		mod("PhysicalDamageGainAsLightning", "BASE", num, nil, ModFlag.Bow),
 		mod("PhysicalDamageGainAsCold", "BASE", num, nil, ModFlag.Bow),
