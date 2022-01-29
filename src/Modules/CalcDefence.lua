@@ -514,11 +514,12 @@ function calcs.defence(env, actor)
 
 	-- Leech caps
 	output.MaxLifeLeechInstance = output.Life * calcLib.val(modDB, "MaxLifeLeechInstance") / 100
-	output.MaxLifeLeechRate = output.Life * calcLib.val(modDB, "MaxLifeLeechRate") / 100
+	output.MaxLifeLeechRatePercent = calcLib.val(modDB, "MaxLifeLeechRate")
+	output.MaxLifeLeechRate = output.Life * output.MaxLifeLeechRatePercent / 100
 	if breakdown then
 		breakdown.MaxLifeLeechRate = {
 			s_format("%d ^8(maximum life)", output.Life),
-			s_format("x %d%% ^8(percentage of life to maximum leech rate)", calcLib.val(modDB, "MaxLifeLeechRate")),
+			s_format("x %d%% ^8(percentage of life to maximum leech rate)", output.MaxLifeLeechRatePercent),
 			s_format("= %.1f", output.MaxLifeLeechRate)
 		}
 	end
