@@ -836,6 +836,9 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Elusive") then
 			local maxSkillInc = modDB:Max({ source = "Skill" }, "ElusiveEffect")
 			local inc = modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf")
+			if actor.mainSkill.skillModList:Flag(nil, "SupportedByNightblade") then
+				maxSkillInc = maxSkillInc * (1 + modDB:Sum("INC", nil, "NightbladeSupportedElusiveEffect")/100)
+			end
 			inc = inc + maxSkillInc
 			output.ElusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
 			-- if we want the max skill to not be noted as its own breakdown table entry, comment out below

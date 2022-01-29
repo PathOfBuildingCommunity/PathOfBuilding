@@ -3118,6 +3118,7 @@ local specialModList = {
 		mod("DoubleDamageChance", "BASE", num, 0, 0, { type = "Condition", var = "OneSecondAttackTime" })
 	} end,
 	["elusive also grants %+(%d+)%% to critical strike multiplier for skills supported by nightblade"] = function(num) return { mod("NightbladeElusiveCritMultiplier", "BASE", num) } end,
+	["skills supported by nightblade have (%d+)%% increased effect of elusive"] = function(num) return { mod("NightbladeSupportedElusiveEffect", "INC", num) } end,
 	-- Pantheon: Soul of Tukohama support
 	["while stationary, gain ([%d%.]+)%% of life regenerated per second every second, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("LifeRegenPercent", "BASE", num, { type = "Multiplier", var = "StationarySeconds", limit = tonumber(limit), limitTotal = true }, { type = "Condition", var = "Stationary" }),
