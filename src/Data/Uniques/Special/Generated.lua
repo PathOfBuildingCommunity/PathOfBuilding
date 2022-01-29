@@ -45,7 +45,7 @@ local veiledWeaponModIsActive = function(mod, weaponType)
 	return (typeIndex and mod.weightVal[typeIndex] > 0) or (not typeIndex and weaponIndex and mod.weightVal[weaponIndex] > 0)
 end
 
-local getVeiledWeaponMods = function (weaponType) 
+local getVeiledWeaponMods = function (weaponType, canHaveCatarinaMod) 
 	local veiledMods = { }
 	for veiledModIndex, veiledMod in pairs(data.veiledMods) do
 		if veiledWeaponModIsActive(veiledMod, weaponType) then
@@ -58,15 +58,16 @@ local getVeiledWeaponMods = function (weaponType)
 				veiled.veiledLines[line] = value
 			end
 
-			table.insert(veiledMods, veiled)
+			if (canHaveCatarinaMod or (veiledMod.affix ~= "Catarina's" and veiledMod.affix ~= "Haku's")) then
+				table.insert(veiledMods, veiled)
+			end
 		end
 	end
     table.sort(veiledMods, function (m1, m2) return m1.veiledName < m2.veiledName end )
 	return veiledMods
 end
 
--- if (veiledName ~= "Double Damage Chance") then
-local paradoxicaMods = getVeiledWeaponMods("one_handed_weapon")
+local paradoxicaMods = getVeiledWeaponMods("one_hand_weapon", false)
 local paradoxica = {
 	"Paradoxica",
 	"Vaal Rapier",
@@ -75,7 +76,9 @@ local paradoxica = {
 }
 
 for index, mod in pairs(paradoxicaMods) do
-	table.insert(paradoxica, "Variant: "..mod.veiledName)
+	if (mod.veiledName ~= "(Suffix) Double Damage Chance") then
+		table.insert(paradoxica, "Variant: "..mod.veiledName)
+	end
 end
 
 table.insert(paradoxica, "Source: Drops from Bosses in Safehouse")
@@ -84,13 +87,17 @@ table.insert(paradoxica, "Implicits: 1")
 table.insert(paradoxica, "+25% to Global Critical Strike Multiplier")
 
 for index, mod in pairs(paradoxicaMods) do
-	for _, value in pairs(mod.veiledLines) do
-		table.insert(paradoxica, "{variant:"..index.."}"..value.."")
+	if (mod.veiledName ~= "(Suffix) Double Damage Chance") then
+		for _, value in pairs(mod.veiledLines) do
+			table.insert(paradoxica, "{variant:"..index.."}"..value.."")
+		end
 	end
 end
 
 table.insert(paradoxica, "Attacks with this Weapon deal Double Damage")
 table.insert(data.uniques.generated, table.concat(paradoxica, "\n"))
+
+--local caneOfKulemakMods = getVeiledWeaponMods()
 
 
 local forbiddenShako = {
