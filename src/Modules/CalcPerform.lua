@@ -507,11 +507,10 @@ local function doActorAttribsPoolsConditions(env, actor)
 				breakdown[stat] = breakdown.simple(nil, nil, output[stat], stat)
 			end
 		end
-		
-		output.LowestAttribute = m_min(output.Str, output.Dex, output.Int)
 
 		local stats = { output.Str, output.Dex, output.Int }
 		table.sort(stats)
+		output.LowestAttribute = stats[1]
 		condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
 
 		condList["DexHigherThanInt"] = output.Dex > output.Int
