@@ -147,7 +147,6 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		if not (self.build.calcsTab and self.build.calcsTab.powerBuilderInitialized) then
 			tooltip:AddLine(14, "Show Power Report is disabled until the first time")
 			tooltip:AddLine(14, "an evaluation of all nodes and clusters completes.")
-			tooltip:AddLine(14, "Thank you for your patience.")
 		end
 	end
 	self.showPowerReport = false
