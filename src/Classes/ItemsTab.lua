@@ -2684,6 +2684,50 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if gainMod ~= 1 then
 			t_insert(stats, s_format("^8Charge gain modifier: ^7%+d%%", gainMod * 100 - 100))
 		end
+
+		-- charge generation
+		local chargesGenerated = modDB:Sum("BASE", nil, "FlaskChargesGenerated")
+		if item.base.flask.life then
+			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "LifeFlaskChargesGenerated")
+		end
+		if item.base.flask.mana then
+			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "ManaFlaskChargesGenerated")
+		end
+		if not item.base.flask.mana and not item.base.flask.life then
+			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "UtilityFlaskChargesGenerated")
+		end
+
+		local chargesGeneratedPerFlask = modDB:Sum("BASE", nil, "FlaskChargesGeneratedPerEmptyFlask")
+		local emptyFlaskSlots = 0
+		for slotName, slot in pairs(self.slots) do
+			if slotName:find("^Flask") ~= nil and slot.selItemId == 0 then
+				emptyFlaskSlots = emptyFlaskSlots + 1
+			end
+		end
+		chargesGeneratedPerFlask = chargesGeneratedPerFlask * emptyFlaskSlots
+		chargesGenerated = chargesGenerated * gainMod
+		chargesGeneratedPerFlask = chargesGeneratedPerFlask * gainMod
+
+		local totalChargesGenerated = chargesGenerated + chargesGeneratedPerFlask
+		if totalChargesGenerated > 0 then
+			t_insert(stats, s_format("^8Charges generated: ^7%.2f^8 per second", totalChargesGenerated))
+		end
+
+		-- flask uptime
+		if not item.base.flask.life and not item.base.flask.mana then
+			local flaskDuration = flaskData.duration * (1 + durInc / 100)
+			local per3Duration = flaskDuration - (flaskDuration % 3)
+			local per5Duration = flaskDuration - (flaskDuration % 5)
+
+			local flaskChargesUsed = m_floor(flaskData.chargesUsed * (1 + usedInc / 100))
+
+			if flaskChargesUsed > 0 then
+				local totalChargesGenerated = (per3Duration * chargesGenerated) + (per5Duration * chargesGeneratedPerFlask)
+				local percentageOf = math.min(totalChargesGenerated / flaskChargesUsed * 100, 100)
+				t_insert(stats, s_format("^8Flask uptime: ^7%d%%^8", percentageOf))
+			end
+		end
+
 		if stats[1] then
 			tooltip:AddLine(14, "^7Effective flask stats:")
 			for _, stat in ipairs(stats) do
