@@ -1207,33 +1207,35 @@ function ItemClass:BuildModList()
 	end
 	local function processModLine(modLine)
 		if self:CheckModLineVariant(modLine) then
+			-- special section for variant over-ride of pre-modifier item parameters
 			if modLine.line:find("Requires Class") then
 				self.classRestriction = modLine.line:gsub("{variant:([%d,]+)}", ""):match("Requires Class (.+)")
 			end
-		end
-		if not modLine.extra and self:CheckModLineVariant(modLine) then
-			if modLine.range then
-				local strippedModeLine = modLine.line:gsub("\n"," ")
-				-- Look at the min and max of the range to confirm it's *actually* a range
-				local rangeMin, rangeMax = itemLib.getLineRangeMinMax(strippedModeLine)
-				if rangeMin ~= rangeMax then
-					local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
-					-- Put the modified value into the string
-					local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
-					-- Check if we can parse it before adding the mods
-					local list, extra = modLib.parseMod(line)
-					if list and not extra then
-						modLine.modList = list
-						t_insert(self.rangeLineList, modLine)
+			-- handle understood modifier variable properties
+			if not modLine.extra then
+				if modLine.range then
+					local strippedModeLine = modLine.line:gsub("\n"," ")
+					-- Look at the min and max of the range to confirm it's *actually* a range
+					local rangeMin, rangeMax = itemLib.getLineRangeMinMax(strippedModeLine)
+					if rangeMin ~= rangeMax then
+						local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
+						-- Put the modified value into the string
+						local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
+						-- Check if we can parse it before adding the mods
+						local list, extra = modLib.parseMod(line)
+						if list and not extra then
+							modLine.modList = list
+							t_insert(self.rangeLineList, modLine)
+						end
 					end
 				end
-			end
-			for _, mod in ipairs(modLine.modList) do
-				mod = modLib.setSource(mod, self.modSource)
-				baseList:AddMod(mod)
-			end
-			if modLine.modTags and #modLine.modTags > 0 then
-				self.hasModTags = true
+				for _, mod in ipairs(modLine.modList) do
+					mod = modLib.setSource(mod, self.modSource)
+					baseList:AddMod(mod)
+				end
+				if modLine.modTags and #modLine.modTags > 0 then
+					self.hasModTags = true
+				end
 			end
 		end
 	end

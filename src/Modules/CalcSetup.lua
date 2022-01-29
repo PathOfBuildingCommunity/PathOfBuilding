@@ -563,12 +563,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 				item = nil
 			end
-			if item and item.type == "Jewel" and item.name == "Forbidden Flame, Prismatic Jewel" then 
-				env.itemModDB.conditions["ForbiddenFlame"] = item.classRestriction
-			end
-			if item and item.type == "Jewel" and item.name == "Forbidden Flesh, Prismatic Jewel" then 
-				env.itemModDB.conditions["ForbiddenFlesh"] = item.classRestriction
-			end
 			local scale = 1
 			if item and item.type == "Jewel" and item.base.subType == "Abyss" and slot.parentSlot then
 				-- Check if the item in the parent slot has enough Abyssal Sockets
@@ -698,6 +692,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
+				end
+				-- set conditions on restricted items
+				if item.classRestriction then
+					env.itemModDB.conditions[item.title:gsub(" ", "")] = item.classRestriction
 				end
 				if item.type ~= "Jewel" and item.type ~= "Flask" then
 					-- Update item counts

@@ -378,6 +378,10 @@ end
 
 table.insert(data.uniques.generated, table.concat(watchersEye, "\n"))
 
+function buildTreeDependentUniques(tree)
+	buildForbidden(tree.classNotables)
+end
+
 function buildForbidden(classNotables)
 	local forbidden = { }
 	for _, name in pairs({"Flame", "Flesh"}) do
@@ -397,7 +401,7 @@ function buildForbidden(classNotables)
 		for className, notableTable in pairs(classNotables) do
 			for _, notableName in ipairs(notableTable) do
 				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Requires Class " .. className)
-				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifiers on forbidden " .. (name:lower() == "flame" and "flesh" or "flame"))
+				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifiers on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
 				index = index + 1
 			end
 		end
