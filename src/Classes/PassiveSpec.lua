@@ -1353,7 +1353,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	-- to be the same, but as of 3.17 they can differ, so we need to translate the ClusterJewels-relative indices into
 	-- tree.skillsPerOrbit-relative indices before we invoke tree:ProcessNode or do math against proxyNode.oidx.
 	--
-	-- The specific 12<->16 mappings are derived from  https://github.com/grindinggear/skilltree-export/blob/3.17.0/README.md
+	-- The specific 12<->16 mappings are derived from https://github.com/grindinggear/skilltree-export/blob/3.17.0/README.md
 	local function translateOidx(srcOidx, srcNodesPerOrbit, destNodesPerOrbit)
 		if srcNodesPerOrbit == destNodesPerOrbit then
 			return srcOidx
