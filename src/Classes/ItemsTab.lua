@@ -300,6 +300,7 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
+	self.controls.displayItemVariant.maxDroppedWidth = 1000
 	self.controls.displayItemVariant.shown = function()
 		return self.displayItem.variantList and #self.displayItem.variantList > 1
 	end
@@ -309,6 +310,7 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
+	self.controls.displayItemAltVariant.maxDroppedWidth = 1000
 	self.controls.displayItemAltVariant.shown = function()
 		return self.displayItem.hasAltVariant
 	end
@@ -318,6 +320,8 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
+	self.controls.displayItemAltVariant2.maxDroppedWidth = 1000
+	self.controls.displayItemAltVariant2:CheckDroppedWidth(true)
 	self.controls.displayItemAltVariant2.shown = function()
 		return self.displayItem.hasAltVariant2
 	end
@@ -327,6 +331,8 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
+	self.controls.displayItemAltVariant3.maxDroppedWidth = 1000
+	self.controls.displayItemAltVariant3:CheckDroppedWidth(true)
 	self.controls.displayItemAltVariant3.shown = function()
 		return self.displayItem.hasAltVariant3
 	end
@@ -1332,17 +1338,21 @@ function ItemsTabClass:SetDisplayItem(item)
 
 		self.controls.displayItemVariant.list = item.variantList
 		self.controls.displayItemVariant.selIndex = item.variant
+		self.controls.displayItemVariant:CheckDroppedWidth(true)
 		if item.hasAltVariant then
 			self.controls.displayItemAltVariant.list = item.variantList
 			self.controls.displayItemAltVariant.selIndex = item.variantAlt
+			self.controls.displayItemAltVariant:CheckDroppedWidth(true)
 		end
 		if item.hasAltVariant2 then
 			self.controls.displayItemAltVariant2.list = item.variantList
 			self.controls.displayItemAltVariant2.selIndex = item.variantAlt2
+			self.controls.displayItemAltVariant2:CheckDroppedWidth(true)
 		end
 		if item.hasAltVariant3 then
 			self.controls.displayItemAltVariant3.list = item.variantList
 			self.controls.displayItemAltVariant3.selIndex = item.variantAlt3
+			self.controls.displayItemAltVariant2:CheckDroppedWidth(true)
 		end
 		self:UpdateSocketControls()
 		if item.crafted then

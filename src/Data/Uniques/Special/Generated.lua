@@ -27,6 +27,72 @@ for index, name in ipairs(notables) do
 end
 table.insert(data.uniques.generated, table.concat(megalomaniac, "\n"))
 
+local parseVeiledModName = function(string)
+	return (string:
+	gsub("%JunMasterVeiled", ""):
+	gsub("%Local", ""):
+	gsub("%Display", ""):
+	gsub("%Crafted", ""):
+	gsub("(%d)h", ""):
+	gsub("%_", ""):
+	gsub("(%l)(%u)", "%1 %2"):
+	gsub("(%d)", " %1 "))
+end
+
+local veiledWeaponModIsActive = function(mod, weaponType)
+	local weaponIndex = isValueInTable(mod.weightKey, "weapon")
+	local typeIndex = isValueInTable(mod.weightKey, weaponType)
+	return (typeIndex and mod.weightVal[typeIndex] > 0) or (not typeIndex and weaponIndex and mod.weightVal[weaponIndex] > 0)
+end
+
+local getVeiledWeaponMods = function (weaponType) 
+	local veiledMods = { }
+	for veiledModIndex, veiledMod in pairs(data.veiledMods) do
+		if veiledWeaponModIsActive(veiledMod, weaponType) then
+			local veiledName = parseVeiledModName(veiledModIndex)
+
+			veiledName = "("..veiledMod.type..") "..veiledName
+
+			local veiled = { veiledName = veiledName, veiledLines = { } }
+			for line, value in ipairs(veiledMod) do
+				veiled.veiledLines[line] = value
+			end
+
+			table.insert(veiledMods, veiled)
+		end
+	end
+    table.sort(veiledMods, function (m1, m2) return m1.veiledName < m2.veiledName end )
+	return veiledMods
+end
+
+-- if (veiledName ~= "Double Damage Chance") then
+local paradoxicaMods = getVeiledWeaponMods("one_handed_weapon")
+local paradoxica = {
+	"Paradoxica",
+	"Vaal Rapier",
+	"League: Betrayal",
+	"Has Alt Variant: true"
+}
+
+for index, mod in pairs(paradoxicaMods) do
+	table.insert(paradoxica, "Variant: "..mod.veiledName)
+end
+
+table.insert(paradoxica, "Source: Drops from Bosses in Safehouse")
+table.insert(paradoxica, "Requires Level 66, 212 Dex")
+table.insert(paradoxica, "Implicits: 1")
+table.insert(paradoxica, "+25% to Global Critical Strike Multiplier")
+
+for index, mod in pairs(paradoxicaMods) do
+	for _, value in pairs(mod.veiledLines) do
+		table.insert(paradoxica, "{variant:"..index.."}"..value.."")
+	end
+end
+
+table.insert(paradoxica, "Attacks with this Weapon deal Double Damage")
+table.insert(data.uniques.generated, table.concat(paradoxica, "\n"))
+
+
 local forbiddenShako = {
 	"Forbidden Shako",
 	"Great Crown",
