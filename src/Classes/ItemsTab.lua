@@ -931,7 +931,7 @@ function ItemsTabClass:Save(xml)
 				variantAlt2 = item.variantAlt2 and tostring(item.variantAlt2),
 				variantAlt3 = item.variantAlt3 and tostring(item.variantAlt3), 
 				variantAlt4 = item.variantAlt4 and tostring(item.variantAlt4), 
-				variantAlt5 = item.variantAlt5 and tostring(item.variantAlt5),
+				variantAlt5 = item.variantAlt5 and tostring(item.variantAlt5)
 			} 
 		}
 		item:BuildAndParseRaw()

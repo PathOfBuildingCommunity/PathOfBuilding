@@ -18,16 +18,16 @@ local parseVeiledModName = function(string)
 	gsub("(%d)", " %1 "))
 end
 
-local veiledWeaponModIsActive = function(mod, weaponType)
-	local weaponIndex = isValueInTable(mod.weightKey, "weapon")
-	local typeIndex = isValueInTable(mod.weightKey, weaponType)
-	return (typeIndex and mod.weightVal[typeIndex] > 0) or (not typeIndex and weaponIndex and mod.weightVal[weaponIndex] > 0)
+local veiledModIsActive = function(mod, baseType, specificType)
+	local baseIndex = isValueInTable(mod.weightKey, baseType)
+	local typeIndex = isValueInTable(mod.weightKey, specificType)
+	return (typeIndex and mod.weightVal[typeIndex] > 0) or (not typeIndex and baseIndex and mod.weightVal[baseIndex] > 0)
 end
 
-local getVeiledWeaponMods = function (weaponType, canHaveCatarinaMod) 
+local getVeiledMods = function (baseType, specificType, canHaveCatarinaMod)
 	local veiledMods = { }
 	for veiledModIndex, veiledMod in pairs(data.veiledMods) do
-		if veiledWeaponModIsActive(veiledMod, weaponType) then
+		if veiledModIsActive(veiledMod, baseType, specificType) then
 			local veiledName = parseVeiledModName(veiledModIndex)
 
 			veiledName = "("..veiledMod.type..") "..veiledName
@@ -46,12 +46,14 @@ local getVeiledWeaponMods = function (weaponType, canHaveCatarinaMod)
 	return veiledMods
 end
 
-local paradoxicaMods = getVeiledWeaponMods("one_hand_weapon", false)
+local paradoxicaMods = getVeiledMods("weapon", "one_hand_weapon", false)
 local paradoxica = {
 	"Paradoxica",
 	"Vaal Rapier",
 	"League: Betrayal",
-	"Has Alt Variant: true"
+	"Has Alt Variant: true",
+	"Selected Variant: 1",
+	"Selected Alt Variant: 20"
 }
 
 for index, mod in pairs(paradoxicaMods) do
@@ -76,12 +78,14 @@ end
 table.insert(paradoxica, "Attacks with this Weapon deal Double Damage")
 table.insert(data.uniques.generated, table.concat(paradoxica, "\n"))
 
-local caneOfKulemakMods = getVeiledWeaponMods("staff", true)
+local caneOfKulemakMods = getVeiledMods("weapon", "staff", true)
 local caneOfKulemak = {
 	"Cane of Kulemak",
 	"Serpentine Staff",
 	"Has Alt Variant: true",
 	"Has Alt Variant Two: true",
+	"Selected Variant: 1",
+	"Selected Alt Variant: 20"
 }
 
 for index, mod in pairs(caneOfKulemakMods) do
@@ -101,7 +105,7 @@ end
 
 table.insert(data.uniques.generated, table.concat(caneOfKulemak, "\n"))
 
-local replicaParadoxicaMods = getVeiledWeaponMods("one_hand_weapon", true)
+local replicaParadoxicaMods = getVeiledMods("weapon", "one_hand_weapon", true)
 local replicaParadoxica = {
 	"Replica Paradoxica",
 	"Vaal Rapier",
@@ -116,7 +120,7 @@ local replicaParadoxica = {
 	"Selected Alt Variant Two: 3",
 	"Selected Alt Variant Three: 25",
 	"Selected Alt Variant Four: 27",
-	"Selected Alt Variant Five: 34",
+	"Selected Alt Variant Five: 34"
 }
 
 for index, mod in pairs(replicaParadoxicaMods) do
@@ -134,6 +138,36 @@ for index, mod in pairs(replicaParadoxicaMods) do
 end
 
 table.insert(data.uniques.generated, table.concat(replicaParadoxica, "\n"))
+
+local queensHungerMods = getVeiledMods("body_armour", "int_armour", false)
+local queensHunger = {
+	"The Queen's Hunger",
+	"Vaal Regalia",
+	"League: Betrayal",
+	"Has Alt Variant: true",
+	"Selected Variant: 1",
+	"Selected Alt Variant: 24"
+}
+
+for index, mod in pairs(queensHungerMods) do
+	table.insert(queensHunger, "Variant: "..mod.veiledName)
+end
+
+table.insert(queensHunger, "Requires Level 68, 194 Int")
+table.insert(queensHunger, "Trigger Level 20 Bone Offering, Flesh Offering or Spirit Offering every 5 seconds")
+table.insert(queensHunger, "Offering Skills Triggered this way also affect you")
+table.insert(queensHunger, "(5-10)% increased Cast Speed")
+table.insert(queensHunger, "(100-130)% increased Energy Shield")
+table.insert(queensHunger, "(6-10)% increased maximum Life")
+
+for index, mod in pairs(queensHungerMods) do
+	for _, value in pairs(mod.veiledLines) do
+		table.insert(queensHunger, "{variant:"..index.."}"..value.."")
+	end
+end
+
+table.insert(data.uniques.generated, table.concat(queensHunger, "\n"))
+
 
 
 local megalomaniac = {

@@ -389,19 +389,6 @@ Flesh and Stone has no Reservation
 Evasion Rating is increased by Uncapped Cold Resistance
 Hollow Palm Technique
 ]],[[
-The Queen's Hunger
-Vaal Regalia
-League: Betrayal
-Variant: Pre 3.8.0
-Variant: Current
-Requires Level 68, 194 Int
-Trigger Level 20 Bone Offering, Flesh Offering or Spirit Offering every 5 seconds
-Offering Skills Triggered this way also affect you
-{variant:1}Your Offerings have 25% reduced Effect on you
-(5-10)% increased Cast Speed
-(100-130)% increased Energy Shield
-(6-10)% increased maximum Life
-]],[[
 Yriel's Fostering
 Exquisite Leather
 Source: Drops from The Pale Council
