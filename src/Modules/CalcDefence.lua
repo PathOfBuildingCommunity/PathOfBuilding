@@ -825,18 +825,52 @@ function calcs.defence(env, actor)
 		output[damageType.."EnergyShieldBypass"] = m_max(m_min(output[damageType.."EnergyShieldBypass"], 100), 0)
 	end
 
+
+	-- Prevented life loss (Petrified Blood)
+	output.AnyPreventedLifeLoss = false
+	for _, damageType in ipairs(dmgTypeList) do
+		preventedLifeLoss = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented")
+
+		if not modDB:Flag(nil, "Condition:LowLife") then
+			preventedLifeLoss = preventedLifeLoss / 2
+		end
+
+		output[damageType.."PreventedLifeLoss"] = preventedLifeLoss
+		if output[damageType.."PreventedLifeLoss"] > 0 then
+			output.AnyPreventedLifeLoss = true
+			local sourcePool = m_max(output.LifeUnreserved or 0, 0)
+			local poolProtected = sourcePool / (output[damageType.."PreventedLifeLoss"] / 100) * (1 - output[damageType.."PreventedLifeLoss"] / 100)
+			output[damageType.."PreventedEffectiveLife"] = m_max(sourcePool - poolProtected, 0) + m_min(sourcePool, poolProtected) / (1 - output[damageType.."PreventedLifeLoss"] / 100)
+			if breakdown then
+				if output[damageType.."PreventedLifeLoss"] then
+					breakdown[damageType.."PreventedLifeLoss"] = {
+						s_format("Total life protected:"),
+						s_format("%d ^8(%s)", sourcePool, "unreserved life"),
+						s_format("/ %.2f ^8(portion of damage prevented)", output[damageType.."PreventedLifeLoss"] / 100),
+						s_format("x %.2f ^8(portion taken from life)", 1 - output[damageType.."PreventedLifeLoss"] / 100),
+						s_format("= %d", poolProtected),
+						s_format("Effective life: %d", output[damageType.."PreventedEffectiveLife"])
+					}
+				end
+			end
+		else
+			output[damageType.."PreventedEffectiveLife"] = output.LifeUnreserved
+		end
+	end
+
 	-- Guard
 	output.AnyGuard = false
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."GuardAbsorbRate"] = m_min(modDB:Sum("BASE", nil, "GuardAbsorbRate") + modDB:Sum("BASE", nil, damageType.."GuardAbsorbRate"), 100)
 		if output[damageType.."GuardAbsorbRate"] > 0 then
 			output.AnyGuard = true
+			local sourcePool = m_max(output[damageType.."PreventedEffectiveLife"] or 0, 0)
 			output[damageType.."GuardAbsorb"] = calcLib.val(modDB, "GuardAbsorbLimit") + calcLib.val(modDB, damageType.."GuardAbsorbLimit")
 			local lifeProtected = output[damageType.."GuardAbsorb"] / (output[damageType.."GuardAbsorbRate"] / 100) * (1 - output[damageType.."GuardAbsorbRate"] / 100)
 			if output[damageType.."GuardAbsorbRate"] >= 100 then
-				output[damageType.."GuardEffectiveLife"] = output.LifeUnreserved + output[damageType.."GuardAbsorb"]
+				output[damageType.."GuardEffectiveLife"] = sourcePool + output[damageType.."GuardAbsorb"]
 			else
-				output[damageType.."GuardEffectiveLife"] = m_max(output.LifeUnreserved - lifeProtected, 0) + m_min(output.LifeUnreserved, lifeProtected) / (1 - output[damageType.."GuardAbsorbRate"] / 100)
+				output[damageType.."GuardEffectiveLife"] = m_max(sourcePool - lifeProtected, 0) + m_min(sourcePool, lifeProtected) / (1 - output[damageType.."GuardAbsorbRate"] / 100)
 			end
 			if breakdown then
 				breakdown[damageType.."GuardAbsorb"] = {
@@ -845,11 +879,11 @@ function calcs.defence(env, actor)
 					s_format("/ %.2f ^8(portion taken from guard)", output[damageType.."GuardAbsorbRate"] / 100),
 					s_format("x %.2f ^8(portion taken from life and energy shield)", 1 - output[damageType.."GuardAbsorbRate"] / 100),
 					s_format("= %d", lifeProtected),
-					s_format("Guard life protection: %d", output[damageType.."GuardEffectiveLife"] - output.LifeUnreserved)
+					s_format("Guard life protection: %d", output[damageType.."GuardEffectiveLife"] - sourcePool)
 				}
 			end
 		else
-			output[damageType.."GuardEffectiveLife"] = output.LifeUnreserved
+			output[damageType.."GuardEffectiveLife"] = output[damageType.."PreventedEffectiveLife"]
 		end
 	end
 
@@ -921,7 +955,7 @@ function calcs.defence(env, actor)
 					output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + (output.EnergyShieldRecoveryCap or output.EnergyShield)
 				end
 				if output[damageType.."GuardAbsorbRate"] > 0 then
-					local guardRemain = output[damageType.."GuardAbsorb"] - (output[damageType.."GuardEffectiveLife"] - output.LifeUnreserved)
+					local guardRemain = output[damageType.."GuardAbsorb"] - (output[damageType.."GuardEffectiveLife"] - output[damageType.."PreventedEffectiveLife"])
 					local espool = output[damageType.."TotalPool"] - output[damageType.."ManaEffectiveLife"]
 					if guardRemain > 0 then
 						local poolProtected = guardRemain / (output[damageType.."GuardAbsorbRate"] / 100) * (1 - output[damageType.."GuardAbsorbRate"] / 100)
@@ -942,8 +976,11 @@ function calcs.defence(env, actor)
 			breakdown[damageType.."TotalPool"] = {
 				s_format("Life: %d", output.LifeUnreserved)
 			}
-			if output[damageType.."GuardEffectiveLife"] ~= output.LifeUnreserved then
-				t_insert(breakdown[damageType.."TotalPool"], s_format("Guard skill: %d", output[damageType.."GuardEffectiveLife"] - output.LifeUnreserved + output[damageType.."GuardEffectivePool"]))
+			if output[damageType.."PreventedEffectiveLife"] ~= output.LifeUnreserved then
+				t_insert(breakdown[damageType.."TotalPool"], s_format("Damage prevented: %d", output[damageType.."PreventedEffectiveLife"] - output.LifeUnreserved))
+			end
+			if output[damageType.."GuardEffectiveLife"] ~= output[damageType.."PreventedEffectiveLife"] then
+				t_insert(breakdown[damageType.."TotalPool"], s_format("Guard skill: %d", output[damageType.."GuardEffectiveLife"] - output[damageType.."PreventedEffectiveLife"] + output[damageType.."GuardEffectivePool"]))
 			end
 			if output[damageType.."ManaEffectiveLife"] ~= output[damageType.."GuardEffectiveLife"] then
 				t_insert(breakdown[damageType.."TotalPool"], s_format("%s through MoM: %d", manatext, output[damageType.."ManaEffectiveLife"] - output[damageType.."GuardEffectiveLife"]))
