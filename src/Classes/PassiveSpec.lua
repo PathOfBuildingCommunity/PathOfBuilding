@@ -1369,13 +1369,13 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		end
 	end
 	local proxyNodeSkillsPerOrbit = self.tree.skillsPerOrbit[proxyNode.o+1]
-	for _, node in pairs(indicies) do
-		node.oidx = translateOidx(node.oidx, clusterJewel.totalIndicies, proxyNodeSkillsPerOrbit)
-	end
 
-	-- Correct position to account for index of proxy node
+	-- Translate oidx positioning to TreeData-relative values
 	for _, node in pairs(indicies) do
-		node.oidx = (node.oidx + proxyNode.oidx) % proxyNodeSkillsPerOrbit
+		local proxyNodeOidxRelativeToClusterIndicies = translateOidx(proxyNode.oidx, proxyNodeSkillsPerOrbit, clusterJewel.totalIndicies)
+		local correctedNodeOidxRelativeToClusterIndicies = (node.oidx + proxyNodeOidxRelativeToClusterIndicies) % clusterJewel.totalIndicies
+		local correctedNodeOidxRelativeToTreeSkillsPerOrbit = translateOidx(correctedNodeOidxRelativeToClusterIndicies, clusterJewel.totalIndicies, proxyNodeSkillsPerOrbit)
+		node.oidx = correctedNodeOidxRelativeToTreeSkillsPerOrbit
 	end
 
 	-- Perform processing on nodes to calculate positions, parse mods, and other goodies
