@@ -1349,9 +1349,36 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	subGraph.entranceNode = indicies[0]
 
 	-- Correct position to account for index of proxy node
-	for _, node in pairs(indicies) do
-		node.oidx = (node.oidx + proxyNode.oidx) % clusterJewel.totalIndicies
+	-- Our nodes' oidx values (and rendering) are relative to the totalIndicies properties of Data/ClusterJewels,
+	-- indicies, but proxyNode's oidx value is relative to the tree's constants.skillsPerOrbit. These aren't necessarily
+	-- equal if an old tree is loaded!
+	local function translateOidx(srcOidx, srcNodesPerOrbit, destNodesPerOrbit)
+		if srcNodesPerOrbit == destNodesPerOrbit then
+			-- compatible tree/jewel versions
+			return srcOidx
+		elseif srcNodesPerOrbit == 12 and destNodesPerOrbit == 16 then
+			-- tree version < 3.17, jewel data version >= 3.17
+			return ({[0] = 0, 1,    3, 4, 5,    7, 8, 9,    11, 12, 13,     15})[srcOidx]
+		elseif srcNodesPerOrbit == 16 and destNodesPerOrbit == 12 then
+			-- tree version >= 3.17, jewel data version < 3.17
+			return ({[0] = 0, 1, 1, 2, 3, 4, 4, 5, 6, 7, 7,  8,  9, 10, 10, 11})[srcOidx]
+		else
+			-- there is no known case where this should happen...
+			launch:ShowErrMsg("^1Error: unexpected cluster jewel node counts %d -> %d", srcNodesPerOrbit, destNodesPerOrbit)
+			-- ...but if a future patch adds one, this should end up only a little krangled, close enough for initial skill data imports:
+			return m_floor(srcOidx * destNodesPerOrbit / srcNodesPerOrbit)
+		end
 	end
+	local proxyNodeSkillsPerOrbit = self.tree.skillsPerOrbit[proxyNode.o+1]
+	local oidxOffset = translateOidx(proxyNode.oidx, proxyNodeSkillsPerOrbit, clusterJewel.totalIndicies)
+	for _, node in pairs(indicies) do
+		node.oidx = (node.oidx + oidxOffset) % clusterJewel.totalIndicies
+	end
+
+	-- Calculate subGraph-specific orbitAngles to account for the possibility that
+	-- Data/ClusterJewels, which controls oidx numbers, can be for a different game
+	-- version than the currently loaded tree
+	subGraph.group.orbitAngles = self.tree:CalcOrbitAngles(clusterJewel.totalIndicies)
 
 	-- Perform processing on nodes to calculate positions, parse mods, and other goodies
 	for _, node in ipairs(subGraph.nodes) do
