@@ -2873,6 +2873,18 @@ local specialModList = {
 	["(%d+)%% less flask charges gained from kills"] = function(num) return {
 		mod("FlaskChargesGained", "MORE", -num,"from Kills")
 	} end,
+	["flasks gain (%d+) charges? every (%d+) seconds"] = function(num, _, div) return {
+		mod("FlaskChargesGenerated", "BASE", num / div)
+	} end,
+	["utility flasks gain (%d+) charges? every (%d+) seconds"] = function(num, _, div) return {
+		mod("UtilityFlaskChargesGenerated", "BASE", num / div)
+	} end,
+	["life flasks gain (%d+) charges? every (%d+) seconds"] = function(num, _, div) return {
+		mod("LifeFlaskChargesGenerated", "BASE", num / div)
+	} end,
+	["mana flasks gain (%d+) charges? every (%d+) seconds"] = function(num, _, div) return {
+		mod("ManaFlaskChargesGenerated", "BASE", num / div)
+	} end,
 	-- Jewels
 	["passives in radius can be allocated without being connected to your tree"] = { mod("JewelData", "LIST", { key = "intuitiveLeapLike", value = true }) },
 	["affects passives in small ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 4 }) },

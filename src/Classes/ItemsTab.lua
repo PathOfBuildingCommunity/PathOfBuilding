@@ -2684,6 +2684,23 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if gainMod ~= 1 then
 			t_insert(stats, s_format("^8Charge gain modifier: ^7%+d%%", gainMod * 100 - 100))
 		end
+
+		-- charge generation
+		local chargesGenerated = modDB:Sum("BASE", nil, "FlaskChargesGenerated")
+		if item.base.flask.life then
+			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "LifeFlaskChargesGenerated")
+		end
+		if item.base.flask.mana then
+			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "ManaFlaskChargesGenerated")
+		end
+		if item.base.flask.utility then
+			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "UtilityFlaskChargesGenerated")
+		end
+		chargesGenerated = chargesGenerated * gainMod
+		if chargesGenerated > 0 then
+			t_insert(stats, s_format("^8Charges generated: ^7%s^8 every ^7%s^8 seconds", chargesGenerated * 3, 3))
+		end
+
 		if stats[1] then
 			tooltip:AddLine(14, "^7Effective flask stats:")
 			for _, stat in ipairs(stats) do
