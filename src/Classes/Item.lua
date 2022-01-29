@@ -109,6 +109,7 @@ function ItemClass:ParseRaw(raw)
 	end
 	self.checkSection = false
 	self.sockets = { }
+	self.classRequirementModLines = { }
 	self.buffModLines = { }
 	self.enchantModLines = { }
 	self.scourgeModLines = { }
@@ -435,7 +436,8 @@ function ItemClass:ParseRaw(raw)
 				end
 				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
-				local enchant = line:match(" %(enchant%)") or line:find("Requires Class")
+				local enchant = line:match(" %(enchant%)")
+				local classReq = line:find("Requires Class")
 				local scourge = line:match("{scourge}") or line:match(" %(scourge%)")
 				local crafted = line:match("{crafted}") or line:match(" %(crafted%)") or enchant
 				local custom = line:match("{custom}")
@@ -503,6 +505,8 @@ function ItemClass:ParseRaw(raw)
 					modLines = self.enchantModLines
 				elseif scourge then
 					modLines = self.scourgeModLines
+				elseif classReq then
+					modLines = self.classRequirementModLines
 				elseif implicit or (not crafted and #self.enchantModLines + #self.scourgeModLines + #self.implicitModLines < implicitLines) then
 					modLines = self.implicitModLines
 				else
@@ -801,6 +805,9 @@ function ItemClass:BuildRaw()
 		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.scourgeModLines) do
+		writeModLine(modLine)
+	end
+	for _, modLine in ipairs(self.classRequirementModLines) do
 		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.implicitModLines) do
@@ -1234,6 +1241,9 @@ function ItemClass:BuildModList()
 		processModLine(modLine)
 	end
 	for _, modLine in ipairs(self.scourgeModLines) do
+		processModLine(modLine)
+	end
+	for _, modLine in ipairs(self.classRequirementModLines) do
 		processModLine(modLine)
 	end
 	for _, modLine in ipairs(self.implicitModLines) do

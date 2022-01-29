@@ -359,6 +359,18 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				elseif node.ascendancyName == "Slayer" or node.ascendancyName == "Gladiator" or node.ascendancyName == "Champion" then
 					if not self.classNotables.Duelist then self.classNotables.Duelist = { } end
 					t_insert(self.classNotables.Duelist, node.dn)
+				elseif node.ascendancyName == "Juggernaut" or node.ascendancyName == "Berserker" or node.ascendancyName == "Chieftain" then
+					if not self.classNotables.Marauder then self.classNotables.Marauder = { } end
+					t_insert(self.classNotables.Marauder, node.dn)
+				elseif node.ascendancyName == "Assassin" or node.ascendancyName == "Trickster" or node.ascendancyName == "Saboteur" then
+					if not self.classNotables.Shadow then self.classNotables.Shadow = { } end
+					t_insert(self.classNotables.Shadow, node.dn)
+				elseif node.ascendancyName == "Inquisitor" or node.ascendancyName == "Hierophant" or node.ascendancyName == "Guardian" then
+					if not self.classNotables.Templar then self.classNotables.Templar = { } end
+					t_insert(self.classNotables.Templar, node.dn)
+				elseif node.ascendancyName == "Occultist" or node.ascendancyName == "Elementalist" or node.ascendancyName == "Necromancer" then
+					if not self.classNotables.Witch then self.classNotables.Witch = { } end
+					t_insert(self.classNotables.Witch, node.dn)
 				end
 			end
 		else
