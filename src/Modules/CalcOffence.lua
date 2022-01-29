@@ -37,6 +37,11 @@ local dmgTypeFlags = {
 	Chaos		= 0x10,
 }
 
+-- List of all ailments
+local ailmentTypeList = { "Bleed", "Poison", "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
+-- List of elemental ailments
+local elementalAilmentTypeList = { "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
+
 -- Magic table for caching the modifier name sets used in calcDamage()
 local damageStatsForTypes = setmetatable({ }, { __index = function(t, k)
 	local modNames = { "Damage" }
@@ -2569,18 +2574,13 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
-	skillFlags.bleed = false
-	skillFlags.poison = false
-	skillFlags.ignite = false
+	local ailmentData = data.nonDamagingAilment
+	for _, ailment in ipairs(ailmentTypeList) do
+		skillFlags[string.lower(ailment)] = false
+	end
 	skillFlags.igniteCanStack = skillModList:Flag(skillCfg, "IgniteCanStack")
 	skillFlags.igniteToChaos = skillModList:Flag(skillCfg, "IgniteToChaos")
-	skillFlags.shock = false
-	skillFlags.freeze = false
 	skillFlags.impale = false
-	skillFlags.chill = false
-	skillFlags.scorch = false
-	skillFlags.brittle = false
-	skillFlags.sap = false
 	for _, pass in ipairs(passList) do
 		local globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
@@ -2649,66 +2649,27 @@ function calcs.offence(env, actor, activeSkill)
 			output.PoisonChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "PoisonChance") + enemyDB:Sum("BASE", nil, "SelfPoisonChance"))
 			output.ChaosPoisonChance = m_min(100, skillModList:Sum("BASE", cfg, "ChaosPoisonChance"))
 		end
-		if not skillFlags.hit or skillModList:Flag(cfg, "CannotIgnite") then
-			output.IgniteChanceOnHit = 0
-		else
-			output.IgniteChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "EnemyIgniteChance") + enemyDB:Sum("BASE", nil, "SelfIgniteChance"))
-		end
-		if not skillFlags.hit or skillModList:Flag(cfg, "CannotShock") then
-			output.ShockChanceOnHit = 0
-		else
-			output.ShockChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "EnemyShockChance") + enemyDB:Sum("BASE", nil, "SelfShockChance"))
-		end
-		if not skillFlags.hit or skillModList:Flag(cfg, "CannotFreeze") then
-			output.FreezeChanceOnHit = 0
-		else
-			output.FreezeChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "EnemyFreezeChance") + enemyDB:Sum("BASE", nil, "SelfFreezeChance"))
-			if skillModList:Flag(cfg, "CritsDontAlwaysFreeze") then
-				output.FreezeChanceOnCrit = output.FreezeChanceOnHit
+		for _, ailment in ipairs(elementalAilmentTypeList) do
+			local chance = skillModList:Sum("BASE", cfg, "Enemy"..ailment.."Chance") + enemyDB:Sum("BASE", nil, "Self"..ailment.."Chance")
+			if ailment == "Chill" then
+				chance = 100
 			end
-		end
-		if not skillFlags.hit or skillModList:Flag(cfg, "CannotChill") then
-			output.ChillChanceOnHit = 0
-		else
-			output.ChillChanceOnHit = 100
+			if chance > 0 then
+				skillFlags["inflict"..ailment] = true
+			end
+			if skillFlags.hit and not skillModList:Flag(cfg, "Cannot"..ailment) then
+				output[ailment.."ChanceOnHit"] = m_min(100, chance)
+				if skillModList:Flag(cfg, "CritsDontAlways"..ailment) and (not ailmentData[ailment] or not ailmentData[ailment].alt) then
+					output[ailment.."ChanceOnCrit"] = output[ailment.."ChanceOnHit"]
+				end
+			else
+				output[ailment.."ChanceOnHit"] = 0
+			end
 		end
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotKnockback") then
 			output.KnockbackChanceOnHit = 0
 		else
 			output.KnockbackChanceOnHit = skillModList:Sum("BASE", cfg, "EnemyKnockbackChance")
-		end
-		if skillModList:Sum("BASE", cfg, "EnemyScorchChance") > 0 then
-			skillFlags.inflictScorch = true
-		end
-		if skillModList:Sum("BASE", cfg, "EnemyScorchChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotScorch") then
-			output.ScorchChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "EnemyScorchChance"))
-			if output.ScorchChanceOnCrit == 0 then
-				output.ScorchChanceOnCrit = output.ScorchChanceOnHit
-			end
-		else
-			output.ScorchChanceOnHit = 0
-		end
-		if skillModList:Sum("BASE", cfg, "EnemyBrittleChance") > 0 then
-			skillFlags.inflictBrittle = true
-		end
-		if skillModList:Sum("BASE", cfg, "EnemyBrittleChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotBrittle") then
-			output.BrittleChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "EnemyBrittleChance"))
-			if output.BrittleChanceOnCrit == 0 then
-				output.BrittleChanceOnCrit = output.BrittleChanceOnHit
-			end
-		else
-			output.BrittleChanceOnHit = 0
-		end
-		if skillModList:Sum("BASE", cfg, "EnemySapChance") > 0 then
-			skillFlags.inflictSap = true
-		end
-		if skillModList:Sum("BASE", cfg, "EnemySapChance") > 0 and skillFlags.hit and not skillModList:Flag(cfg, "CannotSap") then
-			output.SapChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "EnemySapChance"))
-			if output.SapChanceOnCrit == 0 then
-				output.SapChanceOnCrit = output.SapChanceOnHit
-			end
-		else
-			output.SapChanceOnHit = 0
 		end
 		output.ImpaleChance = m_min(100, skillModList:Sum("BASE", cfg, "ImpaleChance"))
 		if skillModList:Sum("BASE", cfg, "FireExposureChance") > 0 then
@@ -2721,47 +2682,22 @@ function calcs.offence(env, actor, activeSkill)
 			skillFlags.applyLightningExposure = true
 		end
 		if env.mode_effective then
-			local bleedMult = (1 - enemyDB:Sum("BASE", nil, "AvoidBleed") / 100)
-			output.BleedChanceOnHit = output.BleedChanceOnHit * bleedMult
-			output.BleedChanceOnCrit = output.BleedChanceOnCrit * bleedMult
-			local poisonMult = (1 - enemyDB:Sum("BASE", nil, "AvoidPoison") / 100)
-			output.PoisonChanceOnHit = output.PoisonChanceOnHit * poisonMult
-			output.PoisonChanceOnCrit = output.PoisonChanceOnCrit * poisonMult
-			output.ChaosPoisonChance = output.ChaosPoisonChance * poisonMult
-			local igniteMult = (1 - enemyDB:Sum("BASE", nil, "AvoidIgnite") / 100)
-			output.IgniteChanceOnHit = output.IgniteChanceOnHit * igniteMult
-			output.IgniteChanceOnCrit = output.IgniteChanceOnCrit * igniteMult
-			local shockMult = (1 - enemyDB:Sum("BASE", nil, "AvoidShock") / 100)
-			output.ShockChanceOnHit = output.ShockChanceOnHit * shockMult
-			output.ShockChanceOnCrit = output.ShockChanceOnCrit * shockMult
-			local freezeMult = (1 - enemyDB:Sum("BASE", nil, "AvoidFreeze") / 100)
-			output.FreezeChanceOnHit = output.FreezeChanceOnHit * freezeMult
-			output.FreezeChanceOnCrit = output.FreezeChanceOnCrit * freezeMult
-			local scorchMult = (1 - enemyDB:Sum("BASE", nil, "AvoidScorch") / 100)
-			output.ScorchChanceOnHit = output.ScorchChanceOnHit * scorchMult
-			output.ScorchChanceOnCrit = output.ScorchChanceOnCrit * scorchMult
-			local brittleMult = (1 - enemyDB:Sum("BASE", nil, "AvoidBrittle") / 100)
-			output.BrittleChanceOnHit = output.BrittleChanceOnHit * brittleMult
-			output.BrittleChanceOnCrit = output.BrittleChanceOnCrit * brittleMult
-			local sapMult = (1 - enemyDB:Sum("BASE", nil, "AvoidSap") / 100)
-			output.SapChanceOnHit = output.SapChanceOnHit * sapMult
-			output.SapChanceOnCrit = output.SapChanceOnCrit * sapMult
+			for _, ailment in ipairs(ailmentTypeList) do
+				local mult = 1 - enemyDB:Sum("BASE", nil, "Avoid"..ailment) / 100
+				output[ailment.."ChanceOnHit"] = output[ailment.."ChanceOnHit"] * mult
+				output[ailment.."ChanceOnCrit"] = output[ailment.."ChanceOnCrit"] * mult
+				if ailment == "Poison" then
+					output.ChaosPoisonChance = output.ChaosPoisonChance * mult
+				end
+			end
 		end
 
 		local igniteMode = env.configInput.igniteMode or "AVERAGE"
 		if igniteMode == "CRIT" then
-			output.BleedChanceOnHit = 0
-			output.PoisonChanceOnHit = 0
-			output.IgniteChanceOnHit = 0
-			output.ShockChanceOnHit = 0
-			output.ChillChanceOnHit = 0
-			output.FreezeChanceOnHit = 0
-			output.ScorchChanceOnHit = 0
-			output.BrittleChanceOnHit = 0
-			output.SapChanceOnHit = 0
+			for _, ailment in ipairs(ailmentTypeList) do
+				output[ailment.."ChanceOnHit"] = 0
+			end
 		end
-
-		local ailmentData = data.nonDamagingAilment
 
 		---Calculates normal and crit damage to be used in non-damaging ailment calculations
 		---@param ailment string
