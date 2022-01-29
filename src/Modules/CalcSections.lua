@@ -719,7 +719,7 @@ return {
 	{ label = "Bleed Duration", { format = "{2:output:BleedDuration}s", 
 		{ breakdown = "BleedDuration" }, 
 		{ label = "Player modifiers", modName = { "EnemyBleedDuration", "SkillAndDamagingAilmentDuration", "BleedFaster" }, cfg = "bleed" }, 
-		{ label = "Enemy modifiers", modName = { "SelfBleedDuration", "SelfBleedFaster" }, enemy = true },
+		{ label = "Enemy modifiers", modName = { "SelfBleedDuration", "SelfBleedFaster", "BleedExpireRate" }, enemy = true },
 	}, },
 } }
 } },
