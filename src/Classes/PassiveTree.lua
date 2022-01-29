@@ -126,6 +126,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Build maps of class name -> class table
 	self.classNameMap = { }
 	self.ascendNameMap = { }
+	self.classNotables = { }
+
 	for classId, class in pairs(self.classes) do
 		if versionNum >= 3.10 then
 			-- Migrate to old format
@@ -351,6 +353,13 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				end
 			else
 				self.ascendancyMap[node.dn:lower()] = node
+				if node.ascendancyName == "Pathfinder" or node.ascendancyName == "Raider" or node.ascendancyName == "Deadeye" then
+					if not self.classNotables.Ranger then self.classNotables.Ranger = { } end
+					t_insert(self.classNotables.Ranger, node.dn)
+				elseif node.ascendancyName == "Slayer" or node.ascendancyName == "Gladiator" or node.ascendancyName == "Champion" then
+					if not self.classNotables.Duelist then self.classNotables.Duelist = { } end
+					t_insert(self.classNotables.Duelist, node.dn)
+				end
 			end
 		else
 			node.type = "Normal"
@@ -457,6 +466,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 		self:ProcessStats(node)
 	end
+
+	-- Late load the Generated data so we can take advantage of a tree existing
+	buildForbidden(self.classNotables)
 end)
 
 function PassiveTreeClass:ProcessStats(node)

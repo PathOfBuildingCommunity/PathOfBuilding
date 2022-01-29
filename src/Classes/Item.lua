@@ -435,7 +435,7 @@ function ItemClass:ParseRaw(raw)
 				end
 				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
-				local enchant = line:match(" %(enchant%)")
+				local enchant = line:match(" %(enchant%)") or line:find("Requires Class")
 				local scourge = line:match("{scourge}") or line:match(" %(scourge%)")
 				local crafted = line:match("{crafted}") or line:match(" %(crafted%)") or enchant
 				local custom = line:match("{custom}")
@@ -1199,6 +1199,11 @@ function ItemClass:BuildModList()
 		end
 	end
 	local function processModLine(modLine)
+		if self:CheckModLineVariant(modLine) then
+			if modLine.line:find("Requires Class") then
+				self.classRestriction = modLine.line:gsub("{variant:([%d,]+)}", ""):match("Requires Class (.+)")
+			end
+		end
 		if not modLine.extra and self:CheckModLineVariant(modLine) then
 			if modLine.range then
 				local strippedModeLine = modLine.line:gsub("\n"," ")

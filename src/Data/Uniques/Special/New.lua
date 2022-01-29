@@ -20,22 +20,6 @@ Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 63% reduced Elemental Resistances
 Elemental Skills deal Triple Damage
-]],[[
-Forbidden Flame
-Prismatic Jewel
-Limited to: 1
-Item Level: 83
-Requires Class Ranger
-Allocates Master Surgeon if you have the matching modifiers on forbidden flesh
-Corrupted
-]],[[
-Forbidden Flesh
-Prismatic Jewel
-Limited to: 1
-Item Level: 83
-Requires Class Ranger
-Allocates Master Surgeon if you have the matching modifiers on forbidden flame
-Corrupted
 ]]
 
 -- Reworked
