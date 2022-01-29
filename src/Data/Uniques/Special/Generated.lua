@@ -6,27 +6,6 @@
 
 data.uniques.generated = { }
 
-local megalomaniac = {
-	"Megalomaniac",
-	"Medium Cluster Jewel",
-	"League: Delirium",
-	"Source: Drops from the Simulacrum Encounter",
-	"Has Alt Variant: true",
-	"Has Alt Variant Two: true",
-	"Adds 4 Passive Skills",
-	"Added Small Passive Skills grant Nothing",
-}
-local notables = { }
-for name in pairs(data.clusterJewels.notableSortOrder) do
-	table.insert(notables, name)
-end
-table.sort(notables)
-for index, name in ipairs(notables) do
-	table.insert(megalomaniac, "Variant: "..name)
-	table.insert(megalomaniac, "{variant:"..index.."}1 Added Passive Skill is "..name)
-end
-table.insert(data.uniques.generated, table.concat(megalomaniac, "\n"))
-
 local parseVeiledModName = function(string)
 	return (string:
 	gsub("%JunMasterVeiled", ""):
@@ -122,6 +101,28 @@ end
 
 table.insert(data.uniques.generated, table.concat(caneOfKulemak, "\n"))
 
+
+
+local megalomaniac = {
+	"Megalomaniac",
+	"Medium Cluster Jewel",
+	"League: Delirium",
+	"Source: Drops from the Simulacrum Encounter",
+	"Has Alt Variant: true",
+	"Has Alt Variant Two: true",
+	"Adds 4 Passive Skills",
+	"Added Small Passive Skills grant Nothing",
+}
+local notables = { }
+for name in pairs(data.clusterJewels.notableSortOrder) do
+	table.insert(notables, name)
+end
+table.sort(notables)
+for index, name in ipairs(notables) do
+	table.insert(megalomaniac, "Variant: "..name)
+	table.insert(megalomaniac, "{variant:"..index.."}1 Added Passive Skill is "..name)
+end
+table.insert(data.uniques.generated, table.concat(megalomaniac, "\n"))
 
 local forbiddenShako = {
 	"Forbidden Shako",
