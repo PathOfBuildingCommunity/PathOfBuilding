@@ -837,7 +837,7 @@ local function doActorMisc(env, actor)
 			local maxSkillInc = modDB:Max({ source = "Skill" }, "ElusiveEffect")
 			local inc = modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf")
 			if actor.mainSkill.skillModList:Flag(nil, "SupportedByNightblade") then
-				maxSkillInc = maxSkillInc * (1 + modDB:Sum("INC", nil, "NightbladeSupportedElusiveEffect")/100)
+				inc = inc + modDB:Sum("INC", nil, "NightbladeSupportedElusiveEffect")
 			end
 			inc = inc + maxSkillInc
 			output.ElusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
