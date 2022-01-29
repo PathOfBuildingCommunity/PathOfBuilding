@@ -101,6 +101,39 @@ end
 
 table.insert(data.uniques.generated, table.concat(caneOfKulemak, "\n"))
 
+local replicaParadoxicaMods = getVeiledWeaponMods("one_hand_weapon", true)
+local replicaParadoxica = {
+	"Replica Paradoxica",
+	"Vaal Rapier",
+	"League: Heist",
+	"Has Alt Variant: true",
+	"Has Alt Variant Two: true",
+	"Has Alt Variant Three: true",
+	"Has Alt Variant Four: true",
+	"Has Alt Variant Five: true",
+	"Selected Variant: 1",
+	"Selected Alt Variant: 2",
+	"Selected Alt Variant Two: 3",
+	"Selected Alt Variant Three: 25",
+	"Selected Alt Variant Four: 27",
+	"Selected Alt Variant Five: 34",
+}
+
+for index, mod in pairs(replicaParadoxicaMods) do
+	table.insert(replicaParadoxica, "Variant: "..mod.veiledName)
+end
+
+table.insert(replicaParadoxica, "Requires Level 66, 212 Dex")
+table.insert(replicaParadoxica, "Implicits: 1")
+table.insert(replicaParadoxica, "+25% to Global Critical Strike Multiplier")
+
+for index, mod in pairs(replicaParadoxicaMods) do
+	for _, value in pairs(mod.veiledLines) do
+		table.insert(replicaParadoxica, "{variant:"..index.."}"..value.."")
+	end
+end
+
+table.insert(data.uniques.generated, table.concat(replicaParadoxica, "\n"))
 
 
 local megalomaniac = {

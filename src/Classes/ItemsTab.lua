@@ -297,8 +297,7 @@ holding Shift will put it in the second.]])
 		(self.displayItem.hasAltVariant2 and 24 or 0) + 
 		(self.displayItem.hasAltVariant3 and 24 or 0) +
 		(self.displayItem.hasAltVariant4 and 24 or 0) + 
-		(self.displayItem.hasAltVariant5 and 24 or 0) + 
-		(self.displayItem.hasAltVariant6 and 24 or 0))
+		(self.displayItem.hasAltVariant5 and 24 or 0))
 	end)
 	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 300, 20, nil, function(index, value)
 		self.displayItem.variant = index
@@ -363,17 +362,6 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemAltVariant5:CheckDroppedWidth(true)
 	self.controls.displayItemAltVariant5.shown = function()
 		return self.displayItem.hasAltVariant5
-	end
-	self.controls.displayItemAltVariant6 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant5,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
-		self.displayItem.variantAlt6 = index
-		self.displayItem:BuildAndParseRaw()
-		self:UpdateDisplayItemTooltip()
-		self:UpdateDisplayItemRangeLines()
-	end)
-	self.controls.displayItemAltVariant6.maxDroppedWidth = 1000
-	self.controls.displayItemAltVariant6:CheckDroppedWidth(true)
-	self.controls.displayItemAltVariant6.shown = function()
-		return self.displayItem.hasAltVariant6
 	end
 
 	-- Section: Sockets and Links
@@ -873,10 +861,6 @@ function ItemsTabClass:Load(xml, dbFileName)
 				item.hasAltVariant5 = true
 				item.variantAlt5 = tonumber(node.attrib.variantAlt5)
 			end
-			if node.attrib.variantAlt6 then
-				item.hasAltVariant6 = true
-				item.variantAlt6 = tonumber(node.attrib.variantAlt6)
-			end
 			for _, child in ipairs(node) do
 				if type(child) == "string" then
 					item:ParseRaw(child)
@@ -948,7 +932,10 @@ function ItemsTabClass:Save(xml)
 				id = tostring(id), 
 				variant = item.variant and tostring(item.variant), 
 				variantAlt = item.variantAlt and tostring(item.variantAlt), 
-				variantAlt2 = item.variantAlt2 and tostring(item.variantAlt2) 
+				variantAlt2 = item.variantAlt2 and tostring(item.variantAlt2),
+				variantAlt3 = item.variantAlt3 and tostring(item.variantAlt3), 
+				variantAlt4 = item.variantAlt4 and tostring(item.variantAlt4), 
+				variantAlt5 = item.variantAlt5 and tostring(item.variantAlt5),
 			} 
 		}
 		item:BuildAndParseRaw()
@@ -1414,11 +1401,6 @@ function ItemsTabClass:SetDisplayItem(item)
 			self.controls.displayItemAltVariant5.list = item.variantList
 			self.controls.displayItemAltVariant5.selIndex = item.variantAlt5
 			self.controls.displayItemAltVariant5:CheckDroppedWidth(true)
-		end
-		if item.hasAltVariant6 then
-			self.controls.displayItemAltVariant6.list = item.variantList
-			self.controls.displayItemAltVariant6.selIndex = item.variantAlt6
-			self.controls.displayItemAltVariant6:CheckDroppedWidth(true)
 		end
 		self:UpdateSocketControls()
 		if item.crafted then

@@ -266,8 +266,6 @@ function ItemClass:ParseRaw(raw)
 					self.hasAltVariant4 = true
 				elseif specName == "Has Alt Variant Five" then
 					self.hasAltVariant5 = true
-				elseif specName == "Has Alt Variant Six" then
-					self.hasAltVariant6 = true
 				elseif specName == "Selected Variant" then
 					self.variant = tonumber(specVal)
 				elseif specName == "Selected Alt Variant" then
@@ -276,6 +274,10 @@ function ItemClass:ParseRaw(raw)
 					self.variantAlt2 = tonumber(specVal)
 				elseif specName == "Selected Alt Variant Three" then
 					self.variantAlt3 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Four" then
+					self.variantAlt4 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Five" then
+					self.variantAlt5 = tonumber(specVal)
 				elseif specName == "Has Variants" or specName == "Selected Variants" then
 					-- Need to skip this line for backwards compatibility
 					-- with builds that used an old Watcher's Eye implementation
@@ -606,9 +608,6 @@ function ItemClass:ParseRaw(raw)
 		if self.hasAltVariant5 then
 			self.variantAlt5 = m_min(#self.variantList, self.variantAlt5 or #self.variantList)
 		end
-		if self.hasAltVariant6 then
-			self.variantAlt6 = m_min(#self.variantList, self.variantAlt6 or #self.variantList)
-		end
 	end
 	if not self.quality then
 		self:NormaliseQuality()
@@ -788,10 +787,6 @@ function ItemClass:BuildRaw()
 			t_insert(rawLines, "Has Alt Variant Five: true")
 			t_insert(rawLines, "Selected Alt Variant Five: "..self.variantAlt5)
 		end
-		if self.hasAltVariant6 then
-			t_insert(rawLines, "Has Alt Variant Six: true")
-			t_insert(rawLines, "Selected Alt Variant Six: "..self.variantAlt6)
-		end
 	end
 	if self.quality then
 		t_insert(rawLines, "Quality: "..self.quality)
@@ -911,7 +906,6 @@ function ItemClass:CheckModLineVariant(modLine)
 		or (self.hasAltVariant3 and modLine.variantList[self.variantAlt3])
 		or (self.hasAltVariant4 and modLine.variantList[self.variantAlt4])
 		or (self.hasAltVariant5 and modLine.variantList[self.variantAlt5])
-		or (self.hasAltVariant6 and modLine.variantList[self.variantAlt6])
 end
 
 -- Return the name of the slot this item is equipped in
