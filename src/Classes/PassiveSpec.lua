@@ -1348,10 +1348,10 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	assert(indicies[0], "No entrance to subgraph")
 	subGraph.entranceNode = indicies[0]
 
-	-- Correct position to account for index of proxy node
-	-- Our nodes' oidx values (and rendering) are relative to the totalIndicies properties of Data/ClusterJewels,
-	-- indicies, but proxyNode's oidx value is relative to the tree's constants.skillsPerOrbit. These aren't necessarily
-	-- equal if an old tree is loaded!
+	-- The nodes' oidx values we just calculated are all relative to the totalIndicies properties of Data/ClusterJewels,
+	-- but the PassiveTree rendering logic treats node.oidx as relative to the tree.skillsPerOrbit constants. Those used
+	-- to be the same, but as of 3.17 they can differ, so we need to translate the ClusterJewels-relative indices into
+	-- tree.skillsPerOrbit-relative indices before we invoke tree:ProcessNode or do math against proxyNode.oidx.
 	local function translateOidx(srcOidx, srcNodesPerOrbit, destNodesPerOrbit)
 		if srcNodesPerOrbit == destNodesPerOrbit then
 			-- compatible tree/jewel versions
@@ -1370,15 +1370,14 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		end
 	end
 	local proxyNodeSkillsPerOrbit = self.tree.skillsPerOrbit[proxyNode.o+1]
-	local oidxOffset = translateOidx(proxyNode.oidx, proxyNodeSkillsPerOrbit, clusterJewel.totalIndicies)
 	for _, node in pairs(indicies) do
-		node.oidx = (node.oidx + oidxOffset) % clusterJewel.totalIndicies
+		node.oidx = translateOidx(node.oidx, clusterJewel.totalIndicies, proxyNodeSkillsPerOrbit)
 	end
 
-	-- Calculate subGraph-specific orbitAngles to account for the possibility that
-	-- Data/ClusterJewels, which controls oidx numbers, can be for a different game
-	-- version than the currently loaded tree
-	subGraph.group.orbitAngles = self.tree:CalcOrbitAngles(clusterJewel.totalIndicies)
+	-- Correct position to account for index of proxy node
+	for _, node in pairs(indicies) do
+		node.oidx = (node.oidx + proxyNode.oidx) % proxyNodeSkillsPerOrbit
+	end
 
 	-- Perform processing on nodes to calculate positions, parse mods, and other goodies
 	for _, node in ipairs(subGraph.nodes) do

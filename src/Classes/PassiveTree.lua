@@ -529,11 +529,7 @@ function PassiveTreeClass:ProcessNode(node)
 
 	-- Derive the true position of the node
 	if node.group then
-		-- Cluster jewels use custom per-group orbitAngles because Data/ClusterJewels controls
-		-- their oidx values and it can potentially mismatch the current tree version
-		local orbitAngles = node.group.orbitAngles or self.orbitAnglesByOrbit[node.o + 1]
-
-		node.angle = orbitAngles[node.oidx + 1]
+		node.angle = self.orbitAnglesByOrbit[node.o + 1][node.oidx + 1]
 		local orbitRadius = self.orbitRadii[node.o + 1]
 		node.x = node.group.x + m_sin(node.angle) * orbitRadius
 		node.y = node.group.y - m_cos(node.angle) * orbitRadius
