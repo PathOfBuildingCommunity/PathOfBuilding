@@ -9,7 +9,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.17.0
 Requires Level 36
 Implicits: 1
-(20-30)% increased Accuracy Rating
+(20-30)% increased Global Accuracy Rating
 {variant:2}Grants level 5 Frostbite Skill
 (8-12)% increased Attack Speed
 +(30-40)% to Cold Resistance
@@ -38,7 +38,7 @@ Variant: Pre 2.0.0
 Variant: Pre 3.17.0
 Requires Level 22
 Implicits: 1
-(3-5) Added Fire Damage with Bow Attacks
+3 to 5 Added Fire Damage with Bow Attacks
 10% increased Attack Speed
 +(80-100) to Evasion Rating
 +(10-30) to maximum Mana
@@ -64,7 +64,7 @@ Variant: Pre 3.17.0
 Source: Drops from any endgame map boss
 Requires Level 24
 Implicits: 1
-(3-5) Added Fire Damage with Bow Attacks
+3 to 5 Added Fire Damage with Bow Attacks
 10% increased Attack Speed
 +(80-100) to Evasion Rating
 +(10-30) to maximum Mana
@@ -92,7 +92,7 @@ Variant: Pre 3.17.0
 Variant: Current
 Requires Level 5
 Implicits: 1
-Adds 1 to 4 Physical Damage to Attacks with Bows
+1 to 4 Added Physical Damage with Bow Attacks
 (20-25)% reduced Enemy Stun Threshold
 25% reduced Projectile Speed
 {variant:1}(60-80)% increased Stun Duration on Enemies
@@ -104,7 +104,7 @@ Serrated Arrow Quiver
 Source: No longer obtainable
 Requires Level 5
 Implicits: 1
-Adds 1 to 4 Physical Damage to Attacks with Bows
+1 to 4 Added Physical Damage with Bow Attacks
 (20-25)% reduced Enemy Stun Threshold
 25% reduced Projectile Speed
 (60-80)% increased Stun Duration on Enemies
@@ -152,9 +152,9 @@ Hyrri's Bite
 Sharktooth Arrow Quiver
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 10
+Requires Level 14
 Implicits: 1
-+(3-4) Life gained for each Enemy hit by your Attacks
++(6-8) Life gained for each Enemy hit by your Attacks
 +(15-25) to Strength
 +(35-45) to Dexterity
 +(15-25) to Intelligence
@@ -168,7 +168,7 @@ Sharktooth Arrow Quiver
 Source: Drops from any endgame map boss
 Requires Level 45
 Implicits: 1
-+(3-4) Life gained for each Enemy hit by your Attacks
++(6-8) Life gained for each Enemy hit by your Attacks
 +(15-30) to all Attributes
 (7-10)% increased Attack Speed
 +(2-3) Life gained for each Enemy hit by your Attacks
@@ -263,7 +263,7 @@ League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, The Wolven King} (Level 70+)
 Requires Level 56
 Implicits: 1
-(20-30)% increased Accuracy Rating
+(20-30)% increased Global Accuracy Rating
 -10% to Fire Resistance
 +(20-30)% to Lightning Resistance
 +7 Life gained for each Enemy hit by your Attacks
@@ -315,7 +315,7 @@ Skirmish
 Two-Point Arrow Quiver
 Requires Level 36
 Implicits: 1
-(20-30)% increased Accuracy Rating
+(20-30)% increased Global Accuracy Rating
 +(15-25) to Intelligence
 +(30-50) to maximum Mana
 (20-30)% increased Mana Regeneration Rate
