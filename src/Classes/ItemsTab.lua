@@ -2640,11 +2640,16 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 					local leftoverAmount = totalAdditionalAmount - additionalGrad
 
 					if inst > 0 then
-						t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8), and an additional ^7%d ^8over subsequent ^7%.2fs",
-						inst + grad + additionalGrad, inst, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
+						if grad > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs^8)",
+									inst + grad + totalAdditionalAmount, inst, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
+						else
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, and an additional ^7%d ^8over ^7%.2fs^8)",
+									inst + totalAdditionalAmount, inst, totalAdditionalAmount, 10))
+						end
 					else
-						t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs",
-						grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
+						t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d ^8over ^7%.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs^8)",
+						grad + totalAdditionalAmount, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
 					end
 				else
 					if inst > 0 and grad > 0 then
