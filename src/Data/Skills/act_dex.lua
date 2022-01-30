@@ -1387,9 +1387,9 @@ skills["BloodRage"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["blood_rage_life_leech_from_elemental_damage_permyriad"] = {
-			mod("FireDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
-			mod("ColdDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
-			mod("LightningDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
+			mod("FireDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("ColdDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("LightningDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 100
 		}
 	},
