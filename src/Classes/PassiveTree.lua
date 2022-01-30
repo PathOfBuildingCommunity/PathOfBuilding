@@ -362,6 +362,13 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			end
 		else
 			node.type = "Normal"
+			if node.ascendancyName == "Ascendant" and not node.dn:find(" ") and node.dn ~= "Dexterity" and
+				node.dn ~= "Intelligence" and node.dn ~= "Strength" then
+				if not self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] then
+					self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] = { }
+				end
+				t_insert(self.classNotables[self.ascendNameMap[node.ascendancyName].class.name], node.dn)
+			end
 		end
 
 		-- Find the node group
