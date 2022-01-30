@@ -283,7 +283,7 @@ Socketed Gems are supported by level 25 Melee Splash
 {variant:3}(200-240)% increased Physical Damage
 1% of Physical Attack Damage Leeched as Life
 1% of Physical Attack Damage Leeched as Mana
-Recover 5% of Maximum Life on Kill
+Recover 5% of Life on Kill
 Enemies you hit are destroyed on Kill
 ]],[[
 Limbsplit
