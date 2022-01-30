@@ -919,6 +919,10 @@ local function doActorMisc(env, actor)
 			local effect = modDB:Sum("BASE", nil, "CoveredInAshEffect")
 			enemyDB:NewMod("FireDamageTaken", "INC", m_min(effect, 20), "Covered in Ash")
 		end
+		if modDB:Sum("BASE", nil, "CoveredInFrostEffect") > 0 then
+			local effect = modDB:Sum("BASE", nil, "CoveredInFrostEffect")
+			enemyDB:NewMod("ColdDamageTaken", "INC", m_min(effect, 20), "Covered in Frost")
+		end
 		if modDB:Flag(nil, "HasMalediction") then
 			modDB:NewMod("DamageTaken", "INC", 10, "Malediction")
 			modDB:NewMod("Damage", "INC", -10, "Malediction")
