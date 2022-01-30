@@ -746,7 +746,7 @@ Variant: Current
 League: Synthesis
 Requires Level 58, 54 Str, 54 Int
 {variant:1}+2 to Level of Socketed Aura Gems
-{variant:2}+(3-5)) to Level of Socketed Aura Gems
+{variant:2}+(3-5) to Level of Socketed Aura Gems
 Socketed Gems are Supported by Level 25 Divine Blessing
 (250-300)% increased Armour and Energy Shield
 +(12-18)% to all Elemental Resistances
