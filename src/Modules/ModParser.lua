@@ -474,7 +474,6 @@ local modNameList = {
 	-- Buffs
 	["onslaught effect"] = "OnslaughtEffect",
 	["adrenaline duration"] = "AdrenalineDuration",
-	["effect of fortify on you"] = "FortifyEffectOnSelf",
 	["effect of tailwind on you"] = "TailwindEffectOnSelf",
 	["elusive effect"] = "ElusiveEffect",
 	["effect of elusive on you"] = "ElusiveEffect",
@@ -1197,7 +1196,7 @@ local modTagList = {
 	["while you have at least (%d+) total endurance, frenzy and power charges"] = function(num) return { tag = { type = "MultiplierThreshold", var = "TotalCharges", threshold = num } } end,
 	["while you have a totem"] = { tag = { type = "Condition", var = "HaveTotem" } },
 	["while you have at least one nearby ally"] = { tag = { type = "MultiplierThreshold", var = "NearbyAlly", threshold = 1 } },
-	["while you have fortify"] = { tag = { type = "Condition", var = "Fortify" } },
+	["while you have fortify"] = { tag = { type = "Condition", var = "Fortified" } },
 	["while you have phasing"] = { tag = { type = "Condition", var = "Phasing" } },
 	["while you have elusive"] = { tag = { type = "Condition", var = "Elusive" } },
 	["while physical aegis is depleted"] = { tag = { type = "Condition", var = "PhysicalAegisDepleted" } },
@@ -1664,9 +1663,9 @@ local specialModList = {
 	},
 	["exerted attacks deal (%d+)%% more damage if a warcry sacrificed rage recently"] = function(num) return { mod("ExertIncrease", "MORE", num, nil, ModFlag.Attack, 0) } end,
 	-- Champion
-	["cannot be stunned while you have fortify"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Fortify" }) },
+	["cannot be stunned while you have fortify"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Fortified" }) },
 	["cannot be stunned while fortified"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Fortified" }) },
-	["fortify"] = { flag("Condition:Fortify") },
+	["fortify"] = { flag("Condition:Fortified") },
 	["you have (%d+) fortification"] = function(num) return {
 		flag("Condition:Fortified") 
 	} end,
@@ -3312,7 +3311,7 @@ local regenTypes = {
 local flagTypes = {
 	["phasing"] = "Condition:Phasing",
 	["onslaught"] = "Condition:Onslaught",
-	["fortify"] = "Condition:Fortify",
+	["fortify"] = "Condition:Fortified",
 	["fortified"] = "Condition:Fortified",
 	["unholy might"] = "Condition:UnholyMight",
 	["tailwind"] = "Condition:Tailwind",
@@ -3612,7 +3611,8 @@ local jewelThresholdFuncs = {
 	["With at least 40 Strength in Radius, Heavy Strike has a 20% chance to deal Double Damage"] = getThreshold("Str", "DoubleDamageChance", "BASE", 20, { type = "SkillName", skillName = "Heavy Strike" }),
 	["With at least 40 Strength in Radius, Heavy Strike has a 20% chance to deal Double Damage."] = getThreshold("Str", "DoubleDamageChance", "BASE", 20, { type = "SkillName", skillName = "Heavy Strike" }),
 	["With at least 40 Strength in Radius, Cleave has +1 to Radius per Nearby Enemy, up to +10"] = getThreshold("Str", "AreaOfEffect", "BASE", 1, { type = "Multiplier", var = "NearbyEnemies", limit = 10 }, { type = "SkillName", skillName = "Cleave" }),
-	["With at least 40 Strength in Radius, Cleave grants Fortify on Hit"] = getThreshold("Str", "ExtraSkillMod", "LIST", { mod = flag("Condition:Fortify") }, { type = "SkillName", skillName = "Cleave" }),
+	["With at least 40 Strength in Radius, Cleave grants Fortify on Hit"] = getThreshold("Str", "ExtraSkillMod", "LIST", { mod = flag("Condition:Fortified") }, { type = "SkillName", skillName = "Cleave" }),
+	["With at least 40 Strength in Radius, Hits with Cleave Fortify"] = getThreshold("Str", "ExtraSkillMod", "LIST", { mod = flag("Condition:Fortified") }, { type = "SkillName", skillName = "Cleave" }),
 	["With at least 40 Dexterity in Radius, Dual Strike has a 20% chance to deal Double Damage with the Main-Hand Weapon"] = getThreshold("Dex", "DoubleDamageChance", "BASE", 20, { type = "SkillName", skillName = "Dual Strike" }, { type = "Condition", var = "MainHandAttack" }),
 	["With at least 40 Dexterity in Radius, Dual Strike has (%d+)%% increased Attack Speed while wielding a Claw"] = function(num) return getThreshold("Dex", "Speed", "INC", num, { type = "SkillName", skillName = "Dual Strike" }, { type = "Condition", var = "UsingClaw" }) end,
 	["With at least 40 Dexterity in Radius, Dual Strike has %+(%d+)%% to Critical Strike Multiplier while wielding a Dagger"] = function(num) return getThreshold("Dex", "CritMultiplier", "BASE", num, { type = "SkillName", skillName = "Dual Strike" }, { type = "Condition", var = "UsingDagger" }) end,

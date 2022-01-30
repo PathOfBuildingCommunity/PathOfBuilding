@@ -776,7 +776,8 @@ local function doActorMisc(env, actor)
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
-		if modDB:Flag(nil, "Fortified") then
+		-- Fortify from a mod, or minions getting stacks from Kingmaker
+		if modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
 			local maxStacks = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
 			local stacks = modDB:Override(nil, "FortificationStacks") or maxStacks
 			output.FortificationStacks = stacks
