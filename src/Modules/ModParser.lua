@@ -1469,6 +1469,9 @@ end
 -- List of special modifiers
 local specialModList = {
 	-- Keystones
+	["(%d+)%% less damage taken for every (%d+)%% life recovery per second from leech"] = function(num, _, div)
+		return {  mod("DamageTaken", "MORE", -num, { type = "PerStat", stat = "MaxLifeLeechRatePercent", div = tonumber(div) }) }
+	end,
 	["modifiers to chance to suppress spell damage instead apply to chance to dodge spell hits at 50%% of their value"] = {
 		flag("ConvertSpellSuppressionToSpellDodge"),
 		mod("SpellSuppressionChance", "OVERRIDE", 0, "Acrobatics"),
