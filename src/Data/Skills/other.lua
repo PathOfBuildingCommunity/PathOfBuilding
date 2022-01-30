@@ -1807,9 +1807,6 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	statMap = {
-		["triggered_spell_spell_damage_+%"] = {
-			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }),
-		},
 	},
 	baseMods = {
 	},
