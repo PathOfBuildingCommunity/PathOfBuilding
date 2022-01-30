@@ -15,7 +15,7 @@ local s_format = string.format
 local banditDropList = {
 	{ label = "2 Passive Points", id = "None" },
 	{ label = "Oak (Life Regen, Phys.Dmg. Reduction, Phys.Dmg)", id = "Oak" },
-	{ label = "Kraityn (Attack/Cast Speed, Attack Dodge, Move Speed)", id = "Kraityn" },
+	{ label = "Kraityn (Attack/Cast Speed, Avoid Elemental Ailments, Move Speed)", id = "Kraityn" },
 	{ label = "Alira (Mana Regen, Crit Multiplier, Resists)", id = "Alira" },
 }
 
@@ -503,6 +503,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
+	self.controls.bandit.maxDroppedWidth = 500
+	self.controls.bandit:CheckDroppedWidth(true)
 	self.controls.banditLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.bandit,"TOPLEFT"}, 0, 0, 0, 14, "^7Bandit:")
 	-- The Pantheon
 	local function applyPantheonDescription(tooltip, mode, index, value)

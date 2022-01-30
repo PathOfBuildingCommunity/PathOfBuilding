@@ -277,6 +277,7 @@ data.keystones = {
 	"Hollow Palm Technique",
 	"Imbalanced Guard",
 	"Immortal Ambition",
+	"Inner Conviction",
 	"Iron Grip",
 	"Iron Reflexes",
 	"Iron Will",

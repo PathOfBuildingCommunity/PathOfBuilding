@@ -81,15 +81,34 @@ function calcs.defence(env, actor)
 	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
 	output.PhysicalResist = m_min(output.DamageReductionMax, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
 	output.PhysicalResistWhenHit = m_min(output.DamageReductionMax, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
+
+	-- Highest Maximum Elemental Resistance for Melding of the Flesh
+	if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") then
+		local highestResistMax = 0;
+		local highestResistMaxType = "";
+		for _, elem in ipairs(resistTypeList) do
+			local resistMax = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
+			if resistMax > highestResistMax and isElemental[elem] then
+				highestResistMax = resistMax;
+				highestResistMaxType = elem;
+			end
+		end
+		for _, elem in ipairs(resistTypeList) do
+			if isElemental[elem] then
+				modDB:NewMod(elem.."ResistMax", "OVERRIDE", highestResistMax, highestResistMaxType.." Melding of the Flesh");
+			end
+		end
+	end
+	
 	for _, elem in ipairs(resistTypeList) do
 		local min, max, total
 		min = data.misc.ResistFloor
-			max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
-			total = modDB:Override(nil, elem.."Resist")
-			if not total then
-				local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
-				total = base * calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist")
-			end
+		max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
+		total = modDB:Override(nil, elem.."Resist")
+		if not total then
+			local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
+			total = base * calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist")
+		end
 		local final = m_max(m_min(total, max), min)
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
