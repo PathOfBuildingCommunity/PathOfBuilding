@@ -390,7 +390,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("MaximumRage", "BASE", 50, "Base")
 		modDB:NewMod("Multiplier:GaleForce", "BASE", 0, "Base")
 		modDB:NewMod("MaximumGaleForce", "BASE", 10, "Base")
-		modDB:NewMod("Multiplier:Fortification", "BASE", 0, "Base")
 		modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
 		modDB:NewMod("Multiplier:IntensityLimit", "BASE", 3, "Base")
 		modDB:NewMod("Damage", "INC", 2, "Base", { type = "Multiplier", var = "Rampage", limit = 50, div = 20 })
@@ -419,7 +418,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 			modDB:NewMod("ElementalResist", "BASE", 15, "Bandit")
 		elseif build.bandit == "Kraityn" then
 			modDB:NewMod("Speed", "INC", 6, "Bandit")
-			modDB:NewMod("AttackDodgeChance", "BASE", 3, "Bandit")
+			modDB:NewMod("AvoidShock", "BASE", 10, "Bandit")
+			modDB:NewMod("AvoidFreeze", "BASE", 10, "Bandit")
+			modDB:NewMod("AvoidChill", "BASE", 10, "Bandit")
+			modDB:NewMod("AvoidIgnite", "BASE", 10, "Bandit")
 			modDB:NewMod("MovementSpeed", "INC", 6, "Bandit")
 		elseif build.bandit == "Oak" then
 			modDB:NewMod("LifeRegenPercent", "BASE", 1, "Bandit")
@@ -621,6 +623,36 @@ function calcs.initEnv(build, mode, override, specEnv)
 						else
 							env.itemModDB:ScaleAddMod(mod, scale)
 						end
+					end
+				elseif (slotName == "Weapon 1" or slotName == "Weapon 2") and modDB:Flag(nil, "Condition:EnergyBladeActive") then
+					local type = env.player.itemList[slotName] and env.player.itemList[slotName].weaponData and env.player.itemList[slotName].weaponData[1].type
+					local info = env.data.weaponTypeInfo[type]
+					if info and type ~= "Bow" then
+						local name = info.oneHand and "Energy Blade One Handed" or "Energy Blade Two Handed"
+						local item = new("Item")
+						item.name = name
+						item.base = data.itemBases[name]
+						item.baseName = name
+						item.buffModLines = { }
+						item.enchantModLines = { }
+						item.scourgeModLines = { }
+						item.implicitModLines = { }
+						item.explicitModLines = { }
+						item.quality = 0
+						item.rarity = "NORMAL"
+						if item.baseName.implicit then
+							local implicitIndex = 1
+							for line in item.baseName.implicit:gmatch("[^\n]+") do
+								local modList, extra = modLib.parseMod(line)
+								t_insert(item.implicitModLines, { line = line, extra = extra, modList = modList or { }, modTags = item.baseName.implicitModTypes and item.baseName.implicitModTypes[implicitIndex] or { } })
+								implicitIndex = implicitIndex + 1
+							end
+						end
+						item:NormaliseQuality()
+						item:BuildAndParseRaw()
+						env.player.itemList[slotName] = item
+					else
+						env.itemModDB:ScaleAddList(srcList, scale)
 					end
 				elseif slotName == "Weapon 1" and item.name == "The Iron Mass, Gladius" then
 					-- Special handling for The Iron Mass

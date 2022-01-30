@@ -55,45 +55,61 @@ Bow Knockback at Close Range
 The Crimson Storm
 Steelwood Bow
 League: Betrayal
-Variant: Crit Multi while Rare/Unique Nearby
-Variant: Attack Speed while Rare/Unique Nearby
-Variant: Damage per Power Charge
-Variant: Damage per Frenzy Charge
-Variant: Damage per Endurance Charge
-Variant: Accuracy and Quality
-Variant: Attack Speed and Quality
-Variant: Attack Speed/Trigger Blood Rage on Kill
-Variant: Cast Speed/Trigger Arcane Surge on Kill
-Variant: Minion Attack and Cast Speed
-Variant: Double Damage
-Variant: Double Damage while Focused
-Variant: Socketed Spell Trigger
+Variant: Crit Multi while Rare/Unique Nearby (Pre 3.17.0)
+Variant: Attack Speed while Rare/Unique Nearby (Pre 3.17.0)
+Variant: Damage per Power Charge (Pre 3.17.0)
+Variant: Damage per Frenzy Charge (Pre 3.17.0)
+Variant: Damage per Endurance Charge (Pre 3.17.0)
+Variant: Accuracy and Quality (Pre 3.17.0)
+Variant: Attack Speed and Quality (Pre 3.17.0)
+Variant: Attack Speed/Trigger Blood Rage on Kill (Pre 3.17.0)
+Variant: Cast Speed/Trigger Arcane Surge on Kill (Pre 3.17.0)
+Variant: Minion Attack and Cast Speed (Pre 3.17.0)
+Variant: Double Damage (Pre 3.17.0)
+Variant: Double Damage while Focused (Pre 3.17.0)
+Variant: Socketed Spell Trigger (Pre 3.17.0)
+Variant: Pre 3.17.0
+Variant: Crit Multi while Rare/Unique Nearby (Current)
+Variant: Attack Speed while Rare/Unique Nearby (Current)
+Variant: Damage per Power Charge (Current)
+Variant: Damage per Frenzy Charge (Current)
+Variant: Damage per Endurance Charge (Current)
+Variant: Accuracy and Quality (Current)
+Variant: Attack Speed and Quality (Current)
+Variant: Attack Speed/Trigger Blood Rage on Kill (Current)
+Variant: Cast Speed/Trigger Arcane Surge on Kill (Current)
+Variant: Minion Attack and Cast Speed (Current)
+Variant: Double Damage (Current)
+Variant: Double Damage while Focused (Current)
+Variant: Socketed Spell Trigger (Current)
+Variant: Current
 Requires Level 57, 190 Dex
 Implicits: 1
 (4-6)% increased Movement Speed
-(140-170)% increased Physical Damage
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}(140-170)% increased Physical Damage
+{variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28}(60-80)% increased Physical Damage
 (25-35)% increased Critical Strike Chance
 50% chance to inflict Bleeding on Critical Strike with Attacks
 Enemies you inflict Bleeding on grant (60-100)% increased Flask Charges
 Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies
 50% chance to Maim Enemies on Critical Strike with Attacks
-{variant:1}{crafted}+(18-45)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
-{variant:2}{crafted}(11-22)% increased Attack Speed while a Rare or Unique Enemy is Nearby
-{variant:3}{crafted}(5-6)% increased Damage per Power Charge
-{variant:4}{crafted}(5-6)% increased Damage per Frenzy Charge
-{variant:5}{crafted}(5-6)% increased Damage per Endurance Charge
-{variant:6}{crafted}+(30-250) to Accuracy Rating
-{variant:7}{crafted}(8-16)% increased Attack Speed
-{variant:6,7}{crafted}+(7-18)% to Quality
-{variant:8}{crafted}(8-16)% increased Attack Speed
-{variant:8}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
-{variant:9}{crafted}(7-13)% increased Cast Speed
-{variant:9}{crafted}10% chance to gain Arcane Surge when you Kill an Enemy
-{variant:10}{crafted}Minions have (16-28)% increased Attack Speed
-{variant:10}{crafted}Minions have (16-28)% increased Cast Speed
-{variant:11}{crafted}(4-12)% chance to deal Double Damage
-{variant:12}{crafted}(13-36)% chance to deal Double Damage while Focused
-{variant:13}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 8 second Cooldown
+{variant:1,15}{crafted}+(18-45)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
+{variant:2,16}{crafted}(11-22)% increased Attack Speed while a Rare or Unique Enemy is Nearby
+{variant:3,17}{crafted}(5-6)% increased Damage per Power Charge
+{variant:4,18}{crafted}(5-6)% increased Damage per Frenzy Charge
+{variant:5,19}{crafted}(5-6)% increased Damage per Endurance Charge
+{variant:6,20}{crafted}+(30-250) to Accuracy Rating
+{variant:7,21}{crafted}(8-16)% increased Attack Speed
+{variant:6,7,20,21}{crafted}+(7-18)% to Quality
+{variant:8,22}{crafted}(8-16)% increased Attack Speed
+{variant:8,22}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
+{variant:9,23}{crafted}(7-13)% increased Cast Speed
+{variant:9,23}{crafted}10% chance to gain Arcane Surge when you Kill an Enemy
+{variant:10,24}{crafted}Minions have (16-28)% increased Attack Speed
+{variant:10,24}{crafted}Minions have (16-28)% increased Cast Speed
+{variant:11,25}{crafted}(4-12)% chance to deal Double Damage
+{variant:12,26}{crafted}(13-36)% chance to deal Double Damage while Focused
+{variant:13,27}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 8 second Cooldown
 ]],[[
 Darkscorn
 Assassin Bow

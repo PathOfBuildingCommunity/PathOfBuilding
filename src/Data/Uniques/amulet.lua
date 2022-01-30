@@ -193,6 +193,8 @@ Implicits: 1
 ]],[[
 Blightwell
 Clutching Talisman
+Variant: Pre 3.16.0
+Variant: Current
 League: Talisman Hardcore
 Talisman Tier: 2
 Requires Level 28
@@ -201,8 +203,10 @@ Implicits: 1
 +(20-30) to maximum Energy Shield
 +(15-30)% to Fire Resistance
 +(15-30)% to Lightning Resistance
-30% slower start of Energy Shield Recharge during Flask Effect
-400% increased Energy Shield Recharge Rate during Flask Effect
+{variant:1}30% slower start of Energy Shield Recharge during Flask Effect
+{variant:2}50% slower start of Energy Shield Recharge during Flask Effect
+{variant:1}400% increased Energy Shield Recharge Rate during Flask Effect
+{variant:2}(150-200)% increased Energy Shield Recharge Rate during Flask Effect
 Corrupted
 ]],[[
 Blood of Corruption
@@ -300,7 +304,7 @@ Implicits: 1
 {variant:2}10% chance to gain Unholy Might for 10 seconds on Kill
 {variant:1}{tags:caster,attack}5% chance to gain Onslaught for 10 seconds on Kill
 {variant:2}{tags:caster,attack}10% chance to gain Onslaught for 10 seconds on Kill
-{tags:life}Recover 1% of Maximum Life on Kill
+{tags:life}Recover 1% of Life on Kill
 ]],[[
 Eye of Chayula
 Onyx Amulet
@@ -829,6 +833,7 @@ Paua Amulet
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
+Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
 {tags:jewellery_resistance}+25% to Cold Resistance
 {variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
@@ -851,7 +856,7 @@ Implicits: 1
 {tags:life}+(50-70) to maximum Life
 {variant:1}{tags:mana}(2-3) Mana Regenerated per second
 {variant:2}{tags:mana}(8-10) Mana Regenerated per second
-{tags:mana}Temporal Chains has 100% reduced Reservation if Cast as an Aura
+{tags:mana}Temporal Chains has no Reservation if Cast as an Aura
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
 Star of Wraeclast
@@ -1023,6 +1028,8 @@ Implicits: 1
 ]],[[
 Willowgift
 Jade Amulet
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 52
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
@@ -1030,8 +1037,9 @@ Implicits: 1
 {tags:jewellery_attribute}15% increased Dexterity
 {tags:jewellery_resistance}-(30-20)% to Fire Resistance
 {tags:jewellery_resistance}+(30-40)% to Cold Resistance
-Fortify Buffs you create instead grant 30% more Evasion Rating
-{tags:caster,attack,speed}(15-25)% increased Attack and Cast Speed while you have Fortify
+You do not inherently take less Damage for having Fortification
+{variant:2}+4% chance to Suppress Spell Damage per Fortification
+{tags:caster,attack,speed}(15-25)% increased Attack and Cast Speed while at maximum Fortification
 ]],[[
 Winterheart
 Gold Amulet

@@ -447,6 +447,20 @@ function calcs.offence(env, actor, activeSkill)
 	-- set flask scaling
 	output.LifeFlaskRecovery = env.itemModDB.multipliers["LifeFlaskRecovery"]
 
+	if skillModList:Flag(nil, "Condition:EnergyBladeActive") then
+		local dmgMod = calcLib.mod(skillModList, skillCfg, "EnergyBladeDamage")
+		local critMod = calcLib.mod(skillModList, skillCfg, "EnergyBladeCritChance")
+		for slotName, weaponData in pairs({ ["Weapon 1"] = "weaponData1", ["Weapon 2"] = "weaponData2" }) do
+			if actor.itemList[slotName] and actor.itemList[slotName].weaponData and actor.itemList[slotName].weaponData[1] then
+				actor[weaponData].CritChance = actor[weaponData].CritChance * critMod
+				for _, damageType in ipairs(dmgTypeList) do
+					actor[weaponData][damageType.."Min"] = (actor[weaponData][damageType.."Min"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMin"..damageType) * dmgMod)
+					actor[weaponData][damageType.."Max"] = (actor[weaponData][damageType.."Max"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMax"..damageType) * dmgMod)
+				end
+			end
+		end
+	end
+
 	-- account for Battlemage
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
 	if skillModList:Flag(nil, "WeaponDamageAppliesToSpells") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
@@ -506,6 +520,13 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	if skillModList:Flag(nil, "ProjectileSpeedAppliesToBowDamage") then
+		-- Bow mastery projectile speed to damage with bows conversion
+		for i, value in ipairs(skillModList:Tabulate("INC", { }, "ProjectileSpeed")) do
+			local mod = value.mod
+			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, ModFlag.Bow, mod.keywordFlags, unpack(mod))
+		end
+	end
 	if skillModList:Flag(nil, "ClawDamageAppliesToUnarmed") then
 		-- Claw Damage conversion from Rigwald's Curse
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = ModFlag.Claw, keywordFlags = KeywordFlag.Hit }, "Damage")) do
@@ -542,7 +563,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-   if skillModList:Flag(nil, "ClawCritMultiplierAppliesToMinions") then
+	if skillModList:Flag(nil, "ClawCritMultiplierAppliesToMinions") then
 		-- Claw Crit Multi conversion from Law of the Wilds
 		for i, value in ipairs(skillModList:Tabulate("BASE", { flags = bor(ModFlag.Claw, ModFlag.Hit) }, "CritMultiplier")) do
 			local mod = value.mod
@@ -824,11 +845,16 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark]then
+	if activeSkill.skillTypes[SkillType.Hex] or activeSkill.skillTypes[SkillType.Mark] then
 		output.CurseEffectMod = calcLib.mod(skillModList, skillCfg, "CurseEffect")
 		if breakdown then
 			breakdown.CurseEffectMod = breakdown.mod(skillModList, skillCfg, "CurseEffect")
 		end
+	end
+	if (skillFlags.trap or skillFlags.mine) and not (skillData.trapCooldown or skillData.cooldown) then
+		skillFlags.notAverage = true
+		skillFlags.showAverage = false
+		skillData.showAverage = false
 	end
 	if skillFlags.trap then
 		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "TrapThrowingTime")
@@ -979,8 +1005,11 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillFlags.brand then
-		output.BrandAttachmentRange = calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
+		output.BrandAttachmentRange = data.misc.BrandAttachmentRangeBase * calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
 		output.ActiveBrandLimit = skillModList:Sum("BASE", skillCfg, "ActiveBrandLimit")
+		if breakdown then
+			breakdown.BrandAttachmentRange = { radius = output.BrandAttachmentRange }
+		end
 	end
 	
 	if skillFlags.warcry then
@@ -1515,6 +1544,9 @@ function calcs.offence(env, actor, activeSkill)
 			if skillFlags.brand then
 				output.BrandTicks = m_floor(output.Duration * output.HitSpeed)
 			end
+		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
+			output.HitTime = output.Time * skillData.hitTimeMultiplier
+			output.HitSpeed = 1 / output.HitTime
 		end
 	end
 
@@ -2185,6 +2217,7 @@ function calcs.offence(env, actor, activeSkill)
 								local elementUsed = damageType
 								if isElemental[damageType] then
 									resist = m_min(enemyDB:Sum("BASE", nil, damageType.."Resist", "ElementalResist") * calcLib.mod(enemyDB, nil, damageType.."Resist", "ElementalResist"), data.misc.EnemyMaxResist)
+									takenInc = takenInc + enemyDB:Sum("INC", cfg, "ElementalDamageTaken")
 								elseif damageType == "Chaos" then
 									resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
 								end

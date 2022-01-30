@@ -118,6 +118,9 @@ skills["AnimateWeapon"] = {
 		["minion_global_maximum_added_lightning_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack) }),
 		},
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -1387,9 +1390,9 @@ skills["BloodRage"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["blood_rage_life_leech_from_elemental_damage_permyriad"] = {
-			mod("FireDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
-			mod("ColdDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
-			mod("LightningDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
+			mod("FireDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("ColdDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("LightningDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 100
 		}
 	},
@@ -1754,11 +1757,34 @@ skills["ChargedDash"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	statMap = {
-		["charged_dash_damage_+%_maximum"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ChargedDashDistance" }),
+	parts = {
+		{
+			name = "Channelling, No Stages",
 		},
+		{
+			name = "Channelling, Max Stages",
+		},
+		{
+			name = "Release",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		   if activeSkill.skillPart == 3 then
+			   local finalWaveDamageModifier = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "chargedDashFinalDamageModifier")
+			   activeSkill.skillModList:NewMod("Damage", "MORE", finalWaveDamageModifier, "Skill:ChargedDash", ModFlag.Attack, { type = "Release Damage", skillPart = 3 })
+		   end
+	end,
+	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["charged_dash_damage_+%_final"] = {
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type="BaseReleaseDamage", skillPart = 3 }),
+		},
+		["charged_dash_damage_+%_final_per_stack"] = {
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type="Multiplier", skillPart = 3, var = "ChargedDashStage" }),
+		},
+		["charged_dash_channelling_damage_at_full_stacks_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 	},
 	baseFlags = {
@@ -1771,6 +1797,9 @@ skills["ChargedDash"] = {
 		skill("radiusLabel", "Start of Dash:"),
 		skill("radiusSecondary", 26),
 		skill("radiusSecondaryLabel", "End of Dash:"),
+		skill("hitTimeMultiplier", 2, { type = "Skill", skillPartList = { 1, 2 } }),
+		mod("Multiplier:ChargedDashMaxStages", "BASE", 15),
+		skill("showAverage", true, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
 		Default = {
@@ -2911,13 +2940,28 @@ skills["ElementalHit"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Fire",
+			name = "Fire Attack",
+			area = false,
 		},
 		{
-			name = "Cold",
+			name = "Fire AoE",
+			area = true,
 		},
 		{
-			name = "Lightning",
+			name = "Cold Attack",
+			area = false,
+		},
+		{
+			name = "Cold AoE",
+			area = true,
+		},
+		{
+			name = "Lightning Attack",
+			area = false,
+		},
+		{
+			name = "Lightning AoE",
+			area = true,
 		},
 	},
 	baseFlags = {
@@ -2928,15 +2972,15 @@ skills["ElementalHit"] = {
 	baseMods = {
 		flag("DealNoPhysical"),
 		flag("DealNoChaos"),
-		flag("DealNoFire", { type = "SkillPart", skillPart = 2 }),
-		flag("DealNoFire", { type = "SkillPart", skillPart = 3 }),
-		flag("DealNoCold", { type = "SkillPart", skillPart = 1 }),
-		flag("DealNoCold", { type = "SkillPart", skillPart = 3 }),
-		flag("DealNoLightning", { type = "SkillPart", skillPart = 1 }),
-		flag("DealNoLightning", { type = "SkillPart", skillPart = 2 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 1 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 2 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 3 }),
+		flag("DealNoFire", { type = "SkillPart", skillPartList = { 3, 4 } }),
+		flag("DealNoFire", { type = "SkillPart", skillPartList = { 5, 6 } }),
+		flag("DealNoCold", { type = "SkillPart", skillPartList = { 1, 2 } }),
+		flag("DealNoCold", { type = "SkillPart", skillPartList = { 5, 6 } }),
+		flag("DealNoLightning", { type = "SkillPart", skillPartList = { 1, 2 } }),
+		flag("DealNoLightning", { type = "SkillPart", skillPartList = { 3, 4 } }),
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 2 }),
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 4 }),
+		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 6 }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
@@ -2945,7 +2989,7 @@ skills["ElementalHit"] = {
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Brittle" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Sapped" }),
 		mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
-		skill("radius", 10),
+		skill("radius", 10, { type = "SkillPart", skillPartList = { 2, 4, 6 } }),
 	},
 	qualityStats = {
 		Default = {

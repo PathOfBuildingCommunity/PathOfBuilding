@@ -116,7 +116,7 @@ Amethyst Ring
 League: Ritual
 Requires Level 49
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(9-13)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-23%)% to Chaos Resistance
 {tags:jewellery_elemental}+(8-12)% to Fire Damage over Time Multiplier
 50% reduced Ignite Duration on Enemies
 (10-15)% chance to Ignite
@@ -308,7 +308,7 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Agony Damage
 Variant: Chaos Resistance
-{tags:chaos,jewellery_resistance}+(9-13)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
 {tags:chaos}Adds (15-20) to (21-30) Chaos Damage
 {tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
@@ -353,7 +353,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 46
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(9-13)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {tags:attack}+(300-350) to Accuracy Rating
 {tags:jewellery_defense}{variant:1}+(60-80) to Armour
 {tags:jewellery_defense}{variant:2}+(260-300) to Armour
@@ -661,7 +661,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 69
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(9-13)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1}{tags:life}15% reduced maximum Life
 {variant:2}{tags:life}10% reduced maximum Life
 {variant:3}{tags:life}(5-10)% reduced maximum Life

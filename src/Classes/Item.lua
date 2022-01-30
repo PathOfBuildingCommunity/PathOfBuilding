@@ -149,6 +149,8 @@ function ItemClass:ParseRaw(raw)
 			self.synthesised = true
 		elseif processInfluenceLine(line) then
 			-- self already updated within the helper function
+		elseif line == "Requirements:" then
+			-- nothing to do
 		else
 			if self.checkSection then
 				if gameModeStage == "IMPLICIT" then
@@ -323,7 +325,7 @@ function ItemClass:ParseRaw(raw)
 					self.note = specVal
 				elseif specName == "Str" or specName == "Dex" or specName == "Int" then
 					self.requirements[specName:lower()] = tonumber(specVal)
-				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or "Weapon Range" or
+				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or specName == "Weapon Range" or
 				       specName == "Physical Damage" or specName == "Elemental Damage" or specName == "Chaos Damage" then
 					self.hidden_specs = true
 				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
@@ -374,7 +376,7 @@ function ItemClass:ParseRaw(raw)
 						local s, e = self.name:find("Two-Toned Boots", 1, true)
 						if s then
 							-- Hack for Two-Toned Boots
-							self.baseName = "Two-Toned Boots (Armour/Energy Shield)"
+							baseName = "Two-Toned Boots (Armour/Energy Shield)"
 							self.namePrefix = self.name:sub(1, s - 1)
 							self.nameSuffix = self.name:sub(e + 1)
 						end
@@ -488,7 +490,7 @@ function ItemClass:ParseRaw(raw)
 
 				if data.itemBases[line] then
 					self.baseLines = self.baseLines or { }
-					self.baseLines[line] = { line = line, variantList = variantList}
+					self.baseLines[line] = { line = line, variantList = variantList }
 				end
 
 				local modLines
@@ -516,7 +518,7 @@ function ItemClass:ParseRaw(raw)
 						foundExplicit = true
 					end
 				elseif mode == "GAME" then
-					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" then
+					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and not data.itemBases[line] and not self.name == line) then
 						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"

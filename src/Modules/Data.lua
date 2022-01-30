@@ -277,6 +277,7 @@ data.keystones = {
 	"Hollow Palm Technique",
 	"Imbalanced Guard",
 	"Immortal Ambition",
+	"Inner Conviction",
 	"Iron Grip",
 	"Iron Reflexes",
 	"Iron Will",
@@ -339,6 +340,7 @@ data.misc = { -- magic numbers
 	MaxEnemyLevel = 84,
 	LowPoolThreshold = 0.5,
 	AccuracyPerDexBase = 2,
+	BrandAttachmentRangeBase = 30,
 }
 
 -- Misc data tables
@@ -549,6 +551,7 @@ data.uniques = { }
 for _, type in pairs(itemTypes) do
 	data.uniques[type] = LoadModule("Data/Uniques/"..type)
 end
+data.uniques['race'] = LoadModule("Data/Uniques/Special/race")
 data.uniqueMods = { }
 data.uniqueMods["Watcher's Eye"] = { }
 local unsortedMods = LoadModule("Data/Uniques/Special/WatchersEye")
