@@ -3500,7 +3500,7 @@ local function getPerStat(dst, modType, flags, stat, factor)
 		if node then
 			data[stat] = (data[stat] or 0) + out:Sum("BASE", nil, stat)
 		elseif data[stat] ~= 0 then
-			out:NewMod(dst, modType, math.floor((data[stat] or 0) * factor + 0.5), data.modSource, flags)
+			out:NewMod(dst, modType, math.floor((data[stat] or 0) * factor), data.modSource, flags)
 		end
 	end
 end
