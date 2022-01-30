@@ -118,6 +118,9 @@ skills["AnimateWeapon"] = {
 		["minion_global_maximum_added_lightning_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack) }),
 		},
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
 	},
 	baseFlags = {
 		spell = true,
