@@ -65,6 +65,9 @@ skills["AnimateGuardianWeapon"] = {
 		["attack_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }),
 		},
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -1771,9 +1774,6 @@ skills["UniqueAnimateWeapon"] = {
 		},
 		["attack_speed_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, ModFlag.Attack) }),
-		},
-		["number_of_animated_weapons_allowed"] = {
-			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
 	},
 	baseFlags = {
