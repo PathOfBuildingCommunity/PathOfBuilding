@@ -3370,7 +3370,7 @@ function calcs.offence(env, actor, activeSkill)
 					else
 						breakdown.ShockDPS.label = s_format("To Shock for %.1f seconds", 2 * output.ShockDurationMod)
 					end
-					breakdown.ShockDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)")
+					breakdown.ShockDPS.footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)\n(the above table shows that you shock for X when the enemy has Y ailment threshold)")
 					breakdown.ShockDPS.rowList = { }
 					breakdown.ShockDPS.colList = {
 						{ label = "Shock Effect", key = "effect" },
