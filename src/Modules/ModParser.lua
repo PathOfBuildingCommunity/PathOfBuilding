@@ -1616,7 +1616,7 @@ local specialModList = {
 		mod("ArmourDefense", "MAX", math.min(math.floor(numChance / 100), 1.0) * (tonumber(numArmourMultiplier) - 100), "Armour Mastery: Min Calc", { type = "Condition", var = "ArmourMax" , neg = true}, { type = "Condition", var = "ArmourAvg" , neg = true}),
 	 } end,
 	 ["defend with (%d+)%% of armour while not on low energy shield"] = function(num) return {
-		mod("Armour", "MORE", num - 100, "Armour and Energy Shield Mastery", { type = "Condition", var = "LowEnergyShield", neg = true }),
+		mod("ArmourDefense", "MAX", num - 100, "Armour and Energy Shield Mastery", { type = "Condition", var = "LowEnergyShield", neg = true }),
 	 } end,
 	-- Exerted Attacks
 	["exerted attacks deal (%d+)%% increased damage"] = function(num) return { mod("ExertIncrease", "INC", num, nil, ModFlag.Attack, 0) } end,
