@@ -1441,7 +1441,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Check Precise Technique Keystone condition per pass as MH/OH might have different values
-		local condName = pass.label == "Main Hand" and "MHAccRatingHigherThanMaxLife" or "OHAccRatingHigherThanMaxLife"
+		local condName = pass.label:gsub(" ", "") .. "AccRatingHigherThanMaxLife"
 		skillModList.conditions[condName] = output.Accuracy > env.player.output.LifeUnreserved
 
 		-- Calculate attack/cast speed

@@ -1605,8 +1605,8 @@ local specialModList = {
 		mod("PhysicalMax", "BASE", tonumber(max), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
 	} end,
 	["(%d+)%% more attack damage if accuracy rating is higher than maximum life"] = function(num) return { 
-		mod("Damage", "MORE", num, "Damage", ModFlag.Attack, { type = "Condition", var = "MHAccRatingHigherThanMaxLife" }, { type = "Condition", var = "MainHandAttack" }),
-		mod("Damage", "MORE", num, "Damage", ModFlag.Attack, { type = "Condition", var = "OHAccRatingHigherThanMaxLife" }, { type = "Condition", var = "OffHandAttack" }),
+		mod("Damage", "MORE", num, "Damage", ModFlag.Attack, { type = "Condition", var = "MainHandAccRatingHigherThanMaxLife" }, { type = "Condition", var = "MainHandAttack" } ),
+		mod("Damage", "MORE", num, "Damage", ModFlag.Attack, { type = "Condition", var = "OffHandAccRatingHigherThanMaxLife" }, { type = "Condition", var = "OffHandAttack" } ),
 	} end,
 	-- Masteries
 	["off hand accuracy is equal to main hand accuracy while wielding a sword"] = { flag("Condition:OffHandAccuracyIsMainHandAccuracy", { type = "Condition", var = "UsingSword" }) },
