@@ -269,8 +269,11 @@ data.cursePriority = {
 	["CurseFromSkillGem"] = 100,
 	["CurseFromEquipment"] = 200,
 	["AnySlotMarkType"] = 1000,
-	["AnySlotHexType"] = 2000,
-	["RingSlotHexType"] = 3000,
+	["LeftRingSlotMarkType"] = 2000,
+	["RightRingSlotMarkType"] = 3000,
+	["AnySlotHexType"] = 4000,
+	["LeftRingSlotHexType"] = 5000,
+	["RightRingSlotHexType"] = 6000,
 	["CurseAura"] = 10000,
 }
 
