@@ -108,6 +108,7 @@
 	<File name="Data/Uniques/Special/Generated.lua" part="program" sha1="cd99affc898a11183383a2ee55e2249d454861e8" />
 	<File name="Data/Uniques/Special/New.lua" part="program" sha1="f8a7e4baf7a4e2a8612f89a32becabd4cd90b9bc" />
 	<File name="Data/Uniques/Special/WatchersEye.lua" part="program" sha1="10aebe2df742444b0d1c483ef4c00ddafba554ba" />
+	<File name="Data/Uniques/Special/race.lua" part="program" sha1="10aebe2df742444b0d1c483ef4c00ddafba554ba" />
 	<File name="Data/ClusterJewels.lua" part="program" sha1="07184853241e549d75149a768a5700a506241044" />
 	<File name="Data/Costs.lua" part="program" sha1="3ea53eef01f1d44d54fd5e495b380099a94a314c" />
 	<File name="Data/EnchantmentBelt.lua" part="program" sha1="85409c93fa36ce5a7bd0b5684660190f0d33ebf4" />
