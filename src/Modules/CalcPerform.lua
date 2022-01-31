@@ -643,12 +643,25 @@ local function doActorLifeManaReservation(actor)
 end
 
 -- Helper function to determine curse priority when processing curses beyond the curse limit
-local function determineCursePriority(curseName, skillTypes, source, slot)
+local function determineCursePriority(curseName, activeSkill)
 	local curseName = curseName or ""
-	local slot = slot or ""
+	local source = ""
+	local slot = ""
+	local socket = 1
+	if activeSkill and activeSkill.socketGroup then
+		source = activeSkill.socketGroup.source or ""
+		slot = activeSkill.socketGroup.slot or ""
+		for k, v in ipairs(activeSkill.socketGroup.gemList) do
+			if v.gemData and v.gemData.name == curseName then
+				-- We need to enforce a limit of 8 here to avoid collision with data.cursePriority["CurseFromEquipment"].
+				socket = m_min(k, 8)
+				break
+			end
+		end
+	end
 	local basePriority = data.cursePriority[curseName] or 0
-	local typePriority = skillTypes[SkillType.Aura] and data.cursePriority["CurseAura"] or 0
-	local sourcePriority = source and data.cursePriority["CurseFromEquipment"] or data.cursePriority["CurseFromSkillGem"]
+	local typePriority = activeSkill.skillTypes[SkillType.Aura] and data.cursePriority["CurseAura"] or 0
+	local sourcePriority = source ~= "" and data.cursePriority["CurseFromEquipment"] or (data.cursePriority["CurseFromSkillGem"] * socket)
 	local slotPriority = data.cursePriority["AnySlotHexType"]
 	if slot:match("Ring 1") then
 		if curseName:match("'s Mark") then
@@ -1770,7 +1783,7 @@ function calcs.perform(env, avoidCache)
 					local curse = {
 						name = buff.name,
 						fromPlayer = true,
-						priority = determineCursePriority(buff.name, activeSkill.skillTypes, activeSkill.socketGroup.source, activeSkill.socketGroup.slot),
+						priority = determineCursePriority(buff.name, activeSkill),
 						isMark = mark,
 						ignoreHexLimit = modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") and not mark or false,
 						socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
@@ -1853,7 +1866,7 @@ function calcs.perform(env, avoidCache)
 						if env.mode_effective and activeSkill.skillData.enable and (not enemyDB:Flag(nil, "Hexproof") or activeSkill.skillTypes[SkillType.Mark]) then
 							local curse = {
 								name = buff.name,
-								priority = determineCursePriority(buff.name, activeSkill.skillTypes, activeSkill.socketGroup.source, activeSkill.socketGroup.slot),
+								priority = determineCursePriority(buff.name, activeSkill),
 							}
 							local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
 							local more = skillModList:More(skillCfg, "CurseEffect") * enemyDB:More(nil, "CurseEffectOnSelf")
