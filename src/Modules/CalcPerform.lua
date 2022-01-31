@@ -1103,10 +1103,12 @@ function calcs.perform(env, avoidCache)
 		if activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" then
 			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotShock") then
 				local effect = activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect")
-				modDB:NewMod("ShockOverride", "BASE", 15 * (1 + effect / 100), "Summon Skitterbots")
+				modDB:NewMod("ShockOverride", "BASE", data.nonDamagingAilment.Shock.default * (1 + effect / 100), "Summon Skitterbots")
 				enemyDB:NewMod("Condition:Shocked", "FLAG", true, "Summon Skitterbots")
 			end
 			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotChill") then
+				local effect = activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyChillEffect")
+				modDB:NewMod("ChillOverride", "BASE", data.nonDamagingAilment.Chill.default * (1 + effect / 100), "Summon Skitterbots")
 				enemyDB:NewMod("Condition:Chilled", "FLAG", true, "Summon Skitterbots")
 			end
 		end
