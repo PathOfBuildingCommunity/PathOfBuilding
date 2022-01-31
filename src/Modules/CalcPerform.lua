@@ -662,22 +662,7 @@ local function determineCursePriority(curseName, activeSkill)
 	local basePriority = data.cursePriority[curseName] or 0
 	local typePriority = activeSkill.skillTypes[SkillType.Aura] and data.cursePriority["CurseAura"] or 0
 	local sourcePriority = source ~= "" and data.cursePriority["CurseFromEquipment"] or (data.cursePriority["CurseFromSkillGem"] * socket)
-	local slotPriority = data.cursePriority["AnySlotHexType"]
-	if slot:match("Ring 1") then
-		if curseName:match("'s Mark") then
-			slotPriority = data.cursePriority["LeftRingSlotMarkType"]
-		else
-			slotPriority = data.cursePriority["LeftRingSlotHexType"]
-		end
-	elseif slot:match("Ring 2") then
-		if curseName:match("'s Mark") then
-			slotPriority = data.cursePriority["RightRingSlotMarkType"]
-		else
-			slotPriority = data.cursePriority["RightRingSlotHexType"]
-		end
-	elseif curseName:match("'s Mark") then
-		slotPriority = data.cursePriority["AnySlotMarkType"]
-	end
+	local slotPriority = data.cursePriority[slot:gsub(" (Swap)", "")] or 0
 	return basePriority + typePriority + sourcePriority + slotPriority
 end
 

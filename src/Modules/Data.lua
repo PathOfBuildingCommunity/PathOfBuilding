@@ -266,14 +266,17 @@ data.cursePriority = {
 	["Vulnerability"] = 11, -- Despair overrides Vulnerability. Vulnerability was reworked in 3.1.0.
 	["Despair"] = 12, -- Despair was created in 3.1.0.
 	["Punishment"] = 13, -- Punishment was reworked in 3.12.0.
-	["CurseFromSkillGem"] = 100,
-	["CurseFromEquipment"] = 900,
-	["AnySlotMarkType"] = 1000,
-	["LeftRingSlotMarkType"] = 2000,
-	["RightRingSlotMarkType"] = 3000,
-	["AnySlotHexType"] = 4000,
-	["LeftRingSlotHexType"] = 5000,
-	["RightRingSlotHexType"] = 6000,
+	["Weapon 1"] = 100,
+	["Amulet"] = 200,
+	["Helmet"] = 300,
+	["Weapon 2"] = 400,
+	["Body Armour"] = 500,
+	["Gloves"] = 600,
+	["Boots"] = 700,
+	["Ring 1"] = 800,
+	["Ring 2"] = 900,
+	["CurseFromSkillGem"] = 1000,
+	["CurseFromEquipment"] = 9000,
 	["CurseAura"] = 10000,
 }
 
