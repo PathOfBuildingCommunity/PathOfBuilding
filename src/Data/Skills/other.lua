@@ -1809,8 +1809,6 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
-	statMap = {
-	},
 	baseMods = {
 	},
 	qualityStats = {
