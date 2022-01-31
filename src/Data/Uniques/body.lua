@@ -1261,8 +1261,8 @@ Implicits: 0
 Has an additional Implicit Mod
 +(20-30) to all Attributes
 {variant:2}(250-350)% increased Armour, Evasion and Energy Shield
-Recover (3-5)% of Maximum Life on Kill
-Recover (3-5)% of Maximum Energy Shield on Kill
+Recover (3-5)% of Life on Kill
+Recover (3-5)% of Energy Shield on Kill
 6% increased Maximum Life for each Equipped Corrupted Item
 8% increased Maximum Energy Shield for each Equipped Corrupted Item
 -(6-4)% to all Resistances for each Equipped Corrupted Item

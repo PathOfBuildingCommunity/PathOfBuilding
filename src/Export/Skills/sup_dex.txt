@@ -330,7 +330,6 @@ local skills, mod, flag, skill = ...
 #skill SupportPuncturingWeapon
 #baseMod flag("SupportedByNightblade")
 #baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" })
-#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" })
 #mods
 
 #skill SupportOnslaught

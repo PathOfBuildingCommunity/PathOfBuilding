@@ -514,11 +514,12 @@ function calcs.defence(env, actor)
 
 	-- Leech caps
 	output.MaxLifeLeechInstance = output.Life * calcLib.val(modDB, "MaxLifeLeechInstance") / 100
-	output.MaxLifeLeechRate = output.Life * calcLib.val(modDB, "MaxLifeLeechRate") / 100
+	output.MaxLifeLeechRatePercent = calcLib.val(modDB, "MaxLifeLeechRate")
+	output.MaxLifeLeechRate = output.Life * output.MaxLifeLeechRatePercent / 100
 	if breakdown then
 		breakdown.MaxLifeLeechRate = {
 			s_format("%d ^8(maximum life)", output.Life),
-			s_format("x %d%% ^8(percentage of life to maximum leech rate)", calcLib.val(modDB, "MaxLifeLeechRate")),
+			s_format("x %d%% ^8(percentage of life to maximum leech rate)", output.MaxLifeLeechRatePercent),
 			s_format("= %.1f", output.MaxLifeLeechRate)
 		}
 	end
@@ -626,7 +627,6 @@ function calcs.defence(env, actor)
 	output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
 		modDB:NewMod("Condition:CanGainRage", "FLAG", true, "RageRegen")
-		modDB:NewMod("Dummy", "DUMMY", 1, "RageRegen", 0, { type = "Condition", var = "CanGainRage" }) -- Make the Configuration option appear
 		local base = modDB:Sum("BASE", nil, "RageRegen")
 		if modDB:Flag(nil, "ManaRegenToRageRegen") then
 			local mana = modDB:Sum("INC", nil, "ManaRegen")
