@@ -861,7 +861,7 @@ local function doActorMisc(env, actor)
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + (output.ActivePhantasmLimit or 1) - 1 -- slight hack to not double count the initial buff
 		end
 		if modDB:Flag(nil, "Elusive") then
-			local maxSkillInc = modDB:Max({ source = "Skill" }, "ElusiveEffect")
+			local maxSkillInc = modDB:Max({ source = "Skill" }, "ElusiveEffect") or 0
 			local inc = modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf")
 			inc = inc + maxSkillInc
 			output.ElusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
@@ -1629,7 +1629,7 @@ function calcs.perform(env, avoidCache)
 
 	if modDB:Flag(nil, "ManaAppliesToShockEffect") then
 		-- Maximum Mana conversion from Lightning Mastery
-		local multiplier = modDB:Max(nil, "ImprovedManaAppliesToShockEffect") / 100
+		local multiplier = (modDB:Max(nil, "ImprovedManaAppliesToShockEffect") or 100) / 100
 		for _, value in ipairs(modDB:Tabulate("INC", nil, "Mana")) do
 			local mod = value.mod
 			local modifiers = calcLib.getConvertedModTags(mod, multiplier)
