@@ -1515,7 +1515,7 @@ skills["IcestormUniqueStaff12"] = {
 		"skill_is_ice_storm",
 	},
 	levels = {
-		[1] = { 3, 5, 1000, 200, 450, 500, 100, 5, damageEffectiveness = 0.6, critChance = 6, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
+		[1] = { 5, 7, 1000, 200, 450, 500, 100, 5, critChance = 6, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
 	},
 }
 skills["TriggeredIcicleNova"] = {
