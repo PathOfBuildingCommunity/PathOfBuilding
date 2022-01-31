@@ -1440,6 +1440,10 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
+		-- Check Precise Technique Keystone condition per pass as MH/OH might have different values
+		local condName = pass.label:gsub(" ", "") .. "AccRatingHigherThanMaxLife"
+		skillModList.conditions[condName] = output.Accuracy > env.player.output.LifeUnreserved
+
 		-- Calculate attack/cast speed
 		if activeSkill.activeEffect.grantedEffect.castTime == 0 and not skillData.castTimeOverride then
 			output.Time = 0

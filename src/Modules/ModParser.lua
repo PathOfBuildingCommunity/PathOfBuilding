@@ -1098,7 +1098,7 @@ local modTagList = {
 	["w?h?i[lf]e? you have at least (%d+) strength"] = function(num) return { tag = { type = "StatThreshold", stat = "Str", threshold = num } } end,
 	["w?h?i[lf]e? you have at least (%d+) dexterity"] = function(num) return { tag = { type = "StatThreshold", stat = "Dex", threshold = num } } end,
 	["w?h?i[lf]e? you have at least (%d+) intelligence"] = function(num) return { tag = { type = "StatThreshold", stat = "Int", threshold = num } } end,
-	["at least (%d+) intelligence"] = function(num) return { tag = { type = "StatThreshold", stat = "Int", threshold = num } } end, -- lol
+	["at least (%d+) intelligence"] = function(num) return { tag = { type = "StatThreshold", stat = "Int", threshold = num } } end,
 	["if dexterity is higher than intelligence"] = { tag = { type = "Condition", var = "DexHigherThanInt" } },
 	["if strength is higher than intelligence"] = { tag = { type = "Condition", var = "StrHigherThanInt" } },
 	["w?h?i[lf]e? you have at least (%d+) maximum energy shield"] = function(num) return { tag = { type = "StatThreshold", stat = "EnergyShield", threshold = num } } end,
@@ -1603,6 +1603,10 @@ local specialModList = {
 	["adds (%d+) to (%d+) attack physical damage to melee skills per (%d+) dexterity while you are unencumbered"] = function(_, min, max, dex) return { -- Hollow Palm 3 suffixes
 		mod("PhysicalMin", "BASE", tonumber(min), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
 		mod("PhysicalMax", "BASE", tonumber(max), nil, ModFlag.Melee, KeywordFlag.Attack, { type = "PerStat", stat = "Dex", div = tonumber(dex) }, { type = "Condition", var = "Unencumbered" }),
+	} end,
+	["(%d+)%% more attack damage if accuracy rating is higher than maximum life"] = function(num) return { 
+		mod("Damage", "MORE", num, "Damage", ModFlag.Attack, { type = "Condition", var = "MainHandAccRatingHigherThanMaxLife" }, { type = "Condition", var = "MainHandAttack" } ),
+		mod("Damage", "MORE", num, "Damage", ModFlag.Attack, { type = "Condition", var = "OffHandAccRatingHigherThanMaxLife" }, { type = "Condition", var = "OffHandAttack" } ),
 	} end,
 	-- Masteries
 	["off hand accuracy is equal to main hand accuracy while wielding a sword"] = { flag("Condition:OffHandAccuracyIsMainHandAccuracy", { type = "Condition", var = "UsingSword" }) },
