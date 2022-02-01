@@ -1251,6 +1251,7 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Energy Explosion",
+			stages = true,
 		},
 		{
 			name = "Max Explosion per Brand",

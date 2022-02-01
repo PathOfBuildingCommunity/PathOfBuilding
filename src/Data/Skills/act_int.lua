@@ -6823,6 +6823,7 @@ skills["MagmaSigil"] = {
 	parts = {
 		{
 			name = "Energy Explosion",
+			stages = true,
 		},
 		{
 			name = "Max Explosion per Brand",
