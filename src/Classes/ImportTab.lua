@@ -26,7 +26,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 
 	self.charImportMode = "GETACCOUNTNAME"
 	self.charImportStatus = "Idle"
-	self.controls.sectionCharImport = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 630, 250, "Character Import")
+	self.controls.sectionCharImport = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 600, 250, "Character Import")
 	self.controls.charImportStatusLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 14, 200, 16, function()
 		return "^7Character import status: "..self.charImportStatus
 	end)
@@ -154,7 +154,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end)
 
 	-- Build import/export
-	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, 0, 18, 630, 200, "Build Sharing")
+	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, 0, 18, 600, 200, "Build Sharing")
 	self.controls.generateCodeLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionBuild,"TOPLEFT"}, 6, 14, 0, 16, "^7Generate a code to share this build with other Path of Building users:")
 	self.controls.generateCode = new("ButtonControl", {"LEFT",self.controls.generateCodeLabel,"RIGHT"}, 4, 0, 80, 20, "Generate", function()
 		self.controls.generateCodeOut:SetText(common.base64.encode(Deflate(self.build:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
@@ -170,54 +170,51 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.generateCodeCopy.enabled = function()
 		return #self.controls.generateCodeOut.buf > 0
 	end
-	self.controls.generateCodePastebin = new("ButtonControl", {"LEFT",self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 140, 20, "Share with Pastebin", function()
-		local id = LaunchSubScript([[
-			local code, proxyURL = ...
-			local curl = require("lcurl.safe")
-			local page = ""
-			local easy = curl.easy()
-			easy:setopt_url("https://pastebin.com/api/api_post.php")
-			easy:setopt(curl.OPT_POST, true)
-			easy:setopt(curl.OPT_POSTFIELDS, "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="..code)
-			easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
-			if proxyURL then
-				easy:setopt(curl.OPT_PROXY, proxyURL)
-			end
-			easy:setopt_writefunction(function(data)
-				page = page..data
-				return true
-			end)
-			easy:perform()
-			easy:close()
-			if page:match("pastebin.com") then
-				return page
-			else
-				return nil, page
-			end
-		]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
-		if id then
-			self.controls.generateCodeOut:SetText("")
-			self.controls.generateCodePastebin.label = "Creating paste..."
-			launch:RegisterSubScript(id, function(pasteLink, errMsg)
-				self.controls.generateCodePastebin.label = "Share with Pastebin"
-				if errMsg then
-					main:OpenMessagePopup("Pastebin.com", "Error creating paste:\n"..errMsg)
-				else
-					self.controls.generateCodeOut:SetText(pasteLink)
-				end
-			end)
-		end
+
+	local exportWebsiteList = {
+		{ label = "Pastebin.com", id = "Pastebin"},
+		{ label = "pobb.in", id = "pobbin"},
+	}
+	self.controls.exportFrom = new("DropDownControl", { "LEFT", self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 120, 20, exportWebsiteList, function(_, selectedWebsite)
+		self.exportWebsiteSelected = selectedWebsite.id
 	end)
-	self.controls.generateCodePastebin.enabled = function()
-		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pastebin%.com") and not self.controls.generateCodeOut.buf:match("pobb%.in")
-	end
-	self.controls.generateCodePobbin = new("ButtonControl", {"LEFT",self.controls.generateCodePastebin,"RIGHT"}, 8, 0, 140, 20, "Share with Pobb.in", function()
-		local id = LaunchSubScript([[
+	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or "Pastebin", "id")
+	self.controls.generateCodeByLink = new("ButtonControl", { "LEFT", self.controls.exportFrom , "RIGHT"}, 8, 0, 100, 20, "Share", function()
+		local id = ""
+		-- Pastebin
+		if self.controls.exportFrom.selIndex == 1 then
+			id = LaunchSubScript([[
+				local code, proxyURL = ...
+				local curl = require("lcurl.safe")
+				local page = ""
+				local easy = curl.easy()
+				easy:setopt_url("https://pastebin.com/api/api_post.php")
+				easy:setopt(curl.OPT_POST, true)
+				easy:setopt(curl.OPT_POSTFIELDS, "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="..code)
+				easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
+				if proxyURL then
+					easy:setopt(curl.OPT_PROXY, proxyURL)
+				end
+				easy:setopt_writefunction(function(data)
+					page = page..data
+					return true
+				end)
+				easy:perform()
+				easy:close()
+				if page:match("pastebin.com") then
+					return page
+				else
+					return nil, page
+				end
+			]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
+		-- pobbin
+		elseif self.controls.exportFrom.selIndex == 2 then
+			id = LaunchSubScript([[
 			local code, proxyURL = ...
 			local curl = require("lcurl.safe")
 			local page = ""
 			local easy = curl.easy()
-			easy:setopt_url("https://pobb.in/api/v1/paste/")
+			easy:setopt_url("https://pobb.in/pob/")
 			easy:setopt(curl.OPT_POST, true)
 			easy:setopt(curl.OPT_POSTFIELDS, code)
 			easy:setopt(curl.OPT_ACCEPT_ENCODING, "gzip, deflate, br")
@@ -235,26 +232,34 @@ You can get this from your web browser's cookies while logged into the Path of E
 			else
 				return nil, page
 			end
-		]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
-		if id then
+			]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
+		end
+		if id ~= "" then
 			self.controls.generateCodeOut:SetText("")
-			self.controls.generateCodePobbin.label = "Creating pobb..."
+			self.controls.generateCodeByLink.label = "Creating link..."
 			launch:RegisterSubScript(id, function(pasteLink, errMsg)
-				self.controls.generateCodePobbin.label = "Share with Pobb.in"
+				self.controls.generateCodeByLink.label = "Share"
 				if errMsg then
-					main:OpenMessagePopup("Pobb.in", "Error creating pobb:\n"..errMsg)
+					main:OpenMessagePopup(exportWebsiteList[self.controls.exportFrom.selIndex].id, "Error creating link:\n"..errMsg)
 				else
-					-- example response from pobbin api: {"id":"qO1_QpuQLeDd"}
-					local pobbId = string.split(pasteLink, ":")[2]:gsub('\"+',''):gsub('}', '')
-					self.controls.generateCodeOut:SetText("https://pobb.in/" .. pobbId)
+					if self.controls.exportFrom.selIndex == 1 then
+						self.controls.generateCodeOut:SetText(pasteLink)
+					elseif self.controls.exportFrom.selIndex == 2 then
+						-- example response from pobbin api: {"id":"qO1_QpuQLeDd"}
+						local pobbId = string.split(pasteLink, ":")[2]:gsub('\"+',''):gsub('}', '')
+						self.controls.generateCodeOut:SetText("https://pobb.in/" .. pobbId)
+					end
 				end
 			end)
 		end
 	end)
-	self.controls.generateCodePobbin.enabled = function()
-		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pobb%.in") and not self.controls.generateCodeOut.buf:match("pastebin%.com")
+	self.controls.generateCodeByLink.enabled = function()
+		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pastebin%.com") and not self.controls.generateCodeOut.buf:match("pobb%.in")
 	end
-	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share with Pastebin' to shrink it.")
+	self.controls.exportFrom.enabled = function()
+		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pastebin%.com") and not self.controls.generateCodeOut.buf:match("pobb%.in")
+	end
+	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share' to shrink it.")
 	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter the code here:")
 	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 250, 20, "", nil, "^%w_%-=", nil, function(buf)
 		if #buf == 0 then
