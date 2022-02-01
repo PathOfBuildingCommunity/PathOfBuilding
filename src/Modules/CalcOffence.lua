@@ -3339,8 +3339,8 @@ function calcs.offence(env, actor, activeSkill)
 					skillFlags[string.lower(ailment)] = true
 					local incDur = skillModList:Sum("INC", cfg, "Enemy"..ailment.."Duration") + enemyDB:Sum("INC", nil, "Self"..ailment.."Duration")
 					local moreDur = skillModList:More(cfg, "Enemy"..ailment.."Duration") * enemyDB:More(nil, "Self"..ailment.."Duration")
-					globalOutput[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * debuffDurationMult
-					globalOutput[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect")
+					output[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * debuffDurationMult
+					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect")
 					if breakdown then
 						local maximum = skillModList:Override(nil, ailment.."Max") or ailmentData[ailment].max
 						local current = m_max(m_min(ailment == "Chill" and bonechill or globalOutput["Current"..ailment] or 0, maximum), 0)
@@ -3349,7 +3349,7 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(val.effList, ailmentData[ailment].min)
 						end
 						if enemyThreshold > 0 then
-							t_insert(val.effList, val.effect(damage, globalOutput[ailment.."EffectMod"]))
+							t_insert(val.effList, val.effect(damage, output[ailment.."EffectMod"]))
 						end
 						if not isValueInArray(val.effList, maximum) then
 							t_insert(val.effList, maximum)
@@ -3369,7 +3369,7 @@ function calcs.offence(env, actor, activeSkill)
 						}
 						table.sort(val.effList)
 						for _, value in ipairs(val.effList) do
-							local thresh = val.thresh(damage, value, globalOutput[ailment.."EffectMod"])
+							local thresh = val.thresh(damage, value, output[ailment.."EffectMod"])
 							local decCheck = value / m_floor(value)
 							local precision = ailmentData[ailment].precision
 							value = m_floor(value * (10 ^ precision)) / (10 ^ precision)
@@ -3398,20 +3398,22 @@ function calcs.offence(env, actor, activeSkill)
 							})
 						end
 					end
-					if globalBreakdown and globalOutput[ailment.."Duration"] ~= ailmentData[ailment].duration then
-						globalBreakdown[ailment.."Duration"] = {
-							s_format("%.2fs ^8(base duration)", ailmentData[ailment].duration)
-						}
+					if breakdown and output[ailment.."Duration"] ~= ailmentData[ailment].duration then
+						breakdown[ailment.."Duration"] = { }
+						if isAttack then
+							t_insert(breakdown[ailment.."Duration"], pass.label..":")
+						end
+						t_insert(breakdown[ailment.."Duration"], s_format("%.2fs ^8(base duration)", ailmentData[ailment].duration))
 						if incDur ~= 0 then
-							t_insert(globalBreakdown[ailment.."Duration"], s_format("x %.2f ^8(increased/reduced duration)", 1 + incDur / 100))
+							t_insert(breakdown[ailment.."Duration"], s_format("x %.2f ^8(increased/reduced duration)", 1 + incDur / 100))
 						end
 						if moreDur ~= 1 then
-							t_insert(globalBreakdown[ailment.."Duration"], s_format("x %.2f ^8(more/less duration)", moreDur))
+							t_insert(breakdown[ailment.."Duration"], s_format("x %.2f ^8(more/less duration)", moreDur))
 						end
 						if debuffDurationMult ~= 1 then
-							t_insert(globalBreakdown[ailment.."Duration"], s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+							t_insert(breakdown[ailment.."Duration"], s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
 						end
-						t_insert(globalBreakdown[ailment.."Duration"], s_format("= %.2fs", globalOutput[ailment.."Duration"]))
+						t_insert(breakdown[ailment.."Duration"], s_format("= %.2fs", output[ailment.."Duration"]))
 					end
 				end
 			end
@@ -3526,21 +3528,21 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		combineStat("ChillEffectMod", "AVERAGE")
-		combineStat("ChillDurationMod", "AVERAGE")
+		combineStat("ChillDuration", "AVERAGE")
 		combineStat("ShockChance", "AVERAGE")
-		combineStat("ShockDurationMod", "AVERAGE")
+		combineStat("ShockDuration", "AVERAGE")
 		combineStat("ShockEffectMod", "AVERAGE")
 		combineStat("FreezeChance", "AVERAGE")
 		combineStat("FreezeDurationMod", "AVERAGE")
 		combineStat("ScorchChance", "AVERAGE")
 		combineStat("ScorchEffectMod", "AVERAGE")
-		combineStat("ScorchDurationMod", "AVERAGE")
+		combineStat("ScorchDuration", "AVERAGE")
 		combineStat("BrittleChance", "AVERAGE")
 		combineStat("BrittleEffectMod", "AVERAGE")
-		combineStat("BrittleDurationMod", "AVERAGE")
+		combineStat("BrittleDuration", "AVERAGE")
 		combineStat("SapChance", "AVERAGE")
 		combineStat("SapEffectMod", "AVERAGE")
-		combineStat("SapDurationMod", "AVERAGE")
+		combineStat("SapDuration", "AVERAGE")
 		combineStat("ImpaleChance", "AVERAGE")
 		combineStat("ImpaleStoredDamage", "AVERAGE")
 		combineStat("ImpaleModifier", "CHANCE", "ImpaleChance")
