@@ -653,7 +653,7 @@ local function determineCursePriority(curseName, activeSkill)
 		slot = activeSkill.socketGroup.slot or ""
 		for k, v in ipairs(activeSkill.socketGroup.gemList) do
 			if v.gemData and v.gemData.name == curseName then
-				-- We need to enforce a limit of 8 here to avoid collision with data.cursePriority["CurseFromEquipment"].
+				-- We need to enforce a limit of 8 here to avoid collision with data.cursePriority["CurseFromEquipment"]
 				socket = m_min(k, 8)
 				break
 			end
@@ -663,6 +663,10 @@ local function determineCursePriority(curseName, activeSkill)
 	local typePriority = activeSkill.skillTypes[SkillType.Aura] and data.cursePriority["CurseAura"] or 0
 	local sourcePriority = source ~= "" and data.cursePriority["CurseFromEquipment"] or (data.cursePriority["CurseFromSkillGem"] * socket)
 	local slotPriority = data.cursePriority[slot:gsub(" (Swap)", "")] or 0
+	if source ~= "" and slotPriority == data.cursePriority["Ring 2"] then
+		-- Implicit and explicit curses from rings have equal priority; only curses from socketed skill gems care about which ring slot they're equipped in
+		slotPriority = data.cursePriority["Ring 1"]
+	end
 	return basePriority + typePriority + sourcePriority + slotPriority
 end
 
