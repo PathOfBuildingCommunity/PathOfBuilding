@@ -35,7 +35,7 @@ return {
 	{ var = "conditionInsane", type = "check", label = "Are you insane?", ifCond = "Insane", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Insane", "FLAG", true, "Config")
 	end },
-	{ var = "conditionFullLife", type = "check", label = "Are you always on Full Life?", tooltip = "You will automatically be considered to be on Full Life if you have Chaos Inoculation,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+	{ var = "conditionFullLife", type = "check", label = "Are you always on Full Life?", ifCond = "FullLife", tooltip = "You will automatically be considered to be on Full Life if you have Chaos Inoculation,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FullLife", "FLAG", true, "Config")
 	end },
 	{ var = "conditionLowLife", type = "check", label = "Are you always on Low Life?", ifCond = "LowLife", tooltip = "You will automatically be considered to be on Low Life if you have at least 50% life reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
@@ -47,7 +47,7 @@ return {
 	{ var = "conditionFullEnergyShield", type = "check", label = "Are you always on Full Energy Shield?", ifCond = "FullEnergyShield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FullEnergyShield", "FLAG", true, "Config")
 	end },
-	{ var = "conditionLowEnergyShield", type = "check", label = "Are you always on Low Energy Shield?", tooltip = "You will automatically be considered to be on Low Energy Shield if you have at least 50% ES reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+	{ var = "conditionLowEnergyShield", type = "check", label = "Are you always on Low Energy Shield?", ifCond = "LowEnergyShield", tooltip = "You will automatically be considered to be on Low Energy Shield if you have at least 50% ES reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LowEnergyShield", "FLAG", true, "Config")
 	end },
 	{ var = "conditionHaveEnergyShield", type = "check", label = "Do you always have Energy Shield?", ifCond = "HaveEnergyShield", apply = function(val, modList, enemyModList)
