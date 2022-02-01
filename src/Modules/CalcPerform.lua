@@ -1102,14 +1102,17 @@ function calcs.perform(env, avoidCache)
 		end
 		if activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" then
 			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotShock") then
-				local effect = activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect")
-				modDB:NewMod("ShockOverride", "BASE", data.nonDamagingAilment.Shock.default * (1 + effect / 100), "Summon Skitterbots")
+				local effect = data.nonDamagingAilment.Shock.default * (1 + activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect") / 100)
+				modDB:NewMod("ShockOverride", "BASE", effect, "Summon Skitterbots")
 				enemyDB:NewMod("Condition:Shocked", "FLAG", true, "Summon Skitterbots")
 			end
 			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotChill") then
-				local effect = activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyChillEffect")
-				modDB:NewMod("ChillOverride", "BASE", data.nonDamagingAilment.Chill.default * (1 + effect / 100), "Summon Skitterbots")
+				local effect = data.nonDamagingAilment.Chill.default * (1 + activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyChillEffect") / 100)
+				modDB:NewMod("ChillOverride", "BASE", effect, "Summon Skitterbots")
 				enemyDB:NewMod("Condition:Chilled", "FLAG", true, "Summon Skitterbots")
+				if activeSkill.skillData.supportBonechill then
+					output.BonechillEffect = m_max(output.BonechillEffect or 0, effect)
+				end
 			end
 		end
 		for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
@@ -2691,7 +2694,7 @@ function calcs.perform(env, avoidCache)
 				modLib.createMod("ActionSpeed", "INC", -num, "Chill", { type = "Condition", var = "Chilled" })
 			}
 			if output.BonechillEffect then
-				t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Bonechill", { type = "Limit", limit = output["MaximumChill"] }, { type = "Condition", var = "Chilled" }))
+				t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", output.BonechillEffect, "Bonechill", { type = "Limit", limit = output["MaximumChill"] }, { type = "Condition", var = "Chilled" }))
 			end
 			return mods
 		end },
