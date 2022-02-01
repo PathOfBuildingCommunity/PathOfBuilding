@@ -13,16 +13,17 @@ local m_floor = math.floor
 local s_format = string.format
 local inspect = LoadModule("inspect")
 
-local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
+local AtlasTabClass = newClass("AtlasTab", "ControlHost", function(self, build)
 	self.ControlHost()
 
 	self.build = build
 	self.isComparing = false;
 
-	self.viewer = new("PassiveTreeView")
+	self.viewer = new("AtlasTreeView")
 
 	self.specList = { }
-	self.specList[1] = new("PassiveSpec", build, latestTreeVersion)
+	-- self.specList[1] = new("AtlasSpec", build, latestTreeVersion)
+	self.specList[1] = new("AtlasSpec", build, '3_16')
 	self:SetActiveSpec(1)
 	self:SetCompareSpec(1)
 
@@ -80,17 +81,18 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			end
 		end
 	end
-	self.controls.compareCheck = new("CheckBoxControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 74, 0, 20, "Compare:", function(state)
-		self.isComparing = state
-		self:SetCompareSpec(self.activeCompareSpec)
-		self.controls.compareSelect.shown = state
-		if state then
-			self.controls.reset:SetAnchor("LEFT",self.controls.compareSelect,"RIGHT",nil,nil,nil)
-		else
-			self.controls.reset:SetAnchor("LEFT",self.controls.compareCheck,"RIGHT",nil,nil,nil)
-		end
-	end)
-	self.controls.compareSelect = new("DropDownControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 190, 20, nil, function(index, value)
+	-- self.controls.compareCheck = new("CheckBoxControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 74, 0, 20, "Compare:", function(state)
+		-- self.isComparing = state
+		-- self:SetCompareSpec(self.activeCompareSpec)
+		-- self.controls.compareSelect.shown = state
+		-- if state then
+			-- self.controls.reset:SetAnchor("LEFT",self.controls.compareSelect,"RIGHT",nil,nil,nil)
+		-- else
+			-- self.controls.reset:SetAnchor("LEFT",self.controls.compareCheck,"RIGHT",nil,nil,nil)
+		-- end
+	-- end)
+	-- self.controls.compareSelect = new("DropDownControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 190, 20, nil, function(index, value)
+	self.controls.compareSelect = new("DropDownControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 8, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self:SetCompareSpec(index)
 		end
@@ -99,7 +101,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.compareSelect.maxDroppedWidth = 1000
 	self.controls.compareSelect.enableDroppedWidth = true
 	self.controls.compareSelect.enableChangeBoxWidth = true
-	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
+	-- self.controls.reset = new("ButtonControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
+	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
 		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
 			self.build.spec:ResetNodes()
 			self.build.spec:BuildAllDependsAndPaths()
@@ -116,7 +119,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
 	end)
-  self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
+	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
 	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
@@ -157,7 +160,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		return self.showConvert
 	end
 	self.controls.specConvert = new("ButtonControl", {"LEFT",self.controls.specConvertText,"RIGHT"}, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
-		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
+		local newSpec = new("AtlasSpec", self.build, latestTreeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
 		newSpec.tree.legion.editedNodes = self.build.spec.tree.legion.editedNodes
@@ -173,7 +176,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.jumpToY = 0
 end)
 
-function TreeTabClass:Draw(viewPort, inputEvents)
+function AtlasTabClass:Draw(viewPort, inputEvents)
 	self.anchorControls.x = viewPort.x + 4
 	self.anchorControls.y = viewPort.y + viewPort.height - 24
 
@@ -282,12 +285,12 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self:DrawControls(viewPort)
 end
 
-function TreeTabClass:Load(xml, dbFileName)
--- print("Passive" .. inspect(xml))
+function AtlasTabClass:Load(xml, dbFileName)
+print("Atlas"..inspect(xml))
 	self.specList = { }
 	if xml.elem == "Spec" then
 		-- Import single spec from old build
-		self.specList[1] = new("PassiveSpec", self.build, defaultTreeVersion)
+		self.specList[1] = new("AtlasSpec", self.build, defaultTreeVersion)
 		self.specList[1]:Load(xml, dbFileName)
 		self.activeSpec = 1
 		self.build.spec = self.specList[1]
@@ -300,25 +303,25 @@ function TreeTabClass:Load(xml, dbFileName)
 					main:OpenMessagePopup("Unknown Passive Tree Version", "The build you are trying to load uses an unrecognised version of the passive skill tree.\nYou may need to update the program before loading this build.")
 					return true
 				end
-				local newSpec = new("PassiveSpec", self.build, node.attrib.treeVersion or defaultTreeVersion)
+				local newSpec = new("AtlasSpec", self.build, node.attrib.treeVersion or defaultTreeVersion)
 				newSpec:Load(node, dbFileName)
 				t_insert(self.specList, newSpec)
 			end
 		end
 	end
 	if not self.specList[1] then
-		self.specList[1] = new("PassiveSpec", self.build, latestTreeVersion)
+		self.specList[1] = new("AtlasSpec", self.build, latestTreeVersion)
 	end
 	self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
 end
 
-function TreeTabClass:PostLoad()
+function AtlasTabClass:PostLoad()
 	for _, spec in ipairs(self.specList) do
 		spec:PostLoad()
 	end
 end
 
-function TreeTabClass:Save(xml)
+function AtlasTabClass:Save(xml)
 	xml.attrib = { 
 		activeSpec = tostring(self.activeSpec)
 	}
@@ -332,7 +335,7 @@ function TreeTabClass:Save(xml)
 	self.modFlag = false
 end
 
-function TreeTabClass:SetActiveSpec(specId)
+function AtlasTabClass:SetActiveSpec(specId)
 	local prevSpec = self.build.spec
 	self.activeSpec = m_min(specId, #self.specList)
 	local curSpec = self.specList[self.activeSpec]
@@ -364,23 +367,23 @@ function TreeTabClass:SetActiveSpec(specId)
 	self.build.itemsTab.controls.specSelect.selIndex = specId
 end
 
-function TreeTabClass:SetCompareSpec(specId)
+function AtlasTabClass:SetCompareSpec(specId)
 	self.activeCompareSpec = m_min(specId, #self.specList)
 	local curSpec = self.specList[self.activeCompareSpec]
 
 	self.compareSpec = curSpec
 end
 
-function TreeTabClass:OpenSpecManagePopup()
+function AtlasTabClass:OpenSpecManagePopup()
 	main:OpenPopup(370, 290, "Manage Passive Trees", {
-		new("SpecListControl", nil, 0, 50, 350, 200, self, "PassiveSpec"),
+		new("SpecListControl", nil, 0, 50, 350, 200, self, "AtlasSpec"),
 		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
 			main:ClosePopup()
 		end),
 	})
 end
 
-function TreeTabClass:OpenImportPopup()
+function AtlasTabClass:OpenImportPopup()
 	local controls = { }
 	local function decodeTreeLink(treeLink)
 		local errMsg = self.build.spec:DecodeURL(treeLink)
@@ -441,7 +444,7 @@ function TreeTabClass:OpenImportPopup()
 	main:OpenPopup(380, 110, "Import Tree", controls, "import", "edit")
 end
 
-function TreeTabClass:OpenExportPopup()
+function AtlasTabClass:OpenExportPopup()
 	local treeLink = self.build.spec:EncodeURL(treeVersions[self.build.spec.treeVersion].url)
 	local popup
 	local controls = { }
@@ -470,7 +473,7 @@ function TreeTabClass:OpenExportPopup()
 	popup = main:OpenPopup(380, 100, "Export Tree", controls, "done", "edit")
 end
 
-function TreeTabClass:ModifyNodePopup(selectedNode)
+function AtlasTabClass:ModifyNodePopup(selectedNode)
 	local controls = { }
 	local modGroups = { }
 	local smallAdditions = {"Strength", "Dex", "Devotion"}
@@ -648,7 +651,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	constructUI(modGroups[1])
 end
 
-function TreeTabClass:SaveMasteryPopup(node, listControl)
+function AtlasTabClass:SaveMasteryPopup(node, listControl)
 		if listControl.selValue == nil then
 			return
 		end
@@ -667,7 +670,7 @@ function TreeTabClass:SaveMasteryPopup(node, listControl)
 		main:ClosePopup()
 end
 
-function TreeTabClass:OpenMasteryPopup(node, viewPort)
+function AtlasTabClass:OpenMasteryPopup(node, viewPort)
 	local controls = { }
 	local effects = { }
 	local cachedSd = node.sd
@@ -694,7 +697,7 @@ function TreeTabClass:OpenMasteryPopup(node, viewPort)
 	end
 end
 
-function TreeTabClass:SetPowerCalc(selection)
+function AtlasTabClass:SetPowerCalc(selection)
 	self.viewer.showHeatMap = true
 	self.build.buildFlag = true
 	self.build.calcsTab.powerBuildFlag = true
@@ -707,7 +710,7 @@ function TreeTabClass:SetPowerCalc(selection)
 	end
 end
 
-function TreeTabClass:BuildPowerReportUI()
+function AtlasTabClass:BuildPowerReportUI()
 	self.controls.powerReport.tooltipText = "A report of node efficacy based on current heat map selection"
 
 	self.controls.allocatedNodeToggle = new("ButtonControl", {"TOPLEFT",self.controls.powerReportList,"TOPRIGHT"}, 8, 4, 160, 20, "Show allocated nodes", function()
@@ -725,7 +728,7 @@ function TreeTabClass:BuildPowerReportUI()
 	end)
 end
 
-function TreeTabClass:TogglePowerReport(caller)
+function AtlasTabClass:TogglePowerReport(caller)
 	self = self or caller
 	self.controls.powerReport.label = self.showPowerReport and "Hide Power Report" or "Show Power Report"
 	local currentStat = self.build.calcsTab and self.build.calcsTab.powerStat or nil
@@ -768,7 +771,7 @@ function TreeTabClass:TogglePowerReport(caller)
 	self.controls.allocatedNodeToggle.label = self.controls.powerReportList.allocated and "Show Unallocated Nodes" or "Show allocated nodes"
 end
 
-function TreeTabClass:BuildPowerReportList(currentStat)
+function AtlasTabClass:BuildPowerReportList(currentStat)
 	local report = {}
 
 	if not (currentStat and currentStat.stat) then

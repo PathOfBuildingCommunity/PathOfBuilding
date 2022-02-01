@@ -11,6 +11,7 @@ local m_max = math.max
 local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
+local inspect = LoadModule("inspect")
 
 local banditDropList = {
 	{ label = "2 Passive Points", id = "None" },
@@ -284,7 +285,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
-
+	
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
 	-- This may be user-customisable in the future
@@ -480,10 +481,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.viewMode = "CONFIG"
 	end)
 	self.controls.modeConfig.locked = function() return self.viewMode == "CONFIG" end
+
 	self.controls.modeTree = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 26, 72, 20, "Tree", function()
 		self.viewMode = "TREE"
 	end)
 	self.controls.modeTree.locked = function() return self.viewMode == "TREE" end
+	self.controls.modeAtlas = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 46, 72, 20, "Atlas", function()
+		self.viewMode = "ATLAS"
+	end)
+	self.controls.modeTree.locked = function() return self.viewMode == "ATLAS" end
+
 	self.controls.modeSkills = new("ButtonControl", {"LEFT",self.controls.modeTree,"RIGHT"}, 4, 0, 72, 20, "Skills", function()
 		self.viewMode = "SKILLS"
 	end)
@@ -496,6 +503,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.viewMode = "CALCS"
 	end)
 	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
+
 	self.controls.bandit = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 300, 16, banditDropList, function(index, value)
 		self.bandit = value.id
 		self.modFlag = true
@@ -669,6 +677,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.configTab = new("ConfigTab", self)
 	self.itemsTab = new("ItemsTab", self)
 	self.treeTab = new("TreeTab", self)
+	self.atlasTab = new("AtlasTab", self)
 	self.skillsTab = new("SkillsTab", self)
 	self.calcsTab = new("CalcsTab", self)
 
@@ -678,6 +687,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		["Notes"] = self.notesTab,
 		["Tree"] = self.treeTab,
 		["TreeView"] = self.treeTab.viewer,
+		["Atlas"] = self.atlasTab,
+		["AtlasView"] = self.atlasTab.viewer,
 		["Items"] = self.itemsTab,
 		["Skills"] = self.skillsTab,
 		["Calcs"] = self.calcsTab,
@@ -695,8 +706,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		-- Check if there is a saver that can load this section
 		local saver = self.savers[node.elem] or self.legacyLoaders[node.elem]
 		if saver then
-			-- if the saver is treetab, defer it until everything is is loaded
-			if saver == self.treeTab  then
+			-- if the saver is treetab, defer it until everything is loaded
+			if saver == self.treeTab then
+				t_insert(deferredPassiveTrees, node)
+			elseif saver == self.atlasTab then
 				t_insert(deferredPassiveTrees, node)
 			else
 				if saver:Load(node, self.dbFileName) then
@@ -708,9 +721,17 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 	for _, node in ipairs(deferredPassiveTrees) do
 		-- Check if there is a saver that can load this section
-		if self.treeTab:Load(node, self.dbFileName) then
-			self:CloseBuild()
-			return
+		print("Node: "..inspect(node))
+		if node.elem == "Tree" then
+			if self.treeTab:Load(node, self.dbFileName) then
+				self:CloseBuild()
+				return
+			end
+		elseif node.elem == "Atlas" then
+			if self.atlasTab:Load(node, self.dbFileName) then
+				self:CloseBuild()
+				return
+			end
 		end
 	end
 	for _, saver in pairs(self.savers) do
@@ -987,6 +1008,8 @@ function buildMode:OnFrame(inputEvents)
 		self.configTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "TREE" then
 		self.treeTab:Draw(tabViewPort, inputEvents)
+	elseif self.viewMode == "ATLAS" then
+		self.atlasTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "SKILLS" then
 		self.skillsTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "ITEMS" then
@@ -995,7 +1018,7 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	end
 
-	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.atlasTab.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
 
 	SetDrawLayer(5)
 

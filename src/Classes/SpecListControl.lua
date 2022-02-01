@@ -7,11 +7,11 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_max = math.max
 
-local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", function(self, anchor, x, y, width, height, treeTab)
+local SpecListClass = newClass("SpecListControl", "ListControl", function(self, anchor, x, y, width, height, treeTab, specClass)
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, treeTab.specList)
 	self.treeTab = treeTab
 	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, 2, -4, 60, 18, "Copy", function()
-		local newSpec = new("PassiveSpec", treeTab.build, self.selValue.treeVersion)
+		local newSpec = new(specClass, treeTab.build, self.selValue.treeVersion)
 		newSpec.title = self.selValue.title
 		newSpec.jewels = copyTable(self.selValue.jewels)
 		newSpec:RestoreUndoState(self.selValue:CreateUndoState())
@@ -42,7 +42,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 	self:UpdateItemsTabPassiveTreeDropdown()
 end)
 
-function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
+function SpecListClass:RenameSpec(spec, title, addOnName)
 	local controls = { }
 	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this passive tree:")
 	controls.edit = new("EditControl", nil, 0, 40, 350, 20, spec.title, nil, nil, 100, function(buf)
@@ -67,7 +67,7 @@ function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 	main:OpenPopup(370, 100, title, controls, "save", "edit")
 end
 
-function PassiveSpecListClass:GetRowValue(column, index, spec)
+function SpecListClass:GetRowValue(column, index, spec)
 	if column == 1 then
 		local used = spec:CountAllocNodes()
 		return (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")
@@ -77,19 +77,19 @@ function PassiveSpecListClass:GetRowValue(column, index, spec)
 	end
 end
 
-function PassiveSpecListClass:OnOrderChange()
+function SpecListClass:OnOrderChange()
 	self.treeTab.activeSpec = isValueInArray(self.list, self.treeTab.build.spec)
 	self.treeTab.modFlag = true
 	self:UpdateItemsTabPassiveTreeDropdown()
 end
 
-function PassiveSpecListClass:OnSelClick(index, spec, doubleClick)
+function SpecListClass:OnSelClick(index, spec, doubleClick)
 	if doubleClick and index ~= self.treeTab.activeSpec then
 		self.treeTab:SetActiveSpec(index)
 	end
 end
 
-function PassiveSpecListClass:OnSelDelete(index, spec)
+function SpecListClass:OnSelDelete(index, spec)
 	if #self.list > 1 then
 		main:OpenConfirmPopup("Delete Tree", "Are you sure you want to delete '"..(spec.title or "Default").."'?", "Delete", function()
 			t_remove(self.list, index)
@@ -106,14 +106,14 @@ function PassiveSpecListClass:OnSelDelete(index, spec)
 	end
 end
 
-function PassiveSpecListClass:OnSelKeyDown(index, spec, key)
+function SpecListClass:OnSelKeyDown(index, spec, key)
 	if key == "F2" then
 		self:RenameSpec(spec)
 	end
 end
 
 -- Update the passive tree dropdown control in itemsTab
-function PassiveSpecListClass:UpdateItemsTabPassiveTreeDropdown()
+function SpecListClass:UpdateItemsTabPassiveTreeDropdown()
 	local secondarySpecList = self.treeTab.build.itemsTab.controls.specSelect
 	local newSpecList = { }
 	for i = 1, #self.list do
