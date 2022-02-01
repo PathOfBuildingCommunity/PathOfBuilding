@@ -778,7 +778,6 @@ skills["ChargedAttack"] = {
 		{
 			name = "Channel & Release",
 			stages = true,
-			stagesMin = 1,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
@@ -1766,6 +1765,7 @@ skills["ChargedDash"] = {
 		},
 		{
 			name = "Release",
+			stages = true
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
@@ -1778,10 +1778,10 @@ skills["ChargedDash"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["charged_dash_damage_+%_final"] = {
-			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type="BaseReleaseDamage", skillPart = 3 }),
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["charged_dash_damage_+%_final_per_stack"] = {
-			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type="Multiplier", skillPart = 3, var = "ChargedDashStage" }),
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "Multiplier", var = "ChargedDashStage" }, { type = "SkillPart", skillPart = 3 }),
 		},
 		["charged_dash_channelling_damage_at_full_stacks_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),

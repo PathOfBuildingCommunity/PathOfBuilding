@@ -903,9 +903,10 @@ skills["Blight"] = {
 	parts = {
 		{
 			name = "Manual Stacks",
+			stages = true,
 		},
 		{
-			name = "Maximum Stacks",
+			name = "Maximum Sustainable Stacks",
 		},
 	},
 	baseFlags = {
@@ -2570,6 +2571,7 @@ skills["DivineTempest"] = {
 		{
 			name = "Release",
 			area = true,
+			stages = true,
 		},
 	},
 	statMap = {
@@ -5641,9 +5643,11 @@ skills["ExpandingFireCone"] = {
 	parts = {
 		{
 			name = "Channelling",
+			stages = true,
 		},
 		{
 			name = "Release",
+			stages = true,
 		},
 	},
 	statMap = {
@@ -10926,9 +10930,11 @@ skills["FrostFury"] = {
 	parts = {
 		{
 			name = "Channelling",
+			stages = true
 		},
 		{
 			name = "Idle",
+			stages = true
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
