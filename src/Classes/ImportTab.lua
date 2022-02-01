@@ -207,30 +207,30 @@ You can get this from your web browser's cookies while logged into the Path of E
 		if self.controls.exportFrom.selIndex then
 			exportWebsite = exportWebsitesList[self.controls.exportFrom.selIndex]
 			response = LaunchSubScript([[
-					local code, proxyURL = ...
-					local curl = require("lcurl.safe")
-					local page = ""
-					local easy = curl.easy()
-					easy:setopt_url(']]..exportWebsite.postUrl..[[')
-					easy:setopt(curl.OPT_POST, true)
-					easy:setopt(curl.OPT_POSTFIELDS, ']]..exportWebsite.postFields..[['..code)
-					easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
-					if proxyURL then
-						easy:setopt(curl.OPT_PROXY, proxyURL)
-					end
-					easy:setopt_writefunction(function(data)
-						page = page..data
-						return true
-					end)
-					easy:perform()
-					local res = easy:getinfo_response_code()
-					easy:close()
-					if (res == 200) then
-						return page
-					else
-						return nil, page
-					end
-				]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
+				local code, proxyURL = ...
+				local curl = require("lcurl.safe")
+				local page = ""
+				local easy = curl.easy()
+				easy:setopt_url(']]..exportWebsite.postUrl..[[')
+				easy:setopt(curl.OPT_POST, true)
+				easy:setopt(curl.OPT_POSTFIELDS, ']]..exportWebsite.postFields..[['..code)
+				easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
+				if proxyURL then
+					easy:setopt(curl.OPT_PROXY, proxyURL)
+				end
+				easy:setopt_writefunction(function(data)
+					page = page..data
+					return true
+				end)
+				easy:perform()
+				local res = easy:getinfo_response_code()
+				easy:close()
+				if (res == 200) then
+					return page
+				else
+					return nil, page
+				end
+			]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
 		end
 		if response ~= "" then
 			self.controls.generateCodeOut:SetText("")
