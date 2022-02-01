@@ -2967,7 +2967,7 @@ function calcs.offence(env, actor, activeSkill)
 						{ "%.2f ^8(damage rate modifier)", rateMod },
 						{ "%.3f ^8(effective DPS modifier)", effMult },
 						{ "%d ^8(bleed stacks)", globalOutput.BleedStacks },
-						{ "%.3f ^8(bleed chance based on HitChance in 1 second interval)", chanceToHitInOneSecInterval },
+						{ "%.3f ^8(bleed chance based on chance to hit each second)", chanceToHitInOneSecInterval },
 						total = s_format("= %.1f ^8per second", output.BleedDPS),
 					})
 					if globalOutput.BleedDuration ~= durationBase then
