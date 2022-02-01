@@ -832,7 +832,7 @@ return {
 		{ breakdown = "OffHand.IgniteDamage" },
 		{ breakdown = "IgniteDamage" },
 	}, },
-	{ label = "Max Ignite Stacks", flag = "igniteCanStack", { format = "{1:output:TotalIgniteStacks}", { modName = "IgniteStacks" }, }, },
+	{ label = "Max Ignite Stacks", flag = "igniteCanStack", { format = "{1:output:IgniteStacksMax}", { modName = "IgniteStacks" }, }, },
 } }
 } },
 { 1, "Decay", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Decay", data = {

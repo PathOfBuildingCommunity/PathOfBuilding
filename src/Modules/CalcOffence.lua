@@ -50,8 +50,8 @@ local damageStatsForTypes = setmetatable({ }, { __index = function(t, k)
 	return modNames
 end })
 
-globalOutput = nil
-globalBreakdown = nil
+local globalOutput = nil
+local globalBreakdown = nil
 
 -- Calculate min/max damage for the given damage type
 local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags, convDst)
@@ -1410,7 +1410,8 @@ function calcs.offence(env, actor, activeSkill)
 				local offPortion = offChance / (mainChance + offChance)
 				local maxInstance = m_max(output.MainHand[stat], output.OffHand[stat])
 				local minInstance = m_min(output.MainHand[stat], output.OffHand[stat])
-				local maxInstanceStacks = m_min(1, globalOutput.BleedStacks /  globalOutput.BleedStacksMax)
+				local stackName = stat:gsub("DPS","") .. "Stacks"
+				local maxInstanceStacks = m_min(1, (globalOutput[stackName] or 1) / (globalOutput[stackName.."Max"] or 1))
 				output[stat] = maxInstance * maxInstanceStacks + minInstance * (1 - maxInstanceStacks)
 				if breakdown then
 					breakdown[stat] = { }
@@ -3213,7 +3214,7 @@ function calcs.offence(env, actor, activeSkill)
 			if skillFlags.igniteCanStack then
 				maxStacks = maxStacks + skillModList:Sum("BASE", cfg, "IgniteStacks")
 			end
-			globalOutput.TotalIgniteStacks = maxStacks
+			globalOutput.IgniteStacksMax = maxStacks
 
 			local rateMod = (calcLib.mod(skillModList, cfg, "IgniteBurnFaster") + enemyDB:Sum("INC", nil, "SelfIgniteBurnFaster") / 100)  / calcLib.mod(skillModList, cfg, "IgniteBurnSlower")
 			local durationBase = data.misc.IgniteDurationBase
@@ -3311,7 +3312,7 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
-					output.TotalIgniteStacks = maxStacks
+					output.IgniteStacksMax = maxStacks
 					output.TotalIgniteDPS = output.IgniteDPS
 				end
 				
@@ -3324,7 +3325,7 @@ function calcs.offence(env, actor, activeSkill)
 						{ "%.2f ^8(ailment effect modifier)", effectMod },
 						{ "%.2f ^8(burn rate modifier)", rateMod },
 						{ "%.3f ^8(effective DPS modifier)", effMult },
-						{ "%d ^8(ignite stacks)", output.TotalIgniteStacks },
+						{ "%d ^8(ignite stacks)", output.IgniteStacksMax },
 						total = s_format("= %.1f ^8per second", output.IgniteDPS),
 					})
 					if output.CritIgniteDotMulti and (output.CritIgniteDotMulti ~= output.IgniteDotMulti) then
@@ -3810,10 +3811,10 @@ function calcs.offence(env, actor, activeSkill)
 			combineStat("IgniteDamage", "CHANCE", "IgniteChance")
 			if skillData.showAverage then
 				combineStat("TotalIgniteAverageDamage", "DPS")
-				combineStat("TotalIgniteStacks", "DPS")
+				combineStat("IgniteStacksMax", "DPS")
 				combineStat("TotalIgniteDPS", "DPS")
 			else
-				combineStat("TotalIgniteStacks", "DPS")
+				combineStat("IgniteStacksMax", "DPS")
 				combineStat("TotalIgniteDPS", "DPS")
 			end
 		end
