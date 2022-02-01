@@ -217,7 +217,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 			easy:setopt_url("https://pobb.in/pob/")
 			easy:setopt(curl.OPT_POST, true)
 			easy:setopt(curl.OPT_POSTFIELDS, code)
-			easy:setopt(curl.OPT_ACCEPT_ENCODING, "gzip, deflate, br")
+			easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
 			if proxyURL then
 				easy:setopt(curl.OPT_PROXY, proxyURL)
 			end
@@ -226,8 +226,9 @@ You can get this from your web browser's cookies while logged into the Path of E
 				return true
 			end)
 			easy:perform()
+			local res = easy:getinfo_response_code()
 			easy:close()
-			if page:match("id") then
+			if (res == 200) then
 				return page
 			else
 				return nil, page
@@ -245,9 +246,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 					if self.controls.exportFrom.selIndex == 1 then
 						self.controls.generateCodeOut:SetText(pasteLink)
 					elseif self.controls.exportFrom.selIndex == 2 then
-						-- example response from pobbin api: {"id":"qO1_QpuQLeDd"}
-						local pobbId = string.split(pasteLink, ":")[2]:gsub('\"+',''):gsub('}', '')
-						self.controls.generateCodeOut:SetText("https://pobb.in/" .. pobbId)
+						self.controls.generateCodeOut:SetText("https://pobb.in/" .. pasteLink)
 					end
 				end
 			end)
