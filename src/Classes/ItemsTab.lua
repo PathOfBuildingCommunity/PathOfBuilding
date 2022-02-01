@@ -2563,8 +2563,8 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 
 	-- Requirements
 	self.build:AddRequirementsToTooltip(tooltip, item.requirements.level, 
-		item.requirements.strMod, item.requirements.dexMod, item.requirements.intMod, item.requirements.omniMod, 
-		item.requirements.str or 0, item.requirements.dex or 0, item.requirements.int or 0, item.requirements.omni or 0)
+		item.requirements.strMod, item.requirements.dexMod, item.requirements.intMod, 
+		item.requirements.str or 0, item.requirements.dex or 0, item.requirements.int or 0)
 
 	-- Modifiers
 	for _, modList in ipairs{item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines} do
