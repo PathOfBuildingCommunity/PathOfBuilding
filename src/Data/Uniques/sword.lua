@@ -458,7 +458,7 @@ Minions deal (20-30)% increased Damage
 Minions have +17% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
 {variant:3}Minions have 60% chance to Poison Enemies on Hit
-Minions Recover 20% of Maximum Life on Killing a Poisoned Enemy
+Minions Recover 20% of Life on Killing a Poisoned Enemy
 ]],[[
 United in Dream
 Cutlass

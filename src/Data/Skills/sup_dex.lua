@@ -2888,12 +2888,9 @@ skills["SupportPuncturingWeapon"] = {
 		["Claw"] = true,
 	},
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-	},
 	baseMods = {
 		flag("SupportedByNightblade"),
 		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }),
-		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }),
 	},
 	qualityStats = {
 		Default = {

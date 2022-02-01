@@ -252,6 +252,31 @@ data.specialBaseTags = {
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
+data.cursePriority = {
+	["Warlord's Mark"] = 1,
+	["Despair"] = 2, -- Vulnerability
+	["Temporal Chains"] = 3,
+	["Sniper's Mark"] = 4,
+	["Punishment"] = 5,
+	["Poacher's Mark"] = 6,
+	["Vulnerability"] = 7, -- NewVulnerability
+	["Frostbite"] = 8,
+	["Flammability"] = 9,
+	["Enfeeble"] = 10,
+	["Elemental Weakness"] = 11,
+	["Conductivity"] = 12,
+	["Assassin's Mark"] = 13,
+	["CurseFromSkillGem"] = 100,
+	["CurseFromEquipment"] = 200,
+	["AnySlotMarkType"] = 1000,
+	["RightRingSlotMarkType"] = 2000,
+	["LeftRingSlotMarkType"] = 3000,
+	["AnySlotHexType"] = 4000,
+	["RightRingSlotHexType"] = 5000,
+	["LeftRingSlotHexType"] = 6000,
+	["CurseAura"] = 10000,
+}
+
 ---@type string[] @List of all keystones not exclusive to timeless jewels.
 data.keystones = {
 	"Acrobatics",
@@ -277,6 +302,7 @@ data.keystones = {
 	"Hollow Palm Technique",
 	"Imbalanced Guard",
 	"Immortal Ambition",
+	"Inner Conviction",
 	"Iron Grip",
 	"Iron Reflexes",
 	"Iron Will",
@@ -327,15 +353,13 @@ data.misc = { -- magic numbers
 	BleedDurationBase = 5,
 	PoisonPercentBase = 0.30,
 	PoisonDurationBase = 2,
-	IgnitePercentBase = 1.25,
+	IgnitePercentBase = 0.9,
 	IgniteDurationBase = 4,
 	ImpaleStoredDamageBase = 0.1,
 	BuffExpirationSlowCap = 0.25,
 	TrapTriggerRadiusBase = 10,
 	MineDetonationRadiusBase = 60,
 	MineAuraRadiusBase = 35,
-	PurposefulHarbingerMaxBuffPercent = 40,
-	VastPowerMaxAoEPercent = 50,
 	MaxEnemyLevel = 84,
 	LowPoolThreshold = 0.5,
 	AccuracyPerDexBase = 2,

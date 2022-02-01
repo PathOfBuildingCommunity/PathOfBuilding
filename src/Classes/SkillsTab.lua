@@ -423,8 +423,8 @@ function SkillsTabClass:CopySocketGroup(socketGroup)
 	Copy(skillText)
 end
 
-function SkillsTabClass:PasteSocketGroup()
-	local skillText = Paste()
+function SkillsTabClass:PasteSocketGroup(testInput)
+	local skillText = Paste() or testInput
 	if skillText then
 		local newGroup = { label = "", enabled = true, gemList = { } }
 		local label = skillText:match("Label: (%C+)")
