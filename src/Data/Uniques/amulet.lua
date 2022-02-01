@@ -304,7 +304,7 @@ Implicits: 1
 {variant:2}10% chance to gain Unholy Might for 10 seconds on Kill
 {variant:1}{tags:caster,attack}5% chance to gain Onslaught for 10 seconds on Kill
 {variant:2}{tags:caster,attack}10% chance to gain Onslaught for 10 seconds on Kill
-{tags:life}Recover 1% of Maximum Life on Kill
+{tags:life}Recover 1% of Life on Kill
 ]],[[
 Eye of Chayula
 Onyx Amulet
@@ -1028,6 +1028,8 @@ Implicits: 1
 ]],[[
 Willowgift
 Jade Amulet
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 52
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
@@ -1035,8 +1037,9 @@ Implicits: 1
 {tags:jewellery_attribute}15% increased Dexterity
 {tags:jewellery_resistance}-(30-20)% to Fire Resistance
 {tags:jewellery_resistance}+(30-40)% to Cold Resistance
-Fortify Buffs you create instead grant 30% more Evasion Rating
-{tags:caster,attack,speed}(15-25)% increased Attack and Cast Speed while you have Fortify
+You do not inherently take less Damage for having Fortification
+{variant:2}+4% chance to Suppress Spell Damage per Fortification
+{tags:caster,attack,speed}(15-25)% increased Attack and Cast Speed while at maximum Fortification
 ]],[[
 Winterheart
 Gold Amulet

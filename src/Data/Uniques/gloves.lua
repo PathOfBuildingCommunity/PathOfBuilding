@@ -428,7 +428,7 @@ Requires Level 15
 (6-9)% increased Attack Speed
 (80-120)% increased Armour and Evasion
 (3-4) Life Regenerated per second
-Recover 20% of your Maximum Life on Rampage
+Recover 20% of Life on Rampage
 Kills grant an additional Vaal Soul if you have Rampaged Recently
 Rampage
 ]],[[

@@ -31,7 +31,6 @@ Steps:
 1. Run each script in the Exporter in order
 2. Revert the following changes similar to the linked examples:
     - [Fix stats on Rigwald's Pack](https://github.com/PathOfBuildingCommunity/PathOfBuilding/commit/85912cc8631bf55f999f8dfbda5fa6510252518c#diff-72415c450079cf8e5de1f00680f4918fd78e43aea4ed78dc5906d5ccf6fb66fb)
-    - Make sure "of the Underground" mods don't apply to you as well as nearby enemies in [ModItem.lua](src/Data/ModItem.lua)
     - [Make sure the description of a keystone isn't removed](src/Data/LegionPassives.lua#L3911-L3915)
 
 ## Skill tree updates

@@ -65,6 +65,9 @@ skills["AnimateGuardianWeapon"] = {
 		["attack_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }),
 		},
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -371,7 +374,7 @@ skills["BloodSacramentUnique"] = {
 	fromItem = true,
 	initialFunc = function(activeSkill, output)
 		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
-		local lifeReserved = activeSkill.skillData["LifeReservedBase"]
+		local lifeReserved = activeSkill.skillData["LifeReservedBase"] or math.huge
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPercentPerStage", "BASE", lifeReservedPercent, "Blood Sacrament")
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPerStage", "BASE", lifeReserved, "Blood Sacrament")
 	end,
@@ -1512,7 +1515,7 @@ skills["IcestormUniqueStaff12"] = {
 		"skill_is_ice_storm",
 	},
 	levels = {
-		[1] = { 3, 5, 1000, 200, 450, 500, 100, 5, damageEffectiveness = 0.6, critChance = 6, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
+		[1] = { 5, 7, 1000, 200, 450, 500, 100, 5, critChance = 6, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
 	},
 }
 skills["TriggeredIcicleNova"] = {
@@ -1806,11 +1809,6 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
-	statMap = {
-		["triggered_spell_spell_damage_+%"] = {
-			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }),
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {

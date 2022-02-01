@@ -189,7 +189,7 @@ function calcs.defence(env, actor)
 
 	if modDB:Flag(nil, "ArmourAppliesToEnergyShieldRecharge") then
 		-- Armour to ES Recharge conversion from Armour and Energy Shield Mastery
-		local multiplier = modDB:Max(nil, "ImprovedArmourAppliesToEnergyShieldRecharge") / 100
+		local multiplier = (modDB:Max(nil, "ImprovedArmourAppliesToEnergyShieldRecharge") or 100) / 100
 		for _, value in ipairs(modDB:Tabulate("INC", nil, "Armour")) do
 			local mod = value.mod
 			local modifiers = calcLib.getConvertedModTags(mod, multiplier)
@@ -421,7 +421,7 @@ function calcs.defence(env, actor)
 		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
 		output.Armour = m_max(round(armour), 0)
 		output.MoreArmourChance = m_min(modDB:Sum("BASE", nil, "MoreArmourChance"), 100)
-		output.ArmourDefense = (modDB:Max(nil, "ArmourDefense") / 100) or 0
+		output.ArmourDefense = (modDB:Max(nil, "ArmourDefense") or 0) / 100
 		output.RawArmourDefense = output.ArmourDefense > 0 and ((1 + output.ArmourDefense) * 100) or nil
 		output.Evasion = m_max(round(evasion), 0)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
@@ -514,11 +514,12 @@ function calcs.defence(env, actor)
 
 	-- Leech caps
 	output.MaxLifeLeechInstance = output.Life * calcLib.val(modDB, "MaxLifeLeechInstance") / 100
-	output.MaxLifeLeechRate = output.Life * calcLib.val(modDB, "MaxLifeLeechRate") / 100
+	output.MaxLifeLeechRatePercent = calcLib.val(modDB, "MaxLifeLeechRate")
+	output.MaxLifeLeechRate = output.Life * output.MaxLifeLeechRatePercent / 100
 	if breakdown then
 		breakdown.MaxLifeLeechRate = {
 			s_format("%d ^8(maximum life)", output.Life),
-			s_format("x %d%% ^8(percentage of life to maximum leech rate)", calcLib.val(modDB, "MaxLifeLeechRate")),
+			s_format("x %d%% ^8(percentage of life to maximum leech rate)", output.MaxLifeLeechRatePercent),
 			s_format("= %.1f", output.MaxLifeLeechRate)
 		}
 	end
@@ -626,7 +627,6 @@ function calcs.defence(env, actor)
 	output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
 		modDB:NewMod("Condition:CanGainRage", "FLAG", true, "RageRegen")
-		modDB:NewMod("Dummy", "DUMMY", 1, "RageRegen", 0, { type = "Condition", var = "CanGainRage" }) -- Make the Configuration option appear
 		local base = modDB:Sum("BASE", nil, "RageRegen")
 		if modDB:Flag(nil, "ManaRegenToRageRegen") then
 			local mana = modDB:Sum("INC", nil, "ManaRegen")

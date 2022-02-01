@@ -642,6 +642,32 @@ local function doActorLifeManaReservation(actor)
 	end
 end
 
+-- Helper function to determine curse priority when processing curses beyond the curse limit
+local function determineCursePriority(curseName, skillTypes, source, slot)
+	local curseName = curseName or ""
+	local slot = slot or ""
+	local basePriority = data.cursePriority[curseName] or 0
+	local typePriority = skillTypes[SkillType.Aura] and data.cursePriority["CurseAura"] or 0
+	local sourcePriority = source and data.cursePriority["CurseFromEquipment"] or data.cursePriority["CurseFromSkillGem"]
+	local slotPriority = data.cursePriority["AnySlotHexType"]
+	if slot:match("Ring 1") then
+		if curseName:match("'s Mark") then
+			slotPriority = data.cursePriority["LeftRingSlotMarkType"]
+		else
+			slotPriority = data.cursePriority["LeftRingSlotHexType"]
+		end
+	elseif slot:match("Ring 2") then
+		if curseName:match("'s Mark") then
+			slotPriority = data.cursePriority["RightRingSlotMarkType"]
+		else
+			slotPriority = data.cursePriority["RightRingSlotHexType"]
+		end
+	elseif curseName:match("'s Mark") then
+		slotPriority = data.cursePriority["AnySlotMarkType"]
+	end
+	return basePriority + typePriority + sourcePriority + slotPriority
+end
+
 -- Process charges, enemy modifiers, and other buffs
 local function doActorMisc(env, actor)
 	local modDB = actor.modDB
@@ -776,25 +802,18 @@ local function doActorMisc(env, actor)
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
-		if modDB:Flag(nil, "Fortified") then
-			local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
-			local modList = modDB:List(nil, "convertFortificationBuff")
-			local changeMod = modList[#modList]
-			if changeMod then
-				local mod = changeMod.mod
-				if not mod.originValue then
-					mod.originValue = mod.value
-				end
-				mod.value = m_floor(mod.originValue * effectScale)
-				mod.source = "Fortification"
-				modDB:AddMod(mod)
-			else
-				local effectMax = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
-				local effect = m_floor(effectScale * m_min(modDB:Sum("BASE", nil, "Multiplier:Fortification"), effectMax))
+		-- Fortify from a mod, or minions getting stacks from Kingmaker
+		if modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
+			local maxStacks = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
+			local stacks = modDB:Override(nil, "FortificationStacks") or maxStacks
+			output.FortificationStacks = stacks
+			if not modDB:Flag(nil,"Condition:NoFortificationMitigation") then
+				local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
+				local effect = m_floor(effectScale * stacks)
 				modDB:NewMod("DamageTakenWhenHit", "MORE", -effect, "Fortification")
-				if modDB:Sum("BASE", nil, "Multiplier:Fortification") >= effectMax then
-					modDB:NewMod("Condition:HaveMaximumFortification", "FLAG", true, "")
-				end
+			end
+			if stacks >= maxStacks then
+				modDB:NewMod("Condition:HaveMaximumFortification", "FLAG", true, "")
 			end
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 		end
@@ -842,7 +861,7 @@ local function doActorMisc(env, actor)
 			modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + (output.ActivePhantasmLimit or 1) - 1 -- slight hack to not double count the initial buff
 		end
 		if modDB:Flag(nil, "Elusive") then
-			local maxSkillInc = modDB:Max({ source = "Skill" }, "ElusiveEffect")
+			local maxSkillInc = modDB:Max({ source = "Skill" }, "ElusiveEffect") or 0
 			local inc = modDB:Sum("INC", nil, "ElusiveEffect", "BuffEffectOnSelf")
 			inc = inc + maxSkillInc
 			output.ElusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
@@ -926,6 +945,10 @@ local function doActorMisc(env, actor)
 		if modDB:Sum("BASE", nil, "CoveredInAshEffect") > 0 then
 			local effect = modDB:Sum("BASE", nil, "CoveredInAshEffect")
 			enemyDB:NewMod("FireDamageTaken", "INC", m_min(effect, 20), "Covered in Ash")
+		end
+		if modDB:Sum("BASE", nil, "CoveredInFrostEffect") > 0 then
+			local effect = modDB:Sum("BASE", nil, "CoveredInFrostEffect")
+			enemyDB:NewMod("ColdDamageTaken", "INC", m_min(effect, 20), "Covered in Frost")
 		end
 		if modDB:Flag(nil, "HasMalediction") then
 			modDB:NewMod("DamageTaken", "INC", 10, "Malediction")
@@ -1121,7 +1144,6 @@ function calcs.perform(env, avoidCache)
 		end
 		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") and not modDB:Flag(nil, "AlreadyWithered") then
 			modDB:NewMod("Condition:CanWither", "FLAG", true, "Config")
-			modDB:NewMod("Dummy", "DUMMY", 1, "Config", { type = "Condition", var = "CanWither" })
 			local effect = activeSkill.minion and 6 or m_floor(6 * (1 + modDB:Sum("INC", nil, "WitherEffect") / 100))
 			enemyDB:NewMod("ChaosDamageTaken", "INC", effect, "Withered", { type = "Multiplier", var = "WitheredStack", limit = 15 } )
 			if modDB:Flag(nil, "Condition:CanElementalWithered") then
@@ -1607,7 +1629,7 @@ function calcs.perform(env, avoidCache)
 
 	if modDB:Flag(nil, "ManaAppliesToShockEffect") then
 		-- Maximum Mana conversion from Lightning Mastery
-		local multiplier = modDB:Max(nil, "ImprovedManaAppliesToShockEffect") / 100
+		local multiplier = (modDB:Max(nil, "ImprovedManaAppliesToShockEffect") or 100) / 100
 		for _, value in ipairs(modDB:Tabulate("INC", nil, "Mana")) do
 			local mod = value.mod
 			local modifiers = calcLib.getConvertedModTags(mod, multiplier)
@@ -1748,7 +1770,7 @@ function calcs.perform(env, avoidCache)
 					local curse = {
 						name = buff.name,
 						fromPlayer = true,
-						priority = activeSkill.skillTypes[SkillType.Aura] and 3 or 1,
+						priority = determineCursePriority(buff.name, activeSkill.skillTypes, activeSkill.socketGroup.source, activeSkill.socketGroup.slot),
 						isMark = mark,
 						ignoreHexLimit = modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") and not mark or false,
 						socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
@@ -1831,7 +1853,7 @@ function calcs.perform(env, avoidCache)
 						if env.mode_effective and activeSkill.skillData.enable and (not enemyDB:Flag(nil, "Hexproof") or activeSkill.skillTypes[SkillType.Mark]) then
 							local curse = {
 								name = buff.name,
-								priority = 1,
+								priority = determineCursePriority(buff.name, activeSkill.skillTypes, activeSkill.socketGroup.source, activeSkill.socketGroup.slot),
 							}
 							local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
 							local more = skillModList:More(skillCfg, "CurseEffect") * enemyDB:More(nil, "CurseEffectOnSelf")
@@ -1901,7 +1923,7 @@ function calcs.perform(env, avoidCache)
 					local curse = {
 						name = grantedEffect.name,
 						fromPlayer = (dest == curses),
-						priority = 2,
+						priority = determineCursePriority(grantedEffect.name),
 					}
 					curse.modList = new("ModList")
 					curse.modList:ScaleAddList(curseModList, (1 + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * enemyDB:More(nil, "CurseEffectOnSelf"))
@@ -2540,8 +2562,8 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local match1 = skill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-			local match2 = (not skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			if skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill and (match1 or match2) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
@@ -2592,8 +2614,8 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local match1 = skill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-			local match2 = (not skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			if skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and skill ~= env.player.mainSkill and (match1 or match2) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
@@ -2641,8 +2663,8 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local match1 = skill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-			local match2 = (not skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			if skill.skillTypes[SkillType.Channel] and skill ~= env.player.mainSkill and (match1 or match2) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end

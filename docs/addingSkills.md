@@ -41,7 +41,8 @@ The most important tables constructed from the game data are the `stats` table, 
 Notice how these stat numbers don't really align with damage numbers in any meaningful way for active skills.  The stat numbers are interpolated by the numbers in the corresponding position in the `statInterpolation` table in the same row.
 * 1 means take the number as-is.  This is the most common interpolation
 * 2 means apply a linear interpolation: `statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))`
-* 3 means apply an effectiveness interpolation.  Take this formula for current effectiveness and multiply by the gem level: `(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1) * (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)` 
+* 3 means apply an effectiveness interpolation.  Take this formula for current effectiveness and multiply by the first two values in the gem level's row: `(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1) * (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)`
+  - For example, a level 20 Fireball (as of this writing) deals 1095 to 1643 damage.  To get those numbers we'd apply the formula like so: `(3.885209 + 0.360246 * (70 - 1)) * (2.9384000301361 or 1) * (1 + (0.041200000792742 or 0)) ^ (70 - 1)` ends up being 1369.26, and multiplied by the lower value for the level 20 row (0.80000001192093) you get 1095 minimum damage.  Do the same thing for the higher value in that same row (1.2000000476837) and you get 1643 maximum damage.
 
 The code for this can be found in `CalcTools.lua` starting [here](../src/Modules/CalcTools.lua#L166)
 

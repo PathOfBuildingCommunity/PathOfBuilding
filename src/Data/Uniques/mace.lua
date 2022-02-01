@@ -261,8 +261,8 @@ Implicits: 1
 40% increased Elemental Damage
 Grants Level 25 Scorching Ray Skill
 (12-20)% increased Cast Speed 
-Recover (1-3)% of Maximum Life on Kill 
-Recover (1-3)% of Maximum Mana on Kill
+Recover (1-3)% of Life on Kill
+Recover (1-3)% of Mana on Kill
 10% increased Scorching Ray beam length
 ]],[[
 Bitterdream
@@ -783,7 +783,7 @@ Implicits: 1
 Adds (94-98) to (115-121) Physical Damage
 +(25-50) to all Attributes
 Enemies killed explode dealing 10% of their Life as Fire Damage
-Recover 5% of Maximum Life on Kill
+Recover 5% of Life on Kill
 ]],[[
 Tidebreaker
 Imperial Maul
