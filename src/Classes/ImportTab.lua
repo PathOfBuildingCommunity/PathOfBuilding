@@ -16,6 +16,21 @@ local realmList = {
 	{ label = "Tencent", id = "PC", realmCode = "pc", hostName = "https://poe.game.qq.com/", profileURL = "account/view-profile/" },
 }
 
+-- Import/Export websites list used in dropdowns
+local importWebsiteList = {
+	{
+		label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1",
+		codeOut = "", postUrl = "https://pastebin.com/api/api_post.php", postFields = "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="
+	},
+	{ label = "PastebinP.com", id = "PastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
+	{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
+	{ label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1" },
+	{
+		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/%w+", regexURL = "pobb%.in/([%w-_]+)%s*$", downloadURL = "pobb.in/pob/%1",
+		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = ""
+	},
+}
+
 local influenceInfo = itemLib.influenceInfo
 
 local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(self, build)
@@ -171,20 +186,6 @@ You can get this from your web browser's cookies while logged into the Path of E
 		return #self.controls.generateCodeOut.buf > 0
 	end
 
-	-- Import/Export websites list used in dropdowns
-	local importWebsiteList = {
-	{
-		label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1",
-		codeOut = "", postUrl = "https://pastebin.com/api/api_post.php", postFields = "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="
-	},
-	{ label = "PastebinP.com", id = "PastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
-	{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
-	{ label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1" },
-	{
-		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/%w+", regexURL = "pobb%.in/([%w-_]+)%s*$", downloadURL = "pobb.in/pob/%1",
-		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = ""
-	},
-}
 	local getExportSitesFromImportList = function()
 		local exportWebsites = { }
 		for k,v in pairs(importWebsiteList) do
