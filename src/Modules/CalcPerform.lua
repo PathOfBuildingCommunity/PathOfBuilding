@@ -2516,18 +2516,15 @@ function calcs.perform(env, avoidCache)
 				if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
 					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = cooldownOverride or (skill.skillData.cooldown / icdr), next_trig = 0, count = 0 })
 				end
-				env.player.mainSkill.infoTrigger = ""
 			else
 				ConPrintf("[ERROR]: Unhandled Unique Trigger Name: " .. uniqueTriggerName)
 			end
 		end
 		if not source or #spellCount < 1 then
-			if not specialCase then
-				env.player.mainSkill.skillData.triggeredByUnique = nil
-				env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
-				env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
-				env.player.mainSkill.infoTrigger = ""
-			end
+			env.player.mainSkill.skillData.triggeredByUnique = nil
+			env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)

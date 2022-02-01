@@ -1466,7 +1466,16 @@ function calcs.offence(env, actor, activeSkill)
 				local cachedSourceSkill = GlobalCache.cachedData[calcMode][skillData.triggerSourceUUID]
 				-- if properly processed, get it's dpsMultiplier to increase triggerRate
 				if cachedSourceSkill then
-					skillData.triggerRate = skillData.triggerRate * (cachedSourceSkill.ActiveSkill.skillData.dpsMultiplier or 1)
+					skillData.unleashTriggerRate = skillData.triggerRate * (cachedSourceSkill.ActiveSkill.skillData.dpsMultiplier or 1)
+					if breakdown then
+						breakdown.Speed = {
+							s_format("%.2f ^8(trigger rate)", skillData.triggerRate),
+							s_format("* %.2f ^8(multiplier from Unleash)", cachedSourceSkill.ActiveSkill.skillData.dpsMultiplier or 1),
+							s_format("= %.2f", skillData.unleashTriggerRate),
+						}
+					end
+					-- over-write the triggerRate modifier after breakdown as other calcs use it
+					skillData.triggerRate = skillData.unleashTriggerRate
 				end
 				-- give this activeSkill "HasSeals" flag so Configuration Option for UseMaxUnleash is available
 				activeSkill.skillFlags.HasSeals = true
