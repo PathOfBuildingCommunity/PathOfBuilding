@@ -699,7 +699,7 @@ return {
 	extra = "{0:output:BleedChance}% {1:output:BleedDPS} {2:output:BleedDuration}s",
 	flag = "bleed",
 	{ label = "Max Bleed Stacks", { format = "{0:output:BleedStacksMax}", { modName = "BleedStacksMax" } }, },
-	{ label = "Stacks on Enemy", { format = "{0:output:BleedStacks}" }},
+	{ label = "Stack Potential", { format = "{2:output:BleedStackPotential}", { breakdown = "BleedStackPotential" } }},
 	{ label = "Chance to Bleed", { format = "{0:output:BleedChance}%", 
 		{ breakdown = "MainHand.BleedChance" },
 		{ breakdown = "OffHand.BleedChance" },
@@ -782,6 +782,8 @@ return {
 { 1, "Ignite", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Ignite", data = {	
 	extra = "{0:output:IgniteChance}% {1:output:IgniteDPS} {2:output:IgniteDuration}s",
 	flag = "ignite",
+	{ label = "Max Ignite Stacks", flag = "igniteCanStack", { format = "{1:output:IgniteStacksMax}", { modName = "IgniteStacks" }, }, },
+	{ label = "Stack Potential", { format = "{2:output:IgniteStackPotential}", { breakdown = "IgniteStackPotential" } }},
 	{ label = "Chance to Ignite", { format = "{0:output:IgniteChance}%", 
 		{ breakdown = "MainHand.IgniteChance" }, 
 		{ breakdown = "OffHand.IgniteChance" },
@@ -791,8 +793,9 @@ return {
 	}, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "FireDamage", "ElementalDamage" }, modType = "INC", cfg = "ignite" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Damage", "FireDamage", "ElementalDamage" }, modType = "MORE", cfg = "ignite" }, }, },
+	{ label = "Eff. DoT Multi", bgCol = colorCodes.MAINHANDBG, notFlag = "attack", haveOutput = "IgniteDotMulti", { format = "x {2:output:IgniteDotMulti}", { breakdown = "IgniteDotMulti" }, { modName = { "DotMultiplier", "FireDotMultiplier" }, modType = "BASE", cfg = "ignite" }, }, },
 	{ label = "MH Eff. DoT Multi", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", haveOutput = "MainHand.IgniteDotMulti", { format = "x {2:output:MainHand.IgniteDotMulti}", { breakdown = "MainHand.IgniteDotMulti" }, { modName = { "DotMultiplier", "FireDotMultiplier" }, modType = "BASE", cfg = "ignite" }, }, },
-	{ label = "OH Eff. DoT Multi", bgCol = colorCodes.OFFHANDBG, flag = "weapon1Attack", haveOutput = "OffHand.IgniteDotMulti", { format = "x {2:output:OffHand.IgniteDotMulti}", { breakdown = "OffHand.IgniteDotMulti" }, { modName = { "DotMultiplier", "FireDotMultiplier" }, modType = "BASE", cfg = "OHignite" }, }, },
+	{ label = "OH Eff. DoT Multi", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.IgniteDotMulti", { format = "x {2:output:OffHand.IgniteDotMulti}", { breakdown = "OffHand.IgniteDotMulti" }, { modName = { "DotMultiplier", "FireDotMultiplier" }, modType = "BASE", cfg = "OHignite" }, }, },
 	{ label = "Source Physical", textSize = 12, notFlag = "attack", haveOutput = "IgnitePhysicalMax", { format = "{0:output:IgnitePhysicalMin} to {0:output:IgnitePhysicalMax}", { breakdown = "IgnitePhysical" }, }, },
 	{ label = "MH Source Physical", bgCol = colorCodes.MAINHANDBG, textSize = 12, flag = "weapon1Attack", haveOutput = "MainHand.IgnitePhysicalMax", { format = "{0:output:MainHand.IgnitePhysicalMin} to {0:output:MainHand.IgnitePhysicalMax}", { breakdown = "MainHand.IgnitePhysical" }, }, },
 	{ label = "OH Source Physical", bgCol = colorCodes.OFFHANDBG, textSize = 12, flag = "weapon2Attack", haveOutput = "OffHand.IgnitePhysicalMax", { format = "{0:output:OffHand.IgnitePhysicalMin} to {0:output:OffHand.IgnitePhysicalMax}", { breakdown = "OffHand.IgnitePhysical" }, }, },
@@ -832,7 +835,6 @@ return {
 		{ breakdown = "OffHand.IgniteDamage" },
 		{ breakdown = "IgniteDamage" },
 	}, },
-	{ label = "Max Ignite Stacks", flag = "igniteCanStack", { format = "{1:output:IgniteStacksMax}", { modName = "IgniteStacks" }, }, },
 } }
 } },
 { 1, "Decay", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Decay", data = {
