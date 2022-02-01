@@ -2901,7 +2901,7 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.BleedStackPotential = bleedStacks
 			if globalBreakdown then
 				globalBreakdown.BleedStackPotential = {
-					s_format(colorCodes.CUSTOM.."NOTE: Calculation use new Weighted Avg Ailment formula"),
+					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 					s_format(""),
 					s_format("%.2f ^8(chance to hit)", output.HitChance / 100),
 					s_format("* (%.2f / %.2f) ^8(BleedDuration / Attack Time)", globalOutput.BleedDuration, output.Time),
@@ -2934,7 +2934,7 @@ function calcs.offence(env, actor, activeSkill)
 			if globalBreakdown then
 				if sourceHitDmg == sourceCritDmg then
 					globalBreakdown.BleedDPS = {
-						s_format(colorCodes.CUSTOM.."NOTE: Calculation use new Weighted Avg Ailment formula"),
+						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 						s_format(""),
 						s_format("Dmg Derivation:"),
 						s_format("(%.2f + (%.2f - %.2f) ^8(min source physical + (max source physical - min source physical)", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin),
@@ -2944,7 +2944,7 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				else
 					globalBreakdown.BleedDPS = {
-						s_format(colorCodes.CUSTOM.."NOTE: Calculation use new Weighted Avg Ailment formula"),
+						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 						s_format(""),
 						s_format("Non-Crit Dmg Derivation:"),
 						s_format("(%.2f + (%.2f - %.2f) ^8(min source physical + (max source physical - min source physical)", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin),
@@ -3256,7 +3256,7 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.IgniteStackPotential = igniteStacks
 			if globalBreakdown then
 				globalBreakdown.IgniteStackPotential = {
-					s_format(colorCodes.CUSTOM.."NOTE: Calculation use new Weighted Avg Ailment formula"),
+					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 					s_format(""),
 					s_format("(%.2f / %.2f) ^8(IgniteDuration / Cast Time)", globalOutput.IgniteDuration, output.Time),
 					s_format("/ %d ^8(max number of stacks)", maxStacks),
@@ -3323,7 +3323,7 @@ function calcs.offence(env, actor, activeSkill)
 			if globalBreakdown then
 				if sourceHitDmg == sourceCritDmg then
 					globalBreakdown.IgniteDPS = {
-						s_format(colorCodes.CUSTOM.."NOTE: Calculation use new Weighted Avg Ailment formula"),
+						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 						s_format(""),
 						s_format("Dmg Derivation:"),
 						s_format("(%.2f + (%.2f - %.2f) ^8(min combined sources + (max combined sources - min combined sources)", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin),
@@ -3333,7 +3333,7 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				else
 					globalBreakdown.IgniteDPS = {
-						s_format(colorCodes.CUSTOM.."NOTE: Calculation use new Weighted Avg Ailment formula"),
+						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 						s_format(""),
 						s_format("Non-Crit Dmg Derivation:"),
 						s_format("(%.2f + (%.2f - %.2f) ^8(min combined sources + (max combined sources - min combined sources)", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin),
