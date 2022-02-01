@@ -846,14 +846,30 @@ function buildMode:Save(xml)
 	for _, id in ipairs(self.spectreList) do
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
 	end
-	local addedStatNames = { SkillDPS = true }
+	local addedStatNames = { }
 	for index, statData in ipairs(self.displayStats) do
 		if not statData.flag or self.calcsTab.mainEnv.player.mainSkill.skillFlags[statData.flag] then
 			if statData.stat and not addedStatNames[statData.stat] then
-				local statVal = self.calcsTab.mainOutput[statData.stat]
-				if statVal and (statData.condFunc and statData.condFunc(statVal, self.calcsTab.mainOutput) or true) then
-					t_insert(xml, { elem = "PlayerStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
+				if statData.stat == "SkillDPS" then
+					local statVal = self.calcsTab.mainOutput[statData.stat]
+					for _, skillData in ipairs(statVal) do
+						local triggerStr = ""
+						if skillData.trigger and skillData.trigger ~= "" then
+							triggerStr = skillData.trigger
+						end
+						local lhsString = skillData.name
+						if skillData.count >= 2 then
+							lhsString = tostring(skillData.count).."x "..skillData.name
+						end
+						t_insert(xml, { elem = "FullDPSSkill", attrib = { stat = lhsString, value = tostring(skillData.dps * skillData.count), skillPart = skillData.skillPart or "", source = skillData.source or skillData.trigger or "" } })
+					end
 					addedStatNames[statData.stat] = true
+				else
+					local statVal = self.calcsTab.mainOutput[statData.stat]
+					if statVal and (statData.condFunc and statData.condFunc(statVal, self.calcsTab.mainOutput) or true) then
+						t_insert(xml, { elem = "PlayerStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
+						addedStatNames[statData.stat] = true
+					end
 				end
 			end
 		end
