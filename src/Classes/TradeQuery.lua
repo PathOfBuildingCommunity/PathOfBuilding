@@ -13,15 +13,6 @@ local m_max = math.max
 local m_min = math.min
 local m_ceil = math.ceil
 
-local leagueDropList = {
-	{ label = "League SC", name = "tmpstandard", realname = "Scourge" },
-	{ label = "League HC", name = "tmphardcore", realname = "Hardcore%20Scourge" },
-	{ label = "Standard", name = "Standard" },
-	{ label = "Hardcore", name = "Hardcore" },
-	{ label = "Event SC", name = "eventstandard" },
-	{ label = "Event HC", name = "eventhardcore" }
-}
-
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
 -- map of PoE.Ninja Currency converstion endpoint to GGG's Trade name spec
@@ -90,6 +81,7 @@ currencyConversionTradeMap["Sacred Orb"] = "sacred-orb"
 
 local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
     self.itemsTab = itemsTab
+	self.itemsTab.leagueDropList = { }
     -- Note: Per each Check Price button click we do 2 search requests
 	--       Search is the most rate limiting behavior we need to track
 	-- SEARCH REQUEST RATE LIMIT DATA (as of Feb 2021)
@@ -141,6 +133,59 @@ end)
 -- Method to process JSON to Lua translation
 function TradeQueryClass:ProcessJSON(json)
 	return dkjson.decode(json)
+end
+
+-- Method to pull down and interpret available leagues from PoE
+function TradeQueryClass:PullLeagueList(controls)
+	local id = LaunchSubScript([[
+		local curl = require("lcurl.safe")
+		local page = ""
+		local easy = curl.easy()
+		easy:setopt{
+			url = "https://api.pathofexile.com/leagues?type=main&compact=1",
+			httpheader = {'Content-Type: application/json', 'Accept: application/json', 'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)'}
+		}
+		easy:setopt_writefunction(function(data)
+			page = page..data
+			return true
+		end)
+		easy:perform()
+		easy:close()
+		return page
+	]], "", "")
+	if id then
+		launch:RegisterSubScript(id, function(response, errMsg)
+			if errMsg then
+				self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
+				return "POE ERROR", "Error: "..errMsg
+			else
+				local json_data = self:ProcessJSON(response)
+				if not json_data then
+					self:SetNotice(controls.pbNotice, "Failed to Get PoE League List response")
+					return
+				end
+				self.itemsTab.leagueDropList = {
+					{ label = "Standard", name = "Standard", realname = "Standard" },
+					{ label = "Hardcore", name = "Hardcore", realname = "Hardcore" },
+				}
+				for _, league_data in pairs(json_data) do
+					local league_name = league_data.id
+					if league_name ~= "Standard" and league_name ~= "Hardcore" and not league_name:find("SSF") then
+						if league_name:find("Hardcore") then
+							t_insert(self.itemsTab.leagueDropList, 2, { label = "HC League" , name = "tmphardcore", realname = league_name})
+						else
+							t_insert(self.itemsTab.leagueDropList, 1, { label = "SC League" , name = "tmpstandard", realname = league_name})
+						end
+					end
+				end
+				controls.league:SetList(self.itemsTab.leagueDropList)
+				controls.league.selIndex = 1
+				self.pbLeague = self.itemsTab.leagueDropList[controls.league.selIndex].name
+				self.pbLeagueRealName = self.itemsTab.leagueDropList[controls.league.selIndex].realname
+				self:SetCurrencyConversionButton(controls)
+			end
+		end)
+	end
 end
 
 -- Method to set last PoE.Ninja endpoint access
@@ -300,14 +345,14 @@ function TradeQueryClass:PriceItem()
         GlobalCache.useFullDPS = self.storedGlobalCacheDPSView
 		main:ClosePopup()
 	end)
-	controls.league = new("DropDownControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -12, pane_height - 30, 100, 18, leagueDropList, function(index, value)
+	controls.league = new("DropDownControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -12, pane_height - 30, 100, 18, self.itemsTab.leagueDropList, function(index, value)
 		self.pbLeague = value.name
 		self.pbLeagueRealName = value.realname or value.name
 		self:SetCurrencyConversionButton(controls)
 	end)
-	controls.league.selIndex = 1
-	self.pbLeague = leagueDropList[controls.league.selIndex].name
-	self.pbLeagueRealName = leagueDropList[controls.league.selIndex].realname or self.pbLeague
+	controls.league.enabled = function()
+		return #self.itemsTab.leagueDropList > 1
+	end
 	controls.leagueLabel = new("LabelControl", {"TOPRIGHT",controls.league,"TOPLEFT"}, -4, 0, 20, 16, "League:")
 	controls.poesessidButton = new("ButtonControl", {"TOPLEFT",controls.leagueLabel,"TOPLEFT"}, -256, 0, 240, row_height, POESESSID ~= "" and "HAVE POESESSID" or colorCodes.WARNING.."NEED POESESSID", function()
 		local poesessid_controls = {}
@@ -340,8 +385,16 @@ function TradeQueryClass:PriceItem()
 	controls.updateCurrencyConversion = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, pane_height - 30, 240, row_height, "", function()
 		self:PullPoENinjaCurrencyConversion(self.pbLeague, controls)
 	end)
-	self:SetCurrencyConversionButton(controls)
 	main:OpenPopup(pane_width, pane_height, "Build Pricer", controls)
+
+	if #self.itemsTab.leagueDropList == 0 then
+		self:PullLeagueList(controls)
+	else
+		controls.league.selIndex = 1
+		self.pbLeague = self.itemsTab.leagueDropList[controls.league.selIndex].name
+		self.pbLeagueRealName = self.itemsTab.leagueDropList[controls.league.selIndex].realname
+		self:SetCurrencyConversionButton(controls)
+	end
 end
 
 -- Method to update the Currency Conversion button label

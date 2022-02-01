@@ -604,6 +604,9 @@ function TradeQueryGeneratorClass:FinishQuery()
 
     local queryJson = dkjson.encode(queryTable)
 
+    local foo = io.open("../test.log", "w")
+    foo:write(queryJson)
+    foo:close()
     self.requesterCallback(self.requesterContext, queryJson)
 
     -- Close blocker popup
