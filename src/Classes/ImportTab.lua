@@ -171,54 +171,49 @@ You can get this from your web browser's cookies while logged into the Path of E
 		return #self.controls.generateCodeOut.buf > 0
 	end
 
-	-- For new export website, add another entry to this table with data filled out
-	-- Label for dropdown, id for err, subScript for POST call, codeOut for SetText
-	-- codeOut if we need to append anything (*in front of) response, pastebin returns full link, pobbin returns only id for example
-	local exportWebsiteList = {
-		{
-			label = "Pastebin.com",
-			id = "Pastebin",
-			codeOut = "",
-			subScript = function()
-				return LaunchSubScript([[
-					local code, proxyURL = ...
-					local curl = require("lcurl.safe")
-					local page = ""
-					local easy = curl.easy()
-					easy:setopt_url("https://pastebin.com/api/api_post.php")
-					easy:setopt(curl.OPT_POST, true)
-					easy:setopt(curl.OPT_POSTFIELDS, "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="..code)
-					easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
-					if proxyURL then
-						easy:setopt(curl.OPT_PROXY, proxyURL)
-					end
-					easy:setopt_writefunction(function(data)
-						page = page..data
-						return true
-					end)
-					easy:perform()
-					easy:close()
-					if page:match("pastebin.com") then
-						return page
-					else
-						return nil, page
-					end
-				]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
+	-- Import/Export websites list used in dropdowns
+	local importWebsiteList = {
+	{
+		label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1",
+		codeOut = "", postUrl = "https://pastebin.com/api/api_post.php", postFields = "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="
+	},
+	{ label = "PastebinP.com", id = "PastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
+	{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
+	{ label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1" },
+	{
+		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/%w+", regexURL = "pobb%.in/([%w-_]+)%s*$", downloadURL = "pobb.in/pob/%1",
+		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = ""
+	},
+}
+	local getExportSitesFromImportList = function()
+		local exportWebsites = { }
+		for k,v in pairs(importWebsiteList) do
+			-- if entry has fields needed for Export
+			if importWebsiteList[k].postUrl and importWebsiteList[k].postFields and importWebsiteList[k].codeOut then
+				table.insert(exportWebsites, v)
 			end
-		},
-		{
-			label = "pobb.in",
-			id = "pobbin",
-			codeOut = "https://pobb.in/",
-			subScript = function()
-				return LaunchSubScript([[
+		end
+		return exportWebsites
+	end
+	local exportWebsitesList = getExportSitesFromImportList()
+
+	self.controls.exportFrom = new("DropDownControl", { "LEFT", self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 120, 20, exportWebsitesList, function(_, selectedWebsite)
+		self.exportWebsiteSelected = selectedWebsite.id
+	end)
+	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or "Pastebin", "id")
+	self.controls.generateCodeByLink = new("ButtonControl", { "LEFT", self.controls.exportFrom, "RIGHT"}, 8, 0, 100, 20, "Share", function()
+		local response = ""
+		local exportWebsite = { }
+		if self.controls.exportFrom.selIndex then
+			exportWebsite = exportWebsitesList[self.controls.exportFrom.selIndex]
+			response = LaunchSubScript([[
 					local code, proxyURL = ...
 					local curl = require("lcurl.safe")
 					local page = ""
 					local easy = curl.easy()
-					easy:setopt_url("https://pobb.in/pob/")
+					easy:setopt_url(']]..exportWebsite.postUrl..[[')
 					easy:setopt(curl.OPT_POST, true)
-					easy:setopt(curl.OPT_POSTFIELDS, code)
+					easy:setopt(curl.OPT_POSTFIELDS, ']]..exportWebsite.postFields..[['..code)
 					easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
 					if proxyURL then
 						easy:setopt(curl.OPT_PROXY, proxyURL)
@@ -236,19 +231,6 @@ You can get this from your web browser's cookies while logged into the Path of E
 						return nil, page
 					end
 				]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
-			end
-		},
-	}
-	self.controls.exportFrom = new("DropDownControl", { "LEFT", self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 120, 20, exportWebsiteList, function(_, selectedWebsite)
-		self.exportWebsiteSelected = selectedWebsite.id
-	end)
-	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or "Pastebin", "id")
-	self.controls.generateCodeByLink = new("ButtonControl", { "LEFT", self.controls.exportFrom, "RIGHT"}, 8, 0, 100, 20, "Share", function()
-		local response = ""
-		local exportWebsite = { }
-		if self.controls.exportFrom.selIndex then
-			exportWebsite = exportWebsiteList[self.controls.exportFrom.selIndex]
-			response = exportWebsite.subScript()
 		end
 		if response ~= "" then
 			self.controls.generateCodeOut:SetText("")
@@ -1003,13 +985,6 @@ function UrlDecode(url)
 end
 
 function ImportTabClass:OpenImportFromWebsitePopup()
-	local importWebsiteList = {
-		{ label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1" },
-		{ label = "PastebinP.com", id = "PastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
-		{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
-		{ label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1" },
-		{ label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/%w+", regexURL = "pobb%.in/([%w-_]+)%s*$", downloadURL = "pobb.in/pob/%1" },
-	}
 	local controls = { }
 
 	controls.importAnchorPoint = new("Control", nil, 0, 0, 280, 0)
