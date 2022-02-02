@@ -1010,12 +1010,9 @@ skills["VaalBladeVortex"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Vaal] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency
-	end,
 	statMap = {
 		["base_blade_vortex_hit_rate_ms"] = {
-			skill("hitFrequency", nil),
+			skill("hitTimeOverride", nil),
 			div = 1000,
 		},
 	},
