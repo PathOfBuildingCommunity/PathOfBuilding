@@ -663,7 +663,7 @@ local function determineCursePriority(curseName, activeSkill)
 	local socketPriority = socket * data.cursePriority["BaseSocketPriority"]
 	local slotPriority = data.cursePriority[slot:gsub(" (Swap)", "")] or 0
 	local sourcePriority = 0
-	if activeSkill.skillTypes[SkillType.Aura] then
+	if activeSkill and activeSkill.skillTypes and activeSkill.skillTypes[SkillType.Aura] then
 		sourcePriority = data.cursePriority["CurseFromAura"]
 	elseif source ~= "" then
 		sourcePriority = data.cursePriority["CurseFromEquipment"]
