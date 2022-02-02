@@ -129,8 +129,8 @@ return {
 	end },
 	{ label = "Bonechill Support:", ifSkill = "Bonechill" },
 	{ var = "bonechillEffect", type = "count", label = "Effect of Chill:", tooltip = "The effect of Chill is automatically calculated if you have a guaranteed source of Chill,\nbut you can use this to override the effect if necessary.", ifSkill = "Bonechill", apply = function(val, modList, enemyModList)
-		modList:NewMod("BonechillEffect", "OVERRIDE", m_min(val, 30), "Config")
-		modList:NewMod("DesiredBonechillEffect", "BASE", m_min(val, 30), "Config")
+		enemyModList:NewMod("BonechillEffect", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("DesiredBonechillEffect", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ label = "Boneshatter:", ifSkill = "Boneshatter" },
 	{ var = "boneshatterTraumaStacks", type = "count", label = "# of Trauma Stacks:", ifSkill = "Boneshatter", apply = function(val, modList, enemyModList)
@@ -1173,9 +1173,11 @@ return {
 	end },
 	{ var = "conditionEnemyScorched", type = "check", ifFlag = "inflictScorch", label = "Is the enemy Scorched?", tooltip = "Scorched enemies have lowered elemental resistances, up to -30%.\nThis option will also allow you to input the effect of Scorched.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("Condition:ScorchedConfig", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionScorchedEffect", type = "count", label = "Effect of Scorched:", ifOption = "conditionEnemyScorched", tooltip = "This effect will only be applied while you can inflict Scorched.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("ElementalResist", "BASE", -m_min(val, 30), "Config", { type = "Condition", var = "Scorched" })
+		enemyModList:NewMod("ScorchVal", "BASE", val, "Config", { type = "Condition", var = "ScorchedConfig" })
+		enemyModList:NewMod("DesiredScorchVal", "BASE", val, "Brittle", { type = "Condition", var = "ScorchedConfig", neg = true })
 	end },
 	{ var = "conditionEnemyOnScorchedGround", type = "check", label = "Is the enemy on Scorched Ground?", tooltip = "This also implies that the enemy is Scorched.", ifEnemyCond = "OnScorchedGround", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1193,15 +1195,17 @@ return {
 	end },
 	{ var = "conditionEnemyBrittle", type = "check", ifFlag = "inflictBrittle", label = "Is the enemy Brittle?", tooltip = "Hits against Brittle enemies have up to +15% Critical Strike Chance.\nThis option will also allow you to input the effect of Brittle.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Brittle", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("Condition:BrittleConfig", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionBrittleEffect", type = "count", label = "Effect of Brittle:", ifOption = "conditionEnemyBrittle", tooltip = "This effect will only be applied while you can inflict Brittle.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("SelfCritChance", "BASE", m_min(val, 15), "Config", { type = "Condition", var = "Brittle" })
+		enemyModList:NewMod("BrittleVal", "BASE", val, "Config", { type = "Condition", var = "BrittleConfig" })
+		enemyModList:NewMod("DesiredBrittleVal", "BASE", val, "Brittle", { type = "Condition", var = "BrittleConfig", neg = true })
 	end },
 	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy Shocked?", tooltip = "In addition to allowing any 'against Shocked Enemies' modifiers to apply,\nthis will allow you to input the effect of the Shock applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Shocked", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:ShockedConfig", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionShockEffect", type = "count", label = "Effect of Shock:", ifOption = "conditionEnemyShocked", tooltip = "If you have a guaranteed source of Shock,\nthe strongest one will apply instead unless this option would apply a stronger Shock.", apply = function(val, modList, enemyModList)
+	{ var = "conditionShockEffect", type = "count", label = "Effect of Shock:", tooltip = "If you have a guaranteed source of Shock,\nthe strongest one will apply instead unless this option would apply a stronger Shock.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ShockVal", "BASE", val, "Shock", { type = "Condition", var = "ShockedConfig" })
 		enemyModList:NewMod("DesiredShockVal", "BASE", val, "Shock", { type = "Condition", var = "ShockedConfig", neg = true })
 	end },
@@ -1211,6 +1215,11 @@ return {
 	end },
 	{ var = "conditionEnemySapped", type = "check", ifFlag = "inflictSap", label = "Is the enemy Sapped?", tooltip = "Sapped enemies deal less damage, up to 20%.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Sapped", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("Condition:SappedConfig", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionSapEffect", type = "count", label = "Effect of Sap:", ifOption = "conditionEnemySapped", tooltip = "If you have a guaranteed source of Sap,\nthe strongest one will apply instead unless this option would apply a stronger Sap.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("SapVal", "BASE", val, "Sap", { type = "Condition", var = "SappedConfig" })
+		enemyModList:NewMod("DesiredSapVal", "BASE", val, "Sap", { type = "Condition", var = "SappedConfig", neg = true })
 	end },
 	{ var = "multiplierFreezeShockIgniteOnEnemy", type = "count", label = "# of Freeze/Shock/Ignite on enemy:", ifMult = "FreezeShockIgniteOnEnemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:FreezeShockIgniteOnEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })

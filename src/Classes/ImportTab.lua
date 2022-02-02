@@ -134,18 +134,15 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charImportTree.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charImportTreeClearJewels = new("CheckBoxControl", {"LEFT",self.controls.charImportTree,"RIGHT"}, 90, 0, 18, "Delete jewels:")
-	self.controls.charImportTreeClearJewels.tooltipText = "Delete all existing jewels when importing."
+	self.controls.charImportTreeClearJewels = new("CheckBoxControl", {"LEFT",self.controls.charImportTree,"RIGHT"}, 90, 0, 18, "Delete jewels:", nil, "Delete all existing jewels when importing.", true)
 	self.controls.charImportItems = new("ButtonControl", {"LEFT",self.controls.charImportTree, "LEFT"}, 0, 36, 110, 20, "Items and Skills", function()
 		self:DownloadItems()
 	end)
 	self.controls.charImportItems.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charImportItemsClearSkills = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:")
-	self.controls.charImportItemsClearSkills.tooltipText = "Delete all existing skills when importing."
-	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:")
-	self.controls.charImportItemsClearItems.tooltipText = "Delete all equipped items when importing."
+	self.controls.charImportItemsClearSkills = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:", nil, "Delete all existing skills when importing.", true)
+	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
 	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
 
 	self.controls.charClose = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Close", function()
