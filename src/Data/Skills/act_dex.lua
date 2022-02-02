@@ -6959,9 +6959,11 @@ skills["ScourgeArrow"] = {
 	parts = {
 		{
 			name = "Release",
+			stages = true,
 		},
 		{ 
-			name = "Thorn Arrows"
+			name = "Thorn Arrows",
+			stages = true,
 		},
 	},
 	statMap = {

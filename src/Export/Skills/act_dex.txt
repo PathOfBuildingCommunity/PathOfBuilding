@@ -1242,9 +1242,11 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Release",
+			stages = true,
 		},
 		{ 
 			name = "Thorn Arrows"
+			stages = true,
 		},
 	},
 	statMap = {
