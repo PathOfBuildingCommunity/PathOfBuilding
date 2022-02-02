@@ -1016,7 +1016,7 @@ skills["VaalBladeVortex"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("hitTimeOverride", 0.133),
+		skill("hitTimeOverride", 0.200),
 		skill("radius", 15),
 	},
 	qualityStats = {
