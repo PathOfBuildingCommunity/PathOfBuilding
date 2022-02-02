@@ -3286,7 +3286,7 @@ skills["ExplosiveArrow"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
 		["explosive_arrow_maximum_bonus_explosion_radius"] = {
-			mod("Multiplier:ExplosiveArrowMaxBonusRadius", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Multiplier:ExplosiveArrowMaxBonusRadius", "BASE", nil),
 		},
 	},
 	baseFlags = {
