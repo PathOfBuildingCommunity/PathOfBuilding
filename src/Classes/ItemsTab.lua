@@ -2691,7 +2691,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			end
 		end
 		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-		GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		local output = calcFunc({ toggleFlask = item }, {})
 		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		local header
@@ -2731,7 +2731,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		for _, slot in pairs(compareSlots) do
 			local selItem = self.items[slot.selItemId]
 			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-			GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+			GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
 			GlobalCache.useFullDPS = storedGlobalCacheDPSView
 			local header

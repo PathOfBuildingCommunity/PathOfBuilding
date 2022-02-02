@@ -164,8 +164,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0, dotDPS = 0, cullingMulti = 0 }
 	local bleedSource = ""
 	local igniteSource = ""
+	GlobalCache.numActiveSkillInFullDPS = 0
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
+			GlobalCache.numActiveSkillInFullDPS = GlobalCache.numActiveSkillInFullDPS + 1
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
 				local cacheData = getCachedData(activeSkill, mode)
