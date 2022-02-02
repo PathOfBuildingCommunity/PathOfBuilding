@@ -212,7 +212,7 @@ local skills, mod, flag, skill = ...
 
 #skill VaalBladeVortex
 #flags spell area duration
-#baseMod skill("hitTimeOverride", 0.133)
+#baseMod skill("hitTimeOverride", 0.2)
 #baseMod skill("radius", 15)
 #mods
 
