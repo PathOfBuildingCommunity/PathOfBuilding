@@ -27,7 +27,7 @@ local AtlasTreeViewClass = newClass("AtlasTreeView", function(self)
 	self.jewelShadedInnerRing:Load("Assets/ShadedInnerRing.png", "CLAMP")
 	self.jewelShadedInnerRingFlipped = NewImageHandle()
 	self.jewelShadedInnerRingFlipped:Load("Assets/ShadedInnerRingFlipped.png", "CLAMP")
-	
+
 	self.eternal1 = NewImageHandle()
 	self.eternal1:Load("TreeData/PassiveSkillScreenEternalEmpireJewelCircle1.png", "CLAMP")
 	self.eternal2 = NewImageHandle()
@@ -100,7 +100,7 @@ function AtlasTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	local cursorX, cursorY = GetCursorPos()
 	local mOver = cursorX >= viewPort.x and cursorX < viewPort.x + viewPort.width and cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height
-	
+
 	-- Process input events
 	local treeClick
 	for id, event in ipairs(inputEvents) do
@@ -135,7 +135,7 @@ function AtlasTreeViewClass:Draw(build, viewPort, inputEvents)
 					self:Zoom(IsKeyDown("SHIFT") and 3 or 1, viewPort)
 				elseif event.key == "WHEELDOWN" then
 					self:Zoom(IsKeyDown("SHIFT") and -3 or -1, viewPort)
-				end	
+				end
 			end
 		end
 	end
@@ -245,7 +245,7 @@ function AtlasTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 			end
 		end
-		-- Use the trace path as the path 
+		-- Use the trace path as the path
 		hoverPath = { }
 		for _, pathNode in pairs(self.tracePath) do
 			hoverPath[pathNode] = true
@@ -541,7 +541,7 @@ function AtlasTreeViewClass:Draw(build, viewPort, inputEvents)
 
 		-- Convert node position to screen-space
 		local scrX, scrY = treeToScreen(node.x, node.y)
-	
+
 		-- Determine color for the base artwork
 		if self.showHeatMap then
 			if not isAlloc and node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
@@ -681,7 +681,7 @@ function AtlasTreeViewClass:Draw(build, viewPort, inputEvents)
 			self.tooltip:Draw(m_floor(scrX - size), m_floor(scrY - size), size * 2, size * 2, viewPort)
 		end
 	end
-	
+
 	-- Draw ring overlays for jewel sockets
 	SetDrawLayer(nil, 25)
 	for nodeId in pairs(tree.sockets) do
@@ -790,7 +790,7 @@ function AtlasTreeViewClass:Focus(x, y, viewPort, build)
 
 	local tree = build.spec.tree
 	local scale = m_min(viewPort.width, viewPort.height) / tree.size * self.zoom
-	
+
 	self.zoomX = -x * scale
 	self.zoomY = -y * scale
 end

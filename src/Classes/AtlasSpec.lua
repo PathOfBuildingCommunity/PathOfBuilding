@@ -18,14 +18,14 @@ local AtlasSpecClass = newClass("AtlasSpec", "UndoHandler", function(self, build
 
 	self.build = build
 	self.treeVersion = treeVersion
-	self.tree = main:LoadTree(treeVersion)
+	self.tree = main:LoadTree(treeVersion, true)
 
 	-- Make a local copy of the passive tree that we can modify
 	self.nodes = { }
 	for _, treeNode in pairs(self.tree.nodes) do
 		-- Exclude proxy or groupless nodes, as well as expansion sockets
-		if treeNode.group and not treeNode.isProxy and not treeNode.group.isProxy and (not treeNode.expansionJewel or not treeNode.expansionJewel.parent) then 
-			self.nodes[treeNode.id] = setmetatable({ 
+		if treeNode.group and not treeNode.isProxy and not treeNode.group.isProxy and (not treeNode.expansionJewel or not treeNode.expansionJewel.parent) then
+			self.nodes[treeNode.id] = setmetatable({
 				linked = { },
 				power = { }
 			}, treeNode)
@@ -194,18 +194,18 @@ function AtlasSpecClass:Save(xml)
 		end
 	end
 	t_insert(xml, editedNodes)
-	xml.attrib = { 
+	xml.attrib = {
 		title = self.title,
 		treeVersion = self.treeVersion,
 		-- New format
-		classId = tostring(self.curClassId), 
-		ascendClassId = tostring(self.curAscendClassId), 
+		classId = tostring(self.curClassId),
+		ascendClassId = tostring(self.curAscendClassId),
 		nodes = table.concat(allocNodeIdList, ","),
 		masteryEffects = table.concat(masterySelections, ",")
 	}
 	t_insert(xml, {
 		-- Legacy format
-		elem = "URL", 
+		elem = "URL",
 		[1] = self:EncodeURL("https://www.pathofexile.com/passive-skill-tree/")
 	})
 
@@ -297,7 +297,7 @@ function AtlasSpecClass:DecodeURL(url)
 	if ver > 6 then
 		return "Invalid tree link (unknown version number '"..ver.."')"
 	end
-	local classId = b:byte(5)	
+	local classId = b:byte(5)
 	local ascendClassId = (ver >= 4) and b:byte(6) or 0
 	if not self.tree.classes[classId] then
 		return "Invalid tree link (bad class ID '"..classId.."')"
@@ -305,11 +305,11 @@ function AtlasSpecClass:DecodeURL(url)
 	self:ResetNodes()
 	self:SelectClass(classId)
 	self:SelectAscendClass(ascendClassId)
-	
+
 	local nodesStart = ver >= 4 and 8 or 7
 	local nodesEnd = ver >= 5 and 7 + (b:byte(7) * 2) or -1
 	local nodes = b:sub(nodesStart, nodesEnd)
-	
+
 	self:AllocateDecodedNodes(nodes, false)
 
 	if ver < 5 then
@@ -319,13 +319,13 @@ function AtlasSpecClass:DecodeURL(url)
 	local clusterStart = nodesEnd + 1
 	local clusterEnd = clusterStart + (b:byte(clusterStart) * 2)
 	local clusterNodes = b:sub(clusterStart + 1, clusterEnd)
-	
+
 	self:AllocateDecodedNodes(clusterNodes, true)
-	
+
 	if ver < 6 then
 		return
 	end
-	
+
 	local masteryStart = clusterEnd + 1
 	local masteryEnd = masteryStart + (b:byte(masteryStart) * 4)
 	local masteryEffects = b:sub(masteryStart + 1, masteryEnd)
@@ -336,7 +336,7 @@ end
 -- Prepends the URL with an optional prefix
 function AtlasSpecClass:EncodeURL(prefix)
 	local a = { 0, 0, 0, 6, self.curClassId, self.curAscendClassId }
-	
+
 	local nodeCount = 0
 	local clusterCount = 0
 	local masteryCount = 0
@@ -370,12 +370,12 @@ function AtlasSpecClass:EncodeURL(prefix)
 	for _, id in pairs(clusterNodeIds) do
 		t_insert(a, id)
 	end
-	
+
 	t_insert(a, masteryCount)
 	for _, id in pairs(masteryNodeIds) do
 		t_insert(a, id)
 	end
-	
+
 	return (prefix or "")..common.base64.encode(string.char(unpack(a))):gsub("+","-"):gsub("/","_")
 end
 
@@ -389,9 +389,9 @@ function AtlasSpecClass:SelectClass(classId)
 	end
 
 	self.curClassId = classId
-	local class = self.tree.classes[classId]
-	self.curClass = class 
-	self.curClassName = class.name
+	-- local class = self.tree.classes[classId]
+	-- self.curClass = class
+	-- self.curClassName = class.name
 
 	-- Allocate the new class's starting node
 	local startNode = self.nodes[class.startNodeId]
@@ -429,7 +429,7 @@ function AtlasSpecClass:SelectAscendClass(ascendClassId)
 end
 
 -- Determines if the given class's start node is connected to the current class's start node
--- Attempts to find a path between the nodes which doesn't pass through any ascendancy nodes (i.e. Ascendant) 
+-- Attempts to find a path between the nodes which doesn't pass through any ascendancy nodes (i.e. Ascendant)
 function AtlasSpecClass:IsClassConnected(classId)
 	for _, other in ipairs(self.nodes[self.tree.classes[classId].startNodeId].linked) do
 		-- For each of the nodes to which the given class's start node connects...
@@ -539,7 +539,7 @@ function AtlasSpecClass:CountAllocNodes()
 end
 
 -- Attempt to find a class start node starting from the given node
--- Unless noAscent == true it will also look for an ascendancy class start node 
+-- Unless noAscent == true it will also look for an ascendancy class start node
 function AtlasSpecClass:FindStartFromNode(node, visited, noAscend)
 	-- Mark the current node as visited so we don't go around in circles
 	node.visited = true
@@ -550,8 +550,8 @@ function AtlasSpecClass:FindStartFromNode(node, visited, noAscend)
 		--  - the other node is a start node, or
 		--  - there is a path to a start node through the other node which didn't pass through any nodes which have already been visited
 		local startIndex = #visited + 1
-		if other.alloc and 
-		  (other.type == "ClassStart" or other.type == "AscendClassStart" or 
+		if other.alloc and
+		  (other.type == "ClassStart" or other.type == "AscendClassStart" or
 		    (not other.visited and node.type ~= "Mastery" and self:FindStartFromNode(other, visited, noAscend))
 		  ) then
 			if node.ascendancyName and not other.ascendancyName then

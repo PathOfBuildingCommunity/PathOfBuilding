@@ -66,7 +66,9 @@ function main:Init()
 	end
 
 	self.tree = { }
+	self.atlasTree = { }
 	self:LoadTree(latestTreeVersion)
+	self:LoadTree(latestTreeVersion, True)
 
 	ConPrintf("Loading item databases...")
 	self.uniqueDB = { list = { } }
@@ -209,15 +211,27 @@ the "Releases" section of the GitHub page.]])
 	self:LoadSettings(ignoreBuild)
 end
 
-function main:LoadTree(treeVersion)
-	if self.tree[treeVersion] then
-		data.setJewelRadiiGlobally(treeVersion)
-		return self.tree[treeVersion]
-	elseif isValueInTable(treeVersionList, treeVersion) then
-		data.setJewelRadiiGlobally(treeVersion)
-		--ConPrintf("[main:LoadTree] - Lazy Loading Tree " .. treeVersion)
-		self.tree[treeVersion] = new("PassiveTree", treeVersion)
-		return self.tree[treeVersion]
+function main:LoadTree(treeVersion, Atlas)
+	if Atlas then
+		if self.atlasTree[treeVersion] then
+			data.setJewelRadiiGlobally(treeVersion)
+			return self.atlasTree[treeVersion]
+		elseif isValueInTable(treeVersionList, treeVersion) then
+			data.setJewelRadiiGlobally(treeVersion)
+			ConPrintf("[main:LoadTree] - Lazy Loading Atlas Tree " .. treeVersion)
+			self.atlasTree[treeVersion] = new("AtlasTree", treeVersion)
+			return self.atlasTree[treeVersion]
+		end
+	else
+		if self.tree[treeVersion] then
+			data.setJewelRadiiGlobally(treeVersion)
+			return self.tree[treeVersion]
+		elseif isValueInTable(treeVersionList, treeVersion) then
+			data.setJewelRadiiGlobally(treeVersion)
+			ConPrintf("[main:LoadTree] - Lazy Loading Passive Tree " .. treeVersion)
+			self.tree[treeVersion] = new("PassiveTree", treeVersion)
+			return self.tree[treeVersion]
+		end
 	end
 	return nil
 end

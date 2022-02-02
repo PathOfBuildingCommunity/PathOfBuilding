@@ -62,8 +62,8 @@ local AtlasTabClass = newClass("AtlasTab", "ControlHost", function(self, build)
 						local respec = 0
 						for nodeId, node in pairs(self.build.spec.allocNodes) do
 							-- Assumption: Nodes >= 65536 are small cluster passives.
-							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" 
-							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536 
+							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart"
+							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536
 							and not spec.allocNodes[nodeId] then
 								if node.ascendancyName then
 									respec = respec + 5
@@ -286,16 +286,8 @@ function AtlasTabClass:Draw(viewPort, inputEvents)
 end
 
 function AtlasTabClass:Load(xml, dbFileName)
-print("Atlas"..inspect(xml))
+-- print("Atlas"..inspect(xml))
 	self.specList = { }
-	if xml.elem == "Spec" then
-		-- Import single spec from old build
-		self.specList[1] = new("AtlasSpec", self.build, defaultTreeVersion)
-		self.specList[1]:Load(xml, dbFileName)
-		self.activeSpec = 1
-		self.build.spec = self.specList[1]
-		return
-	end
 	for _, node in pairs(xml) do
 		if type(node) == "table" then
 			if node.elem == "Spec" then
@@ -322,7 +314,7 @@ function AtlasTabClass:PostLoad()
 end
 
 function AtlasTabClass:Save(xml)
-	xml.attrib = { 
+	xml.attrib = {
 		activeSpec = tostring(self.activeSpec)
 	}
 	for specId, spec in ipairs(self.specList) do
@@ -345,17 +337,17 @@ function AtlasTabClass:SetActiveSpec(specId)
 	self.build.spec:SetWindowTitleWithBuildClass()
 	for _, slot in pairs(self.build.itemsTab.slots) do
 		if slot.nodeId then
-			if prevSpec then
+			-- if prevSpec then
 				-- Update the previous spec's jewel for this slot
-				prevSpec.jewels[slot.nodeId] = slot.selItemId
-			end
-			if curSpec.jewels[slot.nodeId] then
+				-- prevSpec.jewels[slot.nodeId] = slot.selItemId
+			-- end
+			-- if curSpec.jewels[slot.nodeId] then
 				-- Socket the jewel for the new spec
-				slot.selItemId = curSpec.jewels[slot.nodeId]
-			else
+				-- slot.selItemId = curSpec.jewels[slot.nodeId]
+			-- else
 				-- Unsocket the old jewel from the previous spec
-				slot.selItemId = 0
-			end
+				-- slot.selItemId = 0
+			-- end
 		end
 	end
 	self.showConvert = curSpec.treeVersion ~= latestTreeVersion
@@ -848,18 +840,18 @@ function AtlasTabClass:BuildPowerReportList(currentStat)
 	-- search all cluster notables and add to the list
 	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
 		local isAlloc = node.alloc
-		if not isAlloc then			
+		if not isAlloc then
 			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
 			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
 
 			nodePowerStr = formatNumSep(nodePowerStr)
-			
+
 			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
 			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
 			end
-			
+
 			t_insert(report, {
 				name = node.dn,
 				power = nodePower,
