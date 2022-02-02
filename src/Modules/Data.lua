@@ -266,18 +266,18 @@ data.cursePriority = {
 	["Vulnerability"] = 11, -- Despair overrides Vulnerability. Vulnerability was reworked in 3.1.0.
 	["Despair"] = 12, -- Despair was created in 3.1.0.
 	["Punishment"] = 13, -- Punishment was reworked in 3.12.0.
-	["Weapon 1"] = 100,
-	["Amulet"] = 200,
-	["Helmet"] = 300,
-	["Weapon 2"] = 400,
-	["Body Armour"] = 500,
-	["Gloves"] = 600,
-	["Boots"] = 700,
-	["Ring 1"] = 800,
-	["Ring 2"] = 900,
-	["CurseFromSkillGem"] = 1000,
-	["CurseFromEquipment"] = 9000,
-	["CurseAura"] = 10000,
+	["BaseSocketPriority"] = 100,
+	["Weapon 1"] = 1000,
+	["Amulet"] = 2000,
+	["Helmet"] = 3000,
+	["Weapon 2"] = 4000,
+	["Body Armour"] = 5000,
+	["Gloves"] = 6000,
+	["Boots"] = 7000,
+	["Ring 1"] = 8000,
+	["Ring 2"] = 9000,
+	["CurseFromEquipment"] = 10000,
+	["CurseFromAura"] = 11000,
 }
 
 ---@type string[] @List of all keystones not exclusive to timeless jewels.

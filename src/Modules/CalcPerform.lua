@@ -660,14 +660,19 @@ local function determineCursePriority(curseName, activeSkill)
 		end
 	end
 	local basePriority = data.cursePriority[curseName] or 0
-	local typePriority = activeSkill.skillTypes[SkillType.Aura] and data.cursePriority["CurseAura"] or 0
-	local sourcePriority = source ~= "" and data.cursePriority["CurseFromEquipment"] or (data.cursePriority["CurseFromSkillGem"] * socket)
+	local socketPriority = socket * data.cursePriority["BaseSocketPriority"]
 	local slotPriority = data.cursePriority[slot:gsub(" (Swap)", "")] or 0
+	local sourcePriority = 0
+	if activeSkill.skillTypes[SkillType.Aura] then
+		sourcePriority = data.cursePriority["CurseFromAura"]
+	elseif source ~= "" then
+		sourcePriority = data.cursePriority["CurseFromEquipment"]
+	end
 	if source ~= "" and slotPriority == data.cursePriority["Ring 2"] then
 		-- Implicit and explicit curses from rings have equal priority; only curses from socketed skill gems care about which ring slot they're equipped in
 		slotPriority = data.cursePriority["Ring 1"]
 	end
-	return basePriority + typePriority + sourcePriority + slotPriority
+	return basePriority + socketPriority + slotPriority + sourcePriority
 end
 
 -- Process charges, enemy modifiers, and other buffs
