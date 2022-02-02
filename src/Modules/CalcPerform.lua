@@ -21,8 +21,10 @@ local band = bit.band
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second 
 local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 	local uuid = cacheSkillUUID(skill)
-	if not GlobalCache.cachedData["CACHE"][uuid] then
+	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.dontUseCache then
+		GlobalCache.currentCalc[uuid] = true
 		calcs.buildActiveSkill(env, "CACHE", skill)
+		GlobalCache.currentCalc[uuid] = nil
 		env.dontCache = true
 	end
 
@@ -2518,7 +2520,7 @@ function calcs.perform(env, avoidCache)
 					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = cooldownOverride or (skill.skillData.cooldown / icdr), next_trig = 0, count = 0 })
 				end
 			elseif uniqueTriggerName == "Queen's Demand" then
-				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
+				triggerName = "QD"
 				if skill.activeEffect.grantedEffect.name == uniqueTriggerName then
 					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 				end
@@ -2552,7 +2554,7 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
 			env.player.mainSkill.skillData.triggerUnleash = source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire]
-			env.player.mainSkill.infoMessage = triggerName .. "'s Trigger: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoMessage = env.player.mainSkill.activeEffect.grantedEffect.name .. "'s Trigger: " .. source.activeEffect.grantedEffect.name
 			env.player.mainSkill.infoTrigger = env.player.mainSkill.infoTrigger or triggerName
 		end
 	end

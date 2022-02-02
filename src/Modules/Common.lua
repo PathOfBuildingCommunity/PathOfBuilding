@@ -656,13 +656,12 @@ end
 
 -- Global Cache related
 function cacheData(uuid, env)
-	if GlobalCache.dontUseCache then
-		return
-	end
+	--if GlobalCache.dontUseCache then
+	--	return
+	--end
 
 	local mode = env.mode
-
-	if not GlobalCache.cachedData[mode][uuid] or mode == "MAIN" or mode == "CALCS" then
+	if not GlobalCache.cachedData[mode][uuid] or mode == "MAIN" or mode == "CALCS" or mode == "CACHE" then
 		-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
 		if GlobalCache.cachedData[mode][uuid] then
 			GlobalCache.cachedData[mode][uuid].ActiveSkill = nil
@@ -725,13 +724,13 @@ end
 
 -- Wipe all the tables associated with Global Cache
 function wipeGlobalCache()
-	--ConPrintf("WIPING GlobalCache.cacheData")
 	wipeTable(GlobalCache.cachedData.MAIN)
 	wipeTable(GlobalCache.cachedData.CALCS)
 	wipeTable(GlobalCache.cachedData.CALCULATOR)
 	wipeTable(GlobalCache.cachedData.CACHE)
 	wipeTable(GlobalCache.excludeFullDpsList)
 	wipeTable(GlobalCache.deleteGroup)
+	wipeTable(GlobalCache.currentCalc)
 	GlobalCache.dontUseCache = nil
 end
 
