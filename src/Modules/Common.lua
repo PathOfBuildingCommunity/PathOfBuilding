@@ -527,6 +527,19 @@ function round(val, dec)
 	end
 end
 
+--- Rounds down a number to the nearest <dec> decimal places
+---@param val number
+---@param dec number
+---@return number
+function floor(val, dec)
+	if dec then
+		local mult = 10 ^ dec
+		return m_floor(val * mult + 0.0001) / mult
+	else
+		return m_floor(val)
+	end
+end
+
 ---@param n number
 ---@return number
 function triangular(n)
@@ -743,3 +756,19 @@ function supportEnabled(skillName, activeSkill)
 	end
 	return true
 end
+
+-- Class function to split a string on a single character (??) separator.
+  -- returns a list of fields, not including the separator.
+  -- Will return the first field as blank if the first character of the string is the separator
+  -- Separator defaults to colon
+function string:split(sep)
+	-- Initially from http://lua-users.org/wiki/SplitJoin
+	-- function will ignore duplicate separators
+	local sep, fields = sep or ":", {}
+	local pattern = string.format("([^%s]+)", sep)
+	-- inject a blank entry if self begins with a colon
+	if string.sub(self, 1, 1) == ":" then t_insert(fields, "") end
+	self:gsub(pattern, function(c) fields[#fields+1] = c end)
+	return fields
+end
+

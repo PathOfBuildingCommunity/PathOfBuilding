@@ -20,16 +20,18 @@ Ascent From Flesh
 Chain Belt
 Source: prophecy{Thaumaturgical History IV}
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 44
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:jewellery_defense}+300 to Evasion Rating
 {variant:1}{tags:jewellery_defense}+(35-45) to maximum Energy Shield
-{variant:2}{tags:jewellery_defense}+(75-80) to maximum Energy Shield
+{variant:2,3}{tags:jewellery_defense}+(75-80) to maximum Energy Shield
 {tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
 You have Phasing if Energy Shield Recharge has started Recently
-6% chance to Dodge Attacks while Phasing
+{variant:1,2}6% increased Evasion while Phasing
+{variant:3}30% increased Evasion while Phasing
 {tags:speed}10% increased Movement Speed while Phasing
 ]],[[
 Auxium
@@ -92,7 +94,7 @@ Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:attack,physical}Adds (5-7) to (11-12) Physical Damage to Attacks
 (20-30)% increased Stun Duration on Enemies
-Nearby Enemies are Crushed while you have least 25 Rage
+Nearby Enemies are Crushed while you have at least 25 Rage
 {tags:physical}(4-6)% increased Physical Damage per 10 Rage
 +20 to Maximum Rage
 ]],[[
@@ -186,8 +188,8 @@ Variant: Current
 Implicits: 1
 Has 1 Abyssal Socket
 Has 1 Abyssal Socket
-{variant:1}50% increased Effect of Socketed Jewels
-{variant:2}75% increased Effect of Socketed Jewels
+{variant:1}50% increased Effect of Socketed Abyss Jewels
+{variant:2}75% increased Effect of Socketed Abyss Jewels
 ]],[[
 Doryani's Invitation
 Heavy Belt
@@ -476,6 +478,18 @@ Implicits: 1
 {tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
 {tags:critical}(50-60)% increased Critical Strike Chance while you have at least 200 Intelligence
 ]],[[
+Mageblood
+Heavy Belt
+Requires Level 44
+Implicits: 1
+{tags:jewellery_attribute}+(25-35) to Strength
+{tags:jewellery_attribute}+(30-50) to Dexterity
+{tags:jewellery_resistance}+(15-25)% to Fire Resistance
+{tags:jewellery_resistance}+(15-25)% to Cold Resistance
+Magic Utility Flask cannot be Used
+Leftmost (2-4) Magic Utility Flasks constantly apply their Flask Effects to you
+Magic Utility Flask Effects cannot be removed
+]],[[
 Maligaro's Restraint
 Chain Belt
 Requires Level 44
@@ -542,13 +556,16 @@ Implicits: 1
 ]],[[
 Perseverance
 Vanguard Belt
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 78
 Implicits: 1
 {tags:jewellery_defense}+(260-320) to Armour and Evasion Rating
 {tags:life}(4-8)% increased maximum Life
 {tags:jewellery_resistance}+(20-40)% to Cold Resistance
 {tags:attack}1% increased Attack Damage per 200 of the lowest of Armour and Evasion Rating
-{tags:attack}(14-20)% chance to gain Fortify when you Stun an Enemy with Melee Damage
+{variant:1}{tags:attack}14-20% chance to gain Fortify when you Stun an Enemy with Melee Damage
+{variant:2}{tags:attack}Melee Hits which Stun Fortify
 You have Onslaught while you have Fortify
 ]],[[
 Prismweave

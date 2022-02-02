@@ -36,12 +36,17 @@ Adds 2 to 4 Physical Damage to Attacks
 The Brass Dome
 Gladiator Plate
 Source: Drops from unique{Guardian of the Minotaur}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 177 Str
-30% reduced Chance to Block Attacks and Spells
-(600-650)% increased Armour
-10% reduced Movement Speed
-50% increased Shock Duration on You
+{variant:1}(600-650)% increased Armour
+{variant:2}(350-400)% increased Armour
+{variant:1}30% reduced Chance to Block Attacks and Spells
+{variant:1}10% reduced Movement Speed
+{variant:1}50% increased Shock Duration on You
 Take no Extra Damage from Critical Strikes
+{variant:2}+(1-5) to all maximum Elemental Resistances
+{variant:2}Strength provides no bonus to Maximum Life 
 ]],[[
 Craiceann's Carapace
 Golden Plate
@@ -294,8 +299,7 @@ Requires Level 65, 197 Dex
 {variant:2,3,4,5,6}(140-220)% increased Evasion Rating
 25% increased Chill Duration on Enemies
 {variant:1,2}Acrobatics
-{variant:3,4,5,6}10% chance to Dodge Attacks
-{variant:3,4,5,6}10% chance to Dodge Spell Damage
+{variant:3,4,5,6}30% chance to Suppress Spell Damage
 ]],[[
 Kintsugi
 Exquisite Leather
@@ -341,26 +345,37 @@ Coronal Leather
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Perfect Form} using currency{Blessing of Tul}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 49, 134 Dex
 +(30-40) to Dexterity
-(30-50)% increased Evasion Rating
+{variant:1}(30-50)% increased Evasion Rating
+{variant:2}(80-100)% increased Evasion Rating
 +(40-60) to maximum Life
-10% chance to Dodge Spell Damage
+{variant:1}10% chance to Suppress Spell Damage
+{variant:2}20% chance to Suppress Spell Damage
 25% increased Arctic Armour Buff Effect
-Evasion Rating is increased by Uncapped Cold Resistance
+{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
+{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
 ]],[[
 The Perfect Form
 Zodiac Leather
 League: Breach
 Source: Upgraded from unique{The Snowblind Grace} using currency{Blessing of Tul}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 197 Dex
-(30-50)% increased Evasion Rating
-+(50-80) to maximum Life
+{variant:1}(30-50)% increased Evasion Rating
+{variant:2}(80-100)% increased Evasion Rating
+{variant:1}+(50-80) to maximum Life
+{variant:2}+(70-100) to maximum Life
 -30% to Cold Resistance
-(5-10)% increased Dexterity
-Arctic Armour has 100% reduced Reservation
-Evasion Rating is increased by Uncapped Cold Resistance
-Phase Acrobatics
+{variant:1}(5-10)% increased Dexterity
+{variant:2}(10-15)% increased Dexterity
+Arctic Armour has no Reservation
+{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
+{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
+Acrobatics
 ]],[[
 Replica Perfect Form
 Zodiac Leather
@@ -370,7 +385,7 @@ Requires Level 65, 197 Dex
 (30-50)% increased Evasion Rating
 +(50-80) to maximum Life
 -30% to Cold Resistance
-Flesh and Stone has 100% reduced Reservation
+Flesh and Stone has no Reservation
 Evasion Rating is increased by Uncapped Cold Resistance
 Hollow Palm Technique
 ]],[[
@@ -489,9 +504,9 @@ Requires Level 65, 187 Int
 Socketed Curse Gems are Supported by Level 20 Blasphemy 
 Grants Level 20 Summon Doedre's Effigy Skill
 Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
-Hexes from Socketed Skills ignore Curse Limit
+Hexes from Socketed Skills can apply 5 additional Curses
 +(30-40) to Intelligence 
-(130-150)% increased Energy Shield 
+(130-150)% increased Energy Shield
 {variant:1}(25-33)% reduced Effect of your Curses
 ]],[[
 Fenumus' Shroud
@@ -685,19 +700,20 @@ Daresso's Defiance
 Full Dragonscale
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 63, 115 Str, 94 Dex
-(160-200)% increased Armour and Evasion
+{variant:1,2,3}(160-200)% increased Armour and Evasion
+{variant:4}(180-220)% increased Armour and Evasion
 {variant:1,2}+(40-60) to maximum Life
-{variant:3}+(60-90) to maximum Life
+{variant:3,4}+(60-90) to maximum Life
 (0.4-0.6)% of Physical Attack Damage Leeched as Life
-6% Chance to Dodge Attacks
 You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
 {variant:1}You gain Onslaught for 1 second per Endurance Charge when Hit
 {variant:2}You gain Onslaught for 2 second per Endurance Charge when Hit
-{variant:3}You gain Onslaught for 5 second per Endurance Charge when Hit
-{variant:3}(60-100)% increased Onslaught Effect
+{variant:3,4}You gain Onslaught for 5 second per Endurance Charge when Hit
+{variant:3,4}(60-100)% increased Onslaught Effect
 ]],[[
 Farrul's Fur
 Triumphant Lamellar
@@ -983,13 +999,16 @@ Gain a Power Charge for each Enemy you hit with a Critical Strike
 [[
 Bloodbond
 Bone Armour
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 35, 53 Dex, 53 Int
 Grants Level 15 Blood Offering Skill 
 (100-120)% increased Evasion and Energy Shield 
 (15-25)% increased maximum Life 
 Minions have (20-30)% increased maximum Life 
 1% of Life Regenerated per second 
-Minions have (6-10)% chance to Dodge Attacks 
+{variant:1}Minions have (6-10)% chance to Suppress Spell Damage
+{variant:2}Minions have (12-15)% chance to Suppress Spell Damage
 ]],[[
 Carcass Jack
 Varnished Coat
@@ -1119,7 +1138,7 @@ Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 65, 107 Dex, 90 Int
 +(25-75) to all Attributes
 +(30-40)% to Lightning Resistance
-(6-10)% reduced Reservation of Skills
+(12-20)% increased Mana Reservation Efficiency of Skills
 100% increased Aspect of the Avian Buff Effect
 Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies
 +(120-150) to Evasion Rating and Energy Shield
@@ -1154,6 +1173,18 @@ Implicits: 1
 +(20-25) to maximum Mana
 Has 6 Abyssal Sockets
 ]],[[
+Stasis Prison
+Carnal Armour
+Source: Drops in Uber Timeless Conflict
+Requires Level 71, 88 Dex, 122 Int
+Implicits: 1
++(20-25) to maximum Mana
+(140-160)% increased Evasion and Energy Shield
++(80-100) to maximum Life
+Temporal Rift has no Reservation
+(80-100)% of Damage taken Recouped as Life
+Debuffs on you Expire (80-100)% faster
+]],[[
 Tinkerskin
 Sadist Garb
 Requires Level 68, 103 Dex, 109 Int
@@ -1168,18 +1199,20 @@ Recover 50 Energy Shield when your Trap is triggered by an Enemy
 Victario's Influence
 Lacquered Garb
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
 +1 to Level of Socketed Aura Gems
-{variant:1}Socketed Gems have 20% reduced Reservation
-{variant:2}Socketed Gems have 30% reduced Reservation
+{variant:1}Socketed Gems have 40% increased Mana Reservation Efficiency
+{variant:2}Socketed Gems have 60% increased Mana Reservation Efficiency
+{variant:3}Socketed Gems have 45% increased Reservation Efficiency
 {variant:1}Socketed Gems are Supported by level 1 Generosity
-{variant:2}Socketed Gems are Supported by level 30 Generosity
+{variant:2,3}Socketed Gems are Supported by level 30 Generosity
 (120-150)% increased Evasion and Energy Shield
 {variant:1}(10-20)% increased Radius of Auras
-{variant:2}(20-40)% increased Area of Effect of Aura Skills
+{variant:2,3}(20-40)% increased Area of Effect of Aura Skills
 {variant:1}(10-15)% increased effect of Non-Curse Auras you Cast
-{variant:2}(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:2,3}(10-15)% increased effect of Non-Curse Auras from your Skills
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[
@@ -1241,8 +1274,8 @@ Implicits: 0
 Has an additional Implicit Mod
 +(20-30) to all Attributes
 {variant:2}(250-350)% increased Armour, Evasion and Energy Shield
-Recover (3-5)% of Maximum Life on Kill
-Recover (3-5)% of Maximum Energy Shield on Kill
+Recover (3-5)% of Life on Kill
+Recover (3-5)% of Energy Shield on Kill
 6% increased Maximum Life for each Equipped Corrupted Item
 8% increased Maximum Energy Shield for each Equipped Corrupted Item
 -(6-4)% to all Resistances for each Equipped Corrupted Item

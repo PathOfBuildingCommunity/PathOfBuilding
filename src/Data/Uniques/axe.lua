@@ -256,20 +256,22 @@ Source: Vendor recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 66, 140 Str, 86 Dex
 {variant:1,2}(200-250)% increased Physical Damage
 {variant:3}(250-285)% increased Physical Damage
 {variant:4}(170-200)% increased Physical Damage
+{variant:5}(190-240)% increased Physical Damage
 (7-12)% increased Attack Speed
-{variant:2,3,4}(30-40)% increased Critical Strike Chance
+{variant:2,3,4,5}(30-40)% increased Critical Strike Chance
 {variant:1}+(100-150) to maximum Mana
 Nearby Allies have 30% increased Item Rarity
 {variant:1}Nearby Allies' spells have Culling Strike
-{variant:2,3,4}Nearby Allies have Culling Strike
-{variant:2,3,4}Insufficient Mana doesn't prevent your Melee Attacks
-{variant:3,4}Nearby Allies have +50% to Critical Strike Multiplier
-{variant:3,4}Nearby Allies have Fortify
+{variant:2,3,4,5}Nearby Allies have Culling Strike
+{variant:2,3,4,5}Insufficient Mana doesn't prevent your Melee Attacks
+{variant:3,4,5}Nearby Allies have +50% to Critical Strike Multiplier
+{variant:3,4,5}Nearby Allies have +10 Fortification
 ]],[[
 Kitava's Feast
 Void Axe
@@ -283,7 +285,7 @@ Socketed Gems are supported by level 25 Melee Splash
 {variant:3}(200-240)% increased Physical Damage
 1% of Physical Attack Damage Leeched as Life
 1% of Physical Attack Damage Leeched as Mana
-Recover 5% of Maximum Life on Kill
+Recover 5% of Life on Kill
 Enemies you hit are destroyed on Kill
 ]],[[
 Limbsplit

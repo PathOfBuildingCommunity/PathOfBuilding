@@ -27,17 +27,24 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, scrollH, isMutable, list)
+local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, scroll, isMutable, list)
 	self.Control(anchor, x, y, width, height)
 	self.ControlHost()
 	self.rowHeight = rowHeight
-	self.scrollH = scrollH
+	self.scroll = scroll
 	self.isMutable = isMutable
 	self.list = list or { }
 	self.colList = { { } }
 	self.tooltip = new("Tooltip")
 	self.font = "VAR"
-	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOM",self,"BOTTOM"}, -8, -1, 0, 16, rowHeight * 2, "HORIZONTAL") {
+	if self.scroll then
+		if self.scroll == "HORIZONTAL" then
+			self.scrollH = true
+		else
+			self.scrollH = false
+		end
+	end
+	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOM",self,"BOTTOM"}, -8, -1, 0, self.scroll and 16 or 0, rowHeight * 2, "HORIZONTAL") {
 		shown = function()
 			return self.scrollH
 		end,
@@ -46,7 +53,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 			return width - 18
 		end
 	}
-	self.controls.scrollBarV = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, 16, 0, rowHeight * 2) {
+	self.controls.scrollBarV = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, self.scroll and 16 or 0, 0, rowHeight * 2, "VERTICAL") {
 		y = function()
 			return (self.scrollH and -8 or 0)
 		end,
@@ -55,6 +62,10 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 			return height - 2 - (self.scrollH and 16 or 0)
 		end
 	}
+	if not self.scroll then
+		self.controls.scrollBarH.shown = false
+		self.controls.scrollBarV.shown = false
+	end
 end)
 
 function ListClass:SelectIndex(index)
@@ -62,8 +73,10 @@ function ListClass:SelectIndex(index)
 	if self.selValue then
 		self.selIndex = index
 		local width, height = self:GetSize()
-		self.controls.scrollBarV:SetContentDimension(#self.list * self.rowHeight, height - 4)
-		self.controls.scrollBarV:ScrollIntoView((index - 2) * self.rowHeight, self.rowHeight * 3)
+		if self.scroll then
+			self.controls.scrollBarV:SetContentDimension(#self.list * self.rowHeight, height - 4)
+			self.controls.scrollBarV:ScrollIntoView((index - 2) * self.rowHeight, self.rowHeight * 3)
+		end
 		if self.OnSelect then
 			self:OnSelect(self.selIndex, self.selValue)
 		end
@@ -90,8 +103,8 @@ function ListClass:GetRowRegion()
 	return {
 		x = 2,
 		y = self.colLabels and 20 or 2,
-		width = width - 20,
-		height = height - 4 - (self.scrollH and 16 or 0) - (self.colLabels and 18 or 0),
+		width = self.scroll and width - 20 or width,
+		height = height - 4 - (self.scroll and self.scrollH and 16 or 0) - (self.colLabels and 18 or 0),
 	}
 end
 
@@ -104,7 +117,7 @@ function ListClass:Draw(viewPort)
 	local colOffset = 0
 	for index, column in ipairs(self.colList) do
 		column._offset = colOffset
-		column._width = self:GetColumnProperty(column, "width") or (index == #self.colList and width - 20 - colOffset) or 0
+		column._width = self:GetColumnProperty(column, "width") or (index == #self.colList and self.scroll and width - 20 or width - colOffset) or 0
 		colOffset = colOffset + column._width
 	end
 
@@ -170,7 +183,7 @@ function ListClass:Draw(viewPort)
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	self:DrawControls(viewPort)
 
-	SetViewport(x + 2, y + 2, width - 20, height - 4 - (self.scrollH and 16 or 0))
+	SetViewport(x + 2, y + 2,  self.scroll and width - 20 or width, height - 4 - (self.scroll and self.scrollH and 16 or 0))
 	local textOffsetY = self.showRowSeparators and 2 or 0
 	local textHeight = rowHeight - textOffsetY * 2
 	local ttIndex, ttValue, ttX, ttY, ttWidth
@@ -194,7 +207,7 @@ function ListClass:Draw(viewPort)
 				textWidth = DrawStringWidth(textHeight, colFont, text)
 			end
 			if not scrollBarV.dragging and (not self.selDragActive or (self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource))) then
-				if relX >= colOffset and relX < width - 20 and relY >= 0 and relY >= lineY and relY < height - 2 - (self.scrollH and 18 or 0) and relY < lineY + rowHeight then
+				if relX >= colOffset and relX <  (self.scroll and width - 20 or width) and relY >= 0 and relY >= lineY and relY < height - 2 - (self.scroll and self.scrollH and 18 or 0) and relY < lineY + rowHeight then
 					ttIndex = index
 					ttValue = value
 					ttX = x + 2 + colOffset
@@ -210,7 +223,7 @@ function ListClass:Draw(viewPort)
 				else
 					SetDrawColor(0.5, 0.5, 0.5)
 				end
-				DrawImage(nil, colOffset, lineY, colWidth, rowHeight)
+				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)
 				if (value == self.selValue or value == ttValue) then
 					SetDrawColor(0.33, 0.33, 0.33)
 				elseif self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
@@ -220,7 +233,7 @@ function ListClass:Draw(viewPort)
 				else
 					SetDrawColor(0, 0, 0)
 				end
-				DrawImage(nil, colOffset, lineY + 1, colWidth, rowHeight - 2)
+				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
 			elseif value == self.selValue or value == ttValue then
 				if self.hasFocus and value == self.selValue then
 					SetDrawColor(1, 1, 1)
@@ -229,13 +242,13 @@ function ListClass:Draw(viewPort)
 				else
 					SetDrawColor(0.5, 0.5, 0.5)
 				end
-				DrawImage(nil, colOffset, lineY, colWidth, rowHeight)
+				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)
 				if self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
 					SetDrawColor(0, 0.2, 0)
 				else
 					SetDrawColor(0.15, 0.15, 0.15)
 				end
-				DrawImage(nil, colOffset, lineY + 1, colWidth, rowHeight - 2)
+				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
 			end
 			SetDrawColor(1, 1, 1)
 			DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
@@ -370,13 +383,13 @@ function ListClass:OnKeyUp(key)
 		return
 	end
 	if key == "WHEELDOWN" then
-		if self.scrollH and IsKeyDown("SHIFT") then
+		if self.scroll and self.scrollH and IsKeyDown("SHIFT") then
 			self.controls.scrollBarH:Scroll(1)
 		else
 			self.controls.scrollBarV:Scroll(1)
 		end
 	elseif key == "WHEELUP" then
-		if self.scrollH and IsKeyDown("SHIFT") then
+		if self.scroll and self.scrollH and IsKeyDown("SHIFT") then
 			self.controls.scrollBarH:Scroll(-1)
 		else
 			self.controls.scrollBarV:Scroll(-1)
@@ -416,4 +429,17 @@ function ListClass:OnKeyUp(key)
 		end
 	end
 	return self
+end
+
+function ListClass:GetHoverValue(key)
+	local x, y = self:GetPos()
+	local cursorX, cursorY = GetCursorPos()
+	local rowRegion = self:GetRowRegion()
+	if cursorX >= x + rowRegion.x and cursorY >= y + rowRegion.y and cursorX < x + rowRegion.x + rowRegion.width and cursorY < y + rowRegion.y + rowRegion.height then
+		local index = math.floor((cursorY - y - rowRegion.y + self.controls.scrollBarV.offset) / self.rowHeight) + 1
+		local value = self.list[index]
+		if value then
+			return value
+		end
+	end
 end

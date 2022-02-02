@@ -294,7 +294,6 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["chain_strike_gain_x_rage_if_attack_hits"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 	},
 #baseMod skill("radius", 24)
@@ -342,6 +341,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill Determination
@@ -349,6 +349,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["determination_aura_armour_+%_final"] = {
 			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_physical_damage_reduction_rating"] = {
+			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["evasion_rating_%_to_add_as_armour"] = {
 			mod("EvasionGainAsArmour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -399,6 +402,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill Earthquake
@@ -545,7 +549,7 @@ local skills, mod, flag, skill = ...
 #skill GeneralsCrySupport
 	statMap = {
 		["support_spiritual_cry_damage_+%_final"] = {
-			mod("GeneralsCryMirageWarriorLessDamage", "BASE", nil),
+			mod("Damage", "MORE", nil),
 		},
 	},
 #mods
@@ -802,9 +806,6 @@ local skills, mod, flag, skill = ...
 		},
 		["molten_shell_max_damage_absorbed"] = {
 			mod("Multiplier:GuardAbsorbMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
-		},
-		["vaal_molten_shall_armour_+%_final"] = {
-			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["molten_shell_%_of_absorbed_damage_dealt_as_reflected_fire"] = {
 			skill("moltenShellReflect", nil),
@@ -1124,6 +1125,7 @@ end,
 			mod("GuardAbsorbLimit", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 	},
+#baseMod mod("AvoidBleed", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Guard" })
 #mods
 
 #skill Bloodreap
@@ -1244,7 +1246,6 @@ end,
 	statMap = {
 		["gain_rage_on_hit_%_chance"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		}
 	},
 #mods
@@ -1262,6 +1263,10 @@ end,
 		},
 		["damage_+%_when_on_full_life"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "FullLife" })
+		},
+		["life_leech_from_physical_attack_damage_permyriad"] = {
+			mod("PhysicalDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 100,
 		},
 	},
 #baseMod skill("radius", 40)
@@ -1301,7 +1306,6 @@ end,
 		},
 		["enemy_rage_regeneration_on_stun"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 	},
 #baseMod skill("debuff", true)
@@ -1319,4 +1323,13 @@ end,
 	},
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill FlameLink
+#flags spell duration fire
+#mods
+
+#skill ProtectiveLink
+#flags spell duration
 #mods

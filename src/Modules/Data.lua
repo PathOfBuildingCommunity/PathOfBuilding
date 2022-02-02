@@ -92,7 +92,10 @@ data.powerStatList = {
 	{ stat="Life", label="Life" },
 	{ stat="LifeRegen", label="Life regen" },
 	{ stat="LifeLeechRate", label="Life leech" },
+	{ stat="Armour", label="Armour" },
+	{ stat="Evasion", label="Evasion" },
 	{ stat="EnergyShield", label="Energy Shield" },
+	{ stat="EnergyShieldRecoveryCap", label="Recoverable ES" },
 	{ stat="EnergyShieldRegen", label="Energy Shield regen" },
 	{ stat="EnergyShieldLeechRate", label="Energy Shield leech" },
 	{ stat="Mana", label="Mana" },
@@ -125,20 +128,44 @@ data.powerStatList = {
 	{ stat="EffectiveMovementSpeedMod", label="Move speed" },
 	{ stat="BlockChance", label="Block Chance" },
 	{ stat="SpellBlockChance", label="Spell Block Chance" },
+	{ stat="SpellSuppressionChance", label="Spell Suppression Chance" },
 }
 
 data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }
 
-data.jewelRadius = {
-	{ inner = 0, outer = 800, col = "^xBB6600", label = "Small" },
-	{ inner = 0, outer = 1200, col = "^x66FFCC", label = "Medium" },
-	{ inner = 0, outer = 1500, col = "^x2222CC", label = "Large" },
+data.setJewelRadiiGlobally = function(treeVersion)
+	local major, minor = treeVersion:match("(%d+)_(%d+)")
+	if tonumber(major) <= 3 and tonumber(minor) <= 15 then
+		data.jewelRadius = data.jewelRadii["3_15"]
+	else
+		data.jewelRadius = data.jewelRadii["3_16"]
+	end
+end
 
-	{ inner = 850, outer = 1100, col = "^xD35400", label = "Variable" },
-	{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
-	{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
-	{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
+data.jewelRadii = {
+	["3_15"] = {
+		{ inner = 0, outer = 800, col = "^xBB6600", label = "Small" },
+		{ inner = 0, outer = 1200, col = "^x66FFCC", label = "Medium" },
+		{ inner = 0, outer = 1500, col = "^x2222CC", label = "Large" },
+
+		{ inner = 850, outer = 1100, col = "^xD35400", label = "Variable" },
+		{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
+		{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
+		{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
+	},
+	["3_16"] = {
+		{ inner = 0, outer = 960, col = "^xBB6600", label = "Small" },
+		{ inner = 0, outer = 1440, col = "^x66FFCC", label = "Medium" },
+		{ inner = 0, outer = 1800, col = "^x2222CC", label = "Large" },
+
+		{ inner = 960, outer = 1320, col = "^xD35400", label = "Variable" },
+		{ inner = 1320, outer = 1680, col = "^x66FFCC", label = "Variable" },
+		{ inner = 1680, outer = 2040, col = "^x2222CC", label = "Variable" },
+		{ inner = 2040, outer = 2400, col = "^xC100FF", label = "Variable" },
+	}
 }
+
+data.jewelRadius = data.setJewelRadiiGlobally(latestTreeVersion)
 
 data.enchantmentSource = {
 	{ name = "ENKINDLING", label = "Enkindling Orb" },
@@ -225,6 +252,31 @@ data.specialBaseTags = {
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
+data.cursePriority = {
+	["Warlord's Mark"] = 1,
+	["Despair"] = 2, -- Vulnerability
+	["Temporal Chains"] = 3,
+	["Sniper's Mark"] = 4,
+	["Punishment"] = 5,
+	["Poacher's Mark"] = 6,
+	["Vulnerability"] = 7, -- NewVulnerability
+	["Frostbite"] = 8,
+	["Flammability"] = 9,
+	["Enfeeble"] = 10,
+	["Elemental Weakness"] = 11,
+	["Conductivity"] = 12,
+	["Assassin's Mark"] = 13,
+	["CurseFromSkillGem"] = 100,
+	["CurseFromEquipment"] = 200,
+	["AnySlotMarkType"] = 1000,
+	["RightRingSlotMarkType"] = 2000,
+	["LeftRingSlotMarkType"] = 3000,
+	["AnySlotHexType"] = 4000,
+	["RightRingSlotHexType"] = 5000,
+	["LeftRingSlotHexType"] = 6000,
+	["CurseAura"] = 10000,
+}
+
 ---@type string[] @List of all keystones not exclusive to timeless jewels.
 data.keystones = {
 	"Acrobatics",
@@ -237,19 +289,25 @@ data.keystones = {
 	"Conduit",
 	"Corrupted Soul",
 	"Crimson Dance",
-	"Doomsday",
 	"Divine Flesh",
+	"Divine Shield",
+	"Doomsday",
 	"Eldritch Battery",
 	"Elemental Equilibrium",
 	"Elemental Overload",
 	"Eternal Youth",
+	"Ghost Dance",
 	"Ghost Reaver",
 	"Glancing Blows",
 	"Hollow Palm Technique",
 	"Imbalanced Guard",
 	"Immortal Ambition",
+	"Inner Conviction",
 	"Iron Grip",
 	"Iron Reflexes",
+	"Iron Will",
+	"Lethe Shade",
+	"Magebane",
 	"Mind Over Matter",
 	"Minion Instability",
 	"Mortal Conviction",
@@ -261,14 +319,25 @@ data.keystones = {
 	"Resolute Technique",
 	"Runebinder",
 	"Secrets of Suffering",
+	"Solipsism",
 	"Supreme Ego",
 	"The Agnostic",
 	"The Impaler",
 	"Unwavering Stance",
 	"Vaal Pact",
+	"Versatile Combatant",
 	"Wicked Ward",
 	"Wind Dancer",
 	"Zealot's Oath",
+}
+
+data.nonDamagingAilment = {
+	["Chill"] = { associatedType = "Cold", alt = false, default = 10, min = 5, max = 30, precision = 0, duration = 2 },
+	["Freeze"] = { associatedType = "Cold", alt = false, default = nil, min = 0.3, max = 3, precision = 2, duration = nil },
+	["Shock"] = { associatedType = "Lightning", alt = false, default = 15, min = 5, max = 50, precision = 0, duration = 2 },
+	["Scorch"] = { associatedType = "Fire", alt = true, default = 10, min = 0, max = 30, precision = 0, duration = 4 },
+	["Brittle"] = { associatedType = "Cold", alt = true, default = 5, min = 0, max = 15, precision = 2, duration = 4 },
+	["Sap"] = { associatedType = "Lightning", alt = true, default = 6, min = 0, max = 20, precision = 0, duration = 4 },
 }
 
 data.misc = { -- magic numbers
@@ -280,6 +349,8 @@ data.misc = { -- magic numbers
 	MaxResistCap = 90,
 	EvadeChanceCap = 95,
 	DodgeChanceCap = 75,
+	SuppressionChanceCap = 100,
+	SuppressionEffect = 50,
 	AvoidChanceCap = 75,
 	EnergyShieldRechargeBase = 0.33,
 	EnergyShieldRechargeDelay = 2,
@@ -291,17 +362,17 @@ data.misc = { -- magic numbers
 	BleedDurationBase = 5,
 	PoisonPercentBase = 0.30,
 	PoisonDurationBase = 2,
-	IgnitePercentBase = 0.50,
+	IgnitePercentBase = 0.9,
 	IgniteDurationBase = 4,
 	ImpaleStoredDamageBase = 0.1,
 	BuffExpirationSlowCap = 0.25,
 	TrapTriggerRadiusBase = 10,
 	MineDetonationRadiusBase = 60,
 	MineAuraRadiusBase = 35,
-	PurposefulHarbingerMaxBuffPercent = 40,
-	VastPowerMaxAoEPercent = 50,
 	MaxEnemyLevel = 84,
 	LowPoolThreshold = 0.5,
+	AccuracyPerDexBase = 2,
+	BrandAttachmentRangeBase = 30,
 }
 
 -- Misc data tables
@@ -329,7 +400,16 @@ data.enchantments = {
 	["Flask"] = LoadModule("Data/EnchantmentFlask"),
 }
 data.essences = LoadModule("Data/Essence")
+data.veiledMods = LoadModule("Data/ModVeiled")
 data.pantheons = LoadModule("Data/Pantheons")
+data.costs = LoadModule("Data/Costs")
+do
+	local map = { }
+	for i, value in ipairs(data.costs) do
+		map[value.Resource] = i
+	end
+	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
+end
 
 -- Cluster jewel data
 data.clusterJewels = LoadModule("Data/ClusterJewels")
@@ -503,6 +583,7 @@ data.uniques = { }
 for _, type in pairs(itemTypes) do
 	data.uniques[type] = LoadModule("Data/Uniques/"..type)
 end
+data.uniques['race'] = LoadModule("Data/Uniques/Special/race")
 data.uniqueMods = { }
 data.uniqueMods["Watcher's Eye"] = { }
 local unsortedMods = LoadModule("Data/Uniques/Special/WatchersEye")

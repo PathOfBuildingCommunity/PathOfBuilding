@@ -5,50 +5,33 @@
 data.uniques.new = {
 
 -- New
+
 [[
-Stranglegasp
-Onyx Amulet
-League: Scourge
-Requires Level 52
-Implicits: 1
-{tags:jewellery_attribute}+(10-16) to all Attributes
-Can have 3 additional Enchantment Modifiers
+Melding of the Flesh
+Cobalt Jewel
+Limited to: 1
+-(75-76)% to All Elemental Resistances
+Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
 ]],[[
-Uul-Netol's Vow
-Unset Amulet
-Source: Drops from Uber-Breachlords
-Requires Level 72
+The Annihilating Light
+Quarterstaff
+Requires Level 68, 78 Str, 78 Int
 Implicits: 1
-Has 1 Socket
-Socketed Non-Exceptional Support Gems can also Support Skills from your Body Armour
-{tags:jewellery_resistance}+30% to Fire Resistance
-{tags:jewellery_resistance}+30% to Cold Resistance
-{tags:jewellery_resistance}+30% to Lightning Resistance
-{tags:chaos,jewellery_resistance}+23% to Chaos Resistance
++18% Chance to Block Attack Damage while wielding a Staff
+63% reduced Elemental Resistances
+Elemental Skills deal Triple Damage
 ]],[[
-Mageblood
-Heavy Belt
-Requires Level 44
+Polaric Devastation
+Opal Ring
+Requires Level 80
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
-{tags:jewellery_attribute}+50 to Dexterity
-{tags:jewellery_resistance}+25% to Fire Resistance
-{tags:jewellery_resistance}+25% to Cold Resistance
-Magic Utility Flask cannot be Used
-Leftmost 4 Magic Utility Flasks constantly apply their Flask Effects to you
-Magic Utility Flask Effects cannot be removed
-]],[[
-Stasis Prison
-Carnal Armour
-League: Scourge
-Requires Level 71, 88 Dex, 122 Int
-Implicits: 1
-+(20-25) to maximum Mana
-160% increased Evasion and Energy Shield
-+100 to maximum Life
-Temporal Rift has no Reservation
-100% of Damage taken Recouped as Life
-Debuffs on you Expire 100% faster
+{tags:jewellery_elemental}(15-25)% increased Elemental Damage
+{tags:critical}21% increased Global Critical Strike Chance
+{tags:jewellery_resistance}+29% to Fire Resistance
+{tags:jewellery_resistance}+34% to Cold Resistance
+10% increased Duration of Ailments on Enemies
+Left Ring slot: Cover Enemies in Ash for 5 seconds when you Ignite them
+Right Ring slot: Cover Enemies in Frost for 5 seconds when you Freeze them
 ]]
 
 -- Reworked

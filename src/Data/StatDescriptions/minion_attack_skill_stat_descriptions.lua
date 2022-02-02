@@ -469,6 +469,23 @@ return {
 					},
 					limit={
 						[1]={
+							[1]=100,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="This Attack and Minions always Freeze Enemies"
+				},
+				[3]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextFreeze"
+					},
+					limit={
+						[1]={
 							[1]=1,
 							[2]=99
 						},
@@ -1326,7 +1343,11 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextFortify"
+						v="ReminderTextFortifyingHit"
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextFortification"
 					},
 					limit={
 						[1]={
@@ -1334,12 +1355,16 @@ return {
 							[2]=99
 						}
 					},
-					text="This Attack and Minions have {0}% chance to Fortify on Melee hit"
+					text="Melee Hits from this Attack and Minions have {0}% chance to Fortify"
 				},
 				[2]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextFortify"
+						v="ReminderTextFortifyingHit"
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextFortification"
 					},
 					limit={
 						[1]={
@@ -1347,7 +1372,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="This Attack and Minions gain Fortify on Melee hit"
+					text="Melee Hits from this Attack and Minions Fortify"
 				}
 			}
 		},
@@ -1446,6 +1471,7 @@ return {
 				}
 			}
 		},
+		name="spirit_strike_damage",
 		stats={
 			[1]="support_spirit_strike_damage_+%_final"
 		}
@@ -1477,6 +1503,7 @@ return {
 				}
 			}
 		},
+		name="trap_mine_damage",
 		stats={
 			[1]="support_trap_and_mine_damage_+%_final"
 		}
@@ -2818,7 +2845,7 @@ return {
 							[2]=99
 						}
 					},
-					text="{0}% Chance to Summon a Normal Sentinel of Dominance when you Hit a Unique Monster"
+					text="{0}% Chance to Summon a Normal Sentinel of Dominance on Hitting a Unique Monster"
 				},
 				[2]={
 					limit={
@@ -2827,7 +2854,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Summon a Normal Sentinel of Dominance when you Hit a Unique Monster"
+					text="Summon a Normal Sentinel of Dominance on Hitting a Unique Monster"
 				}
 			}
 		},
@@ -2886,6 +2913,7 @@ return {
 				}
 			}
 		},
+		name="enemy_phys_reduction_percent",
 		stats={
 			[1]="enemy_phys_reduction_%_penalty_vs_hit"
 		}
@@ -3029,6 +3057,7 @@ return {
 				}
 			}
 		},
+		name="impale_phys_reduction_penalty",
 		stats={
 			[1]="impale_phys_reduction_%_penalty"
 		}
@@ -3751,25 +3780,6 @@ return {
 		lang={
 			English={
 				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Enemies have -{0}% chance to Dodge Attack or Spell Hits from this Skill or Minions"
-				}
-			}
-		},
-		name="support_reduced_dodge_chance",
-		stats={
-			[1]="support_reduce_enemy_dodge_and_spell_dodge_%"
-		}
-	},
-	[130]={
-		lang={
-			English={
-				[1]={
 					[1]={
 						k="milliseconds_to_seconds",
 						v=2
@@ -3798,7 +3808,7 @@ return {
 			[2]="support_scion_onslaught_on_unique_hit_duration_ms"
 		}
 	},
-	[131]={
+	[130]={
 		lang={
 			English={
 				[1]={
@@ -3835,7 +3845,7 @@ return {
 			[3]="virtual_support_scion_onslaught_on_killing_blow_duration_ms"
 		}
 	},
-	[132]={
+	[131]={
 		lang={
 			English={
 				[1]={
@@ -3849,11 +3859,12 @@ return {
 				}
 			}
 		},
+		name="support_slashing_damage_from_distance",
 		stats={
 			[1]="support_slashing_damage_+%_final_from_distance"
 		}
 	},
-	[133]={
+	[132]={
 		lang={
 			English={
 				[1]={
@@ -4017,19 +4028,18 @@ return {
 	["support_pulverise_melee_area_damage_+%_final"]=127,
 	["support_rapid_decay_damage_over_time_+%_final"]=56,
 	["support_reduce_enemy_block_and_spell_block_%"]=128,
-	["support_reduce_enemy_dodge_and_spell_dodge_%"]=129,
 	["support_ruthless_big_hit_damage_+%_final"]=73,
 	["support_ruthless_big_hit_max_count"]=72,
 	["support_ruthless_big_hit_stun_base_duration_override_ms"]=75,
 	["support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final"]=74,
-	["support_scion_onslaught_for_3_seconds_on_hitting_unique_enemy_%_chance"]=130,
-	["support_scion_onslaught_on_killing_blow_%_chance"]=131,
-	["support_scion_onslaught_on_killing_blow_duration_ms"]=131,
-	["support_scion_onslaught_on_unique_hit_duration_ms"]=130,
-	["support_slashing_damage_+%_final_from_distance"]=132,
+	["support_scion_onslaught_for_3_seconds_on_hitting_unique_enemy_%_chance"]=129,
+	["support_scion_onslaught_on_killing_blow_%_chance"]=130,
+	["support_scion_onslaught_on_killing_blow_duration_ms"]=130,
+	["support_scion_onslaught_on_unique_hit_duration_ms"]=129,
+	["support_slashing_damage_+%_final_from_distance"]=131,
 	["support_spirit_strike_damage_+%_final"]=50,
 	["support_trap_and_mine_damage_+%_final"]=51,
 	["virtual_number_of_spirit_strikes"]=108,
-	["virtual_support_scion_onslaught_on_killing_blow_duration_ms"]=131,
-	["withered_on_hit_chance_%"]=133
+	["virtual_support_scion_onslaught_on_killing_blow_duration_ms"]=130,
+	["withered_on_hit_chance_%"]=132
 }

@@ -181,9 +181,9 @@ function ModStoreClass:Tabulate(modType, cfg, ...)
 end
 
 function ModStoreClass:Max(cfg, ...)
-	local max = 0
+	local max
 	for _, value in ipairs(self:Tabulate("MAX", cfg, ...)) do
-		if value.mod.value > max then
+		if value.mod.value > (max or 0) then
 			max = value.mod.value
 		end	
 	end
@@ -218,7 +218,17 @@ function ModStoreClass:GetMultiplier(var, cfg, noMod)
 end
 
 function ModStoreClass:GetStat(stat, cfg)
-	return (self.actor.output and self.actor.output[stat]) or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0
+	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled
+	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
+		-- 0% reserved = total mana
+		return self.actor.output["Mana"]
+	elseif stat == "ManaUnreserved" and not self.actor.output[stat] == nil and self.actor.output[stat] < 0 then
+		-- This reverse engineers how much mana is unreserved before efficiency for accurate Arcane Cloak calcs
+		local reservedPercentBeforeEfficiency = (math.abs(self.actor.output["ManaUnreservedPercent"]) + 100) * ((100 + self.actor["ManaEfficiency"]) / 100)
+		return self.actor.output["Mana"] * (math.ceil(reservedPercentBeforeEfficiency) / 100);
+	else
+		return (self.actor.output and self.actor.output[stat]) or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0
+	end
 end
 
 function ModStoreClass:EvalMod(mod, cfg)
@@ -526,7 +536,17 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SkillType" then
-			local match = cfg and cfg.skillTypes and cfg.skillTypes[tag.skillType]
+			local match = false
+			if tag.skillTypeList then
+				for _, type in pairs(tag.skillTypeList) do
+					if cfg and cfg.skillTypes and cfg.skillTypes[type] then
+						match = true
+						break
+					end
+				end
+			else
+				match = cfg and cfg.skillTypes and cfg.skillTypes[tag.skillType]
+			end
 			if tag.neg then
 				match = not match
 			end

@@ -3,15 +3,15 @@
 
 return {
 	["ENKINDLING"] = {
-		"(40-50)% increased effect/Gains no Charges during Flask Effect",
-		"(70-90)% increased Duration/Gains no Charges during Flask Effect",
-		"(50-60)% increased Charge Recovery/Gains no Charges during Flask Effect",
-		"(20-30)% reduced Charges used/Gains no Charges during Flask Effect",
-		"+(30-40) to Maximum Charges/Gains no Charges during Flask Effect",
+		"(60-70)% increased effect/Gains no Charges during Flask Effect",
+		"(80-100)% increased Duration/Gains no Charges during Flask Effect",
+		"(60-80)% increased Charge Recovery/Gains no Charges during Flask Effect",
+		"(25-35)% reduced Charges per use/Gains no Charges during Flask Effect",
+		"+(40-60) to Maximum Charges/Gains no Charges during Flask Effect",
 	},
 	["INSTILLING"] = {
 		"Used when an adjacent Flask is used",
-		"Reused at the end of the Flask effect",
+		"Reused at the end of this Flask's effect",
 		"Used when Charges reach full",
 		"Used when you Use a Guard Skill",
 		"Used when you Use a Travel Skill",
