@@ -3,11 +3,12 @@
 -- Class: Check Box Control
 -- Basic check box control.
 --
-local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost", function(self, anchor, x, y, size, label, changeFunc, tooltipText)
+local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost", function(self, anchor, x, y, size, label, changeFunc, tooltipText, initialState)
 	self.Control(anchor, x, y, size, size)
 	self.TooltipHost(tooltipText)
 	self.label = label
 	self.changeFunc = changeFunc
+	self.state = initialState
 end)
 
 function CheckBoxClass:IsMouseOver()
