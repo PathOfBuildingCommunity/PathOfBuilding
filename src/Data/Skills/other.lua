@@ -1292,8 +1292,10 @@ skills["AtziriUniqueStaffFlameblast"] = {
 	castTime = 0.8,
 	fromItem = true,
 	baseFlags = {
+		area = true,
 	},
 	baseMods = {
+		skill("triggerSource", "Queen's Demand"),
 	},
 	qualityStats = {
 	},
@@ -2423,8 +2425,10 @@ skills["AtziriUniqueStaffStormCall"] = {
 	castTime = 0.8,
 	fromItem = true,
 	baseFlags = {
+		area = true
 	},
 	baseMods = {
+		skill("triggerSource", "Queen's Demand"),
 	},
 	qualityStats = {
 	},

@@ -308,7 +308,9 @@ end
 
 -- Find unique item trigger name
 local function getUniqueItemTriggerName(skill)
-	if skill.supportList and #skill.supportList >= 1 then
+	if skill.skillData.triggerSource then
+		return skill.skillData.triggerSource
+	elseif skill.supportList and #skill.supportList >= 1 then
 		for _, gemInstance in ipairs(skill.supportList) do
 			if gemInstance.grantedEffect and gemInstance.grantedEffect.fromItem then
 				return gemInstance.grantedEffect.name
@@ -2515,6 +2517,16 @@ function calcs.perform(env, avoidCache)
 				if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell] then
 					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = cooldownOverride or (skill.skillData.cooldown / icdr), next_trig = 0, count = 0 })
 				end
+			elseif uniqueTriggerName == "Queen's Demand" then
+				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
+				if skill.activeEffect.grantedEffect.name == uniqueTriggerName then
+					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+				end
+				if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
+					t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = cooldownOverride or (skill.skillData.cooldown / icdr), next_trig = 0, count = 0 })
+				end
+			else
+				ConPrintf("[ERROR]: Unhandled Unique Trigger Name: " .. uniqueTriggerName)
 			end
 		end
 		if not source or #spellCount < 1 then
@@ -2535,10 +2547,13 @@ function calcs.perform(env, avoidCache)
 
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+
 			env.player.mainSkill.skillData.triggerRate = trigRate
 			env.player.mainSkill.skillData.triggerSource = source
-			env.player.mainSkill.infoMessage = triggerName .. "'s Triggering Skill: " .. source.activeEffect.grantedEffect.name
-			env.player.mainSkill.infoTrigger = triggerName
+			env.player.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
+			env.player.mainSkill.skillData.triggerUnleash = source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire]
+			env.player.mainSkill.infoMessage = triggerName .. "'s Trigger: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = env.player.mainSkill.infoTrigger or triggerName
 		end
 	end
 
