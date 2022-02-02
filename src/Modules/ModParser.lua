@@ -2829,7 +2829,6 @@ local specialModList = {
 	["cannot be frozen if dexterity is higher than intelligence"] = { mod("AvoidFreeze", "BASE", 100, { type = "Condition", var = "DexHigherThanInt" }) },
 	["cannot be frozen if energy shield recharge has started recently"] = { mod("AvoidFreeze", "BASE", 100, { type = "Condition", var = "EnergyShieldRechargeRecently" }) },
 	["cannot be ignited if strength is higher than dexterity"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "StrHigherThanDex" }) },
-	["cannot be ignited while on low life"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "LowLife" }) },
 	["cannot be chilled while burning"] = { mod("AvoidChill", "BASE", 100, { type = "Condition", var = "Burning" }) },
 	["cannot be chilled while you have onslaught"] = { mod("AvoidChill", "BASE", 100, { type = "Condition", var = "Onslaught" }) },
 	["cannot be inflicted with bleeding"] = { mod("AvoidBleed", "BASE", 100) },
