@@ -632,7 +632,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				self.displayGroup.gemList[index].qualityId = hoveredQuality.type
 				self:ProcessSocketGroup(self.displayGroup)
 				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-				GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+				GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 				local output = calcFunc({}, {})
 				GlobalCache.useFullDPS = storedGlobalCacheDPSView
 				self.displayGroup.gemList[index].qualityId = tempQual
@@ -667,7 +667,7 @@ function SkillsTabClass:CreateGemSlot(index)
 					local storedQuality = self.displayGroup.gemList[index].quality
 					self.displayGroup.gemList[index].quality = 20
 					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-					GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+					GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 					local output = calcFunc({}, {})
 					GlobalCache.useFullDPS = storedGlobalCacheDPSView
 					self.displayGroup.gemList[index].quality = storedQuality
@@ -707,7 +707,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				if calcFunc then
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
 					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-					GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+					GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 					local output = calcFunc({}, {})
 					GlobalCache.useFullDPS = storedGlobalCacheDPSView
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
