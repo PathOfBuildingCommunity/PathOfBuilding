@@ -212,7 +212,15 @@ local skills, mod, flag, skill = ...
 
 #skill VaalBladeVortex
 #flags spell area duration
-#baseMod skill("hitTimeOverride", 0.2)
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency
+	end,
+	statMap = {
+		["base_blade_vortex_hit_rate_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+	},
 #baseMod skill("radius", 15)
 #mods
 
