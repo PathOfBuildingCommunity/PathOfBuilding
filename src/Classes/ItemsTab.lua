@@ -2631,13 +2631,36 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * (1 + effectInc / 100)
 				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
 				local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
-				if inst > 0 and grad > 0 then
-					t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
-				elseif inst + grad ~= flaskData.lifeTotal or (inst == 0 and lifeDur ~= flaskData.duration) then
+
+				-- LocalLifeFlaskAdditionalLifeRecovery flask mods
+				if flaskData.lifeAdditional > 0 and not self.build.configTab.input.conditionFullLife then
+					local totalAdditionalAmount = (flaskData.lifeAdditional/100) * flaskData.lifeTotal * output.LifeRecoveryRateMod
+					local additionalGrad = (lifeDur/10) * totalAdditionalAmount
+					local leftoverDur = 10 - lifeDur
+					local leftoverAmount = totalAdditionalAmount - additionalGrad
+
 					if inst > 0 then
-						t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
-					elseif grad > 0 then
-						t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
+						if grad > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs^8)",
+									inst + grad + totalAdditionalAmount, inst, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
+						else
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, and an additional ^7%d ^8over ^7%.2fs^8)",
+									inst + totalAdditionalAmount, inst, totalAdditionalAmount, 10))
+						end
+					else
+						t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d ^8over ^7%.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs^8)",
+						grad + totalAdditionalAmount, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
+					end
+				else
+					if inst > 0 and grad > 0 then
+						t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
+					-- modifiers to recovery amount or duration
+					elseif inst + grad ~= flaskData.lifeTotal or (inst == 0 and lifeDur ~= flaskData.duration) then
+						if inst > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
+						elseif grad > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
+						end
 					end
 				end
 				if modDB:Flag(nil, "LifeFlaskAppliesToEnergyShield") then
@@ -2691,7 +2714,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			end
 		end
 		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-		GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		local output = calcFunc({ toggleFlask = item }, {})
 		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		local header
@@ -2731,7 +2754,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		for _, slot in pairs(compareSlots) do
 			local selItem = self.items[slot.selItemId]
 			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-			GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+			GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
 			GlobalCache.useFullDPS = storedGlobalCacheDPSView
 			local header
