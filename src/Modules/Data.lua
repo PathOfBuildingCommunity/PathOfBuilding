@@ -277,7 +277,7 @@ data.cursePriority = {
 	["Ring 1"] = 8000,
 	["Ring 2"] = 9000,
 	["CurseFromEquipment"] = 10000,
-	["CurseFromAura"] = 11000,
+	["CurseFromAura"] = 20000,
 }
 
 ---@type string[] @List of all keystones not exclusive to timeless jewels.
