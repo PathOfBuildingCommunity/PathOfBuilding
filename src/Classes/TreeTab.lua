@@ -11,7 +11,6 @@ local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
 local s_format = string.format
-local inspect = LoadModule("inspect")
 
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.ControlHost()
@@ -283,7 +282,6 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 end
 
 function TreeTabClass:Load(xml, dbFileName)
--- print("Passive" .. inspect(xml))
 	self.specList = { }
 	if xml.elem == "Spec" then
 		-- Import single spec from old build

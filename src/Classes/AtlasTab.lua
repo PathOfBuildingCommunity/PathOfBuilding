@@ -11,7 +11,6 @@ local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
 local s_format = string.format
-local inspect = LoadModule("inspect")
 
 local AtlasTabClass = newClass("AtlasTab", "ControlHost", function(self, build)
 	self.ControlHost()
@@ -286,7 +285,6 @@ function AtlasTabClass:Draw(viewPort, inputEvents)
 end
 
 function AtlasTabClass:Load(xml, dbFileName)
--- print("Atlas"..inspect(xml))
 	self.specList = { }
 	for _, node in pairs(xml) do
 		if type(node) == "table" then

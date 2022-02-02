@@ -11,7 +11,6 @@ local m_max = math.max
 local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
-local inspect = LoadModule("inspect")
 
 local banditDropList = {
 	{ label = "2 Passive Points", id = "None" },
@@ -721,7 +720,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 	for _, node in ipairs(deferredPassiveTrees) do
 		-- Check if there is a saver that can load this section
-		print("Node: "..inspect(node))
 		if node.elem == "Tree" then
 			if self.treeTab:Load(node, self.dbFileName) then
 				self:CloseBuild()
