@@ -2830,8 +2830,12 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 		"HarvestNessaCrabScreechDebuff",
 	},
 	modList = {
-		-- MonsterHarvestT3DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 720] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
+		-- MonsterHarvestT3DropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterHarvestT3DropModifiers [monster_dropped_item_quantity_+% = 720]
+		-- MonsterHarvestT3DropModifiers [monster_dropped_item_rarity_+% = 1500]
+		-- MonsterHarvestT3DropModifiers [monster_no_map_drops = 0]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 		-- MapMonsterReducedCurseEffect [unique_boss_curse_effect_on_self_+%_final = -33]
 	},
 }
@@ -3316,8 +3320,10 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
 		"SynthesisQuicksandStartEffect",
 	},
 	modList = {
-		-- MonsterTagSynthesised
-		-- MonsterSynthesisLargeDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 700] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
+		-- MonsterSynthesisLargeDropModifiers_ [monster_slain_experience_+% = 0]
+		-- MonsterSynthesisLargeDropModifiers_ [monster_dropped_item_quantity_+% = 700]
+		-- MonsterSynthesisLargeDropModifiers_ [monster_dropped_item_rarity_+% = 1500]
+		-- MonsterSynthesisLargeDropModifiers_ [monster_no_map_drops = 0]
 	},
 }
 -- Ruins Hellion
@@ -3390,7 +3396,8 @@ minions["Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre"] = {
 	modList = {
 		-- MonsterBreachQuantityCommander [monster_dropped_item_quantity_+% = 700]
 		-- MonsterBreachRarityCommander [monster_dropped_item_rarity_+% = 1000]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 		-- MonsterKillTrapsMinesTotemsOnDeath [kill_traps_mines_and_totems_on_death = 1]
 	},
 }
@@ -3414,9 +3421,12 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
 		"MonsterChanceToTemporalChainsOnHit1",
 	},
 	modList = {
-		-- MonsterDelveLargeDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 200] [monster_dropped_item_rarity_+% = 1000] [monster_no_map_drops = 0]
+		-- MonsterDelveLargeDropModifiers_ [monster_slain_experience_+% = 0]
+		-- MonsterDelveLargeDropModifiers_ [monster_dropped_item_quantity_+% = 200]
+		-- MonsterDelveLargeDropModifiers_ [monster_dropped_item_rarity_+% = 1000]
+		-- MonsterDelveLargeDropModifiers_ [monster_no_map_drops = 0]
 		-- MonsterChanceToTemporalChainsOnHit1 [curse_on_hit_%_temporal_chains = 100]
-		mod("EnemyCurseLimit", "BASE", 1), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
+		mod("EnemyCurseLimit", "BASE", 1, 0, 0), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
 	},
 }
 -- Ancient Wraith
@@ -3439,8 +3449,11 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 		"DelveMonsterEnfeebleOnHit",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
+		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
 		-- DelveMonsterEnfeebleOnHit [curse_on_hit_level_enfeeble = 8]
-		mod("EnemyCurseLimit", "BASE", 1), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
+		mod("EnemyCurseLimit", "BASE", 1, 0, 0), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
 	},
 }
