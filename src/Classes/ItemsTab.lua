@@ -2507,6 +2507,9 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if item.limit then
 			tooltip:AddLine(16, "^x7F7F7FLimited to: ^7"..item.limit)
 		end
+		if item.classRestriction then
+			tooltip:AddLine(16, "^x7F7F7FRequires Class "..(self.build.spec.curClassName == item.classRestriction and colorCodes.POSITIVE or colorCodes.NEGATIVE)..item.classRestriction)
+		end
 		if item.jewelRadiusLabel then
 			tooltip:AddLine(16, "^x7F7F7FRadius: ^7"..item.jewelRadiusLabel)
 		end
