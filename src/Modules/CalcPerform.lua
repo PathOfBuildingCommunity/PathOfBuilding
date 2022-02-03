@@ -515,36 +515,45 @@ local function doActorAttribsPoolsConditions(env, actor)
 		condList["StrHigherThanInt"] = output.Str > output.Int
 	end
 
-	local calculateOmniscience = function ()
+	local calculateOmniscience = function (convert)
 		local classStats = env.spec.tree.characterData and env.spec.tree.characterData[env.classId] or env.spec.tree.classes[env.classId]
+
+		if convert == true then
+			for _, stat in pairs({"Str","Dex","Int"}) do
+				local base = classStats["base_"..stat:lower()]
+				output[stat] = m_min(round(calcLib.val(modDB, stat)), base)
+				if breakdown then
+					breakdown[stat] = breakdown.simple(nil, nil, output[stat], stat)
+				end
+
+				modDB:NewMod("Omni", "BASE", (modDB:Sum("BASE", nil, stat) - base), stat.." conversion Omniscience")
+				modDB:NewMod("Omni", "INC", modDB:Sum("INC", nil, stat), "Omniscience")
+				modDB:NewMod("Omni", "MORE", modDB:Sum("MORE", nil, stat), "Omniscience")
+			end
+		end
+		
+		if convert ~= true then
+			-- Subtract out double and triple dips
+			local conversion = { }
+			local reduction = { }
+			for _, type in pairs({"BASE", "INC", "MORE"}) do
+				conversion[type] = { }
+				for _, stat in pairs({"StrDex", "StrInt", "DexInt", "All"}) do
+					conversion[type][stat] = modDB:Sum(type, nil, stat) or 0
+				end
+				reduction[type] = conversion[type].StrDex + conversion[type].StrInt + conversion[type].DexInt + 2*conversion[type].All
+			end
+			modDB:NewMod("Omni", "BASE", -reduction["BASE"], "Reduction from Double/Triple Dipped attributes to Omniscience")
+			modDB:NewMod("Omni", "INC", -reduction["INC"], "Reduction from Double/Triple Dipped attributes to Omniscience")
+			modDB:NewMod("Omni", "MORE", -reduction["MORE"], "Reduction from Double/Triple Dipped attributes to Omniscience")
+		end
 
 		for _, stat in pairs({"Str","Dex","Int"}) do
 			local base = classStats["base_"..stat:lower()]
-			output[stat] = m_min(round(calcLib.val(modDB, stat)), base)
-			if breakdown then
-				breakdown[stat] = breakdown.simple(nil, nil, output[stat], stat)
-			end
-
-			modDB:NewMod("Omni", "BASE", (modDB:Sum("BASE", nil, stat) - base), stat.." conversion Omniscience")
-			modDB:NewMod("Omni", "INC", modDB:Sum("INC", nil, stat), "Omniscience")
-			modDB:NewMod("Omni", "MORE", modDB:Sum("MORE", nil, stat), "Omniscience")
+			output[stat] = base
 		end
-		
-		-- Subtract out double and triple dips
-		local conversion = { }
-		local reduction = { }
-		for _, type in pairs({"BASE", "INC", "MORE"}) do
-			conversion[type] = { }
-			for _, stat in pairs({"StrDex", "StrInt", "DexInt", "All"}) do
-				conversion[type][stat] = modDB:Sum(type, nil, stat) or 0
-			end
-			reduction[type] = conversion[type].StrDex + conversion[type].StrInt + conversion[type].DexInt + 2*conversion[type].All
-		end
-		modDB:NewMod("Omni", "BASE", -reduction["BASE"], "Reduction from Double/Triple Dipped attributes to Omniscience")
-		modDB:NewMod("Omni", "INC", -reduction["INC"], "Reduction from Double/Triple Dipped attributes to Omniscience")
-		modDB:NewMod("Omni", "MORE", -reduction["MORE"], "Reduction from Double/Triple Dipped attributes to Omniscience")
 
-		output["Omni"] = m_max(round(calcLib.val(modDB, "Omni")), 0)
+		output["Omni"] = m_max(round(calcLib.val(modDB, "Omni")), 0) or 0
 		if breakdown then
 			breakdown["Omni"] = breakdown.simple(nil, nil, output["Omni"], "Omni")
 		end
@@ -557,7 +566,8 @@ local function doActorAttribsPoolsConditions(env, actor)
 	end
 
 	if modDB:Flag(nil, "Omniscience") then
-		calculateOmniscience()
+		calculateOmniscience(false)
+		calculateOmniscience(true)
 	else 
 		-- Calculate twice because of circular dependency
 		calculateAttributes()
