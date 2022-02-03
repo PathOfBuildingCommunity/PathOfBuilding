@@ -5,6 +5,7 @@
 --
 local pairs = pairs
 local t_insert = table.insert
+local inspect = LoadModule("inspect")
 
 local ItemListClass = newClass("ItemListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, itemsTab.itemOrderList)
@@ -42,21 +43,53 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	end
 	self.controls.deleteUnused = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 100, 18, "Delete Unused", function()
 		local delList = {}
+		local abyssalJewelsList = {}
+		local abyssalJewelsOwnedbyItemsList = {}
 		for _, itemId in pairs(self.list) do
+			-- Abyssal jewels will not show up using FindSocketedJewel
+			-- Get a list of abyssal jewels as the list moves thru and deal with them last
 			if itemsTab.items[itemId].type == "Jewel" then
-				if self:FindSocketedJewel(itemId, false) == "" then
-					t_insert(delList, itemId)
+				-- print("Jewel: "..itemsTab.items[itemId].name)
+				-- print("Jewel: "..inspect(itemsTab.items[itemId].base.subType))
+				if itemsTab.items[itemId].base.subType and itemsTab.items[itemId].base.subType == "Abyss" then
+					t_insert(abyssalJewelsList, itemId)
+				else
+					if self:FindSocketedJewel(itemId, false) == "" then
+						t_insert(delList, itemId)
+					end
 				end
 			else
+-- local f = io.open('../filename.log', 'w')
+-- f:write(inspect(itemsTab.items[itemId]))
+-- f:close()
 				local slot, itemSet = itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId])
+				print("Item: "..itemsTab.items[itemId].name)
+				print("Item: "..inspect(itemsTab.items[itemId].base.subType))
+				-- if slot then print("Slot: "..inspect(slot.slotName)) end
+				-- if itemSet then print("itemSet: "..inspect(itemSet)) end
+				-- If slot is nil the item is not in a 'slot'
 				if not slot then
 					t_insert(delList, itemId)
+				else
+					-- Check the abyssal socket list for a non 0
+				if slot then print("Slot: "..inspect(slot.slotName)) end
+					if slot.abyssalSocketList then
+						for i = 1, 6 do
+				if slot then print("Slot: "..inspect(slot.abyssalSocketList[i].selItemId)) end
+							if slot.abyssalSocketList[i].selItemId ~= 0 then
+								t_insert(abyssalJewelsOwnedbyItemsList, slot.abyssalSocketList[i].selItemId)
+							end
+						end
+					end	
 				end
 			end
+			print("abyssalJewelsList: "..inspect(abyssalJewelsList))
+			print("abyssalJewelsOwnedbyItemsList: "..inspect(abyssalJewelsOwnedbyItemsList))
 		end
 		-- Delete in reverse order so as to not delete the wrong item whilst deleting
 		for i = #delList, 1, -1 do
-			itemsTab:DeleteItem(itemsTab.items[delList[i]], true)
+			print( itemsTab.items[delList[i]].name)
+			-- itemsTab:DeleteItem(itemsTab.items[delList[i]], true)
 		end
 		-- Rebuild cluster jewel graphs, populate slots, and create an undo state, as we deferred doing this during itemsTab:DeleteItem(...)
 		for _, spec in pairs(itemsTab.build.treeTab.specList) do
