@@ -1836,8 +1836,8 @@ function calcs.perform(env, avoidCache)
 								local inc = modStore:Sum("INC", skillCfg, "BuffEffect") + modDB:Sum("INC", nil, "BuffEffectOnSelf")
 								local more = modStore:More(skillCfg, "BuffEffect") * modDB:More(nil, "BuffEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
-								mergeBuff(srcList, buffs, buff.name, env.player.activeSkillList)
-								mergeBuff(buff.unscalableModList, buffs, buff.name, env.player.activeSkillList)
+								mergeBuff(srcList, buffs, buff.name)
+								mergeBuff(buff.unscalableModList, buffs, buff.name)
 							end
 							if env.minion and (env.minion == castingMinion or buff.applyAllies) then
 				 				env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
@@ -1845,8 +1845,8 @@ function calcs.perform(env, avoidCache)
 								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf")
 								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
-								mergeBuff(srcList, minionBuffs, buff.name, env.player.activeSkillList)
-								mergeBuff(buff.unscalableModList, minionBuffs, buff.name, env.player.activeSkillList)
+								mergeBuff(srcList, minionBuffs, buff.name)
+								mergeBuff(buff.unscalableModList, minionBuffs, buff.name)
 							end
 						end
 					elseif buff.type == "Aura" then
@@ -1856,14 +1856,14 @@ function calcs.perform(env, avoidCache)
 								local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 								local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
-								mergeBuff(srcList, buffs, buff.name, env.player.activeSkillList)
+								mergeBuff(srcList, buffs, buff.name)
 							end
 							if env.minion and (env.minion ~= activeSkill.minion or not activeSkill.skillData.auraCannotAffectSelf) then
 								local srcList = new("ModList")
 								local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 								local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
-								mergeBuff(srcList, minionBuffs, buff.name, env.player.activeSkillList)
+								mergeBuff(srcList, minionBuffs, buff.name)
 							end
 						end
 					elseif buff.type == "Curse" then
@@ -1897,7 +1897,7 @@ function calcs.perform(env, avoidCache)
 							if activeSkill.skillData.stackCount then
 								srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", activeSkill.skillData.stackCount, buff.name)
 							end
-							mergeBuff(srcList, debuffs, buff.name, env.player.activeSkillList)
+							mergeBuff(srcList, debuffs, buff.name)
 						end
 					end
 				end
