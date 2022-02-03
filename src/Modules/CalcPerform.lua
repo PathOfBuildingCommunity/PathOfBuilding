@@ -149,7 +149,7 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 		trigRateTable.extraSimInfo = "Good Job! There are no wasted trigger opportunities"
 	end
 	for _, sd in ipairs(skillRotation) do
-		if cacheSkillUUID(env.player.mainSkill) == sd.uuid or cacheSkillUUID(env.minion.mainSkill) == sd.uuid then
+		if cacheSkillUUID(env.player.mainSkill) == sd.uuid or env.minion and cacheSkillUUID(env.minion.mainSkill) == sd.uuid then
 			mainRate = sd.count / SIM_TIME
 		end
 		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.count / SIM_TIME })
