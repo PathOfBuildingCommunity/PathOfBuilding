@@ -253,28 +253,31 @@ data.specialBaseTags = {
 }
 
 data.cursePriority = {
-	["Warlord's Mark"] = 1,
-	["Despair"] = 2, -- Vulnerability
-	["Temporal Chains"] = 3,
-	["Sniper's Mark"] = 4,
-	["Punishment"] = 5,
-	["Poacher's Mark"] = 6,
-	["Vulnerability"] = 7, -- NewVulnerability
-	["Frostbite"] = 8,
-	["Flammability"] = 9,
-	["Enfeeble"] = 10,
-	["Elemental Weakness"] = 11,
-	["Conductivity"] = 12,
-	["Assassin's Mark"] = 13,
-	["CurseFromSkillGem"] = 100,
-	["CurseFromEquipment"] = 200,
-	["AnySlotMarkType"] = 1000,
-	["RightRingSlotMarkType"] = 2000,
-	["LeftRingSlotMarkType"] = 3000,
-	["AnySlotHexType"] = 4000,
-	["RightRingSlotHexType"] = 5000,
-	["LeftRingSlotHexType"] = 6000,
-	["CurseAura"] = 10000,
+	["Temporal Chains"] = 1, -- Despair and Elemental Weakness override Temporal Chains.
+	["Enfeeble"] = 2, -- Elemental Weakness and Vulnerability override Enfeeble.
+	["Elemental Weakness"] = 3, -- Despair and Flammability override Elemental Weakness.
+	["Flammability"] = 4, -- Frostbite overrides Flammability.
+	["Frostbite"] = 5, -- Conductivity overrides Frostbite.
+	["Conductivity"] = 6,
+	["Warlord's Mark"] = 7,
+	["Assassin's Mark"] = 8,
+	["Sniper's Mark"] = 9,
+	["Poacher's Mark"] = 10,
+	["Vulnerability"] = 11, -- Despair overrides Vulnerability. Vulnerability was reworked in 3.1.0.
+	["Despair"] = 12, -- Despair was created in 3.1.0.
+	["Punishment"] = 13, -- Punishment was reworked in 3.12.0.
+	["SocketPriorityBase"] = 100,
+	["Weapon 1"] = 1000,
+	["Amulet"] = 2000,
+	["Helmet"] = 3000,
+	["Weapon 2"] = 4000,
+	["Body Armour"] = 5000,
+	["Gloves"] = 6000,
+	["Boots"] = 7000,
+	["Ring 1"] = 8000,
+	["Ring 2"] = 9000,
+	["CurseFromEquipment"] = 10000,
+	["CurseFromAura"] = 20000,
 }
 
 ---@type string[] @List of all keystones not exclusive to timeless jewels.

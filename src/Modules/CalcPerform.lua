@@ -647,29 +647,36 @@ local function doActorLifeManaReservation(actor)
 end
 
 -- Helper function to determine curse priority when processing curses beyond the curse limit
-local function determineCursePriority(curseName, skillTypes, source, slot)
+local function determineCursePriority(curseName, activeSkill)
 	local curseName = curseName or ""
-	local slot = slot or ""
-	local basePriority = data.cursePriority[curseName] or 0
-	local typePriority = skillTypes[SkillType.Aura] and data.cursePriority["CurseAura"] or 0
-	local sourcePriority = source and data.cursePriority["CurseFromEquipment"] or data.cursePriority["CurseFromSkillGem"]
-	local slotPriority = data.cursePriority["AnySlotHexType"]
-	if slot:match("Ring 1") then
-		if curseName:match("'s Mark") then
-			slotPriority = data.cursePriority["LeftRingSlotMarkType"]
-		else
-			slotPriority = data.cursePriority["LeftRingSlotHexType"]
+	local source = ""
+	local slot = ""
+	local socket = 1
+	if activeSkill and activeSkill.socketGroup then
+		source = activeSkill.socketGroup.source or ""
+		slot = activeSkill.socketGroup.slot or ""
+		for k, v in ipairs(activeSkill.socketGroup.gemList) do
+			if v.gemData and v.gemData.name == curseName then
+				-- We need to enforce a limit of 8 here to avoid collision with data.cursePriority["CurseFromEquipment"]
+				socket = m_min(k, 8)
+				break
+			end
 		end
-	elseif slot:match("Ring 2") then
-		if curseName:match("'s Mark") then
-			slotPriority = data.cursePriority["RightRingSlotMarkType"]
-		else
-			slotPriority = data.cursePriority["RightRingSlotHexType"]
-		end
-	elseif curseName:match("'s Mark") then
-		slotPriority = data.cursePriority["AnySlotMarkType"]
 	end
-	return basePriority + typePriority + sourcePriority + slotPriority
+	local basePriority = data.cursePriority[curseName] or 0
+	local socketPriority = socket * data.cursePriority["SocketPriorityBase"]
+	local slotPriority = data.cursePriority[slot:gsub(" (Swap)", "")] or 0
+	local sourcePriority = 0
+	if activeSkill and activeSkill.skillTypes and activeSkill.skillTypes[SkillType.Aura] then
+		sourcePriority = data.cursePriority["CurseFromAura"]
+	elseif source ~= "" then
+		sourcePriority = data.cursePriority["CurseFromEquipment"]
+	end
+	if source ~= "" and slotPriority == data.cursePriority["Ring 2"] then
+		-- Implicit and explicit curses from rings have equal priority; only curses from socketed skill gems care about which ring slot they're equipped in
+		slotPriority = data.cursePriority["Ring 1"]
+	end
+	return basePriority + socketPriority + slotPriority + sourcePriority
 end
 
 -- Process charges, enemy modifiers, and other buffs
@@ -1768,7 +1775,7 @@ function calcs.perform(env, avoidCache)
 					local curse = {
 						name = buff.name,
 						fromPlayer = true,
-						priority = determineCursePriority(buff.name, activeSkill.skillTypes, activeSkill.socketGroup.source, activeSkill.socketGroup.slot),
+						priority = determineCursePriority(buff.name, activeSkill),
 						isMark = mark,
 						ignoreHexLimit = modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") and not mark or false,
 						socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
@@ -1851,7 +1858,7 @@ function calcs.perform(env, avoidCache)
 						if env.mode_effective and activeSkill.skillData.enable and (not enemyDB:Flag(nil, "Hexproof") or activeSkill.skillTypes[SkillType.Mark]) then
 							local curse = {
 								name = buff.name,
-								priority = determineCursePriority(buff.name, activeSkill.skillTypes, activeSkill.socketGroup.source, activeSkill.socketGroup.slot),
+								priority = determineCursePriority(buff.name, activeSkill),
 							}
 							local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
 							local more = skillModList:More(skillCfg, "CurseEffect") * enemyDB:More(nil, "CurseEffectOnSelf")
