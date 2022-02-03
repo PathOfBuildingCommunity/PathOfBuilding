@@ -553,7 +553,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 			output[stat] = base
 		end
 
-		output["Omni"] = m_max(round(calcLib.val(modDB, "Omni")), 0) or 0
+		output["Omni"] = m_max(round(calcLib.val(modDB, "Omni")), 0)
 		if breakdown then
 			breakdown["Omni"] = breakdown.simple(nil, nil, output["Omni"], "Omni")
 		end
