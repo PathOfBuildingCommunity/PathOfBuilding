@@ -56,15 +56,6 @@ function calcs.armourReductionDouble(armour, damage, moreChance, moreValue)
 	return calcs.armourReduction(armour, damage) * (1 - moreChance) + calcs.armourReduction(armour * 2, damage) * moreChance
 end
 
-function calcs.actionSpeedMod(actor)
-	local modDB = actor.modDB
-	local actionSpeedMod = 1 + (m_max(-data.misc.TemporalChainsEffectCap, modDB:Sum("INC", nil, "TemporalChainsActionSpeed")) + modDB:Sum("INC", nil, "ActionSpeed")) / 100
-	if modDB:Flag(nil, "ActionSpeedCannotBeBelowBase") then
-		actionSpeedMod = m_max(1, actionSpeedMod)
-	end
-	return actionSpeedMod
-end
-
 -- Performs all defensive calculations
 function calcs.defence(env, actor)
 	local modDB = actor.modDB
