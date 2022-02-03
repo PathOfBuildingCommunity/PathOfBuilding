@@ -29,7 +29,8 @@ minions["Metadata/Monsters/Axis/AxisCaster"] = {
 		"AxisClaimSoldierMinions",
 	},
 	modList = {
-		-- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20] [base_block_%_damage_taken = 10]
+		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
+		-- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
 	},
 }
 minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
@@ -54,7 +55,8 @@ minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
 		"AxisClaimSoldierMinions",
 	},
 	modList = {
-		-- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20] [base_block_%_damage_taken = 10]
+		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
+		-- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
 	},
 }
 minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
@@ -78,7 +80,8 @@ minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
 		"MonsterColdThorns",
 	},
 	modList = {
-		-- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20] [base_block_%_damage_taken = 10]
+		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
+		-- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
 	},
 }
 minions["Metadata/Monsters/Axis/AxisEliteSoldier3Champion"] = {
@@ -104,7 +107,7 @@ minions["Metadata/Monsters/Axis/AxisEliteSoldier3Champion"] = {
 		"DoubleStrikeMeleeAtAnimationSpeed",
 	},
 	modList = {
-		mod("PhysicalDamageGainAsFire", "BASE", 100), -- MonsterPhysicalAddedAsFireSkeletonMaps [physical_damage_%_to_add_as_fire = 100]
+		mod("PhysicalDamageGainAsFire", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsFireSkeletonMaps [physical_damage_%_to_add_as_fire = 100]
 	},
 }
 minions["Metadata/Monsters/Axis/AxisExperimenter"] = {
@@ -529,7 +532,7 @@ minions["Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps"] = {
 		"GoatmanWait2",
 	},
 	modList = {
-		mod("PhysicalDamageGainAsLightning", "BASE", 100), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
+		mod("PhysicalDamageGainAsLightning", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
 	},
 }
 minions["Metadata/Monsters/Goatman/GoatmanShamanFireball"] = {
@@ -597,7 +600,7 @@ minions["Metadata/Monsters/Goatman/GoatmanShamanLightning"] = {
 		"MonsterSpark",
 	},
 	modList = {
-		mod("Speed", "INC", -50, ModFlag.Cast), -- MonsterGoatmanShamanCastSpeed [base_cast_speed_+% = -50]
+		mod("Speed", "INC", -50, 16, 0), -- MonsterGoatmanShamanCastSpeed [base_cast_speed_+% = -50]
 	},
 }
 minions["Metadata/Monsters/Goatman/MountainGoatmanChampion"] = {
@@ -684,7 +687,7 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged"] = {
 		"EmptyActionFemaleDemonProjectilesAhead",
 	},
 	modList = {
-		mod("PhysicalDamageConvertToFire", "BASE", 50), -- MonsterConvertToFireDamage2 [base_physical_damage_%_to_convert_to_fire = 50]
+		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0), -- MonsterConvertToFireDamage2 [base_physical_damage_%_to_convert_to_fire = 50]
 		-- MonsterRangeVarianceMedium [main_hand_base_maximum_attack_distance = 0]
 	},
 }
@@ -704,7 +707,7 @@ minions["Metadata/Monsters/DemonModular/DemonFemaleRanged2"] = {
 		"DemonFemaleRangedProjectile2",
 	},
 	modList = {
-		mod("PhysicalDamageConvertToCold", "BASE", 50), -- MonsterConvertToColdDamage2 [base_physical_damage_%_to_convert_to_cold = 50]
+		mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0), -- MonsterConvertToColdDamage2 [base_physical_damage_%_to_convert_to_cold = 50]
 	},
 }
 minions["Metadata/Monsters/DemonModular/DemonModularBladeVortex"] = {
@@ -834,7 +837,7 @@ minions["Metadata/Monsters/GemMonster/IguanaChrome"] = {
 	modList = {
 		-- MonsterSuppressingFire [chance_to_apply_suppression_on_hit_% = 20]
 		-- DisplayMonsterSuppressingFire [display_monster_uses_suppressing_fire_text = 1]
-		mod("PhysicalDamageGainAsCold", "BASE", 100), -- MonsterPhysicalAddedAsColdSkeletonMaps [physical_damage_%_to_add_as_cold = 100]
+		mod("PhysicalDamageGainAsCold", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsColdSkeletonMaps [physical_damage_%_to_add_as_cold = 100]
 	},
 }
 -- Ghost pirate
@@ -858,7 +861,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps"] = {
 		"MonsterLightningArrow",
 	},
 	modList = {
-		mod("PhysicalDamageGainAsLightning", "BASE", 100), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
+		mod("PhysicalDamageGainAsLightning", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
 	},
 }
 minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
@@ -881,9 +884,11 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
 		"MonsterFlickerStrikeExtraRange",
 	},
 	modList = {
-		mod("PhysicalDamageGainAsLightning", "BASE", 100), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
+		mod("PhysicalDamageGainAsLightning", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsLightningSkeletonMaps [physical_damage_%_to_add_as_lightning = 100]
 		-- MonsterUsesFlickerStrikeText [monster_uses_flicker_strike_text = 1]
-		-- MonsterAttackSpellBlock20Bypass40 [monster_base_block_% = 20] [base_spell_block_% = 20] [base_block_%_damage_taken = 40]
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [monster_base_block_% = 20]
+		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_spell_block_% = 20]
+		-- MonsterAttackSpellBlock20Bypass40 [base_block_%_damage_taken = 40]
 	},
 }
 minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
@@ -907,8 +912,10 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
 		"GhostPirateBladeVortexSpectre",
 	},
 	modList = {
-		mod("PhysicalDamageConvertToLightning", "BASE", 50), -- MonsterElementalSkeletonLightning [base_physical_damage_%_to_convert_to_lightning = 50]
-		-- MonsterAttackSpellBlock20Bypass40 [monster_base_block_% = 20] [base_spell_block_% = 20] [base_block_%_damage_taken = 40]
+		mod("PhysicalDamageConvertToLightning", "BASE", 50, 0, 0), -- MonsterElementalSkeletonLightning [base_physical_damage_%_to_convert_to_lightning = 50]
+		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [monster_base_block_% = 20]
+		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_spell_block_% = 20]
+		-- MonsterAttackSpellBlock20Bypass40 [base_block_%_damage_taken = 40]
 	},
 }
 -- Undying grappler
@@ -1070,7 +1077,7 @@ minions["Metadata/Monsters/HolyFireElemental/HolyFireElementalSolarisBeam"] = {
 		"HolyFireElementalFireball",
 	},
 	modList = {
-		mod("PhysicalDamageGainAsFire", "BASE", 60), -- MonsterPhysicalAddedAsFireHolyFireElemental [physical_damage_%_to_add_as_fire = 60]
+		mod("PhysicalDamageGainAsFire", "BASE", 60, 0, 0), -- MonsterPhysicalAddedAsFireHolyFireElemental [physical_damage_%_to_add_as_fire = 60]
 	},
 }
 -- Construct
@@ -1111,7 +1118,7 @@ minions["Metadata/Monsters/InsectSpawner/InsectSpawner"] = {
 		"InsectSpawnerSpawn",
 	},
 	modList = {
-		mod("PhysicalDamageConvertToFire", "BASE", 50), -- MonsterConvertToFireDamage2 [base_physical_damage_%_to_convert_to_fire = 50]
+		mod("PhysicalDamageConvertToFire", "BASE", 50, 0, 0), -- MonsterConvertToFireDamage2 [base_physical_damage_%_to_convert_to_fire = 50]
 	},
 }
 -- Kaom's Warriors
@@ -1174,8 +1181,11 @@ minions["Metadata/Monsters/KaomWarrior/KaomWarrior7"] = {
 		"KaomFireBeamTotemSpectre",
 	},
 	modList = {
-		-- KaomWarriorSlowFireBeam [fire_beam_max_rotation_speed_+% = -75] [fire_beam_start_angle_offset_variance = 60] [base_totem_range = 80] [fire_beam_length_+% = -25]
-		mod("TotemLife", "INC", 250), -- KaomWarriorSlowFireBeam2 [totem_life_+% = 250]
+		-- KaomWarriorSlowFireBeam [fire_beam_max_rotation_speed_+% = -75]
+		-- KaomWarriorSlowFireBeam [fire_beam_start_angle_offset_variance = 60]
+		-- KaomWarriorSlowFireBeam [base_totem_range = 80]
+		-- KaomWarriorSlowFireBeam [fire_beam_length_+% = -25]
+		mod("TotemLife", "INC", 250, 0, 0), -- KaomWarriorSlowFireBeam2 [totem_life_+% = 250]
 		-- MonsterKillTrapsMinesTotemsOnDeath [kill_traps_mines_and_totems_on_death = 1]
 	},
 }
@@ -1198,7 +1208,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodDelve"] = {
 		"VaalincursionMortar",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
+		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = {
@@ -1220,7 +1233,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = 
 		"VaalIncursionSpecialBeamCannonBlood",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
+		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
@@ -1241,7 +1257,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
 		"FireballIncursionChaos",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
+		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = {
@@ -1264,7 +1283,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = 
 		"IncursionMeteorUpheaval",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
+		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
@@ -1285,7 +1307,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
 		"FireballIncusionFire",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
+		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = {
@@ -1307,7 +1332,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = 
 		"VaalIncursionFirestorm",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
+		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
@@ -1328,7 +1356,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
 		"FireballIncusionLightning",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
+		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_"] = {
@@ -1351,7 +1382,10 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_
 		"SummonedSparkDaemonLightning",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
+		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
 	},
 }
 -- Kitava's Herald
@@ -1402,7 +1436,9 @@ minions["Metadata/Monsters/Kiweth/Kiweth"] = {
 		"MeleeAtAnimationSpeed",
 	},
 	modList = {
-		-- MonsterLesserFarShot [monster_reverse_point_blank_damage_-%_at_minimum_range = 60] [projectile_damage_+% = 20] [display_monster_uses_far_shot_text = 1]
+		-- MonsterLesserFarShot [monster_reverse_point_blank_damage_-%_at_minimum_range = 60]
+		mod("Damage", "INC", 20, 1024, 0), -- MonsterLesserFarShot [projectile_damage_+% = 20]
+		-- MonsterLesserFarShot [display_monster_uses_far_shot_text = 1]
 	},
 }
 minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
@@ -1424,7 +1460,9 @@ minions["Metadata/Monsters/Kiweth/KiwethSeagull"] = {
 		"BirdmanBloodProjectileMortar",
 	},
 	modList = {
-		-- MonsterLesserFarShot [monster_reverse_point_blank_damage_-%_at_minimum_range = 60] [projectile_damage_+% = 20] [display_monster_uses_far_shot_text = 1]
+		-- MonsterLesserFarShot [monster_reverse_point_blank_damage_-%_at_minimum_range = 60]
+		mod("Damage", "INC", 20, 1024, 0), -- MonsterLesserFarShot [projectile_damage_+% = 20]
+		-- MonsterLesserFarShot [display_monster_uses_far_shot_text = 1]
 	},
 }
 -- Delve League
@@ -1448,7 +1486,10 @@ minions["Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite"] = {
 		"DelveProtovaalWhirlingCharge",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
+		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
 	},
 }
 -- Hellion
@@ -1492,7 +1533,7 @@ minions["Metadata/Monsters/Lion/LionWolf3Champion"] = {
 		"MonsterLeapSlamFoothills",
 	},
 	modList = {
-		mod("PhysicalDamageGainAsCold", "BASE", 100), -- MonsterPhysicalAddedAsColdSkeletonMaps [physical_damage_%_to_add_as_cold = 100]
+		mod("PhysicalDamageGainAsCold", "BASE", 100, 0, 0), -- MonsterPhysicalAddedAsColdSkeletonMaps [physical_damage_%_to_add_as_cold = 100]
 	},
 }
 -- Knitted horror
@@ -2060,7 +2101,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterColdMultipleProjectiles"] = {
 		"SkeletonProjectileCold",
 	},
 	modList = {
-		mod("ProjectileCount", "BASE", 2), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
+		mod("ProjectileCount", "BASE", 2, 0, 0), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
 		-- MonsterNecromancerRaisable [undead_description = 1]
 	},
 }
@@ -2083,7 +2124,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonCasterFireMultipleProjectiles2"] = 
 	},
 	modList = {
 		-- MonsterNecromancerRaisable [undead_description = 1]
-		mod("ProjectileCount", "BASE", 2), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
+		mod("ProjectileCount", "BASE", 2, 0, 0), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
 		-- ImmuneToLavaDamage [immune_to_lava_damage = 1]
 	},
 }
@@ -2191,7 +2232,10 @@ minions["Metadata/Monsters/Skeletons/SkeletonBlackCaster1_"] = {
 	},
 	modList = {
 		-- MonsterNecromancerRaisable [undead_description = 1]
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 0] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
+		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
+		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
@@ -2236,7 +2280,10 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionC
 		"IncursionLeapSlamChampion",
 	},
 	modList = {
-		-- MonsterIncursionDropModifiers__ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 35] [monster_dropped_item_rarity_+% = 1250] [monster_no_map_drops = 1]
+		-- MonsterIncursionDropModifiers__ [monster_slain_experience_+% = 0]
+		-- MonsterIncursionDropModifiers__ [monster_dropped_item_quantity_+% = 35]
+		-- MonsterIncursionDropModifiers__ [monster_dropped_item_rarity_+% = 1250]
+		-- MonsterIncursionDropModifiers__ [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElemental"] = {
@@ -2279,9 +2326,13 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
 		"SkeletonBlackAbyssBoneLance",
 	},
 	modList = {
-		-- MonsterAbyssDropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 300] [monster_no_map_drops = 1]
+		-- MonsterAbyssDropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterAbyssDropModifiers [monster_dropped_item_quantity_+% = 100]
+		-- MonsterAbyssDropModifiers [monster_dropped_item_rarity_+% = 300]
+		-- MonsterAbyssDropModifiers [monster_no_map_drops = 1]
 		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
 	},
 }
@@ -2326,7 +2377,7 @@ minions["Metadata/Monsters/Snake/SnakeMeleeSpit"] = {
 		"SnakeProjectile",
 	},
 	modList = {
-		mod("PhysicalDamageConvertToChaos", "BASE", 30), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
+		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
 	},
 }
 minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot"] = {
@@ -2347,8 +2398,8 @@ minions["Metadata/Monsters/Snake/SnakeScorpionMultiShot"] = {
 		"SnakeSpineProjectile",
 	},
 	modList = {
-		mod("PhysicalDamageConvertToChaos", "BASE", 30), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
-		mod("ProjectileCount", "BASE", 2), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
+		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
+		mod("ProjectileCount", "BASE", 2, 0, 0), -- MonsterMultipleProjectilesImplicit1 [number_of_additional_projectiles = 2]
 	},
 }
 -- Spider
@@ -2464,7 +2515,7 @@ minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriver"] = {
 		"SlavedriverFlameWhip",
 	},
 	modList = {
-		-- MonsterImplicitFastRun4 [base_movement_velocity_+% = 20]
+		mod("MovementSpeed", "INC", 20, 0, 0), -- MonsterImplicitFastRun4 [base_movement_velocity_+% = 20]
 	},
 }
 minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriverKitava"] = {
@@ -2488,7 +2539,7 @@ minions["Metadata/Monsters/TemplarSlaveDriver/TemplarSlaveDriverKitava"] = {
 		"KitavaSlavedriverFlameWhip",
 	},
 	modList = {
-		-- MonsterImplicitFastRun4 [base_movement_velocity_+% = 20]
+		mod("MovementSpeed", "INC", 20, 0, 0), -- MonsterImplicitFastRun4 [base_movement_velocity_+% = 20]
 	},
 }
 -- Undying
@@ -2699,7 +2750,8 @@ minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 	modList = {
 		-- MonsterBreachQuantityCommander [monster_dropped_item_quantity_+% = 700]
 		-- MonsterBreachRarityCommander [monster_dropped_item_rarity_+% = 1000]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 	},
 }
 -- Scinteel Synthete
@@ -2724,8 +2776,10 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre"] = {
 		"GeometryTriggerSynthesisSoulstealer3",
 	},
 	modList = {
-		-- MonsterTagSynthesised
-		-- MonsterSynthesisLargeDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 700] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
+		-- MonsterSynthesisLargeDropModifiers_ [monster_slain_experience_+% = 0]
+		-- MonsterSynthesisLargeDropModifiers_ [monster_dropped_item_quantity_+% = 700]
+		-- MonsterSynthesisLargeDropModifiers_ [monster_dropped_item_rarity_+% = 1500]
+		-- MonsterSynthesisLargeDropModifiers_ [monster_no_map_drops = 0]
 	},
 }
 -- Redemption Knight
@@ -2775,8 +2829,12 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 		"EASHarvestEmerge",
 	},
 	modList = {
-		-- MonsterHarvestT3DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 720] [monster_dropped_item_rarity_+% = 1500] [monster_no_map_drops = 0]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
+		-- MonsterHarvestT3DropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterHarvestT3DropModifiers [monster_dropped_item_quantity_+% = 720]
+		-- MonsterHarvestT3DropModifiers [monster_dropped_item_rarity_+% = 1500]
+		-- MonsterHarvestT3DropModifiers [monster_no_map_drops = 0]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 		-- MapMonsterReducedCurseEffect [unique_boss_curse_effect_on_self_+%_final = -33]
 	},
 }
@@ -2803,8 +2861,12 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 	},
 	modList = {
 		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
-		-- MonsterLegionDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 125] [monster_dropped_item_rarity_+% = 750] [monster_no_map_drops = 1]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
+		-- MonsterLegionDropModifiers_ [monster_slain_experience_+% = 0]
+		-- MonsterLegionDropModifiers_ [monster_dropped_item_quantity_+% = 125]
+		-- MonsterLegionDropModifiers_ [monster_dropped_item_rarity_+% = 750]
+		-- MonsterLegionDropModifiers_ [monster_no_map_drops = 1]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 	},
 }
 -- Frost Auto-Scout
@@ -2907,7 +2969,10 @@ minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
 	},
 	modList = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
-		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 525] [monster_no_map_drops = 1]
+		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterHarvestT1DropModifiers [monster_dropped_item_quantity_+% = 100]
+		-- MonsterHarvestT1DropModifiers [monster_dropped_item_rarity_+% = 525]
+		-- MonsterHarvestT1DropModifiers [monster_no_map_drops = 1]
 	},
 }
 -- Ashblessed Warden
@@ -2936,7 +3001,10 @@ minions["Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre"] = {
 	},
 	modList = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
-		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 100] [monster_dropped_item_rarity_+% = 525] [monster_no_map_drops = 1]
+		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0]
+		-- MonsterHarvestT1DropModifiers [monster_dropped_item_quantity_+% = 100]
+		-- MonsterHarvestT1DropModifiers [monster_dropped_item_rarity_+% = 525]
+		-- MonsterHarvestT1DropModifiers [monster_no_map_drops = 1]
 	},
 }
 -- Snow Rhex
@@ -2985,7 +3053,7 @@ minions["Metadata/Monsters/Maligaro/SecretDesecrateMonster"] = {
 	},
 	modList = {
 		-- MonsterOneThirdDamageTaken [base_damage_taken_+% = -67]
-		mod("PhysicalDamageConvertToChaos", "BASE", 50), -- MonsterConvertToChaos1 [base_physical_damage_%_to_convert_to_chaos = 50]
+		mod("PhysicalDamageConvertToChaos", "BASE", 50, 0, 0), -- MonsterConvertToChaos1 [base_physical_damage_%_to_convert_to_chaos = 50]
 	},
 }
 -- Trail Galecaller
@@ -3030,8 +3098,12 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre"] = {
 	},
 	modList = {
 		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
-		-- MonsterLegionDropModifiers_ [monster_slain_experience_+% = 0] [monster_dropped_item_quantity_+% = 125] [monster_dropped_item_rarity_+% = 750] [monster_no_map_drops = 1]
-		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66] [monster_hellscape_charge_+% = -66]
+		-- MonsterLegionDropModifiers_ [monster_slain_experience_+% = 0]
+		-- MonsterLegionDropModifiers_ [monster_dropped_item_quantity_+% = 125]
+		-- MonsterLegionDropModifiers_ [monster_dropped_item_rarity_+% = 750]
+		-- MonsterLegionDropModifiers_ [monster_no_map_drops = 1]
+		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
+		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 	},
 }
 -- Demon Harpy

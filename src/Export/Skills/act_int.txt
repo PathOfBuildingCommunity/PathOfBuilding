@@ -157,9 +157,10 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Manual Stacks",
+			stages = true,
 		},
 		{
-			name = "Maximum Stacks",
+			name = "Maximum Sustainable Stacks",
 		},
 	},
 #baseMod mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 })
@@ -452,6 +453,7 @@ local skills, mod, flag, skill = ...
 		{
 			name = "Release",
 			area = true,
+			stages = true,
 		},
 	},
 	statMap = {
@@ -1070,9 +1072,11 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Channelling",
+			stages = true,
 		},
 		{
 			name = "Release",
+			stages = true,
 		},
 	},
 	statMap = {
@@ -1247,6 +1251,7 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Energy Explosion",
+			stages = true,
 		},
 		{
 			name = "Max Explosion per Brand",
@@ -1941,9 +1946,11 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Channelling",
+			stages = true,
 		},
 		{
 			name = "Idle",
+			stages = true,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)

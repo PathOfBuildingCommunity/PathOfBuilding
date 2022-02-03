@@ -36,7 +36,25 @@ This directive is used when a new skill shouldn't have a gem associated with it.
 
 ## Combined data
 
-The most important tables constructed from the game data are the `stats` table, and the `levels` table.  Taking a look at just one row in `levels`, there is a list of numbers, followed by named entries, such as `levelRequirement`, `damageEffectiveness`, etc.  Each of these stats are mapped to a mod in Path of Building either via `SkillStatMap.lua`, or if the stat is specific to this particular skill (e.g. `spectral_helix_rotations_%` would only apply to Spectral Helix) in `statMap` in this same table.  If a mapping exists in both places, the one local to this skill will take precedence.  The corresponding mod will have `nil` in place of its normal value, and that value instead comes from this row in the `levels` table.  Notice that not all of the stats have a number in the first part of the `levels` row.  These extra stats are usually for booleans/flags that are always true.
+The most important tables constructed from the game data are the `stats` table, and the `levels` table.  Taking a look at just one row in `levels`, there is a list of numbers, followed by named entries, such as `levelRequirement`, `damageEffectiveness`, etc.  This list of numbers maps directly to each entry in the `stats` table.  Notice that not all of the stats have a number in the first part of the `levels` row.  These extra stats are usually for booleans/flags that are always true.
+* For example, here are the two tables for Fireball:
+  ```lua
+  stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_chance_to_ignite_%",
+		"fireball_base_radius_up_to_+_at_longer_ranges",
+		"base_is_projectile",
+		"quality_display_active_skill_ignite_damage_is_gem",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 25, 0, damageEffectiveness = 2.4, critChance = 6, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 25, 0, damageEffectiveness = 2.4, critChance = 6, levelRequirement = 2, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 25, 1, damageEffectiveness = 2.4, critChance = 6, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 7, }, },
+  ```
+  The value for `spell_minimum_base_fire_damage` would be 0.80000001192093, the value for `base_chance_to_ignite_%` would be 25, and since `base_is_projectile` doesn't have a number, it's just a flag on the skill to properly factor in projectile mods.
+  
+Each of these stats are mapped to a mod in Path of Building either via `SkillStatMap.lua`, or if the stat is specific to this particular skill (e.g. `spectral_helix_rotations_%` would only apply to Spectral Helix) in `statMap` in this same table.  If a mapping exists in both places, the one local to this skill will take precedence.  The corresponding mod will have `nil` in place of its normal value, and that value instead comes from this row in the `levels` table.
 
 Notice how these stat numbers don't really align with damage numbers in any meaningful way for active skills.  The stat numbers are interpolated by the numbers in the corresponding position in the `statInterpolation` table in the same row.
 * 1 means take the number as-is.  This is the most common interpolation
