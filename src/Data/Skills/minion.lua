@@ -890,9 +890,11 @@ skills["RelicTriggeredNova"] = {
 	},
 	baseFlags = {
 		spell = true,
+		area = true,
 	},
 	baseMods = {
 		skill("showAverage", true),
+		skill("radius", 20), --- This is an educated guess for now.
 	},
 	qualityStats = {
 	},
