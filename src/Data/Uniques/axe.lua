@@ -14,7 +14,6 @@ Critical Strike Chance is (20-30)% for Hits with this Weapon
 ]],[[
 Dreadarc
 Cleaver
-Upgrade: Upgrades to unique{Dreadsurge} via prophecy{Burning Dread}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16, 48 Str
@@ -28,7 +27,7 @@ Adds (5-15) to (20-25) Fire Damage
 ]],[[
 Dreadsurge
 Cleaver
-Source: Upgraded from unique{Dreadarc} via prophecy{Burning Dread}
+Source: No longer obtainable
 Requires Level 60, 48 Str
 Adds (5-15) to (20-25) Physical Damage
 Adds (223-250) to (264-280) Fire Damage
@@ -57,7 +56,6 @@ Requires Level 69, 158 Str, 76 Dex
 ]],[[
 The Screaming Eagle
 Jade Hatchet
-Upgrade: Upgrades to unique{The Gryphon} via prophecy{The Apex Predator}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 6, 21 Str
@@ -70,7 +68,7 @@ Socketed Gems are supported by level 2 Chance to Flee
 ]],[[
 The Gryphon
 Jade Hatchet
-Source: Upgraded from unique{The Screaming Eagle} via prophecy{The Apex Predator}
+Source: No longer obtainable
 Requires Level 32, 21 Str
 Socketed Gems are supported by level 2 Chance to Flee
 (170-190)% increased Physical Damage
@@ -290,7 +288,6 @@ Enemies you hit are destroyed on Kill
 ]],[[
 Limbsplit
 Woodsplitter
-Upgrade: Upgrades to unique{The Cauteriser} via prophecy{Severed Limbs}
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 13, 36 Str, 17 Dex
@@ -303,7 +300,7 @@ Culling Strike
 ]],[[
 The Cauteriser
 Woodsplitter
-Source: Upgraded from unique{Limbsplit} using prophecy{Severed Limbs}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 40, 36 Str, 17 Dex

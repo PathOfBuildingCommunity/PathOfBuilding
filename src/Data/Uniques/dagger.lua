@@ -111,7 +111,6 @@ Implicits: 1
 ]],[[
 Goredrill
 Skinning Knife
-Upgrade: Upgrades to unique{Sanguine Gambol} via prophecy{Crimson Hues}
 Requires Level 5, 16 Dex
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -124,7 +123,7 @@ Adds (1-2) to (3-5) Physical Damage
 ]],[[
 Sanguine Gambol
 Skinning Knife
-Source: Upgraded from unique{Goredrill} via prophecy{Crimson Hues}
+Source: No longer obtainable
 Requires Level 59
 Implicits: 1
 30% increased Global Critical Strike Chance
