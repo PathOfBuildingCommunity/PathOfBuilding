@@ -1348,9 +1348,34 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	assert(indicies[0], "No entrance to subgraph")
 	subGraph.entranceNode = indicies[0]
 
-	-- Correct position to account for index of proxy node
+	-- The nodes' oidx values we just calculated are all relative to the totalIndicies properties of Data/ClusterJewels,
+	-- but the PassiveTree rendering logic treats node.oidx as relative to the tree.skillsPerOrbit constants. Those used
+	-- to be the same, but as of 3.17 they can differ, so we need to translate the ClusterJewels-relative indices into
+	-- tree.skillsPerOrbit-relative indices before we invoke tree:ProcessNode or do math against proxyNode.oidx.
+	--
+	-- The specific 12<->16 mappings are derived from https://github.com/grindinggear/skilltree-export/blob/3.17.0/README.md
+	local function translateOidx(srcOidx, srcNodesPerOrbit, destNodesPerOrbit)
+		if srcNodesPerOrbit == destNodesPerOrbit then
+			return srcOidx
+		elseif srcNodesPerOrbit == 12 and destNodesPerOrbit == 16 then
+			return ({[0] = 0, 1,    3, 4, 5,    7, 8, 9,    11, 12, 13,     15})[srcOidx]
+		elseif srcNodesPerOrbit == 16 and destNodesPerOrbit == 12 then
+			return ({[0] = 0, 1, 1, 2, 3, 4, 4, 5, 6, 7, 7,  8,  9, 10, 10, 11})[srcOidx]
+		else
+			-- there is no known case where this should happen...
+			launch:ShowErrMsg("^1Error: unexpected cluster jewel node counts %d -> %d", srcNodesPerOrbit, destNodesPerOrbit)
+			-- ...but if a future patch adds one, this should end up only a little krangled, close enough for initial skill data imports:
+			return m_floor(srcOidx * destNodesPerOrbit / srcNodesPerOrbit)
+		end
+	end
+	local proxyNodeSkillsPerOrbit = self.tree.skillsPerOrbit[proxyNode.o+1]
+
+	-- Translate oidx positioning to TreeData-relative values
 	for _, node in pairs(indicies) do
-		node.oidx = (node.oidx + proxyNode.oidx) % clusterJewel.totalIndicies
+		local proxyNodeOidxRelativeToClusterIndicies = translateOidx(proxyNode.oidx, proxyNodeSkillsPerOrbit, clusterJewel.totalIndicies)
+		local correctedNodeOidxRelativeToClusterIndicies = (node.oidx + proxyNodeOidxRelativeToClusterIndicies) % clusterJewel.totalIndicies
+		local correctedNodeOidxRelativeToTreeSkillsPerOrbit = translateOidx(correctedNodeOidxRelativeToClusterIndicies, clusterJewel.totalIndicies, proxyNodeSkillsPerOrbit)
+		node.oidx = correctedNodeOidxRelativeToTreeSkillsPerOrbit
 	end
 
 	-- Perform processing on nodes to calculate positions, parse mods, and other goodies

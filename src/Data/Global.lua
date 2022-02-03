@@ -45,6 +45,12 @@ colorCodes = {
 	BASILISK = "^x00CB3A",
 	CRUSADER = "^x2946FC",
 	EYRIE = "^xAAB7B8",
+	CHILLBG = "^x151e26",
+	FREEZEBG = "^x0c262b",
+	SHOCKBG = "^x191732",
+	SCORCHBG = "^x270b00",
+	BRITTLEBG = "^x00122b",
+	SAPBG = "^x261500",
 	SCOURGE = "^xFF6E25",
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER

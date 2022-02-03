@@ -750,6 +750,7 @@ skills["DeathWish"] = {
 			name = "Minion Explosion",
 			spell = false,
 			cast = true,
+			stages = true,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)

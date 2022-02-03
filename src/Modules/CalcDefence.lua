@@ -56,15 +56,6 @@ function calcs.armourReductionDouble(armour, damage, moreChance, moreValue)
 	return calcs.armourReduction(armour, damage) * (1 - moreChance) + calcs.armourReduction(armour * 2, damage) * moreChance
 end
 
-function calcs.actionSpeedMod(actor)
-	local modDB = actor.modDB
-	local actionSpeedMod = 1 + (m_max(-data.misc.TemporalChainsEffectCap, modDB:Sum("INC", nil, "TemporalChainsActionSpeed")) + modDB:Sum("INC", nil, "ActionSpeed")) / 100
-	if modDB:Flag(nil, "ActionSpeedCannotBeBelowBase") then
-		actionSpeedMod = m_max(1, actionSpeedMod)
-	end
-	return actionSpeedMod
-end
-
 -- Performs all defensive calculations
 function calcs.defence(env, actor)
 	local modDB = actor.modDB
@@ -79,8 +70,8 @@ function calcs.defence(env, actor)
 
 	-- Resistances
 	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
-	output.PhysicalResist = m_min(output.DamageReductionMax, modDB:Sum("BASE", nil, "PhysicalDamageReduction"))
-	output.PhysicalResistWhenHit = m_min(output.DamageReductionMax, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit"))
+	output.PhysicalResist = m_min(m_max(0, modDB:Sum("BASE", nil, "PhysicalDamageReduction")), output.DamageReductionMax)
+	output.PhysicalResistWhenHit = m_min(m_max(0, output.PhysicalResist + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit")), output.DamageReductionMax)
 
 	-- Highest Maximum Elemental Resistance for Melding of the Flesh
 	if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") then

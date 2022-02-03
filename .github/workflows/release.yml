@@ -31,6 +31,7 @@ jobs:
                 sed -i 's/Quotae/Quote_a/' changelog_temp.txt;
                 sed -i 's/learn2draw/Lexy/' changelog_temp.txt;
                 sed -i 's/Voronoff/Tom Clancy Is Dead/' changelog_temp.txt;
+                sed -i 's/PJacek/TPlant/' changelog_temp.txt;
                 echo "VERSION[${{ github.event.inputs.releaseVersion }}][`date +'%Y/%m/%d'`]" | cat - changelog_temp.txt | sed '2,4d' | sed -e '/^##.*/,+1 d' | sed -r 's/by @(.*) in http.*/\(\1\)/' | cat - changelog.txt > changelog_new.txt;
                 rm temp_change.md;
                 rm changelog_temp.txt;
