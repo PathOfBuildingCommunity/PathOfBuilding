@@ -1266,7 +1266,7 @@ function ItemsTabClass:SortItemList()
 end
 
 -- Deletes an item
-function ItemsTabClass:DeleteItem(item)
+function ItemsTabClass:DeleteItem(item, deferUndoState)
 	for slotName, slot in pairs(self.slots) do
 		if slot.selItemId == item.id then
 			slot:SetSelItemId(0)
@@ -1288,9 +1288,11 @@ function ItemsTabClass:DeleteItem(item)
 		end
 	end
 	for _, spec in pairs(self.build.treeTab.specList) do
+		local rebuildClusterJewelGraphs = false
 		for nodeId, itemId in pairs(spec.jewels) do
 			if itemId == item.id then
 				spec.jewels[nodeId] = 0
+				rebuildClusterJewelGraphs = true
 				-- Deallocate all nodes that required this jewel
 				if spec.nodes[nodeId] then
 					for depNodeId, depNode in ipairs(spec.nodes[nodeId].depends) do
@@ -1302,12 +1304,15 @@ function ItemsTabClass:DeleteItem(item)
 				end
 			end
 		end
-		-- Rebuild cluster jewel graphs
-		spec:BuildClusterJewelGraphs()
+		if rebuildClusterJewelGraphs and not deferUndoState then
+			spec:BuildClusterJewelGraphs()
+		end
 	end
 	self.items[item.id] = nil
-	self:PopulateSlots()
-	self:AddUndoState()
+	if not deferUndoState then
+		self:PopulateSlots()
+		self:AddUndoState()
+	end
 end
 
 -- Attempt to create a new item from the given item raw text and sets it as the new display item
