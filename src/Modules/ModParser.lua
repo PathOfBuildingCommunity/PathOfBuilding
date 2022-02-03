@@ -3213,7 +3213,7 @@ local specialModList = {
 	} end,
 	["elusive also grants %+(%d+)%% to critical strike multiplier for skills supported by nightblade"] = function(num) return { mod("NightbladeElusiveCritMultiplier", "BASE", num) } end,
 	["skills supported by nightblade have (%d+)%% increased effect of elusive"] = function(num) return { mod("NightbladeSupportedElusiveEffect", "INC", num) } end,
-  ["nearby enemies are scorched"] = {
+	["nearby enemies are scorched"] = {
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Scorched") }),
 		mod("ScorchBase", "BASE", 10),
 	},
