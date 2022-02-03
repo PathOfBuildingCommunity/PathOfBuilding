@@ -196,9 +196,10 @@ You can get this from your web browser's cookies while logged into the Path of E
 	local exportWebsitesList = getExportSitesFromImportList()
 
 	self.controls.exportFrom = new("DropDownControl", { "LEFT", self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 120, 20, exportWebsitesList, function(_, selectedWebsite)
+		main.lastExportWebsite = selectedWebsite.id
 		self.exportWebsiteSelected = selectedWebsite.id
 	end)
-	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or "Pastebin", "id")
+	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or main.lastExportWebsite or "Pastebin", "id")
 	self.controls.generateCodeByLink = new("ButtonControl", { "LEFT", self.controls.exportFrom, "RIGHT"}, 8, 0, 100, 20, "Share", function()
 		local response = ""
 		local exportWebsite = { }
