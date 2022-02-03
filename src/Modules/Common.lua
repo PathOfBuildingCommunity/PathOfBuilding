@@ -726,7 +726,6 @@ function wipeGlobalCache()
 	wipeTable(GlobalCache.cachedData.CACHE)
 	wipeTable(GlobalCache.excludeFullDpsList)
 	wipeTable(GlobalCache.deleteGroup)
-	wipeTable(GlobalCache.currentCalc)
 	GlobalCache.dontUseCache = nil
 end
 

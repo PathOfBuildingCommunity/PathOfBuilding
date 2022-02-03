@@ -22,9 +22,7 @@ local band = bit.band
 local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 	local uuid = cacheSkillUUID(skill)
 	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.dontUseCache then
-		GlobalCache.currentCalc[uuid] = true
 		calcs.buildActiveSkill(env, "CACHE", skill)
-		GlobalCache.currentCalc[uuid] = nil
 		env.dontCache = true
 	end
 
