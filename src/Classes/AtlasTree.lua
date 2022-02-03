@@ -18,6 +18,285 @@ local m_cos = math.cos
 local m_tan = math.tan
 local m_sqrt = math.sqrt
 
+local classTemplate ={
+        {
+            ["name"]= "Scion",
+            ["base_str"]= 20,
+            ["base_dex"]= 20,
+            ["base_int"]= 20,
+            ["ascendancies"]= {
+                {
+                    ["id"]= "Ascendant",
+                    ["name"]= "Ascendant"
+                }
+            }
+        },
+        {
+            ["name"]= "Marauder",
+            ["base_str"]= 32,
+            ["base_dex"]= 14,
+            ["base_int"]= 14,
+            ["ascendancies"]= {
+                {
+                    ["id"]= "Juggernaut",
+                    ["name"]= "Juggernaut",
+                    ["flavourText"]= "     What divides the conqueror \n from the conquered? Perseverance.",
+                    ["flavourTextColour"]= "af5a32",
+                    ["flavourTextRect"]= {
+                        ["x"]= 215,
+                        ["y"]= 165,
+                        ["width"]= 1063,
+                        ["height"]= 436
+                    }
+                },
+                {
+                    ["id"]= "Berserker",
+                    ["name"]= "Berserker",
+                    ["flavourText"]= "The savage path is \nalways swift and sure.",
+                    ["flavourTextColour"]= "af5a32",
+                    ["flavourTextRect"]= {
+                        ["x"]= 760,
+                        ["y"]= 345,
+                        ["width"]= 976,
+                        ["height"]= 429
+                    }
+                },
+                {
+                    ["id"]= "Chieftain",
+                    ["name"]= "Chieftain",
+                    ["flavourText"]= "   The Ancestors speak \nthrough your clenched fists.",
+                    ["flavourTextColour"]= "af5a32",
+                    ["flavourTextRect"]= {
+                        ["x"]= 185,
+                        ["y"]= 245,
+                        ["width"]= 1076,
+                        ["height"]= 449
+                    }
+                }
+            }
+        },
+        {
+            ["name"]= "Ranger",
+            ["base_str"]= 14,
+            ["base_dex"]= 32,
+            ["base_int"]= 14,
+            ["ascendancies"]= {
+                {
+                    ["id"]= "Raider",
+                    ["name"]= "Raider",
+                    ["flavourText"]= "No hunt is complete without\nthe gutting and the skinning.",
+                    ["flavourTextColour"]= "7cb376",
+                    ["flavourTextRect"]= {
+                        ["x"]= 365,
+                        ["y"]= 965,
+                        ["width"]= 900,
+                        ["height"]= 1250
+                    }
+                },
+                {
+                    ["id"]= "Deadeye",
+                    ["name"]= "Deadeye",
+                    ["flavourText"]= "A woman can change the world \nwith a single well-placed arrow.",
+                    ["flavourTextColour"]= "7cb376",
+                    ["flavourTextRect"]= {
+                        ["x"]= 335,
+                        ["y"]= 1045,
+                        ["width"]= 870,
+                        ["height"]= 1330
+                    }
+                },
+                {
+                    ["id"]= "Pathfinder",
+                    ["name"]= "Pathfinder",
+                    ["flavourText"]= "There are venoms and virtues aplenty in \n the wilds, if you know where to look.",
+                    ["flavourTextColour"]= "7cb376",
+                    ["flavourTextRect"]= {
+                        ["x"]= 265,
+                        ["y"]= 975,
+                        ["width"]= 900,
+                        ["height"]= 1250
+                    }
+                }
+            }
+        },
+        {
+            ["name"]= "Witch",
+            ["base_str"]= 14,
+            ["base_dex"]= 14,
+            ["base_int"]= 32,
+            ["ascendancies"]= {
+                {
+                    ["id"]= "Occultist",
+                    ["name"]= "Occultist",
+                    ["flavourText"]= " Throw off the chains\nof fear and embrace that\n which was forbidden.",
+                    ["flavourTextColour"]= "9ac3c9",
+                    ["flavourTextRect"]= {
+                        ["x"]= 665,
+                        ["y"]= 385,
+                        ["width"]= 906,
+                        ["height"]= 389
+                    }
+                },
+                {
+                    ["id"]= "Elementalist",
+                    ["name"]= "Elementalist",
+                    ["flavourText"]= "Feed a storm with savage intent \nand not even the strongest walls\nwill hold it back.",
+                    ["flavourTextColour"]= "9ac3c9",
+                    ["flavourTextRect"]= {
+                        ["x"]= 125,
+                        ["y"]= 475,
+                        ["width"]= 510,
+                        ["height"]= 768
+                    }
+                },
+                {
+                    ["id"]= "Necromancer",
+                    ["name"]= "Necromancer",
+                    ["flavourText"]= "Embrace the serene\npower that is undeath.",
+                    ["flavourTextColour"]= "9ac3c9",
+                    ["flavourTextRect"]= {
+                        ["x"]= 720,
+                        ["y"]= 303,
+                        ["width"]= 1000,
+                        ["height"]= 1000
+                    }
+                }
+            }
+        },
+        {
+            ["name"]= "Duelist",
+            ["base_str"]= 23,
+            ["base_dex"]= 23,
+            ["base_int"]= 14,
+            ["ascendancies"]= {
+                {
+                    ["id"]= "Slayer",
+                    ["name"]= "Slayer",
+                    ["flavourText"]= " No judge. No jury.\nJust the executioner.",
+                    ["flavourTextColour"]= "96afc8",
+                    ["flavourTextRect"]= {
+                        ["x"]= 470,
+                        ["y"]= 310,
+                        ["width"]= 976,
+                        ["height"]= 429
+                    }
+                },
+                {
+                    ["id"]= "Gladiator",
+                    ["name"]= "Gladiator",
+                    ["flavourText"]= "Raise your hand to the \nroaring crowd and pledge \nyour allegiance to glory.",
+                    ["flavourTextColour"]= "96afc8",
+                    ["flavourTextRect"]= {
+                        ["x"]= 670,
+                        ["y"]= 395,
+                        ["width"]= 976,
+                        ["height"]= 429
+                    }
+                },
+                {
+                    ["id"]= "Champion",
+                    ["name"]= "Champion",
+                    ["flavourText"]= "Champion that which \n you love. He who fights\n for nothing, dies\n for nothing.",
+                    ["flavourTextColour"]= "96afc8",
+                    ["flavourTextRect"]= {
+                        ["x"]= 735,
+                        ["y"]= 625,
+                        ["width"]= 976,
+                        ["height"]= 429
+                    }
+                }
+            }
+        },
+        {
+            ["name"]= "Templar",
+            ["base_str"]= 23,
+            ["base_dex"]= 14,
+            ["base_int"]= 23,
+            ["ascendancies"]= {
+                {
+                    ["id"]= "Inquisitor",
+                    ["name"]= "Inquisitor",
+                    ["flavourText"]= " Truth is elusive, yet God has\nprovided us with all the tools \n necessary to find it.",
+                    ["flavourTextColour"]= "cfbd8a",
+                    ["flavourTextRect"]= {
+                        ["x"]= 285,
+                        ["y"]= 940,
+                        ["width"]= 926,
+                        ["height"]= 429
+                    }
+                },
+                {
+                    ["id"]= "Hierophant",
+                    ["name"]= "Hierophant",
+                    ["flavourText"]= "Drink deeply from God's\n chalice, for the faithful\n will never find it empty.",
+                    ["flavourTextColour"]= "cfbd8a",
+                    ["flavourTextRect"]= {
+                        ["x"]= 100,
+                        ["y"]= 720,
+                        ["width"]= 936,
+                        ["height"]= 399
+                    }
+                },
+                {
+                    ["id"]= "Guardian",
+                    ["name"]= "Guardian",
+                    ["flavourText"]= "When bound by faith\n and respect, the flock\n will overwhelm the wolf.",
+                    ["flavourTextColour"]= "cfbd8a",
+                    ["flavourTextRect"]= {
+                        ["x"]= 170,
+                        ["y"]= 780,
+                        ["width"]= 976,
+                        ["height"]= 429
+                    }
+                }
+            }
+        },
+        {
+            ["name"]= "Shadow",
+            ["base_str"]= 14,
+            ["base_dex"]= 23,
+            ["base_int"]= 23,
+            ["ascendancies"]= {
+                {
+                    ["id"]= "Assassin",
+                    ["name"]= "Assassin",
+                    ["flavourText"]= "Death is a banquet. \n It's up to the murderer \n to write the menu.",
+                    ["flavourTextColour"]= "72818d",
+                    ["flavourTextRect"]= {
+                        ["x"]= 650,
+                        ["y"]= 845,
+                        ["width"]= 976,
+                        ["height"]= 429
+                    }
+                },
+                {
+                    ["id"]= "Trickster",
+                    ["name"]= "Trickster",
+                    ["flavourText"]= "  Everyone knows how to die. \n Some just need a little nudge \nto get them started.",
+                    ["flavourTextColour"]= "72818d",
+                    ["flavourTextRect"]= {
+                        ["x"]= 315,
+                        ["y"]= 150,
+                        ["width"]= 976,
+                        ["height"]= 429
+                    }
+                },
+                {
+                    ["id"]= "Saboteur",
+                    ["name"]= "Saboteur",
+                    ["flavourText"]= "The artist need not be present \n to make a lasting impression.",
+                    ["flavourTextColour"]= "72818d",
+                    ["flavourTextRect"]= {
+                        ["x"]= 355,
+                        ["y"]= 970,
+                        ["width"]= 976,
+                        ["height"]= 429
+                    }
+                }
+            }
+        }
+    }
+
 
 local classArt = {
 	[0] = "centerscion",
@@ -115,36 +394,38 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
-	-- if versionNum >= 3.10 then
-		-- -- Migrate to old format
-		-- for i = 0, 6 do
-			-- self.classes[i] = self.classes[i + 1]
-			-- self.classes[i + 1] = nil
-		-- end
-	-- end
+	-- self.classes = classTemplate
+
+	if versionNum >= 3.10 then
+		-- Migrate to old format
+		for i = 0, 6 do
+			self.classes[i] = self.classes[i + 1]
+			self.classes[i + 1] = nil
+		end
+	end
 
 	-- Build maps of class name -> class table
-	-- self.classNameMap = { }
-	-- self.ascendNameMap = { }
-	-- for classId, class in pairs(self.classes) do
-		-- if versionNum >= 3.10 then
-			-- -- Migrate to old format
-			-- class.classes = class.ascendancies
-		-- end
-		-- class.classes[0] = { name = "None" }
-		-- self.classNameMap[class.name] = classId
-		-- for ascendClassId, ascendClass in pairs(class.classes) do
-			-- self.ascendNameMap[ascendClass.name] = {
-				-- classId = classId,
-				-- class = class,
-				-- ascendClassId = ascendClassId,
-				-- ascendClass = ascendClass
-			-- }
-		-- end
-	-- end
+	self.classNameMap = { }
+	self.ascendNameMap = { }
+	for classId, class in pairs(self.classes) do
+		if versionNum >= 3.10 then
+			-- Migrate to old format
+			class.classes = class.ascendancies
+		end
+		class.classes[0] = { name = "None" }
+		self.classNameMap[class.name] = classId
+		for ascendClassId, ascendClass in pairs(class.classes) do
+			self.ascendNameMap[ascendClass.name] = {
+				classId = classId,
+				class = class,
+				ascendClassId = ascendClassId,
+				ascendClass = ascendClass
+			}
+		end
+	end
 
-	-- self.orbitAngles = calculateOrbitAngles(self.constants.skillsPerOrbit or legacySkillsPerOrbit)
-	-- self.orbitRadii = self.constants.orbitRadii or legacyOrbitRadii
+	self.orbitAngles = calculateOrbitAngles(self.constants.skillsPerOrbit or legacySkillsPerOrbit)
+	self.orbitRadii = self.constants.orbitRadii or legacyOrbitRadii
 
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
@@ -180,32 +461,32 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 	end
 
 	-- Load legion sprite sheets and build sprite map
-	-- local legionSprites = LoadModule("TreeData/legion/tree-legion.lua")
-	-- for type, data in pairs(legionSprites) do
-		-- local maxZoom = data[#data]
-		-- local sheet = spriteSheets[maxZoom.filename]
-		-- if not sheet then
-			-- sheet = { }
-			-- sheet.handle = NewImageHandle()
-			-- sheet.handle:Load("TreeData/legion/"..maxZoom.filename)
-			-- sheet.width, sheet.height = sheet.handle:ImageSize()
-			-- spriteSheets[maxZoom.filename] = sheet
-		-- end
-		-- for name, coords in pairs(maxZoom.coords) do
-			-- if not self.spriteMap[name] then
-				-- self.spriteMap[name] = { }
-			-- end
-			-- self.spriteMap[name][type] = {
-				-- handle = sheet.handle,
-				-- width = coords.w,
-				-- height = coords.h,
-				-- [1] = coords.x / sheet.width,
-				-- [2] = coords.y / sheet.height,
-				-- [3] = (coords.x + coords.w) / sheet.width,
-				-- [4] = (coords.y + coords.h) / sheet.height
-			-- }
-		-- end
-	-- end
+	local legionSprites = LoadModule("TreeData/legion/tree-legion.lua")
+	for type, data in pairs(legionSprites) do
+		local maxZoom = data[#data]
+		local sheet = spriteSheets[maxZoom.filename]
+		if not sheet then
+			sheet = { }
+			sheet.handle = NewImageHandle()
+			sheet.handle:Load("TreeData/legion/"..maxZoom.filename)
+			sheet.width, sheet.height = sheet.handle:ImageSize()
+			spriteSheets[maxZoom.filename] = sheet
+		end
+		for name, coords in pairs(maxZoom.coords) do
+			if not self.spriteMap[name] then
+				self.spriteMap[name] = { }
+			end
+			self.spriteMap[name][type] = {
+				handle = sheet.handle,
+				width = coords.w,
+				height = coords.h,
+				[1] = coords.x / sheet.width,
+				[2] = coords.y / sheet.height,
+				[3] = (coords.x + coords.w) / sheet.width,
+				[4] = (coords.y + coords.h) / sheet.height
+			}
+		end
+	end
 
 	local classArt = {
 		[0] = "centerscion",
@@ -378,17 +659,17 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 			end
 			local other = nodeMap[otherId]
 			t_insert(node.linkedId, otherId)
-			-- if node.type ~= "ClassStart" and other.type ~= "ClassStart"
-				-- and node.type ~= "Mastery" and other.type ~= "Mastery"
-				-- and node.ascendancyName == other.ascendancyName
-				-- and not node.isProxy and not other.isProxy
-				-- and not node.group.isProxy and not node.group.isProxy then
-					-- local connectors = self:BuildConnector(node, other)
-					-- t_insert(self.connectors, connectors[1])
-					-- if connectors[2] then
-						-- t_insert(self.connectors, connectors[2])
-					-- end
-			-- end
+			if node.type ~= "ClassStart" and other.type ~= "ClassStart"
+				and node.type ~= "Mastery" and other.type ~= "Mastery"
+				and node.ascendancyName == other.ascendancyName
+				and not node.isProxy and not other.isProxy
+				and not node.group.isProxy and not node.group.isProxy then
+					local connectors = self:BuildConnector(node, other)
+					t_insert(self.connectors, connectors[1])
+					if connectors[2] then
+						t_insert(self.connectors, connectors[2])
+					end
+			end
 		end
 		for _, otherId in pairs(node["in"] or {}) do
 			if type(otherId) == "string" then
@@ -420,41 +701,41 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 		end
 	end
 
-	-- for classId, class in pairs(self.classes) do
-		-- local startNode = nodeMap[class.startNodeId]
-		-- for _, nodeId in ipairs(startNode.linkedId) do
-			-- local node = nodeMap[nodeId]
-			-- if node.type == "Normal" then
-				-- node.modList:NewMod("Condition:ConnectedTo"..class.name.."Start", "FLAG", true, "Tree:"..nodeId)
-			-- end
-		-- end
-	-- end
+	for classId, class in pairs(self.classes) do
+		local startNode = nodeMap[class.startNodeId]
+		for _, nodeId in ipairs(startNode.linkedId) do
+			local node = nodeMap[nodeId]
+			if node.type == "Normal" then
+				node.modList:NewMod("Condition:ConnectedTo"..class.name.."Start", "FLAG", true, "Tree:"..nodeId)
+			end
+		end
+	end
 
 	-- Build ModList for legion jewels
-	-- for _, node in pairs(self.legion.nodes) do
+	for _, node in pairs(self.legion.nodes) do
 		-- Determine node type
-		-- if node.m then
-			-- node.type = "Mastery"
-		-- elseif node.ks then
-			-- node.type = "Keystone"
-			-- if not self.keystoneMap[node.dn] then -- Don't override good tree data with legacy keystones
-				-- self.keystoneMap[node.dn] = node
-			-- end
-		-- elseif node["not"] then
-			-- node.type = "Notable"
-		-- else
-			-- node.type = "Normal"
-		-- end
+		if node.m then
+			node.type = "Mastery"
+		elseif node.ks then
+			node.type = "Keystone"
+			if not self.keystoneMap[node.dn] then -- Don't override good tree data with legacy keystones
+				self.keystoneMap[node.dn] = node
+			end
+		elseif node["not"] then
+			node.type = "Notable"
+		else
+			node.type = "Normal"
+		end
 
 		-- Assign node artwork assets
-		-- node.sprites = self.spriteMap[node.icon]
-		-- if not node.sprites then
-			-- error("missing sprite "..node.icon)
-			-- node.sprites = { }
-		-- end
+		node.sprites = self.spriteMap[node.icon]
+		if not node.sprites then
+			error("missing sprite "..node.icon)
+			node.sprites = { }
+		end
 
-		-- self:ProcessStats(node)
-	-- end
+		self:ProcessStats(node)
+	end
 end)
 
 function AtlasTreeClass:ProcessStats(node)
@@ -550,12 +831,12 @@ function AtlasTreeClass:ProcessNode(node)
 	end
 
 	-- Derive the true position of the node
-	-- if node.group then
-		-- node.angle = self.orbitAngles[node.o + 1][node.oidx + 1]
-		-- local orbitRadius = self.orbitRadii[node.o + 1]
-		-- node.x = node.group.x + m_sin(node.angle) * orbitRadius
-		-- node.y = node.group.y - m_cos(node.angle) * orbitRadius
-	-- end
+	if node.group then
+		node.angle = self.orbitAngles[node.o + 1][node.oidx + 1]
+		local orbitRadius = self.orbitRadii[node.o + 1]
+		node.x = node.group.x + m_sin(node.angle) * orbitRadius
+		node.y = node.group.y - m_cos(node.angle) * orbitRadius
+	end
 
 	self:ProcessStats(node)
 end

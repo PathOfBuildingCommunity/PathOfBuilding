@@ -335,17 +335,17 @@ function AtlasTabClass:SetActiveSpec(specId)
 	self.build.spec:SetWindowTitleWithBuildClass()
 	for _, slot in pairs(self.build.itemsTab.slots) do
 		if slot.nodeId then
-			-- if prevSpec then
+			if prevSpec then
 				-- Update the previous spec's jewel for this slot
-				-- prevSpec.jewels[slot.nodeId] = slot.selItemId
-			-- end
-			-- if curSpec.jewels[slot.nodeId] then
+				prevSpec.jewels[slot.nodeId] = slot.selItemId
+			end
+			if curSpec.jewels[slot.nodeId] then
 				-- Socket the jewel for the new spec
-				-- slot.selItemId = curSpec.jewels[slot.nodeId]
-			-- else
+				slot.selItemId = curSpec.jewels[slot.nodeId]
+			else
 				-- Unsocket the old jewel from the previous spec
-				-- slot.selItemId = 0
-			-- end
+				slot.selItemId = 0
+			end
 		end
 	end
 	self.showConvert = curSpec.treeVersion ~= latestTreeVersion

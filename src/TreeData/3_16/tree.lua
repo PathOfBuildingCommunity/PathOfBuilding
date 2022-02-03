@@ -3714,8 +3714,8 @@ local tree={
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/TheCleansingFire4.png",
             ["isNotable"]= true,
             ["stats"]= {
-                "Monster Packs Influenced by The Searing Exarch in Areas have 10% chance to contain an additional Possessing Flame Wraith",
-                "Eldritch Currency Items found in Areas influenced by The Eater of Worlds have 10% chance to be Duplicated"
+                "Eldritch Currency Items found in Areas influenced by The Searing Exarch have 10% chance to be Duplicated",
+                "Monster Packs Influenced by The Searing Exarch in Areas have 2% chance to contain an additional Possessing Flame Wraith"
             },
             ["group"]= 14,
             ["orbit"]= 3,
@@ -3744,7 +3744,7 @@ local tree={
             ["name"]= "Searing Exarch Item Chance",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/TheCleansingFireNode.png",
             ["stats"]= {
-                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an item with a Searing Exarch Implicit Modifier"
+                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an Item with a Searing Exarch Implicit Modifier"
             },
             ["group"]= 15,
             ["orbit"]= 5,
@@ -3761,7 +3761,7 @@ local tree={
             ["name"]= "Searing Exarch Item Chance",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/TheCleansingFireNode.png",
             ["stats"]= {
-                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an item with a Searing Exarch Implicit Modifier"
+                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an Item with a Searing Exarch Implicit Modifier"
             },
             ["group"]= 15,
             ["orbit"]= 5,
@@ -3778,7 +3778,7 @@ local tree={
             ["name"]= "Searing Exarch Item Chance",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/TheCleansingFireNode.png",
             ["stats"]= {
-                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an item with a Searing Exarch Implicit Modifier"
+                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an Item with a Searing Exarch Implicit Modifier"
             },
             ["group"]= 15,
             ["orbit"]= 5,
@@ -3794,7 +3794,7 @@ local tree={
             ["name"]= "Searing Exarch Item Chance",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/TheCleansingFireNode.png",
             ["stats"]= {
-                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an item with a Searing Exarch Implicit Modifier"
+                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an Item with a Searing Exarch Implicit Modifier"
             },
             ["group"]= 15,
             ["orbit"]= 5,
@@ -3811,7 +3811,7 @@ local tree={
             ["name"]= "Searing Exarch Item Chance",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/TheCleansingFireNode.png",
             ["stats"]= {
-                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an item with a Searing Exarch Implicit Modifier"
+                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an Item with a Searing Exarch Implicit Modifier"
             },
             ["group"]= 15,
             ["orbit"]= 5,
@@ -3839,7 +3839,7 @@ local tree={
             ["name"]= "Searing Exarch Item Chance",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/TheCleansingFireNode.png",
             ["stats"]= {
-                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an item with a Searing Exarch Implicit Modifier"
+                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an Item with a Searing Exarch Implicit Modifier"
             },
             ["group"]= 17,
             ["orbit"]= 5,
@@ -3855,7 +3855,7 @@ local tree={
             ["name"]= "Searing Exarch Item Chance",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/TheCleansingFireNode.png",
             ["stats"]= {
-                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an item with a Searing Exarch Implicit Modifier"
+                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an Item with a Searing Exarch Implicit Modifier"
             },
             ["group"]= 17,
             ["orbit"]= 5,
@@ -3872,7 +3872,7 @@ local tree={
             ["name"]= "Searing Exarch Item Chance",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/TheCleansingFireNode.png",
             ["stats"]= {
-                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an item with a Searing Exarch Implicit Modifier"
+                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an Item with a Searing Exarch Implicit Modifier"
             },
             ["group"]= 17,
             ["orbit"]= 5,
@@ -3889,7 +3889,7 @@ local tree={
             ["name"]= "Searing Exarch Item Chance",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/TheCleansingFireNode.png",
             ["stats"]= {
-                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an item with a Searing Exarch Implicit Modifier"
+                "Monsters Influenced by The Searing Exarch in Areas have 0.2% chance to drop an Item with a Searing Exarch Implicit Modifier"
             },
             ["group"]= 17,
             ["orbit"]= 5,
@@ -4025,9 +4025,9 @@ local tree={
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/TheCleansingFire3.png",
             ["isNotable"]= true,
             ["stats"]= {
+                "+20% chance to spawn a Searing Exarch Altar when the Influence of The Searing Exarch first appears in Areas",
                 "Eldritch Currency Items found have 10% chance to be Duplicated for each Searing Exarch Altar used in the Area",
-                "Players take 10% increased Damage for each Searing Exarch Altar used in the Area",
-                "20% increased chance to find Eater of Worlds Altars in Areas"
+                "Players take 10% increased Damage for each Searing Exarch Altar used in the Area"
             },
             ["group"]= 20,
             ["orbit"]= 0,
@@ -4496,8 +4496,12 @@ local tree={
             ["group"]= 26,
             ["orbit"]= 4,
             ["orbitIndex"]= 26,
-            ["out"]= {},
-            ["in"]= {}
+            ["out"]= {
+                "46977"
+            },
+            ["in"]= {
+                "51124"
+            }
         },
         [46829]= {
             ["skill"]= 46829,
@@ -4509,8 +4513,12 @@ local tree={
             ["group"]= 26,
             ["orbit"]= 4,
             ["orbitIndex"]= 14,
-            ["out"]= {},
-            ["in"]= {}
+            ["out"]= {
+                "35529"
+            },
+            ["in"]= {
+                "34979"
+            }
         },
         [26007]= {
             ["skill"]= 26007,
@@ -4522,11 +4530,10 @@ local tree={
             ["group"]= 26,
             ["orbit"]= 2,
             ["orbitIndex"]= 5,
-            ["out"]= {
-                "9816"
-            },
+            ["out"]= {},
             ["in"]= {
-                "18189"
+                "18189",
+                "47465"
             }
         },
         [9816]= {
@@ -4543,7 +4550,7 @@ local tree={
                 "18383"
             },
             ["in"]= {
-                "26007"
+                "47465"
             }
         },
         [18189]= {
@@ -4606,7 +4613,10 @@ local tree={
             ["group"]= 26,
             ["orbit"]= 2,
             ["orbitIndex"]= 3,
-            ["out"]= {},
+            ["out"]= {
+                "9816",
+                "26007"
+            },
             ["in"]= {}
         },
         [51124]= {
@@ -4620,7 +4630,7 @@ local tree={
             ["orbit"]= 4,
             ["orbitIndex"]= 23,
             ["out"]= {
-                "46977"
+                "12428"
             },
             ["in"]= {
                 "24653"
@@ -4640,7 +4650,7 @@ local tree={
                 "11112"
             },
             ["in"]= {
-                "51124"
+                "12428"
             }
         },
         [11112]= {
@@ -4670,11 +4680,10 @@ local tree={
             ["orbit"]= 4,
             ["orbitIndex"]= 12,
             ["out"]= {
-                "56199"
+                "56199",
+                "46829"
             },
-            ["in"]= {
-                "35529"
-            }
+            ["in"]= {}
         },
         [35529]= {
             ["skill"]= 35529,
@@ -4686,10 +4695,9 @@ local tree={
             ["group"]= 26,
             ["orbit"]= 4,
             ["orbitIndex"]= 17,
-            ["out"]= {
-                "34979"
-            },
+            ["out"]= {},
             ["in"]= {
+                "46829",
                 "24653"
             }
         },
@@ -5035,7 +5043,7 @@ local tree={
                 "Blight Chests in Areas have 10% chance to contain an Oil Extractor"
             },
             ["reminderText"]= {
-                "(An Oil Extractor Destroys an Anointed Item to create an Oil that could be used to craft that Anointment)"
+                "(An Oil Extractor destroys an Anointed Item to recover one of the Oils that was used to apply that Anointment)"
             },
             ["group"]= 31,
             ["orbit"]= 3,
@@ -6774,7 +6782,7 @@ local tree={
             ["name"]= "Bestiary Beast Duplication Chance",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/BestiaryNode1.png",
             ["stats"]= {
-                "3% chance create a copy of Beasts Captured in Areas"
+                "3% chance to create a copy of Beasts Captured in Areas"
             },
             ["group"]= 56,
             ["orbit"]= 2,
@@ -6791,7 +6799,7 @@ local tree={
             ["name"]= "Bestiary Beast Duplication Chance",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/BestiaryNode1.png",
             ["stats"]= {
-                "3% chance create a copy of Beasts Captured in Areas"
+                "3% chance to create a copy of Beasts Captured in Areas"
             },
             ["group"]= 56,
             ["orbit"]= 2,
@@ -9184,8 +9192,8 @@ local tree={
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/ElderShaperNotable1.png",
             ["isNotable"]= true,
             ["stats"]= {
-                "Unique Bosses have +2% chance to drop an Elder Guardian Map (Tier 14+)",
-                "Unique Bosses have +2% chance to drop a Shaper Guardian Map (Tier 14+)"
+                "Unique Bosses have 2% chance to drop an Elder Guardian Map (Tier 14+)",
+                "Unique Bosses have 2% chance to drop a Shaper Guardian Map (Tier 14+)"
             },
             ["group"]= 87,
             ["orbit"]= 4,
@@ -9299,7 +9307,7 @@ local tree={
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/ElderShaperNotable2.png",
             ["isNotable"]= true,
             ["stats"]= {
-                "Unique Bosses have +2% chance to drop an Elder Guardian Map (Tier 14+)",
+                "Unique Bosses have 2% chance to drop an Elder Guardian Map (Tier 14+)",
                 "The Elder has +10% chance to drop a Watcher's Eye",
                 "The Shaper drops 3 additional Shaper Items"
             },
@@ -9319,7 +9327,7 @@ local tree={
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/ElderShaperNotable3.png",
             ["isNotable"]= true,
             ["stats"]= {
-                "Unique Bosses have +2% chance to drop a Shaper Guardian Map (Tier 14+)",
+                "Unique Bosses have 2% chance to drop a Shaper Guardian Map (Tier 14+)",
                 "Shaper and Elder Guardians are healed and joined by an ally on first reaching 33% Life\nAllies have a chance to drop their Fragments"
             },
             ["reminderText"]= {
@@ -9823,7 +9831,7 @@ local tree={
             ["name"]= "Rare Monster Duplication",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/RareMonstersnode.png",
             ["stats"]= {
-                "1 Rare Monster in Areas is Duplicated"
+                "1 Rare Monster in Areas are Duplicated"
             },
             ["group"]= 95,
             ["orbit"]= 2,
@@ -9839,7 +9847,7 @@ local tree={
             ["name"]= "Rare Monster Duplication",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/RareMonstersnode.png",
             ["stats"]= {
-                "1 Rare Monster in Areas is Duplicated"
+                "1 Rare Monster in Areas are Duplicated"
             },
             ["group"]= 95,
             ["orbit"]= 2,
@@ -9873,7 +9881,7 @@ local tree={
             ["name"]= "Rare Monster Duplication",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/RareMonstersnode.png",
             ["stats"]= {
-                "1 Rare Monster in Areas is Duplicated"
+                "1 Rare Monster in Areas are Duplicated"
             },
             ["group"]= 95,
             ["orbit"]= 2,
@@ -11271,7 +11279,7 @@ local tree={
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/Ascendancy.png",
             ["isNotable"]= true,
             ["stats"]= {
-                "Labyrinth Trials in Areas have 20% chance to award an Improved Offering to the Goddesss",
+                "Labyrinth Trials in Areas have 20% chance to award an Improved Offering to the Goddess",
                 "Areas have +4% chance to contain a Trial of Ascendancy"
             },
             ["group"]= 117,
@@ -11758,7 +11766,7 @@ local tree={
         },
         [1243]= {
             ["skill"]= 1243,
-            ["name"]= "Martialed Forces",
+            ["name"]= "Martial Forces",
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/ConquerorNotable1.png",
             ["isNotable"]= true,
             ["stats"]= {
@@ -12476,7 +12484,8 @@ local tree={
             ["orbit"]= 3,
             ["orbitIndex"]= 3,
             ["out"]= {
-                "25981"
+                "25981",
+                "21345"
             },
             ["in"]= {}
         },
@@ -12490,9 +12499,7 @@ local tree={
             ["group"]= 134,
             ["orbit"]= 3,
             ["orbitIndex"]= 1,
-            ["out"]= {
-                "21345"
-            },
+            ["out"]= {},
             ["in"]= {
                 "48855",
                 "32062",
@@ -12517,7 +12524,7 @@ local tree={
             ["orbitIndex"]= 4,
             ["out"]= {},
             ["in"]= {
-                "25981"
+                "48855"
             }
         },
         [32062]= {
@@ -13593,7 +13600,7 @@ local tree={
                 "10% chance for Scouting Reports in Areas to drop as Operative's Scouting Reports instead"
             },
             ["reminderText"]= {
-                "(Operative's Scouting Reports reroll all of Kirac's Atlas Missions, adding extra rewards to content in those missions)"
+                "(Operative's Scouting Reports reroll all of Kirac's Atlas Missions, granting missions with rewarding implicit modifiers.)"
             },
             ["group"]= 151,
             ["orbit"]= 2,
@@ -13736,7 +13743,7 @@ local tree={
             ["isNotable"]= true,
             ["stats"]= {
                 "Eldritch Currency Items found in Areas influenced by The Eater of Worlds have 10% chance to be Duplicated",
-                "Monster Packs Influenced by The Eater of Worlds in Areas have 10% chance to contain an additional Touching Tentacle Mass"
+                "Monster Packs Influenced by The Eater of Worlds in Areas have 2% chance to contain an additional Touching Tentacle Mass"
             },
             ["group"]= 154,
             ["orbit"]= 3,
@@ -13919,7 +13926,7 @@ local tree={
             ["icon"]= "Art/2DArt/SkillIcons/passives/AtlasTrees/TheTangle2.png",
             ["isNotable"]= true,
             ["stats"]= {
-                "Eldritch Currency Items dropped by The Infinite Hunger or The Eater of Worlds has 25% chance to be Duplicated",
+                "Eldritch Currency Items dropped by The Infinite Hunger or The Eater of Worlds have 25% chance to be Duplicated",
                 "The Eater of Worlds has 25% increased chance to drop Forbidden Flesh"
             },
             ["group"]= 156,
@@ -15126,7 +15133,7 @@ local tree={
     ["skillSprites"]= {
         ["normalActive"]= {
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-0.jpg?4d29f63a9b69bce6a07a19abb49321cf",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-0.jpg?fad254d3",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNode1.png"]= {
                         ["x"]= 0,
@@ -15407,7 +15414,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-1.jpg?5550c33ae134c07525cb67bea0fa5ab2",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-1.jpg?c8f07703",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNode1.png"]= {
                         ["x"]= 0,
@@ -15688,7 +15695,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-2.jpg?13cf5033db1169def7aa8687de2aa88c",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-2.jpg?a2c3c969",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNode1.png"]= {
                         ["x"]= 0,
@@ -15969,7 +15976,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-3.jpg?b63ef4a2929fa1cee3e2eb5840280e81",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-3.jpg?24b23f0b",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNode1.png"]= {
                         ["x"]= 0,
@@ -16252,7 +16259,7 @@ local tree={
         },
         ["notableActive"]= {
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-0.jpg?4d29f63a9b69bce6a07a19abb49321cf",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-0.jpg?fad254d3",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNotable.png"]= {
                         ["x"]= 0,
@@ -17061,7 +17068,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-1.jpg?5550c33ae134c07525cb67bea0fa5ab2",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-1.jpg?c8f07703",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNotable.png"]= {
                         ["x"]= 0,
@@ -17870,7 +17877,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-2.jpg?13cf5033db1169def7aa8687de2aa88c",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-2.jpg?a2c3c969",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNotable.png"]= {
                         ["x"]= 0,
@@ -18679,7 +18686,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-3.jpg?b63ef4a2929fa1cee3e2eb5840280e81",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-3.jpg?24b23f0b",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNotable.png"]= {
                         ["x"]= 0,
@@ -19490,25 +19497,25 @@ local tree={
         },
         ["keystoneActive"]= {
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-0.jpg?4d29f63a9b69bce6a07a19abb49321cf",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-0.jpg?fad254d3",
                 ["coords"]= {}
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-1.jpg?5550c33ae134c07525cb67bea0fa5ab2",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-1.jpg?c8f07703",
                 ["coords"]= {}
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-2.jpg?13cf5033db1169def7aa8687de2aa88c",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-2.jpg?a2c3c969",
                 ["coords"]= {}
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-3.jpg?b63ef4a2929fa1cee3e2eb5840280e81",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-3.jpg?24b23f0b",
                 ["coords"]= {}
             }
         },
         ["normalInactive"]= {
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-0.jpg?d595dac1cbbdb2f933eb85b47a0e3a3d",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-0.jpg?1a86c21d",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNode1.png"]= {
                         ["x"]= 0,
@@ -19789,7 +19796,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-1.jpg?47ad4df6cd315025c763fe7ab6f5ad5e",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-1.jpg?0de59889",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNode1.png"]= {
                         ["x"]= 0,
@@ -20070,7 +20077,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-2.jpg?4b6c1e27678229143a1ab40cb843edde",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-2.jpg?2ff9f7fa",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNode1.png"]= {
                         ["x"]= 0,
@@ -20351,7 +20358,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-3.jpg?7d49f249e4141595abb8e7be79beda56",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-3.jpg?f0ee2cbe",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNode1.png"]= {
                         ["x"]= 0,
@@ -20634,7 +20641,7 @@ local tree={
         },
         ["notableInactive"]= {
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-0.jpg?d595dac1cbbdb2f933eb85b47a0e3a3d",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-0.jpg?1a86c21d",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNotable.png"]= {
                         ["x"]= 0,
@@ -21443,7 +21450,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-1.jpg?47ad4df6cd315025c763fe7ab6f5ad5e",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-1.jpg?0de59889",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNotable.png"]= {
                         ["x"]= 0,
@@ -22252,7 +22259,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-2.jpg?4b6c1e27678229143a1ab40cb843edde",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-2.jpg?2ff9f7fa",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNotable.png"]= {
                         ["x"]= 0,
@@ -23061,7 +23068,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-3.jpg?7d49f249e4141595abb8e7be79beda56",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-3.jpg?f0ee2cbe",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AbyssNotable.png"]= {
                         ["x"]= 0,
@@ -23872,25 +23879,25 @@ local tree={
         },
         ["keystoneInactive"]= {
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-0.jpg?d595dac1cbbdb2f933eb85b47a0e3a3d",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-0.jpg?1a86c21d",
                 ["coords"]= {}
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-1.jpg?47ad4df6cd315025c763fe7ab6f5ad5e",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-1.jpg?0de59889",
                 ["coords"]= {}
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-2.jpg?4b6c1e27678229143a1ab40cb843edde",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-2.jpg?2ff9f7fa",
                 ["coords"]= {}
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-3.jpg?7d49f249e4141595abb8e7be79beda56",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-skills-disabled-3.jpg?f0ee2cbe",
                 ["coords"]= {}
             }
         },
         ["mastery"]= {
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-groups-0.png?8979e201718dfae410d7470ba0fc2acd",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-groups-0.png?58a36a7e",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AtlasPassiveMasteryAbyss.png"]= {
                         ["x"]= 0,
@@ -24105,7 +24112,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-groups-1.png?f5bcb65a8d5ef8b0e5bc7fed69cc937b",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-groups-1.png?c3973fdd",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AtlasPassiveMasteryAbyss.png"]= {
                         ["x"]= 0,
@@ -24320,7 +24327,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-groups-2.png?038f3346fcd1bdf78404d1c9576d2ff1",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-groups-2.png?aed7fb90",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AtlasPassiveMasteryAbyss.png"]= {
                         ["x"]= 0,
@@ -24535,7 +24542,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-groups-3.png?cbe8760937c2055ec796dae1cdcc91c6",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-groups-3.png?7cae1f58",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AtlasPassiveMasteryAbyss.png"]= {
                         ["x"]= 0,
@@ -24752,7 +24759,7 @@ local tree={
         },
         ["masteryActive"]= {
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-mastery-active-0.png?5acef08a6d8f57111b687fb7cda98abd",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-mastery-active-0.png?39653de4",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AtlasPassiveMasteryAbyss.png"]= {
                         ["x"]= 0,
@@ -24967,7 +24974,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-mastery-active-1.png?14030063be58b4177b995599041caf76",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-mastery-active-1.png?e42c3df4",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AtlasPassiveMasteryAbyss.png"]= {
                         ["x"]= 0,
@@ -25182,7 +25189,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-mastery-active-2.png?e233a7ffe86c594580c85e3809c7c053",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-mastery-active-2.png?365f466e",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AtlasPassiveMasteryAbyss.png"]= {
                         ["x"]= 0,
@@ -25397,7 +25404,7 @@ local tree={
                 }
             },
             {
-                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-mastery-active-3.png?c6f0466962d8a55767198c3b15f8c0d5",
+                ["filename"]= "https://web.poecdn.com/image/passive-skill/atlas-mastery-active-3.png?b225bde6",
                 ["coords"]= {
                     ["Art/2DArt/SkillIcons/passives/AtlasTrees/AtlasPassiveMasteryAbyss.png"]= {
                         ["x"]= 0,

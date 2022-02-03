@@ -389,9 +389,9 @@ function AtlasSpecClass:SelectClass(classId)
 	end
 
 	self.curClassId = classId
-	-- local class = self.tree.classes[classId]
-	-- self.curClass = class
-	-- self.curClassName = class.name
+	local class = self.tree.classes[classId]
+	self.curClass = class
+	self.curClassName = class.name
 
 	-- Allocate the new class's starting node
 	local startNode = self.nodes[class.startNodeId]
