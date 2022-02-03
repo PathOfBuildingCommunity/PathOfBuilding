@@ -201,10 +201,20 @@ You can get this from your web browser's cookies while logged into the Path of E
 		end
 	end)
 	self.controls.generateCodeByLink.enabled = function()
-		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pastebin%.com") and not self.controls.generateCodeOut.buf:match("pobb%.in")
+		for _, exportSite in ipairs(exportWebsitesList) do
+			if #self.controls.generateCodeOut.buf > 0 and self.controls.generateCodeOut.buf:match(exportSite.matchURL) then
+				return false
+			end
+		end
+		return #self.controls.generateCodeOut.buf > 0
 	end
 	self.controls.exportFrom.enabled = function()
-		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pastebin%.com") and not self.controls.generateCodeOut.buf:match("pobb%.in")
+		for _, exportSite in ipairs(exportWebsitesList) do
+			if #self.controls.generateCodeOut.buf > 0 and self.controls.generateCodeOut.buf:match(exportSite.matchURL) then
+				return false
+			end
+		end
+		return #self.controls.generateCodeOut.buf > 0
 	end
 	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share' to shrink it.")
 	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter the code here:")

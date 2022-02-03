@@ -15,11 +15,11 @@ buildSites.websiteList = {
 	{ label = "PastebinP.com", id = "PastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
 	{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
 	{
-		label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "https://poe.ninja/pob/raw/%1",
+		label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1",
 		codeOut = "", postUrl = "https://poe.ninja/pob/api/api_post.php", postFields = "api_paste_code="
 	},
 	{
-		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/%w+", regexURL = "pobb%.in/([%w-_]+)%s*$", downloadURL = "https://pobb.in/pob/%1",
+		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/%w+", regexURL = "pobb%.in/([%w-_]+)%s*$", downloadURL = "pobb.in/pob/%1",
 		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = ""
 	},
 }
@@ -70,7 +70,7 @@ function buildSites.DownloadBuild(link, websiteInfo, callback)
 	if not websiteInfo then
 		for _, siteInfo in ipairs(buildSites.websiteList) do
 			if link:match("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(%w+)") then
-				siteCodeURL = link:gsub("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(%w+)", siteInfo.downloadURL)
+				siteCodeURL = link:gsub("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(%w+)", "https://" .. siteInfo.downloadURL)
 				websiteInfo = siteInfo
 				break
 			end
