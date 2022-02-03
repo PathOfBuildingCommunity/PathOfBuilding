@@ -10931,11 +10931,11 @@ skills["FrostFury"] = {
 	parts = {
 		{
 			name = "Channelling",
-			stages = true
+			stages = true,
 		},
 		{
 			name = "Idle",
-			stages = true
+			stages = true,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
