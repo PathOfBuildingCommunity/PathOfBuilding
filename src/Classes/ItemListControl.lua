@@ -43,21 +43,28 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	self.controls.deleteUnused = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 100, 18, "Delete Unused", function()
 		local delList = {}
 		for _, itemId in pairs(self.list) do
-			if self.itemsTab.items[itemId].type == "Jewel" then
+			if itemsTab.items[itemId].type == "Jewel" then
 				if self:FindSocketedJewel(itemId, false) == "" then
 					t_insert(delList, itemId)
 				end
 			else
-				local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(self.itemsTab.items[itemId])
+				local slot, itemSet = itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId])
 				if not slot then
 					t_insert(delList, itemId)
 				end
 			end
 		end
-		-- delete in reverse order so as to not delete the wrong item whilst deleting
+		-- Delete in reverse order so as to not delete the wrong item whilst deleting
 		for i = #delList, 1, -1 do
-			self.itemsTab:DeleteItem(self.itemsTab.items[delList[i]])
+			itemsTab:DeleteItem(itemsTab.items[delList[i]], true)
 		end
+		-- Rebuild cluster jewel graphs, populate slots, and create an undo state, as we deferred doing this during itemsTab:DeleteItem(...)
+		for _, spec in pairs(itemsTab.build.treeTab.specList) do
+			spec:BuildClusterJewelGraphs()
+		end
+		itemsTab:PopulateSlots()
+		itemsTab:AddUndoState()
+		itemsTab.build.buildFlag = true
 	end)
 	self.controls.deleteUnused.enabled = function()
 		return #self.list > 0
