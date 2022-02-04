@@ -144,7 +144,7 @@ function main:Init()
 		return self.ggpk.txt[name]
 	end
 
-	self.typeDrop = { "Bool", "Int", "UInt", "Interval", "Float", "String", "Enum", "Key" }
+	self.typeDrop = { "Bool", "Int", "UInt", "Interval", "Float", "String", "Enum", "ShortKey", "Key" }
 
 	self.colList = { }
 
@@ -160,7 +160,7 @@ function main:Init()
 		writeLuaTable(out, self.datSpecs, 1)
 		out:close()
 		self.datSource = value
-		self.datSpecs = LoadModule(self.datSource.spec:gsub("%.lua$",""))
+		self.datSpecs = LoadModule(self.datSource.spec)
 		self:InitGGPK()
 		if USE_DAT64 then
 			self:LoadDat64Files()
@@ -184,7 +184,7 @@ function main:Init()
 		end
 	}
 
-	self.controls.datList = new("DatListControl", nil, 10, 70, 250, function() return self.screenH - 60 end)
+	self.controls.datList = new("DatListControl", nil, 10, 70, 250, function() return self.screenH - 70 end)
 
 	self.controls.specEditToggle = new("ButtonControl", nil, 270, 10, 100, 18, function() return self.editSpec and "Done <<" or "Edit >>" end, function()
 		self.editSpec = not self.editSpec

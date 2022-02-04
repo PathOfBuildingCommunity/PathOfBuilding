@@ -136,6 +136,15 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportAuraDuration
+	statMap = {
+		["support_aura_duration_base_buff_duration"] = {
+			skill("auraDuration", nil),
+			div = 1000,
+		},
+	},
+#mods
+
 #skill SupportEarthbreaker
 	addFlags = {
 		totem = true,
@@ -181,6 +190,13 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LostEnduranceChargeInPast8Sec" }),
 		}
 	},
+#mods
+
+#skill SupportMortalConviction
+#baseMod skill("manaReservationFlat", 0)
+#baseMod skill("lifeReservationFlat", 0)
+#baseMod skill("manaReservationPercent", 0)
+#baseMod skill("lifeReservationPercent", 0)
 #mods
 
 #skill SupportFirePenetration
@@ -389,8 +405,7 @@ local skills, mod, flag, skill = ...
 #skill SupportRage
 	statMap = {
 		["support_rage_gain_rage_on_melee_hit_cooldown_ms"] = {
-			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff", effectName = "Rage" } ),
 		},
 		["attack_minimum_added_physical_damage_with_at_least_10_rage"] = {
 			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })

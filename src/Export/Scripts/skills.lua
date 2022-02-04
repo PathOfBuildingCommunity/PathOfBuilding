@@ -2,65 +2,65 @@ local skillTypes = {
 	"Attack",
 	"Spell",
 	"Projectile",
-	"DualWield",
+	"DualWieldOnly",
 	"Buff",
 	"Minion",
-	"Hit",
+	"Damage",
 	"Area",
 	"Duration",
-	"Shield",
-	"ProjectileDamage",
-	"ManaCostReserved",
-	"ManaCostPercent",
-	"SkillCanTrap",
-	"SkillCanTotem",
-	"SkillCanMine",
-	"CauseElementalStatus",
-	"CreateMinion",
-	"Chaining",
+	"RequiresShield",
+	"ProjectileSpeed",
+	"HasReservation",
+	"ReservationBecomesCost",
+	"Trappable",
+	"Totemable",
+	"Mineable",
+	"ElementalStatus",
+	"MinionsCanExplode",
+	"Chains",
 	"Melee",
 	"MeleeSingleTarget",
-	"SpellCanRepeat",
-	"Type27",
-	"AttackCanRepeat",
+	"Multicastable",
+	"TotemCastsAlone",
+	"Multistrikeable",
 	"CausesBurning",
-	"Totem",
-	"DamageCannotBeReflected",
-	"PhysicalSkill",
-	"FireSkill",
-	"ColdSkill",
-	"LightningSkill",
+	"SummonsTotem",
+	"TotemCastsWhenNotDetached",
+	"Physical",
+	"Fire",
+	"Cold",
+	"Lightning",
 	"Triggerable",
-	"Trap",
-	"MovementSkill",
+	"Trapped",
+	"Movement",
 	"DamageOverTime",
-	"Mine",
+	"RemoteMined",
 	"Triggered",
 	"Vaal",
 	"Aura",
-	"Type46",
-	"ProjectileAttack",
-	"ChaosSkill",
-	"Type51",
-	"Type53",
-	"MinionProjectile",
-	"Type55",
-	"AnimateWeapon",
-	"Channelled",
-	"Type59",
-	"TriggeredGrantedSkill",
+	"CanTargetUnusableCorpse",
+	"RangedAttack",
+	"Chaos",
+	"FixedSpeedProjectile",
+	"ThresholdJewelArea",
+	"ThresholdJewelProjectile",
+	"ThresholdJewelDuration",
+	"ThresholdJewelRangedAttack",
+	"Channel",
+	"DegenOnlySpellDamage",
+	"InbuiltTrigger",
 	"Golem",
 	"Herald",
-	"AuraDebuff",
-	"Type65",
-	"Type66",
-	"SpellCanCascade",
-	"SkillCanVolley",
-	"SkillCanMirageArcher",
-	"LaunchesSeriesOfProjectiles",
-	"Type71",
-	"Type72",
-	"Type73",
+	"AuraAffectsEnemies",
+	"NoRuthless",
+	"ThresholdJewelSpellDamage",
+	"Cascadable",
+	"ProjectilesFromUser",
+	"MirageArcherCanUse",
+	"ProjectileSpiral",
+	"SingleMainProjectile",
+	"MinionsPersistWhenSkillRemoved",
+	"ProjectileNumber",
 	"Warcry",
 	"Instant",
 	"Brand",
@@ -74,38 +74,39 @@ local skillTypes = {
 	"OR",
 	"AND",
 	"NOT",
-	"Maims",
+	"AppliesMaim",
 	"CreatesMinion",
-	"GuardSkill",
-	"TravelSkill",
-	"BlinkSkill",
+	"Guard",
+	"Travel",
+	"Blink",
 	"CanHaveBlessing",
-	"FiresProjectilesFromSecondaryLocation",
-	"Ballista",
-	"NovaSpell",
-	"Type91",
-	"Type92",
-	"CanDetonate",
+	"ProjectilesNotFromUser",
+	"AttackInPlaceIsDefault",
+	"Nova",
+	"InstantNoRepeatWhenHeld",
+	"InstantShiftAttackForLeftMouse",
+	"AuraNotOnCaster",
 	"Banner",
-	"FiresArrowsAtTargetLocation",
-	"SecondWindSupport",
-	"Type97",
-	"SlamSkill",
-	"StanceSkill",
-	"CreatesMirageWarrior",
-	"UsesSupportedTriggerSkill",
-	"SteelSkill",
+	"Rain",
+	"Cooldown",
+	"ThresholdJewelChaining",
+	"Slam",
+	"Stance",
+	"NonRepeatable",
+	"OtherThingUsesSkill",
+	"Steel",
 	"Hex",
 	"Mark",
 	"Aegis",
 	"Orb",
-	"Type112",
-	"Prismatic",
-	"Type114",
+	"KillNoDamageModifiers",
+	"RandomElement",
+	"LateConsumeCooldown",
 	"Arcane",
-	"Type116",
-	"CantEquipWeapon",
+	"FixedCastTime",
+	"RequiresOffHandNotWeapon",
 	"Link",
+	"Blessing",
 }
 
 local function mapAST(ast)
@@ -378,59 +379,69 @@ end
 -- Emits the skill modifiers
 directiveTable.mods = function(state, args, out)
 	local skill = state.skill
-	if not skill.isSupport then
-		out:write('\tbaseFlags = {\n')
-		for _, flag in ipairs(skill.baseFlags) do
-			out:write('\t\t', flag, ' = true,\n')
+	if not args:match("noBaseFlags") then
+		if not skill.isSupport then
+			out:write('\tbaseFlags = {\n')
+			for _, flag in ipairs(skill.baseFlags) do
+				out:write('\t\t', flag, ' = true,\n')
+			end
+			out:write('\t},\n')
+		end
+	end
+	if not args:match("noBaseMods") then
+		out:write('\tbaseMods = {\n')
+		for _, mod in ipairs(skill.mods) do
+			out:write('\t\t', mod, ',\n')
 		end
 		out:write('\t},\n')
 	end
-	out:write('\tbaseMods = {\n')
-	for _, mod in ipairs(skill.mods) do
-		out:write('\t\t', mod, ',\n')
+	if not args:match("noQualityStats") then
+		out:write('\tqualityStats = {\n')
+		for i, alternates in ipairs(skill.qualityStats) do
+			if i == 1 then
+				out:write('\t\tDefault = {\n')
+			else
+				local value = i - 1
+				out:write('\t\tAlternate' .. value .. ' = {\n')
+			end
+			for _, stat in ipairs(alternates) do
+				out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+			end
+			out:write('\t\t},\n')
+		end
+		out:write('\t},\n')
 	end
-	out:write('\t},\n')
-	out:write('\tqualityStats = {\n')
-	for i, alternates in ipairs(skill.qualityStats) do
-		if i == 1 then
-			out:write('\t\tDefault = {\n')
-		else
-			local value = i - 1
-			out:write('\t\tAlternate' .. value .. ' = {\n')
+	if not args:match("noStats") then
+		out:write('\tstats = {\n')
+		for _, stat in ipairs(skill.stats) do
+			out:write('\t\t"', stat.id, '",\n')
 		end
-		for _, stat in ipairs(alternates) do
-			out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
-		end
-		out:write('\t\t},\n')
+		out:write('\t},\n')
 	end
-	out:write('\t},\n')
-	out:write('\tstats = {\n')
-	for _, stat in ipairs(skill.stats) do
-		out:write('\t\t"', stat.id, '",\n')
+	if not args:match("noLevels") then
+		out:write('\tlevels = {\n')
+		for index, level in ipairs(skill.levels) do
+			out:write('\t\t[', level.level, '] = { ')
+			for _, statVal in ipairs(level) do
+				out:write(tostring(statVal), ', ')
+			end
+			for k, v in pairs(level.extra) do
+				out:write(k, ' = ', tostring(v), ', ')
+			end
+			out:write('statInterpolation = { ')
+			for _, type in ipairs(level.statInterpolation) do
+				out:write(type, ', ')
+			end
+			out:write('}, ')
+			out:write('cost = { ')
+			for k, v in pairs(level.cost) do
+				out:write(k, ' = ', tostring(v), ', ')
+			end
+			out:write('}, ')
+			out:write('},\n')
+		end
+		out:write('\t},\n')
 	end
-	out:write('\t},\n')
-	out:write('\tlevels = {\n')
-	for index, level in ipairs(skill.levels) do
-		out:write('\t\t[', level.level, '] = { ')
-		for _, statVal in ipairs(level) do
-			out:write(tostring(statVal), ', ')
-		end
-		for k, v in pairs(level.extra) do
-			out:write(k, ' = ', tostring(v), ', ')
-		end
-		out:write('statInterpolation = { ')
-		for _, type in ipairs(level.statInterpolation) do
-			out:write(type, ', ')
-		end
-		out:write('}, ')
-		out:write('cost = { ')
-		for k, v in pairs(level.cost) do
-			out:write(k, ' = ', tostring(v), ', ')
-		end
-		out:write('}, ')
-		out:write('},\n')
-	end
-	out:write('\t},\n')
 	out:write('}')
 	state.skill = nil
 end

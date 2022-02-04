@@ -294,7 +294,6 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["chain_strike_gain_x_rage_if_attack_hits"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 	},
 #baseMod skill("radius", 24)
@@ -342,6 +341,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill Determination
@@ -402,6 +402,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill Earthquake
@@ -548,7 +549,7 @@ local skills, mod, flag, skill = ...
 #skill GeneralsCrySupport
 	statMap = {
 		["support_spiritual_cry_damage_+%_final"] = {
-			mod("GeneralsCryMirageWarriorLessDamage", "BASE", nil),
+			mod("Damage", "MORE", nil),
 		},
 	},
 #mods
@@ -869,7 +870,13 @@ local skills, mod, flag, skill = ...
 #skill PetrifiedBlood
 	statMap = {
 		["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"] = {
-			mod("ManaCostAsLifeCost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type="Condition", var="LowLife", neg = true }),
+			mod("ManaCostAsLifeCost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Petrified Blood", unscalable = true }, { type="Condition", var="LowLife", neg = true }),
+		},
+		["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"] = {
+			mod("LifeLossBelowHalfPrevented", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Petrified Blood" }),
+		},
+		["petrified_blood_%_prevented_life_loss_to_lose_over_time"] = {
+			mod("LifeLossBelowHalfLost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Petrified Blood" }),
 		},
 	},
 #mods
@@ -1245,7 +1252,6 @@ end,
 	statMap = {
 		["gain_rage_on_hit_%_chance"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		}
 	},
 #mods
@@ -1263,6 +1269,10 @@ end,
 		},
 		["damage_+%_when_on_full_life"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", var = "FullLife" })
+		},
+		["life_leech_from_physical_attack_damage_permyriad"] = {
+			mod("PhysicalDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 100,
 		},
 	},
 #baseMod skill("radius", 40)
@@ -1302,7 +1312,6 @@ end,
 		},
 		["enemy_rage_regeneration_on_stun"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 	},
 #baseMod skill("debuff", true)
@@ -1320,6 +1329,7 @@ end,
 	},
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
+#baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill FlameLink

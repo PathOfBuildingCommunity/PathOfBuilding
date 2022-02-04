@@ -134,7 +134,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }),
 		},
 		["support_slashing_buff_attack_cast_speed_+%_final_to_grant"] = {
-			mod("Speed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Combat Rush", effectCond = "CombatRushActive" }, { type = "Condition", var = "SupportedByCloseCombat", neg = true }, { type = "SkillType", skillType = SkillType.TravelSkill }),
+			mod("Speed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Combat Rush", effectCond = "CombatRushActive" }, { type = "Condition", var = "SupportedByCloseCombat", neg = true }, { type = "SkillType", skillType = SkillType.Travel }),
 		},
 		["close_combat_damage_to_close_range_+%"] = {
 			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }),
@@ -298,6 +298,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportMarkOnHit
+	statMap = {
+		["mark_skills_curse_effect_+%"] = {
+			mod("CurseEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Mark }),
+		},
+		["marked_enemy_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#mods
+
 #skill SupportGemMirageArcher
 	statMap = {
 		["support_mirage_archer_base_duration"] = {
@@ -328,14 +339,8 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportPuncturingWeapon
-	statMap = {
-		["elusive_effect_+%"] = {
-			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }),
-		},
-	},
 #baseMod flag("SupportedByNightblade")
 #baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" })
-#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" })
 #mods
 
 #skill SupportOnslaught
@@ -413,7 +418,7 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
-			skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanTrap }),
+			skill("showAverage", true, { type = "SkillType", skillType = SkillType.Trappable }),
 		},
 	},
 #mods

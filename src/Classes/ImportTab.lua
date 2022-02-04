@@ -46,13 +46,6 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 			end)
 		end)
 	end
-	self.controls.accountNameGo = new("ButtonControl", {"LEFT",self.controls.accountName,"RIGHT"}, 8, 0, 60, 20, "Start", function()
-		self.controls.sessionInput.buf = ""
-		self:DownloadCharacterList()
-	end)
-	self.controls.accountNameGo.enabled = function()
-		return self.controls.accountName.buf:match("%S")
-	end
 	-- accountHistory Control
 	if not historyList then
 		historyList = { }
@@ -64,11 +57,19 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 			return a:lower() < b:lower()
 		end)
 	end -- don't load the list many times
+	self.controls.accountNameGo = new("ButtonControl", {"LEFT",self.controls.accountName,"RIGHT"}, 8, 0, 60, 20, "Start", function()
+		self.controls.sessionInput.buf = ""
+		self:DownloadCharacterList()
+	end)
+	self.controls.accountNameGo.enabled = function()
+		return self.controls.accountName.buf:match("%S")
+	end
 
 	self.controls.accountHistory = new("DropDownControl", {"LEFT",self.controls.accountNameGo,"RIGHT"}, 8, 0, 200, 20, historyList, function()
 		self.controls.accountName.buf = self.controls.accountHistory.list[self.controls.accountHistory.selIndex]
 	end)
 	self.controls.accountHistory:SelByValue(main.lastAccountName)
+	self.controls.accountHistory:CheckDroppedWidth(true)
 
 	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, 0, 16, 0, 14, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
 	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, "^x4040FFhttps://www.urlencoder.org/", function()
@@ -133,32 +134,20 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charImportTree.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charImportTreeClearJewels = new("CheckBoxControl", {"LEFT",self.controls.charImportTree,"RIGHT"}, 90, 0, 18, "Delete jewels:")
-	self.controls.charImportTreeClearJewels.tooltipText = "Delete all existing jewels when importing."
+	self.controls.charImportTreeClearJewels = new("CheckBoxControl", {"LEFT",self.controls.charImportTree,"RIGHT"}, 90, 0, 18, "Delete jewels:", nil, "Delete all existing jewels when importing.", true)
 	self.controls.charImportItems = new("ButtonControl", {"LEFT",self.controls.charImportTree, "LEFT"}, 0, 36, 110, 20, "Items and Skills", function()
 		self:DownloadItems()
 	end)
 	self.controls.charImportItems.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charImportItemsClearSkills = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:")
-	self.controls.charImportItemsClearSkills.tooltipText = "Delete all existing skills when importing."
-	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:")
-	self.controls.charImportItemsClearItems.tooltipText = "Delete all equipped items when importing."
+	self.controls.charImportItemsClearSkills = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:", nil, "Delete all existing skills when importing.", true)
+	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
 	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
 
-	self.controls.charDone = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Done", function()
+	self.controls.charClose = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Close", function()
 		self.charImportMode = "GETACCOUNTNAME"
 		self.charImportStatus = "Idle"
-		-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
-		if not historyList[self.controls.accountName.buf] then
-			t_insert(historyList, self.controls.accountName.buf)
-			historyList[self.controls.accountName.buf] = true
-			self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
-			table.sort(historyList, function(a,b)
-				return a:lower() < b:lower()
-			end)
-		end
 	end)
 
 	-- Build import/export
@@ -178,48 +167,57 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.generateCodeCopy.enabled = function()
 		return #self.controls.generateCodeOut.buf > 0
 	end
-	self.controls.generateCodePastebin = new("ButtonControl", {"LEFT",self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 140, 20, "Share with Pastebin", function()
-		local id = LaunchSubScript([[
-			local code, proxyURL = ...
-			local curl = require("lcurl.safe")
-			local page = ""
-			local easy = curl.easy()
-			easy:setopt_url("https://pastebin.com/api/api_post.php")
-			easy:setopt(curl.OPT_POST, true)
-			easy:setopt(curl.OPT_POSTFIELDS, "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="..code)
-			easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
-			if proxyURL then
-				easy:setopt(curl.OPT_PROXY, proxyURL)
+
+	local getExportSitesFromImportList = function()
+		local exportWebsites = { }
+		for k,v in pairs(buildSites.websiteList) do
+			-- if entry has fields needed for Export
+			if buildSites.websiteList[k].postUrl and buildSites.websiteList[k].postFields and buildSites.websiteList[k].codeOut then
+				table.insert(exportWebsites, v)
 			end
-			easy:setopt_writefunction(function(data)
-				page = page..data
-				return true
-			end)
-			easy:perform()
-			easy:close()
-			if page:match("pastebin.com") then
-				return page
-			else
-				return nil, page
-			end
-		]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
-		if id then
+		end
+		return exportWebsites
+	end
+	local exportWebsitesList = getExportSitesFromImportList()
+
+	self.controls.exportFrom = new("DropDownControl", { "LEFT", self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 120, 20, exportWebsitesList, function(_, selectedWebsite)
+		main.lastExportWebsite = selectedWebsite.id
+		self.exportWebsiteSelected = selectedWebsite.id
+	end)
+	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or main.lastExportWebsite or "Pastebin", "id")
+	self.controls.generateCodeByLink = new("ButtonControl", { "LEFT", self.controls.exportFrom, "RIGHT"}, 8, 0, 100, 20, "Share", function()
+		local exportWebsite = exportWebsitesList[self.controls.exportFrom.selIndex]
+		local response = buildSites.UploadBuild(self.controls.generateCodeOut.buf, exportWebsite)
+		if response then
 			self.controls.generateCodeOut:SetText("")
-			self.controls.generateCodePastebin.label = "Creating paste..."
-			launch:RegisterSubScript(id, function(pasteLink, errMsg)
-				self.controls.generateCodePastebin.label = "Share with Pastebin"
+			self.controls.generateCodeByLink.label = "Creating link..."
+			launch:RegisterSubScript(response, function(pasteLink, errMsg)
+				self.controls.generateCodeByLink.label = "Share"
 				if errMsg then
-					main:OpenMessagePopup("Pastebin.com", "Error creating paste:\n"..errMsg)
+					main:OpenMessagePopup(exportWebsite.id, "Error creating link:\n"..errMsg)
 				else
-					self.controls.generateCodeOut:SetText(pasteLink)
+					self.controls.generateCodeOut:SetText(exportWebsite.codeOut..pasteLink)
 				end
 			end)
 		end
 	end)
-	self.controls.generateCodePastebin.enabled = function()
-		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pastebin%.com")
+	self.controls.generateCodeByLink.enabled = function()
+		for _, exportSite in ipairs(exportWebsitesList) do
+			if #self.controls.generateCodeOut.buf > 0 and self.controls.generateCodeOut.buf:match(exportSite.matchURL) then
+				return false
+			end
+		end
+		return #self.controls.generateCodeOut.buf > 0
 	end
-	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share with Pastebin' to shrink it.")
+	self.controls.exportFrom.enabled = function()
+		for _, exportSite in ipairs(exportWebsitesList) do
+			if #self.controls.generateCodeOut.buf > 0 and self.controls.generateCodeOut.buf:match(exportSite.matchURL) then
+				return false
+			end
+		end
+		return #self.controls.generateCodeOut.buf > 0
+	end
+	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share' to shrink it.")
 	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter the code here:")
 	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 250, 20, "", nil, "^%w_%-=", nil, function(buf)
 		if #buf == 0 then
@@ -267,6 +265,11 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.importCodeGo.enabled = function()
 		return self.importCodeState == "VALID"
 	end
+	self.controls.importCodeGo.enterFunc = function()
+		if self.importCodeState == "VALID" then
+			self.controls.importCodeGo.onClick()
+		end
+	end
 end)
 
 function ImportTabClass:Load(xml, fileName)
@@ -307,7 +310,8 @@ end
 function ImportTabClass:DownloadCharacterList()
 	self.charImportMode = "DOWNLOADCHARLIST"
 	self.charImportStatus = "Retrieving character list..."
-	local accountName = self.controls.accountName.buf
+	  -- Trim Trailing/Leading spaces
+	local accountName = self.controls.accountName.buf:gsub('%s+', '')
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(page, errMsg)
@@ -382,6 +386,9 @@ function ImportTabClass:DownloadCharacterList()
 			end
 			self.lastCharList = charList
 			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValue("league"))
+
+			-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
+			self:SaveAccountHistory()
 		end, sessionID and "POESESSID="..sessionID)
 	end, sessionID and "POESESSID="..sessionID)
 end
@@ -407,6 +414,18 @@ function ImportTabClass:BuildCharacterList(league)
 				break
 			end
 		end
+	end
+end
+
+function ImportTabClass:SaveAccountHistory()
+	if not historyList[self.controls.accountName.buf] then
+		t_insert(historyList, self.controls.accountName.buf)
+		historyList[self.controls.accountName.buf] = true
+		self.controls.accountHistory:SelByValue(self.controls.accountName.buf)
+		table.sort(historyList, function(a,b)
+			return a:lower() < b:lower()
+		end)
+		self.controls.accountHistory:CheckDroppedWidth(true)
 	end
 end
 
@@ -520,6 +539,8 @@ function ImportTabClass:ImportItemsAndSkills(json)
 			end
 		end
 	end
+
+	local mainSkillEmpty = #self.build.skillsTab.socketGroupList == 0
 	local skillOrder
 	if self.controls.charImportItemsClearSkills.state then
 		skillOrder = { }
@@ -574,6 +595,9 @@ function ImportTabClass:ImportItemsAndSkills(json)
 			end
 		end)
 	end
+	if mainSkillEmpty then
+		self.build.mainSocketGroup = self:GuessMainSocketGroup()
+	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
 	self.build.skillsTab:AddUndoState()
@@ -621,6 +645,18 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		end
 	else
 		item.name = itemLib.sanitiseItemText(itemData.typeLine)
+		if item.name:match("Energy Blade") then
+			local oneHanded = false
+			for _, p in ipairs(itemData.properties) do
+				if self.build.data.weaponTypeInfo[p.name].oneHand then
+					oneHanded = true
+					break
+				end
+			end
+			item.name = oneHanded and "Energy Blade One Handed" or "Energy Blade Two Handed"
+			itemData.implicitMods = nil
+			itemData.explicitMods = nil
+		end
 		for baseName, baseData in pairs(self.build.data.itemBases) do
 			local s, e = item.name:find(baseName, 1, true)
 			if s then
@@ -712,6 +748,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	end
 	item.enchantModLines = { }
 	item.scourgeModLines = { }
+	item.classRequirementModLines = { }
 	item.implicitModLines = { }
 	item.explicitModLines = { }
 	if itemData.enchantMods then
@@ -811,7 +848,6 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	end
 end
 
-
 function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	-- Build socket group list
 	local itemSocketGroupList = { }
@@ -889,6 +925,19 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	end
 end
 
+-- Return the index of the group with the most gems
+function ImportTabClass:GuessMainSocketGroup()
+	local largestGroupSize = 0
+	local largestGroupIndex = 1
+	for i, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+		if #socketGroup.gemList > largestGroupSize then
+			largestGroupSize = #socketGroup.gemList
+			largestGroupIndex = i
+		end
+	end
+	return largestGroupIndex
+end
+
 function HexToChar(x)
 	return string.char(tonumber(x, 16))
 end
@@ -903,28 +952,28 @@ function UrlDecode(url)
 end
 
 function ImportTabClass:OpenImportFromWebsitePopup()
-	local importWebsiteList = {
-		{ label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1" },
-		{ label = "PastebinP.com", id = "PastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
-		{ label = "Ghostbin", id = "Ghostbin", matchURL = "ghostbin%.co/paste/%w+", regexURL = "ghostbin%.co/paste/(%w+)%s*$", downloadURL = "ghostbin.co/paste/%1/raw" },
-		{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
-		{ label = "TinyPaste", id = "TinyPaste", matchURL = "penyacom%.org/%w+", regexURL = "penyacom%.org/[pr]%?q=(%w+)%s*$", downloadURL = "penyacom.org/r?q=%1" },
-	}
 	local controls = { }
 
 	controls.importAnchorPoint = new("Control", nil, 0, 0, 280, 0)
 	controls.importFromLabel = new("LabelControl", { "TOPLEFT", controls.importAnchorPoint, "BOTTOMLEFT"}, 15, 20, 0, 16, "Import from:")
-	controls.importFrom = new("DropDownControl", {"LEFT",controls.importFromLabel,"RIGHT"}, 8, 0, 140, 20, importWebsiteList, function(_, selectedWebsite)
+	controls.importFrom = new("DropDownControl", {"LEFT",controls.importFromLabel,"RIGHT"}, 8, 0, 140, 20, buildSites.websiteList, function(_, selectedWebsite)
 		self.importWebsiteSelected = selectedWebsite.id
 	end)
 	controls.importFrom:SelByValue( self.importWebsiteSelected or "Pastebin", "id" )
 	controls.editLabel = new("LabelControl", { "TOPLEFT", controls.importAnchorPoint, "BOTTOMLEFT"}, 15, 44, 0, 16, "Enter website link:")
 	controls.edit = new("EditControl", nil, 0, 64, 250, 18, "", nil, "^%w%p%s", nil, function(buf)
 		controls.msg.label = ""
+		if #controls.edit.buf > 0 then
+			for j=1,#buildSites.websiteList do
+				if controls.edit.buf:match(buildSites.websiteList[j].matchURL) then
+					controls.importFrom:SelByValue(buildSites.websiteList[j].id, "id")
+				end
+			end
+		end
 	end)
 	controls.msg = new("LabelControl", nil, 0, 82, 0, 16, "")
 	controls.import = new("ButtonControl", nil, -45, 104, 80, 20, "Import", function()
-		local selectedWebsite = importWebsiteList[controls.importFrom.selIndex]
+		local selectedWebsite = buildSites.websiteList[controls.importFrom.selIndex]
 		controls.import.enabled = false
 		controls.msg.label = "Retrieving paste..."
 		controls.edit.buf = controls.edit.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
@@ -932,18 +981,19 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 			local nested_url = controls.edit.buf:gsub(".*[?&]q=([^&]+).*", "%1")
 			controls.edit.buf = UrlDecode(nested_url)
 		end
-		launch:DownloadPage(controls.edit.buf:gsub(selectedWebsite.regexURL,selectedWebsite.downloadURL), function(page, errMsg)
-			if errMsg then
-				controls.msg.label = "^1"..errMsg
+		buildSites.DownloadBuild(controls.edit.buf, selectedWebsite, function(isSuccess, data)
+			if not isSuccess then
+				controls.msg.label = "^1"..data
 				controls.import.enabled = true
 			else
-				self.controls.importCodeIn:SetText(page, true)
+				self.controls.importCodeIn:SetText(data, true)
+				main:SelectControl(self.controls.importCodeGo)
 				main:ClosePopup()
 			end
 		end)
 	end)
 	controls.import.enabled = function()
-		local selectedWebsite = importWebsiteList[controls.importFrom.selIndex]
+		local selectedWebsite = buildSites.websiteList[controls.importFrom.selIndex]
 		return #controls.edit.buf > 0 and (controls.edit.buf:match(selectedWebsite.matchURL) or controls.edit.buf:match("youtube%.com/redirect%?"))
 	end
 	controls.cancel = new("ButtonControl", nil, 45, 104, 80, 20, "Cancel", function()

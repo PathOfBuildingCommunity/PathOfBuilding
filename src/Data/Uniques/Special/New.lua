@@ -5,49 +5,71 @@
 data.uniques.new = {
 
 -- New
+
 [[
-Stranglegasp
+Crystallised Omniscience
 Onyx Amulet
-League: Scourge
-Requires Level 52
+Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
-Can have 3 additional Enchantment Modifiers
+Modifiers to Attributes instead Apply to Omniscience
++1% to All Elemental Resistances per 10 Omniscience
+Penetrate 1% Elemental Resistances per 10 Omniscience
+Attribute Requirements can be satisfied by (20-25)% of Omniscience
 ]],[[
-Mageblood
-Heavy Belt
-Requires Level 44
+Melding of the Flesh
+Cobalt Jewel
+Limited to: 1
+-(75-76)% to All Elemental Resistances
+Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
+]],[[
+The Annihilating Light
+Quarterstaff
+Requires Level 68, 78 Str, 78 Int
 Implicits: 1
-{tags:jewellery_attribute}+(25-35) to Strength
-{tags:jewellery_attribute}+50 to Dexterity
-{tags:jewellery_resistance}+25% to Fire Resistance
-{tags:jewellery_resistance}+25% to Cold Resistance
-Magic Utility Flask cannot be Used
-Leftmost 4 Magic Utility Flasks constantly apply their Flask Effects to you
-Magic Utility Flask Effects cannot be removed
++18% Chance to Block Attack Damage while wielding a Staff
+63% reduced Elemental Resistances
+Elemental Skills deal Triple Damage
 ]],[[
-Stasis Prison
-Carnal Armour
-League: Scourge
-Requires Level 71, 88 Dex, 122 Int
+Polaric Devastation
+Opal Ring
+Requires Level 80
 Implicits: 1
-+(20-25) to maximum Mana
-160% increased Evasion and Energy Shield
-+100 to maximum Life
-Temporal Rift has no Reservation
-100% of Damage taken Recouped as Life
-Debuffs on you Expire 100% faster
+{tags:jewellery_elemental}(15-25)% increased Elemental Damage
+{tags:critical}21% increased Global Critical Strike Chance
+{tags:jewellery_resistance}+29% to Fire Resistance
+{tags:jewellery_resistance}+34% to Cold Resistance
+10% increased Duration of Ailments on Enemies
+Left Ring slot: Cover Enemies in Ash for 5 seconds when you Ignite them
+Right Ring slot: Cover Enemies in Frost for 5 seconds when you Freeze them
 ]],[[
-Gravebind
-Hydrascale Gauntlets
-League: Scourge
-Requires Level 59, 45 Str, 45 Dex
-Implicits: 0
-146% increased Armour and Evasion
-+23% to Chaos Resistance
-+21 Life gained on kill
-Nearby Enemies Killed by anyone count as being Killed by you instead
+The Gluttonous Tide
+Citadel Bow
+151% increased Physical Damage
+20% increased Attack Speed
+Lose all frenzy charges on reaching maximum frenzy charges to make the next bow attack you perform fire that many additional arrows
++43% to Global Critical Strike Multiplier while you have a Frenzy Charge
+39% chance to gain a Frenzy Charge for each enemy you hit with a Critical Strike
+]],[[
+Divine Inferno
+Crimson Jewel
+Limited to: 1
+Radius: Medium
+With at least 40 Strength in Radius, Combust is Disabled
+With at least 40 Strength in Radius, Attacks Exerted by Infernal Cry deal 57% more Damage with Ignite
+]],[[
+Black Zenith
+Fingerless Silk Gloves
+Implicits: 1
+(12-16)% increased Spell Damage
+Socketed Projectile Spells deal 150% more Damage with Hits
+Socketed Projectile Spells have +4 seconds to Cooldown
+Socketed Projectile Spells fire 4 additional Projectiles
+Socketed Projectile Spells fire Projectiles in a circle
+Socketed Projectile Spells have 80% less Skill Effect Duration
+146% increased Energy Shield
 ]]
+
 -- Reworked
 
 }

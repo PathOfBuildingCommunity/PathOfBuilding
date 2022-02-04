@@ -169,10 +169,10 @@ return {
 	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["unique_mjolner_lightning_spells_triggered"] = {
-	skill("triggeredByMjolner", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.LightningSkill }),
+	skill("triggeredByMjolner", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Lightning }),
 },
 ["unique_cospris_malice_cold_spells_triggered"] = {
-	skill("triggeredByCospris", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "SkillType", skillType = SkillType.ColdSkill }),
+	skill("triggeredByCospris", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "SkillType", skillType = SkillType.Cold }),
 },
 ["skill_has_trigger_from_unique_item"] = {
 	skill("triggeredByUnique", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
@@ -212,7 +212,7 @@ return {
 	skill("triggeredByGeneralsCry", true, { type = "SkillType", skillType = SkillType.Melee }, { type = "SkillType", skillType = SkillType.Attack }),
 },
 ["skill_can_own_mirage_archers"] = {
-	skill("triggeredByMirageArcher", true, { type = "SkillType", skillType = SkillType.SkillCanMirageArcher }),
+	skill("triggeredByMirageArcher", true, { type = "SkillType", skillType = SkillType.MirageArcherCanUse }),
 },
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
@@ -401,7 +401,7 @@ return {
 	mod("AuraEffect", "INC", nil),
 },
 ["elusive_effect_+%"] = {
-	mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+	mod("ElusiveEffect", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 },
 ["cannot_be_stunned_while_leeching"] = {
 	mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Leeching"}),
@@ -829,7 +829,7 @@ return {
 	mod("EnemyFreezeChance", "BASE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
 },
 ["chance_to_scorch_%"] = {
-	mod("ScorchChance", "BASE", nil)
+	mod("EnemyScorchChance", "BASE", nil)
 },
 ["cannot_inflict_status_ailments"] = {
 	flag("CannotShock"),
@@ -1039,6 +1039,9 @@ return {
 	mod("ProjectileSpeed", "INC", nil),
 },
 ["base_arrow_speed_+%"] = {
+	mod("ProjectileSpeed", "INC", nil),
+},
+["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
 },
 ["projectile_base_number_of_targets_to_pierce"] = {
@@ -1357,7 +1360,7 @@ return {
 -- Skill type modifier
 --
 -- Trap
-["trap_damage_+%"] = {
+["support_trap_damage_+%_final"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Trap),
 },
 ["number_of_additional_traps_allowed"] = {
@@ -1409,7 +1412,7 @@ return {
 	mod("ActiveTotemLimit", "BASE", nil),
 },
 ["attack_skills_additional_ballista_totems_allowed"] = {
-	mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.ProjectileAttack }),
+	mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.RangedAttack }),
 },
 ["base_number_of_totems_allowed"] = {
 	mod("ActiveTotemLimit", "BASE", nil),
@@ -1454,7 +1457,7 @@ return {
 	value=30
 },
 ["base_minion_duration_+%"] = {
-	mod("Duration", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.CreateMinion }),
+	mod("Duration", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.CreatesMinion }),
 },
 ["minion_skill_area_of_effect_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil) }),
@@ -1611,7 +1614,7 @@ return {
 	mod("TriggeredDamage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 },
 ["channelled_skill_damage_+%"] = {
-	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channelled }),
+	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channel }),
 },
 ["snipe_triggered_skill_hit_damage_+%_final_per_stage"] = {
 	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SnipeStage" }),
@@ -1636,27 +1639,34 @@ return {
 	value = 10
 },
 --
+-- Spectre or Minion-specific stats
+--
+["physical_damage_reduction_rating_+%"] = {
+	mod("Armour", "INC", nil),
+},
+
+--
 -- Gem Levels
 --
 --Fire
 ["supported_fire_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.FireSkill }),
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Fire }),
 },
 --Cold
 ["supported_cold_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.ColdSkill }),
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Cold }),
 },
 --Lightning
 ["supported_lightning_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.LightningSkill }),
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Lightning }),
 },
 --Chaos
 ["supported_chaos_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.ChaosSkill }),
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Chaos }),
 },
 --Physical
 ["supported_physical_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.PhysicalSkill }),
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Physical }),
 },
 --Active
 ["supported_active_skill_gem_level_+"] = {
@@ -1676,7 +1686,7 @@ return {
 },
 --Elemental
 ["supported_elemental_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "KeywordFlag", keywordFlags = bit.bor(KeywordFlag.Lightning, KeywordFlag.Cold, KeywordFlag.Fire) }),
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, bit.bor(KeywordFlag.Lightning, KeywordFlag.Cold, KeywordFlag.Fire)),
 },
 --Minion
 ["supported_minion_skill_gem_level_+"] = {

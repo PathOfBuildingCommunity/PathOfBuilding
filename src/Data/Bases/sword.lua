@@ -266,6 +266,16 @@ itemBases["Charan's Sword"] = {
 	req = { str = 9, dex = 9, },
 }
 
+itemBases["Energy Blade One Handed"] = {
+	type = "One Handed Sword",
+	hidden = true,
+	socketLimit = 3,
+	tags = { onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
+	implicitModTypes = { },
+	weapon = { PhysicalMin = 0, PhysicalMax = 0, CritChanceBase = 7, AttackRateBase = 1.7, Range = 11, },
+	req = { },
+}
+
 itemBases["Rusted Spike"] = {
 	type = "Thrusting One Handed Sword",
 	socketLimit = 3,
@@ -725,4 +735,14 @@ itemBases["Banishing Blade"] = {
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 61, PhysicalMax = 114, CritChanceBase = 6, AttackRateBase = 1.3, Range = 13, },
 	req = { level = 70, str = 130, dex = 130, },
+}
+
+itemBases["Energy Blade Two Handed"] = {
+	type = "Two Handed Sword",
+	hidden = true,
+	socketLimit = 6,
+	tags = { two_hand_weapon = true, not_for_sale = true, weapon = true, sword = true, twohand = true, default = true, },
+	implicitModTypes = { },
+	weapon = { PhysicalMin = 0, PhysicalMax = 0, CritChanceBase = 7, AttackRateBase = 1.6, Range = 13, },
+	req = { },
 }

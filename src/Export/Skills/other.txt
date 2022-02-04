@@ -30,6 +30,9 @@ local skills, mod, flag, skill = ...
 		["attack_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }),
 		},
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
 	},
 #mods
 
@@ -86,8 +89,6 @@ local skills, mod, flag, skill = ...
 #flags cast duration
 	fromItem = true,
 	statMap = {
-		["base_movement_velocity_+%"] = {
-		},
 		["base_damage_taken_+%"] = {
 			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Spider's Web" })
 		},
@@ -97,20 +98,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("stackCount", 1, { type = "Multiplier", var = "SpiderWebApplyStack", limitVar = "SpiderWebApplyStackMax" })
-#mods
-
-#skill SupportAuraDuration Blessing
-	fromItem = true,
-	statMap = {
-		["support_aura_duration_base_buff_duration"] = {
-			skill("auraDuration", nil),
-			div = 1000,
-		},
-		["support_aura_duration_base_reserve_duration"] = {
-			skill("reserveDuration", nil),
-			div = 1000,
-		},
-	},
 #mods
 
 #skill SupportBloodMagicUniquePrismGuardian Blood Magic
@@ -137,7 +124,7 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 	initialFunc = function(activeSkill, output)
 		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
-		local lifeReserved = activeSkill.skillData["LifeReservedBase"]
+		local lifeReserved = activeSkill.skillData["LifeReservedBase"] or math.huge
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPercentPerStage", "BASE", lifeReservedPercent, "Blood Sacrament")
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPerStage", "BASE", lifeReserved, "Blood Sacrament")
 	end,
@@ -234,6 +221,7 @@ local skills, mod, flag, skill = ...
 			name = "Minion Explosion",
 			spell = false,
 			cast = true,
+			stages = true,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
@@ -356,7 +344,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AtziriUniqueStaffFlameblast
+#flags area
 	fromItem = true,
+#baseMod skill("triggerSource", "Queen's Demand")
 #mods
 
 #skill Focus
@@ -476,11 +466,6 @@ local skills, mod, flag, skill = ...
 
 #skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
 	fromItem = true,
-	statMap = {
-		["triggered_spell_spell_damage_+%"] = {
-			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "Condition", var = "SkillIsTriggered" }),
-		},
-	},
 #mods
 
 #skill TriggeredMoltenStrike
@@ -608,7 +593,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AtziriUniqueStaffStormCall
+#flags area
 	fromItem = true,
+#baseMod skill("triggerSource", "Queen's Demand")
 #mods
 
 #skill SummonBeastialRhoa

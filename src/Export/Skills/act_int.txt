@@ -21,8 +21,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
 		},
 	},
-#baseMod flag("Condition:CanBeLucky")
-#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeLucky" })
+#baseMod flag("Condition:CanBeLucky", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill ArcaneCloak
@@ -88,14 +87,167 @@ local skills, mod, flag, skill = ...
 
 #skill BallLightning
 #flags spell projectile
+	parts = {
+		{
+			name = "One Bolt",
+		},
+		{
+			name = "All Bolts in Range",
+		}
+	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillCfg = activeSkill.skillCfg
+		local skillData = activeSkill.skillData
+		local skillFlags = activeSkill.skillFlags
+		local skillModList = activeSkill.skillModList
+		local t_insert = table.insert
+		local s_format = string.format
+
+		local superchance = (skillModList:Sum("BASE", skillCfg, "ball_lightning_superball_%_chance") or 0) / 100
+		output.SuperchargePct = superchance * 100
+		local dpsMultiplier = 0
+		if activeSkill.skillPart == 1 then
+			-- Compute DPS changes as if we get exactly 1 strike per ball.
+			if superchance > 0 then
+				dpsMultiplier = 1 + 0.5 * superchance
+				if breakdown then
+					local breakdownDpsMult = {}
+					t_insert(breakdownDpsMult, "Average DPS multiplier")
+					t_insert(breakdownDpsMult, s_format("^8= 1 * (^7super chance^8) + 1.5 * (1 - ^7super chance^8)"))
+					t_insert(breakdownDpsMult, s_format("^8= 1 * ^7%d%%^8 + 1.5 * ^7%d%%^8", superchance * 100, 100 - superchance * 100))
+					t_insert(breakdownDpsMult, s_format("^7= ^7%.3f", dpsMultiplier))
+					breakdown.SkillDPSMultiplier = breakdownDpsMult
+				end
+			else
+				dpsMultiplier = 1
+			end
+		elseif activeSkill.skillPart == 2 then
+			-- Compute DPS changes accounting for all strikes in range.
+
+			-- What's the bolt strike proc rate? Note that the interval is not
+			-- considered to be a cooldown, so it is unaffected by CDR mods.
+			local secsPerStrike = skillData.strikeInterval
+			-- How many total bolt strikes proc per ball, ignoring whether the
+			-- enemy is in range? We assume that the first strike is at the end
+			-- of the first interval, based on Kitava self-poison testing (no
+			-- recorded examples of getting 14 self poison stacks with multiple
+			-- people testing).
+			local durationSecs = skillData.duration
+			local maxStrikes = math.floor(durationSecs / secsPerStrike)
+			-- How fast does the ball travel?
+			local baseBallDistPerSec = skillData.projectileSpeed
+			local incSpeedMult, moreSpeedMult = calcLib.mods(skillModList, skillCfg, "ProjectileSpeed")
+			local netSpeedMult = incSpeedMult * moreSpeedMult
+			local ballDistPerSec = baseBallDistPerSec * netSpeedMult
+			local ballDistPerStrike = ballDistPerSec * secsPerStrike
+			-- How many times does the ball proc a bolt strike while it is in
+			-- range of the enemy?
+			for isSuperballAsInt = 0, 1 do
+				local isSuperball = isSuperballAsInt > 0
+				if isSuperball and superchance == 0 then
+					break
+				end
+				local enemyRadius = 0 -- for now, we will be conservative and assume no enemy radius
+				local baseStrikeRadius = output.AreaOfEffectRadius
+				local strikeRadius = baseStrikeRadius
+				if isSuperball then
+					strikeRadius = round(strikeRadius * math.sqrt(1.5))
+				end
+				local castDist = 0
+				if skillCfg.skillDist then
+					-- Advanced users can specify exactly the standoff distance
+					-- they'll use against single-target bosses.
+					castDist = skillCfg.skillDist
+				elseif skillFlags.triggered then
+					-- Cyclone is the most common trigger skill, and players who
+					-- aren't min-maxing their playstyle will tend to just
+					-- cyclone back and forth across the boss instead of
+					-- hovering at the optimal range. For simplicity, let's
+					-- assume they tend to be an average of 1 normal bolt strike
+					-- radius away as they do this.
+					castDist = math.floor(baseStrikeRadius / 2)
+				else
+					-- Be nice and assume hand-casters are at the optimal
+					-- distance for normal bolt strikes.
+					castDist = baseStrikeRadius
+				end
+				local firstStrikeIdxThatHits =
+					math.max(1,  -- 1 not 0 here: strike seems to happen at the end of the interval, not start
+						     math.ceil((castDist - strikeRadius) / ballDistPerStrike))
+				local lastStrikeIdxThatHits = math.floor(math.min(data.misc.ProjectileDistanceCap, castDist + strikeRadius) / ballDistPerStrike)
+				local numStrikes = math.max(0, math.min(maxStrikes, lastStrikeIdxThatHits + 1 - firstStrikeIdxThatHits))
+				lastStrikeIdxThatHits = firstStrikeIdxThatHits + numStrikes - 1
+
+				local effNumStrikes
+				if isSuperball then
+					effNumStrikes = numStrikes * superchance
+					dpsMultiplier = dpsMultiplier + effNumStrikes * 1.5
+				else
+					effNumStrikes = numStrikes * (1 - superchance)
+					dpsMultiplier = dpsMultiplier + effNumStrikes
+				end
+
+				if breakdown then
+					local breakdownHits = {}
+					local ballsName
+					if superchance > 0 then
+						t_insert(breakdownHits, "Applicable to all balls:")
+					end
+					t_insert(breakdownHits, s_format("^8Balls travel at ^7%.2f^8 units/sec.", ballDistPerSec))
+					t_insert(breakdownHits, s_format("^8Lightning bolts strike all nearby enemies every ^7%.2f^8 seconds (^7%.2f^8 strikes/sec).", secsPerStrike, 1 / secsPerStrike))
+					t_insert(breakdownHits, s_format("^8Balls travel ^7%.2f^8 units between each bolt strike.", ballDistPerStrike))
+					t_insert(breakdownHits, s_format("^8Assumes balls are cast ^7%d^8 units from the enemy.", castDist))
+					if superchance > 0 then
+						if isSuperball then
+							t_insert(breakdownHits, "Applicable to supercharged balls only:")
+						else
+							t_insert(breakdownHits, "Applicable to normal balls only:")
+						end
+					end
+					t_insert(breakdownHits, s_format("^8Balls can strike enemies up to ^7%d^8 units away from themselves.", strikeRadius))
+					t_insert(breakdownHits, s_format("^8The first strike is at ^7%.2f^8 seconds after it is cast, when the ball is ^7%d^8 units from the cast point.", firstStrikeIdxThatHits * secsPerStrike, firstStrikeIdxThatHits * ballDistPerStrike))
+					t_insert(breakdownHits, s_format("^8The last strike is at ^7%.2f^8 seconds after it is cast, when the ball is ^7%d^8 units from the cast point.", lastStrikeIdxThatHits * secsPerStrike, lastStrikeIdxThatHits * ballDistPerStrike))
+					if superchance > 0 then
+						if isSuperball then
+							t_insert(breakdownHits, s_format("^8Balls have a(n) ^7%.1f%%^8 chance to be supercharged.", superchance * 100))
+						else
+							t_insert(breakdownHits, s_format("^8Balls have a(n) ^7%.1f%%^8 chance to be normal.", 100 - superchance * 100))
+						end
+					end
+					if isSuperball then
+						output.SuperchargedHitsPerCast = effNumStrikes
+						breakdown.SuperchargedHitsPerCast = breakdownHits
+					else
+						output.NormalHitsPerCast = effNumStrikes
+						breakdown.NormalHitsPerCast = breakdownHits
+					end
+				end
+			end
+			if breakdown then
+				if (dpsMultiplier ~= 1) and (superchance > 0) then
+					local breakdownDpsMult = {}
+					t_insert(breakdownDpsMult, "Average DPS multiplier")
+					t_insert(breakdownDpsMult, s_format("^8= 1 * (^7normal hits/cast^8) + 1.5 * (^7super hits/cast^8)"))
+					t_insert(breakdownDpsMult, s_format("^8= 1 * ^7%.3f^8 + 1.5 * ^7%.3f^8", output.NormalHitsPerCast, output.SuperchargedHitsPerCast))
+					t_insert(breakdownDpsMult, s_format("^8= ^7%.3f", dpsMultiplier))
+					breakdown.SkillDPSMultiplier = breakdownDpsMult
+				end
+			end
+		end
+		if dpsMultiplier ~= 1 then
+			skillData.dpsMultiplier = dpsMultiplier
+			output.SkillDPSMultiplier = dpsMultiplier
+		end
+	end,
 	statMap = {
 		["ball_lightning_superball_%_chance"] = {
-			mod("Damage", "MORE", nil),
-			mod("AreaOfEffect", "MORE", nil),
-			div = 2
+			mod("ball_lightning_superball_%_chance", "BASE", nil)
 		},
 	},
 #baseMod skill("radius", 18)
+#baseMod skill("strikeInterval", 0.15)
+#baseMod skill("projectileSpeed", 48)
+#baseMod skill("duration", 2)
 #mods
 
 #skill DarkRitual
@@ -158,9 +310,10 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Manual Stacks",
+			stages = true,
 		},
 		{
-			name = "Maximum Stacks",
+			name = "Maximum Sustainable Stacks",
 		},
 	},
 #baseMod mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 })
@@ -224,6 +377,9 @@ local skills, mod, flag, skill = ...
 #skill BoneOffering
 #flags spell duration
 	statMap = {
+		["cast_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 		["monster_base_block_%"] = {
 			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
@@ -450,6 +606,7 @@ local skills, mod, flag, skill = ...
 		{
 			name = "Release",
 			area = true,
+			stages = true,
 		},
 	},
 	statMap = {
@@ -484,6 +641,41 @@ local skills, mod, flag, skill = ...
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
 #baseMod mod("MaxDoom", "BASE", 30)
+#mods
+
+#skill EnergyBlade
+#flags spell
+	statMap = {
+		["storm_blade_energy_shield_+%_final"] = {
+			mod("EnergyShield", "MORE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["storm_blade_minimum_lightning_damage_from_es_%"] = {
+			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "PerStat", stat = "EnergyShield" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
+		},
+		["storm_blade_maximum_lightning_damage_from_es_%"] = {
+			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "PerStat", stat = "EnergyShield" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
+		},
+		["storm_blade_damage_+%_final_with_two_hand_weapon"] = {
+			mod("EnergyBladeDamage", "MORE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "Condition", var = "UsingTwoHandedWeapon" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["storm_blade_minimum_lightning_damage"] = {
+			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["storm_blade_maximum_lightning_damage"] = {
+			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["storm_blade_quality_local_critical_strike_chance_+%"] = {
+			mod("EnergyBladeCritChance", "INC", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["storm_blade_quality_chance_to_shock_%"] = {
+			mod("EnemyShockChance", "INC", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["storm_blade_quality_attack_lightning_damage_%_to_convert_to_chaos"] = {
+			mod("LightningDamageConvertToChaos", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 #mods
 
 #skill Enfeeble
@@ -666,14 +858,6 @@ local skills, mod, flag, skill = ...
 
 #skill VaalFlameblast
 #flags spell area
-	parts = {
-		{
-			name = "1 Stage",
-		},
-		{
-			name = "Max Stages",
-		},
-	},
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "VaalFlameblastStage" }),
@@ -685,7 +869,7 @@ local skills, mod, flag, skill = ...
 			skill("radiusExtra", nil, { type = "Multiplier", var = "VaalFlameblastStage" }),
 		},
 	},
-#baseMod mod("Multiplier:VaalFlameblastStage", "BASE", 14, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:VaalFlameblastMaxStages", "BASE", 15)
 #baseMod skill("radius", 35)
 #mods
 
@@ -804,6 +988,15 @@ local skills, mod, flag, skill = ...
 		["energy_shield_lost_per_minute"] = {
 			mod("EnergyShieldDegen", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "FrostShieldStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
 			div = 60,
+		},
+		["frost_globe_absorb_damage_%_enemy_in_bubble"] = {
+			mod("FrostGlobeDamageMitigation", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "EnemyInFrostGlobe" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+		},
+		["frost_globe_absorb_damage_%_enemy_outside_bubble"] = {
+			mod("FrostGlobeDamageMitigation", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "EnemyInFrostGlobe", neg = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+		},
+		["frost_globe_health_per_stage"] = {
+			mod("FrostGlobeHealth", "BASE", nil, 0, 0, { type = "Multiplier", var = "FrostShieldStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
 		},
 	},
 #baseMod skill("radius", 22)
@@ -1041,9 +1234,11 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Channelling",
+			stages = true,
 		},
 		{
 			name = "Release",
+			stages = true,
 		},
 	},
 	statMap = {
@@ -1218,6 +1413,7 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Energy Explosion",
+			stages = true,
 		},
 		{
 			name = "Max Explosion per Brand",
@@ -1494,6 +1690,9 @@ local skills, mod, flag, skill = ...
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
+		["spell_damage_+%"] = {
+			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
 	},
 #baseMod skill("radius", 30)
 #baseMod skill("buffAllies", true)
@@ -1561,6 +1760,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBrandSupport
+	addFlags = {
+		brand = true,
+	},
 	statMap = {
 		["support_brand_damage_+%_final"] = {
 			mod("TriggeredDamage", "MORE", nil),
@@ -1906,9 +2108,11 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Channelling",
+			stages = true,
 		},
 		{
 			name = "Idle",
+			stages = true,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
@@ -2015,10 +2219,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 40)
-#mods
-
-#skill EnergyBlade
-#flags spell lightning
 #mods
 
 #skill SoulLink

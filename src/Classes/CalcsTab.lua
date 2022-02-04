@@ -147,6 +147,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 	self.controls.breakdown = new("CalcBreakdownControl", self)
 
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
+	self.powerBuilderInitialized = nil
 end)
 
 function CalcsTabClass:Load(xml, dbFileName)
@@ -555,6 +556,7 @@ function CalcsTabClass:PowerBuilder()
 		end
 	end
 	self.powerMax = newPowerMax
+	self.powerBuilderInitialized = true
 	--ConPrintf("Power Build time: %d ms", GetTime() - timer_start)
 end
 

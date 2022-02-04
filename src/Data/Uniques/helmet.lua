@@ -45,7 +45,6 @@ Half of your Strength is added to your Minions
 ]],[[
 Ezomyte Peak
 Iron Hat
-Upgrade: Upgrades to unique{Ezomyte Hold} via prophecy{The Bloody Flowers Redux}
 20% increased Physical Damage
 +(15-25) to Armour
 +(25-50) to maximum Life
@@ -53,7 +52,7 @@ Cannot Evade Enemy Attacks
 ]],[[
 Ezomyte Hold
 Iron Hat
-Source: Upgraded from unique{Ezomyte Peak} using prophecy{The Bloody Flowers Redux}
+Source: No longer obtainable
 20% increased Physical Damage
 +(15-25) to Armour
 +(25-50) to maximum Life
@@ -169,7 +168,6 @@ Reflects 4 Physical Damage to Melee Attackers
 ]],[[
 Heatshiver
 Leather Hood
-Upgrade: Upgrades to unique{Frostferno} via prophecy{A Vision of Ice and Fire}
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 20, 46 Dex
@@ -186,7 +184,7 @@ Requires Level 20, 46 Dex
 ]],[[
 Frostferno
 Leather Hood
-Source: Upgraded from unique{Heatshiver} via prophecy{A Vision of Ice and Fire}
+Source: Drops from any endgame map boss
 Requires Level 60, 46 Dex
 +2 to Level of Socketed Fire Gems
 +2 to Level of Socketed Cold Gems
@@ -222,7 +220,7 @@ Silken Hood
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 60, 138 Dex
-Trigger Level 20 Tornado when you gain Avian's Might or Avian's Flight
+Trigger Level 20 Twister when you gain Avian's Might or Avian's Flight
 (60-80)% increased Evasion Rating
 +(40-60) to maximum Life
 +(30-40)% to Lightning Resistance
@@ -247,7 +245,6 @@ Requires Level 60, 138 Dex
 [[
 Asenath's Mark
 Iron Circlet
-Upgrade: Upgrades to unique{Asenath's Chant} via prophecy{Song of the Sekhema}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 8, 23 Int
@@ -261,7 +258,7 @@ Requires Level 8, 23 Int
 ]],[[
 Asenath's Chant
 Iron Circlet
-Source: Upgraded from unique{Asenath's Mark} via prophecy{Song of the Sekhema}
+Source: Drops from any endgame map boss
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45, 23 Int
@@ -334,7 +331,6 @@ Increases and Reductions to Spell Damage also apply to Attacks at 150% of their 
 ]],[[
 Crown of Thorns
 Vine Circlet
-Upgrade: Upgrades to unique{Martyr's Crown} via prophecy{Pleasure and Pain}
 Variant: Pre 1.2.0
 Variant: Current
 {variant:1}+(12-24) to maximum Energy Shield
@@ -345,9 +341,9 @@ Pain Attunement
 ]],[[
 Martyr's Crown
 Vine Circlet
-Source: Upgraded from unique{Crown of Thorns} using prophecy{Pleasure and Pain}
+Source: No longer obtainable
 Variant: Pre 3.0.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 52
 {variant:1}+(260-300) to maximum Energy Shield
 {variant:2}+(170-210) to maximum Energy Shield
@@ -420,7 +416,6 @@ Requires Level 39, 83 Int
 ]],[[
 Eber's Unification
 Hubris Circlet
-Source: Drops from The Pale Council
 Requires Level 69, 154 Int
 Implicits: 0
 Trigger level 10 Void Gaze when you use a Skill
@@ -644,7 +639,6 @@ Socketed Skills deal Double Damage
 ]],[[
 Deidbell
 Gilded Sallet
-Upgrade: Upgrades to unique{Deidbellow} via prophecy{Dying Cry}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 33, 38 Str, 38 Dex
@@ -657,9 +651,9 @@ Cannot Leech when on Low Life
 ]],[[
 Deidbellow
 Gilded Sallet
-Source: Upgraded from unique{Deidbell} using prophecy{Dying Cry}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 33, 38 Str, 38 Dex
 +(20-30) to Strength
 +(20-30) to Dexterity
@@ -820,7 +814,8 @@ You and Nearby Allies have 47 to 61 added Chaos Damage per White Socket
 ]],[[
 Geofri's Crest
 Great Crown
-Upgrade: Upgrades to unique{Geofri's Legacy} via prophecy{The Bishop's Legacy}
+Variant: Pre 3.17.0
+Variant: Current
 Requires Level 53, 59 Str, 59 Int
 +1 to Level of Socketed Gems
 (60-80)% increased Armour and Energy Shield
@@ -828,10 +823,12 @@ Requires Level 53, 59 Str, 59 Int
 +(15-20)% to Cold Resistance
 +(15-20)% to Lightning Resistance
 +(20-30)% to Chaos Resistance
+{variant:2}+1 to maximum number of Summoned Holy Relics
+{variant:2}Summoned Holy Relics have (20-25)% reduced Cooldown Recovery Speed
 ]],[[
 Geofri's Legacy
 Great Crown
-Source: Upgraded from unique{Geofri's Crest} via prophecy{The Bishop's Legacy}
+Source: No longer obtainable
 Requires Level 62, 59 Str, 59 Int
 +1 to Level of Socketed Gems
 (60-80)% increased Armour and Energy Shield
@@ -1190,7 +1187,6 @@ You and nearby Allies have 30% increased Mana Regeneration Rate
 ]],[[
 Malachai's Simula
 Iron Mask
-Upgrade: Upgrades to unique{Malachai's Awakening} via prophecy{The Nightmare Awakens}
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Pre 3.7.0
@@ -1207,7 +1203,7 @@ Blood Magic
 ]],[[
 Malachai's Awakening
 Iron Mask
-Source: Upgraded from unique{Malachai's Simula} via prophecy{The Nightmare Awakens}
+Source: Drops from any endgame map boss
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 60, 21 Dex, 21 Int
@@ -1222,7 +1218,6 @@ Blood Magic
 ]],[[
 Mind of the Council
 Harlequin Mask
-Source: prophecy{Unbearable Whispers V}
 Variant: Pre 3.10.0
 Variant: Current
 Requires Level 57, 64 Dex, 64 Int

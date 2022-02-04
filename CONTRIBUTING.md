@@ -21,7 +21,7 @@
 * Select the "Bug Report" issue template and fill out all fields.
 * Please provide detailed instructions on how to reproduce the bug, if possible.
 * Provide a build share code for a build that is affected by the bug, if possible.
-  In the "Import/Export Build" tab, click "Generate", then "Share with Pastebin" and add the link to your post. 
+  In the "Import/Export Build" tab, click "Generate", then "Share" and add the link to your post. 
   
 Build share codes allow us to reproduce bugs much more quickly. 
 
@@ -125,12 +125,23 @@ More tests can be added to this folder to test specific functionality, or new te
 2. Run `luarocks install busted`
 3. Run `busted --lua=luajit` from the command line.  You may need to add `luajit` to your PATH
 
+Docker alternative:
+
+1. Install [Docker](https://www.docker.com/get-started)
+2. Run `docker-compose up -d` from the command line
+3. View last results in `spec/test_results.log`
+
 ### Creating new test builds or fixing an existing build
 
 Sometimes a change will be made that intends to change the stats garnered by PoB, which will break our tests.
 1. Add the new build XML (if applicable) to the `TestBuilds` folder
 2. Run `busted --lua=luajit -r generate` to generate a LUA file that contains the current stats of that build
 3. Run `busted --lua=luajit` and the tests should pass
+
+Docker alternative:
+
+1. Add the new build XML (if applicable) to the `TestBuilds` folder
+2. Run `docker-compose up -d` to generate a LUA file that contains the current stats of that build and run the tests
 
 ## Keeping your fork up to date
 

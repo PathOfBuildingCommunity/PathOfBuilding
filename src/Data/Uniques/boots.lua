@@ -129,7 +129,6 @@ Requires Level 37, 67 Str
 ]],[[
 Windscream
 Reinforced Greaves
-Upgrade: Upgrades to unique{Windshriek} via prophecy{Darktongue's Shriek}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 33, 60 Str
@@ -143,7 +142,7 @@ Enemies can have 1 additional Curse
 ]],[[
 Windshriek
 Reinforced Greaves
-Source: Upgraded from unique{Windscream} via prophecy{Darktongue's Shriek}
+Source: Drops from any endgame map boss
 Requires Level 60, 60 Str
 (200-250)% increased Armour
 +(10-15)% to all Elemental Resistances
@@ -410,7 +409,6 @@ Requires Level 67, 120 Int
 ]],[[
 Inya's Epiphany
 Arcanist Slippers
-Source: Drops from The Pale Council
 Requires Level 61, 119 Int
 +(50-70) to maximum Life
 25% increased Movement Speed
@@ -450,7 +448,6 @@ Requires Level 53, 94 Int
 ]],[[
 Shavronne's Pace
 Scholar Boots
-Upgrade: Upgrades to unique{Shavronne's Gambit} via prophecy{The Flow of Energy}
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
@@ -467,9 +464,9 @@ Requires Level 32, 54 Int
 ]],[[
 Shavronne's Gambit
 Scholar Boots
-Source: Upgraded from unique{Shavronne's Pace} via prophecy{The Flow of Energy}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 32, 54 Int
 +10 to Dexterity
 +(20-30) to Intelligence
@@ -520,7 +517,6 @@ Cannot be Frozen
 ]],[[
 Wondertrap
 Velvet Slippers
-Upgrade: Upgrades to unique{Greedtrap} via prophecy{Greed's Folly}
 Variant: Pre 1.0.0
 Variant: Current
 Requires Level 9, 21 Int
@@ -534,7 +530,7 @@ Requires Level 9, 21 Int
 ]],[[
 Greedtrap
 Velvet Slippers
-Source: Upgraded from unique{Wondertrap} via prophecy{Greed's Folly}
+Source: No longer obtainable
 Requires Level 52, 21 Int
 +(5-10) to Strength
 +(5-10) to Dexterity
@@ -554,21 +550,18 @@ Variant: Two-Toned Boots (Evasion/Energy Shield)
 {variant:3}Two-Toned Boots (Evasion/Energy Shield)
 League: Delirium
 Source: Drops from the Simulacrum Encounter
-{variant:1}Requires Level 70, 62 Str, 62 Dex
-{variant:2}Requires Level 70, 62 Str, 62 Int
-{variant:3}Requires Level 70, 62 Dex, 62 Int
 Implicits: 3
 {variant:1}+(8-12)% to Fire and Cold Resistances
 {variant:2}+(8-12)% to Fire and Lightning Resistances
 {variant:3}+(8-12)% to Cold and Lightning Resistances
 Grants Level 1 Embrace Madness Skill
 30% increased Movement Speed
-{variant:1}Enemies you Kill while affected by Glorious Madness have a 40% chance to Explode, dealing a quarter of their Life as Chaos Damage
-{variant:1}All Damage inflicts Poison while affected by Glorious Madness
+{variant:1}+15 to maximum Fortification while affected by Glorious Madness
+{variant:1}20% chance to deal Double Damage while affected by Glorious Madness
 {variant:2}You have Igniting, Chilling and Shocking Conflux while affected by Glorious Madness
 {variant:2}Immune to Elemental Ailments while affected by Glorious Madness
-{variant:3}60% increased Effect of Fortify on you while affected by Glorious Madness
-{variant:3}20% chance to deal Double Damage while affected by Glorious Madness
+{variant:3}Enemies you Kill while affected by Glorious Madness have a 40% chance to Explode, dealing a quarter of their Life as Chaos Damage
+{variant:3}All Damage inflicts Poison while affected by Glorious Madness
 ]],[[
 Darkray Vectors
 Dragonscale Boots
@@ -588,7 +581,6 @@ Requires Level 65, 62 Str, 62 Dex
 ]],[[
 Dusktoe
 Ironscale Boots
-Upgrade: Upgrades to unique{Duskblight} via prophecy{Agony at Dusk}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 18, 19 Str, 19 Dex
@@ -616,7 +608,7 @@ Requires Level 18, 19 Str, 19 Dex
 ]],[[
 Duskblight
 Ironscale Boots
-Source: Upgraded from unique{Dusktoe} via prophecy{Agony at Dusk}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 40, 19 Str, 19 Dex
@@ -632,12 +624,15 @@ Requires Level 40, 19 Str, 19 Dex
 ]],[[
 Legacy of Fury
 Wyrmscale Boots
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 51, 48 Str, 48 Dex
 (200-300)% increased Armour and Evasion
--(15-10)% to all Elemental Resistances
+{variant:1}-(15-10)% to all Elemental Resistances
 30% increased Movement Speed
-Drops Scorched Ground while moving, lasting 4 seconds
+{variant:1}Drops Scorched Ground while moving, lasting 4 seconds
+{variant:2}Nearby Enemies are Scorched
 (30-50)% increased Effect of Scorch
 (30-40)% chance when you Kill a Scorched Enemy to Burn Each surrounding Enemy for 4 seconds, dealing 8% of the Killed Enemy's Life as Fire Damage per second
 ]],[[
@@ -746,10 +741,13 @@ Requires Level 58, 54 Str, 54 Int
 ]],[[
 March of the Legion
 Legion Boots
+Variant: Pre 3.17.0
+Variant: Current
 League: Synthesis
 Requires Level 58, 54 Str, 54 Int
-+2 to Level of Socketed Aura Gems
-Socketed Gems are Supported by Level 25 Blessing
+{variant:1}+2 to Level of Socketed Aura Gems
+{variant:2}+(3-5) to Level of Socketed Aura Gems
+Socketed Gems are Supported by Level 25 Divine Blessing
 (250-300)% increased Armour and Energy Shield
 +(12-18)% to all Elemental Resistances
 (20-30)% increased Movement Speed
@@ -905,7 +903,6 @@ This item can be anointed by Cassia
 ]],[[
 Sundance
 Clasped Boots
-Upgrade: Upgrades to unique{Sunspite} via prophecy{Sun's Punishment}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 27, 27 Dex, 27 Int
@@ -918,7 +915,7 @@ Requires Level 27, 27 Dex, 27 Int
 ]],[[
 Sunspite
 Clasped Boots
-Source: Upgraded from unique{Sundance} via prophecy{Sun's Punishment}
+Source: No longer obtainable
 Requires Level 59, 27 Dex, 27 Int
 10% increased Attack Speed
 (260-300)% increased Evasion and Energy Shield

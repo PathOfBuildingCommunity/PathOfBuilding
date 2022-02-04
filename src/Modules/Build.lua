@@ -15,7 +15,7 @@ local s_format = string.format
 local banditDropList = {
 	{ label = "2 Passive Points", id = "None" },
 	{ label = "Oak (Life Regen, Phys.Dmg. Reduction, Phys.Dmg)", id = "Oak" },
-	{ label = "Kraityn (Attack/Cast Speed, Attack Dodge, Move Speed)", id = "Kraityn" },
+	{ label = "Kraityn (Attack/Cast Speed, Avoid Elemental Ailments, Move Speed)", id = "Kraityn" },
 	{ label = "Alira (Mana Regen, Crit Multiplier, Resists)", id = "Alira" },
 }
 
@@ -40,6 +40,14 @@ local PantheonMinorGodDropList = {
 }
 
 local buildMode = new("ControlHost")
+
+local function InsertIfNew(t, val)
+	if (not t) then return end
+	for i,v in ipairs(t) do
+		if v == val then return end
+	end
+	table.insert(t, val)
+end
 
 function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.dbFileName = dbFileName
@@ -199,6 +207,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		control.str = string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax)
 		control.req = "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - bandit .. "\nBandits Skillpoints: " .. bandit .. labSuggest
 		
+		if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
+		if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
 		return DrawStringWidth(16, "FIXED", control.str) + 8
 	end
 	self.controls.pointDisplay.Draw = function(control)
@@ -289,7 +299,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "WarcryCastTime", label = "Cast Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, flag = "warcry" },
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return not o.TriggerTime end },
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
-		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".2fs", lowerIsBetter = true },
+		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".3fs", lowerIsBetter = true },
 		{ stat = "MineLayingTime", label = "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
@@ -320,11 +330,12 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return o.CullingDPS or 0 > 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end },
 		{ stat = "CombinedAvg", label = "Combined Total Damage", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (v ~= o.AverageDamage and (o.TotalDot or 0) == 0) and (v ~= o.WithPoisonDPS or v ~= o.WithIgniteDPS or v ~= o.WithBleedDPS) end },
-		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
+		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
 		{ stat = "SealCooldown", label = "Seal Gain Frequency", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "SealMax", label = "Max Number of Seals", fmt = "d" },
 		{ stat = "TimeMaxSeals", label = "Time to Gain Max Seals", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
+		{ stat = "BrandAttachmentRange", label = "Attachment Range", fmt = "d", flag = "brand" },
 		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
 		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ stat = "LifeCost", label = "Life Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
@@ -332,19 +343,30 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "RageCost", label = "Rage Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ stat = "LifePercentCost", label = "Life Cost", fmt = "d%%", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ManaPerSecondCost", label = "Mana Cost", fmt = ".2f/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "LifePerSecondCost", label = "Life Cost", fmt = ".2f/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ManaPercentPerSecondCost", label = "Mana Cost", fmt = ".2f%%/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "LifePercentPerSecondCost", label = "Life Cost", fmt = ".2f%%/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ESPerSecondCost", label = "Energy Shield Cost", fmt = ".2f/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ESPercentPerSecondCost", label = "Energy Shield Cost", fmt = ".2f%%/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ },
 		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
-		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end },
+		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end, warnFunc = function(v) return "You do not meet the Strength requirement" end },
 		{ stat = "Dex", label = "Dexterity", color = colorCodes.DEXTERITY, fmt = "d" },
-		{ stat = "ReqDex", label = "Dexterity Required", color = colorCodes.DEXTERITY, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end },
+		{ stat = "ReqDex", label = "Dexterity Required", color = colorCodes.DEXTERITY, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end, warnFunc = function(v) return "You do not meet the Dexterity requirement" end },
 		{ stat = "Int", label = "Intelligence", color = colorCodes.INTELLIGENCE, fmt = "d" },
-		{ stat = "ReqInt", label = "Intelligence Required", color = colorCodes.INTELLIGENCE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end },
+		{ stat = "ReqInt", label = "Intelligence Required", color = colorCodes.INTELLIGENCE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end, warnFunc = function(v) return "You do not meet the Intelligence requirement" end },
+		{ stat = "Omni", label = "Omniscience", color = colorCodes.RARE, fmt = "d" },
+		{ stat = "ReqOmni", label = "Omniscience Required", color = colorCodes.RARE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > (o.Omni or 0) end, warnFunc = function(v) return "You do not meet the Omniscience requirement" end },
 		{ },
 		{ stat = "Devotion", label = "Devotion", color = colorCodes.RARE, fmt = "d" },
 		{ },
+		{ stat = "TotalEHP", label = "Effective Hit Pool", fmt = ".0f", compPercent = true },
+		{ stat = "SecondMinimalMaximumHitTaken", label = "Eff. Maximum Hit Taken", fmt = ".0f", compPercent = true },
+		{ },
 		{ stat = "Life", label = "Total Life", fmt = "d", compPercent = true },
 		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.Life > 1 end },
-		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.Life end, compPercent = true },
+		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Life is negative" end },
 		{ stat = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
 		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
 		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", compPercent = true },
@@ -352,7 +374,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ },
 		{ stat = "Mana", label = "Total Mana", fmt = "d", compPercent = true },
 		{ stat = "Spec:ManaInc", label = "%Inc Mana from Tree", fmt = "d%%" },
-		{ stat = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.Mana end, compPercent = true },
+		{ stat = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.Mana end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Mana is negative" end },
 		{ stat = "ManaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
 		{ stat = "ManaRegen", label = "Mana Regen", fmt = ".1f" },
 		{ stat = "ManaLeechGainRate", label = "Mana Leech/On Hit Rate", fmt = ".1f", compPercent = true },
@@ -422,7 +444,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale" },
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end},
-		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".2fs", lowerIsBetter = true },
+		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
 		{ stat = "Life", label = "Total Life", fmt = ".1f", compPercent = true },
 		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
 		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", compPercent = true },
@@ -484,6 +506,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
+	self.controls.bandit.maxDroppedWidth = 500
+	self.controls.bandit:CheckDroppedWidth(true)
 	self.controls.banditLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.bandit,"TOPLEFT"}, 0, 0, 0, 14, "^7Bandit:")
 	-- The Pantheon
 	local function applyPantheonDescription(tooltip, mode, index, value)
@@ -526,6 +550,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
+	self.controls.mainSocketGroup.maxDroppedWidth = 500
 	self.controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
 		local socketGroup = self.skillsTab.socketGroupList[index]
 		if socketGroup and tooltip:CheckForUpdate(socketGroup, self.outputRevision) then
@@ -612,7 +637,32 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.controls.statBox = new("TextListControl", {"TOPLEFT",self.controls.statBoxAnchor,"BOTTOMLEFT"}, 0, 2, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
 	self.controls.statBox.height = function(control)
 		local x, y = control:GetPos()
-		return main.screenH - main.mainBarHeight - 4 - y
+		local warnHeight = #self.controls.warnings.lines > 0 and 18 or 0
+		return main.screenH - main.mainBarHeight - 4 - y - warnHeight
+	end
+	self.controls.warnings = new("Control",{"TOPLEFT",self.controls.statBox,"BOTTOMLEFT",true}, 0, 0, 0, 18)
+	self.controls.warnings.lines = {}
+	self.controls.warnings.width = function(control)
+		return control.str and DrawStringWidth(16, "FIXED", control.str) + 8 or 0
+	end
+	self.controls.warnings.Draw = function(control)
+		if #self.controls.warnings.lines > 0 then
+			local count = 0
+			for _ in pairs(self.controls.warnings.lines) do count = count + 1 end
+			control.str = string.format("^1%d Warnings", count)
+			local x, y = control:GetPos()
+			local width, height = control:GetSize()
+			DrawString(x, y + 2, "LEFT", 16, "FIXED", control.str)
+			if control:IsMouseInBounds() then
+				SetDrawLayer(nil, 10)
+				miscTooltip:Clear()
+				for k,v in pairs(self.controls.warnings.lines) do miscTooltip:AddLine(16, v) end
+				miscTooltip:Draw(x, y, width, height, main.viewPort)
+				SetDrawLayer(nil, 0)
+			end
+		else
+			control.str = {}
+		end
 	end
 
 	-- Initialise build components
@@ -801,11 +851,31 @@ function buildMode:Save(xml)
 	for _, id in ipairs(self.spectreList) do
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
 	end
+	local addedStatNames = { }
 	for index, statData in ipairs(self.displayStats) do
-		if statData.stat then
-			local statVal = self.calcsTab.mainOutput[statData.stat]
-			if statVal then
-				t_insert(xml, { elem = "PlayerStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
+		if not statData.flag or self.calcsTab.mainEnv.player.mainSkill.skillFlags[statData.flag] then
+			if statData.stat and not addedStatNames[statData.stat] then
+				if statData.stat == "SkillDPS" then
+					local statVal = self.calcsTab.mainOutput[statData.stat]
+					for _, skillData in ipairs(statVal) do
+						local triggerStr = ""
+						if skillData.trigger and skillData.trigger ~= "" then
+							triggerStr = skillData.trigger
+						end
+						local lhsString = skillData.name
+						if skillData.count >= 2 then
+							lhsString = tostring(skillData.count).."x "..skillData.name
+						end
+						t_insert(xml, { elem = "FullDPSSkill", attrib = { stat = lhsString, value = tostring(skillData.dps * skillData.count), skillPart = skillData.skillPart or "", source = skillData.source or skillData.trigger or "" } })
+					end
+					addedStatNames[statData.stat] = true
+				else
+					local statVal = self.calcsTab.mainOutput[statData.stat]
+					if statVal and (statData.condFunc and statData.condFunc(statVal, self.calcsTab.mainOutput) or true) then
+						t_insert(xml, { elem = "PlayerStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
+						addedStatNames[statData.stat] = true
+					end
+				end
 			end
 		end
 	end
@@ -848,7 +918,13 @@ function buildMode:OnFrame(inputEvents)
 					self:CloseBuild()
 				end
 		elseif IsKeyDown("CTRL") then
-				if event.key == "s" then
+				if event.key == "i" then
+					if self.viewMode == "IMPORT" then
+						self.importTab.controls.importCodePastebin:Click()
+					else
+						self.viewMode = "IMPORT"
+					end
+				elseif event.key == "s" then
 					self:SaveDBFile()
 					inputEvents[id] = nil
 				elseif event.key == "w" then
@@ -1082,16 +1158,18 @@ function buildMode:OpenSpectreLibrary()
 	local controls = { }
 	controls.list = new("MinionListControl", nil, -100, 40, 190, 250, self.data, destList)
 	controls.source = new("MinionListControl", nil, 100, 40, 190, 250, self.data, sourceList, controls.list)
-	controls.save = new("ButtonControl", nil, -45, 300, 80, 20, "Save", function()
+	controls.save = new("ButtonControl", nil, -45, 330, 80, 20, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
 		self.buildFlag = true
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 300, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 330, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(410, 330, "Spectre Library", controls)
+	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 24, 2, 0, 16, "Spectres in your Library must be assigned to an active")
+	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 20, 18, 0, 16, "Raise Spectre gem for their buffs and curses to activate")
+	main:OpenPopup(410, 360, "Spectre Library", controls)
 end
 
 -- Refresh the set of controls used to select main group/skill/minion
@@ -1101,6 +1179,8 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
 		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
 	end
+  controls.mainSocketGroup:CheckDroppedWidth(true)
+	if controls.warnings then controls.warnings.shown = #controls.warnings.lines > 0 end
 	if #controls.mainSocketGroup.list == 0 then
 		controls.mainSocketGroup.list[1] = { val = 1, label = "<No skills added yet>" }
 		controls.mainSkill.shown = false
@@ -1137,14 +1217,18 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
 					end
 					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
+					if activeEffect.grantedEffect.parts[activeEffect.srcInstance["skillPart"..suffix]].stages then
+						controls.mainSkillStageCount.shown = true
+						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeEffect.grantedEffect.parts[activeEffect.srcInstance["skillPart"..suffix]].stagesMin or 1)
+					end
 				end
 				if activeSkill.skillFlags.mine then
 					controls.mainSkillMineCount.shown = true
 					controls.mainSkillMineCount.buf = tostring(activeEffect.srcInstance["skillMineCount"..suffix] or "")
 				end
-				if activeSkill.skillFlags.multiStage then
+				if activeSkill.skillFlags.multiStage and not (activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1) then
 					controls.mainSkillStageCount.shown = true
-					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or "")
+					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMin or 1)
 				end
 				if not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)
@@ -1257,6 +1341,12 @@ function buildMode:AddDisplayStatList(statList, actor)
 						})
 					end
 				end
+				if statData.warnFunc and statVal and ((statData.condFunc and statData.condFunc(statVal, actor.output)) or not statData.condFunc) then 
+					local v = statData.warnFunc(statVal)
+					if v then
+						InsertIfNew(self.controls.warnings.lines, v)
+					end
+				end
 			elseif statData.label and statData.condFunc and statData.condFunc(actor.output) then
 				t_insert(statBoxList, { 
 					height = 16, labelColor..statData.label..":", 
@@ -1270,6 +1360,7 @@ end
 
 -- Build list of side bar stats
 function buildMode:RefreshStatList()
+	self.controls.warnings.lines = {}
 	local statBoxList = wipeTable(self.controls.statBox.list)
 	if self.calcsTab.mainEnv.player.mainSkill.infoMessage then
 		t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.player.mainSkill.infoMessage})
@@ -1354,15 +1445,30 @@ do
 		if level and level > 0 then
 			t_insert(req, s_format("^x7F7F7FLevel %s%d", main:StatColor(level, nil, self.characterLevel), level))
 		end
-		if str and (str >= 14 or str > self.calcsTab.mainOutput.Str) then
-			t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
-		end
-		if dex and (dex >= 14 or dex > self.calcsTab.mainOutput.Dex) then
-			t_insert(req, s_format("%s%d ^x7F7F7FDex", main:StatColor(dex, dexBase, self.calcsTab.mainOutput.Dex), dex))
-		end
-		if int and (int >= 14 or int > self.calcsTab.mainOutput.Int) then
-			t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
-		end
+		-- Convert normal attributes to Omni attributes
+		if self.calcsTab.mainEnv.modDB:Flag(nil, "OmniscienceRequirements") then
+			local omniSatisfy = self.calcsTab.mainEnv.modDB:Sum("INC", nil, "OmniAttributeRequirements")
+			local highestAtrribute = 0
+			for i, stat in ipairs({str, dex, int}) do
+				if((stat or 0) > highestAtrribute) then
+					highestAtrribute = stat
+				end
+			end
+			local omni = math.floor(highestAtrribute * (100/omniSatisfy))
+			if omni and (omni > 0 or omni > self.calcsTab.mainOutput.Omni) then
+				t_insert(req, s_format("%s%d ^x7F7F7FOmni", main:StatColor(omni, 0, self.calcsTab.mainOutput.Omni), omni))
+			end
+		else 
+			if str and (str >= 14 or str > self.calcsTab.mainOutput.Str) then
+				t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
+			end
+			if dex and (dex >= 14 or dex > self.calcsTab.mainOutput.Dex) then
+				t_insert(req, s_format("%s%d ^x7F7F7FDex", main:StatColor(dex, dexBase, self.calcsTab.mainOutput.Dex), dex))
+			end
+			if int and (int >= 14 or int > self.calcsTab.mainOutput.Int) then
+				t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
+			end
+		end	
 		if req[1] then
 			tooltip:AddLine(16, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "))
 			tooltip:AddSeparator(10)

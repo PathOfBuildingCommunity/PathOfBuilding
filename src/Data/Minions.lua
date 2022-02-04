@@ -25,7 +25,7 @@ minions["RaisedZombie"] = {
 		"ZombieSlam",
 	},
 	modList = {
-		mod("Armour", "INC", 40), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
+		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
 		-- RaiseZombieStunThreshold [stun_threshold_+% = 30]
 	},
 }
@@ -51,7 +51,7 @@ minions["SummonedChaosGolem"] = {
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
-		-- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
+		mod("LifeRegenPercent", "BASE", 1, 0, 0), -- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
 	},
 }
 
@@ -78,7 +78,7 @@ minions["SummonedFlameGolem"] = {
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
 		-- MonsterSpeedAndDamageFixupLarge [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 22]
-		-- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
+		mod("LifeRegenPercent", "BASE", 1, 0, 0), -- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
 	},
 }
 
@@ -103,7 +103,7 @@ minions["SummonedIceGolem"] = {
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
-		-- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
+		mod("LifeRegenPercent", "BASE", 1, 0, 0), -- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
 	},
 }
 
@@ -130,7 +130,7 @@ minions["SummonedLightningGolem"] = {
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
 		-- MonsterSpeedAndDamageFixupLarge [monster_base_type_attack_cast_speed_+%_and_damage_-%_final = 22]
-		-- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
+		mod("LifeRegenPercent", "BASE", 1, 0, 0), -- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
 	},
 }
 
@@ -155,7 +155,7 @@ minions["SummonedStoneGolem"] = {
 		"RockGolemMinionWhirlingBlades",
 	},
 	modList = {
-		-- SummonedGolemLifeRegenerationStone [life_regeneration_rate_per_minute_% = 120]
+		mod("LifeRegenPercent", "BASE", 2, 0, 0), -- SummonedGolemLifeRegenerationStone [life_regeneration_rate_per_minute_% = 120]
 	},
 }
 
@@ -176,11 +176,11 @@ minions["SummonedRagingSpirit"] = {
 		"Melee",
 	},
 	modList = {
-		-- RagingSpiritConvertPhysToFire [base_physical_damage_%_to_convert_to_fire = 100]
-		mod("PhysicalMin", "BASE", 4, ModFlag.Attack), -- RagingSpiritAddedPhys [attack_minimum_added_physical_damage = 4] [attack_maximum_added_physical_damage = 5]
-		mod("PhysicalMax", "BASE", 5, ModFlag.Attack), -- RagingSpiritAddedPhys [attack_minimum_added_physical_damage = 4] [attack_maximum_added_physical_damage = 5]
+		mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0), -- RagingSpiritConvertPhysToFire [base_physical_damage_%_to_convert_to_fire = 100]
+		mod("PhysicalMin", "BASE", 4, 0, 65536), -- RagingSpiritAddedPhys [attack_minimum_added_physical_damage = 4]
+		mod("PhysicalMax", "BASE", 5, 0, 65536), -- RagingSpiritAddedPhys [attack_maximum_added_physical_damage = 5]
 		-- CannotGainAfflictedMods [cannot_have_affliction_mods = 1]
-		mod("Speed", "MORE", 40, ModFlag.Attack), -- MonsterSummonedSkullFastAttack1 [active_skill_attack_speed_+%_final = 40]
+		mod("Speed", "MORE", 40, 1, 0), -- MonsterSummonedSkullFastAttack1 [active_skill_attack_speed_+%_final = 40]
 	},
 }
 
@@ -201,7 +201,7 @@ minions["SummonedEssenceSpirit"] = {
 		"SpectralSkullShieldCharge",
 	},
 	modList = {
-		mod("Speed", "MORE", 40, ModFlag.Attack), -- MonsterSummonedSkullFastAttack1 [active_skill_attack_speed_+%_final = 40]
+		mod("Speed", "MORE", 40, 1, 0), -- MonsterSummonedSkullFastAttack1 [active_skill_attack_speed_+%_final = 40]
 		mod("Condition:FullLife", "FLAG", true),
 	},
 }
@@ -247,7 +247,8 @@ minions["RaisedSkeleton"] = {
 		"MonsterQuickDodgeRunUnarmed",
 	},
 	modList = {
-		mod("BlockChance", "BASE", 30), -- MonsterAttackBlock30Bypass15 [monster_base_block_% = 30] [base_block_%_damage_taken = 15]
+		mod("BlockChance", "BASE", 30, 0, 0), -- MonsterAttackBlock30Bypass15 [monster_base_block_% = 30]
+		-- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
 	},
 }
@@ -312,7 +313,7 @@ minions["Clone"] = {
 		"Melee",
 	},
 	modList = {
-		mod("EnergyShield", "BASE", 10), -- MirrorArrowEnergyShield [base_maximum_energy_shield = 10]
+		mod("EnergyShield", "BASE", 10, 0, 0), -- MirrorArrowEnergyShield [base_maximum_energy_shield = 10]
 	},
 }
 
@@ -334,7 +335,8 @@ minions["SpiderMinion"] = {
 		"SummonedSpiderViperStrike",
 	},
 	modList = {
-		-- SummonedSpiderPhasing [phase_through_objects = 1] [suppress_phasing_visual = 1]
+		-- SummonedSpiderPhasing [phase_through_objects = 1]
+		-- SummonedSpiderPhasing [suppress_phasing_visual = 1]
 	},
 }
 
@@ -397,9 +399,9 @@ minions["IcyRagingSpirit"] = {
 		"RagingSpiritMeleeAttack",
 	},
 	modList = {
-		mod("PhysicalDamageConvertToCold", "BASE", 50), -- MonsterSummonedElementalCold [base_physical_damage_%_to_convert_to_cold = 50]
+		mod("PhysicalDamageConvertToCold", "BASE", 50, 0, 0), -- MonsterSummonedElementalCold [base_physical_damage_%_to_convert_to_cold = 50]
 		-- MonsterCannotBeChainedFrom_ [cannot_be_chained_from = 1]
-		mod("Speed", "MORE", 40, ModFlag.Attack), -- MonsterSummonedSkullFastAttack1 [active_skill_attack_speed_+%_final = 40]
+		mod("Speed", "MORE", 40, 1, 0), -- MonsterSummonedSkullFastAttack1 [active_skill_attack_speed_+%_final = 40]
 	},
 }
 
@@ -413,14 +415,15 @@ minions["UniqueAnimatedWeapon"] = {
 	damage = 0,
 	damageSpread = 0,
 	attackTime = 1,
-	attackRange = 60,
+	attackRange = 105,
 	accuracy = 3.4,
 	skillList = {
 		"Melee",
-		"DancingDervishCyclone",
+		"DancingDervishCycloneChannelled",
 	},
 	modList = {
-		-- UniqueAnimateWeaponAura [disable_weapons = 1] [has_onslaught = 1]
+		-- UniqueAnimateWeaponAura [disable_weapons = 1]
+		-- UniqueAnimateWeaponAura [has_onslaught = 1]
 	},
 }
 
@@ -467,7 +470,7 @@ minions["HeraldOfAgonySpiderPlated"] = {
 		"Melee",
 	},
 	modList = {
-		mod("PhysicalDamageConvertToChaos", "BASE", 40), -- MonsterConvertToChaosHeraldOfAgony1 [base_physical_damage_%_to_convert_to_chaos = 40]
+		mod("PhysicalDamageConvertToChaos", "BASE", 40, 0, 0), -- MonsterConvertToChaosHeraldOfAgony1 [base_physical_damage_%_to_convert_to_chaos = 40]
 		-- MonsterCannotBeDamaged [cannot_be_damaged = 1]
 		mod("Condition:FullLife", "FLAG", true),
 	},
@@ -543,7 +546,8 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	},
 	modList = {
 		-- MonsterCastsShieldChargeText [monster_casts_shield_charge_text = 1]
-		mod("BlockChance", "BASE", 40), -- MonsterAttackBlock40Bypass20 [monster_base_block_% = 40] [base_block_%_damage_taken = 20]
+		mod("BlockChance", "BASE", 40, 0, 0), -- MonsterAttackBlock40Bypass20 [monster_base_block_% = 40]
+		-- MonsterAttackBlock40Bypass20 [base_block_%_damage_taken = 20]
 	},
 }
 
@@ -590,8 +594,9 @@ minions["RhoaUniqueSummoned"] = {
 		"SummonedRhoaShieldCharge",
 	},
 	modList = {
-		mod("CannotBeEvaded", "FLAG", true), -- MonsterAlwaysHits [global_always_hit = 1]
-		-- MonsterNearbyEnemiesAreIntimidated [is_intimidated = 1] [local_display_nearby_enemies_are_intimidated = 1]
+		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
+		-- MonsterNearbyEnemiesAreIntimidated [is_intimidated = 1]
+		-- MonsterNearbyEnemiesAreIntimidated [local_display_nearby_enemies_are_intimidated = 1]
 	},
 }
 
@@ -613,8 +618,8 @@ minions["SnakeSpitUniqueSummoned"] = {
 		"SummonedSnakeProjectile",
 	},
 	modList = {
-		mod("PhysicalDamageConvertToChaos", "BASE", 30), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
-		mod("CannotBeEvaded", "FLAG", true), -- MonsterAlwaysHits [global_always_hit = 1]
+		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
+		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
 	},
 }
 
@@ -639,7 +644,7 @@ minions["DropBearUniqueSummoned"] = {
 		"DropBearSummonedRallyingCry",
 	},
 	modList = {
-		mod("CannotBeEvaded", "FLAG", true), -- MonsterAlwaysHits [global_always_hit = 1]
+		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
 	},
 }
 
@@ -664,7 +669,7 @@ minions["SummonedCarrionGolem"] = {
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
-		-- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
+		mod("LifeRegenPercent", "BASE", 1, 0, 0), -- SummonedGolemLifeRegeneration [life_regeneration_rate_per_minute_% = 60]
 	},
 }
 

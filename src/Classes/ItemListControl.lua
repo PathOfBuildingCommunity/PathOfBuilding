@@ -40,20 +40,90 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	self.controls.deleteAll.enabled = function()
 		return #self.list > 0
 	end
-	self.controls.sort = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 60, 18, "Sort", function()
+	self.controls.deleteUnused = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 100, 18, "Delete Unused", function()
+		local delList = {}
+		for _, itemId in pairs(self.list) do
+			if not itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId]) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
+				t_insert(delList, itemId)
+			end
+		end
+		-- Delete in reverse order so as to not delete the wrong item whilst deleting
+		for i = #delList, 1, -1 do
+			itemsTab:DeleteItem(itemsTab.items[delList[i]], true)
+		end
+		-- Rebuild cluster jewel graphs, populate slots, and create an undo state, as we deferred doing this during itemsTab:DeleteItem(...)
+		for _, spec in pairs(itemsTab.build.treeTab.specList) do
+			spec:BuildClusterJewelGraphs()
+		end
+		itemsTab:PopulateSlots()
+		itemsTab:AddUndoState()
+		itemsTab.build.buildFlag = true
+	end)
+	self.controls.deleteUnused.enabled = function()
+		return #self.list > 0
+	end
+	self.controls.sort = new("ButtonControl", {"RIGHT",self.controls.deleteUnused,"LEFT"}, -4, 0, 60, 18, "Sort", function()
 		itemsTab:SortItemList()
 	end)
 end)
 
+function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)
+	if not self.itemsTab.items[jewelId] or self.itemsTab.items[jewelId].type ~= "Jewel" then
+		return nil
+	end
+	local treeTab = self.itemsTab.build.treeTab
+	local equipTree = nil
+	local matchActive = false
+	for specId = #treeTab.specList, 1, -1 do
+		local spec = treeTab.specList[specId]
+		for nodeId, itemId in pairs(spec.jewels) do
+			if itemId == jewelId and spec.nodes[nodeId] and spec.nodes[nodeId].alloc then
+				if excludeActiveSpec and (specId == treeTab.activeSpec or matchActive) then
+					equipTree = nil
+					matchActive = true
+				else
+					equipTree = spec.title or "Default"
+				end
+			end
+		end
+	end
+	return equipTree
+end
+
+function ItemListClass:FindEquippedAbyssJewel(jewelId, excludeActiveSet)
+	if not self.itemsTab.items[jewelId] or self.itemsTab.items[jewelId].base.subType ~= "Abyss" then
+		return nil
+	end
+	local equipSet = nil
+	local matchActive = false
+	for _, itemSet in pairs(self.itemsTab.itemSets) do
+		for slotName, slot in pairs(itemSet) do
+			if type(slot) == "table" and slot.selItemId == jewelId then
+				if excludeActiveSet and (itemSet == self.itemsTab.activeItemSet or matchActive) then
+					equipSet = nil
+					matchActive = true
+				else
+					equipSet = itemSet.title or "Default"
+				end
+			end
+		end
+	end
+	return equipSet
+end
+
 function ItemListClass:GetRowValue(column, index, itemId)
 	local item = self.itemsTab.items[itemId]
 	if column == 1 then
-		local used = ""
-		local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
-		if not slot then
-			used = "  ^9(Unused)"
-		elseif itemSet then
-			used = "  ^9(Used in '" .. (itemSet.title or "Default") .. "')"
+		local used = self:FindEquippedAbyssJewel(itemId, true) or self:FindSocketedJewel(itemId, true) or ""
+		if used == "" then
+			local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
+			if not slot then
+				used = "  ^9(Unused)"
+			elseif itemSet then
+				used = "  ^9(Used in '" .. (itemSet.title or "Default") .. "')"
+			end
+		else
+			used = "  ^9(Used in '" .. used .. "')"
 		end
 		return colorCodes[item.rarity] .. item.name .. used
 	end
@@ -123,7 +193,7 @@ end
 
 function ItemListClass:OnSelCopy(index, itemId)
 	local item = self.itemsTab.items[itemId]
-	Copy(item:BuildRaw():gsub("\n","\r\n"))
+	Copy(item:BuildRaw():gsub("\n", "\r\n"))
 end
 
 function ItemListClass:OnSelDelete(index, itemId)
@@ -137,9 +207,28 @@ function ItemListClass:OnSelDelete(index, itemId)
 			self.selValue = nil
 		end)
 	else
-		self.itemsTab:DeleteItem(item)
-		self.selIndex = nil
-		self.selValue = nil
+		local equipSet = self:FindEquippedAbyssJewel(itemId, true)
+		if equipSet then
+			local inSet = equipSet and (" in set '"..(equipSet.title or "Default").."'") or ""
+			main:OpenConfirmPopup("Delete Item", item.name.." is currently equipped in an Abyssal Socket"..inSet..".\nAre you sure you want to delete it?", "Delete", function()
+				self.itemsTab:DeleteItem(item)
+				self.selIndex = nil
+				self.selValue = nil
+			end)
+		else
+			local equipTree = self:FindSocketedJewel(itemId, true)
+			if equipTree then
+				main:OpenConfirmPopup("Delete Item", item.name.." is currently equipped in passive tree '"..equipTree.."'.\nAre you sure you want to delete it?", "Delete", function()
+					self.itemsTab:DeleteItem(item)
+					self.selIndex = nil
+					self.selValue = nil
+				end)
+			else
+				self.itemsTab:DeleteItem(item)
+				self.selIndex = nil
+				self.selValue = nil
+			end
+		end
 	end
 end
 
