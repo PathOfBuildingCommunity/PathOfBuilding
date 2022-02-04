@@ -89,8 +89,6 @@ local skills, mod, flag, skill = ...
 #flags cast duration
 	fromItem = true,
 	statMap = {
-		["base_movement_velocity_+%"] = {
-		},
 		["base_damage_taken_+%"] = {
 			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Spider's Web" })
 		},

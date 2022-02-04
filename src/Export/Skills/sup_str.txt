@@ -485,3 +485,9 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #mods
+
+#skill SupportAuraDuration
+#mods
+
+#skill SupportMortalConviction
+#mods
