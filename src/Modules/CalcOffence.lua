@@ -3230,8 +3230,9 @@ function calcs.offence(env, actor, activeSkill)
 
 			local rateMod = (calcLib.mod(skillModList, cfg, "IgniteBurnFaster") + enemyDB:Sum("INC", nil, "SelfIgniteBurnFaster") / 100)  / calcLib.mod(skillModList, cfg, "IgniteBurnSlower")
 			local durationBase = data.misc.IgniteDurationBase
-			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration") * calcLib.mod(enemyDB, nil, "SelfIgniteDuration")
+			local durationMod = m_max(calcLib.mod(skillModList, dotCfg, "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration") * calcLib.mod(enemyDB, nil, "SelfIgniteDuration"), 0)
 			globalOutput.IgniteDuration = durationBase * durationMod / rateMod * debuffDurationMult
+			globalOutput.IgniteDuration = globalOutput.IgniteDuration > data.misc.IgniteMinDuration and globalOutput.IgniteDuration or 0
 			local igniteStacks = (globalOutput.IgniteDuration / output.Time) / maxStacks
 			globalOutput.IgniteStackPotential = igniteStacks
 			if globalBreakdown then
