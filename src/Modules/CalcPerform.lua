@@ -1613,7 +1613,8 @@ function calcs.perform(env, avoidCache)
 	-- Process attribute requirements
 	do
 		local reqMult = calcLib.mod(modDB, nil, "GlobalAttributeRequirements")
-		for _, attr in ipairs({"Omni","Str","Dex","Int"}) do
+		local attrTable = modDB:Flag(nil, "OmniscienceRequirements") and {"Omni","Str","Dex","Int"} or {"Str","Dex","Int"}
+		for _, attr in ipairs(attrTable) do
 			local breakdownAttr = attr
 			if modDB:Flag(nil, "OmniscienceRequirements") then
 				breakdownAttr = "Omni"
@@ -1668,17 +1669,17 @@ function calcs.perform(env, avoidCache)
 					output["Req"..breakdownAttr.."String"] = out > (output[breakdownAttr] or 0) and colorCodes.NEGATIVE..out or out
 				end
 			end
-			if breakdown then
-				table.sort(breakdown["ReqOmni"].rowList, function(a, b)
-					if a.reqNum ~= b.reqNum then
-						return a.reqNum > b.reqNum
-					elseif a.source ~= b.source then
-						return a.source < b.source 
-					else
-						return a.sourceName < b.sourceName
-					end
-				end)
-			end
+		end
+		if breakdown and breakdown["ReqOmni"] then
+			table.sort(breakdown["ReqOmni"].rowList, function(a, b)
+				if a.reqNum ~= b.reqNum then
+					return a.reqNum > b.reqNum
+				elseif a.source ~= b.source then
+					return a.source < b.source
+				else
+					return a.sourceName < b.sourceName
+				end
+			end)
 		end
 	end
 
