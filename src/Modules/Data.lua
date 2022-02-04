@@ -109,11 +109,7 @@ data.powerStatList = {
 	{ stat="MeleeAvoidChance", label="Melee avoid chance" },
 	{ stat="SpellAvoidChance", label="Spell avoid chance" },
 	{ stat="ProjectileAvoidChance", label="Projectile avoid chance" },
-	{ stat="PhysicalTotalEHP", label="eHP vs Physical hits" },
-	{ stat="LightningTotalEHP", label="eHP vs Lightning hits" },
-	{ stat="ColdTotalEHP", label="eHP vs Cold hits" },
-	{ stat="FireTotalEHP", label="eHP vs Fire hits" },
-	{ stat="ChaosTotalEHP", label="eHP vs Chaos hits" },
+	{ stat="TotalEHP", label="effective Hit Pool" },
 	{ stat="PhysicalTakenHitMult", label="Taken Phys dmg", transform=function(value) return 1-value end },
 	{ stat="LightningTakenDotMult", label="Taken Lightning dmg", transform=function(value) return 1-value end },
 	{ stat="ColdTakenDotMult", label="Taken Cold dmg", transform=function(value) return 1-value end },
@@ -378,6 +374,12 @@ data.misc = { -- magic numbers
 	AccuracyPerDexBase = 2,
 	BrandAttachmentRangeBase = 30,
 	ProjectileDistanceCap = 150,
+	-- Expected values to calculate EHP
+	stdBossDPSMult = 4 / 4.25,
+	shaperDPSMult = 8 / 4.25,
+	shaperPen = 25 / 5,
+	sirusDPSMult = 10 / 4.25,
+	sirusPen = 40 / 5,
 }
 
 -- Misc data tables
