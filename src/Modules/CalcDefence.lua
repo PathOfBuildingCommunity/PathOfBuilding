@@ -1888,6 +1888,8 @@ function calcs.defence(env, actor)
 		if output["preventedLifeLoss"] > 0 then
 			output[damageType.."TotalPool"] =  output[damageType.."TotalPool"] / (1 - output["preventedLifeLoss"] / 100)
 		end
+		--ward
+		output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.Ward or 0
 		--aegis
 		output[damageType.."TotalHitPool"] = output[damageType.."TotalPool"] + output[damageType.."Aegis"] or 0 + output[damageType.."sharedAegis"] or 0 + isElemental[damageType] and output[damageType.."sharedElementalAegis"] or 0
 		--guardskill
