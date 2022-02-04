@@ -102,13 +102,6 @@ Implicits: 1
 Curse Enemies with Flammability on Block, with 20% increased Effect
 Reflects (22-44) Fire Damage to Attackers on Block
 ]],[[
-Cane of Kulemak
-Serpentine Staff
-Requires Level 68, 85 Str, 85 Int
-Implicits: 1
-+20% Chance to Block Attack Damage while wielding a Staff
-(60-90)% increased Unveiled Modifier magnitudes
-]],[[
 Cane of Unravelling
 Ezomyte Staff
 Variant: Pre 3.5.0

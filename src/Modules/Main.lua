@@ -21,6 +21,7 @@ LoadModule("Modules/ModTools")
 LoadModule("Modules/ItemTools")
 LoadModule("Modules/CalcTools")
 LoadModule("Modules/PantheonTools")
+LoadModule("Modules/BuildSiteTools")
 
 --[[if launch.devMode then
 	for skillName, skill in pairs(data.enchantments.Helmet) do
@@ -202,7 +203,21 @@ the "Releases" section of the GitHub page.]])
 	self.decimalSeparator = "."
 	self.showTitlebarName = true
 
-	local ignoreBuild = self:LoadPastebinBuild()
+	local ignoreBuild
+	if arg[1] then
+		buildSites.DownloadBuild(arg[1], nil, function(isSuccess, data)
+			if not isSuccess then
+				self:SetMode("BUILD", false, data)
+			else
+				local xmlText = Inflate(common.base64.decode(data:gsub("-","+"):gsub("_","/")))
+				self:SetMode("BUILD", false, "Imported Build", xmlText)
+				self.newModeChangeToTree = true
+			end
+		end)
+		arg[1] = nil -- Protect against downloading again this session.
+		ignoreBuild = true
+	end
+
 	if not ignoreBuild then
 		self:SetMode("BUILD", false, "Unnamed build")
 	end
@@ -394,32 +409,6 @@ function main:CallMode(func, ...)
 	end
 end
 
-function main:LoadPastebinBuild()
-	local fullUri = arg[1]
-	if not fullUri then
-		return false
-	end
-	arg[1] = nil -- Protect against downloading again this session.
-	local pastebinCode = string.match(fullUri, "^pob:[/\\]*pastebin[/\\]+(%w+)[/\\]*")
-	if pastebinCode then
-		launch:DownloadPage("https://pastebin.com/raw/" .. pastebinCode, function(page, errMsg)
-			if errMsg then
-				self:SetMode("BUILD", false, "Failed Build Import (Download failed " .. pastebinCode .. ")")
-			else
-				local xmlText = Inflate(common.base64.decode(page:gsub("-","+"):gsub("_","/")))
-				if xmlText then
-					self:SetMode("BUILD", false, "Imported Build", xmlText)
-					self.newModeChangeToTree = true
-				else
-					self:SetMode("BUILD", false, "Failed Build Import (Decompress failed)")
-				end
-			end
-		end)
-		return true
-	end
-	return false
-end
-
 function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if not setXML then
@@ -527,6 +516,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.defaultCharLevel then
 					self.defaultCharLevel = m_min(tonumber(node.attrib.defaultCharLevel) or 1, 100)
 				end
+				if node.attrib.lastExportWebsite then
+					self.lastExportWebsite = node.attrib.lastExportWebsite
+				end
 			end
 		end
 	end
@@ -576,6 +568,7 @@ function main:SaveSettings()
 		betaTest = tostring(self.betaTest),
 		defaultGemQuality = tostring(self.defaultGemQuality or 0),
 		defaultCharLevel = tostring(self.defaultCharLevel or 1),
+		lastExportWebsite = self.lastExportWebsite,
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then

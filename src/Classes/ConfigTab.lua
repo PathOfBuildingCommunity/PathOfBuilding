@@ -50,14 +50,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
-				end) 
+				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf)
 					self.input[varData.var] = tonumber(buf)
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
-				end) 
+				end)
 			elseif varData.type == "list" then
 				control = new("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 118, 16, varData.list, function(index, value)
 					self.input[varData.var] = value.val
@@ -220,6 +220,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				t_insert(self.controls, new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
 			end
 			if varData.var then
+				self.input[varData.var] = varData.defaultState
+				control.state = varData.defaultState
 				self.varControls[varData.var] = control
 			end
 			t_insert(self.controls, control)
@@ -257,9 +259,18 @@ function ConfigTabClass:Load(xml, fileName)
 	self:ResetUndo()
 end
 
+function ConfigTabClass:GetDefaultState(var)
+	for i = 1, #varList do
+		if varList[i].var == var then
+			return varList[i].defaultState
+		end
+	end
+	return nil
+end
+
 function ConfigTabClass:Save(xml)
 	for k, v in pairs(self.input) do
-		if v then
+		if v ~= self:GetDefaultState(k) then
 			local child = { elem = "Input", attrib = {name = k} }
 			if type(v) == "number" then
 				child.attrib.number = tostring(v)

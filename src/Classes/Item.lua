@@ -268,6 +268,10 @@ function ItemClass:ParseRaw(raw)
 					self.hasAltVariant2 = true
 				elseif specName == "Has Alt Variant Three" then
 					self.hasAltVariant3 = true
+				elseif specName == "Has Alt Variant Four" then
+					self.hasAltVariant4 = true
+				elseif specName == "Has Alt Variant Five" then
+					self.hasAltVariant5 = true
 				elseif specName == "Selected Variant" then
 					self.variant = tonumber(specVal)
 				elseif specName == "Selected Alt Variant" then
@@ -276,6 +280,10 @@ function ItemClass:ParseRaw(raw)
 					self.variantAlt2 = tonumber(specVal)
 				elseif specName == "Selected Alt Variant Three" then
 					self.variantAlt3 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Four" then
+					self.variantAlt4 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Five" then
+					self.variantAlt5 = tonumber(specVal)
 				elseif specName == "Has Variants" or specName == "Selected Variants" then
 					-- Need to skip this line for backwards compatibility
 					-- with builds that used an old Watcher's Eye implementation
@@ -603,6 +611,12 @@ function ItemClass:ParseRaw(raw)
 		if self.hasAltVariant3 then
 			self.variantAlt3 = m_min(#self.variantList, self.variantAlt3 or #self.variantList)
 		end
+		if self.hasAltVariant4 then
+			self.variantAlt4 = m_min(#self.variantList, self.variantAlt4 or #self.variantList)
+		end
+		if self.hasAltVariant5 then
+			self.variantAlt5 = m_min(#self.variantList, self.variantAlt5 or #self.variantList)
+		end
 	end
 	if not self.quality then
 		self:NormaliseQuality()
@@ -774,6 +788,14 @@ function ItemClass:BuildRaw()
 			t_insert(rawLines, "Has Alt Variant Three: true")
 			t_insert(rawLines, "Selected Alt Variant Three: "..self.variantAlt3)
 		end
+		if self.hasAltVariant4 then
+			t_insert(rawLines, "Has Alt Variant Four: true")
+			t_insert(rawLines, "Selected Alt Variant Four: "..self.variantAlt4)
+		end
+		if self.hasAltVariant5 then
+			t_insert(rawLines, "Has Alt Variant Five: true")
+			t_insert(rawLines, "Selected Alt Variant Five: "..self.variantAlt5)
+		end
 	end
 	if self.quality then
 		t_insert(rawLines, "Quality: "..self.quality)
@@ -897,6 +919,8 @@ function ItemClass:CheckModLineVariant(modLine)
 		or (self.hasAltVariant and modLine.variantList[self.variantAlt])
 		or (self.hasAltVariant2 and modLine.variantList[self.variantAlt2])
 		or (self.hasAltVariant3 and modLine.variantList[self.variantAlt3])
+		or (self.hasAltVariant4 and modLine.variantList[self.variantAlt4])
+		or (self.hasAltVariant5 and modLine.variantList[self.variantAlt5])
 end
 
 -- Return the name of the slot this item is equipped in
