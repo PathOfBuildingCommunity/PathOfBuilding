@@ -42,14 +42,12 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	end
 	self.controls.deleteUnused = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 100, 18, "Delete Unused", function()
 		local delList = {}
-		local abyssalJewelsList = {}
-		local abyssalJewelsOwnedbyItemsList = {}
 		for _, itemId in pairs(self.list) do
 			-- Abyssal jewels will not show up using FindSocketedJewel
 			-- Get a list of abyssal jewels as the list moves thru and deal with them last
 			local item = self.itemsTab.items[itemId]
 			if item.type == "Jewel" then
-				if self:FindAbyssalJewel(item) == "" and self:FindSocketedJewel(itemId, false) == "" then
+				if not self:FindAbyssalJewel(item) and not self:FindSocketedJewel(itemId, false) then
 					t_insert(delList, itemId)
 				end
 			else
@@ -82,19 +80,18 @@ end)
 
 function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)
 	if not self.itemsTab.items[jewelId] or self.itemsTab.items[jewelId].type ~= "Jewel" then
-		return ""
+		return nil
 	end
 	local treeTab = self.itemsTab.build.treeTab
 	local matchActive = false
-	local outputString = ""
-	local equipTree = ""
+	local equipTree = nil
 	for specId = #treeTab.specList, 1, -1 do
 		local spec = treeTab.specList[specId]
 		for nodeId, itemId in pairs(spec.jewels) do
 			if itemId == jewelId and spec.nodes[nodeId] and spec.nodes[nodeId].alloc then
 				if excludeActiveSpec and (specId == treeTab.activeSpec or matchActive) then
 					matchActive = true
-					equipTree = ""
+					equipTree = nil
 				else
 					equipTree = spec.title or "Default"
 				end
@@ -118,14 +115,13 @@ function ItemListClass:FindAbyssalJewel(item)
 			end
 		end
 	end
-	return ""
+	return nil
 end
 
 function ItemListClass:GetRowValue(column, index, itemId)
 	local item = self.itemsTab.items[itemId]
 	if column == 1 then
-		local used = self:FindSocketedJewel(itemId, true) or ""
-		local used = used or self:FindAbyssalJewel(item)
+		local used = self:FindSocketedJewel(itemId, true) or self:FindAbyssalJewel(item) or ""
 		if used == "" then
 			local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
 			if not slot then
@@ -219,7 +215,7 @@ function ItemListClass:OnSelDelete(index, itemId)
 		end)
 	else
 		local equipTree = self:FindSocketedJewel(itemId, true)
-		if equipTree ~= "" then
+		if equipTree then
 			main:OpenConfirmPopup("Delete Item", item.name.." is currently equipped in passive tree '"..equipTree.."'.\nAre you sure you want to delete it?", "Delete", function()
 				self.itemsTab:DeleteItem(item)
 				self.selIndex = nil
