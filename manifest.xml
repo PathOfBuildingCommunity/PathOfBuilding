@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.13.0" />
+	<Version number="2.14.0" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
@@ -187,6 +187,7 @@
 	<File name="Data/StatDescriptions/variable_duration_skill_stat_descriptions.lua" part="program" sha1="fbf3309032bb7288b085b9e001b962827218d4e6" />
 	<File name="Modules/Build.lua" part="program" sha1="e1e9f2aea182d9cf3063ce7b1fc815d47f592634" />
 	<File name="Modules/BuildList.lua" part="program" sha1="5c5ee46b6dee4feb5bbfc2f5ef753073fa9303a9" />
+	<File name="Modules/BuildSiteTools.lua" part="program" sha1="7c3fe60cec98601f10f2261d45a2a177ebb56d26" />
 	<File name="Modules/CalcActiveSkill.lua" part="program" sha1="3f182fc3132033f9a21b8a709b24b130cb5d0175" />
 	<File name="Modules/CalcBreakdown.lua" part="program" sha1="b90cd2cd732249f95b0d1d42bc809f6c0d679e20" />
 	<File name="Modules/CalcDefence.lua" part="program" sha1="099667258dd13d162bfd11751df28715e23540a1" />
