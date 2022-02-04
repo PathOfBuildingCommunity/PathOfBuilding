@@ -270,11 +270,6 @@ You can get this from your web browser's cookies while logged into the Path of E
 			self.controls.importCodeMode.selIndex = 2
 		end
 	end)
-	self.controls.importCodeIn.enterFunc = function()
-		if self.importCodeState == "VALID" then
-			self.controls.importCodeGo.onClick()
-		end
-	end
 	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 4, 0, 0, 16)
 	self.controls.importCodeState.label = function()
 		return (self.importCodeState == "VALID" and colorCodes.POSITIVE.."Code is valid") or (self.importCodeState == "INVALID" and colorCodes.NEGATIVE.."Invalid code") or ""
@@ -301,6 +296,11 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end)
 	self.controls.importCodeGo.enabled = function()
 		return self.importCodeState == "VALID"
+	end
+	self.controls.importCodeGo.enterFunc = function()
+		if self.importCodeState == "VALID" then
+			self.controls.importCodeGo.onClick()
+		end
 	end
 end)
 
@@ -1019,7 +1019,7 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 			else
 				self.controls.importCodeIn:SetText(page, true)
 				main:ClosePopup()
-				main:SelectControl(self.controls.importCodeIn)
+				main:SelectControl(self.controls.importCodeGo)
 			end
 		end)
 	end)
