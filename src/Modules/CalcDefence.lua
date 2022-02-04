@@ -1947,7 +1947,7 @@ function calcs.defence(env, actor)
 		if breakdown then
 			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Total Pool: %d", output[damageType.."TotalHitPool"]))
 			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.2f",  output[damageType.."TotalHitPool"] / output[damageType.."MaximumHitTaken"]))
-			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]))
+			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %.0f", output[damageType.."MaximumHitTaken"]))
 		end
 	end
 	
