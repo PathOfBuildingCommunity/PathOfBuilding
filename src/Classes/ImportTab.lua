@@ -1018,8 +1018,8 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 				controls.import.enabled = true
 			else
 				self.controls.importCodeIn:SetText(page, true)
-				main:ClosePopup()
 				main:SelectControl(self.controls.importCodeGo)
+				main:ClosePopup()
 			end
 		end)
 	end)
