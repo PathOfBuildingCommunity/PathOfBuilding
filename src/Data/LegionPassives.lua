@@ -4489,10 +4489,9 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "You can only have one Permanent Aura on you from your Skills", 
-				[2] = "Auras from your Skills do not affect Allies", 
-				[3] = "Auras from your Skills have 50% more Effect on you", 
-				[4] = "50% more Reservation of Skills", 
+				[1] = "Auras from your Skills can only affect you", 
+				[2] = "Aura Skills have 1% more Aura Effect per 2% of maximum Mana they Reserve", 
+				[3] = "40% more Mana Reservation of Skills", 
 			}, 
 			["dn"] = "Supreme Ego", 
 			["isJewelSocket"] = false, 

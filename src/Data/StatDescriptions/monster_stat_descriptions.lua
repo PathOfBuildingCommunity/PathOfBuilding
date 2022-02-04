@@ -126,6 +126,24 @@ return {
 							[2]="#"
 						}
 					},
+					text="Takes Reduced Physical Damage"
+				}
+			}
+		},
+		stats={
+			[1]="base_additional_physical_damage_reduction_%"
+		}
+	},
+	[8]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
 					text="Armoured"
 				}
 			}
@@ -134,7 +152,7 @@ return {
 			[1]="physical_damage_reduction_rating_+%"
 		}
 	},
-	[8]={
+	[9]={
 		lang={
 			English={
 				[1]={
@@ -152,7 +170,25 @@ return {
 			[1]="damage_+%"
 		}
 	},
-	[9]={
+	[10]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Extra Spell Damage"
+				}
+			}
+		},
+		stats={
+			[1]="spell_damage_+%"
+		}
+	},
+	[11]={
 		lang={
 			English={
 				[1]={
@@ -170,7 +206,7 @@ return {
 			[1]="life_leech_from_physical_attack_damage_permyriad"
 		}
 	},
-	[10]={
+	[12]={
 		lang={
 			English={
 				[1]={
@@ -188,7 +224,25 @@ return {
 			[1]="attack_speed_+%"
 		}
 	},
-	[11]={
+	[13]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Faster Casting"
+				}
+			}
+		},
+		stats={
+			[1]="base_cast_speed_+%"
+		}
+	},
+	[14]={
 		lang={
 			English={
 				[1]={
@@ -206,7 +260,7 @@ return {
 			[1]="life_regeneration_rate_per_minute_%"
 		}
 	},
-	[12]={
+	[15]={
 		lang={
 			English={
 				[1]={
@@ -224,7 +278,7 @@ return {
 			[1]="maximum_energy_shield_+%"
 		}
 	},
-	[13]={
+	[16]={
 		lang={
 			English={
 				[1]={
@@ -242,7 +296,7 @@ return {
 			[1]="accuracy_rating_+%"
 		}
 	},
-	[14]={
+	[17]={
 		lang={
 			English={
 				[1]={
@@ -260,7 +314,7 @@ return {
 			[1]="evasion_rating_+%"
 		}
 	},
-	[15]={
+	[18]={
 		lang={
 			English={
 				[1]={
@@ -278,7 +332,7 @@ return {
 			[1]="base_cannot_be_stunned"
 		}
 	},
-	[16]={
+	[19]={
 		lang={
 			English={
 				[1]={
@@ -296,7 +350,7 @@ return {
 			[1]="display_monster_wealth_mod"
 		}
 	},
-	[17]={
+	[20]={
 		lang={
 			English={
 				[1]={
@@ -314,7 +368,7 @@ return {
 			[1]="number_of_additional_projectiles"
 		}
 	},
-	[18]={
+	[21]={
 		lang={
 			English={
 				[1]={
@@ -332,7 +386,7 @@ return {
 			[1]="critical_strike_chance_+%"
 		}
 	},
-	[19]={
+	[22]={
 		lang={
 			English={
 				[1]={
@@ -350,7 +404,7 @@ return {
 			[1]="immune_to_curses"
 		}
 	},
-	[20]={
+	[23]={
 		lang={
 			English={
 				[1]={
@@ -368,7 +422,7 @@ return {
 			[1]="hexproof"
 		}
 	},
-	[21]={
+	[24]={
 		lang={
 			English={
 				[1]={
@@ -386,7 +440,7 @@ return {
 			[1]="monster_grants_frenzy_charges_to_allies_within_distance_on_death"
 		}
 	},
-	[22]={
+	[25]={
 		lang={
 			English={
 				[1]={
@@ -404,7 +458,7 @@ return {
 			[1]="gain_frenzy_charge_for_each_quarter_life_removed"
 		}
 	},
-	[23]={
+	[26]={
 		lang={
 			English={
 				[1]={
@@ -422,7 +476,7 @@ return {
 			[1]="gain_power_charge_for_each_quarter_life_removed"
 		}
 	},
-	[24]={
+	[27]={
 		lang={
 			English={
 				[1]={
@@ -440,7 +494,7 @@ return {
 			[1]="add_endurance_charge_on_skill_hit_%"
 		}
 	},
-	[25]={
+	[28]={
 		lang={
 			English={
 				[1]={
@@ -458,7 +512,7 @@ return {
 			[1]="add_frenzy_charge_on_skill_hit_%"
 		}
 	},
-	[26]={
+	[29]={
 		lang={
 			English={
 				[1]={
@@ -476,7 +530,7 @@ return {
 			[1]="add_power_charge_on_skill_hit_%"
 		}
 	},
-	[27]={
+	[30]={
 		lang={
 			English={
 				[1]={
@@ -494,7 +548,7 @@ return {
 			[1]="undead_description"
 		}
 	},
-	[28]={
+	[31]={
 		lang={
 			English={
 				[1]={
@@ -512,7 +566,7 @@ return {
 			[1]="monster_casts_arctic_breath_text"
 		}
 	},
-	[29]={
+	[32]={
 		lang={
 			English={
 				[1]={
@@ -530,7 +584,7 @@ return {
 			[1]="monster_casts_firestorm_text"
 		}
 	},
-	[30]={
+	[33]={
 		lang={
 			English={
 				[1]={
@@ -548,7 +602,7 @@ return {
 			[1]="monster_casts_puncture_text"
 		}
 	},
-	[31]={
+	[34]={
 		lang={
 			English={
 				[1]={
@@ -566,7 +620,7 @@ return {
 			[1]="monster_casts_coldsnap_text"
 		}
 	},
-	[32]={
+	[35]={
 		lang={
 			English={
 				[1]={
@@ -584,7 +638,7 @@ return {
 			[1]="monster_casts_assassins_mark_curse_text"
 		}
 	},
-	[33]={
+	[36]={
 		lang={
 			English={
 				[1]={
@@ -602,7 +656,7 @@ return {
 			[1]="monster_casts_elementral_weakness_curse_text"
 		}
 	},
-	[34]={
+	[37]={
 		lang={
 			English={
 				[1]={
@@ -620,7 +674,7 @@ return {
 			[1]="monster_casts_enfeeble_curse_text"
 		}
 	},
-	[35]={
+	[38]={
 		lang={
 			English={
 				[1]={
@@ -638,7 +692,7 @@ return {
 			[1]="monster_casts_fireball_text"
 		}
 	},
-	[36]={
+	[39]={
 		lang={
 			English={
 				[1]={
@@ -656,7 +710,7 @@ return {
 			[1]="monster_casts_ice_nova_text"
 		}
 	},
-	[37]={
+	[40]={
 		lang={
 			English={
 				[1]={
@@ -674,7 +728,7 @@ return {
 			[1]="monster_casts_ice_spear_text"
 		}
 	},
-	[38]={
+	[41]={
 		lang={
 			English={
 				[1]={
@@ -692,7 +746,7 @@ return {
 			[1]="monster_casts_projectile_vulnerability_curse_text"
 		}
 	},
-	[39]={
+	[42]={
 		lang={
 			English={
 				[1]={
@@ -710,7 +764,7 @@ return {
 			[1]="monster_casts_shock_nova_text"
 		}
 	},
-	[40]={
+	[43]={
 		lang={
 			English={
 				[1]={
@@ -728,7 +782,7 @@ return {
 			[1]="monster_casts_spark_text"
 		}
 	},
-	[41]={
+	[44]={
 		lang={
 			English={
 				[1]={
@@ -746,7 +800,7 @@ return {
 			[1]="monster_casts_vulnerability_curse_text"
 		}
 	},
-	[42]={
+	[45]={
 		lang={
 			English={
 				[1]={
@@ -764,7 +818,7 @@ return {
 			[1]="monster_casts_warlords_mark_curse_text"
 		}
 	},
-	[43]={
+	[46]={
 		lang={
 			English={
 				[1]={
@@ -782,7 +836,7 @@ return {
 			[1]="monster_detonates_corpses_text"
 		}
 	},
-	[44]={
+	[47]={
 		lang={
 			English={
 				[1]={
@@ -809,7 +863,7 @@ return {
 			[1]="monster_explodes_on_its_target_text"
 		}
 	},
-	[45]={
+	[48]={
 		lang={
 			English={
 				[1]={
@@ -836,7 +890,7 @@ return {
 			[1]="monster_explodes_on_death_text"
 		}
 	},
-	[46]={
+	[49]={
 		lang={
 			English={
 				[1]={
@@ -854,7 +908,7 @@ return {
 			[1]="monster_fires_a_rain_of_arrows_text"
 		}
 	},
-	[47]={
+	[50]={
 		lang={
 			English={
 				[1]={
@@ -872,7 +926,7 @@ return {
 			[1]="monster_fires_burning_arrows_text"
 		}
 	},
-	[48]={
+	[51]={
 		lang={
 			English={
 				[1]={
@@ -890,7 +944,7 @@ return {
 			[1]="monster_fires_explosive_arrows_text"
 		}
 	},
-	[49]={
+	[52]={
 		lang={
 			English={
 				[1]={
@@ -908,7 +962,7 @@ return {
 			[1]="monster_fires_lightning_arrows_text"
 		}
 	},
-	[50]={
+	[53]={
 		lang={
 			English={
 				[1]={
@@ -926,7 +980,7 @@ return {
 			[1]="monster_fires_caustic_arrows_text"
 		}
 	},
-	[51]={
+	[54]={
 		lang={
 			English={
 				[1]={
@@ -944,7 +998,7 @@ return {
 			[1]="monster_fires_split_arrows_text"
 		}
 	},
-	[52]={
+	[55]={
 		lang={
 			English={
 				[1]={
@@ -962,7 +1016,7 @@ return {
 			[1]="monster_leaps_onto_enemies_text"
 		}
 	},
-	[53]={
+	[56]={
 		lang={
 			English={
 				[1]={
@@ -980,7 +1034,7 @@ return {
 			[1]="monster_raises_undead_text"
 		}
 	},
-	[54]={
+	[57]={
 		lang={
 			English={
 				[1]={
@@ -998,7 +1052,7 @@ return {
 			[1]="monster_summons_exploding_spawn_text"
 		}
 	},
-	[55]={
+	[58]={
 		lang={
 			English={
 				[1]={
@@ -1016,7 +1070,7 @@ return {
 			[1]="monster_summons_monkeys_from_nearby_trees_text"
 		}
 	},
-	[56]={
+	[59]={
 		lang={
 			English={
 				[1]={
@@ -1034,7 +1088,7 @@ return {
 			[1]="monster_summons_skeletons_text"
 		}
 	},
-	[57]={
+	[60]={
 		lang={
 			English={
 				[1]={
@@ -1052,7 +1106,7 @@ return {
 			[1]="monster_summons_spawn_text"
 		}
 	},
-	[58]={
+	[61]={
 		lang={
 			English={
 				[1]={
@@ -1070,7 +1124,7 @@ return {
 			[1]="monster_uses_enduring_cry_text"
 		}
 	},
-	[59]={
+	[62]={
 		lang={
 			English={
 				[1]={
@@ -1088,7 +1142,7 @@ return {
 			[1]="monster_uses_flicker_strike_text"
 		}
 	},
-	[60]={
+	[63]={
 		lang={
 			English={
 				[1]={
@@ -1106,7 +1160,7 @@ return {
 			[1]="monster_uses_glacial_hammer_text"
 		}
 	},
-	[61]={
+	[64]={
 		lang={
 			English={
 				[1]={
@@ -1124,7 +1178,7 @@ return {
 			[1]="monster_uses_ground_slam_text"
 		}
 	},
-	[62]={
+	[65]={
 		lang={
 			English={
 				[1]={
@@ -1142,7 +1196,7 @@ return {
 			[1]="monster_uses_lightning_strike_text"
 		}
 	},
-	[63]={
+	[66]={
 		lang={
 			English={
 				[1]={
@@ -1160,7 +1214,7 @@ return {
 			[1]="monster_uses_phase_run_text"
 		}
 	},
-	[64]={
+	[67]={
 		lang={
 			English={
 				[1]={
@@ -1178,7 +1232,7 @@ return {
 			[1]="monster_casts_shield_charge_text"
 		}
 	},
-	[65]={
+	[68]={
 		lang={
 			English={
 				[1]={
@@ -1196,7 +1250,7 @@ return {
 			[1]="monster_casts_mass_frenzy_text"
 		}
 	},
-	[66]={
+	[69]={
 		lang={
 			English={
 				[1]={
@@ -1214,7 +1268,7 @@ return {
 			[1]="monster_casts_temporal_chains_text"
 		}
 	},
-	[67]={
+	[70]={
 		lang={
 			English={
 				[1]={
@@ -1232,7 +1286,7 @@ return {
 			[1]="monster_casts_frenzy_text"
 		}
 	},
-	[68]={
+	[71]={
 		lang={
 			English={
 				[1]={
@@ -1250,7 +1304,7 @@ return {
 			[1]="monster_casts_molten_shell_text"
 		}
 	},
-	[69]={
+	[72]={
 		lang={
 			English={
 				[1]={
@@ -1268,7 +1322,7 @@ return {
 			[1]="monster_casts_viper_strike_text"
 		}
 	},
-	[70]={
+	[73]={
 		lang={
 			English={
 				[1]={
@@ -1286,7 +1340,7 @@ return {
 			[1]="monster_casts_elemental_hit_text"
 		}
 	},
-	[71]={
+	[74]={
 		lang={
 			English={
 				[1]={
@@ -1313,7 +1367,7 @@ return {
 			[1]="curse_on_hit_%_vulnerability"
 		}
 	},
-	[72]={
+	[75]={
 		lang={
 			English={
 				[1]={
@@ -1331,7 +1385,7 @@ return {
 			[1]="curse_on_hit_%_temporal_chains"
 		}
 	},
-	[73]={
+	[76]={
 		lang={
 			English={
 				[1]={
@@ -1349,7 +1403,7 @@ return {
 			[1]="base_physical_damage_%_to_convert_to_lightning"
 		}
 	},
-	[74]={
+	[77]={
 		lang={
 			English={
 				[1]={
@@ -1367,7 +1421,7 @@ return {
 			[1]="base_physical_damage_%_to_convert_to_fire"
 		}
 	},
-	[75]={
+	[78]={
 		lang={
 			English={
 				[1]={
@@ -1385,7 +1439,7 @@ return {
 			[1]="base_physical_damage_%_to_convert_to_chaos"
 		}
 	},
-	[76]={
+	[79]={
 		lang={
 			English={
 				[1]={
@@ -1403,7 +1457,7 @@ return {
 			[1]="base_physical_damage_%_to_convert_to_cold"
 		}
 	},
-	[77]={
+	[80]={
 		lang={
 			English={
 				[1]={
@@ -1421,7 +1475,7 @@ return {
 			[1]="monster_gain_frenzy_charge_on_kin_death"
 		}
 	},
-	[78]={
+	[81]={
 		lang={
 			English={
 				[1]={
@@ -1439,7 +1493,7 @@ return {
 			[1]="monster_gain_power_charge_on_kin_death"
 		}
 	},
-	[79]={
+	[82]={
 		lang={
 			English={
 				[1]={
@@ -1457,7 +1511,7 @@ return {
 			[1]="monster_ground_fire_on_death_%_max_damage_to_deal_per_minute"
 		}
 	},
-	[80]={
+	[83]={
 		lang={
 			English={
 				[1]={
@@ -1475,7 +1529,7 @@ return {
 			[1]="monster_ground_ice_on_death_base_area_of_effect_radius"
 		}
 	},
-	[81]={
+	[84]={
 		lang={
 			English={
 				[1]={
@@ -1493,7 +1547,7 @@ return {
 			[1]="monster_ground_tar_on_death_base_area_of_effect_radius"
 		}
 	},
-	[82]={
+	[85]={
 		lang={
 			English={
 				[1]={
@@ -1511,7 +1565,7 @@ return {
 			[1]="monster_caustic_cloud_on_death_%_max_damage_to_deal_per_minute"
 		}
 	},
-	[83]={
+	[86]={
 		lang={
 			English={
 				[1]={
@@ -1547,7 +1601,7 @@ return {
 			[1]="necromancer_additional_rarity_levels_can_be_raised"
 		}
 	},
-	[84]={
+	[87]={
 		lang={
 			English={
 				[1]={
@@ -1565,7 +1619,7 @@ return {
 			[1]="monster_uses_mass_endurance_text"
 		}
 	},
-	[85]={
+	[88]={
 		lang={
 			English={
 				[1]={
@@ -1583,7 +1637,7 @@ return {
 			[1]="monster_uses_mass_power_text"
 		}
 	},
-	[86]={
+	[89]={
 		lang={
 			English={
 				[1]={
@@ -1601,7 +1655,7 @@ return {
 			[1]="monster_uses_shockwave_text"
 		}
 	},
-	[87]={
+	[90]={
 		lang={
 			English={
 				[1]={
@@ -1619,7 +1673,7 @@ return {
 			[1]="combined_base_block_%"
 		}
 	},
-	[88]={
+	[91]={
 		lang={
 			English={
 				[1]={
@@ -1637,7 +1691,7 @@ return {
 			[1]="spell_block_%"
 		}
 	},
-	[89]={
+	[92]={
 		lang={
 			English={
 				[1]={
@@ -1655,7 +1709,7 @@ return {
 			[1]="monster_casts_ethereal_knives_text"
 		}
 	},
-	[90]={
+	[93]={
 		lang={
 			English={
 				[1]={
@@ -1673,7 +1727,7 @@ return {
 			[1]="monster_throws_beartraps_text"
 		}
 	},
-	[91]={
+	[94]={
 		lang={
 			English={
 				[1]={
@@ -1691,7 +1745,7 @@ return {
 			[1]="monster_casts_lightning_thorns_text"
 		}
 	},
-	[92]={
+	[95]={
 		lang={
 			English={
 				[1]={
@@ -1709,7 +1763,7 @@ return {
 			[1]="monster_throws_fire_bombs_text"
 		}
 	},
-	[93]={
+	[96]={
 		lang={
 			English={
 				[1]={
@@ -1727,7 +1781,7 @@ return {
 			[1]="monster_throws_caustic_bombs_text"
 		}
 	},
-	[94]={
+	[97]={
 		lang={
 			English={
 				[1]={
@@ -1745,7 +1799,7 @@ return {
 			[1]="monster_throws_chaos_bombs_text"
 		}
 	},
-	[95]={
+	[98]={
 		lang={
 			English={
 				[1]={
@@ -1763,7 +1817,7 @@ return {
 			[1]="monster_casts_freezing_pulse_text"
 		}
 	},
-	[96]={
+	[99]={
 		lang={
 			English={
 				[1]={
@@ -1781,7 +1835,7 @@ return {
 			[1]="monster_cleaves_text"
 		}
 	},
-	[97]={
+	[100]={
 		lang={
 			English={
 				[1]={
@@ -1799,7 +1853,7 @@ return {
 			[1]="monster_fires_ice_shot_arrows_text"
 		}
 	},
-	[98]={
+	[101]={
 		lang={
 			English={
 				[1]={
@@ -1817,7 +1871,7 @@ return {
 			[1]="monster_casts_conductivity_text"
 		}
 	},
-	[99]={
+	[102]={
 		lang={
 			English={
 				[1]={
@@ -1835,7 +1889,7 @@ return {
 			[1]="monster_casts_flammability_text"
 		}
 	},
-	[100]={
+	[103]={
 		lang={
 			English={
 				[1]={
@@ -1853,7 +1907,7 @@ return {
 			[1]="monster_casts_augmented_fireballs_text"
 		}
 	},
-	[101]={
+	[104]={
 		lang={
 			English={
 				[1]={
@@ -1871,7 +1925,7 @@ return {
 			[1]="monster_channels_lightning_text"
 		}
 	},
-	[102]={
+	[105]={
 		lang={
 			English={
 				[1]={
@@ -1889,7 +1943,7 @@ return {
 			[1]="monster_casts_arc_text"
 		}
 	},
-	[103]={
+	[106]={
 		lang={
 			English={
 				[1]={
@@ -1907,7 +1961,7 @@ return {
 			[1]="monster_raises_zombies_text"
 		}
 	},
-	[104]={
+	[107]={
 		lang={
 			English={
 				[1]={
@@ -1925,7 +1979,7 @@ return {
 			[1]="monster_casts_ice_shield_text"
 		}
 	},
-	[105]={
+	[108]={
 		lang={
 			English={
 				[1]={
@@ -1943,7 +1997,7 @@ return {
 			[1]="monster_casts_unholy_fire_text"
 		}
 	},
-	[106]={
+	[109]={
 		lang={
 			English={
 				[1]={
@@ -1961,7 +2015,7 @@ return {
 			[1]="monster_casts_discharge_text"
 		}
 	},
-	[107]={
+	[110]={
 		lang={
 			English={
 				[1]={
@@ -1979,7 +2033,7 @@ return {
 			[1]="display_summons_water_elementals_text"
 		}
 	},
-	[108]={
+	[111]={
 		lang={
 			English={
 				[1]={
@@ -1997,7 +2051,7 @@ return {
 			[1]="display_monster_uses_double_strike_text"
 		}
 	},
-	[109]={
+	[112]={
 		lang={
 			English={
 				[1]={
@@ -2015,7 +2069,7 @@ return {
 			[1]="display_monster_uses_whirling_blades_text"
 		}
 	},
-	[110]={
+	[113]={
 		lang={
 			English={
 				[1]={
@@ -2033,7 +2087,7 @@ return {
 			[1]="display_monster_casts_lightning_warp_text"
 		}
 	},
-	[111]={
+	[114]={
 		lang={
 			English={
 				[1]={
@@ -2051,7 +2105,7 @@ return {
 			[1]="display_monster_casts_frostbite_text"
 		}
 	},
-	[112]={
+	[115]={
 		lang={
 			English={
 				[1]={
@@ -2078,7 +2132,7 @@ return {
 			[1]="base_avoid_freeze_%"
 		}
 	},
-	[113]={
+	[116]={
 		lang={
 			English={
 				[1]={
@@ -2105,7 +2159,7 @@ return {
 			[1]="base_avoid_chill_%"
 		}
 	},
-	[114]={
+	[117]={
 		lang={
 			English={
 				[1]={
@@ -2132,7 +2186,7 @@ return {
 			[1]="base_avoid_ignite_%"
 		}
 	},
-	[115]={
+	[118]={
 		lang={
 			English={
 				[1]={
@@ -2159,7 +2213,7 @@ return {
 			[1]="base_avoid_shock_%"
 		}
 	},
-	[116]={
+	[119]={
 		lang={
 			English={
 				[1]={
@@ -2177,7 +2231,7 @@ return {
 			[1]="curse_on_hit_%_flammability"
 		}
 	},
-	[117]={
+	[120]={
 		lang={
 			English={
 				[1]={
@@ -2195,7 +2249,7 @@ return {
 			[1]="display_monster_spike_nova_on_death_text"
 		}
 	},
-	[118]={
+	[121]={
 		lang={
 			English={
 				[1]={
@@ -2213,7 +2267,7 @@ return {
 			[1]="display_monster_ice_spear_nova_on_death_text"
 		}
 	},
-	[119]={
+	[122]={
 		lang={
 			English={
 				[1]={
@@ -2231,7 +2285,7 @@ return {
 			[1]="display_monster_uses_far_shot_text"
 		}
 	},
-	[120]={
+	[123]={
 		lang={
 			English={
 				[1]={
@@ -2249,7 +2303,7 @@ return {
 			[1]="display_monster_uses_suppressing_fire_text"
 		}
 	},
-	[121]={
+	[124]={
 		lang={
 			English={
 				[1]={
@@ -2267,7 +2321,7 @@ return {
 			[1]="display_monster_casts_devouring_totem_skill_text"
 		}
 	},
-	[122]={
+	[125]={
 		lang={
 			English={
 				[1]={
@@ -2285,7 +2339,7 @@ return {
 			[1]="display_monster_casts_lightning_nova_text"
 		}
 	},
-	[123]={
+	[126]={
 		lang={
 			English={
 				[1]={
@@ -2303,7 +2357,7 @@ return {
 			[1]="monster_casts_fire_nova_text"
 		}
 	},
-	[124]={
+	[127]={
 		lang={
 			English={
 				[1]={
@@ -2321,7 +2375,7 @@ return {
 			[1]="monster_casts_flask_charge_nova_text"
 		}
 	},
-	[125]={
+	[128]={
 		lang={
 			English={
 				[1]={
@@ -2339,7 +2393,7 @@ return {
 			[1]="monster_casts_bleed_nova_text"
 		}
 	},
-	[126]={
+	[129]={
 		lang={
 			English={
 				[1]={
@@ -2357,7 +2411,7 @@ return {
 			[1]="monster_has_damage_taken_aura_text"
 		}
 	},
-	[127]={
+	[130]={
 		lang={
 			English={
 				[1]={
@@ -2375,7 +2429,7 @@ return {
 			[1]="monster_has_temporal_chains_aura_text"
 		}
 	},
-	[128]={
+	[131]={
 		lang={
 			English={
 				[1]={
@@ -2393,7 +2447,7 @@ return {
 			[1]="monster_has_movement_skill_damage_aura_text"
 		}
 	},
-	[129]={
+	[132]={
 		lang={
 			English={
 				[1]={
@@ -2411,7 +2465,7 @@ return {
 			[1]="display_monster_casts_vaal_detonate_dead_text"
 		}
 	},
-	[130]={
+	[133]={
 		lang={
 			English={
 				[1]={
@@ -2429,7 +2483,7 @@ return {
 			[1]="display_monster_vaal_storm_call"
 		}
 	},
-	[131]={
+	[134]={
 		lang={
 			English={
 				[1]={
@@ -2447,7 +2501,7 @@ return {
 			[1]="display_monster_uses_vaal_burning_arrow"
 		}
 	},
-	[132]={
+	[135]={
 		lang={
 			English={
 				[1]={
@@ -2465,7 +2519,7 @@ return {
 			[1]="monster_casts_glacial_cascade_text"
 		}
 	},
-	[133]={
+	[136]={
 		lang={
 			English={
 				[1]={
@@ -2483,7 +2537,7 @@ return {
 			[1]="monster_enrages_on_low_life_text"
 		}
 	},
-	[134]={
+	[137]={
 		lang={
 			English={
 				[1]={
@@ -2501,7 +2555,7 @@ return {
 			[1]="display_monster_casts_wither"
 		}
 	},
-	[135]={
+	[138]={
 		lang={
 			English={
 				[1]={
@@ -2519,7 +2573,7 @@ return {
 			[1]="display_monster_causes_ground_desecration"
 		}
 	},
-	[136]={
+	[139]={
 		lang={
 			English={
 				[1]={
@@ -2537,7 +2591,7 @@ return {
 			[1]="action_speed_cannot_be_reduced_below_base"
 		}
 	},
-	[137]={
+	[140]={
 		lang={
 			English={
 				[1]={
@@ -2555,7 +2609,7 @@ return {
 			[1]="action_speed_+%_minimum_value"
 		}
 	},
-	[138]={
+	[141]={
 		lang={
 			English={
 				[1]={
@@ -2604,7 +2658,7 @@ return {
 			[2]="base_spell_block_%"
 		}
 	},
-	[139]={
+	[142]={
 		lang={
 			English={
 				[1]={
@@ -2622,7 +2676,7 @@ return {
 			[1]="cannot_have_life_leeched_from"
 		}
 	},
-	[140]={
+	[143]={
 		lang={
 			English={
 				[1]={
@@ -2640,7 +2694,7 @@ return {
 			[1]="display_monster_may_inflict_bleeding"
 		}
 	},
-	[141]={
+	[144]={
 		lang={
 			English={
 				[1]={
@@ -2658,7 +2712,7 @@ return {
 			[1]="display_monster_may_inflict_maim"
 		}
 	},
-	[142]={
+	[145]={
 		lang={
 			English={
 				[1]={
@@ -2676,7 +2730,7 @@ return {
 			[1]="is_blight_chaos_monster"
 		}
 	},
-	[143]={
+	[146]={
 		lang={
 			English={
 				[1]={
@@ -2694,7 +2748,7 @@ return {
 			[1]="is_blight_cold_monster"
 		}
 	},
-	[144]={
+	[147]={
 		lang={
 			English={
 				[1]={
@@ -2712,7 +2766,7 @@ return {
 			[1]="is_blight_fire_monster"
 		}
 	},
-	[145]={
+	[148]={
 		lang={
 			English={
 				[1]={
@@ -2730,7 +2784,7 @@ return {
 			[1]="is_blight_lightning_monster"
 		}
 	},
-	[146]={
+	[149]={
 		lang={
 			English={
 				[1]={
@@ -2748,7 +2802,7 @@ return {
 			[1]="is_blight_physical_monster"
 		}
 	},
-	[147]={
+	[150]={
 		lang={
 			English={
 				[1]={
@@ -2766,152 +2820,155 @@ return {
 			[1]="trigger_charge_additional_block_chance_against_projectiles_%"
 		}
 	},
-	["accuracy_rating_+%"]=13,
-	["action_speed_+%_minimum_value"]=137,
-	["action_speed_cannot_be_reduced_below_base"]=136,
-	["add_endurance_charge_on_skill_hit_%"]=24,
-	["add_frenzy_charge_on_skill_hit_%"]=25,
-	["add_power_charge_on_skill_hit_%"]=26,
-	["attack_speed_+%"]=10,
-	["base_avoid_chill_%"]=113,
-	["base_avoid_freeze_%"]=112,
-	["base_avoid_ignite_%"]=114,
-	["base_avoid_shock_%"]=115,
-	["base_cannot_be_stunned"]=15,
+	["accuracy_rating_+%"]=16,
+	["action_speed_+%_minimum_value"]=140,
+	["action_speed_cannot_be_reduced_below_base"]=139,
+	["add_endurance_charge_on_skill_hit_%"]=27,
+	["add_frenzy_charge_on_skill_hit_%"]=28,
+	["add_power_charge_on_skill_hit_%"]=29,
+	["attack_speed_+%"]=12,
+	["base_additional_physical_damage_reduction_%"]=7,
+	["base_avoid_chill_%"]=116,
+	["base_avoid_freeze_%"]=115,
+	["base_avoid_ignite_%"]=117,
+	["base_avoid_shock_%"]=118,
+	["base_cannot_be_stunned"]=18,
+	["base_cast_speed_+%"]=13,
 	["base_movement_velocity_+%"]=5,
-	["base_physical_damage_%_to_convert_to_chaos"]=75,
-	["base_physical_damage_%_to_convert_to_cold"]=76,
-	["base_physical_damage_%_to_convert_to_fire"]=74,
-	["base_physical_damage_%_to_convert_to_lightning"]=73,
-	["base_spell_block_%"]=138,
-	["cannot_have_life_leeched_from"]=139,
-	["combined_base_block_%"]=87,
-	["critical_strike_chance_+%"]=18,
-	["curse_on_hit_%_flammability"]=116,
-	["curse_on_hit_%_temporal_chains"]=72,
-	["curse_on_hit_%_vulnerability"]=71,
-	["damage_+%"]=8,
-	["display_monster_casts_devouring_totem_skill_text"]=121,
-	["display_monster_casts_frostbite_text"]=111,
-	["display_monster_casts_lightning_nova_text"]=122,
-	["display_monster_casts_lightning_warp_text"]=110,
-	["display_monster_casts_vaal_detonate_dead_text"]=129,
-	["display_monster_casts_wither"]=134,
-	["display_monster_causes_ground_desecration"]=135,
-	["display_monster_ice_spear_nova_on_death_text"]=118,
-	["display_monster_may_inflict_bleeding"]=140,
-	["display_monster_may_inflict_maim"]=141,
-	["display_monster_spike_nova_on_death_text"]=117,
-	["display_monster_uses_double_strike_text"]=108,
-	["display_monster_uses_far_shot_text"]=119,
-	["display_monster_uses_suppressing_fire_text"]=120,
-	["display_monster_uses_vaal_burning_arrow"]=131,
-	["display_monster_uses_whirling_blades_text"]=109,
-	["display_monster_vaal_storm_call"]=130,
-	["display_monster_wealth_mod"]=16,
-	["display_summons_water_elementals_text"]=107,
-	["evasion_rating_+%"]=14,
-	["gain_frenzy_charge_for_each_quarter_life_removed"]=22,
-	["gain_power_charge_for_each_quarter_life_removed"]=23,
-	["hexproof"]=20,
-	["immune_to_curses"]=19,
-	["is_blight_chaos_monster"]=142,
-	["is_blight_cold_monster"]=143,
-	["is_blight_fire_monster"]=144,
-	["is_blight_lightning_monster"]=145,
-	["is_blight_physical_monster"]=146,
-	["life_leech_from_physical_attack_damage_permyriad"]=9,
-	["life_regeneration_rate_per_minute_%"]=11,
-	["maximum_energy_shield_+%"]=12,
+	["base_physical_damage_%_to_convert_to_chaos"]=78,
+	["base_physical_damage_%_to_convert_to_cold"]=79,
+	["base_physical_damage_%_to_convert_to_fire"]=77,
+	["base_physical_damage_%_to_convert_to_lightning"]=76,
+	["base_spell_block_%"]=141,
+	["cannot_have_life_leeched_from"]=142,
+	["combined_base_block_%"]=90,
+	["critical_strike_chance_+%"]=21,
+	["curse_on_hit_%_flammability"]=119,
+	["curse_on_hit_%_temporal_chains"]=75,
+	["curse_on_hit_%_vulnerability"]=74,
+	["damage_+%"]=9,
+	["display_monster_casts_devouring_totem_skill_text"]=124,
+	["display_monster_casts_frostbite_text"]=114,
+	["display_monster_casts_lightning_nova_text"]=125,
+	["display_monster_casts_lightning_warp_text"]=113,
+	["display_monster_casts_vaal_detonate_dead_text"]=132,
+	["display_monster_casts_wither"]=137,
+	["display_monster_causes_ground_desecration"]=138,
+	["display_monster_ice_spear_nova_on_death_text"]=121,
+	["display_monster_may_inflict_bleeding"]=143,
+	["display_monster_may_inflict_maim"]=144,
+	["display_monster_spike_nova_on_death_text"]=120,
+	["display_monster_uses_double_strike_text"]=111,
+	["display_monster_uses_far_shot_text"]=122,
+	["display_monster_uses_suppressing_fire_text"]=123,
+	["display_monster_uses_vaal_burning_arrow"]=134,
+	["display_monster_uses_whirling_blades_text"]=112,
+	["display_monster_vaal_storm_call"]=133,
+	["display_monster_wealth_mod"]=19,
+	["display_summons_water_elementals_text"]=110,
+	["evasion_rating_+%"]=17,
+	["gain_frenzy_charge_for_each_quarter_life_removed"]=25,
+	["gain_power_charge_for_each_quarter_life_removed"]=26,
+	["hexproof"]=23,
+	["immune_to_curses"]=22,
+	["is_blight_chaos_monster"]=145,
+	["is_blight_cold_monster"]=146,
+	["is_blight_fire_monster"]=147,
+	["is_blight_lightning_monster"]=148,
+	["is_blight_physical_monster"]=149,
+	["life_leech_from_physical_attack_damage_permyriad"]=11,
+	["life_regeneration_rate_per_minute_%"]=14,
+	["maximum_energy_shield_+%"]=15,
 	["maximum_life_+%"]=6,
-	["monster_base_block_%"]=138,
-	["monster_casts_arc_text"]=102,
-	["monster_casts_arctic_breath_text"]=28,
-	["monster_casts_assassins_mark_curse_text"]=32,
-	["monster_casts_augmented_fireballs_text"]=100,
-	["monster_casts_bleed_nova_text"]=125,
-	["monster_casts_coldsnap_text"]=31,
-	["monster_casts_conductivity_text"]=98,
-	["monster_casts_discharge_text"]=106,
-	["monster_casts_elemental_hit_text"]=70,
-	["monster_casts_elementral_weakness_curse_text"]=33,
-	["monster_casts_enfeeble_curse_text"]=34,
-	["monster_casts_ethereal_knives_text"]=89,
-	["monster_casts_fire_nova_text"]=123,
-	["monster_casts_fireball_text"]=35,
-	["monster_casts_firestorm_text"]=29,
-	["monster_casts_flammability_text"]=99,
-	["monster_casts_flask_charge_nova_text"]=124,
-	["monster_casts_freezing_pulse_text"]=95,
-	["monster_casts_frenzy_text"]=67,
-	["monster_casts_glacial_cascade_text"]=132,
-	["monster_casts_ice_nova_text"]=36,
-	["monster_casts_ice_shield_text"]=104,
-	["monster_casts_ice_spear_text"]=37,
-	["monster_casts_lightning_thorns_text"]=91,
-	["monster_casts_mass_frenzy_text"]=65,
-	["monster_casts_molten_shell_text"]=68,
-	["monster_casts_projectile_vulnerability_curse_text"]=38,
-	["monster_casts_puncture_text"]=30,
-	["monster_casts_shield_charge_text"]=64,
-	["monster_casts_shock_nova_text"]=39,
-	["monster_casts_spark_text"]=40,
-	["monster_casts_temporal_chains_text"]=66,
-	["monster_casts_unholy_fire_text"]=105,
-	["monster_casts_viper_strike_text"]=69,
-	["monster_casts_vulnerability_curse_text"]=41,
-	["monster_casts_warlords_mark_curse_text"]=42,
-	["monster_caustic_cloud_on_death_%_max_damage_to_deal_per_minute"]=82,
-	["monster_channels_lightning_text"]=101,
-	["monster_cleaves_text"]=96,
-	["monster_detonates_corpses_text"]=43,
-	["monster_enrages_on_low_life_text"]=133,
-	["monster_explodes_on_death_text"]=45,
-	["monster_explodes_on_its_target_text"]=44,
-	["monster_fires_a_rain_of_arrows_text"]=46,
-	["monster_fires_burning_arrows_text"]=47,
-	["monster_fires_caustic_arrows_text"]=50,
-	["monster_fires_explosive_arrows_text"]=48,
-	["monster_fires_ice_shot_arrows_text"]=97,
-	["monster_fires_lightning_arrows_text"]=49,
-	["monster_fires_split_arrows_text"]=51,
-	["monster_gain_frenzy_charge_on_kin_death"]=77,
-	["monster_gain_power_charge_on_kin_death"]=78,
-	["monster_grants_frenzy_charges_to_allies_within_distance_on_death"]=21,
-	["monster_ground_fire_on_death_%_max_damage_to_deal_per_minute"]=79,
-	["monster_ground_ice_on_death_base_area_of_effect_radius"]=80,
-	["monster_ground_tar_on_death_base_area_of_effect_radius"]=81,
-	["monster_has_damage_taken_aura_text"]=126,
-	["monster_has_movement_skill_damage_aura_text"]=128,
-	["monster_has_temporal_chains_aura_text"]=127,
-	["monster_leaps_onto_enemies_text"]=52,
-	["monster_raises_undead_text"]=53,
-	["monster_raises_zombies_text"]=103,
-	["monster_summons_exploding_spawn_text"]=54,
-	["monster_summons_monkeys_from_nearby_trees_text"]=55,
-	["monster_summons_skeletons_text"]=56,
-	["monster_summons_spawn_text"]=57,
-	["monster_throws_beartraps_text"]=90,
-	["monster_throws_caustic_bombs_text"]=93,
-	["monster_throws_chaos_bombs_text"]=94,
-	["monster_throws_fire_bombs_text"]=92,
-	["monster_uses_enduring_cry_text"]=58,
-	["monster_uses_flicker_strike_text"]=59,
-	["monster_uses_glacial_hammer_text"]=60,
-	["monster_uses_ground_slam_text"]=61,
-	["monster_uses_lightning_strike_text"]=62,
-	["monster_uses_mass_endurance_text"]=84,
-	["monster_uses_mass_power_text"]=85,
-	["monster_uses_phase_run_text"]=63,
-	["monster_uses_shockwave_text"]=86,
-	["necromancer_additional_rarity_levels_can_be_raised"]=83,
-	["number_of_additional_projectiles"]=17,
+	["monster_base_block_%"]=141,
+	["monster_casts_arc_text"]=105,
+	["monster_casts_arctic_breath_text"]=31,
+	["monster_casts_assassins_mark_curse_text"]=35,
+	["monster_casts_augmented_fireballs_text"]=103,
+	["monster_casts_bleed_nova_text"]=128,
+	["monster_casts_coldsnap_text"]=34,
+	["monster_casts_conductivity_text"]=101,
+	["monster_casts_discharge_text"]=109,
+	["monster_casts_elemental_hit_text"]=73,
+	["monster_casts_elementral_weakness_curse_text"]=36,
+	["monster_casts_enfeeble_curse_text"]=37,
+	["monster_casts_ethereal_knives_text"]=92,
+	["monster_casts_fire_nova_text"]=126,
+	["monster_casts_fireball_text"]=38,
+	["monster_casts_firestorm_text"]=32,
+	["monster_casts_flammability_text"]=102,
+	["monster_casts_flask_charge_nova_text"]=127,
+	["monster_casts_freezing_pulse_text"]=98,
+	["monster_casts_frenzy_text"]=70,
+	["monster_casts_glacial_cascade_text"]=135,
+	["monster_casts_ice_nova_text"]=39,
+	["monster_casts_ice_shield_text"]=107,
+	["monster_casts_ice_spear_text"]=40,
+	["monster_casts_lightning_thorns_text"]=94,
+	["monster_casts_mass_frenzy_text"]=68,
+	["monster_casts_molten_shell_text"]=71,
+	["monster_casts_projectile_vulnerability_curse_text"]=41,
+	["monster_casts_puncture_text"]=33,
+	["monster_casts_shield_charge_text"]=67,
+	["monster_casts_shock_nova_text"]=42,
+	["monster_casts_spark_text"]=43,
+	["monster_casts_temporal_chains_text"]=69,
+	["monster_casts_unholy_fire_text"]=108,
+	["monster_casts_viper_strike_text"]=72,
+	["monster_casts_vulnerability_curse_text"]=44,
+	["monster_casts_warlords_mark_curse_text"]=45,
+	["monster_caustic_cloud_on_death_%_max_damage_to_deal_per_minute"]=85,
+	["monster_channels_lightning_text"]=104,
+	["monster_cleaves_text"]=99,
+	["monster_detonates_corpses_text"]=46,
+	["monster_enrages_on_low_life_text"]=136,
+	["monster_explodes_on_death_text"]=48,
+	["monster_explodes_on_its_target_text"]=47,
+	["monster_fires_a_rain_of_arrows_text"]=49,
+	["monster_fires_burning_arrows_text"]=50,
+	["monster_fires_caustic_arrows_text"]=53,
+	["monster_fires_explosive_arrows_text"]=51,
+	["monster_fires_ice_shot_arrows_text"]=100,
+	["monster_fires_lightning_arrows_text"]=52,
+	["monster_fires_split_arrows_text"]=54,
+	["monster_gain_frenzy_charge_on_kin_death"]=80,
+	["monster_gain_power_charge_on_kin_death"]=81,
+	["monster_grants_frenzy_charges_to_allies_within_distance_on_death"]=24,
+	["monster_ground_fire_on_death_%_max_damage_to_deal_per_minute"]=82,
+	["monster_ground_ice_on_death_base_area_of_effect_radius"]=83,
+	["monster_ground_tar_on_death_base_area_of_effect_radius"]=84,
+	["monster_has_damage_taken_aura_text"]=129,
+	["monster_has_movement_skill_damage_aura_text"]=131,
+	["monster_has_temporal_chains_aura_text"]=130,
+	["monster_leaps_onto_enemies_text"]=55,
+	["monster_raises_undead_text"]=56,
+	["monster_raises_zombies_text"]=106,
+	["monster_summons_exploding_spawn_text"]=57,
+	["monster_summons_monkeys_from_nearby_trees_text"]=58,
+	["monster_summons_skeletons_text"]=59,
+	["monster_summons_spawn_text"]=60,
+	["monster_throws_beartraps_text"]=93,
+	["monster_throws_caustic_bombs_text"]=96,
+	["monster_throws_chaos_bombs_text"]=97,
+	["monster_throws_fire_bombs_text"]=95,
+	["monster_uses_enduring_cry_text"]=61,
+	["monster_uses_flicker_strike_text"]=62,
+	["monster_uses_glacial_hammer_text"]=63,
+	["monster_uses_ground_slam_text"]=64,
+	["monster_uses_lightning_strike_text"]=65,
+	["monster_uses_mass_endurance_text"]=87,
+	["monster_uses_mass_power_text"]=88,
+	["monster_uses_phase_run_text"]=66,
+	["monster_uses_shockwave_text"]=89,
+	["necromancer_additional_rarity_levels_can_be_raised"]=86,
+	["number_of_additional_projectiles"]=20,
 	["physical_damage_%_to_add_as_chaos"]=4,
 	["physical_damage_%_to_add_as_cold"]=3,
 	["physical_damage_%_to_add_as_fire"]=1,
 	["physical_damage_%_to_add_as_lightning"]=2,
-	["physical_damage_reduction_rating_+%"]=7,
-	["spell_block_%"]=88,
-	["trigger_charge_additional_block_chance_against_projectiles_%"]=147,
-	["undead_description"]=27
+	["physical_damage_reduction_rating_+%"]=8,
+	["spell_block_%"]=91,
+	["spell_damage_+%"]=10,
+	["trigger_charge_additional_block_chance_against_projectiles_%"]=150,
+	["undead_description"]=30
 }

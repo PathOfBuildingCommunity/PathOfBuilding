@@ -415,11 +415,11 @@ minions["UniqueAnimatedWeapon"] = {
 	damage = 0,
 	damageSpread = 0,
 	attackTime = 1,
-	attackRange = 60,
+	attackRange = 105,
 	accuracy = 3.4,
 	skillList = {
 		"Melee",
-		"DancingDervishCyclone",
+		"DancingDervishCycloneChannelled",
 	},
 	modList = {
 		-- UniqueAnimateWeaponAura [disable_weapons = 1]
@@ -618,8 +618,8 @@ minions["SnakeSpitUniqueSummoned"] = {
 		"SummonedSnakeProjectile",
 	},
 	modList = {
-		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
 		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
+		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
 	},
 }
 

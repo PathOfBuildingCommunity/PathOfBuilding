@@ -6753,7 +6753,7 @@ return {
 							[2]=99
 						}
 					},
-					text="{0}% chance to gain a Rampage Kill when Minion hits a Unique Enemy"
+					text="{0}% chance to gain a Rampage Kill when Minions Hit a Unique Enemy"
 				},
 				[2]={
 					limit={
@@ -6762,7 +6762,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Gain a Rampage Kill when Minion hits a Unique Enemy"
+					text="Gain a Rampage Kill when Minions Hit a Unique Enemy"
 				}
 			}
 		},
