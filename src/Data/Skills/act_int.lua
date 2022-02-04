@@ -4561,6 +4561,15 @@ skills["FrostGlobe"] = {
 			mod("EnergyShieldDegen", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "FrostShieldStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
 			div = 60,
 		},
+		["frost_globe_absorb_damage_%_enemy_in_bubble"] = {
+			mod("FrostGlobeDamageMitigation", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "EnemyInFrostGlobe" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+		},
+		["frost_globe_absorb_damage_%_enemy_outside_bubble"] = {
+			mod("FrostGlobeDamageMitigation", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "EnemyInFrostGlobe", neg = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+		},
+		["frost_globe_health_per_stage"] = {
+			mod("FrostGlobeHealth", "BASE", nil, 0, 0, { type = "Multiplier", var = "FrostShieldStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
