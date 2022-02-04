@@ -4928,6 +4928,12 @@ skills["PetrifiedBlood"] = {
 		["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"] = {
 			mod("ManaCostAsLifeCost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type="Condition", var="LowLife", neg = true }),
 		},
+		["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"] = {
+			mod("LifeLossBelowHalfPrevented", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["petrified_blood_%_prevented_life_loss_to_lose_over_time"] = {
+			mod("LifeLossBelowHalfLost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 	baseFlags = {
 	},

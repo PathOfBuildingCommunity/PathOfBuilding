@@ -1168,6 +1168,31 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+	
+	-- Prevented life loss (Petrified Blood)
+	do
+		output["preventedLifeLoss"] = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented")
+		local portionLife = 1
+		if not modDB:Flag(nil, "Condition:LowLife") then
+			--portion of life that is lowlife
+			portionLife = m_min(output.Life * data.misc.LowPoolThreshold / output.LifeUnreserved, 1)
+			output["preventedLifeLoss"] = output["preventedLifeLoss"] * portionLife
+		end
+		if breakdown then
+			breakdown["preventedLifeLoss"] = {
+				s_format("Total life protected:"),
+			}
+			if portionLife ~= 1 then
+				t_insert(breakdown["preventedLifeLoss"], s_format("%.2f ^8(inital portion taken from petrified blood)", output["preventedLifeLoss"] / portionLife / 100))
+				t_insert(breakdown["preventedLifeLoss"], s_format("* %.2f ^8(portion of life on low life)", portionLife))
+				t_insert(breakdown["preventedLifeLoss"], s_format("= %.2f ^8(final portion taken from petrified blood)", output["preventedLifeLoss"] / 100))
+				t_insert(breakdown["preventedLifeLoss"], s_format(""))
+			else
+				t_insert(breakdown["preventedLifeLoss"], s_format("%.2f ^8(portion taken from petrified blood)", output["preventedLifeLoss"] / 100))
+			end
+			t_insert(breakdown["preventedLifeLoss"], s_format("%.2f ^8(portion taken from life)", 1 - output["preventedLifeLoss"] / 100))
+		end
+	end
 
 	-- Energy Shield bypass
 	output.AnyBypass = false
@@ -1394,6 +1419,7 @@ function calcs.defence(env, actor)
 				DamageIn[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] or 0
 			end
 		end
+		DamageIn["LifeLossBelowHalfLost"] = DamageIn["LifeLossBelowHalfLost"] or 0
 		
 		local itterationMultiplier = 1
 		local maxHits = 10000 --arbitrary number needs to be moved to data.misc
@@ -1456,6 +1482,12 @@ function calcs.defence(env, actor)
 							mana = mana - tempDamage
 							Damage[damageType] = Damage[damageType] - tempDamage
 						end
+					end
+					if output.preventedLifeLoss > 0 then
+						if DamageIn["LifeLossBelowHalfLost"] > 0 then
+							output["LifeLossBelowHalfLost"] = output["LifeLossBelowHalfLost"] + Damage[damageType] * output.preventedLifeLoss / 100
+						end
+						Damage[damageType] = Damage[damageType] * (1 - output.preventedLifeLoss / 100)
 					end
 					life = life - Damage[damageType]
 				end
@@ -1567,6 +1599,11 @@ function calcs.defence(env, actor)
 			averageAvoidChance = averageAvoidChance + AvoidChance
 			DamageIn[damageType] = output[damageType.."TakenHit"] * (blockEffect * suppressionEffect * (1 - AvoidChance / 100))
 		end
+		--petrified blood degen initialisation
+		if output["preventedLifeLoss"] > 0 then
+			output["LifeLossBelowHalfLost"] = 0
+			DamageIn["LifeLossBelowHalfLost"] = modDB:Sum("BASE", nil, "LifeLossBelowHalfLost") / 100
+		end
 		output["NumberOfMitigatedDamagingHits"] = numberOfHitsToDie(DamageIn)
 		averageAvoidChance = averageAvoidChance / 5
 		output["ConfiguredDamageChance"] = 100 * (blockEffect * suppressionEffect * (1 - averageAvoidChance / 100))
@@ -1650,6 +1687,28 @@ function calcs.defence(env, actor)
 				s_format("= %.2f seconds ^8(total time it would take to die)", output["EHPsurvivalTime"]),
 			}
 		end
+	end
+	
+	--petrified blood "degen"
+	if output.preventedLifeLoss > 0 then
+		local LifeLossBelowHalfLost = modDB:Sum("BASE", nil, "LifeLossBelowHalfLost") / 100
+		output["LifeLossBelowHalfLostMax"] = output["LifeLossBelowHalfLost"] * LifeLossBelowHalfLost / 4
+		output["LifeLossBelowHalfLostAvg"] = output["LifeLossBelowHalfLost"] * LifeLossBelowHalfLost / (output["EHPsurvivalTime"] + 4)
+		if breakdown then
+			breakdown["LifeLossBelowHalfLostMax"] = {
+				s_format("%d ^8(total damage prevented by petrified blood)", output["LifeLossBelowHalfLost"]),
+				s_format("* %.2f ^8(percent of damage taken)", LifeLossBelowHalfLost),
+				s_format("/ %.2f ^8(over 4 seconds)", 4),
+				s_format("= %.2f per second", output["LifeLossBelowHalfLostMax"]),
+			}
+			breakdown["LifeLossBelowHalfLostAvg"] = {
+				s_format("%d ^8(total damage prevented by petrified blood)", output["LifeLossBelowHalfLost"]),
+				s_format("* %.2f ^8(percent of damage taken)", LifeLossBelowHalfLost),
+				s_format("/ %.2f ^8(total time of the degen (survival time + 4))", (output["EHPsurvivalTime"] + 4)),
+				s_format("= %.2f per second", output["LifeLossBelowHalfLostAvg"]),
+			}
+		end
+		
 	end
 
 	--effective health pool vs dots
@@ -1803,7 +1862,11 @@ function calcs.defence(env, actor)
 	-- this is not done yet, using old max hit taken
 	--fix total pools, as they arnt used anymore
 	for _, damageType in ipairs(dmgTypeList) do
-		--base + aegis
+		--base + petrified blood
+		if output["preventedLifeLoss"] > 0 then
+			output[damageType.."TotalPool"] =  output[damageType.."TotalPool"] / (1 - output["preventedLifeLoss"] / 100)
+		end
+		--aegis
 		output[damageType.."TotalHitPool"] = output[damageType.."TotalPool"] + output[damageType.."Aegis"] or 0 + output[damageType.."sharedAegis"] or 0 + isElemental[damageType] and output[damageType.."sharedElementalAegis"] or 0
 		--guardskill
 		local GuardAbsorbRate = output["sharedGuardAbsorbRate"] or 0 + output[damageType.."GuardAbsorbRate"] or 0
