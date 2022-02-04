@@ -622,7 +622,7 @@ function main:OpenOptionsPopup()
 		self.connectionProtocol = value.protocol
 	end)
 	controls.connectionProtocolLabel = new("LabelControl", { "RIGHT", controls.connectionProtocol, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Connection Protocol:")
-	controls.connectionProtocol.tooltipText = "Changes what protocol is used when downloading updates and importing builds."
+	controls.connectionProtocol.tooltipText = "Changes which protocol is used when downloading updates and importing builds."
 	controls.connectionProtocol:SelByValue(launch.connectionProtocol, "protocol")
 
 	nextRow()
