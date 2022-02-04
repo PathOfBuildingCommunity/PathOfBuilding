@@ -230,6 +230,16 @@ function GemSelectClass:UpdateSortCache()
 			end
 		end
 	end
+	for _, entry in ipairs(self.skillsTab.fromItemList) do
+		local activeSkill = entry.activeSkill
+		if activeSkill and entry.socketGroup.slot == self.skillsTab.displayGroup.slot then
+			for gemId, gemData in pairs(self.gems) do
+				if gemData.grantedEffect.support and calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
+					sortCache.canSupport[gemId] = true
+				end
+			end
+		end
+	end
 	local dpsField = self.skillsTab.sortGemsByDPSField
 	GlobalCache.useFullDPS = dpsField == "FullDPS"
 	local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
@@ -390,11 +400,25 @@ function GemSelectClass:Draw(viewPort)
 			DrawString(0, y, "LEFT", height - 4, "VAR", gemText)
 			if gemData then
 				if gemData.grantedEffect.support and self.skillsTab.displayGroup.displaySkillList then
+					local found = nil
 					for _, activeSkill in ipairs(self.skillsTab.displayGroup.displaySkillList) do
 						if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
 							SetDrawColor(self.sortCache.dpsColor[gemId])
 							main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
+							found = true
 							break
+						end
+					end
+					if not found then
+						for _, entry in ipairs(self.skillsTab.fromItemList) do
+							local activeSkill = entry.activeSkill
+							if activeSkill and entry.socketGroup.slot == self.skillsTab.displayGroup.slot then
+								if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
+									SetDrawColor(self.sortCache.dpsColor[gemId])
+									main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
+									break
+								end
+							end
 						end
 					end
 				elseif gemData.grantedEffect.hasGlobalEffect then

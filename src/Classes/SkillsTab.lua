@@ -58,6 +58,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.build = build
 
 	self.socketGroupList = { }
+	self.fromItemList = { }
 
 	self.sortGemsByDPS = true
 	self.sortGemsByDPSField = "CombinedDPS"
@@ -1086,6 +1087,13 @@ function SkillsTabClass:CreateUndoState()
 		end
 		t_insert(state.socketGroupList, newGroup)
 	end
+	state.fromItemList = { }
+	for _, entry in ipairs(self.fromItemList) do
+		local newEntry = { }
+		newEntry.gem = copyTable(entry.gem, true)
+		newEntry.socketGroup = copyTable(entry.socketGroup, true)
+		t_insert(state.fromItemList, newEntry)
+	end
 	return state
 end
 
@@ -1094,6 +1102,10 @@ function SkillsTabClass:RestoreUndoState(state)
 	wipeTable(self.socketGroupList)
 	for k, v in pairs(state.socketGroupList) do
 		self.socketGroupList[k] = v
+	end
+	wipeTable(self.fromItemList)
+	for _, entry in ipairs(state.fromItemList) do
+		t_insert(self.fromItemList, entry)
 	end
 	self:SetDisplayGroup(displayId and self.socketGroupList[displayId])
 	if self.controls.groupList.selValue then

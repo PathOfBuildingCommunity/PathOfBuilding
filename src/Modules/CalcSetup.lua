@@ -879,6 +879,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				t_insert(indexOrder, index)
 			end
 		end
+		local phantomGem = nil
 		local crossLinkedSupportList = { }
 		for _, index in ipairs(indexOrder) do
 			socketGroup = build.skillsTab.socketGroupList[index]
@@ -996,6 +997,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 						else
 							processGrantedEffect(gemInstance.grantedEffect)
 						end
+						if gemInstance.grantedEffect and gemInstance.grantedEffect.fromItem and not gemInstance.grantedEffect.support then
+							phantomGem = { gem = gemInstance, socketGroup = socketGroup }
+						end
 						-- Store extra supports for other items that are linked
 						for _, value in ipairs(env.modDB:List(groupCfg, "LinkedSupport")) do
 							crossLinkedSupportList[value.targetSlotName] = { }
@@ -1062,6 +1066,52 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				end
 
+				for _, entry in ipairs(build.skillsTab.fromItemList) do
+					local gemInstance = entry.gem
+					if gemInstance.enabled and (gemInstance.gemData or gemInstance.grantedEffect) then
+						local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
+						for index, grantedEffect in ipairs(grantedEffectList) do
+							if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
+								local activeEffect = {
+									grantedEffect = grantedEffect,
+									level = gemInstance.level,
+									quality = gemInstance.quality,
+									qualityId = gemInstance.qualityId,
+									srcInstance = gemInstance,
+									gemData = gemInstance.gemData,
+								}
+								if gemInstance.gemData then
+									for _, value in ipairs(propertyModList) do
+										local match = false
+										if value.keywordList then
+											match = true
+											for _, keyword in ipairs(value.keywordList) do
+												if not calcLib.gemIsType(activeEffect.gemData, keyword) then
+													match = false
+													break
+												end
+											end
+										else
+											match = calcLib.gemIsType(activeEffect.gemData, value.keyword)
+										end
+										if match then
+											activeEffect[value.key] = (activeEffect[value.key] or 0) + value.value
+										end
+									end
+								end
+								if env.mode == "MAIN" then
+									gemInstance.displayEffect = activeEffect
+								end
+								local activeSkill = calcs.createActiveSkill(activeEffect, supportList, env.player, socketGroup)
+								if gemInstance.gemData then
+									activeSkill.slotName = groupCfg.slotName
+								end
+								entry.activeSkill = activeSkill
+							end
+						end
+					end
+				end
+
 				if index == env.mainSocketGroup and #socketGroupSkillList > 0 then
 					-- Select the main skill from this socket group
 					local activeSkillIndex
@@ -1089,6 +1139,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 						if grantedEffect and not grantedEffect.support and gemInstance.enabled then
 							socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. grantedEffect.name
 						end
+					end
+					if phantomGem and socketGroup.slot == phantomGem.socketGroup.slot and not socketGroup.sourceItem then
+						local gemInstance = phantomGem.gem
+						local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
+						if grantedEffect and not grantedEffect.support then
+							socketGroup.displayLabel = (socketGroup.displayLabel and socketGroup.displayLabel..", " or "") .. grantedEffect.name .. " Linked"
+						end
+						t_insert(build.skillsTab.fromItemList, phantomGem)
 					end
 					socketGroup.displayLabel = socketGroup.displayLabel or "<No active skills>"
 				end
