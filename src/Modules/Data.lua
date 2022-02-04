@@ -376,6 +376,7 @@ data.misc = { -- magic numbers
 	LowPoolThreshold = 0.5,
 	AccuracyPerDexBase = 2,
 	BrandAttachmentRangeBase = 30,
+	ProjectileDistanceCap = 150,
 }
 
 -- Misc data tables

@@ -550,11 +550,161 @@ skills["BallLightning"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	parts = {
+		{
+			name = "One Bolt",
+		},
+		{
+			name = "All Bolts in Range",
+		}
+	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillCfg = activeSkill.skillCfg
+		local skillData = activeSkill.skillData
+		local skillFlags = activeSkill.skillFlags
+		local skillModList = activeSkill.skillModList
+		local t_insert = table.insert
+		local s_format = string.format
+
+		local superchance = (skillModList:Sum("BASE", skillCfg, "ball_lightning_superball_%_chance") or 0) / 100
+		output.SuperchargePct = superchance * 100
+		local dpsMultiplier = 0
+		if activeSkill.skillPart == 1 then
+			-- Compute DPS changes as if we get exactly 1 strike per ball.
+			if superchance > 0 then
+				dpsMultiplier = 1 + 0.5 * superchance
+				if breakdown then
+					local breakdownDpsMult = {}
+					t_insert(breakdownDpsMult, "Average DPS multiplier")
+					t_insert(breakdownDpsMult, s_format("^8= 1 * (^7super chance^8) + 1.5 * (1 - ^7super chance^8)"))
+					t_insert(breakdownDpsMult, s_format("^8= 1 * ^7%d%%^8 + 1.5 * ^7%d%%^8", superchance * 100, 100 - superchance * 100))
+					t_insert(breakdownDpsMult, s_format("^7= ^7%.3f", dpsMultiplier))
+					breakdown.SkillDPSMultiplier = breakdownDpsMult
+				end
+			else
+				dpsMultiplier = 1
+			end
+		elseif activeSkill.skillPart == 2 then
+			-- Compute DPS changes accounting for all strikes in range.
+
+			-- What's the bolt strike proc rate? Note that the interval is not
+			-- considered to be a cooldown, so it is unaffected by CDR mods.
+			local secsPerStrike = skillData.strikeInterval
+			-- How many total bolt strikes proc per ball, ignoring whether the
+			-- enemy is in range? We assume that the first strike is at the end
+			-- of the first interval, based on Kitava self-poison testing (no
+			-- recorded examples of getting 14 self poison stacks with multiple
+			-- people testing).
+			local durationSecs = skillData.duration
+			local maxStrikes = math.floor(durationSecs / secsPerStrike)
+			-- How fast does the ball travel?
+			local baseBallDistPerSec = skillData.projectileSpeed
+			local incSpeedMult, moreSpeedMult = calcLib.mods(skillModList, skillCfg, "ProjectileSpeed")
+			local netSpeedMult = incSpeedMult * moreSpeedMult
+			local ballDistPerSec = baseBallDistPerSec * netSpeedMult
+			local ballDistPerStrike = ballDistPerSec * secsPerStrike
+			-- How many times does the ball proc a bolt strike while it is in
+			-- range of the enemy?
+			for isSuperballAsInt = 0, 1 do
+				local isSuperball = isSuperballAsInt > 0
+				if isSuperball and superchance == 0 then
+					break
+				end
+				local enemyRadius = 0 -- for now, we will be conservative and assume no enemy radius
+				local baseStrikeRadius = output.AreaOfEffectRadius
+				local strikeRadius = baseStrikeRadius
+				if isSuperball then
+					strikeRadius = round(strikeRadius * math.sqrt(1.5))
+				end
+				local castDist = 0
+				if skillCfg.skillDist then
+					-- Advanced users can specify exactly the standoff distance
+					-- they'll use against single-target bosses.
+					castDist = skillCfg.skillDist
+				elseif skillFlags.triggered then
+					-- Cyclone is the most common trigger skill, and players who
+					-- aren't min-maxing their playstyle will tend to just
+					-- cyclone back and forth across the boss instead of
+					-- hovering at the optimal range. For simplicity, let's
+					-- assume they tend to be an average of 1 normal bolt strike
+					-- radius away as they do this.
+					castDist = math.floor(baseStrikeRadius / 2)
+				else
+					-- Be nice and assume hand-casters are at the optimal
+					-- distance for normal bolt strikes.
+					castDist = baseStrikeRadius
+				end
+				local firstStrikeIdxThatHits =
+					math.max(1,  -- 1 not 0 here: strike seems to happen at the end of the interval, not start
+						     math.ceil((castDist - strikeRadius) / ballDistPerStrike))
+				local lastStrikeIdxThatHits = math.floor(math.min(data.misc.ProjectileDistanceCap, castDist + strikeRadius) / ballDistPerStrike)
+				local numStrikes = math.max(0, math.min(maxStrikes, lastStrikeIdxThatHits + 1 - firstStrikeIdxThatHits))
+				lastStrikeIdxThatHits = firstStrikeIdxThatHits + numStrikes - 1
+
+				local effNumStrikes
+				if isSuperball then
+					effNumStrikes = numStrikes * superchance
+					dpsMultiplier = dpsMultiplier + effNumStrikes * 1.5
+				else
+					effNumStrikes = numStrikes * (1 - superchance)
+					dpsMultiplier = dpsMultiplier + effNumStrikes
+				end
+
+				if breakdown then
+					local breakdownHits = {}
+					local ballsName
+					if superchance > 0 then
+						t_insert(breakdownHits, "Applicable to all balls:")
+					end
+					t_insert(breakdownHits, s_format("^8Balls travel at ^7%.2f^8 units/sec.", ballDistPerSec))
+					t_insert(breakdownHits, s_format("^8Lightning bolts strike all nearby enemies every ^7%.2f^8 seconds (^7%.2f^8 strikes/sec).", secsPerStrike, 1 / secsPerStrike))
+					t_insert(breakdownHits, s_format("^8Balls travel ^7%.2f^8 units between each bolt strike.", ballDistPerStrike))
+					t_insert(breakdownHits, s_format("^8Assumes balls are cast ^7%d^8 units from the enemy.", castDist))
+					if superchance > 0 then
+						if isSuperball then
+							t_insert(breakdownHits, "Applicable to supercharged balls only:")
+						else
+							t_insert(breakdownHits, "Applicable to normal balls only:")
+						end
+					end
+					t_insert(breakdownHits, s_format("^8Balls can strike enemies up to ^7%d^8 units away from themselves.", strikeRadius))
+					t_insert(breakdownHits, s_format("^8The first strike is at ^7%.2f^8 seconds after it is cast, when the ball is ^7%d^8 units from the cast point.", firstStrikeIdxThatHits * secsPerStrike, firstStrikeIdxThatHits * ballDistPerStrike))
+					t_insert(breakdownHits, s_format("^8The last strike is at ^7%.2f^8 seconds after it is cast, when the ball is ^7%d^8 units from the cast point.", lastStrikeIdxThatHits * secsPerStrike, lastStrikeIdxThatHits * ballDistPerStrike))
+					if superchance > 0 then
+						if isSuperball then
+							t_insert(breakdownHits, s_format("^8Balls have a(n) ^7%.1f%%^8 chance to be supercharged.", superchance * 100))
+						else
+							t_insert(breakdownHits, s_format("^8Balls have a(n) ^7%.1f%%^8 chance to be normal.", 100 - superchance * 100))
+						end
+					end
+					if isSuperball then
+						output.SuperchargedHitsPerCast = effNumStrikes
+						breakdown.SuperchargedHitsPerCast = breakdownHits
+					else
+						output.NormalHitsPerCast = effNumStrikes
+						breakdown.NormalHitsPerCast = breakdownHits
+					end
+				end
+			end
+			if breakdown then
+				if (dpsMultiplier ~= 1) and (superchance > 0) then
+					local breakdownDpsMult = {}
+					t_insert(breakdownDpsMult, "Average DPS multiplier")
+					t_insert(breakdownDpsMult, s_format("^8= 1 * (^7normal hits/cast^8) + 1.5 * (^7super hits/cast^8)"))
+					t_insert(breakdownDpsMult, s_format("^8= 1 * ^7%.3f^8 + 1.5 * ^7%.3f^8", output.NormalHitsPerCast, output.SuperchargedHitsPerCast))
+					t_insert(breakdownDpsMult, s_format("^8= ^7%.3f", dpsMultiplier))
+					breakdown.SkillDPSMultiplier = breakdownDpsMult
+				end
+			end
+		end
+		if dpsMultiplier ~= 1 then
+			skillData.dpsMultiplier = dpsMultiplier
+			output.SkillDPSMultiplier = dpsMultiplier
+		end
+	end,
 	statMap = {
 		["ball_lightning_superball_%_chance"] = {
-			mod("Damage", "MORE", nil),
-			mod("AreaOfEffect", "MORE", nil),
-			div = 2
+			mod("ball_lightning_superball_%_chance", "BASE", nil)
 		},
 	},
 	baseFlags = {
@@ -563,6 +713,9 @@ skills["BallLightning"] = {
 	},
 	baseMods = {
 		skill("radius", 18),
+		skill("strikeInterval", 0.15),
+		skill("projectileSpeed", 48),
+		skill("duration", 2),
 	},
 	qualityStats = {
 		Default = {
