@@ -108,7 +108,6 @@ itemBases["Spike-Point Arrow Quiver"] = {
 }
 itemBases["Ornate Quiver"] = {
 	type = "Quiver",
-	hidden = true,
 	tags = { not_for_sale = true, quiver = true, default = true, },
 	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
