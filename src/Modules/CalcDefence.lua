@@ -1419,6 +1419,7 @@ function calcs.defence(env, actor)
 				DamageIn[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] or 0
 			end
 		end
+		DamageIn["LifeLossBelowHalfLost"] = DamageIn["LifeLossBelowHalfLost"] or 0
 		
 		local itterationMultiplier = 1
 		local maxHits = 10000 --arbitrary number needs to be moved to data.misc
@@ -1483,6 +1484,9 @@ function calcs.defence(env, actor)
 						end
 					end
 					if output.preventedLifeLoss > 0 then
+						if DamageIn["LifeLossBelowHalfLost"] > 0 then
+							output["LifeLossBelowHalfLost"] = output["LifeLossBelowHalfLost"] + Damage[damageType] * output.preventedLifeLoss / 100
+						end
 						Damage[damageType] = Damage[damageType] * (1 - output.preventedLifeLoss / 100)
 					end
 					life = life - Damage[damageType]
@@ -1595,6 +1599,11 @@ function calcs.defence(env, actor)
 			averageAvoidChance = averageAvoidChance + AvoidChance
 			DamageIn[damageType] = output[damageType.."TakenHit"] * (blockEffect * suppressionEffect * (1 - AvoidChance / 100))
 		end
+		--petrified blood degen initialisation
+		if output["preventedLifeLoss"] > 0 then
+			output["LifeLossBelowHalfLost"] = 0
+			DamageIn["LifeLossBelowHalfLost"] = modDB:Sum("BASE", nil, "LifeLossBelowHalfLost") / 100
+		end
 		output["NumberOfMitigatedDamagingHits"] = numberOfHitsToDie(DamageIn)
 		averageAvoidChance = averageAvoidChance / 5
 		output["ConfiguredDamageChance"] = 100 * (blockEffect * suppressionEffect * (1 - averageAvoidChance / 100))
@@ -1678,6 +1687,28 @@ function calcs.defence(env, actor)
 				s_format("= %.2f seconds ^8(total time it would take to die)", output["EHPsurvivalTime"]),
 			}
 		end
+	end
+	
+	--petrified blood "degen"
+	if output.preventedLifeLoss > 0 then
+		local LifeLossBelowHalfLost = modDB:Sum("BASE", nil, "LifeLossBelowHalfLost") / 100
+		output["LifeLossBelowHalfLostMax"] = output["LifeLossBelowHalfLost"] * LifeLossBelowHalfLost / 4
+		output["LifeLossBelowHalfLostAvg"] = output["LifeLossBelowHalfLost"] * LifeLossBelowHalfLost / (output["EHPsurvivalTime"] + 4)
+		if breakdown then
+			breakdown["LifeLossBelowHalfLostMax"] = {
+				s_format("%d ^8(total damage prevented by petrified blood)", output["LifeLossBelowHalfLost"]),
+				s_format("* %.2f ^8(percent of damage taken)", LifeLossBelowHalfLost),
+				s_format("/ %.2f ^8(over 4 seconds)", 4),
+				s_format("= %.2f per second", output["LifeLossBelowHalfLostMax"]),
+			}
+			breakdown["LifeLossBelowHalfLostAvg"] = {
+				s_format("%d ^8(total damage prevented by petrified blood)", output["LifeLossBelowHalfLost"]),
+				s_format("* %.2f ^8(percent of damage taken)", LifeLossBelowHalfLost),
+				s_format("/ %.2f ^8(total time of the degen (survival time + 4))", (output["EHPsurvivalTime"] + 4)),
+				s_format("= %.2f per second", output["LifeLossBelowHalfLostAvg"]),
+			}
+		end
+		
 	end
 
 	--effective health pool vs dots

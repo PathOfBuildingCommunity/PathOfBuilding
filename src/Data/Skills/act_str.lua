@@ -4931,6 +4931,9 @@ skills["PetrifiedBlood"] = {
 		["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"] = {
 			mod("LifeLossBelowHalfPrevented", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["petrified_blood_%_prevented_life_loss_to_lose_over_time"] = {
+			mod("LifeLossBelowHalfLost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
 	},
 	baseFlags = {
 	},
