@@ -264,7 +264,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local accelerate = specEnv and specEnv.accelerate or { }
 
 	-- environment variables
-	override = override or { }
+	local override = override or { }
 	local modDB = nil
 	local enemyDB = nil
 	local classStats = nil

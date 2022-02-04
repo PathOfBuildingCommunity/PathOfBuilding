@@ -1468,11 +1468,14 @@ local function grantedExtraSkill(name, level, noSupports)
 		}
 	end
 end
-local function triggerExtraSkill(name, level, noSupports)
+local function triggerExtraSkill(name, level, noSupports, sourceSkill)
 	name = name:gsub(" skill","")
+	if sourceSkill then
+		sourceSkill = sourceSkill:gsub(" skill","")
+	end
 	if gemIdLookup[name] then
 		return {
-			mod("ExtraSkill", "LIST", { skillId = gemIdLookup[name], level = level, noSupports = noSupports, triggered = true })
+			mod("ExtraSkill", "LIST", { skillId = gemIdLookup[name], level = level, noSupports = noSupports, triggered = true, source = sourceSkill })
 		}
 	end
 end
@@ -2097,6 +2100,7 @@ local specialModList = {
 	["[ct][ar][si][tg]g?e?r?s? level (%d+) (.+) when hit"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["[ct][ar][si][tg]g?e?r?s? level (%d+) (.+) when you kill an enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["[ct][ar][si][tg]g?e?r?s? level (%d+) (.+) when you use a skill"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["(.+) can trigger level (%d+) (.+)"] = function(_, sourceSkill, num, skill) return triggerExtraSkill(skill, tonumber(num), nil, sourceSkill) end,
 	["trigger level (%d+) (.+) when you use a skill while you have a spirit charge"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit an enemy while cursed"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit a bleeding enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
