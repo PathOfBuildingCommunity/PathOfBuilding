@@ -168,8 +168,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 	-- Clamp zoom offset
 	local clampFactor = self.zoom * 2 / 3
-	self.zoomX = m_min(m_max(self.zoomX, -viewPort.width * clampFactor), viewPort.width * clampFactor)
-	self.zoomY = m_min(m_max(self.zoomY, -viewPort.height * clampFactor), viewPort.height * clampFactor)
+	self.zoomX = self.zoomX ~= nil and m_min(m_max(self.zoomX, -viewPort.width * clampFactor), viewPort.width * clampFactor) or 1
+	self.zoomY = self.zoomY ~= nil and m_min(m_max(self.zoomY, -viewPort.height * clampFactor), viewPort.height * clampFactor) or 1
 
 	-- Create functions that will convert coordinates between the screen and tree coordinate spaces
 	local scale = m_min(viewPort.width, viewPort.height) / tree.size * self.zoom
@@ -1032,7 +1032,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			-- Calculated the differences caused by allocating this node and all nodes along the path to it
 			if node.type == "Mastery" and node.allMasteryOptions then
 				pathNodes[node] = nil
-				nodeOutput = calcFunc()
+				nodeOutput = calcFunc({})
 			else
 				nodeOutput = calcFunc({ addNodes = { [node] = true } })
 			end

@@ -75,8 +75,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.optionSection = new("SectionControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 50, 375, 180, "Gem Options")
 	self.controls.sortGemsByDPS = new("CheckBoxControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, optionInputsX, 70, 20, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
-	end)
-	self.controls.sortGemsByDPS.state = true
+	end, nil, true)
 	self.controls.sortGemsByDPSFieldControl = new("DropDownControl", {"LEFT", self.controls.sortGemsByDPS, "RIGHT"}, 10, 0, 120, 20, sortGemTypeList, function(index, value)
 		self.sortGemsByDPSField = value.type
 	end)
@@ -423,8 +422,8 @@ function SkillsTabClass:CopySocketGroup(socketGroup)
 	Copy(skillText)
 end
 
-function SkillsTabClass:PasteSocketGroup()
-	local skillText = Paste()
+function SkillsTabClass:PasteSocketGroup(testInput)
+	local skillText = Paste() or testInput
 	if skillText then
 		local newGroup = { label = "", enabled = true, gemList = { } }
 		local label = skillText:match("Label: (%C+)")
@@ -633,7 +632,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				self.displayGroup.gemList[index].qualityId = hoveredQuality.type
 				self:ProcessSocketGroup(self.displayGroup)
 				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-				GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+				GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 				local output = calcFunc({}, {})
 				GlobalCache.useFullDPS = storedGlobalCacheDPSView
 				self.displayGroup.gemList[index].qualityId = tempQual
@@ -668,7 +667,7 @@ function SkillsTabClass:CreateGemSlot(index)
 					local storedQuality = self.displayGroup.gemList[index].quality
 					self.displayGroup.gemList[index].quality = 20
 					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-					GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+					GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 					local output = calcFunc({}, {})
 					GlobalCache.useFullDPS = storedGlobalCacheDPSView
 					self.displayGroup.gemList[index].quality = storedQuality
@@ -708,7 +707,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				if calcFunc then
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
 					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-					GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
+					GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 					local output = calcFunc({}, {})
 					GlobalCache.useFullDPS = storedGlobalCacheDPSView
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled

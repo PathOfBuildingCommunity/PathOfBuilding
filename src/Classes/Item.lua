@@ -109,6 +109,7 @@ function ItemClass:ParseRaw(raw)
 	end
 	self.checkSection = false
 	self.sockets = { }
+	self.classRequirementModLines = { }
 	self.buffModLines = { }
 	self.enchantModLines = { }
 	self.scourgeModLines = { }
@@ -149,6 +150,8 @@ function ItemClass:ParseRaw(raw)
 			self.synthesised = true
 		elseif processInfluenceLine(line) then
 			-- self already updated within the helper function
+		elseif line == "Requirements:" then
+			-- nothing to do
 		else
 			if self.checkSection then
 				if gameModeStage == "IMPLICIT" then
@@ -179,6 +182,9 @@ function ItemClass:ParseRaw(raw)
 				specName, specVal = line:match("^([%a ]+): (.+)$")
 			end
 			if not specName then
+				specName, specVal = line:match("^(Requires Class) (.+)$")
+			end
+			if not specName then
 				specName, specVal = line:match("^(Requires) (.+)$")
 			end
 			if specName then
@@ -186,6 +192,8 @@ function ItemClass:ParseRaw(raw)
 					self.uniqueID = specVal
 				elseif specName == "Item Level" then
 					self.itemLevel = tonumber(specVal)
+				elseif specName == "Requires Class" then
+					self.classRestriction = specVal
 				elseif specName == "Quality" then
 					self.quality = tonumber(specVal)
 				elseif specName == "Sockets" then
@@ -323,7 +331,7 @@ function ItemClass:ParseRaw(raw)
 					self.note = specVal
 				elseif specName == "Str" or specName == "Dex" or specName == "Int" then
 					self.requirements[specName:lower()] = tonumber(specVal)
-				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or "Weapon Range" or
+				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or specName == "Weapon Range" or
 				       specName == "Physical Damage" or specName == "Elemental Damage" or specName == "Chaos Damage" then
 					self.hidden_specs = true
 				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
@@ -429,6 +437,7 @@ function ItemClass:ParseRaw(raw)
 				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
 				local enchant = line:match(" %(enchant%)")
+				local classReq = line:find("Requires Class")
 				local scourge = line:match("{scourge}") or line:match(" %(scourge%)")
 				local crafted = line:match("{crafted}") or line:match(" %(crafted%)") or enchant
 				local custom = line:match("{custom}")
@@ -488,7 +497,7 @@ function ItemClass:ParseRaw(raw)
 
 				if data.itemBases[line] then
 					self.baseLines = self.baseLines or { }
-					self.baseLines[line] = { line = line, variantList = variantList}
+					self.baseLines[line] = { line = line, variantList = variantList }
 				end
 
 				local modLines
@@ -496,6 +505,8 @@ function ItemClass:ParseRaw(raw)
 					modLines = self.enchantModLines
 				elseif scourge then
 					modLines = self.scourgeModLines
+				elseif classReq then
+					modLines = self.classRequirementModLines
 				elseif implicit or (not crafted and #self.enchantModLines + #self.scourgeModLines + #self.implicitModLines < implicitLines) then
 					modLines = self.implicitModLines
 				else
@@ -516,7 +527,7 @@ function ItemClass:ParseRaw(raw)
 						foundExplicit = true
 					end
 				elseif mode == "GAME" then
-					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" then
+					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and not data.itemBases[line] and not self.name == line) then
 						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
@@ -786,11 +797,17 @@ function ItemClass:BuildRaw()
 	if self.limit then
 		t_insert(rawLines, "Limited to: "..self.limit)
 	end
+	if self.classRestriction then
+		t_insert(rawLines, "Requires Class "..self.classRestriction)
+	end
 	t_insert(rawLines, "Implicits: "..(#self.enchantModLines + #self.implicitModLines + #self.scourgeModLines))
 	for _, modLine in ipairs(self.enchantModLines) do
 		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.scourgeModLines) do
+		writeModLine(modLine)
+	end
+	for _, modLine in ipairs(self.classRequirementModLines) do
 		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.implicitModLines) do
@@ -1103,6 +1120,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				flaskData.lifeInstant = flaskData.lifeBase * flaskData.instantPerc / 100
 				flaskData.lifeGradual = flaskData.lifeBase * (1 - flaskData.instantPerc / 100) * (1 + durationInc / 100)
 				flaskData.lifeTotal = flaskData.lifeInstant + flaskData.lifeGradual
+				flaskData.lifeAdditional = calcLocal(modList, "FlaskAdditionalLifeRecovery", "BASE", 0)
 			end
 			if self.base.flask.mana then
 				flaskData.manaBase = self.base.flask.mana * (1 + self.quality / 100) * recoveryMod
@@ -1189,29 +1207,36 @@ function ItemClass:BuildModList()
 		end
 	end
 	local function processModLine(modLine)
-		if not modLine.extra and self:CheckModLineVariant(modLine) then
-			if modLine.range then
-				local strippedModeLine = modLine.line:gsub("\n"," ")
-				-- Look at the min and max of the range to confirm it's *actually* a range
-				local rangeMin, rangeMax = itemLib.getLineRangeMinMax(strippedModeLine)
-				if rangeMin ~= rangeMax then
-					local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
-					-- Put the modified value into the string
-					local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
-					-- Check if we can parse it before adding the mods
-					local list, extra = modLib.parseMod(line)
-					if list and not extra then
-						modLine.modList = list
-						t_insert(self.rangeLineList, modLine)
+		if self:CheckModLineVariant(modLine) then
+			-- special section for variant over-ride of pre-modifier item parameters
+			if modLine.line:find("Requires Class") then
+				self.classRestriction = modLine.line:gsub("{variant:([%d,]+)}", ""):match("Requires Class (.+)")
+			end
+			-- handle understood modifier variable properties
+			if not modLine.extra then
+				if modLine.range then
+					local strippedModeLine = modLine.line:gsub("\n"," ")
+					-- Look at the min and max of the range to confirm it's *actually* a range
+					local rangeMin, rangeMax = itemLib.getLineRangeMinMax(strippedModeLine)
+					if rangeMin ~= rangeMax then
+						local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
+						-- Put the modified value into the string
+						local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
+						-- Check if we can parse it before adding the mods
+						local list, extra = modLib.parseMod(line)
+						if list and not extra then
+							modLine.modList = list
+							t_insert(self.rangeLineList, modLine)
+						end
 					end
 				end
-			end
-			for _, mod in ipairs(modLine.modList) do
-				mod = modLib.setSource(mod, self.modSource)
-				baseList:AddMod(mod)
-			end
-			if modLine.modTags and #modLine.modTags > 0 then
-				self.hasModTags = true
+				for _, mod in ipairs(modLine.modList) do
+					mod = modLib.setSource(mod, self.modSource)
+					baseList:AddMod(mod)
+				end
+				if modLine.modTags and #modLine.modTags > 0 then
+					self.hasModTags = true
+				end
 			end
 		end
 	end
@@ -1219,6 +1244,9 @@ function ItemClass:BuildModList()
 		processModLine(modLine)
 	end
 	for _, modLine in ipairs(self.scourgeModLines) do
+		processModLine(modLine)
+	end
+	for _, modLine in ipairs(self.classRequirementModLines) do
 		processModLine(modLine)
 	end
 	for _, modLine in ipairs(self.implicitModLines) do

@@ -2788,7 +2788,6 @@ skills["MonsterWarlordsMark"] = {
 		},
 		["enemy_rage_regeneration_on_stun"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
-			mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanGainRage" }),
 		},
 	},
 	baseFlags = {
@@ -3348,6 +3347,49 @@ skills["SeaWitchScreech"] = {
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, -20, 1900, cooldown = 6.5, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
 		[2] = { 1.8500000238419, 2.8800001144409, -20, 1900, cooldown = 6.5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
+	},
+}
+skills["SeawitchVulnerability"] = {
+	name = "Vulnerability",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding, and ailments inflicted on them will deal damage faster.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.75,
+	statMap = {
+		["receive_bleeding_chance_%_when_hit_by_attack"] = {
+			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
+			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
+			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"active_skill_base_radius_+",
+		"physical_damage_taken_+%",
+		"receive_bleeding_chance_%_when_hit_by_attack",
+		"enemy_damaging_ailments_deal_damage_+%_faster_against_self",
+	},
+	levels = {
+		[1] = { 4000, 0, 50, 20, 20, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["SkeletonBlackAbyssBoneLance"] = {
@@ -4671,6 +4713,36 @@ skills["AtlasCruasderJudgeFadingNova"] = {
 		[1] = { 0.5, 1.5, 128, 7, critChance = 5, cooldown = 8, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
 	},
 }
+skills["GAHarvestCrabDashSlam"] = {
+	name = "Dash Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	levels = {
+		[1] = { 50, -30, baseMultiplier = 2, cooldown = 4, levelRequirement = 1, statInterpolation = { 1, 2, }, cost = { }, },
+		[2] = { 50, 0, baseMultiplier = 2, cooldown = 4, levelRequirement = 19, statInterpolation = { 1, 2, }, cost = { }, },
+		[3] = { 50, 1, baseMultiplier = 2, cooldown = 4, levelRequirement = 20, statInterpolation = { 1, 2, }, cost = { }, },
+		[4] = { 50, 60, baseMultiplier = 2, cooldown = 4, levelRequirement = 84, statInterpolation = { 1, 2, }, cost = { }, },
+	},
+	baseFlags = {
+		attack = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_cold",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+}
 skills["HarvestCrabAbyssSlam"] = {
 	name = "Slam Attack",
 	hidden = true,
@@ -4705,6 +4777,181 @@ skills["HarvestCrabAbyssSlam"] = {
 		[4] = { 0, 4, 50, 60, -50, 50, baseMultiplier = 0.75, cooldown = 10, levelRequirement = 84, statInterpolation = { 1, 1, 1, 2, 1, 1, }, cost = { }, },
 	},
 }
+skills["HarvestNessaCrabScreech"] = {
+	name = "Screech",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { cooldown = 12, levelRequirement = 0, statInterpolation = { }, cost = { }, },
+	},
+}
+skills["HarvestNessaCrabScreechDebuff"] = {
+	name = "Frigid Roar",
+	hidden = true,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statMap = {
+		["frigid_roar_cold_damage_taken_+%"] = {
+			mod("ColdDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Frigid Roar" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"frigid_roar_cold_damage_taken_+%",
+	},
+	levels = {
+		[1] = { 20, cooldown = 12, levelRequirement = 0, statInterpolation = { 1, }, cost = { }, },
+	},
+}
+
+skills["HarvestRhexLeapSlam"] = {
+	name = "Leap Slam",
+	hidden = true,
+	color = 4,
+	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.2,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+		"cast_time_overrides_attack_duration",
+	},
+	levels = {
+		[1] = { 50, 0, cooldown = 10, levelRequirement = 1, statInterpolation = { 1, 2, }, cost = { }, },
+		[2] = { 50, 0, cooldown = 10, levelRequirement = 19, statInterpolation = { 1, 2, }, cost = { }, },
+		[3] = { 50, 1, cooldown = 10, levelRequirement = 20, statInterpolation = { 1, 2, }, cost = { }, },
+		[4] = { 50, 150, cooldown = 10, levelRequirement = 84, statInterpolation = { 1, 2, }, cost = { }, },
+	},
+}
+skills["GAHarvestRhexDashSlash"] = {
+	name = "Dash Slash",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	levels = {
+		[1] = { 50, -30, baseMultiplier = 2.2, cooldown = 4, levelRequirement = 1, statInterpolation = { 1, 2, }, cost = { }, },
+		[2] = { 50, 0, baseMultiplier = 2.2, cooldown = 4, levelRequirement = 19, statInterpolation = { 1, 2, }, cost = { }, },
+		[3] = { 50, 1, baseMultiplier = 2.2, cooldown = 4, levelRequirement = 20, statInterpolation = { 1, 2, }, cost = { }, },
+		[4] = { 50, 60, baseMultiplier = 2.2, cooldown = 4, levelRequirement = 84, statInterpolation = { 1, 2, }, cost = { }, },
+	},
+	baseFlags = {
+		attack = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_lightning",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+}
+skills["GSHarvestRhexScreech"] = {
+	name = "Screech",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.2000000476837,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, duration = 4, cooldown = 8, levelRequirement = 1, statInterpolation = { 3, 3, }, cost = { }, },
+	},
+	baseFlags = {
+		spell = true,
+		hit = true,
+		area = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+	},
+}
+skills["HarvestRhexScreechDebuff"] = {
+	name = "Thunderous Roar",
+	hidden = true,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statMap = {
+		["thunderous_roar_lightning_damage_taken_+%"] = {
+			mod("LightningDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Thunderous Roar" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"thunderous_roar_lightning_damage_taken_+%",
+	},
+	levels = {
+		[1] = { 10, cooldown = 8, levelRequirement = 0, statInterpolation = { 1, }, cost = { }, },
+	},
+}
+
 skills["LegionTemplarJudgeBallLightning"] = {
 	name = "Ball Lightning",
 	hidden = true,
@@ -5407,6 +5654,37 @@ skills["UltimatumGuardConeArrowCold"] = {
 		[2] = { 100, 250, cooldown = 8, levelRequirement = 83, statInterpolation = { 1, 2, }, cost = { }, },
 	},
 }
+skills["MPWVaalGuardBarrage"] = {
+	name = "Barrage",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		triggerable = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"skill_physical_damage_%_to_convert_to_cold",
+		"monster_projectile_variation",
+		"projectile_random_angle_based_on_distance_to_target_location_%",
+		"active_skill_damage_+%_final",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+		"maintain_projectile_direction_when_using_contact_position",
+	},
+	levels = {
+		[1] = { 80, 141, 60, -70, levelRequirement = 1, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
+		[2] = { 80, 141, 60, 0, levelRequirement = 83, statInterpolation = { 1, 1, 1, 2, }, cost = { }, },
+	},
+}
 skills["MeleeAtAnimationSpeed"] = {
 	name = "Default Attack",
 	hidden = true,
@@ -5893,5 +6171,408 @@ skills["HellscapeFleshFodderArc"] = {
 	},
 	levels = {
 		[1] = { 0.5, 1.5, 10, 0, -50, 2, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
+	},
+}
+skills["SynthesisSoulstealerProjectilePhysical"] = {
+	name = "Projectile",
+	hidden = true,
+	color = 4,
+	incrementalEffectiveness = 0.037999998778105,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.33,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"monster_projectile_variation",
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+	},
+	levels = {
+		[1] = { 104, 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 1, 3, 3, }, cost = { }, },
+	},
+}
+skills["SynthesisPhysicalTripleMortar"] = {
+	name = "Triple Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 3.67,
+	baseFlags = {
+		area = true,
+		spell = true,
+		projectile = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"projectile_spread_radius",
+		"projectile_minimum_range",
+		"number_of_additional_projectiles",
+		"mortar_projectile_distance_override",
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"number_of_projectiles_override",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"mortar_projectile_scale_animation_speed_instead_of_projectile_speed",
+	},
+	levels = {
+		[1] = { 25, 20, 0, 0, 0.80000001192093, 1.2000000476837, 0, 2, critChance = 5, cooldown = 12, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1, 3, 3, 1, 1, }, cost = { }, },
+	},
+}
+skills["SynthesisSoulstealerQuicksand"] = {
+	name = "Quicksand",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.045000001788139,
+	skillTypes = { [SkillType.Area] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.67,
+	baseFlags = {
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"ground_quicksand_art_variation",
+		"base_physical_damage_to_deal_per_minute",
+	},
+	levels = {
+		[1] = { 6000, 4, 16.666667039196, cooldown = 8, levelRequirement = 0, statInterpolation = { 1, 1, 3, }, cost = { }, },
+	},
+}
+skills["SynthesisPhysicalVolatileSlam"] = {
+	name = "Volatile Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0, levelRequirement = 0, statInterpolation = { 1, }, cost = { }, },
+	},
+}
+skills["HellionRallyingCry"] = {
+	name = "Rallying Cry",
+	hidden = true,
+	color = 1,
+	description = "Performs a warcry, granting increased damage and mana regeneration to the user and nearby allies if there are nearby enemies. The damage increase is proportional to the number of surrounding enemies. Taunts all nearby enemies to attack the user. Shares a cooldown with other Warcry skills.",
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.25,
+	baseFlags = {
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"damage_+%",
+		"base_skill_effect_duration",
+		"taunted_enemies_damage_+%_final_vs_non_taunt_target",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 8, 8000, -30, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
+		[2] = { 10, 8000, -30, cooldown = 8, levelRequirement = 50, statInterpolation = { 1, 1, 1, }, cost = { }, },
+		[3] = { 12, 8000, -30, cooldown = 8, levelRequirement = 68, statInterpolation = { 1, 1, 1, }, cost = { }, },
+		[4] = { 15, 8000, -30, cooldown = 8, levelRequirement = 77, statInterpolation = { 1, 1, 1, }, cost = { }, },
+	},
+}
+skills["EmptyActionSpellWarlordGrandmaster"] = {
+	name = "Arena Master's Presence",
+	hidden = true,
+	color = 4,
+	skillTypes = { },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 4,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
+	statMap = {
+		["auras_grant_damage_+%_to_you_and_your_allies"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+		["cast_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+		["attack_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arena Master's Presence" }),
+		},
+	},
+	stats = {
+		"auras_grant_damage_+%_to_you_and_your_allies",
+		"attack_speed_+%_granted_from_skill",
+		"cast_speed_+%_granted_from_skill",
+		"base_movement_velocity_+%",
+	},
+	levels = {
+		[1] = { 20, 20, 20, 20, duration = 4, cooldown = 12, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1 }, cost = { }, },
+	},
+	baseFlags = {
+		spell = true,
+		buff = true,
+		area = true,
+		duration = true,
+		cooldown = true,
+	},
+	baseMods = {
+		skill("buffAllies", true),
+		skill("buffMinions", true),
+	},
+	qualityStats = {
+	},
+}
+skills["BreachBlizzardSpectre"] = {
+	name = "Snow Cloak",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
+	statMap = {
+		["avoid_damage_%"] = {
+			mod("AvoidPhysicalDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidLightningDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidColdDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidFireDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+			mod("AvoidChaosDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Snow Cloak" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		buff = true,
+		area = true,
+		duration = true,
+		cooldown = true,
+	},
+	baseMods = {
+		skill("buffAllies", true),
+		skill("buffMinions", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+		"base_damage_taken_+%",
+		"avoid_damage_%",
+		"base_skill_effect_duration",
+	},
+	levels = {
+		[1] = { 0, 15, 10000, cooldown = 9, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
+	},
+}
+skills["DelveWraithScreechChaos"] = {
+	name = "Chaos Screech",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.7999999523163,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_chaos_damage",
+		"spell_maximum_base_chaos_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, cost = { }, },
+	},
+}
+skills["MonsterChanceToTemporalChainsOnHit1"] = {
+	name = "Temporal Chains",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 0,
+	description = "Curses all enemies in an area, lowering their action speed and making other effects on them expire more slowly.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["temporal_chains_action_speed_+%_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["buff_time_passed_+%_other_than_temporal_chains"] = {
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["curse_effect_+%_final_vs_players"] = {
+			mod("CurseEffectAgainstPlayer", "MORE", nil),
+		},
+		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+		hex = true,
+	},
+	baseMods = {
+		skill("debuff", true),
+		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
+	},
+	qualityStats = {
+		Default = {
+			{ "curse_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "hex_doom_gain_rate_+%", 2 },
+		},
+		Alternate2 = {
+			{ "base_curse_duration_+%", 1 },
+		},
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"active_skill_base_radius_+",
+		"temporal_chains_action_speed_+%_final",
+		"buff_time_passed_+%_other_than_temporal_chains",
+		"curse_effect_+%_final_vs_players",
+		"temporal_chains_action_speed_+%_vs_rare_or_unique_final",
+		"base_curse_skill_doom_gain_per_minute_if_cast_yourself",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 5000, 0, -20, -40, -50, -10, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+	},
+}
+
+skills["WraithEtherealKnives"] = {
+	name = "Ethereal Knives",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 1.7000000476837,
+	incrementalEffectiveness = 0.037999998778105,
+	description = "Fires an arc of knives in front of the caster which deals physical damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, [SkillType.Duration] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.8,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		duration = true,
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"number_of_additional_projectiles",
+		"base_cast_speed_+%",
+		"monster_penalty_against_minions_damage_+%_final_vs_player_minions",
+		"active_skill_damage_+%_final",
+		"base_projectile_speed_+%",
+		"fixed_projectile_spread",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 9, -25, 0, -15, 25, 20, critChance = 5, levelRequirement = 51, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 0.60000002384186, 0.89999997615814, 9, -25, -25, -15, 25, 20, critChance = 5, levelRequirement = 68, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 0.60000002384186, 0.89999997615814, 9, -25, -25, -15, 25, 20, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+	},
+}
+skills["DelveMonsterEnfeebleOnHit"] = {
+	name = "Enfeeble",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 0,
+	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+		hex = true,
+	},
+	baseMods = {
+		skill("debuff", true),
+		skill("radius", 22),
+		mod("MaxDoom", "BASE", 30),
+	},
+	qualityStats = {
+		Default = {
+			{ "curse_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "hex_doom_gain_rate_+%", 2 },
+		},
+		Alternate2 = {
+			{ "curse_cast_speed_+%", 0.5 },
+		},
+	},
+	stats = {
+		"base_skill_effect_duration",
+		"active_skill_base_radius_+",
+		"accuracy_rating_+%",
+		"enfeeble_damage_+%_final",
+		"enfeeble_damage_+%_vs_rare_or_unique_final",
+		"base_curse_skill_doom_gain_per_minute_if_cast_yourself",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[8] = { 9700, 4, -13, -24, -12, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
