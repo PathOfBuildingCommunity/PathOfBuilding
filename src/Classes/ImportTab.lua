@@ -205,7 +205,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		if self.controls.exportFrom.selIndex then
 			exportWebsite = exportWebsitesList[self.controls.exportFrom.selIndex]
 			response = LaunchSubScript([[
-				local code, proxyURL = ...
+				local code, connectionProtocol, proxyURL = ...
 				local curl = require("lcurl.safe")
 				local page = ""
 				local easy = curl.easy()
@@ -213,6 +213,9 @@ You can get this from your web browser's cookies while logged into the Path of E
 				easy:setopt(curl.OPT_POST, true)
 				easy:setopt(curl.OPT_POSTFIELDS, ']]..exportWebsite.postFields..[['..code)
 				easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
+				if connectionProtocol then
+					easy:setopt(curl.OPT_IPRESOLVE, connectionProtocol)
+				end
 				if proxyURL then
 					easy:setopt(curl.OPT_PROXY, proxyURL)
 				end
@@ -228,7 +231,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 				else
 					return nil, page
 				end
-			]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
+			]], "", "", self.controls.generateCodeOut.buf, launch.connectionProtocol, launch.proxyURL)
 		end
 		if response ~= "" then
 			self.controls.generateCodeOut:SetText("")
