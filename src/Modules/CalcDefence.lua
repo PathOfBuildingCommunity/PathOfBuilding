@@ -1833,15 +1833,13 @@ function calcs.defence(env, actor)
 		output[damageType.."MaximumHitTaken"] = m_huge
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
-				local hitTaken = output[damageConvertedType.."TotalHitPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageConvertedType.."BaseTakenHitMult"]
+				local hitTaken = output[damageConvertedType.."TotalHitPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100)
 				if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
-					hitTaken = hitTaken * (1 / output.AttackTakenHitMult)
-				end
-				if damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" then
-					hitTaken = hitTaken * (1 / output.SpellTakenHitMult)
-				end
-				if damageCategoryConfig == "Average" then
-					hitTaken = hitTaken * (1 / ((output.SpellTakenHitMult + output.AttackTakenHitMult) / 2))
+					hitTaken = hitTaken / output[damageConvertedType.."AttackTakenHitMult"]
+				elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" then
+					hitTaken = hitTaken / output[damageConvertedType.."SpellTakenHitMult"]
+				elseif damageCategoryConfig == "Average" then
+					hitTaken = hitTaken / (output[damageConvertedType.."SpellTakenHitMult"] + output[damageConvertedType.."AttackTakenHitMult"]) / 2
 				end
 				if hitTaken < output[damageType.."MaximumHitTaken"] then
 					output[damageType.."MaximumHitTaken"] = hitTaken
