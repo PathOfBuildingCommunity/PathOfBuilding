@@ -986,7 +986,7 @@ function ImportTabClass:OpenImportFromWebsitePopup()
 				controls.msg.label = "^1"..data
 				controls.import.enabled = true
 			else
-				self.controls.importCodeIn:SetText(page, true)
+				self.controls.importCodeIn:SetText(data, true)
 				main:SelectControl(self.controls.importCodeGo)
 				main:ClosePopup()
 			end
