@@ -106,6 +106,7 @@ local skillTypes = {
 	"FixedCastTime",
 	"RequiresOffHandNotWeapon",
 	"Link",
+	"Blessing",
 }
 
 local function mapAST(ast)
