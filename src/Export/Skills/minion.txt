@@ -97,7 +97,7 @@ local skills, mod, flag, skill = ...
 #flags attack melee
 #mods
 
-#skill DancingDervishCyclone
+#skill DancingDervishCycloneChannelled
 #flags attack area melee
 #baseMod skill("dpsMultiplier", 2)
 #baseMod skill("radiusIsWeaponRange", true)

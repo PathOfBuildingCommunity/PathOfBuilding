@@ -105,6 +105,110 @@ itemBases["Ornate Quiver"] = {
 	implicitModTypes = { {  }, },
 	req = { level = 45, },
 }
+itemBases["Serrated Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "Adds 1 to 4 Physical Damage to Attacks",
+	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
+	req = { level = 4, },
+}
+itemBases["Fire Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "Adds 3 to 5 Fire Damage to Attacks",
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
+	req = { level = 9, },
+}
+itemBases["Sharktooth Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "+(6-8) Life gained for each Enemy hit by Attacks",
+	implicitModTypes = { { "resource", "life", "attack" }, },
+	req = { level = 14, },
+}
+itemBases["Feathered Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "(20-30)% increased Projectile Speed",
+	implicitModTypes = { { "speed" }, },
+	req = { level = 20, },
+}
+itemBases["Penetrating Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "Arrows Pierce an additional Target",
+	implicitModTypes = { { "attack" }, },
+	req = { level = 25, },
+}
+itemBases["Blunt Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "Adds (7-9) to (13-16) Physical Damage to Attacks",
+	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
+	req = { level = 31, },
+}
+itemBases["Two-Point Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "(20-30)% increased Global Accuracy Rating",
+	implicitModTypes = { { "attack" }, },
+	req = { level = 36, },
+}
+itemBases["Spike-Point Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "(20-30)% increased Critical Strike Chance with Bows",
+	implicitModTypes = { { "attack", "critical" }, },
+	req = { level = 40, },
+}
+itemBases["Blazing Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "Adds (12-15) to (24-27) Fire Damage to Attacks",
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
+	req = { level = 45, },
+}
+itemBases["Broadhead Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "(8-10)% increased Attack Speed",
+	implicitModTypes = { { "attack", "speed" }, },
+	req = { level = 49, },
+}
+itemBases["Vile Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "Gain (10-15)% of Physical Damage as Extra Chaos Damage",
+	implicitModTypes = { { "physical_damage", "chaos_damage", "damage", "physical", "chaos" }, },
+	req = { level = 55, },
+}
+itemBases["Heavy Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "Adds (12-15) to (24-27) Physical Damage to Attacks",
+	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
+	req = { level = 61, },
+}
+itemBases["Primal Arrow Quiver"] = {
+	type = "Quiver",
+	hidden = true,
+	tags = { quiver = true, default = true, },
+	implicit = "(20-30)% increased Elemental Damage with Attack Skills",
+	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
+	req = { level = 66, },
+}
 itemBases["Artillery Quiver"] = {
 	type = "Quiver",
 	tags = { not_for_sale = true, atlas_base_type = true, quiveratlas1 = true, quiver = true, default = true, },
