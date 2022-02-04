@@ -1168,6 +1168,31 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+	
+	-- Prevented life loss (Petrified Blood)
+	do
+		output["preventedLifeLoss"] = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented")
+		local portionLife = 1
+		if not modDB:Flag(nil, "Condition:LowLife") then
+			--portion of life that is lowlife
+			portionLife = m_min(output.Life / 2 / output.LifeUnreserved, 1)
+			output["preventedLifeLoss"] = output["preventedLifeLoss"] * portionLife
+		end
+		if breakdown then
+			breakdown["preventedLifeLoss"] = {
+				s_format("Total life protected:"),
+			}
+			if portionLife ~= 1 then
+				t_insert(breakdown["preventedLifeLoss"], s_format("%.2f ^8(inital portion taken from petrified blood)", output["preventedLifeLoss"] / portionLife / 100))
+				t_insert(breakdown["preventedLifeLoss"], s_format("* %.2f ^8(portion of life on low life)", portionLife))
+				t_insert(breakdown["preventedLifeLoss"], s_format("= %.2f ^8(final portion taken from petrified blood)", output["preventedLifeLoss"] / 100))
+				t_insert(breakdown["preventedLifeLoss"], s_format(""))
+			else
+				t_insert(breakdown["preventedLifeLoss"], s_format("%.2f ^8(portion taken from petrified blood)", output["preventedLifeLoss"] / 100))
+			end
+			t_insert(breakdown["preventedLifeLoss"], s_format("%.2f ^8(portion taken from life)", 1 - output["preventedLifeLoss"] / 100))
+		end
+	end
 
 	-- Energy Shield bypass
 	output.AnyBypass = false
@@ -1456,6 +1481,9 @@ function calcs.defence(env, actor)
 							mana = mana - tempDamage
 							Damage[damageType] = Damage[damageType] - tempDamage
 						end
+					end
+					if output.preventedLifeLoss > 0 then
+						Damage[damageType] = Damage[damageType] * (1 - output.preventedLifeLoss / 100)
 					end
 					life = life - Damage[damageType]
 				end
@@ -1803,7 +1831,11 @@ function calcs.defence(env, actor)
 	-- this is not done yet, using old max hit taken
 	--fix total pools, as they arnt used anymore
 	for _, damageType in ipairs(dmgTypeList) do
-		--base + aegis
+		--base + petrified blood
+		if output["preventedLifeLoss"] > 0 then
+			output[damageType.."TotalPool"] =  output[damageType.."TotalPool"] / (1 - output["preventedLifeLoss"] / 100)
+		end
+		--aegis
 		output[damageType.."TotalHitPool"] = output[damageType.."TotalPool"] + output[damageType.."Aegis"] or 0 + output[damageType.."sharedAegis"] or 0 + isElemental[damageType] and output[damageType.."sharedElementalAegis"] or 0
 		--guardskill
 		local GuardAbsorbRate = output["sharedGuardAbsorbRate"] or 0 + output[damageType.."GuardAbsorbRate"] or 0
