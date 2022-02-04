@@ -1175,7 +1175,7 @@ function calcs.defence(env, actor)
 		local portionLife = 1
 		if not modDB:Flag(nil, "Condition:LowLife") then
 			--portion of life that is lowlife
-			portionLife = m_min(output.Life / 2 / output.LifeUnreserved, 1)
+			portionLife = m_min(output.Life * data.misc.LowPoolThreshold / output.LifeUnreserved, 1)
 			output["preventedLifeLoss"] = output["preventedLifeLoss"] * portionLife
 		end
 		if breakdown then
