@@ -1254,12 +1254,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Ground Slam Damage",
 			"16% increased Ground Slam Area of Effect",
-			"Ground Slam has a 16% increased angle",
+			"16% increased angle",
 		},
 		["ENDGAME"] = {
 			"40% increased Ground Slam Damage",
 			"24% increased Ground Slam Area of Effect",
-			"Ground Slam has a 24% increased angle",
+			"24% increased angle",
 		},
 	},
 	["Haste"] = {
@@ -1706,13 +1706,13 @@ return {
 	},
 	["Orb of Storms"] = {
 		["MERCILESS"] = {
-			"25% increased Orb of Storms Damage",
+			"Orb of Storms deals 25% increased Damage",
 			"Orb of Storms has 20% increased Cast Speed",
 			"60% increased Orb of Storms Critical Strike Chance",
 			"16% increased Orb of Storms Area of Effect",
 		},
 		["ENDGAME"] = {
-			"40% increased Orb of Storms Damage",
+			"Orb of Storms deals 40% increased Damage",
 			"Orb of Storms has 30% increased Cast Speed",
 			"90% increased Orb of Storms Critical Strike Chance",
 			"24% increased Orb of Storms Area of Effect",
@@ -2476,12 +2476,12 @@ return {
 	["Summon Flame Golem"] = {
 		["MERCILESS"] = {
 			"Flame Golems have 25% increased Damage",
-			"+24% to increased Flame Golem Elemental Resistances",
+			"+24% increased Flame Golem Elemental Resistances",
 			"100% increased Effect of the Buff granted by your Flame Golems",
 		},
 		["ENDGAME"] = {
 			"Flame Golems have 40% increased Damage",
-			"+36% to increased Flame Golem Elemental Resistances",
+			"+36% increased Flame Golem Elemental Resistances",
 			"150% increased Effect of the Buff granted by your Flame Golems",
 		},
 	},
