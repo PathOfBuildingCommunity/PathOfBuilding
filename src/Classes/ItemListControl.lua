@@ -43,15 +43,8 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	self.controls.deleteUnused = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 100, 18, "Delete Unused", function()
 		local delList = {}
 		for _, itemId in pairs(self.list) do
-			if itemsTab.items[itemId].type == "Jewel" then
-				if self:FindSocketedJewel(itemId, false) == "" then
-					t_insert(delList, itemId)
-				end
-			else
-				local slot, itemSet = itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId])
-				if not slot then
-					t_insert(delList, itemId)
-				end
+			if not itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId]) and not self:FindSocketedJewel(itemId, false) then
+				t_insert(delList, itemId)
 			end
 		end
 		-- Delete in reverse order so as to not delete the wrong item whilst deleting
@@ -75,29 +68,32 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 end)
 
 function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)
+	if not self.itemsTab.items[jewelId] or self.itemsTab.items[jewelId].type ~= "Jewel" then
+		return nil
+	end
 	local treeTab = self.itemsTab.build.treeTab
 	local matchActive = false
-	local outputString = ""
+	local equipTree = nil
 	for specId = #treeTab.specList, 1, -1 do
 		local spec = treeTab.specList[specId]
 		for nodeId, itemId in pairs(spec.jewels) do
 			if itemId == jewelId and spec.nodes[nodeId] and spec.nodes[nodeId].alloc then
 				if excludeActiveSpec and (specId == treeTab.activeSpec or matchActive) then
 					matchActive = true
-					outputString = ""
+					equipTree = nil
 				else
-					outputString = spec.title or "Default"
+					equipTree = spec.title or "Default"
 				end
 			end
 		end
 	end
-	return outputString
+	return equipTree
 end
 
 function ItemListClass:GetRowValue(column, index, itemId)
 	local item = self.itemsTab.items[itemId]
 	if column == 1 then
-		local used = self:FindSocketedJewel(itemId, true)
+		local used = self:FindSocketedJewel(itemId, true) or ""
 		if used == "" then
 			local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
 			if not slot then
@@ -176,7 +172,7 @@ end
 
 function ItemListClass:OnSelCopy(index, itemId)
 	local item = self.itemsTab.items[itemId]
-	Copy(item:BuildRaw():gsub("\n","\r\n"))
+	Copy(item:BuildRaw():gsub("\n", "\r\n"))
 end
 
 function ItemListClass:OnSelDelete(index, itemId)
@@ -191,7 +187,7 @@ function ItemListClass:OnSelDelete(index, itemId)
 		end)
 	else
 		local equipTree = self:FindSocketedJewel(itemId, true)
-		if equipTree ~= "" then
+		if equipTree then
 			main:OpenConfirmPopup("Delete Item", item.name.." is currently equipped in passive tree '"..equipTree.."'.\nAre you sure you want to delete it?", "Delete", function()
 				self.itemsTab:DeleteItem(item)
 				self.selIndex = nil
