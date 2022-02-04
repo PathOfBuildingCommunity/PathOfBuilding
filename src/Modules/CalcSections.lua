@@ -1667,6 +1667,12 @@ return {
 			{ modName = {"ChaosAegisValue",} },	
 		},
 	},
+	{ label = "Frost Shield", haveOutput = "FrostShieldLife",
+		{ format = "{0:output:FrostShieldLife}",
+			{ breakdown = "FrostShieldLife" },
+			{ modName = { "FrostGlobeHealth", "FrostGlobeDamageMitigation" } },
+		},
+	},
 	{ label = "Hits before death",{ format = "{output:NumberOfDamagingHits}", },
 	}
 }, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {

@@ -1351,6 +1351,23 @@ function calcs.defence(env, actor)
 			output[damageType.."AegisDisplay"] = output[damageType.."Aegis"] + output["sharedElementalAegis"]
 		end
 	end
+	
+	--frost shield
+	do
+		output["FrostShieldLife"] = modDB:Sum("BASE", nil, "FrostGlobeHealth")
+		output["FrostShieldDamageMitigation"] = modDB:Sum("BASE", nil, "FrostGlobeDamageMitigation")
+		
+		local lifeProtected = output["FrostShieldLife"] / (output["FrostShieldDamageMitigation"] / 100) * (1 - output["FrostShieldDamageMitigation"] / 100)
+		if breakdown then
+			breakdown["FrostShieldLife"] = {
+				s_format("Total life protected:"),
+				s_format("%d ^8(frost shield limit)", output["FrostShieldLife"]),
+				s_format("/ %.2f ^8(portion taken from frost shield)", output["FrostShieldDamageMitigation"] / 100),
+				s_format("x %.2f ^8(portion taken from life and energy shield)", 1 - output["FrostShieldDamageMitigation"] / 100),
+				s_format("= %d", lifeProtected),
+			}
+		end
+	end
 
 	--total pool
 	for _, damageType in ipairs(dmgTypeList) do
@@ -1407,6 +1424,7 @@ function calcs.defence(env, actor)
 			ward = 0
 			restoreWard = 0
 		end
+		local frostShield = output["FrostShieldLife"] or 0
 		local aegis = {}
 		aegis["shared"] = output["sharedAegis"] or 0
 		aegis["sharedElemental"] = output["sharedElementalAegis"] or 0
@@ -1437,7 +1455,11 @@ function calcs.defence(env, actor)
 						ward = ward - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
-					--frost sheild goes here in this order when implemented
+					if frostShield > 0 then
+						local tempDamage = m_min(Damage[damageType] * output["FrostShieldDamageMitigation"] / 100, frostShield)
+						frostShield = frostShield - tempDamage
+						Damage[damageType] = Damage[damageType] - tempDamage
+					end
 					if aegis[damageType] > 0 then
 						local tempDamage = m_min(Damage[damageType], aegis[damageType])
 						aegis[damageType] = aegis[damageType] - tempDamage
@@ -1879,6 +1901,11 @@ function calcs.defence(env, actor)
 				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - GuardAbsorbRate / 100)
 			end
 		end
+		--frost shield
+		if output["FrostShieldLife"] > 0 then
+			local poolProtected = output["FrostShieldLife"] / (output["FrostShieldDamageMitigation"] / 100) * (1 - output["FrostShieldDamageMitigation"] / 100)
+			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["FrostShieldDamageMitigation"] / 100)
+		end
 	end
 	for _, damageType in ipairs(dmgTypeList) do
 		if breakdown then
@@ -1920,7 +1947,7 @@ function calcs.defence(env, actor)
 		if breakdown then
 			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Total Pool: %d", output[damageType.."TotalHitPool"]))
 			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.2f",  output[damageType.."TotalHitPool"] / output[damageType.."MaximumHitTaken"]))
-			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]))
+			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %.0f", output[damageType.."MaximumHitTaken"]))
 		end
 	end
 	
