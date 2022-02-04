@@ -264,7 +264,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local accelerate = specEnv and specEnv.accelerate or { }
 
 	-- environment variables
-	override = override or { }
+	local override = override or { }
 	local modDB = nil
 	local enemyDB = nil
 	local classStats = nil
@@ -693,6 +693,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end
+				-- set conditions on restricted items
+				if item.classRestriction then
+					env.itemModDB.conditions[item.title:gsub(" ", "")] = item.classRestriction
+				end
 				if item.type ~= "Jewel" and item.type ~= "Flask" then
 					-- Update item counts
 					local key
@@ -756,6 +760,24 @@ function calcs.initEnv(build, mode, override, specEnv)
 				--ConPrintf("GrantedPassive: " .. env.allocNodes[node.id].dn)
 				env.grantedPassives[node.id] = true
 			end
+		end
+	end
+
+	-- Add granted ascendancy node (e.g., Forbidden Flame/Flesh combo)
+	local matchedName = { }
+	for _, ascTbl in pairs(env.modDB:List(nil, "GrantedAscendancyNode")) do
+		local name = ascTbl.name
+		if matchedName[name] and matchedName[name].side ~= ascTbl.side and matchedName[name].matched == false then
+			matchedName[name].matched = true
+			local node = env.spec.tree.ascendancyMap[name]
+			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
+				if env.itemModDB.conditions["ForbiddenFlesh"] == env.spec.curClassName and env.itemModDB.conditions["ForbiddenFlame"] == env.spec.curClassName then
+					env.allocNodes[node.id] = node
+					env.grantedPassives[node.id] = true
+				end
+			end
+		else
+			matchedName[name] = { side = ascTbl.side, matched = false }
 		end
 	end
 

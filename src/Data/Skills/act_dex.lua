@@ -1773,7 +1773,7 @@ skills["ChargedDash"] = {
 		},
 		{
 			name = "Release",
-			stages = true
+			stages = true,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)

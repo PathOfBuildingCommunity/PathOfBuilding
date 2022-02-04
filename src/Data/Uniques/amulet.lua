@@ -28,7 +28,6 @@ Implicits: 1
 ]],[[
 Araku Tiki
 Coral Amulet
-Upgrade: Upgrades to unique{Ngamahu Tiki} via prophecy{A Forest of False Idols}
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
 {tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
@@ -38,7 +37,7 @@ Implicits: 1
 ]],[[
 Ngamahu Tiki
 Coral Amulet
-Source: Upgraded from unique{Araku Tiki} via prophecy{A Forest of False Idols}
+Source: No longer obtainable
 Requires Level 36
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
@@ -50,7 +49,6 @@ Implicits: 1
 ]],[[
 The Ascetic
 Gold Amulet
-Source: prophecy{The Ambitious Bandit III}
 Requires Level 8
 Implicits: 1
 (12-20)% increased Rarity of Items found
@@ -480,7 +478,6 @@ Blind Chilled Enemies on Hit
 ]],[[
 Hinekora's Sight
 Onyx Amulet
-Source: Any prophecy{Prophecy} enemy
 Requires Level 20
 Variant: Pre 3.16.0
 Variant: Current
@@ -529,7 +526,6 @@ Grants Level 22 Hatred Skill
 ]],[[
 The Ignomon
 Gold Amulet
-Upgrade: Upgrades to unique{The Effigon} via prophecy{Blind Faith}
 Requires Level 8
 Implicits: 1
 (12-20)% increased Rarity of Items found
@@ -541,7 +537,7 @@ Implicits: 1
 ]],[[
 The Effigon
 Gold Amulet
-Source: Upgraded from unique{The Ignomon} via prophecy{Blind Faith}
+Source: No longer obtainable
 Requires Level 57
 Implicits: 1
 (12-20)% increased Rarity of Items found
@@ -590,7 +586,6 @@ Elder Item
 ]],[[
 Karui Ward
 Jade Amulet
-Upgrade: Upgrades to unique{Karui Charge} via prophecy{The Karui Rebellion}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 5
@@ -616,9 +611,9 @@ Implicits: 1
 ]],[[
 Karui Charge
 Jade Amulet
-Source: Upgraded from unique{Karui Ward} via prophecy{The Karui Rebellion}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 24
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
