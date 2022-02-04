@@ -1541,7 +1541,7 @@ function calcs.defence(env, actor)
 		if damageCategoryConfig == "Average" then
 			suppressChance = suppressChance / 2
 		end
-		suppressionEffect = (1 - suppressChance * output.SpellSuppressionEffect / 100)
+		suppressionEffect = 1 - suppressChance * output.SpellSuppressionEffect / 100
 		--extra avoid chance
 		if damageCategoryConfig == "Projectile" or damageCategoryConfig == "SpellProjectile" then
 			ExtraAvoidChance = ExtraAvoidChance + output.AvoidProjectilesChance
@@ -1578,12 +1578,12 @@ function calcs.defence(env, actor)
 				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.2f ^8(block effect)", output.BlockEffect / 100))
 			end
 			if suppressionEffect > 0 then
-				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.2f ^8(suppression effect)", suppressionEffect))
+				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.3f ^8(suppression effect)", suppressionEffect))
 			end
 			if averageAvoidChance > 0 then
 				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - averageAvoidChance / 100))
 			end
-			t_insert(breakdown["ConfiguredDamageChance"], s_format("= %.0f%% ^8(of damage taken from a%s hit)", output["ConfiguredDamageChance"], (damageCategoryConfig == "Average" and "n " or " ")..damageCategoryConfig))
+			t_insert(breakdown["ConfiguredDamageChance"], s_format("= %.1f%% ^8(of damage taken from a%s hit)", output["ConfiguredDamageChance"], (damageCategoryConfig == "Average" and "n " or " ")..damageCategoryConfig))
 		end
 	end
 	
