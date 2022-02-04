@@ -4067,11 +4067,8 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
 	end
-	if output.CullMultiplier > 1 then
-		output.CullingDPS = output.CombinedDPS * (output.CullMultiplier - 1)
-	end
-	output.CombinedDPS = output.CombinedDPS * output.CullMultiplier
 
+	local mirageCulling = nil
 	if activeSkill.mirage and activeSkill.mirage.output and activeSkill.mirage.output.TotalDPS then
 		local mirageCount = activeSkill.mirage.count or 1
 		output.MirageDPS = activeSkill.mirage.output.TotalDPS * mirageCount
@@ -4103,8 +4100,14 @@ function calcs.offence(env, actor, activeSkill)
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 		end
 		if activeSkill.mirage.output.CullMultiplier > 1 then
-			output.MirageDPS = output.MirageDPS * (activeSkill.mirage.output.CullMultiplier - 1)
-			output.CombinedDPS = output.CombinedDPS * (activeSkill.mirage.output.CullMultiplier - 1)
+			mirageCulling = activeSkill.mirage.output.CullMultiplier - 1
 		end
 	end
+
+	local bestCull = 1
+	if output.CullMultiplier > 1 or mirageCulling and mirageCulling > 1 then
+		bestCull = m_max(output.CullMultiplier, mirageCulling and mirageCulling > 1 and mirageCulling or 0)
+		output.CullingDPS = output.CombinedDPS * (bestCull - 1)
+	end
+	output.CombinedDPS = output.CombinedDPS * bestCull
 end
