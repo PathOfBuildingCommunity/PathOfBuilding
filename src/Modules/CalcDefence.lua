@@ -1019,8 +1019,8 @@ function calcs.defence(env, actor)
 			output[damageType.."TakenHitMult"] = m_max((1 + takenInc / 100) * takenMore, 0)
 			
 			for _, hitType in ipairs(hitSourceList) do
-				local baseTakenIncType = baseTakenInc + modDB:Sum("INC", nil, hitType.."DamageTaken")
-				local baseTakenMoreType = baseTakenMore * modDB:More(nil, hitType.."DamageTaken")
+				local baseTakenIncType = takenInc + modDB:Sum("INC", nil, hitType.."DamageTaken")
+				local baseTakenMoreType = takenMore * modDB:More(nil, hitType.."DamageTaken")
 				output[hitType.."TakenHitMult"] = m_max((1 + baseTakenIncType / 100) * baseTakenMoreType, 0)
 				output[damageType..hitType.."TakenHitMult"] = output[hitType.."TakenHitMult"]
 			end
