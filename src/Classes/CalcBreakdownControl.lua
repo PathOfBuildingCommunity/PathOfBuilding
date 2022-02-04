@@ -103,7 +103,8 @@ function CalcBreakdownClass:SetBreakdownData(displayData, pinned)
 			end
 			if section.footer then
 				self.contentWidth = m_max(self.contentWidth, 6 + DrawStringWidth(12, "VAR", section.footer))
-				section.height = section.height + 12
+				local _, lines = string.gsub(section.footer, "\n", "\n") -- counts newlines in the string
+				section.height = section.height + 12 * (lines + 1)
 			end
 		end
 		self.contentWidth = m_max(self.contentWidth, section.width)

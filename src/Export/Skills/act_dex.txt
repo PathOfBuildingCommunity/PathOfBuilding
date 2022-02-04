@@ -79,7 +79,10 @@ local skills, mod, flag, skill = ...
 		["non_damaging_ailments_as_though_damage_+%_final"] = {
 			mod("ShockAsThoughDealing", "MORE", nil),
 			mod("ChillAsThoughDealing", "MORE", nil),
-			mod("FreezeAsThoughDealing", "MORE", nil)
+			mod("FreezeAsThoughDealing", "MORE", nil),
+			mod("ScorchAsThoughDealing", "MORE", nil),
+			mod("BrittleAsThoughDealing", "MORE", nil),
+			mod("SapAsThoughDealing", "MORE", nil),
 		}
 	},
 #mods
@@ -139,7 +142,6 @@ local skills, mod, flag, skill = ...
 		{
 			name = "Channel & Release",
 			stages = true,
-			stagesMin = 1,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
@@ -212,7 +214,12 @@ local skills, mod, flag, skill = ...
 
 #skill VaalBladeVortex
 #flags spell area duration
-#baseMod skill("hitTimeOverride", 0.133)
+	statMap = {
+		["base_blade_vortex_hit_rate_ms"] = {
+			skill("hitTimeOverride", nil),
+			div = 1000,
+		},
+	},
 #baseMod skill("radius", 15)
 #mods
 
@@ -318,6 +325,7 @@ local skills, mod, flag, skill = ...
 		},
 		{
 			name = "Release",
+			stages = true,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
@@ -330,10 +338,10 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["charged_dash_damage_+%_final"] = {
-			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type="BaseReleaseDamage", skillPart = 3 }),
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["charged_dash_damage_+%_final_per_stack"] = {
-			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type="Multiplier", skillPart = 3, var = "ChargedDashStage" }),
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "Multiplier", var = "ChargedDashStage" }, { type = "SkillPart", skillPart = 3 }),
 		},
 		["charged_dash_channelling_damage_at_full_stacks_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
@@ -625,7 +633,7 @@ local skills, mod, flag, skill = ...
 			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse", limitVar = "ExplosiveArrowMaxBonusRadius", limitTotal = true }),
 		},
 		["explosive_arrow_explosion_base_damage_+permyriad"] = {
 			skill("baseMultiplier", nil, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
@@ -633,6 +641,9 @@ local skills, mod, flag, skill = ...
 		},
 		["explosive_arrow_hit_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["explosive_arrow_maximum_bonus_explosion_radius"] = {
+			mod("Multiplier:ExplosiveArrowMaxBonusRadius", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 15)
@@ -1242,9 +1253,11 @@ local skills, mod, flag, skill = ...
 	parts = {
 		{
 			name = "Release",
+			stages = true,
 		},
 		{ 
-			name = "Thorn Arrows"
+			name = "Thorn Arrows",
+			stages = true,
 		},
 	},
 	statMap = {

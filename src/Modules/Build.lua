@@ -356,6 +356,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ReqDex", label = "Dexterity Required", color = colorCodes.DEXTERITY, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end, warnFunc = function(v) return "You do not meet the Dexterity requirement" end },
 		{ stat = "Int", label = "Intelligence", color = colorCodes.INTELLIGENCE, fmt = "d" },
 		{ stat = "ReqInt", label = "Intelligence Required", color = colorCodes.INTELLIGENCE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end, warnFunc = function(v) return "You do not meet the Intelligence requirement" end },
+		{ stat = "Omni", label = "Omniscience", color = colorCodes.RARE, fmt = "d" },
+		{ stat = "ReqOmni", label = "Omniscience Required", color = colorCodes.RARE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > (o.Omni or 0) end, warnFunc = function(v) return "You do not meet the Omniscience requirement" end },
 		{ },
 		{ stat = "Devotion", label = "Devotion", color = colorCodes.RARE, fmt = "d" },
 		{ },
@@ -846,14 +848,30 @@ function buildMode:Save(xml)
 	for _, id in ipairs(self.spectreList) do
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
 	end
-	local addedStatNames = { SkillDPS = true }
+	local addedStatNames = { }
 	for index, statData in ipairs(self.displayStats) do
 		if not statData.flag or self.calcsTab.mainEnv.player.mainSkill.skillFlags[statData.flag] then
 			if statData.stat and not addedStatNames[statData.stat] then
-				local statVal = self.calcsTab.mainOutput[statData.stat]
-				if statVal and (statData.condFunc and statData.condFunc(statVal, self.calcsTab.mainOutput) or true) then
-					t_insert(xml, { elem = "PlayerStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
+				if statData.stat == "SkillDPS" then
+					local statVal = self.calcsTab.mainOutput[statData.stat]
+					for _, skillData in ipairs(statVal) do
+						local triggerStr = ""
+						if skillData.trigger and skillData.trigger ~= "" then
+							triggerStr = skillData.trigger
+						end
+						local lhsString = skillData.name
+						if skillData.count >= 2 then
+							lhsString = tostring(skillData.count).."x "..skillData.name
+						end
+						t_insert(xml, { elem = "FullDPSSkill", attrib = { stat = lhsString, value = tostring(skillData.dps * skillData.count), skillPart = skillData.skillPart or "", source = skillData.source or skillData.trigger or "" } })
+					end
 					addedStatNames[statData.stat] = true
+				else
+					local statVal = self.calcsTab.mainOutput[statData.stat]
+					if statVal and (statData.condFunc and statData.condFunc(statVal, self.calcsTab.mainOutput) or true) then
+						t_insert(xml, { elem = "PlayerStat", attrib = { stat = statData.stat, value = tostring(statVal) } })
+						addedStatNames[statData.stat] = true
+					end
 				end
 			end
 		end
@@ -1196,7 +1214,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
 					if activeEffect.grantedEffect.parts[activeEffect.srcInstance["skillPart"..suffix]].stages then
 						controls.mainSkillStageCount.shown = true
-						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeEffect.grantedEffect.parts[activeEffect.srcInstance["skillPart"..suffix]].stagesMin or 0)
+						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeEffect.grantedEffect.parts[activeEffect.srcInstance["skillPart"..suffix]].stagesMin or 1)
 					end
 				end
 				if activeSkill.skillFlags.mine then
@@ -1205,7 +1223,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 				end
 				if activeSkill.skillFlags.multiStage and not (activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1) then
 					controls.mainSkillStageCount.shown = true
-					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMin or 0)
+					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMin or 1)
 				end
 				if not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)
@@ -1422,15 +1440,30 @@ do
 		if level and level > 0 then
 			t_insert(req, s_format("^x7F7F7FLevel %s%d", main:StatColor(level, nil, self.characterLevel), level))
 		end
-		if str and (str >= 14 or str > self.calcsTab.mainOutput.Str) then
-			t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
-		end
-		if dex and (dex >= 14 or dex > self.calcsTab.mainOutput.Dex) then
-			t_insert(req, s_format("%s%d ^x7F7F7FDex", main:StatColor(dex, dexBase, self.calcsTab.mainOutput.Dex), dex))
-		end
-		if int and (int >= 14 or int > self.calcsTab.mainOutput.Int) then
-			t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
-		end
+		-- Convert normal attributes to Omni attributes
+		if self.calcsTab.mainEnv.modDB:Flag(nil, "OmniscienceRequirements") then
+			local omniSatisfy = self.calcsTab.mainEnv.modDB:Sum("INC", nil, "OmniAttributeRequirements")
+			local highestAtrribute = 0
+			for i, stat in ipairs({str, dex, int}) do
+				if((stat or 0) > highestAtrribute) then
+					highestAtrribute = stat
+				end
+			end
+			local omni = math.floor(highestAtrribute * (100/omniSatisfy))
+			if omni and (omni > 0 or omni > self.calcsTab.mainOutput.Omni) then
+				t_insert(req, s_format("%s%d ^x7F7F7FOmni", main:StatColor(omni, 0, self.calcsTab.mainOutput.Omni), omni))
+			end
+		else 
+			if str and (str >= 14 or str > self.calcsTab.mainOutput.Str) then
+				t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
+			end
+			if dex and (dex >= 14 or dex > self.calcsTab.mainOutput.Dex) then
+				t_insert(req, s_format("%s%d ^x7F7F7FDex", main:StatColor(dex, dexBase, self.calcsTab.mainOutput.Dex), dex))
+			end
+			if int and (int >= 14 or int > self.calcsTab.mainOutput.Int) then
+				t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
+			end
+		end	
 		if req[1] then
 			tooltip:AddLine(16, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "))
 			tooltip:AddSeparator(10)

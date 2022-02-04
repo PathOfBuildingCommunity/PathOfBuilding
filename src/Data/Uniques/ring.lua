@@ -126,7 +126,6 @@ Withered does not expire on Enemies Ignited by you
 ]],[[
 Blackheart
 Iron Ring
-Upgrade: Upgrades to unique{Voidheart} via prophecy{From The Void}
 Implicits: 1
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
 {tags:physical}5% increased Physical Damage
@@ -137,9 +136,9 @@ Implicits: 1
 ]],[[
 Voidheart
 Iron Ring
-Source: Upgraded from unique{Blackheart} using prophecy{From The Void}
+Source: No longer obtainable
 Variant: Pre 2.4.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 48
 Implicits: 1
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
@@ -155,9 +154,9 @@ Implicits: 1
 ]],[[
 Bloodboil
 Coral Ring
-Upgrade: Upgrades to unique{Winterweave} via prophecy{Cold Blooded Fury}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 24
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
@@ -172,8 +171,7 @@ Implicits: 1
 ]],[[
 Winterweave
 Coral Ring
-Source: Upgraded from unique{Bloodboil} via prophecy{Cold Blooded Fury}
-Requires Level 53
+Requires Level 24
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {tags:jewellery_elemental,attack}Adds (12-15) to (25-30) Fire Damage to Attacks
@@ -519,7 +517,6 @@ Poisoned Enemies you Kill with Hits Shatter
 ]],[[
 Kaom's Sign
 Coral Ring
-Upgrade: Upgrades to unique{Kaom's Way} via prophecy{The King's Path}
 Variant: Pre 2.0.0
 Variant: Current
 Implicits: 1
@@ -533,7 +530,7 @@ Kaom's Way
 Coral Ring
 Variant: Pre 3.16.0
 Variant: Current
-Source: Upgraded from unique{Kaom's Sign} using prophecy{The King's Path}
+Source: Drops from any endgame map boss
 Requires Level 32
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
@@ -1036,25 +1033,28 @@ Can't use other Rings
 ]],[[
 Timeclasp
 Moonstone Ring
-Upgrade: Upgrades to unique{Timetwist} via prophecy{A Rift in Time}
 Variant: Pre 2.6.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 22
 Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {tags:attack,speed}(10-15)% increased Attack Speed
 {variant:1}{tags:caster,speed}(5-8)% increased Cast Speed
-{variant:2}{tags:caster,speed}(5-10)% increased Cast Speed
+{variant:2,3}{tags:caster,speed}(5-10)% increased Cast Speed
 {variant:1}{tags:mana}15% reduced Mana Regeneration Rate
-{variant:2}{tags:mana}15% increased Mana Regeneration Rate
+{variant:2,3}{tags:mana}15% increased Mana Regeneration Rate
 {variant:1}{tags:jewellery_defense}+(10-25) to maximum Energy Shield
 {variant:2}{tags:jewellery_defense}+(15-25) to maximum Energy Shield
+{variant:3}{tags:jewellery_defense}+(40-45) to maximum Energy Shield
 {variant:1}{tags:caster}Temporal Chains has 30% reduced Effect on You
 {variant:2}{tags:caster}Temporal Chains has 50% reduced Effect on You
+{variant:3}(-10-10)% increased Skill Effect Duration
+{variant:3}Unaffected by Temporal Chains
 ]],[[
 Timetwist
 Moonstone Ring
-Source: Upgraded from unique{Timeclasp} via prophecy{A Rift in Time}
+Source: No longer obtainable
 Requires Level 64
 Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield

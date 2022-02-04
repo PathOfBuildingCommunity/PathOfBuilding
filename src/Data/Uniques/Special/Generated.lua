@@ -377,3 +377,36 @@ for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 end
 
 table.insert(data.uniques.generated, table.concat(watchersEye, "\n"))
+
+function buildTreeDependentUniques(tree)
+	buildForbidden(tree.classNotables)
+end
+
+function buildForbidden(classNotables)
+	local forbidden = { }
+	for _, name in pairs({"Flame", "Flesh"}) do
+		forbidden[name] = { }
+		table.insert(forbidden[name], "Forbidden " .. name)
+		table.insert(forbidden[name], "Prismatic Jewel")
+		local index = 1
+		for className, notableTable in pairs(classNotables) do
+			for _, notableName in ipairs(notableTable) do
+				table.insert(forbidden[name], "Variant: (" .. className .. ") " .. notableName)
+				index = index + 1
+			end
+		end
+		table.insert(forbidden[name], "Limited to: 1")
+		table.insert(forbidden[name], "Item Level: 83")
+		index = 1
+		for className, notableTable in pairs(classNotables) do
+			for _, notableName in ipairs(notableTable) do
+				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Requires Class " .. className)
+				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifiers on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
+				index = index + 1
+			end
+		end
+		table.insert(forbidden[name], "Corrupted")
+	end
+	table.insert(data.uniques.generated, table.concat(forbidden["Flame"], "\n"))
+	table.insert(data.uniques.generated, table.concat(forbidden["Flesh"], "\n"))
+end

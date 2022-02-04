@@ -21,7 +21,7 @@
 * Select the "Bug Report" issue template and fill out all fields.
 * Please provide detailed instructions on how to reproduce the bug, if possible.
 * Provide a build share code for a build that is affected by the bug, if possible.
-  In the "Import/Export Build" tab, click "Generate", then "Share with Pastebin" and add the link to your post. 
+  In the "Import/Export Build" tab, click "Generate", then "Share" and add the link to your post. 
   
 Build share codes allow us to reproduce bugs much more quickly. 
 
