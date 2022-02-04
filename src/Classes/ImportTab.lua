@@ -16,6 +16,21 @@ local realmList = {
 	{ label = "Tencent", id = "PC", realmCode = "pc", hostName = "https://poe.game.qq.com/", profileURL = "account/view-profile/" },
 }
 
+-- Import/Export websites list used in dropdowns
+local importWebsiteList = {
+	{
+		label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1",
+		codeOut = "", postUrl = "https://pastebin.com/api/api_post.php", postFields = "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="
+	},
+	{ label = "PastebinP.com", id = "PastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
+	{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
+	{ label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1" },
+	{
+		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/%w+", regexURL = "pobb%.in/([%w-_]+)%s*$", downloadURL = "pobb.in/pob/%1",
+		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = ""
+	},
+}
+
 local influenceInfo = itemLib.influenceInfo
 
 local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(self, build)
@@ -134,18 +149,15 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charImportTree.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charImportTreeClearJewels = new("CheckBoxControl", {"LEFT",self.controls.charImportTree,"RIGHT"}, 90, 0, 18, "Delete jewels:")
-	self.controls.charImportTreeClearJewels.tooltipText = "Delete all existing jewels when importing."
+	self.controls.charImportTreeClearJewels = new("CheckBoxControl", {"LEFT",self.controls.charImportTree,"RIGHT"}, 90, 0, 18, "Delete jewels:", nil, "Delete all existing jewels when importing.", true)
 	self.controls.charImportItems = new("ButtonControl", {"LEFT",self.controls.charImportTree, "LEFT"}, 0, 36, 110, 20, "Items and Skills", function()
 		self:DownloadItems()
 	end)
 	self.controls.charImportItems.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.charImportItemsClearSkills = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:")
-	self.controls.charImportItemsClearSkills.tooltipText = "Delete all existing skills when importing."
-	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:")
-	self.controls.charImportItemsClearItems.tooltipText = "Delete all equipped items when importing."
+	self.controls.charImportItemsClearSkills = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:", nil, "Delete all existing skills when importing.", true)
+	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
 	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
 
 	self.controls.charClose = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Close", function()
@@ -170,48 +182,74 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.generateCodeCopy.enabled = function()
 		return #self.controls.generateCodeOut.buf > 0
 	end
-	self.controls.generateCodePastebin = new("ButtonControl", {"LEFT",self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 140, 20, "Share with Pastebin", function()
-		local id = LaunchSubScript([[
-			local code, proxyURL = ...
-			local curl = require("lcurl.safe")
-			local page = ""
-			local easy = curl.easy()
-			easy:setopt_url("https://pastebin.com/api/api_post.php")
-			easy:setopt(curl.OPT_POST, true)
-			easy:setopt(curl.OPT_POSTFIELDS, "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="..code)
-			easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
-			if proxyURL then
-				easy:setopt(curl.OPT_PROXY, proxyURL)
+
+	local getExportSitesFromImportList = function()
+		local exportWebsites = { }
+		for k,v in pairs(importWebsiteList) do
+			-- if entry has fields needed for Export
+			if importWebsiteList[k].postUrl and importWebsiteList[k].postFields and importWebsiteList[k].codeOut then
+				table.insert(exportWebsites, v)
 			end
-			easy:setopt_writefunction(function(data)
-				page = page..data
-				return true
-			end)
-			easy:perform()
-			easy:close()
-			if page:match("pastebin.com") then
-				return page
-			else
-				return nil, page
-			end
-		]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
-		if id then
-			self.controls.generateCodeOut:SetText("")
-			self.controls.generateCodePastebin.label = "Creating paste..."
-			launch:RegisterSubScript(id, function(pasteLink, errMsg)
-				self.controls.generateCodePastebin.label = "Share with Pastebin"
-				if errMsg then
-					main:OpenMessagePopup("Pastebin.com", "Error creating paste:\n"..errMsg)
+		end
+		return exportWebsites
+	end
+	local exportWebsitesList = getExportSitesFromImportList()
+
+	self.controls.exportFrom = new("DropDownControl", { "LEFT", self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 120, 20, exportWebsitesList, function(_, selectedWebsite)
+		self.exportWebsiteSelected = selectedWebsite.id
+	end)
+	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or "Pastebin", "id")
+	self.controls.generateCodeByLink = new("ButtonControl", { "LEFT", self.controls.exportFrom, "RIGHT"}, 8, 0, 100, 20, "Share", function()
+		local response = ""
+		local exportWebsite = { }
+		if self.controls.exportFrom.selIndex then
+			exportWebsite = exportWebsitesList[self.controls.exportFrom.selIndex]
+			response = LaunchSubScript([[
+				local code, proxyURL = ...
+				local curl = require("lcurl.safe")
+				local page = ""
+				local easy = curl.easy()
+				easy:setopt_url(']]..exportWebsite.postUrl..[[')
+				easy:setopt(curl.OPT_POST, true)
+				easy:setopt(curl.OPT_POSTFIELDS, ']]..exportWebsite.postFields..[['..code)
+				easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
+				if proxyURL then
+					easy:setopt(curl.OPT_PROXY, proxyURL)
+				end
+				easy:setopt_writefunction(function(data)
+					page = page..data
+					return true
+				end)
+				easy:perform()
+				local res = easy:getinfo_response_code()
+				easy:close()
+				if (res == 200) then
+					return page
 				else
-					self.controls.generateCodeOut:SetText(pasteLink)
+					return nil, page
+				end
+			]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
+		end
+		if response ~= "" then
+			self.controls.generateCodeOut:SetText("")
+			self.controls.generateCodeByLink.label = "Creating link..."
+			launch:RegisterSubScript(response, function(pasteLink, errMsg)
+				self.controls.generateCodeByLink.label = "Share"
+				if errMsg then
+					main:OpenMessagePopup(exportWebsite.id, "Error creating link:\n"..errMsg)
+				else
+					self.controls.generateCodeOut:SetText(exportWebsite.codeOut..pasteLink)
 				end
 			end)
 		end
 	end)
-	self.controls.generateCodePastebin.enabled = function()
-		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pastebin%.com")
+	self.controls.generateCodeByLink.enabled = function()
+		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pastebin%.com") and not self.controls.generateCodeOut.buf:match("pobb%.in")
 	end
-	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share with Pastebin' to shrink it.")
+	self.controls.exportFrom.enabled = function()
+		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pastebin%.com") and not self.controls.generateCodeOut.buf:match("pobb%.in")
+	end
+	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share' to shrink it.")
 	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter the code here:")
 	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 250, 20, "", nil, "^%w_%-=", nil, function(buf)
 		if #buf == 0 then
@@ -304,7 +342,8 @@ end
 function ImportTabClass:DownloadCharacterList()
 	self.charImportMode = "DOWNLOADCHARLIST"
 	self.charImportStatus = "Retrieving character list..."
-	local accountName = self.controls.accountName.buf
+	  -- Trim Trailing/Leading spaces
+	local accountName = self.controls.accountName.buf:gsub('%s+', '')
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(page, errMsg)
@@ -944,13 +983,6 @@ function UrlDecode(url)
 end
 
 function ImportTabClass:OpenImportFromWebsitePopup()
-	local importWebsiteList = {
-		{ label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1" },
-		{ label = "PastebinP.com", id = "PastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
-		{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
-		{ label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1" },
-		{ label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/%w+", regexURL = "pobb%.in/([%w-_]+)%s*$", downloadURL = "pobb.in/pob/%1" },
-	}
 	local controls = { }
 
 	controls.importAnchorPoint = new("Control", nil, 0, 0, 280, 0)

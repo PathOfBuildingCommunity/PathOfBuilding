@@ -118,6 +118,9 @@ skills["AnimateWeapon"] = {
 		["minion_global_maximum_added_lightning_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack) }),
 		},
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -393,7 +396,10 @@ skills["Barrage"] = {
 		["non_damaging_ailments_as_though_damage_+%_final"] = {
 			mod("ShockAsThoughDealing", "MORE", nil),
 			mod("ChillAsThoughDealing", "MORE", nil),
-			mod("FreezeAsThoughDealing", "MORE", nil)
+			mod("FreezeAsThoughDealing", "MORE", nil),
+			mod("ScorchAsThoughDealing", "MORE", nil),
+			mod("BrittleAsThoughDealing", "MORE", nil),
+			mod("SapAsThoughDealing", "MORE", nil),
 		}
 	},
 	baseFlags = {
@@ -775,7 +781,6 @@ skills["ChargedAttack"] = {
 		{
 			name = "Channel & Release",
 			stages = true,
-			stagesMin = 1,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
@@ -1007,13 +1012,18 @@ skills["VaalBladeVortex"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Vaal] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["base_blade_vortex_hit_rate_ms"] = {
+			skill("hitTimeOverride", nil),
+			div = 1000,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("hitTimeOverride", 0.133),
 		skill("radius", 15),
 	},
 	qualityStats = {
@@ -1387,9 +1397,9 @@ skills["BloodRage"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["blood_rage_life_leech_from_elemental_damage_permyriad"] = {
-			mod("FireDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
-			mod("ColdDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
-			mod("LightningDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0),
+			mod("FireDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("ColdDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("LightningDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 100
 		}
 	},
@@ -1763,6 +1773,7 @@ skills["ChargedDash"] = {
 		},
 		{
 			name = "Release",
+			stages = true,
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
@@ -1775,10 +1786,10 @@ skills["ChargedDash"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["charged_dash_damage_+%_final"] = {
-			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type="BaseReleaseDamage", skillPart = 3 }),
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["charged_dash_damage_+%_final_per_stack"] = {
-			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type="Multiplier", skillPart = 3, var = "ChargedDashStage" }),
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "Multiplier", var = "ChargedDashStage" }, { type = "SkillPart", skillPart = 3 }),
 		},
 		["charged_dash_channelling_damage_at_full_stacks_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
@@ -3083,7 +3094,6 @@ skills["EnsnaringArrow"] = {
 	},
 	baseMods = {
 		flag("Condition:CanEnsnare"),
-		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanEnsnare" }),
 	},
 	qualityStats = {
 		Default = {
@@ -3274,7 +3284,7 @@ skills["ExplosiveArrow"] = {
 			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse", limitVar = "ExplosiveArrowMaxBonusRadius", limitTotal = true }),
 		},
 		["explosive_arrow_explosion_base_damage_+permyriad"] = {
 			skill("baseMultiplier", nil, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
@@ -3282,6 +3292,9 @@ skills["ExplosiveArrow"] = {
 		},
 		["explosive_arrow_hit_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		},
+		["explosive_arrow_maximum_bonus_explosion_radius"] = {
+			mod("Multiplier:ExplosiveArrowMaxBonusRadius", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -6957,9 +6970,11 @@ skills["ScourgeArrow"] = {
 	parts = {
 		{
 			name = "Release",
+			stages = true,
 		},
 		{ 
-			name = "Thorn Arrows"
+			name = "Thorn Arrows",
+			stages = true,
 		},
 	},
 	statMap = {
@@ -9075,7 +9090,6 @@ skills["Slither"] = {
 	},
 	baseMods = {
 		flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }),
-		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }),
 		skill("radius", 26),
 	},
 	qualityStats = {

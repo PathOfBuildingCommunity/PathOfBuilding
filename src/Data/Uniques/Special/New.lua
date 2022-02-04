@@ -30,6 +30,18 @@ Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 63% reduced Elemental Resistances
 Elemental Skills deal Triple Damage
+]],[[
+Polaric Devastation
+Opal Ring
+Requires Level 80
+Implicits: 1
+{tags:jewellery_elemental}(15-25)% increased Elemental Damage
+{tags:critical}21% increased Global Critical Strike Chance
+{tags:jewellery_resistance}+29% to Fire Resistance
+{tags:jewellery_resistance}+34% to Cold Resistance
+10% increased Duration of Ailments on Enemies
+Left Ring slot: Cover Enemies in Ash for 5 seconds when you Ignite them
+Right Ring slot: Cover Enemies in Frost for 5 seconds when you Freeze them
 ]]
 
 -- Reworked

@@ -252,6 +252,34 @@ data.specialBaseTags = {
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
+data.cursePriority = {
+	["Temporal Chains"] = 1, -- Despair and Elemental Weakness override Temporal Chains.
+	["Enfeeble"] = 2, -- Elemental Weakness and Vulnerability override Enfeeble.
+	["Elemental Weakness"] = 3, -- Despair and Flammability override Elemental Weakness.
+	["Flammability"] = 4, -- Frostbite overrides Flammability.
+	["Frostbite"] = 5, -- Conductivity overrides Frostbite.
+	["Conductivity"] = 6,
+	["Warlord's Mark"] = 7,
+	["Assassin's Mark"] = 8,
+	["Sniper's Mark"] = 9,
+	["Poacher's Mark"] = 10,
+	["Vulnerability"] = 11, -- Despair overrides Vulnerability. Vulnerability was reworked in 3.1.0.
+	["Despair"] = 12, -- Despair was created in 3.1.0.
+	["Punishment"] = 13, -- Punishment was reworked in 3.12.0.
+	["SocketPriorityBase"] = 100,
+	["Weapon 1"] = 1000,
+	["Amulet"] = 2000,
+	["Helmet"] = 3000,
+	["Weapon 2"] = 4000,
+	["Body Armour"] = 5000,
+	["Gloves"] = 6000,
+	["Boots"] = 7000,
+	["Ring 1"] = 8000,
+	["Ring 2"] = 9000,
+	["CurseFromEquipment"] = 10000,
+	["CurseFromAura"] = 20000,
+}
+
 ---@type string[] @List of all keystones not exclusive to timeless jewels.
 data.keystones = {
 	"Acrobatics",
@@ -306,6 +334,15 @@ data.keystones = {
 	"Zealot's Oath",
 }
 
+data.nonDamagingAilment = {
+	["Chill"] = { associatedType = "Cold", alt = false, default = 10, min = 5, max = 30, precision = 0, duration = 2 },
+	["Freeze"] = { associatedType = "Cold", alt = false, default = nil, min = 0.3, max = 3, precision = 2, duration = nil },
+	["Shock"] = { associatedType = "Lightning", alt = false, default = 15, min = 5, max = 50, precision = 0, duration = 2 },
+	["Scorch"] = { associatedType = "Fire", alt = true, default = 10, min = 0, max = 30, precision = 0, duration = 4 },
+	["Brittle"] = { associatedType = "Cold", alt = true, default = 5, min = 0, max = 15, precision = 2, duration = 4 },
+	["Sap"] = { associatedType = "Lightning", alt = true, default = 6, min = 0, max = 20, precision = 0, duration = 4 },
+}
+
 data.misc = { -- magic numbers
 	ServerTickTime = 0.033,
 	ServerTickRate = 1 / 0.033,
@@ -328,19 +365,18 @@ data.misc = { -- magic numbers
 	BleedDurationBase = 5,
 	PoisonPercentBase = 0.30,
 	PoisonDurationBase = 2,
-	IgnitePercentBase = 1.25,
+	IgnitePercentBase = 0.9,
 	IgniteDurationBase = 4,
 	ImpaleStoredDamageBase = 0.1,
 	BuffExpirationSlowCap = 0.25,
 	TrapTriggerRadiusBase = 10,
 	MineDetonationRadiusBase = 60,
 	MineAuraRadiusBase = 35,
-	PurposefulHarbingerMaxBuffPercent = 40,
-	VastPowerMaxAoEPercent = 50,
 	MaxEnemyLevel = 84,
 	LowPoolThreshold = 0.5,
 	AccuracyPerDexBase = 2,
 	BrandAttachmentRangeBase = 30,
+	ProjectileDistanceCap = 150,
 }
 
 -- Misc data tables

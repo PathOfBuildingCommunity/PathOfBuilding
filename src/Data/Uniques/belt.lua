@@ -5,6 +5,8 @@ return {
 [[
 Arn's Anguish
 Cloth Belt
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68
 Implicits: 1
@@ -15,10 +17,10 @@ Implicits: 1
 Modifiers to Minimum Endurance Charges instead apply to Minimum Brutal Charges
 Maximum Brutal Charges is equal to Maximum Endurance Charges
 Gain Brutal Charges instead of Endurance Charges
+{variant:2}+1 to Maximum Endurance Charges
 ]],[[
 Ascent From Flesh
 Chain Belt
-Source: prophecy{Thaumaturgical History IV}
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
@@ -332,6 +334,8 @@ You have no Armour or Maximum Energy Shield
 ]],[[
 Graven's Secret
 Cloth Belt
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68
 Implicits: 1
@@ -342,6 +346,7 @@ Implicits: 1
 Modifiers to Minimum Power Charges instead apply to Minimum Absorption Charges
 Maximum Absorption Charges is equal to Maximum Power Charges
 Gain Absorption Charges instead of Power Charges
+{variant:2}+1 to Maximum Power Charges
 ]],[[
 Headhunter
 Leather Belt
@@ -440,8 +445,6 @@ Offering Skills have 50% reduced Duration
 ]],[[
 The Magnate
 Studded Belt
-Upgrade: Upgrades to unique{The Nomad} via prophecy{The Great Leader of the North}
-Upgrade: Upgrades to unique{The Tactician} via prophecy{The Great Mind of the North}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16
@@ -454,7 +457,7 @@ Implicits: 1
 ]],[[
 The Nomad
 Studded Belt
-Source: Upgraded from unique{The Magnate} via prophecy{The Great Leader of the North}
+Source: Drops from any endgame map boss
 Requires Level 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
@@ -467,7 +470,7 @@ Implicits: 1
 ]],[[
 The Tactician
 Studded Belt
-Source: Upgraded from unique{The Magnate} via prophecy{The Great Mind of the North}
+Source: Drops from any endgame map boss
 Requires Level 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
@@ -529,6 +532,8 @@ Minions have (50-80)% increased Flask Effect Duration
 ]],[[
 Olesya's Delight
 Cloth Belt
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68
 Implicits: 1
@@ -539,6 +544,7 @@ Implicits: 1
 Modifiers to Minimum Frenzy Charges instead apply to Minimum Affliction Charges
 Maximum Affliction Charges is equal to Maximum Frenzy Charges
 Gain Affliction Charges instead of Frenzy Charges
+{variant:2}+1 to Maximum Frenzy Charges
 ]],[[
 Perandus Blazon
 Cloth Belt
@@ -773,8 +779,8 @@ Heavy Belt
 League: Ritual
 Requires Level 52
 Implicits: 1
-{tags:jewellery_attribute}+(25-35)% to Strength
-{tags:jewellery_defense}+(800-1200)% to Armour
+{tags:jewellery_attribute}+(25-35) to Strength
+{tags:jewellery_defense}+(800-1200) to Armour
 {tags:life}Regenerate (50-70) Life per second
 20% increased Stun Threshold
 {tags:jewellery_defense}10% reduced Armour per 50 Strength
