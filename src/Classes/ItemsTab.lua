@@ -1624,10 +1624,12 @@ end
 -- Returns the first slot in which the given item is equipped
 function ItemsTabClass:GetEquippedSlotForItem(item)
 	for _, slot in ipairs(self.orderedSlots) do
+			-- Currently selected Data Set
 		if not slot.inactive then
 			if slot.selItemId == item.id then
 				return slot
 			end
+			-- Not selected Data Set
 			for _, itemSetId in ipairs(self.itemSetOrderList) do
 				local itemSet = self.itemSets[itemSetId]
 				if itemSetId ~= self.activeItemSetId and itemSet[slot.slotName] and itemSet[slot.slotName].selItemId == item.id then
