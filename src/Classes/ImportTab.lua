@@ -748,6 +748,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	end
 	item.enchantModLines = { }
 	item.scourgeModLines = { }
+	item.classRequirementModLines = { }
 	item.implicitModLines = { }
 	item.explicitModLines = { }
 	if itemData.enchantMods then
