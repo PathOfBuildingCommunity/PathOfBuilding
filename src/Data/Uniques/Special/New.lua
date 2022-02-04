@@ -42,6 +42,31 @@ Implicits: 1
 10% increased Duration of Ailments on Enemies
 Left Ring slot: Cover Enemies in Ash for 5 seconds when you Ignite them
 Right Ring slot: Cover Enemies in Frost for 5 seconds when you Freeze them
+]],[[
+The Gluttonous Tide
+Citadel Bow
+151% increased Physical Damage
+20% increased Attack Speed
+Lose all frenzy charges on reaching maximum frenzy charges to make the next bow attack you perform fire that many additional arrows
++43% to Global Critical Strike Multiplier while you have a Frenzy Charge
+39% chance to gain a Frenzy Charge for each enemy you hit with a Critical Strike
+]],[[
+Divine Inferno
+Crimson Jewel
+Limited to: 1
+Radius: Medium
+With at least 40 Strength in Radius, Combust is Disabled
+With at least 40 Strength in Radius, Attacks Exerted by Infernal Cry deal 57% more Damage with Ignite
+]],[[
+Black Zenith
+Fingerless Silk Gloves
+Implicits: 0
+Socketed Projectile Spells deal 150% more Damage with Hits
+Socketed Projectile Spells have +4 seconds to Cooldown
+Socketed Projectile Spells fire 4 additional Projectiles
+Socketed Projectile Spells fire Projectiles in a circle
+Socketed Projectile Spells have 80% less Skill Effect Duration
+146% increased Energy Shield
 ]]
 
 -- Reworked
