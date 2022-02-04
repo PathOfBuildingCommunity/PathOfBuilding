@@ -333,7 +333,6 @@ Implicits: 2
 ]],[[
 Redbeak
 Rusted Sword
-Upgrade: Upgrades to unique{Dreadbeak} via prophecy{The Dreaded Rhoa}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 2
@@ -349,7 +348,7 @@ Adds 2 to 6 Physical Damage
 ]],[[
 Dreadbeak
 Rusted Sword
-Source: Upgraded from unique{Redbeak} via prophecy{The Dreaded Rhoa}
+Source: Drops from any endgame map boss
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 61
@@ -458,7 +457,7 @@ Minions deal (20-30)% increased Damage
 Minions have +17% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
 {variant:3}Minions have 60% chance to Poison Enemies on Hit
-Minions Recover 20% of Maximum Life on Killing a Poisoned Enemy
+Minions Recover 20% of Life on Killing a Poisoned Enemy
 ]],[[
 United in Dream
 Cutlass
@@ -611,7 +610,7 @@ Adds (40-60) to (90-110) Cold Damage to Spells
 (8-14)% increased Attack Speed
 +257 Intelligence Requirement
 60% increased Critical Strike Chance against Chilled Enemies
-Trigger a Socketed Cold Spell on Melee Critical Strike, with a 0.15 second Cooldown
+Trigger a Socketed Cold Spell on Melee Critical Strike, with a 0.25 second Cooldown
 ]],[[
 Daresso's Passion
 Estoc
@@ -683,29 +682,30 @@ Adds 3 to 7 Fire Damage
 [[
 The Dancing Dervish
 Reaver Sword
-Upgrade: Upgrades to unique{The Dancing Duo} via prophecy{Dance of Steel}
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 59, 82 Str, 119 Dex
 Implicits: 3
 {variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
-{variant:3}60% increased Global Accuracy Rating
+{variant:3,4}60% increased Global Accuracy Rating
 {variant:1,2}(160-190)% increased Physical Damage
-{variant:3}(130-160)% increased Physical Damage
+{variant:3,4}(130-160)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
 Rampage
-Triggers Level 15 Manifest Dancing Dervish on Rampage
+{variant:4}Melee Hits count as Rampage Kills
+Triggers Level 15 Manifest Dancing Dervishes on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
 ]],[[
 The Dancing Duo
 Reaver Sword
-Source: Upgraded from unique{The Dancing Dervish} via prophecy{Dance of Steel}
+Source: No longer obtainable
 Variant: Pre 3.11.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 65, 82 Str, 119 Dex
 Implicits: 2
 {variant:1}40% increased Global Accuracy Rating
@@ -715,10 +715,9 @@ Implicits: 2
 (25-30)% increased Attack Speed
 5% increased Movement Speed
 Rampage
-Triggers Level 15 Manifest Dancing Dervish on Rampage
+Triggers Level 15 Manifest Dancing Dervishes on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
-Manifested Dancing Dervish also manifests a copy of Dancing Dervish
 ]],[[
 Doomsower
 Lion Sword
@@ -832,7 +831,6 @@ Gain an Endurance Charge if an Attack Freezes an Enemy
 ]],[[
 Queen's Decree
 Ornate Sword
-Upgrade: Upgrades to unique{Queen's Escape} via prophecy{The Misunderstood Queen}
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
@@ -852,7 +850,7 @@ Implicits: 2
 ]],[[
 Queen's Escape
 Ornate Sword
-Source: Upgraded from unique{Queen's Decree} using prophecy{The Misunderstood Queen}
+Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current

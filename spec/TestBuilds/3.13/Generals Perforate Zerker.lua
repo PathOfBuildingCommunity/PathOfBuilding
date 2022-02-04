@@ -1167,7 +1167,7 @@ Gain 50 Life when you Stun an Enemy
 	</Items>
 	<Config>
 		<Input name="conditionCritRecently" boolean="true"/>
-		<Input name="multiplierFortification" number="20"/>
+		<Input name="buffFortification" boolean="true"/>
 		<Input name="conditionOnConsecratedGround" boolean="true"/>
 		<Input name="conditionEnemyTaunted" boolean="true"/>
 		<Input name="multiplierRage" number="25"/>
