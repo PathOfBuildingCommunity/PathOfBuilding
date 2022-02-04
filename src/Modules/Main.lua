@@ -527,6 +527,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.defaultCharLevel then
 					self.defaultCharLevel = m_min(tonumber(node.attrib.defaultCharLevel) or 1, 100)
 				end
+				if node.attrib.lastExportWebsite then
+					self.lastExportWebsite = node.attrib.lastExportWebsite
+				end
 			end
 		end
 	end
@@ -576,6 +579,7 @@ function main:SaveSettings()
 		betaTest = tostring(self.betaTest),
 		defaultGemQuality = tostring(self.defaultGemQuality or 0),
 		defaultCharLevel = tostring(self.defaultCharLevel or 1),
+		lastExportWebsite = self.lastExportWebsite,
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then

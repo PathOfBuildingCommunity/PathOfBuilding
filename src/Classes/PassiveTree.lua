@@ -101,6 +101,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Build maps of class name -> class table
 	self.classNameMap = { }
 	self.ascendNameMap = { }
+	self.classNotables = { }
+
 	for classId, class in pairs(self.classes) do
 		if versionNum >= 3.10 then
 			-- Migrate to old format
@@ -259,6 +261,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	ConPrintf("Processing tree...")
+	self.ascendancyMap = { }
 	self.keystoneMap = { }
 	self.notableMap = { }
 	self.clusterNodeMap = { }
@@ -327,9 +330,24 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				elseif node.g then
 					self.notableMap[node.dn:lower()] = node
 				end
+			else
+				self.ascendancyMap[node.dn:lower()] = node
+				if not self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] then
+					self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] = { }
+				end
+				if self.ascendNameMap[node.ascendancyName].class.name ~= "Scion" then
+					t_insert(self.classNotables[self.ascendNameMap[node.ascendancyName].class.name], node.dn)
+				end
 			end
 		else
 			node.type = "Normal"
+			if node.ascendancyName == "Ascendant" and not node.dn:find(" ") and node.dn ~= "Dexterity" and
+				node.dn ~= "Intelligence" and node.dn ~= "Strength" then
+				if not self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] then
+					self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] = { }
+				end
+				t_insert(self.classNotables[self.ascendNameMap[node.ascendancyName].class.name], node.dn)
+			end
 		end
 
 		-- Find the node group
@@ -433,6 +451,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 		self:ProcessStats(node)
 	end
+
+	-- Late load the Generated data so we can take advantage of a tree existing
+	buildTreeDependentUniques(self)
 end)
 
 function PassiveTreeClass:ProcessStats(node)

@@ -59,18 +59,28 @@ local itemClassMap = {
 
 local directiveTable = { }
 
--- #monster <MonsterId> [<Name>]
+-- #monster <MonsterId> [<Name>] [<ExtraSkills>]
 directiveTable.monster = function(state, args, out)
-	local varietyId, name = args:match("(%S+) (%S+)")
-	if not varietyId then
-		varietyId = args
-		name = args
-	end
-	state.varietyId = varietyId
-	state.name = name
+	state.varietyId = nil
+	state.name = nil
 	state.limit = nil
 	state.extraModList = { }
 	state.extraSkillList = { }
+	for arg in args:gmatch("%S+") do
+		if state.varietyId == nil then
+			state.varietyId = arg
+		elseif state.name == nil then
+			if arg == "#" then
+				state.name = state.varietyId
+			else
+				state.name = arg
+			end
+		else
+			table.insert(state.extraSkillList, arg)
+		end
+	end
+	state.varietyId = state.varietyId or args
+	state.name = state.name or args
 end
 
 -- #limit <LimitVarName>
