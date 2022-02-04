@@ -387,7 +387,7 @@ function ItemClass:ParseRaw(raw)
 						end
 					end
 					if not baseName then
-						local s, e = self.name:find("Two-Toned Boots", 1, true)
+						local s, e = self.name:find("Two%-Toned Boots", 1, true)
 						if s then
 							-- Hack for Two-Toned Boots
 							baseName = "Two-Toned Boots (Armour/Energy Shield)"
