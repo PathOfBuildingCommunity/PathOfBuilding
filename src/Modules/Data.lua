@@ -373,8 +373,8 @@ data.misc = { -- magic numbers
 	AccuracyPerDexBase = 2,
 	BrandAttachmentRangeBase = 30,
 	ProjectileDistanceCap = 150,
-  -- Expected values to calculate EHP
-  stdBossDPSMult = 4 / 4.25,
+	-- Expected values to calculate EHP
+	stdBossDPSMult = 4 / 4.25,
 	shaperDPSMult = 8 / 4.25,
 	shaperPen = 25 / 5,
 	sirusDPSMult = 10 / 4.25,

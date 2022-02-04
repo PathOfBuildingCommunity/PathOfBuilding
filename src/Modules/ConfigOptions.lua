@@ -1287,7 +1287,33 @@ return {
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", tooltip = "Standard Boss adds the following modifiers:\n\t33% less Effect of your Hexes\n\t+40% to enemy Elemental Resistances\n\t+25% to enemy Chaos Resistance\n\nShaper/Guardian adds the following modifiers:\n\t66% less Effect of your Hexes\n\t+50% to enemy Elemental Resistances\n\t+30% to enemy Chaos Resistance\n\t+33% to enemy Armour\n\nSirus adds the following modifiers:\n\t66% less Effect of your Hexes\n\t+50% to enemy Elemental Resistances\n\t+30% to enemy Chaos Resistance\n\t+100% to enemy Armour", list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper/Guardian"},{val="Sirus",label="Sirus"}}, apply = function(val, modList, enemyModList)
+	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", tooltip = [[
+Bosses' damage is monster damage scaled to an average damage of their attacks
+This is divided by 4.25 to represent 4 damage types + some chaos
+Fill in the exact damage numbers if more precision is needed
+
+Standard Boss adds the following modifiers:
+	33% less Effect of your Hexes
+	+40% to enemy Elemental Resistances
+	+25% to enemy Chaos Resistance
+	94% of monster damage
+
+Shaper/Guardian adds the following modifiers:
+	66% less Effect of your Hexes
+	+50% to enemy Elemental Resistances
+	+30% to enemy Chaos Resistance
+	+33% to enemy Armour
+	188% of monster damage
+	5% penetration
+
+Sirus adds the following modifiers:
+	66% less Effect of your Hexes
+	+50% to enemy Elemental Resistances
+	+30% to enemy Chaos Resistance
+	+100% to enemy Armour
+	235% of monster damage
+	8% penetration
+	]], list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper/Guardian"},{val="Sirus",label="Sirus"}}, apply = function(val, modList, enemyModList)
 		if val == "Uber Atziri" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
@@ -1333,7 +1359,7 @@ return {
 		enemyModList:NewMod("ChaosResist", "BASE", val, "Config")
 	end },
 	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
-	{ var = "enemySpeed", type = "integer", label = "Enemy Skill use time (ms):" },
+	{ var = "enemySpeed", type = "integer", label = "Enemy attack/cast speed in ms:" },
 	{ var = "enemyPhysicalDamage", type = "integer", label = "Enemy Skill Physical Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet."},
 	{ var = "enemyLightningDamage", type = "integer", label = "Enemy Skill Lightning Damage:"},
 	{ var = "enemyLightningPen", type = "integer", label = "Enemy Skill Lightning Pen:"},
