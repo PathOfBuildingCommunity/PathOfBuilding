@@ -60,7 +60,8 @@ With at least 40 Strength in Radius, Attacks Exerted by Infernal Cry deal 57% mo
 ]],[[
 Black Zenith
 Fingerless Silk Gloves
-Implicits: 0
+Implicits: 1
+(12-16)% increased Spell Damage
 Socketed Projectile Spells deal 150% more Damage with Hits
 Socketed Projectile Spells have +4 seconds to Cooldown
 Socketed Projectile Spells fire 4 additional Projectiles
