@@ -1751,9 +1751,19 @@ function calcs.perform(env, avoidCache)
 	local curses = { 
 		limit = output.EnemyCurseLimit,
 	}
-	local minionCurses = { 
+	local minionCurses = {
 		limit = 1,
 	}
+	for spectreId = 1, #env.spec.build.spectreList do
+		local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
+		for modId = 1, #spectreData.modList do
+			local modData = spectreData.modList[modId]
+			if modData.name == "EnemyCurseLimit" then
+				minionCurses.limit = modData.value + 1
+				break
+			end
+		end
+	end
 	local affectedByAura = { }
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		local skillModList = activeSkill.skillModList
@@ -1982,6 +1992,48 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
+	-- Limited support for handling buffs originating from Spectres
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.minion then
+			for _, activeMinionSkill in ipairs(activeSkill.minion.activeSkillList) do
+				if activeMinionSkill.skillData.enable then
+					local skillModList = activeMinionSkill.skillModList
+					local skillCfg = activeMinionSkill.skillCfg
+					for _, buff in ipairs(activeMinionSkill.buffList) do
+						if buff.type == "Buff" then
+							if buff.applyAllies then
+								activeMinionSkill.buffSkill = true
+								modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+								local srcList = new("ModList")
+								local inc = skillModList:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnPlayer")
+								local more = skillModList:More(skillCfg, "BuffEffect", "BuffEffectOnPlayer")
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								mergeBuff(srcList, buffs, buff.name)
+								mergeBuff(buff.modList, buffs, buff.name)
+								if activeMinionSkill.skillData.thisIsNotABuff then
+									buffs[buff.name].notBuff = true
+								end
+							end
+							if buff.applyMinions then
+								activeMinionSkill.minionBuffSkill = true
+								activeSkill.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+								local srcList = new("ModList")
+								local inc = skillModList:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnMinion")
+								local more = skillModList:More(skillCfg, "BuffEffect", "BuffEffectOnMinion")
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								mergeBuff(srcList, minionBuffs, buff.name)
+								mergeBuff(buff.modList, minionBuffs, buff.name)
+								if activeMinionSkill.skillData.thisIsNotABuff then
+									buffs[buff.name].notBuff = true
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+
 	-- Check for extra curses
 	for dest, modDB in pairs({[curses] = modDB, [minionCurses] = env.minion and env.minion.modDB}) do
 		for _, value in ipairs(modDB:List(nil, "ExtraCurse")) do
@@ -2034,11 +2086,11 @@ function calcs.perform(env, avoidCache)
 	local markSlotted = false
 	for _, source in ipairs({curses, minionCurses}) do
 		for _, curse in ipairs(source) do
-			-- calculate curses that ignore hex limit after
-			if not curse.ignoreHexLimit and not curse.socketedCursesHexLimit then 
+			-- Calculate curses that ignore hex limit after
+			if not curse.ignoreHexLimit and not curse.socketedCursesHexLimit then
 				local slot
 				for i = 1, source.limit do
-					--Prevent multiple marks from being considered
+					-- Prevent multiple marks from being considered
 					if curse.isMark then
 						if markSlotted then
 							slot = nil
