@@ -1,8 +1,8 @@
 VERSION[2.14.0][2022/02/04]
 
-* add armour and evasion to unqiue sorting (Lexy)
-* Add support for Champion's Inspirational banner life regen (mthjones)
-* Add support for Master of Fear notable (LocalIdentity)
+* Add Armour and Evasion sorting to the tree and uniques tab (Lexy)
+* Add support for Champion's Inspirational Banner Life Regen (mthjones)
+* Add support for Master of Fear Notable (LocalIdentity)
 * feat: Moved over new SimpleGraphic DLL from other project (Nostrademous)
 * Add QoL improvements for import tab (Dullson)
 * Add support for "Arrows gain Critical Strike Chance as they travel farther, up to 100% increased Critical Strike Chance" and "Arrows gain Damage as they travel farther, up to 50% increased Damage with Hits to targets" (Peechey)
