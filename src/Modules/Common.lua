@@ -660,30 +660,25 @@ end
 
 -- Global Cache related
 function cacheData(uuid, env)
-	if GlobalCache.dontUseCache then
-		return
-	end
-
 	local mode = env.mode
+	if mode == "CALCULATOR" then return end
 
-	if not GlobalCache.cachedData[mode][uuid] or mode == "MAIN" or mode == "CALCS" then
-		-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
-		if GlobalCache.cachedData[mode][uuid] then
-			GlobalCache.cachedData[mode][uuid].ActiveSkill = nil
-			GlobalCache.cachedData[mode][uuid].Env = nil
-		end
-		GlobalCache.cachedData[mode][uuid] = {
-			Name = env.player.mainSkill.activeEffect.grantedEffect.name,
-			Speed = env.player.output.Speed,
-			ManaCost = env.player.output.ManaCost,
-			HitChance = env.player.output.HitChance,
-			PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
-			CritChance = env.player.output.CritChance,
-			TotalDPS = env.player.output.TotalDPS,
-			ActiveSkill = env.player.mainSkill,
-			Env = env,
-		}
+	-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
+	if GlobalCache.cachedData[mode][uuid] then
+		GlobalCache.cachedData[mode][uuid].ActiveSkill = nil
+		GlobalCache.cachedData[mode][uuid].Env = nil
 	end
+	GlobalCache.cachedData[mode][uuid] = {
+		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
+		Speed = env.player.output.Speed,
+		ManaCost = env.player.output.ManaCost,
+		HitChance = env.player.output.HitChance,
+		PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
+		CritChance = env.player.output.CritChance,
+		TotalDPS = env.player.output.TotalDPS,
+		ActiveSkill = env.player.mainSkill,
+		Env = env,
+	}
 end
 
 -- Obtian a stored cached processed skill identified by
@@ -729,7 +724,6 @@ end
 
 -- Wipe all the tables associated with Global Cache
 function wipeGlobalCache()
-	--ConPrintf("WIPING GlobalCache.cacheData")
 	wipeTable(GlobalCache.cachedData.MAIN)
 	wipeTable(GlobalCache.cachedData.CALCS)
 	wipeTable(GlobalCache.cachedData.CALCULATOR)

@@ -100,11 +100,12 @@ local modNameList = {
 	["strength"] = "Str",
 	["dexterity"] = "Dex",
 	["intelligence"] = "Int",
-	["strength and dexterity"] = { "Str", "Dex" },
-	["strength and intelligence"] = { "Str", "Int" },
-	["dexterity and intelligence"] = { "Dex", "Int" },
-	["attributes"] = { "Str", "Dex", "Int" },
-	["all attributes"] = { "Str", "Dex", "Int" },
+	["omniscience"] = "Omni",
+	["strength and dexterity"] = { "Str", "Dex", "StrDex" },
+	["strength and intelligence"] = { "Str", "Int", "StrInt" },
+	["dexterity and intelligence"] = { "Dex", "Int", "DexInt" },
+	["attributes"] = { "Str", "Dex", "Int", "All" },
+	["all attributes"] = { "Str", "Dex", "Int", "All" },
 	["devotion"] = "Devotion",
 	-- Life/mana
 	["life"] = "Life",
@@ -199,24 +200,29 @@ local modNameList = {
 	["physical damage from hits taken"] = "PhysicalDamageTaken",
 	["physical damage taken when hit"] = "PhysicalDamageTakenWhenHit",
 	["physical damage taken from hits"] = "PhysicalDamageTakenWhenHit",
+	["physical damage taken from attacks"] = "PhysicalDamageTakenFromAttacks",
 	["physical damage taken over time"] = "PhysicalDamageTakenOverTime",
 	["physical damage over time damage taken"] = "PhysicalDamageTakenOverTime",
 	["reflected physical damage taken"] = "PhysicalReflectedDamageTaken",
 	["lightning damage taken"] = "LightningDamageTaken",
 	["lightning damage from hits taken"] = "LightningDamageTaken",
 	["lightning damage taken when hit"] = "LightningDamageTakenWhenHit",
+	["lightning damage taken from attacks"] = "LightningDamageTakenFromAttacks",
 	["lightning damage taken over time"] = "LightningDamageTakenOverTime",
 	["cold damage taken"] = "ColdDamageTaken",
 	["cold damage from hits taken"] = "ColdDamageTaken",
 	["cold damage taken when hit"] = "ColdDamageTakenWhenHit",
+	["cold damage taken from attacks"] = "ColdDamageTakenFromAttacks",
 	["cold damage taken over time"] = "ColdDamageTakenOverTime",
 	["fire damage taken"] = "FireDamageTaken",
 	["fire damage from hits taken"] = "FireDamageTaken",
 	["fire damage taken when hit"] = "FireDamageTakenWhenHit",
+	["fire damage taken from attacks"] = "FireDamageTakenFromAttacks",
 	["fire damage taken over time"] = "FireDamageTakenOverTime",
 	["chaos damage taken"] = "ChaosDamageTaken",
 	["chaos damage from hits taken"] = "ChaosDamageTaken",
 	["chaos damage taken when hit"] = "ChaosDamageTakenWhenHit",
+	["chaos damage taken from attacks"] = "ChaosDamageTakenFromAttacks",
 	["chaos damage taken over time"] = "ChaosDamageTakenOverTime",
 	["chaos damage over time taken"] = "ChaosDamageTakenOverTime",
 	["elemental damage taken"] = "ElementalDamageTaken",
@@ -598,6 +604,7 @@ local modNameList = {
 	["strength requirement"] = "StrRequirement",
 	["dexterity requirement"] = "DexRequirement",
 	["intelligence requirement"] = "IntRequirement",
+	["omni requirement"] = "OmniRequirement",
 	["strength and intelligence requirement"] = { "StrRequirement", "IntRequirement" },
 	["attribute requirements"] = { "StrRequirement", "DexRequirement", "IntRequirement" },
 	["effect of socketed jewels"] = "SocketedJewelEffect",
@@ -688,6 +695,7 @@ local modFlagList = {
 	["with spells"] = { flags = ModFlag.Spell },
 	["with spell damage"] = { flags = ModFlag.Spell },
 	["for spells"] = { flags = ModFlag.Spell },
+	["for spell damage"] = { flags = ModFlag.Spell },
 	["with attacks"] = { keywordFlags = KeywordFlag.Attack },
 	["with attack skills"] = { keywordFlags = KeywordFlag.Attack },
 	["for attacks"] = { flags = ModFlag.Attack },
@@ -904,6 +912,8 @@ local preFlagList = {
 	["^socketed golem gems [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "golem" } },
 	["^socketed golem skills [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "golem" } },
 	["^socketed golem skills have minions "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "golem" } },
+	["^socketed vaal skills [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "vaal" } },
+	["^socketed projectile spells [hgdf][aei][viar][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keywordList = { "projectile", "spell" } } },
 	-- Enemy modifiers
 	["^enemies withered by you [th]a[vk]e "] = { tag = { type = "MultiplierThreshold", var = "WitheredStack", threshold = 1 }, applyToEnemy = true },
 	["^enemies (%a+) by you take "] = function(cond)
@@ -916,13 +926,14 @@ local preFlagList = {
 		return { tag = { type = "ActorCondition", actor = "enemy", var = cond:gsub("^%a", string.upper) } }
 	end,
 	["^enemies shocked or frozen by you take "] = { tag = { type = "Condition", varList = {"Shocked","Frozen"} }, applyToEnemy = true, modSuffix = "Taken" },
-	["^enemies affected by your spider's webs [th]a[vk]e "] = { tag = { type = "MultiplierThreshold", var = "Spider's WebStack", threshold = 1 }, applyToEnemy = true },
+	["^enemies affected by your spider's webs [thd][ae][avk][el] "] = { tag = { type = "MultiplierThreshold", var = "Spider's WebStack", threshold = 1 }, applyToEnemy = true },
 	["^enemies you curse take "] = { tag = { type = "Condition", var = "Cursed" }, applyToEnemy = true, modSuffix = "Taken" },
 	["^enemies you curse ?h?a?v?e? "] = { tag = { type = "Condition", var = "Cursed" }, applyToEnemy = true },
 	["^nearby enemies take "] = { modSuffix = "Taken", applyToEnemy = true },
 	["^nearby enemies have "] = { applyToEnemy = true },
 	["^nearby enemies deal "] = { applyToEnemy = true },
 	["^nearby enemies "] = { applyToEnemy = true },
+	["^enemies near your totems deal "] = { applyToEnemy = true },
 	-- Other
 	["^your flasks grant "] = { },
 	["^when hit, "] = { },
@@ -1036,6 +1047,7 @@ local modTagList = {
 	["per (%d+) strength"] = function(num) return { tag = { type = "PerStat", stat = "Str", div = num } } end,
 	["per (%d+) dexterity"] = function(num) return { tag = { type = "PerStat", stat = "Dex", div = num } } end,
 	["per (%d+) intelligence"] = function(num) return { tag = { type = "PerStat", stat = "Int", div = num } } end,
+	["per (%d+) omniscience"] = function(num) return { tag = { type = "PerStat", stat = "Omni", div = num } } end,
 	["per (%d+) total attributes"] = function(num) return { tag = { type = "PerStat", statList = { "Str", "Dex", "Int" }, div = num } } end,
 	["per (%d+) of your lowest attribute"] = function(num) return { tag = { type = "PerStat", stat = "LowestAttribute", div = num } } end,
 	["per (%d+) reserved life"] = function(num) return { tag = { type = "PerStat", stat = "LifeReserved", div = num } } end,
@@ -1458,11 +1470,14 @@ local function grantedExtraSkill(name, level, noSupports)
 		}
 	end
 end
-local function triggerExtraSkill(name, level, noSupports)
+local function triggerExtraSkill(name, level, noSupports, sourceSkill)
 	name = name:gsub(" skill","")
+	if sourceSkill then
+		sourceSkill = sourceSkill:gsub(" skill","")
+	end
 	if gemIdLookup[name] then
 		return {
-			mod("ExtraSkill", "LIST", { skillId = gemIdLookup[name], level = level, noSupports = noSupports, triggered = true })
+			mod("ExtraSkill", "LIST", { skillId = gemIdLookup[name], level = level, noSupports = noSupports, triggered = true, source = sourceSkill })
 		}
 	end
 end
@@ -1967,6 +1982,7 @@ local specialModList = {
 	["has (%d+) abyssal sockets?"] = function(num) return { mod("AbyssalSocketCount", "BASE", num) } end,
 	["no physical damage"] = { mod("WeaponData", "LIST", { key = "PhysicalMin" }), mod("WeaponData", "LIST", { key = "PhysicalMax" }), mod("WeaponData", "LIST", { key = "PhysicalDPS" }) },
 	["all attacks with this weapon are critical strikes"] = { mod("WeaponData", "LIST", { key = "CritChance", value = 100 }) },
+	["this weapon's critical strike chance is (%d+)%%"] = function(num) return { mod("WeaponData", "LIST", { key = "CritChance", value = num }) } end,
 	["counts as dual wielding"] = { mod("WeaponData", "LIST", { key = "countsAsDualWielding", value = true}) },
 	["counts as all one handed melee weapon types"] = { mod("WeaponData", "LIST", { key = "countsAsAll1H", value = true }) },
 	["no block chance"] = { mod("ArmourData", "LIST", { key = "BlockChance", value = 0 }) },
@@ -1997,16 +2013,16 @@ local specialModList = {
 	["(%d+)%% of recovery applied instantly"] = function(num) return { mod("FlaskInstantRecovery", "BASE", num) } end,
 	["has no attribute requirements"] = { flag("NoAttributeRequirements") },
 	["trigger a socketed spell when you attack with this weapon"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
-	["trigger a socketed spell when you attack with this weapon, with a 0.15 second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["trigger a socketed spell when you attack with this weapon, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger a socketed spell when you use a skill"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnSkillUse", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
-	["trigger a socketed spell when you use a skill, with a 8 second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnSkillUse", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
-	["trigger a socketed spell when you use a skill, with a 8 second cooldown and 150%% more cost"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnSkillUse", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["trigger a socketed spell when you use a skill, with a (%d+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnSkillUse", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["trigger a socketed spell when you use a skill, with a (%d+) second cooldown and (%d+)%% more cost"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnSkillUse", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger socketed spells when you focus"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellFromHelmet", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Condition", var = "Focused" }) },
-	["trigger socketed spells when you focus, with a 0.25 second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellFromHelmet", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Condition", var = "Focused" }) },
+	["trigger socketed spells when you focus, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellFromHelmet", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Condition", var = "Focused" }) },
 	["trigger a socketed spell when you attack with a bow"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnBowAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
-	["trigger a socketed spell when you attack with a bow, with a 0.3 second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnBowAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["trigger a socketed spell when you attack with a bow, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnBowAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger a socketed bow skill when you attack with a bow"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerBowSkillOnBowAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
-	["trigger a socketed bow skill when you attack with a bow, with a 1 second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerBowSkillOnBowAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["trigger a socketed bow skill when you attack with a bow, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerBowSkillOnBowAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["(%d+)%% chance to [c?t?][a?r?][s?i?][t?g?]g?e?r? socketed spells when you spend at least (%d+) mana to use a skill"] = function(num, _, amount) return {
 		mod("KitavaTriggerChance", "BASE", num, "Kitava's Thirst"),
 		mod("KitavaRequiredManaCost", "BASE", tonumber(amount), "Kitava's Thirst"),
@@ -2086,6 +2102,7 @@ local specialModList = {
 	["[ct][ar][si][tg]g?e?r?s? level (%d+) (.+) when hit"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["[ct][ar][si][tg]g?e?r?s? level (%d+) (.+) when you kill an enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["[ct][ar][si][tg]g?e?r?s? level (%d+) (.+) when you use a skill"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["(.+) can trigger level (%d+) (.+)"] = function(_, sourceSkill, num, skill) return triggerExtraSkill(skill, tonumber(num), nil, sourceSkill) end,
 	["trigger level (%d+) (.+) when you use a skill while you have a spirit charge"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit an enemy while cursed"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit a bleeding enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
@@ -2873,6 +2890,7 @@ local specialModList = {
 		mod("LightningResist", "INC", -num),
 	} end,
 	["cannot be ignited while on low life"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "LowLife" }) },
+	["ward does not break during flask effect"] = { flag("WardNotBreak", { type = "Condition", var = "UsingFlask" }) },
 	-- Knockback
 	["cannot knock enemies back"] = { flag("CannotKnockback") },
 	["knocks back enemies if you get a critical strike with a staff"] = { mod("EnemyKnockbackChance", "BASE", 100, nil, ModFlag.Staff, { type = "Condition", var = "CriticalStrike" }) },
@@ -3041,9 +3059,9 @@ local specialModList = {
 	["(%d+)%% chance to cast a? ?socketed lightning spells? on hit"] = function(num) return { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["cast a socketed lightning spell on hit"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger a socketed lightning spell on hit"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
-	["trigger a socketed lightning spell on hit, with a 0.15 second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["trigger a socketed lightning spell on hit, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueMjolnerLightningSpellsCastOnHit", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["[ct][ar][si][tg]g?e?r? a socketed cold s[pk][ei]ll on melee critical strike"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
-	["[ct][ar][si][tg]g?e?r? a socketed cold s[pk][ei]ll on melee critical strike, with a 0.15 second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["[ct][ar][si][tg]g?e?r? a socketed cold s[pk][ei]ll on melee critical strike, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["your curses can apply to hexproof enemies"] = { flag("CursesIgnoreHexproof") },
 	["your hexes can affect hexproof enemies"] = { flag("CursesIgnoreHexproof") },
 	["hexes from socketed skills can apply (%d) additional curses"] = function(num) return { mod("SocketedCursesHexLimitValue", "BASE", num), flag("SocketedCursesAdditionalLimit", { type = "SocketedIn", slotName = "{SlotName}" } )} end,
@@ -3084,6 +3102,7 @@ local specialModList = {
 		mod("SkillData", "LIST", { key = "lifeReservationPercent", value = 0 }, { type = "SkillType", skillType = SkillType.Banner }),
 	},
 	["placed banners also grant (%d+)%% increased attack damage to you and allies"] = function(num) return { mod("ExtraAuraEffect", "LIST", { mod = mod("Damage", "INC", num, nil, ModFlag.Attack) }, { type = "Condition", var = "BannerPlanted" }) } end,
+	["dread banner grants an additional %+(%d+) to maximum fortification when placing the banner"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("MaximumFortification", "BASE", num, { type = "GlobalEffect", effectType = "Buff" }) }, { type = "Condition", var = "BannerPlanted" }, { type = "SkillName", skillName = "Dread Banner" }) } end,
 	["your aura skills are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Aura }) },
 	["your spells are disabled"] = { flag("DisableSkill", { type = "SkillType", skillType = SkillType.Spell }) },
 	["travel skills other than dash are disabled"] = { flag("DisableSkill", { type = "SkillName", skillNameList = { "Leap Slam", "Shield Charge", "Whirling Blades", "Phase Run", "Lightning Warp", "Vaal Lightning Warp", "Smoke Mine", "Blink Arrow", "Mirror Arrow", "Flame Dash", "Bodyswap", "Frostblink", "Withering Step" } }) },
@@ -3110,6 +3129,11 @@ local specialModList = {
 	["every 8 seconds, gain avatar of fire for 4 seconds"] = {
 		flag("Condition:HaveVulconus"),
 	},
+	["modifiers to attributes instead apply to omniscience"] = { flag("Omniscience") },
+	["attribute requirements can be satisfied by (%d+)%% of omniscience"] = function(num) return { 
+		mod("OmniAttributeRequirements", "INC", num),
+		flag("OmniscienceRequirements")
+	} end,
 	["you have far shot while you do not have iron reflexes"] = { flag("FarShot", { neg = true, type = "Condition", var = "HaveIronReflexes" }) },
 	["you have resolute technique while you do not have elemental overload"] = { mod("Keystone", "LIST", "Resolute Technique", { neg = true, type = "Condition", var = "HaveElementalOverload" }) },
 	["hits ignore enemy monster fire resistance while you are ignited"] = { flag("IgnoreFireResistance", { type = "Condition", var = "Ignited" }) },
@@ -3136,6 +3160,7 @@ local specialModList = {
 	["your critical strike multiplier is (%d+)%%"] = function(num) return { mod("CritMultiplier", "OVERRIDE", num) } end,
 	["base critical strike chance for attacks with weapons is ([%d%.]+)%%"] = function(num) return { mod("WeaponBaseCritChance", "OVERRIDE", num) } end,
 	["critical strike chance is (%d+)%% for hits with this weapon"] = function(num) return { mod("CritChance", "OVERRIDE", num, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) } end, 
+	["allocates (.+) if you have the matching modifiers on forbidden (.+)"] = function(_, ascendancy, side) return { mod("GrantedAscendancyNode", "LIST", { side = side, name = ascendancy }) } end,
 	["allocates (.+)"] = function(_, passive) return { mod("GrantedPassive", "LIST", passive) } end,
 	["battlemage"] = { flag("WeaponDamageAppliesToSpells"), mod("ImprovedWeaponDamageAppliesToSpells", "MAX", 100) },
 	["transfiguration of body"] = { flag("TransfigurationOfBody") },
@@ -3211,6 +3236,10 @@ local specialModList = {
 	} end,
 	["elusive also grants %+(%d+)%% to critical strike multiplier for skills supported by nightblade"] = function(num) return { mod("NightbladeElusiveCritMultiplier", "BASE", num) } end,
 	["skills supported by nightblade have (%d+)%% increased effect of elusive"] = function(num) return { mod("NightbladeSupportedElusiveEffect", "INC", num) } end,
+	["nearby enemies are scorched"] = {
+		mod("EnemyModifier", "LIST", { mod = flag("Condition:Scorched") }),
+		mod("ScorchBase", "BASE", 10),
+	},
 	-- Pantheon: Soul of Tukohama support
 	["while stationary, gain ([%d%.]+)%% of life regenerated per second every second, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("LifeRegenPercent", "BASE", num, { type = "Multiplier", var = "StationarySeconds", limit = tonumber(limit), limitTotal = true }, { type = "Condition", var = "Stationary" }),
@@ -3723,6 +3752,7 @@ local jewelThresholdFuncs = {
 	["With 40 total Dexterity and Strength in Radius, Spectral Shield Throw Chains +4 times"] = getThreshold({ "Dex","Str" }, "ChainCountMax", "BASE", 4, { type = "SkillName", skillName = "Spectral Shield Throw" }),
 	["With 40 total Dexterity and Strength in Radius, Spectral Shield Throw fires 75% less Shard Projectiles"] = getThreshold({ "Dex","Str" }, "ProjectileCount", "MORE", -75, { type = "SkillName", skillName = "Spectral Shield Throw" }),
 	["With at least 40 Intelligence in Radius, Blight inflicts Withered for 2 seconds"] = getThreshold("Int", "ExtraSkillMod", "LIST", { mod = mod("Condition:CanWither", "FLAG", true) }, { type = "SkillName", skillName = "Blight" }),
+	["With at least 40 Intelligence in Radius, Blight has 30% reduced Cast Speed"] = getThreshold("Int", "Speed", "INC", -30, { type = "SkillName", skillName = "Blight" }),
 	["With at least 40 Intelligence in Radius, Fireball cannot ignite"] = getThreshold("Int", "ExtraSkillMod", "LIST", { mod = flag("CannotIgnite") }, { type = "SkillName", skillName = "Fireball" }),
 	["With at least 40 Intelligence in Radius, Fireball has %+(%d+)%% chance to inflict scorch"] = function(num) return getThreshold("Int", "EnemyScorchChance", "BASE", num, { type = "SkillName", skillName = "Fireball" }) end,
 	["With at least 40 Intelligence in Radius, Discharge has 60% less Area of Effect"] = getThreshold("Int", "AreaOfEffect", "MORE", -60, {type = "SkillName", skillName = "Discharge" }),

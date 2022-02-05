@@ -356,8 +356,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ReqDex", label = "Dexterity Required", color = colorCodes.DEXTERITY, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end, warnFunc = function(v) return "You do not meet the Dexterity requirement" end },
 		{ stat = "Int", label = "Intelligence", color = colorCodes.INTELLIGENCE, fmt = "d" },
 		{ stat = "ReqInt", label = "Intelligence Required", color = colorCodes.INTELLIGENCE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end, warnFunc = function(v) return "You do not meet the Intelligence requirement" end },
+		{ stat = "Omni", label = "Omniscience", color = colorCodes.RARE, fmt = "d" },
+		{ stat = "ReqOmni", label = "Omniscience Required", color = colorCodes.RARE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > (o.Omni or 0) end, warnFunc = function(v) return "You do not meet the Omniscience requirement" end },
 		{ },
 		{ stat = "Devotion", label = "Devotion", color = colorCodes.RARE, fmt = "d" },
+		{ },
+		{ stat = "TotalEHP", label = "Effective Hit Pool", fmt = ".0f", compPercent = true },
+		{ stat = "SecondMinimalMaximumHitTaken", label = "Eff. Maximum Hit Taken", fmt = ".0f", compPercent = true },
 		{ },
 		{ stat = "Life", label = "Total Life", fmt = "d", compPercent = true },
 		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.Life > 1 end },
@@ -1153,16 +1158,18 @@ function buildMode:OpenSpectreLibrary()
 	local controls = { }
 	controls.list = new("MinionListControl", nil, -100, 40, 190, 250, self.data, destList)
 	controls.source = new("MinionListControl", nil, 100, 40, 190, 250, self.data, sourceList, controls.list)
-	controls.save = new("ButtonControl", nil, -45, 300, 80, 20, "Save", function()
+	controls.save = new("ButtonControl", nil, -45, 330, 80, 20, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
 		self.buildFlag = true
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 300, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 330, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(410, 330, "Spectre Library", controls)
+	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 24, 2, 0, 16, "Spectres in your Library must be assigned to an active")
+	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 20, 18, 0, 16, "Raise Spectre gem for their buffs and curses to activate")
+	main:OpenPopup(410, 360, "Spectre Library", controls)
 end
 
 -- Refresh the set of controls used to select main group/skill/minion
@@ -1438,15 +1445,30 @@ do
 		if level and level > 0 then
 			t_insert(req, s_format("^x7F7F7FLevel %s%d", main:StatColor(level, nil, self.characterLevel), level))
 		end
-		if str and (str >= 14 or str > self.calcsTab.mainOutput.Str) then
-			t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
-		end
-		if dex and (dex >= 14 or dex > self.calcsTab.mainOutput.Dex) then
-			t_insert(req, s_format("%s%d ^x7F7F7FDex", main:StatColor(dex, dexBase, self.calcsTab.mainOutput.Dex), dex))
-		end
-		if int and (int >= 14 or int > self.calcsTab.mainOutput.Int) then
-			t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
-		end
+		-- Convert normal attributes to Omni attributes
+		if self.calcsTab.mainEnv.modDB:Flag(nil, "OmniscienceRequirements") then
+			local omniSatisfy = self.calcsTab.mainEnv.modDB:Sum("INC", nil, "OmniAttributeRequirements")
+			local highestAtrribute = 0
+			for i, stat in ipairs({str, dex, int}) do
+				if((stat or 0) > highestAtrribute) then
+					highestAtrribute = stat
+				end
+			end
+			local omni = math.floor(highestAtrribute * (100/omniSatisfy))
+			if omni and (omni > 0 or omni > self.calcsTab.mainOutput.Omni) then
+				t_insert(req, s_format("%s%d ^x7F7F7FOmni", main:StatColor(omni, 0, self.calcsTab.mainOutput.Omni), omni))
+			end
+		else 
+			if str and (str >= 14 or str > self.calcsTab.mainOutput.Str) then
+				t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
+			end
+			if dex and (dex >= 14 or dex > self.calcsTab.mainOutput.Dex) then
+				t_insert(req, s_format("%s%d ^x7F7F7FDex", main:StatColor(dex, dexBase, self.calcsTab.mainOutput.Dex), dex))
+			end
+			if int and (int >= 14 or int > self.calcsTab.mainOutput.Int) then
+				t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
+			end
+		end	
 		if req[1] then
 			tooltip:AddLine(16, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "))
 			tooltip:AddSeparator(10)

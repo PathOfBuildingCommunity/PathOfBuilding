@@ -312,7 +312,12 @@ holding Shift will put it in the second.]])
 		if not self.controls.displayItemVariant:IsShown() then
 			return 0
 		end
-		return 28 + (self.displayItem.hasAltVariant and 24 or 0) + (self.displayItem.hasAltVariant2 and 24 or 0) + (self.displayItem.hasAltVariant3 and 24 or 0)
+		return (28 + 
+		(self.displayItem.hasAltVariant and 24 or 0) + 
+		(self.displayItem.hasAltVariant2 and 24 or 0) + 
+		(self.displayItem.hasAltVariant3 and 24 or 0) +
+		(self.displayItem.hasAltVariant4 and 24 or 0) + 
+		(self.displayItem.hasAltVariant5 and 24 or 0))
 	end)
 	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 300, 20, nil, function(index, value)
 		self.displayItem.variant = index
@@ -320,6 +325,7 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
+	self.controls.displayItemVariant.maxDroppedWidth = 1000
 	self.controls.displayItemVariant.shown = function()
 		return self.displayItem.variantList and #self.displayItem.variantList > 1
 	end
@@ -329,6 +335,7 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
+	self.controls.displayItemAltVariant.maxDroppedWidth = 1000
 	self.controls.displayItemAltVariant.shown = function()
 		return self.displayItem.hasAltVariant
 	end
@@ -338,6 +345,7 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
+	self.controls.displayItemAltVariant2.maxDroppedWidth = 1000
 	self.controls.displayItemAltVariant2.shown = function()
 		return self.displayItem.hasAltVariant2
 	end
@@ -347,8 +355,29 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
+	self.controls.displayItemAltVariant3.maxDroppedWidth = 1000
 	self.controls.displayItemAltVariant3.shown = function()
 		return self.displayItem.hasAltVariant3
+	end
+	self.controls.displayItemAltVariant4 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant3,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
+		self.displayItem.variantAlt4 = index
+		self.displayItem:BuildAndParseRaw()
+		self:UpdateDisplayItemTooltip()
+		self:UpdateDisplayItemRangeLines()
+	end)
+	self.controls.displayItemAltVariant4.maxDroppedWidth = 1000
+	self.controls.displayItemAltVariant4.shown = function()
+		return self.displayItem.hasAltVariant4
+	end
+	self.controls.displayItemAltVariant5 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant4,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
+		self.displayItem.variantAlt5 = index
+		self.displayItem:BuildAndParseRaw()
+		self:UpdateDisplayItemTooltip()
+		self:UpdateDisplayItemRangeLines()
+	end)
+	self.controls.displayItemAltVariant5.maxDroppedWidth = 1000
+	self.controls.displayItemAltVariant5.shown = function()
+		return self.displayItem.hasAltVariant5
 	end
 
 	-- Section: Sockets and Links
@@ -840,6 +869,14 @@ function ItemsTabClass:Load(xml, dbFileName)
 				item.hasAltVariant3 = true
 				item.variantAlt3 = tonumber(node.attrib.variantAlt3)
 			end
+			if node.attrib.variantAlt4 then
+				item.hasAltVariant4 = true
+				item.variantAlt4 = tonumber(node.attrib.variantAlt4)
+			end
+			if node.attrib.variantAlt5 then
+				item.hasAltVariant5 = true
+				item.variantAlt5 = tonumber(node.attrib.variantAlt5)
+			end
 			for _, child in ipairs(node) do
 				if type(child) == "string" then
 					item:ParseRaw(child)
@@ -916,7 +953,10 @@ function ItemsTabClass:Save(xml)
 				id = tostring(id), 
 				variant = item.variant and tostring(item.variant), 
 				variantAlt = item.variantAlt and tostring(item.variantAlt), 
-				variantAlt2 = item.variantAlt2 and tostring(item.variantAlt2) 
+				variantAlt2 = item.variantAlt2 and tostring(item.variantAlt2),
+				variantAlt3 = item.variantAlt3 and tostring(item.variantAlt3), 
+				variantAlt4 = item.variantAlt4 and tostring(item.variantAlt4), 
+				variantAlt5 = item.variantAlt5 and tostring(item.variantAlt5)
 			} 
 		}
 		item:BuildAndParseRaw()
@@ -1361,17 +1401,31 @@ function ItemsTabClass:SetDisplayItem(item)
 
 		self.controls.displayItemVariant.list = item.variantList
 		self.controls.displayItemVariant.selIndex = item.variant
+		self.controls.displayItemVariant:CheckDroppedWidth(true)
 		if item.hasAltVariant then
 			self.controls.displayItemAltVariant.list = item.variantList
 			self.controls.displayItemAltVariant.selIndex = item.variantAlt
+			self.controls.displayItemAltVariant:CheckDroppedWidth(true)
 		end
 		if item.hasAltVariant2 then
 			self.controls.displayItemAltVariant2.list = item.variantList
 			self.controls.displayItemAltVariant2.selIndex = item.variantAlt2
+			self.controls.displayItemAltVariant2:CheckDroppedWidth(true)
 		end
 		if item.hasAltVariant3 then
 			self.controls.displayItemAltVariant3.list = item.variantList
 			self.controls.displayItemAltVariant3.selIndex = item.variantAlt3
+			self.controls.displayItemAltVariant3:CheckDroppedWidth(true)
+		end
+		if item.hasAltVariant4 then
+			self.controls.displayItemAltVariant4.list = item.variantList
+			self.controls.displayItemAltVariant4.selIndex = item.variantAlt4
+			self.controls.displayItemAltVariant4:CheckDroppedWidth(true)
+		end
+		if item.hasAltVariant5 then
+			self.controls.displayItemAltVariant5.list = item.variantList
+			self.controls.displayItemAltVariant5.selIndex = item.variantAlt5
+			self.controls.displayItemAltVariant5:CheckDroppedWidth(true)
 		end
 		self:UpdateSocketControls()
 		if item.crafted then
@@ -1727,6 +1781,7 @@ function ItemsTabClass:CraftItem()
 		item.baseName = base.name
 		item.buffModLines = { }
 		item.enchantModLines = { }
+		item.classRequirementModLines = { }
 		item.scourgeModLines = { }
 		item.implicitModLines = { }
 		item.explicitModLines = { }
@@ -2533,6 +2588,9 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		-- Jewel-specific info
 		if item.limit then
 			tooltip:AddLine(16, "^x7F7F7FLimited to: ^7"..item.limit)
+		end
+		if item.classRestriction then
+			tooltip:AddLine(16, "^x7F7F7FRequires Class "..(self.build.spec.curClassName == item.classRestriction and colorCodes.POSITIVE or colorCodes.NEGATIVE)..item.classRestriction)
 		end
 		if item.jewelRadiusLabel then
 			tooltip:AddLine(16, "^x7F7F7FRadius: ^7"..item.jewelRadiusLabel)

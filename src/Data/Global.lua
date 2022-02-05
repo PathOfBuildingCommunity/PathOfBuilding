@@ -263,6 +263,7 @@ SkillType = {
 	FixedCastTime = 116,
 	RequiresOffHandNotWeapon = 117,
 	Link = 118,
+	Blessing = 119,
 }
 
 GlobalCache = { 

@@ -338,7 +338,7 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["charged_dash_damage_+%_final"] = {
-			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type="SkillPart", skillPart = 3 }),
+			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
 		["charged_dash_damage_+%_final_per_stack"] = {
 			mod("chargedDashFinalDamageModifier", "INC", nil, 0, 0, { type = "Multiplier", var = "ChargedDashStage" }, { type = "SkillPart", skillPart = 3 }),
@@ -639,8 +639,8 @@ local skills, mod, flag, skill = ...
 			skill("baseMultiplier", nil, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
 			div = -10000,
 		},
-		["explosive_arrow_hit_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
 		},
 		["explosive_arrow_maximum_bonus_explosion_radius"] = {
 			mod("Multiplier:ExplosiveArrowMaxBonusRadius", "BASE", nil),
@@ -1256,7 +1256,7 @@ local skills, mod, flag, skill = ...
 			stages = true,
 		},
 		{ 
-			name = "Thorn Arrows"
+			name = "Thorn Arrows",
 			stages = true,
 		},
 	},

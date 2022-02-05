@@ -136,6 +136,15 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportAuraDuration
+	statMap = {
+		["support_aura_duration_base_buff_duration"] = {
+			skill("auraDuration", nil),
+			div = 1000,
+		},
+	},
+#mods
+
 #skill SupportEarthbreaker
 	addFlags = {
 		totem = true,
@@ -181,6 +190,13 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LostEnduranceChargeInPast8Sec" }),
 		}
 	},
+#mods
+
+#skill SupportMortalConviction
+#baseMod skill("manaReservationFlat", 0)
+#baseMod skill("lifeReservationFlat", 0)
+#baseMod skill("manaReservationPercent", 0)
+#baseMod skill("lifeReservationPercent", 0)
 #mods
 
 #skill SupportFirePenetration
