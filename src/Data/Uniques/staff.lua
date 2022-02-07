@@ -74,8 +74,8 @@ Source: Drops from unique{The Searing Exarch}
 Requires Level 68, 78 Str, 78 Int
 Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
-(70-60)% reduced Elemental Resistances
-Elemental Skills deal Triple Damage
+(60-70)% reduced Elemental Resistances
+Deal Triple Damage with Elemental Skills
 ]],[[
 Atziri's Rule
 Judgement Staff

@@ -227,7 +227,7 @@ Source: Drops from unique{The Eater of Worlds}
 Requires Level 58, 185 Dex
 (120-160)% increased Physical Damage
 (16-20)% increased Attack Speed
-Lose all frenzy charges on reaching maximum frenzy charges to make the next bow attack you perform fire that many additional arrows
+Lose all Frenzy Charges on reaching Maximum Frenzy Charges to make the next Bow Attack you perform fire that many additional Arrows
 +(30-50)% to Global Critical Strike Multiplier while you have a Frenzy Charge
 (20-40)% chance to gain a Frenzy Charge for each enemy you hit with a Critical Strike
 ]],[[
