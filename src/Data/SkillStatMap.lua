@@ -1041,6 +1041,9 @@ return {
 ["base_arrow_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
 },
+["base_projectile_speed_+%"] = {
+	mod("ProjectileSpeed", "INC", nil),
+},
 ["projectile_base_number_of_targets_to_pierce"] = {
 	mod("PierceCount", "BASE", nil),
 },
@@ -1357,7 +1360,7 @@ return {
 -- Skill type modifier
 --
 -- Trap
-["trap_damage_+%"] = {
+["support_trap_damage_+%_final"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Trap),
 },
 ["number_of_additional_traps_allowed"] = {

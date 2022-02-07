@@ -1888,6 +1888,8 @@ function calcs.defence(env, actor)
 		if output["preventedLifeLoss"] > 0 then
 			output[damageType.."TotalPool"] =  output[damageType.."TotalPool"] / (1 - output["preventedLifeLoss"] / 100)
 		end
+		--ward
+		output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.Ward or 0
 		--aegis
 		output[damageType.."TotalHitPool"] = output[damageType.."TotalPool"] + output[damageType.."Aegis"] or 0 + output[damageType.."sharedAegis"] or 0 + isElemental[damageType] and output[damageType.."sharedElementalAegis"] or 0
 		--guardskill
@@ -1923,14 +1925,7 @@ function calcs.defence(env, actor)
 		output[damageType.."MaximumHitTaken"] = m_huge
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
-				local hitTaken = output[damageConvertedType.."TotalHitPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100)
-				if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
-					hitTaken = hitTaken / output[damageConvertedType.."AttackTakenHitMult"]
-				elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" then
-					hitTaken = hitTaken / output[damageConvertedType.."SpellTakenHitMult"]
-				elseif damageCategoryConfig == "Average" then
-					hitTaken = hitTaken / (output[damageConvertedType.."SpellTakenHitMult"] + output[damageConvertedType.."AttackTakenHitMult"]) / 2
-				end
+				local hitTaken = output[damageConvertedType.."TotalHitPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageConvertedType.."BaseTakenHitMult"]
 				if hitTaken < output[damageType.."MaximumHitTaken"] then
 					output[damageType.."MaximumHitTaken"] = hitTaken
 				end
