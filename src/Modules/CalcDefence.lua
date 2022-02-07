@@ -1490,8 +1490,8 @@ function calcs.defence(env, actor)
 						energyShield = energyShield - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
-					if output.sharedMindOverMatter > 0 then
-						local MoMDamage = Damage[damageType] * output.sharedMindOverMatter / 100
+					if (output.sharedMindOverMatter + output[damageType.."MindOverMatter"]) > 0 then
+						local MoMDamage = Damage[damageType] * m_min(output.sharedMindOverMatter + output[damageType.."MindOverMatter"], 100) / 100
 						if modDB:Flag(nil, "EnergyShieldProtectsMana") and energyShield > 0 and DamageIn[damageType.."EnergyShieldBypass"] < 100 then
 							local tempDamage = m_min(MoMDamage * (1 - DamageIn[damageType.."EnergyShieldBypass"] / 100), energyShield)
 							energyShield = energyShield - tempDamage
