@@ -1171,7 +1171,7 @@ function calcs.defence(env, actor)
 	
 	-- Life Recoverable
 	output.LifeRecoverable = output.LifeUnreserved
-	if modDB:Flag(nil, "Condition:LowLife") then
+	if env.configInput["conditionLowLife"] then
 		output.LifeRecoverable = m_min(output.Life * data.misc.LowPoolThreshold, output.LifeUnreserved)
 	end
 	
@@ -1179,7 +1179,7 @@ function calcs.defence(env, actor)
 	do
 		output["preventedLifeLoss"] = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented")
 		local portionLife = 1
-		if not modDB:Flag(nil, "Condition:LowLife") then
+		if not env.configInput["conditionLowLife"] then
 			--portion of life that is lowlife
 			portionLife = m_min(output.Life * data.misc.LowPoolThreshold / output.LifeRecoverable, 1)
 			output["preventedLifeLoss"] = output["preventedLifeLoss"] * portionLife
