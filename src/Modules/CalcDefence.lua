@@ -1169,13 +1169,19 @@ function calcs.defence(env, actor)
 		end
 	end
 	
+	-- Life Recoverable
+	output.LifeRecoverable = output.LifeUnreserved
+	if modDB:Flag(nil, "Condition:LowLife") then
+		output.LifeRecoverable = m_min(output.Life * data.misc.LowPoolThreshold, output.LifeUnreserved)
+	end
+	
 	-- Prevented life loss (Petrified Blood)
 	do
 		output["preventedLifeLoss"] = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented")
 		local portionLife = 1
 		if not modDB:Flag(nil, "Condition:LowLife") then
 			--portion of life that is lowlife
-			portionLife = m_min(output.Life * data.misc.LowPoolThreshold / output.LifeUnreserved, 1)
+			portionLife = m_min(output.Life * data.misc.LowPoolThreshold / output.LifeRecoverable, 1)
 			output["preventedLifeLoss"] = output["preventedLifeLoss"] * portionLife
 		end
 		if breakdown then
@@ -1237,9 +1243,9 @@ function calcs.defence(env, actor)
 		local poolProtected = sourcePool / (output["sharedMindOverMatter"] / 100) * (1 - output["sharedMindOverMatter"] / 100)
 		if output["sharedMindOverMatter"] >= 100 then
 			poolProtected = m_huge
-			output["sharedManaEffectiveLife"] = output.LifeUnreserved + sourcePool
+			output["sharedManaEffectiveLife"] = output.LifeRecoverable + sourcePool
 		else
-			output["sharedManaEffectiveLife"] = m_max(output.LifeUnreserved - poolProtected, 0) + m_min(output.LifeUnreserved, poolProtected) / (1 - output["sharedMindOverMatter"] / 100)
+			output["sharedManaEffectiveLife"] = m_max(output.LifeRecoverable - poolProtected, 0) + m_min(output.LifeRecoverable, poolProtected) / (1 - output["sharedMindOverMatter"] / 100)
 		end
 		if breakdown then
 			if output["sharedMindOverMatter"] then
@@ -1254,7 +1260,7 @@ function calcs.defence(env, actor)
 			end
 		end
 	else
-		output["sharedManaEffectiveLife"] = output.LifeUnreserved
+		output["sharedManaEffectiveLife"] = output.LifeRecoverable
 	end
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."MindOverMatter"] = m_min(modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100 - output["sharedMindOverMatter"])
@@ -1275,9 +1281,9 @@ function calcs.defence(env, actor)
 			local poolProtected = sourcePool / (MindOverMatter / 100) * (1 - MindOverMatter / 100)
 			if MindOverMatter >= 100 then
 				poolProtected = m_huge
-				output[damageType.."ManaEffectiveLife"] = output.LifeUnreserved + sourcePool
+				output[damageType.."ManaEffectiveLife"] = output.LifeRecoverable + sourcePool
 			else
-				output[damageType.."ManaEffectiveLife"] = m_max(output.LifeUnreserved - poolProtected, 0) + m_min(output.LifeUnreserved, poolProtected) / (1 - MindOverMatter / 100)
+				output[damageType.."ManaEffectiveLife"] = m_max(output.LifeRecoverable - poolProtected, 0) + m_min(output.LifeRecoverable, poolProtected) / (1 - MindOverMatter / 100)
 			end
 			if breakdown then
 				if output[damageType.."MindOverMatter"] then
@@ -1387,10 +1393,10 @@ function calcs.defence(env, actor)
 		end
 		if breakdown then
 			breakdown[damageType.."TotalPool"] = {
-				s_format("Life: %d", output.LifeUnreserved)
+				s_format("Life: %d", output.LifeRecoverable)
 			}
-			if output[damageType.."ManaEffectiveLife"] ~= output.LifeUnreserved then
-				t_insert(breakdown[damageType.."TotalPool"], s_format("%s through MoM: %d", manatext, output[damageType.."ManaEffectiveLife"] - output.LifeUnreserved))
+			if output[damageType.."ManaEffectiveLife"] ~= output.LifeRecoverable then
+				t_insert(breakdown[damageType.."TotalPool"], s_format("%s through MoM: %d", manatext, output[damageType.."ManaEffectiveLife"] - output.LifeRecoverable))
 			end
 			if (not modDB:Flag(nil, "EnergyShieldProtectsMana")) and output[damageType.."EnergyShieldBypass"] < 100 then
 				t_insert(breakdown[damageType.."TotalPool"], s_format("Non-bypassed Energy Shield: %d", output[damageType.."TotalPool"] - output[damageType.."ManaEffectiveLife"]))
@@ -1415,7 +1421,7 @@ function calcs.defence(env, actor)
 			numHits = 0
 		end
 		
-		local life = output.LifeUnreserved or 0
+		local life = output.LifeRecoverable or 0
 		local mana = output.ManaUnreserved or 0
 		local energyShield = output.EnergyShield or 0
 		local ward = output.Ward or 0
@@ -1520,7 +1526,7 @@ function calcs.defence(env, actor)
 				ward = 0
 			end
 			if DamageIn.GainWhenHit and life > 0 then
-				life = m_min(life + DamageIn.LifeWhenHit * itterationMultiplier, output.LifeUnreserved or 0)
+				life = m_min(life + DamageIn.LifeWhenHit * itterationMultiplier, output.LifeRecoverable or 0)
 				mana = m_min(mana + DamageIn.ManaWhenHit * itterationMultiplier, output.ManaUnreserved or 0)
 				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * itterationMultiplier, output.EnergyShield or 0)
 			end
