@@ -67,6 +67,16 @@ Adds (5-15) to (100-140) Lightning Damage to Spells
 40% increased Strength Requirement
 Damage Penetrates 20% Lightning Resistance
 ]],[[
+The Annihilating Light
+Quarterstaff
+League: Siege of the Atlas
+Source: Drops from unique{The Searing Exarch}
+Requires Level 68, 78 Str, 78 Int
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+(70-60)% reduced Elemental Resistances
+Elemental Skills deal Triple Damage
+]],[[
 Atziri's Rule
 Judgement Staff
 Requires Level 68, 113 Str, 113 Int

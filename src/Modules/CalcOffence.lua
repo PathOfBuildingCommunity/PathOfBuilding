@@ -1477,7 +1477,7 @@ function calcs.offence(env, actor, activeSkill)
 		if not isAttack or skillModList:Flag(cfg, "CannotBeEvaded") or skillData.cannotBeEvaded or (env.mode_effective and enemyDB:Flag(nil, "CannotEvade")) then
 			output.HitChance = 100
 		else
-			local enemyEvasion = round(calcLib.val(enemyDB, "Evasion"))
+			local enemyEvasion = m_max(round(calcLib.val(enemyDB, "Evasion")), 0)
 			output.HitChance = calcs.hitChance(enemyEvasion, output.Accuracy) * calcLib.mod(skillModList, cfg, "HitChance")
 			if breakdown then
 				breakdown.HitChance = {
@@ -2286,7 +2286,7 @@ function calcs.offence(env, actor, activeSkill)
 							else
 								output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (1 - output.CritChance / 100)
 							end
-							local enemyArmour = calcLib.val(enemyDB, "Armour")
+							local enemyArmour = m_max(calcLib.val(enemyDB, "Armour"), 0)
 							local armourReduction = calcs.armourReductionF(enemyArmour, damageTypeHitAvg)
 							if skillModList:Flag(cfg, "IgnoreEnemyPhysicalDamageReduction") then
 								resist = 0
@@ -3648,7 +3648,7 @@ function calcs.offence(env, actor, activeSkill)
             local impaleStoredDamage = baseStoredDamage * storedExpectedDamageModifier
             local impaleHitDamageMod = impaleStoredDamage * impaleStacks  -- Source: https://www.reddit.com/r/pathofexile/comments/chgqqt/impale_and_armor_interaction/
 
-            local enemyArmour = calcLib.val(enemyDB, "Armour")
+            local enemyArmour = m_max(calcLib.val(enemyDB, "Armour"), 0)
             local impaleArmourReduction = calcs.armourReductionF(enemyArmour, impaleHitDamageMod * output.impaleStoredHitAvg)
             local impaleResist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction), data.misc.DamageReductionCap)
 

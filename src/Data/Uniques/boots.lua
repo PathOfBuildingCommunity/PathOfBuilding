@@ -863,6 +863,20 @@ Aspect of the Spider can inflict Spider's Web on Enemies an additional time
 Gain (15-20) Energy Shield for each Enemy you Hit which is affected by a Spider's Web
 (40-50)% increased Aspect of the Spider Debuff Duration
 ]],[[
+Inextricable Fate
+Fugitive Boots
+League: Siege of the Atlas
+Source: Drops from unique{The Eater of Worlds}
+Requires Level 70, 56 Dex, 76 Int
+Implicits: 1
++(13–17)% to Chaos Resistance
++(80–100) to maximum Life
+30% increased Movement Speed
+You gain 3 Grasping Vines when you take a Critical Strike
+Nearby stationary Enemies gain a Grasping Vine every 0.5 seconds
+All Damage inflicts Poison against Enemies affected by at least 3 Grasping Vines
+You take (30–50)% reduced Extra Damage from Critical Strikes by Poisoned Enemies
+]],[[
 Nomic's Storm
 Strapped Boots
 Variant: Pre 2.0.0

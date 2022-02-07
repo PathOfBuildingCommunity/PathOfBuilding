@@ -1153,6 +1153,11 @@ return {
 	{ var = "multiplierWitheredStackCount", type = "count", label = "# of Withered Stacks:", ifFlag = "Condition:CanWither", tooltip = "Withered applies 6% increased Chaos Damage Taken to the enemy, up to 15 stacks.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:WitheredStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "multiplierCorrosionStackCount", type = "count", label = "# of Corrosion Stacks:", ifFlag = "Condition:CanCorrode", tooltip = "Withered applies 6% increased Chaos Damage Taken to the enemy, up to 15 stacks.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Multiplier:CorrosionStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("Armour", "BASE", -5000, "Corrosion", { type = "Multiplier", var = "CorrosionStack" })
+		enemyModList:NewMod("Evasion", "BASE", -1000, "Corrosion", { type = "Multiplier", var = "CorrosionStack" })
+	end },
 	{ var = "multiplierEnsnaredStackCount", type = "count", label = "# of Ensnare Stacks:", ifFlag = "Condition:CanEnsnare", tooltip = "While ensnared, enemies take increased Projectile Damage from Attack Hits\nEnsnared enemies always count as moving, and have less movement speed while trying to break the snare.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:EnsnareStackCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:Moving", "FLAG", true, "Config", { type = "MultiplierThreshold", actor = "enemy", var = "EnsnareStackCount", threshold = 1 })
@@ -1267,6 +1272,9 @@ return {
 		enemyModList:NewMod("ChaosResist", "BASE", -10, "Config", { type = "Condition", var = "OnProfaneGround" })
 		modList:NewMod("CritChance", "BASE", 1, "Config", { type = "ActorCondition", actor = "enemy", var = "OnProfaneGround" })
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("CritChance", "BASE", 1, "Config", { type = "ActorCondition", actor = "enemy", var = "OnProfaneGround" }) })
+	end },
+	{ var = "multiplierEnemyAffectedByGraspingVines", type = "count", label = "# of Grasping Vines affecting enemy:", ifMult = "GraspingVinesAffectingEnemy", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:GraspingVinesAffectingEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyOnFungalGround", type = "check", label = "Is the enemy on Fungal Ground?", ifCond = "OnFungalGround", tooltip = "Enemies on your Fungal Ground deal 10% less Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnFungalGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })

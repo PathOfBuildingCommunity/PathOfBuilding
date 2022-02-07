@@ -71,6 +71,21 @@ Implicits: 1
 {variant:1,2}10% chance to Curse Non-Cursed Enemies with Enfeeble on Hit, with 80% increased Effect
 {variant:3,4}25% chance to Curse Non-Cursed Enemies with Enfeeble on Hit, with 80% increased Effect
 ]],[[
+Dawnbreaker
+Colossal Tower Shield
+League: Siege of the Atlas
+Source: Drops from unique{The Searing Exarch}
+Requires Level 67, 159 Str
+Implicits: 1
++(10–20) to maximum Life
+(150–250)% increased Armour
++(20–25)% Chance to Block
+-1% Chance to Block Attack Damage for every 200 Fire Damage taken from Hits Recently
+(10–20)% of Cold Damage taken as Fire
+(10–20)% of Lightning Damage taken as Fire
+(10–20)% of Physical Damage taken as Fire
+Scorch Enemies in Close Range when you Block
+]],[[
 Lioneye's Remorse
 Pinnacle Tower Shield
 Variant: Pre 2.6.0

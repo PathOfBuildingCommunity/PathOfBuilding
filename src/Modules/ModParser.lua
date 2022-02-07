@@ -1532,6 +1532,7 @@ local specialModList = {
 	} end,
 	["removes all mana%. spend life instead of mana for skills"] = { mod("Mana", "MORE", -100), flag("BloodMagic") },
 	["removes all mana"] = { mod("Mana", "MORE", -100) },
+	["removes all energy shield"] = { mod("EnergyShield", "MORE", -100) },
 	["skills cost life instead of mana"] = { flag("CostLifeInsteadOfMana") },
 	["skills reserve life instead of mana"] = { flag("BloodMagicReserved") },
 	["spend life instead of mana for effects of skills"] = { },
@@ -1574,6 +1575,12 @@ local specialModList = {
 	["you can have an additional brand attached to an enemy"] = { mod("BrandsAttachedLimit", "BASE", 1) },
 	["gain (%d+) grasping vines each second while stationary"] = function(num) return {
 		mod("Multiplier:GraspingVinesCount", "BASE", num, { type = "Multiplier", var = "StationarySeconds", limit = 10, limitTotal = true }, { type = "Condition", var = "Stationary" }),
+	} end,
+	["all damage inflicts poison against enemies affected by at least (%d+) grasping vines"] = function(num) return {
+		mod("PoisonChance", "BASE", 100, { type = "MultiplierThreshold", var = "GraspingVinesAffectingEnemy", threshold = num }),
+		flag("FireCanPoison", { type = "MultiplierThreshold", var = "GraspingVinesAffectingEnemy", threshold = num }),
+		flag("ColdCanPoison", { type = "MultiplierThreshold", var = "GraspingVinesAffectingEnemy", threshold = num }),
+		flag("LightningCanPoison", { type = "MultiplierThreshold", var = "GraspingVinesAffectingEnemy", threshold = num }),
 	} end,
 	["attack projectiles always inflict bleeding and maim, and knock back enemies"] = {
 		mod("BleedChance", "BASE", 100, nil, bor(ModFlag.Attack, ModFlag.Projectile)),
@@ -2032,6 +2039,7 @@ local specialModList = {
 	["([%+%-]%d+) to level of socketed gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["([%+%-]%d+) to level of socketed ([%a ]+) gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = type, key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["%+(%d+)%% to quality of socketed gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = "all", key = "quality", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
+	["%+(%d+)%% to quality of all skill gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = "all", key = "quality", value = num }) } end,
 	["%+(%d+)%% to quality of socketed ([%a ]+) gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = type, key = "quality", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["%+(%d+) to level of active socketed skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["%+(%d+) to level of socketed active skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
@@ -2528,6 +2536,7 @@ local specialModList = {
 	["warcries share their cooldown"] = { flag("WarcryShareCooldown") },
 	["warcries have minimum of (%d+) power"] = { flag("CryWolfMinimumPower") },
 	["warcries have infinite power"] = { flag("WarcryInfinitePower") },
+	["(%d+)%% chance to inflict corrosion on hit with attacks"] = { flag("Condition:CanCorrode") },
 	["(%d+)%% chance to inflict withered for (%d+) seconds on hit"] = { flag("Condition:CanWither") },
 	["(%d+)%% chance to inflict withered for (%d+) seconds on hit with this weapon"] = { flag("Condition:CanWither") },
 	["(%d+)%% chance to inflict withered for two seconds on hit if there are (%d+) or fewer withered debuffs on enemy"] = { flag("Condition:CanWither") },
@@ -3309,8 +3318,8 @@ local specialModList = {
 	["suffixes:"] = { },
 	["while your passive skill tree connects to a class' starting location, you gain:"] = { },
 	["socketed lightning spells [hd][ae][va][el] (%d+)%% increased spell damage if triggered"] = { },
-	["manifeste?d? dancing dervish disables both weapon slots"] = { },
-	["manifeste?d? dancing dervish dies when rampage ends"] = { },
+	["manifeste?d? dancing dervishe?s? disables both weapon slots"] = { },
+	["manifeste?d? dancing dervishe?s? dies? when rampage ends"] = { },
 	-- Legion modifiers
 	["bathed in the blood of (%d+) sacrificed in the name of (.+)"] =  function(num, _, name)
 		return { mod("JewelData", "LIST",
@@ -3341,6 +3350,7 @@ local specialModList = {
 	} end,
 	["you take (%d+)%% reduced extra damage from critical strikes"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num) } end,
 	["you take (%d+)%% reduced extra damage from critical strikes while you have no power charges"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num, { type = "StatThreshold", stat = "PowerCharges", threshold = 0, upper = true }) } end,
+	["you take (%d+)%% reduced extra damage from critical strikes by poisoned enemies"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Poisoned" }) } end,
 	["nearby allies have (%d+)%% chance to block attack damage per (%d+) strength you have"] = function(block, _, str)
 		return {  mod("ExtraAura", "LIST",
 				{onlyAllies = true, mod = mod("BlockChance", "BASE", block)}, {type = "PerStat", stat = "Str", div = tonumber(str)})} end,
@@ -3389,6 +3399,7 @@ local suffixTypes = {
 	["as lightning damage"] = "AsLightning",
 	["as cold damage"] = "AsCold",
 	["as fire damage"] = "AsFire",
+	["as fire"] = "AsFire",
 	["as chaos damage"] = "AsChaos",
 	["leeched as life and mana"] = "Leech",
 	["leeched as life"] = "LifeLeech",
