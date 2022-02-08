@@ -1013,9 +1013,15 @@ function main:OpenMessagePopup(title, msg)
 	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "close")
 end
 
-function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
+function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm, cncelLabel)
+	-- Parameters: 
+		-- Mandatory : title, msg, confirmLabel, onConfirm
+		-- Optional : cncelLabel
+	
 	local controls = { }
 	local numMsgLines = 0
+	local cancelLabel = cncelLabel or "Cancel"
+
 	for line in string.gmatch(msg .. "\n", "([^\n]*)\n") do
 		t_insert(controls, new("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
 		numMsgLines = numMsgLines + 1
@@ -1025,7 +1031,7 @@ function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm)
 		main:ClosePopup()
 		onConfirm()
 	end)
-	t_insert(controls, new("ButtonControl", nil, 5 + m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20, "Cancel", function()
+	t_insert(controls, new("ButtonControl", nil, 5 + m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20, cancelLabel, function()
 		main:ClosePopup()
 	end))
 	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "confirm")

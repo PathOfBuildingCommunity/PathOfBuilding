@@ -8,9 +8,11 @@ local t_remove = table.remove
 local m_max = math.max
 
 local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", function(self, anchor, x, y, width, height, treeTab)
-	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, treeTab.specList)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, treeTab.specList, true)
 	self.treeTab = treeTab
-	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, 2, -4, 60, 18, "Copy", function()
+
+	-- Copy button is in the middle, the others spread out from there
+	self.controls.copy = new("ButtonControl", {"TOPLEFT", self, "TOPLEFT"}, (width -60 ) / 2, -25, 60, 18, "Copy", function()
 		local newSpec = new("PassiveSpec", treeTab.build, self.selValue.treeVersion)
 		newSpec.title = self.selValue.title
 		newSpec.jewels = copyTable(self.selValue.jewels)
@@ -19,25 +21,51 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		self:RenameSpec(newSpec, "Copy Tree", true)
 	end)
 	self.controls.copy.enabled = function()
-		return self.selValue ~= nil
+		return self.selValue ~= nil and #self.selections == 1
 	end
 	self.controls.delete = new("ButtonControl", {"LEFT",self.controls.copy,"RIGHT"}, 4, 0, 60, 18, "Delete", function()
-		self:OnSelDelete(self.selIndex, self.selValue)
+		-- sort and loop through the selection list backwards, as deleting a spec will change the relative positions of specs behind it
+		table.sort(self.selections)
+		for selId = #self.selections, 1, -1 do
+			self:OnSelDelete(self.selections[selId], self.list[self.selections[selId]])
+		end
+		wipeTable(self.selections)
 	end)
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil and #self.list > 1
 	end
-	self.controls.rename = new("ButtonControl", {"BOTTOMRIGHT",self,"TOP"}, -2, -4, 60, 18, "Rename", function()
+	self.controls.convert = new("ButtonControl", {"LEFT",self.controls.delete,"RIGHT"}, 4, 0, 60, 18, "Convert", function()
+		-- sort and loop through the selection list backwards, as the ConvertSpec procedure inserts a new spec after the current
+		table.sort(self.selections)
+		for selId = #self.selections, 1, -1 do
+			local spec = self.list[self.selections[selId]]
+			if spec.treeVersion ~= latestTreeVersion then
+				ConPrintf("convert: %s, %s", self.selections[selId], spec.title or "Default")
+				-- treeTab:ConvertSpec(spec, #self.selections == 1)
+			end
+		end
+		-- Set the last spec clicked on as the current tree
+		self.treeTab:SetActiveSpec(self.selIndex)
+		if #self.selections ~= 1 then
+			main:OpenMessagePopup("Trees Converted", "You have selected some trees to be converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+		end
+		wipeTable(self.selections)
+	end)
+	self.controls.convert.enabled = function()
+		return self.selValue ~= nil and self.selValue.treeVersion ~= latestTreeVersion
+	end
+	self.controls.rename = new("ButtonControl", {"RIGHT",self.controls.copy,"LEFT"}, -4, 0, 60, 18, "Rename", function()
 		self:RenameSpec(self.selValue, "Rename Tree")
 	end)
 	self.controls.rename.enabled = function()
-		return self.selValue ~= nil
+		return self.selValue ~= nil and #self.selections == 1
 	end
 	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.rename,"LEFT"}, -4, 0, 60, 18, "New", function()
 		local newSpec = new("PassiveSpec", treeTab.build, latestTreeVersion)
 		newSpec:SelectClass(treeTab.build.spec.curClassId)
 		newSpec:SelectAscendClass(treeTab.build.spec.curAscendClassId)
 		self:RenameSpec(newSpec, "New Tree", true)
+		wipeTable(self.selections)
 	end)
 	self:UpdateItemsTabPassiveTreeDropdown()
 end)
@@ -91,7 +119,7 @@ end
 
 function PassiveSpecListClass:OnSelDelete(index, spec)
 	if #self.list > 1 then
-		main:OpenConfirmPopup("Delete Tree", "Are you sure you want to delete '"..(spec.title or "Default").."'?", "Delete", function()
+		main:OpenConfirmPopup("Delete Tree", "Are you sure you want to delete '"..(spec.title or "Default").."'?", "Yes", function()
 			t_remove(self.list, index)
 			self.selIndex = nil
 			self.selValue = nil
@@ -102,7 +130,7 @@ function PassiveSpecListClass:OnSelDelete(index, spec)
 			end
 			self.treeTab.modFlag = true
 			self:UpdateItemsTabPassiveTreeDropdown()
-		end)
+		end, "No")
 	end
 end
 

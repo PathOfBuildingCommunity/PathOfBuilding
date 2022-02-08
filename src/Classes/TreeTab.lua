@@ -156,21 +156,27 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		return self.showConvert
 	end
 	self.controls.specConvert = new("ButtonControl", {"LEFT",self.controls.specConvertText,"RIGHT"}, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
-		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
-		newSpec.title = self.build.spec.title
-		newSpec.jewels = copyTable(self.build.spec.jewels)
-		newSpec.tree.legion.editedNodes = self.build.spec.tree.legion.editedNodes
-		newSpec:RestoreUndoState(self.build.spec:CreateUndoState())
-		newSpec:BuildClusterJewelGraphs()
-		t_insert(self.specList, self.activeSpec + 1, newSpec)
-		self:SetActiveSpec(self.activeSpec + 1)
-		self.modFlag = true
-		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+		self:ConvertSpec(self.build.spec, true)
 	end)
 	self.jumpToNode = false
 	self.jumpToX = 0
 	self.jumpToY = 0
 end)
+
+function TreeTabClass:ConvertSpec(spec, usePopup)
+	local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
+	newSpec.title = spec.title
+	newSpec.jewels = copyTable(spec.jewels)
+	newSpec.tree.legion.editedNodes = spec.tree.legion.editedNodes
+	newSpec:RestoreUndoState(spec:CreateUndoState())
+	newSpec:BuildClusterJewelGraphs()
+	t_insert(self.specList, self.activeSpec + 1, newSpec)
+	self:SetActiveSpec(self.activeSpec + 1)
+	self.modFlag = true
+	if usePopup then 
+		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+	end
+end
 
 function TreeTabClass:Draw(viewPort, inputEvents)
 	self.anchorControls.x = viewPort.x + 4
@@ -370,9 +376,9 @@ function TreeTabClass:SetCompareSpec(specId)
 end
 
 function TreeTabClass:OpenSpecManagePopup()
-	main:OpenPopup(370, 290, "Manage Passive Trees", {
-		new("PassiveSpecListControl", nil, 0, 50, 350, 200, self),
-		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+	main:OpenPopup(470, 390, "Manage Passive Trees", {
+		new("PassiveSpecListControl", nil, 0, 50, 450, 300, self),
+		new("ButtonControl", nil, 0, 360, 90, 20, "Close", function()
 			main:ClosePopup()
 		end),
 	})
