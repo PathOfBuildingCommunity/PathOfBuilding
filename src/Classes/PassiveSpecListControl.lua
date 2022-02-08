@@ -42,7 +42,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 			local spec = self.list[self.selections[selId]]
 			if spec.treeVersion ~= latestTreeVersion then
 				ConPrintf("convert: %s, %s", self.selections[selId], spec.title or "Default")
-				-- treeTab:ConvertSpec(spec, #self.selections == 1)
+				treeTab:ConvertSpec(spec, #self.selections == 1)
 			end
 		end
 		-- Set the last spec clicked on as the current tree
