@@ -1218,11 +1218,13 @@ function calcs.defence(env, actor)
 		output.MinimumBypass = m_min(output.MinimumBypass, output[damageType.."EnergyShieldBypass"])
 	end
 
+	output.ehpSectionAnySpecificTypes = false
 	-- Mind over Matter
-	output.AnyMindOverMatter = false
+	output.OnlySharedMindOverMatter = false
+	output.AnySpecificMindOverMatter = false
 	output["sharedMindOverMatter"] = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife"), 100)
 	if output["sharedMindOverMatter"] > 0 then
-		output.AnyMindOverMatter = true
+		output.OnlySharedMindOverMatter = true
 		local sourcePool = m_max(output.ManaUnreserved or 0, 0)
 		local manatext = "unreserved mana"
 		if modDB:Flag(nil, "EnergyShieldProtectsMana") and output.MinimumBypass < 100 then
@@ -1260,7 +1262,9 @@ function calcs.defence(env, actor)
 		output[damageType.."MindOverMatter"] = m_min(modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100 - output["sharedMindOverMatter"])
 		if output[damageType.."MindOverMatter"] > 0 or (output[damageType.."EnergyShieldBypass"] > output.MinimumBypass and output["sharedMindOverMatter"] > 0) then
 			local MindOverMatter = output[damageType.."MindOverMatter"] + output["sharedMindOverMatter"]
-			output.AnyMindOverMatter = true
+			output.ehpSectionAnySpecificTypes = true
+			output.AnySpecificMindOverMatter = true
+			output.OnlySharedMindOverMatter = false
 			local sourcePool = m_max(output.ManaUnreserved or 0, 0)
 			local manatext = "unreserved mana"
 			if modDB:Flag(nil, "EnergyShieldProtectsMana") and output[damageType.."EnergyShieldBypass"] < 100 then
@@ -1316,6 +1320,7 @@ function calcs.defence(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."GuardAbsorbRate"] = m_min(modDB:Sum("BASE", nil, damageType.."GuardAbsorbRate"), 100)
 		if output[damageType.."GuardAbsorbRate"] > 0 then
+			output.ehpSectionAnySpecificTypes = true
 			output.AnyGuard = true
 			output.OnlySharedGuard = false
 			output[damageType.."GuardAbsorb"] = calcLib.val(modDB, damageType.."GuardAbsorbLimit")
@@ -1336,12 +1341,17 @@ function calcs.defence(env, actor)
 	output.AnyAegis = false
 	output["sharedAegis"] = modDB:Sum("BASE", nil, "AegisValue")
 	output["sharedElementalAegis"] = modDB:Sum("BASE", nil, "ElementalAegisValue")
-	if output["sharedAegis"] > 0 or output["sharedElementalAegis"] > 0 then
+	if output["sharedAegis"] > 0 then
+		output.AnyAegis = true
+	end
+	if output["sharedElementalAegis"] > 0 then
+		output.ehpSectionAnySpecificTypes = true
 		output.AnyAegis = true
 	end
 	for _, damageType in ipairs(dmgTypeList) do
 		local aegisValue = modDB:Sum("BASE", nil, damageType.."AegisValue")
 		if aegisValue > 0 then
+			output.ehpSectionAnySpecificTypes = true
 			output.AnyAegis = true
 			output[damageType.."Aegis"] = aegisValue
 		else
