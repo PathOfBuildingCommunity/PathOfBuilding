@@ -27,11 +27,10 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		-- sort and loop through the selection list backwards, as deleting a spec will change the relative positions of specs behind it
 		table.sort(self.selections)
 		for selId = #self.selections, 1, -1 do
-			if #self.list > 1 then
-				self:OnSelDelete(self.selections[selId], self.list[self.selections[selId]])
-			end
+			-- OnSelDelete protects itself from deleting the last tree
+			self:OnSelDelete(self.selections[selId], self.list[self.selections[selId]])
 		end
-		wipeTable(self.selections)
+		self:WipeSelections()
 	end)
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil and #self.list > 1
@@ -49,9 +48,9 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		-- Set the last spec clicked on as the current tree
 		self.treeTab:SetActiveSpec(self.selIndex)
 		if #self.selections ~= 1 then
-			main:OpenMessagePopup("Trees Converted", "You have selected some trees to be converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+			main:OpenMessagePopup("Trees Converted", "You had selected "..#self.selections.." trees to be converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 		end
-		wipeTable(self.selections)
+		self:WipeSelections()
 	end)
 	self.controls.convert.enabled = function()
 		return self.selValue ~= nil and self.selValue.treeVersion ~= latestTreeVersion
@@ -67,7 +66,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		newSpec:SelectClass(treeTab.build.spec.curClassId)
 		newSpec:SelectAscendClass(treeTab.build.spec.curAscendClassId)
 		self:RenameSpec(newSpec, "New Tree", true)
-		wipeTable(self.selections)
+		self:WipeSelections()
 	end)
 	self:UpdateItemsTabPassiveTreeDropdown()
 end)

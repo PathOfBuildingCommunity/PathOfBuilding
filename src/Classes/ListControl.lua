@@ -26,7 +26,6 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
--- local inspect = LoadModule("inspect")
 
 local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, scroll, isMutable, list, allowMultiselect)
 	self.Control(anchor, x, y, width, height)
@@ -39,7 +38,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 	self.tooltip = new("Tooltip")
 	self.font = "VAR"
 	self.allowMultiselect = allowMultiselect
-	--list of indexes for currently selected items
+	--list of indexes for currently selected items. Used if is allowMultiselect is false.
 	self.selections = { }
 
 	if self.scroll then
@@ -221,7 +220,6 @@ function ListClass:Draw(viewPort)
 				end
 			end
 			if self.showRowSeparators then
-				-- if self.hasFocus and value == self.selValue then
 				if self.hasFocus and isValueInArray(self.selections, index) then
 					SetDrawColor(1, 1, 1)
 				elseif value == ttValue then
@@ -240,9 +238,7 @@ function ListClass:Draw(viewPort)
 					SetDrawColor(0, 0, 0)
 				end
 				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
-			-- elseif value == self.selValue or value == ttValue then
 			elseif isValueInArray(self.selections, index) or value == ttValue then
-				-- if self.hasFocus and value == self.selValue then
 				if self.hasFocus and isValueInArray(self.selections, index) then
 					SetDrawColor(1, 1, 1)
 				elseif value == ttValue then
@@ -308,6 +304,12 @@ function ListClass:Draw(viewPort)
 	end
 end
 
+function ListClass:WipeSelections()
+	-- Simple function to be called from outside the class
+	wipeTable(self.selections)
+end
+
+
 function ListClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -336,20 +338,18 @@ function ListClass:OnKeyDown(key, doubleClick)
 					self.selDragging = true
 					self.selDragActive = false
 				end
-				if self.allowMultiselect and IsKeyDown("CTRL") then
+				if self.allowMultiselect and IsKeyDown("CTRL") and not doubleClick then
 					local inArray = isValueInArray(self.selections, self.selIndex) 
 					if inArray then
 						t_remove(self.selections, inArray)
 					else
 						t_insert(self.selections, self.selIndex)
 					end
-					-- print("Multi:  "..inspect(self.selections))
 				else
 					-- either CTRL is not down or we aren't doing multiselect. 
-					-- either way, wipe the selections list,and just add the one entry
-					wipeTable(self.selections)
+					-- either way, wipe the selections list, and just add the one entry
+					self:WipeSelections()
 					t_insert(self.selections, self.selIndex)
-					-- print("Single:  "..inspect(self.selections))
 				end
 				if self.OnSelect then
 					self:OnSelect(self.selIndex, self.selValue)
