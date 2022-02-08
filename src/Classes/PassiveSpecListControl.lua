@@ -27,7 +27,9 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		-- sort and loop through the selection list backwards, as deleting a spec will change the relative positions of specs behind it
 		table.sort(self.selections)
 		for selId = #self.selections, 1, -1 do
-			self:OnSelDelete(self.selections[selId], self.list[self.selections[selId]])
+			if #self.list > 1 then
+				self:OnSelDelete(self.selections[selId], self.list[self.selections[selId]])
+			end
 		end
 		wipeTable(self.selections)
 	end)
