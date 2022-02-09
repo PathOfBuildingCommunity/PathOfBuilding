@@ -482,6 +482,11 @@ skills["ColdAegis"] = {
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("ColdAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -945,6 +950,11 @@ skills["ElementalAegis"] = {
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -1165,6 +1175,11 @@ skills["FireAegis"] = {
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("FireAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -1616,6 +1631,11 @@ skills["LightningAegis"] = {
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("LightningAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -1828,6 +1848,11 @@ skills["PhysicalAegis"] = {
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("PhysicalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -1926,6 +1951,40 @@ skills["QueensDemand"] = {
 	},
 	levels = {
 		[20] = { levelRequirement = 70, statInterpolation = { }, cost = { Mana = 64, }, },
+	},
+}
+skills["PrimalAegis"] = {
+	name = "Primal Aegis",
+	hidden = true,
+	color = 4,
+	description = "Calls forth a protective aegis which takes elemental damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking elemental damage from hits, or if depleted.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Aegis] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromTree = true,
+	statMap = {
+		["aegis_unique_shield_max_value_per_allocated_notable"] = {
+			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "Multiplier", var = "AllocatedNotable" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+	baseFlags = {
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"aegis_unique_shield_max_value",
+		"active_skill_display_aegis_variation",
+		"aegis_recharge_delay_ms",
+		"aegis_unique_shield_max_value_per_allocated_notable",
+		"cast_on_gain_skill",
+		"spell_uncastable_if_triggerable",
+		"no_cost",
+	},
+	levels = {
+		[20] = { 0, 2, 5000, 75, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["TriggeredSummonSpider"] = {
@@ -2990,7 +3049,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 30000, 10, 10, 8, 65, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[25] = { 30000, 10, 10, 8, 65, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[25] = { 30000, 10, 8, 65, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["SummonTauntingContraption"] = {

@@ -1339,8 +1339,8 @@ function calcs.defence(env, actor)
 	
 	--aegis
 	output.AnyAegis = false
-	output["sharedAegis"] = modDB:Sum("BASE", nil, "AegisValue")
-	output["sharedElementalAegis"] = modDB:Sum("BASE", nil, "ElementalAegisValue")
+	output["sharedAegis"] = modDB:Max(nil, "AegisValue") or 0
+	output["sharedElementalAegis"] = modDB:Max(nil, "ElementalAegisValue") or 0
 	if output["sharedAegis"] > 0 then
 		output.AnyAegis = true
 	end
@@ -1349,7 +1349,7 @@ function calcs.defence(env, actor)
 		output.AnyAegis = true
 	end
 	for _, damageType in ipairs(dmgTypeList) do
-		local aegisValue = modDB:Sum("BASE", nil, damageType.."AegisValue")
+		local aegisValue = modDB:Max(nil, damageType.."AegisValue") or 0
 		if aegisValue > 0 then
 			output.ehpSectionAnySpecificTypes = true
 			output.AnyAegis = true
