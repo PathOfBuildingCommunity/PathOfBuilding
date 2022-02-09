@@ -165,6 +165,7 @@ function ListClass:Draw(viewPort)
 				target.otherDragTargeting = false
 			end
 		end
+		self:WipeSelections()
 	end
 
 	local label = self:GetProperty("label")
