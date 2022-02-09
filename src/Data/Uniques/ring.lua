@@ -744,6 +744,19 @@ Implicits: 1
 {variant:2}{tags:jewellery_attribute}2% increased Intelligence for each Unique Item Equipped
 3% additional chance for Slain monsters to drop Scrolls of Wisdom
 ]],[[
+Polaric Devastation
+Opal Ring
+Source: Drops from unique{The Black Star}
+Requires Level 80
+Implicits: 1
+{tags:jewellery_elemental}(15-25)% increased Elemental Damage
+{tags:critical}(15-25)% increased Global Critical Strike Chance
+{tags:jewellery_resistance}+(20-40)% to Fire Resistance
+{tags:jewellery_resistance}+(20-40)% to Cold Resistance
+(10-20)% increased Duration of Ailments on Enemies
+Left Ring slot: Cover Enemies in Ash for 5 seconds when you Ignite them
+Right Ring slot: Cover Enemies in Frost for 5 seconds when you Freeze them
+]],[[
 Praxis
 Paua Ring
 Requires Level 22

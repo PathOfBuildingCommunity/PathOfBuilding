@@ -108,6 +108,22 @@ Radius: Large
 Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage
 Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage
 ]],[[
+Dissolution of the Flesh
+Prismatic Jewel
+Source: Drops from unique{The Searing Exarch}
+Limited to: 1
+Removes all Energy Shield
+Life that would be lost by taking Damage is instead Reserved
+until you take no Damage to Life for 2 seconds
+(20–30)% more Maximum Life
+]],[[
+Divine Inferno
+Crimson Jewel
+Limited to: 1
+Radius: Medium
+With at least 40 Strength in Radius, Combust is Disabled
+With at least 40 Strength in Radius, Attacks Exerted by Infernal Cry deal (40-60)% more Damage with Ignite
+]],[[
 Efficient Training
 Crimson Jewel
 Radius: Large
@@ -396,6 +412,13 @@ Radius: Small
 {variant:1}(10-15)% increased Area of Effect while Unarmed
 {variant:2}+(3-4) to Melee Strike Range while Unarmed
 {variant:2}Passive Skills in Radius also grant: 1% increased Unarmed Attack Speed with Melee Skills
+]],[[
+Melding of the Flesh
+Cobalt Jewel
+Source: Drops from unique{The Eater of Worlds}
+Limited to: 1
+-(80-70)% to All Elemental Resistances
+Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
 ]],[[
 Might in All Forms
 Crimson Jewel

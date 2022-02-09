@@ -559,6 +559,11 @@ function buildForbidden(classNotables)
 				index = index + 1
 			end
 		end
+		if name == "Flame" then
+			table.insert(forbidden[name], "Source: Drops from unique{The Searing Exarch}")
+		else
+			table.insert(forbidden[name], "Source: Drops from unique{The Eater of Worlds}")
+		end
 		table.insert(forbidden[name], "Limited to: 1")
 		table.insert(forbidden[name], "Item Level: 83")
 		index = 1
