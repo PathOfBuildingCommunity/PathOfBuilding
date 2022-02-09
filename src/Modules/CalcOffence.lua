@@ -4106,7 +4106,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	local bestCull = 1
 	if output.CullMultiplier > 1 or mirageCulling and mirageCulling > 1 then
-		bestCull = m_max(output.CullMultiplier, mirageCulling and mirageCulling > 1 and mirageCulling or 0)
+		bestCull = m_max(output.CullMultiplier > 1 and output.CullMultiplier or 1, mirageCulling and mirageCulling > 1 and mirageCulling or 1)
 		output.CullingDPS = output.CombinedDPS * (bestCull - 1)
 	end
 	output.CombinedDPS = output.CombinedDPS * bestCull
