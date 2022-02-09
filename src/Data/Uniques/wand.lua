@@ -301,13 +301,11 @@ Requires Level 65, 212 Int
 Implicits: 1
 (35-39)% increased Spell Damage
 (10-15)% increased Cast Speed
-{variant:1}50% chance to gain a Power Charge on Killing a Frozen Enemy
-{variant:2}Gain a Power Charge on Killing a Frozen Enemy
+Gain a Power Charge on Killing a Frozen Enemy
 Adds 15 to 25 Cold Damage to Spells per Power Charge
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
-{variant:1}(10-15)% increased Cold Damage per Frenzy Charge
-{variant:1}(15-20)% increased Cold Damage per Frenzy Charge
+(15-20)% increased Cold Damage per Frenzy Charge
 ]],[[
 Replica Tulfall
 Tornado Wand
