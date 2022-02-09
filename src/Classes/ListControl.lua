@@ -155,10 +155,10 @@ function ListClass:Draw(viewPort)
 			end
 		end
 	end
-	if self.selDragActive and self.dragTargetList then 
-		self.dragTarget = nil	
+	if self.selDragActive and self.dragTargetList then
+		self.dragTarget = nil
 		for _, target in ipairs(self.dragTargetList) do
-			if not self.dragTarget and target.otherDragSource == self and target:IsMouseOver() then 
+			if not self.dragTarget and target.otherDragSource == self and target:IsMouseOver() then
 				self.dragTarget = target
 				target.otherDragTargeting = true
 			else
@@ -167,7 +167,7 @@ function ListClass:Draw(viewPort)
 		end
 	end
 
-	local label = self:GetProperty("label") 
+	local label = self:GetProperty("label")
 	if label then
 		DrawString(x, y - 20, "LEFT", 16, self.font, label)
 	end
@@ -339,14 +339,14 @@ function ListClass:OnKeyDown(key, doubleClick)
 					self.selDragActive = false
 				end
 				if self.allowMultiselect and IsKeyDown("CTRL") and not doubleClick then
-					local inArray = isValueInArray(self.selections, self.selIndex) 
+					local inArray = isValueInArray(self.selections, self.selIndex)
 					if inArray then
 						t_remove(self.selections, inArray)
 					else
 						t_insert(self.selections, self.selIndex)
 					end
 				else
-					-- either CTRL is not down or we aren't doing multiselect. 
+					-- either CTRL is not down or we aren't doing multiselect.
 					-- either way, wipe the selections list, and just add the one entry
 					self:WipeSelections()
 					t_insert(self.selections, self.selIndex)
@@ -439,7 +439,7 @@ function ListClass:OnKeyUp(key)
 					end
 					self.selValue = nil
 				end
-				if self.dragTargetList then			
+				if self.dragTargetList then
 					for _, target in ipairs(self.dragTargetList) do
 						target.otherDragSource = nil
 						target.otherDragTargeting = false

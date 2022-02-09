@@ -60,8 +60,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 						local respec = 0
 						for nodeId, node in pairs(self.build.spec.allocNodes) do
 							-- Assumption: Nodes >= 65536 are small cluster passives.
-							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" 
-							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536 
+							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart"
+							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536
 							and not spec.allocNodes[nodeId] then
 								if node.ascendancyName then
 									respec = respec + 5
@@ -156,24 +156,31 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		return self.showConvert
 	end
 	self.controls.specConvert = new("ButtonControl", {"LEFT",self.controls.specConvertText,"RIGHT"}, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
-		self:ConvertSpec(self.build.spec, true)
+		self:ConvertSpec(self.build.spec)
 	end)
 	self.jumpToNode = false
 	self.jumpToX = 0
 	self.jumpToY = 0
 end)
 
-function TreeTabClass:ConvertSpec(spec, usePopup)
+function TreeTabClass:ConvertSpec(spec, specIndex)
+	-- Parameters:
+		-- Mandatory : spec
+		-- Optional : specIndex - use when the the spec being converted is not the active one
+
+	local specIdx = specIndex or self.activeSpec
 	local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
+
 	newSpec.title = spec.title
 	newSpec.jewels = copyTable(spec.jewels)
 	newSpec.tree.legion.editedNodes = spec.tree.legion.editedNodes
 	newSpec:RestoreUndoState(spec:CreateUndoState())
 	newSpec:BuildClusterJewelGraphs()
-	t_insert(self.specList, self.activeSpec + 1, newSpec)
-	self:SetActiveSpec(self.activeSpec + 1)
+	t_insert(self.specList, specIdx + 1, newSpec)
 	self.modFlag = true
-	if usePopup then 
+	if not specIndex then
+		-- only SetActiveSpec if we are converting from the main screen 
+		self:SetActiveSpec(specIdx + 1)
 		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 	end
 end
@@ -323,7 +330,7 @@ function TreeTabClass:PostLoad()
 end
 
 function TreeTabClass:Save(xml)
-	xml.attrib = { 
+	xml.attrib = {
 		activeSpec = tostring(self.activeSpec)
 	}
 	for specId, spec in ipairs(self.specList) do
@@ -849,18 +856,18 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	-- search all cluster notables and add to the list
 	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
 		local isAlloc = node.alloc
-		if not isAlloc then			
+		if not isAlloc then
 			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
 			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
 
 			nodePowerStr = formatNumSep(nodePowerStr)
-			
+
 			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
 			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
 			end
-			
+
 			t_insert(report, {
 				name = node.dn,
 				power = nodePower,

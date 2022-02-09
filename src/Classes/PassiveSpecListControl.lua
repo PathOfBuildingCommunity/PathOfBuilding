@@ -24,7 +24,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		return self.selValue ~= nil and #self.selections == 1
 	end
 	self.controls.delete = new("ButtonControl", {"LEFT",self.controls.copy,"RIGHT"}, 4, 0, 60, 18, "Delete", function()
-		-- sort and loop through the selection list backwards, as deleting a spec will change the relative positions of specs behind it
+		-- sort and loop through the selection list backwards, as deleting a spec will change the relative positions of specs after it
 		table.sort(self.selections)
 		for selId = #self.selections, 1, -1 do
 			-- OnSelDelete protects itself from deleting the last tree
@@ -42,7 +42,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 			local spec = self.list[self.selections[selId]]
 			if spec.treeVersion ~= latestTreeVersion then
 				ConPrintf("convert: %s, %s", self.selections[selId], spec.title or "Default")
-				treeTab:ConvertSpec(spec, #self.selections == 1)
+				treeTab:ConvertSpec(spec, selId)
 			end
 		end
 		-- Set the last spec clicked on as the current tree
@@ -100,8 +100,8 @@ function PassiveSpecListClass:GetRowValue(column, index, spec)
 	if column == 1 then
 		local used = spec:CountAllocNodes()
 		return (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")
-			.. (spec.title or "Default") 
-			.. " (" .. (spec.curAscendClassName ~= "None" and spec.curAscendClassName or spec.curClassName) .. ", " .. used .. " points)" 
+			.. (spec.title or "Default")
+			.. " (" .. (spec.curAscendClassName ~= "None" and spec.curAscendClassName or spec.curClassName) .. ", " .. used .. " points)"
 			.. (index == self.treeTab.activeSpec and "  ^9(Current)" or "")
 	end
 end
@@ -124,7 +124,7 @@ function PassiveSpecListClass:OnSelDelete(index, spec)
 			t_remove(self.list, index)
 			self.selIndex = nil
 			self.selValue = nil
-			if index == self.treeTab.activeSpec then 
+			if index == self.treeTab.activeSpec then
 				self.treeTab:SetActiveSpec(m_max(1, index - 1))
 			else
 				self.treeTab.activeSpec = isValueInArray(self.list, self.treeTab.build.spec)
