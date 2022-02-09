@@ -310,7 +310,6 @@ function ListClass:WipeSelections()
 	wipeTable(self.selections)
 end
 
-
 function ListClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -370,7 +369,14 @@ function ListClass:OnKeyDown(key, doubleClick)
 			end
 		end
 	elseif #self.list > 0 and not self.selDragActive then
-		if key == "UP" then
+		if key == "a" then
+			if self.allowMultiselect and IsKeyDown("CTRL") then
+				self:WipeSelections()
+				for selId = 1, #self.list do
+					t_insert(self.selections, selId)
+				end
+			end
+		elseif key == "UP" then
 			self:SelectIndex(((self.selIndex or 1) - 2) % #self.list + 1)
 		elseif key == "DOWN" then
 			self:SelectIndex((self.selIndex or #self.list) % #self.list + 1)

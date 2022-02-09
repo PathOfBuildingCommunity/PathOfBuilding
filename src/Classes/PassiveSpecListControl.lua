@@ -32,26 +32,30 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		end
 		self:WipeSelections()
 	end)
+	self.controls.delete.tooltipText = "Use Ctrl-Left Click to multi select trees below"
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil and #self.list > 1
 	end
 	self.controls.convert = new("ButtonControl", {"LEFT",self.controls.delete,"RIGHT"}, 4, 0, 60, 18, "Convert", function()
-		-- sort and loop through the selection list backwards, as the ConvertSpec procedure inserts a new spec after the current
-		table.sort(self.selections)
-		for selId = #self.selections, 1, -1 do
-			local spec = self.list[self.selections[selId]]
-			if spec.treeVersion ~= latestTreeVersion then
-				ConPrintf("convert: %s, %s", self.selections[selId], spec.title or "Default")
-				treeTab:ConvertSpec(spec, selId)
+		if #self.selections >0 then
+			-- sort and loop through the selection list backwards, as the ConvertSpec procedure inserts a new spec after the current
+			table.sort(self.selections)
+			for selId = #self.selections, 1, -1 do
+				local spec = self.list[self.selections[selId]]
+				if spec.treeVersion ~= latestTreeVersion then
+					ConPrintf("convert: %s, %s", self.selections[selId], spec.title or "Default")
+					treeTab:ConvertSpec(spec, selId)
+				end
 			end
+			-- Set the last spec clicked on as the current tree
+			self.treeTab:SetActiveSpec(self.selIndex)
+			if #self.selections ~= 1 then
+				main:OpenMessagePopup("Trees Converted", "You had selected "..#self.selections.." trees to be converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+			end
+			self:WipeSelections()
 		end
-		-- Set the last spec clicked on as the current tree
-		self.treeTab:SetActiveSpec(self.selIndex)
-		if #self.selections ~= 1 then
-			main:OpenMessagePopup("Trees Converted", "You had selected "..#self.selections.." trees to be converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
-		end
-		self:WipeSelections()
 	end)
+	self.controls.convert.tooltipText = "Use Ctrl-Left Click to multi select trees below"
 	self.controls.convert.enabled = function()
 		return self.selValue ~= nil and self.selValue.treeVersion ~= latestTreeVersion
 	end
