@@ -484,7 +484,7 @@ skills["ColdAegis"] = {
 	fromItem = true,
 	statMap = {
 		["aegis_unique_shield_max_value"] = {
-			mod("ColdAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("ColdAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -952,7 +952,7 @@ skills["ElementalAegis"] = {
 	fromItem = true,
 	statMap = {
 		["aegis_unique_shield_max_value"] = {
-			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -1177,7 +1177,7 @@ skills["FireAegis"] = {
 	fromItem = true,
 	statMap = {
 		["aegis_unique_shield_max_value"] = {
-			mod("FireAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("FireAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -1633,7 +1633,7 @@ skills["LightningAegis"] = {
 	fromItem = true,
 	statMap = {
 		["aegis_unique_shield_max_value"] = {
-			mod("LightningAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("LightningAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -1850,7 +1850,7 @@ skills["PhysicalAegis"] = {
 	fromItem = true,
 	statMap = {
 		["aegis_unique_shield_max_value"] = {
-			mod("PhysicalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("PhysicalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -1965,7 +1965,7 @@ skills["PrimalAegis"] = {
 	fromTree = true,
 	statMap = {
 		["aegis_unique_shield_max_value_per_allocated_notable"] = {
-			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "Multiplier", var = "AllocatedNotable" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "Multiplier", var = "AllocatedNotable" }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
