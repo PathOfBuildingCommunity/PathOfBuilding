@@ -154,6 +154,7 @@ function ListClass:Draw(viewPort)
 				self.selDragIndex = m_min(index, #list + 1)
 			end
 		end
+		self:WipeSelections()
 	end
 	if self.selDragActive and self.dragTargetList then
 		self.dragTarget = nil
@@ -165,7 +166,6 @@ function ListClass:Draw(viewPort)
 				target.otherDragTargeting = false
 			end
 		end
-		self:WipeSelections()
 	end
 
 	local label = self:GetProperty("label")
