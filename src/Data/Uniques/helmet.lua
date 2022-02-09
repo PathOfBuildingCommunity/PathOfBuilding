@@ -551,7 +551,6 @@ Your Skills deal you 400% of Mana Cost as Physical Damage
 ]],[[
 Sudden Dawn
 Steel Circlet
-League: Siege of the Atlas
 Source: Drops from unique{The Black Star}
 Requires Level 48, 101 Int
 (300–350)% increased Energy Shield

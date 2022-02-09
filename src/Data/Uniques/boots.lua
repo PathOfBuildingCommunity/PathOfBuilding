@@ -865,7 +865,6 @@ Gain (15-20) Energy Shield for each Enemy you Hit which is affected by a Spider'
 ]],[[
 Inextricable Fate
 Fugitive Boots
-League: Siege of the Atlas
 Source: Drops from unique{The Eater of Worlds}
 Requires Level 70, 56 Dex, 76 Int
 Implicits: 1

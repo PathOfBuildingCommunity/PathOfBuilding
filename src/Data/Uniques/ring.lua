@@ -746,7 +746,6 @@ Implicits: 1
 ]],[[
 Polaric Devastation
 Opal Ring
-League: Siege of the Atlas
 Source: Drops from unique{The Black Star}
 Requires Level 80
 Implicits: 1

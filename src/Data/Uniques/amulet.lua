@@ -57,9 +57,8 @@ Implicits: 1
 ]],[[
 Ashes of the Stars
 Onyx Amulet
-League: Siege of the Atlas
 Source: Drops from unique{The Eater of Worlds}
-Requires Level 61
+Requires Level 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 (5–10)% increased Experience Gain of Gems
@@ -277,7 +276,6 @@ Extra Gore
 ]],[[
 Crystallised Omniscience
 Onyx Amulet
-League: Siege of the Atlas
 Source: Drops from unique{The Searing Exarch}
 Requires Level 61
 Implicits: 1

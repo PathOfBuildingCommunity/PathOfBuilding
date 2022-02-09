@@ -559,7 +559,6 @@ function buildForbidden(classNotables)
 				index = index + 1
 			end
 		end
-		table.insert(forbidden[name], "League: Siege of the Atlas")
 		if name == "Flame" then
 			table.insert(forbidden[name], "Source: Drops from unique{The Searing Exarch}")
 		else

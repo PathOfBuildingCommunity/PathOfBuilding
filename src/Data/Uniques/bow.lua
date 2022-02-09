@@ -222,7 +222,6 @@ Implicits: 2
 ]],[[
 The Gluttonous Tide
 Citadel Bow
-League: Siege of the Atlas
 Source: Drops from unique{The Eater of Worlds}
 Requires Level 58, 185 Dex
 (120-160)% increased Physical Damage

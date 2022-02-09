@@ -73,7 +73,6 @@ Implicits: 1
 ]],[[
 Dawnbreaker
 Colossal Tower Shield
-League: Siege of the Atlas
 Source: Drops from unique{The Searing Exarch}
 Requires Level 67, 159 Str
 Implicits: 1

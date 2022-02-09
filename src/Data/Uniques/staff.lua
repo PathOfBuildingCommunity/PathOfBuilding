@@ -69,7 +69,6 @@ Damage Penetrates 20% Lightning Resistance
 ]],[[
 The Annihilating Light
 Quarterstaff
-League: Siege of the Atlas
 Source: Drops from unique{The Searing Exarch}
 Requires Level 68, 78 Str, 78 Int
 Implicits: 1

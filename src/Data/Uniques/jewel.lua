@@ -110,7 +110,6 @@ Increases and Reductions to Cold Damage in Radius are Transformed to apply to Ph
 ]],[[
 Dissolution of the Flesh
 Prismatic Jewel
-League: Siege of the Atlas
 Source: Drops from unique{The Searing Exarch}
 Limited to: 1
 Removes all Energy Shield
@@ -416,7 +415,6 @@ Radius: Small
 ]],[[
 Melding of the Flesh
 Cobalt Jewel
-League: Siege of the Atlas
 Source: Drops from unique{The Eater of Worlds}
 Limited to: 1
 -(80-70)% to All Elemental Resistances

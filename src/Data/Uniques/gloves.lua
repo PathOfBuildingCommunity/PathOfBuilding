@@ -30,7 +30,6 @@ You have Perfect Agony if you've dealt a Critical Strike recently
 ]],[[
 Ceaseless Feast
 Spiked Gloves
-League: Siege of the Atlas
 Source: Drops from unique{The Infinite Hunger}
 Requires Level 70, 95 Str
 Implicits: 1
@@ -293,7 +292,6 @@ Requires Level 25, 39 Int
 ]],[[
 Black Zenith
 Fingerless Silk Gloves
-League: Siege of the Atlas
 Source: Drops from unique{The Black Star}
 Requires Level 70, 95 Int
 Implicits: 1
