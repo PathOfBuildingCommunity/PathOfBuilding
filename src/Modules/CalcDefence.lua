@@ -1886,12 +1886,12 @@ function calcs.defence(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		--base + petrified blood
 		if output["preventedLifeLoss"] > 0 then
-			output[damageType.."TotalPool"] =  output[damageType.."TotalPool"] / (1 - output["preventedLifeLoss"] / 100)
+			output[damageType.."TotalHitPool"] =  output[damageType.."TotalPool"] / (1 - output["preventedLifeLoss"] / 100)
 		end
 		--ward
-		output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.Ward or 0
+		output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] or output[damageType.."TotalPool"] + output.Ward or 0
 		--aegis
-		output[damageType.."TotalHitPool"] = output[damageType.."TotalPool"] + output[damageType.."Aegis"] or 0 + output[damageType.."sharedAegis"] or 0 + isElemental[damageType] and output[damageType.."sharedElementalAegis"] or 0
+		output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + (output[damageType.."Aegis"] or 0) + (output["sharedAegis"] or 0) + (isElemental[damageType] and output["sharedElementalAegis"] or 0)
 		--guardskill
 		local GuardAbsorbRate = output["sharedGuardAbsorbRate"] or 0 + output[damageType.."GuardAbsorbRate"] or 0
 		if GuardAbsorbRate > 0 then
@@ -1912,36 +1912,55 @@ function calcs.defence(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		if breakdown then
 			breakdown[damageType.."MaximumHitTaken"] = { 
-				label = "Maximum Hit Taken (uses lowest value)",
+				label = "Maximum Hit Taken (sum of all values)",
 				rowList = { },
 				colList = {
 					{ label = "Type", key = "type" },
 					{ label = "TotalPool", key = "pool" },
+					{ label = "%ofPool", key = "poolPercent" },
 					{ label = "Taken", key = "taken" },
 					{ label = "Final", key = "final" },
 				},
 			}
 		end
 		output[damageType.."MaximumHitTaken"] = m_huge
+		local totalHitTaken = 0
+		local worstHitTaken = damageType
+		local hitTaken = {}
+		-- grab ratios
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
-				local hitTaken = output[damageConvertedType.."TotalHitPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageConvertedType.."BaseTakenHitMult"]
-				if hitTaken < output[damageType.."MaximumHitTaken"] then
-					output[damageType.."MaximumHitTaken"] = hitTaken
+				hitTaken[damageConvertedType] = output[damageConvertedType.."TotalHitPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageConvertedType.."BaseTakenHitMult"]
+				totalHitTaken = totalHitTaken + hitTaken[damageConvertedType]
+				if hitTaken[damageConvertedType] < output[damageType.."MaximumHitTaken"] then
+					output[damageType.."MaximumHitTaken"] = hitTaken[damageConvertedType]
+					worstHitTaken = damageConvertedType
 				end
-				if breakdown then
-					t_insert(breakdown[damageType.."MaximumHitTaken"].rowList, {
-						type = s_format("%d%% as %s", actor.damageShiftTable[damageType][damageConvertedType], damageConvertedType),
-						pool = s_format("x %d", output[damageConvertedType.."TotalHitPool"]),
-						taken = s_format("/ %.2f", output[damageConvertedType.."BaseTakenHitMult"]),
-						final = s_format("x %.0f", hitTaken),
-					})
+			end
+		end
+		if totalHitTaken == hitTaken[worstHitTaken] then
+			output[damageType.."MaximumHitTaken"] = totalHitTaken
+		else
+			output[damageType.."MaximumHitTaken"] = hitTaken[worstHitTaken] * (1 - hitTaken[worstHitTaken] / totalHitTaken)
+			if breakdown then
+				for _, damageConvertedType in ipairs(dmgTypeList) do
+					if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
+						local portion = (1 - hitTaken[damageConvertedType] / totalHitTaken)
+						local trueHitTaken = hitTaken[damageConvertedType] * (actor.damageShiftTable[damageType][damageConvertedType] / 100) * portion
+						t_insert(breakdown[damageType.."MaximumHitTaken"].rowList, {
+							type = s_format("%d%% as %s", actor.damageShiftTable[damageType][damageConvertedType], damageConvertedType),
+							pool = s_format("%d", output[damageConvertedType.."TotalHitPool"]),
+							poolPercent = s_format("* %.3f", portion),
+							taken = s_format("/ %.3f", output[damageConvertedType.."BaseTakenHitMult"]),
+							final = s_format("x %.0f", trueHitTaken),
+						})
+					end
 				end
 			end
 		end
 		if breakdown then
 			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Total Pool: %d", output[damageType.."TotalHitPool"]))
-			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.2f",  output[damageType.."TotalHitPool"] / output[damageType.."MaximumHitTaken"]))
+			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.3f",  output[damageType.."TotalHitPool"] / output[damageType.."MaximumHitTaken"]))
 			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %.0f", output[damageType.."MaximumHitTaken"]))
 		end
 	end
