@@ -551,7 +551,7 @@ function buildForbidden(classNotables)
 	for _, name in pairs({"Flame", "Flesh"}) do
 		forbidden[name] = { }
 		table.insert(forbidden[name], "Forbidden " .. name)
-		table.insert(forbidden[name], "Prismatic Jewel")
+		table.insert(forbidden[name], (name == "Flame" and "Crimson" or "Cobalt") .. " Jewel")
 		local index = 1
 		for className, notableTable in pairs(classNotables) do
 			for _, notableName in ipairs(notableTable) do
