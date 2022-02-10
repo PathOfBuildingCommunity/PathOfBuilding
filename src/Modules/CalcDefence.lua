@@ -1926,26 +1926,47 @@ function calcs.defence(env, actor)
 		output[damageType.."MaximumHitTaken"] = m_huge
 		local totalHitTaken = 0
 		local worstHitTaken = damageType
+		local typeCount = 0
 		local hitTaken = {}
 		-- grab ratios
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
-				hitTaken[damageConvertedType] = output[damageConvertedType.."TotalHitPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageConvertedType.."BaseTakenHitMult"]
-				totalHitTaken = totalHitTaken + hitTaken[damageConvertedType]
-				if hitTaken[damageConvertedType] < output[damageType.."MaximumHitTaken"] then
-					output[damageType.."MaximumHitTaken"] = hitTaken[damageConvertedType]
-					worstHitTaken = damageConvertedType
+				typeCount = typeCount + 1
+				if output[damageConvertedType.."BaseTakenHitMult"] == 0 then
+					hitTaken[damageConvertedType] = m_huge
+				else
+					hitTaken[damageConvertedType] = output[damageConvertedType.."TotalHitPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageConvertedType.."BaseTakenHitMult"]
+					totalHitTaken = totalHitTaken + hitTaken[damageConvertedType]
+					if hitTaken[damageConvertedType] < output[damageType.."MaximumHitTaken"] then
+						output[damageType.."MaximumHitTaken"] = hitTaken[damageConvertedType]
+						worstHitTaken = damageConvertedType
+					end
 				end
 			end
 		end
 		if totalHitTaken == hitTaken[worstHitTaken] then
 			output[damageType.."MaximumHitTaken"] = totalHitTaken
+		elseif hitTaken[worstHitTaken] == m_huge then
+			output[damageType.."MaximumHitTaken"] = m_huge
 		else
 			output[damageType.."MaximumHitTaken"] = hitTaken[worstHitTaken] * (1 - hitTaken[worstHitTaken] / totalHitTaken)
-			if breakdown then
-				for _, damageConvertedType in ipairs(dmgTypeList) do
-					if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
+		end
+		if breakdown and typeCount > 1 then
+			for _, damageConvertedType in ipairs(dmgTypeList) do
+				if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
+					if output[damageConvertedType.."BaseTakenHitMult"] == 0 then
+						t_insert(breakdown[damageType.."MaximumHitTaken"].rowList, {
+							type = s_format("%d%% as %s", actor.damageShiftTable[damageType][damageConvertedType], damageConvertedType),
+							pool = s_format(""),
+							poolPercent = s_format(""),
+							taken = s_format("/ %.3f", output[damageConvertedType.."BaseTakenHitMult"]),
+							final = s_format("x 0"),
+						})
+					else
 						local portion = (1 - hitTaken[damageConvertedType] / totalHitTaken)
+						if totalHitTaken == hitTaken[worstHitTaken] then
+							portion = typeCount
+						end
 						local trueHitTaken = hitTaken[damageConvertedType] * (actor.damageShiftTable[damageType][damageConvertedType] / 100) * portion
 						t_insert(breakdown[damageType.."MaximumHitTaken"].rowList, {
 							type = s_format("%d%% as %s", actor.damageShiftTable[damageType][damageConvertedType], damageConvertedType),
