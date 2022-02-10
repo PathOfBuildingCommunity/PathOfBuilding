@@ -570,7 +570,7 @@ function buildForbidden(classNotables)
 		for className, notableTable in pairs(classNotables) do
 			for _, notableName in ipairs(notableTable) do
 				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Requires Class " .. className)
-				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifiers on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
+				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifier on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
 				index = index + 1
 			end
 		end
