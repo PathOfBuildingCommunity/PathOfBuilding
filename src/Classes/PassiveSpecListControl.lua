@@ -24,26 +24,19 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		return self.selValue ~= nil and #self.selections == 1
 	end
 	self.controls.delete = new("ButtonControl", {"LEFT",self.controls.copy,"RIGHT"}, 4, 0, 60, 18, "Delete", function()
-		-- sort and loop through the selection list backwards, as deleting a spec will change the relative positions of specs after it
-		table.sort(self.selections)
-		for selId = #self.selections, 1, -1 do
-			-- OnSelDelete protects itself from deleting the last tree
-			self:OnSelDelete(self.selections[selId], self.list[self.selections[selId]])
-		end
-		self:WipeSelections()
+		self:OnSelDelete()
 	end)
 	self.controls.delete.tooltipText = "Use Ctrl-Left Click to multi select trees below"
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil and #self.list > 1
 	end
 	self.controls.convert = new("ButtonControl", {"LEFT",self.controls.delete,"RIGHT"}, 4, 0, 60, 18, "Convert", function()
-		if #self.selections >0 then
+		if #self.selections > 0 then
 			-- sort and loop through the selection list backwards, as the ConvertSpec procedure inserts a new spec after the current
 			table.sort(self.selections)
 			for selId = #self.selections, 1, -1 do
 				local spec = self.list[self.selections[selId]]
 				if spec.treeVersion ~= latestTreeVersion then
-					ConPrintf("convert: %s, %s", self.selections[selId], spec.title or "Default")
 					treeTab:ConvertSpec(spec, selId)
 				end
 			end
@@ -122,12 +115,27 @@ function PassiveSpecListClass:OnSelClick(index, spec, doubleClick)
 	end
 end
 
-function PassiveSpecListClass:OnSelDelete(index, spec)
-	if #self.list > 1 then
-		main:OpenConfirmPopup("Delete Tree", "Are you sure you want to delete '"..(spec.title or "Default").."'?", "Yes", function()
-			t_remove(self.list, index)
-			self.selIndex = nil
-			self.selValue = nil
+function PassiveSpecListClass:OnSelDelete()
+	-- Delete one or more specs (Trees)
+	local text = #self.selections == 1 and "tree ?\n" or "trees ?\n"
+
+	if #self.list > 1 and #self.selections > 0 then
+		--collect tree names
+		for selId = 1, #self.selections do
+			local index = self.selections[selId]
+			local spec = self.list[index]
+			text = text..'\n^7'..self:GetRowValue(1, index, spec)
+		end
+		main:OpenConfirmPopup("Delete Tree", "Are you sure you want to delete the following "..text, "Yes", function()
+			local index = 1
+			local spec
+			for selId = #self.selections, 1, -1 do
+				index = self.selections[selId]
+				local spec = self.list[index]
+				t_remove(self.list, index)
+				self.selIndex = nil
+				self.selValue = nil
+			end
 			if index == self.treeTab.activeSpec then
 				self.treeTab:SetActiveSpec(m_max(1, index - 1))
 			else
@@ -135,6 +143,7 @@ function PassiveSpecListClass:OnSelDelete(index, spec)
 			end
 			self.treeTab.modFlag = true
 			self:UpdateItemsTabPassiveTreeDropdown()
+			self:WipeSelections()
 		end, "No")
 	end
 end
