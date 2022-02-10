@@ -1041,7 +1041,7 @@ function calcs.offence(env, actor, activeSkill)
 			local cooldown = calcSkillCooldown(mirageActiveSkill.skillModList, mirageActiveSkill.skillCfg, mirageActiveSkill.skillData)
 
 			-- Non-channelled skills only attack once, disregard attack rate
-			if not activeSkill.skillTypes[SkillType.Channelled] then
+			if not activeSkill.skillTypes[SkillType.Channel] then
 				skillData.timeOverride = 1
 			end
 
