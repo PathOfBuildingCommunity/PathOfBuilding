@@ -60,9 +60,9 @@ local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, f
 	if breakdown then
 		if cooldownOverride then
 			if minion then
-				env.player.mainSkill.skillFlags.hasOverride = true
-			else
 				env.minion.mainSkill.skillFlags.hasOverride = true
+			else
+				env.player.mainSkill.skillFlags.hasOverride = true
 			end
 			breakdown.ActionTriggerRate = {
 				s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride),
