@@ -250,6 +250,7 @@ end
 
 function main:Shutdown()
 	self:CallMode("Shutdown")
+	self:SaveSettings()
 end
 
 function main:OnFrame()
