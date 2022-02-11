@@ -57,6 +57,13 @@ colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER
 colorCodes.INTELLIGENCE = colorCodes.WITCH
 
+colorCodes.LIFE = colorCodes.MARAUDER
+colorCodes.MANA = colorCodes.WITCH
+colorCodes.ES = colorCodes.SOURCE
+colorCodes.WARD = colorCodes.RARE
+colorCodes.EVASION = colorCodes.POSITIVE
+colorCodes.RAGE = colorCodes.WARNING
+
 ModFlag = { }
 -- Damage modes
 ModFlag.Attack =	 0x00000001
