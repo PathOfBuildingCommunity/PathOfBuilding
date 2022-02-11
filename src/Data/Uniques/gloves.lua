@@ -28,6 +28,18 @@ Requires Level 63, 100 Str
 +(60-75) to maximum Life
 You have Perfect Agony if you've dealt a Critical Strike recently
 ]],[[
+Ceaseless Feast
+Spiked Gloves
+Source: Drops from unique{The Infinite Hunger}
+Requires Level 70, 95 Str
+Implicits: 1
+(16–20)% increased Melee Damage
+Adds (2–3) to (22–26) Physical Damage to Attacks
+(100–150)% increased Armour
+(20–30)% chance to inflict Corrosion on Hit with Attacks
+(20–30)% chance to gain an Endurance Charge on Hitting an Enemy with no Armour
+(20–30)% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating
+]],[[
 Craiceann's Pincers
 Titan Gauntlets
 League: Bestiary
@@ -277,6 +289,19 @@ Requires Level 25, 39 Int
 {variant:3}Enemies near Corpses affected by your Curses are Blinded
 {variant:3}Enemies killed near Corpses affected by your Curses explode, dealing
 {variant:3}3% of their Life as Physical Damage
+]],[[
+Black Zenith
+Fingerless Silk Gloves
+Source: Drops from unique{The Black Star}
+Requires Level 70, 95 Int
+Implicits: 1
+(12-16)% increased Spell Damage
+Socketed Projectile Spells deal 150% more Damage with Hits
+Socketed Projectile Spells have +4 seconds to Cooldown
+Socketed Projectile Spells fire 4 additional Projectiles
+Socketed Projectile Spells fire Projectiles in a circle
+Socketed Projectile Spells have 80% less Skill Effect Duration
+(140-180)% increased Energy Shield
 ]],[[
 Demon Stitcher
 Satin Gloves

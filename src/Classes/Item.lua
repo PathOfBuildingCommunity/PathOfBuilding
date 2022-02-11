@@ -185,6 +185,10 @@ function ItemClass:ParseRaw(raw)
 				specName, specVal = line:match("^(Requires Class) (.+)$")
 			end
 			if not specName then
+				specVal = line:match("^Class:: (.+)$")
+				if specVal then specName = "Requires Class" end
+			end
+			if not specName then
 				specName, specVal = line:match("^(Requires) (.+)$")
 			end
 			if specName then
@@ -268,6 +272,10 @@ function ItemClass:ParseRaw(raw)
 					self.hasAltVariant2 = true
 				elseif specName == "Has Alt Variant Three" then
 					self.hasAltVariant3 = true
+				elseif specName == "Has Alt Variant Four" then
+					self.hasAltVariant4 = true
+				elseif specName == "Has Alt Variant Five" then
+					self.hasAltVariant5 = true
 				elseif specName == "Selected Variant" then
 					self.variant = tonumber(specVal)
 				elseif specName == "Selected Alt Variant" then
@@ -276,6 +284,10 @@ function ItemClass:ParseRaw(raw)
 					self.variantAlt2 = tonumber(specVal)
 				elseif specName == "Selected Alt Variant Three" then
 					self.variantAlt3 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Four" then
+					self.variantAlt4 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Five" then
+					self.variantAlt5 = tonumber(specVal)
 				elseif specName == "Has Variants" or specName == "Selected Variants" then
 					-- Need to skip this line for backwards compatibility
 					-- with builds that used an old Watcher's Eye implementation
@@ -527,7 +539,7 @@ function ItemClass:ParseRaw(raw)
 						foundExplicit = true
 					end
 				elseif mode == "GAME" then
-					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and not data.itemBases[line] and not self.name == line) then
+					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned")) then
 						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
@@ -602,6 +614,12 @@ function ItemClass:ParseRaw(raw)
 		end
 		if self.hasAltVariant3 then
 			self.variantAlt3 = m_min(#self.variantList, self.variantAlt3 or #self.variantList)
+		end
+		if self.hasAltVariant4 then
+			self.variantAlt4 = m_min(#self.variantList, self.variantAlt4 or #self.variantList)
+		end
+		if self.hasAltVariant5 then
+			self.variantAlt5 = m_min(#self.variantList, self.variantAlt5 or #self.variantList)
 		end
 	end
 	if not self.quality then
@@ -774,6 +792,14 @@ function ItemClass:BuildRaw()
 			t_insert(rawLines, "Has Alt Variant Three: true")
 			t_insert(rawLines, "Selected Alt Variant Three: "..self.variantAlt3)
 		end
+		if self.hasAltVariant4 then
+			t_insert(rawLines, "Has Alt Variant Four: true")
+			t_insert(rawLines, "Selected Alt Variant Four: "..self.variantAlt4)
+		end
+		if self.hasAltVariant5 then
+			t_insert(rawLines, "Has Alt Variant Five: true")
+			t_insert(rawLines, "Selected Alt Variant Five: "..self.variantAlt5)
+		end
 	end
 	if self.quality then
 		t_insert(rawLines, "Quality: "..self.quality)
@@ -897,6 +923,8 @@ function ItemClass:CheckModLineVariant(modLine)
 		or (self.hasAltVariant and modLine.variantList[self.variantAlt])
 		or (self.hasAltVariant2 and modLine.variantList[self.variantAlt2])
 		or (self.hasAltVariant3 and modLine.variantList[self.variantAlt3])
+		or (self.hasAltVariant4 and modLine.variantList[self.variantAlt4])
+		or (self.hasAltVariant5 and modLine.variantList[self.variantAlt5])
 end
 
 -- Return the name of the slot this item is equipped in

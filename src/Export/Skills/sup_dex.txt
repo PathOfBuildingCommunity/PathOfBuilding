@@ -298,6 +298,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportMarkOnHit
+	statMap = {
+		["mark_skills_curse_effect_+%"] = {
+			mod("CurseEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Mark }),
+		},
+		["marked_enemy_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#mods
+
 #skill SupportGemMirageArcher
 	statMap = {
 		["support_mirage_archer_base_duration"] = {

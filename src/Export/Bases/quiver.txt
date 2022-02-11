@@ -3,5 +3,12 @@ local itemBases = ...
 
 #type Quiver
 #baseTags quiver
-#baseMatch Metadata/Items/Quivers/Quiver%d+
+#forceHide true
+#baseMatch Metadata/Items/Quivers/Quiver%d[0123]?$
+#forceHide false
+#base Metadata/Items/Quivers/Quiver14
+#forceShow true
+#baseMatch Metadata/Items/Quivers/QuiverNew%d+
+#baseMatch Metadata/Items/Quivers/Descent
+#forceShow false
 #baseMatch Metadata/Items/Quivers/QuiverAtlas%d+

@@ -89,8 +89,6 @@ local skills, mod, flag, skill = ...
 #flags cast duration
 	fromItem = true,
 	statMap = {
-		["base_movement_velocity_+%"] = {
-		},
 		["base_damage_taken_+%"] = {
 			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Spider's Web" })
 		},
@@ -100,20 +98,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("stackCount", 1, { type = "Multiplier", var = "SpiderWebApplyStack", limitVar = "SpiderWebApplyStackMax" })
-#mods
-
-#skill SupportAuraDuration Blessing
-	fromItem = true,
-	statMap = {
-		["support_aura_duration_base_buff_duration"] = {
-			skill("auraDuration", nil),
-			div = 1000,
-		},
-		["support_aura_duration_base_reserve_duration"] = {
-			skill("reserveDuration", nil),
-			div = 1000,
-		},
-	},
 #mods
 
 #skill SupportBloodMagicUniquePrismGuardian Blood Magic
@@ -360,7 +344,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AtziriUniqueStaffFlameblast
+#flags area
 	fromItem = true,
+#baseMod skill("triggerSource", "Queen's Demand")
 #mods
 
 #skill Focus
@@ -607,7 +593,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AtziriUniqueStaffStormCall
+#flags area
 	fromItem = true,
+#baseMod skill("triggerSource", "Queen's Demand")
 #mods
 
 #skill SummonBeastialRhoa

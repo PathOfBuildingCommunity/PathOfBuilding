@@ -103,6 +103,8 @@ function ButtonClass:OnKeyDown(key)
 	end
 	if key == "LEFTBUTTON" then
 		self.clicked = true
+	elseif self.enterFunc then
+		self.enterFunc()
 	end
 	return self
 end

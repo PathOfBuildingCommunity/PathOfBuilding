@@ -21,6 +21,7 @@ LoadModule("Modules/ModTools")
 LoadModule("Modules/ItemTools")
 LoadModule("Modules/CalcTools")
 LoadModule("Modules/PantheonTools")
+LoadModule("Modules/BuildSiteTools")
 
 --[[if launch.devMode then
 	for skillName, skill in pairs(data.enchantments.Helmet) do
@@ -202,8 +203,23 @@ the "Releases" section of the GitHub page.]])
 	self.thousandsSeparator = ","
 	self.decimalSeparator = "."
 	self.showTitlebarName = true
+	self.showWarnings = true
 
-	local ignoreBuild = self:LoadPastebinBuild()
+	local ignoreBuild
+	if arg[1] then
+		buildSites.DownloadBuild(arg[1], nil, function(isSuccess, data)
+			if not isSuccess then
+				self:SetMode("BUILD", false, data)
+			else
+				local xmlText = Inflate(common.base64.decode(data:gsub("-","+"):gsub("_","/")))
+				self:SetMode("BUILD", false, "Imported Build", xmlText)
+				self.newModeChangeToTree = true
+			end
+		end)
+		arg[1] = nil -- Protect against downloading again this session.
+		ignoreBuild = true
+	end
+
 	if not ignoreBuild then
 		self:SetMode("BUILD", false, "Unnamed build")
 	end
@@ -393,32 +409,6 @@ function main:CallMode(func, ...)
 	end
 end
 
-function main:LoadPastebinBuild()
-	local fullUri = arg[1]
-	if not fullUri then
-		return false
-	end
-	arg[1] = nil -- Protect against downloading again this session.
-	local pastebinCode = string.match(fullUri, "^pob:[/\\]*pastebin[/\\]+(%w+)[/\\]*")
-	if pastebinCode then
-		launch:DownloadPage("https://pastebin.com/raw/" .. pastebinCode, function(page, errMsg)
-			if errMsg then
-				self:SetMode("BUILD", false, "Failed Build Import (Download failed " .. pastebinCode .. ")")
-			else
-				local xmlText = Inflate(common.base64.decode(page:gsub("-","+"):gsub("_","/")))
-				if xmlText then
-					self:SetMode("BUILD", false, "Imported Build", xmlText)
-					self.newModeChangeToTree = true
-				else
-					self:SetMode("BUILD", false, "Failed Build Import (Decompress failed)")
-				end
-			end
-		end)
-		return true
-	end
-	return false
-end
-
 function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if not setXML then
@@ -527,6 +517,12 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.defaultCharLevel then
 					self.defaultCharLevel = m_min(tonumber(node.attrib.defaultCharLevel) or 1, 100)
 				end
+				if node.attrib.lastExportWebsite then
+					self.lastExportWebsite = node.attrib.lastExportWebsite
+				end
+				if node.attrib.showWarnings then
+					self.showWarnings = node.attrib.showWarnings == "true"
+				end
 			end
 		end
 	end
@@ -577,6 +573,8 @@ function main:SaveSettings()
 		betaTest = tostring(self.betaTest),
 		defaultGemQuality = tostring(self.defaultGemQuality or 0),
 		defaultCharLevel = tostring(self.defaultCharLevel or 1),
+		lastExportWebsite = self.lastExportWebsite,
+		showWarnings = tostring(self.showWarnings),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -705,8 +703,14 @@ function main:OpenOptionsPopup()
 	controls.defaultCharLevel.tooltipText = "Set the default char level that can be overwritten by build-related level settings."
 	controls.defaultCharLevelLabel = new("LabelControl", { "RIGHT", controls.defaultCharLevel, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Default character level:")
 
+	nextRow()
+	controls.showWarnings = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show build warnings:", function(state)
+		self.showWarnings = state
+	end)
+
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
+	controls.showWarnings.state = self.showWarnings
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
@@ -715,6 +719,7 @@ function main:OpenOptionsPopup()
 	local initialBetaTest = self.betaTest
 	local initialDefaultGemQuality = self.defaultGemQuality or 0
 	local initialDefaultCharLevel = self.defaultCharLevel or 1
+	local initialshowWarnings = self.showWarnings
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -752,6 +757,7 @@ function main:OpenOptionsPopup()
 		self.betaTest = initialBetaTest
 		self.defaultGemQuality = initialDefaultGemQuality
 		self.defaultCharLevel = initialDefaultCharLevel
+		self.showWarnings = initialshowWarnings
 		main:ClosePopup()
 	end)
 	nextRow(1.5)

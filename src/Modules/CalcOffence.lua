@@ -1041,7 +1041,7 @@ function calcs.offence(env, actor, activeSkill)
 			local cooldown = calcSkillCooldown(mirageActiveSkill.skillModList, mirageActiveSkill.skillCfg, mirageActiveSkill.skillData)
 
 			-- Non-channelled skills only attack once, disregard attack rate
-			if not activeSkill.skillTypes[SkillType.Channelled] then
+			if not activeSkill.skillTypes[SkillType.Channel] then
 				skillData.timeOverride = 1
 			end
 
@@ -1477,7 +1477,7 @@ function calcs.offence(env, actor, activeSkill)
 		if not isAttack or skillModList:Flag(cfg, "CannotBeEvaded") or skillData.cannotBeEvaded or (env.mode_effective and enemyDB:Flag(nil, "CannotEvade")) then
 			output.HitChance = 100
 		else
-			local enemyEvasion = round(calcLib.val(enemyDB, "Evasion"))
+			local enemyEvasion = m_max(round(calcLib.val(enemyDB, "Evasion")), 0)
 			output.HitChance = calcs.hitChance(enemyEvasion, output.Accuracy) * calcLib.mod(skillModList, cfg, "HitChance")
 			if breakdown then
 				breakdown.HitChance = {
@@ -1512,6 +1512,33 @@ function calcs.offence(env, actor, activeSkill)
 			output.TriggerTime = output.Time
 			output.Speed = 1 / output.Time
 		elseif skillData.triggerRate and skillData.triggered then
+			-- Account for trigger unleash
+			if skillData.triggerUnleash then
+				-- process the source trigger skill to get it's full data
+				local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
+				for _, triggerSkill in ipairs(actor.activeSkillList) do
+					if cacheSkillUUID(triggerSkill) == skillData.triggerSourceUUID then
+						calcs.buildActiveSkill(env, calcMode, triggerSkill)
+						break
+					end
+				end
+				local cachedSourceSkill = GlobalCache.cachedData[calcMode][skillData.triggerSourceUUID]
+				-- if properly processed, get it's dpsMultiplier to increase triggerRate
+				if cachedSourceSkill then
+					skillData.unleashTriggerRate = skillData.triggerRate * (cachedSourceSkill.ActiveSkill.skillData.dpsMultiplier or 1)
+					if breakdown then
+						breakdown.Speed = {
+							s_format("%.2f ^8(trigger rate)", skillData.triggerRate),
+							s_format("* %.2f ^8(multiplier from Unleash)", cachedSourceSkill.ActiveSkill.skillData.dpsMultiplier or 1),
+							s_format("= %.2f", skillData.unleashTriggerRate),
+						}
+					end
+					-- over-write the triggerRate modifier after breakdown as other calcs use it
+					skillData.triggerRate = skillData.unleashTriggerRate
+				end
+				-- give this activeSkill "HasSeals" flag so Configuration Option for UseMaxUnleash is available
+				activeSkill.skillFlags.HasSeals = true
+			end
 			output.Time = 1 / skillData.triggerRate
 			output.TriggerTime = output.Time
 			output.Speed = skillData.triggerRate
@@ -2259,7 +2286,7 @@ function calcs.offence(env, actor, activeSkill)
 							else
 								output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (1 - output.CritChance / 100)
 							end
-							local enemyArmour = calcLib.val(enemyDB, "Armour")
+							local enemyArmour = m_max(calcLib.val(enemyDB, "Armour"), 0)
 							local armourReduction = calcs.armourReductionF(enemyArmour, damageTypeHitAvg)
 							if skillModList:Flag(cfg, "IgnoreEnemyPhysicalDamageReduction") then
 								resist = 0
@@ -3621,7 +3648,7 @@ function calcs.offence(env, actor, activeSkill)
             local impaleStoredDamage = baseStoredDamage * storedExpectedDamageModifier
             local impaleHitDamageMod = impaleStoredDamage * impaleStacks  -- Source: https://www.reddit.com/r/pathofexile/comments/chgqqt/impale_and_armor_interaction/
 
-            local enemyArmour = calcLib.val(enemyDB, "Armour")
+            local enemyArmour = m_max(calcLib.val(enemyDB, "Armour"), 0)
             local impaleArmourReduction = calcs.armourReductionF(enemyArmour, impaleHitDamageMod * output.impaleStoredHitAvg)
             local impaleResist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction), data.misc.DamageReductionCap)
 
@@ -4040,11 +4067,8 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
 	end
-	if output.CullMultiplier > 1 then
-		output.CullingDPS = output.CombinedDPS * (output.CullMultiplier - 1)
-	end
-	output.CombinedDPS = output.CombinedDPS * output.CullMultiplier
 
+	local bestCull = 1
 	if activeSkill.mirage and activeSkill.mirage.output and activeSkill.mirage.output.TotalDPS then
 		local mirageCount = activeSkill.mirage.count or 1
 		output.MirageDPS = activeSkill.mirage.output.TotalDPS * mirageCount
@@ -4075,5 +4099,12 @@ function calcs.offence(env, actor, activeSkill)
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 		end
+		if activeSkill.mirage.output.CullMultiplier > 1 then
+			bestCull = activeSkill.mirage.output.CullMultiplier
+		end
 	end
+
+	bestCull = m_max(bestCull, output.CullMultiplier)
+	output.CullingDPS = output.CombinedDPS * (bestCull - 1)
+	output.CombinedDPS = output.CombinedDPS * bestCull
 end
