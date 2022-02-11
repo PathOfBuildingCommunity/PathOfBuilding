@@ -40,24 +40,30 @@ local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 end
 
 -- Calculate Trigger Rate Cap accounting for ICDR
-local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, focus)
+local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, focus, minion)
 	local icdr = 1
+	local cooldownOverride = false
 	if focus then
 		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "FocusCooldownRecovery")
 		env.player.mainSkill.skillData.focused = true
+	elseif minion then
+		icdr = calcLib.mod(env.minion.mainSkill.skillModList, env.minion.mainSkill.skillCfg, "CooldownRecovery")
+		cooldownOverride = env.minion.mainSkill.skillModList:Override(env.minion.mainSkill.skillCfg, "CooldownRecovery")
 	else
 		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+		cooldownOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
 	end
-
-	-- check if there is a hard cooldown recovery override
-	local cooldownOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
 
 	local modActionCooldown = cooldownOverride or (baseActionCooldown / icdr)
 	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
 	if breakdown then
 		if cooldownOverride then
-			env.player.mainSkill.skillFlags.hasOverride = true
+			if minion then
+				env.minion.mainSkill.skillFlags.hasOverride = true
+			else
+				env.player.mainSkill.skillFlags.hasOverride = true
+			end
 			breakdown.ActionTriggerRate = {
 				s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride),
 				s_format(""),
@@ -97,7 +103,6 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 	local next_trigger = 0
 	local trigger_increment = 1 / sourceAPS
 	local wasted = 0
-
 	while time < SIM_TIME do
 		local currIndex = index
 	
@@ -144,16 +149,17 @@ local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS)
 		trigRateTable.extraSimInfo = "Good Job! There are no wasted trigger opportunities"
 	end
 	for _, sd in ipairs(skillRotation) do
-		if cacheSkillUUID(env.player.mainSkill) == sd.uuid then
+		if cacheSkillUUID(env.player.mainSkill) == sd.uuid or env.minion and cacheSkillUUID(env.minion.mainSkill) == sd.uuid then
 			mainRate = sd.count / SIM_TIME
 		end
 		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.count / SIM_TIME })
 	end
+
 	return mainRate, trigRateTable
 end
 
 -- Calculate the actual Trigger rate of active skill causing the trigger
-local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)
+local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield, minion)
 	-- Get action trigger rate
 	if sourceAPS == nil and source.skillTypes[SkillType.Channel] then
 		output.ActionTriggerRate = 1 / (source.skillData.triggerTime or 1)
@@ -167,7 +173,11 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 			}
 		end
 	else
-		output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown, env, breakdown)
+		if minion then 
+			output.ActionTriggerRate = getTriggerActionTriggerRate(env.minion.mainSkill.skillData.cooldown, env, breakdown, false, minion)
+		else 
+			output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown, env, breakdown, false, minion)
+		end
 	end
 	local trigRate
 	local skillRotationImpact = #spellCount
@@ -2304,7 +2314,7 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoTrigger = "Cospri"
 		end
 	end
-
+	
 	-- Mjolner
 	if env.player.mainSkill.skillData.triggeredByMjolner and not env.player.mainSkill.skillFlags.minion then
 		local spellCount = {}
@@ -2842,6 +2852,56 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoTrigger = "CwC"
 
 			env.player.mainSkill.skillFlags.dontDisplay = true
+		end
+	end
+
+	-- Triggered by parent attack
+	if env.minion and env.player.mainSkill.minion then
+		if env.minion.mainSkill.skillData.triggeredByParentAttack then
+			local spellCount = {}
+			local trigRate = 0
+			local source = nil
+			for _, skill in ipairs(env.player.activeSkillList) do
+				if skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill then
+					source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+				end
+			end
+			
+			local icdr = calcLib.mod(env.minion.mainSkill.skillModList, env.minion.mainSkill.skillCfg, "CooldownRecovery")
+			t_insert(spellCount, { uuid = cacheSkillUUID(env.minion.mainSkill), cd = env.minion.mainSkill.skillData.cooldown / icdr, next_trig = 0, count = 0 })
+
+			if not source then
+				env.minion.mainSkill.skillData.triggeredByParentAttack = nil
+				env.minion.mainSkill.infoMessage = "No triggering Skill Found"
+				env.minion.mainSkill.infoMessage2 = "DPS reported assuming regular cast"
+				env.minion.mainSkill.infoTrigger = ""
+			else
+				env.minion.mainSkill.skillData.triggered = true
+				local uuid = cacheSkillUUID(source)
+
+				local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
+
+				-- Get action trigger rate
+				trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, env.minion.output, env.minion.breakdown, false, true)
+
+				-- Account for chance to hit
+				local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance
+				trigRate = trigRate * sourceHitChance / 100
+				if env.minion.breakdown then
+					env.minion.breakdown.Speed = {
+						s_format("%.2fs ^8(adjusted trigger rate)", env.minion.output.ServerTriggerRate),
+						s_format("x %.2f%% ^8(%s Hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name),
+						s_format("= %.2f ^8per second", trigRate),
+					}
+				end
+
+				-- Account for Trigger-related INC/MORE modifiers
+				addTriggerIncMoreMods(env.minion.mainSkill, env.minion.mainSkill)
+				env.minion.mainSkill.skillData.triggerRate = trigRate
+				env.minion.mainSkill.skillData.triggerSource = source
+				env.minion.mainSkill.infoMessage = "Triggering Skill: " .. source.activeEffect.grantedEffect.name
+				env.minion.mainSkill.infoTrigger = "Parent attack"
+			end
 		end
 	end
 
