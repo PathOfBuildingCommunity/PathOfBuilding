@@ -10059,7 +10059,7 @@ c["Adds 1 to 300 Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="Lightnin
 c["Turquoise Amulet Variant: Pre 3.11.0"]={nil,"Turquoise Amulet Variant: Pre 3.11.0 "}
 c["+80% to Critical Strike Multiplier with One Handed Melee Weapons"]={{[1]={flags=167772164,keywordFlags=0,name="CritMultiplier",type="BASE",value=80}},nil}
 c["You have 20 Fortification"]={{[1]={flags=0,keywordFlags=0,name="Condition:Fortified",type="FLAG",value=true}},nil}
-c["+30% to Quality of all Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="all",value=30}}},nil}
+c["+30% to Quality of all Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="active_skill",value=30}}},nil}
 c["Adds 1 to 325 Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningMin",type="BASE",value=1},[2]={flags=0,keywordFlags=0,name="LightningMax",type="BASE",value=325}},nil}
 c["Has 2 Abyssal Sockets"]={{[1]={flags=0,keywordFlags=0,name="AbyssalSocketCount",type="BASE",value=2}},nil}
 c["15% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}},nil}
@@ -11812,7 +11812,7 @@ c["10% increased Damage while wielding a Wand"]={{[1]={[1]={type="Condition",var
 c["Necromancer Silks Variant: Pre 2.6.0"]={nil,"Necromancer Silks Variant: Pre 2.6.0 "}
 c["+2 seconds to Cat's Stealth Duration"]={{[1]={[1]={skillName="Aspect of the Cat",type="SkillName"},flags=0,keywordFlags=0,name="PrimaryDuration",type="BASE",value=2}},nil}
 c["15% increased Cooldown Recovery Rate of Movement Skills"]={{[1]={flags=0,keywordFlags=8,name="CooldownRecovery",type="INC",value=15}},nil}
-c["+25% to Quality of all Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="all",value=25}}},nil}
+c["+25% to Quality of all Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="active_skill",value=25}}},nil}
 c["35% increased Damage with Bleeding you inflict on Maimed Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Maimed"},flags=0,keywordFlags=4194304,name="Damage",type="INC",value=35}},nil}
 c["Crimson Jewel Source: Fastest Merciless Labyrinth"]={nil,"Crimson Jewel Source: Fastest Merciless Labyrinth "}
 c["15% increased Cooldown Recovery Speed for throwing Traps"]={{[1]={flags=0,keywordFlags=4096,name="CooldownRecovery",type="INC",value=15}},nil}
