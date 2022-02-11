@@ -202,6 +202,7 @@ the "Releases" section of the GitHub page.]])
 	self.thousandsSeparator = ","
 	self.decimalSeparator = "."
 	self.showTitlebarName = true
+	self.showWarnings = true
 
 	local ignoreBuild
 	if arg[1] then
@@ -519,6 +520,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.lastExportWebsite then
 					self.lastExportWebsite = node.attrib.lastExportWebsite
 				end
+				if node.attrib.showWarnings then
+					self.showWarnings = node.attrib.showWarnings == "true"
+				end
 			end
 		end
 	end
@@ -569,6 +573,7 @@ function main:SaveSettings()
 		defaultGemQuality = tostring(self.defaultGemQuality or 0),
 		defaultCharLevel = tostring(self.defaultCharLevel or 1),
 		lastExportWebsite = self.lastExportWebsite,
+		showWarnings = tostring(self.showWarnings),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -687,8 +692,14 @@ function main:OpenOptionsPopup()
 	controls.defaultCharLevel.tooltipText="Set the default char level that can be overwritten by build-related level settings."
 	controls.defaultCharLevelLabel = new("LabelControl", {"RIGHT",controls.defaultCharLevel,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Default character level:")
 
+	nextRow()
+	controls.showWarnings = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show build warnings:", function(state)
+		self.showWarnings = state
+	end)
+
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
+	controls.showWarnings.state = self.showWarnings
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
@@ -697,6 +708,7 @@ function main:OpenOptionsPopup()
 	local initialBetaTest = self.betaTest
 	local initialDefaultGemQuality = self.defaultGemQuality or 0
 	local initialDefaultCharLevel = self.defaultCharLevel or 1
+	local initialshowWarnings = self.showWarnings
 
     -- last line with buttons has more spacing
     nextRow(1.5)
@@ -730,6 +742,7 @@ function main:OpenOptionsPopup()
 		self.betaTest = initialBetaTest
 		self.defaultGemQuality = initialDefaultGemQuality
 		self.defaultCharLevel = initialDefaultCharLevel
+		self.showWarnings = initialshowWarnings
 		main:ClosePopup()
 	end)
     nextRow(1.5)

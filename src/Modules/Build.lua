@@ -637,7 +637,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.controls.statBox = new("TextListControl", {"TOPLEFT",self.controls.statBoxAnchor,"BOTTOMLEFT"}, 0, 2, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
 	self.controls.statBox.height = function(control)
 		local x, y = control:GetPos()
-		local warnHeight = #self.controls.warnings.lines > 0 and 18 or 0
+		local warnHeight = main.showWarnings and #self.controls.warnings.lines > 0 and 18 or 0
 		return main.screenH - main.mainBarHeight - 4 - y - warnHeight
 	end
 	self.controls.warnings = new("Control",{"TOPLEFT",self.controls.statBox,"BOTTOMLEFT",true}, 0, 0, 0, 18)
@@ -982,6 +982,9 @@ function buildMode:OnFrame(inputEvents)
 	if main.showTitlebarName ~= self.lastShowTitlebarName then
 		self.spec:SetWindowTitleWithBuildClass()
 	end
+	if main.showWarnings ~= self.lastShowshowWarnings then
+		self:RefreshStatList()
+	end
 
 	-- Update contents of main skill dropdowns
 	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
@@ -1285,6 +1288,7 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal)
 	self.lastShowThousandsSeparator = main.thousandsSeparator
 	self.lastShowDecimalSeparator = main.decimalSeparator
 	self.lastShowTitlebarName = main.showTitlebarName
+	self.lastshowWarnings = main.showWarnings
 	return valStr
 end
 
