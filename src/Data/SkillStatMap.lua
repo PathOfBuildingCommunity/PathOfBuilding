@@ -212,7 +212,7 @@ return {
 	skill("triggeredByGeneralsCry", true, { type = "SkillType", skillType = SkillType.Melee }, { type = "SkillType", skillType = SkillType.Attack }),
 },
 ["holy_relic_trigger_on_parent_attack_%"] = {
-	skill("triggeredByParentAttack", true, {type = "SkillType", skillType = SkillType.Triggerable}),
+	skill("triggeredByParentAttack", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["skill_can_own_mirage_archers"] = {
 	skill("triggeredByMirageArcher", true, { type = "SkillType", skillType = SkillType.MirageArcherCanUse }),
