@@ -1041,7 +1041,7 @@ function calcs.offence(env, actor, activeSkill)
 			local cooldown = calcSkillCooldown(mirageActiveSkill.skillModList, mirageActiveSkill.skillCfg, mirageActiveSkill.skillData)
 
 			-- Non-channelled skills only attack once, disregard attack rate
-			if not activeSkill.skillTypes[SkillType.Channelled] then
+			if not activeSkill.skillTypes[SkillType.Channel] then
 				skillData.timeOverride = 1
 			end
 
@@ -2747,7 +2747,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			if skillFlags.hit and not skillModList:Flag(cfg, "Cannot"..ailment) then
 				output[ailment.."ChanceOnHit"] = m_min(100, chance)
-				if skillModList:Flag(cfg, "CritsDontAlways"..ailment) and (not ailmentData[ailment] or not ailmentData[ailment].alt) then
+				if skillModList:Flag(cfg, "CritsDontAlways"..ailment) or (ailmentData[ailment] and ailmentData[ailment].alt) then
 					output[ailment.."ChanceOnCrit"] = output[ailment.."ChanceOnHit"]
 				end
 			else
@@ -4067,11 +4067,8 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end
 	end
-	if output.CullMultiplier > 1 then
-		output.CullingDPS = output.CombinedDPS * (output.CullMultiplier - 1)
-	end
-	output.CombinedDPS = output.CombinedDPS * output.CullMultiplier
 
+	local bestCull = 1
 	if activeSkill.mirage and activeSkill.mirage.output and activeSkill.mirage.output.TotalDPS then
 		local mirageCount = activeSkill.mirage.count or 1
 		output.MirageDPS = activeSkill.mirage.output.TotalDPS * mirageCount
@@ -4103,8 +4100,11 @@ function calcs.offence(env, actor, activeSkill)
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)
 		end
 		if activeSkill.mirage.output.CullMultiplier > 1 then
-			output.MirageDPS = output.MirageDPS * (activeSkill.mirage.output.CullMultiplier - 1)
-			output.CombinedDPS = output.CombinedDPS * (activeSkill.mirage.output.CullMultiplier - 1)
+			bestCull = activeSkill.mirage.output.CullMultiplier
 		end
 	end
+
+	bestCull = m_max(bestCull, output.CullMultiplier)
+	output.CullingDPS = output.CombinedDPS * (bestCull - 1)
+	output.CombinedDPS = output.CombinedDPS * bestCull
 end

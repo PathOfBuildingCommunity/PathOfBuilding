@@ -257,11 +257,15 @@ function CalcSectionClass:Draw(viewPort)
 			primary = false
 			for _, rowData in ipairs(subSec.data) do
 				if rowData.enabled then
+					local textColor = "^7"
+					if rowData.color then
+						textColor = rowData.color
+					end
 					if rowData.label then
 						-- Draw row label with background
-				SetDrawColor(rowData.bgCol or "^0")
+						SetDrawColor(rowData.bgCol or "^0")
 						DrawImage(nil, x + 2, lineY, 130, 18)
-						DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", "^7"..rowData.label.."^7:")
+						DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
 					end
 					for colour, colData in ipairs(rowData) do
 						-- Draw column separator at the left end of the cell

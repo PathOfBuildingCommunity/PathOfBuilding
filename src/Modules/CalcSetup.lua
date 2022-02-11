@@ -633,6 +633,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						item.name = name
 						item.base = data.itemBases[name]
 						item.baseName = name
+						item.classRequirementModLines = { }
 						item.buffModLines = { }
 						item.enchantModLines = { }
 						item.scourgeModLines = { }
