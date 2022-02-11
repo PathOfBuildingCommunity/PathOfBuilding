@@ -1847,6 +1847,7 @@ local specialModList = {
 		flag("ChaosCanShock"),
 	},
 	["other aegis skills are disabled"] = { flag("DisableSkill", { type = "SkillName", skillNameList = { "Physical Aegis", "Lightning Aegis", "Cold Aegis", "Fire Aegis", "Elemental Aegis", "Chaos Aegis" } }) },
+	["primal aegis can take (%d+) elemental damage per allocated notable passive skill"] = function(num) return { mod("ElementalAegisValue", "MAX", num, 0, 0, { type = "Multiplier", var = "AllocatedNotable" }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }) } end,
 	-- Gladiator
 	["chance to block spell damage is equal to chance to block attack damage"] = { flag("SpellBlockChanceIsBlockChance") },
 	["maximum chance to block spell damage is equal to maximum chance to block attack damage"] = { flag("SpellBlockChanceMaxIsBlockChanceMax") },

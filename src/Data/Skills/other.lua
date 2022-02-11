@@ -1963,11 +1963,6 @@ skills["PrimalAegis"] = {
 	castTime = 1,
 	cannotBeSupported = true,
 	fromTree = true,
-	statMap = {
-		["aegis_unique_shield_max_value_per_allocated_notable"] = {
-			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "Multiplier", var = "AllocatedNotable" }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
-		},
-	},
 	baseFlags = {
 	},
 	baseMods = {
