@@ -2747,7 +2747,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			if skillFlags.hit and not skillModList:Flag(cfg, "Cannot"..ailment) then
 				output[ailment.."ChanceOnHit"] = m_min(100, chance)
-				if skillModList:Flag(cfg, "CritsDontAlways"..ailment) and (not ailmentData[ailment] or not ailmentData[ailment].alt) then
+				if skillModList:Flag(cfg, "CritsDontAlways"..ailment) or (ailmentData[ailment] and ailmentData[ailment].alt) then
 					output[ailment.."ChanceOnCrit"] = output[ailment.."ChanceOnHit"]
 				end
 			else

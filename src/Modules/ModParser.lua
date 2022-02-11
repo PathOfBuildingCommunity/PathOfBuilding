@@ -2362,7 +2362,6 @@ local specialModList = {
 		flag("ChaosCanSap", { type = "Condition", var = "TwoHighestAttributesEqual" }),
 	},
 	["critical strikes do not inherently apply non%-damaging ailments"] = {
-		flag("CritsDontAlwaysIgnite"),
 		flag("CritsDontAlwaysChill"),
 		flag("CritsDontAlwaysFreeze"),
 		flag("CritsDontAlwaysShock"),
