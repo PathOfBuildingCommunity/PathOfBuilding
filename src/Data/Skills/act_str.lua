@@ -2311,6 +2311,9 @@ skills["PuresteelBanner"] = {
 		["impale_debuff_effect_+%"] = {
 			mod("ImpaleEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["puresteel_banner_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
