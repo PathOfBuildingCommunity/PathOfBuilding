@@ -1500,8 +1500,8 @@ function calcs.defence(env, actor)
 						energyShield = energyShield - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
-					if output.sharedMindOverMatter > 0 then
-						local MoMDamage = Damage[damageType] * output.sharedMindOverMatter / 100
+					if (output.sharedMindOverMatter + output[damageType.."MindOverMatter"]) > 0 then
+						local MoMDamage = Damage[damageType] * m_min(output.sharedMindOverMatter + output[damageType.."MindOverMatter"], 100) / 100
 						if modDB:Flag(nil, "EnergyShieldProtectsMana") and energyShield > 0 and DamageIn[damageType.."EnergyShieldBypass"] < 100 then
 							local tempDamage = m_min(MoMDamage * (1 - DamageIn[damageType.."EnergyShieldBypass"] / 100), energyShield)
 							energyShield = energyShield - tempDamage
@@ -1834,18 +1834,19 @@ function calcs.defence(env, actor)
 				local energyShieldDegen = 0
 				local lifeDegen = 0
 				local manaDegen = 0
+				local takenFromMana = output[damageType.."MindOverMatter"] + output["sharedMindOverMatter"]
 				if output.EnergyShieldRegen > 0 then 
 					if modDB:Flag(nil, "EnergyShieldProtectsMana") then
-						lifeDegen = output[damageType.."Degen"] * (1 - output[damageType.."MindOverMatter"] / 100)
-						energyShieldDegen = output[damageType.."Degen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."MindOverMatter"] / 100)
+						lifeDegen = output[damageType.."Degen"] * (1 - takenFromMana / 100)
+						energyShieldDegen = output[damageType.."Degen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
 					else
-						lifeDegen = output[damageType.."Degen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (1 - output[damageType.."MindOverMatter"] / 100)
+						lifeDegen = output[damageType.."Degen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (1 - takenFromMana / 100)
 						energyShieldDegen = output[damageType.."Degen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100)
 					end
-					manaDegen = output[damageType.."Degen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."MindOverMatter"] / 100)
+					manaDegen = output[damageType.."Degen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
 				else
-					lifeDegen = output[damageType.."Degen"] * (1 - output[damageType.."MindOverMatter"] / 100)
-					manaDegen = output[damageType.."Degen"] * (output[damageType.."MindOverMatter"] / 100)
+					lifeDegen = output[damageType.."Degen"] * (1 - takenFromMana / 100)
+					manaDegen = output[damageType.."Degen"] * (takenFromMana / 100)
 				end
 				totalLifeDegen = totalLifeDegen + lifeDegen
 				totalManaDegen = totalManaDegen + manaDegen
