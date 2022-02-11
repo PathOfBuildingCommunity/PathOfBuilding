@@ -307,7 +307,7 @@ Adds 15 to 25 Cold Damage to Spells per Power Charge
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
 {variant:1}(10-15)% increased Cold Damage per Frenzy Charge
-{variant:1}(15-20)% increased Cold Damage per Frenzy Charge
+{variant:2}(15-20)% increased Cold Damage per Frenzy Charge
 ]],[[
 Replica Tulfall
 Tornado Wand

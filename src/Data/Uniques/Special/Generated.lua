@@ -551,7 +551,7 @@ function buildForbidden(classNotables)
 	for _, name in pairs({"Flame", "Flesh"}) do
 		forbidden[name] = { }
 		table.insert(forbidden[name], "Forbidden " .. name)
-		table.insert(forbidden[name], "Prismatic Jewel")
+		table.insert(forbidden[name], (name == "Flame" and "Crimson" or "Cobalt") .. " Jewel")
 		local index = 1
 		for className, notableTable in pairs(classNotables) do
 			for _, notableName in ipairs(notableTable) do
@@ -559,13 +559,18 @@ function buildForbidden(classNotables)
 				index = index + 1
 			end
 		end
+		if name == "Flame" then
+			table.insert(forbidden[name], "Source: Drops from unique{The Searing Exarch}")
+		else
+			table.insert(forbidden[name], "Source: Drops from unique{The Eater of Worlds}")
+		end
 		table.insert(forbidden[name], "Limited to: 1")
 		table.insert(forbidden[name], "Item Level: 83")
 		index = 1
 		for className, notableTable in pairs(classNotables) do
 			for _, notableName in ipairs(notableTable) do
 				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Requires Class " .. className)
-				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifiers on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
+				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifier on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
 				index = index + 1
 			end
 		end

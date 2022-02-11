@@ -801,7 +801,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			self.allocatedMasteryCount = self.allocatedMasteryCount + 1
 		elseif node.type == "Mastery" then
 			self:AddMasteryEffectOptionsToNode(node)
-		elseif node.type == "Notable" then
+		elseif node.type == "Notable" and node.alloc then
 			self.allocatedNotableCount = self.allocatedNotableCount + 1
 		end
 	end

@@ -229,7 +229,7 @@ Implicits: 1
 Adds (7-12) to (16-25) Physical Damage
 1% of Physical Attack Damage Leeched as Life
 {variant:2}40% increased Attack Speed if you've taken a Savage Hit Recently
-Attacks have Blood Magic
+Attacks Cost Life instead of Mana
 ]],[[
 Kaom's Primacy
 Karui Chopper

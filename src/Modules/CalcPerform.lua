@@ -1222,14 +1222,6 @@ function calcs.perform(env, avoidCache)
 				end
 			end
 		end
-		for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
-			if activeSkill.activeEffect.grantedEffect.name == damageType.." Aegis" then
-				modDB:NewMod(damageType.."AegisValue", "BASE", 1000, damageType.."Aegis")
-			end
-		end
-		if activeSkill.activeEffect.grantedEffect.name == "Elemental Aegis" then
-			modDB:NewMod("ElementalAegisValue", "BASE", 1000, "Elemental Aegis")
-		end
 		if activeSkill.skillModList:Flag(nil, "CanHaveAdditionalCurse") then
 			output.GemCurseLimit = activeSkill.skillModList:Sum("BASE", nil, "AdditionalCurse")
 		end

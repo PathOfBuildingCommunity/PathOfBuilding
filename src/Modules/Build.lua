@@ -337,18 +337,18 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
 		{ stat = "BrandAttachmentRange", label = "Attachment Range", fmt = "d", flag = "brand" },
 		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
-		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "LifeCost", label = "Life Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "ESCost", label = "Energy Shield Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "RageCost", label = "Rage Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "LifePercentCost", label = "Life Cost", fmt = "d%%", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "ManaPerSecondCost", label = "Mana Cost", fmt = ".2f/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "LifePerSecondCost", label = "Life Cost", fmt = ".2f/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "ManaPercentPerSecondCost", label = "Mana Cost", fmt = ".2f%%/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "LifePercentPerSecondCost", label = "Life Cost", fmt = ".2f%%/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "ESPerSecondCost", label = "Energy Shield Cost", fmt = ".2f/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "ESPercentPerSecondCost", label = "Energy Shield Cost", fmt = ".2f%%/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "LifeCost", label = "Life Cost", fmt = "d", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ESCost", label = "Energy Shield Cost", fmt = "d", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "RageCost", label = "Rage Cost", fmt = "d", color = colorCodes.RAGE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "LifePercentCost", label = "Life Cost", fmt = "d%%", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ManaPerSecondCost", label = "Mana Cost", fmt = ".2f/s", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "LifePerSecondCost", label = "Life Cost", fmt = ".2f/s", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ManaPercentPerSecondCost", label = "Mana Cost", fmt = ".2f%%/s", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "LifePercentPerSecondCost", label = "Life Cost", fmt = ".2f%%/s", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ESPerSecondCost", label = "Energy Shield Cost", fmt = ".2f/s", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ESPercentPerSecondCost", label = "Energy Shield Cost", fmt = ".2f%%/s", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ },
 		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
 		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end, warnFunc = function(v) return "You do not meet the Strength requirement" end },
@@ -364,41 +364,41 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "TotalEHP", label = "Effective Hit Pool", fmt = ".0f", compPercent = true },
 		{ stat = "SecondMinimalMaximumHitTaken", label = "Eff. Maximum Hit Taken", fmt = ".0f", compPercent = true },
 		{ },
-		{ stat = "Life", label = "Total Life", fmt = "d", compPercent = true },
-		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.Life > 1 end },
-		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Life is negative" end },
-		{ stat = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
-		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
-		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", compPercent = true },
-		{ stat = "LifeLeechGainPerHit", label = "Life Leech/Gain per Hit", fmt = ".1f", compPercent = true },
+		{ stat = "Life", label = "Total Life", fmt = "d", color = colorCodes.LIFE, compPercent = true },
+		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v > 0 and o.Life > 1 end },
+		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Life is negative" end },
+		{ stat = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v < 100 end },
+		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f", color = colorCodes.LIFE },
+		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
+		{ stat = "LifeLeechGainPerHit", label = "Life Leech/Gain per Hit", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
 		{ },
-		{ stat = "Mana", label = "Total Mana", fmt = "d", compPercent = true },
-		{ stat = "Spec:ManaInc", label = "%Inc Mana from Tree", fmt = "d%%" },
-		{ stat = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.Mana end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Mana is negative" end },
-		{ stat = "ManaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
-		{ stat = "ManaRegen", label = "Mana Regen", fmt = ".1f" },
-		{ stat = "ManaLeechGainRate", label = "Mana Leech/On Hit Rate", fmt = ".1f", compPercent = true },
-		{ stat = "ManaLeechGainPerHit", label = "Mana Leech/Gain per Hit", fmt = ".1f", compPercent = true },
+		{ stat = "Mana", label = "Total Mana", fmt = "d", color = colorCodes.MANA, compPercent = true },
+		{ stat = "Spec:ManaInc", label = "%Inc Mana from Tree", color = colorCodes.MANA, fmt = "d%%" },
+		{ stat = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", color = colorCodes.MANA, condFunc = function(v,o) return v < o.Mana end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Mana is negative" end },
+		{ stat = "ManaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", color = colorCodes.MANA, condFunc = function(v,o) return v < 100 end },
+		{ stat = "ManaRegen", label = "Mana Regen", fmt = ".1f", color = colorCodes.MANA },
+		{ stat = "ManaLeechGainRate", label = "Mana Leech/On Hit Rate", fmt = ".1f", color = colorCodes.MANA, compPercent = true },
+		{ stat = "ManaLeechGainPerHit", label = "Mana Leech/Gain per Hit", fmt = ".1f", color = colorCodes.MANA, compPercent = true },
 		{ },
 		{ stat = "TotalDegen", label = "Total Degen", fmt = ".1f", lowerIsBetter = true },
 		{ stat = "TotalNetRegen", label = "Total Net Regen", fmt = "+.1f" },
-		{ stat = "NetLifeRegen", label = "Net Life Regen", fmt = "+.1f" },
-		{ stat = "NetManaRegen", label = "Net Mana Regen", fmt = "+.1f" },
-		{ stat = "NetEnergyShieldRegen", label = "Net Energy Shield Regen", fmt = "+.1f" },
+		{ stat = "NetLifeRegen", label = "Net Life Regen", fmt = "+.1f", color = colorCodes.LIFE },
+		{ stat = "NetManaRegen", label = "Net Mana Regen", fmt = "+.1f", color = colorCodes.MANA },
+		{ stat = "NetEnergyShieldRegen", label = "Net Energy Shield Regen", fmt = "+.1f", color = colorCodes.ES },
 		{ },
-		{ stat = "Ward", label = "Ward", fmt = "d", compPercent = true },
-		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
-		{ stat = "EnergyShieldRecoveryCap", label = "Recoverable ES", fmt = "d", condFunc = function(v,o) return v ~= nil end },
-		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },
-		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
-		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", compPercent = true },
-		{ stat = "EnergyShieldLeechGainPerHit", label = "ES Leech/Gain per Hit", fmt = ".1f", compPercent = true },
+		{ stat = "Ward", label = "Ward", fmt = "d", color = colorCodes.WARD, compPercent = true },
+		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true },
+		{ stat = "EnergyShieldRecoveryCap", label = "Recoverable ES", color = colorCodes.ES, fmt = "d", condFunc = function(v,o) return v ~= nil end },
+		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", color = colorCodes.ES, fmt = "d%%" },
+		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", color = colorCodes.ES, fmt = ".1f" },
+		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", color = colorCodes.ES, fmt = ".1f", compPercent = true },
+		{ stat = "EnergyShieldLeechGainPerHit", label = "ES Leech/Gain per Hit", color = colorCodes.ES, fmt = ".1f", compPercent = true },
 		{ },
-		{ stat = "Evasion", label = "Evasion rating", fmt = "d", compPercent = true },
-		{ stat = "Spec:EvasionInc", label = "%Inc Evasion from Tree", fmt = "d%%" },
-		{ stat = "MeleeEvadeChance", label = "Evade Chance", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance == o.ProjectileEvadeChance end },
-		{ stat = "MeleeEvadeChance", label = "Melee Evade Chance", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
-		{ stat = "ProjectileEvadeChance", label = "Projectile Evade Chance", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
+		{ stat = "Evasion", label = "Evasion rating", fmt = "d", color = colorCodes.EVASION, compPercent = true },
+		{ stat = "Spec:EvasionInc", label = "%Inc Evasion from Tree", color = colorCodes.EVASION, fmt = "d%%" },
+		{ stat = "MeleeEvadeChance", label = "Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance == o.ProjectileEvadeChance end },
+		{ stat = "MeleeEvadeChance", label = "Melee Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
+		{ stat = "ProjectileEvadeChance", label = "Projectile Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
 		{ },
 		{ stat = "Armour", label = "Armour", fmt = "d", compPercent = true },
 		{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
@@ -445,12 +445,12 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end},
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
-		{ stat = "Life", label = "Total Life", fmt = ".1f", compPercent = true },
-		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
-		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", compPercent = true },
-		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
-		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
-		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", compPercent = true },
+		{ stat = "Life", label = "Total Life", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
+		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f", color = colorCodes.LIFE },
+		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
+		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true },
+		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f", color = colorCodes.ES },
+		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", color = colorCodes.ES, compPercent = true },
 	}
 	self.extraSaveStats = {
 		"PowerCharges",
@@ -637,7 +637,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.controls.statBox = new("TextListControl", {"TOPLEFT",self.controls.statBoxAnchor,"BOTTOMLEFT"}, 0, 2, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
 	self.controls.statBox.height = function(control)
 		local x, y = control:GetPos()
-		local warnHeight = #self.controls.warnings.lines > 0 and 18 or 0
+		local warnHeight = main.showWarnings and #self.controls.warnings.lines > 0 and 18 or 0
 		return main.screenH - main.mainBarHeight - 4 - y - warnHeight
 	end
 	self.controls.warnings = new("Control",{"TOPLEFT",self.controls.statBox,"BOTTOMLEFT",true}, 0, 0, 0, 18)
@@ -982,6 +982,9 @@ function buildMode:OnFrame(inputEvents)
 	if main.showTitlebarName ~= self.lastShowTitlebarName then
 		self.spec:SetWindowTitleWithBuildClass()
 	end
+	if main.showWarnings ~= self.lastShowshowWarnings then
+		self:RefreshStatList()
+	end
 
 	-- Update contents of main skill dropdowns
 	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
@@ -1285,6 +1288,7 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal)
 	self.lastShowThousandsSeparator = main.thousandsSeparator
 	self.lastShowDecimalSeparator = main.decimalSeparator
 	self.lastShowTitlebarName = main.showTitlebarName
+	self.lastshowWarnings = main.showWarnings
 	return valStr
 end
 
