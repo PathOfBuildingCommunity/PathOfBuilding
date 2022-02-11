@@ -2890,27 +2890,18 @@ function calcs.perform(env, avoidCache)
 				local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 
 				-- Get action trigger rate
-				-- Ugly hack to get data to go into minion actor instead of player
-				local breakdownBak = breakdown
-				local outputBak = output
-				breakdown = env.minion.breakdown
-				output = env.minion.output
-
-				trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, false, true)
+				trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, env.minion.output, env.minion.breakdown, false, true)
 
 				-- Account for chance to hit
 				local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance
 				trigRate = trigRate * sourceHitChance / 100
-				if breakdown then
-					breakdown.Speed = {
-						s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
+				if env.minion.breakdown then
+					env.minion.breakdown.Speed = {
+						s_format("%.2fs ^8(adjusted trigger rate)", env.minion.output.ServerTriggerRate),
 						s_format("x %.2f%% ^8(%s Hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name),
 						s_format("= %.2f ^8per second", trigRate),
 					}
 				end
-
-				breakdown = breakdownBak
-				output = outputBak
 
 				-- Account for Trigger-related INC/MORE modifiers
 				addTriggerIncMoreMods(env.minion.mainSkill, env.minion.mainSkill)
