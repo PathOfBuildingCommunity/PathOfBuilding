@@ -3422,7 +3422,10 @@ skills["SupportSlowerProjectiles"] = {
 		},
 		["projectiles_damage_+%_to_nearby_targets"] = {
 			mod("Damage", "INC", nil, ModFlag.Projectile)
-		}
+		},
+		["projectile_damage_+%_vs_nearby_enemies"] = {
+			mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "Multiplier", var = "NearbyEnemies", limit = 1 } )
+		},
 	},
 	baseMods = {
 	},
