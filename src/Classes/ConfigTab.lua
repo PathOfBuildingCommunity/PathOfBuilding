@@ -414,6 +414,8 @@ function ConfigTabClass:ImportCalcSettings()
 	end
 	import("Cond_LowLife", "conditionLowLife")
 	import("Cond_FullLife", "conditionFullLife")
+	import("Cond_LowMana", "conditionLowMana")
+	import("Cond_FullMana", "conditionFullMana")
 	import("buff_power", "usePowerCharges")
 	import("buff_frenzy", "useFrenzyCharges")
 	import("buff_endurance", "useEnduranceCharges")
