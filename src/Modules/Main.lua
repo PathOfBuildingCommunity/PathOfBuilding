@@ -197,6 +197,7 @@ the "Releases" section of the GitHub page.]])
 	self.gameAccounts = { }
 
 	self.buildSortMode = "NAME"
+	self.connectionProtocol = 0
 	self.nodePowerTheme = "RED/BLUE"
 	self.showThousandsSeparators = true
 	self.thousandsSeparator = ","
@@ -249,7 +250,6 @@ end
 
 function main:Shutdown()
 	self:CallMode("Shutdown")
-
 	self:SaveSettings()
 end
 
@@ -482,6 +482,7 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.buildSortMode then
 					self.buildSortMode = node.attrib.buildSortMode
 				end
+				launch.connectionProtocol = tonumber(node.attrib.connectionProtocol)
 				launch.proxyURL = node.attrib.proxyURL
 				if node.attrib.buildPath then
 					self.buildPath = node.attrib.buildPath
@@ -489,7 +490,7 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.nodePowerTheme then
 					self.nodePowerTheme = node.attrib.nodePowerTheme
 				end
-				-- In order to preserve users' settings through renameing/merging this variable, we have this if statement to use the first found setting
+				-- In order to preserve users' settings through renaming/merging this variable, we have this if statement to use the first found setting
 				-- Once the user has closed PoB once, they will be using the new `showThousandsSeparator` variable name, so after some time, this statement may be removed
 				if node.attrib.showThousandsCalcs then
 					self.showThousandsSeparators = node.attrib.showThousandsCalcs == "true"
@@ -562,6 +563,7 @@ function main:SaveSettings()
 	t_insert(setXML, sharedItemList)
 	t_insert(setXML, { elem = "Misc", attrib = {
 		buildSortMode = self.buildSortMode,
+		connectionProtocol = tostring(launch.connectionProtocol),
 		proxyURL = launch.proxyURL,
 		buildPath = (self.buildPath ~= self.defaultBuildPath and self.buildPath or nil),
 		nodePowerTheme = self.nodePowerTheme,
@@ -611,13 +613,25 @@ function main:OpenOptionsPopup()
 
 	drawSectionHeader("app", "Application options")
 
-    controls.proxyType = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 80, 18, {
+	controls.connectionProtocol = new("DropDownControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 100, 18, {
+		{ label = "Auto", protocol = 0 },
+		{ label = "IPv4", protocol = 1 },
+		{ label = "IPv6", protocol = 2 },
+	}, function(index, value)
+		self.connectionProtocol = value.protocol
+	end)
+	controls.connectionProtocolLabel = new("LabelControl", { "RIGHT", controls.connectionProtocol, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Connection Protocol:")
+	controls.connectionProtocol.tooltipText = "Changes which protocol is used when downloading updates and importing builds."
+	controls.connectionProtocol:SelByValue(launch.connectionProtocol, "protocol")
+
+	nextRow()
+	controls.proxyType = new("DropDownControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 80, 18, {
 		{ label = "HTTP", scheme = "http" },
 		{ label = "SOCKS", scheme = "socks5" },
 		{ label = "SOCKS5H", scheme = "socks5h" },
 	})
-	controls.proxyLabel = new("LabelControl", {"RIGHT",controls.proxyType,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Proxy server:")
-	controls.proxyURL = new("EditControl", {"LEFT",controls.proxyType,"RIGHT"}, 4, 0, 206, 18)
+	controls.proxyLabel = new("LabelControl", { "RIGHT", controls.proxyType, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Proxy server:")
+	controls.proxyURL = new("EditControl", { "LEFT", controls.proxyType, "RIGHT" }, 4, 0, 206, 18)
 
 	if launch.proxyURL then
 		local scheme, url = launch.proxyURL:match("(%w+)://(.+)")
@@ -626,71 +640,69 @@ function main:OpenOptionsPopup()
 	end
 
 	nextRow()
-    controls.buildPath = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 290, 18)
-	controls.buildPathLabel = new("LabelControl", {"RIGHT",controls.buildPath,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Build save path:")
+	controls.buildPath = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 290, 18)
+	controls.buildPathLabel = new("LabelControl", { "RIGHT", controls.buildPath, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Build save path:")
 	if self.buildPath ~= self.defaultBuildPath then
 		controls.buildPath:SetText(self.buildPath)
 	end
 	controls.buildPath.tooltipText = "Overrides the default save location for builds.\nThe default location is: '"..self.defaultBuildPath.."'"
 
-    nextRow()
-	controls.nodePowerTheme = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 100, 18, {
+	nextRow()
+	controls.nodePowerTheme = new("DropDownControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 100, 18, {
 		{ label = "Red & Blue", theme = "RED/BLUE" },
 		{ label = "Red & Green", theme = "RED/GREEN" },
 		{ label = "Green & Blue", theme = "GREEN/BLUE" },
 	}, function(index, value)
 		self.nodePowerTheme = value.theme
 	end)
-	controls.nodePowerThemeLabel = new("LabelControl", {"RIGHT",controls.nodePowerTheme,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Node Power colours:")
+	controls.nodePowerThemeLabel = new("LabelControl", { "RIGHT", controls.nodePowerTheme, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
 
 
 	nextRow()
-	controls.betaTest = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "Opt-in to weekly beta test builds:", function(state)
+	controls.betaTest = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Opt-in to weekly beta test builds:", function(state)
 		self.betaTest = state
 	end)
 
 	nextRow()
 	drawSectionHeader("build", "Build-related options")
 
-
 	controls.showThousandsSeparators = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show thousands separators:", function(state)
-    self.showThousandsSeparators = state
+	self.showThousandsSeparators = state
 	end)
 	controls.showThousandsSeparators.state = self.showThousandsSeparators
 
-    nextRow()
-    controls.thousandsSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 30, 20, self.thousandsSeparator, nil, "%%^", 1, function(buf)
+	nextRow()
+	controls.thousandsSeparator = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 30, 20, self.thousandsSeparator, nil, "%%^", 1, function(buf)
 		self.thousandsSeparator = buf
 	end)
-	controls.thousandsSeparatorLabel = new("LabelControl",  {"RIGHT",controls.thousandsSeparator,"LEFT"}, defaultLabelSpacingPx, 0, 92, 16, "^7Thousands separator:")
+	controls.thousandsSeparatorLabel = new("LabelControl", { "RIGHT", controls.thousandsSeparator, "LEFT" }, defaultLabelSpacingPx, 0, 92, 16, "^7Thousands separator:")
 
-    nextRow()
-    controls.decimalSeparator = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 30, 20, self.decimalSeparator, nil, "%%^", 1, function(buf)
+	nextRow()
+	controls.decimalSeparator = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 30, 20, self.decimalSeparator, nil, "%%^", 1, function(buf)
 		self.decimalSeparator = buf
 	end)
-	controls.decimalSeparatorLabel = new("LabelControl", {"RIGHT",controls.decimalSeparator,"LEFT"}, defaultLabelSpacingPx, 0, 92, 16, "^7Decimal separator:")
+	controls.decimalSeparatorLabel = new("LabelControl", { "RIGHT", controls.decimalSeparator, "LEFT" }, defaultLabelSpacingPx, 0, 92, 16, "^7Decimal separator:")
 
-    nextRow()
-	controls.titlebarName = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show build name in window title:", function(state)
+	nextRow()
+	controls.titlebarName = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show build name in window title:", function(state)
 		self.showTitlebarName = state
 	end)
 
-    nextRow()
-	controls.defaultGemQuality = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 60, 20, self.defaultGemQuality, nil, "%D", 2, function(gemQuality)
+	nextRow()
+	controls.defaultGemQuality = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 60, 20, self.defaultGemQuality, nil, "%D", 2, function(gemQuality)
 		self.defaultGemQuality = m_min(tonumber(gemQuality) or 0, 23)
 	end)
-	controls.defaultGemQuality.tooltipText="Set the default quality that can be overwritten by build-related quality settings in the skill panel."
-	controls.defaultGemQualityLabel = new("LabelControl", {"RIGHT",controls.defaultGemQuality,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Default gem quality:")
+	controls.defaultGemQuality.tooltipText = "Set the default quality that can be overwritten by build-related quality settings in the skill panel."
+	controls.defaultGemQualityLabel = new("LabelControl", { "RIGHT", controls.defaultGemQuality, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Default gem quality:")
 
-
-    nextRow()
-	controls.defaultCharLevel = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 80, 20, self.defaultCharLevel, nil, "%D", 3, function(charLevel)
+	nextRow()
+	controls.defaultCharLevel = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 80, 20, self.defaultCharLevel, nil, "%D", 3, function(charLevel)
 		self.defaultCharLevel = m_min(tonumber(charLevel) or 1, 100)
 	end)
-	controls.defaultCharLevel.tooltipText="Set the default char level that can be overwritten by build-related level settings."
-	controls.defaultCharLevelLabel = new("LabelControl", {"RIGHT",controls.defaultCharLevel,"LEFT"}, defaultLabelSpacingPx, 0, 0, 16, "^7Default character level:")
+	controls.defaultCharLevel.tooltipText = "Set the default char level that can be overwritten by build-related level settings."
+	controls.defaultCharLevelLabel = new("LabelControl", { "RIGHT", controls.defaultCharLevel, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Default character level:")
 
 	nextRow()
 	controls.showWarnings = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show build warnings:", function(state)
@@ -710,10 +722,11 @@ function main:OpenOptionsPopup()
 	local initialDefaultCharLevel = self.defaultCharLevel or 1
 	local initialshowWarnings = self.showWarnings
 
-    -- last line with buttons has more spacing
-    nextRow(1.5)
+	-- last line with buttons has more spacing
+	nextRow(1.5)
 
-    controls.save = new("ButtonControl", nil, -45, currentY, 80, 20, "Save", function()
+	controls.save = new("ButtonControl", nil, -45, currentY, 80, 20, "Save", function()
+		launch.connectionProtocol = tonumber(self.connectionProtocol)
 		if controls.proxyURL.buf:match("%w") then
 			launch.proxyURL = controls.proxyType.list[controls.proxyType.selIndex].scheme .. "://" .. controls.proxyURL.buf
 		else
@@ -730,8 +743,11 @@ function main:OpenOptionsPopup()
 		if self.mode == "LIST" then
 			self.modes.LIST:BuildList()
 		end
-		main:SetManifestBranch(self.betaTest and "beta" or "master")
+		if not launch.devMode then
+			main:SetManifestBranch(self.betaTest and "beta" or "master")
+		end
 		main:ClosePopup()
+		main:SaveSettings()
 	end)
 	controls.cancel = new("ButtonControl", nil, 45, currentY, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
@@ -745,7 +761,7 @@ function main:OpenOptionsPopup()
 		self.showWarnings = initialshowWarnings
 		main:ClosePopup()
 	end)
-    nextRow(1.5)
+	nextRow(1.5)
 	self:OpenPopup(popupWidth, currentY, "Options", controls, "save", nil, "cancel")
 end
 
@@ -755,7 +771,7 @@ function main:SetManifestBranch(branchName)
 	local localManXML = xml.LoadXMLFile(manifestLocation)
 	if not localManXML then
 		manifestLocation = "../manifest.xml"
-		xml.LoadXMLFile(manifestLocation)
+		localManXML = xml.LoadXMLFile(manifestLocation)
 	end
 	if localManXML and localManXML[1].elem == "PoBVersion" then
 		for _, node in ipairs(localManXML[1]) do
@@ -824,7 +840,7 @@ function main:OpenAboutPopup()
 	controls.github = new("ButtonControl", nil, 0, 62, 438, 18, "GitHub page: ^x4040FFhttps://github.com/PathOfBuildingCommunity/PathOfBuilding", function(control)
 		OpenURL("https://github.com/PathOfBuildingCommunity/PathOfBuilding")
 	end)
-	controls.verLabel = new("LabelControl", {"TOPLEFT",nil,"TOPLEFT"}, 10, 82, 0, 18, "^7Version history:")
+	controls.verLabel = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 10, 82, 0, 18, "^7Version history:")
 	controls.changelog = new("TextListControl", nil, 0, 100, 630, 390, nil, changeList)
 	self:OpenPopup(650, 500, "About", controls)
 end

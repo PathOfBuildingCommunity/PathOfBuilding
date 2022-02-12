@@ -2,6 +2,9 @@ name: Push beta branch
 on: 
   schedule:
     - cron: '0 0 * * 5'
+  push:
+    branches:
+      - 'master'
   workflow_dispatch:
 jobs:
   push-beta:
