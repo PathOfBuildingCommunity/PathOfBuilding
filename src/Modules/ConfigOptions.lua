@@ -1330,6 +1330,7 @@ Sirus adds the following modifiers:
 	]], list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper / Guardian"},{val="Sirus",label="Sirus"}}, apply = function(val, modList, enemyModList)
 		if val == "Uber Atziri" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
 			enemyModList:NewMod("ElementalResist", "BASE", 40, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 25, "Boss")
@@ -1337,6 +1338,7 @@ Sirus adds the following modifiers:
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		elseif val == "Shaper" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
@@ -1345,6 +1347,7 @@ Sirus adds the following modifiers:
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		elseif val == "Sirus" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")

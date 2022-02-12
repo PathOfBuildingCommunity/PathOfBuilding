@@ -955,6 +955,9 @@ local preFlagList = {
 	["^skills supported by spellslinger have "] = { tag = { type = "Condition", var = "SupportedBySpellslinger" } },
 	["^skills that have dealt a critical strike in the past 8 seconds deal "] = { tag = { type = "Condition", var = "CritInPast8Sec" } },
 	["^blink arrow and mirror arrow have "] = { tag = { type = "SkillName", skillNameList = { "Blink Arrow", "Mirror Arrow" } } },
+	-- While in the presence of...
+	["^while a unique enemy is in your presence, "] = { tag = { type = "Condition", var = "RareOrUnique" } },
+	["^while a pinnacle atlas boss is in your presence, "] = { tag = { type = "Condition", var = "PinnacleBoss" } },
 }
 
 -- List of modifier tags
