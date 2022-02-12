@@ -761,7 +761,7 @@ Implicits: 3
 {variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
 {variant:3}60% increased Global Accuracy Rating
-Socketed Gems are Supported by level 1 Blood Magic
+Socketed Gems are Supported by Level 1 Lifetap
 Adds (90-115) to (230-260) Physical Damage
 (40-50)% increased Critical Strike Chance
 Enemies you Attack Reflect 100 Physical Damage to you

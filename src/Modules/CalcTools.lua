@@ -203,6 +203,8 @@ function calcLib.getConvertedModTags(mod, multiplier, minionMods)
 			local copy = copyTable(value)
 			copy.limit = copy.limit * multiplier
 			modifiers[k] = copy
+		else
+			modifiers[k] = copyTable(value)
 		end
 	end
 	return modifiers

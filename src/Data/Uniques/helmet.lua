@@ -549,6 +549,15 @@ Requires Level 65, 138 Int
 +(30-60) to maximum Mana
 Your Skills deal you 400% of Mana Cost as Physical Damage
 ]],[[
+Sudden Dawn
+Steel Circlet
+Source: Drops from unique{The Black Star}
+Requires Level 48, 101 Int
+(300–350)% increased Energy Shield
++(50–70) to maximum Mana
+(10–20)% chance for Energy Shield Recharge to start when you Kill an Enemy
+(30–40)% less Energy Shield Recharge Rate
+]],[[
 Thundersight
 Solaris Circlet
 Requires Level 59, 122 Int

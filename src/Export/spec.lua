@@ -1383,7 +1383,7 @@ return {
 		},
 		[39]={
 			list=true,
-			name="Stats",
+			name="Stats2",
 			refTo="Stats",
 			type="Key",
 			width=250

@@ -12,6 +12,15 @@ changelog:
     - title: Implemented Enhancements
       labels:
         - enhancement
+    - title: User Interface
+      labels:
+        - user-interface
+    - title: New Calculations
+      labels:
+        - new-calculations
+    - title: Accuracy Improvements
+      labels:
+        - accuracy
     - title: Fixed Bugs
       labels:
         - bug
