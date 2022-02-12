@@ -1,4 +1,4 @@
-VERSION[1.15.0][2022/02/12]
+VERSION[2.15.0][2022/02/12]
 
 ### Implemented Enhancements
 * Add / updated all new league uniques (LocalIdentity)

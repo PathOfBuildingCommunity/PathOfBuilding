@@ -1,8 +1,8 @@
 # Changelog
 
-## [v1.15.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v1.15.0) (2022/02/12)
+## [v2.15.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.15.0) (2022/02/12)
 
-[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.14.0...v1.15.0)
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.14.0...v2.15.0)
 
 <!-- Release notes generated using configuration in .github/release.yml at dev -->
 
