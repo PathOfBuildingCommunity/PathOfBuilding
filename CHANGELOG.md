@@ -9,7 +9,6 @@
 ## What's Changed
 ### Implemented Enhancements
 - Add / updated all new league uniques [\#4098](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4098) ([LocalIdentity](https://github.com/LocalIdentity))
-
 - Add support for Delirium effect scaling [\#4134](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4134) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add support for Elementalist's Primal Aegis [\#4112](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4112) ([Wires77](https://github.com/Wires77))
 - Add support to show Life Recoverable when Life is reserved [\#4096](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4096) ([Regisle](https://github.com/Regisle))
@@ -32,11 +31,11 @@
 - Fix crash when activating Energy Blade buff [\#4114](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4114) ([Nostrademous](https://github.com/Nostrademous))
 - Fix Dancing Dervish not working ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix issue where General's Cry would set attack rate to 1 for certain skills [\#4126](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4126) ([Sour](https://github.com/Sour))
-- Fix issue when importing Fobidden Flame/Flesh[\#4121](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4121) ([Nostrademous](https://github.com/Nostrademous))
+- Fix issue when importing Forbidden Flame/Flesh [\#4121](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4121) ([Nostrademous](https://github.com/Nostrademous))
 - Fix for culling strike on mirages adding extra damage [\#4116](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4116) ([Nostrademous](https://github.com/Nostrademous))
 - Fix an issue where degens were not working with Mind Over Matter [\#4095](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4095) ([Regisle](https://github.com/Regisle))
 - Fix issue where certain modifiers weren't being converted properly (e.g. Battlemage) [\#4086](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4086) ([Wires77](https://github.com/Wires77))
-- Fix an issue where chance to inflict an ailment on a critical strike could be lower than on a non-crit for alternate ailments [\#4127](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4127) ([Wires77](https://github.com/Wires77))
+- Fix an issue where the chance to inflict an ailment on a critical strike could be lower than on a non-crit for alternate ailments [\#4127](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4127) ([Wires77](https://github.com/Wires77))
 
 ### Misc
 - Update display screenshots on GitHub [\#4136](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4136) ([Nightblade](https://github.com/Nightblade))

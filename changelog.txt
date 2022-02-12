@@ -1,21 +1,37 @@
 VERSION[1.15.0][2022/02/12]
 
-* Update all new league Uniques (LocalIdentity)
-* Add colours to the sidebar, config page, and calcs page (LocalIdentity)
+### Implemented Enhancements
+* Add / updated all new league uniques (LocalIdentity)
+* Add support for Delirium effect scaling (LocalIdentity)
 * Add support for Elementalist's Primal Aegis (Wires77)
-* Implement Life Recoverable (Regisle)
-* Add support for 2 new cluster jewel mods (LocalIdentity)
-* Add support for Holy Relic Nova triggering (Solofme)
+* Add support to show Life Recoverable when Life is reserved (Regisle)
+* Add support for 2 new cluster jewel mods added in 3.17 (LocalIdentity)
+
+### User Interface
+* Add colours to the sidebar, config page, and calcs page (LocalIdentity)
 * Add option to hide Warnings (Nightblade)
 * Add configuration option for IPv4/IPv6 connections (Lothrik)
-* Fix issue importing Fobidden Flame/Flesh (Nostrademous)
-* Fix Energy Blade incompatibility with new Fobidden Prismatic Jewels (Nostrademous)
+* Improved formatting for eHP calc sections (Regisle)
+
+### New Calculations
+* Add support for Holy Relic Nova trigger rate (Solofme)
+
+### Accuracy Improvements
+* Fix Rigwald's Curse mod parsing (LocalIdentity)
+* Fix uniques that used old Blood Magic wording (LocalIdentity)
+
+### Fixed Bugs
+* Fix crash when activating Energy Blade buff (Nostrademous)
+* Fix Dancing Dervish not working (LocalIdentity)
+* Fix issue where General's Cry would set attack rate to 1 for certain skills (Sour)
+* Fix issue when importing Forbidden Flame/Flesh (Nostrademous)
 * Fix for culling strike on mirages adding extra damage (Nostrademous)
 * Fix an issue where degens were not working with Mind Over Matter (Regisle)
 * Fix issue where certain modifiers weren't being converted properly (e.g. Battlemage) (Wires77)
-* Fix an issue where chance to inflict an ailment on a critical strike could be lower than on a non-crit for alternate ailments (Wires77)
-* Update Uniques that used old Blood Magic wording (LocalIdentity)
-* Fix Rigwald's Curse mod parsing (LocalIdentity)
+* Fix an issue where the chance to inflict an ailment on a critical strike could be lower than on a non-crit for alternate ailments (Wires77)
+
+### Misc
+* Update display screenshots on GitHub (Nightblade)
 
 VERSION[2.14.0][2022/02/05]
 
