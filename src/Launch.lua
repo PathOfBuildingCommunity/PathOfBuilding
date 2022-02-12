@@ -236,7 +236,7 @@ function launch:DownloadPage(url, callback, cookies)
 	-- Download the given page in the background, and calls the provided callback function when done:
 	-- callback(pageText, errMsg)
 	local script = [[
-		local url, cookies, proxyURL = ...
+		local url, cookies, connectionProtocol, proxyURL = ...
 		ConPrintf("Downloading page at: %s", url)
 		local curl = require("lcurl.safe")
 		local page = ""
@@ -246,6 +246,9 @@ function launch:DownloadPage(url, callback, cookies)
 		easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
 		if cookies then
 			easy:setopt(curl.OPT_COOKIE, cookies)
+		end
+		if connectionProtocol then
+			easy:setopt(curl.OPT_IPRESOLVE, connectionProtocol)
 		end
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
@@ -272,7 +275,7 @@ function launch:DownloadPage(url, callback, cookies)
 			return page
 		end
 	]]
-	local id = LaunchSubScript(script, "", "ConPrintf", url, cookies, self.proxyURL)
+	local id = LaunchSubScript(script, "", "ConPrintf", url, cookies, self.connectionProtocol, self.proxyURL)
 	if id then
 		self.subScripts[id] = {
 			type = "DOWNLOAD",
@@ -304,7 +307,7 @@ function launch:CheckForUpdate(inBackground)
 	self.updateProgress = "Checking..."
 	self.lastUpdateCheck = GetTime()
 	local update = io.open("UpdateCheck.lua", "r")
-	local id = LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf,UpdateProgress", self.proxyURL)
+	local id = LaunchSubScript(update:read("*a"), "GetScriptPath,GetRuntimePath,GetWorkDir,MakeDir", "ConPrintf,UpdateProgress", self.connectionProtocol, self.proxyURL)
 	if id then
 		self.subScripts[id] = {
 			type = "UPDATE"

@@ -4,7 +4,7 @@
 -- Module: Update Check
 -- Checks for updates
 --
-local proxyURL = ...
+local connectionProtocol, proxyURL = ...
 
 local xml = require("xml")
 local sha1 = require("sha1")
@@ -22,6 +22,9 @@ local function downloadFileText(source, file)
 		local escapedUrl = source..easy:escape(file)
 		easy:setopt_url(escapedUrl)
 		easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
+		if connectionProtocol then
+			easy:setopt(curl.OPT_IPRESOLVE, connectionProtocol)
+		end
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
 		end

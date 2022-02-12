@@ -67,6 +67,15 @@ Adds (5-15) to (100-140) Lightning Damage to Spells
 40% increased Strength Requirement
 Damage Penetrates 20% Lightning Resistance
 ]],[[
+The Annihilating Light
+Quarterstaff
+Source: Drops from unique{The Searing Exarch}
+Requires Level 68, 78 Str, 78 Int
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+(60-70)% reduced Elemental Resistances
+Deal Triple Damage with Elemental Skills
+]],[[
 Atziri's Rule
 Judgement Staff
 Requires Level 68, 113 Str, 113 Int

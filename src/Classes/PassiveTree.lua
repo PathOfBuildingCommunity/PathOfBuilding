@@ -343,6 +343,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			node.type = "Normal"
 			if node.ascendancyName == "Ascendant" and not node.dn:find(" ") and node.dn ~= "Dexterity" and
 				node.dn ~= "Intelligence" and node.dn ~= "Strength" then
+				self.ascendancyMap[node.dn:lower()] = node
 				if not self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] then
 					self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] = { }
 				end
