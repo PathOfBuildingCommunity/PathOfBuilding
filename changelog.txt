@@ -1,3 +1,22 @@
+VERSION[1.15.0][2022/02/12]
+
+* Update all new league Uniques (LocalIdentity)
+* Add colours to the sidebar, config page, and calcs page (LocalIdentity)
+* Add support for Elementalist's Primal Aegis (Wires77)
+* Implement Life Recoverable (Regisle)
+* Add support for 2 new cluster jewel mods (LocalIdentity)
+* Add support for Holy Relic Nova triggering (Solofme)
+* Add option to hide Warnings (Nightblade)
+* Add configuration option for IPv4/IPv6 connections (Lothrik)
+* Fix issue importing Fobidden Flame/Flesh (Nostrademous)
+* Fix Energy Blade incompatibility with new Fobidden Prismatic Jewels (Nostrademous)
+* Fix for culling strike on mirages adding extra damage (Nostrademous)
+* Fix an issue where degens were not working with Mind Over Matter (Regisle)
+* Fix issue where certain modifiers weren't being converted properly (e.g. Battlemage) (Wires77)
+* Fix an issue where chance to inflict an ailment on a critical strike could be lower than on a non-crit for alternate ailments (Wires77)
+* Update Uniques that used old Blood Magic wording (LocalIdentity)
+* Fix Rigwald's Curse mod parsing (LocalIdentity)
+
 VERSION[2.14.0][2022/02/05]
 
 ### Implemented Enhancements
