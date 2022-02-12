@@ -2250,7 +2250,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end
 			table.sort(modList, function(a, b)
 				if a.essence.type ~= b.essence.type then
-					return a.essence.type > b.essence.type 
+					return a.essence.type > b.essence.type
 				else
 					return a.essence.tier > b.essence.tier
 				end
@@ -2265,7 +2265,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					})
 				end
 			end
-			table.sort(modList, function(a, b) 
+			table.sort(modList, function(a, b)
 				local modA = a.mod
 				local modB = b.mod
 				for i = 1, m_max(#modA, #modB) do
@@ -2283,7 +2283,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			for i, mod in pairs(self.build.data.veiledMods) do
 				if self.displayItem:GetModSpawnWeight(mod) > 0 then
 					t_insert(modList, {
-						label =  table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
 						mod = mod,
 						affixType = mod.type,
 						type = "custom",
@@ -2302,7 +2302,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:CheckIfModIsDelve(mod) and self.displayItem:GetModSpawnWeight(mod) > 0 then
 					t_insert(modList, {
-						label =  table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
 						mod = mod,
 						affixType = mod.type,
 						type = "custom",
@@ -2316,6 +2316,32 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				else
 					return a.defaultOrder < b.defaultOrder
 				end
+			end)
+		elseif sourceId == "EXARCH" or sourceId == "EATER" then
+			for i, mod in pairs(self.displayItem.affixes) do
+				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
+					t_insert(modList, {
+						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						mod = mod,
+						affixType = mod.type,
+						type = "custom",
+						defaultOrder = i,
+					})
+				end
+			end
+			table.sort(modList, function(a, b)
+				local modA = a.mod
+				local modB = b.mod
+				for i = 1, m_max(#modA, #modB) do
+					if not modA[i] then
+						return true
+					elseif not modB[i] then
+						return false
+					elseif modA.statOrder[i] ~= modB.statOrder[i] then
+						return modA.statOrder[i] < modB.statOrder[i]
+					end
+				end
+				return modA.level > modB.level
 			end)
 		end
 	end
@@ -2336,6 +2362,8 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		t_insert(sourceList, { label = "Suffix", sourceId = "SUFFIX" })
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
+	t_insert(sourceList, { label = "Searing Exarch", sourceId = "EXARCH" })
+	t_insert(sourceList, { label = "Eater of Worlds", sourceId = "EATER" })
 	buildMods(sourceList[1].sourceId)
 	local function addModifier()
 		local item = new("Item", self.displayItem:BuildRaw())

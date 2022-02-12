@@ -45,6 +45,10 @@ local function writeMods(outName, condFunc)
 					out:write('type = "Corrupted", ')
 				elseif mod.GenerationType == 25 or mod.GenerationType == 24 then
 					out:write('type = "Scourge", ')
+				elseif mod.GenerationType == 29 then
+					out:write('type = "Exarch", ')
+				elseif mod.GenerationType == 30 then
+					out:write('type = "Eater", ')
 				end
 				out:write('affix = "', mod.Name, '", ')
 				if string.find(mod.Family, "LocalDisplayNearbyEnemy") and #stats > 1 and #orders > 1 then
@@ -88,8 +92,9 @@ end
 
 writeMods("../Data/ModItem.lua", function(mod)
 	return (mod.Domain == 1 or mod.Domain == 16)
-			and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5 or mod.GenerationType == 25 or mod.GenerationType == 24)
-			and not mod.Id:match("^Hellscape[UpDown]+sideMap")
+			and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5 or mod.GenerationType == 25 or mod.GenerationType == 24
+			or mod.GenerationType == 29 or mod.GenerationType == 30) -- Eldritch Implicits
+			and not mod.Id:match("^Hellscape[UpDown]+sideMap") -- Exclude Scourge map mods
 end)
 writeMods("../Data/ModFlask.lua", function(mod)
 	return mod.Domain == 2 and (mod.GenerationType == 1 or mod.GenerationType == 2)
