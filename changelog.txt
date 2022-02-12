@@ -1,26 +1,31 @@
+VERSION[2.15.1][2022/02/13]
+
+--- Fixed Bugs ---
+* Fix Forbidden Flame / Flesh not working with Scion (Nostrademous)
+
 VERSION[2.15.0][2022/02/12]
 
-### Implemented Enhancements
+--- Implemented Enhancements ---
 * Add / updated all new league uniques (LocalIdentity)
 * Add support for Delirium effect scaling (LocalIdentity)
 * Add support for Elementalist's Primal Aegis (Wires77)
 * Add support to show Life Recoverable when Life is reserved (Regisle)
 * Add support for 2 new cluster jewel mods added in 3.17 (LocalIdentity)
 
-### User Interface
+--- User Interface ---
 * Add colours to the sidebar, config page, and calcs page (LocalIdentity)
 * Add option to hide Warnings (Nightblade)
 * Add configuration option for IPv4/IPv6 connections (Lothrik)
 * Improved formatting for eHP calc sections (Regisle)
 
-### New Calculations
+--- New Calculations ---
 * Add support for Holy Relic Nova trigger rate (Solofme)
 
-### Accuracy Improvements
+--- Accuracy Improvements ---
 * Fix Rigwald's Curse mod parsing (LocalIdentity)
 * Fix uniques that used old Blood Magic wording (LocalIdentity)
 
-### Fixed Bugs
+--- Fixed Bugs ---
 * Fix crash when activating Energy Blade buff (Nostrademous)
 * Fix Dancing Dervish not working (LocalIdentity)
 * Fix issue where General's Cry would set attack rate to 1 for certain skills (Sour)
@@ -30,12 +35,12 @@ VERSION[2.15.0][2022/02/12]
 * Fix issue where certain modifiers weren't being converted properly (e.g. Battlemage) (Wires77)
 * Fix an issue where the chance to inflict an ailment on a critical strike could be lower than on a non-crit for alternate ailments (Wires77)
 
-### Misc
+--- Misc ---
 * Update display screenshots on GitHub (Nightblade)
 
 VERSION[2.14.0][2022/02/05]
 
-### Implemented Enhancements
+--- Implemented Enhancements ---
 * Add 3.17 skill tree (dbjorge)
 * Update uniques with changes from 3.17 patch notes (ifnjeff)
 * Add support to enable stages for multi-part skills at a per-part level (Nostrademous)
@@ -72,7 +77,7 @@ VERSION[2.14.0][2022/02/05]
 * Add support for Willowgift (randomflyingtaco)
 * Add partial support for Fleshcrafter (PJacek)
 
-### User Interface
+--- User Interface ---
 * Add QoL improvements for import tab (Dullson, Peechey)
 * Add pobb.in to import website list (Dav1dde)
 * Add poe.ninja/pob to import website list (rasmuskl)
@@ -99,7 +104,7 @@ VERSION[2.14.0][2022/02/05]
 - Update tree images to use the latest colours (LocalIdentity)
 * Fix Passive Tree Management Titles (pHiney)
 
-### New Calculations
+--- New Calculations ---
 * Implement Effective HP and overhaul defence calculations to be more accurate (Regisle)
 * Overhaul non-damaging elemental ailment calculations (PJacek)
 * Overhaul Bleed/Ignite Ailment calculation to use weighted average (Nostrademous)
@@ -113,7 +118,7 @@ VERSION[2.14.0][2022/02/05]
 * Add support for flask charge generation and uptime (deathbeam)
 * Add full support for curse priority (Lothrik)
 
-### Accuracy Improvements
+--- Accuracy Improvements ---
 * Add warnings when the build is impossible in-game (KillerMZE)
 * Add feature to guess the main socket group when importing a character (raylu)
 * Add missing mods to Armour and Evasion breakdown (LocalIdentity)
@@ -175,7 +180,7 @@ VERSION[2.14.0][2022/02/05]
 * Fix parsing for "charges used" modifiers on flasks (LocalIdentity)
 * Fix 'inflicted with this weapon' parsing (Nostrademous)
 
-### Fixed Bugs
+--- Fixed Bugs ---
 * Fix crash caused at certain zoom levels of the passive tree (pHiney)
 * Fix crash with FullDPS and disabled socket groups (Nostrademous)
 * Fix Poet's Pen dps calcs not working (wrzoski)
@@ -184,7 +189,7 @@ VERSION[2.14.0][2022/02/05]
 * Fix a bug where maximum Life could be negative (Lothrik)
 * Fix issue when saving a converted passive tree (Lothrik)
 
-### Misc
+--- Misc ---
 * Add FullDPS breakdown into XML Build Save file (Nostrademous)
 
 VERSION[2.13.0][2021/11/02]

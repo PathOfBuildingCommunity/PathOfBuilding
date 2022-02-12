@@ -1,4 +1,13 @@
 # Changelog
+## [v2.15.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.15.1) (2022/02/13)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.15.0...v2.15.1)
+
+## What's Changed
+
+### Fixed Bugs
+- Fix Forbidden Flame/Flesh not working with Scion [\#4142](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4142) ([Nostrademous](https://github.com/Nostrademous))
+
 
 ## [v2.15.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.15.0) (2022/02/12)
 
