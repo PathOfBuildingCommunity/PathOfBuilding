@@ -160,7 +160,7 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 	end
 	local level = grantedEffect.levels[skillInstance.level] or { }
 	local availableEffectiveness
-	local actorLevel = skillInstance.actorLevel or level.levelRequirement
+	local actorLevel = skillInstance.actorLevel or level.levelRequirement or 1
 	for index, stat in ipairs(grantedEffect.stats) do
 		local statValue
 		if level.statInterpolation and level.statInterpolation[index] == 3 then
