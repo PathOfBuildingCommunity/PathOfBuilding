@@ -516,7 +516,7 @@ end
 
 function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mergeStatsFrom)
 	local displayInstance = gemInstance.displayEffect or gemInstance
-	local grantedEffectLevel = grantedEffect.levels[displayInstance.level]
+	local grantedEffectLevel = grantedEffect.levels[displayInstance.level] or { }
 	if addReq then
 		self.tooltip:AddLine(16, string.format("^x7F7F7FLevel: ^7%d%s%s",
 			gemInstance.level, 
@@ -594,7 +594,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 	end
 	self.tooltip:AddSeparator(10)
 	if addReq then
-		local reqLevel = grantedEffect.levels[gemInstance.level].levelRequirement
+		local reqLevel = grantedEffect.levels[gemInstance.level] and grantedEffect.levels[gemInstance.level].levelRequirement or 0
 		local reqStr = calcLib.getGemStatRequirement(reqLevel, grantedEffect.support, gemInstance.gemData.reqStr)
 		local reqDex = calcLib.getGemStatRequirement(reqLevel, grantedEffect.support, gemInstance.gemData.reqDex)
 		local reqInt = calcLib.getGemStatRequirement(reqLevel, grantedEffect.support, gemInstance.gemData.reqInt)
