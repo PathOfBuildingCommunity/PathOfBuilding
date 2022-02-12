@@ -1,5 +1,46 @@
 # Changelog
 
+## [v1.15.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v1.15.0) (2022/02/12)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.14.0...v1.15.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Implemented Enhancements
+- Add / updated all new league uniques [\#4098](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4098) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Delirium effect scaling [\#4134](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4134) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Elementalist's Primal Aegis [\#4112](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4112) ([Wires77](https://github.com/Wires77))
+- Add support to show Life Recoverable when Life is reserved [\#4096](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4096) ([Regisle](https://github.com/Regisle))
+- Add support for 2 new cluster jewel mods added in 3.17 [\#4128](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4128) ([LocalIdentity](https://github.com/LocalIdentity))
+
+### User Interface
+- Add colours to the sidebar, config page, and calcs page [\#4105](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4105) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add option to hide Warnings [\#4088](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4088) ([Nightblade](https://github.com/Nightblade))
+- Add configuration option for IPv4/IPv6 connections [\#4059](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4059) ([Lothrik](https://github.com/Lothrik))
+- Improved formatting for eHP calc sections [\#4103](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4103) ([Regisle](https://github.com/Regisle))
+
+### New Calculations
+- Add support for Holy Relic Nova trigger rate [\#4051](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4051) ([Solofme](https://github.com/Solofme))
+
+### Accuracy Improvements
+- Fix Rigwald's Curse mod parsing [\#4131](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4131) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix uniques that used old Blood Magic wording [\#4129](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4129) ([LocalIdentity](https://github.com/LocalIdentity))
+
+### Fixed Bugs
+- Fix crash when activating Energy Blade buff [\#4114](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4114) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Dancing Dervish not working ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix issue where General's Cry would set attack rate to 1 for certain skills [\#4126](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4126) ([Sour](https://github.com/Sour))
+- Fix issue when importing Forbidden Flame/Flesh [\#4121](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4121) ([Nostrademous](https://github.com/Nostrademous))
+- Fix for culling strike on mirages adding extra damage [\#4116](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4116) ([Nostrademous](https://github.com/Nostrademous))
+- Fix an issue where degens were not working with Mind Over Matter [\#4095](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4095) ([Regisle](https://github.com/Regisle))
+- Fix issue where certain modifiers weren't being converted properly (e.g. Battlemage) [\#4086](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4086) ([Wires77](https://github.com/Wires77))
+- Fix an issue where the chance to inflict an ailment on a critical strike could be lower than on a non-crit for alternate ailments [\#4127](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4127) ([Wires77](https://github.com/Wires77))
+
+### Misc
+- Update display screenshots on GitHub [\#4136](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4136) ([Nightblade](https://github.com/Nightblade))
+
+
 ## [v2.14.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.14.0) (2022/02/04)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.13.0...v2.14.0)
