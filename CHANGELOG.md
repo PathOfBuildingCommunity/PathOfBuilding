@@ -14,6 +14,7 @@
 - Add support for Elementalist's Primal Aegis [\#4112](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4112) ([Wires77](https://github.com/Wires77))
 - Add support to show Life Recoverable when Life is reserved [\#4096](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4096) ([Regisle](https://github.com/Regisle))
 - Add support for 2 new cluster jewel mods added in 3.17 [\#4128](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4128) ([LocalIdentity](https://github.com/LocalIdentity))
+
 ### User Interface
 - Add colours to the sidebar, config page, and calcs page [\#4105](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4105) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add option to hide Warnings [\#4088](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4088) ([Nightblade](https://github.com/Nightblade))
