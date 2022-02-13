@@ -116,7 +116,7 @@ Amethyst Ring
 League: Ritual
 Requires Level 49
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(17-23%)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {tags:jewellery_elemental}+(8-12)% to Fire Damage over Time Multiplier
 50% reduced Ignite Duration on Enemies
 (10-15)% chance to Ignite
