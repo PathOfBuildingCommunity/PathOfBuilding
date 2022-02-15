@@ -68,7 +68,7 @@ function main:Init()
 	self.tree = { }
 	self.atlasTree = { }
 	self:LoadTree(latestTreeVersion)
-	self:LoadTree(latestTreeVersion, True)
+	-- self:LoadTree(latestTreeVersion, True)
 
 	ConPrintf("Loading item databases...")
 	self.uniqueDB = { list = { } }

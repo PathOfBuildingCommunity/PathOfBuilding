@@ -676,6 +676,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.configTab = new("ConfigTab", self)
 	self.itemsTab = new("ItemsTab", self)
 	self.treeTab = new("TreeTab", self)
+	self.atlasTab = nil
+	-- self.atlasTab = new("AtlasTab", self)
 	self.atlasTab = new("AtlasTab", self)
 	self.skillsTab = new("SkillsTab", self)
 	self.calcsTab = new("CalcsTab", self)
@@ -686,8 +688,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		["Notes"] = self.notesTab,
 		["Tree"] = self.treeTab,
 		["TreeView"] = self.treeTab.viewer,
-		["Atlas"] = self.atlasTab,
-		["AtlasView"] = self.atlasTab.viewer,
+		-- ["Atlas"] = self.atlasTab,
+		["Atlas"] = nil,
+		["AtlasView"] = nil,
+		-- ["AtlasView"] = self.atlasTab.viewer,
 		["Items"] = self.itemsTab,
 		["Skills"] = self.skillsTab,
 		["Calcs"] = self.calcsTab,
@@ -764,8 +768,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 
 	-- Build calculation output tables
 	self.outputRevision = 1
-	self.calcsTab:BuildOutput()
-	self:RefreshStatList()
+	-- self.calcsTab:BuildOutput()
+	-- self:RefreshStatList()
 	self.buildFlag = false
 
 	self.spec:SetWindowTitleWithBuildClass()
@@ -1016,7 +1020,8 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	end
 
-	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.atlasTab.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	-- self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.atlasTab.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
 
 	SetDrawLayer(5)
 

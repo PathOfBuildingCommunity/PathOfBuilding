@@ -58,7 +58,7 @@ local AtlasSpecClass = newClass("AtlasSpec", "UndoHandler", function(self, build
 	-- Keys are mastery node IDs, values are mastery effect IDs
 	self.masterySelections = { }
 
-	self:SelectClass(0)
+	-- self:SelectClass(0)
 end)
 
 function AtlasSpecClass:Load(xml, dbFileName)
@@ -921,8 +921,8 @@ function AtlasSpecClass:ReplaceNode(old, newNode)
 	old.sd = newNode.sd
 	old.mods = newNode.mods
 	old.modKey = newNode.modKey
-	old.modList = new("ModList")
-	old.modList:AddList(newNode.modList)
+	-- old.modList = new("ModList")
+	-- old.modList:AddList(newNode.modList)
 	old.sprites = newNode.sprites
 	old.keystoneMod = newNode.keystoneMod
 	old.icon = newNode.icon

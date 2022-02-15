@@ -17,14 +17,15 @@ local AtlasTabClass = newClass("AtlasTab", "ControlHost", function(self, build)
 
 	self.build = build
 	self.isComparing = false;
-
+print("AtlasTabClass: 1")
 	self.viewer = new("AtlasTreeView")
+print("AtlasTabClass: 2")
 
 	self.specList = { }
-	-- self.specList[1] = new("AtlasSpec", build, latestTreeVersion)
-	self.specList[1] = new("AtlasSpec", build, '3_16')
+	self.specList[1] = new("AtlasSpec", build, latestTreeVersion)
 	self:SetActiveSpec(1)
 	self:SetCompareSpec(1)
+print("AtlasTabClass: 3")
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
 	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
@@ -35,6 +36,7 @@ local AtlasTabClass = newClass("AtlasTab", "ControlHost", function(self, build)
 			self:OpenSpecManagePopup()
 		end
 	end)
+print("AtlasTabClass: 4")
 	self.controls.specSelect.maxDroppedWidth = 1000
 	self.controls.specSelect.enableDroppedWidth = true
 	self.controls.specSelect.enableChangeBoxWidth = true
@@ -80,6 +82,7 @@ local AtlasTabClass = newClass("AtlasTab", "ControlHost", function(self, build)
 			end
 		end
 	end
+print("AtlasTabClass: 5")
 	-- self.controls.compareCheck = new("CheckBoxControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 74, 0, 20, "Compare:", function(state)
 		-- self.isComparing = state
 		-- self:SetCompareSpec(self.activeCompareSpec)

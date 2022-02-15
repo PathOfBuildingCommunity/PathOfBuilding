@@ -359,7 +359,7 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 
 	MakeDir("TreeData")
 
-	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].display)
+	ConPrintf("Loading Atlas tree data for version '%s'...", treeVersions[treeVersion].display)
 	local treeText
 	local treeFile = io.open("TreeData/"..treeVersion.."/atlas/tree.lua", "r")
 	if treeFile then
@@ -382,7 +382,7 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 		else
 			treeText = "return " .. jsonToLua(page)
 		end
-		treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "w")
+		treeFile = io.open("TreeData/"..treeVersion.."/atlas/tree.lua", "w")
 		treeFile:write(treeText)
 		treeFile:close()
 	end
@@ -396,33 +396,33 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 
 	-- self.classes = classTemplate
 
-	if versionNum >= 3.10 then
+	-- if versionNum >= 3.10 then
 		-- Migrate to old format
-		for i = 0, 6 do
-			self.classes[i] = self.classes[i + 1]
-			self.classes[i + 1] = nil
-		end
-	end
+		-- for i = 0, 6 do
+			-- self.classes[i] = self.classes[i + 1]
+			-- self.classes[i + 1] = nil
+		-- end
+	-- end
 
 	-- Build maps of class name -> class table
-	self.classNameMap = { }
-	self.ascendNameMap = { }
-	for classId, class in pairs(self.classes) do
-		if versionNum >= 3.10 then
+	-- self.classNameMap = { }
+	-- self.ascendNameMap = { }
+	-- for classId, class in pairs(self.classes) do
+		-- if versionNum >= 3.10 then
 			-- Migrate to old format
-			class.classes = class.ascendancies
-		end
-		class.classes[0] = { name = "None" }
-		self.classNameMap[class.name] = classId
-		for ascendClassId, ascendClass in pairs(class.classes) do
-			self.ascendNameMap[ascendClass.name] = {
-				classId = classId,
-				class = class,
-				ascendClassId = ascendClassId,
-				ascendClass = ascendClass
-			}
-		end
-	end
+			-- class.classes = class.ascendancies
+		-- end
+		-- class.classes[0] = { name = "None" }
+		-- self.classNameMap[class.name] = classId
+		-- for ascendClassId, ascendClass in pairs(class.classes) do
+			-- self.ascendNameMap[ascendClass.name] = {
+				-- classId = classId,
+				-- class = class,
+				-- ascendClassId = ascendClassId,
+				-- ascendClass = ascendClass
+			-- }
+		-- end
+	-- end
 
 	self.orbitAngles = calculateOrbitAngles(self.constants.skillsPerOrbit or legacySkillsPerOrbit)
 	self.orbitRadii = self.constants.orbitRadii or legacyOrbitRadii
@@ -701,41 +701,41 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 		end
 	end
 
-	for classId, class in pairs(self.classes) do
-		local startNode = nodeMap[class.startNodeId]
-		for _, nodeId in ipairs(startNode.linkedId) do
-			local node = nodeMap[nodeId]
-			if node.type == "Normal" then
-				node.modList:NewMod("Condition:ConnectedTo"..class.name.."Start", "FLAG", true, "Tree:"..nodeId)
-			end
-		end
-	end
+	-- for classId, class in pairs(self.classes) do
+		-- local startNode = nodeMap[class.startNodeId]
+		-- for _, nodeId in ipairs(startNode.linkedId) do
+			-- local node = nodeMap[nodeId]
+			-- if node.type == "Normal" then
+				-- node.modList:NewMod("Condition:ConnectedTo"..class.name.."Start", "FLAG", true, "Tree:"..nodeId)
+			-- end
+		-- end
+	-- end
 
 	-- Build ModList for legion jewels
-	for _, node in pairs(self.legion.nodes) do
+	-- for _, node in pairs(self.legion.nodes) do
 		-- Determine node type
-		if node.m then
-			node.type = "Mastery"
-		elseif node.ks then
-			node.type = "Keystone"
-			if not self.keystoneMap[node.dn] then -- Don't override good tree data with legacy keystones
-				self.keystoneMap[node.dn] = node
-			end
-		elseif node["not"] then
-			node.type = "Notable"
-		else
-			node.type = "Normal"
-		end
+		-- if node.m then
+			-- node.type = "Mastery"
+		-- elseif node.ks then
+			-- node.type = "Keystone"
+			-- if not self.keystoneMap[node.dn] then -- Don't override good tree data with legacy keystones
+				-- self.keystoneMap[node.dn] = node
+			-- end
+		-- elseif node["not"] then
+			-- node.type = "Notable"
+		-- else
+			-- node.type = "Normal"
+		-- end
 
 		-- Assign node artwork assets
-		node.sprites = self.spriteMap[node.icon]
-		if not node.sprites then
-			error("missing sprite "..node.icon)
-			node.sprites = { }
-		end
+		-- node.sprites = self.spriteMap[node.icon]
+		-- if not node.sprites then
+			-- error("missing sprite "..node.icon)
+			-- node.sprites = { }
+		-- end
 
-		self:ProcessStats(node)
-	end
+		-- self:ProcessStats(node)
+	-- end
 end)
 
 function AtlasTreeClass:ProcessStats(node)
@@ -838,7 +838,7 @@ function AtlasTreeClass:ProcessNode(node)
 		node.y = node.group.y - m_cos(node.angle) * orbitRadius
 	end
 
-	self:ProcessStats(node)
+	-- self:ProcessStats(node)
 end
 
 -- Checks if a given image is present and downloads it from the given URL if it isn't there
