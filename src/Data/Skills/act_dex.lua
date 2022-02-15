@@ -3093,7 +3093,6 @@ skills["EnsnaringArrow"] = {
 		area = true,
 	},
 	baseMods = {
-		flag("Condition:CanEnsnare"),
 	},
 	qualityStats = {
 		Default = {
