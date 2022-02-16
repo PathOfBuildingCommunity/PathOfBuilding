@@ -614,9 +614,23 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 				stats[stat] = (stats[stat] or 0) + val
 			end
 		end
-		local descriptions = self.skillsTab.build.data.describeStats(stats, grantedEffect.statDescriptionScope)
+		local descriptions, lineMap = self.skillsTab.build.data.describeStats(stats, grantedEffect.statDescriptionScope)
 		for _, line in ipairs(descriptions) do
-			self.tooltip:AddLine(16, colorCodes.MAGIC..line)
+			local source = grantedEffect.statMap[lineMap[line]] or self.skillsTab.build.data.skillStatMap[lineMap[line]]
+			if source then
+				if launch.devModeAlt then
+					if not source[1].value then
+						source[1].value = lineMap[line]
+					end
+					line = line .. " ^2" .. modLib.formatMod(source[1])
+				end
+				self.tooltip:AddLine(16, colorCodes.MAGIC..line)
+			else
+				if launch.devModeAlt then
+					line = line .. " ^1" .. lineMap[line]
+				end
+				self.tooltip:AddLine(16, colorCodes.UNSUPPORTED..line)
+			end
 		end
 	end
 end
