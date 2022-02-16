@@ -2430,7 +2430,7 @@ skills["Earthquake"] = {
 		},
 		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
 			flag("SpellDamageAppliesToAttacks"),
-			mod("ImprovedSpellDamageAppliesToAttacks", "INC", nil),
+			mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
 		},
 	},
 	baseFlags = {
