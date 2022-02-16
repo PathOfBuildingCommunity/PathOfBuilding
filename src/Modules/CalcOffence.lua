@@ -533,7 +533,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Bow mastery projectile speed to damage with bows conversion
 		for i, value in ipairs(skillModList:Tabulate("INC", { }, "ProjectileSpeed")) do
 			local mod = value.mod
-			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, ModFlag.Bow, mod.keywordFlags, unpack(mod))
+			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, bor(ModFlag.Bow, ModFlag.Hit), mod.keywordFlags, unpack(mod))
 		end
 	end
 	if skillModList:Flag(nil, "ClawDamageAppliesToUnarmed") then
