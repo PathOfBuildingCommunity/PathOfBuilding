@@ -164,6 +164,10 @@ return {
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton ^xE05030Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum ^xE05030Life ^7of the Skeleton that is being targeted.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "skeletonLife", value = val }, "Config", { type = "SkillName", skillName = "Dark Pact" })
 	end },
+	{ label = "Death Wish:", ifSkill = "Death Wish" },
+	{ var = "deathWishMinionLife", type = "count", label = "Minion ^xE05030Life:", ifSkill = "Death Wish", tooltip = "Sets the maximum ^xE05030Life ^7of the minion that is being targeted.", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "targetMinionLife", value = val }, "Config", { type = "SkillName", skillName = "Death Wish" })
+	end },
 	{ label = "Predator:", ifSkill = "Predator" },
 	{ var = "deathmarkDeathmarkActive", type = "check", label = "Is the enemy marked with Signal Prey?", ifSkill = "Predator", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EnemyHasDeathmark", "FLAG", true, "Config")
