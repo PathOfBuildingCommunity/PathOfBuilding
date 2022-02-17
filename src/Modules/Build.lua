@@ -491,6 +491,11 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.viewMode = "TREE"
 	end)
 	self.controls.modeTree.locked = function() return self.viewMode == "TREE" end
+	self.controls.modeAtlas = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 46, 72, 20, "Atlas", function()
+		self.viewMode = "ATLAS"
+	end)
+	self.controls.modeTree.locked = function() return self.viewMode == "ATLAS" end
+
 	self.controls.modeSkills = new("ButtonControl", {"LEFT",self.controls.modeTree,"RIGHT"}, 4, 0, 72, 20, "Skills", function()
 		self.viewMode = "SKILLS"
 	end)
@@ -676,6 +681,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.configTab = new("ConfigTab", self)
 	self.itemsTab = new("ItemsTab", self)
 	self.treeTab = new("TreeTab", self)
+	self.atlasTab = new("AtlasTab", self)
 	self.skillsTab = new("SkillsTab", self)
 	self.calcsTab = new("CalcsTab", self)
 
@@ -685,6 +691,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		["Notes"] = self.notesTab,
 		["Tree"] = self.treeTab,
 		["TreeView"] = self.treeTab.viewer,
+		["Atlas"] = self.atlasTab,
+		["AtlasView"] = self.atlasTab.viewer,
 		["Items"] = self.itemsTab,
 		["Skills"] = self.skillsTab,
 		["Calcs"] = self.calcsTab,
@@ -702,8 +710,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		-- Check if there is a saver that can load this section
 		local saver = self.savers[node.elem] or self.legacyLoaders[node.elem]
 		if saver then
-			-- if the saver is treetab, defer it until everything is is loaded
+			-- if the saver is treetab, defer it until everything is loaded
 			if saver == self.treeTab  then
+				t_insert(deferredPassiveTrees, node)
+			elseif saver == self.atlasTab then
 				t_insert(deferredPassiveTrees, node)
 			else
 				if saver:Load(node, self.dbFileName) then
@@ -715,9 +725,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 	for _, node in ipairs(deferredPassiveTrees) do
 		-- Check if there is a saver that can load this section
-		if self.treeTab:Load(node, self.dbFileName) then
-			self:CloseBuild()
-			return
+		if node.elem == "Tree" then
+			if self.treeTab:Load(node, self.dbFileName) then
+				self:CloseBuild()
+				return
+			end
+		elseif node.elem == "Atlas" then
+			if self.atlasTab:Load(node, self.dbFileName) then
+				self:CloseBuild()
+				return
+			end
 		end
 	end
 	for _, saver in pairs(self.savers) do
@@ -1013,6 +1030,8 @@ function buildMode:OnFrame(inputEvents)
 		self.configTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "TREE" then
 		self.treeTab:Draw(tabViewPort, inputEvents)
+	elseif self.viewMode == "ATLAS" then
+		self.atlasTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "SKILLS" then
 		self.skillsTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "ITEMS" then
@@ -1021,7 +1040,7 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	end
 
-	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.atlasTab.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
 
 	SetDrawLayer(5)
 

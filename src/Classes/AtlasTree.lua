@@ -1,7 +1,7 @@
 -- Path of Building
 --
--- Class: Passive Tree
--- Passive skill tree class.
+-- Class: Atlas Tree
+-- Atlas skill tree class.
 -- Responsible for downloading and loading the passive tree data and assets
 -- Also pre-calculates and pre-parses most of the data need to use the passive tree, including the node modifiers
 --
@@ -28,9 +28,9 @@ local classArt = {
 	[6] = "centershadow"
 }
 
--- These values are from the 3.6 tree; older trees are missing values for these constants
-local legacySkillsPerOrbit = { 1, 6, 12, 12, 40 }
-local legacyOrbitRadii = { 0, 82, 162, 335, 493 }
+local start_nodes = { 
+	[ "3_17" ] = { 29045 }
+	}
 
 -- Retrieve the file at the given URL
 local function getFile(URL)
@@ -46,29 +46,29 @@ local function getFile(URL)
 	return #page > 0 and page
 end
 
-local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
+local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
 
-	self.legion = LoadModule("Data/LegionPassives")
+	-- self.legion = LoadModule("Data/LegionPassives")
 
 	MakeDir("TreeData")
 
-	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].display)
+	ConPrintf("Loading Atlas tree data for version '%s'...", treeVersions[treeVersion].display)
 	local treeText
-	local treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "r")
+	local treeFile = io.open("TreeData/"..treeVersion.."/atlas/tree.lua", "r")
 	if treeFile then
 		treeText = treeFile:read("*a")
 		treeFile:close()
 	else
 		ConPrintf("Downloading passive tree data...")
 		local page
-		local pageFile = io.open("TreeData/"..treeVersion.."/data.json", "r")
+		local pageFile = io.open("TreeData/"..treeVersion.."/atlas/atlas.json", "r")
 		if pageFile then
 			page = pageFile:read("*a")
 			pageFile:close()
 		else
-			page = getFile("https://www.pathofexile.com/passive-skill-tree")
+			page = getFile("https://www.pathofexile.com/atlas-skill-tree")
 		end
 		local treeData = page:match("var passiveSkillTreeData = (%b{})")
 		if treeData then
@@ -77,50 +77,47 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		else
 			treeText = "return " .. jsonToLua(page)
 		end
-		treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "w")
+		treeFile = io.open("TreeData/"..treeVersion.."/atlas/tree.lua", "w")
 		treeFile:write(treeText)
 		treeFile:close()
 	end
 	for k, v in pairs(assert(loadstring(treeText))()) do
 		self[k] = v
 	end
-
 	local cdnRoot = versionNum >= 3.08 and versionNum <= 3.09 and "https://web.poecdn.com" or ""
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
-	if versionNum >= 3.10 then
+	-- if versionNum >= 3.10 then
 		-- Migrate to old format
-		for i = 0, 6 do
-			self.classes[i] = self.classes[i + 1]
-			self.classes[i + 1] = nil
-		end
-	end
+		-- for i = 0, 6 do
+			-- self.classes[i] = self.classes[i + 1]
+			-- self.classes[i + 1] = nil
+		-- end
+	-- end
 
 	-- Build maps of class name -> class table
-	self.classNameMap = { }
-	self.ascendNameMap = { }
-	self.classNotables = { }
-
-	for classId, class in pairs(self.classes) do
-		if versionNum >= 3.10 then
+	-- self.classNameMap = { }
+	-- self.ascendNameMap = { }
+	-- for classId, class in pairs(self.classes) do
+		-- if versionNum >= 3.10 then
 			-- Migrate to old format
-			class.classes = class.ascendancies
-		end
-		class.classes[0] = { name = "None" }
-		self.classNameMap[class.name] = classId
-		for ascendClassId, ascendClass in pairs(class.classes) do
-			self.ascendNameMap[ascendClass.name] = {
-				classId = classId,
-				class = class,
-				ascendClassId = ascendClassId,
-				ascendClass = ascendClass
-			}
-		end
-	end
+			-- class.classes = class.ascendancies
+		-- end
+		-- class.classes[0] = { name = "None" }
+		-- self.classNameMap[class.name] = classId
+		-- for ascendClassId, ascendClass in pairs(class.classes) do
+			-- self.ascendNameMap[ascendClass.name] = {
+				-- classId = classId,
+				-- class = class,
+				-- ascendClassId = ascendClassId,
+				-- ascendClass = ascendClass
+			-- }
+		-- end
+	-- end
 
-	self.skillsPerOrbit = self.constants.skillsPerOrbit or legacySkillsPerOrbit
-	self.orbitRadii = self.constants.orbitRadii or legacyOrbitRadii
+	self.skillsPerOrbit = self.constants.skillsPerOrbit
+	self.orbitRadii = self.constants.orbitRadii
 	self.orbitAnglesByOrbit = {}
 	for orbit, skillsInOrbit in ipairs(self.skillsPerOrbit) do
 		self.orbitAnglesByOrbit[orbit] = self:CalcOrbitAngles(skillsInOrbit)
@@ -128,7 +125,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
-		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
+		print("assets "..name)
+		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)
 	end
 
 	-- Load sprite sheets and build sprite map
@@ -159,32 +157,32 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	-- Load legion sprite sheets and build sprite map
-	local legionSprites = LoadModule("TreeData/legion/tree-legion.lua")
-	for type, data in pairs(legionSprites) do
-		local maxZoom = data[#data]
-		local sheet = spriteSheets[maxZoom.filename]
-		if not sheet then
-			sheet = { }
-			sheet.handle = NewImageHandle()
-			sheet.handle:Load("TreeData/legion/"..maxZoom.filename)
-			sheet.width, sheet.height = sheet.handle:ImageSize()
-			spriteSheets[maxZoom.filename] = sheet
-		end
-		for name, coords in pairs(maxZoom.coords) do
-			if not self.spriteMap[name] then
-				self.spriteMap[name] = { }
-			end
-			self.spriteMap[name][type] = {
-				handle = sheet.handle,
-				width = coords.w,
-				height = coords.h,
-				[1] = coords.x / sheet.width,
-				[2] = coords.y / sheet.height,
-				[3] = (coords.x + coords.w) / sheet.width,
-				[4] = (coords.y + coords.h) / sheet.height
-			}
-		end
-	end
+	-- local legionSprites = LoadModule("TreeData/legion/tree-legion.lua")
+	-- for type, data in pairs(legionSprites) do
+		-- local maxZoom = data[#data]
+		-- local sheet = spriteSheets[maxZoom.filename]
+		-- if not sheet then
+			-- sheet = { }
+			-- sheet.handle = NewImageHandle()
+			-- sheet.handle:Load("TreeData/legion/"..maxZoom.filename)
+			-- sheet.width, sheet.height = sheet.handle:ImageSize()
+			-- spriteSheets[maxZoom.filename] = sheet
+		-- end
+		-- for name, coords in pairs(maxZoom.coords) do
+			-- if not self.spriteMap[name] then
+				-- self.spriteMap[name] = { }
+			-- end
+			-- self.spriteMap[name][type] = {
+				-- handle = sheet.handle,
+				-- width = coords.w,
+				-- height = coords.h,
+				-- [1] = coords.x / sheet.width,
+				-- [2] = coords.y / sheet.height,
+				-- [3] = (coords.x + coords.w) / sheet.width,
+				-- [4] = (coords.y + coords.h) / sheet.height
+			-- }
+		-- end
+	-- end
 
 	self.nodeOverlay = {
 		Normal = {
@@ -250,8 +248,21 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self.nodes.root = nil
 	end
 
+		-- Node example
+      -- group = 33,
+      -- icon = "Art/2DArt/SkillIcons/passives/AtlasTrees/ScarabNode1.png",
+      -- in = { "12875" },
+      -- name = "Atlas Scarab Chance",
+      -- orbit = 2,
+      -- orbitIndex = 11,
+      -- out = { "47818" },
+      -- skill = 31,
+      -- stats = { "Unique Bosses have 1% chance to drop an additional Scarab" }
+		-- Optional entries
+	  -- isNotable = true,
+      -- isMastery = true,
+
 	ConPrintf("Processing tree...")
-	self.ascendancyMap = { }
 	self.keystoneMap = { }
 	self.notableMap = { }
 	self.clusterNodeMap = { }
@@ -260,100 +271,51 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	local nodeMap = { }
 	for _, node in pairs(self.nodes) do
 		-- Migration...
-		if versionNum < 3.10 then
-			-- To new format
-			node.classStartIndex = node.spc[0] and node.spc[0]
-		else
-			-- To old format
-			node.id = node.skill
-			node.g = node.group
-			node.o = node.orbit
-			node.oidx = node.orbitIndex
-			node.dn = node.name
-			node.sd = node.stats
-			node.passivePointsGranted = node.grantedPassivePoints or 0
-		end
+		-- To old format
+		node.id = node.skill
+		node.g = node.group
+		node.o = node.orbit
+		node.oidx = node.orbitIndex
+		node.dn = node.name
+		node.sd = node.stats
 
-		if versionNum <= 3.09 and node.passivePointsGranted > 0 then
-			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
-		end
-		node.conquered = false
 		node.alternative = {}
 		node.__index = node
 		node.linkedId = { }
-		nodeMap[node.id] = node	
+		nodeMap[node.id] = node
 
 		-- Determine node type
-		if node.classStartIndex then
-			node.type = "ClassStart"
-			local class = self.classes[node.classStartIndex]
-			class.startNodeId = node.id
-			node.startArt = classArt[node.classStartIndex]
-		elseif node.isAscendancyStart then
-			node.type = "AscendClassStart"
-			local ascendClass = self.ascendNameMap[node.ascendancyName].ascendClass
-			ascendClass.startNodeId = node.id
-		elseif node.m or node.isMastery then
-			node.type = "Mastery"
-			if node.masteryEffects then
-				for _, effect in pairs(node.masteryEffects) do
-					if not self.masteryEffects[effect.effect] then
-						self.masteryEffects[effect.effect] = { id = effect.effect, sd = effect.stats }
-						self:ProcessStats(self.masteryEffects[effect.effect])
-					end
-				end
-			end
-		elseif node.isJewelSocket then
-			node.type = "Socket"
-			self.sockets[node.id] = node
-		elseif node.ks or node.isKeystone then
-			node.type = "Keystone"
-			self.keystoneMap[node.dn] = node
-		elseif node["not"] or node.isNotable then
+		if node.isNotable then
 			node.type = "Notable"
-			if not node.ascendancyName then
-				-- Some nodes have duplicate names in the tree data for some reason, even though they're not on the tree
-				-- Only add them if they're actually part of a group (i.e. in the tree)
-				-- Add everything otherwise, because cluster jewel notables don't have a group
-				if not self.notableMap[node.dn:lower()] then
-					self.notableMap[node.dn:lower()] = node
-				elseif node.g then
-					self.notableMap[node.dn:lower()] = node
-				end
-			else
-				self.ascendancyMap[node.dn:lower()] = node
-				if not self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] then
-					self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] = { }
-				end
-				if self.ascendNameMap[node.ascendancyName].class.name ~= "Scion" then
-					t_insert(self.classNotables[self.ascendNameMap[node.ascendancyName].class.name], node.dn)
-				end
+			-- Some nodes have duplicate names in the tree data for some reason, even though they're not on the tree
+			-- Only add them if they're actually part of a group (i.e. in the tree)
+			-- Add everything otherwise, because cluster jewel notables don't have a group
+			if not self.notableMap[node.dn:lower()] then
+				self.notableMap[node.dn:lower()] = node
+			elseif node.g then
+				self.notableMap[node.dn:lower()] = node
 			end
 		else
 			node.type = "Normal"
-			if node.ascendancyName == "Ascendant" and not node.dn:find(" ") and node.dn ~= "Dexterity" and
-				node.dn ~= "Intelligence" and node.dn ~= "Strength" then
-				self.ascendancyMap[node.dn:lower()] = node
-				if not self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] then
-					self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] = { }
-				end
-				t_insert(self.classNotables[self.ascendNameMap[node.ascendancyName].class.name], node.dn)
-			end
 		end
 
 		-- Find the node group
 		local group = self.groups[node.g]
 		if group then
 			node.group = group
-			group.ascendancyName = node.ascendancyName
-			if node.isAscendancyStart then
-				group.isAscendancyStart = true
-			end
 		elseif node.type == "Notable" or node.type == "Keystone" then
 			self.clusterNodeMap[node.dn] = node
 		end
-		
+
 		self:ProcessNode(node)
+	end
+
+	if versionNum == 3.17 then
+		-- Add start nodes
+		for _, startNodeId in pairs(start_nodes[self.treeVersion]) do
+			self.nodes[startNodeId].startNode = true
+		end
+	-- elseif versionNum == 3.18 then
 	end
 
 	-- Pregenerate the polygons for the node connector lines
@@ -365,17 +327,17 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			end
 			local other = nodeMap[otherId]
 			t_insert(node.linkedId, otherId)
-			if node.type ~= "ClassStart" and other.type ~= "ClassStart"
-				and node.type ~= "Mastery" and other.type ~= "Mastery"
-				and node.ascendancyName == other.ascendancyName
-				and not node.isProxy and not other.isProxy
-				and not node.group.isProxy and not node.group.isProxy then
+			-- if node.type ~= "ClassStart" and other.type ~= "ClassStart"
+				-- and node.type ~= "Mastery" and other.type ~= "Mastery"
+				-- and node.ascendancyName == other.ascendancyName
+				-- and not node.isProxy and not other.isProxy
+				-- and not node.group.isProxy and not node.group.isProxy then
 					local connectors = self:BuildConnector(node, other)
 					t_insert(self.connectors, connectors[1])
 					if connectors[2] then
 						t_insert(self.connectors, connectors[2])
 					end
-			end
+			-- end
 		end
 		for _, otherId in pairs(node["in"] or {}) do
 			if type(otherId) == "string" then
@@ -385,69 +347,66 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 	-- Precalculate the lists of nodes that are within each radius of each socket
-	for nodeId, socket in pairs(self.sockets) do
-		socket.nodesInRadius = { }
-		socket.attributesInRadius = { }
-		for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
-			socket.nodesInRadius[radiusIndex] = { }
-			socket.attributesInRadius[radiusIndex] = { }
-			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
-			local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
-			for _, node in pairs(self.nodes) do
-				if node ~= socket and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy and not node.isMastery then
-					local vX, vY = node.x - socket.x, node.y - socket.y
-					local euclideanDistanceSquared = vX * vX + vY * vY
-					if innerRadiusSquared <= euclideanDistanceSquared then
-						if euclideanDistanceSquared <= outerRadiusSquared then
-							socket.nodesInRadius[radiusIndex][node.id] = node
-						end
-					end
-				end
-			end
-		end
-	end
+	-- for nodeId, socket in pairs(self.sockets) do
+		-- socket.nodesInRadius = { }
+		-- socket.attributesInRadius = { }
+		-- for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
+			-- socket.nodesInRadius[radiusIndex] = { }
+			-- socket.attributesInRadius[radiusIndex] = { }
+			-- local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
+			-- local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
+			-- for _, node in pairs(self.nodes) do
+				-- if node ~= socket and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy and not node.isMastery then
+					-- local vX, vY = node.x - socket.x, node.y - socket.y
+					-- local euclideanDistanceSquared = vX * vX + vY * vY
+					-- if innerRadiusSquared <= euclideanDistanceSquared then
+						-- if euclideanDistanceSquared <= outerRadiusSquared then
+							-- socket.nodesInRadius[radiusIndex][node.id] = node
+						-- end
+					-- end
+				-- end
+			-- end
+		-- end
+	-- end
 
-	for classId, class in pairs(self.classes) do
-		local startNode = nodeMap[class.startNodeId]
-		for _, nodeId in ipairs(startNode.linkedId) do
-			local node = nodeMap[nodeId]
-			if node.type == "Normal" then
-				node.modList:NewMod("Condition:ConnectedTo"..class.name.."Start", "FLAG", true, "Tree:"..nodeId)
-			end
-		end
-	end
+	-- for classId, class in pairs(self.classes) do
+		-- local startNode = nodeMap[class.startNodeId]
+		-- for _, nodeId in ipairs(startNode.linkedId) do
+			-- local node = nodeMap[nodeId]
+			-- if node.type == "Normal" then
+				-- node.modList:NewMod("Condition:ConnectedTo"..class.name.."Start", "FLAG", true, "Tree:"..nodeId)
+			-- end
+		-- end
+	-- end
 
 	-- Build ModList for legion jewels
-	for _, node in pairs(self.legion.nodes) do
+	-- for _, node in pairs(self.legion.nodes) do
 		-- Determine node type
-		if node.m then
-			node.type = "Mastery"
-		elseif node.ks then
-			node.type = "Keystone"
-			if not self.keystoneMap[node.dn] then -- Don't override good tree data with legacy keystones
-				self.keystoneMap[node.dn] = node
-			end
-		elseif node["not"] then
-			node.type = "Notable"
-		else
-			node.type = "Normal"
-		end
+		-- if node.m then
+			-- node.type = "Mastery"
+		-- elseif node.ks then
+			-- node.type = "Keystone"
+			-- if not self.keystoneMap[node.dn] then -- Don't override good tree data with legacy keystones
+				-- self.keystoneMap[node.dn] = node
+			-- end
+		-- elseif node["not"] then
+			-- node.type = "Notable"
+		-- else
+			-- node.type = "Normal"
+		-- end
 
 		-- Assign node artwork assets
-		node.sprites = self.spriteMap[node.icon]
-		if not node.sprites then
-			--error("missing sprite "..node.icon)
-			node.sprites = { }
-		end
+		-- node.sprites = self.spriteMap[node.icon]
+		-- if not node.sprites then
+			-- error("missing sprite "..node.icon)
+			-- node.sprites = { }
+		-- end
 
-		self:ProcessStats(node)
-	end
-
-	-- Late load the Generated data so we can take advantage of a tree existing
-	buildTreeDependentUniques(self)
+		-- self:ProcessStats(node)
+	-- end
 end)
 
-function PassiveTreeClass:ProcessStats(node)
+function AtlasTreeClass:ProcessStats(node)
 	node.modKey = ""
 	if not node.sd then
 		return
@@ -522,16 +481,13 @@ function PassiveTreeClass:ProcessStats(node)
 end
 
 -- Common processing code for nodes (used for both real tree nodes and subgraph nodes)
-function PassiveTreeClass:ProcessNode(node)
+function AtlasTreeClass:ProcessNode(node)
 	-- Assign node artwork assets
-	if node.type == "Mastery" and node.masteryEffects then
-		node.masterySprites = { activeIcon = self.spriteMap[node.activeIcon], inactiveIcon = self.spriteMap[node.inactiveIcon], activeEffectImage = self.spriteMap[node.activeEffectImage] }
-	else
-		node.sprites = self.spriteMap[node.icon]
-	end
+	node.sprites = self.spriteMap[node.icon]
 	if not node.sprites then
+		print("ProcessNode : No Sprite : "..node.name.." ("..node.id..")")
 		--error("missing sprite "..node.icon)
-		node.sprites = self.spriteMap["Art/2DArt/SkillIcons/passives/MasteryBlank.png"]
+		node.sprites = self.assets["AtlasPassiveSkillScreenStart"]
 	end
 	node.overlay = self.nodeOverlay[node.type]
 	if node.overlay then
@@ -547,19 +503,19 @@ function PassiveTreeClass:ProcessNode(node)
 		node.y = node.group.y - m_cos(node.angle) * orbitRadius
 	end
 
-	self:ProcessStats(node)
+	-- self:ProcessStats(node)
 end
 
 -- Checks if a given image is present and downloads it from the given URL if it isn't there
-function PassiveTreeClass:LoadImage(imgName, url, data, ...)
+function AtlasTreeClass:LoadImage(imgName, url, data, ...)
 	local imgFile = io.open("TreeData/"..imgName, "r")
 	if imgFile then
 		imgFile:close()
 	else
-		imgFile = io.open("TreeData/"..self.treeVersion.."/"..imgName, "r")
+		imgFile = io.open("TreeData/"..self.treeVersion.."/atlas/"..imgName, "r")
 		if imgFile then
 			imgFile:close()
-			imgName = self.treeVersion.."/"..imgName
+			imgName = self.treeVersion.."/atlas/"..imgName
 		elseif main.allowTreeDownload then -- Enable downloading with Ctrl+Shift+F5
 			ConPrintf("Downloading '%s'...", imgName)
 			local data = getFile(url)
@@ -578,14 +534,14 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 end
 
 -- Generate the quad used to render the line between the two given nodes
-function PassiveTreeClass:BuildConnector(node1, node2)
+function AtlasTreeClass:BuildConnector(node1, node2)
 	local connector = {
 		ascendancyName = node1.ascendancyName,
 		nodeId1 = node1.id,
 		nodeId2 = node2.id,
 		c = { } -- This array will contain the quad's data: 1-8 are the vertex coordinates, 9-16 are the texture coordinates
 				-- Only the texture coords are filled in at this time; the vertex coords need to be converted from tree-space to screen-space first
-				-- This will occur when the tree is being drawn; .vert will map line state (Normal/Intermediate/Active) to the correct tree-space coordinates 
+				-- This will occur when the tree is being drawn; .vert will map line state (Normal/Intermediate/Active) to the correct tree-space coordinates
 	}
 	if node1.g == node2.g and node1.o == node2.o then
 		-- Nodes are in the same orbit of the same group
@@ -641,7 +597,7 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 	return { connector }
 end
 
-function PassiveTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
+function AtlasTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
 	connector.type = "Orbit" .. node1.o
 	-- This is an arc texture mapped onto a kite-shaped quad
 	-- Calculate how much the arc needs to be clipped by
@@ -683,7 +639,7 @@ function PassiveTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
 	connector.c[15], connector.c[16] = p, 0
 end
 
-function PassiveTreeClass:CalcOrbitAngles(nodesInOrbit)
+function AtlasTreeClass:CalcOrbitAngles(nodesInOrbit)
 	local orbitAngles = {}
 
 	if nodesInOrbit == 16 then
