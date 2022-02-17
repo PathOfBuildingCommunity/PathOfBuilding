@@ -31,7 +31,7 @@ function buildSites.UploadBuild(buildCode, websiteInfo)
 	local response
 	if websiteInfo then
 		response = LaunchSubScript([[
-			local code, proxyURL = ...
+			local code, connectionProtocol, proxyURL = ...
 			local curl = require("lcurl.safe")
 			local page = ""
 			local easy = curl.easy()
@@ -40,6 +40,9 @@ function buildSites.UploadBuild(buildCode, websiteInfo)
 			easy:setopt(curl.OPT_USERAGENT, "Path of Building/]]..launch.versionNumber..[[")
 			easy:setopt(curl.OPT_POSTFIELDS, ']]..websiteInfo.postFields..[['..code)
 			easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
+			if connectionProtocol then
+				easy:setopt(curl.OPT_IPRESOLVE, connectionProtocol)
+			end
 			if proxyURL then
 				easy:setopt(curl.OPT_PROXY, proxyURL)
 			end
@@ -55,7 +58,7 @@ function buildSites.UploadBuild(buildCode, websiteInfo)
 			else
 				return nil, page
 			end
-		]], "", "", buildCode, launch.proxyURL)
+		]], "", "", buildCode, launch.connectionProtocol, launch.proxyURL)
 	end
 	return response
 end
