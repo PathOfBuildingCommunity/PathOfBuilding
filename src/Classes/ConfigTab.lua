@@ -262,16 +262,16 @@ end
 function ConfigTabClass:GetDefaultState(var)
 	for i = 1, #varList do
 		if varList[i].var == var then
-			return varList[i].defaultState
+			return varList[i].defaultState == true
 		end
 	end
-	return nil
+	return false
 end
 
 function ConfigTabClass:Save(xml)
 	for k, v in pairs(self.input) do
 		if v ~= self:GetDefaultState(k) then
-			local child = { elem = "Input", attrib = {name = k} }
+			local child = { elem = "Input", attrib = { name = k } }
 			if type(v) == "number" then
 				child.attrib.number = tostring(v)
 			elseif type(v) == "boolean" then
