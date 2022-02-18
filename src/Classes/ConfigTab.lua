@@ -259,18 +259,30 @@ function ConfigTabClass:Load(xml, fileName)
 	self:ResetUndo()
 end
 
-function ConfigTabClass:GetDefaultState(var)
+function ConfigTabClass:GetDefaultState(var, varType)
 	for i = 1, #varList do
 		if varList[i].var == var then
-			return varList[i].defaultState == true
+			if varType == "number" then
+				return varList[i].defaultState or 0
+			elseif varType == "boolean" then
+				return varList[i].defaultState == true
+			else
+				return varList[i].defaultState
+			end
 		end
 	end
-	return false
+	if varType == "number" then
+		return 0
+	elseif varType == "boolean" then
+		return false
+	else
+		return nil
+	end
 end
 
 function ConfigTabClass:Save(xml)
 	for k, v in pairs(self.input) do
-		if v ~= self:GetDefaultState(k) then
+		if v ~= self:GetDefaultState(k, type(v)) then
 			local child = { elem = "Input", attrib = { name = k } }
 			if type(v) == "number" then
 				child.attrib.number = tostring(v)
