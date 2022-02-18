@@ -1,0 +1,14 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Quiver
+#baseTags quiver
+#forceHide true
+#baseMatch Metadata/Items/Quivers/Quiver%d[0123]?$
+#forceHide false
+#base Metadata/Items/Quivers/Quiver14
+#forceShow true
+#baseMatch Metadata/Items/Quivers/QuiverNew%d+
+#baseMatch Metadata/Items/Quivers/Descent
+#forceShow false
+#baseMatch Metadata/Items/Quivers/QuiverAtlas%d+

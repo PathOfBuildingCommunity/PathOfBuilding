@@ -1,0 +1,43 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Boots
+#baseTags armour boots
+#socketLimit 4
+
+#subType Armour
+#baseMatch Metadata/Items/Armours/Boots/BootsStr%d+
+#baseMatch Metadata/Items/Armours/Boots/BootsStrRitual%d+
+
+#subType Evasion
+#baseMatch Metadata/Items/Armours/Boots/BootsDex%d+
+#baseMatch Metadata/Items/Armours/Boots/BootsDexRitual%d+
+
+#subType Energy Shield
+#baseMatch Metadata/Items/Armours/Boots/BootsInt%d+
+#baseMatch Metadata/Items/Armours/Boots/BootsIntRitual%d+
+
+#subType Armour/Evasion
+#baseMatch Metadata/Items/Armours/Boots/BootsStrDex%d+
+#forceShow true
+#base Metadata/Items/Armours/Boots/BootsAtlas2 Two-Toned Boots (Armour/Evasion)
+#forceShow false
+
+#subType Armour/Energy Shield
+#baseMatch Metadata/Items/Armours/Boots/BootsStrInt%d+
+#forceShow true
+#base Metadata/Items/Armours/Boots/BootsAtlas3 Two-Toned Boots (Armour/Energy Shield)
+#forceShow false
+
+#subType Evasion/Energy Shield
+#baseMatch Metadata/Items/Armours/Boots/BootsDexInt%d+
+#base Metadata/Items/Armours/Boots/BootsAtlas4
+#forceShow true
+#base Metadata/Items/Armours/Boots/BootsAtlas1 Two-Toned Boots (Evasion/Energy Shield)
+#forceShow false
+
+#subType Ward
+#baseMatch Metadata/Items/Armours/Boots/BootsExpedition%d+
+
+#subType
+#base Metadata/Items/Armours/Boots/BootsDemigods1

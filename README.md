@@ -1,11 +1,15 @@
-# Path of Building fork by LocalIdentity
+# Path of Building Community Fork
+## Formerly known as LocalIdentity Fork
 
 This is a fork of Openarl's Path Of Building that includes many extra features not in the base version of PoB
-* Adds updated uniques from 3.8 and 3.9 changes
+* Adds support for new and updated uniques from league 3.8 onwards
 * Pantheon support
 * Impale DPS support
+* Enemy armour and physical damage reduction calculations
+* Catalysts
+* Dual influence crafting
 * Search for all dropdown boxes
-* Barrage Suport skill gem
+* Barrage Support skill gem
 * Ensnaring Arrow support
 * Thread of Hope support
 * Crimson Dance support
@@ -28,8 +32,7 @@ This is a fork of Openarl's Path Of Building that includes many extra features n
 [![Feature Requests](https://feathub.com/LocalIdentity/PathOfBuilding?format=svg)](https://feathub.com/LocalIdentity/PathOfBuilding)
 
 ## Download
-Head over to the [Releases](https://github.com/Openarl/PathOfBuilding/releases) page to download the installer.
-Then head [here](https://github.com/LocalIdentity/PathOfBuilding/wiki/Installing-this-Fork/_edit) to see the install instructions for this fork
+Head over to the [Releases](https://github.com/PathOfBuildingCommunity/PathOfBuilding/releases) page to download the install wizard or portable zip.
 
 ## Contribute
 You can find instructions on how to contribute code and bug reports [here](CONTRIBUTING.md).
@@ -79,6 +82,13 @@ Welcome to Path of Building, an offline build planner for Path of Exile!
   * Somewhat more open source than usual (look in "%ProgramData%\Path of Building" if you're interested)
 
 ## Screenshots
-![ss1](https://cloud.githubusercontent.com/assets/19189971/18089779/f0fe23fa-6f04-11e6-8ed7-ff7d5b9f867a.png)
-![ss2](https://cloud.githubusercontent.com/assets/19189971/18089778/f0f923f0-6f04-11e6-89c2-b2c1410d3583.png)
-![ss3](https://cloud.githubusercontent.com/assets/19189971/18089780/f0ff234a-6f04-11e6-8c88-6193fe59a5c4.png)
+![ss1](https://user-images.githubusercontent.com/23911/153694681-cbc7b83a-970c-4020-b9e3-2a09f0808e38.png)
+![ss2](https://user-images.githubusercontent.com/23911/153694692-0309bab1-6776-43ac-bb5a-6cc40265c7c7.png)
+![ss3](https://user-images.githubusercontent.com/23911/153694693-2471e491-6ed9-47ae-abcc-a3bff81cdc7c.png)
+
+## Licence
+
+[MIT](https://opensource.org/licenses/MIT)
+
+For 3rd-party licences, see [LICENSE](LICENSE.md).
+The licencing information is considered to be part of the documentation.
