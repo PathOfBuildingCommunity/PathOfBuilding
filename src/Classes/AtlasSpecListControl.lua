@@ -70,7 +70,7 @@ end
 function AtlasSpecListClass:GetRowValue(column, index, spec)
 	if column == 1 then
 		local used = spec:CountAllocNodes()
-		-- return (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")
+		-- return (spec.treeVersion ~= latestTreeVersion and ("["..atlasTreeVersions[spec.treeVersion].display.."] ") or "")
 			-- .. (spec.title or "Default") 
 			-- .. " (" .. (spec.curAscendClassName and spec.curAscendClassName ~= "None" or spec.curClassName) .. ", " .. used .. " points)" 
 			-- .. (index == self.treeTab.activeSpec and "  ^9(Current)" or "")

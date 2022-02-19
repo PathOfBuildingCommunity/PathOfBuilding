@@ -42,17 +42,25 @@ local AtlasTabClass = newClass("AtlasTab", "ControlHost", function(self, build)
 		if mode ~= "OUT" then
 			local spec = self.specList[selIndex]
 			if spec then
-				local used, ascUsed, sockets = spec:CountAllocNodes()
+				local used = spec:CountAllocNodes()
 				tooltip:AddLine(16, "Points used: "..used)
-				if sockets > 0 then
-					tooltip:AddLine(16, "Jewel sockets: "..sockets)
-				end
+				-- if sockets > 0 then
+					-- tooltip:AddLine(16, "Jewel sockets: "..sockets)
+				-- end
 				if selIndex ~= self.activeSpec then
+					if spec.curClassId == self.build.atlasSpec.curClassId then
+						local respec = 0
+						for nodeId, node in pairs(self.build.atlasSpec.allocNodes) do
+							if not node.startNode and not spec.allocNodes[nodeId] then
+								respec = respec + 1
+							end
+						end
 						if respec > 0 then
 							tooltip:AddLine(16, "^7Switching to this tree requires "..respec.." refund points.")
 						end
+					end
 				end
-				tooltip:AddLine(16, "Game Version: "..treeVersions[spec.treeVersion].display)
+				tooltip:AddLine(16, "Game Version: "..atlasTreeVersions[spec.treeVersion].display)
 			end
 		end
 	end
@@ -137,8 +145,8 @@ function AtlasTabClass:Draw(viewPort, inputEvents)
 	wipeTable(newSpecList)
 	newSpecList={}
 	for id, spec in ipairs(self.specList) do
-		specName=(spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default")
-		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+		specName=(spec.treeVersion ~= latestTreeVersion and ("["..atlasTreeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default")
+		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..atlasTreeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
 	-- self.controls.compareSelect:SetList(newSpecList)
 	-- self.controls.compareSelect.selIndex = self.activeCompareSpec
@@ -171,9 +179,10 @@ function AtlasTabClass:Load(xml, dbFileName)
 	for _, node in pairs(xml) do
 		if type(node) == "table" then
 			if node.elem == "Spec" then
-				if node.attrib.treeVersion and not treeVersions[node.attrib.treeVersion] then
-					main:OpenMessagePopup("Unknown Passive Tree Version", "The build you are trying to load uses an unrecognised version of the passive skill tree.\nYou may need to update the program before loading this build.")
-					return true
+				if node.attrib.treeVersion and not atlasTreeVersions[node.attrib.treeVersion] then
+					main:OpenMessagePopup("Unknown Atlas Tree Version", "The build you are trying to load uses an unrecognised version of the atlas skill tree.\nYou may need to update the program before loading this build.")
+					-- return true
+					node.attrib.treeVersion = defaultTreeVersion
 				end
 				local newSpec = new("AtlasSpec", self.build, node.attrib.treeVersion or defaultTreeVersion)
 				newSpec:Load(node, dbFileName)
@@ -282,6 +291,8 @@ function AtlasTabClass:OpenImportPopup()
 					end
 				end)
 			end
+		elseif treeLink:match("poeskilltree.com/") then
+			decodeTreeLink(treeLink:gsub("/%?.+#","/"))
 		else
 			decodeTreeLink(treeLink)
 		end
@@ -293,10 +304,10 @@ function AtlasTabClass:OpenImportPopup()
 end
 
 function AtlasTabClass:OpenExportPopup()
-	local treeLink = self.build.atlasSpec:EncodeURL(treeVersions[self.build.atlasSpec.treeVersion].url)
+	local treeLink = self.build.atlasSpec:EncodeURL(atlasTreeVersions[self.build.atlasSpec.treeVersion].url)
 	local popup
 	local controls = { }
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "Passive tree link:")
+	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "Atlas tree link:")
 	controls.edit = new("EditControl", nil, 0, 40, 350, 18, treeLink, nil, "%Z")
 	controls.shrink = new("ButtonControl", nil, -90, 70, 140, 20, "Shrink with PoEURL", function()
 		controls.shrink.enabled = false

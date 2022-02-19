@@ -19,7 +19,6 @@ local AtlasSpecClass = newClass("AtlasSpec", "UndoHandler", function(self, build
 	self.build = build
 	self.treeVersion = treeVersion
 	self.tree = main:LoadTree(treeVersion, true)
-	print("AtlasSpecClass ")
 	-- Make a local copy of the passive tree that we can modify
 	self.nodes = { }
 	for _, treeNode in pairs(self.tree.nodes) do
@@ -31,8 +30,7 @@ local AtlasSpecClass = newClass("AtlasSpec", "UndoHandler", function(self, build
 			}, treeNode)
 		end
 	end
-	print("AtlasSpecClass : self.nodes : "..#self.nodes)
-	print("AtlasSpecClass : self.tree.nodes: "..#self.tree.nodes)
+
 	for id, node in pairs(self.nodes) do
 		for _, otherId in ipairs(node.linkedId) do
 			t_insert(node.linked, self.nodes[otherId])
@@ -64,7 +62,7 @@ local AtlasSpecClass = newClass("AtlasSpec", "UndoHandler", function(self, build
 	self.curAscendClassName = ""
 	self.curClassName = ""
 	
-	-- self:SelectClass(0)
+	self:SelectClass(0)
 end)
 
 function AtlasSpecClass:Load(xml, dbFileName)
@@ -231,13 +229,13 @@ function AtlasSpecClass:Save(xml)
 end
 
 function AtlasSpecClass:PostLoad()
-	self:BuildClusterJewelGraphs()
+	-- self:BuildClusterJewelGraphs()
 end
 
 -- Import passive spec from the provided class IDs and node hash list
 function AtlasSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, masteryEffects)
 	self:ResetNodes()
-	-- self:SelectClass(classId)
+	self:SelectClass(classId)
 	for _, id in pairs(hashList) do
 		local node = self.nodes[id]
 		if node then
@@ -254,22 +252,22 @@ function AtlasSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, mas
 			self.allocNodes[id] = node
 		end
 	end
-	wipeTable(self.masterySelections)
-	for mastery, effect in pairs(masteryEffects) do
+	-- wipeTable(self.masterySelections)
+	-- for mastery, effect in pairs(masteryEffects) do
 		-- ignore ggg codes from profile import
-		if (tonumber(effect) < 65536) then
-			self.masterySelections[mastery] = effect
-		end
-	end
-	self:SelectAscendClass(ascendClassId)
+		-- if (tonumber(effect) < 65536) then
+			-- self.masterySelections[mastery] = effect
+		-- end
+	-- end
+	-- self:SelectAscendClass(ascendClassId)
 end
 
 function AtlasSpecClass:AllocateDecodedNodes(nodes, isCluster)
 	for i = 1, #nodes - 1, 2 do
 		local id = nodes:byte(i) * 256 + nodes:byte(i + 1)
-		if isCluster then
-			id = id + 65536
-		end
+		-- if isCluster then
+			-- id = id + 65536
+		-- end
 		local node = self.nodes[id]
 		if node then
 			node.alloc = true
@@ -296,6 +294,9 @@ end
 -- Decode the given passive tree URL
 function AtlasSpecClass:DecodeURL(url)
 	local b = common.base64.decode(url:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
+-- local f = io.open('../import.txt', 'w')
+-- f:write(b)
+-- f:close()
 	if not b or #b < 6 then
 		return "Invalid tree link (unrecognised format)"
 	end
@@ -303,14 +304,14 @@ function AtlasSpecClass:DecodeURL(url)
 	if ver > 6 then
 		return "Invalid tree link (unknown version number '"..ver.."')"
 	end
-	local classId = b:byte(5)
-	local ascendClassId = (ver >= 4) and b:byte(6) or 0
-	if not self.tree.classes[classId] then
-		return "Invalid tree link (bad class ID '"..classId.."')"
-	end
+	-- local classId = b:byte(5)
+	-- local ascendClassId = (ver >= 4) and b:byte(6) or 0
+	-- if not self.tree.classes[classId] then
+		-- return "Invalid tree link (bad class ID '"..classId.."')"
+	-- end
 	self:ResetNodes()
-	self:SelectClass(classId)
-	self:SelectAscendClass(ascendClassId)
+	self:SelectClass(0)
+	-- self:SelectAscendClass(ascendClassId)
 
 	local nodesStart = ver >= 4 and 8 or 7
 	local nodesEnd = ver >= 5 and 7 + (b:byte(7) * 2) or -1
@@ -318,86 +319,92 @@ function AtlasSpecClass:DecodeURL(url)
 
 	self:AllocateDecodedNodes(nodes, false)
 
-	if ver < 5 then
-		return
-	end
+	-- if ver < 5 then
+		-- return
+	-- end
 
-	local clusterStart = nodesEnd + 1
-	local clusterEnd = clusterStart + (b:byte(clusterStart) * 2)
-	local clusterNodes = b:sub(clusterStart + 1, clusterEnd)
+	-- local clusterStart = nodesEnd + 1
+	-- local clusterEnd = clusterStart + (b:byte(clusterStart) * 2)
+	-- local clusterNodes = b:sub(clusterStart + 1, clusterEnd)
 
-	self:AllocateDecodedNodes(clusterNodes, true)
+	-- self:AllocateDecodedNodes(clusterNodes, true)
 
-	if ver < 6 then
-		return
-	end
+	-- if ver < 6 then
+		-- return
+	-- end
 
-	local masteryStart = clusterEnd + 1
-	local masteryEnd = masteryStart + (b:byte(masteryStart) * 4)
-	local masteryEffects = b:sub(masteryStart + 1, masteryEnd)
-	self:AllocateMasteryEffects(masteryEffects)
+	-- local masteryStart = clusterEnd + 1
+	-- local masteryEnd = masteryStart + (b:byte(masteryStart) * 4)
+	-- local masteryEffects = b:sub(masteryStart + 1, masteryEnd)
+	-- self:AllocateMasteryEffects(masteryEffects)
 end
 
 -- Encodes the current spec into a URL, using the official skill tree's format
 -- Prepends the URL with an optional prefix
 function AtlasSpecClass:EncodeURL(prefix)
-	local a = { 0, 0, 0, 6, self.curClassId, self.curAscendClassId }
+	-- First four could be version, the two could still class id, but they are zero on import.
+	local a = { 0, 0, 0, 6, 0, 0 }
 
 	local nodeCount = 0
 	local clusterCount = 0
 	local masteryCount = 0
 
-	local clusterNodeIds = {}
-	local masteryNodeIds = {}
-
+	-- local clusterNodeIds = {}
+	-- local masteryNodeIds = {}
 	for id, node in pairs(self.allocNodes) do
-		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and id < 65536 then
+		if not node.startNode then
+			
 			t_insert(a, m_floor(id / 256))
 			t_insert(a, id % 256)
 			nodeCount = nodeCount + 1
-			if self.masterySelections[node.id] then
-				local effect_id = self.masterySelections[node.id]
-				t_insert(masteryNodeIds, m_floor(effect_id / 256))
-				t_insert(masteryNodeIds, effect_id % 256)
-				t_insert(masteryNodeIds, m_floor(node.id / 256))
-				t_insert(masteryNodeIds, node.id % 256)
-				masteryCount = masteryCount + 1
-			end
-		elseif id >= 65536 then
-			local clusterId = id - 65536
-			t_insert(clusterNodeIds, m_floor(clusterId / 256))
-			t_insert(clusterNodeIds, clusterId % 256)
-			clusterCount = clusterCount + 1
+			-- if self.masterySelections[node.id] then
+				-- local effect_id = self.masterySelections[node.id]
+				-- t_insert(masteryNodeIds, m_floor(effect_id / 256))
+				-- t_insert(masteryNodeIds, effect_id % 256)
+				-- t_insert(masteryNodeIds, m_floor(node.id / 256))
+				-- t_insert(masteryNodeIds, node.id % 256)
+				-- masteryCount = masteryCount + 1
+			-- end
+		-- elseif id >= 65536 then
+			-- local clusterId = id - 65536
+			-- t_insert(clusterNodeIds, m_floor(clusterId / 256))
+			-- t_insert(clusterNodeIds, clusterId % 256)
+			-- clusterCount = clusterCount + 1
 		end
 	end
 	t_insert(a, 7, nodeCount)
 
+	-- The import has two trailing 0's
+	-- Testing showed that if these were missing, some exported trees failed when pasted into a browser.
 	t_insert(a, clusterCount)
-	for _, id in pairs(clusterNodeIds) do
-		t_insert(a, id)
-	end
+	-- for _, id in pairs(clusterNodeIds) do
+		-- t_insert(a, id)
+	-- end
 
 	t_insert(a, masteryCount)
-	for _, id in pairs(masteryNodeIds) do
-		t_insert(a, id)
-	end
+	-- for _, id in pairs(masteryNodeIds) do
+		-- t_insert(a, id)
+	-- end
 
+-- local f = io.open('../export.txt', 'w')
+-- f:write(string.char(unpack(a)))
+-- f:close()
 	return (prefix or "")..common.base64.encode(string.char(unpack(a))):gsub("+","-"):gsub("/","_")
 end
 
 -- Change the current class, preserving currently allocated nodes if they connect to the new class's starting node
 function AtlasSpecClass:SelectClass(classId)
-	if self.curClassId then
+	-- if self.curClassId then
 		-- Deallocate the current class's starting node
-		local oldStartNodeId = self.curClass.startNodeId
-		self.nodes[oldStartNodeId].alloc = false
-		self.allocNodes[oldStartNodeId] = nil
-	end
+		-- local oldStartNodeId = self.curClass.startNodeId
+		-- self.nodes[oldStartNodeId].alloc = false
+		-- self.allocNodes[oldStartNodeId] = nil
+	-- end
 
-	self.curClassId = classId
+	self.curClassId = 0
 	local class = self.tree.classes[classId]
-	self.curClass = class
-	self.curClassName = class.name
+	-- self.curClass = class
+	-- self.curClassName = class.name
 
 	-- Allocate the new class's starting node
 	local startNode = self.nodes[class.startNodeId]
@@ -406,33 +413,36 @@ function AtlasSpecClass:SelectClass(classId)
 
 	-- Reset the ascendancy class
 	-- This will also rebuild the node paths and dependencies
-	self:SelectAscendClass(0)
-end
-
-function AtlasSpecClass:SelectAscendClass(ascendClassId)
-	self.curAscendClassId = ascendClassId
-	local ascendClass = self.curClass.classes[ascendClassId] or self.curClass.classes[0]
-	self.curAscendClass = ascendClass
-	self.curAscendClassName = ascendClass.name
-
-	-- Deallocate any allocated ascendancy nodes that don't belong to the new ascendancy class
-	for id, node in pairs(self.allocNodes) do
-		if node.ascendancyName and node.ascendancyName ~= ascendClass.name then
-			node.alloc = false
-			self.allocNodes[id] = nil
-		end
-	end
-
-	if ascendClass.startNodeId then
-		-- Allocate the new ascendancy class's start node
-		local startNode = self.nodes[ascendClass.startNodeId]
-		startNode.alloc = true
-		self.allocNodes[startNode.id] = startNode
-	end
+	-- self:SelectAscendClass(0)
 
 	-- Rebuild all the node paths and dependencies
 	self:BuildAllDependsAndPaths()
 end
+
+-- function AtlasSpecClass:SelectAscendClass(ascendClassId)
+	-- self.curAscendClassId = ascendClassId
+	-- local ascendClass = self.curClass.classes[ascendClassId] or self.curClass.classes[0]
+	-- self.curAscendClass = ascendClass
+	-- self.curAscendClassName = ascendClass.name
+
+	-- Deallocate any allocated ascendancy nodes that don't belong to the new ascendancy class
+	-- for id, node in pairs(self.allocNodes) do
+		-- if node.ascendancyName and node.ascendancyName ~= ascendClass.name then
+			-- node.alloc = false
+			-- self.allocNodes[id] = nil
+		-- end
+	-- end
+
+	-- if ascendClass.startNodeId then
+		-- Allocate the new ascendancy class's start node
+		-- local startNode = self.nodes[ascendClass.startNodeId]
+		-- startNode.alloc = true
+		-- self.allocNodes[startNode.id] = startNode
+	-- end
+
+	-- Rebuild all the node paths and dependencies
+	-- self:BuildAllDependsAndPaths()
+-- end
 
 -- Determines if the given class's start node is connected to the current class's start node
 -- Attempts to find a path between the nodes which doesn't pass through any ascendancy nodes (i.e. Ascendant)
@@ -480,35 +490,39 @@ function AtlasSpecClass:AllocNode(node, altPath)
 	end
 
 	-- Allocate all nodes along the path
-	if node.dependsOnIntuitiveLeapLike then
-		node.alloc = true
-		self.allocNodes[node.id] = node
-	else
+	-- if node.dependsOnIntuitiveLeapLike then
+		-- node.alloc = true
+		-- self.allocNodes[node.id] = node
+	-- else
 		for _, pathNode in ipairs(altPath or node.path) do
 			pathNode.alloc = true
 			self.allocNodes[pathNode.id] = pathNode
 		end
-	end
+	-- end
 
-	if node.isMultipleChoiceOption then
+	-- if node.isMultipleChoiceOption then
 		-- For multiple choice passives, make sure no other choices are allocated
-		local parent = node.linked[1]
-		for _, optNode in ipairs(parent.linked) do
-			if optNode.isMultipleChoiceOption and optNode.alloc and optNode ~= node then
-				optNode.alloc = false
-				self.allocNodes[optNode.id] = nil
-			end
-		end
-	end
+		-- local parent = node.linked[1]
+		-- for _, optNode in ipairs(parent.linked) do
+			-- if optNode.isMultipleChoiceOption and optNode.alloc and optNode ~= node then
+				-- optNode.alloc = false
+				-- self.allocNodes[optNode.id] = nil
+			-- end
+		-- end
+	-- end
 
 	-- Rebuild all dependencies and paths for all allocated nodes
 	self:BuildAllDependsAndPaths()
 end
 
 function AtlasSpecClass:DeallocSingleNode(node)
+	if node.startNode then
+		--do not deallocate the start node
+		return
+	end
 	node.alloc = false
 	self.allocNodes[node.id] = nil
-	if node.type == "Mastery" then
+	if node.isMastery then
 		self:AddMasteryEffectOptionsToNode(node)
 		self.masterySelections[node.id] = nil
 	end
@@ -526,22 +540,13 @@ end
 
 -- Count the number of allocated nodes and allocated ascendancy nodes
 function AtlasSpecClass:CountAllocNodes()
-	local used, ascUsed, sockets = 0, 0, 0
+	local used = 0
 	for _, node in pairs(self.allocNodes) do
-		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
-			if node.ascendancyName then
-				if not node.isMultipleChoiceOption then
-					ascUsed = ascUsed + 1
-				end
-			else
-				used = used + 1
-			end
-			if node.type == "Socket" then
-				sockets = sockets + 1
-			end
+		if not node.startNode and not node.isMastery then
+			used = used + 1
 		end
 	end
-	return used, ascUsed, sockets
+	return used
 end
 
 -- Attempt to find a class start node starting from the given node
@@ -556,33 +561,31 @@ function AtlasSpecClass:FindStartFromNode(node, visited, noAscend)
 		--  - the other node is a start node, or
 		--  - there is a path to a start node through the other node which didn't pass through any nodes which have already been visited
 		local startIndex = #visited + 1
-		if other.alloc and
-		  (other.type == "ClassStart" or other.type == "AscendClassStart" or
-		    (not other.visited and node.type ~= "Mastery" and self:FindStartFromNode(other, visited, noAscend))
-		  ) then
+		if other.alloc and (other.startNode or (not other.visited and not node.isMastery and self:FindStartFromNode(other, visited, noAscend))) then
 			if node.ascendancyName and not other.ascendancyName then
 				-- Pathing out of Ascendant, un-visit the outside nodes
 				for i = startIndex, #visited do
 					visited[i].visited = false
 					visited[i] = nil
 				end
-			elseif not noAscend or other.type ~= "AscendClassStart" then
+			-- elseif not noAscend or other.type ~= "AscendClassStart" then
+			elseif not noAscend then
 				return true
 			end
 		end
 	end
 end
 
-function AtlasSpecClass:GetJewel(itemId)
-	if not itemId or itemId == 0 then
-		return
-	end
-	local item = self.build.itemsTab.items[itemId]
-	if not item or not item.jewelData then
-		return
-	end
-	return item
-end
+-- function AtlasSpecClass:GetJewel(itemId)
+	-- if not itemId or itemId == 0 then
+		-- return
+	-- end
+	-- local item = self.build.itemsTab.items[itemId]
+	-- if not item or not item.jewelData then
+		-- return
+	-- end
+	-- return item
+-- end
 
 -- Perform a breadth-first search of the tree, starting from this node, and determine if it is the closest node to any other nodes
 function AtlasSpecClass:BuildPathFromNode(root)
@@ -607,7 +610,8 @@ function AtlasSpecClass:BuildPathFromNode(root)
 			if not other.pathDist then
 				ConPrintTable(other, true)
 			end
-			if node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
+			-- if not node.isMastery and not other.startNode and other.pathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 1 and not other.ascendancyName)) then
+			if not node.isMastery and not other.startNode and other.pathDist > curDist then
 				-- The shortest path to the other node is through the current node
 				other.pathDist = curDist
 				other.path = wipeTable(other.path)
@@ -627,7 +631,7 @@ end
 -- Only allocated nodes can be traversed
 function AtlasSpecClass:SetNodeDistanceToClassStart(root)
 	root.distanceToClassStart = 0
-	if not root.alloc or root.dependsOnIntuitiveLeapLike then
+	if not root.alloc then
 		return
 	end
 
@@ -689,136 +693,137 @@ function AtlasSpecClass:BuildAllDependsAndPaths()
 	local attributes = { "Dexterity", "Intelligence", "Strength" }
 	-- Check all nodes for other nodes which depend on them (i.e. are only connected to the tree through that node)
 	for id, node in pairs(self.nodes) do
+	
 		node.depends = wipeTable(node.depends)
-		node.dependsOnIntuitiveLeapLike = false
-		node.conqueredBy = nil
+		-- node.dependsOnIntuitiveLeapLike = false
+		-- node.conqueredBy = nil
 
 		-- ignore cluster jewel nodes that don't have an id in the tree
 		if self.tree.nodes[id] then
 			self:ReplaceNode(node,self.tree.nodes[id])
 		end
 
-		if node.type ~= "ClassStart" and node.type ~= "Socket" then
-			for nodeId, itemId in pairs(self.jewels) do
-				if self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelRadiusIndex then
-					local radiusIndex = self.build.itemsTab.items[itemId].jewelRadiusIndex
-					if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
-						if itemId ~= 0 and self.build.itemsTab.items[itemId].jewelData then
-							if self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike then
+		-- if not node.startNode then
+			-- for nodeId, itemId in pairs(self.jewels) do
+				-- if self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelRadiusIndex then
+					-- local radiusIndex = self.build.itemsTab.items[itemId].jewelRadiusIndex
+					-- if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
+						-- if itemId ~= 0 and self.build.itemsTab.items[itemId].jewelData then
+							-- if self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike then
 								-- This node depends on Intuitive Leap-like behaviour
 								-- This flag:
 								-- 1. Prevents generation of paths from this node
 								-- 2. Prevents this node from being deallocted via dependancy
 								-- 3. Prevents allocation of path nodes when this node is being allocated
-								node.dependsOnIntuitiveLeapLike = true
-							end
-							if self.build.itemsTab.items[itemId].jewelData.conqueredBy then
-								node.conqueredBy = self.build.itemsTab.items[itemId].jewelData.conqueredBy
-							end
-						end
-					end
-				end
-			end
-		end
+								-- node.dependsOnIntuitiveLeapLike = true
+							-- end
+							-- if self.build.itemsTab.items[itemId].jewelData.conqueredBy then
+								-- node.conqueredBy = self.build.itemsTab.items[itemId].jewelData.conqueredBy
+							-- end
+						-- end
+					-- end
+				-- end
+			-- end
+		-- end
 		if node.alloc then
 			node.depends[1] = node -- All nodes depend on themselves
 		end
 	end
 
-	for id, node in pairs(self.nodes) do
+	-- for id, node in pairs(self.nodes) do
 		-- If node is conquered, replace it or add mods
-		if node.conqueredBy and node.type ~= "Socket" then
-			local conqueredBy = node.conqueredBy
-			local legionNodes = self.tree.legion.nodes
+		-- if node.conqueredBy and node.type ~= "Socket" then
+			-- local conqueredBy = node.conqueredBy
+			-- local legionNodes = self.tree.legion.nodes
 
 			-- Replace with edited node if applicable
-			if self.tree.legion.editedNodes and self.tree.legion.editedNodes[conqueredBy.id] and self.tree.legion.editedNodes[conqueredBy.id][node.id] then
-				local editedNode = self.tree.legion.editedNodes[conqueredBy.id][node.id]
-				node.dn = editedNode.dn
-				node.sd = editedNode.sd
-				node.sprites = editedNode.sprites
-				node.mods = editedNode.mods
-				node.modList = editedNode.modList
-				node.modKey = editedNode.modKey
-				node.icon = editedNode.icon
-				node.spriteId = editedNode.spriteId
-			else
-				if node.type == "Keystone" then
-					local legionNode = legionNodes[conqueredBy.conqueror.type.."_keystone_"..conqueredBy.conqueror.id]
-					self:ReplaceNode(node, legionNode)
-				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Normal"  then
-					local legionNode = legionNodes["eternal_small_blank"]
-					self:ReplaceNode(node,legionNode)
-				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Notable"  then
-					local legionNode = legionNodes["eternal_notable_fire_resistance_1"]
-					node.dn = "Eternal Empire notable node"
-					node.sd = {"Right click to set mod"}
-					node.sprites = legionNode.sprites
-					node.mods = {""}
-					node.modList = new("ModList")
-					node.modKey = ""
-					node.reminderText = { }
-				elseif conqueredBy.conqueror.type == "templar" then
-					if isValueInArray(attributes, node.dn) then
-						local legionNode =legionNodes["templar_devotion_node"]
-						self:ReplaceNode(node,legionNode)
-					else
-						self:NodeAdditionOrReplacementFromString(node,"+5 to Devotion")
-					end
-				elseif conqueredBy.conqueror.type == "maraketh" and node.type == "Normal" then
-					local dex = isValueInArray(attributes, node.dn) and "2" or "4"
-					self:NodeAdditionOrReplacementFromString(node,"+"..dex.." to Dexterity")
-				elseif conqueredBy.conqueror.type == "karui" and node.type == "Normal" then
-					local str = isValueInArray(attributes, node.dn) and "2" or "4"
-					self:NodeAdditionOrReplacementFromString(node,"+"..str.." to Strength")
-				elseif conqueredBy.conqueror.type == "vaal" and node.type == "Normal" then
-					local legionNode =legionNodes["vaal_small_fire_resistance"]
-					node.dn = "Vaal small node"
-					node.sd = {"Right click to set mod"}
-					node.sprites = legionNode.sprites
-					node.mods = {""}
-					node.modList = new("ModList")
-					node.modKey = ""
-				elseif conqueredBy.conqueror.type == "vaal" and node.type == "Notable" then
-					local legionNode =legionNodes["vaal_notable_curse_1"]
-					node.dn = "Vaal notable node"
-					node.sd = {"Right click to set mod"}
-					node.sprites = legionNode.sprites
-					node.mods = {""}
-					node.modList = new("ModList")
-					node.modKey = ""
-					node.reminderText = { }
-				end
-				self:ReconnectNodeToClassStart(node)
-			end
-		end
-	end
+			-- if self.tree.legion.editedNodes and self.tree.legion.editedNodes[conqueredBy.id] and self.tree.legion.editedNodes[conqueredBy.id][node.id] then
+				-- local editedNode = self.tree.legion.editedNodes[conqueredBy.id][node.id]
+				-- node.dn = editedNode.dn
+				-- node.sd = editedNode.sd
+				-- node.sprites = editedNode.sprites
+				-- node.mods = editedNode.mods
+				-- node.modList = editedNode.modList
+				-- node.modKey = editedNode.modKey
+				-- node.icon = editedNode.icon
+				-- node.spriteId = editedNode.spriteId
+			-- else
+				-- if node.type == "Keystone" then
+					-- local legionNode = legionNodes[conqueredBy.conqueror.type.."_keystone_"..conqueredBy.conqueror.id]
+					-- self:ReplaceNode(node, legionNode)
+				-- elseif conqueredBy.conqueror.type == "eternal" and node.type == "Normal"  then
+					-- local legionNode = legionNodes["eternal_small_blank"]
+					-- self:ReplaceNode(node,legionNode)
+				-- elseif conqueredBy.conqueror.type == "eternal" and node.type == "Notable"  then
+					-- local legionNode = legionNodes["eternal_notable_fire_resistance_1"]
+					-- node.dn = "Eternal Empire notable node"
+					-- node.sd = {"Right click to set mod"}
+					-- node.sprites = legionNode.sprites
+					-- node.mods = {""}
+					-- node.modList = new("ModList")
+					-- node.modKey = ""
+					-- node.reminderText = { }
+				-- elseif conqueredBy.conqueror.type == "templar" then
+					-- if isValueInArray(attributes, node.dn) then
+						-- local legionNode =legionNodes["templar_devotion_node"]
+						-- self:ReplaceNode(node,legionNode)
+					-- else
+						-- self:NodeAdditionOrReplacementFromString(node,"+5 to Devotion")
+					-- end
+				-- elseif conqueredBy.conqueror.type == "maraketh" and node.type == "Normal" then
+					-- local dex = isValueInArray(attributes, node.dn) and "2" or "4"
+					-- self:NodeAdditionOrReplacementFromString(node,"+"..dex.." to Dexterity")
+				-- elseif conqueredBy.conqueror.type == "karui" and node.type == "Normal" then
+					-- local str = isValueInArray(attributes, node.dn) and "2" or "4"
+					-- self:NodeAdditionOrReplacementFromString(node,"+"..str.." to Strength")
+				-- elseif conqueredBy.conqueror.type == "vaal" and node.type == "Normal" then
+					-- local legionNode =legionNodes["vaal_small_fire_resistance"]
+					-- node.dn = "Vaal small node"
+					-- node.sd = {"Right click to set mod"}
+					-- node.sprites = legionNode.sprites
+					-- node.mods = {""}
+					-- node.modList = new("ModList")
+					-- node.modKey = ""
+				-- elseif conqueredBy.conqueror.type == "vaal" and node.type == "Notable" then
+					-- local legionNode =legionNodes["vaal_notable_curse_1"]
+					-- node.dn = "Vaal notable node"
+					-- node.sd = {"Right click to set mod"}
+					-- node.sprites = legionNode.sprites
+					-- node.mods = {""}
+					-- node.modList = new("ModList")
+					-- node.modKey = ""
+					-- node.reminderText = { }
+				-- end
+				-- self:ReconnectNodeToClassStart(node)
+			-- end
+		-- end
+	-- end
 
 	-- Add selected mastery effect mods to mastery nodes
 	self.allocatedMasteryCount = 0
 	self.allocatedNotableCount = 0
-	for id, node in pairs(self.nodes) do
-		if node.type == "Mastery" and self.masterySelections[id] then
-			local effect = self.tree.masteryEffects[self.masterySelections[id]]
-			node.sd = effect.sd
-			node.allMasteryOptions = false
-			node.reminderText = { "Tip: Right click to select a different effect" }
-			self.tree:ProcessStats(node)
-			self.allocatedMasteryCount = self.allocatedMasteryCount + 1
-		elseif node.type == "Mastery" then
-			self:AddMasteryEffectOptionsToNode(node)
-		elseif node.type == "Notable" then
-			self.allocatedNotableCount = self.allocatedNotableCount + 1
-		end
-	end
+	-- for id, node in pairs(self.nodes) do
+		-- if node.isMastery and self.masterySelections[id] then
+			-- local effect = self.tree.masteryEffects[self.masterySelections[id]]
+			-- node.sd = effect.sd
+			-- node.allMasteryOptions = false
+			-- node.reminderText = { "Tip: Right click to select a different effect" }
+			-- self.tree:ProcessStats(node)
+			-- self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+		-- elseif node.type == "Mastery" then
+			-- self:AddMasteryEffectOptionsToNode(node)
+		-- elseif node.type == "Notable" then
+			-- self.allocatedNotableCount = self.allocatedNotableCount + 1
+		-- end
+	-- end
 
 	for id, node in pairs(self.allocNodes) do
 		node.visited = true
-		local anyStartFound = (node.type == "ClassStart" or node.type == "AscendClassStart")
+		local anyStartFound = node.startNode
 		for _, other in ipairs(node.linked) do
 			if other.alloc and not isValueInArray(node.depends, other) then
 				-- The other node is allocated and isn't already dependent on this node, so try and find a path to a start node through it
-				if other.type == "ClassStart" or other.type == "AscendClassStart" then
+				if other.startNode then
 					-- Well that was easy!
 					anyStartFound = true
 				elseif self:FindStartFromNode(other, visited) then
@@ -833,13 +838,13 @@ function AtlasSpecClass:BuildAllDependsAndPaths()
 					-- except for mastery nodes that have linked allocated nodes that weren't visited
 					local depIds = { }
 					for _, n in ipairs(visited) do
-						if not n.dependsOnIntuitiveLeapLike then
+						-- if not n.dependsOnIntuitiveLeapLike then
 							depIds[n.id] = true
-						end
+						-- end
 					end
 					for i, n in ipairs(visited) do
-						if not n.dependsOnIntuitiveLeapLike then
-							if n.type == "Mastery" then
+						-- if not n.dependsOnIntuitiveLeapLike then
+							if n.isMastery then
 								local otherPath = false
 								local allocatedLinkCount = 0
 								for _, linkedNode in ipairs(n.linked) do
@@ -860,7 +865,7 @@ function AtlasSpecClass:BuildAllDependsAndPaths()
 							else
 								t_insert(node.depends, n)
 							end
-						end
+						-- end
 						n.visited = false
 						visited[i] = nil
 					end
@@ -902,19 +907,19 @@ function AtlasSpecClass:BuildAllDependsAndPaths()
 
 	-- Reset and rebuild all node paths
 	for id, node in pairs(self.nodes) do
-		node.pathDist = (node.alloc and not node.dependsOnIntuitiveLeapLike) and 0 or 1000
+		node.pathDist = node.alloc and 0 or 1000
 		node.path = nil
 		if node.isJewelSocket or node.expansionJewel then
 			node.distanceToClassStart = 0
 		end
 	end
 	for id, node in pairs(self.allocNodes) do
-		if not node.dependsOnIntuitiveLeapLike then
+		-- if not node.dependsOnIntuitiveLeapLike then
 			self:BuildPathFromNode(node)
-			if node.isJewelSocket or node.expansionJewel then
-				self:SetNodeDistanceToClassStart(node)
-			end
-		end
+			-- if node.isJewelSocket or node.expansionJewel then
+				-- self:SetNodeDistanceToClassStart(node)
+			-- end
+		-- end
 	end
 end
 
@@ -1360,14 +1365,14 @@ function AtlasSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importedN
 	end
 
 	-- Perform processing on nodes to calculate positions, parse mods, and other goodies
-	for _, node in ipairs(subGraph.nodes) do
-		node.linked = { }
-		node.power = { }
-		self.tree:ProcessNode(node)
-		if node.modList and jewelData.clusterJewelIncEffect and node.type == "Normal" then
-			node.modList:NewMod("PassiveSkillEffect", "INC", jewelData.clusterJewelIncEffect)
-		end
-	end
+	-- for _, node in ipairs(subGraph.nodes) do
+		-- node.linked = { }
+		-- node.power = { }
+		-- self.tree:ProcessNode(node)
+		-- if node.modList and jewelData.clusterJewelIncEffect and node.type == "Normal" then
+			-- node.modList:NewMod("PassiveSkillEffect", "INC", jewelData.clusterJewelIncEffect)
+		-- end
+	-- end
 
 	-- Generate connectors
 	local firstNode, lastNode
@@ -1390,19 +1395,19 @@ function AtlasSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importedN
 	linkNodes(subGraph.entranceNode, parentSocket)
 
 	-- Add synthetic nodes to the main node list
-	for _, node in ipairs(subGraph.nodes) do
-		self.nodes[node.id] = node
-		if addToAllocatedSubgraphNodes(node) then
-			t_insert(self.allocSubgraphNodes, node.id)
-		end
-		if node.type == "Socket" then
+	-- for _, node in ipairs(subGraph.nodes) do
+		-- self.nodes[node.id] = node
+		-- if addToAllocatedSubgraphNodes(node) then
+			-- t_insert(self.allocSubgraphNodes, node.id)
+		-- end
+		-- if node.type == "Socket" then
 			-- Recurse to smaller jewels
-			local jewel = self:GetJewel(self.jewels[node.id])
-			if jewel and jewel.jewelData.clusterJewelValid then
-				self:BuildSubgraph(jewel, node, id, upSize, importedNodes, importedGroups)
-			end
-		end
-	end
+			-- local jewel = self:GetJewel(self.jewels[node.id])
+			-- if jewel and jewel.jewelData.clusterJewelValid then
+				-- self:BuildSubgraph(jewel, node, id, upSize, importedNodes, importedGroups)
+			-- end
+		-- end
+	-- end
 
 	--ConPrintTable(subGraph)
 end

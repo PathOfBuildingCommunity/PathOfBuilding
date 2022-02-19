@@ -154,8 +154,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 
 	-- Controls: top bar, right side
 	self.anchorTopBarRight = new("Control", nil, function() return main.screenW / 2 + 6 end, 4, 0, 20)
-	self.controls.pointDisplay = new("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, -12, 0, 0, 20)
-	self.controls.pointDisplay.x = function(control)
+	self.controls.passivePointDisplay = new("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, -12, 0, 0, 20)
+	self.controls.passivePointDisplay.x = function(control)
 		local width, height = control:GetSize()
 		if self.controls.saveAs:GetPos() + self.controls.saveAs:GetSize() < self.anchorTopBarRight:GetPos() - width - 16 then
 			return -12 - width
@@ -163,14 +163,14 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			return 0
 		end
 	end
-	self.controls.pointDisplay.width = function(control)
+	self.controls.passivePointDisplay.width = function(control)
 		local PointsUsed, AscUsed = self.spec:CountAllocNodes()
-		local bandit = self.calcsTab.mainOutput.ExtraPoints or 0 
+		local bandit = self.calcsTab.mainOutput.ExtraPoints or 0
 		local usedMax, ascMax, levelreq, currentAct, banditStr, labSuggest = 99 + 22 + bandit, 8, 1, 1, "", ""
-		local acts = { 
-			[1] = { level = 1, questPoints = 0 }, 
-			[2] = { level = 12, questPoints = 2 }, 
-			[3] = { level = 22, questPoints = 3 + bandit }, 
+		local acts = {
+			[1] = { level = 1, questPoints = 0 },
+			[2] = { level = 12, questPoints = 2 },
+			[3] = { level = 22, questPoints = 3 + bandit },
 			[4] = { level = 32, questPoints = 5 + bandit },
 			[5] = { level = 40, questPoints = 6 + bandit },
 			[6] = { level = 44, questPoints = 8 + bandit },
@@ -180,7 +180,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			[10] = { level = 64, questPoints = 19 + bandit },
 			[11] = { level = 67, questPoints = 22 + bandit }
 		}
-				
+
 		-- loop for how much quest skillpoints are used with the progress
 		while currentAct < 11 and PointsUsed + 1 - acts[currentAct].questPoints > acts[currentAct + 1].level do
 			currentAct = currentAct + 1
@@ -190,10 +190,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		if currentAct <= 2 and bandit ~= 0 then
 			bandit = 0
 		end
-		
-		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until catched up with quest skillpoints 
+
+		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until catched up with quest skillpoints
 		levelreq = math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level)
-		
+
 		-- Ascendency points for lab
 		-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
 		local labstr = {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
@@ -203,32 +203,71 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		elseif levelreq >= 68 and levelreq < 75 then labSuggest = labstr[3]
 		elseif levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4] end
 		if levelreq < 90 and currentAct <= 10 then strAct = currentAct end
-		
+
 		control.str = string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax)
 		control.req = "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - bandit .. "\nBandits Skillpoints: " .. bandit .. labSuggest
-		
+
 		if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
 		if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
 		return DrawStringWidth(16, "FIXED", control.str) + 8
 	end
-	self.controls.pointDisplay.Draw = function(control)
-		local x, y = control:GetPos()
-		local width, height = control:GetSize()
-		SetDrawColor(1, 1, 1)
-		DrawImage(nil, x, y, width, height)
-		SetDrawColor(0, 0, 0)
-		DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
-		SetDrawColor(1, 1, 1)
-		DrawString(x + 4, y + 2, "LEFT", 16, "FIXED", control.str)
-		if control:IsMouseInBounds() then
-			SetDrawLayer(nil, 10)
-			miscTooltip:Clear()
-			miscTooltip:AddLine(16, control.req)
-			miscTooltip:Draw(x, y, width, height, main.viewPort)
-			SetDrawLayer(nil, 0)
+	self.controls.passivePointDisplay.Draw = function(control)
+		if self.viewMode ~= "ATLAS" then
+			local x, y = control:GetPos()
+			local width, height = control:GetSize()
+			SetDrawColor(1, 1, 1)
+			DrawImage(nil, x, y, width, height)
+			SetDrawColor(0, 0, 0)
+			DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+			SetDrawColor(1, 1, 1)
+			DrawString(x + 4, y + 2, "LEFT", 16, "FIXED", control.str)
+			if control:IsMouseInBounds() then
+				SetDrawLayer(nil, 10)
+				miscTooltip:Clear()
+				miscTooltip:AddLine(16, control.req)
+				miscTooltip:Draw(x, y, width, height, main.viewPort)
+				SetDrawLayer(nil, 0)
+			end
 		end
 	end
-	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
+		-- atlasPointDisplay sits over the top of passivePointDisplay
+	self.controls.atlasPointDisplay = new("Control", {"LEFT",self.anchorTopBarRight,"RIGHT"}, -120, 0, 10, 20)
+	self.controls.atlasPointDisplay.x = function(control)
+		local width, height = control:GetSize()
+		if self.controls.saveAs:GetPos() + self.controls.saveAs:GetSize() < self.anchorTopBarRight:GetPos() - width - 16 then
+			return -12 - width
+		else
+			return 0
+		end
+	end
+	self.controls.atlasPointDisplay.width = function(control)
+		local PointsUsed = self.atlasSpec:CountAllocNodes()
+		local usedMax = self.atlasSpec.tree.points.totalPoints + 4 -- 4 voidstones
+		-- local usedMax = 128
+		control.str = string.format("%s%3d / %3d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax)
+		return DrawStringWidth(16, "FIXED", control.str) + 8
+	end
+	self.controls.atlasPointDisplay.Draw = function(control)
+		if self.viewMode == "ATLAS" then
+			local x, y = control:GetPos()
+			local width, height = control:GetSize()
+			SetDrawColor(1, 1, 1)
+			DrawImage(nil, x, y, width, height)
+			SetDrawColor(0, 0, 0)
+			DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+			SetDrawColor(1, 1, 1)
+			DrawString(x + 4, y + 2, "LEFT", 16, "FIXED", control.str)
+			--no tooltip yet
+			-- if control:IsMouseInBounds() then
+				-- SetDrawLayer(nil, 10)
+				-- miscTooltip:Clear()
+				-- miscTooltip:AddLine(16, control.req)
+				-- miscTooltip:Draw(x, y, width, height, main.viewPort)
+				-- SetDrawLayer(nil, 0)
+			-- end
+		end
+	end
+	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.passivePointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
 		self.characterLevel = m_min(tonumber(buf) or 1, 100)
 		self.modFlag = true
 		self.buildFlag = true
@@ -252,7 +291,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 				end
 				if mult > 0.01 then
 					local line = level
-					if level >= 68 then 
+					if level >= 68 then
 						line = line .. string.format(" (Tier %d)", level - 67)
 					end
 					line = line .. string.format(": %.1f%%", mult * 100)
@@ -273,7 +312,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 					self.spec:SelectClass(value.classId)
 					self.spec:AddUndoState()
 					self.spec:SetWindowTitleWithBuildClass()
-					self.buildFlag = true					
+					self.buildFlag = true
 				end)
 			end
 		end
@@ -321,7 +360,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
 		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
-		{ stat = "TotalDotDPS", label = "Total DoT DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDot and v ~= o.ImpaleDPS and v ~= o.TotalPoisonDPS and v ~= (o.TotalIgniteDPS or o.IgniteDPS) and v ~= o.BleedDPS end }, 
+		{ stat = "TotalDotDPS", label = "Total DoT DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDot and v ~= o.ImpaleDPS and v ~= o.TotalPoisonDPS and v ~= (o.TotalIgniteDPS or o.IgniteDPS) and v ~= o.BleedDPS end },
 		{ stat = "ImpaleDPS", label = "Impale Damage", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage" },
 		{ stat = "WithImpaleDPS", label = "Damage inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end  },
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
@@ -814,7 +853,7 @@ function buildMode:Shutdown()
 	if launch.devMode and self.targetVersion and not self.abortSave then
 		if self.dbFileName then
 			self:SaveDBFile()
-		elseif self.unsaved then		
+		elseif self.unsaved then
 			self.dbFileName = main.buildPath.."~~temp~~.xml"
 			self.buildName = "~~temp~~"
 			self.dbFileSubPath = ""
@@ -1172,7 +1211,7 @@ function buildMode:OpenSpectreLibrary()
 	for id in pairs(self.data.spectres) do
 		t_insert(sourceList, id)
 	end
-	table.sort(sourceList, function(a,b) 
+	table.sort(sourceList, function(a,b)
 		if self.data.minions[a].name == self.data.minions[b].name then
 			return a < b
 		else
@@ -1366,15 +1405,15 @@ function buildMode:AddDisplayStatList(statList, actor)
 						})
 					end
 				end
-				if statData.warnFunc and statVal and ((statData.condFunc and statData.condFunc(statVal, actor.output)) or not statData.condFunc) then 
+				if statData.warnFunc and statVal and ((statData.condFunc and statData.condFunc(statVal, actor.output)) or not statData.condFunc) then
 					local v = statData.warnFunc(statVal)
 					if v then
 						InsertIfNew(self.controls.warnings.lines, v)
 					end
 				end
 			elseif statData.label and statData.condFunc and statData.condFunc(actor.output) then
-				t_insert(statBoxList, { 
-					height = 16, labelColor..statData.label..":", 
+				t_insert(statBoxList, {
+					height = 16, labelColor..statData.label..":",
 					"^7"..actor.output[statData.labelStat].."%^x808080" .. " (" .. statData.val  .. ")",})
 			elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
 				t_insert(statBoxList, { height = 6 })
@@ -1489,7 +1528,7 @@ do
 			if omni and (omni > 0 or omni > self.calcsTab.mainOutput.Omni) then
 				t_insert(req, s_format("%s%d ^x7F7F7FOmni", main:StatColor(omni, 0, self.calcsTab.mainOutput.Omni), omni))
 			end
-		else 
+		else
 			if str and (str >= 14 or str > self.calcsTab.mainOutput.Str) then
 				t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
 			end
@@ -1499,11 +1538,11 @@ do
 			if int and (int >= 14 or int > self.calcsTab.mainOutput.Int) then
 				t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
 			end
-		end	
+		end
 		if req[1] then
 			tooltip:AddLine(16, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "))
 			tooltip:AddSeparator(10)
-		end	
+		end
 		wipeTable(req)
 	end
 end

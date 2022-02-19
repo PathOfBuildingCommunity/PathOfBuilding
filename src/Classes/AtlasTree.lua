@@ -29,8 +29,13 @@ local classArt = {
 }
 
 local start_nodes = { 
-	[ "3_17" ] = { 29045 }
+	[ "3_17" ] = 29045
 	}
+
+	local classTemplate = {
+		name = "Atlas",
+		startNodeId = 0
+		}
 
 -- Retrieve the file at the given URL
 local function getFile(URL)
@@ -48,13 +53,13 @@ end
 
 local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
-	local versionNum = treeVersions[treeVersion].num
+	local versionNum = atlasTreeVersions[treeVersion].num
 
 	-- self.legion = LoadModule("Data/LegionPassives")
 
 	MakeDir("TreeData")
 
-	ConPrintf("Loading Atlas tree data for version '%s'...", treeVersions[treeVersion].display)
+	ConPrintf("Loading Atlas tree data for version '%s'...", atlasTreeVersions[treeVersion].display)
 	local treeText
 	local treeFile = io.open("TreeData/"..treeVersion.."/atlas/tree.lua", "r")
 	if treeFile then
@@ -88,6 +93,15 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 
 	self.size = m_min(self.max_x - self.min_x, self.max_y - self.min_y) * 1.1
 
+	self.classes = {
+		[0] = {
+			name = "Atlas",
+			startNodeId = start_nodes[treeVersion]
+			}
+		}
+	self.nodes[start_nodes[treeVersion]].startNode = true
+	-- self.nodes[start_nodes[treeVersion]].alloc = true
+
 	-- if versionNum >= 3.10 then
 		-- Migrate to old format
 		-- for i = 0, 6 do
@@ -97,15 +111,15 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 	-- end
 
 	-- Build maps of class name -> class table
-	-- self.classNameMap = { }
+	self.classNameMap = { }
 	-- self.ascendNameMap = { }
-	-- for classId, class in pairs(self.classes) do
+	for classId, class in pairs(self.classes) do
 		-- if versionNum >= 3.10 then
 			-- Migrate to old format
 			-- class.classes = class.ascendancies
 		-- end
 		-- class.classes[0] = { name = "None" }
-		-- self.classNameMap[class.name] = classId
+		self.classNameMap[class.name] = classId
 		-- for ascendClassId, ascendClass in pairs(class.classes) do
 			-- self.ascendNameMap[ascendClass.name] = {
 				-- classId = classId,
@@ -114,7 +128,7 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 				-- ascendClass = ascendClass
 			-- }
 		-- end
-	-- end
+	end
 
 	self.skillsPerOrbit = self.constants.skillsPerOrbit
 	self.orbitRadii = self.constants.orbitRadii
@@ -125,7 +139,6 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
-		print("assets "..name)
 		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)
 	end
 
@@ -190,21 +203,21 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 			alloc = "PSSkillFrameActive",
 			path = "PSSkillFrameHighlighted",
 			unalloc = "PSSkillFrame",
-			allocAscend = versionNum >= 3.10 and "AscendancyFrameSmallAllocated" or "PassiveSkillScreenAscendancyFrameSmallAllocated",
-			pathAscend = versionNum >= 3.10 and "AscendancyFrameSmallCanAllocate" or "PassiveSkillScreenAscendancyFrameSmallCanAllocate",
-			unallocAscend = versionNum >= 3.10 and "AscendancyFrameSmallNormal" or "PassiveSkillScreenAscendancyFrameSmallNormal"
+			-- allocAscend = versionNum >= 3.10 and "AscendancyFrameSmallAllocated" or "PassiveSkillScreenAscendancyFrameSmallAllocated",
+			-- pathAscend = versionNum >= 3.10 and "AscendancyFrameSmallCanAllocate" or "PassiveSkillScreenAscendancyFrameSmallCanAllocate",
+			-- unallocAscend = versionNum >= 3.10 and "AscendancyFrameSmallNormal" or "PassiveSkillScreenAscendancyFrameSmallNormal"
 		},
 		Notable = {
 			artWidth = 58,
 			alloc = "NotableFrameAllocated",
 			path = "NotableFrameCanAllocate",
 			unalloc = "NotableFrameUnallocated",
-			allocAscend = versionNum >= 3.10 and "AscendancyFrameLargeAllocated" or "PassiveSkillScreenAscendancyFrameLargeAllocated",
-			pathAscend = versionNum >= 3.10 and "AscendancyFrameLargeCanAllocate" or "PassiveSkillScreenAscendancyFrameLargeCanAllocate",
-			unallocAscend = versionNum >= 3.10 and "AscendancyFrameLargeNormal" or "PassiveSkillScreenAscendancyFrameLargeNormal",
-			allocBlighted = "BlightedNotableFrameAllocated",
-			pathBlighted = "BlightedNotableFrameCanAllocate",
-			unallocBlighted = "BlightedNotableFrameUnallocated",
+			-- allocAscend = versionNum >= 3.10 and "AscendancyFrameLargeAllocated" or "PassiveSkillScreenAscendancyFrameLargeAllocated",
+			-- pathAscend = versionNum >= 3.10 and "AscendancyFrameLargeCanAllocate" or "PassiveSkillScreenAscendancyFrameLargeCanAllocate",
+			-- unallocAscend = versionNum >= 3.10 and "AscendancyFrameLargeNormal" or "PassiveSkillScreenAscendancyFrameLargeNormal",
+			-- allocBlighted = "BlightedNotableFrameAllocated",
+			-- pathBlighted = "BlightedNotableFrameCanAllocate",
+			-- unallocBlighted = "BlightedNotableFrameUnallocated",
 		},
 		Keystone = {
 			artWidth = 84,
@@ -212,15 +225,15 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 			path = "KeystoneFrameCanAllocate",
 			unalloc = "KeystoneFrameUnallocated"
 		},
-		Socket = {
-			artWidth = 58,
-			alloc = "JewelFrameAllocated",
-			path = "JewelFrameCanAllocate",
-			unalloc = "JewelFrameUnallocated",
-			allocAlt = "JewelSocketAltActive",
-			pathAlt = "JewelSocketAltCanAllocate",
-			unallocAlt = "JewelSocketAltNormal",
-		},
+		-- Socket = {
+			-- artWidth = 58,
+			-- alloc = "JewelFrameAllocated",
+			-- path = "JewelFrameCanAllocate",
+			-- unalloc = "JewelFrameUnallocated",
+			-- allocAlt = "JewelSocketAltActive",
+			-- pathAlt = "JewelSocketAltCanAllocate",
+			-- unallocAlt = "JewelSocketAltNormal",
+		-- },
 		Mastery = {
 			artWidth = 65,
 			alloc = "AscendancyFrameLargeAllocated",
@@ -295,6 +308,8 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 			elseif node.g then
 				self.notableMap[node.dn:lower()] = node
 			end
+		elseif node.isMastery then
+			node.type = "Mastery"
 		else
 			node.type = "Normal"
 		end
@@ -310,13 +325,14 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 		self:ProcessNode(node)
 	end
 
-	if versionNum == 3.17 then
+	-- if versionNum == 3.17 then
 		-- Add start nodes
-		for _, startNodeId in pairs(start_nodes[self.treeVersion]) do
-			self.nodes[startNodeId].startNode = true
-		end
+		-- for _, startNodeId in pairs(start_nodes[self.treeVersion]) do
+			-- self.nodes[startNodeId].startNode = true
+			-- self.nodes[startNodeId].alloc = true
+		-- end
 	-- elseif versionNum == 3.18 then
-	end
+	-- end
 
 	-- Pregenerate the polygons for the node connector lines
 	self.connectors = { }
@@ -327,6 +343,8 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 			end
 			local other = nodeMap[otherId]
 			t_insert(node.linkedId, otherId)
+				--Mastery nodes are not allocatable
+			if not node.isMastery then
 			-- if node.type ~= "ClassStart" and other.type ~= "ClassStart"
 				-- and node.type ~= "Mastery" and other.type ~= "Mastery"
 				-- and node.ascendancyName == other.ascendancyName
@@ -337,7 +355,7 @@ local AtlasTreeClass = newClass("AtlasTree", function(self, treeVersion)
 					if connectors[2] then
 						t_insert(self.connectors, connectors[2])
 					end
-			-- end
+			end
 		end
 		for _, otherId in pairs(node["in"] or {}) do
 			if type(otherId) == "string" then
@@ -484,11 +502,11 @@ end
 function AtlasTreeClass:ProcessNode(node)
 	-- Assign node artwork assets
 	node.sprites = self.spriteMap[node.icon]
-	if not node.sprites then
-		print("ProcessNode : No Sprite : "..node.name.." ("..node.id..")")
+	-- if not node.sprites then
+		-- print("ProcessNode : No Sprite : "..node.name.." ("..node.id..")")
 		--error("missing sprite "..node.icon)
-		node.sprites = self.assets["AtlasPassiveSkillScreenStart"]
-	end
+		-- node.sprites = self.assets["AtlasPassiveSkillScreenStart"]
+	-- end
 	node.overlay = self.nodeOverlay[node.type]
 	if node.overlay then
 		node.rsq = node.overlay.rsq

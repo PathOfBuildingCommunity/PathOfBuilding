@@ -51,10 +51,10 @@ local AtlasTreeViewClass = newClass("AtlasTreeView", function(self)
 
 	self.tooltip = new("Tooltip")
 
-	self.zoomLevel = 3
+	self.zoomLevel = 1
 	self.zoom = 1.2 ^ self.zoomLevel
 	self.zoomX = 0
-	self.zoomY = 0
+	self.zoomY = 400
 
 	self.searchStr = ""
 	self.searchStrCached = ""
@@ -63,36 +63,36 @@ local AtlasTreeViewClass = newClass("AtlasTreeView", function(self)
 	self.hoverNode = nil
 end)
 
--- function AtlasTreeViewClass:Load(xml, fileName)
-	-- if xml.attrib.zoomLevel then
-		-- self.zoomLevel = tonumber(xml.attrib.zoomLevel)
-		-- self.zoom = 1.2 ^ self.zoomLevel
-	-- end
-	-- if xml.attrib.zoomX and xml.attrib.zoomY then
-		-- self.zoomX = tonumber(xml.attrib.zoomX)
-		-- self.zoomY = tonumber(xml.attrib.zoomY)
-	-- end
-	-- if xml.attrib.searchStr then
-		-- self.searchStr = xml.attrib.searchStr
-	-- end
+function AtlasTreeViewClass:Load(xml, fileName)
+	if xml.attrib.zoomLevel then
+		self.zoomLevel = tonumber(xml.attrib.zoomLevel)
+		self.zoom = 1.2 ^ self.zoomLevel
+	end
+	if xml.attrib.zoomX and xml.attrib.zoomY then
+		self.zoomX = tonumber(xml.attrib.zoomX)
+		self.zoomY = tonumber(xml.attrib.zoomY)
+	end
+	if xml.attrib.searchStr then
+		self.searchStr = xml.attrib.searchStr
+	end
 	-- if xml.attrib.showHeatMap then
 		-- self.showHeatMap = xml.attrib.showHeatMap == "true"
 	-- end
-	-- if xml.attrib.showStatDifferences then
-		-- self.showStatDifferences = xml.attrib.showStatDifferences == "true"
-	-- end
--- end
+	if xml.attrib.showStatDifferences then
+		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
+	end
+end
 
--- function AtlasTreeViewClass:Save(xml)
-	-- xml.attrib = {
-		-- zoomLevel = tostring(self.zoomLevel),
-		-- zoomX = tostring(self.zoomX),
-		-- zoomY = tostring(self.zoomY),
-		-- searchStr = self.searchStr,
+function AtlasTreeViewClass:Save(xml)
+	xml.attrib = {
+		zoomLevel = tostring(self.zoomLevel),
+		zoomX = tostring(self.zoomX),
+		zoomY = tostring(self.zoomY),
+		searchStr = self.searchStr,
 		-- showHeatMap = tostring(self.showHeatMap),
-		-- showStatDifferences = tostring(self.showStatDifferences),
-	-- }
--- end
+		showStatDifferences = tostring(self.showStatDifferences),
+	}
+end
 
 function AtlasTreeViewClass:Draw(build, viewPort, inputEvents)
 	local spec = build.atlasSpec
@@ -209,7 +209,6 @@ function AtlasTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 		end
 	end
-
 	self.hoverNode = hoverNode
 	-- If hovering over a node, find the path to it (if unallocated) or the list of dependent nodes (if allocated)
 	local hoverPath, hoverDep
@@ -234,7 +233,7 @@ function AtlasTreeViewClass:Draw(build, viewPort, inputEvents)
 							-- Node is already in the trace path, remove it first
 							t_remove(self.tracePath, index)
 							t_insert(self.tracePath, hoverNode)
-						elseif lastPathNode.type == "Mastery" then
+						elseif lastPathNode.isMastery then
 							hoverNode = nil
 						else
 							t_insert(self.tracePath, hoverNode)
@@ -253,11 +252,11 @@ function AtlasTreeViewClass:Draw(build, viewPort, inputEvents)
 	elseif hoverNode and hoverNode.path then
 		-- Use the node's own path and dependence list
 		hoverPath = { }
-		if not hoverNode.dependsOnIntuitiveLeapLike then
+		-- if not hoverNode.dependsOnIntuitiveLeapLike then
 			for _, pathNode in pairs(hoverNode.path) do
 				hoverPath[pathNode] = true
 			end
-		end
+		-- end
 		hoverDep = { }
 		for _, depNode in pairs(hoverNode.depends) do
 			hoverDep[depNode] = true
@@ -363,14 +362,14 @@ function AtlasTreeViewClass:Draw(build, viewPort, inputEvents)
 	end
 
 	-- Draw the group backgrounds
-	for _, group in pairs(tree.groups) do
-		if not group.isProxy then
-			renderGroup(group)
-		end
-	end
-	for _, subGraph in pairs(spec.subGraphs) do
-		renderGroup(subGraph.group, true)
-	end
+	-- for _, group in pairs(tree.groups) do
+		-- if not group.isProxy then
+			-- renderGroup(group)
+		-- end
+	-- end
+	-- for _, subGraph in pairs(spec.subGraphs) do
+		-- renderGroup(subGraph.group, true)
+	-- end
 
 	local connectorColor = { 1, 1, 1 }
 	local function setConnectorColor(r, g, b)
@@ -511,7 +510,7 @@ function AtlasTreeViewClass:Draw(build, viewPort, inputEvents)
 					-- end
 				-- end
 			-- elseif node.type == "Mastery" then
-			if node.type == "Mastery" then
+			if node.isMastery then
 				-- This is the icon that appears in the center of many groups
 				if node.masteryEffects then
 					if isAlloc then
@@ -623,7 +622,7 @@ function AtlasTreeViewClass:Draw(build, viewPort, inputEvents)
 			local size = 175 * scale / self.zoom ^ 0.4
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
 		end
-		if node == hoverNode and (node.type ~= "Socket" or not IsKeyDown("SHIFT")) and (node.type ~= "Mastery" or node.masteryEffects) and not IsKeyDown("CTRL") and not main.popups[1] then
+		if node == hoverNode and not node.startNode and not IsKeyDown("CTRL") and not main.popups[1] then
 			-- Draw tooltip
 			SetDrawLayer(nil, 100)
 			local size = m_floor(node.size * scale)
@@ -748,7 +747,7 @@ function AtlasTreeViewClass:Focus(x, y, viewPort, build)
 end
 
 function AtlasTreeViewClass:DoesNodeMatchSearchParams(node)
-	if node.type == "ClassStart" or (node.type == "Mastery" and not node.masteryEffects) then
+	if node.startNode or (node.isMastery and not node.masteryEffects) then
 		return
 	end
 
@@ -810,30 +809,30 @@ function AtlasTreeViewClass:AddNodeName(tooltip, node, build)
 		local medium = band(b_rshift(node.id, 9), 0x3)
 		tooltip:AddLine(16, string.format("^7Cluster node index: %d, size: %d, large index: %d, medium index: %d", index, size, large, medium))
 	end
-	if node.type == "Socket" and node.nodesInRadius then
-		local attribTotals = { }
-		for nodeId in pairs(node.nodesInRadius[2]) do
-			local specNode = build.atlasSpec.nodes[nodeId]
-			for _, attrib in ipairs{"Str","Dex","Int"} do
-				attribTotals[attrib] = (attribTotals[attrib] or 0) + specNode.finalModList:Sum("BASE", nil, attrib)
-			end
-		end
-		if attribTotals["Str"] >= 40 then
-			tooltip:AddLine(16, "^7Can support "..colorCodes.STRENGTH.."Strength ^7threshold jewels")
-		end
-		if attribTotals["Dex"] >= 40 then
-			tooltip:AddLine(16, "^7Can support "..colorCodes.DEXTERITY.."Dexterity ^7threshold jewels")
-		end
-		if attribTotals["Int"] >= 40 then
-			tooltip:AddLine(16, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels")
-		end
-	end
-	if node.type == "Socket" and node.alloc then
-		if node.distanceToClassStart and node.distanceToClassStart > 0 then
-			tooltip:AddSeparator(14)
-			tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart))
-		end
-	end
+	-- if node.type == "Socket" and node.nodesInRadius then
+		-- local attribTotals = { }
+		-- for nodeId in pairs(node.nodesInRadius[2]) do
+			-- local specNode = build.atlasSpec.nodes[nodeId]
+			-- for _, attrib in ipairs{"Str","Dex","Int"} do
+				-- attribTotals[attrib] = (attribTotals[attrib] or 0) + specNode.finalModList:Sum("BASE", nil, attrib)
+			-- end
+		-- end
+		-- if attribTotals["Str"] >= 40 then
+			-- tooltip:AddLine(16, "^7Can support "..colorCodes.STRENGTH.."Strength ^7threshold jewels")
+		-- end
+		-- if attribTotals["Dex"] >= 40 then
+			-- tooltip:AddLine(16, "^7Can support "..colorCodes.DEXTERITY.."Dexterity ^7threshold jewels")
+		-- end
+		-- if attribTotals["Int"] >= 40 then
+			-- tooltip:AddLine(16, "^7Can support "..colorCodes.INTELLIGENCE.."Intelligence ^7threshold jewels")
+		-- end
+	-- end
+	-- if node.type == "Socket" and node.alloc then
+		-- if node.distanceToClassStart and node.distanceToClassStart > 0 then
+			-- tooltip:AddSeparator(14)
+			-- tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart))
+		-- end
+	-- end
 end
 
 function AtlasTreeViewClass:AddNodeTooltip(tooltip, node, build)
@@ -930,9 +929,9 @@ function AtlasTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		tooltip:AddLine(14, "^7"..#node.depends .. " points gained from unallocating these nodes")
 		tooltip:AddLine(14, colorCodes.TIP)
 	end
-	if node.type == "Socket" then
-		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift or Ctrl to hide this tooltip.")
-	else
+	-- if node.type == "Socket" then
+		-- tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Shift or Ctrl to hide this tooltip.")
+	-- else
 		tooltip:AddLine(14, colorCodes.TIP.."Tip: Hold Ctrl to hide this tooltip.")
-	end
+	-- end
 end
