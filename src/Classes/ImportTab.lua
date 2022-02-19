@@ -315,7 +315,11 @@ function ImportTabClass:DownloadCharacterList()
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(page, errMsg)
-		if errMsg == "Response code: 403" then
+		if errMsg == "Response code: 401" then
+			self.charImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
+			self.charImportMode = "GETSESSIONID"
+			return
+		elseif errMsg == "Response code: 403" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Account profile is private."
 			self.charImportMode = "GETSESSIONID"
 			return
