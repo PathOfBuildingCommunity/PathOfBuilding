@@ -81,3 +81,11 @@ treeVersions = {
 		url = "https://www.pathofexile.com/passive-skill-tree/3.17.0/",
 	},
 }
+
+atlasTreeVersions = {
+	["3_17"] = {
+		display = "3.17",
+		num = 3.17,
+		url = "https://www.pathofexile.com/atlas-skill-tree/",
+	},
+}

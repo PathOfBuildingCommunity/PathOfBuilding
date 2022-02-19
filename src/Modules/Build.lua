@@ -514,6 +514,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 
 	-- Controls: Side bar
 	self.anchorSideBar = new("Control", nil, 4, 36, 0, 0)
+	-- First Row
 	self.controls.modeImport = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 0, 134, 20, "Import/Export Build", function()
 		self.viewMode = "IMPORT"
 	end)
@@ -522,20 +523,21 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.viewMode = "NOTES"
 	end)
 	self.controls.modeNotes.locked = function() return self.viewMode == "NOTES" end
-	self.controls.modeConfig = new("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, 300, 0, 100, 20, "Configuration", function()
+	self.controls.modeConfig = new("ButtonControl", {"LEFT",self.controls.modeNotes,"RIGHT"}, 4, 0, 100, 20, "Configuration", function()
 		self.viewMode = "CONFIG"
 	end)
 	self.controls.modeConfig.locked = function() return self.viewMode == "CONFIG" end
-	self.controls.modeTree = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 26, 72, 20, "Tree", function()
+	-- Second Row
+	self.controls.modeTree = new("ButtonControl", {"TOPLEFT",self.controls.modeImport,"BOTTOMLEFT"}, 0, 4, 148, 20, "Passive Tree", function()
 		self.viewMode = "TREE"
 	end)
 	self.controls.modeTree.locked = function() return self.viewMode == "TREE" end
-	self.controls.modeAtlas = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 46, 72, 20, "Atlas", function()
+	self.controls.modeAtlas = new("ButtonControl", {"LEFT",self.controls.modeTree,"RIGHT"}, 4, 0, 148, 20, "Atlas Tree", function()
 		self.viewMode = "ATLAS"
 	end)
-	self.controls.modeTree.locked = function() return self.viewMode == "ATLAS" end
-
-	self.controls.modeSkills = new("ButtonControl", {"LEFT",self.controls.modeTree,"RIGHT"}, 4, 0, 72, 20, "Skills", function()
+	self.controls.modeAtlas.locked = function() return self.viewMode == "ATLAS" end
+	-- Third Row
+	self.controls.modeSkills = new("ButtonControl", {"TOPLEFT",self.controls.modeTree,"BOTTOMLEFT"}, 0, 4, 72, 20, "Skills", function()
 		self.viewMode = "SKILLS"
 	end)
 	self.controls.modeSkills.locked = function() return self.viewMode == "SKILLS" end
@@ -547,14 +549,15 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.viewMode = "CALCS"
 	end)
 	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
-	self.controls.bandit = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 300, 16, banditDropList, function(index, value)
+
+	self.controls.banditLabel = new("LabelControl", {"TOPLEFT",self.controls.modeSkills,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Bandit:")
+	self.controls.bandit = new("DropDownControl", {"TOPLEFT",self.controls.banditLabel,"BOTTOMLEFT"}, 0, 4, 300, 16, banditDropList, function(index, value)
 		self.bandit = value.id
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.bandit.maxDroppedWidth = 500
 	self.controls.bandit:CheckDroppedWidth(true)
-	self.controls.banditLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.bandit,"TOPLEFT"}, 0, 0, 0, 14, "^7Bandit:")
 	-- The Pantheon
 	local function applyPantheonDescription(tooltip, mode, index, value)
 		tooltip:Clear()
@@ -576,21 +579,21 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			end
 		end
 	end
-	self.controls.pantheonMajorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 110, 300, 16, PantheonMajorGodDropList, function(index, value)
+	self.controls.pantheonLabel = new("LabelControl", {"TOPLEFT",self.controls.bandit,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7The Pantheon:")
+	self.controls.pantheonMajorGod = new("DropDownControl", {"TOPLEFT",self.controls.pantheonLabel,"BOTTOMLEFT"}, 0, 4, 300, 16, PantheonMajorGodDropList, function(index, value)
 		self.pantheonMajorGod = value.id
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.pantheonMajorGod.tooltipFunc = applyPantheonDescription
-	self.controls.pantheonMinorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 130, 300, 16, PantheonMinorGodDropList, function(index, value)
+	self.controls.pantheonMinorGod = new("DropDownControl", {"TOPLEFT",self.controls.pantheonMajorGod,"BOTTOMLEFT"}, 0, 4, 300, 16, PantheonMinorGodDropList, function(index, value)
 		self.pantheonMinorGod = value.id
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.pantheonMinorGod.tooltipFunc = applyPantheonDescription
-	self.controls.pantheonLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.pantheonMajorGod,"TOPLEFT"}, 0, 0, 0, 14, "^7The Pantheon:")
 	-- Skills
-	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 155, 300, 16, "^7Main Skill:")
+	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.controls.pantheonMinorGod,"BOTTOMLEFT"}, 0, 4, 300, 16, "^7Main Skill:")
 	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
