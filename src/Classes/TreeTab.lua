@@ -429,6 +429,9 @@ function TreeTabClass:OpenImportPopup()
 					end
 				end)
 			end
+		elseif treeLink:match("poeskilltree.com/") then
+			--https://poeskilltree.com/?v=1.0.1#AAAABAMAAFcr -> https://poeskilltree.com/AAAABAMAAFcr
+			decodeTreeLink(treeLink:gsub("/%?.+#","/"))
 		else
 			decodeTreeLink(treeLink)
 		end
