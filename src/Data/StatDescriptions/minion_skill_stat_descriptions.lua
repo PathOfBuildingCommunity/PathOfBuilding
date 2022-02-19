@@ -3635,7 +3635,7 @@ return {
 				}
 			}
 		},
-		name="melee_mulitple_attacks",
+		name="melee_multiple_attacks",
 		stats={
 			[1]="base_melee_attack_repeat_count"
 		}
@@ -4335,7 +4335,7 @@ return {
 		},
 		name="support_projectile_attack_phys_ailment_damage_incr",
 		stats={
-			[1]="support_phys_proj_attack_damage_bleeing_and_poison_damage_+%_final_from_projectile_hits"
+			[1]="support_phys_proj_attack_damage_bleeding_and_poison_damage_+%_final_from_projectile_hits"
 		}
 	},
 	[140]={
@@ -9104,7 +9104,7 @@ return {
 	["support_overpowered_base_duration_ms"]=278,
 	["support_parallel_projectile_number_of_points_per_side"]=279,
 	["support_parallel_projectiles_damage_+%_final"]=280,
-	["support_phys_proj_attack_damage_bleeing_and_poison_damage_+%_final_from_projectile_hits"]=139,
+	["support_phys_proj_attack_damage_bleeding_and_poison_damage_+%_final_from_projectile_hits"]=139,
 	["support_poison_poison_damage_+%_final"]=86,
 	["support_power_charge_on_crit_damage_+%_final_per_power_charge"]=281,
 	["support_projectile_attack_physical_damage_+%_final"]=140,

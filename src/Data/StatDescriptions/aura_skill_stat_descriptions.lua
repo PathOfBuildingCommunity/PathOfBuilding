@@ -1533,7 +1533,7 @@ return {
 				}
 			}
 		},
-		name="duration_incr_from_delerium",
+		name="duration_incr_from_delirium",
 		stats={
 			[1]="delirium_skill_effect_duration_+%"
 		}

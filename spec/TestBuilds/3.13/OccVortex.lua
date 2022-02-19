@@ -740,7 +740,7 @@ Implicits: 0
 ["ChillChanceOnHit"] = 100,
 ["FreezeChanceOnHit"] = 70,
 ["ShockChanceOnHit"] = 10,
-["InteruptStunAvoidChance"] = 0,
+["InterruptStunAvoidChance"] = 0,
 ["RuthlessBlowMaxCount"] = 0,
 ["AfflictionCharges"] = 0,
 ["AverageDamage"] = 46527.107,

@@ -110,7 +110,7 @@ local minions, mod = ...
 -- Necromancer
 #spectre Metadata/Monsters/Necromancer/NecromancerConductivity
 #spectre Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse
-#spectre Metadata/Monsters/Necromancer/NecromancerFlamability
+#spectre Metadata/Monsters/Necromancer/NecromancerFlammability
 #spectre Metadata/Monsters/Necromancer/NecromancerFrostbite
 #spectre Metadata/Monsters/Necromancer/NecromancerElementalWeakness
 #spectre Metadata/Monsters/Necromancer/NecromancerProjectileWeakness
@@ -210,7 +210,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spectre
 -- Pale Seraphim
 #spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre
--- Ravenous Mishapen
+-- Ravenous Misshapen
 #spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre
 -- Aurid Synthete
 #spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre

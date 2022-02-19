@@ -275,7 +275,7 @@ local modNameList = {
 	["to avoid elemental damage from hits"] = {"AvoidFireDamageChance", "AvoidColdDamageChance", "AvoidLightningDamageChance"},
 	["to avoid projectiles"] = "AvoidProjectilesChance",
 	["to avoid being stunned"] = "AvoidStun",
-	["to avoid interruption from stuns while casting"] = "AvoidInteruptStun",
+	["to avoid interruption from stuns while casting"] = "AvoidInterruptStun",
 	["to avoid being shocked"] = "AvoidShock",
 	["to avoid being frozen"] = "AvoidFreeze",
 	["to avoid being chilled"] = "AvoidChill",
@@ -2434,8 +2434,8 @@ local specialModList = {
 	["+(%d+)%% chance to suppress spell damage if your boots, helmet and gloves have evasion"] = function(num) return { 
 		mod("SpellSuppressionChance", "BASE", tonumber(num), 
 			{ type = "StatThreshold", stat = "EvasionOnBoots", threshold = 1}, 
-			{ type = "StatThreshold", stat = "EvasionOnHelmet", threshold = 1, uppper = true},
-			{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1, uppper = true}
+			{ type = "StatThreshold", stat = "EvasionOnHelmet", threshold = 1, upper = true},
+			{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1, upper = true}
 		)
 	} end,
 	["+(%d+)%% chance to suppress spell damage for each dagger you're wielding"] = function(num) return { 
@@ -2554,7 +2554,7 @@ local specialModList = {
 	["elemental damage you deal with hits is resisted by lowest elemental resistance instead"] = { flag("ElementalDamageUsesLowestResistance") },
 	["you take (%d+) chaos damage per second for 3 seconds on kill"] = function(num) return { mod("ChaosDegen", "BASE", num, { type = "Condition", var = "KilledLast3Seconds" }) } end,
 	["regenerate (%d+) life over 1 second for each spell you cast"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "CastLast1Seconds" }) } end,
-	["and nearby allies regenerate (%d+) life per second"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "KilledPosionedLast2Seconds" }) } end,
+	["and nearby allies regenerate (%d+) life per second"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "KilledPoisonedLast2Seconds" }) } end,
 	["(%d+)%% increased life regeneration rate"] = function(num) return { mod("LifeRegen", "INC", num) } end,
 	["fire skills have a (%d+)%% chance to apply fire exposure on hit"] = function(num) return { mod("FireExposureChance", "BASE", num) } end,
 	["cold skills have a (%d+)%% chance to apply cold exposure on hit"] = function(num) return { mod("ColdExposureChance", "BASE", num) } end,

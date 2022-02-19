@@ -2029,7 +2029,7 @@ skills["CorpseEruption"] = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
 		"base_skill_effect_duration",
-		"corpse_erruption_base_maximum_number_of_geyers",
+		"corpse_eruption_base_maximum_number_of_geysers",
 		"corpse_explosion_monster_life_%",
 		"number_of_additional_projectiles",
 		"active_skill_base_radius_+",
@@ -6896,7 +6896,7 @@ skills["Riposte"] = {
 			{ "base_cooldown_speed_+%", 1 },
 		},
 		Alternate2 = {
-			{ "base_onlsaught_on_hit_%_chance", 1 },
+			{ "base_onslaught_on_hit_%_chance", 1 },
 		},
 	},
 	stats = {

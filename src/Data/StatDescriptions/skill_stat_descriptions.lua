@@ -724,7 +724,7 @@ return {
 				}
 			}
 		},
-		name="light_raidus_is_area",
+		name="light_radius_is_area",
 		stats={
 			[1]="light_radius_increases_apply_to_area_of_effect"
 		}
@@ -2977,7 +2977,7 @@ return {
 				}
 			}
 		},
-		name="conescrated_ground_radius_add",
+		name="consecrated_ground_radius_add",
 		stats={
 			[1]="active_skill_ground_consecration_radius_+"
 		}
@@ -4598,7 +4598,7 @@ return {
 				}
 			}
 		},
-		name="mulpile_projectiles_critical_strike_chance_incr",
+		name="multiple_projectiles_critical_strike_chance_incr",
 		stats={
 			[1]="support_multiple_projectiles_critical_strike_chance_+%_final"
 		}
@@ -6377,7 +6377,7 @@ return {
 				}
 			}
 		},
-		name="lighnting_arrow_targets",
+		name="lightning_arrow_targets",
 		stats={
 			[1]="lightning_arrow_maximum_number_of_extra_targets"
 		}
@@ -7993,7 +7993,7 @@ return {
 				}
 			}
 		},
-		name="mulitple_attacks",
+		name="multiple_attacks",
 		stats={
 			[1]="attack_repeat_count"
 		}
@@ -13404,7 +13404,7 @@ return {
 				}
 			}
 		},
-		name="no_split_if_no_steel_ammp",
+		name="no_split_if_no_steel_amp",
 		stats={
 			[1]="already_split_if_no_steel_shards"
 		}
@@ -13798,7 +13798,7 @@ return {
 				}
 			}
 		},
-		name="actic_breath_areas",
+		name="arctic_breath_areas",
 		stats={
 			[1]="arctic_breath_maximum_number_of_skulls_allowed"
 		}
@@ -17186,7 +17186,7 @@ return {
 				}
 			}
 		},
-		name="concsecrated_ground_area_incr",
+		name="consecrated_ground_area_incr",
 		stats={
 			[1]="consecrated_ground_area_+%"
 		}
@@ -17271,7 +17271,7 @@ return {
 		},
 		name="cremation_max_geysers",
 		stats={
-			[1]="corpse_erruption_maximum_number_of_geyers"
+			[1]="corpse_eruption_maximum_number_of_geysers"
 		}
 	},
 	[571]={
@@ -17320,7 +17320,7 @@ return {
 				}
 			}
 		},
-		name="corrrupting_fever_additional_corrupted_blood_chance",
+		name="corrupting_fever_additional_corrupted_blood_chance",
 		stats={
 			[1]="corrupting_fever_apply_additional_corrupted_blood_%"
 		}
@@ -18841,9 +18841,9 @@ return {
 				}
 			}
 		},
-		name="display_brand_deonate_tag_conversion",
+		name="display_brand_detonate_tag_conversion",
 		stats={
-			[1]="display_brand_deonate_tag_conversion"
+			[1]="display_brand_detonate_tag_conversion"
 		}
 	},
 	[630]={
@@ -18945,7 +18945,7 @@ return {
 		},
 		name="mine_detonation_sequence_speed_incr",
 		stats={
-			[1]="display_mine_deontation_mechanics_detonation_speed_+%_final_per_sequence_mine"
+			[1]="display_mine_denotation_mechanics_detonation_speed_+%_final_per_sequence_mine"
 		}
 	},
 	[634]={
@@ -19622,7 +19622,7 @@ return {
 				}
 			}
 		},
-		name="embrace_maddness_cooldown",
+		name="embrace_madness_cooldown",
 		stats={
 			[1]="embrace_madness_amount_of_cooldown_to_gain_ms"
 		}
@@ -21382,7 +21382,7 @@ return {
 				}
 			}
 		},
-		name="frost_blobe_additional_crit",
+		name="frost_globe_additional_crit",
 		stats={
 			[1]="frost_globe_additional_spell_base_critical_strike_chance_per_stage"
 		}
@@ -22023,7 +22023,7 @@ return {
 		name="expanding_fire_cone_release_ignite",
 		stats={
 			[1]="grant_expanding_fire_cone_release_ignite_damage_+%_final",
-			[2]="quality_display_incinerate_is_gem_ingite"
+			[2]="quality_display_incinerate_is_gem_ignite"
 		}
 	},
 	[756]={
@@ -23050,7 +23050,7 @@ return {
 				}
 			}
 		},
-		name="intimiate_nearby_ms",
+		name="intimidate_nearby_ms",
 		stats={
 			[1]="intimidate_nearby_enemies_on_use_for_ms"
 		}
@@ -23370,7 +23370,7 @@ return {
 				}
 			}
 		},
-		name="ightning_tendrils_pulse_damage",
+		name="lightning_tendrils_pulse_damage",
 		stats={
 			[1]="lightning_tendrils_channelled_larger_pulse_damage_+%_final"
 		}
@@ -26264,7 +26264,7 @@ return {
 				}
 			}
 		},
-		name="weird_spltting",
+		name="weird_splitting",
 		stats={
 			[1]="projectiles_can_split_at_end_of_range",
 			[2]="projectiles_can_split_from_terrain"
@@ -26981,7 +26981,7 @@ return {
 				}
 			}
 		},
-		name="refesh_bleed_on_hit_chance",
+		name="refresh_bleed_on_hit_chance",
 		stats={
 			[1]="refresh_bleeding_duration_on_hit_%_chance"
 		}
@@ -27190,7 +27190,7 @@ return {
 				}
 			}
 		},
-		name="sactify_wave_damage",
+		name="sanctify_wave_damage",
 		stats={
 			[1]="sanctify_wave_damage_+%_final"
 		}
@@ -32146,7 +32146,7 @@ return {
 				}
 			}
 		},
-		name="cluster_trap_spead_incr",
+		name="cluster_trap_spread_incr",
 		stats={
 			[1]="trap_spread_+%"
 		}
@@ -33881,7 +33881,7 @@ return {
 							[2]=0
 						}
 					},
-					text="Counts total Power of Enemies, Aliies and Corpses in Range"
+					text="Counts total Power of Enemies, Allies and Corpses in Range"
 				}
 			}
 		},
@@ -34007,7 +34007,7 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextCoveredInAshVariableDamgaeTaken"
+						v="ReminderTextCoveredInAshVariableDamageTaken"
 					},
 					limit={
 						[1]={
@@ -34517,7 +34517,7 @@ return {
 		},
 		name="exerted_double_damage",
 		stats={
-			[1]="intimidating_cry_empowerd_attacks_deal_double_damage_display"
+			[1]="intimidating_cry_empowered_attacks_deal_double_damage_display"
 		}
 	},
 	[1204]={
@@ -35499,7 +35499,7 @@ return {
 	["conversion_trap_converted_enemies_chance_to_taunt_on_hit_%"]=569,
 	["corpse_consumption_life_to_gain"]=232,
 	["corpse_consumption_mana_to_gain"]=233,
-	["corpse_erruption_maximum_number_of_geyers"]=570,
+	["corpse_eruption_maximum_number_of_geysers"]=570,
 	["corpse_explosion_monster_life_%"]=27,
 	["corpse_explosion_monster_life_%_chaos"]=28,
 	["corpse_explosion_monster_life_%_lightning"]=29,
@@ -35584,7 +35584,7 @@ return {
 	["display_additional_projectile_per_4_mines_in_detonation_sequence"]=627,
 	["display_additional_projectile_per_mine_in_detonation_sequence"]=628,
 	["display_battlemage_cry_exerted_attacks_trigger_supported_spell"]=1199,
-	["display_brand_deonate_tag_conversion"]=629,
+	["display_brand_detonate_tag_conversion"]=629,
 	["display_disable_melee_weapons"]=42,
 	["display_flask_throw_allowed_flask_types"]=709,
 	["display_herald_of_thunder_storm"]=574,
@@ -35592,7 +35592,7 @@ return {
 	["display_linked_curse_effect_+%"]=630,
 	["display_max_blight_stacks"]=631,
 	["display_max_fire_beam_stacks"]=632,
-	["display_mine_deontation_mechanics_detonation_speed_+%_final_per_sequence_mine"]=633,
+	["display_mine_detonation_mechanics_detonation_speed_+%_final_per_sequence_mine"]=633,
 	["display_mirage_warriors_no_spirit_strikes"]=634,
 	["display_modifiers_to_melee_attack_range_apply_to_skill_radius"]=635,
 	["display_projectiles_chain_when_impacting_ground"]=636,
@@ -35835,7 +35835,7 @@ return {
 	["intermediary_fire_skill_dot_damage_to_deal_per_minute"]=152,
 	["intermediary_physical_skill_dot_damage_to_deal_per_minute"]=144,
 	["intimidate_nearby_enemies_on_use_for_ms"]=794,
-	["intimidating_cry_empowerd_attacks_deal_double_damage_display"]=1203,
+	["intimidating_cry_empowered_attacks_deal_double_damage_display"]=1203,
 	["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"]=1183,
 	["is_empowered"]=795,
 	["is_ranged_attack_totem"]=39,
@@ -36074,7 +36074,7 @@ return {
 	["quality_display_ice_crash_is_gem"]=331,
 	["quality_display_immortal_call_is_gem"]=868,
 	["quality_display_incinerate_is_gem_hit"]=678,
-	["quality_display_incinerate_is_gem_ingite"]=755,
+	["quality_display_incinerate_is_gem_ignite"]=755,
 	["quality_display_rune_paint_is_gem"]=942,
 	["queens_demand_effect"]=637,
 	["quick_guard_damage_absorb_limit"]=924,

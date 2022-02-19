@@ -266,7 +266,7 @@ return {
 				</EditedNode>
 				<EditedNode editorSeed="927" icon="Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds" nodeName="Might of the Vaal" nodeId="11420">
 					7% increased Fire Damage
-					6% increased maxmium Mana
+					6% increased maximum Mana
 					+11% to Lightning Resistance
 				</EditedNode>
 				<EditedNode editorSeed="927" icon="Art/2DArt/SkillIcons/passives/VaalOffensive.dds" nodeName="Critical Strike Multiplier" nodeId="37569">
@@ -810,7 +810,7 @@ Triggers Level 20 Reflection when Equipped
 ["Armour"] = 0,
 ["PoisonAvoidChance"] = 0,
 ["LightningResistTotal"] = -60,
-["InteruptStunAvoidChance"] = 0,
+["InterruptStunAvoidChance"] = 0,
 ["AverageDamage"] = 257.6858,
 ["ColdTakenHitMult"] = 1.6,
 ["PowerCharges"] = 0,

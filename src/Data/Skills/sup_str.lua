@@ -1434,7 +1434,7 @@ skills["SupportEarthbreaker"] = {
 		"totem_support_gem_level",
 		"base_totem_duration",
 		"base_totem_range",
-		"ancestor_totem_parent_activiation_range",
+		"ancestor_totem_parent_activation_range",
 		"summon_totem_cast_speed_+%",
 		"support_ancestor_slam_totem_attack_speed_+%_final",
 		"support_ancestor_slam_totem_damage_+%_final",

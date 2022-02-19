@@ -1046,7 +1046,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="This Attack and Minoins gain a Power Charge on Critical Strike"
+					text="This Attack and Minions gain a Power Charge on Critical Strike"
 				}
 			}
 		},
@@ -2892,7 +2892,7 @@ return {
 		},
 		name="dom_blow_unique_chance",
 		stats={
-			[1]="dominating_blow_chance_to_summon_on_hitting_unqiue_%"
+			[1]="dominating_blow_chance_to_summon_on_hitting_unique_%"
 		}
 	},
 	[97]={
@@ -3982,7 +3982,7 @@ return {
 	["damaging_ailments_deal_damage_+%_faster"]=93,
 	["deal_chaos_damage_per_second_for_10_seconds_on_hit"]=94,
 	["deal_no_elemental_damage"]=95,
-	["dominating_blow_chance_to_summon_on_hitting_unqiue_%"]=96,
+	["dominating_blow_chance_to_summon_on_hitting_unique_%"]=96,
 	["elemental_status_effect_aura_radius"]=26,
 	["enemies_you_shock_take_%_increased_physical_damage"]=97,
 	["enemy_phys_reduction_%_penalty_vs_hit"]=98,

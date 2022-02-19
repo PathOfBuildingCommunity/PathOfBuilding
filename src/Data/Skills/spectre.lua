@@ -4685,7 +4685,7 @@ skills["AtlasCrusaderJudgeBallLightning"] = {
 		[1] = { 0.5, 1.5, -25, critChance = 32, levelRequirement = 0, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
-skills["AtlasCruasderJudgeFadingNova"] = {
+skills["AtlasCrusaderJudgeFadingNova"] = {
 	name = "Nova Spell",
 	hidden = true,
 	color = 4,

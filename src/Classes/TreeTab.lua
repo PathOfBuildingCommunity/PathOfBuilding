@@ -795,7 +795,7 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 		}
 	end
 
-	-- search all nodes, ignoring ascendcies, sockets, etc.
+	-- search all nodes, ignoring ascendancies, sockets, etc.
 	for nodeId, node in pairs(self.build.spec.nodes) do
 		local isAlloc = node.alloc or self.build.calcsTab.mainEnv.grantedPassives[nodeId]
 		if (node.type == "Normal" or node.type == "Keystone" or node.type == "Notable") and not node.ascendancyName then

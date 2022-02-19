@@ -5872,7 +5872,7 @@ skills["ExpandingFireCone"] = {
 		"skill_can_add_multiple_charges_per_action",
 		"expanding_fire_cone_final_wave_always_ignite",
 		"quality_display_incinerate_is_gem_hit",
-		"quality_display_incinerate_is_gem_ingite",
+		"quality_display_incinerate_is_gem_ignite",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 8, 250, 500, 25, 4, 100, 15, damageEffectiveness = 0.5, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 2, }, },

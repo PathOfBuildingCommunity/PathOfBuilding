@@ -3874,7 +3874,7 @@ return {
 			}
 		},
 		stats={
-			[1]="corpse_erruption_base_maximum_number_of_geyers"
+			[1]="corpse_eruption_base_maximum_number_of_geysers"
 		}
 	},
 	[141]={
@@ -7860,7 +7860,7 @@ return {
 	["contagion_spread_on_hit_affected_enemy_%"]=137,
 	["conversation_trap_converted_enemy_damage_+%"]=138,
 	["conversion_trap_converted_enemies_chance_to_taunt_on_hit_%"]=139,
-	["corpse_erruption_base_maximum_number_of_geyers"]=140,
+	["corpse_eruption_base_maximum_number_of_geysers"]=140,
 	["cremation_fires_projectiles_faster_+%_final"]=141,
 	["critical_ailment_dot_multiplier_+"]=142,
 	["critical_multiplier_+%_per_100_max_es_on_shield"]=143,

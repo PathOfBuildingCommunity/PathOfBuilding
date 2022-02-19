@@ -436,7 +436,7 @@ function calcs.defence(env, actor)
 			output.EvadeChance = 100 - (calcs.hitChance(output.Evasion, enemyAccuracy) - modDB:Sum("BASE", nil, "EvadeChance")) * calcLib.mod(enemyDB, nil, "HitChance")
 			output.MeleeEvadeChance = m_max(0, m_min(data.misc.EvadeChanceCap, output.EvadeChance * calcLib.mod(modDB, nil, "EvadeChance", "MeleeEvadeChance")))
 			output.ProjectileEvadeChance = m_max(0, m_min(data.misc.EvadeChanceCap, output.EvadeChance * calcLib.mod(modDB, nil, "EvadeChance", "ProjectileEvadeChance")))
-			-- Condition for displayng evade chance only if melee or projectile evade chance have the same values
+			-- Condition for displaying evade chance only if melee or projectile evade chance have the same values
 			if output.MeleeEvadeChance ~= output.ProjectileEvadeChance then
 				output.splitEvade = true
 			else
@@ -822,7 +822,7 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-	output.InteruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInteruptStun"), 100)
+	output.InterruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInterruptStun"), 100)
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
 	output.ShockAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidShock"), 100)
 	output.FreezeAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidFreeze"), 100)
@@ -876,7 +876,7 @@ function calcs.defence(env, actor)
 			if stringVal == "Config" then
 				enemyDamage = env.configInput["enemy"..damageType.."Damage"] or 0
 			elseif stringVal == "Default" then
-				if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (not specificaly uber ziri)
+				if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (not specifically uber Atziri)
 					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.stdBossDPSMult
 					if damageType == "Chaos" then
 						enemyDamage = enemyDamage / 4
@@ -1103,7 +1103,7 @@ function calcs.defence(env, actor)
 				armourReduct = calcs.armourReductionDouble(output.Armour, damage * portionArmour / 100, moreArmourChance)
 				resist = resist + m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
 			end
-			if resist ~= resist then -- resist == nan (caused somtimes by a div by 0 in armour calcs if damage passed in is 0)
+			if resist ~= resist then -- resist == nan (caused sometimes by a div by 0 in armour calcs if damage passed in is 0)
 				resist = 0
 			end
 			output[damageType.."DamageReduction"] = damageType == "Physical" and resist or m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
@@ -1189,7 +1189,7 @@ function calcs.defence(env, actor)
 				s_format("Total life protected:"),
 			}
 			if portionLife ~= 1 then
-				t_insert(breakdown["preventedLifeLoss"], s_format("%.2f ^8(inital portion taken from petrified blood)", output["preventedLifeLoss"] / portionLife / 100))
+				t_insert(breakdown["preventedLifeLoss"], s_format("%.2f ^8(initial portion taken from petrified blood)", output["preventedLifeLoss"] / portionLife / 100))
 				t_insert(breakdown["preventedLifeLoss"], s_format("* %.2f ^8(portion of life on low life)", portionLife))
 				t_insert(breakdown["preventedLifeLoss"], s_format("= %.2f ^8(final portion taken from petrified blood)", output["preventedLifeLoss"] / 100))
 				t_insert(breakdown["preventedLifeLoss"], s_format(""))
@@ -1415,11 +1415,11 @@ function calcs.defence(env, actor)
 		end
 	end
 	
-	-- helper function that itterativly reduces pools untill life hits 0 to determine the number of hits it would take with given damage to die
+	-- helper function that iteratively reduces pools until life hits 0 to determine the number of hits it would take with given damage to die
 	function numberOfHitsToDie(DamageIn)
 		local numHits = 0
 		
-		--check damage in isnt 0 and that ward doesnt mitigate all damage
+		--check damage in isn't 0 and that ward doesn't mitigate all damage
 		for _, damageType in ipairs(dmgTypeList) do
 			numHits = numHits + DamageIn[damageType]
 		end
@@ -1455,14 +1455,14 @@ function calcs.defence(env, actor)
 		end
 		DamageIn["LifeLossBelowHalfLost"] = DamageIn["LifeLossBelowHalfLost"] or 0
 		
-		local itterationMultiplier = 1
+		local iterationMultiplier = 1
 		local maxHits = 10000 --arbitrary number needs to be moved to data.misc
 		maxHits = maxHits / ((DamageIn["c"] or 0) + 1)
 		while life > 0 and numHits < maxHits do
-			numHits = numHits + itterationMultiplier
+			numHits = numHits + iterationMultiplier
 			local Damage = {}
 			for _, damageType in ipairs(dmgTypeList) do
-				Damage[damageType] = DamageIn[damageType] * itterationMultiplier
+				Damage[damageType] = DamageIn[damageType] * iterationMultiplier
 			end
 			for _, damageType in ipairs(dmgTypeList) do
 				if Damage[damageType] > 0 then
@@ -1536,12 +1536,12 @@ function calcs.defence(env, actor)
 				ward = 0
 			end
 			if DamageIn.GainWhenHit and life > 0 then
-				life = m_min(life + DamageIn.LifeWhenHit * itterationMultiplier, output.LifeRecoverable or 0)
-				mana = m_min(mana + DamageIn.ManaWhenHit * itterationMultiplier, output.ManaUnreserved or 0)
-				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * itterationMultiplier, output.EnergyShield or 0)
+				life = m_min(life + DamageIn.LifeWhenHit * iterationMultiplier, output.LifeRecoverable or 0)
+				mana = m_min(mana + DamageIn.ManaWhenHit * iterationMultiplier, output.ManaUnreserved or 0)
+				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * iterationMultiplier, output.EnergyShield or 0)
 			end
 			--this is to speed this up
-			itterationMultiplier = 1
+			iterationMultiplier = 1
 			DamageIn["c"] = DamageIn["c"] or 0
 			local maxdepth = 4 --move to data.misc
 			local speedUp = 5 --move to data.misc
@@ -1551,10 +1551,10 @@ function calcs.defence(env, actor)
 					Damage[damageType] = DamageIn[damageType] * speedUp
 				end	
 				Damage.LifeWhenHit = DamageIn.LifeWhenHit or 0 * speedUp
-				Damage.ManaWhenHite = DamageIn.ManaWhenHit or 0 * speedUp
+				Damage.ManaWhenHit = DamageIn.ManaWhenHit or 0 * speedUp
 				Damage.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit or 0 * speedUp
 				Damage["c"] = DamageIn["c"] + 1
-				itterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
+				iterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
 				DamageIn["c"] = maxdepth --only run once
 			end
 		end
@@ -1597,7 +1597,7 @@ function calcs.defence(env, actor)
 		DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
 		DamageIn.ManaWhenHit = output.ManaOnBlock * BlockChance
 		DamageIn.EnergyShieldWhenHit = output.EnergyShieldOnBlock * BlockChance
-		--supression
+		--suppression
 		if damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" or damageCategoryConfig == "Average" then
 			suppressChance = output.SpellSuppressionChance / 100
 		end
@@ -1707,7 +1707,7 @@ function calcs.defence(env, actor)
 	if breakdown then
 		breakdown["TotalEHP"] = {
 			s_format("%.2f ^8(total average number of hits you can take)", output["TotalNumberOfHits"]),
-			s_format("x %d ^8(total incomming damage)", output["totalEnemyDamageIn"]),
+			s_format("x %d ^8(total incoming damage)", output["totalEnemyDamageIn"]),
 			s_format("= %d ^8(total damage you can take)", output["TotalEHP"]),
 		}
 	end
@@ -1899,7 +1899,7 @@ function calcs.defence(env, actor)
 	
 	--maximum hit taken
 	-- this is not done yet, using old max hit taken
-	--fix total pools, as they arnt used anymore
+	--fix total pools, as they aren't used anymore
 	for _, damageType in ipairs(dmgTypeList) do
 		--base + petrified blood
 		if output["preventedLifeLoss"] > 0 then

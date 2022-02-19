@@ -6437,7 +6437,7 @@ return {
 			}
 		},
 		stats={
-			[1]="local_display_socketed_gems_get_mana_multplier_%"
+			[1]="local_display_socketed_gems_get_mana_multiplier_%"
 		}
 	},
 	[329]={
@@ -9043,7 +9043,7 @@ return {
 			}
 		},
 		stats={
-			[1]="local_display_grants_level_x_curse_pillar_skil_and_20%_less_curse_effect"
+			[1]="local_display_grants_level_x_curse_pillar_skill_and_20%_less_curse_effect"
 		}
 	},
 	[443]={
@@ -15795,7 +15795,7 @@ return {
 			}
 		},
 		stats={
-			[1]="local_unique_flask_vaal_skill_soul_gain_preventation_duration_+%_during_flask_effect"
+			[1]="local_unique_flask_vaal_skill_soul_gain_prevention_duration_+%_during_flask_effect"
 		}
 	},
 	[748]={
@@ -16639,7 +16639,7 @@ return {
 			}
 		},
 		stats={
-			[1]="local_cannot_be_used_with_chaos_innoculation"
+			[1]="local_cannot_be_used_with_chaos_inoculation"
 		}
 	},
 	[786]={
@@ -31380,7 +31380,7 @@ return {
 			}
 		},
 		stats={
-			[1]="temporal_chains_effeciveness_+%"
+			[1]="temporal_chains_effectiveness_+%"
 		}
 	},
 	[1325]={
@@ -48703,7 +48703,7 @@ return {
 			}
 		},
 		stats={
-			[1]="map_monsters_additional_number_of_projecitles",
+			[1]="map_monsters_additional_number_of_projectiles",
 			[2]="map_players_additional_number_of_projectiles"
 		}
 	},
@@ -52157,7 +52157,7 @@ return {
 			}
 		},
 		stats={
-			[1]="unqiue_atzitis_acuity_instant_leech_60%_effectiveness_on_crit"
+			[1]="unique_atziris_acuity_instant_leech_60%_effectiveness_on_crit"
 		}
 	},
 	[2175]={
@@ -55670,7 +55670,7 @@ return {
 			}
 		},
 		stats={
-			[1]="global_critical_strike_mulitplier_+_per_green_socket_on_item"
+			[1]="global_critical_strike_multiplier_+_per_green_socket_on_item"
 		}
 	},
 	[2330]={
@@ -59845,7 +59845,7 @@ return {
 			}
 		},
 		stats={
-			[1]="supported_active_skill_gem_expereince_gained_+%"
+			[1]="supported_active_skill_gem_experience_gained_+%"
 		}
 	},
 	[2497]={
@@ -65391,7 +65391,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Curses youd with Punishment on Kill, with 40% increased Effect"
+					text="Curses you with Punishment on Kill, with 40% increased Effect"
 				},
 				[2]={
 					[1]={
@@ -81793,7 +81793,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Orb of Storms deasl {0}% reduced Damage"
+					text="Orb of Storms deals {0}% reduced Damage"
 				}
 			}
 		},
@@ -109937,7 +109937,7 @@ return {
 			}
 		},
 		stats={
-			[1]="base_onlsaught_on_hit_%_chance"
+			[1]="base_onslaught_on_hit_%_chance"
 		}
 	},
 	[4376]={
@@ -122005,7 +122005,7 @@ return {
 			}
 		},
 		stats={
-			[1]="corpse_erruption_base_maximum_number_of_geyers"
+			[1]="corpse_eruption_base_maximum_number_of_geysers"
 		}
 	},
 	[4854]={
@@ -137513,7 +137513,7 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="RemidnerTextAfflictionCharges"
+						v="ReminderTextAfflictionCharges"
 					},
 					limit={
 						[1]={
@@ -144941,7 +144941,7 @@ return {
 			}
 		},
 		stats={
-			[1]="hellscaping_add_corruption_implicit_chance_%"
+			[1]="hellscaping_add_Corruption_implicit_chance_%"
 		}
 	},
 	[5745]={
@@ -169380,7 +169380,7 @@ return {
 			}
 		},
 		stats={
-			[1]="map_essence_monolith_contains_additional_essence_of_corruption"
+			[1]="map_essence_monolith_contains_additional_essence_of_Corruption"
 		}
 	},
 	[6814]={
@@ -169398,7 +169398,7 @@ return {
 			}
 		},
 		stats={
-			[1]="map_essence_monolith_contains_essence_of_corruption_%"
+			[1]="map_essence_monolith_contains_essence_of_Corruption_%"
 		}
 	},
 	[6815]={
@@ -190472,7 +190472,7 @@ return {
 			}
 		},
 		stats={
-			[1]="projecitle_chance_to_be_able_to_chain_from_terrain_%_per_ranged_abyss_jewel_up_to_20%"
+			[1]="projectile_chance_to_be_able_to_chain_from_terrain_%_per_ranged_abyss_jewel_up_to_20%"
 		}
 	},
 	[7669]={
@@ -191135,7 +191135,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Puryfing Flame has {0}% chance to also create Consecrated Ground around you"
+					text="Purifying Flame has {0}% chance to also create Consecrated Ground around you"
 				}
 			}
 		},
@@ -206009,7 +206009,7 @@ return {
 							[2]=0
 						}
 					},
-					text="Warcries count total Power of Enemies, Aliies and Corpses in Range"
+					text="Warcries count total Power of Enemies, Allies and Corpses in Range"
 				}
 			}
 		},
@@ -206829,7 +206829,7 @@ return {
 			}
 		},
 		stats={
-			[1]="you_and_nearby_allys_gain_onslaught_for_4_seconds_on_warcry"
+			[1]="you_and_nearby_allies_gain_onslaught_for_4_seconds_on_warcry"
 		}
 	},
 	[8296]={
@@ -210837,7 +210837,7 @@ return {
 	["base_off_hand_attack_speed_+%"]=1104,
 	["base_off_hand_chance_to_blind_on_hit_%"]=4374,
 	["base_off_hand_damage_+%"]=979,
-	["base_onlsaught_on_hit_%_chance"]=4375,
+	["base_onslaught_on_hit_%_chance"]=4375,
 	["base_penetrate_elemental_resistances_%"]=3149,
 	["base_physical_damage_%_to_convert_to_chaos"]=1614,
 	["base_physical_damage_%_to_convert_to_chaos_per_level"]=4377,
@@ -211681,7 +211681,7 @@ return {
 	["convocation_cooldown_speed_+%"]=3459,
 	["cooldown_recovery_+%_per_power_charge"]=4851,
 	["cooldown_speed_+%_per_brand_up_to_40%"]=4852,
-	["corpse_erruption_base_maximum_number_of_geyers"]=4853,
+	["corpse_eruption_base_maximum_number_of_geysers"]=4853,
 	["corpse_eruption_cast_speed_+%"]=4854,
 	["corpse_eruption_damage_+%"]=4855,
 	["corpse_warp_cast_speed_+%"]=4856,
@@ -213101,7 +213101,7 @@ return {
 	["global_critical_strike_chance_+%_while_holding_bow"]=2110,
 	["global_critical_strike_chance_+%_while_holding_staff"]=2108,
 	["global_critical_strike_chance_while_dual_wielding_+%"]=3838,
-	["global_critical_strike_mulitplier_+_per_green_socket_on_item"]=2329,
+	["global_critical_strike_multiplier_+_per_green_socket_on_item"]=2329,
 	["global_critical_strike_multiplier_+_while_holding_bow"]=2111,
 	["global_critical_strike_multiplier_+_while_holding_staff"]=2109,
 	["global_critical_strike_multiplier_+_while_you_have_no_frenzy_charges"]=1703,
@@ -213364,7 +213364,7 @@ return {
 	["heist_side_reward_room_monsters_+%"]=5741,
 	["hellscape_extra_item_slots"]=5742,
 	["hellscape_extra_map_slots"]=5743,
-	["hellscaping_add_corruption_implicit_chance_%"]=5744,
+	["hellscaping_add_Corruption_implicit_chance_%"]=5744,
 	["hellscaping_add_explicit_mod_chance_%"]=5745,
 	["hellscaping_additional_link_chance_%"]=5746,
 	["hellscaping_additional_socket_chance_%"]=5747,
@@ -214298,7 +214298,7 @@ return {
 	["local_can_only_deal_damage_with_this_weapon"]=2319,
 	["local_can_only_socket_corrupted_gems"]=6391,
 	["local_can_socket_gems_ignoring_colour"]=64,
-	["local_cannot_be_used_with_chaos_innoculation"]=785,
+	["local_cannot_be_used_with_chaos_inoculation"]=785,
 	["local_cannot_have_blue_sockets"]=49,
 	["local_cannot_have_green_sockets"]=50,
 	["local_cannot_have_red_sockets"]=51,
@@ -214375,7 +214375,7 @@ return {
 	["local_display_grants_level_X_reckoning"]=428,
 	["local_display_grants_level_X_vengeance"]=402,
 	["local_display_grants_level_x_blood_offering_skill"]=441,
-	["local_display_grants_level_x_curse_pillar_skil_and_20%_less_curse_effect"]=442,
+	["local_display_grants_level_x_curse_pillar_skill_and_20%_less_curse_effect"]=442,
 	["local_display_grants_level_x_curse_pillar_skill"]=443,
 	["local_display_grants_level_x_despair"]=403,
 	["local_display_grants_level_x_hidden_blade"]=506,
@@ -214525,7 +214525,7 @@ return {
 	["local_display_socketed_gems_get_iron_will_level"]=303,
 	["local_display_socketed_gems_get_item_quantity_+%"]=334,
 	["local_display_socketed_gems_get_life_leech_level"]=291,
-	["local_display_socketed_gems_get_mana_multplier_%"]=328,
+	["local_display_socketed_gems_get_mana_multiplier_%"]=328,
 	["local_display_socketed_gems_get_melee_physical_damage_level"]=280,
 	["local_display_socketed_gems_get_melee_splash_level"]=283,
 	["local_display_socketed_gems_get_multistrike_level"]=289,
@@ -215774,8 +215774,8 @@ return {
 	["map_endgame_affliction_reward_9"]=6810,
 	["map_endgame_fog_depth"]=6811,
 	["map_equipment_drops_identified"]=6812,
-	["map_essence_monolith_contains_additional_essence_of_corruption"]=6813,
-	["map_essence_monolith_contains_essence_of_corruption_%"]=6814,
+	["map_essence_monolith_contains_additional_essence_of_Corruption"]=6813,
+	["map_essence_monolith_contains_essence_of_Corruption_%"]=6814,
 	["map_essence_monsters_are_corrupted"]=6815,
 	["map_essence_monsters_have_additional_essences"]=6816,
 	["map_essence_monsters_higher_tier"]=6817,
@@ -216010,7 +216010,7 @@ return {
 	["map_monsters_additional_elemental_resistance"]=6967,
 	["map_monsters_additional_fire_resistance"]=2031,
 	["map_monsters_additional_lightning_resistance"]=2033,
-	["map_monsters_additional_number_of_projecitles"]=2030,
+	["map_monsters_additional_number_of_projectiles"]=2030,
 	["map_monsters_additional_physical_damage_reduction"]=2034,
 	["map_monsters_all_damage_can_chill"]=6968,
 	["map_monsters_all_damage_can_shock"]=6969,
@@ -217320,7 +217320,7 @@ return {
 	["primordial_altar_chilled_ground_on_death_%"]=7439,
 	["primordial_jewel_count"]=8330,
 	["prismatic_rain_beam_frequency_+%"]=7667,
-	["projecitle_chance_to_be_able_to_chain_from_terrain_%_per_ranged_abyss_jewel_up_to_20%"]=7668,
+	["projectile_chance_to_be_able_to_chain_from_terrain_%_per_ranged_abyss_jewel_up_to_20%"]=7668,
 	["projectile_attack_damage_+%"]=1646,
 	["projectile_attack_damage_+%_during_flask_effect"]=7669,
 	["projectile_attack_damage_+%_per_200_accuracy"]=3874,
@@ -217559,8 +217559,8 @@ return {
 	["rune_blast_teleports_to_detonated_rune_with_100_ms_cooldown"]=7807,
 	["rune_blast_teleports_to_detonated_rune_with_150_ms_cooldown"]=7808,
 	["ruthless_hits_intimidate_enemies_for_4_seconds"]=7809,
-	["sabotuer_mines_apply_damage_+%_to_nearby_enemies_up_to_-10%"]=7810,
-	["sabotuer_mines_apply_damage_taken_+%_to_nearby_enemies_up_to_10%"]=7811,
+	["saboteur_mines_apply_damage_+%_to_nearby_enemies_up_to_-10%"]=7810,
+	["saboteur_mines_apply_damage_taken_+%_to_nearby_enemies_up_to_10%"]=7811,
 	["sacrifice_%_life_on_spell_skill"]=7812,
 	["sacrifice_%_maximum_life_to_gain_as_es_on_spell_cast"]=7813,
 	["sanctify_area_of_effect_+%_when_targeting_consecrated_ground"]=7814,
@@ -218116,7 +218116,7 @@ return {
 	["support_mirage_archer_base_duration"]=8089,
 	["support_slashing_damage_+%_final_from_distance"]=8090,
 	["support_slower_projectiles_damage_+%_final"]=2448,
-	["supported_active_skill_gem_expereince_gained_+%"]=2496,
+	["supported_active_skill_gem_experience_gained_+%"]=2496,
 	["supported_active_skill_gem_level_+"]=2365,
 	["supported_active_skill_gem_quality_%"]=2426,
 	["supported_aura_skill_gem_level_+"]=8091,
@@ -218177,7 +218177,7 @@ return {
 	["tempest_shield_num_of_additional_projectiles_in_chain"]=3610,
 	["temporal_chains_curse_effect_+%"]=3590,
 	["temporal_chains_duration_+%"]=3491,
-	["temporal_chains_effeciveness_+%"]=1324,
+	["temporal_chains_effectiveness_+%"]=1324,
 	["temporal_chains_mana_reservation_+%"]=3631,
 	["temporal_chains_no_reservation"]=8127,
 	["temporal_rift_cooldown_speed_+%"]=8128,
@@ -218397,7 +218397,7 @@ return {
 	["unique_voltaxic_rift_shock_maximum_magnitude_override"]=8221,
 	["unnerve_for_4_seconds_on_hit_with_wands"]=8222,
 	["unnerve_nearby_enemies_on_use_for_ms"]=8223,
-	["unqiue_atzitis_acuity_instant_leech_60%_effectiveness_on_crit"]=2174,
+	["unique_atziris_acuity_instant_leech_60%_effectiveness_on_crit"]=2174,
 	["unveiled_mod_effect_+%"]=45,
 	["utility_flask_charges_recovered_per_3_seconds"]=8224,
 	["utility_flask_cold_damage_taken_+%_final"]=8225,
@@ -218551,7 +218551,7 @@ return {
 	["you_and_nearby_allies_life_regeneration_rate_per_minute_%_if_corpse_consumed_recently"]=8292,
 	["you_and_nearby_allies_life_regeneration_rate_per_minute_%_if_have_blocked_recently"]=8293,
 	["you_and_nearby_allies_life_regeneration_rate_per_minute_%_if_you_hit_an_enemy_recently"]=8294,
-	["you_and_nearby_allys_gain_onslaught_for_4_seconds_on_warcry"]=8295,
+	["you_and_nearby_allies_gain_onslaught_for_4_seconds_on_warcry"]=8295,
 	["you_and_nearby_party_members_gain_x_rage_when_you_warcry"]=8296,
 	["you_and_totem_life_regeneration_rate_per_minute_%_per_active_totem"]=8297,
 	["you_and_your_totems_gain_an_endurance_charge_on_burning_enemy_kill_%"]=2926,

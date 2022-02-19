@@ -348,7 +348,7 @@ skills["TotemMelee"] = {
 		"base_totem_duration",
 		"base_totem_range",
 		"melee_range_+",
-		"ancestor_totem_parent_activiation_range",
+		"ancestor_totem_parent_activation_range",
 		"summon_totem_cast_speed_+%",
 		"melee_ancestor_totem_grant_owner_attack_speed_+%_final",
 		"base_skill_is_totemified",
@@ -551,7 +551,7 @@ skills["AncestorTotemSlam"] = {
 	stats = {
 		"base_totem_duration",
 		"base_totem_range",
-		"ancestor_totem_parent_activiation_range",
+		"ancestor_totem_parent_activation_range",
 		"summon_totem_cast_speed_+%",
 		"slam_ancestor_totem_grant_owner_melee_damage_+%_final",
 		"melee_range_+",
@@ -648,7 +648,7 @@ skills["VaalAncestralWarchief"] = {
 	stats = {
 		"base_totem_duration",
 		"base_totem_range",
-		"ancestor_totem_parent_activiation_range",
+		"ancestor_totem_parent_activation_range",
 		"summon_totem_cast_speed_+%",
 		"slam_ancestor_totem_grant_owner_melee_damage_+%_final",
 		"number_of_additional_totems_allowed",
@@ -2248,7 +2248,7 @@ skills["DominatingBlow"] = {
 		"max_number_of_dominated_magic_monsters",
 		"max_number_of_dominated_rare_monsters",
 		"base_secondary_skill_effect_duration",
-		"dominating_blow_chance_to_summon_on_hitting_unqiue_%",
+		"dominating_blow_chance_to_summon_on_hitting_unique_%",
 		"is_dominated",
 	},
 	levels = {
@@ -4334,7 +4334,7 @@ skills["IntimidatingCry"] = {
 		"base_deal_no_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
-		"intimidating_cry_empowerd_attacks_deal_double_damage_display",
+		"intimidating_cry_empowered_attacks_deal_double_damage_display",
 		"enemies_taunted_by_your_warcies_are_intimidated",
 		"use_intimidating_cry_buff_visual_for_intimidate",
 	},
@@ -7216,7 +7216,7 @@ skills["Vengeance"] = {
 skills["VigilantStrike"] = {
 	name = "Vigilant Strike",
 	color = 1,
-	description = "Attacks enemies with a powerful melee strike which grants Fortification, reducting damage you take from hits. The cooldown can be bypassed by expending an Endurance Charge. Requires a Melee Weapon.",
+	description = "Attacks enemies with a powerful melee strike which grants Fortification, reducing damage you take from hits. The cooldown can be bypassed by expending an Endurance Charge. Requires a Melee Weapon.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.ThresholdJewelArea] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,

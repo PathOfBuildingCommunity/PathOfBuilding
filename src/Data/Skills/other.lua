@@ -466,7 +466,7 @@ skills["BrandDetonate"] = {
 		"spell_maximum_base_physical_damage",
 		"brand_detonate_faster_activation_%_per_second",
 		"brand_detonate_faster_duration_%_per_second",
-		"display_brand_deonate_tag_conversion",
+		"display_brand_detonate_tag_conversion",
 	},
 	levels = {
 		[20] = { 0.80000001192093, 1.2000000476837, 35, 150, damageEffectiveness = 5.1, cooldown = 1.5, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 20, }, },
@@ -853,7 +853,7 @@ skills["GemDetonateMines"] = {
 		},
 	},
 	stats = {
-		"display_mine_deontation_mechanics_detonation_speed_+%_final_per_sequence_mine",
+		"display_mine_detonation_mechanics_detonation_speed_+%_final_per_sequence_mine",
 		"base_deal_no_damage",
 	},
 	levels = {
@@ -1205,7 +1205,7 @@ skills["FireBurstOnHit"] = {
 	color = 4,
 	baseEffectiveness = 2.5199999809265,
 	incrementalEffectiveness = 0.043999999761581,
-	description = "A burst of flame errupts from the location of a hit, dealing fire damage.",
+	description = "A burst of flame erupts from the location of a hit, dealing fire damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1592,7 +1592,7 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 		"cast_on_lose_cats_stealth",
-		"intimidating_cry_empowerd_attacks_deal_double_damage_display",
+		"intimidating_cry_empowered_attacks_deal_double_damage_display",
 		"enemies_taunted_by_your_warcies_are_intimidated",
 		"use_intimidating_cry_buff_visual_for_intimidate",
 	},

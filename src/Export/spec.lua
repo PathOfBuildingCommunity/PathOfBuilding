@@ -145,7 +145,7 @@ return {
 		},
 		[15]={
 			list=false,
-			name="ManuallyCasted",
+			name="ManuallyCast",
 			refTo="",
 			type="Bool",
 			width=100
@@ -2768,7 +2768,7 @@ return {
 		},
 		[27]={
 			list=true,
-			name="MonterMods",
+			name="MonsterMods",
 			refTo="Mods",
 			type="Key",
 			width=300
@@ -4268,7 +4268,7 @@ return {
 	},
 	MicrotransactionCombineFormula={
 	},
-	MicrotransactionCombineForumula={
+	MicrotransactionCombineFormula={
 	},
 	MicrotransactionCursorVariations={
 	},
@@ -6551,7 +6551,7 @@ return {
 	},
 	QuestRewards={
 	},
-	QuestStateCalcuation={
+	QuestStateCalculation={
 	},
 	QuestStateCalculation={
 	},

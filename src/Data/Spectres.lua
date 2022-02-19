@@ -34,7 +34,7 @@ minions["Metadata/Monsters/Axis/AxisCaster"] = {
 	},
 }
 minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
-	name = "Blackguard Arcmage",
+	name = "Blackguard Archmage",
 	life = 0.9,
 	energyShield = 0.2,
 	fireResist = 0,
@@ -1706,7 +1706,7 @@ minions["Metadata/Monsters/Necromancer/NecromancerEnfeebleCurse"] = {
 		-- MonsterRaisesUndeadText [monster_raises_undead_text = 1]
 	},
 }
-minions["Metadata/Monsters/Necromancer/NecromancerFlamability"] = {
+minions["Metadata/Monsters/Necromancer/NecromancerFlammability"] = {
 	name = "Ash Prophet",
 	life = 2.4,
 	energyShield = 0.4,
@@ -2714,7 +2714,7 @@ minions["Metadata/Monsters/AtlasExiles/CrusaderInfluenceMonsters/CrusaderTemplar
 	accuracy = 1,
 	skillList = {
 		"AtlasCrusaderJudgeBallLightning",
-		"AtlasCruasderJudgeFadingNova",
+		"AtlasCrusaderJudgeFadingNova",
 		"WalkEmergeAtlasInfluenceMonster",
 	},
 	modList = {
@@ -3262,7 +3262,7 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectr
 	modList = {
 	},
 }
--- Ravenous Mishapen
+-- Ravenous Misshapen
 minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre"] = {
 	name = "Ravenous Misshapen",
 	life = 1.16,

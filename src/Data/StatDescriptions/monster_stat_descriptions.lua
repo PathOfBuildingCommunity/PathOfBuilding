@@ -653,7 +653,7 @@ return {
 			}
 		},
 		stats={
-			[1]="monster_casts_elementral_weakness_curse_text"
+			[1]="monster_casts_elemental_weakness_curse_text"
 		}
 	},
 	[37]={
@@ -2565,7 +2565,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Creates Desecreated Ground"
+					text="Creates Desecrated Ground"
 				}
 			}
 		},
@@ -2890,7 +2890,7 @@ return {
 	["monster_casts_conductivity_text"]=101,
 	["monster_casts_discharge_text"]=109,
 	["monster_casts_elemental_hit_text"]=73,
-	["monster_casts_elementral_weakness_curse_text"]=36,
+	["monster_casts_elemental_weakness_curse_text"]=36,
 	["monster_casts_enfeeble_curse_text"]=37,
 	["monster_casts_ethereal_knives_text"]=92,
 	["monster_casts_fire_nova_text"]=126,

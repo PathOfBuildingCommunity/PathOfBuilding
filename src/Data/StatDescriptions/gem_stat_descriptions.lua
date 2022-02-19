@@ -15467,7 +15467,7 @@ return {
 			}
 		},
 		stats={
-			[1]="support_phys_proj_attack_damage_bleeing_and_poison_damage_+%_final_from_projectile_hits"
+			[1]="support_phys_proj_attack_damage_bleeding_and_poison_damage_+%_final_from_projectile_hits"
 		}
 	},
 	[542]={
@@ -18382,7 +18382,7 @@ return {
 	["support_phys_chaos_projectile_chaos_damage_over_time_+%_final"]=538,
 	["support_phys_chaos_projectile_physical_damage_over_time_+%_final"]=539,
 	["support_phys_chaos_projectile_spell_physical_projectile_damage_+%_final"]=540,
-	["support_phys_proj_attack_damage_bleeing_and_poison_damage_+%_final_from_projectile_hits"]=541,
+	["support_phys_proj_attack_damage_bleeding_and_poison_damage_+%_final_from_projectile_hits"]=541,
 	["support_pierce_projectile_damage_+%_final"]=542,
 	["support_poison_poison_damage_+%_final"]=85,
 	["support_power_charge_on_crit_damage_+%_final_per_power_charge"]=543,
