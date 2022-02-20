@@ -616,7 +616,7 @@ function EditClass:OnKeyUp(key)
 		else
 			self.controls.scrollBarH:Scroll(1)
 		end
-	elseif key == "v" and ctrl or key == "RIGHTBUTTON" and self.Object:IsMouseOver() then
+	elseif key == "v" and ctrl or (not ctrl and key == "RIGHTBUTTON" and self.Object:IsMouseOver()) then
 		local text = Paste()
 		if text then
 			if self.pasteFilter then
