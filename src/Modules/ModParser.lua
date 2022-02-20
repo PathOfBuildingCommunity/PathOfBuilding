@@ -2214,6 +2214,7 @@ local specialModList = {
 	["increases and reductions to cast speed apply to attack speed at (%d+)%% of their value"] =  function(num) return { flag("CastSpeedAppliesToAttacks"), mod("ImprovedCastSpeedAppliesToAttacks", "MAX", num) } end,
 	["increases and reductions to spell damage also apply to attacks"] = { flag("SpellDamageAppliesToAttacks"), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", 100) },
 	["increases and reductions to spell damage also apply to attacks at (%d+)%% of their value"] = function(num) return { flag("SpellDamageAppliesToAttacks"), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", num) } end,
+	["increases and reductions to spell damage also apply to attack damage from this skill at (%d+)%% of their value"] = function(num) return { flag("SpellDamageAppliesToAttacks"), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", num) } end,
 	["increases and reductions to spell damage also apply to attacks while wielding a wand"] = { flag("SpellDamageAppliesToAttacks", { type = "Condition", var = "UsingWand" }), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", 100, { type = "Condition", var = "UsingWand" }) },
 	["increases and reductions to maximum mana also apply to shock effect at (%d+)%% of their value"] = function(num) return { flag("ManaAppliesToShockEffect"), mod("ImprovedManaAppliesToShockEffect", "MAX", num) } end,
 	["modifiers to claw damage also apply to unarmed"] = { flag("ClawDamageAppliesToUnarmed") },
