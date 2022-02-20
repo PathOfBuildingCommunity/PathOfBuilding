@@ -14,9 +14,9 @@ local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(se
 	self.lastContent = ""
 	self.showColorCodes = false
 
-	local colorDesc = [[^7This field supports different colors.  Using the caret symbol (^) followed by a Hex code or a number (0-9) will set the color.
-Below are some common color codes PoB uses:	]]
-	self.controls.colorDoc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, colorDesc)
+	local DescriptionText = [[^7This field supports URLs and different colors. URLs can accessed by first clicking on the url and selecting either Ctrl-RightClick or Ctrl-u.
+	Colors can be used by using the caret symbol (^) followed by a Hex code or a number (0-9) will set the color. Below are some common color codes PoB uses:	]]
+	self.controls.colorDoc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, DescriptionText)
 	self.controls.normal = new("ButtonControl", {"TOPLEFT",self.controls.colorDoc,"TOPLEFT"}, 0, 32, 100, 18, colorCodes.NORMAL.."NORMAL", function() self:SetColor(colorCodes.NORMAL) end)
 	self.controls.magic = new("ButtonControl", {"TOPLEFT",self.controls.normal,"TOPLEFT"}, 120, 0, 100, 18, colorCodes.MAGIC.."MAGIC", function() self:SetColor(colorCodes.MAGIC) end)
 	self.controls.rare = new("ButtonControl", {"TOPLEFT",self.controls.magic,"TOPLEFT"}, 120, 0, 100, 18, colorCodes.RARE.."RARE", function() self:SetColor(colorCodes.RARE) end)
@@ -37,6 +37,7 @@ Below are some common color codes PoB uses:	]]
 	self.controls.edit.height = function()
 		return self.height - 112
 	end
+	self.controls.edit.allowURLs = true
 	self.controls.toggleColorCodes = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, -10, 70, 160, 20, "Show Color Codes", function()
 		self.showColorCodes = not self.showColorCodes
 		self:SetShowColorCodes(self.showColorCodes)
@@ -82,6 +83,20 @@ function NotesTabClass:Save(xml)
 end
 
 function NotesTabClass:Draw(viewPort, inputEvents)
+	local urlList = { }
+	local str = self.controls.edit.buf
+	local function FindURLs()
+		-- find any urls in the edit buffer
+		local first, last = 0
+		wipeTable(urlList)
+		while true do
+			first, last = str:find("<(http[s]-:.-)>", first+1)
+			if not first then break end
+			t_insert(urlList, { first, last, str:sub(first+1, last-1) })
+		end
+		return urlList
+	end
+
 	self.x = viewPort.x
 	self.y = viewPort.y
 	self.width = viewPort.width
@@ -93,6 +108,19 @@ function NotesTabClass:Draw(viewPort, inputEvents)
 				self.controls.edit:Undo()
 			elseif event.key == "y" and IsKeyDown("CTRL") then
 				self.controls.edit:Redo()
+			end
+		elseif event.type == "KeyUp" then
+			local ctrl = IsKeyDown("CTRL")
+			if ctrl and ( event.key == "RIGHTBUTTON" or event.key == "u" ) then
+				caret = self.controls.edit.caret
+				if FindURLs() then
+					for _, entry in ipairs(urlList) do
+						if caret >= entry[1] and caret <= entry[2] then
+							os.execute('c:/windows/explorer.exe '..entry[3])
+							return
+						end
+					end
+				end
 			end
 		end
 	end

@@ -436,19 +436,6 @@ function EditClass:OnKeyDown(key, doubleClick)
 				self:ReplaceSel("")
 			end
 		end
-	elseif key == "v" and ctrl or key == "RIGHTBUTTON" and self.Object:IsMouseOver() then
-		local text = Paste()
-		if text then
-			if self.pasteFilter then
-				text = self.pasteFilter(text)
-			end
-			text = text:gsub("[\128-\255]","?")
-			if self.sel and self.sel ~= self.caret then
-				self:ReplaceSel(text)
-			else
-				self:Insert(text)
-			end
-		end
 	elseif key == "z" and ctrl then
 		self:Undo()
 	elseif key == "y" and ctrl then
@@ -597,6 +584,7 @@ function EditClass:OnKeyUp(key)
 			self.selControl = nil
 		end
 	end
+	local ctrl =  IsKeyDown("CTRL")
 	if key == "LEFTBUTTON" then
 		if self.drag then
 			self.drag = false
@@ -627,6 +615,19 @@ function EditClass:OnKeyUp(key)
 			self.controls.scrollBarV:Scroll(1)
 		else
 			self.controls.scrollBarH:Scroll(1)
+		end
+	elseif key == "v" and ctrl or key == "RIGHTBUTTON" and self.Object:IsMouseOver() then
+		local text = Paste()
+		if text then
+			if self.pasteFilter then
+				text = self.pasteFilter(text)
+			end
+			text = text:gsub("[\128-\255]","?")
+			if self.sel and self.sel ~= self.caret then
+				self:ReplaceSel(text)
+			else
+				self:Insert(text)
+			end
 		end
 	end
 	return self.hasFocus and self
