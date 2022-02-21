@@ -27,7 +27,7 @@ skills["Absolution"] = {
 			mod("MinionModifier", "LIST", { mod = mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0) })
 		},
 		["damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) })
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
 		},
 	},
 	baseFlags = {
