@@ -271,6 +271,7 @@ SkillType = {
 	RequiresOffHandNotWeapon = 117,
 	Link = 118,
 	Blessing = 119,
+	ZeroReservation = 120,
 }
 
 GlobalCache = { 

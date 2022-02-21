@@ -1323,7 +1323,7 @@ skills["SupportAuraDuration"] = {
 	support = true,
 	requireSkillTypes = { SkillType.CanHaveBlessing, },
 	addSkillTypes = { SkillType.Duration, SkillType.Blessing, },
-	excludeSkillTypes = { SkillType.SummonsTotem, },
+	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_aura_duration_base_buff_duration"] = {
@@ -1733,7 +1733,7 @@ skills["SupportMortalConviction"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Aura, SkillType.HasReservation, SkillType.AND, },
 	addSkillTypes = { SkillType.Blessing, },
-	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.AuraNotOnCaster, },
+	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.AuraNotOnCaster, SkillType.ZeroReservation, },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 		skill("manaReservationFlat", 0),

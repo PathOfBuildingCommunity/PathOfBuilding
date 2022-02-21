@@ -130,7 +130,7 @@ itemBases["Fire Arrow Quiver"] = {
 itemBases["Sharktooth Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { quiver = true, default = true, },
-	implicit = "+(6-8) Life gained for each Enemy hit by Attacks",
+	implicit = "+(6-8) Life gained for each Enemy hit by your Attacks",
 	implicitModTypes = { { "resource", "life", "attack" }, },
 	req = { level = 14, },
 }
