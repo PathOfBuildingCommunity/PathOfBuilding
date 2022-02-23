@@ -44,9 +44,6 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 	self.colWidth = 230
 	self.sectionList = { }
 
-		
-
-
 	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
@@ -341,7 +338,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 	-- Add sections from the CalcSections module
 	local sectionData = LoadModule("Modules/CalcSections")
 	for _, section in ipairs(sectionData) do
---		self:NewSection(unpack(section))
+		--self:NewSection(unpack(section))
 	end
 
 	self.controls.breakdown = new("CalcBreakdownControl", self)

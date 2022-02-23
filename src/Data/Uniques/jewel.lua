@@ -67,7 +67,7 @@ Strength from Passives in Radius is Transformed to Intelligence
 Calamitous Visions
 Small Cluster Jewel
 League: Delirium
-Source: Drops from unique Delirium bosses in maps
+Source: Drops from the Simulacrum Encounter
 Adds Lone Messenger
 ]],[[
 Careful Planning
@@ -78,13 +78,11 @@ Intelligence from Passives in Radius is Transformed to Dexterity
 ]],[[
 Cheap Construction
 Viridian Jewel
-Source: No longer obtainable
 10% reduced Trap Duration
 Can have up to 1 additional Trap placed at a time
 ]],[[
 Replica Cheap Construction
 Viridian Jewel
-Source: No longer obtainable
 League: Heist
 (100-120)% increased Critical Strike Chance with Traps
 Can have 5 fewer Traps placed at a time
@@ -230,7 +228,7 @@ Implicits: 0
 The Front Line
 Small Cluster Jewel
 League: Delirium
-Source: Drops from unique Delirium bosses in maps
+Source: Drops from the Simulacrum Encounter
 Adds Veteran's Awareness
 ]],[[
 The Golden Rule
@@ -245,28 +243,20 @@ Cobalt Jewel
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
-Variant: Current - Crit Chance
-Variant: Current - Minion Crit Multi
-Variant: Current - Min Power Charge
+Variant: Current
 {variant:1}Gain 15 Mana per Grand Spectrum
 {variant:2}Gain 30 Mana per Grand Spectrum
 {variant:3}25% increased Critical Strike Chance per Grand Spectrum
-{variant:4}Minions have +10% to Critical Strike Multiplier per Grand Spectrum
-{variant:5}+1 to Minimum Power Charges per Grand Spectrum
 ]],[[
 Grand Spectrum
 Crimson Jewel
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
-Variant: Current - Elemental Resistances
-Variant: Current - Maximum Life
-Variant: Current - Min Endurance Charge
+Variant: Current
 {variant:1}Gain 75 Armour per Grand Spectrum
 {variant:2}Gain 200 Armour per Grand Spectrum
 {variant:3}+7% to all Elemental Resistances per Grand Spectrum
-{variant:4}5% increased Maximum Life per Grand Spectrum
-{variant:5}+1 to Minimum Endurance Charges per Grand Spectrum
 ]],[[
 Grand Spectrum
 Viridian Jewel
@@ -275,14 +265,10 @@ Variant: Pre 2.5.0
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current
-Variant: Current - Chance to avoid Ailments
-Variant: Current - Min Frenzy Charge
 {variant:1}5% increased Elemental Damage per Grand Spectrum
 {variant:2}4% increased Elemental Damage per Grand Spectrum
 {variant:3}12% increased Elemental Damage per Grand Spectrum
 {variant:4}15% increased Elemental Damage per Grand Spectrum
-{variant:5}15% chance to Avoid Elemental Ailments per Grand Spectrum
-{variant:6}+1 to Minimum Frenzy Charges per Grand Spectrum
 ]],[[
 The Green Dream
 Viridian Jewel
@@ -362,7 +348,7 @@ With 4 Notables Allocated in Radius, When you Kill a Rare monster, you gain 1 of
 The Interrogation
 Small Cluster Jewel
 League: Delirium
-Source: Drops from unique Delirium bosses in maps
+Source: Drops from the Simulacrum Encounter
 Adds Secrets of Suffering
 ]],[[
 Intuitive Leap
@@ -372,7 +358,7 @@ Passives in Radius can be Allocated without being connected to your tree
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
-Source: No longer obtainable
+Source: Drops in The Lord's Labyrinth
 (18-25)% increased Fire Damage
 (18-25)% increased Cold Damage
 2% chance to Freeze
@@ -381,7 +367,7 @@ Source: No longer obtainable
 Kitava's Teachings
 Small Cluster Jewel
 League: Delirium
-Source: Drops from unique Delirium bosses in maps
+Source: Drops from the Simulacrum Encounter
 Adds Disciple of Kitava
 ]],[[
 Lioneye's Fall
@@ -429,12 +415,9 @@ Radius: Small
 ]],[[
 Melding of the Flesh
 Cobalt Jewel
-Variant: Pre 3.19.0
-Variant: Current
 Source: Drops from unique{The Eater of Worlds}
 Limited to: 1
 -(80-70)% to All Elemental Resistances
-{variant:2}-(4-6)% to all maximum Elemental Resistances
 Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
 ]],[[
 Might in All Forms
@@ -460,13 +443,13 @@ Spells which have gained Intensity Recently lose 1 Intensity every 0.50 Seconds
 Natural Affinity
 Small Cluster Jewel
 League: Delirium
-Source: Drops from unique Delirium bosses in maps
+Source: Drops from the Simulacrum Encounter
 Adds Nature's Patience
 ]],[[
 One With Nothing
 Small Cluster Jewel
 League: Delirium
-Source: Drops from unique Delirium bosses in maps
+Source: Drops from the Simulacrum Encounter
 Adds Hollow Palm Technique
 ]],[[
 Primordial Eminence
@@ -594,7 +577,7 @@ also grant an equal chance to gain an Endurance Charge on Kill
 The Siege
 Small Cluster Jewel
 League: Delirium
-Source: Drops from unique Delirium bosses in maps
+Source: Drops from the Simulacrum Encounter
 Adds Kineticism
 ]],[[
 Soul's Wick
@@ -712,14 +695,12 @@ Variant: Small Ring
 Variant: Medium Ring
 Variant: Large Ring
 Variant: Very Large Ring
-Variant: Massive Ring
 Radius: Variable
 Implicits: 0
 {variant:1}Only affects Passives in Small Ring
 {variant:2}Only affects Passives in Medium Ring
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
-{variant:5}Only affects Passives in Massive Ring
 Passives in Radius can be Allocated without being connected to your tree
 -(20-10)% to all Elemental Resistances
 ]],[[
@@ -1305,7 +1286,7 @@ Limited to: 1
 Radius: Medium
 {variant:1}(5-10)% increased maximum Mana
 {variant:2}(7-10)% increased maximum Mana
-With at least 40 Intelligence in Radius, 10% of Damage taken Recouped as Mana if you've Warcried Recently
+With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit if you've Warcried Recently
 ]],[[
 Spreading Rot
 Cobalt Jewel
@@ -1450,9 +1431,9 @@ Corrupted
 ]],[[
 Blood Sacrifice
 Crimson Jewel
-Lose 1% of Life on Kill
-Recover 1% of Mana on Kill
-Lose 1% of Energy Shield on Kill
+1% of maximum Mana gained on Kill
+Removes 1% of Life on Kill
+Removes 1% of Energy Shield on Kill
 Corrupted
 ]],[[
 Replica Blood Sacrifice
@@ -1688,10 +1669,10 @@ League: Legion
 Source: Drops from Maraketh Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Asenath (Dance with Death)
-Variant: Deshret (Wind Dancer) (Pre 3.11.0)
-Variant: Nasima (Second Sight)
-Variant: Balbala (The Traitor)
+Variant: Asenath
+Variant: Deshret
+Variant: Nasima
+Variant: Balbala
 Radius: Large
 Implicits: 0
 {variant:1}Denoted service of (500-8000) dekhara in the akhara of Asenath
@@ -1707,10 +1688,10 @@ League: Legion
 Source: Drops from Eternal Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Cadiro (Supreme Decadence)
-Variant: Chitus (Supreme Ego) (Pre 3.11.0)
-Variant: Victario (Supreme Grandstanding)
-Variant: Caspiro (Supreme Ostentation)
+Variant: Cadiro
+Variant: Chitus
+Variant: Victario
+Variant: Caspiro
 Radius: Large
 Implicits: 0
 {variant:1}Commissioned (2000-160000) coins to commemorate Cadiro
@@ -1726,10 +1707,10 @@ League: Legion
 Source: Drops from Vaal Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Doryani (Corrupted Soul)
-Variant: Xibaqua (Divine Flesh)
-Variant: Zerphi (Eternal Youth) (Pre 3.11.0)
-Variant: Ahuana (Immortal Ambition)
+Variant: Doryani
+Variant: Xibaqua
+Variant: Zerphi
+Variant: Ahuana
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
@@ -1745,10 +1726,10 @@ League: Legion
 Source: Drops from Karui Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Kaom (Strength of Blood)
-Variant: Kiloava (Glancing Blows) (Pre 3.11.0)
-Variant: Rakiata (Tempered by War)
-Variant: Akoya (Chainbreaker)
+Variant: Kaom
+Variant: Kiloava
+Variant: Rakiata
+Variant: Akoya
 Radius: Large
 Implicits: 0
 {variant:1}Commanded leadership over (10000-18000) warriors under Kaom
@@ -1766,11 +1747,10 @@ Requires Level: 20
 Limited to: 1 Historic
 Has Alt Variant: true
 Has Alt Variant Two: true
-Selected Variant: 1
-Variant: Avarius (Power of Purpose)
-Variant: Dominus (Inner Conviction)
-Variant: Venarius (The Agnostic) (Pre 3.11.0)
-Variant: Maxarius (Transcendence)
+Variant: Avarius
+Variant: Dominus
+Variant: Venarius
+Variant: Maxarius
 Variant: Totem Damage
 Variant: Brand Damage
 Variant: Channelling Damage

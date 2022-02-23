@@ -14,14 +14,6 @@ return {
 			"Summoned Sentinels of Absolution have 24% increased Area of Effect",
 		},
 	},
-	["Alchemist's Mark"] = {
-		["MERCILESS"] = {
-			"20% increased Alchemist's Mark Curse Effect",
-		},
-		["ENDGAME"] = {
-			"30% increased Alchemist's Mark Curse Effect",
-		},
-	},
 	["Ambush"] = {
 		["MERCILESS"] = {
 			"20% increased Ambush Cooldown Recovery Rate",
@@ -130,9 +122,11 @@ return {
 	},
 	["Arctic Armour"] = {
 		["MERCILESS"] = {
+			"24% increased Arctic Armour Buff Effect",
 			"Arctic Armour has 50% increased Mana Reservation Efficiency",
 		},
 		["ENDGAME"] = {
+			"36% increased Arctic Armour Buff Effect",
 			"Arctic Armour has 75% increased Mana Reservation Efficiency",
 		},
 	},
@@ -162,9 +156,11 @@ return {
 	["Assassin's Mark"] = {
 		["MERCILESS"] = {
 			"20% increased Assassin's Mark Curse Effect",
+			"30% increased Assassin's Mark Duration",
 		},
 		["ENDGAME"] = {
 			"30% increased Assassin's Mark Curse Effect",
+			"45% increased Assassin's Mark Duration",
 		},
 	},
 	["Ball Lightning"] = {
@@ -1213,17 +1209,6 @@ return {
 			"Galvanic Arrow has 30% increased Projectile Speed",
 		},
 	},
-	["Galvanic Field"] = {
-		["MERCILESS"] = {
-			"Galvanic Field deals 25% increased Damage",
-			"Galvanic Field has 8% increased Cast Speed",
-		},
-		["ENDGAME"] = {
-			"Galvanic Field deals 40% increased Damage",
-			"Galvanic Field has 12% increased Cast Speed",
-			"Galvanic Field Chains an additional time",
-		},
-	},
 	["General's Cry"] = {
 		["MERCILESS"] = {
 			"General's Cry has 20% increased Cooldown Recovery Rate",
@@ -1600,18 +1585,6 @@ return {
 			"Lightning Arrow hits 2 additional Enemies",
 		},
 	},
-	["Lightning Conduit"] = {
-		["MERCILESS"] = {
-			"Lightning Conduit deals 25% increased Damage",
-			"Lightning Conduit has 8% increased Cast Speed",
-			"Lightning Conduit has 16% increased Area of Effect",
-		},
-		["ENDGAME"] = {
-			"Lightning Conduit deals 40% increased Damage",
-			"Lightning Conduit has 12% increased Cast Speed",
-			"Lightning Conduit has 24% increased Area of Effect",
-		},
-	},
 	["Lightning Spire Trap"] = {
 		["MERCILESS"] = {
 			"Lightning Spire Trap deals 25% increased Damage",
@@ -1712,9 +1685,11 @@ return {
 	["Molten Shell"] = {
 		["MERCILESS"] = {
 			"Molten Shell has 25% increased Skill Effect Duration",
+			"100% increased Molten Shell Buff Effect",
 		},
 		["ENDGAME"] = {
 			"Molten Shell has 40% increased Skill Effect Duration",
+			"150% increased Molten Shell Buff Effect",
 		},
 	},
 	["Molten Strike"] = {
@@ -1810,9 +1785,11 @@ return {
 	["Poacher's Mark"] = {
 		["MERCILESS"] = {
 			"20% increased Poacher's Mark Curse Effect",
+			"30% increased Poacher's Mark Duration",
 		},
 		["ENDGAME"] = {
 			"30% increased Poacher's Mark Curse Effect",
+			"45% increased Poacher's Mark Duration",
 		},
 	},
 	["Poisonous Concoction"] = {
@@ -2260,9 +2237,11 @@ return {
 	["Sniper's Mark"] = {
 		["MERCILESS"] = {
 			"Sniper's Mark has 20% increased Curse Effect",
+			"Sniper's Mark has 30% increased Duration",
 		},
 		["ENDGAME"] = {
 			"Sniper's Mark has 30% increased Curse Effect",
+			"Sniper's Mark has 45% increased Duration",
 		},
 	},
 	["Soul Link"] = {
@@ -2344,11 +2323,11 @@ return {
 	["Spirit Offering"] = {
 		["MERCILESS"] = {
 			"30% increased Spirit Offering Duration",
-			"Spirit Offering grants +8% to Critical Strike Multiplier",
+			"Spirit Offering grants +8% of Physical Damage as Extra Chaos Damage",
 		},
 		["ENDGAME"] = {
 			"45% increased Spirit Offering Duration",
-			"Spirit Offering grants +12% to Critical Strike Multiplier",
+			"Spirit Offering grants +12% of Physical Damage as Extra Chaos Damage",
 		},
 	},
 	["Split Arrow"] = {
@@ -2510,12 +2489,12 @@ return {
 		["MERCILESS"] = {
 			"Summoned Holy Relics deal 25% increased Damage",
 			"Summoned Holy Relics have 16% increased Area of Effect",
-			"Summoned Holy Relics have 40% increased Buff Effect",
+			"Summoned Holy Relics have 75% increased Buff Effect",
 		},
 		["ENDGAME"] = {
 			"Summoned Holy Relics deal 40% increased Damage",
 			"Summoned Holy Relics have 24% increased Area of Effect",
-			"Summoned Holy Relics have 60% increased Buff Effect",
+			"Summoned Holy Relics have 100% increased Buff Effect",
 		},
 	},
 	["Summon Ice Golem"] = {
@@ -2545,12 +2524,12 @@ return {
 	["Summon Raging Spirit"] = {
 		["MERCILESS"] = {
 			"Summon Raging Spirit has 20% increased Duration",
-			"Summon Raging Spirit has 16% chance to summon an extra Minion",
+			"Summon Raging Spirit has 12% chance to summon an extra Minion",
 			"Summoned Raging Spirits deal 25% increased Damage",
 		},
 		["ENDGAME"] = {
 			"Summon Raging Spirit has 30% increased Duration",
-			"Summon Raging Spirit has 24% chance to summon an extra Minion",
+			"Summon Raging Spirit has 18% chance to summon an extra Minion",
 			"Summoned Raging Spirits deal 40% increased Damage",
 		},
 	},
@@ -2845,20 +2824,22 @@ return {
 	["Warlord's Mark"] = {
 		["MERCILESS"] = {
 			"20% increased Warlord's Mark Curse Effect",
+			"30% increased Warlord's Mark Duration",
 		},
 		["ENDGAME"] = {
 			"30% increased Warlord's Mark Curse Effect",
+			"45% increased Warlord's Mark Duration",
 		},
 	},
 	["Wave of Conviction"] = {
 		["MERCILESS"] = {
 			"Wave of Conviction deals 25% increased Damage",
-			"Wave of Conviction's Exposure applies an extra -4% to Elemental Resistance",
+			"Wave of Conviction's Exposure applies -4% Elemental Resistance",
 			"Wave of Conviction has 20% increased Duration",
 		},
 		["ENDGAME"] = {
 			"Wave of Conviction deals 40% increased Damage",
-			"Wave of Conviction's Exposure applies an extra -6% to Elemental Resistance",
+			"Wave of Conviction's Exposure applies -6% Elemental Resistance",
 			"Wave of Conviction has 30% increased Duration",
 		},
 	},
