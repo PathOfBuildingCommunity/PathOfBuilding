@@ -473,7 +473,7 @@ holding Shift will put it in the second.]])
 		return self.displayItem and self.displayItem.corruptable
 	end
 
-	-- Section: Influcence dropdowns
+	-- Section: Influence dropdowns
 	local influenceDisplayList = { "Influence" }
 	for i, curInfluenceInfo in ipairs(influenceInfo) do
 		influenceDisplayList[i + 1] = curInfluenceInfo.display

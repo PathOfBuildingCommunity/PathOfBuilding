@@ -193,7 +193,7 @@ will automatically apply to the skill.]]
 	self.controls.gemCountHeader = new("LabelControl", {"BOTTOMLEFT",self.gemSlots[1].count,"TOPLEFT"}, 8, -2, 0, 16, "^7Count:")
 end)
 
--- parse real gem name and quality by ommiting the first word if alt qual is set
+-- parse real gem name and quality by omitting the first word if alt qual is set
 function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
 	-- if quality is default or nil check the gem type line if we have alt qual by comparing to the existing list
 	if gemTypeLine and (quality == nil or quality == '' or quality == 'Default') then
