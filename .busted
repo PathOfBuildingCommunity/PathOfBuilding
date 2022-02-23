@@ -8,7 +8,6 @@ return {
         lpath = "../runtime/lua/?.lua;../runtime/lua/?/init.lua",
         helper = "HeadlessWrapper.lua",
         ROOT = { "../spec" },
-       	["exclude-tags"] = "builds",
     },
     generate = {
         directory = "src",

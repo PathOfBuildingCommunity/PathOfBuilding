@@ -249,10 +249,6 @@ return {
 	skill("corpseExplosionLifeMultiplier", nil),
 	div = 100,
 },
-["corpse_explosion_monster_life_permillage_fire"] = {
-	skill("corpseExplosionLifeMultiplier", nil),
-	div = 1000,
-},
 ["spell_base_fire_damage_%_maximum_life"] = {
 	skill("selfFireExplosionLifeMultiplier", nil),
 	div = 100,
@@ -330,9 +326,6 @@ return {
 ["base_mana_cost_-%"] = {
 	mod("ManaCost", "INC", nil),
 	mult = -1,
-},
-["base_mana_cost_+"] = {
-	mod("ManaCostNoMult", "BASE", nil),
 },
 ["no_mana_cost"] = {
 	mod("ManaCost", "MORE", nil),
@@ -539,10 +532,6 @@ return {
 },
 ["secondary_skill_effect_duration_+%"] = {
 	mod("SecondaryDuration", "INC", nil),
-},
-["offering_skill_effect_duration_per_corpse"] = {
-	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "CorpseConsumedRecently", limit = 4 }),
-	div = 1000,
 },
 ["active_skill_quality_duration_+%_final"] = {
 	mod("Duration", "MORE", nil),
@@ -895,10 +884,6 @@ return {
 ["ignite_duration_+%"] = {
 	mod("EnemyIgniteDuration", "INC", nil),
 },
-["lightning_ailment_duration_+%"] = {
-	mod("EnemyShockDuration", "INC", nil),
-	mod("EnemySapDuration", "INC", nil),
-},
 ["shock_duration_+%"] = {
 	mod("EnemyShockDuration", "INC", nil),
 },
@@ -975,9 +960,6 @@ return {
 ["freeze_as_though_dealt_damage_+%"] = {
 	mod("FreezeAsThoughDealing", "MORE", nil),
 },
-["shock_maximum_magnitude_+"] = {
-	mod("ShockMax", "BASE", nil),
-},
 -- Global flags
 ["never_ignite"] = {
 	flag("CannotIgnite"),
@@ -1004,24 +986,6 @@ return {
 },
 ["base_deal_no_chaos_damage"] = {
 	flag("DealNoChaos"),
-},
-["all_damage_can_ignite"] = {
-	flag("PhysicalCanIgnite"),
-	flag("LightningCanIgnite"),
-	flag("ColdCanIgnite"),
-	flag("ChaosCanIgnite"),
-},
-["all_damage_can_freeze"] = {
-	flag("PhysicalCanFreeze"),
-	flag("LightningCanFreeze"),
-	flag("FireCanFreeze"),
-	flag("ChaosCanFreeze"),
-},
-["all_damage_can_shock"] = {
-	flag("PhysicalCanShock"),
-	flag("ColdCanShock"),
-	flag("FireCanShock"),
-	flag("ChaosCanShock"),
 },
 -- Other effects
 ["enemy_phys_reduction_%_penalty_vs_hit"] = {
@@ -1062,10 +1026,7 @@ return {
 	mod("EnemyCurseLimit", "BASE", nil),
 },
 ["consecrated_ground_enemy_damage_taken_+%"] = {
-	mod("DamageTakenConsecratedGround", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "OnConsecratedGround" }),
-},
-["consecrated_ground_effect_+%"] = {
-	mod("ConsecratedGroundEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+	mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "OnConsecratedGround" }),
 },
 ["base_inflict_cold_exposure_on_hit_%_chance"] = {
 	mod("ColdExposureChance", "BASE", nil),
@@ -1403,9 +1364,6 @@ return {
 --
 -- Trap
 ["support_trap_damage_+%_final"] = {
-	mod("Damage", "MORE", nil, 0, KeywordFlag.Trap),
-},
-["trap_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Trap),
 },
 ["number_of_additional_traps_allowed"] = {
@@ -1541,9 +1499,6 @@ return {
 ["base_number_of_golems_allowed"] = {
 	mod("ActiveGolemLimit", "BASE", nil),
 },
-["base_number_of_arbalists"] = {
-	mod("ActiveArbalistLimit", "BASE", nil),
-},
 ["base_number_of_champions_of_light_allowed"] = {
 	mod("ActiveSentinelOfPurityLimit", "BASE", nil),
 },
@@ -1579,9 +1534,6 @@ return {
 },
 ["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
-},
-["maximum_life_+%_for_corpses_you_create"] = {
-	mod("CorpseLife", "INC", nil),
 },
 --Golem
 ["golem_buff_effect_+%"] = {
@@ -1619,7 +1571,7 @@ return {
 },
 -- Aura
 ["non_curse_aura_effect_+%"] = {
-	mod("AuraEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }),
+	mod("AuraEffect", "INC", nil),
 },
 ["base_mana_reservation_+%"] = {
 	mod("ManaReserved", "INC", nil)
@@ -1652,8 +1604,6 @@ return {
 },
 ["sigil_repeat_frequency_+%"] = {
 	mod("BrandActivationFrequency", "INC", nil)
-},
-["additive_cast_speed_modifiers_apply_to_sigil_repeat_frequency"] = {
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {
@@ -1690,9 +1640,6 @@ return {
 ["kill_enemy_on_hit_if_under_10%_life"] = {
 	mod("CullPercent", "MAX", nil), 
 	value = 10
-},
-["spell_cast_time_added_to_cooldown_if_triggered"] = {
-	flag("SpellCastTimeAddedToCooldownIfTriggered"),
 },
 --
 -- Spectre or Minion-specific stats

@@ -1,4 +1,4 @@
--- Item data (c) Grinding Gear Games
+﻿-- Item data (c) Grinding Gear Games
 
 return {
 -- Ring
@@ -116,7 +116,7 @@ Amethyst Ring
 League: Ritual
 Requires Level 49
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-23%)% to Chaos Resistance
 {tags:jewellery_elemental}+(8-12)% to Fire Damage over Time Multiplier
 50% reduced Ignite Duration on Enemies
 (10-15)% chance to Ignite
@@ -126,16 +126,12 @@ Withered does not expire on Enemies Ignited by you
 ]],[[
 Blackheart
 Iron Ring
-Variant: Pre 3.19.0
-Variant: Current
 Implicits: 1
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
-{variant:1}{tags:physical}5% increased Global Physical Damage
-{variant:1}{tags:attack,chaos}Adds 1 to 3 Chaos Damage to Attacks
-{variant:2}{tags:attack,chaos}Adds (10-15) to (20-25) Chaos Damage to Attacks
-{variant:1}{tags:life}+(20-30) to maximum Life
-{variant:1}{tags:life}Regenerate (2-4) Life per second
-{variant:2}{tags:life}Regenerate (10-15) Life per second
+{tags:physical}5% increased Physical Damage
+{tags:attack,chaos}Adds 1 to 3 Chaos Damage to Attacks
+{tags:life}+(20-30) to maximum Life
+{tags:life}(2-4) Life Regenerated per second
 10% chance to Cause Monsters to Flee
 ]],[[
 Voidheart
@@ -352,53 +348,41 @@ Death Rush
 Amethyst Ring
 League: Onslaught
 Variant: Pre 2.6.0
-Variant: Pre 3.19.0
 Variant: Current
 Requires Level 46
 Implicits: 1
 {tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-{variant:1,2}{tags:attack}+(300-350) to Accuracy Rating
-{variant:1}{tags:jewellery_defense}+(60-80) to Armour
-{variant:2}{tags:jewellery_defense}}+(260-300) to Armour
+{tags:attack}+(300-350) to Accuracy Rating
+{tags:jewellery_defense}{variant:1}+(60-80) to Armour
+{tags:jewellery_defense}{variant:2}+(260-300) to Armour
 {variant:2}{tags:life}+(40-50) to maximum Life
-{variant:1,2}{tags:chaos,jewellery_resistance}+(15-20)% to Chaos Resistance
-{variant:1,2}{tags:attack,life,physical}(0.6-0.8)% of Physical Attack Damage Leeched as Life
+{tags:chaos,jewellery_resistance}+(15-20)% to Chaos Resistance
+{tags:attack,life,physical}(0.6-0.8)% of Physical Attack Damage Leeched as Life
 {variant:1}You gain Onslaught for 2 seconds on Kill
 {variant:2}You gain Onslaught for 4 seconds on Kill
-{variant:3}Recover 5% of Life on Kill
-{variant:3}Gain Adrenaline for 3 seconds on kill
 ]],[[
 Doedre's Damning
 Paua Ring
-Variant: Pre 3.19.0
-Variant: Current
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
-{variant:1}{tags:jewellery_attribute}+(5-10) to Intelligence
-{variant:2}{tags:jewellery_attribute}+(5-20) to Intelligence 
-{variant:1}{tags:jewellery_resistance}+5% to all Elemental Resistances
-{variant:2}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
-{variant:1}{tags:mana}+5 Mana Gained on Kill
-{variant:2}{tags:mana}+(5-20) Mana gained on Kill
+{tags:jewellery_attribute}+(5-10) to Intelligence
+{tags:jewellery_resistance}+5% to all Elemental Resistances
+{tags:mana}+5 Mana Gained on Kill
 {tags:caster}Enemies can have 1 additional Curse
 ]],[[
 Replica Doedre's Damning
 Paua Ring
 Variant: Pre 3.16.0
-Variant: Pre 3.19.0
 Variant: Current
 League: Heist
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
-{variant:1,2}{tags:jewellery_attribute}+(5-10) to Intelligence
-{variant:3}{tags:jewellery_attribute}+(5-20) to Intelligence 
-{variant:1,2}{tags:jewellery_resistance}+5% to all Elemental Resistances
-{variant:3}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
-{variant:1,2}{tags:mana}+5 Mana Gained on Kill
-{variant:3}{tags:mana}+(5-20) Mana gained on Kill
+{tags:jewellery_attribute}+(5-10) to Intelligence
+{tags:jewellery_resistance}+5% to all Elemental Resistances
+{tags:mana}+5 Mana gained on Kill
 {tags:caster}You can apply one fewer Curse
 {variant:1}{tags:caster}(25-35)% increased Effect of your Curses
-{variant:2,3}{tags:caster}(15-25)% increased Effect of your Curses
+{variant:2}{tags:caster}(15-25)% increased Effect of your Curses
 ]],[[
 Dream Fragments
 Sapphire Ring
@@ -500,18 +484,13 @@ Minions have 10% increased Area of Effect of Area Skills
 The Highwayman
 Gold Ring
 League: Heist
-Variant: Pre 3.19.0
-Variant: Current
 Requires Level 44
 Implicits: 1
 (6-15)% increased Rarity of Items found
 (15-25)% increased Rarity of Items found
-{variant:1}{tags:speed}5% increased Movement Speed
-{variant:2}{tags:speed}(5-10)% increased Movement Speed
-{variant:1}25% chance to Steal Power, Frenzy, and Endurance Charges on Hit
-{variant:2}100% chance to Steal Power, Frenzy, and Endurance Charges on Hit
-{variant:1}0.5% of Damage Leeched as Life while you have at least 5 total Endurance, Frenzy and Power Charges
-{variant:2}{tags:life}1% of Damage leeched as Life
+{tags:speed}5% increased Movement Speed
+25% chance to Steal Power, Frenzy, and Endurance Charges on Hit
+0.5% of Damage Leeched as Life while you have at least 5 total Endurance, Frenzy and Power Charges
 Total Recovery per second from Life Leech is Doubled
 ]],[[
 The Hungry Loop
@@ -530,7 +509,7 @@ Implicits: 1
 League: Blight
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
 {tags:jewellery_attribute}+(20-30) to Dexterity
-25% chance to Poison on Hit
+{tags:chaos}25% chance to Poison on Hit
 {tags:chaos}(40-60)% increased Damage with Poison
 You are Chilled while you are Poisoned
 Non-Chilled Enemies you Poison are Chilled
@@ -539,21 +518,19 @@ Poisoned Enemies you Kill with Hits Shatter
 Kaom's Sign
 Coral Ring
 Variant: Pre 2.0.0
-Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {tags:jewellery_attribute}+(10-20) to Strength
 {variant:1}{tags:attack,life,physical}0.4% of Physical Attack Damage Leeched as Life
 {variant:2}{tags:attack,life}+(2-4) Life gained for each Enemy hit by your Attacks
-{variant:3}Grants Level 10 Enduring Cry
 +1 Maximum Endurance Charge
 ]],[[
 Kaom's Way
 Coral Ring
 Variant: Pre 3.16.0
 Variant: Current
-Source: No longer obtainable
+Source: Drops from any endgame map boss
 Requires Level 32
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
@@ -568,7 +545,6 @@ Kikazaru
 Topaz Ring
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
-Variant: Pre 3.19.0
 Variant: Current
 Requires Level 20
 Implicits: 1
@@ -576,11 +552,10 @@ Implicits: 1
 {tags:jewellery_attribute}+(10-15) to all Attributes
 {variant:1}{tags:life}(13-17) Life Regenerated per second
 {variant:2,3}{tags:life}1 Life Regenerated per second per Level
-{variant:4}{tags:life}3 Life Regenerated per second per Level
 {tags:mana}(20-40)% increased Mana Regeneration Rate
 {variant:1}{tags:caster}20% reduced Effect of Curses on You
 {variant:2}{tags:caster}40% reduced Effect of Curses on You
-{variant:3,4}{tags:caster}60% reduced Effect of Curses on You
+{variant:3}{tags:caster}60% reduced Effect of Curses on You
 ]],[[
 Le Heup of All
 Iron Ring
@@ -657,7 +632,7 @@ Implicits: 1
 {tags:jewellery_elemental,attack}Adds (26-32) to (42-48) Cold Damage to Attacks
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
-{tags:attack}(60-80)% increased Attack Damage if your other Ring is a Shaper Item
+(60-80)% increased Attack Damage if your other Ring is a Shaper Item
 Cannot be Stunned by Attacks if your other Ring is an Elder Item
 20% chance to Trigger Level 20 Tentacle Whip on Kill
 Elder Item
@@ -680,7 +655,6 @@ Ming's Heart
 Amethyst Ring
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
-Variant: Pre 3.19.0
 Variant: Current
 Requires Level 69
 Implicits: 1
@@ -688,30 +662,22 @@ Implicits: 1
 {variant:1}{tags:life}15% reduced maximum Life
 {variant:2}{tags:life}10% reduced maximum Life
 {variant:3}{tags:life}(5-10)% reduced maximum Life
-{variant:4}{tags:life}25% reduced maximum Life
-{variant:1}{tags:jewellery_defense}15% reduced maximum Energy Shield
+{variant:1{tags:jewellery_defense}}15% reduced maximum Energy Shield
 {variant:2}{tags:jewellery_defense}10% reduced maximum Energy Shield
 {variant:3}{tags:jewellery_defense}(5-10)% reduced maximum Energy Shield
-{variant:4}{tags:jewellery_defense}25% reduced maximum Energy Shield
 {tags:chaos,jewellery_resistance}+(40-50)% to Chaos Resistance
-{variant:1,2,3}{tags:chaos,physical}Gain 20% of Physical Damage as Extra Chaos Damage
-{variant:4}{tags:chaos,physical}Gain (40-60)% of Physical Damage as Extra Chaos Damage
+{tags:chaos,physical}Gain 20% of Physical Damage as Extra Chaos Damage
 ]],[[
 Mokou's Embrace
 Ruby Ring
-Variant: Pre 3.19.0
-Variant: Current
 Requires Level 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{variant:1}{tags:jewellery_elemental}(15-25)% increased Fire Damage
+{tags:jewellery_elemental}(15-25)% increased Fire Damage
 {tags:jewellery_resistance}+(25-40)% to Cold Resistance
-{variant:1}{tags:jewellery_elemental}(5-10)% chance to Ignite
-{variant:2}{tags:jewellery_elemental}All Damage Taken from Hits can Ignite you
-{variant:1}{tags:attack,speed}20% increased Attack Speed while Ignited
-{variant:2}{tags:attack,speed}(25-40)% increased Attack Speed while Ignited
-{variant:1}{tags:caster,speed}20% increased Cast Speed while Ignited
-{variant:2}{tags:caster,speed}(25-40)% increased Cast Speed while Ignited
+{tags:jewellery_elemental}(5-10)% chance to Ignite
+{tags:attack,speed}20% increased Attack Speed while Ignited
+{tags:caster,speed}20% increased Cast Speed while Ignited
 {tags:jewellery_elemental}+25% chance to be Ignited
 ]],[[
 Mutewind Seal
@@ -729,8 +695,8 @@ Has 1 Socket
 {variant:2,3}{tags:attack,caster,speed}Socketed Golem Skills have 20% increased Attack and Cast Speed
 {tags:attack,physical}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack,speed}(5-10)% increased Attack Speed
-{variant:1}(1-2)% increased Movement Speed
-{variant:2}(3-5)% increased Movement Speed
+{variant:1}(1-2)% chance to Dodge Attack Hits
+{variant:2}(3-5)% chance to Dodge Attack Hits
 {variant:1}Socketed Gems are Supported by Level 16 Increased Minion Speed
 {variant:2,3}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
 ]],[[
@@ -738,7 +704,6 @@ Ngamahu's Sign
 Ruby Ring
 League: Bloodlines
 Variant: Pre 2.6.0
-Variant: Pre 3.19.0
 Variant: Current
 Requires Level 29
 Implicits: 1
@@ -746,12 +711,11 @@ Implicits: 1
 {tags:jewellery_attribute}+(15-25) to Strength
 {variant:1}{tags:jewellery_elemental,attack}Adds (8-10) to (12-14) Fire Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack,caster}Adds (8-10) to (12-14) Fire Damage to Spells and Attacks
-{variant:3}{tags:jewellery_elemental,attack,caster}Adds (20-25) to (30-35) Fire Damage to Spells and Attacks
+{variant:1}{tags:life}+(4-5) Life gained for each Ignited Enemy hit by your Attacks
+{variant:2}{tags:life}Recover (20-30) Life when you Ignite an Enemy
 15% increased Ignite Duration on Enemies
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
-{variant:2,3}{tags:jewellery_elemental}10% chance to Ignite
-{variant:1}{tags:life}+(4-5) Life gained for each Ignited Enemy hit by your Attacks
-{variant:2,3}{tags:life}Recover (20-30) Life when you Ignite an Enemy
+{variant:2}{tags:jewellery_elemental}10% chance to Ignite
 ]],[[
 The Pariah
 Unset Ring
@@ -886,17 +850,14 @@ Has 1 Socket
 Rigwald's Crest
 Two-Stone Ring
 League: Talisman
-Variant: Pre 3.19.0
-Variant: Current
 Source: Drops from unique{Rigwald, the Wolven King} (Level 60+)
 Requires Level 49
 Implicits: 1
 {tags:jewellery_resistance}+(12-16)% to Fire and Cold Resistances
-{variant:1}{tags:jewellery_elemental}(20-30)% increased Fire Damage
-{variant:1}{tags:jewellery_elemental}(20-30)% increased Cold Damage
+{tags:jewellery_elemental}(20-30)% increased Fire Damage
+{tags:jewellery_elemental}(20-30)% increased Cold Damage
 {tags:mana}(20-30)% increased Mana Regeneration Rate
-{variant:1}10% Chance to Trigger Level 10 Summon Spectral Wolf on Kill
-{variant:2}Trigger Level 10 Summon Spectral Wolf on Kill
+10% Chance to Trigger Level 10 Summon Spectral Wolf on Kill
 ]],[[
 Romira's Banquet
 Diamond Ring
@@ -936,7 +897,6 @@ Moonstone Ring
 League: Anarchy, Onslaught
 Variant: Pre 1.2.0
 Variant: Pre 2.6.0
-Variant: Pre 3.19.0
 Variant: Current
 Requires Level 30
 Implicits: 1
@@ -945,13 +905,10 @@ Implicits: 1
 Right ring slot: You cannot Regenerate Mana
 {variant:1}{tags:jewellery_defense}Right ring slot: 4% of Energy Shield Regenerated per second
 {variant:2,3}{tags:jewellery_defense}Right ring slot: 3% of Energy Shield Regenerated per second
-{variant:4}{tags:jewellery_defense}Right ring slot: 6% of Energy Shield Regenerated per second
 {variant:3}{tags:mana}Right ring slot: +100 to maximum Mana
-{variant:4}{tags:mana}Right ring slot: +250 to maximum Mana
 {variant:3}{tags:jewellery_defense}Left ring slot: +100 to maximum Energy Shield
-{variant:4}{tags:jewellery_defense}Left ring slot: +250 to maximum Energy Shield
 {variant:1,2}{tags:mana}Left ring slot: 100% increased Mana Regeneration Rate
-{variant:3,4}{tags:mana}Left ring slot: 40 Mana Regenerated per second
+{variant:3}{tags:mana}Left ring slot: 40 Mana Regenerated per second
 Left ring slot: You cannot Recharge or Regenerate Energy Shield
 ]],[[
 Sibyl's Lament
@@ -1071,29 +1028,26 @@ Prismatic Ring
 Variant: Pre 1.0.0
 Variant: Pre 1.1.0
 Variant: Pre 2.6.0
-Variant: Pre 3.19.0
 Variant: Current
 Requires Level 30
 Implicits: 2
 {variant:1}{tags:jewellery_resistance}+(8-12) to all Elemental Resistances
-{variant:2,3,4,5}{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
+{variant:2,3,4}{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
 {variant:1,2}(15-25)% increased Quantity of Items found
-{variant:3,4,5}(10-16)% increased Quantity of Items found
+{variant:3,4}(10-16)% increased Quantity of Items found
 Can't use other Rings
 {variant:1,2,3}{tags:jewellery_resistance}+(8-12)% to all Elemental Resistances
 {variant:4}{tags:jewellery_resistance}+(16-24)% to all Elemental Resistances
-{variant:5}{tags:jewellery_resistance}+(25-40)% to all Elemental Resistances
 {tags:caster}50% reduced Effect of Curses on You
 {variant:1,2,3}{tags:attack,life}+(20-30) Life gained for each Enemy hit by your Attacks
-{variant:4,5}{tags:attack,life}+(40-60) Life gained for each Enemy hit by your Attacks
+{variant:4}{tags:attack,life}+(40-60) Life gained for each Enemy hit by your Attacks
 {variant:1,2,3}{tags:attack,mana}+15 Mana gained for each Enemy hit by your Attacks
-{variant:4,5}{tags:attack,mana}+30 Mana gained for each Enemy hit by your Attacks
+{variant:4}{tags:attack,mana}+30 Mana gained for each Enemy hit by your Attacks
 ]],[[
 Timeclasp
 Moonstone Ring
 Variant: Pre 2.6.0
 Variant: Pre 3.17.0
-Variant: Pre 3.19.0
 Variant: Current
 Requires Level 22
 Implicits: 1
@@ -1101,19 +1055,15 @@ Implicits: 1
 {tags:attack,speed}(10-15)% increased Attack Speed
 {variant:1}{tags:caster,speed}(5-8)% increased Cast Speed
 {variant:2,3}{tags:caster,speed}(5-10)% increased Cast Speed
-{variant:4}{tags:caster,speed}(10-15)% increased Cast Speed
 {variant:1}{tags:mana}15% reduced Mana Regeneration Rate
 {variant:2,3}{tags:mana}15% increased Mana Regeneration Rate
-{variant:4}{tags:resource,life}(6-12)% of Damage Taken Recouped as Life
-{variant:4}{tags:resource,mana}(6-12)% of Damage Taken Recouped as Mana
 {variant:1}{tags:jewellery_defense}+(10-25) to maximum Energy Shield
 {variant:2}{tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {variant:3}{tags:jewellery_defense}+(40-45) to maximum Energy Shield
 {variant:1}{tags:caster}Temporal Chains has 30% reduced Effect on You
 {variant:2}{tags:caster}Temporal Chains has 50% reduced Effect on You
 {variant:3}(-10-10)% increased Skill Effect Duration
-{variant:4}(-20-20)% increased Skill Effect Duration
-{variant:3,4}Unaffected by Temporal Chains
+{variant:3}Unaffected by Temporal Chains
 ]],[[
 Timetwist
 Moonstone Ring
@@ -1250,11 +1200,11 @@ Requires Level 65
 Implicits: 1
 (6-15)% increased Rarity of Items found
 {tags:life}+(0-60) to maximum Life
-(-10-10)% increased Quantity of Items found
-(-40-40)% increased Rarity of Items found
-{tags:jewellery_resistance}+(-25-50)% to Fire Resistance
-{tags:jewellery_resistance}+(-25-50)% to Cold Resistance
-{tags:jewellery_resistance}+(-25-50)% to Lightning Resistance
+(−10 to 10)% increased Quantity of Items found
+(−40 to 40)% increased Rarity of Items found
+{tags:jewellery_resistance}+(−25 to 50)% to Fire Resistance
+{tags:jewellery_resistance}+(−25 to 50)% to Cold Resistance
+{tags:jewellery_resistance}+(−25 to 50)% to Lightning Resistance
 ]],[[
 Vivinsect
 Unset Ring
@@ -1338,19 +1288,5 @@ Implicits: 1
 30% chance to Avoid being Stunned
 {tags:speed}20% less Attack Speed
 Strike Skills also target the previous location they were Used
-]],[[
-Call of the Void
-Sapphire Ring
-Source: Drops from unique{Uber Elder}
-Shaper Item
-Elder Item
-Requires Level 16
-Implicits: 1
-{tags:jewellery_resistance}+(20-30)% to Cold Resistance
-{tags:jewellery_resistance}+(20-30)% to Cold Resistance
-All Damage with Hits can Chill
-All Damage Taken from Hits can Chill you
-Enemies Chilled by your Hits can be Shattered as though Frozen
-Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect
 ]],
 }

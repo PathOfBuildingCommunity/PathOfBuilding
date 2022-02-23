@@ -33,13 +33,13 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 	self:SetList(list or { })
 	self.selIndex = 1
 	self.selFunc = selFunc
-	-- Current value of the width of the dropped component
+	  -- Current value of the width of the dropped component
 	self.droppedWidth = self.width
-	-- Set by the parent control. The maximum width of the dropped component will go to.
+	  -- Set by the parent control. The maximum width of the dropped component will go to.
 	self.maxDroppedWidth = m_max(self.width, 300)
-	-- Set by the parent control. Activates the auto width of the dropped component.
+	  -- Set by the parent control. Activates the auto width of the dropped component. 
 	self.enableDroppedWidth = false
-	-- Set by the parent control. Activates the auto width of the box component.
+	  -- Set by the parent control. Activates the auto width of the box component. 
 	self.enableChangeBoxWidth = false
 	-- self.tag = "-"
 end)
@@ -65,7 +65,7 @@ function DropDownClass:DropIndexToListIndex(dropIndex)
 	end
 end
 
--- maps the original (unfiltered) list index to the actual dropdown row index (after eventual filtering)
+-- maps the the original (unfiltered) list index to the actual dropdown row index (after eventual filtering)
 function DropDownClass:ListIndexToDropIndex(listIndex, default)
 	-- 1:1
 	if not self:IsSearchActive() then
@@ -191,7 +191,7 @@ function DropDownClass:IsMouseOver()
 	return mOver, mOverComp
 end
 
-function DropDownClass:Draw(viewPort, noTooltip)
+function DropDownClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -275,7 +275,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 
 	-- draw dropdown bar
 	if enabled then
-		if (mOver or self.dropped) and mOverComp ~= "DROP" and not noTooltip then
+		if (mOver or self.dropped) and mOverComp ~= "DROP" then
 			SetDrawLayer(nil, 100)
 			self:DrawTooltip(
 				x, y - (self.dropped and self.dropUp and dropExtra or 0), 
@@ -315,7 +315,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		if self.hoverSel and not self.list[self.hoverSel] then
 			self.hoverSel = nil
 		end
-		if self.hoverSel and not noTooltip then
+		if self.hoverSel then
 			SetDrawLayer(nil, 100)
 			self:DrawTooltip(
 				x, dropY + 2 + (self.hoverSelDrop - 1) * lineHeight - scrollBar.offset,

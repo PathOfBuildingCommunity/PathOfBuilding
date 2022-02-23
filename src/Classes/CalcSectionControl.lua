@@ -17,7 +17,6 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 	self.flag = subSection[1].data.flag
 	self.notFlag = subSection[1].data.notFlag
 	self.updateFunc = updateFunc
-
 	
 	for i, subSec in ipairs(self.subSection) do
 		for _, data in ipairs(subSec.data) do
@@ -52,8 +51,6 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 		return self.enabled
 	end
 end)
-
-
 
 function CalcSectionClass:IsMouseOver()
 	if not self:IsShown() then
@@ -210,7 +207,6 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 		end
 		return self:FormatVal(modTotal, tonumber(p)) 
 	end)
-	--print(str)
 	return str
 end
 
@@ -261,11 +257,15 @@ function CalcSectionClass:Draw(viewPort)
 			primary = false
 			for _, rowData in ipairs(subSec.data) do
 				if rowData.enabled then
+					local textColor = "^7"
+					if rowData.color then
+						textColor = rowData.color
+					end
 					if rowData.label then
 						-- Draw row label with background
-				SetDrawColor(rowData.bgCol or "^0")
+						SetDrawColor(rowData.bgCol or "^0")
 						DrawImage(nil, x + 2, lineY, 130, 18)
-						DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", "^7"..rowData.label.."^7:")
+						DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
 					end
 					for colour, colData in ipairs(rowData) do
 						-- Draw column separator at the left end of the cell
@@ -274,8 +274,6 @@ function CalcSectionClass:Draw(viewPort)
 						if colData.format and self.calcsTab:CheckFlag(colData) then
 							if cursorY >= viewPort.y and cursorY < viewPort.y + viewPort.height and cursorX >= colData.x and cursorY >= colData.y and cursorX < colData.x + colData.width and cursorY < colData.y + colData.height then
 						self.calcsTab:SetDisplayStat(colData)
-						--print(colData[0])
-						--Copy(colData)
 					end
 					if self.calcsTab.displayData == colData then
 						-- This is the display stat, draw a green border around this cell
@@ -290,13 +288,6 @@ function CalcSectionClass:Draw(viewPort)
 					local textSize = rowData.textSize or 14
 					SetViewport(colData.x + 3, colData.y, colData.width - 4, colData.height)
 					DrawString(1, 9 - textSize/2, "LEFT", textSize, "VAR", "^7"..self:FormatStr(colData.format, actor, colData))
-					--print(dump(colData))
-					--print(colData['y'])
-					--print_table(colData)
-					--print(colData[1]["breakdown"])
-					--print(colData[numList[1]].modType)
-					--tprint(colData)
-					--self.calcsTab:SetDsiplayStat(colData)
 					SetViewport()
 				end
 			end
@@ -338,49 +329,4 @@ function CalcSectionClass:OnKeyUp(key)
 		return mOverControl:OnKeyUp(key)
 	end
 	return
-end
-
-
-
-function CalcSectionClass:OpenExportJewelPopup()
-	local controls = { }
-	controls.importAnchorPoint = new("Control", nil, 0, 0, 280, 0)
-	controls.generateCodeOut = new("EditControl", {"TOPLEFT",controls.importAnchorPoint,"BOTTOMLEFT"}, 0, 8, 250, 20, "Data", "Code", "%Z")
-	--controls.edit = new("EditControl", nil, 0, 64, 250, 18, "", nil, "^%w%p%s", nil, function(buf)
-	--controls.msg.label = ""
-	--end)
-	--controls.generateCodeOut.enabled = true
-	main:OpenPopup(280, 130, "Exported Aura Jewel", controls, "import", "edit")
-	
-end
-
-function dump(o)
-	if type(o) == 'table' then
-	   local s = '{ '
-	   for k,v in pairs(o) do
-		  if type(k) ~= 'number' then k = '"'..k..'"' end
-		  s = s .. '['..k..'] = ' .. dump(v) .. ','
-	   end
-	   return s .. '} '
-	else
-	   return tostring(o)
-	end
- end
-
- function tprint (t, s)
-    for k, v in pairs(t) do
-        local kfmt = '["' .. tostring(k) ..'"]'
-        if type(k) ~= 'string' then
-            kfmt = '[' .. k .. ']'
-        end
-        local vfmt = '"'.. tostring(v) ..'"'
-        if type(v) == 'table' then
-            tprint(v, (s or '')..kfmt)
-        else
-            if type(v) ~= 'string' then
-                vfmt = tostring(v)
-            end
-            print(type(t)..(s or '')..kfmt..' = '..vfmt)
-        end
-    end
 end

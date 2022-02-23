@@ -150,23 +150,21 @@ Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Pre 3.17.0
-Variant: Pre 3.19.0
 Variant: Current
 Requires Level 32, 107 Dex
 Implicits: 1
-{variant:2,3,4,5,6,7}(30-50)% increased Critical Strike Chance
+{variant:2,3,4,5,6}(30-50)% increased Critical Strike Chance
 {variant:1,2,3,4,5}(100-125)% increased Physical Damage
-{variant:6,7}(90-105)% increased Physical Damage
+{variant:6}(90-105)% increased Physical Damage
 10% increased Attack Speed
 {variant:1,2,4}+100% to Global Critical Strike Multiplier
 {variant:3}+150% to Global Critical Strike Multiplier
-{variant:5,6,7}+50% to Global Critical Strike Multiplier
-{variant:1,2,3,4,5,6}Adds an additional Arrow
-{variant:7}Bow Attacks fire 2 additional Arrows
+{variant:5,6}+50% to Global Critical Strike Multiplier
+Adds an additional Arrow
 ]],[[
 Death's Opus
 Death Bow
-Source: No longer obtainable
+Source: Drops from any endgame map boss
 Variant: Pre 1.2.0
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
@@ -183,31 +181,29 @@ Adds (10-20) to (30-35) Physical Damage
 {variant:1,2,4}+100% to Global Critical Strike Multiplier
 {variant:3}+150% to Global Critical Strike Multiplier
 {variant:5,6}+50% to Global Critical Strike Multiplier
-Bow Attacks fire 2 additional Arrows
+2 additional Arrows
 ]],[[
 Doomfletch
 Royal Bow
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
-Variant: Pre 3.19.0
 Variant: Current
 Requires Level 28, 95 Dex
 Implicits: 2
 {variant:2}(6-12)% increased Elemental Damage with Attack Skills
-{variant:3,4,5}(20-24)% increased Elemental Damage with Attack Skills
+{variant:3,4}(20-24)% increased Elemental Damage with Attack Skills
 {variant:2,3}Adds (8-12) to (16-20) Physical Damage
-{variant:4,5}Adds (12-16) to (20-24) Physical Damage
+{variant:4}Adds (12-16) to (20-24) Physical Damage
 (10-14)% increased Attack Speed
 {variant:1,2,3}(30-40)% increased Critical Strike Chance
 60% increased Mana Regeneration Rate
 {variant:1,2,3}Gain 110% of Bow Physical Damage as Extra Damage of an Element
 {variant:4}Gain 100% of Bow Physical Damage as Extra Damage of an Element
-{variant:5}Gain 100% of Bow Physical Damage as Extra Damage of each Element
 ]],[[
 Doomfletch's Prism
 Royal Bow
-Source: No longer obtainable
+Source: Drops from any endgame map boss
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
@@ -419,17 +415,14 @@ Requires Level 64, 212 Dex
 Roth's Reach
 Recurve Bow
 Variant: Pre 3.9.0
-Variant: Pre 3.19.0
 Variant: Current
 Requires Level 18, 71 Dex
 Implicits: 1
-{variant:2,3}+(15-25)% to Global Critical Strike Multiplier
+{variant:2}+(15-25)% to Global Critical Strike Multiplier
 (60-80)% increased Physical Damage
-{variant:1,2}(20-40)% increased Elemental Damage with Attack Skills
-{variant:3}(60-80)% increased Elemental Damage with Attack Skills
-{variant:1,2}(4-8)% increased Attack Speed
-{variant:1,2}Skills Chain +1 times
-{variant:3}Skills Chain +2 times
+(20-40)% increased Elemental Damage with Attack Skills
+(4-8)% increased Attack Speed
+Skills Chain +1 times
 30% increased Projectile Speed
 ]],[[
 Silverbranch
@@ -487,7 +480,7 @@ No Physical Damage
 ]],[[
 The Tempest
 Long Bow
-Source: No longer obtainable
+Source: Drops from any endgame map boss
 Requires Level 32, 38 Dex
 No Physical Damage
 100% increased Lightning Damage
@@ -504,8 +497,8 @@ Adds 1 to (275-325) Lightning Damage
 60% of Lightning Damage Converted to Chaos Damage
 10% Chance to Shock
 Your Chaos Damage can Shock
-{variant:2}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
-{variant:2}+40% to maximum Effect of Shock
+{variant:2}Shock Enemies as though dealing 300% more Damage
+{variant:2}Your Shocks can increase Damage taken by up to a maximum of 100%
 ]],[[
 Windripper
 Imperial Bow
