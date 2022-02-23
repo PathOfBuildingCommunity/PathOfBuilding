@@ -1342,7 +1342,7 @@ function calcs.perform(env, avoidCache)
 				env.player.modDB:NewMod("NumRallyingExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingExertedAttacks") + extraExertions)
 				env.player.modDB:NewMod("RallyingExertMoreDamagePerAlly",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryExertDamageBonus"))
 				local rallyingWeaponEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryAllyDamageBonusPer5Power")
-				-- Rallying cry divergant more effect of buff
+				-- Rallying cry divergent more effect of buff
 				local rallyingBonusMoreMultiplier = 1 + (activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryMinionDamageBonusMultiplier") or 0)
 				if warcryPowerBonus ~= 0 then
 					rallyingWeaponEffect = m_floor(rallyingWeaponEffect * warcryPowerBonus * buff_inc) / warcryPowerBonus
@@ -2798,7 +2798,7 @@ function calcs.perform(env, avoidCache)
 			-- Get action trigger rate
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
 
-			-- Account for chance to tigger on Melee Kill
+			-- Account for chance to trigger on Melee Kill
 			trigRate = trigRate * source.skillData.chanceToTriggerOnMeleeKill / 100
 
 			if breakdown then
