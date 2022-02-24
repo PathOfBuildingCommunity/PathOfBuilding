@@ -1364,6 +1364,9 @@ return {
 --
 -- Trap
 ["support_trap_damage_+%_final"] = {
+	mod("Damage", "MORE", nil, 0, KeywordFlag.Trap),
+},
+["trap_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Trap),
 },
 ["number_of_additional_traps_allowed"] = {
