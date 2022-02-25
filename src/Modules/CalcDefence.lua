@@ -1428,7 +1428,7 @@ function calcs.defence(env, actor)
 	-- helper function that itterativly reduces pools untill life hits 0 to determine the number of hits it would take with given damage to die
 	function numberOfHitsToDie(DamageIn)
 		local numHits = 0
-		DamageIn["cycles"] = DamageIn["cycles"] or 0
+		DamageIn["cycles"] = DamageIn["cycles"] or 1
 		
 		--check damage in isnt 0 and that ward doesnt mitigate all damage
 		for _, damageType in ipairs(dmgTypeList) do
@@ -1447,7 +1447,8 @@ function calcs.defence(env, actor)
 		local energyShield = output.EnergyShield or 0
 		local ward = output.Ward or 0
 		local restoreWard = modDB:Flag(nil, "WardNotBreak") and ward or 0
-		if DamageIn["cycles"] ~= 0 then -- this is so it only applies once
+		-- dont apply non-perma ward for speed up calcs as it wont zero it correctly per hit
+		if (not modDB:Flag(nil, "WardNotBreak")) and DamageIn["cycles"] > 1 then
 			ward = 0
 			restoreWard = 0
 		end
@@ -1468,7 +1469,7 @@ function calcs.defence(env, actor)
 		
 		local itterationMultiplier = 1
 		local maxHits = data.misc.ehpCalcMaxHitsToCalc
-		maxHits = maxHits / (DamageIn["cycles"] * 8 + 1)
+		maxHits = maxHits / DamageIn["cycles"]
 		while life > 0 and numHits < maxHits do
 			numHits = numHits + itterationMultiplier
 			local Damage = {}
@@ -1477,11 +1478,6 @@ function calcs.defence(env, actor)
 			end
 			for _, damageType in ipairs(dmgTypeList) do
 				if Damage[damageType] > 0 then
-					if ward > 0 then
-						local tempDamage = m_min(Damage[damageType], ward)
-						ward = ward - tempDamage
-						Damage[damageType] = Damage[damageType] - tempDamage
-					end
 					if frostShield > 0 then
 						local tempDamage = m_min(Damage[damageType] * output["FrostShieldDamageMitigation"] / 100, frostShield)
 						frostShield = frostShield - tempDamage
@@ -1510,6 +1506,11 @@ function calcs.defence(env, actor)
 					if guard["shared"] > 0 then
 						local tempDamage = m_min(Damage[damageType] * output["sharedGuardAbsorbRate"] / 100, guard["shared"])
 						guard["shared"] = guard["shared"] - tempDamage
+						Damage[damageType] = Damage[damageType] - tempDamage
+					end
+					if ward > 0 then
+						local tempDamage = m_min(Damage[damageType], ward)
+						ward = ward - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
 					if energyShield > 0 and (not modDB:Flag(nil, "EnergyShieldProtectsMana")) and DamageIn[damageType.."EnergyShieldBypass"] < 100 then
@@ -1551,8 +1552,8 @@ function calcs.defence(env, actor)
 				mana = m_min(mana + DamageIn.ManaWhenHit * itterationMultiplier, output.ManaUnreserved or 0)
 				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * itterationMultiplier, output.EnergyShield or 0)
 			end
-			--this is to speed this up
 			itterationMultiplier = 1
+			--To speed it up, run recurivly but speed up
 			local maxDepth = data.misc.ehpCalcMaxDepth
 			local speedUp = data.misc.ehpCalcSppedUp
 			if life > 0 and DamageIn["cycles"] < maxDepth then
@@ -1563,9 +1564,10 @@ function calcs.defence(env, actor)
 				Damage.LifeWhenHit = DamageIn.LifeWhenHit or 0 * speedUp
 				Damage.ManaWhenHite = DamageIn.ManaWhenHit or 0 * speedUp
 				Damage.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit or 0 * speedUp
-				Damage["cycles"] = DamageIn["cycles"] + 1
+				Damage["cycles"] = DamageIn["cycles"] * speedUp
 				itterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
-				DamageIn["cycles"] = maxDepth --only run once
+				--only run once
+				DamageIn["cycles"] = maxDepth 
 			end
 		end
 		if numHits >= maxHits then
