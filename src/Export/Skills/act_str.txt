@@ -298,9 +298,11 @@ local skills, mod, flag, skill = ...
 		["chain_strike_gain_x_rage_if_attack_hits"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["chain_strike_cone_radius_+_per_x_rage"] = {
+			mod("AreaOfEffect", "BASE", 1, 0, 0, { type = "Multiplier", var = "Rage" , div = nil }),
+		},
 	},
 #baseMod skill("radius", 24)
-#baseMod mod("AreaOfEffect", "BASE", 1, 0, 0, { type = "Multiplier", var = "Rage" , div = 5 })
 #mods
 
 #skill Cleave

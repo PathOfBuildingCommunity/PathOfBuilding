@@ -943,7 +943,6 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
-#baseMod mod("SkillPhysicalDamageConvertToCold", "BASE", 40, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 23)
 #mods
 

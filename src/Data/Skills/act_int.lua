@@ -5832,6 +5832,12 @@ skills["ExpandingFireCone"] = {
 		["expanding_fire_cone_radius_limit"] = {
 			mod("Multiplier:IncinerateRadiusLimit", "BASE", nil),
 		},
+		["flamethrower_damage_+%_per_stage_final"] = {
+            mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" }),
+        },
+        ["expanding_fire_cone_maximum_number_of_stages"] = {
+		    mod("Multiplier:IncinerateMaxStages", "BASE", nil),
+        },
 	},
 	baseFlags = {
 		spell = true,
@@ -5839,7 +5845,6 @@ skills["ExpandingFireCone"] = {
 	},
 	baseMods = {
 		mod("Multiplier:IncinerateMaxStages", "BASE", 8),
-		mod("Damage", "MORE", 25, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" }),
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 25),
 		skill("radiusLabel", "Flame Length:"),
@@ -10371,7 +10376,7 @@ skills["SummonSkeletons"] = {
 	},
 	statMap = {
 		["damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) })
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
 		},
 	},
 	baseFlags = {
@@ -10462,7 +10467,7 @@ skills["VaalSummonSkeletons"] = {
 	},
 	statMap = {
 		["damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) })
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
 		},
 	},
 	baseFlags = {

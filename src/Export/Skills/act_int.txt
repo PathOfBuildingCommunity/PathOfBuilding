@@ -1261,9 +1261,13 @@ local skills, mod, flag, skill = ...
 		["expanding_fire_cone_radius_limit"] = {
 			mod("Multiplier:IncinerateRadiusLimit", "BASE", nil),
 		},
+		["flamethrower_damage_+%_per_stage_final"] = {
+            mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" }),
+        },
+        ["expanding_fire_cone_maximum_number_of_stages"] = {
+		    mod("Multiplier:IncinerateMaxStages", "BASE", nil),
+        },
 	},
-#baseMod mod("Multiplier:IncinerateMaxStages", "BASE", 8)
-#baseMod mod("Damage", "MORE", 25, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" })
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 25)
 #baseMod skill("radiusLabel", "Flame Length:")
@@ -2003,7 +2007,7 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) })
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
 		},
 	},
 #mods
@@ -2017,7 +2021,7 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) })
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
 		},
 	},
 #mods
