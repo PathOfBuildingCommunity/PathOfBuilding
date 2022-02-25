@@ -381,6 +381,10 @@ data.misc = { -- magic numbers
 	shaperPen = 25 / 5,
 	sirusDPSMult = 10 / 4.25,
 	sirusPen = 40 / 5,
+	-- ehp helper function magic numbers
+	ehpCalcMaxHitsToCalc = 513,
+	ehpCalcMaxDepth = 3,
+	ehpCalcSppedUp = 8,
 }
 
 -- Misc data tables

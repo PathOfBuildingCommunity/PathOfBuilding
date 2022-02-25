@@ -1422,6 +1422,7 @@ function calcs.defence(env, actor)
 	-- helper function that itterativly reduces pools untill life hits 0 to determine the number of hits it would take with given damage to die
 	function numberOfHitsToDie(DamageIn)
 		local numHits = 0
+		DamageIn["cycles"] = DamageIn["cycles"] or 0
 		
 		--check damage in isnt 0 and that ward doesnt mitigate all damage
 		for _, damageType in ipairs(dmgTypeList) do
@@ -1440,7 +1441,7 @@ function calcs.defence(env, actor)
 		local energyShield = output.EnergyShield or 0
 		local ward = output.Ward or 0
 		local restoreWard = modDB:Flag(nil, "WardNotBreak") and ward or 0
-		if (DamageIn["c"] or 0) ~= 0 then -- this is so it only applies once
+		if DamageIn["cycles"] ~= 0 then -- this is so it only applies once
 			ward = 0
 			restoreWard = 0
 		end
@@ -1460,8 +1461,8 @@ function calcs.defence(env, actor)
 		DamageIn["LifeLossBelowHalfLost"] = DamageIn["LifeLossBelowHalfLost"] or 0
 		
 		local itterationMultiplier = 1
-		local maxHits = 513 --arbitrary number needs to be moved to data.misc
-		maxHits = maxHits / ((DamageIn["c"] or 0) + 1)
+		local maxHits = data.misc.ehpCalcMaxHitsToCalc
+		maxHits = maxHits / (DamageIn["cycles"] * 8 + 1)
 		while life > 0 and numHits < maxHits do
 			numHits = numHits + itterationMultiplier
 			local Damage = {}
@@ -1546,10 +1547,9 @@ function calcs.defence(env, actor)
 			end
 			--this is to speed this up
 			itterationMultiplier = 1
-			DamageIn["c"] = DamageIn["c"] or 0
-			local maxdepth = 3 --move to data.misc
-			local speedUp = 8 --move to data.misc
-			if life > 0 and DamageIn["c"] < maxdepth then
+			local maxDepth = data.misc.ehpCalcMaxDepth
+			local speedUp = data.misc.ehpCalcSppedUp
+			if life > 0 and DamageIn["cycles"] < maxDepth then
 				Damage = {}
 				for _, damageType in ipairs(dmgTypeList) do
 					Damage[damageType] = DamageIn[damageType] * speedUp
@@ -1557,9 +1557,9 @@ function calcs.defence(env, actor)
 				Damage.LifeWhenHit = DamageIn.LifeWhenHit or 0 * speedUp
 				Damage.ManaWhenHite = DamageIn.ManaWhenHit or 0 * speedUp
 				Damage.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit or 0 * speedUp
-				Damage["c"] = DamageIn["c"] + 1
+				Damage["cycles"] = DamageIn["cycles"] + 1
 				itterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
-				DamageIn["c"] = maxdepth --only run once
+				DamageIn["cycles"] = maxDepth --only run once
 			end
 		end
 		if numHits >= maxHits then
@@ -1604,6 +1604,11 @@ function calcs.defence(env, actor)
 		DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
 		DamageIn.ManaWhenHit = output.ManaOnBlock * BlockChance
 		DamageIn.EnergyShieldWhenHit = output.EnergyShieldOnBlock * BlockChance
+		if damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" then
+			DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock * BlockChance
+		elseif damageCategoryConfig == "Average" then
+			DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock / 2 * BlockChance
+		end
 		--supression
 		if damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" or damageCategoryConfig == "Average" then
 			suppressChance = output.SpellSuppressionChance / 100
