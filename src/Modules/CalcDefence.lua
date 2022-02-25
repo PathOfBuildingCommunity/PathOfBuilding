@@ -1601,13 +1601,15 @@ function calcs.defence(env, actor)
 			end
 		end
 		blockEffect = (1 - BlockChance * output.BlockEffect / 100)
-		DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
-		DamageIn.ManaWhenHit = output.ManaOnBlock * BlockChance
-		DamageIn.EnergyShieldWhenHit = output.EnergyShieldOnBlock * BlockChance
-		if damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" then
-			DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock * BlockChance
-		elseif damageCategoryConfig == "Average" then
-			DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock / 2 * BlockChance
+		if env.configInput.DisableEHPGainOnBlock then
+			DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
+			DamageIn.ManaWhenHit = output.ManaOnBlock * BlockChance
+			DamageIn.EnergyShieldWhenHit = output.EnergyShieldOnBlock * BlockChance
+			if damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" then
+				DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock * BlockChance
+			elseif damageCategoryConfig == "Average" then
+				DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock / 2 * BlockChance
+			end
 		end
 		--supression
 		if damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" or damageCategoryConfig == "Average" then
@@ -1631,8 +1633,10 @@ function calcs.defence(env, actor)
 			ExtraAvoidChance = ExtraAvoidChance + output.AvoidProjectilesChance / 2
 		end
 		--gain when hit (currently just gain on block)
-		if DamageIn.LifeWhenHit ~= 0 or DamageIn.ManaWhenHit ~= 0 or DamageIn.EnergyShieldWhenHit ~= 0 then
-			DamageIn.GainWhenHit = true
+		if env.configInput.DisableEHPGainOnBlock then
+			if DamageIn.LifeWhenHit ~= 0 or DamageIn.ManaWhenHit ~= 0 or DamageIn.EnergyShieldWhenHit ~= 0 then
+				DamageIn.GainWhenHit = true
+			end
 		end
 		for _, damageType in ipairs(dmgTypeList) do
 			if modDB:Flag(nil, "BlockedDamageDoesntBypassES") then -- this needs to fail with divine flesh as it cant override it
