@@ -859,11 +859,15 @@ function calcs.defence(env, actor)
 					{ label = "Type", key = "type" },
 					{ label = "Value", key = "value" },
 					{ label = "Mult", key = "mult" },
+					{ label = "Crit", key = "crit" },
 					{ label = "Final", key = "final" },
 					{ label = "From", key = "from" },
 				},
 			}
 		end
+		local enemyCritChance = env.configInput["enemyCritChance"] or 5
+		local enemyCritDamage = env.configInput["enemyCritDamage"] or 30
+		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (1 + enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		local stringVal = "Default"
 		for _, damageType in ipairs(dmgTypeList) do
 			if env.configInput["enemy"..damageType.."Damage"] or env.configInput["enemy"..damageType.."Pen"] then
@@ -902,18 +906,20 @@ function calcs.defence(env, actor)
 				end
 			end
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
-			output[damageType.."EnemyDamage"] = enemyDamage * enemyDamageMult
+			output[damageType.."EnemyDamage"] = enemyDamage * enemyDamageMult * output["EnemyCritEffect"]
 			output["totalEnemyDamage"] = output["totalEnemyDamage"] + output[damageType.."EnemyDamage"]
 			if breakdown then
 				breakdown[damageType.."EnemyDamage"] = {
 				s_format("from %s: %d", stringVal, enemyDamage),
 				s_format("* %.2f (modifiers to enemy damage)", enemyDamageMult),
+				s_format("* %.2f (enemy crit effect)", output["EnemyCritEffect"]),
 				s_format("= %d", output[damageType.."EnemyDamage"]),
 				}
 				t_insert(breakdown["totalEnemyDamage"].rowList, {
 					type = s_format("%s", damageType),
 					value = s_format("%d", enemyDamage),
 					mult = s_format("%.2f", enemyDamageMult),
+					crit = s_format("%.2f", output["EnemyCritEffect"]),
 					final = s_format("%d", output[damageType.."EnemyDamage"]),
 					from = s_format("%s", stringVal),
 				})
