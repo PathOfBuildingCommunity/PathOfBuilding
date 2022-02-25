@@ -109,7 +109,7 @@ data.powerStatList = {
 	{ stat="MeleeAvoidChance", label="Melee avoid chance" },
 	{ stat="SpellAvoidChance", label="Spell avoid chance" },
 	{ stat="ProjectileAvoidChance", label="Projectile avoid chance" },
-	{ stat="TotalEHP", label="Fffective Hit Pool" },
+	{ stat="TotalEHP", label="Effective Hit Pool" },
 	{ stat="SecondMinimalMaximumHitTaken", label="Eff. Maximum Hit Taken" },
 	{ stat="PhysicalTakenHitMult", label="Taken Phys dmg", transform=function(value) return 1-value end },
 	{ stat="LightningTakenDotMult", label="Taken Lightning dmg", transform=function(value) return 1-value end },
