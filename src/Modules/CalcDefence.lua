@@ -1601,7 +1601,7 @@ function calcs.defence(env, actor)
 			end
 		end
 		blockEffect = (1 - BlockChance * output.BlockEffect / 100)
-		if env.configInput.DisableEHPGainOnBlock then
+		if not env.configInput.DisableEHPGainOnBlock then
 			DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
 			DamageIn.ManaWhenHit = output.ManaOnBlock * BlockChance
 			DamageIn.EnergyShieldWhenHit = output.EnergyShieldOnBlock * BlockChance
@@ -1633,7 +1633,7 @@ function calcs.defence(env, actor)
 			ExtraAvoidChance = ExtraAvoidChance + output.AvoidProjectilesChance / 2
 		end
 		--gain when hit (currently just gain on block)
-		if env.configInput.DisableEHPGainOnBlock then
+		if not env.configInput.DisableEHPGainOnBlock then
 			if DamageIn.LifeWhenHit ~= 0 or DamageIn.ManaWhenHit ~= 0 or DamageIn.EnergyShieldWhenHit ~= 0 then
 				DamageIn.GainWhenHit = true
 			end
