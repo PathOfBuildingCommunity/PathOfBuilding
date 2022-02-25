@@ -867,7 +867,7 @@ function calcs.defence(env, actor)
 		end
 		local enemyCritChance = env.configInput["enemyCritChance"] or 5
 		local enemyCritDamage = env.configInput["enemyCritDamage"] or 30
-		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (1 + enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
+		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		local stringVal = "Default"
 		for _, damageType in ipairs(dmgTypeList) do
 			if env.configInput["enemy"..damageType.."Damage"] or env.configInput["enemy"..damageType.."Pen"] then
@@ -912,7 +912,7 @@ function calcs.defence(env, actor)
 				breakdown[damageType.."EnemyDamage"] = {
 				s_format("from %s: %d", stringVal, enemyDamage),
 				s_format("* %.2f (modifiers to enemy damage)", enemyDamageMult),
-				s_format("* %.2f (enemy crit effect)", output["EnemyCritEffect"]),
+				s_format("* %.3f (enemy crit effect)", output["EnemyCritEffect"]),
 				s_format("= %d", output[damageType.."EnemyDamage"]),
 				}
 				t_insert(breakdown["totalEnemyDamage"].rowList, {
