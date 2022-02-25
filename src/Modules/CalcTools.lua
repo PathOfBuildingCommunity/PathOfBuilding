@@ -173,11 +173,25 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 			statValue = round(availableEffectiveness * level[index])
 		elseif level.statInterpolation[index] == 2 then
 			-- Linear interpolation; I'm actually just guessing how this works
-			local nextLevel = m_min(skillInstance.level + 1, #grantedEffect.levels)
-			local nextReq = grantedEffect.levels[nextLevel].levelRequirement
-			local prevReq = grantedEffect.levels[nextLevel - 1].levelRequirement
-			local nextStat = grantedEffect.levels[nextLevel][index]
-			local prevStat = grantedEffect.levels[nextLevel - 1][index]
+
+			-- Order the levels, since sometimes they skip around
+			local orderedLevels = { }
+			local currentLevelIndex
+			for level, _ in pairs(grantedEffect.levels) do
+				t_insert(orderedLevels, level)
+			end
+			table.sort(orderedLevels)
+			for idx, level in ipairs(orderedLevels) do
+				if skillInstance.level == level then
+					currentLevelIndex = idx
+				end
+			end
+
+			local nextLevelIndex = m_min(currentLevelIndex + 1, #orderedLevels)
+			local nextReq = grantedEffect.levels[orderedLevels[nextLevelIndex]].levelRequirement
+			local prevReq = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]].levelRequirement
+			local nextStat = grantedEffect.levels[orderedLevels[nextLevelIndex]][index]
+			local prevStat = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]][index]
 			statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
 		else
 			-- Static value
