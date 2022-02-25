@@ -1101,7 +1101,8 @@ function calcs.defence(env, actor)
 			else
 				portionArmour = 100 - (resist - enemyPen)
 				armourReduct = calcs.armourReductionDouble(output.Armour, damage * portionArmour / 100, moreArmourChance)
-				resist = resist + m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
+				armourReduct = m_min(output.DamageReductionMax, armourReduct)
+				resist = resist + armourReduct * portionArmour / 100
 			end
 			if resist ~= resist then -- resist == nan (caused somtimes by a div by 0 in armour calcs if damage passed in is 0)
 				resist = 0
@@ -1125,7 +1126,7 @@ function calcs.defence(env, actor)
 		elseif damageCategoryConfig == "Average" then
 			takenMult = (output[damageType.."SpellTakenHitMult"] + output[damageType.."AttackTakenHitMult"]) / 2
 		end
-		output[damageType.."BaseTakenHitMult"] = (1 - resist / 100) * takenMult
+		output[damageType.."BaseTakenHitMult"] = (1 - (resist - enemyPen) / 100) * takenMult
 		local takenMultReflect = output[damageType.."TakenReflect"]
 		local finalReflect = (1 - (resist - enemyPen) / 100) * takenMultReflect
 		output[damageType.."TakenHit"] = m_max(output[damageType.."TakenDamage"] * (1 - (resist - enemyPen) / 100) + takenFlat, 0) * takenMult
@@ -1173,6 +1174,9 @@ function calcs.defence(env, actor)
 	output.LifeRecoverable = output.LifeUnreserved
 	if env.configInput["conditionLowLife"] then
 		output.LifeRecoverable = m_min(output.Life * data.misc.LowPoolThreshold, output.LifeUnreserved)
+		if output.LifeRecoverable < output.LifeUnreserved then
+			output.CappingLife = true
+		end
 	end
 	
 	-- Prevented life loss (Petrified Blood)
@@ -1456,7 +1460,7 @@ function calcs.defence(env, actor)
 		DamageIn["LifeLossBelowHalfLost"] = DamageIn["LifeLossBelowHalfLost"] or 0
 		
 		local itterationMultiplier = 1
-		local maxHits = 10000 --arbitrary number needs to be moved to data.misc
+		local maxHits = 513 --arbitrary number needs to be moved to data.misc
 		maxHits = maxHits / ((DamageIn["c"] or 0) + 1)
 		while life > 0 and numHits < maxHits do
 			numHits = numHits + itterationMultiplier
@@ -1543,8 +1547,8 @@ function calcs.defence(env, actor)
 			--this is to speed this up
 			itterationMultiplier = 1
 			DamageIn["c"] = DamageIn["c"] or 0
-			local maxdepth = 4 --move to data.misc
-			local speedUp = 5 --move to data.misc
+			local maxdepth = 3 --move to data.misc
+			local speedUp = 8 --move to data.misc
 			if life > 0 and DamageIn["c"] < maxdepth then
 				Damage = {}
 				for _, damageType in ipairs(dmgTypeList) do
@@ -1557,6 +1561,9 @@ function calcs.defence(env, actor)
 				itterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
 				DamageIn["c"] = maxdepth --only run once
 			end
+		end
+		if numHits >= maxHits then
+			return m_huge
 		end
 		return numHits
 	end
