@@ -1074,7 +1074,7 @@ function calcs.defence(env, actor)
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2
 		end
 		if damageType == "Physical" or modDB:Flag(nil, "ArmourAppliesTo"..damageType.."DamageTaken") then
-			local damage = output[damageType.."TakenDamage"] * (1 - ((resist + enemyPen) / 100)) + takenFlat
+			local damage = output[damageType.."TakenDamage"] * (1 - ((resist + enemyPen) / 100))
 			local armourReduct = 0
 			local portionArmour = 100
 			if damageType == "Physical" then
