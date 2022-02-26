@@ -1095,7 +1095,7 @@ function calcs.defence(env, actor)
 			if breakdown then
 				breakdown[damageType.."DamageReduction"] = {
 					s_format("Enemy Hit Damage:"),
-					s_format("    %d ^8(%s the Configuration tab)", output[damageType.."TakenDamage"], env.configInput.enemyHit and "overridden from" or "can be overridden in"),
+					s_format("    %d ^8(can be overridden in the Configuration tab)", output[damageType.."TakenDamage"]),
 					s_format("    %d ^8(after all relevant modifiers have been applied)", damage),
 				}
 				if portionArmour < 100 then
