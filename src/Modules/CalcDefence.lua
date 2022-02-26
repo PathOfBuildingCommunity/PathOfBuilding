@@ -1087,7 +1087,7 @@ function calcs.defence(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		-- Calculate incoming damage multiplier
 		local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
-		local enemyPen = env.configInput["enemy"..damageType.."Pen"] or output[damageType.."EnemyPen"] or 0
+		local enemyPen = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or env.configInput["enemy"..damageType.."Pen"] or output[damageType.."EnemyPen"] or 0
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks")
@@ -1110,7 +1110,8 @@ function calcs.defence(env, actor)
 				armourReduct = m_min(output.DamageReductionMax, armourReduct)
 				resist = resist + armourReduct * portionArmour / 100
 			end
-			if resist ~= resist then -- resist == nan (caused somtimes by a div by 0 in armour calcs if damage passed in is 0)
+			 -- resist == nan
+			if resist ~= resist then
 				resist = 0
 			end
 			output[damageType.."DamageReduction"] = damageType == "Physical" and resist or m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
