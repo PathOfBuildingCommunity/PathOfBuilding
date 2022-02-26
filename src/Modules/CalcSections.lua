@@ -995,7 +995,7 @@ return {
 		{ label = "Player modifiers", modName = { "EnemyChillEffect", "ChillAsThoughDealing" }, cfg = "skill" },
 		{ label = "Enemy modifiers", modName = "SelfChillEffect", enemy = true },
 	}, },
-	{ label = "Chill Duration", bgCol = colorCodes.CHILLBG, flag = "chill", { format = "{2:output:ChillDuration}s",
+	{ label = "Chill Duration", bgCol = colorCodes.CHILLBG, flag = "chillHasDuration", { format = "{2:output:ChillDuration}s",
 		{ breakdown = "MainHand.ChillDuration" },
 		{ breakdown = "OffHand.ChillDuration" },
 		{ breakdown = "ChillDuration" },

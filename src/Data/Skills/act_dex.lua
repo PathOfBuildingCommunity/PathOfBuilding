@@ -206,7 +206,7 @@ skills["ArcticArmour"] = {
 	castTime = 0,
 	statMap = {
 		["arctic_armour_chill_when_hit_duration"] = {
-			mod("ChillDurationBase", "OVERRIDE", nil),
+			mod("EnemyChillDuration", "BASE", nil),
 			div = 1000,
 		},
 		["new_arctic_armour_physical_damage_taken_when_hit_+%_final"] = {
@@ -221,6 +221,7 @@ skills["ArcticArmour"] = {
 		duration = true,
 	},
 	baseMods = {
+		mod("EnemyChillEffect", "BASE", 30),
 	},
 	qualityStats = {
 		Default = {

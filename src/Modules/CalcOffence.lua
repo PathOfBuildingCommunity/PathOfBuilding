@@ -3473,22 +3473,24 @@ function calcs.offence(env, actor, activeSkill)
 		}
 		if activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.NonHitChill] then
 			skillFlags.chill = true
-			local chillDurationBase = skillModList:Override(nil, "ChillDurationBase") or ailmentData.Chill.duration
+			local chillDurationBase = skillModList:Sum("BASE", cfg, "EnemyChillDuration") or ailmentData.Chill.duration
+			local chillEffectBase = skillModList:Sum("BASE", cfg, "EnemyChillEffect") or ailmentData.Chill.default
 			local incDur = skillModList:Sum("INC", cfg, "EnemyChillDuration") + enemyDB:Sum("INC", nil, "SelfChillDuration")
 			local moreDur = skillModList:More(cfg, "EnemyChillDuration") * enemyDB:More(nil, "SelfChillDuration")
 			output.ChillDurationMod = (1 + incDur / 100) * moreDur * debuffDurationMult
-			output.ChillDuration = chillDurationBase * output.ChillDurationMod 
+			output.ChillDuration = chillDurationBase * output.ChillDurationMod
+			skillFlags.chillHasDuration = output.ChillDuration > 0
 			output.ChillEffectMod = calcLib.mod(skillModList, cfg, "EnemyChillEffect")
-			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max, m_floor(ailmentData.Chill.default * output.ChillEffectMod))
+			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max, m_floor(chillEffectBase * output.ChillEffectMod))
 			if breakdown then
 				breakdown.DotChill = { }
 				breakdown.multiChain(breakdown.DotChill, {
 					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max),
-					base = s_format("%d%% ^8(base)", ailmentData.Chill.default),
+					base = s_format("%d%% ^8(base)", chillEffectBase),
 					{ "%.2f ^8(increased effect of chill)", output.ChillEffectMod},
 					total = s_format("= %.0f%%", output.ChillSourceEffect)
 				})
-				if output.ChillDuration ~= chillDurationBase then
+				if output.ChillDuration ~= chillDurationBase and skillFlags.chillHasDuration then
 					breakdown.ChillDuration = { }
 					t_insert(breakdown.ChillDuration, s_format("%.2fs ^8(base duration)", chillDurationBase))
 					if incDur ~= 0 then
@@ -3534,6 +3536,9 @@ function calcs.offence(env, actor, activeSkill)
 					local incDur = skillModList:Sum("INC", cfg, "Enemy"..ailment.."Duration") + enemyDB:Sum("INC", nil, "Self"..ailment.."Duration")
 					local moreDur = skillModList:More(cfg, "Enemy"..ailment.."Duration") * enemyDB:More(nil, "Self"..ailment.."Duration")
 					output[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * debuffDurationMult
+					if ailment == "Chill" then
+						skillFlags.chillHasDuration = output[ailment.."Duration"] > 0
+					end
 					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect")
 					if breakdown then
 						local maximum = skillModList:Override(nil, ailment.."Max") or ailmentData[ailment].max
@@ -3592,7 +3597,7 @@ function calcs.offence(env, actor, activeSkill)
 							})
 						end
 					end
-					if breakdown and output[ailment.."Duration"] ~= ailmentData[ailment].duration then
+					if breakdown and output[ailment.."Duration"] ~= ailmentData[ailment].duration and (ailment ~= "Chill" or skillFlags.chillHasDuration) then
 						breakdown[ailment.."Duration"] = { }
 						if isAttack then
 							t_insert(breakdown[ailment.."Duration"], pass.label..":")

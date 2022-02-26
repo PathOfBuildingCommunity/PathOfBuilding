@@ -47,7 +47,7 @@ local skills, mod, flag, skill = ...
 #flags spell duration
 	statMap = {
 		["arctic_armour_chill_when_hit_duration"] = {
-			mod("ChillDurationBase", "OVERRIDE", nil),
+			mod("EnemyChillDuration", "BASE", nil),
 			div = 1000,
 		},
 		["new_arctic_armour_physical_damage_taken_when_hit_+%_final"] = {
@@ -57,6 +57,7 @@ local skills, mod, flag, skill = ...
 			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "Condition", var = "Stationary" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
+#baseMod mod("EnemyChillEffect", "BASE", 30)
 #mods
 
 #skill ArtilleryBallista
