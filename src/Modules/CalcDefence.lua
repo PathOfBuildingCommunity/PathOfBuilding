@@ -1118,13 +1118,23 @@ function calcs.defence(env, actor)
 			if resist ~= resist then
 				resist = 0
 			end
-			output[damageType.."DamageReduction"] = damageType == "Physical" and resist or portionArmour < 100 and armourReduct * portionArmour / 100 or armourReduct
+			output[damageType.."DamageReduction"] = portionArmour < 100 and armourReduct * portionArmour / 100 or armourReduct
 			if breakdown then
-				breakdown[damageType.."DamageReduction"] = {
-					s_format("Enemy Hit Damage: %d ^8(%s the Configuration tab)", damage, env.configInput.enemyHit and "overridden from" or "can be overridden in"),
-				}
-				if portionArmour < 100 then
-					t_insert(breakdown[damageType.."DamageReduction"], s_format("Portion mitigated by Armour: %d%%", portionArmour))
+				if portionArmour > 100 then
+					breakdown[damageType.."DamageReduction"] = {
+						s_format("Enemy Hit Damage:"),
+						s_format("    %d ^8(total incoming damage)", damage),
+						s_format("    * %.2f ^8(from resistance, applies before armour)", (portionArmour / 100)),
+					}
+				elseif portionArmour < 100 then
+					breakdown[damageType.."DamageReduction"] = {
+						s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage),
+						s_format("Portion mitigated by Armour: %d%%", portionArmour),
+					}
+				else
+					breakdown[damageType.."DamageReduction"] = {
+						s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage),
+					}
 				end
 				t_insert(breakdown[damageType.."DamageReduction"], s_format("Reduction from Armour: %d%%", armourReduct))
 			end
