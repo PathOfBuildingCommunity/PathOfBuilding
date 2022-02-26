@@ -1647,7 +1647,8 @@ function calcs.defence(env, actor)
 			end
 		end
 		for _, damageType in ipairs(dmgTypeList) do
-			if modDB:Flag(nil, "BlockedDamageDoesntBypassES") then -- this needs to fail with divine flesh as it cant override it
+			 -- Emperor's Vigilance (this needs to fail with divine flesh as it cant override it, hence the check for high bypass)
+			if modDB:Flag(nil, "BlockedDamageDoesntBypassES")and output[damageType.."EnergyShieldBypass"] < 100 and damageType ~= "Chaos"  then
 				DamageIn[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] * (1 - BlockChance) 
 			end
 			local AvoidChance = m_min(output["Avoid"..damageType.."DamageChance"] + ExtraAvoidChance, data.misc.AvoidChanceCap)
