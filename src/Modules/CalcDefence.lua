@@ -1104,7 +1104,8 @@ function calcs.defence(env, actor)
 			if damageType == "Physical" then
 				if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
 					armourReduct = calcs.armourReductionDouble(output.Armour, damage, moreArmourChance)
-					resist = m_min(output.DamageReductionMax, resist - enemyPen + armourReduct)
+					armourReduct = m_min(output.DamageReductionMax, resist - enemyPen + armourReduct)
+					resist = armourReduct
 				end
 				resist = m_max(resist, 0)
 			else
@@ -1113,11 +1114,11 @@ function calcs.defence(env, actor)
 				armourReduct = m_min(output.DamageReductionMax, armourReduct)
 				resist = resist + armourReduct * portionArmour / 100
 			end
-			 -- resist == nan
+			--fix for resist == nan
 			if resist ~= resist then
 				resist = 0
 			end
-			output[damageType.."DamageReduction"] = damageType == "Physical" and resist or m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
+			output[damageType.."DamageReduction"] = damageType == "Physical" and resist or portionArmour < 100 and armourReduct * portionArmour / 100 or armourReduct
 			if breakdown then
 				breakdown[damageType.."DamageReduction"] = {
 					s_format("Enemy Hit Damage: %d ^8(%s the Configuration tab)", damage, env.configInput.enemyHit and "overridden from" or "can be overridden in"),
