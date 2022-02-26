@@ -3473,17 +3473,35 @@ function calcs.offence(env, actor, activeSkill)
 		}
 		if activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.NonHitChill] then
 			skillFlags.chill = true
-			output.ChillEffectMod = skillModList:Sum("INC", cfg, "EnemyChillEffect")
-			output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
-			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max, m_floor(ailmentData.Chill.default * (1 + output.ChillEffectMod / 100)))
+			local chillDurationBase = skillModList:Override(nil, "ChillDurationBase") or ailmentData.Chill.duration
+			local incDur = skillModList:Sum("INC", cfg, "EnemyChillDuration") + enemyDB:Sum("INC", nil, "SelfChillDuration")
+			local moreDur = skillModList:More(cfg, "EnemyChillDuration") * enemyDB:More(nil, "SelfChillDuration")
+			output.ChillDurationMod = (1 + incDur / 100) * moreDur * debuffDurationMult
+			output.ChillDuration = chillDurationBase * output.ChillDurationMod 
+			output.ChillEffectMod = calcLib.mod(skillModList, cfg, "EnemyChillEffect")
+			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max, m_floor(ailmentData.Chill.default * output.ChillEffectMod))
 			if breakdown then
 				breakdown.DotChill = { }
 				breakdown.multiChain(breakdown.DotChill, {
 					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max),
 					base = s_format("%d%% ^8(base)", ailmentData.Chill.default),
-					{ "%.2f ^8(increased effect of chill)", 1 + output.ChillEffectMod / 100},
+					{ "%.2f ^8(increased effect of chill)", output.ChillEffectMod},
 					total = s_format("= %.0f%%", output.ChillSourceEffect)
 				})
+				if output.ChillDuration ~= chillDurationBase then
+					breakdown.ChillDuration = { }
+					t_insert(breakdown.ChillDuration, s_format("%.2fs ^8(base duration)", chillDurationBase))
+					if incDur ~= 0 then
+						t_insert(breakdown.ChillDuration, s_format("x %.2f ^8(increased/reduced duration)", 1 + incDur / 100))
+					end
+					if moreDur ~= 1 then
+						t_insert(breakdown.ChillDuration, s_format("x %.2f ^8(more/less duration)", moreDur))
+					end
+					if debuffDurationMult ~= 1 then
+						t_insert(breakdown.ChillDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+					end
+					t_insert(breakdown.ChillDuration, s_format("= %.2fs", output.ChillDuration))
+				end
 			end
 		end
 		if (output.FreezeChanceOnHit + output.FreezeChanceOnCrit) > 0 then
