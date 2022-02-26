@@ -1082,14 +1082,12 @@ function calcs.defence(env, actor)
 					armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage)
 					resist = m_min(output.DamageReductionMax, resist - enemyPen + armourReduct)
 				end
+				-- Physical damage "resistance" can never go below 0%
 				resist = m_max(resist, 0)
 			else
-				portionArmour = 100 - (resist - enemyPen)
+				portionArmour = m_min(100 - (resist - enemyPen), 100)
 				armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage * portionArmour / 100)
 				resist = resist + m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
-			end
-			if resist ~= resist then -- resist == nan (caused sometimes by a div by 0 in armour calcs if damage passed in is 0)
-				resist = 0
 			end
 			output[damageType.."DamageReduction"] = damageType == "Physical" and resist or m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
 			if breakdown then
