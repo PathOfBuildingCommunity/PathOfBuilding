@@ -421,10 +421,13 @@ function calcs.defence(env, actor)
 		output["Gear:EnergyShield"] = gearEnergyShield
 		output["Gear:Armour"] = gearArmour
 		output["Gear:Evasion"] = gearEvasion
-		output.CappingES = modDB:Flag(nil, "ArmourESRecoveryCap") and output.Armour < output.EnergyShield or modDB:Flag(nil, "EvasionESRecoveryCap") and output.Evasion < output.EnergyShield
+		output.CappingES = modDB:Flag(nil, "ArmourESRecoveryCap") and output.Armour < output.EnergyShield or modDB:Flag(nil, "EvasionESRecoveryCap") and output.Evasion < output.EnergyShield or env.configInput["conditionLowEnergyShield"]
 
 		if output.CappingES then
-			output.EnergyShieldRecoveryCap = modDB:Flag(nil, "ArmourESRecoveryCap") and modDB:Flag(nil, "EvasionESRecoveryCap") and m_min(output.Armour, output.Evasion) or modDB:Flag(nil, "ArmourESRecoveryCap") and output.Armour or modDB:Flag(nil, "EvasionESRecoveryCap") and output.Evasion
+			output.EnergyShieldRecoveryCap = modDB:Flag(nil, "ArmourESRecoveryCap") and modDB:Flag(nil, "EvasionESRecoveryCap") and m_min(output.Armour, output.Evasion) or modDB:Flag(nil, "ArmourESRecoveryCap") and output.Armour or modDB:Flag(nil, "EvasionESRecoveryCap") and output.Evasion or output.EnergyShield or 0
+			output.EnergyShieldRecoveryCap = env.configInput["conditionLowEnergyShield"] and m_min(output.EnergyShield * data.misc.LowPoolThreshold, output.EnergyShieldRecoveryCap) or output.EnergyShieldRecoveryCap
+		else
+			output.EnergyShieldRecoveryCap = output.EnergyShield or 0
 		end
 
 		if modDB:Flag(nil, "CannotEvade") then
@@ -1247,10 +1250,10 @@ function calcs.defence(env, actor)
 		if modDB:Flag(nil, "EnergyShieldProtectsMana") and output.MinimumBypass < 100 then
 			manatext = manatext.." + non-bypassed energy shield"
 			if output.MinimumBypass > 0 then
-				local manaProtected = output.EnergyShield / (1 - output.MinimumBypass / 100) * (output.MinimumBypass / 100)
+				local manaProtected = output.EnergyShieldRecoveryCap / (1 - output.MinimumBypass / 100) * (output.MinimumBypass / 100)
 				sourcePool = m_max(sourcePool - manaProtected, 0) + m_min(sourcePool, manaProtected) / (output.MinimumBypass / 100)
 			else 
-				sourcePool = sourcePool + output.EnergyShield
+				sourcePool = sourcePool + output.EnergyShieldRecoveryCap
 			end
 		end
 		local poolProtected = sourcePool / (output["sharedMindOverMatter"] / 100) * (1 - output["sharedMindOverMatter"] / 100)
@@ -1287,10 +1290,10 @@ function calcs.defence(env, actor)
 			if modDB:Flag(nil, "EnergyShieldProtectsMana") and output[damageType.."EnergyShieldBypass"] < 100 then
 				manatext = manatext.." + non-bypassed energy shield"
 				if output[damageType.."EnergyShieldBypass"] > 0 then
-					local manaProtected = (output.EnergyShieldRecoveryCap or output.EnergyShield) / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
+					local manaProtected = output.EnergyShieldRecoveryCap / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
 					sourcePool = m_max(sourcePool - manaProtected, 0) + m_min(sourcePool, manaProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
 				else 
-					sourcePool = sourcePool + (output.EnergyShieldRecoveryCap or output.EnergyShield)
+					sourcePool = sourcePool + output.EnergyShieldRecoveryCap
 				end
 			end
 			local poolProtected = sourcePool / (MindOverMatter / 100) * (1 - MindOverMatter / 100)
@@ -1405,10 +1408,10 @@ function calcs.defence(env, actor)
 				manatext = manatext.." and non-bypassed Energy Shield"
 			else
 				if output[damageType.."EnergyShieldBypass"] > 0 then
-					local poolProtected = (output.EnergyShieldRecoveryCap or output.EnergyShield) / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
+					local poolProtected = output.EnergyShieldRecoveryCap / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
 					output[damageType.."TotalPool"] = m_max(output[damageType.."TotalPool"] - poolProtected, 0) + m_min(output[damageType.."TotalPool"], poolProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
 				else 
-					output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + (output.EnergyShieldRecoveryCap or output.EnergyShield)
+					output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.EnergyShieldRecoveryCap
 				end
 			end
 		end
@@ -1445,7 +1448,7 @@ function calcs.defence(env, actor)
 		
 		local life = output.LifeRecoverable or 0
 		local mana = output.ManaUnreserved or 0
-		local energyShield = output.EnergyShield or 0
+		local energyShield = output.EnergyShieldRecoveryCap
 		local ward = output.Ward or 0
 		local restoreWard = modDB:Flag(nil, "WardNotBreak") and ward or 0
 		-- dont apply non-perma ward for speed up calcs as it wont zero it correctly per hit
@@ -1551,7 +1554,7 @@ function calcs.defence(env, actor)
 			if DamageIn.GainWhenHit and life > 0 then
 				life = m_min(life + DamageIn.LifeWhenHit * itterationMultiplier, output.LifeRecoverable or 0)
 				mana = m_min(mana + DamageIn.ManaWhenHit * itterationMultiplier, output.ManaUnreserved or 0)
-				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * itterationMultiplier, output.EnergyShield or 0)
+				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * itterationMultiplier, output.EnergyShieldRecoveryCap)
 			end
 			itterationMultiplier = 1
 			--To speed it up, run recurivly but speed up
