@@ -3798,6 +3798,7 @@ skills["FlameWhip"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("radius", 30),
