@@ -382,9 +382,11 @@ data.misc = { -- magic numbers
 	sirusDPSMult = 10 / 4.25,
 	sirusPen = 40 / 5,
 	-- ehp helper function magic numbers
-	ehpCalcMaxHitsToCalc = 512,
-	ehpCalcMaxDepth = 3,
-	ehpCalcSppedUp = 8,
+	ehpCalcSpeedUp = 8,
+		-- depth needs to be a power of speedUp (in this case 8^3, will run 3 recursive calls deep)
+	ehpCalcMaxDepth = 512,
+		-- max hits is currently depth + speedup - 1 to give as much accuracy with as few cycles as possible, but can be increased for more accuracy
+	ehpCalcMaxHitsToCalc = 519,
 }
 
 -- Misc data tables

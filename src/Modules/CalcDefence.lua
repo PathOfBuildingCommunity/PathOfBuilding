@@ -1559,7 +1559,7 @@ function calcs.defence(env, actor)
 			itterationMultiplier = 1
 			--To speed it up, run recurivly but speed up
 			local maxDepth = data.misc.ehpCalcMaxDepth
-			local speedUp = data.misc.ehpCalcSppedUp
+			local speedUp = data.misc.ehpCalcSpeedUp
 			if life > 0 and DamageIn["cycles"] < maxDepth then
 				Damage = {}
 				for _, damageType in ipairs(dmgTypeList) do
