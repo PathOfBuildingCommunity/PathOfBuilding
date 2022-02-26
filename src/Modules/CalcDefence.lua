@@ -1079,15 +1079,17 @@ function calcs.defence(env, actor)
 			local portionArmour = 100
 			if damageType == "Physical" then
 				if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
-					armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage)
-					resist = m_min(output.DamageReductionMax, resist - enemyPen + armourReduct)
+					armourReduct = m_min(output.DamageReductionMax, calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage))
+					resist = resist * (1 + enemyPen - armourReduct)
 				end
 				-- Physical damage "resistance" can never go below 0%
 				resist = m_max(resist, 0)
 			else
 				portionArmour = m_min(100 - (resist - enemyPen), 100)
-				armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage * portionArmour / 100)
-				resist = resist + m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
+				armourReduct = m_min(output.DamageReductionMax, calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage * portionArmour / 100))
+				-- This splits the resistance calculation in to two parts; one half is just pure resistance scaling, and the other is resistance plus damage reduction from armour
+				-- At some point resistances and damage reduction from armour should be completely seperated, this is mostly just a stop-gap measure to avoid incorrect effective health values
+				resist = 100 - ((1 - resist / 100) * (1 - portionArmour / 100) + (1 - resist / 100) * (portionArmour / 100) * (1 - armourReduct / 100)) * 100
 			end
 			output[damageType.."DamageReduction"] = damageType == "Physical" and resist or m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
 			if breakdown then
