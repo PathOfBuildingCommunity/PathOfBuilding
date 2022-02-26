@@ -1080,7 +1080,7 @@ function calcs.defence(env, actor)
 			if damageType == "Physical" then
 				if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
 					armourReduct = m_min(output.DamageReductionMax, calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage))
-					resist = resist - enemyPen + armourReduct
+					resist = m_min(output.DamageReductionMax, resist - enemyPen + armourReduct)
 				end
 				-- Physical damage "resistance" can never go below 0%
 				resist = m_max(resist, 0)
