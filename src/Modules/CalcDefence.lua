@@ -1074,7 +1074,7 @@ function calcs.defence(env, actor)
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2
 		end
 		if damageType == "Physical" or modDB:Flag(nil, "ArmourAppliesTo"..damageType.."DamageTaken") then
-			local damage = output[damageType.."TakenDamage"]
+			local damage = output[damageType.."TakenDamage"] * (1 - ((resist + enemyPen) / 100)) + takenFlat
 			local armourReduct = 0
 			local portionArmour = 100
 			if damageType == "Physical" then
@@ -1094,7 +1094,9 @@ function calcs.defence(env, actor)
 			output[damageType.."DamageReduction"] = damageType == "Physical" and resist or m_min(output.DamageReductionMax, armourReduct) * portionArmour / 100
 			if breakdown then
 				breakdown[damageType.."DamageReduction"] = {
-					s_format("Enemy Hit Damage: %d ^8(%s the Configuration tab)", damage, env.configInput.enemyHit and "overridden from" or "can be overridden in"),
+					s_format("Enemy Hit Damage:"),
+					s_format("    %d ^8(%s the Configuration tab)", output[damageType.."TakenDamage"], env.configInput.enemyHit and "overridden from" or "can be overridden in"),
+					s_format("    %d ^8(after all relevant modifiers have been applied)", damage),
 				}
 				if portionArmour < 100 then
 					t_insert(breakdown[damageType.."DamageReduction"], s_format("Portion mitigated by Armour: %d%%", portionArmour))
