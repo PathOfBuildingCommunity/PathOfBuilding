@@ -3511,9 +3511,25 @@ function calcs.offence(env, actor, activeSkill)
 			local freezeDurationBase = skillModList:Sum("BASE", cfg, "EnemyFreezeDuration") or ailmentData.Freeze.duration
 			output.FreezeChanceOnHit = skillModList:Override(nil, "EnemyFreezeChance")
 			output.FreezeChanceOnCrit = output.FreezeChanceOnHit
-			output.FreezeDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyFreezeDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration") / 100
+			local incDur = skillModList:Sum("INC", cfg, "EnemyFreezeDuration") + enemyDB:Sum("INC", nil, "SelfFreezeDuration")
+			local moreDur = skillModList:More(cfg, "EnemyFreezeDuration") * enemyDB:More(nil, "SelfFreezeDuration")
+			output.FreezeDurationMod = (1 + incDur / 100) * moreDur * debuffDurationMult
 			output.FreezeDuration = freezeDurationBase * output.FreezeDurationMod
 			skillFlags.freezeHasDuration = output.FreezeDuration > 0
+			if breakdown and output.FreezeDuration ~= freezeDurationBase then
+				breakdown.FreezeDuration = { }
+				t_insert(breakdown.FreezeDuration, s_format("%.2fs ^8(base duration)", freezeDurationBase))
+				if incDur ~= 0 then
+					t_insert(breakdown.FreezeDuration, s_format("x %.2f ^8(increased/reduced duration)", 1 + incDur / 100))
+				end
+				if moreDur ~= 1 then
+					t_insert(breakdown.FreezeDuration, s_format("x %.2f ^8(more/less duration)", moreDur))
+				end
+				if debuffDurationMult ~= 1 then
+					t_insert(breakdown.FreezeDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+				end
+				t_insert(breakdown.FreezeDuration, s_format("= %.2fs", output.FreezeDuration))
+			end
 		end
 		if (output.FreezeChanceOnHit + output.FreezeChanceOnCrit) > 0 then
 			local baseVal = calcAilmentDamage("Freeze", calcAverageSourceDamage("Freeze")) * skillModList:More(cfg, "FreezeAsThoughDealing")
@@ -3524,7 +3540,6 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				end
 				skillFlags.freeze = true
-				skillFlags.chill = true
 				output.FreezeDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyFreezeDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration") / 100
 				if breakdown then
 					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply for the minimum of 0.3 seconds, target must have no more than %.0f Ailment Threshold.", baseVal * 20 * output.FreezeDurationMod))
@@ -3547,8 +3562,6 @@ function calcs.offence(env, actor, activeSkill)
 					output[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * debuffDurationMult
 					if ailment == "Chill" then
 						skillFlags.chillHasDuration = output[ailment.."Duration"] > 0
-					elseif ailment == "Freeze" then
-						skillFlags.freezeHasDuration = output[ailment.."Duration"] > 0
 					end
 					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect")
 					if breakdown then
