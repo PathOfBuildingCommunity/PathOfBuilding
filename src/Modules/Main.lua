@@ -1092,7 +1092,7 @@ function main:SetWindowTitleSubtext(subtext)
 	if not subtext or not self.showTitlebarName then
 		SetWindowTitle(APP_NAME)
 	else
-		SetWindowTitle(APP_NAME.." - "..subtext)
+		SetWindowTitle(subtext.." - "..APP_NAME)
 	end
 end
 
