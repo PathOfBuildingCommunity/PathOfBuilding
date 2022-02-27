@@ -281,4 +281,6 @@ GlobalCache = {
 	dontUseCache = nil,
 	useFullDPS = false,
 	numActiveSkillInFullDPS = 0,
+	cachedMinionList = { },
+	cachedMinionLife = { },
 }
