@@ -3126,13 +3126,13 @@ function calcs.offence(env, actor, activeSkill)
 					sourceHitDmg = (totalMin + totalMax) / 2 * output.PoisonDotMulti
 				end
 			end
-			if globalBreakdown then
-				globalBreakdown.PoisonDPS = {
-					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
-				}
-			end
 			local baseVal = calcAilmentDamage("Poison", sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
+				if globalBreakdown then
+					globalBreakdown.PoisonDPS = {
+						s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+					}
+				end
 				skillFlags.poison = true
 				skillFlags.duration = true
 				local effMult = 1
@@ -3490,7 +3490,7 @@ function calcs.offence(env, actor, activeSkill)
 					{ "%.2f ^8(increased effect of chill)", output.ChillEffectMod},
 					total = s_format("= %.0f%%", output.ChillSourceEffect)
 				})
-				if output.ChillDuration ~= chillDurationBase and skillFlags.chillHasDuration then
+				if output.ChillDuration ~= chillDurationBase then
 					breakdown.ChillDuration = { }
 					t_insert(breakdown.ChillDuration, s_format("%.2fs ^8(base duration)", chillDurationBase))
 					if incDur ~= 0 then
@@ -3506,14 +3506,23 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 		end
+		if skillModList:Flag(nil, "Condition:ArcticArmourCanFreeze") then
+			skillFlags.freeze = true
+			local freezeDurationBase = skillModList:Sum("BASE", cfg, "EnemyFreezeDuration") or ailmentData.Freeze.duration
+			output.FreezeChanceOnHit = skillModList:Override(nil, "EnemyFreezeChance")
+			output.FreezeChanceOnCrit = output.FreezeChanceOnHit
+			output.FreezeDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyFreezeDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration") / 100
+			output.FreezeDuration = freezeDurationBase * output.FreezeDurationMod
+			skillFlags.freezeHasDuration = output.FreezeDuration > 0
+		end
 		if (output.FreezeChanceOnHit + output.FreezeChanceOnCrit) > 0 then
-			if globalBreakdown then
-				globalBreakdown.FreezeDurationMod = {
-					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
-				}
-			end
 			local baseVal = calcAilmentDamage("Freeze", calcAverageSourceDamage("Freeze")) * skillModList:More(cfg, "FreezeAsThoughDealing")
 			if baseVal > 0 then
+				if globalBreakdown then
+					globalBreakdown.FreezeDurationMod = {
+						s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+					}
+				end
 				skillFlags.freeze = true
 				skillFlags.chill = true
 				output.FreezeDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyFreezeDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration") / 100
@@ -3525,19 +3534,21 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		for ailment, val in pairs(ailments) do
 			if (output[ailment.."ChanceOnHit"] + output[ailment.."ChanceOnCrit"]) > 0 then
-				if globalBreakdown then
-					globalBreakdown[ailment.."EffectMod"] = {
-						s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
-					}
-				end
 				local damage = calcAilmentDamage(ailment, calcAverageSourceDamage(ailment)) * skillModList:More(cfg, ailment.."AsThoughDealing")
 				if damage > 0 then
+					if globalBreakdown then
+						globalBreakdown[ailment.."EffectMod"] = {
+							s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+						}
+					end
 					skillFlags[string.lower(ailment)] = true
 					local incDur = skillModList:Sum("INC", cfg, "Enemy"..ailment.."Duration") + enemyDB:Sum("INC", nil, "Self"..ailment.."Duration")
 					local moreDur = skillModList:More(cfg, "Enemy"..ailment.."Duration") * enemyDB:More(nil, "Self"..ailment.."Duration")
 					output[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * debuffDurationMult
 					if ailment == "Chill" then
 						skillFlags.chillHasDuration = output[ailment.."Duration"] > 0
+					elseif ailment == "Freeze" then
+						skillFlags.freezeHasDuration = output[ailment.."Duration"] > 0
 					end
 					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect")
 					if breakdown then
@@ -3597,7 +3608,7 @@ function calcs.offence(env, actor, activeSkill)
 							})
 						end
 					end
-					if breakdown and output[ailment.."Duration"] ~= ailmentData[ailment].duration and (ailment ~= "Chill" or skillFlags.chillHasDuration) then
+					if breakdown and output[ailment.."Duration"] ~= ailmentData[ailment].duration then
 						breakdown[ailment.."Duration"] = { }
 						if isAttack then
 							t_insert(breakdown[ailment.."Duration"], pass.label..":")

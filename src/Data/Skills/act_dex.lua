@@ -215,6 +215,10 @@ skills["ArcticArmour"] = {
 		["new_arctic_armour_fire_damage_taken_when_hit_+%_final"] = {
 			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "Condition", var = "Stationary" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["arctic_armour_freeze_enemies_when_you_are_hit_%_chance"] = {
+			mod("EnemyFreezeChance", "OVERRIDE", nil, 0, 0, { type = "Limit", limit = 100 }),
+			flag("Condition:ArcticArmourCanFreeze"),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -222,6 +226,7 @@ skills["ArcticArmour"] = {
 	},
 	baseMods = {
 		mod("EnemyChillEffect", "BASE", 30),
+		mod("EnemyFreezeDuration", "BASE", 0.35),
 	},
 	qualityStats = {
 		Default = {
