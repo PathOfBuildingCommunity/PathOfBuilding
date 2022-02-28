@@ -820,7 +820,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FlameWhip
-#flags spell area
+#flags spell area duration
 	statMap = {
 		["flame_whip_damage_+%_final_vs_burning_enemies"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
