@@ -1271,6 +1271,7 @@ skills["AtziriUniqueStaffFlameblast"] = {
 	castTime = 0.8,
 	fromItem = true,
 	baseFlags = {
+		spell = true,
 		area = true,
 	},
 	baseMods = {
@@ -2444,6 +2445,7 @@ skills["AtziriUniqueStaffStormCall"] = {
 	castTime = 0.8,
 	fromItem = true,
 	baseFlags = {
+		spell = true,
 		area = true,
 	},
 	baseMods = {
