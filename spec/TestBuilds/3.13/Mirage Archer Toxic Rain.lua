@@ -1429,7 +1429,6 @@ Implicits: 0
 ["TotalDotDPS"] = 11807832.8408,
 ["ColdGuardAbsorbRate"] = 0,
 ["RageCost"] = 0,
-["MoreArmourChance"] = 0,
 ["WithIgniteDPS"] = 75852.3487,
 ["FireResist"] = 76,
 ["RemovableFrenzyCharges"] = 4,

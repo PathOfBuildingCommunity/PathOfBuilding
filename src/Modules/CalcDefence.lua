@@ -43,19 +43,6 @@ function calcs.armourReduction(armour, raw)
 	return round(calcs.armourReductionF(armour, raw))
 end
 
---- Calculates Damage Reduction from Armour
----@param armour number
----@param damage number
----@param moreChance number @Chance to Defend with More Armour
----@param moreValue number multiplier to apply to armour (defaults to 2)
----@return number @Damage Reduction
-function calcs.armourReductionDouble(armour, damage, moreChance, moreValue)
-	if moreValue and moreValue > 0 then
-		return calcs.armourReduction(armour * (1 + moreValue), damage)
-	end
-	return calcs.armourReduction(armour, damage) * (1 - moreChance) + calcs.armourReduction(armour * 2, damage) * moreChance
-end
-
 -- Performs all defensive calculations
 function calcs.defence(env, actor)
 	local modDB = actor.modDB
@@ -411,7 +398,6 @@ function calcs.defence(env, actor)
 		end
 		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
 		output.Armour = m_max(round(armour), 0)
-		output.MoreArmourChance = m_min(modDB:Sum("BASE", nil, "MoreArmourChance"), 100)
 		output.ArmourDefense = (modDB:Max(nil, "ArmourDefense") or 0) / 100
 		output.RawArmourDefense = output.ArmourDefense > 0 and ((1 + output.ArmourDefense) * 100) or nil
 		output.Evasion = m_max(round(evasion), 0)
@@ -1073,7 +1059,6 @@ function calcs.defence(env, actor)
 	end
 
 	-- Incoming hit damage multipliers
-	local moreArmourChance = (output.MoreArmourChance == 100 or env.configInput.armourCalculationMode == "MAX") and 1 or env.configInput.armourCalculationMode == "MIN" and 0 or output.MoreArmourChance / 100
 	output["totalTakenHit"] = 0
 	if breakdown then
 		breakdown["totalTakenHit"] = { 
@@ -1098,25 +1083,22 @@ function calcs.defence(env, actor)
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2
 		end
 		if damageType == "Physical" or modDB:Flag(nil, "ArmourAppliesTo"..damageType.."DamageTaken") then
-			local damage = output[damageType.."TakenDamage"]
+			local damage = m_max(output[damageType.."TakenDamage"] * (1 + (enemyPen - resist) / 100), 0)
 			local armourReduct = 0
 			local portionArmour = 100
 			if damageType == "Physical" then
 				if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
-					armourReduct = calcs.armourReductionDouble(output.Armour, damage, moreArmourChance)
+					armourReduct = m_min(output.DamageReductionMax, calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage))
 					armourReduct = m_min(output.DamageReductionMax, resist - enemyPen + armourReduct)
 					resist = armourReduct
 				end
+				-- Physical damage "resistance" can never go below 0%
 				resist = m_max(resist, 0)
 			else
 				portionArmour = 100 - (resist - enemyPen)
-				armourReduct = calcs.armourReductionDouble(output.Armour, damage * portionArmour / 100, moreArmourChance)
+				armourReduct = m_min(output.DamageReductionMax, calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage * portionArmour / 100))
 				armourReduct = m_min(output.DamageReductionMax, armourReduct)
 				resist = resist + armourReduct * portionArmour / 100
-			end
-			--fix for resist == nan
-			if resist ~= resist then
-				resist = 0
 			end
 			output[damageType.."DamageReduction"] = portionArmour < 100 and armourReduct * portionArmour / 100 or armourReduct
 			if breakdown then
