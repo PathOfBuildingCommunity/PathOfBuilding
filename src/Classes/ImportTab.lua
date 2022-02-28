@@ -219,7 +219,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share' to shrink it.")
 	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter the code here:")
-	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 250, 20, "", nil, "^%w_%-=:/.", nil, function(buf)
+	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 250, 20, "", nil, "^%w_%-=:/.%s", nil, function(buf)
 		if #buf == 0 then
 			self.importCodeState = nil
 			return
@@ -1012,6 +1012,7 @@ function ImportTabClass:OpenImportFromWebsitePopup(str)
 	end)
 	if str then
 		controls.edit:SetText(str, true)
+		controls.edit.dontSelectOnFocus = true
 	end
 	main:OpenPopup(280, 130, "Import from website", controls, "import", "edit")
 end

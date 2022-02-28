@@ -53,6 +53,8 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	self.selCol = "^0"
 	self.selBGCol = "^xBBBBBB"
 	self.blinkStart = GetTime()
+		--if true, prevents all text being slected when control receives focus
+	self.dontSelectOnFocus = false
 	if self.filter == "%D" or self.filter == "^%-%d" then
 		-- Add +/- buttons for integer number edits
 		self.isNumeric = true
@@ -343,6 +345,9 @@ end
 
 function EditClass:OnFocusGained()
 	self.blinkStart = GetTime()
+	if self.dontSelectOnFocus then
+		return
+	end
 	if not self.drag and not self.selControl and not self.lineHeight then
 		self:SelectAll()
 	end
