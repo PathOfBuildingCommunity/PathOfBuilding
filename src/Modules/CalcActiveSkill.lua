@@ -583,7 +583,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				if minion.uses["Weapon 1"] then
 					if minion.itemSet then
 						local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 1 Swap" or "Weapon 1"].selItemId]
-						if item then
+						if item and item.weaponData then
 							minion.weaponData1 = item.weaponData[1]
 						end
 					else
