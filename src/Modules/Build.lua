@@ -925,6 +925,7 @@ function buildMode:OnFrame(inputEvents)
 						self.importTab.controls.importCodePastebin:Click()
 					else
 						self.viewMode = "IMPORT"
+						self:SelectControl(self.importTab.controls.importCodeIn)
 					end
 				elseif event.key == "s" then
 					self:SaveDBFile()
