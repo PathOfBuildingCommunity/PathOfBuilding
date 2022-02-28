@@ -1509,7 +1509,9 @@ function calcs.perform(env, avoidCache)
 			end
 		end
 		for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
-			env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+			if env.spec.tree.keystoneMap[name] then
+				env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+			end
 		end
 		doActorAttribsPoolsConditions(env, env.minion)
 	end
