@@ -190,7 +190,6 @@ return {
 			socketGroup.hiddenFullDPS = nil
 			for _, gemInstance in ipairs(socketGroup.gemList) do
 				if gemInstance.enabled then
-					local minionId = nil
 					cacheMinionData(socketGroup, gemInstance.skillMinion)
 					cacheMinionData(socketGroup, gemInstance.skillMinionCalcs)
 					if gemInstance.gemData then
