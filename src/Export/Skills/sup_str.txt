@@ -123,8 +123,12 @@ local skills, mod, flag, skill = ...
 		["support_cruelty_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
+		["cruelty_effect_+%"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" }),
+			div = 100,
+			base = 1,
+		},
 	},
-#baseMod mod("Damage", "MORE", 1, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" })
 #baseMod flag("Cruelty")
 #mods
 

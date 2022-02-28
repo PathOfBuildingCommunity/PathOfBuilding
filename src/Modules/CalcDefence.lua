@@ -1707,7 +1707,7 @@ function calcs.defence(env, actor)
 	if breakdown then
 		breakdown["TotalEHP"] = {
 			s_format("%.2f ^8(total average number of hits you can take)", output["TotalNumberOfHits"]),
-			s_format("x %d ^8(total incomming damage)", output["totalEnemyDamageIn"]),
+			s_format("x %d ^8(total incoming damage)", output["totalEnemyDamageIn"]),
 			s_format("= %d ^8(total damage you can take)", output["TotalEHP"]),
 		}
 	end

@@ -102,7 +102,7 @@ LevelReq: 1
 Implicits: 1
 Adds 1 to 4 Physical Damage to Bow Attacks
 +10% To All Elemental Resistances
-50% Increased Duration of Elmental Ailments on Enemies
+50% Increased Duration of Elemental Ailments on Enemies
 10% Chance to Freeze, Shock, and Ignite
 Gain 25% of Weapon Physical Damage as Extra Damage of a Random Element
 ]],[[

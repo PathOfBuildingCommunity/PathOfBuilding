@@ -419,7 +419,7 @@
 - Add support for opening related info on poewiki.net when pressing F1 on items/gems/passives [\#3291](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3291) ([BlueManiac](https://github.com/BlueManiac))
 - Added support for Versatile Combatant keystone [\#3290](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3290) ([Zpooks](https://github.com/Zpooks))
 - Add support for Iron Will keystone [\#3289](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3289) ([Lexy](https://github.com/learn2draw))
-- Add support for spell suppresion / magebane and Acrobatics [\#3288](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3288) ([Lexy](https://github.com/learn2draw))
+- Add support for spell suppression / magebane and Acrobatics [\#3288](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3288) ([Lexy](https://github.com/learn2draw))
 - Add support for Four keystones and ailment duration [\#3287](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3287) ([Lilylicious](https://github.com/Lilylicious))
 - Add support to disable quivers on unarmed characters [\#3286](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3286) ([madinsane](https://github.com/madinsane))
 - Modified uniques items [\#3285](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3285) ([U-n-Own](https://github.com/U-n-Own))
@@ -706,7 +706,7 @@
 **Fixed bugs:**
 
 - Fix non-integer catalyst scaling issues [\#2544](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2544) ([Wires77](https://github.com/Wires77))
-- Fix Victarios Influence using old mods[\#2562](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2562) ([pundm](https://github.com/pundm))
+- Fix Victario's Influence using old mods[\#2562](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2562) ([pundm](https://github.com/pundm))
 - Fix Tailwind not appearing on Passive Tree [\#2559](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2559) ([Helyos96](https://github.com/Helyos96))
 - Fixes Bow DoT Skills double-dipping on nodes that grant a Dot & Hit [\#2554](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2554) ([Nostrademous](https://github.com/Nostrademous))
 
@@ -747,7 +747,7 @@
 - Fix DD and VD having their spell damage apply to corpse explosions [\#2498](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2498) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix some gems appearing in the gem list when they shouldn't have [\#2493](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2493) ([Wires77](https://github.com/Wires77))
 - Fix physical damage reduction for bleed from going below zero [\#2481](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2481) ([Wires77](https://github.com/Wires77))
-- Fix outdated modifier text on Aberrath's Hooves [\#2474](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2474) ([pundm](https://github.com/pundm))
+- Fix outdated modifier text on Abberath's Hooves [\#2474](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2474) ([pundm](https://github.com/pundm))
 - Fix many crashes related to Generals Cry and The Saviour [\#2453](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2453) ([Nostrademous](https://github.com/Nostrademous))
 - Fix Mirage Archer to be a component of the skill it supports now [\#2453](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2453) ([Nostrademous](https://github.com/Nostrademous))
 - Fix crash related to Brands with Item-granted Active Skills [\#2450](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/2450) ([Nostrademous](https://github.com/Nostrademous))
@@ -1363,7 +1363,7 @@
    * Shows detailed breakdowns for defences
    * Includes effective hit points against hits and DoTs for each element
    * And much more
- * Add UI for annointing amulets
+ * Add UI for anointing amulets
  * Add dropdown to select dps field for sorting support gems
  * Add prefix/suffix tag for crafting options
  * Add support for Scorch, Brittle, and Sap
@@ -1508,7 +1508,7 @@
  * Add Perforate DPS calculations in Blood Stance
  * Update elusive values to 3.10
  * Update temple jewels to their 3.10 variants
- * Fix Rigwalds Curse with 3.10 passive tree nodes
+ * Fix Rigwald's Curse with 3.10 passive tree nodes
  * Fix typo in Ascendant Deadeye/Longshot notable
  * Fix parsing of mods applied to spell skills
  * Fix Slayer Impact node calculation
