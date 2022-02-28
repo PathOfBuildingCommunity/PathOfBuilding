@@ -1503,6 +1503,9 @@ skills["ChainStrike"] = {
 		["chain_strike_gain_x_rage_if_attack_hits"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["chain_strike_cone_radius_+_per_x_rage"] = {
+			mod("AreaOfEffect", "BASE", 1, 0, 0, { type = "Multiplier", var = "Rage" , div = nil }),
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -1511,7 +1514,6 @@ skills["ChainStrike"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
-		mod("AreaOfEffect", "BASE", 1, 0, 0, { type = "Multiplier", var = "Rage" , div = 5 }),
 	},
 	qualityStats = {
 		Default = {

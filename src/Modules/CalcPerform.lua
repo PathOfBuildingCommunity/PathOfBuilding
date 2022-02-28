@@ -1328,7 +1328,7 @@ function calcs.perform(env, avoidCache)
 					modDB:NewMod("SpellDamageAppliesToAttacks", "FLAG", true)
 				end
 				env.player.modDB:NewMod("CritChance", "INC", battlemageCritChance * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = battlemageCritChanceMax, limitTotal = true })
-				--env.player.modDB:NewMod("ImprovedSpellDamageAppliesToAttacks", "INC", battlemageSpellToAttack * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = battlemageSpellToAttackMax, limitTotal = true })
+				env.player.modDB:NewMod("ImprovedSpellDamageAppliesToAttacks", "MAX", battlemageSpellToAttack * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = battlemageSpellToAttackMax, limitTotal = true })
 				modDB:NewMod("BattlemageActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Intimidating Cry" and not modDB:Flag(nil, "IntimidatingActive") then
 				local intimidatingOverwhelmEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingPDRPer5MP")
@@ -1509,7 +1509,9 @@ function calcs.perform(env, avoidCache)
 			end
 		end
 		for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
-			env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+			if env.spec.tree.keystoneMap[name] then
+				env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+			end
 		end
 		doActorAttribsPoolsConditions(env, env.minion)
 	end
@@ -1685,22 +1687,6 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
-	-- Check for extra modifiers to apply to aura skills
-	local extraAuraModList = { }
-    for _, value in ipairs(modDB:List(nil, "ExtraAuraEffect")) do
-        local add = true
-        for _, mod in ipairs(extraAuraModList) do
-            if modLib.compareModParams(mod, value.mod) then
-                mod.value = mod.value + value.mod.value
-                add = false
-                break
-            end
-        end
-        if add then
-            t_insert(extraAuraModList, copyTable(value.mod, true))
-        end
-    end
-
 	-- Calculate number of active heralds
 	if env.mode_buffs then
 		local heraldList = { }
@@ -1819,6 +1805,21 @@ function calcs.perform(env, avoidCache)
 				end
 			elseif buff.type == "Aura" then
 				if env.mode_buffs then
+					-- Check for extra modifiers to apply to aura skills
+					local extraAuraModList = { }
+					for _, value in ipairs(modDB:List(skillCfg, "ExtraAuraEffect")) do
+						local add = true
+						for _, mod in ipairs(extraAuraModList) do
+							if modLib.compareModParams(mod, value.mod) then
+								mod.value = mod.value + value.mod.value
+								add = false
+								break
+							end
+						end
+						if add then
+							t_insert(extraAuraModList, copyTable(value.mod, true))
+						end
+					end
 					if not activeSkill.skillData.auraCannotAffectSelf then
 						activeSkill.buffSkill = true
 						affectedByAura[env.player] = true
