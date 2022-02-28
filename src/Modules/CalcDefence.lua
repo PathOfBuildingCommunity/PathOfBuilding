@@ -1083,20 +1083,18 @@ function calcs.defence(env, actor)
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2
 		end
 		if damageType == "Physical" or modDB:Flag(nil, "ArmourAppliesTo"..damageType.."DamageTaken") then
-			local damage = m_max(output[damageType.."TakenDamage"] * (1 + (enemyPen - resist) / 100), 0)
+			local damage = output[damageType.."TakenDamage"]
 			local armourReduct = 0
 			local portionArmour = 100
 			if damageType == "Physical" then
 				if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
-					armourReduct = m_min(output.DamageReductionMax, calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage))
-					armourReduct = m_min(output.DamageReductionMax, resist - enemyPen + armourReduct)
+					armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage)
+					armourReduct = m_max(m_min(output.DamageReductionMax, resist - enemyPen + armourReduct), 0)
 					resist = armourReduct
 				end
-				-- Physical damage "resistance" can never go below 0%
-				resist = m_max(resist, 0)
 			else
 				portionArmour = 100 - (resist - enemyPen)
-				armourReduct = m_min(output.DamageReductionMax, calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage * portionArmour / 100))
+				armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage * portionArmour / 100)
 				armourReduct = m_min(output.DamageReductionMax, armourReduct)
 				resist = resist + armourReduct * portionArmour / 100
 			end
