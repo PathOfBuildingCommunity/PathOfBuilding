@@ -1687,22 +1687,6 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
-	-- Check for extra modifiers to apply to aura skills
-	local extraAuraModList = { }
-    for _, value in ipairs(modDB:List(nil, "ExtraAuraEffect")) do
-        local add = true
-        for _, mod in ipairs(extraAuraModList) do
-            if modLib.compareModParams(mod, value.mod) then
-                mod.value = mod.value + value.mod.value
-                add = false
-                break
-            end
-        end
-        if add then
-            t_insert(extraAuraModList, copyTable(value.mod, true))
-        end
-    end
-
 	-- Calculate number of active heralds
 	if env.mode_buffs then
 		local heraldList = { }
@@ -1821,6 +1805,21 @@ function calcs.perform(env, avoidCache)
 				end
 			elseif buff.type == "Aura" then
 				if env.mode_buffs then
+					-- Check for extra modifiers to apply to aura skills
+					local extraAuraModList = { }
+					for _, value in ipairs(modDB:List(skillCfg, "ExtraAuraEffect")) do
+						local add = true
+						for _, mod in ipairs(extraAuraModList) do
+							if modLib.compareModParams(mod, value.mod) then
+								mod.value = mod.value + value.mod.value
+								add = false
+								break
+							end
+						end
+						if add then
+							t_insert(extraAuraModList, copyTable(value.mod, true))
+						end
+					end
 					if not activeSkill.skillData.auraCannotAffectSelf then
 						activeSkill.buffSkill = true
 						affectedByAura[env.player] = true
