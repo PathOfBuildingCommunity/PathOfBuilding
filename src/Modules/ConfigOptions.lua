@@ -167,7 +167,7 @@ return {
 	{ var = "skillOptionMinionLife", type = "count", alwaysHide = true },
 	{ var = "skillOptionMinionName", type = "list", label = "Minion Name:", ifSkill = "Death Wish", tooltip = "Sets the minion being targeted by Death Wish. Assign this minion to an active skill or you will see unusual behavior.", list = GlobalCache.cachedMinionList, runOnce = true, apply = function(val, modList, enemyModList, build)
 		wipeTable(GlobalCache.cachedMinionList)
-		local function cacheMinionData(socketGroup, minionId, minionLevel, isSpectre)
+		local function cacheMinionData(socketGroup, minionId)
 			if not minionId then
 				return
 			end
@@ -191,23 +191,17 @@ return {
 			for _, gemInstance in ipairs(socketGroup.gemList) do
 				if gemInstance.enabled then
 					local minionId = nil
-					-- We assume that minions we can't detect the level of are level 70.
-					-- This is technically incorrect at lower levels, but Death Wish requires level 73 to equip and we currently don't use this for anything else.
-					local minionLevel = m_max(1, m_min(100, gemInstance.reqLevel or 70))
-					-- Spectres have their level defined explicitly in skill gem data.
-					local isSpectre = gemInstance.skillId == "RaiseSpectre"
-					local spectreLevel = isSpectre and gemInstance.gemData.grantedEffect.levels[gemInstance.level][4] or minionLevel
-					cacheMinionData(socketGroup, gemInstance.skillMinion, spectreLevel, isSpectre)
-					cacheMinionData(socketGroup, gemInstance.skillMinionCalcs, spectreLevel, isSpectre)
+					cacheMinionData(socketGroup, gemInstance.skillMinion)
+					cacheMinionData(socketGroup, gemInstance.skillMinionCalcs)
 					if gemInstance.gemData then
 						if gemInstance.gemData.grantedEffect.minionList then
 							for _, minionId in ipairs(gemInstance.gemData.grantedEffect.minionList) do
-								cacheMinionData(socketGroup, minionId, minionLevel, false)
+								cacheMinionData(socketGroup, minionId)
 							end
 						end
 						if gemInstance.gemData.grantedEffect.addMinionList then
 							for _, minionId in ipairs(gemInstance.gemData.grantedEffect.addMinionList) do
-								cacheMinionData(socketGroup, minionId, minionLevel, false)
+								cacheMinionData(socketGroup, minionId)
 							end
 						end
 					end
