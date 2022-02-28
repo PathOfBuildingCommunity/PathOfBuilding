@@ -5833,11 +5833,11 @@ skills["ExpandingFireCone"] = {
 			mod("Multiplier:IncinerateRadiusLimit", "BASE", nil),
 		},
 		["flamethrower_damage_+%_per_stage_final"] = {
-            mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" }),
-        },
-        ["expanding_fire_cone_maximum_number_of_stages"] = {
-		    mod("Multiplier:IncinerateMaxStages", "BASE", nil),
-        },
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" }),
+		},
+		["expanding_fire_cone_maximum_number_of_stages"] = {
+			mod("Multiplier:IncinerateMaxStages", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		spell = true,
