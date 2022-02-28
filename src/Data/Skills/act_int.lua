@@ -5820,7 +5820,7 @@ skills["ExpandingFireCone"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["flamethrower_damage_+%_per_stage_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IncinerateStage" }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStage" }),
 		},
 		["expanding_fire_cone_radius_+_per_stage"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateStage", limitVar = "IncinerateRadiusLimit", limitTotal = true }),
@@ -5832,9 +5832,6 @@ skills["ExpandingFireCone"] = {
 		["expanding_fire_cone_radius_limit"] = {
 			mod("Multiplier:IncinerateRadiusLimit", "BASE", nil),
 		},
-		["flamethrower_damage_+%_per_stage_final"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" }),
-		},
 		["expanding_fire_cone_maximum_number_of_stages"] = {
 			mod("Multiplier:IncinerateMaxStages", "BASE", nil),
 		},
@@ -5844,7 +5841,6 @@ skills["ExpandingFireCone"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:IncinerateMaxStages", "BASE", 8),
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 25),
 		skill("radiusLabel", "Flame Length:"),
