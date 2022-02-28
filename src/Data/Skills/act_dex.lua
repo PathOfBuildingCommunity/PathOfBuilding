@@ -4850,6 +4850,7 @@ skills["IceShot"] = {
 		duration = true,
 	},
 	baseMods = {
+		mod("SkillPhysicalDamageConvertToCold", "BASE", 40, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 23),
 	},
 	qualityStats = {
