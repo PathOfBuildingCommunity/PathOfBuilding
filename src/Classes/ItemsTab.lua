@@ -285,6 +285,10 @@ holding Shift will put it in the second.]])
 	self.controls.removeDisplayItem = new("ButtonControl", {"LEFT",self.controls.editDisplayItem,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
 		self:SetDisplayItem()
 	end)
+	--New search button added to item tab
+	self.controls.searchDisplayItem = new("ButtonControl", {"LEFT",self.controls.removeDisplayItem,"RIGHT"}, 8, 0, 120, 20, "Search Trade", function()
+		self:SearchSelectedItem()
+	end)
 
 	-- Section: Variant(s)
 
@@ -1098,6 +1102,129 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	if self.controls.scrollBarV:IsShown() then
 		self.controls.scrollBarV:Draw(viewPort)
 	end
+end
+
+function ItemsTabClass:SearchSelectedItem()
+
+	local selItem = self.displayItem
+	local modDesc = {}
+	local modValue = {}
+	local startPoint = ""
+	local midPoint = ""
+	local endPoint = ""
+
+	-- For Rare items
+	if selItem.rarity == 'RARE' or selItem.rarity == 'MAGIC' then
+		-- find mod names and values in the selected item
+		-- unsure how to handle the decimal point for the value modifer
+		for i, mod in ipairs(selItem.explicitModLines) do				
+			local value = string.match(mod.line, "%d+")
+			-- this is yuck
+			local temp = string.gsub(mod.line, "%.", '')
+			local name = "\""..string.gsub(temp, "%d+", '#').."\"" 
+			table.insert(modValue, value)
+			table.insert(modDesc, name)
+		end
+	
+		local ids = self.SearchModList(modDesc)
+		-- Build the query json
+		startPoint = string.format('{"query":{"status":{"option":"online"},"type":"%s","stats":[{"type":"and","filters":[', self.displayItem.baseName)
+		endPoint = ']}]},"sort":{"price":"asc"}}'
+
+		for i in ipairs(ids) do
+			midPoint = midPoint..string.format('{"id":"%s","value":{"min":%s}}', ids[i], modValue[i])..","
+		end
+
+		midPoint = midPoint:sub(1, -2)
+	end
+
+	-- For Unique Items
+	if selItem.rarity == 'UNIQUE' then
+		local removeName = ", " .. selItem.baseName
+		local selName = string.gsub(selItem.name, removeName, "")
+		startPoint = string.format('{"query":{"status":{"option":"online"},"name":"%s","type":"%s","stats":[{"type":"and","filters":[]}],"filters":{}},"sort":{"price":"asc"}}', selName, selItem.baseName)
+		midPoint = ''
+		endPoint = ''
+	end
+
+	local jsonQuery = startPoint..midPoint..endPoint
+	
+	--call the api handler
+	local responeJson = self.TradeAPIRequest(jsonQuery)
+	--get the response
+	local response = self.ProcessJSON(responeJson)
+
+	if not string.match(responeJson, 'error') then
+		if (response.total > 0) then
+			--opens default windows web browser
+			--Only works on Windows
+			os.execute(string.format('start https://www.pathofexile.com/trade/search/Scourge/%s', response.id))
+		
+		else
+			--display a search failed message
+			main:OpenMessagePopup("Search Failed", "The search parameters did not return any results.\nPlease perform a manual search on PoE Trade to confirm.\nTrade ID: %s", response.id)
+		end
+	else
+		main:OpenMessagePopup("Search Failed", "There was an error in this search request.")
+	end
+
+end
+
+function ItemsTabClass:SearchModList(modDesc)
+	local filePath = "Data/StatDescriptions/item_mods.json"
+	local ids = {}
+
+	for i in ipairs(self) do
+		for lines in io.lines(filePath) do
+			if string.find(lines, self[i], 1, true) then
+				local jsonLine = ItemsTabClass.ProcessJSON(lines)
+				table.insert(ids, jsonLine.trade.ids.explicit[1])
+			end
+		end		
+	end
+
+	return ids
+end
+
+-- API request to Poe Trade
+-- I think this would be best to use the users personal Session ID number
+-- This would changed by alter the User-Agent to a Session ID
+function ItemsTabClass:TradeAPIRequest(json_data)
+	local json = self
+
+	local curl = require("lcurl.safe")
+	local page = ""
+	local response = ""
+	local easy = curl.easy()
+	
+	--API Request
+	easy:setopt{
+		url = "https://www.pathofexile.com/api/trade/search/Archnemesis",
+		post = true,
+		httpheader = {'Content-Type: application/json', 'Accept: application/json', 'User-Agent: Path of Building/2.17 (contact: pob@mailbox.org)'},
+		postfields = json
+	}
+	easy:setopt_writefunction(function(data)
+		page = page..data
+		return true
+	end)
+	easy:perform()
+	easy:close()
+
+	return page
+end
+
+function ItemsTabClass:ProcessJSON(json)
+	local func, errMsg = loadstring("return "..jsonToLua(self))
+	if errMsg then
+		return nil, errMsg
+	end
+	setfenv(func, { }) -- Sandbox the function just in case
+	local data = func()
+	if type(data) ~= "table" then
+		return nil, "Return type is not a table"
+	end
+	return data
 end
 
 -- Creates a new item set
