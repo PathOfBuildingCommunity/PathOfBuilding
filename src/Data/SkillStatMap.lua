@@ -103,19 +103,19 @@ return {
 },
 ["base_cold_damage_to_deal_per_minute"] = {
 	skill("ColdDot", nil),
-	div = 60,
+	div = 1000,
 },
 ["base_fire_damage_to_deal_per_minute"] = {
 	skill("FireDot", nil),
-	div = 60,
+	div = 1000,
 },
 ["base_chaos_damage_to_deal_per_minute"] = {
 	skill("ChaosDot", nil),
-	div = 60,
+	div = 1000,
 },
 ["base_physical_damage_to_deal_per_minute"] = {
 	skill("PhysicalDot", nil),
-	div = 60,
+	div = 1000,
 },
 ["critical_ailment_dot_multiplier_+"] = {
 	mod("DotMultiplier", "BASE", nil, 0, 0, {type = "Condition", var = "CriticalStrike"})
