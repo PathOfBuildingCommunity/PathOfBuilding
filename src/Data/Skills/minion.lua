@@ -35,7 +35,7 @@ skills["ChaosElementalCascadeSummoned"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 6, 0, 3, 100, -25, damageEffectiveness = 0.6, cooldown = 3.5, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 9, 13, 6, 0, 3, 100, -25, damageEffectiveness = 0.6, cooldown = 3.5, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["SandstormChaosElementalSummoned"] = {
@@ -65,7 +65,7 @@ skills["SandstormChaosElementalSummoned"] = {
 		"spell_damage_modifiers_apply_to_skill_dot",
 	},
 	levels = {
-		[1] = { 16.666667039196, 5000, 0, 2, cooldown = 8, levelRequirement = 3, statInterpolation = { 3, 1, 1, 1, }, cost = { }, },
+		[1] = { 15316.667009021, 5000, 0, 2, cooldown = 8, levelRequirement = 3, statInterpolation = { 3, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["FireElementalFlameRedSummoned"] = {
@@ -98,7 +98,7 @@ skills["FireElementalFlameRedSummoned"] = {
 		"always_pierce",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 4, -89, -77, -25, damageEffectiveness = 0.2, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 7, 11, 4, -89, -77, -25, damageEffectiveness = 0.2, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["FireElementalMortarSummoned"] = {
@@ -129,7 +129,7 @@ skills["FireElementalMortarSummoned"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 15, 0.80000001192093, 1.2000000476837, -33, critChance = 5, cooldown = 6, levelRequirement = 34, statInterpolation = { 1, 3, 3, 1, }, cost = { }, },
+		[1] = { 15, 198, 297, -33, critChance = 5, cooldown = 6, levelRequirement = 34, statInterpolation = { 1, 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["FireElementalConeSummoned"] = {
@@ -155,36 +155,36 @@ skills["FireElementalConeSummoned"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 34, statInterpolation = { 3, 3, }, cost = { }, },
-		[2] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 36, statInterpolation = { 3, 3, }, cost = { }, },
-		[3] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 38, statInterpolation = { 3, 3, }, cost = { }, },
-		[4] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 40, statInterpolation = { 3, 3, }, cost = { }, },
-		[5] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 42, statInterpolation = { 3, 3, }, cost = { }, },
-		[6] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 44, statInterpolation = { 3, 3, }, cost = { }, },
-		[7] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 46, statInterpolation = { 3, 3, }, cost = { }, },
-		[8] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 48, statInterpolation = { 3, 3, }, cost = { }, },
-		[9] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 50, statInterpolation = { 3, 3, }, cost = { }, },
-		[10] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 52, statInterpolation = { 3, 3, }, cost = { }, },
-		[11] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 54, statInterpolation = { 3, 3, }, cost = { }, },
-		[12] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 56, statInterpolation = { 3, 3, }, cost = { }, },
-		[13] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 58, statInterpolation = { 3, 3, }, cost = { }, },
-		[14] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 60, statInterpolation = { 3, 3, }, cost = { }, },
-		[15] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 62, statInterpolation = { 3, 3, }, cost = { }, },
-		[16] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 64, statInterpolation = { 3, 3, }, cost = { }, },
-		[17] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 66, statInterpolation = { 3, 3, }, cost = { }, },
-		[18] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 68, statInterpolation = { 3, 3, }, cost = { }, },
-		[19] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 69, statInterpolation = { 3, 3, }, cost = { }, },
-		[20] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { }, },
-		[21] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 72, statInterpolation = { 3, 3, }, cost = { }, },
-		[22] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 74, statInterpolation = { 3, 3, }, cost = { }, },
-		[23] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 76, statInterpolation = { 3, 3, }, cost = { }, },
-		[24] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 78, statInterpolation = { 3, 3, }, cost = { }, },
-		[25] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 80, statInterpolation = { 3, 3, }, cost = { }, },
-		[26] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 82, statInterpolation = { 3, 3, }, cost = { }, },
-		[27] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 84, statInterpolation = { 3, 3, }, cost = { }, },
-		[28] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 86, statInterpolation = { 3, 3, }, cost = { }, },
-		[29] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 88, statInterpolation = { 3, 3, }, cost = { }, },
-		[30] = { 0.80000001192093, 1.25, critChance = 10, cooldown = 2, levelRequirement = 90, statInterpolation = { 3, 3, }, cost = { }, },
+		[1] = { 137, 214, critChance = 10, cooldown = 2, levelRequirement = 34, statInterpolation = { 3, 3, }, cost = { }, },
+		[2] = { 153, 239, critChance = 10, cooldown = 2, levelRequirement = 36, statInterpolation = { 3, 3, }, cost = { }, },
+		[3] = { 170, 265, critChance = 10, cooldown = 2, levelRequirement = 38, statInterpolation = { 3, 3, }, cost = { }, },
+		[4] = { 188, 294, critChance = 10, cooldown = 2, levelRequirement = 40, statInterpolation = { 3, 3, }, cost = { }, },
+		[5] = { 208, 325, critChance = 10, cooldown = 2, levelRequirement = 42, statInterpolation = { 3, 3, }, cost = { }, },
+		[6] = { 230, 360, critChance = 10, cooldown = 2, levelRequirement = 44, statInterpolation = { 3, 3, }, cost = { }, },
+		[7] = { 254, 397, critChance = 10, cooldown = 2, levelRequirement = 46, statInterpolation = { 3, 3, }, cost = { }, },
+		[8] = { 280, 438, critChance = 10, cooldown = 2, levelRequirement = 48, statInterpolation = { 3, 3, }, cost = { }, },
+		[9] = { 309, 482, critChance = 10, cooldown = 2, levelRequirement = 50, statInterpolation = { 3, 3, }, cost = { }, },
+		[10] = { 340, 531, critChance = 10, cooldown = 2, levelRequirement = 52, statInterpolation = { 3, 3, }, cost = { }, },
+		[11] = { 373, 583, critChance = 10, cooldown = 2, levelRequirement = 54, statInterpolation = { 3, 3, }, cost = { }, },
+		[12] = { 410, 640, critChance = 10, cooldown = 2, levelRequirement = 56, statInterpolation = { 3, 3, }, cost = { }, },
+		[13] = { 449, 702, critChance = 10, cooldown = 2, levelRequirement = 58, statInterpolation = { 3, 3, }, cost = { }, },
+		[14] = { 492, 769, critChance = 10, cooldown = 2, levelRequirement = 60, statInterpolation = { 3, 3, }, cost = { }, },
+		[15] = { 539, 842, critChance = 10, cooldown = 2, levelRequirement = 62, statInterpolation = { 3, 3, }, cost = { }, },
+		[16] = { 590, 921, critChance = 10, cooldown = 2, levelRequirement = 64, statInterpolation = { 3, 3, }, cost = { }, },
+		[17] = { 645, 1007, critChance = 10, cooldown = 2, levelRequirement = 66, statInterpolation = { 3, 3, }, cost = { }, },
+		[18] = { 704, 1101, critChance = 10, cooldown = 2, levelRequirement = 68, statInterpolation = { 3, 3, }, cost = { }, },
+		[19] = { 736, 1150, critChance = 10, cooldown = 2, levelRequirement = 69, statInterpolation = { 3, 3, }, cost = { }, },
+		[20] = { 769, 1202, critChance = 10, cooldown = 2, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { }, },
+		[21] = { 839, 1311, critChance = 10, cooldown = 2, levelRequirement = 72, statInterpolation = { 3, 3, }, cost = { }, },
+		[22] = { 915, 1430, critChance = 10, cooldown = 2, levelRequirement = 74, statInterpolation = { 3, 3, }, cost = { }, },
+		[23] = { 997, 1558, critChance = 10, cooldown = 2, levelRequirement = 76, statInterpolation = { 3, 3, }, cost = { }, },
+		[24] = { 1086, 1697, critChance = 10, cooldown = 2, levelRequirement = 78, statInterpolation = { 3, 3, }, cost = { }, },
+		[25] = { 1182, 1847, critChance = 10, cooldown = 2, levelRequirement = 80, statInterpolation = { 3, 3, }, cost = { }, },
+		[26] = { 1287, 2010, critChance = 10, cooldown = 2, levelRequirement = 82, statInterpolation = { 3, 3, }, cost = { }, },
+		[27] = { 1399, 2186, critChance = 10, cooldown = 2, levelRequirement = 84, statInterpolation = { 3, 3, }, cost = { }, },
+		[28] = { 1521, 2377, critChance = 10, cooldown = 2, levelRequirement = 86, statInterpolation = { 3, 3, }, cost = { }, },
+		[29] = { 1653, 2583, critChance = 10, cooldown = 2, levelRequirement = 88, statInterpolation = { 3, 3, }, cost = { }, },
+		[30] = { 1795, 2805, critChance = 10, cooldown = 2, levelRequirement = 90, statInterpolation = { 3, 3, }, cost = { }, },
 	},
 }
 skills["IceElementalIceCyclone"] = {
@@ -258,7 +258,7 @@ skills["IceElementalSpearSummoned"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 25, cooldown = 4, levelRequirement = 3, statInterpolation = { 3, 3, 1, }, cost = { }, },
+		[1] = { 13, 19, 25, cooldown = 4, levelRequirement = 3, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["LightningGolemArcSummoned"] = {
@@ -285,7 +285,7 @@ skills["LightningGolemArcSummoned"] = {
 		"base_skill_effect_duration",
 	},
 	levels = {
-		[1] = { 0.20000000298023, 1.7999999523163, 8000, damageEffectiveness = 0.6, cooldown = 8, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
+		[1] = { 1, 8, 8000, damageEffectiveness = 0.6, cooldown = 8, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["MonsterProjectileSpellLightningGolemSummoned"] = {
@@ -314,7 +314,7 @@ skills["MonsterProjectileSpellLightningGolemSummoned"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.20000000298023, 1.7999999523163, 11, -15, -40, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
+		[1] = { 4, 33, 11, -15, -40, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["LightningGolemWrath"] = {
@@ -359,7 +359,7 @@ skills["LightningGolemWrath"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 0.20000000298023, 1.7999999523163, 4000, 0.11999999731779, 1.0800000429153, cooldown = 12, levelRequirement = 1, statInterpolation = { 3, 3, 1, 3, 3, }, cost = { }, },
+		[1] = { 1, 1, 4000, 1, 1, cooldown = 12, levelRequirement = 1, statInterpolation = { 3, 3, 1, 3, 3, }, cost = { }, },
 	},
 }
 skills["SpectralSkullShieldCharge"] = {
@@ -471,7 +471,7 @@ skills["SkeletonMinionProjectileCold"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 0, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
+		[1] = { 8, 12, 0, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["SkeletonMinionProjectileFire"] = {
@@ -498,7 +498,7 @@ skills["SkeletonMinionProjectileFire"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 0, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { }, },
+		[1] = { 27, 41, 0, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["SkeletonMinionProjectileLightning"] = {
@@ -525,7 +525,7 @@ skills["SkeletonMinionProjectileLightning"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, 0, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
+		[1] = { 5, 16, 0, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["RockGolemSlam"] = {
@@ -729,7 +729,7 @@ skills["SummonPhantasmFadingProjectile"] = {
 		"always_pierce",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, cost = { }, },
+		[1] = { 3, 5, damageEffectiveness = 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, cost = { }, },
 	},
 }
 skills["HeraldOfAgonyMinionMortar"] = {
@@ -902,46 +902,46 @@ skills["RelicTriggeredNova"] = {
 		"spell_maximum_base_physical_damage",
 	},
 	levels = {
-		[1] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.7, cooldown = 0.3, critChance = 5, levelRequirement = 4, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[2] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.74, cooldown = 0.3, critChance = 5, levelRequirement = 6, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[3] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.78, cooldown = 0.3, critChance = 5, levelRequirement = 9, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[4] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.82, cooldown = 0.3, critChance = 5, levelRequirement = 12, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[5] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.86, cooldown = 0.3, critChance = 5, levelRequirement = 16, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[6] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.9, cooldown = 0.3, critChance = 5, levelRequirement = 20, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[7] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.94, cooldown = 0.3, critChance = 5, levelRequirement = 24, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[8] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.98, cooldown = 0.3, critChance = 5, levelRequirement = 28, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[9] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.02, cooldown = 0.3, critChance = 5, levelRequirement = 32, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[10] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.06, cooldown = 0.3, critChance = 5, levelRequirement = 36, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[11] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.1, cooldown = 0.3, critChance = 5, levelRequirement = 40, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[12] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.14, cooldown = 0.3, critChance = 5, levelRequirement = 44, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[13] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.18, cooldown = 0.3, critChance = 5, levelRequirement = 48, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[14] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.22, cooldown = 0.3, critChance = 5, levelRequirement = 52, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[15] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.26, cooldown = 0.3, critChance = 5, levelRequirement = 55, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[16] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.3, cooldown = 0.3, critChance = 5, levelRequirement = 58, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[17] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.34, cooldown = 0.3, critChance = 5, levelRequirement = 61, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[18] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.38, cooldown = 0.3, critChance = 5, levelRequirement = 64, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[19] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.42, cooldown = 0.3, critChance = 5, levelRequirement = 67, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[20] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.46, cooldown = 0.3, critChance = 5, levelRequirement = 70, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[21] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 72, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[22] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 74, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[23] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 76, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[24] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 78, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[25] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 80, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[26] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 82, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[27] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 84, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[28] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 86, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[29] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 88, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[30] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 90, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[31] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 91, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[32] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 92, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[33] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 93, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[34] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 94, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[35] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 95, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[36] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 96, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[37] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 97, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[38] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 98, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[39] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 99, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
-		[40] = { 100, 4000, 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 100, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[1] = { 100, 4000, 4, 6, damageEffectiveness = 0.7, cooldown = 0.3, critChance = 5, levelRequirement = 4, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[2] = { 100, 4000, 6, 8, damageEffectiveness = 0.74, cooldown = 0.3, critChance = 5, levelRequirement = 6, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[3] = { 100, 4000, 8, 12, damageEffectiveness = 0.78, cooldown = 0.3, critChance = 5, levelRequirement = 9, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[4] = { 100, 4000, 11, 17, damageEffectiveness = 0.82, cooldown = 0.3, critChance = 5, levelRequirement = 12, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[5] = { 100, 4000, 17, 25, damageEffectiveness = 0.86, cooldown = 0.3, critChance = 5, levelRequirement = 16, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[6] = { 100, 4000, 25, 38, damageEffectiveness = 0.9, cooldown = 0.3, critChance = 5, levelRequirement = 20, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[7] = { 100, 4000, 37, 55, damageEffectiveness = 0.94, cooldown = 0.3, critChance = 5, levelRequirement = 24, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[8] = { 100, 4000, 52, 78, damageEffectiveness = 0.98, cooldown = 0.3, critChance = 5, levelRequirement = 28, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[9] = { 100, 4000, 74, 111, damageEffectiveness = 1.02, cooldown = 0.3, critChance = 5, levelRequirement = 32, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[10] = { 100, 4000, 104, 156, damageEffectiveness = 1.06, cooldown = 0.3, critChance = 5, levelRequirement = 36, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[11] = { 100, 4000, 145, 218, damageEffectiveness = 1.1, cooldown = 0.3, critChance = 5, levelRequirement = 40, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[12] = { 100, 4000, 201, 301, damageEffectiveness = 1.14, cooldown = 0.3, critChance = 5, levelRequirement = 44, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[13] = { 100, 4000, 277, 415, damageEffectiveness = 1.18, cooldown = 0.3, critChance = 5, levelRequirement = 48, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[14] = { 100, 4000, 379, 569, damageEffectiveness = 1.22, cooldown = 0.3, critChance = 5, levelRequirement = 52, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[15] = { 100, 4000, 479, 718, damageEffectiveness = 1.26, cooldown = 0.3, critChance = 5, levelRequirement = 55, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[16] = { 100, 4000, 604, 905, damageEffectiveness = 1.3, cooldown = 0.3, critChance = 5, levelRequirement = 58, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[17] = { 100, 4000, 759, 1139, damageEffectiveness = 1.34, cooldown = 0.3, critChance = 5, levelRequirement = 61, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[18] = { 100, 4000, 953, 1430, damageEffectiveness = 1.38, cooldown = 0.3, critChance = 5, levelRequirement = 64, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[19] = { 100, 4000, 1195, 1792, damageEffectiveness = 1.42, cooldown = 0.3, critChance = 5, levelRequirement = 67, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[20] = { 100, 4000, 1496, 2243, damageEffectiveness = 1.46, cooldown = 0.3, critChance = 5, levelRequirement = 70, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[21] = { 100, 4000, 1736, 2603, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 72, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[22] = { 100, 4000, 2013, 3019, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 74, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[23] = { 100, 4000, 2333, 3500, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 76, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[24] = { 100, 4000, 2703, 4055, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 78, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[25] = { 100, 4000, 3130, 4695, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 80, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[26] = { 100, 4000, 3622, 5433, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 82, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[27] = { 100, 4000, 4190, 6285, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 84, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[28] = { 100, 4000, 4845, 7267, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 86, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[29] = { 100, 4000, 5599, 8399, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 88, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[30] = { 100, 4000, 6468, 9703, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 90, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[31] = { 100, 4000, 6951, 10427, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 91, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[32] = { 100, 4000, 7470, 11205, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 92, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[33] = { 100, 4000, 8026, 12039, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 93, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[34] = { 100, 4000, 8623, 12934, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 94, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[35] = { 100, 4000, 9263, 13894, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 95, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[36] = { 100, 4000, 9950, 14925, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 96, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[37] = { 100, 4000, 10687, 16030, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 97, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[38] = { 100, 4000, 11477, 17215, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 98, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[39] = { 100, 4000, 12325, 18487, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 99, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
+		[40] = { 100, 4000, 13234, 19851, damageEffectiveness = 1.5, cooldown = 0.3, critChance = 5, levelRequirement = 100, statInterpolation = { 1, 1, 3, 3, }, cost = { }, },
 	},
 }
 skills["DominatingBlowMinionCharge"] = {
@@ -1008,7 +1008,7 @@ skills["AbsolutionMinion"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, -50, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { }, },
+		[1] = { 34, 51, -50, critChance = 5, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["AbsolutionMinionEmpowered"] = {
@@ -1038,7 +1038,7 @@ skills["AbsolutionMinionEmpowered"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, -50, 1, critChance = 5, cooldown = 6, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
+		[1] = { 7, 11, -50, 1, critChance = 5, cooldown = 6, levelRequirement = 0, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
 	},
 }
 skills["SummonedRhoaShieldCharge"] = {

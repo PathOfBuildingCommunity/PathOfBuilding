@@ -331,7 +331,7 @@ directiveTable.skill = function(state, args, out)
 			level.statInterpolation[i] = levelRow.InterpolationTypes[i]
 			if level.statInterpolation[i] == 3 then
 				if levelRow.EffectivenessCost[i].Value ~= 0 then
-					table.insert(level, levelRow["StatEff"..i] / levelRow.EffectivenessCost[i].Value)
+					table.insert(level, levelRow["Stat"..i] / levelRow.EffectivenessCost[i].Value)
 				else
 					level.statInterpolation[i] = 1
 					table.insert(level, levelRow["Stat"..i])
