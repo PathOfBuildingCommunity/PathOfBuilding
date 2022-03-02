@@ -159,19 +159,10 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 		end
 	end
 	local level = grantedEffect.levels[skillInstance.level]
-	local availableEffectiveness
 	local actorLevel = skillInstance.actorLevel or level.levelRequirement
 	for index, stat in ipairs(grantedEffect.stats) do
 		local statValue
-		if level.statInterpolation[index] == 3 then
-			-- Effectiveness interpolation
-			if not availableEffectiveness then
-				availableEffectiveness = 
-					(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
-					* (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)
-			end
-			statValue = round(availableEffectiveness * level[index])
-		elseif level.statInterpolation[index] == 2 then
+		if level.statInterpolation[index] == 2 then
 			-- Linear interpolation; I'm actually just guessing how this works
 			local nextLevel = m_min(skillInstance.level + 1, #grantedEffect.levels)
 			local nextReq = grantedEffect.levels[nextLevel].levelRequirement
