@@ -1107,8 +1107,10 @@ end
 function ItemsTabClass:SearchSelectedItem()
 
 	local selItem = self.displayItem
-	local modDesc = {}
-	local modValue = {}
+	local explicitModDesc = {}
+	local explicitModValue = {}
+	local implicitModDesc = {}
+	local implicitModValue = {}
 	local startPoint = ""
 	local midPoint = ""
 	local endPoint = ""
@@ -1117,24 +1119,52 @@ function ItemsTabClass:SearchSelectedItem()
 	if selItem.rarity == 'RARE' or selItem.rarity == 'MAGIC' then
 		-- find mod names and values in the selected item
 		-- unsure how to handle the decimal point for the value modifer
+		
+		-- Searching for explicit mods
 		for i, mod in ipairs(selItem.explicitModLines) do				
 			local value = string.match(mod.line, "%d+")
 			-- this is yuck
 			local temp = string.gsub(mod.line, "%.", '')
 			local name = "\""..string.gsub(temp, "%d+", '#').."\"" 
-			table.insert(modValue, value)
-			table.insert(modDesc, name)
+			table.insert(explicitModValue, value)
+			table.insert(explicitModDesc, name)
 		end
-	
-		local ids = self.SearchModList(modDesc)
+
+		local explicitIds = {}
+		if next(explicitModDesc) then
+			explicitIds = self.SearchExplicitModList(explicitModDesc)
+		end
+
+		-- Searching for implicit mods
+		for i, mod in ipairs(selItem.implicitModLines) do				
+			local value = string.match(mod.line, "%d+")
+			-- this is yuck
+			local temp = string.gsub(mod.line, "%.", '')
+			local name = "\""..string.gsub(temp, "%d+", '#').."\"" 
+			table.insert(implicitModValue, value)
+			table.insert(implicitModDesc, name)
+		end
+
+		local implicitIds = {}
+		if next(implicitModDesc) then
+			implicitIds = self.SearchImplicitModList(implicitModDesc)
+		end
+
+
 		-- Build the query json
 		startPoint = string.format('{"query":{"status":{"option":"online"},"type":"%s","stats":[{"type":"and","filters":[', self.displayItem.baseName)
 		endPoint = ']}]},"sort":{"price":"asc"}}'
-
-		for i in ipairs(ids) do
-			midPoint = midPoint..string.format('{"id":"%s","value":{"min":%s}}', ids[i], modValue[i])..","
+		if next(explicitIds) then
+			for i in ipairs(explicitIds) do
+				midPoint = midPoint..string.format('{"id":"%s","value":{"min":%s}}', explicitIds[i], explicitModValue[i])..","
+			end
 		end
 
+		if next(implicitIds) then
+			for i in ipairs(implicitIds) do
+				midPoint = midPoint..string.format('{"id":"%s","value":{"min":%s}}', implicitIds[i], implicitModValue[i])..","
+			end
+		end
 		midPoint = midPoint:sub(1, -2)
 	end
 
@@ -1154,23 +1184,18 @@ function ItemsTabClass:SearchSelectedItem()
 	--get the response
 	local response = self.ProcessJSON(responeJson)
 
-	if not string.match(responeJson, 'error') then
-		if (response.total > 0) then
-			--opens default windows web browser
-			--Only works on Windows
-			os.execute(string.format('start https://www.pathofexile.com/trade/search/Scourge/%s', response.id))
-		
-		else
-			--display a search failed message
-			main:OpenMessagePopup("Search Failed", "The search parameters did not return any results.\nPlease perform a manual search on PoE Trade to confirm.\nTrade ID: %s", response.id)
-		end
+	if not string.match(responeJson, 'error') then	
+		--opens default windows web browser
+		--Only works on Windows
+		--Get current league name? dont worry about it ? unsure. 
+		os.execute(string.format('start https://www.pathofexile.com/trade/search/Scourge/%s', response.id))
 	else
-		main:OpenMessagePopup("Search Failed", "There was an error in this search request.")
+		main:OpenMessagePopup("Search Failed", "There was an error with this search request.")
 	end
+end 
 
-end
-
-function ItemsTabClass:SearchModList(modDesc)
+-- Search for explicit mods
+function ItemsTabClass:SearchExplicitModList(modDesc)
 	local filePath = "Data/StatDescriptions/item_mods.json"
 	local ids = {}
 
@@ -1183,6 +1208,39 @@ function ItemsTabClass:SearchModList(modDesc)
 		end		
 	end
 
+	return ids
+end
+
+-- Search for implicit mods
+function ItemsTabClass:SearchImplicitModList(modDesc)
+	local filePath = "Data/StatDescriptions/item_mods.json"
+	local ids = {}
+
+	for i in ipairs(self) do
+		for lines in io.lines(filePath) do
+			if string.find(lines, self[i], 1, true) then
+				local jsonLine = ItemsTabClass.ProcessJSON(lines)
+				table.insert(ids, jsonLine.trade.ids.implicit[1])
+			end
+		end		
+	end
+
+	return ids
+end
+
+-- Search for fractured mods
+function ItemsTabClass:SearchFracturedModList(modDesc)
+	local filePath = "Data/StatDescriptions/item_mods.json"
+	local ids = {}
+
+	for i in ipairs(self) do
+		for lines in io.lines(filePath) do
+			if string.find(lines, self[i], 1, true) then
+				local jsonLine = ItemsTabClass.ProcessJSON(lines)
+				table.insert(ids, jsonLine.trade.ids.fractured[1])
+			end
+		end		
+	end
 	return ids
 end
 
