@@ -87,12 +87,13 @@ function NotesTabClass:Draw(viewPort, inputEvents)
 	local str = self.controls.edit.buf
 	local function FindURLs()
 		-- find any urls in the edit buffer
-		local first, last = 0
+		local first = 0
+		local last = 0
 		wipeTable(urlList)
 		while true do
-			first, last = str:find("<(http[s]-:.-)>", first+1)
+			first, last = str:find("(http[s]-:.-)%s", last+1)
 			if not first then break end
-			t_insert(urlList, { first, last, str:sub(first+1, last-1) })
+			t_insert(urlList, { first, last, str:sub(first, last-1) })
 		end
 		return urlList
 	end
@@ -115,8 +116,8 @@ function NotesTabClass:Draw(viewPort, inputEvents)
 				caret = self.controls.edit.caret
 				if FindURLs() then
 					for _, entry in ipairs(urlList) do
-						if caret >= entry[1] and caret <= entry[2] then
-							os.execute('c:/windows/explorer.exe '..entry[3])
+						if caret >= entry[1] and caret < entry[2] then
+							os.execute('c:/windows/explorer.exe "'..entry[3]..'"')
 							return
 						end
 					end
