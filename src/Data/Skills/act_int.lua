@@ -804,6 +804,10 @@ skills["DarkRitual"] = {
 		["dark_ritual_skill_effect_duration_+%_per_curse_applied"] = {
 			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseApplied" }),
 		},
+		["apply_linked_curses_with_dark_ritual"] = {
+		},
+		["cannot_cast_curses"] = {
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -1061,13 +1065,18 @@ skills["Blight"] = {
 			name = "Maximum Sustainable Stacks",
 		},
 	},
+	statMap = {
+		["display_max_blight_stacks"] = {
+			mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			base = -1
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "BlightStageAfterFirst" }),
 		skill("debuff", true),
 		skill("debuffSecondary", true),
@@ -1149,6 +1158,10 @@ skills["VaalBlight"] = {
 	statMap = {
 		["hinder_enemy_chaos_damage_taken_+%"] = {
 			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }),
+		},
+		["display_max_blight_stacks"] = {
+			mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			base = -1
 		},
 	},
 	baseFlags = {
@@ -1436,6 +1449,11 @@ skills["SigilRecall"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["recall_sigil_target_search_range_+%"] = {
+			mod("BrandAttachmentRange", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -2157,6 +2175,9 @@ skills["Disintegrate"] = {
 	statMap = {
 		["disintegrate_damage_+%_final_per_intensity"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
+		},
+		["disintegrate_base_radius_+_per_intensify"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
 	},
 	baseFlags = {
@@ -3886,10 +3907,14 @@ skills["Flameblast"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["flameblast_maximum_stages"] = {
-			mod("Multiplier:FlameblastMaxStages", "BASE", nil),
+			mod("Multiplier:FlameblastMaxStagesAfterFirst", "BASE", nil),
+			base = -1
 		},
 		["flameblast_area_+%_final_per_stage"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStage" }),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+		},
+		["vaal_flameblast_radius_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		},
 	},
 	baseFlags = {
@@ -3897,9 +3922,7 @@ skills["Flameblast"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:FlameblastMaxStagesAfterFirst", "BASE", 9),
 		skill("radius", 2),
-		skill("radiusExtra", 3, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		skill("showAverage", true),
 	},
 	qualityStats = {
@@ -4374,6 +4397,8 @@ skills["FreezingPulse"] = {
 	statMap = {
 		["freezing_pulse_damage_+%_final_at_long_range"] = {
 			mod("FreezingPulseRamp", "BASE", nil)
+		},
+		["display_what_freezing_pulse_does"] = {
 		},
 	},
 	baseFlags = {
@@ -5120,6 +5145,8 @@ skills["WaterSphere"] = {
 		["hydro_sphere_pulse_frequency_+%"] = {
 			mod("HydroSphereFrequency", "INC", nil),
 		},
+		["water_sphere_does_weird_conversion_stuff"] = {
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -5214,6 +5241,9 @@ skills["DoomBlast"] = {
 		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
 		},
+		["chaos_damage_resisted_by_lowest_resistance"] = {
+			flag("ChaosDamageUsesLowestResistance"),
+		},
 	},
 	parts = {
 		{
@@ -5232,19 +5262,6 @@ skills["DoomBlast"] = {
 	baseMods = {
 		skill("radius", 29),
 		skill("showAverage", true),
-		flag("ChaosDamageUsesLowestResistance"),
-		flag("PhysicalCanIgnite"),
-		flag("LightningCanIgnite"),
-		flag("ColdCanIgnite"),
-		flag("ChaosCanIgnite"),
-		flag("PhysicalCanFreeze"),
-		flag("LightningCanFreeze"),
-		flag("FireCanFreeze"),
-		flag("ChaosCanFreeze"),
-		flag("PhysicalCanShock"),
-		flag("ColdCanShock"),
-		flag("FireCanShock"),
-		flag("ChaosCanShock"),
 	},
 	qualityStats = {
 		Default = {
@@ -5821,7 +5838,7 @@ skills["ExpandingFireCone"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["flamethrower_damage_+%_per_stage_final"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStage" }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "IncinerateStage" }),
 		},
 		["expanding_fire_cone_radius_+_per_stage"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateStage", limitVar = "IncinerateRadiusLimit", limitTotal = true }),
@@ -7006,6 +7023,8 @@ skills["MagmaSigil"] = {
 		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
 		},
+		["penance_brand_additional_descriptions_boolean"] = {
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -8128,6 +8147,14 @@ skills["FireBeam"] = {
 		["base_fire_damage_resistance_%"] = {
 			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
 		},
+		["fire_beam_additional_stack_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
+			base = 100
+		},
+		["display_max_fire_beam_stacks"] = {
+			mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", nil),
+			base = -1
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -8135,8 +8162,6 @@ skills["FireBeam"] = {
 	},
 	baseMods = {
 		mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 }),
-		mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", 7),
-		mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
 	},
 	qualityStats = {
 		Default = {
@@ -8755,6 +8780,10 @@ skills["Spellslinger"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["spellslinger_mana_reservation"] = {
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -8831,6 +8860,11 @@ skills["SupportSpellslinger"] = {
 	statMap = {
 		["gain_%_of_base_wand_damage_as_added_spell_damage"] = {
 			skill("gainPercentBaseWandDamage", nil),
+		},
+		["support_spellslinger_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+		},
+		["spellslinger_trigger_on_wand_attack_%"] = {
 		},
 	},
 	baseMods = {
@@ -9387,6 +9421,8 @@ skills["Stormbind"] = {
 		["active_skill_quality_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["rune_paint_max_rune_level"] = {
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -9666,7 +9702,9 @@ skills["StormBurstNew"] = {
 		["display_storm_burst_jump_time_ms"] = {
 			skill("repeatFrequency", nil),
 			div = 1000,
-		}
+		},
+		["storm_burst_new_damage_+%_final_per_remaining_teleport_zap"] = {
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -11117,7 +11155,7 @@ skills["FrostFury"] = {
 		},
 		["frost_fury_max_number_of_stages"] = {
 			mod("Multiplier:WinterOrbMaxStagesAfterFirst", "BASE", nil),
-			div = 10 / 9,
+			base = -1,
 		},
 		["frost_fury_base_fire_interval_ms"] = {
 			skill("repeatFrequency", nil),
@@ -11128,6 +11166,8 @@ skills["FrostFury"] = {
 		},
 		["frost_fury_fire_speed_+%_final_while_channelling"] = {
 			mod("HitRate", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+		["display_frost_fury_additive_cast_speed_modifiers_apply_to_fire_speed"] = {
 		},
 	},
 	baseFlags = {

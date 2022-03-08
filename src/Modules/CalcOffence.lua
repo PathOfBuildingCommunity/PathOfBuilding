@@ -1669,7 +1669,6 @@ function calcs.offence(env, actor, activeSkill)
 		globalOutput.MaxOffensiveWarcryEffect = 1
 		globalOutput.TheoreticalOffensiveWarcryEffect = 1
 		globalOutput.TheoreticalMaxOffensiveWarcryEffect = 1
-		globalOutput.SeismicHitEffect = 1
 		globalOutput.RallyingHitEffect = 1
 		globalOutput.AilmentWarcryEffect = 1
 
@@ -1856,45 +1855,15 @@ function calcs.offence(env, actor, activeSkill)
 							end
 							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("= %d%%", globalOutput.SeismicUpTimeRatio))
 						end
-						-- calculate the stacking MORE dmg modifier of Seismic slams
-						local SeismicMoreDmgAndAoEPerExert = env.modDB:Sum("BASE", cfg, "SeismicMoreDmgPerExert") / 100
-						local TotalSeismicDmgImpact = 0
-						local ThisSeismicDmgImpact = 0
-						local LastSeismicImpact = 0
+						-- calculate the stacking AoE modifier of Seismic slams
+						local SeismicAoEPerExert = env.modDB:Sum("BASE", cfg, "SeismicIncAoEPerExert") / 100
 						local AoEImpact = 0
-						local MaxSingleHitDmgImpact = 0
 						local MaxSingleAoEImpact = 0
 						for i = 1, globalOutput.SeismicExertsCount do
-							ThisSeismicDmgImpact = SeismicMoreDmgAndAoEPerExert + (1 + SeismicMoreDmgAndAoEPerExert) * LastSeismicImpact
-							MaxSingleHitDmgImpact = m_max(MaxSingleHitDmgImpact, ThisSeismicDmgImpact)
-							LastSeismicImpact = LastSeismicImpact + SeismicMoreDmgAndAoEPerExert
-							TotalSeismicDmgImpact = TotalSeismicDmgImpact + ThisSeismicDmgImpact
-							AoEImpact = AoEImpact + (i * SeismicMoreDmgAndAoEPerExert)
-							MaxSingleAoEImpact = MaxSingleAoEImpact + SeismicMoreDmgAndAoEPerExert
+							AoEImpact = AoEImpact + (i * SeismicAoEPerExert)
+							MaxSingleAoEImpact = MaxSingleAoEImpact + SeismicAoEPerExert
 						end
-						globalOutput.SeismicAvgDmg = (TotalSeismicDmgImpact / globalOutput.SeismicExertsCount)
 						local AvgAoEImpact = AoEImpact / globalOutput.SeismicExertsCount
-						if globalBreakdown then
-							globalBreakdown.SeismicAvgDmg = {
-								s_format("%.2f ^8(total seismic damage multiplier across all exerts)", TotalSeismicDmgImpact),
-								s_format("Average Seismic Damage:"),
-								s_format("(%.2f ^8(average damage multiplier per exert)", TotalSeismicDmgImpact / globalOutput.SeismicExertsCount),
-								s_format("= %.2f", globalOutput.SeismicAvgDmg),
-							}
-						end
-						globalOutput.SeismicHitEffect = 1 + globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio / 100
-						globalOutput.SeismicMaxHitEffect = 1 + MaxSingleHitDmgImpact
-						if globalBreakdown then
-							globalBreakdown.SeismicHitEffect = {
-								s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.SeismicAvgDmg),
-								s_format("x %.2f) ^8(uptime %%)", globalOutput.SeismicUpTimeRatio / 100),
-								s_format("= %.2f", globalOutput.SeismicHitEffect),
-							}
-						end
-						globalOutput.OffensiveWarcryEffect = globalOutput.OffensiveWarcryEffect * globalOutput.SeismicHitEffect
-						globalOutput.MaxOffensiveWarcryEffect = globalOutput.MaxOffensiveWarcryEffect * globalOutput.SeismicMaxHitEffect
-						globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.SeismicHitEffect
-						globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.SeismicMaxHitEffect
 
 						-- account for AoE increase
 						if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then

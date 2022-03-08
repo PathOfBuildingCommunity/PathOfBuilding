@@ -400,7 +400,7 @@ skills["Barrage"] = {
 			mod("ScorchAsThoughDealing", "MORE", nil),
 			mod("BrittleAsThoughDealing", "MORE", nil),
 			mod("SapAsThoughDealing", "MORE", nil),
-		}
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -914,7 +914,12 @@ skills["BladeVortex"] = {
 		},
 		["blade_vortex_damage_+%_with_5_or_fewer_blades"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "SkillPart", skillPartList = {1, 2} }),
-		}
+		},
+		["maximum_number_of_spinning_blades"] = {
+			mod("Multiplier:BladeVortexMaxStages", "BASE", nil),
+		},
+		["blade_vortex_hit_rate_+%_per_blade"] = {
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -2115,6 +2120,9 @@ skills["Cyclone"] = {
 		["cyclone_movement_speed_+%_final"] = {
 			mod("MovementSpeed", "MORE", nil, 0, 0, { type = "Condition", var = "ChannellingCyclone"}, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
+		["cyclone_melee_weapon_range_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "CycloneStage" }),
+		},
 	},
 	initialFunc = function(activeSkill, output)
 		local rangePlus = 0
@@ -2133,7 +2141,6 @@ skills["Cyclone"] = {
 	},
 	baseMods = {
 		skill("radius", 11),
-		skill("radiusExtra", 1, { type = "Multiplier", var = "CycloneStage" }),
 	},
 	qualityStats = {
 		Default = {
@@ -2972,20 +2979,30 @@ skills["ElementalHit"] = {
 			area = true,
 		},
 	},
+	statMap = {
+		["elemental_hit_damage_+10%_final_per_enemy_elemental_ailment"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
+			mult = 10,
+		},
+		["elemental_hit_area_of_effect_+100%_final_vs_enemy_with_associated_ailment"] = {
+		},
+		["elemental_hit_no_physical_chaos_damage"] = {
+			flag("DealNoPhysical"),
+			flag("DealNoChaos"),
+			flag("DealNoFire", { type = "SkillPart", skillPartList = { 3, 4 } }),
+			flag("DealNoFire", { type = "SkillPart", skillPartList = { 5, 6 } }),
+			flag("DealNoCold", { type = "SkillPart", skillPartList = { 1, 2 } }),
+			flag("DealNoCold", { type = "SkillPart", skillPartList = { 5, 6 } }),
+			flag("DealNoLightning", { type = "SkillPart", skillPartList = { 1, 2 } }),
+			flag("DealNoLightning", { type = "SkillPart", skillPartList = { 3, 4 } }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		projectile = true,
 	},
 	baseMods = {
-		flag("DealNoPhysical"),
-		flag("DealNoChaos"),
-		flag("DealNoFire", { type = "SkillPart", skillPartList = { 3, 4 } }),
-		flag("DealNoFire", { type = "SkillPart", skillPartList = { 5, 6 } }),
-		flag("DealNoCold", { type = "SkillPart", skillPartList = { 1, 2 } }),
-		flag("DealNoCold", { type = "SkillPart", skillPartList = { 5, 6 } }),
-		flag("DealNoLightning", { type = "SkillPart", skillPartList = { 1, 2 } }),
-		flag("DealNoLightning", { type = "SkillPart", skillPartList = { 3, 4 } }),
 		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 2 }),
 		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 4 }),
 		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 6 }),
@@ -2996,7 +3013,6 @@ skills["ElementalHit"] = {
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Scorched" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Brittle" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Sapped" }),
-		mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
 		skill("radius", 10, { type = "SkillPart", skillPartList = { 2, 4, 6 } }),
 	},
 	qualityStats = {
@@ -3251,49 +3267,38 @@ skills["ExplosiveArrow"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Explosion (1 fuse)",
+			name = "Explosion (# of fuses)",
 			area = true,
-		},
-		{
-			name = "Explosion (5 fuses)",
-			area = true,
-		},
-		{
-			name = "Explosion (10 fuses)",
-			area = true,
-		},
-		{
-			name = "Explosion (15 fuses)",
-			area = true,
-		},
-		{
-			name = "Explosion (20 fuses)",
-			area = true
+			stages = true,
 		},
 		{
 			name = "Arrow",
 			area = false,
+
 		},
 	},
 	statMap = {
 		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
-			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
+			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
-			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowFuse", limitVar = "ExplosiveArrowMaxBonusRadius", limitTotal = true }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowStage", limitVar = "ExplosiveArrowMaxBonusRadius", limitTotal = true }),
 		},
 		["explosive_arrow_explosion_base_damage_+permyriad"] = {
-			skill("baseMultiplier", nil, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
+			skill("baseMultiplier", nil, { type = "SkillPart", skillPart = 1 }),
 			div = -10000,
 		},
 		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ExplosiveArrowFuse" }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
 		},
 		["explosive_arrow_maximum_bonus_explosion_radius"] = {
 			mod("Multiplier:ExplosiveArrowMaxBonusRadius", "BASE", nil),
+		},
+		["explosive_arrow_stack_limit"] = {
+			mod("Multiplier:ExplosiveArrowMaxStages", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -3304,13 +3309,8 @@ skills["ExplosiveArrow"] = {
 	},
 	baseMods = {
 		skill("radius", 15),
-		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }),
-		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2, 3, 4, 5 } }, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 }),
-		mod("Multiplier:ExplosiveArrowFuse", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 1 }),
-		mod("Multiplier:ExplosiveArrowFuse", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:ExplosiveArrowFuse", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 3 }),
-		mod("Multiplier:ExplosiveArrowFuse", "BASE", 15, 0, 0, { type = "SkillPart", skillPart = 4 }),
-		mod("Multiplier:ExplosiveArrowFuse", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 5 }),
+		skill("showAverage", true, { type = "SkillPart", skillPart = 1 }),
+		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }, { type = "Multiplier", var = "ExplosiveArrowStage", base = -100 }),
 	},
 	qualityStats = {
 		Default = {
@@ -6789,6 +6789,9 @@ skills["VaalReave"] = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
 		},
+		["reave_additional_max_stacks"] = {
+			mod("Multiplier:ReaveMaxStages", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -6798,7 +6801,7 @@ skills["VaalReave"] = {
 	},
 	baseMods = {
 		skill("radius", 12),
-		mod("Multiplier:ReaveMaxStages", "BASE", 8),
+		mod("Multiplier:ReaveMaxStages", "BASE", 4),
 	},
 	qualityStats = {
 		Default = {
@@ -6981,13 +6984,15 @@ skills["ScourgeArrow"] = {
 		["virulent_arrow_pod_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type= "SkillPart", skillPart = 2 }),
 		},
+		["virulent_arrow_maximum_number_of_stacks"] = {
+			mod("Multiplier:ScourgeArrowMaxStages", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
 	},
 	baseMods = {
-		mod("Multiplier:ScourgeArrowMaxStages", "BASE", 5),
 	},
 	qualityStats = {
 		Default = {
@@ -7086,6 +7091,12 @@ skills["ShatteringSteel"] = {
 	statMap = {
 		["shattering_steel_hit_damage_+%_final_scaled_by_projectile_distance_per_ammo_consumed"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SteelShardConsumed", limit = 2 }, { type = "DistanceRamp", ramp = {{10,1},{70,0} } } ),
+		},
+		["additional_block_chance_against_projectiles_%_per_steel_charge"] = {
+			mod("ProjectileBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "SteelWardCount", limit = 6 } ),
+		},
+		["no_additional_projectiles_if_no_steel_ammo"] = {
+			flag("NoAdditionalProjectiles", { type = "MultiplierThreshold", var = "SteelShardConsumed", threshold = 0, upper = true }),
 		},
 	},
 	baseFlags = {
@@ -8986,6 +8997,10 @@ skills["WildStrike"] = {
 			projectile = true,
 			chaining = false,
 			area = false,
+		},
+	},
+	statMap = {
+		["elemental_strike_physical_damage_%_to_convert"] = {
 		},
 	},
 	baseFlags = {

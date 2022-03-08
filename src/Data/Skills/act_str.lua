@@ -2999,8 +2999,7 @@ skills["GeneralsCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["spiritual_cry_doubles_summoned_per_5_MP+%"] = {
-			mod("GeneralsCryDoubleMPCount", "BASE", nil),
+		["spiritual_cry_doubles_summoned_per_5_MP"] = {
 		},
 		["maximum_number_of_spiritual_cry_warriors"] = {
 			mod("GeneralsCryDoubleMaxCount", "BASE", nil),
@@ -3090,6 +3089,8 @@ skills["GeneralsCrySupport"] = {
 	statMap = {
 		["support_spiritual_cry_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
+		},
+		["is_empowered"] = {
 		},
 	},
 	baseMods = {
@@ -3439,6 +3440,8 @@ skills["VaalGroundSlam"] = {
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+		["vaal_skill_exertable"] = {
 		},
 	},
 	baseFlags = {
@@ -4307,7 +4310,9 @@ skills["IntimidatingCry"] = {
 		["warcry_grant_overwhelm_%_to_exerted_attacks"] = {
 			-- This is okay not indicating exert because it must be enabled by Intimidating Cry which would exert the attack
 			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Attack, 0)
-		}
+		},
+		["intimidating_cry_empowerd_attacks_deal_double_damage_display"] = {
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -5841,16 +5846,18 @@ skills["SeismicCry"] = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("SeismicExertedAttacks", "BASE", nil),
 		},
-		["seismic_cry_slam_skill_damage_+%_final_increase_per_repeat"] = {
-			mod("SeismicHitMultiplier", "BASE", nil),
+		["seismic_cry_slam_skill_area_+%_increase_per_repeat"] = {
+			mod("SeismicAoEMultiplier", "BASE", nil),
+		},
+		["seismic_cry_base_slam_skill_area_+%"] = {
 		},
 		["seismic_cry_+%_enemy_stun_threshold_per_5_MP"] = {
 			mod("SeismicStunThresholdPer5MP", "BASE", nil),
 		},
-		["exerted_attack_knockback_chance_%"] = {
+		["warcry_grant_knockback_%_to_exerted_attacks"] = {
 			-- Not limited to exerted but should be okay because the cry will flag them as exerted
 			mod("EnemyKnockbackChance", "BASE", nil),
-		}
+		},
 	},
 	baseFlags = {
 		warcry = true,
