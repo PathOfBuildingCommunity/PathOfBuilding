@@ -1328,7 +1328,7 @@ skills["SupportMeleeDamageOnFullLife"] = {
 }
 skills["SupportAuraDuration"] = {
 	name = "Divine Blessing",
-	description = "Supports aura skills that create permanent auras around you, changing their reservation to a cost and making them temporary. Cannot support banner skills.",
+	description = "Supports aura skills that create permanent auras around you, changing their reservation to a cost and making them temporary. Cannot support banner or stance skills.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.CanHaveBlessing, },

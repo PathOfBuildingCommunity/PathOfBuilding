@@ -2720,7 +2720,7 @@ skills["SupportManaLeech"] = {
 }
 skills["SupportMarkOnHit"] = {
 	name = "Mark On Hit",
-	description = "Supports mark curse skills",
+	description = "Supports mark curse skills.",
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Mark, SkillType.AND, SkillType.Triggerable, SkillType.AND, },
