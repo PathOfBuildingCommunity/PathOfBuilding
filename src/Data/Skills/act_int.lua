@@ -5347,10 +5347,10 @@ skills["HeraldOfThunder"] = {
 			div = 1000,
 		},
 		["skill_buff_grants_damage_+%"] = {
-			mod("Damage", "INC", nil),
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["base_damage_taken_+%"] = {
-			mod("DamageTaken", "INC", nil),
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 	baseFlags = {
