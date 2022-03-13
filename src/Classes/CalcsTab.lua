@@ -76,6 +76,8 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 
 				TempStoreDamage = 0
 				TempStoreSpeed = 0
+				TempStoreCastSpeed = 0
+				TempStoreAttackSpeed = 0
 
 				ExportAuraString = ""
 
@@ -140,10 +142,33 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 						end--no type in flag
 					end--Damage Generic
 
+
 					if(string.find(t[2],"Speed"))then
-						local NewString = string.gsub(t[1], "%% increased", "")
-						TempStoreSpeed = TempStoreSpeed +  tonumber(NewString)
+						if(string.find(t[2],"Action Speed"))then
+							local NewString = string.gsub(t[1], "%% increased", "")
+							ExportAuraString = ExportAuraString .. (t[1] .. " Action Speed\n") 
+						else
+						if(string.find(t[2],"Projectile Speed"))then
+						else
+						if(string.find(t[2],"Movement Speed"))then
+						else
+						if(string.find(t[3],"Attack"))then
+							local NewString = string.gsub(t[1], "%% increased", "")
+							TempStoreAttackSpeed = TempStoreAttackSpeed +  tonumber(NewString)
+						else
+						if(string.find(t[3],"Cast"))then
+							local NewString = string.gsub(t[1], "%% increased", "")
+							TempStoreCastSpeed = TempStoreCastSpeed +  tonumber(NewString)
+						else
+							local NewString = string.gsub(t[1], "%% increased", "")
+							TempStoreSpeed = TempStoreSpeed +  tonumber(NewString)
+							end
+							end
+							end
+							end
+						end
 					end
+
 
 					if(string.find(t[2],"Impale Effect"))then
 						ExportAuraString = ExportAuraString .. (t[1] .. " Impale Effect\n")
@@ -210,9 +235,11 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 
 
 				print(TempStoreDamage)
+				TempStoreAttackSpeed = TempStoreAttackSpeed + TempStoreSpeed
+				TempStoreCastSpeed = TempStoreCastSpeed + TempStoreSpeed
 				ExportAuraString = ExportAuraString .. (TempStoreDamage .. "% increased Damage\n")	--increased damage is additive
-				ExportAuraString = ExportAuraString ..(TempStoreSpeed .. "% increased Attack Speed\n")
-				ExportAuraString = ExportAuraString ..(TempStoreSpeed .. "% increased Cast Speed\n")
+				ExportAuraString = ExportAuraString ..(TempStoreAttackSpeed .. "% increased Attack Speed\n")
+				ExportAuraString = ExportAuraString ..(TempStoreCastSpeed .. "% increased Cast Speed\n")
 				ExportAuraString = ExportAuraString .. (LightningMinSmite .. " to " .. LightningMaxSmite .. " added Lightning Damage\n")
 				ExportAuraString = ExportAuraString .. (LightningMin .. " to " .. LightningMax .. " Additional Lightning Damage with Attacks\n")
 				ExportAuraString = ExportAuraString .. (FireAttackMin .. " to " .. FireAttackMax .. " Additional Fire Damage with Attacks\n")
