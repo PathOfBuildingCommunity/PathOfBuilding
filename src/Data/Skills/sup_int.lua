@@ -4286,7 +4286,7 @@ skills["SupportRemoteMine"] = {
 			skill("showAverage", true, { type = "SkillType", skillType = SkillType.Mineable }),
 		},
 		["support_gem_mine_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Mine),
+			mod("Damage", "MORE", nil),
 		},
 	},
 	baseMods = {
