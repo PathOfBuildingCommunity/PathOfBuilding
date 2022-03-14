@@ -358,7 +358,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 		if doShow then
 			local width, height = section:GetSize()
 			local col
-			if section.col and (colY[section.col] or 0) + height + 28 <= viewPort.height then
+			if section.col and (colY[section.col] or 0) + height + 28 <= viewPort.height and 10 + section.col * 370 <= viewPort.width then
 				col = section.col
 			else
 				col = 1
