@@ -401,6 +401,8 @@ skills["Barrage"] = {
 			mod("BrittleAsThoughDealing", "MORE", nil),
 			mod("SapAsThoughDealing", "MORE", nil),
 		},
+		["projectiles_barrage"] = {
+		},
 	},
 	baseFlags = {
 		attack = true,

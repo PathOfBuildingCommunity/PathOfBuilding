@@ -84,6 +84,8 @@ local skills, mod, flag, skill = ...
 			mod("BrittleAsThoughDealing", "MORE", nil),
 			mod("SapAsThoughDealing", "MORE", nil),
 		},
+		["projectiles_barrage"] = {
+		},
 	},
 #mods
 

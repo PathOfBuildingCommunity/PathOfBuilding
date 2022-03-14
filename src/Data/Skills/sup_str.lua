@@ -3810,7 +3810,10 @@ skills["SupportRuthless"] = {
 			mod("RuthlessBlowMaxCount", "BASE", nil),
 		},
 		["support_ruthless_big_hit_damage_+%_final"] = {
-			mod("RuthlessBlowMultiplier", "BASE", nil, ModFlag.Melee),
+			mod("RuthlessBlowHitMultiplier", "BASE", nil, ModFlag.Melee),
+		},
+		["support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final"] = {
+			mod("RuthlessBlowBleedMultiplier", "BASE", nil, ModFlag.Melee),
 		},
 	},
 	baseMods = {
