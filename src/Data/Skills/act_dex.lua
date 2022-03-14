@@ -9266,6 +9266,11 @@ skills["TemporalRift"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.25,
+	statMap = {
+		["chronomancer_buff_cooldown_speed_+%"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},

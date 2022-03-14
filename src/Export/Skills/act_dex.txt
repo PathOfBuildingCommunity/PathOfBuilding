@@ -1598,6 +1598,11 @@ local skills, mod, flag, skill = ...
 
 #skill TemporalRift
 #flags spell
+	statMap = {
+		["chronomancer_buff_cooldown_speed_+%"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
+	},
 #mods
 
 #skill Tornado
