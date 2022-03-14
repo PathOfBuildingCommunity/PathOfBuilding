@@ -201,7 +201,7 @@ return function(stats, scopeName)
 				else
 					val[i] = stats[s]
 				end
-				if i == 1 then stat = s end
+				stat = s
 			else
 				val[i] = { min = 0, max = 0 }
 			end

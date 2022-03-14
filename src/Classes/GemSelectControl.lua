@@ -619,10 +619,14 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 			local source = grantedEffect.statMap[lineMap[line]] or self.skillsTab.build.data.skillStatMap[lineMap[line]]
 			if source then
 				if launch.devModeAlt then
-					if not source[1].value then
-						source[1].value = lineMap[line]
+					local devText = lineMap[line]
+					if source[1] then
+						if not source[1].value then
+							source[1].value = lineMap[line]
+						end
+						devText = modLib.formatMod(source[1])
 					end
-					line = line .. " ^2" .. modLib.formatMod(source[1])
+					line = line .. " ^2" .. devText
 				end
 				self.tooltip:AddLine(16, colorCodes.MAGIC..line)
 			else
