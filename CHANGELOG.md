@@ -8,43 +8,109 @@
 
 ## What's Changed
 ### Implemented Enhancements
-- Updated Exported Data to Patch 3.17.1 [\#4185](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4185) ([Nostrademous](https://github.com/Nostrademous))
-- Add support for Anomalous Temporal Rift [\#4279](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4279) ([LocalIdentity](https://github.com/LocalIdentity))
-- Add support for several alternate quality gems [\#4274](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4274) ([Wires77](https://github.com/Wires77))
+- Updated Exported Data to Patch 3.17.1 [\#4185
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4185
+) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for Anomalous Temporal Rift [\#4279
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4279
+) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for several alternate quality gems [\#4274
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4274
+) ([Wires77](https://github.com/Wires77))
 ### User Interface
-- Corrected spelling of Effective Hit Pool description [\#4181](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4181) ([ForgottenHero](https://github.com/ForgottenHero))
-- Show build name first in window title [\#4239](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4239) ([Lothrik](https://github.com/Lothrik))
-- Update skill tree to 3.17.2 [\#4262](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4262) ([LocalIdentity](https://github.com/LocalIdentity))
-- Move config tab columns vertically when screen width is too low [\#4226](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4226) ([Wires77](https://github.com/Wires77))
-- Add support for showing which lines are supported on skills [\#4169](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4169) ([Wires77](https://github.com/Wires77))
+- Corrected spelling of Effective Hit Pool description [\#4181
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4181
+) ([ForgottenHero](https://github.com/ForgottenHero))
+- Show build name first in window title [\#4239
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4239
+) ([Lothrik](https://github.com/Lothrik))
+- Update skill tree to 3.17.2 [\#4262
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4262
+) ([LocalIdentity](https://github.com/LocalIdentity))
+- Move config tab columns vertically when screen width is too low [\#4226
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4226
+) ([Wires77](https://github.com/Wires77))
+- Add support for showing which lines are supported on skills [\#4169
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4169
+) ([Wires77](https://github.com/Wires77))
 ### Accuracy Improvements
-- Fix typo in Blackflame ring [\#4146](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4146) ([Nightblade](https://github.com/Nightblade))
-- Fix missing catalyst on 'Mark of the Elder' ring [\#4188](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4188) ([Nostrademous](https://github.com/Nostrademous))
-- Add missing duration flag to Flame Surge [\#4232](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4232) ([Lothrik](https://github.com/Lothrik))
-- Fix Bannerman notable applying all attack damage to non-banner auras [\#4175](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4175) ([Wires77](https://github.com/Wires77))
-- Fix Dancing Duo Cyclone dealing twice as much damage as it should be [\#4249](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4249) ([Lexy](https://github.com/learn2draw))
-- Fix blastchain mine not applying less damage to all gems [\#4247](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4247) ([Lilylicious](https://github.com/Lilylicious))
-- Fix Kinetic Bolt and Earthquake not fully scaling with Spell Damage/Cast Speed [\#4151](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4151) ([mthjones](https://github.com/mthjones))
-- Fix an issue where all skills socketed in Black Zenith would get the damage multiplier [\#4164](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4164) ([Wires77](https://github.com/Wires77))
-- Fix Bow Projectile Speed conversion mastery applying to DoT damage [\#4148](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4148) ([Lilylicious](https://github.com/Lilylicious))
-- Fix chilling areas not applying Bonechill [\#4161](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4161) ([TPlant](https://github.com/PJacek))
-- Fix quality on Absolution applying to players [\#4211](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4211) ([Lilylicious](https://github.com/Lilylicious))
-- Add missing spell flag to triggered spells from Atziri's Rule [\#4236](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4236) ([Lothrik](https://github.com/Lothrik))
-- Remove royale mods from crafting dropdowns [\#4225](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4225) ([Wires77](https://github.com/Wires77))
-- Fix Advanced Traps quality not increasing damage [\#4224](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4224) ([Lilylicious](https://github.com/Lilylicious))
-- Fix an issue where Secrets of Suffering wasn't applying [\#4177](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4177) ([Wires77](https://github.com/Wires77))
-- Fix Battlemage's Cry not applying spell damage to attacks [\#4170](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4170) ([Wires77](https://github.com/Wires77))
-- Fix parsing of Soul of Abberath self Ignite duration [\#4276](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4276) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Challenger Charges affecting Cast Speed [\#4264](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4264) ([LocalIdentity](https://github.com/LocalIdentity))
-- Apply global limit to Expansive Might notable [\#4255](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4255) ([Lothrik](https://github.com/Lothrik))
+- Fix typo in Blackflame ring [\#4146
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4146
+) ([Nightblade](https://github.com/Nightblade))
+- Fix missing catalyst on 'Mark of the Elder' ring [\#4188
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4188
+) ([Nostrademous](https://github.com/Nostrademous))
+- Fix missing duration flag on Flame Surge [\#4232
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4232
+) ([Lothrik](https://github.com/Lothrik))
+- Fix Bannerman notable applying all attack damage to non-banner auras [\#4175
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4175
+) ([Wires77](https://github.com/Wires77))
+- Fix Dancing Duo Cyclone dealing twice as much damage as it should be [\#4249
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4249
+) ([Lexy](https://github.com/learn2draw))
+- Fix blastchain mine not applying less damage to all gems [\#4247
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4247
+) ([Lilylicious](https://github.com/Lilylicious))
+- Fix Kinetic Bolt and Earthquake not fully scaling with Spell Damage/Cast Speed [\#4151
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4151
+) ([mthjones](https://github.com/mthjones))
+- Fix an issue where all skills socketed in Black Zenith would get the damage multiplier [\#4164
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4164
+) ([Wires77](https://github.com/Wires77))
+- Fix Bow Projectile Speed conversion mastery applying to DoT damage [\#4148
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4148
+) ([Lilylicious](https://github.com/Lilylicious))
+- Fix chilling areas not applying Bonechill [\#4161
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4161
+) ([TPlant](https://github.com/PJacek))
+- Fix quality on Absolution applying to players [\#4211
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4211
+) ([Lilylicious](https://github.com/Lilylicious))
+- Fix missing spell flag on triggered spells from Atziri's Rule [\#4236
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4236
+) ([Lothrik](https://github.com/Lothrik))
+- Remove royale mods from crafting dropdowns [\#4225
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4225
+) ([Wires77](https://github.com/Wires77))
+- Fix Advanced Traps quality not increasing damage [\#4224
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4224
+) ([Lilylicious](https://github.com/Lilylicious))
+- Fix an issue where Secrets of Suffering wasn't applying [\#4177
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4177
+) ([Wires77](https://github.com/Wires77))
+- Fix Battlemage's Cry not applying spell damage to attacks [\#4170
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4170
+) ([Wires77](https://github.com/Wires77))
+- Fix parsing of Soul of Abberath self Ignite duration [\#4276
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4276
+) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Challenger Charges affecting Cast Speed [\#4264
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4264
+) ([LocalIdentity](https://github.com/LocalIdentity))
+- Apply global limit to Expansive Might notable [\#4255
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4255
+) ([Lothrik](https://github.com/Lothrik))
 ### Fixed Bugs
-- Fix error when comparing passive tree skill nodes [\#4238](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4238) ([Lothrik](https://github.com/Lothrik))
-- Fix two errors related to equipped items [\#4237](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4237) ([Lothrik](https://github.com/Lothrik))
-- Fix crash caused by Mortal Conviction still appearing on some uniques [\#4231](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4231) ([Wires77](https://github.com/Wires77))
-- Display session ID box when 401 error is encountered on Import [\#4187](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4187) ([Wires77](https://github.com/Wires77))
-- Fix ensnare stacks not showing for Ensnaring Arrow [\#4160](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4160) ([Wires77](https://github.com/Wires77))
+- Fix error when comparing passive tree skill nodes [\#4238
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4238
+) ([Lothrik](https://github.com/Lothrik))
+- Fix two errors related to equipped items [\#4237
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4237
+) ([Lothrik](https://github.com/Lothrik))
+- Fix crash caused by Mortal Conviction still appearing on some uniques [\#4231
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4231
+) ([Wires77](https://github.com/Wires77))
+- Display session ID box when 401 error is encountered on Import [\#4187
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4187
+) ([Wires77](https://github.com/Wires77))
+- Fix ensnare stacks not showing for Ensnaring Arrow [\#4160
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4160
+) ([Wires77](https://github.com/Wires77))
 ### Other changes
-- Prevent saving default settings to XML [\#4189](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4189) ([Lothrik](https://github.com/Lothrik))
+- Prevent saving default settings to XML [\#4189
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4189
+) ([Lothrik](https://github.com/Lothrik))
 
 ## [v2.15.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.15.1) (2022/02/13)
 

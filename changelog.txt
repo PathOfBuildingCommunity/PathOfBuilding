@@ -1,8 +1,24 @@
 VERSION[2.16.0][2022/03/15]
 
+--- Implemented Enhancements ---
 * Updated Exported Data to Patch 3.17.1 (Nostrademous)
-* Add support for Anomalous Temporal Rift (LocalIdentity)
-* Add support for several alternate quality gems (Wires77)
+* Add or fix support for many different gems (LocalIdentity, Wires77)
+    * Change Explosive Arrow to use stages
+    * Add support for Brand attachment range buff from Brand Recall
+    * Add support for skill radius increase on Crackling Lance
+    * Add support for Spellslinger less damage multiplier
+    * Add support for flat Mana Cost from Divine Blessing
+    * Add support for Lightning Ailment effect on Vaal Arc
+    * Add support for Divergent Ruthless Support
+    * Add support for Divergent Purifying Flame
+    * Add support for Anomalous Dread Banner
+    * Add support for Anomalous Temporal Rift
+    * Add support for Divergent Explosive Arrow
+    * Fix Combat Rush not providing "More Attack Speed"
+    * Fix Bloodthirst Support calculation at certain life values
+    * Fix Seismic Cry not providing increased AoE to skills
+    * Fix Herald of Thunder not applying the damage or debuff globally
+    * Fix Anomalous Purifying Flame not scaling with consecrated ground effect
 --- User Interface ---
 * Corrected spelling of Effective Hit Pool description (ForgottenHero)
 * Show build name first in window title (Lothrik)
@@ -12,22 +28,22 @@ VERSION[2.16.0][2022/03/15]
 --- Accuracy Improvements ---
 * Fix typo in Blackflame ring (Nightblade)
 * Fix missing catalyst on 'Mark of the Elder' ring (Nostrademous)
-* Add missing duration flag to Flame Surge (Lothrik)
-* Fix Bannerman notable applying all attack damage to non-banner auras (Wires77)
+* Fix missing duration flag on Flame Surge (Lothrik)
+* Fix Bannerman notable applying attack damage to non-banner auras (Wires77)
 * Fix Dancing Duo Cyclone dealing twice as much damage as it should be (Lexy)
-* Fix blastchain mine not applying less damage to all gems (Lilylicious)
+* Fix Blastchain Mine not applying less damage to all gems (Lilylicious)
 * Fix Kinetic Bolt and Earthquake not fully scaling with Spell Damage/Cast Speed (mthjones)
 * Fix an issue where all skills socketed in Black Zenith would get the damage multiplier (Wires77)
 * Fix Bow Projectile Speed conversion mastery applying to DoT damage (Lilylicious)
 * Fix chilling areas not applying Bonechill (TPlant)
 * Fix quality on Absolution applying to players (Lilylicious)
-* Add missing spell flag to triggered spells from Atziri's Rule (Lothrik)
+* Fix missing spell flag on triggered spells from Atziri's Rule (Lothrik)
 * Remove royale mods from crafting dropdowns (Wires77)
 * Fix Advanced Traps quality not increasing damage (Lilylicious)
 * Fix an issue where Secrets of Suffering wasn't applying (Wires77)
 * Fix Battlemage's Cry not applying spell damage to attacks (Wires77)
 * Fix parsing of Soul of Abberath self Ignite duration (LocalIdentity)
-* Fix Challenger Charges affecting Cast Speed (LocalIdentity)
+* Fix Challenger Charges erroneously affecting Cast Speed (LocalIdentity)
 * Apply global limit to Expansive Might notable (Lothrik)
 --- Fixed Bugs ---
 * Fix error when comparing passive tree skill nodes (Lothrik)
