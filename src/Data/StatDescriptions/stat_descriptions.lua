@@ -68923,7 +68923,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased angle"
+					text="Ground Slam has a {0}% increased angle"
 				},
 				[2]={
 					[1]={
@@ -68936,7 +68936,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced angle"
+					text="Ground Slam has a {0}% reduced angle"
 				}
 			}
 		},
@@ -137349,7 +137349,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Gain {0}% increased Projectile Speed per second"
+					text="Frostbolt Projectiles gain {0}% increased Projectile Speed per second"
 				},
 				[2]={
 					[1]={
@@ -137362,7 +137362,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Gain {0}% reduced Projectile Speed per second"
+					text="Frostbolt Projectiles gain {0}% reduced Projectile Speed per second"
 				}
 			}
 		},
@@ -173990,7 +173990,7 @@ return {
 					limit={
 						[1]={
 							[1]=100,
-							[2]=100
+							[2]="#"
 						}
 					},
 					text="Monsters steal Power, Frenzy and Endurance charges on Hit"
