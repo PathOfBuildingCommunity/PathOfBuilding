@@ -884,6 +884,10 @@ return {
 ["ignite_duration_+%"] = {
 	mod("EnemyIgniteDuration", "INC", nil),
 },
+["lightning_ailment_duration_+%"] = {
+	mod("EnemyShockDuration", "INC", nil),
+	mod("EnemySapDuration", "INC", nil),
+},
 ["shock_duration_+%"] = {
 	mod("EnemyShockDuration", "INC", nil),
 },
@@ -986,6 +990,24 @@ return {
 },
 ["base_deal_no_chaos_damage"] = {
 	flag("DealNoChaos"),
+},
+["all_damage_can_ignite"] = {
+	flag("PhysicalCanIgnite"),
+	flag("LightningCanIgnite"),
+	flag("ColdCanIgnite"),
+	flag("ChaosCanIgnite"),
+},
+["all_damage_can_freeze"] = {
+	flag("PhysicalCanFreeze"),
+	flag("LightningCanFreeze"),
+	flag("FireCanFreeze"),
+	flag("ChaosCanFreeze"),
+},
+["all_damage_can_shock"] = {
+	flag("PhysicalCanShock"),
+	flag("ColdCanShock"),
+	flag("FireCanShock"),
+	flag("ChaosCanShock"),
 },
 -- Other effects
 ["enemy_phys_reduction_%_penalty_vs_hit"] = {
@@ -1610,6 +1632,8 @@ return {
 },
 ["sigil_repeat_frequency_+%"] = {
 	mod("BrandActivationFrequency", "INC", nil)
+},
+["additive_cast_speed_modifiers_apply_to_sigil_repeat_frequency"] = {
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {

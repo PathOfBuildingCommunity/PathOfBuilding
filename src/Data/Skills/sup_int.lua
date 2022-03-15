@@ -249,7 +249,7 @@ skills["SupportArcaneSurge"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Spell, },
 	addSkillTypes = { SkillType.Duration, },
-	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.ReservationBecomesCost, SkillType.NOT, SkillType.AND, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_arcane_surge_mana_regeneration_rate_+%"] = {
@@ -425,6 +425,10 @@ skills["SupportBlasphemy"] = {
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.OR, SkillType.SummonsTotem, SkillType.NOT, SkillType.AND, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["curse_apply_as_aura"] = {
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -498,6 +502,10 @@ skills["SupportBlasphemyPlus"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportBlasphemy",
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["curse_apply_as_aura"] = {
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -546,6 +554,10 @@ skills["SupportBonechill"] = {
 	statMap = {
 		["support_bonechill_cold_damage_+%_final"] = {
 			mod("ColdDamage", "MORE", nil),
+		},
+		["support_chills_also_grant_cold_damage_taken_+%_equal_to_slow_amount"] = {
+		},
+		["support_chilling_areas_also_grant_cold_damage_taken_+%_equal_to_slow_amount"] = {
 		},
 	},
 	baseMods = {
@@ -694,6 +706,8 @@ skills["SupportCastWhileChannelling"] = {
 		["cast_while_channelling_time_ms"] = {
 			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
 			div = 1000,
+		},
+		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 		},
 	},
 	baseMods = {
@@ -853,6 +867,8 @@ skills["SupportCastWhileChannellingPlus"] = {
 		["cast_while_channelling_time_ms"] = {
 			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
 			div = 1000,
+		},
+		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 		},
 	},
 	baseMods = {
@@ -3972,7 +3988,9 @@ skills["SupportSummonElementalResistances"] = {
 			mod("MinionModifier", "LIST", { mod = mod("LightningDamageLeech", "BASE", nil) }),
 			mod("MinionModifier", "LIST", { mod = mod("ColdDamageLeech", "BASE", nil) }),
 			div = 100
-		}
+		},
+		["minions_inflict_exposure_on_hit_%_chance"] = {
+		},
 	},
 	baseMods = {
 	},
