@@ -1,3 +1,43 @@
+VERSION[2.16.0][2022/03/15]
+
+* Updated Exported Data to Patch 3.17.1 (Nostrademous)
+* Add support for Anomalous Temporal Rift (LocalIdentity)
+* Add support for several alternate quality gems (Wires77)
+--- User Interface ---
+* Corrected spelling of Effective Hit Pool description (ForgottenHero)
+* Show build name first in window title (Lothrik)
+* Update skill tree to 3.17.2 (LocalIdentity)
+* Move config tab columns vertically when screen width is too low (Wires77)
+* Add support for showing which lines are supported on skills (Wires77)
+--- Accuracy Improvements ---
+* Fix typo in Blackflame ring (Nightblade)
+* Fix missing catalyst on 'Mark of the Elder' ring (Nostrademous)
+* Add missing duration flag to Flame Surge (Lothrik)
+* Fix Bannerman notable applying all attack damage to non-banner auras (Wires77)
+* Fix Dancing Duo Cyclone dealing twice as much damage as it should be (Lexy)
+* Fix blastchain mine not applying less damage to all gems (Lilylicious)
+* Fix Kinetic Bolt and Earthquake not fully scaling with Spell Damage/Cast Speed (mthjones)
+* Fix an issue where all skills socketed in Black Zenith would get the damage multiplier (Wires77)
+* Fix Bow Projectile Speed conversion mastery applying to DoT damage (Lilylicious)
+* Fix chilling areas not applying Bonechill (TPlant)
+* Fix quality on Absolution applying to players (Lilylicious)
+* Add missing spell flag to triggered spells from Atziri's Rule (Lothrik)
+* Remove royale mods from crafting dropdowns (Wires77)
+* Fix Advanced Traps quality not increasing damage (Lilylicious)
+* Fix an issue where Secrets of Suffering wasn't applying (Wires77)
+* Fix Battlemage's Cry not applying spell damage to attacks (Wires77)
+* Fix parsing of Soul of Abberath self Ignite duration (LocalIdentity)
+* Fix Challenger Charges affecting Cast Speed (LocalIdentity)
+* Apply global limit to Expansive Might notable (Lothrik)
+--- Fixed Bugs ---
+* Fix error when comparing passive tree skill nodes (Lothrik)
+* Fix two errors related to equipped items (Lothrik)
+* Fix crash caused by Mortal Conviction still appearing on some uniques (Wires77)
+* Display session ID box when 401 error is encountered on Import (Wires77)
+* Fix ensnare stacks not showing for Ensnaring Arrow (Wires77)
+--- Other changes ---
+* Prevent saving default settings to XML (Lothrik)
+
 VERSION[2.15.1][2022/02/13]
 
 --- Fixed Bugs ---
