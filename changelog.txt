@@ -38,7 +38,7 @@ VERSION[2.16.0][2022/03/15]
 * Fix chilling areas not applying Bonechill (TPlant)
 * Fix quality on Absolution applying to players (Lilylicious)
 * Fix missing spell flag on triggered spells from Atziri's Rule (Lothrik)
-* Remove royale mods from crafting dropdowns (Wires77)
+* Remove Royale mods from crafting dropdowns (Wires77)
 * Fix Advanced Traps quality not increasing damage (Lilylicious)
 * Fix an issue where Secrets of Suffering wasn't applying (Wires77)
 * Fix Battlemage's Cry not applying spell damage to attacks (Wires77)
@@ -50,7 +50,7 @@ VERSION[2.16.0][2022/03/15]
 * Fix two errors related to equipped items (Lothrik)
 * Fix crash caused by Mortal Conviction still appearing on some uniques (Wires77)
 * Display session ID box when 401 error is encountered on Import (Wires77)
-* Fix ensnare stacks not showing for Ensnaring Arrow (Wires77)
+* Fix Ensnare stacks not showing for Ensnaring Arrow (Wires77)
 --- Other changes ---
 * Prevent saving default settings to XML (Lothrik)
 
