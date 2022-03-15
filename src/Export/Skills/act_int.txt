@@ -271,6 +271,10 @@ local skills, mod, flag, skill = ...
 		["dark_ritual_skill_effect_duration_+%_per_curse_applied"] = {
 			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseApplied" }),
 		},
+		["apply_linked_curses_with_dark_ritual"] = {
+		},
+		["cannot_cast_curses"] = {
+		},
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 21)
@@ -316,7 +320,12 @@ local skills, mod, flag, skill = ...
 			name = "Maximum Sustainable Stacks",
 		},
 	},
-#baseMod mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 })
+	statMap = {
+		["display_max_blight_stacks"] = {
+			mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			base = -1
+		},
+	},
 #baseMod mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "BlightStageAfterFirst" })
 #baseMod skill("debuff", true)
 #baseMod skill("debuffSecondary", true)
@@ -328,6 +337,10 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["hinder_enemy_chaos_damage_taken_+%"] = {
 			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }),
+		},
+		["display_max_blight_stacks"] = {
+			mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			base = -1
 		},
 	},
 #baseMod skill("radius", 20)
@@ -396,6 +409,11 @@ local skills, mod, flag, skill = ...
 
 #skill SigilRecall
 #flags spell
+	statMap = {
+		["recall_sigil_target_search_range_+%"] = {
+			mod("BrandAttachmentRange", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 #mods
 
 #skill Clarity
@@ -487,6 +505,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["disintegrate_damage_+%_final_per_intensity"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
+		},
+		["disintegrate_base_radius_+_per_intensify"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
 	},
 #baseMod skill("radius", 10)
@@ -820,7 +841,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FlameWhip
-#flags spell area
+#flags spell area duration
 	statMap = {
 		["flame_whip_damage_+%_final_vs_burning_enemies"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
@@ -844,15 +865,17 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["flameblast_maximum_stages"] = {
-			mod("Multiplier:FlameblastMaxStages", "BASE", nil),
+			mod("Multiplier:FlameblastMaxStagesAfterFirst", "BASE", nil),
+			base = -1
 		},
 		["flameblast_area_+%_final_per_stage"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStage" }),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+		},
+		["vaal_flameblast_radius_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		},
 	},
-#baseMod mod("Multiplier:FlameblastMaxStagesAfterFirst", "BASE", 9)
 #baseMod skill("radius", 2)
-#baseMod skill("radiusExtra", 3, { type = "Multiplier", var = "FlameblastStageAfterFirst" })
 #baseMod skill("showAverage", true)
 #mods
 
@@ -956,6 +979,8 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["freezing_pulse_damage_+%_final_at_long_range"] = {
 			mod("FreezingPulseRamp", "BASE", nil)
+		},
+		["display_what_freezing_pulse_does"] = {
 		},
 	},
 #mods
@@ -1096,6 +1121,8 @@ local skills, mod, flag, skill = ...
 		["hydro_sphere_pulse_frequency_+%"] = {
 			mod("HydroSphereFrequency", "INC", nil),
 		},
+		["water_sphere_does_weird_conversion_stuff"] = {
+		},
 	},
 #baseMod skill("radius", 23)
 #mods
@@ -1108,6 +1135,9 @@ local skills, mod, flag, skill = ...
 		},
 		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
+		},
+		["chaos_damage_resisted_by_lowest_resistance"] = {
+			flag("ChaosDamageUsesLowestResistance"),
 		},
 	},
 	parts = {
@@ -1122,19 +1152,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 29)
 #baseMod skill("showAverage", true)
-#baseMod flag("ChaosDamageUsesLowestResistance")
-#baseMod flag("PhysicalCanIgnite")
-#baseMod flag("LightningCanIgnite")
-#baseMod flag("ColdCanIgnite")
-#baseMod flag("ChaosCanIgnite")
-#baseMod flag("PhysicalCanFreeze")
-#baseMod flag("LightningCanFreeze")
-#baseMod flag("FireCanFreeze")
-#baseMod flag("ChaosCanFreeze")
-#baseMod flag("PhysicalCanShock")
-#baseMod flag("ColdCanShock")
-#baseMod flag("FireCanShock")
-#baseMod flag("ChaosCanShock")
 #mods
 
 #skill HeraldOfThunder
@@ -1163,10 +1180,10 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 		["skill_buff_grants_damage_+%"] = {
-			mod("Damage", "INC", nil),
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["base_damage_taken_+%"] = {
-			mod("DamageTaken", "INC", nil),
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("radius", 32)
@@ -1249,7 +1266,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["flamethrower_damage_+%_per_stage_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IncinerateStage" }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "IncinerateStage" }),
 		},
 		["expanding_fire_cone_radius_+_per_stage"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateStage", limitVar = "IncinerateRadiusLimit", limitTotal = true }),
@@ -1261,9 +1278,10 @@ local skills, mod, flag, skill = ...
 		["expanding_fire_cone_radius_limit"] = {
 			mod("Multiplier:IncinerateRadiusLimit", "BASE", nil),
 		},
+		["expanding_fire_cone_maximum_number_of_stages"] = {
+			mod("Multiplier:IncinerateMaxStages", "BASE", nil),
+		},
 	},
-#baseMod mod("Multiplier:IncinerateMaxStages", "BASE", 8)
-#baseMod mod("Damage", "MORE", 25, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" })
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 25)
 #baseMod skill("radiusLabel", "Flame Length:")
@@ -1296,11 +1314,11 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
 			flag("SpellDamageAppliesToAttacks"),
-			mod("ImprovedSpellDamageAppliesToAttacks", "INC", nil),
+			mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
 		},
 		["cast_speed_+%_applies_to_attack_speed_at_%_of_original_value"] = {
 			flag("CastSpeedAppliesToAttacks"),
-			mod("ImprovedCastSpeedAppliesToAttacks", "INC", nil)
+			mod("ImprovedCastSpeedAppliesToAttacks", "MAX", nil)
 		},
 		["mana_gain_per_target"] = {
 			mod("ManaOnHit", "BASE", nil),
@@ -1430,6 +1448,8 @@ local skills, mod, flag, skill = ...
 		},
 		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
+		},
+		["penance_brand_additional_descriptions_boolean"] = {
 		},
 	},
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } })
@@ -1649,10 +1669,16 @@ local skills, mod, flag, skill = ...
 		["base_fire_damage_resistance_%"] = {
 			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
 		},
+		["fire_beam_additional_stack_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
+			base = 100
+		},
+		["display_max_fire_beam_stacks"] = {
+			mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", nil),
+			base = -1
+		},
 	},
 #baseMod mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 })
-#baseMod mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", 7)
-#baseMod mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" })
 #mods
 
 #skill ShockNova
@@ -1740,12 +1766,21 @@ local skills, mod, flag, skill = ...
 
 #skill Spellslinger
 #flags spell
+	statMap = {
+		["spellslinger_mana_reservation"] = {
+		},
+	},
 #mods
 
 #skill SupportSpellslinger
 	statMap = {
 		["gain_%_of_base_wand_damage_as_added_spell_damage"] = {
 			skill("gainPercentBaseWandDamage", nil),
+		},
+		["support_spellslinger_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+		},
+		["spellslinger_trigger_on_wand_attack_%"] = {
 		},
 	},
 #baseMod flag("Condition:SupportedBySpellslinger")
@@ -1846,6 +1881,8 @@ local skills, mod, flag, skill = ...
 		["active_skill_quality_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["rune_paint_max_rune_level"] = {
+		},
 	},
 #baseMod mod("Multiplier:RuneLevel", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod mod("Multiplier:RuneLevel", "BASE", 2, 0, 0, { type = "SkillPart", skillPart = 3 })
@@ -1901,7 +1938,9 @@ local skills, mod, flag, skill = ...
 		["display_storm_burst_jump_time_ms"] = {
 			skill("repeatFrequency", nil),
 			div = 1000,
-		}
+		},
+		["storm_burst_new_damage_+%_final_per_remaining_teleport_zap"] = {
+		},
 	},
 #baseMod skill("radius", 16)
 #baseMod skill("radiusSecondary", 22)
@@ -2003,7 +2042,7 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) })
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
 		},
 	},
 #mods
@@ -2017,7 +2056,7 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) })
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
 		},
 	},
 #mods
@@ -2128,7 +2167,7 @@ local skills, mod, flag, skill = ...
 		},
 		["frost_fury_max_number_of_stages"] = {
 			mod("Multiplier:WinterOrbMaxStagesAfterFirst", "BASE", nil),
-			div = 10 / 9,
+			base = -1,
 		},
 		["frost_fury_base_fire_interval_ms"] = {
 			skill("repeatFrequency", nil),
@@ -2139,6 +2178,8 @@ local skills, mod, flag, skill = ...
 		},
 		["frost_fury_fire_speed_+%_final_while_channelling"] = {
 			mod("HitRate", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+		["display_frost_fury_additive_cast_speed_modifiers_apply_to_fire_speed"] = {
 		},
 	},
 #baseMod skill("radius", 16)
