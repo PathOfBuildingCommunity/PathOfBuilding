@@ -163,11 +163,11 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.jumpToY = 0
 end)
 
+---ConvertSpec
+---  Convert a spec to the latest version.
+---@param spec PassiveSpec @The spec to be converted
+---@param specIndex number @Optional. The new spec is inserted after this index. If not used, then the new spec is inserted after the active one. 
 function TreeTabClass:ConvertSpec(spec, specIndex)
-	-- Parameters:
-		-- Mandatory : spec
-		-- Optional : specIndex - use when the the spec being converted is not the active one
-
 	local specIdx = specIndex or self.activeSpec
 	local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
 
@@ -255,7 +255,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
 	self.build.itemsTab.controls.specSelect:SetList(copyTable(newSpecList)) -- Update the passive tree dropdown control in itemsTab
-	t_insert(newSpecList, "Manage trees...")
+	t_insert(newSpecList, "Manage trees... (ctrl-m)")
 	self.controls.specSelect:SetList(newSpecList)
 
 	if not self.controls.treeSearch.hasFocus then

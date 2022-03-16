@@ -38,7 +38,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 	self.tooltip = new("Tooltip")
 	self.font = "VAR"
 	self.allowMultiselect = allowMultiselect
-	--list of indexes for currently selected items. Used if is allowMultiselect is false.
+	-- list of indexes (numbers) for currently selected items. Used if is allowMultiselect is true.
 	self.selections = { }
 
 	if self.scroll then
@@ -74,6 +74,8 @@ end)
 
 function ListClass:SelectIndex(index)
 	self.selValue = self.list[index]
+	wipeTable(self.selections)
+	t_insert(self.selections, index)
 	if self.selValue then
 		self.selIndex = index
 		local width, height = self:GetSize()
@@ -154,7 +156,7 @@ function ListClass:Draw(viewPort)
 				self.selDragIndex = m_min(index, #list + 1)
 			end
 		end
-		self:WipeSelections()
+		wipeTable(self.selections)
 	end
 	if self.selDragActive and self.dragTargetList then
 		self.dragTarget = nil
@@ -191,6 +193,7 @@ function ListClass:Draw(viewPort)
 	SetViewport(x + 2, y + 2,  self.scroll and width - 20 or width, height - 4 - (self.scroll and self.scrollH and 16 or 0))
 	local textOffsetY = self.showRowSeparators and 2 or 0
 	local textHeight = rowHeight - textOffsetY * 2
+	-- tooltip variables
 	local ttIndex, ttValue, ttX, ttY, ttWidth
 	local minIndex = m_floor(scrollOffsetV / rowHeight + 1)
 	local maxIndex = m_min(m_floor((scrollOffsetV + height) / rowHeight + 1), #list)
@@ -221,42 +224,40 @@ function ListClass:Draw(viewPort)
 				end
 			end
 			if self.showRowSeparators then
-				if self.hasFocus and isValueInArray(self.selections, index) then
-					SetDrawColor(1, 1, 1)
-				elseif value == ttValue then
-					SetDrawColor(0.8, 0.8, 0.8)
-				else
+				if value == ttValue then
 					SetDrawColor(0.5, 0.5, 0.5)
-				end
-				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)
-				if (value == self.selValue or value == ttValue) then
+				elseif isValueInArray(self.selections, index) then
 					SetDrawColor(0.33, 0.33, 0.33)
 				elseif self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
 					SetDrawColor(0, 0.2, 0)
 				elseif index % 2 == 0 then
-					SetDrawColor(0.05, 0.05, 0.05)
+					SetDrawColor(0.1, 0.1, 0.1)
 				else
 					SetDrawColor(0, 0, 0)
 				end
-				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
+				-- Draw background image or highlight for the mouse position
+				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)
 			elseif isValueInArray(self.selections, index) or value == ttValue then
-				if self.hasFocus and isValueInArray(self.selections, index) then
-					SetDrawColor(1, 1, 1)
-				elseif value == ttValue then
+				if isValueInArray(self.selections, index) then
 					SetDrawColor(0.8, 0.8, 0.8)
+				elseif value == ttValue then
+					SetDrawColor(1, 1, 1)
 				else
 					SetDrawColor(0.5, 0.5, 0.5)
 				end
+				-- Draw background
 				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)
 				if self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
 					SetDrawColor(0, 0.2, 0)
 				else
 					SetDrawColor(0.15, 0.15, 0.15)
 				end
+				-- Draw a smaller rectangle so a box is left around the selection
 				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
 			end
+			-- Draw text over the above backgrounds
 			SetDrawColor(1, 1, 1)
-			DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
+			DrawString(colOffset + 2, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 		end
 		if self.colLabels then
 			local mOver = relX >= colOffset and relX <= colOffset + colWidth and relY >= 0 and relY <= 18
@@ -305,11 +306,6 @@ function ListClass:Draw(viewPort)
 	end
 end
 
-function ListClass:WipeSelections()
-	-- Simple function to be called from outside the class
-	wipeTable(self.selections)
-end
-
 function ListClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -347,8 +343,8 @@ function ListClass:OnKeyDown(key, doubleClick)
 					end
 				else
 					-- either CTRL is not down or we aren't doing multiselect.
-					-- either way, wipe the selections list, and just add the one entry
-					self:WipeSelections()
+					-- either way, wipe the selections list, and just add the one entry.
+					wipeTable(self.selections)
 					t_insert(self.selections, self.selIndex)
 				end
 				if self.OnSelect then
@@ -371,7 +367,7 @@ function ListClass:OnKeyDown(key, doubleClick)
 	elseif #self.list > 0 and not self.selDragActive then
 		if key == "a" then
 			if self.allowMultiselect and IsKeyDown("CTRL") then
-				self:WipeSelections()
+				wipeTable(self.selections)
 				for selId = 1, #self.list do
 					t_insert(self.selections, selId)
 				end

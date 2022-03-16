@@ -5,11 +5,13 @@
 --
 local t_insert = table.insert
 local t_remove = table.remove
+local t_sort = table.sort
 local m_max = math.max
 
 local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", function(self, anchor, x, y, width, height, treeTab)
-	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, treeTab.specList, true)
+	self.ListControl(anchor, x, y, width, height, 20, "VERTICAL", true, treeTab.specList, true)
 	self.treeTab = treeTab
+	self.showRowSeparators = true
 
 	-- Copy button is in the middle, the others spread out from there
 	self.controls.copy = new("ButtonControl", {"TOPLEFT", self, "TOPLEFT"}, (width -60 ) / 2, -25, 60, 18, "Copy", function()
@@ -33,19 +35,21 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 	self.controls.convert = new("ButtonControl", {"LEFT",self.controls.delete,"RIGHT"}, 4, 0, 60, 18, "Convert", function()
 		if #self.selections > 0 then
 			-- sort and loop through the selection list backwards, as the ConvertSpec procedure inserts a new spec after the current
-			table.sort(self.selections)
+			t_sort(self.selections)
+			local last
 			for selId = #self.selections, 1, -1 do
 				local spec = self.list[self.selections[selId]]
 				if spec.treeVersion ~= latestTreeVersion then
-					treeTab:ConvertSpec(spec, selId)
+					treeTab:ConvertSpec(spec, self.selections[selId])
+					last = self.selections[selId]
 				end
 			end
-			-- Set the last spec clicked on as the current tree
-			self.treeTab:SetActiveSpec(self.selIndex)
+			-- Set the last spec converted as the current tree
+			self.treeTab:SetActiveSpec(last + 1)
 			if #self.selections ~= 1 then
-				main:OpenMessagePopup("Trees Converted", "You had selected "..#self.selections.." trees to be converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+				main:OpenMessagePopup("Trees Converted", #self.selections.." trees have been converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 			end
-			self:WipeSelections()
+			wipeTable(self.selections)
 		end
 	end)
 	self.controls.convert.tooltipText = "Use Ctrl-Left Click to multi select trees below"
@@ -63,7 +67,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		newSpec:SelectClass(treeTab.build.spec.curClassId)
 		newSpec:SelectAscendClass(treeTab.build.spec.curAscendClassId)
 		self:RenameSpec(newSpec, "New Tree", true)
-		self:WipeSelections()
+		wipeTable(self.selections)
 	end)
 	self:UpdateItemsTabPassiveTreeDropdown()
 end)
@@ -89,7 +93,6 @@ function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 	controls.cancel = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	-- main:OpenPopup(370, 100, spec.title and "Rename" or "Set Name", controls, "save", "edit")
 	main:OpenPopup(370, 100, title, controls, "save", "edit")
 end
 
@@ -117,7 +120,7 @@ end
 
 function PassiveSpecListClass:OnSelDelete()
 	-- Delete one or more specs (Trees)
-	local text = #self.selections == 1 and "tree ?\n" or "trees ?\n"
+	local text = #self.selections == 1 and "tree?\n" or "trees?\n"
 
 	if #self.list > 1 and #self.selections > 0 then
 		--collect tree names
@@ -143,7 +146,7 @@ function PassiveSpecListClass:OnSelDelete()
 			end
 			self.treeTab.modFlag = true
 			self:UpdateItemsTabPassiveTreeDropdown()
-			self:WipeSelections()
+			wipeTable(self.selections)
 		end, "No")
 	end
 end

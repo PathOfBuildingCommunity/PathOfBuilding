@@ -926,6 +926,8 @@ function buildMode:OnFrame(inputEvents)
 					else
 						self.viewMode = "IMPORT"
 					end
+				elseif event.key == "m" and self.viewMode == "TREE" then
+					self.treeTab:OpenSpecManagePopup()
 				elseif event.key == "s" then
 					self:SaveDBFile()
 					inputEvents[id] = nil

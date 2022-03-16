@@ -1042,14 +1042,17 @@ function main:OpenMessagePopup(title, msg)
 	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "close")
 end
 
+---OpenConfirmPopup
+---  Checks if a mod exists with the given properties.
+---@param title string @The title of the box
+---@param msg string @The text of the message
+---@param confirmLabel string @The text of the confirm button. Mandatory
+---@param onConfirm function @The function to run when confirm button is selected
+---@param cancelLbl string @The text of the 'Cancel' button, defaults to 'Cancel'
+---@return boolean @true if the mod is found, false otherwise.
 function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm, cancelLbl)
-	-- Parameters:
-		-- Mandatory : title, msg, confirmLabel, onConfirm
-		-- Optional : cancelLbl
-
 	local controls = { }
 	local numMsgLines = 0
-	local cancelLabel = cancelLbl or "Cancel"
 
 	for line in string.gmatch(msg .. "\n", "([^\n]*)\n") do
 		t_insert(controls, new("LabelControl", nil, 0, 20 + numMsgLines * 16, 0, 16, line))
@@ -1060,7 +1063,7 @@ function main:OpenConfirmPopup(title, msg, confirmLabel, onConfirm, cancelLbl)
 		main:ClosePopup()
 		onConfirm()
 	end)
-	t_insert(controls, new("ButtonControl", nil, 5 + m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20, cancelLabel, function()
+	t_insert(controls, new("ButtonControl", nil, 5 + m_ceil(confirmWidth/2), 40 + numMsgLines * 16, confirmWidth, 20, cancelLbl or "Cancel", function()
 		main:ClosePopup()
 	end))
 	return self:OpenPopup(m_max(DrawStringWidth(16, "VAR", msg) + 30, 190), 70 + numMsgLines * 16, title, controls, "confirm")
