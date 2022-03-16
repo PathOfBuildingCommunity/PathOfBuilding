@@ -677,7 +677,7 @@ function cacheData(uuid, env)
 	}
 end
 
--- Obtian a stored cached processed skill identified by
+-- Obtain a stored cached processed skill identified by
 --   its UUID and pulled from an appropriate env mode (e.g., MAIN)
 function getCachedData(skill, mode)
 	local uuid = cacheSkillUUID(skill)

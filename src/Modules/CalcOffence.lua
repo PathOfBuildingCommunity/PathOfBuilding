@@ -1669,7 +1669,6 @@ function calcs.offence(env, actor, activeSkill)
 		globalOutput.MaxOffensiveWarcryEffect = 1
 		globalOutput.TheoreticalOffensiveWarcryEffect = 1
 		globalOutput.TheoreticalMaxOffensiveWarcryEffect = 1
-		globalOutput.SeismicHitEffect = 1
 		globalOutput.RallyingHitEffect = 1
 		globalOutput.AilmentWarcryEffect = 1
 
@@ -1856,45 +1855,15 @@ function calcs.offence(env, actor, activeSkill)
 							end
 							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("= %d%%", globalOutput.SeismicUpTimeRatio))
 						end
-						-- calculate the stacking MORE dmg modifier of Seismic slams
-						local SeismicMoreDmgAndAoEPerExert = env.modDB:Sum("BASE", cfg, "SeismicMoreDmgPerExert") / 100
-						local TotalSeismicDmgImpact = 0
-						local ThisSeismicDmgImpact = 0
-						local LastSeismicImpact = 0
+						-- calculate the stacking AoE modifier of Seismic slams
+						local SeismicAoEPerExert = env.modDB:Sum("BASE", cfg, "SeismicIncAoEPerExert") / 100
 						local AoEImpact = 0
-						local MaxSingleHitDmgImpact = 0
 						local MaxSingleAoEImpact = 0
 						for i = 1, globalOutput.SeismicExertsCount do
-							ThisSeismicDmgImpact = SeismicMoreDmgAndAoEPerExert + (1 + SeismicMoreDmgAndAoEPerExert) * LastSeismicImpact
-							MaxSingleHitDmgImpact = m_max(MaxSingleHitDmgImpact, ThisSeismicDmgImpact)
-							LastSeismicImpact = LastSeismicImpact + SeismicMoreDmgAndAoEPerExert
-							TotalSeismicDmgImpact = TotalSeismicDmgImpact + ThisSeismicDmgImpact
-							AoEImpact = AoEImpact + (i * SeismicMoreDmgAndAoEPerExert)
-							MaxSingleAoEImpact = MaxSingleAoEImpact + SeismicMoreDmgAndAoEPerExert
+							AoEImpact = AoEImpact + (i * SeismicAoEPerExert)
+							MaxSingleAoEImpact = MaxSingleAoEImpact + SeismicAoEPerExert
 						end
-						globalOutput.SeismicAvgDmg = (TotalSeismicDmgImpact / globalOutput.SeismicExertsCount)
 						local AvgAoEImpact = AoEImpact / globalOutput.SeismicExertsCount
-						if globalBreakdown then
-							globalBreakdown.SeismicAvgDmg = {
-								s_format("%.2f ^8(total seismic damage multiplier across all exerts)", TotalSeismicDmgImpact),
-								s_format("Average Seismic Damage:"),
-								s_format("(%.2f ^8(average damage multiplier per exert)", TotalSeismicDmgImpact / globalOutput.SeismicExertsCount),
-								s_format("= %.2f", globalOutput.SeismicAvgDmg),
-							}
-						end
-						globalOutput.SeismicHitEffect = 1 + globalOutput.SeismicAvgDmg * globalOutput.SeismicUpTimeRatio / 100
-						globalOutput.SeismicMaxHitEffect = 1 + MaxSingleHitDmgImpact
-						if globalBreakdown then
-							globalBreakdown.SeismicHitEffect = {
-								s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.SeismicAvgDmg),
-								s_format("x %.2f) ^8(uptime %%)", globalOutput.SeismicUpTimeRatio / 100),
-								s_format("= %.2f", globalOutput.SeismicHitEffect),
-							}
-						end
-						globalOutput.OffensiveWarcryEffect = globalOutput.OffensiveWarcryEffect * globalOutput.SeismicHitEffect
-						globalOutput.MaxOffensiveWarcryEffect = globalOutput.MaxOffensiveWarcryEffect * globalOutput.SeismicMaxHitEffect
-						globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.SeismicHitEffect
-						globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.SeismicMaxHitEffect
 
 						-- account for AoE increase
 						if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
@@ -1968,7 +1937,8 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
-		output.RuthlessBlowEffect = 1
+		output.RuthlessBlowHitEffect = 1
+		output.RuthlessBlowBleedEffect = 1
 		output.FistOfWarHitEffect = 1
 		output.FistOfWarAilmentEffect = 1
 		if env.mode_combat then
@@ -1979,8 +1949,10 @@ function calcs.offence(env, actor, activeSkill)
 			else
 				output.RuthlessBlowChance = 0
 			end
-			output.RuthlessBlowMultiplier = 1 + skillModList:Sum("BASE", cfg, "RuthlessBlowMultiplier") / 100
-			output.RuthlessBlowEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowMultiplier
+			output.RuthlessBlowHitMultiplier = 1 + skillModList:Sum("BASE", cfg, "RuthlessBlowHitMultiplier") / 100
+			output.RuthlessBlowBleedMultiplier = 1 + skillModList:Sum("BASE", cfg, "RuthlessBlowBleedMultiplier") / 100
+			output.RuthlessBlowHitEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowHitMultiplier
+			output.RuthlessBlowBleedEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowBleedMultiplier
 
 			globalOutput.FistOfWarCooldown = skillModList:Sum("BASE", cfg, "FistOfWarCooldown") or 0
 			-- If Fist of War & Active Skill is a Slam Skill & NOT a Vaal Skill
@@ -2232,8 +2204,8 @@ function calcs.offence(env, actor, activeSkill)
 						if output.DoubleDamageEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(multiplier from %.2f%% chance to deal double damage)", output.DoubleDamageEffect, output.DoubleDamageChance))
 						end
-						if output.RuthlessBlowEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowEffect))
+						if output.RuthlessBlowHitEffect ~= 1 then
+							t_insert(breakdown[damageType], s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowHitEffect))
 						end
 						if output.FistOfWarHitEffect ~= 1 then
 							t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarHitEffect))
@@ -2246,9 +2218,9 @@ function calcs.offence(env, actor, activeSkill)
 						end
 					end
 					if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
-						output.allMult = convMult * output.ScaledDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * globalOutput.MaxOffensiveWarcryEffect
+						output.allMult = convMult * output.ScaledDamageEffect * output.RuthlessBlowHitEffect * output.FistOfWarHitEffect * globalOutput.MaxOffensiveWarcryEffect
 					else
-						output.allMult = convMult * output.ScaledDamageEffect * output.RuthlessBlowEffect * output.FistOfWarHitEffect * globalOutput.OffensiveWarcryEffect
+						output.allMult = convMult * output.ScaledDamageEffect * output.RuthlessBlowHitEffect * output.FistOfWarHitEffect * globalOutput.OffensiveWarcryEffect
 					end
 					local allMult = output.allMult
 					if pass == 1 then
@@ -2685,40 +2657,6 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.PoisonChanceOnCrit = m_min(100, skillModList:Sum("BASE", cfg, "PoisonChance") + enemyDB:Sum("BASE", nil, "SelfPoisonChance"))
 		end
-		if not skillFlags.hit or skillModList:Flag(cfg, "CannotIgnite") then
-			output.IgniteChanceOnCrit = 0
-		else
-			output.IgniteChanceOnCrit = 100
-		end
-		if not skillFlags.hit or skillModList:Flag(cfg, "CannotShock") then
-			output.ShockChanceOnCrit = 0
-		else
-			output.ShockChanceOnCrit = 100
-		end
-		if not skillFlags.hit or skillModList:Flag(cfg, "CannotFreeze") then
-			output.FreezeChanceOnCrit = 0
-		else
-			output.FreezeChanceOnCrit = 100
-		end
-		if not skillFlags.hit or skillModList:Flag(cfg, "CannotChill") then
-			output.ChillChanceOnCrit = 0
-		else
-			output.ChillChanceOnCrit = 100
-		end
-		if skillModList:Flag(cfg, "CritAlwaysAltAilments") and not skillModList:Flag(cfg, "NeverCrit") then
-			skillFlags.inflictScorch = true
-			skillFlags.inflictBrittle = true
-			skillFlags.inflictSap = true
-		end
-		if skillModList:Flag(cfg, "CritAlwaysAltAilments") and not skillModList:Flag(cfg, "NeverCrit") and skillFlags.hit then
-			output.ScorchChanceOnCrit = not skillModList:Flag(cfg, "CannotScorch") and 100 or 0
-			output.BrittleChanceOnCrit = not skillModList:Flag(cfg, "CannotBrittle") and 100 or 0
-			output.SapChanceOnCrit = not skillModList:Flag(cfg, "CannotSap") and 100 or 0
-		else
-			output.ScorchChanceOnCrit = 0
-			output.BrittleChanceOnCrit = 0
-			output.SapChanceOnCrit = 0
-		end
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotKnockback") then
 			output.KnockbackChanceOnCrit = 0
 		else
@@ -2742,16 +2680,20 @@ function calcs.offence(env, actor, activeSkill)
 			if ailment == "Chill" then
 				chance = 100
 			end
-			if chance > 0 then
-				skillFlags["inflict"..ailment] = true
-			end
 			if skillFlags.hit and not skillModList:Flag(cfg, "Cannot"..ailment) then
 				output[ailment.."ChanceOnHit"] = m_min(100, chance)
-				if skillModList:Flag(cfg, "CritsDontAlways"..ailment) or (ailmentData[ailment] and ailmentData[ailment].alt) then
+				if skillModList:Flag(cfg, "CritsDontAlways"..ailment) -- e.g. Painseeker
+				or (ailmentData[ailment] and ailmentData[ailment].alt and not skillModList:Flag(cfg, "CritAlwaysAltAilments")) then -- e.g. Secrets of Suffering
 					output[ailment.."ChanceOnCrit"] = output[ailment.."ChanceOnHit"]
+				else
+					output[ailment.."ChanceOnCrit"] = 100
 				end
 			else
 				output[ailment.."ChanceOnHit"] = 0
+				output[ailment.."ChanceOnCrit"] = 0
+			end
+			if (output[ailment.."ChanceOnHit"] + (skillModList:Flag(cfg, "NeverCrit") and 0 or output[ailment.."ChanceOnCrit"])) > 0 then
+				skillFlags["inflict"..ailment] = true
 			end
 		end
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotKnockback") then
@@ -2972,7 +2914,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
-			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowBleedEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.bleed = true
 				skillFlags.duration = true
@@ -3008,8 +2950,8 @@ function calcs.offence(env, actor, activeSkill)
 					if effectMod ~= 1 then
 						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ailment effect modifier)", effectMod))
 					end
-					if output.RuthlessBlowEffect ~= 1 then
-						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowEffect))
+					if output.RuthlessBlowBleedEffect ~= 1 then
+						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowBleedEffect))
 					end
 					if output.FistOfWarAilmentEffect ~= 1 then
 						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarAilmentEffect))
@@ -3020,7 +2962,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal))
 					breakdown.multiChain(breakdown.BleedDPS, {
 						label = "Bleed DPS:",
-						base = s_format("%.1f ^8(total damage per second)", baseVal), 
+						base = s_format("%.1f ^8(total damage per second)", baseVal),
 						{ "%.2f ^8(ailment effect modifier)", effectMod },
 						{ "%.2f ^8(damage rate modifier)", rateMod },
 						{ "%.3f ^8(effective DPS modifier)", effMult },
@@ -3178,7 +3120,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
 					breakdown.multiChain(breakdown.PoisonDPS, {
 						label = "Poison DPS:",
-						base = s_format("%.1f ^8(total damage per second)", baseVal), 
+						base = s_format("%.1f ^8(total damage per second)", baseVal),
 						{ "%.2f ^8(ailment effect modifier)", effectMod },
 						{ "%.2f ^8(damage rate modifier)", rateMod },
 						{ "%.3f ^8(effective DPS modifier)", effMult },
@@ -3224,7 +3166,7 @@ function calcs.offence(env, actor, activeSkill)
 					end
 				end
 			end
-		end	
+		end
 
 		-- Calculate ignite chance and damage
 		if canDeal.Fire and (output.IgniteChanceOnHit + output.IgniteChanceOnCrit) > 0 then
@@ -3387,13 +3329,13 @@ function calcs.offence(env, actor, activeSkill)
 					output.IgniteStacksMax = maxStacks
 					output.TotalIgniteDPS = output.IgniteDPS
 				end
-				
+
 				if breakdown then
 					t_insert(breakdown.IgniteDPS, "x 0.9 ^8(ignite deals 90% per second)")
 					t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
 					breakdown.multiChain(breakdown.IgniteDPS, {
 						label = "Ignite DPS:",
-						base = s_format("%.1f ^8(total damage per second)", baseVal), 
+						base = s_format("%.1f ^8(total damage per second)", baseVal),
 						{ "%.2f ^8(ailment effect modifier)", effectMod },
 						{ "%.2f ^8(burn rate modifier)", rateMod },
 						{ "%.3f ^8(effective DPS modifier)", effMult },
@@ -3631,51 +3573,51 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.EnemyStunDuration, s_format("= %.2fs", output.EnemyStunDuration))
 			end
 		end
-			
-        -- Calculate impale chance and modifiers
+
+		-- Calculate impale chance and modifiers
 		if canDeal.Physical and output.ImpaleChance > 0 then
-            skillFlags.impale = true
-            local impaleChance = m_min(output.ImpaleChance/100, 1)
-            local maxStacks = skillModList:Sum("BASE", cfg, "ImpaleStacksMax") -- magic number: base stacks duration
+			skillFlags.impale = true
+			local impaleChance = m_min(output.ImpaleChance/100, 1)
+			local maxStacks = skillModList:Sum("BASE", cfg, "ImpaleStacksMax") -- magic number: base stacks duration
 			local configStacks = enemyDB:Sum("BASE", cfg, "Multiplier:ImpaleStacks")
 			local impaleStacks = m_min(maxStacks, configStacks)
 
-            local baseStoredDamage = data.misc.ImpaleStoredDamageBase
-            local storedExpectedDamageIncOnBleed = skillModList:Sum("INC", cfg, "ImpaleEffectOnBleed")*skillModList:Sum("BASE", cfg, "BleedChance")/100
-            local storedExpectedDamageInc = (skillModList:Sum("INC", cfg, "ImpaleEffect") + storedExpectedDamageIncOnBleed)/100
-            local storedExpectedDamageMore = round(skillModList:More(cfg, "ImpaleEffect"), 2)
-            local storedExpectedDamageModifier = (1 + storedExpectedDamageInc) * storedExpectedDamageMore
-            local impaleStoredDamage = baseStoredDamage * storedExpectedDamageModifier
-            local impaleHitDamageMod = impaleStoredDamage * impaleStacks  -- Source: https://www.reddit.com/r/pathofexile/comments/chgqqt/impale_and_armor_interaction/
+			local baseStoredDamage = data.misc.ImpaleStoredDamageBase
+			local storedExpectedDamageIncOnBleed = skillModList:Sum("INC", cfg, "ImpaleEffectOnBleed")*skillModList:Sum("BASE", cfg, "BleedChance")/100
+			local storedExpectedDamageInc = (skillModList:Sum("INC", cfg, "ImpaleEffect") + storedExpectedDamageIncOnBleed)/100
+			local storedExpectedDamageMore = round(skillModList:More(cfg, "ImpaleEffect"), 2)
+			local storedExpectedDamageModifier = (1 + storedExpectedDamageInc) * storedExpectedDamageMore
+			local impaleStoredDamage = baseStoredDamage * storedExpectedDamageModifier
+			local impaleHitDamageMod = impaleStoredDamage * impaleStacks  -- Source: https://www.reddit.com/r/pathofexile/comments/chgqqt/impale_and_armor_interaction/
 
-            local enemyArmour = m_max(calcLib.val(enemyDB, "Armour"), 0)
-            local impaleArmourReduction = calcs.armourReductionF(enemyArmour, impaleHitDamageMod * output.impaleStoredHitAvg)
-            local impaleResist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction), data.misc.DamageReductionCap)
+			local enemyArmour = m_max(calcLib.val(enemyDB, "Armour"), 0)
+			local impaleArmourReduction = calcs.armourReductionF(enemyArmour, impaleHitDamageMod * output.impaleStoredHitAvg)
+			local impaleResist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction), data.misc.DamageReductionCap)
 
-            local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance
+			local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance
 
-            globalOutput.ImpaleStacksMax = maxStacks
-            globalOutput.ImpaleStacks = impaleStacks
-            --ImpaleStoredDamage should be named ImpaleEffect or similar
-            --Using the variable name ImpaleEffect breaks the calculations sidebar (?!)
-            output.ImpaleStoredDamage = impaleStoredDamage * 100
-            output.ImpaleModifier = 1 + impaleDMGModifier
+			globalOutput.ImpaleStacksMax = maxStacks
+			globalOutput.ImpaleStacks = impaleStacks
+			--ImpaleStoredDamage should be named ImpaleEffect or similar
+			--Using the variable name ImpaleEffect breaks the calculations sidebar (?!)
+			output.ImpaleStoredDamage = impaleStoredDamage * 100
+			output.ImpaleModifier = 1 + impaleDMGModifier
 
-            if breakdown then
-                breakdown.ImpaleStoredDamage = {}
-                t_insert(breakdown.ImpaleStoredDamage, "10% ^8(base value)")
-                t_insert(breakdown.ImpaleStoredDamage, s_format("x %.2f ^8(increased effectiveness)", storedExpectedDamageModifier))
-                t_insert(breakdown.ImpaleStoredDamage, s_format("= %.1f%%", output.ImpaleStoredDamage))
+			if breakdown then
+				breakdown.ImpaleStoredDamage = {}
+				t_insert(breakdown.ImpaleStoredDamage, "10% ^8(base value)")
+				t_insert(breakdown.ImpaleStoredDamage, s_format("x %.2f ^8(increased effectiveness)", storedExpectedDamageModifier))
+				t_insert(breakdown.ImpaleStoredDamage, s_format("= %.1f%%", output.ImpaleStoredDamage))
 
-                breakdown.ImpaleModifier = {}
-                t_insert(breakdown.ImpaleModifier, s_format("%d ^8(number of stacks, can be overridden in the Configuration tab)", impaleStacks))
-                t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
-                t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
-                t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale enemy physical damage reduction)", (1 - impaleResist / 100)))
-                t_insert(breakdown.ImpaleModifier, s_format("= %.3f ^8(impale damage multiplier)", impaleDMGModifier))
-            end
-        end
-    end
+				breakdown.ImpaleModifier = {}
+				t_insert(breakdown.ImpaleModifier, s_format("%d ^8(number of stacks, can be overridden in the Configuration tab)", impaleStacks))
+				t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
+				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
+				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale enemy physical damage reduction)", (1 - impaleResist / 100)))
+				t_insert(breakdown.ImpaleModifier, s_format("= %.3f ^8(impale damage multiplier)", impaleDMGModifier))
+			end
+		end
+	end
 
 	-- Combine secondary effect stats
 	if isAttack then
