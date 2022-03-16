@@ -389,10 +389,7 @@ function TreeTabClass:OpenImportPopup()
 			newSpec:SelectClass(self.build.spec.curClassId)
 			newSpec:SelectAscendClass(self.build.spec.curAscendClassId)
 			newSpec.title = self.build.spec.title
-			oldSpec = self.specList[self.activeSpec]
 			self.specList[self.activeSpec] = newSpec
-			-- only wipe after swapping out
-			oldSpec = {}
 			-- trigger all the things that go with changing a spec
 			self:SetActiveSpec(self.activeSpec)
 			self.modFlag = true
