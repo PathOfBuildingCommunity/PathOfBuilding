@@ -457,7 +457,7 @@ return {
 					},
 				},
 				["affliction_damage_with_two_handed_melee_weapons"] = {
-					name = "Damage with Two Handed Melee Weapons",
+					name = "Damage with Two Handed Weapons",
 					icon = "Art/2DArt/SkillIcons/passives/NodeTwoHandedMeleeDamage.png",
 					masteryIcon = "Art/2DArt/SkillIcons/passives/AltMasteryGroupTwoHands.png",
 					tag = "affliction_damage_with_two_handed_melee_weapons",

@@ -62,7 +62,7 @@ function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 		local map = grantedEffect.statMap[stat]
 		if map then
 			for _, mod in ipairs(map) do
-				mergeLevelMod(modList, mod, map.value or statValue * (map.mult or 1) / (map.div or 1))
+				mergeLevelMod(modList, mod, map.value or statValue * (map.mult or 1) / (map.div or 1) + (map.base or 0))
 			end
 		end
 	end
@@ -583,7 +583,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				if minion.uses["Weapon 1"] then
 					if minion.itemSet then
 						local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 1 Swap" or "Weapon 1"].selItemId]
-						if item then
+						if item and item.weaponData then
 							minion.weaponData1 = item.weaponData[1]
 						end
 					else
