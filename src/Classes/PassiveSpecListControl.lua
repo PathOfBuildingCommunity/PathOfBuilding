@@ -54,7 +54,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 	end)
 	self.controls.convert.tooltipText = "Use Ctrl-Left Click to multi select trees below"
 	self.controls.convert.enabled = function()
-		return self.selValue ~= nil and self.selValue.treeVersion ~= latestTreeVersion
+		return self.selValue ~= nil and self.selValue.treeVersion ~= latestTreeVersion and #self.selections > 0
 	end
 	self.controls.rename = new("ButtonControl", {"RIGHT",self.controls.copy,"LEFT"}, -4, 0, 60, 18, "Rename", function()
 		self:RenameSpec(self.selValue, "Rename Tree")
@@ -123,7 +123,8 @@ function PassiveSpecListClass:OnSelDelete()
 	local text = #self.selections == 1 and "tree?\n" or "trees?\n"
 
 	if #self.list > 1 and #self.selections > 0 then
-		--collect tree names
+		--collect tree names, sorted in the order shown on screen
+		t_sort(self.selections)
 		for selId = 1, #self.selections do
 			local index = self.selections[selId]
 			local spec = self.list[index]
@@ -132,13 +133,14 @@ function PassiveSpecListClass:OnSelDelete()
 		main:OpenConfirmPopup("Delete Tree", "Are you sure you want to delete the following "..text, "Yes", function()
 			local index = 1
 			local spec
+			-- loop through the selection list backwards, so the deletion of a spec doesn't the position of the next to be deleted
 			for selId = #self.selections, 1, -1 do
 				index = self.selections[selId]
 				local spec = self.list[index]
 				t_remove(self.list, index)
-				self.selIndex = nil
-				self.selValue = nil
 			end
+			self.selIndex = nil
+			self.selValue = nil
 			if index == self.treeTab.activeSpec then
 				self.treeTab:SetActiveSpec(m_max(1, index - 1))
 			else
