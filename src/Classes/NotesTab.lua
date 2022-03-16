@@ -70,7 +70,8 @@ end
 function NotesTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
 		if type(node) == "string" then
-			self.controls.edit:SetText(node)
+			--Add a space in case the last character belongs to an url. The space will be saved but the xml read will remove it again (same as all trailing white space and blank lines)
+			self.controls.edit:SetText(node.." ")
 		end
 	end
 	self.lastContent = self.controls.edit.buf
