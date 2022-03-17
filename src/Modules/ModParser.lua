@@ -118,6 +118,7 @@ local modNameList = {
 	["mana cost"] = "ManaCost",
 	["mana cost of"] = "ManaCost",
 	["mana cost of skills"] = "ManaCost",
+	["mana cost of attacks"] = { "ManaCost", tag = { type = "SkillType", skillType = SkillType.Attack } },
 	["total cost"] = "Cost",
 	["total mana cost"] = "ManaCost",
 	["total mana cost of skills"] = "ManaCost",
