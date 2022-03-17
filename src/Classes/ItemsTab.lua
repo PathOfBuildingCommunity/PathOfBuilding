@@ -2841,10 +2841,19 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			end
 		end
 		table.sort(compareSlots, function(a, b)
+			if a ~= b then
+				if slot == a then
+					return true
+				end
+				if slot == b then
+					return false
+				end
+			end
 			if a.selItemId ~= b.selItemId then
 				if item == self.items[a.selItemId] then
 					return true
-				elseif item == self.items[b.selItemId] then
+				end
+				if item == self.items[b.selItemId] then
 					return false
 				end
 			end
