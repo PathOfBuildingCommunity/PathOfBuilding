@@ -3251,7 +3251,7 @@ return {
 			list=true,
 			name="AddTypes",
 			refTo="ActiveSkillType",
-			type="Enum",
+			type="ShortKey",
 			width=100
 		},
 		[7]={
@@ -6023,7 +6023,7 @@ return {
 			list=false,
 			name="Parent",
 			refTo="PassiveJewelSlots",
-			type="Enum",
+			type="ShortKey",
 			width=170
 		},
 		[5]={
@@ -6032,6 +6032,13 @@ return {
 			refTo="PassiveSkills",
 			type="Key",
 			width=210
+		},
+		[6]={
+			list=true,
+			name="StartIndices",
+			refTo="",
+			type="Int",
+			width=150
 		}
 	},
 	PassiveSkillBuffs={

@@ -11,6 +11,8 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local band = bit.band
+local b_rshift = bit.rshift
 local b_lshift = bit.lshift
 
 local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion)
@@ -1113,8 +1115,8 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 			icon = keystoneNode.icon,
 			expansionSkill = true,
 			group = subGraph.group,
-			o = 0,
-			oidx = 1,
+			o = 1,
+			oidx = data.clusterJewels.orbitOffsets[parentSocket.id][expansionJewel.size],
 			linked = { },
 			power = { },
 		}
@@ -1373,7 +1375,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	-- Translate oidx positioning to TreeData-relative values
 	for _, node in pairs(indicies) do
 		local proxyNodeOidxRelativeToClusterIndicies = translateOidx(proxyNode.oidx, proxyNodeSkillsPerOrbit, clusterJewel.totalIndicies)
-		local correctedNodeOidxRelativeToClusterIndicies = (node.oidx + proxyNodeOidxRelativeToClusterIndicies) % clusterJewel.totalIndicies
+		local correctedNodeOidxRelativeToClusterIndicies = (node.oidx + data.clusterJewels.orbitOffsets[parentSocket.id][expansionJewel.size - 1]) % clusterJewel.totalIndicies
 		local correctedNodeOidxRelativeToTreeSkillsPerOrbit = translateOidx(correctedNodeOidxRelativeToClusterIndicies, clusterJewel.totalIndicies, proxyNodeSkillsPerOrbit)
 		node.oidx = correctedNodeOidxRelativeToTreeSkillsPerOrbit
 	end
