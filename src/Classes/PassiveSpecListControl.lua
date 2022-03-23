@@ -15,12 +15,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 
 	-- Copy button is in the middle, the others spread out from there
 	self.controls.copy = new("ButtonControl", {"TOPLEFT", self, "TOPLEFT"}, (width -60 ) / 2, -25, 60, 18, "Copy", function()
-		local newSpec = new("PassiveSpec", treeTab.build, self.selValue.treeVersion)
-		newSpec.title = self.selValue.title
-		newSpec.jewels = copyTable(self.selValue.jewels)
-		newSpec:RestoreUndoState(self.selValue:CreateUndoState())
-		newSpec:BuildClusterJewelGraphs()
-		self:RenameSpec(newSpec, "Copy Tree", true)
+		self:OnSelCopy(self.selIndex, self.selValue)
 	end)
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil and #self.selections == 1
@@ -157,6 +152,15 @@ function PassiveSpecListClass:OnSelKeyDown(index, spec, key)
 	if key == "F2" then
 		self:RenameSpec(spec, "Rename Tree")
 	end
+end
+
+function PassiveSpecListClass:OnSelCopy(index, spec)
+	local newSpec = new("PassiveSpec", self.treeTab.build, self.selValue.treeVersion)
+	newSpec.title = spec.title
+	newSpec.jewels = copyTable(spec.jewels)
+	newSpec:RestoreUndoState(spec:CreateUndoState())
+	newSpec:BuildClusterJewelGraphs()
+	self:RenameSpec(newSpec, "Copy Tree", true)
 end
 
 -- Update the passive tree dropdown control in itemsTab
