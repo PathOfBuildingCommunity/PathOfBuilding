@@ -55,8 +55,7 @@ def cli():
         description="Update Path of Building's manifest file for a new release.",
         allow_abbrev=False,
     )
-    parser.version = "1.1.0"
-    parser.add_argument("--version", action="version")
+    parser.add_argument("--version", action="version", version="1.1.0")
     logging_level = parser.add_mutually_exclusive_group()
     logging_level.add_argument(
         "-v", "--verbose", action="store_true", help="Print more logging information"
