@@ -5,9 +5,6 @@ import xml.etree.ElementTree
 
 """This script requires at least Python 3.10.0 to run."""
 
-logger = logging.getLogger(__name__)
-logger.addHandler(logging.NullHandler())
-
 
 def update_manifest(version: str | None = None, replace: bool = False):
     """Update SHA1 hashes and version number for Path of Building's manifest file.
@@ -20,7 +17,7 @@ def update_manifest(version: str | None = None, replace: bool = False):
     try:
         manifest = xml.etree.ElementTree.parse(base_path / "manifest.xml")
     except FileNotFoundError:
-        logger.critical(f"Manifest file not found in path '{base_path}'")
+        logging.critical(f"Manifest file not found in path '{base_path}'")
         return
     root = manifest.getroot()
 
@@ -36,14 +33,14 @@ def update_manifest(version: str | None = None, replace: bool = False):
         try:
             data = path.read_bytes()
         except FileNotFoundError:
-            logger.error(f"File not found, skipping {path}")
+            logging.error(f"File not found, skipping {path}")
             continue
         sha1_hash = hashlib.sha1(data).hexdigest()
         file.set("sha1", sha1_hash)
-        logger.info(f"Path: {path} hash: {sha1_hash}")
+        logging.info(f"Path: {path} hash: {sha1_hash}")
     if version is not None:
         root.find("Version").set("number", version)
-        logger.info(f"Updated to version {version}")
+        logging.info(f"Updated to version {version}")
 
     file_name = "manifest.xml" if replace else "manifest-updated.xml"
     manifest.write(base_path / file_name, encoding="UTF-8", xml_declaration=True)
@@ -75,12 +72,10 @@ def cli():
         metavar="SEMVER",
     )
     args = parser.parse_args()
-
-    logger.addHandler(logging.StreamHandler())
     if args.verbose:
-        logger.setLevel(logging.INFO)
+        logging.basicConfig(level=logging.INFO)
     elif args.quiet:
-        logger.setLevel(logging.CRITICAL + 1)
+        logging.basicConfig(level=logging.CRITICAL + 1)
     update_manifest(args.set_version or None, args.in_place)
 
 
