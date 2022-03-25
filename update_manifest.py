@@ -1,16 +1,15 @@
 import hashlib
 import logging
 import pathlib
-from typing import Optional
 import xml.etree.ElementTree
 
-"""This script requires at least Python 3.7.0 to run."""
+"""This script requires at least Python 3.10.0 to run."""
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())
 
 
-def update_manifest(version: Optional[str] = None, replace: bool = False):
+def update_manifest(version: str | None = None, replace: bool = False):
     """Update SHA1 hashes and version number for Path of Building's manifest file.
 
     :param version: Three-part version number following https://semver.org/.
