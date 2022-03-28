@@ -1471,10 +1471,16 @@ function calcs.defence(env, actor)
 			for _, damageType in ipairs(dmgTypeList) do
 				Damage[damageType] = DamageIn[damageType] * itterationMultiplier
 			end
+			if DamageIn.GainWhenHit and (itterationMultiplier > 1 or DamageIn["cycles"] > 1) then
+				local gainMult = itterationMultiplier * DamageIn["cycles"]
+				life = m_min(life + DamageIn.LifeWhenHit * (gainMult - 1), gainMult * output.LifeRecoverable or 0)
+				mana = m_min(mana + DamageIn.ManaWhenHit * (gainMult - 1), gainMult * output.ManaUnreserved or 0)
+				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * (gainMult - 1), gainMult * output.EnergyShieldRecoveryCap)
+			end
 			for _, damageType in ipairs(dmgTypeList) do
 				if Damage[damageType] > 0 then
 					if frostShield > 0 then
-						local tempDamage = m_min(Damage[damageType] * output["FrostShieldDamageMitigation"] / 100, frostShield)
+						local tempDamage = m_min(Damage[damageType] * output["FrostShieldDamageMitigation"] / 100 / itterationMultiplier, frostShield)
 						frostShield = frostShield - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
@@ -1494,12 +1500,12 @@ function calcs.defence(env, actor)
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
 					if guard[damageType] > 0 then
-						local tempDamage = m_min(Damage[damageType] * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
+						local tempDamage = m_min(Damage[damageType] * output[damageType.."GuardAbsorbRate"] / 100 / itterationMultiplier, guard[damageType])
 						guard[damageType] = guard[damageType] - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
 					if guard["shared"] > 0 then
-						local tempDamage = m_min(Damage[damageType] * output["sharedGuardAbsorbRate"] / 100, guard["shared"])
+						local tempDamage = m_min(Damage[damageType] * output["sharedGuardAbsorbRate"] / 100 / itterationMultiplier, guard["shared"])
 						guard["shared"] = guard["shared"] - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
@@ -1543,26 +1549,23 @@ function calcs.defence(env, actor)
 				ward = 0
 			end
 			if DamageIn.GainWhenHit and life > 0 then
-				life = m_min(life + DamageIn.LifeWhenHit * itterationMultiplier, output.LifeRecoverable or 0)
-				mana = m_min(mana + DamageIn.ManaWhenHit * itterationMultiplier, output.ManaUnreserved or 0)
-				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * itterationMultiplier, output.EnergyShieldRecoveryCap)
+				life = m_min(life + DamageIn.LifeWhenHit, output.LifeRecoverable or 0)
+				mana = m_min(mana + DamageIn.ManaWhenHit, output.ManaUnreserved or 0)
+				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit, output.EnergyShieldRecoveryCap)
 			end
 			itterationMultiplier = 1
 			--To speed it up, run recurivly but speed up
 			local maxDepth = data.misc.ehpCalcMaxDepth
 			local speedUp = data.misc.ehpCalcSpeedUp
-			if life > 0 and DamageIn["cycles"] < maxDepth then
+			DamageIn["cyclesRan"] = DamageIn["cyclesRan"] or false
+			if not DamageIn["cyclesRan"] and life > 0 and DamageIn["cycles"] < maxDepth then
 				Damage = {}
 				for _, damageType in ipairs(dmgTypeList) do
 					Damage[damageType] = DamageIn[damageType] * speedUp
 				end	
-				Damage.LifeWhenHit = DamageIn.LifeWhenHit or 0 * speedUp
-				Damage.ManaWhenHite = DamageIn.ManaWhenHit or 0 * speedUp
-				Damage.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit or 0 * speedUp
 				Damage["cycles"] = DamageIn["cycles"] * speedUp
 				itterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
-				--only run once
-				DamageIn["cycles"] = maxDepth 
+				DamageIn["cyclesRan"] = true 
 			end
 		end
 		if numHits >= maxHits then
