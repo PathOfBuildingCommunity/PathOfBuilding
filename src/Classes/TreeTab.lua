@@ -255,7 +255,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
 	self.build.itemsTab.controls.specSelect:SetList(copyTable(newSpecList)) -- Update the passive tree dropdown control in itemsTab
-	t_insert(newSpecList, "Manage trees... (ctrl-m)")
+	t_insert(newSpecList, "Manage passive trees... (ctrl-m)")
 	self.controls.specSelect:SetList(newSpecList)
 
 	if not self.controls.treeSearch.hasFocus then
@@ -383,7 +383,7 @@ function TreeTabClass:SetCompareSpec(specId)
 end
 
 function TreeTabClass:OpenSpecManagePopup()
-	main:OpenPopup(470, 390, "Manage Passive Trees", {
+	main:OpenPopup(470, 390, " Manage Passive Trees ", {
 		new("PassiveSpecListControl", nil, 0, 50, 450, 300, self),
 		new("ButtonControl", nil, 0, 360, 90, 20, "Close", function()
 			main:ClosePopup()

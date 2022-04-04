@@ -28,23 +28,85 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		return self.selValue ~= nil and #self.list > 1
 	end
 	self.controls.convert = new("ButtonControl", {"LEFT",self.controls.delete,"RIGHT"}, 4, 0, 60, 18, "Convert", function()
+		local text = ""
+		-- Convert one or more specs (Trees)
+		local plural = #self.selections == 1 and "" or "s"
 		if #self.selections > 0 then
-			-- sort and loop through the selection list backwards, as the ConvertSpec procedure inserts a new spec after the current
-			t_sort(self.selections)
-			local last
-			for selId = #self.selections, 1, -1 do
+			-- validate entries are not the latest version, run backwards so we can remove entries safely
+			local totalSelections = #self.selections
+			for selId = totalSelections, 1, -1 do
 				local spec = self.list[self.selections[selId]]
-				if spec.treeVersion ~= latestTreeVersion then
-					treeTab:ConvertSpec(spec, self.selections[selId])
-					last = self.selections[selId]
+				if spec.treeVersion == latestTreeVersion then
+					t_remove(self.selections, self.selections[selId])
 				end
 			end
-			-- Set the last spec converted as the current tree
-			self.treeTab:SetActiveSpec(last + 1)
-			if #self.selections ~= 1 then
-				main:OpenMessagePopup("Trees Converted", #self.selections.." trees have been converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+			-- Create controls for the popup
+			local controls = { }
+			local numMsgLines = 2
+			controls.label1 = new("LabelControl", nil, 0, 20, 0, 16, "Are you sure you want to convert the following tree"..plural.."?")
+			-- Collect spec names, sorted in the order shown on screen and show them to the user for confirmation. 
+			t_sort(self.selections)
+			for selId = 1, #self.selections do
+				local spec = self.list[self.selections[selId]]
+				-- collect the spec names so we can find the widest later
+				text = text..self:GetRowValue(1, index, spec).."\n"
+				t_insert(controls, new("LabelControl", {"LEFT",nil,"TOPLEFT"}, 10, 20 + numMsgLines * 18, 0, 16, self:GetRowValue(1, index, spec)..'^7'))
+				numMsgLines = numMsgLines + 1
 			end
-			wipeTable(self.selections)
+			numMsgLines = numMsgLines + 1
+			controls.label2 = new("LabelControl", {"LEFT",nil,"TOPLEFT"}, 10, 20 + numMsgLines * 18, 0, 16, "Note that some or all of the passives may have been de-allocated due to changes in the tree.")
+			controls.label3 = new("LabelControl", {"LEFT",controls.label2,"BOTTOMLEFT"}, 0, 10, 0, 16, "You can switch back to the old tree using the tree selector at the bottom left.")
+			controls.label4 = new("LabelControl", {"LEFT",controls.label3, "BOTTOMLEFT"}, 5, 15, 0, 16, "Where do you want the new tree"..plural.." placed?")
+			controls.cbDefault = new("CheckBoxControl", {"LEFT",controls.label4,"RIGHT"}, 60, 0, 18, "Default", nil, function()
+				controls.cbFirst.state = false
+				controls.cbLast.state = false
+			end, true)
+			controls.cbFirst = new("CheckBoxControl", {"LEFT",controls.cbDefault,"RIGHT"}, 60, 0, 16, "First", function()
+				controls.cbDefault.state = false
+				controls.cbLast.state = false
+			end, false)
+			controls.cbLast = new("CheckBoxControl", {"LEFT",controls.cbFirst,"RIGHT"}, 60, 0, 16, "Last", function()
+				controls.cbDefault.state = false
+				controls.cbFirst.state = false
+			end, false)
+			numMsgLines = numMsgLines + 3
+			controls.yes = new("ButtonControl", nil, -90, 40 + numMsgLines * 18, 80, 20, "Yes", function()
+				local last
+				if controls.cbDefault.state then
+					-- loop through the selection list backwards, as the ConvertSpec procedure inserts a new spec after the spec being converted
+					for selId = #self.selections, 1, -1 do
+						local spec = self.list[self.selections[selId]]
+						treeTab:ConvertSpec(spec, self.selections[selId])
+						last = self.selections[selId]
+					end
+					-- Set the last spec converted as the current tree
+					self.treeTab:SetActiveSpec(last + 1)
+				else
+					-- either the 'first' or 'last' checkbox is selected
+					-- add all specs to the end of the list
+					for selId = 1, #self.selections do
+						local spec = self.list[self.selections[selId]]
+						treeTab:ConvertSpec(spec, #self.list)
+						last = #self.list
+					end
+					if controls.cbFirst.state then
+						--Now grab #self.selections specs from the back of the list, and move them to the front
+						for selId = 1, #self.selections do
+							local spec = self.list[#self.list]
+							t_remove(self.list, #self.list)
+							t_insert(self.list, 1, spec)
+							last = 1
+						end
+					end
+					self.treeTab:SetActiveSpec(last)
+				end
+				wipeTable(self.selections)
+				main:ClosePopup()
+			end)
+			controls.no = new("ButtonControl", nil, 90, 40 + numMsgLines * 18, 80, 20, "No", function()
+				main:ClosePopup()
+			end)
+			main:OpenPopup(m_max(DrawStringWidth(16, "VAR", text) + 30, 620), 70 + numMsgLines * 18, " Convert Tree"..plural.." ", controls)
 		end
 	end)
 	self.controls.convert.tooltipText = "Use Ctrl-Left Click to multi select trees below"
@@ -118,7 +180,7 @@ function PassiveSpecListClass:OnSelDelete()
 	local text = #self.selections == 1 and "tree?\n" or "trees?\n"
 
 	if #self.list > 1 and #self.selections > 0 then
-		--collect tree names, sorted in the order shown on screen
+		-- collect tree names, sorted in the order shown on screen
 		t_sort(self.selections)
 		for selId = 1, #self.selections do
 			local index = self.selections[selId]
