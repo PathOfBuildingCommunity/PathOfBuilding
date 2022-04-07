@@ -2804,9 +2804,13 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			local flaskChargesUsed = flaskData.chargesUsed * (1 + usedInc / 100)
 			if flaskChargesUsed > 0 then
 				local flaskDuration = flaskData.duration * (1 + durInc / 100)
+				local per3Duration = flaskDuration - (flaskDuration % 3)
+				local per5Duration = flaskDuration - (flaskDuration % 5)
 				local averageChargesGenerated = (chargesGenerated + chargesGeneratedPerFlask) * flaskDuration
-				local percentageOf = math.min(averageChargesGenerated / flaskChargesUsed * 100, 100)
-				t_insert(stats, s_format("^8Flask uptime: ^7%d%%^8", percentageOf))
+				local minimumChargesGenerated = per3Duration * chargesGenerated + per5Duration * chargesGeneratedPerFlask
+				local percentageAvg = math.min(averageChargesGenerated / flaskChargesUsed * 100, 100)
+				local percentageMin = math.min(minimumChargesGenerated / flaskChargesUsed * 100, 100)
+				t_insert(stats, s_format("^8Flask uptime: ^7%d%%^8 average, ^7%d%%^8 minimum", percentageAvg, percentageMin))
 			end
 		end
 
