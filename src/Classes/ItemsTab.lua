@@ -1550,9 +1550,6 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	table.sort(affixList, function(a, b)
 		local modA = item.affixes[a]
 		local modB = item.affixes[b]
-		if item.type == "Flask" then
-			return modA.affix < modB.affix
-		end
 		for i = 1, m_max(#modA, #modB) do
 			if not modA[i] then
 				return true
@@ -1571,7 +1568,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	control.slider.shown = false
 	control.slider.val = 0.5
 	local selAffix = item[outputTable][outputIndex].modId
-	if item.type == "Flask" or (item.type == "Jewel" and item.base.subType ~= "Abyss") then
+	if (item.type == "Jewel" and item.base.subType ~= "Abyss") then
 		for i, modId in pairs(affixList) do
 			local mod = item.affixes[modId]
 			if selAffix == modId then
