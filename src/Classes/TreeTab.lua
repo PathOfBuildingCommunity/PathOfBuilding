@@ -379,8 +379,23 @@ function TreeTabClass:OpenSpecManagePopup()
 end
 
 function TreeTabClass:OpenImportPopup()
+	local versionLookup = "tree/([0-9]+)%.([0-9]+)%.([0-9]+)/"
 	local controls = { }
-	local function decodeTreeLink(treeLink)
+	local function decodeTreeLink(treeLink, newTreeVersion)
+			-- newTreeVersion is passed in as an output of validateTreeVersion(). It will always be a valid tree version text string
+			-- If there was a version on the url, and it changed the version of the active spec, dump the active spec and get one of the right version. 
+		if newTreeVersion ~= self.specList[self.activeSpec].treeVersion then
+			local newSpec = new("PassiveSpec", self.build, newTreeVersion)
+			newSpec:SelectClass(self.build.spec.curClassId)
+			newSpec:SelectAscendClass(self.build.spec.curAscendClassId)
+			newSpec.title = self.build.spec.title
+			self.specList[self.activeSpec] = newSpec
+			-- trigger all the things that go with changing a spec
+			self:SetActiveSpec(self.activeSpec)
+			self.modFlag = true
+		end
+	
+		-- We will now have a spec that matches the version of the binary being imported
 		local errMsg = self.build.spec:DecodeURL(treeLink)
 		if errMsg then
 			controls.msg.label = "^1"..errMsg
@@ -390,6 +405,22 @@ function TreeTabClass:OpenImportPopup()
 			main:ClosePopup()
 		end
 	end
+	local function validateTreeVersion(major, minor)
+		-- Take the Major and Minor version numbers and confirm it is a valid tree version. The point release is also passed in but it is not used
+		-- Return: the passed in tree version as text or latestTreeVersion
+		if major and minor then
+			--need leading 0 here
+			local newTreeVersionNum = tonumber(string.format("%d.%02d", major, minor))
+			if newTreeVersionNum >= treeVersions[defaultTreeVersion].num and newTreeVersionNum <= treeVersions[latestTreeVersion].num then
+				-- no leading 0 here
+				return string.format("%s_%s", major, minor)
+			else
+				print(string.format("Version '%d_%02d' is out of bounds", major, minor))
+			end
+		end
+		return latestTreeVersion
+	end
+
 	controls.editLabel = new("LabelControl", nil, 0, 20, 0, 16, "Enter passive tree link:")
 	controls.edit = new("EditControl", nil, 0, 40, 350, 18, "", nil, nil, nil, function(buf)
 		controls.msg.label = ""
@@ -400,6 +431,7 @@ function TreeTabClass:OpenImportPopup()
 		if #treeLink == 0 then
 			return
 		end
+		-- EG: http://poeurl.com/dABz
 		if treeLink:match("poeurl%.com/") then
 			controls.import.enabled = false
 			controls.msg.label = "Resolving PoEURL link..."
@@ -424,13 +456,20 @@ function TreeTabClass:OpenImportPopup()
 					if errMsg then
 						controls.msg.label = "^1"..errMsg
 						controls.import.enabled = true
+						return
 					else
-						decodeTreeLink(treeLink)
+						decodeTreeLink(treeLink, validateTreeVersion(treeLink:match(versionLookup)))
 					end
 				end)
 			end
+		elseif treeLink:match("poeskilltree.com/") then
+			local oldStyleVersionLookup = "/%?v=([0-9]+)%.([0-9]+)%.([0-9]+)#"
+			-- Strip the version from the tree : https://poeskilltree.com/?v=3.6.0#AAAABAMAABEtfIOFMo6-ksHfsOvu -> https://poeskilltree.com/AAAABAMAABEtfIOFMo6-ksHfsOvu
+			decodeTreeLink(treeLink:gsub("/%?v=.+#","/"), validateTreeVersion(treeLink:match(oldStyleVersionLookup)))
 		else
-			decodeTreeLink(treeLink)
+			-- EG: https://www.pathofexile.com/passive-skill-tree/3.15.0/AAAABgMADI6-HwKSwQQHLJwtH9-wTLNfKoP3ES3r5AAA
+			-- EG: https://www.pathofexile.com/fullscreen-passive-skill-tree/3.15.0/AAAABgMADAQHES0fAiycLR9Ms18qg_eOvpLB37Dr5AAA
+			decodeTreeLink(treeLink, validateTreeVersion(treeLink:match(versionLookup)))
 		end
 	end)
 	controls.cancel = new("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
