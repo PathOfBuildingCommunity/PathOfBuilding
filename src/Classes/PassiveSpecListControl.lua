@@ -15,7 +15,8 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 
 	-- Copy button is in the middle, the others spread out from there
 	self.controls.copy = new("ButtonControl", {"TOPLEFT", self, "TOPLEFT"}, (width -60 ) / 2, -25, 60, 18, "Copy", function()
-		self:OnSelCopy(self.selIndex, self.selValue)
+		-- If there is a selection add new spec after it
+		self:OnSelCopy(self.selIndex, self.selValue, self.selections[1])
 	end)
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil and #self.selections == 1
@@ -123,13 +124,14 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		local newSpec = new("PassiveSpec", treeTab.build, latestTreeVersion)
 		newSpec:SelectClass(treeTab.build.spec.curClassId)
 		newSpec:SelectAscendClass(treeTab.build.spec.curAscendClassId)
-		self:RenameSpec(newSpec, "New Tree", true)
+		-- If there is a selection add new spec after it
+		self:RenameSpec(newSpec, "New Tree", self.selValue and self.selections[1] or #self.list)
 		wipeTable(self.selections)
 	end)
 	self:UpdateItemsTabPassiveTreeDropdown()
 end)
 
-function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
+function PassiveSpecListClass:RenameSpec(spec, title, specIdx)
 	local controls = { }
 	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this passive tree:")
 	controls.edit = new("EditControl", nil, 0, 40, 350, 20, spec.title, nil, nil, 100, function(buf)
@@ -138,9 +140,9 @@ function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
 		spec.title = controls.edit.buf
 		self.treeTab.modFlag = true
-		if addOnName then
-			t_insert(self.list, spec)
-			self.selIndex = #self.list
+		if specIdx then
+			t_insert(self.list, specIdx + 1, spec)
+			self.selIndex = specIdx + 1
 			self.selValue = spec
 		end
 		self:UpdateItemsTabPassiveTreeDropdown()
@@ -216,13 +218,13 @@ function PassiveSpecListClass:OnSelKeyDown(index, spec, key)
 	end
 end
 
-function PassiveSpecListClass:OnSelCopy(index, spec)
+function PassiveSpecListClass:OnSelCopy(index, spec, specIdx)
 	local newSpec = new("PassiveSpec", self.treeTab.build, self.selValue.treeVersion)
 	newSpec.title = spec.title
 	newSpec.jewels = copyTable(spec.jewels)
 	newSpec:RestoreUndoState(spec:CreateUndoState())
 	newSpec:BuildClusterJewelGraphs()
-	self:RenameSpec(newSpec, "Copy Tree", true)
+	self:RenameSpec(newSpec, "Copy Tree", specIdx)
 end
 
 -- Update the passive tree dropdown control in itemsTab
