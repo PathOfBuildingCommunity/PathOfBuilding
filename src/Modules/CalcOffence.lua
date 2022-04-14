@@ -3693,19 +3693,14 @@ function calcs.offence(env, actor, activeSkill)
 		local more = round(skillModList:More(dotCfg, "Damage", "ChaosDamage"), 2)
 		local mult = skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier", "ChaosDotMultiplier")
 		output.DecayDPS = skillData.decay * (1 + inc/100) * more * (1 + mult/100) * effMult
-		local durationMod = calcLib.mod(skillModList, dotCfg, "Duration", "SkillAndDamagingAilmentDuration")
-		output.DecayDuration = 10 * durationMod * debuffDurationMult
+		output.DecayDuration = 8 * debuffDurationMult
 		if breakdown then
 			breakdown.DecayDPS = { }
-			t_insert(breakdown.DecayDPS, "Decay DPS:")
 			breakdown.dot(breakdown.DecayDPS, skillData.decay, inc, more, mult, nil, nil, effMult, output.DecayDPS)
-			if output.DecayDuration ~= 2 then
+			if output.DecayDuration ~= 8 then
 				breakdown.DecayDuration = {
-					s_format("%.2fs ^8(base duration)", 10)
+					s_format("%.2fs ^8(base duration)", 8)
 				}
-				if durationMod ~= 1 then
-					t_insert(breakdown.DecayDuration, s_format("x %.2f ^8(duration modifier)", durationMod))
-				end
 				if debuffDurationMult ~= 1 then
 					t_insert(breakdown.DecayDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
 				end

@@ -855,7 +855,6 @@ return {
 	}, },
 	{ label = "Decay Duration", { format = "{2:output:DecayDuration}s", 
 		{ breakdown = "DecayDuration" },
-		{ modName = { "Duration", "SkillAndDamagingAilmentDuration" }, cfg = "decay" },
 	}, },
 } }
 } },
