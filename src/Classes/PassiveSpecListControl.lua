@@ -123,7 +123,6 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.rename,"LEFT"}, -4, 0, 60, 18, "New", function()
 		local newSpec = new("PassiveSpec", treeTab.build, latestTreeVersion)
 		newSpec:SelectClass(treeTab.build.spec.curClassId)
-		newSpec:SelectAscendClass(treeTab.build.spec.curAscendClassId)
 		-- If there is a selection add new spec after it
 		self:RenameSpec(newSpec, "New Tree", self.selValue and self.selections[1] or #self.list)
 		wipeTable(self.selections)
