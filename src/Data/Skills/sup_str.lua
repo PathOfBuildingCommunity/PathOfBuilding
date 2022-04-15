@@ -1341,7 +1341,7 @@ skills["SupportAuraDuration"] = {
 			div = 1000,
 		},
 		["base_mana_cost_+"] = {
-			mod("ManaCost", "BASE", nil),
+			mod("ManaCostNoMult", "BASE", nil),
 		},
 	},
 	baseMods = {

@@ -1171,23 +1171,24 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- Calculate costs (may be slightly off due to rounding differences)
 	local costs = {
-		["Mana"] = { type = "Mana", upfront = true, percent = false, text = "mana", baseCost = 0, totalCost = 0 },
-		["Life"] = { type = "Life", upfront = true, percent = false, text = "life", baseCost = 0, totalCost = 0 },
-		["ES"] = { type = "ES", upfront = true, percent = false, text = "ES", baseCost = 0, totalCost = 0 },
-		["Rage"] = { type = "Rage", upfront = true, percent = false, text = "rage", baseCost = 0, totalCost = 0 },
-		["ManaPercent"] = { type = "Mana", upfront = true, percent = true, text = "mana", baseCost = 0, totalCost = 0 },
-		["LifePercent"] = { type = "Life", upfront = true, percent = true, text = "life", baseCost = 0, totalCost = 0},
-		["ManaPerMinute"] = { type = "Mana", upfront = false, percent = false, text = "mana/s", baseCost = 0, totalCost = 0 },
-		["LifePerMinute"] = { type = "Life", upfront = false, percent = false, text = "life/s", baseCost = 0, totalCost = 0 },
-		["ManaPercentPerMinute"] = { type = "Mana", upfront = false, percent = true, text = "mana/s", baseCost = 0, totalCost = 0 },
-		["LifePercentPerMinute"] = { type = "Life", upfront = false, percent = true, text = "life/s", baseCost = 0, totalCost = 0 },
-		["ESPerMinute"] = { type = "ES", upfront = false, percent = false, text = "ES/s", baseCost = 0, totalCost = 0 },
-		["ESPercentPerMinute"] = { type = "ES", upfront = false, percent = true, text = "ES/s", baseCost = 0, totalCost = 0 },
+		["Mana"] = { type = "Mana", upfront = true, percent = false, text = "mana", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
+		["Life"] = { type = "Life", upfront = true, percent = false, text = "life", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
+		["ES"] = { type = "ES", upfront = true, percent = false, text = "ES", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
+		["Rage"] = { type = "Rage", upfront = true, percent = false, text = "rage", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
+		["ManaPercent"] = { type = "Mana", upfront = true, percent = true, text = "mana", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
+		["LifePercent"] = { type = "Life", upfront = true, percent = true, text = "life", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
+		["ManaPerMinute"] = { type = "Mana", upfront = false, percent = false, text = "mana/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
+		["LifePerMinute"] = { type = "Life", upfront = false, percent = false, text = "life/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
+		["ManaPercentPerMinute"] = { type = "Mana", upfront = false, percent = true, text = "mana/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
+		["LifePercentPerMinute"] = { type = "Life", upfront = false, percent = true, text = "life/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
+		["ESPerMinute"] = { type = "ES", upfront = false, percent = false, text = "ES/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
+		["ESPercentPerMinute"] = { type = "ES", upfront = false, percent = true, text = "ES/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
 	}
 	-- First pass to calculate base costs.  Used for cost conversion (e.g. Petrified Blood)
 	for resource, val in pairs(costs) do
 		local skillCost = activeSkill.activeEffect.grantedEffectLevel.cost[resource]
 		local baseCost = round(skillCost and skillCost / data.costs[resource].Divisor or 0, 2)
+		local baseCostNoMult = skillModList:Sum("BASE", skillCfg, resource.."CostNoMult") or 0
 		local totalCost = 0
 		if val.upfront then
 			baseCost = baseCost + skillModList:Sum("BASE", skillCfg, resource.."CostBase")
@@ -1195,6 +1196,12 @@ function calcs.offence(env, actor, activeSkill)
 				baseCost = m_max(baseCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
 			end
 			totalCost = skillModList:Sum("BASE", skillCfg, resource.."Cost")
+			if activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
+				local reservedFlat = activeSkill.skillData[val.text.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationFlat"] or 0
+				baseCost = baseCost + reservedFlat
+				local reservedPercent = activeSkill.skillData[val.text.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationPercent"] or 0
+				baseCost = baseCost + (m_floor((output[resource] or 0) * reservedPercent / 100))
+			end
 		end
 		if val.type == "Mana" and skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then
 			local target = resource:gsub("Mana", "Life")
@@ -1202,6 +1209,8 @@ function calcs.offence(env, actor, activeSkill)
 			baseCost = 0
 			costs[target].totalCost = costs[target].totalCost + totalCost
 			totalCost = 0
+			costs[target].baseCostNoMult = costs[target].baseCostNoMult + baseCostNoMult
+			baseCostNoMult = 0
 		end
 		-- Extra cost (e.g. Petrified Blood) calculations happen after cost conversion (e.g. Blood Magic)
 		if val.type == "Mana" and skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") then
@@ -1210,6 +1219,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		val.baseCost = val.baseCost + baseCost
 		val.totalCost = val.totalCost + totalCost
+		val.baseCostNoMult = val.baseCostNoMult + baseCostNoMult
 	end
 	for resource, val in pairs(costs) do
 		local dec = val.upfront and 0 or 2
@@ -1217,18 +1227,10 @@ function calcs.offence(env, actor, activeSkill)
 		local mult = floor(skillModList:More(skillCfg, "SupportManaMultiplier"), 2)
 		local more = floor(skillModList:More(skillCfg, val.type.."Cost", "Cost"), 2)
 		local inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
-		output[costName] = floor(val.baseCost * mult, dec)
+		output[costName] = floor(val.baseCost * mult + val.baseCostNoMult, dec)
 		output[costName] = floor(m_abs(inc / 100) * output[costName], dec) * (inc >= 0 and 1 or -1) + output[costName]
 		output[costName] = floor(m_abs(more - 1) * output[costName], dec) * (more >= 1 and 1 or -1) + output[costName]
 		output[costName] = m_max(0, floor(output[costName] + val.totalCost, dec))
-		if skillFlags.totem then
-			local reservedFlat = activeSkill.skillData[resource.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[resource.."ReservationFlat"] or 0
-			output[costName] = output[costName] + reservedFlat
-			local reservedPercent = activeSkill.skillData[resource.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[resource.."ReservationPercent"] or 0
-			if reservedPercent ~= 0 then
-				skillModList:NewMod(resource.."PercentCostBase", "BASE", reservedPercent, "Totem Reservation")
-			end
-		end
 		if breakdown and output[costName] ~= val.baseCost then
 			breakdown[costName] = {
 				s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
