@@ -921,11 +921,8 @@ function buildMode:OnFrame(inputEvents)
 				end
 		elseif IsKeyDown("CTRL") then
 				if event.key == "i" then
-					if self.viewMode == "IMPORT" then
-						self.importTab.controls.importCodePastebin:Click()
-					else
 						self.viewMode = "IMPORT"
-					end
+					self.importTab:SelectControl(self.importTab.controls.importCodeIn)
 				elseif event.key == "s" then
 					self:SaveDBFile()
 					inputEvents[id] = nil
