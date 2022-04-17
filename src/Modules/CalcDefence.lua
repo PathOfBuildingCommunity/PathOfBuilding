@@ -864,49 +864,54 @@ function calcs.defence(env, actor)
 				},
 			}
 		end
-		local stringVal = "Default"
-		for _, damageType in ipairs(dmgTypeList) do
-			if env.configInput["enemy"..damageType.."Damage"] or env.configInput["enemy"..damageType.."Pen"] then
-				stringVal = "Config"
-			end
-		end
 		for _, damageType in ipairs(dmgTypeList) do
 			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) --missing taunt from allies
-			local enemyDamage = 0
-			if stringVal == "Config" then
-				enemyDamage = env.configInput["enemy"..damageType.."Damage"] or 0
-			elseif stringVal == "Default" then
-				if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (not specificaly uber ziri)
+			local enemyDamage = env.configInput["enemy"..damageType.."Damage"]
+			local enemyPen = env.configInput["enemy"..damageType.."Pen"]
+			local sourceStr = enemyDamage == nil and "Default" or "Config"
+
+			if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (not specificaly uber ziri)
+				if enemyDamage == nil then
+					stringVal = "Standard Boss"
 					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.stdBossDPSMult
 					if damageType == "Chaos" then
 						enemyDamage = enemyDamage / 4
 					end
-				elseif env.configInput["enemyIsBoss"] == "Shaper" then
+				end
+			elseif env.configInput["enemyIsBoss"] == "Shaper" then
+				if enemyDamage == nil then
 					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.shaperDPSMult
 					if damageType == "Chaos" then
 						enemyDamage = enemyDamage / 4
-					elseif isElemental[damageType] then
-						output[damageType.."EnemyPen"] = data.misc.shaperPen
 					end
-				elseif env.configInput["enemyIsBoss"] == "Sirus" then
+				end
+				if enemyPen == nil and isElemental[damageType] then
+					enemyPen = data.misc.shaperPen
+				end
+			elseif env.configInput["enemyIsBoss"] == "Sirus" then
+				if enemyDamage == nil then
 					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.sirusDPSMult
 					if damageType == "Chaos" then
 						enemyDamage = enemyDamage / 4
-					elseif isElemental[damageType] then
-						output[damageType.."EnemyPen"] = data.misc.sirusPen
-					end
-				else
-					if damageType == "Physical" then
-						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5
 					end
 				end
+				if enemyPen == nil and isElemental[damageType] then
+					output[damageType.."EnemyPen"] = data.misc.sirusPen
+				end
+			else
+				if enemyDamage == nil and damageType == "Physical" then
+					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5
+				end
 			end
+
+			enemyDamage = enemyDamage or 0
+			output[damageType.."EnemyPen"] = enemyPen or 0
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
 			output[damageType.."EnemyDamage"] = enemyDamage * enemyDamageMult
 			output["totalEnemyDamage"] = output["totalEnemyDamage"] + output[damageType.."EnemyDamage"]
 			if breakdown then
 				breakdown[damageType.."EnemyDamage"] = {
-				s_format("from %s: %d", stringVal, enemyDamage),
+				s_format("from %s: %d", sourceStr, enemyDamage),
 				s_format("* %.2f (modifiers to enemy damage)", enemyDamageMult),
 				s_format("= %d", output[damageType.."EnemyDamage"]),
 				}
@@ -915,7 +920,7 @@ function calcs.defence(env, actor)
 					value = s_format("%d", enemyDamage),
 					mult = s_format("%.2f", enemyDamageMult),
 					final = s_format("%d", output[damageType.."EnemyDamage"]),
-					from = s_format("%s", stringVal),
+					from = s_format("%s", sourceStr),
 				})
 			end
 		end
