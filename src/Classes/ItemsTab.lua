@@ -2858,19 +2858,21 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		end)
 
 		-- Add comparisons for each slot
-		for _, slot in pairs(compareSlots) do
-			local selItem = self.items[slot.selItemId]
-			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-			GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
-			GlobalCache.useFullDPS = storedGlobalCacheDPSView
-			local header
-			if item == selItem then
-				header = "^7Removing this item from "..slot.label.." will give you:"
-			else
-				header = string.format("^7Equipping this item in %s will give you:%s", slot.label, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+		for _, compareSlot in pairs(compareSlots) do
+			if not main.slotOnlyTooltips or (slot and (slot.nodeId == compareSlot.nodeId or slot.slotName == compareSlot.slotName)) or not slot or slot == compareSlot then
+				local selItem = self.items[compareSlot.selItemId]
+				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+				GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item }, {})
+				GlobalCache.useFullDPS = storedGlobalCacheDPSView
+				local header
+				if item == selItem then
+					header = "^7Removing this item from "..compareSlot.label.." will give you:"
+				else
+					header = string.format("^7Equipping this item in %s will give you:%s", compareSlot.label, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+				end
+				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
 			end
-			self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
 		end
 	end
 
