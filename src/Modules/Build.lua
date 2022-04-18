@@ -945,6 +945,8 @@ function buildMode:OnFrame(inputEvents)
 					self.viewMode = "CALCS"
 				elseif event.key == "5" then
 					self.viewMode = "CONFIG"
+				elseif event.key == "6" then
+					self.viewMode = "NOTES"
 				end
 			end
 		end
