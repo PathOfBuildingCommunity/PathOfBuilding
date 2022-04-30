@@ -1259,10 +1259,6 @@ return {
 		{ breakdown = "WardRechargeDelay" },
 		{ modName = "WardRechargeFaster" },
 	}, },
-	{ label = "Regen", { format = "{1:output:EnergyShieldRegen} ({1:output:EnergyShieldRegenPercent}%)",
-		{ label = "Sources", modName = { "EnergyShieldRegen", "EnergyShieldRecovery", "EnergyShieldRegenPercent", "EnergyShieldDegen", "NoEnergyShieldRegen" } },
-		{ label = "Recovery modifiers", modName = "EnergyShieldRecoveryRate" },
-	}, },
 } }
 } },
 { 1, "Armour", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Armour", data = {
