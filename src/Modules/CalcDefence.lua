@@ -1122,7 +1122,7 @@ function calcs.defence(env, actor)
 		local takenMult = output[damageType.."TakenHitMult"]
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
 			takenMult = output[damageType.."AttackTakenHitMult"]
-		elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" then
+		elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
 			takenMult = output[damageType.."SpellTakenHitMult"]
 		elseif damageCategoryConfig == "Average" then
 			takenMult = (output[damageType.."SpellTakenHitMult"] + output[damageType.."AttackTakenHitMult"]) / 2
@@ -1611,14 +1611,14 @@ function calcs.defence(env, actor)
 			DamageIn.LifeWhenHit = output.LifeOnBlock * BlockChance
 			DamageIn.ManaWhenHit = output.ManaOnBlock * BlockChance
 			DamageIn.EnergyShieldWhenHit = output.EnergyShieldOnBlock * BlockChance
-			if damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" then
+			if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
 				DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock * BlockChance
 			elseif damageCategoryConfig == "Average" then
 				DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock / 2 * BlockChance
 			end
 		end
 		--supression
-		if damageCategoryConfig == "Spell" or damageCategoryConfig == "Projectile Spell" or damageCategoryConfig == "Average" then
+		if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" or damageCategoryConfig == "Average" then
 			suppressChance = output.SpellSuppressionChance / 100
 		end
 		--unlucky config to lower the value of block, dodge, evade etc for ehp
