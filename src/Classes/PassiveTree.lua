@@ -394,26 +394,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			t_insert(node.linkedId, otherId)
 		end
 	end
-	-- Precalculate the lists of nodes that are within each radius of each socket
+	-- Precalculate the lists of nodes that are within each radius of each socket and keystone
 	for nodeId, socket in pairs(self.sockets) do
-		socket.nodesInRadius = { }
-		socket.attributesInRadius = { }
-		for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
-			socket.nodesInRadius[radiusIndex] = { }
-			socket.attributesInRadius[radiusIndex] = { }
-			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
-			local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
-			for _, node in pairs(self.nodes) do
-				if node ~= socket and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy and not node.isMastery then
-					local vX, vY = node.x - socket.x, node.y - socket.y
-					local euclideanDistanceSquared = vX * vX + vY * vY
-					if innerRadiusSquared <= euclideanDistanceSquared then
-						if euclideanDistanceSquared <= outerRadiusSquared then
-							socket.nodesInRadius[radiusIndex][node.id] = node
-						end
-					end
-				end
-			end
+		self:PrecalculateNodesInRadius(socket, data.jewelRadius)
+	end
+	for _, keystone in pairs(self.keystoneMap) do
+		-- Ignore legacy keystones not on the tree
+		if keystone.x and keystone.y then
+			self:PrecalculateNodesInRadius(keystone, data.jewelRadius)
 		end
 	end
 
@@ -456,6 +444,28 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Late load the Generated data so we can take advantage of a tree existing
 	buildTreeDependentUniques(self)
 end)
+
+function PassiveTreeClass:PrecalculateNodesInRadius(centerNode, jewelRadiusData)
+	centerNode.nodesInRadius = { }
+	centerNode.attributesInRadius = { }
+	for radiusIndex, radiusInfo in ipairs(jewelRadiusData) do
+		centerNode.nodesInRadius[radiusIndex] = { }
+		centerNode.attributesInRadius[radiusIndex] = { }
+		local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
+		local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
+		for _, node in pairs(self.nodes) do
+			if centerNode ~= node and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy and not node.isMastery then
+				local vX, vY = node.x - centerNode.x, node.y - centerNode.y
+				local euclideanDistanceSquared = vX * vX + vY * vY
+				if innerRadiusSquared <= euclideanDistanceSquared then
+					if euclideanDistanceSquared <= outerRadiusSquared then
+						centerNode.nodesInRadius[radiusIndex][node.id] = node
+					end
+				end
+			end
+		end
+	end
+end
 
 function PassiveTreeClass:ProcessStats(node)
 	node.modKey = ""

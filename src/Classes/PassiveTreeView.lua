@@ -658,6 +658,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 								end
 							end
 						end
+					elseif hoverNode.type == "Keystone" and hoverNode.nodesInRadius then
+						-- Highlight nodes in small ring for Impossible Escape
+						local smallRadiusIndex = 1
+						local data = build.data.jewelRadius[smallRadiusIndex]						
+						if hoverNode.nodesInRadius[smallRadiusIndex][node.id] then
+							SetDrawColor(data.col)
+						end
 					end
 				end
 			end
@@ -744,6 +751,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 			end
 		end
+	end
+	if hoverNode and hoverNode.type == "Keystone" then
+		-- Draw small ring overlay for Impossible Escape
+		local hackScrX, hackScrY = treeToScreen(hoverNode.x, hoverNode.y)
+		local smallRadData = build.data.jewelRadius[1]
+		local outerSize = smallRadData.outer * scale
+		SetDrawColor(smallRadData.col)
+		DrawImage(self.ring, hackScrX - outerSize, hackScrY - outerSize, outerSize * 2, outerSize * 2)
 	end
 end
 
