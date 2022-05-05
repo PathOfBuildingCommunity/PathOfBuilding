@@ -133,8 +133,10 @@ data.setJewelRadiiGlobally = function(treeVersion)
 	local major, minor = treeVersion:match("(%d+)_(%d+)")
 	if tonumber(major) <= 3 and tonumber(minor) <= 15 then
 		data.jewelRadius = data.jewelRadii["3_15"]
-	else
+	elseif tonumber(major) <= 3 and tonumber(minor) <= 17 then
 		data.jewelRadius = data.jewelRadii["3_16"]
+	else
+		data.jewelRadius = data.jewelRadii["3_18"]
 	end
 end
 
@@ -148,6 +150,7 @@ data.jewelRadii = {
 		{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
 		{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
 		{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
+		{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
 	},
 	["3_16"] = {
 		{ inner = 0, outer = 960, col = "^xBB6600", label = "Small" },
@@ -158,6 +161,18 @@ data.jewelRadii = {
 		{ inner = 1320, outer = 1680, col = "^x66FFCC", label = "Variable" },
 		{ inner = 1680, outer = 2040, col = "^x2222CC", label = "Variable" },
 		{ inner = 2040, outer = 2400, col = "^xC100FF", label = "Variable" },
+		{ inner = 2040, outer = 2400, col = "^xFFFF77", label = "Variable" },
+	},
+	["3_18"] = {
+		{ inner = 0, outer = 800, col = "^xBB6600", label = "Small" },
+		{ inner = 0, outer = 1200, col = "^x66FFCC", label = "Medium" },
+		{ inner = 0, outer = 1500, col = "^x2222CC", label = "Large" },
+
+		{ inner = 800, outer = 1100, col = "^xD35400", label = "Variable" },
+		{ inner = 1100, outer = 1400, col = "^x66FFCC", label = "Variable" },
+		{ inner = 1400, outer = 1700, col = "^x2222CC", label = "Variable" },
+		{ inner = 1700, outer = 2000, col = "^xC100FF", label = "Variable" },
+		{ inner = 2000, outer = 2400, col = "^xFFFF77", label = "Variable" },
 	}
 }
 
