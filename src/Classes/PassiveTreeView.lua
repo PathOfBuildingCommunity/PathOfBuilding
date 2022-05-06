@@ -726,7 +726,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						-- Impossible Escape ring shows on the allocated Keystone
 						for keystoneName, _ in pairs(jewel.jewelData.impossibleEscapeKeystones) do
 							local keystone = spec.tree.keystoneMap[keystoneName]
-							if (keystone) then
+							if keystone and keystone.x and keystone.y then
 								innerSize = 150 * scale
 								local keyX, keyY = treeToScreen(keystone.x, keystone.y)
 								SetDrawColor(0.9,0.9,1,0.7)
