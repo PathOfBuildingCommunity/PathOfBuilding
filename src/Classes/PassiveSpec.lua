@@ -713,9 +713,9 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						end
 					end
 
-					if self.allocNodes[nodeId] and itemId ~= 0 and item.jewelData and item.jewelData.impossibleEscapeKeystone ~= nil then
+					if self.allocNodes[nodeId] and itemId ~= 0 and item.jewelData and item.jewelData.impossibleEscapeKeystones then
 						for keyId, keyNode in pairs(self.nodes) do
-							if keyNode.name:lower() == item.jewelData.impossibleEscapeKeystone then
+							if item.jewelData.impossibleEscapeKeystones[keyNode.name:lower()] then
 								if keyNode.nodesInRadius[radiusIndex][node.id] then
 									node.dependsOnIntuitiveLeapLike = true
 								end
@@ -889,8 +889,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 									and self.nodes[nodeId].nodesInRadius[self.build.itemsTab.items[itemId].jewelRadiusIndex][depNode.id]
 							) or (
 								self.build.itemsTab.items[itemId].jewelData
-									and self.build.itemsTab.items[itemId].jewelData.impossibleEscapeKeystone ~= nil
-									and self:NodeInKeystoneRadius(self.build.itemsTab.items[itemId].jewelData.impossibleEscapeKeystone, depNode.id, self.build.itemsTab.items[itemId].jewelRadiusIndex)
+									and self.build.itemsTab.items[itemId].jewelData.impossibleEscapeKeystones
+									and self:NodeInKeystoneRadius(self.build.itemsTab.items[itemId].jewelData.impossibleEscapeKeystones, depNode.id, self.build.itemsTab.items[itemId].jewelRadiusIndex)
 							)
 						) then
 							-- Hold off on the pruning; this node could be supported by Intuitive Leap-like jewel
@@ -1552,9 +1552,13 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 	node.modList = modList
 end
 
-function PassiveSpecClass:NodeInKeystoneRadius(keystoneName, nodeId, radiusIndex)
+function PassiveSpecClass:NodeInKeystoneRadius(keystoneNames, nodeId, radiusIndex)
+	ConPrintf("Checking if %s is in keystone range", nodeId)
+	for keystone, _ in pairs(keystoneNames) do
+		ConPrintf("\t%s", keystoneNames)
+	end
 	for _, node in pairs(self.nodes) do
-		if (node.type == "Keystone" and node.name:lower() == keystoneName:lower()) then
+		if (node.type == "Keystone" and keystoneNames[node.name:lower()]) then
 			return node.nodesInRadius[radiusIndex][nodeId] ~= nil
 		end
 	end
