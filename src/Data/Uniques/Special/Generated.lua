@@ -394,22 +394,23 @@ local skinOfTheLords = {
 	"League: Breach",
 	"Source: Upgraded from unique{Skin of the Loyal} using currency{Blessing of Chayula}",
 }
-local excludedKeystones = {
-	"Chaos Inoculation", -- to prevent infinite loop
+local excludedItemKeystones = {
 	"Corrupted Soul", -- exclusive to specific unique
 	"Divine Flesh", -- exclusive to specific unique
 	"Hollow Palm Technique", -- exclusive to specific unique
 	"Immortal Ambition", -- exclusive to specific unique
-	"Necromantic Aegis", -- to prevent infinite loop
 	"Secrets of Suffering", -- exclusive to specific items
+}local excludedPassiveKeystones = {
+	"Chaos Inoculation", -- to prevent infinite loop
+	"Necromantic Aegis", -- to prevent infinite loop
 }
-local keystones = {}
+local skinOfTheLordsKeystones = {}
 for _, name in ipairs(data.keystones) do
-	if not isValueInArray(excludedKeystones, name) then
-		table.insert(keystones, name)
+	if not isValueInArray(excludedItemKeystones, name) and not isValueInArray(excludedPassiveKeystones, name) then
+		table.insert(skinOfTheLordsKeystones, name)
 	end
 end
-for _, name in ipairs(keystones) do
+for _, name in ipairs(skinOfTheLordsKeystones) do
 	table.insert(skinOfTheLords, "Variant: "..name)
 end
 table.insert(skinOfTheLords, "Implicits: 0")
@@ -417,12 +418,18 @@ table.insert(skinOfTheLords, "Sockets cannot be modified")
 table.insert(skinOfTheLords, "+2 to Level of Socketed Gems")
 table.insert(skinOfTheLords, "100% increased Global Defences")
 table.insert(skinOfTheLords, "You can only Socket Corrupted Gems in this item")
-for index, name in ipairs(keystones) do
+for index, name in ipairs(skinOfTheLordsKeystones) do
 	table.insert(skinOfTheLords, "{variant:"..index.."}"..name)
 end
 table.insert(skinOfTheLords, "Corrupted")
 table.insert(data.uniques.generated, table.concat(skinOfTheLords, "\n"))
 
+local impossibleEscapeKeystones = {}
+for _, name in ipairs(data.keystones) do
+	if not isValueInArray(excludedItemKeystones, name) then
+		table.insert(impossibleEscapeKeystones, name)
+	end
+end
 local impossibleEscape= {
     "Impossible Escape",
     "Viridian Jewel",
@@ -431,10 +438,10 @@ local impossibleEscape= {
     "Source: Upgraded from Uber unique{Maven}",
     "Radius: Small"
 }
-for _, name in ipairs(keystones) do
+for _, name in ipairs(impossibleEscapeKeystones) do
     table.insert(impossibleEscape, "Variant: "..name)
 end
-for index, name in ipairs(keystones) do
+for index, name in ipairs(impossibleEscapeKeystones) do
     table.insert(impossibleEscape, "{variant:"..index.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
 end
 table.insert(impossibleEscape, "Corrupted")
