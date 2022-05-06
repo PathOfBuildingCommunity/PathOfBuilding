@@ -695,10 +695,10 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		if node.type ~= "ClassStart" and node.type ~= "Socket" then
 			for nodeId, itemId in pairs(self.jewels) do
 				local item = self.build.itemsTab.items[itemId]
-				if item and item.jewelRadiusIndex then
+				if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData then
 					local radiusIndex = item.jewelRadiusIndex
-					if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
-						if itemId ~= 0 and item.jewelData then
+					if self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
+						if itemId ~= 0 then
 							if item.jewelData.intuitiveLeapLike then
 								-- This node depends on Intuitive Leap-like behaviour
 								-- This flag:
@@ -713,9 +713,10 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						end
 					end
 
-					if self.allocNodes[nodeId] and itemId ~= 0 and item.jewelData and item.jewelData.impossibleEscapeKeystones then
-						for keyId, keyNode in pairs(self.nodes) do
-							if item.jewelData.impossibleEscapeKeystones[keyNode.name:lower()] then
+					if item.jewelData and item.jewelData.impossibleEscapeKeystone then
+						-- ConPrintf("Jewel has IE, check if node in radius")
+						for keyName, keyNode in pairs(self.tree.keystoneMap) do
+							if item.jewelData.impossibleEscapeKeystones[keyName:lower()] and keyNode.nodesInRadius then
 								if keyNode.nodesInRadius[radiusIndex][node.id] then
 									node.dependsOnIntuitiveLeapLike = true
 								end
