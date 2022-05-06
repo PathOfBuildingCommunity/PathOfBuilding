@@ -728,13 +728,15 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						for keystoneName, _ in pairs(jewel.jewelData.impossibleEscapeKeystones) do
 							ConPrintf("%s", keystoneName)
 							local keystone = spec.tree.keystoneMap[keystoneName]
-							innerSize = 150 * scale
-							local keyX, keyY = treeToScreen(keystone.x, keystone.y)
-							SetDrawColor(0.9,0.9,1,0.7)
-							DrawImage(self.jewelShadedOuterRing, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
-							DrawImage(self.jewelShadedOuterRingFlipped, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
-							DrawImage(self.jewelShadedInnerRing, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
-							DrawImage(self.jewelShadedInnerRingFlipped, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
+							if (keystone) then
+								innerSize = 150 * scale
+								local keyX, keyY = treeToScreen(keystone.x, keystone.y)
+								SetDrawColor(0.9,0.9,1,0.7)
+								DrawImage(self.jewelShadedOuterRing, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
+								DrawImage(self.jewelShadedOuterRingFlipped, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
+								DrawImage(self.jewelShadedInnerRing, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
+								DrawImage(self.jewelShadedInnerRingFlipped, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
+							end
 						end
 					elseif jewel.title == "Elegant Hubris" then
 						DrawImage(self.eternal1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)

@@ -423,6 +423,23 @@ end
 table.insert(skinOfTheLords, "Corrupted")
 table.insert(data.uniques.generated, table.concat(skinOfTheLords, "\n"))
 
+local impossibleEscape= {
+    "Impossible Escape",
+    "Viridian Jewel",
+    "League: Sentinel",
+    "Limited to: 1",
+    "Source: Upgraded from Uber unique{Maven}",
+    "Radius: Small"
+}
+for _, name in ipairs(keystones) do
+    table.insert(impossibleEscape, "Variant: "..name)
+end
+for index, name in ipairs(keystones) do
+    table.insert(impossibleEscape, "{variant:"..index.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
+end
+table.insert(impossibleEscape, "Corrupted")
+table.insert(data.uniques.generated, table.concat(impossibleEscape, "\n"))
+
 --[[ 3 scenarios exist for legacy mods
 	- Mod changed, but kept the same mod Id
 		-- Has legacyMod
