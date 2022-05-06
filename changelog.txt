@@ -1,3 +1,253 @@
+VERSION[2.16.0][2022/03/15]
+
+--- Implemented Enhancements ---
+* Updated Exported Data to Patch 3.17.1 (Nostrademous)
+* Add or fix support for many different gems (LocalIdentity, Wires77)
+    * Change Explosive Arrow to use stages
+    * Add support for Brand attachment range buff from Brand Recall
+    * Add support for skill radius increase on Crackling Lance
+    * Add support for Spellslinger less damage multiplier
+    * Add support for flat Mana Cost from Divine Blessing
+    * Add support for Lightning Ailment effect on Vaal Arc
+    * Add support for Divergent Ruthless Support
+    * Add support for Divergent Purifying Flame
+    * Add support for Anomalous Dread Banner
+    * Add support for Anomalous Temporal Rift
+    * Add support for Divergent Explosive Arrow
+    * Fix Combat Rush not providing "More Attack Speed"
+    * Fix Bloodthirst Support calculation at certain life values
+    * Fix Seismic Cry not providing increased AoE to skills
+    * Fix Herald of Thunder not applying the damage or debuff globally
+    * Fix Anomalous Purifying Flame not scaling with consecrated ground effect
+--- User Interface ---
+* Corrected spelling of Effective Hit Pool description (ForgottenHero)
+* Show build name first in window title (Lothrik)
+* Update skill tree to 3.17.2 (LocalIdentity)
+* Move config tab columns vertically when screen width is too low (Wires77)
+* Add support for showing which lines are supported on skills (Wires77)
+--- Accuracy Improvements ---
+* Fix typo in Blackflame ring (Nightblade)
+* Fix missing catalyst on 'Mark of the Elder' ring (Nostrademous)
+* Fix missing duration flag on Flame Surge (Lothrik)
+* Fix Bannerman notable applying attack damage to non-banner auras (Wires77)
+* Fix Dancing Duo Cyclone dealing twice as much damage as it should be (Lexy)
+* Fix Blastchain Mine not applying less damage to all gems (Lilylicious)
+* Fix Kinetic Bolt and Earthquake not fully scaling with Spell Damage/Cast Speed (mthjones)
+* Fix an issue where all skills socketed in Black Zenith would get the damage multiplier (Wires77)
+* Fix Bow Projectile Speed conversion mastery applying to DoT damage (Lilylicious)
+* Fix chilling areas not applying Bonechill (TPlant)
+* Fix quality on Absolution applying to players (Lilylicious)
+* Fix missing spell flag on triggered spells from Atziri's Rule (Lothrik)
+* Remove Royale mods from crafting dropdowns (Wires77)
+* Fix Advanced Traps quality not increasing damage (Lilylicious)
+* Fix an issue where Secrets of Suffering wasn't applying (Wires77)
+* Fix Battlemage's Cry not applying spell damage to attacks (Wires77)
+* Fix parsing of Soul of Abberath self Ignite duration (LocalIdentity)
+* Fix Challenger Charges erroneously affecting Cast Speed (LocalIdentity)
+* Apply global limit to Expansive Might notable (Lothrik)
+--- Fixed Bugs ---
+* Fix error when comparing passive tree skill nodes (Lothrik)
+* Fix two errors related to equipped items (Lothrik)
+* Fix crash caused by Mortal Conviction still appearing on some uniques (Wires77)
+* Display session ID box when 401 error is encountered on Import (Wires77)
+* Fix Ensnare stacks not showing for Ensnaring Arrow (Wires77)
+--- Other changes ---
+* Prevent saving default settings to XML (Lothrik)
+
+VERSION[2.15.1][2022/02/13]
+
+--- Fixed Bugs ---
+* Fix Forbidden Flame / Flesh not working with Scion (Nostrademous)
+
+VERSION[2.15.0][2022/02/12]
+
+--- Implemented Enhancements ---
+* Add / updated all new league uniques (LocalIdentity)
+* Add support for Delirium effect scaling (LocalIdentity)
+* Add support for Elementalist's Primal Aegis (Wires77)
+* Add support to show Life Recoverable when Life is reserved (Regisle)
+* Add support for 2 new cluster jewel mods added in 3.17 (LocalIdentity)
+
+--- User Interface ---
+* Add colours to the sidebar, config page, and calcs page (LocalIdentity)
+* Add option to hide Warnings (Nightblade)
+* Add configuration option for IPv4/IPv6 connections (Lothrik)
+* Improved formatting for eHP calc sections (Regisle)
+
+--- New Calculations ---
+* Add support for Holy Relic Nova trigger rate (Solofme)
+
+--- Accuracy Improvements ---
+* Fix Rigwald's Curse mod parsing (LocalIdentity)
+* Fix uniques that used old Blood Magic wording (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix crash when activating Energy Blade buff (Nostrademous)
+* Fix Dancing Dervish not working (LocalIdentity)
+* Fix issue where General's Cry would set attack rate to 1 for certain skills (Sour)
+* Fix issue when importing Forbidden Flame/Flesh (Nostrademous)
+* Fix for culling strike on mirages adding extra damage (Nostrademous)
+* Fix an issue where degens were not working with Mind Over Matter (Regisle)
+* Fix issue where certain modifiers weren't being converted properly (e.g. Battlemage) (Wires77)
+* Fix an issue where the chance to inflict an ailment on a critical strike could be lower than on a non-crit for alternate ailments (Wires77)
+
+--- Misc ---
+* Update display screenshots on GitHub (Nightblade)
+
+VERSION[2.14.0][2022/02/05]
+
+--- Implemented Enhancements ---
+* Add 3.17 skill tree (dbjorge)
+* Update uniques with changes from 3.17 patch notes (ifnjeff)
+* Add support to enable stages for multi-part skills at a per-part level (Nostrademous)
+* Add support to show stat difference on anointed nodes (KillerMZE)
+* Add support for Bow Mastery and Arcing Shot Notable (Peechey)
+* Add support for new bow mastery mods (madinsane)
+* Add Support for Elusive Claw Mastery modifier (Nostrademous)
+* Add "Cursed Enemies are Hindered" Mastery (Lothrik)
+* Add support for Energy Blade (PJacek)
+* Add support for several spectres: Arena Master, Ruins Hellion (partial), Trial Windchaser, Aurid Synthete, Ancient Wraith, They of Tul, Ancient Suffering, Merveil's Retainer, Primal Crushclaw, and Primal Rhex Matriarch (Lothrik)
+* Add support for new Precision Technique Keystone (Nostrademous)
+* Add support for new wording on War Bringer Keystone (madinsane)
+* Add support for Master of Fear Notable (LocalIdentity)
+* Add support for Adder's Touch Notable (Nostrademous)
+* Add support for Champion's Inspirational Banner Life Regen (mthjones)
+* Add support for Brand Attachment Range (Lothrik)
+* Add support for Lifetap's "20% increased Life Recovery from Flasks" modifier (Lothrik)
+* Add support for Anomalous Vitality (Lothrik)
+* Add support for Melding of the Flesh (Lexy)
+* Add support for Leadership Price's conflux mod (PJacek)
+* Add support for new "for spell damage" tree mod (Lothrik)
+* Add support for Strength of Blood less damage taken (deathbeam)
+* Add support for Elemental Hit area component (Lothrik)
+* Add support for Cluster Jewel Corruptions (randomflyingtaco)
+* Add Polaric Devastation ring (Nostrademous)
+* Add race event uniques (pHiney)
+* Add support for Black Zenith, The Gluttonous Tide, and Divine Inferno (Wires77)
+* Add support for Crystallised Omniscience (Lexy)
+* Add support for Atziri's Rule (Nostrademous)
+* Add support for Amanamu's Gaze, Kurgal's Gaze, and Tecrod's Gaze (Lothrik)
+* Add support for several veiled uniques: Paradoxica, Replica Paradoxica, Cane of Kulemak, and The Queen's Hunger (Prismateria)
+* Add support for Mageblood (Nostrademous)
+* Add support for Forbidden Flesh and Flame (Nostrademous)
+* Add support for Willowgift (randomflyingtaco)
+* Add partial support for Fleshcrafter (PJacek)
+
+--- User Interface ---
+* Add QoL improvements for import tab (Dullson, Peechey)
+* Add pobb.in to import website list (Dav1dde)
+* Add poe.ninja/pob to import website list (rasmuskl)
+* Add support to import build codes from poe.ninja and pobb.in (Wires77)
+* Add support to export a build to pobb.in (Peechey)
+* Add Ctrl+I hotkey to import build code (pHiney)
+* Add feature to remember your last used export site in settings (Dav1dde)
+* Delete jewels, skills, and equipment by default on character import (raylu)
+* Remove trailing and leading spaces from the character name when importing (pHiney)
+* Relabel character import "Done" button to "Close"  (raylu)
+* Add ability to search skills using multiple tags (pHiney)
+* Add feature to match gem level to character level (Lothrik)
+* Add ability to show DPS for non-cooldown traps and mines (Lothrik)
+* Add 'Delete Unused' button on the items tab (pHiney, Lothrik)
+* Add E hotkey to edit equipped item (pHiney)
+* Move delve mods to "Add modifier..." menu while crafting items (Tom Clancy Is Dead)
+* Add more explanation to non-damaging ailment breakdown (Lilylicious)
+* Add support to maximum animated weapon from gem level instead of configuration (Wires77)
+* Add config options for self-chill builds (Lilylicious)
+* Update dropdowns to dynamically resize based on their content (pHiney)
+* Add Armour and Evasion sorting to the tree and uniques tab (Lexy)
+* Add Mastery tooltip for an unallocated node when comparing trees (pHiney)
+* Add improvements to multiple passive tree jewel socket management (Lothrik)
+- Update tree images to use the latest colours (LocalIdentity)
+* Fix Passive Tree Management Titles (pHiney)
+
+--- New Calculations ---
+* Implement Effective HP and overhaul defence calculations to be more accurate (Regisle)
+* Overhaul non-damaging elemental ailment calculations (PJacek)
+* Overhaul Bleed/Ignite Ailment calculation to use weighted average (Nostrademous)
+* Add support for ongoing costs of skills (PJacek)
+* Add support for new mod conversion modifiers (PJacek)
+* Add support to round Duration of Skills to server ticks (LocalIdentity)
+* Add support for triple Elemental Damage (Nostrademous)
+* Add support for additional life recovery flask mods (Peechey)
+* Add support for full Ball Lightning damage calculations (MoldyDwarf)
+* Add support for Global buffs/debuffs from Spectres (Lothrik)
+* Add support for flask charge generation and uptime (deathbeam)
+* Add full support for curse priority (Lothrik)
+
+--- Accuracy Improvements ---
+* Add warnings when the build is impossible in-game (KillerMZE)
+* Add feature to guess the main socket group when importing a character (raylu)
+* Add missing mods to Armour and Evasion breakdown (LocalIdentity)
+* Add missing Fate/Story of the Vaal modifiers (Lothrik)
+* Add missing Bone Offering quality effect (Lothrik)
+* Add cap to Explosive Arrow Bonus Explosion Radius (Lothrik)
+* Update Chaos Resistance roll on unique rings with 3.17 values (facepalmgamer)
+* Update ignite value from 125% to 90% due to 3.17 changes (JustinmClapperton)
+* Update Crimson Storm changes (lpolaright)
+* Update Whispering Ice and its trigger conditions (Nostrademous)
+* Update Kraityn's bandit rewards based on 3.16 values (Prismateria)
+- Update Kingmaker with 3.16 changes (Wires77)
+* Update Blightwell and Solstice Vigil to 3.16.0 (Lothrik)
+* Update Saqawals Flock to 3.16 values (Lexy)
+* Update Survival Jewels to 3.16.0 (Lothrik)
+* Update skill cooldown to display in milliseconds (LocalIdentity)
+* Update Brass Dome to 3.16 values (olop4444, Lilylicious)
+* Update wording for several "On Kill" modifiers (facepalmgamer)
+* Remove minion cast speed from Ancient Skull (Lothrik)
+* Improve damage calculation for General's Cry (Helyos96)
+* Fix Viper Strike Poison Stacks when Dual Wielding (Nostrademous)
+* Fix Charged Dash DPS calculations (VaticViolet)
+* Fix Divergent Blood Rage not applying life leech (Prismateria)
+* Fix Fortify parsing on Legacy items (Wires77)
+* Fix incorrect modifiers on Survivor's Guilt (Nostrademous)
+* Fix Two-Toned boots getting the wrong base type (Wires77)
+* Fix skills from items incorrectly getting +1 level from Awakened gems (Wires77)
+* Various fixes for Beacon of Madness boots (mthjones)
+* Fix missing implicit on Sidhebreath (Lothrik)
+* Fix incorrect reservation on some legacy builds (Lothrik)
+* Fix The Admiral to use the correct "elemental damage taken" value  (Lothrik)
+* Fix Transcendent Flesh values not matching in game values when rounding (Wires77)
+* Fix Phantasmal Sigil of Power spell damage buff not applying (LocalIdentity)
+* Fix bleed damage against poisoned enemy mastery (Peechey)
+* Fix rounding on gear base percentiles (Wires77)
+* Fix Increased Wither Effect to not affect minions (Nostrademous)
+* Fix Awakened Elemental Focus not granting +1 level to Elemental Gems (Nostrademous)
+* Fix Enemy Physical Damage Reduction not being capped at 90% in all circumstances (Nostrademous, madinsane)
+* Fix parsing for "chance to defend with X% armour" (Nostrademous)
+* Fix Rage Support disabling Ancestral Totems buff (Lothrik)
+* Fix Elementalist exposure node not working with exposure mastery (LocalIdentity)
+* Fix Summon Raging Spirit to have 100% fire conversion (Kayella)
+* Fix trigger rate for skills with overridden cooldowns (Nostrademous)
+* Fix incorrect Elusive Buff effect from skills when using Withering Step (Nostrademous)
+* Fix an issue where some extra stats were showing when copying from trade (Nostrademous)
+* Fix an issue when copying magic Two-Toned Boots from trade (Wires77)
+* Fix an issue where culling DPS wasn't factored in for Full DPS totals (Nostrademous)
+* Fix triggering skill not properly selected when trigger support came from an item (Nostrademous)
+* Fix issue where Soul of Solaris was not displaying the "Nearby Enemies" config option (Lothrik)
+* Fix issues when parsing Inspired Learning and Pure Talent (Nostrademous)
+* Fix various errors when generating a Power Report (Nostrademous)
+* Fix Battlemage not applying the correct conversion in some cases (Wires77)
+* Fix issue where 'defend with % armour' mastery affected total armour value (LocalIdentity)
+* Fix issue where Vaal Blade Vortex hit rate was too high (Sakux323)
+* Fix error when using culling on Mirage Archer, calculating full DPS (Nostrademous)
+* Fix parsing for several Projectile Attack modifiers (Lothrik)
+* Fix parsing for Darkness Enthroned (Wires77)
+* Fix parsing for Marauder's modifier on Pure Talent (pHiney)
+* Fix parsing for "charges used" modifiers on flasks (LocalIdentity)
+* Fix 'inflicted with this weapon' parsing (Nostrademous)
+
+--- Fixed Bugs ---
+* Fix crash caused at certain zoom levels of the passive tree (pHiney)
+* Fix crash with FullDPS and disabled socket groups (Nostrademous)
+* Fix Poet's Pen dps calcs not working (wrzoski)
+* Fix error related to gem recommendations and Full DPS (Nostrademous)
+* Fix infinite reservation error with Relic of the Pact (Lothrik)
+* Fix a bug where maximum Life could be negative (Lothrik)
+* Fix issue when saving a converted passive tree (Lothrik)
+
+--- Misc ---
+* Add FullDPS breakdown into XML Build Save file (Nostrademous)
+
 VERSION[2.13.0][2021/11/02]
 
 * Add Ravenous Misshapen Spectre (LocalIdentity)
@@ -100,7 +350,7 @@ VERSION[2.11.0][2021/10/22]
 * Add support for Double Damage mod on Mace masteries (uilman)
 * Add support for Surveillence notable (Lothrik)
 * Add support for Recovering ES on Spell Block from Safeguard (jppianta)
-* Add suporrt for new Storm Weaver Shocked/Frozen mod (Quote_a)
+* Add support for new Storm Weaver Shocked/Frozen mod (Quote_a)
 * Add support for "All Damage with Maces and Sceptres inflicts Chill" (Peechey)
 * Add support for "Increased Melee Damage with Hits at Close Range" (Dullson)
 * Add support for "Each Mine applies 2% increased Damage taken to Enemies near it, up to 10%" (Lothrik)
@@ -390,7 +640,7 @@ VERSION[2.2.0][2021/04/17]
 * Add support for new Skill Costs (Life / Mana / Rage) (PJacek)
 
 * Fix non-integer catalyst scaling issues (Wires77)
-* Fix Victarios Influence using old mods(pundm)
+* Fix Victario's Influence using old mods(pundm)
 * Fix Tailwind not appearing on Passive Tree (Helyos96)
 * Fixes Bow DoT Skills double-dipping on nodes that grant a Dot & Hit (Nostrademous)
 
@@ -421,7 +671,7 @@ VERSION[2.1.0][2021/04/15]
 * Fix DD and VD having their spell damage apply to corpse explosions
 * Fix some gems appearing in the gem list when they shouldn't have (Wires77)
 * Fix physical damage reduction for bleed from going below zero (Wires77)
-* Fix outdated modifier text on Aberrath's Hooves (pundm)
+* Fix outdated modifier text on Abberath's Hooves (pundm)
 * Fix many crashes related to Generals Cry and The Saviour (Nostrademous)
 * Fix Mirage Archer to be a component of the skill it supports now (Nostrademous)
 * Fix crash related to Brands with Item-granted Active Skills (Nostrademous)
@@ -1009,7 +1259,7 @@ VERSION[1.4.170.1][2020/06/22]
    * Shows detailed breakdowns for defences
    * Includes effective hit points against hits and DoTs for each element
    * And much more
- * Add UI for annointing amulets
+ * Add UI for anointing amulets
  * Add dropdown to select dps field for sorting support gems
  * Add prefix/suffix tag for crafting options
  * Add support for Scorch, Brittle, and Sap
@@ -1154,7 +1404,7 @@ VERSION[1.4.162.1][2020/03/15]
  * Add Perforate DPS calculations in Blood Stance
  * Update elusive values to 3.10
  * Update temple jewels to their 3.10 variants
- * Fix Rigwalds Curse with 3.10 passive tree nodes
+ * Fix Rigwald's Curse with 3.10 passive tree nodes
  * Fix typo in Ascendant Deadeye/Longshot notable
  * Fix parsing of mods applied to spell skills
  * Fix Slayer Impact node calculation

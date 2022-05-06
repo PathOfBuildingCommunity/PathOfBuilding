@@ -1383,7 +1383,7 @@ return {
 		},
 		[39]={
 			list=true,
-			name="Stats",
+			name="Stats2",
 			refTo="Stats",
 			type="Key",
 			width=250
@@ -3154,6 +3154,34 @@ return {
 			refTo="",
 			type="String",
 			width=150
+		},
+		[3]={
+			list=false,
+			name="LocalLevelStat",
+			refTo="Stats",
+			type="Key",
+			width=270
+		},
+		[4]={
+			list=false,
+			name="LocalQualityStat",
+			refTo="Stats",
+			type="Key",
+			width=290
+		},
+		[5]={
+			list=false,
+			name="GlobalSpellLevelStat",
+			refTo="Stats",
+			type="Key",
+			width=230
+		},
+		[6]={
+			list=false,
+			name="GlobalSkillLevelStat",
+			refTo="Stats",
+			type="Key",
+			width=190
 		}
 	},
 	GemTypes={

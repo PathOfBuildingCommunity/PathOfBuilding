@@ -28,6 +28,18 @@ Requires Level 63, 100 Str
 +(60-75) to maximum Life
 You have Perfect Agony if you've dealt a Critical Strike recently
 ]],[[
+Ceaseless Feast
+Spiked Gloves
+Source: Drops from unique{The Infinite Hunger}
+Requires Level 70, 95 Str
+Implicits: 1
+(16–20)% increased Melee Damage
+Adds (2–3) to (22–26) Physical Damage to Attacks
+(100–150)% increased Armour
+(20–30)% chance to inflict Corrosion on Hit with Attacks
+(20–30)% chance to gain an Endurance Charge on Hitting an Enemy with no Armour
+(20–30)% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating
+]],[[
 Craiceann's Pincers
 Titan Gauntlets
 League: Bestiary
@@ -154,7 +166,6 @@ Adds (8-12) to (15-20) Physical Damage to Attacks
 ]],[[
 Hrimsorrow
 Goathide Gloves
-Upgrade: Upgrades to unique{Hrimburn} via prophecy{Fire and Ice}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 9, 17 Dex
@@ -170,7 +181,7 @@ Reflects 10 Cold Damage to Melee Attackers
 ]],[[
 Hrimburn
 Goathide Gloves
-Source: Upgraded from unique{Hrimsorrow} via prophecy{Fire and Ice}
+Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24, 17 Dex
@@ -279,6 +290,19 @@ Requires Level 25, 39 Int
 {variant:3}Enemies killed near Corpses affected by your Curses explode, dealing
 {variant:3}3% of their Life as Physical Damage
 ]],[[
+Black Zenith
+Fingerless Silk Gloves
+Source: Drops from unique{The Black Star}
+Requires Level 70, 95 Int
+Implicits: 1
+(12-16)% increased Spell Damage
+Socketed Projectile Spells deal 150% more Damage with Hits
+Socketed Projectile Spells have +4 seconds to Cooldown
+Socketed Projectile Spells fire 4 additional Projectiles
+Socketed Projectile Spells fire Projectiles in a circle
+Socketed Projectile Spells have 80% less Skill Effect Duration
+(140-180)% increased Energy Shield
+]],[[
 Demon Stitcher
 Satin Gloves
 League: Delve
@@ -290,7 +314,6 @@ Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
 ]],[[
 Doedre's Tenure
 Velvet Gloves
-Upgrade: Upgrades to unique{Doedre's Malevolence} via prophecy{The Malevolent Witch}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 12, 21 Int
@@ -305,7 +328,7 @@ Requires Level 12, 21 Int
 ]],[[
 Doedre's Malevolence
 Velvet Gloves
-Source: Upgraded from unique{Doedre's Tenure} via prophecy{The Malevolent Witch}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 21 Int
@@ -319,7 +342,6 @@ Adds (48-56) to (73-84) Chaos Damage to Spells
 ]],[[
 Grip of the Council
 Arcanist Gloves
-Source: prophecy{The Unbreathing Queen V}
 Requires Level 60, 95 Int
 +30 to Strength
 +(30-50) to maximum Life
@@ -384,7 +406,7 @@ Requires Level 55, 79 Int
 {variant:3,4}(180-250)% increased Energy Shield
 {variant:1}80% increased Mana Cost of Skills
 {variant:2,3}(40-80)% increased Mana Cost of Skills
-{variant:4}+(40-80) to Total Mana Cost of Skills
+{variant:4}Lose (40-80) Mana when you use a Skill
 +(15-20) Energy Shield gained on Kill
 ]],
 -- Gloves: Armour/Evasion
@@ -428,7 +450,7 @@ Requires Level 15
 (6-9)% increased Attack Speed
 (80-120)% increased Armour and Evasion
 (3-4) Life Regenerated per second
-Recover 20% of your Maximum Life on Rampage
+Recover 20% of Life on Rampage
 Kills grant an additional Vaal Soul if you have Rampaged Recently
 Rampage
 ]],[[
@@ -664,7 +686,6 @@ Minions have (5-10)% chance to Freeze, Shock and Ignite
 ]],[[
 Volkuur's Guidance
 Zealot Gloves
-Source: Drops from The Pale Council
 Variant: Fire
 Variant: Cold
 Variant: Lightning
@@ -756,7 +777,7 @@ Requires Level 45, 35 Dex, 35 Int
 +(30-40) to Dexterity
 (200-250)% increased Evasion and Energy Shield
 (20-30)% reduced Trap Throwing Speed
-Skills which throw Traps have Blood Magic
+Skills which throw Traps Cost Life instead of Mana
 Skills used by Traps have (10-20)% increased Area of Effect
 Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
 10% chance to gain an Endurance, Frenzy or Power Charge when any of your Traps is Triggered by an Enemy

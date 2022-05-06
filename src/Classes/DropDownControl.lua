@@ -65,7 +65,7 @@ function DropDownClass:DropIndexToListIndex(dropIndex)
 	end
 end
 
--- maps the the original (unfiltered) list index to the actual dropdown row index (after eventual filtering)
+-- maps the original (unfiltered) list index to the actual dropdown row index (after eventual filtering)
 function DropDownClass:ListIndexToDropIndex(listIndex, default)
 	-- 1:1
 	if not self:IsSearchActive() then

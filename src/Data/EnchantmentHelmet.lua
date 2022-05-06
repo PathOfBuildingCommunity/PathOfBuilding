@@ -156,11 +156,9 @@ return {
 	["Assassin's Mark"] = {
 		["MERCILESS"] = {
 			"20% increased Assassin's Mark Curse Effect",
-			"30% increased Assassin's Mark Duration",
 		},
 		["ENDGAME"] = {
 			"30% increased Assassin's Mark Curse Effect",
-			"45% increased Assassin's Mark Duration",
 		},
 	},
 	["Ball Lightning"] = {
@@ -1706,13 +1704,13 @@ return {
 	},
 	["Orb of Storms"] = {
 		["MERCILESS"] = {
-			"25% increased Orb of Storms Damage",
+			"Orb of Storms deals 25% increased Damage",
 			"Orb of Storms has 20% increased Cast Speed",
 			"60% increased Orb of Storms Critical Strike Chance",
 			"16% increased Orb of Storms Area of Effect",
 		},
 		["ENDGAME"] = {
-			"40% increased Orb of Storms Damage",
+			"Orb of Storms deals 40% increased Damage",
 			"Orb of Storms has 30% increased Cast Speed",
 			"90% increased Orb of Storms Critical Strike Chance",
 			"24% increased Orb of Storms Area of Effect",
@@ -1785,11 +1783,9 @@ return {
 	["Poacher's Mark"] = {
 		["MERCILESS"] = {
 			"20% increased Poacher's Mark Curse Effect",
-			"30% increased Poacher's Mark Duration",
 		},
 		["ENDGAME"] = {
 			"30% increased Poacher's Mark Curse Effect",
-			"45% increased Poacher's Mark Duration",
 		},
 	},
 	["Poisonous Concoction"] = {
@@ -2237,11 +2233,9 @@ return {
 	["Sniper's Mark"] = {
 		["MERCILESS"] = {
 			"Sniper's Mark has 20% increased Curse Effect",
-			"Sniper's Mark has 30% increased Duration",
 		},
 		["ENDGAME"] = {
 			"Sniper's Mark has 30% increased Curse Effect",
-			"Sniper's Mark has 45% increased Duration",
 		},
 	},
 	["Soul Link"] = {
@@ -2476,12 +2470,12 @@ return {
 	["Summon Flame Golem"] = {
 		["MERCILESS"] = {
 			"Flame Golems have 25% increased Damage",
-			"+24% to increased Flame Golem Elemental Resistances",
+			"+24% increased Flame Golem Elemental Resistances",
 			"100% increased Effect of the Buff granted by your Flame Golems",
 		},
 		["ENDGAME"] = {
 			"Flame Golems have 40% increased Damage",
-			"+36% to increased Flame Golem Elemental Resistances",
+			"+36% increased Flame Golem Elemental Resistances",
 			"150% increased Effect of the Buff granted by your Flame Golems",
 		},
 	},
@@ -2824,11 +2818,9 @@ return {
 	["Warlord's Mark"] = {
 		["MERCILESS"] = {
 			"20% increased Warlord's Mark Curse Effect",
-			"30% increased Warlord's Mark Duration",
 		},
 		["ENDGAME"] = {
 			"30% increased Warlord's Mark Curse Effect",
-			"45% increased Warlord's Mark Duration",
 		},
 	},
 	["Wave of Conviction"] = {

@@ -323,12 +323,12 @@ skills["SupportBehead"] = {
 }
 skills["SupportBloodMagic"] = {
 	name = "Arrogance",
-	description = "Supports any skill with a reservation.",
+	description = "Supports any non-blessing skill with a reservation.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.HasReservation, },
 	addSkillTypes = { },
-	excludeSkillTypes = { },
+	excludeSkillTypes = { SkillType.Blessing, },
 	statDescriptionScope = "gem_stat_descriptions",
 	baseMods = {
 	},
@@ -406,10 +406,12 @@ skills["SupportBloodthirst"] = {
 		["support_blood_thirst_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["blood_price_gain_%_maximum_life_as_added_physical_damage_with_weapons_while_on_low_life"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Weapon, 0, { type = "PercentStat", stat = "Life", percent = 1 }, { type = "Condition", var = "LowLife"}),
+			mod("PhysicalMax", "BASE", nil, ModFlag.Weapon, 0, { type = "PercentStat", stat = "Life", percent = 1 }, { type = "Condition", var = "LowLife"}),
+		},
 	},
 	baseMods = {
-		mod("PhysicalMin", "BASE", 1, ModFlag.Weapon, 0, { type = "PerStat", stat = "Life", div = 50 }, { type = "Condition", var = "LowLife"}),
-		mod("PhysicalMax", "BASE", 1, ModFlag.Weapon, 0, { type = "PerStat", stat = "Life", div = 50 }, { type = "Condition", var = "LowLife"}),
 	},
 	qualityStats = {
 		Default = {
@@ -801,6 +803,10 @@ skills["SupportCastOnMeleeKill"] = {
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_cast_on_melee_kill_spell_damage_+%_final"] = {
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -1177,9 +1183,13 @@ skills["SupportCruelty"] = {
 		["support_cruelty_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
+		["cruelty_effect_+%"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" }),
+			div = 100,
+			base = 1,
+		},
 	},
 	baseMods = {
-		mod("Damage", "MORE", 1, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" }),
 		flag("Cruelty"),
 	},
 	qualityStats = {
@@ -1314,6 +1324,87 @@ skills["SupportMeleeDamageOnFullLife"] = {
 		[38] = { 44, manaMultiplier = 30, levelRequirement = 98, statInterpolation = { 1, }, cost = { }, },
 		[39] = { 45, manaMultiplier = 30, levelRequirement = 99, statInterpolation = { 1, }, cost = { }, },
 		[40] = { 45, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
+	},
+}
+skills["SupportAuraDuration"] = {
+	name = "Divine Blessing",
+	description = "Supports aura skills that create permanent auras around you, changing their reservation to a cost and making them temporary. Cannot support banner or stance skills.",
+	color = 1,
+	support = true,
+	requireSkillTypes = { SkillType.CanHaveBlessing, },
+	addSkillTypes = { SkillType.Duration, SkillType.Blessing, SkillType.ReservationBecomesCost, },
+	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, },
+	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_aura_duration_base_buff_duration"] = {
+			skill("auraDuration", nil),
+			div = 1000,
+		},
+		["base_mana_cost_+"] = {
+			mod("ManaCost", "BASE", nil),
+		},
+	},
+	baseMods = {
+	},
+	qualityStats = {
+		Default = {
+			{ "aura_effect_+%", 0.25 },
+		},
+		Alternate1 = {
+			{ "skill_effect_duration_+%", 0.5 },
+		},
+		Alternate2 = {
+			{ "base_mana_cost_-%", 0.25 },
+		},
+	},
+	stats = {
+		"support_aura_duration_base_buff_duration",
+		"aura_effect_+%",
+		"base_spell_cast_time_ms_override",
+		"base_mana_cost_+",
+		"skill_is_blessing_skill",
+	},
+	levels = {
+		[1] = { 9000, 0, 500, 90, levelRequirement = 31, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 9100, 1, 500, 101, levelRequirement = 34, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 9200, 2, 500, 108, levelRequirement = 36, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[4] = { 9300, 3, 500, 115, levelRequirement = 38, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[5] = { 9400, 4, 500, 121, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[6] = { 9500, 5, 500, 128, levelRequirement = 42, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[7] = { 9600, 6, 500, 135, levelRequirement = 44, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[8] = { 9700, 7, 500, 141, levelRequirement = 46, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[9] = { 9800, 8, 500, 148, levelRequirement = 48, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[10] = { 9900, 9, 500, 155, levelRequirement = 50, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[11] = { 10000, 10, 500, 163, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[12] = { 10100, 11, 500, 169, levelRequirement = 54, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[13] = { 10200, 12, 500, 176, levelRequirement = 56, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[14] = { 10300, 13, 500, 184, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[15] = { 10400, 14, 500, 189, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[16] = { 10500, 15, 500, 198, levelRequirement = 62, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[17] = { 10600, 16, 500, 205, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[18] = { 10700, 17, 500, 209, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[19] = { 10800, 18, 500, 220, levelRequirement = 68, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[20] = { 10900, 19, 500, 233, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[21] = { 11000, 20, 500, 244, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[22] = { 11100, 21, 500, 253, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[23] = { 11200, 22, 500, 260, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[24] = { 11300, 23, 500, 269, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[25] = { 11400, 24, 500, 278, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[26] = { 11500, 25, 500, 285, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[27] = { 11600, 26, 500, 294, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[28] = { 11700, 27, 500, 303, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[29] = { 11800, 28, 500, 310, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[30] = { 11900, 29, 500, 319, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[31] = { 11950, 29, 500, 338, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[32] = { 12000, 30, 500, 348, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[33] = { 12050, 30, 500, 358, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[34] = { 12100, 31, 500, 368, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[35] = { 12150, 31, 500, 379, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[36] = { 12200, 32, 500, 389, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[37] = { 12250, 32, 500, 399, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[38] = { 12300, 33, 500, 409, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[39] = { 12350, 33, 500, 419, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
+		[40] = { 12400, 34, 500, 429, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["SupportEarthbreaker"] = {
@@ -1646,6 +1737,86 @@ skills["EnduranceChargeOnMeleeStun"] = {
 		[38] = { 33, 4, manaMultiplier = 20, levelRequirement = 98, statInterpolation = { 1, 1, }, cost = { }, },
 		[39] = { 33, 4, manaMultiplier = 20, levelRequirement = 99, statInterpolation = { 1, 1, }, cost = { }, },
 		[40] = { 34, 4, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, 1, }, cost = { }, },
+	},
+}
+skills["SupportMortalConviction"] = {
+	name = "Eternal Blessing",
+	description = "Supports aura skills that reserve life or mana to create auras around you.",
+	color = 1,
+	support = true,
+	requireSkillTypes = { SkillType.Aura, SkillType.HasReservation, SkillType.AND, },
+	addSkillTypes = { SkillType.Blessing, },
+	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.AuraNotOnCaster, SkillType.ZeroReservation, },
+	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["base_skill_no_reservation"] = {
+		},
+	},
+	baseMods = {
+		skill("manaReservationFlat", 0),
+		skill("lifeReservationFlat", 0),
+		skill("manaReservationPercent", 0),
+		skill("lifeReservationPercent", 0),
+	},
+	qualityStats = {
+		Default = {
+			{ "aura_effect_+%", 0.25 },
+		},
+		Alternate1 = {
+			{ "base_skill_area_of_effect_+%", 1 },
+		},
+		Alternate2 = {
+			{ "base_skill_area_of_effect_+%", -1 },
+			{ "non_curse_aura_effect_+%", 0.5 },
+		},
+	},
+	stats = {
+		"aura_effect_+%",
+		"skill_aura_also_disables_non_blessing_mana_reservation_skills",
+		"skill_is_blessing_skill",
+		"base_skill_no_reservation",
+	},
+	levels = {
+		[1] = { -19, levelRequirement = 38, statInterpolation = { 1, }, cost = { }, },
+		[2] = { -18, levelRequirement = 40, statInterpolation = { 1, }, cost = { }, },
+		[3] = { -17, levelRequirement = 42, statInterpolation = { 1, }, cost = { }, },
+		[4] = { -16, levelRequirement = 44, statInterpolation = { 1, }, cost = { }, },
+		[5] = { -15, levelRequirement = 46, statInterpolation = { 1, }, cost = { }, },
+		[6] = { -14, levelRequirement = 48, statInterpolation = { 1, }, cost = { }, },
+		[7] = { -13, levelRequirement = 50, statInterpolation = { 1, }, cost = { }, },
+		[8] = { -12, levelRequirement = 52, statInterpolation = { 1, }, cost = { }, },
+		[9] = { -11, levelRequirement = 54, statInterpolation = { 1, }, cost = { }, },
+		[10] = { -10, levelRequirement = 56, statInterpolation = { 1, }, cost = { }, },
+		[11] = { -9, levelRequirement = 58, statInterpolation = { 1, }, cost = { }, },
+		[12] = { -8, levelRequirement = 60, statInterpolation = { 1, }, cost = { }, },
+		[13] = { -7, levelRequirement = 62, statInterpolation = { 1, }, cost = { }, },
+		[14] = { -6, levelRequirement = 64, statInterpolation = { 1, }, cost = { }, },
+		[15] = { -5, levelRequirement = 65, statInterpolation = { 1, }, cost = { }, },
+		[16] = { -4, levelRequirement = 66, statInterpolation = { 1, }, cost = { }, },
+		[17] = { -3, levelRequirement = 67, statInterpolation = { 1, }, cost = { }, },
+		[18] = { -2, levelRequirement = 68, statInterpolation = { 1, }, cost = { }, },
+		[19] = { -1, levelRequirement = 69, statInterpolation = { 1, }, cost = { }, },
+		[20] = { 0, levelRequirement = 70, statInterpolation = { 1, }, cost = { }, },
+		[21] = { 1, levelRequirement = 72, statInterpolation = { 1, }, cost = { }, },
+		[22] = { 2, levelRequirement = 74, statInterpolation = { 1, }, cost = { }, },
+		[23] = { 3, levelRequirement = 76, statInterpolation = { 1, }, cost = { }, },
+		[24] = { 4, levelRequirement = 78, statInterpolation = { 1, }, cost = { }, },
+		[25] = { 5, levelRequirement = 80, statInterpolation = { 1, }, cost = { }, },
+		[26] = { 6, levelRequirement = 82, statInterpolation = { 1, }, cost = { }, },
+		[27] = { 7, levelRequirement = 84, statInterpolation = { 1, }, cost = { }, },
+		[28] = { 8, levelRequirement = 86, statInterpolation = { 1, }, cost = { }, },
+		[29] = { 9, levelRequirement = 88, statInterpolation = { 1, }, cost = { }, },
+		[30] = { 10, levelRequirement = 90, statInterpolation = { 1, }, cost = { }, },
+		[31] = { 10, levelRequirement = 91, statInterpolation = { 1, }, cost = { }, },
+		[32] = { 11, levelRequirement = 92, statInterpolation = { 1, }, cost = { }, },
+		[33] = { 11, levelRequirement = 93, statInterpolation = { 1, }, cost = { }, },
+		[34] = { 12, levelRequirement = 94, statInterpolation = { 1, }, cost = { }, },
+		[35] = { 12, levelRequirement = 95, statInterpolation = { 1, }, cost = { }, },
+		[36] = { 13, levelRequirement = 96, statInterpolation = { 1, }, cost = { }, },
+		[37] = { 13, levelRequirement = 97, statInterpolation = { 1, }, cost = { }, },
+		[38] = { 14, levelRequirement = 98, statInterpolation = { 1, }, cost = { }, },
+		[39] = { 14, levelRequirement = 99, statInterpolation = { 1, }, cost = { }, },
+		[40] = { 15, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["SupportFirePenetration"] = {
@@ -3054,6 +3225,8 @@ skills["SupportMultistrike"] = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["multistrike_damage_+%_final_on_second_repeat"] = {
+		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
@@ -3141,6 +3314,10 @@ skills["SupportMultistrikePlus"] = {
 	plusVersionOf = "SupportMultistrike",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
+		["multistrike_damage_+%_final_on_first_repeat"] = {
+		},
+		["multistrike_damage_+%_final_on_second_repeat"] = {
+		},
 		["multistrike_damage_+%_final_on_third_repeat"] = {
 			mod("Damage", "MORE", nil),
 			div = 2,
@@ -3633,7 +3810,10 @@ skills["SupportRuthless"] = {
 			mod("RuthlessBlowMaxCount", "BASE", nil),
 		},
 		["support_ruthless_big_hit_damage_+%_final"] = {
-			mod("RuthlessBlowMultiplier", "BASE", nil, ModFlag.Melee),
+			mod("RuthlessBlowHitMultiplier", "BASE", nil, ModFlag.Melee),
+		},
+		["support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final"] = {
+			mod("RuthlessBlowBleedMultiplier", "BASE", nil, ModFlag.Melee),
 		},
 	},
 	baseMods = {
@@ -3715,6 +3895,12 @@ skills["SupportBluntWeapon"] = {
 		["Sceptre"] = true,
 	},
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_blunt_chance_to_trigger_shockwave_on_hit_%"] = {
+		},
+		["supported_skill_can_only_use_mace_and_staff"] = {
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -3902,46 +4088,46 @@ skills["SupportSpellTotem"] = {
 		"base_skill_is_totemified",
 	},
 	levels = {
-		[1] = { 1, 8000, 60, -28, -40, 8, manaMultiplier = 100, levelRequirement = 8, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[2] = { 1, 8000, 60, -28, -40, 10, manaMultiplier = 100, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[3] = { 1, 8000, 60, -28, -40, 13, manaMultiplier = 100, levelRequirement = 13, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[4] = { 1, 8000, 60, -28, -40, 17, manaMultiplier = 100, levelRequirement = 17, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[5] = { 1, 8000, 60, -27, -40, 21, manaMultiplier = 100, levelRequirement = 21, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[6] = { 1, 8000, 60, -27, -40, 25, manaMultiplier = 100, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[7] = { 1, 8000, 60, -27, -40, 29, manaMultiplier = 100, levelRequirement = 29, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[8] = { 1, 8000, 60, -27, -40, 33, manaMultiplier = 100, levelRequirement = 33, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[9] = { 1, 8000, 60, -26, -40, 37, manaMultiplier = 100, levelRequirement = 37, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[10] = { 1, 8000, 60, -26, -40, 40, manaMultiplier = 100, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[11] = { 1, 8000, 60, -26, -40, 43, manaMultiplier = 100, levelRequirement = 43, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[12] = { 1, 8000, 60, -26, -40, 46, manaMultiplier = 100, levelRequirement = 46, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[13] = { 1, 8000, 60, -25, -40, 49, manaMultiplier = 100, levelRequirement = 49, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[14] = { 1, 8000, 60, -25, -40, 52, manaMultiplier = 100, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[15] = { 1, 8000, 60, -25, -40, 55, manaMultiplier = 100, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[16] = { 1, 8000, 60, -25, -40, 58, manaMultiplier = 100, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[17] = { 1, 8000, 60, -24, -40, 61, manaMultiplier = 100, levelRequirement = 61, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[18] = { 1, 8000, 60, -24, -40, 64, manaMultiplier = 100, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[19] = { 1, 8000, 60, -24, -40, 67, manaMultiplier = 100, levelRequirement = 67, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[20] = { 1, 8000, 60, -24, -40, 70, manaMultiplier = 100, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[21] = { 1, 8000, 60, -23, -40, 72, manaMultiplier = 100, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[22] = { 1, 8000, 60, -23, -40, 74, manaMultiplier = 100, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[23] = { 1, 8000, 60, -23, -40, 76, manaMultiplier = 100, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[24] = { 1, 8000, 60, -23, -40, 78, manaMultiplier = 100, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[25] = { 1, 8000, 60, -22, -40, 80, manaMultiplier = 100, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[26] = { 1, 8000, 60, -22, -40, 82, manaMultiplier = 100, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[27] = { 1, 8000, 60, -22, -40, 84, manaMultiplier = 100, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[28] = { 1, 8000, 60, -22, -40, 86, manaMultiplier = 100, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[29] = { 1, 8000, 60, -21, -40, 88, manaMultiplier = 100, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[30] = { 1, 8000, 60, -21, -40, 90, manaMultiplier = 100, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[31] = { 1, 8000, 60, -21, -40, 91, manaMultiplier = 100, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[32] = { 1, 8000, 60, -21, -40, 92, manaMultiplier = 100, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[33] = { 1, 8000, 60, -21, -40, 93, manaMultiplier = 100, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[34] = { 1, 8000, 60, -21, -40, 94, manaMultiplier = 100, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[35] = { 1, 8000, 60, -21, -40, 95, manaMultiplier = 100, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[36] = { 1, 8000, 60, -20, -40, 96, manaMultiplier = 100, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[37] = { 1, 8000, 60, -20, -40, 97, manaMultiplier = 100, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[38] = { 1, 8000, 60, -20, -40, 98, manaMultiplier = 100, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[39] = { 1, 8000, 60, -20, -40, 99, manaMultiplier = 100, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
-		[40] = { 1, 8000, 60, -20, -40, 100, manaMultiplier = 100, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 1, 8000, 60, -49, -40, 8, manaMultiplier = 100, levelRequirement = 8, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[2] = { 1, 8000, 60, -49, -40, 10, manaMultiplier = 100, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[3] = { 1, 8000, 60, -48, -40, 13, manaMultiplier = 100, levelRequirement = 13, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[4] = { 1, 8000, 60, -48, -40, 17, manaMultiplier = 100, levelRequirement = 17, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[5] = { 1, 8000, 60, -47, -40, 21, manaMultiplier = 100, levelRequirement = 21, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[6] = { 1, 8000, 60, -47, -40, 25, manaMultiplier = 100, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[7] = { 1, 8000, 60, -46, -40, 29, manaMultiplier = 100, levelRequirement = 29, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[8] = { 1, 8000, 60, -46, -40, 33, manaMultiplier = 100, levelRequirement = 33, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[9] = { 1, 8000, 60, -45, -40, 37, manaMultiplier = 100, levelRequirement = 37, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[10] = { 1, 8000, 60, -45, -40, 40, manaMultiplier = 100, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[11] = { 1, 8000, 60, -44, -40, 43, manaMultiplier = 100, levelRequirement = 43, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[12] = { 1, 8000, 60, -44, -40, 46, manaMultiplier = 100, levelRequirement = 46, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[13] = { 1, 8000, 60, -43, -40, 49, manaMultiplier = 100, levelRequirement = 49, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[14] = { 1, 8000, 60, -43, -40, 52, manaMultiplier = 100, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[15] = { 1, 8000, 60, -42, -40, 55, manaMultiplier = 100, levelRequirement = 55, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[16] = { 1, 8000, 60, -42, -40, 58, manaMultiplier = 100, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[17] = { 1, 8000, 60, -41, -40, 61, manaMultiplier = 100, levelRequirement = 61, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[18] = { 1, 8000, 60, -41, -40, 64, manaMultiplier = 100, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[19] = { 1, 8000, 60, -40, -40, 67, manaMultiplier = 100, levelRequirement = 67, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[20] = { 1, 8000, 60, -40, -40, 70, manaMultiplier = 100, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[21] = { 1, 8000, 60, -39, -40, 72, manaMultiplier = 100, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[22] = { 1, 8000, 60, -39, -40, 74, manaMultiplier = 100, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[23] = { 1, 8000, 60, -38, -40, 76, manaMultiplier = 100, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[24] = { 1, 8000, 60, -38, -40, 78, manaMultiplier = 100, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[25] = { 1, 8000, 60, -37, -40, 80, manaMultiplier = 100, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[26] = { 1, 8000, 60, -37, -40, 82, manaMultiplier = 100, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[27] = { 1, 8000, 60, -36, -40, 84, manaMultiplier = 100, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[28] = { 1, 8000, 60, -36, -40, 86, manaMultiplier = 100, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[29] = { 1, 8000, 60, -35, -40, 88, manaMultiplier = 100, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[30] = { 1, 8000, 60, -35, -40, 90, manaMultiplier = 100, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[31] = { 1, 8000, 60, -34, -40, 91, manaMultiplier = 100, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[32] = { 1, 8000, 60, -34, -40, 92, manaMultiplier = 100, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[33] = { 1, 8000, 60, -33, -40, 93, manaMultiplier = 100, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[34] = { 1, 8000, 60, -33, -40, 94, manaMultiplier = 100, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[35] = { 1, 8000, 60, -32, -40, 95, manaMultiplier = 100, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[36] = { 1, 8000, 60, -32, -40, 96, manaMultiplier = 100, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[37] = { 1, 8000, 60, -31, -40, 97, manaMultiplier = 100, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[38] = { 1, 8000, 60, -31, -40, 98, manaMultiplier = 100, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[39] = { 1, 8000, 60, -30, -40, 99, manaMultiplier = 100, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[40] = { 1, 8000, 60, -30, -40, 100, manaMultiplier = 100, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["SupportStun"] = {

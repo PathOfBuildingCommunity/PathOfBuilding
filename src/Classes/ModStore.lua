@@ -181,10 +181,11 @@ function ModStoreClass:Tabulate(modType, cfg, ...)
 end
 
 function ModStoreClass:Max(cfg, ...)
-	local max = 0
+	local max
 	for _, value in ipairs(self:Tabulate("MAX", cfg, ...)) do
-		if value.mod.value > max then
-			max = value.mod.value
+		local val = self:EvalMod(value.mod, cfg)
+		if val > (max or 0) then
+			max = val
 		end	
 	end
 	return max		

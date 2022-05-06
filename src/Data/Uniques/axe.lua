@@ -14,7 +14,6 @@ Critical Strike Chance is (20-30)% for Hits with this Weapon
 ]],[[
 Dreadarc
 Cleaver
-Upgrade: Upgrades to unique{Dreadsurge} via prophecy{Burning Dread}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16, 48 Str
@@ -28,7 +27,7 @@ Adds (5-15) to (20-25) Fire Damage
 ]],[[
 Dreadsurge
 Cleaver
-Source: Upgraded from unique{Dreadarc} via prophecy{Burning Dread}
+Source: No longer obtainable
 Requires Level 60, 48 Str
 Adds (5-15) to (20-25) Physical Damage
 Adds (223-250) to (264-280) Fire Damage
@@ -57,7 +56,6 @@ Requires Level 69, 158 Str, 76 Dex
 ]],[[
 The Screaming Eagle
 Jade Hatchet
-Upgrade: Upgrades to unique{The Gryphon} via prophecy{The Apex Predator}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 6, 21 Str
@@ -70,7 +68,7 @@ Socketed Gems are supported by level 2 Chance to Flee
 ]],[[
 The Gryphon
 Jade Hatchet
-Source: Upgraded from unique{The Screaming Eagle} via prophecy{The Apex Predator}
+Source: No longer obtainable
 Requires Level 32, 21 Str
 Socketed Gems are supported by level 2 Chance to Flee
 (170-190)% increased Physical Damage
@@ -231,7 +229,7 @@ Implicits: 1
 Adds (7-12) to (16-25) Physical Damage
 1% of Physical Attack Damage Leeched as Life
 {variant:2}40% increased Attack Speed if you've taken a Savage Hit Recently
-Attacks have Blood Magic
+Attacks Cost Life instead of Mana
 ]],[[
 Kaom's Primacy
 Karui Chopper
@@ -256,20 +254,22 @@ Source: Vendor recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 66, 140 Str, 86 Dex
 {variant:1,2}(200-250)% increased Physical Damage
 {variant:3}(250-285)% increased Physical Damage
 {variant:4}(170-200)% increased Physical Damage
+{variant:5}(190-240)% increased Physical Damage
 (7-12)% increased Attack Speed
-{variant:2,3,4}(30-40)% increased Critical Strike Chance
+{variant:2,3,4,5}(30-40)% increased Critical Strike Chance
 {variant:1}+(100-150) to maximum Mana
 Nearby Allies have 30% increased Item Rarity
 {variant:1}Nearby Allies' spells have Culling Strike
-{variant:2,3,4}Nearby Allies have Culling Strike
-{variant:2,3,4}Insufficient Mana doesn't prevent your Melee Attacks
-{variant:3,4}Nearby Allies have +50% to Critical Strike Multiplier
-{variant:3,4}Nearby Allies have Fortify
+{variant:2,3,4,5}Nearby Allies have Culling Strike
+{variant:2,3,4,5}Insufficient Mana doesn't prevent your Melee Attacks
+{variant:3,4,5}Nearby Allies have +50% to Critical Strike Multiplier
+{variant:3,4,5}Nearby Allies have +10 Fortification
 ]],[[
 Kitava's Feast
 Void Axe
@@ -283,12 +283,11 @@ Socketed Gems are supported by level 25 Melee Splash
 {variant:3}(200-240)% increased Physical Damage
 1% of Physical Attack Damage Leeched as Life
 1% of Physical Attack Damage Leeched as Mana
-Recover 5% of Maximum Life on Kill
+Recover 5% of Life on Kill
 Enemies you hit are destroyed on Kill
 ]],[[
 Limbsplit
 Woodsplitter
-Upgrade: Upgrades to unique{The Cauteriser} via prophecy{Severed Limbs}
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 13, 36 Str, 17 Dex
@@ -301,7 +300,7 @@ Culling Strike
 ]],[[
 The Cauteriser
 Woodsplitter
-Source: Upgraded from unique{Limbsplit} using prophecy{Severed Limbs}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 40, 36 Str, 17 Dex

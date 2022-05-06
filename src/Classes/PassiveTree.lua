@@ -33,31 +33,6 @@ local classArt = {
 local legacySkillsPerOrbit = { 1, 6, 12, 12, 40 }
 local legacyOrbitRadii = { 0, 82, 162, 335, 493 }
 
-local function calculateOrbitAngles(skillsPerOrbit)
-	local orbitAngles = {}
-	ConPrintf("== calculateOrbitAngles ==")
-	for orbit, skillsInOrbit in ipairs(skillsPerOrbit) do
-		if skillsInOrbit == 16 then
-			-- Every 30 and 45 degrees, per https://github.com/grindinggear/skilltree-export/blob/3.17.0/README.md
-			orbitAngles[orbit] = { 0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330 }
-		elseif skillsInOrbit == 40 then
-			-- Every 10 and 45 degrees
-			orbitAngles[orbit] = { 0, 10, 20, 30, 40, 45, 50, 60, 70, 80, 90, 100, 110, 120, 130, 135, 140, 150, 160, 170, 180, 190, 200, 210, 220, 225, 230, 240, 250, 260, 270, 280, 290, 300, 310, 315, 320, 330, 340, 350 }
-		else
-			-- Uniformly spaced
-			orbitAngles[orbit] = {}
-			for i = 0, skillsInOrbit do
-				orbitAngles[orbit][i + 1] = 360 * i / skillsInOrbit
-			end
-		end
-
-		for i, degrees in ipairs(orbitAngles[orbit]) do
-			orbitAngles[orbit][i] = m_rad(degrees)
-		end
-	end
-	return orbitAngles
-end
-
 -- Retrieve the file at the given URL
 local function getFile(URL)
 	local page = ""
@@ -126,6 +101,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Build maps of class name -> class table
 	self.classNameMap = { }
 	self.ascendNameMap = { }
+	self.classNotables = { }
+
 	for classId, class in pairs(self.classes) do
 		if versionNum >= 3.10 then
 			-- Migrate to old format
@@ -143,8 +120,12 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 
-	self.orbitAngles = calculateOrbitAngles(self.constants.skillsPerOrbit or legacySkillsPerOrbit)
+	self.skillsPerOrbit = self.constants.skillsPerOrbit or legacySkillsPerOrbit
 	self.orbitRadii = self.constants.orbitRadii or legacyOrbitRadii
+	self.orbitAnglesByOrbit = {}
+	for orbit, skillsInOrbit in ipairs(self.skillsPerOrbit) do
+		self.orbitAnglesByOrbit[orbit] = self:CalcOrbitAngles(skillsInOrbit)
+	end
 
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
@@ -280,6 +261,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	ConPrintf("Processing tree...")
+	self.ascendancyMap = { }
 	self.keystoneMap = { }
 	self.notableMap = { }
 	self.clusterNodeMap = { }
@@ -348,9 +330,25 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				elseif node.g then
 					self.notableMap[node.dn:lower()] = node
 				end
+			else
+				self.ascendancyMap[node.dn:lower()] = node
+				if not self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] then
+					self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] = { }
+				end
+				if self.ascendNameMap[node.ascendancyName].class.name ~= "Scion" then
+					t_insert(self.classNotables[self.ascendNameMap[node.ascendancyName].class.name], node.dn)
+				end
 			end
 		else
 			node.type = "Normal"
+			if node.ascendancyName == "Ascendant" and not node.dn:find(" ") and node.dn ~= "Dexterity" and
+				node.dn ~= "Intelligence" and node.dn ~= "Strength" then
+				self.ascendancyMap[node.dn:lower()] = node
+				if not self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] then
+					self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] = { }
+				end
+				t_insert(self.classNotables[self.ascendNameMap[node.ascendancyName].class.name], node.dn)
+			end
 		end
 
 		-- Find the node group
@@ -454,6 +452,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 		self:ProcessStats(node)
 	end
+
+	-- Late load the Generated data so we can take advantage of a tree existing
+	buildTreeDependentUniques(self)
 end)
 
 function PassiveTreeClass:ProcessStats(node)
@@ -550,7 +551,7 @@ function PassiveTreeClass:ProcessNode(node)
 
 	-- Derive the true position of the node
 	if node.group then
-		node.angle = self.orbitAngles[node.o + 1][node.oidx + 1]
+		node.angle = self.orbitAnglesByOrbit[node.o + 1][node.oidx + 1]
 		local orbitRadius = self.orbitRadii[node.o + 1]
 		node.x = node.group.x + m_sin(node.angle) * orbitRadius
 		node.y = node.group.y - m_cos(node.angle) * orbitRadius
@@ -690,4 +691,27 @@ function PassiveTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
 	connector.c[11], connector.c[12] = 0, p
 	connector.c[13], connector.c[14] = 0, 0
 	connector.c[15], connector.c[16] = p, 0
+end
+
+function PassiveTreeClass:CalcOrbitAngles(nodesInOrbit)
+	local orbitAngles = {}
+
+	if nodesInOrbit == 16 then
+		-- Every 30 and 45 degrees, per https://github.com/grindinggear/skilltree-export/blob/3.17.0/README.md
+		orbitAngles = { 0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330 }
+	elseif nodesInOrbit == 40 then
+		-- Every 10 and 45 degrees
+		orbitAngles = { 0, 10, 20, 30, 40, 45, 50, 60, 70, 80, 90, 100, 110, 120, 130, 135, 140, 150, 160, 170, 180, 190, 200, 210, 220, 225, 230, 240, 250, 260, 270, 280, 290, 300, 310, 315, 320, 330, 340, 350 }
+	else
+		-- Uniformly spaced
+		for i = 0, nodesInOrbit do
+			orbitAngles[i + 1] = 360 * i / nodesInOrbit
+		end
+	end
+
+	for i, degrees in ipairs(orbitAngles) do
+		orbitAngles[i] = m_rad(degrees)
+	end
+
+	return orbitAngles
 end

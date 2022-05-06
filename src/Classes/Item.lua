@@ -109,6 +109,7 @@ function ItemClass:ParseRaw(raw)
 	end
 	self.checkSection = false
 	self.sockets = { }
+	self.classRequirementModLines = { }
 	self.buffModLines = { }
 	self.enchantModLines = { }
 	self.scourgeModLines = { }
@@ -181,6 +182,13 @@ function ItemClass:ParseRaw(raw)
 				specName, specVal = line:match("^([%a ]+): (.+)$")
 			end
 			if not specName then
+				specName, specVal = line:match("^(Requires Class) (.+)$")
+			end
+			if not specName then
+				specVal = line:match("^Class:: (.+)$")
+				if specVal then specName = "Requires Class" end
+			end
+			if not specName then
 				specName, specVal = line:match("^(Requires) (.+)$")
 			end
 			if specName then
@@ -188,6 +196,8 @@ function ItemClass:ParseRaw(raw)
 					self.uniqueID = specVal
 				elseif specName == "Item Level" then
 					self.itemLevel = tonumber(specVal)
+				elseif specName == "Requires Class" then
+					self.classRestriction = specVal
 				elseif specName == "Quality" then
 					self.quality = tonumber(specVal)
 				elseif specName == "Sockets" then
@@ -262,6 +272,10 @@ function ItemClass:ParseRaw(raw)
 					self.hasAltVariant2 = true
 				elseif specName == "Has Alt Variant Three" then
 					self.hasAltVariant3 = true
+				elseif specName == "Has Alt Variant Four" then
+					self.hasAltVariant4 = true
+				elseif specName == "Has Alt Variant Five" then
+					self.hasAltVariant5 = true
 				elseif specName == "Selected Variant" then
 					self.variant = tonumber(specVal)
 				elseif specName == "Selected Alt Variant" then
@@ -270,6 +284,10 @@ function ItemClass:ParseRaw(raw)
 					self.variantAlt2 = tonumber(specVal)
 				elseif specName == "Selected Alt Variant Three" then
 					self.variantAlt3 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Four" then
+					self.variantAlt4 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Five" then
+					self.variantAlt5 = tonumber(specVal)
 				elseif specName == "Has Variants" or specName == "Selected Variants" then
 					-- Need to skip this line for backwards compatibility
 					-- with builds that used an old Watcher's Eye implementation
@@ -431,6 +449,7 @@ function ItemClass:ParseRaw(raw)
 				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
 				local enchant = line:match(" %(enchant%)")
+				local classReq = line:find("Requires Class")
 				local scourge = line:match("{scourge}") or line:match(" %(scourge%)")
 				local crafted = line:match("{crafted}") or line:match(" %(crafted%)") or enchant
 				local custom = line:match("{custom}")
@@ -498,6 +517,8 @@ function ItemClass:ParseRaw(raw)
 					modLines = self.enchantModLines
 				elseif scourge then
 					modLines = self.scourgeModLines
+				elseif classReq then
+					modLines = self.classRequirementModLines
 				elseif implicit or (not crafted and #self.enchantModLines + #self.scourgeModLines + #self.implicitModLines < implicitLines) then
 					modLines = self.implicitModLines
 				else
@@ -518,7 +539,7 @@ function ItemClass:ParseRaw(raw)
 						foundExplicit = true
 					end
 				elseif mode == "GAME" then
-					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and not data.itemBases[line] and not self.name == line) then
+					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned")) then
 						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
@@ -593,6 +614,12 @@ function ItemClass:ParseRaw(raw)
 		end
 		if self.hasAltVariant3 then
 			self.variantAlt3 = m_min(#self.variantList, self.variantAlt3 or #self.variantList)
+		end
+		if self.hasAltVariant4 then
+			self.variantAlt4 = m_min(#self.variantList, self.variantAlt4 or #self.variantList)
+		end
+		if self.hasAltVariant5 then
+			self.variantAlt5 = m_min(#self.variantList, self.variantAlt5 or #self.variantList)
 		end
 	end
 	if not self.quality then
@@ -765,6 +792,14 @@ function ItemClass:BuildRaw()
 			t_insert(rawLines, "Has Alt Variant Three: true")
 			t_insert(rawLines, "Selected Alt Variant Three: "..self.variantAlt3)
 		end
+		if self.hasAltVariant4 then
+			t_insert(rawLines, "Has Alt Variant Four: true")
+			t_insert(rawLines, "Selected Alt Variant Four: "..self.variantAlt4)
+		end
+		if self.hasAltVariant5 then
+			t_insert(rawLines, "Has Alt Variant Five: true")
+			t_insert(rawLines, "Selected Alt Variant Five: "..self.variantAlt5)
+		end
 	end
 	if self.quality then
 		t_insert(rawLines, "Quality: "..self.quality)
@@ -788,11 +823,17 @@ function ItemClass:BuildRaw()
 	if self.limit then
 		t_insert(rawLines, "Limited to: "..self.limit)
 	end
+	if self.classRestriction then
+		t_insert(rawLines, "Requires Class "..self.classRestriction)
+	end
 	t_insert(rawLines, "Implicits: "..(#self.enchantModLines + #self.implicitModLines + #self.scourgeModLines))
 	for _, modLine in ipairs(self.enchantModLines) do
 		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.scourgeModLines) do
+		writeModLine(modLine)
+	end
+	for _, modLine in ipairs(self.classRequirementModLines) do
 		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.implicitModLines) do
@@ -882,6 +923,8 @@ function ItemClass:CheckModLineVariant(modLine)
 		or (self.hasAltVariant and modLine.variantList[self.variantAlt])
 		or (self.hasAltVariant2 and modLine.variantList[self.variantAlt2])
 		or (self.hasAltVariant3 and modLine.variantList[self.variantAlt3])
+		or (self.hasAltVariant4 and modLine.variantList[self.variantAlt4])
+		or (self.hasAltVariant5 and modLine.variantList[self.variantAlt5])
 end
 
 -- Return the name of the slot this item is equipped in
@@ -1105,6 +1148,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				flaskData.lifeInstant = flaskData.lifeBase * flaskData.instantPerc / 100
 				flaskData.lifeGradual = flaskData.lifeBase * (1 - flaskData.instantPerc / 100) * (1 + durationInc / 100)
 				flaskData.lifeTotal = flaskData.lifeInstant + flaskData.lifeGradual
+				flaskData.lifeAdditional = calcLocal(modList, "FlaskAdditionalLifeRecovery", "BASE", 0)
 			end
 			if self.base.flask.mana then
 				flaskData.manaBase = self.base.flask.mana * (1 + self.quality / 100) * recoveryMod
@@ -1191,29 +1235,36 @@ function ItemClass:BuildModList()
 		end
 	end
 	local function processModLine(modLine)
-		if not modLine.extra and self:CheckModLineVariant(modLine) then
-			if modLine.range then
-				local strippedModeLine = modLine.line:gsub("\n"," ")
-				-- Look at the min and max of the range to confirm it's *actually* a range
-				local rangeMin, rangeMax = itemLib.getLineRangeMinMax(strippedModeLine)
-				if rangeMin ~= rangeMax then
-					local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
-					-- Put the modified value into the string
-					local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
-					-- Check if we can parse it before adding the mods
-					local list, extra = modLib.parseMod(line)
-					if list and not extra then
-						modLine.modList = list
-						t_insert(self.rangeLineList, modLine)
+		if self:CheckModLineVariant(modLine) then
+			-- special section for variant over-ride of pre-modifier item parameters
+			if modLine.line:find("Requires Class") then
+				self.classRestriction = modLine.line:gsub("{variant:([%d,]+)}", ""):match("Requires Class (.+)")
+			end
+			-- handle understood modifier variable properties
+			if not modLine.extra then
+				if modLine.range then
+					local strippedModeLine = modLine.line:gsub("\n"," ")
+					-- Look at the min and max of the range to confirm it's *actually* a range
+					local rangeMin, rangeMax = itemLib.getLineRangeMinMax(strippedModeLine)
+					if rangeMin ~= rangeMax then
+						local catalystScalar = getCatalystScalar(self.catalyst, modLine.modTags, self.catalystQuality)
+						-- Put the modified value into the string
+						local line = itemLib.applyRange(strippedModeLine, modLine.range, catalystScalar)
+						-- Check if we can parse it before adding the mods
+						local list, extra = modLib.parseMod(line)
+						if list and not extra then
+							modLine.modList = list
+							t_insert(self.rangeLineList, modLine)
+						end
 					end
 				end
-			end
-			for _, mod in ipairs(modLine.modList) do
-				mod = modLib.setSource(mod, self.modSource)
-				baseList:AddMod(mod)
-			end
-			if modLine.modTags and #modLine.modTags > 0 then
-				self.hasModTags = true
+				for _, mod in ipairs(modLine.modList) do
+					mod = modLib.setSource(mod, self.modSource)
+					baseList:AddMod(mod)
+				end
+				if modLine.modTags and #modLine.modTags > 0 then
+					self.hasModTags = true
+				end
 			end
 		end
 	end
@@ -1221,6 +1272,9 @@ function ItemClass:BuildModList()
 		processModLine(modLine)
 	end
 	for _, modLine in ipairs(self.scourgeModLines) do
+		processModLine(modLine)
+	end
+	for _, modLine in ipairs(self.classRequirementModLines) do
 		processModLine(modLine)
 	end
 	for _, modLine in ipairs(self.implicitModLines) do

@@ -629,7 +629,7 @@ skills["SummonedSpiderViperStrike"] = {
 	color = 4,
 	baseEffectiveness = 0.64999997615814,
 	incrementalEffectiveness = 0.025499999523163,
-	description = "Hits enemies, adding some of your physical damage as chaos damage and inflicting poison which will be affected by modifiers to skill duration. If dual wielding, will strike with both weapons. Requires a claw, dagger or sword.",
+	description = "Hits enemies, converting some of your physical damage to chaos damage and inflicting poison which will be affected by modifiers to skill duration. If dual wielding, will strike with both weapons. Requires a claw, dagger or sword.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, },
 	weaponTypes = {
 		["Claw"] = true,
@@ -659,13 +659,12 @@ skills["SummonedSpiderViperStrike"] = {
 		[1] = { 25, 100, 8000, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
 	},
 }
-skills["DancingDervishCyclone"] = {
+skills["DancingDervishCycloneChannelled"] = {
 	name = "Cyclone",
 	hidden = true,
-	color = 2,
-	baseEffectiveness = 0.85000002384186,
-	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, },
+	color = 4,
+	description = "Channel this skill to move towards a targeted location while spinning, building up stages while constantly attacking enemies in an area around you. While channelling this skill, you cannot be knocked back.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Channel] = true, [SkillType.Physical] = true, },
 	weaponTypes = {
 		["None"] = true,
 		["One Handed Mace"] = true,
@@ -688,22 +687,21 @@ skills["DancingDervishCyclone"] = {
 		melee = true,
 	},
 	baseMods = {
-		skill("dpsMultiplier", 2),
 		skill("radiusIsWeaponRange", true),
 	},
 	qualityStats = {
 	},
 	stats = {
-		"physical_damage_+%",
-		"attack_speed_+%",
-		"skill_art_variation",
-		"cyclone_movement_speed_+%_final",
-		"cyclone_extra_distance",
-		"active_skill_damage_+%_final",
+		"cyclone_gain_stage_every_x_ms_while_channelling",
+		"cyclone_melee_weapon_range_+_per_stage",
+		"cyclone_stage_decay_time_ms",
+		"cyclone_max_number_of_stages",
+		"cyclone_area_of_effect_+%_per_additional_melee_range",
 		"is_area_damage",
+		"skill_can_add_multiple_charges_per_action",
 	},
 	levels = {
-		[1] = { 0, 20, 0, 0, 25, 0, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 170, 1, 330, 6, 8, damageEffectiveness = 0.65, attackSpeedMultiplier = 200, baseMultiplier = 0.65, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["SummonPhantasmFadingProjectile"] = {
