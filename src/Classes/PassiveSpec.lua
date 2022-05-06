@@ -468,16 +468,13 @@ end
 -- An alternate path to the node may be provided, otherwise the default path will be used
 -- The path must always contain the given node, as will be the case for the default path
 function PassiveSpecClass:AllocNode(node, altPath)
-	ConPrintf("Attempting to allocate %s with %s", node.name, altPath)
 	if not node.path then
-		ConPrintf("Attempted to allocate an impossible node")
 		-- Node cannot be connected to the tree as there is no possible path
 		return
 	end
 
 	-- Allocate all nodes along the path
 	if node.dependsOnIntuitiveLeapLike then
-		ConPrintf("Node was able to leap, allocated (%d)", node.id)
 		node.alloc = true
 		self.allocNodes[node.id] = node
 	else
@@ -503,7 +500,6 @@ function PassiveSpecClass:AllocNode(node, altPath)
 end
 
 function PassiveSpecClass:DeallocSingleNode(node)
-	ConPrintf("De-allocating %d", node.id)
 	node.alloc = false
 	self.allocNodes[node.id] = nil
 	if node.type == "Mastery" then
@@ -514,7 +510,6 @@ end
 
 -- Deallocate the given node, and all nodes which depend on it (i.e. which are only connected to the tree through this node)
 function PassiveSpecClass:DeallocNode(node)
-	ConPrintf("De-allocating %d", node.id)
 	for _, depNode in ipairs(node.depends) do
 		self:DeallocSingleNode(depNode)
 	end
@@ -885,10 +880,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				local prune = true
 				for nodeId, itemId in pairs(self.jewels) do
 					if self.allocNodes[nodeId] then
-						if itemId ~= 0 then
-							ConPrintf("Checking node against jewel %s", self.build.itemsTab.items[itemId].name)
-							ConPrintf("Jewel allows allocation around %s", self.build.itemsTab.items[itemId].jewelData.impossibleEscapeKeystone)
-						end
 						if itemId ~= 0 and (
 							 self.build.itemsTab.items[itemId] and (
 								self.build.itemsTab.items[itemId].jewelData
