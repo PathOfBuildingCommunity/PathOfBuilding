@@ -885,15 +885,21 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				local prune = true
 				for nodeId, itemId in pairs(self.jewels) do
 					if self.allocNodes[nodeId] then
+						if itemId ~= 0 then
+							ConPrintf("Checking node against jewel %s", self.build.itemsTab.items[itemId].name)
+							ConPrintf("Jewel allows allocation around %s", self.build.itemsTab.items[itemId].jewelData.impossibleEscapeKeystone)
+						end
 						if itemId ~= 0 and (
 							 self.build.itemsTab.items[itemId] and (
 								self.build.itemsTab.items[itemId].jewelData
 									and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike
 									and self.build.itemsTab.items[itemId].jewelRadiusIndex
 									and self.nodes[nodeId].nodesInRadius
-									and self.nodes[nodeId].nodesInRadius[
-										self.build.itemsTab.items[itemId].jewelRadiusIndex
-								][depNode.id]
+									and self.nodes[nodeId].nodesInRadius[self.build.itemsTab.items[itemId].jewelRadiusIndex][depNode.id]
+							) or (
+								self.build.itemsTab.items[itemId].jewelData
+									and self.build.itemsTab.items[itemId].jewelData.impossibleEscapeKeystone ~= nil
+									and self:NodeInKeystoneRadius(self.build.itemsTab.items[itemId].jewelData.impossibleEscapeKeystone, depNode.id, self.build.itemsTab.items[itemId].jewelRadiusIndex)
 							)
 						) then
 							-- Hold off on the pruning; this node could be supported by Intuitive Leap-like jewel
@@ -1553,4 +1559,14 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 		modList:AddList(node.modList)
 	end
 	node.modList = modList
+end
+
+function PassiveSpecClass:NodeInKeystoneRadius(keystoneName, nodeId, radiusIndex)
+	for _, node in pairs(self.nodes) do
+		if (node.type == "Keystone" and node.name:lower() == keystoneName:lower()) then
+			return node.nodesInRadius[radiusIndex][nodeId] ~= nil
+		end
+	end
+
+	return false
 end

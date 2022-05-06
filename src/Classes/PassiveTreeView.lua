@@ -692,7 +692,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
 			if node == hoverNode then
 				local isThreadOfHope = jewel and jewel.jewelRadiusLabel == "Variable"
-				local isImpossibleEscape = jewel and jewel.title == "Impossible Escape"
 				if isThreadOfHope then
 					for _, radData in ipairs(build.data.jewelRadius) do
 						local outerSize = radData.outer * scale
@@ -704,7 +703,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 							DrawImage(self.ring, scrX - innerSize, scrY - innerSize, innerSize * 2, innerSize * 2)
 						end
 					end
-				elseif not isImpossibleEscape then
+				else
 					for _, radData in ipairs(build.data.jewelRadius) do
 						local outerSize = radData.outer * scale
 						local innerSize = radData.inner * scale
