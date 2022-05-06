@@ -723,19 +723,16 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					if jewel.title == "Brutal Restraint" then
 						DrawImage(self.maraketh1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.maraketh2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-					elseif jewel.title == "Impossible Escape" then
+					elseif jewel.jewelData and jewel.jewelData.impossibleEscapeKeystone then
 						-- Impossible Escape ring shows on the allocated Keystone
-						for nodeId, node in pairs(spec.nodes) do
-							if node.type == "Keystone" and node.name:lower() == jewel.jewelData.impossibleEscapeKeystone then
-								innerSize = 150 * scale
-								local keyX, keyY = treeToScreen(node.x, node.y)
-								SetDrawColor(0.9,0.9,1,0.7)
-								DrawImage(self.jewelShadedOuterRing, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
-								DrawImage(self.jewelShadedOuterRingFlipped, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
-								DrawImage(self.jewelShadedInnerRing, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
-								DrawImage(self.jewelShadedInnerRingFlipped, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
-							end
-						end
+						local keystone = spec.tree.keystoneMap[jewel.jewelData.impossibleEscapeKeystone]
+						innerSize = 150 * scale
+						local keyX, keyY = treeToScreen(keystone.x, keystone.y)
+						SetDrawColor(0.9,0.9,1,0.7)
+						DrawImage(self.jewelShadedOuterRing, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
+						DrawImage(self.jewelShadedOuterRingFlipped, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
+						DrawImage(self.jewelShadedInnerRing, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
+						DrawImage(self.jewelShadedInnerRingFlipped, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
 					elseif jewel.title == "Elegant Hubris" then
 						DrawImage(self.eternal1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.eternal2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
