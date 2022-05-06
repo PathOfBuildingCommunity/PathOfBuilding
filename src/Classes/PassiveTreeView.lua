@@ -267,7 +267,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	if treeClick == "LEFT" then
 		if hoverNode then
 			-- User left-clicked on a node
-			ConPrintf("User clicked on node, think about allocating")
 			if hoverNode.alloc then
 				-- Node is allocated, so deallocate it
 				spec:DeallocNode(hoverNode)
@@ -726,7 +725,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					elseif jewel.jewelData and jewel.jewelData.impossibleEscapeKeystones then
 						-- Impossible Escape ring shows on the allocated Keystone
 						for keystoneName, _ in pairs(jewel.jewelData.impossibleEscapeKeystones) do
-							ConPrintf("%s", keystoneName)
 							local keystone = spec.tree.keystoneMap[keystoneName]
 							if (keystone) then
 								innerSize = 150 * scale

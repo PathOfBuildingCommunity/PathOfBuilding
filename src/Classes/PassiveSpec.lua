@@ -1553,13 +1553,11 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 end
 
 function PassiveSpecClass:NodeInKeystoneRadius(keystoneNames, nodeId, radiusIndex)
-	ConPrintf("Checking if %s is in keystone range", nodeId)
-	for keystone, _ in pairs(keystoneNames) do
-		ConPrintf("\t%s", keystoneNames)
-	end
 	for _, node in pairs(self.nodes) do
 		if (node.type == "Keystone" and keystoneNames[node.name:lower()]) then
-			return node.nodesInRadius[radiusIndex][nodeId] ~= nil
+			if (node.nodesInRadius[radiusIndex][nodeId]) then
+				return true
+			end
 		end
 	end
 
