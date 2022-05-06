@@ -727,10 +727,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						-- Impossible Escape ring shows on the allocated Keystone
 						for nodeId, node in pairs(spec.nodes) do
 							if node.type == "Keystone" and node.name:lower() == jewel.jewelData.impossibleEscapeKeystone then
+								innerSize = 150 * scale
 								local keyX, keyY = treeToScreen(node.x, node.y)
-								DrawImage(self.vaal1, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
-								DrawImage(self.vaal2, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
-								DrawImage(self.vaal2, keyX - outerSize / 4, keyY - outerSize / 4, outerSize / 2, outerSize / 2)
+								SetDrawColor(0.9,0.9,1,0.7)
+								DrawImage(self.jewelShadedOuterRing, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
+								DrawImage(self.jewelShadedOuterRingFlipped, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
+								DrawImage(self.jewelShadedInnerRing, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
+								DrawImage(self.jewelShadedInnerRingFlipped, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
 							end
 						end
 					elseif jewel.title == "Elegant Hubris" then
