@@ -1555,7 +1555,7 @@ end
 
 function PassiveSpecClass:NodeInKeystoneRadius(keystoneNames, nodeId, radiusIndex)
 	for _, node in pairs(self.nodes) do
-		if (node.type == "Keystone" and keystoneNames[node.name:lower()]) then
+		if node.name and node.type == "Keystone" and keystoneNames[node.name:lower()] then
 			if (node.nodesInRadius[radiusIndex][nodeId]) then
 				return true
 			end
