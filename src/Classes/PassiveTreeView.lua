@@ -267,6 +267,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	if treeClick == "LEFT" then
 		if hoverNode then
 			-- User left-clicked on a node
+			ConPrintf("User clicked on node, think about allocating")
 			if hoverNode.alloc then
 				-- Node is allocated, so deallocate it
 				spec:DeallocNode(hoverNode)
@@ -691,6 +692,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
 			if node == hoverNode then
 				local isThreadOfHope = jewel and jewel.jewelRadiusLabel == "Variable"
+				local isImpossibleEscape = jewel and jewel.title == "Impossible Escape"
 				if isThreadOfHope then
 					for _, radData in ipairs(build.data.jewelRadius) do
 						local outerSize = radData.outer * scale
@@ -702,7 +704,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 							DrawImage(self.ring, scrX - innerSize, scrY - innerSize, innerSize * 2, innerSize * 2)
 						end
 					end
-				else
+				elseif not isImpossibleEscape then
 					for _, radData in ipairs(build.data.jewelRadius) do
 						local outerSize = radData.outer * scale
 						local innerSize = radData.inner * scale
@@ -722,6 +724,16 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					if jewel.title == "Brutal Restraint" then
 						DrawImage(self.maraketh1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.maraketh2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
+					elseif jewel.title == "Impossible Escape" then
+						-- Impossible Escape ring shows on the allocated Keystone
+						for nodeId, node in pairs(spec.nodes) do
+							if node.type == "Keystone" and node.name:lower() == jewel.jewelData.impossibleEscapeKeystone then
+								local keyX, keyY = treeToScreen(node.x, node.y)
+								DrawImage(self.vaal1, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
+								DrawImage(self.vaal2, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
+								DrawImage(self.vaal2, keyX - outerSize / 4, keyY - outerSize / 4, outerSize / 2, outerSize / 2)
+							end
+						end
 					elseif jewel.title == "Elegant Hubris" then
 						DrawImage(self.eternal1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.eternal2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
@@ -893,6 +905,9 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			if node.distanceToClassStart and node.distanceToClassStart > 0 then
 				tooltip:AddSeparator(14)
 				tooltip:AddLine(16, string.format("^7Distance to start: %d", node.distanceToClassStart))
+			end
+			if jewel.title == "Impossible Escape" then
+				tooltip:AddLine(16, string.format(colorCodes.ELDER.."Affects %s", jewel.jewelData.impossibleEscapeKeystone))
 			end
 		else
 			self:AddNodeName(tooltip, node, build)

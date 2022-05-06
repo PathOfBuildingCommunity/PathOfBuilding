@@ -417,6 +417,28 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 
+	for name, keystone in pairs(self.keystoneMap) do
+		keystone.nodesInRadius = { }
+		for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
+			keystone.nodesInRadius[radiusIndex] = { }
+			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
+			local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
+			for _, node in pairs(self.nodes) do
+				if (keystone.x and keystone.y) then
+					if node ~= keystone and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy and not node.isMastery and not node.isSocket then
+						local vX, vY = node.x - keystone.x, node.y - keystone.y
+						local euclideanDistanceSquared = vX * vX + vY * vY
+						if innerRadiusSquared <= euclideanDistanceSquared then
+							if euclideanDistanceSquared <= outerRadiusSquared then
+								keystone.nodesInRadius[radiusIndex][node.id] = node
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+
 	for classId, class in pairs(self.classes) do
 		local startNode = nodeMap[class.startNodeId]
 		for _, nodeId in ipairs(startNode.linkedId) do
