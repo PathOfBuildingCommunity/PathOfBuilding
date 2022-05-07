@@ -126,7 +126,7 @@ function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sour
 			t_insert(out, s_format("- %d%% ^8(penetration)", pen))
 		end
 		if not useRes then
-			t_insert(out, s_format("* %d%% ^8(resistance ignored)", 0))
+			t_insert(out, s_format("x %d%% ^8(resistance ignored)", 0))
 			t_insert(out, s_format("= %d%%", (0)))
 		else 
 			t_insert(out, s_format("= %d%%", (resist - pen)))
