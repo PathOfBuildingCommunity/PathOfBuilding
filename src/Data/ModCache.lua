@@ -4095,6 +4095,12 @@ c["20% increased Life Recovery Rate if you've taken Fire Damage from an Enemy Hi
 c["30% increased Trap Trigger Area of Effect"]={{[1]={flags=0,keywordFlags=0,name="TrapTriggerAreaOfEffect",type="INC",value=30}},nil}
 c["Amber Amulet Crafted: true"]={nil,"Amber Amulet Crafted: true "}
 c["30% increased Effect of Impales you inflict with Two Handed Weapons on Non-Impaled Enemies"]={{[1]={flags=268435460,keywordFlags=0,name="ImpaleEffect",type="INC",value=30}},"   on Non-Impaled Enemies "}
+c["Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value"]={{[1]={flags=0,keywordFlags=0,name="SpellDamageAppliesToAttacks",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ImprovedSpellDamageAppliesToAttacks",type="MAX",value=150}},nil}
+c["Sharktooth Arrow Quiver Variant: Pre 2.6.0"]={nil,"Sharktooth Arrow Quiver Variant: Pre 2.6.0 "}
+c["Seaglass Amulet Crafted: true"]={nil,"Seaglass Amulet Crafted: true "}
+c["Exerted Attacks deal 30% increased Damage"]={{[1]={flags=1,keywordFlags=0,name="ExertIncrease",type="INC",value=30}},nil}
+c["Supreme Spiked Shield Evasion: 334"]={nil,"Supreme Spiked Shield Evasion: 334 "}
+c["Lacquered Garb"]={nil,"Lacquered Garb "}
 c["Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value"]={{[1]={flags=0,keywordFlags=0,name="SpellDamageAppliesToAttacks",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ImprovedSpellDamageAppliesToAttacks",type="INC",value=150}},nil}
 c["+5 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=5}},nil}
 c["16% increased Mana Reservation Efficiency of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=16}},nil}
