@@ -141,7 +141,7 @@ return {
 		},
 		{ format = "x {3:output:ChaosEffMult}",
 			{ breakdown = "ChaosEffMult" },
-			{ label = "Player modifiers", modName = "ChaosPenetration", cfg = "skill" },
+			{ label = "Player modifiers", modName = {"ChaosPenetration", "IgnoreChaosResistance"}, cfg = "skill" },
 			{ label = "Enemy modifiers", modName = chaosHitTaken, enemy = true, cfg = "skill" },
 		},
 	},
