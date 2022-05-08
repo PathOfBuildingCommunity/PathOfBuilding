@@ -34,7 +34,7 @@ local function newlineCount(str)
 	end
 end
 
-local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight)
+local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom)
 	self.ControlHost()
 	self.Control(anchor, x, y, width, height)
 	self.UndoHandler()
@@ -53,6 +53,7 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	self.selCol = "^0"
 	self.selBGCol = "^xBBBBBB"
 	self.blinkStart = GetTime()
+    self.allowZoom = allowZoom
 	if self.filter == "%D" or self.filter == "^%-%d" then
 		-- Add +/- buttons for integer number edits
 		self.isNumeric = true
@@ -597,6 +598,8 @@ function EditClass:OnKeyUp(key)
 			self.selControl = nil
 		end
 	end
+    
+	local shift = IsKeyDown("SHIFT")
 	if key == "LEFTBUTTON" then
 		if self.drag then
 			self.drag = false
@@ -604,7 +607,7 @@ function EditClass:OnKeyUp(key)
 	elseif self.isNumeric then
 		local cur = tonumber(self.buf)
 		if key == "WHEELUP" or key == "UP" then
-			if cur then
+            if cur then
 				self:SetText(tostring(cur + (self.numberInc or 1)), true)
 			else
 				self:SetText("1", true)
@@ -617,13 +620,17 @@ function EditClass:OnKeyUp(key)
 			end
 		end
 	elseif key == "WHEELUP" then
-		if self.controls.scrollBarV.enabled then
+        if shift and self.allowZoom then
+            self.lineHeight = self.lineHeight + 1
+        elseif self.controls.scrollBarV.enabled then
 			self.controls.scrollBarV:Scroll(-1)
 		else
 			self.controls.scrollBarH:Scroll(-1)
 		end
-	elseif key == "WHEELDOWN" then
-		if self.controls.scrollBarV.enabled then
+	elseif key == "WHEELDOWN" then		
+        if shift and self.allowZoom then
+            self.lineHeight = self.lineHeight - 1
+        elseif self.controls.scrollBarV.enabled then
 			self.controls.scrollBarV:Scroll(1)
 		else
 			self.controls.scrollBarH:Scroll(1)
