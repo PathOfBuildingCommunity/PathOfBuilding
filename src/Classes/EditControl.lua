@@ -46,6 +46,7 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	self.limit = limit
 	self.changeFunc = changeFunc
 	self.lineHeight = lineHeight
+	self.defaultLineHeight = lineHeight
 	self.font = "VAR"
 	self.textCol = "^7"
 	self.inactiveCol = "^8"
@@ -156,6 +157,29 @@ function EditClass:Insert(text)
 		self.changeFunc(self.buf)
 	end
 	self:AddUndoState()
+end
+
+function EditClass:ZoomText(zoom)
+	if not self.allowZoom or not self.lineHeight then
+		return
+	end
+
+	local textHeight = self.lineHeight
+	if zoom == "+" then 
+		textHeight = textHeight + 1
+	elseif zoom == "-" then
+		textHeight = textHeight - 1
+	elseif zoom == "0" then
+		textHeight = self.defaultLineHeight
+	end
+
+	if textHeight < 1 then
+		textHeight = 1
+	elseif textHeight > 100 then
+		textHeight = 100
+	end
+
+	self.lineHeight = textHeight
 end
 
 function EditClass:UpdateScrollBars()
@@ -582,6 +606,8 @@ function EditClass:OnKeyDown(key, doubleClick)
 		end
 	elseif key == "TAB" then
 		return self.Object:TabAdvance(shift and -1 or 1)
+	elseif (key == "+" or key == "-" or key == "0") and ctrl and self.allowZoom then
+		self:ZoomText(key)
 	end
 	return self
 end
@@ -599,7 +625,7 @@ function EditClass:OnKeyUp(key)
 		end
 	end
 
-	local shift = IsKeyDown("SHIFT")
+	local ctrl = IsKeyDown("CTRL")
 	if key == "LEFTBUTTON" then
 		if self.drag then
 			self.drag = false
@@ -620,16 +646,16 @@ function EditClass:OnKeyUp(key)
 			end
 		end
 	elseif key == "WHEELUP" then
-		if shift and self.allowZoom then
-			self.lineHeight = self.lineHeight + 1
+		if ctrl and self.allowZoom then
+			self:ZoomText("+")
 		elseif self.controls.scrollBarV.enabled then
 			self.controls.scrollBarV:Scroll(-1)
 		else
 			self.controls.scrollBarH:Scroll(-1)
 		end
-	elseif key == "WHEELDOWN" then		
-		if shift and self.allowZoom then
-			self.lineHeight = self.lineHeight - 1
+	elseif key == "WHEELDOWN" then
+		if ctrl and self.allowZoom then
+			self:ZoomText("-")
 		elseif self.controls.scrollBarV.enabled then
 			self.controls.scrollBarV:Scroll(1)
 		else
