@@ -5,6 +5,7 @@ import json
 import logging
 import os
 import pathlib
+import random
 
 logging.basicConfig(level=logging.INFO)
 
@@ -40,6 +41,9 @@ NODE_GROUPS = {
     "Saboteur": Point2D(10200, -2200),
     "Ascendant": Point2D(-7800, 7200),
 }
+EXTRA_NODES = {
+	"Elementalist": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, "stats": ["25% of Damage taken Recouped as Life, Mana and Energy Shield", "Recoup Effects instead occur over 3 seconds"], "reminderText": ["(Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"]}, "offset": {"x": 0, "y": -1000}}]
+}
 
 
 def fix_ascendancy_positions(path: os.PathLike) -> None:
@@ -70,6 +74,22 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
         offset = NODE_GROUPS[ascendancy] - ascendancy_starting_point[ascendancy]
         group["x"] += offset.x
         group["y"] += offset.y
+	for asc in EXTRA_NODES:
+		for node in EXTRA_NODES[asc]:
+			node["Node"]["skill"] = random.randint(0, 65535)
+			while str(node["Node"]["skill"]) in data["nodes"]:
+				node["Node"]["skill"] = random.randint(0, 65535)
+			newGroup = random.randint(0, 65535)
+			while str(newGroup) in data["groups"]:
+				newGroup = random.randint(0, 65535)
+			data["groups"][newGroup] = {"x": NODE_GROUPS[asc]["x"] + node["offset"]["x"], "y": NODE_GROUPS[asc]["y"] + node["offset"]["y"], "orbits": [0], "nodes": [node["Node"]["skill"]]}
+			node["Node"]["ascendancyName"] = asc
+			node["Node"]["group"] = newGroup
+			node["Node"]["orbit"] = 0
+			node["Node"]["orbitIndex"] = 0
+			node["Node"]["out"] = []
+			node["Node"]["in"] = []
+			data["nodes"][node["Node"]["skill"]] = node["Node"]
     with open(path, "w", encoding="utf-8") as o:
         json.dump(data, o, indent=4)
 
