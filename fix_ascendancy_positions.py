@@ -10,7 +10,7 @@ import random
 logging.basicConfig(level=logging.INFO)
 
 
-@dataclasses.dataclass(frozen=True, slots=True)
+@dataclasses.dataclass(frozen=True) #, slots=True) #, slots breaks becouse its already defined?
 class Point2D:
     """Two-dimensional point. Supports subtracting points."""
     x: int
@@ -42,7 +42,22 @@ NODE_GROUPS = {
     "Ascendant": Point2D(-7800, 7200),
 }
 EXTRA_NODES = {
-	"Elementalist": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, "stats": ["25% of Damage taken Recouped as Life, Mana and Energy Shield", "Recoup Effects instead occur over 3 seconds"], "reminderText": ["(Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"]}, "offset": {"x": 0, "y": -1000}}]
+	"Elementalist": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, 
+		"stats": ["25% of Damage taken Recouped as Life, Mana and Energy Shield", "Recoup Effects instead occur over 3 seconds"], "reminderText": ["(Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"]}, 
+		"offset": Point2D(0, -1000)}],
+	"Hierophant": [{"Node": {"name": "Searing Purity", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrInt.png", "isNotable": True, 
+		"stats": ["45% of Chaos Damage taken as Fire Damage", "45% of Chaos Damage taken as Lightning Damage"], "reminderText": []}, 
+		"offset": Point2D(-1000, 0)}],
+	"Berserker": [{"Node": {"name": "MNode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Str.png", "isNotable": True, "stats": [], "reminderText": []}, 
+		"offset": Point2D(-1000, 0)}],
+	"Ascendant": [{"Node": {"name": "ANode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/SkillPoint.png", "stats": [], "reminderText": []}, 
+		"offset": Point2D(-1000, 1000)}],
+	"Champion": [{"Node": {"name": "DNode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrDex.png", "isNotable": True, "stats": [], "reminderText": []}, 
+		"offset": Point2D(0, 1000)}],
+	"Pathfinder": [{"Node": {"name": "RNode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Dex.png", "isNotable": True, "stats": [], "reminderText": []}, 
+		"offset": Point2D(1000, 0)}],
+	"Trickster": [{"Node": {"name": "SNode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/DexInt.png", "isNotable": True, "stats": [], "reminderText": []}, 
+		"offset": Point2D(1000, 0)}],
 }
 
 
@@ -74,22 +89,22 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
         offset = NODE_GROUPS[ascendancy] - ascendancy_starting_point[ascendancy]
         group["x"] += offset.x
         group["y"] += offset.y
-	for asc in EXTRA_NODES:
-		for node in EXTRA_NODES[asc]:
-			node["Node"]["skill"] = random.randint(0, 65535)
-			while str(node["Node"]["skill"]) in data["nodes"]:
-				node["Node"]["skill"] = random.randint(0, 65535)
-			newGroup = random.randint(0, 65535)
-			while str(newGroup) in data["groups"]:
-				newGroup = random.randint(0, 65535)
-			data["groups"][newGroup] = {"x": NODE_GROUPS[asc]["x"] + node["offset"]["x"], "y": NODE_GROUPS[asc]["y"] + node["offset"]["y"], "orbits": [0], "nodes": [node["Node"]["skill"]]}
-			node["Node"]["ascendancyName"] = asc
-			node["Node"]["group"] = newGroup
-			node["Node"]["orbit"] = 0
-			node["Node"]["orbitIndex"] = 0
-			node["Node"]["out"] = []
-			node["Node"]["in"] = []
-			data["nodes"][node["Node"]["skill"]] = node["Node"]
+    for ascendancy in EXTRA_NODES:
+        for node in EXTRA_NODES[ascendancy]:
+            node["Node"]["skill"] = random.randint(0, 65535)
+            while str(node["Node"]["skill"]) in data["nodes"]:
+                node["Node"]["skill"] = random.randint(0, 65535)
+            newGroup = random.randint(0, 65535)
+            while str(newGroup) in data["groups"]:
+                newGroup = random.randint(0, 65535)
+            data["groups"][newGroup] = {"x": NODE_GROUPS[ascendancy].x + node["offset"].x, "y": NODE_GROUPS[ascendancy].y + node["offset"].y, "orbits": [0], "nodes": [node["Node"]["skill"]]}
+            node["Node"]["ascendancyName"] = ascendancy
+            node["Node"]["group"] = newGroup
+            node["Node"]["orbit"] = 0
+            node["Node"]["orbitIndex"] = 0
+            node["Node"]["out"] = []
+            node["Node"]["in"] = []
+            data["nodes"][node["Node"]["skill"]] = node["Node"]
     with open(path, "w", encoding="utf-8") as o:
         json.dump(data, o, indent=4)
 
