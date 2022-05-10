@@ -2687,9 +2687,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			local instantPerc = flaskData.instantPerc
 			if item.base.flask.life then
 				local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
+				local lifeMore = modDB:More(nil, "FlaskLifeRecovery")
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
-				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * (1 + effectInc / 100)
-				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
+				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100)
+				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
 				local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
 
 				-- LocalLifeFlaskAdditionalLifeRecovery flask mods
