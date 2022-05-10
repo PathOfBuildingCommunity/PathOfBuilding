@@ -402,6 +402,7 @@ local excludedKeystones = {
 	"Immortal Ambition", -- exclusive to specific unique
 	"Necromantic Aegis", -- to prevent infinite loop
 	"Secrets of Suffering", -- exclusive to specific items
+	"Supreme Decadence", -- exclusive to specific items
 }
 local keystones = {}
 for _, name in ipairs(data.keystones) do
