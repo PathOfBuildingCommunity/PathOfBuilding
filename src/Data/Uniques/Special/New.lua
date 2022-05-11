@@ -16,7 +16,18 @@ Implicits: 1
 33% of Non-Chaos Damage taken bypasses Energy Shield
 {tags:jewellery_defense}Gain 6% of Maximum Life as Extra Maximum Energy Shield
 Supreme Decadence
-]],
+]],[[
+Echoes of Creation
+Royal Burgonet
+Shaper Item
+Requires Level 65, 148 Str
+Socketed Warcry Skills have +1 Cooldown Use
+116% increased Armour
++63 to maximum Life
+When you Attack, take 15% of Life as Physical Damage for
+each Warcry Exerting the Attack
+Skills deal 12% more Damage for each Warcry Exerting them
+]]
 -- Reworked
 
 }
