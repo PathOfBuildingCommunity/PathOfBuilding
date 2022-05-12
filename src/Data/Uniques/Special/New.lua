@@ -42,6 +42,19 @@ Implicits: 2
 {tags:jewellery_defense}15% increased Global Defences
 Critical Strikes inflict Malignant Madness if The Eater of Worlds is dominant
 Kill Enemies that have 15% or lower Life on Hit if The Searing Exarch is dominant
+]],[[
+Call of the Void
+Sapphire Ring
+Shaper Item
+Elder Item
+Requires Level 16
+Implicits: 1
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+{tags:jewellery_resistance}+25% to Cold Resistance
+All Damage with Hits can Chill
+All Damage Taken from Hits can Chill you
+Enemies Chilled by your Hits can be Shattered as though Frozen
+Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect
 ]]
 -- Reworked
 
