@@ -327,6 +327,9 @@ return {
 	mod("ManaCost", "INC", nil),
 	mult = -1,
 },
+["base_mana_cost_+"] = {
+	mod("ManaCostNoMult", "BASE", nil),
+},
 ["no_mana_cost"] = {
 	mod("ManaCost", "MORE", nil),
 	value = -100,

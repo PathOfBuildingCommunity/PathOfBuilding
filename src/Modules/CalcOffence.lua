@@ -837,7 +837,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.AuraEffectMod = breakdown.mod(skillModList, skillCfg, "AuraEffect")
 		end
 	end
-	if activeSkill.skillTypes[SkillType.HasReservation] then
+	if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
 		for _, pool in ipairs({"Life", "Mana"}) do
 			output[pool .. "ReservedMod"] = calcLib.mod(skillModList, skillCfg, pool .. "Reserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier") / calcLib.mod(skillModList, skillCfg, pool .. "ReservationEfficiency", "ReservationEfficiency")
 			if breakdown then
@@ -1215,7 +1215,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Extra cost (e.g. Petrified Blood) calculations happen after cost conversion (e.g. Blood Magic)
 		if val.type == "Mana" and skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") then
 			local target = resource:gsub("Mana", "Life")
-			costs[target].baseCost = costs[target].baseCost + baseCost * skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100
+			costs[target].baseCost = costs[target].baseCost + (baseCost + baseCostNoMult) * skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100
 		end
 		val.baseCost = val.baseCost + baseCost
 		val.totalCost = val.totalCost + totalCost
@@ -1237,6 +1237,9 @@ function calcs.offence(env, actor, activeSkill)
 			}
 			if mult ~= 1 then
 				t_insert(breakdown[costName], s_format("x %.2f ^8(cost multiplier)", mult))
+			end
+			if val.baseCostNoMult ~= 0 then
+				t_insert(breakdown[costName], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
 			end
 			if inc ~= 0 then
 				t_insert(breakdown[costName], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
