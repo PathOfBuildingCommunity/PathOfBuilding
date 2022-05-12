@@ -714,7 +714,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					end
 
 					if item.jewelData and item.jewelData.impossibleEscapeKeystone then
-						-- ConPrintf("Jewel has IE, check if node in radius")
 						for keyName, keyNode in pairs(self.tree.keystoneMap) do
 							if item.jewelData.impossibleEscapeKeystones[keyName:lower()] and keyNode.nodesInRadius then
 								if keyNode.nodesInRadius[radiusIndex][node.id] then

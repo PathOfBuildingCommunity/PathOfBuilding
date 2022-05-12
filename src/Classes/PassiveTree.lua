@@ -424,8 +424,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			keystone.nodesInRadius[radiusIndex] = { }
 			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
 			local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
-			for _, node in pairs(self.nodes) do
-				if (keystone.x and keystone.y) then
+			if (keystone.x and keystone.y) then
+				for _, node in pairs(self.nodes) do
 					if node ~= keystone and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy and not node.isMastery and not node.isSocket then
 						local vX, vY = node.x - keystone.x, node.y - keystone.y
 						local euclideanDistanceSquared = vX * vX + vY * vY

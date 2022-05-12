@@ -435,7 +435,7 @@ local impossibleEscape = {
     "Viridian Jewel",
     "League: Sentinel",
     "Limited to: 1",
-    "Source: Upgraded from Uber unique{Maven}",
+    "Source: Drops from Uber unique{Maven}",
     "Radius: Small"
 }
 for _, name in ipairs(impossibleEscapeKeystones) do
@@ -452,7 +452,7 @@ local impossibleEscapeDebug = {
     "Viridian Jewel",
     "League: Sentinel",
     "Limited to: 1",
-    "Source: Upgraded from Uber unique{Maven}",
+    "Source: Drops from Uber unique{Maven}",
     "Radius: Small"
 }
 for _, name in ipairs(impossibleEscapeKeystones) do
