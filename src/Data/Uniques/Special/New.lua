@@ -27,6 +27,21 @@ Socketed Warcry Skills have +1 Cooldown Use
 When you Attack, take 15% of Life as Physical Damage for
 each Warcry Exerting the Attack
 Skills deal 12% more Damage for each Warcry Exerting them
+]],[[
+The Eternal Struggle
+Onyx Amulet
+Searing Exarch Item
+Eater of Worlds Item
+Requires Level 61
+Implicits: 2
+9% increased Mana Reservation Efficiency of Skills
+{tags:speed}6% increased Movement Speed
+{tags:jewellery_attribute}+31 to Strength
+{tags:jewellery_attribute}+22 to Dexterity
+{tags:jewellery_attribute}+50 to Intelligence
+{tags:jewellery_defense}15% increased Global Defences
+Critical Strikes inflict Malignant Madness if The Eater of Worlds is dominant
+Kill Enemies that have 15% or lower Life on Hit if The Searing Exarch is dominant
 ]]
 -- Reworked
 
