@@ -42,22 +42,26 @@ NODE_GROUPS = {
     "Ascendant": Point2D(-7800, 7200),
 }
 EXTRA_NODES = {
-	"Elementalist": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, 
-		"stats": ["25% of Damage taken Recouped as Life, Mana and Energy Shield", "Recoup Effects instead occur over 3 seconds"], "reminderText": ["(Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"]}, 
+	"Elementalist": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True}, 
 		"offset": Point2D(0, -1000)}],
-	"Hierophant": [{"Node": {"name": "Searing Purity", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrInt.png", "isNotable": True, 
-		"stats": ["45% of Chaos Damage taken as Fire Damage", "45% of Chaos Damage taken as Lightning Damage"], "reminderText": []}, 
+	"Hierophant": [{"Node": {"name": "Searing Purity", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrInt.png", "isNotable": True}, 
 		"offset": Point2D(-1000, 0)}],
-	"Berserker": [{"Node": {"name": "MNode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Str.png", "isNotable": True, "stats": [], "reminderText": []}, 
+	"Berserker": [{"Node": {"name": "MNode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Str.png", "isNotable": True}, 
 		"offset": Point2D(-1000, 0)}],
-	"Ascendant": [{"Node": {"name": "ANode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/SkillPoint.png", "stats": [], "reminderText": []}, 
+	"Ascendant": [{"Node": {"name": "ANode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/SkillPoint.png"}, 
 		"offset": Point2D(-1000, 1000)}],
-	"Champion": [{"Node": {"name": "DNode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrDex.png", "isNotable": True, "stats": [], "reminderText": []}, 
+	"Champion": [{"Node": {"name": "DNode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrDex.png", "isNotable": True}, 
 		"offset": Point2D(0, 1000)}],
-	"Pathfinder": [{"Node": {"name": "RNode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Dex.png", "isNotable": True, "stats": [], "reminderText": []}, 
+	"Pathfinder": [{"Node": {"name": "Fury of Nature", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Dex.png", "isNotable": True}, 
 		"offset": Point2D(1000, 0)}],
-	"Trickster": [{"Node": {"name": "SNode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/DexInt.png", "isNotable": True, "stats": [], "reminderText": []}, 
+	"Trickster": [{"Node": {"name": "Soul Drinker", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/DexInt.png", "isNotable": True}, 
 		"offset": Point2D(1000, 0)}],
+}
+EXTRA_NODES_STATS = { #these should not be hardcoded here, but should by inserted later via the exporter from the ggpk
+	"Nine Lives": {"stats": ["25% of Damage taken Recouped as Life, Mana and Energy Shield", "Recoup Effects instead occur over 3 seconds"], "reminderText": ["(Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"]}, 
+	"Searing Purity": {"stats": ["45% of Chaos Damage taken as Fire Damage", "45% of Chaos Damage taken as Lightning Damage"], "reminderText": []},
+	"Soul Drinker": {"stats": ["2% of Damage Leeched as Energy Shield", "20% increased Attack and Cast Speed while Leeching Energy Shield", "Energy Shield Leech effects are not removed when Energy Shield is Filled"], "reminderText": ["(Leeched Energy Shield is recovered over time. Multiple Leeches can occur simultatiously, up to a maximum rate)"]},
+	"Fury of Nature" : {"stats": ["Non-Damaging Elemental Ailments you inflict spread to nearby enemies in a radius of 20", "Non-Damaging Elemental Ailments you inflict have 100% more Effect"], "reminderText": ["(Elemental Ailments are Ignited, Scorched, Chilled, Frozen, Brittled, Shocked, and Saped)"]}
 }
 
 
@@ -104,6 +108,12 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
             node["Node"]["orbitIndex"] = 0
             node["Node"]["out"] = []
             node["Node"]["in"] = []
+            if node["Node"]["name"] in EXTRA_NODES_STATS:
+                node["Node"]["stats"] = EXTRA_NODES_STATS[node["Node"]["name"]]["stats"]
+                node["Node"]["reminderText"] = EXTRA_NODES_STATS[node["Node"]["name"]]["reminderText"]
+            else:
+                node["Node"]["stats"] = []
+                node["Node"]["reminderText"] = []
             data["nodes"][node["Node"]["skill"]] = node["Node"]
     with open(path, "w", encoding="utf-8") as o:
         json.dump(data, o, indent=4)
