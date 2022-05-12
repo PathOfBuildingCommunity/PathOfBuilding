@@ -317,7 +317,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		bg.width, bg.height = bg.handle:ImageSize()
 	end
 	if bg.width > 0 then
-		local bgSize = bg.width * scale * 1.33 * 2.5
+		local bgSize = bg.width * scale * 0.56591 * 2.5
 		SetDrawColor(1, 1, 1)
 		DrawImage(bg.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, (self.zoomX + viewPort.width/2) / -bgSize, (self.zoomY + viewPort.height/2) / -bgSize, (viewPort.width/2 - self.zoomX) / bgSize, (viewPort.height/2 - self.zoomY) / bgSize)
 	end
@@ -758,8 +758,8 @@ function PassiveTreeViewClass:DrawAsset(data, x, y, scale, isHalf)
 			return
 		end
 	end
-	local width = data.width * scale * 1.33
-	local height = data.height * scale * 1.33
+	local width = data.width * scale * 0.56591
+	local height = data.height * scale * 0.56591
 	if isHalf then
 		DrawImage(data.handle, x - width, y - height * 2, width * 2, height * 2)
 		DrawImage(data.handle, x - width, y, width * 2, height * 2, 0, 1, 1, 0)
