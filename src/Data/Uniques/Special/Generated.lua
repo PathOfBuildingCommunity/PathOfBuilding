@@ -442,7 +442,7 @@ for _, name in ipairs(impossibleEscapeKeystones) do
     table.insert(impossibleEscape, "Variant: "..name)
 end
 table.insert(impossibleEscape, "Variant: Everything (QoL Test Variant)")
-variantCount = 1
+local variantCount = 1
 for index, name in ipairs(impossibleEscapeKeystones) do
     table.insert(impossibleEscape, "{variant:"..index.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
 	variantCount = variantCount + 1
