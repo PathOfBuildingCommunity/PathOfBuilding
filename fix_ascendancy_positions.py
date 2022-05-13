@@ -46,11 +46,11 @@ EXTRA_NODES = {
 		"offset": Point2D(0, -1000)}],
 	"Hierophant": [{"Node": {"name": "Searing Purity", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrInt.png", "isNotable": True}, 
 		"offset": Point2D(-1000, 0)}],
-	"Berserker": [{"Node": {"name": "MNode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Str.png", "isNotable": True}, 
+	"Berserker": [{"Node": {"name": "Indomitable Resolve", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Str.png", "isNotable": True}, 
 		"offset": Point2D(-1000, 0)}],
-	"Ascendant": [{"Node": {"name": "ANode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/SkillPoint.png"}, 
+	"Ascendant": [{"Node": {"name": "Unleashed Potential", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/SkillPoint.png"}, 
 		"offset": Point2D(-1000, 1000)}],
-	"Champion": [{"Node": {"name": "DNode", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrDex.png", "isNotable": True}, 
+	"Champion": [{"Node": {"name": "Fatal Flourish", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrDex.png", "isNotable": True}, 
 		"offset": Point2D(0, 1000)}],
 	"Pathfinder": [{"Node": {"name": "Fury of Nature", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Dex.png", "isNotable": True}, 
 		"offset": Point2D(1000, 0)}],
@@ -62,6 +62,10 @@ EXTRA_NODES_STATS = { #these should not be hardcoded here, but should by inserte
 	"Searing Purity": {"stats": ["45% of Chaos Damage taken as Fire Damage", "45% of Chaos Damage taken as Lightning Damage"], "reminderText": []},
 	"Soul Drinker": {"stats": ["2% of Damage Leeched as Energy Shield", "20% increased Attack and Cast Speed while Leeching Energy Shield", "Energy Shield Leech effects are not removed when Energy Shield is Filled"], "reminderText": ["(Leeched Energy Shield is recovered over time. Multiple Leeches can occur simultatiously, up to a maximum rate)"]},
 	"Fury of Nature" : {"stats": ["Non-Damaging Elemental Ailments you inflict spread to nearby enemies in a radius of 20", "Non-Damaging Elemental Ailments you inflict have 100% more Effect"], "reminderText": ["(Elemental Ailments are Ignited, Scorched, Chilled, Frozen, Brittled, Shocked, and Saped)"]}
+	"Fatal Flourish": {"stats": ["Final Repeat of Attack Skills deals 60% more Damage", "Non-Travel Attack Skills Repeat an additional Time"], "reminderText": []},
+	"Indomitable Resolve": {"stats": ["Deal 10% less Damage", "Take 25% less Damage"], "reminderText": []},
+	"Unleashed Potential" : {"stats": ["400% increased Endurance, Frenzy and Power Charge Duration", "25% chance to gain a Power, Frenzy or Endurance Charge on Kill", "+1 to Maximum Endurance Charges", "+1 to Maximum Frenzy Charges", "+1 to Maximum Power Charges"], "reminderText": []},
+	
 }
 
 
