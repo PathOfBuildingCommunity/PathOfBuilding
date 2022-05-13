@@ -400,6 +400,8 @@ local excludedItemKeystones = {
 	"Hollow Palm Technique", -- exclusive to specific unique
 	"Immortal Ambition", -- exclusive to specific unique
 	"Secrets of Suffering", -- exclusive to specific items
+	"Inner Conviction", -- exclusive to specific items
+	"Mortal Conviction", -- removed from game
 }local excludedPassiveKeystones = {
 	"Chaos Inoculation", -- to prevent infinite loop
 	"Necromantic Aegis", -- to prevent infinite loop
