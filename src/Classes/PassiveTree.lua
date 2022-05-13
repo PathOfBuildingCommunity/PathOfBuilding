@@ -319,6 +319,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		elseif node.ks or node.isKeystone then
 			node.type = "Keystone"
 			self.keystoneMap[node.dn] = node
+			self.keystoneMap[node.dn:lower()] = node
 		elseif node["not"] or node.isNotable then
 			node.type = "Notable"
 			if not node.ascendancyName then
@@ -410,6 +411,28 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 					if innerRadiusSquared <= euclideanDistanceSquared then
 						if euclideanDistanceSquared <= outerRadiusSquared then
 							socket.nodesInRadius[radiusIndex][node.id] = node
+						end
+					end
+				end
+			end
+		end
+	end
+
+	for name, keystone in pairs(self.keystoneMap) do
+		keystone.nodesInRadius = { }
+		for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
+			keystone.nodesInRadius[radiusIndex] = { }
+			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
+			local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
+			if (keystone.x and keystone.y) then
+				for _, node in pairs(self.nodes) do
+					if node ~= keystone and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy and not node.isMastery and not node.isSocket then
+						local vX, vY = node.x - keystone.x, node.y - keystone.y
+						local euclideanDistanceSquared = vX * vX + vY * vY
+						if innerRadiusSquared <= euclideanDistanceSquared then
+							if euclideanDistanceSquared <= outerRadiusSquared then
+								keystone.nodesInRadius[radiusIndex][node.id] = node
+							end
 						end
 					end
 				end

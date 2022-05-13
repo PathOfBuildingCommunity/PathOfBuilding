@@ -3007,6 +3007,10 @@ local specialModList = {
 		mod("FlaskChargesGeneratedPerEmptyFlask", "BASE", num / div)
 	} end,
 	-- Jewels
+	["passives in radius of ([%a%s']+) can be allocated without being connected to your tree"] = function(_, name) return {
+		mod("JewelData", "LIST", { key = "impossibleEscapeKeystone", value = name }),
+		mod("ImpossibleEscapeKeystones", "LIST", { key = name, value = true }),
+	} end,
 	["passives in radius can be allocated without being connected to your tree"] = { mod("JewelData", "LIST", { key = "intuitiveLeapLike", value = true }) },
 	["affects passives in small ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 4 }) },
 	["affects passives in medium ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 5 }) },
