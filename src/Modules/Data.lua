@@ -315,6 +315,7 @@ data.keystones = {
 	"Perfect Agony",
 	"Phase Acrobatics",
 	"Point Blank",
+	"Precise Technique",
 	"Resolute Technique",
 	"Runebinder",
 	"Secrets of Suffering",
