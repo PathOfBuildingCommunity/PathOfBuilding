@@ -999,7 +999,7 @@ return {
 			list=false,
 			name="Hidden",
 			refTo="",
-			type="Bool",
+			type="Int",
 			width=50
 		},
 		[15]={
