@@ -191,6 +191,9 @@ local skills, mod, flag, skill = ...
 #skill SupportAdditionalLevel
 #mods
 
+#skill SupportAdditionalLevelPlus
+#mods
+
 #skill EnduranceChargeOnMeleeStun
 	statMap = {
 		["endurance_charge_on_melee_stun_damage_+%_final_per_endurance_charge"] = {

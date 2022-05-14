@@ -999,7 +999,7 @@ return {
 			list=false,
 			name="Hidden",
 			refTo="",
-			type="Bool",
+			type="Int",
 			width=50
 		},
 		[15]={
@@ -4270,6 +4270,15 @@ return {
 	},
 	MavenFights={
 	},
+	MavenJewelRadiusKeystones={
+		[1]={
+			list=false,
+			name="Keystone_Key",
+			refTo="PassiveSkills",
+			type="Key",
+			width=300
+		}
+	},
 	Melee={
 	},
 	MeleeTrails={
@@ -7061,6 +7070,8 @@ return {
 	SynthesisRewardCategories={
 	},
 	SynthesisRewardTypes={
+	},
+	TableCharge={
 	},
 	TableMonsterSpawners={
 	},

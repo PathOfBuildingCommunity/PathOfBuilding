@@ -23093,8 +23093,8 @@ return {
 				[1]={
 					limit={
 						[1]={
-							[1]="#",
-							[2]="#"
+							[1]=1,
+							[2]=1
 						}
 					},
 					text="Attacks with this Skill count as Exerted"
@@ -23103,7 +23103,7 @@ return {
 		},
 		name="empowered",
 		stats={
-			[1]="is_empowered"
+			[1]="number_of_warcries_exerting_this_action"
 		}
 	},
 	[797]={
@@ -35870,7 +35870,6 @@ return {
 	["intimidate_nearby_enemies_on_use_for_ms"]=795,
 	["intimidating_cry_empowerd_attacks_deal_double_damage_display"]=1204,
 	["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"]=1184,
-	["is_empowered"]=796,
 	["is_ranged_attack_totem"]=39,
 	["is_remote_mine"]=36,
 	["is_snipe_default_projectile"]=985,
@@ -36037,6 +36036,7 @@ return {
 	["number_of_tornados_allowed"]=1118,
 	["number_of_totems_to_summon"]=39,
 	["number_of_traps_to_throw"]=37,
+	["number_of_warcries_exerting_this_action"]=796,
 	["offering_skill_effect_duration_per_corpse"]=24,
 	["oil_arrow_explosion_base_damage_+permyriad"]=158,
 	["oil_arrow_explosion_maximum_added_fire_damage"]=160,

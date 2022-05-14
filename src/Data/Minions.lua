@@ -273,6 +273,7 @@ minions["RaisedSkeletonCaster"] = {
 		"SkeletonMinionProjectileLightning",
 	},
 	modList = {
+		-- SummonSkeletonsSkeletonIsMage [summoned_skeleton_is_mage = 1]
 	},
 }
 
