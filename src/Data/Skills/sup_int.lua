@@ -2193,6 +2193,54 @@ skills["SupportAdditionalXP"] = {
 		[10] = { manaMultiplier = -36, levelRequirement = 100, statInterpolation = { }, cost = { }, },
 	},
 }
+skills["SupportAdditionalXPPlus"] = {
+	name = "Awakened Enlighten",
+	description = "Supports any skill gem. Once this gem reaches level 2 or above, will apply a cost & reservation multiplier to supported gems. Cannot support skills that don't come from gems.",
+	color = 3,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	supportGemsOnly = true,
+	plusVersionOf = "SupportAdditionalXP",
+	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["local_gem_int_requirement_+%"] = {
+			mod("IntRequirement", "INC", nil)
+		}
+	},
+	baseMods = {
+	},
+	qualityStats = {
+		Default = {
+			{ "local_gem_experience_gain_+%", 5 },
+		},
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 72, statInterpolation = { }, cost = { }, },
+		[2] = { manaMultiplier = -4, levelRequirement = 74, statInterpolation = { }, cost = { }, },
+		[3] = { manaMultiplier = -8, levelRequirement = 76, statInterpolation = { }, cost = { }, },
+		[4] = { manaMultiplier = -12, levelRequirement = 78, statInterpolation = { }, cost = { }, },
+		[5] = { manaMultiplier = -16, levelRequirement = 80, statInterpolation = { }, cost = { }, },
+		[6] = { manaMultiplier = -20, levelRequirement = 82, statInterpolation = { }, cost = { }, },
+		[7] = { manaMultiplier = -24, levelRequirement = 84, statInterpolation = { }, cost = { }, },
+		[8] = { manaMultiplier = -28, levelRequirement = 86, statInterpolation = { }, cost = { }, },
+		[9] = { manaMultiplier = -32, levelRequirement = 88, statInterpolation = { }, cost = { }, },
+		[10] = { manaMultiplier = -36, levelRequirement = 90, statInterpolation = { }, cost = { }, },
+		[11] = { manaMultiplier = -38, levelRequirement = 91, statInterpolation = { }, cost = { }, },
+		[12] = { manaMultiplier = -40, levelRequirement = 92, statInterpolation = { }, cost = { }, },
+		[13] = { manaMultiplier = -42, levelRequirement = 93, statInterpolation = { }, cost = { }, },
+		[14] = { manaMultiplier = -44, levelRequirement = 94, statInterpolation = { }, cost = { }, },
+		[15] = { manaMultiplier = -46, levelRequirement = 95, statInterpolation = { }, cost = { }, },
+		[16] = { manaMultiplier = -48, levelRequirement = 96, statInterpolation = { }, cost = { }, },
+		[17] = { manaMultiplier = -50, levelRequirement = 97, statInterpolation = { }, cost = { }, },
+		[18] = { manaMultiplier = -52, levelRequirement = 98, statInterpolation = { }, cost = { }, },
+		[19] = { manaMultiplier = -54, levelRequirement = 99, statInterpolation = { }, cost = { }, },
+		[20] = { manaMultiplier = -56, levelRequirement = 100, statInterpolation = { }, cost = { }, },
+	},
+}
 skills["SupportFasterCast"] = {
 	name = "Faster Casting",
 	description = "Supports non-instant spell skills.",
