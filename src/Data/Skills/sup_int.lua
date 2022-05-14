@@ -2204,11 +2204,6 @@ skills["SupportAdditionalXPPlus"] = {
 	supportGemsOnly = true,
 	plusVersionOf = "SupportAdditionalXP",
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["local_gem_int_requirement_+%"] = {
-			mod("IntRequirement", "INC", nil)
-		}
-	},
 	baseMods = {
 	},
 	qualityStats = {

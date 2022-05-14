@@ -3093,7 +3093,7 @@ skills["GeneralsCrySupport"] = {
 		["support_spiritual_cry_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
-		["is_empowered"] = {
+		["number_of_warcries_exerting_this_action"] = {
 		},
 	},
 	baseMods = {
