@@ -1340,9 +1340,6 @@ skills["SupportAuraDuration"] = {
 			skill("auraDuration", nil),
 			div = 1000,
 		},
-		["base_mana_cost_+"] = {
-			mod("ManaCost", "BASE", nil),
-		},
 	},
 	baseMods = {
 	},
@@ -1659,6 +1656,50 @@ skills["SupportAdditionalLevel"] = {
 		[8] = { 7, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
 		[9] = { 8, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
 		[10] = { 9, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
+	},
+}
+skills["SupportAdditionalLevelPlus"] = {
+	name = "Awakened Empower",
+	description = "Supports any skill gem. Once this gem reaches level 2 or above, will raise the level of supported gems. Cannot support skills that don't come from gems.",
+	color = 1,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	supportGemsOnly = true,
+	plusVersionOf = "SupportAdditionalLevel",
+	statDescriptionScope = "gem_stat_descriptions",
+	baseMods = {
+	},
+	qualityStats = {
+		Default = {
+			{ "local_gem_experience_gain_+%", 5 },
+		},
+	},
+	stats = {
+		"supported_active_skill_gem_level_+",
+	},
+	levels = {
+		[1] = { 0, manaMultiplier = 30, levelRequirement = 72, statInterpolation = { 1, }, cost = { }, },
+		[2] = { 1, manaMultiplier = 30, levelRequirement = 74, statInterpolation = { 1, }, cost = { }, },
+		[3] = { 2, manaMultiplier = 30, levelRequirement = 76, statInterpolation = { 1, }, cost = { }, },
+		[4] = { 3, manaMultiplier = 30, levelRequirement = 78, statInterpolation = { 1, }, cost = { }, },
+		[5] = { 4, manaMultiplier = 30, levelRequirement = 80, statInterpolation = { 1, }, cost = { }, },
+		[6] = { 5, manaMultiplier = 30, levelRequirement = 82, statInterpolation = { 1, }, cost = { }, },
+		[7] = { 6, manaMultiplier = 30, levelRequirement = 84, statInterpolation = { 1, }, cost = { }, },
+		[8] = { 7, manaMultiplier = 30, levelRequirement = 86, statInterpolation = { 1, }, cost = { }, },
+		[9] = { 8, manaMultiplier = 30, levelRequirement = 88, statInterpolation = { 1, }, cost = { }, },
+		[10] = { 9, manaMultiplier = 30, levelRequirement = 90, statInterpolation = { 1, }, cost = { }, },
+		[11] = { 10, manaMultiplier = 30, levelRequirement = 91, statInterpolation = { 1, }, cost = { }, },
+		[12] = { 11, manaMultiplier = 30, levelRequirement = 92, statInterpolation = { 1, }, cost = { }, },
+		[13] = { 12, manaMultiplier = 30, levelRequirement = 93, statInterpolation = { 1, }, cost = { }, },
+		[14] = { 13, manaMultiplier = 30, levelRequirement = 94, statInterpolation = { 1, }, cost = { }, },
+		[15] = { 14, manaMultiplier = 30, levelRequirement = 95, statInterpolation = { 1, }, cost = { }, },
+		[16] = { 15, manaMultiplier = 30, levelRequirement = 96, statInterpolation = { 1, }, cost = { }, },
+		[17] = { 16, manaMultiplier = 30, levelRequirement = 97, statInterpolation = { 1, }, cost = { }, },
+		[18] = { 17, manaMultiplier = 30, levelRequirement = 98, statInterpolation = { 1, }, cost = { }, },
+		[19] = { 18, manaMultiplier = 30, levelRequirement = 99, statInterpolation = { 1, }, cost = { }, },
+		[20] = { 19, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["EnduranceChargeOnMeleeStun"] = {

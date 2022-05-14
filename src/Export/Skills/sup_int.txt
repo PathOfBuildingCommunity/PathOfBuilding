@@ -289,6 +289,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportAdditionalXPPlus
+#mods
+
 #skill SupportFasterCast
 #mods
 

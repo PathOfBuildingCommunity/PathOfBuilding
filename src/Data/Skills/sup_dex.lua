@@ -1707,6 +1707,55 @@ skills["SupportAdditionalQuality"] = {
 		[10] = { 72, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
 	},
 }
+skills["SupportAdditionalQualityPlus"] = {
+	name = "Awakened Enhance",
+	description = "Supports any skill gem. Once this gem reaches level 2 or above, will raise the quality of supported gems. Cannot support skills that don't come from gems.",
+	color = 2,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	supportGemsOnly = true,
+	plusVersionOf = "SupportAdditionalQuality",
+	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["supported_active_skill_gem_quality_%"] = {
+			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "quality", value = nil }),
+		},
+	},
+	baseMods = {
+	},
+	qualityStats = {
+		Default = {
+			{ "local_gem_experience_gain_+%", 5 },
+		},
+	},
+	stats = {
+		"supported_active_skill_gem_quality_%",
+	},
+	levels = {
+		[1] = { 0, manaMultiplier = 20, levelRequirement = 72, statInterpolation = { 1, }, cost = { }, },
+		[2] = { 8, manaMultiplier = 20, levelRequirement = 74, statInterpolation = { 1, }, cost = { }, },
+		[3] = { 16, manaMultiplier = 20, levelRequirement = 76, statInterpolation = { 1, }, cost = { }, },
+		[4] = { 24, manaMultiplier = 20, levelRequirement = 78, statInterpolation = { 1, }, cost = { }, },
+		[5] = { 32, manaMultiplier = 20, levelRequirement = 80, statInterpolation = { 1, }, cost = { }, },
+		[6] = { 40, manaMultiplier = 20, levelRequirement = 82, statInterpolation = { 1, }, cost = { }, },
+		[7] = { 48, manaMultiplier = 20, levelRequirement = 84, statInterpolation = { 1, }, cost = { }, },
+		[8] = { 56, manaMultiplier = 20, levelRequirement = 86, statInterpolation = { 1, }, cost = { }, },
+		[9] = { 64, manaMultiplier = 20, levelRequirement = 88, statInterpolation = { 1, }, cost = { }, },
+		[10] = { 72, manaMultiplier = 20, levelRequirement = 90, statInterpolation = { 1, }, cost = { }, },
+		[11] = { 80, manaMultiplier = 20, levelRequirement = 91, statInterpolation = { 1, }, cost = { }, },
+		[12] = { 88, manaMultiplier = 20, levelRequirement = 92, statInterpolation = { 1, }, cost = { }, },
+		[13] = { 96, manaMultiplier = 20, levelRequirement = 93, statInterpolation = { 1, }, cost = { }, },
+		[14] = { 104, manaMultiplier = 20, levelRequirement = 94, statInterpolation = { 1, }, cost = { }, },
+		[15] = { 112, manaMultiplier = 20, levelRequirement = 95, statInterpolation = { 1, }, cost = { }, },
+		[16] = { 120, manaMultiplier = 20, levelRequirement = 96, statInterpolation = { 1, }, cost = { }, },
+		[17] = { 128, manaMultiplier = 20, levelRequirement = 97, statInterpolation = { 1, }, cost = { }, },
+		[18] = { 136, manaMultiplier = 20, levelRequirement = 98, statInterpolation = { 1, }, cost = { }, },
+		[19] = { 144, manaMultiplier = 20, levelRequirement = 99, statInterpolation = { 1, }, cost = { }, },
+		[20] = { 152, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
+	},
+}
 skills["SupportFasterAttack"] = {
 	name = "Faster Attacks",
 	description = "Supports attack skills.",

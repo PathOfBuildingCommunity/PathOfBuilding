@@ -8345,6 +8345,9 @@ skills["CircleOfPower"] = {
 		["spell_damage_+%"] = {
 			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
+		["base_chance_to_shock_%_from_skill"] = {
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "SigilOfPowerStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -8363,7 +8366,7 @@ skills["CircleOfPower"] = {
 			{ "circle_of_power_max_stages", -0.05 },
 		},
 		Alternate2 = {
-			{ "base_chance_to_shock_%", 1 },
+			{ "base_chance_to_shock_%_from_skill", 1 },
 		},
 		Alternate3 = {
 			{ "circle_of_power_skill_cost_mana_cost_+%", -0.5 },
