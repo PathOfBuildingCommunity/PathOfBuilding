@@ -545,7 +545,7 @@ local abbreviateModId = function(string)
 end
 
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	if #(mod.mod) == 1 then
+	if not mod.Id:match("^SublimeVision") then
 		local variantName = abbreviateModId(mod.Id):gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
 		if watchersEyeLegacyMods[mod.Id] then
 			if watchersEyeLegacyMods[mod.Id].version then
@@ -557,8 +557,8 @@ for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 		else
 			table.insert(watchersEye, "Variant:" .. variantName)
 		end
-	else
-		local variantName = abbreviateModId(mod.Id):gsub("SublimeVision", ""):gsub("[%u%d]", " %1")
+	elseif mod.Id:match("^SublimeVision") then
+		local variantName = mod.Id:gsub("SublimeVision", ""):gsub("[%u%d]", " %1")
 		table.insert(sublimeVision, "Variant:" .. variantName)
 	end
 end
