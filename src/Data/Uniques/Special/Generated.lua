@@ -524,6 +524,15 @@ Has Alt Variant Two: true
 ]]
 }
 
+local sublimeVision = {
+[[
+Sublime Vision
+Prismatic Jewel
+Source: Drops from unique{Uber Uber Elder}
+Limited to: 1
+]]
+}
+
 local abbreviateModId = function(string)
 	return (string:
 	gsub("Increased", "Inc"):
@@ -536,16 +545,21 @@ local abbreviateModId = function(string)
 end
 
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	local variantName = abbreviateModId(mod.Id):gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
-	if watchersEyeLegacyMods[mod.Id] then
-		if watchersEyeLegacyMods[mod.Id].version then
-			table.insert(watchersEye, "Variant:" .. variantName .. " (Pre " .. watchersEyeLegacyMods[mod.Id].version .. ")")
-		end
-		if watchersEyeLegacyMods[mod.Id].legacyMod then
+	if not mod.Id:match("^SublimeVision") then
+		local variantName = abbreviateModId(mod.Id):gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
+		if watchersEyeLegacyMods[mod.Id] then
+			if watchersEyeLegacyMods[mod.Id].version then
+				table.insert(watchersEye, "Variant:" .. variantName .. " (Pre " .. watchersEyeLegacyMods[mod.Id].version .. ")")
+			end
+			if watchersEyeLegacyMods[mod.Id].legacyMod then
+				table.insert(watchersEye, "Variant:" .. variantName)
+			end
+		else
 			table.insert(watchersEye, "Variant:" .. variantName)
 		end
 	else
-		table.insert(watchersEye, "Variant:" .. variantName)
+		local variantName = mod.Id:gsub("SublimeVision", ""):gsub("[%u%d]", " %1")
+		table.insert(sublimeVision, "Variant:" .. variantName)
 	end
 end
 
@@ -555,24 +569,33 @@ table.insert(watchersEye,
 (4-6)% increased maximum Life
 (4-6)% increased maximum Mana]])
 
-local index = 1
+local indexWatchersEye = 1
+local indexSublimeVision = 1
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	if watchersEyeLegacyMods[mod.Id] then
-		if watchersEyeLegacyMods[mod.Id].legacyMod then
-			table.insert(watchersEye, "{variant:" .. index .. "}" .. watchersEyeLegacyMods[mod.Id].legacyMod(mod.mod[1]))
-			index = index + 1
-		end
-		if watchersEyeLegacyMods[mod.Id].version then
-			table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
-			index = index + 1
+	if not mod.Id:match("^SublimeVision") then
+		if watchersEyeLegacyMods[mod.Id] then
+			if watchersEyeLegacyMods[mod.Id].legacyMod then
+				table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. watchersEyeLegacyMods[mod.Id].legacyMod(mod.mod[1]))
+				indexWatchersEye = indexWatchersEye + 1
+			end
+			if watchersEyeLegacyMods[mod.Id].version then
+				table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. mod.mod[1])
+				indexWatchersEye = indexWatchersEye + 1
+			end
+		else
+			table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. mod.mod[1])
+			indexWatchersEye = indexWatchersEye + 1
 		end
 	else
-		table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
-		index = index + 1
+		for i, _ in ipairs(mod.mod) do
+			table.insert(sublimeVision, "{variant:" .. indexSublimeVision .. "}" .. mod.mod[i])
+		end
+		indexSublimeVision = indexSublimeVision + 1
 	end
 end
 
 table.insert(data.uniques.generated, table.concat(watchersEye, "\n"))
+table.insert(data.uniques.generated, table.concat(sublimeVision, "\n"))
 
 function buildTreeDependentUniques(tree)
 	buildForbidden(tree.classNotables)

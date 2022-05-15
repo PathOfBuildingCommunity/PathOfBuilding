@@ -1526,10 +1526,6 @@ skills["SupportCurseOnHitCursePlus"] = {
 	plusVersionOf = "SupportCurseOnHitCurse",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
-		["number_of_additional_curses_allowed"] = {
-			mod("AdditionalCurse", "BASE", nil),
-			flag("CanHaveAdditionalCurse"),
-		},
 	},
 	baseMods = {
 	},

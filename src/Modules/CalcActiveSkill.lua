@@ -402,7 +402,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	activeSkill.skillModList = skillModList
 	activeSkill.baseSkillModList = skillModList
 
-	if skillModList:Flag(activeSkill.skillCfg, "DisableSkill") then
+	if skillModList:Flag(activeSkill.skillCfg, "DisableSkill") and not skillModList:Flag(activeSkill.skillCfg, "EnableSkill") then
 		skillFlags.disable = true
 		activeSkill.disableReason = "Skills of this type are disabled"
 	end

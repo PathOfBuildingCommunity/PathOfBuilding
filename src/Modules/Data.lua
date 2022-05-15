@@ -322,6 +322,7 @@ data.keystones = {
 	"Runebinder",
 	"Secrets of Suffering",
 	"Solipsism",
+	"Supreme Decadence",
 	"Supreme Ego",
 	"The Agnostic",
 	"The Impaler",
