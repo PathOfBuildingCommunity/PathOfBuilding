@@ -572,7 +572,7 @@ table.insert(watchersEye,
 local indexWatchersEye = 1
 local indexSublimeVision = 1
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	if #(mod.mod) == 1 then
+	if not mod.Id:match("^SublimeVision") then
 		if watchersEyeLegacyMods[mod.Id] then
 			if watchersEyeLegacyMods[mod.Id].legacyMod then
 				table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. watchersEyeLegacyMods[mod.Id].legacyMod(mod.mod[1]))
