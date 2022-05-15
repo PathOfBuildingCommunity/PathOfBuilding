@@ -1525,8 +1525,6 @@ skills["SupportCurseOnHitCursePlus"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCurseOnHitCurse",
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-	},
 	baseMods = {
 	},
 	qualityStats = {
