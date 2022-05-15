@@ -1232,9 +1232,6 @@ function calcs.perform(env, avoidCache)
 				end
 			end
 		end
-		if activeSkill.skillModList:Flag(nil, "CanHaveAdditionalCurse") then
-			output.GemCurseLimit = activeSkill.skillModList:Sum("BASE", nil, "AdditionalCurse")
-		end
 		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") and not modDB:Flag(nil, "AlreadyWithered") then
 			modDB:NewMod("Condition:CanWither", "FLAG", true, "Config")
 			local effect = activeSkill.minion and 6 or m_floor(6 * (1 + modDB:Sum("INC", nil, "WitherEffect") / 100))
@@ -1727,8 +1724,7 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
-	-- Combine buffs/debuffs 
-	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit") + (output.GemCurseLimit or 0)
+	-- Combine buffs/debuffs
 	local buffs = { }
 	env.buffs = buffs
 	local guards = { }
@@ -1736,9 +1732,7 @@ function calcs.perform(env, avoidCache)
 	env.minionBuffs = minionBuffs
 	local debuffs = { }
 	env.debuffs = debuffs
-	local curses = { 
-		limit = output.EnemyCurseLimit,
-	}
+	local curses = { }
 	local minionCurses = {
 		limit = 1,
 	}
@@ -2082,6 +2076,9 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
+	-- Set curse limit
+	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit")
+	curses.limit = output.EnemyCurseLimit
 	-- Assign curses to slots
 	local curseSlots = { }
 	env.curseSlots = curseSlots
