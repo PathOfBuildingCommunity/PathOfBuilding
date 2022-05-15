@@ -557,7 +557,7 @@ for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 		else
 			table.insert(watchersEye, "Variant:" .. variantName)
 		end
-	elseif mod.Id:match("^SublimeVision") then
+	else
 		local variantName = mod.Id:gsub("SublimeVision", ""):gsub("[%u%d]", " %1")
 		table.insert(sublimeVision, "Variant:" .. variantName)
 	end
