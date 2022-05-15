@@ -22,11 +22,11 @@ Royal Burgonet
 Shaper Item
 Requires Level 65, 148 Str
 Socketed Warcry Skills have +1 Cooldown Use
-(80-120))% increased Armour
-+(50-70)) to maximum Life
+(80-120)% increased Armour
++(50-70) to maximum Life
 When you Attack, take (15-20)% of Life as Physical Damage for
 each Warcry Exerting the Attack
-Skills deal (10-15))% more Damage for each Warcry Exerting them
+Skills deal (10-15)% more Damage for each Warcry Exerting them
 ]],[[
 The Eternal Struggle
 Onyx Amulet
