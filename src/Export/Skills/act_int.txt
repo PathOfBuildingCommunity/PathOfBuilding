@@ -322,8 +322,7 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["display_max_blight_stacks"] = {
-			mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
-			base = -1
+			mod("Multiplier:BlightMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 #baseMod mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "BlightStageAfterFirst" })
@@ -339,8 +338,7 @@ local skills, mod, flag, skill = ...
 			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }),
 		},
 		["display_max_blight_stacks"] = {
-			mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
-			base = -1
+			mod("Multiplier:BlightMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 #baseMod skill("radius", 20)
@@ -642,7 +640,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
-#baseMod mod("Multiplier:DivineIreMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:DivineIreMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 38)
 #mods
 
@@ -865,8 +863,7 @@ local skills, mod, flag, skill = ...
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["flameblast_maximum_stages"] = {
-			mod("Multiplier:FlameblastMaxStagesAfterFirst", "BASE", nil),
-			base = -1
+			mod("Multiplier:FlameblastMaxStages", "BASE", nil),
 		},
 		["flameblast_area_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
@@ -1456,7 +1453,7 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 })
 #baseMod skill("radius", 8)
 #baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" })
-#baseMod mod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 })
+#baseMod mod("Multiplier:PenanceBrandMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 1 })
 #mods
 
 #skill PowerSiphon
@@ -1674,8 +1671,7 @@ local skills, mod, flag, skill = ...
 			base = 100
 		},
 		["display_max_fire_beam_stacks"] = {
-			mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", nil),
-			base = -1
+			mod("Multiplier:ScorchingRayMaxStages", "BASE", nil),
 		},
 	},
 #baseMod mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 })
@@ -2169,8 +2165,7 @@ local skills, mod, flag, skill = ...
 			mod("HitRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst" }),
 		},
 		["frost_fury_max_number_of_stages"] = {
-			mod("Multiplier:WinterOrbMaxStagesAfterFirst", "BASE", nil),
-			base = -1,
+			mod("Multiplier:WinterOrbMaxStages", "BASE", nil),
 		},
 		["frost_fury_base_fire_interval_ms"] = {
 			skill("repeatFrequency", nil),

@@ -1782,7 +1782,7 @@ skills["CorruptingFever"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
-		mod("Multiplier:CorruptingFeverMaxStagesAfterFirst", "BASE", 9),
+		mod("Multiplier:CorruptingFeverMaxStages", "BASE", 10),
 		mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingFeverStageAfterFirst"}),
 	},
 	qualityStats = {
@@ -2840,7 +2840,7 @@ skills["Exsanguinate"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
-		mod("Multiplier:ExsanguinateMaxStagesAfterFirst", "BASE", 2),
+		mod("Multiplier:ExsanguinateMaxStages", "BASE", 3),
 		mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}),
 	},
 	qualityStats = {

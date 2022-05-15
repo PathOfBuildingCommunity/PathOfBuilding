@@ -3312,7 +3312,7 @@ skills["ExplosiveArrow"] = {
 	baseMods = {
 		skill("radius", 15),
 		skill("showAverage", true, { type = "SkillPart", skillPart = 1 }),
-		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }, { type = "Multiplier", var = "ExplosiveArrowStage", base = -100 }),
+		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }, { type = "Multiplier", var = "ExplosiveArrowStageAfterFirst" }),
 	},
 	qualityStats = {
 		Default = {
