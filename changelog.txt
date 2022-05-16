@@ -1,3 +1,20 @@
+VERSION[2.17.0][2022/05/16]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Allow https://poeskilltree.com Passive tree import (pHiney)
+* Add support for ReservationBecomesCost modifier (Divine Blessing/Totems) (deathbeam)
+* Fix: planning for new unique Forbidden Flame/Flesh Scion notable (Nostrademous)
+* New: export of skills; added two new DATs to be pulled; added new skills (Nostrademous)
+* Sentinel uniques (TPlant)
+* Feat: Add support for Massive Radius (Nostrademous)
+* Add support for Spellslinger reservation enchant (Lothrik)
+* Add support for "for Attack Damage" modifiers (Lothrik)
+* Eldritch Mod Parsing (LocalIdentity)
+* Fix Decay breakdown (Lothrik)
+* Update Vulnerability curse priority (Lothrik)
+* Fix supreme ego more mana reservation of skills to only affect auras (deathbeam)
+* Implement "Impossible Escape" jewel (disjunto)
+
 VERSION[2.16.0][2022/03/15]
 
 --- Implemented Enhancements ---

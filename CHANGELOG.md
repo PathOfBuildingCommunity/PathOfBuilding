@@ -1,5 +1,36 @@
 # Changelog
 
+## [v2.17.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.17.0) (2022/05/16)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.16.0...v2.17.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Implemented Enhancements
+- Allow https://poeskilltree.com Passive tree import [\#4191](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4191) ([pHiney](https://github.com/pHiney))
+- Add support for ReservationBecomesCost modifier (Divine Blessing/Totems) [\#4329](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4329) ([deathbeam](https://github.com/deathbeam))
+- Fix: planning for new unique Forbidden Flame/Flesh Scion notable [\#4358](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4358) ([Nostrademous](https://github.com/Nostrademous))
+- New: export of skills; added two new DATs to be pulled; added new skills [\#4369](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4369) ([Nostrademous](https://github.com/Nostrademous))
+- Sentinel uniques [\#4365](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4365) ([TPlant](https://github.com/PJacek))
+### User Interface
+- Remove ward regen from breakdown [\#4342](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4342) ([Lilylicious](https://github.com/Lilylicious))
+### New Calculations
+- Add support for reduced mana cost of attacks [\#4288](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4288) ([deathbeam](https://github.com/deathbeam))
+- Feat: Add support for Massive Radius [\#4348](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4348) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for Spellslinger reservation enchant [\#4338](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4338) ([Lothrik](https://github.com/Lothrik))
+- Add support for "for Attack Damage" modifiers [\#4337](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4337) ([Lothrik](https://github.com/Lothrik))
+- Eldritch Mod Parsing [\#4364](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4364) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Bugs
+- Fix Energy Blade Import [\#4330](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4330) ([pHiney](https://github.com/pHiney))
+- Fix Decay breakdown [\#4326](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4326) ([Lothrik](https://github.com/Lothrik))
+- Update Vulnerability curse priority [\#4325](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4325) ([Lothrik](https://github.com/Lothrik))
+- Fix supreme ego more mana reservation of skills to only affect auras [\#4293](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4293) ([deathbeam](https://github.com/deathbeam))
+### Other changes
+- In item creator, treat flasks like other items with multiple tiers of mods [\#4307](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4307) ([benjaminysmall](https://github.com/benjaminysmall))
+- Implement "Impossible Escape" jewel [\#4350](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4350) ([disjunto](https://github.com/disjunto))
+
+
 ## [v2.16.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.16.0) (2022/03/15)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.15.1...v2.16.0)
