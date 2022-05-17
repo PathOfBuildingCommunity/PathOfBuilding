@@ -52,6 +52,9 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 		if not socketGroup.enabled or not socketGroup.slotEnabled then
 			label = "^x7F7F7F" .. label .. " (Disabled)"
 		end
+		if socketGroup.includeInFullDPS then 
+			label = label .. colorCodes.CUSTOM .. " [FullDPS]"
+		end
 		return label
 	end
 end
@@ -116,8 +119,14 @@ function SkillListClass:OnHoverKeyUp(key)
 			end
 		end
 	elseif key == 'RIGHTBUTTON' then
-		item.enabled = not item.enabled
-		self.skillsTab:AddUndoState()
-		self.skillsTab.build.buildFlag = true
+		if IsKeyDown("ALT") then
+			item.includeInFullDPS = not item.includeInFullDPS
+			self.skillsTab:AddUndoState()
+			self.skillsTab.build.buildFlag = true
+		else 
+			item.enabled = not item.enabled
+			self.skillsTab:AddUndoState()
+			self.skillsTab.build.buildFlag = true
+		end
 	end
 end
