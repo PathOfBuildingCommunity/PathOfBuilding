@@ -402,7 +402,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	activeSkill.skillModList = skillModList
 	activeSkill.baseSkillModList = skillModList
 
-	if skillModList:Flag(activeSkill.skillCfg, "DisableSkill") then
+	if skillModList:Flag(activeSkill.skillCfg, "DisableSkill") and not skillModList:Flag(activeSkill.skillCfg, "EnableSkill") then
 		skillFlags.disable = true
 		activeSkill.disableReason = "Skills of this type are disabled"
 	end
@@ -482,17 +482,16 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 	end
 	
-	if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages", "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStagesAfterFirst") > 0 then
+	if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages") > 0 then
 		skillFlags.multiStage = true
 		activeSkill.activeStageCount = (env.mode == "CALCS" and activeEffect.srcInstance.skillStageCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillStageCount)
-		local limit = skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages", "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStagesAfterFirst")
-		if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStagesAfterFirst") > 0 then
-			activeSkill.activeStageCount = (activeSkill.activeStageCount or 0) - 1
+		local limit = skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages")
+		if limit > 0 then
 			if activeSkill.activeStageCount and activeSkill.activeStageCount > 0 then
-				skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", m_min(limit, activeSkill.activeStageCount), "Base")
+				skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."Stage", "BASE", m_min(limit, activeSkill.activeStageCount), "Base")
+				activeSkill.activeStageCount = (activeSkill.activeStageCount or 0) - 1
+				skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", m_min(limit - 1, activeSkill.activeStageCount), "Base")
 			end
-		elseif activeSkill.activeStageCount and activeSkill.activeStageCount > 0 then
-			skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."Stage", "BASE", m_min(limit, activeSkill.activeStageCount), "Base")
 		end
 	end
 

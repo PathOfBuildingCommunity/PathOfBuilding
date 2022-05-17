@@ -205,6 +205,14 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportAdditionalQualityPlus
+	statMap = {
+		["supported_active_skill_gem_quality_%"] = {
+			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "quality", value = nil }),
+		},
+	},
+#mods
+
 #skill SupportFasterAttack
 #mods
 

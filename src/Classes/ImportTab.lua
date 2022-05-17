@@ -652,7 +652,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		if item.name:match("Energy Blade") then
 			local oneHanded = false
 			for _, p in ipairs(itemData.properties) do
-				if self.build.data.weaponTypeInfo[p.name].oneHand then
+				if self.build.data.weaponTypeInfo[p.name] and self.build.data.weaponTypeInfo[p.name].oneHand then
 					oneHanded = true
 					break
 				end
