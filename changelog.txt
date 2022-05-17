@@ -1,9 +1,14 @@
+VERSION[2.17.1][2022/05/17]
+
+--- Fixed Bugs ---
+* Fix bug when rendering Timeless jewel and Thread of Hope rings (LocalIdentity)
+
 VERSION[2.17.0][2022/05/17]
 
 --- Implemented Enhancements ---
 * Update data from 3.18 files (Nostrademous, LocalIdentity)
 * Update skill tree to 3.18 (LocalIdentity)
-* Add new exceptional skill gems from 3.18 (Nostrademous)
+* Add new awakened exceptional skill gems from 3.18 (Nostrademous)
 * Add new Sentinel uniques (TPlant, LocalIdentity)
 * Add support for Sublime Vision (LocalIdentity)
 * Add support for Impossible Escape jewel (disjunto)

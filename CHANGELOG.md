@@ -1,5 +1,15 @@
 # Changelog
 
+## [v2.17.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.17.1) (2022/05/17)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.17.0...v2.17.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+- Fix bug when rendering Timeless jewel and Thread of Hope rings ([LocalIdentity](https://github.com/LocalIdentity))
+
 ## [v2.17.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.17.0) (2022/05/17)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.16.0...v2.17.0)
@@ -8,9 +18,9 @@
 
 ## What's Changed
 ### Implemented Enhancements
-- Update data from 3.18 files [\#4369](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4369) ([Nostrademous](https://github.com/Nostrademous), [LocalIdentity](https://github.com/LocalIdentity)
+- Update data from 3.18 files [\#4369](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4369) ([Nostrademous](https://github.com/Nostrademous), [LocalIdentity](https://github.com/LocalIdentity))
 - Update skill tree to 3.18 ([LocalIdentity](https://github.com/LocalIdentity))
-- Add new exceptional skill gems from 3.18 [\#4369](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4369) ([Nostrademous](https://github.com/Nostrademous))
+- Add new awakened exceptional skill gems from 3.18 [\#4369](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4369) ([Nostrademous](https://github.com/Nostrademous))
 - Add new Sentinel uniques [\#4365](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4365) ([TPlant](https://github.com/PJacek), [LocalIdentity](https://github.com/LocalIdentity))
 - Add support for Sublime Vision [\#4365](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4365) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add support for Impossible Escape jewel [\#4350](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4350) ([disjunto](https://github.com/disjunto))
