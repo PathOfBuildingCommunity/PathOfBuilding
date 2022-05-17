@@ -106,8 +106,8 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 end
 
 function SkillListClass:OnHoverKeyUp(key)
+	local item = self.ListControl:GetHoverValue()
 	if itemLib.wiki.matchesKey(key) then
-		local item = self.ListControl:GetHoverValue()
 		if item then
 			-- Get the first gem in the group
 			local gem = item.gemList[1]
@@ -115,5 +115,9 @@ function SkillListClass:OnHoverKeyUp(key)
 				itemLib.wiki.openGem(gem.gemData)
 			end
 		end
+	elseif key == 'RIGHTBUTTON' then
+		item.enabled = not item.enabled
+		self.skillsTab:AddUndoState()
+		self.skillsTab.build.buildFlag = true
 	end
 end
