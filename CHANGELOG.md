@@ -1,5 +1,38 @@
 # Changelog
 
+## [v2.17.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.17.0) (2022/05/17)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.16.0...v2.17.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Implemented Enhancements
+- Update data from 3.18 files [\#4369](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4369) ([Nostrademous](https://github.com/Nostrademous), [LocalIdentity](https://github.com/LocalIdentity)
+- Update skill tree to 3.18 ([LocalIdentity](https://github.com/LocalIdentity))
+- Add new exceptional skill gems from 3.18 [\#4369](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4369) ([Nostrademous](https://github.com/Nostrademous))
+- Add new Sentinel uniques [\#4365](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4365) ([TPlant](https://github.com/PJacek), [LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Sublime Vision [\#4365](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4365) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Impossible Escape jewel [\#4350](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4350) ([disjunto](https://github.com/disjunto))
+- Add support for new Thread of Hope radius [\#4348](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4348) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for poeskilltree.com passive tree import [\#4191](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4191) ([pHiney](https://github.com/pHiney))
+### User Interface
+- In item creator, treat flasks like other items with multiple tiers of mods [\#4307](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4307) ([benjaminysmall](https://github.com/benjaminysmall))
+- Remove Ward regen from breakdown [\#4342](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4342) ([Lilylicious](https://github.com/Lilylicious))
+### Accuracy Improvements
+- Fix Vulnerability curse priority [\#4325](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4325) ([Lothrik](https://github.com/Lothrik))
+- Fix Supreme Ego more Mana reservation of skills to only affect auras [\#4293](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4293) ([deathbeam](https://github.com/deathbeam))
+- Fix Decay breakdown values [\#4326](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4326) ([Lothrik](https://github.com/Lothrik))
+### New Calculations
+- Add support for Divine Blessing + Totem Auras [\#4329](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4329) ([deathbeam](https://github.com/deathbeam), [LocalIdentity](https://github.com/LocalIdentity))
+- Add support for reduced Mana cost of attacks [\#4288](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4288) ([deathbeam](https://github.com/deathbeam))
+- Add support for Spellslinger reservation enchant [\#4338](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4338) ([Lothrik](https://github.com/Lothrik))
+- Add support for "for Attack Damage" modifiers [\#4337](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4337) ([Lothrik](https://github.com/Lothrik))
+- Add support for remaining Eldritch modifiers [\#4364](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4364) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Bugs
+- Fix crash on Energy Blade import [\#4330](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4330) ([pHiney](https://github.com/pHiney))
+
+
 ## [v2.16.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.16.0) (2022/03/15)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.15.1...v2.16.0)
