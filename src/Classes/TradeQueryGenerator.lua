@@ -519,9 +519,9 @@ function TradeQueryGeneratorClass:ExecuteQuery()
     if self.calcContext.options.includeCorrupted then
         self:GenerateModWeights(self.modData["Corrupted"])
     end
-    if self.calcContext.options.includeScourge then
-        self:GenerateModWeights(self.modData["Scourge"])
-    end
+    --if self.calcContext.options.includeScourge then
+    --    self:GenerateModWeights(self.modData["Scourge"])
+    --end
 end
 
 function TradeQueryGeneratorClass:FinishQuery()
@@ -575,7 +575,8 @@ function TradeQueryGeneratorClass:FinishQuery()
                 }
             }
         },
-        sort = { ["statgroup.0"] = "desc" }
+        sort = { ["statgroup.0"] = "desc" },
+        engine = "new"
     }
 
     local andFilters = { type = "and", filters = { } }
@@ -624,16 +625,18 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
     controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, 0, 30, 18, "Corrupted Mods:", function(state) end)
     controls.includeCorrupted.state = (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
 
+    --[[
     if not isJewelSlot and not isAbyssalJewelSlot then
         controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",controls.includeCorrupted,"BOTTOMRIGHT"}, 0, 5, 18, "Scourge Mods:", function(state) end)
-        controls.includeScourge.state = (self.lastIncludeScourge  == nil or self.lastIncludeScourge == true)
+        controls.includeScourge.state = (self.lastIncludeScourge == nil or self.lastIncludeScourge == true)
 
         popupHeight = popupHeight + 23
     end
+    --]]
 
     if isAmuletSlot then
-        controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",controls.includeScourge,"BOTTOMRIGHT"}, 0, 5, 18, "Talisman Mods:", function(state) end)
-        controls.includeTalisman.state = (self.lastIncludeTalisman  == nil or self.lastIncludeTalisman == true)
+        controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",controls.includeCorrupted,"BOTTOMRIGHT"}, 0, 5, 18, "Talisman Mods:", function(state) end)
+        controls.includeTalisman.state = (self.lastIncludeTalisman == nil or self.lastIncludeTalisman == true)
 
         popupHeight = popupHeight + 23
     end
@@ -645,7 +648,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 
         popupHeight = popupHeight + 23
     elseif not isAbyssalJewelSlot then
-        controls.influence1 = new("DropDownControl", {"TOPLEFT",controls.includeTalisman and controls.includeTalisman or controls.includeScourge,"BOTTOMLEFT"}, 0, 5, 100, 18, influenceDropdownNames, function(index, value) end)
+        controls.influence1 = new("DropDownControl", {"TOPLEFT",controls.includeTalisman and controls.includeTalisman or controls.includeCorrupted,"BOTTOMLEFT"}, 0, 5, 100, 18, influenceDropdownNames, function(index, value) end)
         controls.influence1.selIndex = self.lastInfluence1 or 1
         controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, -5, 0, 0, 16, "Influence 1:")
 
@@ -662,9 +665,9 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
         if controls.includeCorrupted then
             self.lastIncludeCorrupted, options.includeCorrupted = controls.includeCorrupted.state, controls.includeCorrupted.state
         end
-        if controls.includeScourge then
-            self.lastIncludeScourge, options.includeScourge = controls.includeScourge.state, controls.includeScourge.state
-        end
+        --if controls.includeScourge then
+        --    self.lastIncludeScourge, options.includeScourge = controls.includeScourge.state, controls.includeScourge.state
+        --end
         if controls.includeTalisman then
             self.lastIncludeTalisman, options.includeTalisman = controls.includeTalisman.state, controls.includeTalisman.state
         end
