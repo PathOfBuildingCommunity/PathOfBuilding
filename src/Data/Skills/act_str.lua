@@ -26,6 +26,9 @@ skills["Absolution"] = {
 			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil),
 			mod("MinionModifier", "LIST", { mod = mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0) })
 		},
+		["damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -1500,6 +1503,9 @@ skills["ChainStrike"] = {
 		["chain_strike_gain_x_rage_if_attack_hits"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["chain_strike_cone_radius_+_per_x_rage"] = {
+			mod("AreaOfEffect", "BASE", 1, 0, 0, { type = "Multiplier", var = "Rage" , div = nil }),
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -1508,7 +1514,6 @@ skills["ChainStrike"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
-		mod("AreaOfEffect", "BASE", 1, 0, 0, { type = "Multiplier", var = "Rage" , div = 5 }),
 	},
 	qualityStats = {
 		Default = {
@@ -1777,7 +1782,7 @@ skills["CorruptingFever"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
-		mod("Multiplier:CorruptingFeverMaxStagesAfterFirst", "BASE", 9),
+		mod("Multiplier:CorruptingFeverMaxStages", "BASE", 10),
 		mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingFeverStageAfterFirst"}),
 	},
 	qualityStats = {
@@ -2311,6 +2316,9 @@ skills["PuresteelBanner"] = {
 		["impale_debuff_effect_+%"] = {
 			mod("ImpaleEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["puresteel_banner_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -2430,7 +2438,7 @@ skills["Earthquake"] = {
 		},
 		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
 			flag("SpellDamageAppliesToAttacks"),
-			mod("ImprovedSpellDamageAppliesToAttacks", "INC", nil),
+			mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
 		},
 	},
 	baseFlags = {
@@ -2832,7 +2840,7 @@ skills["Exsanguinate"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
-		mod("Multiplier:ExsanguinateMaxStagesAfterFirst", "BASE", 2),
+		mod("Multiplier:ExsanguinateMaxStages", "BASE", 3),
 		mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}),
 	},
 	qualityStats = {
@@ -2994,8 +3002,7 @@ skills["GeneralsCry"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
-		["spiritual_cry_doubles_summoned_per_5_MP+%"] = {
-			mod("GeneralsCryDoubleMPCount", "BASE", nil),
+		["spiritual_cry_doubles_summoned_per_5_MP"] = {
 		},
 		["maximum_number_of_spiritual_cry_warriors"] = {
 			mod("GeneralsCryDoubleMaxCount", "BASE", nil),
@@ -3086,6 +3093,8 @@ skills["GeneralsCrySupport"] = {
 		["support_spiritual_cry_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["number_of_warcries_exerting_this_action"] = {
+		},
 	},
 	baseMods = {
 	},
@@ -3093,53 +3102,53 @@ skills["GeneralsCrySupport"] = {
 	},
 	stats = {
 		"support_spiritual_cry_damage_+%_final",
+		"number_of_warcries_exerting_this_action",
 		"triggered_by_spiritual_cry",
-		"is_empowered",
 		"no_spirit_strikes",
 		"force_lite_skill_effects",
 		"base_damage_not_from_skill_user",
 	},
 	levels = {
-		[1] = { -45, levelRequirement = 24, statInterpolation = { 1, }, cost = { }, },
-		[2] = { -45, levelRequirement = 27, statInterpolation = { 1, }, cost = { }, },
-		[3] = { -44, levelRequirement = 30, statInterpolation = { 1, }, cost = { }, },
-		[4] = { -44, levelRequirement = 33, statInterpolation = { 1, }, cost = { }, },
-		[5] = { -43, levelRequirement = 36, statInterpolation = { 1, }, cost = { }, },
-		[6] = { -43, levelRequirement = 39, statInterpolation = { 1, }, cost = { }, },
-		[7] = { -42, levelRequirement = 42, statInterpolation = { 1, }, cost = { }, },
-		[8] = { -42, levelRequirement = 45, statInterpolation = { 1, }, cost = { }, },
-		[9] = { -41, levelRequirement = 48, statInterpolation = { 1, }, cost = { }, },
-		[10] = { -41, levelRequirement = 50, statInterpolation = { 1, }, cost = { }, },
-		[11] = { -40, levelRequirement = 52, statInterpolation = { 1, }, cost = { }, },
-		[12] = { -40, levelRequirement = 54, statInterpolation = { 1, }, cost = { }, },
-		[13] = { -39, levelRequirement = 56, statInterpolation = { 1, }, cost = { }, },
-		[14] = { -39, levelRequirement = 58, statInterpolation = { 1, }, cost = { }, },
-		[15] = { -38, levelRequirement = 60, statInterpolation = { 1, }, cost = { }, },
-		[16] = { -38, levelRequirement = 62, statInterpolation = { 1, }, cost = { }, },
-		[17] = { -37, levelRequirement = 64, statInterpolation = { 1, }, cost = { }, },
-		[18] = { -37, levelRequirement = 66, statInterpolation = { 1, }, cost = { }, },
-		[19] = { -36, levelRequirement = 68, statInterpolation = { 1, }, cost = { }, },
-		[20] = { -36, levelRequirement = 70, statInterpolation = { 1, }, cost = { }, },
-		[21] = { -35, levelRequirement = 72, statInterpolation = { 1, }, cost = { }, },
-		[22] = { -35, levelRequirement = 74, statInterpolation = { 1, }, cost = { }, },
-		[23] = { -34, levelRequirement = 76, statInterpolation = { 1, }, cost = { }, },
-		[24] = { -34, levelRequirement = 78, statInterpolation = { 1, }, cost = { }, },
-		[25] = { -33, levelRequirement = 80, statInterpolation = { 1, }, cost = { }, },
-		[26] = { -33, levelRequirement = 82, statInterpolation = { 1, }, cost = { }, },
-		[27] = { -32, levelRequirement = 84, statInterpolation = { 1, }, cost = { }, },
-		[28] = { -32, levelRequirement = 86, statInterpolation = { 1, }, cost = { }, },
-		[29] = { -31, levelRequirement = 88, statInterpolation = { 1, }, cost = { }, },
-		[30] = { -31, levelRequirement = 90, statInterpolation = { 1, }, cost = { }, },
-		[31] = { -31, levelRequirement = 91, statInterpolation = { 1, }, cost = { }, },
-		[32] = { -30, levelRequirement = 92, statInterpolation = { 1, }, cost = { }, },
-		[33] = { -30, levelRequirement = 93, statInterpolation = { 1, }, cost = { }, },
-		[34] = { -30, levelRequirement = 94, statInterpolation = { 1, }, cost = { }, },
-		[35] = { -30, levelRequirement = 95, statInterpolation = { 1, }, cost = { }, },
-		[36] = { -29, levelRequirement = 96, statInterpolation = { 1, }, cost = { }, },
-		[37] = { -29, levelRequirement = 97, statInterpolation = { 1, }, cost = { }, },
-		[38] = { -29, levelRequirement = 98, statInterpolation = { 1, }, cost = { }, },
-		[39] = { -29, levelRequirement = 99, statInterpolation = { 1, }, cost = { }, },
-		[40] = { -28, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
+		[1] = { -45, 1, levelRequirement = 24, statInterpolation = { 1, 1, }, cost = { }, },
+		[2] = { -45, 1, levelRequirement = 27, statInterpolation = { 1, 1, }, cost = { }, },
+		[3] = { -44, 1, levelRequirement = 30, statInterpolation = { 1, 1, }, cost = { }, },
+		[4] = { -44, 1, levelRequirement = 33, statInterpolation = { 1, 1, }, cost = { }, },
+		[5] = { -43, 1, levelRequirement = 36, statInterpolation = { 1, 1, }, cost = { }, },
+		[6] = { -43, 1, levelRequirement = 39, statInterpolation = { 1, 1, }, cost = { }, },
+		[7] = { -42, 1, levelRequirement = 42, statInterpolation = { 1, 1, }, cost = { }, },
+		[8] = { -42, 1, levelRequirement = 45, statInterpolation = { 1, 1, }, cost = { }, },
+		[9] = { -41, 1, levelRequirement = 48, statInterpolation = { 1, 1, }, cost = { }, },
+		[10] = { -41, 1, levelRequirement = 50, statInterpolation = { 1, 1, }, cost = { }, },
+		[11] = { -40, 1, levelRequirement = 52, statInterpolation = { 1, 1, }, cost = { }, },
+		[12] = { -40, 1, levelRequirement = 54, statInterpolation = { 1, 1, }, cost = { }, },
+		[13] = { -39, 1, levelRequirement = 56, statInterpolation = { 1, 1, }, cost = { }, },
+		[14] = { -39, 1, levelRequirement = 58, statInterpolation = { 1, 1, }, cost = { }, },
+		[15] = { -38, 1, levelRequirement = 60, statInterpolation = { 1, 1, }, cost = { }, },
+		[16] = { -38, 1, levelRequirement = 62, statInterpolation = { 1, 1, }, cost = { }, },
+		[17] = { -37, 1, levelRequirement = 64, statInterpolation = { 1, 1, }, cost = { }, },
+		[18] = { -37, 1, levelRequirement = 66, statInterpolation = { 1, 1, }, cost = { }, },
+		[19] = { -36, 1, levelRequirement = 68, statInterpolation = { 1, 1, }, cost = { }, },
+		[20] = { -36, 1, levelRequirement = 70, statInterpolation = { 1, 1, }, cost = { }, },
+		[21] = { -35, 1, levelRequirement = 72, statInterpolation = { 1, 1, }, cost = { }, },
+		[22] = { -35, 1, levelRequirement = 74, statInterpolation = { 1, 1, }, cost = { }, },
+		[23] = { -34, 1, levelRequirement = 76, statInterpolation = { 1, 1, }, cost = { }, },
+		[24] = { -34, 1, levelRequirement = 78, statInterpolation = { 1, 1, }, cost = { }, },
+		[25] = { -33, 1, levelRequirement = 80, statInterpolation = { 1, 1, }, cost = { }, },
+		[26] = { -33, 1, levelRequirement = 82, statInterpolation = { 1, 1, }, cost = { }, },
+		[27] = { -32, 1, levelRequirement = 84, statInterpolation = { 1, 1, }, cost = { }, },
+		[28] = { -32, 1, levelRequirement = 86, statInterpolation = { 1, 1, }, cost = { }, },
+		[29] = { -31, 1, levelRequirement = 88, statInterpolation = { 1, 1, }, cost = { }, },
+		[30] = { -31, 1, levelRequirement = 90, statInterpolation = { 1, 1, }, cost = { }, },
+		[31] = { -31, 1, levelRequirement = 91, statInterpolation = { 1, 1, }, cost = { }, },
+		[32] = { -30, 1, levelRequirement = 92, statInterpolation = { 1, 1, }, cost = { }, },
+		[33] = { -30, 1, levelRequirement = 93, statInterpolation = { 1, 1, }, cost = { }, },
+		[34] = { -30, 1, levelRequirement = 94, statInterpolation = { 1, 1, }, cost = { }, },
+		[35] = { -30, 1, levelRequirement = 95, statInterpolation = { 1, 1, }, cost = { }, },
+		[36] = { -29, 1, levelRequirement = 96, statInterpolation = { 1, 1, }, cost = { }, },
+		[37] = { -29, 1, levelRequirement = 97, statInterpolation = { 1, 1, }, cost = { }, },
+		[38] = { -29, 1, levelRequirement = 98, statInterpolation = { 1, 1, }, cost = { }, },
+		[39] = { -29, 1, levelRequirement = 99, statInterpolation = { 1, 1, }, cost = { }, },
+		[40] = { -28, 1, levelRequirement = 100, statInterpolation = { 1, 1, }, cost = { }, },
 	},
 }
 skills["GlacialHammer"] = {
@@ -3434,6 +3443,8 @@ skills["VaalGroundSlam"] = {
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+		["vaal_skill_exertable"] = {
 		},
 	},
 	baseFlags = {
@@ -4302,7 +4313,9 @@ skills["IntimidatingCry"] = {
 		["warcry_grant_overwhelm_%_to_exerted_attacks"] = {
 			-- This is okay not indicating exert because it must be enabled by Intimidating Cry which would exert the attack
 			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Attack, 0)
-		}
+		},
+		["intimidating_cry_empowerd_attacks_deal_double_damage_display"] = {
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -5836,16 +5849,18 @@ skills["SeismicCry"] = {
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("SeismicExertedAttacks", "BASE", nil),
 		},
-		["seismic_cry_slam_skill_damage_+%_final_increase_per_repeat"] = {
-			mod("SeismicHitMultiplier", "BASE", nil),
+		["seismic_cry_slam_skill_area_+%_increase_per_repeat"] = {
+			mod("SeismicAoEMultiplier", "BASE", nil),
+		},
+		["seismic_cry_base_slam_skill_area_+%"] = {
 		},
 		["seismic_cry_+%_enemy_stun_threshold_per_5_MP"] = {
 			mod("SeismicStunThresholdPer5MP", "BASE", nil),
 		},
-		["exerted_attack_knockback_chance_%"] = {
+		["warcry_grant_knockback_%_to_exerted_attacks"] = {
 			-- Not limited to exerted but should be okay because the cry will flag them as exerted
 			mod("EnemyKnockbackChance", "BASE", nil),
-		}
+		},
 	},
 	baseFlags = {
 		warcry = true,

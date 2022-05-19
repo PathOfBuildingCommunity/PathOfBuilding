@@ -116,7 +116,7 @@ Amethyst Ring
 League: Ritual
 Requires Level 49
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(17-23%)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {tags:jewellery_elemental}+(8-12)% to Fire Damage over Time Multiplier
 50% reduced Ignite Duration on Enemies
 (10-15)% chance to Ignite
@@ -632,7 +632,7 @@ Implicits: 1
 {tags:jewellery_elemental,attack}Adds (26-32) to (42-48) Cold Damage to Attacks
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
-(60-80)% increased Attack Damage if your other Ring is a Shaper Item
+{tags:attack}(60-80)% increased Attack Damage if your other Ring is a Shaper Item
 Cannot be Stunned by Attacks if your other Ring is an Elder Item
 20% chance to Trigger Level 20 Tentacle Whip on Kill
 Elder Item
@@ -743,6 +743,19 @@ Implicits: 1
 {variant:1}{tags:jewellery_attribute}3% increased Intelligence for each Unique Item Equipped
 {variant:2}{tags:jewellery_attribute}2% increased Intelligence for each Unique Item Equipped
 3% additional chance for Slain monsters to drop Scrolls of Wisdom
+]],[[
+Polaric Devastation
+Opal Ring
+Source: Drops from unique{The Black Star}
+Requires Level 80
+Implicits: 1
+{tags:jewellery_elemental}(15-25)% increased Elemental Damage
+{tags:critical}(15-25)% increased Global Critical Strike Chance
+{tags:jewellery_resistance}+(20-40)% to Fire Resistance
+{tags:jewellery_resistance}+(20-40)% to Cold Resistance
+(10-20)% increased Duration of Ailments on Enemies
+Left Ring slot: Cover Enemies in Ash for 5 seconds when you Ignite them
+Right Ring slot: Cover Enemies in Frost for 5 seconds when you Freeze them
 ]],[[
 Praxis
 Paua Ring

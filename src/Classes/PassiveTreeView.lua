@@ -719,7 +719,21 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local radData = build.data.jewelRadius[jewel.jewelRadiusIndex]
 					local outerSize = radData.outer * scale
 					local innerSize = radData.inner * scale * 1.06
-					if jewel.title == "Brutal Restraint" then
+					if jewel.title == "Impossible Escape" then
+						-- Impossible Escape ring shows on the allocated Keystone
+						for keystoneName, _ in pairs(jewel.jewelData.impossibleEscapeKeystones) do
+							local keystone = spec.tree.keystoneMap[keystoneName]
+							if keystone and keystone.x and keystone.y then
+								innerSize = 150 * scale
+								local keyX, keyY = treeToScreen(keystone.x, keystone.y)
+								SetDrawColor(0.9,0.9,1,0.7)
+								DrawImage(self.jewelShadedOuterRing, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
+								DrawImage(self.jewelShadedOuterRingFlipped, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
+								DrawImage(self.jewelShadedInnerRing, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
+								DrawImage(self.jewelShadedInnerRingFlipped, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
+							end
+						end
+					elseif jewel.title == "Brutal Restraint" then
 						DrawImage(self.maraketh1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.maraketh2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 					elseif jewel.title == "Elegant Hubris" then
@@ -734,7 +748,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					elseif jewel.title == "Militant Faith" then
 						DrawImage(self.templar1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.templar2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-					else
+					elseif jewel.title == "Thread of Hope" then
 						SetDrawColor(0.9,0.9,1,0.7)
 						DrawImage(self.jewelShadedOuterRing, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.jewelShadedOuterRingFlipped, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
@@ -939,7 +953,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	-- Then continue processing as normal
 	local masteryColor = ""
 	local mNode = node
-	local compareNode = self.compareSpec and self.compareSpec.nodes[node.id].alloc or false
+	local compareNode = self.compareSpec and self.compareSpec.nodes[node.id] and self.compareSpec.nodes[node.id].alloc or false
 	if node.type == "Mastery" then
 		if not node.alloc and compareNode then
 			mNode = self.compareSpec.nodes[node.id]

@@ -394,22 +394,25 @@ local skinOfTheLords = {
 	"League: Breach",
 	"Source: Upgraded from unique{Skin of the Loyal} using currency{Blessing of Chayula}",
 }
-local excludedKeystones = {
-	"Chaos Inoculation", -- to prevent infinite loop
+local excludedItemKeystones = {
 	"Corrupted Soul", -- exclusive to specific unique
 	"Divine Flesh", -- exclusive to specific unique
 	"Hollow Palm Technique", -- exclusive to specific unique
 	"Immortal Ambition", -- exclusive to specific unique
-	"Necromantic Aegis", -- to prevent infinite loop
 	"Secrets of Suffering", -- exclusive to specific items
+	"Inner Conviction", -- exclusive to specific items
+	"Mortal Conviction", -- removed from game
+}local excludedPassiveKeystones = {
+	"Chaos Inoculation", -- to prevent infinite loop
+	"Necromantic Aegis", -- to prevent infinite loop
 }
-local keystones = {}
+local skinOfTheLordsKeystones = {}
 for _, name in ipairs(data.keystones) do
-	if not isValueInArray(excludedKeystones, name) then
-		table.insert(keystones, name)
+	if not isValueInArray(excludedItemKeystones, name) and not isValueInArray(excludedPassiveKeystones, name) then
+		table.insert(skinOfTheLordsKeystones, name)
 	end
 end
-for _, name in ipairs(keystones) do
+for _, name in ipairs(skinOfTheLordsKeystones) do
 	table.insert(skinOfTheLords, "Variant: "..name)
 end
 table.insert(skinOfTheLords, "Implicits: 0")
@@ -417,11 +420,40 @@ table.insert(skinOfTheLords, "Sockets cannot be modified")
 table.insert(skinOfTheLords, "+2 to Level of Socketed Gems")
 table.insert(skinOfTheLords, "100% increased Global Defences")
 table.insert(skinOfTheLords, "You can only Socket Corrupted Gems in this item")
-for index, name in ipairs(keystones) do
+for index, name in ipairs(skinOfTheLordsKeystones) do
 	table.insert(skinOfTheLords, "{variant:"..index.."}"..name)
 end
 table.insert(skinOfTheLords, "Corrupted")
 table.insert(data.uniques.generated, table.concat(skinOfTheLords, "\n"))
+
+local impossibleEscapeKeystones = {}
+for _, name in ipairs(data.keystones) do
+	if not isValueInArray(excludedItemKeystones, name) then
+		table.insert(impossibleEscapeKeystones, name)
+	end
+end
+local impossibleEscape = {
+    "Impossible Escape",
+    "Viridian Jewel",
+    "League: Sentinel",
+    "Limited to: 1",
+    "Source: Drops from Uber unique{Maven}",
+    "Radius: Small"
+}
+for _, name in ipairs(impossibleEscapeKeystones) do
+    table.insert(impossibleEscape, "Variant: "..name)
+end
+table.insert(impossibleEscape, "Variant: Everything (QoL Test Variant)")
+local variantCount = 1
+for index, name in ipairs(impossibleEscapeKeystones) do
+    table.insert(impossibleEscape, "{variant:"..index.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
+	variantCount = variantCount + 1
+end
+for _, name in ipairs(impossibleEscapeKeystones) do
+	table.insert(impossibleEscape, "{variant:"..variantCount.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
+end
+table.insert(impossibleEscape, "Corrupted")
+table.insert(data.uniques.generated, table.concat(impossibleEscape, "\n"))
 
 --[[ 3 scenarios exist for legacy mods
 	- Mod changed, but kept the same mod Id
@@ -492,6 +524,15 @@ Has Alt Variant Two: true
 ]]
 }
 
+local sublimeVision = {
+[[
+Sublime Vision
+Prismatic Jewel
+Source: Drops from unique{Uber Uber Elder}
+Limited to: 1
+]]
+}
+
 local abbreviateModId = function(string)
 	return (string:
 	gsub("Increased", "Inc"):
@@ -504,16 +545,21 @@ local abbreviateModId = function(string)
 end
 
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	local variantName = abbreviateModId(mod.Id):gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
-	if watchersEyeLegacyMods[mod.Id] then
-		if watchersEyeLegacyMods[mod.Id].version then
-			table.insert(watchersEye, "Variant:" .. variantName .. " (Pre " .. watchersEyeLegacyMods[mod.Id].version .. ")")
-		end
-		if watchersEyeLegacyMods[mod.Id].legacyMod then
+	if not mod.Id:match("^SublimeVision") then
+		local variantName = abbreviateModId(mod.Id):gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
+		if watchersEyeLegacyMods[mod.Id] then
+			if watchersEyeLegacyMods[mod.Id].version then
+				table.insert(watchersEye, "Variant:" .. variantName .. " (Pre " .. watchersEyeLegacyMods[mod.Id].version .. ")")
+			end
+			if watchersEyeLegacyMods[mod.Id].legacyMod then
+				table.insert(watchersEye, "Variant:" .. variantName)
+			end
+		else
 			table.insert(watchersEye, "Variant:" .. variantName)
 		end
 	else
-		table.insert(watchersEye, "Variant:" .. variantName)
+		local variantName = mod.Id:gsub("SublimeVision", ""):gsub("[%u%d]", " %1")
+		table.insert(sublimeVision, "Variant:" .. variantName)
 	end
 end
 
@@ -523,24 +569,33 @@ table.insert(watchersEye,
 (4-6)% increased maximum Life
 (4-6)% increased maximum Mana]])
 
-local index = 1
+local indexWatchersEye = 1
+local indexSublimeVision = 1
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	if watchersEyeLegacyMods[mod.Id] then
-		if watchersEyeLegacyMods[mod.Id].legacyMod then
-			table.insert(watchersEye, "{variant:" .. index .. "}" .. watchersEyeLegacyMods[mod.Id].legacyMod(mod.mod[1]))
-			index = index + 1
-		end
-		if watchersEyeLegacyMods[mod.Id].version then
-			table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
-			index = index + 1
+	if not mod.Id:match("^SublimeVision") then
+		if watchersEyeLegacyMods[mod.Id] then
+			if watchersEyeLegacyMods[mod.Id].legacyMod then
+				table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. watchersEyeLegacyMods[mod.Id].legacyMod(mod.mod[1]))
+				indexWatchersEye = indexWatchersEye + 1
+			end
+			if watchersEyeLegacyMods[mod.Id].version then
+				table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. mod.mod[1])
+				indexWatchersEye = indexWatchersEye + 1
+			end
+		else
+			table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. mod.mod[1])
+			indexWatchersEye = indexWatchersEye + 1
 		end
 	else
-		table.insert(watchersEye, "{variant:" .. index .. "}" .. mod.mod[1])
-		index = index + 1
+		for i, _ in ipairs(mod.mod) do
+			table.insert(sublimeVision, "{variant:" .. indexSublimeVision .. "}" .. mod.mod[i])
+		end
+		indexSublimeVision = indexSublimeVision + 1
 	end
 end
 
 table.insert(data.uniques.generated, table.concat(watchersEye, "\n"))
+table.insert(data.uniques.generated, table.concat(sublimeVision, "\n"))
 
 function buildTreeDependentUniques(tree)
 	buildForbidden(tree.classNotables)
@@ -551,7 +606,7 @@ function buildForbidden(classNotables)
 	for _, name in pairs({"Flame", "Flesh"}) do
 		forbidden[name] = { }
 		table.insert(forbidden[name], "Forbidden " .. name)
-		table.insert(forbidden[name], "Prismatic Jewel")
+		table.insert(forbidden[name], (name == "Flame" and "Crimson" or "Cobalt") .. " Jewel")
 		local index = 1
 		for className, notableTable in pairs(classNotables) do
 			for _, notableName in ipairs(notableTable) do
@@ -559,13 +614,18 @@ function buildForbidden(classNotables)
 				index = index + 1
 			end
 		end
+		if name == "Flame" then
+			table.insert(forbidden[name], "Source: Drops from unique{The Searing Exarch}")
+		else
+			table.insert(forbidden[name], "Source: Drops from unique{The Eater of Worlds}")
+		end
 		table.insert(forbidden[name], "Limited to: 1")
 		table.insert(forbidden[name], "Item Level: 83")
 		index = 1
 		for className, notableTable in pairs(classNotables) do
 			for _, notableName in ipairs(notableTable) do
 				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Requires Class " .. className)
-				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifiers on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
+				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifier on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
 				index = index + 1
 			end
 		end

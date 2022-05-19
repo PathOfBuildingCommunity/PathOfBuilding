@@ -108,6 +108,22 @@ Radius: Large
 Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage
 Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage
 ]],[[
+Dissolution of the Flesh
+Prismatic Jewel
+Source: Drops from unique{The Searing Exarch}
+Limited to: 1
+Removes all Energy Shield
+Life that would be lost by taking Damage is instead Reserved
+until you take no Damage to Life for 2 seconds
+(20–30)% more Maximum Life
+]],[[
+Divine Inferno
+Crimson Jewel
+Limited to: 1
+Radius: Medium
+With at least 40 Strength in Radius, Combust is Disabled
+With at least 40 Strength in Radius, Attacks Exerted by Infernal Cry deal (40-60)% more Damage with Ignite
+]],[[
 Efficient Training
 Crimson Jewel
 Radius: Large
@@ -397,6 +413,13 @@ Radius: Small
 {variant:2}+(3-4) to Melee Strike Range while Unarmed
 {variant:2}Passive Skills in Radius also grant: 1% increased Unarmed Attack Speed with Melee Skills
 ]],[[
+Melding of the Flesh
+Cobalt Jewel
+Source: Drops from unique{The Eater of Worlds}
+Limited to: 1
+-(80-70)% to All Elemental Resistances
+Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
+]],[[
 Might in All Forms
 Crimson Jewel
 Radius: Medium
@@ -672,12 +695,14 @@ Variant: Small Ring
 Variant: Medium Ring
 Variant: Large Ring
 Variant: Very Large Ring
+Variant: Massive Ring
 Radius: Variable
 Implicits: 0
 {variant:1}Only affects Passives in Small Ring
 {variant:2}Only affects Passives in Medium Ring
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
+{variant:5}Only affects Passives in Massive Ring
 Passives in Radius can be Allocated without being connected to your tree
 -(20-10)% to all Elemental Resistances
 ]],[[

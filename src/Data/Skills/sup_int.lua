@@ -249,7 +249,7 @@ skills["SupportArcaneSurge"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Spell, },
 	addSkillTypes = { SkillType.Duration, },
-	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.ReservationBecomesCost, SkillType.NOT, SkillType.AND, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_arcane_surge_mana_regeneration_rate_+%"] = {
@@ -425,6 +425,10 @@ skills["SupportBlasphemy"] = {
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.OR, SkillType.SummonsTotem, SkillType.NOT, SkillType.AND, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["curse_apply_as_aura"] = {
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -498,6 +502,10 @@ skills["SupportBlasphemyPlus"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportBlasphemy",
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["curse_apply_as_aura"] = {
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -546,6 +554,10 @@ skills["SupportBonechill"] = {
 	statMap = {
 		["support_bonechill_cold_damage_+%_final"] = {
 			mod("ColdDamage", "MORE", nil),
+		},
+		["support_chills_also_grant_cold_damage_taken_+%_equal_to_slow_amount"] = {
+		},
+		["support_chilling_areas_also_grant_cold_damage_taken_+%_equal_to_slow_amount"] = {
 		},
 	},
 	baseMods = {
@@ -694,6 +706,8 @@ skills["SupportCastWhileChannelling"] = {
 		["cast_while_channelling_time_ms"] = {
 			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
 			div = 1000,
+		},
+		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 		},
 	},
 	baseMods = {
@@ -853,6 +867,8 @@ skills["SupportCastWhileChannellingPlus"] = {
 		["cast_while_channelling_time_ms"] = {
 			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
 			div = 1000,
+		},
+		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 		},
 	},
 	baseMods = {
@@ -1509,12 +1525,6 @@ skills["SupportCurseOnHitCursePlus"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCurseOnHitCurse",
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["number_of_additional_curses_allowed"] = {
-			mod("AdditionalCurse", "BASE", nil),
-			flag("CanHaveAdditionalCurse"),
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -2175,6 +2185,49 @@ skills["SupportAdditionalXP"] = {
 		[8] = { manaMultiplier = -28, levelRequirement = 100, statInterpolation = { }, cost = { }, },
 		[9] = { manaMultiplier = -32, levelRequirement = 100, statInterpolation = { }, cost = { }, },
 		[10] = { manaMultiplier = -36, levelRequirement = 100, statInterpolation = { }, cost = { }, },
+	},
+}
+skills["SupportAdditionalXPPlus"] = {
+	name = "Awakened Enlighten",
+	description = "Supports any skill gem. Once this gem reaches level 2 or above, will apply a cost & reservation multiplier to supported gems. Cannot support skills that don't come from gems.",
+	color = 3,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	supportGemsOnly = true,
+	plusVersionOf = "SupportAdditionalXP",
+	statDescriptionScope = "gem_stat_descriptions",
+	baseMods = {
+	},
+	qualityStats = {
+		Default = {
+			{ "local_gem_experience_gain_+%", 5 },
+		},
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 72, statInterpolation = { }, cost = { }, },
+		[2] = { manaMultiplier = -4, levelRequirement = 74, statInterpolation = { }, cost = { }, },
+		[3] = { manaMultiplier = -8, levelRequirement = 76, statInterpolation = { }, cost = { }, },
+		[4] = { manaMultiplier = -12, levelRequirement = 78, statInterpolation = { }, cost = { }, },
+		[5] = { manaMultiplier = -16, levelRequirement = 80, statInterpolation = { }, cost = { }, },
+		[6] = { manaMultiplier = -20, levelRequirement = 82, statInterpolation = { }, cost = { }, },
+		[7] = { manaMultiplier = -24, levelRequirement = 84, statInterpolation = { }, cost = { }, },
+		[8] = { manaMultiplier = -28, levelRequirement = 86, statInterpolation = { }, cost = { }, },
+		[9] = { manaMultiplier = -32, levelRequirement = 88, statInterpolation = { }, cost = { }, },
+		[10] = { manaMultiplier = -36, levelRequirement = 90, statInterpolation = { }, cost = { }, },
+		[11] = { manaMultiplier = -38, levelRequirement = 91, statInterpolation = { }, cost = { }, },
+		[12] = { manaMultiplier = -40, levelRequirement = 92, statInterpolation = { }, cost = { }, },
+		[13] = { manaMultiplier = -42, levelRequirement = 93, statInterpolation = { }, cost = { }, },
+		[14] = { manaMultiplier = -44, levelRequirement = 94, statInterpolation = { }, cost = { }, },
+		[15] = { manaMultiplier = -46, levelRequirement = 95, statInterpolation = { }, cost = { }, },
+		[16] = { manaMultiplier = -48, levelRequirement = 96, statInterpolation = { }, cost = { }, },
+		[17] = { manaMultiplier = -50, levelRequirement = 97, statInterpolation = { }, cost = { }, },
+		[18] = { manaMultiplier = -52, levelRequirement = 98, statInterpolation = { }, cost = { }, },
+		[19] = { manaMultiplier = -54, levelRequirement = 99, statInterpolation = { }, cost = { }, },
+		[20] = { manaMultiplier = -56, levelRequirement = 100, statInterpolation = { }, cost = { }, },
 	},
 }
 skills["SupportFasterCast"] = {
@@ -3972,7 +4025,9 @@ skills["SupportSummonElementalResistances"] = {
 			mod("MinionModifier", "LIST", { mod = mod("LightningDamageLeech", "BASE", nil) }),
 			mod("MinionModifier", "LIST", { mod = mod("ColdDamageLeech", "BASE", nil) }),
 			div = 100
-		}
+		},
+		["minions_inflict_exposure_on_hit_%_chance"] = {
+		},
 	},
 	baseMods = {
 	},
@@ -4286,7 +4341,7 @@ skills["SupportRemoteMine"] = {
 			skill("showAverage", true, { type = "SkillType", skillType = SkillType.Mineable }),
 		},
 		["support_gem_mine_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Mine),
+			mod("Damage", "MORE", nil),
 		},
 	},
 	baseMods = {

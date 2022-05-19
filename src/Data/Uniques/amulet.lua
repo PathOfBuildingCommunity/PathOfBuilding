@@ -55,6 +55,17 @@ Implicits: 1
 (80-100)% increased Rarity of Items found with a Normal Item equipped
 (10-15)% increased Quantity of Items found with a Magic Item equipped
 ]],[[
+Ashes of the Stars
+Onyx Amulet
+Source: Drops from unique{The Eater of Worlds}
+Requires Level 60
+Implicits: 1
+{tags:jewellery_attribute}+(10-16) to all Attributes
+(5–10)% increased Experience Gain of Gems
+(10–20)% increased Reservation Efficiency of Skills
++1 to Level of all Skill Gems
++(20–30)% to Quality of all Skill Gems
+]],[[
 Astramentis
 Onyx Amulet
 Requires Level 20
@@ -262,6 +273,17 @@ Implicits: 1
 {tags:life}{variant:2}(30-40)% increased Damage while Leeching
 {tags:life}{variant:2}50% increased Life Leeched per second
 Extra Gore
+]],[[
+Crystallised Omniscience
+Onyx Amulet
+Source: Drops from unique{The Searing Exarch}
+Requires Level 61
+Implicits: 1
+{tags:jewellery_attribute}+(10-16) to all Attributes
+Modifiers to Attributes instead Apply to Omniscience
++1% to All Elemental Resistances per 10 Omniscience
+Penetrate 1% Elemental Resistances per 10 Omniscience
+Attribute Requirements can be satisfied by (15-25)% of Omniscience
 ]],[[
 Daresso's Salute
 Citrine Amulet
@@ -772,9 +794,9 @@ Implicits: 2
 {variant:1}+(16-24)% to Global Critical Strike Multiplier
 {variant:2}+(24-36)% to Global Critical Strike Multiplier
 +7% to Unarmed Melee Attack Critical Strike Chance
-Modifiers to Claw Damage also apply to Unarmed Attack Damage
-Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed
-Modifiers to Claw Critical Strike Chance also apply to Unarmed Attack Critical Strike Chance
+Modifiers to Claw Damage also apply to Unarmed Attack Damage with Melee Skills
+Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed with Melee Skills
+Modifiers to Claw Critical Strike Chance also apply to Unarmed Critical Strike Chance with Melee Skills
 Corrupted
 ]],[[
 Sacrificial Heart

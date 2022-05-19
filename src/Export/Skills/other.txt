@@ -167,6 +167,11 @@ local skills, mod, flag, skill = ...
 #skill ColdAegis
 #flags spell
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("ColdAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 #mods
 
 #skill TriggeredConsecrate Consecrate
@@ -281,6 +286,11 @@ local skills, mod, flag, skill = ...
 #skill ElementalAegis
 #flags spell
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 #mods
 
 #skill SupportElementalPenetration Elemental Penetration
@@ -335,6 +345,11 @@ local skills, mod, flag, skill = ...
 #skill FireAegis
 #flags spell
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("FireAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 #mods
 
 #skill FireBurstOnHit
@@ -344,7 +359,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AtziriUniqueStaffFlameblast
-#flags area
+#flags spell area
 	fromItem = true,
 #baseMod skill("triggerSource", "Queen's Demand")
 #mods
@@ -428,6 +443,11 @@ local skills, mod, flag, skill = ...
 #skill LightningAegis
 #flags spell
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("LightningAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 #mods
 
 #skill LightningSpell
@@ -476,6 +496,11 @@ local skills, mod, flag, skill = ...
 #skill PhysicalAegis
 #flags spell
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("PhysicalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 #mods
 
 #skill SupportTriggerSpellOnAttack Poet's Pen
@@ -488,6 +513,10 @@ local skills, mod, flag, skill = ...
 
 #skill QueensDemand
 	fromItem = true,
+#mods
+
+#skill PrimalAegis
+	fromTree = true,
 #mods
 
 #skill TriggeredSummonSpider
@@ -593,7 +622,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AtziriUniqueStaffStormCall
-#flags area
+#flags spell area
 	fromItem = true,
 #baseMod skill("triggerSource", "Queen's Demand")
 #mods

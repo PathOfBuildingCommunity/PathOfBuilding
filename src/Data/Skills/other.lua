@@ -482,6 +482,11 @@ skills["ColdAegis"] = {
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("ColdAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -633,7 +638,7 @@ skills["ChaosDegenAuraUnique"] = {
 	hidden = true,
 	color = 4,
 	description = "Casts an aura that deals Chaos Damage over Time to nearby Enemies. This skill cannot be cast by Totems.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.Chaos] = true, [SkillType.AreaSpell] = true, [SkillType.HasReservation] = true, [SkillType.CanHaveBlessing] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.Chaos] = true, [SkillType.AreaSpell] = true, [SkillType.HasReservation] = true, [SkillType.ZeroReservation] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
@@ -945,6 +950,11 @@ skills["ElementalAegis"] = {
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -1165,6 +1175,11 @@ skills["FireAegis"] = {
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("FireAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -1256,6 +1271,7 @@ skills["AtziriUniqueStaffFlameblast"] = {
 	castTime = 0.8,
 	fromItem = true,
 	baseFlags = {
+		spell = true,
 		area = true,
 	},
 	baseMods = {
@@ -1616,6 +1632,11 @@ skills["LightningAegis"] = {
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("LightningAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -1759,7 +1780,7 @@ skills["UniqueAnimateWeapon"] = {
 		"attack_damage_+%",
 		"chance_to_cast_on_rampage_tier_%",
 		"minion_movement_speed_+%",
-		"minion_grants_rampage_kill_to_parent_on_hitting_unique_enemy_%",
+		"minion_grants_rampage_kill_to_parent_on_hitting_rare_or_unique_enemy_%",
 	},
 	levels = {
 		[15] = { 1, 25, 110, 100, 30, 25, cooldown = 0.5, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
@@ -1828,6 +1849,11 @@ skills["PhysicalAegis"] = {
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("PhysicalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -1926,6 +1952,35 @@ skills["QueensDemand"] = {
 	},
 	levels = {
 		[20] = { levelRequirement = 70, statInterpolation = { }, cost = { Mana = 64, }, },
+	},
+}
+skills["PrimalAegis"] = {
+	name = "Primal Aegis",
+	hidden = true,
+	color = 4,
+	description = "Calls forth a protective aegis which takes elemental damage from hits for you until depleted. The aegis will be restored to its full value after a short delay if you stop taking elemental damage from hits, or if depleted.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Aegis] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromTree = true,
+	baseFlags = {
+	},
+	baseMods = {
+	},
+	qualityStats = {
+	},
+	stats = {
+		"aegis_unique_shield_max_value",
+		"active_skill_display_aegis_variation",
+		"aegis_recharge_delay_ms",
+		"aegis_unique_shield_max_value_per_allocated_notable",
+		"cast_on_gain_skill",
+		"spell_uncastable_if_triggerable",
+		"no_cost",
+	},
+	levels = {
+		[20] = { 0, 2, 5000, 75, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["TriggeredSummonSpider"] = {
@@ -2390,6 +2445,7 @@ skills["AtziriUniqueStaffStormCall"] = {
 	castTime = 0.8,
 	fromItem = true,
 	baseFlags = {
+		spell = true,
 		area = true,
 	},
 	baseMods = {

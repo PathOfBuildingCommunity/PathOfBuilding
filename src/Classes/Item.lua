@@ -185,6 +185,10 @@ function ItemClass:ParseRaw(raw)
 				specName, specVal = line:match("^(Requires Class) (.+)$")
 			end
 			if not specName then
+				specVal = line:match("^Class:: (.+)$")
+				if specVal then specName = "Requires Class" end
+			end
+			if not specName then
 				specName, specVal = line:match("^(Requires) (.+)$")
 			end
 			if specName then
@@ -1171,6 +1175,12 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 		for _, value in ipairs(modList:List(nil, "JewelData")) do
 			jewelData[value.key] = value.value
+		end
+		if modList:List(nil, "ImpossibleEscapeKeystones") then
+			jewelData.impossibleEscapeKeystones = { }
+			for _, value in ipairs(modList:List(nil, "ImpossibleEscapeKeystones")) do
+				jewelData.impossibleEscapeKeystones[value.key] = value.value
+			end
 		end
 		if self.clusterJewel then
 			jewelData.clusterJewelNotables = { }

@@ -406,10 +406,12 @@ skills["SupportBloodthirst"] = {
 		["support_blood_thirst_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["blood_price_gain_%_maximum_life_as_added_physical_damage_with_weapons_while_on_low_life"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Weapon, 0, { type = "PercentStat", stat = "Life", percent = 1 }, { type = "Condition", var = "LowLife"}),
+			mod("PhysicalMax", "BASE", nil, ModFlag.Weapon, 0, { type = "PercentStat", stat = "Life", percent = 1 }, { type = "Condition", var = "LowLife"}),
+		},
 	},
 	baseMods = {
-		mod("PhysicalMin", "BASE", 1, ModFlag.Weapon, 0, { type = "PerStat", stat = "Life", div = 50 }, { type = "Condition", var = "LowLife"}),
-		mod("PhysicalMax", "BASE", 1, ModFlag.Weapon, 0, { type = "PerStat", stat = "Life", div = 50 }, { type = "Condition", var = "LowLife"}),
 	},
 	qualityStats = {
 		Default = {
@@ -801,6 +803,10 @@ skills["SupportCastOnMeleeKill"] = {
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_cast_on_melee_kill_spell_damage_+%_final"] = {
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {
@@ -1177,9 +1183,13 @@ skills["SupportCruelty"] = {
 		["support_cruelty_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
+		["cruelty_effect_+%"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" }),
+			div = 100,
+			base = 1,
+		},
 	},
 	baseMods = {
-		mod("Damage", "MORE", 1, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" }),
 		flag("Cruelty"),
 	},
 	qualityStats = {
@@ -1318,12 +1328,12 @@ skills["SupportMeleeDamageOnFullLife"] = {
 }
 skills["SupportAuraDuration"] = {
 	name = "Divine Blessing",
-	description = "Supports aura skills that create permanent auras around you, changing their reservation to a cost and making them temporary. Cannot support banner skills.",
+	description = "Supports aura skills that create permanent auras around you, changing their reservation to a cost and making them temporary. Cannot support banner or stance skills.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.CanHaveBlessing, },
-	addSkillTypes = { SkillType.Duration, SkillType.Blessing, },
-	excludeSkillTypes = { SkillType.SummonsTotem, },
+	addSkillTypes = { SkillType.Duration, SkillType.Blessing, SkillType.ReservationBecomesCost, },
+	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_aura_duration_base_buff_duration"] = {
@@ -1648,6 +1658,50 @@ skills["SupportAdditionalLevel"] = {
 		[10] = { 9, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
 	},
 }
+skills["SupportAdditionalLevelPlus"] = {
+	name = "Awakened Empower",
+	description = "Supports any skill gem. Once this gem reaches level 2 or above, will raise the level of supported gems. Cannot support skills that don't come from gems.",
+	color = 1,
+	support = true,
+	requireSkillTypes = { },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	supportGemsOnly = true,
+	plusVersionOf = "SupportAdditionalLevel",
+	statDescriptionScope = "gem_stat_descriptions",
+	baseMods = {
+	},
+	qualityStats = {
+		Default = {
+			{ "local_gem_experience_gain_+%", 5 },
+		},
+	},
+	stats = {
+		"supported_active_skill_gem_level_+",
+	},
+	levels = {
+		[1] = { 0, manaMultiplier = 30, levelRequirement = 72, statInterpolation = { 1, }, cost = { }, },
+		[2] = { 1, manaMultiplier = 30, levelRequirement = 74, statInterpolation = { 1, }, cost = { }, },
+		[3] = { 2, manaMultiplier = 30, levelRequirement = 76, statInterpolation = { 1, }, cost = { }, },
+		[4] = { 3, manaMultiplier = 30, levelRequirement = 78, statInterpolation = { 1, }, cost = { }, },
+		[5] = { 4, manaMultiplier = 30, levelRequirement = 80, statInterpolation = { 1, }, cost = { }, },
+		[6] = { 5, manaMultiplier = 30, levelRequirement = 82, statInterpolation = { 1, }, cost = { }, },
+		[7] = { 6, manaMultiplier = 30, levelRequirement = 84, statInterpolation = { 1, }, cost = { }, },
+		[8] = { 7, manaMultiplier = 30, levelRequirement = 86, statInterpolation = { 1, }, cost = { }, },
+		[9] = { 8, manaMultiplier = 30, levelRequirement = 88, statInterpolation = { 1, }, cost = { }, },
+		[10] = { 9, manaMultiplier = 30, levelRequirement = 90, statInterpolation = { 1, }, cost = { }, },
+		[11] = { 10, manaMultiplier = 30, levelRequirement = 91, statInterpolation = { 1, }, cost = { }, },
+		[12] = { 11, manaMultiplier = 30, levelRequirement = 92, statInterpolation = { 1, }, cost = { }, },
+		[13] = { 12, manaMultiplier = 30, levelRequirement = 93, statInterpolation = { 1, }, cost = { }, },
+		[14] = { 13, manaMultiplier = 30, levelRequirement = 94, statInterpolation = { 1, }, cost = { }, },
+		[15] = { 14, manaMultiplier = 30, levelRequirement = 95, statInterpolation = { 1, }, cost = { }, },
+		[16] = { 15, manaMultiplier = 30, levelRequirement = 96, statInterpolation = { 1, }, cost = { }, },
+		[17] = { 16, manaMultiplier = 30, levelRequirement = 97, statInterpolation = { 1, }, cost = { }, },
+		[18] = { 17, manaMultiplier = 30, levelRequirement = 98, statInterpolation = { 1, }, cost = { }, },
+		[19] = { 18, manaMultiplier = 30, levelRequirement = 99, statInterpolation = { 1, }, cost = { }, },
+		[20] = { 19, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, }, cost = { }, },
+	},
+}
 skills["EnduranceChargeOnMeleeStun"] = {
 	name = "Endurance Charge on Melee Stun",
 	description = "Supports melee attack skills.",
@@ -1733,8 +1787,12 @@ skills["SupportMortalConviction"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Aura, SkillType.HasReservation, SkillType.AND, },
 	addSkillTypes = { SkillType.Blessing, },
-	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.AuraNotOnCaster, },
+	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.AuraNotOnCaster, SkillType.ZeroReservation, },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["base_skill_no_reservation"] = {
+		},
+	},
 	baseMods = {
 		skill("manaReservationFlat", 0),
 		skill("lifeReservationFlat", 0),
@@ -3208,6 +3266,8 @@ skills["SupportMultistrike"] = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["multistrike_damage_+%_final_on_second_repeat"] = {
+		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
@@ -3295,6 +3355,10 @@ skills["SupportMultistrikePlus"] = {
 	plusVersionOf = "SupportMultistrike",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
+		["multistrike_damage_+%_final_on_first_repeat"] = {
+		},
+		["multistrike_damage_+%_final_on_second_repeat"] = {
+		},
 		["multistrike_damage_+%_final_on_third_repeat"] = {
 			mod("Damage", "MORE", nil),
 			div = 2,
@@ -3787,7 +3851,10 @@ skills["SupportRuthless"] = {
 			mod("RuthlessBlowMaxCount", "BASE", nil),
 		},
 		["support_ruthless_big_hit_damage_+%_final"] = {
-			mod("RuthlessBlowMultiplier", "BASE", nil, ModFlag.Melee),
+			mod("RuthlessBlowHitMultiplier", "BASE", nil, ModFlag.Melee),
+		},
+		["support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final"] = {
+			mod("RuthlessBlowBleedMultiplier", "BASE", nil, ModFlag.Melee),
 		},
 	},
 	baseMods = {
@@ -3869,6 +3936,12 @@ skills["SupportBluntWeapon"] = {
 		["Sceptre"] = true,
 	},
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_blunt_chance_to_trigger_shockwave_on_hit_%"] = {
+		},
+		["supported_skill_can_only_use_mace_and_staff"] = {
+		},
+	},
 	baseMods = {
 	},
 	qualityStats = {

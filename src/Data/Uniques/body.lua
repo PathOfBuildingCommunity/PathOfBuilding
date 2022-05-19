@@ -469,7 +469,7 @@ Socketed Gems are Supported by level 15 Added Chaos Damage
 {variant:3,4}(280-320)% increased Energy Shield
 {variant:5}(210-250)% increased Energy Shield
 {variant:1,2,3}Blood Magic
-{variant:4,5}Socketed Gems have Blood Magic
+{variant:4,5}Socketed Gems Cost and Reserve Life instead of Mana
 ]],[[
 Dialla's Malefaction
 Sage's Robe

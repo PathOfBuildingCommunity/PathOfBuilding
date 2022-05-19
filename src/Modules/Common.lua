@@ -681,7 +681,7 @@ function cacheData(uuid, env)
 	}
 end
 
--- Obtian a stored cached processed skill identified by
+-- Obtain a stored cached processed skill identified by
 --   its UUID and pulled from an appropriate env mode (e.g., MAIN)
 function getCachedData(skill, mode)
 	local uuid = cacheSkillUUID(skill)
@@ -794,9 +794,9 @@ function string:split(sep)
 	-- Initially from http://lua-users.org/wiki/SplitJoin
 	-- function will ignore duplicate separators
 	local sep, fields = sep or ":", {}
-	local pattern = string.format("([^%s]+)", sep)
+	local pattern = s_format("([^%s]+)", sep)
 	-- inject a blank entry if self begins with a colon
-	if string.sub(self, 1, 1) == ":" then t_insert(fields, "") end
+	if string.sub(self, 1, 1) == sep then t_insert(fields, "") end
 	self:gsub(pattern, function(c) fields[#fields+1] = c end)
 	return fields
 end

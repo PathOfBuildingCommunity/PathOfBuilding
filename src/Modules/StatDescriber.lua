@@ -190,8 +190,10 @@ return function(stats, scopeName)
 
 	-- Describe the stats
 	local out = { }
+	local lineMap = { }
 	for _, descriptor in ipairs(descOrdered) do
 		local val = { }
+		local stat
 		for i, s in ipairs(descriptor.description.stats) do
 			if stats[s] then
 				if type(stats[s]) == "number" then
@@ -199,6 +201,7 @@ return function(stats, scopeName)
 				else
 					val[i] = stats[s]
 				end
+				stat = s
 			else
 				val[i] = { min = 0, max = 0 }
 			end
@@ -246,8 +249,9 @@ return function(stats, scopeName)
 			end):gsub("%%%%","%%")
 			for line in (statDesc.."\\n"):gmatch("([^\\]+)\\n") do
 				t_insert(out, line)
+				lineMap[line] = stat
 			end
 		end
 	end
-	return out
+	return out, lineMap
 end
