@@ -1,5 +1,15 @@
 # Changelog
 
+## [v2.17.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.17.2) (2022/05/20)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.17.1...v2.17.2)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+- Fix bug when rendering jewel radius rings ([LocalIdentity](https://github.com/LocalIdentity))
+
 ## [v2.17.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.17.1) (2022/05/17)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.17.0...v2.17.1)

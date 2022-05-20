@@ -1,3 +1,8 @@
+VERSION[2.17.2][2022/05/20]
+
+--- Fixed Bugs ---
+* Fix bug when rendering jewel radius rings (LocalIdentity)
+
 VERSION[2.17.1][2022/05/17]
 
 --- Fixed Bugs ---

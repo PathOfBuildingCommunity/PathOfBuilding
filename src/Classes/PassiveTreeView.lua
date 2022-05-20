@@ -748,7 +748,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					elseif jewel.title == "Militant Faith" then
 						DrawImage(self.templar1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.templar2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
-					elseif jewel.title == "Thread of Hope" then
+					else
 						SetDrawColor(0.9,0.9,1,0.7)
 						DrawImage(self.jewelShadedOuterRing, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.jewelShadedOuterRingFlipped, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
