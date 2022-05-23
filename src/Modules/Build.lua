@@ -694,6 +694,25 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		["Spec"] = self.treeTab,
 	}
 
+	-- Initialise class dropdown
+	for classId, class in pairs(self.latestTree.classes) do
+		local ascendancies = {}
+		-- Initialise ascendancy dropdown
+		for i = 0, #class.classes do
+			local ascendClass = class.classes[i]
+			t_insert(ascendancies, {
+				label = ascendClass.name,
+				ascendClassId = i,
+			})
+		end
+		t_insert(self.controls.classDrop.list, {
+			label = class.name,
+			classId = classId,
+			ascendencies = ascendancies,
+		})
+	end
+	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
+
 	-- so we ran into problems with converted trees, trying to check passive tree routes and also consider thread jewels
 	-- but we cant check jewel info because items have not been loaded yet, and they come after passives in the xml.
 	-- the simplest solution seems to be making sure passive trees (which contain jewel sockets) are loaded last.
@@ -730,25 +749,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		-- Check for old calcs tab settings
 		self.configTab:ImportCalcSettings()
 	end
-
-	-- Initialise class dropdown
-	for classId, class in pairs(self.latestTree.classes) do
-		local ascendancies = {}
-		-- Initialise ascendancy dropdown
-		for i = 0, #class.classes do
-			local ascendClass = class.classes[i]
-			t_insert(ascendancies, {
-				label = ascendClass.name,
-				ascendClassId = i,
-			})
-		end
-		t_insert(self.controls.classDrop.list, {
-			label = class.name,
-			classId = classId,
-			ascendencies = ascendancies,
-		})
-	end
-	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
 
 	-- Build calculation output tables
 	self.outputRevision = 1
