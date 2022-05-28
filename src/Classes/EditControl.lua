@@ -173,8 +173,8 @@ function EditClass:ZoomText(zoom)
 		textHeight = self.defaultLineHeight
 	end
 
-	if textHeight < 1 then
-		textHeight = 1
+	if textHeight < 10 then
+		textHeight = 10
 	elseif textHeight > 100 then
 		textHeight = 100
 	end
