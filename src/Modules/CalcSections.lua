@@ -6,19 +6,19 @@
 
 -- Commonly used modifier lists
 local physicalHitTaken = {
-	"DamageTaken", "PhysicalDamageTaken"
+	"DamageTaken", "PhysicalDamageTaken", "CurseEffectOnSelf"
 }
 local lightningHitTaken = {
-	"DamageTaken", "LightningDamageTaken", "ElementalDamageTaken", "LightningResist", "ElementalResist"
+	"DamageTaken", "LightningDamageTaken", "ElementalDamageTaken", "LightningResist", "ElementalResist", "CurseEffectOnSelf"
 }
 local coldHitTaken = {
-	"DamageTaken", "ColdDamageTaken", "ElementalDamageTaken", "ColdResist", "ElementalResist"
+	"DamageTaken", "ColdDamageTaken", "ElementalDamageTaken", "ColdResist", "ElementalResist", "CurseEffectOnSelf"
 }
 local fireHitTaken = {
-	"DamageTaken", "FireDamageTaken", "ElementalDamageTaken", "FireResist", "ElementalResist"
+	"DamageTaken", "FireDamageTaken", "ElementalDamageTaken", "FireResist", "ElementalResist", "CurseEffectOnSelf"
 }
 local chaosHitTaken = {
-	"DamageTaken", "ChaosDamageTaken", "ChaosResist"
+	"DamageTaken", "ChaosDamageTaken", "ChaosResist", "CurseEffectOnSelf"
 }
 local physicalConvert = { 
 	"SkillPhysicalDamageConvertToLightning", "SkillPhysicalDamageConvertToCold", "SkillPhysicalDamageConvertToFire", "SkillPhysicalDamageConvertToChaos", 
