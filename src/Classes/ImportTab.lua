@@ -151,7 +151,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end)
 
 	-- Build import/export
-	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, 0, 18, 600, 200, "Build Sharing")
+	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, 0, 18, 600, 182, "Build Sharing")
 	self.controls.generateCodeLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionBuild,"TOPLEFT"}, 6, 14, 0, 16, "^7Generate a code to share this build with other Path of Building users:")
 	self.controls.generateCode = new("ButtonControl", {"LEFT",self.controls.generateCodeLabel,"RIGHT"}, 4, 0, 80, 20, "Generate", function()
 		self.controls.generateCodeOut:SetText(common.base64.encode(Deflate(self.build:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
@@ -219,7 +219,8 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share' to shrink it.")
 	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter URL or code here:")
-	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, function(buf)
+
+	local importCodeHandle = function (buf)
 		self.importCodeSite = nil
 		self.importCodeDetail = ""
 		self.importCodeXML = nil
@@ -263,7 +264,27 @@ You can get this from your web browser's cookies while logged into the Path of E
 		self.importCodeValid = true
 		self.importCodeDetail = colorCodes.POSITIVE.."Code is valid"
 		self.importCodeXML = xmlText
-	end)
+	end
+
+	local importSelectedBuild = function()
+		if not self.importCodeValid or self.importCodeFetching then
+			return
+		end
+
+		if self.controls.importCodeMode.selIndex == 1 then
+			main:OpenConfirmPopup("Build Import", colorCodes.WARNING.."Warning:^7 Importing to the current build will erase ALL existing data for this build.", "Import", function()
+				self.build:Shutdown()
+				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML)
+				self.build.viewMode = "TREE"
+			end)
+		else
+			self.build:Shutdown()
+			self.build:Init(false, "Imported build", self.importCodeXML)
+			self.build.viewMode = "TREE"
+		end
+	end
+
+	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle)
 	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 8, 0, 0, 16)
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
@@ -280,27 +301,19 @@ You can get this from your web browser's cookies while logged into the Path of E
 				self.importCodeFetching = false
 				if not isSuccess then
 					self.importCodeDetail = colorCodes.NEGATIVE..data
+					self.importCodeValid = false
 				else
-					self.controls.importCodeIn:SetText(data, true)
+					importCodeHandle(data)
+					importSelectedBuild()
 				end
 			end)
 			return
 		end
 
-		if self.controls.importCodeMode.selIndex == 1 then
-			main:OpenConfirmPopup("Build Import", colorCodes.WARNING.."Warning:^7 Importing to the current build will erase ALL existing data for this build.", "Import", function()
-				self.build:Shutdown()
-				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML)
-				self.build.viewMode = "TREE"
-			end)
-		else
-			self.build:Shutdown()
-			self.build:Init(false, "Imported build", self.importCodeXML)
-			self.build.viewMode = "TREE"
-		end
+		importSelectedBuild()
 	end)
 	self.controls.importCodeGo.label = function ()
-		return self.importCodeSite and not self.importCodeXML and "Load from URL" or self.importCodeFetching and "Retrieving paste.." or "Import"
+		return self.importCodeFetching and "Retrieving paste.." or "Import"
 	end
 	self.controls.importCodeGo.enabled = function()
 		return self.importCodeValid and not self.importCodeFetching
@@ -310,7 +323,6 @@ You can get this from your web browser's cookies while logged into the Path of E
 			self.controls.importCodeGo.onClick()
 		end
 	end
-	self.controls.importCodeNote = new("LabelControl", {"TOPLEFT",self.controls.importCodeMode,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: when loading from URL press 'Import' after code is loaded.")
 end)
 
 function ImportTabClass:Load(xml, fileName)
