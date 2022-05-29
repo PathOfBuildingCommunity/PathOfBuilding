@@ -72,9 +72,9 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 [[
 ^7Usage Tips:
 - You can copy/paste socket groups using Ctrl+C and Ctrl+V.
-- Right click to enable/disable socket groups.
-- Alt + Right click to include/exclude in FullDPS calculations.
-- Alt + Left click to set as Main skill group.
+- Ctrl + Click to enable/disable socket groups.
+- Ctrl + Right click to include/exclude in FullDPS calculations.
+- Right click to set as the Main skill group.
 ]]
 	)
 

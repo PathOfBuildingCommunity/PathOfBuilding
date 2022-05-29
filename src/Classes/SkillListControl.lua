@@ -53,10 +53,10 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 			label = "^x7F7F7F" .. label .. " (Disabled)"
 		end
 		if self.skillsTab.build.mainSocketGroup == index then 
-			label = label .. colorCodes.RELIC .. " [Active]"
+			label = label .. colorCodes.RELIC .. " (Active)"
 		end
 		if socketGroup.includeInFullDPS then 
-			label = label .. colorCodes.CUSTOM .. " [FullDPS]"
+			label = label .. colorCodes.CUSTOM .. " (FullDPS)"
 		end
 		return label
 	end
@@ -113,31 +113,31 @@ end
 
 function SkillListClass:OnHoverKeyUp(key)
 	local item = self.ListControl:GetHoverValue()
-	if itemLib.wiki.matchesKey(key) then
-		if item then
+	if item then
+		if itemLib.wiki.matchesKey(key) then
 			-- Get the first gem in the group
 			local gem = item.gemList[1]
 			if gem then
 				itemLib.wiki.openGem(gem.gemData)
 			end
-		end
-	elseif key == 'RIGHTBUTTON' then
-		if IsKeyDown("ALT") then
-			item.includeInFullDPS = not item.includeInFullDPS
-			self.skillsTab:AddUndoState()
-			self.skillsTab.build.buildFlag = true
-		else 
+		elseif key == "RIGHTBUTTON" then
+			if IsKeyDown("CTRL") then
+				item.includeInFullDPS = not item.includeInFullDPS
+				self.skillsTab:AddUndoState()
+				self.skillsTab.build.buildFlag = true
+			else
+				local index = self.ListControl:GetHoverIndex()
+				if index then
+					-- mirrors Build.lua:548
+					self.skillsTab.build.mainSocketGroup = index
+					self.skillsTab.build.buildFlag = true
+					self.skillsTab.build.modFlag = true
+				end
+			end
+		elseif key == "LEFTBUTTON" and IsKeyDown("CTRL") then
 			item.enabled = not item.enabled
 			self.skillsTab:AddUndoState()
 			self.skillsTab.build.buildFlag = true
-		end
-	elseif key == 'LEFTBUTTON' and IsKeyDown('ALT') then
-		local index = self.ListControl:GetHoverIndex()
-		if index then
-			-- mirrors Build.lua:548
-			self.skillsTab.build.mainSocketGroup = index
-			self.skillsTab.build.buildFlag = true
-			self.skillsTab.build.modFlag = true
 		end
 	end
 end
