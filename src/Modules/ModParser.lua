@@ -1126,7 +1126,7 @@ local modTagList = {
 	["against targets they pierce"] = { tag = { type = "StatThreshold", stat = "PierceCount", threshold = 1 } },
 	["against pierced targets"] = { tag = { type = "StatThreshold", stat = "PierceCount", threshold = 1 } },
 	["to targets they pierce"] = { tag = { type = "StatThreshold", stat = "PierceCount", threshold = 1 } },
-	["while you have at least (%d+) devotion"] = function(num) return { tag = { type = "StatThreshold", stat = "Devotion", threshold = num } } end,
+	["w?h?i[lf]e? you have at least (%d+) devotion"] = function(num) return { tag = { type = "StatThreshold", stat = "Devotion", threshold = num } } end,
 	["while you have at least (%d+) rage"] = function(num) return { tag = { type = "MultiplierThreshold", var = "Rage", threshold = num } } end,
 	-- Slot conditions
 	["when in main hand"] = { tag = { type = "SlotNumber", num = 1 } },
@@ -2583,6 +2583,11 @@ local specialModList = {
 	["fire skills have a (%d+)%% chance to apply fire exposure on hit"] = function(num) return { mod("FireExposureChance", "BASE", num) } end,
 	["cold skills have a (%d+)%% chance to apply cold exposure on hit"] = function(num) return { mod("ColdExposureChance", "BASE", num) } end,
 	["lightning skills have a (%d+)%% chance to apply lightning exposure on hit"] = function(num) return { mod("LightningExposureChance", "BASE", num) } end,
+	["socketed skills apply fire, cold and lightning exposure on hit"] = {
+		mod("FireExposureChance", "BASE", 100, { type = "Condition", var = "Effective" }),
+		mod("ColdExposureChance", "BASE", 100, { type = "Condition", var = "Effective" }),
+		mod("LightningExposureChance", "BASE", 100, { type = "Condition", var = "Effective" }),
+	},
 	["nearby enemies have fire exposure"] = {
 		mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }),
 	},
@@ -2611,6 +2616,18 @@ local specialModList = {
 		mod("EnemyModifier", "LIST", { mod = mod("ColdExposure", "BASE", -10, { type = "Condition", var = "NearLinkedTarget" }) }, { type = "Condition", var = "Effective" }),
 		mod("EnemyModifier", "LIST", { mod = mod("LightningExposure", "BASE", -10, { type = "Condition", var = "NearLinkedTarget" }) }, { type = "Condition", var = "Effective" }),
 	},
+	["inflict (%w+) exposure on hit, applying %-(%d+)%% to (%w+) resistance"] = function(_, element1,  num, element2) return {
+		mod( firstToUpper(element1).."ExposureChance", "BASE", 100, { type = "Condition", var = "Effective" }),
+		mod("EnemyModifier", "LIST", { mod = mod(firstToUpper(element2).."Exposure", "BASE", -num) }, { type = "Condition", var = "Effective" } ),
+	} end,
+	["while a unique enemy is in your presence, inflict (%w+) exposure on hit, applying %-(%d+)%% to (%w+) resistance"] = function(_, element1,  num, element2) return {
+		mod( firstToUpper(element1).."ExposureChance", "BASE", 100, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }, { type = "Condition", var = "Effective" }),
+		mod("EnemyModifier", "LIST", { mod = mod(firstToUpper(element2).."Exposure", "BASE", -num, { type = "Condition", var = "RareOrUnique" }) }, { type = "Condition", var = "Effective" } ),
+	} end,
+	["while a pinnacle atlas boss is in your presence, inflict (%w+) exposure on hit, applying %-(%d+)%% to (%w+) resistance"] = function(_, element1,  num, element2) return {
+		mod( firstToUpper(element1).."ExposureChance", "BASE", 100, { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" }, { type = "Condition", var = "Effective" }),
+		mod("EnemyModifier", "LIST", { mod = mod(firstToUpper(element2).."Exposure", "BASE", -num, { type = "Condition", var = "PinnacleBoss" }) }, { type = "Condition", var = "Effective" } ),
+	} end,
 	["fire exposure you inflict applies an extra (%-?%d+)%% to fire resistance"] = function(num) return { mod("ExtraFireExposure", "BASE", num) } end,
 	["cold exposure you inflict applies an extra (%-?%d+)%% to cold resistance"] = function(num) return { mod("ExtraColdExposure", "BASE", num) } end,
 	["lightning exposure you inflict applies an extra (%-?%d+)%% to lightning resistance"] = function(num) return { mod("ExtraLightningExposure", "BASE", num) } end,
