@@ -4278,28 +4278,65 @@ skills["ForbiddenRite"] = {
 			name = "All Primary Projectiles",
 		},
 	},
-	preDamageFunc = function(activeSkill, output)
+	preDamageFunc = function(activeSkill, output, breakdown)
 		local add
+		local t_insert = table.insert
+		local s_format = string.format
 		if activeSkill.skillFlags.totem then
-			add = output.TotemLife * activeSkill.skillData.lifeDealtAsChaos / 100
+			life = output.TotemLife
+			energyShield = 0
+			chaosResistance = output.TotemChaosResist
 		else
-			add = output.Life * activeSkill.skillData.lifeDealtAsChaos / 100 + output.EnergyShield * activeSkill.skillData.energyShieldDealtAsChaos / 100
+			life = output.Life
+			energyShield = output.EnergyShield
+			chaosResistance = output.ChaosResist
 		end
+		add = life * activeSkill.skillData.lifeDealtAsChaos + energyShield * activeSkill.skillData.energyShieldDealtAsChaos
+		SelfDamageTakenLife = floor(round(life * activeSkill.skillData.SelfDamageTakenLife) * (100 - chaosResistance) / 100 * output.ChaosSpellTakenHitMult)
+		SelfDamageTakenES = floor(round(energyShield * activeSkill.skillData.SelfDamageTakenES) * (100 - chaosResistance) / 100 * output.ChaosSpellTakenHitMult)
 		activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + add
 		activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + add
 		if activeSkill.skillPart == 2 then
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount + 1
 		end
+		if breakdown then
+			local FRDamageTaken = {}
+			t_insert(FRDamageTaken, "Damage Taken per Cast")
+			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Life) * ^7%d%%^8 (of Life taken as Chaos Damage)", life, activeSkill.skillData.SelfDamageTakenLife * 100))
+			if energyShield ~= 0 then
+				t_insert(FRDamageTaken, s_format("^8+^7 %d^8 (ES) * ^7%d%%^8 (of ES taken as Chaos Damage)", energyShield, activeSkill.skillData.SelfDamageTakenES * 100))
+			end
+			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Chaos Damage) * ^7%d%%^8 (Chaos Resistance)", life * activeSkill.skillData.SelfDamageTakenLife + energyShield * activeSkill.skillData.SelfDamageTakenES, chaosResistance))
+			if output.ChaosSpellTakenHitMult ~= 1 then
+				t_insert(FRDamageTaken, s_format("^8 * ^7%.2f^8 (Damage Taken Multiplier)", output.ChaosSpellTakenHitMult))
+			end
+			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Damage Taken)", SelfDamageTakenLife + SelfDamageTakenES))
+			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Life After)", life - (SelfDamageTakenLife + SelfDamageTakenES)))
+			breakdown.FRDamageTaken = FRDamageTaken
+		end
+		output.FRDamageTaken = SelfDamageTakenLife + SelfDamageTakenES
+
+
 	end,
 	statMap = {
 		["skill_base_chaos_damage_%_maximum_life"] = {
 			skill("lifeDealtAsChaos", nil),
+			div = 100,
 		},
 		["skill_base_chaos_damage_%_maximum_energy_shield"] = {
 			skill("energyShieldDealtAsChaos", nil),
+			div = 100,
 		},
 		["base_skill_area_of_effect_+%"] = {
 			mod("AreaOfEffect", "INC", nil),
+		},
+		["soulfeast_take_%_maximum_life_as_chaos_damage"] = {
+			skill("SelfDamageTakenLife", nil),
+			div = 100,
+		},
+		["soulfeast_take_%_maximum_energy_shield_as_chaos_damage"] = {
+			skill("SelfDamageTakenES", nil),
+			div = 100,
 		},
 	},
 	baseFlags = {
