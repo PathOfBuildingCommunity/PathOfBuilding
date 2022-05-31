@@ -149,7 +149,7 @@ return {
 		modList:NewMod("Multiplier:NearbyNonGolemMinion", "BASE", val, "Config")
 	end },
 	{ label = "Close Combat:", ifSkill = "Close Combat" },
-	{ var = "closeCombatCombatRush", type = "check", label = "Is Combat Rush active?", ifSkill = "Close Combat", apply = function(val, modList, enemyModList)
+	{ var = "closeCombatCombatRush", type = "check", label = "Is Combat Rush active?", ifSkill = "Close Combat", tooltip = "Combat Rush grants 20% more Attack Speed to Travel Skills not Supported by Close Combat.",apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CombatRushActive", "FLAG", true, "Config")
 	end },
 	{ label = "Cruelty:", ifSkill = "Cruelty" },
@@ -327,7 +327,7 @@ return {
 		modList:NewMod("Multiplier:SteelShardConsumed", "BASE", m_min(val, 12), "Config")
 	end },
 	{ var = "steelWards", type = "count", label = "Steel Wards:", ifSkill = "Shattering Steel", tooltip = "Steel Wards are gained from using Shattering Steel with at least 2 Steel Shards.\nYou can have up to 6 Steel Wards, and each grants +4% chance to Block Projectile Attack Damage.", apply = function(val, modList, enemyModList)
-		modList:NewMod("ProjectileBlockChance", "BASE", m_min(val * 4, 24), "Config")
+		modList:NewMod("Multiplier:SteelWardCount", "BASE", val, "Config")
 	end },
 	{ label = "Storm Rain:", ifSkill = "Storm Rain" },
 	{ var = "stormRainBeamOverlap", type = "count", label = "# of Overlapping Beams:", ifSkill = "Storm Rain", apply = function(val, modList, enemyModList)
@@ -1337,6 +1337,7 @@ Sirus adds the following modifiers:
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		elseif val == "Shaper" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
@@ -1345,6 +1346,7 @@ Sirus adds the following modifiers:
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		elseif val == "Sirus" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
 			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")

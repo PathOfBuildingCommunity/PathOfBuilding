@@ -1176,6 +1176,12 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		for _, value in ipairs(modList:List(nil, "JewelData")) do
 			jewelData[value.key] = value.value
 		end
+		if modList:List(nil, "ImpossibleEscapeKeystones") then
+			jewelData.impossibleEscapeKeystones = { }
+			for _, value in ipairs(modList:List(nil, "ImpossibleEscapeKeystones")) do
+				jewelData.impossibleEscapeKeystones[value.key] = value.value
+			end
+		end
 		if self.clusterJewel then
 			jewelData.clusterJewelNotables = { }
 			for _, name in ipairs(modList:List(nil, "ClusterJewelNotable")) do

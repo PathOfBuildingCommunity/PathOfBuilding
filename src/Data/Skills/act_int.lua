@@ -804,6 +804,10 @@ skills["DarkRitual"] = {
 		["dark_ritual_skill_effect_duration_+%_per_curse_applied"] = {
 			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseApplied" }),
 		},
+		["apply_linked_curses_with_dark_ritual"] = {
+		},
+		["cannot_cast_curses"] = {
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -1061,13 +1065,17 @@ skills["Blight"] = {
 			name = "Maximum Sustainable Stacks",
 		},
 	},
+	statMap = {
+		["display_max_blight_stacks"] = {
+			mod("Multiplier:BlightMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "BlightStageAfterFirst" }),
 		skill("debuff", true),
 		skill("debuffSecondary", true),
@@ -1149,6 +1157,9 @@ skills["VaalBlight"] = {
 	statMap = {
 		["hinder_enemy_chaos_damage_taken_+%"] = {
 			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }),
+		},
+		["display_max_blight_stacks"] = {
+			mod("Multiplier:BlightMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 	baseFlags = {
@@ -1436,6 +1447,11 @@ skills["SigilRecall"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["recall_sigil_target_search_range_+%"] = {
+			mod("BrandAttachmentRange", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -2158,6 +2174,9 @@ skills["Disintegrate"] = {
 		["disintegrate_damage_+%_final_per_intensity"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
+		["disintegrate_base_radius_+_per_intensify"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -2743,7 +2762,7 @@ skills["DivineTempest"] = {
 	},
 	baseMods = {
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:DivineIreMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:DivineIreMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 38),
 	},
 	qualityStats = {
@@ -3730,51 +3749,52 @@ skills["Firewall"] = {
 		"base_secondary_skill_effect_duration",
 		"number_of_allowed_firewalls",
 		"wall_maximum_length",
+		"firewall_attached_projectile_effect_mtx",
 		"is_area_damage",
 		"spell_damage_modifiers_apply_to_skill_dot",
 		"console_skill_dont_chase",
 	},
 	levels = {
-		[1] = { 5.0000003104409, 16.666667039196, 3, 5, 1000, 3, 40, duration = 3, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 4, }, },
-		[2] = { 5.0000003104409, 16.666667039196, 4, 6, 1050, 3, 41, duration = 3.1, levelRequirement = 6, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 5, }, },
-		[3] = { 5.0000003104409, 16.666667039196, 5, 8, 1110, 3, 42, duration = 3.2, levelRequirement = 9, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 5, }, },
-		[4] = { 5.0000003104409, 16.666667039196, 7, 10, 1160, 3, 43, duration = 3.3, levelRequirement = 12, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 6, }, },
-		[5] = { 5.0000003104409, 16.666667039196, 9, 13, 1210, 3, 44, duration = 3.4, levelRequirement = 16, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 7, }, },
-		[6] = { 5.0000003104409, 16.666667039196, 11, 16, 1260, 3, 45, duration = 3.5, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 7, }, },
-		[7] = { 5.0000003104409, 16.666667039196, 13, 19, 1320, 3, 46, duration = 3.6, levelRequirement = 24, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[8] = { 5.0000003104409, 16.666667039196, 16, 24, 1370, 3, 47, duration = 3.7, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 9, }, },
-		[9] = { 5.0000003104409, 16.666667039196, 19, 29, 1420, 3, 48, duration = 3.8, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[10] = { 5.0000003104409, 16.666667039196, 22, 33, 1470, 3, 49, duration = 3.9, levelRequirement = 36, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[11] = { 5.0000003104409, 16.666667039196, 27, 40, 1530, 3, 50, duration = 4, levelRequirement = 40, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 11, }, },
-		[12] = { 5.0000003104409, 16.666667039196, 31, 47, 1580, 3, 51, duration = 4.1, levelRequirement = 44, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 12, }, },
-		[13] = { 5.0000003104409, 16.666667039196, 36, 55, 1630, 3, 52, duration = 4.2, levelRequirement = 48, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 12, }, },
-		[14] = { 5.0000003104409, 16.666667039196, 42, 63, 1680, 3, 53, duration = 4.3, levelRequirement = 52, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 13, }, },
-		[15] = { 5.0000003104409, 16.666667039196, 47, 71, 1740, 3, 54, duration = 4.4, levelRequirement = 55, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 14, }, },
-		[16] = { 5.0000003104409, 16.666667039196, 52, 79, 1790, 3, 55, duration = 4.5, levelRequirement = 58, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 14, }, },
-		[17] = { 5.0000003104409, 16.666667039196, 58, 87, 1840, 3, 56, duration = 4.6, levelRequirement = 61, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 15, }, },
-		[18] = { 5.0000003104409, 16.666667039196, 64, 96, 1890, 3, 57, duration = 4.7, levelRequirement = 64, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 15, }, },
-		[19] = { 5.0000003104409, 16.666667039196, 71, 106, 1950, 3, 58, duration = 4.8, levelRequirement = 67, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 16, }, },
-		[20] = { 5.0000003104409, 16.666667039196, 78, 117, 2000, 3, 59, duration = 4.9, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 16, }, },
-		[21] = { 5.0000003104409, 16.666667039196, 83, 125, 2050, 3, 60, duration = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 17, }, },
-		[22] = { 5.0000003104409, 16.666667039196, 88, 132, 2110, 3, 61, duration = 5.1, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 17, }, },
-		[23] = { 5.0000003104409, 16.666667039196, 94, 141, 2160, 3, 62, duration = 5.2, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 18, }, },
-		[24] = { 5.0000003104409, 16.666667039196, 100, 150, 2210, 3, 63, duration = 5.3, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 18, }, },
-		[25] = { 5.0000003104409, 16.666667039196, 105, 158, 2260, 3, 64, duration = 5.4, levelRequirement = 80, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 18, }, },
-		[26] = { 5.0000003104409, 16.666667039196, 112, 168, 2320, 3, 65, duration = 5.5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 19, }, },
-		[27] = { 5.0000003104409, 16.666667039196, 118, 177, 2370, 3, 66, duration = 5.6, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 19, }, },
-		[28] = { 5.0000003104409, 16.666667039196, 125, 188, 2420, 3, 67, duration = 5.7, levelRequirement = 86, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 19, }, },
-		[29] = { 5.0000003104409, 16.666667039196, 133, 199, 2470, 3, 68, duration = 5.8, levelRequirement = 88, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
-		[30] = { 5.0000003104409, 16.666667039196, 140, 210, 2530, 3, 69, duration = 5.9, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
-		[31] = { 5.0000003104409, 16.666667039196, 144, 215, 2550, 3, 69, duration = 5.95, levelRequirement = 91, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
-		[32] = { 5.0000003104409, 16.666667039196, 148, 222, 2580, 3, 70, duration = 6, levelRequirement = 92, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
-		[33] = { 5.0000003104409, 16.666667039196, 153, 229, 2610, 3, 70, duration = 6.05, levelRequirement = 93, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
-		[34] = { 5.0000003104409, 16.666667039196, 158, 237, 2630, 3, 71, duration = 6.1, levelRequirement = 94, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
-		[35] = { 5.0000003104409, 16.666667039196, 163, 245, 2660, 3, 71, duration = 6.15, levelRequirement = 95, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
-		[36] = { 5.0000003104409, 16.666667039196, 169, 253, 2680, 3, 72, duration = 6.2, levelRequirement = 96, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
-		[37] = { 5.0000003104409, 16.666667039196, 174, 261, 2710, 3, 72, duration = 6.25, levelRequirement = 97, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
-		[38] = { 5.0000003104409, 16.666667039196, 180, 269, 2740, 3, 73, duration = 6.3, levelRequirement = 98, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
-		[39] = { 5.0000003104409, 16.666667039196, 186, 278, 2760, 3, 73, duration = 6.35, levelRequirement = 99, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
-		[40] = { 5.0000003104409, 16.666667039196, 192, 287, 2790, 3, 74, duration = 6.4, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
+		[1] = { 5.0000003104409, 16.666667039196, 3, 5, 1000, 3, 40, 1, duration = 3, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 4, }, },
+		[2] = { 5.0000003104409, 16.666667039196, 4, 6, 1050, 3, 41, 1, duration = 3.1, levelRequirement = 6, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 5, }, },
+		[3] = { 5.0000003104409, 16.666667039196, 5, 8, 1110, 3, 42, 1, duration = 3.2, levelRequirement = 9, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 5, }, },
+		[4] = { 5.0000003104409, 16.666667039196, 7, 10, 1160, 3, 43, 1, duration = 3.3, levelRequirement = 12, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 6, }, },
+		[5] = { 5.0000003104409, 16.666667039196, 9, 13, 1210, 3, 44, 1, duration = 3.4, levelRequirement = 16, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 7, }, },
+		[6] = { 5.0000003104409, 16.666667039196, 11, 16, 1260, 3, 45, 1, duration = 3.5, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 7, }, },
+		[7] = { 5.0000003104409, 16.666667039196, 13, 19, 1320, 3, 46, 1, duration = 3.6, levelRequirement = 24, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[8] = { 5.0000003104409, 16.666667039196, 16, 24, 1370, 3, 47, 1, duration = 3.7, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 9, }, },
+		[9] = { 5.0000003104409, 16.666667039196, 19, 29, 1420, 3, 48, 1, duration = 3.8, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[10] = { 5.0000003104409, 16.666667039196, 22, 33, 1470, 3, 49, 1, duration = 3.9, levelRequirement = 36, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[11] = { 5.0000003104409, 16.666667039196, 27, 40, 1530, 3, 50, 1, duration = 4, levelRequirement = 40, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 11, }, },
+		[12] = { 5.0000003104409, 16.666667039196, 31, 47, 1580, 3, 51, 1, duration = 4.1, levelRequirement = 44, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 12, }, },
+		[13] = { 5.0000003104409, 16.666667039196, 36, 55, 1630, 3, 52, 1, duration = 4.2, levelRequirement = 48, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 12, }, },
+		[14] = { 5.0000003104409, 16.666667039196, 42, 63, 1680, 3, 53, 1, duration = 4.3, levelRequirement = 52, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 13, }, },
+		[15] = { 5.0000003104409, 16.666667039196, 47, 71, 1740, 3, 54, 1, duration = 4.4, levelRequirement = 55, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 14, }, },
+		[16] = { 5.0000003104409, 16.666667039196, 52, 79, 1790, 3, 55, 1, duration = 4.5, levelRequirement = 58, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 14, }, },
+		[17] = { 5.0000003104409, 16.666667039196, 58, 87, 1840, 3, 56, 1, duration = 4.6, levelRequirement = 61, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 15, }, },
+		[18] = { 5.0000003104409, 16.666667039196, 64, 96, 1890, 3, 57, 1, duration = 4.7, levelRequirement = 64, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 15, }, },
+		[19] = { 5.0000003104409, 16.666667039196, 71, 106, 1950, 3, 58, 1, duration = 4.8, levelRequirement = 67, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 16, }, },
+		[20] = { 5.0000003104409, 16.666667039196, 78, 117, 2000, 3, 59, 1, duration = 4.9, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 16, }, },
+		[21] = { 5.0000003104409, 16.666667039196, 83, 125, 2050, 3, 60, 1, duration = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 17, }, },
+		[22] = { 5.0000003104409, 16.666667039196, 88, 132, 2110, 3, 61, 1, duration = 5.1, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 17, }, },
+		[23] = { 5.0000003104409, 16.666667039196, 94, 141, 2160, 3, 62, 1, duration = 5.2, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 18, }, },
+		[24] = { 5.0000003104409, 16.666667039196, 100, 150, 2210, 3, 63, 1, duration = 5.3, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 18, }, },
+		[25] = { 5.0000003104409, 16.666667039196, 105, 158, 2260, 3, 64, 1, duration = 5.4, levelRequirement = 80, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 18, }, },
+		[26] = { 5.0000003104409, 16.666667039196, 112, 168, 2320, 3, 65, 1, duration = 5.5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 19, }, },
+		[27] = { 5.0000003104409, 16.666667039196, 118, 177, 2370, 3, 66, 1, duration = 5.6, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 19, }, },
+		[28] = { 5.0000003104409, 16.666667039196, 125, 188, 2420, 3, 67, 1, duration = 5.7, levelRequirement = 86, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 19, }, },
+		[29] = { 5.0000003104409, 16.666667039196, 133, 199, 2470, 3, 68, 1, duration = 5.8, levelRequirement = 88, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
+		[30] = { 5.0000003104409, 16.666667039196, 140, 210, 2530, 3, 69, 1, duration = 5.9, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
+		[31] = { 5.0000003104409, 16.666667039196, 144, 215, 2550, 3, 69, 1, duration = 5.95, levelRequirement = 91, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
+		[32] = { 5.0000003104409, 16.666667039196, 148, 222, 2580, 3, 70, 1, duration = 6, levelRequirement = 92, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 20, }, },
+		[33] = { 5.0000003104409, 16.666667039196, 153, 229, 2610, 3, 70, 1, duration = 6.05, levelRequirement = 93, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
+		[34] = { 5.0000003104409, 16.666667039196, 158, 237, 2630, 3, 71, 1, duration = 6.1, levelRequirement = 94, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
+		[35] = { 5.0000003104409, 16.666667039196, 163, 245, 2660, 3, 71, 1, duration = 6.15, levelRequirement = 95, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
+		[36] = { 5.0000003104409, 16.666667039196, 169, 253, 2680, 3, 72, 1, duration = 6.2, levelRequirement = 96, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
+		[37] = { 5.0000003104409, 16.666667039196, 174, 261, 2710, 3, 72, 1, duration = 6.25, levelRequirement = 97, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 21, }, },
+		[38] = { 5.0000003104409, 16.666667039196, 180, 269, 2740, 3, 73, 1, duration = 6.3, levelRequirement = 98, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
+		[39] = { 5.0000003104409, 16.666667039196, 186, 278, 2760, 3, 73, 1, duration = 6.35, levelRequirement = 99, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
+		[40] = { 5.0000003104409, 16.666667039196, 192, 287, 2790, 3, 74, 1, duration = 6.4, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 22, }, },
 	},
 }
 skills["FlameWhip"] = {
@@ -3797,6 +3817,7 @@ skills["FlameWhip"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("radius", 30),
@@ -3887,7 +3908,10 @@ skills["Flameblast"] = {
 			mod("Multiplier:FlameblastMaxStages", "BASE", nil),
 		},
 		["flameblast_area_+%_final_per_stage"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStage" }),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+		},
+		["vaal_flameblast_radius_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		},
 	},
 	baseFlags = {
@@ -3895,9 +3919,7 @@ skills["Flameblast"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:FlameblastMaxStagesAfterFirst", "BASE", 9),
 		skill("radius", 2),
-		skill("radiusExtra", 3, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		skill("showAverage", true),
 	},
 	qualityStats = {
@@ -4372,6 +4394,8 @@ skills["FreezingPulse"] = {
 	statMap = {
 		["freezing_pulse_damage_+%_final_at_long_range"] = {
 			mod("FreezingPulseRamp", "BASE", nil)
+		},
+		["display_what_freezing_pulse_does"] = {
 		},
 	},
 	baseFlags = {
@@ -5118,6 +5142,8 @@ skills["WaterSphere"] = {
 		["hydro_sphere_pulse_frequency_+%"] = {
 			mod("HydroSphereFrequency", "INC", nil),
 		},
+		["water_sphere_does_weird_conversion_stuff"] = {
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -5212,6 +5238,9 @@ skills["DoomBlast"] = {
 		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
 		},
+		["chaos_damage_resisted_by_lowest_resistance"] = {
+			flag("ChaosDamageUsesLowestResistance"),
+		},
 	},
 	parts = {
 		{
@@ -5230,19 +5259,6 @@ skills["DoomBlast"] = {
 	baseMods = {
 		skill("radius", 29),
 		skill("showAverage", true),
-		flag("ChaosDamageUsesLowestResistance"),
-		flag("PhysicalCanIgnite"),
-		flag("LightningCanIgnite"),
-		flag("ColdCanIgnite"),
-		flag("ChaosCanIgnite"),
-		flag("PhysicalCanFreeze"),
-		flag("LightningCanFreeze"),
-		flag("FireCanFreeze"),
-		flag("ChaosCanFreeze"),
-		flag("PhysicalCanShock"),
-		flag("ColdCanShock"),
-		flag("FireCanShock"),
-		flag("ChaosCanShock"),
 	},
 	qualityStats = {
 		Default = {
@@ -5346,10 +5362,10 @@ skills["HeraldOfThunder"] = {
 			div = 1000,
 		},
 		["skill_buff_grants_damage_+%"] = {
-			mod("Damage", "INC", nil),
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["base_damage_taken_+%"] = {
-			mod("DamageTaken", "INC", nil),
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 	baseFlags = {
@@ -5819,7 +5835,7 @@ skills["ExpandingFireCone"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["flamethrower_damage_+%_per_stage_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IncinerateStage" }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "IncinerateStage" }),
 		},
 		["expanding_fire_cone_radius_+_per_stage"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateStage", limitVar = "IncinerateRadiusLimit", limitTotal = true }),
@@ -5831,14 +5847,15 @@ skills["ExpandingFireCone"] = {
 		["expanding_fire_cone_radius_limit"] = {
 			mod("Multiplier:IncinerateRadiusLimit", "BASE", nil),
 		},
+		["expanding_fire_cone_maximum_number_of_stages"] = {
+			mod("Multiplier:IncinerateMaxStages", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:IncinerateMaxStages", "BASE", 8),
-		mod("Damage", "MORE", 25, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ignite), { type = "Multiplier", var = "IncinerateStages" }),
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 25),
 		skill("radiusLabel", "Flame Length:"),
@@ -7003,6 +7020,8 @@ skills["MagmaSigil"] = {
 		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
 		},
+		["penance_brand_additional_descriptions_boolean"] = {
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -7015,7 +7034,7 @@ skills["MagmaSigil"] = {
 		mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 }),
 		skill("radius", 8),
 		skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
-		mod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		mod("Multiplier:PenanceBrandMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
 		Default = {
@@ -8125,6 +8144,13 @@ skills["FireBeam"] = {
 		["base_fire_damage_resistance_%"] = {
 			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
 		},
+		["fire_beam_additional_stack_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
+			base = 100
+		},
+		["display_max_fire_beam_stacks"] = {
+			mod("Multiplier:ScorchingRayMaxStages", "BASE", nil),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -8132,8 +8158,6 @@ skills["FireBeam"] = {
 	},
 	baseMods = {
 		mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 }),
-		mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", 7),
-		mod("Damage", "MORE", 60, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
 	},
 	qualityStats = {
 		Default = {
@@ -8317,6 +8341,9 @@ skills["CircleOfPower"] = {
 		["spell_damage_+%"] = {
 			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
+		["base_chance_to_shock_%_from_skill"] = {
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "SigilOfPowerStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -8335,7 +8362,7 @@ skills["CircleOfPower"] = {
 			{ "circle_of_power_max_stages", -0.05 },
 		},
 		Alternate2 = {
-			{ "base_chance_to_shock_%", 1 },
+			{ "base_chance_to_shock_%_from_skill", 1 },
 		},
 		Alternate3 = {
 			{ "circle_of_power_skill_cost_mana_cost_+%", -0.5 },
@@ -8752,6 +8779,10 @@ skills["Spellslinger"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["spellslinger_mana_reservation"] = {
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -8828,6 +8859,11 @@ skills["SupportSpellslinger"] = {
 	statMap = {
 		["gain_%_of_base_wand_damage_as_added_spell_damage"] = {
 			skill("gainPercentBaseWandDamage", nil),
+		},
+		["support_spellslinger_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+		},
+		["spellslinger_trigger_on_wand_attack_%"] = {
 		},
 	},
 	baseMods = {
@@ -9384,6 +9420,8 @@ skills["Stormbind"] = {
 		["active_skill_quality_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["rune_paint_max_rune_level"] = {
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -9663,7 +9701,9 @@ skills["StormBurstNew"] = {
 		["display_storm_burst_jump_time_ms"] = {
 			skill("repeatFrequency", nil),
 			div = 1000,
-		}
+		},
+		["storm_burst_new_damage_+%_final_per_remaining_teleport_zap"] = {
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -10370,7 +10410,7 @@ skills["SummonSkeletons"] = {
 	},
 	statMap = {
 		["damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) })
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
 		},
 	},
 	baseFlags = {
@@ -10461,7 +10501,7 @@ skills["VaalSummonSkeletons"] = {
 	},
 	statMap = {
 		["damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1) })
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
 		},
 	},
 	baseFlags = {
@@ -11113,8 +11153,7 @@ skills["FrostFury"] = {
 			mod("HitRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst" }),
 		},
 		["frost_fury_max_number_of_stages"] = {
-			mod("Multiplier:WinterOrbMaxStagesAfterFirst", "BASE", nil),
-			div = 10 / 9,
+			mod("Multiplier:WinterOrbMaxStages", "BASE", nil),
 		},
 		["frost_fury_base_fire_interval_ms"] = {
 			skill("repeatFrequency", nil),
@@ -11125,6 +11164,8 @@ skills["FrostFury"] = {
 		},
 		["frost_fury_fire_speed_+%_final_while_channelling"] = {
 			mod("HitRate", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+		["display_frost_fury_additive_cast_speed_modifiers_apply_to_fire_speed"] = {
 		},
 	},
 	baseFlags = {

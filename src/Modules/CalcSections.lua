@@ -6,19 +6,19 @@
 
 -- Commonly used modifier lists
 local physicalHitTaken = {
-	"DamageTaken", "PhysicalDamageTaken"
+	"DamageTaken", "PhysicalDamageTaken", "CurseEffectOnSelf"
 }
 local lightningHitTaken = {
-	"DamageTaken", "LightningDamageTaken", "ElementalDamageTaken", "LightningResist", "ElementalResist"
+	"DamageTaken", "LightningDamageTaken", "ElementalDamageTaken", "LightningResist", "ElementalResist", "CurseEffectOnSelf"
 }
 local coldHitTaken = {
-	"DamageTaken", "ColdDamageTaken", "ElementalDamageTaken", "ColdResist", "ElementalResist"
+	"DamageTaken", "ColdDamageTaken", "ElementalDamageTaken", "ColdResist", "ElementalResist", "CurseEffectOnSelf"
 }
 local fireHitTaken = {
-	"DamageTaken", "FireDamageTaken", "ElementalDamageTaken", "FireResist", "ElementalResist"
+	"DamageTaken", "FireDamageTaken", "ElementalDamageTaken", "FireResist", "ElementalResist", "CurseEffectOnSelf"
 }
 local chaosHitTaken = {
-	"DamageTaken", "ChaosDamageTaken", "ChaosResist"
+	"DamageTaken", "ChaosDamageTaken", "ChaosResist", "CurseEffectOnSelf"
 }
 local physicalConvert = { 
 	"SkillPhysicalDamageConvertToLightning", "SkillPhysicalDamageConvertToCold", "SkillPhysicalDamageConvertToFire", "SkillPhysicalDamageConvertToChaos", 
@@ -126,22 +126,22 @@ return {
 		},
 		{ format = "x {3:output:LightningEffMult}",
 			{ breakdown = "LightningEffMult" },
-			{ label = "Player modifiers", modName = { "LightningPenetration", "ElementalPenetration" }, cfg = "skill" },
+			{ label = "Player modifiers", modName = { "LightningPenetration", "ElementalPenetration", "IgnoreLightningResistance" }, cfg = "skill" },
 			{ label = "Enemy modifiers", modName = lightningHitTaken, enemy = true, cfg = "skill" },
 		},
 		{ format = "x {3:output:ColdEffMult}",
 			{ breakdown = "ColdEffMult" },
-			{ label = "Player modifiers", modName = { "ColdPenetration", "ElementalPenetration" }, cfg = "skill" },
+			{ label = "Player modifiers", modName = { "ColdPenetration", "ElementalPenetration", "IgnoreColdResistance" }, cfg = "skill" },
 			{ label = "Enemy modifiers", modName = coldHitTaken, enemy = true, cfg = "skill" },
 		},
 		{ format = "x {3:output:FireEffMult}",
 			{ breakdown = "FireEffMult" },
-			{ label = "Player modifiers", modName = { "FirePenetration", "ElementalPenetration" }, cfg = "skill" },
+			{ label = "Player modifiers", modName = { "FirePenetration", "ElementalPenetration", "IgnoreFireResistance" }, cfg = "skill" },
 			{ label = "Enemy modifiers", modName = fireHitTaken, enemy = true, cfg = "skill" },
 		},
 		{ format = "x {3:output:ChaosEffMult}",
 			{ breakdown = "ChaosEffMult" },
-			{ label = "Player modifiers", modName = "ChaosPenetration", cfg = "skill" },
+			{ label = "Player modifiers", modName = {"ChaosPenetration", "IgnoreChaosResistance"}, cfg = "skill" },
 			{ label = "Enemy modifiers", modName = chaosHitTaken, enemy = true, cfg = "skill" },
 		},
 	},
@@ -309,18 +309,6 @@ return {
 	}, },
 	{ label = "Skill DPS", flag = "notAverage", notFlag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
 	{ label = "Skill DPS", flag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
-	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaCost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Life Cost", color = colorCodes.LIFE, haveOutput = "LifeCost", { format = "{0:output:LifeCost}", { breakdown = "LifeCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "ES Cost", color = colorCodes.ES, haveOutput = "ESCost", { format = "{0:output:ESCost}", { breakdown = "ESCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Rage Cost", color = colorCodes.RAGE, haveOutput = "RageCost", { format = "{0:output:RageCost}", { breakdown = "RageCost" }, { modName = { "RageCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Life % Cost", color = colorCodes.LIFE, haveOutput = "LifePercentCost", { format = "{0:output:LifePercentCost}", { breakdown = "LifePercentCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaPerSecondCost", { format = "{2:output:ManaPerSecondCost}/s", { breakdown = "ManaPerSecondCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Life Cost", color = colorCodes.LIFE, haveOutput = "LifePerSecondCost", { format = "{2:output:LifePerSecondCost}/s", { breakdown = "LifePerSecondCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentPerSecondCost", { format = "{2:output:ManaPercentPerSecondCost}/s", { breakdown = "ManaPercentPerSecondCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Life % Cost", color = colorCodes.LIFE, haveOutput = "LifePercentPerSecondCost", { format = "{2:output:LifePercentPerSecondCost}/s", { breakdown = "LifePercentPerSecondCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "ES Cost", color = colorCodes.ES, haveOutput = "ESPerSecondCost", { format = "{2:output:ESPerSecondCost}/s", { breakdown = "ESPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "ES % Cost", color = colorCodes.ES, haveOutput = "ESPercentPerSecondCost", { format = "{2:output:ESPercentPerSecondCost}/s", { breakdown = "ESPercentPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
 } }
 } },
 { 3, "Warcries", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Exerting Warcries", data = {
@@ -446,7 +434,6 @@ return {
 		{ format = "{1:output:ChaosDot}", { breakdown = "ChaosDot" }, },
 	},
 	{ label = "Skill DoT DPS", { format = "{1:output:TotalDot}", { breakdown = "TotalDot" }, }, },
-	{ label = "Mana Cost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = "ManaCost", cfg = "skill" }, }, },
 } }
 } },
 { 1, "Speed", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Attack/Cast Rate", data = {
@@ -565,6 +552,18 @@ return {
 } }
 } },
 { 1, "SkillTypeStats", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill type-specific Stats", data = {
+	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaCost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life Cost", color = colorCodes.LIFE, haveOutput = "LifeCost", { format = "{0:output:LifeCost}", { breakdown = "LifeCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "ES Cost", color = colorCodes.ES, haveOutput = "ESCost", { format = "{0:output:ESCost}", { breakdown = "ESCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Rage Cost", color = colorCodes.RAGE, haveOutput = "RageCost", { format = "{0:output:RageCost}", { breakdown = "RageCost" }, { modName = { "RageCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life % Cost", color = colorCodes.LIFE, haveOutput = "LifePercentCost", { format = "{0:output:LifePercentCost}", { breakdown = "LifePercentCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaPerSecondCost", { format = "{2:output:ManaPerSecondCost}/s", { breakdown = "ManaPerSecondCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life Cost", color = colorCodes.LIFE, haveOutput = "LifePerSecondCost", { format = "{2:output:LifePerSecondCost}/s", { breakdown = "LifePerSecondCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentPerSecondCost", { format = "{2:output:ManaPercentPerSecondCost}/s", { breakdown = "ManaPercentPerSecondCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life % Cost", color = colorCodes.LIFE, haveOutput = "LifePercentPerSecondCost", { format = "{2:output:LifePercentPerSecondCost}/s", { breakdown = "LifePercentPerSecondCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "ES Cost", color = colorCodes.ES, haveOutput = "ESPerSecondCost", { format = "{2:output:ESPerSecondCost}/s", { breakdown = "ESPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "ES % Cost", color = colorCodes.ES, haveOutput = "ESPercentPerSecondCost", { format = "{2:output:ESPercentPerSecondCost}/s", { breakdown = "ESPercentPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
 	{ label = "Active Minion Limit", haveOutput = "ActiveMinionLimit", { format = "{0:output:ActiveMinionLimit}" } },
 	{ label = "Quantity Multiplier", haveOutput = "QuantityMultiplier", { format = "{0:output:QuantityMultiplier}",
 	    { breakdown = "QuantityMultiplier" },
@@ -855,7 +854,6 @@ return {
 	}, },
 	{ label = "Decay Duration", { format = "{2:output:DecayDuration}s", 
 		{ breakdown = "DecayDuration" },
-		{ modName = { "Duration", "SkillAndDamagingAilmentDuration" }, cfg = "decay" },
 	}, },
 } }
 } },
@@ -1258,10 +1256,6 @@ return {
 	{ label = "Recharge Delay", { format = "{2:output:WardRechargeDelay}s",
 		{ breakdown = "WardRechargeDelay" },
 		{ modName = "WardRechargeFaster" },
-	}, },
-	{ label = "Regen", { format = "{1:output:EnergyShieldRegen} ({1:output:EnergyShieldRegenPercent}%)",
-		{ label = "Sources", modName = { "EnergyShieldRegen", "EnergyShieldRecovery", "EnergyShieldRegenPercent", "EnergyShieldDegen", "NoEnergyShieldRegen" } },
-		{ label = "Recovery modifiers", modName = "EnergyShieldRecoveryRate" },
 	}, },
 } }
 } },

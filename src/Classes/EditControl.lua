@@ -34,7 +34,7 @@ local function newlineCount(str)
 	end
 end
 
-local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight)
+local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom)
 	self.ControlHost()
 	self.Control(anchor, x, y, width, height)
 	self.UndoHandler()
@@ -46,6 +46,7 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	self.limit = limit
 	self.changeFunc = changeFunc
 	self.lineHeight = lineHeight
+	self.defaultLineHeight = lineHeight
 	self.font = "VAR"
 	self.textCol = "^7"
 	self.inactiveCol = "^8"
@@ -53,6 +54,7 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	self.selCol = "^0"
 	self.selBGCol = "^xBBBBBB"
 	self.blinkStart = GetTime()
+	self.allowZoom = allowZoom
 	if self.filter == "%D" or self.filter == "^%-%d" then
 		-- Add +/- buttons for integer number edits
 		self.isNumeric = true
@@ -155,6 +157,29 @@ function EditClass:Insert(text)
 		self.changeFunc(self.buf)
 	end
 	self:AddUndoState()
+end
+
+function EditClass:ZoomText(zoom)
+	if not self.allowZoom or not self.lineHeight then
+		return
+	end
+
+	local textHeight = self.lineHeight
+	if zoom == "+" then 
+		textHeight = textHeight + 1
+	elseif zoom == "-" then
+		textHeight = textHeight - 1
+	elseif zoom == "0" then
+		textHeight = self.defaultLineHeight
+	end
+
+	if textHeight < 10 then
+		textHeight = 10
+	elseif textHeight > 100 then
+		textHeight = 100
+	end
+
+	self.lineHeight = textHeight
 end
 
 function EditClass:UpdateScrollBars()
@@ -568,6 +593,8 @@ function EditClass:OnKeyDown(key, doubleClick)
 		end
 	elseif key == "TAB" then
 		return self.Object:TabAdvance(shift and -1 or 1)
+	elseif (key == "+" or key == "-" or key == "0") and ctrl and self.allowZoom then
+		self:ZoomText(key)
 	end
 	return self
 end
@@ -584,7 +611,7 @@ function EditClass:OnKeyUp(key)
 			self.selControl = nil
 		end
 	end
-	local ctrl =  IsKeyDown("CTRL")
+	local ctrl = IsKeyDown("CTRL")
 	if key == "LEFTBUTTON" then
 		if self.drag then
 			self.drag = false
@@ -605,13 +632,17 @@ function EditClass:OnKeyUp(key)
 			end
 		end
 	elseif key == "WHEELUP" then
-		if self.controls.scrollBarV.enabled then
+		if ctrl and self.allowZoom then
+			self:ZoomText("+")
+		elseif self.controls.scrollBarV.enabled then
 			self.controls.scrollBarV:Scroll(-1)
 		else
 			self.controls.scrollBarH:Scroll(-1)
 		end
 	elseif key == "WHEELDOWN" then
-		if self.controls.scrollBarV.enabled then
+		if ctrl and self.allowZoom then
+			self:ZoomText("-")
+		elseif self.controls.scrollBarV.enabled then
 			self.controls.scrollBarV:Scroll(1)
 		else
 			self.controls.scrollBarH:Scroll(1)
