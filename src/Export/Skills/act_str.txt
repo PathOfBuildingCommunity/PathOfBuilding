@@ -328,7 +328,7 @@ local skills, mod, flag, skill = ...
 #skill CorruptingFever
 #flags spell duration
 #baseMod skill("debuff", true)
-#baseMod mod("Multiplier:CorruptingFeverMaxStagesAfterFirst", "BASE", 9)
+#baseMod mod("Multiplier:CorruptingFeverMaxStages", "BASE", 10)
 #baseMod mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingFeverStageAfterFirst"})
 #mods
 
@@ -519,7 +519,7 @@ local skills, mod, flag, skill = ...
 #skill Exsanguinate
 #flags spell duration
 #baseMod skill("debuff", true)
-#baseMod mod("Multiplier:ExsanguinateMaxStagesAfterFirst", "BASE", 2)
+#baseMod mod("Multiplier:ExsanguinateMaxStages", "BASE", 3)
 #baseMod mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"})
 #mods
 
@@ -558,7 +558,7 @@ local skills, mod, flag, skill = ...
 		["support_spiritual_cry_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
-		["is_empowered"] = {
+		["number_of_warcries_exerting_this_action"] = {
 		},
 	},
 #mods

@@ -1,3 +1,44 @@
+VERSION[2.17.2][2022/05/20]
+
+--- Fixed Bugs ---
+* Fix bug when rendering jewel radius rings (LocalIdentity)
+
+VERSION[2.17.1][2022/05/17]
+
+--- Fixed Bugs ---
+* Fix bug when rendering Timeless jewel and Thread of Hope rings (LocalIdentity)
+
+VERSION[2.17.0][2022/05/17]
+
+--- Implemented Enhancements ---
+* Update data from 3.18 files (Nostrademous, LocalIdentity)
+* Update skill tree to 3.18 (LocalIdentity)
+* Add new awakened exceptional skill gems from 3.18 (Nostrademous)
+* Add new Sentinel uniques (TPlant, LocalIdentity)
+* Add support for Sublime Vision (LocalIdentity)
+* Add support for Impossible Escape jewel (disjunto)
+* Add support for new Thread of Hope radius (Nostrademous)
+* Add support for poeskilltree.com passive tree import (pHiney)
+
+--- User Interface ---
+* In item creator, treat flasks like other items with multiple tiers of mods (benjaminysmall)
+* Remove Ward regen from breakdown (Lilylicious)
+
+--- Accuracy Improvements ---
+* Fix Vulnerability curse priority (Lothrik)
+* Fix Supreme Ego more Mana reservation of skills to only affect auras (deathbeam)
+* Fix Decay breakdown values (Lothrik)
+
+--- New Calculations ---
+* Add support for Divine Blessing + Totem Auras (deathbeam, LocalIdentity)
+* Add support for reduced Mana cost of attacks (deathbeam)
+* Add support for Spellslinger reservation enchant (Lothrik)
+* Add support for "for Attack Damage" modifiers (Lothrik)
+* Add support for remaining Eldritch modifiers (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix crash on Energy Blade import (pHiney)
+
 VERSION[2.16.0][2022/03/15]
 
 --- Implemented Enhancements ---

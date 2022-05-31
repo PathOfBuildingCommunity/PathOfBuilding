@@ -152,9 +152,6 @@ local skills, mod, flag, skill = ...
 			skill("auraDuration", nil),
 			div = 1000,
 		},
-		["base_mana_cost_+"] = {
-			mod("ManaCost", "BASE", nil),
-		},
 	},
 #mods
 
@@ -192,6 +189,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAdditionalLevel
+#mods
+
+#skill SupportAdditionalLevelPlus
 #mods
 
 #skill EnduranceChargeOnMeleeStun

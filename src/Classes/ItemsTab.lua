@@ -1550,9 +1550,6 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	table.sort(affixList, function(a, b)
 		local modA = item.affixes[a]
 		local modB = item.affixes[b]
-		if item.type == "Flask" then
-			return modA.affix < modB.affix
-		end
 		for i = 1, m_max(#modA, #modB) do
 			if not modA[i] then
 				return true
@@ -1571,7 +1568,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	control.slider.shown = false
 	control.slider.val = 0.5
 	local selAffix = item[outputTable][outputIndex].modId
-	if item.type == "Flask" or (item.type == "Jewel" and item.base.subType ~= "Abyss") then
+	if (item.type == "Jewel" and item.base.subType ~= "Abyss") then
 		for i, modId in pairs(affixList) do
 			local mod = item.affixes[modId]
 			if selAffix == modId then
@@ -2690,9 +2687,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			local instantPerc = flaskData.instantPerc
 			if item.base.flask.life then
 				local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
+				local lifeMore = modDB:More(nil, "FlaskLifeRecovery")
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
-				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * (1 + effectInc / 100)
-				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
+				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100)
+				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
 				local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
 
 				-- LocalLifeFlaskAdditionalLifeRecovery flask mods
@@ -2801,16 +2799,20 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 
 		-- flask uptime
 		if not item.base.flask.life and not item.base.flask.mana then
-			local flaskDuration = flaskData.duration * (1 + durInc / 100)
-			local per3Duration = flaskDuration - (flaskDuration % 3)
-			local per5Duration = flaskDuration - (flaskDuration % 5)
-
-			local flaskChargesUsed = m_floor(flaskData.chargesUsed * (1 + usedInc / 100))
-
+			local flaskChargesUsed = flaskData.chargesUsed * (1 + usedInc / 100)
 			if flaskChargesUsed > 0 then
-				local totalChargesGenerated = (per3Duration * chargesGenerated) + (per5Duration * chargesGeneratedPerFlask)
-				local percentageOf = math.min(totalChargesGenerated / flaskChargesUsed * 100, 100)
-				t_insert(stats, s_format("^8Flask uptime: ^7%d%%^8", percentageOf))
+				local flaskDuration = flaskData.duration * (1 + durInc / 100)
+				local per3Duration = flaskDuration - (flaskDuration % 3)
+				local per5Duration = flaskDuration - (flaskDuration % 5)
+				local minimumChargesGenerated = per3Duration * chargesGenerated + per5Duration * chargesGeneratedPerFlask
+				local percentageMin = math.min(minimumChargesGenerated / flaskChargesUsed * 100, 100)
+				if percentageMin < 100 then
+					local averageChargesGenerated = (chargesGenerated + chargesGeneratedPerFlask) * flaskDuration
+					local percentageAvg = math.min(averageChargesGenerated / flaskChargesUsed * 100, 100)
+					t_insert(stats, s_format("^8Flask uptime: ^7%d%%^8 average, ^7%d%%^8 minimum", percentageAvg, percentageMin))
+				else
+					t_insert(stats, s_format("^8Flask uptime: ^7100%%^8"))
+				end
 			end
 		end
 
@@ -2841,10 +2843,19 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			end
 		end
 		table.sort(compareSlots, function(a, b)
+			if a ~= b then
+				if slot == a then
+					return true
+				end
+				if slot == b then
+					return false
+				end
+			end
 			if a.selItemId ~= b.selItemId then
 				if item == self.items[a.selItemId] then
 					return true
-				elseif item == self.items[b.selItemId] then
+				end
+				if item == self.items[b.selItemId] then
 					return false
 				end
 			end
@@ -2858,19 +2869,21 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		end)
 
 		-- Add comparisons for each slot
-		for _, slot in pairs(compareSlots) do
-			local selItem = self.items[slot.selItemId]
-			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-			GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
-			GlobalCache.useFullDPS = storedGlobalCacheDPSView
-			local header
-			if item == selItem then
-				header = "^7Removing this item from "..slot.label.." will give you:"
-			else
-				header = string.format("^7Equipping this item in %s will give you:%s", slot.label, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+		for _, compareSlot in pairs(compareSlots) do
+			if not main.slotOnlyTooltips or (slot and (slot.nodeId == compareSlot.nodeId or slot.slotName == compareSlot.slotName)) or not slot or slot == compareSlot then
+				local selItem = self.items[compareSlot.selItemId]
+				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+				GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item }, {})
+				GlobalCache.useFullDPS = storedGlobalCacheDPSView
+				local header
+				if item == selItem then
+					header = "^7Removing this item from "..compareSlot.label.." will give you:"
+				else
+					header = string.format("^7Equipping this item in %s will give you:%s", compareSlot.label, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+				end
+				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
 			end
-			self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
 		end
 	end
 
