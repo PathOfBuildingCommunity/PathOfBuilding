@@ -549,13 +549,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.pantheonMinorGod.tooltipFunc = function(tooltip, mode, index, value)
-		if self.controls.pantheonMajorGod.dropped then
-			tooltip:Clear()
-			return
-		end
-		applyPantheonDescription(tooltip, mode, index, value)
-	end
+	self.controls.pantheonMinorGod.tooltipFunc = applyPantheonDescription
 	self.controls.pantheonLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.pantheonMajorGod,"TOPLEFT"}, 0, 0, 0, 14, "^7The Pantheon:")
 	-- Skills
 	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 155, 300, 16, "^7Main Skill:")
