@@ -554,7 +554,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end)
 	self.controls.mainSocketGroup.maxDroppedWidth = 500
 	self.controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
-		if self.controls.pantheonMinorGod.dropped then
+		if self.controls.pantheonMinorGod.dropped or self.controls.pantheonMajorGod.dropped then
 			tooltip:Clear()
 			return
 		end
