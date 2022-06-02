@@ -537,13 +537,25 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.pantheonMajorGod.tooltipFunc = applyPantheonDescription
+	self.controls.pantheonMajorGod.tooltipFunc = function(tooltip, mode, index, value)
+		if self.controls.pantheonMinorGod.dropped then
+			tooltip:Clear()
+			return
+		end
+		applyPantheonDescription(tooltip, mode, index, value)
+	end
 	self.controls.pantheonMinorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 130, 300, 16, PantheonMinorGodDropList, function(index, value)
 		self.pantheonMinorGod = value.id
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.pantheonMinorGod.tooltipFunc = applyPantheonDescription
+	self.controls.pantheonMinorGod.tooltipFunc = function(tooltip, mode, index, value)
+		if self.controls.pantheonMajorGod.dropped then
+			tooltip:Clear()
+			return
+		end
+		applyPantheonDescription(tooltip, mode, index, value)
+	end
 	self.controls.pantheonLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.pantheonMajorGod,"TOPLEFT"}, 0, 0, 0, 14, "^7The Pantheon:")
 	-- Skills
 	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 155, 300, 16, "^7Main Skill:")
