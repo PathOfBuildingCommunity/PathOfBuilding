@@ -8681,7 +8681,6 @@ skills["ViperStrike"] = {
 	},
 	baseMods = {
 		skill("poisonIsSkillEffect", true),
-		skill("stackMultiplier", 2, { type = "Condition", var = "DualWielding" }),
 	},
 	qualityStats = {
 		Default = {
