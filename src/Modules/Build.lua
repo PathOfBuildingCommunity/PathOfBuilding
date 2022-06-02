@@ -537,7 +537,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.pantheonMajorGod.tooltipFunc = applyPantheonDescription
+	self.controls.pantheonMajorGod.tooltipFunc = function(tooltip, mode, index, value)
+		if self.controls.pantheonMinorGod.dropped then
+			tooltip:Clear()
+			return
+		end
+		applyPantheonDescription(tooltip, mode, index, value)
+	end
 	self.controls.pantheonMinorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 130, 300, 16, PantheonMinorGodDropList, function(index, value)
 		self.pantheonMinorGod = value.id
 		self.modFlag = true
@@ -554,6 +560,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end)
 	self.controls.mainSocketGroup.maxDroppedWidth = 500
 	self.controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
+		if self.controls.pantheonMinorGod.dropped or self.controls.pantheonMajorGod.dropped then
+			tooltip:Clear()
+			return
+		end
 		local socketGroup = self.skillsTab.socketGroupList[index]
 		if socketGroup and tooltip:CheckForUpdate(socketGroup, self.outputRevision) then
 			self.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
