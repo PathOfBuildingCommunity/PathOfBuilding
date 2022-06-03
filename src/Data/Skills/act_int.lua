@@ -10155,6 +10155,13 @@ skills["SummonRelic"] = {
 		["holy_relic_cooldown_recovery_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil) }),
 		},
+		["holy_relic_nova_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Holy Relic's Boon", effectCond = "HolyRelicBoonActive" }),
+			div = 60,
+		},
+		["holy_relic_nova_minion_life_regeneration_rate_per_second"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Holy Relic's Minion Boon", effectCond = "HolyRelicBoonActive", applyNotPlayer = true, applyMinions = true })
+		},
 	},
 	baseFlags = {
 		spell = true,
