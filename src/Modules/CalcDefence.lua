@@ -872,7 +872,6 @@ function calcs.defence(env, actor)
 
 			if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (not specificaly uber ziri)
 				if enemyDamage == nil then
-					stringVal = "Standard Boss"
 					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.stdBossDPSMult
 					if damageType == "Chaos" then
 						enemyDamage = enemyDamage / 4
