@@ -687,7 +687,6 @@ skills["DancingDervishCycloneChannelled"] = {
 		melee = true,
 	},
 	baseMods = {
-		skill("dpsMultiplier", 2),
 		skill("radiusIsWeaponRange", true),
 	},
 	qualityStats = {

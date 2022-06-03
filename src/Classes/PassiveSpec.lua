@@ -694,11 +694,12 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 
 		if node.type ~= "ClassStart" and node.type ~= "Socket" then
 			for nodeId, itemId in pairs(self.jewels) do
-				if self.build.itemsTab.items[itemId] and self.build.itemsTab.items[itemId].jewelRadiusIndex then
-					local radiusIndex = self.build.itemsTab.items[itemId].jewelRadiusIndex
-					if self.allocNodes[nodeId] and self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
-						if itemId ~= 0 and self.build.itemsTab.items[itemId].jewelData then
-							if self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike then
+				local item = self.build.itemsTab.items[itemId]
+				if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData then
+					local radiusIndex = item.jewelRadiusIndex
+					if self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
+						if itemId ~= 0 then
+							if item.jewelData.intuitiveLeapLike then
 								-- This node depends on Intuitive Leap-like behaviour
 								-- This flag:
 								-- 1. Prevents generation of paths from this node
@@ -706,8 +707,18 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								-- 3. Prevents allocation of path nodes when this node is being allocated
 								node.dependsOnIntuitiveLeapLike = true
 							end
-							if self.build.itemsTab.items[itemId].jewelData.conqueredBy then
-								node.conqueredBy = self.build.itemsTab.items[itemId].jewelData.conqueredBy
+							if item.jewelData.conqueredBy then
+								node.conqueredBy = item.jewelData.conqueredBy
+							end
+						end
+					end
+
+					if item.jewelData and item.jewelData.impossibleEscapeKeystone then
+						for keyName, keyNode in pairs(self.tree.keystoneMap) do
+							if item.jewelData.impossibleEscapeKeystones[keyName:lower()] and keyNode.nodesInRadius then
+								if keyNode.nodesInRadius[radiusIndex][node.id] then
+									node.dependsOnIntuitiveLeapLike = true
+								end
 							end
 						end
 					end
@@ -875,9 +886,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 									and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike
 									and self.build.itemsTab.items[itemId].jewelRadiusIndex
 									and self.nodes[nodeId].nodesInRadius
-									and self.nodes[nodeId].nodesInRadius[
-										self.build.itemsTab.items[itemId].jewelRadiusIndex
-								][depNode.id]
+									and self.nodes[nodeId].nodesInRadius[self.build.itemsTab.items[itemId].jewelRadiusIndex][depNode.id]
+							) or (
+								self.build.itemsTab.items[itemId].jewelData
+									and self.build.itemsTab.items[itemId].jewelData.impossibleEscapeKeystones
+									and self:NodeInKeystoneRadius(self.build.itemsTab.items[itemId].jewelData.impossibleEscapeKeystones, depNode.id, self.build.itemsTab.items[itemId].jewelRadiusIndex)
 							)
 						) then
 							-- Hold off on the pruning; this node could be supported by Intuitive Leap-like jewel
@@ -1537,4 +1550,16 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 		modList:AddList(node.modList)
 	end
 	node.modList = modList
+end
+
+function PassiveSpecClass:NodeInKeystoneRadius(keystoneNames, nodeId, radiusIndex)
+	for _, node in pairs(self.nodes) do
+		if node.name and node.type == "Keystone" and keystoneNames[node.name:lower()] then
+			if (node.nodesInRadius[radiusIndex][nodeId]) then
+				return true
+			end
+		end
+	end
+
+	return false
 end

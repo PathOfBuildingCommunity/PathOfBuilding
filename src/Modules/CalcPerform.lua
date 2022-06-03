@@ -1212,7 +1212,7 @@ function calcs.perform(env, avoidCache)
 			if activeSkill.skillTypes[SkillType.ChillingArea] or (activeSkill.skillTypes[SkillType.NonHitChill] and not activeSkill.skillModList:Flag(nil, "CannotChill")) and not (activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" and activeSkill.skillModList:Flag(nil, "SkitterbotsCannotChill")) then
 				output.BonechillDotEffect = m_floor(data.nonDamagingAilment.Chill.default * (1 + activeSkill.skillModList:Sum("INC", nil, "EnemyChillEffect") / 100))
 			end
-			output.BonechillEffect = m_max(output.BonechillEffect or 0, enemyDB:Sum("BASE", nil, "BonechillEffect") or output.BonechillDotEffect or 0)
+			output.BonechillEffect = m_max(output.BonechillEffect or 0, enemyDB:Sum("BASE", nil, "BonechillEffect"), output.BonechillDotEffect or 0)
 		end
 		if (activeSkill.activeEffect.grantedEffect.name == "Vaal Lightning Trap" or activeSkill.activeEffect.grantedEffect.name == "Shock Ground") then
 			modDB:NewMod("ShockOverride", "BASE", activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundEffect"), "Shocked Ground", { type = "ActorCondition", actor = "enemy", var = "OnShockedGround" } )
@@ -1231,9 +1231,6 @@ function calcs.perform(env, avoidCache)
 					output.BonechillEffect = m_max(output.BonechillEffect or 0, effect)
 				end
 			end
-		end
-		if activeSkill.skillModList:Flag(nil, "CanHaveAdditionalCurse") then
-			output.GemCurseLimit = activeSkill.skillModList:Sum("BASE", nil, "AdditionalCurse")
 		end
 		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") and not modDB:Flag(nil, "AlreadyWithered") then
 			modDB:NewMod("Condition:CanWither", "FLAG", true, "Config")
@@ -1328,7 +1325,7 @@ function calcs.perform(env, avoidCache)
 					modDB:NewMod("SpellDamageAppliesToAttacks", "FLAG", true)
 				end
 				env.player.modDB:NewMod("CritChance", "INC", battlemageCritChance * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = battlemageCritChanceMax, limitTotal = true })
-				--env.player.modDB:NewMod("ImprovedSpellDamageAppliesToAttacks", "INC", battlemageSpellToAttack * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = battlemageSpellToAttackMax, limitTotal = true })
+				env.player.modDB:NewMod("ImprovedSpellDamageAppliesToAttacks", "MAX", battlemageSpellToAttack * uptime, "Battlemage's Cry", { type = "Multiplier", var = "WarcryPower", div = 5, limit = battlemageSpellToAttackMax, limitTotal = true })
 				modDB:NewMod("BattlemageActive", "FLAG", true) -- Prevents effect from applying multiple times
 			elseif activeSkill.activeEffect.grantedEffect.name == "Intimidating Cry" and not modDB:Flag(nil, "IntimidatingActive") then
 				local intimidatingOverwhelmEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "IntimidatingPDRPer5MP")
@@ -1342,7 +1339,7 @@ function calcs.perform(env, avoidCache)
 				env.player.modDB:NewMod("NumRallyingExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingExertedAttacks") + extraExertions)
 				env.player.modDB:NewMod("RallyingExertMoreDamagePerAlly",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryExertDamageBonus"))
 				local rallyingWeaponEffect = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryAllyDamageBonusPer5Power")
-				-- Rallying cry divergant more effect of buff
+				-- Rallying cry divergent more effect of buff
 				local rallyingBonusMoreMultiplier = 1 + (activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "RallyingCryMinionDamageBonusMultiplier") or 0)
 				if warcryPowerBonus ~= 0 then
 					rallyingWeaponEffect = m_floor(rallyingWeaponEffect * warcryPowerBonus * buff_inc) / warcryPowerBonus
@@ -1363,7 +1360,7 @@ function calcs.perform(env, avoidCache)
 					seismicStunEffect = m_floor(seismicStunEffect * warcryPowerBonus * buff_inc) / warcryPowerBonus
 				end
 				env.player.modDB:NewMod("NumSeismicExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicExertedAttacks") + extraExertions)
-				env.player.modDB:NewMod("SeismicMoreDmgPerExert",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicHitMultiplier"))
+				env.player.modDB:NewMod("SeismicIncAoEPerExert",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicAoEMultiplier"))
 				if env.mode_effective then
 					env.player.modDB:NewMod("EnemyStunThreshold", "INC", -seismicStunEffect * uptime, "Seismic Cry Buff", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 })
 				end
@@ -1509,7 +1506,9 @@ function calcs.perform(env, avoidCache)
 			end
 		end
 		for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
-			env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+			if env.spec.tree.keystoneMap[name] then
+				env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+			end
 		end
 		doActorAttribsPoolsConditions(env, env.minion)
 	end
@@ -1524,7 +1523,7 @@ function calcs.perform(env, avoidCache)
 		breakdown.ManaReserved = { reservations = { } }
 	end
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.totem then
+		if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
 			local mult = skillModList:More(skillCfg, "SupportManaMultiplier")
@@ -1685,22 +1684,6 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
-	-- Check for extra modifiers to apply to aura skills
-	local extraAuraModList = { }
-    for _, value in ipairs(modDB:List(nil, "ExtraAuraEffect")) do
-        local add = true
-        for _, mod in ipairs(extraAuraModList) do
-            if modLib.compareModParams(mod, value.mod) then
-                mod.value = mod.value + value.mod.value
-                add = false
-                break
-            end
-        end
-        if add then
-            t_insert(extraAuraModList, copyTable(value.mod, true))
-        end
-    end
-
 	-- Calculate number of active heralds
 	if env.mode_buffs then
 		local heraldList = { }
@@ -1741,8 +1724,7 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
-	-- Combine buffs/debuffs 
-	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit") + (output.GemCurseLimit or 0)
+	-- Combine buffs/debuffs
 	local buffs = { }
 	env.buffs = buffs
 	local guards = { }
@@ -1750,9 +1732,7 @@ function calcs.perform(env, avoidCache)
 	env.minionBuffs = minionBuffs
 	local debuffs = { }
 	env.debuffs = debuffs
-	local curses = { 
-		limit = output.EnemyCurseLimit,
-	}
+	local curses = { }
 	local minionCurses = {
 		limit = 1,
 	}
@@ -1819,6 +1799,21 @@ function calcs.perform(env, avoidCache)
 				end
 			elseif buff.type == "Aura" then
 				if env.mode_buffs then
+					-- Check for extra modifiers to apply to aura skills
+					local extraAuraModList = { }
+					for _, value in ipairs(modDB:List(skillCfg, "ExtraAuraEffect")) do
+						local add = true
+						for _, mod in ipairs(extraAuraModList) do
+							if modLib.compareModParams(mod, value.mod) then
+								mod.value = mod.value + value.mod.value
+								add = false
+								break
+							end
+						end
+						if add then
+							t_insert(extraAuraModList, copyTable(value.mod, true))
+						end
+					end
 					if not activeSkill.skillData.auraCannotAffectSelf then
 						activeSkill.buffSkill = true
 						affectedByAura[env.player] = true
@@ -1882,6 +1877,9 @@ function calcs.perform(env, avoidCache)
 						socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
+					if activeSkill.skillTypes[SkillType.Aura] then
+						inc = inc + skillModList:Sum("INC", skillCfg, "AuraEffect")
+					end
 					local more = skillModList:More(skillCfg, "CurseEffect")
 					-- This is non-ideal, but the only More for enemy is the boss effect
 					if not curse.isMark then
@@ -2081,6 +2079,9 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
+	-- Set curse limit
+	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit")
+	curses.limit = output.EnemyCurseLimit
 	-- Assign curses to slots
 	local curseSlots = { }
 	env.curseSlots = curseSlots
@@ -2241,21 +2242,21 @@ function calcs.perform(env, avoidCache)
 			local rate = (1 / activeSkill.activeEffect.grantedEffect.castTime) * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed") * calcs.actionSpeedMod(env.player)
 			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 			local maximum = m_min((m_floor(rate * duration) - 1), 19)
-			activeSkill.skillModList:NewMod("Multiplier:BlightMaxStagesAfterFirst", "BASE", maximum, "Base")
+			activeSkill.skillModList:NewMod("Multiplier:BlightMaxStages", "BASE", maximum, "Base")
 			activeSkill.skillModList:NewMod("Multiplier:BlightStageAfterFirst", "BASE", maximum, "Base")
 		end
 		if activeSkill.activeEffect.grantedEffect.name == "Penance Brand" and activeSkill.skillPart == 2 then
 			local rate = 1 / (activeSkill.skillData.repeatFrequency / (1 + env.player.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency"))
 			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 			local ticks = m_min((m_floor(rate * duration) - 1), 19)
-			activeSkill.skillModList:NewMod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", ticks, "Base")
+			activeSkill.skillModList:NewMod("Multiplier:PenanceBrandMaxStages", "BASE", ticks, "Base")
 			activeSkill.skillModList:NewMod("Multiplier:PenanceBrandStageAfterFirst", "BASE", ticks, "Base")
 		end
 		if activeSkill.activeEffect.grantedEffect.name == "Scorching Ray" and activeSkill.skillPart == 2 then
 			local rate = (1 / activeSkill.activeEffect.grantedEffect.castTime) * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed") * calcs.actionSpeedMod(env.player)
 			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 			local maximum = m_min((m_floor(rate * duration) - 1), 7)
-			activeSkill.skillModList:NewMod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", maximum, "Base")
+			activeSkill.skillModList:NewMod("Multiplier:ScorchingRayMaxStages", "BASE", maximum, "Base")
 			activeSkill.skillModList:NewMod("Multiplier:ScorchingRayStageAfterFirst", "BASE", maximum, "Base")
 			if maximum >= 7 then
 				activeSkill.skillModList:NewMod("Condition:ScorchingRayMaxStages", "FLAG", true, "Config")
@@ -2798,7 +2799,7 @@ function calcs.perform(env, avoidCache)
 			-- Get action trigger rate
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
 
-			-- Account for chance to tigger on Melee Kill
+			-- Account for chance to trigger on Melee Kill
 			trigRate = trigRate * source.skillData.chanceToTriggerOnMeleeKill / 100
 
 			if breakdown then
@@ -3048,7 +3049,7 @@ function calcs.perform(env, avoidCache)
 			if min ~= math.huge then
 				-- Modify the magnitude of all exposures
 				for _, mod in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")) do
-					min = m_min(min, modDB:Override(nil, "ExposureMin")) + mod.value
+					min = min + mod.value
 				end
 				enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
 				modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")

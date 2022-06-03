@@ -19,6 +19,8 @@ itemLib.influenceInfo = {
 	{ key="basilisk", display="Hunter", color=colorCodes.BASILISK },
 	{ key="crusader", display="Crusader", color=colorCodes.CRUSADER },
 	{ key="eyrie", display="Redeemer", color=colorCodes.EYRIE },
+	{ key="cleansing", display="Searing Exarch", color=colorCodes.CLEANSING },
+	{ key="tangle", display="Eater of Worlds", color=colorCodes.TANGLE },
 }
 
 -- Apply a value scalar to any numbers present

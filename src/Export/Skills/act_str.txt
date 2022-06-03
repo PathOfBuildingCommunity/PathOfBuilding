@@ -18,6 +18,9 @@ local skills, mod, flag, skill = ...
 			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil),
 			mod("MinionModifier", "LIST", { mod = mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0) })
 		},
+		["damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
+		},
 	},
 #baseMod skill("radius", 25)
 #mods
@@ -295,9 +298,11 @@ local skills, mod, flag, skill = ...
 		["chain_strike_gain_x_rage_if_attack_hits"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["chain_strike_cone_radius_+_per_x_rage"] = {
+			mod("AreaOfEffect", "BASE", 1, 0, 0, { type = "Multiplier", var = "Rage" , div = nil }),
+		},
 	},
 #baseMod skill("radius", 24)
-#baseMod mod("AreaOfEffect", "BASE", 1, 0, 0, { type = "Multiplier", var = "Rage" , div = 5 })
 #mods
 
 #skill Cleave
@@ -323,7 +328,7 @@ local skills, mod, flag, skill = ...
 #skill CorruptingFever
 #flags spell duration
 #baseMod skill("debuff", true)
-#baseMod mod("Multiplier:CorruptingFeverMaxStagesAfterFirst", "BASE", 9)
+#baseMod mod("Multiplier:CorruptingFeverMaxStages", "BASE", 10)
 #baseMod mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingFeverStageAfterFirst"})
 #mods
 
@@ -398,6 +403,9 @@ local skills, mod, flag, skill = ...
 		},
 		["impale_debuff_effect_+%"] = {
 			mod("ImpaleEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["puresteel_banner_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 	},
 #baseMod skill("radius", 46)
@@ -511,7 +519,7 @@ local skills, mod, flag, skill = ...
 #skill Exsanguinate
 #flags spell duration
 #baseMod skill("debuff", true)
-#baseMod mod("Multiplier:ExsanguinateMaxStagesAfterFirst", "BASE", 2)
+#baseMod mod("Multiplier:ExsanguinateMaxStages", "BASE", 3)
 #baseMod mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"})
 #mods
 
@@ -536,8 +544,7 @@ local skills, mod, flag, skill = ...
 #skill GeneralsCry
 #flags warcry area duration
 	statMap = {
-		["spiritual_cry_doubles_summoned_per_5_MP+%"] = {
-			mod("GeneralsCryDoubleMPCount", "BASE", nil),
+		["spiritual_cry_doubles_summoned_per_5_MP"] = {
 		},
 		["maximum_number_of_spiritual_cry_warriors"] = {
 			mod("GeneralsCryDoubleMaxCount", "BASE", nil),
@@ -550,6 +557,8 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["support_spiritual_cry_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
+		},
+		["number_of_warcries_exerting_this_action"] = {
 		},
 	},
 #mods
@@ -583,6 +592,8 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+		["vaal_skill_exertable"] = {
 		},
 	},
 #baseMod skill("radius", 39)
@@ -745,7 +756,9 @@ local skills, mod, flag, skill = ...
 		["warcry_grant_overwhelm_%_to_exerted_attacks"] = {
 			-- This is okay not indicating exert because it must be enabled by Intimidating Cry which would exert the attack
 			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Attack, 0)
-		}
+		},
+		["intimidating_cry_empowerd_attacks_deal_double_damage_display"] = {
+		},
 	},
 #baseMod skill("radius", 60)
 #mods
@@ -1023,16 +1036,18 @@ local skills, mod, flag, skill = ...
 		["skill_empowers_next_x_melee_attacks"] = {
 			mod("SeismicExertedAttacks", "BASE", nil),
 		},
-		["seismic_cry_slam_skill_damage_+%_final_increase_per_repeat"] = {
-			mod("SeismicHitMultiplier", "BASE", nil),
+		["seismic_cry_slam_skill_area_+%_increase_per_repeat"] = {
+			mod("SeismicAoEMultiplier", "BASE", nil),
+		},
+		["seismic_cry_base_slam_skill_area_+%"] = {
 		},
 		["seismic_cry_+%_enemy_stun_threshold_per_5_MP"] = {
 			mod("SeismicStunThresholdPer5MP", "BASE", nil),
 		},
-		["exerted_attack_knockback_chance_%"] = {
+		["warcry_grant_knockback_%_to_exerted_attacks"] = {
 			-- Not limited to exerted but should be okay because the cry will flag them as exerted
 			mod("EnemyKnockbackChance", "BASE", nil),
-		}
+		},
 	},
 #baseMod skill("radius", 60)
 #mods

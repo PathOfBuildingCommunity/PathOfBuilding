@@ -537,7 +537,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.pantheonMajorGod.tooltipFunc = applyPantheonDescription
+	self.controls.pantheonMajorGod.tooltipFunc = function(tooltip, mode, index, value)
+		if self.controls.pantheonMinorGod.dropped then
+			tooltip:Clear()
+			return
+		end
+		applyPantheonDescription(tooltip, mode, index, value)
+	end
 	self.controls.pantheonMinorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 130, 300, 16, PantheonMinorGodDropList, function(index, value)
 		self.pantheonMinorGod = value.id
 		self.modFlag = true
@@ -554,6 +560,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end)
 	self.controls.mainSocketGroup.maxDroppedWidth = 500
 	self.controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
+		if self.controls.pantheonMinorGod.dropped or self.controls.pantheonMajorGod.dropped then
+			tooltip:Clear()
+			return
+		end
 		local socketGroup = self.skillsTab.socketGroupList[index]
 		if socketGroup and tooltip:CheckForUpdate(socketGroup, self.outputRevision) then
 			self.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
@@ -694,6 +704,25 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		["Spec"] = self.treeTab,
 	}
 
+	-- Initialise class dropdown
+	for classId, class in pairs(self.latestTree.classes) do
+		local ascendancies = {}
+		-- Initialise ascendancy dropdown
+		for i = 0, #class.classes do
+			local ascendClass = class.classes[i]
+			t_insert(ascendancies, {
+				label = ascendClass.name,
+				ascendClassId = i,
+			})
+		end
+		t_insert(self.controls.classDrop.list, {
+			label = class.name,
+			classId = classId,
+			ascendencies = ascendancies,
+		})
+	end
+	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
+
 	-- so we ran into problems with converted trees, trying to check passive tree routes and also consider thread jewels
 	-- but we cant check jewel info because items have not been loaded yet, and they come after passives in the xml.
 	-- the simplest solution seems to be making sure passive trees (which contain jewel sockets) are loaded last.
@@ -730,25 +759,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		-- Check for old calcs tab settings
 		self.configTab:ImportCalcSettings()
 	end
-
-	-- Initialise class dropdown
-	for classId, class in pairs(self.latestTree.classes) do
-		local ascendancies = {}
-		-- Initialise ascendancy dropdown
-		for i = 0, #class.classes do
-			local ascendClass = class.classes[i]
-			t_insert(ascendancies, {
-				label = ascendClass.name,
-				ascendClassId = i,
-			})
-		end
-		t_insert(self.controls.classDrop.list, {
-			label = class.name,
-			classId = classId,
-			ascendencies = ascendancies,
-		})
-	end
-	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
 
 	-- Build calculation output tables
 	self.outputRevision = 1
@@ -921,11 +931,8 @@ function buildMode:OnFrame(inputEvents)
 				end
 		elseif IsKeyDown("CTRL") then
 				if event.key == "i" then
-					if self.viewMode == "IMPORT" then
-						self.importTab.controls.importCodePastebin:Click()
-					else
 						self.viewMode = "IMPORT"
-					end
+					self.importTab:SelectControl(self.importTab.controls.importCodeIn)
 				elseif event.key == "s" then
 					self:SaveDBFile()
 					inputEvents[id] = nil
@@ -945,6 +952,8 @@ function buildMode:OnFrame(inputEvents)
 					self.viewMode = "CALCS"
 				elseif event.key == "5" then
 					self.viewMode = "CONFIG"
+				elseif event.key == "6" then
+					self.viewMode = "NOTES"
 				end
 			end
 		end
