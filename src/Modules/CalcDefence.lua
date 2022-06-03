@@ -1985,16 +1985,4 @@ function calcs.defence(env, actor)
 			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %.0f", output[damageType.."MaximumHitTaken"]))
 		end
 	end
-	
-	local minimum = m_huge
-	local SecondMinimum = m_huge
-	for _, damageType in ipairs(dmgTypeList) do
-		if output[damageType.."MaximumHitTaken"] < minimum then
-			SecondMinimum = minimum
-			minimum = output[damageType.."MaximumHitTaken"]
-		elseif output[damageType.."MaximumHitTaken"] < SecondMinimum then
-			SecondMinimum = output[damageType.."MaximumHitTaken"]
-		end
-	end
-	output.SecondMinimalMaximumHitTaken = SecondMinimum
 end
