@@ -857,42 +857,52 @@ function calcs.defence(env, actor)
 		local enemyCritChance = env.configInput["enemyCritChance"] or 5
 		local enemyCritDamage = env.configInput["enemyCritDamage"] or 30
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
+		local sourceVal = "Default"
+		for _, damageType in ipairs(dmgTypeList) do
+			if env.configInput["enemy"..damageType.."Damage"] or env.configInput["enemy"..damageType.."Pen"] then
+				sourceVal = "Config"
+			end
+		end
 		for _, damageType in ipairs(dmgTypeList) do
 			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) --missing taunt from allies
 			local enemyDamage = env.configInput["enemy"..damageType.."Damage"]
 			local enemyPen = env.configInput["enemy"..damageType.."Pen"]
-			local sourceStr = enemyDamage == nil and "Default" or "Config"
+			local sourceStr = sourceVal
+			
+			if sourceVal == "Default" or main.doNotOverwriteEnemyDefaultsWithConfig then
+				sourceStr = enemyDamage == nil and "Default" or "Config"
 
-			if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (not specificaly uber ziri)
-				if enemyDamage == nil then
-					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.stdBossDPSMult
-					if damageType == "Chaos" then
-						enemyDamage = enemyDamage / 4
+				if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (not specificaly uber ziri)
+					if enemyDamage == nil then
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.stdBossDPSMult
+						if damageType == "Chaos" then
+							enemyDamage = enemyDamage / 4
+						end
 					end
-				end
-			elseif env.configInput["enemyIsBoss"] == "Shaper" then
-				if enemyDamage == nil then
-					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.shaperDPSMult
-					if damageType == "Chaos" then
-						enemyDamage = enemyDamage / 4
+				elseif env.configInput["enemyIsBoss"] == "Shaper" then
+					if enemyDamage == nil then
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.shaperDPSMult
+						if damageType == "Chaos" then
+							enemyDamage = enemyDamage / 4
+						end
 					end
-				end
-				if enemyPen == nil and isElemental[damageType] then
-					enemyPen = data.misc.shaperPen
-				end
-			elseif env.configInput["enemyIsBoss"] == "Sirus" then
-				if enemyDamage == nil then
-					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.sirusDPSMult
-					if damageType == "Chaos" then
-						enemyDamage = enemyDamage / 4
+					if enemyPen == nil and isElemental[damageType] then
+						enemyPen = data.misc.shaperPen
 					end
-				end
-				if enemyPen == nil and isElemental[damageType] then
-					output[damageType.."EnemyPen"] = data.misc.sirusPen
-				end
-			else
-				if enemyDamage == nil and damageType == "Physical" then
-					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5
+				elseif env.configInput["enemyIsBoss"] == "Sirus" then
+					if enemyDamage == nil then
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.sirusDPSMult
+						if damageType == "Chaos" then
+							enemyDamage = enemyDamage / 4
+						end
+					end
+					if enemyPen == nil and isElemental[damageType] then
+						enemyPen = data.misc.sirusPen
+					end
+				else
+					if enemyDamage == nil and damageType == "Physical" then
+						enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5
+					end
 				end
 			end
 

@@ -205,6 +205,7 @@ the "Releases" section of the GitHub page.]])
 	self.showTitlebarName = true
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
+	self.doNotOverwriteEnemyDefaultsWithConfig = true
 
 	local ignoreBuild
 	if arg[1] then
@@ -528,6 +529,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.slotOnlyTooltips then
 					self.slotOnlyTooltips = node.attrib.slotOnlyTooltips == "true"
 				end
+				if node.attrib.doNotOverwriteEnemyDefaultsWithConfig then
+					self.doNotOverwriteEnemyDefaultsWithConfig = node.attrib.doNotOverwriteEnemyDefaultsWithConfig == "true"
+				end
 			end
 		end
 	end
@@ -581,6 +585,7 @@ function main:SaveSettings()
 		lastExportWebsite = self.lastExportWebsite,
 		showWarnings = tostring(self.showWarnings),
 		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
+		doNotOverwriteEnemyDefaultsWithConfig = tostring(self.doNotOverwriteEnemyDefaultsWithConfig),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -717,11 +722,16 @@ function main:OpenOptionsPopup()
 	controls.slotOnlyTooltips = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show tooltips only for affected slots:", function(state)
 		self.slotOnlyTooltips = state
 	end)
+	nextRow()
+	controls.doNotOverwriteEnemyDefaultsWithConfig = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7EHP, dont overwrite enemy defaults:", function(state)
+		self.doNotOverwriteEnemyDefaultsWithConfig = state
+	end)
 
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
 	controls.showWarnings.state = self.showWarnings
 	controls.slotOnlyTooltips.state = self.slotOnlyTooltips
+	controls.doNotOverwriteEnemyDefaultsWithConfig.state = self.doNotOverwriteEnemyDefaultsWithConfig
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
@@ -732,6 +742,7 @@ function main:OpenOptionsPopup()
 	local initialDefaultCharLevel = self.defaultCharLevel or 1
 	local initialshowWarnings = self.showWarnings
 	local initialSlotOnlyTooltips = self.slotOnlyTooltips
+	local initialDoNotOverwriteEnemyDefaultsWithConfig = self.doNotOverwriteEnemyDefaultsWithConfig
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -771,6 +782,7 @@ function main:OpenOptionsPopup()
 		self.defaultCharLevel = initialDefaultCharLevel
 		self.showWarnings = initialshowWarnings
 		self.slotOnlyTooltips = initialSlotOnlyTooltips
+		self.doNotOverwriteEnemyDefaultsWithConfig = initialDoNotOverwriteEnemyDefaultsWithConfig
 		main:ClosePopup()
 	end)
 	nextRow(1.5)
