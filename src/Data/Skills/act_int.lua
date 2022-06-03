@@ -1067,8 +1067,7 @@ skills["Blight"] = {
 	},
 	statMap = {
 		["display_max_blight_stacks"] = {
-			mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
-			base = -1
+			mod("Multiplier:BlightMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 	baseFlags = {
@@ -1160,8 +1159,7 @@ skills["VaalBlight"] = {
 			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }),
 		},
 		["display_max_blight_stacks"] = {
-			mod("Multiplier:BlightMaxStagesAfterFirst", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
-			base = -1
+			mod("Multiplier:BlightMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 	baseFlags = {
@@ -2764,7 +2762,7 @@ skills["DivineTempest"] = {
 	},
 	baseMods = {
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
-		mod("Multiplier:DivineIreMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:DivineIreMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 38),
 	},
 	qualityStats = {
@@ -3907,8 +3905,7 @@ skills["Flameblast"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["flameblast_maximum_stages"] = {
-			mod("Multiplier:FlameblastMaxStagesAfterFirst", "BASE", nil),
-			base = -1
+			mod("Multiplier:FlameblastMaxStages", "BASE", nil),
 		},
 		["flameblast_area_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
@@ -7037,7 +7034,7 @@ skills["MagmaSigil"] = {
 		mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 }),
 		skill("radius", 8),
 		skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
-		mod("Multiplier:PenanceBrandMaxStagesAfterFirst", "BASE", 19, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		mod("Multiplier:PenanceBrandMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
 		Default = {
@@ -8152,8 +8149,7 @@ skills["FireBeam"] = {
 			base = 100
 		},
 		["display_max_fire_beam_stacks"] = {
-			mod("Multiplier:ScorchingRayMaxStagesAfterFirst", "BASE", nil),
-			base = -1
+			mod("Multiplier:ScorchingRayMaxStages", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -8345,6 +8341,9 @@ skills["CircleOfPower"] = {
 		["spell_damage_+%"] = {
 			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
+		["base_chance_to_shock_%_from_skill"] = {
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "SigilOfPowerStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -8363,7 +8362,7 @@ skills["CircleOfPower"] = {
 			{ "circle_of_power_max_stages", -0.05 },
 		},
 		Alternate2 = {
-			{ "base_chance_to_shock_%", 1 },
+			{ "base_chance_to_shock_%_from_skill", 1 },
 		},
 		Alternate3 = {
 			{ "circle_of_power_skill_cost_mana_cost_+%", -0.5 },
@@ -10156,6 +10155,13 @@ skills["SummonRelic"] = {
 		["holy_relic_cooldown_recovery_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil) }),
 		},
+		["holy_relic_nova_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Holy Relic's Boon", effectCond = "HolyRelicBoonActive" }),
+			div = 60,
+		},
+		["holy_relic_nova_minion_life_regeneration_rate_per_second"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Holy Relic's Minion Boon", effectCond = "HolyRelicBoonActive", applyNotPlayer = true, applyMinions = true })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -11154,8 +11160,7 @@ skills["FrostFury"] = {
 			mod("HitRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst" }),
 		},
 		["frost_fury_max_number_of_stages"] = {
-			mod("Multiplier:WinterOrbMaxStagesAfterFirst", "BASE", nil),
-			base = -1,
+			mod("Multiplier:WinterOrbMaxStages", "BASE", nil),
 		},
 		["frost_fury_base_fire_interval_ms"] = {
 			skill("repeatFrequency", nil),

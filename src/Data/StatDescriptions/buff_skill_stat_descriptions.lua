@@ -281,9 +281,9 @@ return {
 				}
 			}
 		},
-		name="shock_chance",
+		name="skill_grants_shock_chance",
 		stats={
-			[1]="base_chance_to_shock_%"
+			[1]="base_chance_to_shock_%_from_skill"
 		}
 	},
 	[13]={
@@ -1334,7 +1334,7 @@ return {
 	["attack_minimum_added_cold_damage"]=2,
 	["attack_minimum_added_fire_damage"]=1,
 	["attack_minimum_added_lightning_damage"]=4,
-	["base_chance_to_shock_%"]=12,
+	["base_chance_to_shock_%_from_skill"]=12,
 	["base_damage_taken_+%"]=13,
 	["base_immune_to_freeze"]=14,
 	["base_movement_velocity_+%"]=15,

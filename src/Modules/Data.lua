@@ -109,7 +109,8 @@ data.powerStatList = {
 	{ stat="MeleeAvoidChance", label="Melee avoid chance" },
 	{ stat="SpellAvoidChance", label="Spell avoid chance" },
 	{ stat="ProjectileAvoidChance", label="Projectile avoid chance" },
-	{ stat="TotalEHP", label="effective Hit Pool" },
+	{ stat="TotalEHP", label="Effective Hit Pool" },
+	{ stat="SecondMinimalMaximumHitTaken", label="Eff. Maximum Hit Taken" },
 	{ stat="PhysicalTakenHitMult", label="Taken Phys dmg", transform=function(value) return 1-value end },
 	{ stat="LightningTakenDotMult", label="Taken Lightning dmg", transform=function(value) return 1-value end },
 	{ stat="ColdTakenDotMult", label="Taken Cold dmg", transform=function(value) return 1-value end },
@@ -148,6 +149,7 @@ data.jewelRadii = {
 		{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
 		{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
 		{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
+		{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
 	},
 	["3_16"] = {
 		{ inner = 0, outer = 960, col = "^xBB6600", label = "Small" },
@@ -158,6 +160,7 @@ data.jewelRadii = {
 		{ inner = 1320, outer = 1680, col = "^x66FFCC", label = "Variable" },
 		{ inner = 1680, outer = 2040, col = "^x2222CC", label = "Variable" },
 		{ inner = 2040, outer = 2400, col = "^xC100FF", label = "Variable" },
+		{ inner = 2400, outer = 2880, col = "^x0B9300", label = "Variable" },
 	}
 }
 
@@ -251,17 +254,17 @@ data.specialBaseTags = {
 data.cursePriority = {
 	["Temporal Chains"] = 1, -- Despair and Elemental Weakness override Temporal Chains.
 	["Enfeeble"] = 2, -- Elemental Weakness and Vulnerability override Enfeeble.
-	["Elemental Weakness"] = 3, -- Despair and Flammability override Elemental Weakness.
-	["Flammability"] = 4, -- Frostbite overrides Flammability.
-	["Frostbite"] = 5, -- Conductivity overrides Frostbite.
-	["Conductivity"] = 6,
-	["Warlord's Mark"] = 7,
-	["Assassin's Mark"] = 8,
-	["Sniper's Mark"] = 9,
-	["Poacher's Mark"] = 10,
-	["Vulnerability"] = 11, -- Despair overrides Vulnerability. Vulnerability was reworked in 3.1.0.
-	["Despair"] = 12, -- Despair was created in 3.1.0.
-	["Punishment"] = 13, -- Punishment was reworked in 3.12.0.
+	["Vulnerability"] = 3, -- Despair and Elemental Weakness override Vulnerability. Vulnerability was reworked in 3.1.0.
+	["Elemental Weakness"] = 4, -- Despair and Flammability override Elemental Weakness.
+	["Flammability"] = 5, -- Frostbite overrides Flammability.
+	["Frostbite"] = 6, -- Conductivity overrides Frostbite.
+	["Conductivity"] = 7,
+	["Despair"] = 8, -- Despair was created in 3.1.0.
+	["Punishment"] = 9, -- Punishment was reworked in 3.12.0.
+	["Warlord's Mark"] = 10,
+	["Assassin's Mark"] = 11,
+	["Sniper's Mark"] = 12,
+	["Poacher's Mark"] = 13,
 	["SocketPriorityBase"] = 100,
 	["Weapon 1"] = 1000,
 	["Amulet"] = 2000,
@@ -315,10 +318,12 @@ data.keystones = {
 	"Perfect Agony",
 	"Phase Acrobatics",
 	"Point Blank",
+	"Precise Technique",
 	"Resolute Technique",
 	"Runebinder",
 	"Secrets of Suffering",
 	"Solipsism",
+	"Supreme Decadence",
 	"Supreme Ego",
 	"The Agnostic",
 	"The Impaler",
@@ -380,6 +385,12 @@ data.misc = { -- magic numbers
 	shaperPen = 25 / 5,
 	sirusDPSMult = 10 / 4.25,
 	sirusPen = 40 / 5,
+	-- ehp helper function magic numbers
+	ehpCalcSpeedUp = 8,
+		-- depth needs to be a power of speedUp (in this case 8^3, will run 3 recursive calls deep)
+	ehpCalcMaxDepth = 512,
+		-- max hits is currently depth + speedup - 1 to give as much accuracy with as few cycles as possible, but can be increased for more accuracy
+	ehpCalcMaxHitsToCalc = 519,
 }
 
 -- Misc data tables

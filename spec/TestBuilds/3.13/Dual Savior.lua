@@ -1041,7 +1041,6 @@ Triggers Level 20 Reflection when Equipped
 ["AverageBlockChance"] = 7.5,
 ["ColdResistTotal"] = -60,
 ["FireMindOverMatter"] = 0,
-["MoreArmourChance"] = 0,
 ["LightningTotalPool"] = 92,
 ["TotalPoisonStacks"] = 0,
 ["dontSplitEvade"] = true,

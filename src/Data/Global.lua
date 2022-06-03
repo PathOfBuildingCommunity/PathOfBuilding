@@ -45,6 +45,8 @@ colorCodes = {
 	BASILISK = "^x00CB3A",
 	CRUSADER = "^x2946FC",
 	EYRIE = "^xAAB7B8",
+	CLEANSING = "^xF24141",
+	TANGLE = "^x038C8C",
 	CHILLBG = "^x151e26",
 	FREEZEBG = "^x0c262b",
 	SHOCKBG = "^x191732",
@@ -63,6 +65,7 @@ colorCodes.ES = colorCodes.SOURCE
 colorCodes.WARD = colorCodes.RARE
 colorCodes.EVASION = colorCodes.POSITIVE
 colorCodes.RAGE = colorCodes.WARNING
+colorCodes.PHYS = colorCodes.NORMAL
 
 ModFlag = { }
 -- Damage modes

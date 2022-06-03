@@ -654,7 +654,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 15)
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 1 })
-#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }, { type = "Multiplier", var = "ExplosiveArrowStage", base = -100 })
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }, { type = "Multiplier", var = "ExplosiveArrowStageAfterFirst" })
 #mods
 
 #skill ExplosiveConcoction
@@ -1484,7 +1484,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("poisonIsSkillEffect", true)
-#baseMod skill("stackMultiplier", 2, { type = "Condition", var = "DualWielding" })
 #mods
 
 #skill VolatileDead
