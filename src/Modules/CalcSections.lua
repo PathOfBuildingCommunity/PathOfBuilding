@@ -1188,6 +1188,7 @@ return {
 	{ label = "Total", { format = "{0:output:Life}", { breakdown = "Life" }, }, },
 	{ label = "Reserved", { format = "{0:output:LifeReserved} ({0:output:LifeReservedPercent}%)", { breakdown = "LifeReserved" }, }, },
 	{ label = "Unreserved", { format = "{0:output:LifeUnreserved} ({0:output:LifeUnreservedPercent}%)" }, },
+	{ label = "Total Recoverable", haveOutput = "CappingLife", { format = "{0:output:LifeRecoverable}", { breakdown = "LifeUnreserved" }, }, },
 	{ label = "Recharge Rate", haveOutput = "EnergyShieldRechargeAppliesToLife", { format = "{1:output:LifeRecharge}", 
 		{ breakdown = "LifeRecharge" },
 		{ modName = { "EnergyShieldRecharge", "LifeRecoveryRate", "NoEnergyShieldRecharge", "EnergyShieldRechargeAppliesToLife" }, },
@@ -1267,7 +1268,6 @@ return {
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "MORE" }, }, },
 	{ label = "Total", { format = "{0:output:Armour}", { breakdown = "Armour" }, }, },
-	{ label = "More Armour Ch.", haveOutput = "MoreArmourChance", { format = "{0:output:MoreArmourChance}%", { modName = "MoreArmourChance" }, }, },
 	{ label = "Armour Defense", haveOutput = "RawArmourDefense", { format = "{0:output:RawArmourDefense}%", { modName = "ArmourDefense" }, }, },
 	{ label = "Phys. Dmg. Reduct", { format = "{0:output:PhysicalDamageReduction}%", 
 		{ breakdown = "PhysicalDamageReduction" },
@@ -1682,7 +1682,10 @@ return {
 	{ label = "Enemy miss chance", { format = "{0:output:ConfiguredNotHitChance}%", { breakdown = "ConfiguredNotHitChance" }, }, },
 	{ label = "Hits before death", { format = "{2:output:TotalNumberOfHits}", { breakdown = "TotalNumberOfHits" }}, },
 	{ label = "Effective Hit Pool",{ format = "{0:output:TotalEHP}", { breakdown = "TotalEHP" }, },},
-	{ label = "Time before death",{ format = "{2:output:EHPsurvivalTime}s", { breakdown = "EHPsurvivalTime" }, },}
+	{ label = "Time before death",{ format = "{2:output:EHPsurvivalTime}s", 
+		{ breakdown = "EHPsurvivalTime" }, 
+		{ label = "Enemy modifiers", modName = { "TemporalChainsActionSpeed", "ActionSpeed" }, enemy = true },
+	},}
 }, }, { defaultCollapsed = false, label = "Maximum Hit Taken", data = {
 	extra = "2nd minimum; {0:output:SecondMinimalMaximumHitTaken}",
 	colWidth = 95,
