@@ -82,17 +82,28 @@ function calcs.defence(env, actor)
 		local min, max, total
 		min = data.misc.ResistFloor
 		max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
+		totemMax = modDB:Override(nil, "Totem"..elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, "Totem"..elem.."ResistMax", isElemental[elem] and "TotemElementalResistMax"))
 		total = modDB:Override(nil, elem.."Resist")
+		totemTotal = modDB:Override(nil, "Totem"..elem.."Resist")
 		if not total then
 			local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 			total = base * calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist")
 		end
+		if not totemTotal then
+			local base = modDB:Sum("BASE", nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist")
+			totemTotal = base * calcLib.mod(modDB, nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist")
+		end
 		local final = m_max(m_min(total, max), min)
+		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
 		output[elem.."ResistOver75"] = m_max(0, final - 75)
-		output["Missing"..elem.."Resist"] = m_max(0, max - final)
+		output["Missing"..elem.."Resist"] = m_max(0, totemMax - final)
+		output["Totem"..elem.."Resist"] = totemFinal
+		output["Totem"..elem.."ResistTotal"] = totemTotal
+		output["Totem"..elem.."ResistOverCap"] = m_max(0, totemTotal - totemMax)
+		output["MissingTotem"..elem.."Resist"] = m_max(0, totemMax - totemFinal)
 		if breakdown then
 			breakdown[elem.."Resist"] = {
 				"Min: "..min.."%",
