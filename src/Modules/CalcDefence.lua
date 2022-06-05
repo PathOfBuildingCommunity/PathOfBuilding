@@ -899,7 +899,7 @@ function calcs.defence(env, actor)
 					end
 				end
 				if enemyPen == nil and isElemental[damageType] then
-					output[damageType.."EnemyPen"] = data.misc.sirusPen
+					enemyPen = data.misc.sirusPen
 				end
 			else
 				if enemyDamage == nil and damageType == "Physical" then
@@ -1488,8 +1488,8 @@ function calcs.defence(env, actor)
 			end
 			if DamageIn.GainWhenHit and (itterationMultiplier > 1 or DamageIn["cycles"] > 1) then
 				local gainMult = itterationMultiplier * DamageIn["cycles"]
-				life = m_min(life + DamageIn.LifeWhenHit * (gainMult - 1), gainMult * output.LifeRecoverable or 0)
-				mana = m_min(mana + DamageIn.ManaWhenHit * (gainMult - 1), gainMult * output.ManaUnreserved or 0)
+				life = m_min(life + DamageIn.LifeWhenHit * (gainMult - 1), gainMult * (output.LifeRecoverable or 0))
+				mana = m_min(mana + DamageIn.ManaWhenHit * (gainMult - 1), gainMult * (output.ManaUnreserved or 0))
 				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * (gainMult - 1), gainMult * output.EnergyShieldRecoveryCap)
 			end
 			for _, damageType in ipairs(dmgTypeList) do
