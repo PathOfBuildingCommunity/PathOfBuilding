@@ -1,5 +1,51 @@
 # Changelog
 
+## [v2.18.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.18.0) (2022/06/05)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.17.2...v2.18.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Implemented Enhancements
+- Add zoom support in the Notes tab (Use Ctrl +/- or Ctrl & mouse wheel) [\#4355](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4355) ([pfeigl](https://github.com/pfeigl))
+- Add mouse shortcuts to skills tab [\#4373](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4373) ([Dullson](https://github.com/Dullson))
+  * Set as active skill group in sidebar
+  * Enable/disable skill group
+  * Include/exclude in Full DPS
+- Streamline importing of build codes [\#4398](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4398) ([deathbeam](https://github.com/deathbeam))
+### User Interface
+- Add a configuration option for showing tooltips for all slots [\#4292](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4292) ([deathbeam](https://github.com/deathbeam))
+- Add average flask uptime estimate [\#4319](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4319) ([Lothrik](https://github.com/Lothrik))
+- Add keyboard shortcut for Notes section "Ctrl+6" [\#4331](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4331) ([imsjp](https://github.com/imsjp))
+- Improve breakdown for ignoring resistance [\#4354](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4354) ([Prismateria](https://github.com/Prismateria))
+- Add Boss 'less curse effect' in resistance breakdown [\#4379](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4379) ([LocalIdentity](https://github.com/LocalIdentity))
+- Split max hit display (and colourise it) in sidebar [\#4371](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4371) ([deathbeam](https://github.com/deathbeam))
+- Do not overwrite all defaults when configuring enemy stats on configs page [\#4327](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4327) ([deathbeam](https://github.com/deathbeam))
+- Properly sort items based on affected slot in tooltips [\#4291](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4291) ([deathbeam](https://github.com/deathbeam))
+### New Calculations
+- Add support for exposure from Eldritch implicits and Archdemon Crown [\#4395](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4395) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for weapon local Overwhelm mod [\#4415](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4415) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for self-damage breakdown for Forbidden Rite [\#4420](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4420) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for many helmet enchants [\#4419](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4419) ([LocalIdentity](https://github.com/LocalIdentity))
+  * Animated Guardian, Energy Blades, Ensnaring Arrow, Flame Wall, Frost Sheild, Herald of Agony, Hydrosphere, Plague Bearer, Purifying Flame, Wild Strike
+### Accuracy Improvements
+- Minor EHP improvments [\#4227](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4227) ([Regisle](https://github.com/Regisle))
+- Fix Massive Thread of Hope outer radius [\#4404](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4404) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Exposure mastery stacking incorrectly [\#4396](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4396) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Painseeker disabling alt Ailments from Secrets of Suffering [\#4412](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4412) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Arrogance Support not working with blasphemy curses [\#4394](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4394) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Shaper of Winter + Storms not affecting Brittle + Sap [\#4416](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4416) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Summon Holy Relic's Boon Aura [\#234](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/234) ([kkienzle](https://github.com/kkienzle))
+- Fix parsing for "chaos damage taken" [\#4383](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4383) ([Nightblade](https://github.com/Nightblade))
+### Fixed Bugs
+- Fix crash when loading build containing a newer tree [\#4386](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4386) ([Wires77](https://github.com/Wires77))
+- Fix Viper Strike double counting Dual Wield Poison stacks [\#4406](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4406) ([Nostrademous](https://github.com/Nostrademous))
+- Fix pobb.in match pattern if a "_" was at the start of the build code [\#4401](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4401) ([Dullson](https://github.com/Dullson))
+- Fix an issue where the options headings sometimes appeared blank [\#4287](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4287) ([FWidm](https://github.com/FWidm))
+- Fix Pantheon dropdown tooltip [\#4377](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4377) ([Wires77](https://github.com/Wires77))
+
+
 ## [v2.17.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.17.2) (2022/05/20)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.17.1...v2.17.2)

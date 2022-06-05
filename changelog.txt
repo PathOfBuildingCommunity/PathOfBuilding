@@ -1,3 +1,47 @@
+VERSION[2.18.0][2022/06/05]
+
+--- Implemented Enhancements ---
+* Add zoom support in the Notes tab (Use Ctrl +/- or Ctrl & mouse wheel) (pfeigl)
+* Add mouse shortcuts to skills tab (Dullson)
+  * Set as active skill group in sidebar
+  * Enable/disable skill group
+  * Include/exclude in Full DPS
+* Streamline importing of build codes (deathbeam)
+
+--- User Interface ---
+* Add a configuration option for showing tooltips for all slots (deathbeam)
+* Add average flask uptime estimate (Lothrik)
+* Add keyboard shortcut for Notes section "Ctrl+6" (imsjp)
+* Improve breakdown for ignoring resistance (Prismateria)
+* Add Boss 'less curse effect' in resistance breakdown (LocalIdentity)
+* Split max hit display (and colourise it) in sidebar (deathbeam)
+* Do not overwrite all defaults when configuring enemy stats on configs page (deathbeam)
+* Properly sort items based on affected slot in tooltips (deathbeam)
+
+--- New Calculations ---
+* Add support for exposure from Eldritch implicits and Archdemon Crown (LocalIdentity)
+* Add support for weapon local Overwhelm mod (LocalIdentity)
+* Add support for self-damage breakdown for Forbidden Rite (LocalIdentity)
+* Add support for many helmet enchants (LocalIdentity)
+  * Animated Guardian, Energy Blades, Ensnaring Arrow, Flame Wall, Frost Sheild, Herald of Agony, Hydrosphere, Plague Bearer, Purifying Flame, Wild Strike
+
+--- Accuracy Improvements ---
+* Minor EHP improvments (Regisle)
+* Fix Massive Thread of Hope outer radius (LocalIdentity)
+* Fix Exposure mastery stacking incorrectly (LocalIdentity)
+* Fix Painseeker disabling alt Ailments from Secrets of Suffering (LocalIdentity)
+* Fix Arrogance Support not working with blasphemy curses (LocalIdentity)
+* Fix Shaper of Winter + Storms not affecting Brittle + Sap (LocalIdentity)
+* Fix Summon Holy Relic's Boon Aura (kkienzle)
+* Fix parsing for "chaos damage taken" (Nightblade)
+
+--- Fixed Bugs ---
+* Fix crash when loading build containing a newer tree (Wires77)
+* Fix Viper Strike double counting Dual Wield Poison stacks (Nostrademous)
+* Fix pobb.in match pattern if a "_" was at the start of the build code (Dullson)
+* Fix an issue where the options headings sometimes appeared blank (FWidm)
+* Fix Pantheon dropdown tooltip (Wires77)
+
 VERSION[2.17.2][2022/05/20]
 
 --- Fixed Bugs ---
