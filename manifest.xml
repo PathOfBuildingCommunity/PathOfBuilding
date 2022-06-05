@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.18.0" />
+	<Version number="2.18.1" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
@@ -10,7 +10,7 @@
 	<File name="UpdateCheck.lua" part="program" sha1="ca5466181a936f42ef924e077d2c4262a307a14e" />
 	<File name="UpdateApply.lua" part="program" sha1="4dd42f413cb89a963e4ae1b40e214985b909c05b" />
 	<File name="GameVersions.lua" part="program" sha1="4efd9a260705a24f95993a438ab996bd35022f70" />
-	<File name="changelog.txt" part="default" sha1="5d190b3cd19fda067deb5a46cf64dcb4698d2e07" />
+	<File name="changelog.txt" part="default" sha1="cfe5bfe04a43eaac5acd85a294186b7ce0c5830e" />
 	<File name="Path{space}of{space}Building.exe" part="runtime" platform="win32" sha1="7486cf4f0289df72ccce93a69a4198ad069f79b9" />
 	<File name="lua51.dll" part="runtime" platform="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
 	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="fe91680283bd2ca112c341134befc8922487bfca" />
@@ -191,7 +191,7 @@
 	<File name="Modules/BuildSiteTools.lua" part="program" sha1="f94dc8bbf783a4753633c5396f73332e324b8269" />
 	<File name="Modules/CalcActiveSkill.lua" part="program" sha1="e67b6c2e116382fba53d338e1ba7d40f1a92491f" />
 	<File name="Modules/CalcBreakdown.lua" part="program" sha1="ea4034f22c8379b9b9e14f437dacf11ebad9aa21" />
-	<File name="Modules/CalcDefence.lua" part="program" sha1="7e10538e780db679114213a252419f6d75750dbc" />
+	<File name="Modules/CalcDefence.lua" part="program" sha1="c8b1f426ef5cc4246b92b2caac4e27324ba49098" />
 	<File name="Modules/CalcOffence.lua" part="program" sha1="341e95470ee3bc4832295482a13d08ef7219ec22" />
 	<File name="Modules/CalcPerform.lua" part="program" sha1="9a0fe68fa9430d62ff278946aea73a4ef382524a" />
 	<File name="Modules/Calcs.lua" part="program" sha1="9cba82b0d41cfe6a2b2f5c152ba533a5293bc8df" />

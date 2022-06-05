@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.18.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.18.1) (2022/06/05)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.18.0...v2.18.1)
+
+## What's Changed
+### Fixed Bugs
+- Fix crash related to Life gain on Block [\#4428](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4428) ([Regisle](https://github.com/Regisle))
+
 ## [v2.18.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.18.0) (2022/06/05)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.17.2...v2.18.0)
