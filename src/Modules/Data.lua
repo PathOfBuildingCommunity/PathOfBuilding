@@ -109,7 +109,8 @@ data.powerStatList = {
 	{ stat="MeleeAvoidChance", label="Melee avoid chance" },
 	{ stat="SpellAvoidChance", label="Spell avoid chance" },
 	{ stat="ProjectileAvoidChance", label="Projectile avoid chance" },
-	{ stat="TotalEHP", label="effective Hit Pool" },
+	{ stat="TotalEHP", label="Effective Hit Pool" },
+	{ stat="SecondMinimalMaximumHitTaken", label="Eff. Maximum Hit Taken" },
 	{ stat="PhysicalTakenHitMult", label="Taken Phys dmg", transform=function(value) return 1-value end },
 	{ stat="LightningTakenDotMult", label="Taken Lightning dmg", transform=function(value) return 1-value end },
 	{ stat="ColdTakenDotMult", label="Taken Cold dmg", transform=function(value) return 1-value end },
@@ -159,7 +160,7 @@ data.jewelRadii = {
 		{ inner = 1320, outer = 1680, col = "^x66FFCC", label = "Variable" },
 		{ inner = 1680, outer = 2040, col = "^x2222CC", label = "Variable" },
 		{ inner = 2040, outer = 2400, col = "^xC100FF", label = "Variable" },
-		{ inner = 2400, outer = 2760, col = "^x0B9300", label = "Variable" },
+		{ inner = 2400, outer = 2880, col = "^x0B9300", label = "Variable" },
 	}
 }
 
@@ -384,6 +385,12 @@ data.misc = { -- magic numbers
 	shaperPen = 25 / 5,
 	sirusDPSMult = 10 / 4.25,
 	sirusPen = 40 / 5,
+	-- ehp helper function magic numbers
+	ehpCalcSpeedUp = 8,
+		-- depth needs to be a power of speedUp (in this case 8^3, will run 3 recursive calls deep)
+	ehpCalcMaxDepth = 512,
+		-- max hits is currently depth + speedup - 1 to give as much accuracy with as few cycles as possible, but can be increased for more accuracy
+	ehpCalcMaxHitsToCalc = 519,
 }
 
 -- Misc data tables
