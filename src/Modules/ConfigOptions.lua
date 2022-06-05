@@ -1331,20 +1331,67 @@ Sirus adds the following modifiers:
 	^7+100% to enemy Armour
 	235% of monster damage
 	8% penetration
-	]], list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper / Guardian"},{val="Sirus",label="Sirus"}}, apply = function(val, modList, enemyModList)
+	]], list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper / Guardian"},{val="Sirus",label="Sirus"}}, onChange = function(val, build)
+		if val == "Uber Atziri" then
+			local defaultEleResist = 40
+			build.configTab.input['enemyLightningResist'] = defaultEleResist
+			build.configTab.input['enemyColdResist'] = defaultEleResist
+			build.configTab.input['enemyFireResist'] = defaultEleResist
+			build.configTab.input['enemyChaosResist'] = 25
+
+			local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.stdBossDPSMult)
+			build.configTab.input['enemyPhysicalDamage'] = defaultDamage
+			build.configTab.input['enemyLightningDamage'] = defaultDamage
+			build.configTab.input['enemyColdDamage'] = defaultDamage
+			build.configTab.input['enemyFireDamage'] = defaultDamage
+			build.configTab.input['enemyChaosDamage'] = defaultDamage / 4
+
+		elseif val == "Shaper" then
+			local defaultEleResist = 50
+			build.configTab.input['enemyLightningResist'] = defaultEleResist
+			build.configTab.input['enemyColdResist'] = defaultEleResist
+			build.configTab.input['enemyFireResist'] = defaultEleResist
+			build.configTab.input['enemyChaosResist'] = 30
+
+			local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.shaperDPSMult)
+			build.configTab.input['enemyPhysicalDamage'] = defaultDamage
+			build.configTab.input['enemyLightningDamage'] = defaultDamage
+			build.configTab.input['enemyColdDamage'] = defaultDamage
+			build.configTab.input['enemyFireDamage'] = defaultDamage
+			build.configTab.input['enemyChaosDamage'] = defaultDamage / 4
+
+			build.configTab.input['enemyLightningPen'] = data.misc.shaperPen
+			build.configTab.input['enemyColdPen'] = data.misc.shaperPen
+			build.configTab.input['enemyFirePen'] = data.misc.shaperPen
+		elseif val == "Sirus" then
+			local defaultEleResist = 50
+			build.configTab.input['enemyLightningResist'] = defaultEleResist
+			build.configTab.input['enemyColdResist'] = defaultEleResist
+			build.configTab.input['enemyFireResist'] = defaultEleResist
+			build.configTab.input['enemyChaosResist'] = 30
+
+			local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.sirusDPSMult)
+			build.configTab.input['enemyPhysicalDamage'] = defaultDamage
+			build.configTab.input['enemyLightningDamage'] = defaultDamage
+			build.configTab.input['enemyColdDamage'] = defaultDamage
+			build.configTab.input['enemyFireDamage'] = defaultDamage
+			build.configTab.input['enemyChaosDamage'] = defaultDamage / 4
+
+			build.configTab.input['enemyLightningPen'] = data.misc.sirusPen
+			build.configTab.input['enemyColdPen'] = data.misc.sirusPen
+			build.configTab.input['enemyFirePen'] = data.misc.sirusPen
+		end
+		build.configTab:UpdateControls()
+	end, apply = function(val, modList, enemyModList, build)
 		if val == "Uber Atziri" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
-			enemyModList:NewMod("ElementalResist", "BASE", 40, "Boss")
-			enemyModList:NewMod("ChaosResist", "BASE", 25, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 1070897, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 		elseif val == "Shaper" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
-			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
-			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 33, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
@@ -1352,8 +1399,6 @@ Sirus adds the following modifiers:
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
-			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
-			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 100, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
@@ -1402,8 +1447,8 @@ Sirus adds the following modifiers:
 	end },
 	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
 	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast speed in ms:" },
-	{ var = "enemyCritChance", type = "integer", label = "Enemy critical strike chance:" },
-	{ var = "enemyCritDamage", type = "integer", label = "Enemy critical strike multipler:" },
+	{ var = "enemyCritChance", type = "integer", label = "Enemy critical strike chance:", defaultState = 5 },
+	{ var = "enemyCritDamage", type = "integer", label = "Enemy critical strike multipler:", defaultState = 30 },
 	{ var = "enemyPhysicalDamage", type = "integer", label = "Enemy Skill Physical Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet."},
 	{ var = "enemyLightningDamage", type = "integer", label = "Enemy Skill ^xADAA47Lightning Damage:"},
 	{ var = "enemyLightningPen", type = "integer", label = "Enemy Skill ^xADAA47Lightning Pen:"},

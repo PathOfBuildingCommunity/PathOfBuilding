@@ -854,8 +854,8 @@ function calcs.defence(env, actor)
 				},
 			}
 		end
-		local enemyCritChance = env.configInput["enemyCritChance"] or 5
-		local enemyCritDamage = env.configInput["enemyCritDamage"] or 30
+		local enemyCritChance = env.configInput["enemyCritChance"]
+		local enemyCritDamage = env.configInput["enemyCritDamage"]
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		for _, damageType in ipairs(dmgTypeList) do
 			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) --missing taunt from allies
@@ -863,37 +863,8 @@ function calcs.defence(env, actor)
 			local enemyPen = env.configInput["enemy"..damageType.."Pen"]
 			local sourceStr = enemyDamage == nil and "Default" or "Config"
 
-			if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (not specificaly uber ziri)
-				if enemyDamage == nil then
-					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.stdBossDPSMult
-					if damageType == "Chaos" then
-						enemyDamage = enemyDamage / 4
-					end
-				end
-			elseif env.configInput["enemyIsBoss"] == "Shaper" then
-				if enemyDamage == nil then
-					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.shaperDPSMult
-					if damageType == "Chaos" then
-						enemyDamage = enemyDamage / 4
-					end
-				end
-				if enemyPen == nil and isElemental[damageType] then
-					enemyPen = data.misc.shaperPen
-				end
-			elseif env.configInput["enemyIsBoss"] == "Sirus" then
-				if enemyDamage == nil then
-					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.sirusDPSMult
-					if damageType == "Chaos" then
-						enemyDamage = enemyDamage / 4
-					end
-				end
-				if enemyPen == nil and isElemental[damageType] then
-					output[damageType.."EnemyPen"] = data.misc.sirusPen
-				end
-			else
-				if enemyDamage == nil and damageType == "Physical" then
-					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5
-				end
+			if enemyDamage == nil and damageType == "Physical" then
+				enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5
 			end
 
 			enemyDamage = enemyDamage or 0

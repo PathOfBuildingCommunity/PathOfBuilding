@@ -61,6 +61,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			elseif varData.type == "list" then
 				control = new("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 118, 16, varData.list, function(index, value)
 					self.input[varData.var] = value.val
+					if varData.onChange then
+						varData.onChange(value.val, self.build)
+					end
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
