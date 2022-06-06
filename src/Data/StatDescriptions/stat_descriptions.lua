@@ -58183,17 +58183,13 @@ return {
 		lang={
 			English={
 				[1]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
-					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="When you Kill a Rare monster, you gain its Modifiers for {0} seconds"
+					text="When you Kill a Rare monster, you gain its Modifiers for 60 seconds"
 				}
 			}
 		},
@@ -138856,7 +138852,7 @@ return {
 							[2]=100
 						}
 					},
-					text="When you Kill a Magic Monster gain its Modifiers for 20 seconds"
+					text="When you Kill a Magic Monster gain its Modifiers for 60 seconds"
 				},
 				[2]={
 					limit={
@@ -138865,7 +138861,7 @@ return {
 							[2]=99
 						}
 					},
-					text="{0}% chance when you Kill a Magic Monster to gain its Modifiers for 20 seconds"
+					text="{0}% chance when you Kill a Magic Monster to gain its Modifiers for 60 seconds"
 				}
 			}
 		},

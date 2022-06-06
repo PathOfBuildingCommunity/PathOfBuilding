@@ -635,14 +635,16 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					stackVar = effectTag.effectStackVar,
 					stackLimit = effectTag.effectStackLimit,
 					stackLimitVar = effectTag.effectStackLimitVar,
+					applyNotPlayer = effectTag.applyNotPlayer,
+					applyMinions = effectTag.applyMinions,
 					modList = { },
 					unscalableModList = { },
 				}
 				if skillModList[i].source == activeGrantedEffect.modSource then
 					-- Inherit buff configuration from the active skill
 					buff.activeSkillBuff = true
-					buff.applyNotPlayer = activeSkill.skillData.buffNotPlayer
-					buff.applyMinions = activeSkill.skillData.buffMinions
+					buff.applyNotPlayer = buff.applyNotPlayer or activeSkill.skillData.buffNotPlayer
+					buff.applyMinions = buff.applyMinions or activeSkill.skillData.buffMinions
 					buff.applyAllies = activeSkill.skillData.buffAllies
 					buff.allowTotemBuff = activeSkill.skillData.allowTotemBuff
 				end
