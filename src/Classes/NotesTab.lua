@@ -14,10 +14,6 @@ local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(se
 	self.lastContent = ""
 	self.showColorCodes = false
 
-	-- local DescriptionText = [[^7This field supports URLs and different colors. URLs can accessed by first clicking on the url and selecting either Ctrl-RightClick or Ctrl-u.
-	-- Colors can be used by using the caret symbol (^) followed by a Hex code or a number (0-9) will set the color. Below are some common color codes PoB uses:	]]
-	-- self.controls.colorDoc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, DescriptionText)
-	-- self.controls.normal = new("ButtonControl", {"TOPLEFT",self.controls.colorDoc,"TOPLEFT"}, 0, 32, 100, 18, colorCodes.NORMAL.."NORMAL", function() self:SetColor(colorCodes.NORMAL) end)
 	local notesDesc = [[^7You can use Ctrl +/- (or Ctrl+Scroll) to zoom in and out and Ctrl+0 to reset. URLs can accessed by first clicking on the url and selecting either Ctrl-RightClick or Ctrl-u.
 This field also supports different colors, using the caret symbol (^) followed by a Hex code or a number (0-9) will set the color.
 Below are some common color codes PoB uses:	]]
@@ -89,10 +85,10 @@ function NotesTabClass:Save(xml)
 end
 
 function NotesTabClass:Draw(viewPort, inputEvents)
-	local urlList = { }
 	local str = self.controls.edit.buf
 	local function FindURLs()
 		-- find any urls in the edit buffer
+		local urlList = { }
 		local first = 0
 		local last = 0
 		wipeTable(urlList)
@@ -120,12 +116,11 @@ function NotesTabClass:Draw(viewPort, inputEvents)
 			local ctrl = IsKeyDown("CTRL")
 			if ctrl and ( event.key == "RIGHTBUTTON" or event.key == "u" ) then
 				caret = self.controls.edit.caret
-				if FindURLs() then
-					for _, entry in ipairs(urlList) do
-						if caret >= entry[1] and caret < entry[2] then
-							os.execute('c:/windows/explorer.exe "'..entry[3]..'"')
-							return
-						end
+				for _, entry in ipairs(FindURLs()) do
+					if caret >= entry[1] and caret < entry[2] then
+						-- os.execute('c:/windows/explorer.exe "'..entry[3]..'"')
+						OpenURL(entry[3])
+						return
 					end
 				end
 			end
