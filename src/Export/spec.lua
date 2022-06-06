@@ -5068,7 +5068,7 @@ return {
 		},
 		[11]={
 			list=false,
-			name="",
+			name="BossAilmentPercentDecrease",
 			refTo="",
 			type="Int",
 			width=150

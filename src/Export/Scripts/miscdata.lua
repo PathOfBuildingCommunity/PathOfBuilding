@@ -41,6 +41,17 @@ for row in dat("MonsterMapDifficulty"):Rows() do
 end
 out:write('}\n')
 
+local mapBossLifeMult = ""
+local mapBossAilmentMult = ""
+for var in dat("MonsterMapBossDifficulty"):Rows() do
+	mapBossLifeMult = mapBossLifeMult .. "[" .. var.AreaLevel .. "] = " .. 1 + var.BossLifePercentIncrease / 100 .. ", "
+	mapBossAilmentMult = mapBossAilmentMult .. "[" .. var.AreaLevel .. "] = " .. (100 + var.BossAilmentPercentDecrease) / 100 .. ", "
+end
+
+out:write('-- From MonsterMapBossDifficulty.dat\n')
+out:write('data.mapLevelBossLifeMult = { '..mapBossLifeMult..'}\n')
+out:write('data.mapLevelBossAilmentMult = { '..mapBossAilmentMult..'}\n')
+
 out:close()
 
 print("Misc data exported.")
