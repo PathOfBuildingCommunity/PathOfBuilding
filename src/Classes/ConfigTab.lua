@@ -48,31 +48,28 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control = new("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 18, varData.label, function(state)
 					self.input[varData.var] = state
 					self:AddUndoState()
-					self:BuildModList()
+					self:BuildModList(varData.var)
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf)
 					self.input[varData.var] = tonumber(buf)
 					self:AddUndoState()
-					self:BuildModList()
+					self:BuildModList(varData.var)
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "list" then
 				control = new("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 118, 16, varData.list, function(index, value)
 					self.input[varData.var] = value.val
-					if varData.onChange then
-						varData.onChange(value.val, self.build)
-					end
 					self:AddUndoState()
-					self:BuildModList()
+					self:BuildModList(varData.var)
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "text" then
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf)
 					self.input[varData.var] = tostring(buf)
 					self:AddUndoState()
-					self:BuildModList()
+					self:BuildModList(varData.var)
 					self.build.buildFlag = true
 				end, 16)
 			else 
@@ -391,29 +388,31 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	self:DrawControls(viewPort)
 end
 
-function ConfigTabClass:BuildModList()
+function ConfigTabClass:BuildModList(var)
 	local modList = new("ModList")
 	self.modList = modList
 	local enemyModList = new("ModList")
 	self.enemyModList = enemyModList
 	local input = self.input
 	for _, varData in ipairs(varList) do
-		if varData.apply then
-			if varData.type == "check" then
-				if input[varData.var] then
-					varData.apply(true, modList, enemyModList, self.build)
-				end
-			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
-				if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero") then
-					varData.apply(input[varData.var], modList, enemyModList, self.build)
-				end
-			elseif varData.type == "list" then
-				if input[varData.var] then
-					varData.apply(input[varData.var], modList, enemyModList, self.build)
-				end
-			elseif varData.type == "text" then
-				if input[varData.var] then
-					varData.apply(input[varData.var], modList, enemyModList, self.build)
+		if not var or varData.var == var then
+			if varData.apply then
+				if varData.type == "check" then
+					if input[varData.var] then
+						varData.apply(true, modList, enemyModList, self.build)
+					end
+				elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
+					if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero") then
+						varData.apply(input[varData.var], modList, enemyModList, self.build)
+					end
+				elseif varData.type == "list" then
+					if input[varData.var] then
+						varData.apply(input[varData.var], modList, enemyModList, self.build)
+					end
+				elseif varData.type == "text" then
+					if input[varData.var] then
+						varData.apply(input[varData.var], modList, enemyModList, self.build)
+					end
 				end
 			end
 		end

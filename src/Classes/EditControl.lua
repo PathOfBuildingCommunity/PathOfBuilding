@@ -95,6 +95,13 @@ function EditClass:SetText(text, notify)
 	self:ResetUndo()
 end
 
+function EditClass:SetPlaceholder(text, notify)
+	if self.buf and (self.buf == '' or self.buf == self.placeholder) then
+		self:SetText(text, notify)
+	end
+	self.placeholder = tostring(text)
+end
+
 function EditClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -266,7 +273,11 @@ function EditClass:Draw(viewPort)
 	local marginB = self.controls.scrollBarH:IsShown() and 14 or 0
 	SetViewport(textX, textY, width - 4 - marginL - marginR, height - 4 - marginB)
 	if not self.hasFocus then
-		SetDrawColor(self.inactiveCol)
+		if self.buf == self.placeholder then
+			SetDrawColor(self.disableCol)
+		else
+			SetDrawColor(self.inactiveCol)
+		end
 		DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
 		SetViewport()
 		self:DrawControls(viewPort)
@@ -388,6 +399,9 @@ function EditClass:OnKeyDown(key, doubleClick)
 	local ctrl =  IsKeyDown("CTRL")
 	if key == "LEFTBUTTON" then
 		if not self.Object:IsMouseOver() then
+			if self.placeholder and (self.buf == '' or not self.buf) then
+				self:SetText(self.placeholder)
+			end
 			return
 		end
 		if doubleClick then
@@ -431,6 +445,9 @@ function EditClass:OnKeyDown(key, doubleClick)
 			local textHeight = self.lineHeight or (height - 4)
 			if self.prompt then
 				textX = textX + DrawStringWidth(textHeight, self.font, self.prompt) + textHeight/2
+			end
+			if self.placeholder and (self.buf == self.placeholder) then
+				self.buf = ''
 			end
 			local cursorX, cursorY = GetCursorPos()
 			self.caret = DrawStringCursorIndex(textHeight, self.font, self.buf, cursorX - textX + self.controls.scrollBarH.offset, cursorY - textY + self.controls.scrollBarV.offset)
@@ -639,7 +656,7 @@ function EditClass:OnKeyUp(key)
 				self:SetText("1", true)
 			end
 		elseif key == "WHEELDOWN" or key == "DOWN" then
-			if cur and (self.filter ~= "%D" or cur > 0 )then
+			if cur and (self.filter ~= "%D" or cur > 0)then
 				self:SetText(tostring(cur - (self.numberInc or 1)), true)
 			else
 				self:SetText("0", true)

@@ -1331,63 +1331,27 @@ Sirus adds the following modifiers:
 	^7+100% to enemy Armour
 	235% of monster damage
 	8% penetration
-	]], list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper / Guardian"},{val="Sirus",label="Sirus"}}, onChange = function(val, build)
-		if val == "Uber Atziri" then
-			local defaultEleResist = 40
-			build.configTab.input['enemyLightningResist'] = defaultEleResist
-			build.configTab.input['enemyColdResist'] = defaultEleResist
-			build.configTab.input['enemyFireResist'] = defaultEleResist
-			build.configTab.input['enemyChaosResist'] = 25
-
-			local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.stdBossDPSMult)
-			build.configTab.input['enemyPhysicalDamage'] = defaultDamage
-			build.configTab.input['enemyLightningDamage'] = defaultDamage
-			build.configTab.input['enemyColdDamage'] = defaultDamage
-			build.configTab.input['enemyFireDamage'] = defaultDamage
-			build.configTab.input['enemyChaosDamage'] = defaultDamage / 4
-
-		elseif val == "Shaper" then
-			local defaultEleResist = 50
-			build.configTab.input['enemyLightningResist'] = defaultEleResist
-			build.configTab.input['enemyColdResist'] = defaultEleResist
-			build.configTab.input['enemyFireResist'] = defaultEleResist
-			build.configTab.input['enemyChaosResist'] = 30
-
-			local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.shaperDPSMult)
-			build.configTab.input['enemyPhysicalDamage'] = defaultDamage
-			build.configTab.input['enemyLightningDamage'] = defaultDamage
-			build.configTab.input['enemyColdDamage'] = defaultDamage
-			build.configTab.input['enemyFireDamage'] = defaultDamage
-			build.configTab.input['enemyChaosDamage'] = defaultDamage / 4
-
-			build.configTab.input['enemyLightningPen'] = data.misc.shaperPen
-			build.configTab.input['enemyColdPen'] = data.misc.shaperPen
-			build.configTab.input['enemyFirePen'] = data.misc.shaperPen
-		elseif val == "Sirus" then
-			local defaultEleResist = 50
-			build.configTab.input['enemyLightningResist'] = defaultEleResist
-			build.configTab.input['enemyColdResist'] = defaultEleResist
-			build.configTab.input['enemyFireResist'] = defaultEleResist
-			build.configTab.input['enemyChaosResist'] = 30
-
-			local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.sirusDPSMult)
-			build.configTab.input['enemyPhysicalDamage'] = defaultDamage
-			build.configTab.input['enemyLightningDamage'] = defaultDamage
-			build.configTab.input['enemyColdDamage'] = defaultDamage
-			build.configTab.input['enemyFireDamage'] = defaultDamage
-			build.configTab.input['enemyChaosDamage'] = defaultDamage / 4
-
-			build.configTab.input['enemyLightningPen'] = data.misc.sirusPen
-			build.configTab.input['enemyColdPen'] = data.misc.sirusPen
-			build.configTab.input['enemyFirePen'] = data.misc.sirusPen
-		end
-		build.configTab:UpdateControls()
-	end, apply = function(val, modList, enemyModList, build)
+	]], list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper / Guardian"},{val="Sirus",label="Sirus"}}, apply = function(val, modList, enemyModList, build)
 		if val == "Uber Atziri" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 1070897, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
+
+			local defaultEleResist = 40
+			build.configTab.varControls['enemyLightningResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyColdResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(25, true)
+
+			if build.calcsTab.mainEnv then
+				local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.stdBossDPSMult)
+				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+			end
 		elseif val == "Shaper" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1395,6 +1359,25 @@ Sirus adds the following modifiers:
 			enemyModList:NewMod("Armour", "MORE", 33, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
+
+			local defaultEleResist = 50
+			build.configTab.varControls['enemyLightningResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyColdResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(30, true)
+			
+			if build.calcsTab.mainEnv then
+				local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.shaperDPSMult)
+				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+			end
+			
+			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.shaperPen, true)
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.shaperPen, true)
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.shaperPen, true)
 		elseif val == "Sirus" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1402,6 +1385,25 @@ Sirus adds the following modifiers:
 			enemyModList:NewMod("Armour", "MORE", 100, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
+
+			local defaultEleResist = 50
+			build.configTab.varControls['enemyLightningResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyColdResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(30, true)
+
+			if build.calcsTab.mainEnv then
+				local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.sirusDPSMult)
+				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+			end
+			
+			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.sirusPen, true)
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.sirusPen, true)
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.sirusPen, true)
 		end
 	end },
 	{ var = "enemyAwakeningLevel", type = "count", label = "Awakening Level:", tooltip = "Each Awakening Level gives Bosses 3% more ^xE05030Life.", apply = function(val, modList, enemyModList)
