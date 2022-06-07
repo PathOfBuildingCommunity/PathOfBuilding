@@ -14,7 +14,7 @@ local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(se
 	self.lastContent = ""
 	self.showColorCodes = false
 
-	local notesDesc = [[^7You can use Ctrl +/- (or Ctrl+Scroll) to zoom in and out and Ctrl+0 to reset. URLs can accessed by first clicking on the url and selecting either Ctrl-RightClick or Ctrl-u.
+	local notesDesc = [[^7You can use Ctrl +/- (or Ctrl+Scroll) to zoom in and out and Ctrl+0 to reset. URLs can accessed by double clicking on the url.
 This field also supports different colors, using the caret symbol (^) followed by a Hex code or a number (0-9) will set the color.
 Below are some common color codes PoB uses:	]]
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, notesDesc)
@@ -71,8 +71,7 @@ end
 function NotesTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
 		if type(node) == "string" then
-			--Add a space in case the last character belongs to an url. The space will be saved but the xml read will remove it again (same as all trailing white space and blank lines)
-			self.controls.edit:SetText(node.." ")
+			self.controls.edit:SetText(node)
 		end
 	end
 	self.lastContent = self.controls.edit.buf
@@ -85,21 +84,6 @@ function NotesTabClass:Save(xml)
 end
 
 function NotesTabClass:Draw(viewPort, inputEvents)
-	local str = self.controls.edit.buf
-	local function FindURLs()
-		-- find any urls in the edit buffer
-		local urlList = { }
-		local first = 0
-		local last = 0
-		wipeTable(urlList)
-		while true do
-			first, last = str:find("(http[s]-:.-)%s", last+1)
-			if not first then break end
-			t_insert(urlList, { first, last, str:sub(first, last-1) })
-		end
-		return urlList
-	end
-
 	self.x = viewPort.x
 	self.y = viewPort.y
 	self.width = viewPort.width
@@ -111,18 +95,6 @@ function NotesTabClass:Draw(viewPort, inputEvents)
 				self.controls.edit:Undo()
 			elseif event.key == "y" and IsKeyDown("CTRL") then
 				self.controls.edit:Redo()
-			end
-		elseif event.type == "KeyUp" then
-			local ctrl = IsKeyDown("CTRL")
-			if ctrl and ( event.key == "RIGHTBUTTON" or event.key == "u" ) then
-				caret = self.controls.edit.caret
-				for _, entry in ipairs(FindURLs()) do
-					if caret >= entry[1] and caret < entry[2] then
-						-- os.execute('c:/windows/explorer.exe "'..entry[3]..'"')
-						OpenURL(entry[3])
-						return
-					end
-				end
 			end
 		end
 	end

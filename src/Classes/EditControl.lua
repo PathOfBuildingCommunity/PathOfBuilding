@@ -6,6 +6,7 @@
 local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
+local inspect = LoadModule("inspect")
 
 local function lastLine(str)
 	local lastLineIndex = 1
@@ -83,6 +84,8 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 		self.controls.scrollBarH.shown = false
 		self.controls.scrollBarV.shown = false
 	end
+	-- by default, don't allow silliness or opportunity for hacking
+	self.allowURLs = false
 end)
 
 function EditClass:SetText(text, notify)
@@ -392,6 +395,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 		end
 		if doubleClick then
 			if self.lineHeight then
+				local compareCharSet = (self.allowURLs and "[%w:./&?=+-_%%]" or "%w")
 				if self.buf:sub(self.caret - 1, self.caret):match("^%C\n$") then
 					self.caret = self.caret - 1
 				end
@@ -399,13 +403,24 @@ function EditClass:OnKeyDown(key, doubleClick)
 					self.caret = self.caret - 1
 				end
 				local caretChar = self.buf:sub(self.caret, self.caret)
-				if caretChar:match("%w") then
+				if caretChar:match(compareCharSet) then
 					self.sel = self.caret
-					while self.buf:sub(self.sel - 1, self.sel - 1):match("%w") do
+					while self.buf:sub(self.sel - 1, self.sel - 1):match(compareCharSet) do
 						self.sel = self.sel - 1
 					end
-					while self.buf:sub(self.caret, self.caret):match("%w") do
+					while self.buf:sub(self.caret, self.caret):match(compareCharSet) do
 						self.caret = self.caret + 1
+					end
+					if self.allowURLs then
+						local buf = self.buf:sub(self.sel, self.caret)
+						print("buf "..buf)
+						-- To stop c:\blah\blah or other shell executables we can't yet know about, attempt to confirm it is a url
+						-- local url = buf:find("http[s]://", 0)
+						local url = buf:find("(http[s]-:.-)%s", 0)
+						print("url "..inspect(url))
+						if url == 1 then
+							OpenURL(buf)
+						end
 					end
 				elseif caretChar:match("%S") then
 					self.sel = self.caret
