@@ -338,8 +338,8 @@ function GemSelectClass:IsMouseOver()
 	return mOver, mOverComp
 end
 
-function GemSelectClass:Draw(viewPort)
-	self.EditControl:Draw(viewPort)
+function GemSelectClass:Draw(viewPort, noTooltip)
+	self.EditControl:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -404,7 +404,7 @@ function GemSelectClass:Draw(viewPort)
 			end
 		end
 		SetViewport()
-		self:DrawControls(viewPort)
+		self:DrawControls(viewPort, noTooltip and self)
 		if self.hoverSel then
 			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 			if calcFunc then
@@ -465,7 +465,7 @@ function GemSelectClass:Draw(viewPort)
 			   DrawImage(nil, x, y, width, height)
 			end
 		end
-		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) then
+		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) and not noTooltip then
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
 			SetDrawLayer(nil, 10)
 			self.tooltip:Clear()

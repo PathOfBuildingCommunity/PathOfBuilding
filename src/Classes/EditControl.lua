@@ -216,7 +216,7 @@ function EditClass:MoveCaretVertically(offset)
 	self.blinkStart = GetTime()
 end
 
-function EditClass:Draw(viewPort)
+function EditClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -255,7 +255,7 @@ function EditClass:Draw(viewPort)
 	if not enabled then
 		return
 	end
-	if mOver then
+	if mOver and not noTooltip then
 		SetDrawLayer(nil, 100)
 		self:DrawTooltip(x, y, width, height, viewPort)
 		SetDrawLayer(nil, 0)
@@ -269,7 +269,7 @@ function EditClass:Draw(viewPort)
 		SetDrawColor(self.inactiveCol)
 		DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
 		SetViewport()
-		self:DrawControls(viewPort)
+		self:DrawControls(viewPort, noTooltip and self)
 		return
 	end
 	if not IsKeyDown("LEFTBUTTON") then
@@ -363,7 +363,7 @@ function EditClass:Draw(viewPort)
 		end
 	end
 	SetViewport()
-	self:DrawControls(viewPort)
+	self:DrawControls(viewPort, noTooltip and self)
 end
 
 function EditClass:OnFocusGained()
