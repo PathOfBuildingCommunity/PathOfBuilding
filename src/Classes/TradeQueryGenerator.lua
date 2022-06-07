@@ -426,6 +426,9 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
         elseif existingItem.type == "Quiver" then
             itemCategoryQueryStr = "armour.quiver"
             itemCategory = "Quiver"
+        elseif existingItem.type == "Bow" then
+            itemCategoryQueryStr = "weapon.bow"
+            itemCategory = "2HWeapon"
         elseif existingItem.type == "Staff" or existingItem.type:find("Two Handed") ~= nil then
             itemCategoryQueryStr = "weapon.twomelee"
             itemCategory = "2HWeapon"
