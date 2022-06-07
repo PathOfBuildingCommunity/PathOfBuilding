@@ -96,10 +96,10 @@ function EditClass:SetText(text, notify)
 end
 
 function EditClass:SetPlaceholder(text, notify)
-	if self.buf and (self.buf == '' or self.buf == self.placeholder) then
-		self:SetText(text, notify)
-	end
 	self.placeholder = tostring(text)
+	if notify and self.changeFunc then
+		self.changeFunc(self.placeholder, true)
+	end
 end
 
 function EditClass:IsMouseOver()
@@ -273,12 +273,13 @@ function EditClass:Draw(viewPort)
 	local marginB = self.controls.scrollBarH:IsShown() and 14 or 0
 	SetViewport(textX, textY, width - 4 - marginL - marginR, height - 4 - marginB)
 	if not self.hasFocus then
-		if self.buf == self.placeholder then
+		if self.buf == '' and self.placeholder then
 			SetDrawColor(self.disableCol)
+			DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.placeholder)
 		else
 			SetDrawColor(self.inactiveCol)
+			DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
 		end
-		DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
 		SetViewport()
 		self:DrawControls(viewPort)
 		return
@@ -399,9 +400,9 @@ function EditClass:OnKeyDown(key, doubleClick)
 	local ctrl =  IsKeyDown("CTRL")
 	if key == "LEFTBUTTON" then
 		if not self.Object:IsMouseOver() then
-			if self.placeholder and (self.buf == '' or not self.buf) then
-				self:SetText(self.placeholder)
-			end
+			--if self.placeholder and (self.buf == '' or not self.buf) then
+			--	self:SetPlaceholder(self.placeholder)
+			--end
 			return
 		end
 		if doubleClick then
@@ -445,9 +446,6 @@ function EditClass:OnKeyDown(key, doubleClick)
 			local textHeight = self.lineHeight or (height - 4)
 			if self.prompt then
 				textX = textX + DrawStringWidth(textHeight, self.font, self.prompt) + textHeight/2
-			end
-			if self.placeholder and (self.buf == self.placeholder) then
-				self.buf = ''
 			end
 			local cursorX, cursorY = GetCursorPos()
 			self.caret = DrawStringCursorIndex(textHeight, self.font, self.buf, cursorX - textX + self.controls.scrollBarH.offset, cursorY - textY + self.controls.scrollBarV.offset)

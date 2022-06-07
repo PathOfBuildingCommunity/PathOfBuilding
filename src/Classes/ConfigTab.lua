@@ -52,10 +52,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf)
-					self.input[varData.var] = tonumber(buf)
-					self:AddUndoState()
-					self:BuildModList(varData.var)
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf, placeholder)
+					if placeholder then
+						self.input[varData.var .. "placeholder"] = tonumber(buf)
+					else
+						self.input[varData.var] = tonumber(buf)
+						self:AddUndoState()
+						self:BuildModList(varData.var)
+					end
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "list" then
@@ -66,10 +70,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "text" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf)
-					self.input[varData.var] = tostring(buf)
-					self:AddUndoState()
-					self:BuildModList(varData.var)
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf, placeholder)
+					if placeholder then
+						self.input[varData.var .. "placeholder"] = tonumber(buf)
+					else
+						self.input[varData.var] = tonumber(buf)
+						self:AddUndoState()
+						self:BuildModList(varData.var)
+					end
 					self.build.buildFlag = true
 				end, 16)
 			else 
@@ -223,6 +231,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				self.input[varData.var] = varData.defaultState
 				control.state = varData.defaultState
 				self.varControls[varData.var] = control
+				control.placeholder = varData.defaultPlaceholderState
 			end
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)

@@ -854,15 +854,19 @@ function calcs.defence(env, actor)
 				},
 			}
 		end
-		local enemyCritChance = env.configInput["enemyCritChance"]
-		local enemyCritDamage = env.configInput["enemyCritDamage"]
+		local enemyCritChance = env.configInput["enemyCritChance"] or 0
+		local enemyCritDamage = env.configInput["enemyCritDamage"] or 0
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		for _, damageType in ipairs(dmgTypeList) do
 			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) --missing taunt from allies
 			local enemyDamage = env.configInput["enemy"..damageType.."Damage"]
 			local enemyPen = env.configInput["enemy"..damageType.."Pen"]
 			local sourceStr = enemyDamage == nil and "Default" or "Config"
-
+			
+			if enemyDamage == nil and env.configInput["enemy"..damageType.."Damage" .. "placeholder"] then
+				enemyDamage = env.configInput["enemy"..damageType.."Damage" .. "placeholder"]
+			end
+			
 			if enemyDamage == nil and damageType == "Physical" then
 				enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5
 			end
