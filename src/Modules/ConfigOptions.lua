@@ -1316,7 +1316,7 @@ Standard Boss adds the following modifiers:
 	+25% to enemy ^xD02090Chaos Resistance
 	^794% of monster damage
 
-Shaper / Guardian adds the following modifiers:
+Guardian / Pinnacle Boss adds the following modifiers:
 	66% less Effect of your Hexes
 	+50% to enemy Elemental Resistances
 	+30% to enemy ^xD02090Chaos Resistance
@@ -1324,15 +1324,34 @@ Shaper / Guardian adds the following modifiers:
 	188% of monster damage
 	5% penetration
 
-Sirus adds the following modifiers:
+Uber Pinnacle Boss adds the following modifiers:
 	66% less Effect of your Hexes
 	+50% to enemy Elemental Resistances
 	+30% to enemy ^xD02090Chaos Resistance
 	^7+100% to enemy Armour
+	70% less to enemy Damage taken
 	235% of monster damage
 	8% penetration
-	]], list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper / Guardian"},{val="Sirus",label="Sirus"}}, apply = function(val, modList, enemyModList, build)
-		if val == "Uber Atziri" then
+	]], list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Guardian / Pinnacle Boss"},{val="Sirus",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
+		if val == "None" then
+			local defaultResist = ""
+			build.configTab.varControls['enemyLightningResist']:SetPlaceholder(defaultResist, true)
+			build.configTab.varControls['enemyColdResist']:SetPlaceholder(defaultResist, true)
+			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultResist, true)
+			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(defaultResist, true)
+
+			local defaultDamage = ""
+			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
+			
+			local defaultPen = ""
+			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+		elseif val == "Uber Atziri" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 1070897, "Boss")
@@ -1352,6 +1371,11 @@ Sirus adds the following modifiers:
 				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
 				build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
 			end
+			
+			local defaultPen = ""
+			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
 		elseif val == "Shaper" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1383,6 +1407,7 @@ Sirus adds the following modifiers:
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 100, "Boss")
+			enemyModList:NewMod("DamageTaken", "MORE", -70, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 
@@ -1448,7 +1473,7 @@ Sirus adds the following modifiers:
 		enemyModList:NewMod("ChaosResist", "BASE", val, "Config")
 	end },
 	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
-	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast speed in ms:" },
+	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast time in ms:", defaultPlaceholderState = 700 },
 	{ var = "enemyCritChance", type = "integer", label = "Enemy critical strike chance:", defaultPlaceholderState = 5 },
 	{ var = "enemyCritDamage", type = "integer", label = "Enemy critical strike multipler:", defaultPlaceholderState = 30 },
 	{ var = "enemyPhysicalDamage", type = "integer", label = "Enemy Skill Physical Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet."},

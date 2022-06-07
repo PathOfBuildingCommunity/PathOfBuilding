@@ -651,13 +651,21 @@ function EditClass:OnKeyUp(key)
 			if cur then
 				self:SetText(tostring(cur + (self.numberInc or 1)), true)
 			else
-				self:SetText("1", true)
+				if self.placeholder then
+					self:SetText(tostring(self.placeholder + (self.numberInc or 1)), true)
+				else
+					self:SetText("1", true)
+				end
 			end
 		elseif key == "WHEELDOWN" or key == "DOWN" then
 			if cur and (self.filter ~= "%D" or cur > 0)then
 				self:SetText(tostring(cur - (self.numberInc or 1)), true)
 			else
-				self:SetText("0", true)
+				if self.placeholder then
+					self:SetText(tostring(self.placeholder - (self.numberInc or 1)), true)
+				else
+					self:SetText("0", true)
+				end
 			end
 		end
 	elseif key == "WHEELUP" then

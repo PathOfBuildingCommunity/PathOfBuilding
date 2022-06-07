@@ -854,8 +854,8 @@ function calcs.defence(env, actor)
 				},
 			}
 		end
-		local enemyCritChance = env.configInput["enemyCritChance"] or 0
-		local enemyCritDamage = env.configInput["enemyCritDamage"] or 0
+		local enemyCritChance = env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0
+		local enemyCritDamage = env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		for _, damageType in ipairs(dmgTypeList) do
 			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) --missing taunt from allies
@@ -863,8 +863,11 @@ function calcs.defence(env, actor)
 			local enemyPen = env.configInput["enemy"..damageType.."Pen"]
 			local sourceStr = enemyDamage == nil and "Default" or "Config"
 			
-			if enemyDamage == nil and env.configInput["enemy"..damageType.."Damage" .. "placeholder"] then
-				enemyDamage = env.configInput["enemy"..damageType.."Damage" .. "placeholder"]
+			if enemyDamage == nil and env.configPlaceholder["enemy"..damageType.."Damage"] then
+				enemyDamage = env.configPlaceholder["enemy"..damageType.."Damage"]
+			end
+			if enemyPen == nil and env.configPlaceholder["enemy"..damageType.."Pen"] then
+				enemyPen = env.configPlaceholder["enemy"..damageType.."Pen"]
 			end
 			
 			if enemyDamage == nil and damageType == "Physical" then
@@ -1054,7 +1057,7 @@ function calcs.defence(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		-- Calculate incoming damage multiplier
 		local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
-		local enemyPen = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or env.configInput["enemy"..damageType.."Pen"] or output[damageType.."EnemyPen"] or 0
+		local enemyPen = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."EnemyPen"]
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks")
@@ -1716,7 +1719,7 @@ function calcs.defence(env, actor)
 	
 	--survival time
 	do
-		local enemySkillTime = env.configInput.enemySpeed or 700
+		local enemySkillTime = env.configInput.enemySpeed or env.configPlaceholder.enemySpeed or 700
 		local enemyActionSpeed = calcs.actionSpeedMod(actor.enemy)
 		enemySkillTime = enemySkillTime / 1000 / enemyActionSpeed
 		output["EHPsurvivalTime"] = output["TotalNumberOfHits"] * enemySkillTime
