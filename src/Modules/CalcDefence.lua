@@ -35,6 +35,9 @@ end
 
 -- Calculate physical damage reduction from armour, float
 function calcs.armourReductionF(armour, raw)
+	if armour == 0 and raw == 0 then
+		return 0
+	end
 	return (armour / (armour + raw * 5) * 100)
 end
 
