@@ -6,7 +6,6 @@
 local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
-local inspect = LoadModule("inspect")
 
 local function lastLine(str)
 	local lastLineIndex = 1
@@ -413,11 +412,9 @@ function EditClass:OnKeyDown(key, doubleClick)
 					end
 					if self.allowURLs then
 						local buf = self.buf:sub(self.sel, self.caret)
-						print("buf "..buf)
 						-- To stop c:\blah\blah or other shell executables we can't yet know about, attempt to confirm it is a url
 						-- local url = buf:find("http[s]://", 0)
 						local url = buf:find("(http[s]-:.-)%s", 0)
-						print("url "..inspect(url))
 						if url == 1 then
 							OpenURL(buf)
 						end
