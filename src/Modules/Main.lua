@@ -204,6 +204,7 @@ the "Releases" section of the GitHub page.]])
 	self.decimalSeparator = "."
 	self.showTitlebarName = true
 	self.showWarnings = true
+	self.slotOnlyTooltips = true
 
 	local ignoreBuild
 	if arg[1] then
@@ -531,6 +532,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.showWarnings then
 					self.showWarnings = node.attrib.showWarnings == "true"
 				end
+				if node.attrib.slotOnlyTooltips then
+					self.slotOnlyTooltips = node.attrib.slotOnlyTooltips == "true"
+				end
 			end
 		end
 	end
@@ -583,6 +587,7 @@ function main:SaveSettings()
 		defaultCharLevel = tostring(self.defaultCharLevel or 1),
 		lastExportWebsite = self.lastExportWebsite,
 		showWarnings = tostring(self.showWarnings),
+		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -605,9 +610,9 @@ function main:OpenOptionsPopup()
 	end
 
 	-- local func to make a new section header
-	local function drawSectionHeader(id, title)
-		local headerBGColor ={ .2, .2, .2}
-		controls["section-"..id .. "-bg"] = new("HorizontalLineControl", { "TOPLEFT", nil, "TOPLEFT" }, 2, currentY, popupWidth - 4, 24, headerBGColor)
+	local function drawSectionHeader(id, title, omitHorizontalLine)
+		local headerBGColor ={ .6, .6, .6}
+		controls["section-"..id .. "-bg"] = new("RectangleOutlineControl", { "TOPLEFT", nil, "TOPLEFT" }, 8, currentY, popupWidth - 17, 26, headerBGColor, 1)
 		nextRow(.2)
 		controls["section-"..id .. "-label"] = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, popupWidth / 2 - 60, currentY, 0, 16, "^7" .. title)
 		nextRow(1.5)
@@ -715,10 +720,15 @@ function main:OpenOptionsPopup()
 	controls.showWarnings = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show build warnings:", function(state)
 		self.showWarnings = state
 	end)
+	nextRow()
+	controls.slotOnlyTooltips = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show tooltips only for affected slots:", function(state)
+		self.slotOnlyTooltips = state
+	end)
 
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
 	controls.showWarnings.state = self.showWarnings
+	controls.slotOnlyTooltips.state = self.slotOnlyTooltips
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
@@ -728,6 +738,7 @@ function main:OpenOptionsPopup()
 	local initialDefaultGemQuality = self.defaultGemQuality or 0
 	local initialDefaultCharLevel = self.defaultCharLevel or 1
 	local initialshowWarnings = self.showWarnings
+	local initialSlotOnlyTooltips = self.slotOnlyTooltips
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -766,6 +777,7 @@ function main:OpenOptionsPopup()
 		self.defaultGemQuality = initialDefaultGemQuality
 		self.defaultCharLevel = initialDefaultCharLevel
 		self.showWarnings = initialshowWarnings
+		self.slotOnlyTooltips = initialSlotOnlyTooltips
 		main:ClosePopup()
 	end)
 	nextRow(1.5)

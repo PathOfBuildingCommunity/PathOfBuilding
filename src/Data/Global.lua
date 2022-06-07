@@ -65,6 +65,7 @@ colorCodes.ES = colorCodes.SOURCE
 colorCodes.WARD = colorCodes.RARE
 colorCodes.EVASION = colorCodes.POSITIVE
 colorCodes.RAGE = colorCodes.WARNING
+colorCodes.PHYS = colorCodes.NORMAL
 
 ModFlag = { }
 -- Damage modes
