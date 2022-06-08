@@ -80,9 +80,9 @@ currencyConversionTradeMap["Sacred Orb"] = "sacred-orb"
 
 
 local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
-    self.itemsTab = itemsTab
+	self.itemsTab = itemsTab
 	self.itemsTab.leagueDropList = { }
-    -- Note: Per each Check Price button click we do 2 search requests
+	-- Note: Per each Check Price button click we do 2 search requests
 	--       Search is the most rate limiting behavior we need to track
 	-- SEARCH REQUEST RATE LIMIT DATA (as of Feb 2021)
 	--	 Up to  5 search requests in a 12 second window
@@ -125,8 +125,8 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.lastCurrencyFileTime = { }
 	self.pbFileTimestampDiff = { }
 
-    -- set 
-    self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
+	-- set 
+	self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 end)
 
@@ -278,7 +278,7 @@ end
 
 -- Opens the item pricing popup
 function TradeQueryClass:PriceItem()
-    self.tradeQueryGenerator = new("TradeQueryGenerator", self)
+	self.tradeQueryGenerator = new("TradeQueryGenerator", self)
 
 	-- Count number of rows to render
 	local row_count = 3 + #baseSlots
@@ -302,7 +302,7 @@ function TradeQueryClass:PriceItem()
 	controls.pbNotice = new("EditControl",  {"TOP",nil,"TOP"}, 0, 15, 300, 16, "", nil, nil)
 	controls.pbNotice.textCol = colorCodes.CUSTOM
 	local sortSelectionList = {
-        "Default",
+		"Default",
 		"Cheapest",
 		"Highest DPS",
 		"DPS / Price",
@@ -342,7 +342,7 @@ function TradeQueryClass:PriceItem()
 		cnt = cnt + 1
 	end
 	controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, row_height, "Done", function()
-        GlobalCache.useFullDPS = self.storedGlobalCacheDPSView
+		GlobalCache.useFullDPS = self.storedGlobalCacheDPSView
 		main:ClosePopup()
 	end)
 	controls.league = new("DropDownControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -12, pane_height - 30, 100, 18, self.itemsTab.leagueDropList, function(index, value)
@@ -595,7 +595,7 @@ function TradeQueryClass:SearchItem(league, json_data, slotTbl, controls, index)
 				local quantity_found = m_min(#response_1.result, 100)
 				local current_fetch_block = 0
 				self.resultTbl[index] = {}
-                controls['uri'..index]:SetText("https://www.pathofexile.com/trade/search/"..league.."/"..response_1.id)
+				controls['uri'..index]:SetText("https://www.pathofexile.com/trade/search/"..league.."/"..response_1.id)
 				self:FetchItem(slotTbl, controls, response_1, index, quantity_found, current_fetch_block)
 			end
 		end)
@@ -699,7 +699,7 @@ end
 -- Method to sort the fetched resutls
 function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 	local newTbl = {}
-    if self.pbSortSelectionIndex == 1 then
+	if self.pbSortSelectionIndex == 1 then
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			t_insert(newTbl, { outputAttr = index, index = index })
 		end
