@@ -381,7 +381,7 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
             end
 
             local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-            local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS) - self.calcContext.baseDPS
+            local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS or 0) - (self.calcContext.baseDPS or 0)
             if meanDPSDiff > 0.01 then
                 table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanDPSDiff / modValue, meanDPSDiff = meanDPSDiff, invert = entry.sign == "-" and true or false })
                 self.alreadyWeightedMods[entry.tradeMod.id] = true
@@ -420,24 +420,30 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
     local itemCategoryQueryStr
     local itemCategory
     if slot.slotName == "Weapon 2" or slot.slotName == "Weapon 1" then
-        if existingItem.type == "Shield" then
-            itemCategoryQueryStr = "armour.shield"
-            itemCategory = "Shield"
-        elseif existingItem.type == "Quiver" then
-            itemCategoryQueryStr = "armour.quiver"
-            itemCategory = "Quiver"
-        elseif existingItem.type == "Bow" then
-            itemCategoryQueryStr = "weapon.bow"
-            itemCategory = "2HWeapon"
-        elseif existingItem.type == "Staff" or existingItem.type:find("Two Handed") ~= nil then
-            itemCategoryQueryStr = "weapon.twomelee"
-            itemCategory = "2HWeapon"
-        elseif existingItem.type == "Wand" or existingItem.type == "Dagger" or existingItem.type == "Claw" or existingItem.type:find("One Handed") ~= nil then
+        if existingItem then
+            if existingItem.type == "Shield" then
+                itemCategoryQueryStr = "armour.shield"
+                itemCategory = "Shield"
+            elseif existingItem.type == "Quiver" then
+                itemCategoryQueryStr = "armour.quiver"
+                itemCategory = "Quiver"
+            elseif existingItem.type == "Bow" then
+                itemCategoryQueryStr = "weapon.bow"
+                itemCategory = "2HWeapon"
+            elseif existingItem.type == "Staff" or existingItem.type:find("Two Handed") ~= nil then
+                itemCategoryQueryStr = "weapon.twomelee"
+                itemCategory = "2HWeapon"
+            elseif existingItem.type == "Wand" or existingItem.type == "Dagger" or existingItem.type == "Claw" or existingItem.type:find("One Handed") ~= nil then
+                itemCategoryQueryStr = "weapon.one"
+                itemCategory = "1HWeapon"
+            else
+                logToFile("'%s' is not supported for weighted trade query generation", existingItem.type)
+                return
+            end
+        else
+            -- Item does not exist in this slot so assume 1H weapon
             itemCategoryQueryStr = "weapon.one"
             itemCategory = "1HWeapon"
-        else
-            logToFile("'%s' is not supported for weighted trade query generation", existingItem.type)
-            return
         end
     elseif slot.slotName == "Body Armour" then
         itemCategoryQueryStr = "armour.chest"
@@ -531,19 +537,21 @@ function TradeQueryGeneratorClass:FinishQuery()
     -- Calc original item DPS without anoint or enchant, and use that diff as a basis for default min sum.
     local originalItem = self.itemsTab.items[self.calcContext.slot.selItemId]
     self.calcContext.testItem.explicitModLines = { }
-    for _, modLine in ipairs(originalItem.explicitModLines) do
-        table.insert(self.calcContext.testItem.explicitModLines, modLine)
+    if originalItem then
+        for _, modLine in ipairs(originalItem.explicitModLines) do
+            table.insert(self.calcContext.testItem.explicitModLines, modLine)
+        end
+        for _, modLine in ipairs(originalItem.scourgeModLines) do
+            table.insert(self.calcContext.testItem.explicitModLines, modLine)
+        end
+        for _, modLine in ipairs(originalItem.implicitModLines) do
+            table.insert(self.calcContext.testItem.explicitModLines, modLine)
+        end
     end
-    for _, modLine in ipairs(originalItem.scourgeModLines) do
-        table.insert(self.calcContext.testItem.explicitModLines, modLine)
-	end
-	for _, modLine in ipairs(originalItem.implicitModLines) do
-        table.insert(self.calcContext.testItem.explicitModLines, modLine)
-	end
     self.calcContext.testItem:BuildAndParseRaw()
 
     local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-    local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or originalOutput.TotalDPS) - self.calcContext.baseDPS
+    local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or originalOutput.TotalDPS or 0) - (self.calcContext.baseDPS or 0)
 
     -- Restore global cache full DPS
     GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
