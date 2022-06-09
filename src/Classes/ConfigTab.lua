@@ -216,6 +216,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			else
 				control.tooltipText = varData.tooltip
 			end
+			if varData.tooltipFunc then
+				control.tooltipFunc = varData.tooltipFunc
+			end
 			if varData.label and varData.type ~= "check" then
 				t_insert(self.controls, new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
 			end
