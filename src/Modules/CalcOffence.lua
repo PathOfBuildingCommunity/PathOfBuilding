@@ -39,9 +39,9 @@ local dmgTypeFlags = {
 }
 
 -- List of all ailments
-local ailmentTypeList = { "Bleed", "Poison", "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
+local ailmentTypeList = data.ailmentTypeList
 -- List of elemental ailments
-local elementalAilmentTypeList = { "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
+local elementalAilmentTypeList = data.elementalAilmentTypeList
 
 -- Magic table for caching the modifier name sets used in calcDamage()
 local damageStatsForTypes = setmetatable({ }, { __index = function(t, k)
