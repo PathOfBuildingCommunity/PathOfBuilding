@@ -73,9 +73,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			elseif varData.type == "text" then
 				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
-						self.placeholder[varData.var] = tonumber(buf)
+						self.placeholder[varData.var] = tostring(buf)
 					else
-						self.input[varData.var] = tonumber(buf)
+						self.input[varData.var] = tostring(buf)
 						self:AddUndoState()
 						self:BuildModList()
 					end
@@ -322,8 +322,6 @@ function ConfigTabClass:Save(xml)
 		local child = { elem = "Placeholder", attrib = { name = k } }
 		if type(v) == "number" then
 			child.attrib.number = tostring(v)
-		elseif type(v) == "boolean" then
-			child.attrib.boolean = tostring(v)
 		else
 			child.attrib.string = tostring(v)
 		end

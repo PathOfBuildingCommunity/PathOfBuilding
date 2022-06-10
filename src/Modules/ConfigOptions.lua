@@ -1345,7 +1345,9 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(defaultResist, true)
 
 			local defaultDamage = ""
-			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+			if build.calcsTab.mainEnv then
+				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5), true)
+			end
 			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
@@ -1498,6 +1500,14 @@ Shaper Ball has the following modifiers at level 84:
 	
 	(the "uber varient" has 40% pen and +2 projectiles)
 
+Shaper Slam has the following modifiers at level 84:
+	Base Damage: 9360–14040
+	Attack Time: 3.51 Seconds
+	Can't be Evaded
+	
+	(the "uber varient" has 100% more damage than base
+	, half the attack time and anti block/dodge)
+
 Maven Memory Game has the following modifiers at level 84:
 	Deals 45607 to 68410 Physical Damage
 	Hits always Ignite
@@ -1513,52 +1523,48 @@ Maven Memory Game has the following modifiers at level 84:
 	
 	(note the 3 bursts and the damage over time are not factored in)
 	
-	]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
+	]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
+		--reset to empty
+		local defaultDamage = ""
+		build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+		build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+		build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+		build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+		build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
+			
+		local defaultPen = ""
+		build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
+		build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
+		build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+		
 		if val == "Uber Atziri Flameblast" then
 			if build.calcsTab.mainEnv then
-				local defaultDamage = ""
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(0, true)
-				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 3.48 * 2.5 * 10.9), true)
-				build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 3.48 * 10.9), true)
 			end
-			
-			local defaultPen = ""
-			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
-			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(10, true)
 			
+			build.configTab.varControls['enemySpeed']:SetPlaceholder(25000, true)
 			build.configTab.varControls['enemyCritChance']:SetPlaceholder(0, true)
 		elseif val == "Shaper Ball" then
 			if build.calcsTab.mainEnv then
-				local defaultDamage = ""
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(0, true)
-				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 9.17 * 2), true)
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
+				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 9.17), true)
 			end
 			
-			local defaultPen = ""
-			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(25, true)
-			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemySpeed']:SetPlaceholder(1400, true)
+		elseif val == "Shaper Slam" then
+			if build.calcsTab.mainEnv then
+				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 15.2), true)
+			end
+			
+			build.configTab.varControls['enemySpeed']:SetPlaceholder(3510, true)
 		elseif val == "Maven Memory Game" then
 			if build.calcsTab.mainEnv then
-				local defaultDamage = ""
-				local defaultEleDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 24.69 * 1.5)
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(0, true)
+				local defaultEleDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 24.69)
 				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultEleDamage, true)
 				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultEleDamage, true)
 				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultEleDamage, true)
-				build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
 			end
-			
-			local defaultPen = ""
-			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
-			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
-			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
 		end
 	end },
 	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast time in ms:", defaultPlaceholderState = 700 },

@@ -400,9 +400,6 @@ function EditClass:OnKeyDown(key, doubleClick)
 	local ctrl =  IsKeyDown("CTRL")
 	if key == "LEFTBUTTON" then
 		if not self.Object:IsMouseOver() then
-			--if self.placeholder and (self.buf == '' or not self.buf) then
-			--	self:SetPlaceholder(self.placeholder)
-			--end
 			return
 		end
 		if doubleClick then

@@ -872,11 +872,6 @@ function calcs.defence(env, actor)
 			if enemyPen == nil and env.configPlaceholder["enemy"..damageType.."Pen"] then
 				enemyPen = env.configPlaceholder["enemy"..damageType.."Pen"]
 			end
-			
-			if enemyDamage == nil and damageType == "Physical" then
-				enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5
-			end
-
 			enemyDamage = enemyDamage or 0
 			output[damageType.."EnemyPen"] = enemyPen or 0
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
