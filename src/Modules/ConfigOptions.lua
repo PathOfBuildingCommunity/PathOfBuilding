@@ -1525,17 +1525,19 @@ Maven Memory Game has the following modifiers at level 84:
 	
 	]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
 		--reset to empty
-		local defaultDamage = ""
-		build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
-		build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
-		build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
-		build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-		build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
-			
-		local defaultPen = ""
-		build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
-		build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
-		build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+		if not (val == "None") then
+			local defaultDamage = ""
+			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
+				
+			local defaultPen = ""
+			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+		end
 		
 		if val == "Uber Atziri Flameblast" then
 			if build.calcsTab.mainEnv then
