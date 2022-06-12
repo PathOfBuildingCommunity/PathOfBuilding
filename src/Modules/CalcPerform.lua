@@ -1859,6 +1859,11 @@ function calcs.perform(env, avoidCache)
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 						mult = (1 + inc / 100) * more
 					end
+					if buff.type == "Debuff" then
+						local inc = skillModList:Sum("INC", skillCfg, "DebuffEffect")
+						local more = skillModList:More(skillCfg, "DebuffEffect")
+						mult = (1 + inc / 100) * more
+					end
 					srcList:ScaleAddList(buff.modList, mult * stackCount)
 					if activeSkill.skillData.stackCount or buff.stackVar then
 						srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", stackCount, buff.name)

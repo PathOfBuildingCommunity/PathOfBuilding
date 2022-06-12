@@ -109,7 +109,8 @@ data.powerStatList = {
 	{ stat="MeleeAvoidChance", label="Melee avoid chance" },
 	{ stat="SpellAvoidChance", label="Spell avoid chance" },
 	{ stat="ProjectileAvoidChance", label="Projectile avoid chance" },
-	{ stat="TotalEHP", label="effective Hit Pool" },
+	{ stat="TotalEHP", label="Effective Hit Pool" },
+	{ stat="SecondMinimalMaximumHitTaken", label="Eff. Maximum Hit Taken" },
 	{ stat="PhysicalTakenHitMult", label="Taken Phys dmg", transform=function(value) return 1-value end },
 	{ stat="LightningTakenDotMult", label="Taken Lightning dmg", transform=function(value) return 1-value end },
 	{ stat="ColdTakenDotMult", label="Taken Cold dmg", transform=function(value) return 1-value end },
@@ -384,6 +385,12 @@ data.misc = { -- magic numbers
 	shaperPen = 25 / 5,
 	sirusDPSMult = 10 / 4.25,
 	sirusPen = 40 / 5,
+	-- ehp helper function magic numbers
+	ehpCalcSpeedUp = 8,
+		-- depth needs to be a power of speedUp (in this case 8^3, will run 3 recursive calls deep)
+	ehpCalcMaxDepth = 512,
+		-- max hits is currently depth + speedup - 1 to give as much accuracy with as few cycles as possible, but can be increased for more accuracy
+	ehpCalcMaxHitsToCalc = 519,
 }
 
 -- Misc data tables

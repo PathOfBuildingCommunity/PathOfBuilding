@@ -1484,7 +1484,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("poisonIsSkillEffect", true)
-#baseMod skill("stackMultiplier", 2, { type = "Condition", var = "DualWielding" })
 #mods
 
 #skill VolatileDead
