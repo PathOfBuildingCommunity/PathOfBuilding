@@ -417,6 +417,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 						local url = buf:find("(http[s]-:.-)%s", 0)
 						if url == 1 then
 							OpenURL(buf)
+							self.sel = self.caret
 						end
 					end
 				elseif caretChar:match("%S") then
