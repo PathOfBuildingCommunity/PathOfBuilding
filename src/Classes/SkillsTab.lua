@@ -444,7 +444,16 @@ function SkillsTabClass:PasteSocketGroup(testInput)
 			newGroup.slot = slot
 		end
 		for nameSpec, level, quality, qualityId, state, count in skillText:gmatch("([ %a']+) (%d+)/(%d+) (%a+%d?) ?(%a*) (%d+)") do
-			t_insert(newGroup.gemList, { nameSpec = nameSpec, level = tonumber(level) or 20, quality = tonumber(quality) or 0, qualityId = qualityId, enabled = state ~= "DISABLED", count = tonumber(count) or 1 })
+			t_insert(newGroup.gemList, {
+				nameSpec = nameSpec,
+				level = tonumber(level) or 20,
+				quality = tonumber(quality) or 0,
+				qualityId = qualityId,
+				enabled = state ~= "DISABLED",
+				count = tonumber(count) or 1,
+				enableGlobal1 = true,
+				enableGlobal2 = true
+			})
 		end
 		if #newGroup.gemList > 0 then
 			t_insert(self.socketGroupList, newGroup)
