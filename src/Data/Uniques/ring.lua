@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Ring
@@ -662,7 +662,7 @@ Implicits: 1
 {variant:1}{tags:life}15% reduced maximum Life
 {variant:2}{tags:life}10% reduced maximum Life
 {variant:3}{tags:life}(5-10)% reduced maximum Life
-{variant:1{tags:jewellery_defense}}15% reduced maximum Energy Shield
+{variant:1}{tags:jewellery_defense}15% reduced maximum Energy Shield
 {variant:2}{tags:jewellery_defense}10% reduced maximum Energy Shield
 {variant:3}{tags:jewellery_defense}(5-10)% reduced maximum Energy Shield
 {tags:chaos,jewellery_resistance}+(40-50)% to Chaos Resistance
