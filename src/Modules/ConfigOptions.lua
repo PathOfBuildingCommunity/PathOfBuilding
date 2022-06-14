@@ -180,11 +180,6 @@ return {
 	{ var = "bladestormInSandstorm", type = "check", label = "Are you in a Sandstorm?", ifSkill = "Bladestorm", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BladestormInSandstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm" })
 	end },
-	{ label = "Bonechill Support:", ifSkill = "Bonechill" },
-	{ var = "bonechillEffect", type = "count", label = "Effect of Chill:", tooltip = "The effect of ^x3F6DB3Chill ^7is automatically calculated if you have a guaranteed source of ^x3F6DB3Chill^7,\nbut you can use this to override the effect if necessary.", ifSkill = "Bonechill", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("BonechillEffect", "BASE", val, "Config", { type = "Condition", var = "Effective" })
-		enemyModList:NewMod("DesiredBonechillEffect", "BASE", val, "Config", { type = "Condition", var = "Effective" })
-	end },
 	{ label = "Boneshatter:", ifSkill = "Boneshatter" },
 	{ var = "boneshatterTraumaStacks", type = "count", label = "# of Trauma Stacks:", ifSkill = "Boneshatter", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:TraumaStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
@@ -1254,7 +1249,8 @@ return {
 		enemyModList:NewMod("Condition:Chilled", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyChilledEffect", type = "count", label = "Effect of ^x3F6DB3Chill:", ifOption = "conditionEnemyChilled", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("ChillVal", "OVERRIDE", val, "Chill", { type = "Condition", var = "Chilled" })
+		enemyModList:NewMod("ChillVal", "BASE", val, "Chill", { type = "Condition", var = "Chilled" })
+		enemyModList:NewMod("DesiredChillVal", "BASE", val, "Chill", { type = "Condition", var = "Chilled", neg = true })
 	end },
 	{ var = "conditionEnemyChilledByYourHits", type = "check", ifEnemyCond = "ChilledByYourHits", label = "Is the enemy ^x3F6DB3Chilled ^7by your Hits?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Chilled", "FLAG", true, "Config", { type = "Condition", var = "Effective" })

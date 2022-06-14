@@ -3407,13 +3407,12 @@ function calcs.offence(env, actor, activeSkill)
 		local enemyTypeMult = isBoss and 7.68 or 1
 		local enemyThreshold = enemyBaseLife * enemyTypeMult * enemyMapLifeMult * enemyMapAilmentMult * enemyDB:More(nil, "AilmentThreshold")
 
-		local bonechill = output.BonechillEffect or enemyDB:Sum("BASE", nil, "DesiredBonechillEffect")
 		local ailments = {
 			["Chill"] = {
 				effList = { 10, 20 },
 				effect = function(damage, effectMod) return 50 * ((damage / enemyThreshold) ^ 0.4) * effectMod end,
 				thresh = function(damage, value, effectMod) return damage * ((50 * effectMod / value) ^ 2.5) end,
-				ramping = bonechill > 0,
+				ramping = output.HasBonechill or false,
 			},
 			["Shock"] = {
 				effList = { 10, 20, 40 },
@@ -3488,7 +3487,7 @@ function calcs.offence(env, actor, activeSkill)
 					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect")
 					if breakdown then
 						local maximum = skillModList:Override(nil, ailment.."Max") or ailmentData[ailment].max
-						local current = m_max(m_min(ailment == "Chill" and bonechill or globalOutput["Current"..ailment] or 0, maximum), 0)
+						local current = m_max(m_min(globalOutput["Current"..ailment] or 0, maximum), 0)
 						local desired = m_max(m_min(enemyDB:Sum("BASE", nil, "Desired"..ailment.."Val"), maximum), 0)
 						if ailmentData[ailment].min ~= 0 then
 							t_insert(val.effList, ailmentData[ailment].min)
@@ -3522,9 +3521,7 @@ function calcs.offence(env, actor, activeSkill)
 							local threshString = s_format("%d", thresh)..(m_floor(thresh + 0.5) == m_floor(enemyThreshold + 0.5) and s_format(" ^8(%s)", env.configInput.enemyIsBoss) or "")
 							local labels = { }
 							if decCheck == 1 and value ~= 0 then
-								if ailment == "Chill" and value == bonechill then
-									t_insert(labels, "bonechill")
-								elseif value == current then
+								if value == current then
 									t_insert(labels, "current")
 								end
 								if value == desired then
