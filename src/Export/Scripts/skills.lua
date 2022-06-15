@@ -325,32 +325,40 @@ directiveTable.skill = function(state, args, out)
 		--if levelRow.Duration and levelRow.Duration ~= 0 then
 		--	level.extra.duration = levelRow.Duration / 1000
 		--end
-		--[[
-		for i, stat in ipairs(levelRow.Stats) do
+		level.statInterpolation = statRow.StatInterpolations
+		local resolve = True
+		for i, stat in ipairs(statRow.FloatStats) do
 			if not statMap[stat.Id] then
 				statMap[stat.Id] = #skill.stats + 1
 				table.insert(skill.stats, { id = stat.Id })
 			end
-			level.statInterpolation[i] = levelRow.InterpolationTypes[i]
-			if level.statInterpolation[i] == 3 then
-				if levelRow.EffectivenessCost[i].Value ~= 0 then
-					table.insert(level, levelRow["StatEff"..i] / levelRow.EffectivenessCost[i].Value)
-				else
-					level.statInterpolation[i] = 1
-					table.insert(level, levelRow["Stat"..i])
-				end
+			if resolve == True then
+				table.insert(level, statRow.BaseResolvedValues[i])
+				level.statInterpolation[i] = 1
 			else
-				table.insert(level, levelRow["Stat"..i])
+				table.insert(level, statRow.FloatStatsValues[i])
 			end
 		end
-		for i, stat in ipairs(levelRow.BooleanStats) do
+		for i, stat in ipairs(statRow.AdditionalStats) do
+			if not statMap[stat.Id] then
+				statMap[stat.Id] = #skill.stats + 1
+				table.insert(skill.stats, { id = stat.Id })
+			end
+			table.insert(level, statRow.AdditionalStatsValues[i])
+		end
+		for i, stat in ipairs(statRow.AdditionalBooleanStats) do
 			if not statMap[stat.Id] then
 				statMap[stat.Id] = #skill.stats + 1
 				table.insert(skill.stats, { id = stat.Id })
 			end
 		end
-		--]]
 		table.insert(skill.levels, level)
+	end
+	for i, stat in ipairs(granted.GrantedEffectStatSets.ImplicitStats) do
+		if not statMap[stat.Id] then
+			statMap[stat.Id] = #skill.stats + 1
+			table.insert(skill.stats, { id = stat.Id })
+		end
 	end
 	if not skill.qualityStats then
 		skill.qualityStats = { }

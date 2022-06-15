@@ -3388,7 +3388,7 @@ return {
 		},
 		[9]={
 			list=true,
-			name="FloatStatsKeys",
+			name="FloatStats",
 			refTo="Stats",
 			type="Key",
 			width=500
