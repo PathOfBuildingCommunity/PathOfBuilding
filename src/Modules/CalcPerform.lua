@@ -1451,10 +1451,15 @@ function calcs.perform(env, avoidCache)
 				usingManaFlask = true
 			end
 
+			local flaskEffectInc = item.flaskData.effectInc
+			if item.rarity == "MAGIC" and not (usingLifeFlask or usingManaFlask) then
+				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
+			end
+
 			-- Avert thine eyes, lest they be forever scarred
 			-- I have no idea how to determine which buff is applied by a given flask, 
 			-- so utility flasks are grouped by base, unique flasks are grouped by name, and magic flasks by their modifiers
-			local effectMod = 1 + (effectInc + item.flaskData.effectInc) / 100
+			local effectMod = 1 + (effectInc + flaskEffectInc) / 100
 			if item.buffModList[1] then
 				local srcList = new("ModList")
 				srcList:ScaleAddList(item.buffModList, effectMod)
