@@ -185,6 +185,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/TableCharge.dat",
 		"Data/GrantedEffectStatSets.dat",
 		"Data/GrantedEffectStatSetsPerLevel.dat",
+		"Data/CooldownBypassTypes.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

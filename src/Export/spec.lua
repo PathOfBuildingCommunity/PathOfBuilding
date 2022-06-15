@@ -3294,22 +3294,22 @@ return {
 			width=350
 		},
 		[2]={
-			list=false,
-			name="",
-			refTo="GrantedEffectsGroups",
+			list=true,
+			name="ImplicitStats",
+			refTo="Stats",
 			type="Key",
-			width=210
+			width=1000
 		},
 		[3]={
 			list=true,
-			name="StatsKeys",
+			name="ConstantStats",
 			refTo="Stats",
 			type="Key",
-			width=1950
+			width=1700
 		},
 		[4]={
 			list=true,
-			name="StatsValues",
+			name="ConstantStatsValues",
 			refTo="",
 			type="Int",
 			width=250
@@ -3353,7 +3353,7 @@ return {
 		},
 		[4]={
 			list=false,
-			name="CritChance",
+			name="AttackCritChance",
 			refTo="",
 			type="Int",
 			width=150
@@ -3381,7 +3381,7 @@ return {
 		},
 		[8]={
 			list=true,
-			name="AdditionalFlagsStatsKeys",
+			name="AdditionalBooleanStats",
 			refTo="Stats",
 			type="Key",
 			width=150
@@ -3660,219 +3660,128 @@ return {
 			name="PlayerLevelReq",
 			refTo="",
 			type="Int",
-			width=100
+			width=90
 		},
 		[4]={
 			list=false,
-			name="ManaMultiplier",
+			name="CostMultiplier",
 			refTo="",
 			type="Int",
 			width=80
 		},
 		[5]={
 			list=false,
-			name="",
+			name="StoredUses",
 			refTo="",
 			type="Int",
-			width=40
+			width=80
 		},
 		[6]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=40
-		},
-		[7]={
-			list=false,
-			name="SpellCritChance",
-			refTo="",
-			type="Int",
-			width=90
-		},
-		[8]={
-			list=false,
-			name="CooldownCount",
-			refTo="",
-			type="Int",
-			width=90
-		},
-		[9]={
 			list=false,
 			name="Cooldown",
 			refTo="",
 			type="Int",
-			width=60
+			width=80
+		},
+		[7]={
+			list=false,
+			name="CooldownBypassType",
+			refTo="CooldownBypassTypes",
+			type="Int",
+			width=130
+		},
+		[8]={
+			list=false,
+			name="VaalSouls",
+			refTo="Stats",
+			type="Int",
+			width=100
+		},
+		[9]={
+			list=false,
+			name="VaalStoredUses",
+			refTo="",
+			type="Int",
+			width=120
 		},
 		[10]={
 			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=40
-		},
-		[11]={
-			list=true,
-			name="BooleanStats",
-			refTo="Stats",
-			type="Key",
-			width=150
-		},
-		[12]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=40
-		},
-		[13]={
-			list=false,
-			name="SoulCost",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[14]={
-			list=false,
-			name="StoredUses",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[15]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[16]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[17]={
-			list=false,
-			name="DamageMultiplier",
+			name="CooldownGroup",
 			refTo="",
 			type="Int",
 			width=90
 		},
-		[18]={
+		[11]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=50
 		},
-		[19]={
-			list=false,
-			name="ArtVariation",
-			refTo="",
-			type="Int",
-			width=70
-		},
-		[20]={
-			list=true,
-			name="InterpolationTypes",
-			refTo="StatInterpolationTypes",
-			type="Enum",
-			width=130
-		},
-		[21]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[22]={
+		[12]={
 			list=false,
 			name="SoulGainPreventionDuration",
 			refTo="",
 			type="Int",
 			width=150
 		},
-		[23]={
-			list=false,
-			name="Duration",
-			refTo="",
-			type="Int",
-			width=80
-		},
-		[24]={
+		[13]={
 			list=false,
 			name="AttackSpeedMultiplier",
 			refTo="",
 			type="Int",
-			width=150
+			width=130
 		},
-		[25]={
+		[14]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
-			width=70
+			width=50
 		},
-		[26]={
+		[15]={
 			list=true,
 			name="CostAmounts",
 			refTo="",
 			type="Int",
-			width=90
+			width=180
 		},
-		[27]={
+		[16]={
 			list=true,
 			name="CostTypes",
 			refTo="CostTypes",
 			type="Key",
-			width=90
+			width=150
 		},
-		[28]={
+		[17]={
 			list=false,
 			name="ManaReservationFlat",
 			refTo="",
 			type="UInt",
 			width=150
 		},
-		[29]={
+		[18]={
 			list=false,
 			name="ManaReservationPercent",
 			refTo="",
 			type="UInt",
 			width=150
 		},
-		[30]={
+		[19]={
 			list=false,
 			name="LifeReservationFlat",
 			refTo="",
 			type="UInt",
 			width=150
 		},
-		[31]={
+		[20]={
 			list=false,
 			name="LifeReservationPercent",
 			refTo="",
 			type="UInt",
 			width=150
 		},
-		[32]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[33]={
-			list=false,
-			name="OffhandCritChance",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[34]={
+		[21]={
 			list=false,
 			name="AttackTime",
 			refTo="",
