@@ -3437,7 +3437,7 @@ return {
 		},
 		[16]={
 			list=true,
-			name="GrantedEffects",
+			name="GrantedEffect",
 			refTo="GrantedEffects",
 			type="Key",
 			width=150

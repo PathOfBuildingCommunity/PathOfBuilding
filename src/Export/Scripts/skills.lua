@@ -192,10 +192,10 @@ directiveTable.skill = function(state, args, out)
 	local statMap = { }
 	skill.stats = { }
 	out:write('\tcolor = ', granted.Attribute, ',\n')
-	if granted.BaseEffectiveness ~= 1 then
+	if granted.GrantedEffectStatSets.BaseEffectiveness ~= 1 then
 		out:write('\tbaseEffectiveness = ', granted.GrantedEffectStatSets.BaseEffectiveness, ',\n')
 	end
-	if granted.IncrementalEffectiveness ~= 0 then
+	if granted.GrantedEffectStatSets.IncrementalEffectiveness ~= 0 then
 		out:write('\tincrementalEffectiveness = ', granted.GrantedEffectStatSets.IncrementalEffectiveness, ',\n')
 	end
 	if granted.IsSupport then
@@ -277,10 +277,12 @@ directiveTable.skill = function(state, args, out)
 			out:write('\tcannotBeSupported = true,\n')
 		end
 	end
-	for _, levelRow in ipairs(dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)) do
+	local statsPerLevel = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffect", granted)
+	for indx, levelRow in ipairs(dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)) do
+		local statRow = statsPerLevel[indx]
 		local level = { extra = { }, statInterpolation = { }, cost = { } }
 		level.level = levelRow.Level
-		level.extra.levelRequirement = levelRow.PlayerLevel
+		level.extra.levelRequirement = levelRow.PlayerLevelReq
 		for i, cost in ipairs(levelRow.CostTypes) do
 			level.cost[cost["Resource"]] = levelRow.CostAmounts[i]
 		end
@@ -296,33 +298,34 @@ directiveTable.skill = function(state, args, out)
 		if levelRow.LifeReservationPercent ~= 0 then
 			level.extra.lifeReservationPercent = levelRow.LifeReservationPercent / 100
 		end
-		if levelRow.ManaMultiplier ~= 100 then
-			level.extra.manaMultiplier = levelRow.ManaMultiplier - 100
+		if levelRow.CostMultiplier ~= 100 then
+			level.extra.manaMultiplier = levelRow.CostMultiplier - 100
 		end
-		if levelRow.DamageEffectiveness ~= 0 then
-			level.extra.damageEffectiveness = levelRow.DamageEffectiveness / 100 + 1
+		if statRow.DamageEffectiveness ~= 0 then
+			level.extra.damageEffectiveness = statRow.DamageEffectiveness / 10000 + 1
 		end
-		if levelRow.SpellCritChance ~= 0 then
-			level.extra.critChance = levelRow.SpellCritChance / 100
+		if statRow.AttackCritChance ~= 0 then
+			level.extra.critChance = statRow.AttackCritChance / 100
 		end
-		if levelRow.OffhandCritChance ~= 0 then
-			level.extra.critChance = levelRow.OffhandCritChance / 100
-		end
-		if levelRow.DamageMultiplier and levelRow.DamageMultiplier ~= 0 then
-			level.extra.baseMultiplier = levelRow.DamageMultiplier / 10000 + 1
+		--if levelRow.OffhandCritChance ~= 0 then
+		--	level.extra.critChance = levelRow.OffhandCritChance / 100
+		--end
+		if statRow.BaseMultiplier and statRow.BaseMultiplier ~= 0 then
+			level.extra.baseMultiplier = statRow.BaseMultiplier / 10000 + 1
 		end
 		if levelRow.AttackSpeedMultiplier and levelRow.AttackSpeedMultiplier ~= 0 then
 			level.extra.attackSpeedMultiplier = levelRow.AttackSpeedMultiplier
 		end
-		if levelRow.AttackTime ~= 0 then
-			level.extra.attackTime = levelRow.AttackTime
+		if statRow.AttackTime ~= 0 then
+			level.extra.attackTime = statRow.AttackTime
 		end
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
 			level.extra.cooldown = levelRow.Cooldown / 1000
 		end
-		if levelRow.Duration and levelRow.Duration ~= 0 then
-			level.extra.duration = levelRow.Duration / 1000
-		end
+		--if levelRow.Duration and levelRow.Duration ~= 0 then
+		--	level.extra.duration = levelRow.Duration / 1000
+		--end
+		--[[
 		for i, stat in ipairs(levelRow.Stats) do
 			if not statMap[stat.Id] then
 				statMap[stat.Id] = #skill.stats + 1
@@ -346,6 +349,7 @@ directiveTable.skill = function(state, args, out)
 				table.insert(skill.stats, { id = stat.Id })
 			end
 		end
+		--]]
 		table.insert(skill.levels, level)
 	end
 	if not skill.qualityStats then
