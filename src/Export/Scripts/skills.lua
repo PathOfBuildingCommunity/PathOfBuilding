@@ -193,10 +193,10 @@ directiveTable.skill = function(state, args, out)
 	skill.stats = { }
 	out:write('\tcolor = ', granted.Attribute, ',\n')
 	if granted.BaseEffectiveness ~= 1 then
-		out:write('\tbaseEffectiveness = ', granted.BaseEffectiveness, ',\n')
+		out:write('\tbaseEffectiveness = ', granted.GrantedEffectStatSets.BaseEffectiveness, ',\n')
 	end
 	if granted.IncrementalEffectiveness ~= 0 then
-		out:write('\tincrementalEffectiveness = ', granted.IncrementalEffectiveness, ',\n')
+		out:write('\tincrementalEffectiveness = ', granted.GrantedEffectStatSets.IncrementalEffectiveness, ',\n')
 	end
 	if granted.IsSupport then
 		skill.isSupport = true
