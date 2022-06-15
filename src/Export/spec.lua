@@ -3597,6 +3597,48 @@ return {
 			refTo="GrantedEffects",
 			type="Key",
 			width=150
+		},
+		[23]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[24]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[25]={
+			list=false,
+			name="GrantedEffectStatSetsKey",
+			refTo="GrantedEffectStatSets",
+			type="Key",
+			width=150
+		},
+		[26]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[27]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[28]={
+			list=false,
+			name="NextEffectName",
+			refTo="",
+			type="String",
+			width=150
 		}
 	},
 	GrantedEffectsPerLevel={
