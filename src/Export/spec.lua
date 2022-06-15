@@ -3332,7 +3332,7 @@ return {
 	GrantedEffectStatSetsPerLevel={
 		[1]={
 			list=false,
-			name="GrantedEffectStatSetsKey",
+			name="GrantedEffectStatSets",
 			refTo="GrantedEffectStatSets",
 			type="Key",
 			width=250
@@ -3395,14 +3395,14 @@ return {
 		},
 		[10]={
 			list=true,
-			name="InterpolationBasesKeys",
+			name="InterpolationBases",
 			refTo="Stats",
 			type="Key",
 			width=180
 		},
 		[11]={
 			list=true,
-			name="AdditionalStatsKeys",
+			name="AdditionalStats",
 			refTo="Stats",
 			type="Key",
 			width=310
@@ -3437,7 +3437,7 @@ return {
 		},
 		[16]={
 			list=true,
-			name="GrantedEffectsKeys",
+			name="GrantedEffects",
 			refTo="GrantedEffects",
 			type="Key",
 			width=150
@@ -3614,7 +3614,7 @@ return {
 		},
 		[25]={
 			list=false,
-			name="GrantedEffectStatSetsKey",
+			name="GrantedEffectStatSets",
 			refTo="GrantedEffectStatSets",
 			type="Key",
 			width=150
