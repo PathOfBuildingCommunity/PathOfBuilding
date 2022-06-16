@@ -47,7 +47,6 @@
 	<File name="Classes/EditControl.lua" part="program" sha1="a6de9982c20396d4a9c0246656d81789160d990c" />
 	<File name="Classes/FolderListControl.lua" part="program" sha1="64706fc226b02939112f90735c5d78ddf99b896f" />
 	<File name="Classes/GemSelectControl.lua" part="program" sha1="1855ca6e9fbaa9f430185ca4297f02e53b48f6fb" />
-	<File name="Classes/HorizontalLineControl.lua" part="program" sha1="ac90bf59c48bc7b2d2e487141fa58e6f1f71c15a" />
 	<File name="Classes/ImportTab.lua" part="program" sha1="17e4926ff3a65ae1d23521b6ac907379f4096920" />
 	<File name="Classes/Item.lua" part="program" sha1="76411d631a4df5d94eccd3f9dd9def3756699457" />
 	<File name="Classes/ItemDBControl.lua" part="program" sha1="8fbec6f012e815ebbcb3faf8bc19731eb8e28856" />
