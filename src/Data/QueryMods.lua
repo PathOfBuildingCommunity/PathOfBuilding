@@ -9491,7 +9491,7 @@ return {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_492027537", 
+				["id"] = "explicit.stat_3680664274", 
 				["text"] = "#% chance to Suppress Spell Damage", 
 			}, 
 			["Chest"] = {
@@ -11833,7 +11833,7 @@ return {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_492027537", 
+				["id"] = "explicit.stat_3680664274", 
 				["text"] = "#% chance to Suppress Spell Damage", 
 			}, 
 			["Chest"] = {
