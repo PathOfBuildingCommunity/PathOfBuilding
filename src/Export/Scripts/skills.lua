@@ -417,35 +417,41 @@ directiveTable.mods = function(state, args, out)
 		end
 	end
 	if not args:match("noBaseMods") then
-		out:write('\tbaseMods = {\n')
-		for _, mod in ipairs(skill.mods) do
-			out:write('\t\t', mod, ',\n')
+		if next(skill.mods) ~= nil then
+			out:write('\tbaseMods = {\n')
+			for _, mod in ipairs(skill.mods) do
+				out:write('\t\t', mod, ',\n')
+			end
+			out:write('\t},\n')
 		end
-		out:write('\t},\n')
 	end
 	if not args:match("noQualityStats") then
-		out:write('\tqualityStats = {\n')
-		for i, alternates in ipairs(skill.qualityStats) do
-			if i == 1 then
-				out:write('\t\tDefault = {\n')
-			else
-				local value = i - 1
-				out:write('\t\tAlternate' .. value .. ' = {\n')
+		if next(skill.qualityStats) ~= nil then
+			out:write('\tqualityStats = {\n')
+			for i, alternates in ipairs(skill.qualityStats) do
+				if i == 1 then
+					out:write('\t\tDefault = {\n')
+				else
+					local value = i - 1
+					out:write('\t\tAlternate' .. value .. ' = {\n')
+				end
+				for _, stat in ipairs(alternates) do
+					out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+				end
+				out:write('\t\t},\n')
 			end
-			for _, stat in ipairs(alternates) do
-				out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
-			end
-			out:write('\t\t},\n')
+			out:write('\t},\n')
 		end
-		out:write('\t},\n')
 	end
 	if not args:match("noStats") then
-		-- write out constant stats that don't change per level
-		out:write('\tconstantStats = {\n')
-		for i, stat in ipairs(skill.constantStats) do
-			out:write('\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+		if next(skill.constantStats) ~= nil then
+			-- write out constant stats that don't change per level
+			out:write('\tconstantStats = {\n')
+			for i, stat in ipairs(skill.constantStats) do
+				out:write('\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+			end
+			out:write('\t},\n')
 		end
-		out:write('\t},\n')
 		-- write out per level stats
 		out:write('\tstats = {\n')
 		for _, stat in ipairs(skill.stats) do
@@ -463,16 +469,20 @@ directiveTable.mods = function(state, args, out)
 			for k, v in pairs(level.extra) do
 				out:write(k, ' = ', tostring(v), ', ')
 			end
-			out:write('statInterpolation = { ')
-			for _, type in ipairs(level.statInterpolation) do
-				out:write(type, ', ')
+			if next(level.statInterpolation) ~= nil then
+				out:write('statInterpolation = { ')
+				for _, type in ipairs(level.statInterpolation) do
+					out:write(type, ', ')
+				end
+				out:write('}, ')
 			end
-			out:write('}, ')
-			out:write('cost = { ')
-			for k, v in pairs(level.cost) do
-				out:write(k, ' = ', tostring(v), ', ')
+			if next(level.cost) ~= nil then
+				out:write('cost = { ')
+				for k, v in pairs(level.cost) do
+					out:write(k, ' = ', tostring(v), ', ')
+				end
+				out:write('}, ')
 			end
-			out:write('}, ')
 			out:write('},\n')
 		end
 		out:write('\t},\n')
