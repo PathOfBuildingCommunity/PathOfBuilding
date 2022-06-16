@@ -191,7 +191,7 @@ directiveTable.skill = function(state, args, out)
 	skill.levels = { }
 	local statMap = { }
 	skill.stats = { }
-	skill.statsConstant = { }
+	skill.constantStats = { }
 	out:write('\tcolor = ', granted.Attribute, ',\n')
 	if granted.GrantedEffectStatSets.BaseEffectiveness ~= 1 then
 		out:write('\tbaseEffectiveness = ', granted.GrantedEffectStatSets.BaseEffectiveness, ',\n')
@@ -327,26 +327,29 @@ directiveTable.skill = function(state, args, out)
 		--	level.extra.duration = levelRow.Duration / 1000
 		--end
 		level.statInterpolation = statRow.StatInterpolations
-		local resolve = True
+		local resolveInterpolation = true
+		local injectConstantValuesIntoEachLevel = false
 		for i, stat in ipairs(statRow.FloatStats) do
 			if not statMap[stat.Id] then
 				statMap[stat.Id] = #skill.stats + 1
 				table.insert(skill.stats, { id = stat.Id })
 			end
-			if resolve == True then
+			if resolveInterpolation then
 				table.insert(level, statRow.BaseResolvedValues[i])
 				level.statInterpolation[i] = 1
 			else
 				table.insert(level, statRow.FloatStatsValues[i])
 			end
 		end
-		for i, stat in ipairs(granted.GrantedEffectStatSets.ConstantStats) do
-			if not statMap[stat.Id] then
-				statMap[stat.Id] = #skill.stats + #skill.statsConstant + 1
-				table.insert(skill.stats, { id = stat.Id })
+		if injectConstantValuesIntoEachLevel then
+			for i, stat in ipairs(granted.GrantedEffectStatSets.ConstantStats) do
+				if not statMap[stat.Id] then
+					statMap[stat.Id] = #skill.stats + #skill.constantStats + 1
+					table.insert(skill.stats, { id = stat.Id })
+				end
+				table.insert(level, granted.GrantedEffectStatSets.ConstantStatsValues[i])
+				table.insert(level.statInterpolation, #statRow.FloatStats + 1, 1)
 			end
-			table.insert(level, granted.GrantedEffectStatSets.ConstantStatsValues[i])
-			table.insert(level.statInterpolation, #statRow.FloatStats + 1, 1)
 		end
 		for i, stat in ipairs(statRow.AdditionalStats) do
 			if not statMap[stat.Id] then
@@ -370,7 +373,7 @@ directiveTable.skill = function(state, args, out)
 		end
 	end
 	for i, stat in ipairs(granted.GrantedEffectStatSets.ConstantStats) do
-		table.insert(skill.statsConstant, { stat.Id, granted.GrantedEffectStatSets.ConstantStatsValues[i] })
+		table.insert(skill.constantStats, { stat.Id, granted.GrantedEffectStatSets.ConstantStatsValues[i] })
 	end
 	if not skill.qualityStats then
 		skill.qualityStats = { }
@@ -437,16 +440,16 @@ directiveTable.mods = function(state, args, out)
 		out:write('\t},\n')
 	end
 	if not args:match("noStats") then
+		-- write out constant stats that don't change per level
+		out:write('\tconstantStats = {\n')
+		for i, stat in ipairs(skill.constantStats) do
+			out:write('\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+		end
+		out:write('\t},\n')
+		-- write out per level stats
 		out:write('\tstats = {\n')
 		for _, stat in ipairs(skill.stats) do
 			out:write('\t\t"', stat.id, '",\n')
-		end
-		out:write('\t},\n')
-	end
-	if not args:match("noStats") then
-		out:write('\tconstantStats = {\n')
-		for i, stat in ipairs(skill.statsConstant) do
-			out:write('\t\t{ "', stat[1], '", ', stat[2], ' },\n')
 		end
 		out:write('\t},\n')
 	end
