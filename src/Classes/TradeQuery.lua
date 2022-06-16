@@ -4,6 +4,7 @@
 -- Provides PoB Trader pane for interacting with PoE Trade
 --
 
+
 local dkjson = require "dkjson"
 
 local get_time = os.time
@@ -15,105 +16,11 @@ local m_ceil = math.ceil
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
--- map of PoE.Ninja Currency converstion endpoint to GGG's Trade name spec
-local currencyConversionTradeMap = { }
-currencyConversionTradeMap["Orb of Alteration"] = "alt"
-currencyConversionTradeMap["Orb of Fusing"] = "fusing"
-currencyConversionTradeMap["Orb of Alchemy"] = "alch"
-currencyConversionTradeMap["Chaos Orb"] = "chaos"
-currencyConversionTradeMap["Gemcutter's Prism"] = "gcp"
-currencyConversionTradeMap["Exalted Orb"] = "exalted"
-currencyConversionTradeMap["Chromatic Orb"] = "chrome"
-currencyConversionTradeMap["Jeweller's Orb"] = "jewellers"
-currencyConversionTradeMap["Engineer's Orb"] = "engineers"
-currencyConversionTradeMap["Infused Engineer's Orb"] = "infused-engineers-orb"
-currencyConversionTradeMap["Orb of Chance"] = "chance"
-currencyConversionTradeMap["Cartographer's Chisel"] = "chisel"
-currencyConversionTradeMap["Orb of Scouring"] = "scour"
-currencyConversionTradeMap["Blessed Orb"] = "blessed"
-currencyConversionTradeMap["Orb of Regret"] = "regret"
-currencyConversionTradeMap["Regal Orb"] = "regal"
-currencyConversionTradeMap["Divine Orb"] = "divine"
-currencyConversionTradeMap["Vaal Orb"] = "vaal"
-currencyConversionTradeMap["Orb of Annulment"] = "annul"
-currencyConversionTradeMap["Orb of Binding"] = "orb-of-binding"
-currencyConversionTradeMap["Ancient Orb"] = "ancient-orb"
-currencyConversionTradeMap["Orb of Horizons"] = "orb-of-horizons"
-currencyConversionTradeMap["Harbinger's Orb"] = "harbingers-orb"
-currencyConversionTradeMap["Scroll of Wisdom"] = "wisdom"
-currencyConversionTradeMap["Portal Scroll"] = "portal"
-currencyConversionTradeMap["Armourer's Scrap"] = "scrap"
-currencyConversionTradeMap["Blacksmith's Whetstone"] = "whetstone"
-currencyConversionTradeMap["Glassblower's Bauble"] = "bauble"
-currencyConversionTradeMap["Orb of Transmutation"] = "transmute"
-currencyConversionTradeMap["Orb of Augmentation"] = "aug"
-currencyConversionTradeMap["Mirror of Kalandra"] = "mirror"
-currencyConversionTradeMap["Eternal Orb"] = "eternal"
-currencyConversionTradeMap["Rogue's Marker"] = "rogues-marker"
-currencyConversionTradeMap["Silver Coin"] = "silver"
-currencyConversionTradeMap["Crusader's Exalted Orb"] = "crusaders-exalted-orb"
-currencyConversionTradeMap["Redeemer's Exalted Orb"] = "redeemers-exalted-orb"
-currencyConversionTradeMap["Hunter's Exalted Orb"] = "hunters-exalted-orb"
-currencyConversionTradeMap["Warlord's Exalted Orb"] = "warlords-exalted-orb"
-currencyConversionTradeMap["Awakener's Orb"] = "awakeners-orb"
-currencyConversionTradeMap["Maven's Orb"] = "mavens-orb"
-currencyConversionTradeMap["Facetor's Lens"] = "facetors"
-currencyConversionTradeMap["Prime Regrading Lens"] = "prime-regrading-lens"
-currencyConversionTradeMap["Secondary Regrading Lens"] = "secondary-regrading-lens"
-currencyConversionTradeMap["Tempering Orb"] = "tempering-orb"
-currencyConversionTradeMap["Tailoring Orb"] = "tailoring-orb"
-currencyConversionTradeMap["Stacked Deck"] = "stacked-deck"
-currencyConversionTradeMap["Simple Sextant"] = "simple-sextant"
-currencyConversionTradeMap["Prime Sextant"] = "prime-sextant"
-currencyConversionTradeMap["Awakened Sextant"] = "awakened-sextant"
-currencyConversionTradeMap["Elevated Sextant"] = "elevated-sextant"
-currencyConversionTradeMap["Orb of Unmaking"] = "orb-of-unmaking"
-currencyConversionTradeMap["Blessing of Xoph"] = "blessing-xoph"
-currencyConversionTradeMap["Blessing of Tul"] = "blessing-tul"
-currencyConversionTradeMap["Blessing of Esh"] = "blessing-esh"
-currencyConversionTradeMap["Blessing of Uul-Netol"] = "blessing-uul-netol"
-currencyConversionTradeMap["Blessing of Chayula"] = "blessing-chayula"
-currencyConversionTradeMap["Veiled Chaos Orb"] = "veiled-chaos-orb"
-currencyConversionTradeMap["Enkindling Orb"] = "enkindling-orb"
-currencyConversionTradeMap["Instilling Orb"] = "instilling-orb"
-currencyConversionTradeMap["Sacred Orb"] = "sacred-orb"
-
 
 local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.itemsTab = itemsTab
 	self.itemsTab.leagueDropList = { }
-	-- Note: Per each Check Price button click we do 2 search requests
-	--       Search is the most rate limiting behavior we need to track
-	-- SEARCH REQUEST RATE LIMIT DATA (as of Feb 2021)
-	--	 Up to  5 search requests in a 12 second window
-	--	 Up to 15 search requests in a 62 second window
-	--	 Up to 30 search requests in a 302 second window
 	self.totalPrice = { }
-	self.rate_short_window = { }
-	self.rate_short_time = 12
-	-- we reduce from 5 to 4 since we need 2 search slots for each request
-	self.rate_short_max_searches = 4
-	self.rate_medium_window = { }
-	self.rate_medium_time = 62
-	-- we reduce from 15 to 14 since we need 2 search slots for each request
-	self.rate_medium_max_searches = 14
-	self.rate_long_window = { }
-	self.rate_long_time = 302
-	-- we reduce from 30 to 29 since we need 2 search slots for each request
-	self.rate_long_max_searches = 29
-
-	-- FETCH REQUEST RATE LIMIT DATA (as of Feb 2021)
-	--	 Up to 12 fetch requests in a 6 second window
-	--	 Up to 16 fetch requests in a 14 second window
-	self.rate_short_fetch_window = { }
-	self.rate_short_fetch_time = 6
-	-- we reduce from 12 to 7 since we may want up to 5 fetch slots for each request
-	self.rate_short_max_fetches = 7
-	self.rate_long_fetch_window = { }
-	self.rate_long_fetch_time = 14
-	-- we reduce from 16 to 11 since we may want up to 5 fetch slots for each request
-	self.rate_long_max_fetches = 11
-
 	-- table of price results index by slot and number of fetched results
 	self.resultTbl = { }
 	self.sortedResultTbl = { }
@@ -121,45 +28,58 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	-- default set of trade item sort selection
 	self.pbSortSelectionIndex = 1
 	self.pbCurrencyConversion = { }
+	self.currencyConversionTradeMap = { }
 	self.lastCurrencyConversionRequest = 0
 	self.lastCurrencyFileTime = { }
 	self.pbFileTimestampDiff = { }
 
-	-- set 
-	self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
+	pcall(require, 'DebugConfig')
+	self.tradeQueryRequests = new("TradeQueryRequests")
+	table.insert(main.onFrameFuncs, function()
+		self.tradeQueryRequests:ProcessQueue()
+	end)
+
+    -- set 
+    self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 end)
 
--- Method to process JSON to Lua translation
-function TradeQueryClass:ProcessJSON(json)
-	return dkjson.decode(json)
+---Fetch currency shortnames from Poe API (used for PoeNinja price pairing)
+---@param callback fun()
+function TradeQueryClass:FetchCurrencyConversionTable(callback)
+	self.tradeQueryRequests:DownloadPage(
+		"https://www.pathofexile.com/api/trade/data/static",
+		function(response)
+			local obj = dkjson.decode(response)
+			local currencyConversionTradeMap = {}
+			local currencyTable
+			for _, value in pairs(obj.result) do
+				if value.id and value.id == "Currency" then
+					currencyTable = value.entries
+					break
+				end
+			end
+			for _, value in pairs(currencyTable) do
+				currencyConversionTradeMap[value.text] = value.id
+			end
+			self.currencyConversionTradeMap = currencyConversionTradeMap
+			if callback then
+				callback()
+			end
+		end)
 end
+
 
 -- Method to pull down and interpret available leagues from PoE
 function TradeQueryClass:PullLeagueList(controls)
-	local id = LaunchSubScript([[
-		local curl = require("lcurl.safe")
-		local page = ""
-		local easy = curl.easy()
-		easy:setopt{
-			url = "https://api.pathofexile.com/leagues?type=main&compact=1",
-			httpheader = {'Content-Type: application/json', 'Accept: application/json', 'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)'}
-		}
-		easy:setopt_writefunction(function(data)
-			page = page..data
-			return true
-		end)
-		easy:perform()
-		easy:close()
-		return page
-	]], "", "")
-	if id then
-		launch:RegisterSubScript(id, function(response, errMsg)
+	self.tradeQueryRequests:DownloadPage(
+		"https://api.pathofexile.com/leagues?type=main&compact=1",
+		function(response, errMsg)
 			if errMsg then
 				self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
 				return "POE ERROR", "Error: "..errMsg
 			else
-				local json_data = self:ProcessJSON(response)
+				local json_data = dkjson.decode(response)
 				if not json_data then
 					self:SetNotice(controls.pbNotice, "Failed to Get PoE League List response")
 					return
@@ -185,16 +105,10 @@ function TradeQueryClass:PullLeagueList(controls)
 				self:SetCurrencyConversionButton(controls)
 			end
 		end)
-	end
-end
-
--- Method to set last PoE.Ninja endpoint access
-function TradeQueryClass:PriceBuilderPoENinjaCurrencyRequest()
-	self.lastCurrencyConversionRequest = get_time()
 end
 
 -- Method to convert currency to chaos equivalent
-function TradeQueryClass:CovertCurrencyToChaos(currency, amount)
+function TradeQueryClass:ConvertCurrencyToChaos(currency, amount)
 	local conversionTable = self.pbCurrencyConversion[self.pbLeague]
 
 	-- we take the ceiling of all prices to integer chaos
@@ -212,52 +126,41 @@ end
 
 -- Method to pull down and interpret the PoE.Ninja JSON endpoint data
 function TradeQueryClass:PullPoENinjaCurrencyConversion(league, controls)
+	local now = os.time()
 	-- Limit PoE Ninja Currency Conversion request to 1 per hour
-	if (get_time() - self.lastCurrencyConversionRequest) > 3600 then
+	if (now - self.lastCurrencyConversionRequest) < 3600 then
+		self:SetNotice(controls.pbNotice, "PoE Ninja Rate Limit Exceeded: " .. tostring(3600 - (now - self.lastCurrencyConversionRequest)))
+		return
+	end
+	-- We are getting currency shortnames from Poe API before getting PoeNinja rates
+	-- Potentially, currency shortnames could be cached but this request runs 
+	-- once per hour at most and the Poe API response is already Cloudflare cached
+	self:FetchCurrencyConversionTable(function()
 		self.pbCurrencyConversion[league] = { }
-		local id = LaunchSubScript([[
-			local curl = require("lcurl.safe")
-			local page = ""
-			local easy = curl.easy()
-			easy:setopt{
-				url = "https://poe.ninja/api/data/CurrencyRates?league=]]..league..[[",
-				httpheader = {'Content-Type: application/json', 'Accept: application/json', 'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)'}
-			}
-			easy:setopt_writefunction(function(data)
-				page = page..data
-				return true
-			end)
-			easy:perform()
-			easy:close()
-			return page
-		]], "", "")
-		if id then
-			self:PriceBuilderPoENinjaCurrencyRequest()  
-			launch:RegisterSubScript(id, function(response, errMsg)
+		self.lastCurrencyConversionRequest = now
+		self.tradeQueryRequests:DownloadPage(
+			"https://poe.ninja/api/data/CurrencyRates?league=" .. league,	
+			function(response, errMsg)
 				if errMsg then
 					self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
-					return "POE NINJA ERROR", "Error: "..errMsg
-				else
-					local json_data = self:ProcessJSON(response)
-					if not json_data then
-						self:SetNotice(controls.pbNotice, "Failed to Get PoE Ninja response")
-						return
-					end
-					self:PriceBuilderProcessPoENinjaResponse(json_data, controls)
-					local print_str = ""
-					for key, value in pairs(self.pbCurrencyConversion[self.pbLeague]) do
-						print_str = print_str .. '"'..key..'": '..tostring(value)..','
-					end
-					local foo = io.open("../"..self.pbLeague.."_currency_values.json", "w")
-					foo:write("{" .. print_str .. '"updateTime": ' .. tostring(get_time()) .. "}")
-					foo:close()
-					self:SetCurrencyConversionButton(controls)
+					return
 				end
+				local json_data = dkjson.decode(response)
+				if not json_data then
+					self:SetNotice(controls.pbNotice, "Failed to Get PoE Ninja response")
+					return
+				end
+				self:PriceBuilderProcessPoENinjaResponse(json_data, controls)
+				local print_str = ""
+				for key, value in pairs(self.pbCurrencyConversion[self.pbLeague]) do
+					print_str = print_str .. '"'..key..'": '..tostring(value)..','
+				end
+				local foo = io.open("../"..self.pbLeague.."_currency_values.json", "w")
+				foo:write("{" .. print_str .. '"updateTime": ' .. tostring(get_time()) .. "}")
+				foo:close()
+				self:SetCurrencyConversionButton(controls)
 			end)
-		end
-	else
-		self:SetNotice(controls.pbNotice, "PoE Ninja Rate Limit Exceeded: " .. tostring(3600 - (get_time() - self.lastCurrencyConversionRequest)))
-	end
+	end)
 end
 
 -- Method to process the PoE.Ninja response
@@ -265,8 +168,8 @@ function TradeQueryClass:PriceBuilderProcessPoENinjaResponse(resp, controls)
 	if resp then
 		-- Populate the chaos-converted values for each tradeId
 		for currencyName, chaosEquivalent in pairs(resp) do
-			if currencyConversionTradeMap[currencyName] then
-				self.pbCurrencyConversion[self.pbLeague][currencyConversionTradeMap[currencyName]] = chaosEquivalent
+			if self.currencyConversionTradeMap[currencyName] then
+				self.pbCurrencyConversion[self.pbLeague][self.currencyConversionTradeMap[currencyName]] = chaosEquivalent
 			else
 				ConPrintf("Unhandled Currency Name: '"..currencyName.."'")
 			end
@@ -405,7 +308,7 @@ function TradeQueryClass:SetCurrencyConversionButton(controls)
 	if foo then
 		local lines = foo:read "*a"
 		foo:close()
-		self.pbCurrencyConversion[self.pbLeague] = self:ProcessJSON(lines)
+		self.pbCurrencyConversion[self.pbLeague] = dkjson.decode(lines)
 		self.lastCurrencyFileTime[controls.league.selIndex]  = self.pbCurrencyConversion[self.pbLeague]["updateTime"]
 		self.pbFileTimestampDiff[controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[controls.league.selIndex] 
 		if self.pbFileTimestampDiff[controls.league.selIndex] < 3600 then
@@ -442,243 +345,32 @@ end
 
 -- Method to set the notice message in upper right of PoB Trader pane
 function TradeQueryClass:SetNotice(notice_control, msg)
+	if msg:find("Complex Query") then
+		msg =  colorCodes.RELIC .. msg
+	elseif msg:find("No Matching Results") then
+		msg = colorCodes.WARNING .. msg
+	elseif msg:find("Error:") then
+		msg = olorCodes.NEGATIVE .. msg
+	end
 	notice_control:SetText(msg)
 end
 
--- Method to add time to the 3 rate-limit windows for search tracking
-function TradeQueryClass:PriceBuilderInsertSearchRequest()
-	local time = get_time()
-	t_insert(self.rate_short_window, 1, time)
-	t_insert(self.rate_medium_window, 1, time)
-	t_insert(self.rate_long_window, 1, time)
-end
-
--- Method to add time to the 2 rate-limit windows for fetch tracking
-function TradeQueryClass:PriceBuilderInsertFetchRequest()
-	local time = get_time()
-	t_insert(self.rate_short_fetch_window, 1, time)
-	t_insert(self.rate_long_fetch_window, 1, time)
-end
-
--- Method to remove search times from rate-limit windows based on age out
-function TradeQueryClass:PriceBuilderAgeOutSearchRequest(tbl, agedTime)
-	local pop_count = 0
-	for _, v in ipairs(tbl) do
-		if v <= agedTime then
-			pop_count = pop_count + 1
-		end
-	end
-
-	for i = 1, pop_count do
-		t_remove(tbl) 
-	end
-end
-
--- Method to sync search rate tables to age out appropriate times from each rate-limit table
-function TradeQueryClass:PriceBuilderSyncSearchRateTables(time)
-	self:PriceBuilderAgeOutSearchRequest(self.rate_short_window, time - self.rate_short_time)
-	self:PriceBuilderAgeOutSearchRequest(self.rate_medium_window, time - self.rate_medium_time)
-	self:PriceBuilderAgeOutSearchRequest(self.rate_long_window, time - self.rate_long_time)
-end
-
--- Method to sync fetch rate tables to age out appropriate times from each rate-limit table
-function TradeQueryClass:PriceBuilderSyncFetchRateTables(time)
-	self:PriceBuilderAgeOutSearchRequest(self.rate_short_fetch_window, time - self.rate_short_fetch_time)
-	self:PriceBuilderAgeOutSearchRequest(self.rate_long_fetch_window, time - self.rate_long_fetch_time)
-end
-
--- Method to check if we have slots in the three search rate-limit windows to issue a search
-function TradeQueryClass:PriceBuilderCanSearch(controls)
-	local time = get_time()
-	self:PriceBuilderSyncSearchRateTables(time)
-	if #self.rate_short_window < self.rate_short_max_searches and
-		#self.rate_medium_window < self.rate_medium_max_searches and
-		#self.rate_long_window < self.rate_long_max_searches then
-		if controls.pbNotice.buf:find("SEARCH") then
-			self:SetNotice(controls.pbNotice, "")
-		end
-		return true
-	else
-		local short_time = 0
-		local medium_time = 0
-		local long_time = 0
-		if #self.rate_short_window >= self.rate_short_max_searches then
-			short_time = self.rate_short_time - (time - self.rate_short_window[#self.rate_short_window])
-		end
-		if #self.rate_medium_window >= self.rate_medium_max_searches then
-			medium_time = self.rate_medium_time - (time - self.rate_medium_window[#self.rate_medium_window])
-		end
-		if #self.rate_long_window >= self.rate_long_max_searches then
-			long_time = self.rate_long_time - (time - self.rate_long_window[#self.rate_long_window])
-		end
-		self:SetNotice(controls.pbNotice, colorCodes.WARNING .. "<SEARCH RATE LIMIT> " .. tostring(m_max(short_time, m_max(medium_time, long_time))))
-		return false
-	end
-end
-
--- Method to check if we have slots in the two fetch rate-limit windows to issue a search
-function TradeQueryClass:PriceBuilderCanFetch(controls)
-	local time = get_time()
-	self:PriceBuilderSyncFetchRateTables(time)
-	if #self.rate_short_fetch_window < self.rate_short_max_fetches and
-		#self.rate_long_fetch_window < self.rate_long_max_fetches then
-		if controls.pbNotice.buf:find("FETCH") then
-			self:SetNotice(controls.pbNotice, "")
-		end
-		return true
-	else
-		local short_time = 0
-		local long_time = 0
-		if #self.rate_short_fetch_window >= self.rate_short_max_fetches then
-			short_time = self.rate_short_fetch_time - (time - self.rate_short_fetch_window[#self.rate_short_fetch_window])
-		end
-		if #self.rate_long_fetch_window >= self.rate_long_max_fetches then
-			long_time = self.rate_long_fetch_time - (time - self.rate_long_fetch_window[#self.rate_long_fetch_window])
-		end
-		self:SetNotice(controls.pbNotice, colorCodes.WARNING .. "<FETCH RATE LIMIT> " .. tostring(m_max(short_time, long_time)))
-		return false
-	end
-end
-
--- Method to search for items matching JSON filters
-function TradeQueryClass:SearchItem(league, json_data, slotTbl, controls, index)
-	local id = LaunchSubScript([[
-		local json_data = ...
-		local curl = require("lcurl.safe")
-		local page = ""
-		local easy = curl.easy()
-		easy:setopt{
-			url = "https://www.pathofexile.com/api/trade/search/]]..league..[[",
-			post = true,
-			httpheader = {
-				'Content-Type: application/json',
-				'Accept: application/json',
-				'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)',
-				'Cookie: POESESSID=]]..POESESSID..[['
-			},
-			postfields = json_data
-		}
-		easy:setopt_writefunction(function(data)
-			page = page..data
-			return true
-		end)
-		easy:perform()
-		easy:close()
-		return page
-	]], "", "", json_data)
-	if id then
-		self:PriceBuilderInsertSearchRequest()
-		launch:RegisterSubScript(id, function(response, errMsg)
-			if errMsg then
-				self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
-				return "TRADE ERROR", "Error: "..errMsg
-			else
-				local response_1 = self:ProcessJSON(response)
-				if not response_1 then
-					self:SetNotice(controls.pbNotice, "Failed to Get Trade response")
-					return
-				end
-				if not response_1.result or #response_1.result == 0 then
-					if response_1.error then
-						if response_1.error.code == 2 then
-							self:SetNotice(controls.pbNotice, colorCodes.RELIC .. "Complex Query - Please provide your POESESSID")
-						elseif response_1.error.message then
-							self:SetNotice(controls.pbNotice, colorCodes.NEGATIVE .. response_1.error.message)
-						end
-					else
-						self:SetNotice(controls.pbNotice, colorCodes.WARNING .. "No Matching Results Found")
-					end
-					return
-				else
-					self:SetNotice(controls.pbNotice, "")
-				end
-				local quantity_found = m_min(#response_1.result, 100)
-				local current_fetch_block = 0
-				self.resultTbl[index] = {}
-				controls['uri'..index]:SetText("https://www.pathofexile.com/trade/search/"..league.."/"..response_1.id)
-				self:FetchItem(slotTbl, controls, response_1, index, quantity_found, current_fetch_block)
-			end
-		end)
-	end
-end
-
--- Method to fetch items returned by a Search call
-function TradeQueryClass:FetchItem(slotTbl, controls, response, index, quantity_found, current_fetch_block)
-	local max_block_size = 10
-	local res_lines = ""
-	for response_index, res_line in ipairs(response.result) do
-		if response_index > current_fetch_block and response_index <= m_min(current_fetch_block + max_block_size, quantity_found) then
-			res_lines = res_lines .. res_line .. ","
-		elseif response_index > m_min(current_fetch_block + max_block_size, quantity_found) then
-			break
-		end
-	end
-	res_lines = res_lines:sub(1, -2)
-	local fetch_url = "https://www.pathofexile.com/api/trade/fetch/"..res_lines.."?query="..response.id
-	local id2 = LaunchSubScript([[
-		local fetch_url = ...
-		local curl = require("lcurl.safe")
-		local page = ""
-		local easy = curl.easy()
-		easy:setopt{
-			url = fetch_url,
-			httpheader = {'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)'}
-		}
-		easy:setopt_writefunction(function(data)
-			page = page..data
-			return true
-		end)
-		easy:perform()
-		easy:close()
-		return page
-	]], "", "", fetch_url)
-	if id2 then
-		self:PriceBuilderInsertFetchRequest()
-		local ret_data = nil
-		launch:RegisterSubScript(id2, function(response2, errMsg)
-			if errMsg then
-				self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
-			else
-				local response_2, response_2_err = self:ProcessJSON(response2)
-				if not response_2 or not response_2.result then
-					if response_2_err then
-						self:SetNotice(controls.pbNotice, "JSON Parse Error")
-					else
-						self:SetNotice(controls.pbNotice, "Failed to Get Trade Items")
-					end
-					return
-				end
-				for trade_indx, trade_entry in ipairs(response_2.result) do
-					current_fetch_block = current_fetch_block + 1
-					self.resultTbl[index][current_fetch_block] = {
-						amount = trade_entry.listing.price.amount,
-						currency = trade_entry.listing.price.currency,
-						item_string = common.base64.decode(trade_entry.item.extended.text),
-						whisper = trade_entry.listing.whisper,
-					}
-				end
-				if current_fetch_block == quantity_found then
-					self.sortedResultTbl[index] = self:SortFetchResults(slotTbl, index)
-					local str_quantity_found = quantity_found == 100 and "100+" or tostring(#self.sortedResultTbl[index])
-					controls['resultCount'..index]:SetText("out of " .. str_quantity_found)
-					controls['resultIndex'..index]:SetText("1")
-					local pb_index = self.sortedResultTbl[index][1].index
-					controls['importButtonText'..index]:SetText(self.resultTbl[index][pb_index].item_string)
-					self.totalPrice[index] = {
-						currency = self.resultTbl[index][pb_index].currency,
-						amount = self.resultTbl[index][pb_index].amount,
-					}
-					controls['priceAmount'..index]:SetText(self.totalPrice[index].amount .. " " .. self.totalPrice[index].currency)
-					controls['whisperButtonText'..index]:SetText(self.resultTbl[index][pb_index].whisper)
-					self:GenerateTotalPriceString(controls.fullPrice)
-				else
-					self:FetchItem(slotTbl, controls, response, index, quantity_found, current_fetch_block)
-				end
-			end
-		end)
-	else
-		return
-	end
+-- Method to update controls after a search is completed
+function TradeQueryClass:UpdateControlsWithItems(slotTbl, controls, index)
+	self.sortedResultTbl[index] = self:SortFetchResults(slotTbl, index)
+	local str_quantity_found = tostring(#self.sortedResultTbl[index])
+	controls['resultCount'..index]:SetText("out of " .. str_quantity_found)
+	controls['resultIndex'..index]:SetText("1")
+	controls['priceButton'..index].label = "Price Item"
+	local pb_index = self.sortedResultTbl[index][1].index
+	controls['importButtonText'..index]:SetText(self.resultTbl[index][pb_index].item_string)
+	self.totalPrice[index] = {
+		currency = self.resultTbl[index][pb_index].currency,
+		amount = self.resultTbl[index][pb_index].amount,
+	}
+	controls['priceAmount'..index]:SetText(self.totalPrice[index].amount .. " " .. self.totalPrice[index].currency)
+	controls['whisperButtonText'..index]:SetText(self.resultTbl[index][pb_index].whisper)
+	self:GenerateTotalPriceString(controls.fullPrice)
 end
 
 -- Method to set the current result return in the pane based of an index
@@ -714,7 +406,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
 			local newDPS = GlobalCache.useFullDPS and output.FullDPS or output.TotalDPS
 			if self.pbSortSelectionIndex == 4 then
-				local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
+				local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
 				if chaosAmount > 0 then
 					t_insert(newTbl, { outputAttr = newDPS / chaosAmount, index = index })
 				end
@@ -727,7 +419,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
 	else
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
-			local chaosAmount = self:CovertCurrencyToChaos(tbl.currency, tbl.amount)
+			local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
 			if chaosAmount > 0 then
 				t_insert(newTbl, { outputAttr = chaosAmount, index = index })
 			end
@@ -737,44 +429,6 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 	return newTbl
 end
 
--- local functions to verify proper URL entry
-local function ParseURL(url)
-	local league, query = url:match("https://www.pathofexile.com/trade/search/(.+)/(.+)$")
-	return league, "https://www.pathofexile.com/api/trade/search/" .. query
-end
-
--- Kick-off API method to get items from PoE Trade API
-function TradeQueryClass:PublicTrade(url, slotTbl, controls, index)
-	local league, url = ParseURL(url)
-	local id = LaunchSubScript([[
-		local url = ...
-		local curl = require("lcurl.safe")
-		local page = ""
-		local easy = curl.easy()
-		easy:setopt{
-			url = url,
-			httpheader = {'User-Agent: Path of Building/]]..launch.versionNumber..[[ (contact: pob@mailbox.org)'}
-		}
-		easy:setopt_writefunction(function(data)
-			page = page..data
-			return true
-		end)
-		easy:perform()
-		easy:close()
-		return page
-	]], "", "", url)
-	if id then
-		launch:RegisterSubScript(id, function(response, errMsg)
-			if errMsg then
-				self:SetNotice(controls.pbNotice, "Bad URL: " .. tostring(errMsg))
-				return "TRADE ERROR", "Error: "..errMsg
-			else
-				self:PriceBuilderInsertSearchRequest()
-				self:SearchItem(league, response, slotTbl, controls, index)
-			end
-		end)
-	end
-end
 
 -- Method to generate pane elements for each item slot
 function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
@@ -783,7 +437,23 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 	controls['bestButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 10, row_height, "?", function()
 		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query)
 			self.pbSortSelectionIndex = 1
-			self:SearchItem(self.pbLeagueRealName, query, context.slotTbl, context.controls, context.str_cnt)
+			context.controls['priceButton'..context.str_cnt].label = "Searching..."
+			self.tradeQueryRequests:SearchWithQuery(self.pbLeagueRealName, query, 
+				function(items, errMsg)
+					if errMsg then
+						self:SetNotice(context.controls.pbNotice, "Error: " .. errMsg)
+						return
+					end
+					self.resultTbl[context.str_cnt] = items
+					self:UpdateControlsWithItems(context.slotTbl, context.controls, context.str_cnt)
+					context.controls['priceButton'..context.str_cnt].label =  "Price Item"
+				end,
+				{
+					callbackQueryId = function(queryId)
+						controls['uri'..context.str_cnt]:SetText("https://www.pathofexile.com/trade/search/".. self.pbLeagueRealName .."/".. queryId)	
+					end
+				}
+			)
 		end)
 	end)
 	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['bestButton'..str_cnt],"TOPLEFT"}, 10 + 8, 0, 500, row_height, "Trade Site URL", nil, "^%C\t\n", nil, nil, nil)
@@ -800,9 +470,19 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 			tooltip:AddLine(14, colorCodes.NEGATIVE .. "NOTE: you will need to re-sort until GGG fixes")
 		end
 	end
-	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 8, 0, 100, row_height, "Price Item", function()
-		self:PublicTrade(controls['uri'..str_cnt].buf, slotTbl, controls, str_cnt)
-	end)
+	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 8, 0, 100, row_height, "Price Item", 
+		function()
+		controls['priceButton'..str_cnt].label = "Searching..."
+		self.tradeQueryRequests:SearchWithURL(controls['uri'..str_cnt].buf, function(items, errMsg)
+			if errMsg then
+				self:SetNotice(controls.pbNotice, "Error: " .. errMsg)
+			else
+				self.resultTbl[str_cnt] = items
+				self:UpdateControlsWithItems(slotTbl, controls, str_cnt)
+			end
+			controls['priceButton'..str_cnt].label = "Price Item"
+		end)
+		end)
 	controls['priceButton'..str_cnt].enabled = function()
 		local validURL = controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil
 		if not activeSlotRef and slotTbl.ref then
@@ -814,7 +494,8 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 		elseif controls['uri'..str_cnt].buf == "" then
 			activeSlotRef.pbURL = ""
 		end
-		return validURL and self:PriceBuilderCanSearch(controls) and self:PriceBuilderCanFetch(controls)
+		local isSearching = controls['priceButton'..str_cnt].label == "Searching..."
+		return validURL and not isSearching
 	end
 	controls['resultIndex'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 60, row_height, "#", nil, "%D", 3, function(buf)
 		controls['resultIndex'..str_cnt].buf = tostring(m_min(m_max(tonumber(buf) or 1, 1), self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1))
@@ -847,6 +528,9 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 	controls['importButton'..str_cnt].tooltipFunc = function(tooltip)
 		tooltip:Clear()
 		if #controls['importButtonText'..str_cnt].buf > 0 then
+			-- Fix: item parsing bug caught here.
+			-- item.baseName is nil and throws error in the following AddItemTooltip func
+			-- if the item is unidentified
 			local item = new("Item", controls['importButtonText'..str_cnt].buf)
 			self.itemsTab:AddItemTooltip(tooltip, item, nil, true)
 		end
