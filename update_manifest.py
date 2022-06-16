@@ -10,7 +10,7 @@ import re
 import xml.etree.ElementTree as Et
 from typing import Any, Callable
 
-alphanumeric_pattern = re.compile(r"([0-9]+)")
+alphanumeric_pattern = re.compile(r"(\d+)")
 
 
 def _compose(f: Callable[[Any], Any], g: Callable[[Any], Any]) -> Callable[[Any], Any]:
@@ -58,7 +58,6 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
     :return:
     """
     base_path = pathlib.Path().absolute()
-    print(base_path)
     try:
         old_manifest = Et.parse(base_path / "manifest.xml")
     except FileNotFoundError:
@@ -84,9 +83,11 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
     for part in config.sections():
         url = base_url + config[part]["path"]
         url_with_trailing_slash = url if url.endswith("/") else url + "/"
-        attributes = {"part": part, "url": url_with_trailing_slash}
-        if part == "runtime":
-            attributes.update(platform="win32")
+        attributes = (
+            {"part": part, "platform": "win32", "url": url_with_trailing_slash}
+            if part == "runtime"
+            else {"part": part, "url": url_with_trailing_slash}
+        )
         parts.append(attributes)
 
     rules = {
@@ -109,9 +110,11 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
             data = path.read_bytes()
             sha1 = hashlib.sha1(data).hexdigest()
             name = path.relative_to(config[section]["path"]).as_posix()
-            attributes = {"part": section, "sha1": sha1, "name": name}
-            if path.suffix in [".dll", ".exe"]:
-                attributes.update(runtime="win32")
+            attributes = (
+                {"name": name, "part": section, "runtime": "win32", "sha1": sha1}
+                if path.suffix in [".dll", ".exe"]
+                else {"name": name, "part": section, "sha1": sha1}
+            )
             files.append(attributes)
 
     files.sort(key=lambda attr: (attr["part"], _alphanumeric(attr["name"])))
@@ -124,6 +127,7 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
         Et.SubElement(root, "File", attributes)
     file_name = "manifest.xml" if replace else "manifest-updated.xml"
     tree = Et.ElementTree(root)
+    Et.indent(tree, "\t")
     tree.write(base_path / file_name, encoding="UTF-8", xml_declaration=True)
     if version is not None:
         logging.info(f"Updated to version {version}")
