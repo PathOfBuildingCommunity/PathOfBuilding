@@ -4577,7 +4577,7 @@ skills["GSHarvestRhexScreech"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	levels = {
-		[1] = { 0.5, 1.5, critChance = 5, duration = 4, cooldown = 8, levelRequirement = 1, statInterpolation = { 3, 3, }, cost = { }, },
+		[1] = { 2, 7, critChance = 5, duration = 4, cooldown = 8, levelRequirement = 1, statInterpolation = { 1, 1, }, cost = { }, },
 	},
 	baseFlags = {
 		spell = true,
