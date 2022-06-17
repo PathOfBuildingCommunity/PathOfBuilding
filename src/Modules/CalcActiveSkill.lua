@@ -447,7 +447,6 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	-- Add extra modifiers from granted effect level
 	local level = activeEffect.grantedEffectLevel
 	activeSkill.skillData.CritChance = level.critChance
-	activeSkill.skillData.duration = level.duration
 	if level.damageMultiplier then
 		skillModList:NewMod("Damage", "MORE", level.damageMultiplier, activeEffect.grantedEffect.modSource, ModFlag.Attack)
 	end
