@@ -36,7 +36,7 @@ Below are some common color codes PoB uses:	]]
 		return self.width - 16
 	end
 	self.controls.edit.height = function()
-		return self.height - 112
+		return self.height - 128
 	end
 	self.controls.toggleColorCodes = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, -10, 70, 160, 20, "Show Color Codes", function()
 		self.showColorCodes = not self.showColorCodes
