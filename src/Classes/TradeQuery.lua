@@ -350,7 +350,7 @@ function TradeQueryClass:SetNotice(notice_control, msg)
 	elseif msg:find("No Matching Results") then
 		msg = colorCodes.WARNING .. msg
 	elseif msg:find("Error:") then
-		msg = olorCodes.NEGATIVE .. msg
+		msg = colorCodes.NEGATIVE .. msg
 	end
 	notice_control:SetText(msg)
 end
@@ -443,6 +443,8 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 					if errMsg then
 						self:SetNotice(context.controls.pbNotice, "Error: " .. errMsg)
 						return
+					else
+						self:SetNotice(context.controls.pbNotice, "")
 					end
 					self.resultTbl[context.str_cnt] = items
 					self:UpdateControlsWithItems(context.slotTbl, context.controls, context.str_cnt)

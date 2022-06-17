@@ -130,7 +130,11 @@ function TradeQueryRequestsClass:PerformSearch(league, query, callback)
 			if not response.result or #response.result == 0 then
 				if response.error then
 					if response.error.code == 2 then
-						errMsg = "Complex Query - Please provide your POESESSID"
+						if POESESSID and POESESSID ~= "" then
+							errMsg = "POESESSID is invalid. Please Re-Log and reset"
+						else
+							errMsg = "Complex Query - Please provide your POESESSID"
+						end
 					elseif response.error.message then
 						errMsg = response.error.message
 					end
