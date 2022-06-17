@@ -3291,21 +3291,21 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=350
+			width=380
 		},
 		[2]={
 			list=true,
 			name="ImplicitStats",
 			refTo="Stats",
 			type="Key",
-			width=1000
+			width=750
 		},
 		[3]={
 			list=true,
 			name="ConstantStats",
 			refTo="Stats",
 			type="Key",
-			width=1700
+			width=1400
 		},
 		[4]={
 			list=true,
@@ -3342,21 +3342,21 @@ return {
 			name="GemLevel",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[3]={
 			list=false,
 			name="PlayerLevelReq",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[4]={
 			list=false,
 			name="AttackCritChance",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[5]={
 			list=false,
@@ -3370,7 +3370,7 @@ return {
 			name="BaseMultiplier",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[7]={
 			list=false,
@@ -3405,7 +3405,7 @@ return {
 			name="AdditionalStats",
 			refTo="Stats",
 			type="Key",
-			width=310
+			width=400
 		},
 		[12]={
 			list=true,
@@ -3440,7 +3440,7 @@ return {
 			name="GrantedEffect",
 			refTo="GrantedEffects",
 			type="Key",
-			width=150
+			width=190
 		}
 	},
 	GrantedEffects={
@@ -3449,7 +3449,7 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=200
+			width=300
 		},
 		[2]={
 			list=false,
@@ -3463,7 +3463,7 @@ return {
 			name="SupportTypes",
 			refTo="ActiveSkillType",
 			type="Key",
-			width=330
+			width=250
 		},
 		[4]={
 			list=false,
@@ -3491,7 +3491,7 @@ return {
 			name="ExcludeTypes",
 			refTo="ActiveSkillType",
 			type="Key",
-			width=200
+			width=150
 		},
 		[8]={
 			list=false,
@@ -3505,14 +3505,14 @@ return {
 			name="Hash",
 			refTo="",
 			type="UInt",
-			width=100
+			width=50
 		},
 		[10]={
 			list=true,
 			name="",
 			refTo="",
 			type="Enum",
-			width=60
+			width=20
 		},
 		[11]={
 			list=false,
@@ -3540,7 +3540,7 @@ return {
 			name="ActiveSkill",
 			refTo="ActiveSkills",
 			type="Key",
-			width=110
+			width=250
 		},
 		[15]={
 			list=false,
@@ -3568,21 +3568,21 @@ return {
 			name="Animation",
 			refTo="Animation",
 			type="Key",
-			width=120
+			width=100
 		},
 		[19]={
 			list=false,
 			name="",
 			refTo="",
 			type="Key",
-			width=50
+			width=40
 		},
 		[20]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=50
+			width=40
 		},
 		[21]={
 			list=true,
@@ -3603,42 +3603,42 @@ return {
 			name="",
 			refTo="",
 			type="Int",
-			width=150
+			width=50
 		},
 		[24]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=50
 		},
 		[25]={
 			list=false,
 			name="GrantedEffectStatSets",
 			refTo="GrantedEffectStatSets",
 			type="Key",
-			width=150
+			width=250
 		},
 		[26]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
-			width=150
+			width=50
 		},
 		[27]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
-			width=150
+			width=50
 		},
 		[28]={
 			list=false,
 			name="NextEffectName",
 			refTo="",
 			type="String",
-			width=150
+			width=200
 		}
 	},
 	GrantedEffectsPerLevel={
@@ -3647,13 +3647,13 @@ return {
 			name="GrantedEffect",
 			refTo="GrantedEffects",
 			type="Key",
-			width=210
+			width=250
 		},
 		[2]={
 			list=false,
 			name="Level",
 			type="Int",
-			width=40
+			width=50
 		},
 		[3]={
 			list=false,
@@ -3713,10 +3713,10 @@ return {
 		},
 		[11]={
 			list=false,
-			name="",
+			name="PvPDamageMultiplier",
 			refTo="",
 			type="Int",
-			width=50
+			width=120
 		},
 		[12]={
 			list=false,
@@ -3751,7 +3751,7 @@ return {
 			name="CostTypes",
 			refTo="CostTypes",
 			type="Key",
-			width=150
+			width=100
 		},
 		[17]={
 			list=false,
@@ -3786,7 +3786,7 @@ return {
 			name="AttackTime",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		}
 	},
 	GroundEffectEffectTypes={
@@ -3984,7 +3984,7 @@ return {
 			name="Category",
 			refTo="",
 			type="String",
-			width=150
+			width=230
 		}
 	},
 	ItemCostPerLevel={
@@ -4983,7 +4983,7 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=150
+			width=300
 		},
 		[2]={
 			list=false,
