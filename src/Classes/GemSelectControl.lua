@@ -552,7 +552,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 		end
 		local cost
 		for _, res in ipairs(self.costs) do
-			if grantedEffectLevel.cost[res.Resource] then
+			if grantedEffectLevel.cost and grantedEffectLevel.cost[res.Resource] then
 				cost = (cost and (cost..", ") or "")..res.ResourceString:gsub("{0}", string.format("%g", round(grantedEffectLevel.cost[res.Resource] / res.Divisor, 2)))
 			end
 		end
@@ -561,9 +561,6 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 		end
 		if grantedEffectLevel.cooldown then
 			self.tooltip:AddLine(16, string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown))
-		end
-		if grantedEffectLevel.critChance then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FCritical Strike Chance: ^7%.2f%%", grantedEffectLevel.critChance))
 		end
 		if gemInstance.gemData.tags.attack then
 			if grantedEffectLevel.attackSpeedMultiplier then
@@ -581,6 +578,9 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 			else
 				self.tooltip:AddLine(16, "^x7F7F7FCast Time: ^7Instant")
 			end
+		end
+		if grantedEffectLevel.critChance then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FCritical Strike Chance: ^7%.2f%%", grantedEffectLevel.critChance))
 		end
 		if grantedEffectLevel.damageEffectiveness then
 			self.tooltip:AddLine(16, string.format("^x7F7F7FEffectiveness of Added Damage: ^7%d%%", grantedEffectLevel.damageEffectiveness * 100))

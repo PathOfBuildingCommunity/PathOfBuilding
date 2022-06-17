@@ -308,24 +308,21 @@ directiveTable.skill = function(state, args, out)
 		if statRow.AttackCritChance ~= 0 then
 			level.extra.critChance = statRow.AttackCritChance / 100
 		end
-		--if levelRow.OffhandCritChance ~= 0 then
-		--	level.extra.critChance = levelRow.OffhandCritChance / 100
-		--end
+		if statRow.OffhandCritChance ~= 0 then
+			level.extra.critChance = statRow.OffhandCritChance / 100
+		end
 		if statRow.BaseMultiplier and statRow.BaseMultiplier ~= 0 then
 			level.extra.baseMultiplier = statRow.BaseMultiplier / 10000 + 1
 		end
 		if levelRow.AttackSpeedMultiplier and levelRow.AttackSpeedMultiplier ~= 0 then
 			level.extra.attackSpeedMultiplier = levelRow.AttackSpeedMultiplier
 		end
-		if statRow.AttackTime ~= 0 then
-			level.extra.attackTime = statRow.AttackTime
+		if levelRow.AttackTime ~= 0 then
+			level.extra.attackTime = levelRow.AttackTime
 		end
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
 			level.extra.cooldown = levelRow.Cooldown / 1000
 		end
-		--if levelRow.Duration and levelRow.Duration ~= 0 then
-		--	level.extra.duration = levelRow.Duration / 1000
-		--end
 		level.statInterpolation = statRow.StatInterpolations
 		local resolveInterpolation = true
 		local injectConstantValuesIntoEachLevel = false

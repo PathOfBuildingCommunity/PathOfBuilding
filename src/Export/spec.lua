@@ -3360,7 +3360,7 @@ return {
 		},
 		[5]={
 			list=false,
-			name="AttackTime",
+			name="OffhandCritChance",
 			refTo="",
 			type="Int",
 			width=150
