@@ -22,20 +22,23 @@ skills["EnchantmentOfBladesOnHit"] = {
 		spell = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "number_of_chains", 3 },
-		{ "cast_on_hit_%", 100 },
-		{ "number_of_additional_projectiles", 2 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
+		"number_of_chains",
+		"cast_on_hit_%",
+		"skill_art_variation",
+		"number_of_additional_projectiles",
 		"base_is_projectile",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 79, 126, critChance = 7, cooldown = 5, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 1.6000000238419, 3, 100, 0, 2, critChance = 7, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfBladesOnHit2"] = {
@@ -54,20 +57,23 @@ skills["EnchantmentOfBladesOnHit2"] = {
 		spell = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "number_of_chains", 3 },
-		{ "cast_on_hit_%", 100 },
-		{ "number_of_additional_projectiles", 2 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
+		"number_of_chains",
+		"cast_on_hit_%",
+		"skill_art_variation",
+		"number_of_additional_projectiles",
 		"base_is_projectile",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 381, 585, critChance = 7, cooldown = 5, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.5, 2.2999999523163, 3, 100, 0, 2, critChance = 7, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfBladesOnHit3"] = {
@@ -86,20 +92,23 @@ skills["EnchantmentOfBladesOnHit3"] = {
 		spell = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "number_of_chains", 3 },
-		{ "cast_on_hit_%", 100 },
-		{ "number_of_additional_projectiles", 2 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
+		"number_of_chains",
+		"cast_on_hit_%",
+		"skill_art_variation",
+		"number_of_additional_projectiles",
 		"base_is_projectile",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 985, 1477, critChance = 7, cooldown = 5, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2, 3, 3, 100, 0, 2, critChance = 7, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfBladesOnHit4"] = {
@@ -118,20 +127,23 @@ skills["EnchantmentOfBladesOnHit4"] = {
 		spell = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "number_of_chains", 4 },
-		{ "cast_on_hit_%", 100 },
-		{ "number_of_additional_projectiles", 2 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
+		"number_of_chains",
+		"cast_on_hit_%",
+		"skill_art_variation",
+		"number_of_additional_projectiles",
 		"base_is_projectile",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1833, 2903, critChance = 7, cooldown = 5, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, 4, 100, 0, 2, critChance = 7, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit"] = {
@@ -150,18 +162,20 @@ skills["EnchantmentOfFlamesOnHit"] = {
 		spell = true,
 		area = true,
 	},
-	constantStats = {
-		{ "cast_on_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
+		"cast_on_hit_%",
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 93, 140, critChance = 5, cooldown = 5, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1.2000000476837, 1.7999999523163, 100, critChance = 5, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit2"] = {
@@ -180,18 +194,20 @@ skills["EnchantmentOfFlamesOnHit2"] = {
 		spell = true,
 		area = true,
 	},
-	constantStats = {
-		{ "cast_on_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
+		"cast_on_hit_%",
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 409, 601, critChance = 5, cooldown = 5, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.7000000476837, 2.5, 100, critChance = 5, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit3"] = {
@@ -210,18 +226,20 @@ skills["EnchantmentOfFlamesOnHit3"] = {
 		spell = true,
 		area = true,
 	},
-	constantStats = {
-		{ "cast_on_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
+		"cast_on_hit_%",
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 999, 1453, critChance = 5, cooldown = 5, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2.2000000476837, 3.2000000476837, 100, critChance = 5, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit4"] = {
@@ -240,18 +258,20 @@ skills["EnchantmentOfFlamesOnHit4"] = {
 		spell = true,
 		area = true,
 	},
-	constantStats = {
-		{ "cast_on_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
+		"cast_on_hit_%",
 		"is_area_damage",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1800, 2770, critChance = 5, cooldown = 5, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.5999999046326, 4, 100, critChance = 5, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfForceOnHit"] = {
@@ -268,15 +288,17 @@ skills["EnchantmentOfForceOnHit"] = {
 		attack = true,
 		area = true,
 	},
-	constantStats = {
-		{ "attack_trigger_on_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"attack_trigger_on_hit_%",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.35, cooldown = 5, baseMultiplier = 1.35, levelRequirement = 32, },
+		[1] = { 100, damageEffectiveness = 1.35, cooldown = 5, baseMultiplier = 1.35, levelRequirement = 32, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfForceOnHit2"] = {
@@ -293,15 +315,17 @@ skills["EnchantmentOfForceOnHit2"] = {
 		attack = true,
 		area = true,
 	},
-	constantStats = {
-		{ "attack_trigger_on_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"attack_trigger_on_hit_%",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.89, cooldown = 5, baseMultiplier = 1.89, levelRequirement = 53, },
+		[1] = { 100, damageEffectiveness = 1.89, cooldown = 5, baseMultiplier = 1.89, levelRequirement = 53, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfForceOnHit3"] = {
@@ -318,15 +342,17 @@ skills["EnchantmentOfForceOnHit3"] = {
 		attack = true,
 		area = true,
 	},
-	constantStats = {
-		{ "attack_trigger_on_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"attack_trigger_on_hit_%",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 2.43, cooldown = 5, baseMultiplier = 2.43, levelRequirement = 66, },
+		[1] = { 100, damageEffectiveness = 2.43, cooldown = 5, baseMultiplier = 2.43, levelRequirement = 66, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfForceOnHit4"] = {
@@ -343,15 +369,17 @@ skills["EnchantmentOfForceOnHit4"] = {
 		attack = true,
 		area = true,
 	},
-	constantStats = {
-		{ "attack_trigger_on_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"attack_trigger_on_hit_%",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 2.97, cooldown = 5, baseMultiplier = 2.97, levelRequirement = 75, },
+		[1] = { 100, damageEffectiveness = 2.97, cooldown = 5, baseMultiplier = 2.97, levelRequirement = 75, statInterpolation = { 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill"] = {
@@ -370,20 +398,23 @@ skills["EnchantmentOfFrostOnKill"] = {
 		spell = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "chance_to_cast_on_kill_%_target_self", 100 },
-		{ "number_of_additional_projectiles", 8 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"chance_to_cast_on_kill_%_target_self",
+		"number_of_additional_projectiles",
 		"base_is_projectile",
 		"projectiles_nova",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 72, 114, critChance = 5, cooldown = 5, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 1.6000000238419, 1, 100, 8, critChance = 5, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill2"] = {
@@ -402,20 +433,23 @@ skills["EnchantmentOfFrostOnKill2"] = {
 		spell = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "chance_to_cast_on_kill_%_target_self", 100 },
-		{ "number_of_additional_projectiles", 8 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"chance_to_cast_on_kill_%_target_self",
+		"number_of_additional_projectiles",
 		"base_is_projectile",
 		"projectiles_nova",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 332, 509, critChance = 5, cooldown = 5, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.5, 2.2999999523163, 1, 100, 8, critChance = 5, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill3"] = {
@@ -434,20 +468,23 @@ skills["EnchantmentOfFrostOnKill3"] = {
 		spell = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "chance_to_cast_on_kill_%_target_self", 100 },
-		{ "number_of_additional_projectiles", 8 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"chance_to_cast_on_kill_%_target_self",
+		"number_of_additional_projectiles",
 		"base_is_projectile",
 		"projectiles_nova",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 836, 1254, critChance = 5, cooldown = 5, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2, 3, 1, 100, 8, critChance = 5, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill4"] = {
@@ -466,20 +503,23 @@ skills["EnchantmentOfFrostOnKill4"] = {
 		spell = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "chance_to_cast_on_kill_%_target_self", 100 },
-		{ "number_of_additional_projectiles", 8 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"chance_to_cast_on_kill_%_target_self",
+		"number_of_additional_projectiles",
 		"base_is_projectile",
 		"projectiles_nova",
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1530, 2422, critChance = 5, cooldown = 5, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, 1, 100, 8, critChance = 5, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFuryOnHit"] = {
@@ -512,23 +552,26 @@ skills["EnchantmentOfFuryOnHit"] = {
 		attack = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "attack_trigger_on_hit_%", 100 },
-		{ "projectile_spiral_nova_time_ms", 800 },
-		{ "projectile_spiral_nova_angle", 180 },
-		{ "base_number_of_projectiles_in_spiral_nova", 10 },
-		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
-		{ "projectile_spiral_nova_starting_angle_offset", -90 },
-		{ "projectile_base_number_of_targets_to_pierce", 2 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"attack_trigger_on_hit_%",
+		"projectile_spiral_nova_time_ms",
+		"projectile_spiral_nova_angle",
+		"base_number_of_projectiles_in_spiral_nova",
+		"skill_art_variation",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"projectile_spiral_nova_starting_angle_offset",
+		"projectile_base_number_of_targets_to_pierce",
 		"base_is_projectile",
 		"skill_can_fire_arrows",
 		"skill_can_fire_wand_projectiles",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.5, cooldown = 5, baseMultiplier = 1.5, levelRequirement = 32, },
+		[1] = { 100, 800, 180, 10, 1, 50, -90, 2, damageEffectiveness = 1.5, cooldown = 5, baseMultiplier = 1.5, levelRequirement = 32, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFuryOnHit2"] = {
@@ -561,23 +604,26 @@ skills["EnchantmentOfFuryOnHit2"] = {
 		attack = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "attack_trigger_on_hit_%", 100 },
-		{ "projectile_spiral_nova_time_ms", 800 },
-		{ "projectile_spiral_nova_angle", 180 },
-		{ "base_number_of_projectiles_in_spiral_nova", 10 },
-		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
-		{ "projectile_spiral_nova_starting_angle_offset", -90 },
-		{ "projectile_base_number_of_targets_to_pierce", 3 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"attack_trigger_on_hit_%",
+		"projectile_spiral_nova_time_ms",
+		"projectile_spiral_nova_angle",
+		"base_number_of_projectiles_in_spiral_nova",
+		"skill_art_variation",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"projectile_spiral_nova_starting_angle_offset",
+		"projectile_base_number_of_targets_to_pierce",
 		"base_is_projectile",
 		"skill_can_fire_arrows",
 		"skill_can_fire_wand_projectiles",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 2.1, cooldown = 5, baseMultiplier = 2.1, levelRequirement = 53, },
+		[1] = { 100, 800, 180, 10, 1, 50, -90, 3, damageEffectiveness = 2.1, cooldown = 5, baseMultiplier = 2.1, levelRequirement = 53, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFuryOnHit3"] = {
@@ -610,23 +656,26 @@ skills["EnchantmentOfFuryOnHit3"] = {
 		attack = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "attack_trigger_on_hit_%", 100 },
-		{ "projectile_spiral_nova_time_ms", 800 },
-		{ "projectile_spiral_nova_angle", 180 },
-		{ "base_number_of_projectiles_in_spiral_nova", 10 },
-		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
-		{ "projectile_spiral_nova_starting_angle_offset", -90 },
-		{ "projectile_base_number_of_targets_to_pierce", 4 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"attack_trigger_on_hit_%",
+		"projectile_spiral_nova_time_ms",
+		"projectile_spiral_nova_angle",
+		"base_number_of_projectiles_in_spiral_nova",
+		"skill_art_variation",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"projectile_spiral_nova_starting_angle_offset",
+		"projectile_base_number_of_targets_to_pierce",
 		"base_is_projectile",
 		"skill_can_fire_arrows",
 		"skill_can_fire_wand_projectiles",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 2.7, cooldown = 5, baseMultiplier = 2.7, levelRequirement = 66, },
+		[1] = { 100, 800, 180, 10, 1, 50, -90, 4, damageEffectiveness = 2.7, cooldown = 5, baseMultiplier = 2.7, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfFuryOnHit4"] = {
@@ -659,23 +708,26 @@ skills["EnchantmentOfFuryOnHit4"] = {
 		attack = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "attack_trigger_on_hit_%", 100 },
-		{ "projectile_spiral_nova_time_ms", 800 },
-		{ "projectile_spiral_nova_angle", 180 },
-		{ "base_number_of_projectiles_in_spiral_nova", 10 },
-		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
-		{ "projectile_spiral_nova_starting_angle_offset", -90 },
-		{ "projectile_base_number_of_targets_to_pierce", 5 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"attack_trigger_on_hit_%",
+		"projectile_spiral_nova_time_ms",
+		"projectile_spiral_nova_angle",
+		"base_number_of_projectiles_in_spiral_nova",
+		"skill_art_variation",
+		"skill_physical_damage_%_to_convert_to_fire",
+		"projectile_spiral_nova_starting_angle_offset",
+		"projectile_base_number_of_targets_to_pierce",
 		"base_is_projectile",
 		"skill_can_fire_arrows",
 		"skill_can_fire_wand_projectiles",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 3.3, cooldown = 5, baseMultiplier = 3.3, levelRequirement = 75, },
+		[1] = { 100, 800, 180, 10, 1, 50, -90, 5, damageEffectiveness = 3.3, cooldown = 5, baseMultiplier = 3.3, levelRequirement = 75, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill"] = {
@@ -695,21 +747,23 @@ skills["EnchantmentOfInfernoOnKill"] = {
 		area = true,
 		hit = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 2000 },
-		{ "fire_storm_fireball_delay_ms", 100 },
-		{ "skill_override_pvp_scaling_time_ms", 450 },
-		{ "chance_to_cast_on_kill_%_target_self", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
+		"base_skill_effect_duration",
+		"fire_storm_fireball_delay_ms",
+		"skill_override_pvp_scaling_time_ms",
+		"chance_to_cast_on_kill_%_target_self",
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 155, 249, critChance = 5, cooldown = 10, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 1.6000000238419, 2000, 100, 450, 100, critChance = 5, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill2"] = {
@@ -729,21 +783,23 @@ skills["EnchantmentOfInfernoOnKill2"] = {
 		area = true,
 		hit = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 2000 },
-		{ "fire_storm_fireball_delay_ms", 100 },
-		{ "skill_override_pvp_scaling_time_ms", 450 },
-		{ "chance_to_cast_on_kill_%_target_self", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
+		"base_skill_effect_duration",
+		"fire_storm_fireball_delay_ms",
+		"skill_override_pvp_scaling_time_ms",
+		"chance_to_cast_on_kill_%_target_self",
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 722, 1107, critChance = 5, cooldown = 10, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.5, 2.2999999523163, 2000, 100, 450, 100, critChance = 5, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill3"] = {
@@ -763,21 +819,23 @@ skills["EnchantmentOfInfernoOnKill3"] = {
 		area = true,
 		hit = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 2000 },
-		{ "fire_storm_fireball_delay_ms", 100 },
-		{ "skill_override_pvp_scaling_time_ms", 450 },
-		{ "chance_to_cast_on_kill_%_target_self", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
+		"base_skill_effect_duration",
+		"fire_storm_fireball_delay_ms",
+		"skill_override_pvp_scaling_time_ms",
+		"chance_to_cast_on_kill_%_target_self",
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1817, 2725, critChance = 5, cooldown = 10, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2, 3, 2000, 100, 450, 100, critChance = 5, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill4"] = {
@@ -797,21 +855,23 @@ skills["EnchantmentOfInfernoOnKill4"] = {
 		area = true,
 		hit = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 2000 },
-		{ "fire_storm_fireball_delay_ms", 100 },
-		{ "skill_override_pvp_scaling_time_ms", 450 },
-		{ "chance_to_cast_on_kill_%_target_self", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
 		"spell_maximum_base_fire_damage",
+		"base_skill_effect_duration",
+		"fire_storm_fireball_delay_ms",
+		"skill_override_pvp_scaling_time_ms",
+		"chance_to_cast_on_kill_%_target_self",
 		"base_skill_show_average_damage_instead_of_dps",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 3324, 5263, critChance = 5, cooldown = 10, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, 2000, 100, 450, 100, critChance = 5, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfIreWhenHit"] = {
@@ -846,20 +906,22 @@ skills["EnchantmentOfIreWhenHit"] = {
 		area = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "extra_gore_chance_override_%", 30 },
-		{ "melee_counterattack_trigger_on_hit_%", 100 },
-		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"extra_gore_chance_override_%",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_physical_damage_%_to_convert_to_lightning",
 		"is_area_damage",
 		"attack_unusable_if_triggerable",
 		"attack_is_not_melee_override",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 0.6, cooldown = 10, baseMultiplier = 0.6, levelRequirement = 32, },
+		[1] = { 5000, 30, 100, 50, damageEffectiveness = 0.6, cooldown = 10, baseMultiplier = 0.6, levelRequirement = 32, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfIreWhenHit2"] = {
@@ -894,20 +956,22 @@ skills["EnchantmentOfIreWhenHit2"] = {
 		area = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "extra_gore_chance_override_%", 30 },
-		{ "melee_counterattack_trigger_on_hit_%", 100 },
-		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"extra_gore_chance_override_%",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_physical_damage_%_to_convert_to_lightning",
 		"is_area_damage",
 		"attack_unusable_if_triggerable",
 		"attack_is_not_melee_override",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 0.9, cooldown = 10, baseMultiplier = 0.9, levelRequirement = 53, },
+		[1] = { 5000, 30, 100, 50, damageEffectiveness = 0.9, cooldown = 10, baseMultiplier = 0.9, levelRequirement = 53, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfIreWhenHit3"] = {
@@ -942,20 +1006,22 @@ skills["EnchantmentOfIreWhenHit3"] = {
 		area = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "extra_gore_chance_override_%", 30 },
-		{ "melee_counterattack_trigger_on_hit_%", 100 },
-		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"extra_gore_chance_override_%",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_physical_damage_%_to_convert_to_lightning",
 		"is_area_damage",
 		"attack_unusable_if_triggerable",
 		"attack_is_not_melee_override",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.2, cooldown = 10, baseMultiplier = 1.2, levelRequirement = 66, },
+		[1] = { 5000, 30, 100, 50, damageEffectiveness = 1.2, cooldown = 10, baseMultiplier = 1.2, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfIreWhenHit4"] = {
@@ -990,20 +1056,22 @@ skills["EnchantmentOfIreWhenHit4"] = {
 		area = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "extra_gore_chance_override_%", 30 },
-		{ "melee_counterattack_trigger_on_hit_%", 100 },
-		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"extra_gore_chance_override_%",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_physical_damage_%_to_convert_to_lightning",
 		"is_area_damage",
 		"attack_unusable_if_triggerable",
 		"attack_is_not_melee_override",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.5, cooldown = 10, baseMultiplier = 1.5, levelRequirement = 75, },
+		[1] = { 5000, 30, 100, 50, damageEffectiveness = 1.5, cooldown = 10, baseMultiplier = 1.5, levelRequirement = 75, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit"] = {
@@ -1021,17 +1089,19 @@ skills["EnchantmentOfLightWhenCrit"] = {
 		area = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "life_regeneration_rate_per_minute_%", 360 },
-		{ "attack_trigger_when_critically_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"life_regeneration_rate_per_minute_%",
+		"attack_trigger_when_critically_hit_%",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.35, cooldown = 5, baseMultiplier = 1.35, levelRequirement = 32, },
+		[1] = { 5000, 360, 100, damageEffectiveness = 1.35, cooldown = 5, baseMultiplier = 1.35, levelRequirement = 32, statInterpolation = { 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit2"] = {
@@ -1049,17 +1119,19 @@ skills["EnchantmentOfLightWhenCrit2"] = {
 		area = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "life_regeneration_rate_per_minute_%", 360 },
-		{ "attack_trigger_when_critically_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"life_regeneration_rate_per_minute_%",
+		"attack_trigger_when_critically_hit_%",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.89, cooldown = 5, baseMultiplier = 1.89, levelRequirement = 53, },
+		[1] = { 5000, 360, 100, damageEffectiveness = 1.89, cooldown = 5, baseMultiplier = 1.89, levelRequirement = 53, statInterpolation = { 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit3"] = {
@@ -1077,17 +1149,19 @@ skills["EnchantmentOfLightWhenCrit3"] = {
 		area = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "life_regeneration_rate_per_minute_%", 360 },
-		{ "attack_trigger_when_critically_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"life_regeneration_rate_per_minute_%",
+		"attack_trigger_when_critically_hit_%",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 2.43, cooldown = 5, baseMultiplier = 2.43, levelRequirement = 66, },
+		[1] = { 5000, 360, 100, damageEffectiveness = 2.43, cooldown = 5, baseMultiplier = 2.43, levelRequirement = 66, statInterpolation = { 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit4"] = {
@@ -1105,17 +1179,19 @@ skills["EnchantmentOfLightWhenCrit4"] = {
 		area = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "life_regeneration_rate_per_minute_%", 360 },
-		{ "attack_trigger_when_critically_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"life_regeneration_rate_per_minute_%",
+		"attack_trigger_when_critically_hit_%",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 2.97, cooldown = 5, baseMultiplier = 2.97, levelRequirement = 75, },
+		[1] = { 5000, 360, 100, damageEffectiveness = 2.97, cooldown = 5, baseMultiplier = 2.97, levelRequirement = 75, statInterpolation = { 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit"] = {
@@ -1140,20 +1216,22 @@ skills["EnchantmentOfReflectionWhenHit"] = {
 		minion = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "number_of_monsters_to_summon", 1 },
-		{ "minion_damage_+%", 80 },
-		{ "minion_maximum_life_+%", 150 },
-		{ "display_minion_monster_type", 4 },
-		{ "display_minion_monster_level", 32 },
-		{ "cast_when_hit_%", 100 },
-		{ "active_skill_minion_damage_+%_final", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"minion_damage_+%",
+		"minion_maximum_life_+%",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"cast_when_hit_%",
+		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { cooldown = 10, levelRequirement = 32, },
+		[1] = { 5000, 1, 80, 150, 4, 32, 100, 100, cooldown = 10, levelRequirement = 32, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit2"] = {
@@ -1178,20 +1256,22 @@ skills["EnchantmentOfReflectionWhenHit2"] = {
 		minion = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "number_of_monsters_to_summon", 1 },
-		{ "minion_damage_+%", 100 },
-		{ "minion_maximum_life_+%", 150 },
-		{ "display_minion_monster_type", 4 },
-		{ "display_minion_monster_level", 53 },
-		{ "cast_when_hit_%", 100 },
-		{ "active_skill_minion_damage_+%_final", 200 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"minion_damage_+%",
+		"minion_maximum_life_+%",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"cast_when_hit_%",
+		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { cooldown = 10, levelRequirement = 53, },
+		[1] = { 5000, 1, 100, 150, 4, 53, 100, 200, cooldown = 10, levelRequirement = 53, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit3"] = {
@@ -1216,20 +1296,22 @@ skills["EnchantmentOfReflectionWhenHit3"] = {
 		minion = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "number_of_monsters_to_summon", 1 },
-		{ "minion_damage_+%", 120 },
-		{ "minion_maximum_life_+%", 150 },
-		{ "display_minion_monster_type", 4 },
-		{ "display_minion_monster_level", 66 },
-		{ "cast_when_hit_%", 100 },
-		{ "active_skill_minion_damage_+%_final", 300 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"minion_damage_+%",
+		"minion_maximum_life_+%",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"cast_when_hit_%",
+		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { cooldown = 10, levelRequirement = 66, },
+		[1] = { 5000, 1, 120, 150, 4, 66, 100, 300, cooldown = 10, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit4"] = {
@@ -1254,20 +1336,22 @@ skills["EnchantmentOfReflectionWhenHit4"] = {
 		minion = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "number_of_monsters_to_summon", 1 },
-		{ "minion_damage_+%", 140 },
-		{ "minion_maximum_life_+%", 150 },
-		{ "display_minion_monster_type", 4 },
-		{ "display_minion_monster_level", 75 },
-		{ "cast_when_hit_%", 100 },
-		{ "active_skill_minion_damage_+%_final", 400 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"minion_damage_+%",
+		"minion_maximum_life_+%",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"cast_when_hit_%",
+		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { cooldown = 10, levelRequirement = 75, },
+		[1] = { 5000, 1, 140, 150, 4, 75, 100, 400, cooldown = 10, levelRequirement = 75, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit"] = {
@@ -1300,13 +1384,16 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 		attack = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "base_projectile_ground_effect_duration", 2000 },
-		{ "number_of_additional_projectiles", 9 },
-		{ "melee_counterattack_trigger_on_hit_%", 100 },
-		{ "skill_physical_damage_%_to_convert_to_cold", 50 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_projectile_ground_effect_duration",
+		"number_of_additional_projectiles",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_art_variation",
+		"skill_physical_damage_%_to_convert_to_cold",
 		"projectiles_drop_ground_ice",
 		"projectiles_drop_ground_effects_on_client",
 		"base_is_projectile",
@@ -1316,7 +1403,7 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 1.5, cooldown = 5, baseMultiplier = 1.5, levelRequirement = 32, },
+		[1] = { 2000, 9, 100, 2, 50, damageEffectiveness = 1.5, cooldown = 5, baseMultiplier = 1.5, levelRequirement = 32, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit2"] = {
@@ -1349,13 +1436,16 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 		attack = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "base_projectile_ground_effect_duration", 2000 },
-		{ "number_of_additional_projectiles", 9 },
-		{ "melee_counterattack_trigger_on_hit_%", 100 },
-		{ "skill_physical_damage_%_to_convert_to_cold", 50 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_projectile_ground_effect_duration",
+		"number_of_additional_projectiles",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_art_variation",
+		"skill_physical_damage_%_to_convert_to_cold",
 		"projectiles_drop_ground_ice",
 		"projectiles_drop_ground_effects_on_client",
 		"base_is_projectile",
@@ -1365,7 +1455,7 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 2.1, cooldown = 5, baseMultiplier = 2.1, levelRequirement = 53, },
+		[1] = { 2000, 9, 100, 2, 50, damageEffectiveness = 2.1, cooldown = 5, baseMultiplier = 2.1, levelRequirement = 53, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit3"] = {
@@ -1398,13 +1488,16 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 		attack = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "base_projectile_ground_effect_duration", 2000 },
-		{ "number_of_additional_projectiles", 9 },
-		{ "melee_counterattack_trigger_on_hit_%", 100 },
-		{ "skill_physical_damage_%_to_convert_to_cold", 50 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_projectile_ground_effect_duration",
+		"number_of_additional_projectiles",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_art_variation",
+		"skill_physical_damage_%_to_convert_to_cold",
 		"projectiles_drop_ground_ice",
 		"projectiles_drop_ground_effects_on_client",
 		"base_is_projectile",
@@ -1414,7 +1507,7 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 2.7, cooldown = 5, baseMultiplier = 2.7, levelRequirement = 66, },
+		[1] = { 2000, 9, 100, 2, 50, damageEffectiveness = 2.7, cooldown = 5, baseMultiplier = 2.7, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit4"] = {
@@ -1447,13 +1540,16 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 		attack = true,
 		projectile = true,
 	},
-	constantStats = {
-		{ "base_projectile_ground_effect_duration", 2000 },
-		{ "number_of_additional_projectiles", 9 },
-		{ "melee_counterattack_trigger_on_hit_%", 100 },
-		{ "skill_physical_damage_%_to_convert_to_cold", 50 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_projectile_ground_effect_duration",
+		"number_of_additional_projectiles",
+		"melee_counterattack_trigger_on_hit_%",
+		"skill_art_variation",
+		"skill_physical_damage_%_to_convert_to_cold",
 		"projectiles_drop_ground_ice",
 		"projectiles_drop_ground_effects_on_client",
 		"base_is_projectile",
@@ -1463,7 +1559,7 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { damageEffectiveness = 3.3, cooldown = 5, baseMultiplier = 3.3, levelRequirement = 75, },
+		[1] = { 2000, 9, 100, 2, 50, damageEffectiveness = 3.3, cooldown = 5, baseMultiplier = 3.3, levelRequirement = 75, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit"] = {
@@ -1483,18 +1579,22 @@ skills["EnchantmentOfTempestOnHit"] = {
 		area = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "cast_on_hit_%", 100 },
-		{ "base_skill_effect_duration", 2000 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
+		"base_skill_area_of_effect_+%",
+		"skill_art_variation",
+		"cast_on_hit_%",
+		"base_skill_effect_duration",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 175, 280, critChance = 7, cooldown = 10, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 1.6000000238419, 0, 0, 100, 2000, critChance = 7, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit2"] = {
@@ -1514,18 +1614,22 @@ skills["EnchantmentOfTempestOnHit2"] = {
 		area = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "cast_on_hit_%", 100 },
-		{ "base_skill_effect_duration", 2000 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
+		"base_skill_area_of_effect_+%",
+		"skill_art_variation",
+		"cast_on_hit_%",
+		"base_skill_effect_duration",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 812, 1245, critChance = 7, cooldown = 10, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.5, 2.2999999523163, 0, 0, 100, 2000, critChance = 7, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit3"] = {
@@ -1545,18 +1649,22 @@ skills["EnchantmentOfTempestOnHit3"] = {
 		area = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "cast_on_hit_%", 100 },
-		{ "base_skill_effect_duration", 2000 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
+		"base_skill_area_of_effect_+%",
+		"skill_art_variation",
+		"cast_on_hit_%",
+		"base_skill_effect_duration",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2044, 3065, critChance = 7, cooldown = 10, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2, 3, 0, 0, 100, 2000, critChance = 7, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit4"] = {
@@ -1576,18 +1684,22 @@ skills["EnchantmentOfTempestOnHit4"] = {
 		area = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "cast_on_hit_%", 100 },
-		{ "base_skill_effect_duration", 2000 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
+		"base_skill_area_of_effect_+%",
+		"skill_art_variation",
+		"cast_on_hit_%",
+		"base_skill_effect_duration",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 3739, 5920, critChance = 7, cooldown = 10, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, 0, 0, 100, 2000, critChance = 7, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 3, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill"] = {
@@ -1609,19 +1721,21 @@ skills["EnchantmentOfTheGraveOnKill"] = {
 		minion = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "chance_to_cast_on_owned_kill_%", 100 },
-		{ "base_skill_effect_duration", 5000 },
-		{ "number_of_monsters_to_summon", 3 },
-		{ "display_minion_monster_type", 10 },
-		{ "display_minion_monster_level", 32 },
-		{ "minions_explode_on_death_for_%_max_life_at_end_of_duration", 20 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"chance_to_cast_on_owned_kill_%",
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
 		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { cooldown = 5, levelRequirement = 32, },
+		[1] = { 100, 5000, 3, 10, 32, 20, cooldown = 5, levelRequirement = 32, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill2"] = {
@@ -1643,19 +1757,21 @@ skills["EnchantmentOfTheGraveOnKill2"] = {
 		minion = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "chance_to_cast_on_owned_kill_%", 100 },
-		{ "base_skill_effect_duration", 5000 },
-		{ "number_of_monsters_to_summon", 3 },
-		{ "display_minion_monster_type", 10 },
-		{ "display_minion_monster_level", 53 },
-		{ "minions_explode_on_death_for_%_max_life_at_end_of_duration", 20 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"chance_to_cast_on_owned_kill_%",
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
 		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { cooldown = 5, levelRequirement = 53, },
+		[1] = { 100, 5000, 3, 10, 53, 20, cooldown = 5, levelRequirement = 53, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill3"] = {
@@ -1677,19 +1793,21 @@ skills["EnchantmentOfTheGraveOnKill3"] = {
 		minion = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "chance_to_cast_on_owned_kill_%", 100 },
-		{ "base_skill_effect_duration", 5000 },
-		{ "number_of_monsters_to_summon", 3 },
-		{ "display_minion_monster_type", 10 },
-		{ "display_minion_monster_level", 66 },
-		{ "minions_explode_on_death_for_%_max_life_at_end_of_duration", 20 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"chance_to_cast_on_owned_kill_%",
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
 		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { cooldown = 5, levelRequirement = 66, },
+		[1] = { 100, 5000, 3, 10, 66, 20, cooldown = 5, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill4"] = {
@@ -1711,19 +1829,21 @@ skills["EnchantmentOfTheGraveOnKill4"] = {
 		minion = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "chance_to_cast_on_owned_kill_%", 100 },
-		{ "base_skill_effect_duration", 5000 },
-		{ "number_of_monsters_to_summon", 3 },
-		{ "display_minion_monster_type", 10 },
-		{ "display_minion_monster_level", 75 },
-		{ "minions_explode_on_death_for_%_max_life_at_end_of_duration", 20 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"chance_to_cast_on_owned_kill_%",
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"display_minion_monster_type",
+		"display_minion_monster_level",
+		"minions_explode_on_death_for_%_max_life_at_end_of_duration",
 		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { cooldown = 5, levelRequirement = 75, },
+		[1] = { 100, 5000, 3, 10, 75, 20, cooldown = 5, levelRequirement = 75, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill"] = {
@@ -1743,17 +1863,19 @@ skills["EnchantmentOfThunderOnKill"] = {
 		area = true,
 		hit = true,
 	},
-	constantStats = {
-		{ "chance_to_cast_on_kill_%_target_self", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
+		"chance_to_cast_on_kill_%_target_self",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 71, 114, critChance = 7, cooldown = 5, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 1.6000000238419, 100, critChance = 7, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill2"] = {
@@ -1773,17 +1895,19 @@ skills["EnchantmentOfThunderOnKill2"] = {
 		area = true,
 		hit = true,
 	},
-	constantStats = {
-		{ "chance_to_cast_on_kill_%_target_self", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
+		"chance_to_cast_on_kill_%_target_self",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 330, 506, critChance = 7, cooldown = 5, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.5, 2.2999999523163, 100, critChance = 7, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill3"] = {
@@ -1803,17 +1927,19 @@ skills["EnchantmentOfThunderOnKill3"] = {
 		area = true,
 		hit = true,
 	},
-	constantStats = {
-		{ "chance_to_cast_on_kill_%_target_self", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
+		"chance_to_cast_on_kill_%_target_self",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 830, 1245, critChance = 7, cooldown = 5, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2, 3, 100, critChance = 7, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill4"] = {
@@ -1833,17 +1959,19 @@ skills["EnchantmentOfThunderOnKill4"] = {
 		area = true,
 		hit = true,
 	},
-	constantStats = {
-		{ "chance_to_cast_on_kill_%_target_self", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
 		"spell_maximum_base_lightning_damage",
+		"chance_to_cast_on_kill_%_target_self",
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1519, 2405, critChance = 7, cooldown = 5, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, 100, critChance = 7, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWarOnKill"] = {
@@ -1875,16 +2003,18 @@ skills["EnchantmentOfWarOnKill"] = {
 		attack = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 10000 },
-		{ "number_of_monsters_to_summon", 1 },
-		{ "attack_trigger_on_kill_%", 100 },
-		{ "active_skill_minion_damage_+%_final", 50 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"attack_trigger_on_kill_%",
+		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { cooldown = 5, levelRequirement = 32, },
+		[1] = { 10000, 1, 100, 50, cooldown = 5, levelRequirement = 32, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWarOnKill2"] = {
@@ -1916,16 +2046,18 @@ skills["EnchantmentOfWarOnKill2"] = {
 		attack = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 10000 },
-		{ "number_of_monsters_to_summon", 1 },
-		{ "attack_trigger_on_kill_%", 100 },
-		{ "active_skill_minion_damage_+%_final", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"attack_trigger_on_kill_%",
+		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { cooldown = 5, levelRequirement = 53, },
+		[1] = { 10000, 1, 100, 100, cooldown = 5, levelRequirement = 53, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWarOnKill3"] = {
@@ -1957,16 +2089,18 @@ skills["EnchantmentOfWarOnKill3"] = {
 		attack = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 10000 },
-		{ "number_of_monsters_to_summon", 1 },
-		{ "attack_trigger_on_kill_%", 100 },
-		{ "active_skill_minion_damage_+%_final", 150 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"attack_trigger_on_kill_%",
+		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { cooldown = 5, levelRequirement = 66, },
+		[1] = { 10000, 1, 100, 150, cooldown = 5, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWarOnKill4"] = {
@@ -1998,16 +2132,18 @@ skills["EnchantmentOfWarOnKill4"] = {
 		attack = true,
 		duration = true,
 	},
-	constantStats = {
-		{ "base_skill_effect_duration", 10000 },
-		{ "number_of_monsters_to_summon", 1 },
-		{ "attack_trigger_on_kill_%", 100 },
-		{ "active_skill_minion_damage_+%_final", 200 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
+		"base_skill_effect_duration",
+		"number_of_monsters_to_summon",
+		"attack_trigger_on_kill_%",
+		"active_skill_minion_damage_+%_final",
 	},
 	levels = {
-		[1] = { cooldown = 5, levelRequirement = 75, },
+		[1] = { 10000, 1, 100, 200, cooldown = 5, levelRequirement = 75, statInterpolation = { 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit"] = {
@@ -2027,18 +2163,21 @@ skills["EnchantmentOfWinterWhenHit"] = {
 		projectile = true,
 		area = true,
 	},
-	constantStats = {
-		{ "cast_when_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"cast_when_hit_%",
 		"is_area_damage",
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 48, 76, critChance = 5, cooldown = 10, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 1.6000000238419, 1, 100, critChance = 5, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit2"] = {
@@ -2058,18 +2197,21 @@ skills["EnchantmentOfWinterWhenHit2"] = {
 		projectile = true,
 		area = true,
 	},
-	constantStats = {
-		{ "cast_when_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"cast_when_hit_%",
 		"is_area_damage",
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 221, 340, critChance = 5, cooldown = 10, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.5, 2.2999999523163, 1, 100, critChance = 5, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit3"] = {
@@ -2089,18 +2231,21 @@ skills["EnchantmentOfWinterWhenHit3"] = {
 		projectile = true,
 		area = true,
 	},
-	constantStats = {
-		{ "cast_when_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"cast_when_hit_%",
 		"is_area_damage",
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 557, 836, critChance = 5, cooldown = 10, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2, 3, 1, 100, critChance = 5, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit4"] = {
@@ -2120,17 +2265,20 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 		projectile = true,
 		area = true,
 	},
-	constantStats = {
-		{ "cast_when_hit_%", 100 },
+	baseMods = {
+	},
+	qualityStats = {
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
+		"skill_art_variation",
+		"cast_when_hit_%",
 		"is_area_damage",
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1020, 1615, critChance = 5, cooldown = 10, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, 1, 100, critChance = 5, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 3, 1, 1, }, cost = { }, },
 	},
 }

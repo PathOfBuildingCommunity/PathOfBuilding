@@ -1188,7 +1188,7 @@ function calcs.offence(env, actor, activeSkill)
 	}
 	-- First pass to calculate base costs.  Used for cost conversion (e.g. Petrified Blood)
 	for resource, val in pairs(costs) do
-		local skillCost = activeSkill.activeEffect.grantedEffectLevel.cost and activeSkill.activeEffect.grantedEffectLevel.cost[resource] or nil
+		local skillCost = activeSkill.activeEffect.grantedEffectLevel.cost[resource]
 		local baseCost = round(skillCost and skillCost / data.costs[resource].Divisor or 0, 2)
 		local baseCostNoMult = skillModList:Sum("BASE", skillCfg, resource.."CostNoMult") or 0
 		local totalCost = 0

@@ -183,9 +183,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/SoundEffects.dat",
 		"Data/MavenJewelRadiusKeystones.dat",
 		"Data/TableCharge.dat",
-		"Data/GrantedEffectStatSets.dat",
-		"Data/GrantedEffectStatSetsPerLevel.dat",
-		"Data/CooldownBypassTypes.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
