@@ -49611,7 +49611,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Unique Boss drops an additional Conqueror Map"
+					text="Final Area Boss drops an additional Conqueror Map"
 				}
 			}
 		},
@@ -49629,7 +49629,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Unique Boss drops an additional Elder Guardian Map (Tier 14+)"
+					text="Final Area Boss drops an additional Elder Guardian Map (Tier 14+)"
 				}
 			}
 		},
@@ -49647,7 +49647,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Unique Boss drops an additional Shaper Guardian Map (Tier 14+)"
+					text="Final Area Boss drops an additional Shaper Guardian Map (Tier 14+)"
 				}
 			}
 		},
@@ -107928,7 +107928,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Aura Buffs from Skills have {0}% increased Effect on you for each Herald affecting you, up to 40%"
+					text="Auras from your Skills have {0}% increased Effect on you for\neach Herald affecting you, up to 40%"
 				},
 				[2]={
 					[1]={
@@ -107941,7 +107941,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Aura Buffs from Skills have {0}% reduced Effect on you for each Herald affecting you"
+					text="Auras from your Skills have {0}% reduced Effect on you for\neach Herald affecting you"
 				}
 			}
 		},
@@ -166949,10 +166949,19 @@ return {
 					limit={
 						[1]={
 							[1]=1,
-							[2]="#"
+							[2]=99
 						}
 					},
 					text="Oils found in Area have {0}% chance to be 1 tier higher"
+				},
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Oils found in Area are 1 tier higher"
 				}
 			}
 		},
@@ -169363,10 +169372,19 @@ return {
 					limit={
 						[1]={
 							[1]=1,
-							[2]="#"
+							[2]=99
 						}
 					},
 					text="{0}% chance to create a copy of Beasts Captured in Area"
+				},
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
+							[2]="#"
+						}
+					},
+					text="Create a copy of Beasts Captured in Area"
 				}
 			}
 		},

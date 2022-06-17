@@ -323,6 +323,15 @@ directiveTable.skill = function(state, args, out)
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
 			level.extra.cooldown = levelRow.Cooldown / 1000
 		end
+		if levelRow.VaalSouls ~= 0 then
+			level.extra.soulCost = levelRow.VaalSouls
+		end
+		if levelRow.VaalStoredUses ~= 0 then
+			level.extra.skillUseStorage = levelRow.VaalStoredUses
+		end
+		if levelRow.SoulGainPreventionDuration ~= 0 then
+			level.extra.soulPreventionDuration = levelRow.SoulGainPreventionDuration / 1000
+		end
 		level.statInterpolation = statRow.StatInterpolations
 		local resolveInterpolation = true
 		local injectConstantValuesIntoEachLevel = false

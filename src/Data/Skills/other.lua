@@ -1329,8 +1329,8 @@ skills["VaalAuraElementalDamageHealing"] = {
 		"immune_to_curses",
 	},
 	levels = {
-		[1] = { cooldown = 0.5, levelRequirement = 1, },
-		[20] = { cooldown = 0.5, levelRequirement = 1, },
+		[1] = { cooldown = 0.5, soulPreventionDuration = 14, skillUseStorage = 1, soulCost = 100, levelRequirement = 1, },
+		[20] = { cooldown = 0.5, soulPreventionDuration = 14, skillUseStorage = 1, soulCost = 100, levelRequirement = 1, },
 	},
 }
 skills["GoreShockwave"] = {
@@ -3184,16 +3184,16 @@ skills["VaalBreach"] = {
 		"cannot_cancel_skill_before_contact_point",
 	},
 	levels = {
-		[1] = { levelRequirement = 10, },
-		[2] = { levelRequirement = 10, },
-		[3] = { levelRequirement = 10, },
-		[4] = { levelRequirement = 10, },
-		[5] = { levelRequirement = 10, },
-		[6] = { levelRequirement = 10, },
-		[7] = { levelRequirement = 10, },
-		[8] = { levelRequirement = 10, },
-		[9] = { levelRequirement = 10, },
-		[10] = { levelRequirement = 10, },
+		[1] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
+		[2] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
+		[3] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
+		[4] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
+		[5] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
+		[6] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
+		[7] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
+		[8] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
+		[9] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
+		[10] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
 	},
 }
 skills["VoidGaze"] = {
