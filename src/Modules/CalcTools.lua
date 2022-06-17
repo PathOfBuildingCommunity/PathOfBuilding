@@ -148,7 +148,7 @@ end
 -- Build table of stats for the given skill instance
 function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 	local stats = { }
-	if skillInstance.quality > 0 then
+	if skillInstance.quality > 0 and grantedEffect.qualityStats then
 		local qualityId = skillInstance.qualityId or "Default"
 		local qualityStats = grantedEffect.qualityStats[qualityId]
 		if not qualityStats then
