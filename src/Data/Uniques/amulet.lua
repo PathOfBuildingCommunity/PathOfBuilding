@@ -923,7 +923,7 @@ Requires Level 54
 Implicits: 1
 {tags:life}(2.0-4.0) Life regenerated per second
 {tags:jewellery_attribute}+(30-40) to Intelligence
-Minions have (-17-17)% to Chaos Resistance
+{tags:jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
 Summon Raging Spirit has (20-30)% increased Duration
 Summoned Raging Spirits deal (60-80)% increased Damage
 {tags:life}Summoned Raging Spirits have (80-100)% increased maximum Life
