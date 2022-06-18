@@ -60,8 +60,8 @@ Implicits: 1
 {tags:mana}+(45-55) to maximum Mana
 {tags:jewellery_defense}+(60-70) to maximum Energy Shield
 {tags:attack,mana,physical}0.2% of Attack Damage Leeched as Mana per Power Charge
-{variant:1}{tags:jewellery_defense}Chill Effect and Freeze duration on you is based on 65% of Energy Shield
-{variant:2}{tags:jewellery_defense}Chill Effect and Freeze duration on you is based on 100% of Energy Shield
+{variant:1}Chill Effect and Freeze duration on you is based on 65% of Energy Shield
+{variant:2}Chill Effect and Freeze duration on you is based on 100% of Energy Shield
 ]],[[
 Bated Breath
 Chain Belt
@@ -132,7 +132,7 @@ Requires Level 61
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:life}+(60-80) to maximum Life
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 Enemy Hits inflict Temporal Chains on you
 When you lose Temporal Chains you gain maximum Rage
 Immune to Curses while you have at least 25 Rage
@@ -178,7 +178,7 @@ Implicits: 1
 Cannot be Frozen if Dexterity is higher than Intelligence
 Cannot be Ignited if Strength is higher than Dexterity
 Cannot be Shocked if Intelligence is higher than Strength
-{tags:life}1% increased Damage per 5 of your lowest Attribute
+1% increased Damage per 5 of your lowest Attribute
 Elder Item
 ]],[[
 Darkness Enthroned
@@ -217,12 +217,12 @@ Implicits: 1
 {variant:1,2,3,5,6,7}{tags:jewellery_resistance}+(30-35)% to Lightning Resistance
 {variant:1}{tags:life,physical}0.2% of Physical Damage Leeched as Life
 {variant:5}{tags:life,physical}0.6% of Physical Damage Leeched as Life
-{variant:2}{tags:life,jewellery_elemental}0.2% of Fire Damage Leeched as Life
-{variant:6}{tags:life,jewellery_elemental}0.6% of Fire Damage Leeched as Life
-{variant:3}{tags:life,jewellery_elemental}0.2% of Cold Damage Leeched as Life
-{variant:7}{tags:life,jewellery_elemental}0.6% of Cold Damage Leeched as Life
-{variant:4}{tags:life,jewellery_elemental}0.2% of Lightning Damage Leeched as Life
-{variant:8}{tags:life,jewellery_elemental}0.6% of Lightning Damage Leeched as Life
+{variant:2}{tags:life}0.2% of Fire Damage Leeched as Life
+{variant:6}{tags:life}0.6% of Fire Damage Leeched as Life
+{variant:3}{tags:life}0.2% of Cold Damage Leeched as Life
+{variant:7}{tags:life}0.6% of Cold Damage Leeched as Life
+{variant:4}{tags:life}0.2% of Lightning Damage Leeched as Life
+{variant:8}{tags:life}0.6% of Lightning Damage Leeched as Life
 {variant:1,5}Your Flasks grant 25% reduced Enemy Stun Threshold during any Flask Effect
 {variant:2}Your Flasks grant 10% chance to Ignite during any Flask Effect
 {variant:6}Your Flasks grant (20-30)% chance to Ignite during any Flask Effect
@@ -405,9 +405,9 @@ Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
 {variant:11,12,13,14,15,16,17,18,19,20}Focus has (30-50)% increased Cooldown Recovery Rate
 (50-70)% increased Damage with Hits and Ailments against Chilled Enemies
 {variant:1,11}{crafted}{tags:life}(1.0-2.0)% of Life Regenerated per second during any Flask Effect
-{variant:2,12}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
-{variant:3,13}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:4,14}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
+{variant:2,12}{crafted}{tags:jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
+{variant:3,13}{crafted}{tags:jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
+{variant:4,14}{crafted}{tags:jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
 {variant:5,15}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
 {variant:6,16}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
 {variant:7,17}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
@@ -426,10 +426,10 @@ Implicits: 1
 {tags:life}+(75-100) to maximum Life
 {tags:life}(67-75) Life Regenerated per second
 {tags:mana}(8-10) Mana Regenerated per second
-{variant:1}−40% to all Elemental Resistances
-{variant:3}−(15-25)% to all Elemental Resistances
-{variant:1}−10% to all maximum Resistances
-{variant:2}−5% to all maximum Resistances
+{variant:1}{tags:jewellery_resistance}−40% to all Elemental Resistances
+{variant:3}{tags:jewellery_resistance}−(15-25)% to all Elemental Resistances
+{variant:1}{tags:jewellery_resistance}−10% to all maximum Resistances
+{variant:2}{tags:jewellery_resistance}−5% to all maximum Resistances
 {tags:physical}−(50-40) Physical Damage taken from Attacks
 {tags:jewellery_defense}40% increased Armour while not Ignited, Frozen or Shocked
 ]],[[
@@ -570,7 +570,7 @@ Implicits: 1
 {tags:life}(4-8)% increased maximum Life
 {tags:jewellery_resistance}+(20-40)% to Cold Resistance
 {tags:attack}1% increased Attack Damage per 200 of the lowest of Armour and Evasion Rating
-{variant:1}{tags:attack}14-20% chance to gain Fortify when you Stun an Enemy with Melee Damage
+{variant:1}14-20% chance to gain Fortify when you Stun an Enemy with Melee Damage
 {variant:2}{tags:attack}Melee Hits which Stun Fortify
 You have Onslaught while you have Fortify
 ]],[[
@@ -581,7 +581,7 @@ Variant: Current
 Requires Level 25
 Implicits: 1
 {tags:physical}(12-24)% increased Physical Damage
-10% increased Elemental Damage with Attack Skills
+{tags:jewellery_elemental,attack}10% increased Elemental Damage with Attack Skills
 {variant:1}{tags:jewellery_elemental,attack}Adds (3-4) to (7-8) Fire Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack}Adds (7-8) to (15-16) Fire Damage to Attacks
 {variant:1}{tags:jewellery_elemental,attack}Adds (2-3) to (5-7) Cold Damage to Attacks
@@ -654,8 +654,8 @@ Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-Minions have 5% chance to Taunt on Hit with Attacks
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:attack}Minions have 5% chance to Taunt on Hit with Attacks
 Your Minions spread Caustic Ground on Death, dealing 20% of their maximum Life as Chaos Damage per second
 ]],[[
 Replica Siegebreaker
@@ -667,7 +667,7 @@ Implicits: 1
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
 {tags:jewellery_resistance}+(15-25)% to Fire Resistance
-Your Minions spread Burning Ground on Death, dealing 20% of their maximum Life as Fire Damage per second
+{tags:jewellery_elemental}Your Minions spread Burning Ground on Death, dealing 20% of their maximum Life as Fire Damage per second
 {tags:attack}Minions have 5% chance to Maim Enemies on Hit with Attacks
 ]],[[
 Soul Tether
@@ -694,7 +694,7 @@ Requires Level 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_attribute}+(20-40) to Strength
-{tags:jewellery_defense}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
+{tags:jewellery_defense,life}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
 Corrupted Soul
 ]],[[
 Soulthirst

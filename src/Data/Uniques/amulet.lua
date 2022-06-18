@@ -30,7 +30,7 @@ Araku Tiki
 Coral Amulet
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
-{tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
+{tags:jewellery_defense}You gain 100 Evasion Rating when on Low Life
 {tags:life}+(30-50) to maximum Life
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {tags:life}1% of Life Regenerated per Second while on Low Life
@@ -42,7 +42,7 @@ Requires Level 36
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
 {tags:jewellery_elemental}(50-70)% increased Fire Damage
-{tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
+{tags:jewellery_defense}You gain 100 Evasion Rating when on Low Life
 {tags:life}+(30-50) to maximum Life
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {tags:life}1% of Life Regenerated per Second while on Low Life
@@ -171,7 +171,7 @@ Implicits: 1
 +1 to Maximum Power Charges
 {tags:mana}10% increased Mana Regeneration Rate Per Power Charge
 {variant:2}(80-100)% increased Power Charge Duration
-{tags:mana}1% of Damage is taken from Mana before Life per Power Charge
+{tags:mana,life}1% of Damage is taken from Mana before Life per Power Charge
 {tags:critical}40% reduced Critical Strike Chance per Power Charge
 ]],[[
 Badge of the Brotherhood
@@ -227,7 +227,7 @@ Implicits: 1
 Grants level 10 Gluttony of Elements Skill
 {tags:attack,chaos}Adds 19-43 Chaos Damage to Attacks
 {tags:jewellery_resistance}−(10-5)% to all Elemental Resistances
-{tags:chaos,jewellery_resistance}+(17-29)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-29)% to Chaos Resistance
 Corrupted
 ]],[[
 Bloodgrip
@@ -294,9 +294,9 @@ Implicits: 1
 {tags:jewellery_defense}50% reduced maximum Energy Shield
 {tags:jewellery_resistance}+(30-40)% to Fire Resistance
 {tags:jewellery_resistance}+(30-40)% to Cold Resistance
-{tags:life,speed}10% increased Movement Speed when on Full Life
+{tags:speed}10% increased Movement Speed when on Full Life
 {tags:attack}+2 to Melee Weapon and Unarmed range
-{tags:attack,life}60% increased Melee Damage when on Full Life
+{tags:attack}60% increased Melee Damage when on Full Life
 ]],[[
 The Ephemeral Bond
 Lapis Amulet
@@ -322,8 +322,8 @@ Implicits: 1
 5% chance to grant Onslaught to nearby Enemies on Kill
 {variant:1}5% chance to gain Unholy Might for 10 seconds on Kill
 {variant:2}10% chance to gain Unholy Might for 10 seconds on Kill
-{variant:1}{tags:caster,attack}5% chance to gain Onslaught for 10 seconds on Kill
-{variant:2}{tags:caster,attack}10% chance to gain Onslaught for 10 seconds on Kill
+{variant:1}5% chance to gain Onslaught for 10 seconds on Kill
+{variant:2}10% chance to gain Onslaught for 10 seconds on Kill
 {tags:life}Recover 1% of Life on Kill
 ]],[[
 Eye of Chayula
@@ -344,7 +344,7 @@ Requires Level 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 30% increased Rarity of Items found
-{tags:chaos,jewellery_resistance}+60% to Chaos Resistance
+{tags:jewellery_resistance}+60% to Chaos Resistance
 Cannot be Stunned
 {tags:jewellery_defense,life}20% of Maximum Life Converted to Energy Shield
 ]],[[
@@ -354,7 +354,7 @@ Source: Drops from unique{Guardian of the Phoenix}
 Requires Level 68
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
-{tags:jewellery_elemental}10% chance to Ignite
+10% chance to Ignite
 (50-70)% increased Damage while Ignited
 {tags:jewellery_elemental}Take 100 Fire Damage when you Ignite an Enemy
 {tags:life}2% of Fire Damage Leeched as Life while Ignited
@@ -482,7 +482,7 @@ Implicits: 1
 {tags:jewellery_elemental}(10-20)% increased Cold Damage
 {tags:jewellery_resistance}+(35-40)% to Cold Resistance
 30% increased Freeze Duration on Enemies
-{tags:jewellery_elemental}10% chance to Freeze
+10% chance to Freeze
 60% increased Damage if you've Frozen an Enemy Recently
 ]],[[
 The Pandemonius
@@ -527,7 +527,7 @@ Grants Level 22 Precision Skill
 +(23-28)% to Global Critical Strike Multiplier
 {tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:1}Precision has 50% less Reservation
-{variant:2}Precision has 100% increased Mana Reservation Efficiency
+{variant:2}{tags:mana}Precision has 100% increased Mana Reservation Efficiency
 ]],[[
 Replica Hyrri's Truth
 Jade Amulet
@@ -544,7 +544,7 @@ Grants Level 22 Hatred Skill
 {tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
 {variant:1}Hatred has 50% less Reservation
-{variant:2}Hatred has 100% increased Mana Reservation Efficiency
+{variant:2}{tags:mana}Hatred has 100% increased Mana Reservation Efficiency
 ]],[[
 The Ignomon
 Gold Amulet
@@ -569,7 +569,7 @@ Implicits: 1
 {tags:jewellery_defense}+(100-150) to Evasion Rating
 {tags:jewellery_resistance}+20% to Fire Resistance
 Your Hits can't be Evaded by Blinded Enemies
-Damage Penetrates 10% Fire Resistance against Blinded Enemies
+{tags:jewellery_elemental}Damage Penetrates 10% Fire Resistance against Blinded Enemies
 ]],[[
 Impresence
 Onyx Amulet
@@ -597,7 +597,7 @@ Implicits: 1
 {variant:2}{tags:jewellery_resistance}+(20-25)% to Fire Resistance
 {variant:3}{tags:jewellery_resistance}+(20-25)% to Cold Resistance
 {variant:4}{tags:jewellery_resistance}+(20-25)% to Lightning Resistance
-{variant:5}{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{variant:5}{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1}Vulnerability has no Reservation if Cast as an Aura
 {variant:2}Flammability has no Reservation if Cast as an Aura
 {variant:3}Frostbite has no Reservation if Cast as an Aura
@@ -678,7 +678,7 @@ Requires Level 48
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-40) to Intelligence
-{tags:chaos,jewellery_resistance}+(23-31)% to Chaos Resistance
+{tags:jewellery_resistance}+(23-31)% to Chaos Resistance
 {variant:1}{tags:caster}(10-15)% increased Effect of your Curses
 {variant:2}{tags:caster}(5-10)% increased Effect of your Curses
 {variant:1}(10-15)% increased effect of Non-Curse Auras from your Skills
@@ -767,9 +767,9 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:life}+(40-80) to maximum Life
 {tags:mana}+(20-40) to maximum Mana
-{tags:jewellery_elemental}20% increased Duration of Elemental Ailments on Enemies
+20% increased Duration of Elemental Ailments on Enemies
 Items and Gems have 10% reduced Attribute Requirements
-{tags:jewellery_elemental}5% chance to Freeze, Shock and Ignite
+5% chance to Freeze, Shock and Ignite
 Cannot gain Power Charges
 ]],[[
 Retaliation Charm
@@ -853,7 +853,7 @@ Variant: Current
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
 {tags:jewellery_resistance}+25% to Cold Resistance
-{variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
+{tags:mana,physical,attack}{variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
 {tags:life}Minions have (10-15)% increased maximum Life
 {tags:speed}Minions have (10-15)% increased Movement Speed
 {tags:jewellery_elemental}{variant:3}Minions deal 6 to 13 additional Cold Damage
@@ -873,7 +873,7 @@ Implicits: 1
 {tags:life}+(50-70) to maximum Life
 {variant:1}{tags:mana}(2-3) Mana Regenerated per second
 {variant:2}{tags:mana}(8-10) Mana Regenerated per second
-{tags:mana}Temporal Chains has no Reservation if Cast as an Aura
+Temporal Chains has no Reservation if Cast as an Aura
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
 Star of Wraeclast
@@ -923,7 +923,7 @@ Requires Level 54
 Implicits: 1
 {tags:life}(2.0-4.0) Life regenerated per second
 {tags:jewellery_attribute}+(30-40) to Intelligence
-{tags:chaos,jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
+Minions have (-17-17)% to Chaos Resistance
 Summon Raging Spirit has (20-30)% increased Duration
 Summoned Raging Spirits deal (60-80)% increased Damage
 {tags:life}Summoned Raging Spirits have (80-100)% increased maximum Life
@@ -966,7 +966,7 @@ Socketed Support Gems can also Support Skills from your Body Armour
 {tags:jewellery_resistance}+(-30-30)% to Fire Resistance
 {tags:jewellery_resistance}+(-30-30)% to Cold Resistance
 {tags:jewellery_resistance}+(-30-30)% to Lightning Resistance
-{tags:chaos,jewellery_resistance}+(-23-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(-23-23)% to Chaos Resistance
 ]],[[
 Victario's Acuity
 Turquoise Amulet
@@ -975,7 +975,7 @@ Requires Level 16
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
 {tags:jewellery_resistance}+(30-40)% to Lightning Resistance
-{tags:chaos,jewellery_resistance}+(8-10)% to Chaos Resistance
+{tags:jewellery_resistance}+(8-10)% to Chaos Resistance
 10% chance to gain a Frenzy Charge on Kill
 10% chance to gain a Power Charge on Kill
 {tags:speed}5% increased Projectile Speed per Frenzy Charge
@@ -1041,7 +1041,7 @@ Implicits: 1
 {tags:speed}12% increased Movement Speed
 {variant:1}(8-12)% reduced Skill Effect Duration
 {variant:2}(10-15)% reduced Skill Effect Duration
-30% increased total Recovery per second from Life, Mana, or Energy Shield Leech
+{tags:life,jewellery_defense}30% increased total Recovery per second from Life, Mana, or Energy Shield Leech
 ]],[[
 Willowgift
 Jade Amulet
@@ -1077,7 +1077,7 @@ Implicits: 1
 (12-20)% increased Rarity of Items found
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_defense}+(50-70) to maximum Energy Shield
-{tags:jewellery_elemental}+75% to Lightning Resistance
+{tags:jewellery_resistance}+75% to Lightning Resistance
 {tags:jewellery_defense}Regenerate 5% of Energy Shield per second while Shocked
 Unaffected by Shock
 ]],[[
@@ -1119,7 +1119,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(10-20)% to Cold Resistance
 {tags:jewellery_resistance}+(20-40)% to Lightning Resistance
 30% reduced Duration of Ailments on Enemies
-{tags:jewellery_elemental}(5-10)% chance to Shock
+(5-10)% chance to Shock
 Enemies take 5% increased Damage for each type of Ailment you have inflicted on them
 Your Elemental Damage can Shock
 ]],
