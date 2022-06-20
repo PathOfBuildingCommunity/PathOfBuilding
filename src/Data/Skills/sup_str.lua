@@ -1165,10 +1165,8 @@ skills["SupportCruelty"] = {
 		["support_cruelty_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
-		["cruelty_effect_+%"] = {
-			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" }),
-			div = 100,
-			base = 1,
+		["hits_grant_cruelty"] = {
+			mod("Damage", "MORE", 1, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" }),
 		},
 	},
 	baseMods = {
