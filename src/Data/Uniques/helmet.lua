@@ -1199,6 +1199,7 @@ Iron Mask
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Pre 3.7.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 17, 21 Dex, 21 Int
 (15-30)% increased Spell Damage
@@ -1214,6 +1215,7 @@ Malachai's Awakening
 Iron Mask
 Source: Drops from any endgame map boss
 Variant: Pre 3.7.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 60, 21 Dex, 21 Int
 (15-30)% increased Spell Damage

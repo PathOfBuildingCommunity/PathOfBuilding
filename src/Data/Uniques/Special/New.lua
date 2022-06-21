@@ -6,53 +6,55 @@ data.uniques.new = {
 
 -- New
 [[
-Soul Ascension
-Carnal Mitts
-137% increased Evasion and Energy Shield
-+26% to Chaos Resistance
-Eat a Soul when you Hit a unique Enemy, no more than once every second
-Lose an Eaten Soul every 3 seconds while no Unique Enemy is in your Presence
-Maximum 50 Eaten Souls
-]],[[
-Ghostwrithe
-Silken Vest
-+137 to maximum Energy Shield
-+96 to maximum Life
-+50% to Chaos Resistance
-50% of Maximum Life Converted to Energy Shield
-]],[[
-Kalandra's Touch
-Iron Ring
-League: Kalandra
-Reflects your other Ring
-Mirrored
-]],[[
-Kaom's Spirit
-Titan Gauntlets
-League: Kalandra
-+(50-70) to Maximum Life
-+(20-30)% to Fire Resistance
-0.44% of Physical Attack Damage Leeched as Life
-Life Recovery from Regeneration is not applied
-Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
-]],[[
-The Poised Prism
-Primal Arrow Quiver
+The Burden of Truth
+Crystal Belt
+Requires Level 79
 Implicits: 1
-(20-30)% increased Elemental Damage with Attack Skills
-+(15-25)% to Fire Resistance
-+(15-25)% to Cold Resistance
-+(15-25)% to Lightning Resistance
-Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
-Adds 1 to 2 Fire Damage to Attacks per 10 Strength
-Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
+{tags:jewellery_defense}+(60-80) to maximum Energy Shield
+{tags:life}(30-40)% increased Life Recovery from Flasks
+33% of Chaos Damage taken does not bypass Energy Shield
+33% of Non-Chaos Damage taken bypasses Energy Shield
+{tags:jewellery_defense}Gain (5-10)% of Maximum Life as Extra Maximum Energy Shield
+Supreme Decadence
 ]],[[
-Elevore
-Wolf Pelt
-+23% chance to Suppress Spell Damage
-85% increased Evasion Rating
-22% chance to Avoid Elemental Ailments
-Recover 176 Life when you Suppress Spell Damage
+Echoes of Creation
+Royal Burgonet
+Shaper Item
+Requires Level 65, 148 Str
+Socketed Warcry Skills have +1 Cooldown Use
+(80-120)% increased Armour
++(50-70) to maximum Life
+When you Attack, take (15-20)% of Life as Physical Damage for
+each Warcry Exerting the Attack
+Skills deal (10-15)% more Damage for each Warcry Exerting them
+]],[[
+The Eternal Struggle
+Onyx Amulet
+Searing Exarch Item
+Eater of Worlds Item
+Requires Level 61
+Implicits: 2
+9% increased Mana Reservation Efficiency of Skills
+{tags:speed}6% increased Movement Speed
+{tags:jewellery_attribute}+(20-50) to Strength
+{tags:jewellery_attribute}+(20-50) to Dexterity
+{tags:jewellery_attribute}+(20-50) to Intelligence
+{tags:jewellery_defense}(10-15)% increased Global Defences
+Critical Strikes inflict Malignant Madness if The Eater of Worlds is dominant
+Kill Enemies that have 15% or lower Life on Hit if The Searing Exarch is dominant
+]],[[
+Call of the Void
+Sapphire Ring
+Shaper Item
+Elder Item
+Requires Level 16
+Implicits: 1
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+All Damage with Hits can Chill
+All Damage Taken from Hits can Chill you
+Enemies Chilled by your Hits can be Shattered as though Frozen
+Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect
 ]]
 -- Reworked
 

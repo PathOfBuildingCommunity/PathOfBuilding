@@ -299,7 +299,7 @@ return {
 				</EditedNode>
 				<EditedNode editorSeed="927" icon="Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds" nodeName="Might of the Vaal" nodeId="11420">
 					7% increased Fire Damage
-					6% increased maxmium Mana
+					6% increased maximum Mana
 					+11% to Lightning Resistance
 				</EditedNode>
 				<EditedNode editorSeed="927" icon="Art/2DArt/SkillIcons/passives/VaalOffensive.dds" nodeName="Critical Strike Multiplier" nodeId="37569">
@@ -1563,7 +1563,6 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ["LightningTakenReflect"] = 1,
 ["FireTakenHitMult"] = 0.2,
 ["LowestOfArmourAndEvasion"] = 45,
-["MoreArmourChance"] = 0,
 ["EnergyShieldLeech"] = 591.4,
 ["ChaosMinBase"] = 0,
 ["FireMindOverMatter"] = 0,

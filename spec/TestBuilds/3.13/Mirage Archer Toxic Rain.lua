@@ -431,7 +431,7 @@ return {
 				</EditedNode>
 				<EditedNode editorSeed="927" icon="Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds" nodeName="Might of the Vaal" nodeId="11420">
 					7% increased Fire Damage
-					6% increased maxmium Mana
+					6% increased maximum Mana
 					+11% to Lightning Resistance
 				</EditedNode>
 				<EditedNode editorSeed="927" icon="Art/2DArt/SkillIcons/passives/VaalOffensive.dds" nodeName="Critical Strike Multiplier" nodeId="37569">
@@ -1429,7 +1429,6 @@ Implicits: 0
 ["TotalDotDPS"] = 11807832.8408,
 ["ColdGuardAbsorbRate"] = 0,
 ["RageCost"] = 0,
-["MoreArmourChance"] = 0,
 ["WithIgniteDPS"] = 75852.3487,
 ["FireResist"] = 76,
 ["RemovableFrenzyCharges"] = 4,

@@ -327,6 +327,9 @@ return {
 	mod("ManaCost", "INC", nil),
 	mult = -1,
 },
+["base_mana_cost_+"] = {
+	mod("ManaCostNoMult", "BASE", nil),
+},
 ["no_mana_cost"] = {
 	mod("ManaCost", "MORE", nil),
 	value = -100,
@@ -884,6 +887,10 @@ return {
 ["ignite_duration_+%"] = {
 	mod("EnemyIgniteDuration", "INC", nil),
 },
+["lightning_ailment_duration_+%"] = {
+	mod("EnemyShockDuration", "INC", nil),
+	mod("EnemySapDuration", "INC", nil),
+},
 ["shock_duration_+%"] = {
 	mod("EnemyShockDuration", "INC", nil),
 },
@@ -987,6 +994,24 @@ return {
 ["base_deal_no_chaos_damage"] = {
 	flag("DealNoChaos"),
 },
+["all_damage_can_ignite"] = {
+	flag("PhysicalCanIgnite"),
+	flag("LightningCanIgnite"),
+	flag("ColdCanIgnite"),
+	flag("ChaosCanIgnite"),
+},
+["all_damage_can_freeze"] = {
+	flag("PhysicalCanFreeze"),
+	flag("LightningCanFreeze"),
+	flag("FireCanFreeze"),
+	flag("ChaosCanFreeze"),
+},
+["all_damage_can_shock"] = {
+	flag("PhysicalCanShock"),
+	flag("ColdCanShock"),
+	flag("FireCanShock"),
+	flag("ChaosCanShock"),
+},
 -- Other effects
 ["enemy_phys_reduction_%_penalty_vs_hit"] = {
 	mod("EnemyPhysicalDamageReduction", "BASE", nil),
@@ -1026,7 +1051,10 @@ return {
 	mod("EnemyCurseLimit", "BASE", nil),
 },
 ["consecrated_ground_enemy_damage_taken_+%"] = {
-	mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "OnConsecratedGround" }),
+	mod("DamageTakenConsecratedGround", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "OnConsecratedGround" }),
+},
+["consecrated_ground_effect_+%"] = {
+	mod("ConsecratedGroundEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 },
 ["base_inflict_cold_exposure_on_hit_%_chance"] = {
 	mod("ColdExposureChance", "BASE", nil),
@@ -1364,6 +1392,9 @@ return {
 --
 -- Trap
 ["support_trap_damage_+%_final"] = {
+	mod("Damage", "MORE", nil, 0, KeywordFlag.Trap),
+},
+["trap_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Trap),
 },
 ["number_of_additional_traps_allowed"] = {
@@ -1571,7 +1602,7 @@ return {
 },
 -- Aura
 ["non_curse_aura_effect_+%"] = {
-	mod("AuraEffect", "INC", nil),
+	mod("AuraEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }),
 },
 ["base_mana_reservation_+%"] = {
 	mod("ManaReserved", "INC", nil)
@@ -1604,6 +1635,8 @@ return {
 },
 ["sigil_repeat_frequency_+%"] = {
 	mod("BrandActivationFrequency", "INC", nil)
+},
+["additive_cast_speed_modifiers_apply_to_sigil_repeat_frequency"] = {
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {
