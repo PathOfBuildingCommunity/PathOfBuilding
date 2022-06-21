@@ -340,20 +340,34 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				end--For Loop End
 
 
-
-				print(TempStoreDamage)
+				
 				if(tonumber(TempStorePhysicalDamageReduction) ~= 0)then
 					ExportAuraString = ExportAuraString .. ("+" .. TempStorePhysicalDamageReduction .. "% Physical Damage Reduction\n")	--increased damage is additive
 				end
 				TempStoreAttackSpeed = TempStoreAttackSpeed + TempStoreSpeed
 				TempStoreCastSpeed = TempStoreCastSpeed + TempStoreSpeed
-				ExportAuraString = ExportAuraString .. (TempStoreDamage .. "% increased Damage\n")	--increased damage is additive
-				ExportAuraString = ExportAuraString ..(TempStoreAttackSpeed .. "% increased Attack Speed\n")
-				ExportAuraString = ExportAuraString ..(TempStoreCastSpeed .. "% increased Cast Speed\n")
-				ExportAuraString = ExportAuraString .. (LightningMinSmite .. " to " .. LightningMaxSmite .. " added Lightning Damage\n")
-				ExportAuraString = ExportAuraString .. (LightningMin .. " to " .. LightningMax .. " Additional Lightning Damage with Attacks\n")
-				ExportAuraString = ExportAuraString .. (FireAttackMin .. " to " .. FireAttackMax .. " Additional Fire Damage with Attacks\n")
-				ExportAuraString = ExportAuraString .. (FireSpellMin .. " to " .. FireSpellMax .. " Additional Fire Damage with Spells\n")
+				if(tonumber(TempStoreDamage) ~= 0)then
+					print("asdf")
+					ExportAuraString = ExportAuraString .. (TempStoreDamage .. "% increased Damage\n")	--increased damage is additive
+				end
+				if(tonumber(TempStoreAttackSpeed) ~= 0)then
+					ExportAuraString = ExportAuraString ..(TempStoreAttackSpeed .. "% increased Attack Speed\n")
+				end
+				if(tonumber(TempStoreCastSpeed) ~= 0)then
+					ExportAuraString = ExportAuraString ..(TempStoreCastSpeed .. "% increased Cast Speed\n")
+				end
+				if(tonumber(LightningMaxSmite) ~= 0)then
+					ExportAuraString = ExportAuraString .. (LightningMinSmite .. " to " .. LightningMaxSmite .. " added Lightning Damage\n")
+				end
+				if(tonumber(LightningMax) ~= 0)then
+					ExportAuraString = ExportAuraString .. (LightningMin .. " to " .. LightningMax .. " Additional Lightning Damage with Attacks\n")
+				end
+				if(tonumber(FireAttackMax) ~= 0)then
+					ExportAuraString = ExportAuraString .. (FireAttackMin .. " to " .. FireAttackMax .. " Additional Fire Damage with Attacks\n")
+				end
+				if(tonumber(FireSpellMax) ~= 0)then
+					ExportAuraString = ExportAuraString .. (FireSpellMin .. " to " .. FireSpellMax .. " Additional Fire Damage with Spells\n")
+				end
 				Copy(ExportAuraString)
 				print(ExportAuraString)
 
