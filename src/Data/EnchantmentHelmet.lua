@@ -156,11 +156,9 @@ return {
 	["Assassin's Mark"] = {
 		["MERCILESS"] = {
 			"20% increased Assassin's Mark Curse Effect",
-			"30% increased Assassin's Mark Duration",
 		},
 		["ENDGAME"] = {
 			"30% increased Assassin's Mark Curse Effect",
-			"45% increased Assassin's Mark Duration",
 		},
 	},
 	["Ball Lightning"] = {
@@ -1785,11 +1783,9 @@ return {
 	["Poacher's Mark"] = {
 		["MERCILESS"] = {
 			"20% increased Poacher's Mark Curse Effect",
-			"30% increased Poacher's Mark Duration",
 		},
 		["ENDGAME"] = {
 			"30% increased Poacher's Mark Curse Effect",
-			"45% increased Poacher's Mark Duration",
 		},
 	},
 	["Poisonous Concoction"] = {
@@ -2237,11 +2233,9 @@ return {
 	["Sniper's Mark"] = {
 		["MERCILESS"] = {
 			"Sniper's Mark has 20% increased Curse Effect",
-			"Sniper's Mark has 30% increased Duration",
 		},
 		["ENDGAME"] = {
 			"Sniper's Mark has 30% increased Curse Effect",
-			"Sniper's Mark has 45% increased Duration",
 		},
 	},
 	["Soul Link"] = {
@@ -2824,11 +2818,9 @@ return {
 	["Warlord's Mark"] = {
 		["MERCILESS"] = {
 			"20% increased Warlord's Mark Curse Effect",
-			"30% increased Warlord's Mark Duration",
 		},
 		["ENDGAME"] = {
 			"30% increased Warlord's Mark Curse Effect",
-			"45% increased Warlord's Mark Duration",
 		},
 	},
 	["Wave of Conviction"] = {

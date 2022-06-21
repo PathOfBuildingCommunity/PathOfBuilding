@@ -299,8 +299,7 @@ local skills, mod, flag, skill = ...
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["chain_strike_cone_radius_+_per_x_rage"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 5 }),
-			div = 5,
+			mod("AreaOfEffect", "BASE", 1, 0, 0, { type = "Multiplier", var = "Rage" , div = nil }),
 		},
 	},
 #baseMod skill("radius", 24)
@@ -358,9 +357,6 @@ local skills, mod, flag, skill = ...
 		},
 		["base_physical_damage_reduction_rating"] = {
 			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["base_avoid_stun_%"] = {
-			mod("AvoidStun", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["evasion_rating_%_to_add_as_armour"] = {
 			mod("EvasionGainAsArmour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
@@ -639,7 +635,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill HeraldOfPurity
-#flags spell minion duration
+#flags spell minion
 	minionList = {
 		"AxisEliteSoldierHeraldOfLight",
 	},
@@ -1081,7 +1077,6 @@ local skills, mod, flag, skill = ...
 		{
 			name = "Area Hit",
 			area = true,
-			melee = false,
 		},
 	},
 	statMap = {

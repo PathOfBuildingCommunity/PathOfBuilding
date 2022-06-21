@@ -202,7 +202,6 @@ the "Releases" section of the GitHub page.]])
 	self.showThousandsSeparators = true
 	self.thousandsSeparator = ","
 	self.decimalSeparator = "."
-	self.defaultItemAffixQuality = 0.5
 	self.showTitlebarName = true
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
@@ -518,10 +517,7 @@ function main:LoadSettings(ignoreBuild)
 					self.defaultGemQuality = m_min(tonumber(node.attrib.defaultGemQuality) or 0, 23)
 				end
 				if node.attrib.defaultCharLevel then
-					self.defaultCharLevel = m_min(m_max(tonumber(node.attrib.defaultCharLevel) or 1, 1), 100)
-				end
-				if node.attrib.defaultItemAffixQuality then
-					self.defaultItemAffixQuality = m_min(tonumber(node.attrib.defaultItemAffixQuality) or 0.5, 1)
+					self.defaultCharLevel = m_min(tonumber(node.attrib.defaultCharLevel) or 1, 100)
 				end
 				if node.attrib.lastExportWebsite then
 					self.lastExportWebsite = node.attrib.lastExportWebsite
@@ -532,10 +528,6 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.slotOnlyTooltips then
 					self.slotOnlyTooltips = node.attrib.slotOnlyTooltips == "true"
 				end
-				if node.attrib.invertSliderScrollDirection then
-					self.invertSliderScrollDirection = node.attrib.invertSliderScrollDirection == "true"
-				end
-				
 			end
 		end
 	end
@@ -586,11 +578,9 @@ function main:SaveSettings()
 		betaTest = tostring(self.betaTest),
 		defaultGemQuality = tostring(self.defaultGemQuality or 0),
 		defaultCharLevel = tostring(self.defaultCharLevel or 1),
-		defaultItemAffixQuality = tostring(self.defaultItemAffixQuality or 0.5),
 		lastExportWebsite = self.lastExportWebsite,
 		showWarnings = tostring(self.showWarnings),
 		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
-		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -623,6 +613,8 @@ function main:OpenOptionsPopup()
 
 	local defaultLabelSpacingPx = -4
 	local defaultLabelPlacementX = 240
+
+
 
 	drawSectionHeader("app", "Application options")
 
@@ -672,6 +664,7 @@ function main:OpenOptionsPopup()
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
 
+
 	nextRow()
 	controls.betaTest = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Opt-in to weekly beta test builds:", function(state)
 		self.betaTest = state
@@ -703,7 +696,7 @@ function main:OpenOptionsPopup()
 	end)
 
 	nextRow()
-	controls.defaultGemQuality = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 80, 20, self.defaultGemQuality, nil, "%D", 2, function(gemQuality)
+	controls.defaultGemQuality = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 60, 20, self.defaultGemQuality, nil, "%D", 2, function(gemQuality)
 		self.defaultGemQuality = m_min(tonumber(gemQuality) or 0, 23)
 	end)
 	controls.defaultGemQuality.tooltipText = "Set the default quality that can be overwritten by build-related quality settings in the skill panel."
@@ -711,42 +704,24 @@ function main:OpenOptionsPopup()
 
 	nextRow()
 	controls.defaultCharLevel = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 80, 20, self.defaultCharLevel, nil, "%D", 3, function(charLevel)
-		self.defaultCharLevel = m_min(m_max(tonumber(charLevel) or 1, 1), 100)
+		self.defaultCharLevel = m_min(tonumber(charLevel) or 1, 100)
 	end)
-	controls.defaultCharLevel.tooltipText = "Set the default character level that can be overwritten by build-related level settings."
+	controls.defaultCharLevel.tooltipText = "Set the default char level that can be overwritten by build-related level settings."
 	controls.defaultCharLevelLabel = new("LabelControl", { "RIGHT", controls.defaultCharLevel, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Default character level:")
 
 	nextRow()
-	controls.defaultItemAffixQualitySlider = new("SliderControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 200, 20, function(value)
-		self.defaultItemAffixQuality = round(value, 2)
-		controls.defaultItemAffixQualityValue.label = (self.defaultItemAffixQuality * 100) .. "%"
-	end)
-	controls.defaultItemAffixQualityLabel = new("LabelControl", { "RIGHT", controls.defaultItemAffixQualitySlider, "LEFT" }, defaultLabelSpacingPx, 0, 92, 16, "^7Default item affix quality:")
-	controls.defaultItemAffixQualityValue = new("LabelControl", { "LEFT", controls.defaultItemAffixQualitySlider, "RIGHT" }, -defaultLabelSpacingPx, 0, 92, 16, "50%")
-	controls.defaultItemAffixQualitySlider.val = self.defaultItemAffixQuality
-	controls.defaultItemAffixQualityValue.label = (self.defaultItemAffixQuality * 100) .. "%"
-
-	nextRow()
-	controls.showWarnings = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show build warnings:", function(state)
+	controls.showWarnings = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show build warnings:", function(state)
 		self.showWarnings = state
 	end)
-	controls.showWarnings.state = self.showWarnings
-
 	nextRow()
-	controls.slotOnlyTooltips = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show tooltips only for affected slots:", function(state)
+	controls.slotOnlyTooltips = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show tooltips only for affected slots:", function(state)
 		self.slotOnlyTooltips = state
 	end)
-	controls.slotOnlyTooltips.state = self.slotOnlyTooltips
-	
-	nextRow()
-	controls.invertSliderScrollDirection = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Invert slider scroll direction:", function(state)
-		self.invertSliderScrollDirection = state
-	end)
-	controls.invertSliderScrollDirection.tooltipText = "Default scroll direction is:\nScroll Up = Move right\nScroll Down = Move left"
-	controls.invertSliderScrollDirection.state = self.invertSliderScrollDirection
 
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
+	controls.showWarnings.state = self.showWarnings
+	controls.slotOnlyTooltips.state = self.slotOnlyTooltips
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
@@ -755,10 +730,8 @@ function main:OpenOptionsPopup()
 	local initialBetaTest = self.betaTest
 	local initialDefaultGemQuality = self.defaultGemQuality or 0
 	local initialDefaultCharLevel = self.defaultCharLevel or 1
-	local initialDefaultItemAffixQuality = self.defaultItemAffixQuality or 0.5
-	local initialShowWarnings = self.showWarnings
+	local initialshowWarnings = self.showWarnings
 	local initialSlotOnlyTooltips = self.slotOnlyTooltips
-	local initialInvertSliderScrollDirection = self.invertSliderScrollDirection
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -796,10 +769,8 @@ function main:OpenOptionsPopup()
 		self.betaTest = initialBetaTest
 		self.defaultGemQuality = initialDefaultGemQuality
 		self.defaultCharLevel = initialDefaultCharLevel
-		self.defaultItemAffixQuality = initialDefaultItemAffixQuality
-		self.showWarnings = initialShowWarnings
+		self.showWarnings = initialshowWarnings
 		self.slotOnlyTooltips = initialSlotOnlyTooltips
-		self.invertSliderScrollDirection = initialInvertSliderScrollDirection
 		main:ClosePopup()
 	end)
 	nextRow(1.5)
@@ -829,22 +800,18 @@ end
 function main:OpenUpdatePopup()
 	local changeList = { }
 	local changelogName = launch.devMode and "../changelog.txt" or "changelog.txt"
-	local changelogFile = io.open(changelogName, "r")
-	if changelogFile then
-		changelogFile:close()
-		for line in io.lines(changelogName) do
-			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
-			if ver then
-				if ver == launch.versionNumber then
-					break
-				end
-				if #changeList > 0 then
-					t_insert(changeList, { height = 12 })
-				end
-				t_insert(changeList, { height = 20, "^7Version "..ver.." ("..date..")" })
-			else
-				t_insert(changeList, { height = 14, "^7"..line })
+	for line in io.lines(changelogName) do
+		local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
+		if ver then
+			if ver == launch.versionNumber then
+				break
 			end
+			if #changeList > 0 then
+				t_insert(changeList, { height = 12 })
+			end
+			t_insert(changeList, { height = 20, "^7Version "..ver.." ("..date..")" })
+		else
+			t_insert(changeList, { height = 14, "^7"..line })
 		end
 	end
 	local controls = { }
@@ -865,28 +832,24 @@ end
 function main:OpenAboutPopup()
 	local changeList = { }
 	local changelogName = launch.devMode and "../changelog.txt" or "changelog.txt"
-	local changelogFile = io.open(changelogName, "r")
-	if changelogFile then
-		changelogFile:close()
-		for line in io.lines(changelogName) do
-			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
-			if ver then
-				if #changeList > 0 then
-					t_insert(changeList, { height = 10 })
-				end
-				t_insert(changeList, { height = 18, "^7Version "..ver.." ("..date..")" })
-			else
-				t_insert(changeList, { height = 12, "^7"..line })
+	for line in io.lines(changelogName) do
+		local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
+		if ver then
+			if #changeList > 0 then
+				t_insert(changeList, { height = 10 })
 			end
+			t_insert(changeList, { height = 18, "^7Version "..ver.." ("..date..")" })
+		else
+			t_insert(changeList, { height = 12, "^7"..line })
 		end
 	end
 	local controls = { }
 	controls.close = new("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
 		self:ClosePopup()
 	end)
-	controls.version = new("LabelControl", nil, 0, 18, 0, 18, "^7Path of Building Community Fork v"..launch.versionNumber)
-	controls.forum = new("LabelControl", nil, 0, 36, 0, 18, "^7Based on Openarl's Path of Building")
-	controls.github = new("ButtonControl", nil, 0, 62, 438, 18, "^7GitHub page: ^x4040FFhttps://github.com/PathOfBuildingCommunity/PathOfBuilding", function(control)
+	controls.version = new("LabelControl", nil, 0, 18, 0, 18, "Path of Building Community Fork v"..launch.versionNumber)
+	controls.forum = new("LabelControl", nil, 0, 36, 0, 18, "Based on Openarl's Path of Building")
+	controls.github = new("ButtonControl", nil, 0, 62, 438, 18, "GitHub page: ^x4040FFhttps://github.com/PathOfBuildingCommunity/PathOfBuilding", function(control)
 		OpenURL("https://github.com/PathOfBuildingCommunity/PathOfBuilding")
 	end)
 	controls.verLabel = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 10, 82, 0, 18, "^7Version history:")

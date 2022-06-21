@@ -10685,8 +10685,8 @@ return {
 				[1]={
 					limit={
 						[1]={
-							[1]="#",
-							[2]="#"
+							[1]=1,
+							[2]=1
 						}
 					},
 					text="Attacks with Supported Skills count as Exerted"
@@ -10694,7 +10694,7 @@ return {
 			}
 		},
 		stats={
-			[1]="is_empowered"
+			[1]="number_of_warcries_exerting_this_action"
 		}
 	},
 	[369]={
@@ -10945,7 +10945,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Supported Skill have {0}% increased Effect of Maim"
+					text="Supported Skills have {0}% increased Effect of Maim"
 				},
 				[2]={
 					[1]={
@@ -10958,7 +10958,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Supported Skill have {0}% reduced Effect of Maim"
+					text="Supported Skills have {0}% reduced Effect of Maim"
 				}
 			}
 		},
@@ -18087,7 +18087,6 @@ return {
 	["infusion_grants_life_regeneration_rate_per_minute_%"]=365,
 	["inspiration_charge_duration_+%"]=366,
 	["intensity_loss_frequency_while_moving_+%"]=367,
-	["is_empowered"]=368,
 	["is_ranged_attack_totem"]=52,
 	["is_remote_mine"]=46,
 	["is_totem"]=52,
@@ -18176,6 +18175,7 @@ return {
 	["number_of_chains"]=74,
 	["number_of_mines_to_place"]=46,
 	["number_of_totems_to_summon"]=52,
+	["number_of_warcries_exerting_this_action"]=368,
 	["onslaught_time_granted_on_killing_shocked_enemy_ms"]=430,
 	["overpowered_effect_+%"]=431,
 	["overwhelm_%_physical_damage_reduction_while_max_fortification"]=432,
