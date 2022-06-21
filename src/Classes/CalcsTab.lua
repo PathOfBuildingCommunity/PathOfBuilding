@@ -220,6 +220,101 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 						local NewString = string.gsub(t[1], " base", "")
 						ExportAuraString = ExportAuraString .. (NewString .. " to Accuracy Rating\n")
 					end
+					
+					if(string.find(t[2],"Fire Resist"))then
+						if(string.find(t[2],"Max"))then
+							local NewString = string.gsub(t[1], " base", "")
+							local NewString2 = string.gsub(NewString,"+", "")
+							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Maximum Fire Resistance\n")--Max Fire Res
+						else
+							local NewString = string.gsub(t[1], " base", "")
+							local NewString2 = string.gsub(NewString,"+", "")
+							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Fire Resistance\n")--Fire Res
+						end
+					end
+					
+					if(string.find(t[2],"Cold Resist"))then
+						if(string.find(t[2],"Max"))then
+							local NewString = string.gsub(t[1], " base", "")
+							local NewString2 = string.gsub(NewString,"+", "")
+							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Maximum Cold Resistance\n")--Max Cold Res
+						else
+							local NewString = string.gsub(t[1], " base", "")
+							local NewString2 = string.gsub(NewString,"+", "")
+							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Cold Resistance\n")--Fire Res
+						end
+					end
+					
+					if(string.find(t[2],"Lightning Resist"))then
+						if(string.find(t[2],"Max"))then
+							local NewString = string.gsub(t[1], " base", "")
+							local NewString2 = string.gsub(NewString,"+", "")
+							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Maximum Lightning Resistance\n")--Max Fire Res
+						else
+							local NewString = string.gsub(t[1], " base", "")
+							local NewString2 = string.gsub(NewString,"+", "")
+							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Lightning Resistance\n")--Fire Res
+						end
+					end
+
+					if(string.find(t[2],"Elemental Resist"))then
+						local NewString = string.gsub(t[1], " base", "")
+						local NewString2 = string.gsub(NewString,"+", "")
+						ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to all Elemental Resistances\n")--Fire Res
+					end
+										
+					if(string.find(t[2],"Mana Regen"))then --Clarity
+						local NewString = string.gsub(t[1], " base", "")
+						local NewString2 = string.gsub(NewString,"+", "")
+						ExportAuraString = ExportAuraString .. ("Regenerate " .. NewString2 .. " Mana per second\n")
+					end
+
+					if(string.find(t[2],"Life Regen"))then --Vitality
+						local NewString = string.gsub(t[1], " base", "")
+						local NewString2 = string.gsub(NewString,"+", "")
+						ExportAuraString = ExportAuraString .. ("Regenerate " .. NewString2 .. " Life per second\n")
+					end
+					
+					if(string.find(t[2],"Armour"))then
+						if(string.find(t[2],"And Evasion"))then --Defiance Banner
+							ExportAuraString = ExportAuraString .. (t[1] .. " Armour and Evasion\n")
+						else
+							if string.find(t[2],"Evasion Gain As")then --alt determination
+							local NewString = string.gsub(t[1], " base", "")
+							ExportAuraString = ExportAuraString .. "you and nearby allies gain " .. (NewString .. "% of evasion rating as extra armour\n")
+							else
+								if (string.find(t[1],"more"))then--first effect determination
+									ExportAuraString = ExportAuraString .. (t[1] .. " Armour\n")--Determination First Effect
+								else
+									local NewString = string.gsub(t[1], " base", "")
+									ExportAuraString = ExportAuraString .. (NewString .. " to Armour\n")--Determination Second Effect
+								end
+							end
+						end
+					end
+
+					if(string.find(t[2],"Energy Shield"))then --Discipline Hander
+						if(string.find(t[2],"Recharge"))then--Second part of discipline
+							ExportAuraString = ExportAuraString .. (t[1] .. " Energy Shield Recharge Rate\n")
+						else--first part of discipline
+							local NewString = string.gsub(t[1], " base", "")
+							ExportAuraString = ExportAuraString .. (NewString .. " to maximum Energy Shield\n")--Discipline Second Effect
+						end
+					end
+
+					if(string.find(t[2],"Evasion"))then --Grace Handler
+						if(string.find(t[2],"Armour"))then
+							--dodge armour case
+						else --Grace Handlers
+							if (string.find(t[1],"more"))then--first effect Grace
+								ExportAuraString = ExportAuraString .. (t[1] .. " Evasion\n")--Grace First Effect
+							else
+								local NewString = string.gsub(t[1], " base", "")
+								ExportAuraString = ExportAuraString .. (NewString .. " to Evasion\n")--Grace Second Effect
+							end
+						end
+					end
+
 
 
 
