@@ -79,6 +79,8 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				TempStoreCastSpeed = 0
 				TempStoreAttackSpeed = 0
 
+				TempStorePhysicalDamageReduction = 0
+
 				ExportAuraString = ""
 
 				ExportAuraString = ExportAuraString .. "Aura Bot\n"
@@ -133,7 +135,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 											if(string.find(t[2],"Avoid"))then
 											else
 											local NewString = string.gsub(t[1], "%% increased", "")
-											print(NewString)
+											--print(NewString)
 											TempStoreDamage = TempStoreDamage +  tonumber(NewString)
 										end
 									end--reduction
@@ -320,7 +322,13 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 						local NewString2 = string.gsub(NewString,"+", "")
 						ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% Chance to Evade\n")--Vaal Grace
 					end
-
+				
+					if(string.find(t[2],"Physical Damage Reduction"))then
+						local NewString = string.gsub(t[1], " base", "")
+						local NewString2 = string.gsub(NewString,"+", "")
+						print(NewString2)
+						TempStorePhysicalDamageReduction = TempStorePhysicalDamageReduction + tonumber(NewString2)
+					end
 
 
 
@@ -334,8 +342,12 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				end--For Loop End
 
 
-
+				print(TempStorePhysicalDamageReduction)
+				print("asdf")
 				print(TempStoreDamage)
+				if(tonumber(TempStorePhysicalDamageReduction) ~= 0)then
+					ExportAuraString = ExportAuraString .. ("+" .. TempStorePhysicalDamageReduction .. "% Physical Damage Reduction\n")	--increased damage is additive
+				end
 				TempStoreAttackSpeed = TempStoreAttackSpeed + TempStoreSpeed
 				TempStoreCastSpeed = TempStoreCastSpeed + TempStoreSpeed
 				ExportAuraString = ExportAuraString .. (TempStoreDamage .. "% increased Damage\n")	--increased damage is additive
