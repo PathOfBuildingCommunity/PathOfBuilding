@@ -462,6 +462,9 @@ table.insert(data.uniques.generated, table.concat(impossibleEscape, "\n"))
 		-- Has only a version when it changed
 	- Mod changed/removed, but isn't legacy
 		-- Has empty table to exclude it from the list
+
+	4th scenario: Mod was changed (not legacy), but the mod ID (aka Variant name) no longer reflects the mod
+		-- Has 'rename' field to customize the name
 ]]
 local watchersEyeLegacyMods = {
 	["ClarityManaAddedAsEnergyShield"] = {
@@ -504,6 +507,12 @@ local watchersEyeLegacyMods = {
 	},
 	["WrathLightningDamageManaLeech"] = {
 		["version"] = "3.8.0",
+	},
+	["GraceChanceToDodge"] = {
+		["rename"] = "Haste: Chance to Suppress Spells",
+	},
+	["HasteChanceToDodgeSpells"] = {
+		["rename"] = "Haste: Chance to Suppress Spells",
 	},
 	["PurityOfFireReducedReflectedFireDamage"] = { },
 	["PurityOfIceReducedReflectedColdDamage"] = { },
@@ -554,6 +563,9 @@ for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 			if watchersEyeLegacyMods[mod.Id].legacyMod then
 				table.insert(watchersEye, "Variant:" .. variantName)
 			end
+			if watchersEyeLegacyMods[mod.Id].rename then
+				table.insert(watchersEye, "Variant: " .. watchersEyeLegacyMods[mod.Id].rename)
+			end
 		else
 			table.insert(watchersEye, "Variant:" .. variantName)
 		end
@@ -578,7 +590,7 @@ for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 				table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. watchersEyeLegacyMods[mod.Id].legacyMod(mod.mod[1]))
 				indexWatchersEye = indexWatchersEye + 1
 			end
-			if watchersEyeLegacyMods[mod.Id].version then
+			if watchersEyeLegacyMods[mod.Id].version or watchersEyeLegacyMods[mod.Id].rename then
 				table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. mod.mod[1])
 				indexWatchersEye = indexWatchersEye + 1
 			end
