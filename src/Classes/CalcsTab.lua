@@ -28,6 +28,7 @@ function mysplit (inputstr, sep)
 end
 
 
+
 local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()
@@ -60,8 +61,9 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				end
 			}
 		}, },
+
 		{
-			
+
 			label = "Auras", {controlName = "AuraExport",
 			control = new("ButtonControl", nil, 0, 0, 100, 16,"Export Aura Jewel", function()
 
@@ -78,20 +80,19 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				TempStoreSpeed = 0
 				TempStoreCastSpeed = 0
 				TempStoreAttackSpeed = 0
-
 				TempStorePhysicalDamageReduction = 0
 
 				ExportAuraString = ""
 
 				ExportAuraString = ExportAuraString .. "Aura Bot\n"
 				ExportAuraString = ExportAuraString ..  "Prismatic Jewel\n"
-				
+
 				for i = 1, _G.GlobalArrayLen do
 					t = mysplit(_G.GlobalArray[i],":")
 					--print(t[1])
 
-				
-					
+
+
 					if(string.find(t[2],"Fire Max")) then
 						if(string.find(t[3],"Spell"))then
 							--print(t[1])
@@ -135,7 +136,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 											if(string.find(t[2],"Avoid"))then
 											else
 											local NewString = string.gsub(t[1], "%% increased", "")
-											--print(NewString)
+											print(NewString)
 											TempStoreDamage = TempStoreDamage +  tonumber(NewString)
 										end
 									end--reduction
@@ -222,7 +223,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 						local NewString = string.gsub(t[1], " base", "")
 						ExportAuraString = ExportAuraString .. (NewString .. " to Accuracy Rating\n")
 					end
-					
+
 					if(string.find(t[2],"Fire Resist"))then
 						if(string.find(t[2],"Max"))then
 							local NewString = string.gsub(t[1], " base", "")
@@ -234,7 +235,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Fire Resistance\n")--Fire Res
 						end
 					end
-					
+
 					if(string.find(t[2],"Cold Resist"))then
 						if(string.find(t[2],"Max"))then
 							local NewString = string.gsub(t[1], " base", "")
@@ -246,7 +247,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Cold Resistance\n")--Fire Res
 						end
 					end
-					
+
 					if(string.find(t[2],"Lightning Resist"))then
 						if(string.find(t[2],"Max"))then
 							local NewString = string.gsub(t[1], " base", "")
@@ -264,7 +265,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 						local NewString2 = string.gsub(NewString,"+", "")
 						ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to all Elemental Resistances\n")--Fire Res
 					end
-										
+
 					if(string.find(t[2],"Mana Regen"))then --Clarity
 						local NewString = string.gsub(t[1], " base", "")
 						local NewString2 = string.gsub(NewString,"+", "")
@@ -276,7 +277,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 						local NewString2 = string.gsub(NewString,"+", "")
 						ExportAuraString = ExportAuraString .. ("Regenerate " .. NewString2 .. " Life per second\n")
 					end
-					
+
 					if(string.find(t[2],"Armour"))then
 						if(string.find(t[2],"And Evasion"))then --Defiance Banner
 							ExportAuraString = ExportAuraString .. (t[1] .. " Armour and Evasion\n")
@@ -322,7 +323,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 						local NewString2 = string.gsub(NewString,"+", "")
 						ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% Chance to Evade\n")--Vaal Grace
 					end
-				
+
 					if(string.find(t[2],"Physical Damage Reduction"))then
 						local NewString = string.gsub(t[1], " base", "")
 						local NewString2 = string.gsub(NewString,"+", "")
@@ -335,15 +336,11 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 
 
 
-					
-
-
 
 				end--For Loop End
 
 
-				print(TempStorePhysicalDamageReduction)
-				print("asdf")
+
 				print(TempStoreDamage)
 				if(tonumber(TempStorePhysicalDamageReduction) ~= 0)then
 					ExportAuraString = ExportAuraString .. ("+" .. TempStorePhysicalDamageReduction .. "% Physical Damage Reduction\n")	--increased damage is additive
@@ -369,7 +366,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			--	for _, section in ipairs(sectionData) do
 			--		self:NewSection(unpack(section))
 			--	end
-			
+
 			--breakdown = SkillBuffs
 			--section.controls.mode:SelByValue(self.input.misc_buffMode, "buffMode")
 			--self.calcsTab:SetDisplayStat(mOverComp, true)
@@ -379,12 +376,14 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 
 			--self.displayData = displayData
 			--self.displayPinned = pin
-		
+
 			--self.controls.breakdown:SetBreakdownData(displayData, pin)
 			--print(self.displayData)
 			--Copy(displayData)
 			end)
 		} },
+
+
 		{ label = "Active Skill", { controlName = "mainSkill", 
 			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
@@ -484,6 +483,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 	self.controls.breakdown = new("CalcBreakdownControl", self)
 
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
+	self.powerBuilderInitialized = nil
 end)
 
 function CalcsTabClass:Load(xml, dbFileName)
@@ -899,6 +899,7 @@ function CalcsTabClass:PowerBuilder()
 		end
 	end
 	self.powerMax = newPowerMax
+	self.powerBuilderInitialized = true
 	--ConPrintf("Power Build time: %d ms", GetTime() - timer_start)
 end
 
