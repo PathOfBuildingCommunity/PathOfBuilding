@@ -315,6 +315,12 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 						end
 					end
 
+					if(string.find(t[2],"Evade Chance"))then
+						local NewString = string.gsub(t[1], " base", "")
+						local NewString2 = string.gsub(NewString,"+", "")
+						ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% Chance to Evade\n")--Vaal Grace
+					end
+
 
 
 
