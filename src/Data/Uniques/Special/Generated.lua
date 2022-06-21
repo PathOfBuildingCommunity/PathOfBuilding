@@ -509,7 +509,7 @@ local watchersEyeLegacyMods = {
 		["version"] = "3.8.0",
 	},
 	["GraceChanceToDodge"] = {
-		["rename"] = "Haste: Chance to Suppress Spells",
+		["rename"] = "Grace: Chance to Suppress Spells",
 	},
 	["HasteChanceToDodgeSpells"] = {
 		["rename"] = "Haste: Chance to Suppress Spells",
