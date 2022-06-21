@@ -3,6 +3,10 @@
 -- Class: Calc Breakdown Control
 -- Calculation breakdown control used in the Calcs tab
 --
+
+_G.GlobalArray = {}
+_G.GlobalArrayLen = 0
+
 local t_insert = table.insert
 local m_max = math.max
 local m_min = math.min
@@ -103,8 +107,7 @@ function CalcBreakdownClass:SetBreakdownData(displayData, pinned)
 			end
 			if section.footer then
 				self.contentWidth = m_max(self.contentWidth, 6 + DrawStringWidth(12, "VAR", section.footer))
-				local _, lines = string.gsub(section.footer, "\n", "\n") -- counts newlines in the string
-				section.height = section.height + 12 * (lines + 1)
+				section.height = section.height + 12
 			end
 		end
 		self.contentWidth = m_max(self.contentWidth, section.width)
@@ -286,6 +289,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			{ label = "Source Name", key = "sourceName" },
 		},
 	}
+	GlobalArray = {}
 	t_insert(self.sectionList, section)
 
 	if not modList and not sectionData.modType then
@@ -348,6 +352,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 		end
 	end
 
+	local combVal = ""
 	-- Process modifier data
 	for _, row in ipairs(rowList) do
 		if not sectionData.modType then
@@ -409,6 +414,14 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			end
 			table.sort(flagNames)
 			row.flags = table.concat(flagNames, ", ")
+			
+			combVal = row.displayValue .. ":" .. row.name .. ":" .. row.flags .. ":" .. row.sourceName
+			table.insert(GlobalArray, combVal)
+			GlobalArrayLen = #GlobalArray
+		else
+			combVal = row.displayValue .. ":" .. row.name .. ":" .. row.mod.flags .. ":" .. row.sourceName
+			table.insert(GlobalArray, combVal)
+			GlobalArrayLen = #GlobalArray
 		end
 		row.tags = nil
 		if row.mod[1] then
