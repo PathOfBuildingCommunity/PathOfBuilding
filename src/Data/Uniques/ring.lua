@@ -148,9 +148,9 @@ Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
 10% chance to Cause Monsters to Flee
 {variant:1}Melee Attacks cause Bleeding
-{variant:2}{tags:attack,physical_damage}(30-50)% chance to cause Bleeding on Melee Hit
+{variant:2}{tags:attack,physical}(30-50)% chance to cause Bleeding on Melee Hit
 {variant:1}Melee Attacks Poison on Hit
-{variant:2}{tags:attack}(20-40)% chance to Poison on Melee Hit
+{variant:2}{tags:attack,chaos}(20-40)% chance to Poison on Melee Hit
 ]],[[
 Bloodboil
 Coral Ring
@@ -584,7 +584,7 @@ Implicits: 2
 {tags:jewellery_resistance}+10% to all Elemental Resistances
 {tags:speed}(6-8)% increased Movement Speed when on Low Life
 31% increased Light Radius
-{tags:jewellery_resistance}+(20-25)% Chaos Resistance when on Low Life
+{tags:chaos,jewellery_resistance}+(20-25)% Chaos Resistance when on Low Life
 While on Low Life, Enemies are Unlucky when Damaging you
 ]],[[
 Malachai's Artifice
