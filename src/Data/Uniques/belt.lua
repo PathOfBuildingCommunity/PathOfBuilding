@@ -45,7 +45,7 @@ Implicits: 1
 {tags:attack,jewellery_elemental}(10-20)% increased Elemental Damage with Attack Skills
 {tags:mana}+(45-55) to maximum Mana
 {tags:jewellery_defense}+(60-70) to maximum Energy Shield
-{tags:attack,mana,physical}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
+{tags:attack,mana,physical_damage}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
 Chill and Freeze duration on you is based on 65% of Energy Shield
 ]],[[
 Auxium
@@ -59,7 +59,7 @@ Implicits: 1
 {variant:2}{tags:attack,jewellery_elemental}(20-25)% increased Elemental Damage with Attack Skills per Power Charge
 {tags:mana}+(45-55) to maximum Mana
 {tags:jewellery_defense}+(60-70) to maximum Energy Shield
-{tags:attack,mana,physical}0.2% of Attack Damage Leeched as Mana per Power Charge
+{tags:attack,mana,physical_damage}0.2% of Attack Damage Leeched as Mana per Power Charge
 {variant:1}Chill Effect and Freeze duration on you is based on 65% of Energy Shield
 {variant:2}Chill Effect and Freeze duration on you is based on 100% of Energy Shield
 ]],[[
@@ -94,10 +94,10 @@ League: Harvest
 Requires Level 68
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
-{tags:attack,physical}Adds (5-7) to (11-12) Physical Damage to Attacks
+{tags:attack,physical_damage}Adds (5-7) to (11-12) Physical Damage to Attacks
 (20-30)% increased Stun Duration on Enemies
 Nearby Enemies are Crushed while you have at least 25 Rage
-{tags:physical}(4-6)% increased Physical Damage per 10 Rage
+{tags:physical_damage}(4-6)% increased Physical Damage per 10 Rage
 +20 to Maximum Rage
 ]],[[
 Belt of the Deceiver
@@ -108,7 +108,7 @@ Requires Level 20
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {variant:1}10% reduced Chance to Block Attacks and Spells
-{tags:physical}(15-25)% increased Physical Damage
+{tags:physical_damage}(15-25)% increased Physical Damage
 {tags:critical}You take 30% reduced Extra Damage from Critical Strikes
 {tags:life}+(30-40) to maximum Life
 {variant:1}{tags:jewellery_resistance}+(6-10)% to all Elemental Resistances
@@ -207,7 +207,7 @@ Variant: Current (Lightning)
 Requires Level 68
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
-{variant:1,5}{tags:physical}(20-30)% increased Physical Damage
+{variant:1,5}{tags:physical_damage}(20-30)% increased Physical Damage
 {variant:2,6}{tags:jewellery_elemental}(20-30)% increased Fire Damage
 {variant:3,7}{tags:jewellery_elemental}(20-30)% increased Cold Damage
 {variant:4,8}{tags:jewellery_elemental}(20-30)% increased Lightning Damage
@@ -215,8 +215,8 @@ Implicits: 1
 {variant:1,3,4,5,7,8}{tags:jewellery_resistance}+(30-35)% to Fire Resistance
 {variant:1,2,4,5,6,8}{tags:jewellery_resistance}+(30-35)% to Cold Resistance
 {variant:1,2,3,5,6,7}{tags:jewellery_resistance}+(30-35)% to Lightning Resistance
-{variant:1}{tags:life,physical}0.2% of Physical Damage Leeched as Life
-{variant:5}{tags:life,physical}0.6% of Physical Damage Leeched as Life
+{variant:1}{tags:life,physical_damage}0.2% of Physical Damage Leeched as Life
+{variant:5}{tags:life,physical_damage}0.6% of Physical Damage Leeched as Life
 {variant:2}{tags:life}0.2% of Fire Damage Leeched as Life
 {variant:6}{tags:life}0.6% of Fire Damage Leeched as Life
 {variant:3}{tags:life}0.2% of Cold Damage Leeched as Life
@@ -265,7 +265,7 @@ Rustic Sash
 League: Talisman Standard, Talisman Hardcore
 Requires Level 18
 Implicits: 1
-{tags:physical}(12-24)% increased Physical Damage
+{tags:physical_damage}(12-24)% increased Physical Damage
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 60% increased Flask effect duration
 Deals 50 Chaos Damage per second to nearby Enemies
@@ -277,10 +277,10 @@ Rustic Sash
 League: Talisman Standard, Talisman Hardcore
 Requires Level 11
 Implicits: 1
-{tags:physical}(12-24)% increased Physical Damage
-{tags:attack,physical}Adds 5 to 10 Physical Damage to Attacks
+{tags:physical_damage}(12-24)% increased Physical Damage
+{tags:attack,physical_damage}Adds 5 to 10 Physical Damage to Attacks
 {tags:life}+(20-40) to maximum Life
-{tags:attack,life,physical}0.2% of Physical Attack Damage Leeched as Life
+{tags:attack,life,physical_damage}0.2% of Physical Attack Damage Leeched as Life
 50% increased Flask Charges gained while using a Flask
 {tags:mana}50% increased Mana Regeneration while using a Flask
 ]],[[
@@ -329,7 +329,7 @@ Implicits: 1
 {variant:2}You have Culling Strike against Cursed Enemies
 {variant:2}(20-28) Life gained for each Cursed Enemy hit by your Attacks
 {variant:2}(10-14) Mana gained for each Cursed Enemy hit by your Attacks
-{tags:physical}Take (100-200) Physical Damage when you use a Movement Skill
+{tags:physical_damage}Take (100-200) Physical Damage when you use a Movement Skill
 You have no Armour or Maximum Energy Shield
 ]],[[
 Graven's Secret
