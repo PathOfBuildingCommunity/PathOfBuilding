@@ -116,20 +116,20 @@ Amethyst Ring
 League: Ritual
 Requires Level 49
 Implicits: 1
-{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {tags:jewellery_elemental}+(8-12)% to Fire Damage over Time Multiplier
 50% reduced Ignite Duration on Enemies
 (10-15)% chance to Ignite
 Enemies Ignited by you take Chaos Damage instead of Fire Damage from Ignite
 Withered does not expire on Enemies Ignited by you
-{tags:jewellery_resistance}+(20-25)% to Fire and Chaos Resistances
+{tags:chaos,jewellery_resistance}+(20-25)% to Fire and Chaos Resistances
 ]],[[
 Blackheart
 Iron Ring
 Implicits: 1
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
-{tags:physical}5% increased Physical Damage
-{tags:attack,chaos}Adds 1 to 3 Chaos Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
+{tags:physical_damage}5% increased Physical Damage
+{tags:attack,chaos_damage}Adds 1 to 3 Chaos Damage to Attacks
 {tags:life}+(20-30) to maximum Life
 {tags:life}(2-4) Life Regenerated per second
 10% chance to Cause Monsters to Flee
@@ -141,14 +141,14 @@ Variant: Pre 2.4.0
 Variant: Pre 3.17.0
 Requires Level 48
 Implicits: 1
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
-{tags:physical}5% increased Physical Damage
-{tags:attack,chaos}Adds 1 to 3 Chaos Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
+{tags:physical_damage}5% increased Physical Damage
+{tags:attack,chaos_damage}Adds 1 to 3 Chaos Damage to Attacks
 {tags:life}+(20-30) to maximum Life
 {tags:life}(2-4) Life Regenerated per second
 10% chance to Cause Monsters to Flee
 {variant:1}Melee Attacks cause Bleeding
-{variant:2}{tags:attack,physical}(30-50)% chance to cause Bleeding on Melee Hit
+{variant:2}{tags:attack,physical_damage}(30-50)% chance to cause Bleeding on Melee Hit
 {variant:1}Melee Attacks Poison on Hit
 {variant:2}{tags:attack}(20-40)% chance to Poison on Melee Hit
 ]],[[
@@ -280,13 +280,13 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Sentinel Damage
 Variant: Damage Reduction
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
-{tags:physical}Adds (8-10) to (13-15) Physical Damage
+{tags:physical_damage}Adds (8-10) to (13-15) Physical Damage
 {tags:jewellery_defense}+(350-400) to Armour
 {variant:1}{tags:mana}Herald of Purity has (60-80)% increased Mana Reservation Efficiency
 {variant:2}{tags:mana}Herald of Purity has (30-40)% increased Mana Reservation Efficiency
-{variant:3}{tags:physical}(40-60)% increased Physical Damage while affected by Herald of Purity
+{variant:3}{tags:physical_damage}(40-60)% increased Physical Damage while affected by Herald of Purity
 {variant:4}Herald of Purity has (70-100)% increased Buff Effect
 {variant:5}Herald of Purity has (40-60)% increased Buff Effect
 {variant:6}Sentinels of Purity deal (70-100)% increased Damage
@@ -306,17 +306,17 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Agony Damage
 Variant: Chaos Resistance
-{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
-{tags:chaos}Adds (15-20) to (21-30) Chaos Damage
-{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:chaos_damage}Adds (15-20) to (21-30) Chaos Damage
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1}{tags:mana}Herald of Agony has (60-80)% increased Mana Reservation Efficiency
 {variant:2}{tags:mana}Herald of Agony has (30-40)% increased Mana Reservation Efficiency
-{variant:3}{tags:chaos}(40-60)% increased Chaos Damage while affected by Herald of Agony
+{variant:3}{tags:chaos_damage}(40-60)% increased Chaos Damage while affected by Herald of Agony
 {variant:4}Herald of Agony has (70-100)% increased Buff Effect
 {variant:5}Herald of Agony has (40-60)% increased Buff Effect
 {variant:6}Agony Crawler deals (70-100)% increased Damage
-{variant:7}{tags:jewellery_resistance}+(31-43)% to Chaos Resistance while affected by Herald of Agony
+{variant:7}{tags:chaos,jewellery_resistance}+(31-43)% to Chaos Resistance while affected by Herald of Agony
 ]],[[
 Circle of Regret
 Topaz Ring
@@ -351,13 +351,13 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 46
 Implicits: 1
-{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {tags:attack}+(300-350) to Accuracy Rating
 {tags:jewellery_defense}{variant:1}+(60-80) to Armour
 {tags:jewellery_defense}{variant:2}+(260-300) to Armour
 {variant:2}{tags:life}+(40-50) to maximum Life
-{tags:jewellery_resistance}+(15-20)% to Chaos Resistance
-{tags:attack,life,physical}(0.6-0.8)% of Physical Attack Damage Leeched as Life
+{tags:chaos,jewellery_resistance}+(15-20)% to Chaos Resistance
+{tags:attack,life,physical_damage}(0.6-0.8)% of Physical Attack Damage Leeched as Life
 {variant:1}You gain Onslaught for 2 seconds on Kill
 {variant:2}You gain Onslaught for 4 seconds on Kill
 ]],[[
@@ -479,7 +479,7 @@ Implicits: 1
 {tags:mana}(20-40)% increased Mana Regeneration Rate
 {tags:life}Minions have 15% increased maximum Life
 Minions have 10% increased Area of Effect of Area Skills
-350 Physical Damage taken on Minion Death
+{tags:physical_damage}350 Physical Damage taken on Minion Death
 ]],[[
 The Highwayman
 Gold Ring
@@ -507,7 +507,7 @@ Iron Ring
 Requires Level: 49
 Implicits: 1
 League: Blight
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:chaos}25% chance to Poison on Hit
 {tags:chaos}(40-60)% increased Damage with Poison
@@ -522,7 +522,7 @@ Variant: Current
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {tags:jewellery_attribute}+(10-20) to Strength
-{variant:1}{tags:attack,life,physical}0.4% of Physical Attack Damage Leeched as Life
+{variant:1}{tags:attack,life,physical_damage}0.4% of Physical Attack Damage Leeched as Life
 {variant:2}{tags:attack,life}+(2-4) Life gained for each Enemy hit by your Attacks
 +1 Maximum Endurance Charge
 ]],[[
@@ -563,7 +563,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24
 Implicits: 1
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
 {variant:1}(10-20)% increased Damage
 {variant:2}(10-30)% increased Damage
 {variant:1}{tags:jewellery_attribute}+(10-20) to all Attributes
@@ -628,7 +628,7 @@ Steel Ring
 Source: Drops from unique{The Elder} (Uber)
 Requires Level 80
 Implicits: 1
-{tags:attack,physical}Adds (3-4) to (10-14) Physical Damage to Attacks
+{tags:attack,physical_damage}Adds (3-4) to (10-14) Physical Damage to Attacks
 {tags:jewellery_elemental,attack}Adds (26-32) to (42-48) Cold Damage to Attacks
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
@@ -658,15 +658,15 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 69
 Implicits: 1
-{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1}{tags:life}15% reduced maximum Life
 {variant:2}{tags:life}10% reduced maximum Life
 {variant:3}{tags:life}(5-10)% reduced maximum Life
 {variant:1}{tags:jewellery_defense}15% reduced maximum Energy Shield
 {variant:2}{tags:jewellery_defense}10% reduced maximum Energy Shield
 {variant:3}{tags:jewellery_defense}(5-10)% reduced maximum Energy Shield
-{tags:jewellery_resistance}+(40-50)% to Chaos Resistance
-{tags:chaos,physical}Gain 20% of Physical Damage as Extra Chaos Damage
+{tags:chaos,jewellery_resistance}+(40-50)% to Chaos Resistance
+{tags:chaos_damage,physical_damage}Gain 20% of Physical Damage as Extra Chaos Damage
 ]],[[
 Mokou's Embrace
 Ruby Ring
@@ -693,7 +693,7 @@ Has 1 Socket
 {variant:2,3}+3 to Level of Socketed Golem Gems
 {variant:1}Socketed Gems are Supported by Level 13 Faster Attacks
 {variant:2,3}Socketed Golem Skills have 20% increased Attack and Cast Speed
-{tags:attack,physical}Adds (5-10) to (11-15) Physical Damage to Attacks
+{tags:attack,physical_damage}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack,speed}(5-10)% increased Attack Speed
 {variant:1}(1-2)% chance to Dodge Attack Hits
 {variant:2}(3-5)% chance to Dodge Attack Hits
@@ -872,7 +872,7 @@ Implicits: 1
 {tags:critical}{variant:2}+(10-15)% to Global Critical Strike Multiplier
 {tags:critical}{variant:3}+(15-25)% to Global Critical Strike Multiplier
 {tags:mana}+(40-60) to maximum Mana
-{tags:attack,mana,physical}0.4% of Physical Attack Damage Leeched as Mana
+{tags:attack,mana,physical_damage}0.4% of Physical Attack Damage Leeched as Mana
 Gain a Power Charge on non-Critical Strike
 Lose all Power Charges on Critical Strike
 ]],[[
@@ -1001,7 +1001,7 @@ Variant: Current
 Requires Level 20
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
-{variant:1}{tags:attack,jewellery_elemental,physical}Adds 10 to 15 Physical Damage to Attacks against Frozen Enemies
+{variant:1}{tags:attack,jewellery_elemental,physical_damage}Adds 10 to 15 Physical Damage to Attacks against Frozen Enemies
 {variant:2}{tags:jewellery_elemental}Adds 40 to 60 Cold Damage against Chilled Enemies
 {variant:1}{tags:jewellery_elemental,attack}Adds (5-6) to (7-9) Cold Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack,caster}Adds (7-10) to (15-20) Cold Damage to Spells and Attacks
@@ -1186,10 +1186,10 @@ Iron Ring
 Requires Level: 49
 Implicits: 1
 League: Blight
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
 {tags:jewellery_attribute}+(20-30) to Strength
 {tags:attack,physical}25% chance to cause Bleeding on Hit
-{tags:attack,physical}(40-60)% increased Damage with Bleeding
+{tags:attack,physical_damage}(40-60)% increased Damage with Bleeding
 You are Chilled while you are Bleeding
 Non-Chilled Enemies you inflict Bleeding on are Chilled
 Bleeding Enemies you Kill with Hits Shatter
@@ -1240,9 +1240,9 @@ Has 1 Socket
 {tags:jewellery_attribute}+(15-25) to all Attributes
 {tags:life}15 Life Regenerated per second for each Uncorrupted Item Equipped
 {tags:mana}-2 to Total Mana Cost of Skills for each Corrupted Item Equipped
-{variant:1,12}{crafted}{tags:jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
-{variant:2,13}{crafted}{tags:jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:3,14}{crafted}{tags:jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
+{variant:1,12}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
+{variant:2,13}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
+{variant:3,14}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
 {variant:4,15}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
 {variant:5,16}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
 {variant:6,17}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
@@ -1272,8 +1272,8 @@ The Warden's Brand
 Iron Ring
 Requires Level 30
 Implicits: 1
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
-{tags:attack,physical}Adds (5-15) to (25-50) Physical Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
+{tags:attack,physical_damage}Adds (5-15) to (25-50) Physical Damage to Attacks
 {tags:attack,speed}30% reduced Attack Speed
 15% chance to gain a Frenzy Charge when you Stun an Enemy
 ]],[[

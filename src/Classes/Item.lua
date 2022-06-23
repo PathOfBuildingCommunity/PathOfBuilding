@@ -18,7 +18,7 @@ local catalystTags = {
 	{ "life", "mana", "resource" },
 	{ "caster" },
 	{ "jewellery_attribute", "attribute" },
-	{ "physical", "chaos" },
+	{ "physical_damage", "chaos_damage" },
 	{ "jewellery_resistance", "resistance" },
 	{ "jewellery_defense", "defences" },
 	{ "jewellery_elemental" ,"elemental_damage" },

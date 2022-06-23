@@ -23,8 +23,8 @@ Implicits: 1
 +3% to maximum Block Chance
 {variant:1}10% Chance to Block
 {variant:2,3}8% Chance to Block
-{tags:physical}{variant:1}Reflects 200 to 250 Physical Damage to Attackers on Block
-{tags:physical}{variant:2,3}Reflects 240 to 300 Physical Damage to Attackers on Block
+{tags:physical_damage}{variant:1}Reflects 200 to 250 Physical Damage to Attackers on Block
+{tags:physical_damage}{variant:2,3}Reflects 240 to 300 Physical Damage to Attackers on Block
 ]],[[
 Araku Tiki
 Coral Amulet
@@ -72,7 +72,7 @@ Requires Level 20
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {tags:jewellery_attribute}+(80-100) to all Attributes
-{tags:attack,physical}-4 Physical Damage taken from Attacks
+{tags:attack,physical_damage}-4 Physical Damage taken from Attacks
 ]],[[
 Atziri's Foible
 Paua Amulet
@@ -225,9 +225,9 @@ Requires Level 20
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
 Grants level 10 Gluttony of Elements Skill
-{tags:attack,chaos}Adds 19-43 Chaos Damage to Attacks
+{tags:attack,chaos_damage}Adds 19-43 Chaos Damage to Attacks
 {tags:jewellery_resistance}−(10-5)% to all Elemental Resistances
-{tags:jewellery_resistance}+(17-29)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-29)% to Chaos Resistance
 Corrupted
 ]],[[
 Bloodgrip
@@ -237,7 +237,7 @@ Variant: Current
 Requires Level 55
 Implicits: 1
 {tags:life}(2.0-4.0) Life Regenerated per second
-{tags:attack,physical}Adds 10 to 20 Physical Damage to Attacks
+{tags:attack,physical_damage}Adds 10 to 20 Physical Damage to Attacks
 {tags:life}+(60-70) to maximum Life
 {variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
 {variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
@@ -251,7 +251,7 @@ Variant: Current
 Requires Level 74
 Implicits: 1
 {tags:life}(1.2-1.6)% of Life Regenerated per second
-{tags:attack,physical}Adds 10 to 20 Physical Damage to Attacks
+{tags:attack,physical_damage}Adds 10 to 20 Physical Damage to Attacks
 {tags:life}+(60-70) to maximum Life
 {variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
 {variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
@@ -269,7 +269,7 @@ Implicits: 1
 {tags:life}{variant:1}25% reduced maximum Life
 {tags:jewellery_defense}{variant:1}25% reduced maximum Energy Shield
 {tags:jewellery_resistance}+(10-20)% to all Elemental Resistances
-{tags:attack,life,physical}(1.2-2)% of Physical Attack Damage Leeched as Life
+{tags:attack,life,physical_damage}(1.2-2)% of Physical Attack Damage Leeched as Life
 {tags:life}{variant:2}(30-40)% increased Damage while Leeching
 {tags:life}{variant:2}50% increased Life Leeched per second
 Extra Gore
@@ -344,7 +344,7 @@ Requires Level 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 30% increased Rarity of Items found
-{tags:jewellery_resistance}+60% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+60% to Chaos Resistance
 Cannot be Stunned
 {tags:jewellery_defense,life}20% of Maximum Life Converted to Energy Shield
 ]],[[
@@ -463,13 +463,13 @@ Variant: Current
 Requires Level 77
 Implicits: 1
 {tags:mana}(48-56)% increased Mana Regeneration Rate
-{tags:life}0.5% of Chaos Damage Leeched as Life
+{tags:life,chaos}0.5% of Chaos Damage Leeched as Life
 {tags:caster,life}Lose (10-15) Life for each Enemy hit by your Spells
 {tags:attack,life}Lose (20-25) Life for each Enemy hit by your Attacks
 Skills Chain +1 times
 {tags:speed}{variant:2}(30-40)% increased Projectile Speed
-{variant:1}{tags:chaos}Projectiles gain (15-20)% of Non-Chaos Damage as extra Chaos Damage per Chain
-{variant:2}{tags:chaos}Projectiles that have Chained gain (20-35)% of Non-Chaos Damage as extra Chaos Damage
+{variant:1}{tags:chaos_damage}Projectiles gain (15-20)% of Non-Chaos Damage as extra Chaos Damage per Chain
+{variant:2}{tags:chaos_damage}Projectiles that have Chained gain (20-35)% of Non-Chaos Damage as extra Chaos Damage
 ]],[[
 The Halcyon
 Jade Amulet
@@ -522,10 +522,10 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Precision Skill
 {tags:jewellery_attribute}+(25-35) to Dexterity
-{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
+{tags:attack,physical_damage}Adds (12-15) to (24-28) Physical Damage to Attacks
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 +(23-28)% to Global Critical Strike Multiplier
-{tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
+{tags:attack,life,physical_damage}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:1}Precision has 50% less Reservation
 {variant:2}{tags:mana}Precision has 100% increased Mana Reservation Efficiency
 ]],[[
@@ -539,7 +539,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Hatred Skill
 {tags:jewellery_attribute}+(25-35) to Dexterity
-{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
+{tags:attack,physical_damage}Adds (12-15) to (24-28) Physical Damage to Attacks
 {tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 {tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
@@ -582,11 +582,11 @@ Variant: Chaos
 Requires Level 64
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
-{variant:1}{tags:attack,physical}Adds (12-16) to (20-25) Physical Damage
+{variant:1}{tags:attack,physical_damage}Adds (12-16) to (20-25) Physical Damage
 {variant:2}{tags:jewellery_elemental}Adds (20-24) to (33-36) Fire Damage
 {variant:3}{tags:jewellery_elemental}Adds (20-24) to (33-36) Cold Damage
 {variant:4}{tags:jewellery_elemental}Adds (10-13) to (43-47) Lightning Damage
-{variant:5}{tags:chaos}Adds (17-19) to (23-29) Chaos Damage
+{variant:5}{tags:chaos_damage}Adds (17-19) to (23-29) Chaos Damage
 {tags:life}+(50-70) to maximum Life
 {variant:1}{tags:jewellery_defense}+(400-500) to Armour
 {variant:2}{tags:life}Regenerate 1% of Life per second
@@ -597,7 +597,7 @@ Implicits: 1
 {variant:2}{tags:jewellery_resistance}+(20-25)% to Fire Resistance
 {variant:3}{tags:jewellery_resistance}+(20-25)% to Cold Resistance
 {variant:4}{tags:jewellery_resistance}+(20-25)% to Lightning Resistance
-{variant:5}{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{variant:5}{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1}Vulnerability has no Reservation if Cast as an Aura
 {variant:2}Flammability has no Reservation if Cast as an Aura
 {variant:3}Frostbite has no Reservation if Cast as an Aura
@@ -667,8 +667,8 @@ Implicits: 1
 {tags:life}(4-8)% increased maximum Life
 (25-30)% chance to gain a Frenzy Charge on Killing an Enemy affected by 5 or more Poisons
 (12-15)% chance to gain a Power Charge on Killing an Enemy affected by fewer than 5 Poisons
-{tags:chaos}10% increased Damage with Poison per Frenzy Charge
-{tags:chaos}3% increased Poison Duration per Power Charge
+{tags:chaos_damage}10% increased Damage with Poison per Frenzy Charge
+{tags:chaos_damage}3% increased Poison Duration per Power Charge
 ]],[[
 The Jinxed Juju
 Citrine Amulet
@@ -678,7 +678,7 @@ Requires Level 48
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-40) to Intelligence
-{tags:jewellery_resistance}+(23-31)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(23-31)% to Chaos Resistance
 {variant:1}{tags:caster}(10-15)% increased Effect of your Curses
 {variant:2}{tags:caster}(5-10)% increased Effect of your Curses
 {variant:1}(10-15)% increased effect of Non-Curse Auras from your Skills
@@ -826,7 +826,7 @@ Variant: Current
 Requires Level 70
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
-{tags:chaos}Adds (48-53) to (58-60) Chaos Damage
+{tags:chaos_damage}Adds (48-53) to (58-60) Chaos Damage
 {tags:jewellery_attribute}Items and Gems have 50% increased Attribute Requirements
 Chaos Damage can Ignite, Chill and Shock
 {variant:1}Gain Soul Eater for 10 seconds when you use a Vaal Skill
@@ -853,7 +853,7 @@ Variant: Current
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
 {tags:jewellery_resistance}+25% to Cold Resistance
-{tags:mana,physical,attack}{variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
+{tags:mana,physical_damage,attack}{variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
 {tags:life}Minions have (10-15)% increased maximum Life
 {tags:speed}Minions have (10-15)% increased Movement Speed
 {tags:jewellery_elemental}{variant:3}Minions deal 6 to 13 additional Cold Damage
@@ -923,11 +923,11 @@ Requires Level 54
 Implicits: 1
 {tags:life}(2.0-4.0) Life regenerated per second
 {tags:jewellery_attribute}+(30-40) to Intelligence
-{tags:jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
 Summon Raging Spirit has (20-30)% increased Duration
 Summoned Raging Spirits deal (60-80)% increased Damage
 {tags:life}Summoned Raging Spirits have (80-100)% increased maximum Life
-{tags:chaos}Summoned Raging Spirits take 20% of their Maximum Life per second as Chaos Damage
+{tags:chaos_damage}Summoned Raging Spirits take 20% of their Maximum Life per second as Chaos Damage
 ]],[[
 Tear of Purity
 Lapis Amulet
@@ -966,7 +966,7 @@ Socketed Support Gems can also Support Skills from your Body Armour
 {tags:jewellery_resistance}+(-30-30)% to Fire Resistance
 {tags:jewellery_resistance}+(-30-30)% to Cold Resistance
 {tags:jewellery_resistance}+(-30-30)% to Lightning Resistance
-{tags:jewellery_resistance}+(-23-23)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(-23-23)% to Chaos Resistance
 ]],[[
 Victario's Acuity
 Turquoise Amulet
@@ -975,7 +975,7 @@ Requires Level 16
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
 {tags:jewellery_resistance}+(30-40)% to Lightning Resistance
-{tags:jewellery_resistance}+(8-10)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(8-10)% to Chaos Resistance
 10% chance to gain a Frenzy Charge on Kill
 10% chance to gain a Power Charge on Kill
 {tags:speed}5% increased Projectile Speed per Frenzy Charge
