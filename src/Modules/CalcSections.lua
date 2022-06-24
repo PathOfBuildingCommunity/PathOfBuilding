@@ -673,6 +673,10 @@ return {
 	}, },
 	{ label = "Totem Life", flag = "totem", { format = "{0:output:TotemLife}", { breakdown = "TotemLife" }, }, },
 	{ label = "Active Brand Limit", flag = "brand", { format = "{0:output:ActiveBrandLimit}", { modName = "ActiveBrandLimit", cfg = "skill" }, }, },
+	{ label = "Corpse Level", haveOutput = "CorpseLevel", { format = "{0:output:CorpseLevel}",
+		{ breakdown = "CorpseLevel" },
+		{ modName = "CorpseLevel", cfg = "skill" },
+	}, },
 } }
 } },
 { 1, "HitChance", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Accuracy", data = {

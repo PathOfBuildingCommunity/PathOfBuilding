@@ -1027,6 +1027,10 @@ function calcs.offence(env, actor, activeSkill)
 		output.WarcryCastTime = calcWarcryCastTime(skillModList, skillCfg, actor)
 	end
 
+	if skillFlags.corpse then
+		output.CorpseLevel = skillModList:Sum("BASE", skillCfg, "CorpseLevel")
+	end
+
 	-- General's Cry
 	if skillData.triggeredByGeneralsCry then
 		local mirageActiveSkill = nil
