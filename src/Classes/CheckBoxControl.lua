@@ -22,9 +22,9 @@ function CheckBoxClass:IsMouseOver()
 	-- move x left by label width, increase width by label width
 	local label = self:GetProperty("label")
 	if label then
-		local labelWidth = DrawStringWidth(height, "VAR", label) - width
-		x = x - labelWidth
-		width = width + labelWidth
+		local labelWidth = DrawStringWidth(height - 4, "VAR", label)
+		x = x - labelWidth - 5
+		width = width + labelWidth + 5
 	end
 	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 end
