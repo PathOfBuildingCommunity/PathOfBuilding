@@ -1029,6 +1029,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	if skillFlags.corpse then
 		output.CorpseLevel = skillModList:Sum("BASE", skillCfg, "CorpseLevel")
+		output.CorpseLife = env.data.monsterLifeTable[output.CorpseLevel or 1] * (skillData.corpseMonsterVarietyMulti or 1) * (env.data.mapLevelLifeMult[env.enemyLevel] or 1)
 	end
 
 	-- General's Cry

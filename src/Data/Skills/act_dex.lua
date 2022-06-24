@@ -8590,6 +8590,9 @@ skills["BoneLance"] = {
 		projectile = true,
 		corpse = true,
 	},
+	baseMods = {
+		skill("corpseMonsterVarietyMulti", 1.4),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_cast_speed_+%", 0.5 },
