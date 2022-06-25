@@ -1463,7 +1463,7 @@ local skills, mod, flag, skill = ...
 			mod("CorpseLevel", "BASE", nil),
 		},
 	},
-#baseMod skill("corpseMonsterVarietyMulti", 1.4)
+#baseMod skill("corpseMonsterVariety", "Bone Archer")
 #mods
 
 #skill SnappingAdder

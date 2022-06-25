@@ -8591,7 +8591,7 @@ skills["BoneLance"] = {
 		corpse = true,
 	},
 	baseMods = {
-		skill("corpseMonsterVarietyMulti", 1.4),
+		skill("corpseMonsterVariety", "Bone Archer"),
 	},
 	qualityStats = {
 		Default = {
