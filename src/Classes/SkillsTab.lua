@@ -473,6 +473,8 @@ function SkillsTabClass:CreateGemSlot(index)
 			self.gemSlots[index2].quality:SetText(gemInstance.quality)
 			self.gemSlots[index2].qualityId:SelByValue(gemInstance.qualityId, "type")
 			self.gemSlots[index2].enabled.state = gemInstance.enabled
+			self.gemSlots[index2].enableGlobal1.state = gemInstance.enableGlobal1
+			self.gemSlots[index2].enableGlobal2.state = gemInstance.enableGlobal2
 			self.gemSlots[index2].count:SetText(gemInstance.count or 1)
 		end
 		self:AddUndoState()
@@ -701,8 +703,13 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.quality:SetText(gemInstance.quality)
 			slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 			slot.qualityId:SelByValue(gemInstance.qualityId, "type")
-			slot.enableGlobal1.state = true
-			slot.count:SetText(getmInstance.count)
+			slot.count:SetText(gemInstance.count)
+		end
+		if not gemInstance.gemData.vaalGem then
+			slot.enableGlobal1.state = state
+			gemInstance.enableGlobal1 = state
+			slot.enableGlobal2.state = state
+			gemInstance.enableGlobal2 = state
 		end
 		gemInstance.enabled = state
 		self:ProcessSocketGroup(self.displayGroup)
@@ -817,8 +824,6 @@ function SkillsTabClass:CreateGemSlot(index)
 	end
 	self.controls["gemSlot"..index.."EnableGlobal2"] = slot.enableGlobal2
 end
-
-
 
 function SkillsTabClass:getGemAltQualityList(gemData)
 	local altQualList = { }
