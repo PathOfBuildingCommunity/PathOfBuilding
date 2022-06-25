@@ -57,9 +57,13 @@ local paradoxica = {
 }
 
 for index, mod in pairs(paradoxicaMods) do
-	if (mod.veiledName ~= "(Suffix) Double Damage Chance") then
-		table.insert(paradoxica, "Variant: "..mod.veiledName)
+	if (mod.veiledName == "(Suffix) Double Damage Chance") then
+		table.remove(paradoxicaMods, index)
 	end
+end
+
+for index, mod in pairs(paradoxicaMods) do
+	table.insert(paradoxica, "Variant: "..mod.veiledName)
 end
 
 table.insert(paradoxica, "Source: Drops from Bosses in Safehouse")
@@ -68,10 +72,8 @@ table.insert(paradoxica, "Implicits: 1")
 table.insert(paradoxica, "+25% to Global Critical Strike Multiplier")
 
 for index, mod in pairs(paradoxicaMods) do
-	if (mod.veiledName ~= "(Suffix) Double Damage Chance") then
-		for _, value in pairs(mod.veiledLines) do
-			table.insert(paradoxica, "{variant:"..index.."}"..value.."")
-		end
+	for _, value in pairs(mod.veiledLines) do
+		table.insert(paradoxica, "{variant:"..index.."}"..value.."")
 	end
 end
 
