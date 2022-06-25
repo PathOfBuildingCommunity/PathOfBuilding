@@ -1029,7 +1029,20 @@ function calcs.offence(env, actor, activeSkill)
 
 	if skillFlags.corpse then
 		output.CorpseLevel = skillModList:Sum("BASE", skillCfg, "CorpseLevel")
-		output.CorpseLife = env.data.monsterLifeTable[output.CorpseLevel or 1] * (skillData.corpseMonsterVarietyMulti or 1) * (env.data.mapLevelLifeMult[env.enemyLevel] or 1)
+		output.BaseCorpseLife = env.data.monsterLifeTable[output.CorpseLevel or 1] * (skillData.corpseMonsterVarietyMulti or 1) * (env.data.mapLevelLifeMult[env.enemyLevel] or 1)
+		output.CorpseLifeInc = 1 + (skillModList:Sum("INC", skillCfg, "CorpseLife") or 0) / 100
+		output.CorpseLife = output.BaseCorpseLife * output.CorpseLifeInc
+		if breakdown then
+			breakdown.CorpseLife = {
+				s_format("%d ^8(base life of a level %d monster)", env.data.monsterLifeTable[output.CorpseLevel or 1], output.CorpseLevel or "n/a"),
+				s_format("x %.2f ^8(monster variety multiplier)", skillData.corpseMonsterVarietyMulti or 1),
+				s_format("x %.2f ^8(map level %d monster life multiplier from config)", env.data.mapLevelLifeMult[env.enemyLevel] or 1, env.enemyLevel),
+				s_format(" = %d ^8(base corpse life)", output.BaseCorpseLife),
+				s_format(""),
+				s_format("x %.2f ^8(corpse maximum life increases)", output.CorpseLifeInc),
+				s_format(" = %d", output.CorpseLife),
+			}
+		end
 	end
 
 	-- General's Cry

@@ -679,6 +679,7 @@ return {
 	}, },
 	{ label = "Corpse Life", haveOutput = "CorpseLife", { format = "{0:output:CorpseLife}",
 		{ breakdown = "CorpseLife" },
+		{ modName = "CorpseLife", cfg = "skill" },
 	}, },
 } }
 } },

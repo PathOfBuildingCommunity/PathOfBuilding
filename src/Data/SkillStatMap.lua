@@ -1566,6 +1566,9 @@ return {
 ["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
 },
+["maximum_life_+%_for_corpses_you_create"] = {
+	mod("CorpseLife", "INC", nil),
+},
 --Golem
 ["golem_buff_effect_+%"] = {
 	mod("BuffEffect", "INC", nil, 0, 0)
