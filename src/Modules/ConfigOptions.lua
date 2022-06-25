@@ -1363,6 +1363,9 @@ Sirus adds the following modifiers:
 		enemyModList:NewMod("Life", "MORE", 3 * m_min(val, 9), "Config")
 		modList:NewMod("AwakeningLevel", "BASE", m_min(val, 9), "Config")
 	end },
+	{ var = "UberBoss", type = "check", label = "Uber Boss:", tooltip = "Uber Bosses have 70% less damage taken.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("DamageTaken", "MORE", -70, "Uber Boss")
+	end },
 	{ var = "deliriousPercentage", type = "list", label = "Delirious Effect:", list = {{val=0,label="None"},{val="20Percent",label="20% Delirious"},{val="40Percent",label="40% Delirious"},{val="60Percent",label="60% Delirious"},{val="80Percent",label="80% Delirious"},{val="100Percent",label="100% Delirious"}}, tooltip = "Delirium scales enemy 'less Damage Taken' as well as enemy 'increased Damage dealt'\nAt 100% effect:\nEnemies Deal 30% Increased Damage\nEnemies take 96% Less Damage", apply = function(val, modList, enemyModList)
 		if val == "20Percent" then
 			enemyModList:NewMod("DamageTaken", "MORE", -19.2, "20% Delirious")
