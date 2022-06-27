@@ -2066,6 +2066,9 @@ skills["Determination"] = {
 		["base_physical_damage_reduction_rating"] = {
 			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["base_avoid_stun_%"] = {
+			mod("AvoidStun", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 		["evasion_rating_%_to_add_as_armour"] = {
 			mod("EvasionGainAsArmour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
