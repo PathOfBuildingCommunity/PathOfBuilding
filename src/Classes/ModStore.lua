@@ -555,7 +555,24 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SlotName" then
-			if not cfg or tag.slotName ~= cfg.slotName then
+			if not cfg then
+				return
+			end
+			local match = false
+			if tag.slotNameList then
+				for _, slot in ipairs(tag.slotNameList) do
+					if slot == cfg.slotName then
+						match = true
+						break
+					end
+				end
+			else
+				match = (tag.slotName == cfg.slotName)
+			end
+			if tag.neg then
+				match = not match
+			end
+			if not match then
 				return
 			end
 		elseif tag.type == "ModFlagOr" then
