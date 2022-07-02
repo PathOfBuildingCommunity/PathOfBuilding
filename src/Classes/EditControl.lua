@@ -95,6 +95,13 @@ function EditClass:SetText(text, notify)
 	self:ResetUndo()
 end
 
+function EditClass:SetPlaceholder(text, notify)
+	self.placeholder = tostring(text)
+	if notify and self.changeFunc then
+		self.changeFunc(self.placeholder, true)
+	end
+end
+
 function EditClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -266,8 +273,13 @@ function EditClass:Draw(viewPort)
 	local marginB = self.controls.scrollBarH:IsShown() and 14 or 0
 	SetViewport(textX, textY, width - 4 - marginL - marginR, height - 4 - marginB)
 	if not self.hasFocus then
-		SetDrawColor(self.inactiveCol)
-		DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
+		if self.buf == '' and self.placeholder then
+			SetDrawColor(self.disableCol)
+			DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.placeholder)
+		else
+			SetDrawColor(self.inactiveCol)
+			DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
+		end
 		SetViewport()
 		self:DrawControls(viewPort)
 		return
@@ -638,13 +650,21 @@ function EditClass:OnKeyUp(key)
 			if cur then
 				self:SetText(tostring(cur + (self.numberInc or 1)), true)
 			else
-				self:SetText("1", true)
+				if self.placeholder then
+					self:SetText(tostring(self.placeholder + (self.numberInc or 1)), true)
+				else
+					self:SetText("1", true)
+				end
 			end
 		elseif key == "WHEELDOWN" or key == "DOWN" then
-			if cur and (self.filter ~= "%D" or cur > 0 )then
+			if cur and (self.filter ~= "%D" or cur > 0)then
 				self:SetText(tostring(cur - (self.numberInc or 1)), true)
 			else
-				self:SetText("0", true)
+				if self.placeholder then
+					self:SetText(tostring(self.placeholder - (self.numberInc or 1)), true)
+				else
+					self:SetText("0", true)
+				end
 			end
 		end
 	elseif key == "WHEELUP" then
