@@ -42,7 +42,7 @@ local getVeiledMods = function (baseType, specificType, canHaveCatarinaMod)
 			end
 		end
 	end
-    table.sort(veiledMods, function (m1, m2) return m1.veiledName < m2.veiledName end )
+	table.sort(veiledMods, function (m1, m2) return m1.veiledName < m2.veiledName end )
 	return veiledMods
 end
 
@@ -57,9 +57,13 @@ local paradoxica = {
 }
 
 for index, mod in pairs(paradoxicaMods) do
-	if (mod.veiledName ~= "(Suffix) Double Damage Chance") then
-		table.insert(paradoxica, "Variant: "..mod.veiledName)
+	if (mod.veiledName == "(Suffix) Double Damage Chance") then
+		table.remove(paradoxicaMods, index)
 	end
+end
+
+for index, mod in pairs(paradoxicaMods) do
+	table.insert(paradoxica, "Variant: "..mod.veiledName)
 end
 
 table.insert(paradoxica, "Source: Drops from Bosses in Safehouse")
@@ -68,10 +72,8 @@ table.insert(paradoxica, "Implicits: 1")
 table.insert(paradoxica, "+25% to Global Critical Strike Multiplier")
 
 for index, mod in pairs(paradoxicaMods) do
-	if (mod.veiledName ~= "(Suffix) Double Damage Chance") then
-		for _, value in pairs(mod.veiledLines) do
-			table.insert(paradoxica, "{variant:"..index.."}"..value.."")
-		end
+	for _, value in pairs(mod.veiledLines) do
+		table.insert(paradoxica, "{variant:"..index.."}"..value.."")
 	end
 end
 
@@ -401,8 +403,10 @@ local excludedItemKeystones = {
 	"Immortal Ambition", -- exclusive to specific unique
 	"Secrets of Suffering", -- exclusive to specific items
 	"Inner Conviction", -- exclusive to specific items
+	"Phase Acrobatics", -- removed from game
 	"Mortal Conviction", -- removed from game
-}local excludedPassiveKeystones = {
+}
+local excludedPassiveKeystones = {
 	"Chaos Inoculation", -- to prevent infinite loop
 	"Necromantic Aegis", -- to prevent infinite loop
 }
@@ -433,20 +437,20 @@ for _, name in ipairs(data.keystones) do
 	end
 end
 local impossibleEscape = {
-    "Impossible Escape",
-    "Viridian Jewel",
-    "League: Sentinel",
-    "Limited to: 1",
-    "Source: Drops from Uber unique{Maven}",
-    "Radius: Small"
+	"Impossible Escape",
+	"Viridian Jewel",
+	"League: Sentinel",
+	"Limited to: 1",
+	"Source: Drops from Uber unique{Maven}",
+	"Radius: Small"
 }
 for _, name in ipairs(impossibleEscapeKeystones) do
-    table.insert(impossibleEscape, "Variant: "..name)
+	table.insert(impossibleEscape, "Variant: "..name)
 end
 table.insert(impossibleEscape, "Variant: Everything (QoL Test Variant)")
 local variantCount = 1
 for index, name in ipairs(impossibleEscapeKeystones) do
-    table.insert(impossibleEscape, "{variant:"..index.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
+	table.insert(impossibleEscape, "{variant:"..index.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
 	variantCount = variantCount + 1
 end
 for _, name in ipairs(impossibleEscapeKeystones) do
@@ -462,6 +466,9 @@ table.insert(data.uniques.generated, table.concat(impossibleEscape, "\n"))
 		-- Has only a version when it changed
 	- Mod changed/removed, but isn't legacy
 		-- Has empty table to exclude it from the list
+
+	4th scenario: Mod was changed (not legacy), but the mod ID (aka Variant name) no longer reflects the mod
+		-- Has 'rename' field to customize the name
 ]]
 local watchersEyeLegacyMods = {
 	["ClarityManaAddedAsEnergyShield"] = {
@@ -504,6 +511,12 @@ local watchersEyeLegacyMods = {
 	},
 	["WrathLightningDamageManaLeech"] = {
 		["version"] = "3.8.0",
+	},
+	["GraceChanceToDodge"] = {
+		["rename"] = "Grace: Chance to Suppress Spells",
+	},
+	["HasteChanceToDodgeSpells"] = {
+		["rename"] = "Haste: Chance to Suppress Spells",
 	},
 	["PurityOfFireReducedReflectedFireDamage"] = { },
 	["PurityOfIceReducedReflectedColdDamage"] = { },
@@ -554,6 +567,9 @@ for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 			if watchersEyeLegacyMods[mod.Id].legacyMod then
 				table.insert(watchersEye, "Variant:" .. variantName)
 			end
+			if watchersEyeLegacyMods[mod.Id].rename then
+				table.insert(watchersEye, "Variant: " .. watchersEyeLegacyMods[mod.Id].rename)
+			end
 		else
 			table.insert(watchersEye, "Variant:" .. variantName)
 		end
@@ -578,7 +594,7 @@ for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 				table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. watchersEyeLegacyMods[mod.Id].legacyMod(mod.mod[1]))
 				indexWatchersEye = indexWatchersEye + 1
 			end
-			if watchersEyeLegacyMods[mod.Id].version then
+			if watchersEyeLegacyMods[mod.Id].version or watchersEyeLegacyMods[mod.Id].rename then
 				table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. mod.mod[1])
 				indexWatchersEye = indexWatchersEye + 1
 			end

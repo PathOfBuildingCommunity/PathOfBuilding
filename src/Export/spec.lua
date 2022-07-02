@@ -688,6 +688,8 @@ return {
 			width=150
 		}
 	},
+	AnimatedObjectFlags={
+	},
 	Animation={
 		[1]={
 			list=false,
@@ -704,6 +706,16 @@ return {
 	Archetypes={
 	},
 	ArchitectLifeScalingPerLevel={
+	},
+	ArchnemesisMetaRewards={
+	},
+	ArchnemesisModComboAchievements={
+	},
+	ArchnemesisModVisuals={
+	},
+	ArchnemesisMods={
+	},
+	ArchnemesisRecipes={
 	},
 	AreaInfluenceDoodads={
 	},
@@ -853,6 +865,8 @@ return {
 	},
 	AtlasBaseTypeDrops={
 	},
+	AtlasEntities={
+	},
 	AtlasExileBossArenas={
 	},
 	AtlasExileInfluence={
@@ -871,9 +885,17 @@ return {
 	},
 	AtlasExiles={
 	},
+	AtlasFavouredMapSlots={
+	},
 	AtlasFog={
 	},
+	AtlasInfluenceData={
+	},
+	AtlasInfluenceOutcomeTypes={
+	},
 	AtlasInfluenceOutcomes={
+	},
+	AtlasInfluenceSets={
 	},
 	AtlasModTiers={
 	},
@@ -883,7 +905,19 @@ return {
 	},
 	AtlasNodeDefinition={
 	},
+	AtlasPassiveSkillTreeGroupType={
+	},
 	AtlasPositions={
+	},
+	AtlasPrimordialAltarChoiceTypes={
+	},
+	AtlasPrimordialAltarChoices={
+	},
+	AtlasPrimordialBossInfluence={
+	},
+	AtlasPrimordialBossOptions={
+	},
+	AtlasPrimordialBosses={
 	},
 	AtlasQuadrant={
 	},
@@ -896,6 +930,8 @@ return {
 	AtlasSector={
 	},
 	AtlasSkillGraphs={
+	},
+	AtlasUpgradesInventoryLayout={
 	},
 	Attributes={
 	},
@@ -1009,6 +1045,10 @@ return {
 			type="Key",
 			width=150
 		}
+	},
+	BattlePassRewards={
+	},
+	BattlePasses={
 	},
 	BestiaryCapturableMonsters={
 	},
@@ -1900,6 +1940,8 @@ return {
 	},
 	Chests={
 	},
+	ClientLeagueAction={
+	},
 	ClientStrings={
 		[1]={
 			list=false,
@@ -1940,6 +1982,8 @@ return {
 	ClientUIScreens={
 	},
 	CloneShot={
+	},
+	Colours={
 	},
 	Commands={
 	},
@@ -2262,6 +2306,8 @@ return {
 			width=100
 		}
 	},
+	CraftingBenchSortCategories={
+	},
 	CraftingBenchUnlockCategories={
 		[1]={
 			list=false,
@@ -2310,6 +2356,8 @@ return {
 	CustomLeagueMods={
 	},
 	DaemonSpawningData={
+	},
+	DamageEffectVariations={
 	},
 	DamageHitEffects={
 	},
@@ -2509,6 +2557,10 @@ return {
 	},
 	Doors={
 	},
+	DroneBaseTypes={
+	},
+	DroneTypes={
+	},
 	DropEffects={
 	},
 	DropModifiers={
@@ -2542,6 +2594,8 @@ return {
 	EinharPackFallback={
 	},
 	ElderBossArenas={
+	},
+	ElderGuardians={
 	},
 	ElderMapBossOverride={
 	},
@@ -3038,6 +3092,32 @@ return {
 	},
 	ExpandingPulse={
 	},
+	ExpeditionAreas={
+	},
+	ExpeditionBalancePerLevel={
+	},
+	ExpeditionCurrency={
+	},
+	ExpeditionDealFamilies={
+	},
+	ExpeditionDeals={
+	},
+	ExpeditionFactions={
+	},
+	ExpeditionMarkersCommon={
+	},
+	ExpeditionNPCs={
+	},
+	ExpeditionRelicModCategories={
+	},
+	ExpeditionRelicMods={
+	},
+	ExpeditionRelics={
+	},
+	ExpeditionStorageLayout={
+	},
+	ExpeditionTerrainFeatures={
+	},
 	ExperienceLevels={
 	},
 	ExplodingStormBuffs={
@@ -3051,6 +3131,8 @@ return {
 	FixedHideoutDoodads={
 	},
 	FixedMissions={
+	},
+	FlaskStashBaseTypeOrdering={
 	},
 	FlaskType={
 	},
@@ -3138,7 +3220,17 @@ return {
 			width=150
 		}
 	},
+	GameObjectTasks={
+	},
 	GameStats={
+	},
+	GamepadButton={
+	},
+	GamepadButtonCombination={
+	},
+	GamepadThumbstick={
+	},
+	GamepadType={
 	},
 	GemTags={
 		[1]={
@@ -3194,6 +3286,10 @@ return {
 			type="String",
 			width=150
 		}
+	},
+	GenericLeagueRewardTypeVisuals={
+	},
+	GenericLeagueRewardTypes={
 	},
 	GeometryAttack={
 	},
@@ -3901,6 +3997,34 @@ return {
 	},
 	HeistValueScaling={
 	},
+	HellscapeAOReplacements={
+	},
+	HellscapeAreaPacks={
+	},
+	HellscapeExperienceLevels={
+	},
+	HellscapeFactions={
+	},
+	HellscapeImmuneMonsters={
+	},
+	HellscapeItemModificationTiers={
+	},
+	HellscapeLifeScalingPerLevel={
+	},
+	HellscapeModificationInventoryLayout={
+	},
+	HellscapeMods={
+	},
+	HellscapeMonsterPacks={
+	},
+	HellscapePassiveTree={
+	},
+	HellscapePassives={
+	},
+	HideoutDoodadCategory={
+	},
+	HideoutDoodadTags={
+	},
 	HideoutDoodads={
 	},
 	HideoutNPCs={
@@ -3964,6 +4088,8 @@ return {
 	},
 	ItemClassCategories={
 	},
+	ItemClassFlags={
+	},
 	ItemClasses={
 		[1]={
 			list=false,
@@ -3988,6 +4114,8 @@ return {
 		}
 	},
 	ItemCostPerLevel={
+	},
+	ItemCosts={
 	},
 	ItemCreationTemplateCustomAction={
 	},
@@ -4100,6 +4228,8 @@ return {
 	},
 	KillstreakThresholds={
 	},
+	KiracLevels={
+	},
 	LabyrinthAreas={
 	},
 	LabyrinthBonusItems={
@@ -4142,7 +4272,11 @@ return {
 	},
 	LeagueQuestFlags={
 	},
+	LeagueStaticRewards={
+	},
 	LeagueTrophy={
+	},
+	LegacyAtlasInfluenceOutcomes={
 	},
 	LegionBalancePerLevel={
 	},
@@ -4198,7 +4332,11 @@ return {
 	},
 	MapSeriesTiers={
 	},
+	MapStashSpecialTypeEntries={
+	},
 	MapStashTabLayout={
+	},
+	MapStashUniqueMapInfo={
 	},
 	MapStatAchievements={
 	},
@@ -4249,7 +4387,13 @@ return {
 	},
 	MicroMigrationData={
 	},
+	MicrotransactionCategory={
+	},
+	MicrotransactionCategoryId={
+	},
 	MicrotransactionCharacterPortraitVariations={
+	},
+	MicrotransactionChargeVariations={
 	},
 	MicrotransactionCombineFormula={
 	},
@@ -4261,7 +4405,11 @@ return {
 	},
 	MicrotransactionGemCategory={
 	},
+	MicrotransactionJewelVariations={
+	},
 	MicrotransactionPeriodicCharacterEffectVariations={
+	},
+	MicrotransactionPlayerShieldVariations={
 	},
 	MicrotransactionPortalVariations={
 	},
@@ -4273,6 +4421,8 @@ return {
 	},
 	MicrotransactionRecycleSalvageValues={
 	},
+	MicrotransactionSlot={
+	},
 	MicrotransactionSlotId={
 	},
 	MicrotransactionSocialFrameVariations={
@@ -4283,11 +4433,19 @@ return {
 	},
 	MiscAnimated={
 	},
+	MiscAnimatedArtVariations={
+	},
 	MiscBeams={
+	},
+	MiscBeamsArtVariations={
 	},
 	MiscEffectPacks={
 	},
+	MiscEffectPacksArtVariations={
+	},
 	MiscObjects={
+	},
+	MiscObjectsArtVariations={
 	},
 	MissionFavourPerLevel={
 	},
@@ -4809,6 +4967,13 @@ return {
 	MonsterBehavior={
 	},
 	MonsterBonuses={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=230
+		}
 	},
 	MonsterChanceToDropItemTemplate={
 	},
@@ -4831,8 +4996,120 @@ return {
 	MonsterHeights={
 	},
 	MonsterMapBossDifficulty={
+		[1]={
+			list=false,
+			name="AreaLevel",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="BossLifePercentIncrease",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="BossDamagePercentIncrease",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="BossIncItemQuantity",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="BossIncItemRarity",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	MonsterMapDifficulty={
+		[1]={
+			list=false,
+			name="AreaLevel",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[2]={
+			list=false,
+			name="LifePercentIncrease",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="DamagePercentIncrease",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
 	},
 	MonsterMortar={
 	},
@@ -5125,7 +5402,7 @@ return {
 			name="Mods",
 			refTo="Mods",
 			type="Key",
-			width=200
+			width=500
 		},
 		[11]={
 			list=false,
@@ -5660,6 +5937,10 @@ return {
 			width=50
 		}
 	},
+	MonsterVarietiesArtVariations={
+	},
+	MouseCursorSizeSettings={
+	},
 	MoveDaemon={
 	},
 	MultiPartAchievementAreas={
@@ -5722,6 +6003,8 @@ return {
 	},
 	NPCShopAdditionalItems={
 	},
+	NPCShopSellPriceType={
+	},
 	NPCTalk={
 	},
 	NPCTalkCategory={
@@ -5742,6 +6025,13 @@ return {
 		}
 	},
 	NearbyMonsterConditions={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=260
+		}
 	},
 	NetTiers={
 	},
@@ -6138,6 +6428,10 @@ return {
 	},
 	PassiveSkillTreeTutorial={
 	},
+	PassiveSkillTreeUIArt={
+	},
+	PassiveSkillTrees={
+	},
 	PassiveSkillTypes={
 	},
 	PassiveSkills={
@@ -6506,11 +6800,15 @@ return {
 	},
 	PreloadPriorities={
 	},
+	PrimordialBossLifeScalingPerLevel={
+	},
 	ProjectileCollisionTypes={
 	},
 	ProjectileVariations={
 	},
 	Projectiles={
+	},
+	ProjectilesArtVariations={
 	},
 	Prophecies={
 	},
@@ -6598,7 +6896,27 @@ return {
 	},
 	Scarabs={
 	},
+	ScoutingReports={
+	},
+	SentinelCraftingCurrency={
+	},
+	SentinelDroneInventoryLayout={
+	},
+	SentinelPassiveStats={
+	},
+	SentinelPassiveTypes={
+	},
+	SentinelPassives={
+	},
+	SentinelPowerExpLevels={
+	},
+	SentinelStorageLayout={
+	},
+	SentinelTaggedMonsterStats={
+	},
 	SessionQuestFlags={
+	},
+	ShaperGuardians={
 	},
 	ShaperMemoryFragments={
 	},
@@ -6640,6 +6958,8 @@ return {
 	},
 	ShopRegion={
 	},
+	ShopTag={
+	},
 	ShopToken={
 	},
 	ShrineBuffs={
@@ -6649,6 +6969,10 @@ return {
 	Shrines={
 	},
 	SigilDisplay={
+	},
+	SingleGroundLaser={
+	},
+	SkillArtVariations={
 	},
 	SkillGemInfo={
 	},
@@ -6783,6 +7107,8 @@ return {
 	SkillTotems={
 	},
 	SkillTrapVariations={
+	},
+	SocketNotches={
 	},
 	SoundEffects={
 		[1]={
@@ -7077,6 +7403,14 @@ return {
 	},
 	TormentSpirits={
 	},
+	TradeMarketCategory={
+	},
+	TradeMarketCategoryGroups={
+	},
+	TradeMarketCategoryListAllClass={
+	},
+	TradeMarketCategoryStyleFlag={
+	},
 	TreasureHunterMissions={
 	},
 	TriggerBeam={
@@ -7116,6 +7450,8 @@ return {
 	UniqueStashLayout={
 	},
 	UniqueStashTypes={
+	},
+	UserInterfaceModeCondition={
 	},
 	VirtualStatContextFlags={
 		[1]={
@@ -7226,7 +7562,16 @@ return {
 	},
 	Words={
 	},
+	WorldAreaLeagueChances={
+	},
 	WorldAreas={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	WorldPopupIconTypes={
 	},

@@ -5662,26 +5662,34 @@ skills["GSHellscapeDemonEliteBeamNuke"] = {
 	},
 }
 skills["DTTHellscapeStabWeb"] = {
-	name = "Web Debuff",
+	name = "Thunder Web",
 	hidden = true,
 	color = 4,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2,
+	statMap = {
+		["action_speed_-%"] = {
+			mod("ActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Thunder Web" }),
+		},
+		["base_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Thunder Web" }),
+		},
+	},
+	stats = {
+		"walk_emerge_extra_distance",
+		"leap_slam_minimum_distance",
+		"spell_maximum_action_distance_+%",
+		"action_speed_-%",
+		"base_damage_taken_+%",
+	},
+	levels = {
+		[1] = { 20, 40, -50, -15, 15, cooldown = 6, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1, 1 }, cost = { }, },
+	},
 	baseFlags = {
 		spell = true,
 		hit = true,
 		movement = true,
-	},
-	constantStats = {
-		{ "walk_emerge_extra_distance", 20 },
-		{ "leap_slam_minimum_distance", 40 },
-		{ "spell_maximum_action_distance_+%", -50 },
-	},
-	stats = {
-	},
-	levels = {
-		[1] = { cooldown = 6, levelRequirement = 0, },
 	},
 }
 skills["GAHellscapeStabbyCleave1"] = {

@@ -627,7 +627,7 @@ Wyrmscale Boots
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
-Requires Level 51, 48 Str, 48 Dex
+Requires Level 69, 48 Str, 48 Dex
 (200-300)% increased Armour and Evasion
 {variant:1}-(15-10)% to all Elemental Resistances
 30% increased Movement Speed

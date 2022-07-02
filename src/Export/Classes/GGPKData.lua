@@ -185,7 +185,8 @@ function GGPKClass:GetNeededFiles()
 		"Data/TableCharge.dat",
 		"Data/GrantedEffectStatSets.dat",
 		"Data/GrantedEffectStatSetsPerLevel.dat",
-		"Data/CooldownBypassTypes.dat",
+		"Data/MonsterMapDifficulty.dat",
+		"Data/MonsterMapBossDifficulty.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
