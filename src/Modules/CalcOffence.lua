@@ -3210,7 +3210,10 @@ function calcs.offence(env, actor, activeSkill)
 			local durationMod = m_max(calcLib.mod(skillModList, dotCfg, "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration") * calcLib.mod(enemyDB, nil, "SelfIgniteDuration"), 0)
 			globalOutput.IgniteDuration = durationBase * durationMod / rateMod * debuffDurationMult
 			globalOutput.IgniteDuration = globalOutput.IgniteDuration > data.misc.IgniteMinDuration and globalOutput.IgniteDuration or 0
-			local igniteStacks = (globalOutput.IgniteDuration / output.Time) / maxStacks
+			local igniteStacks = 1
+			if not skillData.triggeredOnDeath then
+				igniteStacks = (globalOutput.IgniteDuration / output.Time) / maxStacks
+			end
 			globalOutput.IgniteStackPotential = igniteStacks
 			if globalBreakdown then
 				globalBreakdown.IgniteStackPotential = {
@@ -3329,7 +3332,10 @@ function calcs.offence(env, actor, activeSkill)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
-				igniteStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.IgniteDuration / output.Time)
+				igniteStacks = 1
+				if not skillData.triggeredOnDeath then
+					igniteStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.IgniteDuration / output.Time)
+				end
 				output.IgniteDPS = baseVal * effectMod * rateMod * effMult * igniteStacks
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
