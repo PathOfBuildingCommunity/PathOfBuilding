@@ -126,7 +126,7 @@ end
 
 -- Method to pull down and interpret the PoE.Ninja JSON endpoint data
 function TradeQueryClass:PullPoENinjaCurrencyConversion(league, controls)
-	local now = os.time()
+	local now = get_time()
 	-- Limit PoE Ninja Currency Conversion request to 1 per hour
 	if (now - self.lastCurrencyConversionRequest) < 3600 then
 		self:SetNotice(controls.pbNotice, "PoE Ninja Rate Limit Exceeded: " .. tostring(3600 - (now - self.lastCurrencyConversionRequest)))

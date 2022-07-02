@@ -187,11 +187,10 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 			end
 			local response, response_err = dkjson.decode(response)
 			if not response or not response.result then
-				local errMsg
 				if response_err then
-					errMsg = "JSON Parse Error "
+					errMsg = "JSON Parse Error: " .. (errMsg or "")
 				else
-					errMsg = "Failed to Get Trade Items"
+					errMsg = "Failed to Get Trade Items: " .. (errMsg or "")
 				end
 				return callback(nil, errMsg)
 			end
@@ -212,8 +211,6 @@ end
 ---@param callback fun(items:table, errMsg:string)
 function TradeQueryRequestsClass:SearchWithURL(url, callback)
 	local league, queryId = url:match("https://www.pathofexile.com/trade/search/(.+)/(.+)$")
-	-- self:FetchSearchQuery(queryId,
-	-- testing experimental HTML parsing
 	self:FetchSearchQueryHTML(queryId, function(query, errMsg)
 		if errMsg then
 			return callback(nil, errMsg)
@@ -251,9 +248,9 @@ end
 function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 	-- the league doesn't affect query so we set it to Standard as it doesn't change
 	self:DownloadPage("https://www.pathofexile.com/trade/search/Standard/" .. queryId, 
-		function(response, ErrMsg)
-			if ErrMsg then
-				return callback(nil, ErrMsg)
+		function(response, errMsg)
+			if errMsg then
+				return callback(nil, errMsg)
 			end
 			-- full json state obj from HTML
 			local dataStr = response:match('require%(%["main"%].+ t%((.+)%);}%);}%);')
@@ -268,7 +265,7 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 			query.sort = {price = "asc"}
 			query.query.status = { option = query.query.status} -- works either way?
 			local queryStr = dkjson.encode(query)
-			callback(queryStr, ErrMsg)
+			callback(queryStr, errMsg)
 		end)
 end
 
