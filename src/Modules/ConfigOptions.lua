@@ -1478,52 +1478,18 @@ Uber Pinnacle Boss adds the following modifiers:
 	{ var = "enemyChaosResist", type = "integer", label = "Enemy ^xD02090Chaos Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ChaosResist", "BASE", val, "Config")
 	end },
-	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
 	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltip = [[
-Used to fill in defaults for specific boss skills
-These do not set the skill type 
-And if none is picked will use defaults from boss config
+Used to fill in defaults for specific boss skills if the boss config is not set
 
-Bosses' damage is from poeDB, assumed at a 2/3 roll
-^7Fill in the exact damage numbers if more precision is needed
+Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal monster level for your character level (capped at 84)
+Fill in the exact damage numbers if more precision is needed
 
-Uber Atziri Flameblast has the following modifiers at level 84:
-	Deals 2141 to 3212 Fire Damage
-	Hits always Ignite
-	Penetrates 10% Fire Resistance
-	110% more Spell Damage for each stage
+Caveats for certain skills are below
 
-Shaper Ball has the following modifiers at level 84:
-	Deals 5984 to 8976 Cold Damage
-	Projectiles Pierce all Targets
-	Penetrates 25% Cold Resistance
-	
-	(the "uber varient" has 40% pen and +2 projectiles)
-
-Shaper Slam has the following modifiers at level 84:
-	Base Damage: 9360–14040
-	Attack Time: 3.51 Seconds
-	Can't be Evaded
-	
-	(the "uber varient" has 100% more damage than base
-	, half the attack time and anti block/dodge)
-
-Maven Memory Game has the following modifiers at level 84:
-	Deals 45607 to 68410 Physical Damage
-	Hits always Ignite
-	Hits always Shock
-	Deals 3958.9 Base Fire Damage per second
-	Deals 3958.9 Base Cold Damage per second
-	Deals 3958.9 Base Lightning Damage per second
-	100% of Physical Damage Converted to Lightning Damage
-	100% of Physical Damage Converted to Cold Damage
-	100% of Physical Damage Converted to Fire Damage
-	Always Freezes enemies
-	Causes 3 Bursts
-	
-	(note the 3 bursts and the damage over time are not factored in)
-	
-	]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
+Shaper Ball: Allocating Cosmic Wounds increases the penetration to 40% and adds 2 projectiles
+Shaper Slam: Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage and cannot be blocked or dodged
+Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither is taken into account here.
+]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
 		--reset to empty
 		if not (val == "None") then
 			local defaultDamage = ""
@@ -1532,33 +1498,46 @@ Maven Memory Game has the following modifiers at level 84:
 			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
-				
+
 			local defaultPen = ""
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+		else
+			build.configTab.varControls['enemyDamageType'].enabled = true
+			build.configTab.varControls['enemyDamageType']:SelByValue("Average", "val")
+			build.configTab.input['enemyDamageType'] = "Average"
 		end
-		
+
 		if val == "Uber Atziri Flameblast" then
 			if build.calcsTab.mainEnv then
 				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 3.48 * 10.9), true)
+				build.configTab.varControls['enemyDamageType']:SelByValue("Spell", "val")
+				build.configTab.varControls['enemyDamageType'].enabled = false
+				build.configTab.input['enemyDamageType'] = "Spell"
 			end
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(10, true)
-			
+
 			build.configTab.varControls['enemySpeed']:SetPlaceholder(25000, true)
 			build.configTab.varControls['enemyCritChance']:SetPlaceholder(0, true)
 		elseif val == "Shaper Ball" then
 			if build.calcsTab.mainEnv then
 				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 9.17), true)
 			end
-			
+
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(25, true)
 			build.configTab.varControls['enemySpeed']:SetPlaceholder(1400, true)
+			build.configTab.varControls['enemyDamageType'].enabled = false
+			build.configTab.varControls['enemyDamageType']:SelByValue("SpellProjectile", "val")
+			build.configTab.input['enemyDamageType'] = "SpellProjectile"
 		elseif val == "Shaper Slam" then
 			if build.calcsTab.mainEnv then
 				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 15.2), true)
 			end
-			
+			build.configTab.varControls['enemyDamageType'].enabled = false
+			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
+			build.configTab.input['enemyDamageType'] = "Melee"
+
 			build.configTab.varControls['enemySpeed']:SetPlaceholder(3510, true)
 		elseif val == "Maven Memory Game" then
 			if build.calcsTab.mainEnv then
@@ -1567,8 +1546,12 @@ Maven Memory Game has the following modifiers at level 84:
 				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultEleDamage, true)
 				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultEleDamage, true)
 			end
+			build.configTab.varControls['enemyDamageType'].enabled = false
+			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
+			build.configTab.input['enemyDamageType'] = "Melee"
 		end
 	end },
+	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
 	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast time in ms:", defaultPlaceholderState = 700 },
 	{ var = "enemyCritChance", type = "integer", label = "Enemy critical strike chance:", defaultPlaceholderState = 5 },
 	{ var = "enemyCritDamage", type = "integer", label = "Enemy critical strike multipler:", defaultPlaceholderState = 30 },
