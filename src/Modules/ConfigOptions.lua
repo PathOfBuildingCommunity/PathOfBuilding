@@ -1332,7 +1332,7 @@ Uber Pinnacle Boss adds the following modifiers:
 	70% less to enemy Damage taken
 	235% of monster damage
 	8% penetration
-	]], list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Guardian/Pinnacle Boss"},{val="Sirus",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
+	]], list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
 		--these defaults are here so that the placeholder gets reset correctly
 		build.configTab.varControls['enemySpeed']:SetPlaceholder(700, true)
 		build.configTab.varControls['enemyCritChance']:SetPlaceholder(5, true)
@@ -1357,7 +1357,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
-		elseif val == "Uber Atziri" then
+		elseif val == "Boss" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "BASE", 1070897, "Boss")
@@ -1382,7 +1382,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
-		elseif val == "Shaper" then
+		elseif val == "Pinnacle" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
@@ -1397,7 +1397,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(30, true)
 			
 			if build.calcsTab.mainEnv then
-				local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.shaperDPSMult)
+				local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.pinnacleBossDPSMult)
 				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
 				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
 				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
@@ -1405,10 +1405,10 @@ Uber Pinnacle Boss adds the following modifiers:
 				build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
 			end
 			
-			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.shaperPen, true)
-			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.shaperPen, true)
-			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.shaperPen, true)
-		elseif val == "Sirus" then
+			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
+		elseif val == "Uber" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
@@ -1424,7 +1424,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(30, true)
 
 			if build.calcsTab.mainEnv then
-				local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.sirusDPSMult)
+				local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.uberBossDPSMult)
 				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
 				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
 				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
@@ -1432,9 +1432,9 @@ Uber Pinnacle Boss adds the following modifiers:
 				build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
 			end
 			
-			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.sirusPen, true)
-			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.sirusPen, true)
-			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.sirusPen, true)
+			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.uberBossPen, true)
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.uberBossPen, true)
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.uberBossPen, true)
 		end
 	end },
 	{ var = "enemyAwakeningLevel", type = "count", label = "Awakening Level:", tooltip = "Each Awakening Level gives Bosses 3% more ^xE05030Life.", apply = function(val, modList, enemyModList)
