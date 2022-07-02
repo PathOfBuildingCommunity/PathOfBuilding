@@ -624,11 +624,11 @@ function SkillsTabClass:CreateGemSlot(index)
 			end
 		end
 		-- Check if there is a quality of this type for the effect
-		if gemData and gemData.grantedEffect.qualityStats[hoveredQuality.type] then
+		if gemData and gemData.grantedEffect.qualityStats and gemData.grantedEffect.qualityStats[hoveredQuality.type] then
 			local qualityTable = gemData.grantedEffect.qualityStats[hoveredQuality.type]
 			addQualityLines(qualityTable, gemData.grantedEffect)
 		end
-		if gemData and gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats[hoveredQuality.type] then
+		if gemData and gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats and gemData.secondaryGrantedEffect.qualityStats[hoveredQuality.type] then
 			local qualityTable = gemData.secondaryGrantedEffect.qualityStats[hoveredQuality.type]
 			tooltip:AddSeparator(10)
 			addQualityLines(qualityTable, gemData.secondaryGrantedEffect)
@@ -824,7 +824,7 @@ function SkillsTabClass:getGemAltQualityList(gemData)
 	local altQualList = { }
 
 	for indx, entry in ipairs(alternateGemQualityList) do
-		if gemData and (gemData.grantedEffect.qualityStats[entry.type] or (gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats[entry.type])) then
+		if gemData and (gemData.grantedEffect.qualityStats and gemData.grantedEffect.qualityStats[entry.type] or (gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats and gemData.secondaryGrantedEffect.qualityStats[entry.type])) then
 			t_insert(altQualList, entry)
 		end
 	end
