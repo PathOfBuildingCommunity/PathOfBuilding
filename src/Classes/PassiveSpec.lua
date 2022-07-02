@@ -183,10 +183,14 @@ function PassiveSpecClass:Save(xml)
 				end
 				-- Do not save current editedNode data unless the current node is conquered
 				if self.nodes[nodeId] and self.nodes[nodeId].conqueredBy then
-					-- Do not save current editedNode data unless the current node is allocated
-					for allocNodeId in pairs(self.allocNodes) do
-						if nodeId == allocNodeId then
-							t_insert(editedNodes, editedNode)
+					-- Do not save current editedNode data unless the current node is anointed or allocated
+					if self.build.calcsTab.mainEnv.grantedPassives[nodeId] then
+						t_insert(editedNodes, editedNode)
+					else
+						for allocNodeId in pairs(self.allocNodes) do
+							if nodeId == allocNodeId then
+								t_insert(editedNodes, editedNode)
+							end
 						end
 					end
 				end
