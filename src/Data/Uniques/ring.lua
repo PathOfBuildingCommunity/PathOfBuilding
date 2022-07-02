@@ -509,7 +509,7 @@ Implicits: 1
 League: Blight
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
 {tags:jewellery_attribute}+(20-30) to Dexterity
-{tags:chaos}25% chance to Poison on Hit
+25% chance to Poison on Hit
 {tags:chaos}(40-60)% increased Damage with Poison
 You are Chilled while you are Poisoned
 Non-Chilled Enemies you Poison are Chilled
