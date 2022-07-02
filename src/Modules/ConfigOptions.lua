@@ -1488,8 +1488,7 @@ Caveats for certain skills are below
 
 Shaper Ball: Allocating Cosmic Wounds increases the penetration to 40% and adds 2 projectiles
 Shaper Slam: Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage and cannot be blocked or dodged
-Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither is taken into account here.
-]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
+Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  i.e. Hits before death should be >= 4 to survive]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
 		--reset to empty
 		if not (val == "None") then
 			local defaultDamage = ""
@@ -1505,8 +1504,6 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
 		else
 			build.configTab.varControls['enemyDamageType'].enabled = true
-			build.configTab.varControls['enemyDamageType']:SelByValue("Average", "val")
-			build.configTab.input['enemyDamageType'] = "Average"
 		end
 
 		if val == "Uber Atziri Flameblast" then
