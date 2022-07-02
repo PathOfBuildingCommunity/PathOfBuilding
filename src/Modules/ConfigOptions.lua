@@ -1332,7 +1332,7 @@ Uber Pinnacle Boss adds the following modifiers:
 	70% less to enemy Damage taken
 	235% of monster damage
 	8% penetration
-	]], list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Guardian / Pinnacle Boss"},{val="Sirus",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
+	]], list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Guardian/Pinnacle Boss"},{val="Sirus",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
 		--these defaults are here so that the placeholder gets reset correctly
 		build.configTab.varControls['enemySpeed']:SetPlaceholder(700, true)
 		build.configTab.varControls['enemyCritChance']:SetPlaceholder(5, true)
