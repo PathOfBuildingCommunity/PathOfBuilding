@@ -42,7 +42,7 @@ local getVeiledMods = function (baseType, specificType, canHaveCatarinaMod)
 			end
 		end
 	end
-    table.sort(veiledMods, function (m1, m2) return m1.veiledName < m2.veiledName end )
+	table.sort(veiledMods, function (m1, m2) return m1.veiledName < m2.veiledName end )
 	return veiledMods
 end
 
@@ -403,8 +403,10 @@ local excludedItemKeystones = {
 	"Immortal Ambition", -- exclusive to specific unique
 	"Secrets of Suffering", -- exclusive to specific items
 	"Inner Conviction", -- exclusive to specific items
+	"Phase Acrobatics", -- removed from game
 	"Mortal Conviction", -- removed from game
-}local excludedPassiveKeystones = {
+}
+local excludedPassiveKeystones = {
 	"Chaos Inoculation", -- to prevent infinite loop
 	"Necromantic Aegis", -- to prevent infinite loop
 }
@@ -435,20 +437,20 @@ for _, name in ipairs(data.keystones) do
 	end
 end
 local impossibleEscape = {
-    "Impossible Escape",
-    "Viridian Jewel",
-    "League: Sentinel",
-    "Limited to: 1",
-    "Source: Drops from Uber unique{Maven}",
-    "Radius: Small"
+	"Impossible Escape",
+	"Viridian Jewel",
+	"League: Sentinel",
+	"Limited to: 1",
+	"Source: Drops from Uber unique{Maven}",
+	"Radius: Small"
 }
 for _, name in ipairs(impossibleEscapeKeystones) do
-    table.insert(impossibleEscape, "Variant: "..name)
+	table.insert(impossibleEscape, "Variant: "..name)
 end
 table.insert(impossibleEscape, "Variant: Everything (QoL Test Variant)")
 local variantCount = 1
 for index, name in ipairs(impossibleEscapeKeystones) do
-    table.insert(impossibleEscape, "{variant:"..index.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
+	table.insert(impossibleEscape, "{variant:"..index.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
 	variantCount = variantCount + 1
 end
 for _, name in ipairs(impossibleEscapeKeystones) do
