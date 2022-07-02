@@ -35,6 +35,9 @@ end
 
 -- Calculate physical damage reduction from armour, float
 function calcs.armourReductionF(armour, raw)
+	if armour == 0 and raw == 0 then
+		return 0
+	end
 	return (armour / (armour + raw * 5) * 100)
 end
 
@@ -865,48 +868,21 @@ function calcs.defence(env, actor)
 				},
 			}
 		end
-		local enemyCritChance = env.configInput["enemyCritChance"] or 5
-		local enemyCritDamage = env.configInput["enemyCritDamage"] or 30
+		local enemyCritChance = env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0
+		local enemyCritDamage = env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		for _, damageType in ipairs(dmgTypeList) do
 			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) --missing taunt from allies
 			local enemyDamage = env.configInput["enemy"..damageType.."Damage"]
 			local enemyPen = env.configInput["enemy"..damageType.."Pen"]
 			local sourceStr = enemyDamage == nil and "Default" or "Config"
-
-			if env.configInput["enemyIsBoss"] == "Uber Atziri" then -- random boss (not specificaly uber ziri)
-				if enemyDamage == nil then
-					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.stdBossDPSMult
-					if damageType == "Chaos" then
-						enemyDamage = enemyDamage / 4
-					end
-				end
-			elseif env.configInput["enemyIsBoss"] == "Shaper" then
-				if enemyDamage == nil then
-					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.shaperDPSMult
-					if damageType == "Chaos" then
-						enemyDamage = enemyDamage / 4
-					end
-				end
-				if enemyPen == nil and isElemental[damageType] then
-					enemyPen = data.misc.shaperPen
-				end
-			elseif env.configInput["enemyIsBoss"] == "Sirus" then
-				if enemyDamage == nil then
-					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5  * data.misc.sirusDPSMult
-					if damageType == "Chaos" then
-						enemyDamage = enemyDamage / 4
-					end
-				end
-				if enemyPen == nil and isElemental[damageType] then
-					enemyPen = data.misc.sirusPen
-				end
-			else
-				if enemyDamage == nil and damageType == "Physical" then
-					enemyDamage = env.data.monsterDamageTable[env.enemyLevel] * 1.5
-				end
+			
+			if enemyDamage == nil and env.configPlaceholder["enemy"..damageType.."Damage"] then
+				enemyDamage = env.configPlaceholder["enemy"..damageType.."Damage"]
 			end
-
+			if enemyPen == nil and env.configPlaceholder["enemy"..damageType.."Pen"] then
+				enemyPen = env.configPlaceholder["enemy"..damageType.."Pen"]
+			end
 			enemyDamage = enemyDamage or 0
 			output[damageType.."EnemyPen"] = enemyPen or 0
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
@@ -1090,7 +1066,7 @@ function calcs.defence(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		-- Calculate incoming damage multiplier
 		local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
-		local enemyPen = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or env.configInput["enemy"..damageType.."Pen"] or output[damageType.."EnemyPen"] or 0
+		local enemyPen = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."EnemyPen"]
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks")
@@ -1752,7 +1728,7 @@ function calcs.defence(env, actor)
 	
 	--survival time
 	do
-		local enemySkillTime = env.configInput.enemySpeed or 700
+		local enemySkillTime = env.configInput.enemySpeed or env.configPlaceholder.enemySpeed or 700
 		local enemyActionSpeed = calcs.actionSpeedMod(actor.enemy)
 		enemySkillTime = enemySkillTime / 1000 / enemyActionSpeed
 		output["EHPsurvivalTime"] = output["TotalNumberOfHits"] * enemySkillTime

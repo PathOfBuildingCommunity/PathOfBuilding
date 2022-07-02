@@ -278,6 +278,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.build = build
 		env.data = build.data
 		env.configInput = build.configTab.input
+		env.configPlaceholder = build.configTab.placeholder
 		env.calcsInput = build.calcsTab.input
 		env.mode = mode
 		env.spec = override.spec or build.spec
