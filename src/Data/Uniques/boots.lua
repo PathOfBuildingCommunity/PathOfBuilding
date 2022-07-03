@@ -344,7 +344,7 @@ Requires Level 12, 26 Dex
 {variant:1}30% increased Movement Speed when on Low Life
 {variant:2}15% increased Movement Speed
 {variant:2}You and nearby allies have 10% increased Movement Speed
-(5-10)% of Damage taken Gained as Mana over 4 seconds when Hit
+(5-10)% of Damage taken Recouped as Mana
 ]],
 -- Boots: Energy Shield
 [[
@@ -481,14 +481,11 @@ Requires Level 32, 54 Int
 Skyforth
 Sorcerer Boots
 Energy Shield: 64
-Variant: Pre 3.16.0
-Variant: Current
 Requires Level 67, 123 Int
 +(60-120) to maximum Mana
 30% increased Movement Speed
 25% chance to gain a Power Charge on Critical Strike
-{variant:1}12% increased Mana Reservation Efficiency
-{variant:2}12% increased Reservation Efficiency
+12% increased Reservation Efficiency of Skills
 You have no Life Regeneration
 Stun Threshold is based on 500% of your Mana instead of Life
 ]],[[
