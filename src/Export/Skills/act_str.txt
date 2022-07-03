@@ -1081,6 +1081,7 @@ local skills, mod, flag, skill = ...
 		{
 			name = "Area Hit",
 			area = true,
+			melee = false,
 		},
 	},
 	statMap = {

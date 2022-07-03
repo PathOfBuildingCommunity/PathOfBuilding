@@ -6252,6 +6252,7 @@ skills["Smite"] = {
 		{
 			name = "Area Hit",
 			area = true,
+			melee = false,
 		},
 	},
 	statMap = {
