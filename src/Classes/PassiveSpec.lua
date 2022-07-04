@@ -764,7 +764,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					if conqData.OP == "add" then
 						local addition = self.tree.legion.additions[conqData.ID]
 						for _, addStat in ipairs(addition.sd) do
-							self:NodeAdditionOrReplacementFromString(node, addStat)
+							self:NodeAdditionOrReplacementFromString(node, " \n"..addStat)
 						end
 					else
 						ConPrintf("Unhandled OP: " .. conqData.OP)

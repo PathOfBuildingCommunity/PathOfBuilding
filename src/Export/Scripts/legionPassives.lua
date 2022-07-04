@@ -52,17 +52,17 @@ local ksCount = -1;
 
 for i=1, alternatePassiveSkillDat.rowCount do
 	---@type table<string, boolean|string|number>
-	local datFileRow = {};
+	local datFileRow = {}
 	for j=1,#alternatePassiveSkillDat.cols-1 do
 		local key = alternatePassiveSkillDat.spec[j].name
 		datFileRow[key] = alternatePassiveSkillDat:ReadCell(i, j)
 	end
 	---@type table<string, boolean|string|number|table>
-	local legionPassiveNode = {};
+	local legionPassiveNode = {}
 	-- id
-	legionPassiveNode.id = datFileRow.Id;
+	legionPassiveNode.id = datFileRow.Id
 	-- icon
-	legionPassiveNode.icon = datFileRow.DDSIcon;
+	legionPassiveNode.icon = datFileRow.DDSIcon
 	-- is keystone
 	legionPassiveNode.ks = isValueInTable(datFileRow.PassiveType, 4) and true or false
 	if legionPassiveNode.ks then
@@ -71,7 +71,7 @@ for i=1, alternatePassiveSkillDat.rowCount do
 	-- is notable
 	legionPassiveNode['not'] = isValueInTable(datFileRow.PassiveType, 3) and true or false
 	-- node name
-	legionPassiveNode.dn = datFileRow.Name;
+	legionPassiveNode.dn = datFileRow.Name
 	-- is mastery wheel
 	legionPassiveNode.m = false
 	-- self explanatory
@@ -113,7 +113,7 @@ for i=1, alternatePassiveSkillDat.rowCount do
 	legionPassiveNode.out = {}
 	legionPassiveNode["in"] = {}
 
-	data.nodes[legionPassiveNode.id] = legionPassiveNode;
+	data.nodes[legionPassiveNode.id] = legionPassiveNode
 end
 
 data.groups[LEGION_PASSIVE_GROUP] = {
@@ -136,15 +136,15 @@ for i=1, alternatePassiveAdditionsDat.rowCount do
 	end
 
 	---@type table<string, boolean|string|number|table>
-	local legionPassiveAddition = {};
+	local legionPassiveAddition = {}
 
 	-- id
-	legionPassiveAddition.id = i - 1 --datFileRow.Id;
+	legionPassiveAddition.id = i - 1
 	-- Additions have no name, so we construct one for the UI (also, Lua patterns are too limiting :( )
 	legionPassiveAddition.dn = string.gsub(string.gsub(string.gsub(datFileRow.Id, "_", " "), "^%w* ", ""), "^%w* ", "")
 	legionPassiveAddition.dn = legionPassiveAddition.dn:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end)
 	-- stat descriptions
-	legionPassiveAddition.sd = {};
+	legionPassiveAddition.sd = {}
 	legionPassiveAddition.stats = {}
 
 	for idx,statKey in pairs(datFileRow.StatsKeys) do
@@ -160,7 +160,7 @@ for i=1, alternatePassiveAdditionsDat.rowCount do
 	for _, line in ipairs(describeStats(legionPassiveAddition.stats)) do
 		table.insert(legionPassiveAddition.sd, line)
 	end
-	data.additions[legionPassiveAddition.id] = legionPassiveAddition;
+	data.additions[legionPassiveAddition.id] = legionPassiveAddition
 end
 
 str = stringify(data)
