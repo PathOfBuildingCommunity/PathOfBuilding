@@ -1585,7 +1585,7 @@ function calcs.perform(env, avoidCache)
 							mult = mult ~= 1 and ("x "..mult),
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
-							efficiency = values.efficiency ~= 0 and ("x " .. round(100 / (100 + values.efficiency), 2)),
+							efficiency = values.efficiency ~= 0 and ("x " .. round(100 / (100 + values.efficiency), 4)),
 							total = values.reservedFlat,
 						})
 					end
@@ -1601,7 +1601,7 @@ function calcs.perform(env, avoidCache)
 							mult = mult ~= 1 and ("x "..mult),
 							more = values.more ~= 1 and ("x "..values.more),
 							inc = values.inc ~= 0 and ("x "..(1 + values.inc / 100)),
-							efficiency = values.efficiency ~= 0 and ("x " .. round(100 / (100 + values.efficiency), 2)),
+							efficiency = values.efficiency ~= 0 and ("x " .. round(100 / (100 + values.efficiency), 4)),
 							total = values.reservedPercent .. "%",
 						})
 					end
