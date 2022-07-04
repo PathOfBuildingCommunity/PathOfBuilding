@@ -302,12 +302,14 @@ function ItemClass:ParseRaw(raw)
 					self.implicit = true
 				elseif specName == "Prefix" then
 					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
+					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.prefixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
 					})
 				elseif specName == "Suffix" then
 					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
+					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.suffixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
@@ -525,7 +527,7 @@ function ItemClass:ParseRaw(raw)
 					modLines = self.explicitModLines
 				end
 				if modList then
-					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or 0.5), valueScalar = catalystScalar })
+					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or main.defaultItemAffixQuality), valueScalar = catalystScalar })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
