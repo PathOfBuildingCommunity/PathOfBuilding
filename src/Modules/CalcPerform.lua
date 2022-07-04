@@ -1556,7 +1556,7 @@ function calcs.perform(env, avoidCache)
 			for name, values in pairs(pool) do
 				values.more = skillModList:More(skillCfg, name.."Reserved", "Reserved")
 				values.inc = skillModList:Sum("INC", skillCfg, name.."Reserved", "Reserved")
-				values.efficiency = skillModList:Sum("INC", skillCfg, name.."ReservationEfficiency", "ReservationEfficiency")
+				values.efficiency = m_max(skillModList:Sum("INC", skillCfg, name.."ReservationEfficiency", "ReservationEfficiency"), -100)
 				-- used for Arcane Cloak calculations in ModStore.GetStat
 				env.player[name.."Efficiency"] = values.efficiency
 				if activeSkill.skillData[name.."ReservationFlatForced"] then
@@ -1564,7 +1564,7 @@ function calcs.perform(env, avoidCache)
 				else
 					local baseFlatVal = m_floor(values.baseFlat * mult)
 					values.reservedFlat = 0
-					if values.more > 0 and values.inc > -100 then
+					if values.more > 0 and values.inc > -100 and baseFlatVal ~= 0 then
 						values.reservedFlat = m_max(round(baseFlatVal * (100 + values.inc) / 100 * values.more / (1 + values.efficiency / 100), 0), 0)
 					end
 				end
@@ -1573,7 +1573,7 @@ function calcs.perform(env, avoidCache)
 				else
 					local basePercentVal = values.basePercent * mult
 					values.reservedPercent = 0
-					if values.more > 0 and values.inc > -100 then
+					if values.more > 0 and values.inc > -100 and basePercentVal ~= 0 then
 						values.reservedPercent = m_max(round(basePercentVal * (100 + values.inc) / 100 * values.more / (1 + values.efficiency / 100), 2), 0)
 					end
 				end
