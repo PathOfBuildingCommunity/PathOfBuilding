@@ -748,6 +748,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			
 			if node.type == "Notable" then
 				local conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
+				print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
 				for k,v in pairs(conqData) do
 					print(k, v)
 				end
@@ -802,7 +803,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					node.modList = new("ModList")
 					node.modKey = ""
 				elseif conqueredBy.conqueror.type == "vaal" and node.type == "Notable" then
-					local legionNode =legionNodes["vaal_notable_curse_1"]
+					local legionNode = legionNodes["vaal_notable_curse_1"]
 					node.dn = "Vaal notable node"
 					node.sd = {"Right click to set mod"}
 					node.sprites = legionNode.sprites
