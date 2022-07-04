@@ -740,20 +740,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			local conqueredBy = node.conqueredBy
 			local legionNodes = self.tree.legion.nodes
 
-			-- FIXME - continue implementing
-			local jewelType = "Brutal Restraint"
-			if conqueredBy.conqueror.type == "karui" then
-				jewelType = "Lethal Pride"
-			end
-			
-			if node.type == "Notable" then
-				local conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
-				print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
-				for k,v in pairs(conqData) do
-					print(k, v)
-				end
-			end
-
 			-- Replace with edited node if applicable
 			if self.tree.legion.editedNodes and self.tree.legion.editedNodes[conqueredBy.id] and self.tree.legion.editedNodes[conqueredBy.id][node.id] then
 				local editedNode = self.tree.legion.editedNodes[conqueredBy.id][node.id]
@@ -766,6 +752,25 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				node.icon = editedNode.icon
 				node.spriteId = editedNode.spriteId
 			else
+				-- FIXME - continue implementing
+				local jewelType = "Brutal Restraint"
+				if conqueredBy.conqueror.type == "karui" then
+					jewelType = "Lethal Pride"
+				end
+				
+				if node.type == "Notable" then
+					local conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
+					print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
+					if conqData.OP == "add" then
+						local addition = self.tree.legion.additions[conqData.ID]
+						for _, addStat in ipairs(addition.sd) do
+							self:NodeAdditionOrReplacementFromString(node, addStat)
+						end
+					else
+						ConPrintf("Unhandled OP: " .. conqData.OP)
+					end
+				end
+
 				if node.type == "Keystone" then
 					local legionNode = legionNodes[conqueredBy.conqueror.type.."_keystone_"..conqueredBy.conqueror.id]
 					self:ReplaceNode(node, legionNode)

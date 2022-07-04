@@ -139,7 +139,7 @@ for i=1, alternatePassiveAdditionsDat.rowCount do
 	local legionPassiveAddition = {};
 
 	-- id
-	legionPassiveAddition.id = datFileRow.Id;
+	legionPassiveAddition.id = i - 1 --datFileRow.Id;
 	-- Additions have no name, so we construct one for the UI (also, Lua patterns are too limiting :( )
 	legionPassiveAddition.dn = string.gsub(string.gsub(string.gsub(datFileRow.Id, "_", " "), "^%w* ", ""), "^%w* ", "")
 	legionPassiveAddition.dn = legionPassiveAddition.dn:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end)
