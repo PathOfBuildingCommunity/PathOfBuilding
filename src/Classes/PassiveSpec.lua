@@ -740,6 +740,19 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			local conqueredBy = node.conqueredBy
 			local legionNodes = self.tree.legion.nodes
 
+			-- FIXME - continue implementing
+			local jewelType = "Brutal Restraint"
+			if conqueredBy.conqueror.type == "karui" then
+				jewelType = "Lethal Pride"
+			end
+			
+			if node.type == "Notable" then
+				local conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
+				for k,v in pairs(conqData) do
+					print(k, v)
+				end
+			end
+
 			-- Replace with edited node if applicable
 			if self.tree.legion.editedNodes and self.tree.legion.editedNodes[conqueredBy.id] and self.tree.legion.editedNodes[conqueredBy.id][node.id] then
 				local editedNode = self.tree.legion.editedNodes[conqueredBy.id][node.id]

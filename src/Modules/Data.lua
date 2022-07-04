@@ -470,6 +470,88 @@ for size, jewel in pairs(data.clusterJewels.jewels) do
 	end
 end
 
+-- Load legion jewel data
+
+-- local function to check if file exists
+local function fileExists(file)
+	local f = io.open("Data/TimelessJewelData/"..file, "rb")
+	if f then f:close() end
+	return f ~= nil
+end
+
+-- lazy load a specific Jewel Type
+-- valid values: "Lethal Pride", "Militant Faith", "Elegant Hubris", "Brutal Restraint", "Glorious Vanity"
+local function loadTimelessJewel(jewelType)
+	-- if already loaded, return
+	if data.timelessJewelLUTs[jewelType] then return end
+
+	ConPrintf("LOADING")
+
+	-- load the binary jewel data file
+	if jewelType == "Glorious Vanity" then
+		-- FIXME - implement Glorious Vanity loading
+		return
+	elseif fileExists(jewelType) then
+		file = assert(io.open("Data/TimelessJewelData/"..jewelType, "rb"))
+		data.timelessJewelLUTs[jewelType] = file:read("*all")
+		file:close() 
+	end
+end
+
+data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
+data.timelessJewelLUTs = { }
+data.readLUT = function(seed, nodeID, jewelType)
+	loadTimelessJewel(jewelType)
+	if not data.timelessJewelLUTs[jewelType] then return {} end
+	result = {}
+	seedMin = {
+		["Lethal Pride"] = 10000, 
+		["Militant Faith"] = 2000, 
+		["Elegant Hubris"] = 2000/20, 
+		["Brutal Restraint"] = 500, 
+		["Glorious Vanity"] = 100
+	}
+	seedMax = {
+		["Lethal Pride"] = 18000, 
+		["Militant Faith"] = 10000, 
+		["Elegant Hubris"] = 160000/20, 
+		["Brutal Restraint"] = 8000, 
+		["Glorious Vanity"] = 8000
+	}
+	if jewelType == "Elegant Hubris" then
+		seed = seed / 20
+	end
+	seedOffset = (seed - seedMin[jewelType])
+	seedSize = (seedMax[jewelType] - seedMin[jewelType]) + 1
+	local index = data.nodeIDList[nodeID] and data.nodeIDList[nodeID].index or nil
+	if index then
+		if jewelType == "Glorious Vanity" then
+			for i=1, (Luts[jewel]["sizes"][nodeID * seedSize + seedOffset] + 1) do
+				result[i].ID = data.timelessJewelLUTs[jewelType][nodeID * seedSize + seedOffset + 1]:byte(i)
+			end
+			return result
+		end
+		result.ID = data.timelessJewelLUTs[jewelType]:byte((index * seedSize + seedOffset + 1))
+		if result.ID == 294 then
+			result.OP = "no OP"
+			return result
+		elseif result.ID >= 94 then
+			result.OP = "replace"
+			result.ID = result.ID - 94
+			return result
+		end
+		result.OP = "add"
+	else
+		ConPrintf("ERROR: Missing Index lookup for nodeID: "..nodeID)
+	end
+	return result
+end
+
+--local testTbl = data.readLUT(10116, 30439, "Lethal Pride")
+--for k,v in pairs(testTbl) do
+--	print(k, v)
+--end
+
 -- Load skills
 data.skills = { }
 data.skillStatMap = LoadModule("Data/SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
