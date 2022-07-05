@@ -44,11 +44,11 @@ function stringify(thing)
 end 
 
 ---@type table <string, table> @this is the structure used to generate the final data file Data/LegionPassives
-local data = {};
-data.nodes = {};
-data.groups = {};
-data.additions = {};
-local ksCount = -1;
+local data = { }
+data.nodes = { }
+data.groups = { }
+data.additions = { }
+local ksCount = -1
 
 for i=1, alternatePassiveSkillDat.rowCount do
 	---@type table<string, boolean|string|number>
@@ -113,7 +113,7 @@ for i=1, alternatePassiveSkillDat.rowCount do
 	legionPassiveNode.out = {}
 	legionPassiveNode["in"] = {}
 
-	data.nodes[legionPassiveNode.id] = legionPassiveNode
+	data.nodes[i-1] = legionPassiveNode
 end
 
 data.groups[LEGION_PASSIVE_GROUP] = {
@@ -139,7 +139,7 @@ for i=1, alternatePassiveAdditionsDat.rowCount do
 	local legionPassiveAddition = {}
 
 	-- id
-	legionPassiveAddition.id = i - 1
+	legionPassiveAddition.id = datFileRow.Id
 	-- Additions have no name, so we construct one for the UI (also, Lua patterns are too limiting :( )
 	legionPassiveAddition.dn = string.gsub(string.gsub(string.gsub(datFileRow.Id, "_", " "), "^%w* ", ""), "^%w* ", "")
 	legionPassiveAddition.dn = legionPassiveAddition.dn:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end)
@@ -160,7 +160,7 @@ for i=1, alternatePassiveAdditionsDat.rowCount do
 	for _, line in ipairs(describeStats(legionPassiveAddition.stats)) do
 		table.insert(legionPassiveAddition.sd, line)
 	end
-	data.additions[legionPassiveAddition.id] = legionPassiveAddition
+	data.additions[i-1] = legionPassiveAddition
 end
 
 str = stringify(data)

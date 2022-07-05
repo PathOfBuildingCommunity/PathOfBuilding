@@ -753,9 +753,15 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				node.spriteId = editedNode.spriteId
 			else
 				-- FIXME - continue implementing
-				local jewelType = "Brutal Restraint"
+				local jewelType = "Elegant Hubris"
 				if conqueredBy.conqueror.type == "karui" then
 					jewelType = "Lethal Pride"
+				elseif conqueredBy.conqueror.type == "maraketh" then
+					jewelType = "Brutal Restraint"
+				elseif conqueredBy.conqueror.type == "templars" then
+					jewelType = "Militant Faith"
+				elseif conqueredBy.conqueror.type == "vaal" then
+					jewelType = "Glorious Vanity"
 				end
 				
 				if node.type == "Notable" then
@@ -766,17 +772,27 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						for _, addStat in ipairs(addition.sd) do
 							self:NodeAdditionOrReplacementFromString(node, " \n"..addStat)
 						end
+					elseif conqData.OP == "replace" then
+						local legionNode = legionNodes[conqData.ID]
+						if legionNode then
+							self:ReplaceNode(node, legionNode)
+						else
+							ConPrintf("Unhandled 'replace' ID: " .. conqData.ID)
+						end
 					else
-						ConPrintf("Unhandled OP: " .. conqData.OP)
+						ConPrintf("Unhandled OP: " .. conqData.OP .. " : " .. conqData.ID)
 					end
-				end
-
-				if node.type == "Keystone" then
-					local legionNode = legionNodes[conqueredBy.conqueror.type.."_keystone_"..conqueredBy.conqueror.id]
-					self:ReplaceNode(node, legionNode)
+				elseif node.type == "Keystone" then
+					local matchStr = conqueredBy.conqueror.type.."_keystone_"..conqueredBy.conqueror.id
+					for _, legionNode in ipairs(legionNodes) do
+						if legionNode.id == matchStr then
+							self:ReplaceNode(node, legionNode)
+							break
+						end
+					end					
 				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Normal"  then
-					local legionNode = legionNodes["eternal_small_blank"]
-					self:ReplaceNode(node,legionNode)
+					local legionNode = legionNodes[109] -- eternal_small_blank
+					self:ReplaceNode(node, legionNode)
 				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Notable"  then
 					local legionNode = legionNodes["eternal_notable_fire_resistance_1"]
 					node.dn = "Eternal Empire notable node"
@@ -786,21 +802,21 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					node.modList = new("ModList")
 					node.modKey = ""
 					node.reminderText = { }
-				elseif conqueredBy.conqueror.type == "templar" then
+				elseif conqueredBy.conqueror.type == "templar" and node.type == "Normal" then
 					if isValueInArray(attributes, node.dn) then
-						local legionNode =legionNodes["templar_devotion_node"]
-						self:ReplaceNode(node,legionNode)
+						local legionNode = legionNodes[90] -- templar_devotion_node
+						self:ReplaceNode(node, legionNode)
 					else
-						self:NodeAdditionOrReplacementFromString(node,"+5 to Devotion")
+						self:NodeAdditionOrReplacementFromString(node," \n+5 to Devotion")
 					end
 				elseif conqueredBy.conqueror.type == "maraketh" and node.type == "Normal" then
 					local dex = isValueInArray(attributes, node.dn) and "2" or "4"
-					self:NodeAdditionOrReplacementFromString(node,"+"..dex.." to Dexterity")
+					self:NodeAdditionOrReplacementFromString(node," \n+"..dex.." to Dexterity")
 				elseif conqueredBy.conqueror.type == "karui" and node.type == "Normal" then
 					local str = isValueInArray(attributes, node.dn) and "2" or "4"
-					self:NodeAdditionOrReplacementFromString(node,"+"..str.." to Strength")
+					self:NodeAdditionOrReplacementFromString(node," \n+"..str.." to Strength")
 				elseif conqueredBy.conqueror.type == "vaal" and node.type == "Normal" then
-					local legionNode =legionNodes["vaal_small_fire_resistance"]
+					local legionNode =legionNodes[38] --vaal_small_fire_resistance
 					node.dn = "Vaal small node"
 					node.sd = {"Right click to set mod"}
 					node.sprites = legionNode.sprites
@@ -808,7 +824,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					node.modList = new("ModList")
 					node.modKey = ""
 				elseif conqueredBy.conqueror.type == "vaal" and node.type == "Notable" then
-					local legionNode = legionNodes["vaal_notable_curse_1"]
+					local legionNode = legionNodes[71] --vaal_notable_curse_1
 					node.dn = "Vaal notable node"
 					node.sd = {"Right click to set mod"}
 					node.sprites = legionNode.sprites
@@ -949,6 +965,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 end
 
 function PassiveSpecClass:ReplaceNode(old, newNode)
+	print("newNode", newNode)
 	-- Edited nodes can share a name
 	if old.sd == newNode.sd then
 		return 1
