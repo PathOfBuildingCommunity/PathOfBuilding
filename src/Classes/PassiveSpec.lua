@@ -674,37 +674,48 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			local legionNodes = self.tree.legion.nodes
 
 			-- FIXME - continue implementing
-			local jewelType = "Elegant Hubris"
-			if conqueredBy.conqueror.type == "karui" then
-				jewelType = "Lethal Pride"
+			local jewelType = 5
+			if conqueredBy.conqueror.type == "vaal" then
+				jewelType = 1
+			elseif conqueredBy.conqueror.type == "karui" then
+				jewelType = 2
 			elseif conqueredBy.conqueror.type == "maraketh" then
-				jewelType = "Brutal Restraint"
+				jewelType = 3
 			elseif conqueredBy.conqueror.type == "templar" then
-				jewelType = "Militant Faith"
-			elseif conqueredBy.conqueror.type == "vaal" then
-				jewelType = "Glorious Vanity"
+				jewelType = 4
+			end
+			local seed = conqueredBy.id
+			if jewelType == 5 then
+				seed = seed / 20
 			end
 
 			if node.type == "Notable" then
-				local conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
+				local conqData = 294
+				if seed ~= m_max(m_min(seed, data.ConqSeedMax[jewelType]), data.ConqSeedMin[jewelType]) then
+					ConPrintf("ERROR: Seed " .. seed .. " is outside of valid range [" .. data.ConqSeedMin[jewelType] .. " - " .. data.ConqSeedMax[jewelType] .. "] for jewel type: " .. data.ConqTypeIds[jewelType])
+				else
+					conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
+				end
 				print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
 				if conqData == nil then
-					ConPrintf("Missing LUT: " .. jewelType)
-				elseif conqData.OP == "add" then
-					local addition = self.tree.legion.additions[conqData.ID]
+					ConPrintf("Missing LUT: " .. data.ConqTypeIds[jewelType])
+				elseif conqData == 294 then -- no OP
+				elseif conqData >= 94 then -- replace
+					conqData = conqData - 94
+					local legionNode = legionNodes[conqData]
+					if legionNode then
+						ConPrintf("Handled 'replace' ID: " .. conqData)
+						self:ReplaceNode(node, legionNode)
+					else
+						ConPrintf("Unhandled 'replace' ID: " .. conqData)
+					end
+				elseif conqData then --add
+					local addition = self.tree.legion.additions[conqData]
 					for _, addStat in ipairs(addition.sd) do
 						self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
 					end
-				elseif conqData.OP == "replace" then
-					local legionNode = legionNodes[conqData.ID]
-					if legionNode then
-						ConPrintf("Handled 'replace' ID: " .. conqData.ID)
-						self:ReplaceNode(node, legionNode)
-					else
-						ConPrintf("Unhandled 'replace' ID: " .. conqData.ID)
-					end
 				elseif next(conqData) then
-					ConPrintf("Unhandled OP: " .. conqData.OP .. " : " .. conqData.ID)
+					ConPrintf("Unhandled OP: " .. conqData)
 				end
 			elseif node.type == "Keystone" then
 				local matchStr = conqueredBy.conqueror.type .. "_keystone_" .. conqueredBy.conqueror.id
