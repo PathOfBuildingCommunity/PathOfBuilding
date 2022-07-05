@@ -135,7 +135,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		end
 	end
 
-	self.controls.powerReport = new("ButtonControl", {"LEFT", self.controls.treeHeatMapStatSelect, "RIGHT"}, 8, 0, 150, 20, self.showPowerReport and "Hide Power Report" or "Show Power Report", function()
+	self.controls.powerReport = new("ButtonControl", { "LEFT", self.controls.treeHeatMapStatSelect, "RIGHT" }, 8, 0, 150, 20, self.showPowerReport and "Hide Power Report" or "Show Power Report", function()
 		self.showPowerReport = not self.showPowerReport
 		self:TogglePowerReport()
 	end)
@@ -151,15 +151,18 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end
 	self.showPowerReport = false
 
-	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
+	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.powerReport, "RIGHT" }, 8, 0, 150, 20, "Find Timeless Jewel", function()
+		self:FindTimelessJewel()
+	end)
+
+	self.controls.specConvertText = new("LabelControl", { "BOTTOMLEFT", self.controls.specSelect, "TOPLEFT" }, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
 		return self.showConvert
 	end
-	self.controls.specConvert = new("ButtonControl", {"LEFT",self.controls.specConvertText,"RIGHT"}, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
+	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
 		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
-		newSpec.tree.legion.editedNodes = self.build.spec.tree.legion.editedNodes
 		newSpec:RestoreUndoState(self.build.spec:CreateUndoState())
 		newSpec:BuildClusterJewelGraphs()
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
@@ -741,4 +744,94 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	end
 
 	return report
+end
+
+function TreeTabClass:FindTimelessJewel()
+	local controls = { }
+	local nodeData = { }
+	local smallAdditions = { "Strength", "Dex", "Devotion" }
+	local jewelTypes = {
+		{ label = "Lethal Pride", id = "karui" },
+		{ label = "Brutal Restraint", id = "maraketh" },
+		{ label = "Militant Faith", id = "templar" },
+		{ label = "Glorious Vanity", id = "vaal" },
+		{ label = "Elegant Hubris", id = "eternal" }
+	}
+	local jewelType = "karui"
+
+	local function buildMods()
+		wipeTable(nodeData)
+		for _, node in pairs(self.build.spec.tree.legion.nodes) do
+			if node.id:match("^"..jewelType.."_.+") and not node.ks then
+				t_insert(nodeData, {
+					label = node.dn,
+					descriptions = copyTable(node.sd),
+					type = jewelType,
+					id = node.id,
+				})
+			end
+		end
+		for _, addition in pairs(self.build.spec.tree.legion.additions) do
+			-- exclude passives that are already added (vaal, attributes, devotion)
+			if addition.id:match("^"..jewelType.."_.+") and not isValueInArray(smallAdditions, addition.dn) and jewelType ~= "vaal" then
+				t_insert(nodeData, {
+					label = addition.dn,
+					descriptions = copyTable(addition.sd),
+					type = jewelType,
+					id = addition.id,
+				})
+			end
+		end
+		table.sort(nodeData, function(a, b) return a.label < b.label end)
+	end
+
+	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 190, 25, 0, 16, "^7Jewel Type:")
+	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 43, 0, 150, 18, jewelTypes, function(index, value)
+		jewelType = jewelTypes[index].id
+		buildMods()
+	end)
+
+	controls.socketSelectLabel = new("LabelControl", { "TOPLEFT", controls.jewelSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Jewel Socket:")
+	controls.socketSelect = new("DropDownControl", { "LEFT", controls.socketSelectLabel, "RIGHT" }, 32, 0, 150, 18)
+	
+	controls.socketFilterLabel = new("LabelControl", { "TOPLEFT", controls.socketSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Filter Nodes:")
+	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 37, 0, 18)
+	controls.socketFilter.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Enable this option to exclude nodes that you do not have allocated on your active passive skill tree.")
+		tooltip:AddLine(16, "^7This can be useful if you're never going to path towards those excluded nodes and don't care what happens to them.")
+	end
+
+	buildMods()
+	controls.nodeSelectLabel = new("LabelControl", { "TOPLEFT", controls.socketFilterLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Search for Node:")
+	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 150, 18, nodeData, function(index, value)
+		controls.searchList.caret = #controls.searchList.buf + 1
+		controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id)
+	end)
+	controls.nodeSelect.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value then
+			for _, line in ipairs(value.descriptions) do
+				tooltip:AddLine(16, "^7" .. line)
+			end
+		end
+	end
+
+	controls.searchListLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, -100, 25, 0, 16, "^7Desired Nodes:")
+	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 225, 200, "", nil, "^%C\t\n", nil, nil, 16, true)
+
+	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, 140, 25, 0, 16, "^7Search Results:")
+	controls.searchResults = new("EditControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 225, 200, "", nil, "^%C\t\n", nil, nil, 16, true)
+
+	controls.search = new("ButtonControl", nil, -90, 375, 80, 20, "Search", function()
+		-- TODO
+	end)
+	controls.reset = new("ButtonControl", nil, 0, 375, 80, 20, "Reset", function()
+		controls.searchList:SetText("")
+		controls.searchResults:SetText("")
+	end)
+	controls.close = new("ButtonControl", nil, 90, 375, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(500, 405, "Find a Timeless Jewel", controls, "search")
 end

@@ -119,46 +119,6 @@ function PassiveSpecClass:Load(xml, dbFileName)
 	elseif url then
 		self:DecodeURL(url)
 	end
-	for _, node in pairs(xml) do
-		if type(node) == "table" then
-			if node.elem == "EditedNodes" then
-				for _, child in ipairs(node) do
-					if not child.attrib.nodeId then
-						launch:ShowErrMsg("^1Error parsing '%s': 'EditedNode' element missing 'nodeId' attribute", dbFileName)
-						return true
-					end
-					if not child.attrib.editorSeed then
-						launch:ShowErrMsg("^1Error parsing '%s': 'EditedNode' element missing 'editorSeed' attribute", dbFileName)
-						return true
-					end
-
-					local editorSeed = tonumber(child.attrib.editorSeed)
-					local nodeId = tonumber(child.attrib.nodeId)
-					if not self.tree.legion.editedNodes then
-						self.tree.legion.editedNodes = { }
-					end
-					if not self.tree.legion.editedNodes[editorSeed] then
-						self.tree.legion.editedNodes[editorSeed] = { }
-					end
-					self.tree.legion.editedNodes[editorSeed][nodeId] = copyTable(self.nodes[nodeId], true)
-					self.tree.legion.editedNodes[editorSeed][nodeId].id = nodeId
-					self.tree.legion.editedNodes[editorSeed][nodeId].dn = child.attrib.nodeName
-					self.tree.legion.editedNodes[editorSeed][nodeId].icon = child.attrib.icon
-					if self.tree.legion.nodes[child.attrib.spriteId] then
-						self.tree.legion.editedNodes[editorSeed][nodeId].spriteId = child.attrib.spriteId
-						self.tree.legion.editedNodes[editorSeed][nodeId].sprites = self.tree.legion.nodes[child.attrib.spriteId].sprites
-					end
-					local modCount = 0
-					for _, modLine in ipairs(child) do
-						for line in string.gmatch(modLine .. "\r\n", "([^\r\n\t]*)\r?\n") do
-							self:NodeAdditionOrReplacementFromString(self.tree.legion.editedNodes[editorSeed][nodeId], line, modCount == 0)
-							modCount = modCount + 1
-						end
-					end
-				end
-			end
-		end
-	end
 	self:ResetUndo()
 end
 
@@ -171,33 +131,6 @@ function PassiveSpecClass:Save(xml)
 	for mastery, effect in pairs(self.masterySelections) do
 		t_insert(masterySelections, "{"..mastery..","..effect.."}")
 	end
-	local editedNodes = {
-		elem = "EditedNodes"
-	}
-	if self.tree.legion.editedNodes then
-		for seed, nodes in pairs(self.tree.legion.editedNodes) do
-			for nodeId, node in pairs(nodes) do
-				local editedNode = { elem = "EditedNode", attrib = { nodeId = tostring(nodeId), editorSeed = tostring(seed), nodeName = node.dn, icon = node.icon, spriteId = node.spriteId } }
-				for _, modLine in ipairs(node.sd) do
-					t_insert(editedNode, modLine)
-				end
-				-- Do not save current editedNode data unless the current node is conquered
-				if self.nodes[nodeId] and self.nodes[nodeId].conqueredBy then
-					-- Do not save current editedNode data unless the current node is anointed or allocated
-					if self.build.calcsTab.mainEnv.grantedPassives[nodeId] then
-						t_insert(editedNodes, editedNode)
-					else
-						for allocNodeId in pairs(self.allocNodes) do
-							if nodeId == allocNodeId then
-								t_insert(editedNodes, editedNode)
-							end
-						end
-					end
-				end
-			end
-		end
-	end
-	t_insert(xml, editedNodes)
 	xml.attrib = { 
 		title = self.title,
 		treeVersion = self.treeVersion,
@@ -740,83 +673,70 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			local conqueredBy = node.conqueredBy
 			local legionNodes = self.tree.legion.nodes
 
-			-- Replace with edited node if applicable
-			if self.tree.legion.editedNodes and self.tree.legion.editedNodes[conqueredBy.id] and self.tree.legion.editedNodes[conqueredBy.id][node.id] then
-				local editedNode = self.tree.legion.editedNodes[conqueredBy.id][node.id]
-				node.dn = editedNode.dn
-				node.sd = editedNode.sd
-				node.sprites = editedNode.sprites
-				node.mods = editedNode.mods
-				node.modList = editedNode.modList
-				node.modKey = editedNode.modKey
-				node.icon = editedNode.icon
-				node.spriteId = editedNode.spriteId
-			else
-				-- FIXME - continue implementing
-				local jewelType = "Elegant Hubris"
-				if conqueredBy.conqueror.type == "karui" then
-					jewelType = "Lethal Pride"
-				elseif conqueredBy.conqueror.type == "maraketh" then
-					jewelType = "Brutal Restraint"
-				elseif conqueredBy.conqueror.type == "templar" then
-					jewelType = "Militant Faith"
-				elseif conqueredBy.conqueror.type == "vaal" then
-					jewelType = "Glorious Vanity"
-				end
-				
-				if node.type == "Notable" then
-					local conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
-					print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
-					if conqData == nil then
-						ConPrintf("Missing LUT: " .. jewelType)
-					elseif conqData.OP == "add" then
-						local addition = self.tree.legion.additions[conqData.ID]
-						for _, addStat in ipairs(addition.sd) do
-							self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
-						end
-					elseif conqData.OP == "replace" then
-						local legionNode = legionNodes[conqData.ID]
-						if legionNode then
-							ConPrintf("Handled 'replace' ID: " .. conqData.ID)
-							self:ReplaceNode(node, legionNode)
-						else
-							ConPrintf("Unhandled 'replace' ID: " .. conqData.ID)
-						end
-					else
-						ConPrintf("Unhandled OP: " .. conqData.OP .. " : " .. conqData.ID)
-					end
-				elseif node.type == "Keystone" then
-					local matchStr = conqueredBy.conqueror.type .. "_keystone_" .. conqueredBy.conqueror.id
-					for _, legionNode in ipairs(legionNodes) do
-						if legionNode.id == matchStr then
-							self:ReplaceNode(node, legionNode)
-							break
-						end
-					end					
-				elseif node.type == "Normal" then
-					if conqueredBy.conqueror.type == "vaal" then
-						local legionNode = legionNodes[38] -- vaal_small_fire_resistance
-						self:ReplaceNode(node, legionNode)
-					elseif conqueredBy.conqueror.type == "karui" then
-						local str = isValueInArray(attributes, node.dn) and "2" or "4"
-						self:NodeAdditionOrReplacementFromString(node, " \n+" .. str .. " to Strength")
-					elseif conqueredBy.conqueror.type == "maraketh" then
-						local dex = isValueInArray(attributes, node.dn) and "2" or "4"
-						self:NodeAdditionOrReplacementFromString(node, " \n+" .. dex .. " to Dexterity")
-					elseif conqueredBy.conqueror.type == "templar" then
-						if isValueInArray(attributes, node.dn) then
-							local legionNode = legionNodes[90] -- templar_devotion_node
-							self:ReplaceNode(node, legionNode)
-						else
-							self:NodeAdditionOrReplacementFromString(node, " \n+5 to Devotion")
-						end
-					elseif conqueredBy.conqueror.type == "eternal" then
-						local legionNode = legionNodes[109] -- eternal_small_blank
-						self:ReplaceNode(node, legionNode)
-					end
-				end
-				self:ReconnectNodeToClassStart(node)
+			-- FIXME - continue implementing
+			local jewelType = "Elegant Hubris"
+			if conqueredBy.conqueror.type == "karui" then
+				jewelType = "Lethal Pride"
+			elseif conqueredBy.conqueror.type == "maraketh" then
+				jewelType = "Brutal Restraint"
+			elseif conqueredBy.conqueror.type == "templar" then
+				jewelType = "Militant Faith"
+			elseif conqueredBy.conqueror.type == "vaal" then
+				jewelType = "Glorious Vanity"
 			end
+
+			if node.type == "Notable" then
+				local conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
+				print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
+				if conqData == nil then
+					ConPrintf("Missing LUT: " .. jewelType)
+				elseif conqData.OP == "add" then
+					local addition = self.tree.legion.additions[conqData.ID]
+					for _, addStat in ipairs(addition.sd) do
+						self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
+					end
+				elseif conqData.OP == "replace" then
+					local legionNode = legionNodes[conqData.ID]
+					if legionNode then
+						ConPrintf("Handled 'replace' ID: " .. conqData.ID)
+						self:ReplaceNode(node, legionNode)
+					else
+						ConPrintf("Unhandled 'replace' ID: " .. conqData.ID)
+					end
+				elseif next(conqData) then
+					ConPrintf("Unhandled OP: " .. conqData.OP .. " : " .. conqData.ID)
+				end
+			elseif node.type == "Keystone" then
+				local matchStr = conqueredBy.conqueror.type .. "_keystone_" .. conqueredBy.conqueror.id
+				for _, legionNode in ipairs(legionNodes) do
+					if legionNode.id == matchStr then
+						self:ReplaceNode(node, legionNode)
+						break
+					end
+				end					
+			elseif node.type == "Normal" then
+				if conqueredBy.conqueror.type == "vaal" then
+					local legionNode = legionNodes[38] -- vaal_small_fire_resistance
+					self:ReplaceNode(node, legionNode)
+				elseif conqueredBy.conqueror.type == "karui" then
+					local str = isValueInArray(attributes, node.dn) and "2" or "4"
+					self:NodeAdditionOrReplacementFromString(node, " \n+" .. str .. " to Strength")
+				elseif conqueredBy.conqueror.type == "maraketh" then
+					local dex = isValueInArray(attributes, node.dn) and "2" or "4"
+					self:NodeAdditionOrReplacementFromString(node, " \n+" .. dex .. " to Dexterity")
+				elseif conqueredBy.conqueror.type == "templar" then
+					if isValueInArray(attributes, node.dn) then
+						local legionNode = legionNodes[90] -- templar_devotion_node
+						self:ReplaceNode(node, legionNode)
+					else
+						self:NodeAdditionOrReplacementFromString(node, " \n+5 to Devotion")
+					end
+				elseif conqueredBy.conqueror.type == "eternal" then
+					local legionNode = legionNodes[109] -- eternal_small_blank
+					self:ReplaceNode(node, legionNode)
+				end
+			end
+			self:ReconnectNodeToClassStart(node)
 		end
 	end
 

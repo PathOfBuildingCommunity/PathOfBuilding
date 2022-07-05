@@ -6,6 +6,9 @@
 
 LoadModule("Data/Global")
 
+local m_min = math.min
+local m_max = math.max
+
 local skillTypes = {
 	"act_str",
 	"act_dex",
@@ -511,21 +514,25 @@ data.readLUT = function(seed, nodeID, jewelType)
 	if data.timelessJewelLUTs[jewelType] == "" then return nil end
 	result = { }
 	seedMin = {
-		["Lethal Pride"] = 10000, 
-		["Militant Faith"] = 2000, 
-		["Elegant Hubris"] = 2000/20, 
-		["Brutal Restraint"] = 500, 
-		["Glorious Vanity"] = 100
+		["Lethal Pride"] = 10000,
+		["Brutal Restraint"] = 500,
+		["Militant Faith"] = 2000,
+		["Glorious Vanity"] = 100,
+		["Elegant Hubris"] = 2000 / 20,
 	}
 	seedMax = {
-		["Lethal Pride"] = 18000, 
-		["Militant Faith"] = 10000, 
-		["Elegant Hubris"] = 160000/20, 
-		["Brutal Restraint"] = 8000, 
-		["Glorious Vanity"] = 8000
+		["Lethal Pride"] = 18000,
+		["Brutal Restraint"] = 8000,
+		["Militant Faith"] = 10000,
+		["Glorious Vanity"] = 8000,
+		["Elegant Hubris"] = 160000 / 20,
 	}
 	if jewelType == "Elegant Hubris" then
 		seed = seed / 20
+	end
+	if seed ~= m_max(m_min(seed, seedMax[jewelType]), seedMin[jewelType]) then
+		ConPrintf("ERROR: Seed " .. seed .. " is outside of valid range [" .. seedMin[jewelType] .. " - " .. seedMax[jewelType] .. "] for jewel type: " .. jewelType)
+		return result
 	end
 	seedOffset = (seed - seedMin[jewelType])
 	seedSize = (seedMax[jewelType] - seedMin[jewelType]) + 1
