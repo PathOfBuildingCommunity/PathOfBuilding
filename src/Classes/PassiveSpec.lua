@@ -690,32 +690,36 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			end
 
 			if node.type == "Notable" then
-				local conqData = 294
+				local jewelDataTbl = { }
 				if seed ~= m_max(m_min(seed, data.ConqSeedMax[jewelType]), data.ConqSeedMin[jewelType]) then
 					ConPrintf("ERROR: Seed " .. seed .. " is outside of valid range [" .. data.ConqSeedMin[jewelType] .. " - " .. data.ConqSeedMax[jewelType] .. "] for jewel type: " .. data.ConqTypeIds[jewelType])
 				else
-					conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
+					jewelDataTbl = data.readLUT(conqueredBy.id, node.id, jewelType)
 				end
 				print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
-				if conqData == nil then
+				if not next(jewelDataTbl) then
 					ConPrintf("Missing LUT: " .. data.ConqTypeIds[jewelType])
-				elseif conqData == 294 then -- no OP
-				elseif conqData >= 94 then -- replace
-					conqData = conqData - 94
-					local legionNode = legionNodes[conqData]
-					if legionNode then
-						ConPrintf("Handled 'replace' ID: " .. conqData)
-						self:ReplaceNode(node, legionNode)
-					else
-						ConPrintf("Unhandled 'replace' ID: " .. conqData)
+				else
+					for _, conqData in ipairs(jewelDataTbl) do
+						if conqData == 294 then -- no OP
+						elseif conqData >= 94 then -- replace
+							conqData = conqData - 94
+							local legionNode = legionNodes[conqData]
+							if legionNode then
+								ConPrintf("Handled 'replace' ID: " .. conqData)
+								self:ReplaceNode(node, legionNode)
+							else
+								ConPrintf("Unhandled 'replace' ID: " .. conqData)
+							end
+						elseif conqData then --add
+							local addition = self.tree.legion.additions[conqData]
+							for _, addStat in ipairs(addition.sd) do
+								self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
+							end
+						elseif next(conqData) then
+							ConPrintf("Unhandled OP: " .. conqData)
+						end
 					end
-				elseif conqData then --add
-					local addition = self.tree.legion.additions[conqData]
-					for _, addStat in ipairs(addition.sd) do
-						self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
-					end
-				elseif next(conqData) then
-					ConPrintf("Unhandled OP: " .. conqData)
 				end
 			elseif node.type == "Keystone" then
 				local matchStr = conqueredBy.conqueror.type .. "_keystone_" .. conqueredBy.conqueror.id

@@ -486,21 +486,27 @@ end
 -- valid values: "Glorious Vanity", "Lethal Pride", "Brutal Restraint", "Militant Faith", "Elegant Hubris"
 local function loadTimelessJewel(jewelType)
 	-- if already loaded, return
-	if data.timelessJewelLUTs[jewelType] and data.timelessJewelLUTs[jewelType] ~= "" then return end
+	if data.timelessJewelLUTs[jewelType] and data.timelessJewelLUTs[jewelType].data ~= "" then return end
 
 	ConPrintf("LOADING")
 	
-	data.timelessJewelLUTs[jewelType] = ""
+	data.timelessJewelLUTs[jewelType] = { data = "" }
 
 	jewelFile = "Data/TimelessJewelData/" .. data.ConqTypeIds[jewelType]:gsub("%s+", "") .. ".bin"
 
 	-- load the binary jewel data file
 	if jewelType == 1 then -- "Glorious Vanity"
-		-- FIXME - implement Glorious Vanity loading
+		file = assert(io.open(jewelFile, "rb"))
+		local GV_nodecount = 1678
+		data.timelessJewelLUTs[jewelType].sizes = file:read(GV_nodecount)
+		for i = 1, (GV_nodecount + 1) do
+			data.timelessJewelLUTs[jewelType].data = data.timelessJewelLUTs[jewelType].data .. file:read(data.timelessJewelLUTs[jewelType].sizes:byte(i))
+		end
+		file:close()
 		return
 	elseif fileExists(jewelFile) then
 		file = assert(io.open(jewelFile, "rb"))
-		data.timelessJewelLUTs[jewelType] = file:read("*all")
+		data.timelessJewelLUTs[jewelType].data = file:read("*all")
 		file:close()
 	else
 		ConPrintf("FAILED to load file: " .. jewelFile)
@@ -529,29 +535,37 @@ data.ConqSeedMax = {
 	[5] = 160000 / 20,
 }
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
+data.nodeIDListGV = LoadModule("Data/TimelessJewelData/NodeIndexMappingGV")
 data.timelessJewelLUTs = { }
 data.readLUT = function(seed, nodeID, jewelType)
 	loadTimelessJewel(jewelType)
-	if data.timelessJewelLUTs[jewelType] == "" then return nil end
+	if data.timelessJewelLUTs[jewelType].data == "" then return nil end
 	if jewelType == 5 then -- "Elegant Hubris"
 		seed = seed / 20
 	end
 	seedOffset = (seed - data.ConqSeedMin[jewelType])
 	seedSize = (data.ConqSeedMax[jewelType] - data.ConqSeedMin[jewelType]) + 1
-	local index = data.nodeIDList[nodeID] and data.nodeIDList[nodeID].index or nil
-	if index then
-		if jewelType == 1 then -- "Glorious Vanity"
-			local result = nil
-			for i=1, (Luts[jewel]["sizes"][nodeID * seedSize + seedOffset] + 1) do
-				result[i] = data.timelessJewelLUTs[jewelType][nodeID * seedSize + seedOffset + 1]:byte(i)
+	if jewelType == 1 then -- "Glorious Vanity"
+		local index = data.nodeIDListGV[nodeID] and data.nodeIDListGV[nodeID].index or nil
+		if index then
+			local result = { }
+			for i = 1, data.timelessJewelLUTs[jewelType].sizes:byte(index) do
+				print(i, data.timelessJewelLUTs[jewelType].sizes:byte(index))
+				result[i] = data.timelessJewelLUTs[jewelType].data:byte(index * seedSize + seedOffset + i)
 			end
 			return result
+		else
+			ConPrintf("ERROR: Missing Index lookup for nodeID: " .. nodeID)
 		end
-		return data.timelessJewelLUTs[jewelType]:byte((index * seedSize + seedOffset + 1))
 	else
-		ConPrintf("ERROR: Missing Index lookup for nodeID: "..nodeID)
+		local index = data.nodeIDList[nodeID] and data.nodeIDList[nodeID].index or nil
+		if index then
+			return { data.timelessJewelLUTs[jewelType].data:byte(index * seedSize + seedOffset + 1) }
+		else
+			ConPrintf("ERROR: Missing Index lookup for nodeID: "..nodeID)
+		end
+		return { }
 	end
-	return nil
 end
 
 -- Load skills
