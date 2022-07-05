@@ -502,10 +502,14 @@ local function loadTimelessJewel(jewelType)
 	if jewelType == 1 then -- "Glorious Vanity"
 		file = assert(io.open(jewelFile, "rb"))
 		local GV_nodecount = 1678
-		data.timelessJewelLUTs[jewelType].sizes = file:read(GV_nodecount)
-		for i = 1, (GV_nodecount + 1) do
+		local seedSize = data.ConqSeedMax[1] - data.ConqSeedMin[1] + 1
+		data.timelessJewelLUTs[jewelType].sizes = file:read(GV_nodecount * seedSize)
+		local count = GV_nodecount * seedSize
+		for i = 1, (GV_nodecount * seedSize) do
 			data.timelessJewelLUTs[jewelType].data[i] = file:read(data.timelessJewelLUTs[jewelType].sizes:byte(i))
+			count = count + data.timelessJewelLUTs[jewelType].sizes:byte(i)
 		end
+		ConPrintf("Glorious Vanity Lookup Table Loaded! Read " .. count .. " bytes")
 		file:close()
 		return
 	elseif fileExists(jewelFile) then
@@ -553,9 +557,10 @@ data.readLUT = function(seed, nodeID, jewelType)
 		local index = data.nodeIDListGV[nodeID] and data.nodeIDListGV[nodeID].index or nil
 		if index then
 			local result = { }
-			for i = 1, data.timelessJewelLUTs[jewelType].sizes:byte(index) do
-				result[i] = data.timelessJewelLUTs[jewelType].data[index]:byte(i)
-				print(result[i])
+			--print("INDEX:", index, "Stat Count:", data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1))
+			for i = 1, data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1) do
+				result[i] = data.timelessJewelLUTs[jewelType].data[index * seedSize + seedOffset + 1]:byte(i)
+				--print(result[i])
 			end
 			return result
 		else
