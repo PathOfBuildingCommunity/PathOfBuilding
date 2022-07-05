@@ -758,7 +758,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					jewelType = "Lethal Pride"
 				elseif conqueredBy.conqueror.type == "maraketh" then
 					jewelType = "Brutal Restraint"
-				elseif conqueredBy.conqueror.type == "templars" then
+				elseif conqueredBy.conqueror.type == "templar" then
 					jewelType = "Militant Faith"
 				elseif conqueredBy.conqueror.type == "vaal" then
 					jewelType = "Glorious Vanity"
