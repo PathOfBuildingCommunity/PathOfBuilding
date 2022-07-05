@@ -512,7 +512,7 @@ data.timelessJewelLUTs = { }
 data.readLUT = function(seed, nodeID, jewelType)
 	loadTimelessJewel(jewelType)
 	if data.timelessJewelLUTs[jewelType] == "" then return nil end
-	result = { }
+	result = nil
 	seedMin = {
 		["Lethal Pride"] = 10000,
 		["Brutal Restraint"] = 500,
@@ -540,20 +540,11 @@ data.readLUT = function(seed, nodeID, jewelType)
 	if index then
 		if jewelType == "Glorious Vanity" then
 			for i=1, (Luts[jewel]["sizes"][nodeID * seedSize + seedOffset] + 1) do
-				result[i].ID = data.timelessJewelLUTs[jewelType][nodeID * seedSize + seedOffset + 1]:byte(i)
+				result[i] = data.timelessJewelLUTs[jewelType][nodeID * seedSize + seedOffset + 1]:byte(i)
 			end
 			return result
 		end
-		result.ID = data.timelessJewelLUTs[jewelType]:byte((index * seedSize + seedOffset + 1))
-		if result.ID == 294 then
-			result.OP = "no OP"
-			return result
-		elseif result.ID >= 94 then
-			result.OP = "replace"
-			result.ID = result.ID - 94
-			return result
-		end
-		result.OP = "add"
+		result = data.timelessJewelLUTs[jewelType]:byte((index * seedSize + seedOffset + 1))
 	else
 		ConPrintf("ERROR: Missing Index lookup for nodeID: "..nodeID)
 	end

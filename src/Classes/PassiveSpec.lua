@@ -690,21 +690,23 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
 				if conqData == nil then
 					ConPrintf("Missing LUT: " .. jewelType)
-				elseif conqData.OP == "add" then
-					local addition = self.tree.legion.additions[conqData.ID]
+				elseif conqData == 294 then -- no OP
+				elseif conqData >= 94 then -- replace
+					conqData = conqData - 94
+					local legionNode = legionNodes[conqData]
+					if legionNode then
+						ConPrintf("Handled 'replace' ID: " .. conqData)
+						self:ReplaceNode(node, legionNode)
+					else
+						ConPrintf("Unhandled 'replace' ID: " .. conqData)
+					end
+				elseif conqData then --add
+					local addition = self.tree.legion.additions[conqData]
 					for _, addStat in ipairs(addition.sd) do
 						self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
 					end
-				elseif conqData.OP == "replace" then
-					local legionNode = legionNodes[conqData.ID]
-					if legionNode then
-						ConPrintf("Handled 'replace' ID: " .. conqData.ID)
-						self:ReplaceNode(node, legionNode)
-					else
-						ConPrintf("Unhandled 'replace' ID: " .. conqData.ID)
-					end
 				elseif next(conqData) then
-					ConPrintf("Unhandled OP: " .. conqData.OP .. " : " .. conqData.ID)
+					ConPrintf("Unhandled OP: " .. conqData)
 				end
 			elseif node.type == "Keystone" then
 				local matchStr = conqueredBy.conqueror.type .. "_keystone_" .. conqueredBy.conqueror.id
