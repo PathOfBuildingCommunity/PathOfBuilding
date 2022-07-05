@@ -775,6 +775,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					elseif conqData.OP == "replace" then
 						local legionNode = legionNodes[conqData.ID]
 						if legionNode then
+							ConPrintf("Handled 'replace' ID: " .. conqData.ID)
 							self:ReplaceNode(node, legionNode)
 						else
 							ConPrintf("Unhandled 'replace' ID: " .. conqData.ID)
@@ -965,7 +966,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 end
 
 function PassiveSpecClass:ReplaceNode(old, newNode)
-	print("newNode", newNode)
 	-- Edited nodes can share a name
 	if old.sd == newNode.sd then
 		return 1
