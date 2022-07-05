@@ -474,7 +474,7 @@ end
 
 -- local function to check if file exists
 local function fileExists(file)
-	local f = io.open("Data/TimelessJewelData/"..file, "rb")
+	local f = io.open(file, "rb")
 	if f then f:close() end
 	return f ~= nil
 end
@@ -483,7 +483,7 @@ end
 -- valid values: "Glorious Vanity", "Lethal Pride", "Brutal Restraint", "Militant Faith", "Elegant Hubris"
 local function loadTimelessJewel(jewelType)
 	-- if already loaded, return
-	if data.timelessJewelLUTs[jewelType] then return end
+	if data.timelessJewelLUTs[jewelType] and data.timelessJewelLUTs[jewelType] ~= "" then return end
 
 	ConPrintf("LOADING")
 
@@ -499,6 +499,8 @@ local function loadTimelessJewel(jewelType)
 		file = assert(io.open(jewelFile, "rb"))
 		data.timelessJewelLUTs[jewelType] = file:read("*all")
 		file:close()
+	else
+		ConPrintf("FAILED to load file: " .. jewelFile)
 	end
 end
 
@@ -550,11 +552,6 @@ data.readLUT = function(seed, nodeID, jewelType)
 	end
 	return result
 end
-
---local testTbl = data.readLUT(10116, 30439, "Lethal Pride")
---for k,v in pairs(testTbl) do
---	print(k, v)
---end
 
 -- Load skills
 data.skills = { }
