@@ -684,13 +684,17 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			elseif conqueredBy.conqueror.type == "templar" then
 				jewelType = 4
 			end
+			local seed = conqueredBy.id
+			if jewelType == 5 then
+				seed = seed / 20
+			end
 
 			if node.type == "Notable" then
 				local conqData = 294
-				if conqueredBy.id ~= m_max(m_min(conqueredBy.id, data.ConqSeedMax[jewelType]), data.ConqSeedMin[jewelType]) then
-					ConPrintf("ERROR: Seed " .. conqueredBy.id .. " is outside of valid range [" .. data.ConqSeedMin[jewelType] .. " - " .. data.ConqSeedMax[jewelType] .. "] for jewel type: " .. data.ConqTypeIds[jewelType])
+				if seed ~= m_max(m_min(seed, data.ConqSeedMax[jewelType]), data.ConqSeedMin[jewelType]) then
+					ConPrintf("ERROR: Seed " .. seed .. " is outside of valid range [" .. data.ConqSeedMin[jewelType] .. " - " .. data.ConqSeedMax[jewelType] .. "] for jewel type: " .. data.ConqTypeIds[jewelType])
 				else
-					local conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
+					conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
 				end
 				print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
 				if conqData == nil then
