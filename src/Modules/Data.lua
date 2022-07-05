@@ -489,13 +489,13 @@ local function loadTimelessJewel(jewelType)
 	if data.timelessJewelLUTs[jewelType] and data.timelessJewelLUTs[jewelType] ~= "" then return end
 
 	ConPrintf("LOADING")
-
+	
 	data.timelessJewelLUTs[jewelType] = ""
 
-	jewelFile = "Data/TimelessJewelData/" .. jewelType:gsub("%s+", "") .. ".bin"
+	jewelFile = "Data/TimelessJewelData/" .. data.ConqTypeIds[jewelType]:gsub("%s+", "") .. ".bin"
 
 	-- load the binary jewel data file
-	if jewelType == "Glorious Vanity" then
+	if jewelType == 1 then -- "Glorious Vanity"
 		-- FIXME - implement Glorious Vanity loading
 		return
 	elseif fileExists(jewelFile) then
@@ -507,48 +507,51 @@ local function loadTimelessJewel(jewelType)
 	end
 end
 
+data.ConqTypeIds = {
+	[1] = "Glorious Vanity",
+	[2] = "Lethal Pride",
+	[3] = "Brutal Restraint",
+	[4] = "Militant Faith",
+	[5] = "Elegant Hubris",
+}
+data.ConqSeedMin = {
+	[1] = 100,
+	[2] = 10000,
+	[3] = 500,
+	[4] = 2000,
+	[5] = 2000 / 20,
+}
+data.ConqSeedMax = {
+	[1] = 8000,
+	[2] = 18000,
+	[3] = 8000,
+	[4] = 10000,
+	[5] = 160000 / 20,
+}
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
 data.timelessJewelLUTs = { }
 data.readLUT = function(seed, nodeID, jewelType)
 	loadTimelessJewel(jewelType)
 	if data.timelessJewelLUTs[jewelType] == "" then return nil end
-	result = nil
-	seedMin = {
-		["Lethal Pride"] = 10000,
-		["Brutal Restraint"] = 500,
-		["Militant Faith"] = 2000,
-		["Glorious Vanity"] = 100,
-		["Elegant Hubris"] = 2000 / 20,
-	}
-	seedMax = {
-		["Lethal Pride"] = 18000,
-		["Brutal Restraint"] = 8000,
-		["Militant Faith"] = 10000,
-		["Glorious Vanity"] = 8000,
-		["Elegant Hubris"] = 160000 / 20,
-	}
-	if jewelType == "Elegant Hubris" then
+	if jewelType == 5 then -- "Elegant Hubris"
 		seed = seed / 20
 	end
-	if seed ~= m_max(m_min(seed, seedMax[jewelType]), seedMin[jewelType]) then
-		ConPrintf("ERROR: Seed " .. seed .. " is outside of valid range [" .. seedMin[jewelType] .. " - " .. seedMax[jewelType] .. "] for jewel type: " .. jewelType)
-		return result
-	end
-	seedOffset = (seed - seedMin[jewelType])
-	seedSize = (seedMax[jewelType] - seedMin[jewelType]) + 1
+	seedOffset = (seed - data.ConqSeedMin[jewelType])
+	seedSize = (data.ConqSeedMax[jewelType] - data.ConqSeedMin[jewelType]) + 1
 	local index = data.nodeIDList[nodeID] and data.nodeIDList[nodeID].index or nil
 	if index then
-		if jewelType == "Glorious Vanity" then
+		if jewelType == 1 then -- "Glorious Vanity"
+			local result = nil
 			for i=1, (Luts[jewel]["sizes"][nodeID * seedSize + seedOffset] + 1) do
 				result[i] = data.timelessJewelLUTs[jewelType][nodeID * seedSize + seedOffset + 1]:byte(i)
 			end
 			return result
 		end
-		result = data.timelessJewelLUTs[jewelType]:byte((index * seedSize + seedOffset + 1))
+		return data.timelessJewelLUTs[jewelType]:byte((index * seedSize + seedOffset + 1))
 	else
 		ConPrintf("ERROR: Missing Index lookup for nodeID: "..nodeID)
 	end
-	return result
+	return nil
 end
 
 -- Load skills

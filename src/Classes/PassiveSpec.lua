@@ -674,22 +674,27 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			local legionNodes = self.tree.legion.nodes
 
 			-- FIXME - continue implementing
-			local jewelType = "Elegant Hubris"
-			if conqueredBy.conqueror.type == "karui" then
-				jewelType = "Lethal Pride"
+			local jewelType = 5
+			if conqueredBy.conqueror.type == "vaal" then
+				jewelType = 1
+			elseif conqueredBy.conqueror.type == "karui" then
+				jewelType = 2
 			elseif conqueredBy.conqueror.type == "maraketh" then
-				jewelType = "Brutal Restraint"
+				jewelType = 3
 			elseif conqueredBy.conqueror.type == "templar" then
-				jewelType = "Militant Faith"
-			elseif conqueredBy.conqueror.type == "vaal" then
-				jewelType = "Glorious Vanity"
+				jewelType = 4
 			end
 
 			if node.type == "Notable" then
-				local conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
+				local conqData = 294
+				if conqueredBy.id ~= m_max(m_min(conqueredBy.id, data.ConqSeedMax[jewelType]), data.ConqSeedMin[jewelType]) then
+					ConPrintf("ERROR: Seed " .. conqueredBy.id .. " is outside of valid range [" .. data.ConqSeedMin[jewelType] .. " - " .. data.ConqSeedMax[jewelType] .. "] for jewel type: " .. data.ConqTypeIds[jewelType])
+				else
+					local conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
+				end
 				print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
 				if conqData == nil then
-					ConPrintf("Missing LUT: " .. jewelType)
+					ConPrintf("Missing LUT: " .. data.ConqTypeIds[jewelType])
 				elseif conqData == 294 then -- no OP
 				elseif conqData >= 94 then -- replace
 					conqData = conqData - 94
