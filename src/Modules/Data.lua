@@ -479,22 +479,26 @@ local function fileExists(file)
 	return f ~= nil
 end
 
--- lazy load a specific Jewel Type
--- valid values: "Lethal Pride", "Militant Faith", "Elegant Hubris", "Brutal Restraint", "Glorious Vanity"
+-- lazy load a specific timeless jewel type
+-- valid values: "Glorious Vanity", "Lethal Pride", "Brutal Restraint", "Militant Faith", "Elegant Hubris"
 local function loadTimelessJewel(jewelType)
 	-- if already loaded, return
 	if data.timelessJewelLUTs[jewelType] then return end
 
 	ConPrintf("LOADING")
 
+	data.timelessJewelLUTs[jewelType] = ""
+
+	jewelFile = "Data/TimelessJewelData/" .. jewelType:gsub("%s+", "") .. ".bin"
+
 	-- load the binary jewel data file
 	if jewelType == "Glorious Vanity" then
 		-- FIXME - implement Glorious Vanity loading
 		return
-	elseif fileExists(jewelType) then
-		file = assert(io.open("Data/TimelessJewelData/"..jewelType, "rb"))
+	elseif fileExists(jewelFile) then
+		file = assert(io.open(jewelFile, "rb"))
 		data.timelessJewelLUTs[jewelType] = file:read("*all")
-		file:close() 
+		file:close()
 	end
 end
 
@@ -502,8 +506,8 @@ data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
 data.timelessJewelLUTs = { }
 data.readLUT = function(seed, nodeID, jewelType)
 	loadTimelessJewel(jewelType)
-	if not data.timelessJewelLUTs[jewelType] then return {} end
-	result = {}
+	if data.timelessJewelLUTs[jewelType] == "" then return nil end
+	result = { }
 	seedMin = {
 		["Lethal Pride"] = 10000, 
 		["Militant Faith"] = 2000, 

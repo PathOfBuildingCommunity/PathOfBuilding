@@ -767,10 +767,12 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				if node.type == "Notable" then
 					local conqData = data.readLUT(conqueredBy.id, node.id, jewelType)
 					print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
-					if conqData.OP == "add" then
+					if conqData == nil then
+						ConPrintf("Missing LUT: " .. jewelType)
+					elseif conqData.OP == "add" then
 						local addition = self.tree.legion.additions[conqData.ID]
 						for _, addStat in ipairs(addition.sd) do
-							self:NodeAdditionOrReplacementFromString(node, " \n"..addStat)
+							self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
 						end
 					elseif conqData.OP == "replace" then
 						local legionNode = legionNodes[conqData.ID]
@@ -784,55 +786,34 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						ConPrintf("Unhandled OP: " .. conqData.OP .. " : " .. conqData.ID)
 					end
 				elseif node.type == "Keystone" then
-					local matchStr = conqueredBy.conqueror.type.."_keystone_"..conqueredBy.conqueror.id
+					local matchStr = conqueredBy.conqueror.type .. "_keystone_" .. conqueredBy.conqueror.id
 					for _, legionNode in ipairs(legionNodes) do
 						if legionNode.id == matchStr then
 							self:ReplaceNode(node, legionNode)
 							break
 						end
 					end					
-				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Normal"  then
-					local legionNode = legionNodes[109] -- eternal_small_blank
-					self:ReplaceNode(node, legionNode)
-				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Notable"  then
-					local legionNode = legionNodes["eternal_notable_fire_resistance_1"]
-					node.dn = "Eternal Empire notable node"
-					node.sd = {"Right click to set mod"}
-					node.sprites = legionNode.sprites
-					node.mods = {""}
-					node.modList = new("ModList")
-					node.modKey = ""
-					node.reminderText = { }
-				elseif conqueredBy.conqueror.type == "templar" and node.type == "Normal" then
-					if isValueInArray(attributes, node.dn) then
-						local legionNode = legionNodes[90] -- templar_devotion_node
+				elseif node.type == "Normal" then
+					if conqueredBy.conqueror.type == "vaal" then
+						local legionNode = legionNodes[38] -- vaal_small_fire_resistance
 						self:ReplaceNode(node, legionNode)
-					else
-						self:NodeAdditionOrReplacementFromString(node," \n+5 to Devotion")
+					elseif conqueredBy.conqueror.type == "karui" then
+						local str = isValueInArray(attributes, node.dn) and "2" or "4"
+						self:NodeAdditionOrReplacementFromString(node, " \n+" .. str .. " to Strength")
+					elseif conqueredBy.conqueror.type == "maraketh" then
+						local dex = isValueInArray(attributes, node.dn) and "2" or "4"
+						self:NodeAdditionOrReplacementFromString(node, " \n+" .. dex .. " to Dexterity")
+					elseif conqueredBy.conqueror.type == "templar" then
+						if isValueInArray(attributes, node.dn) then
+							local legionNode = legionNodes[90] -- templar_devotion_node
+							self:ReplaceNode(node, legionNode)
+						else
+							self:NodeAdditionOrReplacementFromString(node, " \n+5 to Devotion")
+						end
+					elseif conqueredBy.conqueror.type == "eternal" then
+						local legionNode = legionNodes[109] -- eternal_small_blank
+						self:ReplaceNode(node, legionNode)
 					end
-				elseif conqueredBy.conqueror.type == "maraketh" and node.type == "Normal" then
-					local dex = isValueInArray(attributes, node.dn) and "2" or "4"
-					self:NodeAdditionOrReplacementFromString(node," \n+"..dex.." to Dexterity")
-				elseif conqueredBy.conqueror.type == "karui" and node.type == "Normal" then
-					local str = isValueInArray(attributes, node.dn) and "2" or "4"
-					self:NodeAdditionOrReplacementFromString(node," \n+"..str.." to Strength")
-				elseif conqueredBy.conqueror.type == "vaal" and node.type == "Normal" then
-					local legionNode =legionNodes[38] --vaal_small_fire_resistance
-					node.dn = "Vaal small node"
-					node.sd = {"Right click to set mod"}
-					node.sprites = legionNode.sprites
-					node.mods = {""}
-					node.modList = new("ModList")
-					node.modKey = ""
-				elseif conqueredBy.conqueror.type == "vaal" and node.type == "Notable" then
-					local legionNode = legionNodes[71] --vaal_notable_curse_1
-					node.dn = "Vaal notable node"
-					node.sd = {"Right click to set mod"}
-					node.sprites = legionNode.sprites
-					node.mods = {""}
-					node.modList = new("ModList")
-					node.modKey = ""
-					node.reminderText = { }
 				end
 				self:ReconnectNodeToClassStart(node)
 			end
