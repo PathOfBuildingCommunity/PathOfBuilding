@@ -554,7 +554,8 @@ data.readLUT = function(seed, nodeID, jewelType)
 		if index then
 			local result = { }
 			for i = 1, data.timelessJewelLUTs[jewelType].sizes:byte(index) do
-				result[i] = data.timelessJewelLUTs[jewelType].data[i]:byte(index * seedSize + seedOffset + i)
+				result[i] = data.timelessJewelLUTs[jewelType].data[index]:byte(i)
+				print(result[i])
 			end
 			return result
 		else
