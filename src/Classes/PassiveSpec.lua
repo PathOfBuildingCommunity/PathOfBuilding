@@ -719,8 +719,20 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 							else
 								self:ReplaceNode(node, legionNodes[77]) -- legacy of the vaal
 							end
+							local addition = self.tree.legion.additions[stat1]
+							for _, addStat in ipairs(addition.sd) do
+								self:NodeAdditionOrReplacementFromString(node, addStat)
+							end
 							local stat2 = jewelDataTbl[2]
+							addition = self.tree.legion.additions[stat2]
+							for _, addStat in ipairs(addition.sd) do
+								self:NodeAdditionOrReplacementFromString(node, addStat)
+							end
 							local stat3 = jewelDataTbl[3]
+							addition = self.tree.legion.additions[stat3]
+							for _, addStat in ipairs(addition.sd) do
+								self:NodeAdditionOrReplacementFromString(node, addStat)
+							end
 							local stat4 = nil
 							local roll1 = jewelDataTbl[5]
 							local roll2 = jewelDataTbl[6]
@@ -728,6 +740,10 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 							local roll4 = nil
 							if headerSize == 8 then
 								stat4 = jewelDataTbl[4]
+								addition = self.tree.legion.additions[stat4]
+								for _, addStat in ipairs(addition.sd) do
+									self:NodeAdditionOrReplacementFromString(node, addStat)
+								end
 								roll4 = jewelDataTbl[8]
 							end
 						else
