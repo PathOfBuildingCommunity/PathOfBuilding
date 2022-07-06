@@ -705,46 +705,33 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						-- FIXME: complete implementation of this. Need to set roll values for stats
 						--        based on their `fmt` specification 
 						if headerSize == 2 or headerSize == 3 then
-							local stat1 = jewelDataTbl[1] - 94
-							self:ReplaceNode(node, legionNodes[stat1])
-							local roll1 = jewelDataTbl[2]
-							local roll2 = nil
-							if headerSize == 3 then
-								roll2 = jewelDataTbl[3]
-							end
+							self:ReplaceNode(node, legionNodes[jewelDataTbl[1] - 94])
+							-- should fix the stat values here (note headerSize == 3 has 2 values)
 						elseif headerSize == 6 or headerSize == 8 then
-							local stat1 = jewelDataTbl[1]
-							if stat1 <= 21 then
+							local bias = 0
+							for i,val in ipairs(jewelDataTbl) do
+								if i > (headerSize / 2) then
+									break
+								elseif val <= 21 then
+									bias = bias + 1
+								else
+									bias = bias - 1
+								end
+							end
+							if bias >= 0 then
 								self:ReplaceNode(node, legionNodes[76]) -- might of the vaal
 							else
 								self:ReplaceNode(node, legionNodes[77]) -- legacy of the vaal
 							end
-							local addition = self.tree.legion.additions[stat1]
-							for _, addStat in ipairs(addition.sd) do
-								self:NodeAdditionOrReplacementFromString(node, addStat)
-							end
-							local stat2 = jewelDataTbl[2]
-							addition = self.tree.legion.additions[stat2]
-							for _, addStat in ipairs(addition.sd) do
-								self:NodeAdditionOrReplacementFromString(node, addStat)
-							end
-							local stat3 = jewelDataTbl[3]
-							addition = self.tree.legion.additions[stat3]
-							for _, addStat in ipairs(addition.sd) do
-								self:NodeAdditionOrReplacementFromString(node, addStat)
-							end
-							local stat4 = nil
-							local roll1 = jewelDataTbl[5]
-							local roll2 = jewelDataTbl[6]
-							local roll3 = jewelDataTbl[7]
-							local roll4 = nil
-							if headerSize == 8 then
-								stat4 = jewelDataTbl[4]
-								addition = self.tree.legion.additions[stat4]
-								for _, addStat in ipairs(addition.sd) do
-									self:NodeAdditionOrReplacementFromString(node, addStat)
+							for i,val in ipairs(jewelDataTbl) do
+								if i <= (headerSize / 2) then
+									local addition = self.tree.legion.additions[val]
+									for _, addStat in ipairs(addition.sd) do
+										self:NodeAdditionOrReplacementFromString(node, addStat)
+									end
+								else
+									break -- should fix the stat values here not break
 								end
-								roll4 = jewelDataTbl[8]
 							end
 						else
 							ConPrintf("Unhandled Glorious Vanity headerSize: " .. headerSize)
