@@ -996,14 +996,6 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
-	-- Conqueror node editing
-	if node and node.conqueredBy and node.type ~= "Keystone" and
-			(node.conqueredBy.conqueror.type == "vaal"
-			or node.isNotable) then
-		tooltip:AddSeparator(14)
-		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the modifiers for this node")
-	end
-
 	-- Mod differences
 	if self.showStatDifferences then
 		local calcFunc, calcBase = build.calcsTab:GetMiscCalculator(build)

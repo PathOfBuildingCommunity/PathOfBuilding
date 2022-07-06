@@ -672,6 +672,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		if node.conqueredBy and node.type ~= "Socket" then
 			local conqueredBy = node.conqueredBy
 			local legionNodes = self.tree.legion.nodes
+			local legionAdditions = self.tree.legion.additions
 
 			-- FIXME - continue implementing
 			local jewelType = 5
@@ -743,8 +744,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								else
 									ConPrintf("Unhandled 'replace' ID: " .. jewelData)
 								end
-							elseif jewelData then --add
-								local addition = self.tree.legion.additions[jewelData]
+							elseif jewelData then -- add
+								local addition = legionAdditions[jewelData]
 								for _, addStat in ipairs(addition.sd) do
 									self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
 								end
