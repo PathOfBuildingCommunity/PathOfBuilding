@@ -543,7 +543,6 @@ data.timelessJewelSeedMax = {
 	[5] = 160000 / 20,
 }
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
-data.nodeIDListGV = LoadModule("Data/TimelessJewelData/NodeIndexMappingGV")
 data.timelessJewelLUTs = { }
 data.readLUT = function(seed, nodeID, jewelType)
 	loadTimelessJewel(jewelType)
@@ -553,9 +552,9 @@ data.readLUT = function(seed, nodeID, jewelType)
 	end
 	seedOffset = (seed - data.timelessJewelSeedMin[jewelType])
 	seedSize = (data.timelessJewelSeedMax[jewelType] - data.timelessJewelSeedMin[jewelType]) + 1
-	if jewelType == 1 then -- "Glorious Vanity"
-		local index = data.nodeIDListGV[nodeID] and data.nodeIDListGV[nodeID].index or nil
-		if index then
+	local index = data.nodeIDList[nodeID] and data.nodeIDList[nodeID].index or nil
+	if index then
+		if jewelType == 1 then  -- "Glorious Vanity"
 			local result = { }
 			--print("INDEX:", index, "Stat Count:", data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1))
 			for i = 1, data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1) do
@@ -564,17 +563,12 @@ data.readLUT = function(seed, nodeID, jewelType)
 			end
 			return result
 		else
-			ConPrintf("ERROR: Missing Index lookup for nodeID: " .. nodeID)
+			return { data.timelessJewelLUTs[jewelType].data:byte(index * seedSize + seedOffset + 1) }
 		end
 	else
-		local index = data.nodeIDList[nodeID] and data.nodeIDList[nodeID].index or nil
-		if index then
-			return { data.timelessJewelLUTs[jewelType].data:byte(index * seedSize + seedOffset + 1) }
-		else
-			ConPrintf("ERROR: Missing Index lookup for nodeID: "..nodeID)
-		end
-		return { }
+		ConPrintf("ERROR: Missing Index lookup for nodeID: "..nodeID)
 	end
+	return { }
 end
 
 -- Load skills
