@@ -688,7 +688,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			if jewelType == 5 then
 				seed = seed / 20
 			end
-
+			
 			if node.type == "Notable" then
 				local jewelDataTbl = { }
 				if seed ~= m_max(m_min(seed, data.ConqSeedMax[jewelType]), data.ConqSeedMin[jewelType]) then
@@ -723,14 +723,32 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 							else
 								self:ReplaceNode(node, legionNodes[77]) -- legacy of the vaal
 							end
+							local additions = {}
 							for i,val in ipairs(jewelDataTbl) do
 								if i <= (headerSize / 2) then
-									local addition = self.tree.legion.additions[val]
-									for _, addStat in ipairs(addition.sd) do
-										self:NodeAdditionOrReplacementFromString(node, addStat)
+									local roll = jewelDataTbl[i + headerSize / 2]
+									if not additions[val] then
+										additions[val] = roll
+									else
+										additions[val] = additions[val] + roll
 									end
 								else
-									break -- should fix the stat values here not break
+									break
+								end
+							end
+							for add,val in pairs(additions) do
+								local addition = self.tree.legion.additions[add]
+								for _, addStat in ipairs(addition.sd) do
+									for k,statMod in pairs(addition.stats) do -- should only be 1 big
+										if statMod.fmt == "d" then
+											if statMod.min == statMod.max then
+												addStat = addStat:gsub(statMod.min,val)
+											else
+												addStat = addStat:gsub("%("..statMod.min.."%-"..statMod.max.."%)",val)
+											end
+										end
+									end
+									self:NodeAdditionOrReplacementFromString(node, addStat)
 								end
 							end
 						else
