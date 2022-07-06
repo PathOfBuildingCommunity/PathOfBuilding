@@ -911,7 +911,8 @@ function TreeTabClass:FindTimelessJewel()
 				desiredNodes[desiredNode] = true
 			end
 			local seedMatchDataLength = 0
-			for curSeed = data.timelessJewelSeedMin[jewelType.id], data.timelessJewelSeedMax[jewelType.id] do
+			local seedMultiplier = jewelType.id == 5 and 20 or 1 -- Elegant Hubris
+			for curSeed = data.timelessJewelSeedMin[jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[jewelType.id] * seedMultiplier, seedMultiplier do
 				seedMatchData[curSeed] = { }
 				for targetNode in pairs(targetNodes) do
 					local jewelDataTbl = data.readLUT(curSeed, targetNode, jewelType.id)
@@ -920,8 +921,7 @@ function TreeTabClass:FindTimelessJewel()
 					else
 						for _, jewelData in ipairs(jewelDataTbl) do
 							local nodeId = nil
-							if jewelData == 294 then -- no OP
-							elseif jewelData >= 94 then -- replace
+							if jewelData >= 94 then -- replace
 								nodeId = legionNodes[jewelData - 94].id
 							else -- add
 								nodeId = legionAdditions[jewelData].id
