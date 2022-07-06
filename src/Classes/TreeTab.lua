@@ -79,17 +79,17 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			end
 		end
 	end
-	self.controls.compareCheck = new("CheckBoxControl", {"LEFT",self.controls.specSelect,"RIGHT"}, 74, 0, 20, "Compare:", function(state)
+	self.controls.compareCheck = new("CheckBoxControl", { "LEFT", self.controls.specSelect, "RIGHT" }, 74, 0, 20, "Compare:", function(state)
 		self.isComparing = state
 		self:SetCompareSpec(self.activeCompareSpec)
 		self.controls.compareSelect.shown = state
 		if state then
-			self.controls.reset:SetAnchor("LEFT",self.controls.compareSelect,"RIGHT",nil,nil,nil)
+			self.controls.reset:SetAnchor("LEFT", self.controls.compareSelect, "RIGHT", nil, nil, nil)
 		else
-			self.controls.reset:SetAnchor("LEFT",self.controls.compareCheck,"RIGHT",nil,nil,nil)
+			self.controls.reset:SetAnchor("LEFT", self.controls.compareCheck, "RIGHT", nil, nil, nil)
 		end
 	end)
-	self.controls.compareSelect = new("DropDownControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 190, 20, nil, function(index, value)
+	self.controls.compareSelect = new("DropDownControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, 8, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self:SetCompareSpec(index)
 		end
@@ -98,7 +98,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.compareSelect.maxDroppedWidth = 1000
 	self.controls.compareSelect.enableDroppedWidth = true
 	self.controls.compareSelect.enableChangeBoxWidth = true
-	self.controls.reset = new("ButtonControl", {"LEFT",self.controls.compareCheck,"RIGHT"}, 8, 0, 60, 20, "Reset", function()
+	self.controls.reset = new("ButtonControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, 8, 0, 60, 20, "Reset", function()
 		main:OpenConfirmPopup("Reset Tree", "Are you sure you want to reset your passive tree?", "Reset", function()
 			self.build.spec:ResetNodes()
 			self.build.spec:BuildAllDependsAndPaths()
@@ -106,21 +106,24 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			self.build.buildFlag = true
 		end)
 	end)
-	self.controls.import = new("ButtonControl", {"LEFT",self.controls.reset,"RIGHT"}, 8, 0, 90, 20, "Import Tree", function()
+	self.controls.import = new("ButtonControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 90, 20, "Import Tree", function()
 		self:OpenImportPopup()
 	end)
-	self.controls.export = new("ButtonControl", {"LEFT",self.controls.import,"RIGHT"}, 8, 0, 90, 20, "Export Tree", function()
+	self.controls.export = new("ButtonControl", { "LEFT", self.controls.import, "RIGHT" }, 8, 0, 90, 20, "Export Tree", function()
 		self:OpenExportPopup()
 	end)
-	self.controls.treeSearch = new("EditControl", {"LEFT",self.controls.export,"RIGHT"}, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c%(%)", 100, function(buf)
+	self.controls.treeSearch = new("EditControl", { "LEFT", self.controls.export, "RIGHT" }, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
 	end)
-  self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
-	self.controls.treeHeatMap = new("CheckBoxControl", {"LEFT",self.controls.treeSearch,"RIGHT"}, 130, 0, 20, "Show Node Power:", function(state)
+	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
+	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, 8, 0, 150, 20, "Find Timeless Jewel", function()
+		self:FindTimelessJewel()
+	end)
+	self.controls.treeHeatMap = new("CheckBoxControl", { "LEFT", self.controls.findTimelessJewel, "RIGHT" }, 130, 0, 20, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
 	end)
-	self.controls.treeHeatMapStatSelect = new("DropDownControl", {"LEFT",self.controls.treeHeatMap,"RIGHT"}, 8, 0, 150, 20, nil, function(index, value)
+	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 150, 20, nil, function(index, value)
 		self:SetPowerCalc(value)
 	end)
 	self.controls.treeHeatMap.tooltipText = function()
@@ -135,7 +138,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		end
 	end
 
-	self.controls.powerReport = new("ButtonControl", {"LEFT", self.controls.treeHeatMapStatSelect, "RIGHT"}, 8, 0, 150, 20, self.showPowerReport and "Hide Power Report" or "Show Power Report", function()
+	self.controls.powerReport = new("ButtonControl", { "LEFT", self.controls.treeHeatMapStatSelect, "RIGHT" }, 8, 0, 150, 20, self.showPowerReport and "Hide Power Report" or "Show Power Report", function()
 		self.showPowerReport = not self.showPowerReport
 		self:TogglePowerReport()
 	end)
@@ -151,15 +154,14 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end
 	self.showPowerReport = false
 
-	self.controls.specConvertText = new("LabelControl", {"BOTTOMLEFT",self.controls.specSelect,"TOPLEFT"}, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
+	self.controls.specConvertText = new("LabelControl", { "BOTTOMLEFT", self.controls.specSelect, "TOPLEFT" }, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
 		return self.showConvert
 	end
-	self.controls.specConvert = new("ButtonControl", {"LEFT",self.controls.specConvertText,"RIGHT"}, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
+	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
 		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
-		newSpec.tree.legion.editedNodes = self.build.spec.tree.legion.editedNodes
 		newSpec:RestoreUndoState(self.build.spec:CreateUndoState())
 		newSpec:BuildClusterJewelGraphs()
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
@@ -507,184 +509,6 @@ function TreeTabClass:OpenExportPopup()
 	popup = main:OpenPopup(380, 100, "Export Tree", controls, "done", "edit")
 end
 
-function TreeTabClass:ModifyNodePopup(selectedNode)
-	local controls = { }
-	local modGroups = { }
-	local smallAdditions = {"Strength", "Dex", "Devotion"}
-	if not self.build.spec.tree.legion.editedNodes then
-		self.build.spec.tree.legion.editedNodes = { }
-	end
-	local function buildMods(selectedNode)
-		wipeTable(modGroups)
-		for _, node in pairs(self.build.spec.tree.legion.nodes) do
-			if node.id:match("^"..selectedNode.conqueredBy.conqueror.type.."_.+") and node["not"] == (selectedNode.isNotable or false) and not node.ks then
-				t_insert(modGroups, {
-					label = node.dn,
-					descriptions = copyTable(node.sd),
-					type = selectedNode.conqueredBy.conqueror.type,
-					id = node.id,
-				})
-			end
-		end
-		for _, addition in pairs(self.build.spec.tree.legion.additions) do
-			-- exclude passives that are already added (vaal, attributes, devotion)
-			if addition.id:match("^"..selectedNode.conqueredBy.conqueror.type.."_.+") and not isValueInArray(smallAdditions, addition.dn) and selectedNode.conqueredBy.conqueror.type ~= "vaal" then
-				t_insert(modGroups, {
-					label = addition.dn,
-					descriptions = copyTable(addition.sd),
-					type = selectedNode.conqueredBy.conqueror.type,
-					id = addition.id,
-				})
-			end
-		end
-		table.sort(modGroups, function(a, b) return a.label < b.label end)
-	end
-	local function addModifier(selectedNode)
-		local newLegionNode = self.build.spec.tree.legion.nodes[modGroups[controls.modSelect.selIndex].id]
-		-- most nodes only replace or add 1 mod, so we need to just get the first control
-		local modDesc = string.gsub(controls[1].label, "%^7", "")
-		if  selectedNode.conqueredBy.conqueror.type == "eternal" or selectedNode.conqueredBy.conqueror.type == "templar" then
-			self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
-			selectedNode.dn = newLegionNode.dn
-			selectedNode.sprites = newLegionNode.sprites
-			selectedNode.icon = newLegionNode.icon
-			selectedNode.spriteId = newLegionNode.id
-		elseif selectedNode.conqueredBy.conqueror.type == "vaal" then
-			selectedNode.dn = newLegionNode.dn
-			selectedNode.sprites = newLegionNode.sprites
-			selectedNode.icon = newLegionNode.icon
-			selectedNode.spriteId = newLegionNode.id
-			if modDesc ~= "" then
-				self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, true)
-			end
-
-			-- Vaal is the exception
-			local i = 2
-			while controls[i] do
-				modDesc = string.gsub(controls[i].label, "%^7", "")
-				if modDesc ~= "" then
-					self.specList[1]:NodeAdditionOrReplacementFromString(selectedNode, modDesc, false)
-				end
-				i = i + 1
-			end
-		else
-			-- Replace the node first before adding the new line so we don't get multiple lines
-			if self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] and self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id][selectedNode.id] then
-				self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
-			end
-			self.build.spec:NodeAdditionOrReplacementFromString(selectedNode, " \n"..modDesc, false)
-		end
-		self.build.spec:ReconnectNodeToClassStart(selectedNode)
-		if not self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] then
-			t_insert(self.build.spec.tree.legion.editedNodes, selectedNode.conqueredBy.id, {})
-		end
-		t_insert(self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id], selectedNode.id, copyTable(selectedNode, true))
-	end
-
-	local function constructUI(modGroup)
-		local totalHeight = 43
-		local i = 1
-		while controls[i] or controls["slider"..i] do
-			controls[i] = nil
-			controls["slider"..i] = nil
-			i = i + 1
-		end
-		-- special handling for custom vaal notables (Might of the Vaal and Legacy of the Vaal)
-		if next(modGroup.descriptions) == nil then
-			for idx=1,4 do
-				controls[idx] = new("EditControl", {"TOPLEFT", controls["slider"..idx-1] or controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "", "Modifier "..idx, "%c%(%)", 100, function(buf)
-					controls[idx].label = buf
-				end)
-				controls[idx].label = ""
-				totalHeight = totalHeight + 20
-			end
-		else
-			for idx, desc in ipairs(modGroup.descriptions) do
-				controls[idx] = new("LabelControl", {"TOPLEFT", controls["slider"..idx-1] or controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
-				totalHeight = totalHeight + 20
-				if desc:match("%(%-?[%d%.]+%-[%d%.]+%)") then
-					controls["slider"..idx] = new("SliderControl", {"TOPLEFT",controls[idx],"BOTTOMLEFT"}, 0, 2, 300, 16, function(val)
-						controls[idx].label = itemLib.applyRange(modGroup.descriptions[idx], val)
-					end)
-					controls["slider"..idx]:SetVal(.5)
-					controls["slider"..idx].width = function()
-						return controls["slider"..idx].divCount and 300 or 100
-					end
-					totalHeight = totalHeight + 20
-				end
-			end
-		end
-		main.popups[1].height = totalHeight + 30
-		controls.save.y = totalHeight
-		controls.reset.y = totalHeight
-		controls.close.y = totalHeight
-	end
-
-	buildMods(selectedNode)
-	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 150, 25, 0, 16, "^7Modifier:")
-	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 155, 25, 579, 18, modGroups, function(idx) constructUI(modGroups[idx]) end)
-	controls.modSelect.tooltipFunc = function(tooltip, mode, index, value)
-		tooltip:Clear()
-		if mode ~= "OUT" and value then
-			for _, line in ipairs(value.descriptions) do
-				tooltip:AddLine(16, "^7"..line)
-			end
-		end
-	end
-	controls.save = new("ButtonControl", nil, -90, 75, 80, 20, "Add", function()
-		addModifier(selectedNode)
-		self.modFlag = true
-		self.build.buildFlag = true
-		main:ClosePopup()
-	end)
-	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
-		if self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id] then
-			self.build.spec.tree.legion.editedNodes[selectedNode.conqueredBy.id][selectedNode.id] = nil
-		end
-		if selectedNode.conqueredBy.conqueror.type == "vaal" and selectedNode.type == "Normal" then
-			local legionNode = self.build.spec.tree.legion.nodes["vaal_small_fire_resistance"]
-			selectedNode.dn = "Vaal small node"
-			selectedNode.sd = {"Right click to set mod"}
-			selectedNode.sprites = legionNode.sprites
-			selectedNode.mods = {""}
-			selectedNode.modList = new("ModList")
-			selectedNode.modKey = ""
-			selectedNode.reminderText = { }
-		elseif selectedNode.conqueredBy.conqueror.type == "vaal" and selectedNode.type == "Notable" then
-			local legionNode = self.build.spec.tree.legion.nodes["vaal_notable_curse_1"]
-			selectedNode.dn = "Vaal notable node"
-			selectedNode.sd = {"Right click to set mod"}
-			selectedNode.sprites = legionNode.sprites
-			selectedNode.mods = {""}
-			selectedNode.modList = new("ModList")
-			selectedNode.modKey = ""
-			selectedNode.reminderText = { }
-		elseif selectedNode.conqueredBy.conqueror.type == "eternal" and selectedNode.type == "Notable" then
-			local legionNode = self.build.spec.tree.legion.nodes["eternal_notable_fire_resistance_1"]
-			selectedNode.dn = "Eternal Empire notable node"
-			selectedNode.sd = {"Right click to set mod"}
-			selectedNode.sprites = legionNode.sprites
-			selectedNode.mods = {""}
-			selectedNode.modList = new("ModList")
-			selectedNode.modKey = ""
-			selectedNode.reminderText = { }
-		else
-			self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
-			if selectedNode.conqueredBy.conqueror.type == "templar" then
-				self.build.spec:NodeAdditionOrReplacementFromString(selectedNode,"+5 to Devotion")
-			end
-		end
-		self.modFlag = true
-		self.build.buildFlag = true
-		main:ClosePopup()
-	end)
-	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
-		main:ClosePopup()
-	end)
-	main:OpenPopup(800, 105, "Replace Modifier of Node", controls, "save")
-	constructUI(modGroups[1])
-end
-
 function TreeTabClass:SaveMasteryPopup(node, listControl)
 		if listControl.selValue == nil then
 			return
@@ -919,4 +743,248 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	end
 
 	return report
+end
+
+function TreeTabClass:FindTimelessJewel()
+	local treeData = self.build.spec.tree
+	local legionNodes = treeData.legion.nodes
+	local legionAdditions = treeData.legion.additions
+	local controls = { }
+	local modData = { }
+	local smallAdditions = { "Strength", "Dex", "Devotion" }
+	local searchResults = { }
+	local jewelTypes = {
+		{ label = "Glorious Vanity", name = "vaal", id = 1 },
+		{ label = "Lethal Pride", name = "karui", id = 2 },
+		{ label = "Brutal Restraint", name = "maraketh", id = 3 },
+		{ label = "Militant Faith", name = "templar", id = 4 },
+		{ label = "Elegant Hubris", name = "eternal", id = 5 }
+	}
+	local jewelType = jewelTypes[1]
+	local jewelSockets = { }
+	for k, v in pairs(self.build.spec.nodes) do
+		if v.isJewelSocket then
+			local label = "Unknown: " .. k
+			if k == 6230 then
+				label = "Scion, below Necromantic Aegis: " .. k
+			elseif k == 48768 then
+				label = "Scion, below Solipsism: " .. k
+			elseif k == 31683 then
+				label = "Scion, near Iron Grip and Magebane: " .. k
+			elseif k == 36634 then
+				label = "Mind over Matter: " .. k
+			elseif k == 41263 then
+				label = "Pain Attunement: " .. k
+			elseif k == 33989 then
+				label = "Supreme Ego: " .. k
+			elseif k == 34483 then
+				label = "Elemental Equilibrium: " .. k
+			elseif k == 28475 then
+				label = "Unwavering Stance: " .. k
+			elseif k == 33631 then
+				label = "Eternal Youth: " .. k
+			elseif k == 7960 then
+				label = "Zealot's Oath: " .. k
+			elseif k == 21984 then
+				label = "Chaos Innoculation: " .. k
+			elseif k == 32763 then
+				label = "Perfect Agony: " .. k
+			elseif k == 46882 then
+				label = "Point Blank: " .. k
+			elseif k == 2491 then
+				label = "Call to Arms: " .. k
+			elseif k == 55190 then
+				label = "Resolute Technique: " .. k
+			elseif k == 26196 then
+				label = "The Agnostic: " .. k
+			elseif k == 61419 then
+				label = "Doomsday: " .. k
+			elseif k == 61834 then
+				label = "Ghost Dance: " .. k
+			elseif k == 60735 then
+				label = "Acrobatics: " .. k
+			elseif k == 54127 then
+				label = "Duelist, near Iron Reflexes: " .. k
+			elseif k == 26725 then
+				label = "Marauder, above Blood Magic: " .. k
+			end
+
+			if self.build.spec.allocNodes[k] then
+				label = "# " .. label
+			end
+			t_insert(jewelSockets, {
+				label = label,
+				id = k,
+			})
+		end
+	end
+	t_sort(jewelSockets, function(a, b) return a.label < b.label end)
+	local jewelSocket = jewelSockets[1].id
+
+	local function buildMods()
+		wipeTable(modData)
+		for _, node in pairs(legionNodes) do
+			if node.id:match("^" .. jewelType.name .. "_.+") and node["not"] and not node.ks then
+				t_insert(modData, {
+					label = node.dn,
+					descriptions = copyTable(node.sd),
+					type = jewelType.name,
+					id = node.id,
+				})
+			end
+		end
+		for _, addition in pairs(legionAdditions) do
+			-- exclude passives that are already added (vaal, attributes, devotion)
+			if addition.id:match("^" .. jewelType.name .. "_.+") and not isValueInArray(smallAdditions, addition.dn) and jewelType.name ~= "vaal" then
+				t_insert(modData, {
+					label = addition.dn,
+					descriptions = copyTable(addition.sd),
+					type = jewelType.name,
+					id = addition.id,
+				})
+			end
+		end
+		t_sort(modData, function(a, b) return a.label < b.label end)
+	end
+
+	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 125, 25, 0, 16, "^7Jewel Type:")
+	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 43, 0, 280, 18, jewelTypes, function(index, value)
+		jewelType = value
+		buildMods()
+	end)
+
+	controls.socketSelectLabel = new("LabelControl", { "TOPLEFT", controls.jewelSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Jewel Socket:")
+	controls.socketSelect = new("DropDownControl", { "LEFT", controls.socketSelectLabel, "RIGHT" }, 32, 0, 280, 18, jewelSockets, function(index, value)
+		jewelSocket = value.id
+	end)
+	
+	controls.socketFilterLabel = new("LabelControl", { "TOPLEFT", controls.socketSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Filter Nodes:")
+	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 37, 0, 18)
+	controls.socketFilter.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Enable this option to exclude nodes that you do not have allocated on your active passive skill tree.")
+		tooltip:AddLine(16, "^7This can be useful if you're never going to path towards those excluded nodes and don't care what happens to them.")
+	end
+
+	buildMods()
+	controls.nodeSelectLabel = new("LabelControl", { "TOPLEFT", controls.socketFilterLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Search for Node:")
+	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 280, 18, modData, function(index, value)
+		controls.searchList.caret = #controls.searchList.buf + 1
+		controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id)
+	end)
+	controls.nodeSelect.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value then
+			for _, line in ipairs(value.descriptions) do
+				tooltip:AddLine(16, "^7" .. line)
+			end
+		end
+	end
+
+	controls.searchListLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, -34, 25, 0, 16, "^7Desired Nodes:")
+	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 225, 200, "", nil, "^%C\t\n", nil, nil, 16, true)
+
+	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, 207, 25, 0, 16, "^7Search Results:")
+	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 225, 200, searchResults, self.build)
+
+	controls.search = new("ButtonControl", nil, -90, 365, 80, 20, "Search", function()
+		if treeData.nodes[jewelSocket] and treeData.nodes[jewelSocket].isJewelSocket then
+			local radiusNodes = treeData.nodes[jewelSocket].nodesInRadius[3] -- large radius around jewelSocket
+			local allocatedNodes = { }
+			local targetNodes = { }
+			local desiredNodes = { }
+			local seedMatchData = { }
+			if controls.socketFilter.state then
+				for nodeId in pairs(radiusNodes) do
+					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] or self.build.spec.allocNodes[nodeId]
+				end
+			end
+			for nodeId in pairs(radiusNodes) do
+				if treeData.nodes[nodeId].isNotable
+				and not treeData.nodes[nodeId].isJewelSocket
+				and not treeData.nodes[nodeId].isKeystone
+				and (not controls.socketFilter.state or allocatedNodes[nodeId]) then
+					targetNodes[nodeId] = true
+				end
+			end
+			for desiredNode in controls.searchList.buf:gmatch("[^\r\n]+") do
+				desiredNodes[desiredNode] = true
+			end
+			local seedMatchDataLength = 0
+			for curSeed = data.timelessJewelSeedMin[jewelType.id], data.timelessJewelSeedMax[jewelType.id] do
+				seedMatchData[curSeed] = { }
+				for targetNode in pairs(targetNodes) do
+					local jewelDataTbl = data.readLUT(curSeed, targetNode, jewelType.id)
+					if not next(jewelDataTbl) then
+						ConPrintf("Missing LUT: " .. jewelType.label)
+					else
+						for _, jewelData in ipairs(jewelDataTbl) do
+							local nodeId = nil
+							if jewelData == 294 then -- no OP
+							elseif jewelData >= 94 then -- replace
+								nodeId = legionNodes[jewelData - 94].id
+							else -- add
+								nodeId = legionAdditions[jewelData].id
+							end
+							if nodeId and desiredNodes[nodeId] then
+								seedMatchData[curSeed][nodeId] = (seedMatchData[curSeed][nodeId] or 0) + 1
+								seedMatchData[curSeed].matchTotal = (seedMatchData[curSeed].matchTotal or 0) + 1
+								if seedMatchData[curSeed].matchTotal == 1 then
+									seedMatchDataLength = seedMatchDataLength + 1
+								end
+							end
+						end
+						if next(targetNodes, targetNode) == nil then
+							-- arbritary limit to avoid running out of memory
+							if seedMatchDataLength > 200 then
+								local lowestMatchTotal = math.huge
+								for seedId, seedData in pairs(seedMatchData) do
+									if seedData.matchTotal then
+										lowestMatchTotal = m_min(seedData.matchTotal, lowestMatchTotal)
+									end
+								end
+								if lowestMatchTotal ~= math.huge then
+									for seedId, seedData in pairs(seedMatchData) do
+										if seedData.matchTotal and seedData.matchTotal <= lowestMatchTotal then
+											seedMatchData[seedId] = nil
+											seedMatchDataLength = seedMatchDataLength - 1
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+			wipeTable(searchResults)
+			local searchResultsIdx = 1
+			for seedMatch, seedData in pairs(seedMatchData) do
+				if seedData.matchTotal then
+					searchResults[searchResultsIdx] = { }
+					searchResults[searchResultsIdx].label = "Seed " .. seedMatch .. ": "
+					for desiredNode in pairs(desiredNodes) do
+						if seedData[desiredNode] then
+							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. " " .. seedData[desiredNode]
+						else
+							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. " 0"
+						end
+					end
+					searchResults[searchResultsIdx].type = jewelType.id
+					searchResults[searchResultsIdx].socket = jewelSocket
+					searchResults[searchResultsIdx].seed = seedMatch
+					searchResults[searchResultsIdx].total = seedData.matchTotal
+					searchResultsIdx = searchResultsIdx + 1
+				end
+			end
+			t_sort(searchResults, function(a, b) return a.total > b.total end)
+		end
+	end)
+	controls.reset = new("ButtonControl", nil, 0, 365, 80, 20, "Reset", function()
+		controls.searchList:SetText("")
+		wipeTable(searchResults)
+	end)
+	controls.close = new("ButtonControl", nil, 90, 365, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(500, 402, "Find a Timeless Jewel", controls, "search")
 end
