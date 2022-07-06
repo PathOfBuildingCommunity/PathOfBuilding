@@ -225,7 +225,6 @@ function ModStoreClass:GetStat(stat, cfg)
 		for _, activeSkill in ipairs(self.actor.activeSkillList) do
 			if (activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and activeSkill.buffList[1].name == cfg.skillName) then
 				manaBase = activeSkill.skillData["ManaReservedBase"] and activeSkill.skillData["ManaReservedBase"] or 0
-				ConPrintf(manaBase)
 				reservedPercentMana =  manaBase / self.actor.output["Mana"] * 100
 				if reservedPercentMana == math.huge then --Don't give infinite aura effect on infinite mana skills (they should just be disabled but not sure how)
 					reservedPercentMana = 0
