@@ -704,31 +704,32 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						local headerSize = #jewelDataTbl
 						-- FIXME: complete implementation of this. Need to set roll values for stats
 						--        based on their `fmt` specification 
-						if headerSize == 2 then
+						if headerSize == 2 or headerSize == 3 then
 							local stat1 = jewelDataTbl[1] - 94
-							local roll1 = jewelDataTbl[2]
 							self:ReplaceNode(node, legionNodes[stat1])
-						elseif headerSize == 3 then
-							local stat1 = jewelDataTbl[1] - 94
 							local roll1 = jewelDataTbl[2]
-							local roll2 = jewelDataTbl[3]
-							self:ReplaceNode(node, statCopy)
-						elseif headerSize == 6 then
-							local stat1 = jewelDataTbl[1] - 94
-							local stat2 = jewelDataTbl[2] - 94
-							local stat3 = jewelDataTbl[3] - 94
-							local roll1 = jewelDataTbl[4]
-							local roll2 = jewelDataTbl[5]
-							local roll3 = jewelDataTbl[6]
-						elseif headerSize == 8 then
-							local stat1 = jewelDataTbl[1] - 94
-							local stat2 = jewelDataTbl[2] - 94
-							local stat3 = jewelDataTbl[3] - 94
-							local stat4 = jewelDataTbl[4] - 94
+							local roll2 = nil
+							if headerSize == 3 then
+								roll2 = jewelDataTbl[3]
+							end
+						elseif headerSize == 6 or headerSize == 8 then
+							local stat1 = jewelDataTbl[1]
+							if stat1 <= 21 then
+								self:ReplaceNode(node, legionNodes[76]) -- might of the vaal
+							else
+								self:ReplaceNode(node, legionNodes[77]) -- legacy of the vaal
+							end
+							local stat2 = jewelDataTbl[2]
+							local stat3 = jewelDataTbl[3]
+							local stat4 = nil
 							local roll1 = jewelDataTbl[5]
 							local roll2 = jewelDataTbl[6]
 							local roll3 = jewelDataTbl[7]
-							local roll4 = jewelDataTbl[8]
+							local roll4 = nil
+							if headerSize == 8 then
+								stat4 = jewelDataTbl[4]
+								roll4 = jewelDataTbl[8]
+							end
 						else
 							ConPrintf("Unhandled Glorious Vanity headerSize: " .. headerSize)
 						end
@@ -764,8 +765,22 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				end					
 			elseif node.type == "Normal" then
 				if conqueredBy.conqueror.type == "vaal" then
-					local legionNode = legionNodes[38] -- vaal_small_fire_resistance
-					self:ReplaceNode(node, legionNode)
+					local jewelDataTbl = { }
+					if seed ~= m_max(m_min(seed, data.ConqSeedMax[jewelType]), data.ConqSeedMin[jewelType]) then
+						ConPrintf("ERROR: Seed " .. seed .. " is outside of valid range [" .. data.ConqSeedMin[jewelType] .. " - " .. data.ConqSeedMax[jewelType] .. "] for jewel type: " .. data.ConqTypeIds[jewelType])
+					else
+						jewelDataTbl = data.readLUT(conqueredBy.id, node.id, jewelType)
+					end
+					print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
+					if not next(jewelDataTbl) then
+						ConPrintf("Missing LUT: " .. data.ConqTypeIds[jewelType])
+					else
+						local stat1 = jewelDataTbl[1] - 94
+						local roll1 = jewelDataTbl[2]
+						self:ReplaceNode(node, legionNodes[stat1])
+						--local legionNode = legionNodes[38] -- vaal_small_fire_resistance
+						--self:ReplaceNode(node, legionNode)
+					end
 				elseif conqueredBy.conqueror.type == "karui" then
 					local str = isValueInArray(attributes, node.dn) and "2" or "4"
 					self:NodeAdditionOrReplacementFromString(node, " \n+" .. str .. " to Strength")
