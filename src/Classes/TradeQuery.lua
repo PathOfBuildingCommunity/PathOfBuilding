@@ -47,10 +47,10 @@ end)
 ---Fetch currency shortnames from Poe API (used for PoeNinja price pairing)
 ---@param callback fun()
 function TradeQueryClass:FetchCurrencyConversionTable(callback)
-	self.tradeQueryRequests:DownloadPage(
+	launch:DownloadPage(
 		"https://www.pathofexile.com/api/trade/data/static",
 		function(response)
-			local obj = dkjson.decode(response)
+			local obj = dkjson.decode(response.body)
 			local currencyConversionTradeMap = {}
 			local currencyTable
 			for _, value in pairs(obj.result) do
@@ -72,14 +72,14 @@ end
 
 -- Method to pull down and interpret available leagues from PoE
 function TradeQueryClass:PullLeagueList(controls)
-	self.tradeQueryRequests:DownloadPage(
+	launch:DownloadPage(
 		"https://api.pathofexile.com/leagues?type=main&compact=1",
 		function(response, errMsg)
 			if errMsg then
 				self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
 				return "POE ERROR", "Error: "..errMsg
 			else
-				local json_data = dkjson.decode(response)
+				local json_data = dkjson.decode(response.body)
 				if not json_data then
 					self:SetNotice(controls.pbNotice, "Failed to Get PoE League List response")
 					return
@@ -138,14 +138,14 @@ function TradeQueryClass:PullPoENinjaCurrencyConversion(league, controls)
 	self:FetchCurrencyConversionTable(function()
 		self.pbCurrencyConversion[league] = { }
 		self.lastCurrencyConversionRequest = now
-		self.tradeQueryRequests:DownloadPage(
+		launch:DownloadPage(
 			"https://poe.ninja/api/data/CurrencyRates?league=" .. league,	
 			function(response, errMsg)
 				if errMsg then
 					self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
 					return
 				end
-				local json_data = dkjson.decode(response)
+				local json_data = dkjson.decode(response.body)
 				if not json_data then
 					self:SetNotice(controls.pbNotice, "Failed to Get PoE Ninja response")
 					return

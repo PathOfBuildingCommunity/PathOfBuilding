@@ -82,11 +82,11 @@ function buildSites.DownloadBuild(link, websiteInfo, callback)
 		siteCodeURL = link:gsub(websiteInfo.regexURL, websiteInfo.downloadURL)
 	end
 	if websiteInfo then
-		launch:DownloadPage(siteCodeURL, function(page, errMsg)
+		launch:DownloadPage(siteCodeURL, function(response, errMsg)
 			if errMsg then
 				callback(false, errMsg)
 			else
-				callback(true, page)
+				callback(true, response.body)
 			end
 		end)
 	else
