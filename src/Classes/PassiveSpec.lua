@@ -756,8 +756,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						end
 					else
 						for _, conqData in ipairs(jewelDataTbl) do
-							if conqData == 294 then -- no OP
-							elseif conqData >= 94 then -- replace
+							if conqData >= 94 then -- replace
 								conqData = conqData - 94
 								local legionNode = legionNodes[conqData]
 								if legionNode then
