@@ -35,59 +35,19 @@ function TradeQueryRequestsClass:ProcessQueue()
 					end
 					request.callback(response.body, errMsg, unpack(request.callbackParams or {}))
 				end
-				self:SendRequest(request.url , onComplete, {body = request.body, poesessid = POESESSID})
+				-- self:SendRequest(request.url , onComplete, {body = request.body, poesessid = POESESSID})
+				local header = "Content-Type: application/json"
+				if POESESSID and POESESSID ~= "" then
+					header = header .. "\nCookie: POESESSID=" .. POESESSID
+				end
+				launch:DownloadPage(request.url , onComplete, {
+					header = header,
+					body = request.body, 
+				})
 			else
 				break
 			end
 		end
-	end
-end
-
----@param url string
----@param callback fun(response:table, errMsg:string) @ response = { header, body }
----@param params table @ params = { body, poesessid }
-function TradeQueryRequestsClass:SendRequest(url, callback, params)
-	params = params or {}
-	local id = LaunchSubScript([[
-		local curl = require("lcurl.safe")
-		local easy = curl.easy()
-		local url, req_body, versionNumber, POESESSID = ...
-		local res_header = ""
-		local res_body = ""
-        local httpheader = {
-				'User-Agent: Path of Building/' .. versionNumber .. ' (contact: pob@mailbox.org)',
-				'Accept: application/json',
-				'Content-Type: application/json',
-			}
-        if POESESSID then
-            table.insert(httpheader, 'Cookie: POESESSID='..POESESSID)
-        end
-		if req_body then
-			easy:setopt{
-				postfields = req_body,
-				post = true,
-			}
-		end
-		easy:setopt{
-			url = url,
-			httpheader = httpheader,
-		}
-		easy:setopt_headerfunction(function(data)
-			res_header = res_header..data
-			return true
-		end)
-		easy:setopt_writefunction(function(data)
-			res_body = res_body..data
-			return true
-		end)
-		easy:perform()
-		easy:close()
-		return res_header, res_body
-	]], "", "", url, params.body, launch.versionNumber, params.poesessid)
-	if id then
-		launch:RegisterSubScript(id, function(header, body, errMsg)
-			callback({header = header, body = body}, errMsg)
-		end)
 	end
 end
 
@@ -98,14 +58,14 @@ end
 ---@param params table @ params = { callbackQueryId = fun(queryId:string) }
 function TradeQueryRequestsClass:SearchWithQuery(league, query, callback, params)
 	params = params or {}
-	self:PerformSearch(league, query, function(itemHashes, queryId, errMsg)
+	self:PerformSearch(league, query, function(response, errMsg)
 		if errMsg then
 			return callback(nil, errMsg)
 		end
 		if params.callbackQueryId then
-			params.callbackQueryId(queryId)
+			params.callbackQueryId(response.id)
 		end
-		self:FetchResults(itemHashes, queryId, callback)
+		self:FetchResults(response.result, response.id, callback)
 	end)
 end
 
@@ -113,19 +73,19 @@ end
 ---Item info has to be fetched seperately 
 ---@param league string
 ---@param query string
----@param callback fun(itemHashes:string[], queryId:string, errMsg:string)
+---@param callback fun(response:table, errMsg:string)
 function TradeQueryRequestsClass:PerformSearch(league, query, callback)
 	table.insert(self.requestQueue["search"], {
 		url = "https://www.pathofexile.com/api/trade/search/"..league,
 		body = query,
 		callback = function(response, errMsg)
-			if errMsg then
-				return callback(nil, nil, errMsg)
+			if errMsg and not errMsg:find("Response code: 400") then
+				return callback(nil, errMsg)
 			end
 			local response = dkjson.decode(response)
 			if not response then
 				errMsg =  "Failed to Get Trade response"
-				return callback(nil, nil, errMsg)
+				return callback(nil, errMsg)
 			end
 			if not response.result or #response.result == 0 then
 				if response.error then
@@ -141,9 +101,9 @@ function TradeQueryRequestsClass:PerformSearch(league, query, callback)
 				else
 					errMsg = "No Matching Results Found"
 				end
-				return callback(nil, nil, errMsg)
+				return callback(nil, errMsg)
 			end
-			callback(response.result, response.id, errMsg)
+			callback(response, errMsg)
 		end,
 	})
 end
@@ -247,13 +207,13 @@ end
 ---@see TradeQueryRequests#FetchSearchQuery
 function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 	-- the league doesn't affect query so we set it to Standard as it doesn't change
-	self:DownloadPage("https://www.pathofexile.com/trade/search/Standard/" .. queryId, 
+	launch:DownloadPage("https://www.pathofexile.com/trade/search/Standard/" .. queryId, 
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
 			end
 			-- full json state obj from HTML
-			local dataStr = response:match('require%(%["main"%].+ t%((.+)%);}%);}%);')
+			local dataStr = response.body:match('require%(%["main"%].+ t%((.+)%);}%);}%);')
 			if not dataStr then
 				return callback(nil, "JSON object not found on the page.")
 			end
@@ -267,10 +227,4 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 			local queryStr = dkjson.encode(query)
 			callback(queryStr, errMsg)
 		end)
-end
-
-function TradeQueryRequestsClass:DownloadPage(url, callback)
-	self:SendRequest(url, function(response, errMsg)
-		callback(response.body, errMsg)
-	end)
 end
