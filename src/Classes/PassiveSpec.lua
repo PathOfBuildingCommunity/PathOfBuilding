@@ -672,6 +672,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		if node.conqueredBy and node.type ~= "Socket" then
 			local conqueredBy = node.conqueredBy
 			local legionNodes = self.tree.legion.nodes
+			local legionAdditions = self.tree.legion.additions
 
 			-- FIXME - continue implementing
 			local jewelType = 5
@@ -688,7 +689,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			if jewelType == 5 then
 				seed = seed / 20
 			end
-			
+
 			if node.type == "Notable" then
 				local jewelDataTbl = { }
 				if seed ~= m_max(m_min(seed, data.ConqSeedMax[jewelType]), data.ConqSeedMin[jewelType]) then
@@ -737,7 +738,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								end
 							end
 							for add,val in pairs(additions) do
-								local addition = self.tree.legion.additions[add]
+								local addition = legionAdditions[add]
 								for _, addStat in ipairs(addition.sd) do
 									for k,statMod in pairs(addition.stats) do -- should only be 1 big
 										if statMod.fmt == "d" then
@@ -764,8 +765,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								else
 									ConPrintf("Unhandled 'replace' ID: " .. conqData)
 								end
-							elseif conqData then --add
-								local addition = self.tree.legion.additions[conqData]
+							elseif conqData then -- add
+								local addition = legionAdditions[conqData]
 								for _, addStat in ipairs(addition.sd) do
 									self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
 								end
