@@ -691,14 +691,14 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 
 			if node.type == "Notable" then
 				local jewelDataTbl = { }
-				if seed ~= m_max(m_min(seed, data.ConqSeedMax[jewelType]), data.ConqSeedMin[jewelType]) then
-					ConPrintf("ERROR: Seed " .. seed .. " is outside of valid range [" .. data.ConqSeedMin[jewelType] .. " - " .. data.ConqSeedMax[jewelType] .. "] for jewel type: " .. data.ConqTypeIds[jewelType])
+				if seed ~= m_max(m_min(seed, data.timelessJewelSeedMax[jewelType]), data.timelessJewelSeedMin[jewelType]) then
+					ConPrintf("ERROR: Seed " .. seed .. " is outside of valid range [" .. data.timelessJewelSeedMin[jewelType] .. " - " .. data.timelessJewelSeedMax[jewelType] .. "] for jewel type: " .. data.timelessJewelTypes[jewelType])
 				else
 					jewelDataTbl = data.readLUT(conqueredBy.id, node.id, jewelType)
 				end
 				print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
 				if not next(jewelDataTbl) then
-					ConPrintf("Missing LUT: " .. data.ConqTypeIds[jewelType])
+					ConPrintf("Missing LUT: " .. data.timelessJewelTypes[jewelType])
 				else
 					if jewelType == 1 then
 						local headerSize = #jewelDataTbl
@@ -733,23 +733,23 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 							ConPrintf("Unhandled Glorious Vanity headerSize: " .. headerSize)
 						end
 					else
-						for _, conqData in ipairs(jewelDataTbl) do
-							if conqData == 294 then -- no OP
-							elseif conqData >= 94 then -- replace
-								conqData = conqData - 94
-								local legionNode = legionNodes[conqData]
+						for _, jewelData in ipairs(jewelDataTbl) do
+							if jewelData == 294 then -- no OP
+							elseif jewelData >= 94 then -- replace
+								jewelData = jewelData - 94
+								local legionNode = legionNodes[jewelData]
 								if legionNode then
 									self:ReplaceNode(node, legionNode)
 								else
-									ConPrintf("Unhandled 'replace' ID: " .. conqData)
+									ConPrintf("Unhandled 'replace' ID: " .. jewelData)
 								end
-							elseif conqData then --add
-								local addition = self.tree.legion.additions[conqData]
+							elseif jewelData then --add
+								local addition = self.tree.legion.additions[jewelData]
 								for _, addStat in ipairs(addition.sd) do
 									self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
 								end
-							elseif next(conqData) then
-								ConPrintf("Unhandled OP: " .. conqData)
+							elseif next(jewelData) then
+								ConPrintf("Unhandled OP: " .. jewelData)
 							end
 						end
 					end

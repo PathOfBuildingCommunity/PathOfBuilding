@@ -496,13 +496,13 @@ local function loadTimelessJewel(jewelType)
 		data.timelessJewelLUTs[jewelType] = { data = "" }
 	end
 
-	jewelFile = "Data/TimelessJewelData/" .. data.ConqTypeIds[jewelType]:gsub("%s+", "") .. ".bin"
+	jewelFile = "Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".bin"
 
 	-- load the binary jewel data file
 	if jewelType == 1 then -- "Glorious Vanity"
 		file = assert(io.open(jewelFile, "rb"))
 		local GV_nodecount = 1678
-		local seedSize = data.ConqSeedMax[1] - data.ConqSeedMin[1] + 1
+		local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
 		data.timelessJewelLUTs[jewelType].sizes = file:read(GV_nodecount * seedSize)
 		local count = GV_nodecount * seedSize
 		for i = 1, (GV_nodecount * seedSize) do
@@ -521,21 +521,21 @@ local function loadTimelessJewel(jewelType)
 	end
 end
 
-data.ConqTypeIds = {
+data.timelessJewelTypes = {
 	[1] = "Glorious Vanity",
 	[2] = "Lethal Pride",
 	[3] = "Brutal Restraint",
 	[4] = "Militant Faith",
 	[5] = "Elegant Hubris",
 }
-data.ConqSeedMin = {
+data.timelessJewelSeedMin = {
 	[1] = 100,
 	[2] = 10000,
 	[3] = 500,
 	[4] = 2000,
 	[5] = 2000 / 20,
 }
-data.ConqSeedMax = {
+data.timelessJewelSeedMax = {
 	[1] = 8000,
 	[2] = 18000,
 	[3] = 8000,
@@ -551,8 +551,8 @@ data.readLUT = function(seed, nodeID, jewelType)
 	if jewelType == 5 then -- "Elegant Hubris"
 		seed = seed / 20
 	end
-	seedOffset = (seed - data.ConqSeedMin[jewelType])
-	seedSize = (data.ConqSeedMax[jewelType] - data.ConqSeedMin[jewelType]) + 1
+	seedOffset = (seed - data.timelessJewelSeedMin[jewelType])
+	seedSize = (data.timelessJewelSeedMax[jewelType] - data.timelessJewelSeedMin[jewelType]) + 1
 	if jewelType == 1 then -- "Glorious Vanity"
 		local index = data.nodeIDListGV[nodeID] and data.nodeIDListGV[nodeID].index or nil
 		if index then
