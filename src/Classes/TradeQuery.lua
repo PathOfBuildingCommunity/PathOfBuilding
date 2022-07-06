@@ -24,6 +24,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	-- table of price results index by slot and number of fetched results
 	self.resultTbl = { }
 	self.sortedResultTbl = { }
+	self.itemIndexTbl = { }
 
 	-- default set of trade item sort selection
 	self.pbSortSelectionIndex = 1
@@ -119,7 +120,7 @@ function TradeQueryClass:ConvertCurrencyToChaos(currency, amount)
 	elseif currency:lower() == "chaos" then
 		return m_ceil(amount)
 	else
-		ConPrintf("Unhandled Currency Converstion: '" .. currency:lower() .. "'")
+		ConPrintf("Unhandled Currency Conversion: '" .. currency:lower() .. "'")
 		return m_ceil(amount)
 	end
 end
@@ -196,37 +197,54 @@ function TradeQueryClass:PriceItem()
 	local row_height = 20
 	local top_pane_alignment_ref = nil
 	local top_pane_alignment_width = 0
-	local top_pane_alignment_height = row_height + 8
-	local pane_height = (top_pane_alignment_height) * row_count + 15
-	local pane_width = 1264
+	local top_pane_alignment_height = 8
+	-- Row spacing reference is now the name, which is a smaller font than the total height
+	local pane_height = (top_pane_alignment_height + row_height) * row_count - 4*row_count + 28
+	local pane_width = 1200
 	local controls = { }
 	local cnt = 1
-	controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 16, 15, 60, 18, colorCodes.CUSTOM .. "ItemSet: " .. (self.itemsTab.activeItemSet.title or "Default"))
-	controls.pbNotice = new("EditControl",  {"TOP",nil,"TOP"}, 0, 15, 300, 16, "", nil, nil)
+	--controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 16, 15, 60, 16, colorCodes.CUSTOM .. "ItemSet: " .. (self.itemsTab.activeItemSet.title or "Default"))
+	controls.setSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, 15, 200, 20, self.itemsTab.itemSetOrderList, function(index, value)
+		self.itemsTab:SetActiveItemSet(self.itemsTab.itemSetOrderList[index])
+		self.itemsTab:AddUndoState()
+	end)
+	controls.setSelect.enableDroppedWidth = true
+	controls.setSelect.enabled = function()
+		return #self.itemsTab.itemSetOrderList > 1
+	end
+	controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT",nil,"BOTTOMRIGHT"}, -8, -8, 300, 16, "")
 	controls.pbNotice.textCol = colorCodes.CUSTOM
-	local sortSelectionList = {
+
+	-- Item sort dropdown
+	self.sortSelectionList = {
 		"Default",
-		"Cheapest",
+		"Price",
 		"Highest DPS",
 		"DPS / Price",
 	}
-	controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -12, 15, 100, 20, sortSelectionList, function(index, value)
+	controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -12, 15, 100, 18, self.sortSelectionList, function(index, value)
 		self.pbSortSelectionIndex = index
 	end)
-	controls.itemSortSelection.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		tooltip:AddLine(16, "Weighted Sum searches ('?' button) will always sort")
-		tooltip:AddLine(16, "using descending weighted sum.")
+	controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
+	controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
+	controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT",controls.itemSortSelection,"TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
+
+	-- League selection
+	controls.league = new("DropDownControl", {"TOPRIGHT",controls.itemSortSelectionLabel,"TOPLEFT"}, -8, 0, 100, 18, self.itemsTab.leagueDropList, function(index, value)
+		self.pbLeague = value.name
+		self.pbLeagueRealName = value.realname or value.name
+		self:SetCurrencyConversionButton(controls)
+	end)
+	controls.league.enabled = function()
+		return #self.itemsTab.leagueDropList > 1
 	end
-	controls.itemSortSelectionLabel = new("LabelControl",  {"TOPRIGHT",controls.itemSortSelection,"TOPRIGHT"}, -106, 0, 60, 18,  "^8Item Sort Selection:")
-	controls.fullPrice = new("EditControl", nil, -3, pane_height - 58, pane_width - 256, row_height, "", "Total Cost", "%Z")
-	top_pane_alignment_ref = {"TOPLEFT",controls.itemSetLabel,"TOPLEFT"}
+	controls.leagueLabel = new("LabelControl", {"TOPRIGHT",controls.league,"TOPLEFT"}, -4, 0, 20, 16, "League:")
+
+	-- Individual slot rows
+	top_pane_alignment_ref = {"TOPLEFT",controls.setSelect,"BOTTOMLEFT"}
 	for _, slotName in ipairs(baseSlots) do
-		local str_cnt = tostring(cnt)
-		self:PriceItemRowDisplay(controls, str_cnt, {name = slotName}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-		top_pane_alignment_ref = {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}
-		top_pane_alignment_width = 0
-		top_pane_alignment_height = 28
+		self:PriceItemRowDisplay(controls, cnt, {name = slotName}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+		top_pane_alignment_ref = {"TOPLEFT",controls['name'..cnt],"BOTTOMLEFT"}
 		cnt = cnt + 1
 	end
 	local activeSocketList = { }
@@ -237,53 +255,27 @@ function TradeQueryClass:PriceItem()
 	end
 	table.sort(activeSocketList)
 	for _, nodeId in pairs(activeSocketList) do
-		local str_cnt = tostring(cnt)
-		self:PriceItemRowDisplay(controls, str_cnt, {name = self.itemsTab.sockets[nodeId].label, ref = nodeId}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-		top_pane_alignment_ref = {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}
-		top_pane_alignment_width = 0
-		top_pane_alignment_height = 28
+		self:PriceItemRowDisplay(controls, cnt, {name = self.itemsTab.sockets[nodeId].label, ref = nodeId}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+		top_pane_alignment_ref = {"TOPLEFT",controls['name'..cnt],"BOTTOMLEFT"}
 		cnt = cnt + 1
 	end
+	controls.fullPrice = new("LabelControl", nil, -3, pane_height - 58, pane_width - 256, row_height, "")
 	controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, row_height, "Done", function()
 		GlobalCache.useFullDPS = self.storedGlobalCacheDPSView
 		main:ClosePopup()
 	end)
-	controls.league = new("DropDownControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -12, pane_height - 30, 100, 18, self.itemsTab.leagueDropList, function(index, value)
-		self.pbLeague = value.name
-		self.pbLeagueRealName = value.realname or value.name
-		self:SetCurrencyConversionButton(controls)
-	end)
-	controls.league.enabled = function()
-		return #self.itemsTab.leagueDropList > 1
-	end
-	controls.leagueLabel = new("LabelControl", {"TOPRIGHT",controls.league,"TOPLEFT"}, -4, 0, 20, 16, "League:")
-	controls.poesessidButton = new("ButtonControl", {"TOPLEFT",controls.leagueLabel,"TOPLEFT"}, -256, 0, 240, row_height, POESESSID ~= "" and "HAVE POESESSID" or colorCodes.WARNING.."NEED POESESSID", function()
+	controls.poesessidButton = new("ButtonControl", {"TOPLEFT",controls.setSelect,"TOPRIGHT"}, 8, 0, 200, row_height, function() return POESESSID ~= "" and "Change POESESSID" or colorCodes.WARNING.."Missing POESESSID" end, function()
 		local poesessid_controls = {}
-		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, #POESESSID == 32 and POESESSID or "<PASTE POESESSID FROM BROWSER>", "POESESSID", "%X", 32, function(buf)
-			if #poesessid_controls.sessionInput.buf == 32 then
-				POESESSID = poesessid_controls.sessionInput.buf
-				controls.poesessidButton.label = "HAVE POESESSID"
-			end
+		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, POESESSID, nil, "%X", 32, function(buf)
+			POESESSID = buf
 		end)
-		poesessid_controls.sessionInput.tooltipFunc = function(tooltip)
-			tooltip:Clear()
-			tooltip:AddLine(16, "^7To find your POESESSID value (a 32-bit hexadecimal string) do the following in Google Chrome:")
-			tooltip:AddLine(16, "^7  1) Make sure you are logged into your PoE acccount on any valid and official PoE website.")
-			tooltip:AddLine(16, "^7  2) Use the shortcut: CTRL+SHIFT+I to bring up 'Developer Tools'")
-			tooltip:AddLine(16, "^7  3) Select 'Application' Pane on top and 'Cookies' on the left hand menu sidebar.")
-			tooltip:AddLine(16, "^7  4) Under 'Cookies' click on 'https://www.pathofexile.com' which will populate the right hand side.")
-			tooltip:AddLine(16, "^7  5) Find the entry named 'POESESSID' and copy the Value into this text box.")
-		end
+		poesessid_controls.sessionInput.placeholder = "Enter your session ID here"
+		poesessid_controls.sessionInput.tooltipText = "You can get this from your web browser's cookies while logged into the Path of Exile website."
 		poesessid_controls.close = new("ButtonControl", {"TOP",poesessid_controls.sessionInput,"TOP"}, 0, 24, 90, row_height, "Done", function()
 			main:ClosePopup()
 		end)
-		main:OpenPopup(364, 72, "POESESSID", poesessid_controls)
+		main:OpenPopup(364, 72, "Change session ID", poesessid_controls)
 	end)
-	controls.poesessidButton.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		tooltip:AddLine(16, colorCodes.WARNING .. "Your POESESSID is needed for certain more complex queries and all weighted sum queries.")
-		tooltip:AddLine(16, colorCodes.WARNING .. "If all the URLs for items are simple queries you don't need to provide this information.")
-	end
 
 	controls.updateCurrencyConversion = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, pane_height - 30, 240, row_height, "", function()
 		self:PullPoENinjaCurrencyConversion(self.pbLeague, controls)
@@ -293,7 +285,7 @@ function TradeQueryClass:PriceItem()
 	if #self.itemsTab.leagueDropList == 0 then
 		self:PullLeagueList(controls)
 	else
-		controls.league.selIndex = 1
+		controls.league:SelByValue(self.pbLeague, "name")
 		self.pbLeague = self.itemsTab.leagueDropList[controls.league.selIndex].name
 		self.pbLeagueRealName = self.itemsTab.leagueDropList[controls.league.selIndex].realname
 		self:SetCurrencyConversionButton(controls)
@@ -310,13 +302,13 @@ function TradeQueryClass:SetCurrencyConversionButton(controls)
 		foo:close()
 		self.pbCurrencyConversion[self.pbLeague] = dkjson.decode(lines)
 		self.lastCurrencyFileTime[controls.league.selIndex]  = self.pbCurrencyConversion[self.pbLeague]["updateTime"]
-		self.pbFileTimestampDiff[controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[controls.league.selIndex] 
+		self.pbFileTimestampDiff[controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[controls.league.selIndex]
 		if self.pbFileTimestampDiff[controls.league.selIndex] < 3600 then
 			-- Less than 1 hour (60 * 60 = 3600)
-			currencyLabel = "^8Currency Rates are Very Recent"
+			currencyLabel = "^8Currency Rates are very recent"
 		elseif self.pbFileTimestampDiff[controls.league.selIndex] < (24 * 3600) then
 			-- Less than 1 day
-			currencyLabel = "^7Currency Rates are Recent"
+			currencyLabel = "^7Currency Rates are recent"
 		end
 	else
 		currencyLabel = colorCodes.NEGATIVE .. "Get Currency Conversion Rates"
@@ -328,17 +320,13 @@ function TradeQueryClass:SetCurrencyConversionButton(controls)
 	controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
 		tooltip:Clear()
 		if self.lastCurrencyFileTime[controls.league.selIndex] ~= nil then
-			self.pbFileTimestampDiff[controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[controls.league.selIndex] 
+			self.pbFileTimestampDiff[controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[controls.league.selIndex]
 		end
 		if self.pbFileTimestampDiff[controls.league.selIndex] == nil or self.pbFileTimestampDiff[controls.league.selIndex] >= 3600 then
-			tooltip:AddLine(16, colorCodes.WARNING .. "Currency Conversion rates are pulled from PoE Ninja leveraging their API.")
-			tooltip:AddLine(16, colorCodes.WARNING .. "Updates are limited to once per hour and not necessary more than once per day.")
-			tooltip:AddLine(16, "")
-			tooltip:AddLine(16, colorCodes.NEGATIVE .. "NOTE: This will expose your IP address to poe.ninja.")
-			tooltip:AddLine(16, colorCodes.NEGATIVE .. "If you are concerned about this please do not click this button.")
+			tooltip:AddLine(16, "Currency Conversion rates are pulled from PoE Ninja")
+			tooltip:AddLine(16, "Updates are limited to once per hour and not necessary more than once per day")
 		elseif self.pbFileTimestampDiff[controls.league.selIndex] ~= nil and self.pbFileTimestampDiff[controls.league.selIndex] < 3600 then
 			tooltip:AddLine(16, "Conversion Rates are less than an hour old (" .. tostring(self.pbFileTimestampDiff[controls.league.selIndex]) .. " seconds old)")
-			tooltip:AddLine(16, "Button is DISABLED")
 		end
 	end
 end
@@ -346,30 +334,25 @@ end
 -- Method to set the notice message in upper right of PoB Trader pane
 function TradeQueryClass:SetNotice(notice_control, msg)
 	if msg:find("Complex Query") then
-		msg =  colorCodes.RELIC .. msg
+		msg = colorCodes.RELIC .. msg
 	elseif msg:find("No Matching Results") then
 		msg = colorCodes.WARNING .. msg
 	elseif msg:find("Error:") then
 		msg = colorCodes.NEGATIVE .. msg
 	end
-	notice_control:SetText(msg)
+	notice_control.label = msg
 end
 
 -- Method to update controls after a search is completed
 function TradeQueryClass:UpdateControlsWithItems(slotTbl, controls, index)
 	self.sortedResultTbl[index] = self:SortFetchResults(slotTbl, index)
-	local str_quantity_found = tostring(#self.sortedResultTbl[index])
-	controls['resultCount'..index]:SetText("out of " .. str_quantity_found)
-	controls['resultIndex'..index]:SetText("1")
-	controls['priceButton'..index].label = "Price Item"
+	self.itemIndexTbl[index] = 1
+	controls['priceButton'..index].tooltipText = "Sorted by " .. self.sortSelectionList[self.pbSortSelectionIndex]
 	local pb_index = self.sortedResultTbl[index][1].index
-	controls['importButtonText'..index]:SetText(self.resultTbl[index][pb_index].item_string)
 	self.totalPrice[index] = {
 		currency = self.resultTbl[index][pb_index].currency,
 		amount = self.resultTbl[index][pb_index].amount,
 	}
-	controls['priceAmount'..index]:SetText(self.totalPrice[index].amount .. " " .. self.totalPrice[index].currency)
-	controls['whisperButtonText'..index]:SetText(self.resultTbl[index][pb_index].whisper)
 	self:GenerateTotalPriceString(controls.fullPrice)
 end
 
@@ -377,13 +360,10 @@ end
 function TradeQueryClass:SetFetchResultReturn(controls, slotIndex, pb_index)
 	if self.resultTbl[slotIndex] and self.resultTbl[slotIndex][pb_index] then
 		local pb_index = self.sortedResultTbl[slotIndex][pb_index].index
-		controls['importButtonText'..slotIndex]:SetText(self.resultTbl[slotIndex][pb_index].item_string)
 		self.totalPrice[slotIndex] = {
 			currency = self.resultTbl[slotIndex][pb_index].currency,
 			amount = self.resultTbl[slotIndex][pb_index].amount,
 		}
-		controls['priceAmount'..slotIndex]:SetText(self.totalPrice[slotIndex].amount .. " " .. self.totalPrice[slotIndex].currency)
-		controls['whisperButtonText'..slotIndex]:SetText(self.resultTbl[slotIndex][pb_index].whisper)
 		self:GenerateTotalPriceString(controls.fullPrice)
 	end
 end
@@ -433,8 +413,8 @@ end
 -- Method to generate pane elements for each item slot
 function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
 	local activeSlotRef = slotTbl.ref and self.itemsTab.activeItemSet[slotTbl.ref] or self.itemsTab.activeItemSet[slotTbl.name]
-	controls['name'..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^8"..slotTbl.name)
-	controls['bestButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 10, row_height, "?", function()
+	controls['name'..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^7"..slotTbl.name)
+	controls['bestButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 80, row_height, "Find best", function()
 		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query)
 			self.pbSortSelectionIndex = 1
 			context.controls['priceButton'..context.str_cnt].label = "Searching..."
@@ -442,12 +422,13 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 				function(items, errMsg)
 					if errMsg then
 						self:SetNotice(context.controls.pbNotice, "Error: " .. errMsg)
+						context.controls['priceButton'..context.str_cnt].label =  "Price Item"
 						return
 					else
 						self:SetNotice(context.controls.pbNotice, "")
 					end
 					self.resultTbl[context.str_cnt] = items
-					self:UpdateControlsWithItems(context.slotTbl, context.controls, context.str_cnt)
+					self:UpdateControlsWithItems(context.slotTbl, context.controls, context.str_cnt, query)
 					context.controls['priceButton'..context.str_cnt].label =  "Price Item"
 				end,
 				{
@@ -458,35 +439,34 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 			)
 		end)
 	end)
-	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['bestButton'..str_cnt],"TOPLEFT"}, 10 + 8, 0, 500, row_height, "Trade Site URL", nil, "^%C\t\n", nil, nil, nil)
+	controls['bestButton'..str_cnt].enabled = POESESSID ~= ""
+	controls['bestButton'..str_cnt].tooltipText = "Creates a weighted search to find the highest DPS items for this slot.  This requires a valid session ID."
+	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['bestButton'..str_cnt],"TOPRIGHT"}, 8, 0, 400, row_height, nil, nil, "^%C\t\n", nil, nil, nil)
+	controls['uri'..str_cnt]:SetPlaceholder("Paste trade URL here...")
 	if activeSlotRef and activeSlotRef.pbURL ~= "" and activeSlotRef.pbURL ~= nil then
 		controls['uri'..str_cnt]:SetText(activeSlotRef.pbURL)
-	else
-		controls['uri'..str_cnt]:SetText("<PASTE TRADE URL FOR>: " .. slotTbl.name)
 	end
 	controls['uri'..str_cnt].tooltipFunc = function(tooltip)
 		tooltip:Clear()
 		if controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil then
-			tooltip:AddLine(16, "CTRL click to open in web-browser or click 'Price Item' to do it in PoB")
-			tooltip:AddLine(16, "")
-			tooltip:AddLine(14, colorCodes.NEGATIVE .. "NOTE: you will need to re-sort until GGG fixes")
+			tooltip:AddLine(16, "Control + click to open in web-browser or click 'Price Item' to do it in PoB")
 		end
 	end
-	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPLEFT"}, 500 + 8, 0, 100, row_height, "Price Item", 
+	controls['priceButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['uri'..str_cnt],"TOPRIGHT"}, 8, 0, 100, row_height, "Price Item",
 		function()
-		controls['priceButton'..str_cnt].label = "Searching..."
-		self.tradeQueryRequests:SearchWithURL(controls['uri'..str_cnt].buf, function(items, errMsg)
-			if errMsg then
-				self:SetNotice(controls.pbNotice, "Error: " .. errMsg)
-			else
-				self.resultTbl[str_cnt] = items
-				self:UpdateControlsWithItems(slotTbl, controls, str_cnt)
-			end
-			controls['priceButton'..str_cnt].label = "Price Item"
-		end)
+			controls['priceButton'..str_cnt].label = "Searching..."
+			self.tradeQueryRequests:SearchWithURL(controls['uri'..str_cnt].buf, function(items, errMsg)
+				if errMsg then
+					self:SetNotice(controls.pbNotice, "Error: " .. errMsg)
+				else
+					self.resultTbl[str_cnt] = items
+					self:UpdateControlsWithItems(slotTbl, controls, str_cnt)
+				end
+				controls['priceButton'..str_cnt].label = "Price Item"
+			end)
 		end)
 	controls['priceButton'..str_cnt].enabled = function()
-		local validURL = controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil
+		local validURL = controls['uri'..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/')
 		if not activeSlotRef and slotTbl.ref then
 			self.itemsTab.activeItemSet[slotTbl.ref] = { pbURL = "" }
 			activeSlotRef = self.itemsTab.activeItemSet[slotTbl.ref]
@@ -499,22 +479,28 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 		local isSearching = controls['priceButton'..str_cnt].label == "Searching..."
 		return validURL and not isSearching
 	end
-	controls['resultIndex'..str_cnt] = new("EditControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 60, row_height, "#", nil, "%D", 3, function(buf)
-		controls['resultIndex'..str_cnt].buf = tostring(m_min(m_max(tonumber(buf) or 1, 1), self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1))
+	local clampItemIndex = function(index)
+		return m_min(m_max(index or 1, 1), self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1)
+	end
+	controls['resultPrev'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPRIGHT"}, 8, 0, 20, row_height, "<<", function()
+		self.itemIndexTbl[str_cnt] = clampItemIndex(self.itemIndexTbl[str_cnt] - 1)
+		self:SetFetchResultReturn(controls, str_cnt, self.itemIndexTbl[str_cnt])
 	end)
-	controls['resultIndex'..str_cnt].tooltipFunc = function(tooltip)
-		if tooltip:CheckForUpdate(controls['resultIndex'..str_cnt].buf) then
-			self:SetFetchResultReturn(controls, str_cnt, tonumber(controls['resultIndex'..str_cnt].buf))
-		end
+	controls['resultPrev'..str_cnt].enabled = function()
+		return self.itemIndexTbl[str_cnt] ~= nil and self.itemIndexTbl[str_cnt] > 1
 	end
-	controls['resultCount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['resultIndex'..str_cnt],"TOPLEFT"}, 60 + 8, 0, 82, row_height, "^8No Results", nil, nil)
-	controls['priceAmount'..str_cnt] = new("EditControl", {"TOPLEFT",controls['resultCount'..str_cnt],"TOPLEFT"}, 82 + 8, 0, 120, row_height, "Price", nil, nil)
-	controls['priceAmount'..str_cnt].enabled = function()
-		local boolean = #controls['priceAmount'..str_cnt].buf > 0
-		return boolean
-	end
-	controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceAmount'..str_cnt],"TOPLEFT"}, 120 + 8, 0, 100, row_height, "Import Item", function()
-		self.itemsTab:CreateDisplayItemFromRaw(controls['importButtonText'..str_cnt].buf)
+	controls['resultPrev'..str_cnt].shown = function() return self.itemIndexTbl[str_cnt] ~= nil end
+	controls['resultCount'..str_cnt] = new("LabelControl", {"TOPLEFT",controls['resultPrev'..str_cnt],"TOPRIGHT"}, 8, 0, 100, 18, function()
+		return self.sortedResultTbl[str_cnt] and ("^7" .. self.itemIndexTbl[str_cnt] .. "/" .. #self.sortedResultTbl[str_cnt]) or "No Results"
+	end)
+	controls['resultNext'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['resultCount'..str_cnt],"TOPRIGHT"}, 8, 0, 20, row_height, ">>", function()
+		self.itemIndexTbl[str_cnt] = clampItemIndex(self.itemIndexTbl[str_cnt] + 1)
+		self:SetFetchResultReturn(controls, str_cnt, self.itemIndexTbl[str_cnt])
+	end)
+	controls['resultNext'..str_cnt].enabled = function()
+		return self.itemIndexTbl[str_cnt] ~= nil and self.itemIndexTbl[str_cnt] < (self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1)
+	end controls['importButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['resultNext'..str_cnt],"TOPRIGHT"}, 8, 0, 100, row_height, "Import Item", function()
+		self.itemsTab:CreateDisplayItemFromRaw(self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string)
 		local item = self.itemsTab.displayItem
 		-- pass "true" to not auto equip it as we will have our own logic
 		self.itemsTab:AddDisplayItem(true)
@@ -529,33 +515,29 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 	end)
 	controls['importButton'..str_cnt].tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		if #controls['importButtonText'..str_cnt].buf > 0 then
-			-- Fix: item parsing bug caught here.
+		if self.itemIndexTbl[str_cnt] and self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string then
+			-- TODO: item parsing bug caught here.
 			-- item.baseName is nil and throws error in the following AddItemTooltip func
 			-- if the item is unidentified
-			local item = new("Item", controls['importButtonText'..str_cnt].buf)
+			local item = new("Item", self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string)
 			self.itemsTab:AddItemTooltip(tooltip, item, nil, true)
 		end
 	end
 	controls['importButton'..str_cnt].enabled = function()
-		return #controls['importButtonText'..str_cnt].buf > 0
+		return self.itemIndexTbl[str_cnt] and self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string ~= nil
 	end
-	-- for storing the base64 item description
-	controls['importButtonText'..str_cnt] = new("EditControl", nil, 0, 0, 0, 0, "", nil, "", nil, nil, 16)
-	controls['importButtonText'..str_cnt].shown = false
-	-- for storing the whisper to purchase item from seller
-	controls['whisperButtonText'..str_cnt] = new("EditControl", nil, 0, 0, 0, 0, "", nil, "", nil, nil, 16)
-	controls['whisperButtonText'..str_cnt].shown = false
 	-- Whisper so we can copy to clipboard
-	controls['whisperButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['importButton'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 100, row_height, "Whisper", function()
-		Copy(controls['whisperButtonText'..str_cnt].buf)
+	controls['whisperButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['importButton'..str_cnt],"TOPRIGHT"}, 8, 0, 200, row_height, function()
+		return self.totalPrice[str_cnt] and "Whisper for " .. self.totalPrice[str_cnt].amount .. " " .. self.totalPrice[str_cnt].currency or "Whisper"
+	end, function()
+		Copy(self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].whisper)
 	end)
 	controls['whisperButton'..str_cnt].enabled = function()
-		return #controls['whisperButtonText'..str_cnt].buf > 0
+		return self.itemIndexTbl[str_cnt] and self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].whisper ~= nil
 	end
 	controls['whisperButton'..str_cnt].tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		if #controls['importButtonText'..str_cnt].buf > 0 then
+		if self.itemIndexTbl[str_cnt] and self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string then
 			tooltip.center = true
 			tooltip:AddLine(16, "Copies the item purchase whisper to the clipboard")
 		end
@@ -579,5 +561,5 @@ function TradeQueryClass:GenerateTotalPriceString(editPane)
 	if text ~= "" then
 		text = text:sub(1, -3)
 	end
-	editPane:SetText(text)
+	editPane.label = "Total Price: " .. text
 end

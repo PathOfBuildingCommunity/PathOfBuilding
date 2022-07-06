@@ -82,11 +82,21 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		self:OpenItemSetManagePopup()
 	end)
 
+	-- Price Items
+	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 34, 248, 20, "Trade for these items", function()
+		self.tradeQuery:PriceItem()
+	end)
+	self.controls.priceDisplayItem.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Contains searches from the official trading site to help find")
+		tooltip:AddLine(16, "^7similar or better items for this build")
+	end
+
 	-- Item slots
 	self.slots = { }
 	self.orderedSlots = { }
 	self.slotOrder = { }
-	self.slotAnchor = new("Control", {"TOPLEFT",self,"TOPLEFT"}, 96, 54, 310, 0)
+	self.slotAnchor = new("Control", {"TOPLEFT",self,"TOPLEFT"}, 96, 74, 310, 0)
 	local prevSlot = self.slotAnchor
 	local function addSlot(slot)
 		prevSlot = slot
@@ -243,24 +253,6 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.controls.rareDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
 	end
-
-	-- Price Items
-	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",main.portraitMode and self.slotAnchor or self.controls.itemList,"TOPRIGHT"}, 20, -20, 248, 20, colorCodes.CUSTOM .. "PoB Trader", function()
-		self.tradeQuery:PriceItem()
-	end)
-	self.controls.priceDisplayItem.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		tooltip:AddLine(18, colorCodes.NEGATIVE .. "NEW FEATURE: ")
-		tooltip:AddLine(16, "^7PoB Trader help search and compare items from the official PoE Trade website.")
-		tooltip:AddLine(16, "^7It allows you to retrieve up to 100 items for a given slot based on filters you")
-		tooltip:AddLine(16, "^7pre-set on the official PoE trade site and copy/paste within it.")
-		tooltip:AddLine(16, "")
-		tooltip:AddLine(16, colorCodes.WARNING .. "NOTE: PoB Trader is respectful of GGG's Search and Fetch Rate Limits;")
-		tooltip:AddLine(16, colorCodes.WARNING .. "   however, if you use 3rd-party trade apps or interact with PoE's trade site")
-		tooltip:AddLine(16, colorCodes.WARNING .. "   outside of PoB at the same time you can still get rate-limited as those are")
-		tooltip:AddLine(16, colorCodes.WARNING .. "   enforced at an Internet IP address level and not application level.")
-	end
-
 	-- Create/import item
 	self.controls.craftDisplayItem = new("ButtonControl", {"TOPLEFT",main.portraitMode and self.slotAnchor or self.controls.itemList,"TOPRIGHT"}, 20, main.portraitMode and -20 or 0, 120, 20, "Craft item...", function()
 		self:CraftItem()
