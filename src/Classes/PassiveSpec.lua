@@ -700,24 +700,57 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				if not next(jewelDataTbl) then
 					ConPrintf("Missing LUT: " .. data.ConqTypeIds[jewelType])
 				else
-					for _, conqData in ipairs(jewelDataTbl) do
-						if conqData == 294 then -- no OP
-						elseif conqData >= 94 then -- replace
-							conqData = conqData - 94
-							local legionNode = legionNodes[conqData]
-							if legionNode then
-								ConPrintf("Handled 'replace' ID: " .. conqData)
-								self:ReplaceNode(node, legionNode)
-							else
-								ConPrintf("Unhandled 'replace' ID: " .. conqData)
+					if jewelType == 1 then
+						local headerSize = #jewelDataTbl
+						-- FIXME: complete implementation of this. Need to set roll values for stats
+						--        based on their `fmt` specification 
+						if headerSize == 2 then
+							local stat1 = jewelDataTbl[1] - 94
+							local roll1 = jewelDataTbl[2]
+							self:ReplaceNode(node, legionNodes[stat1])
+						elseif headerSize == 3 then
+							local stat1 = jewelDataTbl[1] - 94
+							local roll1 = jewelDataTbl[2]
+							local roll2 = jewelDataTbl[3]
+							self:ReplaceNode(node, statCopy)
+						elseif headerSize == 6 then
+							local stat1 = jewelDataTbl[1] - 94
+							local stat2 = jewelDataTbl[2] - 94
+							local stat3 = jewelDataTbl[3] - 94
+							local roll1 = jewelDataTbl[4]
+							local roll2 = jewelDataTbl[5]
+							local roll3 = jewelDataTbl[6]
+						elseif headerSize == 8 then
+							local stat1 = jewelDataTbl[1] - 94
+							local stat2 = jewelDataTbl[2] - 94
+							local stat3 = jewelDataTbl[3] - 94
+							local stat4 = jewelDataTbl[4] - 94
+							local roll1 = jewelDataTbl[5]
+							local roll2 = jewelDataTbl[6]
+							local roll3 = jewelDataTbl[7]
+							local roll4 = jewelDataTbl[8]
+						else
+							ConPrintf("Unhandled Glorious Vanity headerSize: " .. headerSize)
+						end
+					else
+						for _, conqData in ipairs(jewelDataTbl) do
+							if conqData == 294 then -- no OP
+							elseif conqData >= 94 then -- replace
+								conqData = conqData - 94
+								local legionNode = legionNodes[conqData]
+								if legionNode then
+									self:ReplaceNode(node, legionNode)
+								else
+									ConPrintf("Unhandled 'replace' ID: " .. conqData)
+								end
+							elseif conqData then --add
+								local addition = self.tree.legion.additions[conqData]
+								for _, addStat in ipairs(addition.sd) do
+									self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
+								end
+							elseif next(conqData) then
+								ConPrintf("Unhandled OP: " .. conqData)
 							end
-						elseif conqData then --add
-							local addition = self.tree.legion.additions[conqData]
-							for _, addStat in ipairs(addition.sd) do
-								self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
-							end
-						elseif next(conqData) then
-							ConPrintf("Unhandled OP: " .. conqData)
 						end
 					end
 				end
