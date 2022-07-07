@@ -5431,10 +5431,14 @@ skills["VaalLightningStrike"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Strike",
+			name = "Melee hit",
+			melee = true,
+			projectile = false,
 		},
 		{
-			name = "Beams",
+			name = "Projectiles",
+			melee = false,
+			projectile = true,
 		},
 	},
 	statMap = {
