@@ -210,7 +210,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 			self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.findTimelessJewel, "BOTTOMLEFT", 0, self.controls.treeHeatMap.y + self.controls.treeHeatMap.height + 4)
 			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, "TOPRIGHT", -76, -44)
 		end
-	end 
+	end
 
 	local bottomDrawerHeight = self.showPowerReport and 194 or 0
 	self.controls.specSelect.y = -bottomDrawerHeight - twoLineHeight
