@@ -475,11 +475,30 @@ end
 
 -- Load legion jewel data
 
--- local function to check if file exists
-local function fileExists(file)
-	local f = io.open(file, "rb")
-	if f then f:close() end
-	return f ~= nil
+local function loadJewelFile(jewelTypeName)
+	jewelTypeName = "Data/TimelessJewelData/" .. jewelTypeName
+	local jewelData = nil
+	local compressedFile = io.open(jewelTypeName .. ".zip", "rb")
+	if compressedFile then
+		-- load the binary jewel data file
+		jewelData = Inflate(compressedFile:read("*all"))
+		compressedFile:close()
+		if jewelData then
+			return jewelData
+		end
+	end
+
+	ConPrintf("Falling back to uncompressed file")
+	local uncompressedFile = io.open(jewelTypeName .. ".bin", "rb")
+	if uncompressedFile then
+		jewelData = uncompressedFile:read("*all")
+		uncompressedFile.close()
+	end
+
+	if jewelData == nil then
+		ConPrintf("Failed to load either file: " .. jewelTypeName .. ".zip " .. jewelTypeName .. ".bin")
+	end
+	return jewelData
 end
 
 -- lazy load a specific timeless jewel type
@@ -496,28 +515,37 @@ local function loadTimelessJewel(jewelType)
 		data.timelessJewelLUTs[jewelType] = { data = "" }
 	end
 
-	jewelFile = "Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".bin"
+	local jewelData = loadJewelFile(data.timelessJewelTypes[jewelType]:gsub("%s+", ""))
 
-	-- load the binary jewel data file
-	if jewelType == 1 then -- "Glorious Vanity"
-		file = assert(io.open(jewelFile, "rb"))
-		local GV_nodecount = 1678
-		local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
-		data.timelessJewelLUTs[jewelType].sizes = file:read(GV_nodecount * seedSize)
-		local count = GV_nodecount * seedSize
-		for i = 1, (GV_nodecount * seedSize) do
-			data.timelessJewelLUTs[jewelType].data[i] = file:read(data.timelessJewelLUTs[jewelType].sizes:byte(i))
-			count = count + data.timelessJewelLUTs[jewelType].sizes:byte(i)
+	if jewelData then
+		if jewelType == 1 then -- "Glorious Vanity"
+			local GV_nodecount = 1678
+			local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
+			local sizeOffset = GV_nodecount * seedSize
+			ConPrintf("Offset: " .. sizeOffset)
+			data.timelessJewelLUTs[jewelType].sizes = jewelData:sub(1, sizeOffset)
+			jewelData = jewelData:sub(sizeOffset + 1)
+			local count = sizeOffset
+			for i = 1, sizeOffset do
+				jewelData = jewelData:sub(i)
+				data.timelessJewelLUTs[jewelType].data[i] = jewelData:byte(1, data.timelessJewelLUTs[jewelType].sizes:byte(i))
+				count = count + data.timelessJewelLUTs[jewelType].sizes:byte(i)
+				--ConPrintf("Count: " .. count .. ", Sizes: " .. data.timelessJewelLUTs[jewelType].sizes:format("%X"))
+			end
+			ConPrintf("Glorious Vanity Lookup Table Loaded! Read " .. count .. " bytes")
+			file:close()
+			--local compressedFileData = Deflate(data.timelessJewelLUTs[jewelType].data)
+			--file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "w"))
+			--file:write(compressedFileData)
+			--file:close()
+			return
+		else
+			data.timelessJewelLUTs[jewelType].data = jewelData
+			local compressedFileData = Deflate(data.timelessJewelLUTs[jewelType].data)
+			local file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "wb+"))
+			file:write(compressedFileData)
+			file:close()
 		end
-		ConPrintf("Glorious Vanity Lookup Table Loaded! Read " .. count .. " bytes")
-		file:close()
-		return
-	elseif fileExists(jewelFile) then
-		file = assert(io.open(jewelFile, "rb"))
-		data.timelessJewelLUTs[jewelType].data = file:read("*all")
-		file:close()
-	else
-		ConPrintf("FAILED to load file: " .. jewelFile)
 	end
 end
 
