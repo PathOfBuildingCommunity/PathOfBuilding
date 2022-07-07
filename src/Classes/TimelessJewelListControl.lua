@@ -33,7 +33,7 @@ end
 function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
 	if doubleClick and self.list[index].label:match("added") == nil then
 		local label = "[" .. data.seed .. "; " .. data.total.. "; " .. data.socket.keystone .. "]\n"
-		local variant = m_random(1, 3) .. "\n"
+		local variant = data.conqueror .. "\n"
 		local itemData = [[
 Elegant Hubris ]] .. label .. [[
 Timeless Jewel

@@ -754,10 +754,38 @@ function TreeTabClass:FindTimelessJewel()
 		{ label = "Elegant Hubris", name = "eternal", id = 5 }
 	}
 	local jewelType = jewelTypes[1]
+	local conquerorTypes = {
+		[1] = {
+			{ label = "Doryani (Corrupted Soul)", id = 1 },
+			{ label = "Xibaqua (Divine Flesh)", id = 2 },
+			{ label = "Ahuana (Immortal Ambition)", id = 3 }
+		},
+		[2] = {
+			{ label = "Kaom (Strength of Blood)", id = 1 },
+			{ label = "Rakiata (Tempered by War)", id = 2 },
+			{ label = "Akoya (Chainbreaker)", id = 3 }
+		},
+		[3] = {
+			{ label = "Asenath (Dance with Death)", id = 1 },
+			{ label = "Nasima (Second Sight)", id = 2 },
+			{ label = "Balbala (The Traitor)", id = 3 }
+		},
+		[4] = {
+			{ label = "Avarius (Power of Purpose)", id = 1 },
+			{ label = "Dominus (Inner Conviction)", id = 2 },
+			{ label = "Maxarius (Transcendence)", id = 3 }
+		},
+		[5] = {
+			{ label = "Cadiro (Supreme Decadence)", id = 1 },
+			{ label = "Victario (Supreme Grandstanding)", id = 2 },
+			{ label = "Caspiro (Supreme Ostentation)", id = 3 }
+		},
+	}
+	local conquerorType = conquerorTypes[jewelType.id][1]
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
 		if socketData.isJewelSocket then
-			local keystone = "Unknown ID: " .. socketId
+			local keystone = "Unknown"
 			if socketId == 6230 then
 				keystone = "Iron Will"
 			elseif socketId == 48768 then
@@ -844,13 +872,19 @@ function TreeTabClass:FindTimelessJewel()
 	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 165, 25, 0, 16, "^7Jewel Type:")
 	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 43, 0, 200, 18, jewelTypes, function(index, value)
 		jewelType = value
+		controls.conquerorSelect:SetList(conquerorTypes[jewelType.id])
 		buildMods()
 	end)
 
-	controls.socketSelectLabel = new("LabelControl", { "TOPLEFT", controls.jewelSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Jewel Socket:")
+	controls.conquerorSelectLabel = new("LabelControl", { "TOPLEFT", controls.jewelSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Conqueror:")
+	controls.conquerorSelect = new("DropDownControl", { "LEFT", controls.conquerorSelectLabel, "RIGHT" }, 45, 0, 200, 18, conquerorTypes[jewelType.id], function(index, value)
+		conquerorType = value
+	end)
+
+	controls.socketSelectLabel = new("LabelControl", { "TOPLEFT", controls.conquerorSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Jewel Socket:")
 	controls.socketSelect = new("TimelessJewelSocketControl", { "LEFT", controls.socketSelectLabel, "RIGHT" }, 32, 0, 200, 18, jewelSockets, function(index, value)
 		jewelSocket = value
-	end, self.build, socketViewer, controls.jewelSelect)
+	end, self.build, socketViewer, { controls.jewelSelect, controls.conquerorSelect })
 	
 	controls.socketFilterLabel = new("LabelControl", { "TOPLEFT", controls.socketSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Filter Nodes:")
 	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 37, 0, 18)
@@ -881,7 +915,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, 167, 25, 0, 16, "^7Search Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 225, 200, searchResults, self.build)
 
-	controls.search = new("ButtonControl", nil, -90, 365, 80, 20, "Search", function()
+	controls.search = new("ButtonControl", nil, -90, 385, 80, 20, "Search", function()
 		if treeData.nodes[jewelSocket.id] and treeData.nodes[jewelSocket.id].isJewelSocket then
 			local radiusNodes = treeData.nodes[jewelSocket.id].nodesInRadius[3] -- large radius around jewelSocket.id
 			local allocatedNodes = { }
@@ -964,6 +998,7 @@ function TreeTabClass:FindTimelessJewel()
 						end
 					end
 					searchResults[searchResultsIdx].type = jewelType
+					searchResults[searchResultsIdx].conqueror = conquerorType.id
 					searchResults[searchResultsIdx].socket = jewelSocket
 					searchResults[searchResultsIdx].seed = seedMatch
 					searchResults[searchResultsIdx].total = seedData.matchTotal
@@ -973,12 +1008,12 @@ function TreeTabClass:FindTimelessJewel()
 			t_sort(searchResults, function(a, b) return a.total > b.total end)
 		end
 	end)
-	controls.reset = new("ButtonControl", nil, 0, 365, 80, 20, "Reset", function()
+	controls.reset = new("ButtonControl", nil, 0, 385, 80, 20, "Reset", function()
 		controls.searchList:SetText("")
 		wipeTable(searchResults)
 	end)
-	controls.close = new("ButtonControl", nil, 90, 365, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, 90, 385, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(500, 402, "Find a Timeless Jewel", controls, "search")
+	main:OpenPopup(500, 417, "Find a Timeless Jewel", controls, "search")
 end
