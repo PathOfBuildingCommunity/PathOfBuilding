@@ -779,7 +779,7 @@ function TreeTabClass:FindTimelessJewel()
 			{ label = "Cadiro (Supreme Decadence)", id = 1 },
 			{ label = "Victario (Supreme Grandstanding)", id = 2 },
 			{ label = "Caspiro (Supreme Ostentation)", id = 3 }
-		},
+		}
 	}
 	local conquerorType = conquerorTypes[jewelType.id][1]
 	local jewelSockets = { }
