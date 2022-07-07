@@ -196,31 +196,23 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self:ProcessControlsInput(inputEvents, viewPort)
 
 	-- Determine positions if one line of controls doesn't fit in the screen width
-	local twoLineHeight = self.controls.treeHeatMap.y == 24 and 26 or 0
-	if(select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize()) > viewPort.x + viewPort.width) then
-		twoLineHeight = 26
-		self.controls.treeHeatMap:SetAnchor("BOTTOMLEFT",self.controls.specSelect,"BOTTOMLEFT",nil,nil,nil)
-		self.controls.treeHeatMap.y = 24
-		self.controls.treeHeatMap.x = 125
-
-		self.controls.specSelect.y = -24
-		self.controls.specConvertText.y = -16
-		if self.controls.powerReportList then
-			self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.treeHeatMap.y + self.controls.treeHeatMap.height)
-			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"BOTTOMLEFT", 0, 4)
-		end
-	elseif viewPort.x + viewPort.width - (select(1, self.controls.treeSearch:GetPos()) + select(1, self.controls.treeSearch:GetSize())) > (select(1, self.controls.powerReport:GetPos()) + select(1, self.controls.powerReport:GetSize())) - viewPort.x  then
+	local twoLineHeight = 24
+	if viewPort.width >= 1484 or (viewPort.width >= 1168 and not self.viewer.showHeatMap) then
 		twoLineHeight = 0
-		self.controls.treeHeatMap:SetAnchor("LEFT",self.controls.treeSearch,"RIGHT",nil,nil,nil)
-		self.controls.treeHeatMap.y = 0
-		self.controls.treeHeatMap.x = 130
+		self.controls.findTimelessJewel:SetAnchor("LEFT", self.controls.treeSearch, "RIGHT", 8, 0)
 		if self.controls.powerReportList then
-			self.controls.powerReportList:SetAnchor("TOPLEFT",self.controls.specSelect,"BOTTOMLEFT",0,self.controls.specSelect.height + 4)
-			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList,"TOPRIGHT", 8, 4)
+			self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, self.controls.specSelect.height + 4)
+			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, "TOPRIGHT", 8, 0)
 		end
-	end
+	else
+		self.controls.findTimelessJewel:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, 4)
+		if self.controls.powerReportList then
+			self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.findTimelessJewel, "BOTTOMLEFT", 0, self.controls.treeHeatMap.y + self.controls.treeHeatMap.height + 4)
+			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, "TOPRIGHT", -76, -44)
+		end
+	end 
 
-	local bottomDrawerHeight = self.showPowerReport and 200 or 0
+	local bottomDrawerHeight = self.showPowerReport and 194 or 0
 	self.controls.specSelect.y = -bottomDrawerHeight - twoLineHeight
 
 	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 64 + bottomDrawerHeight + twoLineHeight or 32 + bottomDrawerHeight + twoLineHeight)}
@@ -571,7 +563,7 @@ end
 function TreeTabClass:BuildPowerReportUI()
 	self.controls.powerReport.tooltipText = "A report of node efficacy based on current heat map selection"
 
-	self.controls.allocatedNodeToggle = new("ButtonControl", {"TOPLEFT",self.controls.powerReportList,"TOPRIGHT"}, 8, 4, 160, 20, "Show allocated nodes", function()
+	self.controls.allocatedNodeToggle = new("ButtonControl", {"TOPLEFT", self.controls.powerReportList, "TOPRIGHT" }, 8, 4, 160, 20, "Show allocated nodes", function()
 		self.controls.powerReportList.allocated = not self.controls.powerReportList.allocated
 		self.controls.allocatedNodeDistance.shown = self.controls.powerReportList.allocated
 		self.controls.allocatedNodeDistance.enabled = self.controls.powerReportList.allocated
@@ -580,7 +572,7 @@ function TreeTabClass:BuildPowerReportUI()
 		self.controls.powerReportList:ReList()
 	end)
 
-	self.controls.allocatedNodeDistance = new("EditControl", {"TOPLEFT",self.controls.allocatedNodeToggle,"BOTTOMLEFT"}, 0, 4, 125, 20, 1, "Max path", "%D", 100, function(buf)
+	self.controls.allocatedNodeDistance = new("EditControl", {"TOPLEFT", self.controls.allocatedNodeToggle, "BOTTOMLEFT" }, 0, 4, 125, 20, 1, "Max path", "%D", 100, function(buf)
 		self.controls.powerReportList.pathLength = tonumber(buf)
 		self.controls.powerReportList:ReList()
 	end)
@@ -598,7 +590,7 @@ function TreeTabClass:TogglePowerReport(caller)
 
 	report = self:BuildPowerReportList(currentStat)
 	local yPos = self.controls.treeHeatMap.y == 0 and self.controls.specSelect.height + 4 or self.controls.specSelect.height * 2 + 8
-	self.controls.powerReportList = new("PowerReportListControl", {"TOPLEFT",self.controls.specSelect,"BOTTOMLEFT"}, 0, yPos, 700, 220, report, currentStat and currentStat.label or "", function(selectedNode)
+	self.controls.powerReportList = new("PowerReportListControl", {"TOPLEFT", self.controls.specSelect, "BOTTOMLEFT"}, 0, yPos, 700, 220, report, currentStat and currentStat.label or "", function(selectedNode)
 		-- this code is called by the list control when the user "selects" one of the passives in the list.
 		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
 		if selectedNode.x then
@@ -611,7 +603,7 @@ function TreeTabClass:TogglePowerReport(caller)
 	if not self.controls.allocatedNodeToggle then
 		self:BuildPowerReportUI()
 	end
-	self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT",self.controls.powerReportList, main.portraitMode and "BOTTOMLEFT" or"TOPRIGHT")
+	self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, main.portraitMode and "BOTTOMLEFT" or "TOPRIGHT")
 	self.controls.powerReportList.shown = self.showPowerReport
 
 	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and im unsure how to quantify numerically
@@ -746,6 +738,7 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 end
 
 function TreeTabClass:FindTimelessJewel()
+	local socketViewer = new("PassiveTreeView")
 	local treeData = self.build.spec.tree
 	local legionNodes = treeData.legion.nodes
 	local legionAdditions = treeData.legion.additions
@@ -762,64 +755,65 @@ function TreeTabClass:FindTimelessJewel()
 	}
 	local jewelType = jewelTypes[1]
 	local jewelSockets = { }
-	for k, v in pairs(self.build.spec.nodes) do
-		if v.isJewelSocket then
-			local label = "Unknown: " .. k
-			if k == 6230 then
-				label = "Scion, below Necromantic Aegis: " .. k
-			elseif k == 48768 then
-				label = "Scion, below Solipsism: " .. k
-			elseif k == 31683 then
-				label = "Scion, near Iron Grip and Magebane: " .. k
-			elseif k == 36634 then
-				label = "Mind over Matter: " .. k
-			elseif k == 41263 then
-				label = "Pain Attunement: " .. k
-			elseif k == 33989 then
-				label = "Supreme Ego: " .. k
-			elseif k == 34483 then
-				label = "Elemental Equilibrium: " .. k
-			elseif k == 28475 then
-				label = "Unwavering Stance: " .. k
-			elseif k == 33631 then
-				label = "Eternal Youth: " .. k
-			elseif k == 7960 then
-				label = "Zealot's Oath: " .. k
-			elseif k == 21984 then
-				label = "Chaos Innoculation: " .. k
-			elseif k == 32763 then
-				label = "Perfect Agony: " .. k
-			elseif k == 46882 then
-				label = "Point Blank: " .. k
-			elseif k == 2491 then
-				label = "Call to Arms: " .. k
-			elseif k == 55190 then
-				label = "Resolute Technique: " .. k
-			elseif k == 26196 then
-				label = "The Agnostic: " .. k
-			elseif k == 61419 then
-				label = "Doomsday: " .. k
-			elseif k == 61834 then
-				label = "Ghost Dance: " .. k
-			elseif k == 60735 then
-				label = "Acrobatics: " .. k
-			elseif k == 54127 then
-				label = "Duelist, near Iron Reflexes: " .. k
-			elseif k == 26725 then
-				label = "Marauder, above Blood Magic: " .. k
+	for socketId, socketData in pairs(self.build.spec.nodes) do
+		if socketData.isJewelSocket then
+			local keystone = "Unknown ID: " .. socketId
+			if socketId == 6230 then
+				keystone = "Iron Will"
+			elseif socketId == 48768 then
+				keystone = "Conduit"
+			elseif socketId == 31683 then
+				keystone = "Magebane"
+			elseif socketId == 36634 then
+				keystone = "Mind over Matter"
+			elseif socketId == 41263 then
+				keystone = "Pain Attunement"
+			elseif socketId == 33989 then
+				keystone = "Supreme Ego"
+			elseif socketId == 34483 then
+				keystone = "Elemental Equilibrium"
+			elseif socketId == 28475 then
+				keystone = "Unwavering Stance"
+			elseif socketId == 33631 then
+				keystone = "Eternal Youth"
+			elseif socketId == 7960 then
+				keystone = "Zealot's Oath"
+			elseif socketId == 21984 then
+				keystone = "Eldritch Battery"
+			elseif socketId == 32763 then
+				keystone = "Perfect Agony"
+			elseif socketId == 46882 then
+				keystone = "Point Blank"
+			elseif socketId == 2491 then
+				keystone = "Call to Arms"
+			elseif socketId == 55190 then
+				keystone = "Divine Shield"
+			elseif socketId == 26196 then
+				keystone = "Runebinder"
+			elseif socketId == 61419 then
+				keystone = "Doomsday"
+			elseif socketId == 61834 then
+				keystone = "Ghost Dance"
+			elseif socketId == 60735 then
+				keystone = "Acrobatics"
+			elseif socketId == 54127 then
+				keystone = "Duelist"
+			elseif socketId == 26725 then
+				keystone = "Marauder"
 			end
-
-			if self.build.spec.allocNodes[k] then
+			local label = keystone .. ": " .. socketId
+			if self.build.spec.allocNodes[socketId] then
 				label = "# " .. label
 			end
 			t_insert(jewelSockets, {
 				label = label,
-				id = k,
+				keystone = keystone,
+				id = socketId,
 			})
 		end
 	end
 	t_sort(jewelSockets, function(a, b) return a.label < b.label end)
-	local jewelSocket = jewelSockets[1].id
+	local jewelSocket = jewelSockets[1]
 
 	local function buildMods()
 		wipeTable(modData)
@@ -847,16 +841,16 @@ function TreeTabClass:FindTimelessJewel()
 		t_sort(modData, function(a, b) return a.label < b.label end)
 	end
 
-	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 125, 25, 0, 16, "^7Jewel Type:")
-	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 43, 0, 280, 18, jewelTypes, function(index, value)
+	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 165, 25, 0, 16, "^7Jewel Type:")
+	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 43, 0, 200, 18, jewelTypes, function(index, value)
 		jewelType = value
 		buildMods()
 	end)
 
 	controls.socketSelectLabel = new("LabelControl", { "TOPLEFT", controls.jewelSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Jewel Socket:")
-	controls.socketSelect = new("DropDownControl", { "LEFT", controls.socketSelectLabel, "RIGHT" }, 32, 0, 280, 18, jewelSockets, function(index, value)
-		jewelSocket = value.id
-	end)
+	controls.socketSelect = new("TimelessJewelSocketControl", { "LEFT", controls.socketSelectLabel, "RIGHT" }, 32, 0, 200, 18, jewelSockets, function(index, value)
+		jewelSocket = value
+	end, self.build, socketViewer)
 	
 	controls.socketFilterLabel = new("LabelControl", { "TOPLEFT", controls.socketSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Filter Nodes:")
 	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 37, 0, 18)
@@ -868,7 +862,7 @@ function TreeTabClass:FindTimelessJewel()
 
 	buildMods()
 	controls.nodeSelectLabel = new("LabelControl", { "TOPLEFT", controls.socketFilterLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Search for Node:")
-	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 280, 18, modData, function(index, value)
+	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 200, 18, modData, function(index, value)
 		controls.searchList.caret = #controls.searchList.buf + 1
 		controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id)
 	end)
@@ -881,15 +875,15 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 
-	controls.searchListLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, -34, 25, 0, 16, "^7Desired Nodes:")
+	controls.searchListLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, -74, 25, 0, 16, "^7Desired Nodes:")
 	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 225, 200, "", nil, "^%C\t\n", nil, nil, 16, true)
 
-	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, 207, 25, 0, 16, "^7Search Results:")
+	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, 167, 25, 0, 16, "^7Search Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 225, 200, searchResults, self.build)
 
 	controls.search = new("ButtonControl", nil, -90, 365, 80, 20, "Search", function()
-		if treeData.nodes[jewelSocket] and treeData.nodes[jewelSocket].isJewelSocket then
-			local radiusNodes = treeData.nodes[jewelSocket].nodesInRadius[3] -- large radius around jewelSocket
+		if treeData.nodes[jewelSocket.id] and treeData.nodes[jewelSocket.id].isJewelSocket then
+			local radiusNodes = treeData.nodes[jewelSocket.id].nodesInRadius[3] -- large radius around jewelSocket.id
 			local allocatedNodes = { }
 			local targetNodes = { }
 			local desiredNodes = { }
@@ -969,7 +963,7 @@ function TreeTabClass:FindTimelessJewel()
 							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. " 0"
 						end
 					end
-					searchResults[searchResultsIdx].type = jewelType.id
+					searchResults[searchResultsIdx].type = jewelType
 					searchResults[searchResultsIdx].socket = jewelSocket
 					searchResults[searchResultsIdx].seed = seedMatch
 					searchResults[searchResultsIdx].total = seedData.matchTotal
