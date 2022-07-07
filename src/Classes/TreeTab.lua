@@ -850,7 +850,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.socketSelectLabel = new("LabelControl", { "TOPLEFT", controls.jewelSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Jewel Socket:")
 	controls.socketSelect = new("TimelessJewelSocketControl", { "LEFT", controls.socketSelectLabel, "RIGHT" }, 32, 0, 200, 18, jewelSockets, function(index, value)
 		jewelSocket = value
-	end, self.build, socketViewer)
+	end, self.build, socketViewer, controls.jewelSelect)
 	
 	controls.socketFilterLabel = new("LabelControl", { "TOPLEFT", controls.socketSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Filter Nodes:")
 	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 37, 0, 18)
