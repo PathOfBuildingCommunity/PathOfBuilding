@@ -786,48 +786,15 @@ function TreeTabClass:FindTimelessJewel()
 	for socketId, socketData in pairs(self.build.spec.nodes) do
 		if socketData.isJewelSocket then
 			local keystone = "Unknown"
-			if socketId == 6230 then
-				keystone = "Iron Will"
-			elseif socketId == 48768 then
-				keystone = "Conduit"
-			elseif socketId == 31683 then
-				keystone = "Magebane"
-			elseif socketId == 36634 then
-				keystone = "Mind over Matter"
-			elseif socketId == 41263 then
-				keystone = "Pain Attunement"
-			elseif socketId == 33989 then
-				keystone = "Supreme Ego"
-			elseif socketId == 34483 then
-				keystone = "Elemental Equilibrium"
-			elseif socketId == 28475 then
-				keystone = "Unwavering Stance"
-			elseif socketId == 33631 then
-				keystone = "Eternal Youth"
-			elseif socketId == 7960 then
-				keystone = "Zealot's Oath"
-			elseif socketId == 21984 then
-				keystone = "Eldritch Battery"
-			elseif socketId == 32763 then
-				keystone = "Perfect Agony"
-			elseif socketId == 46882 then
-				keystone = "Point Blank"
-			elseif socketId == 2491 then
-				keystone = "Call to Arms"
-			elseif socketId == 55190 then
-				keystone = "Divine Shield"
-			elseif socketId == 26196 then
-				keystone = "Runebinder"
-			elseif socketId == 61419 then
-				keystone = "Doomsday"
-			elseif socketId == 61834 then
-				keystone = "Ghost Dance"
-			elseif socketId == 60735 then
-				keystone = "Acrobatics"
-			elseif socketId == 54127 then
+			if socketId == 54127 then
 				keystone = "Duelist"
 			elseif socketId == 26725 then
 				keystone = "Marauder"
+			end
+			for _, nodeInRadius in pairs(treeData.nodes[socketId].nodesInRadius[3]) do
+				if nodeInRadius.isKeystone then
+					keystone = nodeInRadius.name
+				end
 			end
 			local label = keystone .. ": " .. socketId
 			if self.build.spec.allocNodes[socketId] then
@@ -952,11 +919,6 @@ function TreeTabClass:FindTimelessJewel()
 			local targetNodes = { }
 			local desiredNodes = { }
 			local seedMatchData = { }
-			if controls.socketFilter.state then
-				for nodeId in pairs(radiusNodes) do
-					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
-				end
-			end
 			local rootNodes = {
 				[50459] = true, -- Ranger
 				[47175] = true, -- Marauder
@@ -966,6 +928,11 @@ function TreeTabClass:FindTimelessJewel()
 				[44683] = true, -- Shadow
 				[58833] = true -- Scion
 			}
+			if controls.socketFilter.state then
+				for nodeId in pairs(radiusNodes) do
+					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
+				end
+			end
 			for nodeId in pairs(radiusNodes) do
 				if not rootNodes[nodeId]
 				and not treeData.nodes[nodeId].isJewelSocket
