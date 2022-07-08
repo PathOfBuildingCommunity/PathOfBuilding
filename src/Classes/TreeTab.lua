@@ -981,27 +981,11 @@ function TreeTabClass:FindTimelessJewel()
 				end
 				desiredNodes[#desiredNodes + 1] = { nodeId = desiredNode[1], nodeWeight = desiredNode[2] }
 			end
-			local seedMatchDataLength = 0
+			local seedMatchCount = 0
 			local seedMultiplier = jewelType.id == 5 and 20 or 1 -- Elegant Hubris
 			for curSeed = data.timelessJewelSeedMin[jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[jewelType.id] * seedMultiplier, seedMultiplier do
-				-- arbritary data limit to avoid running out of memory
-				if seedMatchDataLength > 500 then
-					local lowestMatchTotal = math.huge
-					for seedId, seedData in pairs(seedMatchData) do
-						if seedData.matchTotal then
-							lowestMatchTotal = m_min(seedData.matchTotal, lowestMatchTotal)
-						end
-					end
-					if lowestMatchTotal ~= math.huge then
-						for seedId, seedData in pairs(seedMatchData) do
-							if seedData.matchTotal and seedData.matchTotal <= lowestMatchTotal then
-								seedMatchData[seedId] = nil
-								seedMatchDataLength = seedMatchDataLength - 1
-							end
-						end
-					end
-				end
 				seedMatchData[curSeed] = { }
+				local seedMatch = false
 				for targetNode in pairs(targetNodes) do
 					local jewelDataTbl = data.readLUT(curSeed, targetNode, jewelType.id)
 					if not next(jewelDataTbl) then
@@ -1065,9 +1049,7 @@ function TreeTabClass:FindTimelessJewel()
 								end
 							end
 							if desiredIdx > 0 then
-								if seedMatchData[curSeed].matchTotal == nil then
-									seedMatchDataLength = seedMatchDataLength + 1
-								end
+								seedMatch = true
 								local nodeWeight = tonumber(desiredNodes[desiredIdx].nodeWeight) or 0.1
 								if seedMatchData[curSeed][nodeId] == nil and desiredNodes[desiredIdx].nodeWeight == "required" then
 									nodeWeight = 50
@@ -1078,13 +1060,39 @@ function TreeTabClass:FindTimelessJewel()
 						end
 					end
 				end
+				if seedMatch then
+					seedMatchCount = seedMatchCount + 1
+				end
+				-- arbritary limit to avoid freezing PoB when populating search result list
+				if seedMatchCount > 500 then
+					local lowestMatchTotal = math.huge
+					for seedId, seedData in pairs(seedMatchData) do
+						if seedData.matchTotal then
+							lowestMatchTotal = m_min(seedData.matchTotal, lowestMatchTotal)
+						end
+					end
+					if lowestMatchTotal ~= math.huge then
+						for seedId, seedData in pairs(seedMatchData) do
+							if seedData.matchTotal and seedData.matchTotal <= lowestMatchTotal then
+								seedMatchData[seedId] = nil
+								seedMatchCount = seedMatchCount - 1
+							end
+						end
+					end
+				end
 			end
 			wipeTable(searchResults)
 			local searchResultsIdx = 1
 			for seedMatch, seedData in pairs(seedMatchData) do
 				if seedData.matchTotal then
 					searchResults[searchResultsIdx] = { }
-					searchResults[searchResultsIdx].label = "Seed " .. seedMatch .. ": "
+					if jewelType.id == 5 and seedMatch < 10000 then
+						searchResults[searchResultsIdx].label = "Seed     " .. seedMatch .. ":"
+					elseif jewelType.id == 5 and seedMatch < 100000 or seedMatch < 1000 then
+						searchResults[searchResultsIdx].label = "Seed   " .. seedMatch .. ":"
+					else
+						searchResults[searchResultsIdx].label = "Seed " .. seedMatch .. ":"
+					end
 					for nodeIdx, desiredNode in ipairs(desiredNodes) do
 						if seedData[desiredNode.nodeId] then
 							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. (" " .. s_format("%04.1f", seedData[desiredNode.nodeId])):gsub(" 0", "   "):gsub("%.0", "   ")
