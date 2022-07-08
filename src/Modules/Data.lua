@@ -524,27 +524,28 @@ local function loadTimelessJewel(jewelType)
 			local sizeOffset = GV_nodecount * seedSize
 			ConPrintf("Offset: " .. sizeOffset)
 			data.timelessJewelLUTs[jewelType].sizes = jewelData:sub(1, sizeOffset)
-			jewelData = jewelData:sub(sizeOffset + 1)
 			local count = sizeOffset
 			for i = 1, sizeOffset do
-				jewelData = jewelData:sub(i)
-				data.timelessJewelLUTs[jewelType].data[i] = jewelData:byte(1, data.timelessJewelLUTs[jewelType].sizes:byte(i))
-				count = count + data.timelessJewelLUTs[jewelType].sizes:byte(i)
-				--ConPrintf("Count: " .. count .. ", Sizes: " .. data.timelessJewelLUTs[jewelType].sizes:format("%X"))
+				local dataLength = data.timelessJewelLUTs[jewelType].sizes:byte(i)
+				data.timelessJewelLUTs[jewelType].data[i] = jewelData:sub(count + 1, count + dataLength)
+				count = count + dataLength
 			end
 			ConPrintf("Glorious Vanity Lookup Table Loaded! Read " .. count .. " bytes")
-			file:close()
-			--local compressedFileData = Deflate(data.timelessJewelLUTs[jewelType].data)
-			--file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "w"))
+
+			--- Code for compressing existing data if it changed
+			--local compressedFileData = Deflate(jewelData)
+			--local file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "wb+"))
 			--file:write(compressedFileData)
 			--file:close()
 			return
 		else
 			data.timelessJewelLUTs[jewelType].data = jewelData
-			local compressedFileData = Deflate(data.timelessJewelLUTs[jewelType].data)
-			local file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "wb+"))
-			file:write(compressedFileData)
-			file:close()
+
+			--- Code for compressing existing data if it changed
+			--local compressedFileData = Deflate(data.timelessJewelLUTs[jewelType].data)
+			--local file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "wb+"))
+			--file:write(compressedFileData)
+			--file:close()
 		end
 	end
 end
@@ -584,7 +585,7 @@ data.readLUT = function(seed, nodeID, jewelType)
 	if index then
 		if jewelType == 1 then  -- "Glorious Vanity"
 			local result = { }
-			--print("INDEX:", index, "Stat Count:", data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1))
+			--print("INDEX:", index, "Byte position:", index * seedSize + seedOffset + 1, "Stat Count:", data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1))
 			for i = 1, data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1) do
 				result[i] = data.timelessJewelLUTs[jewelType].data[index * seedSize + seedOffset + 1]:byte(i)
 				--print(result[i])
