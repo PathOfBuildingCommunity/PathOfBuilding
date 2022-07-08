@@ -689,6 +689,25 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			if jewelType == 5 then
 				seed = seed / 20
 			end
+			
+			local replaceHelperFunc = function(statToFix, statKey, statMod, value)
+				if statMod.fmt == "g" then -- note the only one we actualy care about is "Ritual of Flesh" life regen
+					if statKey:find("per_minute") then
+						value = round(value / 60, 1)
+					elseif statKey:find("permyriad") then
+						value = value / 100
+					elseif statKey:find("_ms") then
+						value = value / 1000
+					end
+				end
+				--if statMod.fmt == "d" then --only ever d or g, and we want both past here
+				if statMod.min ~= statMod.max then
+					return statToFix:gsub("%("..statMod.min.."%-"..statMod.max.."%)", value)
+				elseif statMod.min ~= value then -- only true for might/legacy of the vaal which can combine stats
+					return statToFix:gsub(statMod.min, value)
+				end
+				return statToFix -- if it doesnt need to be changed
+			end
 
 			if node.type == "Notable" then
 				local jewelDataTbl = { }
@@ -709,13 +728,10 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 							self:ReplaceNode(node, legionNodes[jewelDataTbl[1] - 94])
 
 							for i, repStat in ipairs(legionNodes[jewelDataTbl[1] - 94].sd) do
-								local statMod = legionNodes[jewelDataTbl[1] - 94].stats[legionNodes[jewelDataTbl[1] - 94].sortedStats[i]]
-								if statMod.fmt == "d" then
-									if statMod.min ~= statMod.max then
-										repStat = repStat:gsub("%("..statMod.min.."%-"..statMod.max.."%)",jewelDataTbl[statMod.index + 1])
-									end
-								end
-								self:NodeAdditionOrReplacementFromString(node, repStat,i == 1) -- wipe mods on first run
+								local statKey = legionNodes[jewelDataTbl[1] - 94].sortedStats[i]
+								local statMod = legionNodes[jewelDataTbl[1] - 94].stats[statKey]
+								repStat = replaceHelperFunc(repStat, statKey, statMod, jewelDataTbl[statMod.index + 1])
+								self:NodeAdditionOrReplacementFromString(node, repStat, i == 1) -- wipe mods on first run
 							end
 							-- should fix the stat values here (note headerSize == 3 has 2 values)
 						elseif headerSize == 6 or headerSize == 8 then
@@ -750,14 +766,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 							for add,val in pairs(additions) do
 								local addition = legionAdditions[add]
 								for _, addStat in ipairs(addition.sd) do
-									for k,statMod in pairs(addition.stats) do -- should only be 1 big
-										if statMod.fmt == "d" then
-											if statMod.min == statMod.max then
-												addStat = addStat:gsub(statMod.min,val)
-											else
-												addStat = addStat:gsub("%("..statMod.min.."%-"..statMod.max.."%)",val)
-											end
-										end
+									for k,statMod in pairs(addition.stats) do -- should only be 1 big, these didnt get changed so cant just grab index
+										addStat = replaceHelperFunc(addStat, k, statMod, val)
 									end
 									self:NodeAdditionOrReplacementFromString(node, addStat)
 								end
@@ -808,17 +818,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					else
 						self:ReplaceNode(node, legionNodes[jewelDataTbl[1] - 94])
 						for i, repStat in ipairs(node.sd) do
-							for k,statMod in pairs(legionNodes[jewelDataTbl[1] - 94].stats) do -- should only be 1 big
-								if statMod.fmt == "d" then
-									if statMod.min ~= statMod.max then
-										repStat = repStat:gsub("%("..statMod.min.."%-"..statMod.max.."%)",jewelDataTbl[2])
-									end
-								end
-							end
-							self:NodeAdditionOrReplacementFromString(node, repStat,true)
+							local statKey = legionNodes[jewelDataTbl[1] - 94].sortedStats[i]
+							local statMod = legionNodes[jewelDataTbl[1] - 94].stats[statKey]
+							repStat = replaceHelperFunc(repStat, statKey, statMod, jewelDataTbl[2])
+							self:NodeAdditionOrReplacementFromString(node, repStat, true)
 						end
-						--local legionNode = legionNodes[38] -- vaal_small_fire_resistance
-						--self:ReplaceNode(node, legionNode)
 					end
 				elseif conqueredBy.conqueror.type == "karui" then
 					local str = isValueInArray(attributes, node.dn) and "2" or "4"
