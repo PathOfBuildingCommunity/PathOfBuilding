@@ -898,7 +898,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSelectLabel = new("LabelControl", { "TOPLEFT", controls.socketFilterLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Search for Node:")
 	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 200, 18, modData, function(index, value)
 		controls.searchList.caret = #controls.searchList.buf + 1
-		controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label)
+		controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower())
 	end)
 	controls.nodeSelect.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
@@ -911,7 +911,13 @@ function TreeTabClass:FindTimelessJewel()
 
 	controls.nodeSliderLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Node Weight:")
 	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 32, 0, 176, 16, function(value)
-		controls.nodeSliderValue.label = s_format("%.1f", 1 + value * 4)
+		if value == 1 then
+			controls.nodeSlider.width = 138
+			controls.nodeSliderValue.label = "Required"
+		else
+			controls.nodeSlider.width = 176
+			controls.nodeSliderValue.label = s_format("%.1f", 1 + value * 9)
+		end
 	end)
 	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "1.0")
 
@@ -946,7 +952,7 @@ function TreeTabClass:FindTimelessJewel()
 				for splitLine in inputLine:gmatch("([^,%s]+)") do
 					desiredNode[#desiredNode + 1] = splitLine
 				end
-				desiredNodes[#desiredNodes + 1] = { nodeId = desiredNode[1], nodeWeight = tonumber(desiredNode[2]) or 1 }
+				desiredNodes[#desiredNodes + 1] = { nodeId = desiredNode[1], nodeWeight = desiredNode[2] }
 			end
 			local seedMatchDataLength = 0
 			local seedMultiplier = jewelType.id == 5 and 20 or 1 -- Elegant Hubris
@@ -976,8 +982,12 @@ function TreeTabClass:FindTimelessJewel()
 									if seedMatchData[curSeed].matchTotal == nil then
 										seedMatchDataLength = seedMatchDataLength + 1
 									end
-									seedMatchData[curSeed][nodeId] = (seedMatchData[curSeed][nodeId] or 0) + desiredNodes[desiredIdx].nodeWeight
-									seedMatchData[curSeed].matchTotal = (seedMatchData[curSeed].matchTotal or 0) + desiredNodes[desiredIdx].nodeWeight
+									local nodeWeight = tonumber(desiredNodes[desiredIdx].nodeWeight) or 0.1
+									if seedMatchData[curSeed][nodeId] == nil and desiredNodes[desiredIdx].nodeWeight == "required" then
+										nodeWeight = 50
+									end
+									seedMatchData[curSeed][nodeId] = (seedMatchData[curSeed][nodeId] or 0) + nodeWeight
+									seedMatchData[curSeed].matchTotal = (seedMatchData[curSeed].matchTotal or 0) + nodeWeight
 								end
 							end
 						end
@@ -1011,9 +1021,9 @@ function TreeTabClass:FindTimelessJewel()
 					searchResults[searchResultsIdx].label = "Seed " .. seedMatch .. ": "
 					for nodeIdx, desiredNode in ipairs(desiredNodes) do
 						if seedData[desiredNode.nodeId] then
-							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. " " .. seedData[desiredNode.nodeId]
+							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. (" " .. s_format("%04.1f", seedData[desiredNode.nodeId])):gsub(" 0", "   "):gsub("%.0", "   ")
 						else
-							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. " 0"
+							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. "   0   "
 						end
 					end
 					searchResults[searchResultsIdx].type = jewelType
