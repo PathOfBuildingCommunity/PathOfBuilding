@@ -786,10 +786,10 @@ function TreeTabClass:FindTimelessJewel()
 	for socketId, socketData in pairs(self.build.spec.nodes) do
 		if socketData.isJewelSocket then
 			local keystone = "Unknown"
-			if socketId == 54127 then
-				keystone = "Duelist"
-			elseif socketId == 26725 then
+			if socketId == 26725 then
 				keystone = "Marauder"
+			elseif socketId == 54127 then
+				keystone = "Duelist"
 			else
 				for _, nodeInRadius in pairs(treeData.nodes[socketId].nodesInRadius[3]) do
 					if nodeInRadius.isKeystone then
