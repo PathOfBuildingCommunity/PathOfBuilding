@@ -744,7 +744,7 @@ function TreeTabClass:FindTimelessJewel()
 	local legionAdditions = treeData.legion.additions
 	local controls = { }
 	local modData = { }
-	local smallAdditions = { "Strength", "Dex", "Devotion" }
+	local ignoredMods = { "Strength", "Dex", "Devotion", "Price of Glory" }
 	local searchResults = { }
 	local jewelTypes = {
 		{ label = "Glorious Vanity", name = "vaal", id = 1 },
@@ -845,19 +845,29 @@ function TreeTabClass:FindTimelessJewel()
 
 	local function buildMods()
 		wipeTable(modData)
+		local smallModData = { }
 		for _, node in pairs(legionNodes) do
-			if node.id:match("^" .. jewelType.name .. "_.+") and node["not"] and not node.ks then
-				t_insert(modData, {
-					label = node.dn,
-					descriptions = copyTable(node.sd),
-					type = jewelType.name,
-					id = node.id,
-				})
+			if node.id:match("^" .. jewelType.name .. "_.+") and not node.ks then
+				if node["not"] then
+					t_insert(modData, {
+						label = node.dn,
+						descriptions = copyTable(node.sd),
+						type = jewelType.name,
+						id = node.id,
+					})
+				elseif not isValueInArray(ignoredMods, node.dn) then
+					t_insert(smallModData, {
+						label = node.dn,
+						descriptions = copyTable(node.sd),
+						type = jewelType.name,
+						id = node.id,
+					})
+				end
 			end
 		end
 		for _, addition in pairs(legionAdditions) do
 			-- exclude passives that are already added (vaal, attributes, devotion)
-			if addition.id:match("^" .. jewelType.name .. "_.+") and not isValueInArray(smallAdditions, addition.dn) and jewelType.name ~= "vaal" then
+			if addition.id:match("^" .. jewelType.name .. "_.+") and not isValueInArray(ignoredMods, addition.dn) and jewelType.name ~= "vaal" then
 				t_insert(modData, {
 					label = addition.dn,
 					descriptions = copyTable(addition.sd),
@@ -867,6 +877,11 @@ function TreeTabClass:FindTimelessJewel()
 			end
 		end
 		t_sort(modData, function(a, b) return a.label < b.label end)
+		t_sort(smallModData, function (a, b) return a.label < b.label end)
+		t_insert(modData, 1, { label = "..." })
+		for i = 1, #smallModData do
+			modData[#modData + 1] = smallModData[i]
+		end
 	end
 
 	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 265, 25, 0, 16, "^7Jewel Type:")
@@ -874,6 +889,7 @@ function TreeTabClass:FindTimelessJewel()
 		jewelType = value
 		controls.conquerorSelect.list = conquerorTypes[jewelType.id]
 		buildMods()
+		controls.nodeSelect.selIndex = 1
 	end)
 
 	controls.conquerorSelectLabel = new("LabelControl", { "TOPLEFT", controls.jewelSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Conqueror:")
@@ -897,12 +913,14 @@ function TreeTabClass:FindTimelessJewel()
 	buildMods()
 	controls.nodeSelectLabel = new("LabelControl", { "TOPLEFT", controls.socketFilterLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Search for Node:")
 	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 200, 18, modData, function(index, value)
-		controls.searchList.caret = #controls.searchList.buf + 1
-		controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower())
+		if value.id then
+			controls.searchList.caret = #controls.searchList.buf + 1
+			controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower())
+		end
 	end)
 	controls.nodeSelect.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		if mode ~= "OUT" and value then
+		if mode ~= "OUT" and value.descriptions then
 			for _, line in ipairs(value.descriptions) do
 				tooltip:AddLine(16, "^7" .. line)
 			end
