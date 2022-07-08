@@ -27,27 +27,29 @@ end
 
 function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 	tooltip:Clear()
-	if self.list[index].label:match("added") == nil then
-		local treeData = self.build.spec.tree
+	if self.list[index].label:match("B2B2B2") == nil then
 		tooltip:AddLine(16, "^7Double click to add this jewel to your build.")
-		tooltip:AddLine(16, "Node Matches:")
-		for _, desiredNode in ipairs(self.sharedList.desiredNodes) do
-			local nodeMatches = { }
-			if self.list[index][desiredNode.nodeId] then
-				for nodeMatch in pairs(self.list[index][desiredNode.nodeId]) do
-					nodeMatches[#nodeMatches + 1] = treeData.nodes[nodeMatch].name
-				end
-			end
-			if #nodeMatches > 0 then
-				tooltip:AddLine(16, "        " .. desiredNode.displayName .. ":\n                " .. t_concat(nodeMatches, "\n                "))
+	else
+		tooltip:AddLine(16, "^7" .. self.sharedList.type.label .. " " .. data.seed .. " was successfully added to your build.")
+	end
+	local treeData = self.build.spec.tree
+	tooltip:AddLine(16, "Node Matches:")
+	for _, desiredNode in ipairs(self.sharedList.desiredNodes) do
+		local nodeMatches = { }
+		if self.list[index][desiredNode.nodeId] then
+			for nodeMatch in pairs(self.list[index][desiredNode.nodeId]) do
+				nodeMatches[#nodeMatches + 1] = treeData.nodes[nodeMatch].name
 			end
 		end
-		tooltip:AddLine(16, "Combined Node Weight: " .. data.total)
+		if #nodeMatches > 0 then
+			tooltip:AddLine(16, "        " .. desiredNode.displayName .. ":\n                " .. t_concat(nodeMatches, "\n                "))
+		end
 	end
+	tooltip:AddLine(16, "Combined Node Weight: " .. data.total)
 end
 
 function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
-	if doubleClick and self.list[index].label:match("added") == nil then
+	if doubleClick and self.list[index].label:match("B2B2B2") == nil then
 		local label = "[" .. data.seed .. "; " .. data.total.. "; " .. self.sharedList.socket.keystone .. "]\n"
 		local variant = self.sharedList.conqueror .. "\n"
 		local itemData = [[
@@ -187,6 +189,6 @@ Historic
 		local item = new("Item", itemData)
 		self.build.itemsTab:AddItem(item, true)
 		self.build.itemsTab:PopulateSlots()
-		self.list[index].label = "^xB2B2B2" .. self.list[index].label .. "^x00FF00 (added)"
+		self.list[index].label = "^xB2B2B2" .. self.list[index].label
 	end
 end

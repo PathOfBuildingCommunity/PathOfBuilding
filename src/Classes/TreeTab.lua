@@ -744,7 +744,7 @@ function TreeTabClass:FindTimelessJewel()
 	local legionAdditions = treeData.legion.additions
 	local controls = { }
 	local modData = { }
-	local ignoredMods = { "Strength", "Dex", "Devotion", "Price of Glory" }
+	local ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Dex", "Devotion", "Price of Glory" }
 	local searchResultsShared = { }
 	local searchResults = { }
 	local jewelTypes = {
@@ -817,7 +817,7 @@ function TreeTabClass:FindTimelessJewel()
 		wipeTable(modData)
 		local smallModData = { }
 		for _, node in pairs(legionNodes) do
-			if node.id:match("^" .. jewelType.name .. "_.+") and not node.ks then
+			if node.id:match("^" .. jewelType.name .. "_.+") and not isValueInArray(ignoredMods, node.dn) and not node.ks then
 				if node["not"] then
 					t_insert(modData, {
 						label = node.dn,
@@ -825,7 +825,7 @@ function TreeTabClass:FindTimelessJewel()
 						type = jewelType.name,
 						id = node.id
 					})
-				elseif not isValueInArray(ignoredMods, node.dn) then
+				else
 					t_insert(smallModData, {
 						label = node.dn,
 						descriptions = copyTable(node.sd),
@@ -952,14 +952,14 @@ function TreeTabClass:FindTimelessJewel()
 				local displayName = nil
 				for _, legionNode in ipairs(legionNodes) do
 					if legionNode.id == desiredNode[1] then
-						displayName = legionNode.dn
+						displayName = t_concat(legionNode.sd, " + ")
 						break
 					end
 				end
 				if displayName == nil then
 					for _, legionAddition in ipairs(legionAdditions) do
 						if legionAddition.id == desiredNode[1] then
-							displayName = legionAddition.dn
+							displayName = t_concat(legionAddition.sd, " + ")
 							break
 						end
 					end
@@ -1086,8 +1086,11 @@ function TreeTabClass:FindTimelessJewel()
 						searchResults[searchResultsIdx].label = "Seed " .. seedMatch .. ":"
 					end
 					for nodeIdx, desiredNode in ipairs(desiredNodes) do
-						if seedData[desiredNode.nodeId] then
-							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. (" " .. s_format("%04.1f", seedData[desiredNode.nodeId].matchTotal)):gsub(" 0", "   "):gsub("%.0", "   ")
+						if nodeIdx > 6 then
+							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. " ..."
+							break
+						elseif seedData[desiredNode.nodeId] then
+							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. (" " .. s_format("%04.1f", seedData[desiredNode.nodeId].matchTotal)):gsub("[%. ]+0", {[" 0"] = "   ", [".0"] = "   "})
 							searchResults[searchResultsIdx][desiredNode.nodeId] = searchResults[searchResultsIdx][desiredNode.nodeId] or { }
 							for targetNode in pairs(targetNodes) do
 								searchResults[searchResultsIdx][desiredNode.nodeId][targetNode] = seedData[desiredNode.nodeId][targetNode]
