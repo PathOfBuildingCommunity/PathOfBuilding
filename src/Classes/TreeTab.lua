@@ -910,8 +910,20 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7This can be useful if you're never going to path towards those excluded nodes and don't care what happens to them.")
 	end
 
+	controls.nodeSliderLabel = new("LabelControl", { "TOPLEFT", controls.socketFilterLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Node Weight:")
+	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 32, 0, 176, 16, function(value)
+		if value == 1 then
+			controls.nodeSlider.width = 138
+			controls.nodeSliderValue.label = "Required"
+		else
+			controls.nodeSlider.width = 176
+			controls.nodeSliderValue.label = s_format("%.1f", 1 + value * 9)
+		end
+	end)
+	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "1.0")
+
 	buildMods()
-	controls.nodeSelectLabel = new("LabelControl", { "TOPLEFT", controls.socketFilterLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Search for Node:")
+	controls.nodeSelectLabel = new("LabelControl", { "TOPLEFT", controls.nodeSliderLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Search for Node:")
 	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 200, 18, modData, function(index, value)
 		if value.id then
 			controls.searchList.caret = #controls.searchList.buf + 1
@@ -927,22 +939,10 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 
-	controls.nodeSliderLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Node Weight:")
-	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 32, 0, 176, 16, function(value)
-		if value == 1 then
-			controls.nodeSlider.width = 138
-			controls.nodeSliderValue.label = "Required"
-		else
-			controls.nodeSlider.width = 176
-			controls.nodeSliderValue.label = s_format("%.1f", 1 + value * 9)
-		end
-	end)
-	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "1.0")
-
-	controls.searchListLabel = new("LabelControl", { "TOPLEFT", controls.nodeSliderLabel, "TOPLEFT" }, -174, 25, 0, 16, "^7Desired Nodes:")
+	controls.searchListLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, -174, 25, 0, 16, "^7Desired Nodes:")
 	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 325, 200, "", nil, "^%C\t\n", nil, nil, 16, true)
 
-	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", controls.nodeSliderLabel, "TOPLEFT" }, 167, 25, 0, 16, "^7Search Results:")
+	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, 167, 25, 0, 16, "^7Search Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 325, 200, searchResults, self.build)
 
 	controls.search = new("ButtonControl", nil, -90, 410, 80, 20, "Search", function()
