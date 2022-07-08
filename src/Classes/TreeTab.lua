@@ -853,14 +853,14 @@ function TreeTabClass:FindTimelessJewel()
 						label = node.dn,
 						descriptions = copyTable(node.sd),
 						type = jewelType.name,
-						id = node.id,
+						id = node.id
 					})
 				elseif not isValueInArray(ignoredMods, node.dn) then
 					t_insert(smallModData, {
 						label = node.dn,
 						descriptions = copyTable(node.sd),
 						type = jewelType.name,
-						id = node.id,
+						id = node.id
 					})
 				end
 			end
@@ -872,7 +872,7 @@ function TreeTabClass:FindTimelessJewel()
 					label = addition.dn,
 					descriptions = copyTable(addition.sd),
 					type = jewelType.name,
-					id = addition.id,
+					id = addition.id
 				})
 			end
 		end
@@ -954,11 +954,20 @@ function TreeTabClass:FindTimelessJewel()
 			local seedMatchData = { }
 			if controls.socketFilter.state then
 				for nodeId in pairs(radiusNodes) do
-					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] or self.build.spec.allocNodes[nodeId]
+					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
 				end
 			end
+			local rootNodes = {
+				[50459] = true, -- Ranger
+				[47175] = true, -- Marauder
+				[50986] = true, -- Duelist
+				[61525] = true, -- Templar
+				[54447] = true, -- Witch
+				[44683] = true, -- Shadow
+				[58833] = true -- Scion
+			}
 			for nodeId in pairs(radiusNodes) do
-				if treeData.nodes[nodeId].isNotable
+				if not rootNodes[nodeId]
 				and not treeData.nodes[nodeId].isJewelSocket
 				and not treeData.nodes[nodeId].isKeystone
 				and (not controls.socketFilter.state or allocatedNodes[nodeId]) then
@@ -975,57 +984,96 @@ function TreeTabClass:FindTimelessJewel()
 			local seedMatchDataLength = 0
 			local seedMultiplier = jewelType.id == 5 and 20 or 1 -- Elegant Hubris
 			for curSeed = data.timelessJewelSeedMin[jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[jewelType.id] * seedMultiplier, seedMultiplier do
+				-- arbritary data limit to avoid running out of memory
+				if seedMatchDataLength > 500 then
+					local lowestMatchTotal = math.huge
+					for seedId, seedData in pairs(seedMatchData) do
+						if seedData.matchTotal then
+							lowestMatchTotal = m_min(seedData.matchTotal, lowestMatchTotal)
+						end
+					end
+					if lowestMatchTotal ~= math.huge then
+						for seedId, seedData in pairs(seedMatchData) do
+							if seedData.matchTotal and seedData.matchTotal <= lowestMatchTotal then
+								seedMatchData[seedId] = nil
+								seedMatchDataLength = seedMatchDataLength - 1
+							end
+						end
+					end
+				end
 				seedMatchData[curSeed] = { }
 				for targetNode in pairs(targetNodes) do
 					local jewelDataTbl = data.readLUT(curSeed, targetNode, jewelType.id)
 					if not next(jewelDataTbl) then
 						ConPrintf("Missing LUT: " .. jewelType.label)
 					else
-						for _, jewelData in ipairs(jewelDataTbl) do
-							local nodeId = nil
-							if jewelData >= 94 then -- replace
-								nodeId = legionNodes[jewelData - 94].id
-							else -- add
-								nodeId = legionAdditions[jewelData].id
-							end
-							if nodeId then
-								local desiredIdx = 0
-								for nodeIdx, desiredNode in ipairs(desiredNodes) do
-									if nodeId == desiredNode.nodeId then
-										desiredIdx = nodeIdx
+						local nodeIds = { }
+						if jewelType.id == 1 then
+							local headerSize = #jewelDataTbl
+							if headerSize == 2 or headerSize == 3 then
+								nodeIds[#nodeIds + 1] = legionNodes[jewelDataTbl[1] - 94].id
+							elseif headerSize == 6 or headerSize == 8 then
+								local bias = 0
+								for i, val in ipairs(jewelDataTbl) do
+									if i > (headerSize / 2) then
+										break
+									elseif val <= 21 then
+										bias = bias + 1
+									else
+										bias = bias - 1
+									end
+								end
+								if bias >= 0 then
+									nodeIds[#nodeIds + 1] = legionNodes[76].id -- might of the vaal
+								else
+									nodeIds[#nodeIds + 1] = legionNodes[77].id -- legacy of the vaal
+								end
+								local additions = { }
+								for i, val in ipairs(jewelDataTbl) do
+									if i <= (headerSize / 2) then
+										local roll = jewelDataTbl[i + headerSize / 2]
+										if not additions[val] then
+											additions[val] = roll
+										else
+											additions[val] = additions[val] + roll
+										end
+									else
 										break
 									end
 								end
-								if desiredIdx > 0 then
-									if seedMatchData[curSeed].matchTotal == nil then
-										seedMatchDataLength = seedMatchDataLength + 1
-									end
-									local nodeWeight = tonumber(desiredNodes[desiredIdx].nodeWeight) or 0.1
-									if seedMatchData[curSeed][nodeId] == nil and desiredNodes[desiredIdx].nodeWeight == "required" then
-										nodeWeight = 50
-									end
-									seedMatchData[curSeed][nodeId] = (seedMatchData[curSeed][nodeId] or 0) + nodeWeight
-									seedMatchData[curSeed].matchTotal = (seedMatchData[curSeed].matchTotal or 0) + nodeWeight
+								for add in pairs(additions) do
+									nodeIds[#nodeIds + 1] = legionAdditions[add].id
+								end
+							else
+								ConPrintf("Unhandled Glorious Vanity headerSize: " .. headerSize)
+							end
+						else
+							for _, jewelData in ipairs(jewelDataTbl) do
+								if jewelData >= 94 then -- replace
+									nodeIds[#nodeIds + 1] = legionNodes[jewelData - 94].id
+								else -- add
+									nodeIds[#nodeIds + 1] = legionAdditions[jewelData].id
 								end
 							end
 						end
-						if next(targetNodes, targetNode) == nil then
-							-- arbritary limit to avoid running out of memory
-							if seedMatchDataLength > 500 then
-								local lowestMatchTotal = math.huge
-								for seedId, seedData in pairs(seedMatchData) do
-									if seedData.matchTotal then
-										lowestMatchTotal = m_min(seedData.matchTotal, lowestMatchTotal)
-									end
+						for _, nodeId in pairs(nodeIds) do
+							local desiredIdx = 0
+							for nodeIdx, desiredNode in ipairs(desiredNodes) do
+								if nodeId == desiredNode.nodeId then
+									desiredIdx = nodeIdx
+									break
 								end
-								if lowestMatchTotal ~= math.huge then
-									for seedId, seedData in pairs(seedMatchData) do
-										if seedData.matchTotal and seedData.matchTotal <= lowestMatchTotal then
-											seedMatchData[seedId] = nil
-											seedMatchDataLength = seedMatchDataLength - 1
-										end
-									end
+							end
+							if desiredIdx > 0 then
+								if seedMatchData[curSeed].matchTotal == nil then
+									seedMatchDataLength = seedMatchDataLength + 1
 								end
+								local nodeWeight = tonumber(desiredNodes[desiredIdx].nodeWeight) or 0.1
+								if seedMatchData[curSeed][nodeId] == nil and desiredNodes[desiredIdx].nodeWeight == "required" then
+									nodeWeight = 50
+								end
+								seedMatchData[curSeed][nodeId] = (seedMatchData[curSeed][nodeId] or 0) + nodeWeight
+								seedMatchData[curSeed].matchTotal = (seedMatchData[curSeed].matchTotal or 0) + nodeWeight
 							end
 						end
 					end
