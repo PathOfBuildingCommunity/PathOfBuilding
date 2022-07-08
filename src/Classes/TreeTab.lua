@@ -745,6 +745,7 @@ function TreeTabClass:FindTimelessJewel()
 	local controls = { }
 	local modData = { }
 	local ignoredMods = { "Strength", "Dex", "Devotion", "Price of Glory" }
+	local searchResultsShared = { }
 	local searchResults = { }
 	local jewelTypes = {
 		{ label = "Glorious Vanity", name = "vaal", id = 1 },
@@ -912,7 +913,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 325, 200, "", nil, "^%C\t\n", nil, nil, 16, true)
 
 	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, 167, 25, 0, 16, "^7Search Results:")
-	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 325, 200, searchResults, self.build)
+	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 325, 200, self.build, searchResults, searchResultsShared)
 
 	controls.search = new("ButtonControl", nil, -90, 410, 80, 20, "Search", function()
 		if treeData.nodes[jewelSocket.id] and treeData.nodes[jewelSocket.id].isJewelSocket then
@@ -948,7 +949,22 @@ function TreeTabClass:FindTimelessJewel()
 				for splitLine in inputLine:gmatch("([^,%s]+)") do
 					desiredNode[#desiredNode + 1] = splitLine
 				end
-				desiredNodes[#desiredNodes + 1] = { nodeId = desiredNode[1], nodeWeight = desiredNode[2] }
+				local displayName = nil
+				for _, legionNode in ipairs(legionNodes) do
+					if legionNode.id == desiredNode[1] then
+						displayName = legionNode.dn
+						break
+					end
+				end
+				if displayName == nil then
+					for _, legionAddition in ipairs(legionAdditions) do
+						if legionAddition.id == desiredNode[1] then
+							displayName = legionAddition.dn
+							break
+						end
+					end
+				end
+				desiredNodes[#desiredNodes + 1] = { nodeId = desiredNode[1], nodeWeight = desiredNode[2], displayName = displayName or desiredNode[1] }
 			end
 			local seedMatchCount = 0
 			local seedMultiplier = jewelType.id == 5 and 20 or 1 -- Elegant Hubris
@@ -1018,13 +1034,15 @@ function TreeTabClass:FindTimelessJewel()
 								end
 							end
 							if desiredIdx > 0 then
-								seedMatch = true
+								seedMatchData[curSeed][nodeId] = seedMatchData[curSeed][nodeId] or { }
+								seedMatchData[curSeed][nodeId][targetNode] = (seedMatchData[curSeed][nodeId][targetNode] or 0) + 1
 								local nodeWeight = tonumber(desiredNodes[desiredIdx].nodeWeight) or 0.1
-								if seedMatchData[curSeed][nodeId] == nil and desiredNodes[desiredIdx].nodeWeight == "required" then
+								if seedMatchData[curSeed][nodeId].matchTotal == nil and desiredNodes[desiredIdx].nodeWeight == "required" then
 									nodeWeight = 50
 								end
-								seedMatchData[curSeed][nodeId] = (seedMatchData[curSeed][nodeId] or 0) + nodeWeight
+								seedMatchData[curSeed][nodeId].matchTotal = (seedMatchData[curSeed][nodeId].matchTotal or 0) + nodeWeight
 								seedMatchData[curSeed].matchTotal = (seedMatchData[curSeed].matchTotal or 0) + nodeWeight
+								seedMatch = true
 							end
 						end
 					end
@@ -1050,7 +1068,12 @@ function TreeTabClass:FindTimelessJewel()
 					end
 				end
 			end
-			wipeTable(searchResults)
+			wipeTable(searchResultsShared)
+			searchResultsShared.type = jewelType
+			searchResultsShared.conqueror = conquerorType.id
+			searchResultsShared.socket = jewelSocket
+			searchResultsShared.desiredNodes = desiredNodes
+			wipeTable(searchResults)			
 			local searchResultsIdx = 1
 			for seedMatch, seedData in pairs(seedMatchData) do
 				if seedData.matchTotal then
@@ -1064,14 +1087,15 @@ function TreeTabClass:FindTimelessJewel()
 					end
 					for nodeIdx, desiredNode in ipairs(desiredNodes) do
 						if seedData[desiredNode.nodeId] then
-							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. (" " .. s_format("%04.1f", seedData[desiredNode.nodeId])):gsub(" 0", "   "):gsub("%.0", "   ")
+							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. (" " .. s_format("%04.1f", seedData[desiredNode.nodeId].matchTotal)):gsub(" 0", "   "):gsub("%.0", "   ")
+							searchResults[searchResultsIdx][desiredNode.nodeId] = searchResults[searchResultsIdx][desiredNode.nodeId] or { }
+							for targetNode in pairs(targetNodes) do
+								searchResults[searchResultsIdx][desiredNode.nodeId][targetNode] = seedData[desiredNode.nodeId][targetNode]
+							end
 						else
 							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. "   0   "
 						end
 					end
-					searchResults[searchResultsIdx].type = jewelType
-					searchResults[searchResultsIdx].conqueror = conquerorType.id
-					searchResults[searchResultsIdx].socket = jewelSocket
 					searchResults[searchResultsIdx].seed = seedMatch
 					searchResults[searchResultsIdx].total = seedData.matchTotal
 					searchResultsIdx = searchResultsIdx + 1

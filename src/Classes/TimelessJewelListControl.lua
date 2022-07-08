@@ -5,11 +5,13 @@
 --
 
 local m_random = math.random
+local t_concat = table.concat
 
-local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, list, build)
+local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, build, list, sharedList)
 	self.list = list or { }
 	self.ListControl(anchor, x, y, width, height, 16, true, false, self.list)
 	self.build = build
+	self.sharedList = sharedList
 	self.selIndex = nil
 end)
 
@@ -26,14 +28,28 @@ end
 function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 	tooltip:Clear()
 	if self.list[index].label:match("added") == nil then
+		local treeData = self.build.spec.tree
 		tooltip:AddLine(16, "^7Double click to add this jewel to your build.")
+		tooltip:AddLine(16, "Node Matches:")
+		for _, desiredNode in ipairs(self.sharedList.desiredNodes) do
+			local nodeMatches = { }
+			if self.list[index][desiredNode.nodeId] then
+				for nodeMatch in pairs(self.list[index][desiredNode.nodeId]) do
+					nodeMatches[#nodeMatches + 1] = treeData.nodes[nodeMatch].name
+				end
+			end
+			if #nodeMatches > 0 then
+				tooltip:AddLine(16, "        " .. desiredNode.displayName .. ":\n                " .. t_concat(nodeMatches, "\n                "))
+			end
+		end
+		tooltip:AddLine(16, "Combined Node Weight: " .. data.total)
 	end
 end
 
 function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
 	if doubleClick and self.list[index].label:match("added") == nil then
-		local label = "[" .. data.seed .. "; " .. data.total.. "; " .. data.socket.keystone .. "]\n"
-		local variant = data.conqueror .. "\n"
+		local label = "[" .. data.seed .. "; " .. data.total.. "; " .. self.sharedList.socket.keystone .. "]\n"
+		local variant = self.sharedList.conqueror .. "\n"
 		local itemData = [[
 Elegant Hubris ]] .. label .. [[
 Timeless Jewel
@@ -52,7 +68,7 @@ Implicits: 0
 Passives in radius are Conquered by the Eternal Empire
 Historic
 ]]
-		if data.type.id == 1 then
+		if self.sharedList.type.id == 1 then
 			itemData = [[
 Glorious Vanity ]] .. label .. [[
 Timeless Jewel
@@ -71,7 +87,7 @@ Implicits: 0
 Passives in radius are Conquered by the Vaal
 Historic
 ]]
-		elseif data.type.id == 2 then
+		elseif self.sharedList.type.id == 2 then
 			itemData = [[
 Lethal Pride ]] .. label .. [[
 Timeless Jewel
@@ -90,7 +106,7 @@ Implicits: 0
 Passives in radius are Conquered by the Karui
 Historic
 ]]
-		elseif data.type.id == 3 then
+		elseif self.sharedList.type.id == 3 then
 			itemData = [[
 Brutal Restraint ]] .. label .. [[
 Timeless Jewel
@@ -109,7 +125,7 @@ Implicits: 0
 Passives in radius are Conquered by the Maraketh
 Historic
 ]]
-		elseif data.type.id == 4 then
+		elseif self.sharedList.type.id == 4 then
 			local altVariant = m_random(4, 17)
 			local altVariant2 = m_random(4, 17)
 			if altVariant == altVariant2 then
