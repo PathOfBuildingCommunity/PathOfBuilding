@@ -707,6 +707,16 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						--        based on their `fmt` specification 
 						if headerSize == 2 or headerSize == 3 then
 							self:ReplaceNode(node, legionNodes[jewelDataTbl[1] - 94])
+
+							for i, repStat in ipairs(legionNodes[jewelDataTbl[1] - 94].sd) do
+								local statMod = legionNodes[jewelDataTbl[1] - 94].stats[legionNodes[jewelDataTbl[1] - 94].sortedStats[i]]
+								if statMod.fmt == "d" then
+									if statMod.min ~= statMod.max then
+										repStat = repStat:gsub("%("..statMod.min.."%-"..statMod.max.."%)",jewelDataTbl[statMod.index + 1])
+									end
+								end
+								self:NodeAdditionOrReplacementFromString(node, repStat,i == 1) -- wipe mods on first run
+							end
 							-- should fix the stat values here (note headerSize == 3 has 2 values)
 						elseif headerSize == 6 or headerSize == 8 then
 							local bias = 0
@@ -796,9 +806,17 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					if not next(jewelDataTbl) then
 						ConPrintf("Missing LUT: " .. data.timelessJewelTypes[jewelType])
 					else
-						local stat1 = jewelDataTbl[1] - 94
-						local roll1 = jewelDataTbl[2]
-						self:ReplaceNode(node, legionNodes[stat1])
+						self:ReplaceNode(node, legionNodes[jewelDataTbl[1] - 94])
+						for i, repStat in ipairs(node.sd) do
+							for k,statMod in pairs(legionNodes[jewelDataTbl[1] - 94].stats) do -- should only be 1 big
+								if statMod.fmt == "d" then
+									if statMod.min ~= statMod.max then
+										repStat = repStat:gsub("%("..statMod.min.."%-"..statMod.max.."%)",jewelDataTbl[2])
+									end
+								end
+							end
+							self:NodeAdditionOrReplacementFromString(node, repStat,true)
+						end
 						--local legionNode = legionNodes[38] -- vaal_small_fire_resistance
 						--self:ReplaceNode(node, legionNode)
 					end
