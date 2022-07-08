@@ -509,6 +509,7 @@ local function loadTimelessJewel(jewelType, nodeID)
 	if data.timelessJewelLUTs[jewelType] and (jewelType == 1 and data.timelessJewelLUTs[jewelType].data[index + 1].valid) then return end
 
 	if jewelType == 1 then
+		--if data is already loaded but table for specific node is not created, just make table and return
 		if data.timelessJewelLUTs[jewelType] and data.timelessJewelLUTs[jewelType].data[index + 1] and not data.timelessJewelLUTs[jewelType].data[index + 1].valid then
 			local jewelData = data.timelessJewelLUTs[jewelType].data[index + 1][1]
 			local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
@@ -546,9 +547,6 @@ local function loadTimelessJewel(jewelType, nodeID)
 						break
 					end
 				end
-				if not nodeID then
-					print(nodeID or (i .." not found"))
-				end
 				local dataLength = data.nodeIDList[nodeID].size --data.timelessJewelLUTs[jewelType].sizes:byte(i)
 				--data.timelessJewelLUTs[jewelType].data[i] = jewelData:sub(count + 1, count + dataLength)
 				data.timelessJewelLUTs[jewelType].data[i] = {}
@@ -559,42 +557,13 @@ local function loadTimelessJewel(jewelType, nodeID)
 					local jewelData2 = data.timelessJewelLUTs[jewelType].data[index + 1][1]
 					local count2 = 0
 					for seedOffset = 1, (seedSize + 1) do
-						local dataLength2 = data.timelessJewelLUTs[jewelType].sizes:byte(i * seedSize + seedOffset)
+						local dataLength2 = data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset)
 						data.timelessJewelLUTs[jewelType].data[index + 1][seedOffset] = jewelData2:sub(count2 + 1, count2 + dataLength2)
 						count2 = count2 + dataLength2
 					end
 					data.timelessJewelLUTs[jewelType].data[i].valid = true
 				end
 			end
-			--[[
-			local sizes = {}
-			local nodeCount = 0
-				if i % seedSize == 1 and i ~= 1 then
-					print("size of node ".. round(i / seedSize - 1) .. " = "..count)
-					sizes[round(i / seedSize) - 1] = nodeCount
-					nodeCount = 0
-				end
-				nodeCount = nodeCount + dataLength
-			local file = assert(io.open("Data/TimelessJewelData/" .. "GVNodeSizes" .. ".lua", "wb+"))
-			file:write("nodeIDList = { }" .. "\n")
-			file:write("nodeIDList[\"size\"] = 1678" .. "\n")
-			file:write("nodeIDList[\"sizeNotable\"] = 391" .. "\n")
-			for k, v in pairs(data.nodeIDList) do
-				if k ~= "size" and k ~= "sizeNotable" and v.index == 0 then
-					file:write("nodeIDList[".. k .."] = { index = " .. v.index .. ", size = ".. (sizes[0] or 0) .. " }\n")
-					break
-				end
-			end
-			for i,line in ipairs(sizes) do
-				for k, v in pairs(data.nodeIDList) do
-					if k ~= "size" and k ~= "sizeNotable" and v.index == i then
-						file:write("nodeIDList[".. k .."] = { index = " .. v.index .. ", size = ".. (line or 0) .. " }\n")
-						break
-					end
-				end
-			end
-			file:close()
-			--]]
 			ConPrintf("Glorious Vanity Lookup Table Loaded! Read " .. count .. " bytes")
 
 			--- Code for compressing existing data if it changed
@@ -650,12 +619,12 @@ data.readLUT = function(seed, nodeID, jewelType)
 	if index then
 		if jewelType == 1 then  -- "Glorious Vanity"
 			local result = { }
-			print("INDEX:", index, "Byte position:", index * seedSize + seedOffset + 1, "Stat Count:", data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1))
-			print(data.timelessJewelLUTs[jewelType].data[index + 1].valid)
+			--print("INDEX:", index, "Byte position:", index * seedSize + seedOffset + 1, "Stat Count:", data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1))
+			--print(data.timelessJewelLUTs[jewelType].data[index + 1].valid)
 			for i = 1, data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1) do
 				--result[i] = data.timelessJewelLUTs[jewelType].data[index * seedSize + seedOffset + 1]:byte(i)
 				result[i] = data.timelessJewelLUTs[jewelType].data[index + 1][seedOffset + 1]:byte(i)
-				print(result[i])
+				--print(result[i])
 			end
 			return result
 		else
