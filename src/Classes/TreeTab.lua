@@ -1014,10 +1014,10 @@ function TreeTabClass:FindTimelessJewel()
 								nodeIds[#nodeIds + 1] = legionNodes[jewelDataTbl[1] - 94].id
 							elseif headerSize == 6 or headerSize == 8 then
 								local bias = 0
-								for i, val in ipairs(jewelDataTbl) do
+								for i, jewelData in ipairs(jewelDataTbl) do
 									if i > (headerSize / 2) then
 										break
-									elseif val <= 21 then
+									elseif jewelData <= 21 then
 										bias = bias + 1
 									else
 										bias = bias - 1
@@ -1029,13 +1029,13 @@ function TreeTabClass:FindTimelessJewel()
 									nodeIds[#nodeIds + 1] = legionNodes[77].id -- legacy of the vaal
 								end
 								local additions = { }
-								for i, val in ipairs(jewelDataTbl) do
+								for i, jewelData in ipairs(jewelDataTbl) do
 									if i <= (headerSize / 2) then
 										local roll = jewelDataTbl[i + headerSize / 2]
-										if not additions[val] then
-											additions[val] = roll
+										if not additions[jewelData] then
+											additions[jewelData] = roll
 										else
-											additions[val] = additions[val] + roll
+											additions[jewelData] = additions[jewelData] + roll
 										end
 									else
 										break
