@@ -840,16 +840,17 @@ function calcs.defence(env, actor)
 	end
 
 	-- Ailment duration on self	
-	output.SelfFreezeDuration = 100 * modDB:More(nil, "SelfFreezeDuration") * (1 + modDB:Sum("INC", nil, "SelfFreezeDuration") / 100) 
-	output.SelfBlindDuration = 100 * modDB:More(nil, "SelfBlindDuration") * (1 + modDB:Sum("INC", nil, "SelfBlindDuration") / 100)  
-	output.SelfShockDuration = 100 * modDB:More(nil, "SelfShockDuration") * (1 + modDB:Sum("INC", nil, "SelfShockDuration") / 100) 
-	output.SelfChillDuration = 100 * modDB:More(nil, "SelfChillDuration") * (1 + modDB:Sum("INC", nil, "SelfChillDuration") / 100) 
-	output.SelfIgniteDuration = 100 * modDB:More(nil, "SelfIgniteDuration") * (1 + modDB:Sum("INC", nil, "SelfIgniteDuration") / 100) 
-	output.SelfBleedDuration = 100 * modDB:More(nil, "SelfBleedDuration") * (1 + modDB:Sum("INC", nil, "SelfBleedDuration") / 100) 
-	output.SelfPoisonDuration = 100 * modDB:More(nil, "SelfPoisonDuration") * (1 + modDB:Sum("INC", nil, "SelfPoisonDuration") / 100)
-	output.SelfChillEffect = 100 * modDB:More(nil, "SelfChillEffect") * (1 + modDB:Sum("INC", nil, "SelfChillEffect") / 100)
-	output.SelfShockEffect = 100 * modDB:More(nil, "SelfShockEffect") * (1 + modDB:Sum("INC", nil, "SelfShockEffect") / 100)
-	
+	output.SelfFreezeDuration = modDB:More(nil, "SelfFreezeDuration") * (100 + modDB:Sum("INC", nil, "SelfFreezeDuration"))
+	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration"))
+	output.SelfShockDuration = modDB:More(nil, "SelfShockDuration") * (100 + modDB:Sum("INC", nil, "SelfShockDuration"))
+	output.SelfChillDuration = modDB:More(nil, "SelfChillDuration") * (100 + modDB:Sum("INC", nil, "SelfChillDuration"))
+	output.SelfIgniteDuration = modDB:More(nil, "SelfIgniteDuration") * (100 + modDB:Sum("INC", nil, "SelfIgniteDuration"))
+	output.SelfBleedDuration = modDB:More(nil, "SelfBleedDuration") * (100 + modDB:Sum("INC", nil, 	"SelfBleedDuration"))
+	output.SelfPoisonDuration = modDB:More(nil, "SelfPoisonDuration") * (100 + modDB:Sum("INC", nil, "SelfPoisonDuration"))
+	output.SelfChillEffect = modDB:More(nil, "SelfChillEffect") * (100 + modDB:Sum("INC", nil, "SelfChillEffect"))
+	output.SelfShockEffect = modDB:More(nil, "SelfShockEffect") * (100 + modDB:Sum("INC", nil, "SelfShockEffect"))
+	output.CurseEffectOnSelf = modDB:More(nil, "CurseEffectOnSelf") * (100 + modDB:Sum("INC", nil, "CurseEffectOnSelf"))
+
 	--Enemy damage input and modifications
 	do
 		output["totalEnemyDamage"] = 0

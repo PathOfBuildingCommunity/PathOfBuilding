@@ -1396,6 +1396,7 @@ return {
 	{ label = "Poison Duration", { format = "{1:output:SelfPoisonDuration}%", { modName = "SelfPoisonDuration" }, }, },
 	{ label = "Chill Effect", { format = "{1:output:SelfChillEffect}%", { modName = "SelfChillEffect" }, }, },
 	{ label = "Shock Effect", { format = "{1:output:SelfShockEffect}%", { modName = "SelfShockEffect" }, }, },
+	{ label = "Curse Effect", { format = "{1:output:CurseEffectOnSelf}%", { modName = "CurseEffectOnSelf" }, }, },
 } }, { defaultCollapsed = false, label = "Dodge", data = {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}% (+{0:output:AttackDodgeChanceOverCap}%)",
