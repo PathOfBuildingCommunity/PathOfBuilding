@@ -790,11 +790,12 @@ function TreeTabClass:FindTimelessJewel()
 				keystone = "Duelist"
 			elseif socketId == 26725 then
 				keystone = "Marauder"
-			end
-			for _, nodeInRadius in pairs(treeData.nodes[socketId].nodesInRadius[3]) do
-				if nodeInRadius.isKeystone then
-					keystone = nodeInRadius.name
-					break
+			else
+				for _, nodeInRadius in pairs(treeData.nodes[socketId].nodesInRadius[3]) do
+					if nodeInRadius.isKeystone then
+						keystone = nodeInRadius.name
+						break
+					end
 				end
 			end
 			local label = keystone .. ": " .. socketId
