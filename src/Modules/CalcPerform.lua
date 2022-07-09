@@ -481,10 +481,17 @@ local function doActorAttribsPoolsConditions(env, actor)
 		end
 		if actor.mainSkill.skillFlags.hit and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then
 			condList["HitRecently"] = true
+			if actor.mainSkill.skillFlags.spell then
+				condList["HitSpellRecently"] = true
+			end
 		end
 		if actor.mainSkill.skillFlags.totem then
 			condList["HaveTotem"] = true
+			condList["TotemsHitRecently"] = true
 			condList["SummonedTotemRecently"] = true
+			if actor.mainSkill.skillFlags.spell then
+				condList["TotemsSpellHitRecently"] = true
+			end
 		end
 		if actor.mainSkill.skillFlags.mine then
 			condList["DetonatedMinesRecently"] = true
@@ -914,6 +921,12 @@ local function doActorMisc(env, actor)
 			local effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100))
 			modDB:NewMod("Speed", "INC", effect, "Onslaught")
 			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
+		end
+		if not modDB.conditions["AffectedByArcaneSurge"] and modDB:Flag(nil, "Condition:ArcaneSurge") then --add arcane surge if skill didn't add it first and we have a source
+			local effect = 1 + modDB:Sum("INC", nil, "ArcaneSurgeEffect", "BuffEffectOnSelf") / 100
+			modDB.conditions["AffectedByArcaneSurge"] = true
+			modDB:NewMod("ManaRegen", "INC", effect * 30, "Arcane Surge")
+			modDB:NewMod("Damage", "MORE", effect * 10, "Arcane Surge", ModFlag.Spell)
 		end
 		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
 			local effect = m_floor(75 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))

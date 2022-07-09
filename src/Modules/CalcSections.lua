@@ -1491,6 +1491,11 @@ return {
 	{ label = "Poison Duration", { format = "{1:output:SelfPoisonDuration}%", { modName = { "SelfPoisonDuration", "SelfDebuffExpirationRate", "SelfPoisonDebuffExpirationRate" }, }, }, },
 	{ label = "Chill Effect", { format = "{1:output:SelfChillEffect}%", { modName = "SelfChillEffect" }, }, },
 	{ label = "Shock Effect", { format = "{1:output:SelfShockEffect}%", { modName = "SelfShockEffect" }, }, },
+	{ label = "Chill Effect", { format = "{1:output:SelfChillEffect}%", { modName = "SelfChillEffect" }, }, },
+	{ label = "Freeze Effect", { format = "{1:output:SelfFreezeEffect}%", { modName = "SelfFreezeEffect" }, }, },
+	{ label = "Scorch Effect", { format = "{1:output:SelfScorchEffect}%", { modName = "SelfScorchEffect" }, }, },
+	{ label = "Brittle Effect", { format = "{1:output:SelfBrittleEffect}%", { modName = "SelfBrittleEffect" }, }, },
+	{ label = "Sap Effect", { format = "{1:output:SelfSapEffect}%", { modName = "SelfSapEffect" }, }, },
 } }, { defaultCollapsed = false, label = "Dodge", data = {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}% (+{0:output:AttackDodgeChanceOverCap}%)",

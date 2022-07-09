@@ -911,9 +911,9 @@ function calcs.defence(env, actor)
 	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration")) * output.DebuffExpirationModifier / 100
 	for _, ailment in ipairs(data.ailmentTypeList) do
 		output["Self"..ailment.."Duration"] = modDB:More(nil, "Self"..ailment.."Duration") * (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration")) * 100 / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
+		output["Self"..ailment.."Effect"] = modDB:More(nil, "Self"..ailment.."Effect") * (100 + modDB:Sum("INC", nil, "Self"..ailment.."Effect"))
 	end
-	output.SelfChillEffect = modDB:More(nil, "SelfChillEffect") * (100 + modDB:Sum("INC", nil, "SelfChillEffect"))
-	output.SelfShockEffect = modDB:More(nil, "SelfShockEffect") * (100 + modDB:Sum("INC", nil, "SelfShockEffect"))
+
 	--Enemy damage input and modifications
 	do
 		output["totalEnemyDamage"] = 0
