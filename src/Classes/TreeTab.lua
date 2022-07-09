@@ -988,7 +988,6 @@ function TreeTabClass:FindTimelessJewel()
 				desiredIdx = desiredIdx + 1
 				desiredNodes[legionId] = { nodeId = desiredNode[1], nodeWeight = tonumber(desiredNode[2]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
 			end
-			local seedMatchCount = 0
 			local seedMultiplier = timelessData.jewelType.id == 5 and 20 or 1 -- Elegant Hubris
 			for curSeed = data.timelessJewelSeedMin[timelessData.jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[timelessData.jewelType.id] * seedMultiplier, seedMultiplier do
 				seedMatchData[curSeed] = { }
@@ -1066,7 +1065,6 @@ function TreeTabClass:FindTimelessJewel()
 					end
 				end
 				if totalWeight ~= 0 then
-					seedMatchCount = seedMatchCount + 1
 					seedMatchData[curSeed].matchTotal = totalWeight
 				end
 			end
