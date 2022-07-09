@@ -1006,7 +1006,7 @@ function TreeTabClass:FindTimelessJewel()
 					t_insert(requiredNodes, legionId)
 				end
 				desiredIdx = desiredIdx + 1
-				desiredNodes[legionId] = { nodeId = desiredNode[1], nodeWeight = tonumber(desiredNode[2]) or 0.1, nodeWeight2 = tonumber(desiredNode[3]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
+				desiredNodes[legionId] = { nodeId = desiredNode[1], nodeWeight = tonumber(desiredNode[2]) or 0, nodeWeight2 = tonumber(desiredNode[3]) or 0, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
 			end
 			local seedMultiplier = timelessData.jewelType.id == 5 and 20 or 1 -- Elegant Hubris
 			for curSeed = data.timelessJewelSeedMin[timelessData.jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[timelessData.jewelType.id] * seedMultiplier, seedMultiplier do
