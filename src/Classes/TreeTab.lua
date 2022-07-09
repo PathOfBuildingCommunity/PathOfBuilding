@@ -1027,7 +1027,7 @@ function TreeTabClass:FindTimelessJewel()
 							if headerSize == 2 or headerSize == 3 then
 								if desiredNodes[jewelDataTbl[1]] then
 									resultNodes[curSeed][jewelDataTbl[1]] = resultNodes[curSeed][jewelDataTbl[1]] or { targetNodeNames = { }, totalWeight = 0 }
-									local weight = desiredNodes[jewelDataTbl[1]].nodeWeight2 * jewelDataTbl[2] + desiredNodes[jewelDataTbl[1]].nodeWeight * (jewelDataTbl[3] or 0)
+									local weight = desiredNodes[jewelDataTbl[1]].nodeWeight * jewelDataTbl[2] + desiredNodes[jewelDataTbl[1]].nodeWeight2 * (jewelDataTbl[3] or 0)
 									t_insert(resultNodes[curSeed][jewelDataTbl[1]], targetNode)
 									t_insert(resultNodes[curSeed][jewelDataTbl[1]].targetNodeNames, treeData.nodes[targetNode].name)
 									resultNodes[curSeed][jewelDataTbl[1]].totalWeight = resultNodes[curSeed][jewelDataTbl[1]].totalWeight + weight
