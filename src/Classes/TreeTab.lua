@@ -994,21 +994,6 @@ function TreeTabClass:FindTimelessJewel()
 							if headerSize == 2 or headerSize == 3 then
 								nodeIds[#nodeIds + 1] = legionNodes[jewelDataTbl[1] - 94].id
 							elseif headerSize == 6 or headerSize == 8 then
-								local bias = 0
-								for i, jewelData in ipairs(jewelDataTbl) do
-									if i > (headerSize / 2) then
-										break
-									elseif jewelData <= 21 then
-										bias = bias + 1
-									else
-										bias = bias - 1
-									end
-								end
-								if bias >= 0 then
-									nodeIds[#nodeIds + 1] = legionNodes[76].id -- might of the vaal
-								else
-									nodeIds[#nodeIds + 1] = legionNodes[77].id -- legacy of the vaal
-								end
 								local additions = { }
 								for i, jewelData in ipairs(jewelDataTbl) do
 									if i <= (headerSize / 2) then
