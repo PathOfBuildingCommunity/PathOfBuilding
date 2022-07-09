@@ -925,8 +925,7 @@ function TreeTabClass:FindTimelessJewel()
 	end, 16, true)
 
 	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, 167, 25, 0, 16, "^7Search Results:")
-	controls.searchResultsLabel2 = new("LabelControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 15, 0, 16, "^7Seed, total weight, node weights")
-	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel2, "TOPLEFT" }, 0, 20, 325, 190, self.build, timelessData.searchResults, timelessData.sharedResults)
+	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 325, 200, self.build, timelessData.searchResults, timelessData.sharedResults)
 
 	controls.search = new("ButtonControl", nil, -90, 410, 80, 20, "Search", function()
 		if treeData.nodes[timelessData.jewelSocket.id] and treeData.nodes[timelessData.jewelSocket.id].isJewelSocket then
@@ -934,7 +933,6 @@ function TreeTabClass:FindTimelessJewel()
 			local allocatedNodes = { }
 			local targetNodes = { }
 			local desiredNodes = { }
-			local desiredNodesSubstite = {}
 			local requiredNodes = { }
 			local seedMatchData = { }
 			local rootNodes = {
@@ -960,9 +958,10 @@ function TreeTabClass:FindTimelessJewel()
 					targetNodes[nodeId] = true
 				end
 			end
+			local desiredIdx = 0
 			for inputLine in controls.searchList.buf:gmatch("[^\r\n]+") do
 				local desiredNode = { }
-				local LUT_ID = nil
+				local legionId = nil
 				for splitLine in inputLine:gmatch("([^,%s]+)") do
 					desiredNode[#desiredNode + 1] = splitLine
 				end
@@ -970,7 +969,7 @@ function TreeTabClass:FindTimelessJewel()
 				for idx, legionNode in ipairs(legionNodes) do
 					if legionNode.id == desiredNode[1] then
 						displayName = t_concat(legionNode.sd, " + ")
-						LUT_ID = idx
+						legionId = idx + 94
 						break
 					end
 				end
@@ -978,23 +977,23 @@ function TreeTabClass:FindTimelessJewel()
 					for idx, legionAddition in ipairs(legionAdditions) do
 						if legionAddition.id == desiredNode[1] then
 							displayName = t_concat(legionAddition.sd, " + ")
-							LUT_ID = idx
+							legionId = idx
 							break
 						end
 					end
 				end
 				if desiredNode[2] == "required" then
-					t_insert(requiredNodes, LUT_ID)
+					t_insert(requiredNodes, legionId)
 				end
-				desiredNodesSubstite[LUT_ID] = tonumber(desiredNode[2]) or 0.1
-				desiredNodes[#desiredNodes + 1] = { nodeId = desiredNode[1], nodeWeight = desiredNode[2], displayName = displayName or desiredNode[1] }
+				desiredIdx = desiredIdx + 1
+				desiredNodes[legionId] = { nodeId = desiredNode[1], nodeWeight = tonumber(desiredNode[2]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
 			end
 			local seedMatchCount = 0
 			local seedMultiplier = timelessData.jewelType.id == 5 and 20 or 1 -- Elegant Hubris
 			for curSeed = data.timelessJewelSeedMin[timelessData.jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[timelessData.jewelType.id] * seedMultiplier, seedMultiplier do
 				seedMatchData[curSeed] = { }
-				local resultWeights = {}
-				local resultNodes = {}
+				local resultWeights = { }
+				local resultNodes = { }
 				local totalWeight = 0
 				for targetNode in pairs(targetNodes) do
 					local jewelDataTbl = data.readLUT(curSeed, targetNode, timelessData.jewelType.id)
@@ -1004,8 +1003,8 @@ function TreeTabClass:FindTimelessJewel()
 						if timelessData.jewelType.id == 1 then
 							local headerSize = #jewelDataTbl
 							if headerSize == 2 or headerSize == 3 then
-								if desiredNodesSubstite[jewelDataTbl[1]] then
-									local weight = desiredNodesSubstite[jewelDataTbl[1]] * jewelDataTbl[2]
+								if desiredNodes[jewelDataTbl[1]] then
+									local weight = desiredNodes[jewelDataTbl[1]].nodeWeight * jewelDataTbl[2]
 									if resultNodes[jewelDataTbl[1]] then
 										t_insert(resultNodes[jewelDataTbl[1]], targetNode)
 									else
@@ -1017,8 +1016,8 @@ function TreeTabClass:FindTimelessJewel()
 							elseif headerSize == 6 or headerSize == 8 then
 								for i, jewelData in ipairs(jewelDataTbl) do
 									if i <= (headerSize / 2) then
-										if desiredNodesSubstite[jewelDataTbl[i]] then
-											local weight = desiredNodesSubstite[jewelDataTbl[i]] * jewelDataTbl[i + (headerSize / 2)]
+										if desiredNodes[jewelDataTbl[i]] then
+											local weight = desiredNodes[jewelDataTbl[i]].nodeWeight * jewelDataTbl[i + (headerSize / 2)]
 											resultWeights[jewelDataTbl[i]] = (resultWeights[jewelDataTbl[i]] or 0) + weight
 											if resultNodes[jewelDataTbl[i]] then
 												t_insert(resultNodes[jewelDataTbl[i]], targetNode)
@@ -1032,60 +1031,43 @@ function TreeTabClass:FindTimelessJewel()
 									end
 								end
 							end
-						elseif desiredNodesSubstite[jewelDataTbl[1]] then
-							resultWeights[jewelDataTbl[1]] = (resultWeights[jewelDataTbl[1]] or 0) + desiredNodesSubstite[jewelDataTbl[1]]
+						elseif desiredNodes[jewelDataTbl[1]] then
+							resultWeights[jewelDataTbl[1]] = (resultWeights[jewelDataTbl[1]] or 0) + desiredNodes[jewelDataTbl[1]].nodeWeight
 							if resultNodes[jewelDataTbl[1]] then
 								t_insert(resultNodes[jewelDataTbl[1]], targetNode)
 							else
 								resultNodes[jewelDataTbl[1]] = { targetNode }
 							end
-							totalWeight = totalWeight + desiredNodesSubstite[jewelDataTbl[1]]
+							totalWeight = totalWeight + desiredNodes[jewelDataTbl[1]].nodeWeight
 						end
 					end
 				end
-				--check required nodes
+				-- check required nodes
 				for _, reqNode in ipairs(requiredNodes) do
-					
-					if not ((resultWeights[reqNode] or 0) > 0) then
-						resultWeights = {}
+					if (resultWeights[reqNode] or 0) <= 0 then
+						resultWeights = { }
 						totalWeight = 0
 						break
 					end
 				end
-				for nodeRES, weight in pairs(resultWeights) do
-					local nodes = resultNodes[nodeRES]
+				for resultWeightIdx, resultWeight in pairs(resultWeights) do
+					local resultNode = resultNodes[resultWeightIdx]
 					local nodeId = 0
-					if nodeRES >= 94 then
-						nodeId = legionNodes[nodeRES - 94].id
+					if resultWeightIdx >= 94 then
+						nodeId = legionNodes[resultWeightIdx - 94].id
 					else
-						nodeId = legionAdditions[nodeRES].id
+						nodeId = legionAdditions[resultWeightIdx].id
 					end
-					seedMatchData[curSeed][nodeId] = {}
-					seedMatchData[curSeed][nodeId].matchTotal = weight
-					for _, nodeID in pairs(nodes) do
-						seedMatchData[curSeed][nodeId][nodeID] = 1
+					seedMatchData[curSeed][nodeId] = { }
+					seedMatchData[curSeed][nodeId].matchTotal = resultWeight
+					seedMatchData[curSeed][nodeId].targetNodeNames = { }
+					for _, nodeIndex in pairs(resultNode) do
+						t_insert(seedMatchData[curSeed][nodeId].targetNodeNames, treeData.nodes[nodeIndex].name)
 					end
 				end
 				if totalWeight ~= 0 then
 					seedMatchCount = seedMatchCount + 1
 					seedMatchData[curSeed].matchTotal = totalWeight
-				end
-				-- arbritary limit to avoid freezing PoB when populating search result list
-				if seedMatchCount > 500 then
-					local lowestMatchTotal = math.huge
-					local lowestMatchTotalID = nil
-					for seedId, seedData in pairs(seedMatchData) do
-						if seedData.matchTotal then
-							if lowestMatchTotal > seedData.matchTotal then
-								lowestMatchTotal = seedData.matchTotal
-								lowestMatchTotalID = seedId
-							end
-						end
-					end
-					if lowestMatchTotalID ~= nil then
-						seedMatchData[lowestMatchTotalID] = nil
-						seedMatchCount = seedMatchCount - 1
-					end
 				end
 			end
 			wipeTable(timelessData.searchResults)
@@ -1097,30 +1079,28 @@ function TreeTabClass:FindTimelessJewel()
 			local searchResultsIdx = 1
 			for seedMatch, seedData in pairs(seedMatchData) do
 				if seedData.matchTotal then
-					timelessData.searchResults[searchResultsIdx] = { }
+					timelessData.searchResults[searchResultsIdx] = { label = seedMatch .. ":" }
 					if timelessData.jewelType.id == 5 and seedMatch < 10000 then
-						timelessData.searchResults[searchResultsIdx].label = "" .. seedMatch .. ":"
+						timelessData.searchResults[searchResultsIdx].label = "    " .. timelessData.searchResults[searchResultsIdx].label
 					elseif timelessData.jewelType.id == 5 and seedMatch < 100000 or seedMatch < 1000 then
-						timelessData.searchResults[searchResultsIdx].label = "" .. seedMatch .. ":"
-					else
-						timelessData.searchResults[searchResultsIdx].label = "" .. seedMatch .. ":"
+						timelessData.searchResults[searchResultsIdx].label = "  " .. timelessData.searchResults[searchResultsIdx].label
 					end
-					timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. (" " .. s_format("%05.1f", seedData.matchTotal)):gsub("[%. ]+0", {[" 0"] = "   ", [".0"] = "   "})
-					for nodeIdx, desiredNode in ipairs(desiredNodes) do
+					timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. (" " .. s_format("%04.1f", seedData.matchTotal)):gsub("[%. ]+0", {[" 0"] = "   ", [".0"] = "   "})
+					local sortedNodeArray = { }
+					for _, desiredNode in pairs(desiredNodes) do
 						if seedData[desiredNode.nodeId] then
-							if nodeIdx == 7 then
-								timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. " ..."
-							elseif nodeIdx < 7 then
-								timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. (" " .. s_format("%04.1f", seedData[desiredNode.nodeId].matchTotal)):gsub("[%. ]+0", {[" 0"] = "   ", [".0"] = "   "})
+							if desiredNode.desiredIdx == 7 then
+								sortedNodeArray[7] = " ..."
+							elseif desiredNode.desiredIdx < 7 then
+								sortedNodeArray[desiredNode.desiredIdx] = (" " .. s_format("%04.1f", seedData[desiredNode.nodeId].matchTotal)):gsub("[%. ]+0", {[" 0"] = "   ", [".0"] = "   "})
 							end
 							timelessData.searchResults[searchResultsIdx][desiredNode.nodeId] = timelessData.searchResults[searchResultsIdx][desiredNode.nodeId] or { }
-							for targetNode in pairs(targetNodes) do
-								timelessData.searchResults[searchResultsIdx][desiredNode.nodeId][targetNode] = seedData[desiredNode.nodeId][targetNode]
-							end
-						elseif nodeIdx < 7 then
-							timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. "   0   "
+							timelessData.searchResults[searchResultsIdx][desiredNode.nodeId].targetNodeNames = seedData[desiredNode.nodeId].targetNodeNames
+						elseif desiredNode.desiredIdx < 7 then
+							sortedNodeArray[desiredNode.desiredIdx] = "   0   "
 						end
 					end
+					timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. t_concat(sortedNodeArray)
 					timelessData.searchResults[searchResultsIdx].seed = seedMatch
 					timelessData.searchResults[searchResultsIdx].total = seedData.matchTotal
 					searchResultsIdx = searchResultsIdx + 1

@@ -33,19 +33,19 @@ function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 		tooltip:AddLine(16, "^7" .. self.sharedList.type.label .. " " .. data.seed .. " was successfully added to your build.")
 	end
 	local treeData = self.build.spec.tree
-	tooltip:AddLine(16, "Node Matches:")
-	for _, desiredNode in ipairs(self.sharedList.desiredNodes) do
-		local nodeMatches = { }
-		if self.list[index][desiredNode.nodeId] then
-			for nodeMatch in pairs(self.list[index][desiredNode.nodeId]) do
-				nodeMatches[#nodeMatches + 1] = treeData.nodes[nodeMatch].name
-			end
-		end
-		if #nodeMatches > 0 then
-			tooltip:AddLine(16, "        " .. desiredNode.displayName .. ":\n                " .. t_concat(nodeMatches, "\n                "))
+	local sortedNodeLists = { }
+	for _, desiredNode in pairs(self.sharedList.desiredNodes) do
+		if self.list[index][desiredNode.nodeId] and self.list[index][desiredNode.nodeId].targetNodeNames and #self.list[index][desiredNode.nodeId].targetNodeNames > 0 then
+			sortedNodeLists[desiredNode.desiredIdx] = "        " .. desiredNode.displayName .. ":\n                " .. t_concat(self.list[index][desiredNode.nodeId].targetNodeNames, "\n                ")
 		end
 	end
-	tooltip:AddLine(16, "Combined Node Weight: " .. data.total)
+	if sortedNodeLists then
+		tooltip:AddLine(16, "Node Lists:")
+		for _, sortedNodeList in pairs(sortedNodeLists) do
+			tooltip:AddLine(16, sortedNodeList)
+		end
+		tooltip:AddLine(16, "Combined Node Weight: " .. data.total)
+	end
 end
 
 function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
