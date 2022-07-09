@@ -956,6 +956,7 @@ function TreeTabClass:FindTimelessJewel()
 					targetNodes[nodeId] = true
 				end
 			end
+			local seedMinWeight = 0
 			for inputLine in controls.searchList.buf:gmatch("[^\r\n]+") do
 				local desiredNode = { }
 				for splitLine in inputLine:gmatch("([^,%s]+)") do
@@ -975,6 +976,9 @@ function TreeTabClass:FindTimelessJewel()
 							break
 						end
 					end
+				end
+				if desiredNode[2] == "required" then
+					seedMinWeight = seedMinWeight + 5000
 				end
 				desiredNodes[#desiredNodes + 1] = { nodeId = desiredNode[1], nodeWeight = desiredNode[2], displayName = displayName or desiredNode[1] }
 			end
@@ -1035,7 +1039,7 @@ function TreeTabClass:FindTimelessJewel()
 								seedMatchData[curSeed][nodeId][targetNode] = (seedMatchData[curSeed][nodeId][targetNode] or 0) + 1
 								local nodeWeight = tonumber(desiredNodes[desiredIdx].nodeWeight) or 0.1
 								if seedMatchData[curSeed][nodeId].matchTotal == nil and desiredNodes[desiredIdx].nodeWeight == "required" then
-									nodeWeight = 50
+									nodeWeight = 5000
 								end
 								seedMatchData[curSeed][nodeId].matchTotal = (seedMatchData[curSeed][nodeId].matchTotal or 0) + nodeWeight
 								seedMatchData[curSeed].matchTotal = (seedMatchData[curSeed].matchTotal or 0) + nodeWeight
@@ -1065,6 +1069,12 @@ function TreeTabClass:FindTimelessJewel()
 					end
 				end
 			end
+			-- remove any seed matches that don't contain all desired nodes marked as "required"
+			for seedId, seedData in pairs(seedMatchData) do
+				if seedData.matchTotal and seedData.matchTotal <= seedMinWeight then
+					seedMatchData[seedId] = nil
+				end
+			end
 			wipeTable(timelessData.searchResults)
 			wipeTable(timelessData.sharedResults)
 			timelessData.sharedResults.type = timelessData.jewelType
@@ -1084,6 +1094,10 @@ function TreeTabClass:FindTimelessJewel()
 					end
 					for nodeIdx, desiredNode in ipairs(desiredNodes) do
 						if seedData[desiredNode.nodeId] then
+							if desiredNode.nodeWeight == "required" then
+								seedData[desiredNode.nodeId].matchTotal = seedData[desiredNode.nodeId].matchTotal - 4950
+								seedData.matchTotal = seedData.matchTotal - 4950
+							end
 							if nodeIdx == 7 then
 								timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. " ..."
 							elseif nodeIdx < 7 then
