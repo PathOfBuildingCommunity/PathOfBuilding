@@ -7,11 +7,12 @@
 local m_random = math.random
 local t_concat = table.concat
 
-local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, build, list, sharedList)
+local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, build, list, sharedList, hideHoverControl)
 	self.list = list or { }
 	self.ListControl(anchor, x, y, width, height, 16, true, false, self.list)
 	self.build = build
 	self.sharedList = sharedList
+	self.hideHoverControl = hideHoverControl
 	self.selIndex = nil
 end)
 
@@ -27,24 +28,26 @@ end
 
 function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 	tooltip:Clear()
-	if self.list[index].label:match("B2B2B2") == nil then
-		tooltip:AddLine(16, "^7Double click to add this jewel to your build.")
-	else
-		tooltip:AddLine(16, "^7" .. self.sharedList.type.label .. " " .. data.seed .. " was successfully added to your build.")
-	end
-	local treeData = self.build.spec.tree
-	local sortedNodeLists = { }
-	for _, desiredNode in pairs(self.sharedList.desiredNodes) do
-		if self.list[index][desiredNode.nodeId] and self.list[index][desiredNode.nodeId].targetNodeNames and #self.list[index][desiredNode.nodeId].targetNodeNames > 0 then
-			sortedNodeLists[desiredNode.desiredIdx] = "        " .. desiredNode.displayName .. ":\n                " .. t_concat(self.list[index][desiredNode.nodeId].targetNodeNames, "\n                ")
+	if not self.hideHoverControl:IsMouseOver() then
+		if self.list[index].label:match("B2B2B2") == nil then
+			tooltip:AddLine(16, "^7Double click to add this jewel to your build.")
+		else
+			tooltip:AddLine(16, "^7" .. self.sharedList.type.label .. " " .. data.seed .. " was successfully added to your build.")
 		end
-	end
-	if sortedNodeLists then
-		tooltip:AddLine(16, "Node Lists:")
-		for _, sortedNodeList in pairs(sortedNodeLists) do
-			tooltip:AddLine(16, sortedNodeList)
+		local treeData = self.build.spec.tree
+		local sortedNodeLists = { }
+		for _, desiredNode in pairs(self.sharedList.desiredNodes) do
+			if self.list[index][desiredNode.nodeId] and self.list[index][desiredNode.nodeId].targetNodeNames and #self.list[index][desiredNode.nodeId].targetNodeNames > 0 then
+				sortedNodeLists[desiredNode.desiredIdx] = "        " .. desiredNode.displayName .. ":\n                " .. t_concat(self.list[index][desiredNode.nodeId].targetNodeNames, "\n                ")
+			end
 		end
-		tooltip:AddLine(16, "Combined Node Weight: " .. data.total)
+		if sortedNodeLists then
+			tooltip:AddLine(16, "Node Lists:")
+			for _, sortedNodeList in pairs(sortedNodeLists) do
+				tooltip:AddLine(16, sortedNodeList)
+			end
+			tooltip:AddLine(16, "Combined Node Weight: " .. data.total)
+		end
 	end
 end
 
