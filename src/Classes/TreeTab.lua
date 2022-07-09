@@ -953,7 +953,7 @@ function TreeTabClass:FindTimelessJewel()
 				if not rootNodes[nodeId]
 				and not treeData.nodes[nodeId].isJewelSocket
 				and not treeData.nodes[nodeId].isKeystone
-				and timelessData.jewelType.id == 1 or treeData.nodes[nodeId].isNotable
+				and (treeData.nodes[nodeId].isNotable or timelessData.jewelType.id == 1)
 				and (not controls.socketFilter.state or allocatedNodes[nodeId]) then
 					targetNodes[nodeId] = true
 				end
@@ -1083,7 +1083,7 @@ function TreeTabClass:FindTimelessJewel()
 					elseif timelessData.jewelType.id == 5 and seedMatch < 100000 or seedMatch < 1000 then
 						timelessData.searchResults[searchResultsIdx].label = "  " .. timelessData.searchResults[searchResultsIdx].label
 					end
-					timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. (" " .. s_format("%05.1f", seedData.matchTotal)):gsub("[%. ]+0", {[" 0"] = "   ", [".0"] = "   "})
+					timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. (" " .. s_format("%5.1f", seedData.matchTotal)):gsub("[%. ]+0", {[" 0"] = "   ", [".0"] = "   "})
 					local sortedNodeArray = { }
 					for _, desiredNode in pairs(desiredNodes) do
 						if seedData[desiredNode.nodeId] then
