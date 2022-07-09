@@ -29,7 +29,7 @@ There are 4 categories of jewels that have a helper function:
 
 ### Scanning for matching text
 
-The next steps all use the `scan` function to match text.  It looks for the "earliest and longest match from the [given] pattern list".  If a match is found, it returns the value from the list, the remaining unmatched text, and any captures associated with the matched pattern.  For example, passing in "15% increased fire damage", and a table containing the key "^(%d+)%% increased" would return the value corresponding to the key, "fire damage", and 15.
+The next steps all use the `scan` function to match text. It looks for the earliest and longest match from the given pattern list. If a match is found, it returns the value from the list, the remaining unmatched text, and any captures associated with the matched pattern.  For example, passing in "15% increased fire damage", and a table containing the key "^(%d+)%% increased" would return the value corresponding to the key, "fire damage", and 15.
 
 ### Special mods - `specialModList`
 This is the largest list of `ModParser` and it's a catch-all for mods that don't fit a standard format (and aren't numerous enough to change the parsing logic to accommodate their format).  If the mod has a component captured via Lua pattern, a function can be used to capture the number(s) or other captured text.  E.g. `["lose ([%d%.]+) mana per second"] = function(num) return { mod("ManaDegen", "BASE", num) } end,`
