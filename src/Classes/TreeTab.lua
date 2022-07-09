@@ -861,7 +861,7 @@ function TreeTabClass:FindTimelessJewel()
 		timelessData.jewelType = value
 		controls.conquerorSelect.list = conquerorTypes[timelessData.jewelType.id]
 		controls.conquerorSelect.selIndex = 1
-		controls.nodeSlider2.enabled = timelessData.jewelType.id == 1
+		--controls.nodeSlider2.enabled = timelessData.jewelType.id == 1
 		controls.nodeSelect.selIndex = 1
 		buildMods()
 		controls.searchList:SetText("")
@@ -916,18 +916,19 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "1.0")
 	controls.nodeSlider2:SetVal(0.09)
-	controls.nodeSlider2.enabled = timelessData.jewelType.id == 1
+	--controls.nodeSlider2.enabled = timelessData.jewelType.id == 1
 
 	buildMods()
 	controls.nodeSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 175, 0, 16, "^7Search for Node:")
 	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 200, 18, modData, function(index, value)
 		if value.id then
 			controls.searchList.caret = #controls.searchList.buf + 1
-			if timelessData.jewelType.id == 1 then
+			controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower() .. ", " .. controls.nodeSlider2Value.label:lower())
+			--[[if timelessData.jewelType.id == 1 then
 				controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower() .. ", " .. controls.nodeSlider2Value.label:lower())
 			else
 				controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower())
-			end
+			end]]
 		end
 	end)
 	controls.nodeSelect.tooltipFunc = function(tooltip, mode, index, value)
@@ -1003,10 +1004,13 @@ function TreeTabClass:FindTimelessJewel()
 					end
 				end
 				if desiredNode[2] == "required" or desiredNode[3] == "required" then
+					if timelessData.jewelType.id > 1 then
+						desiredNode[2] = tonumber(desiredNode[2]) or tonumber(desiredNode[3]) or 1
+					end
 					t_insert(requiredNodes, legionId)
 				end
 				desiredIdx = desiredIdx + 1
-				desiredNodes[legionId] = { nodeId = desiredNode[1], nodeWeight = tonumber(desiredNode[2]) or 0, nodeWeight2 = tonumber(desiredNode[3]) or 0, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
+				desiredNodes[legionId] = { nodeId = desiredNode[1], nodeWeight = tonumber(desiredNode[2]) or 0.1, nodeWeight2 = tonumber(desiredNode[3]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
 			end
 			local seedMultiplier = timelessData.jewelType.id == 5 and 20 or 1 -- Elegant Hubris
 			for curSeed = data.timelessJewelSeedMin[timelessData.jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[timelessData.jewelType.id] * seedMultiplier, seedMultiplier do
