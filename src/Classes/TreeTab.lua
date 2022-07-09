@@ -1097,16 +1097,17 @@ function TreeTabClass:FindTimelessJewel()
 						timelessData.searchResults[searchResultsIdx].label = "Seed " .. seedMatch .. ":"
 					end
 					for nodeIdx, desiredNode in ipairs(desiredNodes) do
-						if nodeIdx > 6 then
-							timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. " ..."
-							break
-						elseif seedData[desiredNode.nodeId] then
-							timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. (" " .. s_format("%04.1f", seedData[desiredNode.nodeId].matchTotal)):gsub("[%. ]+0", {[" 0"] = "   ", [".0"] = "   "})
+						if seedData[desiredNode.nodeId] then
+							if nodeIdx == 7 then
+								timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. " ..."
+							elseif nodeIdx < 7 then
+								timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. (" " .. s_format("%04.1f", seedData[desiredNode.nodeId].matchTotal)):gsub("[%. ]+0", {[" 0"] = "   ", [".0"] = "   "})
+							end
 							timelessData.searchResults[searchResultsIdx][desiredNode.nodeId] = timelessData.searchResults[searchResultsIdx][desiredNode.nodeId] or { }
 							for targetNode in pairs(targetNodes) do
 								timelessData.searchResults[searchResultsIdx][desiredNode.nodeId][targetNode] = seedData[desiredNode.nodeId][targetNode]
 							end
-						else
+						elseif nodeIdx < 7 then
 							timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. "   0   "
 						end
 					end
