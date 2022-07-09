@@ -1,15 +1,18 @@
 -- Path of Building
 --
--- Class: PassiveMasteryControl
--- Specialized UI element for selecting timeless jewels by seed
+-- Class: Timeless Jewel List Control
+-- Specialized UI element for listing and generating Timeless Jewels with specific seeds.
 --
 
 local m_random = math.random
+local t_concat = table.concat
 
-local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, list, build)
+local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, build, list, sharedList, hideHoverControl)
 	self.list = list or { }
 	self.ListControl(anchor, x, y, width, height, 16, true, false, self.list)
 	self.build = build
+	self.sharedList = sharedList
+	self.hideHoverControl = hideHoverControl
 	self.selIndex = nil
 end)
 
@@ -25,14 +28,35 @@ end
 
 function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 	tooltip:Clear()
-	tooltip:AddLine(16, "^7Double click to add this jewel to your build.")
+	if not self.hideHoverControl:IsMouseOver() then
+		if self.list[index].label:match("B2B2B2") == nil then
+			tooltip:AddLine(16, "^7Double click to add this jewel to your build.")
+		else
+			tooltip:AddLine(16, "^7" .. self.sharedList.type.label .. " " .. data.seed .. " was successfully added to your build.")
+		end
+		local treeData = self.build.spec.tree
+		local sortedNodeLists = { }
+		for _, desiredNode in pairs(self.sharedList.desiredNodes) do
+			if self.list[index][desiredNode.nodeId] and self.list[index][desiredNode.nodeId].targetNodeNames and #self.list[index][desiredNode.nodeId].targetNodeNames > 0 then
+				sortedNodeLists[desiredNode.desiredIdx] = "        " .. desiredNode.displayName .. ":\n                " .. t_concat(self.list[index][desiredNode.nodeId].targetNodeNames, "\n                ")
+			end
+		end
+		if sortedNodeLists then
+			tooltip:AddLine(16, "Node List:")
+			for _, sortedNodeList in pairs(sortedNodeLists) do
+				tooltip:AddLine(16, sortedNodeList)
+			end
+			tooltip:AddLine(16, "Combined Node Weight: " .. data.total)
+		end
+	end
 end
 
 function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
-	if doubleClick then
-		local variant = m_random(1, 3)
+	if doubleClick and self.list[index].label:match("B2B2B2") == nil then
+		local label = "[" .. data.seed .. "; " .. data.total.. "; " .. self.sharedList.socket.keystone .. "]\n"
+		local variant = self.sharedList.conqueror .. "\n"
 		local itemData = [[
-Elegant Hubris
+Elegant Hubris ]] .. label .. [[
 Timeless Jewel
 League: Legion
 Requires Level: 20
@@ -40,7 +64,7 @@ Limited to: 1
 Variant: Cadiro
 Variant: Victario
 Variant: Caspiro
-Selected Variant:  ]] .. variant .. "\n" .. [[
+Selected Variant:  ]] .. variant .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Commissioned ]] .. data.seed .. [[ coins to commemorate Cadiro
@@ -49,9 +73,9 @@ Implicits: 0
 Passives in radius are Conquered by the Eternal Empire
 Historic
 ]]
-		if data.type == 1 then
+		if self.sharedList.type.id == 1 then
 			itemData = [[
-Glorious Vanity
+Glorious Vanity ]] .. label .. [[
 Timeless Jewel
 League: Legion
 Requires Level: 20
@@ -59,7 +83,7 @@ Limited to: 1
 Variant: Doryani
 Variant: Xibaqua
 Variant: Ahuana
-Selected Variant: ]] .. variant .. "\n" .. [[
+Selected Variant: ]] .. variant .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of ]] .. data.seed .. [[ sacrificed in the name of Doryani
@@ -68,9 +92,9 @@ Implicits: 0
 Passives in radius are Conquered by the Vaal
 Historic
 ]]
-		elseif data.type == 2 then
+		elseif self.sharedList.type.id == 2 then
 			itemData = [[
-Lethal Pride
+Lethal Pride ]] .. label .. [[
 Timeless Jewel
 League: Legion
 Requires Level: 20
@@ -78,7 +102,7 @@ Limited to: 1
 Variant: Kaom
 Variant: Rakiata
 Variant: Akoya
-Selected Variant: ]] .. variant .. "\n" .. [[
+Selected Variant: ]] .. variant .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Commanded leadership over ]] .. data.seed .. [[ warriors under Kaom
@@ -87,9 +111,9 @@ Implicits: 0
 Passives in radius are Conquered by the Karui
 Historic
 ]]
-		elseif data.type == 3 then
+		elseif self.sharedList.type.id == 3 then
 			itemData = [[
-Brutal Restraint
+Brutal Restraint ]] .. label .. [[
 Timeless Jewel
 League: Legion
 Requires Level: 20
@@ -97,7 +121,7 @@ Limited to: 1
 Variant: Asenath
 Variant: Nasima
 Variant: Balbala
-Selected Variant: ]] .. variant .. "\n" .. [[
+Selected Variant: ]] .. variant .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Denoted service of ]] .. data.seed .. [[ dekhara in the akhara of Asenath
@@ -106,14 +130,14 @@ Implicits: 0
 Passives in radius are Conquered by the Maraketh
 Historic
 ]]
-		elseif data.type == 4 then
+		elseif self.sharedList.type.id == 4 then
 			local altVariant = m_random(4, 17)
 			local altVariant2 = m_random(4, 17)
 			if altVariant == altVariant2 then
 				altVariant = altVariant + 1
 			end
 			itemData = [[
-Militant Faith
+Militant Faith ]] .. label .. [[
 Timeless Jewel
 League: Legion
 Requires Level: 20
@@ -138,7 +162,7 @@ Variant: Mana Regen
 Variant: Skill Cost
 Variant: Non-Curse Aura Effect
 Variant: Defences from Shield
-Selected Variant: ]] .. variant .. "\n" .. [[
+Selected Variant: ]] .. variant .. [[
 Selected Alt Variant: ]] .. altVariant .. "\n" .. [[
 Selected Alt Variant Two: ]] .. altVariant2 .. "\n" .. [[
 Radius: Large
@@ -168,5 +192,6 @@ Historic
 		local item = new("Item", itemData)
 		self.build.itemsTab:AddItem(item, true)
 		self.build.itemsTab:PopulateSlots()
+		self.list[index].label = "^xB2B2B2" .. self.list[index].label
 	end
 end
