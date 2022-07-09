@@ -1060,7 +1060,7 @@ function TreeTabClass:FindTimelessJewel()
 				end
 				-- check required nodes
 				for _, reqNode in ipairs(requiredNodes) do
-					if (resultNodes[curSeed].matchNodes[reqNode] or 0) == 0 then
+					if (resultNodes[curSeed][reqNode] or 0) == 0 then
 						resultNodes[curSeed] = nil
 						break
 					end
