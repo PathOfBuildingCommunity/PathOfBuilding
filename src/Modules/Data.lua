@@ -475,49 +475,134 @@ end
 
 -- Load legion jewel data
 
--- local function to check if file exists
-local function fileExists(file)
-	local f = io.open(file, "rb")
-	if f then f:close() end
-	return f ~= nil
+local function loadJewelFile(jewelTypeName)
+	jewelTypeName = "Data/TimelessJewelData/" .. jewelTypeName
+	local jewelData
+
+	local fileHandle = NewFileSearch(main.userPath .. jewelTypeName .. ".bin")
+	local uncompressedFileAttr = { }
+	if fileHandle then
+		uncompressedFileAttr.fileName = fileHandle:GetFileName()
+		uncompressedFileAttr.modified = fileHandle:GetFileModifiedTime()
+	end
+	fileHandle = NewFileSearch(main.userPath .. jewelTypeName .. ".zip")
+	local compressedFileAttr = { }
+	if fileHandle then
+		compressedFileAttr.fileName = fileHandle:GetFileName()
+		compressedFileAttr.modified = fileHandle:GetFileModifiedTime()
+	end
+
+	if uncompressedFileAttr.modified and uncompressedFileAttr.modified > compressedFileAttr.modified then
+		ConPrintf("Uncompressed jewel data is up-to-date, loading " .. uncompressedFileAttr.fileName)
+		local uncompressedFile = io.open(jewelTypeName .. ".bin", "rb")
+		if uncompressedFile then
+			jewelData = uncompressedFile:read("*all")
+			uncompressedFile.close()
+		end
+		if jewelData then
+			return jewelData
+		end
+	end
+
+	ConPrintf("Failed to load " .. main.userPath .. jewelTypeName .. ".bin, or data is out of date, falling back to compressed file")
+	local compressedFile = io.open(jewelTypeName .. ".zip", "rb")
+	if compressedFile then
+		-- load the binary jewel data file
+		jewelData = Inflate(compressedFile:read("*all"))
+		compressedFile:close()
+	end
+
+	if jewelData == nil then
+		ConPrintf("Failed to load either file: " .. jewelTypeName .. ".zip, " .. jewelTypeName .. ".bin")
+	else
+		local uncompressedFile = io.open(jewelTypeName .. ".bin", "wb+")
+		uncompressedFile:write(jewelData)
+		uncompressedFile:close()
+	end
+	return jewelData
 end
 
 -- lazy load a specific timeless jewel type
 -- valid values: "Glorious Vanity", "Lethal Pride", "Brutal Restraint", "Militant Faith", "Elegant Hubris"
-local function loadTimelessJewel(jewelType)
+local function loadTimelessJewel(jewelType, nodeID)
+	local nodeIndex = data.nodeIDList[nodeID] and data.nodeIDList[nodeID].index or nil
 	-- if already loaded, return
-	if data.timelessJewelLUTs[jewelType] and (jewelType == 1 and next(data.timelessJewelLUTs[jewelType].data) or data.timelessJewelLUTs[jewelType].data ~= "") then return end
+	if data.timelessJewelLUTs[jewelType] and ((jewelType == 1 and data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw == nil) or (jewelType ~= 1 and data.timelessJewelLUTs[jewelType].data)) then return end
 
-	ConPrintf("LOADING")
-	
 	if jewelType == 1 then
+		--if data is already loaded but table for specific node is not created, just make table and return
+		if data.timelessJewelLUTs[jewelType] and data.timelessJewelLUTs[jewelType].data[nodeIndex + 1] and data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw then
+			local jewelData = data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw
+			local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
+			local count = 0
+			for seedOffset = 1, (seedSize + 1) do
+				local dataLength = data.timelessJewelLUTs[jewelType].sizes:byte(nodeIndex * seedSize + seedOffset)
+				data.timelessJewelLUTs[jewelType].data[nodeIndex + 1][seedOffset] = jewelData:sub(count + 1, count + dataLength)
+				count = count + dataLength
+			end
+			data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw = nil
+			return
+		end
 		data.timelessJewelLUTs[jewelType] = { data = { } }
 	else
-		data.timelessJewelLUTs[jewelType] = { data = "" }
+		data.timelessJewelLUTs[jewelType] = { }
 	end
 
-	jewelFile = "Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".bin"
+	ConPrintf("LOADING")
 
-	-- load the binary jewel data file
-	if jewelType == 1 then -- "Glorious Vanity"
-		file = assert(io.open(jewelFile, "rb"))
-		local GV_nodecount = 1678
-		local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
-		data.timelessJewelLUTs[jewelType].sizes = file:read(GV_nodecount * seedSize)
-		local count = GV_nodecount * seedSize
-		for i = 1, (GV_nodecount * seedSize) do
-			data.timelessJewelLUTs[jewelType].data[i] = file:read(data.timelessJewelLUTs[jewelType].sizes:byte(i))
-			count = count + data.timelessJewelLUTs[jewelType].sizes:byte(i)
+	local jewelData = loadJewelFile(data.timelessJewelTypes[jewelType]:gsub("%s+", ""))
+
+	if jewelData then
+		if jewelType == 1 then -- "Glorious Vanity"
+			local GV_nodecount = data.nodeIDList.size
+			local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
+			local sizeOffset = GV_nodecount * seedSize
+			data.timelessJewelLUTs[jewelType].sizes = jewelData:sub(1, sizeOffset + 1)
+
+			-- Loop through nodes in order as if we were reading from a file
+			for i = 1, GV_nodecount do
+				-- Find the node this corresponds to
+				local nodeID
+				for k, v in pairs(data.nodeIDList) do
+					if type(v) == "table" and v.index == (i - 1) then
+						nodeID = k
+						break
+					end
+				end
+				-- Preliminary initialization
+				local seedDataLength = data.nodeIDList[nodeID].size
+				data.timelessJewelLUTs[jewelType].data[i] = {}
+				data.timelessJewelLUTs[jewelType].data[i].raw = jewelData:sub(sizeOffset + 1, sizeOffset + seedDataLength)
+				sizeOffset = sizeOffset + seedDataLength
+				if i == (nodeIndex + 1) then
+					-- Final initialization for this seed
+					local jewelData2 = data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw
+					local seedOffset = 0
+					for seedKey = 1, (seedSize + 1) do
+						local dataLength = data.timelessJewelLUTs[jewelType].sizes:byte(nodeIndex * seedSize + seedKey)
+						data.timelessJewelLUTs[jewelType].data[nodeIndex + 1][seedKey] = jewelData2:sub(seedOffset + 1, seedOffset + dataLength)
+						seedOffset = seedOffset + dataLength
+					end
+					data.timelessJewelLUTs[jewelType].data[i].raw = nil
+				end
+			end
+			ConPrintf("Glorious Vanity Lookup Table Loaded! Read " .. sizeOffset .. " bytes")
+
+			--- Code for compressing existing data if it changed
+			--local compressedFileData = Deflate(jewelData)
+			--local file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "wb+"))
+			--file:write(compressedFileData)
+			--file:close()
+			return
+		else
+			data.timelessJewelLUTs[jewelType].data = jewelData
+
+			--- Code for compressing existing data if it changed
+			--local compressedFileData = Deflate(data.timelessJewelLUTs[jewelType].data)
+			--local file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "wb+"))
+			--file:write(compressedFileData)
+			--file:close()
 		end
-		ConPrintf("Glorious Vanity Lookup Table Loaded! Read " .. count .. " bytes")
-		file:close()
-		return
-	elseif fileExists(jewelFile) then
-		file = assert(io.open(jewelFile, "rb"))
-		data.timelessJewelLUTs[jewelType].data = file:read("*all")
-		file:close()
-	else
-		ConPrintf("FAILED to load file: " .. jewelFile)
 	end
 end
 
@@ -545,21 +630,24 @@ data.timelessJewelSeedMax = {
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
 data.timelessJewelLUTs = { }
 data.readLUT = function(seed, nodeID, jewelType)
-	loadTimelessJewel(jewelType)
-	if jewelType == 1 and not next(data.timelessJewelLUTs[jewelType].data) or data.timelessJewelLUTs[jewelType].data == "" then return nil end
+	loadTimelessJewel(jewelType, nodeID)
+	if jewelType == 1 then
+		assert(next(data.timelessJewelLUTs[jewelType].data), "Error occurred loading Glorious Vanity data")
+	else
+		assert(data.timelessJewelLUTs[jewelType].data, "Error occurred loading Timeless Jewel data")
+	end
 	if jewelType == 5 then -- "Elegant Hubris"
 		seed = seed / 20
 	end
-	seedOffset = (seed - data.timelessJewelSeedMin[jewelType])
-	seedSize = (data.timelessJewelSeedMax[jewelType] - data.timelessJewelSeedMin[jewelType]) + 1
+	local seedOffset = (seed - data.timelessJewelSeedMin[jewelType])
+	local seedSize = (data.timelessJewelSeedMax[jewelType] - data.timelessJewelSeedMin[jewelType]) + 1
 	local index = data.nodeIDList[nodeID] and data.nodeIDList[nodeID].index or nil
 	if index then
 		if jewelType == 1 then  -- "Glorious Vanity"
 			local result = { }
-			--print("INDEX:", index, "Stat Count:", data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1))
+
 			for i = 1, data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1) do
-				result[i] = data.timelessJewelLUTs[jewelType].data[index * seedSize + seedOffset + 1]:byte(i)
-				--print(result[i])
+				result[i] = data.timelessJewelLUTs[jewelType].data[index + 1][seedOffset + 1]:byte(i)
 			end
 			return result
 		else

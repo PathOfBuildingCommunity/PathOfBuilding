@@ -41,7 +41,40 @@ function stringify(thing)
 		end
 		return s.."\n}"
 	end
-end 
+end
+
+function parseStats(datFileRow, legionPassive)
+	local descOrders = {}
+	for idx,statKey in pairs(datFileRow.StatsKeys) do
+		local refRow = type(statKey) == "number" and statKey + 1 or statKey._rowIndex
+		local statId = stats:ReadCell(refRow, 1)
+		local range = datFileRow["Stat"..idx]
+
+		local stat = {}
+		stat[statId] = {
+			["min"] = range[1],
+			["max"] = range[2],
+			["index"] = idx
+		}
+		-- Describing stats here to get the orders
+		local statLines, orders = describeStats(stat)
+		stat[statId].statOrder = orders[1]
+		legionPassive.stats[statId] = stat[statId]
+		for i, line in ipairs(statLines) do
+			table.insert(legionPassive.sd, line)
+			descOrders[line] = orders[i]
+		end
+	end
+	-- Have to re-sort since we described the stats earlier
+	table.sort(legionPassive.sd, function(a, b) return descOrders[a] < descOrders[b] end)
+	local sortedStats = {}
+	for stat in pairs(legionPassive.stats) do
+		table.insert(sortedStats, stat)
+	end
+	-- Finally get what we want, sorted stats by order
+	table.sort(sortedStats, function(a, b) return legionPassive.stats[a].statOrder < legionPassive.stats[b].statOrder  end)
+	legionPassive.sortedStats = sortedStats
+end
 
 ---@type table <string, table> @this is the structure used to generate the final data file Data/LegionPassives
 local data = { }
@@ -85,19 +118,7 @@ for i=1, alternatePassiveSkillDat.rowCount do
 	legionPassiveNode.sd = {}
 	legionPassiveNode.stats = {}
 
-	for idx,statKey in pairs(datFileRow.StatsKeys) do
-		refRow = statKey._rowIndex
-		statId = stats:ReadCell(refRow, 1)
-		range = datFileRow["Stat"..idx]
-
-		legionPassiveNode.stats[statId] = {
-			["min"] = range[1],
-			["max"] = range[2],
-		}
-	end
-	for _, line in ipairs(describeStats(legionPassiveNode.stats)) do
-		table.insert(legionPassiveNode.sd, line)
-	end
+	parseStats(datFileRow, legionPassiveNode)
 
 	-- Node group, legion nodes don't use it, so we set it arbitrarily
 	legionPassiveNode.g = LEGION_PASSIVE_GROUP
@@ -147,19 +168,7 @@ for i=1, alternatePassiveAdditionsDat.rowCount do
 	legionPassiveAddition.sd = {}
 	legionPassiveAddition.stats = {}
 
-	for idx,statKey in pairs(datFileRow.StatsKeys) do
-		refRow = statKey + 1
-		statId = stats:ReadCell(refRow, 1)
-		range = datFileRow["Stat"..idx]
-
-		legionPassiveAddition.stats[statId] = {
-			["min"] = range[1],
-			["max"] = range[2],
-		}
-	end
-	for _, line in ipairs(describeStats(legionPassiveAddition.stats)) do
-		table.insert(legionPassiveAddition.sd, line)
-	end
+	parseStats(datFileRow, legionPassiveAddition)
 	data.additions[i-1] = legionPassiveAddition
 end
 
