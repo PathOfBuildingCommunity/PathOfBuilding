@@ -863,6 +863,7 @@ function TreeTabClass:FindTimelessJewel()
 		controls.conquerorSelect.selIndex = 1
 		controls.nodeSelect.selIndex = 1
 		buildMods()
+		controls.searchList:SetText("")
 	end)
 	controls.jewelSelect.selIndex = timelessData.jewelType.id
 
