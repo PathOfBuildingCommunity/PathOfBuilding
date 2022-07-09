@@ -737,6 +737,7 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	return report
 end
 
+local timelessData = { searchResults = { }, sharedResults = { } }
 function TreeTabClass:FindTimelessJewel()
 	local socketViewer = new("PassiveTreeView")
 	local treeData = self.build.spec.tree
@@ -745,8 +746,6 @@ function TreeTabClass:FindTimelessJewel()
 	local controls = { }
 	local modData = { }
 	local ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Dex", "Devotion", "Price of Glory" }
-	local searchResultsShared = { }
-	local searchResults = { }
 	local jewelTypes = {
 		{ label = "Glorious Vanity", name = "vaal", id = 1 },
 		{ label = "Lethal Pride", name = "karui", id = 2 },
@@ -754,7 +753,7 @@ function TreeTabClass:FindTimelessJewel()
 		{ label = "Militant Faith", name = "templar", id = 4 },
 		{ label = "Elegant Hubris", name = "eternal", id = 5 }
 	}
-	local jewelType = jewelTypes[1]
+	timelessData.jewelType = timelessData.jewelType or jewelTypes[1]
 	local conquerorTypes = {
 		[1] = {
 			{ label = "Doryani (Corrupted Soul)", id = 1 },
@@ -782,7 +781,7 @@ function TreeTabClass:FindTimelessJewel()
 			{ label = "Caspiro (Supreme Ostentation)", id = 3 }
 		}
 	}
-	local conquerorType = conquerorTypes[jewelType.id][1]
+	timelessData.conquerorType = timelessData.conquerorType or conquerorTypes[timelessData.jewelType.id][1]
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
 		if socketData.isJewelSocket then
@@ -806,30 +805,33 @@ function TreeTabClass:FindTimelessJewel()
 			t_insert(jewelSockets, {
 				label = label,
 				keystone = keystone,
-				id = socketId,
+				id = socketId
 			})
 		end
 	end
 	t_sort(jewelSockets, function(a, b) return a.label < b.label end)
-	local jewelSocket = jewelSockets[1]
+	for jewelSocketIdx, jewelSocket in pairs(jewelSockets) do
+		jewelSocket.idx = jewelSocketIdx
+	end
+	timelessData.jewelSocket = timelessData.jewelSocket or jewelSockets[1]
 
 	local function buildMods()
 		wipeTable(modData)
 		local smallModData = { }
 		for _, node in pairs(legionNodes) do
-			if node.id:match("^" .. jewelType.name .. "_.+") and not isValueInArray(ignoredMods, node.dn) and not node.ks then
+			if node.id:match("^" .. timelessData.jewelType.name .. "_.+") and not isValueInArray(ignoredMods, node.dn) and not node.ks then
 				if node["not"] then
 					t_insert(modData, {
 						label = node.dn,
 						descriptions = copyTable(node.sd),
-						type = jewelType.name,
+						type = timelessData.jewelType.name,
 						id = node.id
 					})
 				else
 					t_insert(smallModData, {
 						label = node.dn,
 						descriptions = copyTable(node.sd),
-						type = jewelType.name,
+						type = timelessData.jewelType.name,
 						id = node.id
 					})
 				end
@@ -837,11 +839,11 @@ function TreeTabClass:FindTimelessJewel()
 		end
 		for _, addition in pairs(legionAdditions) do
 			-- exclude passives that are already added (vaal, attributes, devotion)
-			if addition.id:match("^" .. jewelType.name .. "_.+") and not isValueInArray(ignoredMods, addition.dn) and jewelType.name ~= "vaal" then
+			if addition.id:match("^" .. timelessData.jewelType.name .. "_.+") and not isValueInArray(ignoredMods, addition.dn) and timelessData.jewelType.name ~= "vaal" then
 				t_insert(modData, {
 					label = addition.dn,
 					descriptions = copyTable(addition.sd),
-					type = jewelType.name,
+					type = timelessData.jewelType.name,
 					id = addition.id
 				})
 			end
@@ -856,29 +858,36 @@ function TreeTabClass:FindTimelessJewel()
 
 	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 265, 25, 0, 16, "^7Jewel Type:")
 	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 43, 0, 200, 18, jewelTypes, function(index, value)
-		jewelType = value
-		controls.conquerorSelect.list = conquerorTypes[jewelType.id]
-		buildMods()
+		timelessData.jewelType = value
+		controls.conquerorSelect.list = conquerorTypes[timelessData.jewelType.id]
+		controls.conquerorSelect.selIndex = 1
 		controls.nodeSelect.selIndex = 1
+		buildMods()
 	end)
+	controls.jewelSelect.selIndex = timelessData.jewelType.id
 
 	controls.conquerorSelectLabel = new("LabelControl", { "TOPLEFT", controls.jewelSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Conqueror:")
-	controls.conquerorSelect = new("DropDownControl", { "LEFT", controls.conquerorSelectLabel, "RIGHT" }, 45, 0, 200, 18, conquerorTypes[jewelType.id], function(index, value)
-		conquerorType = value
+	controls.conquerorSelect = new("DropDownControl", { "LEFT", controls.conquerorSelectLabel, "RIGHT" }, 45, 0, 200, 18, conquerorTypes[timelessData.jewelType.id], function(index, value)
+		timelessData.conquerorType = value
 	end)
+	controls.conquerorSelect.selIndex = timelessData.conquerorType.id
 
 	controls.socketSelectLabel = new("LabelControl", { "TOPLEFT", controls.conquerorSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Jewel Socket:")
 	controls.socketSelect = new("TimelessJewelSocketControl", { "LEFT", controls.socketSelectLabel, "RIGHT" }, 32, 0, 200, 18, jewelSockets, function(index, value)
-		jewelSocket = value
+		timelessData.jewelSocket = value
 	end, self.build, socketViewer, { controls.jewelSelect, controls.conquerorSelect })
+	controls.socketSelect.selIndex = timelessData.jewelSocket.idx
 	
 	controls.socketFilterLabel = new("LabelControl", { "TOPLEFT", controls.socketSelectLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Filter Nodes:")
-	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 37, 0, 18)
+	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 37, 0, 18, nil, function(value)
+		timelessData.socketFilter = value
+	end)
 	controls.socketFilter.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Enable this option to exclude nodes that you do not have allocated on your active passive skill tree.")
 		tooltip:AddLine(16, "^7This can be useful if you're never going to path towards those excluded nodes and don't care what happens to them.")
 	end
+	controls.socketFilter.state = timelessData.socketFilter
 
 	controls.nodeSliderLabel = new("LabelControl", { "TOPLEFT", controls.socketFilterLabel, "TOPLEFT" }, 0, 25, 0, 16, "^7Node Weight:")
 	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 32, 0, 176, 16, function(value)
@@ -910,14 +919,16 @@ function TreeTabClass:FindTimelessJewel()
 	end
 
 	controls.searchListLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, -174, 25, 0, 16, "^7Desired Nodes:")
-	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 325, 200, "", nil, "^%C\t\n", nil, nil, 16, true)
+	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 325, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
+		timelessData.searchList = value
+	end, 16, true)
 
 	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", controls.nodeSelectLabel, "TOPLEFT" }, 167, 25, 0, 16, "^7Search Results:")
-	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 325, 200, self.build, searchResults, searchResultsShared)
+	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 325, 200, self.build, timelessData.searchResults, timelessData.sharedResults)
 
 	controls.search = new("ButtonControl", nil, -90, 410, 80, 20, "Search", function()
-		if treeData.nodes[jewelSocket.id] and treeData.nodes[jewelSocket.id].isJewelSocket then
-			local radiusNodes = treeData.nodes[jewelSocket.id].nodesInRadius[3] -- large radius around jewelSocket.id
+		if treeData.nodes[timelessData.jewelSocket.id] and treeData.nodes[timelessData.jewelSocket.id].isJewelSocket then
+			local radiusNodes = treeData.nodes[timelessData.jewelSocket.id].nodesInRadius[3] -- large radius around timelessData.jewelSocket.id
 			local allocatedNodes = { }
 			local targetNodes = { }
 			local desiredNodes = { }
@@ -967,17 +978,17 @@ function TreeTabClass:FindTimelessJewel()
 				desiredNodes[#desiredNodes + 1] = { nodeId = desiredNode[1], nodeWeight = desiredNode[2], displayName = displayName or desiredNode[1] }
 			end
 			local seedMatchCount = 0
-			local seedMultiplier = jewelType.id == 5 and 20 or 1 -- Elegant Hubris
-			for curSeed = data.timelessJewelSeedMin[jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[jewelType.id] * seedMultiplier, seedMultiplier do
+			local seedMultiplier = timelessData.jewelType.id == 5 and 20 or 1 -- Elegant Hubris
+			for curSeed = data.timelessJewelSeedMin[timelessData.jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[timelessData.jewelType.id] * seedMultiplier, seedMultiplier do
 				seedMatchData[curSeed] = { }
 				local seedMatch = false
 				for targetNode in pairs(targetNodes) do
-					local jewelDataTbl = data.readLUT(curSeed, targetNode, jewelType.id)
+					local jewelDataTbl = data.readLUT(curSeed, targetNode, timelessData.jewelType.id)
 					if not next(jewelDataTbl) then
-						ConPrintf("Missing LUT: " .. jewelType.label)
+						ConPrintf("Missing LUT: " .. timelessData.jewelType.label)
 					else
 						local nodeIds = { }
-						if jewelType.id == 1 then
+						if timelessData.jewelType.id == 1 then
 							local headerSize = #jewelDataTbl
 							if headerSize == 2 or headerSize == 3 then
 								nodeIds[#nodeIds + 1] = legionNodes[jewelDataTbl[1] - 94].id
@@ -1068,48 +1079,48 @@ function TreeTabClass:FindTimelessJewel()
 					end
 				end
 			end
-			wipeTable(searchResultsShared)
-			searchResultsShared.type = jewelType
-			searchResultsShared.conqueror = conquerorType.id
-			searchResultsShared.socket = jewelSocket
-			searchResultsShared.desiredNodes = desiredNodes
-			wipeTable(searchResults)			
+			wipeTable(timelessData.searchResults)
+			wipeTable(timelessData.sharedResults)
+			timelessData.sharedResults.type = timelessData.jewelType
+			timelessData.sharedResults.conqueror = timelessData.conquerorType.id
+			timelessData.sharedResults.socket = timelessData.jewelSocket
+			timelessData.sharedResults.desiredNodes = desiredNodes
 			local searchResultsIdx = 1
 			for seedMatch, seedData in pairs(seedMatchData) do
 				if seedData.matchTotal then
-					searchResults[searchResultsIdx] = { }
-					if jewelType.id == 5 and seedMatch < 10000 then
-						searchResults[searchResultsIdx].label = "Seed     " .. seedMatch .. ":"
-					elseif jewelType.id == 5 and seedMatch < 100000 or seedMatch < 1000 then
-						searchResults[searchResultsIdx].label = "Seed   " .. seedMatch .. ":"
+					timelessData.searchResults[searchResultsIdx] = { }
+					if timelessData.jewelType.id == 5 and seedMatch < 10000 then
+						timelessData.searchResults[searchResultsIdx].label = "Seed     " .. seedMatch .. ":"
+					elseif timelessData.jewelType.id == 5 and seedMatch < 100000 or seedMatch < 1000 then
+						timelessData.searchResults[searchResultsIdx].label = "Seed   " .. seedMatch .. ":"
 					else
-						searchResults[searchResultsIdx].label = "Seed " .. seedMatch .. ":"
+						timelessData.searchResults[searchResultsIdx].label = "Seed " .. seedMatch .. ":"
 					end
 					for nodeIdx, desiredNode in ipairs(desiredNodes) do
 						if nodeIdx > 6 then
-							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. " ..."
+							timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. " ..."
 							break
 						elseif seedData[desiredNode.nodeId] then
-							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. (" " .. s_format("%04.1f", seedData[desiredNode.nodeId].matchTotal)):gsub("[%. ]+0", {[" 0"] = "   ", [".0"] = "   "})
-							searchResults[searchResultsIdx][desiredNode.nodeId] = searchResults[searchResultsIdx][desiredNode.nodeId] or { }
+							timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. (" " .. s_format("%04.1f", seedData[desiredNode.nodeId].matchTotal)):gsub("[%. ]+0", {[" 0"] = "   ", [".0"] = "   "})
+							timelessData.searchResults[searchResultsIdx][desiredNode.nodeId] = timelessData.searchResults[searchResultsIdx][desiredNode.nodeId] or { }
 							for targetNode in pairs(targetNodes) do
-								searchResults[searchResultsIdx][desiredNode.nodeId][targetNode] = seedData[desiredNode.nodeId][targetNode]
+								timelessData.searchResults[searchResultsIdx][desiredNode.nodeId][targetNode] = seedData[desiredNode.nodeId][targetNode]
 							end
 						else
-							searchResults[searchResultsIdx].label = searchResults[searchResultsIdx].label .. "   0   "
+							timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. "   0   "
 						end
 					end
-					searchResults[searchResultsIdx].seed = seedMatch
-					searchResults[searchResultsIdx].total = seedData.matchTotal
+					timelessData.searchResults[searchResultsIdx].seed = seedMatch
+					timelessData.searchResults[searchResultsIdx].total = seedData.matchTotal
 					searchResultsIdx = searchResultsIdx + 1
 				end
 			end
-			t_sort(searchResults, function(a, b) return a.total > b.total end)
+			t_sort(timelessData.searchResults, function(a, b) return a.total > b.total end)
 		end
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 410, 80, 20, "Reset", function()
 		controls.searchList:SetText("")
-		wipeTable(searchResults)
+		wipeTable(timelessData.searchResults)
 	end)
 	controls.close = new("ButtonControl", nil, 90, 410, 80, 20, "Cancel", function()
 		main:ClosePopup()
