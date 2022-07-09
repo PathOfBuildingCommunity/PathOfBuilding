@@ -879,7 +879,7 @@ function TreeTabClass:FindTimelessJewel()
 		timelessData.jewelSocket = value
 	end, self.build, socketViewer, { controls.jewelSelect, controls.conquerorSelect })
 	controls.socketSelect.selIndex = timelessData.jewelSocket.idx
-	
+
 	controls.socketFilterLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 100, 0, 16, "^7Filter Nodes:")
 	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 18, nil, function(value)
 		timelessData.socketFilter = value
@@ -1063,7 +1063,7 @@ function TreeTabClass:FindTimelessJewel()
 				end
 				-- check required nodes
 				for _, reqNode in ipairs(requiredNodes) do
-					if (resultWeights[reqNode] or 0) <= 0 then
+					if (resultWeights[reqNode] or 0) == 0 then
 						resultWeights = { }
 						totalWeight = 0
 						break
@@ -1096,7 +1096,7 @@ function TreeTabClass:FindTimelessJewel()
 			timelessData.sharedResults.desiredNodes = desiredNodes
 			local function formatSearchValue(input)
 				local matchPattern = "[%.| ]0"
-				local replacePattern = {[" 0"] = "   ", [".0"] = "   "}
+				local replacePattern = { [" 0"] = "   ", [".0"] = "   " }
 				return (" " .. s_format("%0006.1f", input)):gsub(matchPattern, replacePattern):gsub(matchPattern, replacePattern):gsub(matchPattern, replacePattern)
 			end
 			local searchResultsIdx = 1
