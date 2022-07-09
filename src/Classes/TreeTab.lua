@@ -1071,7 +1071,7 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			-- remove any seed matches that don't contain all desired nodes marked as "required"
 			for seedId, seedData in pairs(seedMatchData) do
-				if seedData.matchTotal and seedData.matchTotal <= seedMinWeight then
+				if seedData.matchTotal and seedData.matchTotal < seedMinWeight then
 					seedMatchData[seedId] = nil
 				end
 			end
