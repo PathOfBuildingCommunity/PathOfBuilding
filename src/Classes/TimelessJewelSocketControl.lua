@@ -45,6 +45,7 @@ function TimelessJewelSocketClass:Draw(viewPort)
 		SetDrawColor(1, 1, 1, 0.2)
 		DrawImage(nil, 149, 0, 2, 300)
 		DrawImage(nil, 0, 149, 300, 2)
+		SetDrawColor(1, 1, 1, 1) -- bug fix, don't mind me
 		SetViewport()
 		SetDrawLayer(nil, 0)
 	end
