@@ -10,7 +10,7 @@ for _, name in pairs(ItemTypes) do
 	for line in io.lines("../Data/Uniques/"..name..".lua") do
 		local specName, specVal = line:match("^([%a ]+): (.+)$")
 		if not specName and line ~= "]],[[" then
-			local variants = line:match("{[vV]ariant:([%d,]+)}")
+			local variants = line:match("{[vV]ariant:([%d,.]+)}")
 			local fractured = line:match("({fractured})") or ""
 			local modText = line:gsub("{.+}", ""):gsub("{.+}", ""):gsub("–", "-") -- Clean EM dash
 			local possibleMods = modTextMap[modText]
@@ -24,7 +24,7 @@ for _, name in pairs(ItemTypes) do
 				end
 				out:write(fractured)
 				if variants then
-					out:write("{variant:" .. variants .. "}")
+					out:write("{variant:" .. variants:gsub(".", ",") .. "}")
 				end
 				out:write(gggMod, "\n")
 			else
