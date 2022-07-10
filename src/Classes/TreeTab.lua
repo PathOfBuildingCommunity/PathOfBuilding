@@ -1138,18 +1138,17 @@ function TreeTabClass:FindTimelessJewel()
 					elseif timelessData.jewelType.id == 5 and seedMatch < 100000 or seedMatch < 1000 then
 						timelessData.searchResults[searchResultsIdx].label = "  " .. timelessData.searchResults[searchResultsIdx].label
 					end
-					timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. formatSearchValue(seedWeights[seedMatch])
 					local sortedNodeArray = { }
 					for legionId, desiredNode in pairs(desiredNodes) do
 						if seedData[legionId] then
-							if desiredNode.desiredIdx == 5 then
-								sortedNodeArray[5] = " ..."
-							elseif desiredNode.desiredIdx < 5 then
+							if desiredNode.desiredIdx == 6 then
+								sortedNodeArray[6] = " ..."
+							elseif desiredNode.desiredIdx < 6 then
 								sortedNodeArray[desiredNode.desiredIdx] = formatSearchValue(seedData[legionId].totalWeight)
 							end
 							timelessData.searchResults[searchResultsIdx][desiredNode.nodeId] = timelessData.searchResults[searchResultsIdx][desiredNode.nodeId] or { }
 							timelessData.searchResults[searchResultsIdx][desiredNode.nodeId].targetNodeNames = seedData[legionId].targetNodeNames
-						elseif desiredNode.desiredIdx < 5 then
+						elseif desiredNode.desiredIdx < 6 then
 							sortedNodeArray[desiredNode.desiredIdx] = "       0   "
 						end
 					end
