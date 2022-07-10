@@ -47,7 +47,7 @@ Implicits: 2
 {variant:2}+2 to Level of all Lightning Spell Skill Gems
 +(80-120) to Intelligence
 (30-50)% increased Lightning Damage
-+5% to maximum Lightning Resistance
++5% to Maximum Lightning Resistance
 40% increased Strength Requirement
 Damage Penetrates 20% Lightning Resistance
 ]],[[
@@ -66,6 +66,15 @@ Implicits: 2
 Adds (5-15) to (100-140) Lightning Damage to Spells
 40% increased Strength Requirement
 Damage Penetrates 20% Lightning Resistance
+]],[[
+The Annihilating Light
+Quarterstaff
+Source: Drops from unique{The Searing Exarch}
+Requires Level 68, 78 Str, 78 Int
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+(60-70)% reduced Elemental Resistances
+Deal Triple Damage with Elemental Skills
 ]],[[
 Atziri's Rule
 Judgement Staff
@@ -102,13 +111,6 @@ Implicits: 1
 Curse Enemies with Flammability on Block, with 20% increased Effect
 Reflects (22-44) Fire Damage to Attackers on Block
 ]],[[
-Cane of Kulemak
-Serpentine Staff
-Requires Level 68, 85 Str, 85 Int
-Implicits: 1
-+20% Chance to Block Attack Damage while wielding a Staff
-(60-90)% increased Unveiled Modifier magnitudes
-]],[[
 Cane of Unravelling
 Ezomyte Staff
 Variant: Pre 3.5.0
@@ -123,7 +125,7 @@ Implicits: 2
 {variant:2,3}(20-30)% increased Chaos Damage
 {variant:2,3}+(40-55)% to Chaos Damage over Time Multiplier
 2% increased Cast Speed per Power Charge
-Gain a Power Charge after Spending a total of 200 Mana
+Gain a Power Charge after spending a total of 200 Mana
 2 Mana Regenerated per Second per Power Charge
 ]],[[
 Disintegrator
@@ -221,7 +223,7 @@ Variant: Current
 Requires Level 66, 113 Str, 113 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}Socketed Gems are supported by Level 10 Life Leech
+{variant:1}Socketed Gems are supported by level 10 Life Leech
 {variant:2}Socketed Gems are supported by Level 1 Chance to Bleed
 Grants Summon Harbinger of Brutality Skill
 5% Chance to Block Attack Damage while wielding a Staff
@@ -265,13 +267,12 @@ Implicits: 2
 ]],[[
 Fencoil
 Gnarled Branch
-Upgrade: Upgrades to unique{Mirebough} via prophecy{Trapped in the Tower}
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-Socketed Gems are Supported by Level 8 Trap
+Socketed Gems are Supported by level 8 Trap
 (40-50)% increased Damage
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
@@ -303,13 +304,13 @@ Gain (30-40)% of Physical Damage as Extra Damage of a random Element while you a
 ]],[[
 Mirebough
 Gnarled Branch
-Source: Upgraded from unique{Fencoil} via prophecy{Trapped in the Tower}
+Source: No longer obtainable
 Requires Level 32
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 Socketed Gems are Supported by Level 16 Trap
 Socketed Gems are Supported by Level 16 Cluster Trap
-Socketed Gems are Supported by Level 16 Trap And Mine Damage
+Socketed Gems are Supported by Level 16 Trap and Mine Damage
 (10-20)% increased maximum Mana
 (10-20)% increased maximum Life
 (40-50)% increased Damage
@@ -362,7 +363,7 @@ Implicits: 1
 {variant:1}Adds (130-150) to (200-250) Fire Damage to Spells
 {variant:2}Adds (230-250) to (300-350) Fire Damage to Spells
 {variant:3}Battlemage
-Grants Level 15 Vengeance Skill
+Grants level 15 Vengeance Skill
 {variant:1}100% increased Fire Damage if you have been Hit Recently
 {variant:2,3}100% increased Fire Damage
 Immune to Freeze and Chill while Ignited
@@ -393,14 +394,13 @@ Implicits: 3
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 {variant:3,4}20% Chance to Block Spell Damage while wielding a Staff
-Socketed Gems are Supported by Level 30 Greater Spell Echo
+Socketed Gems are Supported by level 30 Greater Spell Echo
 (120-160)% increased Spell Damage
 {variant:1,2,3}100% increased maximum Mana
 {variant:4}50% increased maximum Mana
 ]],[[
 Realmshaper
 Iron Staff
-Upgrade: Upgrades to unique{Realm Ender} via prophecy{The Beginning and the End}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 18, 35 Str, 35 Int
@@ -409,16 +409,16 @@ Implicits: 2
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 +1 to Level of Socketed Fire Gems
 +1 to Level of Socketed Cold Gems
-Socketed Gems are Supported by Level 5 Cold to Fire
+Socketed Gems are Supported by level 5 Cold to Fire
 Adds (10-15) to (20-25) Fire Damage
 Adds (10-15) to (20-25) Cold Damage
 (30-50)% increased Elemental Damage
 ]],[[
 Realm Ender
 Iron Staff
-Source: Upgraded from unique{Realmshaper} using prophecy{The Beginning and the End}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 40, 35 Str, 35 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
@@ -426,7 +426,7 @@ Implicits: 2
 +1 to Level of Socketed Fire Gems
 +1 to Level of Socketed Cold Gems
 +2 to Level of Socketed Elemental Gems
-Socketed Gems are Supported by Level 5 Cold to Fire
+Socketed Gems are Supported by level 5 Cold to Fire
 Adds (10-15) to (20-25) Fire Damage
 Adds (10-15) to (20-25) Cold Damage
 (30-50)% increased Elemental Damage
@@ -469,8 +469,8 @@ Requires Level 49, 85 Str, 85 Int
 Implicits: 2
 {variant:1}18% Chance to Block Attack Damage while wielding a Staff
 {variant:2}20% Chance to Block Attack Damage while wielding a Staff
-+(15-20) to all Attributes
-+(5-7)% to all Elemental Resistances
++(15-20) to All Attributes
++(5-7)% to All Elemental Resistances
 (60-100)% increased Projectile Damage
 20% increased Light Radius
 Socketed Gems fire 4 additional Projectiles
@@ -485,16 +485,15 @@ Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+20% Chance to Block Attack Damage while wielding a Staff
-Trigger Level 20 Summon Phantasm Skill when you Consume a corpse
+Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse
 (100-140)% increased Spell Damage
 (25-30)% increased Cast Speed
 (80-100)% increased Mana Regeneration Rate
 Minions deal (45-51) to (66-78) additional Physical Damage
-If you Consumed a corpse Recently, you and nearby Allies Regenerate 5% of Life per second
+If you Consumed a Corpse Recently, you and nearby Allies regenerate 5% of Life per second
 ]],[[
 The Stormheart
 Royal Staff
-Upgrade: Upgrades to unique{The Stormwall} via prophecy{The Storm Spire}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 28, 51 Str, 51 Int
@@ -505,13 +504,13 @@ Implicits: 2
 Adds (25-35) to (45-60) Cold Damage
 Adds (1-10) to (70-90) Lightning Damage
 (20-35)% increased Critical Strike Chance
-{variant:1}You cannot be Shocked while Frozen
+{variant:1}You Cannot Be Shocked While Frozen
 {variant:2}You Cannot Be Shocked While Chilled
 {variant:2}50% chance to Shock Chilled Enemies
 ]],[[
 The Stormwall
 Royal Staff
-Source: Upgraded from unique{The Stormheart} via prophecy{The Storm Spire}
+Source: Drops from any endgame map boss
 Requires Level 60, 51 Str, 51 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
@@ -571,7 +570,7 @@ Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 +1 to Level of Socketed Support Gems
-Grants Level 1 Icestorm Skill
+Grants level 1 Icestorm Skill
 (8-12)% increased Cast Speed
 1% increased Spell Damage per 10 Intelligence
 (14-18)% increased Intelligence
@@ -597,8 +596,8 @@ Implicits: 2
 +1 to Level of all Spell Skill Gems
 15% Chance to Block
 (60-80)% increased Spell Damage
-+(70-100) to maximum Energy Shield
++(70-100) to Maximum Energy Shield
 Reflects 1 to 150 Lightning Damage to Melee Attackers
-20% chance for Energy Shield Recharge to start when you Block
+20% Chance for Energy Shield Recharge to Start when you Block
 ]],
 }

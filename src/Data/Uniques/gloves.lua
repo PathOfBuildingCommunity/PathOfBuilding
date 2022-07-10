@@ -7,14 +7,16 @@ Atziri's Acuity
 Vaal Gauntlets
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Variant: Pre 3.1.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 75, 100 Str
 +(60-80) to Intelligence
 +(60-75) to maximum Life
 (200-220)% increased Armour
-(25-35)% increased Global Critical Strike Chance
+{variant:2}(25-35)% increased Global Critical Strike Chance
+{variant:3}(40-60)% increased Global Critical Strike Chance
 {variant:1}Life and Mana Leech from Critical Strikes are instant
-{variant:2}You have Vaal Pact if you've dealt a Critical Strike Recently
+{variant:2,3}You have Vaal Pact if you've dealt a Critical Strike Recently
 ]],[[
 Replica Atziri's Acuity
 Vaal Gauntlets
@@ -25,6 +27,18 @@ Requires Level 63, 100 Str
 (200-220)% increased Armour
 +(60-75) to maximum Life
 You have Perfect Agony if you've dealt a Critical Strike recently
+]],[[
+Ceaseless Feast
+Spiked Gloves
+Source: Drops from unique{The Infinite Hunger}
+Requires Level 70, 95 Str
+Implicits: 1
+(16–20)% increased Melee Damage
+Adds (2–3) to (22–26) Physical Damage to Attacks
+(100–150)% increased Armour
+(20–30)% chance to inflict Corrosion on Hit with Attacks
+(20–30)% chance to gain an Endurance Charge on Hitting an Enemy with no Armour
+(20–30)% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating
 ]],[[
 Craiceann's Pincers
 Titan Gauntlets
@@ -45,7 +59,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.10.0
 Variant: Current
 Requires Level 63, 100 Str
-{variant:2,3,4}Grants Level 20 Doryani's Touch Skill
+{variant:2,3,4}Grants level 20 Doryani's Touch Skill
 {variant:1,2,3}+30 to maximum Energy Shield
 {variant:4}+(80-100) to maximum Energy Shield
 {variant:1,2,3}10% chance to Shock
@@ -73,7 +87,7 @@ Goliath Gauntlets
 Requires Level 53, 76 Str
 +(400-600) to Armour
 Knockback direction is reversed
-Socketed Gems are Supported by Level 10 Knockback
+Socketed Gems are Supported by level 10 Knockback
 ]],[[
 Giantsbane
 Bronze Gauntlets
@@ -152,7 +166,6 @@ Adds (8-12) to (15-20) Physical Damage to Attacks
 ]],[[
 Hrimsorrow
 Goathide Gloves
-Upgrade: Upgrades to unique{Hrimburn} via prophecy{Fire and Ice}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 9, 17 Dex
@@ -168,7 +181,7 @@ Reflects 10 Cold Damage to Melee Attackers
 ]],[[
 Hrimburn
 Goathide Gloves
-Source: Upgraded from unique{Hrimsorrow} via prophecy{Fire and Ice}
+Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24, 17 Dex
@@ -213,12 +226,15 @@ Your Mark transfers to another Enemy when Marked Enemy dies
 ]],[[
 Oskarm
 Nubuck Gloves
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 52, 50 Dex
 Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy
 (30-40)% increased Accuracy Rating
 +(40-50) to maximum Life
 -(20-10)% to Chaos Resistance
-(7-8)% chance to Dodge Spell Damage
+{variant:1}(7-8)% chance to Suppress Spell Damage
+{variant:2}(10-12)% chance to Suppress Spell Damage
 2% increased Attack Critical Strike Chance per 200 Accuracy Rating
 ]],[[
 Painseeker
@@ -236,7 +252,7 @@ Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
 Allelopathy
 Sorcerer Gloves
 Requires Level 69, 97 Int
-Grants Level 22 Blight Skill
+Grants level 22 Blight Skill
 (20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect of Area Skills
@@ -270,9 +286,22 @@ Requires Level 25, 39 Int
 {variant:1}Curse Enemies with Temporal Chains on Hit
 {variant:2,3}Curse Enemies with Temporal Chains on Hit, with 40% increased Effect
 {variant:3}Non-Aura Curses you inflict are not removed from Dying Enemies
-{variant:3}Enemies near corpses affected by your Curses are Blinded
+{variant:3}Enemies near Corpses affected by your Curses are Blinded
 {variant:3}Enemies killed near Corpses affected by your Curses explode, dealing
 {variant:3}3% of their Life as Physical Damage
+]],[[
+Black Zenith
+Fingerless Silk Gloves
+Source: Drops from unique{The Black Star}
+Requires Level 70, 95 Int
+Implicits: 1
+(12-16)% increased Spell Damage
+Socketed Projectile Spells deal 150% more Damage with Hits
+Socketed Projectile Spells have +4 seconds to Cooldown
+Socketed Projectile Spells fire 4 additional Projectiles
+Socketed Projectile Spells fire Projectiles in a circle
+Socketed Projectile Spells have 80% less Skill Effect Duration
+(140-180)% increased Energy Shield
 ]],[[
 Demon Stitcher
 Satin Gloves
@@ -285,7 +314,6 @@ Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
 ]],[[
 Doedre's Tenure
 Velvet Gloves
-Upgrade: Upgrades to unique{Doedre's Malevolence} via prophecy{The Malevolent Witch}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 12, 21 Int
@@ -300,7 +328,7 @@ Requires Level 12, 21 Int
 ]],[[
 Doedre's Malevolence
 Velvet Gloves
-Source: Upgraded from unique{Doedre's Tenure} via prophecy{The Malevolent Witch}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 21 Int
@@ -314,7 +342,6 @@ Adds (48-56) to (73-84) Chaos Damage to Spells
 ]],[[
 Grip of the Council
 Arcanist Gloves
-Source: prophecy{The Unbreathing Queen V}
 Requires Level 60, 95 Int
 +30 to Strength
 +(30-50) to maximum Life
@@ -379,7 +406,7 @@ Requires Level 55, 79 Int
 {variant:3,4}(180-250)% increased Energy Shield
 {variant:1}80% increased Mana Cost of Skills
 {variant:2,3}(40-80)% increased Mana Cost of Skills
-{variant:4}+(40-80) to Total Mana Cost of Skills
+{variant:4}Lose (40-80) Mana when you use a Skill
 +(15-20) Energy Shield gained on Kill
 ]],
 -- Gloves: Armour/Evasion
@@ -423,9 +450,18 @@ Requires Level 15
 (6-9)% increased Attack Speed
 (80-120)% increased Armour and Evasion
 (3-4) Life Regenerated per second
-Recover 20% of your Maximum Life on Rampage
+Recover 20% of Life on Rampage
 Kills grant an additional Vaal Soul if you have Rampaged Recently
 Rampage
+]],[[
+Gravebind
+Hydrascale Gauntlets
+Requires Level 59, 45 Str, 45 Dex
+Implicits: 0
+(100-150)% increased Armour and Evasion
++(19-29)% to Chaos Resistance
++(15-25) Life gained on kill
+Nearby Enemies Killed by anyone count as being Killed by you instead
 ]],[[
 Haemophilia
 Serpentscale Gauntlets
@@ -505,7 +541,7 @@ Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
 Wyrmsign
 Wyrmscale Gauntlets
 Requires Level 49, 38 Str, 38 Dex
-Socketed Gems are Supported by Level 5 Concentrated Effect
+Socketed Gems are Supported by level 5 Concentrated Effect
 (120-160)% increased Armour and Evasion
 +(50-70) to maximum Life
 4% reduced Mana Cost per Endurance Charge
@@ -636,7 +672,7 @@ Adds (30-36) to (44-50) Cold Damage to Attacks
 +(40-50)% to Cold Resistance
 {variant:2}50% increased Herald of Ice Damage
 25% increased Freeze Duration on Enemies
-Your Hits can only Kill Frozen Enemies
+Your Hits can only Kill Frozen enemies
 ]],[[
 Triad Grip
 Mesh Gloves
@@ -650,7 +686,6 @@ Minions have (5-10)% chance to Freeze, Shock and Ignite
 ]],[[
 Volkuur's Guidance
 Zealot Gloves
-Source: Drops from The Pale Council
 Variant: Fire
 Variant: Cold
 Variant: Lightning
@@ -714,8 +749,8 @@ Requires Level 31, 25 Dex 25 Int
 (5-7)% increased Cast Speed
 (100-150)% increased Evasion and Energy Shield
 Raised Zombies have (80-100)% increased maximum Life
-Raise Zombie does not require a corpse
-Your Raised Zombies count as corpses
+Raise Zombie does not require a Corpse
+Your Raised Zombies count as Corpses
 ]],[[
 Architect's Hand
 Variant: Pre 3.14.0
@@ -742,7 +777,7 @@ Requires Level 45, 35 Dex, 35 Int
 +(30-40) to Dexterity
 (200-250)% increased Evasion and Energy Shield
 (20-30)% reduced Trap Throwing Speed
-Skills which throw Traps have Blood Magic
+Skills which throw Traps Cost Life instead of Mana
 Skills used by Traps have (10-20)% increased Area of Effect
 Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
 10% chance to gain an Endurance, Frenzy or Power Charge when any of your Traps is Triggered by an Enemy
@@ -756,7 +791,7 @@ Requires Level 58, 45 Dex, 45 Int
 +(50-60) to maximum Life
 +6 to Maximum Life per Elder Item Equipped
 +4% to Damage over Time Multiplier for Ailments per Elder Item Equipped
-8% increased Effect of Non-Damaging Ailments per Elder Item Equipped
+8% increased Effect of non-Damaging Ailments per Elder Item Equipped
 Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
 Elder Item
 ]],[[
@@ -857,7 +892,7 @@ Requires Level 58, 45 Dex, 45 Int
 2% increased Attack Speed per Frenzy Charge
 6% increased Accuracy Rating per Frenzy Charge
 10% reduced Frenzy Charge Duration per Frenzy Charge
-{variant:1}While at maximum Frenzy Charges, Attacks Poison Enemies
+{variant:1}While at Maximum Frenzy Charges, Attacks Poison Enemies
 {variant:2,3}Attacks have 60% chance to Poison while at maximum Frenzy Charges
 {variant:3}+5% to Damage over Time Multiplier for Poison per Frenzy Charge
 ]],[[
@@ -878,7 +913,7 @@ Variant: Pre 1.0.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 67, 51 Dex, 51 Int
-Socketed Gems are Supported by Level 18 Added Lightning Damage
+Socketed Gems are Supported by level 18 Added Lightning Damage
 {variant:1,3}Adds 1 to 100 Lightning Damage to Attacks
 {variant:2}Adds 1 to 40 Lightning Damage to Attacks
 10% increased Attack Speed
@@ -900,11 +935,14 @@ Flasks gain 1 Charge per second if you've Hit a Unique Enemy Recently
 ]],[[
 Nightgrip
 Runic Gages
+Variant: Pre 3.16.0
+Variant: Current
 League: Expedition
 Requires Level 48, 31 Str, 31 Dex, 31 Int
 (33–48)% increased Ward
 +(17–23)% to Chaos Resistance
-Gain Added Chaos Damage equal to 25% of Ward
+{variant:1}Gain Added Chaos Damage equal to 25% of Ward
+{variant:2}Gain Added Chaos Damage equal to 20% of Ward
 75% of Damage bypasses Ward
 ]],
 }

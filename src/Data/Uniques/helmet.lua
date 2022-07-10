@@ -45,7 +45,6 @@ Half of your Strength is added to your Minions
 ]],[[
 Ezomyte Peak
 Iron Hat
-Upgrade: Upgrades to unique{Ezomyte Hold} via prophecy{The Bloody Flowers Redux}
 20% increased Physical Damage
 +(15-25) to Armour
 +(25-50) to maximum Life
@@ -53,7 +52,7 @@ Cannot Evade Enemy Attacks
 ]],[[
 Ezomyte Hold
 Iron Hat
-Source: Upgraded from unique{Ezomyte Peak} using prophecy{The Bloody Flowers Redux}
+Source: No longer obtainable
 20% increased Physical Damage
 +(15-25) to Armour
 +(25-50) to maximum Life
@@ -65,22 +64,28 @@ Siege Helmet
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{The Formless Inferno} using currency{Blessing of Xoph}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 48, 101 Str
 +(100-120) to Armour
 +(40-50) to maximum Life
 -20 Fire Damage taken when Hit
-Armour is increased by Uncapped Fire Resistance
+{variant:1}Armour is increased by Uncapped Fire Resistance
+{variant:2}Armour is increased by Overcapped Fire Resistance
 ]],[[
 The Formless Inferno
 Royal Burgonet
 League: Breach
 Source: Upgraded from unique{The Formless Flame} using currency{Blessing of Xoph}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 148 Str
 (80-120)% increased Armour
 +(40-50) to maximum Life
 -30% to Fire Resistance
 8% of Physical Damage from Hits taken as Fire Damage
-Armour is increased by Uncapped Fire Resistance
+{variant:1}Armour is increased by Uncapped Fire Resistance
+{variant:2}Armour is increased by Overcapped Fire Resistance
 ]],[[
 Hrimnor's Resolve
 Samnite Helmet
@@ -120,7 +125,7 @@ Requires Level 64, 138 Dex
 +(20-30)% to Cold Resistance
 25% chance to Avoid being Chilled
 Cannot be Frozen
-8% reduced Reservation of Skills
+16% increased Mana Reservation Efficiency of Skills
 ]],[[
 Replica Alpha's Howl
 Sinner Tricorne
@@ -130,7 +135,7 @@ Requires Level 64, 138 Dex
 (80-100)% increased Evasion Rating
 +(20-30)% to Chaos Resistance
 25% chance to Avoid being Poisoned
-8% reduced Reservation of Skills
+16% increased Mana Reservation Efficiency of Skills
 You cannot be Hindered
 ]],[[
 Assailum
@@ -142,8 +147,7 @@ Socketed Non-Channelling Bow Skills are Triggered by Snipe
 Socketed Triggered Bow Skills deal 40% less Damage
 +(350-500) to Accuracy Rating
 +(350-500) to Evasion Rating
-(7-10)% chance to Dodge Attack Hits while Channelling
-(7-10)% chance to Dodge Spell Hits while Channelling
+(14-20)% chance to Suppress Spell Damage while Channelling
 ]],[[
 Fairgraves' Tricorne
 Tricorne
@@ -164,7 +168,6 @@ Reflects 4 Physical Damage to Melee Attackers
 ]],[[
 Heatshiver
 Leather Hood
-Upgrade: Upgrades to unique{Frostferno} via prophecy{A Vision of Ice and Fire}
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 20, 46 Dex
@@ -174,14 +177,14 @@ Requires Level 20, 46 Dex
 {variant:2}(20-30)% increased Fire Damage if you have used a Cold Skill Recently
 (80-100)% increased Evasion Rating
 60% increased Mana Regeneration Rate
-{variant:1}-(20-10)% to Fire Resistance
+{variant:1}−(20-10)% to Fire Resistance
 {variant:2}+(20-30)% to Fire Resistance
-{variant:1}-(20-10)% to Cold Resistance
+{variant:1}−(20-10)% to Cold Resistance
 {variant:2}+(20-30)% to Cold Resistance
 ]],[[
 Frostferno
 Leather Hood
-Source: Upgraded from unique{Heatshiver} via prophecy{A Vision of Ice and Fire}
+Source: Drops from any endgame map boss
 Requires Level 60, 46 Dex
 +2 to Level of Socketed Fire Gems
 +2 to Level of Socketed Cold Gems
@@ -217,7 +220,7 @@ Silken Hood
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 60, 138 Dex
-Trigger Level 20 Tornado when you gain Avian's Might or Avian's Flight
+Trigger Level 20 Twister when you gain Avian's Might or Avian's Flight
 (60-80)% increased Evasion Rating
 +(40-60) to maximum Life
 +(30-40)% to Lightning Resistance
@@ -242,7 +245,6 @@ Requires Level 60, 138 Dex
 [[
 Asenath's Mark
 Iron Circlet
-Upgrade: Upgrades to unique{Asenath's Chant} via prophecy{Song of the Sekhema}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 8, 23 Int
@@ -256,7 +258,7 @@ Requires Level 8, 23 Int
 ]],[[
 Asenath's Chant
 Iron Circlet
-Source: Upgraded from unique{Asenath's Mark} via prophecy{Song of the Sekhema}
+Source: Drops from any endgame map boss
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45, 23 Int
@@ -322,14 +324,13 @@ Requires Level 69, 154 Int
 {variant:1}+(200-250) to Accuracy Rating
 {variant:2}+(300-350) to Accuracy Rating
 (120-150)% increased Energy Shield
--30% to Fire Resistance
+−30% to Fire Resistance
 (0.4-0.8)% of Attack Damage Leeched as Life
 (0.2-0.4)% of Attack Damage Leeched as Mana
 Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value
 ]],[[
 Crown of Thorns
 Vine Circlet
-Upgrade: Upgrades to unique{Martyr's Crown} via prophecy{Pleasure and Pain}
 Variant: Pre 1.2.0
 Variant: Current
 {variant:1}+(12-24) to maximum Energy Shield
@@ -340,9 +341,9 @@ Pain Attunement
 ]],[[
 Martyr's Crown
 Vine Circlet
-Source: Upgraded from unique{Crown of Thorns} using prophecy{Pleasure and Pain}
+Source: No longer obtainable
 Variant: Pre 3.0.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 52
 {variant:1}+(260-300) to maximum Energy Shield
 {variant:2}+(170-210) to maximum Energy Shield
@@ -355,6 +356,18 @@ Necromancer Circlet
 League: Betrayal
 Source: Drops from unique{Catarina, Master of Undeath}
 Requires Level 54, 112 Int
+Variant: Strength and Quality Pre 3.16.0
+Variant: Dexterity and Quality Pre 3.16.0
+Variant: Intelligence and Quality Pre 3.16.0
+Variant: Fire and Chaos Resistances Pre 3.16.0
+Variant: Cold and Chaos Resistances Pre 3.16.0
+Variant: Lightning and Chaos Resistances Pre 3.16.0
+Variant: Strength and Dexterity Pre 3.16.0
+Variant: Dexterity and Intelligence Pre 3.16.0
+Variant: Strength and Intelligence Pre 3.16.0
+Variant: Mine Laying Speed Pre 3.16.0
+Variant: Focus Spell Trigger Pre 3.16.0
+Variant: Focus Ailment Duration Pre 3.16.0
 Variant: Strength and Quality
 Variant: Dexterity and Quality
 Variant: Intelligence and Quality
@@ -368,24 +381,25 @@ Variant: Mine Laying Speed
 Variant: Focus Spell Trigger
 Variant: Focus Ailment Duration
 +1 to Level of Socketed Gems
-Socketed Gems have 20% reduced Reservation
+{variant:1,2,3,4,5,6,7,8,9,10,12}Socketed Gems have 40% increased Mana Reservation Efficiency
+{variant:13,14,15,16,17,18,19,20,21,22,23,24}Socketed Gems have 25% increased Reservation Efficiency
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
 Eldritch Battery
-{variant:1}{crafted}+(10-25) to Strength
-{variant:2}{crafted}+(10-25) to Dexterity
-{variant:3}{crafted}+(10-25) to Intelligence
-{variant:1,2,3}{crafted}+(7-18)% to Quality
-{variant:4}{crafted}+(8-15)% to Fire and Chaos Resistances
-{variant:5}{crafted}+(8-15)% to Cold and Chaos Resistances
-{variant:6}{crafted}+(8-15)% to Lightning and Chaos Resistances
-{variant:7}{crafted}+(6-17) to Strength and Dexterity
-{variant:8}{crafted}+(6-17) to Dexterity and Intelligence
-{variant:9}{crafted}+(6-17) to Strength and Intelligence
-{variant:10}{crafted}(7-12)% increased Mine Laying Speed
-{variant:11}{crafted}Trigger Socketed Spells when you Focus
-{variant:12}{crafted}(81-140)% increased Duration of Ailments you inflict while Focused
+{variant:1,13}{crafted}+(10-25) to Strength
+{variant:2,14}{crafted}+(10-25) to Dexterity
+{variant:3,15}{crafted}+(10-25) to Intelligence
+{variant:1,2,3,13,14,15}{crafted}+(7-18)% to Quality
+{variant:4,16}{crafted}+(8-15)% to Fire and Chaos Resistances
+{variant:5,17}{crafted}+(8-15)% to Cold and Chaos Resistances
+{variant:6,18}{crafted}+(8-15)% to Lightning and Chaos Resistances
+{variant:7,19}{crafted}+(6-17) to Strength and Dexterity
+{variant:8,20}{crafted}+(6-17) to Dexterity and Intelligence
+{variant:9,21}{crafted}+(6-17) to Strength and Intelligence
+{variant:10,22}{crafted}(7-12)% increased Mine Laying Speed
+{variant:11,23}{crafted}Trigger Socketed Spells when you Focus
+{variant:12,24}{crafted}(81-140)% increased Duration of Ailments you inflict while Focused
 ]],[[
 Doedre's Scorn
 Lunaris Circlet
@@ -402,10 +416,9 @@ Requires Level 39, 83 Int
 ]],[[
 Eber's Unification
 Hubris Circlet
-Source: Drops from The Pale Council
 Requires Level 69, 154 Int
 Implicits: 0
-Trigger Level 10 Void Gaze when you use a Skill
+Trigger level 10 Void Gaze when you use a Skill
 +(50-80) to maximum Mana
 (120-150)% increased Energy Shield
 50% increased Stun and Block Recovery
@@ -468,7 +481,7 @@ Requires Level 69, 154 Int
 (150-180)% increased Energy Shield
 (6-10)% increased maximum Mana
 Recover (8-10)% of maximum Life when you use a Mana Flask
-Non-instant Mana Recovery from Flasks is also Recovered as Life
+Non-instant Mana recovery from Flasks is also recovered as Life
 (50-60)% increased Cost of Skills for each 200 total Mana Spent Recently
 {variant:1}(50-60)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 {variant:2}(20-25)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
@@ -513,17 +526,19 @@ Rime Gaze
 Mind Cage
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 65, 138 Int
-{variant:1}Socketed Gems are Supported by Level 15 Concentrated Effect
-{variant:2,3}Socketed Gems are Supported by Level 20 Concentrated Effect
+{variant:1}Socketed Gems are Supported by level 15 Concentrated Effect
+{variant:2,3,4}Socketed Gems are Supported by level 20 Concentrated Effect
 30% increased Cold Damage
 +(40-60) to maximum Mana
 {variant:1}(100-120)% increased Energy Shield
 {variant:2,3}(180-200)% increased Energy Shield
+{variant:4}(140-160)% increased Energy Shield
 {variant:1}50% slower start of Energy Shield Recharge
-{variant:2,3}50% reduced Energy Shield Recharge Rate
-{variant:3}+(16-22)% to Cold Damage over Time Multiplier
+{variant:2,3,4}50% reduced Energy Shield Recharge Rate
+{variant:3,4}+(16-22)% to Cold Damage over Time Multiplier
 ]],[[
 Scold's Bridle
 Mind Cage
@@ -533,6 +548,15 @@ Requires Level 65, 138 Int
 15% reduced Cast Speed
 +(30-60) to maximum Mana
 Your Skills deal you 400% of Mana Cost as Physical Damage
+]],[[
+Sudden Dawn
+Steel Circlet
+Source: Drops from unique{The Black Star}
+Requires Level 48, 101 Int
+(300–350)% increased Energy Shield
++(50–70) to maximum Mana
+(10–20)% chance for Energy Shield Recharge to start when you Kill an Enemy
+(30–40)% less Energy Shield Recharge Rate
 ]],[[
 Thundersight
 Solaris Circlet
@@ -596,11 +620,11 @@ Variant: Pre 1.3.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 67, 62 Str, 85 Dex
-Socketed Gems are Supported by Level 18 Melee Physical Damage
-{variant:1,4}Socketed Gems are Supported by Level 18 Faster Attacks
-{variant:2,3}Socketed Gems are Supported by Level 12 Faster Attacks
-{variant:1,4}Socketed Gems are supported by Level 18 Blind
-{variant:2,3}Socketed Gems are supported by Level 6 Blind
+Socketed Gems are Supported by level 18 Melee Physical Damage
+{variant:1,4}Socketed Gems are Supported by level 18 Faster Attacks
+{variant:2,3}Socketed Gems are Supported by level 12 Faster Attacks
+{variant:1,4}Socketed Gems are Supported by level 18 Blind
+{variant:2,3}Socketed Gems are Supported by level 6 Blind
 {variant:1,2}15% Chance to Block
 {variant:3,4}6% Chance to Block
 Adds 20 to 30 Physical Damage to Attacks
@@ -624,7 +648,6 @@ Socketed Skills deal Double Damage
 ]],[[
 Deidbell
 Gilded Sallet
-Upgrade: Upgrades to unique{Deidbellow} via prophecy{Dying Cry}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 33, 38 Str, 38 Dex
@@ -637,9 +660,9 @@ Cannot Leech when on Low Life
 ]],[[
 Deidbellow
 Gilded Sallet
-Source: Upgraded from unique{Deidbell} using prophecy{Dying Cry}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 33, 38 Str, 38 Dex
 +(20-30) to Strength
 +(20-30) to Dexterity
@@ -748,7 +771,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 63, 85 Str, 62 Int
-Socketed Gems are supported by Level 20 Cast on Death
+Socketed Gems are supported by level 20 Cast on Death
 20% increased Damage when on Low Life
 +(10-15) to all Attributes
 (60-100)% increased Armour and Energy Shield
@@ -800,7 +823,8 @@ You and Nearby Allies have 47 to 61 added Chaos Damage per White Socket
 ]],[[
 Geofri's Crest
 Great Crown
-Upgrade: Upgrades to unique{Geofri's Legacy} via prophecy{The Bishop's Legacy}
+Variant: Pre 3.17.0
+Variant: Current
 Requires Level 53, 59 Str, 59 Int
 +1 to Level of Socketed Gems
 (60-80)% increased Armour and Energy Shield
@@ -808,10 +832,12 @@ Requires Level 53, 59 Str, 59 Int
 +(15-20)% to Cold Resistance
 +(15-20)% to Lightning Resistance
 +(20-30)% to Chaos Resistance
+{variant:2}+1 to maximum number of Summoned Holy Relics
+{variant:2}Summoned Holy Relics have (20-25)% reduced Cooldown Recovery Speed
 ]],[[
 Geofri's Legacy
 Great Crown
-Source: Upgraded from unique{Geofri's Crest} via prophecy{The Bishop's Legacy}
+Source: No longer obtainable
 Requires Level 62, 59 Str, 59 Int
 +1 to Level of Socketed Gems
 (60-80)% increased Armour and Energy Shield
@@ -921,13 +947,16 @@ Mask of the Tribunal
 Magistrate Crown
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 58, 64 Str, 64 Int
 +(25-30) to all Attributes
 (150-200)% increased Armour and Energy Shield
-Nearby Allies have (4-6)% increased Defences per 100 Strength you have
+{variant:1}Nearby Allies have (4-6)% increased Defences per 100 Strength you have
+{variant:2}Nearby Allies have 1% chance to Block Attack Damage per 100 Strength you have
 Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
 Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
-1% reduced Reservation of Skills per 250 total Attributes
+2% increased Mana Reservation Efficiency of Skills per 250 total Attributes
 ]],[[
 Maw of Mischief
 Bone Helmet
@@ -943,13 +972,17 @@ Minions are Aggressive
 Memory Vault
 Praetor Crown
 Source: Drops from unique{The Enslaver}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 68, 62 Str, 91 Int
 +(130-160) to maximum Energy Shield
 +(150-200) to maximum Mana
 (30-40)% increased Mana Regeneration Rate
 +(20-30)% to Fire Resistance
-10% increased Reservation of Skills
-Gain Armour equal to your Reserved Mana
+{variant:1}20% reduced Mana Reservation Efficiency of Skills
+{variant:2}20% reduced Reservation Efficiency
+{variant:1}Gain Armour equal to your Reserved Mana
+{variant:2}1% increased Armour per 50 Reserved Mana
 ]],[[
 Mindspiral
 Aventail Helmet
@@ -961,7 +994,7 @@ Requires Level 37, 42 Str, 42 Int
 {variant:1}+(100-150) to maximum Mana
 {variant:2}+(100-120) to maximum Mana
 {variant:2}Gain (5-10)% of Maximum Mana as Extra Maximum Energy Shield
-Enemies Cannot Leech Mana From you
+Enemies Cannot Leech Mana From You
 (5-10)% of Damage taken Recouped as Mana
 Cannot Leech Mana
 ]],[[
@@ -1000,7 +1033,7 @@ Requires Level 68, 62 Str, 91 Int
 +(26-32)% to Fire Resistance
 +(8-16)% to Chaos Resistance
 20% increased Light Radius
-(8-12)% increased Maximum Life if no Equipped Items are Corrupted
+(8-12)% increased maximum Life if no Equipped Items are Corrupted
 Regenerate 100 Life per second if no Equipped Items are Corrupted
 ]],
 -- Helmet: Evasion/Energy Shield
@@ -1114,7 +1147,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 38, 44 Dex, 44 Int
-{variant:2,3}Trigger Level 1 Create Lesser Shrine when you Kill an Enemy
+{variant:2,3}Trigger level 1 Create Lesser Shrine when you Kill an Enemy
 (120-150)% increased Evasion and Energy Shield
 {variant:2}+(40-65) to maximum Energy Shield
 {variant:3}+(30-45) to maximum Energy Shield
@@ -1130,15 +1163,17 @@ Heretic's Veil
 Deicide Mask
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 67, 73 Dex, 88 Int
 +(40-50) to maximum Energy Shield
 {variant:1,2}(130-150)% increased Evasion and Energy Shield
-{variant:3}(90-110)% increased Evasion and Energy Shield
+{variant:3,4}(90-110)% increased Evasion and Energy Shield
 {variant:1}+2 to Level of Socketed Curse Gems
-{variant:2,3}+1 to Level of Socketed Curse Gems
+{variant:2,3,4}+1 to Level of Socketed Curse Gems
 Socketed Curse Gems are Supported by Level 22 Blasphemy
-Socketed Curse Gems have 12% reduced Reservation
+{variant:1,2,3}Socketed Curse Gems have 24% increased Mana Reservation Efficiency
+{variant:4}Socketed Curse Gems have 20% increased Reservation Efficiency
 ]],[[
 Leer Cast
 Festival Mask
@@ -1161,10 +1196,10 @@ You and nearby Allies have 30% increased Mana Regeneration Rate
 ]],[[
 Malachai's Simula
 Iron Mask
-Upgrade: Upgrades to unique{Malachai's Awakening} via prophecy{The Nightmare Awakens}
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Pre 3.7.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 17, 21 Dex, 21 Int
 (15-30)% increased Spell Damage
@@ -1178,8 +1213,9 @@ Blood Magic
 ]],[[
 Malachai's Awakening
 Iron Mask
-Source: Upgraded from unique{Malachai's Simula} via prophecy{The Nightmare Awakens}
+Source: Drops from any endgame map boss
 Variant: Pre 3.7.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 60, 21 Dex, 21 Int
 (15-30)% increased Spell Damage
@@ -1193,7 +1229,6 @@ Blood Magic
 ]],[[
 Mind of the Council
 Harlequin Mask
-Source: prophecy{Unbearable Whispers V}
 Variant: Pre 3.10.0
 Variant: Current
 Requires Level 57, 64 Dex, 64 Int
@@ -1204,7 +1239,7 @@ Requires Level 57, 64 Dex, 64 Int
 +20% chance to be Shocked
 30% of Lightning Damage is taken from Mana before Life
 {variant:1}Recover 3% of Maximum Mana when you Shock an Enemy
-{variant:2}Attack Skills have Added Lightning Damage equal to 6% of maximum Mana
+{variant:2}Attack Skills have added Lightning Damage equal to 6% of maximum Mana
 {variant:2}Lose 3% of Mana when you use an Attack Skill
 ]],[[
 The Tempest's Binding
@@ -1249,7 +1284,7 @@ Requires Level 62, 79 Dex, 72 Int
 (245-280)% increased Evasion and Energy Shield
 +(30-40) to maximum Energy Shield
 +(24-30)% to Chaos Resistance
-Enemies Cannot Leech Mana From you
+Enemies cannot Leech Mana from You
 Socketed Gems have 50% reduced Mana Cost
 ]],[[
 Viridi's Veil
@@ -1283,7 +1318,7 @@ Requires Level 25, 30 Str, 30 Dex, 30 Int
 (25-35)% increased Ward
 (20-30)% faster Restoration of Ward
 (15-25)% increased Light Radius
-Increases and Reductions to Maximum Energy Shield instead apply to Ward
+Increases and Reductions to maximum Energy Shield instead apply to Ward
 ]],[[
 Cadigan's Crown
 Runic Crown

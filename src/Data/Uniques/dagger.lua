@@ -41,7 +41,7 @@ Implicits: 1
 (20-40)% increased Physical Damage
 Adds (3-6) to (9-13) Physical Damage
 10% increased Attack Speed
-Extra gore
+Extra Gore
 {variant:1}10% chance to cause Bleeding on Hit
 {variant:2}30% chance to cause Bleeding on Hit
 ]],[[
@@ -111,7 +111,6 @@ Implicits: 1
 ]],[[
 Goredrill
 Skinning Knife
-Upgrade: Upgrades to unique{Sanguine Gambol} via prophecy{Crimson Hues}
 Requires Level 5, 16 Dex
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -124,7 +123,7 @@ Adds (1-2) to (3-5) Physical Damage
 ]],[[
 Sanguine Gambol
 Skinning Knife
-Source: Upgraded from unique{Goredrill} via prophecy{Crimson Hues}
+Source: No longer obtainable
 Requires Level 59
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -202,7 +201,7 @@ Implicits: 1
 10% reduced Attack Speed
 +(6-10)% to all Elemental Resistances
 {variant:1,2}Melee Critical Strikes have 25% chance to cause Bleeding
-{variant:3}50% chance to cause Bleeding on Critical Strike
+{variant:3}50% chance to Cause Bleeding on Critical Strike
 {variant:1,2}Melee Critical Strikes have 25% chance to Poison the Enemy
 {variant:3}50% chance to Cause Poison on Critical Strike
 ]],[[
@@ -284,6 +283,7 @@ Every 8 seconds, gain Avatar of Fire for 4 seconds
 White Wind
 Imperial Skean
 Variant: Pre 3.11.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
@@ -291,11 +291,11 @@ Implicits: 1
 Adds (160-190) to (280-320) Cold Damage
 (10-15)% increased Attack Speed
 {variant:1}+(300-400) to Evasion Rating
-{variant:2}+(1000-1500) to Evasion Rating
-{variant:1}20% chance to Dodge Attacks while your Off Hand is empty
-{variant:2}(15-25)% chance to Dodge Attacks while your Off Hand is empty
+{variant:2,3}+(1000-1500) to Evasion Rating
+{variant:1,2}(15-25)% chance to Suppress Spell Damage while your Off Hand is empty
+{variant:3}(30-40)% chance to Suppress Spell Damage while your Off Hand is empty
 {variant:1}100% increased Cold Damage while your Off Hand is empty
-{variant:2}(100-200)% increased Cold Damage while your Off Hand is empty
+{variant:2,3}(100-200)% increased Cold Damage while your Off Hand is empty
 ]],[[
 Widowmaker
 Boot Blade
