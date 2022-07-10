@@ -856,7 +856,6 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 
-	local activeSearchParser = false
 	local searchListTbl = { }
 	local function parseSearchList(mode)
 		if mode == 0 then
@@ -889,6 +888,7 @@ function TreeTabClass:FindTimelessJewel()
 			end
 		end
 	end
+	parseSearchList(0)
 
 	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 25, 0, 16, "^7Jewel Type:")
 	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelTypes, function(index, value)
