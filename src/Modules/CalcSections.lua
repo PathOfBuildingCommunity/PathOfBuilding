@@ -1368,6 +1368,7 @@ return {
 		{ modName = { "StunRecovery", "BlockRecovery" }, }, 
 	}, },
 	{ label = "Light Radius Mod", { format = "x {2:output:LightRadiusMod}", { breakdown = "LightRadiusMod" }, { modName = "LightRadius" }, }, },
+	{ label = "Curse Effect", { format = "{1:output:CurseEffectOnSelf}%", { modName = "CurseEffectOnSelf" }, }, },
 } }, { defaultCollapsed = false, label = "Damage Avoidance", data = {
 	{ label = "Avoid Physical Ch.", haveOutput = "AvoidPhysicalDamageChance", { format = "{0:output:AvoidPhysicalDamageChance}%", { modName = "AvoidPhysicalDamageChance" }, }, },
 	{ label = "Avoid Lightning Ch.", haveOutput = "AvoidLightningDamageChance", { format = "{0:output:AvoidLightningDamageChance}%", { modName = "AvoidLightningDamageChance" }, }, },
@@ -1396,7 +1397,6 @@ return {
 	{ label = "Poison Duration", { format = "{1:output:SelfPoisonDuration}%", { modName = "SelfPoisonDuration" }, }, },
 	{ label = "Chill Effect", { format = "{1:output:SelfChillEffect}%", { modName = "SelfChillEffect" }, }, },
 	{ label = "Shock Effect", { format = "{1:output:SelfShockEffect}%", { modName = "SelfShockEffect" }, }, },
-	{ label = "Curse Effect", { format = "{1:output:CurseEffectOnSelf}%", { modName = "CurseEffectOnSelf" }, }, },
 } }, { defaultCollapsed = false, label = "Dodge", data = {
 	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
 	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}% (+{0:output:AttackDodgeChanceOverCap}%)",
