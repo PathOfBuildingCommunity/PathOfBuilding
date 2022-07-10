@@ -827,30 +827,23 @@ function calcs.defence(env, actor)
 	end
 	output.InteruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInteruptStun"), 100)
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
-	output.ShockAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidShock"), 100)
-	output.FreezeAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidFreeze"), 100)
-	output.ChillAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidChill"), 100)
-	output.IgniteAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidIgnite"), 100)
-	output.BleedAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBleed"), 100)
-	output.PoisonAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidPoison"), 100)
+	for _, ailment in ipairs(data.ailmentTypeList) do
+		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment), 100)
+	end
 	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
 	if breakdown then
 		breakdown.LightRadiusMod = breakdown.mod(modDB, nil, "LightRadius")
 	end
-
-	-- Ailment duration on self	
-	output.SelfFreezeDuration = modDB:More(nil, "SelfFreezeDuration") * (100 + modDB:Sum("INC", nil, "SelfFreezeDuration"))
-	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration"))
-	output.SelfShockDuration = modDB:More(nil, "SelfShockDuration") * (100 + modDB:Sum("INC", nil, "SelfShockDuration"))
-	output.SelfChillDuration = modDB:More(nil, "SelfChillDuration") * (100 + modDB:Sum("INC", nil, "SelfChillDuration"))
-	output.SelfIgniteDuration = modDB:More(nil, "SelfIgniteDuration") * (100 + modDB:Sum("INC", nil, "SelfIgniteDuration"))
-	output.SelfBleedDuration = modDB:More(nil, "SelfBleedDuration") * (100 + modDB:Sum("INC", nil, 	"SelfBleedDuration"))
-	output.SelfPoisonDuration = modDB:More(nil, "SelfPoisonDuration") * (100 + modDB:Sum("INC", nil, "SelfPoisonDuration"))
-	output.SelfChillEffect = modDB:More(nil, "SelfChillEffect") * (100 + modDB:Sum("INC", nil, "SelfChillEffect"))
-	output.SelfShockEffect = modDB:More(nil, "SelfShockEffect") * (100 + modDB:Sum("INC", nil, "SelfShockEffect"))
 	output.CurseEffectOnSelf = modDB:More(nil, "CurseEffectOnSelf") * (100 + modDB:Sum("INC", nil, "CurseEffectOnSelf"))
 
+	-- Ailment duration on self
+	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration"))
+	for _, ailment in ipairs(data.ailmentTypeList) do
+		output["Self"..ailment.."Duration"] = modDB:More(nil, "Self"..ailment.."Duration") * (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration")) 
+	end
+	output.SelfChillEffect = modDB:More(nil, "SelfChillEffect") * (100 + modDB:Sum("INC", nil, "SelfChillEffect"))
+	output.SelfShockEffect = modDB:More(nil, "SelfShockEffect") * (100 + modDB:Sum("INC", nil, "SelfShockEffect"))
 	--Enemy damage input and modifications
 	do
 		output["totalEnemyDamage"] = 0

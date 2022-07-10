@@ -427,10 +427,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 			modDB:NewMod("ElementalResist", "BASE", 15, "Bandit")
 		elseif env.configInput.bandit == "Kraityn" then
 			modDB:NewMod("Speed", "INC", 6, "Bandit")
-			modDB:NewMod("AvoidShock", "BASE", 10, "Bandit")
-			modDB:NewMod("AvoidFreeze", "BASE", 10, "Bandit")
-			modDB:NewMod("AvoidChill", "BASE", 10, "Bandit")
-			modDB:NewMod("AvoidIgnite", "BASE", 10, "Bandit")
+			for _, ailment in ipairs(env.data.elementalAilmentTypeList) do
+				modDB:NewMod("Avoid"..ailment, "BASE", 10, "Bandit")
+			end
 			modDB:NewMod("MovementSpeed", "INC", 6, "Bandit")
 		elseif env.configInput.bandit == "Oak" then
 			modDB:NewMod("LifeRegenPercent", "BASE", 1, "Bandit")
