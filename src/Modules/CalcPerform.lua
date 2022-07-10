@@ -1822,6 +1822,9 @@ function calcs.perform(env, avoidCache)
 					if not activeSkill.skillData.auraCannotAffectSelf then
 						activeSkill.buffSkill = true
 						affectedByAura[env.player] = true
+						if buff.name:sub(1,4) == "Vaal" then
+							modDB.conditions["AffectedBy"..buff.name:sub(6):gsub(" ","")] = true
+						end
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList")
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect", "SkillAuraEffectOnSelf")
