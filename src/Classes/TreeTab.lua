@@ -884,6 +884,7 @@ function TreeTabClass:FindTimelessJewel()
 						searchText = searchText .. "\n"
 					end
 				end
+				timelessData.searchList = searchText
 				controls.searchList:SetText(searchText)
 			end
 		end
