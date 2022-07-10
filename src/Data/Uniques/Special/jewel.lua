@@ -28,7 +28,7 @@ Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds
 Apparitions
 Viridian Jewel
 MinionRunSpeedUniqueJewel16
-Minions have (2-5)% additional chance to Dodge Attacks
+MinionDodgeChanceUniqueJewel16
 ]],[[
 The Blue Dream
 Cobalt Jewel
@@ -67,7 +67,7 @@ JewelStrToIntUniqueJewel35
 Calamitous Visions
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 JewelExpansionLoneMessenger_
 ]],[[
 Careful Planning
@@ -107,6 +107,22 @@ Viridian Jewel
 Radius: Large
 ColdAndPhysicalNodesInRadiusSwapPropertiesUniqueJewel48_
 Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage
+]],[[
+Dissolution of the Flesh
+Prismatic Jewel
+Source: Drops from unique{The Searing Exarch}
+Limited to: 1
+GlobalNoEnergyShieldUnique__1
+LifeLossReservesLifeUnique__1
+until you take no Damage to Life for 2 seconds
+MoreMaximumReservedLifeUnique__1
+]],[[
+Divine Inferno
+Crimson Jewel
+Limited to: 1
+Radius: Medium
+InfernalCryThresholdJewel
+With at least 40 Strength in Radius, Attacks Exerted by Infernal Cry deal (40-60)% more Damage with Ignite
 ]],[[
 Efficient Training
 Crimson Jewel
@@ -212,7 +228,7 @@ SummonSkeletonsCooldownTimeUnique__1
 The Front Line
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 JewelExpansionVeteransAwareness_
 ]],[[
 The Golden Rule
@@ -265,14 +281,18 @@ ColdResistAlsoGrantsFrenzyChargeOnKillJewelUnique__1
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 The Green Nightmare
+Variant: Pre 3.16.0
+Variant: Current
 Viridian Jewel
 League: Breach
 Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
 ChaosDamageAsPortionOfColdDamageUnique__1
-ColdResistAlsoGrantsFrenzyChargeOnKillJewelUnique__1
-also grant Chance to Dodge Attack Hits at 35% of its value
+{variant:1}ColdResistAlsoGrantsFrenzyChargeOnKillJewelUnique__1
+{variant:1}also grant Chance to Suppress Spell Damage at 35% of its value
+{variant:2}ColdResistAlsoGrantsFrenzyChargeOnKillJewelUnique__1
+{variant:2}also grant Chance to Suppress Spell Damage at 50% of its value
 ColdResistAlsoGrantsFrenzyChargeOnKillJewelUnique__1
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
@@ -328,7 +348,7 @@ StealRareModUniqueJewel3
 The Interrogation
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 JewelExpansionSecretsOfSuffering
 ]],[[
 Intuitive Leap
@@ -347,7 +367,7 @@ IncreasedChanceToIgniteUnique__1
 Kitava's Teachings
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 JewelExpansionKeystoneDiscipleOfKitava_
 ]],[[
 Lioneye's Fall
@@ -369,7 +389,7 @@ Variant: Impale Effect (Current)
 {variant:2,5}ImpalePhysicalReductionPenaltyUnique__1
 {variant:3,6}ImpaleEffectUnique__2
 {variant:1,3,4,6}CallOfSteelAreaOfEffectUnique__2___
-{variant:2,3,5,6}CallOfSteelUseSpeedUnique__1
+{variant:2,3,5,6}CallOfSteelUseSpeedUnique__2
 {variant:1,2}Call of Steel causes (40-50)% increased Reflected Damage
 {variant:4,5}CallOfSteelReflectDamageUnique__1
 ]],[[
@@ -380,8 +400,8 @@ UnholyMightOnMeleeKillUniqueJewel28
 Mantra of Flames
 Crimson Jewel
 Limited to: 1
-FireDamagePerBuffUniqueJewel17
-FireSpellDamagePerBuffUniqueJewel17
+Adds (3-5) to (8-12) Fire Attack Damage per Buff on You
+Adds (2-3) to (5-8) Fire Spell Damage per Buff on You
 ]],[[
 Martial Artistry
 Crimson Jewel
@@ -392,6 +412,13 @@ Radius: Small
 {variant:1}UnarmedAreaOfEffectUniqueJewel4
 {variant:2}UnarmedStrikeRangeUniqueJewel__1_
 {variant:2}PassivesGrantUnarmedAttackSpeedUnique__1_
+]],[[
+Melding of the Flesh
+Cobalt Jewel
+Source: Drops from unique{The Eater of Worlds}
+Limited to: 1
+-(80-70)% to All Elemental Resistances
+ElementalResistanceHighestMaxResistanceUnique__1_
 ]],[[
 Might in All Forms
 Crimson Jewel
@@ -416,13 +443,13 @@ Spells which have gained Intensity Recently lose 1 Intensity every 0.50 Seconds
 Natural Affinity
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 JewelExpansionNaturesPatience
 ]],[[
 One With Nothing
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 JewelExpansionHollowPalmTechnique
 ]],[[
 Primordial Eminence
@@ -500,22 +527,21 @@ Limited to: 1
 Radius: Medium
 MinionAttackAndCastSpeedUnique__1
 Minions have (12-16)% increased Cast Speed
-MinionAttackDodgeChanceUnique__1
-MinionSpellDodgeChanceUnique__1_
+Minions have (20-24)% chance to Suppress Spell Damage
 Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
 ]],[[
 Rain of Splinters
 Crimson Jewel
 Limited to: 1
 ReducedTotemDamageUniqueJewel26
-AdditionalTotemProjectilesUniqueJewel26
+Totems Fire 2 additional Projectiles
 ]],[[
 Reckless Defence
 Cobalt Jewel
 Variant: Pre 3.4.0
 Variant: Current
 {variant:1}+6% chance to Block Spell Damage
-{variant:2}SpellBlockPercentageUnique__1
+{variant:2}+(2-4)% chance to Block Spell Damage
 (2-4)% chance to Block Attack Damage
 ChanceToBeCritJewelUpdatedUnique__1
 ]],[[
@@ -551,7 +577,7 @@ also grant an equal chance to gain an Endurance Charge on Kill
 The Siege
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 JewelExpansionKineticism
 ]],[[
 Soul's Wick
@@ -669,12 +695,14 @@ Variant: Small Ring
 Variant: Medium Ring
 Variant: Large Ring
 Variant: Very Large Ring
+Variant: Massive Ring
 Radius: Variable
 Implicits: 0
 {variant:1}JewelRingRadiusValuesUnique__1
 {variant:2}Only affects Passives in Medium Ring
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
+{variant:5}JewelRingRadiusValuesUnique__2
 JewelUniqueAllocateDisconnectedPassives
 AllResistancesUnique__18
 ]],[[
@@ -686,7 +714,7 @@ SkeletonDurationUniqueJewel1_
 MinionDamageUniqueJewel1
 {variant:1}2% increased Skeleton Attack Speed
 {variant:2}MaximumMinionCountUniqueJewel1
-{variant:2}SkeletonCastSpeedUniqueJewel1
+{variant:2}(7-10)% increased Skeleton Cast speed
 {variant:2}SkeletonMovementSpeedUniqueJewel1
 ]],[[
 Unnatural Instinct
@@ -1020,11 +1048,17 @@ ElementalHitDisableLightningUniqueJewel_1
 Collateral Damage
 Viridian Jewel
 Limited to: 2
+Variant: Pre 3.9.0
+Variant: Current
 Radius: Medium
-(10-15)% increased Physical Damage
-With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
-With at least 40 Dexterity in Radius, Shrapnel Shot's
+IncreasedPhysicalDamagePercentUnique__5
+{variant:1}With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
+{variant:1}With at least 40 Dexterity in Radius, Shrapnel Shot's
 cone has a 50% chance to deal Double Damage
+{variant:2}With at least 40 Dexterity in Radius, Galvanic Arrow deals
+50% increased Area Damage
+{variant:2}With at least 40 Dexterity in Radius, Galvanic Arrow has
+25% increased Area of Effect
 ]],[[
 Dead Reckoning
 Cobalt Jewel
@@ -1040,12 +1074,15 @@ MinionElementalResistancesUnique__1
 ]],[[
 Seething Fury
 Viridian Jewel
+Variant: Pre 3.16.0
+Variant: Current
 League: Legion
 Requires Level: 20
 Limited to: 1
 Radius: Medium
 AttackDamageWhileHoldingShieldUnique__1
-SpectralShieldThrowThresholdJewel1_
+{variant:1}SpectralShieldThrowThresholdJewel1_
+{variant:2}+0.15% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
 SpectralShieldThrowThresholdJewel2
 ]],[[
 Fight for Survival
@@ -1059,6 +1096,7 @@ With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile 
 ]],[[
 First Snow
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (7-10)% increased Projectile Damage 
@@ -1068,6 +1106,7 @@ you've Shattered an Enemy Recently
 ]],[[
 Frozen Trail
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 IncreasedProjectileDamageUnique__7
@@ -1077,8 +1116,9 @@ Speed per second
 ]],[[
 Growing Agony
 Viridian Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Limited to: 1
 Radius: Medium
 {variant:1}(4-12)% increased Damage over Time
@@ -1088,12 +1128,14 @@ ViperStrikeThresholdJewel__1
 ]],[[
 Hazardous Research
 Cobalt Jewel
+Variant: Pre 3.17.0
+Variant: Current
 Limited to: 1
 Radius: Medium
 LightningDamagePercentUniqueHelmetStrInt3
-SparkThresholdJewel_2
+{variant:1}With at least 40 Intelligence in Radius, Spark fires 2 additional Projectiles
 With at least 40 Intelligence in Radius, Spark fires Projectiles in a Nova
-(20-15)% reduced Spark Duration
+{variant:1}(20-15)% reduced Spark Duration
 ]],[[
 Inevitability
 Cobalt Jewel
@@ -1158,27 +1200,31 @@ IceShotThresholdJewel__2
 ]],[[
 Overwhelming Odds
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 1
 Radius: Medium
 IncreasedPhysicalDamagePercentUnique__5
-CleaveThresholdJewel_1
+With at least 40 Strength in Radius, Cleave grants Fortify on Hit
 With at least 40 Strength in Radius, Cleave has +1 to Radius per Nearby Enemy, up to +10
 ]],[[
 Pitch Darkness
 Viridian Jewel
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Radius: Medium
 {variant:1}(5-15)% increased Fire Damage
-{variant:2}FireDamagePercentUnique____8
+{variant:2,3}FireDamagePercentUnique____8
+{variant:3}BurningArrowThresholdJewelUnique__1
 With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
-With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
+{variant:2}With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
 ]],[[
 Rapid Expansion
 Crimson Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.3.0
-Variant: Current
+Variant: Pre 3.17.0
 Limited to: 2
 Radius: Medium
 {variant:1}(4-12)% increased Physical Damage
@@ -1192,13 +1238,14 @@ Radius: Medium
 Ring of Blades
 Viridian Jewel
 Variant: Pre 3.0.0
+Variant: Pre 3.17.0
 Variant: Current
 Limited to: 1
 Radius: Medium
 (10-15)% increased Physical Damage 
 With at least 40 Dexterity in Radius, Ethereal Knives fires Projectiles in a Nova
 {variant:1}With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles
-{variant:2}EtherealKnivesThresholdJewel_1
+{variant:2}With at least 40 Dexterity in Radius, Ethereal Knives fires 5 additional Projectiles
 ]],[[
 Rolling Flames
 Cobalt Jewel
@@ -1246,18 +1293,21 @@ With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over
 Spreading Rot
 Cobalt Jewel
 Variant: Pre 3.6.0
+Variant: Pre 3.17.0
 Variant: Current
-Limited to: 2
+Limited to: 1
 Radius: Medium
 IncreasedChaosDamageUnique__3
-With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration
+{variant:1,2}With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration
+{variant:3}With at least 40 Intelligence in Radius, Blight has 30% reduced Cast Speed
 {variant:1}With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage
-{variant:2}BlightThresholdJewel_2
+{variant:2,3}BlightThresholdJewel_2
 ]],[[
 Steel Spirit
 Viridian Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Radius: Medium
 {variant:1}(6-10)% increased Projectile Damage
 {variant:2}IncreasedProjectileDamageUnique__7
@@ -1265,12 +1315,14 @@ Radius: Medium
 {variant:2}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 5% increased Damage each time it Hits.
 ]],[[
 Sudden Ignition
+Variant: Pre 3.16.0
+Variant: Current
 Viridian Jewel
 Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage 
-With at least 40 Dexterity in Radius, Burning
-Arrow can inflict an additional Ignite on an Enemy
+{variant:1}With at least 40 Dexterity in Radius, Burning Arrow can inflict an additional Ignite on an Enemy
+{variant:2}BurningArrowThresholdJewel_2
 ]],[[
 Unending Hunger 
 Cobalt Jewel
@@ -1318,6 +1370,7 @@ Radius: Medium
 ]],[[
 Weight of the Empire
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (8-12)% increased Physical Damage
@@ -1338,6 +1391,7 @@ Radius: Medium
 ]],[[
 Winter Burial
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 ColdDamagePercentUniqueHelmetStrInt3
@@ -1380,8 +1434,8 @@ Corrupted
 Blood Sacrifice
 Crimson Jewel
 1% of maximum Mana gained on Kill
-Removes 1% of maximum Life on Kill
-Removes 1% of maximum Energy Shield on Kill
+Removes 1% of Life on Kill
+Removes 1% of Energy Shield on Kill
 Corrupted
 ]],[[
 Replica Blood Sacrifice
@@ -1433,7 +1487,7 @@ Corrupted
 ]],[[
 Fragility
 Crimson Jewel
--1 Maximum Endurance Charges
+−1 Maximum Endurance Charges
 Corrupted
 ]],[[
 Hungry Abyss
@@ -1450,12 +1504,12 @@ Corrupted
 ]],[[
 Pacifism
 Viridian Jewel
--1 Maximum Frenzy Charges
+−1 Maximum Frenzy Charges
 Corrupted
 ]],[[
 Powerlessness
 Cobalt Jewel
--1 Maximum Power Charges
+−1 Maximum Power Charges
 Corrupted
 ]],[[
 Sacrificial Harvest
@@ -1468,7 +1522,7 @@ Self-Flagellation
 Viridian Jewel
 Limited to: 1
 AdditionalCurseOnSelfUniqueCorruptedJewel13
-IncreasedDamagePerCurseOnSelfUniqueCorruptedJewel8
+IncreasedDamagePerCurseOnSelfCorruptedJewel13_
 Corrupted
 ]],[[
 Vaal Sentencing
@@ -1496,7 +1550,7 @@ Crimson Jewel
 Limited to: 1
 ManaCostReductionUniqueJewel44
 SkillEffectDurationUniqueJewel44
-ReducedManaReservationsCostUniqueJewel44
+ManaReservationEfficiencyUniqueJewel44_
 ]],[[
 Replica Conqueror's Efficiency
 Crimson Jewel
@@ -1508,10 +1562,15 @@ ManaCostTotalNonChannelledUnique__1__
 ]],[[
 Conqueror's Longevity
 Viridian Jewel
+Variant: Pre 3.16.0
+Variant: Current
 Limited to: 1
-ChanceToAvoidElementalStatusAilmentsUniqueJewel46
-FlaskLifeRecoveryRateUniqueJewel46
-2% chance to Dodge Attacks
+{variant:1}3% chance to Avoid Elemental Ailments
+{variant:2}ChanceToAvoidElementalStatusAilmentsUniqueJewel46
+{variant:1}8% increased Life Recovery from Flasks
+{variant:2}FlaskLifeRecoveryRateUniqueJewel46
+{variant:1}3% chance to Suppress Spell Damage
+{variant:2}5% chance to Suppress Spell Damage
 ]],[[
 Conqueror's Potency
 Cobalt Jewel
@@ -1528,27 +1587,46 @@ ProjectileDamageJewelUniqueJewel41
 ]],[[
 Survival Instincts
 Viridian Jewel
-Limited to: 1
-DexterityUniqueJewel8
-AllResistancesUniqueJewel8
+Limited to: 1 Survival
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}DexterityUniqueJewel8
+{variant:1}AllResistancesUniqueJewel8
+{variant:2}FlaskChargesUniqueJewel___8
+{variant:2}FlaskDurationUniqueJewel_____8
+ItemLimitUniqueJewel9
 ]],[[
 Survival Secrets
 Cobalt Jewel
-Limited to: 1
-3 Mana Regenerated per second
-ElementalDamageUniqueJewel10
+Limited to: 1 Survival
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}3 Mana Regenerated per second
+{variant:1}ElementalDamageUniqueJewel10
+{variant:2}FlaskEffectUniqueJewel_10
+{variant:2}FlaskChargePerSecondInactiveUniqueJewel_10
+ItemLimitUniqueJewel9
 ]],[[
 Survival Skills
 Crimson Jewel
-Limited to: 1
-IncreasedPhysicalDamagePercentUniqueJewel9
-IncreasedPhysicalDamageReductionRatingUniqueJewel9
+Limited to: 1 Survival
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}IncreasedPhysicalDamagePercentUniqueJewel9
+{variant:1}IncreasedPhysicalDamageReductionRatingUniqueJewel9
+{variant:2}FlaskChargeOnHitNonUniqueUniqueJewel____9
+{variant:2}FlaskChargesFromKillUniqueJewel_9
+ItemLimitUniqueJewel9
 ]],[[
 Warlord's Reach
 Crimson Jewel
+Variant: Pre 3.16.0
+Variant: Current
 Limited to: 1
-AttackDamageUniqueJewel42
-+1 Melee Strike Range
+{variant:1}8% increased Attack Damage
+{variant:1}+1 Melee Strike Range
+{variant:2}AttackDamageUniqueJewel42
+{variant:2}+2 Melee Strike Range
 ]],
 -- Jewel: Labyrinth rewards
 [[

@@ -115,7 +115,7 @@ Limited to: 1
 Removes all Energy Shield
 Life that would be lost by taking Damage is instead Reserved
 until you take no Damage to Life for 2 seconds
-(20–30)% more Maximum Life
+(20-30)% more Maximum Life
 ]],[[
 Divine Inferno
 Crimson Jewel
@@ -1322,7 +1322,7 @@ Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage 
 {variant:1}With at least 40 Dexterity in Radius, Burning Arrow can inflict an additional Ignite on an Enemy
-{Variant:2}Ignited Enemies Killed by your Hits are destroyed
+{variant:2}Ignited Enemies Killed by your Hits are destroyed
 ]],[[
 Unending Hunger 
 Cobalt Jewel

@@ -35,7 +35,6 @@ ChillOnAttackStunUniqueOneHandMace5
 ]],[[
 Cameria's Maul
 Gavel
-Upgrade: Upgrades to unique{Cameria's Avarice} via prophecy{Cold Greed}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 60, 212 Str
@@ -50,7 +49,7 @@ IncreasedRarityWhenSlayingFrozenUniqueOneHandMace4
 ]],[[
 Cameria's Avarice
 Gavel
-Source: Upgraded from unique{Cameria's Maul} via prophecy{Cold Greed}
+Source: Drops from any endgame map boss
 Requires Level 60, 212 Str
 Implicits: 1
 StunThresholdReductionImplicitMace2
@@ -87,11 +86,11 @@ Implicits: 2
 LocalIncreasedPhysicalDamagePercentUniqueOneHandMace8
 LocalAddedPhysicalDamageUniqueOneHandMace8
 LocalIncreasedAttackSpeedUniqueOneHandMace8
-LifeLeechPermyriadUniqueTwoHandMace1
+1% of Physical Attack Damage leeched as Life
 {variant:1}10% Chance to cause Bleeding on Hit
-{variant:2}LocalChanceToBleedUniqueOneHandMace8
-{variant:1}AttackDamageLifeLeechAgainstBleedingEnemiesUnique_1
-{variant:2}LifeLeechPhysicalAgainstBleedingEnemiesUniqueOneHandMace8
+{variant:2}30% Chance to cause Bleeding on Hit
+{variant:1}1% of Attack Damage leeched as Life against Bleeding Enemies
+{variant:2}3% of Attack Damage leeched as Life against Bleeding Enemies
 ]],[[
 Frostbreath
 Ornate Mace
@@ -109,7 +108,7 @@ Implicits: 2
 LocalIncreasedAttackSpeedUnique__12
 FireResistUniqueBootsDex2
 IncreasedChillDurationUnique__1
-LocalDoubleDamageToChilledEnemiesUnique__1
+Attacks with this Weapon deal double Damage to Chilled Enemies
 ]],[[
 Replica Frostbreath
 Ornate Mace
@@ -149,7 +148,7 @@ Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}StunThresholdReductionImplicitMace1
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueOneHandMace7
-{variant:1,2}IncreasedLifeUniqueHelmetDex5
+{variant:1,2}IncreasedLifeImplicitShield1
 {variant:1,2}IncreasedManaUniqueBootsStrDex3
 {variant:3}IncreasedLifeUniqueOneHandMace7
 {variant:3}IncreasedManaUniqueOneHandMace7
@@ -189,7 +188,7 @@ Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew18
-IncreasedCastSpeedUnique__16
+{fractured}IncreasedCastSpeedUnique__14
 ColdDamagePerResistanceAbove75Unique__1
 LightningDamagePerResistanceAbove75Unique__1
 ]],[[
@@ -199,7 +198,7 @@ League: Heist
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew18
-IncreasedCastSpeedUnique__16
+{fractured}IncreasedCastSpeedUnique__14
 ColdDamagePerMissingColdResistanceUnique__1
 FireDamagePerMissingFireResistanceUnique__1
 ]],[[
@@ -246,7 +245,7 @@ Variant: Pre 2.3.0
 Variant: Current
 Requires Level 10, 22 Str, 22 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptreNew1
+{variant:1}ElementalDamageUniqueDescentBelt1
 {variant:2}ElementalDamagePercentImplicitSceptreNew2
 IncreasedCastSpeedUnique__4
 SpellCriticalStrikeChanceUnique__1
@@ -261,8 +260,8 @@ Implicits: 1
 ElementalDamagePercentImplicitSceptreNew18
 ScorchingRaySkillUnique__1
 (12-20)% increased Cast Speed 
-Recover (1-3)% of Maximum Life on Kill 
-Recover (1-3)% of Maximum Mana on Kill
+MaximumLifeOnKillPercentUnique__2
+MaximumManaOnKillPercentUnique__1
 FireBeamLengthUnique__1
 ]],[[
 Bitterdream
@@ -275,12 +274,12 @@ Implicits: 2
 {variant:1}15% increased Elemental Damage
 {variant:2,3}ElementalDamagePercentImplicitSceptreNew8
 {variant:3}DisplaySupportedByBonechillUnique__1
-DisplaySupportedByHypothermiaUnique__1
-DisplaySupportedByIceBiteUnique__1
-DisplaySupportedByColdPenetrationUnique__1
-{variant:1,2}DisplaySupportedByManaLeechUnique__1
-DisplaySupportedByAddedColdDamageUnique__1
-DisplaySupportedByReducedManaUnique__1
+Socketed Gems are Supported by level 1 Hypothermia
+Socketed Gems are Supported by level 1 Ice Bite
+Socketed Gems are Supported by level 1 Cold Penetration
+{variant:1,2}Socketed Gems are Supported by level 1 Mana Leech
+Socketed Gems are Supported by level 10 Added Cold Damage
+Socketed Gems are Supported by level 1 Inspiration
 ]],[[
 Replica Bitterdream
 Shadow Sceptre
@@ -309,7 +308,6 @@ PhantasmGrantsBuffUnique__1
 ]],[[
 Breath of the Council
 Carnal Sceptre
-Source: prophecy{The Plaguemaw V}
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 66, 113 Str, 113 Int
@@ -330,15 +328,15 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 28, 51 Str, 51 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptreNew1
-{variant:2,3,4}ElementalDamagePercentImplicitSceptreNew7
+{variant:1}ElementalDamageUniqueDescentBelt1
+{variant:2,3,4}ElementalDamagePercentImplicitSceptreNew6
 LocalIncreasedPhysicalDamageUniqueSceptre9
 {variant:1,2}Adds 15 to 25 Fire Damage against Ignited Enemies
 LocalAddedPhysicalDamageUniqueSceptre9
 {variant:3}Adds 2 to 4 Fire Damage to Attacks per 10 Strength
 {variant:4}AddedFireDamagePerStrengthUnique__1
 FireDamagePercentUniqueSceptre9
-LocalIncreasedAttackSpeedUniqueSceptre9
+LocalIncreasedAttackSpeedUnique__25
 LocalCriticalStrikeChanceUniqueTwoHandMace6
 ]],[[
 Cerberus Limb
@@ -349,7 +347,7 @@ Requires Level 47, 81 Str, 81 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew13
 SpellDamageUnique__9
-IncreasedCastSpeedUnique__16
+IncreasedCastSpeedUnique__14
 LifeLeechFromSpellsWith30BlockOnShieldUnique__1_
 EnergyShieldPerArmourOnShieldUnique__1
 ArmourPerEvasionRatingOnShieldUnique__1
@@ -374,7 +372,7 @@ Implicits: 2
 {variant:6,7,8}AllDamageUniqueSceptre8
 {variant:1,2,3,4,5}7% Global chance to Blind Enemies on hit
 {variant:6,7,8}GlobalChanceToBlindOnHitUniqueSceptre8
-BlindDoesNotAffectHitChanceUnique__1
+Blind does not affect your Chance to Hit
 MaledictionOnBlindWhileBlindedUnique__1
 {variant:1,2}ManaGainedOnEnemyDeathPerLevelUniqueSceptre8
 {variant:1,2}EnergyShieldGainedOnEnemyDeathPerLevelUniqueSceptre8
@@ -389,7 +387,7 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 56, 96 Str, 96 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptreNew1
+{variant:1}ElementalDamageUniqueDescentBelt1
 {variant:2,3}ElementalDamagePercentImplicitSceptreNew16
 {variant:1,2}Adds (30-41) to (80-123) Physical Damage
 {variant:3}LocalAddedPhysicalDamageUniqueSceptre10
@@ -403,12 +401,12 @@ Variant: Pre 2.3.0
 Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptreNew1
+{variant:1}ElementalDamageUniqueDescentBelt1
 {variant:2}ElementalDamagePercentImplicitSceptreNew20
 StrengthUniqueSceptre6
 IncreasedCastSpeedUniqueSceptre6
-IncreasedManaUniqueIntHelmet3
-DisplaySocketedGemsSupportedByIronWillUniqueSceptre6
+IncreasedManaUniqueBodyInt9
+Socketed Gems are Supported by level 30 Iron Will
 DamagePerStrengthInMainHandUniqueSceptre6
 ArmourPerStrengthInOffHandUniqueSceptre6
 ]],[[
@@ -419,9 +417,9 @@ Variant: Pre 2.3.0
 Variant: Current
 Requires Level 75, 113 Str, 113 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptreNew1
+{variant:1}ElementalDamageUniqueDescentBelt1
 {variant:2}ElementalDamagePercentImplicitSceptreNew20
-SocketedGemsGetElementalProliferationUniqueSceptre7
+Socketed Gems are Supported by level 20 Elemental Proliferation
 LocalAddedPhysicalDamageUniqueSceptre7
 LocalIncreasedAttackSpeedUniqueSceptre7
 IncreasedCastSpeedUniqueSceptre7
@@ -433,9 +431,9 @@ Earendel's Embrace
 Grinning Fetish
 Requires Level 35, 62 Str, 62 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptreNew9
-AllAttributesUnique__8_
-MinionDamageUnique__5
+ElementalDamagePercentImplicitSceptreNew10
+AllAttributesUniqueBelt3
+MinionDamageUniqueTwoHandSword4
 SkeletonsCoverEnemiesInAshUnique__1
 SkeletonsTakeFireDamagrPerSecondUnique__1
 SkeletonsHaveAvatarOfFireUnique__1_
@@ -445,9 +443,9 @@ Grinning Fetish
 League: Heist
 Requires Level 35, 62 Str, 62 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptreNew9
-AllAttributesUnique__8_
-MinionDamageUnique__5
+ElementalDamagePercentImplicitSceptreNew10
+AllAttributesUniqueBelt3
+MinionDamageUniqueTwoHandSword4
 ZombiesCoverInAshOnHitUnique__1
 Raised Zombies take (15.0-30.0)% of their Maximum Life per second as Fire Damage
 ZombiesHaveAvatarOfFireUnique__1
@@ -483,9 +481,9 @@ Implicits: 2
 {variant:1,2}ElementalDamageUniqueHelmetInt9
 {variant:3,4}ElementalDamageUnique__1
 {variant:4}LocalIncreaseSocketedFireGemLevelUnique__1_
-{variant:1,2,3}ItemActsAsFireDamageSupportUniqueSceptre2
-{variant:1,2,3}ItemActsAsColdToFireSupportUniqueSceptre2
-ItemActsAsFirePenetrationSupportUniqueSceptre2
+{variant:1,2,3}Socketed Gems are Supported by level 10 Added Fire Damage
+{variant:1,2,3}Socketed Gems are Supported by level 10 Cold to Fire
+Socketed Gems are Supported by level 10 Fire Penetration
 {variant:4}Socketed Gems deal 63 to 94 additional Fire Damage
 SpellDamageUniqueSceptre2
 {variant:2,3,4}LocalIncreasedPhysicalDamageUniqueOneHandMace5
@@ -509,7 +507,7 @@ Variant: Pre 2.3.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptreNew1
+{variant:1}ElementalDamageUniqueDescentBelt1
 {variant:2}ElementalDamageUnique__1
 SpellAddedLightningDamageUnique__2
 IncreasedCastSpeedUnique__2
@@ -525,9 +523,9 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 20, 38 Str, 38 Int
 Implicits: 2
-{variant:1}ElementalDamagePercentImplicitSceptreNew1
+{variant:1}ElementalDamageUniqueDescentBelt1
 {variant:2,3}ElementalDamagePercentImplicitSceptreNew5
-LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe1
 IncreasedDamageAgainstFrozenEnemiesUnique__1
 ColdDamagePercentUnique__3
 {variant:3}ColdDamageOverTimeMultiplierUnique__1
@@ -582,14 +580,13 @@ ConvertPhysicaltoLightningUnique__1
 {variant:1,2}ChanceToShockUniqueStaff8
 {variant:3}ChanceToShockUnique__2_
 {variant:1,2}HitsCauseMonsterFleeUnique__1
-{variant:3}AttacksShockAsIfDealingMoreDamageUnique__2
+{variant:3}AttacksShockAsIfDealingMoreDamageUniqueBow10
 LightningPenetrationUnique__1
 ShockedEnemyCastSpeedUnique__1
 ShockedEnemyMovementSpeedUnique__1
 ]],[[
 Chober Chaber
 Great Mallet
-Upgrade: Upgrades to unique{Chaber Cairn} via prophecy{Faith Exhumed}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
@@ -608,7 +605,7 @@ ReducedStrengthRequirementsUniqueTwoHandMace5
 ]],[[
 Chaber Cairn
 Great Mallet
-Source: Upgraded from unique{Chober Chaber} via prophecy{Faith Exhumed}
+Source: Drops from any endgame map boss
 Requires Level 60, 131 Str
 Implicits: 1
 StunDurationImplicitMace1
@@ -622,7 +619,6 @@ SkillEffectDurationUnique__3
 ]],[[
 Geofri's Baptism
 Brass Maul
-Upgrade: Upgrades to unique{Geofri's Devotion} via prophecy{Black Devotion}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 27, 92 Str
@@ -636,7 +632,7 @@ CannotCrit
 ]],[[
 Geofri's Devotion
 Brass Maul
-Source: Upgraded from unique{Geofri's Baptism} via prophecy{Black Devotion}
+Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -654,7 +650,6 @@ CannotCrit
 ]],[[
 Hrimnor's Hymn
 Sledgehammer
-Upgrade: Upgrades to unique{Hrimnor's Dirge} via prophecy{Winter's Mournful Melodies}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 17, 62 Str
@@ -669,9 +664,9 @@ StunDurationUniqueTwoHandMace1
 ]],[[
 Hrimnor's Dirge
 Sledgehammer
-Source: Upgraded from unique{Hrimnor's Hymn} using prophecy{Winter's Mournful Melodies}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 36, 62 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
@@ -693,7 +688,7 @@ Requires Level 44, 143 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}StunDurationImplicitMace2
-{variant:2}TriggeredAnimateWeaponUnique__1
+{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
 LocalIncreasedPhysicalDamageUniqueOneHandMace5
 LocalIncreasedAttackSpeedUniqueTwoHandMace8_
 IncreasedCastSpeedUniqueTwoHandMace8
@@ -747,7 +742,7 @@ Implicits: 3
 {variant:2,3}StunDurationImplicitMace1
 {variant:4}StunDurationImplicitMace2
 {variant:1,2}Socketed Gems are Supported by level 15 Increased Area of Effect
-{variant:3,4}SocketedGemsGetIncreasedAreaOfEffectUniqueTwoHandMace3
+{variant:3,4}Socketed Gems are Supported by level 15 Pulverise
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUnique__18
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueOneHandSword8
 {variant:4}LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace3
@@ -760,7 +755,6 @@ StunDurationUniqueTwoHandMace1
 ]],[[
 Quecholli
 Jagged Maul
-Upgrade: Upgrades to unique{Panquetzaliztli} via prophecy{The Fall of an Empire}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 22, 77 Str
@@ -775,7 +769,7 @@ Enemies killed explode dealing 10% of their Life as Fire Damage
 ]],[[
 Panquetzaliztli
 Jagged Maul
-Source: Upgraded from unique{Quecholli} via prophecy{The Fall of an Empire}
+Source: No longer obtainable
 Requires Level 61, 77 Str
 Implicits: 1
 StunDurationImplicitMace1
@@ -783,7 +777,7 @@ LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace7
 LocalAddedPhysicalDamageUnique__32
 AllAttributesUniqueTwoHandMace7
 Enemies killed explode dealing 10% of their Life as Fire Damage
-Recover 5% of Maximum Life on Kill
+RecoverPercentMaxLifeOnKillUnique__1
 ]],[[
 Tidebreaker
 Imperial Maul

@@ -28,34 +28,43 @@ IncreasedPhysicalDamageReductionRatingUniqueAmulet16
 ]],[[
 Araku Tiki
 Coral Amulet
-Upgrade: Upgrades to unique{Ngamahu Tiki} via prophecy{A Forest of False Idols}
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
 {tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
-IncreasedLifeUniqueAmulet18
+IncreasedLifeUniqueAmulet4
 FireResistImplicitAmulet1
 {tags:life}1% of Life Regenerated per Second while on Low Life
 ]],[[
 Ngamahu Tiki
 Coral Amulet
-Source: Upgraded from unique{Araku Tiki} via prophecy{A Forest of False Idols}
+Source: No longer obtainable
 Requires Level 36
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
 FireDamagePercentUnique__6
 {tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
-IncreasedLifeUniqueAmulet18
+IncreasedLifeUniqueAmulet4
 FireResistImplicitAmulet1
 {tags:life}1% of Life Regenerated per Second while on Low Life
 ]],[[
 The Ascetic
 Gold Amulet
-Source: prophecy{The Ambitious Bandit III}
 Requires Level 8
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
-ItemRarityWhileWearingANormalItemUnique__1
-ItemQuantityWhileWearingAMagicItemUnique__1
+(80-100)% increased Rarity of Items found with a Normal Item equipped
+(10-15)% increased Quantity of Items found with a Magic Item equipped
+]],[[
+Ashes of the Stars
+Onyx Amulet
+Source: Drops from unique{The Eater of Worlds}
+Requires Level 60
+Implicits: 1
+AllAttributesImplicitAmulet1
+GlobalGemExperienceGainUnique__1
+ReservationEfficiencyUnique__4_
+GlobalSkillGemLevelUnique__1
+GlobalSkillGemQualityUnique__1
 ]],[[
 Astramentis
 Onyx Amulet
@@ -82,12 +91,15 @@ GlobalItemAttributeRequirementsUniqueAmulet10
 ]],[[
 Replica Atziri's Foible
 Paua Amulet
+Variant: Pre 3.16.0
+Variant: Current
 League: Heist
 Requires Level 16
 Implicits: 1
 {tags:life}Regenerate (1.00-2.00)% of Life per second
 IncreasedLifeUniqueTwoHandAxe4
-LifeRecoveryRateUnique__1
+{variant:1}{tags:life}(20-25)% increased Life Recovery rate
+{variant:2}LifeRecoveryRateUnique__1
 GlobalItemAttributeRequirementsUniqueAmulet10
 ]],[[
 Aul's Uprising
@@ -154,10 +166,10 @@ Variant: Current
 Requires Level 32
 Implicits: 1
 HybridStrInt
-IncreasedLifeUniqueAmulet18
+IncreasedLifeUniqueAmulet4
 IncreasedManaUniqueHelmetStrDex5_
 IncreasedMaximumPowerChargesUnique__1
-IncreasedManaRegenerationPerPowerChargeUnique__1
+{tags:mana}10% increased Mana Regeneration Rate Per Power Charge
 {variant:2}IncreasedPowerChargeDurationUnique__1
 DamageTakeFromManaBeforeLifePerPowerChargeUnique__1
 CriticalStrikeChancePerPowerChargeUnique__1
@@ -190,6 +202,8 @@ ItemFoundRarityIncreaseImplicitAmulet1
 ]],[[
 Blightwell
 Clutching Talisman
+Variant: Pre 3.16.0
+Variant: Current
 League: Talisman Hardcore
 Talisman Tier: 2
 Requires Level 28
@@ -198,8 +212,10 @@ TalismanGlobalDefensesPercent
 IncreasedEnergyShieldUniqueAmulet14
 FireResistUnique__2
 LightningResistUnique__1
-30% slower start of Energy Shield Recharge during Flask Effect
-400% increased Energy Shield Recharge Rate during Flask Effect
+{variant:1}30% slower start of Energy Shield Recharge during Flask Effect
+{variant:2}50% slower start of Energy Shield Recharge during Flask Effect
+{variant:1}400% increased Energy Shield Recharge Rate during Flask Effect
+{variant:2}(150-200)% increased Energy Shield Recharge Rate during Flask Effect
 Corrupted
 ]],[[
 Blood of Corruption
@@ -208,9 +224,9 @@ Source: Use currency{Vaal Orb} on unique{Tear of Purity}
 Requires Level 20
 Implicits: 1
 StrengthImplicitAmulet1
-GluttonyOfElementsUniqueAmulet23
+Grants level 10 Gluttony of Elements Skill
 {tags:attack,chaos}Adds 19-43 Chaos Damage to Attacks
-AllResistancesUniqueAmulet23
+{tags:jewellery_resistance}−(10-5)% to all Elemental Resistances
 ChaosResistUniqueAmulet23
 Corrupted
 ]],[[
@@ -256,7 +272,18 @@ AllResistancesUniqueAmulet9
 LifeLeechPermyriadUniqueAmulet9
 {variant:2}IncreasedDamageWhileLeechingUnique__1
 {tags:life}{variant:2}50% increased Life Leeched per second
-ExtraGore
+Extra Gore
+]],[[
+Crystallised Omniscience
+Onyx Amulet
+Source: Drops from unique{The Searing Exarch}
+Requires Level 61
+Implicits: 1
+AllAttributesImplicitAmulet1
+Modifiers to Attributes instead Apply to Omniscience
++1% to All Elemental Resistances per 10 Omniscience
+ElementalPenPerAscendanceUnique__1
+AttributeRequirementsAscendanceUnique__1
 ]],[[
 Daresso's Salute
 Citrine Amulet
@@ -297,7 +324,7 @@ GrantEnemiesOnslaughtOnKillUnique__1
 {variant:2}UnholyMightOnKillPercentChanceUnique__1
 {variant:1}{tags:caster,attack}5% chance to gain Onslaught for 10 seconds on Kill
 {variant:2}OnslaugtOnKillPercentChanceUnique__1
-{tags:life}Recover 1% of Maximum Life on Kill
+MaximumLifeOnKillPercentUnique__4_
 ]],[[
 Eye of Chayula
 Onyx Amulet
@@ -425,7 +452,7 @@ HybridDexInt
 IncreasedEvasionRatingPercentUnique__2
 AllResistancesUniqueAmulet14
 AdditionalProjectilesUnique__1__
-ProjectileSpeedUniqueQuiver4
+ProjectileSpeedImplicitQuiver4New
 Modifiers to number of Projectiles instead apply to the number of targets Projectiles Split towards
 ]],[[
 Gloomfang
@@ -473,19 +500,24 @@ ColdPenetrationAgainstChilledEnemiesUnique__1
 ]],[[
 Hinekora's Sight
 Onyx Amulet
-Source: Any prophecy{Prophecy} enemy
 Requires Level 20
+Variant: Pre 3.16.0
+Variant: Current
 Implicits: 1
 AllAttributesImplicitAmulet1
-IncreasedAccuracyUnique__3
-(6-10)% chance to Dodge Attacks
-(6-10)% chance to Dodge Spell Damage
+{variant:1}{tags:attack}+1000 to Accuracy Rating
+{variant:2}IncreasedAccuracyUnique__3
+{variant:2}IncreasedEvasionRatingUnique__6_
+{variant:1}(12-20)% chance to Suppress Spell Damage
+{variant:2}SpellDamageSuppressedUnique__1
 BlindImmunityUnique__1
 ]],[[
 Hyrri's Truth
 Jade Amulet
 League: Synthesis
 Requires Level 64
+Variant: Pre 3.16.0
+Variant: Current
 Implicits: 1
 DexterityImplicitAmulet1
 GrantsAccuracyAuraSkillUnique__1
@@ -494,11 +526,14 @@ AddedPhysicalDamageUnique__7
 AddedColdDamageUnique__8
 CriticalMultiplierUnique__3__
 LifeLeechPermyriadUnique__6
-PrecisionAuraBonusUnique__1
+{variant:1}Precision has 50% less Reservation
+{variant:2}PrecisionReservationEfficiencyUnique__1
 ]],[[
 Replica Hyrri's Truth
 Jade Amulet
 League: Heist
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 64
 Implicits: 1
 DexterityImplicitAmulet1
@@ -508,11 +543,11 @@ AddedPhysicalDamageUnique__7
 AddedColdDamageUnique__8
 CriticalMultiplierUnique__3__
 {tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
-HyrrisTruthHatredManaReservationFinalUnique__1
+{variant:1}Hatred has 50% less Reservation
+{variant:2}HatredManaReservationEfficiencyUnique__1__
 ]],[[
 The Ignomon
 Gold Amulet
-Upgrade: Upgrades to unique{The Effigon} via prophecy{Blind Faith}
 Requires Level 8
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
@@ -524,7 +559,7 @@ FireResistUniqueAmulet7
 ]],[[
 The Effigon
 Gold Amulet
-Source: Upgraded from unique{The Ignomon} via prophecy{Blind Faith}
+Source: No longer obtainable
 Requires Level 57
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
@@ -573,7 +608,6 @@ Elder Item
 ]],[[
 Karui Ward
 Jade Amulet
-Upgrade: Upgrades to unique{Karui Charge} via prophecy{The Karui Rebellion}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 5
@@ -599,14 +633,14 @@ AreaDamageUnique__1
 ]],[[
 Karui Charge
 Jade Amulet
-Source: Upgraded from unique{Karui Ward} via prophecy{The Karui Rebellion}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 24
 Implicits: 1
 DexterityImplicitAmulet1
 StrengthImplicitAmulet1
-{variant:1}LocalIncreasedAttackSpeedUniqueSceptre9
+{variant:1}LocalIncreasedAttackSpeedUnique__25
 {variant:2}LocalIncreasedAttackSpeedUniqueStaff9
 IncreasedAccuracyUniqueAmulet5
 {variant:2}IncreasedProjectileDamageUnique__6
@@ -617,10 +651,10 @@ Leadership's Price
 Onyx Amulet
 Requires Level 68
 Implicits: 1
-{tags:attribute}+(10–16) to all Attributes
-{tags:resistance}+(-3–3)% to maximum Fire Resistance
-{tags:resistance}+(-3–3)% to maximum Cold Resistance
-{tags:resistance}+(-3–3)% to maximum Lightning Resistance
+AllAttributesImplicitAmulet1
+MaximumFireResistUnique__1
+MaximumColdResistUnique__1_
+MaximumLightningResistUnique__1
 ScorchingBrittleSappingConfluxUnique__1
 CannotIgniteChillFreezeShockUnique__1
 Corrupted
@@ -638,13 +672,17 @@ PoisonDurationPerPowerChargeUnique__1
 ]],[[
 The Jinxed Juju
 Citrine Amulet
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 48
 Implicits: 1
 HybridStrDex
 IntelligenceUnique__16
 ChaosResistUnique__15
-CurseEffectivenessUnique__3_
-AuraEffectGlobalUnique__1
+{variant:1}UniqueSpecialCorruptionCurseEffect___
+{variant:2}CurseEffectivenessUnique__3_
+{variant:1}UniqueSpecialCorruptionAuraEffect
+{variant:2}AuraEffectGlobalUnique__1
 DamageRemovedFromSpectresUnique__1
 (The damage they take will be divided evenly between them)
 ]],[[
@@ -691,11 +729,11 @@ League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 1
 Requires Level 12
 Implicits: 1
-RingHasOneSocket
-LocalIncreaseSocketedGemLevelUnique__1
+AmuletHasOneSocket
+LocalIncreaseSocketedGemLevelUnique__11_
 SocketedGemsHaveAddedChaosDamageUnique__1
-ItemActsAsSupportBlindUnique__1
-SupportedByCastOnStunUnique___1
+Socketed Gems are Supported by Level 10 Blind
+Socketed Gems are Supported by Level 10 Cast when Stunned
 Corrupted
 ]],[[
 Perquil's Toe
@@ -703,7 +741,7 @@ Gold Amulet
 Requires Level 29
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
-DexterityUnique__11
+DexterityUnique__7
 MovementVelocityUnique__36_
 Lightning Damage from Enemies Hitting you is Lucky
 UniqueNearbyAlliesAreLuckyDisplay
@@ -756,9 +794,9 @@ Implicits: 2
 {variant:1}+(16-24)% to Global Critical Strike Multiplier
 {variant:2}TalismanIncreasedCriticalStrikeMultiplier_
 BaseUnarmedCriticalStrikeChanceUnique__1
-{tags:attack}Modifiers to Claw Damage also apply to Unarmed Attack Damage
-{tags:attack,speed}Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed
-{tags:attack,critical}Modifiers to Claw Critical Strike Chance also apply to Unarmed Attack Critical Strike Chance
+ClawDamageModsAlsoAffectUnarmedUnique__1
+ClawAttackSpeedModsAlsoAffectUnarmed__1
+ClawCritModsAlsoAffectUnarmed__1
 Corrupted
 ]],[[
 Sacrificial Heart
@@ -804,7 +842,7 @@ HybridStrInt
 ManaRegenerationUniqueAmulet21
 {tags:life}2% of Life Regenerated per Second
 {variant:1}{tags:life}Nearby Allies gain 1% of Life Regenerated per Second
-{variant:2}DisplayLifeRegenerationAuraUniqueAmulet21
+{variant:2}{tags:life}Nearby Allies gain 2% of Life Regenerated per Second
 DisplayManaRegenerationAuaUniqueAmulet21
 ]],[[
 Sidhebreath
@@ -812,6 +850,7 @@ Paua Amulet
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
+Implicits: 1
 ManaRegenerationImplicitAmulet1
 ColdResistUniqueAmulet3
 {variant:1,2}ManaLeechPermyriadUniqueAmulet3
@@ -848,11 +887,11 @@ Implicits: 1
 FireResistImplicitAmulet1
 {variant:3}GrantsFrostblinkSkillUnique__1
 ColdDamagePercentUnique__3
-AllResistancesUnique__2
+AllResistancesUniqueBootsStr1
 {variant:1}{tags:caster}30% increased Area of Effect of Hex Skills
 {variant:2,3}CurseAreaOfEffectUnique__1
 SilenceImmunityUnique__1
-{variant:1,2}ItemGrantsIllusoryWarpUnique__1
+{variant:1,2}Grants level 20 Illusory Warp Skill
 {variant:3}FrostblinkDurationUnique__1_
 Corrupted
 ]],[[
@@ -867,6 +906,14 @@ IntelligenceImplicitAmulet1
 {variant:2}+(12-15)% chance to Block Spell Damage
 IncreasedCastSpeedUniqueAmulet1
 IncreasedManaUniqueAmulet1
+]],[[
+Stranglegasp
+Onyx Amulet
+Source: Drops in Blight-ravaged Maps
+Requires Level 52
+Implicits: 1
+AllAttributesImplicitAmulet1
+MultipleEnchantmentsAllowedUnique__2
 ]],[[
 Tavukai
 Coral Amulet
@@ -884,13 +931,16 @@ RagingSpiritChaosDamageTakenUnique__1
 ]],[[
 Tear of Purity
 Lapis Amulet
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 20
 Implicits: 1
 IntelligenceImplicitAmulet1
-PuritySkillUniqueAmulet22
+Grants level 10 Purity of Elements Skill
 AllAttributesUniqueAmulet22
 IncreasedLifeUniqueAmulet22
-ChanceToAvoidElementalStatusAilmentsUniqueAmulet22
+{variant:1}5% chance to avoid Elemental Ailments
+{variant:2}ChanceToAvoidElementalStatusAilmentsUniqueAmulet22
 ]],[[
 Ungil's Harmony
 Turquoise Amulet
@@ -901,10 +951,22 @@ Implicits: 1
 HybridDexInt
 {variant:1}CriticalStrikeChanceUniqueBodyInt4
 {variant:2}CriticalStrikeChanceUniqueAmulet18
-IncreasedLifeUniqueAmulet18
+IncreasedLifeUniqueAmulet4
 IncreasedManaUniqueAmulet1
 StunRecoveryUniqueAmulet18
 CriticalMultiplierUniqueAmulet18
+]],[[
+Uul-Netol's Vow
+Unset Amulet
+Source: Drops from Flawless Breachlords
+Requires Level 72
+Implicits: 1
+AmuletHasOneSocket
+SupportGemsSocketedInAmuletAlsoSupportBodySkills
+FireResistUnique__28_
+ColdResistUnique__35
+LightningResistUnique__25
+ChaosResistUnique__24
 ]],[[
 Victario's Acuity
 Turquoise Amulet
@@ -924,19 +986,23 @@ Lapis Amulet
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 40
 Implicits: 1
 IntelligenceImplicitAmulet1
 LightningStrikesOnCritUnique__1
-AllAttributesUniqueRing26
+AllAttributesUniqueHelmetStrInt5
 MaximumManaUniqueStaff4
-CriticalChanceIncreasedByUncappedLightningResistanceUnique__1
+{variant:1}Critical Strike Chance is increased by Lightning Resistance
+{variant:2}CriticalChanceIncreasedByUncappedLightningResistanceUnique__1
 ]],[[
 Choir of the Storm
 Lapis Amulet
 League: Breach
 Source: Upgraded from unique{Voice of the Storm} using currency{Blessing of Esh}
 Variant: Pre 3.0.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 69
 Implicits: 1
@@ -944,8 +1010,9 @@ IntelligenceImplicitAmulet1
 LightningStrikesOnCritUnique__2
 CriticalStrikesDealIncreasedLightningDamageUnique__1
 MaximumManaUniqueStaff4
-{variant:1}{tags:jewellery_resistance}-30% to Lightning Resistance
-CriticalChanceIncreasedByUncappedLightningResistanceUnique__1
+{variant:1,2}Critical Strike Chance is increased by Lightning Resistance
+{variant:1,3}LightningResistUnique__9
+{variant:3}CriticalChanceIncreasedByUncappedLightningResistanceUnique__1
 ]],[[
 Voll's Devotion
 Agate Amulet
@@ -978,6 +1045,8 @@ IncreasedLifeLeechRateUniqueAmulet20
 ]],[[
 Willowgift
 Jade Amulet
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 52
 Implicits: 1
 DexterityImplicitAmulet1
@@ -986,6 +1055,7 @@ PercentageDexterityUnique__5
 FireResistUnique__22_
 ColdResistUniqueAmulet13
 AlternateFortifyUnique__1_
+{variant:2}+4% chance to Suppress Spell Damage per Fortification
 AttackAndCastSpeedFortifyUnique__1
 ]],[[
 Winterheart
@@ -1046,7 +1116,7 @@ Requires Level 70
 Implicits: 1
 AllAttributesImplicitAmulet1
 FireResistUnique__15
-ColdResistUniqueShieldStrDex1
+ColdResistUniqueBelt13
 LightningResistUnique__5
 IncreasedAilmentDurationUnique__2
 ChanceToShockUnique__3

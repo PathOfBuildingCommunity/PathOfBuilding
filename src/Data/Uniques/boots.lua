@@ -865,13 +865,13 @@ Fugitive Boots
 Source: Drops from unique{The Eater of Worlds}
 Requires Level 70, 56 Dex, 76 Int
 Implicits: 1
-+(13–17)% to Chaos Resistance
-+(80–100) to maximum Life
++(13-17)% to Chaos Resistance
++(80-100) to maximum Life
 30% increased Movement Speed
 You gain 3 Grasping Vines when you take a Critical Strike
 Nearby stationary Enemies gain a Grasping Vine every 0.5 seconds
 All Damage inflicts Poison against Enemies affected by at least 3 Grasping Vines
-You take (30–50)% reduced Extra Damage from Critical Strikes by Poisoned Enemies
+You take (30-50)% reduced Extra Damage from Critical Strikes by Poisoned Enemies
 ]],[[
 Nomic's Storm
 Strapped Boots
@@ -971,8 +971,8 @@ Olroth's Charge
 Runic Sollerets
 League: Expedition
 Requires Level 48, 37 Str, 37 Dex, 37 Int
-(50–80)% increased Ward
-(30–50)% slower Restoration of Ward
+(50-80)% increased Ward
+(30-50)% slower Restoration of Ward
 20% increased Movement Speed
 Gain Adrenaline for 3 seconds when Ward Breaks
 ]],[[
@@ -983,8 +983,8 @@ Requires Level 69, 46 Str, 46 Dex, 46 Int
 Has no Sockets
 Triggers Level 20 Summon Arbalists when Equipped
 25% increased Movement Speed
-Summoned Arbalists have (10–20)% chance to inflict Cold Exposure on Hit
-Summoned Arbalists have (10–20)% chance to Intimidate for 4 seconds on Hit
-Summoned Arbalists Convert (30–50)% of Physical Damage to Fire Damage
+Summoned Arbalists have (10-20)% chance to inflict Cold Exposure on Hit
+Summoned Arbalists have (10-20)% chance to Intimidate for 4 seconds on Hit
+Summoned Arbalists Convert (30-50)% of Physical Damage to Fire Damage
 ]],
 }

@@ -11,12 +11,12 @@ Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
 {variant:1}+21 Life gained for each Enemy hit by Attacks
 {variant:2}LifeGainPerTargetImplicit2Claw8
-SocketedGemsSupportedByFortifyUnique____1
+Socketed Gems are Supported by level 12 Fortify
 LocalIncreasedPhysicalDamagePercentUniqueClaw6
 IncreasedEvasionRatingUnique___1
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__20
 IncreasedEnergyShieldUnique__2
-AttackerTakesDamageShieldImplicit7
+AttackerTakesDamageUnique__1
 15% Chance to Block
 ]],[[
 Replica Advancing Fortress
@@ -28,7 +28,7 @@ LifeGainPerTargetImplicit2Claw8
 SupportedByCastOnDamageTakenUnique__1
 AdditionalBlockUnique__2
 LocalIncreasedPhysicalDamagePercentUniqueClaw6
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__20
 ShieldArmourIncreaseUnique__1
 AddedFireDamageIfBlockedRecentlyUnique__1
 ]],[[
@@ -77,7 +77,7 @@ Implicits: 3
 {variant:3,4,5,6}LifeGainPerTargetImplicit2Claw4_1
 {variant:1,2,3,4}SocketedItemsHaveChanceToFleeUniqueClaw6
 {variant:4,5}TriggeredAbyssalCryUnique__1
-{variant:1}LocalIncreasedPhyiscalDamagePercentUnique__3
+{variant:1}LocalIncreasedPhysicalDamagePercentUnique__36_
 {variant:2,3,4,5,6}LocalIncreasedPhysicalDamagePercentUniqueClaw6
 LifeLeechPermyriadUniqueClaw6
 {variant:1,2,3,4}StunThresholdReductionUniqueClaw6
@@ -170,7 +170,7 @@ Implicits: 2
 {variant:2,3}LifeGainPerTargetImplicit2Claw4
 WeaponElementalDamageUnique__4
 LocalAddedLightningDamageUnique__4
-LocalIncreasedAttackSpeedUniqueClaw8
+LocalIncreasedAttackSpeedUniqueClaw9
 {variant:1,2}Adds 1 to 3 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 {variant:3}AddedLightningDamagePerIntelligenceUnique__2
 ]],[[
@@ -204,7 +204,7 @@ Implicits: 2
 {variant:2,3}LifeGainPerTargetImplicit2Claw10
 LocalIncreasedPhysicalDamagePercentUnique__6
 LocalAddedPhysicalDamageUnique__3
-LocalIncreasedAttackSpeedUniqueClaw8
+LocalIncreasedAttackSpeedUniqueClaw9
 {variant:1,2}+(250-350) to Accuracy Rating
 {variant:3}IncreasedAccuracyUnique__1
 100% increased Physical Damage while Frozen
@@ -244,7 +244,7 @@ Implicits: 1
 LifeLeechPermyriadImplicitClaw1
 {variant:1}20% chance to Trigger Level 20 Summon Spectral Wolf on Critical Strike with this Weapon
 {variant:2}SummonWolfOnCritUnique__1
-LocalIncreasedAttackSpeedUniqueSceptre9
+LocalIncreasedAttackSpeedUnique__25
 LocalCriticalStrikeChanceUnique__17_
 CriticalMultiplierUniqueDagger8
 ]],[[
@@ -278,10 +278,10 @@ Implicits: 2
 {variant:1}+21 Life gained for each Enemy hit by Attacks
 {variant:2,3}LifeGainPerTargetImplicit2Claw8
 LocalIncreaseSocketedDexterityGemLevelUniqueClaw8
-{variant:3}DisplaySocketedGemsGetsFasterAttackUnique__1
+{variant:3}Socketed Gems are Supported by level 10 Faster Attacks
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueClaw6
 {variant:3}LocalIncreasedPhysicalDamageUniqueClaw8
-LocalIncreasedAttackSpeedUniqueClaw8
+LocalIncreasedAttackSpeedUniqueClaw9
 25% increased Stun Recovery
 AlwaysHits
 ]],[[
@@ -290,10 +290,10 @@ Terror Claw
 Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw2
-LocalIncreasedPhyiscalDamagePercentUnique__3
+LocalIncreasedPhysicalDamagePercentUnique__36_
 LocalAddedPhysicalDamageUnique__13
 CausesBleedingUnique__1
-IncreasePhysicalDegenDamagePerDexterityUnique__1
+2% increased Physical Damage over time per 10 Dexterity
 1% increased Bleed Duration per 12 Intelligence
 BleedingEnemiesFleeOnHitUnique__1
 ]],[[
@@ -307,7 +307,7 @@ Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 {variant:1}10% Chance to Cast level 10 Summon Spectral Wolf on Kill
 LocalAddedPhysicalDamageUnique__23_
-LocalIncreasedAttackSpeedUniqueClaw8
+LocalIncreasedAttackSpeedUniqueClaw9
 IncreasedMinionAttackSpeedUnique__1_
 MinionDamageAlsoAffectsYouUnique__1
 IncreasedMinionDamageIfYouHitEnemyUnique__1
@@ -322,7 +322,7 @@ Implicits: 2
 {variant:2}LifeGainPerTargetImplicit2Claw10
 LocalAddedPhysicalDamageUnique__14
 ColdDamagePercentUniqueHelmetInt4
-CriticalStrikeChanceUniqueBow9
+LocalCriticalStrikeChanceUnique__10
 ChanceToGainFrenzyChargeOnKillingFrozenEnemyUnique__1
 AdditionalChainWhileAtMaxFrenzyChargesUnique___1
 ChanceToFreezeUnique__4
@@ -334,9 +334,9 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
-LifeGainPerTargetImplicit2Claw9_
+LifeGainPerTargetImplicit2Claw11_
 LocalIncreasedPhysicalDamagePercentUniqueClaw3
-LocalIncreasedAttackSpeedUniqueOneHandAxe1
+LocalIncreasedAttackSpeedUnique__21
 LocalCriticalStrikeChanceUnique__11
 {variant:1}+(180-200) to Accuracy Rating
 {variant:2}LocalIncreasedAccuracyUnique__1
@@ -356,7 +356,7 @@ StrengthUniqueClaw9
 DexterityUniqueClaw9
 15% reduced Accuracy Rating
 LocalAddedPhysicalDamageUniqueClaw9
-LocalIncreasedAttackSpeedUniqueClaw8
+LocalIncreasedAttackSpeedUniqueClaw9
 DamageWithMovementSkillsUniqueClaw9
 AttackSpeedWithMovementSkillsUniqueClaw9
 ]],

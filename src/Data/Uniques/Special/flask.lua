@@ -8,13 +8,15 @@ Sanctified Life Flask
 League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Pre 3.15.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 50
-(5-20)% increased Recovery Speed
+{variant:1,2,3}(5-20)% increased Recovery Speed
+{variant:4}(35-50)% reduced Recovery Speed
 {variant:1}No Life Recovery Applies during Flask effect
 {variant:2}100% increased Amount Recovered
 {variant:3}50% increased Amount Recovered
-LocalFlaskLifeOnFlaskDurationEndUniqueFlask3
+Recover Full Life at the end of the Flask effect
 ]],
 -- Flask: Mana
 [[
@@ -29,21 +31,21 @@ Implicits: 0
 {variant:3}FlaskRemovePercentageOfEnergyShieldUniqueFlask2
 {variant:1,2}You take 10% of your maximum Life as Chaos Damage on use
 {variant:3}FlaskTakeChaosDamagePercentageOfLifeUniqueFlask2
-{variant:1,2}FlaskGainPowerChargeUniqueFlask2
-{variant:1,2}FlaskGainFrenzyChargeUniqueFlask2
-{variant:1,2}FlaskGainEnduranceChargeUnique__1_
+{variant:1,2}You gain a Power Charge on use
+{variant:1,2}You gain a Frenzy Charge on use
+{variant:1,2}You gain an Endurance Charge on use
 {variant:3}You gain (1-3) Power Charges on use
 {variant:3}You gain (1-3) Frenzy Charges on use
 {variant:3}You gain (1-3) Endurance Charge on use
 {variant:1}(50-100)% increased Charges used
 {variant:2}(120-150)% increased Charges used
-{variant:3}LocalFlaskChargesUsedUniqueFlask2
+{variant:3}(250-300)% increased Charges used
 ]],[[
 Lavianga's Spirit
 Sanctified Mana Flask
 League: Domination, Nemesis
 Requires Level 50
-FlaskIncreasedRecoveryAmountUniqueFlask4
+FlaskIncreasedRecoveryAmountUnique__1
 100% increased Recovery Speed
 Your Skills have no Mana Cost during Flask effect
 ]],[[
@@ -51,7 +53,7 @@ Replica Lavianga's Spirit
 Sanctified Mana Flask
 League: Heist
 Requires Level 50
-FlaskIncreasedRecoveryAmountUniqueFlask4
+FlaskIncreasedRecoveryAmountUnique__1
 50% reduced Recovery rate
 LocalFlaskAttackAndCastSpeedWhileHealingUnique__1
 (5-15)% increased Cast Speed during Flask effect
@@ -63,7 +65,7 @@ Variant: Pre 3.2.0
 Variant: Current
 League: Perandus
 Requires Level 18
-FlaskChargesUsedUnique__3
+50% increased Charges used
 {variant:1}Grants Last Breath when you Use a Skill during Flask Effect, for 800% of Mana Cost
 {variant:2}FlaskLifeGainOnSkillUseUnique__1
 ]],
@@ -117,14 +119,16 @@ Sulphur Flask
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Variant: Pre 3.15.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 35
 UtilityFlaskConsecrate
 {variant:1}FlaskEffectDurationUnique__3
 {variant:2}FlaskEffectDurationUnique__7
+{variant:3}FlaskConsecratedGroundDurationUnique__1
 FlaskConsecratedGroundAreaOfEffectUnique__1_
 {variant:1}+(1.0-2.0)% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
-{variant:2}(100-150)% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect
+{variant:2,3}(100-150)% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect
 FlaskConsecratedGroundDamageTakenUnique__1
 ]],[[
 Coralito's Signature
@@ -143,11 +147,13 @@ FlaskHitsHaveNoCritMultiUnique__1
 Coruscating Elixir
 Ruby Flask
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 18
 Implicits: 0
-{variant:2}FlaskEffectDurationUnique__4
-ChaosDamageDoesNotBypassESDuringFlaskEffectUnique__1
+{variant:2}100% increased Duration
+{variant:3}FlaskEffectDurationUnique__4
+Chaos Damage does not bypass Energy Shield during effect
 RemoveLifeAndAddThatMuchEnergyShieldOnFlaskUseUnique__1
 Removed life is regenerated as Energy Shield over 2 seconds
 ]],[[
@@ -162,40 +168,46 @@ Variant: Item Rarity
 Variant: Reduced Mana Cost
 Variant: Movement Speed/Stun Avoidance
 Variant: Life Regen
+Variant: Reduced Reflected Damage Taken
 Variant: Pre 3.15.0
+Variant: Pre 3.16.0 Crit Chance
 Variant: Current
 Requires Level 22
 Implicits: 0
-{variant:7}GainChargeOnConsumingIgnitedCorpseUnique__1__
-{variant:8}GainChargeOnConsumingIgnitedCorpseUnique__2
-{variant:7}Enemies Ignited by you during Flask Effect take 10% increased Damage
-{variant:8}EnemiesIgnitedTakeIncreasedDamageUnique__1
-{variant:7,8}RecoverMaximumLifeOnKillFlaskEffectUnique__1
-{variant:7,8}RecoverMaximumManaOnKillFlaskEffectUnique__1
-{variant:7,8}RecoverMaximumEnergyShieldOnKillFlaskEffectUnique__1
-{variant:8}FlaskExtraChargesUnique__3
-{variant:8}LocalFlaskChargesUsedUniqueFlask2
-{variant:1}{crafted}(60-80)% increased Critical Strike Chance during Flask Effect
+{variant:8}Recharges 1 Charge when you consume an Ignited Corpse
+{variant:10}Recharges 5 Charges when you consume an Ignited Corpse
+{variant:8}Enemies Ignited by you during Flask Effect take 10% increased Damage
+{variant:10}EnemiesIgnitedTakeIncreasedDamageUnique__1
+{variant:8,10}RecoverMaximumLifeOnKillFlaskEffectUnique__1
+{variant:8,10}RecoverMaximumManaOnKillFlaskEffectUnique__1
+{variant:8,10}RecoverMaximumEnergyShieldOnKillFlaskEffectUnique__1
+{variant:10}+90 to maximum charges
+{variant:10}(250-300)% increased Charges Used
+{variant:9}{crafted}(60-80)% increased Critical Strike Chance during Flask Effect
+{variant:1}{crafted}(45-55)% increased Critical Strike Chance during Flask Effect
 {variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Flask Effect
-{variant:3}FlaskItemRarityUniqueFlask1
+{variant:3}{crafted}(20-30)% increased Rarity of Items found during Flask Effect
 {variant:4}{crafted}(25-20)% reduced Mana Cost of Skills during Flask Effect
 {variant:5}{crafted}(8-12)% increased Movement Speed during Flask effect
 {variant:5}{crafted}50% Chance to avoid being Stunned during Flask Effect
 {variant:6}{crafted}3% of Life Regenerated per second during Flask Effect
+{variant:7}{crafted}(60-80)% reduced Reflected Damage taken during Flask Effect
 ]],[[
 Dying Sun
 Ruby Flask
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 68
 {variant:2}(-10-10)% increased Charges used
-{variant:3}FlaskChargesUsedUnique__5
-{variant:3}FlaskEffectDurationUnique__6
+{variant:3,4}(125-150)% increased Charges used
+{variant:3}(40-60)% reduced duration
+{variant:4}(40-60)% less duration
 {variant:1}30% increased Area of Effect during Flask Effect
 {variant:2}(15-25)% increased Area of Effect during Flask Effect
-{variant:3}FlaskIncreasedAreaOfEffectDuringEffectUnique__1_
+{variant:3,4}FlaskIncreasedAreaOfEffectDuringEffectUnique__1_
 2 additional Projectiles during Flask Effect
 ]],[[
 Forbidden Taste
@@ -205,13 +217,13 @@ Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 27
-{variant:1,2}FlaskChargesUsedUnique__3
+{variant:1,2}50% increased Charges used
 {variant:1}Recover 50% of your maximum Life on use
 {variant:2}Recover 75% of your maximum Life on use
 {variant:3,4}Recover (75-100)% of your maximum Life on use
 {variant:1}15% of maximum Life taken as Chaos Damage per second
-{variant:2,3}8% of Maximum Life taken as Chaos Damage per second
-{variant:4}LocalFlaskChaosDamageOfLifeTakenPerMinuteWhileHealingUniqueFlask6
+{variant:2,3}8% of maximum Life taken as Chaos Damage per second
+{variant:4}25% of maximum Life taken as Chaos Damage per second
 ]],[[
 Kiara's Determination
 Silver Flask
@@ -234,7 +246,7 @@ Variant: Current
 Requires Level 27
 KnockbackOnFlaskUseUniqueFlask9
 MonstersFleeOnFlaskUseUniqueFlask9
-{variant:1}LocalFlaskChargesUsedUniqueFlask9
+{variant:1}(70-100)% increased Charges used
 {variant:1}30% more Melee Physical Damage during effect
 {variant:2}(30-35)% more Melee Physical Damage during effect
 {variant:3}(20-25)% more Melee Physical Damage during effect
@@ -279,7 +291,7 @@ Replica Rumi's Concoction
 Granite Flask
 League: Heist
 Requires Level 68
-FlaskGainEnduranceChargeUnique__1_
+You gain an Endurance Charge on use
 BlockIncreasedDuringFlaskEffectUnique__1
 SpellBlockIncreasedDuringFlaskEffectUnique__1_
 LocalFlaskPetrifiedUnique__1
@@ -341,10 +353,10 @@ Source: Upgraded from unique{Soul Catcher} via currency{Vial of the Ghost}
 Variant: Pre 3.10.0
 Variant: Current
 Requires Level 27
-{variant:1}FlaskChargesUsedUnique__7
-{variant:1}FlaskVaalSkillDamageUnique__2
+{variant:1}100% increased Charges used
+{variant:1}Vaal Skills deal (30-40)% more Damage during effect
 {variant:1}FlaskVaalNoSoulPreventionUnique__1
-{variant:1}CannotGainFlaskChargesDuringEffectUnique__1
+{variant:1}Gains no Charges During effect of any Soul Ripper Flask
 {variant:2}+(-40 to 90) maximum Charges
 {variant:2}FlaskLoseChargesOnNewAreaUnique__1
 {variant:2}FlaskVaalConsumeMaximumChargesUnique__1
@@ -402,8 +414,8 @@ Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
 Requires Level 68
-{variant:5,6,7,8,9,10,11,12,13,14,15}FlaskChargesUsedUnique__6_
-{variant:16,17,18}FlaskChargesUsedUnique__5
+{variant:5,6,7,8,9,10,11,12,13,14,15}(80-100)% increased Charges used
+{variant:16,17,18}(125-150)% increased Charges used
 {variant:1,2,3,4,5,6,7,8}Shocks nearby Enemies during Flask effect
 {variant:9,10,11,12,13,14,15,16,17,18}ShockNearbyEnemiesDuringFlaskEffect___1
 {variant:1,2,3,4,5,6,7,8}You are Shocked during Flask effect
@@ -445,11 +457,11 @@ Variant: Current
 Requires Level 48
 Implicits: 1
 UtilityFlaskSmokeCloud
-{variant:1,2}FlaskChargesUsedUnique__3
+{variant:1,2}50% increased Charges used
 {variant:3}(-10-10)% increased Charges used
 {variant:1}(50-70)% increased Damage Over Time during Flask Effect
 {variant:2}(25-40)% increased Damage Over Time during Flask Effect
-VulnerabilityAuraDuringFlaskEffectUnique__1
+Grants level 21 Despair Curse Aura during Flask Effect
 ]],
 -- Flask: Ward
 [[
@@ -457,7 +469,7 @@ Elixir of the Unbroken Circle
 Iron Flask
 League: Expedition
 Requires Level 40
-(20–40)% increased Duration
+FlaskEffectDurationUnique__7
 FlaskLoseAllEnduranceChargesGainLifePerLostChargeUnique1
 Lose all Endurance Charges on use
 FlaskEnduranceChargePerSecondUnique1
@@ -474,9 +486,9 @@ Starlight Chalice
 Iron Flask
 League: Expedition
 Requires Level 40
-(20–30)% increased Charge Recovery
+FlaskChargesAddedIncreasePercentUnique__2
 FlaskFireColdLightningExposureOnNearbyEnemiesUnique1
-(20–30)% increased Effect of Non-Damaging Ailments you inflict during Flask Effect
+FlaskNonDamagingAilmentIncreasedEffectUnique__1
 ]],[[
 Vorana's Preparation
 Iron Flask

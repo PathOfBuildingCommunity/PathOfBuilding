@@ -9,7 +9,7 @@ Requires Level 53, 58 Dex, 123 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger2
 SummonSpidersOnKillUnique__1
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe9
+LocalIncreasedPhysicalDamagePercentUnique__25
 LocalAddedPhysicalDamageUnique__25
 LocalAddedChaosDamageUnique___1
 LocalChanceToPoisonOnHitUnique__1
@@ -40,8 +40,8 @@ CriticalStrikeChanceImplicitDagger1
 DexterityUniqueDagger12
 LocalIncreasedPhysicalDamagePercentUniqueDagger12
 LocalAddedPhysicalDamageUniqueDagger12
-LocalIncreasedAttackSpeedUniqueDagger12
-ExtraGore
+LocalIncreasedAttackSpeedUniqueDescentDagger1
+Extra Gore
 {variant:1}10% chance to cause Bleeding on Hit
 {variant:2}LocalChanceToBleedUniqueDagger12
 ]],[[
@@ -64,7 +64,7 @@ Requires Level 62, 95 Dex, 131 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 GlobalPhysicalSpellGemsLevelUnique__1
-DealNoElementalDamageUnique__1
+DealNoElementalDamageUnique__2
 ]],[[
 Replica Cold Iron Point
 Ezomyte Dagger
@@ -111,7 +111,6 @@ SpellDamageOnWeaponUniqueDagger1
 ]],[[
 Goredrill
 Skinning Knife
-Upgrade: Upgrades to unique{Sanguine Gambol} via prophecy{Crimson Hues}
 Requires Level 5, 16 Dex
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
@@ -124,7 +123,7 @@ AttackDamageAgainstBleedingUniqueDagger11
 ]],[[
 Sanguine Gambol
 Skinning Knife
-Source: Upgraded from unique{Goredrill} via prophecy{Crimson Hues}
+Source: No longer obtainable
 Requires Level 59
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
@@ -183,7 +182,7 @@ Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 UniqueSecretBladeGrantHiddenBlade
-DexterityUnique__6
+DexterityUnique__20__
 LocalIncreasedPhysicalDamagePercentUniqueOneHandSword8
 ReducedAttackSpeedWhilePhasingUnique__1
 ]],[[
@@ -202,7 +201,7 @@ CriticalStrikeChanceUniqueDagger3
 LocalReducedAttackSpeedUniqueDagger9
 AllResistancesUniqueDagger9
 {variant:1,2}Melee Critical Strikes have 25% chance to cause Bleeding
-{variant:3}CausesBleedingOnCritUniqueDagger11
+{variant:3}CauseseBleedingOnCritUniqueDagger9
 {variant:1,2}Melee Critical Strikes have 25% chance to Poison the Enemy
 {variant:3}CausesPoisonOnCritUniqueDagger9
 ]],[[
@@ -242,7 +241,7 @@ CriticalStrikeChanceImplicitDagger1
 LocalIncreasedPhysicalDamagePercentUniqueDagger2
 DexterityUniqueDagger3
 AddedLightningDamageUniqueDagger3
-LocalIncreasedAttackSpeedUniqueDagger12
+LocalIncreasedAttackSpeedUniqueDescentDagger1
 CriticalStrikeChanceUniqueDagger3
 ]],[[
 Replica Ungil's Gauche
@@ -253,7 +252,7 @@ Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 BlockWhileDualWieldingUnique__2_
 DexterityUniqueDagger3
-LocalIncreasedAttackSpeedUniqueDagger12
+LocalIncreasedAttackSpeedUniqueDescentDagger1
 CriticalStrikeChanceUniqueDagger3
 ChanceToChillAttackersOnBlockUnique__2__
 ChanceToShockAttackersOnBlockUnique__2
@@ -284,6 +283,7 @@ Every 8 seconds, gain Avatar of Fire for 4 seconds
 White Wind
 Imperial Skean
 Variant: Pre 3.11.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
@@ -291,11 +291,11 @@ CriticalStrikeChanceImplicitDagger1
 LocalAddedColdDamageUnique__7
 LocalIncreasedAttackSpeedUniqueBow10
 {variant:1}+(300-400) to Evasion Rating
-{variant:2}IncreasedEvasionRatingUnique__3
-{variant:1}20% chance to Dodge Attacks while your Off Hand is empty
-{variant:2}(15-25)% chance to Dodge Attacks while your Off Hand is empty
+{variant:2,3}IncreasedEvasionRatingUnique__3
+{variant:1,2}(15-25)% chance to Suppress Spell Damage while your Off Hand is empty
+{variant:3}(30-40)% chance to Suppress Spell Damage while your Off Hand is empty
 {variant:1}100% increased Cold Damage while your Off Hand is empty
-{variant:2}IncreasedColdDamageWhileOffhandIsEmpty_
+{variant:2,3}IncreasedColdDamageWhileOffhandIsEmpty_
 ]],[[
 Widowmaker
 Boot Blade

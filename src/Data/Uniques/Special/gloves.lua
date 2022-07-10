@@ -7,24 +7,38 @@ Atziri's Acuity
 Vaal Gauntlets
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Variant: Pre 3.1.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 75, 100 Str
 IntelligenceUniqueGlovesStr3
 IncreasedLifeUniqueGlovesStr3
 LocalIncreasedPhysicalDamageReductionRatingPercentUniqueGlovesStr3
-CriticalStrikeChanceUniqueGlovesStr3
+{variant:2}(25-35)% increased Global Critical Strike Chance
+{variant:3}CriticalStrikeChanceUniqueGlovesStr3
 {variant:1}CriticalStrikesLeechInstantlyUniqueGlovesStr3
-{variant:2}VaalPactIfCritRecentlyUnique__1
+{variant:2,3}VaalPactIfCritRecentlyUnique__1
 ]],[[
 Replica Atziri's Acuity
 Vaal Gauntlets
 League: Heist
 Requires Level 63, 100 Str
 IntelligenceUniqueGlovesStr3
-CriticalStrikeChanceUniqueGlovesStr3
+(25-35)% increased Global Critical Strike Chance
 LocalIncreasedPhysicalDamageReductionRatingPercentUniqueGlovesStr3
 IncreasedLifeUniqueGlovesStr3
 PerfectAgonyIfCritRecentlyUnique__1
+]],[[
+Ceaseless Feast
+Spiked Gloves
+Source: Drops from unique{The Infinite Hunger}
+Requires Level 70, 95 Str
+Implicits: 1
+MeleeDamageImplicitGloves1
+AddedPhysicalDamageUnique__11__
+LocalIncreasedPhysicalDamageReductionRatingPercentUniqueHelmetStrDex6
+AttackCorrosionOnHitChanceUnique__1
+EnduranceChargeNoArmourUnique__1_
+FrenzyChargeNoEvasionRatingUnique__1
 ]],[[
 Craiceann's Pincers
 Titan Gauntlets
@@ -45,7 +59,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.10.0
 Variant: Current
 Requires Level 63, 100 Str
-{variant:2,3,4}GrantsTouchOfGodUnique__1
+{variant:2,3,4}Grants level 20 Doryani's Touch Skill
 {variant:1,2,3}+30 to maximum Energy Shield
 {variant:4}LocalIncreasedEnergyShieldUniqueGlovesStr4
 {variant:1,2,3}ChanceToShockUnique__1
@@ -73,14 +87,14 @@ Goliath Gauntlets
 Requires Level 53, 76 Str
 LocalIncreasedPhysicalDamageReductionRatingUniqueGlovesStr5
 EnemyKnockbackDirectionReversedUniqueGlovesStr5_
-DisplaySupportedByKnockbackUniqueGlovesStr5
+Socketed Gems are Supported by level 10 Knockback
 ]],[[
 Giantsbane
 Bronze Gauntlets
 Requires Level: 23, 36 Str
 AddedPhysicalDamageUnique__5
 StrengthUniqueBodyStrInt3
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__9
+LocalIncreasedPhysicalDamageReductionRatingPercentUnique__15
 KeystoneIronGripUnique__1
 ]],[[
 Lochtonial Caress
@@ -134,7 +148,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 47, 68 Str
 IncreasedLifeUnique__27
-ProjectileSpeedUnique__5__
+ProjectileSpeedUnique__2
 {variant:1}MovementSkillCooldownReducedMoveSpeedImplicitR2_
 {variant:2}MovementVelocityUnique__2
 KnockbackChanceUnique__1
@@ -152,33 +166,32 @@ EnemiesKilledApplyImpaleDamageUnique__1
 ]],[[
 Hrimsorrow
 Goathide Gloves
-Upgrade: Upgrades to unique{Hrimburn} via prophecy{Fire and Ice}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 9, 17 Dex
-StrengthUniqueGlovesStrInt2
+StrengthUniqueGlovesDex1
 {variant:1}50% increased Evasion Rating
 {variant:2}LocalIncreasedEvasionRatingPercentUniqueGlovesDex1
-{variant:1}ColdResistUniqueShieldStrDex1
+{variant:1}ColdResistUniqueBelt13
 {variant:2}ColdResistUniqueGlovesDex1
 {variant:2}AddedColdDamageToSpellsAndAttacksUnique__2
-{variant:1}ConvertPhysicalToColdUniqueOneHandAxe8
+{variant:1}ConvertPhysicalToColdUnique__1
 {variant:2}ConvertPhysicalToColdUniqueGlovesDex1
 AttackerTakesColdDamageGlovesDex1
 ]],[[
 Hrimburn
 Goathide Gloves
-Source: Upgraded from unique{Hrimsorrow} via prophecy{Fire and Ice}
+Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24, 17 Dex
-StrengthUniqueGlovesStrInt2
+StrengthUniqueGlovesDex1
 {variant:1}50% increased Evasion Rating
 {variant:2}LocalIncreasedEvasionRatingPercentUniqueGlovesDex1
-{variant:1}ColdResistUniqueShieldStrDex1
+{variant:1}ColdResistUniqueBelt13
 {variant:2}ColdResistUniqueGlovesDex1
 {variant:2}AddedColdDamageToSpellsAndAttacksUnique__2
-{variant:1}ConvertPhysicalToColdUniqueOneHandAxe8
+{variant:1}ConvertPhysicalToColdUnique__1
 {variant:2}ConvertPhysicalToColdUniqueGlovesDex1
 AttackerTakesColdDamageGlovesDex1
 ColdDamageIgnitesUnique__1
@@ -197,7 +210,7 @@ IncreasedAttackSpeedUniqueGlovesDex2
 CriticalStrikeChanceUniqueGlovesDex2
 {variant:1}+(40-50)% to Global Critical Strike Multiplier
 {variant:2}+(28-36)% to Global Critical Strike Multiplier
-{variant:3}CriticalMultiplierUniqueGlovesDex2
+{variant:3}CriticalMultiplierUniqueGlovesDexInt6_
 {variant:4}CriticalStrikeMultiplierIs250Unique__1
 LocalIncreasedEvasionRatingPercentUniqueGlovesDex2
 ]],[[
@@ -213,12 +226,15 @@ TransferMarkOnDeathUnique__1
 ]],[[
 Oskarm
 Nubuck Gloves
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 52, 50 Dex
-CurseOnHitCriticalWeaknessUnique__1
+Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy
 (30-40)% increased Accuracy Rating
 IncreasedLifeUnique__33
 ChaosResistUnique__8
-(7-8)% chance to Dodge Spell Damage
+{variant:1}(7-8)% chance to Suppress Spell Damage
+{variant:2}(10-12)% chance to Suppress Spell Damage
 IncreasedCriticalStrikeChancePerAccuracyRatingUnique__1
 ]],[[
 Painseeker
@@ -236,7 +252,7 @@ ApplyAilmentsMoreDamageUnique__1
 Allelopathy
 Sorcerer Gloves
 Requires Level 69, 97 Int
-BlightSkillUnique__1
+Grants level 22 Blight Skill
 DegenerationDamageUnique__2
 LocalIncreasedEnergyShieldUniqueGlovesInt5
 10% increased Area of Effect of Area Skills
@@ -265,27 +281,39 @@ Requires Level 25, 39 Int
 IntelligenceUniqueGlovesInt5
 {variant:1,2}IncreasedLifeImplicitGlovesDemigods1
 {variant:3}IncreasedLifeUniqueGlovesInt3
-{variant:1,2}IncreasedManaUniqueIntHelmet3
+{variant:1,2}IncreasedManaUniqueBodyInt9
 {variant:3}IncreasedManaUniqueGlovesInt3
 {variant:1}TemporalChainsOnHitUniqueGlovesInt3
 {variant:2,3}CurseOnHitTemporalChainsUnique__1
 {variant:3}CursesRemainOnDeathUnique__1_
-{variant:3}EnemiesNearCursesBlindAndExplodeUnique__1
+{variant:3}Enemies near Corpses affected by your Curses are Blinded
 {variant:3}Enemies killed near Corpses affected by your Curses explode, dealing
 {variant:3}3% of their Life as Physical Damage
+]],[[
+Black Zenith
+Fingerless Silk Gloves
+Source: Drops from unique{The Black Star}
+Requires Level 70, 95 Int
+Implicits: 1
+SpellDamageImplicitGloves1
+SocketedGemsMoreDamageForSpellsCastUnique__1
+SocketedGemsAddedCooldownUnique__1__
+SocketedGemsAdditionalProjectilesUnique__1__
+SocketedGemsProjectilesNovaUnique__1
+SocketedGemsLessDurationUnique__1
+LocalIncreasedEnergyShieldPercentUniqueBootsInt5
 ]],[[
 Demon Stitcher
 Satin Gloves
 League: Delve
 Requires Level 41, 60 Int
-IncreasedCastSpeedUnique__16
+IncreasedCastSpeedUnique__14
 IncreasedEnergyShieldUnique__9
 IncreasedLifeUniqueGlovesStrDex4
 SacrificeLifeToGainESUnique__1
 ]],[[
 Doedre's Tenure
 Velvet Gloves
-Upgrade: Upgrades to unique{Doedre's Malevolence} via prophecy{The Malevolent Witch}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 12, 21 Int
@@ -300,7 +328,7 @@ Requires Level 12, 21 Int
 ]],[[
 Doedre's Malevolence
 Velvet Gloves
-Source: Upgraded from unique{Doedre's Tenure} via prophecy{The Malevolent Witch}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 21 Int
@@ -314,10 +342,9 @@ LocalIncreasedEnergyShieldUnique__18_
 ]],[[
 Grip of the Council
 Arcanist Gloves
-Source: prophecy{The Unbreathing Queen V}
 Requires Level 60, 95 Int
 StrengthUnique__4
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__20
 ColdResistUniqueShieldDex7
 MinionRunSpeedUnique__1
 MinionColdResistUnique__1
@@ -328,7 +355,7 @@ Arcanist Gloves
 League: Heist
 Requires Level 60, 95 Int
 StrengthUnique__4
-IncreasedLifeUniqueAmulet4
+IncreasedLifeUnique__20
 FireResistUnique__23_
 MinionLifeUnique__4__
 MinionFireResistUnique__1
@@ -423,14 +450,23 @@ Requires Level 15
 IncreasedAttackSpeedUniqueGlovesStrDex5
 LocalIncreasedArmourAndEvasionUniqueGlovesStrDex5
 (3-4) Life Regenerated per second
-Recover 20% of your Maximum Life on Rampage
+HealOnRampageUniqueGlovesStrDex5
 VaalSoulsOnRampageUniqueGlovesStrDex5
 SimulatedRampageDexInt6
+]],[[
+Gravebind
+Hydrascale Gauntlets
+Requires Level 59, 45 Str, 45 Dex
+Implicits: 0
+LocalIncreasedArmourAndEvasionUnique__7
+ChaosResistUnique__23
++(15-25) Life gained on kill
+EnemiesKilledCountAsYoursUnique__1
 ]],[[
 Haemophilia
 Serpentscale Gauntlets
 Requires Level 43, 34 Str, 34 Dex
-StrengthUniqueGlovesStrInt2
+StrengthUniqueGlovesDex1
 DegenerationDamageUnique__1
 ChanceToBleedUnique__2__
 AttackDamageAgainstBleedingUnique__1__
@@ -473,7 +509,7 @@ Variant: Current Two Abyssal Sockets
 Requires Level: 36, 29 Str, 29 Int
 {variant:1,3}AbyssJewelSocketUnique__3
 {variant:2,4}AbyssJewelSocketUnique__4
-{variant:1,2}IncreasedAttackSpeedUniqueShieldDex6
+{variant:1,2}LocalIncreasedAttackSpeedUnique__32
 MaximumLifeUnique__13
 IntimidateOnHitWithMeleeAbyssJewelUnique__1
 MaimOnHitWithRangedAbyssJewelUnique__1
@@ -505,7 +541,7 @@ AttackSpeedPerMapModUnique__1
 Wyrmsign
 Wyrmscale Gauntlets
 Requires Level 49, 38 Str, 38 Dex
-ItemActsAsConcentratedAOESupportUnique__1
+Socketed Gems are Supported by level 5 Concentrated Effect
 LocalIncreasedArmourAndEvasionUnique__1
 IncreasedLifeUniqueGlovesStrDex4
 ReduceManaCostPerEnduranceChargeUnique__1
@@ -542,7 +578,7 @@ Crusader Gloves
 Requires Level 66, 51 Str, 51 Int
 ModifyableWhileCorruptedUnique__1
 Can have up to 5 Implicit Modifiers while Item has this Modifier
-LocalIncreasedArmourAndEnergyShieldUnique__21
+LocalIncreasedArmourAndEnergyShieldUnique__15
 MaximumLifeUnique__19
 FireAndLightningResistUnique__1
 ]],[[
@@ -550,7 +586,7 @@ Null and Void
 Legion Gloves
 League: Rampage
 Requires Level 57, 44 Str, 44 Int
-StrengthUniqueGlovesStrInt2
+StrengthUniqueGlovesDex1
 LocalIncreasedArmourAndEnergySheildUniqueGlovesStrInt2
 IncreasedLifeUniqueGlovesStrDex4
 ManaRegenerationUniqueGlovesStrInt2
@@ -564,7 +600,7 @@ League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 57, 44 Str, 44 Int
 AllAttributesUnique__14
-LocalIncreasedArmourAndEnergyShieldUnique__21
+LocalIncreasedArmourAndEnergyShieldUnique__15
 MaximumLifeLeechAmountUnique__1
 AttackAndCastSpeedUnique__4
 IncreasedDamageWhileLeechingUnique__2__
@@ -636,7 +672,7 @@ MaximumLifeUniqueGlovesStrInt3
 ColdResistUniqueGlovesStrDex3
 {variant:2}HeraldOfIceDamageUnique__1_
 FreezeDurationUniqueGlovesStrInt3
-CanOnlyKillFrozenEnemiesUniqueGlovesStrInt3
+Your Hits can only Kill Frozen enemies
 ]],[[
 Triad Grip
 Mesh Gloves
@@ -650,7 +686,6 @@ MinionChanceToFreezeShockIgnite
 ]],[[
 Volkuur's Guidance
 Zealot Gloves
-Source: Drops from The Pale Council
 Variant: Fire
 Variant: Cold
 Variant: Lightning
@@ -661,7 +696,7 @@ Requires Level 43, 34 Str, 34 Int
 IncreasedLifeUniqueGlovesStrDex4
 {variant:1}FireResistUniqueAmulet13
 {variant:2}ColdResistUnique__17
-{variant:3}LightningResistUnique__16
+{variant:3}LightningResistUnique__8
 VolkuurLessPoisonDurationUnique__1
 {variant:1}FireDamageCanPoisonUnique__1
 {variant:2}ColdDamageCanPoisonUnique__1_
@@ -714,8 +749,8 @@ DexterityUnique__5
 IncreasedCastSpeedUnique__18_
 LocalIncreasedEvasionAndEnergyShieldUnique__27
 ZombieIncreasedLifeUnique__1
-ZombiesNeedNoCorpsesUnique__1
-ZombiesCountAsCorpsesUnique__1
+Raise Zombie does not require a Corpse
+Your Raised Zombies count as Corpses
 ]],[[
 Architect's Hand
 Variant: Pre 3.14.0
@@ -742,7 +777,7 @@ Requires Level 45, 35 Dex, 35 Int
 DexterityUnique__5
 LocalIncreasedEvasionAndEnergyShieldUnique__23
 TrapThrowSpeedUnique__1_
-Skills which throw Traps have Blood Magic
+TrapSkillsHaveBloodMagicUnique__1
 TrapAreaOfEffectUnique__1
 CastSpeedAppliesToTrapSpeedUnique__1
 10% chance to gain an Endurance, Frenzy or Power Charge when any of your Traps is Triggered by an Enemy
@@ -752,11 +787,11 @@ Assassin's Mitts
 Source: Drops from unique{The Elder}
 Requires Level 58, 45 Dex, 45 Int
 DexterityUniqueGlovesDexInt4
-LocalIncreasedEvasionAndEnergyShieldUniqueHelmetDexInt6
+LocalIncreasedEvasionAndEnergyShieldUnique__10
 IncreasedLifeUnique__67_
 IncreasedLifePerElderItemUnique__1
 AilmentDamageOverTimeMultiplierPerElderItemUnique__1
-AilmentEffectPerElderItemUnique__1
+8% increased Effect of non-Damaging Ailments per Elder Item Equipped
 RemoveAilmentOnFlaskUseIfAllItemsAreElderUnique__1_
 Elder Item
 ]],[[
@@ -825,7 +860,7 @@ Murder Mitts
 Requires Level 67, 51 Dex, 51 Int
 LocalIncreasedEvasionAndEnergyShieldUnique__8
 IncreasedLifeUniqueGlovesInt3
-LifeGainedFromEnemyDeathUnique__1
+LifeGainedFromEnemyDeathUnique__3
 EnergyShieldGainedFromEnemyDeathUnique__1
 GainThaumaturgyBuffRotationUnique__1_
 ]],[[
@@ -839,7 +874,7 @@ Requires Level 31, 25 Dex, 25 Int
 CriticalStrikeChanceUniqueGlovesDexInt6
 {variant:1}+(15-30)% to Global Critical Strike Multiplier
 {variant:2}+(25-45)% to Global Critical Strike Multiplier
-{variant:3}CriticalMultiplierUniqueGlovesDex2
+{variant:3}CriticalMultiplierUniqueGlovesDexInt6_
 LocalIncreasedEvasionAndEnergyShieldUniqueGlovesDexInt6
 ManaLeechPermyriadUniqueGlovesDexInt6
 GroundSmokeOnRampageUniqueGlovesDexInt6
@@ -857,7 +892,7 @@ IncreasedLifeUniqueGlovesDexInt5
 AttackSpeedPerFrenzyChargeUniqueGlovesDexInt5
 AccuracyRatingPerFrenzyChargeUniqueGlovesDexInt5
 FrenzyChargeDurationPerFrenzyChargeUniqueGlovesDexInt5
-{variant:1}AtMaximumFrenzyChargesPoisonUniqueGlovesDexInt5
+{variant:1}While at Maximum Frenzy Charges, Attacks Poison Enemies
 {variant:2,3}AtMaximumFrenzyChargesChanceToPoisonUnique_1_
 {variant:3}PoisonDotMultiplierPerFrenzyChargeUniqueGlovesDexInt5
 ]],[[
@@ -878,7 +913,7 @@ Variant: Pre 1.0.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 67, 51 Dex, 51 Int
-DisplaySocketedGemGetsAddedLightningDamageGlovesDexInt3
+Socketed Gems are Supported by level 18 Added Lightning Damage
 {variant:1,3}AddedLightningDamageUniqueGlovesDexInt3
 {variant:2}AddedLightningDamageUniqueBodyInt8
 IncreasedAttackSpeedUniqueGlovesDexInt3
@@ -893,18 +928,21 @@ Runic Gauntlets
 Requires Level 69, 38 Str, 38 Dex, 38 Int
 League: Expedition
 IncreasedLocalAttributeRequirementsUnique__1
-(30–50)% increased Ward
-+(15–25)% to all Elemental Resistances
-FlaskChargesFromKillsFinalUnique__1_
+LocalIncreasedWardPercentUnique__3
+AllResistancesUnique__21
+FlaskChargesFromKillUniqueJewel_9
 FlaskChargePerSecondUniqueEnemyUnique__1___
 ]],[[
 Nightgrip
 Runic Gages
+Variant: Pre 3.16.0
+Variant: Current
 League: Expedition
 Requires Level 48, 31 Str, 31 Dex, 31 Int
-(33–48)% increased Ward
-+(17–23)% to Chaos Resistance
-GlobalAddedChaosDamageWardUnique__
-DamageBypassesWardPercentUnique__1
+LocalIncreasedWardPercentUnique__1_
+ChaosResistUnique__17
+{variant:1}Gain Added Chaos Damage equal to 25% of Ward
+{variant:2}GlobalAddedChaosDamageWardUnique__
+75% of Damage bypasses Ward
 ]],
 }

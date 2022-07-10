@@ -47,7 +47,7 @@ Implicits: 2
 {variant:2}LocalIncreaseSocketedLightningGemLevelUniqueStaff8
 IntelligenceUniqueStaff8
 LightningDamagePercentUniqueStaff8
-MaximumLightningResistUniqueStaff8c
++5% to Maximum Lightning Resistance
 IncreasedStrengthRequirementUniqueStaff8
 LightningPenetrationUniqueStaff8
 ]],[[
@@ -66,6 +66,15 @@ LightningDamagePercentUniqueStaff8
 SpellAddedLightningDamageTwoHandUniqueStaff8d
 IncreasedStrengthRequirementUniqueStaff8
 LightningPenetrationUniqueStaff8
+]],[[
+The Annihilating Light
+Quarterstaff
+Source: Drops from unique{The Searing Exarch}
+Requires Level 68, 78 Str, 78 Int
+Implicits: 1
+StaffBlockPercentImplicitStaff1
+IncreasedElementalResistancesUnique__2_
+ElementalSkillsTripleDamageUnique__1
 ]],[[
 Atziri's Rule
 Judgement Staff
@@ -102,13 +111,6 @@ LocalIncreasedAttackSpeedUniqueStaff9
 FlammabilityOnBlockChanceUnique__1
 ReflectFireDamageOnBlockUnique__1___
 ]],[[
-Cane of Kulemak
-Serpentine Staff
-Requires Level 68, 85 Str, 85 Int
-Implicits: 1
-StaffBlockPercentImplicitStaff2
-LocalVeiledModEffectUnique__1
-]],[[
 Cane of Unravelling
 Ezomyte Staff
 Variant: Pre 3.5.0
@@ -123,7 +125,7 @@ LocalIncreaseSocketedChaosGemLevelUnique__1
 {variant:2,3}IncreasedChaosDamageUnique__4_2
 {variant:2,3}ChaosNonAilmentDamageOverTimeMultiplierUnique__1
 IncreasedCastSpeedPerPowerChargeUnique__1
-PowerChargeOnManaSpentUnique__1
+Gain a Power Charge after spending a total of 200 Mana
 2 Mana Regenerated per Second per Power Charge
 ]],[[
 Disintegrator
@@ -221,13 +223,13 @@ Variant: Current
 Requires Level 66, 113 Str, 113 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}SupportedByLifeLeechUnique__1
+{variant:1}Socketed Gems are supported by level 10 Life Leech
 {variant:2}SupportedByChanceToBleedUnique__1
 HarbingerSkillOnEquipUnique__6
 5% Chance to Block Attack Damage while wielding a Staff
 {variant:2}CriticalBleedDotMultiplierUnique__1_
 LocalAddedPhysicalDamageUnique__28
-CriticalStrikeChanceUniqueBow9
+LocalCriticalStrikeChanceUnique__10
 ]],[[
 The Yielding Mortality
 Imperial Staff
@@ -241,7 +243,7 @@ HarbingerSkillOnEquipUnique2_6
 StaffBlockPercentUnique__4_
 CriticalBleedDotMultiplierUnique__1_
 LocalAddedPhysicalDamageUnique__28
-CriticalStrikeChanceUniqueBow9
+LocalCriticalStrikeChanceUnique__10
 ]],[[
 Femurs of the Saints
 Primordial Staff
@@ -253,7 +255,7 @@ Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}StaffBlockPercentImplicitStaff1
 LocalIncreaseSocketedMinionGemLevelUnique__4
-{variant:3}MinionDamageUnique__7
+{variant:3}MinionDamageUnique__3_
 {variant:3}AttackBlockPerSkeletonUnique__1
 {variant:1,2}MinionAttackAndCastSpeedPerSkeleton__1
 {variant:1,2}Minions Regenerate (1.5-2.5)% Life per Second
@@ -265,13 +267,12 @@ LocalIncreaseSocketedMinionGemLevelUnique__4
 ]],[[
 Fencoil
 Gnarled Branch
-Upgrade: Upgrades to unique{Mirebough} via prophecy{Trapped in the Tower}
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-DisplaySupportedByTrapUniqueStaff4
+Socketed Gems are Supported by level 8 Trap
 (40-50)% increased Damage
 MaximumLifeUniqueStaff4
 MaximumManaUniqueStaff4
@@ -298,18 +299,18 @@ LocalIncreasedPhysicalDamagePercentUniqueClaw1
 (0-50)% of Physical Damage Converted to Lightning Damage
 ReflectElementalAilmentsToSelfUnique__1
 ElementalDamageLuckyWhileShockedUnique__1__
-Damage Penetrates (8-10)% Elemental Resistances while you are Chilled
-Gain (30-40)% of Physical Damage as Extra Damage of a random Element while you are Ignited
+ElementalPenetrationWhileChilledUnique__1___
+PhysicalDamageAddedAsRandomWhileIgnitedUnique__1
 ]],[[
 Mirebough
 Gnarled Branch
-Source: Upgraded from unique{Fencoil} via prophecy{Trapped in the Tower}
+Source: No longer obtainable
 Requires Level 32
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 DisplaySupportedByTrapUnique__1
 SupportedByClusterTrapUnique__1
-SupportedByTrapAndMineDamageUnique__1
+Socketed Gems are Supported by Level 16 Trap and Mine Damage
 MaximumManaUniqueStaff4
 MaximumLifeUniqueStaff4
 (40-50)% increased Damage
@@ -362,7 +363,7 @@ Implicits: 1
 {variant:1}Adds (130-150) to (200-250) Fire Damage to Spells
 {variant:2}Adds (230-250) to (300-350) Fire Damage to Spells
 {variant:3}BattlemageKeystoneUnique__1
-DisplayGrantsVengeanceUnique__1
+Grants level 15 Vengeance Skill
 {variant:1}100% increased Fire Damage if you have been Hit Recently
 {variant:2,3}FireDamagePercentUnique__12___
 ImmuneToFreezeAndChillWhileIgnitedUnique__1
@@ -393,14 +394,13 @@ Implicits: 3
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 {variant:3,4}20% Chance to Block Spell Damage while wielding a Staff
-SupportedByEchoUniqueStaff6
+Socketed Gems are Supported by level 30 Greater Spell Echo
 SpellDamageUniqueStaff6
 {variant:1,2,3}100% increased maximum Mana
 {variant:4}MaximumManaUniqueStaff6
 ]],[[
 Realmshaper
 Iron Staff
-Upgrade: Upgrades to unique{Realm Ender} via prophecy{The Beginning and the End}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 18, 35 Str, 35 Int
@@ -409,16 +409,16 @@ Implicits: 2
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 LocalIncreaseSocketedFireGemLevelUniqueStaff13
 LocalIncreaseSocketedColdGemLevelUniqueStaff13
-ItemActsAsColdToFireSupportUniqueStaff13
+Socketed Gems are Supported by level 5 Cold to Fire
 LocalAddedFireDamageUniqueStaff13
 LocalAddedColdDamageUniqueStaff13
 ElementalDamageUniqueStaff13
 ]],[[
 Realm Ender
 Iron Staff
-Source: Upgraded from unique{Realmshaper} using prophecy{The Beginning and the End}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 40, 35 Str, 35 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
@@ -426,7 +426,7 @@ Implicits: 2
 LocalIncreaseSocketedFireGemLevelUniqueStaff13
 LocalIncreaseSocketedColdGemLevelUniqueStaff13
 LocalIncreaseSocketedElementalGemUnique___1
-ItemActsAsColdToFireSupportUniqueStaff13
+Socketed Gems are Supported by level 5 Cold to Fire
 LocalAddedFireDamageUniqueStaff13
 LocalAddedColdDamageUniqueStaff13
 ElementalDamageUniqueStaff13
@@ -469,8 +469,8 @@ Requires Level 49, 85 Str, 85 Int
 Implicits: 2
 {variant:1}18% Chance to Block Attack Damage while wielding a Staff
 {variant:2}20% Chance to Block Attack Damage while wielding a Staff
-AllAttributesUniqueStaff10
-AllResistajcesUniqueStaff10
++(15-20) to All Attributes
++(5-7)% to All Elemental Resistances
 IncreasedProjectileDamageUniqueStaff10
 LightRadiusUniqueStaff10_
 SocketedGemsAdditionalProjectilesUniqueStaff10_
@@ -485,16 +485,15 @@ Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}StaffBlockPercentImplicitStaff1
 {variant:2}StaffBlockPercentImplicitStaff2
-TriggerSummonPhantasmOnCorpseConsumeUnique__1
+Trigger Level 20 Summon Phantasm Skill when you Consume a Corpse
 SpellDamageUnique__8_
 IncreasedCastSpeedUniqueWand7
 ManaRegenerationUnique__9___
 MinionAddedPhysicalDamageUnique__1
-LifeRegenerationIfCorpseConsumedRecentlyUnique__1
+If you Consumed a Corpse Recently, you and nearby Allies regenerate 5% of Life per second
 ]],[[
 The Stormheart
 Royal Staff
-Upgrade: Upgrades to unique{The Stormwall} via prophecy{The Storm Spire}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 28, 51 Str, 51 Int
@@ -505,13 +504,13 @@ LocalIncreasedPhysicalDamagePercentUniqueStaff14
 LocalAddedColdDamageUniqueStaff14
 LocalAddedLightningDamageUniqueStaff14
 LocalCriticalStrikeChanceUniqueStaff14
-{variant:1}CannotBeShockedWhileFrozenUniqueStaff14
+{variant:1}You Cannot Be Shocked While Frozen
 {variant:2}You Cannot Be Shocked While Chilled
 {variant:2}ChanceToShockChilledEnemiesUnique__1
 ]],[[
 The Stormwall
 Royal Staff
-Source: Upgraded from unique{The Stormheart} via prophecy{The Storm Spire}
+Source: Drops from any endgame map boss
 Requires Level 60, 51 Str, 51 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
@@ -571,7 +570,7 @@ Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 LocalIncreaseSocketedSupportGemLevelUniqueStaff12
-IcestormUniqueStaff12
+Grants level 1 Icestorm Skill
 IncreasedCastSpeedUniqueStaff12
 SpellDamagePerIntelligenceUniqueStaff12
 PercentageIntelligenceUniqueStaff12_
@@ -597,8 +596,8 @@ Implicits: 2
 LocalIncreaseSocketedGemLevelUnique___3
 15% Chance to Block
 SpellDamageUnique__2
-IncreasedEnergyShieldUnique__3
++(70-100) to Maximum Energy Shield
 AttackerTakesLightningDamageUnique___1
-EnergyShieldRechargeOnBlockUnique__1
+20% Chance for Energy Shield Recharge to Start when you Block
 ]],
 }

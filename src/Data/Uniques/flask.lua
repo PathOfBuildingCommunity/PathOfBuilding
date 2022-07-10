@@ -469,7 +469,7 @@ Elixir of the Unbroken Circle
 Iron Flask
 League: Expedition
 Requires Level 40
-(20–40)% increased Duration
+(20-40)% increased Duration
 Recover 4% of Life per Endurance Charge on use
 Lose all Endurance Charges on use
 Gain 1 Endurance Charge per Second during Flask Effect
@@ -486,9 +486,9 @@ Starlight Chalice
 Iron Flask
 League: Expedition
 Requires Level 40
-(20–30)% increased Charge Recovery
+(20-30)% increased Charge Recovery
 Inflict Fire, Cold and Lightning Exposure on nearby Enemies when used
-(20–30)% increased Effect of Non-Damaging Ailments you inflict during Flask Effect
+(20-30)% increased Effect of Non-Damaging Ailments you inflict during Flask Effect
 ]],[[
 Vorana's Preparation
 Iron Flask

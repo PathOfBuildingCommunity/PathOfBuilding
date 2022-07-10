@@ -5,6 +5,8 @@ return {
 [[
 Arn's Anguish
 Cloth Belt
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68
 Implicits: 1
@@ -15,21 +17,23 @@ FireResistUnique__26
 MinimumBrutalChargeModifiersEqualsEnduranceUnique__1
 MaximumBrutalChargesEqualsEnduranceUnique__1__
 GainBrutalChargesInsteadOfEnduranceUnique__1
+{variant:2}ChargeBonusMaximumEnduranceCharges
 ]],[[
 Ascent From Flesh
 Chain Belt
-Source: prophecy{Thaumaturgical History IV}
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 44
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 IncreasedEvasionRatingUnique__2
 {variant:1}{tags:jewellery_defense}+(35-45) to maximum Energy Shield
-{variant:2}IncreasedEnergyShieldUnique__4
+{variant:2,3}IncreasedEnergyShieldUnique__4
 AllResistancesUniqueBelt13
 PhasingOnBeginESRechargeUnique___1
-6% chance to Dodge Attacks while Phasing
+{variant:1,2}6% increased Evasion while Phasing
+{variant:3}30% increased Evasion while Phasing
 MovementSpeedWhilePhasedUnique__2
 ]],[[
 Auxium
@@ -92,7 +96,7 @@ Implicits: 1
 IncreasedLifeImplicitBelt1
 AddedPhysicalDamageUnique__9_
 StunDurationImplicitBelt1
-Nearby Enemies are Crushed while you have least 25 Rage
+EnemiesCrushedWithRageUnique__1_
 PhysicalDamagePerRageUnique__1
 MaximumRageUnique__1
 ]],[[
@@ -143,12 +147,12 @@ Requires Level 22
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 {variant:1}AllDamageUnique__2
-{variant:1}AllAttributesUniqueRing26
+{variant:1}AllAttributesUniqueHelmetStrInt5
 {variant:2}AllAttributesUnique__12
 {variant:2}CountOnFullLifeWhileAffectedByVulnerabilityUnique__1
 MovementVelocityUnique__33_
 Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
-UniqueSelfCurseVulnerabilityLevel10
+{tags:caster}You are cursed with Vulnerability, with 40% increased Effect
 ]],[[
 Coward's Legacy
 Chain Belt
@@ -186,7 +190,7 @@ Variant: Current
 Implicits: 1
 AbyssJewelSocketUnique__3
 AbyssJewelSocketUnique__3
-{variant:1}50% increased Effect of Socketed Jewels
+{variant:1}50% increased Effect of Socketed Abyss Jewels
 {variant:2}AbyssJewelEffectUnique__1
 ]],[[
 Doryani's Invitation
@@ -203,7 +207,7 @@ Variant: Current (Lightning)
 Requires Level 68
 Implicits: 1
 StrengthImplicitBelt1
-{variant:1,5}{tags:physical,attack}(20-30)% increased Physical Damage
+{variant:1,5}{tags:physical}(20-30)% increased Physical Damage
 {variant:2,6}FireDamagePercentUniqueBelt9a
 {variant:3,7}ColdDamagePercentUniqueBelt9b
 {variant:4,8}LightningDamagePercentUniqueBelt9c
@@ -251,7 +255,7 @@ IncreasedLifeFireResistUniqueBelt14
 FireResistUniqueBelt14
 ColdResistUniqueBelt14
 {variant:1}{tags:attack,life}0.6% of Attack Damage Leeched as Life against Chilled enemies
-{variant:2}LifeLeechPermyriadFromAttacksAgainstChilledEnemiesUniqueBelt14
+{variant:2}{tags:attack,life}1% of Attack Damage Leeched as Life against Chilled enemies
 {variant:1}{tags:jewellery_elemental,attack}Ignites you inflict with Attacks deal Damage 20% faster
 {variant:2}FasterBurnFromAttacksEnemiesUniqueBelt14
 DealNoPhysicalDamageUniqueBelt14
@@ -263,7 +267,7 @@ Requires Level 18
 Implicits: 1
 {tags:physical}(12-24)% increased Physical Damage
 ColdResistUnique__3
-BeltIncreasedFlaskDurationUnique__1
+60% increased Flask effect duration
 DisplayChaosDegenerationAuraUnique__1
 IncreasedProjectileDamageUnique__5
 30% reduced Flask Charges gained while using a Flask
@@ -282,6 +286,8 @@ LifeLeechPermyriadUnique__2
 ]],[[
 The Flow Untethered
 Cloth Belt
+Variant: Pre 3.16.0
+Variant: Current
 League: Harbinger
 Upgrade: Upgrades to unique{The Torrent's Reclamation} via currency{Time-light Scroll}
 Requires Level 60
@@ -289,8 +295,10 @@ Implicits: 1
 StunRecoveryImplicitBelt1
 HarbingerSkillOnEquipUnique__2
 AttackAndCastSpeedUnique__1
-{tags:life}(15-20)% increased Life Recovery rate
-LifeAndEnergyShieldRecoveryRateUnique_1
+{variant:1}{tags:life}(15-20)% increased Life Recovery rate
+{variant:2}{tags:life}(10-15)% increased Life Recovery rate
+{variant:1}{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
+{variant:2}LifeAndEnergyShieldRecoveryRateUnique_1
 (15-20)% increased Cooldown Recovery Speed
 DebuffTimePassedUnique__1
 ]],[[
@@ -304,7 +312,7 @@ StunRecoveryImplicitBelt1
 HarbingerSkillOnEquipUnique2_2
 AttackAndCastSpeedUnique__1
 {tags:life}(15-20)% increased Life Recovery rate
-LifeAndEnergyShieldRecoveryRateUnique_1
+{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
 (15-20)% increased Cooldown Recovery Speed
 DebuffTimePassedUnique__1
 ]],[[
@@ -315,7 +323,7 @@ Variant: Current
 Requires Level 48
 Implicits: 1
 IncreasedLifeImplicitBelt1
-{variant:1}PoachersMarkCurseOnHitHexproofUnique__1
+{variant:1}Trigger Level 30 Poacher's Mark when you Hit a Rare or Unique Enemy
 IncreasedLifeUniqueGlovesInt3
 {variant:1}CullingStrikePoachersMarkUnique__1
 {variant:2}CullingStrikeCursedEnemyUnique__1_
@@ -326,6 +334,8 @@ NoArmourOrEnergyShieldUnique__1_
 ]],[[
 Graven's Secret
 Cloth Belt
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68
 Implicits: 1
@@ -336,6 +346,7 @@ LightningResistUnique__24
 MinimumAbsorptionChargeModifiersEqualsPowerUnique__1
 MaximumAbsorptionChargesEqualsPowerUnique__1_
 GainAbsorptionChargesInsteadOfPowerUnique__1
+{variant:2}IncreasedMaximumPowerChargesUnique__1
 ]],[[
 Headhunter
 Leather Belt
@@ -359,7 +370,7 @@ StrengthUniqueBelt7
 DexterityUniqueBelt7
 IncreasedLifeUniqueBelt7
 DamageOnMagicMonstersUnique__1_
-GainMagicMonsterModsOnKillUnique__1_
+20% chance when you Kill a Magic Monster to gain
 its Non-Bloodline Modifiers for 20 seconds
 ]],[[
 Hyperboreus
@@ -415,11 +426,11 @@ IncreasedLifeImplicitBelt1
 IncreasedLifeUniqueBelt8
 {tags:life}(67-75) Life Regenerated per second
 {tags:mana}(8-10) Mana Regenerated per second
-{variant:1}-40% to all Elemental Resistances
-{variant:3}-(15-25)% to all Elemental Resistances
-{variant:1}-10% to all maximum Resistances
-{variant:2}-5% to all maximum Resistances
-{tags:physical}-(50-40) Physical Damage taken from Attacks
+{variant:1}−40% to all Elemental Resistances
+{variant:3}−(15-25)% to all Elemental Resistances
+{variant:1}−10% to all maximum Resistances
+{variant:2}−5% to all maximum Resistances
+{tags:physical}−(50-40) Physical Damage taken from Attacks
 ArmourWhileNotIgnitedFrozenShockedBelt8
 ]],[[
 Leash of Oblation
@@ -434,8 +445,6 @@ OfferingDurationUnique__1
 ]],[[
 The Magnate
 Studded Belt
-Upgrade: Upgrades to unique{The Nomad} via prophecy{The Great Leader of the North}
-Upgrade: Upgrades to unique{The Tactician} via prophecy{The Great Mind of the North}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16
@@ -448,20 +457,20 @@ BeltIncreasedFlaskChargesGainedUniqueBelt2
 ]],[[
 The Nomad
 Studded Belt
-Source: Upgraded from unique{The Magnate} via prophecy{The Great Leader of the North}
+Source: Drops from any endgame map boss
 Requires Level 48
 Implicits: 1
 StunDurationImplicitBelt1
 IncreasedPhysicalDamagePercentUniqueBelt2
 StrengthUniqueBelt2
-DexterityUnique__11
+DexterityUnique__7
 BeltIncreasedFlaskChargesGainedUniqueBelt2
 AllResistanceAt200StrengthUnique__1
 ProjectileAttackDamageAt200DexterityUnique__1
 ]],[[
 The Tactician
 Studded Belt
-Source: Upgraded from unique{The Magnate} via prophecy{The Great Mind of the North}
+Source: Drops from any endgame map boss
 Requires Level 48
 Implicits: 1
 StunDurationImplicitBelt1
@@ -472,13 +481,25 @@ BeltIncreasedFlaskChargesGainedUniqueBelt2
 AllResistanceAt200StrengthUnique__1
 CriticalStrikeChanceAt200IntelligenceUnique__1
 ]],[[
+Mageblood
+Heavy Belt
+Requires Level 44
+Implicits: 1
+StrengthImplicitBelt1
+DexterityUnique__3
+FireResistUnique__24
+ColdResistUnique__6
+Magic Utility Flask cannot be Used
+MagicUtilityFlasksAlwaysApplyUnique__1
+MagicUtilityFlasksCannotRemoveUnique__1
+]],[[
 Maligaro's Restraint
 Chain Belt
 Requires Level 44
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 AddedLightningDamageUniqueBelt12
-SelfShockDurationUniqueBelt12_
+100% increased Shock Duration on You
 ShocksReflectToSelfUniqueBelt12
 DamageIncreaseWhileShockedUniqueBelt12
 MovementVelocityWhileShockedUniqueBelt12
@@ -494,7 +515,7 @@ StrengthImplicitBelt1
 {variant:2}AddedPhysicalDamageUniqueBelt4
 StrengthUniqueBelt4
 MaximumLifeUniqueBelt4
-ColdResistUniqueBelt4
+ColdResistUniqueBelt1
 BeltFlaskLifeRecoveryRateUniqueBelt4
 ]],[[
 Mother's Embrace
@@ -511,6 +532,8 @@ MinionFlaskDurationUnique__1
 ]],[[
 Olesya's Delight
 Cloth Belt
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68
 Implicits: 1
@@ -521,6 +544,7 @@ MovementVelocityUnique__46
 MinimumAfflictionChargeModifiersEqualsFrenzyUnique__1
 MaximumAfflictionChargesEqualsFrenzyUnique__1
 GainAfflictionChargesInsteadOfFrenzyUnique__1
+{variant:2}MaximumFrenzyChargesUnique__1
 ]],[[
 Perandus Blazon
 Cloth Belt
@@ -533,19 +557,22 @@ AllAttributesUniqueBelt3
 {variant:1}(8-12)% increased Quantity of Items found
 {variant:2}ItemFoundQuantityIncreaseUniqueBelt3
 FireResistUniqueBelt3
-BeltIncreasedFlaskDurationUniqueBelt3
-{tags:physical}-2 Physical Damage taken from Attacks
+20% increased Flask effect duration
+{tags:physical}−2 Physical Damage taken from Attacks
 ]],[[
 Perseverance
 Vanguard Belt
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 78
 Implicits: 1
 ArmourAndEvasionImplicitBelt1
 MaximumLifeUnique__6
 ColdResistUniqueBelt14
 AttackDamagePerLowestArmourOrEvasionUnique__1
-FortifyOnMeleeStunUnique__1
-OnslaughtWhileFortifiedUnique__1
+{variant:1}{tags:attack}14-20% chance to gain Fortify when you Stun an Enemy with Melee Damage
+{variant:2}FortifyOnMeleeStunUnique__1
+You have Onslaught while you have Fortify
 ]],[[
 Prismweave
 Rustic Sash
@@ -601,7 +628,7 @@ ColdResistUniqueRing24
 LifeLeechPermyriadUniqueBelt1
 BeltIncreasedFlaskDurationUnique__1
 30% reduced Flask Charges gained while using a Flask
-EnemiesLoseLifePlayerLeechesUnique__1
+{tags:chaos,life}200% of Life Leech applies to enemies as Chaos Damage
 {tags:speed}15% increased Movement Speed while using a Flask
 ]],[[
 Ryslatha's Coil
@@ -625,7 +652,7 @@ Heavy Belt
 Requires Level: 44
 Implicits: 1
 StrengthImplicitBelt1
-IncreasedEnergyShieldPercentUnique__5
+IncreasedEnergyShieldPercentUnique__3
 MaximumLifeUnique__16
 ChaosResistUnique__17
 MinionAttacksTauntOnHitChanceUnique__1
@@ -637,7 +664,7 @@ League: Heist
 Requires Level 44
 Implicits: 1
 StrengthImplicitBelt1
-IncreasedEnergyShieldPercentUnique__5
+IncreasedEnergyShieldPercentUnique__3
 MaximumLifeUnique__16
 FireResistUnique__24
 MinionBurningCloudOnDeathUnique__1
@@ -650,13 +677,13 @@ Variant: Current
 Requires Level 48
 Implicits: 1
 StunRecoveryImplicitBelt1
-IntelligenceUnique__25
+IntelligenceUniqueDagger10_
 MaximumEnergyShieldAsPercentageOfLifeUnique__1
 {variant:1}Your Energy Shield starts at zero
 {variant:1}You cannot Recharge Energy Shield
 {variant:1}You cannot Regenerate Energy Shield
 {variant:1}{tags:jewellery_defense}You lose 5% of Energy Shield per second
-{variant:1}{tags:resource,life}Life Leech effects are not removed at Full Life
+{variant:1}{tags:life}Life Leech effects are not removed at Full Life
 {variant:1}{tags:life}Life Leech is applied to Energy Shield instead while on Full Life
 {variant:2}EnergyShieldStartsAtZero
 ]],[[
@@ -678,7 +705,7 @@ Implicits: 1
 IncreasedLifeUniqueGlovesInt3
 AllResistancesUniqueGlovesStrDex2
 BeltFlaskManaRecoveryUnique__1
-IncreasedFlaskDurationUnique__1
+(20-30)% reduced Flask effect duration
 Gain Soul Eater during Flask Effect
 Lose Souls gained from Soul Eater on Flask Use
 ]],[[
@@ -752,8 +779,8 @@ Heavy Belt
 League: Ritual
 Requires Level 52
 Implicits: 1
-{tags:jewellery_attribute}+(25-35)% to Strength
-{tags:jewellery_defense}+(800-1200)% to Armour
+StrengthImplicitBelt1
+IncreasedPhysicalDamageReductionRatingUnique__6_
 LifeRegenerationUnique__2__
 IncreasedStunThresholdUnique__1_
 ArmourPerStrengthUnique__1_
@@ -767,17 +794,17 @@ Implicits: 1
 IncreasedLifeImplicitBelt1
 MaximumLifeUnique__1
 {tags:life}2% of Life Regenerated per second
-CannotBeAffectedByFlasksUnique__1
+Flasks do not apply to You
 FlasksApplyToMinionsUnique__1
 ]],[[
 Wurm's Molt
 Leather Belt
 Requires Level 8
 Implicits: 1
-IncreasedLifeImplicitBelt1
+{tags:life}+(25-40) to Maximum Life
 StrengthUniqueBelt1
 IntelligenceUniqueBelt1
-ColdResistUniqueBelt4
+ColdResistUniqueBelt1
 LifeLeechPermyriadUniqueBelt1
 ManaLeechPermyriadUniqueBelt1
 ]],

@@ -14,7 +14,7 @@ Implicits: 2
 FireDamagePercentUniqueWand10
 SpellAddedFireDamageUniqueWand10
 CriticalStrikeChanceUniqueWand10
-LifeGainedOnKillingIgnitedEnemiesUniqueWand10_
++10 Life Gained on Killing Ignited Enemies
 BurnDurationUniqueWand10
 ]],[[
 Apep's Rage
@@ -52,7 +52,6 @@ ChanceToIgniteUnique__1
 ]],[[
 Eclipse Solaris
 Crystal Wand
-Upgrade: Upgrades to unique{Corona Solaris} via prophecy{Blinding Light}
 Variant: Pre 2.2.0
 Variant: Pre 2.3.0
 Variant: Pre 3.10.0
@@ -63,27 +62,27 @@ Implicits: 2
 {variant:3,4}SpellDamageOnWeaponImplicitWand13
 {variant:1,2,3}LocalAddedPhysicalDamageUnique__4
 {variant:4}LocalAddedFireDamageUnique__6
-{variant:4}IncreasedAttackSpeedUniqueShieldDex6
+{variant:4}LocalIncreasedAttackSpeedUnique__32
 {variant:1}+(18-30)% to Global Critical Strike Multiplier
 {variant:2,3,4}CriticalMultiplierUnique__1
-LightRadiusUnique__3
+LightRadiusUnique__4
 DisplayBlindAuraUnique__1
 CriticalChanceAgainstBlindedEnemiesUnique__1
 ]],[[
 Corona Solaris
 Crystal Wand
-Source: Upgraded from unique{Eclipse Solaris} via prophecy{Blinding Light}
+Source: No longer obtainable
 Variant: Pre 3.10.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 63, 146 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand13
 BlindingAuraSkillUnique__1
 {variant:1}LocalAddedPhysicalDamageUnique__4
 {variant:2}LocalAddedFireDamageUnique__6
-{variant:2}IncreasedAttackSpeedUniqueShieldDex6
+{variant:2}LocalIncreasedAttackSpeedUnique__32
 CriticalMultiplierUnique__1
-LightRadiusUnique__3
+LightRadiusUnique__4
 CriticalChanceAgainstBlindedEnemiesUnique__1
 LightRadiusAppliesToAccuracyUnique__1_
 AddedFireDamageAgainstBlindedEnemiesUnique__1_
@@ -114,9 +113,9 @@ IntelligenceUniqueWand2
 {variant:3}MinionRunSpeedUniqueWand2
 {variant:1,2}Minions deal (10-30)% increased Damage
 {variant:3}MinionDamageUniqueWand2
-MaximumMinionCountUniqueWand2
-MaximumMinionCountUniqueBodyInt9
-MaximumMinionCountUniqueBootsStrInt2Updated
++1 to Maximum number of Raised Zombies
++1 to Maximum number of Spectres
++1 to Maximum number of Skeletons
 Reserves 30% of Life
 LifeReservationUniqueWand2
 ]],[[
@@ -145,7 +144,7 @@ Implicits: 2
 {variant:1,2}SpellDamageOnWeaponImplicitWand5
 {variant:3,4}SpellDamageOnWeaponImplicitWand15
 {variant:1,2,3}Socketed Gems are supported by level 5 Blind
-{variant:4}ItemActsAsSupportBlindUniqueWand1
+{variant:4}Socketed Gems are supported by level 20 Blind
 SpellDamageUniqueWand1
 {variant:1}125% increased Physical Damage
 {variant:2,3}175% increased Physical Damage
@@ -199,7 +198,6 @@ TriggerSocketedSpellOnAttackUnique__1
 ]],[[
 Reverberation Rod
 Spiraled Wand
-Upgrade: Upgrades to unique{Amplification Rod} via prophecy{Power Magnified}
 Variant: Pre 2.3.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -223,7 +221,7 @@ LuckyCriticalsOnLowLifeUnique__1___
 ]],[[
 Amplification Rod
 Spiraled Wand
-Source: Upgraded from unique{Reverberation Rod} using prophecy{Power Magnified}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 36, 83 Int
@@ -288,24 +286,28 @@ Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
 Requires Level 24, 83 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand5
-IncreasedCastSpeedUnique__7
-GainPowerChargeOnKillingFrozenEnemyUnique__1
+IncreasedCastSpeedUniqueGlovesStr1
+50% chance to gain a Power Charge on Killing a Frozen Enemy
 AddedColdDamagePerPowerChargeUnique__1
 GainManaOnKillingFrozenEnemyUnique__1
 ]],[[
 Tulfall
 Tornado Wand
+Variant: Pre 3.16.0
+Variant: Current
 League: Breach
 Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
 Requires Level 65, 212 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand16
-IncreasedCastSpeedUnique__7
-GainPowerChargeOnKillingFrozenEnemyUnique__1
+IncreasedCastSpeedUniqueGlovesStr1
+{variant:1}50% chance to gain a Power Charge on Killing a Frozen Enemy
+{variant:2}GainPowerChargeOnKillingFrozenEnemyUnique__1
 AddedColdDamagePerPowerChargeUnique__2
 LosePowerChargesOnMaxPowerChargesUnique__2
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
-IncreasedColdDamagePerFrenzyChargeUnique__1
+{variant:1}(10-15)% increased Cold Damage per Frenzy Charge
+{variant:2}IncreasedColdDamagePerFrenzyChargeUnique__1
 ]],[[
 Replica Tulfall
 Tornado Wand
@@ -316,7 +318,7 @@ SpellDamageOnWeaponImplicitWand16
 IncreasedCastSpeedUnique__22
 LosePowerChargesOnMaxPowerChargesUnique__2
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
-IncreasedColdDamagePerFrenzyChargeUnique__2
+IncreasedColdDamagePerFrenzyChargeUnique__1
 PowerChargeOnHittingFrozenEnemyUnique__1
 TakeColdDamageOnMaximumPowerChargesUnique__1____
 ]],[[

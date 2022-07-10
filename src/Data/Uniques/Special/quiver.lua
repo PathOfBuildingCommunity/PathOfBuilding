@@ -6,11 +6,11 @@ return {
 Asphyxia's Wrath
 Two-Point Arrow Quiver
 Variant: Pre 3.0.0
-Variant: Current
-Requires Level 10
+Variant: Pre 3.17.0
+Requires Level 36
 Implicits: 1
-(20-30)% increased Accuracy Rating
-{variant:2}GrantsFrostbiteUnique__1
+IncreasedAccuracyPercentImplicitQuiver7New
+{variant:2}Grants level 5 Frostbite Skill
 IncreasedAttackSpeedUniqueQuiver7
 ColdResistUniqueQuiver5
 IncreasedChillDurationUniqueQuiver5
@@ -19,14 +19,26 @@ ChanceToFreezeUniqueQuiver5
 {variant:1}CurseAreaOfEffectUniqueQuiver5
 CurseTransferOnKillUniqueQuiver5
 ]],[[
+Asphyxia's Wrath
+Feathered Arrow Quiver
+Requires Level 20
+Implicits: 1
+(20-30)% increased Arrow Speed
+Grants level 5 Frostbite Skill
+IncreasedAttackSpeedUniqueQuiver7
+ColdResistUniqueQuiver5
+IncreasedChillDurationUniqueQuiver5
+ConvertPhysicalToColdUniqueQuiver5
+ChanceToFreezeUniqueQuiver5
+CurseTransferOnKillUniqueQuiver5
+]],[[
 Blackgleam
 Fire Arrow Quiver
-Upgrade: Upgrades to unique{The Signal Fire} via prophecy{Fire and Brimstone}
 Variant: Pre 2.0.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 22
 Implicits: 1
-Adds 4 to 8 Fire Damage to Attacks with Bows
+3 to 5 Added Fire Damage with Bow Attacks
 IncreasedAttackSpeedUniqueQuiver9
 IncreasedEvasionRatingUniqueQuiver1
 IncreasedManaUniqueQuiver1a
@@ -34,14 +46,25 @@ IncreasedManaUniqueQuiver1a
 {variant:2}ConvertPhysicalToFireUniqueQuiver1_
 Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
+Blackgleam
+Blazing Arrow Quiver
+Requires Level 45
+Implicits: 1
+(12-15) to (24-27) Added Fire Damage with Bow Attacks
+IncreasedAttackSpeedUniqueQuiver9
+IncreasedEvasionRatingUniqueQuiver1
+IncreasedManaUniqueQuiver1a
+ConvertPhysicalToFireUniqueQuiver1_
+Adds 5 to 10 Fire Damage to Attacks with Bows
+]],[[
 The Signal Fire
 Fire Arrow Quiver
 Variant: Pre 3.14.0
-Variant: Current
-Source: Upgraded from unique{Blackgleam} using prophecy{Fire and Brimstone}
+Variant: Pre 3.17.0
+Source: Drops from any endgame map boss
 Requires Level 24
 Implicits: 1
-Adds 4 to 8 Fire Damage to Attacks with Bows
+3 to 5 Added Fire Damage with Bow Attacks
 IncreasedAttackSpeedUniqueQuiver9
 IncreasedEvasionRatingUniqueQuiver1
 IncreasedManaUniqueQuiver1a
@@ -50,26 +73,41 @@ IncreasedManaUniqueQuiver1a
 ConvertPhysicalToFireUniqueQuiver1_
 Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
+The Signal Fire
+Blazing Arrow Quiver
+Source: Drops from any endgame map boss
+Requires Level 45
+Implicits: 1
+(12-15) to (24-27) Added Fire Damage with Bow Attacks
+IncreasedAttackSpeedUniqueQuiver9
+IncreasedEvasionRatingUniqueQuiver1
+IncreasedManaUniqueQuiver1a
+PhysicalAddedAsFireUnique__1
+ConvertPhysicalToFireUniqueQuiver1_
+Adds 5 to 10 Fire Damage to Attacks with Bows
+]],[[
 Craghead
 Serrated Arrow Quiver
-Upgrade: Upgrades to unique{Cragfall} via prophecy{Heavy Blows}
+Variant: Pre 3.17.0
+Variant: Current
 Requires Level 5
 Implicits: 1
-Adds 1 to 4 Physical Damage to Attacks with Bows
+AddedPhysicalDamageImplicitQuiver6_
 StunThresholdReductionUniqueQuiver8
 ProjectileSpeedUniqueQuiver8
-StunDurationUniqueQuiver8
+{variant:1}(60-80)% increased Stun Duration on Enemies
+{variant:2}StunDurationUniqueQuiver8
 Adds 6 to 10 Physical Damage to Attacks with Bows
 ]],[[
 Cragfall
 Serrated Arrow Quiver
-Source: Upgraded from unique{Craghead} using prophecy{Heavy Blows}
+Source: No longer obtainable
 Requires Level 5
 Implicits: 1
-Adds 1 to 4 Physical Damage to Attacks with Bows
+AddedPhysicalDamageImplicitQuiver6_
 StunThresholdReductionUniqueQuiver8
 ProjectileSpeedUniqueQuiver8
-StunDurationUniqueQuiver8
+(60-80)% increased Stun Duration on Enemies
 Adds 6 to 10 Physical Damage to Attacks with Bows
 ChanceForDoubleStunDurationUnique__1
 ]],[[
@@ -77,7 +115,7 @@ Drillneck
 Penetrating Arrow Quiver
 Requires Level 36
 Implicits: 1
-AdditionalArrowPierceImplicitQuiver12_
+AdditionalArrowPierceImplicitQuiver5New
 IncreasedAttackSpeedUniqueQuiver7
 IncreasedEvasionRatingUniqueQuiver3_
 IncreasedLifeUniqueQuiver3
@@ -90,7 +128,7 @@ League: Harbinger
 Upgrade: Upgrades to unique{The Shattered Divinity} via currency{Fragmentation Scroll}
 Requires Level 60
 Implicits: 1
-StunDurationImplicitQuiver9
+(7-9) to (13-16) Added Physical Damage with Bow Attacks
 HarbingerSkillOnEquipUnique__4_
 HybridStrDexUnique__1
 AddedFireDamageUnique__2
@@ -103,7 +141,7 @@ League: Harvest
 Source: Upgraded from unique{The Fracturing Spinner} via currency{Fragmentation Scroll}
 Requires Level 60
 Implicits: 1
-StunDurationImplicitQuiver9
+(7-9) to (13-16) Added Physical Damage with Bow Attacks
 HarbingerSkillOnEquipUnique2_4
 HybridStrDexUnique__1
 AddedFireDamageUnique__2
@@ -112,12 +150,11 @@ FireAndColdResistUnique__1
 ]],[[
 Hyrri's Bite
 Sharktooth Arrow Quiver
-Upgrade: Upgrades to unique{Hyrri's Demise} via prophecy{A Dishonourable Death}
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 10
+Requires Level 14
 Implicits: 1
-LifeGainPerTargetImplicitQuiver8
+LifeGainPerTargetImplicitQuiver3New
 StrengthUniqueQuiver6
 DexterityUniqueQuiver6
 IntelligenceUniqueQuiver6
@@ -128,10 +165,10 @@ LifeGainPerTargetUniqueQuiver6_
 ]],[[
 Hyrri's Demise
 Sharktooth Arrow Quiver
-Source: Upgraded from unique{Hyrri's Bite} via prophecy{A Dishonourable Death}
+Source: Drops from any endgame map boss
 Requires Level 45
 Implicits: 1
-LifeGainPerTargetImplicitQuiver8
+LifeGainPerTargetImplicitQuiver3New
 AllAttributesUnique__7
 IncreasedAttackSpeedUniqueQuiver6
 LifeGainPerTargetUniqueQuiver6_
@@ -166,11 +203,11 @@ AttacksBlindOnHitChanceUnique__1
 Maloney's Nightfall
 Blunt Arrow Quiver
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 55
 Implicits: 1
-StunDurationImplicitQuiver9
-{variant:1}LocalIncreasedAttackSpeedUnique__10
+(7-9) to (13-16) Added Physical Damage with Bow Attacks
+{variant:1}IncreasedAttackSpeedImplicitQuiver10New
 {variant:2}IncreasedAttackSpeedUniqueQuiver9
 IncreasedLifeUniqueQuiver9
 ChaosResistUniqueQuiver9
@@ -181,11 +218,36 @@ ChaosResistUniqueQuiver9
 {variant:1}(20-40)% increased Damage with Hits and Ailments against Blinded Enemies
 {variant:2}IncreaseDamageOnBlindedEnemiesUniqueQuiver9_
 ]],[[
+Maloney's Nightfall
+Vile Arrow Quiver
+Requires Level 55
+Implicits: 1
+PhysicalDamageAddedAsChaosImplicitQuiver11New
+IncreasedAttackSpeedUniqueQuiver9
+IncreasedLifeUniqueQuiver9
+ChaosResistUniqueQuiver9
+Adds (8-10) to (14-16) Physical Damage to Attacks with Bows
+SmokeCloudWhenHitUniqueQuiver9
+IncreaseDamageOnBlindedEnemiesUniqueQuiver9_
+]],[[
 Rearguard
 Broadhead Arrow Quiver
-Requires Level 28
+Variant: Pre 3.17.0
+Requires Level 49
 Implicits: 1
-Adds 6 to 12 Physical Damage to Attacks with Bows
+IncreasedAttackSpeedImplicitQuiver10New
+IncreasedPhysicalDamageReductionRatingUniqueQuiver4
+ProjectileSpeedUniqueQuiver4
+50% increased Stun Recovery
+IncreasedProjectileDamageUniqueQuiver4
+(20-24)% Chance to Block
+(12-15)% Chance to Block Spells
+]],[[
+Rearguard
+Blunt Arrow Quiver
+Requires Level 31
+Implicits: 1
+(7-9) to (13-16) Added Physical Damage with Bow Attacks
 IncreasedPhysicalDamageReductionRatingUniqueQuiver4
 ProjectileSpeedUniqueQuiver4
 50% increased Stun Recovery
@@ -201,7 +263,7 @@ League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, The Wolven King} (Level 70+)
 Requires Level 56
 Implicits: 1
-(20-30)% increased Accuracy Rating
+IncreasedAccuracyPercentImplicitQuiver7New
 FireResistUnique__3
 LightningResistUnique__2
 LifeGainPerTargetUnique__1
@@ -214,7 +276,7 @@ Saemus' Gift
 Spike-Point Arrow Quiver
 Requires Level 45
 Implicits: 1
-CriticalStrikeChanceImplicitQuiver13
+CriticalStrikeChanceImplicitQuiver8New
 DexterityImplicitQuiver1
 IncreasedCastSpeedUniqueClaw7
 IncreasedLifeUnique__27
@@ -224,11 +286,25 @@ IncreasedLightningDamagePer10IntelligenceUnique__1
 ]],[[
 Scorpion's Call
 Broadhead Arrow Quiver
+Variant: Pre 3.17.0
 League: Harvest
 Requires Level 57
 Implicits: 1
-Adds 6 to 12 Physical Damage to Bow Attacks
-DexterityUnique__6
+IncreasedAttackSpeedImplicitQuiver10New
+DexterityUnique__20__
+LifeRegenerationBloodStanceUnique__1
+ProjectileDamageBloodStanceUnique__1
+EvasionRatingSandStanceUnique__1
+AreaOfEffectSandStanceUnique__1
+(20-30)% increased Attack Speed if you've changed Stance Recently
+]],[[
+Scorpion's Call
+Heavy Arrow Quiver
+League: Harvest
+Requires Level 61
+Implicits: 1
+(12-16) to (24-27) Added Physical Damage with Bow Attacks
+DexterityUnique__20__
 LifeRegenerationBloodStanceUnique__1
 ProjectileDamageBloodStanceUnique__1
 EvasionRatingSandStanceUnique__1
@@ -237,9 +313,9 @@ AreaOfEffectSandStanceUnique__1
 ]],[[
 Skirmish
 Two-Point Arrow Quiver
-Requires Level 19
+Requires Level 36
 Implicits: 1
-(20-30)% increased Accuracy Rating
+IncreasedAccuracyPercentImplicitQuiver7New
 IntelligenceUniqueQuiver6
 IncreasedManaUnique__6
 ManaRegenerationImplicitAmulet1
@@ -248,9 +324,21 @@ Attack skills can have 1 additional Totem Summoned at a time
 ]],[[
 Steelworm
 Broadhead Arrow Quiver
+Variant: Pre 3.17.0
 Requires Level 52
 Implicits: 1
-AddedPhysicalDamageImplicitQuiver11
+IncreasedAttackSpeedImplicitQuiver10New
+GrantsCallOfSteelSkillUnique__1_
+GlobalEvasionRatingAndArmourPercentUnique__1_
+DealNoNonPhysicalDamageUniqueBelt__1
+RangedAttacksConsumeAmmoUniqueBelt__1
+Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 12 Steel Shards
+]],[[
+Steelworm
+Feathered Arrow Quiver
+Requires Level 52
+Implicits: 1
+(20-30)% increased Arrow Speed
 GrantsCallOfSteelSkillUnique__1_
 GlobalEvasionRatingAndArmourPercentUnique__1_
 DealNoNonPhysicalDamageUniqueBelt__1
@@ -263,7 +351,7 @@ Variant: Pre 2.5.0
 Variant: Current
 Requires Level 64
 Implicits: 1
-CriticalStrikeChanceImplicitQuiver13
+CriticalStrikeChanceImplicitQuiver8New
 DexterityUniqueQuiver7
 AddedChaosDamageUniqueQuiver7
 IncreasedAttackSpeedUniqueQuiver7
@@ -277,7 +365,7 @@ Spike-Point Arrow Quiver
 League: Heist
 Requires Level 64
 Implicits: 1
-CriticalStrikeChanceImplicitQuiver13
+CriticalStrikeChanceImplicitQuiver8New
 DexterityUniqueQuiver7
 AddedPhysicalDamageUnique__10
 IncreasedAttackSpeedUniqueQuiver7
@@ -287,17 +375,35 @@ MaximumLifeLeechAmountUnique__2
 ]],[[
 Voidfletcher
 Penetrating Arrow Quiver
+Variant: Pre 3.17.0
 Elder
 Source: Drops from unique{The Elder} (Uber)
 Requires Level 68
 Implicits: 1
-AdditionalArrowPierceImplicitQuiver12_
+AdditionalArrowPierceImplicitQuiver5New
 Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows
 AddedColdDamageUnique__7
 IncreasedEnergyShieldUnique__7
 ColdResistUnique__3
 ManaGainedFromEnemyDeathUnique__2
-ProjectileSpeedUnique__5__
+ProjectileSpeedUnique__2
+MaximumVoidArrowsUnique__1
+Gain a Void Charge every 0.5 seconds
+Elder Item
+]],[[
+Voidfletcher
+Primal Arrow Quiver
+Elder
+Source: Drops from unique{The Elder} (Uber)
+Requires Level 68
+Implicits: 1
+WeaponElementalDamageImplicitQuiver13New
+Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows
+AddedColdDamageUnique__7
+IncreasedEnergyShieldUnique__7
+ColdResistUnique__3
+ManaGainedFromEnemyDeathUnique__2
+ProjectileSpeedUnique__2
 MaximumVoidArrowsUnique__1
 Gain a Void Charge every 0.5 seconds
 Elder Item

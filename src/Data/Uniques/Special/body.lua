@@ -17,42 +17,49 @@ HasMassiveShrineBuffUnique__1
 ]],[[
 Bramblejack
 Plate Vest
-Upgrade: Upgrades to unique{Wall of Brambles} via prophecy{The King and the Brambles}
 AddedPhysicalDamageUniqueBodyStr2
 IncreasedLifeUniqueBodyStr2
--2 Physical Damage taken from Attacks
+−2 Physical Damage taken from Attacks
 PhysicalDamageTakenPercentToReflectUniqueBodyStr2
 ]],[[
 Wall of Brambles
 Plate Vest
-Source: Upgraded from unique{Bramblejack} using prophecy{The King and the Brambles}
+Source: No longer obtainable
 Requires Level 30
 AddedPhysicalDamageUniqueBodyStr2
 LocalIncreasedPhysicalDamageReductionRatingTransformedUnique__1
 IncreasedLifeUniqueBodyStr2
--2 Physical Damage taken from Attacks
+−2 Physical Damage taken from Attacks
 PhysicalDamageTakenPercentToReflectUniqueBodyStr2
 ]],[[
 The Brass Dome
 Gladiator Plate
 Source: Drops from unique{Guardian of the Minotaur}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 177 Str
-30% reduced Chance to Block Attacks and Spells
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__3
-MovementSkillCooldownReducedMoveSpeedImplicitR2_
-SelfShockDurationUnique__2
+{variant:1}(600-650)% increased Armour
+{variant:2}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__3
+{variant:1}30% reduced Chance to Block Attacks and Spells
+{variant:1}MovementSkillCooldownReducedMoveSpeedImplicitR2_
+{variant:1}50% increased Shock Duration on You
 TakeNoExtraDamageFromCriticalStrikesUnique__1
+{variant:2}+(1-5) to all maximum Elemental Resistances
+{variant:2}Strength provides no bonus to Maximum Life 
 ]],[[
 Craiceann's Carapace
 Golden Plate
+Variant: Pre 3.16.0
+Variant: Current
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 56, 152 Str
 GrantsCrabAspect1_
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__16
+{variant:1}(300-350)% increased Armour
+{variant:2}LocalIncreasedPhysicalDamageReductionRatingPercentUniqueBodyStr6
 IncreasedLifeUnique__72_
 FireAndColdResistUnique__3
-BleedingImmunityUnique__1
+ChanceToAvoidBleedingUnique__2_
 MaximumCrabBarriersUnique__1
 ]],[[
 Death's Oath
@@ -63,7 +70,7 @@ Variant: Current
 Requires Level 62, 180 Str
 Implicits: 1
 AllResistancesImplicitVictorAmulet
-{variant:3}ChaosDegenAuraUnique__1
+{variant:3}Grants level 20 Death Aura Skill
 AllAttributesUniqueBodyStr3
 {variant:3}IncreasedLifeUniqueBodyDex6
 IncreasedAttackSpeedUniqueBodyStr3
@@ -76,13 +83,16 @@ ItemBloodFootstepsUniqueBodyStr3
 ]],[[
 Doppelgänger Guise
 Sadist Garb
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68, 103 Dex, 109 Int
 Implicits: 0
 GrantsUnhingeUnique__1
 CriticalStrikeChanceFinalUnhingedUnique__1
 EnemiesExplodeOnKillUnhingedUnique__1_
-PhysicalChaosDamageTakenNotUnhingedUnique__1_
+{variant:1}(15-25)% less Physical and Chaos Damage Taken while Sane
+{variant:2}PhysicalChaosDamageTakenNotUnhingedUnique__1_
 RegenerateLifeNotUnhingedUnique__1
 ]],[[
 Greed's Embrace
@@ -90,9 +100,9 @@ Golden Plate
 Requires Level 56, 106 Str
 ItemFoundQuantityIncreaseUniqueBodyStr5
 ItemFoundRarityIncreaseUniqueBodyStr5
-FireResistUniqueBodyStr5
+−10% to Fire Resistance
 ColdResistUniqueBodyStr5
-LightningResistUniqueBodyStr5
+−20% to Lightning Resistance
 MovementVelocityUniqueBodyStr5
 ReducedStrengthRequirementUniqueBodyStr5
 ]],[[
@@ -122,13 +132,13 @@ Requires Level 59, 160 Str
 LocalIncreasedPhysicalDamageReductionRatingPercentUniqueBodyStr6
 IncreasedLifeUniqueBodyStr6
 ManaLeechPermyriadUniqueBodyStr6
-SocketedGemsSupportedByPierceUniqueBodyStr6
+Socketed Gems are Supported by level 15 Pierce
 ChanceToBePiercedUniqueBodyStr6
 {variant:2}DexterityRequirementsUnique__1
 ]],[[
 Iron Heart
 Crusader Plate
-Upgrade: Upgrades to unique{The Iron Fortress} via prophecy{Battle Hardened}
+Source: No longer obtainable
 Requires Level 59, 160 Str
 (80-100)% increased Armour 
 10% reduced Movement Speed 
@@ -138,12 +148,11 @@ Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10
 ]],[[
 The Iron Fortress
 Crusader Plate
-Source: Upgraded from unique{Iron Heart} via prophecy{Battle Hardened}
-Requires Level 68, 160 Str
+Requires Level 59, 160 Str
 BlockChancePer50StrengthUnique__1
 ExtraRollsSpellBlockUnique__1
 StrengthUnique__13_
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__9
+LocalIncreasedPhysicalDamageReductionRatingPercentUnique__15
 MovementSkillCooldownReducedMoveSpeedImplicitR2_
 Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
 ]],[[
@@ -161,7 +170,7 @@ IncreasedLifeUniqueBodyStrDex3_
 Allow2ActiveBannersUnique__1
 Add1StageToBannersOnMeleeHitUpTo5PerSecondUnique__1
 {variant:1}BannerAdrenalineDurationUnique__1
-{variant:2}BannerFortifyDurationUnique__1
+{variant:2}BannerMaxFortificationUnique__1
 {variant:3}BannerTauntDurationUnique__1_
 ]],[[
 Solaris Lorica
@@ -171,11 +180,11 @@ Variant: Current
 Requires Level 17, 53 Str
 StrengthUniqueBodyStr4
 LocalIncreasedPhysicalDamageReductionRatingUniqueBodyStr4
-LightRadiusUniqueBodyInt8
-ChaosTakenOnES
-{variant:1}-10 Chaos Damage taken
+LightRadiusUniqueBodyStr4
+Chaos Damage does not bypass Energy Shield
+{variant:1}−10 Chaos Damage taken
 {variant:2}-(30-40) Chaos Damage taken
-{variant:2}ChaosDamageOverTimeUnique__1
+{variant:2}25% reduced Chaos Damage Taken Over Time
 ]],
 -- Body: Evasion
 [[
@@ -184,17 +193,16 @@ Buckskin Tunic
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 17, 53 Dex
-{variant:2}ItemActsAsFireDamageSupportUniqueSceptre2
+{variant:2}Socketed Gems are Supported by level 10 Added Fire Damage
 LocalIncreasedEvasionRatingPercentUniqueBodyDex3
-{variant:2}IncreasedLifeUniqueAmulet4
+{variant:2}IncreasedLifeUnique__20
 FireResistUniqueBodyDex3
 AvoidIgniteUniqueBodyDex3
 RangedWeaponPhysicalDamagePlusPercentUniqueBodyDex3
--(5-7) Physical Damage taken from Attacks
+−(5-7) Physical Damage taken from Attacks
 ]],[[
 Briskwrap
 Strapped Leather
-Upgrade: Upgrades to unique{Wildwrap} via prophecy{Last of the Wildmen}
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
@@ -210,7 +218,7 @@ FlaskManaRecoveryUniqueBodyDex7
 ]],[[
 Wildwrap
 Strapped Leather
-Source: Upgraded from unique{Briskwrap} via prophecy{Last of the Wildmen}
+Source: Drops from any endgame map boss
 Requires Level 57, 32 Dex
 IncreasedAttackSpeedUniqueBodyDex7
 IncreasedEvasionRatingUnique__5_
@@ -249,7 +257,6 @@ IgnoreHexproofUnique___1
 ]],[[
 Foxshade
 Wild Leather
-Upgrade: Upgrades to unique{Fox's Fortune} via prophecy{Dark Instincts}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 25, 73 Dex
@@ -262,7 +269,7 @@ MovementVelocityUniqueBodyDex5
 ]],[[
 Fox's Fortune
 Wild Leather
-Source: Upgraded from unique{Foxshade} via prophecy{Dark Instincts}
+Source: No longer obtainable
 Requires level 54, 73 Dex
 AddedPhysicalDamageUniqueBodyDex4
 DexterityUniqueBodyDex4
@@ -282,7 +289,7 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 65, 197 Dex
 {variant:1,2,3}DexterityUniqueBodyDex4
-{variant:4,5,6}DexterityUniqueBodyDex1
+DexterityUniqueBodyDex1
 {variant:1,2,3}Adds 13 to 24 Cold Damage to Bow Attacks
 {variant:4}Adds (50-60) to (70-80) Cold Damage to Bow Attacks
 {variant:5}Adds (173-188) to (240-262) Cold Damage to Bow Attacks
@@ -290,13 +297,11 @@ Requires Level 65, 197 Dex
 {variant:1}LocalIncreasedEvasionRatingPercentUniqueBootsDexInt1
 {variant:2,3,4,5,6}LocalIncreasedEvasionRatingPercentUniqueBodyDex1
 IncreasedChillDurationUniqueBodyDex1
-{variant:1,2}Acrobatics
-{variant:3,4,5,6}10% chance to Dodge Attacks
-{variant:3,4,5,6}10% chance to Dodge Spell Damage
+{variant:1,2}KeystonePhaseAcrobaticsUnique__1
+{variant:3,4,5,6}30% chance to Suppress Spell Damage
 ]],[[
 Kintsugi
 Exquisite Leather
-Source: prophecy{Deadly Rivalry V}
 Requires Level 62, 170 Dex
 LocalIncreasedEvasionRatingPercentUniqueBodyStrDex5
 IncreasedLifeUniqueBodyDexInt3
@@ -317,7 +322,7 @@ ColdResistanceBodyDex6
 LightningResistanceBodyDex6
 MovementVeolcityUniqueBodyDex6
 MovementVelicityPerEvasionUniqueBodyDex6
--(50-40) Physical Damage taken when hit by Animals
+−(50-40) Physical Damage taken when hit by Animals
 ]],[[
 The Rat Cage
 Sharkskin Tunic
@@ -327,7 +332,7 @@ Variant: Current
 Requires Level 56, 152 Dex
 LocalIncreasedEvasionRatingPercentUniqueBodyStrDex5
 IncreasedLifeUniqueBodyStrDex5
-{variant:1}-5% to maximum Fire Resistance
+{variant:1}−5% to maximum Fire Resistance
 {variant:2}FireResistUnique__11
 MovementVelocityUniqueBodyStrDex5_
 IncreasedFireDamageTakenUniqueBodyStrDex5
@@ -338,62 +343,59 @@ Coronal Leather
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Perfect Form} using currency{Blessing of Tul}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 49, 134 Dex
 DexterityUnique__5
-LocalIncreasedEvasionRatingPercentUnique__5
+{variant:1}LocalIncreasedEvasionRatingPercentUniqueShieldDex4
+{variant:2}LocalIncreasedEvasionRatingPercentUniqueBodyDex3
 IncreasedLifeUniqueShieldStr5
-10% chance to Dodge Spell Damage
+{variant:1}10% chance to Suppress Spell Damage
+{variant:2}20% chance to Suppress Spell Damage
 ArcticArmourBuffEffectUnique__1_
-EvasionIncreasedByUncappedColdResistanceUnique__1
+{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
+{variant:2}EvasionIncreasedByUncappedColdResistanceUnique__1
 ]],[[
 The Perfect Form
 Zodiac Leather
 League: Breach
 Source: Upgraded from unique{The Snowblind Grace} using currency{Blessing of Tul}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 197 Dex
-LocalIncreasedEvasionRatingPercentUnique__5
-IncreasedLifeUnique__37
+{variant:1}LocalIncreasedEvasionRatingPercentUniqueShieldDex4
+{variant:2}LocalIncreasedEvasionRatingPercentUniqueBodyDex3
+{variant:1}IncreasedLifeUnique__23
+{variant:2}IncreasedLifeUniqueBodyStrDex4
 ColdResistUnique__14
-PercentageDexterityUnique__4
+{variant:1}(5-10)% increased Dexterity
+{variant:2}PercentageDexterityUnique__4
 ArcticArmourReservationCostUnique__1
-EvasionIncreasedByUncappedColdResistanceUnique__1
+{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
+{variant:2}EvasionIncreasedByUncappedColdResistanceUnique__1
 KeystonePhaseAcrobaticsUnique__1
 ]],[[
 Replica Perfect Form
 Zodiac Leather
 League: Heist
 Requires Level 65, 197 Dex
-PercentageDexterityUnique__4
-LocalIncreasedEvasionRatingPercentUnique__5
-IncreasedLifeUnique__37
+(5-10)% increased Dexterity
+LocalIncreasedEvasionRatingPercentUniqueShieldDex4
+IncreasedLifeUnique__23
 ColdResistUnique__14
 FleshAndStoneManaReservationUnique__1_
-EvasionIncreasedByUncappedColdResistanceUnique__1
+Evasion Rating is increased by Uncapped Cold Resistance
 KeystoneHollowPalmTechniqueUnique__1
-]],[[
-The Queen's Hunger
-Vaal Regalia
-League: Betrayal
-Variant: Pre 3.8.0
-Variant: Current
-Requires Level 68, 194 Int
-TriggerRandomOfferingSkillUnique__1
-Offering Skills Triggered this way also affect you
-{variant:1}Your Offerings have 25% reduced Effect on you
-IncreasedCastSpeedUnique__15_
-LocalIncreasedEnergyShieldPercentUnique__20_
-MaximumLifeUnique__16
 ]],[[
 Yriel's Fostering
 Exquisite Leather
-Source: Drops from The Pale Council
 Variant: Rhoa
 Variant: Snake
 Variant: Ursa
 Requires Level 62, 170 Dex
-{variant:1}GrantsSummonBeastRhoaUnique__1
-{variant:2}GrantsSummonBeastSnakeUnique__1
-{variant:3}GrantsSummonBeastUrsaUnique__1
+{variant:1}Grants level 20 Summon Bestial Rhoa Skill
+{variant:2}Grants level 20 Summon Bestial Snake Skill
+{variant:3}Grants level 20 Summon Bestial Ursa Skill
 IncreasedAccuracyUnique__1
 LocalIncreasedEvasionRatingPercentUnique__9
 IncreasedLifeUniqueBodyStrDexInt1
@@ -418,7 +420,7 @@ LocalIncreasedEnergyShieldPercent___3
 {variant:2}IncreasedEnergyShieldUniqueRing27
 10% increased Area of Effect of Area Skills
 IncreasedDamageTakenUnique__1
-EnergyShieldRecoveryRateUnique__1
+(30-40)% increased Energy Shield Recovery Rate
 ]],[[
 Cloak of Flame
 Scholar's Robe
@@ -458,16 +460,16 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 49, 134 Int
-SocketedGemsHaveAddedChaosDamageUniqueBodyInt3
+Socketed Gems are Supported by level 15 Added Chaos Damage
 IntelligenceUniqueBodyInt3
 {variant:1,2,3}MaximumLifeUniqueAmulet6
 {variant:4,5}MaximumLifeUniqueBodyInt3
 {variant:1}LocalIncreasedEnergyShieldPercentUniqueBodyInt8
-{variant:2}LocalIncreasedEnergyShieldPercentUnique__21
+{variant:2}LocalIncreasedEnergyShieldPercentUnique__19
 {variant:3,4}(280-320)% increased Energy Shield
 {variant:5}LocalIncreasedEnergyShieldUniqueBodyInt3
 {variant:1,2,3}BloodMagic
-{variant:4,5}Socketed Gems have Blood Magic
+{variant:4,5}SocketedemsHaveBloodMagicUniqueShieldStrInt2
 ]],[[
 Dialla's Malefaction
 Sage's Robe
@@ -484,11 +486,11 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 65, 187 Int
 Socketed Curse Gems are Supported by Level 20 Blasphemy 
-GrantCursePillarSkillUnique
+GrantCursePillarSkillUnique__
 Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
-Hexes from Socketed Skills ignore Curse Limit
+Hexes from Socketed Skills can apply 5 additional Curses
 +(30-40) to Intelligence 
-(130-150)% increased Energy Shield 
+LocalIncreasedEnergyShieldPercentUnique__14
 {variant:1}(25-33)% reduced Effect of your Curses
 ]],[[
 Fenumus' Shroud
@@ -509,7 +511,7 @@ League: Harvest
 Requires Level 59, 160 Int
 LocalIncreasedEnergyShieldUniqueBodyInt1
 Minions Convert 2% of their Maximum Life to Maximum Energy Shield per 1% Chaos Resistance they have
-MinionChaosDamageDoesNotBypassESUnique__1
+Chaos Damage does not bypass Minions' Energy Shield
 MinionEnergyShieldRechargeDelayUnique__1
 MinionHitsIgnoreResistanceWithESUnique__1_
 ]],[[
@@ -518,7 +520,7 @@ Savant's Robe
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 56, 152 Int
-LocalIncreasedEnergyShieldPercentUnique__24
+{fractured}LocalIncreasedEnergyShieldPercentUnique__24
 StrengthIntelligenceRequirementsUnique__1
 DivineChargeOnHitUnique__1_
 Gain a Divine Charge on Hit
@@ -570,7 +572,7 @@ SpellDamageImplicitArmour1
 ReducedEnergyShieldDelayUniqueBodyInt1
 LightningResistUniqueBodyInt1
 AttackerTakesLightningDamageUniqueBodyInt1
-ChaosTakenOnES
+Chaos Damage does not bypass Energy Shield
 ]],[[
 Skin of the Loyal
 Simple Robe
@@ -586,15 +588,18 @@ Soul Mantle
 Spidersilk Robe
 Variant: Pre 1.2.0
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 49, 134 Int
 {variant:1,2}Socketed Gems are Supported by level 14 Spell Totem
-{variant:3}DisplaySocketedGemGetsSpellTotemBodyInt7
+{variant:3,4,5}Socketed Gems are Supported by level 20 Spell Totem
 SpellDamageUniqueBodyInt7
 LocalIncreasedEnergyShieldUniqueBodyInt7
 {variant:1}25% increased Totem Life
-{variant:2,3}TotemLifeUniqueBodyInt7
-Can have up to 1 additional Totem summoned at a time
+{variant:2,3}50% increased Totem Life
+{variant:4,5}TotemLifeUniqueBodyInt7
+{variant:1,2,3,4}Can have up to 1 additional Totem summoned at a time
 RandomlyCursedWhenTotemsDieUniqueBodyInt7
 ]],[[
 Tabula Rasa
@@ -605,7 +610,7 @@ Thousand Ribbons
 Simple Robe
 Variant: Pre 3.0.0
 Variant: Current
-SocketedGemsGetElementalProliferationUniqueBodyInt5
+Socketed Gems are Supported by level 5 Elemental Proliferation
 AddedFireDamageUniqueBodyInt5
 AddedColdDamageUniqueBodyInt5
 AddedLightningDamageUniqueBodyInt5_
@@ -627,9 +632,9 @@ Requires Level 59, 160 Int
 {variant:1}LocalIncreasedEnergyShieldUniqueBodyInt7
 {variant:2,3}LocalIncreasedEnergyShieldUniqueBodyInt9
 IncreasedManaUniqueBodyInt9
-MinionLifeUniqueBodyInt9
+Minions have 20% reduced Maximum Life
 MinionDamageUniqueBodyInt9
-{variant:1,2}MaximumMinionCountUniqueBodyInt9
+{variant:1,2}+1 to Maximum number of Spectres
 {variant:1}Minions gain Unholy Might for 5 seconds on Kill
 {variant:2}MinionUnholyMightOnKillUniqueBodyInt9
 {variant:3}MinionElementalDamageAddedAsChaosUnique__1
@@ -647,7 +652,7 @@ Requires Level 37, 104 Int
 {variant:4}LocalIncreasedEnergyShieldPercentUniqueBodyInt8
 {variant:1}+(20-25)% to Chaos Resistance
 {variant:2,3,4}ChaosResistUniqueBodyInt8
-LightRadiusUniqueBodyInt8
+LightRadiusUniqueBodyStr4
 {variant:1}25% chance on Block to create Consecrated Ground
 {variant:2}50% chance on Block to create Consecrated Ground
 {variant:3,4}100% chance on Block to create Consecrated Ground
@@ -661,7 +666,7 @@ LocalIncreasedPhysicalDamageReductionRatingUniqueBodyStrDex1
 MaximumLifeUniqueBodyStrDex1
 AllResistancesUniqueBodyStrDex1
 FlaskLifeRecoveryRateUniqueBodyStrDex1
-ExtraGore
+Extra Gore
 ]],[[
 Cherrubim's Maleficence
 Triumphant Lamellar
@@ -680,19 +685,20 @@ Daresso's Defiance
 Full Dragonscale
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 63, 115 Str, 94 Dex
-LocalIncreasedArmourAndEvasionUniqueBodyStrDex4
+{variant:1,2,3}LocalIncreasedArmourAndEvasionUniqueBodyStrDex4
+{variant:4}LocalIncreasedArmourAndEvasionRatingUniqueBodyStrDex3
 {variant:1,2}IncreasedLifeUniqueShieldStr5
-{variant:3}IncreasedLifeUniqueBodyStrDex3_
+{variant:3,4}IncreasedLifeUniqueBodyStrDex3_
 LifeLeechPermyriadUniqueBodyStrDex3
-6% Chance to Dodge Attacks
 LoseEnduranceChargesWhenHitUniqueBodyStrDex3
 EnduranceChargeOnKillUniqueBodyStrDex3
 {variant:1}You gain Onslaught for 1 second per Endurance Charge when Hit
 {variant:2}You gain Onslaught for 2 second per Endurance Charge when Hit
-{variant:3}You gain Onslaught for 5 second per Endurance Charge when Hit
-{variant:3}OnslaughtEffectUnique__1
+{variant:3,4}You gain Onslaught for 5 second per Endurance Charge when Hit
+{variant:3,4}OnslaughtEffectUnique__1
 ]],[[
 Farrul's Fur
 Triumphant Lamellar
@@ -711,7 +717,7 @@ Triumphant Lamellar
 League: Heist
 Requires Level 69, 95 Str, 116 Dex
 LocalIncreasedArmourAndEvasionUnique__7
-IncreasedLifeUniqueHelmetDex4
+IncreasedLifeUniqueBodyStrInt7
 +2.00 seconds to Cat's Agility Duration
 CatAspectReservesNoManaUnique__1___
 GainMaxFrenzyAndEnduranceOnCatsAgilityUnique__1
@@ -741,7 +747,7 @@ Requires Level 60, 96 Str, 96 Dex
 AddedLightningDamageUniqueBodyStrDex2
 LocalIncreasedArmourAndEvasionUniqueBodyStrDex2
 IncreasedLifeUniqueBodyDexInt3
-LightningResistUniqueBodyStrDex2
+−60% to Lightning Resistance
 {variant:1}40% of Physical Damage from Hits taken as Lightning Damage
 {variant:2}PhysicalDamageTakenAsLightningPercentUniqueBodyStrDex2
 ]],[[
@@ -803,7 +809,7 @@ Doryani's Prototype
 Saint's Hauberk
 League: Harvest
 Requires Level 67, 109 Str, 94 Int
-LocalIncreasedArmourAndEnergyShieldUnique__21
+LocalIncreasedArmourAndEnergyShieldUnique__15
 IncreasedLifeUniqueBodyStrDex3_
 DealNoNonLightningDamageUnique__1_
 ArmourAppliesToLightningDamageUnique__1_
@@ -827,7 +833,6 @@ ZealotsOathUnique__1
 ]],[[
 Icetomb
 Latticed Ringmail
-Upgrade: Upgrades to unique{Crystal Vault} via prophecy{End of the Light}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 39, 59 Str, 59 Int
@@ -842,7 +847,7 @@ IncreasedChillDurationUniqueBodyStrInt3
 ]],[[
 Crystal Vault
 Latticed Ringmail
-Source: Upgraded from unique{Icetomb} via prophecy{End of the Light}
+Source: No longer obtainable
 Requires Level 49, 59 Str, 59 Int
 StrengthUniqueBodyStrInt3
 IntelligenceUniqueBodyStrInt3
@@ -931,7 +936,7 @@ HasSixSocketsUnique__1
 AllAttributesUnique__6
 AddedPhysicalDamageUnique__6_
 CriticalStrikeChanceUnique__4_
-LocalIncreasedEnergyShieldUnique__7
+LocalIncreasedEnergyShieldUnique__30__
 IncreasedLifeUnique__106_
 IncreasedManaUnique__20_
 ItemFoundRarityIncreaseUnique__3
@@ -944,7 +949,7 @@ Requires Level 58, 84 Str, 84 Int
 League: Blight
 SupportedByMeatShieldUnique__1
 LocalIncreasedArmourAndEnergyShieldUnique__17_
-IncreasedLifeUnique__37
+IncreasedLifeUnique__23
 DamagePerZombieUnique__1
 ElementalDamageTakenPerZombieUnique__1
 ]],[[
@@ -978,13 +983,16 @@ AddPowerChargeOnCrit1__
 [[
 Bloodbond
 Bone Armour
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 35, 53 Dex, 53 Int
 Grants Level 15 Blood Offering Skill 
 (100-120)% increased Evasion and Energy Shield 
 (15-25)% increased maximum Life 
 Minions have (20-30)% increased maximum Life 
 1% of Life Regenerated per second 
-Minions have (6-10)% chance to Dodge Attacks 
+{variant:1}Minions have (6-10)% chance to Suppress Spell Damage
+{variant:2}Minions have (12-15)% chance to Suppress Spell Damage
 ]],[[
 Carcass Jack
 Varnished Coat
@@ -1114,7 +1122,7 @@ Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 65, 107 Dex, 90 Int
 AllAttributesUnique__5
 LightningResistUniqueBodyInt1
-ReducedManaReservationCostUnique__2
+ManaReservationEfficiencyUnique__2
 AvianAspectBuffEffectUnique__1
 GrantAviansAspectToAlliesUnique__1
 LocalFlatIncreasedEvasionAndEnergyShieldUnique__2_
@@ -1149,6 +1157,18 @@ Implicits: 1
 IncreasedManaImplicitArmour1
 AbyssJewelSocketUnique__14
 ]],[[
+Stasis Prison
+Carnal Armour
+Source: Drops in Uber Timeless Conflict
+Requires Level 71, 88 Dex, 122 Int
+Implicits: 1
+IncreasedManaImplicitArmour1
+LocalIncreasedEvasionAndEnergyShieldUnique__33
+IncreasedLifeUniqueBodyStrInt7
+ChronomanceReservesNoMana
+DamageTakenGainedAsLifeUnique__2
+Debuffs on you Expire (80-100)% faster
+]],[[
 Tinkerskin
 Sadist Garb
 Requires Level 68, 103 Dex, 109 Int
@@ -1163,18 +1183,20 @@ GainEnergyShieldOnTrapTriggeredUnique__1_
 Victario's Influence
 Lacquered Garb
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
 LocalIncreaseSocketedAuraGemLevelUniqueBodyDexInt4
-{variant:1}SocketedItemsHaveReducedReservationUnique__1
-{variant:2}SocketedItemsHaveReducedReservationUniqueBodyDexInt4
+{variant:1}Socketed Gems have 40% increased Mana Reservation Efficiency
+{variant:2}Socketed Gems have 60% increased Mana Reservation Efficiency
+{variant:3}SocketedItemsHaveReducedReservationUniqueBodyDexInt4
 {variant:1}Socketed Gems are Supported by level 1 Generosity
-{variant:2}SupportedByGenerosityUniqueBodyDexInt4_
+{variant:2,3}Socketed Gems are Supported by level 30 Generosity
 LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt1
 {variant:1}(10-20)% increased Radius of Auras
-{variant:2}IncreasedAuraRadiusUniqueBodyDexInt4
+{variant:2,3}IncreasedAuraRadiusUniqueBodyDexInt4
 {variant:1}(10-15)% increased effect of Non-Curse Auras you Cast
-{variant:2}IncreasedAuraEffectUniqueBodyDexInt4
+{variant:2,3}IncreasedAuraEffectUniqueBodyDexInt4
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[
@@ -1219,12 +1241,12 @@ GlobalVaalGemsLevelImplicit1_
 {variant:6,15}LocalIncreasedEnergyShieldUniqueBodyStrDexInt1g
 {variant:7,8,16,17}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrDexInt1h
 {variant:9,18}LocalArmourAndEvasionAndEnergyShieldUniqueBodyStrDexInt1i
-{variant:1,2,3,4,7,10,11,12,13,16}IncreasedLifeUniqueBodyStrDexInt1
+{variant:1,2,3,4,7,10,11,12,13,16}+(90-100) to Maximum Life
 {variant:5,6,8}+(90-100) to Maximum Energy Shield
-{variant:14,15,17}IncreasedEnergyShieldUniqueBodyStrDexInt1
+{variant:14,15,17}+(70-80) to Maximum Energy Shield
 AllResistancesUniqueBodyStrDexInt1
-LifeGainedFromEnemyDeathUniqueBodyStrDexInt1
-ManaGainedFromEnemyDeathUniqueBodyStrDexInt1
++100 Life Gained on Kill
++100 Mana Gained on Kill
 ]],[[
 Shadowstitch
 Sacrificial Garb
@@ -1234,10 +1256,10 @@ Variant: Current
 Requires Level 72, 66 Str, 66 Dex, 66 Int
 Implicits: 0
 DisplayHasAdditionalModUnique__1
-AllAttributesUnique__8_
+AllAttributesUniqueBelt3
 {variant:2}LocalIncreasedArmourEvasionEnergyShieldUnique__1_
-Recover (3-5)% of Maximum Life on Kill
-Recover (3-5)% of Maximum Energy Shield on Kill
+MaximumLifeOnKillPercentUnique__3__
+MaximumEnergyShieldOnKillPercentUnique__1
 6% increased Maximum Life for each Equipped Corrupted Item
 8% increased Maximum Energy Shield for each Equipped Corrupted Item
 -(6-4)% to all Resistances for each Equipped Corrupted Item

@@ -44,7 +44,7 @@ Implicits: 2
 {variant:1}Adds (15-30) to (35-50) Physical Damage
 {variant:2}Adds (20-40) to (55-70) Physical Damage
 {variant:3,4}LocalAddedPhysicalDamageUniqueOneHandSword9
-LocalIncreasedAttackSpeedUniqueOneHandSword9
+LocalIncreasedAttackSpeedUniqueOneHandSword11
 IncreasedEvasionRatingUniqueOneHandSword9
 MovementVelocityUniqueOneHandSword9
 {variant:1,2,3}+(180-200) to Accuracy Rating
@@ -78,8 +78,8 @@ Implicits: 2
 IntelligenceUniqueOneHandSword2
 CriticalStrikeChanceUniqueOneHandSword2
 ManaLeechPermyriadUniqueOneHandSword2
-MaximumLifeUniqueOneHandSword2
-IncreasedEnergyShieldPercentUniqueOneHandSword2
+10% reduced Maximum Life
+(40-50)% increased Maximum Energy Shield
 ]],[[
 The Goddess Scorned
 Elegant Sword
@@ -131,7 +131,7 @@ Implicits: 1
 IncreasedAccuracySwordImplicit9
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__17_
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__30
-LocalIncreasedAttackSpeedUniqueSceptre9
+LocalIncreasedAttackSpeedUnique__25
 IncreasedArmourWhileStationaryUnique__1
 2 additional Projectiles if you've been Hit Recently
 KeystonePointBlankUnique__1
@@ -171,8 +171,8 @@ LocalAddedPhysicalDamageUniqueOneHandSword11
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueOneHandSword13
 {variant:2}LocalIncreasedPhysicalDamageUniqueOneHandSword11
 {variant:1}LocalIncreasedAttackSpeedUniqueTwoHandSword6
-{variant:2}LocalIncreasedAttackSpeedUniqueOneHandSword9
-IncreasedManaReservationsCostUniqueOneHandSword11
+{variant:2}LocalIncreasedAttackSpeedUniqueOneHandSword11
+ManaReservationEfficiencyUniqueOneHandSword11
 CannotBeBuffedByAlliedAurasUniqueOneHandSword11
 AurasCannotBuffAlliesUniqueOneHandSword11
 IncreasedBuffEffectivenessUniqueOneHandSword11
@@ -185,7 +185,7 @@ Requires Level 47, 81 Str, 81 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2}IncreasedAccuracySwordImplicit5
-LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe1
 LocalIncreasedAttackSpeedUnique__14
 ChaosDamageLifeLeechPermyriadUnique__1
 PhysicalDamageConvertToChaosUniqueBow5
@@ -197,7 +197,7 @@ League: Heist
 Requires Level 47, 81 Str, 81 Dex
 Implicits: 1
 IncreasedAccuracySwordImplicit5
-LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1
+LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe1
 ChaosDamageLifeLeechPermyriadUnique__1
 PhysicalDamageConvertedToChaosUnique__2
 PhysicalDamageTakenAsChaosUnique__1
@@ -243,15 +243,6 @@ LocalCriticalStrikeChanceUnique__13
 PhysicalDamageToAttacksPerLevelUnique__2
 GainHerEmbraceOnIgniteUnique__1
 TakeDamagePerLevelWhileHerEmbraceUnique__1_
-]],[[
-Paradoxica
-Vaal Rapier
-League: Betrayal
-Source: Drops from Bosses in Safehouse
-Requires Level 66, 212 Dex
-Implicits: 1
-CriticalMultiplierImplicitSword2H1
-DoubleDamageWithWeaponUnique__1
 ]],[[
 The Princess
 Sabre
@@ -333,7 +324,6 @@ LocalIncreasedAttackSpeedOneHandSword3
 ]],[[
 Redbeak
 Rusted Sword
-Upgrade: Upgrades to unique{Dreadbeak} via prophecy{The Dreaded Rhoa}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 2
@@ -345,11 +335,11 @@ LocalIncreasedPhysicalDamagePercentUniqueOneHandSword1
 LocalAddedPhysicalDamageUniqueDescentOneHandSword1
 LocalIncreasedAttackSpeedUniqueOneHandSword1
 IncreasedLifeUniqueOneHandSword1
-LifeGainPerTargetUniqueOneHandSword7
++2 Life Gained for each Enemy hit by Attacks
 ]],[[
 Dreadbeak
 Rusted Sword
-Source: Upgraded from unique{Redbeak} via prophecy{The Dreaded Rhoa}
+Source: Drops from any endgame map boss
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 61
@@ -390,7 +380,7 @@ Requires Level 62, 122 Str, 104 Dex
 Implicits: 1
 AccuracyPercentImplicitSword1
 HarbingerSkillOnEquipUnique__1
-LocalGrantsStormCascadeOnAttackUnique__1
+Trigger level 20 Storm Cascade when you Attack
 SpellDamageUnique__5
 LocalIncreasedPhysicalDamagePercentUnique__27
 LocalAddedLightningDamageUnique__5
@@ -458,24 +448,27 @@ MinionDamageUnique__2
 MinionChaosResistanceUnique___1
 {variant:1,2}Minions Poison Enemies on Hit
 {variant:3}MinionsPoisonEnemiesOnHitUnique__2
-Minions Recover 20% of Maximum Life on Killing a Poisoned Enemy
+MinionsRecoverLifeOnKillingPoisonedEnemyUnique__1_
 ]],[[
 United in Dream
 Cutlass
 Source: Upgraded from unique{Severed in Sleep} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.16.0
 Variant: Current
 League: Breach
 Requires Level 69, 55 Str, 79 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}AccuracyPercentImplicitSword1
-GrantsEnvyUnique__2
-MinionDamageUniqueTwoHandSword4
+{variant:2,3,4}AccuracyPercentImplicitSword1
+{variant:1,2,3}Grants level 15 Envy Skill
+{variant:4}Grants level 25 Envy Skill
+{variant:1,2,3}MinionDamageUniqueTwoHandSword4
+{variant:4}MinionDamageUnique__3_
 MinionChaosResistanceUnique__2__
 {variant:1,2}Minions Poison Enemies on Hit
-{variant:3}MinionsPoisonEnemiesOnHitUnique__2
+{variant:3,4}MinionsPoisonEnemiesOnHitUnique__2
 MinionLeechOnPoisonedEnemiesUnique__1
 ]],[[
 Story of the Vaal
@@ -497,7 +490,7 @@ LocalIncreasedAttackSpeedUniqueTwoHandSword6
 {variant:2}LocalShockAsThoughDealingMoreDamageUnique__1
 {variant:2}LocalWeaponMoreIgniteDamageUnique__1
 LocalDamageConversionToRandomElementUnique__1
-Hits with this Weapon always inflict Elemental Ailments
+LocalAlwaysInflictElementalAilmentsUnique__1
 ]],[[
 Fate of the Vaal
 Gemstone Sword
@@ -512,7 +505,7 @@ IncreasedAccuracy2hSwordImplicit7
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__34___
 LocalIncreasedAttackSpeedUniqueTwoHandSword6
 LocalDamageConversionToRandomElementUnique__2_
-Hits with this Weapon always inflict Elemental Ailments
+LocalAlwaysInflictElementalAilmentsUnique__1
 LocalElementalDamageAgainstIgnitedEnemiesUnique__1_
 LocalElementalDamageAgainstFrozenEnemiesUnique__1
 LocalElementalDamageAgainstShockedEnemiesUnique__1_
@@ -589,7 +582,7 @@ Implicits: 3
 {variant:3}CriticalMultiplierImplicitSword2H1
 LocalIncreasedPhysicalDamagePercentUnique__27
 StrengthUnique__4
-IncreasedManaUnique__2
++30 to Maximum Mana
 MovementVelocityUniqueIntHelmet2
 ElementalDamageUnique__1
 LocalIncreasedMeleeWeaponRangeUniqueDescentStaff1
@@ -653,7 +646,7 @@ LocalAddedLightningDamageUniqueOneHandSword7
 LocalIncreasedAttackSpeedUniqueOneHandSword7
 LifeGainPerTargetUniqueOneHandSword7
 {variant:1,2}5% Chance to Shock
-{variant:3}ChanceToShockUniqueOneHandSword7
+{variant:3}(15-20)% Chance to Shock
 {variant:3}50% increased Herald of Thunder Buff Effect
 ]],[[
 The Goddess Bound
@@ -670,7 +663,7 @@ LocalIncreaseSocketedMeleeGemLevelUniqueRapier1
 DisableOffhandSlot
 LocalIncreasedPhysicalDamagePercentUniqueOneHandSword4
 LocalAddedFireDamageUniqueRapier1
-LocalIncreasedAttackSpeedUniqueTwoHandSword1
+LocalIncreasedAttackSpeedUniqueTwoHandSword3
 CriticalStrikeChanceImplicitDaggerNew1
 IncreasedEvasionRatingUniqueRapier1
 ItemFoundRarityDecreaseUniqueRapier1
@@ -680,29 +673,30 @@ MovementVelocityOnLowLifeUniqueBootsDex3
 [[
 The Dancing Dervish
 Reaver Sword
-Upgrade: Upgrades to unique{The Dancing Duo} via prophecy{Dance of Steel}
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 59, 82 Str, 119 Dex
 Implicits: 3
 {variant:1}18% increased Accuracy Rating
 {variant:2}AccuracyPercentImplicitSword1
-{variant:3}AccuracyPercentImplicit2HSword1
+{variant:3,4}AccuracyPercentImplicit2HSword1
 {variant:1,2}(160-190)% increased Physical Damage
-{variant:3}LocalIncreasedPhysicalDamagePercentUnique__7
+{variant:3,4}LocalIncreasedPhysicalDamagePercentUnique__7
 LocalIncreasedAttackSpeedUniqueOneHandSword7
 MovementVelocityUniqueIntHelmet2
 SimulatedRampageDexInt6
+{variant:4}SimulatedRampageUnique__1
 DisplayManifestWeaponUnique__1
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
 ]],[[
 The Dancing Duo
 Reaver Sword
-Source: Upgraded from unique{The Dancing Dervish} via prophecy{Dance of Steel}
+Source: No longer obtainable
 Variant: Pre 3.11.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 65, 82 Str, 119 Dex
 Implicits: 2
 {variant:1}AccuracyPercentImplicitSword1
@@ -715,7 +709,6 @@ SimulatedRampageDexInt6
 DisplayManifestWeaponUnique__1
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
-Manifested Dancing Dervish also manifests a copy of Dancing Dervish
 ]],[[
 Doomsower
 Lion Sword
@@ -733,7 +726,7 @@ Implicits: 3
 {variant:1,2,3}SocketedRedGemsHaveAddedFireDamageUniqueTwoHandSword8_
 {variant:4,5}AttackSkillsHavePhysToExtraFireDamagePerSocketedRedGemUniqueTwoHandSword8
 {variant:4,5}VaalPactIfAllSocketedGemsAreRedUniqueTwoHandSword8
-{variant:1,2,3,4}LocalIncreasedPhysicalDamagePercentUniqueBow10
+{variant:1,2,3,4}LocalIncreasedPhysicalDamagePercentUniqueDagger11
 {variant:5}LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword8
 {variant:1,2}Adds (50-75) to (85-110) Physical Damage
 {variant:3,4,5}LocalAddedPhysicalDamageUniqueTwoHandSword8
@@ -768,11 +761,11 @@ Implicits: 3
 {variant:1}18% increased Accuracy Rating
 {variant:2}AccuracyPercentImplicitSword1
 {variant:3}AccuracyPercentImplicit2HSword1
-Socketed Gems are Supported by level 1 Blood Magic
+SocketedGemsGetBloodMagicUnique__1
 LocalAddedPhysicalDamageUnique__15
 LocalCriticalStrikeChanceUnique__4
 ReflectPhysicalDamageToSelfOnHitUnique__1
-LocalIncreasedMeleeWeaponRangeUniqueDescentStaff1
++2 to Weapon range
 ]],[[
 Kondo's Pride 
 Ezomyte Blade
@@ -829,7 +822,6 @@ EnduranceChargeIfAttackFreezesUnique__1
 ]],[[
 Queen's Decree
 Ornate Sword
-Upgrade: Upgrades to unique{Queen's Escape} via prophecy{The Misunderstood Queen}
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
@@ -849,7 +841,7 @@ MaximumMinionCountUniqueBootsStrInt2Updated
 ]],[[
 Queen's Escape
 Ornate Sword
-Source: Upgraded from unique{Queen's Decree} using prophecy{The Misunderstood Queen}
+Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
@@ -879,7 +871,7 @@ Implicits: 2
 {variant:1}18% increased Accuracy Rating
 {variant:2,3}IncreasedAccuracy2hSwordImplicit5
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword1
-LocalIncreasedAttackSpeedUniqueTwoHandSword1
+LocalIncreasedAttackSpeedUniqueTwoHandSword3
 {variant:1,2}+(150-200) to Accuracy Rating
 {variant:3}IncreasedAccuracyUniqueTwoHandSword1
 MovementVelocityUniqueTwoHandSword1
@@ -913,7 +905,7 @@ Implicits: 2
 LocalIncreasedAttackSpeedUnique__19
 IncreasedLifeUniqueBodyStrDexInt1
 IncreasedAttackAreaOfEffectUnique__2_
-DealNoElementalDamageUnique__1
+DealNoElementalDamageUnique__2
 PhysicalDamageCanShockUnique__1
 Shaper Item
 ]],[[
@@ -930,8 +922,8 @@ Implicits: 2
 {variant:2}(220-260)% increased Physical Damage
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword3
 {variant:2,3}LocalCriticalStrikeChanceUnique__8
-LocalIncreasedAttackSpeedUniqueTwoHandSword1
-ManaGainedFromEnemyDeathUniqueTwoHandSword3
+LocalIncreasedAttackSpeedUniqueTwoHandSword3
++10 Mana Gained on Kill
 MovementVelocityUniqueTwoHandSword1
 GainFrenzyChargeOnCriticalHit
 ]],[[

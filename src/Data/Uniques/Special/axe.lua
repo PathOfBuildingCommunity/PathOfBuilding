@@ -14,13 +14,12 @@ WeaponCritChanceOverrideUnique__1__
 ]],[[
 Dreadarc
 Cleaver
-Upgrade: Upgrades to unique{Dreadsurge} via prophecy{Burning Dread}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16, 48 Str
 LocalAddedPhysicalDamageUniqueOneHandAxe7
 LocalAddedFireDamageUniqueOneHandAxe7
-LocalIncreasedAttackSpeedUniqueOneHandAxe7
+(7-10)% Increased Attack Speed
 FireResistUniqueOneHandAxe7_
 MovementVelocityUniqueOneHandAxe7
 {variant:1}FlammabilityOnHitUniqueOneHandAxe7
@@ -28,7 +27,7 @@ MovementVelocityUniqueOneHandAxe7
 ]],[[
 Dreadsurge
 Cleaver
-Source: Upgraded from unique{Dreadarc} via prophecy{Burning Dread}
+Source: No longer obtainable
 Requires Level 60, 48 Str
 LocalAddedPhysicalDamageUniqueOneHandAxe7
 LocalAddedFireDamageUnique__4
@@ -51,13 +50,12 @@ LocalIncreasedAttackSpeedUniqueOneHandAxe2
 {variant:1}Enemies Chilled by you take 40% increased Burning Damage
 {variant:2}Enemies Chilled by you take 100% increased Burning Damage
 {variant:3}100% increased Damage with Ignites inflicted on Chilled Enemies
-MainHandChanceToIgniteUniqueOneHandAxe2
+25% Chance to Ignite when in Main Hand
 {variant:1}OffHandChillDurationUniqueOneHandAxe2
 {variant:2,3}ChillEnemiesOnHitWithWeaponUnique__1
 ]],[[
 The Screaming Eagle
 Jade Hatchet
-Upgrade: Upgrades to unique{The Gryphon} via prophecy{The Apex Predator}
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 6, 21 Str
@@ -66,13 +64,13 @@ Requires Level 6, 21 Str
 IncreasedLifeUniqueOneHandAxe3
 LifeGainedFromEnemyDeathUniqueOneHandAxe3
 MovementVelocityUniqueOneHandAxe3
-DisplaySocketedGemGetsChanceToFleeUniqueOneHandAxe3
+Socketed Gems are supported by level 2 Chance to Flee
 ]],[[
 The Gryphon
 Jade Hatchet
-Source: Upgraded from unique{The Screaming Eagle} via prophecy{The Apex Predator}
+Source: No longer obtainable
 Requires Level 32, 21 Str
-DisplaySocketedGemGetsChanceToFleeUniqueOneHandAxe3
+Socketed Gems are supported by level 2 Chance to Flee
 LocalIncreasedPhysicalDamagePercentUnique__17_
 LocalAddedPhysicalDamageUniqueOneHandAxe3
 IncreasedLifeUniqueOneHandAxe3
@@ -100,7 +98,7 @@ Tomahawk
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 39, 81 Str, 56 Dex
-{variant:1}LightningWarpSkillUniqueOneHandAxe8
+{variant:1}Grants level 1 Lightning Warp Skill
 {variant:2}TriggeredLightningWarpUnique__1__
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__21
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe8
@@ -143,7 +141,7 @@ Variant: Pre 1.0.0
 Variant: Current
 Requires Level 59, 119 Str, 82 Dex
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueOneHandMace7
-{variant:2}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe1
+{variant:2}LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1
 LocalAddedPhysicalDamageOneHandAxe1
 LocalIncreasedAttackSpeedUniqueOneHandAxe1
 ColdResistUniqueOneHandAxe1_
@@ -154,7 +152,7 @@ Replica Soul Taker
 Siege Axe
 League: Heist
 Requires Level 59, 119 Str, 82 Dex
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe1
+LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1
 LocalAddedPhysicalDamageOneHandAxe1
 LocalCriticalStrikeChanceUnique__18
 ColdResistUniqueOneHandAxe1_
@@ -176,7 +174,7 @@ LocalIncreaseSocketedSupportGemLevelUniqueTwoHandAxe7
 {variant:2}LocalAddedPhysicalDamageUniqueTwoHandAxe7
 LocalIncreasedAttackSpeedUniqueTwoHandAxe7
 CausesBleedingUniqueTwoHandAxe7
-LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe5
++2 to Weapon range
 ]],[[
 The Blood Reaper
 Headsman Axe
@@ -231,7 +229,7 @@ Implicits: 1
 Adds (7-12) to (16-25) Physical Damage
 LifeLeechPermyriadUniqueTwoHandAxe4
 {variant:2}AttackSpeedAfterSavageHitTakenUnique__1
-Attacks have Blood Magic
+AttacksHaveBloodMagic__1
 ]],[[
 Kaom's Primacy
 Karui Chopper
@@ -242,7 +240,7 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 58, 151 Str, 43 Dex
 {variant:1,2}(160-220)% increased Physical Damage
-{variant:3}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe1
+{variant:3}LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe1
 LifeGainedFromEnemyDeathUniqueTwoHandAxe1
 {variant:1}LocalAddedFireDamageUniqueTwoHandAxe1
 IncreasedAccuracyUniqueTwoHandAxe1
@@ -256,20 +254,22 @@ Source: Vendor recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 66, 140 Str, 86 Dex
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUnique__43
 {variant:3}(250-285)% increased Physical Damage
-{variant:4}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe9
+{variant:4}LocalIncreasedPhysicalDamagePercentUnique__25
+{variant:5}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe9
 LocalIncreasedAttackSpeedUniqueTwoHandAxe9
-{variant:2,3,4}CriticalStrikeChanceUniqueBow9
+{variant:2,3,4,5}LocalCriticalStrikeChanceUnique__10
 {variant:1}IncreasedManaUniqueTwoHandAxe9
 DisplayNearbyAlliesHaveIncreasedItemRarityUniqueTwoHandAxe9
 {variant:1}Nearby Allies' spells have Culling Strike
-{variant:2,3,4}DisplayNearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
-{variant:2,3,4}MeleeAttacksUsableWithoutManaUniqueOneHandAxe1
-{variant:3,4}DisplayNearbyAlliesHaveCriticalStrikeMultiplierTwoHandAxe9
-{variant:3,4}DisplayNearbyAlliesHaveFortifyTwoHandAxe9
+{variant:2,3,4,5}DisplayNearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
+{variant:2,3,4,5}MeleeAttacksUsableWithoutManaUniqueOneHandAxe1
+{variant:3,4,5}DisplayNearbyAlliesHaveCriticalStrikeMultiplierTwoHandAxe9
+{variant:3,4,5}DisplayNearbyAlliesHaveFortifyTwoHandAxe9
 ]],[[
 Kitava's Feast
 Void Axe
@@ -277,18 +277,17 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 68, 149 Str, 76 Dex
-SupportedByMeleeSplashUnique__1_
+Socketed Gems are supported by level 25 Melee Splash
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueRapier1
-{variant:2}LocalIncreasedPhysicalDamagePercentUnique__38
+{variant:2}(265-330)% increased Physical Damage
 {variant:3}LocalIncreasedPhysicalDamagePercentUnique__23
 LifeLeechPermyriadUniqueTwoHandAxe4
 ManaLeechUniqueGlovesDexInt6
-Recover 5% of Maximum Life on Kill
-EnemiesDestroyedOnKillUnique__1
+RecoverPercentMaxLifeOnKillUnique__1
+Enemies you hit are destroyed on Kill
 ]],[[
 Limbsplit
 Woodsplitter
-Upgrade: Upgrades to unique{The Cauteriser} via prophecy{Severed Limbs}
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 13, 36 Str, 17 Dex
@@ -301,7 +300,7 @@ NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
 ]],[[
 The Cauteriser
 Woodsplitter
-Source: Upgraded from unique{Limbsplit} using prophecy{Severed Limbs}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 40, 36 Str, 17 Dex
@@ -330,7 +329,7 @@ Reaper's Pursuit
 Shadow Axe
 Requires Level 33, 80 Str, 37 Dex
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe2
-LifeGainedFromEnemyDeathUniqueTwoHandAxe2
++10 Life Gained on Kill
 ItemFoundRarityIncreaseUniqueTwoHandAxe2
 MovementVelocityOnFullLifeUniqueTwoHandAxe2
 NearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
@@ -354,7 +353,7 @@ League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{Uul-Netol's Embrace} using currency{Blessing of Uul-Netol}
 Requires Level 49, 122 Str, 53 Dex
-LocalIncreasedPhysicalDamagePercentUnique__36_
+LocalIncreasedPhysicalDamagePercentUnique__22
 LocalReducedAttackSpeedUnique__2
 CurseLevel10VulnerabilityOnHitUnique__1
 Attacks have 25% chance to cause Bleeding when Hitting Cursed Enemies
@@ -378,13 +377,13 @@ Poleaxe
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 18, 44 Str, 25 Dex
-SocketedGemsGetIncreasedAreaOfEffectUniqueTwoHandAxe5
+Socketed Gems are Supported by level 20 Increased Area of Effect
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe5
 StrengthUniqueTwoHandAxe5
 {variant:1}IncreasedAccuracyUniqueGlovesDexInt1
 {variant:2}IncreasedAccuracyUniqueTwoHandAxe5
-ManaGainedFromEnemyDeathUniqueTwoHandAxe5
-LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe5
++10 Mana Gained on Kill
++2 to Weapon range
 ]],[[
 Wings of Entropy
 Ezomyte Axe
@@ -420,7 +419,7 @@ Implicits:1
 {variant:1,2}25% of Block Chance applied to Spells
 {variant:3}7% chance to Block Spell Damage
 {variant:4}(6-7)% chance to Block Spell Damage
-{variant:5}SpellBlockPercentageUniqueTwoHandAxe6
+{variant:5}(7-10)% chance to Block Spell Damage
 {variant:1}BlockWhileDualWieldingUnique__1
 {variant:2,3,4}BlockWhileDualWieldingUniqueOneHandSword5
 {variant:5}+(8-10)% Chance to Block Attack Damage while Dual Wielding

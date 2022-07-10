@@ -12,7 +12,7 @@ for _, name in pairs(ItemTypes) do
 		if not specName and line ~= "]],[[" then
 			local variants = line:match("{[vV]ariant:([%d,]+)}")
 			local fractured = line:match("({fractured})") or ""
-			local modText = line:gsub("{.+}", ""):gsub("{.+}", "")
+			local modText = line:gsub("{.+}", ""):gsub("{.+}", ""):gsub("–", "-") -- Clean EM dash
 			local possibleMods = modTextMap[modText]
 			local gggMod
 			if possibleMods then
