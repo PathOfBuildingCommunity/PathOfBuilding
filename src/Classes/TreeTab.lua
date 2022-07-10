@@ -884,8 +884,11 @@ function TreeTabClass:FindTimelessJewel()
 						searchText = searchText .. "\n"
 					end
 				end
-				timelessData.searchList = searchText
-				controls.searchList:SetText(searchText)
+				if timelessData.searchList ~= searchText then
+					timelessData.searchList = searchText
+					controls.searchList:SetText(searchText)
+					self.build.modFlag = true
+				end
 			end
 		end
 	end
@@ -894,6 +897,7 @@ function TreeTabClass:FindTimelessJewel()
 		timelessData.searchList = text
 		controls.searchList:SetText(text)
 		parseSearchList(0)
+		self.build.modFlag = true
 	end
 
 	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 25, 0, 16, "^7Jewel Type:")
@@ -910,12 +914,14 @@ function TreeTabClass:FindTimelessJewel()
 	controls.conquerorSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 50, 0, 16, "^7Conqueror:")
 	controls.conquerorSelect = new("DropDownControl", { "LEFT", controls.conquerorSelectLabel, "RIGHT" }, 10, 0, 200, 18, conquerorTypes[timelessData.jewelType.id], function(index, value)
 		timelessData.conquerorType = value
+		self.build.modFlag = true
 	end)
 	controls.conquerorSelect.selIndex = timelessData.conquerorType.id
 
 	controls.socketSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 75, 0, 16, "^7Jewel Socket:")
 	controls.socketSelect = new("TimelessJewelSocketControl", { "LEFT", controls.socketSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelSockets, function(index, value)
 		timelessData.jewelSocket = value
+		self.build.modFlag = true
 	end, self.build, socketViewer)
 	controls.socketSelect.selIndex = timelessData.jewelSocket.idx
 
@@ -966,6 +972,7 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			controls.searchList.caret = #controls.searchList.buf + 1
 			controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower() .. ", " .. controls.nodeSlider2Value.label:lower())
+			self.build.modFlag = true
 		end
 	end)
 	controls.nodeSelect.tooltipFunc = function(tooltip, mode, index, value)
@@ -981,6 +988,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 338, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchList = value
 		parseSearchList(0)
+		self.build.modFlag = true
 	end, 16, true)
 	controls.searchList:SetText(timelessData.searchList)
 
