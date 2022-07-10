@@ -1075,8 +1075,15 @@ function TreeTabClass:FindTimelessJewel()
 					if not next(jewelDataTbl) then
 						ConPrintf("Missing LUT: " .. timelessData.jewelType.label)
 					else
-						local curNode = legionNodes[jewelDataTbl[1] - 94]
-						local curNodeId = curNode and curNode.id or nil
+						local curNode = nil
+						local curNodeId = nil
+						if jewelDataTbl[1] >= 94 then -- replace
+							curNode = legionNodes[jewelDataTbl[1] - 94]
+							curNodeId = curNode and legionNodes[jewelDataTbl[1] - 94].id or nil
+						else -- add
+							curNode = legionAdditions[jewelDataTbl[1]]
+							curNodeId = curNode and legionAdditions[jewelDataTbl[1]].id or nil
+						end
 						if timelessData.jewelType.id == 1 then
 							local headerSize = #jewelDataTbl
 							if headerSize == 2 or headerSize == 3 then
@@ -1095,14 +1102,14 @@ function TreeTabClass:FindTimelessJewel()
 								end
 							elseif headerSize == 6 or headerSize == 8 then
 								for i, jewelData in ipairs(jewelDataTbl) do
-									local curAddition = legionAdditions[jewelDataTbl[i]].id
+									local curNodeId = legionAdditions[jewelDataTbl[i]].id
 									if i <= (headerSize / 2) then
-										if desiredNodes[curAddition] then
-											resultNodes[curSeed][curAddition] = resultNodes[curSeed][curAddition] or { targetNodeNames = { }, totalWeight = 0 }
-											local weight = desiredNodes[curAddition].nodeWeight * jewelDataTbl[i + (headerSize / 2)]
-											resultNodes[curSeed][curAddition].totalWeight = resultNodes[curSeed][curAddition].totalWeight + weight
-											t_insert(resultNodes[curSeed][curAddition], targetNode)
-											t_insert(resultNodes[curSeed][curAddition].targetNodeNames, treeData.nodes[targetNode].name)
+										if desiredNodes[curNodeId] then
+											resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
+											local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[i + (headerSize / 2)]
+											resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + weight
+											t_insert(resultNodes[curSeed][curNodeId], targetNode)
+											t_insert(resultNodes[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
 											seedWeights[curSeed] = seedWeights[curSeed] + weight
 										end
 									else
