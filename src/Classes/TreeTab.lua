@@ -979,6 +979,7 @@ function TreeTabClass:FindTimelessJewel()
 		timelessData.searchList = value
 		parseSearchList(0)
 	end, 16, true)
+	timelessData.searchList = timelessData.searchList or ""
 
 	controls.searchResultsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 462, 200, 0, 16, "^7Search Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 338, 200, self.build, timelessData.searchResults, timelessData.sharedResults)
@@ -1017,46 +1018,50 @@ function TreeTabClass:FindTimelessJewel()
 			local desiredIdx = 0
 			for inputLine in timelessData.searchList:gmatch("[^\r\n]+") do
 				local desiredNode = { }
-				local legionId = nil
 				for splitLine in inputLine:gmatch("([^,%s]+)") do
 					desiredNode[#desiredNode + 1] = splitLine
 				end
-				local displayName = nil
-				for _, legionNode in ipairs(legionNodes) do
-					if legionNode.id == desiredNode[1] then
-						-- non-vaal replacements only support one nodeWeight, so we force any node requirements to the second slot
-						if desiredNode[2] == "required" and timelessData.jewelType.id > 1 then
-							desiredNode[2] = tonumber(desiredNode[3]) or 1
-							desiredNode[3] = "required"
-						end
-						displayName = t_concat(legionNode.sd, " + ")
-						legionId = legionNode.id
-						break
-					end
-				end
-				if displayName == nil then
-					for _, legionAddition in ipairs(legionAdditions) do
-						if legionAddition.id == desiredNode[1] then
-							 -- additions only support one nodeWeight, so we force any node requirements to the second slot
-							if desiredNode[2] == "required" then
+				if #desiredNode > 1 then
+					local legionId = nil
+					local displayName = nil
+					for _, legionNode in ipairs(legionNodes) do
+						if legionNode.id == desiredNode[1] then
+							-- non-vaal replacements only support one nodeWeight, so we force any node requirements to the second slot
+							if desiredNode[2] == "required" and timelessData.jewelType.id > 1 then
 								desiredNode[2] = tonumber(desiredNode[3]) or 1
 								desiredNode[3] = "required"
 							end
-							displayName = t_concat(legionAddition.sd, " + ")
-							legionId = legionAddition.id
+							legionId = legionNode.id
+							displayName = t_concat(legionNode.sd, " + ")
 							break
 						end
 					end
+					if displayName == nil then
+						for _, legionAddition in ipairs(legionAdditions) do
+							if legionAddition.id == desiredNode[1] then
+								-- additions only support one nodeWeight, so we force any node requirements to the second slot
+								if desiredNode[2] == "required" then
+									desiredNode[2] = tonumber(desiredNode[3]) or 1
+									desiredNode[3] = "required"
+								end
+								legionId = legionAddition.id
+								displayName = t_concat(legionAddition.sd, " + ")
+								break
+							end
+						end
+					end
+					if legionId ~= nil then
+						if desiredNode[2] == "required" then
+							desiredNode[2] = 0
+							t_insert(requiredNodes, legionId)
+						elseif desiredNode[3] == "required" then
+							desiredNode[3] = 0
+							t_insert(requiredNodes, legionId)
+						end
+						desiredIdx = desiredIdx + 1
+						desiredNodes[legionId] = { nodeId = desiredNode[1], nodeWeight = tonumber(desiredNode[2]) or 0.1, nodeWeight2 = tonumber(desiredNode[3]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
+					end
 				end
-				if desiredNode[2] == "required" then
-					desiredNode[2] = 0
-					t_insert(requiredNodes, legionId)
-				elseif desiredNode[3] == "required" then
-					desiredNode[3] = 0
-					t_insert(requiredNodes, legionId)
-				end
-				desiredIdx = desiredIdx + 1
-				desiredNodes[legionId] = { nodeId = desiredNode[1], nodeWeight = tonumber(desiredNode[2]) or 0.1, nodeWeight2 = tonumber(desiredNode[3]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
 			end
 			local seedWeights = { }
 			local seedMultiplier = timelessData.jewelType.id == 5 and 20 or 1 -- Elegant Hubris
