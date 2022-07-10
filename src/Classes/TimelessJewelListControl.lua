@@ -7,11 +7,11 @@
 local m_random = math.random
 local t_concat = table.concat
 
-local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, build, list, sharedList)
-	self.list = list or { }
-	self.ListControl(anchor, x, y, width, height, 16, true, false, self.list)
+local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, build)
 	self.build = build
-	self.sharedList = sharedList
+	self.sharedList = self.build.timelessData.sharedResults or { }
+	self.list = self.build.timelessData.searchResults or { }
+	self.ListControl(anchor, x, y, width, height, 16, true, false, self.list)
 	self.selIndex = nil
 end)
 
