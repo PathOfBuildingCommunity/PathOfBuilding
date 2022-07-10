@@ -289,7 +289,7 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 65, 197 Dex
 {variant:1,2,3}DexterityUniqueBodyDex4
-DexterityUniqueBodyDex1
+{variant:4,5,6}DexterityUniqueBodyDex1
 {variant:1,2,3}Adds 13 to 24 Cold Damage to Bow Attacks
 {variant:4}Adds (50-60) to (70-80) Cold Damage to Bow Attacks
 {variant:5}Adds (173-188) to (240-262) Cold Damage to Bow Attacks
