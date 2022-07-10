@@ -36,9 +36,9 @@ function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 		end
 		local treeData = self.build.spec.tree
 		local sortedNodeLists = { }
-		for _, desiredNode in pairs(self.sharedList.desiredNodes) do
-			if self.list[index][desiredNode.nodeId] and self.list[index][desiredNode.nodeId].targetNodeNames and #self.list[index][desiredNode.nodeId].targetNodeNames > 0 then
-				sortedNodeLists[desiredNode.desiredIdx] = "        " .. desiredNode.displayName .. ":\n                " .. t_concat(self.list[index][desiredNode.nodeId].targetNodeNames, "\n                ")
+		for legionId, desiredNode in pairs(self.sharedList.desiredNodes) do
+			if self.list[index][legionId] and self.list[index][legionId].targetNodeNames and #self.list[index][legionId].targetNodeNames > 0 then
+				sortedNodeLists[desiredNode.desiredIdx] = "        " .. desiredNode.displayName .. ":\n                " .. t_concat(self.list[index][legionId].targetNodeNames, "\n                ")
 			end
 		end
 		if sortedNodeLists then

@@ -1028,7 +1028,6 @@ function TreeTabClass:FindTimelessJewel()
 					desiredNode[#desiredNode + 1] = splitLine
 				end
 				if #desiredNode > 1 then
-					local legionId = nil
 					local displayName = nil
 					for _, legionNode in ipairs(legionNodes) do
 						if legionNode.id == desiredNode[1] then
@@ -1037,7 +1036,6 @@ function TreeTabClass:FindTimelessJewel()
 								desiredNode[2] = tonumber(desiredNode[3]) or 1
 								desiredNode[3] = "required"
 							end
-							legionId = legionNode.id
 							displayName = t_concat(legionNode.sd, " + ")
 							break
 						end
@@ -1050,22 +1048,21 @@ function TreeTabClass:FindTimelessJewel()
 									desiredNode[2] = tonumber(desiredNode[3]) or 1
 									desiredNode[3] = "required"
 								end
-								legionId = legionAddition.id
 								displayName = t_concat(legionAddition.sd, " + ")
 								break
 							end
 						end
 					end
-					if legionId ~= nil then
+					if displayName ~= nil then
 						if desiredNode[2] == "required" then
 							desiredNode[2] = 0
-							t_insert(requiredNodes, legionId)
+							t_insert(requiredNodes, desiredNode[1])
 						elseif desiredNode[3] == "required" then
 							desiredNode[3] = 0
-							t_insert(requiredNodes, legionId)
+							t_insert(requiredNodes, desiredNode[1])
 						end
 						desiredIdx = desiredIdx + 1
-						desiredNodes[legionId] = { nodeId = desiredNode[1], nodeWeight = tonumber(desiredNode[2]) or 0.1, nodeWeight2 = tonumber(desiredNode[3]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
+						desiredNodes[desiredNode[1]] = { nodeWeight = tonumber(desiredNode[2]) or 0.1, nodeWeight2 = tonumber(desiredNode[3]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
 					end
 				end
 			end
@@ -1167,8 +1164,8 @@ function TreeTabClass:FindTimelessJewel()
 							elseif desiredNode.desiredIdx < 6 then
 								sortedNodeArray[desiredNode.desiredIdx] = formatSearchValue(seedData[legionId].totalWeight)
 							end
-							timelessData.searchResults[searchResultsIdx][desiredNode.nodeId] = timelessData.searchResults[searchResultsIdx][desiredNode.nodeId] or { }
-							timelessData.searchResults[searchResultsIdx][desiredNode.nodeId].targetNodeNames = seedData[legionId].targetNodeNames
+							timelessData.searchResults[searchResultsIdx][legionId] = timelessData.searchResults[searchResultsIdx][legionId] or { }
+							timelessData.searchResults[searchResultsIdx][legionId].targetNodeNames = seedData[legionId].targetNodeNames
 						elseif desiredNode.desiredIdx < 6 then
 							sortedNodeArray[desiredNode.desiredIdx] = "       0   "
 						end
