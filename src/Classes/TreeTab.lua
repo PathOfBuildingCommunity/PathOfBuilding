@@ -1163,6 +1163,8 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 435, 80, 20, "Reset", function()
+		searchListTbl = { }
+		timelessData.searchList = ""
 		controls.searchList:SetText("")
 		wipeTable(timelessData.searchResults)
 	end)
