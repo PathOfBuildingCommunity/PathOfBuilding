@@ -7,16 +7,16 @@
 local m_random = math.random
 local t_concat = table.concat
 
-local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, build, list, sharedList, hideHoverControl)
+local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, build, list, sharedList)
 	self.list = list or { }
 	self.ListControl(anchor, x, y, width, height, 16, true, false, self.list)
 	self.build = build
 	self.sharedList = sharedList
-	self.hideHoverControl = hideHoverControl
 	self.selIndex = nil
 end)
 
-function TimelessJewelListControlClass:Draw(viewPort)
+function TimelessJewelListControlClass:Draw(viewPort, noTooltip)
+	self.noTooltip = noTooltip
 	self.ListControl.Draw(self, viewPort)
 end
 
@@ -28,7 +28,7 @@ end
 
 function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 	tooltip:Clear()
-	if not self.hideHoverControl:IsMouseOver() then
+	if not self.noTooltip then
 		if self.list[index].label:match("B2B2B2") == nil then
 			tooltip:AddLine(16, "^7Double click to add this jewel to your build.")
 		else

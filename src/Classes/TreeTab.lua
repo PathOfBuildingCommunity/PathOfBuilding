@@ -877,7 +877,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.socketSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 75, 0, 16, "^7Jewel Socket:")
 	controls.socketSelect = new("TimelessJewelSocketControl", { "LEFT", controls.socketSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelSockets, function(index, value)
 		timelessData.jewelSocket = value
-	end, self.build, socketViewer, { controls.jewelSelect, controls.conquerorSelect })
+	end, self.build, socketViewer)
 	controls.socketSelect.selIndex = timelessData.jewelSocket.idx
 
 	controls.socketFilterLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 100, 0, 16, "^7Filter Nodes:")
@@ -946,7 +946,7 @@ function TreeTabClass:FindTimelessJewel()
 	end, 16, true)
 
 	controls.searchResultsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 462, 200, 0, 16, "^7Search Results:")
-	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 338, 200, self.build, timelessData.searchResults, timelessData.sharedResults, controls.nodeSelect)
+	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 338, 200, self.build, timelessData.searchResults, timelessData.sharedResults)
 
 	controls.search = new("ButtonControl", nil, -90, 435, 80, 20, "Search", function()
 		if treeData.nodes[timelessData.jewelSocket.id] and treeData.nodes[timelessData.jewelSocket.id].isJewelSocket then
