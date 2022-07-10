@@ -108,7 +108,7 @@ function ListClass:GetRowRegion()
 	}
 end
 
-function ListClass:Draw(viewPort)
+function ListClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local rowHeight = self.rowHeight
@@ -181,7 +181,7 @@ function ListClass:Draw(viewPort)
 		SetDrawColor(0, 0, 0)
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
-	self:DrawControls(viewPort)
+	self:DrawControls(viewPort, noTooltip and self)
 
 	SetViewport(x + 2, y + 2,  self.scroll and width - 20 or width, height - 4 - (self.scroll and self.scrollH and 16 or 0))
 	local textOffsetY = self.showRowSeparators and 2 or 0
@@ -292,7 +292,7 @@ function ListClass:Draw(viewPort)
 
 	self.hoverIndex = ttIndex
 	self.hoverValue = ttValue
-	if ttIndex and self.AddValueTooltip then
+	if ttIndex and self.AddValueTooltip and not noTooltip then
 		SetDrawLayer(nil, 100)
 		self:AddValueTooltip(self.tooltip, ttIndex, ttValue)
 		self.tooltip:Draw(ttX, ttY, ttWidth, rowHeight, viewPort)

@@ -419,7 +419,7 @@ end
 
 function SkillsTabClass:CopySocketGroup(socketGroup)
 	local skillText = ""
-	if socketGroup.label:match("%S") then
+	if socketGroup.label and socketGroup.label:match("%S") then
 		skillText = skillText .. "Label: "..socketGroup.label.."\r\n"
 	end
 	if socketGroup.slot then
@@ -473,6 +473,8 @@ function SkillsTabClass:CreateGemSlot(index)
 			self.gemSlots[index2].quality:SetText(gemInstance.quality)
 			self.gemSlots[index2].qualityId:SelByValue(gemInstance.qualityId, "type")
 			self.gemSlots[index2].enabled.state = gemInstance.enabled
+			self.gemSlots[index2].enableGlobal1.state = gemInstance.enableGlobal1
+			self.gemSlots[index2].enableGlobal2.state = gemInstance.enableGlobal2
 			self.gemSlots[index2].count:SetText(gemInstance.count or 1)
 		end
 		self:AddUndoState()
@@ -624,11 +626,11 @@ function SkillsTabClass:CreateGemSlot(index)
 			end
 		end
 		-- Check if there is a quality of this type for the effect
-		if gemData and gemData.grantedEffect.qualityStats[hoveredQuality.type] then
+		if gemData and gemData.grantedEffect.qualityStats and gemData.grantedEffect.qualityStats[hoveredQuality.type] then
 			local qualityTable = gemData.grantedEffect.qualityStats[hoveredQuality.type]
 			addQualityLines(qualityTable, gemData.grantedEffect)
 		end
-		if gemData and gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats[hoveredQuality.type] then
+		if gemData and gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats and gemData.secondaryGrantedEffect.qualityStats[hoveredQuality.type] then
 			local qualityTable = gemData.secondaryGrantedEffect.qualityStats[hoveredQuality.type]
 			tooltip:AddSeparator(10)
 			addQualityLines(qualityTable, gemData.secondaryGrantedEffect)
@@ -701,8 +703,13 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.quality:SetText(gemInstance.quality)
 			slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 			slot.qualityId:SelByValue(gemInstance.qualityId, "type")
-			slot.enableGlobal1.state = true
-			slot.count:SetText(getmInstance.count)
+			slot.count:SetText(gemInstance.count)
+		end
+		if not gemInstance.gemData.vaalGem then
+			slot.enableGlobal1.state = state
+			gemInstance.enableGlobal1 = state
+			slot.enableGlobal2.state = state
+			gemInstance.enableGlobal2 = state
 		end
 		gemInstance.enabled = state
 		self:ProcessSocketGroup(self.displayGroup)
@@ -818,13 +825,11 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."EnableGlobal2"] = slot.enableGlobal2
 end
 
-
-
 function SkillsTabClass:getGemAltQualityList(gemData)
 	local altQualList = { }
 
 	for indx, entry in ipairs(alternateGemQualityList) do
-		if gemData and (gemData.grantedEffect.qualityStats[entry.type] or (gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats[entry.type])) then
+		if gemData and (gemData.grantedEffect.qualityStats and gemData.grantedEffect.qualityStats[entry.type] or (gemData.secondaryGrantedEffect and gemData.secondaryGrantedEffect.qualityStats and gemData.secondaryGrantedEffect.qualityStats[entry.type])) then
 			t_insert(altQualList, entry)
 		end
 	end

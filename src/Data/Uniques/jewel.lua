@@ -67,7 +67,7 @@ Strength from Passives in Radius is Transformed to Intelligence
 Calamitous Visions
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Lone Messenger
 ]],[[
 Careful Planning
@@ -228,7 +228,7 @@ Implicits: 0
 The Front Line
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Veteran's Awareness
 ]],[[
 The Golden Rule
@@ -348,7 +348,7 @@ With 4 Notables Allocated in Radius, When you Kill a Rare monster, you gain 1 of
 The Interrogation
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Secrets of Suffering
 ]],[[
 Intuitive Leap
@@ -367,7 +367,7 @@ Source: Drops in The Lord's Labyrinth
 Kitava's Teachings
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Disciple of Kitava
 ]],[[
 Lioneye's Fall
@@ -443,13 +443,13 @@ Spells which have gained Intensity Recently lose 1 Intensity every 0.50 Seconds
 Natural Affinity
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Nature's Patience
 ]],[[
 One With Nothing
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Hollow Palm Technique
 ]],[[
 Primordial Eminence
@@ -577,7 +577,7 @@ also grant an equal chance to gain an Endurance Charge on Kill
 The Siege
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Kineticism
 ]],[[
 Soul's Wick

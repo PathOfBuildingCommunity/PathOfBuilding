@@ -377,17 +377,17 @@ data.misc = { -- magic numbers
 	TrapTriggerRadiusBase = 10,
 	MineDetonationRadiusBase = 60,
 	MineAuraRadiusBase = 35,
-	MaxEnemyLevel = 84,
+	MaxEnemyLevel = 85,
 	LowPoolThreshold = 0.5,
 	AccuracyPerDexBase = 2,
 	BrandAttachmentRangeBase = 30,
 	ProjectileDistanceCap = 150,
 	-- Expected values to calculate EHP
 	stdBossDPSMult = 4 / 4.25,
-	shaperDPSMult = 8 / 4.25,
-	shaperPen = 25 / 5,
-	sirusDPSMult = 10 / 4.25,
-	sirusPen = 40 / 5,
+	pinnacleBossDPSMult = 8 / 4.25,
+	pinnacleBossPen = 25 / 5,
+	uberBossDPSMult = 10 / 4.25,
+	uberBossPen = 40 / 5,
 	-- ehp helper function magic numbers
 	ehpCalcSpeedUp = 8,
 		-- depth needs to be a power of speedUp (in this case 8^3, will run 3 recursive calls deep)
