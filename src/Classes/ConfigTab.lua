@@ -288,6 +288,10 @@ function ConfigTabClass:Load(xml, fileName)
 end
 
 function ConfigTabClass:GetDefaultState(var, varType)
+	if self.placeholder[var] ~= nil then
+		return self.placeholder[var]
+	end
+
 	for i = 1, #varList do
 		if varList[i].var == var then
 			if varType == "number" then
