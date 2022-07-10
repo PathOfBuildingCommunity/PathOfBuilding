@@ -285,6 +285,11 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 
 	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle)
+	self.controls.importCodeIn.enterFunc = function()
+		if self.importCodeValid then
+			self.controls.importCodeGo.onClick()
+		end
+	end
 	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 8, 0, 0, 16)
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
