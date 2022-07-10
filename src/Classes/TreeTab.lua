@@ -987,26 +987,37 @@ function TreeTabClass:FindTimelessJewel()
 					desiredNode[#desiredNode + 1] = splitLine
 				end
 				local displayName = nil
-				for idx, legionNode in ipairs(legionNodes) do
+				for _, legionNode in ipairs(legionNodes) do
 					if legionNode.id == desiredNode[1] then
+						-- non-vaal replacements only support one nodeWeight, so we force any node requirements to the second slot
+						if desiredNode[2] == "required" and timelessData.jewelType.id > 1 then
+							desiredNode[2] = tonumber(desiredNode[3]) or 1
+							desiredNode[3] = "required"
+						end
 						displayName = t_concat(legionNode.sd, " + ")
-						legionId = idx + 94
+						legionId = legionNode.id
 						break
 					end
 				end
 				if displayName == nil then
-					for idx, legionAddition in ipairs(legionAdditions) do
+					for _, legionAddition in ipairs(legionAdditions) do
 						if legionAddition.id == desiredNode[1] then
+							 -- additions only support one nodeWeight, so we force any node requirements to the second slot
+							if desiredNode[2] == "required" then
+								desiredNode[2] = tonumber(desiredNode[3]) or 1
+								desiredNode[3] = "required"
+							end
 							displayName = t_concat(legionAddition.sd, " + ")
-							legionId = idx
+							legionId = legionAddition.id
 							break
 						end
 					end
 				end
-				if desiredNode[2] == "required" or desiredNode[3] == "required" then
-					if timelessData.jewelType.id > 1 then
-						desiredNode[2] = tonumber(desiredNode[2]) or tonumber(desiredNode[3]) or 1
-					end
+				if desiredNode[2] == "required" then
+					desiredNode[2] = 0
+					t_insert(requiredNodes, legionId)
+				elseif desiredNode[3] == "required" then
+					desiredNode[3] = 0
 					t_insert(requiredNodes, legionId)
 				end
 				desiredIdx = desiredIdx + 1
@@ -1022,26 +1033,28 @@ function TreeTabClass:FindTimelessJewel()
 					if not next(jewelDataTbl) then
 						ConPrintf("Missing LUT: " .. timelessData.jewelType.label)
 					else
+						local curNode = legionNodes[jewelDataTbl[1] - 94] and legionNodes[jewelDataTbl[1] - 94].id or nil
 						if timelessData.jewelType.id == 1 then
 							local headerSize = #jewelDataTbl
 							if headerSize == 2 or headerSize == 3 then
-								if desiredNodes[jewelDataTbl[1]] then
-									resultNodes[curSeed][jewelDataTbl[1]] = resultNodes[curSeed][jewelDataTbl[1]] or { targetNodeNames = { }, totalWeight = 0 }
-									local weight = desiredNodes[jewelDataTbl[1]].nodeWeight * jewelDataTbl[2] + desiredNodes[jewelDataTbl[1]].nodeWeight2 * (jewelDataTbl[3] or 0)
-									t_insert(resultNodes[curSeed][jewelDataTbl[1]], targetNode)
-									t_insert(resultNodes[curSeed][jewelDataTbl[1]].targetNodeNames, treeData.nodes[targetNode].name)
-									resultNodes[curSeed][jewelDataTbl[1]].totalWeight = resultNodes[curSeed][jewelDataTbl[1]].totalWeight + weight
+								if desiredNodes[curNode] then
+									resultNodes[curSeed][curNode] = resultNodes[curSeed][curNode] or { targetNodeNames = { }, totalWeight = 0 }
+									local weight = desiredNodes[curNode].nodeWeight * jewelDataTbl[2] + desiredNodes[curNode].nodeWeight2 * (jewelDataTbl[3] or 0)
+									t_insert(resultNodes[curSeed][curNode], targetNode)
+									t_insert(resultNodes[curSeed][curNode].targetNodeNames, treeData.nodes[targetNode].name)
+									resultNodes[curSeed][curNode].totalWeight = resultNodes[curSeed][curNode].totalWeight + weight
 									seedWeights[curSeed] = seedWeights[curSeed] + weight
 								end
 							elseif headerSize == 6 or headerSize == 8 then
 								for i, jewelData in ipairs(jewelDataTbl) do
+									local curAddition = legionAdditions[jewelDataTbl[i]].id
 									if i <= (headerSize / 2) then
-										if desiredNodes[jewelDataTbl[i]] then
-											resultNodes[curSeed][jewelDataTbl[i]] = resultNodes[curSeed][jewelDataTbl[i]] or { targetNodeNames = { }, totalWeight = 0 }
-											local weight = desiredNodes[jewelDataTbl[i]].nodeWeight * jewelDataTbl[i + (headerSize / 2)]
-											resultNodes[curSeed][jewelDataTbl[i]].totalWeight = resultNodes[curSeed][jewelDataTbl[i]].totalWeight + weight
-											t_insert(resultNodes[curSeed][jewelDataTbl[i]], targetNode)
-											--t_insert(resultNodes[curSeed][jewelDataTbl[i]].targetNodeNames, treeData.nodes[targetNode].name)
+										if desiredNodes[curAddition] then
+											resultNodes[curSeed][curAddition] = resultNodes[curSeed][curAddition] or { targetNodeNames = { }, totalWeight = 0 }
+											local weight = desiredNodes[curAddition].nodeWeight * jewelDataTbl[i + (headerSize / 2)]
+											resultNodes[curSeed][curAddition].totalWeight = resultNodes[curSeed][curAddition].totalWeight + weight
+											t_insert(resultNodes[curSeed][curAddition], targetNode)
+											t_insert(resultNodes[curSeed][curAddition].targetNodeNames, treeData.nodes[targetNode].name)
 											seedWeights[curSeed] = seedWeights[curSeed] + weight
 										end
 									else
@@ -1049,12 +1062,12 @@ function TreeTabClass:FindTimelessJewel()
 									end
 								end
 							end
-						elseif desiredNodes[jewelDataTbl[1]] then
-							resultNodes[curSeed][jewelDataTbl[1]] = resultNodes[curSeed][jewelDataTbl[1]] or { targetNodeNames = { }, totalWeight = 0 }
-							resultNodes[curSeed][jewelDataTbl[1]].totalWeight = resultNodes[curSeed][jewelDataTbl[1]].totalWeight + desiredNodes[jewelDataTbl[1]].nodeWeight
-							t_insert(resultNodes[curSeed][jewelDataTbl[1]], targetNode)
-							t_insert(resultNodes[curSeed][jewelDataTbl[1]].targetNodeNames, treeData.nodes[targetNode].name)
-							seedWeights[curSeed] = seedWeights[curSeed] + desiredNodes[jewelDataTbl[1]].nodeWeight
+						elseif desiredNodes[curNode] then
+							resultNodes[curSeed][curNode] = resultNodes[curSeed][curNode] or { targetNodeNames = { }, totalWeight = 0 }
+							resultNodes[curSeed][curNode].totalWeight = resultNodes[curSeed][curNode].totalWeight + desiredNodes[curNode].nodeWeight
+							t_insert(resultNodes[curSeed][curNode], targetNode)
+							t_insert(resultNodes[curSeed][curNode].targetNodeNames, treeData.nodes[targetNode].name)
+							seedWeights[curSeed] = seedWeights[curSeed] + desiredNodes[curNode].nodeWeight
 						end
 					end
 				end
