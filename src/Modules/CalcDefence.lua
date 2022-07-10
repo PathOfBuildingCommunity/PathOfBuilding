@@ -1386,7 +1386,7 @@ function calcs.defence(env, actor)
 				if output[damageType.."EnergyShieldBypass"] > 0 then
 					local poolProtected = output.EnergyShieldRecoveryCap / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
 					output[damageType.."TotalPool"] = m_max(output[damageType.."TotalPool"] - poolProtected, 0) + m_min(output[damageType.."TotalPool"], poolProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
-				else 
+				else
 					output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.EnergyShieldRecoveryCap
 				end
 			end
@@ -1444,8 +1444,10 @@ function calcs.defence(env, actor)
 			if not DamageIn[damageType.."EnergyShieldBypass"] then
 				DamageIn[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] or 0
 			end
+
 		end
 		DamageIn["LifeLossBelowHalfLost"] = DamageIn["LifeLossBelowHalfLost"] or 0
+		DamageIn["WardBypass"] = DamageIn["WardBypass"] or modDB:Sum("BASE", nil, "WardBypass") or 0
 		
 		local itterationMultiplier = 1
 		local maxHits = data.misc.ehpCalcMaxHitsToCalc
@@ -1495,7 +1497,7 @@ function calcs.defence(env, actor)
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
 					if ward > 0 then
-						local tempDamage = m_min(Damage[damageType], ward)
+						local tempDamage = m_min(Damage[damageType] * (1 - DamageIn["WardBypass"] / 100), ward)
 						ward = ward - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
@@ -1914,7 +1916,15 @@ function calcs.defence(env, actor)
 			output[damageType.."TotalPool"] =  output[damageType.."TotalPool"] / (1 - output["preventedLifeLoss"] / 100)
 		end
 		--ward
-		output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.Ward or 0
+		local wardBypass = modDB:Sum("BASE", nil, "WardBypass") or 0
+		if wardBypass > 0 then
+			local poolProtected = output.Ward / (1 - wardBypass / 100) * (wardBypass / 100)
+			local sourcePool = output[damageType.."TotalPool"]
+			sourcePool = m_max(sourcePool - poolProtected, 0) + m_min(sourcePool, poolProtected) / (wardBypass / 100)
+			output[damageType.."TotalPool"] = sourcePool
+		else
+			output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.Ward or 0
+		end
 		--aegis
 		output[damageType.."TotalHitPool"] = output[damageType.."TotalPool"] + output[damageType.."Aegis"] or 0 + output[damageType.."sharedAegis"] or 0 + isElemental[damageType] and output[damageType.."sharedElementalAegis"] or 0
 		--guardskill
