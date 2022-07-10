@@ -24,7 +24,7 @@ for _, name in pairs(ItemTypes) do
 				end
 				out:write(fractured)
 				if variants then
-					out:write("{variant:" .. variants:gsub(".", ",") .. "}")
+					out:write("{variant:" .. variants:gsub("%.", ",") .. "}")
 				end
 				out:write(gggMod, "\n")
 			else
