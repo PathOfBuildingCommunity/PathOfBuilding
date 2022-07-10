@@ -1512,6 +1512,9 @@ local skills, mod, flag, skill = ...
 #baseMod mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 #baseMod mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 #baseMod mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+#baseMod mod("AvoidSap", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+#baseMod mod("AvoidBrittle", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+#baseMod mod("AvoidScorch", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 #mods
 
 #skill LightningResistAura
