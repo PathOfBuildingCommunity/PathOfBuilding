@@ -421,18 +421,18 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", env.spec.allocatedMasteryCount, "")
 
 		-- Add bandit mods
-		if build.bandit == "Alira" then
+		if env.configInput.bandit == "Alira" then
 			modDB:NewMod("ManaRegen", "BASE", 5, "Bandit")
 			modDB:NewMod("CritMultiplier", "BASE", 20, "Bandit")
 			modDB:NewMod("ElementalResist", "BASE", 15, "Bandit")
-		elseif build.bandit == "Kraityn" then
+		elseif env.configInput.bandit == "Kraityn" then
 			modDB:NewMod("Speed", "INC", 6, "Bandit")
 			modDB:NewMod("AvoidShock", "BASE", 10, "Bandit")
 			modDB:NewMod("AvoidFreeze", "BASE", 10, "Bandit")
 			modDB:NewMod("AvoidChill", "BASE", 10, "Bandit")
 			modDB:NewMod("AvoidIgnite", "BASE", 10, "Bandit")
 			modDB:NewMod("MovementSpeed", "INC", 6, "Bandit")
-		elseif build.bandit == "Oak" then
+		elseif env.configInput.bandit == "Oak" then
 			modDB:NewMod("LifeRegenPercent", "BASE", 1, "Bandit")
 			modDB:NewMod("PhysicalDamageReduction", "BASE", 2, "Bandit")
 			modDB:NewMod("PhysicalDamage", "INC", 20, "Bandit")
@@ -443,13 +443,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Add Pantheon mods
 		local parser = modLib.parseMod
 		-- Major Gods
-		if build.pantheonMajorGod ~= "None" then
-			local majorGod = env.data.pantheons[build.pantheonMajorGod]
+		if env.configInput.pantheonMajorGod ~= "None" then
+			local majorGod = env.data.pantheons[env.configInput.pantheonMajorGod]
 			pantheon.applySoulMod(modDB, parser, majorGod)
 		end
 		-- Minor Gods
-		if build.pantheonMinorGod ~= "None" then
-			local minorGod = env.data.pantheons[build.pantheonMinorGod]
+		if env.configInput.pantheonMinorGod ~= "None" then
+			local minorGod = env.data.pantheons[env.configInput.pantheonMinorGod]
 			pantheon.applySoulMod(modDB, parser, minorGod)
 		end
 

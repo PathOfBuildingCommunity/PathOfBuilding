@@ -325,7 +325,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		self.displayData = nil
 	end
 
-	self:DrawControls(viewPort)
+	self:DrawControls(viewPort, self.selControl)
 
 	if self.displayData then
 		if self.displayPinned and not self.selControl then

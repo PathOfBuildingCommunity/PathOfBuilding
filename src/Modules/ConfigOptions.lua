@@ -7,10 +7,64 @@
 local m_min = math.min
 local m_max = math.max
 
+local function applyPantheonDescription(tooltip, mode, index, value)
+	tooltip:Clear()
+	if value.val == "None" then
+		return
+	end
+	local applyModes = { BODY = true, HOVER = true }
+	if applyModes[mode] then
+		local god = data.pantheons[value.val]
+		for _, soul in ipairs(god.souls) do
+			local name = soul.name
+			local lines = { }
+			for _, mod in ipairs(soul.mods) do
+				table.insert(lines, mod.line)
+			end
+			tooltip:AddLine(20, '^8'..name)
+			tooltip:AddLine(14, '^6'..table.concat(lines, '\n'))
+			tooltip:AddSeparator(10)
+		end
+	end
+end
+
+local function banditTooltip(tooltip, mode, index, value)
+	local banditBenefits = {
+		["None"] = "Grants 2 Passive Skill Points",
+		["Oak"] = "Regenerate 1% of Life per second\n2% additional Physical Damage Reduction\n20% icreased Physical Damage",
+		["Kraityn"] = "6% increased Attack and Cast Speed\n10% chance to Avoid Elemental Ailments\n6% increased Movement Speed",
+		["Alira"] = "Regenerate 5 Mana per second\n+20% to Critical Strike Multiplier\n+15% to all Elemental Resistances",
+	}
+	local applyModes = { BODY = true, HOVER = true }
+	tooltip:Clear()
+	if applyModes[mode] then
+		tooltip:AddLine(14, '^8'..banditBenefits[value.val])
+	end
+end
+
 return {
 	-- Section: General options
 	{ section = "General", col = 1 },
 	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=nil,label="Act 10 (-60%)"}} },
+	{ var = "bandit", type = "list", label = "Bandit quest:", tooltipFunc = banditTooltip, list = {{val="None",label="Kill all"},{val="Oak",label="Help Oak"},{val="Kraityn",label="Help Kraityn"},{val="Alira",label="Help Alira"}} },
+	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltipFunc = applyPantheonDescription, list = {
+		{ label = "Nothing", val = "None" },
+		{ label = "Soul of the Brine King", val = "TheBrineKing" },
+		{ label = "Soul of Lunaris", val = "Lunaris" },
+		{ label = "Soul of Solaris", val = "Solaris" },
+		{ label = "Soul of Arakaali", val = "Arakaali" },
+	} },
+	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltipFunc = applyPantheonDescription, list = {
+		{ label = "Nothing", val = "None" },
+		{ label = "Soul of Gruthkul", val = "Gruthkul" },
+		{ label = "Soul of Yugul", val = "Yugul" },
+		{ label = "Soul of Abberath", val = "Abberath" },
+		{ label = "Soul of Tukohama", val = "Tukohama" },
+		{ label = "Soul of Garukhan", val = "Garukhan" },
+		{ label = "Soul of Ralakesh", val = "Ralakesh" },
+		{ label = "Soul of Ryslatha", val = "Ryslatha" },
+		{ label = "Soul of Shakari", val = "Shakari" },
+	} },
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse ^xE05030Life:", tooltip = "Sets the maximum ^xE05030life ^7of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base ^xE05030life^7, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },

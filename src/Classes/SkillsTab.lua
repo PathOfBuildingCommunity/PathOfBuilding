@@ -419,7 +419,7 @@ end
 
 function SkillsTabClass:CopySocketGroup(socketGroup)
 	local skillText = ""
-	if socketGroup.label:match("%S") then
+	if socketGroup.label and socketGroup.label:match("%S") then
 		skillText = skillText .. "Label: "..socketGroup.label.."\r\n"
 	end
 	if socketGroup.slot then

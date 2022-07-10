@@ -210,7 +210,7 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 	return str
 end
 
-function CalcSectionClass:Draw(viewPort)
+function CalcSectionClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
@@ -244,7 +244,7 @@ function CalcSectionClass:Draw(viewPort)
 		DrawImage(nil, x + 2, lineY + 20, width - 4, 2)
 		-- Draw controls
 		SetDrawLayer(nil, 0)
-		self:DrawControls(viewPort)
+		self:DrawControls(viewPort, noTooltip and self.calcsTab.selControl)
 		if subSec.collapsed or not self.enabled then
 			if primary then
 				return
