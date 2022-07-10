@@ -1102,7 +1102,8 @@ function TreeTabClass:FindTimelessJewel()
 								end
 							elseif headerSize == 6 or headerSize == 8 then
 								for i, jewelData in ipairs(jewelDataTbl) do
-									local curNodeId = legionAdditions[jewelDataTbl[i]].id
+									curNode = legionAdditions[jewelDataTbl[i]]
+									curNodeId = curNode and legionAdditions[jewelDataTbl[i]].id or nil
 									if i <= (headerSize / 2) then
 										if desiredNodes[curNodeId] then
 											resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
