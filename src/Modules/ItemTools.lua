@@ -19,6 +19,8 @@ itemLib.influenceInfo = {
 	{ key="basilisk", display="Hunter", color=colorCodes.BASILISK },
 	{ key="crusader", display="Crusader", color=colorCodes.CRUSADER },
 	{ key="eyrie", display="Redeemer", color=colorCodes.EYRIE },
+	{ key="cleansing", display="Searing Exarch", color=colorCodes.CLEANSING },
+	{ key="tangle", display="Eater of Worlds", color=colorCodes.TANGLE },
 }
 
 -- Apply a value scalar to any numbers present
@@ -66,7 +68,7 @@ end
 function itemLib.applyRange(line, range, valueScalar)
 	line = line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
 		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
-		:gsub("(%+?)%((%-?%d+)%-(%d+)%)", 
+		:gsub("(%+?)%((%-?%d+)%-(%d+)%)",
 		function(plus, min, max)
 			local numVal = m_floor(tonumber(min) + range * (tonumber(max) - tonumber(min)) + 0.5)
 			if numVal < 0 then
@@ -77,9 +79,9 @@ function itemLib.applyRange(line, range, valueScalar)
 			return plus .. tostring(numVal)
 		end)
 		:gsub("%((%d+%.?%d*)%-(%d+%.?%d*)%)",
-		function(min, max) 
+		function(min, max)
 			local numVal = m_floor((tonumber(min) + range * (tonumber(max) - tonumber(min))) * 10 + 0.5) / 10
-			return tostring(numVal) 
+			return tostring(numVal)
 		end)
 		:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
 	return itemLib.applyValueScalar(line, valueScalar)
@@ -128,7 +130,33 @@ function itemLib.formatModLine(modLine, dbMode)
 			line = line .. "   ^1'" .. modLine.extra .. "'"
 		end
 	else
-		colorCode = (modLine.crafted and colorCodes.CRAFTED) or (modLine.custom and colorCodes.CUSTOM) or (modLine.fractured and colorCodes.FRACTURED) or colorCodes.MAGIC
+		colorCode = (modLine.crafted and colorCodes.CRAFTED) or (modLine.scourge and colorCodes.SCOURGE) or (modLine.custom and colorCodes.CUSTOM) or (modLine.fractured and colorCodes.FRACTURED) or colorCodes.MAGIC
 	end
 	return colorCode..line
 end
+
+itemLib.wiki = {
+	key = "F1",
+	openGem = function(gemData)
+		local name = gemData.name;
+
+		if gemData.tags.support then
+			name = name .. " Support"
+		end
+
+		itemLib.wiki.open(name)
+	end,
+	openItem = function(item)
+		local name = item.rarity == "UNIQUE" and item.title or item.baseName
+
+		itemLib.wiki.open(name)
+	end,
+	open = function(name)
+		local route = string.gsub(name, " ", "_")
+
+		OpenURL("https://www.poewiki.net/wiki/" .. route)
+	end,
+	matchesKey = function(key)
+		return key == itemLib.wiki.key
+	end
+}

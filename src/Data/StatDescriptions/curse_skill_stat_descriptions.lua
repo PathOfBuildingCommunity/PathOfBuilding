@@ -1116,7 +1116,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Spell Hits have {0}% chance to Hinder Cursed Enemies with 30% reduced Movement Speed for 4 seconds"
+					text="Spell Hits have {0}% chance to Hinder Cursed Enemies"
 				}
 			}
 		},
@@ -1550,6 +1550,38 @@ return {
 				[1]={
 					limit={
 						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Effect of Mark"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Effect of Mark"
+				}
+			}
+		},
+		name="mark_effect_incr",
+		stats={
+			[1]="mark_skills_curse_effect_+%"
+		}
+	},
+	[65]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
 							[1]="#",
 							[2]="#"
 						},
@@ -1568,7 +1600,7 @@ return {
 			[2]="maximum_added_chaos_damage_taken"
 		}
 	},
-	[65]={
+	[66]={
 		lang={
 			English={
 				[1]={
@@ -1592,7 +1624,7 @@ return {
 			[2]="maximum_added_physical_damage_taken"
 		}
 	},
-	[66]={
+	[67]={
 		lang={
 			English={
 				[1]={
@@ -1615,7 +1647,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Cursed enemies take {0}% decreased Physical Damage from Damage Over Time"
+					text="Cursed enemies take {0}% reduced Physical Damage from Damage Over Time"
 				}
 			}
 		},
@@ -1624,7 +1656,7 @@ return {
 			[1]="base_physical_damage_over_time_taken_+%"
 		}
 	},
-	[67]={
+	[68]={
 		lang={
 			English={
 				[1]={
@@ -1643,7 +1675,7 @@ return {
 			[1]="projectiles_hitting_self_split_into_x"
 		}
 	},
-	[68]={
+	[69]={
 		lang={
 			English={
 				[1]={
@@ -1666,7 +1698,7 @@ return {
 			[1]="receive_bleeding_chance_%_when_hit_by_attack"
 		}
 	},
-	[69]={
+	[70]={
 		lang={
 			English={
 				[1]={
@@ -1686,10 +1718,10 @@ return {
 		},
 		name="reflect_overkill_damage_on_death",
 		stats={
-			[1]="reflect_%_overkill_damage_to_nearby_allies_on_death"
+			[1]="punishment_reflect_%_overkill_damage_to_nearby_allies_on_death"
 		}
 	},
-	[70]={
+	[71]={
 		lang={
 			English={
 				[1]={
@@ -1729,7 +1761,7 @@ return {
 			[1]="self_elemental_status_duration_-%"
 		}
 	},
-	[71]={
+	[72]={
 		lang={
 			English={
 				[1]={
@@ -1761,7 +1793,7 @@ return {
 			[1]="temporal_chains_action_speed_+%_vs_rare_or_unique_final"
 		}
 	},
-	[72]={
+	[73]={
 		lang={
 			English={
 				[1]={
@@ -1784,6 +1816,7 @@ return {
 				}
 			}
 		},
+		name="curse_triggers_doom_blast",
 		stats={
 			[1]="trigger_vicious_hex_explosion_when_curse_ends"
 		}
@@ -1796,7 +1829,7 @@ return {
 	["base_damage_taken_+%"]=46,
 	["base_fire_damage_resistance_%"]=5,
 	["base_lightning_damage_resistance_%"]=7,
-	["base_physical_damage_over_time_taken_+%"]=66,
+	["base_physical_damage_over_time_taken_+%"]=67,
 	["base_resist_all_elements_%"]=4,
 	["base_self_critical_strike_multiplier_-%"]=26,
 	["base_self_freeze_duration_-%"]=36,
@@ -1847,20 +1880,21 @@ return {
 	["mana_granted_when_killed"]=42,
 	["mana_leech_on_any_damage_when_hit_by_attack_permyriad"]=15,
 	["mana_leech_on_any_damage_when_hit_permyriad"]=16,
-	["maximum_added_chaos_damage_taken"]=64,
-	["maximum_added_physical_damage_taken"]=65,
-	["minimum_added_chaos_damage_taken"]=64,
-	["minimum_added_physical_damage_taken"]=65,
+	["mark_skills_curse_effect_+%"]=64,
+	["maximum_added_chaos_damage_taken"]=65,
+	["maximum_added_physical_damage_taken"]=66,
+	["minimum_added_chaos_damage_taken"]=65,
+	["minimum_added_physical_damage_taken"]=66,
 	["monster_slain_flask_charges_granted_+%"]=12,
 	parent="skill_stat_descriptions",
 	["physical_damage_taken_+%"]=33,
 	["projectile_damage_taken_+%"]=30,
 	["projectiles_always_pierce_you"]=27,
-	["projectiles_hitting_self_split_into_x"]=67,
-	["receive_bleeding_chance_%_when_hit_by_attack"]=68,
-	["reflect_%_overkill_damage_to_nearby_allies_on_death"]=69,
-	["self_elemental_status_duration_-%"]=70,
+	["projectiles_hitting_self_split_into_x"]=68,
+	["punishment_reflect_%_overkill_damage_to_nearby_allies_on_death"]=70,
+	["receive_bleeding_chance_%_when_hit_by_attack"]=69,
+	["self_elemental_status_duration_-%"]=71,
 	["temporal_chains_action_speed_+%_final"]=2,
-	["temporal_chains_action_speed_+%_vs_rare_or_unique_final"]=71,
-	["trigger_vicious_hex_explosion_when_curse_ends"]=72
+	["temporal_chains_action_speed_+%_vs_rare_or_unique_final"]=72,
+	["trigger_vicious_hex_explosion_when_curse_ends"]=73
 }

@@ -95,6 +95,7 @@ end
 
 function breakdown.area(base, areaMod, total, incBreakpoint, moreBreakpoint, redBreakpoint, lessBreakpoint, label)
 	local out = {}
+	t_insert(out, label)
 	if base ~= total then
 		t_insert(out, s_format("%d ^8(base radius)", base))
 		t_insert(out, s_format("x %.2f ^8(square root of area of effect modifier)", m_floor(100 * m_sqrt(areaMod)) / 100))
@@ -104,12 +105,11 @@ function breakdown.area(base, areaMod, total, incBreakpoint, moreBreakpoint, red
 		t_insert(out, s_format("^8Next breakpoint: %d%% increased AoE / a %d%% more AoE multiplier", incBreakpoint, moreBreakpoint))
 		t_insert(out, s_format("^8Previous breakpoint: %d%% reduced AoE / a %d%% less AoE multiplier", redBreakpoint, lessBreakpoint))
 	end
-	t_insert(out, label)
 	out.radius = total
 	return out
 end
 
-function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sourceRes)
+function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sourceRes, useRes)
 	local out = { }
 	local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
 	if sourceRes and sourceRes ~= 0 and sourceRes ~= damageType then
@@ -117,23 +117,33 @@ function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sour
 	elseif resist ~= 0 then
 		t_insert(out, s_format("Enemy %s: %d%%", resistForm, resist))
 	end
-	if pen ~= 0 then
+	if pen ~= 0 or not useRes then
 		t_insert(out, "Effective resistance:")
 		t_insert(out, s_format("%d%% ^8(resistance)", resist))
 		if pen < 0 then
 			t_insert(out, s_format("+ %d%% ^8(penetration)", -pen))
-		else
+		elseif pen > 0 then
 			t_insert(out, s_format("- %d%% ^8(penetration)", pen))
 		end
-		t_insert(out, s_format("= %d%%", resist - pen))
+		if not useRes then
+			t_insert(out, s_format("x %d%% ^8(resistance ignored)", 0))
+			t_insert(out, s_format("= %d%%", (0)))
+		else 
+			t_insert(out, s_format("= %d%%", (resist - pen)))
+		end
 	end
-	breakdown.multiChain(out, {
-		label = "Effective DPS modifier:",
-		{ "%.2f ^8(%s)", 1 - (resist - pen) / 100, resistForm },
-		{ "%.2f ^8(increased/reduced damage taken)", 1 + taken / 100 },
-		{ "%.2f ^8(more/less damage taken)", takenMore },
-		total = s_format("= %.3f", mult),
-	})
+	if useRes then
+		breakdown.multiChain(out, {
+			label = "Effective DPS modifier:",
+			{ "%.2f ^8(%s)", 1 - (resist - pen) / 100, resistForm },
+			{ "%.2f ^8(increased/reduced damage taken)", 1 + taken / 100 },
+			{ "%.2f ^8(more/less damage taken)", takenMore },
+			total = s_format("= %.3f", mult),
+		})
+	else
+		t_insert(out, "Effective DPS modifier:")
+		t_insert(out, s_format("= %.3f ^8(increased/reduced damage taken)", mult))
+	end
 	return out
 end
 

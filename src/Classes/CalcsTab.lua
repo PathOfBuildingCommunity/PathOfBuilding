@@ -147,6 +147,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 	self.controls.breakdown = new("CalcBreakdownControl", self)
 
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
+	self.powerBuilderInitialized = nil
 end)
 
 function CalcsTabClass:Load(xml, dbFileName)
@@ -324,7 +325,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		self.displayData = nil
 	end
 
-	self:DrawControls(viewPort)
+	self:DrawControls(viewPort, self.selControl)
 
 	if self.displayData then
 		if self.displayPinned and not self.selControl then
@@ -499,7 +500,7 @@ function CalcsTabClass:PowerBuilder()
 				end
 				node.power.defence = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) +
 								(output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) +
-								(output.EnergyShield - calcBase.EnergyShield) / m_max(3000, calcBase.EnergyShield) +
+								((output.EnergyShieldRecoveryCap or output.EnergyShield) - (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) / m_max(3000, (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) +
 								(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
 								(output.LifeRegen - calcBase.LifeRegen) / 500 +
 								(output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
@@ -555,6 +556,7 @@ function CalcsTabClass:PowerBuilder()
 		end
 	end
 	self.powerMax = newPowerMax
+	self.powerBuilderInitialized = true
 	--ConPrintf("Power Build time: %d ms", GetTime() - timer_start)
 end
 

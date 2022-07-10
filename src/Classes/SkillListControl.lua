@@ -8,7 +8,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 
 local SkillListClass = newClass("SkillListControl", "ListControl", function(self, anchor, x, y, width, height, skillsTab)
-	self.ListControl(anchor, x, y, width, height, 16, false, true, skillsTab.socketGroupList)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, skillsTab.socketGroupList)
 	self.skillsTab = skillsTab
 	self.label = "^7Socket Groups:"
 	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Delete", function()
@@ -51,6 +51,12 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 		local label = socketGroup.displayLabel or "?"
 		if not socketGroup.enabled or not socketGroup.slotEnabled then
 			label = "^x7F7F7F" .. label .. " (Disabled)"
+		end
+		if self.skillsTab.build.mainSocketGroup == index then 
+			label = label .. colorCodes.RELIC .. " (Active)"
+		end
+		if socketGroup.includeInFullDPS then 
+			label = label .. colorCodes.CUSTOM .. " (FullDPS)"
 		end
 		return label
 	end
@@ -102,5 +108,36 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 			self.skillsTab.build.buildFlag = true
 			self.selValue = nil
 		end)
+	end
+end
+
+function SkillListClass:OnHoverKeyUp(key)
+	local item = self.ListControl:GetHoverValue()
+	if item then
+		if itemLib.wiki.matchesKey(key) then
+			-- Get the first gem in the group
+			local gem = item.gemList[1]
+			if gem then
+				itemLib.wiki.openGem(gem.gemData)
+			end
+		elseif key == "RIGHTBUTTON" then
+			if IsKeyDown("CTRL") then
+				item.includeInFullDPS = not item.includeInFullDPS
+				self.skillsTab:AddUndoState()
+				self.skillsTab.build.buildFlag = true
+			else
+				local index = self.ListControl:GetHoverIndex()
+				if index then
+					-- mirrors Build.lua:548
+					self.skillsTab.build.mainSocketGroup = index
+					self.skillsTab.build.buildFlag = true
+					self.skillsTab.build.modFlag = true
+				end
+			end
+		elseif key == "LEFTBUTTON" and IsKeyDown("CTRL") then
+			item.enabled = not item.enabled
+			self.skillsTab:AddUndoState()
+			self.skillsTab.build.buildFlag = true
+		end
 	end
 end
