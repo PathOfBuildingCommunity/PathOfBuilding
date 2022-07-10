@@ -931,12 +931,10 @@ function TreeTabClass:FindTimelessJewel()
 	controls.socketFilter.state = timelessData.socketFilter
 
 	controls.nodeSliderLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 125, 0, 16, "^7Primary Node Weight:")
-	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 10, 0, 176, 16, function(value)
+	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 10, 0, 200, 16, function(value)
 		if value == 1 then
 			controls.nodeSliderValue.label = "Required"
-			controls.nodeSlider.width = 176 - controls.nodeSliderValue.width()
 		else
-			controls.nodeSlider.width = 176
 			controls.nodeSliderValue.label = s_format("%.1f", 0.1 + value * 9.9)
 		end
 		parseSearchList(1)
@@ -945,12 +943,10 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider:SetVal(0.09)
 
 	controls.nodeSlider2Label = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 150, 0, 16, "^7Secondary Node Weight:")
-	controls.nodeSlider2 = new("SliderControl", { "LEFT", controls.nodeSlider2Label, "RIGHT" }, 10, 0, 176, 16, function(value)
+	controls.nodeSlider2 = new("SliderControl", { "LEFT", controls.nodeSlider2Label, "RIGHT" }, 10, 0, 200, 16, function(value)
 		if value == 1 then
 			controls.nodeSlider2Value.label = "Required"
-			controls.nodeSlider2.width = 176 - controls.nodeSlider2Value.width()
 		else
-			controls.nodeSlider2.width = 176
 			controls.nodeSlider2Value.label = s_format("%.1f", 0.1 + value * 9.9)
 		end
 		parseSearchList(1)
