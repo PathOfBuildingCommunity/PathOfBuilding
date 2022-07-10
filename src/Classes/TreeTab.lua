@@ -859,7 +859,6 @@ function TreeTabClass:FindTimelessJewel()
 	local activeSearchParser = false
 	local searchListTbl = { }
 	local function parseSearchList(mode)
-		activeSearchParser = true
 		if mode == 0 then
 			-- timelessData.searchList => searchListTbl
 			if timelessData.searchList then
@@ -877,10 +876,10 @@ function TreeTabClass:FindTimelessJewel()
 				local searchText = ""
 				for curIdx, curRow in ipairs(searchListTbl) do
 					if curRow[1] == controls.nodeSelect.list[controls.nodeSelect.selIndex].id then
-						searchText = searchText .. curRow[1] .. ", " .. controls.nodeSliderValue.label:lower() .. ", " .. controls.nodeSlider2Value.label:lower()
-					else
-						searchText = searchText .. t_concat(curRow, ", ")
+						curRow[2] = controls.nodeSliderValue.label:lower()
+						curRow[3] = controls.nodeSlider2Value.label:lower()
 					end
+					searchText = searchText .. t_concat(curRow, ", ")
 					if curIdx < #searchListTbl then
 						searchText = searchText .. "\n"
 					end
@@ -888,7 +887,6 @@ function TreeTabClass:FindTimelessJewel()
 				controls.searchList:SetText(searchText)
 			end
 		end
-		activeSearchParser = false
 	end
 
 	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 25, 0, 16, "^7Jewel Type:")
@@ -979,9 +977,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchListLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 110, 200, 0, 16, "^7Desired Nodes:")
 	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 338, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchList = value
-		if not activeSearchParser then
-			parseSearchList(0)
-		end
+		parseSearchList(0)
 	end, 16, true)
 
 	controls.searchResultsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 462, 200, 0, 16, "^7Search Results:")
