@@ -889,6 +889,7 @@ function TreeTabClass:FindTimelessJewel()
 			end
 		end
 	end
+	parseSearchList(0) -- initial load: [timelessData.searchList => searchListTbl]
 	local function updateSearchList(text)
 		timelessData.searchList = text
 		controls.searchList:SetText(text)
