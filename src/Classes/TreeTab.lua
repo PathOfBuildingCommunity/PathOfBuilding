@@ -856,12 +856,46 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 
+	local activeSearchParser = false
+	local searchListTbl = { }
+	local function parseSearchList(mode)
+		activeSearchParser = true
+		if mode == 0 then
+			-- timelessData.searchList => searchListTbl
+			if timelessData.searchList then
+				searchListTbl = { }
+				for inputLine in timelessData.searchList:gmatch("[^\r\n]+") do
+					searchListTbl[#searchListTbl + 1] = { }
+					for splitLine in inputLine:gmatch("([^,%s]+)") do
+						searchListTbl[#searchListTbl][#searchListTbl[#searchListTbl] + 1] = splitLine
+					end
+				end
+			end
+		else
+			-- searchListTbl => controls.searchList
+			if controls.searchList and controls.nodeSelect then
+				local searchText = ""
+				for curIdx, curRow in ipairs(searchListTbl) do
+					if curRow[1] == controls.nodeSelect.list[controls.nodeSelect.selIndex].id then
+						searchText = searchText .. curRow[1] .. ", " .. controls.nodeSliderValue.label:lower() .. ", " .. controls.nodeSlider2Value.label:lower()
+					else
+						searchText = searchText .. t_concat(curRow, ", ")
+					end
+					if curIdx < #searchListTbl then
+						searchText = searchText .. "\n"
+					end
+				end
+				controls.searchList:SetText(searchText)
+			end
+		end
+		activeSearchParser = false
+	end
+
 	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 25, 0, 16, "^7Jewel Type:")
 	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelTypes, function(index, value)
 		timelessData.jewelType = value
 		controls.conquerorSelect.list = conquerorTypes[timelessData.jewelType.id]
 		controls.conquerorSelect.selIndex = 1
-		--controls.nodeSlider2.enabled = timelessData.jewelType.id == 1
 		controls.nodeSelect.selIndex = 1
 		buildMods()
 		controls.searchList:SetText("")
@@ -900,6 +934,7 @@ function TreeTabClass:FindTimelessJewel()
 			controls.nodeSlider.width = 176
 			controls.nodeSliderValue.label = s_format("%.1f", 0.1 + value * 9.9)
 		end
+		parseSearchList(1)
 	end)
 	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "1.0")
 	controls.nodeSlider:SetVal(0.09)
@@ -913,22 +948,23 @@ function TreeTabClass:FindTimelessJewel()
 			controls.nodeSlider2.width = 176
 			controls.nodeSlider2Value.label = s_format("%.1f", 0.1 + value * 9.9)
 		end
+		parseSearchList(1)
 	end)
 	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "1.0")
 	controls.nodeSlider2:SetVal(0.09)
-	--controls.nodeSlider2.enabled = timelessData.jewelType.id == 1
 
 	buildMods()
 	controls.nodeSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 175, 0, 16, "^7Search for Node:")
 	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 200, 18, modData, function(index, value)
 		if value.id then
+			for _, searchRow in ipairs(searchListTbl) do
+				-- prevent duplicate searchList entries
+				if searchRow[1] == value.id then
+					return
+				end
+			end
 			controls.searchList.caret = #controls.searchList.buf + 1
 			controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower() .. ", " .. controls.nodeSlider2Value.label:lower())
-			--[[if timelessData.jewelType.id == 1 then
-				controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower() .. ", " .. controls.nodeSlider2Value.label:lower())
-			else
-				controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower())
-			end]]
 		end
 	end)
 	controls.nodeSelect.tooltipFunc = function(tooltip, mode, index, value)
@@ -943,6 +979,9 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchListLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 110, 200, 0, 16, "^7Desired Nodes:")
 	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 338, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchList = value
+		if not activeSearchParser then
+			parseSearchList(0)
+		end
 	end, 16, true)
 
 	controls.searchResultsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 462, 200, 0, 16, "^7Search Results:")
@@ -980,7 +1019,7 @@ function TreeTabClass:FindTimelessJewel()
 				end
 			end
 			local desiredIdx = 0
-			for inputLine in controls.searchList.buf:gmatch("[^\r\n]+") do
+			for inputLine in timelessData.searchList:gmatch("[^\r\n]+") do
 				local desiredNode = { }
 				local legionId = nil
 				for splitLine in inputLine:gmatch("([^,%s]+)") do
