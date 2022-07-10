@@ -933,8 +933,8 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSliderLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 125, 0, 16, "^7Primary Node Weight:")
 	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 10, 0, 176, 16, function(value)
 		if value == 1 then
-			controls.nodeSlider.width = 138
 			controls.nodeSliderValue.label = "Required"
+			controls.nodeSlider.width = 176 - controls.nodeSliderValue.width()
 		else
 			controls.nodeSlider.width = 176
 			controls.nodeSliderValue.label = s_format("%.1f", 0.1 + value * 9.9)
@@ -947,8 +947,8 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider2Label = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 150, 0, 16, "^7Secondary Node Weight:")
 	controls.nodeSlider2 = new("SliderControl", { "LEFT", controls.nodeSlider2Label, "RIGHT" }, 10, 0, 176, 16, function(value)
 		if value == 1 then
-			controls.nodeSlider2.width = 138
 			controls.nodeSlider2Value.label = "Required"
+			controls.nodeSlider2.width = 176 - controls.nodeSlider2Value.width()
 		else
 			controls.nodeSlider2.width = 176
 			controls.nodeSlider2Value.label = s_format("%.1f", 0.1 + value * 9.9)
@@ -999,15 +999,10 @@ function TreeTabClass:FindTimelessJewel()
 			local desiredNodes = { }
 			local requiredNodes = { }
 			local resultNodes = { }
-			local rootNodes = {
-				[50459] = true, -- Ranger
-				[47175] = true, -- Marauder
-				[50986] = true, -- Duelist
-				[61525] = true, -- Templar
-				[54447] = true, -- Witch
-				[44683] = true, -- Shadow
-				[58833] = true -- Scion
-			}
+			local rootNodes = { }
+			for _, class in pairs(treeData.classes) do
+				rootNodes[class.startNodeId] = true
+			end
 			if controls.socketFilter.state then
 				for nodeId in pairs(radiusNodes) do
 					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
@@ -1080,16 +1075,19 @@ function TreeTabClass:FindTimelessJewel()
 					if not next(jewelDataTbl) then
 						ConPrintf("Missing LUT: " .. timelessData.jewelType.label)
 					else
-						local curNode = legionNodes[jewelDataTbl[1] - 94] and legionNodes[jewelDataTbl[1] - 94].id or nil
+						local curNode = legionNodes[jewelDataTbl[1] - 94]
+						local curNodeId = curNode and curNode.id or nil
 						if timelessData.jewelType.id == 1 then
 							local headerSize = #jewelDataTbl
 							if headerSize == 2 or headerSize == 3 then
-								if desiredNodes[curNode] then
-									resultNodes[curSeed][curNode] = resultNodes[curSeed][curNode] or { targetNodeNames = { }, totalWeight = 0 }
-									local weight = desiredNodes[curNode].nodeWeight * jewelDataTbl[2] + desiredNodes[curNode].nodeWeight2 * (jewelDataTbl[3] or 0)
-									t_insert(resultNodes[curSeed][curNode], targetNode)
-									t_insert(resultNodes[curSeed][curNode].targetNodeNames, treeData.nodes[targetNode].name)
-									resultNodes[curSeed][curNode].totalWeight = resultNodes[curSeed][curNode].totalWeight + weight
+								if desiredNodes[curNodeId] then
+									resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
+									local statMod1 = curNode.stats[curNode.sortedStats[1]]
+									local statMod2 = curNode.stats[curNode.sortedStats[2]]
+									local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[statMod1.index + 1] + desiredNodes[curNodeId].nodeWeight2 * (jewelDataTbl[statMod2.index + 1] or 0)
+									t_insert(resultNodes[curSeed][curNodeId], targetNode)
+									t_insert(resultNodes[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
+									resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + weight
 									seedWeights[curSeed] = seedWeights[curSeed] + weight
 								end
 							elseif headerSize == 6 or headerSize == 8 then
@@ -1109,12 +1107,12 @@ function TreeTabClass:FindTimelessJewel()
 									end
 								end
 							end
-						elseif desiredNodes[curNode] then
-							resultNodes[curSeed][curNode] = resultNodes[curSeed][curNode] or { targetNodeNames = { }, totalWeight = 0 }
-							resultNodes[curSeed][curNode].totalWeight = resultNodes[curSeed][curNode].totalWeight + desiredNodes[curNode].nodeWeight
-							t_insert(resultNodes[curSeed][curNode], targetNode)
-							t_insert(resultNodes[curSeed][curNode].targetNodeNames, treeData.nodes[targetNode].name)
-							seedWeights[curSeed] = seedWeights[curSeed] + desiredNodes[curNode].nodeWeight
+						elseif desiredNodes[curNodeId] then
+							resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
+							resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + desiredNodes[curNodeId].nodeWeight
+							t_insert(resultNodes[curSeed][curNodeId], targetNode)
+							t_insert(resultNodes[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
+							seedWeights[curSeed] = seedWeights[curSeed] + desiredNodes[curNodeId].nodeWeight
 						end
 					end
 				end
