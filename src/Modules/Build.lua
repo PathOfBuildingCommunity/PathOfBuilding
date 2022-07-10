@@ -5,6 +5,7 @@
 --
 local pairs = pairs
 local ipairs = ipairs
+local next = next
 local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
@@ -37,6 +38,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	-- Load build file
 	self.xmlSectionList = { }
 	self.spectreList = { }
+	self.timelessData = { jewelType = { }, conquerorType = { }, jewelSocket = { }, searchList = "", searchResults = { }, sharedResults = { } }
 	self.viewMode = "TREE"
 	self.characterLevel = main.defaultCharLevel or 1
 	self.targetVersion = liveTargetVersion
@@ -777,6 +779,23 @@ function buildMode:Load(xml, fileName)
 			if child.attrib.id and data.minions[child.attrib.id] then
 				t_insert(self.spectreList, child.attrib.id)
 			end
+		elseif child.elem == "TimelessData" then
+			self.timelessData.jewelType = {
+				label = child.attrib.jewelTypeLabel,
+				name = child.attrib.jewelTypeName,
+				id = tonumber(child.attrib.jewelTypeId)
+			}
+			self.timelessData.conquerorType = {
+				label = child.attrib.conquerorTypeLabel,
+				id = tonumber(child.attrib.conquerorTypeId)
+			}
+			self.timelessData.jewelSocket = {
+				label = child.attrib.jewelSocketLabel,
+				keystone = child.attrib.jewelSocketKeystone,
+				id = tonumber(child.attrib.jewelSocketId),
+				idx = tonumber(child.attrib.jewelSocketIdx)
+			}
+			self.timelessData.searchList = child.attrib.searchList
 		end
 	end
 end
@@ -840,6 +859,22 @@ function buildMode:Save(xml)
 			end
 		end
 	end
+	local timelessData = {
+		elem = "TimelessData",
+		attrib = {
+			jewelTypeLabel = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.label),
+			jewelTypeName = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.name),
+			jewelTypeId = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.id),
+			conquerorTypeLabel = next(self.timelessData.conquerorType) and tostring(self.timelessData.conquerorType.label),
+			conquerorTypeId = next(self.timelessData.conquerorType) and tostring(self.timelessData.conquerorType.id),
+			jewelSocketLabel = next(self.timelessData.conquerorType) and tostring(self.timelessData.jewelSocket.label),
+			jewelSocketKeystone = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.keystone),
+			jewelSocketId = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.id),
+			jewelSocketIdx = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.idx),
+			searchList = self.timelessData.searchList and tostring(self.timelessData.searchList)
+		}
+	}
+	t_insert(xml, timelessData)
 	self.modFlag = false
 end
 

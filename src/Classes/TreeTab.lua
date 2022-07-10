@@ -4,6 +4,7 @@
 -- Passive skill tree tab for the current build.
 --
 local ipairs = ipairs
+local next = next
 local t_insert = table.insert
 local t_sort = table.sort
 local t_concat = table.concat
@@ -737,12 +738,12 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	return report
 end
 
-local timelessData = { searchResults = { }, sharedResults = { } }
 function TreeTabClass:FindTimelessJewel()
 	local socketViewer = new("PassiveTreeView")
 	local treeData = self.build.spec.tree
 	local legionNodes = treeData.legion.nodes
 	local legionAdditions = treeData.legion.additions
+	local timelessData = self.build.timelessData
 	local controls = { }
 	local modData = { }
 	local ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Dex", "Devotion", "Price of Glory" }
@@ -753,7 +754,7 @@ function TreeTabClass:FindTimelessJewel()
 		{ label = "Militant Faith", name = "templar", id = 4 },
 		{ label = "Elegant Hubris", name = "eternal", id = 5 }
 	}
-	timelessData.jewelType = timelessData.jewelType or jewelTypes[1]
+	timelessData.jewelType = next(timelessData.jewelType) and timelessData.jewelType or jewelTypes[1]
 	local conquerorTypes = {
 		[1] = {
 			{ label = "Doryani (Corrupted Soul)", id = 1 },
@@ -781,7 +782,7 @@ function TreeTabClass:FindTimelessJewel()
 			{ label = "Caspiro (Supreme Ostentation)", id = 3 }
 		}
 	}
-	timelessData.conquerorType = timelessData.conquerorType or conquerorTypes[timelessData.jewelType.id][1]
+	timelessData.conquerorType = next(timelessData.conquerorType) and timelessData.conquerorType or conquerorTypes[timelessData.jewelType.id][1]
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
 		if socketData.isJewelSocket then
@@ -813,7 +814,7 @@ function TreeTabClass:FindTimelessJewel()
 	for jewelSocketIdx, jewelSocket in pairs(jewelSockets) do
 		jewelSocket.idx = jewelSocketIdx
 	end
-	timelessData.jewelSocket = timelessData.jewelSocket or jewelSockets[1]
+	timelessData.jewelSocket = next(timelessData.jewelSocket) and timelessData.jewelSocket or jewelSockets[1]
 
 	local function buildMods()
 		wipeTable(modData)
@@ -888,7 +889,11 @@ function TreeTabClass:FindTimelessJewel()
 			end
 		end
 	end
-	parseSearchList(0)
+	local function updateSearchList(text)
+		timelessData.searchList = text
+		controls.searchList:SetText(text)
+		parseSearchList(0)
+	end
 
 	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 25, 0, 16, "^7Jewel Type:")
 	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelTypes, function(index, value)
@@ -897,7 +902,7 @@ function TreeTabClass:FindTimelessJewel()
 		controls.conquerorSelect.selIndex = 1
 		controls.nodeSelect.selIndex = 1
 		buildMods()
-		controls.searchList:SetText("")
+		updateSearchList("")
 	end)
 	controls.jewelSelect.selIndex = timelessData.jewelType.id
 
@@ -980,10 +985,10 @@ function TreeTabClass:FindTimelessJewel()
 		timelessData.searchList = value
 		parseSearchList(0)
 	end, 16, true)
-	timelessData.searchList = timelessData.searchList or ""
+	controls.searchList:SetText(timelessData.searchList)
 
 	controls.searchResultsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 462, 200, 0, 16, "^7Search Results:")
-	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 338, 200, self.build, timelessData.searchResults, timelessData.sharedResults)
+	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 338, 200, self.build)
 
 	controls.search = new("ButtonControl", nil, -90, 435, 80, 20, "Search", function()
 		if treeData.nodes[timelessData.jewelSocket.id] and treeData.nodes[timelessData.jewelSocket.id].isJewelSocket then
@@ -1164,9 +1169,7 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 435, 80, 20, "Reset", function()
-		searchListTbl = { }
-		timelessData.searchList = ""
-		controls.searchList:SetText("")
+		updateSearchList("")
 		wipeTable(timelessData.searchResults)
 	end)
 	controls.close = new("ButtonControl", nil, 90, 435, 80, 20, "Cancel", function()
