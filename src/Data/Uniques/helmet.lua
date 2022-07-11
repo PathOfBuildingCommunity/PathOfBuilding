@@ -510,7 +510,7 @@ Requires Level 48, 101 Int
 (200-250)% increased Energy Shield
 +(50-70) to maximum Life
 Unaffected by Poison
-(10-20)% of Damage taken gained as Life over 4 seconds when Hit
+(10-20)% of Damage taken Recouped as Life
 ]],[[
 Plume of Pursuit
 Bone Circlet
@@ -995,7 +995,7 @@ Requires Level 37, 42 Str, 42 Int
 {variant:2}+(100-120) to maximum Mana
 {variant:2}Gain (5-10)% of Maximum Mana as Extra Maximum Energy Shield
 Enemies Cannot Leech Mana From You
-(5-10)% of Damage taken Gained as Mana over 4 seconds when Hit
+(5-10)% of Damage taken Recouped as Mana
 Cannot Leech Mana
 ]],[[
 Speaker's Wreath
@@ -1199,6 +1199,7 @@ Iron Mask
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Pre 3.7.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 17, 21 Dex, 21 Int
 (15-30)% increased Spell Damage
@@ -1214,6 +1215,7 @@ Malachai's Awakening
 Iron Mask
 Source: Drops from any endgame map boss
 Variant: Pre 3.7.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 60, 21 Dex, 21 Int
 (15-30)% increased Spell Damage

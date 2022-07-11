@@ -204,6 +204,7 @@ the "Releases" section of the GitHub page.]])
 	self.decimalSeparator = "."
 	self.showTitlebarName = true
 	self.showWarnings = true
+	self.slotOnlyTooltips = true
 
 	local ignoreBuild
 	if arg[1] then
@@ -518,11 +519,17 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.defaultCharLevel then
 					self.defaultCharLevel = m_min(tonumber(node.attrib.defaultCharLevel) or 1, 100)
 				end
+				if node.attrib.defaultItemAffixQuality then
+					self.defaultItemAffixQuality = m_min(tonumber(node.attrib.defaultItemAffixQuality) or 0.5, 1)
+				end
 				if node.attrib.lastExportWebsite then
 					self.lastExportWebsite = node.attrib.lastExportWebsite
 				end
 				if node.attrib.showWarnings then
 					self.showWarnings = node.attrib.showWarnings == "true"
+				end
+				if node.attrib.slotOnlyTooltips then
+					self.slotOnlyTooltips = node.attrib.slotOnlyTooltips == "true"
 				end
 			end
 		end
@@ -574,8 +581,10 @@ function main:SaveSettings()
 		betaTest = tostring(self.betaTest),
 		defaultGemQuality = tostring(self.defaultGemQuality or 0),
 		defaultCharLevel = tostring(self.defaultCharLevel or 1),
+		defaultItemAffixQuality = tostring(self.defaultItemAffixQuality or 0.5),
 		lastExportWebsite = self.lastExportWebsite,
 		showWarnings = tostring(self.showWarnings),
+		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -598,9 +607,9 @@ function main:OpenOptionsPopup()
 	end
 
 	-- local func to make a new section header
-	local function drawSectionHeader(id, title)
-		local headerBGColor ={ .2, .2, .2}
-		controls["section-"..id .. "-bg"] = new("HorizontalLineControl", { "TOPLEFT", nil, "TOPLEFT" }, 2, currentY, popupWidth - 4, 24, headerBGColor)
+	local function drawSectionHeader(id, title, omitHorizontalLine)
+		local headerBGColor ={ .6, .6, .6}
+		controls["section-"..id .. "-bg"] = new("RectangleOutlineControl", { "TOPLEFT", nil, "TOPLEFT" }, 8, currentY, popupWidth - 17, 26, headerBGColor, 1)
 		nextRow(.2)
 		controls["section-"..id .. "-label"] = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, popupWidth / 2 - 60, currentY, 0, 16, "^7" .. title)
 		nextRow(1.5)
@@ -691,7 +700,7 @@ function main:OpenOptionsPopup()
 	end)
 
 	nextRow()
-	controls.defaultGemQuality = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 60, 20, self.defaultGemQuality, nil, "%D", 2, function(gemQuality)
+	controls.defaultGemQuality = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 80, 20, self.defaultGemQuality, nil, "%D", 2, function(gemQuality)
 		self.defaultGemQuality = m_min(tonumber(gemQuality) or 0, 23)
 	end)
 	controls.defaultGemQuality.tooltipText = "Set the default quality that can be overwritten by build-related quality settings in the skill panel."
@@ -701,17 +710,34 @@ function main:OpenOptionsPopup()
 	controls.defaultCharLevel = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 80, 20, self.defaultCharLevel, nil, "%D", 3, function(charLevel)
 		self.defaultCharLevel = m_min(tonumber(charLevel) or 1, 100)
 	end)
-	controls.defaultCharLevel.tooltipText = "Set the default char level that can be overwritten by build-related level settings."
+	controls.defaultCharLevel.tooltipText = "Set the default character level that can be overwritten by build-related level settings."
 	controls.defaultCharLevelLabel = new("LabelControl", { "RIGHT", controls.defaultCharLevel, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Default character level:")
 
 	nextRow()
-	controls.showWarnings = new("CheckBoxControl", {"TOPLEFT",nil,"TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show build warnings:", function(state)
+	controls.defaultItemAffixQualitySlider = new("SliderControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 200, 20, function(val)
+		self.defaultItemAffixQuality = round(val, 2)
+	end)
+	controls.defaultItemAffixQualitySlider.tooltipFunc = function(tooltip, val)
+		tooltip:Clear()
+		tooltip:AddLine(16, round(val * 100) .. "%")
+	end
+	controls.defaultItemAffixQualityLabel = new("LabelControl", { "RIGHT", controls.defaultItemAffixQualitySlider, "LEFT" }, defaultLabelSpacingPx, 0, 92, 16, "^7Default item affix quality:")
+	controls.defaultItemAffixQualitySlider.val = self.defaultItemAffixQuality or 0.5
+
+	nextRow()
+	controls.showWarnings = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show build warnings:", function(state)
 		self.showWarnings = state
 	end)
+	controls.showWarnings.state = self.showWarnings
+
+	nextRow()
+	controls.slotOnlyTooltips = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show tooltips only for affected slots:", function(state)
+		self.slotOnlyTooltips = state
+	end)
+	controls.slotOnlyTooltips.state = self.slotOnlyTooltips
 
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
-	controls.showWarnings.state = self.showWarnings
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
@@ -720,7 +746,9 @@ function main:OpenOptionsPopup()
 	local initialBetaTest = self.betaTest
 	local initialDefaultGemQuality = self.defaultGemQuality or 0
 	local initialDefaultCharLevel = self.defaultCharLevel or 1
-	local initialshowWarnings = self.showWarnings
+	local initialDefaultItemAffixQuality = self.defaultItemAffixQuality or 0.5
+	local initialShowWarnings = self.showWarnings
+	local initialSlotOnlyTooltips = self.slotOnlyTooltips
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -758,7 +786,9 @@ function main:OpenOptionsPopup()
 		self.betaTest = initialBetaTest
 		self.defaultGemQuality = initialDefaultGemQuality
 		self.defaultCharLevel = initialDefaultCharLevel
-		self.showWarnings = initialshowWarnings
+		self.defaultItemAffixQuality = initialDefaultItemAffixQuality
+		self.showWarnings = initialShowWarnings
+		self.slotOnlyTooltips = initialSlotOnlyTooltips
 		main:ClosePopup()
 	end)
 	nextRow(1.5)
@@ -1092,7 +1122,7 @@ function main:SetWindowTitleSubtext(subtext)
 	if not subtext or not self.showTitlebarName then
 		SetWindowTitle(APP_NAME)
 	else
-		SetWindowTitle(APP_NAME.." - "..subtext)
+		SetWindowTitle(subtext.." - "..APP_NAME)
 	end
 end
 

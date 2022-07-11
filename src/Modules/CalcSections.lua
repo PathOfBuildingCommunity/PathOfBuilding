@@ -6,19 +6,19 @@
 
 -- Commonly used modifier lists
 local physicalHitTaken = {
-	"DamageTaken", "PhysicalDamageTaken"
+	"DamageTaken", "PhysicalDamageTaken", "CurseEffectOnSelf"
 }
 local lightningHitTaken = {
-	"DamageTaken", "LightningDamageTaken", "ElementalDamageTaken", "LightningResist", "ElementalResist"
+	"DamageTaken", "LightningDamageTaken", "ElementalDamageTaken", "LightningResist", "ElementalResist", "CurseEffectOnSelf"
 }
 local coldHitTaken = {
-	"DamageTaken", "ColdDamageTaken", "ElementalDamageTaken", "ColdResist", "ElementalResist"
+	"DamageTaken", "ColdDamageTaken", "ElementalDamageTaken", "ColdResist", "ElementalResist", "CurseEffectOnSelf"
 }
 local fireHitTaken = {
-	"DamageTaken", "FireDamageTaken", "ElementalDamageTaken", "FireResist", "ElementalResist"
+	"DamageTaken", "FireDamageTaken", "ElementalDamageTaken", "FireResist", "ElementalResist", "CurseEffectOnSelf"
 }
 local chaosHitTaken = {
-	"DamageTaken", "ChaosDamageTaken", "ChaosResist"
+	"DamageTaken", "ChaosDamageTaken", "ChaosResist", "CurseEffectOnSelf"
 }
 local physicalConvert = { 
 	"SkillPhysicalDamageConvertToLightning", "SkillPhysicalDamageConvertToCold", "SkillPhysicalDamageConvertToFire", "SkillPhysicalDamageConvertToChaos", 
@@ -126,22 +126,22 @@ return {
 		},
 		{ format = "x {3:output:LightningEffMult}",
 			{ breakdown = "LightningEffMult" },
-			{ label = "Player modifiers", modName = { "LightningPenetration", "ElementalPenetration" }, cfg = "skill" },
+			{ label = "Player modifiers", modName = { "LightningPenetration", "ElementalPenetration", "IgnoreLightningResistance" }, cfg = "skill" },
 			{ label = "Enemy modifiers", modName = lightningHitTaken, enemy = true, cfg = "skill" },
 		},
 		{ format = "x {3:output:ColdEffMult}",
 			{ breakdown = "ColdEffMult" },
-			{ label = "Player modifiers", modName = { "ColdPenetration", "ElementalPenetration" }, cfg = "skill" },
+			{ label = "Player modifiers", modName = { "ColdPenetration", "ElementalPenetration", "IgnoreColdResistance" }, cfg = "skill" },
 			{ label = "Enemy modifiers", modName = coldHitTaken, enemy = true, cfg = "skill" },
 		},
 		{ format = "x {3:output:FireEffMult}",
 			{ breakdown = "FireEffMult" },
-			{ label = "Player modifiers", modName = { "FirePenetration", "ElementalPenetration" }, cfg = "skill" },
+			{ label = "Player modifiers", modName = { "FirePenetration", "ElementalPenetration", "IgnoreFireResistance" }, cfg = "skill" },
 			{ label = "Enemy modifiers", modName = fireHitTaken, enemy = true, cfg = "skill" },
 		},
 		{ format = "x {3:output:ChaosEffMult}",
 			{ breakdown = "ChaosEffMult" },
-			{ label = "Player modifiers", modName = "ChaosPenetration", cfg = "skill" },
+			{ label = "Player modifiers", modName = {"ChaosPenetration", "IgnoreChaosResistance"}, cfg = "skill" },
 			{ label = "Enemy modifiers", modName = chaosHitTaken, enemy = true, cfg = "skill" },
 		},
 	},
@@ -309,18 +309,6 @@ return {
 	}, },
 	{ label = "Skill DPS", flag = "notAverage", notFlag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
 	{ label = "Skill DPS", flag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
-	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaCost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Life Cost", color = colorCodes.LIFE, haveOutput = "LifeCost", { format = "{0:output:LifeCost}", { breakdown = "LifeCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "ES Cost", color = colorCodes.ES, haveOutput = "ESCost", { format = "{0:output:ESCost}", { breakdown = "ESCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Rage Cost", color = colorCodes.RAGE, haveOutput = "RageCost", { format = "{0:output:RageCost}", { breakdown = "RageCost" }, { modName = { "RageCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Life % Cost", color = colorCodes.LIFE, haveOutput = "LifePercentCost", { format = "{0:output:LifePercentCost}", { breakdown = "LifePercentCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaPerSecondCost", { format = "{2:output:ManaPerSecondCost}/s", { breakdown = "ManaPerSecondCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Life Cost", color = colorCodes.LIFE, haveOutput = "LifePerSecondCost", { format = "{2:output:LifePerSecondCost}/s", { breakdown = "LifePerSecondCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentPerSecondCost", { format = "{2:output:ManaPercentPerSecondCost}/s", { breakdown = "ManaPercentPerSecondCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "Life % Cost", color = colorCodes.LIFE, haveOutput = "LifePercentPerSecondCost", { format = "{2:output:LifePercentPerSecondCost}/s", { breakdown = "LifePercentPerSecondCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "ES Cost", color = colorCodes.ES, haveOutput = "ESPerSecondCost", { format = "{2:output:ESPerSecondCost}/s", { breakdown = "ESPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "ES % Cost", color = colorCodes.ES, haveOutput = "ESPercentPerSecondCost", { format = "{2:output:ESPercentPerSecondCost}/s", { breakdown = "ESPercentPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
 } }
 } },
 { 3, "Warcries", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Exerting Warcries", data = {
@@ -446,7 +434,6 @@ return {
 		{ format = "{1:output:ChaosDot}", { breakdown = "ChaosDot" }, },
 	},
 	{ label = "Skill DoT DPS", { format = "{1:output:TotalDot}", { breakdown = "TotalDot" }, }, },
-	{ label = "Mana Cost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = "ManaCost", cfg = "skill" }, }, },
 } }
 } },
 { 1, "Speed", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Attack/Cast Rate", data = {
@@ -565,6 +552,18 @@ return {
 } }
 } },
 { 1, "SkillTypeStats", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill type-specific Stats", data = {
+	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaCost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life Cost", color = colorCodes.LIFE, haveOutput = "LifeCost", { format = "{0:output:LifeCost}", { breakdown = "LifeCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "ES Cost", color = colorCodes.ES, haveOutput = "ESCost", { format = "{0:output:ESCost}", { breakdown = "ESCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Rage Cost", color = colorCodes.RAGE, haveOutput = "RageCost", { format = "{0:output:RageCost}", { breakdown = "RageCost" }, { modName = { "RageCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life % Cost", color = colorCodes.LIFE, haveOutput = "LifePercentCost", { format = "{0:output:LifePercentCost}", { breakdown = "LifePercentCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaPerSecondCost", { format = "{2:output:ManaPerSecondCost}/s", { breakdown = "ManaPerSecondCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life Cost", color = colorCodes.LIFE, haveOutput = "LifePerSecondCost", { format = "{2:output:LifePerSecondCost}/s", { breakdown = "LifePerSecondCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentPerSecondCost", { format = "{2:output:ManaPercentPerSecondCost}/s", { breakdown = "ManaPercentPerSecondCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "Life % Cost", color = colorCodes.LIFE, haveOutput = "LifePercentPerSecondCost", { format = "{2:output:LifePercentPerSecondCost}/s", { breakdown = "LifePercentPerSecondCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "ES Cost", color = colorCodes.ES, haveOutput = "ESPerSecondCost", { format = "{2:output:ESPerSecondCost}/s", { breakdown = "ESPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "ES % Cost", color = colorCodes.ES, haveOutput = "ESPercentPerSecondCost", { format = "{2:output:ESPercentPerSecondCost}/s", { breakdown = "ESPercentPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
 	{ label = "Active Minion Limit", haveOutput = "ActiveMinionLimit", { format = "{0:output:ActiveMinionLimit}" } },
 	{ label = "Quantity Multiplier", haveOutput = "QuantityMultiplier", { format = "{0:output:QuantityMultiplier}",
 	    { breakdown = "QuantityMultiplier" },
@@ -591,6 +590,7 @@ return {
 		{ breakdown = "ProjectileSpeedMod" },
 		{ modName = "ProjectileSpeed", cfg = "skill" },
 	}, },
+	{ label = "Skill Self Damage", haveOutput = "FRDamageTaken", { format = "{output:FRDamageTaken}", { breakdown = "FRDamageTaken" },{ modName = { "DamageTaken", "DamageTakenWhenHit", "ChaosDamageTaken", "ChaosDamageTakenWhenHit" } } }, },
 	{ label = "Bounces Count", flag = "bounce", { format = "{output:BounceCount}", { modName = { "BounceCount", "ProjectileCount" }, cfg = "skill" }, }, },
 	{ label = "Aura Effect Mod", haveOutput = "AuraEffectMod", { format = "x {2:output:AuraEffectMod}",
 		{ breakdown = "AuraEffectMod" },
@@ -673,6 +673,30 @@ return {
 	}, },
 	{ label = "Totem Life", flag = "totem", { format = "{0:output:TotemLife}", { breakdown = "TotemLife" }, }, },
 	{ label = "Active Brand Limit", flag = "brand", { format = "{0:output:ActiveBrandLimit}", { modName = "ActiveBrandLimit", cfg = "skill" }, }, },
+	{ label = "Totem Fire Res", flag = "totem", { format = "{0:output:TotemFireResist}% (+{0:output:TotemFireResistOverCap}%)",
+		{ breakdown = "TotemFireResist" }, 
+		{ modName = { "TotemFireResistMax", "TotemElementalResistMax", "TotemFireResist", "TotemElementalResist" }, },
+	}, },
+	{ label = "Totem Cold Res", flag="totem", { format = "{0:output:TotemColdResist}% (+{0:output:TotemColdResistOverCap}%)", 
+		{ breakdown = "TotemColdResist" },
+		{ modName = { "TotemColdResistMax", "TotemElementalResistMax", "TotemColdResist", "TotemElementalResist" }, },
+	}, },
+	{ label = "Totem Lightning Res", flag="totem", { format = "{0:output:TotemLightningResist}% (+{0:output:TotemLightningResistOverCap}%)",
+		{ breakdown = "TotemLightningResist" },
+		{ modName = { "TotemLightningResistMax", "TotemElementalResistMax", "TotemLightningResist", "TotemElementalResist" }, },
+	}, },
+	{ label = "Totem Chaos Res", flag="totem", { format = "{0:output:TotemChaosResist}% (+{0:output:TotemChaosResistOverCap}%)",
+		{ breakdown = "TotemChaosResist" },
+		{ modName = { "TotemChaosResistMax", "TotemChaosResist" }, }, 
+	}, },
+	{ label = "Corpse Level", haveOutput = "CorpseLevel", { format = "{0:output:CorpseLevel}",
+		{ breakdown = "CorpseLevel" },
+		{ modName = "CorpseLevel", cfg = "skill" },
+	}, },
+	{ label = "Corpse Life", haveOutput = "CorpseLife", { format = "{0:output:CorpseLife}",
+		{ breakdown = "CorpseLife" },
+		{ modName = "CorpseLife", cfg = "skill" },
+	}, },
 } }
 } },
 { 1, "HitChance", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Accuracy", data = {
@@ -855,7 +879,6 @@ return {
 	}, },
 	{ label = "Decay Duration", { format = "{2:output:DecayDuration}s", 
 		{ breakdown = "DecayDuration" },
-		{ modName = { "Duration", "SkillAndDamagingAilmentDuration" }, cfg = "decay" },
 	}, },
 } }
 } },
@@ -1190,6 +1213,7 @@ return {
 	{ label = "Total", { format = "{0:output:Life}", { breakdown = "Life" }, }, },
 	{ label = "Reserved", { format = "{0:output:LifeReserved} ({0:output:LifeReservedPercent}%)", { breakdown = "LifeReserved" }, }, },
 	{ label = "Unreserved", { format = "{0:output:LifeUnreserved} ({0:output:LifeUnreservedPercent}%)" }, },
+	{ label = "Total Recoverable", haveOutput = "CappingLife", { format = "{0:output:LifeRecoverable}", { breakdown = "LifeUnreserved" }, }, },
 	{ label = "Recharge Rate", haveOutput = "EnergyShieldRechargeAppliesToLife", { format = "{1:output:LifeRecharge}", 
 		{ breakdown = "LifeRecharge" },
 		{ modName = { "EnergyShieldRecharge", "LifeRecoveryRate", "NoEnergyShieldRecharge", "EnergyShieldRechargeAppliesToLife" }, },
@@ -1259,10 +1283,6 @@ return {
 		{ breakdown = "WardRechargeDelay" },
 		{ modName = "WardRechargeFaster" },
 	}, },
-	{ label = "Regen", { format = "{1:output:EnergyShieldRegen} ({1:output:EnergyShieldRegenPercent}%)",
-		{ label = "Sources", modName = { "EnergyShieldRegen", "EnergyShieldRecovery", "EnergyShieldRegenPercent", "EnergyShieldDegen", "NoEnergyShieldRegen" } },
-		{ label = "Recovery modifiers", modName = "EnergyShieldRecoveryRate" },
-	}, },
 } }
 } },
 { 1, "Armour", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Armour", data = {
@@ -1273,7 +1293,6 @@ return {
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "MORE" }, }, },
 	{ label = "Total", { format = "{0:output:Armour}", { breakdown = "Armour" }, }, },
-	{ label = "More Armour Ch.", haveOutput = "MoreArmourChance", { format = "{0:output:MoreArmourChance}%", { modName = "MoreArmourChance" }, }, },
 	{ label = "Armour Defense", haveOutput = "RawArmourDefense", { format = "{0:output:RawArmourDefense}%", { modName = "ArmourDefense" }, }, },
 	{ label = "Phys. Dmg. Reduct", { format = "{0:output:PhysicalDamageReduction}%", 
 		{ breakdown = "PhysicalDamageReduction" },
@@ -1373,6 +1392,7 @@ return {
 		{ modName = { "StunRecovery", "BlockRecovery" }, }, 
 	}, },
 	{ label = "Light Radius Mod", { format = "x {2:output:LightRadiusMod}", { breakdown = "LightRadiusMod" }, { modName = "LightRadius" }, }, },
+	{ label = "Curse Effect", { format = "{1:output:CurseEffectOnSelf}%", { modName = "CurseEffectOnSelf" }, }, },
 } }, { defaultCollapsed = false, label = "Damage Avoidance", data = {
 	{ label = "Avoid Physical Ch.", haveOutput = "AvoidPhysicalDamageChance", { format = "{0:output:AvoidPhysicalDamageChance}%", { modName = "AvoidPhysicalDamageChance" }, }, },
 	{ label = "Avoid Lightning Ch.", haveOutput = "AvoidLightningDamageChance", { format = "{0:output:AvoidLightningDamageChance}%", { modName = "AvoidLightningDamageChance" }, }, },
@@ -1388,6 +1408,9 @@ return {
 	{ label = "Freeze Avoid Ch.", haveOutput = "FreezeAvoidChance", { format = "{0:output:FreezeAvoidChance}%", { modName = "AvoidFreeze" }, }, },
 	{ label = "Chill Avoid Ch.", haveOutput = "ChillAvoidChance", { format = "{0:output:ChillAvoidChance}%", { modName = "AvoidChill" }, }, },
 	{ label = "Ignite Avoid Ch.", haveOutput = "IgniteAvoidChance", { format = "{0:output:IgniteAvoidChance}%", { modName = "AvoidIgnite" }, }, },
+	{ label = "Sap Avoid Ch.", haveOutput = "SapAvoidChance", { format = "{0:output:SapAvoidChance}%", { modName = "AvoidSap" }, }, },
+	{ label = "Brittle Avoid Ch.", haveOutput = "BrittleAvoidChance", { format = "{0:output:BrittleAvoidChance}%", { modName = "AvoidBrittle" }, }, },
+	{ label = "Scorch Avoid Ch.", haveOutput = "ScorchAvoidChance", { format = "{0:output:ScorchAvoidChance}%", { modName = "AvoidScorch" }, }, },
 	{ label = "Bleed Avoid Ch.", haveOutput = "BleedAvoidChance", { format = "{0:output:BleedAvoidChance}%", { modName = "AvoidBleed" }, }, },
 	{ label = "Poison Avoid Ch.", haveOutput = "PoisonAvoidChance", { format = "{0:output:PoisonAvoidChance}%", { modName = "AvoidPoison" }, }, },
 	{ label = "Crit Reduction", haveOutput = "CritExtraDamageReduction", { format = "{0:output:CritExtraDamageReduction}%", { modName = "ReduceCritExtraDamage" }, }, },
@@ -1397,6 +1420,9 @@ return {
 	{ label = "Chill Duration", { format = "{1:output:SelfChillDuration}%", { modName = "SelfChillDuration" }, }, },
 	{ label = "Shock Duration", { format = "{1:output:SelfShockDuration}%", { modName = "SelfShockDuration" }, }, },
 	{ label = "Ignite Duration", { format = "{1:output:SelfIgniteDuration}%", { modName = "SelfIgniteDuration" }, }, },
+	{ label = "Sap Duration", { format = "{1:output:SelfSapDuration}%", { modName = "SelfSapDuration" }, }, },
+	{ label = "Brittle Duration", { format = "{1:output:SelfBrittleDuration}%", { modName = "SelfBrittleDuration" }, }, },
+	{ label = "Scorch Duration", { format = "{1:output:SelfScorchDuration}%", { modName = "SelfScorchDuration" }, }, },
 	{ label = "Bleed Duration", { format = "{1:output:SelfBleedDuration}%", { modName = "SelfBleedDuration" }, }, },
 	{ label = "Poison Duration", { format = "{1:output:SelfPoisonDuration}%", { modName = "SelfPoisonDuration" }, }, },
 	{ label = "Chill Effect", { format = "{1:output:SelfChillEffect}%", { modName = "SelfChillEffect" }, }, },
@@ -1688,22 +1714,20 @@ return {
 	{ label = "Enemy miss chance", { format = "{0:output:ConfiguredNotHitChance}%", { breakdown = "ConfiguredNotHitChance" }, }, },
 	{ label = "Hits before death", { format = "{2:output:TotalNumberOfHits}", { breakdown = "TotalNumberOfHits" }}, },
 	{ label = "Effective Hit Pool",{ format = "{0:output:TotalEHP}", { breakdown = "TotalEHP" }, },},
-	{ label = "Time before death",{ format = "{2:output:EHPsurvivalTime}s", { breakdown = "EHPsurvivalTime" }, },}
+	{ label = "Time before death",{ format = "{2:output:EHPsurvivalTime}s", 
+		{ breakdown = "EHPsurvivalTime" }, 
+		{ label = "Enemy modifiers", modName = { "TemporalChainsActionSpeed", "ActionSpeed" }, enemy = true },
+	},}
 }, }, { defaultCollapsed = false, label = "Maximum Hit Taken", data = {
-	extra = "2nd minimum; {0:output:SecondMinimalMaximumHitTaken}",
-	colWidth = 95,
+	colWidth = 114,
 	{
-		{ format = "2nd Min:" },
-		{ format = "Physical:" },
+		{ format = colorCodes.PHYS.."Physical:" },
 		{ format = colorCodes.LIGHTNING.."Lightning:" },
 		{ format = colorCodes.COLD.."Cold:" },
 		{ format = colorCodes.FIRE.."Fire:" },
 		{ format = colorCodes.CHAOS.."Chaos:" },
 	},
 	{ label = "Maximum Hit Taken",
-		{ format = "{0:output:SecondMinimalMaximumHitTaken}", 
-			{ breakdown = "SecondMinimalMaximumHitTaken" }, 
-		},
 		{ format = "{0:output:PhysicalMaximumHitTaken}", 
 			{ breakdown = "PhysicalMaximumHitTaken" }, 
 		},
@@ -1723,7 +1747,7 @@ return {
 } }, { defaultCollapsed = false, label = "Dots and Degens", data = {
 	colWidth = 114,
 	{
-		{ format = "Physical:" },
+		{ format = colorCodes.PHYS.."Physical:" },
 		{ format = colorCodes.LIGHTNING.."Lightning:" },
 		{ format = colorCodes.COLD.."Cold:" },
 		{ format = colorCodes.FIRE.."Fire:" },

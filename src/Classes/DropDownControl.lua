@@ -65,7 +65,7 @@ function DropDownClass:DropIndexToListIndex(dropIndex)
 	end
 end
 
--- maps the the original (unfiltered) list index to the actual dropdown row index (after eventual filtering)
+-- maps the original (unfiltered) list index to the actual dropdown row index (after eventual filtering)
 function DropDownClass:ListIndexToDropIndex(listIndex, default)
 	-- 1:1
 	if not self:IsSearchActive() then
@@ -191,7 +191,7 @@ function DropDownClass:IsMouseOver()
 	return mOver, mOverComp
 end
 
-function DropDownClass:Draw(viewPort)
+function DropDownClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -275,7 +275,7 @@ function DropDownClass:Draw(viewPort)
 
 	-- draw dropdown bar
 	if enabled then
-		if (mOver or self.dropped) and mOverComp ~= "DROP" then
+		if (mOver or self.dropped) and mOverComp ~= "DROP" and not noTooltip then
 			SetDrawLayer(nil, 100)
 			self:DrawTooltip(
 				x, y - (self.dropped and self.dropUp and dropExtra or 0), 
@@ -315,7 +315,7 @@ function DropDownClass:Draw(viewPort)
 		if self.hoverSel and not self.list[self.hoverSel] then
 			self.hoverSel = nil
 		end
-		if self.hoverSel then
+		if self.hoverSel and not noTooltip then
 			SetDrawLayer(nil, 100)
 			self:DrawTooltip(
 				x, dropY + 2 + (self.hoverSelDrop - 1) * lineHeight - scrollBar.offset,

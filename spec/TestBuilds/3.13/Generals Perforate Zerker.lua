@@ -352,7 +352,7 @@ return {
 				</EditedNode>
 				<EditedNode editorSeed="927" icon="Art/2DArt/SkillIcons/passives/VaalNotableOffensive.dds" nodeName="Might of the Vaal" nodeId="11420">
 					7% increased Fire Damage
-					6% increased maxmium Mana
+					6% increased maximum Mana
 					+11% to Lightning Resistance
 				</EditedNode>
 				<EditedNode editorSeed="7884" icon="Art/2DArt/SkillIcons/passives/VaalDefensive.dds" nodeName="Chaos Resistance" nodeId="46578">
@@ -1321,7 +1321,6 @@ Gain 50 Life when you Stun an Enemy
 ["TotalDot"] = 0,
 ["ColdGuardAbsorbRate"] = 75,
 ["ManaLeechGainRate"] = 134.4,
-["MoreArmourChance"] = 0,
 ["LightningGuardAbsorb"] = 3444.4,
 ["FireResist"] = 76,
 ["RemovableFrenzyCharges"] = 3,
