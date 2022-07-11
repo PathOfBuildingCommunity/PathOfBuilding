@@ -2122,11 +2122,6 @@ skills["SupportAdditionalXP"] = {
 	excludeSkillTypes = { },
 	supportGemsOnly = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["local_gem_int_requirement_+%"] = {
-			mod("IntRequirement", "INC", nil)
-		}
-	},
 	qualityStats = {
 		Default = {
 			{ "local_gem_experience_gain_+%", 5 },
