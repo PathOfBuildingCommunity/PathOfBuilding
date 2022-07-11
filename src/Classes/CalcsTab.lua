@@ -174,8 +174,13 @@ function CalcsTabClass:Load(xml, dbFileName)
 					return true
 				end
 				for _, section in ipairs(self.sectionList) do
-					if section.id == node.attrib.id then
-						section.collapsed = (node.attrib.collapsed == "true")
+					if section.id == node.attrib.id and node.attrib.subsection then
+						for _, subsection in ipairs(section.subSection) do
+							if subsection.id == node.attrib.subsection then
+								subsection.collapsed = node.attrib.collapsed == "true"
+								break
+							end
+						end
 						break
 					end
 				end
@@ -198,10 +203,13 @@ function CalcsTabClass:Save(xml)
 		t_insert(xml, child)
 	end
 	for _, section in ipairs(self.sectionList) do
-		t_insert(xml, { elem = "Section", attrib = {
-			id = section.id,
-			collapsed = tostring(section.collapsed),
-		} })
+		for _, subSection in ipairs(section.subSection) do
+			t_insert(xml, { elem = "Section", attrib = {
+				id = section.id,
+				subsection = subSection.id,
+				collapsed = tostring(subSection.collapsed),
+			} })
+		end
 	end
 	self.modFlag = false
 end

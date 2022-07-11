@@ -17,8 +17,10 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 	self.flag = subSection[1].data.flag
 	self.notFlag = subSection[1].data.notFlag
 	self.updateFunc = updateFunc
-	
+
 	for i, subSec in ipairs(self.subSection) do
+		subSec.id = subSec.label:gsub("%W", "")
+
 		for _, data in ipairs(subSec.data) do
 			for _, colData in ipairs(data) do
 				if colData.control then
@@ -134,7 +136,7 @@ function CalcSectionClass:UpdateSize()
 end
 
 function CalcSectionClass:UpdatePos()
-	if self.subSection[1].collapsed or not self.enabled then
+	if not self.enabled then
 		return
 	end
 	local x, y = self:GetPos()
