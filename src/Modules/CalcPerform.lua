@@ -1762,6 +1762,12 @@ function calcs.perform(env, avoidCache)
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
 		for _, buff in ipairs(activeSkill.buffList) do
+			--Skip adding buff if reservation exceeds maximum
+			for _, value in ipairs({"Mana", "Life"}) do
+				if activeSkill.skillData[value.."ReservedBase"] and activeSkill.skillData[value.."ReservedBase"] > env.player.output[value] then
+					goto disableAura
+				end
+			end
 			if buff.cond and not skillModList:GetCondition(buff.cond, skillCfg) then
 				-- Nothing!
 			elseif buff.enemyCond and not enemyDB:GetCondition(buff.enemyCond) then
@@ -1835,19 +1841,21 @@ function calcs.perform(env, avoidCache)
 						local srcList = new("ModList")
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect", "SkillAuraEffectOnSelf")
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect", "SkillAuraEffectOnSelf")
-						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
-						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
+						local mult = (1 + inc / 100) * more
+						srcList:ScaleAddList(buff.modList, mult)
+						srcList:ScaleAddList(extraAuraModList, mult)
 						mergeBuff(srcList, buffs, buff.name)
 					end
-					if env.minion and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
+					if env.minion and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAurasOnlyAffectYou") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						activeSkill.minionBuffSkill = true
 						affectedByAura[env.minion] = true
 						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						local srcList = new("ModList")
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
-						srcList:ScaleAddList(extraAuraModList, (1 + inc / 100) * more)
+						local mult = (1 + inc / 100) * more
+						srcList:ScaleAddList(buff.modList, mult)
+						srcList:ScaleAddList(extraAuraModList, mult)
 						mergeBuff(srcList, minionBuffs, buff.name)
 					end
 				end
@@ -1869,9 +1877,12 @@ function calcs.perform(env, avoidCache)
 					local srcList = new("ModList")
 					local mult = 1
 					if buff.type == "AuraDebuff" then
-						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
-						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
-						mult = (1 + inc / 100) * more
+						mult = 0
+						if not modDB:Flag(nil, "SelfAurasOnlyAffectYou") then
+							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+							mult = (1 + inc / 100) * more
+						end
 					end
 					if buff.type == "Debuff" then
 						local inc = skillModList:Sum("INC", skillCfg, "DebuffEffect")
@@ -1904,13 +1915,17 @@ function calcs.perform(env, avoidCache)
 					if not curse.isMark then
 						more = more * enemyDB:More(nil, "CurseEffectOnSelf")
 					end
+					local mult = 0
+					if not (modDB:Flag(nil, "SelfAurasOnlyAffectYou") and activeSkill.skillTypes[SkillType.Aura]) then --If your aura only effect you blasphemy does nothing
+						mult = (1 + inc / 100) * more
+					end
 					if buff.type == "Curse" then
 						curse.modList = new("ModList")
-						curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						curse.modList:ScaleAddList(buff.modList, mult)
 					else
 						-- Curse applies a buff; scale by curse effect, then buff effect
 						local temp = new("ModList")
-						temp:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						temp:ScaleAddList(buff.modList, mult)
 						curse.buffModList = new("ModList")
 						local buffInc = modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
 						local buffMore = modDB:More(skillCfg, "BuffEffectOnSelf")
@@ -1925,6 +1940,7 @@ function calcs.perform(env, avoidCache)
 					t_insert(curses, curse)	
 				end
 			end
+			::disableAura::
 		end
 		if activeSkill.minion and activeSkill.minion.activeSkillList then
 			local castingMinion = activeSkill.minion
@@ -2111,6 +2127,23 @@ function calcs.perform(env, avoidCache)
 			-- Calculate curses that ignore hex limit after
 			if not curse.ignoreHexLimit and not curse.socketedCursesHexLimit then
 				local slot
+				local skipAddingCurse = false
+				-- Check if we need to disable a certain curse aura.
+				for _, activeSkill in ipairs(env.player.activeSkillList) do
+					if (activeSkill.buffList[1] and curse.name == activeSkill.buffList[1].name and activeSkill.skillTypes[SkillType.Aura]) then
+						if modDB:Flag(nil, "SelfAurasOnlyAffectYou") then
+							skipAddingCurse = true
+							break
+						end
+						for _, value in ipairs({"Mana", "Life"}) do
+							if activeSkill.skillData[value.."ReservedBase"] and activeSkill.skillData[value.."ReservedBase"] > env.player.output[value] then
+								skipAddingCurse = true
+								break
+							end
+						end
+						break
+					end
+				end
 				for i = 1, source.limit do
 					-- Prevent multiple marks from being considered
 					if curse.isMark then
@@ -2137,7 +2170,9 @@ function calcs.perform(env, avoidCache)
 					if curseSlots[slot] and curseSlots[slot].isMark then
 						markSlotted = false
 					end
-					curseSlots[slot] = curse
+					if skipAddingCurse == false then
+						curseSlots[slot] = curse
+					end
 					if curse.isMark then
 						markSlotted = true
 					end
@@ -2184,7 +2219,6 @@ function calcs.perform(env, avoidCache)
 					curseSlots[#curseSlots + 1] = curse
 				end
 			end
-            
 		end
 	end
 
