@@ -1981,7 +1981,6 @@ local specialModList = {
 		mod("LifeRegenPercent", "BASE", num, { type = "PerStat", stat = "TotemsSummoned" }, 0, KeywordFlag.Totem),
 	} end,
 	["enemies take (%d+)%% increased damage for each of your brands attached to them"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Multiplier", var = "BrandsAttached" }) }) } end,
-	
 	["non%-damaging ailments have (%d+)%% reduced effect on you while you have arcane surge"] = function(num)
 		local mods = { }
 		for i, ailment in ipairs({"Shock", "Chill", "Freeze", "Scorch", "Brittle", "Sap"}) do

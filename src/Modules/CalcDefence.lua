@@ -913,7 +913,6 @@ function calcs.defence(env, actor)
 		output["Self"..ailment.."Duration"] = modDB:More(nil, "Self"..ailment.."Duration") * (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration")) * 100 / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
 		output["Self"..ailment.."Effect"] = modDB:More(nil, "Self"..ailment.."Effect") * (100 + modDB:Sum("INC", nil, "Self"..ailment.."Effect"))
 	end
-
 	--Enemy damage input and modifications
 	do
 		output["totalEnemyDamage"] = 0
