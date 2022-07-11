@@ -967,6 +967,11 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("AvoidChaosDamageChance", "BASE", m_floor(15 * effect), "Elusive")
 			modDB:NewMod("MovementSpeed", "INC", m_floor(30 * effect), "Elusive")
 		end
+		if modDB:Max(nil, "WitherEffectStack") then
+			modDB:NewMod("Condition:CanWither", "FLAG", true, "Config")
+			local effect = modDB:Max(nil, "WitherEffectStack") 	
+			enemyDB:NewMod("ChaosDamageTaken", "INC", effect, "Withered", { type = "Multiplier", var = "WitheredStack", limit = 15 } )
+		end
 		if modDB:Flag(nil, "Blind") then
 			if not modDB:Flag(nil, "IgnoreBlindHitChance") then
 				local effect = 1 + modDB:Sum("INC", nil, "BlindEffect", "BuffEffectOnSelf") / 100
@@ -1232,14 +1237,9 @@ function calcs.perform(env, avoidCache)
 				end
 			end
 		end
-		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") and not modDB:Flag(nil, "AlreadyWithered") then
-			modDB:NewMod("Condition:CanWither", "FLAG", true, "Config")
+		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") then
 			local effect = activeSkill.minion and 6 or m_floor(6 * (1 + modDB:Sum("INC", nil, "WitherEffect") / 100))
-			enemyDB:NewMod("ChaosDamageTaken", "INC", effect, "Withered", { type = "Multiplier", var = "WitheredStack", limit = 15 } )
-			if modDB:Flag(nil, "Condition:CanElementalWithered") then
-				enemyDB:NewMod("ElementalDamageTaken", "INC", 4, "Withered", ModFlag.Hit, { type = "Multiplier", var = "WitheredStack", limit = 15 } )
-			end
-			modDB:NewMod("AlreadyWithered", "FLAG", true, "Config") -- Prevents effect from applying multiple times
+			modDB:NewMod("WitherEffectStack", "MAX", effect)
 		end
 		if activeSkill.skillFlags.warcry and not modDB:Flag(nil, "AlreadyGlobalWarcryCooldown") then
 			local cooldown = calcSkillCooldown(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData)
