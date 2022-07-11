@@ -38,7 +38,7 @@ function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 		local sortedNodeLists = { }
 		for legionId, desiredNode in pairs(self.sharedList.desiredNodes) do
 			if self.list[index][legionId] and self.list[index][legionId].targetNodeNames and #self.list[index][legionId].targetNodeNames > 0 then
-				sortedNodeLists[desiredNode.desiredIdx] = "        " .. desiredNode.displayName .. ":\n                " .. t_concat(self.list[index][legionId].targetNodeNames, "\n                ")
+				sortedNodeLists[desiredNode.desiredIdx] = "^7        " .. desiredNode.displayName .. ":\n^8                " .. t_concat(self.list[index][legionId].targetNodeNames, "\n                ")
 			end
 		end
 		if sortedNodeLists then
@@ -46,7 +46,7 @@ function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 			for _, sortedNodeList in pairs(sortedNodeLists) do
 				tooltip:AddLine(16, sortedNodeList)
 			end
-			tooltip:AddLine(16, "Combined Node Weight: " .. data.total)
+			tooltip:AddLine(16, "^7Combined Node Weight: " .. data.total)
 		end
 	end
 end
