@@ -1168,7 +1168,7 @@ function SkillsTabClass:CreateUndoState()
 	local state = { }
 	state.activeSkillSetId = self.activeSkillSetId
 	state.skillSets = {}
-	for _, skillSet in ipairs(self.skillSets) do
+	for skillSetIndex, skillSet in pairs(self.skillSets) do
 		local newSkillSet = copyTable(skillSet, true)
 		newSkillSet.socketGroupList = { }
 		for socketGroupIndex, socketGroup in pairs(skillSet.socketGroupList) do
@@ -1177,15 +1177,16 @@ function SkillsTabClass:CreateUndoState()
 			for gemIndex, gem in pairs(socketGroup.gemList) do
 				newGroup.gemList[gemIndex] = copyTable(gem, true)
 			end
-			t_insert(newSkillSet.socketGroupList, newGroup)
+			newSkillSet.socketGroupList[socketGroupIndex] = newGroup
 		end
-		t_insert(state.skillSets, newSkillSet)
+		state.skillSets[skillSetIndex] = newSkillSet
 	end
 	state.skillSetOrderList = copyTable(self.skillSetOrderList)
 	return state
 end
 
 function SkillsTabClass:RestoreUndoState(state)
+	local displayId = isValueInArray(self.socketGroupList, self.displayGroup)
 	wipeTable(self.skillSets)
 	for k, v in pairs(state.skillSets) do
 		self.skillSets[k] = v
@@ -1195,7 +1196,6 @@ function SkillsTabClass:RestoreUndoState(state)
 		self.skillSetOrderList[k] = v
 	end
 	self:SetActiveSkillSet(state.activeSkillSetId)
-	local displayId = isValueInArray(self.socketGroupList, self.displayGroup)
 	self:SetDisplayGroup(displayId and self.socketGroupList[displayId])
 	if self.controls.groupList.selValue then
 		self.controls.groupList.selValue = self.socketGroupList[self.controls.groupList.selIndex]
