@@ -6,24 +6,18 @@
 
 local m_min = math.min
 
-local TimelessJewelSocketClass = newClass("TimelessJewelSocketControl", "DropDownControl", function(self, anchor, x, y, width, height, list, selFunc, build, socketViewer, hideHoverControls)
+local TimelessJewelSocketClass = newClass("TimelessJewelSocketControl", "DropDownControl", function(self, anchor, x, y, width, height, list, selFunc, build, socketViewer)
 	self.DropDownControl(anchor, x, y, width, height, list, selFunc)
 	self.build = build
 	self.socketViewer = socketViewer
-	self.hideHoverControls = hideHoverControls
 end)
 
-function TimelessJewelSocketClass:Draw(viewPort)
+function TimelessJewelSocketClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	self.DropDownControl:Draw(viewPort)
 	self:DrawControls(viewPort)
-	for _, hoverControl in pairs(self.hideHoverControls) do
-		if hoverControl:IsMouseOver() then
-			return
-		end
-	end
-	if not main.popups[2] and self:IsMouseOver() then
+	if self:IsMouseOver() and not noTooltip and not main.popups[2] then
 		SetDrawLayer(nil, 15)
 		local viewerY
 		if self.DropDownControl.dropUp and self.DropDownControl.dropped then

@@ -4,6 +4,7 @@
 -- Passive skill tree tab for the current build.
 --
 local ipairs = ipairs
+local next = next
 local t_insert = table.insert
 local t_sort = table.sort
 local t_concat = table.concat
@@ -737,12 +738,12 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	return report
 end
 
-local timelessData = { searchResults = { }, sharedResults = { } }
 function TreeTabClass:FindTimelessJewel()
 	local socketViewer = new("PassiveTreeView")
 	local treeData = self.build.spec.tree
 	local legionNodes = treeData.legion.nodes
 	local legionAdditions = treeData.legion.additions
+	local timelessData = self.build.timelessData
 	local controls = { }
 	local modData = { }
 	local ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Dex", "Devotion", "Price of Glory" }
@@ -753,7 +754,7 @@ function TreeTabClass:FindTimelessJewel()
 		{ label = "Militant Faith", name = "templar", id = 4 },
 		{ label = "Elegant Hubris", name = "eternal", id = 5 }
 	}
-	timelessData.jewelType = timelessData.jewelType or jewelTypes[1]
+	timelessData.jewelType = next(timelessData.jewelType) and timelessData.jewelType or jewelTypes[1]
 	local conquerorTypes = {
 		[1] = {
 			{ label = "Doryani (Corrupted Soul)", id = 1 },
@@ -781,7 +782,7 @@ function TreeTabClass:FindTimelessJewel()
 			{ label = "Caspiro (Supreme Ostentation)", id = 3 }
 		}
 	}
-	timelessData.conquerorType = timelessData.conquerorType or conquerorTypes[timelessData.jewelType.id][1]
+	timelessData.conquerorType = next(timelessData.conquerorType) and timelessData.conquerorType or conquerorTypes[timelessData.jewelType.id][1]
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
 		if socketData.isJewelSocket then
@@ -813,7 +814,7 @@ function TreeTabClass:FindTimelessJewel()
 	for jewelSocketIdx, jewelSocket in pairs(jewelSockets) do
 		jewelSocket.idx = jewelSocketIdx
 	end
-	timelessData.jewelSocket = timelessData.jewelSocket or jewelSockets[1]
+	timelessData.jewelSocket = next(timelessData.jewelSocket) and timelessData.jewelSocket or jewelSockets[1]
 
 	local function buildMods()
 		wipeTable(modData)
@@ -856,33 +857,78 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 
+	local searchListTbl = { }
+	local function parseSearchList(mode)
+		if mode == 0 then
+			-- timelessData.searchList => searchListTbl
+			if timelessData.searchList then
+				searchListTbl = { }
+				for inputLine in timelessData.searchList:gmatch("[^\r\n]+") do
+					searchListTbl[#searchListTbl + 1] = { }
+					for splitLine in inputLine:gmatch("([^,%s]+)") do
+						searchListTbl[#searchListTbl][#searchListTbl[#searchListTbl] + 1] = splitLine
+					end
+				end
+			end
+		else
+			-- searchListTbl => controls.searchList
+			if controls.searchList and controls.nodeSelect then
+				local searchText = ""
+				for curIdx, curRow in ipairs(searchListTbl) do
+					if curRow[1] == controls.nodeSelect.list[controls.nodeSelect.selIndex].id then
+						curRow[2] = controls.nodeSliderValue.label:lower()
+						curRow[3] = controls.nodeSlider2Value.label:lower()
+					end
+					searchText = searchText .. t_concat(curRow, ", ")
+					if curIdx < #searchListTbl then
+						searchText = searchText .. "\n"
+					end
+				end
+				if timelessData.searchList ~= searchText then
+					timelessData.searchList = searchText
+					controls.searchList:SetText(searchText)
+					self.build.modFlag = true
+				end
+			end
+		end
+	end
+	parseSearchList(0) -- initial load: [timelessData.searchList => searchListTbl]
+	local function updateSearchList(text)
+		timelessData.searchList = text
+		controls.searchList:SetText(text)
+		parseSearchList(0)
+		self.build.modFlag = true
+	end
+
 	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 25, 0, 16, "^7Jewel Type:")
 	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelTypes, function(index, value)
 		timelessData.jewelType = value
 		controls.conquerorSelect.list = conquerorTypes[timelessData.jewelType.id]
 		controls.conquerorSelect.selIndex = 1
-		--controls.nodeSlider2.enabled = timelessData.jewelType.id == 1
 		controls.nodeSelect.selIndex = 1
 		buildMods()
-		controls.searchList:SetText("")
+		updateSearchList("")
 	end)
 	controls.jewelSelect.selIndex = timelessData.jewelType.id
 
 	controls.conquerorSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 50, 0, 16, "^7Conqueror:")
 	controls.conquerorSelect = new("DropDownControl", { "LEFT", controls.conquerorSelectLabel, "RIGHT" }, 10, 0, 200, 18, conquerorTypes[timelessData.jewelType.id], function(index, value)
 		timelessData.conquerorType = value
+		self.build.modFlag = true
 	end)
 	controls.conquerorSelect.selIndex = timelessData.conquerorType.id
 
 	controls.socketSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 75, 0, 16, "^7Jewel Socket:")
 	controls.socketSelect = new("TimelessJewelSocketControl", { "LEFT", controls.socketSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelSockets, function(index, value)
 		timelessData.jewelSocket = value
-	end, self.build, socketViewer, { controls.jewelSelect, controls.conquerorSelect })
+		self.build.modFlag = true
+	end, self.build, socketViewer)
 	controls.socketSelect.selIndex = timelessData.jewelSocket.idx
 
 	controls.socketFilterLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 100, 0, 16, "^7Filter Nodes:")
 	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 18, nil, function(value)
 		timelessData.socketFilter = value
+		self.build.modFlag = true
 	end)
 	controls.socketFilter.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
@@ -892,43 +938,42 @@ function TreeTabClass:FindTimelessJewel()
 	controls.socketFilter.state = timelessData.socketFilter
 
 	controls.nodeSliderLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 125, 0, 16, "^7Primary Node Weight:")
-	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 10, 0, 176, 16, function(value)
+	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 10, 0, 200, 16, function(value)
 		if value == 1 then
-			controls.nodeSlider.width = 138
 			controls.nodeSliderValue.label = "Required"
 		else
-			controls.nodeSlider.width = 176
 			controls.nodeSliderValue.label = s_format("%.1f", 0.1 + value * 9.9)
 		end
+		parseSearchList(1)
 	end)
 	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "1.0")
 	controls.nodeSlider:SetVal(0.09)
 
 	controls.nodeSlider2Label = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 150, 0, 16, "^7Secondary Node Weight:")
-	controls.nodeSlider2 = new("SliderControl", { "LEFT", controls.nodeSlider2Label, "RIGHT" }, 10, 0, 176, 16, function(value)
+	controls.nodeSlider2 = new("SliderControl", { "LEFT", controls.nodeSlider2Label, "RIGHT" }, 10, 0, 200, 16, function(value)
 		if value == 1 then
-			controls.nodeSlider2.width = 138
 			controls.nodeSlider2Value.label = "Required"
 		else
-			controls.nodeSlider2.width = 176
 			controls.nodeSlider2Value.label = s_format("%.1f", 0.1 + value * 9.9)
 		end
+		parseSearchList(1)
 	end)
 	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "1.0")
 	controls.nodeSlider2:SetVal(0.09)
-	--controls.nodeSlider2.enabled = timelessData.jewelType.id == 1
 
 	buildMods()
 	controls.nodeSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 175, 0, 16, "^7Search for Node:")
 	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 200, 18, modData, function(index, value)
 		if value.id then
+			for _, searchRow in ipairs(searchListTbl) do
+				-- prevent duplicate searchList entries
+				if searchRow[1] == value.id then
+					return
+				end
+			end
 			controls.searchList.caret = #controls.searchList.buf + 1
 			controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower() .. ", " .. controls.nodeSlider2Value.label:lower())
-			--[[if timelessData.jewelType.id == 1 then
-				controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower() .. ", " .. controls.nodeSlider2Value.label:lower())
-			else
-				controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower())
-			end]]
+			self.build.modFlag = true
 		end
 	end)
 	controls.nodeSelect.tooltipFunc = function(tooltip, mode, index, value)
@@ -943,10 +988,13 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchListLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 110, 200, 0, 16, "^7Desired Nodes:")
 	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 338, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchList = value
+		parseSearchList(0)
+		self.build.modFlag = true
 	end, 16, true)
+	controls.searchList:SetText(timelessData.searchList)
 
 	controls.searchResultsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 462, 200, 0, 16, "^7Search Results:")
-	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 338, 200, self.build, timelessData.searchResults, timelessData.sharedResults, controls.nodeSelect)
+	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 338, 200, self.build)
 
 	controls.search = new("ButtonControl", nil, -90, 435, 80, 20, "Search", function()
 		if treeData.nodes[timelessData.jewelSocket.id] and treeData.nodes[timelessData.jewelSocket.id].isJewelSocket then
@@ -956,15 +1004,10 @@ function TreeTabClass:FindTimelessJewel()
 			local desiredNodes = { }
 			local requiredNodes = { }
 			local resultNodes = { }
-			local rootNodes = {
-				[50459] = true, -- Ranger
-				[47175] = true, -- Marauder
-				[50986] = true, -- Duelist
-				[61525] = true, -- Templar
-				[54447] = true, -- Witch
-				[44683] = true, -- Shadow
-				[58833] = true -- Scion
-			}
+			local rootNodes = { }
+			for _, class in pairs(treeData.classes) do
+				rootNodes[class.startNodeId] = true
+			end
 			if controls.socketFilter.state then
 				for nodeId in pairs(radiusNodes) do
 					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
@@ -980,37 +1023,49 @@ function TreeTabClass:FindTimelessJewel()
 				end
 			end
 			local desiredIdx = 0
-			for inputLine in controls.searchList.buf:gmatch("[^\r\n]+") do
+			for inputLine in timelessData.searchList:gmatch("[^\r\n]+") do
 				local desiredNode = { }
-				local legionId = nil
 				for splitLine in inputLine:gmatch("([^,%s]+)") do
 					desiredNode[#desiredNode + 1] = splitLine
 				end
-				local displayName = nil
-				for idx, legionNode in ipairs(legionNodes) do
-					if legionNode.id == desiredNode[1] then
-						displayName = t_concat(legionNode.sd, " + ")
-						legionId = idx + 94
-						break
-					end
-				end
-				if displayName == nil then
-					for idx, legionAddition in ipairs(legionAdditions) do
-						if legionAddition.id == desiredNode[1] then
-							displayName = t_concat(legionAddition.sd, " + ")
-							legionId = idx
+				if #desiredNode > 1 then
+					local displayName = nil
+					for _, legionNode in ipairs(legionNodes) do
+						if legionNode.id == desiredNode[1] then
+							-- non-vaal replacements only support one nodeWeight, so we force any node requirements to the second slot
+							if desiredNode[2] == "required" and timelessData.jewelType.id > 1 then
+								desiredNode[2] = tonumber(desiredNode[3]) or 1
+								desiredNode[3] = "required"
+							end
+							displayName = t_concat(legionNode.sd, " + ")
 							break
 						end
 					end
-				end
-				if desiredNode[2] == "required" or desiredNode[3] == "required" then
-					if timelessData.jewelType.id > 1 then
-						desiredNode[2] = tonumber(desiredNode[2]) or tonumber(desiredNode[3]) or 1
+					if displayName == nil then
+						for _, legionAddition in ipairs(legionAdditions) do
+							if legionAddition.id == desiredNode[1] then
+								-- additions only support one nodeWeight, so we force any node requirements to the second slot
+								if desiredNode[2] == "required" then
+									desiredNode[2] = tonumber(desiredNode[3]) or 1
+									desiredNode[3] = "required"
+								end
+								displayName = t_concat(legionAddition.sd, " + ")
+								break
+							end
+						end
 					end
-					t_insert(requiredNodes, legionId)
+					if displayName ~= nil then
+						if desiredNode[2] == "required" then
+							desiredNode[2] = 0
+							t_insert(requiredNodes, desiredNode[1])
+						elseif desiredNode[3] == "required" then
+							desiredNode[3] = 0
+							t_insert(requiredNodes, desiredNode[1])
+						end
+						desiredIdx = desiredIdx + 1
+						desiredNodes[desiredNode[1]] = { nodeWeight = tonumber(desiredNode[2]) or 0.1, nodeWeight2 = tonumber(desiredNode[3]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
+					end
 				end
-				desiredIdx = desiredIdx + 1
-				desiredNodes[legionId] = { nodeId = desiredNode[1], nodeWeight = tonumber(desiredNode[2]) or 0.1, nodeWeight2 = tonumber(desiredNode[3]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
 			end
 			local seedWeights = { }
 			local seedMultiplier = timelessData.jewelType.id == 5 and 20 or 1 -- Elegant Hubris
@@ -1022,26 +1077,42 @@ function TreeTabClass:FindTimelessJewel()
 					if not next(jewelDataTbl) then
 						ConPrintf("Missing LUT: " .. timelessData.jewelType.label)
 					else
+						local curNode = nil
+						local curNodeId = nil
+						if jewelDataTbl[1] >= 94 then -- replace
+							curNode = legionNodes[jewelDataTbl[1] - 94]
+							curNodeId = curNode and legionNodes[jewelDataTbl[1] - 94].id or nil
+						else -- add
+							curNode = legionAdditions[jewelDataTbl[1]]
+							curNodeId = curNode and legionAdditions[jewelDataTbl[1]].id or nil
+						end
 						if timelessData.jewelType.id == 1 then
 							local headerSize = #jewelDataTbl
 							if headerSize == 2 or headerSize == 3 then
-								if desiredNodes[jewelDataTbl[1]] then
-									resultNodes[curSeed][jewelDataTbl[1]] = resultNodes[curSeed][jewelDataTbl[1]] or { targetNodeNames = { }, totalWeight = 0 }
-									local weight = desiredNodes[jewelDataTbl[1]].nodeWeight * jewelDataTbl[2] + desiredNodes[jewelDataTbl[1]].nodeWeight2 * (jewelDataTbl[3] or 0)
-									t_insert(resultNodes[curSeed][jewelDataTbl[1]], targetNode)
-									t_insert(resultNodes[curSeed][jewelDataTbl[1]].targetNodeNames, treeData.nodes[targetNode].name)
-									resultNodes[curSeed][jewelDataTbl[1]].totalWeight = resultNodes[curSeed][jewelDataTbl[1]].totalWeight + weight
+								if desiredNodes[curNodeId] then
+									resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
+									local statMod1 = curNode.stats[curNode.sortedStats[1]]
+									local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[statMod1.index + 1]
+									local statMod2 = curNode.stats[curNode.sortedStats[2]]
+									if statMod2 then
+										weight = weight + desiredNodes[curNodeId].nodeWeight2 * jewelDataTbl[statMod2.index + 1]
+									end
+									t_insert(resultNodes[curSeed][curNodeId], targetNode)
+									t_insert(resultNodes[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
+									resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + weight
 									seedWeights[curSeed] = seedWeights[curSeed] + weight
 								end
 							elseif headerSize == 6 or headerSize == 8 then
 								for i, jewelData in ipairs(jewelDataTbl) do
+									curNode = legionAdditions[jewelDataTbl[i]]
+									curNodeId = curNode and legionAdditions[jewelDataTbl[i]].id or nil
 									if i <= (headerSize / 2) then
-										if desiredNodes[jewelDataTbl[i]] then
-											resultNodes[curSeed][jewelDataTbl[i]] = resultNodes[curSeed][jewelDataTbl[i]] or { targetNodeNames = { }, totalWeight = 0 }
-											local weight = desiredNodes[jewelDataTbl[i]].nodeWeight * jewelDataTbl[i + (headerSize / 2)]
-											resultNodes[curSeed][jewelDataTbl[i]].totalWeight = resultNodes[curSeed][jewelDataTbl[i]].totalWeight + weight
-											t_insert(resultNodes[curSeed][jewelDataTbl[i]], targetNode)
-											--t_insert(resultNodes[curSeed][jewelDataTbl[i]].targetNodeNames, treeData.nodes[targetNode].name)
+										if desiredNodes[curNodeId] then
+											resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
+											local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[i + (headerSize / 2)]
+											resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + weight
+											t_insert(resultNodes[curSeed][curNodeId], targetNode)
+											t_insert(resultNodes[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
 											seedWeights[curSeed] = seedWeights[curSeed] + weight
 										end
 									else
@@ -1049,12 +1120,12 @@ function TreeTabClass:FindTimelessJewel()
 									end
 								end
 							end
-						elseif desiredNodes[jewelDataTbl[1]] then
-							resultNodes[curSeed][jewelDataTbl[1]] = resultNodes[curSeed][jewelDataTbl[1]] or { targetNodeNames = { }, totalWeight = 0 }
-							resultNodes[curSeed][jewelDataTbl[1]].totalWeight = resultNodes[curSeed][jewelDataTbl[1]].totalWeight + desiredNodes[jewelDataTbl[1]].nodeWeight
-							t_insert(resultNodes[curSeed][jewelDataTbl[1]], targetNode)
-							t_insert(resultNodes[curSeed][jewelDataTbl[1]].targetNodeNames, treeData.nodes[targetNode].name)
-							seedWeights[curSeed] = seedWeights[curSeed] + desiredNodes[jewelDataTbl[1]].nodeWeight
+						elseif desiredNodes[curNodeId] then
+							resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
+							resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + desiredNodes[curNodeId].nodeWeight
+							t_insert(resultNodes[curSeed][curNodeId], targetNode)
+							t_insert(resultNodes[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
+							seedWeights[curSeed] = seedWeights[curSeed] + desiredNodes[curNodeId].nodeWeight
 						end
 					end
 				end
@@ -1086,18 +1157,17 @@ function TreeTabClass:FindTimelessJewel()
 					elseif timelessData.jewelType.id == 5 and seedMatch < 100000 or seedMatch < 1000 then
 						timelessData.searchResults[searchResultsIdx].label = "  " .. timelessData.searchResults[searchResultsIdx].label
 					end
-					timelessData.searchResults[searchResultsIdx].label = timelessData.searchResults[searchResultsIdx].label .. formatSearchValue(seedWeights[seedMatch])
 					local sortedNodeArray = { }
 					for legionId, desiredNode in pairs(desiredNodes) do
 						if seedData[legionId] then
-							if desiredNode.desiredIdx == 5 then
-								sortedNodeArray[5] = " ..."
-							elseif desiredNode.desiredIdx < 5 then
+							if desiredNode.desiredIdx == 6 then
+								sortedNodeArray[6] = " ..."
+							elseif desiredNode.desiredIdx < 6 then
 								sortedNodeArray[desiredNode.desiredIdx] = formatSearchValue(seedData[legionId].totalWeight)
 							end
-							timelessData.searchResults[searchResultsIdx][desiredNode.nodeId] = timelessData.searchResults[searchResultsIdx][desiredNode.nodeId] or { }
-							timelessData.searchResults[searchResultsIdx][desiredNode.nodeId].targetNodeNames = seedData[legionId].targetNodeNames
-						elseif desiredNode.desiredIdx < 5 then
+							timelessData.searchResults[searchResultsIdx][legionId] = timelessData.searchResults[searchResultsIdx][legionId] or { }
+							timelessData.searchResults[searchResultsIdx][legionId].targetNodeNames = seedData[legionId].targetNodeNames
+						elseif desiredNode.desiredIdx < 6 then
 							sortedNodeArray[desiredNode.desiredIdx] = "       0   "
 						end
 					end
@@ -1111,7 +1181,7 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 435, 80, 20, "Reset", function()
-		controls.searchList:SetText("")
+		updateSearchList("")
 		wipeTable(timelessData.searchResults)
 	end)
 	controls.close = new("ButtonControl", nil, 90, 435, 80, 20, "Cancel", function()

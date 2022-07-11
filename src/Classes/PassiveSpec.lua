@@ -700,13 +700,13 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						value = value / 1000
 					end
 				end
-				--if statMod.fmt == "d" then --only ever d or g, and we want both past here
+				--if statMod.fmt == "d" then -- only ever d or g, and we want both past here
 				if statMod.min ~= statMod.max then
 					return statToFix:gsub("%("..statMod.min.."%-"..statMod.max.."%)", value)
 				elseif statMod.min ~= value then -- only true for might/legacy of the vaal which can combine stats
 					return statToFix:gsub(statMod.min, value)
 				end
-				return statToFix -- if it doesnt need to be changed
+				return statToFix -- if it doesn't need to be changed
 			end
 
 			if node.type == "Notable" then
@@ -716,7 +716,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				else
 					jewelDataTbl = data.readLUT(conqueredBy.id, node.id, jewelType)
 				end
-				print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
+				--print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
 				if not next(jewelDataTbl) then
 					ConPrintf("Missing LUT: " .. data.timelessJewelTypes[jewelType])
 				else
