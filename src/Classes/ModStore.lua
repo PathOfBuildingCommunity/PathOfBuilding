@@ -220,12 +220,11 @@ end
 
 function ModStoreClass:GetStat(stat, cfg)
 	if stat == "ManaReservedPercent" then
-		local manaBase = 0
 		local reservedPercentMana = 0
 		for _, activeSkill in ipairs(self.actor.activeSkillList) do
 			if (activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and activeSkill.buffList[1].name == cfg.skillName) then
-				manaBase = activeSkill.skillData["ManaReservedBase"] and activeSkill.skillData["ManaReservedBase"] or 0
-				reservedPercentMana =  manaBase / self.actor.output["Mana"] * 100
+				local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
+				reservedPercentMana = manaBase / self.actor.output["Mana"] * 100
 				break
 			end
 		end
