@@ -1758,10 +1758,8 @@ function calcs.perform(env, avoidCache)
 		for _, buff in ipairs(activeSkill.buffList) do
 			--Skip adding buff if reservation exceeds maximum
 			for _, value in ipairs({"Mana", "Life"}) do
-				if activeSkill.skillData[value.."ReservedBase"] then
-					if activeSkill.skillData[value.."ReservedBase"] > env.player.output[value] then
-						goto disableAura
-					end
+				if activeSkill.skillData[value.."ReservedBase"] and activeSkill.skillData[value.."ReservedBase"] > env.player.output[value] then
+					goto disableAura
 				end
 			end
 			if buff.cond and not skillModList:GetCondition(buff.cond, skillCfg) then
@@ -2120,6 +2118,23 @@ function calcs.perform(env, avoidCache)
 			-- Calculate curses that ignore hex limit after
 			if not curse.ignoreHexLimit and not curse.socketedCursesHexLimit then
 				local slot
+				local skipAddingCurse = false
+				-- Check if we need to disable a certain curse aura.
+				for _, activeSkill in ipairs(env.player.activeSkillList) do
+					if (activeSkill.buffList[1] and curse.name == activeSkill.buffList[1].name and activeSkill.skillTypes[SkillType.Aura]) then
+						if modDB:Flag(nil, "SelfAurasOnlyAffectYou") then
+							skipAddingCurse = true
+							break
+						end
+						for _, value in ipairs({"Mana", "Life"}) do
+							if activeSkill.skillData[value.."ReservedBase"] and activeSkill.skillData[value.."ReservedBase"] > env.player.output[value] then
+								skipAddingCurse = true
+								break
+							end
+						end
+						break
+					end
+				end
 				for i = 1, source.limit do
 					-- Prevent multiple marks from being considered
 					if curse.isMark then
@@ -2146,7 +2161,9 @@ function calcs.perform(env, avoidCache)
 					if curseSlots[slot] and curseSlots[slot].isMark then
 						markSlotted = false
 					end
-					curseSlots[slot] = curse
+					if skipAddingCurse == false then
+						curseSlots[slot] = curse
+					end
 					if curse.isMark then
 						markSlotted = true
 					end
@@ -2193,7 +2210,6 @@ function calcs.perform(env, avoidCache)
 					curseSlots[#curseSlots + 1] = curse
 				end
 			end
-            
 		end
 	end
 
