@@ -34,6 +34,19 @@ end
 out:write('-- From MonsterVarieties.dat combined with SkillTotemVariations.dat\n')
 out:write('data.totemLifeMult = { '..totemMult..'}\n')
 
+out:write('data.monsterVarietyLifeMult = {\n')
+local cachedEntry = { }
+for row in dat("MonsterVarieties"):Rows() do
+	for _, mod in ipairs(row.Mods) do
+		if mod.Id == "MonsterNecromancerRaisable" and not cachedEntry['"' .. row.Name .. '"'] then
+			out:write('\t["' .. row.Name .. '"] = ' .. row.LifeMultiplier/100 .. ',\n')
+			cachedEntry['"' .. row.Name .. '"'] = true
+			break
+		end
+	end
+end
+out:write('}\n')
+
 out:write('-- From MonsterMapDifficulty.dat\n')
 out:write('data.mapLevelLifeMult = { ')
 for row in dat("MonsterMapDifficulty"):Rows() do

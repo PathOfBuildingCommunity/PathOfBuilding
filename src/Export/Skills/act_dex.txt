@@ -1461,7 +1461,13 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill BoneLance
-#flags spell projectile
+#flags spell projectile corpse
+	statMap = {
+		["unearth_base_corpse_level"] = {
+			mod("CorpseLevel", "BASE", nil),
+		},
+	},
+#baseMod skill("corpseMonsterVariety", "Bone Archer")
 #mods
 
 #skill SnappingAdder

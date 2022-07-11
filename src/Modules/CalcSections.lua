@@ -689,6 +689,14 @@ return {
 		{ breakdown = "TotemChaosResist" },
 		{ modName = { "TotemChaosResistMax", "TotemChaosResist" }, }, 
 	}, },
+	{ label = "Corpse Level", haveOutput = "CorpseLevel", { format = "{0:output:CorpseLevel}",
+		{ breakdown = "CorpseLevel" },
+		{ modName = "CorpseLevel", cfg = "skill" },
+	}, },
+	{ label = "Corpse Life", haveOutput = "CorpseLife", { format = "{0:output:CorpseLife}",
+		{ breakdown = "CorpseLife" },
+		{ modName = "CorpseLife", cfg = "skill" },
+	}, },
 } }
 } },
 { 1, "HitChance", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Accuracy", data = {

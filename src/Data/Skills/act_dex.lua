@@ -8584,9 +8584,18 @@ skills["BoneLance"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Trappable] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.3,
+	statMap = {
+		["unearth_base_corpse_level"] = {
+			mod("CorpseLevel", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
+		corpse = true,
+	},
+	baseMods = {
+		skill("corpseMonsterVariety", "Bone Archer"),
 	},
 	qualityStats = {
 		Default = {
