@@ -278,6 +278,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.build = build
 		env.data = build.data
 		env.configInput = build.configTab.input
+		env.configPlaceholder = build.configTab.placeholder
 		env.calcsInput = build.calcsTab.input
 		env.mode = mode
 		env.spec = override.spec or build.spec
@@ -289,7 +290,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.enemyDB = enemyDB
 		env.itemModDB = new("ModDB")
 
-		env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, data.misc.MaxEnemyLevel)))
+		env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or env.configPlaceholder["enemyLevel"] or m_min(env.build.characterLevel, data.misc.MaxEnemyLevel)))
 
 		-- Create player/enemy actors
 		env.player = {
@@ -420,18 +421,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", env.spec.allocatedMasteryCount, "")
 
 		-- Add bandit mods
-		if build.bandit == "Alira" then
+		if env.configInput.bandit == "Alira" then
 			modDB:NewMod("ManaRegen", "BASE", 5, "Bandit")
 			modDB:NewMod("CritMultiplier", "BASE", 20, "Bandit")
 			modDB:NewMod("ElementalResist", "BASE", 15, "Bandit")
-		elseif build.bandit == "Kraityn" then
+		elseif env.configInput.bandit == "Kraityn" then
 			modDB:NewMod("Speed", "INC", 6, "Bandit")
-			modDB:NewMod("AvoidShock", "BASE", 10, "Bandit")
-			modDB:NewMod("AvoidFreeze", "BASE", 10, "Bandit")
-			modDB:NewMod("AvoidChill", "BASE", 10, "Bandit")
-			modDB:NewMod("AvoidIgnite", "BASE", 10, "Bandit")
+			for _, ailment in ipairs(env.data.elementalAilmentTypeList) do
+				modDB:NewMod("Avoid"..ailment, "BASE", 10, "Bandit")
+			end
 			modDB:NewMod("MovementSpeed", "INC", 6, "Bandit")
-		elseif build.bandit == "Oak" then
+		elseif env.configInput.bandit == "Oak" then
 			modDB:NewMod("LifeRegenPercent", "BASE", 1, "Bandit")
 			modDB:NewMod("PhysicalDamageReduction", "BASE", 2, "Bandit")
 			modDB:NewMod("PhysicalDamage", "INC", 20, "Bandit")
@@ -442,13 +442,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Add Pantheon mods
 		local parser = modLib.parseMod
 		-- Major Gods
-		if build.pantheonMajorGod ~= "None" then
-			local majorGod = env.data.pantheons[build.pantheonMajorGod]
+		if env.configInput.pantheonMajorGod ~= "None" then
+			local majorGod = env.data.pantheons[env.configInput.pantheonMajorGod]
 			pantheon.applySoulMod(modDB, parser, majorGod)
 		end
 		-- Minor Gods
-		if build.pantheonMinorGod ~= "None" then
-			local minorGod = env.data.pantheons[build.pantheonMinorGod]
+		if env.configInput.pantheonMinorGod ~= "None" then
+			local minorGod = env.data.pantheons[env.configInput.pantheonMinorGod]
 			pantheon.applySoulMod(modDB, parser, minorGod)
 		end
 
@@ -761,12 +761,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 			local node = env.spec.tree.notableMap[passive]
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
-				if env.spec.nodes[node.id] and env.spec.nodes[node.id].conqueredBy and env.spec.tree.legion.editedNodes and env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id] then
-					env.allocNodes[node.id] = env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id][node.id] or node
-				else
-					env.allocNodes[node.id] = node
-				end
-				--ConPrintf("GrantedPassive: " .. env.allocNodes[node.id].dn)
+				env.allocNodes[node.id] = node
 				env.grantedPassives[node.id] = true
 			end
 		end

@@ -997,9 +997,27 @@ skills["HarvestRhexScreechDebuff"] = {
 #flags spell hit triggerable area
 #mods
 
-#skill DTTHellscapeStabWeb Web Debuff
+#skill DTTHellscapeStabWeb Thunder Web
 #flags spell hit movement
-#mods
+	statMap = {
+		["action_speed_-%"] = {
+			mod("ActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Thunder Web" }),
+		},
+		["base_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Thunder Web" }),
+		},
+	},
+	stats = {
+		"walk_emerge_extra_distance",
+		"leap_slam_minimum_distance",
+		"spell_maximum_action_distance_+%",
+		"action_speed_-%",
+		"base_damage_taken_+%",
+	},
+	levels = {
+		[1] = { 20, 40, -50, -15, 15, cooldown = 6, levelRequirement = 0, statInterpolation = { 1, 1, 1, 1, 1 }, cost = { }, },
+	},
+#mods noStats noLevels
 
 #skill GAHellscapeStabbyCleave1 Cleave
 #flags attack hit triggerable area
@@ -1061,7 +1079,7 @@ skills["HarvestRhexScreechDebuff"] = {
 	},
 #baseMod skill("buffAllies", true)
 #baseMod skill("buffMinions", true)
-#mods noSkillTypes noStats noLevels
+#mods noStats noLevels
 
 #skill BreachBlizzardSpectre Snow Cloak
 #flags spell buff area duration cooldown

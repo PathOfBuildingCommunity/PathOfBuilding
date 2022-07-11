@@ -651,10 +651,14 @@ local skills, mod, flag, skill = ...
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["self_elemental_status_duration_-%"] = {
-			mod("SelfIgniteDuration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfChillDuration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfFreezeDuration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfShockDuration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfIgniteDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfChillDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfShockDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfScorchDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfBrittleDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfSapDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mult = -1
 		}
 	},
 #baseMod skill("debuff", true)
@@ -1550,6 +1554,9 @@ local skills, mod, flag, skill = ...
 #baseMod mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 #baseMod mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 #baseMod mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+#baseMod mod("AvoidSap", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+#baseMod mod("AvoidBrittle", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+#baseMod mod("AvoidScorch", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 #mods
 
 #skill LightningResistAura

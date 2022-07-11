@@ -5,39 +5,13 @@
 --
 local pairs = pairs
 local ipairs = ipairs
+local next = next
 local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
-
-local banditDropList = {
-	{ label = "2 Passive Points", id = "None" },
-	{ label = "Oak (Life Regen, Phys.Dmg. Reduction, Phys.Dmg)", id = "Oak" },
-	{ label = "Kraityn (Attack/Cast Speed, Avoid Elemental Ailments, Move Speed)", id = "Kraityn" },
-	{ label = "Alira (Mana Regen, Crit Multiplier, Resists)", id = "Alira" },
-}
-
-local PantheonMajorGodDropList = {
-	{ label = "Nothing", id = "None" },
-	{ label = "Soul of the Brine King", id = "TheBrineKing" },
-	{ label = "Soul of Lunaris", id = "Lunaris" },
-	{ label = "Soul of Solaris", id = "Solaris" },
-	{ label = "Soul of Arakaali", id = "Arakaali" },
-}
-
-local PantheonMinorGodDropList = {
-	{ label = "Nothing", id = "None" },
-	{ label = "Soul of Gruthkul", id = "Gruthkul" },
-	{ label = "Soul of Yugul", id = "Yugul" },
-	{ label = "Soul of Abberath", id = "Abberath" },
-	{ label = "Soul of Tukohama", id = "Tukohama" },
-	{ label = "Soul of Garukhan", id = "Garukhan" },
-	{ label = "Soul of Ralakesh", id = "Ralakesh" },
-	{ label = "Soul of Ryslatha", id = "Ryslatha" },
-	{ label = "Soul of Shakari", id = "Shakari" },
-}
 
 local buildMode = new("ControlHost")
 
@@ -64,6 +38,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	-- Load build file
 	self.xmlSectionList = { }
 	self.spectreList = { }
+	self.timelessData = { jewelType = { }, conquerorType = { }, jewelSocket = { }, searchList = "", searchResults = { }, sharedResults = { } }
 	self.viewMode = "TREE"
 	self.characterLevel = main.defaultCharLevel or 1
 	self.targetVersion = liveTargetVersion
@@ -410,7 +385,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
 		{ stat = "PhysicalDamageReduction", label = "Phys. Damage Reduction", fmt = "d%%", condFunc = function() return true end },
 		{ },
-		{ stat = "EffectiveMovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true, condFunc = function() return true end },
 		{ stat = "BlockChance", label = "Block Chance", fmt = "d%%", overCapStat = "BlockChanceOverCap" },
 		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap" },
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%", overCapStat = "AttackDodgeChanceOverCap" },
@@ -426,6 +400,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function(v,o) return not o.ChaosInoculation end, overCapStat = "ChaosResistOverCap" },
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
 		{ label = "Chaos Resistance", val = "Immune", labelStat = "ChaosResist", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end },
+		{ },
+		{ stat = "EffectiveMovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true, condFunc = function() return true end },
 		{ },
 		{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true },
 		{ },
@@ -509,79 +485,27 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.viewMode = "CALCS"
 	end)
 	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
-	self.controls.bandit = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 300, 16, banditDropList, function(index, value)
-		self.bandit = value.id
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.bandit.maxDroppedWidth = 500
-	self.controls.bandit:CheckDroppedWidth(true)
-	self.controls.banditLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.bandit,"TOPLEFT"}, 0, 0, 0, 14, "^7Bandit:")
-	-- The Pantheon
-	local function applyPantheonDescription(tooltip, mode, index, value)
-		tooltip:Clear()
-		if value.id == "None" then
-			return
-		end
-		local applyModes = { BODY = true, HOVER = true }
-		if applyModes[mode] then
-			local god = self.data.pantheons[value.id]
-			for _, soul in ipairs(god.souls) do
-				local name = soul.name
-				local lines = { }
-				for _, mod in ipairs(soul.mods) do
-					t_insert(lines, mod.line)
-				end
-				tooltip:AddLine(20, '^8'..name)
-				tooltip:AddLine(14, '^6'..table.concat(lines, '\n'))
-				tooltip:AddSeparator(10)
-			end
-		end
-	end
-	self.controls.pantheonMajorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 110, 300, 16, PantheonMajorGodDropList, function(index, value)
-		self.pantheonMajorGod = value.id
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.pantheonMajorGod.tooltipFunc = function(tooltip, mode, index, value)
-		if self.controls.pantheonMinorGod.dropped then
-			tooltip:Clear()
-			return
-		end
-		applyPantheonDescription(tooltip, mode, index, value)
-	end
-	self.controls.pantheonMinorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 130, 300, 16, PantheonMinorGodDropList, function(index, value)
-		self.pantheonMinorGod = value.id
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.pantheonMinorGod.tooltipFunc = applyPantheonDescription
-	self.controls.pantheonLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.pantheonMajorGod,"TOPLEFT"}, 0, 0, 0, 14, "^7The Pantheon:")
 	-- Skills
-	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 155, 300, 16, "^7Main Skill:")
-	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
+	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 54, 300, 16, "^7Main Skill:")
+	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 18, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.mainSocketGroup.maxDroppedWidth = 500
 	self.controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
-		if self.controls.pantheonMinorGod.dropped or self.controls.pantheonMajorGod.dropped then
-			tooltip:Clear()
-			return
-		end
 		local socketGroup = self.skillsTab.socketGroupList[index]
 		if socketGroup and tooltip:CheckForUpdate(socketGroup, self.outputRevision) then
 			self.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 	end
-	self.controls.mainSkill = new("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
+	self.controls.mainSkill = new("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 2, 300, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		mainSocketGroup.mainActiveSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillPart = new("DropDownControl", {"TOPLEFT",self.controls.mainSkill,"BOTTOMLEFT",true}, 0, 2, 200, 18, nil, function(index, value)
+	self.controls.mainSkillPart = new("DropDownControl", {"TOPLEFT",self.controls.mainSkill,"BOTTOMLEFT",true}, 0, 2, 300, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		srcInstance.skillPart = index
@@ -729,6 +653,11 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
 
+	-- Load legacy bandit and pantheon choices from build section
+	for _, control in ipairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
+		self.configTab.input[control] = self[control]
+	end
+
 	-- so we ran into problems with converted trees, trying to check passive tree routes and also consider thread jewels
 	-- but we cant check jewel info because items have not been loaded yet, and they come after passives in the xml.
 	-- the simplest solution seems to be making sure passive trees (which contain jewel sockets) are loaded last.
@@ -850,6 +779,24 @@ function buildMode:Load(xml, fileName)
 			if child.attrib.id and data.minions[child.attrib.id] then
 				t_insert(self.spectreList, child.attrib.id)
 			end
+		elseif child.elem == "TimelessData" then
+			self.timelessData.jewelType = {
+				label = child.attrib.jewelTypeLabel,
+				name = child.attrib.jewelTypeName,
+				id = tonumber(child.attrib.jewelTypeId)
+			}
+			self.timelessData.conquerorType = {
+				label = child.attrib.conquerorTypeLabel,
+				id = tonumber(child.attrib.conquerorTypeId)
+			}
+			self.timelessData.jewelSocket = {
+				label = child.attrib.jewelSocketLabel,
+				keystone = child.attrib.jewelSocketKeystone,
+				id = tonumber(child.attrib.jewelSocketId),
+				idx = tonumber(child.attrib.jewelSocketIdx)
+			}
+			self.timelessData.socketFilter = child.attrib.socketFilter == "true"
+			self.timelessData.searchList = child.attrib.searchList
 		end
 	end
 end
@@ -861,9 +808,9 @@ function buildMode:Save(xml)
 		level = tostring(self.characterLevel),
 		className = self.spec.curClassName,
 		ascendClassName = self.spec.curAscendClassName,
-		bandit = self.bandit,
-		pantheonMajorGod = self.pantheonMajorGod,
-		pantheonMinorGod = self.pantheonMinorGod,
+		bandit = self.configTab.input.bandit,
+		pantheonMajorGod = self.configTab.input.pantheonMajorGod,
+		pantheonMinorGod = self.configTab.input.pantheonMinorGod,
 		mainSocketGroup = tostring(self.mainSocketGroup),
 	}
 	for _, id in ipairs(self.spectreList) do
@@ -913,6 +860,23 @@ function buildMode:Save(xml)
 			end
 		end
 	end
+	local timelessData = {
+		elem = "TimelessData",
+		attrib = {
+			jewelTypeLabel = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.label),
+			jewelTypeName = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.name),
+			jewelTypeId = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.id),
+			conquerorTypeLabel = next(self.timelessData.conquerorType) and tostring(self.timelessData.conquerorType.label),
+			conquerorTypeId = next(self.timelessData.conquerorType) and tostring(self.timelessData.conquerorType.id),
+			jewelSocketLabel = next(self.timelessData.conquerorType) and tostring(self.timelessData.jewelSocket.label),
+			jewelSocketKeystone = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.keystone),
+			jewelSocketId = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.id),
+			jewelSocketIdx = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.idx),
+			socketFilter = self.timelessData.socketFilter and "true",
+			searchList = self.timelessData.searchList and tostring(self.timelessData.searchList)
+		}
+	}
+	t_insert(xml, timelessData)
 	self.modFlag = false
 end
 
@@ -969,12 +933,6 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
 	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendencies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
-
-	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
-		if self.controls[diff] then
-			self.controls[diff]:SelByValue(self[diff], "id")
-		end
-	end
 
 	local checkFabricatedGroups = self.buildFlag
 	if self.buildFlag then

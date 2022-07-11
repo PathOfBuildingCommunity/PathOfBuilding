@@ -509,7 +509,7 @@ Implicits: 1
 League: Blight
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
 {tags:jewellery_attribute}+(20-30) to Dexterity
-{tags:chaos}25% chance to Poison on Hit
+25% chance to Poison on Hit
 {tags:chaos}(40-60)% increased Damage with Poison
 You are Chilled while you are Poisoned
 Non-Chilled Enemies you Poison are Chilled
@@ -695,8 +695,8 @@ Has 1 Socket
 {variant:2,3}{tags:attack,caster,speed}Socketed Golem Skills have 20% increased Attack and Cast Speed
 {tags:attack,physical}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack,speed}(5-10)% increased Attack Speed
-{variant:1}(1-2)% chance to Dodge Attack Hits
-{variant:2}(3-5)% chance to Dodge Attack Hits
+{variant:1}(1-2)% increased Movement Speed
+{variant:2}(3-5)% increased Movement Speed
 {variant:1}Socketed Gems are Supported by Level 16 Increased Minion Speed
 {variant:2,3}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
 ]],[[

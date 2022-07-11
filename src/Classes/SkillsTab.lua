@@ -419,7 +419,7 @@ end
 
 function SkillsTabClass:CopySocketGroup(socketGroup)
 	local skillText = ""
-	if socketGroup.label:match("%S") then
+	if socketGroup.label and socketGroup.label:match("%S") then
 		skillText = skillText .. "Label: "..socketGroup.label.."\r\n"
 	end
 	if socketGroup.slot then
@@ -444,7 +444,16 @@ function SkillsTabClass:PasteSocketGroup(testInput)
 			newGroup.slot = slot
 		end
 		for nameSpec, level, quality, qualityId, state, count in skillText:gmatch("([ %a']+) (%d+)/(%d+) (%a+%d?) ?(%a*) (%d+)") do
-			t_insert(newGroup.gemList, { nameSpec = nameSpec, level = tonumber(level) or 20, quality = tonumber(quality) or 0, qualityId = qualityId, enabled = state ~= "DISABLED", count = tonumber(count) or 1 })
+			t_insert(newGroup.gemList, {
+				nameSpec = nameSpec,
+				level = tonumber(level) or 20,
+				quality = tonumber(quality) or 0,
+				qualityId = qualityId,
+				enabled = state ~= "DISABLED",
+				count = tonumber(count) or 1,
+				enableGlobal1 = true,
+				enableGlobal2 = true
+			})
 		end
 		if #newGroup.gemList > 0 then
 			t_insert(self.socketGroupList, newGroup)
@@ -471,8 +480,11 @@ function SkillsTabClass:CreateGemSlot(index)
 			self.gemSlots[index2].nameSpec:SetText(gemInstance.nameSpec)
 			self.gemSlots[index2].level:SetText(gemInstance.level)
 			self.gemSlots[index2].quality:SetText(gemInstance.quality)
+			self.gemSlots[index2].qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 			self.gemSlots[index2].qualityId:SelByValue(gemInstance.qualityId, "type")
 			self.gemSlots[index2].enabled.state = gemInstance.enabled
+			self.gemSlots[index2].enableGlobal1.state = gemInstance.enableGlobal1
+			self.gemSlots[index2].enableGlobal2.state = gemInstance.enableGlobal2
 			self.gemSlots[index2].count:SetText(gemInstance.count or 1)
 		end
 		self:AddUndoState()
@@ -701,8 +713,13 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.quality:SetText(gemInstance.quality)
 			slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 			slot.qualityId:SelByValue(gemInstance.qualityId, "type")
-			slot.enableGlobal1.state = true
-			slot.count:SetText(getmInstance.count)
+			slot.count:SetText(gemInstance.count)
+		end
+		if not gemInstance.gemData.vaalGem then
+			slot.enableGlobal1.state = state
+			gemInstance.enableGlobal1 = state
+			slot.enableGlobal2.state = state
+			gemInstance.enableGlobal2 = state
 		end
 		gemInstance.enabled = state
 		self:ProcessSocketGroup(self.displayGroup)
@@ -817,8 +834,6 @@ function SkillsTabClass:CreateGemSlot(index)
 	end
 	self.controls["gemSlot"..index.."EnableGlobal2"] = slot.enableGlobal2
 end
-
-
 
 function SkillsTabClass:getGemAltQualityList(gemData)
 	local altQualList = { }

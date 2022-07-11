@@ -95,6 +95,13 @@ function EditClass:SetText(text, notify)
 	self:ResetUndo()
 end
 
+function EditClass:SetPlaceholder(text, notify)
+	self.placeholder = tostring(text)
+	if notify and self.changeFunc then
+		self.changeFunc(self.placeholder, true)
+	end
+end
+
 function EditClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -216,7 +223,7 @@ function EditClass:MoveCaretVertically(offset)
 	self.blinkStart = GetTime()
 end
 
-function EditClass:Draw(viewPort)
+function EditClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -255,7 +262,7 @@ function EditClass:Draw(viewPort)
 	if not enabled then
 		return
 	end
-	if mOver then
+	if mOver and not noTooltip then
 		SetDrawLayer(nil, 100)
 		self:DrawTooltip(x, y, width, height, viewPort)
 		SetDrawLayer(nil, 0)
@@ -266,10 +273,15 @@ function EditClass:Draw(viewPort)
 	local marginB = self.controls.scrollBarH:IsShown() and 14 or 0
 	SetViewport(textX, textY, width - 4 - marginL - marginR, height - 4 - marginB)
 	if not self.hasFocus then
-		SetDrawColor(self.inactiveCol)
-		DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
+		if self.buf == '' and self.placeholder then
+			SetDrawColor(self.disableCol)
+			DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.placeholder)
+		else
+			SetDrawColor(self.inactiveCol)
+			DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
+		end
 		SetViewport()
-		self:DrawControls(viewPort)
+		self:DrawControls(viewPort, noTooltip and self)
 		return
 	end
 	if not IsKeyDown("LEFTBUTTON") then
@@ -363,7 +375,7 @@ function EditClass:Draw(viewPort)
 		end
 	end
 	SetViewport()
-	self:DrawControls(viewPort)
+	self:DrawControls(viewPort, noTooltip and self)
 end
 
 function EditClass:OnFocusGained()
@@ -636,13 +648,21 @@ function EditClass:OnKeyUp(key)
 			if cur then
 				self:SetText(tostring(cur + (self.numberInc or 1)), true)
 			else
-				self:SetText("1", true)
+				if self.placeholder then
+					self:SetText(tostring(self.placeholder + (self.numberInc or 1)), true)
+				else
+					self:SetText("1", true)
+				end
 			end
 		elseif key == "WHEELDOWN" or key == "DOWN" then
-			if cur and (self.filter ~= "%D" or cur > 0 )then
+			if cur and (self.filter ~= "%D" or cur > 0)then
 				self:SetText(tostring(cur - (self.numberInc or 1)), true)
 			else
-				self:SetText("0", true)
+				if self.placeholder then
+					self:SetText(tostring(self.placeholder - (self.numberInc or 1)), true)
+				else
+					self:SetText("0", true)
+				end
 			end
 		end
 	elseif key == "WHEELUP" then

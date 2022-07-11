@@ -7,10 +7,64 @@
 local m_min = math.min
 local m_max = math.max
 
+local function applyPantheonDescription(tooltip, mode, index, value)
+	tooltip:Clear()
+	if value.val == "None" then
+		return
+	end
+	local applyModes = { BODY = true, HOVER = true }
+	if applyModes[mode] then
+		local god = data.pantheons[value.val]
+		for _, soul in ipairs(god.souls) do
+			local name = soul.name
+			local lines = { }
+			for _, mod in ipairs(soul.mods) do
+				table.insert(lines, mod.line)
+			end
+			tooltip:AddLine(20, '^8'..name)
+			tooltip:AddLine(14, '^6'..table.concat(lines, '\n'))
+			tooltip:AddSeparator(10)
+		end
+	end
+end
+
+local function banditTooltip(tooltip, mode, index, value)
+	local banditBenefits = {
+		["None"] = "Grants 2 Passive Skill Points",
+		["Oak"] = "Regenerate 1% of Life per second\n2% additional Physical Damage Reduction\n20% icreased Physical Damage",
+		["Kraityn"] = "6% increased Attack and Cast Speed\n10% chance to Avoid Elemental Ailments\n6% increased Movement Speed",
+		["Alira"] = "Regenerate 5 Mana per second\n+20% to Critical Strike Multiplier\n+15% to all Elemental Resistances",
+	}
+	local applyModes = { BODY = true, HOVER = true }
+	tooltip:Clear()
+	if applyModes[mode] then
+		tooltip:AddLine(14, '^8'..banditBenefits[value.val])
+	end
+end
+
 return {
 	-- Section: General options
 	{ section = "General", col = 1 },
 	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=nil,label="Act 10 (-60%)"}} },
+	{ var = "bandit", type = "list", label = "Bandit quest:", tooltipFunc = banditTooltip, list = {{val="None",label="Kill all"},{val="Oak",label="Help Oak"},{val="Kraityn",label="Help Kraityn"},{val="Alira",label="Help Alira"}} },
+	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltipFunc = applyPantheonDescription, list = {
+		{ label = "Nothing", val = "None" },
+		{ label = "Soul of the Brine King", val = "TheBrineKing" },
+		{ label = "Soul of Lunaris", val = "Lunaris" },
+		{ label = "Soul of Solaris", val = "Solaris" },
+		{ label = "Soul of Arakaali", val = "Arakaali" },
+	} },
+	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltipFunc = applyPantheonDescription, list = {
+		{ label = "Nothing", val = "None" },
+		{ label = "Soul of Gruthkul", val = "Gruthkul" },
+		{ label = "Soul of Yugul", val = "Yugul" },
+		{ label = "Soul of Abberath", val = "Abberath" },
+		{ label = "Soul of Tukohama", val = "Tukohama" },
+		{ label = "Soul of Garukhan", val = "Garukhan" },
+		{ label = "Soul of Ralakesh", val = "Ralakesh" },
+		{ label = "Soul of Ryslatha", val = "Ryslatha" },
+		{ label = "Soul of Shakari", val = "Shakari" },
+	} },
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse ^xE05030Life:", tooltip = "Sets the maximum ^xE05030life ^7of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base ^xE05030life^7, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },
@@ -75,7 +129,7 @@ return {
 			modList:NewMod("Condition:ArmourAvg", "FLAG", true, "Config")
 		end
 	end },
-	{ var = "warcryMode", type = "list", label = "Warcry calculation mode:", ifSkillList = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry", "Battlemage's Cry" }, tooltip = "Controls how exerted attacks from Warcries are calculated:\nAverage: Averages out Warcry usage with cast time, attack speed and warcry cooldown .\nMax Hit: Shows maximum hit for lining up all warcries.", list = {{val="AVERAGE",label="Average"},{val="MAX",label="Max Hit"}}, apply = function(val, modList, enemyModList)
+	{ var = "warcryMode", type = "list", label = "Warcry calculation mode:", ifSkillList = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry", "Battlemage's Cry" }, tooltip = "Controls how exerted attacks from Warcries are calculated:\nAverage: Averages out Warcry usage with cast time, attack speed and warcry cooldown.\nMax Hit: Shows maximum hit for lining up all warcries.", list = {{val="AVERAGE",label="Average"},{val="MAX",label="Max Hit"}}, apply = function(val, modList, enemyModList)
 		if val == "MAX" then
 			modList:NewMod("Condition:WarcryMaxHit", "FLAG", true, "Config")
 		end
@@ -1156,8 +1210,8 @@ return {
 	end },
 	{ var = "multiplierCorrosionStackCount", type = "count", label = "# of Corrosion Stacks:", ifFlag = "Condition:CanCorrode", tooltip = "Each stack of Corrosion applies -5000 to total Armour and -1000 to total ^x33FF77Evasion Rating ^7to the enemy.\nCorrosion lasts 4 seconds and refreshes the duration of existing Corrosion stacks\nCorrosion has no stack limit", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:CorrosionStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
-		enemyModList:NewMod("Armour", "BASE", -5000, "Corrosion", { type = "Multiplier", var = "CorrosionStack" })
-		enemyModList:NewMod("Evasion", "BASE", -1000, "Corrosion", { type = "Multiplier", var = "CorrosionStack" })
+		enemyModList:NewMod("Armour", "BASE", -5000, "Corrosion", { type = "Multiplier", var = "CorrosionStack" }, { type = "ActorCondition", actor = "enemy", var = "CanCorrode" })
+		enemyModList:NewMod("Evasion", "BASE", -1000, "Corrosion", { type = "Multiplier", var = "CorrosionStack" }, { type = "ActorCondition", actor = "enemy", var = "CanCorrode" })
 	end },
 	{ var = "multiplierEnsnaredStackCount", type = "count", label = "# of Ensnare Stacks:", ifSkill = "Ensnaring Arrow", tooltip = "While ensnared, enemies take increased Projectile Damage from Attack Hits\nEnsnared enemies always count as moving, and have less movement speed while trying to break the snare.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:EnsnareStackCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
@@ -1217,6 +1271,10 @@ return {
 		enemyModList:NewMod("BrittleVal", "BASE", val, "Config", { type = "Condition", var = "BrittleConfig" })
 		enemyModList:NewMod("DesiredBrittleVal", "BASE", val, "Brittle", { type = "Condition", var = "BrittleConfig", neg = true })
 	end },
+	{ var = "conditionEnemyOnBrittleGround", type = "check", label = "Is the enemy on ^xADAA47Brittle ^7Ground?", tooltip = "This also implies that the enemy is ^xADAA47Brittle.", ifEnemyCond = "OnBrittleGround", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:Brittle", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("Condition:OnBrittleGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy ^xADAA47Shocked?", tooltip = "In addition to allowing any 'against ^xADAA47Shocked ^7Enemies' modifiers to apply,\nthis will allow you to input the effect of the ^xADAA47Shock ^7applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Shocked", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:ShockedConfig", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1236,6 +1294,10 @@ return {
 	{ var = "conditionSapEffect", type = "count", label = "Effect of ^xADAA47Sap:", ifOption = "conditionEnemySapped", tooltip = "If you have a guaranteed source of ^xADAA47Sap^7,\nthe strongest one will apply instead unless this option would apply a stronger ^xADAA47Sap.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("SapVal", "BASE", val, "Sap", { type = "Condition", var = "SappedConfig" })
 		enemyModList:NewMod("DesiredSapVal", "BASE", val, "Sap", { type = "Condition", var = "SappedConfig", neg = true })
+	end },
+	{ var = "conditionEnemyOnSappedGround", type = "check", label = "Is the enemy on ^xADAA47Sapped ^7Ground?", tooltip = "This also implies that the enemy is ^xADAA47Sapped.", ifEnemyCond = "OnSappedGround", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:Sapped", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+		enemyModList:NewMod("Condition:OnSappedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierFreezeShockIgniteOnEnemy", type = "count", label = "# of ^x3F6DB3Freeze ^7/ ^xADAA47Shock ^7/ ^xB97123Ignite ^7on enemy:", ifMult = "FreezeShockIgniteOnEnemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:FreezeShockIgniteOnEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })
@@ -1301,7 +1363,7 @@ return {
 	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifFlag = "ElementalEquilibrium", tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
 	-- Section: Enemy Stats
 	{ section = "Enemy Stats", col = 3 },
-	{ var = "enemyLevel", type = "count", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and ^x33FF77evade ^7chances.\nThe default level is your character level, capped at 84, which is the same value\nused in-game to calculate the stats on the character sheet." },
+	{ var = "enemyLevel", type = "count", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and ^x33FF77evade ^7chances.\nThe default level is your character level, capped at 85, which is the same value\nused in-game to calculate the stats on the character sheet." },
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -1316,7 +1378,7 @@ Standard Boss adds the following modifiers:
 	+25% to enemy ^xD02090Chaos Resistance
 	^794% of monster damage
 
-Shaper / Guardian adds the following modifiers:
+Guardian / Pinnacle Boss adds the following modifiers:
 	66% less Effect of your Hexes
 	+50% to enemy Elemental Resistances
 	+30% to enemy ^xD02090Chaos Resistance
@@ -1324,44 +1386,133 @@ Shaper / Guardian adds the following modifiers:
 	188% of monster damage
 	5% penetration
 
-Sirus adds the following modifiers:
+Uber Pinnacle Boss adds the following modifiers:
 	66% less Effect of your Hexes
 	+50% to enemy Elemental Resistances
 	+30% to enemy ^xD02090Chaos Resistance
 	^7+100% to enemy Armour
+	70% less to enemy Damage taken
 	235% of monster damage
 	8% penetration
-	]], list = {{val="None",label="No"},{val="Uber Atziri",label="Standard Boss"},{val="Shaper",label="Shaper / Guardian"},{val="Sirus",label="Sirus"}}, apply = function(val, modList, enemyModList)
-		if val == "Uber Atziri" then
+	]], list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
+		--these defaults are here so that the placeholder gets reset correctly
+		build.configTab.varControls['enemySpeed']:SetPlaceholder(700, true)
+		build.configTab.varControls['enemyCritChance']:SetPlaceholder(5, true)
+		build.configTab.varControls['enemyCritDamage']:SetPlaceholder(30, true)
+		if val == "None" then
+			local defaultResist = ""
+			build.configTab.varControls['enemyLightningResist']:SetPlaceholder(defaultResist, true)
+			build.configTab.varControls['enemyColdResist']:SetPlaceholder(defaultResist, true)
+			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultResist, true)
+			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(defaultResist, true)
+
+			local defaultLevel = 66
+			if build.calcsTab.mainEnv then
+				defaultLevel = build.calcsTab.mainEnv.enemyLevel
+			end
+
+			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5)
+			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder("", true)
+			build.configTab.varControls['enemyColdDamage']:SetPlaceholder("", true)
+			build.configTab.varControls['enemyFireDamage']:SetPlaceholder("", true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder("", true)
+
+			local defaultPen = ""
+			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+		elseif val == "Boss" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
-			enemyModList:NewMod("ElementalResist", "BASE", 40, "Boss")
-			enemyModList:NewMod("ChaosResist", "BASE", 25, "Boss")
-			enemyModList:NewMod("AilmentThreshold", "BASE", 1070897, "Boss")
+			enemyModList:NewMod("AilmentThreshold", "MORE", 488, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
-		elseif val == "Shaper" then
+
+			local defaultEleResist = 40
+			build.configTab.varControls['enemyLightningResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyColdResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(25, true)
+
+			local defaultLevel = 83
+			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
+			if build.calcsTab.mainEnv then
+				defaultLevel = build.calcsTab.mainEnv.enemyLevel
+			end
+
+			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.stdBossDPSMult)
+			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+
+			local defaultPen = ""
+			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+		elseif val == "Pinnacle" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
-			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
-			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 33, "Boss")
-			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
+			enemyModList:NewMod("AilmentThreshold", "MORE", 404, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
-		elseif val == "Sirus" then
+
+			local defaultEleResist = 50
+			build.configTab.varControls['enemyLightningResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyColdResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(30, true)
+
+			local defaultLevel = 84
+			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
+			if build.calcsTab.mainEnv then
+				defaultLevel = build.calcsTab.mainEnv.enemyLevel
+			end
+
+			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.pinnacleBossDPSMult)
+			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+
+			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
+		elseif val == "Uber" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
-			enemyModList:NewMod("ElementalResist", "BASE", 50, "Boss")
-			enemyModList:NewMod("ChaosResist", "BASE", 30, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 100, "Boss")
-			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
+			enemyModList:NewMod("DamageTaken", "MORE", -70, "Boss")
+			enemyModList:NewMod("AilmentThreshold", "MORE", 404, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
+
+			local defaultEleResist = 50
+			build.configTab.varControls['enemyLightningResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyColdResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultEleResist, true)
+			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(30, true)
+
+			local defaultLevel = 85
+			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
+			if build.calcsTab.mainEnv then
+				defaultLevel = build.calcsTab.mainEnv.enemyLevel
+			end
+
+			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.uberBossDPSMult)
+			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+
+			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.uberBossPen, true)
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.uberBossPen, true)
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.uberBossPen, true)
 		end
-	end },
-	{ var = "enemyAwakeningLevel", type = "count", label = "Awakening Level:", tooltip = "Each Awakening Level gives Bosses 3% more ^xE05030Life.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("Life", "MORE", 3 * m_min(val, 9), "Config")
-		modList:NewMod("AwakeningLevel", "BASE", m_min(val, 9), "Config")
 	end },
 	{ var = "deliriousPercentage", type = "list", label = "Delirious Effect:", list = {{val=0,label="None"},{val="20Percent",label="20% Delirious"},{val="40Percent",label="40% Delirious"},{val="60Percent",label="60% Delirious"},{val="80Percent",label="80% Delirious"},{val="100Percent",label="100% Delirious"}}, tooltip = "Delirium scales enemy 'less Damage Taken' as well as enemy 'increased Damage dealt'\nAt 100% effect:\nEnemies Deal 30% Increased Damage\nEnemies take 96% Less Damage", apply = function(val, modList, enemyModList)
 		if val == "20Percent" then
@@ -1400,10 +1551,80 @@ Sirus adds the following modifiers:
 	{ var = "enemyChaosResist", type = "integer", label = "Enemy ^xD02090Chaos Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ChaosResist", "BASE", val, "Config")
 	end },
+	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltip = [[
+Used to fill in defaults for specific boss skills if the boss config is not set
+
+Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal monster level for your character level (capped at 84)
+Fill in the exact damage numbers if more precision is needed
+
+Caveats for certain skills are below
+
+Shaper Ball: Allocating Cosmic Wounds increases the penetration to 40% and adds 2 projectiles
+Shaper Slam: Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage and cannot be blocked or dodged
+Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  i.e. Hits before death should be >= 4 to survive]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
+		--reset to empty
+		if not (val == "None") then
+			local defaultDamage = ""
+			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
+
+			local defaultPen = ""
+			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+		else
+			build.configTab.varControls['enemyDamageType'].enabled = true
+		end
+
+		if val == "Uber Atziri Flameblast" then
+			if build.calcsTab.mainEnv then
+				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 3.48 * 10.9), true)
+				build.configTab.varControls['enemyDamageType']:SelByValue("Spell", "val")
+				build.configTab.varControls['enemyDamageType'].enabled = false
+				build.configTab.input['enemyDamageType'] = "Spell"
+			end
+			build.configTab.varControls['enemyFirePen']:SetPlaceholder(10, true)
+
+			build.configTab.varControls['enemySpeed']:SetPlaceholder(25000, true)
+			build.configTab.varControls['enemyCritChance']:SetPlaceholder(0, true)
+		elseif val == "Shaper Ball" then
+			if build.calcsTab.mainEnv then
+				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 9.17), true)
+			end
+
+			build.configTab.varControls['enemyColdPen']:SetPlaceholder(25, true)
+			build.configTab.varControls['enemySpeed']:SetPlaceholder(1400, true)
+			build.configTab.varControls['enemyDamageType'].enabled = false
+			build.configTab.varControls['enemyDamageType']:SelByValue("SpellProjectile", "val")
+			build.configTab.input['enemyDamageType'] = "SpellProjectile"
+		elseif val == "Shaper Slam" then
+			if build.calcsTab.mainEnv then
+				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 15.2), true)
+			end
+			build.configTab.varControls['enemyDamageType'].enabled = false
+			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
+			build.configTab.input['enemyDamageType'] = "Melee"
+
+			build.configTab.varControls['enemySpeed']:SetPlaceholder(3510, true)
+		elseif val == "Maven Memory Game" then
+			if build.calcsTab.mainEnv then
+				local defaultEleDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 24.69)
+				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultEleDamage, true)
+				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultEleDamage, true)
+				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultEleDamage, true)
+			end
+			build.configTab.varControls['enemyDamageType'].enabled = false
+			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
+			build.configTab.input['enemyDamageType'] = "Melee"
+		end
+	end },
 	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
-	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast speed in ms:" },
-	{ var = "enemyCritChance", type = "integer", label = "Enemy critical strike chance:" },
-	{ var = "enemyCritDamage", type = "integer", label = "Enemy critical strike multipler:" },
+	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast time in ms:", defaultPlaceholderState = 700 },
+	{ var = "enemyCritChance", type = "integer", label = "Enemy critical strike chance:", defaultPlaceholderState = 5 },
+	{ var = "enemyCritDamage", type = "integer", label = "Enemy critical strike multipler:", defaultPlaceholderState = 30 },
 	{ var = "enemyPhysicalDamage", type = "integer", label = "Enemy Skill Physical Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet."},
 	{ var = "enemyLightningDamage", type = "integer", label = "Enemy Skill ^xADAA47Lightning Damage:"},
 	{ var = "enemyLightningPen", type = "integer", label = "Enemy Skill ^xADAA47Lightning Pen:"},
