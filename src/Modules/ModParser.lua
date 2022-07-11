@@ -1983,8 +1983,8 @@ local specialModList = {
 	["enemies take (%d+)%% increased damage for each of your brands attached to them"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Multiplier", var = "BrandsAttached" }) }) } end,
 	["non%-damaging ailments have (%d+)%% reduced effect on you while you have arcane surge"] = function(num)
 		local mods = { }
-		for i, ailment in ipairs({"Shock", "Chill", "Freeze", "Scorch", "Brittle", "Sap"}) do
-			mods[i] = mod("Self"..ailment.."Effect", "BASE", -num, { type = "Condition", var = "AffectedByArcaneSurge" })
+		for i, ailment in ipairs(data.nonDamagingAilmentTypeList) do
+			mods[i] = mod("Self"..ailment.."Effect", "INC", -num, { type = "Condition", var = "AffectedByArcaneSurge" })
 		end
 		return mods
 	end,
