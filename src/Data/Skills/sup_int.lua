@@ -1644,12 +1644,6 @@ skills["MinionFocusFire"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
-	statMap = {
-		["resist_all_%"] = {
-			mod("EnemyModifier", "LIST", { mod = mod("ElementalResist", "BASE", nil) }),
-			mod("EnemyModifier", "LIST", { mod = mod("ChaosResist", "BASE", nil) }),
-		},
-	},
 	baseFlags = {
 	},
 	baseMods = {
@@ -2153,11 +2147,6 @@ skills["SupportAdditionalXP"] = {
 	excludeSkillTypes = { },
 	supportGemsOnly = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["local_gem_int_requirement_+%"] = {
-			mod("IntRequirement", "INC", nil)
-		}
-	},
 	baseMods = {
 	},
 	qualityStats = {

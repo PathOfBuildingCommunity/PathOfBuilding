@@ -1622,11 +1622,6 @@ skills["SupportAdditionalLevel"] = {
 	excludeSkillTypes = { },
 	supportGemsOnly = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["local_gem_str_requirement_+%"] = {
-			mod("StrRequirement", "INC", nil)
-		},
-	},
 	baseMods = {
 	},
 	qualityStats = {

@@ -209,12 +209,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MinionFocusFire
-	statMap = {
-		["resist_all_%"] = {
-			mod("EnemyModifier", "LIST", { mod = mod("ElementalResist", "BASE", nil) }),
-			mod("EnemyModifier", "LIST", { mod = mod("ChaosResist", "BASE", nil) }),
-		},
-	},
 #mods
 
 #skill SupportDecay
@@ -272,11 +266,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAdditionalXP
-	statMap = {
-		["local_gem_int_requirement_+%"] = {
-			mod("IntRequirement", "INC", nil)
-		}
-	},
 #mods
 
 #skill SupportFasterCast

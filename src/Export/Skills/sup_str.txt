@@ -179,11 +179,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAdditionalLevel
-	statMap = {
-		["local_gem_str_requirement_+%"] = {
-			mod("StrRequirement", "INC", nil)
-		},
-	},
 #mods
 
 #skill EnduranceChargeOnMeleeStun

@@ -1668,9 +1668,6 @@ skills["SupportAdditionalQuality"] = {
 		["supported_active_skill_gem_quality_%"] = {
 			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "quality", value = nil }),
 		},
-		["local_gem_dex_requirement_+%"] = {
-			mod("DexRequirement", "INC", nil)
-		},
 	},
 	baseMods = {
 	},
@@ -3420,11 +3417,8 @@ skills["SupportSlowerProjectiles"] = {
 		["support_slower_projectiles_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
-		["projectiles_damage_+%_to_nearby_targets"] = {
-			mod("Damage", "INC", nil, ModFlag.Projectile)
-		},
 		["projectile_damage_+%_vs_nearby_enemies"] = {
-			mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "Multiplier", var = "NearbyEnemies", limit = 1 } )
+			mod("Damage", "INC", nil, ModFlag.Projectile)
 		},
 	},
 	baseMods = {
