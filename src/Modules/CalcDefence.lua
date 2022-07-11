@@ -113,6 +113,11 @@ function calcs.defence(env, actor)
 				"Max: "..max.."%",
 				"Total: "..total.."%",
 			}
+			breakdown["Totem"..elem.."Resist"] = {
+				"Min: "..min.."%",
+				"Max: "..totemMax.."%",
+				"Total: "..totemTotal.."%",
+			}
 		end
 	end
 
