@@ -2071,6 +2071,11 @@ local specialModList = {
 		mod("KitavaRequiredManaCost", "BASE", tonumber(amount), "Kitava's Thirst"),
 		mod("ExtraSupport", "LIST", { skillId = "SupportCastOnManaSpent", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }),
 	} end,
+	["(%d+)%% chance to [c?t?][a?r?][s?i?][t?g?]g?e?r? socketed spells when you spend at least (%d+) mana on an upfront cost to use or trigger a skill, with a ([%d%.]+) second cooldown"] = function(num, _, amount, _) return {
+		mod("KitavaTriggerChance", "BASE", num, "Kitava's Thirst"),
+		mod("KitavaRequiredManaCost", "BASE", tonumber(amount), "Kitava's Thirst"),
+		mod("ExtraSupport", "LIST", { skillId = "SupportCastOnManaSpent", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }),
+	} end,
 	-- Socketed gem modifiers
 	["([%+%-]%d+) to level of socketed gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["([%+%-]%d+) to level of socketed ([%a ]+) gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = type, key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
