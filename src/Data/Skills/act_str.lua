@@ -3798,6 +3798,7 @@ skills["HeraldOfPurity"] = {
 	baseFlags = {
 		spell = true,
 		minion = true,
+		duration = true,
 	},
 	qualityStats = {
 		Default = {

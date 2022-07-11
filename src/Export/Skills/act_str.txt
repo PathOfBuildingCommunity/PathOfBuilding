@@ -639,7 +639,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill HeraldOfPurity
-#flags spell minion
+#flags spell minion duration
 	minionList = {
 		"AxisEliteSoldierHeraldOfLight",
 	},
