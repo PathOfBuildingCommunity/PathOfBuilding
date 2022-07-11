@@ -487,14 +487,19 @@ local function doActorAttribsPoolsConditions(env, actor)
 		end
 		if actor.mainSkill.skillFlags.totem then
 			condList["HaveTotem"] = true
-			condList["TotemsHitRecently"] = true
 			condList["SummonedTotemRecently"] = true
-			if actor.mainSkill.skillFlags.spell then
-				condList["TotemsSpellHitRecently"] = true
+			if actor.mainSkill.skillFlags.hit then
+				condList["TotemsHitRecently"] = true
+				if actor.mainSkill.skillFlags.spell then
+					condList["TotemsSpellHitRecently"] = true
+				end
 			end
 		end
 		if actor.mainSkill.skillFlags.mine then
 			condList["DetonatedMinesRecently"] = true
+		end
+		if actor.mainSkill.skillFlags.trap then
+			condList["TriggeredTrapsRecently"] = true
 		end
 		if modDB:Sum("BASE", nil, "EnemyScorchChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(nil, "NeverCrit") then
 			condList["CanInflictScorch"] = true
