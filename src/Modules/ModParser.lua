@@ -2382,6 +2382,13 @@ local specialModList = {
 		mod("BrittleAsThoughDealing", "MORE", num),
 		mod("SapAsThoughDealing", "MORE", num),
 	} end,
+	["immune to elemental ailments while on consecrated ground if you have at least 150 devotion"] = function()
+		local mods = { }
+		for i, ailment in ipairs(data.elementalAilmentTypeList) do
+			mods[i] = mod("Avoid"..ailment, "BASE", 100, { type = "Condition", var = "OnConsecratedGround" })
+		end
+		return mods
+	end,
 	["freeze chilled enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num, { type = "ActorCondition", actor = "enemy", var = "Chilled" } ) } end,
 	["(%d+)%% chance to shock attackers for (%d+) seconds on block"] = { mod("ShockBase", "BASE", data.nonDamagingAilment["Shock"].default) },
 	["shock attackers for (%d+) seconds on block"]  = {
