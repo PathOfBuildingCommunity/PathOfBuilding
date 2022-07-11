@@ -1413,10 +1413,10 @@ Uber Pinnacle Boss adds the following modifiers:
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5)
 			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder("", true)
+			build.configTab.varControls['enemyColdDamage']:SetPlaceholder("", true)
+			build.configTab.varControls['enemyFireDamage']:SetPlaceholder("", true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder("", true)
 
 			local defaultPen = ""
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
