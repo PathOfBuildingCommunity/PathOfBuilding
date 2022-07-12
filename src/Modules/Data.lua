@@ -498,6 +498,9 @@ local function loadJewelFile(jewelTypeName)
 
 	fileHandle = NewFileSearch(main.userPath .. jewelTypeName .. ".*.part*")
 	local splitFile = ""
+	if fileHandle then
+		compressedFileAttr.modified = fileHandle:GetFileModifiedTime()
+	end
 	while fileHandle do
 		local file = io.open("Data/TimelessJewelData/" .. fileHandle:GetFileName(), "rb")
 		splitFile = splitFile .. file:read("*all")
@@ -505,7 +508,6 @@ local function loadJewelFile(jewelTypeName)
 		if not fileHandle:NextFile() then
 			break
 		end
-		compressedFileAttr.modified = fileHandle:GetFileModifiedTime()
 	end
 
 	if uncompressedFileAttr.modified and uncompressedFileAttr.modified > compressedFileAttr.modified then
