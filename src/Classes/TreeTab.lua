@@ -1079,9 +1079,9 @@ function TreeTabClass:FindTimelessJewel()
 					else
 						local curNode = nil
 						local curNodeId = nil
-						if jewelDataTbl[1] >= 94 then -- replace
-							curNode = legionNodes[jewelDataTbl[1] - 94]
-							curNodeId = curNode and legionNodes[jewelDataTbl[1] - 94].id or nil
+						if jewelDataTbl[1] >= 93 then -- replace
+							curNode = legionNodes[jewelDataTbl[1] - 93]
+							curNodeId = curNode and legionNodes[jewelDataTbl[1] - 93].id or nil
 						else -- add
 							curNode = legionAdditions[jewelDataTbl[1]]
 							curNodeId = curNode and legionAdditions[jewelDataTbl[1]].id or nil

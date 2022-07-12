@@ -134,7 +134,7 @@ for i=1, alternatePassiveSkillDat.rowCount do
 	legionPassiveNode.out = {}
 	legionPassiveNode["in"] = {}
 
-	data.nodes[i-1] = legionPassiveNode
+	data.nodes[i] = legionPassiveNode
 end
 
 data.groups[LEGION_PASSIVE_GROUP] = {
@@ -169,7 +169,7 @@ for i=1, alternatePassiveAdditionsDat.rowCount do
 	legionPassiveAddition.stats = {}
 
 	parseStats(datFileRow, legionPassiveAddition)
-	data.additions[i-1] = legionPassiveAddition
+	data.additions[i] = legionPassiveAddition
 end
 
 str = stringify(data)
