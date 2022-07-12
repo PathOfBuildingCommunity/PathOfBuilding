@@ -8,6 +8,7 @@ LoadModule("Data/Global")
 
 local m_min = math.min
 local m_max = math.max
+local t_concat = table.concat
 
 local skillTypes = {
 	"act_str",
@@ -496,19 +497,22 @@ local function loadJewelFile(jewelTypeName)
 		compressedFileAttr.modified = fileHandle:GetFileModifiedTime()
 	end
 
-	fileHandle = NewFileSearch(main.userPath .. jewelTypeName .. ".*.part*")
-	local splitFile = ""
+	fileHandle = NewFileSearch(main.userPath .. jewelTypeName .. ".zip.part*")
+	local splitFile = { }
 	if fileHandle then
 		compressedFileAttr.modified = fileHandle:GetFileModifiedTime()
 	end
 	while fileHandle do
-		local file = io.open("Data/TimelessJewelData/" .. fileHandle:GetFileName(), "rb")
-		splitFile = splitFile .. file:read("*all")
+		local fileName = fileHandle:GetFileName()
+		local file = io.open("Data/TimelessJewelData/" .. fileName, "rb")
+		local part = tonumber(fileName:match("%.part(%d)")) or 0
+		splitFile[part + 1] = file:read("*all")
 		file:close()
 		if not fileHandle:NextFile() then
 			break
 		end
 	end
+	splitFile = t_concat(splitFile, "")
 
 	if uncompressedFileAttr.modified and uncompressedFileAttr.modified > compressedFileAttr.modified then
 		ConPrintf("Uncompressed jewel data is up-to-date, loading " .. uncompressedFileAttr.fileName)
