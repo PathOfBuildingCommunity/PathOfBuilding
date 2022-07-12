@@ -344,7 +344,13 @@ directiveTable.skill = function(state, args, out)
 				table.insert(level, statRow.BaseResolvedValues[i])
 				level.statInterpolation[i] = 1
 			else
-				table.insert(level, statRow.FloatStatsValues[i])
+				if statRow.InterpolationBases[i] == 1 then
+					table.insert(level, statRow.FloatStatsValues[i] / 0.06)
+				elseif statRow.InterpolationBases[i] == 0 then
+					table.insert(level, statRow.FloatStatsValues[i])
+				else
+					ConPrintf("Unhandled InterpolationBase: " .. InterpolationBases[i] .. " on skill: " .. displayName)
+				end
 			end
 		end
 		if injectConstantValuesIntoEachLevel then

@@ -331,6 +331,27 @@ return {
 		}
 	},
 	AdditionalLifeScaling={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="DATFilename",
+			refTo="",
+			type="String",
+			width=240
+		},
+		[3]={
+			list=false,
+			name="DATFilepath",
+			refTo="",
+			type="String",
+			width=290
+		}
 	},
 	AdditionalLifeScalingPerLevel={
 	},
@@ -3492,8 +3513,8 @@ return {
 		[10]={
 			list=true,
 			name="InterpolationBases",
-			refTo="Stats",
-			type="Key",
+			refTo="",
+			type="Int",
 			width=180
 		},
 		[11]={
