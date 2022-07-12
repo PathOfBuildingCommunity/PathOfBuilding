@@ -8,6 +8,7 @@ LoadModule("Data/Global")
 
 local m_min = math.min
 local m_max = math.max
+local t_concat = table.concat
 
 local skillTypes = {
 	"act_str",
@@ -479,27 +480,47 @@ end
 -- Load legion jewel data
 
 local function loadJewelFile(jewelTypeName)
-	jewelTypeName = "Data/TimelessJewelData/" .. jewelTypeName
+	jewelTypeName = "/Data/TimelessJewelData/" .. jewelTypeName
 	local jewelData
 
-	local fileHandle = NewFileSearch(main.userPath .. jewelTypeName .. ".bin")
+	local scriptPath = GetScriptPath()
+
+	local fileHandle = NewFileSearch(scriptPath .. jewelTypeName .. ".bin")
 	local uncompressedFileAttr = { }
 	if fileHandle then
 		uncompressedFileAttr.fileName = fileHandle:GetFileName()
 		uncompressedFileAttr.modified = fileHandle:GetFileModifiedTime()
 	end
-	fileHandle = NewFileSearch(main.userPath .. jewelTypeName .. ".zip")
+
+	fileHandle = NewFileSearch(scriptPath .. jewelTypeName .. ".zip")
 	local compressedFileAttr = { }
 	if fileHandle then
 		compressedFileAttr.fileName = fileHandle:GetFileName()
 		compressedFileAttr.modified = fileHandle:GetFileModifiedTime()
 	end
 
-	if uncompressedFileAttr.modified and uncompressedFileAttr.modified > compressedFileAttr.modified then
+	fileHandle = NewFileSearch(scriptPath .. jewelTypeName .. ".zip.part*")
+	local splitFile = { }
+	if fileHandle then
+		compressedFileAttr.modified = fileHandle:GetFileModifiedTime()
+	end
+	while fileHandle do
+		local fileName = fileHandle:GetFileName()
+		local file = io.open(scriptPath .. "/Data/TimelessJewelData/" .. fileName, "rb")
+		local part = tonumber(fileName:match("%.part(%d)")) or 0
+		splitFile[part + 1] = file:read("*a")
+		file:close()
+		if not fileHandle:NextFile() then
+			break
+		end
+	end
+	splitFile = t_concat(splitFile, "")
+
+	if uncompressedFileAttr.modified and uncompressedFileAttr.modified > (compressedFileAttr.modified or 0) then
 		ConPrintf("Uncompressed jewel data is up-to-date, loading " .. uncompressedFileAttr.fileName)
-		local uncompressedFile = io.open(jewelTypeName .. ".bin", "rb")
+		local uncompressedFile = io.open(scriptPath .. jewelTypeName .. ".bin", "rb")
 		if uncompressedFile then
-			jewelData = uncompressedFile:read("*all")
+			jewelData = uncompressedFile:read("*a")
 			uncompressedFile.close()
 		end
 		if jewelData then
@@ -507,18 +528,19 @@ local function loadJewelFile(jewelTypeName)
 		end
 	end
 
-	ConPrintf("Failed to load " .. main.userPath .. jewelTypeName .. ".bin, or data is out of date, falling back to compressed file")
-	local compressedFile = io.open(jewelTypeName .. ".zip", "rb")
+	ConPrintf("Failed to load " .. scriptPath .. jewelTypeName .. ".bin, or data is out of date, falling back to compressed file")
+	local compressedFile = io.open(scriptPath .. jewelTypeName .. ".zip", "rb")
 	if compressedFile then
-		-- load the binary jewel data file
-		jewelData = Inflate(compressedFile:read("*all"))
+		jewelData = Inflate(compressedFile:read("*a"))
 		compressedFile:close()
+	elseif splitFile ~= "" then
+		jewelData = Inflate(splitFile)
 	end
 
 	if jewelData == nil then
 		ConPrintf("Failed to load either file: " .. jewelTypeName .. ".zip, " .. jewelTypeName .. ".bin")
 	else
-		local uncompressedFile = io.open(jewelTypeName .. ".bin", "wb+")
+		local uncompressedFile = io.open(scriptPath .. jewelTypeName .. ".bin", "wb+")
 		uncompressedFile:write(jewelData)
 		uncompressedFile:close()
 	end
