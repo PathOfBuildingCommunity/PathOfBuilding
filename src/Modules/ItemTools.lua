@@ -23,19 +23,19 @@ itemLib.influenceInfo = {
 	{ key="tangle", display="Eater of Worlds", color=colorCodes.TANGLE },
 }
 
--- Apply a value scalar to any numbers present
-function itemLib.applyValueScalar(line, valueScalar)
+-- Apply a value scalar to the first n of any numbers present
+function itemLib.applyValueScalar(line, valueScalar, numbers)
 	if valueScalar and type(valueScalar) == "number" and valueScalar ~= 1 then
 		if line:match("(%d+%.%d*)") then
 			return line:gsub("(%d+%.%d*)", function(num)
 				local numVal = (m_floor(tonumber(num) * valueScalar * 100 + 0.001) / 100)
 				return tostring(numVal)
-			end)
+			end, numbers)
 		else
 			return line:gsub("(%d+)([^%.])", function(num, suffix)
 				local numVal = m_floor(num * valueScalar + 0.001)
 				return tostring(numVal)..suffix
-			end)
+			end, numbers)
 		end
 	end
 	return line
@@ -66,10 +66,12 @@ end
 
 -- Apply range value (0 to 1) to a modifier that has a range: (x to x) or (x-x to x-x)
 function itemLib.applyRange(line, range, valueScalar)
+	numbers = 0
 	line = line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
 		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
 		:gsub("(%+?)%((%-?%d+)%-(%d+)%)",
 		function(plus, min, max)
+			numbers = numbers + 1
 			local numVal = m_floor(tonumber(min) + range * (tonumber(max) - tonumber(min)) + 0.5)
 			if numVal < 0 then
 				if plus == "+" then
@@ -80,11 +82,12 @@ function itemLib.applyRange(line, range, valueScalar)
 		end)
 		:gsub("%((%d+%.?%d*)%-(%d+%.?%d*)%)",
 		function(min, max)
+			numbers = numbers + 1
 			local numVal = m_floor((tonumber(min) + range * (tonumber(max) - tonumber(min))) * 10 + 0.5) / 10
 			return tostring(numVal)
 		end)
 		:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
-	return itemLib.applyValueScalar(line, valueScalar)
+	return itemLib.applyValueScalar(line, valueScalar, numbers)
 end
 
 --- Clean item text by removing or replacing unsupported or redundant characters or sequences
