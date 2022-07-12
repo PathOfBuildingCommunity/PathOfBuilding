@@ -725,11 +725,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						-- FIXME: complete implementation of this. Need to set roll values for stats
 						--        based on their `fmt` specification 
 						if headerSize == 2 or headerSize == 3 then
-							self:ReplaceNode(node, legionNodes[jewelDataTbl[1] - 93])
+							self:ReplaceNode(node, legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions])
 
-							for i, repStat in ipairs(legionNodes[jewelDataTbl[1] - 93].sd) do
-								local statKey = legionNodes[jewelDataTbl[1] - 93].sortedStats[i]
-								local statMod = legionNodes[jewelDataTbl[1] - 93].stats[statKey]
+							for i, repStat in ipairs(legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].sd) do
+								local statKey = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].sortedStats[i]
+								local statMod = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].stats[statKey]
 								repStat = replaceHelperFunc(repStat, statKey, statMod, jewelDataTbl[statMod.index + 1])
 								self:NodeAdditionOrReplacementFromString(node, repStat, i == 1) -- wipe mods on first run
 							end
@@ -777,8 +777,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						end
 					else
 						for _, jewelData in ipairs(jewelDataTbl) do
-							if jewelData >= 94 then -- replace
-								jewelData = jewelData - 93
+							if jewelData >= data.timelessJewelAdditions then -- replace
+								jewelData = jewelData + 1 - data.timelessJewelAdditions
 								local legionNode = legionNodes[jewelData]
 								if legionNode then
 									self:ReplaceNode(node, legionNode)
@@ -791,7 +791,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 									self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
 								end
 							elseif next(jewelData) then
-								ConPrintf("Unhandled OP: " .. jewelData)
+								ConPrintf("Unhandled OP: " .. jewelData + 1)
 							end
 						end
 					end
@@ -816,10 +816,10 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					if not next(jewelDataTbl) then
 						ConPrintf("Missing LUT: " .. data.timelessJewelTypes[jewelType])
 					else
-						self:ReplaceNode(node, legionNodes[jewelDataTbl[1] - 93])
+						self:ReplaceNode(node, legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions])
 						for i, repStat in ipairs(node.sd) do
-							local statKey = legionNodes[jewelDataTbl[1] - 93].sortedStats[i]
-							local statMod = legionNodes[jewelDataTbl[1] - 93].stats[statKey]
+							local statKey = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].sortedStats[i]
+							local statMod = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].stats[statKey]
 							repStat = replaceHelperFunc(repStat, statKey, statMod, jewelDataTbl[2])
 							self:NodeAdditionOrReplacementFromString(node, repStat, true)
 						end
