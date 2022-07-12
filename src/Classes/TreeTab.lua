@@ -929,16 +929,26 @@ function TreeTabClass:FindTimelessJewel()
 	controls.socketSelect.selIndex = timelessData.jewelSocket.idx
 
 	controls.socketFilterLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 100, 0, 16, "^7Filter Nodes:")
-	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 18, nil, function(value)
-		timelessData.socketFilter = value
+	local filterTypes = {
+		"None",
+		"AllocatedNodes",
+		"Distance",
+		"weightPerPoint"
+	}
+	controls.socketFilter = new("DropDownControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 200, 18, filterTypes, function(index, value)
+		timelessData.socketFilter = index
 		self.build.modFlag = true
 	end)
+	--controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 18, nil, function(value)
+	--	timelessData.socketFilter = value
+	--	self.build.modFlag = true
+	--end)
 	controls.socketFilter.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Enable this option to exclude nodes that you do not have allocated on your active passive skill tree.")
 		tooltip:AddLine(16, "^7This can be useful if you're never going to path towards those excluded nodes and don't care what happens to them.")
 	end
-	controls.socketFilter.state = timelessData.socketFilter
+	controls.socketFilter.selIndex = timelessData.socketFilter
 
 	controls.nodeSliderLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 125, 0, 16, "^7Primary Node Weight:")
 	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 10, 0, 200, 16, function(value)
@@ -1004,6 +1014,7 @@ function TreeTabClass:FindTimelessJewel()
 			local radiusNodes = treeData.nodes[timelessData.jewelSocket.id].nodesInRadius[3] -- large radius around timelessData.jewelSocket.id
 			local allocatedNodes = { }
 			local targetNodes = { }
+			local targetNodesDistance = {}
 			local desiredNodes = { }
 			local requiredNodes = { }
 			local resultNodes = { }
@@ -1011,9 +1022,14 @@ function TreeTabClass:FindTimelessJewel()
 			for _, class in pairs(treeData.classes) do
 				rootNodes[class.startNodeId] = true
 			end
-			if controls.socketFilter.state then
+			if controls.socketFilter.selIndex == 2 or controls.socketFilter.selIndex == 4 then
 				for nodeId in pairs(radiusNodes) do
 					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
+				end
+			end
+			if controls.socketFilter.selIndex == 3 or controls.socketFilter.selIndex == 4 then
+				for nodeId in pairs(radiusNodes) do
+					targetNodesDistance[nodeId] = 0
 				end
 			end
 			for nodeId in pairs(radiusNodes) do
@@ -1021,7 +1037,8 @@ function TreeTabClass:FindTimelessJewel()
 				and not treeData.nodes[nodeId].isJewelSocket
 				and not treeData.nodes[nodeId].isKeystone
 				and (treeData.nodes[nodeId].isNotable or timelessData.jewelType.id == 1)
-				and (not controls.socketFilter.state or allocatedNodes[nodeId]) then
+				and (not (controls.socketFilter.selIndex == 2) or allocatedNodes[nodeId]) 
+				and (not (controls.socketFilter.selIndex == 3) or targetNodesDistance[nodeId] <= 2) then
 					targetNodes[nodeId] = true
 				end
 			end
@@ -1063,6 +1080,8 @@ function TreeTabClass:FindTimelessJewel()
 							t_insert(requiredNodes, desiredNode[1])
 						elseif desiredNode[3] == "required" then
 							desiredNode[3] = 0
+							t_insert(requiredNodes, desiredNode[1])
+						elseif (desiredNode[4] or 0) == "required" then
 							t_insert(requiredNodes, desiredNode[1])
 						end
 						desiredIdx = desiredIdx + 1
@@ -1137,6 +1156,89 @@ function TreeTabClass:FindTimelessJewel()
 					if (resultNodes[curSeed][reqNode] or 0) == 0 then
 						resultNodes[curSeed] = nil
 						break
+					end
+				end
+			end
+			local seedWeights2 = { }
+			local resultNodes2 = {}
+			if controls.socketFilter.selIndex == 4 then
+				targetNodes = {} -- clear
+				for nodeId in pairs(radiusNodes) do
+					if not rootNodes[nodeId]
+					and not treeData.nodes[nodeId].isJewelSocket
+					and not treeData.nodes[nodeId].isKeystone
+					and (treeData.nodes[nodeId].isNotable or timelessData.jewelType.id == 1)
+					and (not allocatedNodes[nodeId]) then
+						targetNodes[nodeId] = true
+					end
+				end
+				--search again but divide weight by targetNodesDistance
+				for curSeed = data.timelessJewelSeedMin[timelessData.jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[timelessData.jewelType.id] * seedMultiplier, seedMultiplier do
+					seedWeights2[curSeed] = 0
+					resultNodes2[curSeed] = { }
+					for targetNode in pairs(targetNodes) do
+						local jewelDataTbl = data.readLUT(curSeed, targetNode, timelessData.jewelType.id)
+						if not next(jewelDataTbl) then
+							ConPrintf("Missing LUT: " .. timelessData.jewelType.label)
+						else
+							local curNode = nil
+							local curNodeId = nil
+							if jewelDataTbl[1] >= 94 then -- replace
+								curNode = legionNodes[jewelDataTbl[1] - 94]
+								curNodeId = curNode and legionNodes[jewelDataTbl[1] - 94].id or nil
+							else -- add
+								curNode = legionAdditions[jewelDataTbl[1]]
+								curNodeId = curNode and legionAdditions[jewelDataTbl[1]].id or nil
+							end
+							if timelessData.jewelType.id == 1 then
+								local headerSize = #jewelDataTbl
+								if headerSize == 2 or headerSize == 3 then
+									if desiredNodes[curNodeId] then
+										resultNodes2[curSeed][curNodeId] = resultNodes2[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
+										local statMod1 = curNode.stats[curNode.sortedStats[1]]
+										local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[statMod1.index + 1] / targetNodesDistance[targetNode]
+										local statMod2 = curNode.stats[curNode.sortedStats[2]]
+										if statMod2 then
+											weight = weight + desiredNodes[curNodeId].nodeWeight2 * jewelDataTbl[statMod2.index + 1] / targetNodesDistance[targetNode]
+										end
+										t_insert(resultNodes2[curSeed][curNodeId], targetNode)
+										t_insert(resultNodes2[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
+										resultNodes2[curSeed][curNodeId].totalWeight = resultNodes2[curSeed][curNodeId].totalWeight + weight
+										seedWeights2[curSeed] = seedWeights2[curSeed] + weight
+									end
+								elseif headerSize == 6 or headerSize == 8 then
+									for i, jewelData in ipairs(jewelDataTbl) do
+										curNode = legionAdditions[jewelDataTbl[i]]
+										curNodeId = curNode and legionAdditions[jewelDataTbl[i]].id or nil
+										if i <= (headerSize / 2) then
+											if desiredNodes[curNodeId] then
+												resultNodes2[curSeed][curNodeId] = resultNodes2[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
+												local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[i + (headerSize / 2)] / targetNodesDistance[targetNode]
+												resultNodes2[curSeed][curNodeId].totalWeight = resultNodes2[curSeed][curNodeId].totalWeight + weight
+												t_insert(resultNodes2[curSeed][curNodeId], targetNode)
+												t_insert(resultNodes2[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
+												seedWeights2[curSeed] = seedWeights2[curSeed] + weight
+											end
+										else
+											break
+										end
+									end
+								end
+							elseif desiredNodes[curNodeId] then
+								resultNodes2[curSeed][curNodeId] = resultNodes2[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
+								resultNodes2[curSeed][curNodeId].totalWeight = resultNodes2[curSeed][curNodeId].totalWeight + desiredNodes[curNodeId].nodeWeight / targetNodesDistance[targetNode]
+								t_insert(resultNodes2[curSeed][curNodeId], targetNode)
+								t_insert(resultNodes2[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
+								seedWeights2[curSeed] = seedWeights2[curSeed] + desiredNodes[curNodeId].nodeWeight / targetNodesDistance[targetNode]
+							end
+						end
+					end
+					-- check required nodes
+					for _, reqNode in ipairs(requiredNodes) do
+						if (not resultNodes[curSeed]) and ((resultNodes2[curSeed][reqNode] or 0) == 0) then
+							resultNodes2[curSeed] = nil
+							break
+						end
 					end
 				end
 			end

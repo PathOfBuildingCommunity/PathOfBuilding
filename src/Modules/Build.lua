@@ -795,7 +795,7 @@ function buildMode:Load(xml, fileName)
 				id = tonumber(child.attrib.jewelSocketId),
 				idx = tonumber(child.attrib.jewelSocketIdx)
 			}
-			self.timelessData.socketFilter = child.attrib.socketFilter == "true"
+			self.timelessData.socketFilter = tonumber(child.attrib.socketFilter) or 1
 			self.timelessData.searchList = child.attrib.searchList
 		end
 	end
@@ -872,7 +872,7 @@ function buildMode:Save(xml)
 			jewelSocketKeystone = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.keystone),
 			jewelSocketId = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.id),
 			jewelSocketIdx = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.idx),
-			socketFilter = self.timelessData.socketFilter and "true",
+			socketFilter = self.timelessData.socketFilter and tostring(self.timelessData.socketFilter),
 			searchList = self.timelessData.searchList and tostring(self.timelessData.searchList)
 		}
 	}
