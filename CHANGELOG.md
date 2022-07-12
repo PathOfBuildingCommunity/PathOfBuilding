@@ -8,7 +8,7 @@
 
 ## What's Changed
 ### Implemented Enhancements
-- Timeless Jewel implementation [\#4527](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4527) ([LocalIdentity](https://github.com/LocalIdentity), [Lothrik](https://github.com/Lothrik), [Regisle](https://github.com/Regisle), [Wires77](https://github.com/Wires77))
+- Timeless Jewel implementation [\#4527](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4527) ([LocalIdentity](https://github.com/LocalIdentity), [Lothrik](https://github.com/Lothrik), [Nostrademous](https://github.com/Nostrademous), [Regisle](https://github.com/Regisle), [Wires77](https://github.com/Wires77))
 - Add Default Item Affix Quality option [\#4520](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4520) ([Lothrik](https://github.com/Lothrik))
 - Add support for skill sets (socket group sets) [\#4447](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4447) ([deathbeam](https://github.com/deathbeam))
 - Add new configuration options for Boss Skill Presets [\#4436](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4436) ([Regisle](https://github.com/Regisle))

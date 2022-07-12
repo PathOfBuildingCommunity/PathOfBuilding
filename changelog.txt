@@ -1,7 +1,7 @@
 VERSION[2.19.0][2022/07/12]
 
 --- Implemented Enhancements ---
-* Timeless Jewel implementation (LocalIdentity, Lothrik, Regisle, Wires77)
+* Timeless Jewel implementation (LocalIdentity, Lothrik, Nostrademous, Regisle, Wires77)
 * Add Default Item Affix Quality option (Lothrik)
 * Add support for skill sets (socket group sets) (deathbeam)
 * Add new configuration options for Boss Skill Presets (Regisle)
