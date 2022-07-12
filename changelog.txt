@@ -1,7 +1,7 @@
 VERSION[2.19.0][2022/07/12]
 <!-- Release notes generated using configuration in .github/release.yml at dev -->
 
-* Timeless Jewel implementation (LocalIdentity)
+* Timeless Jewel implementation (LocalIdentity, Lothrik, Regisle, Wires77)
 * Add Default Item Affix Quality option (Lothrik)
 * Add support for skill sets (socket group sets) (deathbeam)
 * Add new configuration options for Boss Skill Presets (Regisle)
@@ -35,8 +35,7 @@ VERSION[2.19.0][2022/07/12]
 * Fix Vaal lightning strike projectiles not counting as projectiles (Wires77)
 * Rename old dodge chance mods on watcher's eye (Wires77)
 * Update "source" text of unique cluster jewels (ctrpetersen)
-* Update wording on Skyforth, Victario's Flight, Mindspiral, Mutewind Seal (Lothrik)
-* Update wording on Maw of Conquest, Thousand Teeth Temu (Lothrik)
+* Update wording on Skyforth, Victario's Flight, Mindspiral, Mutewind Seal, Maw of Conquest, Thousand Teeth Temu (Lothrik)
 * Fix incorrect level requirement for Legacy of Fury (Lexy)
 * Fix Ming's Heart variant typo (Regisle)
 * Fix Flask Duration to match in game values (QuickStick123)
