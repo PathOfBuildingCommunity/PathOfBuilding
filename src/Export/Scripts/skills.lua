@@ -333,7 +333,7 @@ directiveTable.skill = function(state, args, out)
 			level.extra.soulPreventionDuration = levelRow.SoulGainPreventionDuration / 1000
 		end
 		level.statInterpolation = statRow.StatInterpolations
-		local resolveInterpolation = true
+		local resolveInterpolation = false
 		local injectConstantValuesIntoEachLevel = false
 		for i, stat in ipairs(statRow.FloatStats) do
 			if not statMap[stat.Id] then
