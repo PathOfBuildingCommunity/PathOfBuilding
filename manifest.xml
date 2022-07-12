@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.19.0" />
+	<Version number="2.19.1" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
@@ -147,7 +147,10 @@
 	<File name="Data/StatDescriptions/variable_duration_skill_stat_descriptions.lua" part="program" sha1="fbf3309032bb7288b085b9e001b962827218d4e6" />
 	<File name="Data/TimelessJewelData/BrutalRestraint.zip" part="program" sha1="a441c6d95a7637a4dcf6acb8eddc25cb0347d002" />
 	<File name="Data/TimelessJewelData/ElegantHubris.zip" part="program" sha1="034bcff8ee80a20f3c3e06015d2c278a4d52413e" />
-	<File name="Data/TimelessJewelData/GloriousVanity.zip" part="program" sha1="815e5187c1e6687032c4ffb55cd2ab2b09d0ac8a" />
+	<File name="Data/TimelessJewelData/GloriousVanity.zip.part0" part="program" sha1="ac940ad703d64fff17c24113cc82e28a3e0c3ff6" />
+	<File name="Data/TimelessJewelData/GloriousVanity.zip.part1" part="program" sha1="0697afc2f6a5190ba0fbda71308f9d6272739b84" />
+	<File name="Data/TimelessJewelData/GloriousVanity.zip.part2" part="program" sha1="a4b58b5923a3138fc873f7de22afe8e4a6b94400" />
+	<File name="Data/TimelessJewelData/GloriousVanity.zip.part3" part="program" sha1="ca468dcd78a4b37e94792cb4b13b62043c82c0aa" />
 	<File name="Data/TimelessJewelData/LethalPride.zip" part="program" sha1="24c2654ad9613c5746d3cddb164f458f0c47df50" />
 	<File name="Data/TimelessJewelData/MilitantFaith.zip" part="program" sha1="c26b00ea360ab088a1acb0e86a87cc6f42968c28" />
 	<File name="Data/TimelessJewelData/NodeIndexMapping.lua" part="program" sha1="52e4cbbc232c08224711d5e752355d0d07fd1116" />
@@ -191,7 +194,7 @@
 	<File name="Modules/CalcTools.lua" part="program" sha1="39bcab8303889f7ba49fc1cd9e3ecd7e3e59ab54" />
 	<File name="Modules/Common.lua" part="program" sha1="4805c3861e7f8820926f652540969cc8a113c0f0" />
 	<File name="Modules/ConfigOptions.lua" part="program" sha1="03a983ae00fe7b8da3e4931e20a7dd0b77f44344" />
-	<File name="Modules/Data.lua" part="program" sha1="7ebbbacd224202f08ff744ecb00f8186cba71445" />
+	<File name="Modules/Data.lua" part="program" sha1="7ed6f21768b394e81585368ca3993c5c9c24602f" />
 	<File name="Modules/ItemTools.lua" part="program" sha1="f2c7a953243046b52e1fb31324d1b95a95616b03" />
 	<File name="Modules/Main.lua" part="program" sha1="2d9b61a42f56dcb4a4f2378ce46b99c43b3b23f2" />
 	<File name="Modules/ModParser.lua" part="program" sha1="0b4771790ae072c5420a28d6d11bab02563ed099" />
