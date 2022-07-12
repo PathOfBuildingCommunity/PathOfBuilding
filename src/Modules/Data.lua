@@ -525,7 +525,7 @@ local function loadJewelFile(jewelTypeName)
 	if compressedFile then
 		jewelData = Inflate(compressedFile:read("*all"))
 		compressedFile:close()
-	elseif splitFile then
+	elseif splitFile ~= "" then
 		jewelData = Inflate(splitFile)
 	end
 
