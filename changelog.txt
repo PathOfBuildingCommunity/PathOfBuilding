@@ -1,6 +1,6 @@
 VERSION[2.19.0][2022/07/12]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
 
+--- Implemented Enhancements ---
 * Timeless Jewel implementation (LocalIdentity, Lothrik, Regisle, Wires77)
 * Add Default Item Affix Quality option (Lothrik)
 * Add support for skill sets (socket group sets) (deathbeam)
@@ -17,6 +17,7 @@ VERSION[2.19.0][2022/07/12]
 * Add support for ailment immunity mod on timeless jewels (Wires77)
 * Add support for "% increased cast speed if a minion has been killed recently" (spawnie-no-oni)
 * Add support for more Eldritch mods (LocalIdentity)
+
 --- User Interface ---
 * Fix labels having an incorrect font size and alignment for checkmark boxes. (QuickStick123)
 * Fix typo in tree (Ivniinvi)
@@ -26,6 +27,7 @@ VERSION[2.19.0][2022/07/12]
 * Restore enter functionality for Import tab (pHiney)
 * Fix saving of section/subsection collapsing in calcs (deathbeam)
 * Add some missing alternate quality modifiers (Nostrademous)
+
 --- Accuracy Improvements ---
 * Fix flat Reservation rounding (Lothrik)
 * Correctly handle 100% reduced reservation efficiency and greater (QuickStick123)
@@ -40,6 +42,7 @@ VERSION[2.19.0][2022/07/12]
 * Fix Ming's Heart variant typo (Regisle)
 * Fix Flask Duration to match in game values (QuickStick123)
 * Refactor wither to apply strongest wither effect (QuickStick123)
+
 --- Fixed Bugs ---
 * Fix Out of Memory crash in Items Tab (Lothrik)
 * Fix alternate quality dropdown options not changing on gem deletion (Wires77)
@@ -60,6 +63,7 @@ VERSION[2.19.0][2022/07/12]
 * Fix Smite area hit being classified as melee (QuickStick123)
 * Fix Herald of Purity minions missing a duration (Wires77)
 * Fix Chain Hook Radius per Rage (Lothrik)
+
 --- Other changes ---
 * Docs - Fix dead links and refactor to use relative links (Paliak)
 
