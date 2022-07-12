@@ -120,6 +120,16 @@ for i=1, alternatePassiveSkillDat.rowCount do
 
 	parseStats(datFileRow, legionPassiveNode)
 
+	if legionPassiveNode.id == "vaal_keystone_2_v2" then -- Immortal Ambition needs to be manually added
+        legionPassiveNode.sd = {
+            [1] = "Energy Shield starts at zero",
+            [2] = "Cannot Recharge or Regenerate Energy Shield",
+            [3] = "Lose 5% of Energy Shield per second",
+            [4] = "Life Leech effects are not removed at Full Life",
+            [5] = "Life Leech effects Recover Energy Shield instead while on Full Life"
+        }
+    end
+
 	-- Node group, legion nodes don't use it, so we set it arbitrarily
 	legionPassiveNode.g = LEGION_PASSIVE_GROUP
 	-- 
