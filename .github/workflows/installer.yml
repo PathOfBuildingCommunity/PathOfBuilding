@@ -16,6 +16,6 @@ jobs:
               run: 'python3 make_release.py'
             - name: Upload artifact
               run: >
-              echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token;
-              gh release upload ${{ github.event.release.tag_name }} (Get-ChildItem Dist -File).FullName --clobber -R ${{ github.repository }};
+                echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token;
+                gh release upload ${{ github.event.release.tag_name }} (Get-ChildItem Dist -File).FullName --clobber -R ${{ github.repository }};
 
