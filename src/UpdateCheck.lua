@@ -59,7 +59,7 @@ local function downloadFile(source, file, outName)
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
 		end
-		easy:setopt_writefunction(assert(io.open(outName, "w+b")))
+		easy:setopt_writefunction(assert(io.open(outName, "wb+")))
 		local _, error = easy:perform()
 		easy:close()
 		if not error then
@@ -225,7 +225,7 @@ for index, data in ipairs(updateFiles) do
 		if zip then
 			local zippedFile = zip:OpenFile(data.name)
 			if zippedFile then
-				io.open(fileName, "w+b"):write(zippedFile:Read("*a")):close()
+				io.open(fileName, "wb+"):write(zippedFile:Read("*a")):close()
 				zippedFile:Close()
 			else
 				ConPrintf("Couldn't extract '%s' from '%s' (extract failed)", data.name, zipName)

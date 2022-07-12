@@ -488,10 +488,23 @@ local function loadJewelFile(jewelTypeName)
 		uncompressedFileAttr.fileName = fileHandle:GetFileName()
 		uncompressedFileAttr.modified = fileHandle:GetFileModifiedTime()
 	end
+
 	fileHandle = NewFileSearch(main.userPath .. jewelTypeName .. ".zip")
 	local compressedFileAttr = { }
 	if fileHandle then
 		compressedFileAttr.fileName = fileHandle:GetFileName()
+		compressedFileAttr.modified = fileHandle:GetFileModifiedTime()
+	end
+
+	fileHandle = NewFileSearch(main.userPath .. jewelTypeName .. ".*.part*")
+	local splitFile = ""
+	while fileHandle do
+		local file = io.open("Data/TimelessJewelData/" .. fileHandle:GetFileName(), "rb")
+		splitFile = splitFile .. file:read("*all")
+		file:close()
+		if not fileHandle:NextFile() then
+			break
+		end
 		compressedFileAttr.modified = fileHandle:GetFileModifiedTime()
 	end
 
@@ -510,9 +523,10 @@ local function loadJewelFile(jewelTypeName)
 	ConPrintf("Failed to load " .. main.userPath .. jewelTypeName .. ".bin, or data is out of date, falling back to compressed file")
 	local compressedFile = io.open(jewelTypeName .. ".zip", "rb")
 	if compressedFile then
-		-- load the binary jewel data file
 		jewelData = Inflate(compressedFile:read("*all"))
 		compressedFile:close()
+	elseif splitFile then
+		jewelData = Inflate(splitFile)
 	end
 
 	if jewelData == nil then
