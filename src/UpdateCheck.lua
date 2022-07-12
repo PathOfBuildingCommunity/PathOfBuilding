@@ -227,7 +227,9 @@ for index, data in ipairs(updateFiles) do
 		if zip then
 			local zippedFile = zip:OpenFile(data.name)
 			if zippedFile then
-				io.open(fileName, "wb+"):write(zippedFile:Read("*a")):close()
+				local file = io.open(fileName, "wb+")
+				file:write(zippedFile:Read("*a"))
+				file:close()
 				zippedFile:Close()
 			else
 				ConPrintf("Couldn't extract '%s' from '%s' (extract failed)", data.name, zipName)
