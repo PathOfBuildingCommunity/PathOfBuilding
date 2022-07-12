@@ -59,9 +59,11 @@ local function downloadFile(source, file, outName)
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
 		end
-		easy:setopt_writefunction(assert(io.open(outName, "wb+")))
+		local file = io.open(outName, "wb+")
+		easy:setopt_writefunction(file)
 		local _, error = easy:perform()
 		easy:close()
+		file:close()
 		if not error then
 			return true
 		end
@@ -173,7 +175,7 @@ for name, data in pairs(remoteFiles) do
 		else
 			local content = file:read("*a")
 			file:close()
-			if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n","\r\n")) then
+			if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n", "\r\n")) then
 				ConPrintf("Warning: Integrity check on '%s' failed, it will be replaced", data.name)
 				table.insert(updateFiles, data)
 			end
@@ -236,6 +238,17 @@ for index, data in ipairs(updateFiles) do
 	else
 		ConPrintf("Downloading %s... (%d of %d)", data.name, index, #updateFiles)
 		downloadFile(source, data.name, fileName)
+	end
+	local file = io.open(fileName, "rb")
+	if not file then
+		failedFile = true
+	else
+		local content = file:read("*all")
+		if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n", "\r\n")) then
+			ConPrintf("Hash mismatch on '%s'", fileName)
+			failedFile = true
+		end
+		file:close()
 	end
 end
 for name, zip in pairs(zipFiles) do
