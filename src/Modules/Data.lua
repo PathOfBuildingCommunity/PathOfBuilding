@@ -482,7 +482,25 @@ local function loadJewelFile(jewelTypeName)
 	jewelTypeName = "Data/TimelessJewelData/" .. jewelTypeName
 	local jewelData
 
-	local fileHandle = NewFileSearch(main.userPath .. jewelTypeName .. ".bin")
+	local fileHandle = NewFileSearch(main.userPath .. jewelTypeName .. ".*.part*")
+	local fileParts = { }
+	local file
+	while fileHandle do
+		file = io.open("Data/TimelessJewelData/" .. fileHandle:GetFileName(), "rb")
+		table.insert(fileParts, { data = file:read("*all"), fileName = fileHandle:GetFileName()})
+		file:close()
+		if not fileHandle:NextFile() then
+			break
+		end
+	end
+	table.sort(fileParts, function(a,b) return a.fileName:match("part(%d)") < b.fileName:match("part(%d)") end)
+	local zipFile = assert(io.open(jewelTypeName .. ".zip", "wb+"))
+	for _, part in ipairs(fileParts) do
+		zipFile:write(part.data)
+	end
+	zipFile:close()
+
+	fileHandle = NewFileSearch(main.userPath .. jewelTypeName .. ".bin")
 	local uncompressedFileAttr = { }
 	if fileHandle then
 		uncompressedFileAttr.fileName = fileHandle:GetFileName()
