@@ -763,8 +763,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 									break
 								end
 							end
-							for add,val in pairs(additions) do
-								local addition = legionAdditions[add]
+							for add, val in pairs(additions) do
+								local addition = legionAdditions[add + 1]
 								for _, addStat in ipairs(addition.sd) do
 									for k,statMod in pairs(addition.stats) do -- should only be 1 big, these didnt get changed so cant just grab index
 										addStat = replaceHelperFunc(addStat, k, statMod, val)
@@ -777,7 +777,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						end
 					else
 						for _, jewelData in ipairs(jewelDataTbl) do
-							if jewelData >= 93 then -- replace
+							if jewelData >= 94 then -- replace
 								jewelData = jewelData - 93
 								local legionNode = legionNodes[jewelData]
 								if legionNode then
@@ -786,7 +786,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 									ConPrintf("Unhandled 'replace' ID: " .. jewelData)
 								end
 							elseif jewelData then -- add
-								local addition = legionAdditions[jewelData]
+								local addition = legionAdditions[jewelData + 1]
 								for _, addStat in ipairs(addition.sd) do
 									self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
 								end

@@ -44,7 +44,7 @@
 	<File name="Classes/NotableDBControl.lua" part="program" sha1="2edb96f5e80e54afe791fcd293cf9dc201183b13" />
 	<File name="Classes/NotesTab.lua" part="program" sha1="67827a564d75d6f639893d0f0978212cf01ba4a4" />
 	<File name="Classes/PassiveMasteryControl.lua" part="program" sha1="f15e2d078e9b36d42616d11b652eb7160ffb0627" />
-	<File name="Classes/PassiveSpec.lua" part="program" sha1="651247a2732482286a7b654c7b12c52c2a42df96" />
+	<File name="Classes/PassiveSpec.lua" part="program" sha1="319d84c4eac30ab9a893d53321f4e202cdbf8d55" />
 	<File name="Classes/PassiveSpecListControl.lua" part="program" sha1="38dfceca0e38ed2f1e235227a6fe476d290b3178" />
 	<File name="Classes/PassiveTree.lua" part="program" sha1="a7c5b579af9a7ad6816cebf02281fa614e8c4698" />
 	<File name="Classes/PassiveTreeView.lua" part="program" sha1="a5adc6c22cc297420270bc5933513224f1cc6deb" />
@@ -66,7 +66,7 @@
 	<File name="Classes/TimelessJewelSocketControl.lua" part="program" sha1="d7554e1abf95d98ca7ff84a43af7c7c508edaf38" />
 	<File name="Classes/Tooltip.lua" part="program" sha1="ecf26fdd31c2b74ebdec52161b1ce271a715d21b" />
 	<File name="Classes/TooltipHost.lua" part="program" sha1="23274906162877c09d2119237414b6747a0e6cea" />
-	<File name="Classes/TreeTab.lua" part="program" sha1="9c6c5683138d147bb42dc7af43f65e17f8041318" />
+	<File name="Classes/TreeTab.lua" part="program" sha1="01d0368f3e0bd732c7ed3f9e32ee87d4cd2236ab" />
 	<File name="Classes/UndoHandler.lua" part="program" sha1="ce4835c384c834da0de47b0302b1e774c8300c6b" />
 	<File name="Data/Bases/amulet.lua" part="program" sha1="07b87fc0fd93ccdb491663a22323de6559272dc5" />
 	<File name="Data/Bases/axe.lua" part="program" sha1="8fa738db8c0522c959d9ea1e3e819823dd4469b8" />
