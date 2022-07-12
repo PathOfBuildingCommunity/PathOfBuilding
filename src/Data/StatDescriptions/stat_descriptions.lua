@@ -174054,7 +174054,7 @@ return {
 							[2]=99
 						}
 					},
-					text="Monsters have {0}% chance to remove Power, Frenzy and Endurance charges on Hit"
+					text="Monsters have {0}% chance to remove Charges on Hit"
 				},
 				[2]={
 					limit={
@@ -174063,7 +174063,7 @@ return {
 							[2]=100
 						}
 					},
-					text="Monsters remove Power, Frenzy and Endurance charges on Hit"
+					text="Monsters remove Charges on Hit"
 				}
 			}
 		},
