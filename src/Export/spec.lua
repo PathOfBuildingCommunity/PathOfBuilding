@@ -3513,9 +3513,9 @@ return {
 		[10]={
 			list=true,
 			name="InterpolationBases",
-			refTo="",
-			type="Int",
-			width=180
+			refTo="EffectivenessCostConstants",
+			type="Key",
+			width=220
 		},
 		[11]={
 			list=true,
