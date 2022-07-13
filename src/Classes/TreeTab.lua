@@ -823,11 +823,14 @@ function TreeTabClass:FindTimelessJewel()
 			if node.id:match("^" .. timelessData.jewelType.name .. "_.+") and not isValueInArray(ignoredMods, node.dn) and not node.ks then
 				if node["not"] then
 					t_insert(modData, {
-						label = node.dn,
+						label = node.dn .. "                                                " .. node.sd[1],
 						descriptions = copyTable(node.sd),
 						type = timelessData.jewelType.name,
 						id = node.id
 					})
+					if node.sd[2] then
+						modData[#modData].label = modData[#modData].label .. " " .. node.sd[2]
+					end
 				else
 					t_insert(smallModData, {
 						label = node.dn,
