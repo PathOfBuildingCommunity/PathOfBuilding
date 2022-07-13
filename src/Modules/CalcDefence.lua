@@ -880,7 +880,7 @@ function calcs.defence(env, actor)
 				if tonumber(env.configPlaceholder["enemy"..damageType.."Damage"]) ~= nil then
 					enemyDamage = tonumber(env.configPlaceholder["enemy"..damageType.."Damage"])
 				elseif damageType == "Physical" then
-					enemyDamage = round(data.monsterDamageTable[m_min(env.enemyLevel, 83)] * 1.5)
+					enemyDamage = round(data.monsterDamageTable[83] * 1.5)
 				else
 					enemyDamage = 0
 				end
