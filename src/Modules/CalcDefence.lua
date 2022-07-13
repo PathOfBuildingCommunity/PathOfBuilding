@@ -871,19 +871,25 @@ function calcs.defence(env, actor)
 		local enemyCritDamage = env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		for _, damageType in ipairs(dmgTypeList) do
-			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) --missing taunt from allies
-			local enemyDamage = env.configInput["enemy"..damageType.."Damage"]
-			local enemyPen = env.configInput["enemy"..damageType.."Pen"]
+			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) -- missing taunt from allies
+			local enemyDamage = tonumber(env.configInput["enemy"..damageType.."Damage"])
+			local enemyPen = tonumber(env.configInput["enemy"..damageType.."Pen"])
 			local sourceStr = enemyDamage == nil and "Default" or "Config"
-			
-			if enemyDamage == nil and env.configPlaceholder["enemy"..damageType.."Damage"] then
-				enemyDamage = env.configPlaceholder["enemy"..damageType.."Damage"]
+
+			if enemyDamage == nil then
+				if tonumber(env.configPlaceholder["enemy"..damageType.."Damage"]) ~= nil then
+					enemyDamage = tonumber(env.configPlaceholder["enemy"..damageType.."Damage"])
+				elseif damageType == "Physical" then
+					enemyDamage = round(data.monsterDamageTable[m_min(env.enemyLevel, 83)] * 1.5)
+				else
+					enemyDamage = 0
+				end
 			end
-			if enemyPen == nil and env.configPlaceholder["enemy"..damageType.."Pen"] then
-				enemyPen = env.configPlaceholder["enemy"..damageType.."Pen"]
+			if enemyPen == nil then
+				enemyPen = tonumber(env.configPlaceholder["enemy"..damageType.."Pen"]) or 0
 			end
-			enemyDamage = enemyDamage or 0
-			output[damageType.."EnemyPen"] = enemyPen or 0
+
+			output[damageType.."EnemyPen"] = enemyPen
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
 			output[damageType.."EnemyDamage"] = enemyDamage * enemyDamageMult * output["EnemyCritEffect"]
 			output["totalEnemyDamage"] = output["totalEnemyDamage"] + output[damageType.."EnemyDamage"]

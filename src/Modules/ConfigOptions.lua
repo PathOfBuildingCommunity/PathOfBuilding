@@ -1409,7 +1409,8 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultResist, true)
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(defaultResist, true)
 
-			local defaultLevel = 66
+			local defaultLevel = 83
+			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
 			if build.calcsTab.mainEnv then
 				defaultLevel = build.calcsTab.mainEnv.enemyLevel
 			end
