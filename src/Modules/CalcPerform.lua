@@ -41,23 +41,31 @@ end
 
 -- Calculate Trigger Rate Cap accounting for ICDR and trigger cooldown
 local function getTriggerActionTriggerRate(env, breakdown, focus, minion)
-	local triggerCD = env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
-	local triggeredCD = env.player.mainSkill.skillData.cooldown
+	-- 2^-31 is just a random small non zero value to avoid crashing due to division when things go wrong.
+	local triggerCD = 2^-31
+	local triggeredCD = 2^-31
+	
 	local icdr = 1
 	local cooldownOverride = false
-	if focus then
-		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "FocusCooldownRecovery")
-		env.player.mainSkill.skillData.focused = true
-	elseif minion then
+	
+	if minion then
 		icdr = calcLib.mod(env.minion.mainSkill.skillModList, env.minion.mainSkill.skillCfg, "CooldownRecovery")
 		cooldownOverride = env.minion.mainSkill.skillModList:Override(env.minion.mainSkill.skillCfg, "CooldownRecovery")
+		-- minions can't use trigger gems
+		triggeredCD = env.minion.mainSkill.skillData.cooldown
 	else
-		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
-		cooldownOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
+		if focus then
+			icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "FocusCooldownRecovery")
+			env.player.mainSkill.skillData.focused = true
+		else
+			icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+			cooldownOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
+		end
+		
+		triggerCD = env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
+		triggeredCD = env.player.mainSkill.skillData.cooldown 
 	end
 	
-	-- Most skill gems do not have a default cooldown
-	-- 2^-31 is just a random small non zero value to avoid crashing due to division when things go wrong.
 	local modActionCooldown = m_max(triggeredCD or 2^-31, triggerCD) / icdr
 	
 	-- Do not apply cooldown reduction to cooldown overrides
@@ -73,43 +81,68 @@ local function getTriggerActionTriggerRate(env, breakdown, focus, minion)
 		if cooldownOverride then
 			if minion then
 				env.minion.mainSkill.skillFlags.hasOverride = true
+				breakdown.ActionTriggerRate = {
+					s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride),
+					s_format(""),
+					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+					s_format(""),
+					s_format("Trigger rate:"),
+					s_format("1 / %.3f", rateCapAdjusted),
+					s_format("= %.2f ^8per second", triggerRate),
+				}
 			else
 				env.player.mainSkill.skillFlags.hasOverride = true
-			end
-			breakdown.ActionTriggerRate = {
-				s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride),
-				s_format(""),
-				s_format("%.2f ^8(base cooldown of trigger)", triggerCD),
-				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-				s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
-				s_format(""),
-				s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
-				s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
-				s_format(""),
-				s_format("Trigger rate:"),
-				s_format("1 / %.3f", rateCapAdjusted),
-				s_format("= %.2f ^8per second", triggerRate),
-			}
-		else
-			if triggeredCD then
 				breakdown.ActionTriggerRate = {
-					s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
-					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-					s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr),
+					s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride),
 					s_format(""),
 					s_format("%.2f ^8(base cooldown of trigger)", triggerCD),
 					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 					s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
 					s_format(""),
 					s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
-					s_format(""),
 					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
-					s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
 					s_format(""),
 					s_format("Trigger rate:"),
 					s_format("1 / %.3f", rateCapAdjusted),
 					s_format("= %.2f ^8per second", triggerRate),
 				}
+			end
+		else
+			if triggeredCD then
+				-- minion skills should always have some kind of cooldown on their skills
+				if minion then
+					breakdown.ActionTriggerRate = {
+						s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+						s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr),
+						s_format(""),
+						s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+						s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
+						s_format(""),
+						s_format("Trigger rate:"),
+						s_format("1 / %.3f", rateCapAdjusted),
+						s_format("= %.2f ^8per second", triggerRate),
+					}
+				else
+					breakdown.ActionTriggerRate = {
+						s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+						s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr),
+						s_format(""),
+						s_format("%.2f ^8(base cooldown of trigger)", triggerCD),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+						s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
+						s_format(""),
+						s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
+						s_format(""),
+						s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+						s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
+						s_format(""),
+						s_format("Trigger rate:"),
+						s_format("1 / %.3f", rateCapAdjusted),
+						s_format("= %.2f ^8per second", triggerRate),
+					}
+				end
 			else
 				breakdown.ActionTriggerRate = {
 					s_format("Triggered skill has no base cooldown"),
@@ -2938,7 +2971,6 @@ function calcs.perform(env, avoidCache)
 	-- Triggered by parent attack
 	if env.minion and env.player.mainSkill.minion then
 		if env.minion.mainSkill.skillData.triggeredByParentAttack then
-			local spellCount = {}
 			local trigRate = 0
 			local source = nil
 			for _, skill in ipairs(env.player.activeSkillList) do
@@ -2947,8 +2979,8 @@ function calcs.perform(env, avoidCache)
 				end
 			end
 			
-			t_insert(spellCount, { uuid = cacheSkillUUID(env.minion.mainSkill), cd = env.minion.mainSkill.skillData.cooldown})
-
+			-- Double curly brackets needed as the simulator expects a table of values no a single value
+			spell = {{ uuid = cacheSkillUUID(env.minion.mainSkill), cd = env.minion.mainSkill.skillData.cooldown}}
 			if not source then
 				env.minion.mainSkill.skillData.triggeredByParentAttack = nil
 				env.minion.mainSkill.infoMessage = "No triggering Skill Found"
@@ -2960,7 +2992,7 @@ function calcs.perform(env, avoidCache)
 				local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 
 				-- Get action trigger rate
-				trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, env.minion.output, env.minion.breakdown, false, true)
+				trigRate = calcActualTriggerRate(env, source, sourceAPS, spell, env.minion.output, env.minion.breakdown, false, true)
 
 				-- Account for chance to hit
 				local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance
