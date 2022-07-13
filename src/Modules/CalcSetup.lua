@@ -293,7 +293,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		if env.configInput.enemyLevel then
 			env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.configInput.enemyLevel)
 		elseif env.configPlaceholder["enemyLevel"] then
-			env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.build.characterLevel, env.configPlaceholder["enemyLevel"])
+			if env.configPlaceholder["enemyLevel"] == 82 then
+				env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.build.characterLevel, env.configPlaceholder["enemyLevel"])
+			else
+				env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.configPlaceholder["enemyLevel"])
+			end
 		else
 			env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.build.characterLevel)
 		end
