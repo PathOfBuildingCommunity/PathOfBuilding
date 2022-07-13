@@ -59,7 +59,7 @@ skills["SandstormChaosElementalSummoned"] = {
 		"spell_damage_modifiers_apply_to_skill_dot",
 	},
 	levels = {
-		[1] = { 1, cooldown = 8, levelRequirement = 3, statInterpolation = { 3, }, },
+		[1] = { 16.666667039196, cooldown = 8, levelRequirement = 3, statInterpolation = { 3, }, },
 	},
 }
 skills["FireElementalFlameRedSummoned"] = {
