@@ -1,3 +1,14 @@
+VERSION[2.19.2][2022/07/13]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Add support to search Timeless jewel node stats in the "Search for Node" dropdown list (Lothrik)
+--- Fixed Bugs ---
+* Fix crash when socketing a Glorious Vanity jewel in your tree (Lothrik)
+* Fix DoT skill DPS being 6% of actual value (Nostrademous)
+* Fix Divine Flesh and Immortal Ambition keystones (Lothrik)
+* Fix Auras being disabled for skills in Full DPS (QuickStick123)
+
+
 VERSION[2.19.0][2022/07/12]
 
 --- Implemented Enhancements ---
