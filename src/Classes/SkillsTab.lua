@@ -385,7 +385,6 @@ function SkillsTabClass:Save(xml)
 				source = socketGroup.source,
 				mainActiveSkill = tostring(socketGroup.mainActiveSkill),
 				mainActiveSkillCalcs = tostring(socketGroup.mainActiveSkillCalcs),
-				skillSet = tostring(socketGroup.skillSet)
 			} }
 			for _, gemInstance in ipairs(socketGroup.gemList) do
 				t_insert(node, { elem = "Gem", attrib = {
