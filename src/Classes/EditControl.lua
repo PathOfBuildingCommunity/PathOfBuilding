@@ -649,7 +649,7 @@ function EditClass:OnKeyUp(key)
 				self:SetText(tostring(cur + (self.numberInc or 1)), true)
 			else
 				if self.placeholder then
-					self:SetText(tostring(self.placeholder + (self.numberInc or 1)), true)
+					self:SetText(tostring((tonumber(self.placeholder) or 0) + (self.numberInc or 1)), true)
 				else
 					self:SetText("1", true)
 				end
@@ -659,7 +659,7 @@ function EditClass:OnKeyUp(key)
 				self:SetText(tostring(cur - (self.numberInc or 1)), true)
 			else
 				if self.placeholder then
-					self:SetText(tostring(self.placeholder - (self.numberInc or 1)), true)
+					self:SetText(tostring((tonumber(self.placeholder) or 0) - (self.numberInc or 1)), true)
 				else
 					self:SetText("0", true)
 				end
