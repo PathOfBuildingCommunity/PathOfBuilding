@@ -521,7 +521,7 @@ local function loadJewelFile(jewelTypeName)
 		local uncompressedFile = io.open(scriptPath .. jewelTypeName .. ".bin", "rb")
 		if uncompressedFile then
 			jewelData = uncompressedFile:read("*a")
-			uncompressedFile.close()
+			uncompressedFile:close()
 		end
 		if jewelData then
 			return jewelData
