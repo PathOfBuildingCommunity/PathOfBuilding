@@ -1144,7 +1144,7 @@ function TreeTabClass:FindTimelessJewel()
 			timelessData.sharedResults.socket = timelessData.jewelSocket
 			timelessData.sharedResults.desiredNodes = desiredNodes
 			local function formatSearchValue(input)
-				local matchPattern = "[%.| ]0"
+				local matchPattern = "[. ]0"
 				local replacePattern = { [" 0"] = "   ", [".0"] = "   " }
 				return (" " .. s_format("%0006.1f", input)):gsub(matchPattern, replacePattern):gsub(matchPattern, replacePattern):gsub(matchPattern, replacePattern)
 			end
