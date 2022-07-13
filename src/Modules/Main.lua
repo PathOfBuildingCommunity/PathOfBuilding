@@ -13,7 +13,6 @@ local m_min = math.min
 local m_sin = math.sin
 local m_cos = math.cos
 local m_pi = math.pi
-local s_format = string.format
 
 LoadModule("GameVersions")
 LoadModule("Modules/Common")
