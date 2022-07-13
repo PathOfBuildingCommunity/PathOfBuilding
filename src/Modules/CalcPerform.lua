@@ -1598,7 +1598,7 @@ function calcs.perform(env, avoidCache)
 				end
 				if values.reservedPercent ~= 0 then
 					activeSkill.skillData[name.."ReservedPercent"] = values.reservedPercent
-					activeSkill.skillData[name.."ReservedBase"] = (activeSkill.skillData[name.."ReservedBase"] or 0) + m_ceil(output[name] * values.reservedPercent / 100)
+					activeSkill.skillData[name.."ReservedBase"] = (values.reservedFlat or 0) + m_ceil(output[name] * values.reservedPercent / 100)
 					env.player["reserved_"..name.."Percent"] = env.player["reserved_"..name.."Percent"] + values.reservedPercent
 					if breakdown then
 						t_insert(breakdown[name.."Reserved"].reservations, {
