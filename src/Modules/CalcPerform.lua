@@ -1581,6 +1581,10 @@ function calcs.perform(env, avoidCache)
 					values.reservedFlat = values.reservedFlat * activeSkill.activeMineCount
 					values.reservedPercent = values.reservedPercent * activeSkill.activeMineCount
 				end
+				if activeSkill.activeStageCount then
+					values.reservedFlat = values.reservedFlat * (activeSkill.activeStageCount + 1)
+					values.reservedPercent = values.reservedPercent * (activeSkill.activeStageCount + 1)
+				end
 				if values.reservedFlat ~= 0 then
 					activeSkill.skillData[name.."ReservedBase"] = values.reservedFlat
 					env.player["reserved_"..name.."Base"] = env.player["reserved_"..name.."Base"] + values.reservedFlat
