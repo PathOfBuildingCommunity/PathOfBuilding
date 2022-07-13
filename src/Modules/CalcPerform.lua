@@ -58,8 +58,12 @@ local function getTriggerActionTriggerRate(env, breakdown, focus, minion)
 	
 	-- Most skill gems do not have a default cooldown
 	-- 2^-31 is just a random small non zero value to avoid crashing due to division when things go wrong.
-	local modActionCooldown = m_max( triggeredCD or 2^-31, triggerCD)
-	modActionCooldown = cooldownOverride or ( modActionCooldown / icdr )
+	local modActionCooldown = m_max( cooldownOverride or triggeredCD or 2^-31, triggerCD or 2^-31 )
+	
+	-- Do not apply cooldown reduction to cooldown overrides
+	if not cooldownOverride then
+		modActionCooldown = modActionCooldown / icdr
+	end
 	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
 	local triggerRate = 1 / rateCapAdjusted
@@ -2582,9 +2586,6 @@ function calcs.perform(env, avoidCache)
 			output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
 			
 			if breakdown then
-				local modActionCooldown = craftCD / icdr
-				local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-				local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
 				breakdown.SourceTriggerRate = {
 					s_format("%.2f ^8(%s attacks per second)", trigRate, source.activeEffect.grantedEffect.name),
 					s_format("/ %.2f ^8(simulated impact of linked spells)", trigRate / output.SourceTriggerRate),
