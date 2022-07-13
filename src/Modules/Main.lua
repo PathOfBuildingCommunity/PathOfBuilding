@@ -13,6 +13,7 @@ local m_min = math.min
 local m_sin = math.sin
 local m_cos = math.cos
 local m_pi = math.pi
+local s_format = string.format
 
 LoadModule("GameVersions")
 LoadModule("Modules/Common")
@@ -714,15 +715,13 @@ function main:OpenOptionsPopup()
 	controls.defaultCharLevelLabel = new("LabelControl", { "RIGHT", controls.defaultCharLevel, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Default character level:")
 
 	nextRow()
-	controls.defaultItemAffixQualitySlider = new("SliderControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 200, 20, function(val)
-		self.defaultItemAffixQuality = round(val, 2)
+	controls.defaultItemAffixQualitySlider = new("SliderControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 200, 20, function(value)
+		self.defaultItemAffixQuality = round(value, 2)
+		controls.defaultItemAffixQualityValue.label = (self.defaultItemAffixQuality * 100) .. "%"
 	end)
-	controls.defaultItemAffixQualitySlider.tooltipFunc = function(tooltip, val)
-		tooltip:Clear()
-		tooltip:AddLine(16, round(val * 100) .. "%")
-	end
 	controls.defaultItemAffixQualityLabel = new("LabelControl", { "RIGHT", controls.defaultItemAffixQualitySlider, "LEFT" }, defaultLabelSpacingPx, 0, 92, 16, "^7Default item affix quality:")
-	controls.defaultItemAffixQualitySlider.val = self.defaultItemAffixQuality or 0.5
+	controls.defaultItemAffixQualityValue = new("LabelControl", { "LEFT", controls.defaultItemAffixQualitySlider, "RIGHT" }, -defaultLabelSpacingPx, 0, 92, 16, "50%")
+	controls.defaultItemAffixQualitySlider:SetVal(self.defaultItemAffixQuality or 0.5)
 
 	nextRow()
 	controls.showWarnings = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show build warnings:", function(state)
