@@ -541,8 +541,10 @@ local function loadJewelFile(jewelTypeName)
 		ConPrintf("Failed to load either file: " .. jewelTypeName .. ".zip, " .. jewelTypeName .. ".bin")
 	else
 		local uncompressedFile = io.open(scriptPath .. jewelTypeName .. ".bin", "wb+")
-		uncompressedFile:write(jewelData)
-		uncompressedFile:close()
+		if uncompressedFile then
+			uncompressedFile:write(jewelData)
+			uncompressedFile:close()
+		end
 	end
 	return jewelData
 end
