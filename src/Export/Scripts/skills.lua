@@ -344,7 +344,7 @@ directiveTable.skill = function(state, args, out)
 				table.insert(level, statRow.BaseResolvedValues[i])
 				level.statInterpolation[i] = 1
 			else
-				table.insert(level, statRow.FloatStatsValues[i])
+				table.insert(level, statRow.FloatStatsValues[i] / math.max(statRow.InterpolationBases[i].Value, 0.00001) )
 			end
 		end
 		if injectConstantValuesIntoEachLevel then
