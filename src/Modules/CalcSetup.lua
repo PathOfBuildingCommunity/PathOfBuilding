@@ -290,7 +290,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.enemyDB = enemyDB
 		env.itemModDB = new("ModDB")
 
-		env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or env.configPlaceholder["enemyLevel"] or m_min(env.build.characterLevel, data.misc.MaxEnemyLevel)))
+		env.enemyLevel = m_max(1, m_min(data.misc.MaxEnemyLevel, env.configInput.enemyLevel and env.configInput.enemyLevel or env.configPlaceholder["enemyLevel"] or env.build.characterLevel))
 
 		-- Create player/enemy actors
 		env.player = {
