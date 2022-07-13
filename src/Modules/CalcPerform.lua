@@ -2637,60 +2637,91 @@ function calcs.perform(env, avoidCache)
 	end
 
 	-- Helmet Focus Trigger
+	-- The only way to trigger focus is by manually casting it
+	-- Focus mods and below assume the player recasts focus right when its cooldown ends
 	if env.player.mainSkill.skillData.triggeredByFocus and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
 		local triggerName = "Focus"
-		local spellCount = 0
-		local trigRate = 0
-		local source = env.player.modDB:Flag(nil, "Condition:Focused")
-		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.skillData.triggeredByFocus and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
-				spellCount = spellCount + 1
-			end
-		end
-		if not source or spellCount < 1 then
-			env.player.mainSkill.skillData.triggeredByFocus = nil
-			env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
-			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
-			env.player.mainSkill.infoTrigger = ""
-		else
-			env.player.mainSkill.skillData.triggered = true
+		env.player.mainSkill.skillData.triggered = true
 
-			output.ActionTriggerRate, icdr = getTriggerActionTriggerRate(env, breakdown, true)
-
-			-- Get action trigger rate
-			local skillFocus = env.data.skills["Focus"]
-			local focusCD = skillFocus.levels[1].cooldown
-
-			trigRate = icdr / focusCD
-			output.SourceTriggerRate = trigRate
-			output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
-			if breakdown then
-				local modActionCooldown = focusCD / icdr
-				local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-				breakdown.SimData = {
-					s_format("%.2f ^8(base cooldown of focus trigger)", focusCD),
-					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-					s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
+		local triggerCD = env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
+		local triggeredCD = env.player.mainSkill.skillData.cooldown
+		
+		local icdrFocus = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "FocusCooldownRecovery")
+		local icdrSkill = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+		
+		-- Skills trigger only on activation 
+		-- Next possible activation will be duration + cooldown
+		-- cooldown is in miliseconds
+		local skillFocus = env.data.skills["Focus"]
+		local focusDuration = (skillFocus.constantStats[1][2] / 1000)
+		local focusCD = (skillFocus.levels[1].cooldown / icdrFocus)
+		local focusTotalCD = focusDuration + focusCD
+		
+		-- 2^-31 is just a random small non zero value to avoid crashing due to division when things go wrong.
+		-- skill cooldown should still apply to focus triggers
+		local modActionCooldown = m_max( (triggeredCD or 2^-31), (triggerCD or 2^-31) ) / icdrSkill
+		local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+		local triggerRate = 1 / rateCapAdjusted
+		
+		output.ActionTriggerRate = triggerRate
+		output.SourceTriggerRate = 1 / focusTotalCD
+		output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
+		
+		if breakdown then
+			if triggeredCD then
+				breakdown.ActionTriggerRate = {
+					s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
+					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
+					s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdrSkill),
+					s_format(""),
+					s_format("%.2f ^8(base cooldown of trigger)", triggerCD),
+					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
+					s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdrSkill),
+					s_format(""),
+					s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
 					s_format(""),
 					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
 					s_format(""),
 					s_format("Trigger rate:"),
 					s_format("1 / %.3f", rateCapAdjusted),
-					s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
+					s_format("= %.2f ^8per second", triggerRate),
 				}
-				breakdown.ServerTriggerRate = {
-					s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
+			else
+				breakdown.ActionTriggerRate = {
+					s_format("Triggered skill has no base cooldown"),
+					s_format(""),
+					s_format("%.2f ^8(base cooldown of trigger)", triggerCD),
+					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
+					s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdrSkill),
+					s_format(""),
+					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+					s_format(""),
+					s_format("Trigger rate:"),
+					s_format("1 / %.3f", rateCapAdjusted),
+					s_format("= %.3f ^8per second", triggerRate),
+				}		
+			end	
+			breakdown.SimData = {
+					s_format("%.2f ^8(focus base cooldown)", skillFocus.levels[1].cooldown),
+					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrFocus),
+					s_format("+ %.2f ^8(skills are only triggered on activation thus we add focus duration)", focusDuration),
+					s_format("= %.2f ^8(effective skill cooldown for trigger purposes)", focusTotalCD),
+					s_format(""),
+					s_format("%.3f casts per second ^8(Assuming player uses focus exactly when its cooldown of %.2fs expires)", 1 / focusTotalCD, focusTotalCD)
 				}
-			end
-
-			-- Account for Trigger-related INC/MORE modifiers
-			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
-			env.player.mainSkill.skillData.triggerRate = output.ServerTriggerRate
-			env.player.mainSkill.skillData.triggerSource = source
-			env.player.mainSkill.infoMessage = "Focus Triggering Skill Found"
-			env.player.mainSkill.infoTrigger = triggerName
-			env.player.mainSkill.skillFlags.dontDisplay = true
+			breakdown.ServerTriggerRate = {
+					s_format("%.3f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
+				}
+			
 		end
+
+		-- Account for Trigger-related INC/MORE modifiers
+		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+		env.player.mainSkill.skillData.triggerRate = output.ServerTriggerRate
+		env.player.mainSkill.skillData.triggerSource = source
+		env.player.mainSkill.infoMessage = "Assuming perfect focus reuse"
+		env.player.mainSkill.infoTrigger = triggerName
+		env.player.mainSkill.skillFlags.dontDisplay = true
 	end
 
 	-- Unique Item Trigger
