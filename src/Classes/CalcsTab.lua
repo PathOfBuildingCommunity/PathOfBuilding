@@ -13,7 +13,7 @@ local buffModeDropList = {
 	{ label = "Unbuffed", buffMode = "UNBUFFED" },
 	{ label = "Buffed", buffMode = "BUFFED" },
 	{ label = "In Combat", buffMode = "COMBAT" },
-	{ label = "Effective DPS", buffMode = "EFFECTIVE" } 
+	{ label = "Effective DPS", buffMode = "EFFECTIVE" }
 }
 
 local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
@@ -28,6 +28,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 	self.input = { }
 	self.input.skill_number = 1
 	self.input.misc_buffMode = "EFFECTIVE"
+	self.input.flasksActive = true
 
 	self.colWidth = 230
 	self.sectionList = { }
@@ -114,10 +115,10 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				self.build.buildFlag = true
 			end)
 		} },
-		{ label = "Calculation Mode", { 
-			controlName = "mode", 
-			control = new("DropDownControl", nil, 0, 0, 100, 16, buffModeDropList, function(index, value) 
-				self.input.misc_buffMode = value.buffMode 
+		{ label = "Calculation Mode", {
+			controlName = "mode",
+			control = new("DropDownControl", nil, 0, 0, 100, 16, buffModeDropList, function(index, value)
+				self.input.misc_buffMode = value.buffMode
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end, [[
@@ -127,8 +128,17 @@ The stats in the sidebar are always shown in Effective DPS mode, regardless of t
 Unbuffed: No auras, buffs, or other support skills or effects will apply. This is equivalent to standing in town.
 Buffed: Aura and buff skills apply. This is equivalent to standing in your hideout with auras and buffs turned on.
 In Combat: Charges and combat buffs such as Onslaught will also apply. This will show your character sheet stats in combat.
-Effective DPS: Curses and enemy properties (such as resistances and status conditions) will also apply. This estimates your true DPS.]]) 
+Effective DPS: Curses and enemy properties (such as resistances and status conditions) will also apply. This estimates your true DPS.]])
 		}, },
+		{ label = "Flasks Active", {
+			controlName = "flasksActive",
+			control = new("CheckBoxControl", {"LEFT", nil, "RIGHT"}, 0, 0, 16, nil, function(value)
+				self.input.flasksActive = value
+				self:AddUndoState()
+				self.build.buildFlag = true
+			end, [[
+This control allows you to get a quick glance at your damage without your flasks, in a context where you would not normally gain enough charges to maintain them.]], true)
+		}, flag = "combat" },
 		{ label = "Aura and Buff Skills", flag = "buffs", textSize = 12, { format = "{output:BuffList}", { breakdown = "SkillBuffs" } }, },
 		{ label = "Combat Buffs", flag = "combat", textSize = 12, { format = "{output:CombatList}" }, },
 		{ label = "Curses and Debuffs", flag = "effective", textSize = 12, { format = "{output:CurseList}", { breakdown = "SkillDebuffs" } }, },
