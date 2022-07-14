@@ -293,7 +293,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		if env.configInput.enemyLevel then
 			env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.configInput.enemyLevel)
 		elseif env.configPlaceholder["enemyLevel"] then
-			if env.configInput.enemyIsBoss == "None" then
+			if env.configInput.enemyIsBoss == "None" or env.configInput.enemyIsBoss == "Standard Boss" then
 				env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.build.characterLevel, env.configPlaceholder["enemyLevel"])
 			else
 				env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.configPlaceholder["enemyLevel"])
