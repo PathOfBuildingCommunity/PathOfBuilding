@@ -340,7 +340,7 @@ function GemSelectClass:IsMouseOver()
 end
 
 function GemSelectClass:Draw(viewPort, noTooltip)
-	self.EditControl:Draw(viewPort, noTooltip or self.forceTooltip)
+	self.EditControl:Draw(viewPort, noTooltip and not self.forceTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -405,7 +405,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			end
 		end
 		SetViewport()
-		self:DrawControls(viewPort, (noTooltip or self.forceTooltip) and self)
+		self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
 		if self.hoverSel then
 			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 			if calcFunc then
