@@ -1204,7 +1204,7 @@ end
 
 -- Opens the skill set manager
 function SkillsTabClass:OpenSkillSetManagePopup()
-	main:OpenPopup(370, 290, "Manage Skill Trees", {
+	main:OpenPopup(370, 290, "Manage Skill Sets", {
 		new("SkillSetListControl", nil, 0, 50, 350, 200, self),
 		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
 			main:ClosePopup()
