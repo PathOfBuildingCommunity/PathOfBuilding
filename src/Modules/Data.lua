@@ -685,7 +685,7 @@ data.readLUT = function(seed, nodeID, jewelType)
 				result[i] = data.timelessJewelLUTs[jewelType].data[index + 1][seedOffset + 1]:byte(i)
 			end
 			return result
-		else
+		elseif index <= data.nodeIDList["sizeNotable"] then
 			return { data.timelessJewelLUTs[jewelType].data:byte(index * seedSize + seedOffset + 1) }
 		end
 	else
