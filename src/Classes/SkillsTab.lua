@@ -611,7 +611,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			self:AddUndoState()
 		end
 		self.build.buildFlag = true
-	end)
+	end, true)
 	slot.nameSpec:AddToTabGroup(self.controls.groupLabel)
 	self.controls["gemSlot"..index.."Name"] = slot.nameSpec
 

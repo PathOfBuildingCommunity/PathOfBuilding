@@ -19,7 +19,7 @@ local altQualMap = {
 	["Alternate3"] = "Phantasmal ",
 }
 
-local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc)
+local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc, forceTooltip)
 	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a':-")
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
 	self.controls.scrollBar.y = function()
@@ -37,6 +37,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	self:PopulateGemList()
 	self.index = index
 	self.gemChangeFunc = changeFunc
+	self.forceTooltip = forceTooltip
 	self.list = { }
 	self.changeFunc = function()
 		if not self.dropped then
@@ -338,9 +339,8 @@ function GemSelectClass:IsMouseOver()
 	return mOver, mOverComp
 end
 
-function GemSelectClass:Draw(viewPort) --, noTooltip)
-	local noTooltip = false -- ignore noTooltip, as we explicitly want this control to draw tooltips even when it isn't the active control
-	self.EditControl:Draw(viewPort, noTooltip)
+function GemSelectClass:Draw(viewPort, noTooltip)
+	self.EditControl:Draw(viewPort, noTooltip or self.forceTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -405,7 +405,7 @@ function GemSelectClass:Draw(viewPort) --, noTooltip)
 			end
 		end
 		SetViewport()
-		self:DrawControls(viewPort, noTooltip and self)
+		self:DrawControls(viewPort, (noTooltip or self.forceTooltip) and self)
 		if self.hoverSel then
 			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 			if calcFunc then
@@ -466,7 +466,7 @@ function GemSelectClass:Draw(viewPort) --, noTooltip)
 			   DrawImage(nil, x, y, width, height)
 			end
 		end
-		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) and not noTooltip then
+		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) and (not noTooltip or self.forceTooltip) then
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
 			SetDrawLayer(nil, 10)
 			self.tooltip:Clear()

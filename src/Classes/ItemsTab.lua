@@ -1849,7 +1849,7 @@ function ItemsTabClass:EditDisplayItemText()
 		self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
 		self.displayItem.id = id
 		main:ClosePopup()
-	end)
+	end, nil, true)
 	controls.save.enabled = function()
 		local item = new("Item", buildRaw())
 		return item.base ~= nil
