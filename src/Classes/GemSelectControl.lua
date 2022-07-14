@@ -338,7 +338,8 @@ function GemSelectClass:IsMouseOver()
 	return mOver, mOverComp
 end
 
-function GemSelectClass:Draw(viewPort, noTooltip)
+function GemSelectClass:Draw(viewPort) --, noTooltip)
+	local noTooltip = false -- ignore noTooltip, as we explicitly want this control to draw tooltips even when it isn't the active control
 	self.EditControl:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -476,7 +477,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				end
 				self:AddGemTooltip(gemInstance)
 			else
-				self.tooltip:AddLine(16, toolTipText )
+				self.tooltip:AddLine(16, toolTipText)
 			end
 			self.tooltip:Draw(x, y, width, height, viewPort)
 			SetDrawLayer(nil, 0)

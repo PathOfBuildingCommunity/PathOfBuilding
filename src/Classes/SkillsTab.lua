@@ -57,7 +57,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 
 	self.build = build
 
-	self.socketGroupList = {}
+	self.socketGroupList = { }
 
 	self.sortGemsByDPS = true
 	self.sortGemsByDPSField = "CombinedDPS"
@@ -337,7 +337,7 @@ function SkillsTabClass:Load(xml, fileName)
 	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValue("type")
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
-			-- Old format, nitialize skill sets if needed
+			-- Old format, initialize skill sets if needed
 			if #self.skillSetOrderList == 0 or #self.skillSets == 0 then
 				self.skillSetOrderList = { 1 }
 				self:NewSkillSet(1)
@@ -1167,7 +1167,7 @@ end
 function SkillsTabClass:CreateUndoState()
 	local state = { }
 	state.activeSkillSetId = self.activeSkillSetId
-	state.skillSets = {}
+	state.skillSets = { }
 	for skillSetIndex, skillSet in pairs(self.skillSets) do
 		local newSkillSet = copyTable(skillSet, true)
 		newSkillSet.socketGroupList = { }
