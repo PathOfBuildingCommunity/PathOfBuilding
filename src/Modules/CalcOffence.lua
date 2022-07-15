@@ -1617,7 +1617,7 @@ function calcs.offence(env, actor, activeSkill)
 						
 					if output.Cooldown then
 						t_insert(breakdown.Speed, s_format(" %.2f ^8(skill cooldown)", output.Cooldown))
-						t_insert(breakdown.Speed, s_format("1 / %.2f ^8(bigger of Skill coolddown and trigger cooldown)", output.triggerCD ))
+						t_insert(breakdown.Speed, s_format("1 / %.2f ^8(bigger of Skill coolddown and trigger cooldown)", m_max(output.Cooldown, output.triggerCD)))
 					else
 						t_insert(breakdown.Speed, s_format("1 / %.2f ^8(trigger cooldown)", output.triggerCD ))
 					end
