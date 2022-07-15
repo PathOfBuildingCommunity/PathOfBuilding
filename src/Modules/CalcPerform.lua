@@ -2598,8 +2598,16 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft then
+			if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft  and not skill.activeEffect.grantedEffect.fromItem then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+				if skill.skillFlags and (skill.skillFlags.totem or skill.skillFlags.golem or skill.skillFlags.banner or skill.skillFlags.ballista) and skill.activeEffect.grantedEffect.castTime then
+					if skill.activeEffect.grantedEffect.levels ~= nil then
+						trigRate = 1 / (skill.activeEffect.grantedEffect.castTime + (skill.activeEffect.grantedEffect.levels[skill.activeEffect.level].cooldown or 0))
+					else
+						trigRate = 1 / skill.activeEffect.grantedEffect.castTime
+					end
+					source.useCastRate = true
+				end
 			end
 			if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
 				t_insert(linkedSpells, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown})
@@ -2621,13 +2629,17 @@ function calcs.perform(env, avoidCache)
 			
 			if breakdown then
 				breakdown.SourceTriggerRate = {
-					s_format("%.2f ^8(%s attacks per second)", trigRate, source.activeEffect.grantedEffect.name),
 					s_format("/ %.2f ^8(simulated impact of linked spells)", trigRate / output.SourceTriggerRate),
 					s_format("= %.2f ^8per second", output.SourceTriggerRate),
 					s_format(""),
 					s_format("Simulation Breakdown"),
 					s_format("Simulation Duration: %.2f", simBreakdown.simTime),
 				}
+				if source.useCastRate then
+					t_insert(breakdown.SourceTriggerRate, 1, s_format("%.2f ^8(%s uses per second)", trigRate, source.activeEffect.grantedEffect.name))
+				else
+					t_insert(breakdown.SourceTriggerRate, 1, s_format("%.2f ^8(%s attacks per second)", trigRate, source.activeEffect.grantedEffect.name))
+				end
 				if simBreakdown.extraSimInfo then
 					t_insert(breakdown.SourceTriggerRate, "")
 					t_insert(breakdown.SourceTriggerRate, simBreakdown.extraSimInfo)
