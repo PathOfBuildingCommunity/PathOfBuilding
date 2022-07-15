@@ -173,15 +173,6 @@ local function getWeaponFlags(env, weaponData, weaponTypes)
 	return flags, info
 end
 
-local function checkIfAddsType(skillEffect, skillType)
-	for _, grantedSkillType in ipairs(skillEffect.grantedEffect.addSkillTypes) do
-		if grantedSkillType == skillType then
-			return true
-		end
-	end
-	return false
-end
-
 -- Build list of modifiers for given active skill
 function calcs.buildActiveSkillModList(env, activeSkill)
 	local skillTypes = activeSkill.skillTypes
@@ -435,9 +426,10 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if level.manaReservationPercent then
 				activeSkill.skillData.manaReservationPercent = level.manaReservationPercent
 			end
-			
+					
 			-- Handle multiple triggers situation and if triggered by a trigger skill save a reference to the trigger.
-			if skillEffect.grantedEffect.addSkillTypes and activeSkill.skillTypes[SkillType.Triggerable] and checkIfAddsType(skillEffect, SkillType.Triggered) then
+			local match = skillEffect.grantedEffect.addSkillTypes and activeSkill.skillTypes[SkillType.Triggerable] and (not skillFlags.disable)
+			if match and skillEffect.grantedEffect.isTrigger then
 				if activeSkill.triggeredBy then
 					skillFlags.disable = true
 					activeSkill.disableReason = "This skill is supported by more than one trigger"

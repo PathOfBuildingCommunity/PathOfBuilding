@@ -1027,6 +1027,7 @@ skills["BattlemagesCrySupport"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
@@ -7355,7 +7356,7 @@ skills["Vengeance"] = {
 skills["VigilantStrike"] = {
 	name = "Vigilant Strike",
 	color = 1,
-	description = "Attacks enemies with a powerful melee strike which grants Fortification, reducting damage you take from hits. The cooldown can be bypassed by expending an Endurance Charge. Requires a Melee Weapon.",
+	description = "Attacks enemies with a powerful melee strike which grants Fortification, reducing damage you take from hits. The cooldown can be bypassed by expending an Endurance Charge. Requires a Melee Weapon.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.ThresholdJewelArea] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,

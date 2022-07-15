@@ -1581,8 +1581,17 @@ function calcs.offence(env, actor, activeSkill)
 				output.Speed = output.Speed * globalOutput.ActionSpeedMod
 				output.CastRate = output.Speed
 			end
-			if output.Cooldown then
+			if output.Cooldown and (not activeSkill.triggeredBy) then
 				output.Speed = m_min(output.Speed, 1 / output.Cooldown * output.Repeats)
+			end
+			if activeSkill.triggeredBy then
+				local triggerCD = activeSkill.triggeredBy.grantedEffect.levels[activeSkill.triggeredBy.level].cooldown
+				local icdr = (calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "CooldownRecovery") or 1)
+				triggerCD = m_ceil((triggerCD / icdr) * data.misc.ServerTickRate) / data.misc.ServerTickRate 
+				--  2^-31 is the avoid crasghing when skillCd is nil
+				output.triggerCD = triggerCD
+				output.Speed =  1 / m_max(triggerCD, (output.Cooldown or 2^-31))
+				output.CastRate = output.Speed
 			end
 			if output.Cooldown and skillFlags.selfCast then
 				skillFlags.notAverage = true
@@ -1598,23 +1607,39 @@ function calcs.offence(env, actor, activeSkill)
 				output.Time = 1 / output.Speed
 			end
 			if breakdown then
-				breakdown.Speed = { }
-				breakdown.multiChain(breakdown.Speed, {
-					base = s_format("%.2f ^8(base)", 1 / baseTime),
-					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
-					{ "%.2f ^8(more/less)", more },
-					{ "%.2f ^8(action speed modifier)", skillFlags.selfCast and globalOutput.ActionSpeedMod or 1 },
-					total = s_format("= %.2f ^8casts per second", output.CastRate)
-				})
-				if output.Cooldown and (1 / output.Cooldown) < output.CastRate then
-					t_insert(breakdown.Speed, s_format("\n"))
-					t_insert(breakdown.Speed, s_format("1 / %.2f ^8(skill cooldown)", output.Cooldown))
-					if output.Repeats > 1 then
-						t_insert(breakdown.Speed, s_format("x %d ^8(repeat count)", output.Repeats))
+				if activeSkill.triggeredBy then
+					breakdown.Speed = {
+						s_format("Cast rate based on trigger"),
+						s_format(" %.2f ^8(calculated trigger cooldown accounting for reductions and server tick)", output.triggerCD )
+					}
+						
+					if output.Cooldown then
+						t_insert(breakdown.Speed, s_format(" %.2f ^8(skill cooldown)", output.Cooldown))
+						t_insert(breakdown.Speed, s_format("1 / %.2f ^8(bigger of Skill coolddown and trigger cooldown)", output.triggerCD ))
+					else
+						t_insert(breakdown.Speed, s_format("1 / %.2f ^8(trigger cooldown)", output.triggerCD ))
 					end
-					t_insert(breakdown.Speed, s_format("= %.2f ^8(casts per second)", output.Repeats / output.Cooldown))
-					t_insert(breakdown.Speed, s_format("\n"))
-					t_insert(breakdown.Speed, s_format("= %.2f ^8(lower of cast rates)", output.Speed))
+					
+					t_insert(breakdown.Speed, s_format("= %.2f ^8casts per second", output.CastRate))
+				else
+					breakdown.Speed = { }
+					breakdown.multiChain(breakdown.Speed, {
+						base = s_format("%.2f ^8(base)", 1 / baseTime),
+						{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
+						{ "%.2f ^8(more/less)", more },
+						{ "%.2f ^8(action speed modifier)", skillFlags.selfCast and globalOutput.ActionSpeedMod or 1 },
+						total = s_format("= %.2f ^8casts per second", output.CastRate)
+					})
+					if output.Cooldown and (1 / output.Cooldown) < output.CastRate then
+						t_insert(breakdown.Speed, s_format("\n"))
+						t_insert(breakdown.Speed, s_format("1 / %.2f ^8(skill cooldown)", output.Cooldown))
+						if output.Repeats > 1 then
+							t_insert(breakdown.Speed, s_format("x %d ^8(repeat count)", output.Repeats))
+						end
+						t_insert(breakdown.Speed, s_format("= %.2f ^8(casts per second)", output.Repeats / output.Cooldown))
+						t_insert(breakdown.Speed, s_format("\n"))
+						t_insert(breakdown.Speed, s_format("= %.2f ^8(lower of cast rates)", output.Speed))
+					end
 				end
 			end
 			if breakdown and calcLib.mod(skillModList, skillCfg, "SkillAttackTime") > 0 then
