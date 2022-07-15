@@ -916,8 +916,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	end
 
 	local function addModInfoToTooltip(node, i, line)
-		if node.mods[i].list then
-			if launch.devModeAlt then
+		if node.mods[i] then
+			if launch.devModeAlt and node.mods[i].list then
 				-- Modifier debugging info
 				local modStr
 				for _, mod in pairs(node.mods[i].list) do
@@ -930,8 +930,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 					line = line .. "  " .. modStr
 				end
 			end
+			tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
 		end
-		tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
 	end
 
 	-- If node is a Mastery node, check if compare tree is on

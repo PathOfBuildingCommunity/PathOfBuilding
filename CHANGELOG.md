@@ -1,5 +1,24 @@
 # Changelog
 
+## [v2.19.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.19.2) (2022/07/15)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.19.1...v2.19.2)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### User Interface
+- Fix certain controls not displaying tooltips on hover [\#4594](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4594) ([Lothrik](https://github.com/Lothrik))
+- Adjust default item affix quality UI [\#4593](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4593) ([Lothrik](https://github.com/Lothrik))
+### Fixed Bugs
+- Fix anointed notables not being affected by Timeless jewels [\#4586](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4586) ([Lothrik](https://github.com/Lothrik))
+- Fix "NaN" EHP error and crash when setting enemy level too high [\#4591](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4591) ([Lothrik](https://github.com/Lothrik))
+- Fix crash when loading old skill tree with a Glorious Vanity jewel socketed [\#4587](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4587) ([Lothrik](https://github.com/Lothrik))
+- Fix crash if Timeless jewel file is denied access or if changelog.txt doesn't exist [\#4588](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4588) ([Lothrik](https://github.com/Lothrik))
+- Fix crash when comparing skill trees with masteries allocated [\#4590](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4590) ([Lothrik](https://github.com/Lothrik))
+
+
+
 ## [v2.19.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.19.1) (2022/07/13)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.19.0...v2.19.1)

@@ -33,13 +33,13 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 	self:SetList(list or { })
 	self.selIndex = 1
 	self.selFunc = selFunc
-	  -- Current value of the width of the dropped component
+	-- Current value of the width of the dropped component
 	self.droppedWidth = self.width
-	  -- Set by the parent control. The maximum width of the dropped component will go to.
+	-- Set by the parent control. The maximum width of the dropped component will go to.
 	self.maxDroppedWidth = m_max(self.width, 300)
-	  -- Set by the parent control. Activates the auto width of the dropped component. 
+	-- Set by the parent control. Activates the auto width of the dropped component.
 	self.enableDroppedWidth = false
-	  -- Set by the parent control. Activates the auto width of the box component. 
+	-- Set by the parent control. Activates the auto width of the box component.
 	self.enableChangeBoxWidth = false
 	-- self.tag = "-"
 end)

@@ -290,7 +290,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.enemyDB = enemyDB
 		env.itemModDB = new("ModDB")
 
-		env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or env.configPlaceholder["enemyLevel"] or m_min(env.build.characterLevel, data.misc.MaxEnemyLevel)))
+		if env.configInput.enemyLevel then
+			env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.configInput.enemyLevel)
+		elseif env.configPlaceholder["enemyLevel"] then
+			if env.configInput.enemyIsBoss == "None" or env.configInput.enemyIsBoss == "Standard Boss" then
+				env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.build.characterLevel, env.configPlaceholder["enemyLevel"])
+			else
+				env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.configPlaceholder["enemyLevel"])
+			end
+		else
+			env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.build.characterLevel)
+		end
 
 		-- Create player/enemy actors
 		env.player = {
@@ -761,7 +771,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 			local node = env.spec.tree.notableMap[passive]
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
-				env.allocNodes[node.id] = node
+				env.allocNodes[node.id] = env.spec.nodes[node.id] -- use the conquered node data, if available
 				env.grantedPassives[node.id] = true
 			end
 		end
@@ -907,7 +917,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		local crossLinkedSupportList = { }
 		for _, index in ipairs(indexOrder) do
-			socketGroup = build.skillsTab.socketGroupList[index]
+			local socketGroup = build.skillsTab.socketGroupList[index]
 			local socketGroupSkillList = { }
 			local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
 			socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)

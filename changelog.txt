@@ -1,3 +1,17 @@
+VERSION[2.19.2][2022/07/15]
+
+--- User Interface ---
+* Adjust default item affix quality UI (Lothrik)
+* Fix certain controls not displaying tooltips on hover (Lothrik)
+
+--- Fixed Bugs ---
+* Fix anointed notables not being affected by Timeless jewels (Lothrik)
+* Fix "NaN" EHP error and crash when setting enemy level too high (Lothrik)
+* Fix crash when loading old skill tree with a Glorious Vanity jewel socketed (Lothrik)
+* Fix crash if Timeless jewel file is denied access or if changelog.txt doesn't exist (Lothrik)
+* Fix crash when comparing skill trees with masteries allocated (Lothrik)
+
+
 VERSION[2.19.1][2022/07/13]
 
 --- Implemented Enhancements ---

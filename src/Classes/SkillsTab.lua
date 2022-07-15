@@ -57,7 +57,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 
 	self.build = build
 
-	self.socketGroupList = {}
+	self.socketGroupList = { }
 
 	self.sortGemsByDPS = true
 	self.sortGemsByDPSField = "CombinedDPS"
@@ -337,7 +337,7 @@ function SkillsTabClass:Load(xml, fileName)
 	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValue("type")
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
-			-- Old format, nitialize skill sets if needed
+			-- Old format, initialize skill sets if needed
 			if #self.skillSetOrderList == 0 or #self.skillSets == 0 then
 				self.skillSetOrderList = { 1 }
 				self:NewSkillSet(1)
@@ -379,13 +379,12 @@ function SkillsTabClass:Save(xml)
 			local node = { elem = "Skill", attrib = {
 				enabled = tostring(socketGroup.enabled),
 				includeInFullDPS = tostring(socketGroup.includeInFullDPS),
-				groupCount = tostring(socketGroup.groupCount),
+				groupCount = socketGroup.groupCount ~= nil and tostring(socketGroup.groupCount),
 				label = socketGroup.label,
 				slot = socketGroup.slot,
 				source = socketGroup.source,
 				mainActiveSkill = tostring(socketGroup.mainActiveSkill),
 				mainActiveSkillCalcs = tostring(socketGroup.mainActiveSkillCalcs),
-				skillSet = tostring(socketGroup.skillSet)
 			} }
 			for _, gemInstance in ipairs(socketGroup.gemList) do
 				t_insert(node, { elem = "Gem", attrib = {
@@ -611,7 +610,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			self:AddUndoState()
 		end
 		self.build.buildFlag = true
-	end)
+	end, true)
 	slot.nameSpec:AddToTabGroup(self.controls.groupLabel)
 	self.controls["gemSlot"..index.."Name"] = slot.nameSpec
 
@@ -1167,7 +1166,7 @@ end
 function SkillsTabClass:CreateUndoState()
 	local state = { }
 	state.activeSkillSetId = self.activeSkillSetId
-	state.skillSets = {}
+	state.skillSets = { }
 	for skillSetIndex, skillSet in pairs(self.skillSets) do
 		local newSkillSet = copyTable(skillSet, true)
 		newSkillSet.socketGroupList = { }
@@ -1204,7 +1203,7 @@ end
 
 -- Opens the skill set manager
 function SkillsTabClass:OpenSkillSetManagePopup()
-	main:OpenPopup(370, 290, "Manage Skill Trees", {
+	main:OpenPopup(370, 290, "Manage Skill Sets", {
 		new("SkillSetListControl", nil, 0, 50, 350, 200, self),
 		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
 			main:ClosePopup()

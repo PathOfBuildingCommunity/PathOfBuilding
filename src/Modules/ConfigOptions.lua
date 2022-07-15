@@ -1366,7 +1366,7 @@ return {
 	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifFlag = "ElementalEquilibrium", tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
 	-- Section: Enemy Stats
 	{ section = "Enemy Stats", col = 3 },
-	{ var = "enemyLevel", type = "count", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and ^x33FF77evade ^7chances.\nThe default level is your character level, capped at 85, which is the same value\nused in-game to calculate the stats on the character sheet." },
+	{ var = "enemyLevel", type = "count", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and ^x33FF77evade ^7chance.\n\nThe default level for normal enemies and standard bosses is 83.\nTheir default level is capped by your character level.\n\nThe default level for pinnacle bosses is 84, and the default level for uber pinnacle bosses is 85.\nTheir default level is not capped by your character level." },
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -1396,8 +1396,7 @@ Uber Pinnacle Boss adds the following modifiers:
 	^7+100% to enemy Armour
 	70% less to enemy Damage taken
 	235% of monster damage
-	8% penetration
-	]], list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
+	8% penetration]], list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
 		--these defaults are here so that the placeholder gets reset correctly
 		build.configTab.varControls['enemySpeed']:SetPlaceholder(700, true)
 		build.configTab.varControls['enemyCritChance']:SetPlaceholder(5, true)
@@ -1409,7 +1408,8 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultResist, true)
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(defaultResist, true)
 
-			local defaultLevel = 66
+			local defaultLevel = 83
+			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
 			if build.calcsTab.mainEnv then
 				defaultLevel = build.calcsTab.mainEnv.enemyLevel
 			end
@@ -1557,7 +1557,7 @@ Uber Pinnacle Boss adds the following modifiers:
 	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltip = [[
 Used to fill in defaults for specific boss skills if the boss config is not set
 
-Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal monster level for your character level (capped at 84)
+Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal monster level for your character level (capped at 85)
 Fill in the exact damage numbers if more precision is needed
 
 Caveats for certain skills are below

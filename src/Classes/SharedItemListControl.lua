@@ -7,8 +7,8 @@ local pairs = pairs
 local t_insert = table.insert
 local t_remove = table.remove
 
-local SharedItemListClass = newClass("SharedItemListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
-	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, main.sharedItemList)
+local SharedItemListClass = newClass("SharedItemListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab, forceTooltip)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, main.sharedItemList, forceTooltip)
 	self.itemsTab = itemsTab
 	self.label = "^7Shared items:"
 	self.defaultText = "^x7F7F7FThis is a list of items that will be shared between all of\nyour builds.\nYou can add items to this list by dragging them from\none of the other lists."

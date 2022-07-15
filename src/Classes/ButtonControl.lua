@@ -3,12 +3,13 @@
 -- Class: Button Control
 -- Basic button control.
 --
-local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, label, onClick, onHover)
+local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, label, onClick, onHover, forceTooltip)
 	self.Control(anchor, x, y, width, height)
 	self.TooltipHost()
 	self.label = label
 	self.onClick = onClick
 	self.onHover = onHover
+	self.forceTooltip = forceTooltip
 end)
 
 function ButtonClass:Click()
@@ -88,7 +89,7 @@ function ButtonClass:Draw(viewPort, noTooltip)
 		DrawString(x + width / 2, y + 2 - overSize, "CENTER_X", height - 4 + overSize * 2, "VAR", label)
 	end
 	if mOver then
-		if not noTooltip then
+		if not noTooltip or self.forceTooltip then
 			SetDrawLayer(nil, 100)
 			self:DrawTooltip(x, y, width, height, viewPort)
 			SetDrawLayer(nil, 0)
