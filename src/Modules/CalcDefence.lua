@@ -1416,7 +1416,7 @@ function calcs.defence(env, actor)
 		end
 	end
 	
-	-- helper function that itteratively reduces pools until life hits 0 to determine the number of hits it would take with given damage to die
+	-- helper function that iteratively reduces pools until life hits 0 to determine the number of hits it would take with given damage to die
 	function numberOfHitsToDie(DamageIn)
 		local numHits = 0
 		DamageIn["cycles"] = DamageIn["cycles"] or 1
