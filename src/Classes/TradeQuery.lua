@@ -203,8 +203,13 @@ function TradeQueryClass:PriceItem()
 	local pane_width = 1200
 	local controls = { }
 	local cnt = 1
-	--controls.itemSetLabel = new("LabelControl",  {"TOPLEFT",nil,"TOPLEFT"}, 16, 15, 60, 16, colorCodes.CUSTOM .. "ItemSet: " .. (self.itemsTab.activeItemSet.title or "Default"))
-	controls.setSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, 15, 200, 20, self.itemsTab.itemSetOrderList, function(index, value)
+
+	local newItemList = { }
+	for index, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
+		local itemSet = self.itemsTab.itemSets[itemSetId]
+		t_insert(newItemList, itemSet.title or "Default")
+	end
+	controls.setSelect = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, 16, 15, 200, 20, newItemList, function(index, value)
 		self.itemsTab:SetActiveItemSet(self.itemsTab.itemSetOrderList[index])
 		self.itemsTab:AddUndoState()
 	end)
@@ -212,7 +217,8 @@ function TradeQueryClass:PriceItem()
 	controls.setSelect.enabled = function()
 		return #self.itemsTab.itemSetOrderList > 1
 	end
-	controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT",nil,"BOTTOMRIGHT"}, -8, -8, 300, 16, "")
+
+	controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT", nil, "BOTTOMRIGHT"}, -8, -8, 300, 16, "")
 	controls.pbNotice.textCol = colorCodes.CUSTOM
 
 	-- Item sort dropdown
@@ -222,15 +228,15 @@ function TradeQueryClass:PriceItem()
 		"Highest DPS",
 		"DPS / Price",
 	}
-	controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -12, 15, 100, 18, self.sortSelectionList, function(index, value)
+	controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, self.sortSelectionList, function(index, value)
 		self.pbSortSelectionIndex = index
 	end)
 	controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
 	controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
-	controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", controls.itemSortSelection,"TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
+	controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
 
 	-- League selection
-	controls.league = new("DropDownControl", {"TOPRIGHT", controls.itemSortSelectionLabel,"TOPLEFT"}, -8, 0, 100, 18, self.itemsTab.leagueDropList, function(index, value)
+	controls.league = new("DropDownControl", {"TOPRIGHT", controls.itemSortSelectionLabel, "TOPLEFT"}, -8, 0, 100, 18, self.itemsTab.leagueDropList, function(index, value)
 		self.pbLeague = value.name
 		self.pbLeagueRealName = value.realname or value.name
 		self:SetCurrencyConversionButton(controls)
@@ -238,7 +244,7 @@ function TradeQueryClass:PriceItem()
 	controls.league.enabled = function()
 		return #self.itemsTab.leagueDropList > 1
 	end
-	controls.leagueLabel = new("LabelControl", {"TOPRIGHT",controls.league,"TOPLEFT"}, -4, 0, 20, 16, "League:")
+	controls.leagueLabel = new("LabelControl", {"TOPRIGHT", controls.league, "TOPLEFT"}, -4, 0, 20, 16, "League:")
 
 	-- Individual slot rows
 	top_pane_alignment_ref = {"TOPLEFT", controls.setSelect, "BOTTOMLEFT"}
@@ -264,7 +270,7 @@ function TradeQueryClass:PriceItem()
 		GlobalCache.useFullDPS = self.storedGlobalCacheDPSView
 		main:ClosePopup()
 	end)
-	controls.poesessidButton = new("ButtonControl", {"TOPLEFT",controls.setSelect,"TOPRIGHT"}, 8, 0, 200, row_height, function() return main.POESESSID ~= "" and "Change POESESSID" or colorCodes.WARNING.."Missing POESESSID" end, function()
+	controls.poesessidButton = new("ButtonControl", {"TOPLEFT", controls.setSelect, "TOPRIGHT"}, 8, 0, 200, row_height, function() return main.POESESSID ~= "" and "Change POESESSID" or colorCodes.WARNING.."Missing POESESSID" end, function()
 		local poesessid_controls = {}
 		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, main.POESESSID, nil, "%X", 32, function(buf)
 			if #poesessid_controls.sessionInput.buf == 32 or poesessid_controls.sessionInput.buf == "" then
@@ -273,7 +279,7 @@ function TradeQueryClass:PriceItem()
 		end)
 		poesessid_controls.sessionInput.placeholder = "Enter your session ID here"
 		poesessid_controls.sessionInput.tooltipText = "You can get this from your web browser's cookies while logged into the Path of Exile website."
-		poesessid_controls.close = new("ButtonControl", {"TOP", poesessid_controls.sessionInput,"TOP"}, 0, 24, 90, row_height, "Done", function()
+		poesessid_controls.close = new("ButtonControl", {"TOP", poesessid_controls.sessionInput, "TOP"}, 0, 24, 90, row_height, "Done", function()
 			for controlName, controlElement in pairs(controls) do
 				if controlName:find("bestButton") then
 					controlElement.enabled = main.POESESSID ~= ""
@@ -284,7 +290,7 @@ function TradeQueryClass:PriceItem()
 		main:OpenPopup(364, 72, "Change session ID", poesessid_controls)
 	end)
 
-	controls.updateCurrencyConversion = new("ButtonControl", {"TOPLEFT",nil,"TOPLEFT"}, 16, pane_height - 30, 240, row_height, "", function()
+	controls.updateCurrencyConversion = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, 16, pane_height - 30, 240, row_height, "", function()
 		self:PullPoENinjaCurrencyConversion(self.pbLeague, controls)
 	end)
 	main:OpenPopup(pane_width, pane_height, "Build Pricer", controls)
