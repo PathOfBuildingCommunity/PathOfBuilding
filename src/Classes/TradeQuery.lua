@@ -227,10 +227,10 @@ function TradeQueryClass:PriceItem()
 	end)
 	controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
 	controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
-	controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT",controls.itemSortSelection,"TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
+	controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", controls.itemSortSelection,"TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
 
 	-- League selection
-	controls.league = new("DropDownControl", {"TOPRIGHT",controls.itemSortSelectionLabel,"TOPLEFT"}, -8, 0, 100, 18, self.itemsTab.leagueDropList, function(index, value)
+	controls.league = new("DropDownControl", {"TOPRIGHT", controls.itemSortSelectionLabel,"TOPLEFT"}, -8, 0, 100, 18, self.itemsTab.leagueDropList, function(index, value)
 		self.pbLeague = value.name
 		self.pbLeagueRealName = value.realname or value.name
 		self:SetCurrencyConversionButton(controls)
@@ -241,10 +241,10 @@ function TradeQueryClass:PriceItem()
 	controls.leagueLabel = new("LabelControl", {"TOPRIGHT",controls.league,"TOPLEFT"}, -4, 0, 20, 16, "League:")
 
 	-- Individual slot rows
-	top_pane_alignment_ref = {"TOPLEFT",controls.setSelect,"BOTTOMLEFT"}
+	top_pane_alignment_ref = {"TOPLEFT", controls.setSelect, "BOTTOMLEFT"}
 	for _, slotName in ipairs(baseSlots) do
 		self:PriceItemRowDisplay(controls, cnt, {name = slotName}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-		top_pane_alignment_ref = {"TOPLEFT",controls['name'..cnt],"BOTTOMLEFT"}
+		top_pane_alignment_ref = {"TOPLEFT", controls['name'..cnt], "BOTTOMLEFT"}
 		cnt = cnt + 1
 	end
 	local activeSocketList = { }
@@ -256,7 +256,7 @@ function TradeQueryClass:PriceItem()
 	table.sort(activeSocketList)
 	for _, nodeId in pairs(activeSocketList) do
 		self:PriceItemRowDisplay(controls, cnt, {name = self.itemsTab.sockets[nodeId].label, ref = nodeId}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-		top_pane_alignment_ref = {"TOPLEFT",controls['name'..cnt],"BOTTOMLEFT"}
+		top_pane_alignment_ref = {"TOPLEFT", controls['name'..cnt], "BOTTOMLEFT"}
 		cnt = cnt + 1
 	end
 	controls.fullPrice = new("LabelControl", nil, -3, pane_height - 58, pane_width - 256, row_height, "")
@@ -267,11 +267,18 @@ function TradeQueryClass:PriceItem()
 	controls.poesessidButton = new("ButtonControl", {"TOPLEFT",controls.setSelect,"TOPRIGHT"}, 8, 0, 200, row_height, function() return main.POESESSID ~= "" and "Change POESESSID" or colorCodes.WARNING.."Missing POESESSID" end, function()
 		local poesessid_controls = {}
 		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, main.POESESSID, nil, "%X", 32, function(buf)
-			main.POESESSID = buf
+			if #poesessid_controls.sessionInput.buf == 32 or poesessid_controls.sessionInput.buf == "" then
+				main.POESESSID = buf
+			end
 		end)
 		poesessid_controls.sessionInput.placeholder = "Enter your session ID here"
 		poesessid_controls.sessionInput.tooltipText = "You can get this from your web browser's cookies while logged into the Path of Exile website."
-		poesessid_controls.close = new("ButtonControl", {"TOP",poesessid_controls.sessionInput,"TOP"}, 0, 24, 90, row_height, "Done", function()
+		poesessid_controls.close = new("ButtonControl", {"TOP", poesessid_controls.sessionInput,"TOP"}, 0, 24, 90, row_height, "Done", function()
+			for controlName, controlElement in pairs(controls) do
+				if controlName:find("bestButton") then
+					controlElement.enabled = main.POESESSID ~= ""
+				end
+			end
 			main:ClosePopup()
 		end)
 		main:OpenPopup(364, 72, "Change session ID", poesessid_controls)

@@ -35,7 +35,7 @@ function TradeQueryRequestsClass:ProcessQueue()
 					end
 					request.callback(response.body, errMsg, unpack(request.callbackParams or {}))
 				end
-				-- self:SendRequest(request.url , onComplete, {body = request.body, poesessid = POESESSID})
+				-- self:SendRequest(request.url , onComplete, {body = request.body, poesessid = main.POESESSID})
 				local header = "Content-Type: application/json"
 				if main.POESESSID ~= "" then
 					header = header .. "\nCookie: POESESSID=" .. main.POESESSID
@@ -90,7 +90,7 @@ function TradeQueryRequestsClass:PerformSearch(league, query, callback)
 			if not response.result or #response.result == 0 then
 				if response.error then
 					if response.error.code == 2 then
-						if POESESSID and POESESSID ~= "" then
+						if main.POESESSID ~= "" then
 							errMsg = "POESESSID is invalid. Please Re-Log and reset"
 						else
 							errMsg = "Complex Query - Please provide your POESESSID"
