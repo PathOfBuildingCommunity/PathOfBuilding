@@ -1588,7 +1588,7 @@ function calcs.offence(env, actor, activeSkill)
 				local triggerCD = activeSkill.triggeredBy.grantedEffect.levels[activeSkill.triggeredBy.level].cooldown
 				local icdr = (calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "CooldownRecovery") or 1)
 				triggerCD = m_ceil((triggerCD / icdr) * data.misc.ServerTickRate) / data.misc.ServerTickRate 
-				--  2^-31 is the avoid crasghing when skillCd is nil
+				--  2^-31 is to avoid crashing when skillCd is nil
 				output.triggerCD = triggerCD
 				output.Speed =  1 / m_max(triggerCD, (output.Cooldown or 2^-31))
 				output.CastRate = output.Speed
