@@ -379,7 +379,7 @@ function SkillsTabClass:Save(xml)
 			local node = { elem = "Skill", attrib = {
 				enabled = tostring(socketGroup.enabled),
 				includeInFullDPS = tostring(socketGroup.includeInFullDPS),
-				groupCount = tostring(socketGroup.groupCount),
+				groupCount = socketGroup.groupCount ~= nil and tostring(socketGroup.groupCount),
 				label = socketGroup.label,
 				slot = socketGroup.slot,
 				source = socketGroup.source,
