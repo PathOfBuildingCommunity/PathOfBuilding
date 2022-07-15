@@ -917,7 +917,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		local crossLinkedSupportList = { }
 		for _, index in ipairs(indexOrder) do
-			socketGroup = build.skillsTab.socketGroupList[index]
+			local socketGroup = build.skillsTab.socketGroupList[index]
 			local socketGroupSkillList = { }
 			local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
 			socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
