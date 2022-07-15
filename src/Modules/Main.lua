@@ -818,18 +818,22 @@ end
 function main:OpenUpdatePopup()
 	local changeList = { }
 	local changelogName = launch.devMode and "../changelog.txt" or "changelog.txt"
-	for line in io.lines(changelogName) do
-		local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
-		if ver then
-			if ver == launch.versionNumber then
-				break
+	local changelogFile = io.open(changelogName, "r")
+	if changelogFile then
+		changelogFile:close()
+		for line in io.lines(changelogName) do
+			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
+			if ver then
+				if ver == launch.versionNumber then
+					break
+				end
+				if #changeList > 0 then
+					t_insert(changeList, { height = 12 })
+				end
+				t_insert(changeList, { height = 20, "^7Version "..ver.." ("..date..")" })
+			else
+				t_insert(changeList, { height = 14, "^7"..line })
 			end
-			if #changeList > 0 then
-				t_insert(changeList, { height = 12 })
-			end
-			t_insert(changeList, { height = 20, "^7Version "..ver.." ("..date..")" })
-		else
-			t_insert(changeList, { height = 14, "^7"..line })
 		end
 	end
 	local controls = { }
@@ -850,24 +854,28 @@ end
 function main:OpenAboutPopup()
 	local changeList = { }
 	local changelogName = launch.devMode and "../changelog.txt" or "changelog.txt"
-	for line in io.lines(changelogName) do
-		local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
-		if ver then
-			if #changeList > 0 then
-				t_insert(changeList, { height = 10 })
+	local changelogFile = io.open(changelogName, "r")
+	if changelogFile then
+		changelogFile:close()
+		for line in io.lines(changelogName) do
+			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
+			if ver then
+				if #changeList > 0 then
+					t_insert(changeList, { height = 10 })
+				end
+				t_insert(changeList, { height = 18, "^7Version "..ver.." ("..date..")" })
+			else
+				t_insert(changeList, { height = 12, "^7"..line })
 			end
-			t_insert(changeList, { height = 18, "^7Version "..ver.." ("..date..")" })
-		else
-			t_insert(changeList, { height = 12, "^7"..line })
 		end
 	end
 	local controls = { }
 	controls.close = new("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
 		self:ClosePopup()
 	end)
-	controls.version = new("LabelControl", nil, 0, 18, 0, 18, "Path of Building Community Fork v"..launch.versionNumber)
-	controls.forum = new("LabelControl", nil, 0, 36, 0, 18, "Based on Openarl's Path of Building")
-	controls.github = new("ButtonControl", nil, 0, 62, 438, 18, "GitHub page: ^x4040FFhttps://github.com/PathOfBuildingCommunity/PathOfBuilding", function(control)
+	controls.version = new("LabelControl", nil, 0, 18, 0, 18, "^7Path of Building Community Fork v"..launch.versionNumber)
+	controls.forum = new("LabelControl", nil, 0, 36, 0, 18, "^7Based on Openarl's Path of Building")
+	controls.github = new("ButtonControl", nil, 0, 62, 438, 18, "^7GitHub page: ^x4040FFhttps://github.com/PathOfBuildingCommunity/PathOfBuilding", function(control)
 		OpenURL("https://github.com/PathOfBuildingCommunity/PathOfBuilding")
 	end)
 	controls.verLabel = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 10, 82, 0, 18, "^7Version history:")
