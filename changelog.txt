@@ -15,7 +15,7 @@ VERSION[2.19.2][2022/07/15]
 VERSION[2.19.1][2022/07/13]
 
 --- Implemented Enhancements ---
-* Add support to search Timeless jewel node stats in the "Search for Node" dropdown list (Lothrik)
+* Add support to search Timeless jewel node stats in the "Search for Node" dropdown list (Regisle)
 
 --- Fixed Bugs ---
 * Fix crash when socketing a Glorious Vanity jewel in your tree (Lothrik)

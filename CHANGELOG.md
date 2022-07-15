@@ -27,7 +27,7 @@
 
 ## What's Changed
 ### Implemented Enhancements
-- Add support to search Timeless jewel node stats in the "Search for Node" dropdown list [\#4580](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4580) ([Lothrik](https://github.com/Lothrik))
+- Add support to search Timeless jewel node stats in the "Search for Node" dropdown list [\#4580](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4580) ([Regisle](https://github.com/Regisle))
 ### Fixed Bugs
 - Fix crash when socketing a Glorious Vanity jewel in your tree [\#4577](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4577) ([Lothrik](https://github.com/Lothrik))
 - Fix DoT skill DPS being 6% of actual value [\#4575](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4575) ([Nostrademous](https://github.com/Nostrademous))
