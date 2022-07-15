@@ -37,8 +37,8 @@ function TradeQueryRequestsClass:ProcessQueue()
 				end
 				-- self:SendRequest(request.url , onComplete, {body = request.body, poesessid = POESESSID})
 				local header = "Content-Type: application/json"
-				if POESESSID and POESESSID ~= "" then
-					header = header .. "\nCookie: POESESSID=" .. POESESSID
+				if main.POESESSID ~= "" then
+					header = header .. "\nCookie: POESESSID=" .. main.POESESSID
 				end
 				launch:DownloadPage(request.url , onComplete, {
 					header = header,

@@ -205,6 +205,7 @@ the "Releases" section of the GitHub page.]])
 	self.showTitlebarName = true
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
+	self.POESESSID = ""
 
 	local ignoreBuild
 	if arg[1] then
@@ -538,6 +539,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.slotOnlyTooltips then
 					self.slotOnlyTooltips = node.attrib.slotOnlyTooltips == "true"
 				end
+				if node.attrib.POESESSID then
+					self.POESESSID = node.attrib.POESESSID or ""
+				end
 			end
 		end
 	end
@@ -592,6 +596,7 @@ function main:SaveSettings()
 		lastExportWebsite = self.lastExportWebsite,
 		showWarnings = tostring(self.showWarnings),
 		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
+		POESESSID = self.POESESSID,
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then

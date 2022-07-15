@@ -264,10 +264,10 @@ function TradeQueryClass:PriceItem()
 		GlobalCache.useFullDPS = self.storedGlobalCacheDPSView
 		main:ClosePopup()
 	end)
-	controls.poesessidButton = new("ButtonControl", {"TOPLEFT",controls.setSelect,"TOPRIGHT"}, 8, 0, 200, row_height, function() return POESESSID ~= "" and "Change POESESSID" or colorCodes.WARNING.."Missing POESESSID" end, function()
+	controls.poesessidButton = new("ButtonControl", {"TOPLEFT",controls.setSelect,"TOPRIGHT"}, 8, 0, 200, row_height, function() return main.POESESSID ~= "" and "Change POESESSID" or colorCodes.WARNING.."Missing POESESSID" end, function()
 		local poesessid_controls = {}
-		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, POESESSID, nil, "%X", 32, function(buf)
-			POESESSID = buf
+		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, main.POESESSID, nil, "%X", 32, function(buf)
+			main.POESESSID = buf
 		end)
 		poesessid_controls.sessionInput.placeholder = "Enter your session ID here"
 		poesessid_controls.sessionInput.tooltipText = "You can get this from your web browser's cookies while logged into the Path of Exile website."
@@ -439,7 +439,7 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 			)
 		end)
 	end)
-	controls['bestButton'..str_cnt].enabled = POESESSID ~= ""
+	controls['bestButton'..str_cnt].enabled = main.POESESSID ~= ""
 	controls['bestButton'..str_cnt].tooltipText = "Creates a weighted search to find the highest DPS items for this slot.  This requires a valid session ID."
 	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['bestButton'..str_cnt],"TOPRIGHT"}, 8, 0, 400, row_height, nil, nil, "^%C\t\n", nil, nil, nil)
 	controls['uri'..str_cnt]:SetPlaceholder("Paste trade URL here...")

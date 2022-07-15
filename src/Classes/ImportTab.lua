@@ -371,7 +371,6 @@ function ImportTabClass:DownloadCharacterList()
 	  -- Trim Trailing/Leading spaces
 	local accountName = self.controls.accountName.buf:gsub('%s+', '')
 	local realm = realmList[self.controls.accountRealm.selIndex]
-	POESESSID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID) or ""
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(response, errMsg)
 		if errMsg == "Response code: 401" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
@@ -425,7 +424,7 @@ function ImportTabClass:DownloadCharacterList()
 			self.lastAccountHash = common.sha1(accountName)
 			main.lastAccountName = accountName
 			main.gameAccounts[accountName] = main.gameAccounts[accountName] or { }
-			main.gameAccounts[accountName].sessionID = POESESSID
+			main.gameAccounts[accountName].sessionID = main.POESESSID
 			local leagueList = { }
 			for i, char in ipairs(charList) do
 				if not isValueInArray(leagueList, char.league) then
@@ -450,8 +449,8 @@ function ImportTabClass:DownloadCharacterList()
 			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValue("league"))
 			-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
 			self:SaveAccountHistory()
-		end, POESESSID and { header = "Cookie: POESESSID="..POESESSID })
-	end, POESESSID and { header = "Cookie: POESESSID="..POESESSID })
+		end, main.POESESSID and { header = "Cookie: POESESSID=" .. main.POESESSID })
+	end, main.POESESSID and { header = "Cookie: POESESSID=" .. main.POESESSID })
 end
 
 function ImportTabClass:BuildCharacterList(league)
@@ -495,7 +494,6 @@ function ImportTabClass:DownloadPassiveTree()
 	self.charImportStatus = "Retrieving character passive tree..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local accountName = self.controls.accountName.buf
-	POESESSID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
 	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
@@ -509,7 +507,7 @@ function ImportTabClass:DownloadPassiveTree()
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
 		self:ImportPassiveTreeAndJewels(response.body, charData)
-	end, POESESSID and { header = "Cookie: POESESSID="..POESESSID })
+	end, main.POESESSID and { header = "Cookie: POESESSID="..main.POESESSID })
 end
 
 function ImportTabClass:DownloadItems()
@@ -517,7 +515,6 @@ function ImportTabClass:DownloadItems()
 	self.charImportStatus = "Retrieving character items..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local accountName = self.controls.accountName.buf
-	POESESSID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
 	launch:DownloadPage(realm.hostName.."character-window/get-items?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
@@ -531,7 +528,7 @@ function ImportTabClass:DownloadItems()
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
 		self:ImportItemsAndSkills(response.body)
-	end, POESESSID and { header = "Cookie: POESESSID="..POESESSID })
+	end, main.POESESSID and { header = "Cookie: POESESSID="..main.POESESSID })
 end
 
 function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
