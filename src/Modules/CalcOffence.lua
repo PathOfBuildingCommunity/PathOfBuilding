@@ -1581,10 +1581,12 @@ function calcs.offence(env, actor, activeSkill)
 				output.Speed = output.Speed * globalOutput.ActionSpeedMod
 				output.CastRate = output.Speed
 			end
-			if output.Cooldown and (not activeSkill.triggeredBy) then
+			-- Cast when damage taken is the only trigger that does not require a specific source to trigger
+			local isCWDT = activeSkill.triggeredBy and activeSkill.triggeredBy.grantedEffect.name == "Cast when Damage Taken"
+			if output.Cooldown and (not isCWDT) then
 				output.Speed = m_min(output.Speed, 1 / output.Cooldown * output.Repeats)
 			end
-			if activeSkill.triggeredBy then
+			if isCWDT then
 				local triggerCD = activeSkill.triggeredBy.grantedEffect.levels[activeSkill.triggeredBy.level].cooldown
 				local icdr = (calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "CooldownRecovery") or 1)
 				triggerCD = m_ceil((triggerCD / icdr) * data.misc.ServerTickRate) / data.misc.ServerTickRate 
@@ -1607,7 +1609,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.Time = 1 / output.Speed
 			end
 			if breakdown then
-				if activeSkill.triggeredBy then
+				if isCWDT then
 					breakdown.Speed = {
 						s_format("Cast rate based on trigger"),
 						s_format(" %.2f ^8(calculated trigger cooldown accounting for reductions and server tick)", output.triggerCD )
