@@ -211,15 +211,15 @@ end
 
 function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
 	for i = 1, #masteryEffects - 1, 4 do
-
 		local effectId = masteryEffects:byte(i) * 256 + masteryEffects:byte(i + 1)
 		local id  = masteryEffects:byte(i + 2) * 256 + masteryEffects:byte(i + 3)
 
-		self.masterySelections[id] = effectId
 		local effect = self.tree.masteryEffects[effectId]
 		self.allocNodes[id].sd = effect.sd
+		self.allocNodes[id].allMasteryOptions = false
 		self.allocNodes[id].reminderText = { "Tip: Right click to select a different effect" }
 		self.tree:ProcessStats(self.allocNodes[id])
+		self.masterySelections[id] = effectId
 		self.allocatedMasteryCount = self.allocatedMasteryCount + 1
 	end
 end
