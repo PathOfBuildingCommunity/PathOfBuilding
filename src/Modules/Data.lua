@@ -550,12 +550,21 @@ end
 -- lazy load a specific timeless jewel type
 -- valid values: "Glorious Vanity", "Lethal Pride", "Brutal Restraint", "Militant Faith", "Elegant Hubris"
 local function loadTimelessJewel(jewelType, nodeID)
-	local nodeIndex = data.nodeIDList[nodeID] and data.nodeIDList[nodeID].index or nil
-	-- if already loaded, return
-	if data.timelessJewelLUTs[jewelType] and ((jewelType == 1 and data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw == nil) or (jewelType ~= 1 and data.timelessJewelLUTs[jewelType].data)) then return end
+	local nodeIndex = nil
+	if nodeID and data.nodeIDList[nodeID] then
+		nodeIndex = data.nodeIDList[nodeID].index
+	end
+	-- for GV, if nodeIndex is invalid, return
+	if jewelType == 1 and nodeIndex == nil then
+		return
+	end
+	-- if LUT is already loaded, and this either isn't GV, or GV has already emptied it's raw data out, return
+	if data.timelessJewelLUTs[jewelType] and data.timelessJewelLUTs[jewelType].data and (jewelType ~= 1 or data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw == nil) then
+		return
+	end
 
 	if jewelType == 1 then
-		--if data is already loaded but table for specific node is not created, just make table and return
+		-- if data is already loaded but table for specific node is not created, just make table and return
 		if data.timelessJewelLUTs[jewelType] and data.timelessJewelLUTs[jewelType].data[nodeIndex + 1] and data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw then
 			local jewelData = data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw
 			local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
@@ -676,7 +685,7 @@ data.readLUT = function(seed, nodeID, jewelType)
 				result[i] = data.timelessJewelLUTs[jewelType].data[index + 1][seedOffset + 1]:byte(i)
 			end
 			return result
-		else
+		elseif index <= data.nodeIDList["sizeNotable"] then
 			return { data.timelessJewelLUTs[jewelType].data:byte(index * seedSize + seedOffset + 1) }
 		end
 	else
