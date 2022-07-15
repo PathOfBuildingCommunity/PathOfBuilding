@@ -39,9 +39,9 @@ local dmgTypeFlags = {
 }
 
 -- List of all ailments
-local ailmentTypeList = { "Bleed", "Poison", "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
+local ailmentTypeList = data.ailmentTypeList
 -- List of elemental ailments
-local elementalAilmentTypeList = { "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
+local elementalAilmentTypeList = data.elementalAilmentTypeList
 
 -- Magic table for caching the modifier name sets used in calcDamage()
 local damageStatsForTypes = setmetatable({ }, { __index = function(t, k)
@@ -841,7 +841,10 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
 		for _, pool in ipairs({"Life", "Mana"}) do
-			output[pool .. "ReservedMod"] = calcLib.mod(skillModList, skillCfg, pool .. "Reserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier") / calcLib.mod(skillModList, skillCfg, pool .. "ReservationEfficiency", "ReservationEfficiency")
+			output[pool .. "ReservedMod"] = 0
+			if calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier") > 0 and calcLib.mod(skillModList, skillCfg, pool .. "Reserved", "Reserved") > 0 then
+				output[pool .. "ReservedMod"] = calcLib.mod(skillModList, skillCfg, pool .. "Reserved", "Reserved") * calcLib.mod(skillModList, skillCfg, "SupportManaMultiplier") / m_max(0, calcLib.mod(skillModList, skillCfg, pool .. "ReservationEfficiency", "ReservationEfficiency"))
+			end
 			if breakdown then
 				local inc = skillModList:Sum("INC", skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
 				local more = skillModList:More(skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
@@ -1025,6 +1028,24 @@ function calcs.offence(env, actor, activeSkill)
 	
 	if skillFlags.warcry then
 		output.WarcryCastTime = calcWarcryCastTime(skillModList, skillCfg, actor)
+	end
+
+	if skillFlags.corpse then
+		output.CorpseLevel = skillModList:Sum("BASE", skillCfg, "CorpseLevel")
+		output.BaseCorpseLife = env.data.monsterLifeTable[output.CorpseLevel or 1] * (env.data.monsterVarietyLifeMult[skillData.corpseMonsterVariety] or 1) * (env.data.mapLevelLifeMult[env.enemyLevel] or 1)
+		output.CorpseLifeInc = 1 + (skillModList:Sum("INC", skillCfg, "CorpseLife") or 0) / 100
+		output.CorpseLife = output.BaseCorpseLife * output.CorpseLifeInc
+		if breakdown then
+			breakdown.CorpseLife = {
+				s_format("%d ^8(base life of a level %d monster)", env.data.monsterLifeTable[output.CorpseLevel or 1], output.CorpseLevel or "n/a"),
+				s_format("x %.2f ^8(%s variety multiplier)", env.data.monsterVarietyLifeMult[skillData.corpseMonsterVariety] or 1, skillData.corpseMonsterVariety),
+				s_format("x %.2f ^8(map level %d monster life multiplier from config)", env.data.mapLevelLifeMult[env.enemyLevel] or 1, env.enemyLevel),
+				s_format(" = %d ^8(base corpse life)", output.BaseCorpseLife),
+				s_format(""),
+				s_format("x %.2f ^8(corpse maximum life increases)", output.CorpseLifeInc),
+				s_format(" = %d", output.CorpseLife),
+			}
+		end
 	end
 
 	-- General's Cry
@@ -3393,7 +3414,17 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Calculate non-damaging ailments effect and duration modifiers
-		local enemyThreshold = enemyDB:Sum("BASE", nil, "AilmentThreshold") * enemyDB:More(nil, "Life")
+		local isBoss = env.configInput["enemyIsBoss"] ~= "None"
+		local enemyBaseLife = data.monsterLifeTable[env.enemyLevel] * enemyDB:More(nil, "Life")
+		local enemyMapLifeMult = 1
+		local enemyMapAilmentMult = 1
+		if env.enemyLevel >= 66 then
+			enemyMapLifeMult = isBoss and data.mapLevelBossLifeMult[env.enemyLevel] or data.mapLevelLifeMult[env.enemyLevel]
+			enemyMapAilmentMult = isBoss and data.mapLevelBossAilmentMult[env.enemyLevel] or enemyMapAilmentMult
+		end
+		local enemyTypeMult = isBoss and 7.68 or 1
+		local enemyThreshold = enemyBaseLife * enemyTypeMult * enemyMapLifeMult * enemyMapAilmentMult * enemyDB:More(nil, "AilmentThreshold")
+
 		local bonechill = output.BonechillEffect or enemyDB:Sum("BASE", nil, "DesiredBonechillEffect")
 		local ailments = {
 			["Chill"] = {
@@ -3493,7 +3524,7 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(val.effList, desired)
 						end
 						breakdown[ailment.."DPS"].label = "Resulting ailment effect"..((current > 0 and val.ramping) and s_format(" ^8(with a ^7%s%% ^8%s on the enemy)^7", current, ailment) or "")
-						breakdown[ailment.."DPS"].footer = s_format("^8(ailment threshold is about equal to life, except on bosses where it is about half their life)\n(the above table shows that when the enemy has X ailment threshold, you ^8%s for Y)", ailment:lower())
+						breakdown[ailment.."DPS"].footer = s_format("^8(ailment threshold is about equal to life, except on bosses that have specific ailement thresholds)\n(the above table shows that when the enemy has X ailment threshold, you ^8%s for Y)", ailment:lower())
 						breakdown[ailment.."DPS"].rowList = { }
 						breakdown[ailment.."DPS"].colList = {
 							{ label = "Ailment Threshold", key = "thresh" },
@@ -3506,7 +3537,7 @@ function calcs.offence(env, actor, activeSkill)
 							local precision = ailmentData[ailment].precision
 							value = m_floor(value * (10 ^ precision)) / (10 ^ precision)
 							local valueFormat = "%."..tostring(precision).."f%%"
-							local threshString = s_format("%d", thresh)..(m_floor(thresh + 0.5) == m_floor(enemyThreshold + 0.5) and s_format(" ^8(AL%d %s)", skillModList:Sum("BASE", nil, "AwakeningLevel"), env.configInput.enemyIsBoss) or "")
+							local threshString = s_format("%d", thresh)..(m_floor(thresh + 0.5) == m_floor(enemyThreshold + 0.5) and s_format(" ^8(%s)", env.configInput.enemyIsBoss) or "")
 							local labels = { }
 							if decCheck == 1 and value ~= 0 then
 								if ailment == "Chill" and value == bonechill then

@@ -66,8 +66,23 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.matchGemLevelToCharacterLevel = false
 	self.defaultGemQuality = main.defaultGemQuality
 
+	-- Set selector
+	self.controls.setSelect = new("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, 76, 8, 210, 20, nil, function(index, value)
+		self:SetActiveSkillSet(self.skillSetOrderList[index])
+		self:SetDisplayGroup(self.socketGroupList[1])
+		self:AddUndoState()
+	end)
+	self.controls.setSelect.enableDroppedWidth = true
+	self.controls.setSelect.enabled = function()
+		return #self.skillSetOrderList > 1
+	end
+	self.controls.setLabel = new("LabelControl", {"RIGHT",self.controls.setSelect,"LEFT"}, -2, 0, 0, 16, "^7Skill set:")
+	self.controls.setManage = new("ButtonControl", {"LEFT",self.controls.setSelect,"RIGHT"}, 4, 0, 90, 20, "Manage...", function()
+		self:OpenSkillSetManagePopup()
+	end)
+
 	-- Socket group list
-	self.controls.groupList = new("SkillListControl", {"TOPLEFT",self,"TOPLEFT"}, 20, 24, 360, 300, self)
+	self.controls.groupList = new("SkillListControl", {"TOPLEFT",self,"TOPLEFT"}, 20, 54, 360, 300, self)
 	self.controls.groupTip = new("LabelControl", {"TOPLEFT",self.controls.groupList,"BOTTOMLEFT"}, 0, 8, 0, 14, 
 [[
 ^7Usage Tips:
@@ -190,6 +205,12 @@ will automatically apply to the skill.]]
 	-- Scroll bar
 	self.controls.scrollBarH = new("ScrollBarControl", nil, 0, 0, 0, 18, 100, "HORIZONTAL", true)
 
+	-- Initialise skill sets
+	self.skillSets = { }
+	self.skillSetOrderList = { 1 }
+	self:NewSkillSet(1)
+	self:SetActiveSkillSet(1)
+
 	-- Skill gem slots
 	self.anchorGemSlots = new("Control", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 28 + 28 + 16, 0, 0)
 	self.gemSlots = { }
@@ -223,7 +244,77 @@ function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
 	return gemTypeLine, quality or 'Default'
 end
 
+function SkillsTabClass:LoadSkill(node, skillSetId)
+	if node.elem ~= "Skill" then
+		return
+	end
+
+	local socketGroup = { }
+	socketGroup.enabled = node.attrib.active == "true" or node.attrib.enabled == "true"
+	socketGroup.includeInFullDPS = node.attrib.includeInFullDPS and node.attrib.includeInFullDPS == "true"
+	socketGroup.groupCount = tonumber(node.attrib.groupCount)
+	socketGroup.label = node.attrib.label
+	socketGroup.slot = node.attrib.slot
+	socketGroup.source = node.attrib.source
+	socketGroup.mainActiveSkill = tonumber(node.attrib.mainActiveSkill) or 1
+	socketGroup.mainActiveSkillCalcs = tonumber(node.attrib.mainActiveSkillCalcs) or 1
+	socketGroup.gemList = { }
+	for _, child in ipairs(node) do
+		local gemInstance = { }
+		gemInstance.nameSpec = child.attrib.nameSpec or ""
+		if child.attrib.gemId then
+			local gemData = self.build.data.gems[child.attrib.gemId]
+			if gemData then
+				gemInstance.gemId = gemData.id
+				gemInstance.skillId = gemData.grantedEffectId
+				gemInstance.nameSpec = gemData.nameSpec
+			end
+		elseif child.attrib.skillId then
+			local grantedEffect = self.build.data.skills[child.attrib.skillId]
+			if grantedEffect then
+				gemInstance.gemId = self.build.data.gemForSkill[grantedEffect]
+				gemInstance.skillId = grantedEffect.id
+				gemInstance.nameSpec = grantedEffect.name
+			end
+		end
+		gemInstance.level = tonumber(child.attrib.level)
+		gemInstance.quality = tonumber(child.attrib.quality)
+		local nameSpecOverride, qualityOverrideId = SkillsTabClass:GetBaseNameAndQuality(gemInstance.nameSpec, child.attrib.qualityId)
+		gemInstance.nameSpec = nameSpecOverride
+		gemInstance.qualityId = qualityOverrideId
+
+		if gemInstance.gemData then
+			gemInstance.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
+		end
+		gemInstance.enabled = not child.attrib.enabled and true or child.attrib.enabled == "true"
+		gemInstance.enableGlobal1 = not child.attrib.enableGlobal1 or child.attrib.enableGlobal1 == "true"
+		gemInstance.enableGlobal2 = child.attrib.enableGlobal2 == "true"
+		gemInstance.count = tonumber(child.attrib.count) or 1
+		gemInstance.skillPart = tonumber(child.attrib.skillPart)
+		gemInstance.skillPartCalcs = tonumber(child.attrib.skillPartCalcs)
+		gemInstance.skillStageCount = tonumber(child.attrib.skillStageCount)
+		gemInstance.skillStageCountCalcs = tonumber(child.attrib.skillStageCountCalcs)
+		gemInstance.skillMineCount = tonumber(child.attrib.skillMineCount)
+		gemInstance.skillMineCountCalcs = tonumber(child.attrib.skillMineCountCalcs)
+		gemInstance.skillMinion = child.attrib.skillMinion
+		gemInstance.skillMinionCalcs = child.attrib.skillMinionCalcs
+		gemInstance.skillMinionItemSet = tonumber(child.attrib.skillMinionItemSet)
+		gemInstance.skillMinionItemSetCalcs = tonumber(child.attrib.skillMinionItemSetCalcs)
+		gemInstance.skillMinionSkill = tonumber(child.attrib.skillMinionSkill)
+		gemInstance.skillMinionSkillCalcs = tonumber(child.attrib.skillMinionSkillCalcs)
+		t_insert(socketGroup.gemList, gemInstance)
+	end
+	if node.attrib.skillPart and socketGroup.gemList[1] then
+		socketGroup.gemList[1].skillPart = tonumber(node.attrib.skillPart)
+	end
+	self:ProcessSocketGroup(socketGroup)
+	t_insert(self.skillSets[skillSetId].socketGroupList, socketGroup)
+end
+
 function SkillsTabClass:Load(xml, fileName)
+	self.activeSkillSetId = 0
+	self.skillSets = { }
+	self.skillSetOrderList = { }
 	self.defaultGemLevel = m_max(m_min(tonumber(xml.attrib.defaultGemLevel) or 20, 21), 1)
 	self.defaultGemQuality = m_max(m_min(tonumber(xml.attrib.defaultGemQuality) or 0, 23), 0)
 	self.controls.defaultLevel:SetText(self.defaultGemLevel or "")
@@ -246,74 +337,31 @@ function SkillsTabClass:Load(xml, fileName)
 	self.sortGemsByDPSField = self.controls.sortGemsByDPSFieldControl:GetSelValue("type")
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
-			local socketGroup = { }
-			socketGroup.enabled = node.attrib.active == "true" or node.attrib.enabled == "true"
-			socketGroup.includeInFullDPS = node.attrib.includeInFullDPS and node.attrib.includeInFullDPS == "true"
-			socketGroup.groupCount = tonumber(node.attrib.groupCount)
-			socketGroup.label = node.attrib.label
-			socketGroup.slot = node.attrib.slot
-			socketGroup.source = node.attrib.source
-			socketGroup.mainActiveSkill = tonumber(node.attrib.mainActiveSkill) or 1
-			socketGroup.mainActiveSkillCalcs = tonumber(node.attrib.mainActiveSkillCalcs) or 1
-			socketGroup.gemList = { }
-			for _, child in ipairs(node) do
-				local gemInstance = { }
-				gemInstance.nameSpec = child.attrib.nameSpec or ""
-				if child.attrib.gemId then
-					local gemData = self.build.data.gems[child.attrib.gemId]
-					if gemData then
-						gemInstance.gemId = gemData.id
-						gemInstance.skillId = gemData.grantedEffectId
-						gemInstance.nameSpec = gemData.nameSpec
-					end
-				elseif child.attrib.skillId then
-					local grantedEffect = self.build.data.skills[child.attrib.skillId]
-					if grantedEffect then
-						gemInstance.gemId = self.build.data.gemForSkill[grantedEffect]
-						gemInstance.skillId = grantedEffect.id
-						gemInstance.nameSpec = grantedEffect.name
-					end
-				end
-				gemInstance.level = tonumber(child.attrib.level)
-				gemInstance.quality = tonumber(child.attrib.quality)
-				local nameSpecOverride, qualityOverrideId = SkillsTabClass:GetBaseNameAndQuality(gemInstance.nameSpec, child.attrib.qualityId)
-				gemInstance.nameSpec = nameSpecOverride
-				gemInstance.qualityId = qualityOverrideId
+			-- Old format, initialize skill sets if needed
+			if #self.skillSetOrderList == 0 or #self.skillSets == 0 then
+				self.skillSetOrderList = { 1 }
+				self:NewSkillSet(1)
+			end
+		end
 
-				if gemInstance.gemData then
-					gemInstance.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
-				end
-				gemInstance.enabled = not child.attrib.enabled and true or child.attrib.enabled == "true"
-				gemInstance.enableGlobal1 = not child.attrib.enableGlobal1 or child.attrib.enableGlobal1 == "true"
-				gemInstance.enableGlobal2 = child.attrib.enableGlobal2 == "true"
-				gemInstance.count = tonumber(child.attrib.count) or 1
-				gemInstance.skillPart = tonumber(child.attrib.skillPart)
-				gemInstance.skillPartCalcs = tonumber(child.attrib.skillPartCalcs)
-				gemInstance.skillStageCount = tonumber(child.attrib.skillStageCount)
-				gemInstance.skillStageCountCalcs = tonumber(child.attrib.skillStageCountCalcs)
-				gemInstance.skillMineCount = tonumber(child.attrib.skillMineCount)
-				gemInstance.skillMineCountCalcs = tonumber(child.attrib.skillMineCountCalcs)
-				gemInstance.skillMinion = child.attrib.skillMinion
-				gemInstance.skillMinionCalcs = child.attrib.skillMinionCalcs
-				gemInstance.skillMinionItemSet = tonumber(child.attrib.skillMinionItemSet)
-				gemInstance.skillMinionItemSetCalcs = tonumber(child.attrib.skillMinionItemSetCalcs)
-				gemInstance.skillMinionSkill = tonumber(child.attrib.skillMinionSkill)
-				gemInstance.skillMinionSkillCalcs = tonumber(child.attrib.skillMinionSkillCalcs)
-				t_insert(socketGroup.gemList, gemInstance)
+		self:LoadSkill(node, 1)
+		if node.elem == "SkillSet" then
+			local skillSet = self:NewSkillSet(tonumber(node.attrib.id))
+			skillSet.title = node.attrib.title
+			t_insert(self.skillSetOrderList, skillSet.id)
+			for _, subNode in ipairs(node) do
+				self:LoadSkill(subNode, skillSet.id)
 			end
-			if node.attrib.skillPart and socketGroup.gemList[1] then
-				socketGroup.gemList[1].skillPart = tonumber(node.attrib.skillPart)
-			end
-			self:ProcessSocketGroup(socketGroup)
-			t_insert(self.socketGroupList, socketGroup)
 		end
 	end
+	self:SetActiveSkillSet(tonumber(xml.attrib.activeSkillSet) or 1)
 	self:SetDisplayGroup(self.socketGroupList[1])
 	self:ResetUndo()
 end
 
 function SkillsTabClass:Save(xml)
 	xml.attrib = {
+		activeSkillSet = tostring(self.activeSkillSetId),
 		defaultGemLevel = tostring(self.defaultGemLevel),
 		defaultGemQuality = tostring(self.defaultGemQuality),
 		sortGemsByDPS = tostring(self.sortGemsByDPS),
@@ -322,44 +370,50 @@ function SkillsTabClass:Save(xml)
 		showAltQualityGems = tostring(self.showAltQualityGems),
 		matchGemLevelToCharacterLevel = tostring(self.matchGemLevelToCharacterLevel)
 	}
-	for _, socketGroup in ipairs(self.socketGroupList) do
-		local node = { elem = "Skill", attrib = {
-			enabled = tostring(socketGroup.enabled),
-			includeInFullDPS = tostring(socketGroup.includeInFullDPS),
-			groupCount = tostring(socketGroup.groupCount),
-			label = socketGroup.label,
-			slot = socketGroup.slot,
-			source = socketGroup.source,
-			mainActiveSkill = tostring(socketGroup.mainActiveSkill),
-			mainActiveSkillCalcs = tostring(socketGroup.mainActiveSkillCalcs),
-		} }
-		for _, gemInstance in ipairs(socketGroup.gemList) do
-			t_insert(node, { elem = "Gem", attrib = {
-				nameSpec = gemInstance.nameSpec,
-				skillId = gemInstance.skillId,
-				gemId = gemInstance.gemId,
-				level = tostring(gemInstance.level),
-				quality = tostring(gemInstance.quality),
-				qualityId = gemInstance.qualityId,
-				enabled = tostring(gemInstance.enabled),
-				enableGlobal1 = tostring(gemInstance.enableGlobal1),
-				enableGlobal2 = tostring(gemInstance.enableGlobal2),
-				count = tostring(gemInstance.count),
-				skillPart = gemInstance.skillPart and tostring(gemInstance.skillPart),
-				skillPartCalcs = gemInstance.skillPartCalcs and tostring(gemInstance.skillPartCalcs),
-				skillStageCount = gemInstance.skillStageCount and tostring(gemInstance.skillStageCount),
-				skillStageCountCalcs = gemInstance.skillStageCountCalcs and tostring(gemInstance.skillStageCountCalcs),
-				skillMineCount = gemInstance.skillMineCount and tostring(gemInstance.skillMineCount),
-				skillMineCountCalcs = gemInstance.skillMineCountCalcs and tostring(gemInstance.skillMineCountCalcs),
-				skillMinion = gemInstance.skillMinion,
-				skillMinionCalcs = gemInstance.skillMinionCalcs,
-				skillMinionItemSet = gemInstance.skillMinionItemSet and tostring(gemInstance.skillMinionItemSet),
-				skillMinionItemSetCalcs = gemInstance.skillMinionItemSetCalcs and tostring(gemInstance.skillMinionItemSetCalcs),
-				skillMinionSkill = gemInstance.skillMinionSkill and tostring(gemInstance.skillMinionSkill),
-				skillMinionSkillCalcs = gemInstance.skillMinionSkillCalcs and tostring(gemInstance.skillMinionSkillCalcs),
-			} })
+	for _, skillSetId in ipairs(self.skillSetOrderList) do
+		local skillSet = self.skillSets[skillSetId]
+		local child = { elem = "SkillSet", attrib = { id = tostring(skillSetId), title = skillSet.title } }
+		t_insert(xml, child)
+
+		for _, socketGroup in ipairs(skillSet.socketGroupList) do
+			local node = { elem = "Skill", attrib = {
+				enabled = tostring(socketGroup.enabled),
+				includeInFullDPS = tostring(socketGroup.includeInFullDPS),
+				groupCount = socketGroup.groupCount ~= nil and tostring(socketGroup.groupCount),
+				label = socketGroup.label,
+				slot = socketGroup.slot,
+				source = socketGroup.source,
+				mainActiveSkill = tostring(socketGroup.mainActiveSkill),
+				mainActiveSkillCalcs = tostring(socketGroup.mainActiveSkillCalcs),
+			} }
+			for _, gemInstance in ipairs(socketGroup.gemList) do
+				t_insert(node, { elem = "Gem", attrib = {
+					nameSpec = gemInstance.nameSpec,
+					skillId = gemInstance.skillId,
+					gemId = gemInstance.gemId,
+					level = tostring(gemInstance.level),
+					quality = tostring(gemInstance.quality),
+					qualityId = gemInstance.qualityId,
+					enabled = tostring(gemInstance.enabled),
+					enableGlobal1 = tostring(gemInstance.enableGlobal1),
+					enableGlobal2 = tostring(gemInstance.enableGlobal2),
+					count = tostring(gemInstance.count),
+					skillPart = gemInstance.skillPart and tostring(gemInstance.skillPart),
+					skillPartCalcs = gemInstance.skillPartCalcs and tostring(gemInstance.skillPartCalcs),
+					skillStageCount = gemInstance.skillStageCount and tostring(gemInstance.skillStageCount),
+					skillStageCountCalcs = gemInstance.skillStageCountCalcs and tostring(gemInstance.skillStageCountCalcs),
+					skillMineCount = gemInstance.skillMineCount and tostring(gemInstance.skillMineCount),
+					skillMineCountCalcs = gemInstance.skillMineCountCalcs and tostring(gemInstance.skillMineCountCalcs),
+					skillMinion = gemInstance.skillMinion,
+					skillMinionCalcs = gemInstance.skillMinionCalcs,
+					skillMinionItemSet = gemInstance.skillMinionItemSet and tostring(gemInstance.skillMinionItemSet),
+					skillMinionItemSetCalcs = gemInstance.skillMinionItemSetCalcs and tostring(gemInstance.skillMinionItemSetCalcs),
+					skillMinionSkill = gemInstance.skillMinionSkill and tostring(gemInstance.skillMinionSkill),
+					skillMinionSkillCalcs = gemInstance.skillMinionSkillCalcs and tostring(gemInstance.skillMinionSkillCalcs),
+				} })
+			end
+			t_insert(child, node)
 		end
-		t_insert(xml, node)
 	end
 	self.modFlag = false
 end
@@ -406,6 +460,16 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 
 	main:DrawBackground(viewPort)
 
+	local newSetList = { }
+	for index, skillSetId in ipairs(self.skillSetOrderList) do
+		local skillSet = self.skillSets[skillSetId]
+		t_insert(newSetList, skillSet.title or "Default")
+		if skillSetId == self.activeSkillSetId then
+			self.controls.setSelect.selIndex = index
+		end
+	end
+	self.controls.setSelect:SetList(newSetList)
+
 	if main.portraitMode then
 		self.anchorGroupDetail:SetAnchor("TOPLEFT",self.controls.optionSection,"BOTTOMLEFT", 0, 20)
 	else
@@ -419,7 +483,7 @@ end
 
 function SkillsTabClass:CopySocketGroup(socketGroup)
 	local skillText = ""
-	if socketGroup.label:match("%S") then
+	if socketGroup.label and socketGroup.label:match("%S") then
 		skillText = skillText .. "Label: "..socketGroup.label.."\r\n"
 	end
 	if socketGroup.slot then
@@ -444,7 +508,16 @@ function SkillsTabClass:PasteSocketGroup(testInput)
 			newGroup.slot = slot
 		end
 		for nameSpec, level, quality, qualityId, state, count in skillText:gmatch("([ %a']+) (%d+)/(%d+) (%a+%d?) ?(%a*) (%d+)") do
-			t_insert(newGroup.gemList, { nameSpec = nameSpec, level = tonumber(level) or 20, quality = tonumber(quality) or 0, qualityId = qualityId, enabled = state ~= "DISABLED", count = tonumber(count) or 1 })
+			t_insert(newGroup.gemList, {
+				nameSpec = nameSpec,
+				level = tonumber(level) or 20,
+				quality = tonumber(quality) or 0,
+				qualityId = qualityId,
+				enabled = state ~= "DISABLED",
+				count = tonumber(count) or 1,
+				enableGlobal1 = true,
+				enableGlobal2 = true
+			})
 		end
 		if #newGroup.gemList > 0 then
 			t_insert(self.socketGroupList, newGroup)
@@ -471,6 +544,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			self.gemSlots[index2].nameSpec:SetText(gemInstance.nameSpec)
 			self.gemSlots[index2].level:SetText(gemInstance.level)
 			self.gemSlots[index2].quality:SetText(gemInstance.quality)
+			self.gemSlots[index2].qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 			self.gemSlots[index2].qualityId:SelByValue(gemInstance.qualityId, "type")
 			self.gemSlots[index2].enabled.state = gemInstance.enabled
 			self.gemSlots[index2].enableGlobal1.state = gemInstance.enableGlobal1
@@ -536,7 +610,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			self:AddUndoState()
 		end
 		self.build.buildFlag = true
-	end)
+	end, true)
 	slot.nameSpec:AddToTabGroup(self.controls.groupLabel)
 	self.controls["gemSlot"..index.."Name"] = slot.nameSpec
 
@@ -1092,26 +1166,83 @@ end
 
 function SkillsTabClass:CreateUndoState()
 	local state = { }
-	state.socketGroupList = { }
-	for _, socketGroup in ipairs(self.socketGroupList) do
-		local newGroup = copyTable(socketGroup, true)
-		newGroup.gemList = { }
-		for index, gemInstance in pairs(socketGroup.gemList) do
-			newGroup.gemList[index] = copyTable(gemInstance, true)
+	state.activeSkillSetId = self.activeSkillSetId
+	state.skillSets = { }
+	for skillSetIndex, skillSet in pairs(self.skillSets) do
+		local newSkillSet = copyTable(skillSet, true)
+		newSkillSet.socketGroupList = { }
+		for socketGroupIndex, socketGroup in pairs(skillSet.socketGroupList) do
+			local newGroup = copyTable(socketGroup, true)
+			newGroup.gemList = { }
+			for gemIndex, gem in pairs(socketGroup.gemList) do
+				newGroup.gemList[gemIndex] = copyTable(gem, true)
+			end
+			newSkillSet.socketGroupList[socketGroupIndex] = newGroup
 		end
-		t_insert(state.socketGroupList, newGroup)
+		state.skillSets[skillSetIndex] = newSkillSet
 	end
+	state.skillSetOrderList = copyTable(self.skillSetOrderList)
 	return state
 end
 
 function SkillsTabClass:RestoreUndoState(state)
 	local displayId = isValueInArray(self.socketGroupList, self.displayGroup)
-	wipeTable(self.socketGroupList)
-	for k, v in pairs(state.socketGroupList) do
-		self.socketGroupList[k] = v
+	wipeTable(self.skillSets)
+	for k, v in pairs(state.skillSets) do
+		self.skillSets[k] = v
 	end
+	wipeTable(self.skillSetOrderList)
+	for k, v in pairs(state.skillSetOrderList) do
+		self.skillSetOrderList[k] = v
+	end
+	self:SetActiveSkillSet(state.activeSkillSetId)
 	self:SetDisplayGroup(displayId and self.socketGroupList[displayId])
 	if self.controls.groupList.selValue then
 		self.controls.groupList.selValue = self.socketGroupList[self.controls.groupList.selIndex]
 	end
+end
+
+-- Opens the skill set manager
+function SkillsTabClass:OpenSkillSetManagePopup()
+	main:OpenPopup(370, 290, "Manage Skill Sets", {
+		new("SkillSetListControl", nil, 0, 50, 350, 200, self),
+		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+			main:ClosePopup()
+		end),
+	})
+end
+
+-- Creates a new skill set
+function SkillsTabClass:NewSkillSet(skillSetId)
+	local skillSet = { id = skillSetId, socketGroupList = {} }
+	if not skillSetId then
+		skillSet.id = 1
+		while self.skillSets[skillSet.id] do
+			skillSet.id = skillSet.id + 1
+		end
+	end
+	self.skillSets[skillSet.id] = skillSet
+	return skillSet
+end
+
+-- Changes the active skill set
+function SkillsTabClass:SetActiveSkillSet(skillSetId)
+	-- Initialize skill sets if needed
+	if #self.skillSetOrderList == 0 or #self.skillSets == 0 then
+		self.skillSetOrderList = { 1 }
+		self:NewSkillSet(1)
+	end
+
+	if not skillSetId then
+		skillSetId = self.activeSkillSetId
+	end
+
+	if not self.skillSets[skillSetId] then
+		skillSetId = self.skillSetOrderList[1]
+	end
+
+	self.socketGroupList = self.skillSets[skillSetId].socketGroupList
+	self.controls.groupList.list = self.socketGroupList
+	self.activeSkillSetId = skillSetId
+	self.build.buildFlag = true
 end

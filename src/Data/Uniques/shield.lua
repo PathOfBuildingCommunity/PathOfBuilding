@@ -404,7 +404,7 @@ Implicits: 1
 0.4% of Physical Attack Damage Leeched as Life
 +5% Chance to Block
 Reflects 1 to 1000 Physical Damage to Attackers on Block
-{variant:2,3}10% of Damage Reflected Gained as Life
+{variant:2,3}10% of Damage you Reflect to Enemies when Hit is gained as Life
 ]],
 -- Shield: Energy Shield
 [[

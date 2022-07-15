@@ -29,7 +29,7 @@ function CheckBoxClass:IsMouseOver()
 	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 end
 
-function CheckBoxClass:Draw(viewPort)
+function CheckBoxClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local size = self.width
 	local enabled = self:IsEnabled()
@@ -71,7 +71,7 @@ function CheckBoxClass:Draw(viewPort)
 	if label then
 		DrawString(x - 5, y + 2, "RIGHT_X", size - 4, "VAR", label)
 	end
-	if mOver then
+	if mOver and not noTooltip then
 		SetDrawLayer(nil, 100)
 		self:DrawTooltip(x, y, size, size, viewPort, self.state)
 		SetDrawLayer(nil, 0)

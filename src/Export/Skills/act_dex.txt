@@ -1028,10 +1028,14 @@ local skills, mod, flag, skill = ...
 #flags attack melee duration vaal
 	parts = {
 		{
-			name = "Strike",
+			name = "Melee hit",
+			melee = true,
+			projectile = false,
 		},
 		{
-			name = "Beams",
+			name = "Projectiles",
+			melee = false,
+			projectile = true,
 		},
 	},
 	statMap = {
@@ -1457,7 +1461,13 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill BoneLance
-#flags spell projectile
+#flags spell projectile corpse
+	statMap = {
+		["unearth_base_corpse_level"] = {
+			mod("CorpseLevel", "BASE", nil),
+		},
+	},
+#baseMod skill("corpseMonsterVariety", "Bone Archer")
 #mods
 
 #skill SnappingAdder

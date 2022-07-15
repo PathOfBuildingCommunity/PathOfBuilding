@@ -302,12 +302,14 @@ function ItemClass:ParseRaw(raw)
 					self.implicit = true
 				elseif specName == "Prefix" then
 					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
+					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.prefixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
 					})
 				elseif specName == "Suffix" then
 					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
+					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.suffixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
@@ -470,7 +472,7 @@ function ItemClass:ParseRaw(raw)
 				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
 					rangedLine = itemLib.applyRange(line, 1, catalystScalar)
 				elseif catalystScalar ~= 1 then
-					rangedLine = itemLib.applyValueScalar(line, catalystScalar)
+					rangedLine = itemLib.applyValueScalar(line, catalystScalar, 1)
 				end
 				local modList, extra = modLib.parseMod(rangedLine or line)
 				if (not modList or extra) and self.rawLines[l+1] then
@@ -480,7 +482,7 @@ function ItemClass:ParseRaw(raw)
 					if combLine:match("%(%d+%-%d+ to %d+%-%d+%)") or combLine:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or combLine:match("%(%-?[%d%.]+%-[%d%.]+%)") then
 						rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
 					elseif catalystScalar ~= 1 then
-						rangedLine = itemLib.applyValueScalar(combLine, catalystScalar)
+						rangedLine = itemLib.applyValueScalar(combLine, catalystScalar, 1)
 					end
 					modList, extra = modLib.parseMod(rangedLine or combLine, true)
 					if modList and not extra then
@@ -525,7 +527,7 @@ function ItemClass:ParseRaw(raw)
 					modLines = self.explicitModLines
 				end
 				if modList then
-					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or 0.5), valueScalar = catalystScalar })
+					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or main.defaultItemAffixQuality), valueScalar = catalystScalar })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
@@ -1142,7 +1144,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			flaskData.instantPerc = calcLocal(modList, "FlaskInstantRecovery", "BASE", 0)
 			local recoveryMod = 1 + calcLocal(modList, "FlaskRecovery", "INC", 0) / 100
 			local rateMod = 1 + calcLocal(modList, "FlaskRecoveryRate", "INC", 0) / 100
-			flaskData.duration = self.base.flask.duration * (1 + durationInc / 100) / rateMod * durationMore
+			flaskData.duration = round(self.base.flask.duration * (1 + durationInc / 100) / rateMod * durationMore, 1)
 			if self.base.flask.life then
 				flaskData.lifeBase = self.base.flask.life * (1 + self.quality / 100) * recoveryMod
 				flaskData.lifeInstant = flaskData.lifeBase * flaskData.instantPerc / 100
@@ -1158,7 +1160,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		else
 			-- Utility flask
-			flaskData.duration = self.base.flask.duration * (1 + (durationInc + self.quality) / 100) * durationMore
+			flaskData.duration = round(self.base.flask.duration * (1 + (durationInc + self.quality) / 100) * durationMore, 1)
 		end
 		flaskData.chargesMax = self.base.flask.chargesMax + calcLocal(modList, "FlaskCharges", "BASE", 0)
 		flaskData.chargesUsed = m_floor(self.base.flask.chargesUsed * (1 + calcLocal(modList, "FlaskChargesUsed", "INC", 0) / 100))

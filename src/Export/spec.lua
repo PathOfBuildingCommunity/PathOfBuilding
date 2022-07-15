@@ -331,6 +331,27 @@ return {
 		}
 	},
 	AdditionalLifeScaling={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="DATFilename",
+			refTo="",
+			type="String",
+			width=240
+		},
+		[3]={
+			list=false,
+			name="DATFilepath",
+			refTo="",
+			type="String",
+			width=290
+		}
 	},
 	AdditionalLifeScalingPerLevel={
 	},
@@ -3492,9 +3513,9 @@ return {
 		[10]={
 			list=true,
 			name="InterpolationBases",
-			refTo="Stats",
+			refTo="EffectivenessCostConstants",
 			type="Key",
-			width=180
+			width=220
 		},
 		[11]={
 			list=true,
@@ -5068,7 +5089,7 @@ return {
 		},
 		[11]={
 			list=false,
-			name="",
+			name="BossAilmentPercentDecrease",
 			refTo="",
 			type="Int",
 			width=150

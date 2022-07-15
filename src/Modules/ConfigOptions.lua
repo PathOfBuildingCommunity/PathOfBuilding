@@ -7,10 +7,64 @@
 local m_min = math.min
 local m_max = math.max
 
+local function applyPantheonDescription(tooltip, mode, index, value)
+	tooltip:Clear()
+	if value.val == "None" then
+		return
+	end
+	local applyModes = { BODY = true, HOVER = true }
+	if applyModes[mode] then
+		local god = data.pantheons[value.val]
+		for _, soul in ipairs(god.souls) do
+			local name = soul.name
+			local lines = { }
+			for _, mod in ipairs(soul.mods) do
+				table.insert(lines, mod.line)
+			end
+			tooltip:AddLine(20, '^8'..name)
+			tooltip:AddLine(14, '^6'..table.concat(lines, '\n'))
+			tooltip:AddSeparator(10)
+		end
+	end
+end
+
+local function banditTooltip(tooltip, mode, index, value)
+	local banditBenefits = {
+		["None"] = "Grants 2 Passive Skill Points",
+		["Oak"] = "Regenerate 1% of Life per second\n2% additional Physical Damage Reduction\n20% icreased Physical Damage",
+		["Kraityn"] = "6% increased Attack and Cast Speed\n10% chance to Avoid Elemental Ailments\n6% increased Movement Speed",
+		["Alira"] = "Regenerate 5 Mana per second\n+20% to Critical Strike Multiplier\n+15% to all Elemental Resistances",
+	}
+	local applyModes = { BODY = true, HOVER = true }
+	tooltip:Clear()
+	if applyModes[mode] then
+		tooltip:AddLine(14, '^8'..banditBenefits[value.val])
+	end
+end
+
 return {
 	-- Section: General options
 	{ section = "General", col = 1 },
 	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=nil,label="Act 10 (-60%)"}} },
+	{ var = "bandit", type = "list", label = "Bandit quest:", tooltipFunc = banditTooltip, list = {{val="None",label="Kill all"},{val="Oak",label="Help Oak"},{val="Kraityn",label="Help Kraityn"},{val="Alira",label="Help Alira"}} },
+	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltipFunc = applyPantheonDescription, list = {
+		{ label = "Nothing", val = "None" },
+		{ label = "Soul of the Brine King", val = "TheBrineKing" },
+		{ label = "Soul of Lunaris", val = "Lunaris" },
+		{ label = "Soul of Solaris", val = "Solaris" },
+		{ label = "Soul of Arakaali", val = "Arakaali" },
+	} },
+	{ var = "pantheonMinorGod", type = "list", label = "Minor God:", tooltipFunc = applyPantheonDescription, list = {
+		{ label = "Nothing", val = "None" },
+		{ label = "Soul of Gruthkul", val = "Gruthkul" },
+		{ label = "Soul of Yugul", val = "Yugul" },
+		{ label = "Soul of Abberath", val = "Abberath" },
+		{ label = "Soul of Tukohama", val = "Tukohama" },
+		{ label = "Soul of Garukhan", val = "Garukhan" },
+		{ label = "Soul of Ralakesh", val = "Ralakesh" },
+		{ label = "Soul of Ryslatha", val = "Ryslatha" },
+		{ label = "Soul of Shakari", val = "Shakari" },
+	} },
 	{ var = "detonateDeadCorpseLife", type = "count", label = "Enemy Corpse ^xE05030Life:", tooltip = "Sets the maximum ^xE05030life ^7of the target corpse for Detonate Dead and similar skills.\nFor reference, a level 70 monster has "..data.monsterLifeTable[70].." base ^xE05030life^7, and a level 80 monster has "..data.monsterLifeTable[80]..".", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "corpseLife", value = val }, "Config")
 	end },
@@ -39,7 +93,10 @@ return {
 	{ var = "conditionLowLife", type = "check", label = "Are you always on Low ^xE05030Life?", ifCond = "LowLife", tooltip = "You will automatically be considered to be on Low ^xE05030Life ^7if you have at least 50% ^xE05030life ^7reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LowLife", "FLAG", true, "Config")
 	end },
-	{ var = "conditionLowMana", type = "check", label = "Are you always on Low ^x7070FFMana?", ifCond = "LowMana", tooltip = "You will automatically be considered to be on Low ^x7070FFMana ^7if you have at least 50% ^xE05030life ^7reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+	{ var = "conditionFullMana", type = "check", label = "Are you always on Full ^x7070FFMana?", ifCond = "FullMana", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:FullMana", "FLAG", true, "Config")
+	end },
+	{ var = "conditionLowMana", type = "check", label = "Are you always on Low ^x7070FFMana?", ifCond = "LowMana", tooltip = "You will automatically be considered to be on Low ^x7070FFMana ^7if you have at least 50% ^x7070FFmana ^7reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LowMana", "FLAG", true, "Config")
 	end },
 	{ var = "conditionFullEnergyShield", type = "check", label = "Are you always on Full ^x88FFFFEnergy Shield?", ifCond = "FullEnergyShield", apply = function(val, modList, enemyModList)
@@ -1309,7 +1366,7 @@ return {
 	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifFlag = "ElementalEquilibrium", tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
 	-- Section: Enemy Stats
 	{ section = "Enemy Stats", col = 3 },
-	{ var = "enemyLevel", type = "count", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and ^x33FF77evade ^7chances.\nThe default level is your character level, capped at 84, which is the same value\nused in-game to calculate the stats on the character sheet." },
+	{ var = "enemyLevel", type = "count", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and ^x33FF77evade ^7chance.\n\nThe default level for normal enemies and standard bosses is 83.\nTheir default level is capped by your character level.\n\nThe default level for pinnacle bosses is 84, and the default level for uber pinnacle bosses is 85.\nTheir default level is not capped by your character level." },
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -1339,8 +1396,7 @@ Uber Pinnacle Boss adds the following modifiers:
 	^7+100% to enemy Armour
 	70% less to enemy Damage taken
 	235% of monster damage
-	8% penetration
-	]], list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
+	8% penetration]], list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
 		--these defaults are here so that the placeholder gets reset correctly
 		build.configTab.varControls['enemySpeed']:SetPlaceholder(700, true)
 		build.configTab.varControls['enemyCritChance']:SetPlaceholder(5, true)
@@ -1352,15 +1408,19 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultResist, true)
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(defaultResist, true)
 
-			local defaultDamage = ""
+			local defaultLevel = 83
+			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
 			if build.calcsTab.mainEnv then
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5), true)
+				defaultLevel = build.calcsTab.mainEnv.enemyLevel
 			end
-			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
-			
+
+			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5)
+			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder("", true)
+			build.configTab.varControls['enemyColdDamage']:SetPlaceholder("", true)
+			build.configTab.varControls['enemyFireDamage']:SetPlaceholder("", true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder("", true)
+
 			local defaultPen = ""
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
@@ -1368,7 +1428,7 @@ Uber Pinnacle Boss adds the following modifiers:
 		elseif val == "Boss" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
-			enemyModList:NewMod("AilmentThreshold", "BASE", 1070897, "Boss")
+			enemyModList:NewMod("AilmentThreshold", "MORE", 488, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 
 			local defaultEleResist = 40
@@ -1377,15 +1437,19 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultEleResist, true)
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(25, true)
 
+			local defaultLevel = 83
+			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
 			if build.calcsTab.mainEnv then
-				local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.stdBossDPSMult)
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+				defaultLevel = build.calcsTab.mainEnv.enemyLevel
 			end
-			
+
+			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.stdBossDPSMult)
+			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+
 			local defaultPen = ""
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
@@ -1395,7 +1459,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 33, "Boss")
-			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
+			enemyModList:NewMod("AilmentThreshold", "MORE", 404, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 
 			local defaultEleResist = 50
@@ -1403,16 +1467,20 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyColdResist']:SetPlaceholder(defaultEleResist, true)
 			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultEleResist, true)
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(30, true)
-			
+
+			local defaultLevel = 84
+			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
 			if build.calcsTab.mainEnv then
-				local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.pinnacleBossDPSMult)
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+				defaultLevel = build.calcsTab.mainEnv.enemyLevel
 			end
-			
+
+			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.pinnacleBossDPSMult)
+			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
@@ -1422,7 +1490,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 100, "Boss")
 			enemyModList:NewMod("DamageTaken", "MORE", -70, "Boss")
-			enemyModList:NewMod("AilmentThreshold", "BASE", 14803760, "Boss")
+			enemyModList:NewMod("AilmentThreshold", "MORE", 404, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 
 			local defaultEleResist = 50
@@ -1431,23 +1499,23 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyFireResist']:SetPlaceholder(defaultEleResist, true)
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(30, true)
 
+			local defaultLevel = 85
+			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
 			if build.calcsTab.mainEnv then
-				local defaultDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 1.5  * data.misc.uberBossDPSMult)
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-				build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+				defaultLevel = build.calcsTab.mainEnv.enemyLevel
 			end
-			
+
+			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.uberBossDPSMult)
+			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.uberBossPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.uberBossPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.uberBossPen, true)
 		end
-	end },
-	{ var = "enemyAwakeningLevel", type = "count", label = "Awakening Level:", tooltip = "Each Awakening Level gives Bosses 3% more ^xE05030Life.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("Life", "MORE", 3 * m_min(val, 9), "Config")
-		modList:NewMod("AwakeningLevel", "BASE", m_min(val, 9), "Config")
 	end },
 	{ var = "deliriousPercentage", type = "list", label = "Delirious Effect:", list = {{val=0,label="None"},{val="20Percent",label="20% Delirious"},{val="40Percent",label="40% Delirious"},{val="60Percent",label="60% Delirious"},{val="80Percent",label="80% Delirious"},{val="100Percent",label="100% Delirious"}}, tooltip = "Delirium scales enemy 'less Damage Taken' as well as enemy 'increased Damage dealt'\nAt 100% effect:\nEnemies Deal 30% Increased Damage\nEnemies take 96% Less Damage", apply = function(val, modList, enemyModList)
 		if val == "20Percent" then
@@ -1489,7 +1557,7 @@ Uber Pinnacle Boss adds the following modifiers:
 	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltip = [[
 Used to fill in defaults for specific boss skills if the boss config is not set
 
-Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal monster level for your character level (capped at 84)
+Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal monster level for your character level (capped at 85)
 Fill in the exact damage numbers if more precision is needed
 
 Caveats for certain skills are below

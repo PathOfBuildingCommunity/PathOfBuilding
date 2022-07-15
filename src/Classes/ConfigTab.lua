@@ -225,6 +225,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			else
 				control.tooltipText = varData.tooltip
 			end
+			if varData.tooltipFunc then
+				control.tooltipFunc = varData.tooltipFunc
+			end
 			if varData.label and varData.type ~= "check" then
 				t_insert(self.controls, new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
 			end
@@ -285,6 +288,10 @@ function ConfigTabClass:Load(xml, fileName)
 end
 
 function ConfigTabClass:GetDefaultState(var, varType)
+	if self.placeholder[var] ~= nil then
+		return self.placeholder[var]
+	end
+
 	for i = 1, #varList do
 		if varList[i].var == var then
 			if varType == "number" then
@@ -466,6 +473,8 @@ function ConfigTabClass:ImportCalcSettings()
 	end
 	import("Cond_LowLife", "conditionLowLife")
 	import("Cond_FullLife", "conditionFullLife")
+	import("Cond_LowMana", "conditionLowMana")
+	import("Cond_FullMana", "conditionFullMana")
 	import("buff_power", "usePowerCharges")
 	import("buff_frenzy", "useFrenzyCharges")
 	import("buff_endurance", "useEnduranceCharges")

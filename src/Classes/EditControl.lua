@@ -223,7 +223,7 @@ function EditClass:MoveCaretVertically(offset)
 	self.blinkStart = GetTime()
 end
 
-function EditClass:Draw(viewPort)
+function EditClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -262,7 +262,7 @@ function EditClass:Draw(viewPort)
 	if not enabled then
 		return
 	end
-	if mOver then
+	if mOver and not noTooltip then
 		SetDrawLayer(nil, 100)
 		self:DrawTooltip(x, y, width, height, viewPort)
 		SetDrawLayer(nil, 0)
@@ -281,7 +281,7 @@ function EditClass:Draw(viewPort)
 			DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
 		end
 		SetViewport()
-		self:DrawControls(viewPort)
+		self:DrawControls(viewPort, noTooltip and self)
 		return
 	end
 	if not IsKeyDown("LEFTBUTTON") then
@@ -375,7 +375,7 @@ function EditClass:Draw(viewPort)
 		end
 	end
 	SetViewport()
-	self:DrawControls(viewPort)
+	self:DrawControls(viewPort, noTooltip and self)
 end
 
 function EditClass:OnFocusGained()
@@ -651,7 +651,7 @@ function EditClass:OnKeyUp(key)
 				self:SetText(tostring(cur + (self.numberInc or 1)), true)
 			else
 				if self.placeholder then
-					self:SetText(tostring(self.placeholder + (self.numberInc or 1)), true)
+					self:SetText(tostring((tonumber(self.placeholder) or 0) + (self.numberInc or 1)), true)
 				else
 					self:SetText("1", true)
 				end
@@ -661,7 +661,7 @@ function EditClass:OnKeyUp(key)
 				self:SetText(tostring(cur - (self.numberInc or 1)), true)
 			else
 				if self.placeholder then
-					self:SetText(tostring(self.placeholder - (self.numberInc or 1)), true)
+					self:SetText(tostring((tonumber(self.placeholder) or 0) - (self.numberInc or 1)), true)
 				else
 					self:SetText("0", true)
 				end
