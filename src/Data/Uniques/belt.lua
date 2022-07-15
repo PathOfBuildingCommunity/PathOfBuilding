@@ -358,7 +358,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(40-55) to Dexterity
 {tags:life}+(50-60) to maximum Life
 (20-30)% increased Damage with Hits against Rare monsters
-When you Kill a Rare monster, you gain its mods for 20 seconds
+When you Kill a Rare monster, you gain its Modifiers for 60 seconds
 ]],[[
 Replica Headhunter
 Leather Belt

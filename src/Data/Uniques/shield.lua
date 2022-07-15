@@ -231,9 +231,9 @@ Implicits: 1
 {variant:3}(180-200)% increased Evasion Rating
 +(20-30) to all Elemental Resistances
 {variant:2,3}50% reduced Duration of Curses on you
-{variant:3}10% additional Block chance while not Cursed
-{variant:3}20% additional Spell Block chance while Cursed
 Hex Reflection
+{variant:3}+10% Chance to Block Attack Damage while not Cursed
+{variant:3}+20% Chance to Block Spell Damage while Cursed
 ]],[[
 Atziri's Reflection
 Golden Buckler
