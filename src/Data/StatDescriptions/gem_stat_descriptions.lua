@@ -3751,7 +3751,8 @@ return {
 			}
 		},
 		stats={
-			[1]="cast_linked_spells_on_melee_kill_%"
+			[1]="cast_linked_spells_on_melee_kill_%",
+			[2]="cast_spell_on_linked_melee_kill"
 		}
 	},
 	[123]={

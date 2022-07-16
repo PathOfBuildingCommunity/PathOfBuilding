@@ -2822,11 +2822,9 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
-			local uuid = cacheSkillUUID(source)
-			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 			local dualWield = false
 
-			sourceAPS, dualWield = calcDualWieldImpact(env, sourceAPS, source.skillData.doubleHitsWhenDualWielding)
+			local sourceAPS, dualWield = calcDualWieldImpact(env, trigRate, source.skillData.doubleHitsWhenDualWielding)
 
 			-- Get action trigger rate
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)
@@ -2917,22 +2915,9 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
-			local uuid = cacheSkillUUID(source)
-			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
 
 			-- Get action trigger rate
-			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
-
-			-- Account for chance to trigger on Melee Kill
-			trigRate = trigRate * source.skillData.chanceToTriggerOnMeleeKill / 100
-
-			if breakdown then
-				breakdown.Speed = {
-					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
-					s_format("x %.2f%% ^8(chance to trigger on melee kill)", source.skillData.chanceToTriggerOnMeleeKill),
-					s_format("= %.2f ^8per second", trigRate),
-				}
-			end
+			trigRate = calcActualTriggerRate(env, source, trigRate, spellCount, output, breakdown)
 
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
