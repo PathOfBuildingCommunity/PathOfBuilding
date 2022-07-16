@@ -468,22 +468,13 @@ function ItemClass:ParseRaw(raw)
 				end
 				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)",""):gsub(" %(enchant%)",""):gsub(" %(scourge%)","")
 				local catalystScalar = getCatalystScalar(self.catalyst, modTags, self.catalystQuality)
-				local rangedLine
-				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
-					rangedLine = itemLib.applyRange(line, 1, catalystScalar)
-				elseif catalystScalar ~= 1 then
-					rangedLine = itemLib.applyValueScalar(line, catalystScalar, 1)
-				end
+				local rangedLine = itemLib.applyRange(line, 1, catalystScalar)
 				local modList, extra = modLib.parseMod(rangedLine or line)
 				if (not modList or extra) and self.rawLines[l+1] then
 					-- Try to combine it with the next line
 					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(fractured%)",""):gsub(" ?%(crafted%)",""):gsub(" ?%(implicit%)",""):gsub(" ?%(enchant%)",""):gsub(" ?%(scourge%)","")
 					local combLine = line.." "..nextLine
-					if combLine:match("%(%d+%-%d+ to %d+%-%d+%)") or combLine:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or combLine:match("%(%-?[%d%.]+%-[%d%.]+%)") then
-						rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
-					elseif catalystScalar ~= 1 then
-						rangedLine = itemLib.applyValueScalar(combLine, catalystScalar, 1)
-					end
+					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
 					modList, extra = modLib.parseMod(rangedLine or combLine, true)
 					if modList and not extra then
 						line = line.."\n"..nextLine
