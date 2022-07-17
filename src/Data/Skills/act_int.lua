@@ -2700,8 +2700,8 @@ skills["VaalDiscipline"] = {
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
-		["base_maximum_energy_shield"] = {
-			mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["energy_shield_recharge_not_delayed_by_damage"] = {
+			mod("EnergyShieldRechargeNotDelayedByDamage", "DUMMY", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
