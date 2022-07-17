@@ -1471,7 +1471,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			local defaultLevel = 84
 			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
 			if build.calcsTab.mainEnv then
-				defaultLevel = build.calcsTab.mainEnv.enemyLevel
+				defaultLevel = m_max(build.calcsTab.mainEnv.enemyLevel, defaultLevel)
 			end
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.pinnacleBossDPSMult)
@@ -1502,7 +1502,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			local defaultLevel = 85
 			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
 			if build.calcsTab.mainEnv then
-				defaultLevel = build.calcsTab.mainEnv.enemyLevel
+				defaultLevel = m_max(build.calcsTab.mainEnv.enemyLevel, defaultLevel)
 			end
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.uberBossDPSMult)
