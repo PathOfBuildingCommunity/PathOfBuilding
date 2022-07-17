@@ -9028,8 +9028,6 @@ skills["SupportSpellslinger"] = {
 		["support_spellslinger_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
 		},
-		["spellslinger_trigger_on_wand_attack_%"] = {
-		},
 	},
 	baseMods = {
 		flag("Condition:SupportedBySpellslinger"),

@@ -3078,6 +3078,50 @@ function calcs.perform(env, avoidCache)
 
 		env.player.mainSkill.skillFlags.dontDisplay = true
 	end
+	
+		-- Spell slinger
+	if env.player.mainSkill.skillData.triggeredBySpellSlinger and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
+		local triggerName = "Spell Slinger"
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			-- skill.weaponTypes missing workaround
+			local match = skill.activeEffect.grantedEffect.name == "Frenzy" or skill.activeEffect.grantedEffect.name == "Kinetic Blast" or skill.activeEffect.grantedEffect.name == "Kinetic Bolt" or skill.activeEffect.grantedEffect.name == "Vaal Power Siphon"
+			if match and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredBySpellSlinger then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			end
+		end
+		if not source then
+			env.player.mainSkill.skillData.triggeredBySpellSlinger = nil
+			env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoTrigger = ""
+		else
+			env.player.mainSkill.skillData.triggered = true
+			local sourceAPS = trigRate
+			local icdr = 1
+			
+			output.ActionTriggerRate, icdr = getTriggerActionTriggerRate(env, breakdown)
+			output.SourceTriggerRate = sourceAPS
+			output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
+			
+			if breakdown then
+				breakdown.SimData = {
+					s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
+				}
+				breakdown.ServerTriggerRate = {
+					s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
+				}
+			end
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggerRate = trigRate
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "Spellslinger Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = triggerName
+		end
+	end
 
 	-- Triggered by parent attack
 	if env.minion and env.player.mainSkill.minion then
