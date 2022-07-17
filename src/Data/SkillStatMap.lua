@@ -211,6 +211,15 @@ return {
 ["triggered_by_spiritual_cry"] = {
 	skill("triggeredByGeneralsCry", true, { type = "SkillType", skillType = SkillType.Melee }, { type = "SkillType", skillType = SkillType.Attack }),
 },
+["local_support_gem_max_skill_level_requirement_to_support"] = {
+	skill("triggeredByDamageTaken", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["cast_on_stunned_%"] = {
+	skill("triggeredByStuned", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["trigger_on_attack_hit_against_rare_or_unique"] = {
+	skill("triggeredMarkOnRareOrUnique", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Mark }, { type = "Condition", var = "EnemyRareOrUnique" }),
+},
 ["holy_relic_trigger_on_parent_attack_%"] = {
 	skill("triggeredByParentAttack", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
