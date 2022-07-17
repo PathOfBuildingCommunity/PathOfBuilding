@@ -40,7 +40,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.spectreList = { }
 	self.timelessData = { jewelType = { }, conquerorType = { }, jewelSocket = { }, searchList = "", searchResults = { }, sharedResults = { } }
 	self.viewMode = "TREE"
-	self.characterLevel = main.defaultCharLevel or 1
+	self.characterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
 	self.targetVersion = liveTargetVersion
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
@@ -204,7 +204,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		end
 	end
 	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
-		self.characterLevel = m_min(tonumber(buf) or 1, 100)
+		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
