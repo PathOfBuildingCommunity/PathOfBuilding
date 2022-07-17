@@ -218,7 +218,7 @@ return {
 	skill("triggeredByStuned", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 ["trigger_on_attack_hit_against_rare_or_unique"] = {
-	skill("triggeredMarkOnRareOrUnique", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Mark }, { type = "Condition", var = "EnemyRareOrUnique" }),
+	skill("triggerMarkOnRareOrUnique", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Mark }, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
 },
 ["spellslinger_trigger_on_wand_attack_%"] = {
 	skill("triggeredBySpellSlinger", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),

@@ -3122,6 +3122,59 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoTrigger = triggerName
 		end
 	end
+	
+	-- Mark on Hit
+	if env.player.mainSkill.skillData.triggerMarkOnRareOrUnique and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
+		local triggerName = "Mark On Hit"
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggerMarkOnRareOrUnique then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			end
+		end
+		if not source then
+			env.player.mainSkill.skillData.triggeredBySpellSlinger = nil
+			env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoTrigger = ""
+		else
+			env.player.mainSkill.skillData.triggered = true
+			local icdr = 1
+			local uuid = cacheSkillUUID(source)
+			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
+			
+			output.ActionTriggerRate, icdr = getTriggerActionTriggerRate(env, breakdown)
+			output.SourceTriggerRate = sourceAPS
+			output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
+			
+			-- Account for chance to hit
+			local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance
+			trigRate = output.ServerTriggerRate * sourceHitChance / 100
+
+			if breakdown then
+				breakdown.Speed = {
+					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
+					s_format("x %.2f%% ^8(%s Hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name),
+					s_format("= %.2f ^8per second", output.ServerTriggerRate),
+				}
+				breakdown.SimData = {
+					s_format("%.2f ^8(%s attacks per second)", sourceAPS, source.activeEffect.grantedEffect.name),
+				}
+				breakdown.ServerTriggerRate = {
+					s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
+				}
+			end
+
+			-- Account for Trigger-related INC/MORE modifiers
+			output.ServerTriggerRate = trigRate
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggerRate = output.ServerTriggerRate
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = triggerName .. " Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = triggerName
+		end
+	end
 
 	-- Triggered by parent attack
 	if env.minion and env.player.mainSkill.minion then
