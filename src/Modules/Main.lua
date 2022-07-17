@@ -517,7 +517,7 @@ function main:LoadSettings(ignoreBuild)
 					self.defaultGemQuality = m_min(tonumber(node.attrib.defaultGemQuality) or 0, 23)
 				end
 				if node.attrib.defaultCharLevel then
-					self.defaultCharLevel = m_min(tonumber(node.attrib.defaultCharLevel) or 1, 100)
+					self.defaultCharLevel = m_min(m_max(tonumber(node.attrib.defaultCharLevel) or 1, 1), 100)
 				end
 				if node.attrib.defaultItemAffixQuality then
 					self.defaultItemAffixQuality = m_min(tonumber(node.attrib.defaultItemAffixQuality) or 0.5, 1)
@@ -708,7 +708,7 @@ function main:OpenOptionsPopup()
 
 	nextRow()
 	controls.defaultCharLevel = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 80, 20, self.defaultCharLevel, nil, "%D", 3, function(charLevel)
-		self.defaultCharLevel = m_min(tonumber(charLevel) or 1, 100)
+		self.defaultCharLevel = m_min(m_max(tonumber(charLevel) or 1, 1), 100)
 	end)
 	controls.defaultCharLevel.tooltipText = "Set the default character level that can be overwritten by build-related level settings."
 	controls.defaultCharLevelLabel = new("LabelControl", { "RIGHT", controls.defaultCharLevel, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Default character level:")
