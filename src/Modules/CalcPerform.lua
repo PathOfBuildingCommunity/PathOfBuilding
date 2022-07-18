@@ -3026,8 +3026,9 @@ function calcs.perform(env, avoidCache)
 	if env.player.mainSkill.skillData.triggeredByDamageTaken and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
 		local spellCount = {}
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local match = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-			if skill.skillData.triggeredByDamageTaken and match then
+			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			if skill.skillData.triggeredByDamageTaken and (match1 or match2) then
 				local cooldownOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery")
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, cdOverride = cooldownOverride})
 			end
@@ -3049,8 +3050,9 @@ function calcs.perform(env, avoidCache)
 	if env.player.mainSkill.skillData.triggeredByStuned and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
 		local spellCount = {}
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local match = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-			if skill.skillData.triggeredByStuned and match then
+			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			if skill.skillData.triggeredByStuned and (match1 or match2) then
 				local cooldownOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery")
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, cdOverride = cooldownOverride})
 			end
@@ -3081,13 +3083,12 @@ function calcs.perform(env, avoidCache)
 	
 		-- Spell slinger
 	if env.player.mainSkill.skillData.triggeredBySpellSlinger and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
-		local triggerName = "Spell Slinger"
+		local triggerName = "Spellslinger"
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			-- skill.weaponTypes missing workaround
-			local match = skill.activeEffect.grantedEffect.name == "Frenzy" or skill.activeEffect.grantedEffect.name == "Kinetic Blast" or skill.activeEffect.grantedEffect.name == "Kinetic Bolt" or skill.activeEffect.grantedEffect.name == "Vaal Power Siphon"
-			if match and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredBySpellSlinger then
+			local isWandAttack = (not skill.weaponTypes or (skill.weaponTypes and skill.weaponTypes["Wand"])) and skill.skillTypes[SkillType.Attack]
+			if isWandAttack and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredBySpellSlinger then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 		end
@@ -3118,7 +3119,7 @@ function calcs.perform(env, avoidCache)
 			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
 			env.player.mainSkill.skillData.triggerRate = trigRate
 			env.player.mainSkill.skillData.triggerSource = source
-			env.player.mainSkill.infoMessage = "Spellslinger Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoMessage = triggerName .. " Triggering Skill: " .. source.activeEffect.grantedEffect.name
 			env.player.mainSkill.infoTrigger = triggerName
 		end
 	end
