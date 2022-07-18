@@ -879,7 +879,7 @@ function calcs.defence(env, actor)
 			if enemyDamage == nil then
 				if tonumber(env.configPlaceholder["enemy"..damageType.."Damage"]) ~= nil then
 					enemyDamage = tonumber(env.configPlaceholder["enemy"..damageType.."Damage"])
-				elseif damageType == "Physical" and (env.configInput.enemyIsBoss == nil or env.configInput.enemyIsBoss == "None") then
+				elseif damageType == "Physical" and (env.configInput.enemyIsBoss == nil or env.configInput.enemyIsBoss == "None") and (env.configInput.presetBossSkills == nil or env.configInput.presetBossSkills == "None") then
 					enemyDamage = round(data.monsterDamageTable[m_min(env.build.characterLevel, 83)] * 1.5)
 				else
 					enemyDamage = 0
