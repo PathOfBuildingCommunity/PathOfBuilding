@@ -66,7 +66,7 @@ end
 
 -- Apply range value (0 to 1) to a modifier that has a range: (x to x) or (x-x to x-x)
 function itemLib.applyRange(line, range, valueScalar)
-	numbers = 0
+	local numbers = 0
 	line = line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
 		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
 		:gsub("(%+?)%((%-?%d+)%-(%d+)%)",
@@ -87,6 +87,10 @@ function itemLib.applyRange(line, range, valueScalar)
 			return tostring(numVal)
 		end)
 		:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
+		:gsub("%-(%d+%%) more", function(num) return num.." less" end)
+		if numbers == 0 and line:match("(%d+)%%? ") then --If a mod contains x or x% and is not already a ranged value, then only the first number will be scalable as any following numbers will always be conditions or unscalable values.
+			numbers = 1
+		end
 	return itemLib.applyValueScalar(line, valueScalar, numbers)
 end
 
