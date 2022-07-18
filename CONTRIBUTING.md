@@ -130,7 +130,9 @@ It is recommended to use it over the built-in Lua plugins.
 Please note that EmmyLua is not available for other editors based on Visual Studio Code,
 such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.org) but can be built from source if needed.
 
-Note that you will need to have java installed to use emmyLua, and have the JAVA_HOME environment variable correctly setup.
+Note that you will need to have java installed to use emmyLua, and have either the JAVA_HOME environment variable correctly setup or have the path to java added to the `settings.json` file. Example:
+
+```"emmylua.java.home": "C:/Program Files (x86)/Java/jre1.8.0_201/"```
 
 ### Visual Studio Code
 
@@ -152,7 +154,7 @@ dbg.tcpListen("localhost", 9966)
 
 #### Excluding directories from emmyLua
 
-Depending on the amount of system ram you have avilable and the amout that gets assinged to the jvm running the emmylua language server you might run into issues when trying to debug Path of building.
+Depending on the amount of system ram you have available and the amount that gets assigned to the jvm running the emmylua language server you might run into issues when trying to debug Path of building.
 Files in /Data /Export and /TreeData can be massive and cause the emmyLua language server to use a significant amount of memory. Sometimes causing the language server to crash. To avoid this and speed up initialization consider adding an `emmy.config.json` file to the .vscode folder in the root of the Path of building repository with the following content:
 
 ```
@@ -182,7 +184,7 @@ Files in /Data /Export and /TreeData can be massive and cause the emmyLua langua
 #### Miscellaneous tips
 If you're on windows, consider downloading [git for windows](https://git-scm.com/downloads) and installing git bash. Git bash comes with a variety of typical linux tools such as grep that can make navigating the code base much easier.
 
-If you're using linux you can run the `./runtime/Path{space}of{space}Building.exe` executable with wine. You will need to provide a valid wine path to the emmy lua debuger directory.
+If you're using linux you can run the ./runtime/Path{space}of{space}Building.exe executable with wine. You will need to provide a valid wine path to the emmy lua debugger directory.
 
 
 ## Testing
