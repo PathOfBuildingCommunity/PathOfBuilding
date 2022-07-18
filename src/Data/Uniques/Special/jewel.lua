@@ -6,29 +6,29 @@ return {
 Anatomical Knowledge
 Cobalt Jewel
 Radius: Large
-(6-8)% increased maximum Life
-Adds 1 to Maximum Life per 3 Intelligence Allocated in Radius
+MaximumLifeUniqueJewel52
+LifePerIntelligenceInRadusUniqueJewel52
 ]],[[
 The Anima Stone
 Prismatic Jewel
 Source: Vendor Recipe
 Limited to: 1
 +1 to maximum number of Golems
-+1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
+GolemPerPrimordialJewel
 ]],[[
 Apex Mode
 Cobalt Jewel
 League: Heist
 Limited to: 1
 Requires Level 20
-(20-25)% increased Spell Damage
-Spells have 10% reduced Critical Strike Chance per Intensity
+SpellDamageUnique__12
+CriticalStrikeChancePerIntensityUnique__1
 Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds
 ]],[[
 Apparitions
 Viridian Jewel
-Minions have (5-10)% increased Movement Speed
-Minions have +(2-5)% chance to Suppress Spell Damage
+MinionRunSpeedUniqueJewel16
+MinionDodgeChanceUniqueJewel16
 ]],[[
 The Blue Dream
 Cobalt Jewel
@@ -36,8 +36,8 @@ League: Breach
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{The Blue Nightmare} using currency{Blessing of Chayula}
 Radius: Large
-Gain 5% of Lightning Damage as Extra Chaos Damage
-Passives granting Lightning Resistance or all Elemental Resistances in Radius
+ChaosDamageAsPortionOfLightningDamageUnique__1
+LightningResistConvertedToSpellBlockChanceScaledJewelUnique__1
 also grant an equal chance to gain a Power Charge on Kill
 ]],[[
 The Blue Nightmare
@@ -46,110 +46,110 @@ League: Breach
 Source: Upgraded from unique{The Blue Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
-Gain 5% of Lightning Damage as Extra Chaos Damage
-Passives granting Lightning Resistance or all Elemental Resistances in Radius
+ChaosDamageAsPortionOfLightningDamageUnique__1
+LightningResistConvertedToSpellBlockChanceScaledJewelUnique__1
 also grant Chance to Block Spell Damage at 35% of its value
-Passives granting Lightning Resistance or all Elemental Resistances in Radius
+LightningResistConvertedToSpellBlockChanceScaledJewelUnique__1
 also grant an equal chance to gain a Power Charge on Kill
 ]],[[
 Brawn
 Crimson Jewel
-(4-6)% increased Dexterity
-(4-6)% increased Strength
-(10-15)% reduced Intelligence
+PercentageDexterityUniqueJewel29
+PercentageStrengthUniqueJewel29
+PercentageIntelligenceUniqueJewel29
 ]],[[
 Brute Force Solution
 Cobalt Jewel
 Radius: Large
-+(16-24) to Intelligence
-Strength from Passives in Radius is Transformed to Intelligence
+IntelligenceUniqueJewel35
+JewelStrToIntUniqueJewel35
 ]],[[
 Calamitous Visions
 Small Cluster Jewel
 League: Delirium
 Source: Drops from unique Delirium bosses in maps
-Adds Lone Messenger
+JewelExpansionLoneMessenger_
 ]],[[
 Careful Planning
 Viridian Jewel
 Radius: Large
-+(16-24) to Dexterity
-Intelligence from Passives in Radius is Transformed to Dexterity
+DexterityUniqueJewel13
+JewelIntToDex
 ]],[[
 Cheap Construction
 Viridian Jewel
-10% reduced Trap Duration
-Can have up to 1 additional Trap placed at a time
+TrapDurationUnique__1
+AdditionalTrapsThresholdJewel
 ]],[[
 Replica Cheap Construction
 Viridian Jewel
 League: Heist
-(100-120)% increased Critical Strike Chance with Traps
-Can have 5 fewer Traps placed at a time
+TrapCritChanceUnique__1
+AdditionalTrapsUnique__2__
 ]],[[
 Clear Mind
 Cobalt Jewel
 Limited to: 1
-(20-30)% increased Mana Regeneration Rate
-(40-60)% increased Spell Damage while no Mana is Reserved
+ManaRegenerationUniqueJewel30
+SpellDamageWithNoManaReservedUniqueJewel30
 ]],[[
 Coated Shrapnel
 Crimson Jewel
 Radius: Small
 Variant: Pre 3.8.0
 Variant: Current
-{variant:1}Traps and Mines deal (3-5) to (10-15) additional Physical Damage
-Traps and Mines have a 25% chance to Poison on Hit
-{variant:2}Passive Skills in Radius also grant: Traps and Mines deal (2-3) to (4-6) added Physical Damage
+{variant:1}TrapAndMineAddedPhysicalDamageUnique__1
+TrapPoisonChanceUnique__1
+{variant:2}PassivesGrantTrapMineAddedPhysicalUnique__1_
 ]],[[
 Cold Steel
 Viridian Jewel
 Radius: Large
-Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage
+ColdAndPhysicalNodesInRadiusSwapPropertiesUniqueJewel48_
 Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage
 ]],[[
 Dissolution of the Flesh
 Prismatic Jewel
 Source: Drops from unique{The Searing Exarch}
 Limited to: 1
-Removes all Energy Shield
-Life that would be lost by taking Damage is instead Reserved
+GlobalNoEnergyShieldUnique__1
+LifeLossReservesLifeUnique__1
 until you take no Damage to Life for 2 seconds
-(20-30)% more Maximum Life
+MoreMaximumReservedLifeUnique__1
 ]],[[
 Divine Inferno
 Crimson Jewel
 Limited to: 1
 Radius: Medium
-With at least 40 Strength in Radius, Combust is Disabled
+InfernalCryThresholdJewel
 With at least 40 Strength in Radius, Attacks Exerted by Infernal Cry deal (40-60)% more Damage with Ignite
 ]],[[
 Efficient Training
 Crimson Jewel
 Radius: Large
-+(16-24) to Strength
-Intelligence from Passives in Radius is Transformed to Strength
+StrengthUniqueJewel34
+JewelIntToStr
 ]],[[
 Eldritch Knowledge
 Cobalt Jewel
 Radius: Medium
-5% increased Chaos Damage per 10 Intelligence from Allocated Passives in Radius
+ChaosDamageIncreasedPerIntUniqueJewel2
 ]],[[
 Endless Misery
 Cobalt Jewel
 League: Heist
 Limited to: 1
 Radius: Medium
-(7-10)% increased Elemental Damage
-With at least 40 Intelligence in Radius, Discharge has 60% less Area of Effect
+ElementalDamageUnique__4
+DischargeThresholdJewel__1
 With at least 40 Intelligence in Radius, Discharge Cooldown is 250 ms
 With at least 40 Intelligence in Radius, Discharge deals 60% less Damage
 ]],[[
 Energised Armour
 Crimson Jewel
 Radius: Large
-(15-20)% increased Armour
-Increases and Reductions to Energy Shield in Radius are Transformed to apply to Armour at 200% of their value
+IncreasedPhysicalDamageReductionRatingPercentUniqueJewel50
+EnergyShieldInRadiusIncreasesArmourUniqueJewel50
 ]],[[
 Energy From Within
 Cobalt Jewel
@@ -157,30 +157,30 @@ Variant: Pre 2.5.0
 Variant: Current
 Radius: Large
 {variant:1}(8-12)% increased maximum Energy Shield
-{variant:2}(3-6)% increased maximum Energy Shield
-Increases and Reductions to Life in Radius are Transformed to apply to Energy Shield
+{variant:2}IncreasedEnergyShieldPercentUniqueJewel51
+LifeInRadiusBecomesEnergyShieldAtHalfValueUniqueJewel51
 ]],[[
 Fertile Mind
 Cobalt Jewel
 Radius: Large
-+(16-24) to Intelligence
-Dexterity from Passives in Radius is Transformed to Intelligence
+IntelligenceUniqueJewel35
+JewelDexToIntUniqueJewel11
 ]],[[
 Fireborn
 Crimson Jewel
 Radius: Medium
-Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage
+AllDamageInRadiusBecomesFireUniqueJewel49
 ]],[[
 Fluid Motion
 Viridian Jewel
 Radius: Large
-+(16-24) to Dexterity
-Strength from Passives in Radius is Transformed to Dexterity
+DexterityUniqueJewel13
+JewelStrToDexUniqueJewel13
 ]],[[
 Fortified Legion
 Cobalt Jewel
 Limited to: 1
-Minions have (5-15)% increased maximum Life
+MinionLifeUniqueJewel18
 Minions Recover 2% of their Maximum Life when they Block
 ]],[[
 Fortress Covenant
@@ -188,9 +188,9 @@ Cobalt Jewel
 Requires Level: 20
 Limited to: 1
 Radius: Medium
-Minions deal (35-45)% increased Damage
-Minions have +(10-12)% Chance to Block Attack Damage
-Minions have +(10-12)% Chance to Block Spell Damage
+MinionDamageUnique__6
+MinionAttackBlockChanceUnique__1
+MinionSpellBlockChanceUnique__1_
 Notable Passive Skills in Radius are Transformed to instead grant: Minions take 20% increased Damage
 ]],[[
 Fragile Bloom
@@ -199,9 +199,9 @@ Limited to: 1
 Variant: Pre 3.11.0
 Variant: Current
 {variant:1}2% of Life Regenerated per Second
-{variant:1}10% increased Damage taken
+{variant:1}DamageTakenUniqueJewel24
 {variant:2}Gain 1 Fragile Regrowth each second
-{variant:2}Maximum 10 Fragile Regrowth
+{variant:2}FragileRegrowthLifeRegenerationUnique__1
 {variant:2}0.7% of Life Regenerated per second per Fragile Regrowth
 {variant:2}Lose all Fragile Regrowth when Hit
 ]],[[
@@ -210,7 +210,7 @@ Crimson Jewel
 League: Heist
 Limited to: 1
 Implicits: 0
-Maximum 5 Fragile Regrowth
+FragileRegrowthLifeRegenerationUnique__2_
 0.7% of Life Regenerated per second per Fragile Regrowth
 Gain up to maximum Fragile Regrowth when Hit
 Lose 1 Fragile Regrowth each second
@@ -222,14 +222,14 @@ Variant: Pre 3.8.0
 Variant: Current
 Implicits: 0
 {variant:1}Summon 2 additional Skeleton Warriors with Summon Skeleton
-{variant:2}Summon 4 additional Skeleton Warriors with Summon Skeleton
-+1 second to Summon Skeleton Cooldown
+{variant:2}SummonSkeletonsNumberOfSkeletonsToSummonUnique__1
+SummonSkeletonsCooldownTimeUnique__1
 ]],[[
 The Front Line
 Small Cluster Jewel
 League: Delirium
 Source: Drops from unique Delirium bosses in maps
-Adds Veteran's Awareness
+JewelExpansionVeteransAwareness_
 ]],[[
 The Golden Rule
 Viridian Jewel
@@ -245,8 +245,8 @@ Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current
 {variant:1}Gain 15 Mana per Grand Spectrum
-{variant:2}Gain 30 Mana per Grand Spectrum
-{variant:3}25% increased Critical Strike Chance per Grand Spectrum
+{variant:2}ManaPerStackableJewelUnique__1
+{variant:3}CriticalStrikeChancePerStackableJewelUnique__1
 ]],[[
 Grand Spectrum
 Crimson Jewel
@@ -255,8 +255,8 @@ Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current
 {variant:1}Gain 75 Armour per Grand Spectrum
-{variant:2}Gain 200 Armour per Grand Spectrum
-{variant:3}+7% to all Elemental Resistances per Grand Spectrum
+{variant:2}ArmourPerStackableJewelUnique__1
+{variant:3}AllResistancePerStackableJewelUnique__1
 ]],[[
 Grand Spectrum
 Viridian Jewel
@@ -268,7 +268,7 @@ Variant: Current
 {variant:1}5% increased Elemental Damage per Grand Spectrum
 {variant:2}4% increased Elemental Damage per Grand Spectrum
 {variant:3}12% increased Elemental Damage per Grand Spectrum
-{variant:4}15% increased Elemental Damage per Grand Spectrum
+{variant:4}IncreasedDamagePerStackableJewelUnique__1
 ]],[[
 The Green Dream
 Viridian Jewel
@@ -276,8 +276,8 @@ League: Breach
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{The Green Nightmare} using currency{Blessing of Chayula}
 Radius: Large
-Gain 5% of Cold Damage as Extra Chaos Damage
-Passives granting Cold Resistance or all Elemental Resistances in Radius
+ChaosDamageAsPortionOfColdDamageUnique__1
+ColdResistAlsoGrantsFrenzyChargeOnKillJewelUnique__1
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 The Green Nightmare
@@ -288,33 +288,33 @@ League: Breach
 Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
-Gain 5% of Cold Damage as Extra Chaos Damage
-{variant:1}Passives granting Cold Resistance or all Elemental Resistances in Radius
+ChaosDamageAsPortionOfColdDamageUnique__1
+{variant:1}ColdResistAlsoGrantsFrenzyChargeOnKillJewelUnique__1
 {variant:1}also grant Chance to Suppress Spell Damage at 35% of its value
-{variant:2}Passives granting Cold Resistance or all Elemental Resistances in Radius
+{variant:2}ColdResistAlsoGrantsFrenzyChargeOnKillJewelUnique__1
 {variant:2}also grant Chance to Suppress Spell Damage at 50% of its value
-Passives granting Cold Resistance or all Elemental Resistances in Radius
+ColdResistAlsoGrantsFrenzyChargeOnKillJewelUnique__1
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 Hair Trigger
 Viridian Jewel
 Variant: Pre 2.6.0
 Variant: Current
-(15-25)% increased Trap Damage
+TrapDamageUnique___1
 {variant:1}(20-30)% increased Trap Trigger Radius
-{variant:2}(40-60)% increased Trap Trigger Area of Effect
+{variant:2}TrapTriggerRadiusUnique__1
 ]],[[
 Healthy Mind
 Cobalt Jewel
 Limited to: 1
 Radius: Large
-(15-20)% increased maximum Mana
-Increases and Reductions to Life in Radius are Transformed to apply to Mana at 200% of their value
+MaximumManaUniqueJewel54
+LifePassivesBecomeManaPassivesInRadiusUniqueJewel54
 ]],[[
 Hidden Potential
 Viridian Jewel
 Limited to: 1
-(20-25)% increased Damage for each Magic Item Equipped
+IncreasedDamagePerMagicItemJewel25
 ]],[[
 Hotheaded
 Viridian Jewel
@@ -322,58 +322,58 @@ Limited to: 1
 Variant: Pre 3.11.0
 Variant: Current
 {variant:1}(10-15)% increased Movement Speed while Ignited
-{variant:2}(10-20)% increased Movement Speed while Ignited
-{variant:2}(10-20)% increased Attack Speed while Ignited
-{variant:2}(10-20)% increased Cast Speed while Ignited
+{variant:2}MovementVelocityWhileIgnitedUniqueJewel20
+{variant:2}IncreasedAttackSpeedWhileIgnitedUniqueJewel20
+{variant:2}IncreasedCastSpeedWhileIgnitedUniqueJewel20_
 ]],[[
 Replica Hotheaded
 Viridian Jewel
 League: Heist
 Limited to: 1
-(10-20)% increased Attack Speed while Chilled
-(10-20)% increased Cast Speed while Chilled
-(10-20)% increased Movement Speed while Chilled
+AttackSpeedWhileChilledUnique__1
+CastSpeedWhileChilledUnique__1
+MovementVelocityWhileChilledUnique__1_
 ]],[[
 Inertia
 Crimson Jewel
 Radius: Large
-+(16-24) to Strength
-Dexterity from Passives in Radius is Transformed to Strength
+StrengthUniqueJewel34
+JewelDexToStrUniqueJewel37
 ]],[[
 Inspired Learning
 Crimson Jewel
 Radius: Small
-With 4 Notables Allocated in Radius, When you Kill a Rare monster, you gain 1 of its Modifiers for 20 seconds
+StealRareModUniqueJewel3
 ]],[[
 The Interrogation
 Small Cluster Jewel
 League: Delirium
 Source: Drops from unique Delirium bosses in maps
-Adds Secrets of Suffering
+JewelExpansionSecretsOfSuffering
 ]],[[
 Intuitive Leap
 Viridian Jewel
 Radius: Small
-Passives in Radius can be Allocated without being connected to your tree
+JewelUniqueAllocateDisconnectedPassives
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
 Source: Drops in The Lord's Labyrinth
-(18-25)% increased Fire Damage
-(18-25)% increased Cold Damage
-2% chance to Freeze
-2% chance to Ignite
+FireDamagePercentUnique__3
+ColdDamagePercentUnique__4
+ChanceToFreezeUnique__2
+IncreasedChanceToIgniteUnique__1
 ]],[[
 Kitava's Teachings
 Small Cluster Jewel
 League: Delirium
 Source: Drops from unique Delirium bosses in maps
-Adds Disciple of Kitava
+JewelExpansionKeystoneDiscipleOfKitava_
 ]],[[
 Lioneye's Fall
 Viridian Jewel
 Radius: Medium
-Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers
+UniqueJewelMeleeToBow
 ]],[[
 Lord of Steel
 Viridian Jewel
@@ -385,17 +385,17 @@ Variant: Impale Effect (Pre 3.13.0)
 Variant: Impale Chance (Current)
 Variant: Impale Overwhelm (Current)
 Variant: Impale Effect (Current)
-{variant:1,4}10% chance to Impale Enemies on Hit with Attacks
-{variant:2,5}Impale Damage dealt to Enemies Impaled by you Overwhelms 10% Physical Damage Reduction
-{variant:3,6}5% increased Impale Effect
-{variant:1,3,4,6}Call of Steel deals Reflected Damage with (40-50)% increased Area of Effect
-{variant:2,3,5,6}Call of Steel has (80-100)% increased Use Speed
+{variant:1,4}ChanceToImpaleUnique__1
+{variant:2,5}ImpalePhysicalReductionPenaltyUnique__1
+{variant:3,6}ImpaleEffectUnique__2
+{variant:1,3,4,6}CallOfSteelAreaOfEffectUnique__2___
+{variant:2,3,5,6}CallOfSteelUseSpeedUnique__2
 {variant:1,2}Call of Steel causes (40-50)% increased Reflected Damage
-{variant:4,5}Call of Steel causes (20-25)% increased Reflected Damage
+{variant:4,5}CallOfSteelReflectDamageUnique__1
 ]],[[
 Malicious Intent
 Cobalt Jewel
-5% chance to Gain Unholy Might for 4 seconds on Melee Kill
+UnholyMightOnMeleeKillUniqueJewel28
 ]],[[
 Mantra of Flames
 Crimson Jewel
@@ -409,26 +409,26 @@ Limited to: 1
 Variant: Pre 3.11.0
 Variant: Current
 Radius: Small
-{variant:1}(10-15)% increased Area of Effect while Unarmed
-{variant:2}+(3-4) to Melee Strike Range while Unarmed
-{variant:2}Passive Skills in Radius also grant: 1% increased Unarmed Attack Speed with Melee Skills
+{variant:1}UnarmedAreaOfEffectUniqueJewel4
+{variant:2}UnarmedStrikeRangeUniqueJewel__1_
+{variant:2}PassivesGrantUnarmedAttackSpeedUnique__1_
 ]],[[
 Melding of the Flesh
 Cobalt Jewel
 Source: Drops from unique{The Eater of Worlds}
 Limited to: 1
 -(80-70)% to All Elemental Resistances
-Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
+ElementalResistanceHighestMaxResistanceUnique__1_
 ]],[[
 Might in All Forms
 Crimson Jewel
 Radius: Medium
-Dexterity and Intelligence from passives in Radius count towards Strength Melee Damage bonus
+DexterityAndIntelligenceGiveStrengthMeleeBonusInRadiusUniqueJewel55
 ]],[[
 Might of the Meek
 Crimson Jewel
 Radius: Large
-50% increased Effect of non-Keystone Passive Skills in Radius
+PassiveEffectivenessJewelUnique__1_
 Notable Passive Skills in Radius grant nothing
 ]],[[
 Nadir Mode
@@ -436,62 +436,62 @@ Cobalt Jewel
 League: Heist
 Limited to: 1
 Item Level: 82
-(20-25)% increased Spell Damage
-Spells have 30% increased Critical Strike Chance per Intensity
+SpellDamageUnique__12
+CriticalStrikeChancePerIntensityUnique__2
 Spells which have gained Intensity Recently lose 1 Intensity every 0.50 Seconds
 ]],[[
 Natural Affinity
 Small Cluster Jewel
 League: Delirium
 Source: Drops from unique Delirium bosses in maps
-Adds Nature's Patience
+JewelExpansionNaturesPatience
 ]],[[
 One With Nothing
 Small Cluster Jewel
 League: Delirium
 Source: Drops from unique Delirium bosses in maps
-Adds Hollow Palm Technique
+JewelExpansionHollowPalmTechnique
 ]],[[
 Primordial Eminence
 Viridian Jewel
-Golems have (16-20)% increased Attack and Cast Speed
-30% increased Effect of Buffs granted by your Golems
-Golems have +(800-1000) to Armour
-Primordial
+GolemAttackAndCastSpeedUnique__1
+GolemBuffEffectUnique__1
+GolemArmourRatingUnique__1
+PrimordialJewelCountUnique__4
 ]],[[
 Primordial Harmony
 Cobalt Jewel
 Variant: Pre 3.3.0
 Variant: Current
-Golem Skills have (20-30)% increased Cooldown Recovery Rate
+GolemSkillsCooldownRecoveryUnique__1
 {variant:1}Summoned Golems have (10-15)% increased Cooldown Recovery Rate
-{variant:2}Summoned Golems have (30-45)% increased Cooldown Recovery Rate
-(16-20)% increased Golem Damage for each Type of Golem you have Summoned
-Summoned Golems Regenerate 2% of their Life per second
-Primordial
+{variant:2}GolemsSkillsCooldownRecoveryUnique__1_
+IncreasedGolemDamagePerGolemUnique__1
+GolemLifeRegenerationUnique__1
+PrimordialJewelCountUnique__4
 ]],[[
 Primordial Might
 Crimson Jewel
-(25-30)% increased Damage if you Summoned a Golem in the past 8 seconds
-Golems Summoned in the past 8 seconds deal (35-45)% increased Damage
-Golems have (18-22)% increased Maximum Life
-Summoned Golems are Aggressive
-Primordial
+IncreasedDamageIfGolemSummonedRecently__1
+IncreasedGolemDamageIfGolemSummonedRecently__1_
+GolemLifeUnique__1
+GolemLargerAggroRadiusUnique__1
+PrimordialJewelCountUnique__4
 ]],[[
 Replica Primordial Might
 Crimson Jewel
 League: Heist
 -1 to maximum number of Golems
-(25-30)% increased Damage if you Summoned a Golem in the past 8 seconds
-Golems Summoned in the past 8 seconds deal (100-125)% increased Damage
-Golems have (18-22)% increased Maximum Life
-Primordial
-Summoned Golems are Aggressive
+IncreasedDamageIfGolemSummonedRecently__1
+IncreasedGolemDamageIfGolemSummonedRecentlyUnique__1
+GolemLifeUnique__1
+PrimordialJewelCountUnique__4
+GolemLargerAggroRadiusUnique__1
 ]],[[
 Pugilist
 Viridian Jewel
 Radius: Large
-1% increased Evasion Rating per 3 Dexterity Allocated in Radius
+ClawPhysDamageAndEvasionPerDexUniqueJewel47
 1% increased Claw Physical Damage per 3 Dexterity Allocated in Radius
 1% increased Melee Physical Damage while Unarmed per 3 Dexterity Allocated in Radius
 ]],[[
@@ -525,7 +525,7 @@ Viridian Jewel
 Requires Level: 20
 Limited to: 1
 Radius: Medium
-Minions have (12-16)% increased Attack Speed
+MinionAttackAndCastSpeedUnique__1
 Minions have (12-16)% increased Cast Speed
 Minions have (20-24)% chance to Suppress Spell Damage
 Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
@@ -533,7 +533,7 @@ Notable Passive Skills in Radius are Transformed to instead grant: Minions have 
 Rain of Splinters
 Crimson Jewel
 Limited to: 1
-(30-50)% reduced Totem Damage
+ReducedTotemDamageUniqueJewel26
 Totems Fire 2 additional Projectiles
 ]],[[
 Reckless Defence
@@ -543,14 +543,14 @@ Variant: Current
 {variant:1}+6% chance to Block Spell Damage
 {variant:2}+(2-4)% chance to Block Spell Damage
 (2-4)% chance to Block Attack Damage
-Hits have (140-200)% increased Critical Strike Chance against you
+ChanceToBeCritJewelUpdatedUnique__1
 ]],[[
 Replica Reckless Defence
 Cobalt Jewel
 League: Heist
-+(2-4)% Chance to Block Spell Damage
-+(2-4)% Chance to Block Attack Damage
-+10% chance to be Frozen, Shocked and Ignited
+SpellBlockPercentageUnique__1
+AdditionalBlockUnique__1
+ChanceToBeFrozenShockedIgnitedUnique__1
 ]],[[
 The Red Dream
 Crimson Jewel
@@ -558,8 +558,8 @@ League: Breach
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{The Red Nightmare} using currency{Blessing of Chayula}
 Radius: Large
-Gain 5% of Fire Damage as Extra Chaos Damage
-Passives granting Fire Resistance or all Elemental Resistances in Radius
+ChaosDamageAsPortionOfFireDamageUnique__1
+FireResistAlsoGrantsEnduranceChargeOnKillJewelUnique__1
 also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
 The Red Nightmare
@@ -568,39 +568,39 @@ League: Breach
 Source: Upgraded from unique{The Red Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
-Gain 5% of Fire Damage as Extra Chaos Damage
-Passives granting Fire Resistance or all Elemental Resistances in Radius
+ChaosDamageAsPortionOfFireDamageUnique__1
+FireResistAlsoGrantsEnduranceChargeOnKillJewelUnique__1
 also grant Chance to Block Attack Damage at 35% of its value
-Passives granting Fire Resistance or all Elemental Resistances in Radius
+FireResistAlsoGrantsEnduranceChargeOnKillJewelUnique__1
 also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
 The Siege
 Small Cluster Jewel
 League: Delirium
 Source: Drops from unique Delirium bosses in maps
-Adds Kineticism
+JewelExpansionKineticism
 ]],[[
 Soul's Wick
 Cobalt Jewel
 Limited to: 1
-+2 to maximum number of Spectres
+MaximumMinionCountUnique__1__
 (40-50)% reduced Mana Cost of Raise Spectre 
 Spectres have (800-1000)% increased Critical Strike Chance 
-Spectres have a Base Duration of 20 seconds
+SpectreHaveBaseDurationUnique__1
 Spectres do not travel between Areas 
 ]],[[
 Spire of Stone
 Crimson Jewel
 Limited to: 1
 Radius: Large
-3% increased Totem Life per 10 Strength Allocated in Radius
-Totems cannot be Stunned
+TotemLifePerStrengthUniqueJewel15
+TotemsCannotBeStunnedUniqueJewel15
 ]],[[
 Static Electricity
 Viridian Jewel
 Radius: Large
 Adds 1 maximum Lightning Damage to Attacks per 1 Dexterity Allocated in Radius
-Adds 1 to 2 Lightning Damage to Attacks
+AddedLightningDamagePerDexInRadiusUniqueJewel53
 ]],[[
 Tempered Flesh
 Crimson Jewel
@@ -611,10 +611,10 @@ Variant: Pre 3.8.0
 Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
--1 Strength per 1 Strength on Allocated Passives in Radius
+AdditionalStrengthPerAllocatedStrengthJewelUnique__1_
 {variant:1}+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
-{variant:2}+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
-{variant:3}2% increased Life Recovery Rate per 10 Strength on Allocated Passives in Radius
+{variant:2}CriticalStrikeMultiplierPerUnallocatedStrengthJewelUnique__1_
+{variant:3}LifeRecoveryRatePerAllocatedStrengthUnique__1_
 ]],[[
 Transcendent Flesh
 Crimson Jewel
@@ -624,12 +624,12 @@ Variant: Pre 3.8.0
 Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
--1 Strength per 1 Strength on Allocated Passives in Radius
-{variant:1,2}1% additional Physical Damage Reduction per 10 Strength on Allocated Passives in Radius
+AdditionalStrengthPerAllocatedStrengthJewelUnique__1_
+{variant:1,2}AdditionalPhysicalReductionPerAllocatedStrengthJewelUnique__1
 {variant:1}+5% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
-{variant:3}3% increased Life Recovery Rate per 10 Strength on Allocated Passives in Radius
-{variant:3}2% reduced Life Recovery Rate per 10 Strength on Unallocated Passives in Radius
-{variant:2,3}+7% to Critical Strike Multiplier per 10 Strength on Unallocated Passives in Radius
+{variant:3}LifeRecoveryRatePerAllocatedStrengthUnique__2
+{variant:3}LifeRecoveryRatePerUnallocatedStrengthUnique__1_
+{variant:2,3}CriticalStrikeMultiplierPerUnallocatedStrengthJewelUnique__1_
 ]],[[
 Tempered Mind
 Cobalt Jewel
@@ -640,10 +640,10 @@ Variant: Pre 3.8.0
 Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
--1 Intelligence per 1 Intelligence on Allocated Passives in Radius
+AdditionalIntelligencePerAllocatedIntelligenceJewelUnique__1__
 {variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
-{variant:2}+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
-{variant:3}2% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius
+{variant:2}AccuracyRatingPerUnallocatedIntelligenceJewelUnique__1
+{variant:3}ManaRecoveryRatePerAllocatedIntelligenceUnique__1
 ]],[[
 Transcendent Mind
 Cobalt Jewel
@@ -653,14 +653,14 @@ Variant: Pre 3.8.0
 Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
--1 Intelligence per 1 Intelligence on Allocated Passives in Radius
+AdditionalIntelligencePerAllocatedIntelligenceJewelUnique__1__
 {variant:1,2}0.4% of Energy Shield Regenerated per Second for
 every 10 Intelligence on Allocated Passives in Radius
 {variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
-{variant:2}+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
-{variant:3}3% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius
-{variant:3}2% reduced Mana Recovery Rate per 10 Intelligence on Unallocated Passives in Radius
-{variant:3}+3% to Damage over Time Multiplier per 10 Intelligence on Unallocated Passives in Radius
+{variant:2}AccuracyRatingPerUnallocatedIntelligenceJewelUnique__1
+{variant:3}ManaRecoveryRatePerAllocatedIntelligenceUnique__2
+{variant:3}ManaRecoveryRatePerUnallocatedIntelligenceUnique__1
+{variant:3}DamageOverTimeMultiplierPerUnallocatedIntelligenceUnique__1___
 ]],[[
 Tempered Spirit
 Viridian Jewel
@@ -670,9 +670,9 @@ Upgrade: Upgrades to unique{Transcendent Spirit} via currency{Vial of Transcende
 Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
--1 Dexterity per 1 Dexterity on Allocated Passives in Radius
-{variant:1}+15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
-{variant:2}2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
+AdditionalDexterityPerAllocatedDexterityJewelUnique__1
+{variant:1}FlatManaPerUnallocatedDexterityJewelUnique__1
+{variant:2}MovementSpeedPerAllocatedDexterityJewelUnique__1
 ]],[[
 Transcendent Spirit
 Viridian Jewel
@@ -681,12 +681,12 @@ Source: Upgraded from unique{Tempered Spirit} via currency{Vial of Transcendence
 Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
--1 Dexterity per 1 Dexterity on Allocated Passives in Radius
-{variant:1}2% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
-{variant:1}+15 to Maximum Mana per 10 Dexterity on Unallocated Passives in Radius
-{variant:2}3% increased Movement Speed per 10 Dexterity on Allocated Passives in Radius
-{variant:2}2% reduced Movement Speed per 10 Dexterity on Unallocated Passives in Radius
-{variant:2}+125 to Accuracy Rating per 10 Dexterity on Unallocated Passives in Radius
+AdditionalDexterityPerAllocatedDexterityJewelUnique__1
+{variant:1}MovementSpeedPerAllocatedDexterityJewelUnique__1
+{variant:1}FlatManaPerUnallocatedDexterityJewelUnique__1
+{variant:2}MovementSpeedPerAllocatedDexterityUnique__2
+{variant:2}MovementSpeedPerUnallocatedDexterityUnique__1_
+{variant:2}AccuracyRatingPerUnallocatedDexterityUnique__1_
 ]],[[
 Thread of Hope
 Crimson Jewel
@@ -698,41 +698,41 @@ Variant: Very Large Ring
 Variant: Massive Ring
 Radius: Variable
 Implicits: 0
-{variant:1}Only affects Passives in Small Ring
+{variant:1}JewelRingRadiusValuesUnique__1
 {variant:2}Only affects Passives in Medium Ring
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
-{variant:5}Only affects Passives in Massive Ring
-Passives in Radius can be Allocated without being connected to your tree
--(20-10)% to all Elemental Resistances
+{variant:5}JewelRingRadiusValuesUnique__2
+JewelUniqueAllocateDisconnectedPassives
+AllResistancesUnique__18
 ]],[[
 To Dust
 Cobalt Jewel
 Variant: Pre 3.0.0
 Variant: Current
-(10-20)% reduced Skeleton Duration
-Minions deal (8-12)% increased Damage
+SkeletonDurationUniqueJewel1_
+MinionDamageUniqueJewel1
 {variant:1}2% increased Skeleton Attack Speed
-{variant:2}(7-10)% increased Skeleton Attack Speed
+{variant:2}MaximumMinionCountUniqueJewel1
 {variant:2}(7-10)% increased Skeleton Cast speed
-{variant:2}(3-5)% increased Skeleton Movement Speed
+{variant:2}SkeletonMovementSpeedUniqueJewel1
 ]],[[
 Unnatural Instinct
 Viridian Jewel
 Limited to: 1
 Radius: Small
-Allocated Small Passive Skills in Radius grant nothing
-Grants all bonuses of Unallocated Small Passive Skills in Radius
+AllocatedNonNotablesGrantNothingUnique__1_
+GrantsStatsFromNonNotablesInRadiusUnique__1
 ]],[[
 Unstable Payload
 Cobalt Jewel
-(8-12)% Chance for Traps to Trigger an additional time
+TrapTriggerTwiceChanceUnique__1
 ]],[[
 Replica Unstable Payload
 Cobalt Jewel
 League: Heist
 Implicits: 0
-Recover (20-30) Life when your Trap is triggered by an Enemy
+GainLifeOnTrapTriggeredUnique__2__
 ]],[[
 Voices
 Large Cluster Jewel
@@ -742,11 +742,11 @@ Variant: Adds 1 Small Passive Skill
 Variant: Adds 3 Small Passive Skills
 Variant: Adds 5 Small Passive Skills
 Variant: Adds 7 Small Passive Skills
-Adds 3 Jewel Socket Passive Skills
-{variant:1}Adds 1 Small Passive Skill which grants nothing
-{variant:2}Adds 3 Small Passive Skills which grant nothing
-{variant:3}Adds 5 Small Passive Skills which grant nothing
-{variant:4}Adds 7 Small Passive Skills which grant nothing
+ExpansionJewel3JewelSockets
+{variant:1}ExpansionJewelEmptyPassiveUnique__1
+{variant:2}ExpansionJewelEmptyPassiveUnique__2
+{variant:3}ExpansionJewelEmptyPassiveUnique_3_
+{variant:4}ExpansionJewelEmptyPassiveUnique__4
 ]],[[
 Split Personality
 Crimson Jewel
@@ -763,17 +763,17 @@ Variant: Armour
 Variant: Evasion Rating
 Variant: Accuracy Rating
 Limited to: 2
-This Jewel's Socket has 25% increased effect per Allocated Passive Skill between
+LocalIncreasedEffectPathToClassStartUnique__1
 it and your Class' starting location
-{variant:1}+5 to Strength
-{variant:2}+5 to Dexterity
-{variant:3}+5 to Intelligence
-{variant:4}+5 to maximum Life
-{variant:5}+5 to maximum Mana
-{variant:6}+5 to maximum Energy Shield
-{variant:7}+40 to Armour
-{variant:8}+40 to Evasion Rating
-{variant:9}+40 to Accuracy Rating
+{variant:1}StrengthPerPointToClassStartUnique__1
+{variant:2}DexterityUniqueBootsInt2
+{variant:3}IntelligencePerPointToClassStartUnique__1
+{variant:4}LifePerPointToClassStartUnique__1_
+{variant:5}ManaPerPointToClassStartUnique__1
+{variant:6}EnergyShieldPerPointToClassStartUnique__1
+{variant:7}ArmourPerPointToClassStartUnique__1
+{variant:8}EvasionPerPointToClassStartUnique__1
+{variant:9}AccuracyPerPointToClassStartUnique__1
 Corrupted
 ]],[[
 Watcher's Eye
@@ -886,9 +886,9 @@ Variant: Zealotry: Crit Strike Elemental Pen on CG
 Variant: Zealotry: Arcane Surge when you create CG
 Variant: Zealotry: Inc. Max Recovery from ES Leech
 Limited to: 1
-(4-6)% increased maximum Energy Shield
+IncreasedEnergyShieldPercentUnique__2_
 (4-6)% increased maximum Life 
-(4-6)% increased maximum Mana
+MaximumManaUnique__4
 {variant:1}(1-1.5)% of Fire Damage Leeched as Life while affected by Anger
 {variant:2}Damage Penetrates (10-15)% Fire Resistance while affected by Anger
 {variant:3}+(30-50)% to Critical Strike Multiplier while affected by Anger
@@ -998,25 +998,25 @@ Limited to: 1
 [[
 Amanamu's Gaze
 Ghastly Eye Jewel
-+(5-10) to all Attributes
+AllAttributesUnique__23
 Minions have +6% to Damage over Time Multiplier per Ghastly Eye Jewel affecting you, up to a maximum of +30%
 ]],[[
 Kurgal's Gaze
 Hypnotic Eye Jewel
-+(10-20) to Intelligence
+IntelligenceUniqueOneHandAxe1
 8% increased Effect of Arcane Surge on you per Hypnotic Eye Jewel affecting you, up to a maximum of 40%
 ]],[[
 Tecrod's Gaze
 Murderous Eye Jewel
 Requires Level 40
-+(10-20) to Strength
+StrengthUniqueBodyStr4
 20% increased Main Hand Critical Strike Chance per Murderous Eye Jewel affecting you, up to a maximum of 100%
 +10% to Off Hand Critical Strike Multiplier per Murderous Eye Jewel affecting you, up to a maximum of +50%
 ]],[[
 Ulaman's Gaze
 Searching Eye Jewel
 Requires Level 40
-+(10-20) to Dexterity
+DexterityUniqueRing8
 Projectiles have 4% chance to be able to Chain when colliding with terrain per Searching Eye Jewel affecting you, up to a maximum of 20%
 ]],
 -- Jewel: Threshold
@@ -1025,25 +1025,25 @@ Combat Focus
 Crimson Jewel
 Limited to: 2
 Radius: Medium
-(10-15)% increased Elemental Damage with Attack Skills
+ElementalDamageUniqueJewel_1
 With 40 total Strength and Intelligence in Radius, Prismatic Skills cannot choose Cold
-With 40 total Strength and Intelligence in Radius, Prismatic Skills deal 50% less Cold Damage
+ElementalHitDisableColdUniqueJewel_1
 ]],[[
 Combat Focus
 Cobalt Jewel
 Limited to: 2
 Radius: Medium
-(10-15)% increased Elemental Damage with Attack Skills
+ElementalDamageUniqueJewel_1
 With 40 total Intelligence and Dexterity in Radius, Prismatic Skills cannot choose Fire
-With 40 total Intelligence and Dexterity in Radius, Prismatic Skills deal 50% less Fire Damage
+ElementalHitDisableFireUniqueJewel_1
 ]],[[
 Combat Focus
 Viridian Jewel
 Limited to: 2
 Radius: Medium
-(10-15)% increased Elemental Damage with Attack Skills
+ElementalDamageUniqueJewel_1
 With 40 total Dexterity and Strength in Radius, Prismatic Skills Strike cannot choose Lightning
-With 40 total Dexterity and Strength in Radius, Prismatic Skills deal 50% less Lightning Damage
+ElementalHitDisableLightningUniqueJewel_1
 ]],[[
 Collateral Damage
 Viridian Jewel
@@ -1051,7 +1051,7 @@ Limited to: 2
 Variant: Pre 3.9.0
 Variant: Current
 Radius: Medium
-(10-15)% increased Global Physical Damage
+IncreasedPhysicalDamagePercentUnique__5
 {variant:1}With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
 {variant:1}With at least 40 Dexterity in Radius, Shrapnel Shot's
 cone has a 50% chance to deal Double Damage
@@ -1067,7 +1067,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
 Radius: Medium
-Minions have +(7-10)% to all Elemental Resistances
+MinionElementalResistancesUnique__1
 {variant:1}With at least 40 Intelligence in Radius, can summon up to 3 Skeleton Mages with Summon Skeletons
 {variant:2}With at least 40 Intelligence in Radius, can summon up to 5 Skeleton Mages with Summon Skeletons
 {variant:3}With at least 40 Intelligence in Radius, can summon up to 15 Skeleton Mages with Summon Skeletons
@@ -1080,16 +1080,16 @@ League: Legion
 Requires Level: 20
 Limited to: 1
 Radius: Medium
-(10-15)% increased Attack Damage while holding a Shield
-{variant:1}+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
+AttackDamageWhileHoldingShieldUnique__1
+{variant:1}SpectralShieldThrowThresholdJewel1_
 {variant:2}+0.15% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
-+4% to Off Hand Critical Strike Multiplier per 10 Maximum Energy Shield on Shield
+SpectralShieldThrowThresholdJewel2
 ]],[[
 Fight for Survival
 Viridian Jewel
 Limited to: 2
 Radius: Medium
-(10-15)% increased Cold Damage
+ColdDamagePercentUniqueHelmetStrInt3
 With at least 40 Dexterity in Radius, Melee Damage 
 dealt by Frost Blades Penetrates 15% Cold Resistance
 With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile Speed
@@ -1100,7 +1100,7 @@ Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (7-10)% increased Projectile Damage 
-With at least 40 Intelligence in Radius, Freezing Pulse fires 2 additional Projectiles
+FreezingPulseThresholdJewel_1
 With at least 40 Intelligence in Radius, 25% increased Freezing Pulse Damage if
 you've Shattered an Enemy Recently
 ]],[[
@@ -1109,8 +1109,8 @@ Cobalt Jewel
 Source: No longer obtainable
 Limited to: 2
 Radius: Medium
-(7-10)% increased Projectile Damage
-With at least 40 Intelligence in Radius, Frostbolt fires 2 additional Projectiles
+IncreasedProjectileDamageUnique__7
+FrostboltThresholdJewel_1
 With at least 40 Intelligence in Radius, Frostbolt Projectiles gain 40% increased Projectile
 Speed per second
 ]],[[
@@ -1122,9 +1122,9 @@ Variant: Pre 3.17.0
 Limited to: 1
 Radius: Medium
 {variant:1}(4-12)% increased Damage over Time
-{variant:2}(8-12)% increased Damage over Time
-With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage with Hits and Poison for each Poison on the Enemy
-{variant:2}With at least 40 Dexterity in Radius, Viper Strike has a 10% chance per Poison on Enemy to grant Unholy Might for 4 seconds on Hit
+{variant:2}DegenerationDamageUnique__4__
+ViperStrikeThresholdJewel__1
+{variant:2}ViperStrikeThresholdJewel__2
 ]],[[
 Hazardous Research
 Cobalt Jewel
@@ -1132,7 +1132,7 @@ Variant: Pre 3.17.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(10-15)% increased Lightning Damage
+LightningDamagePercentUniqueHelmetStrInt3
 {variant:1}With at least 40 Intelligence in Radius, Spark fires 2 additional Projectiles
 With at least 40 Intelligence in Radius, Spark fires Projectiles in a Nova
 {variant:1}(20-15)% reduced Spark Duration
@@ -1143,9 +1143,9 @@ Variant: Pre 3.11.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(10-15)% increased Fire Damage
-{variant:1}With at least 40 Intelligence in Radius, Rolling Magma fires an additional Projectile
-{variant:2}With at least 40 Intelligence in Radius, Rolling Magma deals 50% less Damage
+FireDamagePercentUnique____8
+{variant:1}MagmaOrbThresholdJewel_1
+{variant:2}MagmaOrbThresholdJewel_2
 {variant:2}With at least 40 Intelligence in Radius, Rolling Magma deals 40% more Damage per Chain
 With at least 40 Intelligence in Radius, Rolling Magma
 has 10% increased Area of Effect per Chain
@@ -1171,20 +1171,20 @@ Variant: Sword
 Limited to: 1
 Radius: Medium
 {variant:1}(10-15)% increased Physical Damage
-{variant:1}With at least 40 Dexterity in Radius, Dual Strike has a 20% chance
+{variant:1}DualStrikeThresholdJewel_1
 to deal Double Damage with the Main-Hand Weapon
 {variant:1}With at least 40 Dexterity in Radius, Dual Strike deals Off-Hand Splash Damage
 {variant:1}to surrounding targets
-{variant:2,3,4,5,6}(10-15)% increased Attack Damage
-{variant:2}With at least 40 Dexterity in Radius, Dual Strike Hits Intimidate Enemies for
+{variant:2,3,4,5,6}DualStrikeThresholdJewel__2_
+{variant:2}DualStrikeThresholdJewelAxe
 {variant:2}4 seconds while wielding an Axe
-{variant:3}With at least 40 Dexterity in Radius, Dual Strike has (10-15)% increased Attack
+{variant:3}DualStrikeThresholdJewelClaw
 Speed while wielding a Claw
-{variant:4}With at least 40 Dexterity in Radius, Dual Strike has +(20-30)% to Critical Strike
+{variant:4}DualStrikeThresholdJewelDagger
 Multiplier while wielding a Dagger
-{variant:5}With at least 40 Dexterity in Radius, Dual Strike deals Splash Damage
+{variant:5}DualStrikeThresholdJewelMace
 {variant:5}to surrounding targets while wielding a Mace
-{variant:6}With at least 40 Dexterity in Radius, Dual Strike has (20-30)% increased
+{variant:6}DualStrikeThresholdJewelSword_
 Accuracy Rating while wielding a Sword
 ]],[[
 Omen on the Winds
@@ -1193,8 +1193,8 @@ Variant: Pre 3.1.0
 Variant: Current
 Limited to: 2
 Radius: Medium
-(15-20)% increased Damage with Hits against Chilled Enemies
-With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
+IncreasedDamageToChilledEnemies1
+IceShotThresholdJewel__2
 {variant:1}With at least 40 Dexterity in Radius, Ice Shot Pierces 5 additional Targets
 {variant:2}With at least 40 Dexterity in Radius, Ice Shot Pierces 3 additional Targets
 ]],[[
@@ -1203,7 +1203,7 @@ Crimson Jewel
 Source: No longer obtainable
 Limited to: 1
 Radius: Medium
-(10-15)% increased Global Physical Damage
+IncreasedPhysicalDamagePercentUnique__5
 With at least 40 Strength in Radius, Cleave grants Fortify on Hit
 With at least 40 Strength in Radius, Cleave has +1 to Radius per Nearby Enemy, up to +10
 ]],[[
@@ -1214,8 +1214,8 @@ Variant: Pre 3.16.0
 Variant: Current
 Radius: Medium
 {variant:1}(5-15)% increased Fire Damage
-{variant:2,3}(10-15)% increased Fire Damage
-{variant:3}+10% to Fire Damage over Time Multiplier
+{variant:2,3}FireDamagePercentUnique____8
+{variant:3}BurningArrowThresholdJewelUnique__1
 With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
 {variant:2}With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
 ]],[[
@@ -1255,10 +1255,10 @@ Variant: Current
 Limited to: 1
 Radius: Medium
 {variant:1}(5-15)% increased Fire Damage
-{variant:2,3}(10-15)% increased Fire Damage
-{variant:1}With at least 40 Intelligence in Radius, Fireball Projectiles gain Area as they travel farther, up to 50% increased Area of Effect
-{variant:2}With at least 40 Intelligence in Radius, Fireball Projectiles gain Radius as they travel farther, up to +4 Radius
-{variant:3}With at least 40 Intelligence in Radius, Fireball cannot ignite
+{variant:2,3}FireDamagePercentUnique____8
+{variant:1}FireballThresholdJewel__1
+{variant:2}FireballThresholdJewel__2_
+{variant:3}FireballThresholdJewel__3
 {variant:3}With at least 40 Intelligence in Radius, Fireball has +(30-50)% chance to inflict scorch
 ]],[[
 Shattered Chains
@@ -1266,8 +1266,8 @@ Crimson Jewel
 Variant: Pre 2.6.0
 Variant: Current
 Radius: Medium
-{variant:1}(5-15)% increased Cold Damage
-{variant:2}(10-15)% increased Cold Damage
+{variant:1}ColdDamagePercentUnique__14
+{variant:2}ColdDamagePercentUniqueHelmetStrInt3
 With at least 40 Strength in Radius, 20% increased Rarity of Items dropped by Enemies Shattered by Glacial Hammer
 ]],[[
 Spirit Guards
@@ -1276,7 +1276,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Limited to: 2
 Radius: Medium
-Minions deal (8-12)% increased Damage
+MinionDamageUniqueJewel1
 {variant:1}With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 4 Ranged Weapons
 {variant:2}With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 8 Ranged Weapons
 ]],[[
@@ -1287,7 +1287,7 @@ Variant: Current
 Limited to: 1
 Radius: Medium
 {variant:1}(5-10)% increased maximum Mana
-{variant:2}(7-10)% increased maximum Mana
+{variant:2}MaximumManaUnique__1
 With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit if you've Warcried Recently
 ]],[[
 Spreading Rot
@@ -1297,11 +1297,11 @@ Variant: Pre 3.17.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(7-13)% increased Chaos Damage
+IncreasedChaosDamageUnique__3
 {variant:1,2}With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration
 {variant:3}With at least 40 Intelligence in Radius, Blight has 30% reduced Cast Speed
 {variant:1}With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage
-{variant:2,3}With at least 40 Intelligence in Radius, Blight inflicts Withered for 2 seconds
+{variant:2,3}BlightThresholdJewel_2
 ]],[[
 Steel Spirit
 Viridian Jewel
@@ -1310,7 +1310,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.17.0
 Radius: Medium
 {variant:1}(6-10)% increased Projectile Damage
-{variant:2}(7-10)% increased Projectile Damage
+{variant:2}IncreasedProjectileDamageUnique__7
 {variant:1}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 4% increased Damage each time it Hits.
 {variant:2}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 5% increased Damage each time it Hits.
 ]],[[
@@ -1322,7 +1322,7 @@ Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage 
 {variant:1}With at least 40 Dexterity in Radius, Burning Arrow can inflict an additional Ignite on an Enemy
-{variant:2}Ignited Enemies Killed by your Hits are destroyed
+{variant:2}BurningArrowThresholdJewel_2
 ]],[[
 Unending Hunger 
 Cobalt Jewel
@@ -1332,7 +1332,7 @@ Limited to: 2
 Radius: Medium
 {variant:1}Minions have (5-8)% increased Area of Effect of Area Skills
 {variant:2}Minions have (6-8)% increased Area of Effect of Area Skills
-With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to gain Soul Eater for 20 seconds on Kill
+ChanceForSpectersToGainSoulEaterOnKillUnique__1
 ]],[[
 The Vigil
 Crimson Jewel
@@ -1351,7 +1351,7 @@ Cobalt Jewel
 Limited to: 2
 Radius: Medium
 Minions deal (10-15)% increased Damage 
-With at least 40 Intelligence in Radius, Raised
+RaiseZombieThresholdJewel1
 Zombies' Slam Attack has 100% increased Cooldown Recovery Speed
 With at least 40 Intelligence in Radius, Raised Zombies' Slam
 Attack deals 30% increased Damage
@@ -1364,9 +1364,9 @@ Variant: Current
 Limited to: 1
 Radius: Medium
 {variant:1}(6-10)% increased Projectile Damage
-{variant:2,3}(7-10)% increased Projectile Damage
+{variant:2,3}IncreasedProjectileDamageUnique__7
 {variant:1,2}With at least 40 Dexterity in Radius, Barrage fires an additional 2 projectiles simultaneously on the first and final attacks
-{variant:3}With at least 40 Dexterity in Radius, Barrage fires an additional 6 projectiles simultaneously on the first and final attacks
+{variant:3}BarrageThresholdUnique__1
 ]],[[
 Weight of the Empire
 Crimson Jewel
@@ -1383,9 +1383,9 @@ Variant: Current
 Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage 
-{variant:1}With at least 40 Strength in Radius, Molten Strike fires 2 additional Projectiles
+{variant:1}MoltenStrikeThresholdJewel_1
 {variant:1}With at least 40 Strength in Radius, Molten Strike has 25% increased Area of Effect
-{variant:2}With at least 40 Strength in Radius, Molten Strike Projectiles Chain on impacting ground
+{variant:2}MoltenStrikeThresholdJewel__2
 {variant:2}With at least 40 Strength in Radius, Molten Strike Projectiles Chain +1 time
 {variant:2}With at least 40 Strength in Radius, Molten Strike fires 50% less Projectiles
 ]],[[
@@ -1394,8 +1394,8 @@ Crimson Jewel
 Source: No longer obtainable
 Limited to: 2
 Radius: Medium
-(10-15)% increased Cold Damage
-With at least 40 Strength in Radius, Glacial Hammer deals
+ColdDamagePercentUniqueHelmetStrInt3
+GlacialHammerThresholdJewel_2
 Cold-only Splash Damage to surrounding targets
 With at least 40 Strength in Radius, 25% of Glacial
 Hammer Physical Damage converted to Cold Damage
@@ -1407,8 +1407,8 @@ Variant: Pre 3.3.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-{variant:1}(5-15)% increased Cold Damage
-{variant:2,3}(10-15)% increased Cold Damage
+{variant:1}ColdDamagePercentUnique__14
+{variant:2,3}ColdDamagePercentUniqueHelmetStrInt3
 {variant:1}With at least 40 Intelligence in Radius, Cold Snap has a 25% chance to grant a Power Charge on Kill
 {variant:2}With at least 40 Intelligence in Radius, Cold Snap has a 50% chance to grant a Power Charge on Kill
 {variant:3}With at least 40 Intelligence in Radius, Cold Snap grants Power Charges instead of Frenzy Charges when Enemies die in it's Area
@@ -1419,7 +1419,7 @@ Radius: Medium
 Ancient Waystones
 Crimson Jewel
 Limited to: 1
-60% reduced Cost of Aura Skills that summon Totems
+ManaCostOfTotemAurasUniqueCorruptedJewel8
 Corrupted
 ]],[[
 Atziri's Reign
@@ -1427,8 +1427,8 @@ Crimson Jewel
 Variant: Pre 3.14.0
 Variant: Current
 Limited to: 1
-{variant:1,2}(15-20)% increased Vaal Skill Effect Duration
-{variant:2}Vaal Skills have (15-20)% chance to regain consumed Souls when used
+{variant:1,2}VaalSkillDurationUniqueCorruptedJewel5
+{variant:2}VaalSkillRefundChanceUniqueCorruptedJewel5
 Corrupted
 ]],[[
 Blood Sacrifice
@@ -1442,26 +1442,26 @@ Replica Blood Sacrifice
 Crimson Jewel
 League: Heist
 Implicits: 0
-Recover 1% of Life on Kill
-Recover 1% of Energy Shield on Kill
-Cannot Leech or Regenerate Mana
+MaximumLifeOnKillPercentUnique__4_
+MaximumEnergyShieldOnKillPercentUnique__2
+CannotLeechOrRegenerateManaUnique__1_
 ]],[[
 Brittle Barrier
 Cobalt Jewel
-20% faster start of Energy Shield Recharge
-10% increased Damage taken while on Full Energy Shield
+ReducedEnergyShieldDelayUniqueCorruptedJewel15
+DamageTakenOnFullESUniqueCorruptedJewel15
 Corrupted
 ]],[[
 Chill of Corruption
 Viridian Jewel
 Limited to: 1
-50% chance to gain an additional Vaal Soul per Enemy Shattered
+AdditionalVaalSoulOnShatterUniqueCorruptedJewel7
 Corrupted
 ]],[[
 Combustibles
 Crimson Jewel
-10% reduced Quantity of Items found
-(20-30)% increased Burning Damage
+ItemFoundQuantityReduceUniqueCorruptedJewel1
+BurnDamageUniqueCorruptedJewel1
 Corrupted
 ]],[[
 Corrupted Energy
@@ -1477,11 +1477,11 @@ Variant: Pre 3.11.0
 Variant: Current
 Limited to: 1
 Radius: Small
-{variant:1}(20-30)% increased Spell Damage
-{variant:2}(30-40)% increased Spell Damage
+{variant:1}SpellDamageUniqueSceptre2
+{variant:2}SpellDamageUniqueCorruptedJewel3_
 {variant:1}100% increased Mana Cost of Skills
-{variant:2}50% increased Mana Cost of Skills
-{variant:3}+(5-10) to Intelligence
+{variant:2}ManaCostIncreasedUniqueCorruptedJewel3
+{variant:3}IntelligenceUniqueBootsInt1
 {variant:3}Notable Passive Skills in Radius are Transformed to instead grant: 10% increased Mana Cost of Skills and 20% increased Spell Damage
 Corrupted
 ]],[[
@@ -1493,7 +1493,7 @@ Corrupted
 Hungry Abyss
 Viridian Jewel
 Limited to: 1
-With 5 Corrupted Items Equipped: Life Leech recovers based on your Chaos Damage instead
+CorruptThresholdLifeLeechUsesChaosDamageUniqueCorruptedJewel10
 Corrupted
 ]],[[
 Mutated Growth
@@ -1515,25 +1515,25 @@ Corrupted
 Sacrificial Harvest
 Viridian Jewel
 Limited to: 1
-(20-30)% chance to gain an additional Vaal Soul on Kill
+AdditionalVaalSoulOnKillUniqueCorruptedJewel4_
 Corrupted
 ]],[[
 Self-Flagellation
 Viridian Jewel
 Limited to: 1
-An additional Curse can be applied to you
-(10-20)% increased Damage per Curse on you
+AdditionalCurseOnSelfUniqueCorruptedJewel13
+IncreasedDamagePerCurseOnSelfCorruptedJewel13_
 Corrupted
 ]],[[
 Vaal Sentencing
 Cobalt Jewel
-(80-120)% increased Vaal Skill Critical Strike Chance
+VaalSkillCriticalStrikeChanceCorruptedJewel6
 Corrupted
 ]],[[
 Weight of Sin
 Viridian Jewel
-(15-20)% increased Chaos Damage
-15% reduced Movement Speed
+IncreasedChaosDamageUniqueCorruptedJewel2
+ReducedMovementVelocityUniqueCorruptedJewel2_
 Corrupted
 ]],
 -- Jewel: Quest rewards
@@ -1541,24 +1541,24 @@ Corrupted
 Assassin's Haste
 Cobalt Jewel
 Limited to: 1
-10% increased Mana Regeneration Rate
-4% increased Movement Speed
-4% increased Attack and Cast Speed
+ManaRegenerationUniqueJewel43
+MovementVelocityUniqueJewel43
+AttackAndCastSpeedJewelUniqueJewel43
 ]],[[
 Conqueror's Efficiency
 Crimson Jewel
 Limited to: 1
-3% reduced Mana Cost of Skills
-4% increased Skill Effect Duration
-4% increased Mana Reservation Efficiency of Skills
+ManaCostReductionUniqueJewel44
+SkillEffectDurationUniqueJewel44
+ManaReservationEfficiencyUniqueJewel44_
 ]],[[
 Replica Conqueror's Efficiency
 Crimson Jewel
 League: Heist
 Limited to: 1
-4% increased Skill Effect Duration
-+5 to Maximum Rage
-Non-Channelling Skills have -9 to Total Mana Cost
+SkillEffectDurationUniqueJewel44
+MaximumRageUnique__2
+ManaCostTotalNonChannelledUnique__1__
 ]],[[
 Conqueror's Longevity
 Viridian Jewel
@@ -1566,35 +1566,35 @@ Variant: Pre 3.16.0
 Variant: Current
 Limited to: 1
 {variant:1}3% chance to Avoid Elemental Ailments
-{variant:2}10% chance to Avoid Elemental Ailments
+{variant:2}ChanceToAvoidElementalStatusAilmentsUniqueJewel46
 {variant:1}8% increased Life Recovery from Flasks
-{variant:2}10% increased Life Recovery from Flasks
+{variant:2}FlaskLifeRecoveryRateUniqueJewel46
 {variant:1}3% chance to Suppress Spell Damage
 {variant:2}5% chance to Suppress Spell Damage
 ]],[[
 Conqueror's Potency
 Cobalt Jewel
 Limited to: 1
-4% increased Effect of your Curses
+CurseEffectivenessUniqueJewel45
 8% increased effect of Flasks
 3% increased effect of Non-Curse Auras you Cast
 ]],[[
 Poacher's Aim
 Viridian Jewel
 Limited to: 1
-Projectiles Pierce an additional Target
-10% increased Projectile Damage
+AdditionalPierceUniqueJewel__1
+ProjectileDamageJewelUniqueJewel41
 ]],[[
 Survival Instincts
 Viridian Jewel
 Limited to: 1 Survival
 Variant: Pre 3.16.0
 Variant: Current
-{variant:1}+20 to Dexterity
-{variant:1}+6% to all Elemental Resistances
-{variant:2}20% reduced Flask Charges gained
-{variant:2}50% increased Flask Effect Duration
-Survival
+{variant:1}DexterityUniqueJewel8
+{variant:1}AllResistancesUniqueJewel8
+{variant:2}FlaskChargesUniqueJewel___8
+{variant:2}FlaskDurationUniqueJewel_____8
+ItemLimitUniqueJewel9
 ]],[[
 Survival Secrets
 Cobalt Jewel
@@ -1602,21 +1602,21 @@ Limited to: 1 Survival
 Variant: Pre 3.16.0
 Variant: Current
 {variant:1}3 Mana Regenerated per second
-{variant:1}10% increased Elemental Damage
-{variant:2}Flasks applied to you have 20% reduced Effect
-{variant:2}Flasks gain 3 Charges every 3 seconds while they are inactive
-Survival
+{variant:1}ElementalDamageUniqueJewel10
+{variant:2}FlaskEffectUniqueJewel_10
+{variant:2}FlaskChargePerSecondInactiveUniqueJewel_10
+ItemLimitUniqueJewel9
 ]],[[
 Survival Skills
 Crimson Jewel
 Limited to: 1 Survival
 Variant: Pre 3.16.0
 Variant: Current
-{variant:1}10% increased Global Physical Damage
-{variant:1}+50 to Armour
-{variant:2}Flasks gain 2 Charges when you hit a Non-Unique Enemy, no more than once per second
-{variant:2}80% less Flask Charges gained from Kills
-Survival
+{variant:1}IncreasedPhysicalDamagePercentUniqueJewel9
+{variant:1}IncreasedPhysicalDamageReductionRatingUniqueJewel9
+{variant:2}FlaskChargeOnHitNonUniqueUniqueJewel____9
+{variant:2}FlaskChargesFromKillUniqueJewel_9
+ItemLimitUniqueJewel9
 ]],[[
 Warlord's Reach
 Crimson Jewel
@@ -1625,7 +1625,7 @@ Variant: Current
 Limited to: 1
 {variant:1}8% increased Attack Damage
 {variant:1}+1 Melee Strike Range
-{variant:2}10% increased Attack Damage
+{variant:2}AttackDamageUniqueJewel42
 {variant:2}+2 Melee Strike Range
 ]],
 -- Jewel: Labyrinth rewards
@@ -1634,34 +1634,34 @@ Emperor's Cunning
 Viridian Jewel
 Source: Fastest Normal Labyrinth
 Limited to: 1
-20% increased Global Accuracy Rating
-3% increased Character Size
-(4-6)% increased Dexterity
+PercentIncreasedAccuracyJewelUnique__1
+ActorSizeUnique__1
+PercentageDexterityUniqueJewel29
 ]],[[
 Emperor's Mastery
 Prismatic Jewel
 Source: Fastest Eternal Labyrinth
 Limited to: 1
-4% increased maximum Life
-3% increased Character Size
-5% increased Global Defences
-(5-7)% increased Attributes
+MaximumLifeUnique__2
+ActorSizeUnique__1
+AllDefencesUnique__1
+AllAttributesPercentUnique__1
 ]],[[
 Emperor's Might
 Crimson Jewel
 Source: Fastest Merciless Labyrinth
 Limited to: 1
-10% increased Damage
-3% increased Character Size
-(4-6)% increased Strength
+AllDamageUniqueRing8
+ActorSizeUnique__1
+PercentageStrengthUniqueJewel29
 ]],[[
 Emperor's Wit
 Cobalt Jewel
 Source: Fastest Cruel Labyrinth
 Limited to: 1
-30% increased Global Critical Strike Chance
-3% increased Character Size
-(4-6)% increased Intelligence
+CriticalStrikeChanceImplicitDaggerNew1
+ActorSizeUnique__1
+PercentageIntelligenceUnique__2
 ]],
 -- Jewel: Timeless
 [[
@@ -1680,7 +1680,7 @@ Implicits: 0
 {variant:1}Denoted service of (500-8000) dekhara in the akhara of Asenath
 {variant:2}Denoted service of (500-8000) dekhara in the akhara of Deshret
 {variant:3}Denoted service of (500-8000) dekhara in the akhara of Nasima
-{variant:4}Denoted service of (500-8000) dekhara in the akhara of Balbala
+{variant:4}UniqueJewelAlternateTreeInRadiusMaraketh
 Passives in radius are Conquered by the Maraketh
 Historic
 ]],[[
@@ -1696,7 +1696,7 @@ Variant: Victario
 Variant: Caspiro
 Radius: Large
 Implicits: 0
-{variant:1}Commissioned (2000-160000) coins to commemorate Cadiro
+{variant:1}UniqueJewelAlternateTreeInRadiusEternal
 {variant:2}Commissioned (2000-160000) coins to commemorate Chitus
 {variant:3}Commissioned (2000-160000) coins to commemorate Victario
 {variant:4}Commissioned (2000-160000) coins to commemorate Caspiro
@@ -1716,7 +1716,7 @@ Variant: Ahuana
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
-{variant:2}Bathed in the blood of (100-8000) sacrificed in the name of Xibaqua
+{variant:2}UniqueJewelAlternateTreeInRadiusVaal
 {variant:3}Bathed in the blood of (100-8000) sacrificed in the name of Zerphi
 {variant:4}Bathed in the blood of (100-8000) sacrificed in the name of Ahuana
 Passives in radius are Conquered by the Vaal
@@ -1734,7 +1734,7 @@ Variant: Rakiata
 Variant: Akoya
 Radius: Large
 Implicits: 0
-{variant:1}Commanded leadership over (10000-18000) warriors under Kaom
+{variant:1}UniqueJewelAlternateTreeInRadiusKarui
 {variant:2}Commanded leadership over (10000-18000) warriors under Kiloava
 {variant:3}Commanded leadership over (10000-18000) warriors under Rakiata
 {variant:4}Commanded leadership over (10000-18000) warriors under Akoya
@@ -1773,22 +1773,22 @@ Implicits: 0
 {variant:1}Carved to glorify (2000-10000) new faithful converted by High Templar Avarius
 {variant:2}Carved to glorify (2000-10000) new faithful converted by High Templar Dominus
 {variant:3}Carved to glorify (2000-10000) new faithful converted by High Templar Venarius
-{variant:4}Carved to glorify (2000-10000) new faithful converted by High Templar Maxarius
-{variant:5}4% increased Totem Damage per 10 Devotion
-{variant:6}4% increased Brand Damage per 10 Devotion
-{variant:7}Channelling Skills deal 4% increased Damage per 10 Devotion
-{variant:8}4% increased Area Damage per 10 Devotion
-{variant:9}4% increased Elemental Damage per 10 Devotion
-{variant:10}+2% to all Elemental Resistances per 10 Devotion
-{variant:11}3% increased Effect of non-Damaging Ailments on Enemies per 10 Devotion
-{variant:12}4% reduced Elemental Ailment Duration on you per 10 Devotion
-{variant:13}4% reduced Duration of Curses on you per 10 Devotion
-{variant:14}1% increased Minion Attack and Cast Speed per 10 Devotion
-{variant:15}Minions have +60 to Accuracy Rating per 10 Devotion
-{variant:16}Regenerate 0.6 Mana per Second per 10 Devotion
+{variant:4}UniqueJewelAlternateTreeInRadiusTemplar
+{variant:5}TotemDamagePerDevotion
+{variant:6}BrandDamagePerDevotion
+{variant:7}ChannelledSkillDamagePerDevotion
+{variant:8}AreaDamagePerDevotion
+{variant:9}ElementalDamagePerDevotion_
+{variant:10}ElementalResistancesPerDevotion
+{variant:11}AilmentEffectPerDevotion
+{variant:12}ElementalAilmentSelfDurationPerDevotion_
+{variant:13}CurseSelfDurationPerDevotion
+{variant:14}MinionAttackAndCastSpeedPerDevotion
+{variant:15}MinionAccuracyRatingPerDevotion_
+{variant:16}AddedManaRegenerationPerDevotion
 {variant:17}1% reduced Cost of Skills per 10 Devotion
-{variant:18}1% increased effect of Non-Curse Auras per 10 Devotion
-{variant:19}3% increased Defences from Equipped Shield per 10 Devotion
+{variant:18}AuraEffectPerDevotion
+{variant:19}ShieldDefencesPerDevotion
 Passives in radius are Conquered by the Templars
 Historic
 ]],

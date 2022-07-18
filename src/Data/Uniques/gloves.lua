@@ -33,12 +33,12 @@ Spiked Gloves
 Source: Drops from unique{The Infinite Hunger}
 Requires Level 70, 95 Str
 Implicits: 1
-(16–20)% increased Melee Damage
-Adds (2–3) to (22–26) Physical Damage to Attacks
-(100–150)% increased Armour
-(20–30)% chance to inflict Corrosion on Hit with Attacks
-(20–30)% chance to gain an Endurance Charge on Hitting an Enemy with no Armour
-(20–30)% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating
+(16-20)% increased Melee Damage
+Adds (2-3) to (22-26) Physical Damage to Attacks
+(100-150)% increased Armour
+(20-30)% chance to inflict Corrosion on Hit with Attacks
+(20-30)% chance to gain an Endurance Charge on Hitting an Enemy with no Armour
+(20-30)% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating
 ]],[[
 Craiceann's Pincers
 Titan Gauntlets
@@ -928,8 +928,8 @@ Runic Gauntlets
 Requires Level 69, 38 Str, 38 Dex, 38 Int
 League: Expedition
 800% increased Attribute Requirements
-(30–50)% increased Ward
-+(15–25)% to all Elemental Resistances
+(30-50)% increased Ward
++(15-25)% to all Elemental Resistances
 80% less Flask Charges gained from Kills
 Flasks gain 1 Charge per second if you've Hit a Unique Enemy Recently
 ]],[[
@@ -939,8 +939,8 @@ Variant: Pre 3.16.0
 Variant: Current
 League: Expedition
 Requires Level 48, 31 Str, 31 Dex, 31 Int
-(33–48)% increased Ward
-+(17–23)% to Chaos Resistance
+(33-48)% increased Ward
++(17-23)% to Chaos Resistance
 {variant:1}Gain Added Chaos Damage equal to 25% of Ward
 {variant:2}Gain Added Chaos Damage equal to 20% of Ward
 75% of Damage bypasses Ward

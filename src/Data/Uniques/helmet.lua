@@ -553,10 +553,10 @@ Sudden Dawn
 Steel Circlet
 Source: Drops from unique{The Black Star}
 Requires Level 48, 101 Int
-(300–350)% increased Energy Shield
-+(50–70) to maximum Mana
-(10–20)% chance for Energy Shield Recharge to start when you Kill an Enemy
-(30–40)% less Energy Shield Recharge Rate
+(300-350)% increased Energy Shield
++(50-70) to maximum Mana
+(10-20)% chance for Energy Shield Recharge to start when you Kill an Enemy
+(30-40)% less Energy Shield Recharge Rate
 ]],[[
 Thundersight
 Solaris Circlet

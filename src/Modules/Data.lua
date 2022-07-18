@@ -22,28 +22,6 @@ local skillTypes = {
 	"sup_dex",
 	"sup_int",
 }
-local itemTypes = {
-	"axe",
-	"bow",
-	"claw",
-	"dagger",
-	"fishing",
-	"mace",
-	"staff",
-	"sword",
-	"wand",
-	"helmet",
-	"body",
-	"gloves",
-	"boots",
-	"shield",
-	"quiver",
-	"amulet",
-	"ring",
-	"belt",
-	"jewel",
-	"flask",
-}
 
 local function makeSkillMod(modName, modType, modVal, flags, keywordFlags, ...)
 	return {
@@ -782,7 +760,7 @@ end
 
 -- Item bases
 data.itemBases = { }
-for _, type in pairs(itemTypes) do
+for _, type in pairs(ItemTypes) do
 	LoadModule("Data/Bases/"..type, data.itemBases)
 end
 
@@ -824,7 +802,7 @@ data.rares = LoadModule("Data/Rares")
 
 -- Uniques (loaded after version-specific data because reasons)
 data.uniques = { }
-for _, type in pairs(itemTypes) do
+for _, type in pairs(ItemTypes) do
 	data.uniques[type] = LoadModule("Data/Uniques/"..type)
 end
 data.uniques['race'] = LoadModule("Data/Uniques/Special/race")

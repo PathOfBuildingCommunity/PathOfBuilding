@@ -134,7 +134,7 @@ Requires Level 59, 160 Str
 0.4% of Physical Attack Damage Leeched as Mana
 Socketed Gems are Supported by level 15 Pierce
 Enemy Projectiles Pierce you
-{Variant:2}+160 Dexterity Requirement
+{variant:2}+160 Dexterity Requirement
 ]],[[
 Iron Heart
 Crusader Plate
@@ -289,7 +289,7 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 65, 197 Dex
 {variant:1,2,3}+(20-30) to Dexterity
-{variant:4.5,6}+(40-50) to Dexterity
+{variant:4,5,6}+(40-50) to Dexterity
 {variant:1,2,3}Adds 13 to 24 Cold Damage to Bow Attacks
 {variant:4}Adds (50-60) to (70-80) Cold Damage to Bow Attacks
 {variant:5}Adds (173-188) to (240-262) Cold Damage to Bow Attacks
