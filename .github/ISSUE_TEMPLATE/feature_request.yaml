@@ -35,7 +35,7 @@ body:
     attributes:
       label: Describe alternatives you've considered
       description: Please write a clear and concise description of any alternative solutions or features you've considered.
-      placeholder: Currently, the same functionality can be achieved be combining [...] with [...].
+      placeholder: Currently, the same functionality can be achieved by combining [...] with [...].
     validations:
       required: false
   - type: textarea
@@ -43,6 +43,6 @@ body:
     attributes:
       label: Additional context
       description: Add any other context or screenshots about the feature request here.
-      placeholder: In this text area, you can attach files directly, or link to them if they're hosted elsewhere instead.
+      placeholder: In this text area, you can attach files/images (copy paste) directly, or link to them if they're hosted elsewhere instead.
     validations:
       required: false

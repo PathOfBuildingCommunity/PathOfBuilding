@@ -1,6 +1,6 @@
-name: Misc bug report
-description: Create a generic bug report to help us fix an issue
-labels: [bug]
+name: Accuracy bug report
+description: Create a bug report to help us fix incorrect wordings
+labels: ["bug: accuracy"]
 body:
   - type: markdown
     attributes:
@@ -21,42 +21,26 @@ body:
       options:
         - label: I've checked for duplicate issues by using the search function of the [issue tracker](https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues)
           required: true
-  - type: checkboxes
-    id: validity
-    attributes:
-      label: Check for support
-      options:
-        - label: I've checked that this is supposed to be supported. If it isn't please open a feature request instead (Red text is a feature request).
-          required: true
   - type: textarea
     id: expected
     attributes:
-      label: What is the behaviour/value ingame?
+      label: What is the wording ingame?
       description: Please write a clear and concise description of what should happen.
-      placeholder: E.g. When I'm clicking on [...], I expect [...].
+      placeholder: |
+        E.g. when I look at the unique [...] ingame it says [...].
+        [screenshot].
     validations:
       required: true
   - type: textarea
     id: actual
     attributes:
-      label: What is the behaviour/value in Path of Building?
+      label: What is the wording in Path of Building?
       description: Please write a clear and concise description of what actually happens.
-      placeholder: E.g. When I'm hovering over [...], PoB displays [...].
+      placeholder: |
+        E.g. When I look at the unique [...] in Path of Building it says [...].
+        [screenshot].
     validations:
       required: true
-  - type: textarea
-    id: steps
-    attributes:
-      label: How to reproduce the issue
-      description: Please provide step-by-step instructions.
-      placeholder: |
-        E.g.
-        1. Select [...] as the main skill.
-        2. Switch to the items tab.
-        3. Remove the main skill group.
-        4. [...].
-    validations:
-      required: false
   - type: textarea
     id: build_code
     attributes:
@@ -65,12 +49,12 @@ body:
       placeholder: This can be either a code copied from the "Import/Export Build" tab or a link to a shared build.
       render: shell
     validations:
-      required: true
+      required: false
   - type: textarea
     id: context
     attributes:
       label: Screenshots
-      description: Always provide screenshots of the problem if possible. GIFs or short videos are also okay, if the bug cannot be displayed in a still image.
+      description: Always provide screenshots of the problematic wording if possible. GIFs or short videos are also okay, if the bug cannot be displayed in a still image.
       placeholder: In this text area, you can attach files/images (copy paste) directly, or link to them if they're hosted elsewhere instead.
     validations:
       required: false
