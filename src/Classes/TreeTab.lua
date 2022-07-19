@@ -1002,28 +1002,44 @@ function TreeTabClass:FindTimelessJewel()
 	local generateWeights = function(Nodes, selection)
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 		local newList = {}
+		local baseOutput = calcFunc({})
+		local baseValue = baseOutput[selection.stat] or 0
+		if selection.transform then
+			baseValue = selection.transform(baseValue)
+		end
 		for _, legionNode in ipairs(Nodes) do
 			if legionNode.id then
 				local newNode = nil
-				for i, node in ipairs(legionNodes) do
+				for _, node in ipairs(legionNodes) do
 					if node.id == legionNode.id then
 						newNode = node
+						break
 					end
 				end
-				--ConPrintTable(newNode)
-				local output = calcFunc({ addNodes = { [newNode] = true } })
-				if output.Minion then
-					output = output.Minion
+				if not newNode then
+					for _, legionAddition in ipairs(legionAdditions) do
+						if legionAddition.id == legionNode.id then
+							--newNode = legionAddition
+							break
+						end
+					end
 				end
-				local outputValue = output[selection.stat] or 0
-				if selection.transform then
-					outputValue = selection.transform(outputValue)
+				if newNode then
+					--ConPrintTable(newNode)
+					local output = calcFunc({ addNodes = { [newNode] = true } })
+					if output.Minion then
+						output = output.Minion
+					end
+					local outputValue = output[selection.stat] or 0
+					if selection.transform then
+						outputValue = selection.transform(outputValue)
+					end
+					t_insert(newList, {
+						id = legionNode.id,
+						weight1 = outputValue - baseValue,
+						weight2 = 0
+					})
 				end
-				t_insert(newList, {
-					id = legionNode.id,
-					weight1 = outputValue,
-					weight2 = 0
-				})
 			end
 		end
 		return newList
@@ -1032,8 +1048,14 @@ function TreeTabClass:FindTimelessJewel()
 	controls.generateWeights = new("ButtonControl", nil, 0, 200, 160, 20, "Auto Generate Weights", function()
 		local output = generateWeights(modData, {stat = "CombinedDPS"})
 		local newList = ""
+		local minWeight = math.huge
 		for _, legionNode in ipairs(output) do
-			newList = newList .. legionNode.id .. ", " .. legionNode.weight1 .. ", " .. legionNode.weight2 .. "\n"
+			if legionNode.weight1 ~= 0 then
+				minWeight = m_min(minWeight, legionNode.weight1)
+			end
+		end
+		for _, legionNode in ipairs(output) do
+			newList = newList .. legionNode.id .. ", " .. m_floor(legionNode.weight1 / minWeight) .. ", " .. legionNode.weight2 .. "\n"
 		end
 		updateSearchList(newList)
 		self.build.modFlag = true
