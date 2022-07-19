@@ -14,10 +14,10 @@ Implicits: 1
 {tags:jewellery_defense}+(600-700) to Armour
 {tags:life}(12-15)% increased maximum Life
 {tags:jewellery_resistance}+(40-60)% to Fire Resistance
+{variant:2}+1 to Maximum Endurance Charges
 Modifiers to Minimum Endurance Charges instead apply to Minimum Brutal Charges
 Maximum Brutal Charges is equal to Maximum Endurance Charges
 Gain Brutal Charges instead of Endurance Charges
-{variant:2}+1 to Maximum Endurance Charges
 ]],[[
 Ascent From Flesh
 Chain Belt
@@ -42,11 +42,11 @@ Variant: Pre 2.6.0
 Requires Level 70
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
-{tags:attack,jewellery_elemental}(10-20)% increased Elemental Damage with Attack Skills
-{tags:mana}+(45-55) to maximum Mana
 {tags:jewellery_defense}+(60-70) to maximum Energy Shield
+{tags:mana}+(45-55) to maximum Mana
+Chill and Freeze Duration on you is based on 65% of Energy Shield
+{tags:attack,jewellery_elemental}(10-20)% increased Elemental Damage with Attack Skills
 {tags:attack,mana,physical}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
-Chill and Freeze duration on you is based on 65% of Energy Shield
 ]],[[
 Auxium
 Crystal Belt
@@ -55,13 +55,13 @@ Variant: Current
 Requires Level 70
 Implicits: 1
 {tags:jewellery_defense}+(60-80) to maximum Energy Shield
+{tags:jewellery_defense}+(60-70) to maximum Energy Shield
+{tags:mana}+(45-55) to maximum Mana
+{variant:1}{tags:jewellery_defense}Chill Effect and Freeze Duration on you is based on 65% of Energy Shield
+{variant:2}{tags:jewellery_defense}Chill Effect and Freeze Duration on you is based on 100% of Energy Shield
 {variant:1}{tags:attack,jewellery_elemental}(10-20)% increased Elemental Damage with Attack Skills
 {variant:2}{tags:attack,jewellery_elemental}(20-25)% increased Elemental Damage with Attack Skills per Power Charge
-{tags:mana}+(45-55) to maximum Mana
-{tags:jewellery_defense}+(60-70) to maximum Energy Shield
 {tags:attack,mana,physical}0.2% of Attack Damage Leeched as Mana per Power Charge
-{variant:1}{tags:jewellery_defense}Chill Effect and Freeze duration on you is based on 65% of Energy Shield
-{variant:2}{tags:jewellery_defense}Chill Effect and Freeze duration on you is based on 100% of Energy Shield
 ]],[[
 Bated Breath
 Chain Belt
@@ -70,8 +70,8 @@ Variant: Current
 Requires Level 22
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
-10% increased Damage
 {tags:jewellery_attribute}+(15-25) to Intelligence
+10% increased Damage
 {tags:jewellery_defense}+(20-30) to maximum Energy Shield
 {variant:2}{tags:jewellery_defense}20% increased maximum Energy Shield
 {tags:jewellery_defense}50% increased Energy Shield Recharge Rate
