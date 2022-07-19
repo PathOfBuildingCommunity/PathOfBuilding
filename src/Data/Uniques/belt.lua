@@ -556,8 +556,8 @@ Implicits: 1
 {variant:1}(8-12)% increased Quantity of Items found
 {variant:2}(6-8)% increased Quantity of Items found
 {tags:jewellery_resistance}+20% to Fire Resistance
-20% increased Flask effect duration
-{tags:physical}−2 Physical Damage taken from Attacks
+20% increased Flask Effect Duration
+{tags:physical}−2 Physical Damage taken from Attack Hits
 ]],[[
 Perseverance
 Vanguard Belt
@@ -569,9 +569,9 @@ Implicits: 1
 {tags:life}(4-8)% increased maximum Life
 {tags:jewellery_resistance}+(20-40)% to Cold Resistance
 {tags:attack}1% increased Attack Damage per 200 of the lowest of Armour and Evasion Rating
-{variant:1}{tags:attack}14-20% chance to gain Fortify when you Stun an Enemy with Melee Damage
+{variant:1}{tags:attack}Melee Hits which Stun have (14-20)% chance to Fortify
 {variant:2}{tags:attack}Melee Hits which Stun Fortify
-You have Onslaught while you have Fortify
+You have Onslaught while Fortified
 ]],[[
 Prismweave
 Rustic Sash
@@ -579,8 +579,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 25
 Implicits: 1
-{tags:physical}(12-24)% increased Physical Damage
-10% increased Elemental Damage with Attack Skills
+{tags:physical}(12-24)% increased Global Physical Damage
 {variant:1}{tags:jewellery_elemental,attack}Adds (3-4) to (7-8) Fire Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack}Adds (7-8) to (15-16) Fire Damage to Attacks
 {variant:1}{tags:jewellery_elemental,attack}Adds (2-3) to (5-7) Cold Damage to Attacks
@@ -589,6 +588,7 @@ Implicits: 1
 {variant:2}{tags:jewellery_elemental,attack}Adds 1 to (30-34) Lightning Damage to Attacks
 {tags:jewellery_resistance}+(6-8)% to all Elemental Resistances
 {tags:jewellery_elemental,attack}30% increased Elemental Damage with Attack Skills during any Flask Effect
+10% increased Elemental Damage with Attack Skills
 ]],[[
 Replica Prismweave
 Rustic Sash
