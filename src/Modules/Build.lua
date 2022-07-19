@@ -633,6 +633,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.legacyLoaders = { -- Special loaders for legacy sections
 		["Spec"] = self.treeTab,
 	}
+	
+	--special rebuild to properly initialise boss placeholders
+	self.configTab:BuildModList()
 
 	-- Initialise class dropdown
 	for classId, class in pairs(self.latestTree.classes) do
