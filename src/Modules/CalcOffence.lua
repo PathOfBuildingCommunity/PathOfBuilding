@@ -909,7 +909,7 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.TrapCooldown = {
 					s_format("%.2fs ^8(base)", skillData.trapCooldown or skillData.cooldown or 4),
 					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
-					s_format("rounded up to nearest server tick"),
+					"rounded up to nearest server tick",
 					s_format("= %.3fs", output.TrapCooldown)
 				}
 			end
@@ -927,7 +927,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.Cooldown = {
 				s_format("%.2fs ^8(base)", skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")),
 				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
-				s_format("rounded up to nearest server tick"),
+				"rounded up to nearest server tick",
 				s_format("= %.3fs", output.Cooldown)
 			}
 		end
@@ -1153,7 +1153,7 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.AuraDuration = {
 					s_format("%.2fs ^8(base)", durationBase),
 					s_format("x %.4f ^8(duration modifier)", durationMod),
-					s_format("rounded up to nearest server tick"),
+					"rounded up to nearest server tick",
 					s_format("= %.3fs", output.AuraDuration),
 				}
 			end
@@ -1167,7 +1167,7 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.ReserveDuration = {
 					s_format("%.2fs ^8(base)", durationBase),
 					s_format("x %.4f ^8(duration modifier)", durationMod),
-					s_format("rounded up to nearest server tick"),
+					"rounded up to nearest server tick",
 					s_format("= %.3fs", output.ReserveDuration),
 				}
 			end
@@ -1554,9 +1554,27 @@ function calcs.offence(env, actor, activeSkill)
 			output.Speed = skillData.triggerRate
 			skillData.showAverage = false
 		elseif skillData.triggeredByBrand and skillData.triggered then
-			output.Time = 1 / (1 + skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency") / 100) / skillModList:More(cfg, "BrandActivationFrequency") * (skillModList:Sum("BASE", cfg, "ArcanistSpellsLinked") or 1)
+			local activationFreqInc = skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency")
+			local activationFreqMore = skillModList:More(cfg, "BrandActivationFrequency")
+			local linkedSpellsCount = skillModList:Sum("BASE", cfg, "ArcanistSpellsLinked") or 1
+			
+			output.Time = activationFreqMore * linkedSpellsCount * 100 / (100 + activationFreqInc)
 			output.TriggerTime = output.Time
 			output.Speed = 1 / output.Time
+			
+			if breakdown then
+				breakdown.Speed = {
+					"1.00 ^8(base activation frequency)",
+					s_format("* %.2f ^8(more activation frequency)", activationFreqMore),
+					s_format("* %d ^8(number of linked spells)", linkedSpellsCount),
+					s_format("* %.2f ^8(increased activation frequency)", 100/(100 + activationFreqInc)),
+					s_format("= %.2f ^8(trigger cooldown)", output.Time),
+					"",
+					s_format("1 / %.2f ", output.Time),
+					s_format("= %.2f ^8casts per second", output.Speed),
+				}
+			end
+			
 		else
 			local baseTime
 			if isAttack then
@@ -1770,7 +1788,7 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.IntimidatingAvgDmg = 2 * (1 - ddChance / 100) -- 1
 						if globalBreakdown then
 							globalBreakdown.IntimidatingAvgDmg = {
-								s_format("Average Intimidating Cry Damage:"),
+								"Average Intimidating Cry Damage:",
 								s_format("%.2f%% ^8(base double damage increase to hit 100%%)", (1 - ddChance / 100) * 100 ),
 								s_format("x %d ^8(double damage multiplier)", 2),
 								s_format("= %.2f", globalOutput.IntimidatingAvgDmg),
@@ -1818,7 +1836,7 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.RallyingAvgDmg = m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5) * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100)
 						if globalBreakdown then
 							globalBreakdown.RallyingAvgDmg = {
-								s_format("Average Rallying Cry Damage:"),
+								"Average Rallying Cry Damage:",
 								s_format("%.2f ^8(average damage multiplier per ally)", env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100),
 								s_format("x %d ^8(number of nearby allies (max=5))", m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5)),
 								s_format("= %.2f", globalOutput.RallyingAvgDmg),
@@ -2870,7 +2888,7 @@ function calcs.offence(env, actor, activeSkill)
 			if globalBreakdown then
 				globalBreakdown.BleedStackPotential = {
 					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
-					s_format(""),
+					"",
 					s_format("%.2f ^8(chance to hit)", output.HitChance / 100),
 					s_format("* (%.2f / %.2f) ^8(BleedDuration / Attack Time)", globalOutput.BleedDuration, output.Time),
 					s_format("/ %d ^8(max number of stacks)", maxStacks),
@@ -2899,8 +2917,8 @@ function calcs.offence(env, actor, activeSkill)
 				if sourceHitDmg == sourceCritDmg then
 					globalBreakdown.BleedDPS = {
 						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
-						s_format(""),
-						s_format("Dmg Derivation:"),
+						"",
+						"Dmg Derivation:",
 						s_format("(%.2f + (%.2f - %.2f) ^8(min source physical + (max source physical - min source physical)", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin),
 						s_format("/ 2^(1 / (%.2f + 1))) ^8(/ 2^(1 / (stack potential + 1)))", bleedStacks),
 						s_format("* %.2f ^8(Bleed DoT Multi)", output.BleedDotMulti),
@@ -2909,14 +2927,14 @@ function calcs.offence(env, actor, activeSkill)
 				else
 					globalBreakdown.BleedDPS = {
 						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
-						s_format(""),
-						s_format("Non-Crit Dmg Derivation:"),
+						"",
+						"Non-Crit Dmg Derivation:",
 						s_format("(%.2f + (%.2f - %.2f) ^8(min source physical + (max source physical - min source physical)", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin),
 						s_format("/ 2^(1 / (%.2f + 1))) ^8(/ 2^(1 / (stack potential + 1)))", bleedStacks),
 						s_format("* %.2f ^8(Bleed DoT Multi for Non-Crit)", output.BleedDotMulti),
 						s_format("= %.2f", sourceHitDmg),
-						s_format(""),
-						s_format("Crit Dmg Derivation:"),
+						"",
+						"Crit Dmg Derivation:",
 						s_format("(%.2f + (%.2f - %.2f) ^8(min source physical + (max source physical - min source physical)", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin),
 						s_format("/ 2^(1 / (%.2f + 1))) ^8(/ 2^(1 / (stack potential + 1)))", bleedStacks),
 						s_format("* %.2f ^8(Bleed DoT Multi for Crit)", output.CritBleedDotMulti),
@@ -3221,7 +3239,7 @@ function calcs.offence(env, actor, activeSkill)
 			if globalBreakdown then
 				globalBreakdown.IgniteStackPotential = {
 					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
-					s_format(""),
+					"",
 					s_format("(%.2f / %.2f) ^8(IgniteDuration / Cast Time)", globalOutput.IgniteDuration, output.Time),
 					s_format("/ %d ^8(max number of stacks)", maxStacks),
 					s_format("= %.2f", globalOutput.IgniteStackPotential),
@@ -3284,8 +3302,8 @@ function calcs.offence(env, actor, activeSkill)
 				if sourceHitDmg == sourceCritDmg then
 					globalBreakdown.IgniteDPS = {
 						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
-						s_format(""),
-						s_format("Dmg Derivation:"),
+						"",
+						"Dmg Derivation:",
 						s_format("(%.2f + (%.2f - %.2f) ^8(min combined sources + (max combined sources - min combined sources)", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin),
 						s_format("/ 2^(1 / (%.2f + 1))) ^8(/ 2^(1 / (stack potential + 1)))", igniteStacks),
 						s_format("* %.2f ^8(Ignite DoT Multi)", output.IgniteDotMulti),
@@ -3294,14 +3312,14 @@ function calcs.offence(env, actor, activeSkill)
 				else
 					globalBreakdown.IgniteDPS = {
 						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
-						s_format(""),
-						s_format("Non-Crit Dmg Derivation:"),
+						"",
+						"Non-Crit Dmg Derivation:",
 						s_format("(%.2f + (%.2f - %.2f) ^8(min combined sources + (max combined sources - min combined sources)", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin),
 						s_format("/ 2^(1 / (%.2f + 1))) ^8(/ 2^(1 / (stack potential + 1)))", igniteStacks),
 						s_format("* %.2f ^8(Ignite DoT Multi for Non-Crit)", output.IgniteDotMulti),
 						s_format("= %.2f", sourceHitDmg),
-						s_format(""),
-						s_format("Crit Dmg Derivation:"),
+						"",
+						"Crit Dmg Derivation:",
 						s_format("(%.2f + (%.2f - %.2f) ^8(min combined sources + (max combined sources - min combined sources)", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin),
 						s_format("/ 2^(1 / (%.2f + 1))) ^8(/ 2^(1 / (stack potential + 1)))", igniteStacks),
 						s_format("* %.2f ^8(Ignite DoT Multi for Crit)", output.CritIgniteDotMulti),
