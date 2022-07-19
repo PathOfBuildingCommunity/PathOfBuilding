@@ -108,7 +108,7 @@ Requires Level 20
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {variant:1}10% reduced Chance to Block Attacks and Spells
-{tags:physical}(15-25)% increased Physical Damage
+{tags:physical}(15-25)% increased Global Physical Damage
 {tags:critical}You take 30% reduced Extra Damage from Critical Strikes
 {tags:life}+(30-40) to maximum Life
 {variant:1}{tags:jewellery_resistance}+(6-10)% to all Elemental Resistances
@@ -122,8 +122,8 @@ Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 5% increased Quantity of Items found
 {tags:jewellery_resistance}+(20-40)% to Cold Resistance
-Rampage
 1% increased Rarity of Items found per 15 Rampage Kills
+Rampage
 ]],[[
 Chains of Emancipation
 Chain Belt
@@ -149,9 +149,9 @@ Implicits: 1
 {variant:1}(20-25)% increased Damage
 {variant:1}{tags:jewellery_attribute}+(10-15) to all Attributes
 {variant:2}{tags:jewellery_attribute}+(15-20) to all Attributes
-{variant:2}{tags:life}You count as on Full Life while you are Cursed with Vulnerability
 {tags:speed}(5-10)% increased Movement Speed
 Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
+{variant:2}{tags:life}You count as on Full Life while you are Cursed with Vulnerability
 {tags:caster}You are cursed with Vulnerability, with 40% increased Effect
 ]],[[
 Coward's Legacy
