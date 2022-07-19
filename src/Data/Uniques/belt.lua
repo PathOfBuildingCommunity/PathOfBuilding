@@ -621,14 +621,14 @@ League: Talisman Standard, Talisman Hardcore
 Source: Vendor recipe
 Requires Level 44
 Implicits: 1
-{tags:physical}(12-24)% increased Physical Damage
+{tags:physical}(12-24)% increased Global Physical Damage
 {tags:life}+(60-80) to maximum Life
 {tags:jewellery_resistance}+(25-40)% to Cold Resistance
 {tags:attack,life,physical}0.4% of Physical Attack Damage Leeched as Life
 60% increased Flask Effect Duration
-30% reduced Flask Charges gained while using a Flask
+30% reduced Flask Charges gained during any Flask Effect
 {tags:chaos,life}200% of Life Leech applies to enemies as Chaos Damage
-{tags:speed}15% increased Movement Speed while using a Flask
+{tags:speed}15% increased Movement Speed during any Flask Effect
 ]],[[
 Ryslatha's Coil
 Studded Belt
@@ -637,14 +637,14 @@ Variant: Current
 Requires Level 20
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{variant:2}{tags:life}+(80-100) to maximum Life
 {tags:jewellery_attribute}+(20-40) to Strength
-{tags:attack,physical}Adds 1 to (15-20) Physical Damage to Attacks
-{tags:life}Gain 50 Life when you Stun an Enemy
 {variant:1}{tags:attack,physical}20% less Minimum Physical Attack Damage
 {variant:2}{tags:attack,physical}(30-40)% less Minimum Physical Attack Damage
 {variant:1}{tags:attack,physical}20% more Maximum Physical Attack Damage
 {variant:2}{tags:attack,physical}(30-40)% more Maximum Physical Attack Damage
+{tags:attack,physical}Adds 1 to (15-20) Physical Damage to Attacks
+{variant:2}{tags:life}+(80-100) to maximum Life
+{tags:life}Gain 50 Life when you Stun an Enemy
 ]],[[
 Siegebreaker
 Heavy Belt
@@ -671,20 +671,12 @@ Your Minions spread Burning Ground on Death, dealing 20% of their maximum Life a
 ]],[[
 Soul Tether
 Cloth Belt
-Variant: Pre 3.11.0
-Variant: Current
 Requires Level 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_attribute}+(20-40) to Intelligence
-{tags:jewellery_defense,life}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
-{variant:1}Your Energy Shield starts at zero
-{variant:1}You cannot Recharge Energy Shield
-{variant:1}You cannot Regenerate Energy Shield
-{variant:1}{tags:jewellery_defense}You lose 5% of Energy Shield per second
-{variant:1}{tags:life}Life Leech effects are not removed at Full Life
-{variant:1}{tags:life}Life Leech is applied to Energy Shield instead while on Full Life
-{variant:2}Immortal Ambition
+{tags:jewellery_defense}Gain (4-6)% of Maximum Life as Extra Maximum Energy Shield
+Immortal Ambition
 ]],[[
 Replica Soul Tether
 Cloth Belt
