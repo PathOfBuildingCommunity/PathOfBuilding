@@ -449,8 +449,8 @@ Variant: Current
 Requires Level 16
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{tags:physical}(25-40)% increased Physical Damage
 {tags:jewellery_attribute}+(40-50) to Strength
+{tags:physical}(25-40)% increased Global Physical Damage
 50% increased Flask Charges gained
 {variant:2}{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
 ]],[[
@@ -460,9 +460,9 @@ Source: Drops from any endgame map boss
 Requires Level 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{tags:physical}(25-40)% increased Global Physical Damage
 {tags:jewellery_attribute}+(40-50) to Strength
 {tags:jewellery_attribute}+(40-50) to Dexterity
+{tags:physical}(25-40)% increased Global Physical Damage
 50% increased Flask Charges gained
 {tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
 {tags:attack}(40-50)% increased Projectile Attack Damage while you have at least 200 Dexterity
@@ -473,9 +473,9 @@ Source: Drops from any endgame map boss
 Requires Level 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{tags:physical}(25-40)% increased Global Physical Damage
 {tags:jewellery_attribute}+(40-50) to Strength
 {tags:jewellery_attribute}+(40-50) to Intelligence
+{tags:physical}(25-40)% increased Global Physical Damage
 50% increased Flask Charges gained
 {tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
 {tags:critical}(50-60)% increased Critical Strike Chance while you have at least 200 Intelligence
