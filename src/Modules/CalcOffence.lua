@@ -389,7 +389,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("initialFunc")
 
-	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack or skillData.triggeredByDamageTaken or skillData.triggeredByStuned or skillData.triggeredMarkOnRareOrUnique
+	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack or skillData.triggeredByDamageTaken or skillData.triggeredByStuned or skillData.triggeredMarkOnRareOrUnique or skillData.triggeredBySpellSlinger or skillData.triggerCounterAttack
 	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or isTriggered
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
@@ -1554,20 +1554,20 @@ function calcs.offence(env, actor, activeSkill)
 			output.Speed = skillData.triggerRate
 			skillData.showAverage = false
 		elseif skillData.triggeredByBrand and skillData.triggered then
-			local activationFreqInc = skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency")
+			local activationFreqInc = 100 / (100 + skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency"))
 			local activationFreqMore = skillModList:More(cfg, "BrandActivationFrequency")
 			local linkedSpellsCount = skillModList:Sum("BASE", cfg, "ArcanistSpellsLinked") or 1
 			
-			output.Time = activationFreqMore * linkedSpellsCount * 100 / (100 + activationFreqInc)
+			output.Time = activationFreqMore * linkedSpellsCount * activationFreqInc
 			output.TriggerTime = output.Time
 			output.Speed = 1 / output.Time
 			
 			if breakdown then
 				breakdown.Speed = {
-					"1.00 ^8(base activation frequency)",
+					"1.00 ^8(base activation cooldown)",
 					s_format("* %.2f ^8(more activation frequency)", activationFreqMore),
 					s_format("* %d ^8(number of linked spells)", linkedSpellsCount),
-					s_format("* %.2f ^8(increased activation frequency)", 100/(100 + activationFreqInc)),
+					s_format("* %.2f ^8(increased activation frequency)", activationFreqInc),
 					s_format("= %.2f ^8(trigger cooldown)", output.Time),
 					"",
 					s_format("1 / %.2f ", output.Time),

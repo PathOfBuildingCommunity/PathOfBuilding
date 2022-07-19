@@ -109,7 +109,7 @@ local function getTriggerActionTriggerRate(env, breakdown, focus, minion)
 			end
 		else
 			if triggeredCD then
-				-- minion skills should always have some kind of cooldown on their skills
+				-- minion skills should always have some kind of cooldown
 				if minion then
 					breakdown.ActionTriggerRate = {
 						s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
@@ -2899,6 +2899,7 @@ function calcs.perform(env, avoidCache)
 	-- Cast On Critical Strike Support (CoC)
 	if env.player.mainSkill.skillData.triggeredByCoC and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
 		local spellCount = {}
+		local triggerName = "CoC"
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
@@ -2942,13 +2943,14 @@ function calcs.perform(env, avoidCache)
 			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
 			env.player.mainSkill.skillData.triggerRate = trigRate
 			env.player.mainSkill.skillData.triggerSource = source
-			env.player.mainSkill.infoMessage = "CoC Triggering Skill: " .. source.activeEffect.grantedEffect.name
-			env.player.mainSkill.infoTrigger = "CoC"
+			env.player.mainSkill.infoMessage = triggerName .. " Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = triggerName
 		end
 	end
 
 	-- Cast On Melee Kill Support (CoMK)
 	if env.player.mainSkill.skillData.triggeredByMeleeKill and not env.player.mainSkill.skillFlags.minion and modDB:Flag(nil, "Condition:KilledRecently") and not env.player.mainSkill.skillFlags.disable then
+		local triggerName = "CoMK"
 		local spellCount = {}
 		local trigRate = 0
 		local source = nil
@@ -2974,17 +2976,25 @@ function calcs.perform(env, avoidCache)
 			-- Get action trigger rate
 			trigRate = calcActualTriggerRate(env, source, trigRate, spellCount, output, breakdown)
 			
+			if breakdown then
+				breakdown.Speed = {
+					"Assuming every attack kills",
+					s_format("%.2f ^8casts per second", trigRate),
+				}
+			end
+			
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
 			env.player.mainSkill.skillData.triggerRate = trigRate
 			env.player.mainSkill.skillData.triggerSource = source
-			env.player.mainSkill.infoMessage = "CoMK Triggering Skill: " .. source.activeEffect.grantedEffect.name
-			env.player.mainSkill.infoTrigger = "CoMK"
+			env.player.mainSkill.infoMessage = triggerName .. " Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = triggerName
 		end
 	end
 
 	-- Cast While Channelling
 	if env.player.mainSkill.skillData.triggeredWhileChannelling and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
+		local triggerName = "CwC"
 		local spellCount = {}
 		local trigRate = 0
 		local source = nil
@@ -3014,8 +3024,8 @@ function calcs.perform(env, avoidCache)
 			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
 			env.player.mainSkill.skillData.triggerRate = trigRate
 			env.player.mainSkill.skillData.triggerSource = source
-			env.player.mainSkill.infoMessage = "CwC Triggering Skill: " .. source.activeEffect.grantedEffect.name
-			env.player.mainSkill.infoTrigger = "CwC"
+			env.player.mainSkill.infoMessage = triggerName .. " Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = triggerName
 
 			env.player.mainSkill.skillFlags.dontDisplay = true
 		end
@@ -3024,6 +3034,7 @@ function calcs.perform(env, avoidCache)
 	-- Cast when Damage Taken Support
 	-- Global effect. No source needed
 	if env.player.mainSkill.skillData.triggeredByDamageTaken and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
+		local triggerName = "CWDT"
 		local spellCount = {}
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
@@ -3039,8 +3050,8 @@ function calcs.perform(env, avoidCache)
 		-- Account for Trigger-related INC/MORE modifiers
 		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
 		env.player.mainSkill.skillData.triggerRate = trigRate
-		env.player.mainSkill.infoMessage = "Assuming CWDT perfect retrigger"
-		env.player.mainSkill.infoTrigger = "CWDT"
+		env.player.mainSkill.infoMessage = "Assuming " .. triggerName .. " perfect retrigger"
+		env.player.mainSkill.infoTrigger = triggerName
 
 		env.player.mainSkill.skillFlags.dontDisplay = true
 	end
@@ -3048,6 +3059,7 @@ function calcs.perform(env, avoidCache)
 	-- Cast when Stunned Support
 	-- Global effect. No source needed
 	if env.player.mainSkill.skillData.triggeredByStuned and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
+		local triggerName = "CWSS"
 		local spellCount = {}
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
@@ -3075,8 +3087,8 @@ function calcs.perform(env, avoidCache)
 		-- Account for Trigger-related INC/MORE modifiers
 		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
 		env.player.mainSkill.skillData.triggerRate = trigRate
-		env.player.mainSkill.infoMessage = "Assuming CWSS perfect retrigger"
-		env.player.mainSkill.infoTrigger = "CWSS"
+		env.player.mainSkill.infoMessage = "Assuming " .. triggerName .. " perfect retrigger"
+		env.player.mainSkill.infoTrigger = triggerName
 
 		env.player.mainSkill.skillFlags.dontDisplay = true
 	end
