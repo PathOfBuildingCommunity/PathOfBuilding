@@ -498,7 +498,7 @@ Requires Level 44
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:jewellery_elemental,attack}Adds 1 to (30-50) Lightning Damage to Attacks
-100% increased Shock Duration on You
+100% increased Shock Duration on you
 Shocks you cause are reflected back to you
 60% increased Damage while Shocked
 {tags:speed}15% increased Movement Speed while Shocked
@@ -510,9 +510,9 @@ Variant: Current
 Requires Level 8
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
+{tags:jewellery_attribute}+25 to Strength
 {variant:1}{tags:attack,physical}Adds 10 to 20 Physical Damage to Attacks
 {variant:2}{tags:attack,physical}Adds 5 to 15 Physical Damage to Attacks
-{tags:jewellery_attribute}+25 to Strength
 {tags:life}10% increased maximum Life
 {tags:jewellery_resistance}+(10-20)% to Cold Resistance
 {tags:life}25% increased Flask Life Recovery rate
@@ -540,10 +540,10 @@ Implicits: 1
 {tags:jewellery_defense}+(600-700) to Evasion Rating
 {tags:jewellery_resistance}+(40-60)% to Cold Resistance
 {tags:speed}(8-12)% increased Movement Speed
+{variant:2}+1 to Maximum Frenzy Charges
 Modifiers to Minimum Frenzy Charges instead apply to Minimum Affliction Charges
 Maximum Affliction Charges is equal to Maximum Frenzy Charges
 Gain Affliction Charges instead of Frenzy Charges
-{variant:2}+1 to Maximum Frenzy Charges
 ]],[[
 Perandus Blazon
 Cloth Belt
