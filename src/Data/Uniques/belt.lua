@@ -370,8 +370,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(40-55) to Dexterity
 {tags:life}+(50-60) to maximum Life
 (20-30)% increased Damage with Hits against Magic monsters
-20% chance when you Kill a Magic Monster to gain
-its Non-Bloodline Modifiers for 20 seconds
+20% chance when you Kill a Magic Monster to gain its Modifiers for 60 seconds
 ]],[[
 Hyperboreus
 Leather Belt
@@ -401,7 +400,7 @@ Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:jewellery_resistance}+(30-40)% to Cold Resistance
 Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
-{variant:1,2,3,4,5,6,7,8,9,10}Focus has (15-25)% increased Cooldown Recovery Speed
+{variant:1,2,3,4,5,6,7,8,9,10}Focus has (15-25)% increased Cooldown Recovery Rate
 {variant:11,12,13,14,15,16,17,18,19,20}Focus has (30-50)% increased Cooldown Recovery Rate
 (50-70)% increased Damage with Hits and Ailments against Chilled Enemies
 {variant:1,11}{crafted}{tags:life}(1.0-2.0)% of Life Regenerated per second during any Flask Effect
@@ -424,8 +423,8 @@ Requires Level 50
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:life}+(75-100) to maximum Life
-{tags:life}(67-75) Life Regenerated per second
-{tags:mana}(8-10) Mana Regenerated per second
+{tags:life}Regenerate (67-75) Life per second
+{tags:mana}Regenerate (8-10) Mana per second
 {variant:1}−40% to all Elemental Resistances
 {variant:3}−(15-25)% to all Elemental Resistances
 {variant:1}−10% to all maximum Resistances
