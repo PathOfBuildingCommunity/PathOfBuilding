@@ -3176,6 +3176,54 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoTrigger = triggerName
 		end
 	end
+	
+	-- Handle Counter Attack Skills (Tempest Shield, Reckoning, Vengeance, Riposte)
+	-- interal trigger
+	if env.player.mainSkill.skillData.triggerCounterAttack and (modDB:Flag(nil, "Condition:BlockedRecently") or modDB:Flag(nil, "BeenHitRecently")) and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
+		env.player.mainSkill.skillData.triggered = true
+		local triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
+		local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+		local triggerCD = env.player.mainSkill.skillData.cooldown 
+		local modActionCooldown = triggerCD / icdr
+		local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+		local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
+		local triggerRate = 1 / rateCapAdjusted
+		
+		--Chance to trigger
+		local adjTrigRate = triggerRate * env.player.mainSkill.skillData.triggerCounterAttack / 100
+		
+		output.ServerTriggerRate = adjTrigRate
+		output.SourceTriggerRate = triggerRate
+		
+		if breakdown then
+			breakdown.SourceTriggerRate = {
+				s_format("%.2f ^8(base cooldown of trigger)", triggerCD),
+				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+				s_format("= %.2f ^8(final cooldown of trigger)", modActionCooldown / icdr),
+				s_format(""),
+				s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+				s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
+				s_format(""),
+				s_format("Trigger rate:"),
+				s_format("1 / %.3f", rateCapAdjusted),
+				s_format("= %.2f ^8per second", triggerRate),
+			}
+			breakdown.ServerTriggerRate = {
+				s_format("Attack/Cast speed based on trigger cooldown"),
+				s_format("%.2f ^8(counter attack rate)", triggerRate),
+				s_format("x %.2f%% ^8(chance to trigger counterattack)", env.player.mainSkill.skillData.triggerCounterAttack), 
+				s_format("= %.2f ^8per second", adjTrigRate),
+			}
+		end
+		
+		-- Account for Trigger-related INC/MORE modifiers
+		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+		env.player.mainSkill.skillData.triggerRate = adjTrigRate
+		env.player.mainSkill.infoMessage = "Assuming " .. triggerName .. " perfect retrigger"
+		env.player.mainSkill.infoTrigger = triggerName
+
+		env.player.mainSkill.skillFlags.dontDisplay = true
+	end
 
 	-- Triggered by parent attack
 	if env.minion and env.player.mainSkill.minion then

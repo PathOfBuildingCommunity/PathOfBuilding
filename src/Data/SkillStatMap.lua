@@ -220,6 +220,12 @@ return {
 ["trigger_on_attack_hit_against_rare_or_unique"] = {
 	skill("triggerMarkOnRareOrUnique", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Mark }, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
 },
+["melee_counterattack_trigger_on_block_%"] = {
+	skill("triggerCounterAttack", nil, { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "Condition", var = "BlockedRecently" }),
+},
+["melee_counterattack_trigger_on_hit_%"] = {
+	skill("triggerCounterAttack", nil, { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "Condition", var = "BeenHitRecently" }),
+},
 ["spellslinger_trigger_on_wand_attack_%"] = {
 	skill("triggeredBySpellSlinger", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },

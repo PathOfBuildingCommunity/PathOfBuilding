@@ -9028,6 +9028,8 @@ skills["SupportSpellslinger"] = {
 		["support_spellslinger_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
 		},
+		["spellslinger_trigger_on_wand_attack_%"] = {
+		},
 	},
 	baseMods = {
 		flag("Condition:SupportedBySpellslinger"),
@@ -10977,6 +10979,7 @@ skills["TempestShield"] = {
 	},
 	baseMods = {
 		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }, { type = "Condition", var = "BlockedRecently" }),
 	},
 	qualityStats = {
 		Default = {

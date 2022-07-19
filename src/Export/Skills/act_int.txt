@@ -2149,6 +2149,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }, { type = "Condition", var = "BlockedRecently" })
 #mods
 
 #skill VoltaxicBurst
