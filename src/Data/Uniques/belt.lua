@@ -696,9 +696,9 @@ Implicits: 1
 {tags:life}+(60-80) to maximum Life
 {tags:jewellery_resistance}+15% to all Elemental Resistances
 {tags:mana}(20-30)% increased Mana Recovery from Flasks
-(20-30)% reduced Flask effect duration
-Gain Soul Eater during Flask Effect
-Lose Souls gained from Soul Eater on Flask Use
+(20-30)% reduced Flask Effect Duration
+Gain Soul Eater during any Flask Effect
+Lose Souls gained from Soul Eater when you use a Flask
 ]],[[
 String of Servitude
 Heavy Belt
@@ -763,7 +763,6 @@ Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 80% reduced Trap Duration
 25% increased Light Radius
-Traps trigger at the end of their Duration
 ]],[[
 Survivor's Guilt
 Heavy Belt
@@ -784,8 +783,8 @@ Requires Level 30
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:life}(8-12)% increased maximum Life
-{tags:life}2% of Life Regenerated per second
-Flasks do not apply to You
+{tags:life}Regenerate 2% of Life per second
+Flasks do not apply to you
 Flasks apply to your Raised Zombies and Spectres
 ]],[[
 Wurm's Molt
