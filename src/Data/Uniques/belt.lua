@@ -223,13 +223,13 @@ Implicits: 1
 {variant:7}{tags:life,jewellery_elemental}0.6% of Cold Damage Leeched as Life
 {variant:4}{tags:life,jewellery_elemental}0.2% of Lightning Damage Leeched as Life
 {variant:8}{tags:life,jewellery_elemental}0.6% of Lightning Damage Leeched as Life
-{variant:1,5}Your Flasks grant 25% reduced Enemy Stun Threshold during any Flask Effect
-{variant:2}Your Flasks grant 10% chance to Ignite during any Flask Effect
-{variant:6}Your Flasks grant (20-30)% chance to Ignite during any Flask Effect
-{variant:3}Your Flasks grant 10% chance to Freeze during any Flask Effect
-{variant:7}Your Flasks grant (20-30)% chance to Freeze during any Flask Effect
-{variant:4}Your Flasks grant 10% chance to Shock during any Flask Effect
-{variant:8}Your Flasks grant (20-30)% chance to Shock during any Flask Effect
+{variant:1,5}25% reduced Enemy Stun Threshold during any Flask Effect
+{variant:2}10% chance to Ignite during any Flask Effect
+{variant:6}(20-30)% chance to Ignite during any Flask Effect
+{variant:3}10% chance to Freeze during any Flask Effect
+{variant:7}(20-30)% chance to Freeze during any Flask Effect
+{variant:4}10% chance to Shock during any Flask Effect
+{variant:8}(20-30)% chance to Shock during any Flask Effect
 ]],[[
 The Druggery
 Cloth Belt
@@ -267,10 +267,10 @@ Requires Level 18
 Implicits: 1
 {tags:physical}(12-24)% increased Physical Damage
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
-60% increased Flask effect duration
-Deals 50 Chaos Damage per second to nearby Enemies
 20% increased Projectile Damage
-30% reduced Flask Charges gained while using a Flask
+30% reduced Flask Charges gained
+60% increased Flask Effect Duration
+Deals 50 Chaos Damage per second to nearby Enemies
 ]],[[
 Feastbind
 Rustic Sash
@@ -281,8 +281,8 @@ Implicits: 1
 {tags:attack,physical}Adds 5 to 10 Physical Damage to Attacks
 {tags:life}+(20-40) to maximum Life
 {tags:attack,life,physical}0.2% of Physical Attack Damage Leeched as Life
-50% increased Flask Charges gained while using a Flask
-{tags:mana}50% increased Mana Regeneration while using a Flask
+50% increased Flask Charges gained during any Flask Effect
+{tags:mana}50% increased Mana Regeneration Rate during any Flask Effect
 ]],[[
 The Flow Untethered
 Cloth Belt
