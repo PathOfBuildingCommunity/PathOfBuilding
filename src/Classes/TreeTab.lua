@@ -932,8 +932,9 @@ function TreeTabClass:FindTimelessJewel()
 	local filterTypes = {
 		"None",
 		"AllocatedNodes",
-		"Distance",
-		"weightPerPoint"
+		"Replacment",
+		"Distance"--,
+		--"weightPerPoint" -- not implemented
 	}
 	controls.socketFilter = new("DropDownControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 200, 18, filterTypes, function(index, value)
 		timelessData.socketFilter = index
@@ -997,8 +998,48 @@ function TreeTabClass:FindTimelessJewel()
 			end
 		end
 	end
+	
+	local generateWeights = function(Nodes, selection)
+		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+		local newList = {}
+		for _, legionNode in ipairs(Nodes) do
+			if legionNode.id then
+				local newNode = nil
+				for i, node in ipairs(legionNodes) do
+					if node.id == legionNode.id then
+						newNode = node
+					end
+				end
+				--ConPrintTable(newNode)
+				local output = calcFunc({ addNodes = { [newNode] = true } })
+				if output.Minion then
+					output = output.Minion
+				end
+				local outputValue = output[selection.stat] or 0
+				if selection.transform then
+					outputValue = selection.transform(outputValue)
+				end
+				t_insert(newList, {
+					id = legionNode.id,
+					weight1 = outputValue,
+					weight2 = 0
+				})
+			end
+		end
+		return newList
+	end
+	
+	controls.generateWeights = new("ButtonControl", nil, 0, 200, 160, 20, "Auto Generate Weights", function()
+		local output = generateWeights(modData, {stat = "CombinedDPS"})
+		local newList = ""
+		for _, legionNode in ipairs(output) do
+			newList = newList .. legionNode.id .. ", " .. legionNode.weight1 .. ", " .. legionNode.weight2 .. "\n"
+		end
+		updateSearchList(newList)
+		self.build.modFlag = true
+	end)
 
-	controls.searchListLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 110, 200, 0, 16, "^7Desired Nodes:")
+	controls.searchListLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 110, 225, 0, 16, "^7Desired Nodes:")
 	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 338, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchList = value
 		parseSearchList(0)
@@ -1006,15 +1047,17 @@ function TreeTabClass:FindTimelessJewel()
 	end, 16, true)
 	controls.searchList:SetText(timelessData.searchList)
 
-	controls.searchResultsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 462, 200, 0, 16, "^7Search Results:")
+	controls.searchResultsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 462, 225, 0, 16, "^7Search Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 338, 200, self.build)
 
-	controls.search = new("ButtonControl", nil, -90, 435, 80, 20, "Search", function()
+	controls.search = new("ButtonControl", nil, -90, 460, 80, 20, "Search", function()
 		if treeData.nodes[timelessData.jewelSocket.id] and treeData.nodes[timelessData.jewelSocket.id].isJewelSocket then
 			local radiusNodes = treeData.nodes[timelessData.jewelSocket.id].nodesInRadius[3] -- large radius around timelessData.jewelSocket.id
 			local allocatedNodes = { }
 			local targetNodes = { }
+			local currentNodeWeights = {}
 			local targetNodesDistance = {}
+			local distanceCutoff = 2
 			local desiredNodes = { }
 			local requiredNodes = { }
 			local resultNodes = { }
@@ -1022,12 +1065,12 @@ function TreeTabClass:FindTimelessJewel()
 			for _, class in pairs(treeData.classes) do
 				rootNodes[class.startNodeId] = true
 			end
-			if controls.socketFilter.selIndex == 2 or controls.socketFilter.selIndex == 4 then
+			if controls.socketFilter.selIndex == 2 or controls.socketFilter.selIndex == 3 or controls.socketFilter.selIndex == 5 then
 				for nodeId in pairs(radiusNodes) do
 					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
 				end
 			end
-			if controls.socketFilter.selIndex == 3 or controls.socketFilter.selIndex == 4 then
+			if controls.socketFilter.selIndex == 4 or controls.socketFilter.selIndex == 5 then
 				for nodeId in pairs(radiusNodes) do
 					targetNodesDistance[nodeId] = 0
 				end
@@ -1038,11 +1081,24 @@ function TreeTabClass:FindTimelessJewel()
 				and not treeData.nodes[nodeId].isKeystone
 				and (treeData.nodes[nodeId].isNotable or timelessData.jewelType.id == 1)
 				and (not (controls.socketFilter.selIndex == 2) or allocatedNodes[nodeId]) 
-				and (not (controls.socketFilter.selIndex == 3) or targetNodesDistance[nodeId] <= 2) then
+				and (not (controls.socketFilter.selIndex == 4) or targetNodesDistance[nodeId] <= distanceCutoff) then
 					targetNodes[nodeId] = true
 				end
 			end
+			if controls.socketFilter.selIndex == 3 then
+				for targetNode in pairs(targetNodes) do
+					currentNodeWeights[targetNode] = 0 --getWeight(targetNode)
+				end
+			else
+				for targetNode in pairs(targetNodes) do
+					currentNodeWeights[targetNode] = 0
+				end
+			end
 			local desiredIdx = 0
+			--[[
+			could have a *addtional filters line that stops doing node weights
+				you can put minimums/distances in there?
+			--]]
 			for inputLine in timelessData.searchList:gmatch("[^\r\n]+") do
 				local desiredNode = { }
 				for splitLine in inputLine:gmatch("([^,%s]+)") do
@@ -1093,7 +1149,8 @@ function TreeTabClass:FindTimelessJewel()
 			local seedMultiplier = timelessData.jewelType.id == 5 and 20 or 1 -- Elegant Hubris
 			for curSeed = data.timelessJewelSeedMin[timelessData.jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[timelessData.jewelType.id] * seedMultiplier, seedMultiplier do
 				seedWeights[curSeed] = 0
-				resultNodes[curSeed] = { }
+				resultNodes[curSeed] = { } 
+				-- small nodes need to also have weights, for nonGV these are fixed values so dont need to loop over like this, just have a number of smalls and multiply weight like that
 				for targetNode in pairs(targetNodes) do
 					local jewelDataTbl = data.readLUT(curSeed, targetNode, timelessData.jewelType.id)
 					if not next(jewelDataTbl) then
@@ -1114,7 +1171,7 @@ function TreeTabClass:FindTimelessJewel()
 								if desiredNodes[curNodeId] then
 									resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
 									local statMod1 = curNode.stats[curNode.sortedStats[1]]
-									local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[statMod1.index + 1]
+									local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[statMod1.index + 1] - currentNodeWeights[targetNode]
 									local statMod2 = curNode.stats[curNode.sortedStats[2]]
 									if statMod2 then
 										weight = weight + desiredNodes[curNodeId].nodeWeight2 * jewelDataTbl[statMod2.index + 1]
@@ -1144,10 +1201,14 @@ function TreeTabClass:FindTimelessJewel()
 							end
 						elseif desiredNodes[curNodeId] then
 							resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
-							resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + desiredNodes[curNodeId].nodeWeight
+							local weight = desiredNodes[curNodeId].nodeWeight
+							if jewelDataTbl[1] >= data.timelessJewelAdditions then
+								weight = weight - currentNodeWeights[targetNode]
+							end
+							resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + weight
 							t_insert(resultNodes[curSeed][curNodeId], targetNode)
 							t_insert(resultNodes[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
-							seedWeights[curSeed] = seedWeights[curSeed] + desiredNodes[curNodeId].nodeWeight
+							seedWeights[curSeed] = seedWeights[curSeed] + weight
 						end
 					end
 				end
@@ -1156,89 +1217,6 @@ function TreeTabClass:FindTimelessJewel()
 					if (resultNodes[curSeed][reqNode] or 0) == 0 then
 						resultNodes[curSeed] = nil
 						break
-					end
-				end
-			end
-			local seedWeights2 = { }
-			local resultNodes2 = {}
-			if controls.socketFilter.selIndex == 4 then
-				targetNodes = {} -- clear
-				for nodeId in pairs(radiusNodes) do
-					if not rootNodes[nodeId]
-					and not treeData.nodes[nodeId].isJewelSocket
-					and not treeData.nodes[nodeId].isKeystone
-					and (treeData.nodes[nodeId].isNotable or timelessData.jewelType.id == 1)
-					and (not allocatedNodes[nodeId]) then
-						targetNodes[nodeId] = true
-					end
-				end
-				--search again but divide weight by targetNodesDistance
-				for curSeed = data.timelessJewelSeedMin[timelessData.jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[timelessData.jewelType.id] * seedMultiplier, seedMultiplier do
-					seedWeights2[curSeed] = 0
-					resultNodes2[curSeed] = { }
-					for targetNode in pairs(targetNodes) do
-						local jewelDataTbl = data.readLUT(curSeed, targetNode, timelessData.jewelType.id)
-						if not next(jewelDataTbl) then
-							ConPrintf("Missing LUT: " .. timelessData.jewelType.label)
-						else
-							local curNode = nil
-							local curNodeId = nil
-							if jewelDataTbl[1] >= 94 then -- replace
-								curNode = legionNodes[jewelDataTbl[1] - 94]
-								curNodeId = curNode and legionNodes[jewelDataTbl[1] - 94].id or nil
-							else -- add
-								curNode = legionAdditions[jewelDataTbl[1]]
-								curNodeId = curNode and legionAdditions[jewelDataTbl[1]].id or nil
-							end
-							if timelessData.jewelType.id == 1 then
-								local headerSize = #jewelDataTbl
-								if headerSize == 2 or headerSize == 3 then
-									if desiredNodes[curNodeId] then
-										resultNodes2[curSeed][curNodeId] = resultNodes2[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
-										local statMod1 = curNode.stats[curNode.sortedStats[1]]
-										local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[statMod1.index + 1] / targetNodesDistance[targetNode]
-										local statMod2 = curNode.stats[curNode.sortedStats[2]]
-										if statMod2 then
-											weight = weight + desiredNodes[curNodeId].nodeWeight2 * jewelDataTbl[statMod2.index + 1] / targetNodesDistance[targetNode]
-										end
-										t_insert(resultNodes2[curSeed][curNodeId], targetNode)
-										t_insert(resultNodes2[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
-										resultNodes2[curSeed][curNodeId].totalWeight = resultNodes2[curSeed][curNodeId].totalWeight + weight
-										seedWeights2[curSeed] = seedWeights2[curSeed] + weight
-									end
-								elseif headerSize == 6 or headerSize == 8 then
-									for i, jewelData in ipairs(jewelDataTbl) do
-										curNode = legionAdditions[jewelDataTbl[i]]
-										curNodeId = curNode and legionAdditions[jewelDataTbl[i]].id or nil
-										if i <= (headerSize / 2) then
-											if desiredNodes[curNodeId] then
-												resultNodes2[curSeed][curNodeId] = resultNodes2[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
-												local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[i + (headerSize / 2)] / targetNodesDistance[targetNode]
-												resultNodes2[curSeed][curNodeId].totalWeight = resultNodes2[curSeed][curNodeId].totalWeight + weight
-												t_insert(resultNodes2[curSeed][curNodeId], targetNode)
-												t_insert(resultNodes2[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
-												seedWeights2[curSeed] = seedWeights2[curSeed] + weight
-											end
-										else
-											break
-										end
-									end
-								end
-							elseif desiredNodes[curNodeId] then
-								resultNodes2[curSeed][curNodeId] = resultNodes2[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
-								resultNodes2[curSeed][curNodeId].totalWeight = resultNodes2[curSeed][curNodeId].totalWeight + desiredNodes[curNodeId].nodeWeight / targetNodesDistance[targetNode]
-								t_insert(resultNodes2[curSeed][curNodeId], targetNode)
-								t_insert(resultNodes2[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
-								seedWeights2[curSeed] = seedWeights2[curSeed] + desiredNodes[curNodeId].nodeWeight / targetNodesDistance[targetNode]
-							end
-						end
-					end
-					-- check required nodes
-					for _, reqNode in ipairs(requiredNodes) do
-						if (not resultNodes[curSeed]) and ((resultNodes2[curSeed][reqNode] or 0) == 0) then
-							resultNodes2[curSeed] = nil
-							break
-						end
 					end
 				end
 			end
@@ -1285,12 +1263,12 @@ function TreeTabClass:FindTimelessJewel()
 			t_sort(timelessData.searchResults, function(a, b) return a.total > b.total end)
 		end
 	end)
-	controls.reset = new("ButtonControl", nil, 0, 435, 80, 20, "Reset", function()
+	controls.reset = new("ButtonControl", nil, 0, 460, 80, 20, "Reset", function()
 		updateSearchList("")
 		wipeTable(timelessData.searchResults)
 	end)
-	controls.close = new("ButtonControl", nil, 90, 435, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, 90, 460, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(710, 467, "Find a Timeless Jewel", controls, "search")
+	main:OpenPopup(710, 492, "Find a Timeless Jewel", controls, "search")
 end
