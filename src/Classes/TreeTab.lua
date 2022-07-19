@@ -1003,62 +1003,108 @@ function TreeTabClass:FindTimelessJewel()
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 		local newList = {}
 		local baseOutput = calcFunc({})
+		if baseOutput.Minion then
+			baseOutput = baseOutput.Minion
+		end
 		local baseValue = baseOutput[selection.stat] or 0
 		if selection.transform then
 			baseValue = selection.transform(baseValue)
 		end
-		for _, legionNode in ipairs(Nodes) do
+		for _, newNode in ipairs(Nodes) do
+			local output = calcFunc({ addNodes = { [newNode] = true } })
+			if output.Minion then
+				output = output.Minion
+			end
+			local outputValue = output[selection.stat] or 0
+			if selection.transform then
+				outputValue = selection.transform(outputValue)
+			end
+			t_insert(newList, {
+				id = newNode.id,
+				weight1 = outputValue - baseValue,
+				weight2 = 0
+			})
+		end
+		return newList
+	end
+	
+	controls.generateWeights = new("ButtonControl", nil, -90, 200, 160, 20, "Auto Generate Weights", function()
+		local nodes = {}
+		for _, legionNode in ipairs(modData) do
 			if legionNode.id then
 				local newNode = nil
 				for _, node in ipairs(legionNodes) do
 					if node.id == legionNode.id then
-						newNode = node
+							newNode = {}
+							newNode.id = node.id
+							--newNode.dn = node.dn
+							--newNode.sd = node.sd
+							--newNode.stats = node.stats
+							--newNode.modKey = node.modKey
+							newNode.modList = node.modList
+							if legionNode.type == "vaal" then
+								--add mods to modList
+								
+								--make a second node for stats with 2 nodes and remeber to combine them later for 2 weights
+							end
+							--newNode.mods = node.mods
+							--ConPrintTable(newNode)
 						break
 					end
 				end
 				if not newNode then
 					for _, legionAddition in ipairs(legionAdditions) do
 						if legionAddition.id == legionNode.id then
-							--newNode = legionAddition
+							newNode = {}
+							newNode.id = legionAddition.id
+							--newNode.dn = legionAddition.dn
+							--newNode.sd = legionAddition.sd
+							--newNode.stats = legionAddition.stats
+							
+							--ConPrintTable(legionAddition.modList) -- this is missing?
+							
+							-- generate modList
 							break
 						end
 					end
 				end
 				if newNode then
-					--ConPrintTable(newNode)
-					local output = calcFunc({ addNodes = { [newNode] = true } })
-					if output.Minion then
-						output = output.Minion
-					end
-					local outputValue = output[selection.stat] or 0
-					if selection.transform then
-						outputValue = selection.transform(outputValue)
-					end
-					t_insert(newList, {
-						id = legionNode.id,
-						weight1 = outputValue - baseValue,
-						weight2 = 0
-					})
+					t_insert(nodes, newNode)
 				end
 			end
 		end
-		return newList
-	end
-	
-	controls.generateWeights = new("ButtonControl", nil, 0, 200, 160, 20, "Auto Generate Weights", function()
-		local output = generateWeights(modData, {stat = "CombinedDPS"})
+		local output = generateWeights(nodes, controls.sort.list[controls.sort.selIndex])
 		local newList = ""
 		local minWeight = math.huge
 		for _, legionNode in ipairs(output) do
 			if legionNode.weight1 ~= 0 then
-				minWeight = m_min(minWeight, legionNode.weight1)
+				if legionNode.weight1 < 0 then
+					minWeight = m_min(minWeight, -legionNode.weight1)
+				else
+					minWeight = m_min(minWeight, legionNode.weight1)
+				end
 			end
 		end
 		for _, legionNode in ipairs(output) do
-			newList = newList .. legionNode.id .. ", " .. m_floor(legionNode.weight1 / minWeight) .. ", " .. legionNode.weight2 .. "\n"
+			if legionNode.weight1 ~= 0 then
+				newList = newList .. legionNode.id .. ", " .. m_floor(legionNode.weight1 / minWeight) .. ", " .. legionNode.weight2 .. "\n"
+			end
 		end
 		updateSearchList(newList)
 		self.build.modFlag = true
+	end)
+	
+	local sortDropList = {}
+	for id,stat in pairs(data.powerStatList) do
+		if not stat.ignoreForItems and not (stat.label == "Name") then
+			t_insert(sortDropList, {
+				label="Sort by "..stat.label,
+				stat=stat.stat,
+				transform=stat.transform,
+			})
+		end
+	end
+	controls.sort = new("DropDownControl", nil, 90, 201, 160, 18, sortDropList, function(index, value)
 	end)
 
 	controls.searchListLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 110, 225, 0, 16, "^7Desired Nodes:")
