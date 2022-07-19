@@ -294,12 +294,12 @@ Requires Level 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Harbinger of Time Skill
-{tags:caster,attack,speed}(10-15)% increased Attack and Cast Speed
-{variant:1}{tags:life}(15-20)% increased Life Recovery rate
-{variant:2}{tags:life}(10-15)% increased Life Recovery rate
 {variant:1}{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
 {variant:2}{tags:jewellery_defense}(10-15)% increased Energy Shield Recovery rate
-(15-20)% increased Cooldown Recovery Speed
+{variant:1}{tags:life}(15-20)% increased Life Recovery rate
+{variant:2}{tags:life}(10-15)% increased Life Recovery rate
+{tags:caster,attack,speed}(10-15)% increased Attack and Cast Speed
+(15-20)% increased Cooldown Recovery Rate
 Debuffs on you expire (15-20)% faster
 ]],[[
 The Torrent's Reclamation
@@ -310,10 +310,10 @@ Requires Level 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Greater Harbinger of Time Skill
-{tags:caster,attack,speed}(10-15)% increased Attack and Cast Speed
-{tags:life}(15-20)% increased Life Recovery rate
 {tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
-(15-20)% increased Cooldown Recovery Speed
+{tags:life}(15-20)% increased Life Recovery rate
+{tags:caster,attack,speed}(10-15)% increased Attack and Cast Speed
+(15-20)% increased Cooldown Recovery Rate
 Debuffs on you expire (15-20)% faster
 ]],[[
 Gluttony
@@ -343,10 +343,10 @@ Implicits: 1
 {tags:jewellery_defense}+(60-70) to Energy Shield
 {tags:mana}(16-20)% increased maximum Mana
 {tags:jewellery_resistance}+(40-60)% to Lightning Resistance
+{variant:2}+1 to Maximum Power Charges
 Modifiers to Minimum Power Charges instead apply to Minimum Absorption Charges
 Maximum Absorption Charges is equal to Maximum Power Charges
 Gain Absorption Charges instead of Power Charges
-{variant:2}+1 to Maximum Power Charges
 ]],[[
 Headhunter
 Leather Belt
