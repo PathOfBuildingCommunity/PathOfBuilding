@@ -1039,6 +1039,30 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider3Value = new("LabelControl", { "LEFT", controls.nodeSlider3, "RIGHT" }, 5, 0, 0, 16, "^70")
 	controls.nodeSlider3:SetVal(0)
 
+	local function updateSliders(sliderData)
+		if sliderData[2] == "required" then
+			controls.nodeSlider.val = 1
+			controls.nodeSliderValue.label = s_format("^7%.3f", 10)
+		else
+			controls.nodeSlider.val = m_min(m_max((tonumber(sliderData[2]) or 0) / 10, 0), 10)
+			controls.nodeSliderValue.label = s_format("^7%.3f", controls.nodeSlider.val * 10)
+		end
+		if sliderData[3] == "required" then
+			controls.nodeSlider2.val = 1
+			controls.nodeSlider2Value.label = s_format("^7%.3f", 10)
+		else
+			controls.nodeSlider2.val = m_min(m_max((tonumber(sliderData[3]) or 0) / 10, 0), 10)
+			controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
+		end
+		if sliderData[4] == "required" then
+			controls.nodeSlider3.val = 1
+			controls.nodeSlider3Value.label = "^7Required"
+		else
+			controls.nodeSlider3.val = m_min(m_max((tonumber(sliderData[4]) or 0) / 500, 0), 500)
+			controls.nodeSlider3Value.label = s_format("^7%.f", controls.nodeSlider3.val * 500)
+		end
+	end
+
 	buildMods()
 	controls.nodeSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 200, 0, 16, "^7Search for Node:")
 	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 200, 18, modData, function(index, value)
@@ -1046,14 +1070,9 @@ function TreeTabClass:FindTimelessJewel()
 			local newNode = value.id .. ", " .. controls.nodeSliderValue.label:sub(3):lower() .. ", " .. controls.nodeSlider2Value.label:sub(3):lower() .. ", " .. controls.nodeSlider3Value.label:sub(3):lower()
 			if controls.searchListFallback and controls.searchListFallback.shown then
 				for _, searchRow in ipairs(searchListFallbackTbl) do
-					-- prevent duplicate searchList entries and update nodeSlider values
+					-- update nodeSlider values and prevent duplicate searchList entries
 					if searchRow[1] == value.id then
-						controls.nodeSlider.val = m_min(m_max(searchRow[2] / 10, 0), 10)
-						controls.nodeSliderValue.label = s_format("^7%.3f", controls.nodeSlider.val * 10)
-						controls.nodeSlider2.val = m_min(m_max(searchRow[3] / 10, 0), 10)
-						controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
-						controls.nodeSlider3.val = m_min(m_max(searchRow[4] / 500, 0), 500)
-						controls.nodeSlider3Value.label = s_format("^7%.f", controls.nodeSlider3.val * 500)
+						updateSliders(searchRow)
 						return
 					end
 				end
@@ -1061,14 +1080,9 @@ function TreeTabClass:FindTimelessJewel()
 				controls.searchListFallback:Insert((#controls.searchListFallback.buf > 0 and "\n" or "") .. newNode)
 			else
 				for _, searchRow in ipairs(searchListTbl) do
-					-- prevent duplicate searchList entries and update nodeSlider values
+					-- update nodeSlider values and prevent duplicate searchList entries
 					if searchRow[1] == value.id then
-						controls.nodeSlider.val = m_min(m_max(searchRow[2] / 10, 0), 10)
-						controls.nodeSliderValue.label = s_format("^7%.3f", controls.nodeSlider.val * 10)
-						controls.nodeSlider2.val = m_min(m_max(searchRow[3] / 10, 0), 10)
-						controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
-						controls.nodeSlider3.val = m_min(m_max(searchRow[4] / 500, 0), 500)
-						controls.nodeSlider3Value.label = s_format("^7%.f", controls.nodeSlider3.val * 500)
+						updateSliders(searchRow)
 						return
 					end
 				end
@@ -1118,7 +1132,7 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			t_insert(newList, {
 				id = newNode.id,
-				weight1 = round((outputValue - 1) / (newNode.divisor or 1), 6)
+				weight1 = (outputValue - 1) / (newNode.divisor or 1)
 			})
 			if newNode.calcMultiple then
 				output = calcFunc({ addNodes = { [newNode.node[2]] = true } })
@@ -1133,7 +1147,7 @@ function TreeTabClass:FindTimelessJewel()
 				if outputValue ~= outputValue then
 					outputValue = 1
 				end
-				newList[#newList].weight2 = round((outputValue - 1) / (newNode.divisor or 1), 6)
+				newList[#newList].weight2 = (outputValue - 1) / (newNode.divisor or 1)
 			end
 		end
 		return newList
@@ -1242,7 +1256,7 @@ function TreeTabClass:FindTimelessJewel()
 		local weightScalar = 100
 		for _, legionNode in ipairs(output) do
 			if legionNode.weight1 ~= 0 or (legionNode.weight2 and legionNode.weight2 ~= 0) then
-				newList = newList .. legionNode.id .. ", " .. round(legionNode.weight1 * weightScalar, 10) .. ", " .. round(legionNode.weight2 or 0 * weightScalar, 10) .. "\n"
+				newList = newList .. legionNode.id .. ", " .. s_format("%.3f", legionNode.weight1 * weightScalar) .. ", " .. s_format("%.3f", legionNode.weight2 or 0 * weightScalar) .. ", 0\n"
 			end
 		end
 		updateSearchList(newList, true)
@@ -1353,8 +1367,8 @@ function TreeTabClass:FindTimelessJewel()
 							end
 							if val == "required" then
 								desiredNode[i] = (singleStat and i == 2) and desiredNode[2] or 0
-								if desiredNode[4] == nil or desiredNode[4] < 0.01 then
-									desiredNode[4] = 0.01
+								if desiredNode[4] == nil or desiredNode[4] < 0.001 then
+									desiredNode[4] = 0.001
 								end
 							end
 						end
@@ -1363,16 +1377,16 @@ function TreeTabClass:FindTimelessJewel()
 						end
 						if desiredNodes[desiredNode[1]] then
 							desiredNodes[desiredNode[1]] = {
-								nodeWeight = tonumber(desiredNode[2]) or 0.01,
-								nodeWeight2 = tonumber(desiredNode[3]) or 0.01,
+								nodeWeight = tonumber(desiredNode[2]) or 0.001,
+								nodeWeight2 = tonumber(desiredNode[3]) or 0.001,
 								displayName = displayName or desiredNode[1],
 								desiredIdx = desiredNodes[desiredNode[1]].desiredIdx
 							}
 						else
 							desiredIdx = desiredIdx + 1
 							desiredNodes[desiredNode[1]] = {
-								nodeWeight = tonumber(desiredNode[2]) or 0.01,
-								nodeWeight2 = tonumber(desiredNode[3]) or 0.01,
+								nodeWeight = tonumber(desiredNode[2]) or 0.001,
+								nodeWeight2 = tonumber(desiredNode[3]) or 0.001,
 								displayName = displayName or desiredNode[1],
 								desiredIdx = desiredIdx
 							}
