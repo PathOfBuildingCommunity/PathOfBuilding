@@ -441,7 +441,7 @@ function ConfigTabClass:BuildModList()
 	self.enemyModList = enemyModList
 	local input = self.input
 	local placeholder = self.placeholder
-	--enemy level handeled here becouse its needed to correctly set boss stats
+	--enemy level handled here because it's needed to correctly set boss stats
 	if input.enemyLevel and input.enemyLevel ~= 0 then
 		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, input.enemyLevel)
 	elseif placeholder.enemyLevel and placeholder.enemyLevel ~= 0 then
