@@ -1281,7 +1281,8 @@ function TreeTabClass:FindTimelessJewel()
 			local resultNodes = { }
 			local rootNodes = { }
 			local desiredIdx = 0
-			for inputLine in timelessData.searchList:gmatch("[^\r\n]+") do
+			local searchString = timelessData.searchListFallback .. "\n" .. timelessData.searchList
+			for inputLine in searchString:gmatch("[^\r\n]+") do
 				local desiredNode = { }
 				for splitLine in inputLine:gmatch("([^,%s]+)") do
 					desiredNode[#desiredNode + 1] = splitLine
@@ -1304,6 +1305,8 @@ function TreeTabClass:FindTimelessJewel()
 								break
 							end
 						end
+					end
+					if displayName == nil then
 						for _, legionAddition in ipairs(legionAdditions) do
 							if legionAddition.id == desiredNode[1] then
 								-- additions only support one nodeWeight
@@ -1326,8 +1329,12 @@ function TreeTabClass:FindTimelessJewel()
 								t_insert(minimumWeights, { reqNode = desiredNode[1], weight = tonumber(desiredNode[4]) })
 							end
 						end
-						desiredIdx = desiredIdx + 1
-						desiredNodes[desiredNode[1]] = { nodeWeight = tonumber(desiredNode[2]) or 0.1, nodeWeight2 = tonumber(desiredNode[3]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
+						if desiredNodes[desiredNode[1]] then
+							desiredNodes[desiredNode[1]] = { nodeWeight = tonumber(desiredNode[2]) or 0.1, nodeWeight2 = tonumber(desiredNode[3]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredNodes[desiredNode[1]].desiredIdx }
+						else
+							desiredIdx = desiredIdx + 1
+							desiredNodes[desiredNode[1]] = { nodeWeight = tonumber(desiredNode[2]) or 0.1, nodeWeight2 = tonumber(desiredNode[3]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
+						end
 					end
 				end
 			end
