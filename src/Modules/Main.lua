@@ -893,6 +893,23 @@ function main:OpenAboutPopup()
 			end
 		end
 	end
+	local helpList = { }
+	local helpName = launch.devMode and "../help.txt" or "help.txt"
+	local helpFile = io.open(helpName, "r")
+	if helpFile then
+		helpFile:close()
+		for line in io.lines(helpName) do
+			local title, titleIndex = line:match("^---%[(.+)%]%[(.+)%]$")
+			if title then
+				if #helpList > 0 then
+					t_insert(helpList, { height = 10 })
+				end
+				t_insert(helpList, { height = 18, "^7"..title.." ("..titleIndex..")" })
+			else
+				t_insert(helpList, { height = 12, "^7"..line })
+			end
+		end
+	end
 	local controls = { }
 	controls.close = new("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
 		self:ClosePopup()
@@ -902,8 +919,13 @@ function main:OpenAboutPopup()
 	controls.github = new("ButtonControl", nil, 0, 62, 438, 18, "^7GitHub page: ^x4040FFhttps://github.com/PathOfBuildingCommunity/PathOfBuilding", function(control)
 		OpenURL("https://github.com/PathOfBuildingCommunity/PathOfBuilding")
 	end)
-	controls.verLabel = new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 10, 82, 0, 18, "^7Version history:")
-	controls.changelog = new("TextListControl", nil, 0, 100, 630, 390, nil, changeList)
+	controls.verLabel = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 10, 85, 100, 18, "^7Version history:", function()
+		controls.changelog.list = changeList
+	end)
+	controls.helpLabel = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 600, 85, 40, 18, "^7help:", function()
+		controls.changelog.list = helpList
+	end)
+	controls.changelog = new("TextListControl", nil, 0, 103, 630, 387, nil, changeList)
 	self:OpenPopup(650, 500, "About", controls)
 end
 

@@ -1,0 +1,18 @@
+---[Help File][1]
+
+This file contains a list of shortcuts, and other misc things PoB has
+
+---[Contents][2]
+
+1. Intro
+2. Contents
+3. Hotkeys
+4. Other
+
+---[Hotkeys][3]
+
+ctrl, n = newbuild
+
+---[Other Notable Things][4]
+
+adding ^ and then a number or hexcode before text will change the colour of the text, eg ^^77 will make all text white
