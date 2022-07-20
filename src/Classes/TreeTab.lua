@@ -1005,7 +1005,7 @@ function TreeTabClass:FindTimelessJewel()
 		if baseOutput.Minion then
 			baseOutput = baseOutput.Minion
 		end
-		local baseValue = baseOutput[selection.stat] or 0
+		local baseValue = baseOutput[selection.stat] or 1
 		if selection.transform then
 			baseValue = selection.transform(baseValue)
 		end
@@ -1023,10 +1023,13 @@ function TreeTabClass:FindTimelessJewel()
 			if selection.transform then
 				outputValue = selection.transform(outputValue)
 			end
+			outputValue = outputValue / baseValue
+			if outputValue ~= outputValue then
+				outputValue = 1
+			end
 			t_insert(newList, {
 				id = newNode.id,
-				weight1 = outputValue - baseValue,
-				weight2 = 0
+				weight1 = outputValue - 1
 			})
 			if newNode.calcMultiple then
 				output = calcFunc({ addNodes = { [newNode.node[2]] = true } })
@@ -1037,13 +1040,17 @@ function TreeTabClass:FindTimelessJewel()
 				if selection.transform then
 					outputValue = selection.transform(outputValue)
 				end
-				newList[#newList].weight2 = outputValue - baseValue
+				outputValue = outputValue / baseValue
+				if outputValue ~= outputValue then
+					outputValue = 1
+				end
+				newList[#newList].weight2 = outputValue - 1
 			end
 		end
 		return newList
 	end
 	
-	controls.generateWeights = new("ButtonControl", nil, -90, 200, 160, 20, "Auto Generate Weights", function()
+	local generateWeightsSetup = function()
 		--helper func, duplicate of passive spec (line 693)
 		local replaceHelperFunc = function(statToFix, statKey, statMod, value)
 			if statMod.fmt == "g" then -- note the only one we actualy care about is "Ritual of Flesh" life regen
@@ -1135,30 +1142,18 @@ function TreeTabClass:FindTimelessJewel()
 		end
 		local output = generateWeights(nodes, controls.sort.list[controls.sort.selIndex])
 		local newList = ""
-		local weightScalar = math.huge
+		local weightScalar = 10
 		for _, legionNode in ipairs(output) do
-			if legionNode.weight1 ~= 0 then
-				if legionNode.weight1 < 0 then
-					weightScalar = m_min(weightScalar, -legionNode.weight1)
-				else
-					weightScalar = m_min(weightScalar, legionNode.weight1)
-				end
-			end
-			if legionNode.weight2 ~= 0 then
-				if legionNode.weight2 < 0 then
-					weightScalar = m_min(weightScalar, -legionNode.weight2)
-				else
-					weightScalar = m_min(weightScalar, legionNode.weight2)
-				end
-			end
-		end
-		for _, legionNode in ipairs(output) do
-			if legionNode.weight1 ~= 0 then
-				newList = newList .. legionNode.id .. ", " .. round(legionNode.weight1 / weightScalar, 1) .. ", " .. round(legionNode.weight2 / weightScalar, 1) .. "\n"
+			if legionNode.weight1 ~= 0 or (legionNode.weight2 and legionNode.weight2 ~= 0) then
+				newList = newList .. legionNode.id .. ", " .. round(legionNode.weight1 * weightScalar, 10) .. ", " .. round(legionNode.weight2 or 0 * weightScalar, 10) .. "\n"
 			end
 		end
 		updateSearchList(newList)
 		self.build.modFlag = true
+	end
+	
+	controls.generateWeights = new("ButtonControl", nil, -90, 200, 160, 20, "Auto Generate Weights", function()
+		generateWeightsSetup()
 	end)
 	
 	local sortDropList = {}
