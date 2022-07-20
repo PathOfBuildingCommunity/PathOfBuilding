@@ -939,27 +939,16 @@ function TreeTabClass:FindTimelessJewel()
 	controls.socketSelect.selIndex = timelessData.jewelSocket.idx
 
 	controls.socketFilterLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 100, 0, 16, "^7Filter Nodes:")
-	local filterTypes = {
-		"None",
-		"AllocatedNodes",
-		"Replacment",
-		"Distance"--,
-		--"weightPerPoint" -- not implemented
-	}
-	controls.socketFilter = new("DropDownControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 200, 18, filterTypes, function(index, value)
-		timelessData.socketFilter = index
+	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 18, nil, function(value)
+		timelessData.socketFilter = value
 		self.build.modFlag = true
 	end)
-	--controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 18, nil, function(value)
-	--	timelessData.socketFilter = value
-	--	self.build.modFlag = true
-	--end)
 	controls.socketFilter.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Enable this option to exclude nodes that you do not have allocated on your active passive skill tree.")
 		tooltip:AddLine(16, "^7This can be useful if you're never going to path towards those excluded nodes and don't care what happens to them.")
 	end
-	controls.socketFilter.selIndex = timelessData.socketFilter
+	controls.socketFilter.state = timelessData.socketFilter
 
 	controls.nodeSliderLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 125, 0, 16, "^7Primary Node Weight:")
 	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 10, 0, 200, 16, function(value)
@@ -1090,8 +1079,8 @@ function TreeTabClass:FindTimelessJewel()
 										newNode.node = copyTable(legionNodeSub.modListGenerated)
 									else
 										-- generate modList	
-										local modList1, extra1 = modLib.parseMod(replaceHelperFunc(legionNodeSub.sd[1], legionNodeSub.sortedStats[1], legionNodeSub.stats[legionNodeSub.sortedStats[1]], 1))
-										local modList2, extra2 = modLib.parseMod(replaceHelperFunc(legionNodeSub.sd[2], legionNodeSub.sortedStats[2], legionNodeSub.stats[legionNodeSub.sortedStats[2]], 1))
+										local modList1, extra1 = modLib.parseMod(replaceHelperFunc(legionNodeSub.sd[1], legionNodeSub.sortedStats[1], legionNodeSub.stats[legionNodeSub.sortedStats[1]], 100))
+										local modList2, extra2 = modLib.parseMod(replaceHelperFunc(legionNodeSub.sd[2], legionNodeSub.sortedStats[2], legionNodeSub.stats[legionNodeSub.sortedStats[2]], 100))
 										local modLists = { { modList = modList1 }, { modList = modList2 }}
 										legionNodeSub.modListGenerated = copyTable(modLists)
 										newNode.node = copyTable(modLists)
@@ -1103,7 +1092,7 @@ function TreeTabClass:FindTimelessJewel()
 										newNode.modList = copyTable(legionNodeSub.modListGenerated)
 									else
 										-- generate modList
-										local modList, extra = modLib.parseMod(replaceHelperFunc(legionNodeSub.sd[1], legionNodeSub.sortedStats[1], legionNodeSub.stats[legionNodeSub.sortedStats[1]], 1))
+										local modList, extra = modLib.parseMod(replaceHelperFunc(legionNodeSub.sd[1], legionNodeSub.sortedStats[1], legionNodeSub.stats[legionNodeSub.sortedStats[1]], 100))
 										legionNodeSub.modListGenerated = modList
 										newNode.modList = modList
 									end
@@ -1128,7 +1117,7 @@ function TreeTabClass:FindTimelessJewel()
 								local line = legionAddition.sd[1]
 								if legionNode.type == "vaal" then
 									for key, stat in legionAddition.stats do -- should only be length 1
-										line = replaceHelperFunc(line, key, stat, 1)
+										line = replaceHelperFunc(line, key, stat, 100)
 									end
 								end
 								local modList, extra = modLib.parseMod(line)
@@ -1202,9 +1191,6 @@ function TreeTabClass:FindTimelessJewel()
 			local allocatedNodes = { }
 			local targetNodes = { }
 			local targetSmallNodes = { }
-			local currentNodeWeights = { }
-			local targetNodesDistance = { }
-			local distanceCutoff = 2
 			local desiredNodes = { }
 			local minimumWeights = { }
 			local resultNodes = { }
@@ -1265,14 +1251,9 @@ function TreeTabClass:FindTimelessJewel()
 			for _, class in pairs(treeData.classes) do
 				rootNodes[class.startNodeId] = true
 			end
-			if controls.socketFilter.selIndex == 2 or controls.socketFilter.selIndex == 3 or controls.socketFilter.selIndex == 5 then
+			if controls.socketFilter.state then
 				for nodeId in pairs(radiusNodes) do
 					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
-				end
-			end
-			if controls.socketFilter.selIndex == 4 or controls.socketFilter.selIndex == 5 then
-				for nodeId in pairs(radiusNodes) do
-					targetNodesDistance[nodeId] = 0
 				end
 			end
 			if desiredNodes["total stat"] then
@@ -1284,36 +1265,16 @@ function TreeTabClass:FindTimelessJewel()
 				and not treeData.nodes[nodeId].isJewelSocket
 				and not treeData.nodes[nodeId].isKeystone
 				and (treeData.nodes[nodeId].isNotable or timelessData.jewelType.id == 1)
-				and (not (controls.socketFilter.selIndex == 2) or allocatedNodes[nodeId]) 
-				and (not (controls.socketFilter.selIndex == 4) or targetNodesDistance[nodeId] <= distanceCutoff) then
+				and (not controls.socketFilter.state or allocatedNodes[nodeId]) then
 					targetNodes[nodeId] = true
 				elseif desiredNodes["total stat"] 
 				and not treeData.nodes[nodeId].isNotable
-				and (not (controls.socketFilter.selIndex == 2) or allocatedNodes[nodeId]) then
+				and (not controls.socketFilter.state or allocatedNodes[nodeId]) then
 					if isValueInArray({ "Strength", "Intelligence", "Dexterity" }, treeData.nodes[nodeId].dn) then
 						targetSmallNodes.attributeSmalls = targetSmallNodes.attributeSmalls + 1
 					else
 						targetSmallNodes.otherSmalls = targetSmallNodes.otherSmalls + 1
 					end
-				end
-			end
-			if controls.socketFilter.selIndex == 3 then
-				--[[
-				-- find all nodes in radius and get thier weights
-				local output = {}
-				for nodeId in pairs(Nodes) do
-					if 
-						t_insert(output, )
-					end
-				end
-				output = generateWeights(output, controls.sort.list[controls.sort.selIndex])
-				--]]
-				for targetNode in pairs(targetNodes) do
-					currentNodeWeights[targetNode] = 0 --round(targetNode.weight1 / weightScalar, 1)
-				end
-			else
-				for targetNode in pairs(targetNodes) do
-					currentNodeWeights[targetNode] = 0
 				end
 			end
 			local seedWeights = { }
@@ -1361,7 +1322,7 @@ function TreeTabClass:FindTimelessJewel()
 								if desiredNodes[curNodeId] then
 									resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
 									local statMod1 = curNode.stats[curNode.sortedStats[1]]
-									local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[statMod1.index + 1] - currentNodeWeights[targetNode]
+									local weight = desiredNodes[curNodeId].nodeWeight * jewelDataTbl[statMod1.index + 1]
 									local statMod2 = curNode.stats[curNode.sortedStats[2]]
 									if statMod2 then
 										weight = weight + desiredNodes[curNodeId].nodeWeight2 * jewelDataTbl[statMod2.index + 1]
@@ -1391,14 +1352,10 @@ function TreeTabClass:FindTimelessJewel()
 							end
 						elseif desiredNodes[curNodeId] then
 							resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
-							local weight = desiredNodes[curNodeId].nodeWeight
-							if jewelDataTbl[1] >= data.timelessJewelAdditions then
-								weight = weight - currentNodeWeights[targetNode]
-							end
-							resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + weight
+							resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + desiredNodes[curNodeId].nodeWeight
 							t_insert(resultNodes[curSeed][curNodeId], targetNode)
 							t_insert(resultNodes[curSeed][curNodeId].targetNodeNames, treeData.nodes[targetNode].name)
-							seedWeights[curSeed] = seedWeights[curSeed] + weight
+							seedWeights[curSeed] = seedWeights[curSeed] + desiredNodes[curNodeId].nodeWeight
 						end
 					end
 				end
