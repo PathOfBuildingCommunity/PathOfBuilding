@@ -1164,7 +1164,7 @@ function TreeTabClass:FindTimelessJewel()
 		for _, modNode in ipairs(modData) do
 			if modNode.id then
 				local newNode = nil
-				for _, legionNode in ipairs(modNodes) do
+				for _, legionNode in ipairs(legionNodes) do
 					if legionNode.id == modNode.id or (totalModIDs[modNode.id] and totalModIDs[modNode.id][legionNode.id]) then
 							newNode = { }
 							newNode.id = legionNode.id
@@ -1205,7 +1205,7 @@ function TreeTabClass:FindTimelessJewel()
 				end
 				if not newNode then
 					for _, legionAddition in ipairs(legionAdditions) do
-						if legionAddition.id == modNode.id or (totalModIDs[modNode.id] and totalModIDs[modNode.id][legionNode.id]) then
+						if legionAddition.id == modNode.id or (totalModIDs[modNode.id] and totalModIDs[modNode.id][legionAddition.id]) then
 							newNode = { }
 							newNode.id = legionAddition.id
 							if legionAddition.modList then
