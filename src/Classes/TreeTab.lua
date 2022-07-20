@@ -1499,10 +1499,19 @@ function TreeTabClass:FindTimelessJewel()
 			timelessData.sharedResults.socket = timelessData.jewelSocket
 			timelessData.sharedResults.desiredNodes = desiredNodes
 			local function formatSearchValue(input)
-				local matchPattern = "[. ]0"
-				local replacePattern = { [" 0"] = "   ", [".0"] = "   " }
-				--return (" " .. s_format("%0006.1f", input)):gsub(matchPattern, replacePattern):gsub(matchPattern, replacePattern):gsub(matchPattern, replacePattern)
-				return (" " .. s_format("%006.2f", input)):gsub(matchPattern, replacePattern):gsub(matchPattern, replacePattern):gsub(matchPattern, replacePattern):gsub("  %.", "0."):gsub("%.([0-9])0", ".%1  ")
+				local   matchPattern1 = " 0"
+				local replacePattern1 = "   "
+				local   matchPattern2 = ".0 "
+				local replacePattern2 = "    "
+				local   matchPattern3 = "  %."
+				local replacePattern3 = "0."
+				local   matchPattern4 = "%.([0-9])0"
+				local replacePattern4 = ".%1  "
+				return (" " .. s_format("%006.2f", input))
+				:gsub(matchPattern1, replacePattern1):gsub(matchPattern1, replacePattern1)
+				:gsub(matchPattern2, replacePattern2):gsub(matchPattern2, replacePattern2)
+				:gsub(matchPattern3, replacePattern3)
+				:gsub(matchPattern4, replacePattern4)
 			end
 			local searchResultsIdx = 1
 			for seedMatch, seedData in pairs(resultNodes) do
@@ -1524,7 +1533,6 @@ function TreeTabClass:FindTimelessJewel()
 							timelessData.searchResults[searchResultsIdx][legionId] = timelessData.searchResults[searchResultsIdx][legionId] or { }
 							timelessData.searchResults[searchResultsIdx][legionId].targetNodeNames = seedData[legionId].targetNodeNames
 						elseif desiredNode.desiredIdx < 6 then
-							--sortedNodeArray[desiredNode.desiredIdx] = "       0   "
 							sortedNodeArray[desiredNode.desiredIdx] = "     0     "
 						end
 					end
