@@ -20,6 +20,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 	self.input = { }
 	self.placeholder = { }
+	
+	self.enemyLevel = 1
 
 	self.sectionList = { }
 	self.varControls = { }
@@ -439,6 +441,14 @@ function ConfigTabClass:BuildModList()
 	self.enemyModList = enemyModList
 	local input = self.input
 	local placeholder = self.placeholder
+	--enemy level handeled here becouse its needed to correctly set boss stats
+	if input.enemyLevel and input.enemyLevel ~= 0 then
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, input.enemyLevel)
+	elseif placeholder.enemyLevel and placeholder.enemyLevel ~= 0 then
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, placeholder.enemyLevel)
+	else
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, self.build.characterLevel)
+	end
 	for _, varData in ipairs(varList) do
 		if varData.apply then
 			if varData.type == "check" then
