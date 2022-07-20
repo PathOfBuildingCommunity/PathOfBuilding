@@ -1386,15 +1386,8 @@ function TreeTabClass:FindTimelessJewel()
 							curNodeId = curNode and legionAdditions[jewelDataTbl[1] + 1].id or nil
 						end
 						if desiredNodes["totalStat"] and totalModIDs[curNodeId] then
-							-- special case for minor templar devotion nodes
-							if curNodeId == "templar_devotion_node" then
-								curNodeId = "totalStat"
-								resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
-								local weight = desiredNodes[curNodeId].nodeWeight
-								resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + weight
-								seedWeights[curSeed] = seedWeights[curSeed] + weight
-							-- special case for notable templar devotion nodes
-							elseif curNodeId == "templar_notable_devotion" then
+							-- special case for notable templar devotion nodes, to avoid tracking them
+							if curNodeId == "templar_notable_devotion" then
 								curNodeId = "totalStat"
 								resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
 								local weight = desiredNodes[curNodeId].nodeWeight
