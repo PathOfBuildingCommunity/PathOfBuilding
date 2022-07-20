@@ -1152,7 +1152,7 @@ function TreeTabClass:FindTimelessJewel()
 		end
 		local output = generateWeights(nodes, controls.sort.list[controls.sort.selIndex])
 		local newList = ""
-		local weightScalar = 10
+		local weightScalar = 100
 		for _, legionNode in ipairs(output) do
 			if legionNode.weight1 ~= 0 or (legionNode.weight2 and legionNode.weight2 ~= 0) then
 				newList = newList .. legionNode.id .. ", " .. round(legionNode.weight1 * weightScalar, 10) .. ", " .. round(legionNode.weight2 or 0 * weightScalar, 10) .. "\n"
@@ -1269,16 +1269,16 @@ function TreeTabClass:FindTimelessJewel()
 				if not rootNodes[nodeId]
 				and not treeData.nodes[nodeId].isJewelSocket
 				and not treeData.nodes[nodeId].isKeystone
-				and (treeData.nodes[nodeId].isNotable or timelessData.jewelType.id == 1)
 				and (not controls.socketFilter.state or allocatedNodes[nodeId]) then
-					targetNodes[nodeId] = true
-				elseif desiredNodes["total stat"] 
-				and not treeData.nodes[nodeId].isNotable
-				and (not controls.socketFilter.state or allocatedNodes[nodeId]) then
-					if isValueInArray({ "Strength", "Intelligence", "Dexterity" }, treeData.nodes[nodeId].dn) then
-						targetSmallNodes.attributeSmalls = targetSmallNodes.attributeSmalls + 1
-					else
-						targetSmallNodes.otherSmalls = targetSmallNodes.otherSmalls + 1
+					if (treeData.nodes[nodeId].isNotable or timelessData.jewelType.id == 1)
+						targetNodes[nodeId] = true
+					elseif desiredNodes["total stat"] 
+					and not treeData.nodes[nodeId].isNotable then
+						if isValueInArray({ "Strength", "Intelligence", "Dexterity" }, treeData.nodes[nodeId].dn) then
+							targetSmallNodes.attributeSmalls = targetSmallNodes.attributeSmalls + 1
+						else
+							targetSmallNodes.otherSmalls = targetSmallNodes.otherSmalls + 1
+						end
 					end
 				end
 			end
