@@ -1021,7 +1021,12 @@ function TreeTabClass:FindTimelessJewel()
 			baseValue = selection.transform(baseValue)
 		end
 		for _, newNode in ipairs(Nodes) do
-			local output = calcFunc({ addNodes = { [newNode] = true } })
+			local output = nil
+			if newNode.calcMultiple then
+				output = calcFunc({ addNodes = { [newNode.node[1]] = true } })
+			else
+				output = calcFunc({ addNodes = { [newNode] = true } })
+			end
 			if output.Minion then
 				output = output.Minion
 			end
@@ -1034,31 +1039,78 @@ function TreeTabClass:FindTimelessJewel()
 				weight1 = outputValue - baseValue,
 				weight2 = 0
 			})
+			if newNode.calcMultiple then
+				output = calcFunc({ addNodes = { [newNode.node[2]] = true } })
+				if output.Minion then
+					output = output.Minion
+				end
+				outputValue = output[selection.stat] or 0
+				if selection.transform then
+					outputValue = selection.transform(outputValue)
+				end
+				newList[#newList].weight2 = outputValue - baseValue
+			end
 		end
 		return newList
 	end
 	
 	controls.generateWeights = new("ButtonControl", nil, -90, 200, 160, 20, "Auto Generate Weights", function()
+		--helper func, duplicate of passive spec (line 693)
+		local replaceHelperFunc = function(statToFix, statKey, statMod, value)
+			if statMod.fmt == "g" then -- note the only one we actualy care about is "Ritual of Flesh" life regen
+				if statKey:find("per_minute") then
+					value = round(value / 60, 1)
+				elseif statKey:find("permyriad") then
+					value = value / 100
+				elseif statKey:find("_ms") then
+					value = value / 1000
+				end
+			end
+			--if statMod.fmt == "d" then -- only ever d or g, and we want both past here
+			if statMod.min ~= statMod.max then
+				return statToFix:gsub("%("..statMod.min.."%-"..statMod.max.."%)", value)
+			elseif statMod.min ~= value then -- only true for might/legacy of the vaal which can combine stats
+				return statToFix:gsub(statMod.min, value)
+			end
+			return statToFix -- if it doesn't need to be changed
+		end
+		
 		local nodes = {}
 		for _, legionNode in ipairs(modData) do
 			if legionNode.id then
 				local newNode = nil
-				for _, node in ipairs(legionNodes) do
-					if node.id == legionNode.id then
+				for _, legionNodeSub in ipairs(legionNodes) do
+					if legionNodeSub.id == legionNode.id then
 							newNode = {}
-							newNode.id = node.id
-							--newNode.dn = node.dn
-							--newNode.sd = node.sd
-							--newNode.stats = node.stats
-							--newNode.modKey = node.modKey
-							newNode.modList = node.modList
+							newNode.id = legionNodeSub.id
 							if legionNode.type == "vaal" then
-								--add mods to modList
-								
-								--make a second node for stats with 2 nodes and remeber to combine them later for 2 weights
+								if #legionNodeSub.sd == 2 then
+									newNode.calcMultiple = true
+									if legionNodeSub.modListGenerated then
+										newNode.node = copyTable(legionNodeSub.modListGenerated)
+									else
+										-- generate modList	
+										local modList1, extra1 = modLib.parseMod(replaceHelperFunc(legionNodeSub.sd[1], legionNodeSub.sortedStats[1], legionNodeSub.stats[legionNodeSub.sortedStats[1]], 1))
+										local modList2, extra2 = modLib.parseMod(replaceHelperFunc(legionNodeSub.sd[2], legionNodeSub.sortedStats[2], legionNodeSub.stats[legionNodeSub.sortedStats[2]], 1))
+										local modLists = { { modList = modList1 }, { modList = modList2 }}
+										legionNodeSub.modListGenerated = copyTable(modLists)
+										newNode.node = copyTable(modLists)
+									end
+									newNode.node[1].id = legionNodeSub.id
+									newNode.node[2].id = legionNodeSub.id
+								else
+									if legionNodeSub.modListGenerated then
+										newNode.modList = copyTable(legionNodeSub.modListGenerated)
+									else
+										-- generate modList
+										local modList, extra = modLib.parseMod(replaceHelperFunc(legionNodeSub.sd[1], legionNodeSub.sortedStats[1], legionNodeSub.stats[legionNodeSub.sortedStats[1]], 1))
+										legionNodeSub.modListGenerated = modList
+										newNode.modList = modList
+									end
+								end
+							else
+								newNode.modList = legionNodeSub.modList
 							end
-							--newNode.mods = node.mods
-							--ConPrintTable(newNode)
 						break
 					end
 				end
@@ -1067,13 +1119,22 @@ function TreeTabClass:FindTimelessJewel()
 						if legionAddition.id == legionNode.id then
 							newNode = {}
 							newNode.id = legionAddition.id
-							--newNode.dn = legionAddition.dn
-							--newNode.sd = legionAddition.sd
-							--newNode.stats = legionAddition.stats
-							
-							--ConPrintTable(legionAddition.modList) -- this is missing?
-							
-							-- generate modList
+							if legionAddition.modList then
+								newNode.modList = legionAddition.modList
+							elseif legionAddition.modListGenerated then
+								newNode.modList = legionAddition.modListGenerated
+							else
+								-- generate modList
+								local line = legionAddition.sd[1]
+								if legionNode.type == "vaal" then
+									for key, stat in legionAddition.stats do -- should only be length 1
+										line = replaceHelperFunc(line, key, stat, 1)
+									end
+								end
+								local modList, extra = modLib.parseMod(line)
+								legionAddition.modListGenerated = modList
+								newNode.modList = modList
+							end
 							break
 						end
 					end
@@ -1260,7 +1321,6 @@ function TreeTabClass:FindTimelessJewel()
 			for curSeed = data.timelessJewelSeedMin[timelessData.jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[timelessData.jewelType.id] * seedMultiplier, seedMultiplier do
 				seedWeights[curSeed] = 0
 				resultNodes[curSeed] = { } 
-				-- small nodes need to also have weights, for nonGV these are fixed values so dont need to loop over like this, just have a number of smalls and multiply weight like that
 				for targetNode in pairs(targetNodes) do
 					local jewelDataTbl = data.readLUT(curSeed, targetNode, timelessData.jewelType.id)
 					if not next(jewelDataTbl) then
@@ -1343,7 +1403,7 @@ function TreeTabClass:FindTimelessJewel()
 					end
 				end
 				if desiredNodes["total stat"] then
-					if timelessData.jewelType.id == 4 then
+					if timelessData.jewelType.id == 4 then -- Militant Faith
 						local addedWeight = 5 * targetSmallNodes.otherSmalls + 10 * targetSmallNodes.attributeSmalls
 						if resultNodes[curSeed]["total stat"] then
 							addedWeight = addedWeight + resultNodes[curSeed]["total stat"].totalWeight * 4
