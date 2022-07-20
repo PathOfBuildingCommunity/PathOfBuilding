@@ -747,8 +747,8 @@ function TreeTabClass:FindTimelessJewel()
 	local controls = { }
 	local modData = { }
 	local ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Add Strength", "Dex", "Add Dexterity", "Devotion", "Price of Glory" }
-	local totalMods = { [2] = {"Strength", "Add Strength"}, [3] = {"Dex", "Add Dexterity"}, [4] = {"Devotion"} }
-	local totalModsIDs = { karui_notable_add_strength = "Strength", Total_Strength = "karui_notable_add_strength", maraketh_notable_add_dexterity = "Dex", Total_Dex = "maraketh_notable_add_dexterity", templar_notable_devotion = "Devotion", templar_devotion_node = "Devotion" }
+	local totalMods = { [2] = { "Strength", "Add Strength" }, [3] = { "Dexterity", "Dex", "Add Dexterity" }, [4] = { "Devotion" } }
+	local totalModIDs = { ["karui_notable_add_strength"] = "Strength", ["total_strength"] = "karui_notable_add_strength", ["maraketh_notable_add_dexterity"] = "Dex", ["total_dex"] = "maraketh_notable_add_dexterity", ["templar_notable_devotion"] = "Devotion", ["templar_devotion_node"] = "Devotion" }
 	local jewelTypes = {
 		{ label = "Glorious Vanity", name = "vaal", id = 1 },
 		{ label = "Lethal Pride", name = "karui", id = 2 },
@@ -859,9 +859,9 @@ function TreeTabClass:FindTimelessJewel()
 		if totalMods[timelessData.jewelType.id] then
 			t_insert(modData, 1, { 
 				label = "Total " .. totalMods[timelessData.jewelType.id][1],
-				descriptions = copyTable(totalMods[timelessData.jewelType.id]),
+				descriptions = { "This is a hybrid node containing all additions to " .. totalMods[timelessData.jewelType.id][1] },
 				type = timelessData.jewelType.name,
-				id = "Total_" .. totalMods[timelessData.jewelType.id][1],
+				id = "total_" .. totalMods[timelessData.jewelType.id][1]:lower(),
 				totalMod = true
 			})
 		end
@@ -872,45 +872,87 @@ function TreeTabClass:FindTimelessJewel()
 	end
 
 	local searchListTbl = { }
-	local function parseSearchList(mode)
+	local searchListFallbackTbl = { }
+	local function parseSearchList(mode, fallback)
 		if mode == 0 then
-			-- timelessData.searchList => searchListTbl
-			if timelessData.searchList then
-				searchListTbl = { }
-				for inputLine in timelessData.searchList:gmatch("[^\r\n]+") do
-					searchListTbl[#searchListTbl + 1] = { }
-					for splitLine in inputLine:gmatch("([^,%s]+)") do
-						searchListTbl[#searchListTbl][#searchListTbl[#searchListTbl] + 1] = splitLine
+			if fallback then
+				-- timelessData.searchListFallback => searchListFallbackTbl
+				if timelessData.searchListFallback then
+					searchListFallbackTbl = { }
+					for inputLine in timelessData.searchListFallback:gmatch("[^\r\n]+") do
+						searchListFallbackTbl[#searchListFallbackTbl + 1] = { }
+						for splitLine in inputLine:gmatch("([^,%s]+)") do
+							searchListFallbackTbl[#searchListFallbackTbl][#searchListFallbackTbl[#searchListFallbackTbl] + 1] = splitLine
+						end
+					end
+				end
+			else
+				-- timelessData.searchList => searchListTbl
+				if timelessData.searchList then
+					searchListTbl = { }
+					for inputLine in timelessData.searchList:gmatch("[^\r\n]+") do
+						searchListTbl[#searchListTbl + 1] = { }
+						for splitLine in inputLine:gmatch("([^,%s]+)") do
+							searchListTbl[#searchListTbl][#searchListTbl[#searchListTbl] + 1] = splitLine
+						end
 					end
 				end
 			end
 		else
-			-- searchListTbl => controls.searchList
-			if controls.searchList and controls.nodeSelect then
-				local searchText = ""
-				for curIdx, curRow in ipairs(searchListTbl) do
-					if curRow[1] == controls.nodeSelect.list[controls.nodeSelect.selIndex].id then
-						curRow[2] = controls.nodeSliderValue.label:lower()
-						curRow[3] = controls.nodeSlider2Value.label:lower()
+			if fallback then
+				-- searchListFallbackTbl => controls.searchListFallback
+				if controls.searchListFallback and controls.nodeSelect then
+					local searchText = ""
+					for curIdx, curRow in ipairs(searchListFallbackTbl) do
+						if curRow[1] == controls.nodeSelect.list[controls.nodeSelect.selIndex].id then
+							curRow[2] = controls.nodeSliderValue.label:sub(3):lower()
+							curRow[3] = controls.nodeSlider2Value.label:sub(3):lower()
+						end
+						searchText = searchText .. t_concat(curRow, ", ")
+						if curIdx < #searchListFallbackTbl then
+							searchText = searchText .. "\n"
+						end
 					end
-					searchText = searchText .. t_concat(curRow, ", ")
-					if curIdx < #searchListTbl then
-						searchText = searchText .. "\n"
+					if timelessData.searchListFallback ~= searchText then
+						timelessData.searchListFallback = searchText
+						controls.searchListFallback:SetText(searchText)
+						self.build.modFlag = true
 					end
 				end
-				if timelessData.searchList ~= searchText then
-					timelessData.searchList = searchText
-					controls.searchList:SetText(searchText)
-					self.build.modFlag = true
+			else
+				-- searchListTbl => controls.searchList
+				if controls.searchList and controls.nodeSelect then
+					local searchText = ""
+					for curIdx, curRow in ipairs(searchListTbl) do
+						if curRow[1] == controls.nodeSelect.list[controls.nodeSelect.selIndex].id then
+							curRow[2] = controls.nodeSliderValue.label:sub(3):lower()
+							curRow[3] = controls.nodeSlider2Value.label:sub(3):lower()
+						end
+						searchText = searchText .. t_concat(curRow, ", ")
+						if curIdx < #searchListTbl then
+							searchText = searchText .. "\n"
+						end
+					end
+					if timelessData.searchList ~= searchText then
+						timelessData.searchList = searchText
+						controls.searchList:SetText(searchText)
+						self.build.modFlag = true
+					end
 				end
 			end
 		end
 	end
-	parseSearchList(0) -- initial load: [timelessData.searchList => searchListTbl]
-	local function updateSearchList(text)
-		timelessData.searchList = text
-		controls.searchList:SetText(text)
-		parseSearchList(0)
+	parseSearchList(0, false) -- initial load: [timelessData.searchList => searchListTbl]
+	parseSearchList(0, true)  -- initial load: [timelessData.searchListFallback => searchListFallbackTbl]
+	local function updateSearchList(text, fallback)
+		if fallback then
+			timelessData.searchListFallback = text
+			controls.searchListFallback:SetText(text)
+		else
+			timelessData.searchList = text
+			controls.searchList:SetText(text)
+		end
+		parseSearchList(0, fallback)
 		self.build.modFlag = true
 	end
 
@@ -921,7 +963,8 @@ function TreeTabClass:FindTimelessJewel()
 		controls.conquerorSelect.selIndex = 1
 		controls.nodeSelect.selIndex = 1
 		buildMods()
-		updateSearchList("")
+		updateSearchList("", false)
+		updateSearchList("", true)
 	end)
 	controls.jewelSelect.selIndex = timelessData.jewelType.id
 
@@ -956,37 +999,57 @@ function TreeTabClass:FindTimelessJewel()
 		if value == 1 then
 			controls.nodeSliderValue.label = "Required"
 		else
-			controls.nodeSliderValue.label = s_format("%.1f", 0.1 + value * 9.9)
+			controls.nodeSliderValue.label = s_format("^7%.3f", value * 10)
 		end
-		parseSearchList(1)
+		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end)
-	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "1.0")
-	controls.nodeSlider:SetVal(0.09)
+	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "^71.0")
+	controls.nodeSlider:SetVal(0.1)
 
 	controls.nodeSlider2Label = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 150, 0, 16, "^7Secondary Node Weight:")
 	controls.nodeSlider2 = new("SliderControl", { "LEFT", controls.nodeSlider2Label, "RIGHT" }, 10, 0, 200, 16, function(value)
 		if value == 1 then
 			controls.nodeSlider2Value.label = "Required"
 		else
-			controls.nodeSlider2Value.label = s_format("%.1f", 0.1 + value * 9.9)
+			controls.nodeSlider2Value.label = s_format("^7%.3f", value * 10)
 		end
-		parseSearchList(1)
+		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end)
-	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "1.0")
-	controls.nodeSlider2:SetVal(0.09)
+	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "^71.0")
+	controls.nodeSlider2:SetVal(0.1)
 
 	buildMods()
 	controls.nodeSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 175, 0, 16, "^7Search for Node:")
 	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 200, 18, modData, function(index, value)
 		if value.id then
-			for _, searchRow in ipairs(searchListTbl) do
-				-- prevent duplicate searchList entries
-				if searchRow[1] == value.id then
-					return
+			local newNode = value.id .. ", " .. controls.nodeSliderValue.label:sub(3):lower() .. ", " .. controls.nodeSlider2Value.label:sub(3):lower()
+			if controls.searchListFallback and controls.searchListFallback.shown then
+				for _, searchRow in ipairs(searchListFallbackTbl) do
+					-- prevent duplicate searchList entries and update nodeSlider values
+					if searchRow[1] == value.id then
+						controls.nodeSlider.val = m_min(m_max(searchRow[2] / 10, 0), 10)
+						controls.nodeSliderValue.label = s_format("^7%.3f", controls.nodeSlider.val * 10)
+						controls.nodeSlider2.val = m_min(m_max(searchRow[3] / 10, 0), 10)
+						controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
+						return
+					end
 				end
+				controls.searchListFallback.caret = #controls.searchListFallback.buf + 1
+				controls.searchListFallback:Insert((#controls.searchListFallback.buf > 0 and "\n" or "") .. newNode)
+			else
+				for _, searchRow in ipairs(searchListTbl) do
+					-- prevent duplicate searchList entries and update nodeSlider values
+					if searchRow[1] == value.id then
+						controls.nodeSlider.val = m_min(m_max(searchRow[2] / 10, 0), 10)
+						controls.nodeSliderValue.label = s_format("^7%.3f", controls.nodeSlider.val * 10)
+						controls.nodeSlider2.val = m_min(m_max(searchRow[3] / 10, 0), 10)
+						controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
+						return
+					end
+				end
+				controls.searchList.caret = #controls.searchList.buf + 1
+				controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. newNode)
 			end
-			controls.searchList.caret = #controls.searchList.buf + 1
-			controls.searchList:Insert((#controls.searchList.buf > 0 and "\n" or "") .. value.id .. ", " .. controls.nodeSliderValue.label:lower() .. ", " .. controls.nodeSlider2Value.label:lower())
 			self.build.modFlag = true
 		end
 	end)
@@ -999,10 +1062,10 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 	
-	local generateWeights = function(Nodes, selection)
+	local function generateFallbackWeights(nodes, selection)
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
-		local newList = {}
-		local baseOutput = calcFunc({})
+		local newList = { }
+		local baseOutput = calcFunc({ })
 		if baseOutput.Minion then
 			baseOutput = baseOutput.Minion
 		end
@@ -1010,7 +1073,7 @@ function TreeTabClass:FindTimelessJewel()
 		if selection.transform then
 			baseValue = selection.transform(baseValue)
 		end
-		for _, newNode in ipairs(Nodes) do
+		for _, newNode in ipairs(nodes) do
 			local output = nil
 			if newNode.calcMultiple then
 				output = calcFunc({ addNodes = { [newNode.node[1]] = true } })
@@ -1030,7 +1093,7 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			t_insert(newList, {
 				id = newNode.id,
-				weight1 = (outputValue - 1) / (newNode.divisor or 1)
+				weight1 = round((outputValue - 1) / (newNode.divisor or 1), 6)
 			})
 			if newNode.calcMultiple then
 				output = calcFunc({ addNodes = { [newNode.node[2]] = true } })
@@ -1045,16 +1108,16 @@ function TreeTabClass:FindTimelessJewel()
 				if outputValue ~= outputValue then
 					outputValue = 1
 				end
-				newList[#newList].weight2 = (outputValue - 1) / (newNode.divisor or 1)
+				newList[#newList].weight2 = round((outputValue - 1) / (newNode.divisor or 1), 6)
 			end
 		end
 		return newList
 	end
-	
-	local generateWeightsSetup = function()
-		--helper func, duplicate of passive spec (line 693)
+
+	local function setupFallbackWeights()
+		-- replaceHelperFunc is duplicated from PassiveSpec.lua
 		local replaceHelperFunc = function(statToFix, statKey, statMod, value)
-			if statMod.fmt == "g" then -- note the only one we actualy care about is "Ritual of Flesh" life regen
+			if statMod.fmt == "g" then -- note the only one we actually care about is "Ritual of Flesh" life regen
 				if statKey:find("per_minute") then
 					value = round(value / 60, 1)
 				elseif statKey:find("permyriad") then
@@ -1065,21 +1128,21 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			--if statMod.fmt == "d" then -- only ever d or g, and we want both past here
 			if statMod.min ~= statMod.max then
-				return statToFix:gsub("%("..statMod.min.."%-"..statMod.max.."%)", value)
+				return statToFix:gsub("%(" .. statMod.min .. "%-" .. statMod.max .. "%)", value)
 			elseif statMod.min ~= value then -- only true for might/legacy of the vaal which can combine stats
 				return statToFix:gsub(statMod.min, value)
 			end
 			return statToFix -- if it doesn't need to be changed
 		end
-		
-		local nodes = {}
+
+		local nodes = { }
 		for _, legionNode in ipairs(modData) do
 			if legionNode.id then
-				local searchID = (legionNode.totalMod and totalModsIDs[legionNode.id]) or legionNode.id
+				local searchID = legionNode.totalMod and totalModIDs[legionNode.id] or legionNode.id
 				local newNode = nil
 				for _, legionNodeSub in ipairs(legionNodes) do
 					if legionNodeSub.id == searchID then
-							newNode = {}
+							newNode = { }
 							newNode.id = legionNodeSub.id
 							if legionNode.type == "vaal" then
 								if #legionNodeSub.sd == 2 then
@@ -1119,7 +1182,7 @@ function TreeTabClass:FindTimelessJewel()
 				if not newNode then
 					for _, legionAddition in ipairs(legionAdditions) do
 						if legionAddition.id == searchID then
-							newNode = {}
+							newNode = { }
 							newNode.id = legionAddition.id
 							if legionAddition.modList then
 								newNode.modList = legionAddition.modList
@@ -1150,7 +1213,7 @@ function TreeTabClass:FindTimelessJewel()
 				end
 			end
 		end
-		local output = generateWeights(nodes, controls.sort.list[controls.sort.selIndex])
+		local output = generateFallbackWeights(nodes, controls.fallbackWeightsList.list[controls.fallbackWeightsList.selIndex])
 		local newList = ""
 		local weightScalar = 100
 		for _, legionNode in ipairs(output) do
@@ -1158,39 +1221,56 @@ function TreeTabClass:FindTimelessJewel()
 				newList = newList .. legionNode.id .. ", " .. round(legionNode.weight1 * weightScalar, 10) .. ", " .. round(legionNode.weight2 or 0 * weightScalar, 10) .. "\n"
 			end
 		end
-		updateSearchList(newList)
-		self.build.modFlag = true
+		updateSearchList(newList, true)
 	end
-	
-	controls.generateWeights = new("ButtonControl", nil, -90, 200, 160, 20, "Auto Generate Weights", function()
-		generateWeightsSetup()
-	end)
-	
-	local sortDropList = {}
-	for id,stat in pairs(data.powerStatList) do
-		if not stat.ignoreForItems and not (stat.label == "Name") then
-			t_insert(sortDropList, {
-				label="Sort by "..stat.label,
-				stat=stat.stat,
-				transform=stat.transform,
+
+	controls.fallbackWeightsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 200, 0, 16, "Fallback Weight Mode:")
+	local fallbackWeightsList = { }
+	for id, stat in pairs(data.powerStatList) do
+		if not stat.ignoreForItems and stat.label ~= "Name" then
+			t_insert(fallbackWeightsList, {
+				label = "Sort by " .. stat.label,
+				stat = stat.stat,
+				transform = stat.transform,
 			})
 		end
 	end
-	controls.sort = new("DropDownControl", nil, 90, 201, 160, 18, sortDropList, function(index, value)
-	end)
+	controls.fallbackWeightsList = new("DropDownControl", { "LEFT", controls.fallbackWeightsLabel, "RIGHT" }, 10, 0, 200, 18, fallbackWeightsList)
+	controls.fallbackWeightsButton = new("ButtonControl", { "LEFT", controls.fallbackWeightsList, "RIGHT" }, 5, 0, 66, 18, "Generate", setupFallbackWeights)
 
-	controls.searchListLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 110, 225, 0, 16, "^7Desired Nodes:")
-	controls.searchList = new("EditControl", { "TOPLEFT", controls.searchListLabel, "TOPLEFT" }, 0, 25, 338, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
+	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 225, 106, 20, "Desired Nodes", function()
+		controls.searchListFallback.shown = false
+		controls.searchListFallback.enabled = false
+		controls.searchList.shown = true
+		controls.searchList.enabled = true
+	end)
+	controls.searchListFallbackButton = new("ButtonControl", { "LEFT", controls.searchListButton, "RIGHT" }, 5, 0, 110, 20, "Fallback Nodes", function()
+		controls.searchList.shown = false
+		controls.searchList.enabled = false
+		controls.searchListFallback.shown = true
+		controls.searchListFallback.enabled = true
+	end)
+	controls.searchList = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 338, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchList = value
-		parseSearchList(0)
+		parseSearchList(0, false)
 		self.build.modFlag = true
 	end, 16, true)
+	controls.searchList.shown = true
+	controls.searchList.enabled = true
 	controls.searchList:SetText(timelessData.searchList)
+	controls.searchListFallback = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 338, 200, timelessData.searchListFallback, nil, "^%C\t\n", nil, function(value)
+		timelessData.searchListFallback = value
+		parseSearchList(0, true)
+		self.build.modFlag = true
+	end, 16, true)
+	controls.searchListFallback.shown = false
+	controls.searchListFallback.enabled = false
+	controls.searchListFallback:SetText(timelessData.searchListFallback)
 
-	controls.searchResultsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 462, 225, 0, 16, "^7Search Results:")
-	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", controls.searchResultsLabel, "TOPLEFT" }, 0, 25, 338, 200, self.build)
+	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -350, 225, 0, 16, "^7Search Results:")
+	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -350, 250, 338, 200, self.build)
 
-	controls.search = new("ButtonControl", nil, -90, 460, 80, 20, "Search", function()
+	controls.searchButton = new("ButtonControl", nil, -90, 460, 80, 20, "Search", function()
 		if treeData.nodes[timelessData.jewelSocket.id] and treeData.nodes[timelessData.jewelSocket.id].isJewelSocket then
 			local radiusNodes = treeData.nodes[timelessData.jewelSocket.id].nodesInRadius[3] -- large radius around timelessData.jewelSocket.id
 			local allocatedNodes = { }
@@ -1209,23 +1289,21 @@ function TreeTabClass:FindTimelessJewel()
 				if #desiredNode > 1 then
 					local displayName = nil
 					local singleStat = false
-					if totalMods[timelessData.jewelType.id] and desiredNode[1] == "Total_" .. totalMods[timelessData.jewelType.id][1] then
-						desiredNode[1] = "total stat"
+					if totalMods[timelessData.jewelType.id] and desiredNode[1] == "total_" .. totalMods[timelessData.jewelType.id][1]:lower() then
+						desiredNode[1] = "totalStat"
 						displayName = totalMods[timelessData.jewelType.id][1]
 					end
 					if displayName == nil then
 						for _, legionNode in ipairs(legionNodes) do
 							if legionNode.id == desiredNode[1] then
 								-- non-vaal replacements only support one nodeWeight
-								if  timelessData.jewelType.id > 1 then
+								if timelessData.jewelType.id > 1 then
 									singleStat = true
 								end
 								displayName = t_concat(legionNode.sd, " + ")
 								break
 							end
 						end
-					end
-					if displayName == nil then
 						for _, legionAddition in ipairs(legionAdditions) do
 							if legionAddition.id == desiredNode[1] then
 								-- additions only support one nodeWeight
@@ -1261,7 +1339,7 @@ function TreeTabClass:FindTimelessJewel()
 					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
 				end
 			end
-			if desiredNodes["total stat"] then
+			if desiredNodes["totalStat"] then
 				targetSmallNodes.attributeSmalls = 0
 				targetSmallNodes.otherSmalls = 0
 			end
@@ -1272,8 +1350,7 @@ function TreeTabClass:FindTimelessJewel()
 				and (not controls.socketFilter.state or allocatedNodes[nodeId]) then
 					if (treeData.nodes[nodeId].isNotable or timelessData.jewelType.id == 1) then
 						targetNodes[nodeId] = true
-					elseif desiredNodes["total stat"] 
-					and not treeData.nodes[nodeId].isNotable then
+					elseif desiredNodes["totalStat"] and not treeData.nodes[nodeId].isNotable then
 						if isValueInArray({ "Strength", "Intelligence", "Dexterity" }, treeData.nodes[nodeId].dn) then
 							targetSmallNodes.attributeSmalls = targetSmallNodes.attributeSmalls + 1
 						else
@@ -1286,7 +1363,7 @@ function TreeTabClass:FindTimelessJewel()
 			local seedMultiplier = timelessData.jewelType.id == 5 and 20 or 1 -- Elegant Hubris
 			for curSeed = data.timelessJewelSeedMin[timelessData.jewelType.id] * seedMultiplier, data.timelessJewelSeedMax[timelessData.jewelType.id] * seedMultiplier, seedMultiplier do
 				seedWeights[curSeed] = 0
-				resultNodes[curSeed] = { } 
+				resultNodes[curSeed] = { }
 				for targetNode in pairs(targetNodes) do
 					local jewelDataTbl = data.readLUT(curSeed, targetNode, timelessData.jewelType.id)
 					if not next(jewelDataTbl) then
@@ -1301,24 +1378,24 @@ function TreeTabClass:FindTimelessJewel()
 							curNode = legionAdditions[jewelDataTbl[1] + 1]
 							curNodeId = curNode and legionAdditions[jewelDataTbl[1] + 1].id or nil
 						end
-						if desiredNodes["total stat"] and totalModsIDs[curNodeId] then
-							--special case so this mod gets increased properly later (its worth 10 not 5) (interestingly these dont seem to showup properly)
+						if desiredNodes["totalStat"] and totalModIDs[curNodeId] then
+							-- special case for minor templar devotion nodes
 							if curNodeId == "templar_devotion_node" then
-								curNodeId = "total stat"
+								curNodeId = "totalStat"
 								resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
 								local weight = desiredNodes[curNodeId].nodeWeight
 								resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + weight
 								seedWeights[curSeed] = seedWeights[curSeed] + weight
-							--other special case, dont want to track these
+							-- special case for notable templar devotion nodes
 							elseif curNodeId == "templar_notable_devotion" then
-								curNodeId = "total stat"
+								curNodeId = "totalStat"
 								resultNodes[curSeed][curNodeId] = resultNodes[curSeed][curNodeId] or { targetNodeNames = { }, totalWeight = 0 }
 								local weight = desiredNodes[curNodeId].nodeWeight
 								resultNodes[curSeed][curNodeId].totalWeight = resultNodes[curSeed][curNodeId].totalWeight + weight
 								seedWeights[curSeed] = seedWeights[curSeed] + weight
-								curNodeId = " "
+								curNodeId = nil
 							else
-								curNodeId = "total stat"
+								curNodeId = "totalStat"
 							end
 						end
 						if timelessData.jewelType.id == 1 then
@@ -1364,23 +1441,23 @@ function TreeTabClass:FindTimelessJewel()
 						end
 					end
 				end
-				if desiredNodes["total stat"] then
+				if desiredNodes["totalStat"] then
 					if timelessData.jewelType.id == 4 then -- Militant Faith
 						local addedWeight = 5 * targetSmallNodes.otherSmalls + 10 * targetSmallNodes.attributeSmalls
-						if resultNodes[curSeed]["total stat"] then
-							addedWeight = addedWeight + resultNodes[curSeed]["total stat"].totalWeight * 4
-							resultNodes[curSeed]["total stat"].totalWeight = resultNodes[curSeed]["total stat"].totalWeight + addedWeight
+						if resultNodes[curSeed]["totalStat"] then
+							addedWeight = addedWeight + resultNodes[curSeed]["totalStat"].totalWeight * 4
+							resultNodes[curSeed]["totalStat"].totalWeight = resultNodes[curSeed]["totalStat"].totalWeight + addedWeight
 						else
-							resultNodes[curSeed]["total stat"] = { totalWeight = addedWeight }
+							resultNodes[curSeed]["totalStat"] = { totalWeight = addedWeight }
 						end
 						seedWeights[curSeed] = seedWeights[curSeed] + addedWeight
 					else
 						local addedWeight = 4 * targetSmallNodes.otherSmalls + 2 * targetSmallNodes.attributeSmalls
-						if resultNodes[curSeed]["total stat"] then
-							addedWeight = addedWeight + resultNodes[curSeed]["total stat"].totalWeight * 19
-							resultNodes[curSeed]["total stat"].totalWeight = resultNodes[curSeed]["total stat"].totalWeight + addedWeight
+						if resultNodes[curSeed]["totalStat"] then
+							addedWeight = addedWeight + resultNodes[curSeed]["totalStat"].totalWeight * 19
+							resultNodes[curSeed]["totalStat"].totalWeight = resultNodes[curSeed]["totalStat"].totalWeight + addedWeight
 						else
-							resultNodes[curSeed]["total stat"] = { totalWeight = addedWeight }
+							resultNodes[curSeed]["totalStat"] = { totalWeight = addedWeight }
 						end
 						seedWeights[curSeed] = seedWeights[curSeed] + addedWeight
 						
@@ -1437,12 +1514,13 @@ function TreeTabClass:FindTimelessJewel()
 			t_sort(timelessData.searchResults, function(a, b) return a.total > b.total end)
 		end
 	end)
-	controls.reset = new("ButtonControl", nil, 0, 460, 80, 20, "Reset", function()
-		updateSearchList("")
+	controls.resetButton = new("ButtonControl", nil, 0, 460, 80, 20, "Reset", function()
+		updateSearchList("", true)
+		updateSearchList("", false)
 		wipeTable(timelessData.searchResults)
 	end)
-	controls.close = new("ButtonControl", nil, 90, 460, 80, 20, "Cancel", function()
+	controls.closeButton = new("ButtonControl", nil, 90, 460, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(710, 492, "Find a Timeless Jewel", controls, "search")
+	main:OpenPopup(710, 492, "Find a Timeless Jewel", controls, "searchButton")
 end
