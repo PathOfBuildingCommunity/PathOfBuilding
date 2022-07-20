@@ -1075,19 +1075,26 @@ function TreeTabClass:FindTimelessJewel()
 		end
 		local output = generateWeights(nodes, controls.sort.list[controls.sort.selIndex])
 		local newList = ""
-		local minWeight = math.huge
+		local weightScalar = math.huge
 		for _, legionNode in ipairs(output) do
 			if legionNode.weight1 ~= 0 then
 				if legionNode.weight1 < 0 then
-					minWeight = m_min(minWeight, -legionNode.weight1)
+					weightScalar = m_min(weightScalar, -legionNode.weight1)
 				else
-					minWeight = m_min(minWeight, legionNode.weight1)
+					weightScalar = m_min(weightScalar, legionNode.weight1)
+				end
+			end
+			if legionNode.weight2 ~= 0 then
+				if legionNode.weight2 < 0 then
+					weightScalar = m_min(weightScalar, -legionNode.weight2)
+				else
+					weightScalar = m_min(weightScalar, legionNode.weight2)
 				end
 			end
 		end
 		for _, legionNode in ipairs(output) do
 			if legionNode.weight1 ~= 0 then
-				newList = newList .. legionNode.id .. ", " .. m_floor(legionNode.weight1 / minWeight) .. ", " .. legionNode.weight2 .. "\n"
+				newList = newList .. legionNode.id .. ", " .. round(legionNode.weight1 / weightScalar, 1) .. ", " .. round(legionNode.weight2 / weightScalar, 1) .. "\n"
 			end
 		end
 		updateSearchList(newList)
@@ -1127,7 +1134,7 @@ function TreeTabClass:FindTimelessJewel()
 			local targetNodesDistance = {}
 			local distanceCutoff = 2
 			local desiredNodes = { }
-			local requiredNodes = { }
+			local minimumWeights = { }
 			local resultNodes = { }
 			local rootNodes = { }
 			for _, class in pairs(treeData.classes) do
@@ -1154,8 +1161,18 @@ function TreeTabClass:FindTimelessJewel()
 				end
 			end
 			if controls.socketFilter.selIndex == 3 then
+				--[[
+				-- find all nodes in radius and get thier weights
+				local output = {}
+				for nodeId in pairs(Nodes) do
+					if 
+						t_insert(output, )
+					end
+				end
+				output = generateWeights(output, controls.sort.list[controls.sort.selIndex])
+				--]]
 				for targetNode in pairs(targetNodes) do
-					currentNodeWeights[targetNode] = 0 --getWeight(targetNode)
+					currentNodeWeights[targetNode] = 0 --round(targetNode.weight1 / weightScalar, 1)
 				end
 			else
 				for targetNode in pairs(targetNodes) do
@@ -1163,10 +1180,6 @@ function TreeTabClass:FindTimelessJewel()
 				end
 			end
 			local desiredIdx = 0
-			--[[
-			could have a *addtional filters line that stops doing node weights
-				you can put minimums/distances in there?
-			--]]
 			for inputLine in timelessData.searchList:gmatch("[^\r\n]+") do
 				local desiredNode = { }
 				for splitLine in inputLine:gmatch("([^,%s]+)") do
@@ -1174,12 +1187,12 @@ function TreeTabClass:FindTimelessJewel()
 				end
 				if #desiredNode > 1 then
 					local displayName = nil
+					local singleStat = false
 					for _, legionNode in ipairs(legionNodes) do
 						if legionNode.id == desiredNode[1] then
-							-- non-vaal replacements only support one nodeWeight, so we force any node requirements to the second slot
-							if desiredNode[2] == "required" and timelessData.jewelType.id > 1 then
-								desiredNode[2] = tonumber(desiredNode[3]) or 1
-								desiredNode[3] = "required"
+							-- non-vaal replacements only support one nodeWeight
+							if  timelessData.jewelType.id > 1 then
+								singleStat = true
 							end
 							displayName = t_concat(legionNode.sd, " + ")
 							break
@@ -1188,25 +1201,25 @@ function TreeTabClass:FindTimelessJewel()
 					if displayName == nil then
 						for _, legionAddition in ipairs(legionAdditions) do
 							if legionAddition.id == desiredNode[1] then
-								-- additions only support one nodeWeight, so we force any node requirements to the second slot
-								if desiredNode[2] == "required" then
-									desiredNode[2] = tonumber(desiredNode[3]) or 1
-									desiredNode[3] = "required"
-								end
+								-- additions only support one nodeWeight
+								singleStat = true
 								displayName = t_concat(legionAddition.sd, " + ")
 								break
 							end
 						end
 					end
 					if displayName ~= nil then
-						if desiredNode[2] == "required" then
-							desiredNode[2] = 0
-							t_insert(requiredNodes, desiredNode[1])
-						elseif desiredNode[3] == "required" then
-							desiredNode[3] = 0
-							t_insert(requiredNodes, desiredNode[1])
-						elseif (desiredNode[4] or 0) == "required" then
-							t_insert(requiredNodes, desiredNode[1])
+						for i, val in ipairs(desiredNode) do
+							if singleStat and i == 2 then
+								desiredNode[2] = tonumber(desiredNode[2]) or tonumber(desiredNode[3]) or 1
+							end
+							if val == "required" then
+								desiredNode[i] = (singleStat and i == 2) and desiredNode[2] or 0
+								t_insert(minimumWeights, { reqNode = desiredNode[1], weight = 0.01 })
+							elseif val == "minimumWeight" and tonumber(desiredNode[4]) then
+								desiredNode[i] = (singleStat and i == 2) and desiredNode[2] or 0
+								t_insert(minimumWeights, { reqNode = desiredNode[1], weight = tonumber(desiredNode[4]) })
+							end
 						end
 						desiredIdx = desiredIdx + 1
 						desiredNodes[desiredNode[1]] = { nodeWeight = tonumber(desiredNode[2]) or 0.1, nodeWeight2 = tonumber(desiredNode[3]) or 0.1, displayName = displayName or desiredNode[1], desiredIdx = desiredIdx }
@@ -1281,8 +1294,8 @@ function TreeTabClass:FindTimelessJewel()
 					end
 				end
 				-- check required nodes
-				for _, reqNode in ipairs(requiredNodes) do
-					if (resultNodes[curSeed][reqNode] or 0) == 0 then
+				for _, val in ipairs(minimumWeights) do
+					if (resultNodes[curSeed][val.reqNode] and resultNodes[curSeed][val.reqNode].totalWeight or 0) < val.weight then
 						resultNodes[curSeed] = nil
 						break
 					end
