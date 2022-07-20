@@ -748,7 +748,7 @@ function TreeTabClass:FindTimelessJewel()
 	local modData = { }
 	local ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Add Strength", "Dex", "Add Dexterity", "Devotion", "Price of Glory" }
 	local totalMods = { [2] = { "Strength", "Add Strength" }, [3] = { "Dexterity", "Dex", "Add Dexterity" }, [4] = { "Devotion" } }
-	local totalModIDs = { ["karui_notable_add_strength"] = "Strength", ["total_strength"] = "karui_notable_add_strength", ["maraketh_notable_add_dexterity"] = "Dex", ["total_dex"] = "maraketh_notable_add_dexterity", ["templar_notable_devotion"] = "Devotion", ["templar_devotion_node"] = "Devotion" }
+	local totalModIDs = { ["karui_notable_add_strength"] = "Strength", ["total_strength"] = "karui_notable_add_strength", ["maraketh_notable_add_dexterity"] = "Dex", ["total_dexterity"] = "maraketh_notable_add_dexterity", ["templar_notable_devotion"] = "Devotion", ["templar_devotion_node"] = "Devotion" }
 	local jewelTypes = {
 		{ label = "Glorious Vanity", name = "vaal", id = 1 },
 		{ label = "Lethal Pride", name = "karui", id = 2 },
