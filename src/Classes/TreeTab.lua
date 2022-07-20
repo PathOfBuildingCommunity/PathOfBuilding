@@ -748,7 +748,7 @@ function TreeTabClass:FindTimelessJewel()
 	local modData = { }
 	local ignoredMods = { "Might of the Vaal", "Legacy of the Vaal", "Strength", "Add Strength", "Dex", "Add Dexterity", "Devotion", "Price of Glory" }
 	local totalMods = { [2] = {"Strength", "Add Strength"}, [3] = {"Dex", "Add Dexterity"}, [4] = {"Devotion"} }
-	local totalModsIDs = { karui_notable_add_strength = "Strength", maraketh_notable_add_dexterity = "Dex", templar_notable_devotion = "Devotion", templar_devotion_node = "Devotion" }
+	local totalModsIDs = { karui_notable_add_strength = "Strength", Total_Strength = "karui_notable_add_strength", maraketh_notable_add_dexterity = "Dex", Total_Dex = "maraketh_notable_add_dexterity", templar_notable_devotion = "Devotion", templar_devotion_node = "Devotion" }
 	local jewelTypes = {
 		{ label = "Glorious Vanity", name = "vaal", id = 1 },
 		{ label = "Lethal Pride", name = "karui", id = 2 },
@@ -861,7 +861,8 @@ function TreeTabClass:FindTimelessJewel()
 				label = "Total " .. totalMods[timelessData.jewelType.id][1],
 				descriptions = copyTable(totalMods[timelessData.jewelType.id]),
 				type = timelessData.jewelType.name,
-				id = "Total_" .. totalMods[timelessData.jewelType.id][1]
+				id = "Total_" .. totalMods[timelessData.jewelType.id][1],
+				totalMod = true
 			})
 		end
 		t_insert(modData, 1, { label = "..." })
@@ -1029,7 +1030,7 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			t_insert(newList, {
 				id = newNode.id,
-				weight1 = outputValue - 1
+				weight1 = (outputValue - 1) / (newNode.divisor or 1)
 			})
 			if newNode.calcMultiple then
 				output = calcFunc({ addNodes = { [newNode.node[2]] = true } })
@@ -1044,7 +1045,7 @@ function TreeTabClass:FindTimelessJewel()
 				if outputValue ~= outputValue then
 					outputValue = 1
 				end
-				newList[#newList].weight2 = outputValue - 1
+				newList[#newList].weight2 = (outputValue - 1) / (newNode.divisor or 1)
 			end
 		end
 		return newList
@@ -1074,9 +1075,10 @@ function TreeTabClass:FindTimelessJewel()
 		local nodes = {}
 		for _, legionNode in ipairs(modData) do
 			if legionNode.id then
+				local searchID = (legionNode.totalMod and totalModsIDs[legionNode.id]) or legionNode.id
 				local newNode = nil
 				for _, legionNodeSub in ipairs(legionNodes) do
-					if legionNodeSub.id == legionNode.id then
+					if legionNodeSub.id == searchID then
 							newNode = {}
 							newNode.id = legionNodeSub.id
 							if legionNode.type == "vaal" then
@@ -1104,15 +1106,19 @@ function TreeTabClass:FindTimelessJewel()
 										newNode.modList = modList
 									end
 								end
+								newNode.divisor = 100
 							else
 								newNode.modList = legionNodeSub.modList
+								if legionNode.totalMod then
+									newNode.divisor = legionNodeSub.modList[1].value
+								end
 							end
 						break
 					end
 				end
 				if not newNode then
 					for _, legionAddition in ipairs(legionAdditions) do
-						if legionAddition.id == legionNode.id then
+						if legionAddition.id == searchID then
 							newNode = {}
 							newNode.id = legionAddition.id
 							if legionAddition.modList then
@@ -1126,10 +1132,14 @@ function TreeTabClass:FindTimelessJewel()
 									for key, stat in legionAddition.stats do -- should only be length 1
 										line = replaceHelperFunc(line, key, stat, 100)
 									end
+									newNode.divisor = 100
 								end
 								local modList, extra = modLib.parseMod(line)
 								legionAddition.modListGenerated = modList
 								newNode.modList = modList
+							end
+							if legionNode.totalMod then
+								newNode.divisor = newNode.modList[1].value
 							end
 							break
 						end
