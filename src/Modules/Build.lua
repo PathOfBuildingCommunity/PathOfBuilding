@@ -957,9 +957,6 @@ function buildMode:OnFrame(inputEvents)
 	if main.showTitlebarName ~= self.lastShowTitlebarName then
 		self.spec:SetWindowTitleWithBuildClass()
 	end
-	if main.showWarnings ~= self.lastShowshowWarnings then
-		self:RefreshStatList()
-	end
 
 	-- Update contents of main skill dropdowns
 	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
@@ -1263,7 +1260,6 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal)
 	self.lastShowThousandsSeparator = main.thousandsSeparator
 	self.lastShowDecimalSeparator = main.decimalSeparator
 	self.lastShowTitlebarName = main.showTitlebarName
-	self.lastshowWarnings = main.showWarnings
 	return valStr
 end
 
