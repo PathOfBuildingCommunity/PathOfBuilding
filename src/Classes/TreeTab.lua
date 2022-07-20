@@ -1270,7 +1270,7 @@ function TreeTabClass:FindTimelessJewel()
 				and not treeData.nodes[nodeId].isJewelSocket
 				and not treeData.nodes[nodeId].isKeystone
 				and (not controls.socketFilter.state or allocatedNodes[nodeId]) then
-					if (treeData.nodes[nodeId].isNotable or timelessData.jewelType.id == 1)
+					if (treeData.nodes[nodeId].isNotable or timelessData.jewelType.id == 1) then
 						targetNodes[nodeId] = true
 					elseif desiredNodes["total stat"] 
 					and not treeData.nodes[nodeId].isNotable then
