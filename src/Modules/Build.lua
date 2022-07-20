@@ -1433,13 +1433,13 @@ do
 		-- Convert normal attributes to Omni attributes
 		if self.calcsTab.mainEnv.modDB:Flag(nil, "OmniscienceRequirements") then
 			local omniSatisfy = self.calcsTab.mainEnv.modDB:Sum("INC", nil, "OmniAttributeRequirements")
-			local highestAtrribute = 0
+			local highestAttribute = 0
 			for i, stat in ipairs({str, dex, int}) do
-				if((stat or 0) > highestAtrribute) then
-					highestAtrribute = stat
+				if((stat or 0) > highestAttribute) then
+					highestAttribute = stat
 				end
 			end
-			local omni = math.floor(highestAtrribute * (100/omniSatisfy))
+			local omni = math.floor(highestAttribute * (100/omniSatisfy))
 			if omni and (omni > 0 or omni > self.calcsTab.mainOutput.Omni) then
 				t_insert(req, s_format("%s%d ^x7F7F7FOmni", main:StatColor(omni, 0, self.calcsTab.mainOutput.Omni), omni))
 			end
