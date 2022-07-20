@@ -1560,9 +1560,8 @@ function buildMode:SaveDBFile()
 	local action = self.actionOnSave
 	self.actionOnSave = nil
 
-	-- Reset modflag for each saver to show that the build is saved
+	-- Reset all modFlags
 	self:ResetModFlags()
-
 
 	if action == "LIST" then
 		self:CloseBuild()
