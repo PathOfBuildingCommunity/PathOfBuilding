@@ -1214,7 +1214,7 @@ function TreeTabClass:FindTimelessJewel()
 				for _, legionNode in ipairs(legionNodes) do
 					if legionNode.id == modNode.id or (totalModIDs[modNode.id] and totalModIDs[modNode.id][legionNode.id]) then
 							newNode = { }
-							newNode.id = legionNode.id
+							newNode.id = modNode.id
 							if modNode.type == "vaal" then
 								if #legionNode.sd == 2 then
 									newNode.calcMultiple = true
@@ -1254,7 +1254,7 @@ function TreeTabClass:FindTimelessJewel()
 					for _, legionAddition in ipairs(legionAdditions) do
 						if legionAddition.id == modNode.id or (totalModIDs[modNode.id] and totalModIDs[modNode.id][legionAddition.id]) then
 							newNode = { }
-							newNode.id = legionAddition.id
+							newNode.id = modNode.id
 							if legionAddition.modList then
 								newNode.modList = legionAddition.modList
 							elseif legionAddition.modListGenerated then
