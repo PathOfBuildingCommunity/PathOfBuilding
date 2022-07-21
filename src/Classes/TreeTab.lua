@@ -1011,6 +1011,7 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	controls.socketFilter.state = timelessData.socketFilter
 
+	local nodeSliderStatLabel = "None"
 	controls.nodeSliderLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 125, 0, 16, "^7Primary Node Weight:")
 	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 10, 0, 200, 16, function(value)
 		controls.nodeSliderValue.label = s_format("^7%.3f", value * 10)
@@ -1018,18 +1019,23 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	controls.nodeSlider.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the first stat listed.")
+		if nodeSliderStatLabel == "None" then
+			tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the first stat listed.")
+		else
+			tooltip:AddLine(16, "^7This slider controls the weight of the following stat: " .. nodeSliderStatLabel)
+		end
 	end
 	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "^71.000")
 	controls.nodeSlider.tooltip.realDraw = controls.nodeSlider.tooltip.Draw
 	controls.nodeSlider.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		if main.screenW >= 1452 then
+		if (main.screenW >= 1452 and nodeSliderStatLabel == "None") or main.screenW >= 1600 then
 			return controls.nodeSlider.tooltip.realDraw(self, x + controls.nodeSliderValue.width() + 5, y, width, height, viewPort)
 		end
 		return controls.nodeSlider.tooltip.realDraw(self, x, y, width, height, viewPort)
 	end
 	controls.nodeSlider:SetVal(0.1)
 
+	local nodeSlider2StatLabel = "None"
 	controls.nodeSlider2Label = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 150, 0, 16, "^7Secondary Node Weight:")
 	controls.nodeSlider2 = new("SliderControl", { "LEFT", controls.nodeSlider2Label, "RIGHT" }, 10, 0, 200, 16, function(value)
 		controls.nodeSlider2Value.label = s_format("^7%.3f", value * 10)
@@ -1037,12 +1043,16 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	controls.nodeSlider2.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the second stat listed.")
+		if nodeSlider2StatLabel == "None" then
+			tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the second stat listed.")
+		else
+			tooltip:AddLine(16, "^7This slider controls the weight of the following stat: " .. nodeSlider2StatLabel)
+		end
 	end
 	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "^71.000")
 	controls.nodeSlider2.tooltip.realDraw = controls.nodeSlider2.tooltip.Draw
 	controls.nodeSlider2.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		if main.screenW >= 1498 then
+		if (main.screenW >= 1498 and nodeSliderStatLabel == "None") or main.screenW >= 1600 then
 			return controls.nodeSlider2.tooltip.realDraw(self, x + controls.nodeSlider2Value.width() + 5, y, width, height, viewPort)
 		end
 		return controls.nodeSlider2.tooltip.realDraw(self, x, y, width, height, viewPort)
@@ -1099,7 +1109,35 @@ function TreeTabClass:FindTimelessJewel()
 	buildMods()
 	controls.nodeSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 200, 0, 16, "^7Search for Node:")
 	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 200, 18, modData, function(index, value)
+		nodeSliderStatLabel = "None"
+		nodeSlider2StatLabel = "None"
 		if value.id then
+			local statCount = 0
+			for _, legionNode in ipairs(legionNodes) do
+				if legionNode.id == value.id then
+					statCount = #legionNode.sd
+					nodeSliderStatLabel = legionNode.sd[1] or "None"
+					nodeSlider2StatLabel = legionNode.sd[2] or "None"
+					break
+				end
+			end
+			if statCount == 0 then
+				for _, legionAddition in ipairs(legionAdditions) do
+					if legionAddition.id == value.id then
+						statCount = #legionAddition.sd
+						nodeSliderStatLabel = legionAddition.sd[1] or "None"
+						nodeSlider2StatLabel = legionAddition.sd[2] or "None"
+						break
+					end
+				end
+			end
+			if statCount <= 1 then
+				controls.nodeSlider2.val = 0
+				controls.nodeSlider2Value.label = s_format("^8%.3f", 0)
+			else
+				controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
+			end
+			controls.nodeSlider2.enabled = statCount > 1
 			local newNode = value.id .. ", " .. controls.nodeSliderValue.label:sub(3):lower() .. ", " .. controls.nodeSlider2Value.label:sub(3):lower() .. ", " .. controls.nodeSlider3Value.label:sub(3):lower()
 			if controls.searchListFallback and controls.searchListFallback.shown then
 				for _, searchRow in ipairs(searchListFallbackTbl) do
@@ -1133,7 +1171,7 @@ function TreeTabClass:FindTimelessJewel()
 			end
 		end
 	end
-	
+
 	local function generateFallbackWeights(nodes, selection)
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 		local newList = { }
@@ -1296,7 +1334,7 @@ function TreeTabClass:FindTimelessJewel()
 		updateSearchList(newList, true)
 	end
 
-	controls.fallbackWeightsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 225, 0, 16, "Fallback Weight Mode:")
+	controls.fallbackWeightsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 225, 0, 16, "^7Fallback Weight Mode:")
 	local fallbackWeightsList = { }
 	for id, stat in pairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
@@ -1312,6 +1350,10 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	controls.fallbackWeightsList.selIndex = timelessData.fallbackWeightMode.idx or 1
 	controls.fallbackWeightsButton = new("ButtonControl", { "LEFT", controls.fallbackWeightsList, "RIGHT" }, 5, 0, 66, 18, "Generate", setupFallbackWeights)
+	controls.fallbackWeightsButton.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Click this button to generate new fallback node weights, replacing your old ones.")
+	end
 
 	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 106, 20, "Desired Nodes", function()
 		controls.searchListFallback.shown = false
@@ -1319,12 +1361,25 @@ function TreeTabClass:FindTimelessJewel()
 		controls.searchList.shown = true
 		controls.searchList.enabled = true
 	end)
+	controls.searchListButton.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7This contains a list of your desired nodes along with their primary, secondary, and minimum weights.")
+		tooltip:AddLine(16, "^7This list can be updated manually or by selecting the node you want to update via the search dropdown list and then moving the node weight sliders.")
+	end
 	controls.searchListFallbackButton = new("ButtonControl", { "LEFT", controls.searchListButton, "RIGHT" }, 5, 0, 110, 20, "Fallback Nodes", function()
 		controls.searchList.shown = false
 		controls.searchList.enabled = false
 		controls.searchListFallback.shown = true
 		controls.searchListFallback.enabled = true
 	end)
+	controls.searchListFallbackButton.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7This contains a list of your fallback nodes along with their primary, secondary, and minimum weights.")
+		tooltip:AddLine(16, "^7This list can be updated manually or by selecting the node you want to update via the search dropdown list and then moving the node weight sliders.")
+		tooltip:AddLine(16, "^7Fallback node weights are only used when no entry under the desired nodes list exists, allowing you to override or disable specific automatic weights.")
+		tooltip:AddLine(16, "^7Fallback node weights are typically automatically generated, with minimal changes.")
+		tooltip:AddLine(16, "^7Any manual changes made to this section are lost when you click the generate button.")
+	end
 	controls.searchList = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 275, 438, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchList = value
 		parseSearchList(0, false)
