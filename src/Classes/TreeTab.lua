@@ -1375,7 +1375,7 @@ function TreeTabClass:FindTimelessJewel()
 								end
 							end
 						end
-						if desiredNode[4] ~= nil then
+						if desiredNode[4] ~= nil and tonumber(desiredNode[4]) then
 							t_insert(minimumWeights, { reqNode = desiredNode[1], weight = tonumber(desiredNode[4]) })
 						end
 						if desiredNodes[desiredNode[1]] then
@@ -1490,12 +1490,12 @@ function TreeTabClass:FindTimelessJewel()
 				if desiredNodes["totalStat"] then
 					resultNodes[curSeed]["totalStat"] = resultNodes[curSeed]["totalStat"] or { targetNodeNames = { }, totalWeight = 0 }
 					if timelessData.jewelType.id == 4 then -- Militant Faith
-						local addedWeight = 5 * targetSmallNodes.otherSmalls + 10 * targetSmallNodes.attributeSmalls
+						local addedWeight = desiredNodes[curNodeId].nodeWeight * (5 * targetSmallNodes.otherSmalls + 10 * targetSmallNodes.attributeSmalls)
 						addedWeight = addedWeight + resultNodes[curSeed]["totalStat"].totalWeight * 4
 						resultNodes[curSeed]["totalStat"].totalWeight = resultNodes[curSeed]["totalStat"].totalWeight + addedWeight
 						seedWeights[curSeed] = seedWeights[curSeed] + addedWeight
 					else
-						local addedWeight = 4 * targetSmallNodes.otherSmalls + 2 * targetSmallNodes.attributeSmalls
+						local addedWeight = desiredNodes[curNodeId].nodeWeight * (4 * targetSmallNodes.otherSmalls + 2 * targetSmallNodes.attributeSmalls)
 						addedWeight = addedWeight + resultNodes[curSeed]["totalStat"].totalWeight * 19
 						resultNodes[curSeed]["totalStat"].totalWeight = resultNodes[curSeed]["totalStat"].totalWeight + addedWeight
 						seedWeights[curSeed] = seedWeights[curSeed] + addedWeight
