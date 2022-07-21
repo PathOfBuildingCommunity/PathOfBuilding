@@ -1534,10 +1534,23 @@ function TreeTabClass:FindTimelessJewel()
 			for seedMatch, seedData in pairs(resultNodes) do
 				if seedWeights[seedMatch] > 0 then
 					timelessData.searchResults[searchResultsIdx] = { label = seedMatch .. ":" }
-					if timelessData.jewelType.id == 5 and seedMatch < 10000 then
-						timelessData.searchResults[searchResultsIdx].label = "    " .. timelessData.searchResults[searchResultsIdx].label
-					elseif timelessData.jewelType.id == 5 and seedMatch < 100000 or seedMatch < 1000 then
-						timelessData.searchResults[searchResultsIdx].label = "  " .. timelessData.searchResults[searchResultsIdx].label
+					if timelessData.jewelType.id == 1 or timelessData.jewelType.id == 3 then
+						-- Glorious Vanity [100-8000], Brutal Restraint [500-8000]
+						if seedMatch < 1000 then
+							timelessData.searchResults[searchResultsIdx].label = "  " .. timelessData.searchResults[searchResultsIdx].label
+						end
+					elseif timelessData.jewelType.id == 4 then
+						-- Militant Faith [2000-10000]
+						if seedMatch < 10000 then
+							timelessData.searchResults[searchResultsIdx].label = "  " .. timelessData.searchResults[searchResultsIdx].label
+						end
+					else
+						-- Elegant Hubris [2000-160000]
+						if seedMatch < 10000 then
+							timelessData.searchResults[searchResultsIdx].label = "    " .. timelessData.searchResults[searchResultsIdx].label
+						elseif seedMatch < 100000 then
+							timelessData.searchResults[searchResultsIdx].label = "  " .. timelessData.searchResults[searchResultsIdx].label
+						end
 					end
 					local sortedNodeArray = { }
 					for legionId, desiredNode in pairs(desiredNodes) do
