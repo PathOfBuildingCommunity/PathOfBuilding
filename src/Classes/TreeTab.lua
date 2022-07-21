@@ -1334,9 +1334,12 @@ function TreeTabClass:FindTimelessJewel()
 		local output = generateFallbackWeights(nodes, controls.fallbackWeightsList.list[controls.fallbackWeightsList.selIndex])
 		local newList = ""
 		local weightScalar = 100
-		for _, legionNode in ipairs(output) do
+		for curIdx, legionNode in ipairs(output) do
 			if legionNode.weight1 ~= 0 or (legionNode.weight2 and legionNode.weight2 ~= 0) then
-				newList = newList .. legionNode.id .. ", " .. s_format("%.3f", legionNode.weight1 * weightScalar) .. ", " .. s_format("%.3f", (legionNode.weight2 or 0) * weightScalar) .. ", 0\n"
+				newList = newList .. legionNode.id .. ", " .. s_format("%.3f", legionNode.weight1 * weightScalar) .. ", " .. s_format("%.3f", (legionNode.weight2 or 0) * weightScalar) .. ", 0"
+				if curIdx < #output then
+					newList = newList .. "\n"
+				end
 			end
 		end
 		updateSearchList(newList, true)
