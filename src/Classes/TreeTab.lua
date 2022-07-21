@@ -1570,5 +1570,5 @@ function TreeTabClass:FindTimelessJewel()
 	controls.closeButton = new("ButtonControl", nil, 90, 485, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(710, 517, "Find a Timeless Jewel", controls, "searchButton")
+	main:OpenPopup(710, 517, "Find a Timeless Jewel", controls)
 end
