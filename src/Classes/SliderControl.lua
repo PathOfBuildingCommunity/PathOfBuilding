@@ -7,12 +7,13 @@ local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
 
-local SliderClass = newClass("SliderControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, changeFunc)
+local SliderClass = newClass("SliderControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, changeFunc, scrollWheelMultiplier)
 	self.Control(anchor, x, y, width, height)
 	self.TooltipHost()
 	self.knobSize = height - 2
 	self.val = 0
 	self.changeFunc = changeFunc
+	self.scrollWheelMultiplier = scrollWheelMultiplier or 1
 end)
 
 function SliderClass:IsMouseOver()
@@ -159,6 +160,22 @@ function SliderClass:OnKeyUp(key)
 			self.dragging = false
 			local cursorX, cursorY = GetCursorPos()
 			self:SetValFromKnobX((cursorX - self.dragCX) + self.dragKnobX)
+		end
+	elseif key == "WHEELDOWN" then
+		if IsKeyDown("SHIFT") then
+			self:SetVal(self.val + (0.25 * self.scrollWheelMultiplier))
+		elseif IsKeyDown("CTRL") then
+			self:SetVal(self.val + (0.01 * self.scrollWheelMultiplier))
+		else
+			self:SetVal(self.val + (0.05 * self.scrollWheelMultiplier))
+		end
+	elseif key == "WHEELUP" then
+		if IsKeyDown("SHIFT") then
+			self:SetVal(self.val - (0.25 * self.scrollWheelMultiplier))
+		elseif IsKeyDown("CTRL") then
+			self:SetVal(self.val - (0.01 * self.scrollWheelMultiplier))
+		else
+			self:SetVal(self.val - (0.05 * self.scrollWheelMultiplier))
 		end
 	end
 end
