@@ -1012,6 +1012,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.socketFilter.state = timelessData.socketFilter
 
 	local scrollWheelSpeedTbl = { ["SHIFT"] = 0.01, ["CTRL"] = 0.0001, ["DEFAULT"] = 0.001 }
+	local scrollWheelSpeedTbl2 = { ["SHIFT"] = 0.02, ["CTRL"] = 0.002, ["DEFAULT"] = 0.02 }
 
 	local nodeSliderStatLabel = "None"
 	controls.nodeSliderLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 125, 0, 16, "^7Primary Node Weight:")
@@ -1071,7 +1072,7 @@ function TreeTabClass:FindTimelessJewel()
 			controls.nodeSlider3Value.label = s_format("^7%.f", value * 500)
 		end
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
-	end, scrollWheelSpeedTbl)
+	end, scrollWheelSpeedTbl2)
 	controls.nodeSlider3.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Seeds that do not meet the minimum weight threshold for a desired node are excluded from the search results.")
