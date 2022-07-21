@@ -1387,9 +1387,9 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7This contains a list of your fallback nodes along with their primary, secondary, and minimum weights.")
 		tooltip:AddLine(16, "^7This list can be updated manually or by selecting the node you want to update via the search dropdown list and then moving the node weight sliders.")
-		tooltip:AddLine(16, "^7Fallback node weights are only used when no matching entry exists in the desired nodes list, allowing you to override or disable specific fallback weights.")
-		tooltip:AddLine(16, "^7Fallback node weights are typically automatically generated, with minimal changes.")
-		tooltip:AddLine(16, "^7Any manual changes made to this section are lost when you click the generate button.")
+		tooltip:AddLine(16, "^7Fallback node weights are only used when no matching entry exists in the desired nodes list, allowing you to override or disable specific automatic weights.")
+		tooltip:AddLine(16, "^7Fallback node weights typically contain automatically generated stat weights based on your current build.")
+		tooltip:AddLine(16, "^7Any manual changes made to your fallback nodes are lost when you click the generate button, as it completely replaces them.")
 	end
 	controls.searchList = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 275, 438, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchList = value
