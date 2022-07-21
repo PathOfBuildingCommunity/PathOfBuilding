@@ -1375,7 +1375,7 @@ function TreeTabClass:FindTimelessJewel()
 								end
 							end
 						end
-						if desiredNode[4] ~= nil and tonumber(desiredNode[4]) then
+						if desiredNode[4] ~= nil and tonumber(desiredNode[4]) > 0 then
 							t_insert(minimumWeights, { reqNode = desiredNode[1], weight = tonumber(desiredNode[4]) })
 						end
 						if desiredNodes[desiredNode[1]] then
