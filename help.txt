@@ -6,13 +6,21 @@ This file contains a list of shortcuts, and other misc things PoB has
 
 1. Intro
 2. Contents
-3. Hotkeys
-4. Other
+3. FAQ
+4. Hotkeys
+5. Other
+6. Timeless Jewels
 
----[Hotkeys][3]
+---[FAQ][3]
 
+---[Hotkeys][4]
+
+ctrl, ` = dev consol
 ctrl, n = newbuild
 
----[Other Notable Things][4]
+---[Other Notable Things][5]
 
 adding ^ and then a number or hexcode before text will change the colour of the text, eg ^^77 will make all text white
+
+---[Timeless Jewels][6]
+
