@@ -1016,6 +1016,10 @@ function TreeTabClass:FindTimelessJewel()
 		controls.nodeSliderValue.label = s_format("^7%.3f", value * 10)
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end)
+	controls.nodeSlider.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the first stat listed.")
+	end
 	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "^71.000")
 	controls.nodeSlider:SetVal(0.1)
 
@@ -1024,6 +1028,10 @@ function TreeTabClass:FindTimelessJewel()
 		controls.nodeSlider2Value.label = s_format("^7%.3f", value * 10)
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end)
+	controls.nodeSlider2.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the second stat listed.")
+	end
 	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "^71.000")
 	controls.nodeSlider2:SetVal(0.1)
 
@@ -1036,6 +1044,10 @@ function TreeTabClass:FindTimelessJewel()
 		end
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end)
+	controls.nodeSlider3.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Seeds that do not meet the minimum weight threshold for a desired node are excluded from the search results.")
+	end
 	controls.nodeSlider3Value = new("LabelControl", { "LEFT", controls.nodeSlider3, "RIGHT" }, 5, 0, 0, 16, "^70")
 	controls.nodeSlider3:SetVal(0)
 
@@ -1191,7 +1203,7 @@ function TreeTabClass:FindTimelessJewel()
 										-- generate modList	
 										local modList1, extra1 = modLib.parseMod(replaceHelperFunc(legionNode.sd[1], legionNode.sortedStats[1], legionNode.stats[legionNode.sortedStats[1]], 100))
 										local modList2, extra2 = modLib.parseMod(replaceHelperFunc(legionNode.sd[2], legionNode.sortedStats[2], legionNode.stats[legionNode.sortedStats[2]], 100))
-										local modLists = { { modList = modList1 }, { modList = modList2 }}
+										local modLists = { { modList = modList1 }, { modList = modList2 } }
 										legionNode.modListGenerated = copyTable(modLists)
 										newNode.node = copyTable(modLists)
 									end
@@ -1276,8 +1288,8 @@ function TreeTabClass:FindTimelessJewel()
 	controls.fallbackWeightsList = new("DropDownControl", { "LEFT", controls.fallbackWeightsLabel, "RIGHT" }, 10, 0, 200, 18, fallbackWeightsList, function(index)
 		timelessData.fallbackWeightMode.idx = index
 	end)
-	controls.fallbackWeightsButton = new("ButtonControl", { "LEFT", controls.fallbackWeightsList, "RIGHT" }, 5, 0, 66, 18, "Generate", setupFallbackWeights)
 	controls.fallbackWeightsList.selIndex = timelessData.fallbackWeightMode.idx or 1
+	controls.fallbackWeightsButton = new("ButtonControl", { "LEFT", controls.fallbackWeightsList, "RIGHT" }, 5, 0, 66, 18, "Generate", setupFallbackWeights)
 
 	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 106, 20, "Desired Nodes", function()
 		controls.searchListFallback.shown = false
