@@ -1022,13 +1022,14 @@ function TreeTabClass:FindTimelessJewel()
 		if nodeSliderStatLabel == "None" then
 			tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the first stat listed.")
 		else
-			tooltip:AddLine(16, "^7This slider controls the weight of the following stat: " .. nodeSliderStatLabel)
+			tooltip:AddLine(16, "^7This slider controls the weight of the following stat:")
+			tooltip:AddLine(16, "^7        " .. nodeSliderStatLabel)
 		end
 	end
 	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "^71.000")
 	controls.nodeSlider.tooltip.realDraw = controls.nodeSlider.tooltip.Draw
 	controls.nodeSlider.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		if (main.screenW >= 1452 and nodeSliderStatLabel == "None") or main.screenW >= 1600 then
+		if main.screenW >= 1452 then
 			return controls.nodeSlider.tooltip.realDraw(self, x + controls.nodeSliderValue.width() + 5, y, width, height, viewPort)
 		end
 		return controls.nodeSlider.tooltip.realDraw(self, x, y, width, height, viewPort)
@@ -1046,13 +1047,14 @@ function TreeTabClass:FindTimelessJewel()
 		if nodeSlider2StatLabel == "None" then
 			tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the second stat listed.")
 		else
-			tooltip:AddLine(16, "^7This slider controls the weight of the following stat: " .. nodeSlider2StatLabel)
+			tooltip:AddLine(16, "^7This slider controls the weight of the following stat:")
+			tooltip:AddLine(16, "^7        " .. nodeSlider2StatLabel)
 		end
 	end
 	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "^71.000")
 	controls.nodeSlider2.tooltip.realDraw = controls.nodeSlider2.tooltip.Draw
 	controls.nodeSlider2.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		if (main.screenW >= 1498 and nodeSliderStatLabel == "None") or main.screenW >= 1600 then
+		if main.screenW >= 1498 then
 			return controls.nodeSlider2.tooltip.realDraw(self, x + controls.nodeSlider2Value.width() + 5, y, width, height, viewPort)
 		end
 		return controls.nodeSlider2.tooltip.realDraw(self, x, y, width, height, viewPort)
