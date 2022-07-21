@@ -1298,7 +1298,7 @@ function TreeTabClass:FindTimelessJewel()
 	end, 16, true)
 	controls.searchList.shown = true
 	controls.searchList.enabled = true
-	controls.searchList:SetText(timelessData.searchList)
+	controls.searchList:SetText(timelessData.searchList and timelessData.searchList or "")
 	controls.searchListFallback = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 275, 338, 200, timelessData.searchListFallback, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchListFallback = value
 		parseSearchList(0, true)
@@ -1306,7 +1306,7 @@ function TreeTabClass:FindTimelessJewel()
 	end, 16, true)
 	controls.searchListFallback.shown = false
 	controls.searchListFallback.enabled = false
-	controls.searchListFallback:SetText(timelessData.searchListFallback)
+	controls.searchListFallback:SetText(timelessData.searchListFallback and timelessData.searchListFallback or "")
 
 	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -350, 250, 0, 16, "^7Search Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -350, 275, 338, 200, self.build)
