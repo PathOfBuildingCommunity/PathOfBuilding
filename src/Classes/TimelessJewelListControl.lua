@@ -45,7 +45,7 @@ function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 				end
 			end
 		end
-		if #sortedNodeLists > 0 then
+		if next(sortedNodeLists) then
 			tooltip:AddLine(16, "^7Node List:")
 			for _, sortedNodeList in pairs(sortedNodeLists) do
 				tooltip:AddLine(16, sortedNodeList)
