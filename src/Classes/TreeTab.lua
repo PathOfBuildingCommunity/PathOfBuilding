@@ -1011,12 +1011,14 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	controls.socketFilter.state = timelessData.socketFilter
 
+	local scrollWheelSpeedTbl = { ["SHIFT"] = 0.01, ["CTRL"] = 0.0001, ["DEFAULT"] = 0.001 }
+
 	local nodeSliderStatLabel = "None"
 	controls.nodeSliderLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 125, 0, 16, "^7Primary Node Weight:")
 	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 10, 0, 200, 16, function(value)
 		controls.nodeSliderValue.label = s_format("^7%.3f", value * 10)
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
-	end, 0.01)
+	end, scrollWheelSpeedTbl)
 	controls.nodeSlider.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if nodeSliderStatLabel == "None" then
@@ -1041,7 +1043,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider2 = new("SliderControl", { "LEFT", controls.nodeSlider2Label, "RIGHT" }, 10, 0, 200, 16, function(value)
 		controls.nodeSlider2Value.label = s_format("^7%.3f", value * 10)
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
-	end, 0.01)
+	end, scrollWheelSpeedTbl)
 	controls.nodeSlider2.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if nodeSlider2StatLabel == "None" then
@@ -1069,7 +1071,7 @@ function TreeTabClass:FindTimelessJewel()
 			controls.nodeSlider3Value.label = s_format("^7%.f", value * 500)
 		end
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
-	end, 0.01)
+	end, scrollWheelSpeedTbl)
 	controls.nodeSlider3.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Seeds that do not meet the minimum weight threshold for a desired node are excluded from the search results.")
