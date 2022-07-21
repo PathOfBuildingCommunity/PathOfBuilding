@@ -1021,6 +1021,13 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the first stat listed.")
 	end
 	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "^71.000")
+	controls.nodeSlider.tooltip.realDraw = controls.nodeSlider.tooltip.Draw
+	controls.nodeSlider.tooltip.Draw = function(self, x, y, width, height, viewPort)
+		if main.screenW >= 1452 then
+			return controls.nodeSlider.tooltip.realDraw(self, x + controls.nodeSliderValue.width() + 5, y, width, height, viewPort)
+		end
+		return controls.nodeSlider.tooltip.realDraw(self, x, y, width, height, viewPort)
+	end
 	controls.nodeSlider:SetVal(0.1)
 
 	controls.nodeSlider2Label = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 150, 0, 16, "^7Secondary Node Weight:")
@@ -1033,6 +1040,13 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the second stat listed.")
 	end
 	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "^71.000")
+	controls.nodeSlider2.tooltip.realDraw = controls.nodeSlider2.tooltip.Draw
+	controls.nodeSlider2.tooltip.Draw = function(self, x, y, width, height, viewPort)
+		if main.screenW >= 1498 then
+			return controls.nodeSlider2.tooltip.realDraw(self, x + controls.nodeSlider2Value.width() + 5, y, width, height, viewPort)
+		end
+		return controls.nodeSlider2.tooltip.realDraw(self, x, y, width, height, viewPort)
+	end
 	controls.nodeSlider2:SetVal(0.1)
 
 	controls.nodeSlider3Label = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 305, 175, 0, 16, "^7Minimum Node Weight:")
@@ -1049,6 +1063,13 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7Seeds that do not meet the minimum weight threshold for a desired node are excluded from the search results.")
 	end
 	controls.nodeSlider3Value = new("LabelControl", { "LEFT", controls.nodeSlider3, "RIGHT" }, 5, 0, 0, 16, "^70")
+	controls.nodeSlider3.tooltip.realDraw = controls.nodeSlider3.tooltip.Draw
+	controls.nodeSlider3.tooltip.Draw = function(self, x, y, width, height, viewPort)
+		if main.screenW >= 1872 then
+			return controls.nodeSlider3.tooltip.realDraw(self, x + controls.nodeSlider3Value.width() + 5, y, width, height, viewPort)
+		end
+		return controls.nodeSlider3.tooltip.realDraw(self, x, y, width, height, viewPort)
+	end
 	controls.nodeSlider3:SetVal(0)
 
 	local function updateSliders(sliderData)
@@ -1193,7 +1214,7 @@ function TreeTabClass:FindTimelessJewel()
 				for _, legionNode in ipairs(legionNodes) do
 					if legionNode.id == modNode.id or (totalModIDs[modNode.id] and totalModIDs[modNode.id][legionNode.id]) then
 							newNode = { }
-							newNode.id = legionNode.id
+							newNode.id = modNode.id
 							if modNode.type == "vaal" then
 								if #legionNode.sd == 2 then
 									newNode.calcMultiple = true
@@ -1233,7 +1254,7 @@ function TreeTabClass:FindTimelessJewel()
 					for _, legionAddition in ipairs(legionAdditions) do
 						if legionAddition.id == modNode.id or (totalModIDs[modNode.id] and totalModIDs[modNode.id][legionAddition.id]) then
 							newNode = { }
-							newNode.id = legionAddition.id
+							newNode.id = modNode.id
 							if legionAddition.modList then
 								newNode.modList = legionAddition.modList
 							elseif legionAddition.modListGenerated then
