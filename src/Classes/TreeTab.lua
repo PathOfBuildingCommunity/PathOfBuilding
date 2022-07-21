@@ -1490,12 +1490,12 @@ function TreeTabClass:FindTimelessJewel()
 				if desiredNodes["totalStat"] then
 					resultNodes[curSeed]["totalStat"] = resultNodes[curSeed]["totalStat"] or { targetNodeNames = { }, totalWeight = 0 }
 					if timelessData.jewelType.id == 4 then -- Militant Faith
-						local addedWeight = desiredNodes[curNodeId].nodeWeight * (5 * targetSmallNodes.otherSmalls + 10 * targetSmallNodes.attributeSmalls)
+						local addedWeight = desiredNodes["totalStat"].nodeWeight * (5 * targetSmallNodes.otherSmalls + 10 * targetSmallNodes.attributeSmalls)
 						addedWeight = addedWeight + resultNodes[curSeed]["totalStat"].totalWeight * 4
 						resultNodes[curSeed]["totalStat"].totalWeight = resultNodes[curSeed]["totalStat"].totalWeight + addedWeight
 						seedWeights[curSeed] = seedWeights[curSeed] + addedWeight
 					else
-						local addedWeight = desiredNodes[curNodeId].nodeWeight * (4 * targetSmallNodes.otherSmalls + 2 * targetSmallNodes.attributeSmalls)
+						local addedWeight = desiredNodes["totalStat"].nodeWeight * (4 * targetSmallNodes.otherSmalls + 2 * targetSmallNodes.attributeSmalls)
 						addedWeight = addedWeight + resultNodes[curSeed]["totalStat"].totalWeight * 19
 						resultNodes[curSeed]["totalStat"].totalWeight = resultNodes[curSeed]["totalStat"].totalWeight + addedWeight
 						seedWeights[curSeed] = seedWeights[curSeed] + addedWeight
