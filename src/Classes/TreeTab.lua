@@ -1245,13 +1245,14 @@ function TreeTabClass:FindTimelessJewel()
 									for key, stat in legionAddition.stats do -- should only be length 1
 										line = replaceHelperFunc(line, key, stat, 100)
 									end
-									newNode.divisor = 100
 								end
 								local modList, extra = modLib.parseMod(line)
 								legionAddition.modListGenerated = modList
 								newNode.modList = modList
 							end
-							if modNode.totalMod then
+							if modNode.type == "vaal" then
+								newNode.divisor = 100
+							elseif modNode.totalMod then
 								newNode.divisor = newNode.modList[1].value
 							end
 							break
@@ -1268,7 +1269,7 @@ function TreeTabClass:FindTimelessJewel()
 		local weightScalar = 100
 		for _, legionNode in ipairs(output) do
 			if legionNode.weight1 ~= 0 or (legionNode.weight2 and legionNode.weight2 ~= 0) then
-				newList = newList .. legionNode.id .. ", " .. s_format("%.3f", legionNode.weight1 * weightScalar) .. ", " .. s_format("%.3f", legionNode.weight2 or 0 * weightScalar) .. ", 0\n"
+				newList = newList .. legionNode.id .. ", " .. s_format("%.3f", legionNode.weight1 * weightScalar) .. ", " .. s_format("%.3f", (legionNode.weight2 or 0) * weightScalar) .. ", 0\n"
 			end
 		end
 		updateSearchList(newList, true)
