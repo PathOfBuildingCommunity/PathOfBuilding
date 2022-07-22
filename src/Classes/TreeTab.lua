@@ -1106,7 +1106,7 @@ function TreeTabClass:FindTimelessJewel()
 	local function updateSliders(sliderData)
 		if sliderData[2] == "required" then
 			controls.nodeSlider.val = 1
-			controls.nodeSliderValue.label = "^710"
+			controls.nodeSliderValue.label = s_format("^7%.3f", 10)
 		else
 			controls.nodeSlider.val = m_min(m_max((tonumber(sliderData[2]) or 0) / 10, 0), 10)
 			controls.nodeSliderValue.label = s_format("^7%.3f", controls.nodeSlider.val * 10)
@@ -1115,7 +1115,7 @@ function TreeTabClass:FindTimelessJewel()
 			parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 		elseif sliderData[3] == "required" then
 			controls.nodeSlider2.val = 1
-			controls.nodeSlider2Value.label = "^710"
+			controls.nodeSlider2Value.label = s_format("^9%.3f", 0)
 		else
 			controls.nodeSlider2.val = m_min(m_max((tonumber(sliderData[3]) or 0) / 10, 0), 10)
 			controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
