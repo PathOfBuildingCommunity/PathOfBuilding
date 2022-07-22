@@ -1048,8 +1048,9 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "^71.000")
 	controls.nodeSlider.tooltip.realDraw = controls.nodeSlider.tooltip.Draw
 	controls.nodeSlider.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		if main.screenW >= 1452 then
-			return controls.nodeSlider.tooltip.realDraw(self, x + controls.nodeSliderValue.width() + 5, y, width, height, viewPort)
+		local sliderOffsetX = m_floor(184 * (1 - controls.nodeSlider.val))
+		if main.screenW >= 1338 - sliderOffsetX then
+			return controls.nodeSlider.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 32, width, height, viewPort)
 		end
 		return controls.nodeSlider.tooltip.realDraw(self, x, y, width, height, viewPort)
 	end
@@ -1073,8 +1074,9 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "^71.000")
 	controls.nodeSlider2.tooltip.realDraw = controls.nodeSlider2.tooltip.Draw
 	controls.nodeSlider2.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		if main.screenW >= 1498 then
-			return controls.nodeSlider2.tooltip.realDraw(self, x + controls.nodeSlider2Value.width() + 5, y, width, height, viewPort)
+		local sliderOffsetX = m_floor(184 * (1 - controls.nodeSlider2.val))
+		if main.screenW >= 1384 - sliderOffsetX then
+			return controls.nodeSlider2.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 32, width, height, viewPort)
 		end
 		return controls.nodeSlider2.tooltip.realDraw(self, x, y, width, height, viewPort)
 	end
@@ -1096,8 +1098,9 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider3Value = new("LabelControl", { "LEFT", controls.nodeSlider3, "RIGHT" }, 5, 0, 0, 16, "^70")
 	controls.nodeSlider3.tooltip.realDraw = controls.nodeSlider3.tooltip.Draw
 	controls.nodeSlider3.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		if main.screenW >= 1872 then
-			return controls.nodeSlider3.tooltip.realDraw(self, x + controls.nodeSlider3Value.width() + 5, y, width, height, viewPort)
+		local sliderOffsetX = m_floor(184 * (1 - controls.nodeSlider3.val))
+		if main.screenW >= 1728 - sliderOffsetX then
+			return controls.nodeSlider3.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 32, width, height, viewPort)
 		end
 		return controls.nodeSlider3.tooltip.realDraw(self, x, y, width, height, viewPort)
 	end
