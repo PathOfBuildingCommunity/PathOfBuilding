@@ -886,6 +886,20 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 
+	local function getNodeWeights()
+		local nodeWeights = {
+			[1] = controls.nodeSliderValue.label:sub(3):lower(),
+			[2] = controls.nodeSlider2Value.label:sub(3):lower(),
+			[3] = controls.nodeSlider3Value.label:sub(3):lower()
+		}
+		for i, nodeWeight in ipairs(nodeWeights) do
+			if tonumber(nodeWeight) ~= nil then
+				nodeWeights[i] = round(tonumber(nodeWeight), 3)
+			end
+		end
+		return nodeWeights
+	end
+
 	local searchListTbl = { }
 	local searchListFallbackTbl = { }
 	local function parseSearchList(mode, fallback)
@@ -920,9 +934,10 @@ function TreeTabClass:FindTimelessJewel()
 					local searchText = ""
 					for curIdx, curRow in ipairs(searchListFallbackTbl) do
 						if curRow[1] == controls.nodeSelect.list[controls.nodeSelect.selIndex].id then
-							curRow[2] = controls.nodeSliderValue.label:sub(3):lower()
-							curRow[3] = controls.nodeSlider2Value.label:sub(3):lower()
-							curRow[4] = controls.nodeSlider3Value.label:sub(3):lower()
+							local nodeWeights = getNodeWeights()
+							curRow[2] = nodeWeights[1]
+							curRow[3] = nodeWeights[2]
+							curRow[4] = nodeWeights[3]
 						end
 						searchText = searchText .. t_concat(curRow, ", ")
 						if curIdx < #searchListFallbackTbl then
@@ -941,9 +956,10 @@ function TreeTabClass:FindTimelessJewel()
 					local searchText = ""
 					for curIdx, curRow in ipairs(searchListTbl) do
 						if curRow[1] == controls.nodeSelect.list[controls.nodeSelect.selIndex].id then
-							curRow[2] = controls.nodeSliderValue.label:sub(3):lower()
-							curRow[3] = controls.nodeSlider2Value.label:sub(3):lower()
-							curRow[4] = controls.nodeSlider3Value.label:sub(3):lower()
+							local nodeWeights = getNodeWeights()
+							curRow[2] = nodeWeights[1]
+							curRow[3] = nodeWeights[2]
+							curRow[4] = nodeWeights[3]
 						end
 						searchText = searchText .. t_concat(curRow, ", ")
 						if curIdx < #searchListTbl then
@@ -1069,7 +1085,7 @@ function TreeTabClass:FindTimelessJewel()
 		if value == 1 then
 			controls.nodeSlider3Value.label = "^7Required"
 		else
-			controls.nodeSlider3Value.label = s_format("^7%.f", value * 500)
+			controls.nodeSlider3Value.label = "^7" .. round(value * 500)
 		end
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end, scrollWheelSpeedTbl2)
@@ -1090,7 +1106,7 @@ function TreeTabClass:FindTimelessJewel()
 	local function updateSliders(sliderData)
 		if sliderData[2] == "required" then
 			controls.nodeSlider.val = 1
-			controls.nodeSliderValue.label = s_format("^7%.3f", 10)
+			controls.nodeSliderValue.label = "^710"
 		else
 			controls.nodeSlider.val = m_min(m_max((tonumber(sliderData[2]) or 0) / 10, 0), 10)
 			controls.nodeSliderValue.label = s_format("^7%.3f", controls.nodeSlider.val * 10)
@@ -1099,7 +1115,7 @@ function TreeTabClass:FindTimelessJewel()
 			parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 		elseif sliderData[3] == "required" then
 			controls.nodeSlider2.val = 1
-			controls.nodeSlider2Value.label = s_format("^7%.3f", 10)
+			controls.nodeSlider2Value.label = "^710"
 		else
 			controls.nodeSlider2.val = m_min(m_max((tonumber(sliderData[3]) or 0) / 10, 0), 10)
 			controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
@@ -1141,13 +1157,15 @@ function TreeTabClass:FindTimelessJewel()
 			if statCount <= 1 then
 				controls.nodeSlider2Label.label = "^9Secondary Node Weight:"
 				controls.nodeSlider2.val = 0
-				controls.nodeSlider2Value.label = s_format("^9%.3f", 0)
+				controls.nodeSlider2Value.label = "^90"
 			else
 				controls.nodeSlider2Label.label = "^7Secondary Node Weight:"
 				controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
 			end
 			controls.nodeSlider2.enabled = statCount > 1
-			local newNode = value.id .. ", " .. controls.nodeSliderValue.label:sub(3):lower() .. ", " .. controls.nodeSlider2Value.label:sub(3):lower() .. ", " .. controls.nodeSlider3Value.label:sub(3):lower()
+
+			local nodeWeights = getNodeWeights()
+			local newNode = value.id .. ", " .. nodeWeights[1] .. ", " .. nodeWeights[2] .. ", " .. nodeWeights[3]
 			if controls.searchListFallback and controls.searchListFallback.shown then
 				for _, searchRow in ipairs(searchListFallbackTbl) do
 					-- update nodeSlider values and prevent duplicate searchList entries
@@ -1337,7 +1355,7 @@ function TreeTabClass:FindTimelessJewel()
 		local weightScalar = 100
 		for curIdx, legionNode in ipairs(output) do
 			if legionNode.weight1 ~= 0 or (legionNode.weight2 and legionNode.weight2 ~= 0) then
-				newList = newList .. legionNode.id .. ", " .. s_format("%.3f", legionNode.weight1 * weightScalar) .. ", " .. s_format("%.3f", (legionNode.weight2 or 0) * weightScalar) .. ", 0"
+				newList = newList .. legionNode.id .. ", " .. round(legionNode.weight1 * weightScalar, 3) .. ", " .. round((legionNode.weight2 or 0) * weightScalar, 3) .. ", 0"
 				if curIdx < #output then
 					newList = newList .. "\n"
 				end
