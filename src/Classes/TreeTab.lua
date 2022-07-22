@@ -1038,11 +1038,13 @@ function TreeTabClass:FindTimelessJewel()
 	end, scrollWheelSpeedTbl)
 	controls.nodeSlider.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		if nodeSliderStatLabel == "None" then
-			tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the first stat listed.")
-		else
-			tooltip:AddLine(16, "^7This slider controls the weight of the following stat:")
-			tooltip:AddLine(16, "^7        " .. nodeSliderStatLabel)
+		if not controls.nodeSlider.dragging then
+			if nodeSliderStatLabel == "None" then
+				tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the first stat listed.")
+			else
+				tooltip:AddLine(16, "^7This slider controls the weight of the following stat:")
+				tooltip:AddLine(16, "^7        " .. nodeSliderStatLabel)
+			end
 		end
 	end
 	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "^71.000")
@@ -1065,11 +1067,13 @@ function TreeTabClass:FindTimelessJewel()
 	end, scrollWheelSpeedTbl)
 	controls.nodeSlider2.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		if nodeSlider2StatLabel == "None" then
-			tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the second stat listed.")
-		else
-			tooltip:AddLine(16, "^7This slider controls the weight of the following stat:")
-			tooltip:AddLine(16, "^7        " .. nodeSlider2StatLabel)
+		if not controls.nodeSlider2.dragging then
+			if nodeSlider2StatLabel == "None" then
+				tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the second stat listed.")
+			else
+				tooltip:AddLine(16, "^7This slider controls the weight of the following stat:")
+				tooltip:AddLine(16, "^7        " .. nodeSlider2StatLabel)
+			end
 		end
 	end
 	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "^71.000")
@@ -1095,7 +1099,9 @@ function TreeTabClass:FindTimelessJewel()
 	end, scrollWheelSpeedTbl2)
 	controls.nodeSlider3.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7Seeds that do not meet the minimum weight threshold for a desired node are excluded from the search results.")
+		if not controls.nodeSlider3.dragging then
+			tooltip:AddLine(16, "^7Seeds that do not meet the minimum weight threshold for a desired node are excluded from the search results.")
+		end
 	end
 	controls.nodeSlider3Value = new("LabelControl", { "LEFT", controls.nodeSlider3, "RIGHT" }, 5, 0, 0, 16, "^70")
 	controls.nodeSlider3.tooltip.realDraw = controls.nodeSlider3.tooltip.Draw
