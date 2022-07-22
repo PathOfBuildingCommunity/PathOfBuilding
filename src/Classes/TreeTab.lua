@@ -1085,7 +1085,7 @@ function TreeTabClass:FindTimelessJewel()
 		if value == 1 then
 			controls.nodeSlider3Value.label = "^7Required"
 		else
-			controls.nodeSlider3Value.label = "^7" .. round(value * 500)
+			controls.nodeSlider3Value.label = s_format("^7%.f", value * 500)
 		end
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end, scrollWheelSpeedTbl2)
@@ -1115,7 +1115,7 @@ function TreeTabClass:FindTimelessJewel()
 			parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 		elseif sliderData[3] == "required" then
 			controls.nodeSlider2.val = 1
-			controls.nodeSlider2Value.label = s_format("^9%.3f", 0)
+			controls.nodeSlider2Value.label = s_format("^7%.3f", 10)
 		else
 			controls.nodeSlider2.val = m_min(m_max((tonumber(sliderData[3]) or 0) / 10, 0), 10)
 			controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
