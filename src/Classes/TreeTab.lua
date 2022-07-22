@@ -1048,7 +1048,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "^71.000")
 	controls.nodeSlider.tooltip.realDraw = controls.nodeSlider.tooltip.Draw
 	controls.nodeSlider.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		local sliderOffsetX = m_floor(184 * (1 - controls.nodeSlider.val))
+		local sliderOffsetX = round(184 * (1 - controls.nodeSlider.val))
 		local tooltipWidth, tooltipHeight = self:GetSize()
 		if main.screenW >= 1338 - sliderOffsetX then
 			return controls.nodeSlider.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
@@ -1075,7 +1075,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "^71.000")
 	controls.nodeSlider2.tooltip.realDraw = controls.nodeSlider2.tooltip.Draw
 	controls.nodeSlider2.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		local sliderOffsetX = m_floor(184 * (1 - controls.nodeSlider2.val))
+		local sliderOffsetX = round(184 * (1 - controls.nodeSlider2.val))
 		local tooltipWidth, tooltipHeight = self:GetSize()
 		if main.screenW >= 1384 - sliderOffsetX then
 			return controls.nodeSlider2.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
@@ -1100,7 +1100,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider3Value = new("LabelControl", { "LEFT", controls.nodeSlider3, "RIGHT" }, 5, 0, 0, 16, "^70")
 	controls.nodeSlider3.tooltip.realDraw = controls.nodeSlider3.tooltip.Draw
 	controls.nodeSlider3.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		local sliderOffsetX = m_floor(184 * (1 - controls.nodeSlider3.val))
+		local sliderOffsetX = round(184 * (1 - controls.nodeSlider3.val))
 		local tooltipWidth, tooltipHeight = self:GetSize()
 		if main.screenW >= 1728 - sliderOffsetX then
 			return controls.nodeSlider3.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
