@@ -1157,7 +1157,7 @@ function TreeTabClass:FindTimelessJewel()
 			if statCount <= 1 then
 				controls.nodeSlider2Label.label = "^9Secondary Node Weight:"
 				controls.nodeSlider2.val = 0
-				controls.nodeSlider2Value.label = "^90"
+				controls.nodeSlider2Value.label = s_format("^9%.3f", 0)
 			else
 				controls.nodeSlider2Label.label = "^7Secondary Node Weight:"
 				controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
