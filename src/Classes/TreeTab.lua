@@ -1049,8 +1049,9 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider.tooltip.realDraw = controls.nodeSlider.tooltip.Draw
 	controls.nodeSlider.tooltip.Draw = function(self, x, y, width, height, viewPort)
 		local sliderOffsetX = m_floor(184 * (1 - controls.nodeSlider.val))
+		local tooltipWidth, tooltipHeight = controls.nodeSlider.tooltip:GetSize()
 		if main.screenW >= 1338 - sliderOffsetX then
-			return controls.nodeSlider.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 32, width, height, viewPort)
+			return controls.nodeSlider.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
 		end
 		return controls.nodeSlider.tooltip.realDraw(self, x, y, width, height, viewPort)
 	end
@@ -1075,8 +1076,9 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider2.tooltip.realDraw = controls.nodeSlider2.tooltip.Draw
 	controls.nodeSlider2.tooltip.Draw = function(self, x, y, width, height, viewPort)
 		local sliderOffsetX = m_floor(184 * (1 - controls.nodeSlider2.val))
+		local tooltipWidth, tooltipHeight = controls.nodeSlider2.tooltip:GetSize()
 		if main.screenW >= 1384 - sliderOffsetX then
-			return controls.nodeSlider2.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 32, width, height, viewPort)
+			return controls.nodeSlider2.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
 		end
 		return controls.nodeSlider2.tooltip.realDraw(self, x, y, width, height, viewPort)
 	end
@@ -1099,8 +1101,9 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider3.tooltip.realDraw = controls.nodeSlider3.tooltip.Draw
 	controls.nodeSlider3.tooltip.Draw = function(self, x, y, width, height, viewPort)
 		local sliderOffsetX = m_floor(184 * (1 - controls.nodeSlider3.val))
+		local tooltipWidth, tooltipHeight = controls.nodeSlider3.tooltip:GetSize()
 		if main.screenW >= 1728 - sliderOffsetX then
-			return controls.nodeSlider3.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 32, width, height, viewPort)
+			return controls.nodeSlider3.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
 		end
 		return controls.nodeSlider3.tooltip.realDraw(self, x, y, width, height, viewPort)
 	end
