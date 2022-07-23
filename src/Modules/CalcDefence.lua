@@ -1073,84 +1073,108 @@ function calcs.defence(env, actor)
 		local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
 		local enemyPen = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."EnemyPen"]
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
+		local damage = output[damageType.."TakenDamage"]
+		local armourReduct = 0
+		local resMult = 1 - (resist - enemyPen) / 100
+		local baseMult = resMult
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks")
 		elseif damageCategoryConfig == "Average" then
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2
 		end
 		if damageType == "Physical" or modDB:Flag(nil, "ArmourAppliesTo"..damageType.."DamageTaken") then
-			local damage = output[damageType.."TakenDamage"]
-			local armourReduct = 0
-			local portionArmour = 100
 			if damageType == "Physical" then
 				if not modDB:Flag(nil, "ArmourDoesNotApplyToPhysicalDamageTaken") then
 					armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage)
-					armourReduct = m_max(m_min(output.DamageReductionMax, resist - enemyPen + armourReduct), 0)
-					resist = armourReduct
+					armourReduct = m_min(output.DamageReductionMax, armourReduct)
+					baseMult = 1 - m_max(m_min(output.DamageReductionMax, resist - enemyPen + armourReduct), 0) / 100
 				end
 			else
-				portionArmour = 100 - (resist - enemyPen)
-				armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage * portionArmour / 100)
+				armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage * resMult)
 				armourReduct = m_min(output.DamageReductionMax, armourReduct)
-				resist = resist + armourReduct * portionArmour / 100
+				baseMult = (1 - armourReduct / 100) * resMult
 			end
-			output[damageType.."DamageReduction"] = portionArmour < 100 and armourReduct * portionArmour / 100 or armourReduct
-			if breakdown then
-				if portionArmour > 100 then
-					breakdown[damageType.."DamageReduction"] = {
-						s_format("Enemy Hit Damage:"),
-						s_format("    %d ^8(total incoming damage)", damage),
-						s_format("    * %.2f ^8(from resistance, applies before armour)", (portionArmour / 100)),
-					}
-				elseif portionArmour < 100 then
-					breakdown[damageType.."DamageReduction"] = {
-						s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage),
-						s_format("Portion mitigated by Armour: %d%%", portionArmour),
-					}
-				else
-					breakdown[damageType.."DamageReduction"] = {
-						s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage),
-					}
+			output[damageType.."DamageReduction"] = damageType == "Physical" and m_max(m_min(output.DamageReductionMax, resist - enemyPen + armourReduct), 0) or armourReduct
+			if breakdown and (armourReduct ~= 0 or resist ~= 0) then
+				breakdown[damageType.."DamageReduction"] = { }
+				if armourReduct ~= 0 then
+					if damageType ~= "Physical" and resMult ~= 1 then
+						t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage After Resistance: %d ^8(total incoming damage)", damage * resMult))
+					else
+						t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage))
+					end
+					t_insert(breakdown[damageType.."DamageReduction"], s_format("Reduction from Armour: %d%%", armourReduct))
 				end
-				t_insert(breakdown[damageType.."DamageReduction"], s_format("Reduction from Armour: %d%%", armourReduct))
+				if damageType == "Physical" and resist ~= 0 then
+					t_insert(breakdown[damageType.."DamageReduction"], s_format("Base Physical Damage Reduction: %d%%", resist))
+					if armourReduct ~= 0 then
+						t_insert(breakdown[damageType.."DamageReduction"], s_format("Total Physical Damage Reduction: %d%%", m_max(m_min(output.DamageReductionMax, resist - enemyPen + armourReduct), 0)))
+					end
+				end
 			end
 		end
 		local takenMult = output[damageType.."TakenHitMult"]
+		local spellSupressMult = 1
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
 			takenMult = output[damageType.."AttackTakenHitMult"]
 		elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
 			takenMult = output[damageType.."SpellTakenHitMult"]
+			spellSupressMult = output.SpellSuppressionChance == 100 and (1 - output.SpellSuppressionEffect / 100) or 1
 		elseif damageCategoryConfig == "Average" then
 			takenMult = (output[damageType.."SpellTakenHitMult"] + output[damageType.."AttackTakenHitMult"]) / 2
+			spellSupressMult = output.SpellSuppressionChance == 100 and (1 - output.SpellSuppressionEffect / 100 / 2) or 1
 		end
-		output[damageType.."BaseTakenHitMult"] = (1 - (resist - enemyPen) / 100) * takenMult
+		output[damageType.."BaseTakenHitMult"] = baseMult * takenMult * spellSupressMult
 		local takenMultReflect = output[damageType.."TakenReflect"]
-		local finalReflect = (1 - (resist - enemyPen) / 100) * takenMultReflect
-		output[damageType.."TakenHit"] = m_max(output[damageType.."TakenDamage"] * (1 - (resist - enemyPen) / 100) + takenFlat, 0) * takenMult
-		output[damageType.."TakenHitMult"] = (output[damageType.."TakenDamage"] > 0) and (output[damageType.."TakenHit"] / output[damageType.."TakenDamage"]) or 0
+		local finalReflect = baseMult * takenMultReflect
+		output[damageType.."TakenHit"] = m_max(damage * baseMult + takenFlat, 0) * takenMult * spellSupressMult
+		output[damageType.."TakenHitMult"] = (damage > 0) and (output[damageType.."TakenHit"] / damage) or 0
 		output["totalTakenHit"] = output["totalTakenHit"] + output[damageType.."TakenHit"]
 		if output.AnyTakenReflect then
 			output[damageType.."TakenReflectMult"] = finalReflect
 		end
 		if breakdown then
-			breakdown[damageType.."TakenHitMult"] = {
-				s_format("Resistance: %.2f", 1 - resist / 100),
-			}
-			if enemyPen > 0 then
-				t_insert(breakdown[damageType.."TakenHitMult"], s_format("Enemy Pen: %.2f", enemyPen))
+			breakdown[damageType.."TakenHitMult"] = { }
+			if damageType == "Physical" then
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("1 - Base Physical Damage Reduction: 1 - %.2f = %.2f", resist / 100, 1 - resist / 100))
+			else
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format(s_format("Resistance: %.2f", 1 - resist / 100)))
 			end
-			t_insert(breakdown[damageType.."TakenHitMult"], s_format("+ Flat: %.3f", takenFlat))
-			t_insert(breakdown[damageType.."TakenHitMult"], s_format("x Taken: %.3f", takenMult))
-			t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.3f", output[damageType.."TakenHitMult"]))
+			if enemyPen > 0 then
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("+ Enemy Pen: %.2f", enemyPen / 100))
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.2f", 1 - (resist - enemyPen) / 100))
+			end
+			if armourReduct ~= 0 then
+				if damageType == "Physical" then
+					t_insert(breakdown[damageType.."TakenHitMult"], s_format("- Reduction from Armour: %.2f", armourReduct / 100))
+					t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.3f", baseMult))
+				else
+					t_insert(breakdown[damageType.."TakenHitMult"], s_format("%.2f incoming damage after resistance", damage * resMult))
+					t_insert(breakdown[damageType.."TakenHitMult"], s_format("x Armour Mitigation: %.2f", 1 - armourReduct / 100))
+					t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.3f", baseMult))
+				end
+			end
+			if takenFlat ~= 0 then
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("+ Flat: %d", takenFlat))
+			end
+			if takenMult ~= 1 then
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("x Taken: %.3f", takenMult))
+			end
+			if spellSupressMult ~= 1 then
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("x Spell Supression: %.3f", spellSupressMult))
+			end
+			if takenMult ~= 1 or takenFlat ~= 0 or spellSupressMult ~= 1 then
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.3f", output[damageType.."TakenHitMult"]))
+			end
 			breakdown[damageType.."TakenHit"] = {
 				s_format("Final %s Damage taken:", damageType),
-				s_format("%.1f incoming damage", output[damageType.."TakenDamage"]),
+				s_format("%.1f incoming damage", damage),
 				s_format("x %.3f damage mult", output[damageType.."TakenHitMult"]),
 				s_format("= %.1f", output[damageType.."TakenHit"]),
 			}
 			t_insert(breakdown["totalTakenHit"].rowList, {
 				type = s_format("%s", damageType),
-				incoming = s_format("%.1f incoming damage", output[damageType.."TakenDamage"]),
+				incoming = s_format("%.1f incoming damage", damage),
 				mult = s_format("x %.3f damage mult", output[damageType.."TakenHitMult"] ),
 				value = s_format("%d", output[damageType.."TakenHit"]),
 			})
@@ -1987,8 +2011,8 @@ function calcs.defence(env, actor)
 		end
 		if breakdown then
 			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Total Pool: %d", output[damageType.."TotalHitPool"]))
-			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.2f",  output[damageType.."TotalHitPool"] / output[damageType.."MaximumHitTaken"]))
-			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %.0f", output[damageType.."MaximumHitTaken"]))
+			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.3f",  output[damageType.."TotalHitPool"] / output[damageType.."MaximumHitTaken"]))
+			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]))
 		end
 	end
 end
