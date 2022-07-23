@@ -672,6 +672,7 @@ return {
 		{ modName = "TotemLife", cfg = "skill" },
 	}, },
 	{ label = "Totem Life", flag = "totem", { format = "{0:output:TotemLife}", { breakdown = "TotemLife" }, }, },
+	{ label = "Totem ES", flag = "totem", { format = "{0:output:TotemEnergyShield}", { breakdown = "TotemEnergyShield" }, }, },
 	{ label = "Active Brand Limit", flag = "brand", { format = "{0:output:ActiveBrandLimit}", { modName = "ActiveBrandLimit", cfg = "skill" }, }, },
 	{ label = "Totem Fire Res", flag = "totem", { format = "{0:output:TotemFireResist}% (+{0:output:TotemFireResistOverCap}%)",
 		{ breakdown = "TotemFireResist" }, 
