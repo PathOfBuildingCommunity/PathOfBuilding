@@ -351,6 +351,13 @@ data.nonDamagingAilment = {
 	["Sap"] = { associatedType = "Lightning", alt = true, default = 6, min = 0, max = 20, precision = 0, duration = 4 },
 }
 
+-- Used in ModStoreClass:ScaleAddMod(...) to identify high precision modifiers
+data.highPrecisionMods = {
+	["CritChance"] = {
+		["BASE"] = true,
+	},
+}
+
 data.misc = { -- magic numbers
 	ServerTickTime = 0.033,
 	ServerTickRate = 1 / 0.033,
