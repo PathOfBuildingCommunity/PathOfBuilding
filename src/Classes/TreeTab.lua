@@ -886,6 +886,20 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 
+	local function getNodeWeights()
+		local nodeWeights = {
+			[1] = controls.nodeSliderValue.label:sub(3):lower(),
+			[2] = controls.nodeSlider2Value.label:sub(3):lower(),
+			[3] = controls.nodeSlider3Value.label:sub(3):lower()
+		}
+		for i, nodeWeight in ipairs(nodeWeights) do
+			if tonumber(nodeWeight) ~= nil then
+				nodeWeights[i] = round(tonumber(nodeWeight), 3)
+			end
+		end
+		return nodeWeights
+	end
+
 	local searchListTbl = { }
 	local searchListFallbackTbl = { }
 	local function parseSearchList(mode, fallback)
@@ -920,9 +934,10 @@ function TreeTabClass:FindTimelessJewel()
 					local searchText = ""
 					for curIdx, curRow in ipairs(searchListFallbackTbl) do
 						if curRow[1] == controls.nodeSelect.list[controls.nodeSelect.selIndex].id then
-							curRow[2] = controls.nodeSliderValue.label:sub(3):lower()
-							curRow[3] = controls.nodeSlider2Value.label:sub(3):lower()
-							curRow[4] = controls.nodeSlider3Value.label:sub(3):lower()
+							local nodeWeights = getNodeWeights()
+							curRow[2] = nodeWeights[1]
+							curRow[3] = nodeWeights[2]
+							curRow[4] = nodeWeights[3]
 						end
 						searchText = searchText .. t_concat(curRow, ", ")
 						if curIdx < #searchListFallbackTbl then
@@ -941,9 +956,10 @@ function TreeTabClass:FindTimelessJewel()
 					local searchText = ""
 					for curIdx, curRow in ipairs(searchListTbl) do
 						if curRow[1] == controls.nodeSelect.list[controls.nodeSelect.selIndex].id then
-							curRow[2] = controls.nodeSliderValue.label:sub(3):lower()
-							curRow[3] = controls.nodeSlider2Value.label:sub(3):lower()
-							curRow[4] = controls.nodeSlider3Value.label:sub(3):lower()
+							local nodeWeights = getNodeWeights()
+							curRow[2] = nodeWeights[1]
+							curRow[3] = nodeWeights[2]
+							curRow[4] = nodeWeights[3]
 						end
 						searchText = searchText .. t_concat(curRow, ", ")
 						if curIdx < #searchListTbl then
@@ -1022,18 +1038,22 @@ function TreeTabClass:FindTimelessJewel()
 	end, scrollWheelSpeedTbl)
 	controls.nodeSlider.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		if nodeSliderStatLabel == "None" then
-			tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the first stat listed.")
-		else
-			tooltip:AddLine(16, "^7This slider controls the weight of the following stat:")
-			tooltip:AddLine(16, "^7        " .. nodeSliderStatLabel)
+		if not controls.nodeSlider.dragging then
+			if nodeSliderStatLabel == "None" then
+				tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the first stat listed.")
+			else
+				tooltip:AddLine(16, "^7This slider controls the weight of the following stat:")
+				tooltip:AddLine(16, "^7        " .. nodeSliderStatLabel)
+			end
 		end
 	end
 	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "^71.000")
 	controls.nodeSlider.tooltip.realDraw = controls.nodeSlider.tooltip.Draw
 	controls.nodeSlider.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		if main.screenW >= 1452 then
-			return controls.nodeSlider.tooltip.realDraw(self, x + controls.nodeSliderValue.width() + 5, y, width, height, viewPort)
+		local sliderOffsetX = round(184 * (1 - controls.nodeSlider.val))
+		local tooltipWidth, tooltipHeight = self:GetSize()
+		if main.screenW >= 1338 - sliderOffsetX then
+			return controls.nodeSlider.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
 		end
 		return controls.nodeSlider.tooltip.realDraw(self, x, y, width, height, viewPort)
 	end
@@ -1047,18 +1067,22 @@ function TreeTabClass:FindTimelessJewel()
 	end, scrollWheelSpeedTbl)
 	controls.nodeSlider2.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		if nodeSlider2StatLabel == "None" then
-			tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the second stat listed.")
-		else
-			tooltip:AddLine(16, "^7This slider controls the weight of the following stat:")
-			tooltip:AddLine(16, "^7        " .. nodeSlider2StatLabel)
+		if not controls.nodeSlider2.dragging then
+			if nodeSlider2StatLabel == "None" then
+				tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the second stat listed.")
+			else
+				tooltip:AddLine(16, "^7This slider controls the weight of the following stat:")
+				tooltip:AddLine(16, "^7        " .. nodeSlider2StatLabel)
+			end
 		end
 	end
 	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "^71.000")
 	controls.nodeSlider2.tooltip.realDraw = controls.nodeSlider2.tooltip.Draw
 	controls.nodeSlider2.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		if main.screenW >= 1498 then
-			return controls.nodeSlider2.tooltip.realDraw(self, x + controls.nodeSlider2Value.width() + 5, y, width, height, viewPort)
+		local sliderOffsetX = round(184 * (1 - controls.nodeSlider2.val))
+		local tooltipWidth, tooltipHeight = self:GetSize()
+		if main.screenW >= 1384 - sliderOffsetX then
+			return controls.nodeSlider2.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
 		end
 		return controls.nodeSlider2.tooltip.realDraw(self, x, y, width, height, viewPort)
 	end
@@ -1075,13 +1099,17 @@ function TreeTabClass:FindTimelessJewel()
 	end, scrollWheelSpeedTbl2)
 	controls.nodeSlider3.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7Seeds that do not meet the minimum weight threshold for a desired node are excluded from the search results.")
+		if not controls.nodeSlider3.dragging then
+			tooltip:AddLine(16, "^7Seeds that do not meet the minimum weight threshold for a desired node are excluded from the search results.")
+		end
 	end
 	controls.nodeSlider3Value = new("LabelControl", { "LEFT", controls.nodeSlider3, "RIGHT" }, 5, 0, 0, 16, "^70")
 	controls.nodeSlider3.tooltip.realDraw = controls.nodeSlider3.tooltip.Draw
 	controls.nodeSlider3.tooltip.Draw = function(self, x, y, width, height, viewPort)
-		if main.screenW >= 1872 then
-			return controls.nodeSlider3.tooltip.realDraw(self, x + controls.nodeSlider3Value.width() + 5, y, width, height, viewPort)
+		local sliderOffsetX = round(184 * (1 - controls.nodeSlider3.val))
+		local tooltipWidth, tooltipHeight = self:GetSize()
+		if main.screenW >= 1728 - sliderOffsetX then
+			return controls.nodeSlider3.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
 		end
 		return controls.nodeSlider3.tooltip.realDraw(self, x, y, width, height, viewPort)
 	end
@@ -1147,7 +1175,9 @@ function TreeTabClass:FindTimelessJewel()
 				controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
 			end
 			controls.nodeSlider2.enabled = statCount > 1
-			local newNode = value.id .. ", " .. controls.nodeSliderValue.label:sub(3):lower() .. ", " .. controls.nodeSlider2Value.label:sub(3):lower() .. ", " .. controls.nodeSlider3Value.label:sub(3):lower()
+
+			local nodeWeights = getNodeWeights()
+			local newNode = value.id .. ", " .. nodeWeights[1] .. ", " .. nodeWeights[2] .. ", " .. nodeWeights[3]
 			if controls.searchListFallback and controls.searchListFallback.shown then
 				for _, searchRow in ipairs(searchListFallbackTbl) do
 					-- update nodeSlider values and prevent duplicate searchList entries
@@ -1337,7 +1367,7 @@ function TreeTabClass:FindTimelessJewel()
 		local weightScalar = 100
 		for curIdx, legionNode in ipairs(output) do
 			if legionNode.weight1 ~= 0 or (legionNode.weight2 and legionNode.weight2 ~= 0) then
-				newList = newList .. legionNode.id .. ", " .. s_format("%.3f", legionNode.weight1 * weightScalar) .. ", " .. s_format("%.3f", (legionNode.weight2 or 0) * weightScalar) .. ", 0"
+				newList = newList .. legionNode.id .. ", " .. round(legionNode.weight1 * weightScalar, 3) .. ", " .. round((legionNode.weight2 or 0) * weightScalar, 3) .. ", 0"
 				if curIdx < #output then
 					newList = newList .. "\n"
 				end
