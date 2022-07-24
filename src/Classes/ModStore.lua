@@ -47,7 +47,6 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 			end
 		elseif type(scaledMod.value) == "table" and scaledMod.value.mod then
 			if data.highPrecisionMods[scaledMod.value.mod.name] and data.highPrecisionMods[scaledMod.value.mod.name][scaledMod.value.mod.type] then
-				ConPrintTable(scaledMod)
 				scaledMod.value.mod.value = scaledMod.value.mod.value * scale
 			else
 				scaledMod.value.mod.value = (m_floor(scaledMod.value.mod.value) == scaledMod.value.mod.value) and m_modf(round(scaledMod.value.mod.value * scale, 2)) or scaledMod.value.mod.value * scale

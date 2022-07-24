@@ -356,6 +356,9 @@ data.highPrecisionMods = {
 	["CritChance"] = {
 		["BASE"] = true,
 	},
+	["LifeRegenPercent"] = {
+		["BASE"] = true,
+	},
 }
 
 data.misc = { -- magic numbers
