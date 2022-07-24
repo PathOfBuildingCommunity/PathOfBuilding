@@ -3071,7 +3071,8 @@ function calcs.perform(env, avoidCache)
 			local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 			env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
 		end
-		if env.player.mainSkill.skillFlags.totem and not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
+		local totemModBlacklist = value.mod.name and (value.mod.name == "Speed" or value.mod.name == "CritMultiplier" or value.mod.name == "CritChance")
+		if env.player.mainSkill.skillFlags.totem and not modDB:Flag(nil, "SelfAurasCannotAffectAllies") and not totemModBlacklist then
 			local totemMod = copyTable(value.mod)
 			local totemModName, matches = totemMod.name:gsub("Condition:", "Condition:Totem")
 			if matches < 1 then

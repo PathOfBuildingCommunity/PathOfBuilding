@@ -1008,6 +1008,8 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotemLifeMod = calcLib.mod(skillModList, skillCfg, "TotemLife")
 		output.TotemLife = round(m_floor(env.data.monsterAllyLifeTable[skillData.totemLevel] * env.data.totemLifeMult[activeSkill.skillTotemId]) * output.TotemLifeMod)
 		output.TotemEnergyShield = skillModList:Sum("BASE", skillCfg, "TotemEnergyShield")
+		output.TotemBlockChance = skillModList:Sum("BASE", skillCfg, "TotemBlockChance")
+		output.TotemArmour = skillModList:Sum("BASE", skillCfg, "TotemArmour")
 		if breakdown then
 			breakdown.TotemLifeMod = breakdown.mod(skillModList, skillCfg, "TotemLife")
 			breakdown.TotemLife = {
@@ -1018,6 +1020,8 @@ function calcs.offence(env, actor, activeSkill)
 				"= "..output.TotemLife,
 			}
 			breakdown.TotemEnergyShield = breakdown.mod(skillModList, skillCfg, "TotemEnergyShield")
+			breakdown.TotemBlockChance = breakdown.mod(skillModList, skillCfg, "TotemBlockChance")
+			breakdown.TotemArmour = breakdown.mod(skillModList, skillCfg, "TotemArmour")
 		end
 	end
 	if skillFlags.brand then
