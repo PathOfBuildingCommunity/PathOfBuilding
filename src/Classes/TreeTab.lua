@@ -932,17 +932,17 @@ function TreeTabClass:FindTimelessJewel()
 				-- searchListFallbackTbl => controls.searchListFallback
 				if controls.searchListFallback and controls.nodeSelect then
 					local searchText = ""
-					for curIdx, curRow in ipairs(searchListFallbackTbl) do
+					for _, curRow in ipairs(searchListFallbackTbl) do
 						if curRow[1] == controls.nodeSelect.list[controls.nodeSelect.selIndex].id then
 							local nodeWeights = getNodeWeights()
 							curRow[2] = nodeWeights[1]
 							curRow[3] = nodeWeights[2]
 							curRow[4] = nodeWeights[3]
 						end
-						searchText = searchText .. t_concat(curRow, ", ")
-						if curIdx < #searchListFallbackTbl then
+						if #searchText > 0 then
 							searchText = searchText .. "\n"
 						end
+						searchText = searchText .. t_concat(curRow, ", ")
 					end
 					if timelessData.searchListFallback ~= searchText then
 						timelessData.searchListFallback = searchText
@@ -954,17 +954,17 @@ function TreeTabClass:FindTimelessJewel()
 				-- searchListTbl => controls.searchList
 				if controls.searchList and controls.nodeSelect then
 					local searchText = ""
-					for curIdx, curRow in ipairs(searchListTbl) do
+					for _, curRow in ipairs(searchListTbl) do
 						if curRow[1] == controls.nodeSelect.list[controls.nodeSelect.selIndex].id then
 							local nodeWeights = getNodeWeights()
 							curRow[2] = nodeWeights[1]
 							curRow[3] = nodeWeights[2]
 							curRow[4] = nodeWeights[3]
 						end
-						searchText = searchText .. t_concat(curRow, ", ")
-						if curIdx < #searchListTbl then
+						if #searchText > 0 then
 							searchText = searchText .. "\n"
 						end
+						searchText = searchText .. t_concat(curRow, ", ")
 					end
 					if timelessData.searchList ~= searchText then
 						timelessData.searchList = searchText
@@ -1365,12 +1365,12 @@ function TreeTabClass:FindTimelessJewel()
 		local output = generateFallbackWeights(nodes, controls.fallbackWeightsList.list[controls.fallbackWeightsList.selIndex])
 		local newList = ""
 		local weightScalar = 100
-		for curIdx, legionNode in ipairs(output) do
+		for _, legionNode in ipairs(output) do
 			if legionNode.weight1 ~= 0 or (legionNode.weight2 and legionNode.weight2 ~= 0) then
-				newList = newList .. legionNode.id .. ", " .. round(legionNode.weight1 * weightScalar, 3) .. ", " .. round((legionNode.weight2 or 0) * weightScalar, 3) .. ", 0"
-				if curIdx < #output then
+				if #newList > 0 then
 					newList = newList .. "\n"
 				end
+				newList = newList .. legionNode.id .. ", " .. round(legionNode.weight1 * weightScalar, 3) .. ", " .. round((legionNode.weight2 or 0) * weightScalar, 3) .. ", 0"
 			end
 		end
 		updateSearchList(newList, true)
