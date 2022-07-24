@@ -58,7 +58,7 @@ end
 
 function ModStoreClass:CopyList(modList)
 	for i = 1, #modList do
-		self:AddMod(modList[i])
+		self:AddMod(copyTable(modList[i]))
 	end
 end
 
@@ -67,7 +67,7 @@ function ModStoreClass:ScaleAddList(modList, scale)
 		self:AddList(modList)
 	else
 		for i = 1, #modList do
-			self:ScaleAddMod(copyTable(modList[i]), scale)
+			self:ScaleAddMod(modList[i], scale)
 		end
 	end
 end
