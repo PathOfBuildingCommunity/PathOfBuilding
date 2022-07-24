@@ -166,7 +166,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			bandit = 0
 		end
 		
-		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until catched up with quest skillpoints 
+		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
 		levelreq = math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level)
 		
 		-- Ascendency points for lab
@@ -648,7 +648,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		t_insert(self.controls.classDrop.list, {
 			label = class.name,
 			classId = classId,
-			ascendencies = ascendancies,
+			ascendancies = ascendancies,
 		})
 	end
 	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
@@ -931,7 +931,7 @@ function buildMode:OnFrame(inputEvents)
 	self:ProcessControlsInput(inputEvents, main.viewPort)
 
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
-	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendencies")
+	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
 
 	local checkFabricatedGroups = self.buildFlag
@@ -1429,13 +1429,13 @@ do
 		-- Convert normal attributes to Omni attributes
 		if self.calcsTab.mainEnv.modDB:Flag(nil, "OmniscienceRequirements") then
 			local omniSatisfy = self.calcsTab.mainEnv.modDB:Sum("INC", nil, "OmniAttributeRequirements")
-			local highestAtrribute = 0
+			local highestAttribute = 0
 			for i, stat in ipairs({str, dex, int}) do
-				if((stat or 0) > highestAtrribute) then
-					highestAtrribute = stat
+				if((stat or 0) > highestAttribute) then
+					highestAttribute = stat
 				end
 			end
-			local omni = math.floor(highestAtrribute * (100/omniSatisfy))
+			local omni = math.floor(highestAttribute * (100/omniSatisfy))
 			if omni and (omni > 0 or omni > self.calcsTab.mainOutput.Omni) then
 				t_insert(req, s_format("%s%d ^x7F7F7FOmni", main:StatColor(omni, 0, self.calcsTab.mainOutput.Omni), omni))
 			end
