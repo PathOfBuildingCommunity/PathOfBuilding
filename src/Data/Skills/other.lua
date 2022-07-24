@@ -282,6 +282,9 @@ skills["BloodOffering"] = {
 		["damage_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["blood_offering_life_regenerated_+%_final_per_corpse"] = {
+			mod("LifeRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "CorpseConsumedRecently" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -2900,7 +2903,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 10, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, }, },
-		[25] = { 20, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, }, },
+		[25] = { 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["SummonTauntingContraption"] = {
