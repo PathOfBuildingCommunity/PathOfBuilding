@@ -58,7 +58,7 @@ end
 
 function ModStoreClass:CopyList(modList)
 	for i = 1, #modList do
-		self:AddMod(copyTable(modList[i]))
+		self:AddMod(modList[i])
 	end
 end
 
