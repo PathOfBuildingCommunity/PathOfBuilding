@@ -85,7 +85,7 @@ function breakdown.slot(source, sourceName, cfg, base, total, ...)
 	t_insert(breakdown[...].slots, {
 		base = base,
 		inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
-		more = (more ~= 1) and s_format(" x %.2f", more),
+		more = (more ~= 1) and s_format(" x %.3f", more),
 		total = s_format("%.2f", total or (base * (1 + inc / 100) * more)),
 		source = source,
 		sourceName = sourceName,
