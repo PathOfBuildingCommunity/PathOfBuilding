@@ -129,7 +129,7 @@ function ModStoreClass:More(cfg, ...)
 		keywordFlags = cfg.keywordFlags or 0
 		source = cfg.source
 	end
-	return round(self:MoreInternal(self, cfg, flags, keywordFlags, source, ...), 2)
+	return self:MoreInternal(self, cfg, flags, keywordFlags, source, ...)
 end
 
 function ModStoreClass:Flag(cfg, ...)
