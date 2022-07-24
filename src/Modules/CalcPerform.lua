@@ -1871,23 +1871,21 @@ function calcs.perform(env, avoidCache)
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect")
 						local lists = {extraAuraModList, buff.modList}
 						local scale = (1 + inc / 100) * more
-
+						scale = m_max(scale, 0)
+						
 						for _, modList in ipairs(lists) do
 							for _, mod in ipairs(modList) do
 								if mod.name == "EnergyShield" or mod.name == "Armour" or mod.name == "Evasion" or mod.name:match("Resist?M?a?x?$") then
 									local totemMod = copyTable(mod)
 									totemMod.name = "Totem"..totemMod.name
-									if scale == 1 then
-										srcList:AddMod(totemMod)
-									else
-										scale = m_max(scale, 0)
+									if scale ~= 1 then
 										if type(totemMod.value) == "number" then
 											totemMod.value = (m_floor(totemMod.value) == totemMod.value) and m_modf(round(totemMod.value * scale, 2)) or totemMod.value * scale
 										elseif type(totemMod.value) == "table" and totemMod.value.mod then
 											totemMod.value.mod.value = (m_floor(totemMod.value.mod.value) == totemMod.value.mod.value) and m_modf(round(totemMod.value.mod.value * scale, 2)) or totemMod.value.mod.value * scale
 										end
-										srcList:AddMod(totemMod)
 									end
+									srcList:AddMod(totemMod)
 								end
 							end
 						end
@@ -3074,13 +3072,13 @@ function calcs.perform(env, avoidCache)
 			env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
 		end
 		if env.player.mainSkill.skillFlags.totem and not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
-			local totemModList = {copyTable(value).mod}
-			local totemModName, matches = totemModList[1].name:gsub("Condition:", "Condition:Totem")
-			if not matches then
-				totemModName = "Totem" .. totemModList[1].name
+			local totemMod = copyTable(value.mod)
+			local totemModName, matches = totemMod.name:gsub("Condition:", "Condition:Totem")
+			if matches < 1 then
+				totemModName = "Totem" .. totemMod.name
 			end
-			totemModList[1].name = totemModName
-			modDB:AddList(totemModList)
+			totemMod.name = totemModName
+			modDB:AddMod(totemMod)
 		end
 	end
 
