@@ -282,18 +282,14 @@ function calcs.defence(env, actor)
 				evasionBase = armourData.Evasion or 0
 				if evasionBase > 0 then
 					output["EvasionOn"..slot] = evasionBase
+					gearEvasion = gearEvasion + evasionBase
+					if breakdown then
+						breakdown.slot(slot, nil, slotCfg, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
+					end
 					if ironReflexes then
 						armour = armour + evasionBase * calcLib.mod(modDB, slotCfg, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
-						gearArmour = gearArmour + evasionBase
-						if breakdown then
-							breakdown.slot(slot, nil, slotCfg, evasionBase, nil, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
-						end
 					else
 						evasion = evasion + evasionBase * calcLib.mod(modDB, slotCfg, "Evasion", "ArmourAndEvasion", "Defences")
-						gearEvasion = gearEvasion + evasionBase
-						if breakdown then
-							breakdown.slot(slot, nil, slotCfg, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
-						end
 					end
 				end
 			end
