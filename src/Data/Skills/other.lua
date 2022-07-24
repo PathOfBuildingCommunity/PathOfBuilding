@@ -2357,6 +2357,35 @@ skills["AtziriUniqueStaffStormCall"] = {
 		[20] = { 0.69999998807907, 1.2999999523163, damageEffectiveness = 3.2, cooldown = 1.5, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["SummonArbalists"] = {
+	name = "Summon Arbalists",
+	hidden = true,
+	color = 4,
+	description = "Summons Arbalist minions which use projectile attacks.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Physical] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Spell] = true, [SkillType.CreatesMinion] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	minionList = {
+		"SummonedArbalists",
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+	},
+	constantStats = {
+		{ "base_number_of_arbalists", 2 },
+	},
+	stats = {
+		"cast_on_gain_skill",
+		"minions_cannot_taunt_enemies",
+		"no_cost",
+	},
+	levels = {
+		[20] = { levelRequirement = 70, },
+	},
+}
 skills["SummonBeastialRhoa"] = {
 	name = "Summon Bestial Rhoa",
 	hidden = true,
