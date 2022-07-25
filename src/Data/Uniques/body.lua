@@ -129,21 +129,21 @@ Crusader Plate
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 59, 160 Str
+Socketed Gems are Supported by Level 15 Pierce
 (200-250)% increased Armour
 +(60-100) to maximum Life
 0.4% of Physical Attack Damage Leeched as Mana
-Socketed Gems are Supported by level 15 Pierce
+{variant:2}+160 Dexterity Requirement
 Enemy Projectiles Pierce you
-{Variant:2}+160 Dexterity Requirement
 ]],[[
 Iron Heart
 Crusader Plate
 Source: No longer obtainable
 Requires Level 59, 160 Str
-(80-100)% increased Armour 
-10% reduced Movement Speed 
-(8-12)% Chance to Block 
-Cannot Block Spells 
+(8-12)% Chance to Block Attack Damage
+(80-100)% increased Armour
+10% reduced Movement Speed
+Cannot Block Spells
 Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
 ]],[[
 The Iron Fortress
@@ -180,11 +180,11 @@ Variant: Current
 Requires Level 17, 53 Str
 +(10-20) to Strength
 (60-80)% increased Armour
+{variant:2}25% reduced Chaos Damage taken over time
 25% increased Light Radius
-Chaos Damage does not bypass Energy Shield
+Chaos Damage taken does not bypass Energy Shield
 {variant:1}−10 Chaos Damage taken
 {variant:2}-(30-40) Chaos Damage taken
-{variant:2}25% reduced Chaos Damage Taken Over Time
 ]],
 -- Body: Evasion
 [[
