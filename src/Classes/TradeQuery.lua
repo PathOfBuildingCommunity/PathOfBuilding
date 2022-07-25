@@ -444,7 +444,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 						self:SetNotice(context.controls.pbNotice, "")
 					end
 					self.resultTbl[context.str_cnt] = items
-					self:UpdateControlsWithItems(context.slotTbl, context.controls, context.str_cnt, query)
+					self:UpdateControlsWithItems(context.slotTbl, context.str_cnt)
 					context.controls['priceButton'..context.str_cnt].label =  "Price Item"
 				end,
 				{
@@ -477,6 +477,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 				else
 					self.resultTbl[str_cnt] = items
 					self:UpdateControlsWithItems(slotTbl, str_cnt)
+					self:SetNotice(controls.pbNotice, "")
 				end
 				controls['priceButton'..str_cnt].label = "Price Item"
 			end)
