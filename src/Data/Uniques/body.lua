@@ -70,11 +70,11 @@ Variant: Current
 Requires Level 62, 180 Str
 Implicits: 1
 +(8-12)% to all Elemental Resistances
-{variant:3}Grants level 20 Death Aura Skill
+{variant:3}Trigger Level 20 Death Aura when Equipped
 +(40-50) to all Attributes
-{variant:3}+(60-70) to maximum Life
 (10-15)% increased Attack Speed
 (180-220)% increased Armour
+{variant:3}+(60-70) to maximum Life
 1% of Attack Damage Leeched as Life
 {variant:1,2}Deals 450 Chaos Damage per second to nearby Enemies
 {variant:1}You take 450 Chaos Damage per second for 10 seconds on Kill
@@ -112,9 +112,9 @@ Variant: Pre 1.0.0
 Variant: Current
 Requires Level 68, 191 Str
 Has no Sockets
+{variant:2}(20-40)% increased Fire Damage
 {variant:1}+1000 to maximum Life
 {variant:2}+500 to maximum Life
-{variant:2}(20-40)% increased Fire Damage
 ]],[[
 Replica Kaom's Heart
 Glorious Plate
@@ -1183,20 +1183,16 @@ Recover 50 Energy Shield when your Trap is triggered by an Enemy
 Victario's Influence
 Lacquered Garb
 Variant: Pre 2.6.0
-Variant: Pre 3.16.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
 +1 to Level of Socketed Aura Gems
-{variant:1}Socketed Gems have 40% increased Mana Reservation Efficiency
-{variant:2}Socketed Gems have 60% increased Mana Reservation Efficiency
-{variant:3}Socketed Gems have 45% increased Reservation Efficiency
-{variant:1}Socketed Gems are Supported by level 1 Generosity
-{variant:2,3}Socketed Gems are Supported by level 30 Generosity
+{variant:1}Socketed Gems are Supported by Level 1 Generosity
+{variant:2}Socketed Gems are Supported by Level 30 Generosity
+Socketed Gems have 45% increased Reservation Efficiency
 (120-150)% increased Evasion and Energy Shield
-{variant:1}(10-20)% increased Radius of Auras
-{variant:2,3}(20-40)% increased Area of Effect of Aura Skills
-{variant:1}(10-15)% increased effect of Non-Curse Auras you Cast
-{variant:2,3}(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:1}(10-20)% increased Area of Effect of Aura Skills
+{variant:2}(20-40)% increased Area of Effect of Aura Skills
+(10-15)% increased effect of Non-Curse Auras from your Skills
 ]],
 -- Body: Armour/Evasion/Energy Shield
 [[
