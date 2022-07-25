@@ -218,16 +218,13 @@ return {
 	skill("triggeredByStuned", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 ["trigger_on_attack_hit_against_rare_or_unique"] = {
-	skill("triggerMarkOnRareOrUnique", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Mark }, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
+	skill("triggerMarkOnRareOrUnique", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Mark }),
 },
 ["melee_counterattack_trigger_on_block_%"] = {
-	skill("triggerCounterAttack", nil, { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "Condition", var = "BlockedRecently" }),
+	skill("triggerCounterAttack", nil, { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["melee_counterattack_trigger_on_hit_%"] = {
-	skill("triggerCounterAttack", nil, { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "Condition", var = "BeenHitRecently" }),
-},
-["spellslinger_trigger_on_wand_attack_%"] = {
-	skill("triggeredBySpellSlinger", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+	skill("triggerCounterAttack", nil, { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["holy_relic_trigger_on_parent_attack_%"] = {
 	skill("triggeredByParentAttack", true, { type = "SkillType", skillType = SkillType.Triggerable }),

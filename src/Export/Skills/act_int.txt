@@ -1822,6 +1822,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
 		},
 		["spellslinger_trigger_on_wand_attack_%"] = {
+			skill("triggeredBySpellSlinger", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 		},
 	},
 #baseMod flag("Condition:SupportedBySpellslinger")
@@ -2149,7 +2150,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
-#baseMod skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }, { type = "Condition", var = "BlockedRecently" })
+#baseMod skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell })
 #mods
 
 #skill VoltaxicBurst
