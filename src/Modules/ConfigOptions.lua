@@ -1584,8 +1584,7 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 
 		if val == "Uber Atziri Flameblast" then
 			if build.configTab.enemyLevel then
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * 3.48 * 10.9), true)
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Uber Atziri Flameblast"].damageMult), true)
+				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Uber Atziri Flameblast"].damageMult), true)
 				build.configTab.varControls['enemyDamageType']:SelByValue("Spell", "val")
 				build.configTab.varControls['enemyDamageType'].enabled = false
 				build.configTab.input['enemyDamageType'] = "Spell"
@@ -1596,8 +1595,7 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 			build.configTab.varControls['enemyCritChance']:SetPlaceholder(0, true)
 		elseif val == "Shaper Ball" then
 			if build.configTab.enemyLevel then
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * 9.17), true)
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Shaper Ball"].damageMult), true)
+				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Ball"].damageMult), true)
 			end
 
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(25, true)
@@ -1607,8 +1605,7 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 			build.configTab.input['enemyDamageType'] = "SpellProjectile"
 		elseif val == "Shaper Slam" then
 			if build.configTab.enemyLevel then
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * 15.2), true)
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult), true)
+				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult), true)
 			end
 			build.configTab.varControls['enemyDamageType'].enabled = false
 			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
@@ -1617,8 +1614,7 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Shaper Slam"].speed, true)
 		elseif val == "Maven Memory Game" then
 			if build.configTab.enemyLevel then
-				local defaultEleDamage = round(data.monsterDamageTable[build.configTab.enemyLevel] * 24.69)
-				local defaultEleDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Maven Memory Game"].damageMult)
+				local defaultEleDamage = round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Maven Memory Game"].damageMult)
 				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultEleDamage, true)
 				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultEleDamage, true)
 				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultEleDamage, true)
