@@ -359,6 +359,60 @@ data.highPrecisionMods = {
 	["LifeRegenPercent"] = {
 		["BASE"] = true,
 	},
+	["DamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["PhysicalDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["FireDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["ColdDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["LightningDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["ChaosDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["DamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["PhysicalDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["FireDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["ColdDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["LightningDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["ChaosDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["DamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["PhysicalDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["FireDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["ColdDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["LightningDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["ChaosDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
 }
 
 data.misc = { -- magic numbers
