@@ -161,7 +161,7 @@ function SliderClass:OnKeyUp(key)
 			local cursorX, cursorY = GetCursorPos()
 			self:SetValFromKnobX((cursorX - self.dragCX) + self.dragKnobX)
 		end
-	elseif key == "WHEELDOWN" or key == "DOWN" or key == "LEFT" then
+	elseif (not main.invertSliderScrollDirection and key == "WHEELDOWN") or (main.invertSliderScrollDirection and  key == "WHEELUP") or key == "DOWN" or key == "LEFT" then
 		if IsKeyDown("SHIFT") then
 			self:SetVal(self.val - self.scrollWheelSpeedTbl["SHIFT"])
 		elseif IsKeyDown("CTRL") then
@@ -169,7 +169,7 @@ function SliderClass:OnKeyUp(key)
 		else
 			self:SetVal(self.val - self.scrollWheelSpeedTbl["DEFAULT"])
 		end
-	elseif key == "WHEELUP" or key == "UP" or key == "RIGHT" then
+	elseif (not main.invertSliderScrollDirection and key == "WHEELUP") or (main.invertSliderScrollDirection and key == "WHEELDOWN") or key == "UP" or key == "RIGHT" then
 		if IsKeyDown("SHIFT") then
 			self:SetVal(self.val + self.scrollWheelSpeedTbl["SHIFT"])
 		elseif IsKeyDown("CTRL") then
