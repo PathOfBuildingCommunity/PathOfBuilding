@@ -21,6 +21,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.itemsTab = itemsTab
 	self.itemsTab.leagueDropList = { }
 	self.totalPrice = { }
+	self.controls = { }
 	-- table of price results index by slot and number of fetched results
 	self.resultTbl = { }
 	self.sortedResultTbl = { }
@@ -50,7 +51,11 @@ end)
 function TradeQueryClass:FetchCurrencyConversionTable(callback)
 	launch:DownloadPage(
 		"https://www.pathofexile.com/api/trade/data/static",
-		function(response)
+		function(response, errMsg)
+			if errMsg then
+				callback(response, errMsg)
+				return
+			end
 			local obj = dkjson.decode(response.body)
 			local currencyConversionTradeMap = {}
 			local currencyTable
@@ -72,17 +77,17 @@ end
 
 
 -- Method to pull down and interpret available leagues from PoE
-function TradeQueryClass:PullLeagueList(controls)
+function TradeQueryClass:PullLeagueList()
 	launch:DownloadPage(
 		"https://api.pathofexile.com/leagues?type=main&compact=1",
 		function(response, errMsg)
 			if errMsg then
-				self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
+				self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
 				return "POE ERROR", "Error: "..errMsg
 			else
 				local json_data = dkjson.decode(response.body)
 				if not json_data then
-					self:SetNotice(controls.pbNotice, "Failed to Get PoE League List response")
+					self:SetNotice(self.controls.pbNotice, "Failed to Get PoE League List response")
 					return
 				end
 				self.itemsTab.leagueDropList = {
@@ -99,11 +104,11 @@ function TradeQueryClass:PullLeagueList(controls)
 						end
 					end
 				end
-				controls.league:SetList(self.itemsTab.leagueDropList)
-				controls.league.selIndex = 1
-				self.pbLeague = self.itemsTab.leagueDropList[controls.league.selIndex].name
-				self.pbLeagueRealName = self.itemsTab.leagueDropList[controls.league.selIndex].realname
-				self:SetCurrencyConversionButton(controls)
+				self.controls.league:SetList(self.itemsTab.leagueDropList)
+				self.controls.league.selIndex = 1
+				self.pbLeague = self.itemsTab.leagueDropList[self.controls.league.selIndex].name
+				self.pbLeagueRealName = self.itemsTab.leagueDropList[self.controls.league.selIndex].realname
+				self:SetCurrencyConversionButton()
 			end
 		end)
 end
@@ -126,32 +131,36 @@ function TradeQueryClass:ConvertCurrencyToChaos(currency, amount)
 end
 
 -- Method to pull down and interpret the PoE.Ninja JSON endpoint data
-function TradeQueryClass:PullPoENinjaCurrencyConversion(league, controls)
+function TradeQueryClass:PullPoENinjaCurrencyConversion(league)
 	local now = get_time()
 	-- Limit PoE Ninja Currency Conversion request to 1 per hour
 	if (now - self.lastCurrencyConversionRequest) < 3600 then
-		self:SetNotice(controls.pbNotice, "PoE Ninja Rate Limit Exceeded: " .. tostring(3600 - (now - self.lastCurrencyConversionRequest)))
+		self:SetNotice(self.controls.pbNotice, "PoE Ninja Rate Limit Exceeded: " .. tostring(3600 - (now - self.lastCurrencyConversionRequest)))
 		return
 	end
 	-- We are getting currency shortnames from Poe API before getting PoeNinja rates
 	-- Potentially, currency shortnames could be cached but this request runs 
 	-- once per hour at most and the Poe API response is already Cloudflare cached
-	self:FetchCurrencyConversionTable(function()
+	self:FetchCurrencyConversionTable(function(data, errMsg)
+		if errMsg then
+			self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
+			return
+		end
 		self.pbCurrencyConversion[league] = { }
 		self.lastCurrencyConversionRequest = now
 		launch:DownloadPage(
 			"https://poe.ninja/api/data/CurrencyRates?league=" .. league,	
 			function(response, errMsg)
 				if errMsg then
-					self:SetNotice(controls.pbNotice, "ERROR: " .. tostring(errMsg))
+					self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
 					return
 				end
 				local json_data = dkjson.decode(response.body)
 				if not json_data then
-					self:SetNotice(controls.pbNotice, "Failed to Get PoE Ninja response")
+					self:SetNotice(self.controls.pbNotice, "Failed to Get PoE Ninja response")
 					return
 				end
-				self:PriceBuilderProcessPoENinjaResponse(json_data, controls)
+				self:PriceBuilderProcessPoENinjaResponse(json_data, self.controls)
 				local print_str = ""
 				for key, value in pairs(self.pbCurrencyConversion[self.pbLeague]) do
 					print_str = print_str .. '"'..key..'": '..tostring(value)..','
@@ -159,13 +168,13 @@ function TradeQueryClass:PullPoENinjaCurrencyConversion(league, controls)
 				local foo = io.open("../"..self.pbLeague.."_currency_values.json", "w")
 				foo:write("{" .. print_str .. '"updateTime": ' .. tostring(get_time()) .. "}")
 				foo:close()
-				self:SetCurrencyConversionButton(controls)
+				self:SetCurrencyConversionButton()
 			end)
 	end)
 end
 
 -- Method to process the PoE.Ninja response
-function TradeQueryClass:PriceBuilderProcessPoENinjaResponse(resp, controls)
+function TradeQueryClass:PriceBuilderProcessPoENinjaResponse(resp)
 	if resp then
 		-- Populate the chaos-converted values for each tradeId
 		for currencyName, chaosEquivalent in pairs(resp) do
@@ -176,7 +185,7 @@ function TradeQueryClass:PriceBuilderProcessPoENinjaResponse(resp, controls)
 			end
 		end
 	else
-		self:SetNotice(controls.pbNotice, "PoE Ninja JSON Processing Error")
+		self:SetNotice(self.controls.pbNotice, "PoE Ninja JSON Processing Error")
 	end
 end
 
@@ -201,7 +210,6 @@ function TradeQueryClass:PriceItem()
 	-- Row spacing reference is now the name, which is a smaller font than the total height
 	local pane_height = (top_pane_alignment_height + row_height) * row_count - 4*row_count + 28
 	local pane_width = 1200
-	local controls = { }
 	local cnt = 1
 
 	local newItemList = { }
@@ -209,17 +217,16 @@ function TradeQueryClass:PriceItem()
 		local itemSet = self.itemsTab.itemSets[itemSetId]
 		t_insert(newItemList, itemSet.title or "Default")
 	end
-	controls.setSelect = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, 16, 15, 200, 20, newItemList, function(index, value)
+	self.controls.setSelect = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, 16, 15, 200, 20, newItemList, function(index, value)
 		self.itemsTab:SetActiveItemSet(self.itemsTab.itemSetOrderList[index])
 		self.itemsTab:AddUndoState()
 	end)
-	controls.setSelect.enableDroppedWidth = true
-	controls.setSelect.enabled = function()
+	self.controls.setSelect.enableDroppedWidth = true
+	self.controls.setSelect.enabled = function()
 		return #self.itemsTab.itemSetOrderList > 1
 	end
 
-	controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT", nil, "BOTTOMRIGHT"}, -8, -8, 300, 16, "")
-	controls.pbNotice.textCol = colorCodes.CUSTOM
+	self.controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT", nil, "BOTTOMRIGHT"}, -8, -8, 300, 16, "")
 
 	-- Item sort dropdown
 	self.sortSelectionList = {
@@ -228,29 +235,29 @@ function TradeQueryClass:PriceItem()
 		"Highest DPS",
 		"DPS / Price",
 	}
-	controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, self.sortSelectionList, function(index, value)
+	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, self.sortSelectionList, function(index, value)
 		self.pbSortSelectionIndex = index
 	end)
-	controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
-	controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
-	controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
+	self.controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
+	self.controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
+	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
 
 	-- League selection
-	controls.league = new("DropDownControl", {"TOPRIGHT", controls.itemSortSelectionLabel, "TOPLEFT"}, -8, 0, 100, 18, self.itemsTab.leagueDropList, function(index, value)
+	self.controls.league = new("DropDownControl", {"TOPRIGHT", self.controls.itemSortSelectionLabel, "TOPLEFT"}, -8, 0, 100, 18, self.itemsTab.leagueDropList, function(index, value)
 		self.pbLeague = value.name
 		self.pbLeagueRealName = value.realname or value.name
-		self:SetCurrencyConversionButton(controls)
+		self:SetCurrencyConversionButton()
 	end)
-	controls.league.enabled = function()
+	self.controls.league.enabled = function()
 		return #self.itemsTab.leagueDropList > 1
 	end
-	controls.leagueLabel = new("LabelControl", {"TOPRIGHT", controls.league, "TOPLEFT"}, -4, 0, 20, 16, "League:")
+	self.controls.leagueLabel = new("LabelControl", {"TOPRIGHT", self.controls.league, "TOPLEFT"}, -4, 0, 20, 16, "^7League:")
 
 	-- Individual slot rows
-	top_pane_alignment_ref = {"TOPLEFT", controls.setSelect, "BOTTOMLEFT"}
+	top_pane_alignment_ref = {"TOPLEFT", self.controls.setSelect, "BOTTOMLEFT"}
 	for _, slotName in ipairs(baseSlots) do
-		self:PriceItemRowDisplay(controls, cnt, {name = slotName}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-		top_pane_alignment_ref = {"TOPLEFT", controls['name'..cnt], "BOTTOMLEFT"}
+		self:PriceItemRowDisplay(cnt, {name = slotName}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+		top_pane_alignment_ref = {"TOPLEFT", self.controls['name'..cnt], "BOTTOMLEFT"}
 		cnt = cnt + 1
 	end
 	local activeSocketList = { }
@@ -261,94 +268,88 @@ function TradeQueryClass:PriceItem()
 	end
 	table.sort(activeSocketList)
 	for _, nodeId in pairs(activeSocketList) do
-		self:PriceItemRowDisplay(controls, cnt, {name = self.itemsTab.sockets[nodeId].label, ref = nodeId}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-		top_pane_alignment_ref = {"TOPLEFT", controls['name'..cnt], "BOTTOMLEFT"}
+		self:PriceItemRowDisplay(cnt, {name = self.itemsTab.sockets[nodeId].label, ref = nodeId}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+		top_pane_alignment_ref = {"TOPLEFT", self.controls['name'..cnt], "BOTTOMLEFT"}
 		cnt = cnt + 1
 	end
-	controls.fullPrice = new("LabelControl", nil, -3, pane_height - 58, pane_width - 256, row_height, "")
-	controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, row_height, "Done", function()
+	self.controls.fullPrice = new("LabelControl", nil, -3, pane_height - 58, pane_width - 256, row_height, "")
+	self.controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, row_height, "Done", function()
 		GlobalCache.useFullDPS = self.storedGlobalCacheDPSView
 		main:ClosePopup()
 	end)
-	controls.poesessidButton = new("ButtonControl", {"TOPLEFT", controls.setSelect, "TOPRIGHT"}, 8, 0, 200, row_height, function() return main.POESESSID ~= "" and "Change POESESSID" or colorCodes.WARNING.."Missing POESESSID" end, function()
+	self.controls.poesessidButton = new("ButtonControl", {"TOPLEFT", self.controls.setSelect, "TOPRIGHT"}, 8, 0, 200, row_height, function() return main.POESESSID ~= "" and "Change POESESSID" or colorCodes.WARNING.."Missing POESESSID" end, function()
 		local poesessid_controls = {}
-		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, main.POESESSID, nil, "%X", 32, function(buf)
-			if #poesessid_controls.sessionInput.buf == 32 or poesessid_controls.sessionInput.buf == "" then
-				main.POESESSID = buf
-			end
-		end)
+		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, main.POESESSID, nil, "%X", 32)
 		poesessid_controls.sessionInput.placeholder = "Enter your session ID here"
 		poesessid_controls.sessionInput.tooltipText = "You can get this from your web browser's cookies while logged into the Path of Exile website."
-		poesessid_controls.close = new("ButtonControl", {"TOP", poesessid_controls.sessionInput, "TOP"}, 0, 24, 90, row_height, "Done", function()
-			for controlName, controlElement in pairs(controls) do
-				if controlName:find("bestButton") then
-					controlElement.enabled = main.POESESSID ~= ""
-				end
-			end
+		poesessid_controls.save = new("ButtonControl", {"TOPRIGHT", poesessid_controls.sessionInput, "TOP"}, -8, 24, 90, row_height, "Save", function()
+			main.POESESSID = poesessid_controls.sessionInput.buf
+			main:ClosePopup()
+		end)
+		poesessid_controls.save.enabled = function() return #poesessid_controls.sessionInput.buf == 32 or poesessid_controls.sessionInput.buf == "" end
+		poesessid_controls.cancel = new("ButtonControl", {"TOPLEFT", poesessid_controls.sessionInput, "TOP"}, 8, 24, 90, row_height, "Cancel", function()
 			main:ClosePopup()
 		end)
 		main:OpenPopup(364, 72, "Change session ID", poesessid_controls)
 	end)
 
-	controls.updateCurrencyConversion = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, 16, pane_height - 30, 240, row_height, "", function()
-		self:PullPoENinjaCurrencyConversion(self.pbLeague, controls)
+	self.controls.updateCurrencyConversion = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, 16, pane_height - 30, 240, row_height, "Get Currency Conversion Rates", function()
+		self:PullPoENinjaCurrencyConversion(self.pbLeague)
 	end)
-	main:OpenPopup(pane_width, pane_height, "Build Pricer", controls)
+	main:OpenPopup(pane_width, pane_height, "Build Pricer", self.controls)
 
 	if #self.itemsTab.leagueDropList == 0 then
-		self:PullLeagueList(controls)
+		self:PullLeagueList()
 	else
-		controls.league:SelByValue(self.pbLeague, "name")
-		self.pbLeague = self.itemsTab.leagueDropList[controls.league.selIndex].name
-		self.pbLeagueRealName = self.itemsTab.leagueDropList[controls.league.selIndex].realname
-		self:SetCurrencyConversionButton(controls)
+		self.controls.league:SelByValue(self.pbLeague, "name")
+		self.pbLeague = self.itemsTab.leagueDropList[self.controls.league.selIndex].name
+		self.pbLeagueRealName = self.itemsTab.leagueDropList[self.controls.league.selIndex].realname
+		self:SetCurrencyConversionButton()
 	end
 end
 
 -- Method to update the Currency Conversion button label
-function TradeQueryClass:SetCurrencyConversionButton(controls)
-	local currencyLabel = colorCodes.WARNING .. "Update Currency Conversion Rates"
-	self.pbFileTimestampDiff[controls.league.selIndex] = nil
-	local foo = io.open("../"..self.pbLeague.."_currency_values.json", "r")
-	if foo then
-		local lines = foo:read "*a"
-		foo:close()
+function TradeQueryClass:SetCurrencyConversionButton()
+	local currencyLabel = "Update Currency Conversion Rates"
+	self.pbFileTimestampDiff[self.controls.league.selIndex] = nil
+	local values_file = io.open("../"..self.pbLeague.."_currency_values.json", "r")
+	if values_file then
+		local lines = values_file:read "*a"
+		values_file:close()
 		self.pbCurrencyConversion[self.pbLeague] = dkjson.decode(lines)
-		self.lastCurrencyFileTime[controls.league.selIndex]  = self.pbCurrencyConversion[self.pbLeague]["updateTime"]
-		self.pbFileTimestampDiff[controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[controls.league.selIndex]
-		if self.pbFileTimestampDiff[controls.league.selIndex] < 3600 then
+		self.lastCurrencyFileTime[self.controls.league.selIndex]  = self.pbCurrencyConversion[self.pbLeague]["updateTime"]
+		self.pbFileTimestampDiff[self.controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[self.controls.league.selIndex]
+		if self.pbFileTimestampDiff[self.controls.league.selIndex] < 3600 then
 			-- Less than 1 hour (60 * 60 = 3600)
-			currencyLabel = "^8Currency Rates are very recent"
-		elseif self.pbFileTimestampDiff[controls.league.selIndex] < (24 * 3600) then
+			currencyLabel = "Currency Rates are very recent"
+		elseif self.pbFileTimestampDiff[self.controls.league.selIndex] < (24 * 3600) then
 			-- Less than 1 day
-			currencyLabel = "^7Currency Rates are recent"
+			currencyLabel = "Currency Rates are recent"
 		end
 	else
-		currencyLabel = colorCodes.NEGATIVE .. "Get Currency Conversion Rates"
+		currencyLabel = "Get Currency Conversion Rates"
 	end
-	controls.updateCurrencyConversion.label = currencyLabel
-	controls.updateCurrencyConversion.enabled = function()
-		return self.pbFileTimestampDiff[controls.league.selIndex] == nil or self.pbFileTimestampDiff[controls.league.selIndex] >= 3600
+	self.controls.updateCurrencyConversion.label = currencyLabel
+	self.controls.updateCurrencyConversion.enabled = function()
+		return self.pbFileTimestampDiff[self.controls.league.selIndex] == nil or self.pbFileTimestampDiff[self.controls.league.selIndex] >= 3600
 	end
-	controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
+	self.controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		if self.lastCurrencyFileTime[controls.league.selIndex] ~= nil then
-			self.pbFileTimestampDiff[controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[controls.league.selIndex]
+		if self.lastCurrencyFileTime[self.controls.league.selIndex] ~= nil then
+			self.pbFileTimestampDiff[self.controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[self.controls.league.selIndex]
 		end
-		if self.pbFileTimestampDiff[controls.league.selIndex] == nil or self.pbFileTimestampDiff[controls.league.selIndex] >= 3600 then
+		if self.pbFileTimestampDiff[self.controls.league.selIndex] == nil or self.pbFileTimestampDiff[self.controls.league.selIndex] >= 3600 then
 			tooltip:AddLine(16, "Currency Conversion rates are pulled from PoE Ninja")
 			tooltip:AddLine(16, "Updates are limited to once per hour and not necessary more than once per day")
-		elseif self.pbFileTimestampDiff[controls.league.selIndex] ~= nil and self.pbFileTimestampDiff[controls.league.selIndex] < 3600 then
-			tooltip:AddLine(16, "Conversion Rates are less than an hour old (" .. tostring(self.pbFileTimestampDiff[controls.league.selIndex]) .. " seconds old)")
+		elseif self.pbFileTimestampDiff[self.controls.league.selIndex] ~= nil and self.pbFileTimestampDiff[self.controls.league.selIndex] < 3600 then
+			tooltip:AddLine(16, "Conversion Rates are less than an hour old (" .. tostring(self.pbFileTimestampDiff[self.controls.league.selIndex]) .. " seconds old)")
 		end
 	end
 end
 
 -- Method to set the notice message in upper right of PoB Trader pane
 function TradeQueryClass:SetNotice(notice_control, msg)
-	if msg:find("Complex Query") then
-		msg = colorCodes.RELIC .. msg
-	elseif msg:find("No Matching Results") then
+	if msg:find("No Matching Results") then
 		msg = colorCodes.WARNING .. msg
 	elseif msg:find("Error:") then
 		msg = colorCodes.NEGATIVE .. msg
@@ -357,27 +358,28 @@ function TradeQueryClass:SetNotice(notice_control, msg)
 end
 
 -- Method to update controls after a search is completed
-function TradeQueryClass:UpdateControlsWithItems(slotTbl, controls, index)
+function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
 	self.sortedResultTbl[index] = self:SortFetchResults(slotTbl, index)
 	self.itemIndexTbl[index] = 1
-	controls['priceButton'..index].tooltipText = "Sorted by " .. self.sortSelectionList[self.pbSortSelectionIndex]
+	self.controls['priceButton'..index].tooltipText = "Sorted by " .. self.sortSelectionList[self.pbSortSelectionIndex]
 	local pb_index = self.sortedResultTbl[index][1].index
 	self.totalPrice[index] = {
 		currency = self.resultTbl[index][pb_index].currency,
 		amount = self.resultTbl[index][pb_index].amount,
 	}
-	self:GenerateTotalPriceString(controls.fullPrice)
+
+	self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
 end
 
 -- Method to set the current result return in the pane based of an index
-function TradeQueryClass:SetFetchResultReturn(controls, slotIndex, pb_index)
+function TradeQueryClass:SetFetchResultReturn(slotIndex, pb_index)
 	if self.resultTbl[slotIndex] and self.resultTbl[slotIndex][pb_index] then
 		local pb_index = self.sortedResultTbl[slotIndex][pb_index].index
 		self.totalPrice[slotIndex] = {
 			currency = self.resultTbl[slotIndex][pb_index].currency,
 			amount = self.resultTbl[slotIndex][pb_index].amount,
 		}
-		self:GenerateTotalPriceString(controls.fullPrice)
+		self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
 	end
 end
 
@@ -424,7 +426,8 @@ end
 
 
 -- Method to generate pane elements for each item slot
-function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+	local controls = self.controls
 	local activeSlotRef = slotTbl.ref and self.itemsTab.activeItemSet[slotTbl.ref] or self.itemsTab.activeItemSet[slotTbl.name]
 	controls['name'..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^7"..slotTbl.name)
 	controls['bestButton'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['name'..str_cnt],"TOPLEFT"}, 100 + 8, 0, 80, row_height, "Find best", function()
@@ -452,7 +455,7 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 			)
 		end)
 	end)
-	controls['bestButton'..str_cnt].enabled = main.POESESSID ~= ""
+	controls['bestButton'..str_cnt].enabled = function() return main.POESESSID ~= "" end
 	controls['bestButton'..str_cnt].tooltipText = "Creates a weighted search to find the highest DPS items for this slot.  This requires a valid session ID."
 	controls['uri'..str_cnt] = new("EditControl", {"TOPLEFT",controls['bestButton'..str_cnt],"TOPRIGHT"}, 8, 0, 400, row_height, nil, nil, "^%C\t\n", nil, nil, nil)
 	controls['uri'..str_cnt]:SetPlaceholder("Paste trade URL here...")
@@ -473,7 +476,7 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 					self:SetNotice(controls.pbNotice, "Error: " .. errMsg)
 				else
 					self.resultTbl[str_cnt] = items
-					self:UpdateControlsWithItems(slotTbl, controls, str_cnt)
+					self:UpdateControlsWithItems(slotTbl, str_cnt)
 				end
 				controls['priceButton'..str_cnt].label = "Price Item"
 			end)
@@ -497,7 +500,7 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 	end
 	controls['resultPrev'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['priceButton'..str_cnt],"TOPRIGHT"}, 8, 0, 20, row_height, "<<", function()
 		self.itemIndexTbl[str_cnt] = clampItemIndex(self.itemIndexTbl[str_cnt] - 1)
-		self:SetFetchResultReturn(controls, str_cnt, self.itemIndexTbl[str_cnt])
+		self:SetFetchResultReturn(str_cnt, self.itemIndexTbl[str_cnt])
 	end)
 	controls['resultPrev'..str_cnt].enabled = function()
 		return self.itemIndexTbl[str_cnt] ~= nil and self.itemIndexTbl[str_cnt] > 1
@@ -508,7 +511,7 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 	end)
 	controls['resultNext'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['resultCount'..str_cnt],"TOPRIGHT"}, 8, 0, 20, row_height, ">>", function()
 		self.itemIndexTbl[str_cnt] = clampItemIndex(self.itemIndexTbl[str_cnt] + 1)
-		self:SetFetchResultReturn(controls, str_cnt, self.itemIndexTbl[str_cnt])
+		self:SetFetchResultReturn(str_cnt, self.itemIndexTbl[str_cnt])
 	end)
 	controls['resultNext'..str_cnt].enabled = function()
 		return self.itemIndexTbl[str_cnt] ~= nil and self.itemIndexTbl[str_cnt] < (self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1)
@@ -558,7 +561,7 @@ function TradeQueryClass:PriceItemRowDisplay(controls, str_cnt, slotTbl, top_pan
 end
 
 -- Method to update the Total Price string sum of all items
-function TradeQueryClass:GenerateTotalPriceString(editPane)
+function TradeQueryClass:GetTotalPriceString()
 	local text = ""
 	local sorted_price = { }
 	for _, entry in pairs(self.totalPrice) do
@@ -574,5 +577,5 @@ function TradeQueryClass:GenerateTotalPriceString(editPane)
 	if text ~= "" then
 		text = text:sub(1, -3)
 	end
-	editPane.label = "Total Price: " .. text
+	return text
 end
