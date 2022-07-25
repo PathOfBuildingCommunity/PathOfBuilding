@@ -260,8 +260,8 @@ Wild Leather
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 25, 73 Dex
-Adds 5 to 12 Physical Damage to Attacks
 +(20-30) to Dexterity
+Adds 5 to 12 Physical Damage to Attacks
 {variant:1}You gain 150 Evasion Rating when on Full Life
 {variant:2}You gain 500 Evasion Rating when on Full Life
 (50-70)% increased Evasion Rating
@@ -271,8 +271,8 @@ Fox's Fortune
 Wild Leather
 Source: No longer obtainable
 Requires level 54, 73 Dex
-Adds 5 to 12 Physical Damage to Attacks
 +(20-30) to Dexterity
+Adds 5 to 12 Physical Damage to Attacks
 +1500 to Evasion Rating while on Full Life
 +(400-500) to Evasion Rating
 (120-150)% increased Evasion Rating
@@ -289,14 +289,14 @@ Variant: Pre 3.9.0
 Variant: Current
 Requires Level 65, 197 Dex
 {variant:1,2,3}+(20-30) to Dexterity
-{variant:4.5,6}+(40-50) to Dexterity
+{variant:4,5,6}+(40-50) to Dexterity
+{variant:1}(80-120)% increased Evasion Rating
+{variant:2,3,4,5,6}(140-220)% increased Evasion Rating
+25% increased Chill Duration on Enemies
 {variant:1,2,3}Adds 13 to 24 Cold Damage to Bow Attacks
 {variant:4}Adds (50-60) to (70-80) Cold Damage to Bow Attacks
 {variant:5}Adds (173-188) to (240-262) Cold Damage to Bow Attacks
 {variant:6}Adds (100-145) to (160-200) Cold Damage to Bow Attacks
-{variant:1}(80-120)% increased Evasion Rating
-{variant:2,3,4,5,6}(140-220)% increased Evasion Rating
-25% increased Chill Duration on Enemies
 {variant:1,2}Acrobatics
 {variant:3,4,5,6}30% chance to Suppress Spell Damage
 ]],[[
