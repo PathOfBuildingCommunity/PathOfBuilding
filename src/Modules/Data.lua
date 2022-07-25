@@ -365,6 +365,9 @@ data.highPrecisionMods = {
 	["PhysicalDamageLifeLeech"] = {
 		["BASE"] = true,
 	},
+	["ElementalDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
 	["FireDamageLifeLeech"] = {
 		["BASE"] = true,
 	},
@@ -383,6 +386,9 @@ data.highPrecisionMods = {
 	["PhysicalDamageManaLeech"] = {
 		["BASE"] = true,
 	},
+	["ElementalDamageManaLeech"] = {
+		["BASE"] = true,
+	},
 	["FireDamageManaLeech"] = {
 		["BASE"] = true,
 	},
@@ -399,6 +405,9 @@ data.highPrecisionMods = {
 		["BASE"] = true,
 	},
 	["PhysicalDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["ElementalDamageEnergyShieldLeech"] = {
 		["BASE"] = true,
 	},
 	["FireDamageEnergyShieldLeech"] = {
