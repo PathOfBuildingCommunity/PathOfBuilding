@@ -193,13 +193,13 @@ Buckskin Tunic
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 17, 53 Dex
-{variant:2}Socketed Gems are Supported by level 10 Added Fire Damage
+{variant:2}Socketed Gems are Supported by Level 10 Added Fire Damage
 (80-100)% increased Evasion Rating
 {variant:2}+(30-50) to maximum Life
 +(40-50)% to Fire Resistance
 Cannot be Ignited
 (10-15)% increased Physical Damage with Ranged Weapons
-−(5-7) Physical Damage taken from Attacks
+−(5-7) Physical Damage taken from Attack Hits
 ]],[[
 Briskwrap
 Strapped Leather
@@ -237,9 +237,9 @@ Requires Level 53, 144 Dex
 +2 to Level of Socketed Movement Gems
 10% increased Attack Speed
 {variant:2,3}(35-50)% increased Damage with Movement Skills
-{variant:3}15% increased Attack and Cast Speed if you've used a Movement Skill Recently
 (200-250)% increased Evasion Rating
 10% increased Movement Speed
+{variant:3}15% increased Attack and Cast Speed if you've used a Movement Skill Recently
 ]],[[
 Cospri's Will
 Assassin's Garb
@@ -250,7 +250,7 @@ Implicits: 1
 3% increased Movement Speed
 (120-160)% increased Evasion Rating
 +(17-29)% to Chaos Resistance
-Enemies can have 1 additional Curse
+You can apply an additional Curse
 Your Hexes can affect Hexproof Enemies
 {variant:1}Poison Cursed Enemies on hit
 {variant:2}60% chance to Poison on Hit against Cursed Enemies
