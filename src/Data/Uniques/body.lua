@@ -915,9 +915,9 @@ Requires Level 47, 69 Str, 69 Int
 {variant:1}Reflects (10-20) Chaos Damage to Melee Attackers
 {variant:2,3,4}Reflects 30 Chaos Damage to Melee Attackers
 25% reduced Light Radius
-{variant:1}25% chance on Block to create Desecrated Ground
-{variant:2}50% chance on Block to create Desecrated Ground
-{variant:3,4}100% chance on Block to create Desecrated Ground
+{variant:1}25% chance to create Desecrated Ground when you Block
+{variant:2}50% chance to create Desecrated Ground when you Block
+{variant:3,4}100% chance to create Desecrated Ground when you Block
 ]],[[
 Loreweave
 Elegant Ringmail
@@ -926,8 +926,8 @@ Variant: Pre 3.6.0
 Variant: Current
 Requires Level 64, 90 Str, 105 Int
 Has 6 Sockets
-Adds (4-10) to (14-36) Physical Damage to Attacks
 +(8-24) to all Attributes
+Adds (4-10) to (14-36) Physical Damage to Attacks
 (20-60)% increased Global Critical Strike Chance
 +(15-50) to maximum Energy Shield
 +(20-60) to maximum Life
@@ -995,11 +995,11 @@ Bone Armour
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 35, 53 Dex, 53 Int
-Grants Level 15 Blood Offering Skill 
-(100-120)% increased Evasion and Energy Shield 
-(15-25)% increased maximum Life 
-Minions have (20-30)% increased maximum Life 
-1% of Life Regenerated per second 
+Grants Level 15 Blood Offering Skill
+(100-120)% increased Evasion and Energy Shield
+(15-25)% increased maximum Life
+Minions have (20-30)% increased maximum Life
+Regenerate 1% of Life per second
 {variant:1}Minions have (6-10)% chance to Suppress Spell Damage
 {variant:2}Minions have (12-15)% chance to Suppress Spell Damage
 ]],[[
