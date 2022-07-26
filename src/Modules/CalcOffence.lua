@@ -2962,7 +2962,9 @@ function calcs.offence(env, actor, activeSkill)
 				output.BaseBleedDPS = baseVal * effectMod * rateMod * effMult
 				bleedStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.BleedDuration / output.Time)
 				local chanceToHitInOneSecInterval = 1 - m_pow(1 - (output.HitChance / 100), output.Speed)
-				output.BleedDPS = m_min((baseVal * effectMod * rateMod) * bleedStacks * chanceToHitInOneSecInterval, data.misc.DotDpsCap) * effMult
+				local BleedDPS = (baseVal * effectMod * rateMod) * bleedStacks * chanceToHitInOneSecInterval
+				output.BleedDPS = m_min(BleedDPS, data.misc.DotDpsCap) * effMult
+				BleedDPS = BleedDPS * effMult
 				-- reset bleed stacks to actual number doing damage after weighted avg DPS calculation is done
 				globalOutput.BleedStacks = bleedStacks
 				globalOutput.BleedDamage = output.BaseBleedDPS * globalOutput.BleedDuration
@@ -2997,8 +2999,12 @@ function calcs.offence(env, actor, activeSkill)
 						{ "%.3f ^8(effective DPS modifier)", effMult },
 						{ "%d ^8(bleed stacks)", globalOutput.BleedStacks },
 						{ "%.3f ^8(bleed chance based on chance to hit each second)", chanceToHitInOneSecInterval },
-						total = s_format("= %.1f ^8per second", output.BleedDPS),
+						total = s_format("= %.1f ^8per second", BleedDPS),
 					})
+					if output.BleedDPS ~= BleedDPS then
+						t_insert(breakdown.BleedDPS, s_format("^8(note capped to ^7%.1f ^8per second)", output.BleedDPS))
+						--InsertIfNew(self.controls.warnings.lines, "Bleed dps is overcap")
+					end
 					if globalOutput.BleedDuration ~= durationBase then
 						globalBreakdown.BleedDuration = {
 							s_format("%.2fs ^8(base duration)", durationBase)
@@ -3358,7 +3364,9 @@ function calcs.offence(env, actor, activeSkill)
 				if not skillData.triggeredOnDeath then
 					igniteStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.IgniteDuration / output.Time)
 				end
-				output.IgniteDPS = m_min(baseVal * effectMod * rateMod * igniteStacks, data.misc.DotDpsCap) * effMult
+				local IgniteDPS = baseVal * effectMod * rateMod * igniteStacks
+				output.IgniteDPS = m_min(IgniteDPS, data.misc.DotDpsCap) * effMult
+				IgniteDPS = IgniteDPS * effMult
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
@@ -3376,8 +3384,12 @@ function calcs.offence(env, actor, activeSkill)
 						{ "%.2f ^8(burn rate modifier)", rateMod },
 						{ "%.3f ^8(effective DPS modifier)", effMult },
 						{ "%d ^8(ignite stacks)", output.IgniteStacksMax },
-						total = s_format("= %.1f ^8per second", output.IgniteDPS),
+						total = s_format("= %.1f ^8per second", IgniteDPS),
 					})
+					if output.IgniteDPS ~= IgniteDPS then
+						t_insert(breakdown.IgniteDPS, s_format("^8(note capped to ^7%.1f ^8per second)", output.IgniteDPS))
+						--InsertIfNew(self.controls.warnings.lines, "Ignite dps is overcap")
+					end
 					if output.CritIgniteDotMulti and (output.CritIgniteDotMulti ~= output.IgniteDotMulti) then
 						local chanceFromHit = output.IgniteChanceOnHit / 100 * (1 - globalOutput.CritChance / 100)
 						local chanceFromCrit = output.IgniteChanceOnCrit / 100 * output.CritChance / 100
