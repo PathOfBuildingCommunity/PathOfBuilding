@@ -378,13 +378,19 @@ Acrobatics
 Replica Perfect Form
 Zodiac Leather
 League: Heist
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 65, 197 Dex
-(5-10)% increased Dexterity
-(30-50)% increased Evasion Rating
-+(50-80) to maximum Life
+{variant:1}(5-10)% increased Dexterity
+{variant:2}(10-15)% increased Dexterity
+{variant:1}(30-50)% increased Evasion Rating
+{variant:2}(80-100)% increased Evasion Rating
+{variant:1}+(50-80) to maximum Life
+{variant:2}+(70-100) to maximum Life
 -30% to Cold Resistance
 Flesh and Stone has no Reservation
-Evasion Rating is increased by Uncapped Cold Resistance
+{variant:1}Evasion Rating is increased by Uncapped Cold Resistance
+{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
 Hollow Palm Technique
 ]],[[
 Yriel's Fostering
@@ -415,10 +421,10 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 68, 194 Int
 40% increased Spell Damage
-(110-130)% increased Energy Shield
 {variant:1}+(50-65) to maximum Energy Shield
 {variant:2}+(15-25) to maximum Energy Shield
-10% increased Area of Effect of Area Skills
+(110-130)% increased Energy Shield
+10% increased Area of Effect
 5% increased Damage taken
 (30-40)% increased Energy Shield Recovery Rate
 ]],[[
@@ -437,11 +443,11 @@ Source: Drops from unique{Elreon, Light's Judge} during Betrayal encounters
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 56, 152 Int
+Socketed Minion Gems are Supported by Level 16 Life Leech
 {variant:1}(250-300)% increased Energy Shield
 {variant:2}(150-200)% increased Energy Shield
 Minions cannot be Blinded
 Minions have 15% chance to Blind Enemies on hit
-Socketed Minion Gems are Supported by Level 16 Life Leech
 Found Magic Items drop Identified
 ]],[[
 The Coming Calamity
