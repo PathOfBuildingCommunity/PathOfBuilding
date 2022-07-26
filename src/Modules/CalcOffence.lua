@@ -2962,7 +2962,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.BaseBleedDPS = baseVal * effectMod * rateMod * effMult
 				bleedStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.BleedDuration / output.Time)
 				local chanceToHitInOneSecInterval = 1 - m_pow(1 - (output.HitChance / 100), output.Speed)
-				output.BleedDPS = (baseVal * effectMod * rateMod * effMult) * bleedStacks * chanceToHitInOneSecInterval
+				output.BleedDPS = m_min((baseVal * effectMod * rateMod) * bleedStacks * chanceToHitInOneSecInterval, data.misc.DotDpsCap) * effMult
 				-- reset bleed stacks to actual number doing damage after weighted avg DPS calculation is done
 				globalOutput.BleedStacks = bleedStacks
 				globalOutput.BleedDamage = output.BaseBleedDPS * globalOutput.BleedDuration
@@ -3119,7 +3119,8 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
 				local rateMod = calcLib.mod(skillModList, cfg, "PoisonFaster") + enemyDB:Sum("INC", nil, "SelfPoisonFaster")  / 100
-				output.PoisonDPS = baseVal * effectMod * rateMod * effMult
+				local singlePoisonCapped = m_min(baseVal * effectMod * rateMod, data.misc.DotDpsCap)
+				output.PoisonDPS = singlePoisonCapped * effMult
 				local durationBase
 				if skillData.poisonDurationIsSkillDuration then
 					durationBase = skillData.duration
@@ -3134,7 +3135,7 @@ function calcs.offence(env, actor, activeSkill)
 					output.TotalPoisonDPS = output.PoisonDPS
 				else
 					output.TotalPoisonStacks = output.HitChance / 100 * output.PoisonChance / 100 * globalOutput.PoisonDuration * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * (skillData.stackMultiplier or 1) * quantityMultiplier
-					output.TotalPoisonDPS = output.PoisonDPS * output.TotalPoisonStacks
+					output.TotalPoisonDPS = m_min(singlePoisonCapped * output.TotalPoisonStacks, data.misc.DotDpsCap) * effMult
 				end
 				if breakdown then
 					if output.CritPoisonDotMulti and (output.CritPoisonDotMulti ~= output.PoisonDotMulti) then
@@ -3357,7 +3358,7 @@ function calcs.offence(env, actor, activeSkill)
 				if not skillData.triggeredOnDeath then
 					igniteStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.IgniteDuration / output.Time)
 				end
-				output.IgniteDPS = baseVal * effectMod * rateMod * effMult * igniteStacks
+				output.IgniteDPS = m_min(baseVal * effectMod * rateMod * igniteStacks, data.misc.DotDpsCap) * effMult
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration

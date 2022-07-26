@@ -369,6 +369,7 @@ data.misc = { -- magic numbers
 	Transfiguration = 0.3,
 	EnemyMaxResist = 75,
 	LeechRateBase = 0.02,
+	DotDpsCap = 35791394, -- (2 ^ 31 - 1) / 60 (int max / 60 seconds)
 	BleedPercentBase = 70,
 	BleedDurationBase = 5,
 	PoisonPercentBase = 0.30,
