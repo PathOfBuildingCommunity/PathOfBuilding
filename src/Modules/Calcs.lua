@@ -19,7 +19,7 @@ LoadModule("Modules/CalcOffence", calcs)
 -- Get the average value of a table
 function math.average(t)
 	local sum = 0
-	local count= 0
+	local count = 0
 	for k,v in pairs(t) do
 		if type(v) == 'number' then
 			sum = sum + v
@@ -277,9 +277,9 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					igniteSource = activeSkill.activeEffect.grantedEffect.name
 				end
 				if usedEnv.player.output.PoisonDPS and usedEnv.player.output.PoisonDPS > 0 then
-                    fullDPS.poisonDPS = fullDPS.poisonDPS + (usedEnv.player.output.PoisonDPS / usedEnv.player.output.PoisonEffMult) * (usedEnv.player.output.TotalPoisonStacks or 1) * activeSkillCount
-                    t_insert(poisonEffMultTbl, usedEnv.player.output.PoisonEffMult)
-                end
+					fullDPS.poisonDPS = fullDPS.poisonDPS + (usedEnv.player.output.PoisonDPS / usedEnv.player.output.PoisonEffMult) * (usedEnv.player.output.TotalPoisonStacks or 1) * activeSkillCount
+					t_insert(poisonEffMultTbl, usedEnv.player.output.PoisonEffMult)
+				end
 				if usedEnv.player.output.ImpaleDPS and usedEnv.player.output.ImpaleDPS > 0 then
 					fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.player.output.ImpaleDPS * activeSkillCount
 				end
@@ -317,9 +317,9 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	end
 	if fullDPS.poisonDPS > 0 then
 		fullDPS.poisonDPS = math.min(fullDPS.poisonDPS, data.misc.DotDpsCap) * math.average(poisonEffMultTbl) --Future proofing for if we ever have skills with different effMult values
-        t_insert(fullDPS.skills, { name = "Full Poison DPS", dps = fullDPS.poisonDPS, count = 1 })
-        fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.poisonDPS
-    end
+		t_insert(fullDPS.skills, { name = "Full Poison DPS", dps = fullDPS.poisonDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.poisonDPS
+	end
 	if fullDPS.impaleDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Full Impale DPS", dps = fullDPS.impaleDPS, count = 1 })
 		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.impaleDPS
