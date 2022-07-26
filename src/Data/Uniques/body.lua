@@ -45,7 +45,7 @@ Requires Level 65, 177 Str
 {variant:1}50% increased Shock Duration on You
 Take no Extra Damage from Critical Strikes
 {variant:2}+(1-5)% to all maximum Elemental Resistances
-{variant:2}Strength provides no bonus to Maximum Life 
+{variant:2}Strength provides no bonus to Maximum Life
 ]],[[
 Craiceann's Carapace
 Golden Plate
@@ -480,10 +480,10 @@ Socketed Gems are Supported by level 15 Added Chaos Damage
 Dialla's Malefaction
 Sage's Robe
 Requires Level 37
-Gems can be Socketed in this Item ignoring Socket Colour 
-Gems Socketed in Red Sockets have +1 to Level 
-Gems Socketed in Green Sockets have +10% to Quality 
-Gems Socketed in Blue Sockets gain 25% increased Experience 
+Gems can be Socketed in this Item ignoring Socket Colour
+Gems Socketed in Red Sockets have +1 to Level
+Gems Socketed in Green Sockets have +10% to Quality
+Gems Socketed in Blue Sockets gain 25% increased Experience
 Has no Attribute Requirements
 ]],[[
 Doedre's Skin
