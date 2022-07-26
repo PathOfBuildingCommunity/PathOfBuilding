@@ -2323,7 +2323,7 @@ local specialModList = {
 	-- Elemental Ailments
 	["your shocks can increase damage taken by up to a maximum of (%d+)%%"] = function(num) return { mod("ShockMax", "OVERRIDE", num) } end,
 	["your elemental damage can shock"] = { flag("ColdCanShock"), flag("FireCanShock") },
-	["all your damage can freeze"] = { flag("PhysicalCanFreeze"), flag("LightningCanFreeze"), flag("FireCanFreeze"), flag("ChaosCanFreeze") },
+	["all y?o?u?r? ?damage can freeze"] = { flag("PhysicalCanFreeze"), flag("LightningCanFreeze"), flag("FireCanFreeze"), flag("ChaosCanFreeze") },
 	["all damage with maces and sceptres inflicts chill"] =  { mod("EnemyModifier", "LIST", { mod = flag("Condition:Chilled") }, { type = "Condition", var = "UsingMace" } )},
 	["your cold damage can ignite"] = { flag("ColdCanIgnite") },
 	["your lightning damage can ignite"] = { flag("LightningCanIgnite") },

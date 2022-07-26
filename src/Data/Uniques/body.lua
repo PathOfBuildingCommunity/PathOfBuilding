@@ -1012,8 +1012,8 @@ Requires Level 62, 96 Dex, 96 Int
 (120-150)% increased Evasion and Energy Shield
 +(50-70) to maximum Life
 +(9-12)% to all Elemental Resistances
-{variant:1,2}20% increased Area of Effect of Area Skills
-{variant:3}(40-50)% increased Area of Effect of Area Skills
+{variant:1,2}20% increased Area of Effect
+{variant:3}(40-50)% increased Area of Effect
 {variant:1}12% increased Area Damage
 {variant:2,3}(40-50)% increased Area Damage
 Extra gore
@@ -1030,9 +1030,8 @@ Requires Level 52, 76 Dex, 76 Int
 {variant:1,2}+(90-110) to maximum Mana
 {variant:3,4}+(100-150) to maximum Mana
 {variant:1,2}(40-50)% increased Mana Regeneration Rate
-{variant:1}When hit, 10% of Damage is taken from Mana before Life
-{variant:3,4}10% of Damage is taken from Mana before Life
-{variant:3,4}1% of Mana Regenerated per second
+{variant:1,3,4}10% of Damage is taken from Mana before Life
+{variant:3,4}Regenerate 1% of Mana per second
 Mind Over Matter
 ]],[[
 Dendrobate
@@ -1076,7 +1075,7 @@ League: Heist
 Requires Level 59, 86 Dex, 86 Int
 (100-150)% increased Evasion and Energy Shield
 (5-10)% increased maximum Life
-All your Damage can Freeze
+All Damage can Freeze
 Freeze Chilled Enemies as though dealing (50-100)% more Damage
 Nearby Enemies are Chilled
 ]],[[
