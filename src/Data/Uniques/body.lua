@@ -608,7 +608,7 @@ Requires Level 49, 134 Int
 {variant:1}25% increased Totem Life
 {variant:2,3}50% increased Totem Life
 {variant:4,5}(20-30)% increased Totem Life
-{variant:1,2,3,4}Can have up to 1 additional Totem summoned at a time
+{variant:1,2,3,4}+1 to maximum number of Summoned Totems
 Inflicts a random Hex on you when your Totems die, with 80% more Effect
 ]],[[
 Tabula Rasa
@@ -619,15 +619,15 @@ Thousand Ribbons
 Simple Robe
 Variant: Pre 3.0.0
 Variant: Current
-Socketed Gems are Supported by level 5 Elemental Proliferation
+Socketed Gems are Supported by Level 5 Elemental Proliferation
 Adds 2 to 3 Fire Damage to Spells and Attacks
 Adds 2 to 3 Cold Damage to Spells and Attacks
 Adds 1 to 4 Lightning Damage to Spells and Attacks
 {variant:1}10% reduced Cast Speed
 +(10-20) to Evasion Rating
++(10-20) to maximum Energy Shield
 +6 to maximum Life
 +6 to maximum Mana
-+(10-20) to maximum Energy Shield
 +(5-10)% to Fire Resistance
 +(5-10)% to Cold Resistance
 +(5-10)% to Lightning Resistance
@@ -641,9 +641,9 @@ Requires Level 59, 160 Int
 {variant:1}(100-120)% increased Energy Shield
 {variant:2,3}(200-220)% increased Energy Shield
 +(20-30) to maximum Mana
-Minions have 20% reduced Maximum Life
+Minions have 20% reduced maximum Life
 Minions deal 15% increased Damage
-{variant:1,2}+1 to Maximum number of Spectres
+{variant:1,2}+1 to maximum number of Spectres
 {variant:1}Minions gain Unholy Might for 5 seconds on Kill
 {variant:2}Minions gain Unholy Might for 10 seconds on Kill
 {variant:3}Minions gain (15-20)% of Elemental Damage as Extra Chaos Damage
