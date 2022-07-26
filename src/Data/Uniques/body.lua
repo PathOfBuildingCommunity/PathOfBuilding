@@ -1085,14 +1085,14 @@ Variant: Pre 3.5.0
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 68, 103 Dex, 109 Int
-+(60-80) to maximum Life 
-(20-50)% increased Damage if you have Shocked an Enemy Recently 
++(60-80) to maximum Life
+(20-50)% increased Damage if you have Shocked an Enemy Recently
 {variant:1,2}(25-40)% increased Effect of Shock
 {variant:3}(15-25)% increased Effect of Shock
-Unaffected by Shock 
 {variant:1}Shocked Enemies you Kill Explode, dealing (5-10)% of
 {variant:2,3}Shocked Enemies you Kill Explode, dealing 5% of
-their Maximum Life as Lightning Damage which cannot Shock
+their Life as Lightning Damage which cannot Shock
+Unaffected by Shock
 ]],[[
 The Restless Ward
 Carnal Armour
@@ -1101,14 +1101,14 @@ Variant: Current
 Requires Level 71, 88 Dex, 122 Int
 Implicits: 1
 +(20-25) to maximum Mana
-{variant:1}+(40-60) to maximum Life
-{variant:2}+(60-80) to maximum Life
 {variant:1}(120-150)% increased Evasion and Energy Shield
 {variant:2}(220-250)% increased Evasion and Energy Shield
+{variant:1}+(40-60) to maximum Life
+{variant:2}+(60-80) to maximum Life
 1% increased Movement Speed per Frenzy Charge
+{variant:1}Regenerate (15.0-20.0) Life per second per Endurance Charge
+{variant:2}Regenerate (20.0-30.0) Life per second per Endurance Charge
 100% increased Endurance, Frenzy and Power Charge Duration
-{variant:1}(15-20) Life Regenerated per second per Endurance Charge
-{variant:2}(20-30) Life Regenerated per second per Endurance Charge
 ]],[[
 Replica Restless Ward
 Carnal Armour
@@ -1182,7 +1182,7 @@ Sadist Garb
 Requires Level 68, 103 Dex, 109 Int
 (140-170)% increased Evasion and Energy Shield
 +(60-90) to maximum Life
-(10-15)% increased Cooldown Recovery Speed for throwing Traps
+(10-15)% increased Cooldown Recovery Rate for throwing Traps
 15% chance to gain a Frenzy Charge when your Trap is triggered by an Enemy
 30% chance to gain Phasing for 4 seconds when your Trap is triggered by an Enemy
 Recover 100 Life when your Trap is triggered by an Enemy
@@ -1264,9 +1264,9 @@ Has an additional Implicit Mod
 {variant:2}(250-350)% increased Armour, Evasion and Energy Shield
 Recover (3-5)% of Life on Kill
 Recover (3-5)% of Energy Shield on Kill
-6% increased Maximum Life for each Equipped Corrupted Item
-8% increased Maximum Energy Shield for each Equipped Corrupted Item
--(6-4)% to all Resistances for each Equipped Corrupted Item
+-(6-4)% to all Resistances for each Corrupted Item Equipped
+8% increased Maximum Energy Shield for each Corrupted Item Equipped
+6% increased Maximum Life for each Corrupted Item Equipped
 Corrupted
 ]],
 }
