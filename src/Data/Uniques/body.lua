@@ -322,7 +322,7 @@ Requires Level 59, 160 Dex
 +(11-25)% to Lightning Resistance
 25% reduced Movement Speed
 1% increased Movement Speed per 600 Evasion Rating, up to 75%
-−(50-40) Physical Damage taken when hit by Animals
+−(50-40) Physical Damage taken from Hits by Animals
 ]],[[
 The Rat Cage
 Sharkskin Tunic
@@ -346,12 +346,12 @@ Upgrade: Upgrades to unique{The Perfect Form} using currency{Blessing of Tul}
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 49, 134 Dex
+{variant:1}10% chance to Suppress Spell Damage
+{variant:2}20% chance to Suppress Spell Damage
 +(30-40) to Dexterity
 {variant:1}(30-50)% increased Evasion Rating
 {variant:2}(80-100)% increased Evasion Rating
 +(40-60) to maximum Life
-{variant:1}10% chance to Suppress Spell Damage
-{variant:2}20% chance to Suppress Spell Damage
 25% increased Arctic Armour Buff Effect
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
 {variant:2}Evasion Rating is increased by Overcapped Cold Resistance
@@ -363,13 +363,13 @@ Source: Upgraded from unique{The Snowblind Grace} using currency{Blessing of Tul
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 65, 197 Dex
+{variant:1}(5-10)% increased Dexterity
+{variant:2}(10-15)% increased Dexterity
 {variant:1}(30-50)% increased Evasion Rating
 {variant:2}(80-100)% increased Evasion Rating
 {variant:1}+(50-80) to maximum Life
 {variant:2}+(70-100) to maximum Life
 -30% to Cold Resistance
-{variant:1}(5-10)% increased Dexterity
-{variant:2}(10-15)% increased Dexterity
 Arctic Armour has no Reservation
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
 {variant:2}Evasion Rating is increased by Overcapped Cold Resistance
