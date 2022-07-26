@@ -455,7 +455,7 @@ Destroyer Regalia
 Requires Level 53, 144 Int
 +2 to Level of Socketed Herald Gems
 (80-100)% increased Energy Shield
-35% chance to avoid being Stunned for each Herald Skill affecting you
+35% chance to avoid being Stunned for each Herald Buff affecting you
 Mana Reservation of Herald Skills is always 45%
 ]],[[
 The Covenant
@@ -467,15 +467,15 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 49, 134 Int
 Socketed Gems are Supported by level 15 Added Chaos Damage
+{variant:4,5}Socketed Gems Cost and Reserve Life instead of Mana
 +(20-30) to Intelligence
-{variant:1,2,3}20% reduced maximum Life
-{variant:4,5}10% increased maximum Life
 {variant:1}(125-150)% increased Energy Shield
 {variant:2}(180-220)% increased Energy Shield
 {variant:3,4}(280-320)% increased Energy Shield
 {variant:5}(210-250)% increased Energy Shield
+{variant:1,2,3}20% reduced maximum Life
+{variant:4,5}10% increased maximum Life
 {variant:1,2,3}Blood Magic
-{variant:4,5}Socketed Gems Cost and Reserve Life instead of Mana
 ]],[[
 Dialla's Malefaction
 Sage's Robe
@@ -489,15 +489,18 @@ Has no Attribute Requirements
 Doedre's Skin
 Widowsilk Robe
 Variant: Pre 3.5.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 65, 187 Int
-Socketed Curse Gems are Supported by Level 20 Blasphemy 
+Socketed Gems are Supported by Level 20 Blasphemy
 Grants Level 20 Summon Doedre's Effigy Skill
 Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
 Hexes from Socketed Skills can apply 5 additional Curses
-+(30-40) to Intelligence 
+{variant:2}20% less Effect of Curses from Socketed Hex Skills
+{variant:3}20% less Effect of your Curses
++(30-40) to Intelligence
 (130-150)% increased Energy Shield
-{variant:1}(25-33)% reduced Effect of your Curses
+{variant:1}(33-25)% reduced Effect of your Curses
 ]],[[
 Fenumus' Shroud
 Widowsilk Robe
