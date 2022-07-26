@@ -662,9 +662,9 @@ Requires Level 37, 104 Int
 {variant:1}+(20-25)% to Chaos Resistance
 {variant:2,3,4}+(40-50)% to Chaos Resistance
 25% increased Light Radius
-{variant:1}25% chance on Block to create Consecrated Ground
-{variant:2}50% chance on Block to create Consecrated Ground
-{variant:3,4}100% chance on Block to create Consecrated Ground
+{variant:1}25% chance to create Consecrated Ground when you Block
+{variant:2}50% chance to create Consecrated Ground when you Block
+{variant:3,4}100% chance to create Consecrated Ground when you Block
 ]],
 -- Body: Armour/Evasion
 [[
@@ -687,8 +687,8 @@ Requires Level 69, 95 Str, 116 Dex
 {variant:3}(50-80)% increased Chaos Damage
 (160-200)% increased Armour and Evasion
 +(70-100) to maximum Life
-{variant:1}30% increased Life Leeched per second
-{variant:2,3}100% increased Life Leeched per second
+{variant:1}30% increased total Recovery per second from Life Leech
+{variant:2,3}100% increased total Recovery per second from Life Leech
 ]],[[
 Daresso's Defiance
 Full Dragonscale
@@ -704,9 +704,9 @@ Requires Level 63, 115 Str, 94 Dex
 (0.4-0.6)% of Physical Attack Damage Leeched as Life
 You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
-{variant:1}You gain Onslaught for 1 second per Endurance Charge when Hit
-{variant:2}You gain Onslaught for 2 second per Endurance Charge when Hit
-{variant:3,4}You gain Onslaught for 5 second per Endurance Charge when Hit
+{variant:1}You gain Onslaught for 1 seconds per Endurance Charge when Hit
+{variant:2}You gain Onslaught for 2 seconds per Endurance Charge when Hit
+{variant:3,4}You gain Onslaught for 5 seconds per Endurance Charge when Hit
 {variant:3,4}(60-100)% increased Onslaught Effect
 ]],[[
 Farrul's Fur
