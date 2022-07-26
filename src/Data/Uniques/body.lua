@@ -715,9 +715,9 @@ League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
 Requires Level 69, 95 Str, 116 Dex
 (100-150)% increased Armour and Evasion
-+(90-100) to maximum Life
++(80-100) to maximum Life
 Aspect of the Cat has no Reservation
-+2 seconds to Cat's Stealth Duration
++2.00 seconds to Cat's Stealth Duration
 Gain up to your maximum number of Frenzy and Power Charges when you gain Cat's Stealth
 You have Phasing while you have Cat's Stealth
 ]],[[
@@ -737,8 +737,8 @@ Wyrmscale Doublet
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 38, 57 Str, 57 Dex
-{variant:1}(60-100)% increased Physical Damage
-{variant:2}100% increased Physical Damage
+{variant:1}(60-100)% increased Global Physical Damage
+{variant:2}100% increased Global Physical Damage
 {variant:1}+(130-160) to maximum Life
 {variant:2}+(200-240) to maximum Life
 +(20-40)% to Cold Resistance
@@ -787,9 +787,9 @@ Requires Level 43, 64 Str, 64 Int
 {variant:1,2}+10% to all Elemental Resistances
 {variant:3,4}+15% to all Elemental Resistances
 Gain an Endurance Charge when you take a Critical Strike
-{variant:1,2,3}2% of Life Regenerated per Second while on Low Life
-{variant:4}2% of Life Regenerated per Second if you've been Hit Recently
+{variant:1,2,3}Regenerate 2% of Life per Second while on Low Life
 Share Endurance Charges with nearby party members
+{variant:4}Regenerate 2% of Life per second if you have been Hit Recently
 ]],[[
 Replica Ambu's Charge
 Crusader Chainmail
