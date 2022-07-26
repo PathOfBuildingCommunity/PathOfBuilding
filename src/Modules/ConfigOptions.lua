@@ -1448,7 +1448,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(defaultDamage / 4), true)
 
 			local defaultPen = ""
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
@@ -1471,7 +1471,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			local defaultLevel = 84
 			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
 			if build.calcsTab.mainEnv then
-				defaultLevel = build.calcsTab.mainEnv.enemyLevel
+				defaultLevel = m_max(build.calcsTab.mainEnv.enemyLevel, defaultLevel)
 			end
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.pinnacleBossDPSMult)
@@ -1479,7 +1479,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(defaultDamage / 4), true)
 
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
@@ -1502,7 +1502,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			local defaultLevel = 85
 			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
 			if build.calcsTab.mainEnv then
-				defaultLevel = build.calcsTab.mainEnv.enemyLevel
+				defaultLevel = m_max(build.calcsTab.mainEnv.enemyLevel, defaultLevel)
 			end
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.uberBossDPSMult)
@@ -1510,7 +1510,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage / 4, true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(defaultDamage / 4), true)
 
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.uberBossPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.uberBossPen, true)
@@ -1584,37 +1584,37 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 
 		if val == "Uber Atziri Flameblast" then
 			if build.calcsTab.mainEnv then
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 3.48 * 10.9), true)
+				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Uber Atziri Flameblast"].damageMult), true)
 				build.configTab.varControls['enemyDamageType']:SelByValue("Spell", "val")
 				build.configTab.varControls['enemyDamageType'].enabled = false
 				build.configTab.input['enemyDamageType'] = "Spell"
 			end
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(10, true)
 
-			build.configTab.varControls['enemySpeed']:SetPlaceholder(25000, true)
+			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Uber Atziri Flameblast"].speed, true)
 			build.configTab.varControls['enemyCritChance']:SetPlaceholder(0, true)
 		elseif val == "Shaper Ball" then
 			if build.calcsTab.mainEnv then
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 9.17), true)
+				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Shaper Ball"].damageMult), true)
 			end
 
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(25, true)
-			build.configTab.varControls['enemySpeed']:SetPlaceholder(1400, true)
+			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Shaper Ball"].speed, true)
 			build.configTab.varControls['enemyDamageType'].enabled = false
 			build.configTab.varControls['enemyDamageType']:SelByValue("SpellProjectile", "val")
 			build.configTab.input['enemyDamageType'] = "SpellProjectile"
 		elseif val == "Shaper Slam" then
 			if build.calcsTab.mainEnv then
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 15.2), true)
+				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult), true)
 			end
 			build.configTab.varControls['enemyDamageType'].enabled = false
 			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
 			build.configTab.input['enemyDamageType'] = "Melee"
 
-			build.configTab.varControls['enemySpeed']:SetPlaceholder(3510, true)
+			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Shaper Slam"].speed, true)
 		elseif val == "Maven Memory Game" then
 			if build.calcsTab.mainEnv then
-				local defaultEleDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * 24.69)
+				local defaultEleDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Maven Memory Game"].damageMult)
 				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultEleDamage, true)
 				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultEleDamage, true)
 				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultEleDamage, true)

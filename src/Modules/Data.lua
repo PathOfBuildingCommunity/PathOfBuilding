@@ -400,6 +400,24 @@ data.misc = { -- magic numbers
 	ehpCalcMaxHitsToCalc = 519,
 }
 
+data.bossSkills = {
+	["Uber Atziri Flameblast"] = {
+		damageMult = 3.48 * 10.9,
+		speed = 2500 * 10
+	},
+	["Shaper Ball"] = {
+		damageMult =  9.17,
+		speed = 1400
+	},
+	["Shaper Slam"] = {
+		damageMult =  15.2,
+		speed = 3510
+	},
+	["Maven Memory Game"] = {
+		damageMult =  24.69
+	}
+}
+
 -- Misc data tables
 LoadModule("Data/Misc", data)
 

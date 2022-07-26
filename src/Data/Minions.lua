@@ -750,3 +750,24 @@ minions["SummonedReaper"] = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
 	},
 }
+
+minions["SummonedArbalists"] = {
+	name = "Summoned Arbalist",
+	life = 6.05,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.34,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 60,
+	accuracy = 1,
+	limit = "ActiveArbalistLimit",
+	skillList = {
+		"MPWExpeditionSummonedArbalestProjectile",
+	},
+	modList = {
+		-- MonsterCannotBeDamaged [cannot_be_damaged = 1]
+	},
+}
