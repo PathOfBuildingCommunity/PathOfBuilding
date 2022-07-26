@@ -509,7 +509,7 @@ Source: Drops from unique{Fenumus, First of the Night}
 Requires Level 65, 187 Int
 +(30-40) to Intelligence
 (120-140)% increased Energy Shield
-(80-100) Energy Shield Regenerated per second
+Regenerate (80-100) Energy Shield per second
 Enemies affected by your Spider's Webs deal 10% reduced Damage
 Enemies affected by your Spider's Webs have -10% to All Resistances
 (50-70)% increased Aspect of the Spider Area of Effect
@@ -520,7 +520,7 @@ League: Harvest
 Requires Level 59, 160 Int
 (100-150)% increased Energy Shield
 Minions Convert 2% of their Maximum Life to Maximum Energy Shield per 1% Chaos Resistance they have
-Chaos Damage does not bypass Minions' Energy Shield
+Chaos Damage taken does not bypass Minions' Energy Shield
 Minions have (50-100)% faster start of Energy Shield Recharge
 While Minions have Energy Shield, their Hits Ignore Monster Elemental Resistances
 ]],[[
@@ -531,8 +531,8 @@ Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 56, 152 Int
 {fractured}(180-230)% increased Energy Shield
 +600 Strength and Intelligence Requirement
-+10 to maximum Divine Charges
 Gain a Divine Charge on Hit
++10 to maximum Divine Charges
 You gain Divinity for 10 seconds on reaching maximum Divine Charges
 Lose all Divine Charges when you gain Divinity
 Nearby Allies' Action Speed cannot be modified to below base value
