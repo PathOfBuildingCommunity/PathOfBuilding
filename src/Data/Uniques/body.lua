@@ -832,9 +832,9 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 64, 90 Str, 105 Int
 (50-75)% increased Armour and Energy Shield
-+(50-70) to maximum Life
 {variant:1,2}+(70-80) to maximum Energy Shield
 {variant:3}+(30-40) to maximum Energy Shield
++(50-70) to maximum Life
 +(14-18)% to all Elemental Resistances
 {variant:1}+1 maximum Energy Shield per 5 Strength
 {variant:2,3}+2 maximum Energy Shield per 5 Strength
@@ -876,9 +876,9 @@ Requires Level 70, 99 Str, 115 Int
 {variant:1}(120-140)% increased Armour and Energy Shield
 {variant:2}(220-240)% increased Armour and Energy Shield
 +(80-90) to maximum Life
-{variant:2}Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 {variant:1}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:2}(0.8-1)% of Attack Damage Leeched as Life
+{variant:2}Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 25% of Elemental Damage from Hits taken as Chaos Damage
 (20-30)% increased Light Radius
 Light Radius is based on Energy Shield instead of Life
@@ -899,7 +899,7 @@ Requires Level 61, 96 Str, 96 Int
 +(60-90) to maximum Life
 +(50-70) to maximum Mana
 30% increased Endurance Charge Duration
-Gain 100 Life when an Endurance Charge expires or is consumed
+Gain 100 Life when you lose an Endurance Charge
 ]],[[
 Lightbane Raiment
 Ornate Ringmail
