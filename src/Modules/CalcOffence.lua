@@ -3127,6 +3127,7 @@ function calcs.offence(env, actor, activeSkill)
 				local rateMod = calcLib.mod(skillModList, cfg, "PoisonFaster") + enemyDB:Sum("INC", nil, "SelfPoisonFaster")  / 100
 				local singlePoisonCapped = m_min(baseVal * effectMod * rateMod, data.misc.DotDpsCap)
 				output.PoisonDPS = singlePoisonCapped * effMult
+				output.PosionEffMult = effMult
 				local durationBase
 				if skillData.poisonDurationIsSkillDuration then
 					durationBase = skillData.duration
@@ -3977,7 +3978,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.WithDotDPS = baseDPS + (output.TotalDot or 0)
 	end
 	if quantityMultiplier > 1 and output.TotalPoisonDPS then
-		output.TotalPoisonDPS = output.TotalPoisonDPS * quantityMultiplier
+		output.TotalPoisonDPS = m_min(output.TotalPoisonDPS * quantityMultiplier / output.PosionEffMult, data.misc.DotDpsCap) * output.PosionEffMult
 	end
 	if skillData.showAverage then
 		output.CombinedDPS = output.CombinedDPS + (output.TotalPoisonDPS or 0)
