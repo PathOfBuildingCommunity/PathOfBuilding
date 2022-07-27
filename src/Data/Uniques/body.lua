@@ -6,7 +6,6 @@ return {
 Blunderbore
 Astral Plate
 League: Heist
-Requires Level 62, 180 Str
 Implicits: 1
 +(8-12)% to all Elemental Resistances
 +(500-700) Strength Requirement
@@ -26,7 +25,7 @@ Adds 2 to 4 Physical Damage to Attacks
 Wall of Brambles
 Plate Vest
 Source: No longer obtainable
-Requires Level 30
+Implicits: 0
 Adds 2 to 4 Physical Damage to Attacks
 +2000 to Armour
 +(12-20) to maximum Life
@@ -38,7 +37,7 @@ Gladiator Plate
 Source: Drops from unique{Guardian of the Minotaur}
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 65, 177 Str
+Implicits: 0
 {variant:1}(600-650)% increased Armour
 {variant:2}(350-400)% increased Armour
 {variant:1}30% reduced Chance to Block Attacks and Spells
@@ -54,7 +53,7 @@ Variant: Pre 3.16.0
 Variant: Current
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
-Requires Level 56, 152 Str
+Implicits: 0
 Grants Level 20 Aspect of the Crab Skill
 {variant:1}(300-350)% increased Armour
 {variant:2}(200-250)% increased Armour
@@ -68,7 +67,6 @@ Astral Plate
 Variant: Pre 2.0.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 62, 180 Str
 Implicits: 1
 +(8-12)% to all Elemental Resistances
 {variant:3}Trigger Level 20 Death Aura when Equipped
@@ -87,7 +85,6 @@ Sadist Garb
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
-Requires Level 68, 103 Dex, 109 Int
 Implicits: 0
 Grants Level 20 Unhinge Skill
 (40-60)% more Critical Strike Chance while Insane
@@ -98,7 +95,7 @@ Regenerate 10% Life over one second when Hit while Sane
 ]],[[
 Greed's Embrace
 Golden Plate
-Requires Level 56, 106 Str
+Implicits: 0
 (10-15)% increased Quantity of Items found
 (30-50)% increased Rarity of Items found
 −10% to Fire Resistance
@@ -111,7 +108,7 @@ Kaom's Heart
 Glorious Plate
 Variant: Pre 1.0.0
 Variant: Current
-Requires Level 68, 191 Str
+Implicits: 0
 Has no Sockets
 {variant:2}(20-40)% increased Fire Damage
 {variant:1}+1000 to maximum Life
@@ -120,7 +117,7 @@ Has no Sockets
 Replica Kaom's Heart
 Glorious Plate
 League: Heist
-Requires Level 68, 191 Str
+Implicits: 0
 Has no Sockets
 (30-40)% increased Lightning Damage
 +500 to maximum Mana
@@ -129,7 +126,7 @@ Lioneye's Vision
 Crusader Plate
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 59, 160 Str
+Implicits: 0
 Socketed Gems are Supported by Level 15 Pierce
 (200-250)% increased Armour
 +(60-100) to maximum Life
@@ -140,7 +137,7 @@ Enemy Projectiles Pierce you
 Iron Heart
 Crusader Plate
 Source: No longer obtainable
-Requires Level 59, 160 Str
+Implicits: 0
 (8-12)% Chance to Block Attack Damage
 (80-100)% increased Armour
 10% reduced Movement Speed
@@ -149,7 +146,7 @@ Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10
 ]],[[
 The Iron Fortress
 Crusader Plate
-Requires Level 59, 160 Str
+Implicits: 0
 +1% Chance to Block Attack Damage per 50 Strength
 Chance to Block Spell Damage is Unlucky
 +(60-120) to Strength
@@ -159,13 +156,13 @@ Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10
 ]],[[
 Perfidy
 Glorious Plate
-Requires Level 68, 191 Str
 League: Delirium
 Source: Drops from the Simulacrum Encounter
 Has Alt Variant: true
 Variant: War Banner
 Variant: Dread Banner
 Variant: Defiance Banner
+Implicits: 0
 (25-40)% increased Melee Damage
 +(60-90) to maximum Life
 You can have two different Banners at the same time
@@ -178,7 +175,7 @@ Solaris Lorica
 Copper Plate
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 17, 53 Str
+Implicits: 0
 +(10-20) to Strength
 (60-80)% increased Armour
 {variant:2}25% reduced Chaos Damage taken over time
@@ -193,7 +190,7 @@ Ashrend
 Buckskin Tunic
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 17, 53 Dex
+Implicits: 0
 {variant:2}Socketed Gems are Supported by Level 10 Added Fire Damage
 (80-100)% increased Evasion Rating
 {variant:2}+(30-50) to maximum Life
@@ -207,7 +204,7 @@ Strapped Leather
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 9, 32 Dex
+Implicits: 0
 {variant:1,2}5% increased Attack Speed
 {variant:3}10% increased Attack Speed
 +(120-180) to Evasion Rating
@@ -220,7 +217,7 @@ Requires Level 9, 32 Dex
 Wildwrap
 Strapped Leather
 Source: Drops from any endgame map boss
-Requires Level 57, 32 Dex
+Implicits: 0
 10% increased Attack Speed
 +(600-700) to Evasion Rating
 +(30-40)% to Cold Resistance
@@ -234,7 +231,7 @@ Cutthroat's Garb
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 53, 144 Dex
+Implicits: 0
 +2 to Level of Socketed Movement Gems
 10% increased Attack Speed
 {variant:2,3}(35-50)% increased Damage with Movement Skills
@@ -246,7 +243,6 @@ Cospri's Will
 Assassin's Garb
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 68, 183 Dex
 Implicits: 1
 3% increased Movement Speed
 (120-160)% increased Evasion Rating
@@ -260,7 +256,7 @@ Foxshade
 Wild Leather
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 25, 73 Dex
+Implicits: 0
 +(20-30) to Dexterity
 Adds 5 to 12 Physical Damage to Attacks
 {variant:1}You gain 150 Evasion Rating when on Full Life
@@ -271,7 +267,7 @@ Adds 5 to 12 Physical Damage to Attacks
 Fox's Fortune
 Wild Leather
 Source: No longer obtainable
-Requires level 54, 73 Dex
+Implicits: 0
 +(20-30) to Dexterity
 Adds 5 to 12 Physical Damage to Attacks
 +1500 to Evasion Rating while on Full Life
@@ -288,7 +284,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Pre 3.9.0
 Variant: Current
-Requires Level 65, 197 Dex
+Implicits: 0
 {variant:1,2,3}+(20-30) to Dexterity
 {variant:4,5,6}+(40-50) to Dexterity
 {variant:1}(80-120)% increased Evasion Rating
@@ -303,7 +299,7 @@ Requires Level 65, 197 Dex
 ]],[[
 Kintsugi
 Exquisite Leather
-Requires Level 62, 170 Dex
+Implicits: 0
 (100-120)% increased Evasion Rating
 +(60-80) to maximum Life
 +30% to Fire Resistance
@@ -314,7 +310,7 @@ Queen of the Forest
 Destiny Leather
 Variant: Pre 3.1.0
 Variant: Current
-Requires Level 59, 160 Dex
+Implicits: 0
 {variant:1}(240-380)% increased Evasion Rating
 {variant:2}(200-240)% increased Evasion Rating
 +(60-70) to maximum Life
@@ -330,7 +326,7 @@ Sharkskin Tunic
 League: Torment
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 56, 152 Dex
+Implicits: 0
 (100-120)% increased Evasion Rating
 +(160-200) to maximum Life
 {variant:1}−5% to maximum Fire Resistance
@@ -346,7 +342,7 @@ Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Perfect Form} using currency{Blessing of Tul}
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 49, 134 Dex
+Implicits: 0
 {variant:1}10% chance to Suppress Spell Damage
 {variant:2}20% chance to Suppress Spell Damage
 +(30-40) to Dexterity
@@ -363,7 +359,7 @@ League: Breach
 Source: Upgraded from unique{The Snowblind Grace} using currency{Blessing of Tul}
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 65, 197 Dex
+Implicits: 0
 {variant:1}(5-10)% increased Dexterity
 {variant:2}(10-15)% increased Dexterity
 {variant:1}(30-50)% increased Evasion Rating
@@ -381,7 +377,7 @@ Zodiac Leather
 League: Heist
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 65, 197 Dex
+Implicits: 0
 {variant:1}(5-10)% increased Dexterity
 {variant:2}(10-15)% increased Dexterity
 {variant:1}(30-50)% increased Evasion Rating
@@ -399,7 +395,7 @@ Exquisite Leather
 Variant: Rhoa
 Variant: Snake
 Variant: Ursa
-Requires Level 62, 170 Dex
+Implicits: 0
 {variant:1}Grants level 20 Summon Bestial Rhoa Skill
 {variant:2}Grants level 20 Summon Bestial Snake Skill
 {variant:3}Grants level 20 Summon Bestial Ursa Skill
@@ -420,7 +416,7 @@ The Beast Fur Shawl
 Vaal Regalia
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 68, 194 Int
+Implicits: 0
 40% increased Spell Damage
 {variant:1}+(50-65) to maximum Energy Shield
 {variant:2}+(15-25) to maximum Energy Shield
@@ -431,7 +427,7 @@ Requires Level 68, 194 Int
 ]],[[
 Cloak of Flame
 Scholar's Robe
-Requires Level 18, 55 Int
+Implicits: 0
 +(30-50)% to Fire Resistance
 (30-50)% increased Ignite Duration on Enemies
 10% chance to Ignite
@@ -443,7 +439,7 @@ Savant's Robe
 Source: Drops from unique{Elreon, Light's Judge} during Betrayal encounters
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 56, 152 Int
+Implicits: 0
 Socketed Minion Gems are Supported by Level 16 Life Leech
 {variant:1}(250-300)% increased Energy Shield
 {variant:2}(150-200)% increased Energy Shield
@@ -453,7 +449,7 @@ Found Magic Items drop Identified
 ]],[[
 The Coming Calamity
 Destroyer Regalia
-Requires Level 53, 144 Int
+Implicits: 0
 +2 to Level of Socketed Herald Gems
 (80-100)% increased Energy Shield
 35% chance to avoid being Stunned for each Herald Buff affecting you
@@ -466,7 +462,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 49, 134 Int
+Implicits: 0
 Socketed Gems are Supported by level 15 Added Chaos Damage
 {variant:4,5}Socketed Gems Cost and Reserve Life instead of Mana
 +(20-30) to Intelligence
@@ -480,7 +476,7 @@ Socketed Gems are Supported by level 15 Added Chaos Damage
 ]],[[
 Dialla's Malefaction
 Sage's Robe
-Requires Level 37
+Implicits: 0
 Gems can be Socketed in this Item ignoring Socket Colour
 Gems Socketed in Red Sockets have +1 to Level
 Gems Socketed in Green Sockets have +10% to Quality
@@ -492,7 +488,7 @@ Widowsilk Robe
 Variant: Pre 3.5.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 65, 187 Int
+Implicits: 0
 Socketed Gems are Supported by Level 20 Blasphemy
 Grants Level 20 Summon Doedre's Effigy Skill
 Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
@@ -507,7 +503,7 @@ Fenumus' Shroud
 Widowsilk Robe
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
-Requires Level 65, 187 Int
+Implicits: 0
 +(30-40) to Intelligence
 (120-140)% increased Energy Shield
 Regenerate (80-100) Energy Shield per second
@@ -518,7 +514,7 @@ Enemies affected by your Spider's Webs have -10% to All Resistances
 Fleshcrafter
 Necromancer Silks
 League: Harvest
-Requires Level 59, 160 Int
+Implicits: 0
 (100-150)% increased Energy Shield
 Minions Convert 2% of their Maximum Life to Maximum Energy Shield per 1% Chaos Resistance they have
 Chaos Damage taken does not bypass Minions' Energy Shield
@@ -529,7 +525,7 @@ Garb of the Ephemeral
 Savant's Robe
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
-Requires Level 56, 152 Int
+Implicits: 0
 {fractured}(180-230)% increased Energy Shield
 +600 Strength and Intelligence Requirement
 Gain a Divine Charge on Hit
@@ -544,7 +540,7 @@ Widowsilk Robe
 Variant: Pre 3.0.0
 Variant: Pre 3.14.0
 Variant: Current
-Requires Level 65, 187 Int
+Implicits: 0
 +1 to Level of Socketed Fire Gems
 (25-35)% increased Fire Damage
 100% increased Global Critical Strike Chance
@@ -558,7 +554,6 @@ Requires Level 65, 187 Int
 Infernal Mantle
 Occultist's Vestment
 Variant: Pre 2.0.0
-Requires Level 65, 187 Int
 Implicits: 1
 (3-10)% increased Spell Damage
 +1 to Level of Socketed Fire Gems
@@ -573,7 +568,6 @@ Occultist's Vestment
 Variant: Pre 1.0.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 62, 180 Int
 Implicits: 1
 (3-10)% increased Spell Damage
 {variant:1}(200-250)% increased Energy Shield
@@ -601,7 +595,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 49, 134 Int
+Implicits: 0
 {variant:1,2}Socketed Gems are Supported by level 14 Spell Totem
 {variant:3,4,5}Socketed Gems are Supported by level 20 Spell Totem
 (20-25)% increased Spell Damage
@@ -638,7 +632,7 @@ Necromancer Silks
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 59, 160 Int
+Implicits: 0
 {variant:1}(100-120)% increased Energy Shield
 {variant:2,3}(200-220)% increased Energy Shield
 +(20-30) to maximum Mana
@@ -655,7 +649,7 @@ Variant: Pre 1.0.0
 Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 37, 104 Int
+Implicits: 0
 {variant:1}Adds 1 to 25 Lightning Damage
 {variant:2,3,4}Adds 1 to 40 Lightning Damage to Attacks
 {variant:1,2,3}(75-100)% increased Energy Shield
@@ -671,7 +665,7 @@ Requires Level 37, 104 Int
 [[
 Belly of the Beast
 Full Wyrmscale
-Requires Level 46, 68 Str, 68 Dex
+Implicits: 0
 (150-200)% increased Armour
 (30-40)% increased maximum Life
 +(10-15)% to all Elemental Resistances
@@ -683,7 +677,7 @@ Triumphant Lamellar
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 69, 95 Str, 116 Dex
+Implicits: 0
 {variant:1,2}(10-20)% increased Chaos Damage
 {variant:3}(50-80)% increased Chaos Damage
 (160-200)% increased Armour and Evasion
@@ -697,7 +691,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 63, 115 Str, 94 Dex
+Implicits: 0
 {variant:1,2,3}(160-200)% increased Armour and Evasion
 {variant:4}(180-220)% increased Armour and Evasion
 {variant:1,2}+(40-60) to maximum Life
@@ -714,7 +708,7 @@ Farrul's Fur
 Triumphant Lamellar
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
-Requires Level 69, 95 Str, 116 Dex
+Implicits: 0
 (100-150)% increased Armour and Evasion
 +(80-100) to maximum Life
 Aspect of the Cat has no Reservation
@@ -725,7 +719,7 @@ You have Phasing while you have Cat's Stealth
 Replica Farrul's Fur
 Triumphant Lamellar
 League: Heist
-Requires Level 69, 95 Str, 116 Dex
+Implicits: 0
 (100-150)% increased Armour and Evasion
 +(80-100) to maximum Life
 +2.00 seconds to Cat's Agility Duration
@@ -737,7 +731,7 @@ Gruthkul's Pelt
 Wyrmscale Doublet
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 38, 57 Str, 57 Dex
+Implicits: 0
 {variant:1}(60-100)% increased Global Physical Damage
 {variant:2}100% increased Global Physical Damage
 {variant:1}+(130-160) to maximum Life
@@ -753,7 +747,7 @@ Lightning Coil
 Desert Brigandine
 Variant: Pre 1.3.0
 Variant: Current
-Requires Level 60, 96 Str, 96 Dex
+Implicits: 0
 Adds 1 to (20-30) Lightning Damage to Attacks
 (90-120)% increased Armour and Evasion
 +(60-80) to maximum Life
@@ -764,7 +758,7 @@ Adds 1 to (20-30) Lightning Damage to Attacks
 Viper's Scales
 Full Scale Armour
 Source: Drops in The Lord's Labyrinth
-Requires Level 28, 43 Str, 43 Dex
+Implicits: 0
 (80-100)% increased Armour and Evasion
 +(30-40) to maximum Life
 +(15-25)% to Cold Resistance
@@ -780,7 +774,7 @@ Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 43, 64 Str, 64 Int
+Implicits: 0
 {variant:1}(80-100)% increased Armour and Energy Shield
 {variant:2}(140-180)% increased Armour and Energy Shield
 {variant:3,4}(180-220)% increased Armour and Energy Shield
@@ -795,7 +789,7 @@ Share Endurance Charges with nearby party members
 Replica Ambu's Charge
 Crusader Chainmail
 League: Heist
-Requires Level 43, 64 Str, 64 Int
+Implicits: 0
 (180-220)% increased Armour and Energy Shield
 +(60-80) to maximum Life
 +15% to all Elemental Resistances
@@ -805,7 +799,7 @@ Lose 2% of Life per second if you have been Hit Recently
 ]],[[
 Chains of Command
 Saintly Chainmail
-Requires Level 70, 99 Str, 115 Int
+Implicits: 0
 Trigger Level 20 Animate Guardian's Weapon when Animated Guardian Kills an Enemy
 10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy
 (150-190)% increased Armour and Energy Shield
@@ -818,7 +812,7 @@ You cannot have non-Animated Minions
 Doryani's Prototype
 Saint's Hauberk
 League: Harvest
-Requires Level 67, 109 Str, 94 Int
+Implicits: 0
 (150-200)% increased Armour and Energy Shield
 +(60-90) to maximum Life
 Deal no Non-Lightning Damage
@@ -831,7 +825,7 @@ Elegant Ringmail
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 64, 90 Str, 105 Int
+Implicits: 0
 (50-75)% increased Armour and Energy Shield
 {variant:1,2}+(70-80) to maximum Energy Shield
 {variant:3}+(30-40) to maximum Energy Shield
@@ -845,7 +839,7 @@ Icetomb
 Latticed Ringmail
 Variant: Pre 2.0.0
 Variant: Current
-Requires Level 39, 59 Str, 59 Int
+Implicits: 0
 {variant:1}+15 to Strength
 {variant:2}+(30-40) to Strength
 {variant:1}+15 to Intelligence
@@ -858,7 +852,7 @@ Cannot be Chilled
 Crystal Vault
 Latticed Ringmail
 Source: No longer obtainable
-Requires Level 49, 59 Str, 59 Int
+Implicits: 0
 +(30-40) to Strength
 +(30-40) to Intelligence
 (140-160)% increased Armour and Energy Shield
@@ -872,7 +866,7 @@ Incandescent Heart
 Saintly Chainmail
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 70, 99 Str, 115 Int
+Implicits: 0
 {variant:1}+(60-80) to Armour
 {variant:1}(120-140)% increased Armour and Energy Shield
 {variant:2}(220-240)% increased Armour and Energy Shield
@@ -886,7 +880,7 @@ Light Radius is based on Energy Shield instead of Life
 ]],[[
 The Ivory Tower
 Saint's Hauberk
-Requires Level 67, 109 Str, 94 Int
+Implicits: 0
 +(40-70) to Intelligence
 +30 to maximum Energy Shield per 100 Reserved Life
 +(80-100) to maximum Mana
@@ -895,7 +889,7 @@ Chaos Damage is taken from Mana before Life
 ]],[[
 Kingsguard
 Conquest Chainmail
-Requires Level 61, 96 Str, 96 Int
+Implicits: 0
 (150-170)% increased Armour and Energy Shield
 +(60-90) to maximum Life
 +(50-70) to maximum Mana
@@ -908,7 +902,7 @@ Variant: Pre 1.0.0
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Current
-Requires Level 47, 69 Str, 69 Int
+Implicits: 0
 {variant:1}(80-100)% increased Armour and Energy Shield
 {variant:2,3,4}(120-140)% increased Armour and Energy Shield
 {variant:1,2,3}10% of Physical Damage Converted to Chaos Damage
@@ -925,7 +919,7 @@ Elegant Ringmail
 Source: Vendor Recipe
 Variant: Pre 3.6.0
 Variant: Current
-Requires Level 64, 90 Str, 105 Int
+Implicits: 0
 Has 6 Sockets
 +(8-24) to all Attributes
 Adds (4-10) to (14-36) Physical Damage to Attacks
@@ -941,7 +935,7 @@ Adds (4-10) to (14-36) Physical Damage to Attacks
 Replica Loreweave
 Elegant Ringmail
 League: Heist
-Requires Level 64, 90 Str, 105 Int
+Implicits: 0
 Has 6 Sockets
 +(8-24) to all Attributes
 Adds (4-10) to (14-36) Physical Damage to Attacks
@@ -955,8 +949,8 @@ Your Maximum Resistances are (70-72)%
 ]],[[
 Rotting Legion
 Loricated Ringmail
-Requires Level 58, 84 Str, 84 Int
 League: Blight
+Implicits: 0
 Socketed Gems are Supported by Level 1 Meat Shield
 (100-140)% increased Armour and Energy Shield
 +(50-80) to maximum Life
@@ -965,7 +959,6 @@ Socketed Gems are Supported by Level 1 Meat Shield
 ]],[[
 Sporeguard
 Saint's Hauberk
-Requires Level 67, 109 Str, 94 Int
 League: Blight
 Implicits: 0
 Trigger Level 10 Contaminate when you Kill an Enemy
@@ -982,7 +975,7 @@ League: Legion
 Source: Drops from Templar Legion
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 35, 53 Str, 53 Int
+Implicits: 0
 {variant:1}60% increased Armour and Energy Shield
 {variant:2}(100-150)% increased Armour and Energy Shield
 50% reduced maximum Mana
@@ -995,7 +988,7 @@ Bloodbond
 Bone Armour
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 35, 53 Dex, 53 Int
+Implicits: 0
 Grants Level 15 Blood Offering Skill
 (100-120)% increased Evasion and Energy Shield
 (15-25)% increased maximum Life
@@ -1009,7 +1002,7 @@ Varnished Coat
 Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 62, 96 Dex, 96 Int
+Implicits: 0
 (120-150)% increased Evasion and Energy Shield
 +(50-70) to maximum Life
 +(9-12)% to all Elemental Resistances
@@ -1025,7 +1018,7 @@ Variant: Pre 1.3.0
 Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 52, 76 Dex, 76 Int
+Implicits: 0
 {variant:1,2,3}(110-150)% increased Evasion and Energy Shield
 {variant:4}(300-400)% increased Evasion and Energy Shield
 {variant:1,2}+(90-110) to maximum Mana
@@ -1037,7 +1030,7 @@ Mind Over Matter
 ]],[[
 Dendrobate
 Sentinel Jacket
-Requires Level 59, 86 Dex, 86 Int
+Implicits: 0
 Socketed Gems are Supported by Level 10 Chance to Poison
 (130-150)% increased Evasion and Energy Shield
 +40 to maximum Energy Shield
@@ -1049,7 +1042,6 @@ The Eternity Shroud
 Blood Raiment
 Shaper Item
 Source: Drops from unique{The Elder} (Uber)
-Requires Level 65, 107 Dex, 90 Int
 Implicits: 0
 Trigger Level 20 Glimpse of Eternity when Hit
 (100-150)% increased Evasion and Energy Shield
@@ -1062,7 +1054,7 @@ Replica Eternity Shroud
 Blood Raiment
 Elder Item
 League: Heist
-Requires Level 65, 107 Dex, 90 Int
+Implicits: 0
 Trigger Level 20 Shade Form when Hit
 (100-150)% increased Evasion and Energy Shield
 +(70-100) to maximum Life
@@ -1073,7 +1065,7 @@ Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Elder Items
 Expedition's End
 Sentinel Jacket
 League: Heist
-Requires Level 59, 86 Dex, 86 Int
+Implicits: 0
 (100-150)% increased Evasion and Energy Shield
 (5-10)% increased maximum Life
 All Damage can Freeze
@@ -1085,7 +1077,7 @@ Sadist Garb
 Variant: Pre 3.5.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 68, 103 Dex, 109 Int
+Implicits: 0
 +(60-80) to maximum Life
 (20-50)% increased Damage if you have Shocked an Enemy Recently
 {variant:1,2}(25-40)% increased Effect of Shock
@@ -1099,7 +1091,6 @@ The Restless Ward
 Carnal Armour
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 71, 88 Dex, 122 Int
 Implicits: 1
 +(20-25) to maximum Mana
 {variant:1}(120-150)% increased Evasion and Energy Shield
@@ -1114,7 +1105,6 @@ Implicits: 1
 Replica Restless Ward
 Carnal Armour
 League: Heist
-Requires Level 71, 88 Dex, 122 Int
 Implicits: 1
 +(20-25) to maximum Mana
 (220-250)% increased Evasion and Energy Shield
@@ -1128,7 +1118,7 @@ Saqawal's Nest
 Blood Raiment
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
-Requires Level 65, 107 Dex, 90 Int
+Implicits: 0
 +(25-75) to all Attributes
 +(30-40)% to Lightning Resistance
 (12-20)% increased Mana Reservation Efficiency of Skills
@@ -1144,7 +1134,6 @@ Variant: Two Abyssal Sockets (Pre 3.12.0)
 Variant: One Abyssal Socket (Pre 3.12.0)
 Variant: Two Abyssal Sockets (Current)
 Variant: One Abyssal Socket (Current)
-Requires Level: 71, 88 Dex, 122 Int
 Implicits: 1
 +(20-25) to maximum Mana
 {variant:1,3}Has 2 Abyssal Sockets
@@ -1161,7 +1150,6 @@ Implicits: 1
 Replica Shroud of the Lightless
 Carnal Armour
 League: Heist
-Requires Level 71, 88 Dex, 122 Int
 Implicits: 1
 +(20-25) to maximum Mana
 Has 6 Abyssal Sockets
@@ -1169,7 +1157,6 @@ Has 6 Abyssal Sockets
 Stasis Prison
 Carnal Armour
 Source: Drops in Uber Timeless Conflict
-Requires Level 71, 88 Dex, 122 Int
 Implicits: 1
 +(20-25) to maximum Mana
 (140-160)% increased Evasion and Energy Shield
@@ -1180,7 +1167,7 @@ Debuffs on you Expire (80-100)% faster
 ]],[[
 Tinkerskin
 Sadist Garb
-Requires Level 68, 103 Dex, 109 Int
+Implicits: 0
 (140-170)% increased Evasion and Energy Shield
 +(60-90) to maximum Life
 (10-15)% increased Cooldown Recovery Rate for throwing Traps
@@ -1193,7 +1180,7 @@ Victario's Influence
 Lacquered Garb
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 52, 76 Dex, 76 Int
+Implicits: 0
 +1 to Level of Socketed Aura Gems
 {variant:1}Socketed Gems are Supported by Level 1 Generosity
 {variant:2}Socketed Gems are Supported by Level 30 Generosity
@@ -1208,7 +1195,7 @@ Socketed Gems have 45% increased Reservation Efficiency
 The Admiral
 Varnished Coat
 League: Heist
-Requires Level 62, 96 Dex, 96 Int
+Implicits: 0
 +(30-40) to Intelligence
 (100-140)% increased Evasion and Energy Shield
 +(10-20)% to all Elemental Resistances
@@ -1236,7 +1223,6 @@ Variant: Current (Energy Shield)
 Variant: Current (Armour/ES + Life)
 Variant: Current (Armour/ES + ES)
 Variant: Current (Armour/Evasion/ES)
-Requires Level 75, 66 Str, 66 Dex, 66 Int
 Implicits: 1
 +1 to Level of all Vaal Skill Gems
 {variant:1,10}(380-420)% increased Armour
@@ -1258,7 +1244,6 @@ Sacrificial Garb
 League: Incursion
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 72, 66 Str, 66 Dex, 66 Int
 Implicits: 0
 Has an additional Implicit Mod
 +(20-30) to all Attributes
