@@ -25,6 +25,7 @@ Adds 2 to 4 Physical Damage to Attacks
 Wall of Brambles
 Plate Vest
 Source: No longer obtainable
+LevelReq: 30
 Implicits: 0
 Adds 2 to 4 Physical Damage to Attacks
 +2000 to Armour
