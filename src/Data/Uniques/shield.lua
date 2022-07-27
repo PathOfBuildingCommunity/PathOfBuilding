@@ -775,10 +775,10 @@ Implicits: 1
 60% increased Block Recovery
 +(5-10) to Armour
 (30-40)% increased Rarity of Items found
-{variant:1}25% increased Curse Duration
-{variant:2}100% increased Curse Duration
 100% increased Duration of Curses on you
 +5% Chance to Block
+{variant:1}Curse Skills have 25% increased Skill Effect Duration
+{variant:2}Curse Skills have 100% increased Skill Effect Duration
 ]],
 -- Shield: Armour/Energy Shield
 [[
@@ -788,7 +788,6 @@ Variant: Pre 1.1.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 62, 85 Str, 85 Int
-(10-20)% increased Elemental Damage with Attack Skills
 {variant:1,2}(80-100)% increased Armour and Energy Shield
 {variant:3}(300-400)% increased Armour and Energy Shield
 +10% to all Elemental Resistances
@@ -796,6 +795,7 @@ Requires Level 62, 85 Str, 85 Int
 +6% Chance to Block
 {variant:1}Replenishes Energy Shield by 4% of Armour when you Block
 {variant:2,3}Replenishes Energy Shield by 2% of Armour when you Block
+(10-20)% increased Elemental Damage with Attack Skills
 ]],[[
 Broken Faith
 Archon Kite Shield
@@ -825,8 +825,8 @@ Requires Level 46, 60 Str, 60 Int
 (300-400)% increased Armour and Energy Shield
 (10-15)% increased maximum Life
 Cannot Block while you have no Energy Shield
-Damage from Blocked Hits cannot bypass Energy Shield
-Damage from Unblocked hits always bypasses Energy Shield
+Damage taken from Blocked Hits cannot bypass Energy Shield
+Damage taken from Unblocked hits always bypasses Energy Shield
 Glancing Blows
 ]],[[
 Invictus Solaris
