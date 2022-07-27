@@ -17,6 +17,7 @@ You have Lesser Massive Shrine Buff
 ]],[[
 Bramblejack
 Plate Vest
+Implicits: 0
 Adds 2 to 4 Physical Damage to Attacks
 +(12-20) to maximum Life
 −2 Physical Damage taken from Attacks
