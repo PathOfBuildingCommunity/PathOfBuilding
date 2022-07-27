@@ -187,23 +187,18 @@ You and your Totems Regenerate 0.5% of Life per second for each Summoned Totem
 Tukohama's Fortress
 Ebony Tower Shield
 Variant: Pre 3.0.0
-Variant: Pre 3.7.0
-Variant: Pre 3.17.0
 Variant: Current
 Requires Level 61, 159 Str
 Implicits: 1
-{variant:2,3,4}+(20-30) to maximum Life
+{variant:2}+(20-30) to maximum Life
 40% increased Totem Damage
 +(80-100) to maximum Life
-Can have up to 1 additional Totem summoned at a time
++1 to maximum number of Summoned Totems
 +300 Armour per Summoned Totem
 Blood Magic
-{variant:3}Mortal Conviction
 ]],[[
 Replica Tukohama's Fortress
 Ebony Tower Shield
-Variant: Pre 3.17.0
-Variant: Current
 League: Heist
 Requires Level 61, 159 Str
 Implicits: 1
@@ -213,7 +208,6 @@ You can Cast an additional Brand
 20% increased Critical Strike Chance per Brand
 40% increased Brand Damage
 Blood Magic
-{variant:1}Mortal Conviction
 ]],
 -- Shield: Evasion
 [[
@@ -260,12 +254,12 @@ Implicits: 1
 {variant:3,4}9% increased Movement Speed
 +1 to Level of Socketed Curse Gems
 (30-50)% increased Evasion Rating
-{variant:2,3,4}+(40-50) to maximum Life
 {variant:2,3,4}+(50-70) to maximum Energy Shield
-{variant:1,2,3}100% increased Curse Duration
-{variant:4}1% of Damage Leeched as Life against Cursed Enemies
+{variant:2,3,4}+(40-50) to maximum Life
 +5% Chance to Block
 10% Chance to Cause Monster to Flee on Block
+{variant:1,2,3}Curse Skills have 100% increased Skill Effect Duration
+{variant:4}1% of Damage Leeched as Life against Cursed Enemies
 ]],[[
 Thirst for Horrors
 War Buckler
@@ -278,12 +272,12 @@ Implicits: 1
 {variant:3}9% increased Movement Speed
 +1 to Level of Socketed Curse Gems
 (30-50)% increased Evasion Rating
-{variant:2,3}+(40-50) to maximum Life
 {variant:2,3}+(50-70) to maximum Energy Shield
-100% increased Curse Duration
+{variant:2,3}+(40-50) to maximum Life
 +5% Chance to Block
 10% Chance to Cause Monster to Flee on Block
 1% of Damage Leeched as Life against Cursed Enemies
+Curse Skills have 100% increased Skill Effect Duration
 ]],[[
 Crest of Perandus
 Pine Buckler
