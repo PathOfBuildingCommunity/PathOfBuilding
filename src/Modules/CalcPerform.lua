@@ -1758,7 +1758,7 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
-	--Compute barebones no stat calculations for condtional effects.
+	--Compute barebones no stat calculations for conditional effects.
 	local affectedByAura = { }
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		local skillModList = activeSkill.skillModList
