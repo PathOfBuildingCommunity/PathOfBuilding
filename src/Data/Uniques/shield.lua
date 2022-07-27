@@ -301,10 +301,10 @@ Variant: Current
 Requires Level 46, 112 Dex
 Implicits: 1
 {variant:2}3% increased Movement Speed
+(8-12)% Chance to Block Spell Damage
 Adds (8-12) to (15-20) Physical Damage to Attacks
 (6-10)% increased Attack Speed
 +(50-70) to maximum Life
-(8-12)% Chance to Block Spells
 ]],[[
 Kaltenhalt
 Painted Buckler
@@ -379,7 +379,7 @@ Implicits: 1
 {variant:1}(20-30)% increased Chaos Damage
 {variant:2,3,4}(80-100)% Increased Evasion Rating
 +(20-40)% to Cold Resistance
-10% increased Area of Effect of Area Skills
+10% increased Area of Effect
 {variant:1}You gain Onslaught for 2 seconds on Killing Taunted Enemies
 {variant:2,3,4}Gain Onslaught for 4 seconds when you Warcry
 {variant:2,3,4}25% increased Warcry Buff Effect
@@ -493,8 +493,8 @@ Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Esh's Visage} using currency{Blessing of Esh}
 Requires Level 53, 128 Int
 +(20-30) to Intelligence
-+(40-70) to maximum Life
 (80-100)% increased Energy Shield
++(40-70) to maximum Life
 +(35-40)% to Lightning Resistance
 Adds 1 to 10 Lightning Damage for each Shocked Enemy you've Killed Recently
 Shock Reflection
@@ -510,13 +510,12 @@ Requires Level 62, 159 Int
 Implicits: 2
 {variant:1}5% increased Spell Damage
 {variant:2,3}(5-10)% increased Spell Damage
+(240-260)% increased Energy Shield
 {variant:1,2}+(40-70) to maximum Life
 {variant:3}+(70-100) to maximum Life
-(240-260)% increased Energy Shield
 +(30-40)% to Lightning Resistance
 +(17-29)% to Chaos Resistance
-{variant:1,2}Chaos Damage does not bypass Energy Shield while not on Low Life or Low Mana
-{variant:3}Chaos Damage does not bypass Energy Shield while not on Low Life
+Chaos Damage does not bypass Energy Shield while not on Low Life
 Reflect Shocks applied to you to all Nearby Enemies
 ]],[[
 The Eternal Apple
