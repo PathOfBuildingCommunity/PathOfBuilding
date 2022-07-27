@@ -990,7 +990,7 @@ Implicits: 1
 +(50-70) to maximum Life
 +(20-30)% to Lightning Resistance
 +11% to Chaos Resistance
-{variant:1}10% increased Radius of Aura Skills
+{variant:1}10% increased Area of Effect of Aura Skills
 {variant:2}20% increased Area of Effect of Aura Skills
 10% chance to grant a Power Charge to nearby Allies on Kill
 5% chance to grant a Frenzy Charge to nearby Allies on Hit
@@ -1022,8 +1022,8 @@ Implicits: 1
 {variant:2}(400-500)% increased Evasion and Energy Shield
 (25-40)% increased Mana Regeneration Rate
 +50% chance to be Shocked
-40% of Cold Damage taken as Lightning
-40% of Fire Damage taken as Lightning
+40% of Cold Damage taken as Lightning Damage
+40% of Fire Damage taken as Lightning Damage
 ]],[[
 Glitterdisc
 Burnished Spiked Shield
@@ -1034,10 +1034,10 @@ Implicits: 2
 {variant:1}Reflects (10-23) Physical Damage to Melee Attackers
 {variant:2}+5% chance to Suppress Spell Damage
 (120-140)% increased Evasion and Energy Shield
-+(30-50) to maximum Life
 +(20-30) to maximum Energy Shield
++(30-50) to maximum Life
 10% increased Rarity of Items found
-25% chance to avoid Fire Damage when Hit
+25% chance to Avoid Fire Damage from Hits
 {variant:2}You always Ignite while Burning
 ]],[[
 Jaws of Agony
