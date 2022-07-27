@@ -218,6 +218,7 @@ Implicits: 0
 Wildwrap
 Strapped Leather
 Source: Drops from any endgame map boss
+LevelReq: 57
 Implicits: 0
 10% increased Attack Speed
 +(600-700) to Evasion Rating
@@ -853,6 +854,7 @@ Cannot be Chilled
 Crystal Vault
 Latticed Ringmail
 Source: No longer obtainable
+LevelReq: 49
 Implicits: 0
 +(30-40) to Strength
 +(30-40) to Intelligence
