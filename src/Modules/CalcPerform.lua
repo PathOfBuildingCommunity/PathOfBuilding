@@ -1779,9 +1779,6 @@ function calcs.perform(env, avoidCache)
 				 	if not buff.applyNotPlayer then
 						activeSkill.buffSkill = true
 						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-						if activeSkill.skillData.thisIsNotABuff then
-							buffs[buff.name].notBuff = true
-						end
 					end
 					if env.minion and (buff.applyMinions or buff.applyAllies) then
 						activeSkill.minionBuffSkill = true
@@ -1888,6 +1885,9 @@ function calcs.perform(env, avoidCache)
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
 						mergeBuff(buff.unscalableModList, buffs, buff.name)
+						if activeSkill.skillData.thisIsNotABuff then
+							buffs[buff.name].notBuff = true
+						end
 					end
 					if env.minion and (buff.applyMinions or buff.applyAllies) then
 						local srcList = new("ModList")
