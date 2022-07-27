@@ -23,6 +23,7 @@ Chain Belt
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
+LevelReq: 44
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:jewellery_defense}+300 to Evasion Rating
@@ -37,6 +38,7 @@ You have Phasing if Energy Shield Recharge has started Recently
 Auxium
 Chain Belt
 Variant: Pre 2.6.0
+LevelReq: 70
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:jewellery_defense}+(60-70) to maximum Energy Shield
@@ -63,6 +65,7 @@ Bated Breath
 Chain Belt
 Variant: Pre 2.6.0
 Variant: Current
+LevelReq: 22
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:jewellery_attribute}+(15-25) to Intelligence
@@ -74,6 +77,7 @@ Implicits: 1
 Replica Bated Breath
 Chain Belt
 League: Heist
+LevelReq: 22
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:jewellery_attribute}+(15-25) to Intelligence
@@ -119,6 +123,7 @@ Rampage
 Chains of Emancipation
 Chain Belt
 League: Heist
+LevelReq: 61
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:life}+(60-80) to maximum Life
@@ -133,6 +138,7 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Incursion
 Upgrade: Upgrades to unique{Coward's Legacy} via currency{Vial of Consequence}
+LevelReq: 22
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {variant:1}(20-25)% increased Damage
@@ -147,6 +153,7 @@ Coward's Legacy
 Chain Belt
 League: Incursion
 Source: Upgraded from unique{Coward's Chains} via currency{Vial of Consequence}
+LevelReq: 52
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:jewellery_attribute}+(15-20) to all Attributes
@@ -247,6 +254,7 @@ Deal no Physical Damage
 Faminebind
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
+LevelReq: 18
 Implicits: 1
 {tags:physical}(12-24)% increased Physical Damage
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
@@ -258,6 +266,7 @@ Deals 50 Chaos Damage per second to nearby Enemies
 Feastbind
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
+LevelReq: 11
 Implicits: 1
 {tags:physical}(12-24)% increased Physical Damage
 {tags:attack,physical}Adds 5 to 10 Physical Damage to Attacks
@@ -463,6 +472,7 @@ Magic Utility Flask Effects cannot be removed
 ]],[[
 Maligaro's Restraint
 Chain Belt
+LevelReq: 44
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:jewellery_elemental,attack}Adds 1 to (30-50) Lightning Damage to Attacks
@@ -540,6 +550,7 @@ Prismweave
 Rustic Sash
 Variant: Pre 2.6.0
 Variant: Current
+LevelReq: 25
 Implicits: 1
 {tags:physical}(12-24)% increased Global Physical Damage
 {variant:1}{tags:jewellery_elemental,attack}Adds (3-4) to (7-8) Fire Damage to Attacks
@@ -555,6 +566,7 @@ Implicits: 1
 Replica Prismweave
 Rustic Sash
 League: Heist
+LevelReq: 25
 Implicits: 1
 {tags:physical}(12-24)% increased Global Physical Damage
 {tags:jewellery_elemental,caster}Adds (7-8) to (15-16) Fire Damage to Spells
@@ -579,6 +591,7 @@ The Retch
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
 Source: Vendor recipe
+LevelReq: 44
 Implicits: 1
 {tags:physical}(12-24)% increased Global Physical Damage
 {tags:life}+(60-80) to maximum Life
