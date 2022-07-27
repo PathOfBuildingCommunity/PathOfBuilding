@@ -2459,7 +2459,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
 					t_insert(modList, {
-						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						label = table.concat(mod, "/"),
 						mod = mod,
 						affixType = mod.type,
 						type = "custom",
@@ -2481,11 +2481,11 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 				end
 				return modA.level > modB.level
 			end)
-		elseif sourceId == "Synthesis" then
+		elseif sourceId == "SYNTHESIS" then
 			for i, mod in pairs(self.displayItem.affixes) do
 				if sourceId:lower() == mod.type:lower() then -- weights are missing and so are 0, how do I determine what goes on what item?, also arnt these supposed to work on jewels?
 					t_insert(modList, {
-						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						label = table.concat(mod, "/"),
 						mod = mod,
 						affixType = mod.type,
 						type = "custom",
@@ -2500,7 +2500,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
 					t_insert(modList, {
-						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						label = table.concat(mod, "/"),
 						mod = mod,
 						affixType = mod.type,
 						type = "custom",
@@ -2518,7 +2518,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		t_insert(sourceList, { label = "Eater of Worlds", sourceId = "EATER" })
 	end
 	if self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Jewel" then
-		t_insert(sourceList, { label = "Synth", sourceId = "Synthesis" })
+		t_insert(sourceList, { label = "Synth", sourceId = "SYNTHESIS" })
 		t_insert(sourceList, { label = "Delve", sourceId = "DelveImplicit" })
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
@@ -2527,24 +2527,47 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		local item = new("Item", self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		local sourceId = sourceList[controls.source.selIndex].sourceId
-		local newImplicit = { }
-		local newType = false
 		if sourceId == "CUSTOM" then
 			if controls.custom.buf:match("%S") then
-				t_insert(newImplicit, { line = controls.custom.buf, custom = true })
+				t_insert(item.implicitModLines, { line = controls.custom.buf, custom = true })
+			end
+		elseif sourceId == "SYNTHESIS" then
+			local listMod = modList[controls.modSelect.selIndex]
+			for _, line in ipairs(listMod.mod) do
+				t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
+			end
+		elseif sourceId == "EXARCH" or sourceId == "EATER" then
+			local listMod = modList[controls.modSelect.selIndex]
+			local index = nil
+			for i, implictMod in ipairs(item.implicitModLines) do
+				for _, mod in ipairs(modList) do
+					for _, modLine in ipairs(mod.mod) do
+						if modLine == implictMod.line then
+							index = i
+							break
+						end
+					end
+					if index then
+						break
+					end
+				end
+				if index then
+					break
+				end
+			end
+			if index then
+				for _, line in ipairs(listMod.mod) do
+					item.implicitModLines[index] = { line = line, modTags = listMod.mod.modTags, [listMod.type] = true }
+				end
+			else
+				for _, line in ipairs(listMod.mod) do
+					t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
+				end
 			end
 		else
 			local listMod = modList[controls.modSelect.selIndex]
 			for _, line in ipairs(listMod.mod) do
-				t_insert(newImplicit, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
-			end
-		end
-		if #newImplicit > 0 then
-			if newType then
-				wipeTable(item.implicitModLines)
-			end
-			for i, implicit in ipairs(newImplicit) do
-				t_insert(item.implicitModLines, i, implicit)
+				t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
 			end
 		end
 		item:BuildAndParseRaw()
