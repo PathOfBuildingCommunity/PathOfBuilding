@@ -1050,14 +1050,14 @@ Requires Level 70, 85 Dex, 85 Int
 Implicits: 2
 {variant:1,2}Reflects (221-260) Physical Damage to Melee Attackers
 {variant:3,4}+5% chance to Suppress Spell Damage
-{variant:1,2,3}Grants level 20 Bear Trap Skill
+{variant:1,2,3}Grants Level 20 Bear Trap Skill
 {variant:4}Grants Level 25 Bear Trap Skill
 (18-28)% increased Trap Damage
-(15-25)% increased Physical Damage
+(15-25)% increased Global Physical Damage
 +(60-80) to maximum Life
--(14-18) Physical Damage taken from Attacks
-{variant:1}15% chance to gain a Power Charge on Throwing a Trap
-{variant:2,3,4}25% chance to gain a Power Charge on Throwing a Trap
+-(14-18) Physical Damage taken from Attack Hits
+{variant:1}15% chance to gain a Power Charge when you Throw a Trap
+{variant:2,3,4}25% chance to gain a Power Charge when you Throw a Trap
 ]],[[
 Leper's Alms
 Mirrored Spiked Shield
@@ -1086,7 +1086,7 @@ Implicits: 2
 (10-15)% increased Attack Speed
 (10-20)% increased maximum Life
 -50% to all Elemental Resistances
-10% increased Area of Effect of Area Skills
+10% increased Area of Effect
 {variant:1,2}Nearby allies Recover 2% of your Maximum Life when you Die
 {variant:3}Nearby allies Recover 1% of your Maximum Life when you Die
 ]],[[
