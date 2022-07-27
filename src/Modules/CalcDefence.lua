@@ -1643,17 +1643,19 @@ function calcs.defence(env, actor)
 		if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" or damageCategoryConfig == "Average" then
 			suppressChance = output.SpellSuppressionChance / 100
 		end
-		-- unlucky config to lower the value of block, dodge, evade etc for ehp
-		if worstOf > 1 then
-			suppressChance = suppressChance * suppressChance
-			if worstOf == 4 then
+		if suppressChance < 1 then -- We include suppresion in damage reduction if it is 100% otherwise we handle it here.
+			-- unlucky config to lower the value of block, dodge, evade etc for ehp
+			if worstOf > 1 then
 				suppressChance = suppressChance * suppressChance
+				if worstOf == 4 then
+					suppressChance = suppressChance * suppressChance
+				end
 			end
+			if damageCategoryConfig == "Average" then
+				suppressChance = suppressChance / 2
+			end
+			suppressionEffect = 1 - suppressChance * output.SpellSuppressionEffect / 100
 		end
-		if damageCategoryConfig == "Average" then
-			suppressChance = suppressChance / 2
-		end
-		suppressionEffect = 1 - suppressChance * output.SpellSuppressionEffect / 100
 		-- extra avoid chance
 		if damageCategoryConfig == "Projectile" or damageCategoryConfig == "SpellProjectile" then
 			ExtraAvoidChance = ExtraAvoidChance + output.AvoidProjectilesChance
@@ -1697,7 +1699,7 @@ function calcs.defence(env, actor)
 			if output.ShowBlockEffect then
 				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.2f ^8(block effect)", output.BlockEffect / 100))
 			end
-			if suppressionEffect > 0 then
+			if suppressionEffect < 1 then
 				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.3f ^8(suppression effect)", suppressionEffect))
 			end
 			if averageAvoidChance > 0 then
