@@ -100,7 +100,7 @@ Implicits: 1
 {variant:2,3,4}+(160-180) to maximum Life
 5% reduced Movement Speed
 20% increased Stun Recovery
-−25 Physical Damage taken from Projectile Attacks
+-25 Physical Damage taken from Projectile Attacks
 +5% Chance to Block
 ]],[[
 Lycosidae
@@ -163,8 +163,8 @@ Implicits: 1
 {variant:3}+(10-20) to maximum Life
 (60-80)% increased Armour
 +(30-50) to maximum Life
-{variant:1}−10 Physical Damage taken from Projectile Attacks
-{variant:2,3}−(50-80) Physical Damage taken from Projectile Attacks
+{variant:1}-10 Physical Damage taken from Projectile Attacks
+{variant:2,3}-(50-80) Physical Damage taken from Projectile Attacks
 200% increased Armour against Projectiles
 +25% additional Block Chance against Projectiles
 ]],[[
@@ -1063,7 +1063,7 @@ Implicits: 2
 (18-28)% increased Trap Damage
 (15-25)% increased Physical Damage
 +(60-80) to maximum Life
-−(14-18) Physical Damage taken from Attacks
+-(14-18) Physical Damage taken from Attacks
 {variant:1}15% chance to gain a Power Charge on Throwing a Trap
 {variant:2,3,4}25% chance to gain a Power Charge on Throwing a Trap
 ]],[[
@@ -1093,7 +1093,7 @@ Implicits: 2
 {variant:2,3}+3% chance to Suppress Spell Damage
 (10-15)% increased Attack Speed
 (10-20)% increased maximum Life
-−50% to all Elemental Resistances
+-50% to all Elemental Resistances
 10% increased Area of Effect of Area Skills
 {variant:1,2}Nearby allies Recover 2% of your Maximum Life when you Die
 {variant:3}Nearby allies Recover 1% of your Maximum Life when you Die
