@@ -916,12 +916,12 @@ Implicits: 2
 {variant:1}+8% to all Elemental Resistances
 {variant:2,3,4}+4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
-50% reduced Freeze Duration on You
-{variant:3}1% of Life Regenerated per Second
-{variant:4}3% of Life Regenerated per Second
-{variant:1,2}6% of Life Regenerated per Second while on Low Life
-{variant:3}5% of Life Regenerated per Second while on Low Life
-{variant:4}3% of Life Regenerated per Second while on Low Life
+50% reduced Freeze Duration on you
+{variant:3}Regenerate 1% of Life per Second
+{variant:4}Regenerate 3% of Life per Second
+{variant:1,2}Regenerate 6% of Life per Second while on Low Life
+{variant:3}Regenerate 5% of Life per Second while on Low Life
+{variant:4}Regenerate 3% of Life per Second while on Low Life
 ]],[[
 The Oak
 Plank Kite Shield
@@ -933,11 +933,11 @@ Implicits: 1
 +4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
 +(100-150) to maximum Life
-50% reduced Freeze Duration on You
-{variant:1}1% of Life Regenerated per Second
-{variant:2}3% of Life Regenerated per Second
-{variant:1}5% of Life Regenerated per Second while on Low Life
-{variant:2}3% of Life Regenerated per Second while on Low Life
+50% reduced Freeze Duration on you
+{variant:1}Regenerate 1% of Life per Second
+{variant:2}Regenerate 3% of Life per Second
+{variant:1}Regenerate 5% of Life per Second while on Low Life
+{variant:2}Regenerate 3% of Life per Second while on Low Life
 ]],[[
 The Unshattered Will
 Archon Kite Shield
@@ -951,7 +951,7 @@ Grants Summon Harbinger of Focus Skill
 +(10-15)% to all Elemental Resistances
 +(30-50) Mana gained when you Block
 +5% Chance to Block
-(50-70)% increased Damage with Channelling Skills
+Channelling Skills deal (50-70)% increased Damage
 ]],[[
 The Immortal Will
 Archon Kite Shield
@@ -965,7 +965,7 @@ Grants Summon Greater Harbinger of Focus Skill
 +(10-15)% to all Elemental Resistances
 +(30-50) Mana gained when you Block
 +5% Chance to Block
-(50-70)% increased Damage with Channelling Skills
+Channelling Skills deal (50-70)% increased Damage
 ]],[[
 Unyielding Flame
 Archon Kite Shield
