@@ -2481,16 +2481,46 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 				end
 				return modA.level > modB.level
 			end)
+		elseif sourceId == "Synthesis" then
+			for i, mod in pairs(self.displayItem.affixes) do
+				if sourceId:lower() == mod.type:lower() then -- weights are missing and so are 0, how do I determine what goes on what item?
+					t_insert(modList, {
+						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						mod = mod,
+						affixType = mod.type,
+						type = "custom",
+						defaultOrder = i,
+					})
+				end
+			end
+			table.sort(modList, function(a, b)
+				return a.defaultOrder < b.defaultOrder
+			end)
+		elseif sourceId == "DelveImplicit" then
+			for i, mod in pairs(self.displayItem.affixes) do
+				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
+					t_insert(modList, {
+						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						mod = mod,
+						affixType = mod.type,
+						type = "custom",
+						defaultOrder = i,
+					})
+				end
+			end
+			table.sort(modList, function(a, b)
+				return a.defaultOrder < b.defaultOrder
+			end)
 		end
 	end
 	if (self.displayItem.rarity ~= "UNIQUE" and self.displayItem.rarity ~= "RELIC") and (self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots") then
 		t_insert(sourceList, { label = "Searing Exarch", sourceId = "EXARCH" })
 		t_insert(sourceList, { label = "Eater of Worlds", sourceId = "EATER" })
 	end
-	--if self.displayItem.type ~= "Flask" then
-	--	t_insert(sourceList, { label = "Synth", sourceId = "SYNTH" })
-	--	t_insert(sourceList, { label = "Delve", sourceId = "DelveImplicit" })
-	--end
+	if self.displayItem.type ~= "Flask" then
+		t_insert(sourceList, { label = "Synth", sourceId = "Synthesis" })
+		t_insert(sourceList, { label = "Delve", sourceId = "DelveImplicit" })
+	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
 	buildMods(sourceList[1].sourceId)
 	local function addModifier()

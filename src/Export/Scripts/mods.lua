@@ -33,6 +33,8 @@ local function writeMods(outName, condFunc)
 					print("[Jewel]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
+			elseif mod.GenerationType == 3 and not (mod.Domain == 16 or (mod.Domain == 1 and mod.Id:match("^Synthesis"))) then
+				goto continue
 			end
 			local stats, orders = describeMod(mod)
 			if #orders > 0 then
@@ -41,8 +43,12 @@ local function writeMods(outName, condFunc)
 					out:write('type = "Prefix", ')
 				elseif mod.GenerationType == 2 then
 					out:write('type = "Suffix", ')
-				--elseif mod.GenerationType == 3 then
-				--	out:write('type = "Synthesis", ')
+				elseif mod.GenerationType == 3 then
+					if mod.Domain == 1 and mod.Id:match("^Synthesis") then
+						out:write('type = "Synthesis", ')
+					elseif mod.Domain == 16 then
+						out:write('type = "DelveImplicit", ')
+					end
 				elseif mod.GenerationType == 5 then
 					out:write('type = "Corrupted", ')
 				elseif mod.GenerationType == 24 then
@@ -109,8 +115,8 @@ end
 
 writeMods("../Data/ModItem.lua", function(mod)
 	return (mod.Domain == 1 or mod.Domain == 16)
-			and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5 or mod.GenerationType == 25 or mod.GenerationType == 24
-			or mod.GenerationType == 28 or mod.GenerationType == 29) -- Eldritch Implicits
+			and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 3 or mod.GenerationType == 5
+			 or mod.GenerationType == 25 or mod.GenerationType == 24 or mod.GenerationType == 28 or mod.GenerationType == 29)
 			and not mod.Id:match("^Hellscape[UpDown]+sideMap") -- Exclude Scourge map mods
 			and #mod.AuraFlags == 0
 end)
