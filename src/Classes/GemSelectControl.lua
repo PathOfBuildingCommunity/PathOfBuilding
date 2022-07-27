@@ -697,7 +697,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 				self.selIndex = self.hoverSel
 				self:SetText(self.gems[self.list[self.selIndex]].name)
 				self:UpdateGem(false, true)
-				return self
+				return
 			end
 		elseif key == "RETURN" then
 			self.dropped = false
@@ -706,7 +706,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 			end
 			self.selIndex = m_max(self.selIndex, 1)
 			self:UpdateGem(true, true)
-			return self
+			return
 		elseif key == "ESCAPE" then
 			self.dropped = false
 			self:BuildList("")
