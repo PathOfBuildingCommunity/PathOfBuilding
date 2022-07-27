@@ -41,13 +41,17 @@ local function writeMods(outName, condFunc)
 					out:write('type = "Prefix", ')
 				elseif mod.GenerationType == 2 then
 					out:write('type = "Suffix", ')
+				--elseif mod.GenerationType == 3 then
+				--	out:write('type = "Synthesis", ')
 				elseif mod.GenerationType == 5 then
 					out:write('type = "Corrupted", ')
-				elseif mod.GenerationType == 25 or mod.GenerationType == 24 then
-					out:write('type = "Scourge", ')
-				elseif mod.GenerationType == 29 then
+				elseif mod.GenerationType == 24 then
+					out:write('type = "ScourgeUpside", ')
+				elseif mod.GenerationType == 25 then
+					out:write('type = "ScourgeDownside", ')
+				elseif mod.GenerationType == 28 then
 					out:write('type = "Exarch", ')
-				elseif mod.GenerationType == 30 then
+				elseif mod.GenerationType == 29 then
 					out:write('type = "Eater", ')
 				end
 				out:write('affix = "', mod.Name, '", ')

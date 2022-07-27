@@ -466,11 +466,19 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemCorrupt.shown = function()
 		return self.displayItem and self.displayItem.corruptible
 	end
+	--[[
 	self.controls.displayItemScourge = new("ButtonControl", {"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, 8, 0, 100, 20, "Scourge...", function()
 		self:CorruptDisplayItem("Scourge")
 	end)
 	self.controls.displayItemScourge.shown = function()
 		return self.displayItem and self.displayItem.corruptible
+	end
+	--]]
+	self.controls.displayItemAddImplicit = new("ButtonControl", {"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, 8, 0, 120, 20, "Add Implicit...", function()
+		self:AddImplicitToDisplayItem()
+	end)
+	self.controls.displayItemAddImplicit.shown = function()
+		return self.displayItem and (self.displayItem.corruptable or ((self.displayItem.type ~= "Flask" or self.displayItem.type ~= "Jewel") and (self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")))
 	end
 
 	-- Section: Influence dropdowns
@@ -2116,28 +2124,37 @@ end
 
 -- Opens the item corrupting popup
 function ItemsTabClass:CorruptDisplayItem(modType)
+	local currentModType = modType or "Corrupted"
 	local controls = { } 
 	local implicitList = { }
-	for modId, mod in pairs(self.displayItem.affixes) do
-		if mod.type == modType and self.displayItem:GetModSpawnWeight(mod) > 0 then
-			t_insert(implicitList, mod)
+	local sourceList = { "Corrupted", "Scourge" }
+	local function buildImplicitList(modType)
+		if implicitList[modType] then
+			return
 		end
+		implicitList[modType] = {}
+		for modId, mod in pairs(self.displayItem.affixes) do
+			if mod.type == modType and self.displayItem:GetModSpawnWeight(mod) > 0 then
+				t_insert(implicitList[modType], mod)
+			end
+		end
+		table.sort(implicitList[modType], function(a, b)
+			local an = a[1]:lower():gsub("%(.-%)","$"):gsub("[%+%-%%]",""):gsub("%d+","$")
+			local bn = b[1]:lower():gsub("%(.-%)","$"):gsub("[%+%-%%]",""):gsub("%d+","$")
+			if an ~= bn then
+				return an < bn
+			else
+				return a.level < b.level
+			end
+		end)
 	end
-	table.sort(implicitList, function(a, b)
-		local an = a[1]:lower():gsub("%(.-%)","$"):gsub("[%+%-%%]",""):gsub("%d+","$")
-		local bn = b[1]:lower():gsub("%(.-%)","$"):gsub("[%+%-%%]",""):gsub("%d+","$")
-		if an ~= bn then
-			return an < bn
-		else
-			return a.level < b.level
-		end
-	end)
-	local function buildList(control, other)
+	buildImplicitList(currentModType)
+	local function buildList(control, other, modType)
 		local selfMod = control.selIndex and control.selIndex > 1 and control.list[control.selIndex].mod
-		local otherMod = other.selIndex and other.selIndex > 1 and other.list[other.selIndex].mod
+		local otherMod = other and other.selIndex and other.selIndex > 1 and other.list[other.selIndex].mod
 		wipeTable(control.list)
 		t_insert(control.list, { label = "None" })
-		for _, mod in ipairs(implicitList) do
+		for _, mod in ipairs(implicitList[modType]) do
 			if not otherMod or mod.group ~= otherMod.group then
 				t_insert(control.list, { label = table.concat(mod, "/"), mod = mod })
 			end
@@ -2149,11 +2166,11 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		item.id = self.displayItem.id
 		item.corrupted = true
 		local newImplicit = { }
-		for _, control in ipairs{controls.implicit, controls.implicit2} do
+		for _, control in ipairs{controls.implicit, controls.implicit2, controls.implicit3, controls.implicit4} do
 			if control.selIndex > 1 then
 				local mod = control.list[control.selIndex].mod
 				for _, modLine in ipairs(mod) do
-					modLine = (modType == "Scourge" and "{scourge}" or "") .. modLine
+					modLine = (currentModType == "ScourgeUpside" and "{scourge}" or "") .. modLine
 					if mod.modTags[1] then
 						t_insert(newImplicit, { line = "{tags:" .. table.concat(mod.modTags, ",") .. "}" .. modLine })
 					else
@@ -2163,25 +2180,68 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			end
 		end
 		if #newImplicit > 0 then
-			wipeTable(modType == "Corrupted" and item.implicitModLines or item.scourgeModLines)
+			wipeTable(currentModType == "Corrupted" and item.implicitModLines or item.scourgeModLines)
 			for i, implicit in ipairs(newImplicit) do
-				t_insert(modType == "Corrupted" and item.implicitModLines or item.scourgeModLines, i, implicit)
+				t_insert(currentModType == "Corrupted" and item.implicitModLines or item.scourgeModLines, i, implicit)
 			end
 		end
 		item:BuildAndParseRaw()
 		return item
 	end
-	controls.implicitLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 20, 0, 16, "^7Implicit #1:")
-	controls.implicit = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 20, 440, 18, nil, function()
-		buildList(controls.implicit2, controls.implicit)
+	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
+	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 150, 18, sourceList, function(index, value)
+		if value == "Scourge" then
+			currentModType = "ScourgeUpside"
+			buildImplicitList("ScourgeUpside")
+			buildImplicitList("ScourgeDownside")
+			controls.implicit3Label.shown = true
+			controls.implicit3.shown = true
+			if self.displayItem.rarity == "UNIQUE" or self.displayItem.rarity == "RELIC" then
+				controls.implicit4Label.shown = true
+				controls.implicit4.shown = true
+			end
+			controls.implicit2.y = 85
+			buildList(controls.implicit3, controls.implicit4, "ScourgeDownside")
+			buildList(controls.implicit4, controls.implicit3, "ScourgeDownside")
+		else
+			currentModType = value
+			controls.implicit3Label.shown = false
+			controls.implicit3.shown = false
+			controls.implicit4Label.shown = false
+			controls.implicit4.shown = false
+			controls.implicit2.y = 65
+		end
+		buildList(controls.implicit, controls.implicit2, currentModType)
+		buildList(controls.implicit2, controls.implicit, currentModType)
+		controls.implicit:SetSel(1)
+		controls.implicit2:SetSel(1)
+		controls.implicit3:SetSel(1)
+		controls.implicit4:SetSel(1)
 	end)
-	controls.implicit2Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 40, 0, 16, "^7Implicit #2:")
-	controls.implicit2 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 40, 440, 18, nil, function()
-		buildList(controls.implicit, controls.implicit2)
+	controls.source.enabled = #sourceList > 1
+	controls.implicitLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 45, 0, 16, "^7Implicit #1:")
+	controls.implicit = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 45, 440, 18, nil, function()
+		buildList(controls.implicit2, controls.implicit, currentModType)
 	end)
-	buildList(controls.implicit, controls.implicit2)
-	buildList(controls.implicit2, controls.implicit)
-	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, modType, function()
+	controls.implicit2Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 65, 0, 16, "^7Implicit #2:")
+	controls.implicit2 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 65, 440, 18, nil, function()
+		buildList(controls.implicit, controls.implicit2, currentModType)
+	end)
+	controls.implicit3Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 85, 0, 16, "^7Implicit #3:")
+	controls.implicit3 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 65, 440, 18, nil, function()
+		buildList(controls.implicit4, controls.implicit3, "ScourgeDownside")
+	end)
+	controls.implicit3Label.shown = false
+	controls.implicit3.shown = false
+	controls.implicit4Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 105, 0, 16, "^7Implicit #4:")
+	controls.implicit4 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 80, 105, 440, 18, nil, function()
+		buildList(controls.implicit3, controls.implicit4, "ScourgeDownside")
+	end)
+	controls.implicit4Label.shown = false
+	controls.implicit4.shown = false
+	buildList(controls.implicit, controls.implicit2, currentModType)
+	buildList(controls.implicit2, controls.implicit, currentModType)
+	controls.save = new("ButtonControl", nil, -45, 135, 80, 20, modType, function()
 		self:SetDisplayItem(corruptItem())
 		main:ClosePopup()
 	end)
@@ -2189,10 +2249,11 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		tooltip:Clear()
 		self:AddItemTooltip(tooltip, corruptItem(), nil, true)
 	end	
-	controls.close = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, 45, 135, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(540, 100, modType .. " Item", controls)
+	-- how do I access this to resize it?
+	main:OpenPopup(540, 165, modType .. " Item", controls)
 end
 
 -- Opens the custom modifier popup
@@ -2311,32 +2372,6 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
-		elseif sourceId == "EXARCH" or sourceId == "EATER" then
-			for i, mod in pairs(self.displayItem.affixes) do
-				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
-					t_insert(modList, {
-						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
-						mod = mod,
-						affixType = mod.type,
-						type = "custom",
-						defaultOrder = i,
-					})
-				end
-			end
-			table.sort(modList, function(a, b)
-				local modA = a.mod
-				local modB = b.mod
-				for i = 1, m_max(#modA, #modB) do
-					if not modA[i] then
-						return true
-					elseif not modB[i] then
-						return false
-					elseif modA.statOrder[i] ~= modB.statOrder[i] then
-						return modA.statOrder[i] < modB.statOrder[i]
-					end
-				end
-				return modA.level > modB.level
-			end)
 		end
 	end
 	if self.displayItem.type ~= "Jewel" then
@@ -2356,8 +2391,6 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		t_insert(sourceList, { label = "Suffix", sourceId = "SUFFIX" })
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
-	t_insert(sourceList, { label = "Searing Exarch", sourceId = "EXARCH" })
-	t_insert(sourceList, { label = "Eater of Worlds", sourceId = "EATER" })
 	buildMods(sourceList[1].sourceId)
 	local function addModifier()
 		local item = new("Item", self.displayItem:BuildRaw())
@@ -2411,6 +2444,113 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(710, 105, "Add Modifier to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")	
+end
+
+-- Opens the custom Implicit popup
+function ItemsTabClass:AddImplicitToDisplayItem()
+	local controls = { }
+	local sourceList = { }
+	local modList = { }
+	---Mutates modList to contain mods from the specified source
+	---@param sourceId string @The crafting source id to build the list of mods for
+	local function buildMods(sourceId)
+		wipeTable(modList)
+		if sourceId == "EXARCH" or sourceId == "EATER" then
+			for i, mod in pairs(self.displayItem.affixes) do
+				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
+					t_insert(modList, {
+						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						mod = mod,
+						affixType = mod.type,
+						type = "custom",
+						defaultOrder = i,
+					})
+				end
+			end
+			table.sort(modList, function(a, b)
+				local modA = a.mod
+				local modB = b.mod
+				for i = 1, m_max(#modA, #modB) do
+					if not modA[i] then
+						return true
+					elseif not modB[i] then
+						return false
+					elseif modA.statOrder[i] ~= modB.statOrder[i] then
+						return modA.statOrder[i] < modB.statOrder[i]
+					end
+				end
+				return modA.level > modB.level
+			end)
+		end
+	end
+	t_insert(sourceList, { label = "Searing Exarch", sourceId = "EXARCH" })
+	t_insert(sourceList, { label = "Eater of Worlds", sourceId = "EATER" })
+	--t_insert(sourceList, { label = "Synth", sourceId = "EXARCH" })
+	--t_insert(sourceList, { label = "Delve", sourceId = "EXARCH" })
+	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
+	buildMods(sourceList[1].sourceId)
+	local function addModifier()
+		local item = new("Item", self.displayItem:BuildRaw())
+		item.id = self.displayItem.id
+		local sourceId = sourceList[controls.source.selIndex].sourceId
+		local newImplicit = { }
+		local newType = false
+		if sourceId == "CUSTOM" then
+			if controls.custom.buf:match("%S") then
+				t_insert(newImplicit, { line = controls.custom.buf, custom = true })
+			end
+		else
+			local listMod = modList[controls.modSelect.selIndex]
+			for _, line in ipairs(listMod.mod) do
+				t_insert(newImplicit, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
+			end
+		end
+		if #newImplicit > 0 then
+			if newType then
+				wipeTable(item.implicitModLines)
+			end
+			for i, implicit in ipairs(newImplicit) do
+				t_insert(item.implicitModLines, i, implicit)
+			end
+		end
+		item:BuildAndParseRaw()
+		return item
+	end
+	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
+	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 150, 18, sourceList, function(index, value)
+		buildMods(value.sourceId)
+		controls.modSelect:SetSel(1)
+	end)
+	controls.source.enabled = #sourceList > 1
+	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Modifier:")
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 600, 18, modList)
+	controls.modSelect.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
+	controls.modSelect.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value then
+			for _, line in ipairs(value.mod) do
+				tooltip:AddLine(16, "^7"..line)
+			end
+		end
+	end
+	controls.custom = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 440, 18)
+	controls.custom.shown = function()
+		return sourceList[controls.source.selIndex].sourceId == "CUSTOM"
+	end
+	controls.save = new("ButtonControl", nil, -45, 75, 80, 20, "Add", function()
+		self:SetDisplayItem(addModifier())
+		main:ClosePopup()
+	end)
+	controls.save.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		self:AddItemTooltip(tooltip, addModifier())
+	end	
+	controls.close = new("ButtonControl", nil, 45, 75, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(710, 105, "Add Implicit to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")	
 end
 
 function ItemsTabClass:AddItemSetTooltip(tooltip, itemSet)
