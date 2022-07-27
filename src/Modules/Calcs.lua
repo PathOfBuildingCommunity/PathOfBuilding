@@ -217,6 +217,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					if usedEnv.minion.output.CullMultiplier and usedEnv.minion.output.CullMultiplier > 1 and usedEnv.minion.output.CullMultiplier > fullDPS.cullingMulti then
 						fullDPS.cullingMulti = usedEnv.minion.output.CullMultiplier
 					end
+					-- This is a fix to prevent Absolution spell hit from being counted multiple times when increasing minions count
+                    if activeSkill.activeEffect.grantedEffect.name == "Absolution" then
+                        activeSkillCount = 1
+                    end
 				end
 
 				if activeSkill.mirage then
