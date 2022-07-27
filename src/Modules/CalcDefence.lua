@@ -1114,20 +1114,20 @@ function calcs.defence(env, actor)
 			end
 		end
 		local takenMult = output[damageType.."TakenHitMult"]
-		local spellSupressMult = 1
+		local spellSuppressMult = 1
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
 			takenMult = output[damageType.."AttackTakenHitMult"]
 		elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
 			takenMult = output[damageType.."SpellTakenHitMult"]
-			spellSupressMult = output.SpellSuppressionChance == 100 and (1 - output.SpellSuppressionEffect / 100) or 1
+			spellSuppressMult = output.SpellSuppressionChance == 100 and (1 - output.SpellSuppressionEffect / 100) or 1
 		elseif damageCategoryConfig == "Average" then
 			takenMult = (output[damageType.."SpellTakenHitMult"] + output[damageType.."AttackTakenHitMult"]) / 2
-			spellSupressMult = output.SpellSuppressionChance == 100 and (1 - output.SpellSuppressionEffect / 100 / 2) or 1
+			spellSuppressMult = output.SpellSuppressionChance == 100 and (1 - output.SpellSuppressionEffect / 100 / 2) or 1
 		end
-		output[damageType.."BaseTakenHitMult"] = baseMult * takenMult * spellSupressMult
+		output[damageType.."BaseTakenHitMult"] = baseMult * takenMult * spellSuppressMult
 		local takenMultReflect = output[damageType.."TakenReflect"]
 		local finalReflect = baseMult * takenMultReflect
-		output[damageType.."TakenHit"] = m_max(damage * baseMult + takenFlat, 0) * takenMult * spellSupressMult
+		output[damageType.."TakenHit"] = m_max(damage * baseMult + takenFlat, 0) * takenMult * spellSuppressMult
 		output[damageType.."TakenHitMult"] = (damage > 0) and (output[damageType.."TakenHit"] / damage) or 0
 		output["totalTakenHit"] = output["totalTakenHit"] + output[damageType.."TakenHit"]
 		if output.AnyTakenReflect then
@@ -1160,10 +1160,10 @@ function calcs.defence(env, actor)
 			if takenMult ~= 1 then
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("x Taken: %.3f", takenMult))
 			end
-			if spellSupressMult ~= 1 then
-				t_insert(breakdown[damageType.."TakenHitMult"], s_format("x Spell Supression: %.3f", spellSupressMult))
+			if spellSuppressMult ~= 1 then
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("x Spell Suppression: %.3f", spellSuppressMult))
 			end
-			if takenMult ~= 1 or takenFlat ~= 0 or spellSupressMult ~= 1 then
+			if takenMult ~= 1 or takenFlat ~= 0 or spellSuppressMult ~= 1 then
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.3f", output[damageType.."TakenHitMult"]))
 			end
 			breakdown[damageType.."TakenHit"] = {
@@ -1639,7 +1639,7 @@ function calcs.defence(env, actor)
 				DamageIn.EnergyShieldWhenHit = DamageIn.EnergyShieldWhenHit + output.EnergyShieldOnSpellBlock / 2 * BlockChance
 			end
 		end
-		-- supression
+		-- suppression
 		if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" or damageCategoryConfig == "Average" then
 			suppressChance = output.SpellSuppressionChance / 100
 		end
