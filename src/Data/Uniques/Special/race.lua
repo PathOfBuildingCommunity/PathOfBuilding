@@ -6,9 +6,7 @@ return {
 Ashes of the Sun
 Driftwood Club
 League: Race Events
-Quality: 0
 Sockets: W-W-W
-LevelReq: 1
 Implicits: 1
 10% reduced Enemy Stun Threshold
 Adds 3 to 6 Fire Damage
@@ -20,7 +18,6 @@ Adds 3 to 6 Fire Damage
 Blood of Summer
 Rusted Sword
 League: Race Events
-Quality: 0
 Sockets: W-W-W
 Implicits: 1
 40% increased Global Accuracy Rating
@@ -33,7 +30,6 @@ Adds 2 to 6 Physical Damage
 Fragment of Eternity
 Glass Shank
 League: Race Events
-Quality: 0
 Sockets: W-W-W
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -46,7 +42,6 @@ Adds 1 to 4 Physical Damage
 Relic of the Cycle
 Crude Bow
 League: Race Events
-Quality: 0
 Sockets: W-W-W
 Implicits: 0
 100% increased Physical Damage
@@ -57,9 +52,6 @@ Projectiles Return to you from final target
 Remnant of Empires
 Goathide Buckler
 League: Race Events
-Evasion: 24
-EvasionBasePercentile: 1
-Quality: 0
 Sockets: W-W-W
 Implicits: 1
 3% increased Movement Speed
@@ -73,9 +65,7 @@ Reflects 4 to 8 Physical Damage to Attackers on Block
 Rust of Winter
 Rusted Hatchet
 League: Race Events
-Quality: 0
 Sockets: W-W-W
-LevelReq: 1
 Implicits: 0
 Adds 2 to 4 Physical Damage
 Adds 2 to 4 Cold Damage
@@ -85,7 +75,6 @@ Your Physical Damage can Chill
 Scar of Fate
 Nailed Fist
 League: Race Events
-Quality: 0
 Sockets: W-W-W
 Implicits: 1
 +3 Life gained for each Enemy hit by Attacks
@@ -97,8 +86,7 @@ Adds 2 to 6 Physical Damage
 Slivers of Providence
 Serrated Arrow Quiver
 League: Race Events
-Quality: 0
-LevelReq: 1
+LevelReq: 0
 Implicits: 1
 1 to 4 Added Physical Damage with Bow Attacks
 +10% to all Elemental Resistances
@@ -109,7 +97,6 @@ Gain 25% of Weapon Physical Damage as Extra Damage of a random Element
 Splinter of the Moon
 Driftwood Wand
 League: Race Events
-Quality: 0
 Sockets: W-W-W
 Implicits: 1
 (8-12)% increased Spell Damage
@@ -121,7 +108,6 @@ Regenerate 2 Mana per second
 Thunder of the Dawn
 Corroded Blade
 League: Race Events
-Quality: 0
 Sockets: W-W-W
 Implicits: 1
 40% increased Global Accuracy Rating
@@ -134,7 +120,6 @@ When you Kill a Shocked Enemy, inflict an equivalent Shock on each nearby Enemy
 Vestige of Divinity
 Gnarled Branch
 League: Race Events
-Quality: 0
 Sockets: W-W-W
 Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
