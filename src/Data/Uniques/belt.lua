@@ -8,6 +8,7 @@ Cloth Belt
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
+LevelReq: 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_defense}+(600-700) to Armour
@@ -89,6 +90,7 @@ Implicits: 1
 Bear's Girdle
 Leather Belt
 League: Harvest
+LevelReq: 68
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:attack,physical}Adds (5-7) to (11-12) Physical Damage to Attacks
@@ -101,6 +103,7 @@ Belt of the Deceiver
 Heavy Belt
 Variant: Pre 2.6.0
 Variant: Current
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {variant:1}10% reduced Chance to Block Attacks and Spells
@@ -113,6 +116,7 @@ Implicits: 1
 ]],[[
 Bisco's Leash
 Heavy Belt
+LevelReq: 30
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 5% increased Quantity of Items found
@@ -165,6 +169,7 @@ Implicits: 1
 Cyclopean Coil
 Leather Belt
 Source: Drops from unique{The Elder}
+LevelReq: 68
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:life}+(60-80) to maximum Life
@@ -198,6 +203,7 @@ Variant: Current (Physical)
 Variant: Current (Fire)
 Variant: Current (Cold)
 Variant: Current (Lightning)
+LevelReq: 68
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {variant:1,5}{tags:physical}(20-30)% increased Physical Damage
@@ -227,6 +233,7 @@ Implicits: 1
 The Druggery
 Cloth Belt
 League: Heist
+LevelReq: 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_attribute}+(20-30) to all Attributes
@@ -240,6 +247,7 @@ Dyadian Dawn
 Heavy Belt
 Variant: Pre 2.6.0
 Variant: Current
+LevelReq: 52
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {tags:life}+(70-85) to maximum Life
@@ -281,6 +289,7 @@ Variant: Pre 3.16.0
 Variant: Current
 League: Harbinger
 Upgrade: Upgrades to unique{The Torrent's Reclamation} via currency{Time-light Scroll}
+LevelReq: 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Harbinger of Time Skill
@@ -296,6 +305,7 @@ The Torrent's Reclamation
 Cloth Belt
 League: Harvest
 Source: Upgraded from unique{The Flow Untethered} via currency{Time-light Scroll}
+LevelReq: 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Greater Harbinger of Time Skill
@@ -309,6 +319,7 @@ Gluttony
 Leather Belt
 Variant: Pre 3.12.0
 Variant: Current
+LevelReq: 48
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {variant:1}Trigger Level 30 Poacher's Mark when you Hit a Rare or Unique Enemy
@@ -325,6 +336,7 @@ Cloth Belt
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
+LevelReq: 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_defense}+(60-70) to Energy Shield
@@ -338,6 +350,7 @@ Gain Absorption Charges instead of Power Charges
 Headhunter
 Leather Belt
 League: Nemesis
+LevelReq: 40
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:jewellery_attribute}+(40-55) to Strength
@@ -349,6 +362,7 @@ When you Kill a Rare monster, you gain its Modifiers for 60 seconds
 Replica Headhunter
 Leather Belt
 League: Heist
+LevelReq: 40
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:jewellery_attribute}+(40-55) to Strength
@@ -380,6 +394,7 @@ Variant: Current (Strength and Intelligence)
 Variant: Current (Trap Throwing Speed)
 Variant: Current (Energy Shield Regen)
 Variant: Current (Lucky Crit Chance while Focused)
+LevelReq: 60
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:jewellery_resistance}+(30-40)% to Cold Resistance
@@ -403,6 +418,7 @@ Leather Belt
 Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Current
+LevelReq: 50
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:life}+(75-100) to maximum Life
@@ -417,6 +433,7 @@ Implicits: 1
 ]],[[
 Leash of Oblation
 Leather Belt
+LevelReq: 49
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:jewellery_attribute}+(15-20) to all Attributes
@@ -438,6 +455,7 @@ Implicits: 1
 The Nomad
 Studded Belt
 Source: Drops from any endgame map boss
+LevelReq: 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 {tags:jewellery_attribute}+(40-50) to Strength
@@ -450,6 +468,7 @@ Implicits: 1
 The Tactician
 Studded Belt
 Source: Drops from any endgame map boss
+LevelReq: 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 {tags:jewellery_attribute}+(40-50) to Strength
@@ -461,6 +480,7 @@ Implicits: 1
 ]],[[
 Mageblood
 Heavy Belt
+LevelReq: 44
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {tags:jewellery_attribute}+(30-50) to Dexterity
@@ -497,6 +517,7 @@ Implicits: 1
 Mother's Embrace
 Heavy Belt
 League: Metamorph
+LevelReq: 40
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {tags:life}+(50-70) to maximum Life
@@ -510,6 +531,7 @@ Cloth Belt
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
+LevelReq: 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_defense}+(600-700) to Evasion Rating
@@ -579,6 +601,7 @@ Implicits: 1
 Pyroshock Clasp
 Leather Belt
 League: Heist
+LevelReq: 43
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:jewellery_attribute}+(30-40) to Dexterity
@@ -606,6 +629,7 @@ Ryslatha's Coil
 Studded Belt
 Variant: Pre 3.5.0
 Variant: Current
+LevelReq: 20
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 {tags:jewellery_attribute}+(20-40) to Strength
@@ -619,6 +643,7 @@ Implicits: 1
 ]],[[
 Siegebreaker
 Heavy Belt
+LevelReq: 44
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
@@ -630,6 +655,7 @@ Your Minions spread Caustic Ground on Death, dealing 20% of their maximum Life a
 Replica Siegebreaker
 Heavy Belt
 League: Heist
+LevelReq: 44
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
@@ -640,6 +666,7 @@ Your Minions spread Burning Ground on Death, dealing 20% of their maximum Life a
 ]],[[
 Soul Tether
 Cloth Belt
+LevelReq: 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_attribute}+(20-40) to Intelligence
@@ -649,6 +676,7 @@ Immortal Ambition
 Replica Soul Tether
 Cloth Belt
 League: Heist
+LevelReq: 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:jewellery_attribute}+(20-40) to Strength
@@ -657,6 +685,7 @@ Corrupted Soul
 ]],[[
 Soulthirst
 Cloth Belt
+LevelReq: 45
 Implicits: 1
 (15-25)% increased Stun Recovery
 {tags:life}+(60-80) to maximum Life
@@ -721,6 +750,7 @@ Corrupted
 ]],[[
 Sunblast
 Cloth Belt
+LevelReq: 37
 Implicits: 1
 (15-25)% increased Stun Recovery
 (30-40)% increased Trap Damage
@@ -732,6 +762,7 @@ Implicits: 1
 Survivor's Guilt
 Heavy Belt
 League: Ritual
+LevelReq: 52
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {tags:jewellery_defense}+(800-1200) to Armour
@@ -743,6 +774,7 @@ Imbalanced Guard
 Umbilicus Immortalis
 Leather Belt
 League: Perandus
+LevelReq: 30
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:life}(8-12)% increased maximum Life
