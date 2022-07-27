@@ -850,11 +850,10 @@ Requires Level 68, 85 Str, 85 Int
 Implicits: 2
 {variant:1}+24% to all Elemental Resistances
 {variant:2,3,4}+12% to all Elemental Resistances
-{variant:1,2}+1 to Level of Aura Gems in this item
+{variant:1,2}+1 to Level of Socketed Aura Gems
 {variant:3,4}+2 to Level of Socketed Aura Gems
 Socketed Gems Cost and Reserve Life instead of Mana
-{variant:1,2,3}Socketed Gems have 50% increased Mana Reservation Efficiency
-{variant:4}Socketed Gems have 30% increased Reservation Efficiency
+Socketed Gems have 30% increased Reservation Efficiency
 +(20-30) to Dexterity
 +25% to all Elemental Resistances
 ]],[[
@@ -878,10 +877,10 @@ Requires Level 65, 85 Str, 85 Int
 Implicits: 2
 {variant:1}+16% to all Elemental Resistances
 {variant:2,3}+8% to all Elemental Resistances
-{variant:3}+(40-60) Maximum Life
 (80-100)% increased Armour and Energy Shield
-{variant:1,2}6 Life Regenerated per second
-{variant:3}(15-20) Life Regenerated per second
+{variant:3}+(40-60) maximum Life
+{variant:1,2}Regenerate 6 Life per second
+{variant:3}Regenerate (15-20) Life per second
 {variant:1,2}+8% to maximum Fire Resistance
 {variant:3}+5% to maximum Fire Resistance
 +(20-25)% to Fire Resistance
@@ -898,8 +897,8 @@ Requires Level 59, 76 Str, 76 Int
 Implicits: 2
 {variant:1}+8% to all Elemental Resistances
 {variant:2,3}+4% to all Elemental Resistances
-{variant:1,2}+(21-24)% chance to Block Spell Damage
-{variant:3}+(15-20)% chance to Block Spell Damage
+{variant:1,2}(21-24)% Chance to Block Spell Damage
+{variant:3}(15-20)% Chance to Block Spell Damage
 (20-30)% increased Spell Damage
 +10% to all Elemental Resistances
 {variant:1}+5% to all maximum Resistances
