@@ -62,6 +62,16 @@ local function writeMods(outName, condFunc)
 						break
 					end
  				end
+				if string.find(mod.Id, "EldritchImplicitUniquePresence") and #stats > 0 and #orders > 0 then
+					for i, stat in ipairs(stats) do
+						stats[i] = 	"While a Unique Enemy is in your Presence, ".. stat
+					end
+				end
+				if string.find(mod.Id, "EldritchImplicitPinnaclePresence") and #stats > 0 and #orders > 0 then
+					for i, stat in ipairs(stats) do
+						stats[i] = "While a Pinnacle Atlas Boss is in your Presence, ".. stat
+					end
+				end
 				out:write('"', table.concat(stats, '", "'), '", ')
 				out:write('statOrderKey = "', table.concat(orders, ','), '", ')
 				out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
@@ -100,7 +110,7 @@ end
 writeMods("../Data/ModItem.lua", function(mod)
 	return (mod.Domain == 1 or mod.Domain == 16)
 			and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5 or mod.GenerationType == 25 or mod.GenerationType == 24
-			or mod.GenerationType == 29 or mod.GenerationType == 30) -- Eldritch Implicits
+			or mod.GenerationType == 28 or mod.GenerationType == 29) -- Eldritch Implicits
 			and not mod.Id:match("^Hellscape[UpDown]+sideMap") -- Exclude Scourge map mods
 			and #mod.AuraFlags == 0
 end)
