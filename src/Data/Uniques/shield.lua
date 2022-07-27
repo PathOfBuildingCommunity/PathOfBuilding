@@ -523,12 +523,12 @@ Chiming Spirit Shield
 Requires Level 49, 118 Int
 Implicits: 1
 (10-15)% increased Spell Damage
-Trigger a Socketed Warcry Skill when you lose Endurance Charges
+Trigger a Socketed Warcry Skill on losing Endurance Charges, with a 0.25 second Cooldown
 +(60-80) to maximum Life
 +(17-23)% to Chaos Resistance
-You lose all Endurance Charges at maximum Endurance Charges
+You lose all Endurance Charges on reaching maximum Endurance Charges
 Cannot Block
-50% increased Warcry Cooldown Recovery Speed
+50% increased Warcry Cooldown Recovery Rate
 ]],[[
 Kongming's Stratagem
 Ivory Spirit Shield
@@ -559,13 +559,13 @@ Requires Level 28, 71 Int
 Implicits: 2
 {variant:1}10% increased Spell Damage
 {variant:2,3}(10-15)% increased Spell Damage
+{variant:3}Adds (35-39) to (54-60) Cold Damage to Spells
 (60-80)% increased Critical Strike Chance for Spells
 {variant:1,2}(100-140)% increased Energy Shield
 {variant:3}(475-600)% increased Energy Shield
 {variant:1,2}+(3-5)% Chance to Block
 {variant:3}+(6-10)% Chance to Block
-{variant:3}Adds (35-39) to (54-60) Cold Damage to Spells
-+1% to Critical Strike Multiplier per 1% Block Chance
++1% to Critical Strike Multiplier per 1% Chance to Block Attack Damage
 +25% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
 ]],[[
 Malachai's Loop
@@ -607,11 +607,11 @@ Implicits: 2
 {variant:1}5% increased Spell Damage
 {variant:2}(5-10)% increased Spell Damage
 +2 to Level of Socketed Minion Gems
-+(15-25) to maximum Mana
 (40-80)% increased Energy Shield
++(15-25) to maximum Mana
 10% increased effect of Non-Curse Auras from your Skills on your Minions
-10% increased effect of Non-Curse Auras from your Skills
 Spreads Tar when you take a Critical Strike
+10% increased effect of Non-Curse Auras from your Skills
 ]],[[
 Whakatutuki o Matua
 Tarnished Spirit Shield
