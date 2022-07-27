@@ -144,7 +144,6 @@ Requires Level: 20
 Limited to: 1
 Has Alt Variant: true
 Has Alt Variant Two: true
-Selected Variant: 1
 Variant: Avarius
 Variant: Dominus
 Variant: Maxarius
