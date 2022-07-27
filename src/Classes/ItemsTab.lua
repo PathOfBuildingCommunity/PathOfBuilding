@@ -2483,7 +2483,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			end)
 		elseif sourceId == "Synthesis" then
 			for i, mod in pairs(self.displayItem.affixes) do
-				if sourceId:lower() == mod.type:lower() then -- weights are missing and so are 0, how do I determine what goes on what item?
+				if sourceId:lower() == mod.type:lower() then -- weights are missing and so are 0, how do I determine what goes on what item?, also arnt these supposed to work on jewels?
 					t_insert(modList, {
 						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
 						mod = mod,
@@ -2517,7 +2517,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		t_insert(sourceList, { label = "Searing Exarch", sourceId = "EXARCH" })
 		t_insert(sourceList, { label = "Eater of Worlds", sourceId = "EATER" })
 	end
-	if self.displayItem.type ~= "Flask" then
+	if self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Jewel" then
 		t_insert(sourceList, { label = "Synth", sourceId = "Synthesis" })
 		t_insert(sourceList, { label = "Delve", sourceId = "DelveImplicit" })
 	end
