@@ -13,8 +13,8 @@ Implicits: 1
 {variant:2,3}+(10-20) to maximum Life
 (50-100)% increased Armour
 +(60-80) to maximum Life
--1 to maximum Endurance Charges
--10% to maximum Block Chance
+-1 to Maximum Endurance Charges
+-10% to maximum Chance to Block Attack Damage
 +6% Chance to Block
 {variant:1,2}+3% to all maximum Resistances while you have no Endurance Charges
 {variant:3}+2% to all maximum Resistances while you have no Endurance Charges
@@ -45,7 +45,7 @@ Variant: Current
 Requires Level 64, 159 Str
 Implicits: 1
 {variant:2}+(30-40) to maximum Life
-Grants level 30 Reckoning Skill
+Grants Level 30 Reckoning Skill
 (130-170)% increased Armour
 +(65-80) to maximum Life
 Recover 250 Life when you Block
@@ -76,13 +76,13 @@ Colossal Tower Shield
 Source: Drops from unique{The Searing Exarch}
 Requires Level 67, 159 Str
 Implicits: 1
-+(10–20) to maximum Life
-(150–250)% increased Armour
-+(20–25)% Chance to Block
++(10-20) to maximum Life
+(150-250)% increased Armour
++(20-25)% Chance to Block
 -1% Chance to Block Attack Damage for every 200 Fire Damage taken from Hits Recently
-(10–20)% of Cold Damage taken as Fire
-(10–20)% of Lightning Damage taken as Fire
-(10–20)% of Physical Damage taken as Fire
+(10-20)% of Cold Damage taken as Fire Damage
+(10-20)% of Lightning Damage taken as Fire Damage
+(10-20)% of Physical Damage taken as Fire Damage
 Scorch Enemies in Close Range when you Block
 ]],[[
 Lioneye's Remorse
