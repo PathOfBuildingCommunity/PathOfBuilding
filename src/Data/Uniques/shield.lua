@@ -8,7 +8,6 @@ Colossal Tower Shield
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 67, 159 Str
 Implicits: 1
 {variant:2,3}+(10-20) to maximum Life
 (50-100)% increased Armour
@@ -27,7 +26,6 @@ Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{The Surrender} using currency{Blessing of Uul-Netol}
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 64, 159 Str
 Implicits: 1
 {variant:2}+(30-40) to maximum Life
 (120-160)% increased Armour
@@ -42,7 +40,6 @@ League: Breach
 Source: Upgraded from unique{The Anticipation} using currency{Blessing of Uul-Netol}
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 64, 159 Str
 Implicits: 1
 {variant:2}+(30-40) to maximum Life
 Grants Level 30 Reckoning Skill
@@ -58,7 +55,6 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 61, 159 Str
 Implicits: 1
 {variant:4}+(20-30) to maximum Life
 {variant:1}Adds 10 to 25 Fire Damage to Spells and Attacks
@@ -74,7 +70,6 @@ Implicits: 1
 Dawnbreaker
 Colossal Tower Shield
 Source: Drops from unique{The Searing Exarch}
-Requires Level 67, 159 Str
 Implicits: 1
 +(10-20) to maximum Life
 (150-250)% increased Armour
@@ -91,7 +86,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 70, 159 Str
 Implicits: 1
 {variant:3,4}+(20-30) to maximum Life
 {variant:1,2,3}(200-250)% increased Armour
@@ -107,7 +101,6 @@ Lycosidae
 Rawhide Tower Shield
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 11, 33 Str
 Implicits: 1
 {variant:2}+(10-20) to maximum Life
 +(120-160) to Armour
@@ -121,7 +114,6 @@ Pinnacle Tower Shield
 Variant: Pre 3.16.0
 Variant: Current
 Source: Vendor recipe
-Requires Level 70, 159 Str
 Implicits: 1
 +(20-30) to maximum Life
 +2 to Level of Socketed Gems
@@ -138,7 +130,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 35, 87 Str
 Implicits: 1
 {variant:3,4}+(20-30) to maximum Life
 {variant:2,3,4}(80-100)% increased Armour
@@ -158,7 +149,6 @@ Reinforced Tower Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 30, 76 Str
 Implicits: 1
 {variant:3}+(10-20) to maximum Life
 (60-80)% increased Armour
@@ -174,7 +164,6 @@ League: Tempest
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 17, 46 Str
 Implicits: 1
 {variant:3}+(20-30) to maximum Life
 {variant:2,3}(130-150)% increased Armour
@@ -188,7 +177,6 @@ Tukohama's Fortress
 Ebony Tower Shield
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 61, 159 Str
 Implicits: 1
 {variant:2}+(20-30) to maximum Life
 40% increased Totem Damage
@@ -200,7 +188,6 @@ Blood Magic
 Replica Tukohama's Fortress
 Ebony Tower Shield
 League: Heist
-Requires Level 61, 159 Str
 Implicits: 1
 +(20-30) to maximum Life
 +(80-100) to maximum Life
@@ -217,7 +204,6 @@ Upgrade: No longer obtainable
 Variant: Pre 2.0.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
-Requires Level 54, 130 Dex
 Implicits: 1
 {variant:3}6% increased Movement Speed
 +(40-60) to Intelligence
@@ -232,7 +218,6 @@ Hex Reflection
 Atziri's Reflection
 Golden Buckler
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-Requires Level 68, 130 Dex
 Implicits: 1
 6% increased Movement Speed
 +(40-60) to Intelligence
@@ -249,7 +234,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 29, 74 Dex
 Implicits: 1
 {variant:3,4}9% increased Movement Speed
 +1 to Level of Socketed Curse Gems
@@ -267,7 +251,6 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
-Requires Level 32, 74 Dex
 Implicits: 1
 {variant:3}9% increased Movement Speed
 +1 to Level of Socketed Curse Gems
@@ -284,7 +267,6 @@ Pine Buckler
 Variant: Pre 1.3.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 8, 26 Dex
 Implicits: 1
 {variant:3}3% increased Movement Speed
 +(60-80) to maximum Life
@@ -298,7 +280,6 @@ Great Old One's Ward
 Corrugated Buckler
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 46, 112 Dex
 Implicits: 1
 {variant:2}3% increased Movement Speed
 (8-12)% Chance to Block Spell Damage
@@ -312,7 +293,6 @@ Variant: Pre 1.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 16, 44 Dex
 Implicits: 1
 {variant:4}6% increased Movement Speed
 (60-100)% increased Evasion Rating
@@ -329,7 +309,6 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
-Requires Level 16, 44 Dex
 Implicits: 1
 {variant:3}6% increased Movement Speed
 (60-100)% increased Evasion Rating
@@ -342,7 +321,6 @@ Reflects (25-50) Cold Damage to Melee Attackers
 ]],[[
 Mistwall
 Lacquered Buckler
-Requires Level 60, 159 Dex
 Implicits: 1
 6% increased Movement Speed
 (120-150)% increased Evasion Rating
@@ -355,7 +333,6 @@ You have Phasing if you have Blocked Recently
 Replica Mistwall
 Lacquered Buckler
 League: Heist
-Requires Level 60, 159 Dex
 Implicits: 1
 6% increased Movement Speed
 (120-150)% increased Evasion Rating
@@ -372,7 +349,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 42, 103 Dex
 Implicits: 1
 {variant:3,4}6% increased Movement Speed
 {variant:1}+1 to Level of Socketed Warcry Gems
@@ -390,7 +366,6 @@ Vaal Buckler
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 63, 159 Dex
 Implicits: 1
 {variant:3}3% increased Movement Speed
 (100-120)% increased Evasion Rating
@@ -409,8 +384,6 @@ Variant: Current
 {variant:2}Vaal Spirit Shield
 League: Incursion
 Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
-{variant:1}Requires Level 45, 110 Int
-{variant:2}Requires Level 62, 159 Int
 Implicits: 1
 (5-10)% increased Spell Damage
 {variant:1}Adds (20-22) to (30-37) Chaos Damage
@@ -426,7 +399,6 @@ Apep's Supremacy
 Vaal Spirit Shield
 League: Incursion
 Source: Upgraded from unique{Apep's Slumber} via currency{Vial of Awakening}
-Requires Level 62, 159 Int
 Implicits: 1
 (5-10)% increased Spell Damage
 Adds (50-55) to (72-80) Chaos Damage
@@ -447,7 +419,6 @@ Variant: Fire and Lightning Damage
 Variant: Energy Shield and Life
 Variant: Armour during Soul Gain Prevention
 Variant: Level of Socketed Support Gems
-Requires Level 68, 159 Int
 (30-50)% increased Spell Damage
 (180-220)% increased Energy Shield
 Spectres have (50-100)% increased maximum Life
@@ -472,7 +443,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 23, 60 Int
 Implicits: 2
 {variant:1,2}5% increased Spell Damage
 {variant:3,4}(5-10)% increased Spell Damage
@@ -491,7 +461,7 @@ Thorium Spirit Shield
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Esh's Visage} using currency{Blessing of Esh}
-Requires Level 53, 128 Int
+Implicits: 0
 +(20-30) to Intelligence
 (80-100)% increased Energy Shield
 +(40-70) to maximum Life
@@ -506,7 +476,6 @@ Source: Upgraded from unique{Esh's Mirror} using currency{Blessing of Esh}
 Variant: Pre 3.0.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 62, 159 Int
 Implicits: 2
 {variant:1}5% increased Spell Damage
 {variant:2,3}(5-10)% increased Spell Damage
@@ -520,7 +489,6 @@ Reflect Shocks applied to you to all Nearby Enemies
 ]],[[
 The Eternal Apple
 Chiming Spirit Shield
-Requires Level 49, 118 Int
 Implicits: 1
 (10-15)% increased Spell Damage
 Trigger a Socketed Warcry Skill on losing Endurance Charges, with a 0.25 second Cooldown
@@ -536,7 +504,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 41, 100 Int
 Implicits: 2
 {variant:1}15% increased Spell Damage
 {variant:2,3,4}(15-20)% increased Spell Damage
@@ -555,7 +522,6 @@ Jingling Spirit Shield
 Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 28, 71 Int
 Implicits: 2
 {variant:1}10% increased Spell Damage
 {variant:2,3}(10-15)% increased Spell Damage
@@ -574,7 +540,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 65, 159 Int
 Implicits: 2
 {variant:1,2}10% increased Spell Damage
 {variant:3,4}(10-15)% increased Spell Damage
@@ -589,7 +554,6 @@ Shocks you when you reach Maximum Power Charges
 ]],[[
 Manastorm
 Fossilised Spirit Shield
-Requires Level 59, 141 Int
 Implicits: 1
 (15-20)% increased Spell Damage
 (80-120)% increased Energy Shield
@@ -602,7 +566,6 @@ Matua Tupuna
 Tarnished Spirit Shield
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 23, 60 Int
 Implicits: 2
 {variant:1}5% increased Spell Damage
 {variant:2}(5-10)% increased Spell Damage
@@ -616,7 +579,6 @@ Spreads Tar when you take a Critical Strike
 Whakatutuki o Matua
 Tarnished Spirit Shield
 Source: Drops from any endgame map boss
-Requires Level 63, 60 Int
 Implicits: 1
 (5-10)% increased Spell Damage
 +3 to Level of Socketed Minion Gems
@@ -635,7 +597,7 @@ Source: Drops from Vaal Legion
 Variant: Pre 3.4.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 68, 159 Int
+Implicits: 0
 {variant:1}+(12-18)% chance to Block Spell Damage
 {variant:2,3}+(10-15)% chance to Block Spell Damage
 {variant:1,2}(40-60)% increased Spell Damage
@@ -648,7 +610,6 @@ Requires Level 68, 159 Int
 ]],[[
 The Scales of Justice
 Chiming Spirit Shield
-Requires Level 49, 118 Int
 Implicits: 1
 (10-15)% increased Spell Damage
 Has no Energy Shield
@@ -661,7 +622,7 @@ Sentari's Answer
 Brass Spirit Shield
 Variant: Pre 3.4.0
 Variant: Current
-Requires Level 33, 82 Int
+Implicits: 0
 {variant:1}7% chance to Block Spell Damage
 {variant:2}10% Chance to Block Spell Damage
 +(20-30) to Intelligence
@@ -678,7 +639,6 @@ Baroque Round Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.4.0
 Variant: Current
-Requires Level 54, 70 Str, 70 Dex
 Implicits: 1
 120% increased Block Recovery
 {variant:1,2}36% chance to Block Spell Damage while on Low Life
@@ -697,7 +657,6 @@ The Deep One's Hide
 Studded Round Shield
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20, 28 Str, 28 Dex
 Implicits: 1
 60% increased Block Recovery
 Adds 4 to 8 Physical Damage to Attacks
@@ -712,7 +671,6 @@ Teak Round Shield
 Variant: Pre 3.16.0
 Variant: Current
 League: Heist
-Requires Level 58, 74 Str, 74 Dex
 Implicits: 1
 180% increased Block Recovery
 +2 to Level of Socketed Support Gems
@@ -726,7 +684,6 @@ Nearby Enemies are Blinded while Physical Aegis is not depleted
 ]],[[
 The Oppressor
 Elegant Round Shield
-Requires Level 70, 85 Str, 85 Dex
 Implicits: 1
 120% increased Block Recovery
 -10% to amount of Suppressed Spell Damage Prevented
@@ -738,7 +695,6 @@ You take 20% of Damage from Blocked Hits
 Shattershard
 Crimson Round Shield
 League: Heist
-Requires Level 49, 64 Str, 64 Dex
 Implicits: 0
 Trigger Level 20 Shield Shatter when you Block
 (120-150)% increased Armour and Evasion
@@ -747,7 +703,6 @@ Trigger Level 20 Shield Shatter when you Block
 ]],[[
 The Squire
 Elegant Round Shield
-Requires Level 70, 85 Str, 85 Dex
 Implicits: 1
 120% increased Block Recovery
 Has 3 Sockets
@@ -759,7 +714,7 @@ Socketed Support Gems can also Support Skills from your Main Hand
 ]],[[
 Vix Lunaris
 Cardinal Round Shield
-Requires Level: 66, 85 Str, 85 Dex
+Implicits: 0
 +2 to Level of Socketed Gems
 Triggers Level 20 Cold Aegis when Equipped
 (200-250)% increased Armour and Evasion
@@ -770,7 +725,6 @@ Wheel of the Stormsail
 Rotted Round Shield
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 5
 Implicits: 1
 60% increased Block Recovery
 +(5-10) to Armour
@@ -787,7 +741,7 @@ Champion Kite Shield
 Variant: Pre 1.1.0
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 62, 85 Str, 85 Int
+Implicits: 0
 {variant:1,2}(80-100)% increased Armour and Energy Shield
 {variant:3}(300-400)% increased Armour and Energy Shield
 +10% to all Elemental Resistances
@@ -803,7 +757,6 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 68, 85 Str, 85 Int
 Implicits: 1
 +12% to all Elemental Resistances
 0.4% of Chaos Damage Leeched as Life
@@ -820,7 +773,7 @@ Create Profane Ground instead of Consecrated Ground
 Emperor's Vigilance
 Steel Kite Shield
 League: Harvest
-Requires Level 46, 60 Str, 60 Int
+Implicits: 0
 (16-22)% Chance to Block Spell Damage
 (300-400)% increased Armour and Energy Shield
 (10-15)% increased maximum Life
@@ -831,7 +784,6 @@ Glancing Blows
 ]],[[
 Invictus Solaris
 Archon Kite Shield
-Requires Level: 68, 85 Str, 85 Int
 Implicits: 1
 +12% to all Elemental Resistances
 +2 to Level of Socketed Gems
@@ -846,7 +798,6 @@ Variant: Pre 1.1.0
 Variant: Pre 2.0.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 68, 85 Str, 85 Int
 Implicits: 2
 {variant:1}+24% to all Elemental Resistances
 {variant:2,3,4}+12% to all Elemental Resistances
@@ -860,7 +811,7 @@ Socketed Gems have 30% increased Reservation Efficiency
 Mahuxotl's Machination
 Steel Kite Shield
 League: Ultimatum
-Requires Level 46, 60 Str, 60 Int
+Implicits: 0
 Corrupted Soul
 Divine Flesh
 Eternal Youth
@@ -873,7 +824,6 @@ Mosaic Kite Shield
 Variant: Pre 1.1.0
 Variant: Pre 3.1.0
 Variant: Current
-Requires Level 65, 85 Str, 85 Int
 Implicits: 2
 {variant:1}+16% to all Elemental Resistances
 {variant:2,3}+8% to all Elemental Resistances
@@ -893,7 +843,6 @@ Branded Kite Shield
 Variant: Pre 1.1.0
 Variant: Pre 3.4.0
 Variant: Current
-Requires Level 59, 76 Str, 76 Int
 Implicits: 2
 {variant:1}+8% to all Elemental Resistances
 {variant:2,3}+4% to all Elemental Resistances
@@ -911,7 +860,6 @@ Variant: Pre 1.1.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 7
 Implicits: 2
 {variant:1}+8% to all Elemental Resistances
 {variant:2,3,4}+4% to all Elemental Resistances
@@ -928,7 +876,6 @@ Plank Kite Shield
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.17.0
-Requires Level 40
 Implicits: 1
 +4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
@@ -943,7 +890,6 @@ The Unshattered Will
 Archon Kite Shield
 League: Harbinger
 Upgrade: Upgrades to unique{The Immortal Will} via currency{Specularity Scroll}
-Requires Level 68, 85 Str, 85 Int
 Implicits: 1
 +12% to all Elemental Resistances
 Grants Summon Harbinger of Focus Skill
@@ -957,7 +903,6 @@ The Immortal Will
 Archon Kite Shield
 League: Harvest
 Source: Upgraded from unique{The Unshattered Will} via currency{Specularity Scroll}
-Requires Level 68, 85 Str, 85 Int
 Implicits: 1
 +12% to all Elemental Resistances
 Grants Summon Greater Harbinger of Focus Skill
@@ -970,7 +915,6 @@ Channelling Skills deal (50-70)% increased Damage
 Unyielding Flame
 Archon Kite Shield
 Source: Drops in The Lord's Labyrinth
-Requires Level 68, 85 Str, 85 Int
 Implicits: 1
 +12% to all Elemental Resistances
 Trigger Commandment of Inferno on Critical Strike
@@ -984,7 +928,6 @@ Victario's Charity
 Laminated Kite Shield
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 50, 64 Str, 64 Int
 Implicits: 1
 +8% to all Elemental Resistances
 +(50-70) to maximum Life
@@ -998,7 +941,6 @@ Implicits: 1
 Replica Victario's Charity
 Laminated Kite Shield
 League: Heist
-Requires Level 50, 64 Str, 64 Int
 Implicits: 1
 +8% to all Elemental Resistances
 +(50-70) to maximum Life
@@ -1015,7 +957,6 @@ Mirrored Spiked Shield
 Variant: 3.16.0
 Variant: Current
 League: Heist
-Requires Level 66, 85 Dex, 85 Int
 Implicits: 1
 +5% chance to Suppress Spell Damage
 {variant:1}(500-600)% increased Evasion and Energy Shield
@@ -1029,7 +970,6 @@ Glitterdisc
 Burnished Spiked Shield
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 27, 36 Dex, 36 Int
 Implicits: 2
 {variant:1}Reflects (10-23) Physical Damage to Melee Attackers
 {variant:2}+5% chance to Suppress Spell Damage
@@ -1046,7 +986,6 @@ Variant: Pre 2.0.0
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 70, 85 Dex, 85 Int
 Implicits: 2
 {variant:1,2}Reflects (221-260) Physical Damage to Melee Attackers
 {variant:3,4}+5% chance to Suppress Spell Damage
@@ -1064,7 +1003,6 @@ Mirrored Spiked Shield
 Source: Drops from unique{The Eradicator}
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 66, 85 Dex, 85 Int
 Implicits: 1
 +5% chance to Suppress Spell Damage
 {variant:1}(130-150)% increased Evasion and Energy Shield
@@ -1079,7 +1017,6 @@ Compound Spiked Shield
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 45, 58 Dex, 58 Int
 Implicits: 2
 {variant:1}Reflects (51-70) Physical Damage to Melee Attackers
 {variant:2,3}+3% chance to Suppress Spell Damage
@@ -1094,7 +1031,6 @@ Perepiteia
 Ezomyte Spiked Shield
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 62, 85 Dex, 85 Int
 Implicits: 1
 +3% chance to Suppress Spell Damage
 +(1-3) to Level of Socketed Lightning Gems
@@ -1108,7 +1044,6 @@ Triggers Level 20 Lightning Aegis when Equipped
 Qotra's Regulator
 Sovereign Spiked Shield
 League: Ritual
-Requires Level 54, 70 Dex, 70 Int
 Implicits: 1
 +5% chance to Suppress Spell Damage
 (160-220)% increased Evasion and Energy Shield
@@ -1119,7 +1054,6 @@ Lose (10-15)% of Life when you deal a Critical Strike
 ]],[[
 Zeel's Amplifier
 Polished Spiked Shield
-Requires Level 49, 64 Dex, 64 Int
 Implicits: 1
 +5% chance to Suppress Spell Damage
 (40-50)% increased Spell Damage
