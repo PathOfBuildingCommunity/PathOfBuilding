@@ -218,6 +218,7 @@ Hex Reflection
 Atziri's Reflection
 Golden Buckler
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
+LevelReq: 68
 Implicits: 1
 6% increased Movement Speed
 +(40-60) to Intelligence
@@ -579,6 +580,7 @@ Spreads Tar when you take a Critical Strike
 Whakatutuki o Matua
 Tarnished Spirit Shield
 Source: Drops from any endgame map boss
+LevelReq: 63
 Implicits: 1
 (5-10)% increased Spell Damage
 +3 to Level of Socketed Minion Gems
@@ -876,6 +878,7 @@ Plank Kite Shield
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.17.0
+LevelReq: 40
 Implicits: 1
 +4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
