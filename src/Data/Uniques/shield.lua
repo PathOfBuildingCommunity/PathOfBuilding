@@ -662,8 +662,8 @@ Brass Spirit Shield
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 33, 82 Int
-{variant:1}+7% chance to Block Spell Damage
-{variant:2}+10% chance to Block Spell Damage
+{variant:1}7% chance to Block Spell Damage
+{variant:2}10% Chance to Block Spell Damage
 +(20-30) to Intelligence
 (4-8)% increased Quantity of Items found
 +5% Chance to Block
@@ -681,17 +681,17 @@ Variant: Current
 Requires Level 54, 70 Str, 70 Dex
 Implicits: 1
 120% increased Block Recovery
-20% increased Physical Damage
+{variant:1,2}36% chance to Block Spell Damage while on Low Life
+{variant:3}+30% chance to Block Spell Damage while on Low Life
+20% increased Global Physical Damage
 (100-120)% increased Armour and Evasion
 {variant:1}+(10-20)% to Fire Resistance
 {variant:1}+(10-20)% to Cold Resistance
 {variant:1}+(10-20)% to Lightning Resistance
 {variant:2,3}+(10-20)% to all Elemental Resistances
-{variant:1,2}+36% chance to Block Spell Damage while on Low Life
-{variant:3}+30% chance to Block Spell Damage while on Low Life
 +(3-6)% Chance to Block
-{variant:2,3}20% chance to Block Spells if you've Blocked an Attack Recently
-{variant:2,3}20% chance to Block Attacks if you've Blocked a Spell Recently
+{variant:2,3}+20% Chance to Block Attack Damage if you have Blocked Spell Damage Recently
+{variant:2,3}+20% chance to Block Spell Damage if you have Blocked Attack Damage Recently
 ]],[[
 The Deep One's Hide
 Studded Round Shield
@@ -717,11 +717,11 @@ Implicits: 1
 180% increased Block Recovery
 +2 to Level of Socketed Support Gems
 Triggers Level 20 Physical Aegis when Equipped
-340% increased Armour and Evasion
+(300-400)% increased Armour and Evasion
 {variant:1}(30-50)% chance to avoid Bleeding
-{variant:2}Bleeding cannot be Inflicted on You
-12% increased Attack and Cast Speed while Physical Aegis is depleted
-50% increased Critical Strike Chance while Physical Aegis is depleted
+{variant:2}Bleeding cannot be inflicted on you
+(8-15)% increased Attack and Cast Speed while Physical Aegis is depleted
+(50-70)% increased Critical Strike Chance while Physical Aegis is depleted
 Nearby Enemies are Blinded while Physical Aegis is not depleted
 ]],[[
 The Oppressor
