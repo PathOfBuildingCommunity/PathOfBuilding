@@ -96,10 +96,10 @@ Implicits: 1
 {variant:3,4}+(20-30) to maximum Life
 {variant:1,2,3}(200-250)% increased Armour
 {variant:4}(180-220)% increased Armour
+20% increased Stun Recovery
 {variant:1}+(80-100) to maximum Life
 {variant:2,3,4}+(160-180) to maximum Life
 5% reduced Movement Speed
-20% increased Stun Recovery
 -25 Physical Damage taken from Projectile Attacks
 +5% Chance to Block
 ]],[[
@@ -142,14 +142,14 @@ Requires Level 35, 87 Str
 Implicits: 1
 {variant:3,4}+(20-30) to maximum Life
 {variant:2,3,4}(80-100)% increased Armour
+{variant:1}+1 to Level of Socketed Warcry Gems
 {variant:1}+(20-60) to maximum Life
 {variant:2,3,4}+(50-60) to maximum Life
 20% increased Taunt Duration
-{variant:1}+1 to Level of Socketed Warcry Gems
-+5% Chance to Block
-{variant:1}20% increased Endurance Charge Duration
 {variant:1}Gain +10 Life when you Taunt an Enemy
-{variant:2,3,4}50% increased Warcry Cooldown Recovery Speed
+{variant:1}20% increased Endurance Charge Duration
++5% Chance to Block
+{variant:2,3,4}50% increased Warcry Cooldown Recovery Rate
 {variant:2,3}2% of Attack Damage Leeched as Life against Taunted Enemies
 {variant:4}Warcries have infinite Power
 ]],[[
@@ -166,7 +166,7 @@ Implicits: 1
 {variant:1}-10 Physical Damage taken from Projectile Attacks
 {variant:2,3}-(50-80) Physical Damage taken from Projectile Attacks
 200% increased Armour against Projectiles
-+25% additional Block Chance against Projectiles
++25% Chance to Block Projectile Attack Damage
 ]],[[
 Trolltimber Spire
 Cedar Tower Shield
