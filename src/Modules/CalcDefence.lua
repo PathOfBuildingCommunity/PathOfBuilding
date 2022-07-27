@@ -282,18 +282,14 @@ function calcs.defence(env, actor)
 				evasionBase = armourData.Evasion or 0
 				if evasionBase > 0 then
 					output["EvasionOn"..slot] = evasionBase
+					gearEvasion = gearEvasion + evasionBase
+					if breakdown then
+						breakdown.slot(slot, nil, slotCfg, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
+					end
 					if ironReflexes then
 						armour = armour + evasionBase * calcLib.mod(modDB, slotCfg, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
-						gearArmour = gearArmour + evasionBase
-						if breakdown then
-							breakdown.slot(slot, nil, slotCfg, evasionBase, nil, "Armour", "Evasion", "ArmourAndEvasion", "Defences")
-						end
 					else
 						evasion = evasion + evasionBase * calcLib.mod(modDB, slotCfg, "Evasion", "ArmourAndEvasion", "Defences")
-						gearEvasion = gearEvasion + evasionBase
-						if breakdown then
-							breakdown.slot(slot, nil, slotCfg, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
-						end
 					end
 				end
 			end
@@ -408,7 +404,7 @@ function calcs.defence(env, actor)
 		end
 		local convEvasionToArmour = modDB:Sum("BASE", nil, "EvasionGainAsArmour")
 		if convEvasionToArmour > 0 then
-			armourBase = (modDB:Sum("BASE", nil, "Evasion") + gearEvasion) * convEvasionToArmour / 100
+			armourBase = (modDB:Sum("BASE", nil, "Evasion", "ArmourAndEvasion") + gearEvasion) * convEvasionToArmour / 100
 			local total = armourBase * calcLib.mod(modDB, nil, "Evasion", "Armour", "ArmourAndEvasion", "Defences")
 			armour = armour + total
 			if breakdown then
@@ -879,7 +875,7 @@ function calcs.defence(env, actor)
 			if enemyDamage == nil then
 				if tonumber(env.configPlaceholder["enemy"..damageType.."Damage"]) ~= nil then
 					enemyDamage = tonumber(env.configPlaceholder["enemy"..damageType.."Damage"])
-				elseif damageType == "Physical" then
+				elseif damageType == "Physical" and (env.configInput.enemyIsBoss == nil or env.configInput.enemyIsBoss == "None") and (env.configInput.presetBossSkills == nil or env.configInput.presetBossSkills == "None") then
 					enemyDamage = round(data.monsterDamageTable[m_min(env.build.characterLevel, 83)] * 1.5)
 				else
 					enemyDamage = 0

@@ -124,18 +124,20 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	local result = 1
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
+		local modResult = 1 --The more multiplers for each mod are computed to the nearest percent then applied.
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
 				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 					if mod[1] then
-						result = result * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
+						modResult = modResult * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
 					else
-						result = result * (1 + mod.value / 100)
+						modResult = modResult * (1 + mod.value / 100)
 					end
 				end
 			end
 		end
+		result = result * round(modResult,2)
 	end
 	if self.parent then
 		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)

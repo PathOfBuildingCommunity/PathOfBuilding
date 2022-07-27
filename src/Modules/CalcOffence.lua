@@ -2032,7 +2032,7 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			local critOverride = skillModList:Override(cfg, "CritChance")
 			local baseCrit = critOverride or source.CritChance or 0
-			if baseCrit == 100 then
+			if critOverride == 100 then
 				output.PreEffectiveCritChance = 100
 				output.CritChance = 100
 			else

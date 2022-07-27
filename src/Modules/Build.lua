@@ -40,7 +40,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.spectreList = { }
 	self.timelessData = { jewelType = { }, conquerorType = { }, jewelSocket = { }, searchList = "", searchResults = { }, sharedResults = { } }
 	self.viewMode = "TREE"
-	self.characterLevel = main.defaultCharLevel or 1
+	self.characterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
 	self.targetVersion = liveTargetVersion
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
@@ -166,7 +166,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			bandit = 0
 		end
 		
-		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until catched up with quest skillpoints 
+		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
 		levelreq = math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level)
 		
 		-- Ascendency points for lab
@@ -204,7 +204,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		end
 	end
 	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
-		self.characterLevel = m_min(tonumber(buf) or 1, 100)
+		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
@@ -346,7 +346,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ },
 		{ stat = "Life", label = "Total Life", fmt = "d", color = colorCodes.LIFE, compPercent = true },
 		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v > 0 and o.Life > 1 end },
-		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Life is negative" end },
+		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v <= 0 and "Your unreserved Life is below 1" end },
 		{ stat = "LifeRecoverable", label = "Life Recoverable", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.LifeUnreserved end, },
 		{ stat = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v < 100 end },
 		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f", color = colorCodes.LIFE },
@@ -648,7 +648,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		t_insert(self.controls.classDrop.list, {
 			label = class.name,
 			classId = classId,
-			ascendencies = ascendancies,
+			ascendancies = ascendancies,
 		})
 	end
 	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
@@ -931,7 +931,7 @@ function buildMode:OnFrame(inputEvents)
 	self:ProcessControlsInput(inputEvents, main.viewPort)
 
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
-	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendencies")
+	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
 
 	local checkFabricatedGroups = self.buildFlag
@@ -956,9 +956,6 @@ function buildMode:OnFrame(inputEvents)
 	end
 	if main.showTitlebarName ~= self.lastShowTitlebarName then
 		self.spec:SetWindowTitleWithBuildClass()
-	end
-	if main.showWarnings ~= self.lastShowshowWarnings then
-		self:RefreshStatList()
 	end
 
 	-- Update contents of main skill dropdowns
@@ -1252,6 +1249,9 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal)
 	if type(statVal) == "table" then return "" end
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = (statVal >= 0 and "^7" or statData.chaosInoc and "^8" or colorCodes.NEGATIVE)
+	if statData.label == "Unreserved Life" and statVal == 0 then
+		color = colorCodes.NEGATIVE
+	end
 	local valStr = s_format("%"..statData.fmt, val)
 	valStr:gsub("%.", main.decimalSeparator)
 	valStr = color .. formatNumSep(valStr)
@@ -1263,7 +1263,6 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal)
 	self.lastShowThousandsSeparator = main.thousandsSeparator
 	self.lastShowDecimalSeparator = main.decimalSeparator
 	self.lastShowTitlebarName = main.showTitlebarName
-	self.lastshowWarnings = main.showWarnings
 	return valStr
 end
 
@@ -1433,13 +1432,13 @@ do
 		-- Convert normal attributes to Omni attributes
 		if self.calcsTab.mainEnv.modDB:Flag(nil, "OmniscienceRequirements") then
 			local omniSatisfy = self.calcsTab.mainEnv.modDB:Sum("INC", nil, "OmniAttributeRequirements")
-			local highestAtrribute = 0
+			local highestAttribute = 0
 			for i, stat in ipairs({str, dex, int}) do
-				if((stat or 0) > highestAtrribute) then
-					highestAtrribute = stat
+				if((stat or 0) > highestAttribute) then
+					highestAttribute = stat
 				end
 			end
-			local omni = math.floor(highestAtrribute * (100/omniSatisfy))
+			local omni = math.floor(highestAttribute * (100/omniSatisfy))
 			if omni and (omni > 0 or omni > self.calcsTab.mainOutput.Omni) then
 				t_insert(req, s_format("%s%d ^x7F7F7FOmni", main:StatColor(omni, 0, self.calcsTab.mainOutput.Omni), omni))
 			end

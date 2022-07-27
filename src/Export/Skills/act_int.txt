@@ -611,8 +611,8 @@ local skills, mod, flag, skill = ...
 #skill VaalDiscipline
 #flags spell aura area duration
 	statMap = {
-		["base_maximum_energy_shield"] = {
-			mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		["energy_shield_recharge_not_delayed_by_damage"] = {
+			mod("EnergyShieldRechargeNotDelayedByDamage", "DUMMY", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 40)
