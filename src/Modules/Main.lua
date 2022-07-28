@@ -906,7 +906,14 @@ function main:OpenAboutPopup()
 				end
 				t_insert(helpList, { height = 18, "^7"..title.." ("..titleIndex..")" })
 			else
-				t_insert(helpList, { height = 12, "^7"..line })
+				local dev = line:match("^DEV%[(.+)%]$")
+				if dev then
+					if launch.devMode then
+						t_insert(helpList, { height = 12, "^7"..dev })
+					end
+				else
+					t_insert(helpList, { height = 12, "^7"..line })
+				end
 			end
 		end
 	end
