@@ -262,7 +262,7 @@ Implicits: 2
 0.4% of Physical Attack Damage Leeched as Mana per Blue Socket
 +2 to Melee Strike Range per White Socket
 ]],[[
-Razor of the Seventh Sun 
+Razor of the Seventh Sun
 Midnight Blade
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
@@ -559,7 +559,7 @@ Implicits: 3
 30% increased Elemental Damage
 +2 to Weapon Range
 ]],[[
-Cospri's Malice 
+Cospri's Malice
 Jewelled Foil
 Variant: Pre 2.6.0
 Variant: Current
@@ -731,7 +731,7 @@ Adds (90-115) to (230-260) Physical Damage
 Enemies you Attack Reflect 100 Physical Damage to you
 +2 to Weapon range
 ]],[[
-Kondo's Pride 
+Kondo's Pride
 Ezomyte Blade
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
@@ -852,7 +852,7 @@ Adds 35 to 70 Cold Damage
 0.6% of Physical Attack Damage Leeched as Mana
 Cannot be Frozen
 ]],[[
-Starforge 
+Starforge
 Infernal Sword
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.11.0
