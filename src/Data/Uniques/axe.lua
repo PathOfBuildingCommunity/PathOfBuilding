@@ -6,7 +6,7 @@ return {
 Actum
 Butcher Axe
 League: Heist
-Requires Level 63, 149 Str, 76 Dex
+Implicits: 0
 Has no Sockets
 (200-250)% increased Physical Damage
 You have no Intelligence
@@ -16,7 +16,7 @@ Dreadarc
 Cleaver
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 16, 48 Str
+Implicits: 0
 Adds (5-15) to (20-25) Physical Damage
 Adds (5-15) to (20-25) Fire Damage
 (7-10)% increased Attack Speed
@@ -28,7 +28,8 @@ Adds (5-15) to (20-25) Fire Damage
 Dreadsurge
 Cleaver
 Source: No longer obtainable
-Requires Level 60, 48 Str
+LevelReq: 60
+Implicits: 0
 Adds (5-15) to (20-25) Physical Damage
 Adds (223-250) to (264-280) Fire Damage
 (7-10)% increased Attack Speed
@@ -40,7 +41,7 @@ Dyadus
 Infernal Axe
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 69, 158 Str, 76 Dex
+Implicits: 0
 {variant:1}Adds (170-190) to (200-220) Fire Damage in Main Hand
 {variant:2}Adds (255-285) to (300-330) Fire Damage in Main Hand
 {variant:1}Adds (170-190) to (200-220) Cold Damage in Off Hand
@@ -56,7 +57,7 @@ The Screaming Eagle
 Jade Hatchet
 Variant: Pre 2.0.0
 Variant: Current
-Requires Level 6, 21 Str
+Implicits: 0
 Socketed Gems are supported by Level 2 Chance to Flee
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
@@ -69,7 +70,8 @@ Jade Hatchet
 Source: No longer obtainable
 Variant: Pre 2.0.0
 Variant: Current
-Requires Level 32, 21 Str
+LevelReq: 32
+Implicits: 0
 Socketed Gems are supported by Level 2 Chance to Flee
 (170-190)% increased Physical Damage
 {variant:1}Adds (8-12) to (18-22) Physical Damage
@@ -83,7 +85,7 @@ Jack, the Axe
 Vaal Hatchet
 Variant: Pre 3.13.0
 Variant: Current
-Requires Level 65, 140 Str, 86 Dex
+Implicits: 0
 {variant:2}Grants Level 20 Thirst for Blood Skill
 {variant:1}(90-110)% increased Physical Damage
 {variant:2}(130-150)% increased Physical Damage
@@ -98,7 +100,7 @@ Moonbender's Wing
 Tomahawk
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 39, 81 Str, 56 Dex
+Implicits: 0
 {variant:1}Grants Level 1 Lightning Warp Skill
 {variant:2}Trigger Level 15 Lightning Warp on Hit with this Weapon
 {variant:1}(70-90)% increased Physical Damage
@@ -113,7 +115,7 @@ Relentless Fury
 Decorative Axe
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 29, 80 Str, 23 Dex
+Implicits: 0
 (60-80)% increased Physical Damage
 Adds (3-5) to (7-10) Physical Damage
 {variant:1}0.6% of Physical Attack Damage Leeched as Life
@@ -128,7 +130,7 @@ League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 67, 167 Str, 57 Dex
+Implicits: 0
 Adds (50-70) to (135-165) Physical Damage
 40% increased Physical Attack Damage while Dual Wielding
 (10-15)% increased Attack Speed
@@ -140,7 +142,7 @@ Soul Taker
 Siege Axe
 Variant: Pre 1.0.0
 Variant: Current
-Requires Level 59, 119 Str, 82 Dex
+Implicits: 0
 {variant:1}(160-200)% increased Physical Damage
 {variant:2}(100-140)% increased Physical Damage
 Adds 10 to 20 Physical Damage
@@ -152,7 +154,7 @@ Your Physical Damage can Chill
 Replica Soul Taker
 Siege Axe
 League: Heist
-Requires Level 59, 119 Str, 82 Dex
+Implicits: 0
 (100-140)% increased Physical Damage
 Adds 10 to 20 Physical Damage
 (60-80)% increased Critical Strike Chance
@@ -167,7 +169,7 @@ Vaal Axe
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 75, 158 Str, 76 Dex
+LevelReq: 75
 Implicits: 1
 {variant:2}25% chance to Maim on Hit
 +2 to Level of Socketed Support Gems
@@ -182,7 +184,7 @@ Headsman Axe
 Variant: Pre 3.0.0
 Variant: Pre 3.12.0
 Variant: Current
-Requires Level 45, 99 Str, 57 Dex
+Implicits: 0
 {variant:1}(100-120)% increased Physical Damage
 {variant:2,3}(180-200)% increased Physical Damage
 +100 to maximum Life
@@ -194,7 +196,7 @@ Requires Level 45, 99 Str, 57 Dex
 ]],[[
 Debeon's Dirge
 Despot Axe
-Requires Level 66, 140 Str, 86 Dex
+Implicits: 0
 Adds (310-350) to (460-500) Cold Damage
 15% increased Movement Speed if you've used a Warcry Recently
 150% increased Elemental Damage if you've used a Warcry Recently
@@ -203,7 +205,7 @@ Warcries Knock Back and Interrupt Enemies in a smaller Area
 The Harvest
 Jasper Chopper
 League: Beyond
-Requires Level 37, 100 Str, 29 Dex
+Implicits: 0
 (120-140)% increased Physical Damage
 1.2% of Damage Leeched as Life on Critical Strike
 3% increased Global Critical Strike Chance per Level
@@ -212,7 +214,7 @@ Gain a Flask Charge when you deal a Critical Strike
 Replica Harvest
 Jasper Chopper
 League: Heist
-Requires Level 37, 100 Str, 29 Dex
+Implicits: 0
 (120-140)% increased Physical Damage
 1.2% of Damage Leeched as Life on Critical Strike
 3% increased Global Critical Strike Chance per Level
@@ -222,7 +224,6 @@ Hezmana's Bloodlust
 Vaal Axe
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 64, 158 Str, 76 Dex
 Implicits: 1
 {variant:2}25% chance to Maim on Hit
 {variant:1}(150-170)% increased Physical Damage
@@ -239,7 +240,7 @@ Variant: Pre 1.0.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 58, 151 Str, 43 Dex
+Implicits: 0
 {variant:1}(120-150)% increased Physical Damage
 {variant:2,3}(160-220)% increased Physical Damage
 {variant:4}(100-140)% increased Physical Damage
@@ -258,7 +259,7 @@ Variant: Pre 3.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 66, 140 Str, 86 Dex
+Implicits: 0
 {variant:1,2}(200-250)% increased Physical Damage
 {variant:3}(250-285)% increased Physical Damage
 {variant:4}(170-200)% increased Physical Damage
@@ -278,7 +279,7 @@ Void Axe
 Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 68, 149 Str, 76 Dex
+Implicits: 0
 Socketed Gems are supported by Level 25 Melee Splash
 {variant:1}(250-300)% increased Physical Damage
 {variant:2}(265-330)% increased Physical Damage
@@ -292,7 +293,7 @@ Limbsplit
 Woodsplitter
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 13, 36 Str, 17 Dex
+Implicits: 0
 +1 to Level of Socketed Strength Gems
 {variant:2}Trigger Level 1 Gore Shockwave on Melee Hit if you have at least 150 Strength
 +(15-30) to Strength
@@ -305,7 +306,8 @@ Woodsplitter
 Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 40, 36 Str, 17 Dex
+LevelReq: 40
+Implicits: 0
 +1 to Level of Socketed Strength Gems
 {variant:2}Trigger Level 5 Gore Shockwave on Melee Hit if you have at least 150 Strength
 +(15-30) to Strength
@@ -318,7 +320,7 @@ Ngamahu's Flame
 Abyssal Axe
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 55, 128 Str, 60 Dex
+Implicits: 0
 20% chance to Trigger Level 16 Molten Burst on Melee Hit
 {variant:1}(190-230)% increased Physical Damage
 {variant:2}(170-190)% increased Physical Damage
@@ -329,7 +331,7 @@ Damage Penetrates 20% Fire Resistance
 ]],[[
 Reaper's Pursuit
 Shadow Axe
-Requires Level 33, 80 Str, 37 Dex
+Implicits: 0
 (100-125)% increased Physical Damage
 (30-40)% increased Rarity of Items found
 +10 Life gained on Kill
@@ -341,7 +343,7 @@ Sinvicta's Mettle
 Ezomyte Axe
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 62, 140 Str, 86 Dex
+Implicits: 0
 {variant:1}(200-212)% increased Physical Damage
 {variant:2}(140-152)% increased Physical Damage
 (8-12)% increased Attack Speed
@@ -354,7 +356,7 @@ Labrys
 League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{Uul-Netol's Embrace} using currency{Blessing of Uul-Netol}
-Requires Level 49, 122 Str, 53 Dex
+Implicits: 0
 (140-170)% increased Physical Damage
 15% reduced Attack Speed
 25% chance to Curse Enemies with Vulnerability on Hit, with 40% increased Effect
@@ -366,7 +368,6 @@ League: Breach
 Source: Upgraded from unique{Uul-Netol's Kiss} using currency{Blessing of Uul-Netol}
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 64, 158 Str, 76 Dex
 Implicits: 1
 {variant:2}25% chance to Maim on Hit
 Trigger Level 20 Bone Nova when you Hit a Bleeding Enemy
@@ -378,7 +379,7 @@ Wideswing
 Poleaxe
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 18, 44 Str, 25 Dex
+Implicits: 0
 Socketed Gems are Supported by Level 20 Increased Area of Effect
 +10 to Strength
 (120-160)% increased Physical Damage
@@ -390,7 +391,7 @@ Socketed Gems are Supported by Level 20 Increased Area of Effect
 Replica Wings of Entropy
 Ezomyte Axe
 League: Heist
-Requires Level 62, 140 Str, 86 Dex
+Implicits: 0
 (7-10)% Chance to Block Spell Damage
 +(8-12)% Chance to Block Attack Damage while Dual Wielding
 (60-80)% increased Physical Damage
@@ -406,8 +407,7 @@ Variant: Pre 2.0.0
 Variant: Pre 3.4.0
 Variant: Pre 3.11.0
 Variant: Current
-{variant:1,2,3,4}Requires Level 60, 149 Str, 76 Dex
-{variant:5}Requires Level 62, 140 Str, 86 Dex
+Implicits: 0
 {variant:1,2,3}7% Chance to Block Spell Damage
 {variant:4}(6-7)% Chance to Block Spell Damage
 {variant:5}(7-10)% Chance to Block Spell Damage
