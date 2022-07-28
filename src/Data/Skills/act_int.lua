@@ -8533,6 +8533,8 @@ skills["CircleOfPower"] = {
 		["circle_of_power_max_stages"] = {
 			mod("Multiplier:SigilOfPowerMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["quality_display_circle_of_power_is_gem"] = {
+        },
 	},
 	baseFlags = {
 		spell = true,

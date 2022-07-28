@@ -1788,6 +1788,8 @@ local skills, mod, flag, skill = ...
 		["circle_of_power_max_stages"] = {
 			mod("Multiplier:SigilOfPowerMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["quality_display_circle_of_power_is_gem"] = {
+        },
 	},
 #baseMod skill("radius", 30)
 #baseMod skill("buffAllies", true)
