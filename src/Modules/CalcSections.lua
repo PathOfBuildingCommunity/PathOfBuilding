@@ -1502,9 +1502,10 @@ return {
 		{ format = "{2:output:ChaosTakenDamage}",
 			{ breakdown = "ChaosTakenDamage" }, 
 			{ modName = { "PhysicalDamageTakenAsChaos", "LightningDamageTakenAsChaos", "ColdDamageTakenAsChaos", "FireDamageTakenAsChaos", "ElementalDamageTakenAsChaos", "ChaosDamageTakenAsPhysical", "ChaosDamageTakenAsLightning", "ChaosDamageTakenAsCold", "ChaosDamageTakenAsFire" } }
-		},
-	},
-} }, { defaultCollapsed = false, label = "Damaging Hits", data = {
+		}, },
+} }
+} },
+{ 3, "DamagingHits", 1, colorCodes.DEFENCE, {{defaultCollapsed = false, label = "Damaging Hits", data = {
 	colWidth = 95,
 	{ label = "Hit taken Mult.",
 		{ format = "" },
@@ -1707,7 +1708,9 @@ return {
 	},
 	{ label = "Hits before death",{ format = "{output:NumberOfDamagingHits}", },
 	}
-}, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {
+} }
+} },
+{ 3, "EffectiveHealthPool", 1, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {
 	extra = "{0:output:TotalEHP}",
 	{ label = "Unmitigated %", { format = "{0:output:ConfiguredDamageChance}%", { breakdown = "ConfiguredDamageChance" }, }, },
 	{ label = "Mitigated hits", { format = "{2:output:NumberOfMitigatedDamagingHits}", }, },
@@ -1717,8 +1720,10 @@ return {
 	{ label = "Time before death",{ format = "{2:output:EHPsurvivalTime}s", 
 		{ breakdown = "EHPsurvivalTime" }, 
 		{ label = "Enemy modifiers", modName = { "TemporalChainsActionSpeed", "ActionSpeed" }, enemy = true },
-	},}
-}, }, { defaultCollapsed = false, label = "Maximum Hit Taken", data = {
+	}, }
+} }
+} },
+{ 3, "MaximumHitTaken", 1, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Maximum Hit Taken", data = {
 	colWidth = 114,
 	{
 		{ format = colorCodes.PHYS.."Physical:" },
@@ -1744,7 +1749,9 @@ return {
 			{ breakdown = "ChaosMaximumHitTaken" }, 
 		},
 	}
-} }, { defaultCollapsed = false, label = "Dots and Degens", data = {
+} }
+} },
+{ 3, "DotsAndDegens", 1, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Dots and Degens", data = {
 	colWidth = 114,
 	{
 		{ format = colorCodes.PHYS.."Physical:" },
@@ -1852,5 +1859,5 @@ return {
 		},
 	},
 } }
-} },
+} }
 }
