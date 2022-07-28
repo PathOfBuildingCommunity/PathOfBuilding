@@ -8510,7 +8510,7 @@ skills["CircleOfPower"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
 		["circle_of_power_enemy_damage_+%_final_at_max_stages"] = {
- 			mod("Damage", "INC", nil, 0, 0, { type = "MultiplierThreshold", actor = "enemy", var = "SigilOfPowerStage", threshold = 4 }, { type = "GlobalEffect", effectType = "Debuff", effectName = "Sigil of Power" }),
+ 			mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", actor = "enemy", var = "SigilOfPowerStage", threshold = 4 }, { type = "GlobalEffect", effectType = "Debuff", effectName = "Sigil of Power" }),
  		},
 		["spell_damage_+%"] = {
 			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
