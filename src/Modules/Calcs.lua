@@ -16,7 +16,7 @@ LoadModule("Modules/CalcActiveSkill", calcs)
 LoadModule("Modules/CalcDefence", calcs)
 LoadModule("Modules/CalcOffence", calcs)
 
--- Get the average value of a table
+-- Get the average value of a table -- note this is unused
 function math.average(t)
 	local sum = 0
 	local count = 0
@@ -175,7 +175,6 @@ end
 function calcs.calcFullDPS(build, mode, override, specEnv)
 	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv)
 	local usedEnv = nil
-	local poisonEffMultTbl = { }
 
 	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0, dotDPS = 0, cullingMulti = 0 }
 	local bleedSource = ""
@@ -277,8 +276,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					igniteSource = activeSkill.activeEffect.grantedEffect.name
 				end
 				if usedEnv.player.output.PoisonDPS and usedEnv.player.output.PoisonDPS > 0 then
-					fullDPS.poisonDPS = fullDPS.poisonDPS + (usedEnv.player.output.PoisonDPS / usedEnv.player.output.PoisonEffMult) * (usedEnv.player.output.TotalPoisonStacks or 1) * activeSkillCount
-					t_insert(poisonEffMultTbl, usedEnv.player.output.PoisonEffMult)
+					fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.player.output.PoisonDPS * (usedEnv.player.output.TotalPoisonStacks or 1) * activeSkillCount
 				end
 				if usedEnv.player.output.ImpaleDPS and usedEnv.player.output.ImpaleDPS > 0 then
 					fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.player.output.ImpaleDPS * activeSkillCount
@@ -316,7 +314,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.igniteDPS
 	end
 	if fullDPS.poisonDPS > 0 then
-		fullDPS.poisonDPS = math.min(fullDPS.poisonDPS, data.misc.DotDpsCap) * math.average(poisonEffMultTbl) --Future proofing for if we ever have skills with different effMult values
+		fullDPS.poisonDPS = math.min(fullDPS.poisonDPS, data.misc.DotDpsCap)
 		t_insert(fullDPS.skills, { name = "Full Poison DPS", dps = fullDPS.poisonDPS, count = 1 })
 		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.poisonDPS
 	end

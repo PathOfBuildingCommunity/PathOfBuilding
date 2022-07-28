@@ -2962,10 +2962,10 @@ function calcs.offence(env, actor, activeSkill)
 				output.BaseBleedDPS = baseVal * effectMod * rateMod * effMult
 				bleedStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.BleedDuration / output.Time)
 				local chanceToHitInOneSecInterval = 1 - m_pow(1 - (output.HitChance / 100), output.Speed)
-				local BleedDPS = (baseVal * effectMod * rateMod) * bleedStacks * chanceToHitInOneSecInterval
+				local BleedDPS = (baseVal * effectMod * rateMod) * bleedStacks * chanceToHitInOneSecInterval * effMult
 				local BleedDPSCapped = m_min(BleedDPS, data.misc.DotDpsCap)
-				local MaxBleedDPS = BleedDPS * effMult
-				output.BleedDPS = BleedDPSCapped * effMult
+				local MaxBleedDPS = BleedDPS
+				output.BleedDPS = BleedDPSCapped
 				-- reset bleed stacks to actual number doing damage after weighted avg DPS calculation is done
 				globalOutput.BleedStacks = bleedStacks
 				globalOutput.BleedDamage = output.BaseBleedDPS * globalOutput.BleedDuration
@@ -3010,15 +3010,16 @@ function calcs.offence(env, actor, activeSkill)
 						if chanceToHitInOneSecInterval ~= 1 then
 							t_insert(breakdown.BleedDPS, s_format("%.3f ^8(bleed chance based on chance to hit each second)", chanceToHitInOneSecInterval))
 						end
-						if output.BleedDPS ~= MaxBleedDPS then
-							t_insert(breakdown.BleedDPS, s_format("= %.1f ^8(Uncapped raw Bleed DPS)", BleedDPS))
-							t_insert(breakdown.BleedDPS, s_format("^8(Raw Bleed DPS is ^1overcapped ^8by^7 %.1f ^8before enemy debuffs are applied)", BleedDPS - BleedDPSCapped))
-							t_insert(breakdown.BleedDPS, s_format("%d ^8(Capped Bleed DPS)", BleedDPSCapped))
-						end
 						if effMult ~= 1 then
 							t_insert(breakdown.BleedDPS, s_format("x %.3f ^8(effective DPS modifier from enemy debuffs)", effMult))
 						end
-						t_insert(breakdown.BleedDPS, s_format("= %.1f ^8per second", output.BleedDPS))
+						if output.BleedDPS ~= MaxBleedDPS then
+							t_insert(breakdown.BleedDPS, s_format("= %.1f ^8(Uncapped raw Bleed DPS)", BleedDPS))
+							t_insert(breakdown.BleedDPS, s_format("^8(Raw Bleed DPS is ^1overcapped ^8by^7 %.1f)", BleedDPS - BleedDPSCapped))
+							t_insert(breakdown.BleedDPS, s_format("%d ^8(Capped Bleed DPS)", BleedDPSCapped))
+						else
+							t_insert(breakdown.BleedDPS, s_format("= %.1f ^8per second", output.BleedDPS))
+						end
 					end
 					if globalOutput.BleedDuration ~= durationBase then
 						globalBreakdown.BleedDuration = {
@@ -3140,11 +3141,10 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
 				local rateMod = calcLib.mod(skillModList, cfg, "PoisonFaster") + enemyDB:Sum("INC", nil, "SelfPoisonFaster")  / 100
-				local PoisonDPS = baseVal * effectMod * rateMod
+				local PoisonDPS = baseVal * effectMod * rateMod * effMult
 				local PoisonDPSCapped = m_min(PoisonDPS, data.misc.DotDpsCap)
-				local MaxPoisonDPS = PoisonDPS * effMult
-				output.PoisonDPS = PoisonDPSCapped * effMult
-				output.PosionEffMult = effMult
+				local MaxPoisonDPS = PoisonDPS
+				output.PoisonDPS = PoisonDPSCapped
 				local durationBase
 				if skillData.poisonDurationIsSkillDuration then
 					durationBase = skillData.duration
@@ -3159,7 +3159,7 @@ function calcs.offence(env, actor, activeSkill)
 					output.TotalPoisonDPS = output.PoisonDPS
 				else
 					output.TotalPoisonStacks = output.HitChance / 100 * output.PoisonChance / 100 * globalOutput.PoisonDuration * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * (skillData.stackMultiplier or 1) * quantityMultiplier
-					output.TotalPoisonDPS = m_min(PoisonDPSCapped * output.TotalPoisonStacks, data.misc.DotDpsCap) * effMult
+					output.TotalPoisonDPS = m_min(PoisonDPSCapped * output.TotalPoisonStacks, data.misc.DotDpsCap)
 				end
 				if breakdown then
 					if output.CritPoisonDotMulti and (output.CritPoisonDotMulti ~= output.PoisonDotMulti) then
@@ -3184,15 +3184,16 @@ function calcs.offence(env, actor, activeSkill)
 						if rateMod ~= 1 then
 							t_insert(breakdown.PoisonDPS, s_format("x %.2f ^8(damage rate modifier)", rateMod))
 						end
-						if output.PoisonDPS ~= MaxPoisonDPS then
-							t_insert(breakdown.PoisonDPS, s_format("= %.1f ^8(Uncapped raw Poison DPS)", PoisonDPS))
-							t_insert(breakdown.PoisonDPS, s_format("^8(Raw Poison DPS is ^1overcapped ^8by^7 %.1f ^8before enemy debuffs are applied)", PoisonDPS - PoisonDPSCapped))
-							t_insert(breakdown.PoisonDPS, s_format("%d ^8(Capped Poison DPS)", PoisonDPSCapped))
-						end
 						if effMult ~= 1 then
 							t_insert(breakdown.PoisonDPS, s_format("x %.3f ^8(effective DPS modifier from enemy debuffs)", effMult))
 						end
-						t_insert(breakdown.PoisonDPS, s_format("= %.1f ^8per second", output.PoisonDPS))
+						if output.PoisonDPS ~= MaxPoisonDPS then
+							t_insert(breakdown.PoisonDPS, s_format("= %.1f ^8(Uncapped raw Poison DPS)", PoisonDPS))
+							t_insert(breakdown.PoisonDPS, s_format("^8(Raw Poison DPS is ^1overcapped ^8by^7 %.1f)", PoisonDPS - PoisonDPSCapped))
+							t_insert(breakdown.PoisonDPS, s_format("%d ^8(Capped Poison DPS)", PoisonDPSCapped))
+						else
+							t_insert(breakdown.PoisonDPS, s_format("= %.1f ^8per second", output.PoisonDPS))
+						end
 					end
 					if globalOutput.PoisonDuration ~= 2 then
 						globalBreakdown.PoisonDuration = {
@@ -3396,10 +3397,10 @@ function calcs.offence(env, actor, activeSkill)
 				if not skillData.triggeredOnDeath then
 					igniteStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.IgniteDuration / output.Time)
 				end
-				local IgniteDPS = baseVal * effectMod * rateMod * igniteStacks
+				local IgniteDPS = baseVal * effectMod * rateMod * igniteStacks * effMult
 				local IgniteDPSCapped = m_min(IgniteDPS, data.misc.DotDpsCap)
-				local MaxIgniteDPS = IgniteDPS * effMult
-				output.IgniteDPS = IgniteDPSCapped * effMult
+				local MaxIgniteDPS = IgniteDPS
+				output.IgniteDPS = IgniteDPSCapped
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
@@ -3425,15 +3426,16 @@ function calcs.offence(env, actor, activeSkill)
 						if skillFlags.igniteCanStack then
 							t_insert(breakdown.IgniteDPS, s_format("x %d ^8(ignite stacks)", output.IgniteStacksMax))
 						end
-						if output.IgniteDPS ~= MaxIgniteDPS then
-							t_insert(breakdown.IgniteDPS, s_format("= %.1f ^8(Uncapped raw Ignite DPS)", IgniteDPS))
-							t_insert(breakdown.IgniteDPS, s_format("^8(Raw Ignite DPS is ^1overcapped ^8by^7 %.1f ^8before enemy debuffs are applied)", IgniteDPS - IgniteDPSCapped))
-							t_insert(breakdown.IgniteDPS, s_format("%d ^8(Capped Ignite DPS)", IgniteDPSCapped))
-						end
 						if effMult ~= 1 then
 							t_insert(breakdown.IgniteDPS, s_format("x %.3f ^8(effective DPS modifier from enemy debuffs)", effMult))
 						end
-						t_insert(breakdown.IgniteDPS, s_format("= %.1f ^8per second", output.IgniteDPS))
+						if output.IgniteDPS ~= MaxIgniteDPS then
+							t_insert(breakdown.IgniteDPS, s_format("= %.1f ^8(Uncapped raw Ignite DPS)", IgniteDPS))
+							t_insert(breakdown.IgniteDPS, s_format("^8(Raw Ignite DPS is ^1overcapped ^8by^7 %.1f)", IgniteDPS - IgniteDPSCapped))
+							t_insert(breakdown.IgniteDPS, s_format("%d ^8(Capped Ignite DPS)", IgniteDPSCapped))
+						else
+							t_insert(breakdown.IgniteDPS, s_format("= %.1f ^8per second", output.IgniteDPS))
+						end
 					end
 					if output.CritIgniteDotMulti and (output.CritIgniteDotMulti ~= output.IgniteDotMulti) then
 						local chanceFromHit = output.IgniteChanceOnHit / 100 * (1 - globalOutput.CritChance / 100)
@@ -4022,7 +4024,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.WithDotDPS = baseDPS + (output.TotalDot or 0)
 	end
 	if quantityMultiplier > 1 and output.TotalPoisonDPS then
-		output.TotalPoisonDPS = m_min(output.TotalPoisonDPS * quantityMultiplier / output.PosionEffMult, data.misc.DotDpsCap) * output.PosionEffMult
+		output.TotalPoisonDPS = m_min(output.TotalPoisonDPS * quantityMultiplier, data.misc.DotDpsCap)
 	end
 	if skillData.showAverage then
 		output.CombinedDPS = output.CombinedDPS + (output.TotalPoisonDPS or 0)
