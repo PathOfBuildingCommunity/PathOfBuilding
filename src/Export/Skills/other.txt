@@ -125,6 +125,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("buffMinions", true)
 #baseMod skill("buffNotPlayer", true)
+#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Multiplier", var = "CorpseConsumedRecently" })
 #mods
 
 #skill BloodSacramentUnique

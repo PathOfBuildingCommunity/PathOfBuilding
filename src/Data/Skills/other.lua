@@ -300,6 +300,7 @@ skills["BloodOffering"] = {
 	baseMods = {
 		skill("buffMinions", true),
 		skill("buffNotPlayer", true),
+		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Multiplier", var = "CorpseConsumedRecently" }),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 5000 },
