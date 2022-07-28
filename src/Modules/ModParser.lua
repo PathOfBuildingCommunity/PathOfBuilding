@@ -2966,6 +2966,7 @@ local specialModList = {
 	["cannot be ignited if strength is higher than dexterity"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "StrHigherThanDex" }) },
 	["cannot be chilled while burning"] = { mod("AvoidChill", "BASE", 100, { type = "Condition", var = "Burning" }) },
 	["cannot be chilled while you have onslaught"] = { mod("AvoidChill", "BASE", 100, { type = "Condition", var = "Onslaught" }) },
+	["cannot be chilled during onslaught"] = { mod("AvoidChill", "BASE", 100, { type = "Condition", var = "Onslaught" }) },
 	["cannot be inflicted with bleeding"] = { mod("AvoidBleed", "BASE", 100) },
 	["bleeding cannot be inflicted on you"] = { mod("AvoidBleed", "BASE", 100) },
 	["you are immune to bleeding"] = { mod("AvoidBleed", "BASE", 100) },

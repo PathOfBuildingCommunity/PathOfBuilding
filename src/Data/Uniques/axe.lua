@@ -19,7 +19,7 @@ Variant: Current
 Requires Level 16, 48 Str
 Adds (5-15) to (20-25) Physical Damage
 Adds (5-15) to (20-25) Fire Damage
-(7-10)% Increased Attack Speed
+(7-10)% increased Attack Speed
 +(15-25)% to Fire Resistance
 5% increased Movement Speed
 {variant:1}Curse Enemies with Flammability on Hit
@@ -39,40 +39,41 @@ Hits ignore Enemy Monster Fire Resistance while you are Ignited
 Dyadus
 Infernal Axe
 Variant: Pre 2.6.0
-Variant: Pre 3.3.0
 Variant: Current
 Requires Level 69, 158 Str, 76 Dex
 {variant:1}Adds (170-190) to (200-220) Fire Damage in Main Hand
-{variant:2,3}Adds (255-285) to (300-330) Fire Damage in Main Hand
+{variant:2}Adds (255-285) to (300-330) Fire Damage in Main Hand
 {variant:1}Adds (170-190) to (200-220) Cold Damage in Off Hand
-{variant:2,3}Adds (255-285) to (300-330) Cold Damage in Off Hand
+{variant:2}Adds (255-285) to (300-330) Cold Damage in Off Hand
 (10-15)% increased Attack Speed
-{variant:1}Enemies Chilled by you take 40% increased Burning Damage
-{variant:2}Enemies Chilled by you take 100% increased Burning Damage
-{variant:3}100% increased Damage with Ignites inflicted on Chilled Enemies
-25% Chance to Ignite when in Main Hand
+25% chance to Ignite when in Main Hand
 {variant:1}100% increased Chill Duration on Enemies when in Off Hand
-{variant:2,3}Chill Enemies for 1 second on Hit with this Weapon when in Off Hand
+{variant:1}40% increased Damage with Ignite inflicted on Chilled Enemies
+{variant:2}100% increased Damage with Ignite inflicted on Chilled Enemies
+{variant:2}Chill Enemies for 1 second on Hit with this Weapon when in Off Hand
 ]],[[
 The Screaming Eagle
 Jade Hatchet
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 6, 21 Str
+Socketed Gems are supported by Level 2 Chance to Flee
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
 +(5-7) Life gained on Kill
 10% increased Movement Speed
-Socketed Gems are supported by level 2 Chance to Flee
 ]],[[
 The Gryphon
 Jade Hatchet
 Source: No longer obtainable
+Variant: Pre 2.0.0
+Variant: Current
 Requires Level 32, 21 Str
-Socketed Gems are supported by level 2 Chance to Flee
+Socketed Gems are supported by Level 2 Chance to Flee
 (170-190)% increased Physical Damage
-Adds (10-15) to (25-30) Physical Damage
+{variant:1}Adds (8-12) to (18-22) Physical Damage
+{variant:2}Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
 +(5-7) Life gained on Kill
 10% increased Movement Speed
@@ -89,7 +90,7 @@ Requires Level 65, 140 Str, 86 Dex
 Adds (11-14) to (18-23) Physical Damage
 {variant:1}(10-15)% increased Attack Speed
 {variant:1}2% of Physical Attack Damage Leeched as Life
-{variant:1}50% reduced Life Leeched per second
+{variant:1}50% reduced total Recovery per second from Life Leech
 25% chance to cause Bleeding on Hit
 {variant:2}+(25-35)% to Damage over Time Multiplier for Bleeding from Hits with this Weapon
 ]],[[
@@ -98,7 +99,7 @@ Tomahawk
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 39, 81 Str, 56 Dex
-{variant:1}Grants level 1 Lightning Warp Skill
+{variant:1}Grants Level 1 Lightning Warp Skill
 {variant:2}Trigger Level 15 Lightning Warp on Hit with this Weapon
 {variant:1}(70-90)% increased Physical Damage
 {variant:2}(30-50)% increased Physical Damage
@@ -119,7 +120,7 @@ Adds (3-5) to (7-10) Physical Damage
 {variant:2}2% of Physical Attack Damage Leeched as Life
 Culling Strike
 You gain Onslaught for 3 seconds on Culling Strike
-Cannot be Chilled while you have Onslaught
+Cannot be Chilled during Onslaught
 ]],[[
 Rigwald's Savagery
 Royal Axe
@@ -129,7 +130,7 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 67, 167 Str, 57 Dex
 Adds (50-70) to (135-165) Physical Damage
-40% increased Physical Weapon Damage while Dual Wielding
+40% increased Physical Attack Damage while Dual Wielding
 (10-15)% increased Attack Speed
 {variant:1}35% increased Attack Speed with Swords
 {variant:1}25% chance to cause Bleeding on Hit
@@ -163,7 +164,7 @@ Eldritch Battery
 [[
 Atziri's Disfavour
 Vaal Axe
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 75, 158 Str, 76 Dex
@@ -174,7 +175,7 @@ Implicits: 1
 {variant:2}Adds (205-220) to (250-270) Physical Damage
 (12-16)% increased Attack Speed
 25% chance to cause Bleeding on Hit
-+2 to Weapon range
++2 to Weapon Range
 ]],[[
 The Blood Reaper
 Headsman Axe
@@ -197,7 +198,7 @@ Requires Level 66, 140 Str, 86 Dex
 Adds (310-350) to (460-500) Cold Damage
 15% increased Movement Speed if you've used a Warcry Recently
 150% increased Elemental Damage if you've used a Warcry Recently
-Warcries Knock Enemies Back in an Area
+Warcries Knock Back and Interrupt Enemies in a smaller Area
 ]],[[
 The Harvest
 Jasper Chopper
@@ -206,7 +207,7 @@ Requires Level 37, 100 Str, 29 Dex
 (120-140)% increased Physical Damage
 1.2% of Damage Leeched as Life on Critical Strike
 3% increased Global Critical Strike Chance per Level
-Gain Flask Charges when you deal a Critical Strike
+Gain a Flask Charge when you deal a Critical Strike
 ]],[[
 Replica Harvest
 Jasper Chopper
@@ -226,7 +227,7 @@ Implicits: 1
 {variant:2}25% chance to Maim on Hit
 {variant:1}(150-170)% increased Physical Damage
 {variant:2}(100-125)% increased Physical Damage
-Adds (7-12) to (16-25) Physical Damage
+Adds (7-10) to (15-25) Physical Damage
 1% of Physical Attack Damage Leeched as Life
 {variant:2}40% increased Attack Speed if you've taken a Savage Hit Recently
 Attacks Cost Life instead of Mana
@@ -234,19 +235,20 @@ Attacks Cost Life instead of Mana
 Kaom's Primacy
 Karui Chopper
 League: Legion
-Source: Drops from Karui Legion
+Variant: Pre 1.0.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 58, 151 Str, 43 Dex
-{variant:1,2}(160-220)% increased Physical Damage
-{variant:3}(100-140)% increased Physical Damage
+{variant:1}(120-150)% increased Physical Damage
+{variant:2,3}(160-220)% increased Physical Damage
+{variant:4}(100-140)% increased Physical Damage
+{variant:1,2}Adds (16-21) to (32-38) Fire Damage
 +20 Life gained on Kill
-{variant:1}Adds (16-21) to (32-38) Fire Damage
 +(150-250) to Accuracy Rating
 Culling Strike
-{variant:2,3}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
-{variant:2,3}Gain 1% of Physical Damage as Extra Fire Damage per 1 Rage
+{variant:3,4}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
+{variant:3,4}Gain 1% of Physical Damage as Extra Fire Damage per 1 Rage
 ]],[[
 Kingmaker
 Despot Axe
@@ -265,11 +267,11 @@ Requires Level 66, 140 Str, 86 Dex
 {variant:2,3,4,5}(30-40)% increased Critical Strike Chance
 {variant:1}+(100-150) to maximum Mana
 Nearby Allies have 30% increased Item Rarity
-{variant:1}Nearby Allies' spells have Culling Strike
-{variant:2,3,4,5}Nearby Allies have Culling Strike
+Nearby Allies have Culling Strike
 {variant:2,3,4,5}Insufficient Mana doesn't prevent your Melee Attacks
 {variant:3,4,5}Nearby Allies have +50% to Critical Strike Multiplier
-{variant:3,4,5}Nearby Allies have +10 Fortification
+{variant:3,4}Nearby Allies have +1 Fortification
+{variant:5}Nearby Allies have +10 Fortification
 ]],[[
 Kitava's Feast
 Void Axe
@@ -277,14 +279,14 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 68, 149 Str, 76 Dex
-Socketed Gems are supported by level 25 Melee Splash
+Socketed Gems are supported by Level 25 Melee Splash
 {variant:1}(250-300)% increased Physical Damage
 {variant:2}(265-330)% increased Physical Damage
 {variant:3}(200-240)% increased Physical Damage
 1% of Physical Attack Damage Leeched as Life
 1% of Physical Attack Damage Leeched as Mana
 Recover 5% of Life on Kill
-Enemies you hit are destroyed on Kill
+Enemies Killed by your Hits are destroyed
 ]],[[
 Limbsplit
 Woodsplitter
@@ -317,20 +319,20 @@ Abyssal Axe
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 55, 128 Str, 60 Dex
+20% chance to Trigger Level 16 Molten Burst on Melee Hit
 {variant:1}(190-230)% increased Physical Damage
 {variant:2}(170-190)% increased Physical Damage
 (8-12)% increased Attack Speed
 {variant:1}50% of Physical Damage Converted to Fire Damage
 {variant:2}60% of Physical Damage Converted to Fire Damage
 Damage Penetrates 20% Fire Resistance
-20% chance to attack with Level 16 Molten Burst on Melee Hit
 ]],[[
 Reaper's Pursuit
 Shadow Axe
 Requires Level 33, 80 Str, 37 Dex
 (100-125)% increased Physical Damage
-+10 Life Gained on Kill
 (30-40)% increased Rarity of Items found
++10 Life gained on Kill
 15% increased Movement Speed when on Full Life
 Culling Strike
 Hits can't be Evaded
@@ -343,9 +345,9 @@ Requires Level 62, 140 Str, 86 Dex
 {variant:1}(200-212)% increased Physical Damage
 {variant:2}(140-152)% increased Physical Damage
 (8-12)% increased Attack Speed
-Rampage
 2% increased Area of Effect per 25 Rampage Kills
 Gain a Frenzy Charge on every 50th Rampage Kill
+Rampage
 ]],[[
 Uul-Netol's Kiss
 Labrys
@@ -356,7 +358,7 @@ Requires Level 49, 122 Str, 53 Dex
 (140-170)% increased Physical Damage
 15% reduced Attack Speed
 25% chance to Curse Enemies with Vulnerability on Hit, with 40% increased Effect
-Attacks have 25% chance to cause Bleeding when Hitting Cursed Enemies
+Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
 ]],[[
 Uul-Netol's Embrace
 Vaal Axe
@@ -377,23 +379,13 @@ Poleaxe
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 18, 44 Str, 25 Dex
-Socketed Gems are Supported by level 20 Increased Area of Effect
-(120-160)% increased Physical Damage
+Socketed Gems are Supported by Level 20 Increased Area of Effect
 +10 to Strength
+(120-160)% increased Physical Damage
++10 Mana gained on Kill
 {variant:1}+(50-80) to Accuracy Rating
 {variant:2}+(120-150) to Accuracy Rating
-+10 Mana Gained on Kill
-+2 to Weapon range
-]],[[
-Wings of Entropy
-Ezomyte Axe
-Requires Level 62, 140 Str, 86 Dex
-(7-10)% Chance to Block Spell Damage
-+(8-12)% Chance to Block Attack Damage while Dual Wielding
-(60-80)% increased Physical Damage
-Adds (75-100) to (165-200) Fire Damage in Main Hand
-Adds (75-100) to (165-200) Chaos Damage in Off Hand
-Counts as Dual Wielding
++2 to Weapon Range
 ]],[[
 Replica Wings of Entropy
 Ezomyte Axe
@@ -407,22 +399,21 @@ Counts as Dual Wielding
 (50-70)% more Main Hand attack speed
 ]],[[
 Wings of Entropy
-Sundering Axe
+{variant:1,2,3,4}Sundering Axe
+{variant:5}Ezomyte Axe
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 3.4.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 60, 149 Str, 76 Dex
-Implicits:1
-{variant:5}+20% to Damage over Time Multiplier for Bleeding
-{variant:1,2}25% of Block Chance applied to Spells
-{variant:3}7% chance to Block Spell Damage
-{variant:4}(6-7)% chance to Block Spell Damage
-{variant:5}(7-10)% chance to Block Spell Damage
+{variant:1,2,3,4}Requires Level 60, 149 Str, 76 Dex
+{variant:5}Requires Level 62, 140 Str, 86 Dex
+{variant:1,2,3}7% Chance to Block Spell Damage
+{variant:4}(6-7)% Chance to Block Spell Damage
+{variant:5}(7-10)% Chance to Block Spell Damage
 {variant:1}+10% Chance to Block Attack Damage while Dual Wielding
 {variant:2,3,4}+8% Chance to Block Attack Damage while Dual Wielding
-{variant:5}+(8-10)% Chance to Block Attack Damage while Dual Wielding
+{variant:5}+(8-12)% Chance to Block Attack Damage while Dual Wielding
 {variant:1,2}(80-120)% increased Physical Damage
 {variant:3,4}(100-120)% increased Physical Damage
 {variant:5}(60-80)% increased Physical Damage
