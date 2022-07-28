@@ -5,7 +5,6 @@ return {
 [[
 Ahn's Might
 Midnight Blade
-Requires Level 68, 213 Str, 113 Dex
 Implicits: 1
 40% increased Global Accuracy Rating
 Adds (80-115) to (150-205) Physical Damage
@@ -20,7 +19,6 @@ Beltimber Blade
 Eternal Sword
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 66, 104 Str, 122 Dex
 Implicits: 1
 +475 to Accuracy Rating
 {variant:1}(170-190)% increased Physical Damage
@@ -36,7 +34,6 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 66, 104 Str, 122 Dex
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
 {variant:3,4}+475 to Accuracy Rating
@@ -53,7 +50,6 @@ Implicits: 2
 Replica Dreamfeather
 Eternal Sword
 League: Heist
-Requires Level 66, 104 Str, 122 Dex
 Implicits: 1
 +475 to Accuracy Rating
 Adds (40-65) to (70-100) Physical Damage
@@ -68,7 +64,6 @@ Dusk Blade
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 32, 57 Str, 57 Dex
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
 {variant:3}40% increased Global Accuracy Rating
@@ -86,7 +81,6 @@ Source: Vendor Recipe
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 28, 46 Str, 55 Dex
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
 {variant:3}+190 to Accuracy Rating
@@ -106,7 +100,7 @@ Eternal Sword
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 51, 104 Str, 122 Dex
+LevelReq: 51
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}+475 to Accuracy Rating
@@ -124,7 +118,6 @@ Grelwood Shank
 Eternal Sword
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 66, 104 Str, 122 Dex
 Implicits: 1
 +475 to Accuracy Rating
 {variant:1}(170-190)% increased Physical Damage
@@ -143,7 +136,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 62, 122 Str, 104 Dex
 Implicits: 2
 {variant:1,2,3}18% increased Global Accuracy Rating
 {variant:4,5,6}40% increased Global Accuracy Rating
@@ -161,7 +153,6 @@ Ichimonji
 Corsair Sword
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 58, 81 Str, 117 Dex
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
@@ -179,7 +170,6 @@ Innsbury Edge
 Elder Sword
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 47, 81 Str, 81 Dex
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}+330 to Accuracy Rating
@@ -192,7 +182,6 @@ Attacks with this Weapon Maim on hit
 Replica Innsbury Edge
 Elder Sword
 League: Heist
-Requires Level 47, 81 Str, 81 Dex
 Implicits: 1
 +330 to Accuracy Rating
 (100-140)% increased Physical Damage
@@ -204,7 +193,6 @@ Inflict Withered for 2 seconds on Hit with this Weapon
 The Iron Mass
 Gladius
 League: Heist
-Requires Level 60, 113 Str, 113 Dex
 Implicits: 1
 40% increased Global Accuracy Rating
 (140-175)% increased Physical Damage
@@ -219,7 +207,6 @@ Lakishu's Blade
 Elegant Sword
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 28, 46 Str, 55 Dex
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}+190 to Accuracy Rating
@@ -234,7 +221,6 @@ Oni-Goroshi
 Charan's Sword
 Source: Drops from unique{Hillock}
 Sockets: R-R-R-R-R-R
-Requires Level: 2
 Implicits: 1
 40% increased Global Accuracy Rating
 Uses both hand slots
@@ -247,7 +233,6 @@ The Princess
 Sabre
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 10, 18 Str, 26 Dex
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
@@ -265,7 +250,6 @@ Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 53, 91 Str, 91 Dex
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
 {variant:3,4}40% increased Global Accuracy Rating
@@ -284,7 +268,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 68, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3,4}40% increased Global Accuracy Rating
@@ -304,7 +287,6 @@ Variant: Pre 1.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Dex
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
 {variant:3,4}+460 to Accuracy Rating
@@ -329,7 +311,6 @@ Redbeak
 Rusted Sword
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 2
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
@@ -346,7 +327,7 @@ Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 61
+LevelReq: 61
 Implicits: 1
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3}40% increased Global Accuracy Rating
@@ -366,7 +347,6 @@ Source: Drops from unique{Rigwald, the Wolven King} (Level 75+)
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 68, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3}40% increased Global Accuracy Rating
@@ -381,7 +361,6 @@ The Rippling Thoughts
 Legion Sword
 League: Harbinger
 Upgrade: Upgrades to unique{The Surging Thoughts} via currency{Electroshock Scroll}
-Requires Level 62, 122 Str, 104 Dex
 Implicits: 1
 40% increased Global Accuracy Rating
 Grants Summon Harbinger of the Arcane Skill
@@ -396,7 +375,6 @@ The Surging Thoughts
 Legion Sword
 League: Harvest
 Source: Upgraded from unique{The Rippling Thoughts} via currency{Electroshock Scroll}
-Requires Level 62, 122 Str, 104 Dex
 Implicits: 1
 40% increased Global Accuracy Rating
 Grants Summon Greater Harbinger of the Arcane Skill
@@ -410,7 +388,6 @@ Adds 1 to (60-70) Lightning Damage to Spells
 The Saviour
 Legion Sword
 Source: Drops from unique{Sirus, Awakener of Worlds}
-Requires Level 62, 122 Str, 104 Dex
 Implicits: 1
 40% increased Global Accuracy Rating
 Triggers Level 20 Reflection when Equipped
@@ -423,7 +400,6 @@ Scaeva
 Gladius
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 60, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
@@ -438,13 +414,12 @@ Adds (75-92) to (125-154) Physical Damage
 ]],[[
 Severed in Sleep
 Cutlass
-League: Breach
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{United in Dream} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 38, 55 Str, 79 Dex
+League: Breach
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3}40% increased Global Accuracy Rating
@@ -463,7 +438,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.16.0
 Variant: Current
 League: Breach
-Requires Level 69, 55 Str, 79 Dex
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3,4}40% increased Global Accuracy Rating
@@ -483,8 +457,6 @@ Variant: Current
 {variant:2}Gemstone Sword
 League: Incursion
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
-{variant:1}Requires Level 35, 62 Str, 62 Dex
-{variant:2}Requires Level 56, 96 Str, 96 Dex
 Implicits: 2
 {variant:1}+240 to Accuracy Rating
 {variant:2}+400 to Accuracy Rating
@@ -504,7 +476,6 @@ League: Incursion
 Source: Upgraded from unique{Story of the Vaal} via currency{Vial of Fate}
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 56, 96 Str, 96 Dex
 Implicits: 1
 +400 to Accuracy Rating
 {variant:1}(160-180)% increased Physical Damage
@@ -520,7 +491,6 @@ The Tempestuous Steel
 War Sword
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20, 41 Str, 35 Dex
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
@@ -534,7 +504,6 @@ Gain 15% of Physical Attack Damage as Extra Lightning Damage
 Replica Tempestuous Steel
 War Sword
 League: Heist
-Requires Level 20, 41 Str, 35 Dex
 Implicits: 1
 40% increased Global Accuracy Rating
 Adds (5-8) to (15-20) Physical Damage
@@ -550,7 +519,6 @@ Vaal Blade
 League: Perandus
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}+460 to Accuracy Rating
@@ -566,7 +534,6 @@ Basket Rapier
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 17, 62 Dex
 Implicits: 3
 {variant:1}+20% to Global Critical Strike Multiplier
 {variant:2}+30% to Global Critical Strike Multiplier
@@ -581,7 +548,6 @@ Elegant Foil
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 30, 101 Dex
 Implicits: 3
 {variant:1}+20% to Global Critical Strike Multiplier
 {variant:2}+30% to Global Critical Strike Multiplier
@@ -597,7 +563,6 @@ Cospri's Malice
 Jewelled Foil
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 68, 212 Dex, 257 Int
 Implicits: 2
 {variant:1}+30% to Global Critical Strike Multiplier
 {variant:2}+25% to Global Critical Strike Multiplier
@@ -613,7 +578,6 @@ Daresso's Passion
 Estoc
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 43, 140 Dex
 Implicits: 2
 {variant:1}+30% to Global Critical Strike Multiplier
 {variant:2}+25% to Global Critical Strike Multiplier
@@ -627,7 +591,6 @@ Ewar's Mirage
 Antique Rapier
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 26, 89 Dex
 Implicits: 2
 {variant:1}+30% to Global Critical Strike Multiplier
 {variant:2}+25% to Global Critical Strike Multiplier
@@ -642,7 +605,6 @@ Jagged Foil
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 22, 77 Dex
 Implicits: 3
 {variant:1}+20% to Global Critical Strike Multiplier
 {variant:2}+30% to Global Critical Strike Multiplier
@@ -660,7 +622,6 @@ Whalebone Rapier
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 7, 32 Dex
 Implicits: 3
 {variant:1}+20% to Global Critical Strike Multiplier
 {variant:2}+30% to Global Critical Strike Multiplier
@@ -683,7 +644,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 59, 82 Str, 119 Dex
 Implicits: 3
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
@@ -703,7 +663,6 @@ Reaver Sword
 Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Pre 3.17.0
-Requires Level 65, 82 Str, 119 Dex
 Implicits: 2
 {variant:1}40% increased Global Accuracy Rating
 {variant:2}60% increased Global Accuracy Rating
@@ -723,7 +682,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.8.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 65, 104 Str, 122 Dex
 Implicits: 3
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3,4}+470 to Accuracy Rating
@@ -745,7 +703,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.11.1
 Variant: Current
-Requires Level 22, 45 Str, 38 Dex
 Implicits: 3
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
@@ -764,7 +721,6 @@ Reaver Sword
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 59, 82 Str, 119 Dex
 Implicits: 3
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
@@ -780,7 +736,6 @@ Ezomyte Blade
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 61, 113 Str, 113 Dex
 Implicits: 3
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}+435 to Accuracy Rating
@@ -798,7 +753,6 @@ Infernal Sword
 Variant: Pre 1.3.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 67, 113 Str, 113 Dex
 Implicits: 2
 {variant:1,2}30% increased Global Accuracy Rating
 {variant:3}30% increased Elemental Damage with Attack Skills
@@ -816,7 +770,6 @@ Gain a Frenzy Charge if an Attack Ignites an Enemy
 Replica Oro's Sacrifice
 Infernal Sword
 League: Heist
-Requires Level 67, 113 Str, 113 Dex
 Implicits: 1
 30% increased Elemental Damage with Attack Skills
 No Physical Damage
@@ -833,7 +786,6 @@ Ornate Sword
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 27, 56 Str, 54 Dex
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3}+185 to Accuracy Rating
@@ -853,7 +805,7 @@ Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 38, 56 Str, 54 Dex
+LevelReq: 38
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3}+185 to Accuracy Rating
@@ -875,7 +827,6 @@ Variant: Pre 1.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 44, 77 Str, 77 Dex
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
 {variant:3,4}+305 to Accuracy Rating
@@ -891,7 +842,7 @@ Bastard Sword
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 14, 21 Str, 30 Dex
+LevelReq: 14
 Implicits: 3
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
@@ -906,7 +857,6 @@ Infernal Sword
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 67, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}30% increased Global Accuracy Rating
 {variant:2}30% increased Global Physical Damage
@@ -924,7 +874,6 @@ Tiger Sword
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 51, 80 Str, 96 Dex
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3}+360 to Accuracy Rating
@@ -942,7 +891,6 @@ Infernal Sword
 Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 67, 113 Str, 113 Dex
 Implicits: 2
 {variant:1}30% increased Global Accuracy Rating
 {variant:2}30% increased Elemental Damage with Attack Skills
