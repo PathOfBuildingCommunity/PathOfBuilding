@@ -398,6 +398,12 @@ data.misc = { -- magic numbers
 	ehpCalcMaxDepth = 512,
 		-- max hits is currently depth + speedup - 1 to give as much accuracy with as few cycles as possible, but can be increased for more accuracy
 	ehpCalcMaxHitsToCalc = 519,
+	-- PvP scaling used for hogm
+	PvpElemental1 = 0.55,
+	PvpElemental2 = 150,
+	PvpNonElemental1 = 0.57,
+	PvpNonElemental2 = 90,
+	
 }
 
 data.bossSkills = {

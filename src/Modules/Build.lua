@@ -266,7 +266,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.displayStats = {
 		{ stat = "ActiveMinionLimit", label = "Active Minion Limit", fmt = "d" },
 		{ stat = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
+		{ stat = "PvpAverageHit", label = "PvP Average Hit", fmt = ".1f", compPercent = true, flag = "isPvP" },
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "attack" },
+		{ stat = "PvpAverageDamage", label = "PvP Average Damage", fmt = ".1f", compPercent = true, flag = "attackPvP" },
 		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack", condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
 		{ stat = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell", condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
 		{ stat = "ServerTriggerRate", label = "Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
@@ -282,6 +284,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return (o.CritChance or 0) > 0 end },
 		{ stat = "HitChance", label = "Hit Chance", fmt = ".0f%%", flag = "attack" },
 		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
+		{ stat = "PvpTotalDPS", label = "PvP Total DPS", fmt = ".1f", compPercent = true, flag = "notAveragePvP" },
 		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ stat = "WithDotDPS", label = "Total DPS inc. DoT", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.PoisonDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
