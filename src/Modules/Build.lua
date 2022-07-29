@@ -38,7 +38,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	-- Load build file
 	self.xmlSectionList = { }
 	self.spectreList = { }
-	self.timelessData = { jewelType = { }, conquerorType = { }, jewelSocket = { }, searchList = "", searchResults = { }, sharedResults = { } }
+	self.timelessData = { jewelType = { }, conquerorType = { }, jewelSocket = { }, fallbackWeightMode = { }, searchList = "", searchListFallback = "", searchResults = { }, sharedResults = { } }
 	self.viewMode = "TREE"
 	self.characterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
 	self.targetVersion = liveTargetVersion
@@ -799,8 +799,12 @@ function buildMode:Load(xml, fileName)
 				id = tonumber(child.attrib.jewelSocketId),
 				idx = tonumber(child.attrib.jewelSocketIdx)
 			}
+			self.timelessData.fallbackWeightMode = {
+				idx = tonumber(child.attrib.fallbackWeightModeIdx)
+			}
 			self.timelessData.socketFilter = child.attrib.socketFilter == "true"
 			self.timelessData.searchList = child.attrib.searchList
+			self.timelessData.searchListFallback = child.attrib.searchListFallback
 		end
 	end
 end
@@ -876,8 +880,10 @@ function buildMode:Save(xml)
 			jewelSocketKeystone = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.keystone),
 			jewelSocketId = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.id),
 			jewelSocketIdx = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.idx),
+			fallbackWeightModeIdx = next(self.timelessData.fallbackWeightMode) and tostring(self.timelessData.fallbackWeightMode.idx),
 			socketFilter = self.timelessData.socketFilter and "true",
-			searchList = self.timelessData.searchList and tostring(self.timelessData.searchList)
+			searchList = self.timelessData.searchList and tostring(self.timelessData.searchList),
+			searchListFallback = self.timelessData.searchListFallback and tostring(self.timelessData.searchListFallback)
 		}
 	}
 	t_insert(xml, timelessData)

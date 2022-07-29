@@ -691,7 +691,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			end
 			
 			local replaceHelperFunc = function(statToFix, statKey, statMod, value)
-				if statMod.fmt == "g" then -- note the only one we actualy care about is "Ritual of Flesh" life regen
+				if statMod.fmt == "g" then -- note the only one we actually care about is "Ritual of Flesh" life regen
 					if statKey:find("per_minute") then
 						value = round(value / 60, 1)
 					elseif statKey:find("permyriad") then
@@ -702,7 +702,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				end
 				--if statMod.fmt == "d" then -- only ever d or g, and we want both past here
 				if statMod.min ~= statMod.max then
-					return statToFix:gsub("%("..statMod.min.."%-"..statMod.max.."%)", value)
+					return statToFix:gsub("%(" .. statMod.min .. "%-" .. statMod.max .. "%)", value)
 				elseif statMod.min ~= value then -- only true for might/legacy of the vaal which can combine stats
 					return statToFix:gsub(statMod.min, value)
 				end
