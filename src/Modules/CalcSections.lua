@@ -310,7 +310,7 @@ return {
 		{ breakdown = "OffHand.AverageDamage" },
 		{ breakdown = "AverageDamage" },
 	}, },
-	{ label = "PvP Average Damage", flag = "attackPvP", { format = "{1:output:PvpAverageDamage}", 
+	{ label = "PvP Average Dmg", flag = "attackPvP", { format = "{1:output:PvpAverageDamage}", 
 		{ breakdown = "MainHand.PvpAverageDamage" },
 		{ breakdown = "OffHand.PvpAverageDamage" },
 		{ breakdown = "PvpAverageDamage" },

@@ -2693,49 +2693,41 @@ function calcs.offence(env, actor, activeSkill)
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
 			}
-			if skillFlags.isPvP then
-				breakdown.PvpTotalDPS = {
-					s_format("%.1f ^8(average pvp damage)", output.PvpAverageDamage),
-					output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
-				}
-			end
 		elseif isTriggered then
 			breakdown.TotalDPS = {
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(trigger rate)", output.Speed),
 			}
-			if skillFlags.isPvP then
-				breakdown.PvpTotalDPS = {
-					s_format("%.1f ^8(average pvp hit)", output.PvpAverageDamage),
-					output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(trigger rate)", output.Speed),
-				}
-			end
 		else
 			breakdown.TotalDPS = {
 				s_format("%.1f ^8(average hit)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(cast rate)", output.Speed),
 			}
-			if skillFlags.isPvP then
-				breakdown.PvpTotalDPS = {
-					s_format("%.1f ^8(average pvp hit)", output.PvpAverageDamage),
-					output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(cast rate)", output.Speed),
-				}
-			end
 		end
 		if skillData.dpsMultiplier then
 			t_insert(breakdown.TotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
-			if skillFlags.isPvP then
-				t_insert(breakdown.PvpTotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
-			end
 		end
 		if quantityMultiplier > 1 then
 			t_insert(breakdown.TotalDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
-			if skillFlags.isPvP then
-				t_insert(breakdown.PvpTotalDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
-			end
 		end
 		t_insert(breakdown.TotalDPS, s_format("= %.1f", output.TotalDPS))
 		if skillFlags.isPvP then
+			local rateType = "cast"
+			if isAttack then
+				rateType = "attack"
+			elseif isTriggered then
+				rateType = "trigger"
+			end
+			breakdown.PvpTotalDPS = {
+				s_format("%.1f ^8(average pvp hit)", output.PvpAverageDamage),
+				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, rateType),
+			}
+			if skillData.dpsMultiplier then
+				t_insert(breakdown.PvpTotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+			end
+			if quantityMultiplier > 1 then
+				t_insert(breakdown.PvpTotalDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
+			end
 			t_insert(breakdown.PvpTotalDPS, s_format("= %.1f", output.PvpTotalDPS))
 		end
 	end
