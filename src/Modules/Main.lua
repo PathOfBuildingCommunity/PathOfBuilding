@@ -205,7 +205,6 @@ the "Releases" section of the GitHub page.]])
 	self.showTitlebarName = true
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
-	self.invertSliderScrollDirection = true
 
 	local ignoreBuild
 	if arg[1] then
@@ -741,9 +740,10 @@ function main:OpenOptionsPopup()
 	controls.slotOnlyTooltips.state = self.slotOnlyTooltips
 	
 	nextRow()
-	controls.invertSliderScrollDirection = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Inverts Slider Scroll Direction:", function(state)
+	controls.invertSliderScrollDirection = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Invert slider scroll direction:", function(state)
 		self.invertSliderScrollDirection = state
 	end)
+	controls.invertSliderScrollDirection.tooltipText = "Default scroll direction is:\nScroll Up = Move right\nScroll Down = Move left"
 	controls.invertSliderScrollDirection.state = self.invertSliderScrollDirection
 
 	controls.betaTest.state = self.betaTest
