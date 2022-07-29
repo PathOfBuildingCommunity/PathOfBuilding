@@ -237,6 +237,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				self.varControls[varData.var] = control
 				self.placeholder[varData.var] = varData.defaultPlaceholderState
 				control.placeholder = varData.defaultPlaceholderState
+				if varData.defaultIndex then
+					self.input[varData.var] = varData.list[varData.defaultIndex].val
+					control.selIndex = varData.defaultIndex
+				end
 			end
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)
@@ -257,7 +261,7 @@ function ConfigTabClass:Load(xml, fileName)
 			elseif node.attrib.string then
 				if node.attrib.name == "enemyIsBoss" then
 					self.input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
-					:gsub("Uber Atziri", "Boss"):gsub("Shaper", "Pinnacle"):gsub("Sirus", "Uber")
+					:gsub("Uber Atziri", "Boss"):gsub("Shaper", "Pinnacle"):gsub("Sirus", "Pinnacle")
 				else
 					self.input[node.attrib.name] = node.attrib.string
 				end

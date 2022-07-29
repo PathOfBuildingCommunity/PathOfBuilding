@@ -1370,7 +1370,7 @@ return {
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", tooltip = [[
+	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", defaultIndex = 1, tooltip = [[
 Bosses' damage is monster damage scaled to an average damage of their attacks
 This is divided by 4.25 to represent 4 damage types + some ^xD02090chaos
 ^7Fill in the exact damage numbers if more precision is needed
