@@ -205,6 +205,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
 		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
+		self.configTab:BuildModList()
 		self.modFlag = true
 		self.buildFlag = true
 	end)

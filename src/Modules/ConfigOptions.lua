@@ -1409,9 +1409,9 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(defaultResist, true)
 
 			local defaultLevel = 83
-			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
-			if build.calcsTab.mainEnv then
-				defaultLevel = build.calcsTab.mainEnv.enemyLevel
+			build.configTab.varControls['enemyLevel']:SetPlaceholder("", true)
+			if build.configTab.enemyLevel then
+				defaultLevel = build.configTab.enemyLevel
 			end
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5)
@@ -1438,9 +1438,9 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(25, true)
 
 			local defaultLevel = 83
-			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
-			if build.calcsTab.mainEnv then
-				defaultLevel = build.calcsTab.mainEnv.enemyLevel
+			build.configTab.varControls['enemyLevel']:SetPlaceholder("", true)
+			if build.configTab.enemyLevel then
+				defaultLevel = build.configTab.enemyLevel
 			end
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.stdBossDPSMult)
@@ -1470,8 +1470,8 @@ Uber Pinnacle Boss adds the following modifiers:
 
 			local defaultLevel = 84
 			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
-			if build.calcsTab.mainEnv then
-				defaultLevel = m_max(build.calcsTab.mainEnv.enemyLevel, defaultLevel)
+			if build.configTab.enemyLevel then
+				defaultLevel = m_max(build.configTab.enemyLevel, defaultLevel)
 			end
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.pinnacleBossDPSMult)
@@ -1501,8 +1501,8 @@ Uber Pinnacle Boss adds the following modifiers:
 
 			local defaultLevel = 85
 			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
-			if build.calcsTab.mainEnv then
-				defaultLevel = m_max(build.calcsTab.mainEnv.enemyLevel, defaultLevel)
+			if build.configTab.enemyLevel then
+				defaultLevel = m_max(build.configTab.enemyLevel, defaultLevel)
 			end
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.uberBossDPSMult)
@@ -1583,8 +1583,8 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 		end
 
 		if val == "Uber Atziri Flameblast" then
-			if build.calcsTab.mainEnv then
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Uber Atziri Flameblast"].damageMult), true)
+			if build.configTab.enemyLevel then
+				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Uber Atziri Flameblast"].damageMult), true)
 				build.configTab.varControls['enemyDamageType']:SelByValue("Spell", "val")
 				build.configTab.varControls['enemyDamageType'].enabled = false
 				build.configTab.input['enemyDamageType'] = "Spell"
@@ -1594,8 +1594,8 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Uber Atziri Flameblast"].speed, true)
 			build.configTab.varControls['enemyCritChance']:SetPlaceholder(0, true)
 		elseif val == "Shaper Ball" then
-			if build.calcsTab.mainEnv then
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Shaper Ball"].damageMult), true)
+			if build.configTab.enemyLevel then
+				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Ball"].damageMult), true)
 			end
 
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(25, true)
@@ -1604,8 +1604,8 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 			build.configTab.varControls['enemyDamageType']:SelByValue("SpellProjectile", "val")
 			build.configTab.input['enemyDamageType'] = "SpellProjectile"
 		elseif val == "Shaper Slam" then
-			if build.calcsTab.mainEnv then
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult), true)
+			if build.configTab.enemyLevel then
+				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult), true)
 			end
 			build.configTab.varControls['enemyDamageType'].enabled = false
 			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
@@ -1613,8 +1613,8 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 
 			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Shaper Slam"].speed, true)
 		elseif val == "Maven Memory Game" then
-			if build.calcsTab.mainEnv then
-				local defaultEleDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Maven Memory Game"].damageMult)
+			if build.configTab.enemyLevel then
+				local defaultEleDamage = round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Maven Memory Game"].damageMult)
 				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultEleDamage, true)
 				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultEleDamage, true)
 				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultEleDamage, true)
