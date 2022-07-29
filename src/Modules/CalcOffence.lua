@@ -2598,7 +2598,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.PvpAverageDamage = output.PvpAverageHit * output.HitChance / 100
 			output.PvpTotalDPS = output.PvpAverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
 
-			--fix for these beign nan
+			-- fix for these being nan
 			if output.PvpAverageHit ~= output.PvpAverageHit then
 				output.PvpAverageHit = 0
 			end
