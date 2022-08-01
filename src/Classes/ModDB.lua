@@ -124,7 +124,7 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	local result = 1
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
-		local modResult = 1 --The more multiplers for each mod are computed to the nearest percent then applied.
+		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
