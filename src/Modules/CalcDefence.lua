@@ -1633,7 +1633,7 @@ function calcs.defence(env, actor)
 			end
 		end
 		for _, damageType in ipairs(dmgTypeList) do
-			 -- Emperor's Vigilance (this needs to fail with divine flesh as it cant override it, hence the check for high bypass)
+			 -- Emperor's Vigilance (this needs to fail with divine flesh as it can't override it, hence the check for high bypass)
 			if modDB:Flag(nil, "BlockedDamageDoesntBypassES")and output[damageType.."EnergyShieldBypass"] < 100 and damageType ~= "Chaos"  then
 				DamageIn[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] * (1 - BlockChance) 
 			end
