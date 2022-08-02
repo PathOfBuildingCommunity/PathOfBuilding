@@ -670,7 +670,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		-- Check if there is a saver that can load this section
 		local saver = self.savers[node.elem] or self.legacyLoaders[node.elem]
 		if saver then
-			-- if the saver is treeTab, defer it until everything is is loaded
+			-- if the saver is treeTab, defer it until everything is loaded
 			if saver == self.treeTab  then
 				t_insert(deferredPassiveTrees, node)
 			else
