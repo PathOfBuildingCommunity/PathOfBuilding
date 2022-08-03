@@ -1067,7 +1067,7 @@ function calcs.defence(env, actor)
 		local enemyPen = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."EnemyPen"]
 		local enemyOverwhelm = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."enemyOverwhelm"] or 0 -- or 0 is to be removed once mod is passed / added to config tab.
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
-		local percentOfArmourApplies = (damageType == "Physical" and 100) or modDB:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0
+		local percentOfArmourApplies = (damageType == "Physical" and 100) or m_min((modDB:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
 		local damage = output[damageType.."TakenDamage"]
 		local armourReduct = 0
 		local resMult = 1 - (resist - enemyPen) / 100
