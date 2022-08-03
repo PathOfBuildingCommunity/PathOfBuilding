@@ -491,42 +491,35 @@ return {
 			name="Stat1",
 			refTo="",
 			type="Interval",
-			width=150
+			width=70
 		},
 		[6]={
 			list=false,
 			name="Stat2",
 			refTo="",
 			type="Interval",
-			width=150
+			width=70
 		},
 		[7]={
 			list=false,
-			name="Unknown8",
+			name="Stat3",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[8]={
-			list=false,
-			name="Unknown9",
+			list=true,
+			name="PassiveType",
 			refTo="",
 			type="Int",
 			width=70
 		},
 		[9]={
-			list=true,
-			name="PassiveType",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[10]={
 			list=false,
 			name="SpawnWeight",
 			refTo="",
 			type="Int",
-			width=150
+			width=90
 		}
 	},
 	AlternatePassiveSkills={
@@ -595,82 +588,68 @@ return {
 		},
 		[10]={
 			list=false,
-			name="Unknown13",
+			name="Stat5",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[11]={
 			list=false,
-			name="Unknown14",
+			name="Stat6",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[12]={
-			list=false,
-			name="Unknown15",
-			refTo="",
-			type="Int",
-			width=70
-		},
-		[13]={
-			list=false,
-			name="Unknown16",
-			refTo="",
-			type="Int",
-			width=70
-		},
-		[14]={
 			list=false,
 			name="SpawnWeight",
 			refTo="",
 			type="Int",
 			width=90
 		},
-		[15]={
+		[13]={
 			list=false,
 			name="ConquerorIndex",
 			refTo="",
 			type="UInt",
 			width=90
 		},
-		[16]={
+		[14]={
 			list=false,
 			name="Random",
 			refTo="",
 			type="Interval",
 			width=150
 		},
-		[17]={
+		[15]={
 			list=false,
 			name="FlavourText",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[18]={
+		[16]={
 			list=false,
 			name="DDSIcon",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[19]={
+		[17]={
 			list=true,
 			name="AchievementItemsKeys",
 			refTo="",
 			type="UInt",
 			width=150
 		},
-		[20]={
+		[18]={
 			list=false,
 			name="ConquerorVersion",
 			refTo="",
 			type="UInt",
 			width=150
 		},
-		[21]={
+		[19]={
 			list=false,
 			name="ConquerorSpawnWeight",
 			refTo="",
@@ -703,59 +682,59 @@ return {
 		},
 		[2]={
 			list=false,
-			name="AreSmallAttributePassiveSkillsReplaced",
+			name="SmallAttributeReplaced",
 			refTo="",
 			type="Bool",
-			width=200
+			width=150
 		},
 		[3]={
 			list=false,
-			name="AreSmallNormalPassiveSkillsReplaced ",
+			name="SmallNormalPassiveReplaced ",
 			refTo="",
 			type="Bool",
-			width=200
+			width=150
 		},
 		[4]={
 			list=false,
-			name="Unknown4",
+			name="SmallPassiveSkillsAddedTo",
 			refTo="",
-			type="Int",
-			width=60
+			type="UInt",
+			width=150
 		},
 		[5]={
 			list=false,
-			name="Unknown5",
+			name="NotablePassiveSkillAddedTo",
 			refTo="",
-			type="Int",
-			width=60
+			type="UInt",
+			width=150
 		},
 		[6]={
 			list=false,
-			name="MinimumAdditions ",
+			name="MinimumSmallPassiveAdditions ",
 			refTo="",
 			type="UInt",
-			width=150
+			width=160
 		},
 		[7]={
 			list=false,
-			name="MaximumAdditions ",
+			name="MaximumSmallPassiveAdditions ",
 			refTo="",
 			type="UInt",
-			width=150
+			width=160
 		},
 		[8]={
 			list=false,
-			name="Unknown8",
+			name="MinimumNotablePassiveAdditions ",
 			refTo="",
-			type="Int",
-			width=60
+			type="UInt",
+			width=170
 		},
 		[9]={
 			list=false,
-			name="Unknown9",
+			name="MaximumNotablePassiveAdditions ",
 			refTo="",
-			type="Int",
-			width=60
+			type="UInt",
+			width=180
 		},
 		[10]={
 			list=false,
