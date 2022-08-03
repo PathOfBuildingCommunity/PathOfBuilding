@@ -696,47 +696,26 @@ return {
 		},
 		[4]={
 			list=false,
-			name="SmallPassiveSkillsAddedTo",
+			name="SmallAttributePassiveSkillAdditions",
 			refTo="",
-			type="UInt",
-			width=150
+			type="Interval",
+			width=170
 		},
 		[5]={
 			list=false,
-			name="NotablePassiveSkillAddedTo",
+			name="NotableAdditions",
 			refTo="",
-			type="UInt",
+			type="Interval",
 			width=150
 		},
 		[6]={
 			list=false,
-			name="MinimumSmallPassiveAdditions ",
+			name="SmallNormalPassiveSkillAdditions",
 			refTo="",
-			type="UInt",
-			width=160
-		},
-		[7]={
-			list=false,
-			name="MaximumSmallPassiveAdditions ",
-			refTo="",
-			type="UInt",
-			width=160
-		},
-		[8]={
-			list=false,
-			name="MinimumNotablePassiveAdditions ",
-			refTo="",
-			type="UInt",
+			type="Interval",
 			width=170
 		},
-		[9]={
-			list=false,
-			name="MaximumNotablePassiveAdditions ",
-			refTo="",
-			type="UInt",
-			width=180
-		},
-		[10]={
+		[7]={
 			list=false,
 			name="NotableReplacementSpawnWeight ",
 			refTo="",
