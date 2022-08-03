@@ -495,42 +495,35 @@ return {
 		},
 		[6]={
 			list=false,
-			name="Unknown6",
+			name="Stat2",
 			refTo="",
-			type="Int",
-			width=30
+			type="Interval",
+			width=150
 		},
 		[7]={
-			list=false,
-			name="Unknown7",
-			refTo="",
-			type="Int",
-			width=30
-		},
-		[8]={
 			list=false,
 			name="Unknown8",
 			refTo="",
 			type="Int",
-			width=30
+			width=70
 		},
-		[9]={
+		[8]={
 			list=false,
 			name="Unknown9",
 			refTo="",
 			type="Int",
-			width=30
+			width=70
 		},
-		[10]={
+		[9]={
 			list=true,
 			name="PassiveType",
 			refTo="",
 			type="Int",
 			width=150
 		},
-		[11]={
+		[10]={
 			list=false,
-			name="Unknown11",
+			name="SpawnWeight",
 			refTo="",
 			type="Int",
 			width=150
@@ -584,102 +577,102 @@ return {
 			name="Stat2",
 			refTo="",
 			type="Interval",
-			width=50
+			width=70
 		},
 		[8]={
 			list=false,
-			name="Unknown9",
+			name="Stat3",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[9]={
 			list=false,
-			name="Unknown10",
+			name="Stat4",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[10]={
-			list=false,
-			name="Unknown11",
-			refTo="",
-			type="Int",
-			width=70
-		},
-		[11]={
-			list=false,
-			name="Unknown12",
-			refTo="",
-			type="Int",
-			width=70
-		},
-		[12]={
 			list=false,
 			name="Unknown13",
 			refTo="",
 			type="Int",
 			width=70
 		},
-		[13]={
+		[11]={
 			list=false,
 			name="Unknown14",
 			refTo="",
 			type="Int",
 			width=70
 		},
-		[14]={
+		[12]={
 			list=false,
 			name="Unknown15",
 			refTo="",
 			type="Int",
-			width=30
+			width=70
 		},
-		[15]={
+		[13]={
 			list=false,
 			name="Unknown16",
 			refTo="",
 			type="Int",
-			width=50
+			width=70
 		},
-		[16]={
+		[14]={
 			list=false,
 			name="SpawnWeight",
 			refTo="",
 			type="Int",
-			width=30
+			width=90
 		},
-		[17]={
+		[15]={
 			list=false,
-			name="Unknown18",
+			name="ConquerorIndex",
 			refTo="",
-			type="Int",
-			width=150
+			type="UInt",
+			width=90
 		},
-		[18]={
+		[16]={
 			list=false,
 			name="Random",
 			refTo="",
 			type="Interval",
 			width=150
 		},
-		[19]={
+		[17]={
 			list=false,
 			name="FlavourText",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[20]={
+		[18]={
 			list=false,
 			name="DDSIcon",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[21]={
+		[19]={
 			list=true,
 			name="AchievementItemsKeys",
+			refTo="",
+			type="UInt",
+			width=150
+		},
+		[20]={
+			list=false,
+			name="ConquerorVersion",
+			refTo="",
+			type="UInt",
+			width=150
+		},
+		[21]={
+			list=false,
+			name="ConquerorSpawnWeight",
 			refTo="",
 			type="UInt",
 			width=150
@@ -707,6 +700,69 @@ return {
 			refTo="",
 			type="String",
 			width=150
+		},
+		[2]={
+			list=false,
+			name="AreSmallAttributePassiveSkillsReplaced",
+			refTo="",
+			type="Bool",
+			width=200
+		},
+		[3]={
+			list=false,
+			name="AreSmallNormalPassiveSkillsReplaced ",
+			refTo="",
+			type="Bool",
+			width=200
+		},
+		[4]={
+			list=false,
+			name="Unknown4",
+			refTo="",
+			type="Int",
+			width=60
+		},
+		[5]={
+			list=false,
+			name="Unknown5",
+			refTo="",
+			type="Int",
+			width=60
+		},
+		[6]={
+			list=false,
+			name="MinimumAdditions ",
+			refTo="",
+			type="UInt",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="MaximumAdditions ",
+			refTo="",
+			type="UInt",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="Unknown8",
+			refTo="",
+			type="Int",
+			width=60
+		},
+		[9]={
+			list=false,
+			name="Unknown9",
+			refTo="",
+			type="Int",
+			width=60
+		},
+		[10]={
+			list=false,
+			name="NotableReplacementSpawnWeight ",
+			refTo="",
+			type="UInt",
+			width=200
 		}
 	},
 	AnimatedObjectFlags={
