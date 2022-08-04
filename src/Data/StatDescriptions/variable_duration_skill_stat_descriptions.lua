@@ -9,7 +9,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% more Duration "
+					text="{0}% more Duration"
 				},
 				[2]={
 					[1]={
@@ -22,7 +22,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% less Duration "
+					text="{0}% less Duration"
 				}
 			}
 		},
@@ -81,7 +81,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Duration "
+					text="{0}% increased Duration"
 				},
 				[2]={
 					[1]={
@@ -94,7 +94,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Duration "
+					text="{0}% reduced Duration"
 				}
 			}
 		},
@@ -113,7 +113,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% more Duration "
+					text="{0}% more Duration"
 				},
 				[2]={
 					[1]={
@@ -126,7 +126,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% less Duration "
+					text="{0}% less Duration"
 				}
 			}
 		},

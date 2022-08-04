@@ -32,7 +32,7 @@ Implicits: 2
 (25-30)% increased Cast Speed
 +(5-10)% to Chaos Resistance
 {variant:1,2,3}40% increased Mana Cost of Skills
-{variant:4}+40 to Total Mana Cost of Skills
+{variant:4}Lose 40 Mana when you use a Skill
 {variant:3,4}Poisons you inflict deal Damage 20% faster
 ]],[[
 Ashcaller
@@ -52,7 +52,6 @@ Adds (4-6) to (7-9) Fire Damage to Spells
 ]],[[
 Eclipse Solaris
 Crystal Wand
-Upgrade: Upgrades to unique{Corona Solaris} via prophecy{Blinding Light}
 Variant: Pre 2.2.0
 Variant: Pre 2.3.0
 Variant: Pre 3.10.0
@@ -72,9 +71,9 @@ Nearby Enemies are Blinded
 ]],[[
 Corona Solaris
 Crystal Wand
-Source: Upgraded from unique{Eclipse Solaris} via prophecy{Blinding Light}
+Source: No longer obtainable
 Variant: Pre 3.10.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 63, 146 Int
 Implicits: 1
 (29-33)% increased Spell Damage
@@ -195,11 +194,10 @@ Implicits: 1
 +1 to Level of Socketed Active Skill Gems per 25 Player Levels 
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels 
 (8-12)% increased Attack Speed 
-Trigger a Socketed Spell when you Attack with this Weapon
+Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown
 ]],[[
 Reverberation Rod
 Spiraled Wand
-Upgrade: Upgrades to unique{Amplification Rod} via prophecy{Power Magnified}
 Variant: Pre 2.3.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -223,7 +221,7 @@ Your Critical Strike Chance is Lucky while on Low Life
 ]],[[
 Amplification Rod
 Spiraled Wand
-Source: Upgraded from unique{Reverberation Rod} using prophecy{Power Magnified}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 36, 83 Int
@@ -295,17 +293,21 @@ Adds 10 to 20 Cold Damage to Spells per Power Charge
 ]],[[
 Tulfall
 Tornado Wand
+Variant: Pre 3.16.0
+Variant: Current
 League: Breach
 Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
 Requires Level 65, 212 Int
 Implicits: 1
 (35-39)% increased Spell Damage
 (10-15)% increased Cast Speed
-50% chance to gain a Power Charge on Killing a Frozen Enemy
+{variant:1}50% chance to gain a Power Charge on Killing a Frozen Enemy
+{variant:2}Gain a Power Charge on Killing a Frozen Enemy
 Adds 15 to 25 Cold Damage to Spells per Power Charge
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
-(10-15)% increased Cold Damage per Frenzy Charge
+{variant:1}(10-15)% increased Cold Damage per Frenzy Charge
+{variant:2}(15-20)% increased Cold Damage per Frenzy Charge
 ]],[[
 Replica Tulfall
 Tornado Wand

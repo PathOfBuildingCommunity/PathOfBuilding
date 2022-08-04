@@ -37,7 +37,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Adds {0} to {1} Cold Damage to Attacks"
+					text="Buff grants {0} to {1} Added Attack Cold Damage"
 				}
 			}
 		},
@@ -61,6 +61,30 @@ return {
 							[2]="#"
 						}
 					},
+					text="Buff grants {0} to {1} Added Spell Cold Damage"
+				}
+			}
+		},
+		name="spell_added_cold",
+		stats={
+			[1]="spell_minimum_added_cold_damage",
+			[2]="spell_maximum_added_cold_damage"
+		}
+	},
+	[4]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
 					text="Buff grants {0} to {1} Added Attack Lightning Damage"
 				}
 			}
@@ -71,7 +95,7 @@ return {
 			[2]="attack_maximum_added_lightning_damage"
 		}
 	},
-	[4]={
+	[5]={
 		lang={
 			English={
 				[1]={
@@ -95,7 +119,7 @@ return {
 			[2]="spell_maximum_added_lightning_damage"
 		}
 	},
-	[5]={
+	[6]={
 		lang={
 			English={
 				[1]={
@@ -127,71 +151,7 @@ return {
 			[1]="critical_strike_chance_+%"
 		}
 	},
-	[6]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% more Burning Damage"
-				},
-				[2]={
-					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants {0}% less Burning Damage"
-				}
-			}
-		},
-		name="herald_of_ash_burning_damage",
-		stats={
-			[1]="herald_of_ash_burning_damage_+%_final"
-		}
-	},
 	[7]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]="#"
-						}
-					},
-					text="Buff grants {0}% more Spell Fire Damage"
-				},
-				[2]={
-					[1]={
-						k="negate",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]="#",
-							[2]=-1
-						}
-					},
-					text="Buff grants {0}% less Spell Fire Damage"
-				}
-			}
-		},
-		name="herald_of_ash_spell_fire_damage_incr",
-		stats={
-			[1]="herald_of_ash_spell_fire_damage_+%_final"
-		}
-	},
-	[8]={
 		lang={
 			English={
 				[1]={
@@ -210,7 +170,7 @@ return {
 			[1]="herald_of_ice_cold_damage_+%"
 		}
 	},
-	[9]={
+	[8]={
 		lang={
 			English={
 				[1]={
@@ -229,7 +189,58 @@ return {
 			[1]="herald_of_thunder_lightning_damage_+%"
 		}
 	},
+	[9]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Buff grants {0}% increased Stealth"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Buff grants {0}% reduced Stealth"
+				}
+			}
+		},
+		name="stealth_increase",
+		stats={
+			[1]="stealth_+%"
+		}
+	},
 	[10]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Buff grants {0:+d}% Chance to Block Spell Damage while holding a Shield"
+				}
+			}
+		},
+		name="shield_spell_block",
+		stats={
+			[1]="shield_spell_block_%"
+		}
+	},
+	[11]={
 		lang={
 			English={
 				[1]={
@@ -252,7 +263,7 @@ return {
 			[1]="phase_through_objects"
 		}
 	},
-	[11]={
+	[12]={
 		lang={
 			English={
 				[1]={
@@ -270,12 +281,12 @@ return {
 				}
 			}
 		},
-		name="shock_chance",
+		name="skill_grants_shock_chance",
 		stats={
-			[1]="base_chance_to_shock_%"
+			[1]="base_chance_to_shock_%_from_skill"
 		}
 	},
-	[12]={
+	[13]={
 		lang={
 			English={
 				[1]={
@@ -307,7 +318,26 @@ return {
 			[1]="base_damage_taken_+%"
 		}
 	},
-	[13]={
+	[14]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Buff grants Immunity to Freeze"
+				}
+			}
+		},
+		name="immune_to_freeze",
+		stats={
+			[1]="base_immune_to_freeze"
+		}
+	},
+	[15]={
 		lang={
 			English={
 				[1]={
@@ -339,7 +369,7 @@ return {
 			[1]="base_movement_velocity_+%"
 		}
 	},
-	[14]={
+	[16]={
 		lang={
 			English={
 				[1]={
@@ -358,7 +388,7 @@ return {
 			[1]="base_physical_damage_reduction_rating"
 		}
 	},
-	[15]={
+	[17]={
 		lang={
 			English={
 				[1]={
@@ -390,7 +420,7 @@ return {
 			[1]="berserk_spell_damage_+%_final"
 		}
 	},
-	[16]={
+	[18]={
 		lang={
 			English={
 				[1]={
@@ -414,7 +444,109 @@ return {
 			[2]="buff_added_spell_maximum_base_physical_damage_per_shield_quality"
 		}
 	},
-	[17]={
+	[19]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Linked target Recovers {0} Life when they Block"
+				}
+			}
+		},
+		name="bulwark_link_recover",
+		stats={
+			[1]="bulwark_link_grants_recover_X_life_on_block"
+		}
+	},
+	[20]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Linked target has {0}% increased Stun Threshold"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Linked target has {0}% reduced Stun Threshold"
+				}
+			}
+		},
+		name="bulwark_link_stun_threshold",
+		stats={
+			[1]="bulwark_link_grants_stun_threshold_+%"
+		}
+	},
+	[21]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Linked target has {0}% increased Accuracy Rating"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Linked target has {0}% reduced Accuracy Rating"
+				}
+			}
+		},
+		name="critical_link_accuracy",
+		stats={
+			[1]="critical_link_grants_accuracy_rating_+%"
+		}
+	},
+	[22]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Linked target has {0:+d}% to Critical Strike Multiplier"
+				}
+			}
+		},
+		name="critical_link_multiplier",
+		stats={
+			[1]="critical_link_grants_base_critical_strike_multiplier_+"
+		}
+	},
+	[23]={
 		lang={
 			English={
 				[1]={
@@ -437,7 +569,64 @@ return {
 			[1]="damage_taken_goes_to_mana_%"
 		}
 	},
-	[18]={
+	[24]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Linked target's Chance to Block Attack Damage is equal to yours\nLinked target's Maximum Chance to Block Attack Damage is equal to yours"
+				}
+			}
+		},
+		name="display_bulwark_link_override",
+		stats={
+			[1]="display_bulwark_link_overrides_attack_block_and_maximum_attack_block"
+		}
+	},
+	[25]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Linked target's Main Hand Critical Strike Chance is equal to yours"
+				}
+			}
+		},
+		name="display_critical_link_override",
+		stats={
+			[1]="display_critical_link_overrides_main_hand_critical_strike_chance"
+		}
+	},
+	[26]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Buff grants Immunity to Bleeding"
+				}
+			}
+		},
+		name="display_immune_to_bleeding",
+		stats={
+			[1]="display_skill_buff_grants_bleeding_immunity"
+		}
+	},
+	[27]={
 		lang={
 			English={
 				[1]={
@@ -460,7 +649,30 @@ return {
 			[1]="energy_shield_lost_per_minute"
 		}
 	},
-	[19]={
+	[28]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextIgnite"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Linked target has {0}% chance to Ignite"
+				}
+			}
+		},
+		name="flame_link_ignite_chance",
+		stats={
+			[1]="flame_link_grants_chance_to_ignite_%"
+		}
+	},
+	[29]={
 		lang={
 			English={
 				[1]={
@@ -540,7 +752,7 @@ return {
 			[3]="cannot_recover_above_low_life_except_flasks"
 		}
 	},
-	[20]={
+	[30]={
 		lang={
 			English={
 				[1]={
@@ -559,7 +771,7 @@ return {
 			[1]="physical_damage_reduction_%_per_endurance_charge"
 		}
 	},
-	[21]={
+	[31]={
 		lang={
 			English={
 				[1]={
@@ -591,7 +803,81 @@ return {
 			[1]="physical_damage_reduction_rating_+%"
 		}
 	},
-	[22]={
+	[32]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Life Leech effects are not removed at Full Life\nLife Leech effects apply Recovery Linked Target instead of you\nLinked target's Maximum total Life Recovery per second from Leech is equal to yours"
+				}
+			}
+		},
+		name="remora_link",
+		stats={
+			[1]="life_leech_is_applied_to_remora_link_targets_instead"
+		}
+	},
+	[33]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Linked target deals {0}% increased Damage when on Full Life"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Linked target deals {0}% reduced Damage when on Full Life"
+				}
+			}
+		},
+		name="remora_link_damage_on_full_life",
+		stats={
+			[1]="remora_link_grants_damage_+%_when_on_full_life"
+		}
+	},
+	[34]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="per_minute_to_per_second",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Buff grants {0:+d}% to Maximum total Life Recovery per second from Leech"
+				}
+			}
+		},
+		name="remora_link_leech_max",
+		stats={
+			[1]="remora_link_grants_maximum_life_leech_rate_%_per_minute"
+		}
+	},
+	[35]={
 		lang={
 			English={
 				[1]={
@@ -610,7 +896,7 @@ return {
 			[1]="resist_all_elements_%_per_endurance_charge"
 		}
 	},
-	[23]={
+	[36]={
 		lang={
 			English={
 				[1]={
@@ -629,7 +915,7 @@ return {
 			[1]="resist_all_%"
 		}
 	},
-	[24]={
+	[37]={
 		lang={
 			English={
 				[1]={
@@ -661,7 +947,7 @@ return {
 			[1]="skill_buff_effect_+%"
 		}
 	},
-	[25]={
+	[38]={
 		lang={
 			English={
 				[1]={
@@ -693,7 +979,7 @@ return {
 			[1]="skill_buff_grants_attack_and_cast_speed_+%"
 		}
 	},
-	[26]={
+	[39]={
 		lang={
 			English={
 				[1]={
@@ -712,7 +998,7 @@ return {
 			[1]="skill_buff_grants_chance_to_freeze_%"
 		}
 	},
-	[27]={
+	[40]={
 		lang={
 			English={
 				[1]={
@@ -744,7 +1030,26 @@ return {
 			[1]="skill_buff_grants_damage_+%"
 		}
 	},
-	[28]={
+	[41]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Buff grants Immunity to Shock"
+				}
+			}
+		},
+		name="display_buff_shock_immune",
+		stats={
+			[1]="skill_display_buff_grants_shock_immunity"
+		}
+	},
+	[42]={
 		lang={
 			English={
 				[1]={
@@ -767,7 +1072,90 @@ return {
 			[1]="skill_grants_life_cost_%_mana_cost_while_not_on_low_life"
 		}
 	},
-	[29]={
+	[43]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Linked target takes {0}% more Damage"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Linked target takes {0}% less Damage"
+				}
+			}
+		},
+		name="soul_link_damage_taken",
+		stats={
+			[1]="soul_link_grants_damage_taken_+%_final"
+		}
+	},
+	[44]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Linked target has {0}% increased Mana Regeneration Rate"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Linked target has {0}% reduced Mana Regeneration Rate"
+				}
+			}
+		},
+		name="soul_link_mana_regen",
+		stats={
+			[1]="soul_link_grants_mana_regeneration_+%"
+		}
+	},
+	[45]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% of Damage from Hits against target is taken from your Energy Shield before them"
+				}
+			}
+		},
+		name="soul_link_transfer_percent",
+		stats={
+			[1]="soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"
+		}
+	},
+	[46]={
 		lang={
 			English={
 				[1]={
@@ -799,7 +1187,62 @@ return {
 			[1]="spell_damage_+%"
 		}
 	},
-	[30]={
+	[47]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Buff grants {0}% more Maximum Energy Shield"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Buff grants {0}% less Maximum Energy Shield"
+				}
+			}
+		},
+		name="storm_blade_less_energy_shield",
+		stats={
+			[1]="storm_blade_energy_shield_+%_final"
+		}
+	},
+	[48]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextUnaffectedBy"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Buff makes you Unaffected by Temporal Chains"
+				}
+			}
+		},
+		name="unaffected_by_temporal_chains",
+		stats={
+			[1]="unaffected_by_temporal_chains"
+		}
+	},
+	[49]={
 		lang={
 			English={
 				[1]={
@@ -818,42 +1261,134 @@ return {
 			[1]="vaal_molten_shall_armour_+%_final"
 		}
 	},
+	[50]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Linked target gains {0} to {1} Added Fire Damage"
+				}
+			}
+		},
+		name="flame_link_added_damage",
+		stats={
+			[1]="virtual_flame_link_minimum_fire_damage",
+			[2]="virtual_flame_link_maximum_fire_damage"
+		}
+	},
+	[51]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Energy Blades have {0} to {1} Lightning Damage"
+				}
+			}
+		},
+		name="storm_blade_base_damage",
+		stats={
+			[1]="virtual_storm_blade_minimum_lightning_damage",
+			[2]="virtual_storm_blade_maximum_lightning_damage"
+		}
+	},
+	[52]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Link breaks if target leaves range or line of sight for 4 seconds\nMaximum 1 Link from any source per target\nYou die if Linked target dies"
+				}
+			}
+		},
+		name="link_stuff",
+		stats={
+			[1]="display_link_stuff"
+		}
+	},
 	["attack_maximum_added_cold_damage"]=2,
 	["attack_maximum_added_fire_damage"]=1,
-	["attack_maximum_added_lightning_damage"]=3,
+	["attack_maximum_added_lightning_damage"]=4,
 	["attack_minimum_added_cold_damage"]=2,
 	["attack_minimum_added_fire_damage"]=1,
-	["attack_minimum_added_lightning_damage"]=3,
-	["base_chance_to_shock_%"]=11,
-	["base_damage_taken_+%"]=12,
-	["base_movement_velocity_+%"]=13,
-	["base_physical_damage_reduction_rating"]=14,
-	["berserk_spell_damage_+%_final"]=15,
-	["buff_added_spell_maximum_base_physical_damage_per_shield_quality"]=16,
-	["buff_added_spell_minimum_base_physical_damage_per_shield_quality"]=16,
-	["cannot_recover_above_low_life_except_flasks"]=19,
-	["critical_strike_chance_+%"]=5,
-	["damage_taken_goes_to_mana_%"]=17,
-	["energy_shield_lost_per_minute"]=18,
-	["herald_of_ash_burning_damage_+%_final"]=6,
-	["herald_of_ash_spell_fire_damage_+%_final"]=7,
-	["herald_of_ice_cold_damage_+%"]=8,
-	["herald_of_thunder_lightning_damage_+%"]=9,
+	["attack_minimum_added_lightning_damage"]=4,
+	["base_chance_to_shock_%_from_skill"]=12,
+	["base_damage_taken_+%"]=13,
+	["base_immune_to_freeze"]=14,
+	["base_movement_velocity_+%"]=15,
+	["base_physical_damage_reduction_rating"]=16,
+	["berserk_spell_damage_+%_final"]=17,
+	["buff_added_spell_maximum_base_physical_damage_per_shield_quality"]=18,
+	["buff_added_spell_minimum_base_physical_damage_per_shield_quality"]=18,
+	["bulwark_link_grants_recover_X_life_on_block"]=19,
+	["bulwark_link_grants_stun_threshold_+%"]=20,
+	["cannot_recover_above_low_life_except_flasks"]=29,
+	["critical_link_grants_accuracy_rating_+%"]=21,
+	["critical_link_grants_base_critical_strike_multiplier_+"]=22,
+	["critical_strike_chance_+%"]=6,
+	["damage_taken_goes_to_mana_%"]=23,
+	["display_bulwark_link_overrides_attack_block_and_maximum_attack_block"]=24,
+	["display_critical_link_overrides_main_hand_critical_strike_chance"]=25,
+	["display_link_stuff"]=52,
+	["display_skill_buff_grants_bleeding_immunity"]=26,
+	["energy_shield_lost_per_minute"]=27,
+	["flame_link_grants_chance_to_ignite_%"]=28,
+	["herald_of_ice_cold_damage_+%"]=7,
+	["herald_of_thunder_lightning_damage_+%"]=8,
+	["life_leech_is_applied_to_remora_link_targets_instead"]=32,
 	parent="skill_stat_descriptions",
-	["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"]=19,
-	["petrified_blood_%_prevented_life_loss_to_lose_over_time"]=19,
-	["phase_through_objects"]=10,
-	["physical_damage_reduction_%_per_endurance_charge"]=20,
-	["physical_damage_reduction_rating_+%"]=21,
-	["resist_all_%"]=23,
-	["resist_all_elements_%_per_endurance_charge"]=22,
-	["skill_buff_effect_+%"]=24,
-	["skill_buff_grants_attack_and_cast_speed_+%"]=25,
-	["skill_buff_grants_chance_to_freeze_%"]=26,
-	["skill_buff_grants_damage_+%"]=27,
-	["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"]=28,
-	["spell_damage_+%"]=29,
-	["spell_maximum_added_lightning_damage"]=4,
-	["spell_minimum_added_lightning_damage"]=4,
-	["vaal_molten_shall_armour_+%_final"]=30
+	["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"]=29,
+	["petrified_blood_%_prevented_life_loss_to_lose_over_time"]=29,
+	["phase_through_objects"]=11,
+	["physical_damage_reduction_%_per_endurance_charge"]=30,
+	["physical_damage_reduction_rating_+%"]=31,
+	["remora_link_grants_damage_+%_when_on_full_life"]=33,
+	["remora_link_grants_maximum_life_leech_rate_%_per_minute"]=34,
+	["resist_all_%"]=36,
+	["resist_all_elements_%_per_endurance_charge"]=35,
+	["shield_spell_block_%"]=10,
+	["skill_buff_effect_+%"]=37,
+	["skill_buff_grants_attack_and_cast_speed_+%"]=38,
+	["skill_buff_grants_chance_to_freeze_%"]=39,
+	["skill_buff_grants_damage_+%"]=40,
+	["skill_display_buff_grants_shock_immunity"]=41,
+	["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"]=42,
+	["soul_link_grants_damage_taken_+%_final"]=43,
+	["soul_link_grants_mana_regeneration_+%"]=44,
+	["soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"]=45,
+	["spell_damage_+%"]=46,
+	["spell_maximum_added_cold_damage"]=3,
+	["spell_maximum_added_lightning_damage"]=5,
+	["spell_minimum_added_cold_damage"]=3,
+	["spell_minimum_added_lightning_damage"]=5,
+	["stealth_+%"]=9,
+	["storm_blade_energy_shield_+%_final"]=47,
+	["unaffected_by_temporal_chains"]=48,
+	["vaal_molten_shall_armour_+%_final"]=49,
+	["virtual_flame_link_maximum_fire_damage"]=50,
+	["virtual_flame_link_minimum_fire_damage"]=50,
+	["virtual_storm_blade_maximum_lightning_damage"]=51,
+	["virtual_storm_blade_minimum_lightning_damage"]=51
 }

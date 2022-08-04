@@ -1,0 +1,28 @@
+name: Run Tests
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+jobs:
+  run_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Lua/LuaJIT
+        uses: leafo/gh-actions-lua@v8.0.0
+        with:
+          luaVersion: "luajit-2.0.5"
+      - name: Install LuaRocks
+        uses: leafo/gh-actions-luarocks@v4.0.0
+      - name: Install busted
+        run: luarocks install busted
+      - name: Install cluacov
+        run: luarocks install cluacov
+      - name: Install coveralls integration
+        run: luarocks install luacov-coveralls
+      - name: Run tests
+        run: busted --lua=/home/runner/work/PathOfBuilding/PathOfBuilding/.lua/bin/luajit
+      - name: Report coverage
+        run: cd src; luacov-coveralls --repo-token=${{ secrets.github_token }}

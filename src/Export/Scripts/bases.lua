@@ -71,12 +71,13 @@ directiveTable.base = function(state, args, out)
 	end
 	displayName = displayName:gsub("\195\182","o")
 	displayName = displayName:gsub("^%s*(.-)%s*$", "%1") -- trim spaces GGG might leave in by accident
+	displayName = displayName ~= "Energy Blade" and displayName or (state.type == "One Handed Sword" and "Energy Blade One Handed" or "Energy Blade Two Handed")
 	out:write('itemBases["', displayName, '"] = {\n')
 	out:write('\ttype = "', state.type, '",\n')
 	if state.subType and #state.subType > 0 then
 		out:write('\tsubType = "', state.subType, '",\n')
 	end
-	if (baseItemType.Hidden or state.forceHide) and not baseTypeId:match("Talisman") and not state.forceShow then
+	if (baseItemType.Hidden == 0 or state.forceHide) and not baseTypeId:match("Talisman") and not state.forceShow then
 		out:write('\thidden = true,\n')
 	end
 	if state.socketLimit then
@@ -124,24 +125,31 @@ directiveTable.base = function(state, args, out)
 		out:write('Range = ', weaponType.Range, ', ')
 		out:write('},\n')
 	end
-	local compArmour = dat("ComponentArmour"):GetRow("BaseItemType", baseItemType.Id)
-	if compArmour then
+	local armourType = dat("ArmourTypes"):GetRow("BaseItemType", baseItemType)
+	if armourType then
 		out:write('\tarmour = { ')
 		local shield = dat("ShieldTypes"):GetRow("BaseItemType", baseItemType)
 		if shield then
 			out:write('BlockChance = ', shield.Block, ', ')
 		end
-		if compArmour.Armour > 0 then
-			out:write('ArmourBase = ', compArmour.Armour, ', ')
+		if armourType.ArmourMin > 0 then
+			out:write('ArmourBaseMin = ', armourType.ArmourMin, ', ')
+			out:write('ArmourBaseMax = ', armourType.ArmourMax, ', ')
 		end
-		if compArmour.Evasion > 0 then
-			out:write('EvasionBase = ', compArmour.Evasion, ', ')
+		if armourType.EvasionMin > 0 then
+			out:write('EvasionBaseMin = ', armourType.EvasionMin, ', ')
+			out:write('EvasionBaseMax = ', armourType.EvasionMax, ', ')
 		end
-		if compArmour.EnergyShield > 0 then
-			out:write('EnergyShieldBase = ', compArmour.EnergyShield, ', ')
+		if armourType.EnergyShieldMin > 0 then
+			out:write('EnergyShieldBaseMin = ', armourType.EnergyShieldMin, ', ')
+			out:write('EnergyShieldBaseMax = ', armourType.EnergyShieldMax, ', ')
 		end
-		if compArmour.MovementPenalty ~= 0 then
-			out:write('MovementPenalty = ', -compArmour.MovementPenalty, ', ')
+		if armourType.MovementPenalty ~= 0 then
+			out:write('MovementPenalty = ', -armourType.MovementPenalty, ', ')
+		end
+		if armourType.WardMin > 0 then
+			out:write('WardBaseMin = ', armourType.WardMin, ', ')
+			out:write('WardBaseMax = ', armourType.WardMax, ', ')
 		end
 		out:write('},\n')
 	end
@@ -169,8 +177,13 @@ directiveTable.base = function(state, args, out)
 	end
 	out:write('\treq = { ')
 	local reqLevel = 1
-	if weaponType or compArmour then
+	if weaponType or armourType then
 		if baseItemType.DropLevel > 4 then
+			reqLevel = baseItemType.DropLevel
+		end
+	end
+	if flask then
+		if baseItemType.DropLevel > 2 then
 			reqLevel = baseItemType.DropLevel
 		end
 	end
@@ -209,7 +222,9 @@ directiveTable.baseMatch = function(state, argstr, out)
 		value = args[2]
 	end
 	for i, baseItemType in ipairs(dat("BaseItemTypes"):GetRowList(key, value, true)) do
-		directiveTable.base(state, baseItemType.Id, out)
+		if not string.find(baseItemType.Id, "Royale") then
+			directiveTable.base(state, baseItemType.Id, out)
+		end
 	end
 end
 
@@ -218,6 +233,7 @@ local itemTypes = {
 	"bow",
 	"claw",
 	"dagger",
+	"fishing",
 	"mace",
 	"staff",
 	"sword",

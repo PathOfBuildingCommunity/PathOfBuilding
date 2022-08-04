@@ -172,7 +172,7 @@ Adds (5-10) to (13-20) Physical Damage
 {variant:2}(80-95)% increased Physical Damage
 {variant:1}(10-15)% increased Attack Speed
 {variant:2}(20-25)% increased Attack Speed
-5% reduced Mana Reserved
+10% increased Mana Reservation Efficiency of Skills
 Allies' Aura Buffs do not affect you
 Your Aura Buffs do not affect allies
 10% increased Effect of Buffs on you
@@ -243,15 +243,6 @@ Uses both hand slots
 Adds 2 to 3 Physical Damage to Attacks per Level
 Gain Her Embrace for 3 seconds when you Ignite an Enemy
 While in Her Embrace, take 0.5% of your total Maximum Life and Energy Shield as Fire Damage per second per Level
-]],[[
-Paradoxica
-Vaal Rapier
-League: Betrayal
-Source: Drops from Bosses in Safehouse
-Requires Level 66, 212 Dex
-Implicits: 1
-+25% to Global Critical Strike Multiplier
-Attacks with this Weapon deal Double Damage
 ]],[[
 The Princess
 Sabre
@@ -333,7 +324,6 @@ Implicits: 2
 ]],[[
 Redbeak
 Rusted Sword
-Upgrade: Upgrades to unique{Dreadbeak} via prophecy{The Dreaded Rhoa}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 2
@@ -349,7 +339,7 @@ Adds 2 to 6 Physical Damage
 ]],[[
 Dreadbeak
 Rusted Sword
-Source: Upgraded from unique{Redbeak} via prophecy{The Dreaded Rhoa}
+Source: Drops from any endgame map boss
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 61
@@ -458,31 +448,34 @@ Minions deal (20-30)% increased Damage
 Minions have +17% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
 {variant:3}Minions have 60% chance to Poison Enemies on Hit
-Minions Recover 20% of Maximum Life on Killing a Poisoned Enemy
+Minions Recover 20% of Life on Killing a Poisoned Enemy
 ]],[[
 United in Dream
 Cutlass
 Source: Upgraded from unique{Severed in Sleep} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.16.0
 Variant: Current
 League: Breach
 Requires Level 69, 55 Str, 79 Dex
 Implicits: 2
 {variant:1}18% increased Accuracy Rating
-{variant:2,3}40% increased Global Accuracy Rating
-Grants level 15 Envy Skill
-Minions deal (30-40)% increased Damage
+{variant:2,3,4}40% increased Global Accuracy Rating
+{variant:1,2,3}Grants level 15 Envy Skill
+{variant:4}Grants level 25 Envy Skill
+{variant:1,2,3}Minions deal (30-40)% increased Damage
+{variant:4}Minions deal (60-80)% increased Damage
 Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
-{variant:3}Minions have 60% chance to Poison Enemies on Hit
+{variant:3,4}Minions have 60% chance to Poison Enemies on Hit
 Minions Leech 5% of Damage as Life against Poisoned Enemies
 ]],[[
 Story of the Vaal
 Variant: Pre 3.14.0
 Variant: Current
-{variant:2}Gemstone Sword
 {variant:1}Variscite Blade
+{variant:2}Gemstone Sword
 League: Incursion
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
 {variant:1}Requires Level 35, 62 Str, 62 Dex
@@ -497,7 +490,7 @@ Implicits: 1
 {variant:2}Hits with this Weapon Shock Enemies as though dealing (150-200)% more Damage
 {variant:2}Ignites inflicted with this Weapon deal (50-75)% more Damage
 50% of Physical Damage from Hits with this Weapon is Converted to a random Element
-Hits with this Weapon always inflict Elemental Ailments
+Hits with this Weapon always Ignite, Freeze, and Shock
 ]],[[
 Fate of the Vaal
 Gemstone Sword
@@ -512,7 +505,7 @@ Implicits: 1
 {variant:2}(180-210)% increased Physical Damage
 (10-15)% increased Attack Speed
 100% of Physical Damage from Hits with this Weapon is Converted to a random Element
-Hits with this Weapon always inflict Elemental Ailments
+Hits with this Weapon always Ignite, Freeze, and Shock
 Hits with this Weapon deal (30-60)% increased Damage to Ignited Enemies
 Hits with this Weapon deal (30-60)% increased Damage to Frozen Enemies
 Hits with this Weapon deal (30-60)% increased Damage to Shocked Enemies
@@ -608,7 +601,7 @@ Adds (40-60) to (90-110) Cold Damage to Spells
 (8-14)% increased Attack Speed
 +257 Intelligence Requirement
 60% increased Critical Strike Chance against Chilled Enemies
-Trigger a Socketed Cold Spell on Melee Critical Strike
+Trigger a Socketed Cold Spell on Melee Critical Strike, with a 0.25 second Cooldown
 ]],[[
 Daresso's Passion
 Estoc
@@ -680,29 +673,30 @@ Adds 3 to 7 Fire Damage
 [[
 The Dancing Dervish
 Reaver Sword
-Upgrade: Upgrades to unique{The Dancing Duo} via prophecy{Dance of Steel}
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 59, 82 Str, 119 Dex
 Implicits: 3
 {variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
-{variant:3}60% increased Global Accuracy Rating
+{variant:3,4}60% increased Global Accuracy Rating
 {variant:1,2}(160-190)% increased Physical Damage
-{variant:3}(130-160)% increased Physical Damage
+{variant:3,4}(130-160)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
 Rampage
-Triggers Level 15 Manifest Dancing Dervish on Rampage
+{variant:4}Melee Hits count as Rampage Kills
+Triggers Level 15 Manifest Dancing Dervishes on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
 ]],[[
 The Dancing Duo
 Reaver Sword
-Source: Upgraded from unique{The Dancing Dervish} via prophecy{Dance of Steel}
+Source: No longer obtainable
 Variant: Pre 3.11.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 65, 82 Str, 119 Dex
 Implicits: 2
 {variant:1}40% increased Global Accuracy Rating
@@ -712,10 +706,9 @@ Implicits: 2
 (25-30)% increased Attack Speed
 5% increased Movement Speed
 Rampage
-Triggers Level 15 Manifest Dancing Dervish on Rampage
+Triggers Level 15 Manifest Dancing Dervishes on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
-Manifested Dancing Dervish also manifests a copy of Dancing Dervish
 ]],[[
 Doomsower
 Lion Sword
@@ -768,7 +761,7 @@ Implicits: 3
 {variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
 {variant:3}60% increased Global Accuracy Rating
-Socketed Gems are Supported by level 1 Blood Magic
+Socketed Gems are Supported by Level 1 Lifetap
 Adds (90-115) to (230-260) Physical Damage
 (40-50)% increased Critical Strike Chance
 Enemies you Attack Reflect 100 Physical Damage to you
@@ -829,7 +822,6 @@ Gain an Endurance Charge if an Attack Freezes an Enemy
 ]],[[
 Queen's Decree
 Ornate Sword
-Upgrade: Upgrades to unique{Queen's Escape} via prophecy{The Misunderstood Queen}
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
@@ -849,7 +841,7 @@ Implicits: 2
 ]],[[
 Queen's Escape
 Ornate Sword
-Source: Upgraded from unique{Queen's Decree} using prophecy{The Misunderstood Queen}
+Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current

@@ -114,19 +114,21 @@ function calcs.getMiscCalculator(build)
 	local baseOutput = env.player.output
 
 	return function(override, accelerate)
-		env, cachedPlayerDB, cachedPlayerDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
+		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
+		GlobalCache.dontUseCache = true
+		-- we need to preserve the override somewhere for use by possible trigger-based build-outs with overrides
+		env.override = override
 		calcs.perform(env, true)
 		if GlobalCache.useFullDPS or build.viewMode == "TREE" then
 			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
 			-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
 			-- A with A (due to cache reuse) instead of A with B
-			GlobalCache.dontUseCache = true
-			fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env, accelerate = accelerate })
+			local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env, accelerate = accelerate })
 			-- reset cache usage
-			GlobalCache.dontUseCache = nil
 			env.player.output.SkillDPS = fullDPS.skills
 			env.player.output.FullDPS = fullDPS.combinedDPS
 		end
+		GlobalCache.dontUseCache = nil
 		return env.player.output
 	end, baseOutput	
 end
@@ -158,20 +160,21 @@ local function getActiveSkillCount(activeSkill)
 end
 
 function calcs.calcFullDPS(build, mode, override, specEnv)
-	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override or {}, specEnv)
+	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv)
 	local usedEnv = nil
 
-	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0, dotDPS = 0 }
+	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0, dotDPS = 0, cullingMulti = 0 }
 	local bleedSource = ""
-	local igniteDPS = 0
 	local igniteSource = ""
+	GlobalCache.numActiveSkillInFullDPS = 0
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
+			GlobalCache.numActiveSkillInFullDPS = GlobalCache.numActiveSkillInFullDPS + 1
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
-				local cacheData = getCachedData(activeSkill, mode)
-				if cacheData and not override and not GlobalCache.dontUseCache then
-					usedEnv = cacheData.Env
+				local cachedData = getCachedData(activeSkill, mode)
+				if cachedData and next(override) == nil and not GlobalCache.dontUseCache then
+					usedEnv = cachedData.Env
 					activeSkill = usedEnv.player.mainSkill
 				else
 					local forceCache = false
@@ -211,6 +214,9 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					if usedEnv.minion.output.TotalDot and usedEnv.minion.output.TotalDot > 0 then
 						fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.minion.output.TotalDot
 					end
+					if usedEnv.minion.output.CullMultiplier and usedEnv.minion.output.CullMultiplier > 1 and usedEnv.minion.output.CullMultiplier > fullDPS.cullingMulti then
+						fullDPS.cullingMulti = usedEnv.minion.output.CullMultiplier
+					end
 				end
 
 				if activeSkill.mirage then
@@ -239,6 +245,9 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					if activeSkill.mirage.output.TotalDot and activeSkill.mirage.output.TotalDot > 0 and (activeSkill.skillFlags.DotCanStack or (usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot == 0)) then
 						fullDPS.dotDPS = fullDPS.dotDPS + activeSkill.mirage.output.TotalDot * (activeSkill.skillFlags.DotCanStack and mirageCount or 1)
 					end
+					if activeSkill.mirage.output.CullMultiplier and activeSkill.mirage.output.CullMultiplier > 1 and activeSkill.mirage.output.CullMultiplier > fullDPS.cullingMulti then
+						fullDPS.cullingMulti = activeSkill.mirage.output.CullMultiplier
+					end
 				end
 
 				if usedEnv.player.output.TotalDPS and usedEnv.player.output.TotalDPS > 0 then
@@ -264,6 +273,9 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 				end
 				if usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot > 0 then
 					fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.player.output.TotalDot * (activeSkill.skillFlags.DotCanStack and activeSkillCount or 1)
+				end
+				if usedEnv.player.output.CullMultiplier and usedEnv.player.output.CullMultiplier > 1 and usedEnv.player.output.CullMultiplier > fullDPS.cullingMulti then
+					fullDPS.cullingMulti = usedEnv.player.output.CullMultiplier
 				end
 
 				-- Re-Build env calculator for new run
@@ -304,13 +316,18 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		t_insert(fullDPS.skills, { name = "Full DoT DPS", dps = fullDPS.dotDPS, count = 1 })
 		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.dotDPS
 	end
+	if fullDPS.cullingMulti > 0 then
+		fullDPS.cullingDPS = fullDPS.combinedDPS * (fullDPS.cullingMulti - 1)
+		t_insert(fullDPS.skills, { name = "Full Culling DPS", dps = fullDPS.cullingDPS, count = 1 })
+		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.cullingDPS
+	end
 
 	return fullDPS
 end
 
 -- Process active skill
 function calcs.buildActiveSkill(env, mode, skill, setMark)
-	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode)
+	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
 			fullEnv.player.mainSkill = activeSkill
@@ -319,6 +336,7 @@ function calcs.buildActiveSkill(env, mode, skill, setMark)
 			return
 		end
 	end
+	ConPrintf("[calcs.buildActiveSkill] Failed to process skill: " .. skill.activeEffect.grantedEffect.name)
 end
 
 -- Build output for display in the side bar or calcs tab
@@ -329,7 +347,7 @@ function calcs.buildOutput(build, mode)
 
 	local output = env.player.output
 
-	-- Build output across all active skills
+	-- Build output across all skills added to FullDPS skills
 	GlobalCache.dontUseCache = true
 	local fullDPS = calcs.calcFullDPS(build, "CACHE", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
 	GlobalCache.dontUseCache = nil
@@ -506,6 +524,9 @@ function calcs.buildOutput(build, mode)
 		end
 		if build.calcsTab.mainEnv.multipliersUsed["BloodCharge"] then
 			t_insert(combatList, s_format("%d Blood Charges", output.BloodCharges))
+		end
+		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
+			t_insert(combatList, "Cruelty")
 		end
 		if env.modDB:Flag(nil, "Fortify") then
 			t_insert(combatList, "Fortify")

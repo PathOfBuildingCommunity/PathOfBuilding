@@ -64,6 +64,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		self:SetActiveItemSet(self.itemSetOrderList[index])
 		self:AddUndoState()
 	end)
+	self.controls.setSelect.enableDroppedWidth = true
 	self.controls.setSelect.enabled = function()
 		return #self.itemSetOrderList > 1
 	end
@@ -92,7 +93,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		t_insert(self.controls, slot)
 	end
 	for index, slotName in ipairs(baseSlots) do
-		local slot = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName)
+		local slot = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName)
 		addSlot(slot)
 		if slotName:match("Weapon") then
 			-- Add alternate weapon slot
@@ -100,14 +101,14 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 			slot.shown = function()
 				return not self.activeItemSet.useSecondWeaponSet
 			end
-			local swapSlot = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName.." Swap", slotName)
+			local swapSlot = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName.." Swap", slotName)
 			addSlot(swapSlot)
 			swapSlot.weaponSet = 2
 			swapSlot.shown = function()
 				return self.activeItemSet.useSecondWeaponSet
 			end
 			for i = 1, 6 do
-				local abyssal = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName.."Swap Abyssal Socket "..i, "Abyssal #"..i)			
+				local abyssal = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName.."Swap Abyssal Socket "..i, "Abyssal #"..i)			
 				addSlot(abyssal)
 				abyssal.parentSlot = swapSlot
 				abyssal.weaponSet = 2
@@ -120,7 +121,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		if slotName == "Weapon 1" or slotName == "Weapon 2" or slotName == "Helmet" or slotName == "Gloves" or slotName == "Body Armour" or slotName == "Boots" or slotName == "Belt" then
 			-- Add Abyssal Socket slots
 			for i = 1, 6 do
-				local abyssal = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, slotName.." Abyssal Socket "..i, "Abyssal #"..i)			
+				local abyssal = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName.." Abyssal Socket "..i, "Abyssal #"..i)			
 				addSlot(abyssal)
 				abyssal.parentSlot = slot
 				if slotName:match("Weapon") then
@@ -133,6 +134,23 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 			end
 		end
 	end
+
+	-- Passive tree dropdown controls
+	self.controls.specSelect = new("DropDownControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 8, 200, 20, nil, function(index, value)
+		if self.build.treeTab.specList[index] then
+			self.build.modFlag = true
+			self.build.treeTab:SetActiveSpec(index)
+		end
+	end)
+	self.controls.specSelect.enabled = function()
+		return #self.controls.specSelect.list > 1
+	end
+	prevSlot = self.controls.specSelect
+	self.controls.specButton = new("ButtonControl", {"LEFT",prevSlot,"RIGHT"}, 2, 0, 90, 20, "Manage...", function()
+		self.build.treeTab:OpenSpecManagePopup()
+	end)
+	self.controls.specLabel = new("LabelControl", {"RIGHT",prevSlot,"LEFT"}, -2, 0, 0, 16, "^7Passive tree:")
+
 	self.sockets = { }
 	local socketOrder = { }
 	for _, node in pairs(build.latestTree.nodes) do
@@ -144,7 +162,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		return a.id < b.id
 	end)
 	for _, node in ipairs(socketOrder) do
-		local socketControl = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 0, self, "Jewel "..node.id, "Socket", node.id)
+		local socketControl = new("ItemSlotControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, "Jewel "..node.id, "Socket", node.id)
 		self.sockets[node.id] = socketControl
 		addSlot(socketControl)
 	end
@@ -193,9 +211,9 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 
 	-- All items list
 	if main.portraitMode then
-		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, 0, 0, 360, 308, self)
+		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, 0, 0, 360, 308, self, true)
 	else
-		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self.slotAnchor,"TOPRIGHT"}, 20, -20, 360, 308, self)
+		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self.slotAnchor,"TOPRIGHT"}, 20, -20, 360, 308, self, true)
 	end
 
 	-- Database selector
@@ -237,13 +255,16 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 [[^7Double-click an item from one of the lists,
 or copy and paste an item from in game
 (hover over the item and Ctrl+C) to view or edit
-the item and add it to your build.
-You can Control + Click an item to equip it,
-or drag it onto the slot.  This will also add it to your
-build if it's from the unique/template list.
-If there's 2 slots an item can go in,
+the item and add it to your build. You can 
+also clone an item within Path of Building by 
+copying and pasting it with Ctrl+C and Ctrl+V.
+
+You can Control + Click an item to equip it, or 
+drag it onto the slot.  This will also add it to 
+your build if it's from the unique/template list.
+If there's 2 slots an item can go in, 
 holding Shift will put it in the second.]])
-	self.controls.sharedItemList = new("SharedItemListControl", {"TOPLEFT",self.controls.craftDisplayItem, "BOTTOMLEFT"}, 0, 194, 340, 308, self)
+	self.controls.sharedItemList = new("SharedItemListControl", {"TOPLEFT",self.controls.craftDisplayItem, "BOTTOMLEFT"}, 0, 232, 340, 308, self, true)
 
 	-- Display item
 	self.displayItemTooltip = new("Tooltip")
@@ -271,7 +292,12 @@ holding Shift will put it in the second.]])
 		if not self.controls.displayItemVariant:IsShown() then
 			return 0
 		end
-		return 28 + (self.displayItem.hasAltVariant and 24 or 0) + (self.displayItem.hasAltVariant2 and 24 or 0) + (self.displayItem.hasAltVariant3 and 24 or 0)
+		return (28 + 
+		(self.displayItem.hasAltVariant and 24 or 0) + 
+		(self.displayItem.hasAltVariant2 and 24 or 0) + 
+		(self.displayItem.hasAltVariant3 and 24 or 0) +
+		(self.displayItem.hasAltVariant4 and 24 or 0) + 
+		(self.displayItem.hasAltVariant5 and 24 or 0))
 	end)
 	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 300, 20, nil, function(index, value)
 		self.displayItem.variant = index
@@ -279,6 +305,7 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
+	self.controls.displayItemVariant.maxDroppedWidth = 1000
 	self.controls.displayItemVariant.shown = function()
 		return self.displayItem.variantList and #self.displayItem.variantList > 1
 	end
@@ -288,6 +315,7 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
+	self.controls.displayItemAltVariant.maxDroppedWidth = 1000
 	self.controls.displayItemAltVariant.shown = function()
 		return self.displayItem.hasAltVariant
 	end
@@ -297,6 +325,7 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
+	self.controls.displayItemAltVariant2.maxDroppedWidth = 1000
 	self.controls.displayItemAltVariant2.shown = function()
 		return self.displayItem.hasAltVariant2
 	end
@@ -306,8 +335,29 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
+	self.controls.displayItemAltVariant3.maxDroppedWidth = 1000
 	self.controls.displayItemAltVariant3.shown = function()
 		return self.displayItem.hasAltVariant3
+	end
+	self.controls.displayItemAltVariant4 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant3,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
+		self.displayItem.variantAlt4 = index
+		self.displayItem:BuildAndParseRaw()
+		self:UpdateDisplayItemTooltip()
+		self:UpdateDisplayItemRangeLines()
+	end)
+	self.controls.displayItemAltVariant4.maxDroppedWidth = 1000
+	self.controls.displayItemAltVariant4.shown = function()
+		return self.displayItem.hasAltVariant4
+	end
+	self.controls.displayItemAltVariant5 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant4,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
+		self.displayItem.variantAlt5 = index
+		self.displayItem:BuildAndParseRaw()
+		self:UpdateDisplayItemTooltip()
+		self:UpdateDisplayItemRangeLines()
+	end)
+	self.controls.displayItemAltVariant5.maxDroppedWidth = 1000
+	self.controls.displayItemAltVariant5.shown = function()
+		return self.displayItem.hasAltVariant5
 	end
 
 	-- Section: Sockets and Links
@@ -392,14 +442,38 @@ holding Shift will put it in the second.]])
 			self.displayItem.canHaveTwoEnchants and
 			#self.displayItem.enchantModLines > 0
 	end
-	self.controls.displayItemCorrupt = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint2,"TOPRIGHT",true}, 8, 0, 100, 20, "Corrupt...", function()
-		self:CorruptDisplayItem()
+	self.controls.displayItemAnoint3 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint2,"TOPRIGHT",true}, 8, 0, 100, 20, "Anoint 3...", function()
+		self:AnointDisplayItem(3)
+	end)
+	self.controls.displayItemAnoint3.shown = function()
+		return self.displayItem and
+			(self.displayItem.base.type == "Amulet" or self.displayItem.canBeAnointed) and
+			self.displayItem.canHaveThreeEnchants and
+			#self.displayItem.enchantModLines > 1
+	end
+	self.controls.displayItemAnoint4 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint3,"TOPRIGHT",true}, 8, 0, 100, 20, "Anoint 4...", function()
+		self:AnointDisplayItem(4)
+	end)
+	self.controls.displayItemAnoint4.shown = function()
+		return self.displayItem and
+			(self.displayItem.base.type == "Amulet" or self.displayItem.canBeAnointed) and
+			self.displayItem.canHaveFourEnchants and
+			#self.displayItem.enchantModLines > 2
+	end
+	self.controls.displayItemCorrupt = new("ButtonControl", {"TOPLEFT",self.controls.displayItemAnoint4,"TOPRIGHT",true}, 8, 10, 100, 20, "Corrupt...", function()
+		self:CorruptDisplayItem("Corrupted")
 	end)
 	self.controls.displayItemCorrupt.shown = function()
 		return self.displayItem and self.displayItem.corruptable
 	end
+	self.controls.displayItemScourge = new("ButtonControl", {"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, 8, 0, 100, 20, "Scourge...", function()
+		self:CorruptDisplayItem("Scourge")
+	end)
+	self.controls.displayItemScourge.shown = function()
+		return self.displayItem and self.displayItem.corruptable
+	end
 
-	-- Section: Influcence dropdowns
+	-- Section: Influence dropdowns
 	local influenceDisplayList = { "Influence" }
 	for i, curInfluenceInfo in ipairs(influenceInfo) do
 		influenceDisplayList[i + 1] = curInfluenceInfo.display
@@ -775,6 +849,14 @@ function ItemsTabClass:Load(xml, dbFileName)
 				item.hasAltVariant3 = true
 				item.variantAlt3 = tonumber(node.attrib.variantAlt3)
 			end
+			if node.attrib.variantAlt4 then
+				item.hasAltVariant4 = true
+				item.variantAlt4 = tonumber(node.attrib.variantAlt4)
+			end
+			if node.attrib.variantAlt5 then
+				item.hasAltVariant5 = true
+				item.variantAlt5 = tonumber(node.attrib.variantAlt5)
+			end
 			for _, child in ipairs(node) do
 				if type(child) == "string" then
 					item:ParseRaw(child)
@@ -785,7 +867,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 					-- 'ModRange' elements are legacy though, so is this actually needed? :<
 					-- Maybe it is? Maybe it isn't? Maybe up is down? Maybe good is bad? AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 					-- Sorry, cluster jewels are making me crazy(-ier)
-					for _, list in ipairs{item.buffModLines, item.enchantModLines, item.implicitModLines, item.explicitModLines} do
+					for _, list in ipairs{item.buffModLines, item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines} do
 						if id <= #list then
 							list[id].range = range
 							break
@@ -846,13 +928,22 @@ function ItemsTabClass:Save(xml)
 				id = tostring(id), 
 				variant = item.variant and tostring(item.variant), 
 				variantAlt = item.variantAlt and tostring(item.variantAlt), 
-				variantAlt2 = item.variantAlt2 and tostring(item.variantAlt2) 
+				variantAlt2 = item.variantAlt2 and tostring(item.variantAlt2),
+				variantAlt3 = item.variantAlt3 and tostring(item.variantAlt3), 
+				variantAlt4 = item.variantAlt4 and tostring(item.variantAlt4), 
+				variantAlt5 = item.variantAlt5 and tostring(item.variantAlt5)
 			} 
 		}
 		item:BuildAndParseRaw()
 		t_insert(child, item.raw)
 		local id = #item.buffModLines + 1
 		for _, modLine in ipairs(item.enchantModLines) do
+			if modLine.range then
+				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
+			end
+			id = id + 1
+		end
+		for _, modLine in ipairs(item.scourgeModLines) do
 			if modLine.range then
 				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
 			end
@@ -937,6 +1028,12 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 				if newItem then
 					self:CreateDisplayItemFromRaw(newItem, true)
 				end
+			elseif event.key == "e" then
+				local mOverControl = self:GetMouseOverControl()
+				if mOverControl and mOverControl._className == "ItemSlotControl" and mOverControl.selItemId ~= 0 then
+					-- Trigger itemList's double click procedure
+					self.controls.itemList:OnSelClick(0, mOverControl.selItemId, true)
+				end
 			elseif event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
 				self.build.buildFlag = true
@@ -977,14 +1074,15 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 
 	main:DrawBackground(viewPort)
 
-	wipeTable(self.controls.setSelect.list)
+	local newItemList = { }
 	for index, itemSetId in ipairs(self.itemSetOrderList) do
 		local itemSet = self.itemSets[itemSetId]
-		t_insert(self.controls.setSelect.list, itemSet.title or "Default")
+		t_insert(newItemList, itemSet.title or "Default")
 		if itemSetId == self.activeItemSetId then
 			self.controls.setSelect.selIndex = index
 		end
 	end
+	self.controls.setSelect:SetList(newItemList)
 
 	if self.displayItem then
 		local x, y = self.controls.displayItemTooltipAnchor:GetPos()
@@ -1208,7 +1306,7 @@ function ItemsTabClass:SortItemList()
 end
 
 -- Deletes an item
-function ItemsTabClass:DeleteItem(item)
+function ItemsTabClass:DeleteItem(item, deferUndoState)
 	for slotName, slot in pairs(self.slots) do
 		if slot.selItemId == item.id then
 			slot:SetSelItemId(0)
@@ -1230,15 +1328,31 @@ function ItemsTabClass:DeleteItem(item)
 		end
 	end
 	for _, spec in pairs(self.build.treeTab.specList) do
+		local rebuildClusterJewelGraphs = false
 		for nodeId, itemId in pairs(spec.jewels) do
 			if itemId == item.id then
 				spec.jewels[nodeId] = 0
+				rebuildClusterJewelGraphs = true
+				-- Deallocate all nodes that required this jewel
+				if spec.nodes[nodeId] then
+					for depNodeId, depNode in ipairs(spec.nodes[nodeId].depends) do
+						depNode.alloc = false
+						spec.allocNodes[depNodeId] = nil
+					end
+					spec.nodes[nodeId].alloc = false
+					spec.allocNodes[nodeId] = nil
+				end
 			end
+		end
+		if rebuildClusterJewelGraphs and not deferUndoState then
+			spec:BuildClusterJewelGraphs()
 		end
 	end
 	self.items[item.id] = nil
-	self:PopulateSlots()
-	self:AddUndoState()
+	if not deferUndoState then
+		self:PopulateSlots()
+		self:AddUndoState()
+	end
 end
 
 -- Attempt to create a new item from the given item raw text and sets it as the new display item
@@ -1263,17 +1377,31 @@ function ItemsTabClass:SetDisplayItem(item)
 
 		self.controls.displayItemVariant.list = item.variantList
 		self.controls.displayItemVariant.selIndex = item.variant
+		self.controls.displayItemVariant:CheckDroppedWidth(true)
 		if item.hasAltVariant then
 			self.controls.displayItemAltVariant.list = item.variantList
 			self.controls.displayItemAltVariant.selIndex = item.variantAlt
+			self.controls.displayItemAltVariant:CheckDroppedWidth(true)
 		end
 		if item.hasAltVariant2 then
 			self.controls.displayItemAltVariant2.list = item.variantList
 			self.controls.displayItemAltVariant2.selIndex = item.variantAlt2
+			self.controls.displayItemAltVariant2:CheckDroppedWidth(true)
 		end
 		if item.hasAltVariant3 then
 			self.controls.displayItemAltVariant3.list = item.variantList
 			self.controls.displayItemAltVariant3.selIndex = item.variantAlt3
+			self.controls.displayItemAltVariant3:CheckDroppedWidth(true)
+		end
+		if item.hasAltVariant4 then
+			self.controls.displayItemAltVariant4.list = item.variantList
+			self.controls.displayItemAltVariant4.selIndex = item.variantAlt4
+			self.controls.displayItemAltVariant4:CheckDroppedWidth(true)
+		end
+		if item.hasAltVariant5 then
+			self.controls.displayItemAltVariant5.list = item.variantList
+			self.controls.displayItemAltVariant5.selIndex = item.variantAlt5
+			self.controls.displayItemAltVariant5:CheckDroppedWidth(true)
 		end
 		self:UpdateSocketControls()
 		if item.crafted then
@@ -1415,16 +1543,13 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	end
 	local affixList = { }
 	for modId, mod in pairs(item.affixes) do
-		if mod.type == type and not excludeGroups[mod.group] and item:GetModSpawnWeight(mod, extraTags) > 0 then
+		if mod.type == type and not excludeGroups[mod.group] and item:GetModSpawnWeight(mod, extraTags) > 0 and not item:CheckIfModIsDelve(mod) then
 			t_insert(affixList, modId)
 		end
 	end
 	table.sort(affixList, function(a, b)
 		local modA = item.affixes[a]
 		local modB = item.affixes[b]
-		if item.type == "Flask" then
-			return modA.affix < modB.affix
-		end
 		for i = 1, m_max(#modA, #modB) do
 			if not modA[i] then
 				return true
@@ -1441,9 +1566,9 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	control.outputTable = outputTable
 	control.outputIndex = outputIndex
 	control.slider.shown = false
-	control.slider.val = 0.5
+	control.slider.val = main.defaultItemAffixQuality or 0.5
 	local selAffix = item[outputTable][outputIndex].modId
-	if item.type == "Flask" or (item.type == "Jewel" and item.base.subType ~= "Abyss") then
+	if (item.type == "Jewel" and item.base.subType ~= "Abyss") then
 		for i, modId in pairs(affixList) do
 			local mod = item.affixes[modId]
 			if selAffix == modId then
@@ -1595,9 +1720,9 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 		return item.base.weapon ~= nil
 	elseif slotName == "Weapon 2" or slotName == "Weapon 2 Swap" then
 		local weapon1Sel = itemSet[slotName == "Weapon 2" and "Weapon 1" or "Weapon 1 Swap"].selItemId or 0
-		local weapon1Type = weapon1Sel > 0 and self.items[weapon1Sel].base.type or "None"
+		local weapon1Type = self.items[weapon1Sel] and self.items[weapon1Sel].base.type or "None"
 		if weapon1Type == "None" then
-			return item.type == "Quiver" or item.type == "Shield" or (self.build.data.weaponTypeInfo[item.type] and self.build.data.weaponTypeInfo[item.type].oneHand)
+			return item.type == "Shield" or (self.build.data.weaponTypeInfo[item.type] and self.build.data.weaponTypeInfo[item.type].oneHand)
 		elseif weapon1Type == "Bow" then
 			return item.type == "Quiver"
 		elseif self.build.data.weaponTypeInfo[weapon1Type].oneHand then
@@ -1629,6 +1754,8 @@ function ItemsTabClass:CraftItem()
 		item.baseName = base.name
 		item.buffModLines = { }
 		item.enchantModLines = { }
+		item.classRequirementModLines = { }
+		item.scourgeModLines = { }
 		item.implicitModLines = { }
 		item.explicitModLines = { }
 		item.quality = 0
@@ -1701,7 +1828,7 @@ function ItemsTabClass:EditDisplayItemText()
 	local controls = { }
 	local function buildRaw()
 		local editBuf = controls.edit.buf
-		if editBuf:match("^Item Class: .*\nRarity: ") then
+		if editBuf:match("^Item Class: .*\nRarity: ") or editBuf:match("^Rarity: ") then
 			return editBuf
 		else
 			return "Rarity: "..controls.rarity.list[controls.rarity.selIndex].rarity.."\n"..controls.edit.buf
@@ -1716,15 +1843,13 @@ function ItemsTabClass:EditDisplayItemText()
 		controls.rarity.selIndex = 3
 	end
 	controls.edit.font = "FIXED"
-	controls.edit.pasteFilter = function(text)
-		return text:gsub("\246","o")
-	end
+	controls.edit.pasteFilter = itemLib.sanitiseItemText
 	controls.save = new("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
 		local id = self.displayItem and self.displayItem.id
 		self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
 		self.displayItem.id = id
 		main:ClosePopup()
-	end)
+	end, nil, true)
 	controls.save.enabled = function()
 		local item = new("Item", buildRaw())
 		return item.base ~= nil
@@ -1757,8 +1882,8 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	local controls = { } 
 	local enchantments = self.displayItem.enchantments
 	local haveSkills = true
-	for _, lab in ipairs(self.build.data.labyrinths) do
-		if self.displayItem.enchantments[lab.name] then
+	for _, source in ipairs(self.build.data.enchantmentSource) do
+		if self.displayItem.enchantments[source.name] then
 			haveSkills = false
 			break
 		end
@@ -1787,13 +1912,13 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		end
 		table.sort(skillList)
 	end
-	local labyrinthList = { }
-	local function buildLabyrinthList()
-		wipeTable(labyrinthList)
+	local enchantmentSourceList = { }
+	local function buildEnchantmentSourceList()
+		wipeTable(enchantmentSourceList)
 		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.selIndex or 1]] or enchantments
-		for _, lab in ipairs(self.build.data.labyrinths) do
-			if list[lab.name] then
-				t_insert(labyrinthList, lab)
+		for _, source in ipairs(self.build.data.enchantmentSource) do
+			if list[source.name] then
+				t_insert(enchantmentSourceList, source)
 			end
 		end
 	end
@@ -1801,30 +1926,39 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	local function buildEnchantmentList()
 		wipeTable(enchantmentList)
 		local list = haveSkills and enchantments[skillList[controls.skill and controls.skill.selIndex or 1]] or enchantments
-		for _, enchantment in ipairs(list[labyrinthList[controls.labyrinth and controls.labyrinth.selIndex or 1].name]) do
+		for _, enchantment in ipairs(list[enchantmentSourceList[controls.enchantmentSource and controls.enchantmentSource.selIndex or 1].name]) do
 			t_insert(enchantmentList, enchantment)
 		end
 	end
 	if haveSkills then
 		buildSkillList(true)
 	end
-	buildLabyrinthList()
+	buildEnchantmentSourceList()
 	buildEnchantmentList()
 	local function enchantItem()
 		local item = new("Item", self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
-		if #item.enchantModLines >= self.enchantSlot then
-			t_remove(item.enchantModLines, self.enchantSlot)
-		end
 		local list = haveSkills and enchantments[controls.skill.list[controls.skill.selIndex]] or enchantments
-		t_insert(item.enchantModLines, self.enchantSlot, { crafted = true, line = list[controls.labyrinth.list[controls.labyrinth.selIndex].name][controls.enchantment.selIndex] })
+		local line = list[controls.enchantmentSource.list[controls.enchantmentSource.selIndex].name][controls.enchantment.selIndex]
+		local first, second = line:match("([^/]+)/([^/]+)")
+		if first then
+			item.enchantModLines = { { crafted = true, line = first }, { crafted = true, line = second } }
+		else
+			if not item.canHaveTwoEnchants and #item.enchantModLines > 1 then
+				item.enchantModLines = { item.enchantModLines[1] }
+			end
+			if #item.enchantModLines >= self.enchantSlot then
+				t_remove(item.enchantModLines, self.enchantSlot)
+			end
+			t_insert(item.enchantModLines, self.enchantSlot, { crafted = true, line = line})
+		end
 		item:BuildAndParseRaw()
 		return item
 	end
 	if haveSkills then
 		controls.skillLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Skill:")
 		controls.skill = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 180, 18, skillList, function(index, value)
-			buildLabyrinthList()
+			buildEnchantmentSourceList()
 			buildEnchantmentList()
 			controls.enchantment:SetSel(1)
 		end)
@@ -1840,8 +1974,8 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 			controls.allSkills.enabled = false
 		end
 	end
-	controls.labyrinthLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Labyrinth:")
-	controls.labyrinth = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 100, 18, labyrinthList, function(index, value)
+	controls.enchantmentSourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Source:")
+	controls.enchantmentSource = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 180, 18, enchantmentSourceList, function(index, value)
 		buildEnchantmentList()
 		controls.enchantment:SetSel(m_min(controls.enchantment.selIndex, #enchantmentList))
 	end)
@@ -1867,7 +2001,7 @@ end
 function ItemsTabClass:getAnoint(item)
 	local result = { }
 	if item then
-		for _, modList in ipairs{item.enchantModLines, item.implicitModLines, item.explicitModLines} do
+		for _, modList in ipairs{item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines} do
 			for _, mod in ipairs(modList) do
 				local line = mod.line
 				local anoint = line:find("Allocates ([a-zA-Z ]+)")
@@ -1982,11 +2116,11 @@ function ItemsTabClass:AnointDisplayItem(enchantSlot)
 end
 
 -- Opens the item corrupting popup
-function ItemsTabClass:CorruptDisplayItem()
+function ItemsTabClass:CorruptDisplayItem(modType)
 	local controls = { } 
 	local implicitList = { }
 	for modId, mod in pairs(self.displayItem.affixes) do
-		if mod.type == "Corrupted" and self.displayItem:GetModSpawnWeight(mod) > 0 then
+		if mod.type == modType and self.displayItem:GetModSpawnWeight(mod) > 0 then
 			t_insert(implicitList, mod)
 		end
 	end
@@ -2020,6 +2154,7 @@ function ItemsTabClass:CorruptDisplayItem()
 			if control.selIndex > 1 then
 				local mod = control.list[control.selIndex].mod
 				for _, modLine in ipairs(mod) do
+					modLine = (modType == "Scourge" and "{scourge}" or "") .. modLine
 					if mod.modTags[1] then
 						t_insert(newImplicit, { line = "{tags:" .. table.concat(mod.modTags, ",") .. "}" .. modLine })
 					else
@@ -2029,9 +2164,9 @@ function ItemsTabClass:CorruptDisplayItem()
 			end
 		end
 		if #newImplicit > 0 then
-			wipeTable(item.implicitModLines)
+			wipeTable(modType == "Corrupted" and item.implicitModLines or item.scourgeModLines)
 			for i, implicit in ipairs(newImplicit) do
-				t_insert(item.implicitModLines, i, implicit)
+				t_insert(modType == "Corrupted" and item.implicitModLines or item.scourgeModLines, i, implicit)
 			end
 		end
 		item:BuildAndParseRaw()
@@ -2047,7 +2182,7 @@ function ItemsTabClass:CorruptDisplayItem()
 	end)
 	buildList(controls.implicit, controls.implicit2)
 	buildList(controls.implicit2, controls.implicit)
-	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Corrupt", function()
+	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, modType, function()
 		self:SetDisplayItem(corruptItem())
 		main:ClosePopup()
 	end)
@@ -2058,7 +2193,7 @@ function ItemsTabClass:CorruptDisplayItem()
 	controls.close = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(540, 100, "Corrupt Item", controls)
+	main:OpenPopup(540, 100, modType .. " Item", controls)
 end
 
 -- Opens the custom modifier popup
@@ -2139,6 +2274,44 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				end
 				return modA.level > modB.level
 			end)
+		elseif sourceId == "VEILED" then
+			for i, mod in pairs(self.build.data.veiledMods) do
+				if self.displayItem:GetModSpawnWeight(mod) > 0 then
+					t_insert(modList, {
+						label =  table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						mod = mod,
+						affixType = mod.type,
+						type = "custom",
+						defaultOrder = i,
+					})
+				end
+			end
+			table.sort(modList, function(a, b)
+				if a.affixType ~= b.affixType then
+					return a.affixType == "Prefix" and b.affixType == "Suffix"
+				else
+					return a.defaultOrder < b.defaultOrder
+				end
+			end)
+		elseif sourceId == "DELVE" then
+			for i, mod in pairs(self.displayItem.affixes) do
+				if self.displayItem:CheckIfModIsDelve(mod) and self.displayItem:GetModSpawnWeight(mod) > 0 then
+					t_insert(modList, {
+						label =  table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						mod = mod,
+						affixType = mod.type,
+						type = "custom",
+						defaultOrder = i,
+					})
+				end
+			end
+			table.sort(modList, function(a, b)
+				if a.affixType ~= b.affixType then
+					return a.affixType == "Prefix" and b.affixType == "Suffix"
+				else
+					return a.defaultOrder < b.defaultOrder
+				end
+			end)
 		end
 	end
 	if self.displayItem.type ~= "Jewel" then
@@ -2146,6 +2319,12 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	end
 	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Essence", sourceId = "ESSENCE" })
+	end
+	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
+		t_insert(sourceList, { label = "Veiled", sourceId = "VEILED"})
+	end
+	if self.displayItem.type ~= "Flask" then
+		t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
 	end
 	if not self.displayItem.crafted then
 		t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })
@@ -2332,6 +2511,9 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if armourData.EnergyShield > 0 then
 			tooltip:AddLine(16, s_format("^x7F7F7FEnergy Shield: %s%d", main:StatColor(armourData.EnergyShield, base.armour.EnergyShieldBase), armourData.EnergyShield))
 		end
+		if armourData.Ward > 0 then
+			tooltip:AddLine(16, s_format("^x7F7F7FWard: %s%d", main:StatColor(armourData.Ward, base.armour.WardBase), armourData.Ward))
+		end
 	elseif base.flask then
 		-- Flask-specific info
 		local flaskData = item.flaskData
@@ -2374,6 +2556,9 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		-- Jewel-specific info
 		if item.limit then
 			tooltip:AddLine(16, "^x7F7F7FLimited to: ^7"..item.limit)
+		end
+		if item.classRestriction then
+			tooltip:AddLine(16, "^x7F7F7FRequires Class "..(self.build.spec.curClassName == item.classRestriction and colorCodes.POSITIVE or colorCodes.NEGATIVE)..item.classRestriction)
 		end
 		if item.jewelRadiusLabel then
 			tooltip:AddLine(16, "^x7F7F7FRadius: ^7"..item.jewelRadiusLabel)
@@ -2440,7 +2625,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		item.requirements.str or 0, item.requirements.dex or 0, item.requirements.int or 0)
 
 	-- Modifiers
-	for _, modList in ipairs{item.enchantModLines, item.implicitModLines, item.explicitModLines} do
+	for _, modList in ipairs{item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines} do
 		if modList[1] then
 			for _, modLine in ipairs(modList) do
 				if item:CheckModLineVariant(modLine) then
@@ -2495,22 +2680,51 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		local output = self.build.calcsTab.mainOutput
 		local durInc = modDB:Sum("INC", nil, "FlaskDuration")
 		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
+
+		if item.rarity == "MAGIC" and not item.base.flask.life and not item.base.flask.mana then
+			effectInc = effectInc + modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
+		end
+
 		if item.base.flask.life or item.base.flask.mana then
 			local rateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
 			local instantPerc = flaskData.instantPerc
 			if item.base.flask.life then
 				local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
+				local lifeMore = modDB:More(nil, "FlaskLifeRecovery")
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
-				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * (1 + effectInc / 100)
-				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
+				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100)
+				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
 				local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
-				if inst > 0 and grad > 0 then
-					t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
-				elseif inst + grad ~= flaskData.lifeTotal or (inst == 0 and lifeDur ~= flaskData.duration) then
+
+				-- LocalLifeFlaskAdditionalLifeRecovery flask mods
+				if flaskData.lifeAdditional > 0 and not self.build.configTab.input.conditionFullLife then
+					local totalAdditionalAmount = (flaskData.lifeAdditional/100) * flaskData.lifeTotal * output.LifeRecoveryRateMod
+					local additionalGrad = (lifeDur/10) * totalAdditionalAmount
+					local leftoverDur = 10 - lifeDur
+					local leftoverAmount = totalAdditionalAmount - additionalGrad
+
 					if inst > 0 then
-						t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
-					elseif grad > 0 then
-						t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
+						if grad > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs^8)",
+									inst + grad + totalAdditionalAmount, inst, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
+						else
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, and an additional ^7%d ^8over ^7%.2fs^8)",
+									inst + totalAdditionalAmount, inst, totalAdditionalAmount, 10))
+						end
+					else
+						t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d ^8over ^7%.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs^8)",
+						grad + totalAdditionalAmount, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
+					end
+				else
+					if inst > 0 and grad > 0 then
+						t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
+					-- modifiers to recovery amount or duration
+					elseif inst + grad ~= flaskData.lifeTotal or (inst == 0 and lifeDur ~= flaskData.duration) then
+						if inst > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
+						elseif grad > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
+						end
 					end
 				end
 				if modDB:Flag(nil, "LifeFlaskAppliesToEnergyShield") then
@@ -2557,13 +2771,64 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if gainMod ~= 1 then
 			t_insert(stats, s_format("^8Charge gain modifier: ^7%+d%%", gainMod * 100 - 100))
 		end
+
+		-- charge generation
+		local chargesGenerated = modDB:Sum("BASE", nil, "FlaskChargesGenerated")
+		if item.base.flask.life then
+			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "LifeFlaskChargesGenerated")
+		end
+		if item.base.flask.mana then
+			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "ManaFlaskChargesGenerated")
+		end
+		if not item.base.flask.mana and not item.base.flask.life then
+			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "UtilityFlaskChargesGenerated")
+		end
+
+		local chargesGeneratedPerFlask = modDB:Sum("BASE", nil, "FlaskChargesGeneratedPerEmptyFlask")
+		local emptyFlaskSlots = 0
+		for slotName, slot in pairs(self.slots) do
+			if slotName:find("^Flask") ~= nil and slot.selItemId == 0 then
+				emptyFlaskSlots = emptyFlaskSlots + 1
+			end
+		end
+		chargesGeneratedPerFlask = chargesGeneratedPerFlask * emptyFlaskSlots
+		chargesGenerated = chargesGenerated * gainMod
+		chargesGeneratedPerFlask = chargesGeneratedPerFlask * gainMod
+
+		local totalChargesGenerated = chargesGenerated + chargesGeneratedPerFlask
+		if totalChargesGenerated > 0 then
+			t_insert(stats, s_format("^8Charges generated: ^7%.2f^8 per second", totalChargesGenerated))
+		end
+
+		-- flask uptime
+		if not item.base.flask.life and not item.base.flask.mana then
+			local flaskChargesUsed = flaskData.chargesUsed * (1 + usedInc / 100)
+			if flaskChargesUsed > 0 then
+				local flaskDuration = flaskData.duration * (1 + durInc / 100)
+				local per3Duration = flaskDuration - (flaskDuration % 3)
+				local per5Duration = flaskDuration - (flaskDuration % 5)
+				local minimumChargesGenerated = per3Duration * chargesGenerated + per5Duration * chargesGeneratedPerFlask
+				local percentageMin = math.min(minimumChargesGenerated / flaskChargesUsed * 100, 100)
+				if percentageMin < 100 then
+					local averageChargesGenerated = (chargesGenerated + chargesGeneratedPerFlask) * flaskDuration
+					local percentageAvg = math.min(averageChargesGenerated / flaskChargesUsed * 100, 100)
+					t_insert(stats, s_format("^8Flask uptime: ^7%d%%^8 average, ^7%d%%^8 minimum", percentageAvg, percentageMin))
+				else
+					t_insert(stats, s_format("^8Flask uptime: ^7100%%^8"))
+				end
+			end
+		end
+
 		if stats[1] then
 			tooltip:AddLine(14, "^7Effective flask stats:")
 			for _, stat in ipairs(stats) do
 				tooltip:AddLine(14, stat)
 			end
 		end
+		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		local output = calcFunc({ toggleFlask = item }, {})
+		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 		local header
 		if self.build.calcsTab.mainEnv.flasks[item] then
 			header = "^7Deactivating this flask will give you:"
@@ -2581,10 +2846,19 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			end
 		end
 		table.sort(compareSlots, function(a, b)
+			if a ~= b then
+				if slot == a then
+					return true
+				end
+				if slot == b then
+					return false
+				end
+			end
 			if a.selItemId ~= b.selItemId then
 				if item == self.items[a.selItemId] then
 					return true
-				elseif item == self.items[b.selItemId] then
+				end
+				if item == self.items[b.selItemId] then
 					return false
 				end
 			end
@@ -2598,19 +2872,21 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		end)
 
 		-- Add comparisons for each slot
-		for _, slot in pairs(compareSlots) do
-			local selItem = self.items[slot.selItemId]
-			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-			GlobalCache.useFullDPS = calcBase.FullDPS ~= nil
-			local output = calcFunc({ repSlotName = slot.slotName, repItem = item ~= selItem and item }, {})
-			GlobalCache.useFullDPS = storedGlobalCacheDPSView
-			local header
-			if item == selItem then
-				header = "^7Removing this item from "..slot.label.." will give you:"
-			else
-				header = string.format("^7Equipping this item in %s will give you:%s", slot.label, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+		for _, compareSlot in pairs(compareSlots) do
+			if not main.slotOnlyTooltips or (slot and (slot.nodeId == compareSlot.nodeId or slot.slotName == compareSlot.slotName)) or not slot or slot == compareSlot then
+				local selItem = self.items[compareSlot.selItemId]
+				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+				GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item }, {})
+				GlobalCache.useFullDPS = storedGlobalCacheDPSView
+				local header
+				if item == selItem then
+					header = "^7Removing this item from "..compareSlot.label.." will give you:"
+				else
+					header = string.format("^7Equipping this item in %s will give you:%s", compareSlot.label, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+				end
+				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
 			end
-			self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
 		end
 	end
 
@@ -2626,7 +2902,10 @@ end
 function ItemsTabClass:CreateUndoState()
 	local state = { }
 	state.activeItemSetId = self.activeItemSetId
-	state.items = copyTableSafe(self.items, false, true)
+	state.items = { }
+	for k, v in pairs(self.items) do
+		state.items[k] = copyTableSafe(self.items[k], true, true)
+	end
 	state.itemOrderList = copyTable(self.itemOrderList)
 	state.slotSelItemId = { }
 	for slotName, slot in pairs(self.slots) do

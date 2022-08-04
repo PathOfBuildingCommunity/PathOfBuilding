@@ -116,16 +116,19 @@ Requires Level: 23, 44 Str
 ]],[[
 Torchoak Step
 Antique Greaves
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 37, 67 Str
 (80-120)% increased Armour
-(30-50)% increased Totem Life
+{variant:1}(30-50)% increased Totem Life
+{variant:2}(20-30)% increased Totem Life
 25% increased Movement Speed
 (30-50)% increased Totem Placement speed
-Totems Reflect 25% of their maximum Life as Fire Damage to nearby Enemies when Hit
+{variant:1}Totems Reflect 25% of their maximum Life as Fire Damage to nearby Enemies when Hit
+{variant:2}Totems Reflect 100% of their maximum Life as Fire Damage to nearby Enemies when Hit
 ]],[[
 Windscream
 Reinforced Greaves
-Upgrade: Upgrades to unique{Windshriek} via prophecy{Darktongue's Shriek}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 33, 60 Str
@@ -139,7 +142,7 @@ Enemies can have 1 additional Curse
 ]],[[
 Windshriek
 Reinforced Greaves
-Source: Upgraded from unique{Windscream} via prophecy{Darktongue's Shriek}
+Source: Drops from any endgame map boss
 Requires Level 60, 60 Str
 (200-250)% increased Armour
 +(10-15)% to all Elemental Resistances
@@ -164,11 +167,14 @@ Burning Hoofprints
 Atziri's Step
 Slink Boots
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 69, 120 Dex
 180% increased Evasion Rating
 +(55-75) to maximum Life
 30% increased Movement Speed
-(14-16)% Chance to Dodge Spell Damage
+{variant:1}(21-24)% chance to Suppress Spell Damage
+{variant:2}(20-26)% chance to Suppress Spell Damage
 ]],[[
 The Blood Dance
 Sharkskin Boots
@@ -254,16 +260,18 @@ Requires Level 34, 62 Dex
 Garukhan's Flight
 Stealth Boots
 Variant: Pre 3.5.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 62, 117 Dex
 +(30-40) to Dexterity
 {variant:1}(80-120)% increased Evasion Rating
 {variant:2}(320-380)% increased Evasion Rating
+{variant:3}(300-340)% increased Evasion Rating
 30% increased Movement Speed
 Immune to Burning Ground, Shocked Ground and Chilled Ground
 Regenerate 100 Life per second while moving
 {variant:1}+1 to Maximum Life per 10 Dexterity
-{variant:2}+2 to Maximum Life per 10 Dexterity
+{variant:2,3}+2 to Maximum Life per 10 Dexterity
 ]],[[
 Seven-League Step
 Rawhide Boots
@@ -300,18 +308,19 @@ Poison you inflict with Travel Skills is Reflected to you if you have fewer than
 Three-step Assault
 Shagreen Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
-Evasion: (198-203)
 Requires Level 55, 97 Dex
 +(25-35) to Dexterity
 (20-40)% increased Evasion Rating
 {variant:1}40% increased Evasion Rating while you have Onslaught
-{variant:2}100% increased Evasion Rating while you have Onslaught
+{variant:2,3}100% increased Evasion Rating while you have Onslaught
 {variant:1}+(30-60) to maximum Life
-{variant:2}+(50-70) to maximum Life
+{variant:2,3}+(50-70) to maximum Life
 {variant:1}20% increased Movement Speed
-{variant:2}25% increased Movement Speed
-10% chance to Dodge Spells while Phasing
+{variant:2,3}25% increased Movement Speed
+{variant:1,2}10% chance to Avoid Elemental Ailments while Phasing
+{variant:3}30% chance to Avoid Elemental Ailments while Phasing
 ]],[[
 Replica Three-step Assault
 Shagreen Boots
@@ -335,7 +344,7 @@ Requires Level 12, 26 Dex
 {variant:1}30% increased Movement Speed when on Low Life
 {variant:2}15% increased Movement Speed
 {variant:2}You and nearby allies have 10% increased Movement Speed
-(5-10)% of Damage taken Gained as Mana over 4 seconds when Hit
+(5-10)% of Damage taken Recouped as Mana
 ]],
 -- Boots: Energy Shield
 [[
@@ -368,6 +377,15 @@ Doryani's Delusion
 Sorcerer Boots
 League: Delve
 Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
+Variant: Purity of Fire: Fire Pre 3.16.0
+Variant: Purity of Fire: Cold Pre 3.16.0
+Variant: Purity of Fire: Lightning Pre 3.16.0
+Variant: Purity of Ice: Fire Pre 3.16.0
+Variant: Purity of Ice: Cold Pre 3.16.0
+Variant: Purity of Ice: Lightning Pre 3.16.0
+Variant: Purity of Lightning: Fire Pre 3.16.0
+Variant: Purity of Lightning: Cold Pre 3.16.0
+Variant: Purity of Lightning: Lightning Pre 3.16.0
 Variant: Purity of Fire: Fire
 Variant: Purity of Fire: Cold
 Variant: Purity of Fire: Lightning
@@ -378,19 +396,19 @@ Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
 Requires Level 67, 120 Int
-{variant:1,2,3}Grants Level 25 Purity of Fire Skill
-{variant:4,5,6}Grants Level 25 Purity of Ice Skill
-{variant:7,8,9}Grants Level 25 Purity of Lightning Skill
-{variant:1,4,7}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
-{variant:2,5,8}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
-{variant:3,6,9}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
-(180-220)% increased Energy Shield
+{variant:1,2,3,10,11,12}Grants Level 25 Purity of Fire Skill
+{variant:4,5,6,13,14,15}Grants Level 25 Purity of Ice Skill
+{variant:7,8,9,16,17,18}Grants Level 25 Purity of Lightning Skill
+{variant:1,4,7,10,13,16}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
+{variant:2,5,8,11,14,17}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
+{variant:3,6,9,12,15,18}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
+{variant:1,2,3,4,5,6,7,8,9}(180-220)% increased Energy Shield
+{variant:10,11,12,13,14,15,16,17,18}(150-180)% increased Energy Shield
 +(60-70) to maximum Life
 30% increased Movement Speed
 ]],[[
 Inya's Epiphany
 Arcanist Slippers
-Source: Drops from The Pale Council
 Requires Level 61, 119 Int
 +(50-70) to maximum Life
 25% increased Movement Speed
@@ -430,7 +448,6 @@ Requires Level 53, 94 Int
 ]],[[
 Shavronne's Pace
 Scholar Boots
-Upgrade: Upgrades to unique{Shavronne's Gambit} via prophecy{The Flow of Energy}
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
@@ -447,9 +464,9 @@ Requires Level 32, 54 Int
 ]],[[
 Shavronne's Gambit
 Scholar Boots
-Source: Upgraded from unique{Shavronne's Pace} via prophecy{The Flow of Energy}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 32, 54 Int
 +10 to Dexterity
 +(20-30) to Intelligence
@@ -468,7 +485,7 @@ Requires Level 67, 123 Int
 +(60-120) to maximum Mana
 30% increased Movement Speed
 25% chance to gain a Power Charge on Critical Strike
-6% reduced Mana Reserved
+12% increased Reservation Efficiency of Skills
 You have no Life Regeneration
 Stun Threshold is based on 500% of your Mana instead of Life
 ]],[[
@@ -497,7 +514,6 @@ Cannot be Frozen
 ]],[[
 Wondertrap
 Velvet Slippers
-Upgrade: Upgrades to unique{Greedtrap} via prophecy{Greed's Folly}
 Variant: Pre 1.0.0
 Variant: Current
 Requires Level 9, 21 Int
@@ -511,7 +527,7 @@ Requires Level 9, 21 Int
 ]],[[
 Greedtrap
 Velvet Slippers
-Source: Upgraded from unique{Wondertrap} via prophecy{Greed's Folly}
+Source: No longer obtainable
 Requires Level 52, 21 Int
 +(5-10) to Strength
 +(5-10) to Dexterity
@@ -531,39 +547,37 @@ Variant: Two-Toned Boots (Evasion/Energy Shield)
 {variant:3}Two-Toned Boots (Evasion/Energy Shield)
 League: Delirium
 Source: Drops from the Simulacrum Encounter
-{variant:1}Requires Level 70, 62 Str, 62 Dex
-{variant:2}Requires Level 70, 62 Str, 62 Int
-{variant:3}Requires Level 70, 62 Dex, 62 Int
 Implicits: 3
 {variant:1}+(8-12)% to Fire and Cold Resistances
 {variant:2}+(8-12)% to Fire and Lightning Resistances
 {variant:3}+(8-12)% to Cold and Lightning Resistances
 Grants Level 1 Embrace Madness Skill
 30% increased Movement Speed
-{variant:1}Enemies you Kill while affected by Glorious Madness have a 40% chance to Explode, dealing a quarter of their Life as Chaos Damage
-{variant:1}All Damage inflicts Poison while affected by Glorious Madness
+{variant:1}+15 to maximum Fortification while affected by Glorious Madness
+{variant:1}20% chance to deal Double Damage while affected by Glorious Madness
 {variant:2}You have Igniting, Chilling and Shocking Conflux while affected by Glorious Madness
 {variant:2}Immune to Elemental Ailments while affected by Glorious Madness
-{variant:3}60% increased Effect of Fortify on you while affected by Glorious Madness
-{variant:3}20% chance to deal Double Damage while affected by Glorious Madness
+{variant:3}Enemies you Kill while affected by Glorious Madness have a 40% chance to Explode, dealing a quarter of their Life as Chaos Damage
+{variant:3}All Damage inflicts Poison while affected by Glorious Madness
 ]],[[
 Darkray Vectors
 Dragonscale Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 65, 62 Str, 62 Dex
-{variant:2}(40-70)% increased Armour and Evasion
+{variant:2,3}(40-70)% increased Armour and Evasion
 +(20-40)% to Lightning Resistance
 5% increased Movement Speed per Frenzy Charge
 +1 to Maximum Frenzy Charge
 {variant:1}50% reduced Frenzy Charge Duration
-{variant:2}40% reduced Frenzy Charge Duration
+{variant:2,3}40% reduced Frenzy Charge Duration
 25% reduced Light Radius
-2% chance to Dodge Attacks per Frenzy Charge
+{variant:1,2}2% chance to Suppress Spell Damage per Frenzy Charge
+{variant:3}10% increased Evasion Rating per Frenzy Charge
 ]],[[
 Dusktoe
 Ironscale Boots
-Upgrade: Upgrades to unique{Duskblight} via prophecy{Agony at Dusk}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 18, 19 Str, 19 Dex
@@ -591,7 +605,7 @@ Requires Level 18, 19 Str, 19 Dex
 ]],[[
 Duskblight
 Ironscale Boots
-Source: Upgraded from unique{Dusktoe} via prophecy{Agony at Dusk}
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 40, 19 Str, 19 Dex
@@ -607,12 +621,15 @@ Requires Level 40, 19 Str, 19 Dex
 ]],[[
 Legacy of Fury
 Wyrmscale Boots
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
-Requires Level 51, 48 Str, 48 Dex
+Requires Level 69, 48 Str, 48 Dex
 (200-300)% increased Armour and Evasion
--(15-10)% to all Elemental Resistances
+{variant:1}-(15-10)% to all Elemental Resistances
 30% increased Movement Speed
-Drops Scorched Ground while moving, lasting 4 seconds
+{variant:1}Drops Scorched Ground while moving, lasting 4 seconds
+{variant:2}Nearby Enemies are Scorched
 (30-50)% increased Effect of Scorch
 (30-40)% chance when you Kill a Scorched Enemy to Burn Each surrounding Enemy for 4 seconds, dealing 8% of the Killed Enemy's Life as Fire Damage per second
 ]],[[
@@ -721,10 +738,13 @@ Requires Level 58, 54 Str, 54 Int
 ]],[[
 March of the Legion
 Legion Boots
+Variant: Pre 3.17.0
+Variant: Current
 League: Synthesis
 Requires Level 58, 54 Str, 54 Int
-+2 to Level of Socketed Aura Gems
-Socketed Gems are Supported by Level 25 Blessing
+{variant:1}+2 to Level of Socketed Aura Gems
+{variant:2}+(3-5) to Level of Socketed Aura Gems
+Socketed Gems are Supported by Level 25 Divine Blessing
 (250-300)% increased Armour and Energy Shield
 +(12-18)% to all Elemental Resistances
 (20-30)% increased Movement Speed
@@ -798,8 +818,8 @@ For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
 Dance of the Offered
 Variant: Pre 3.14.0
 Variant: Current
-{variant:2}Carnal Boots
 {variant:1}Shackled Boots
+{variant:2}Carnal Boots
 League: Incursion
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
 {variant:1}Requires Level 34, 34 Dex, 34 Int
@@ -814,13 +834,16 @@ You have Onslaught while not on Low Mana
 ]],[[
 Omeyocan
 Carnal Boots
+Variant: Pre 3.16.0
+Variant: Current
 League: Incursion
 Source: Upgraded from unique{Dance of the Offered} via currency{Vial of the Ritual}
 Requires Level 55, 52 Dex, 52 Int
 (15-20)% increased maximum Mana
 +(25-30)% to Lightning Resistance
 30% increased Movement Speed
-2% chance to Dodge Attack and Spell Hits per 500 Maximum Mana, up to 20%
+{variant:1}2% increased Evasion per 500 Maximum Mana
+{variant:2}10% increased Evasion per 500 Maximum Mana
 You have Onslaught while not on Low Mana
 Lose 7% of maximum Mana per Second
 ]],[[
@@ -836,6 +859,19 @@ Requires Level 63, 62 Dex, 62 Int
 Aspect of the Spider can inflict Spider's Web on Enemies an additional time
 Gain (15-20) Energy Shield for each Enemy you Hit which is affected by a Spider's Web
 (40-50)% increased Aspect of the Spider Debuff Duration
+]],[[
+Inextricable Fate
+Fugitive Boots
+Source: Drops from unique{The Eater of Worlds}
+Requires Level 70, 56 Dex, 76 Int
+Implicits: 1
++(13–17)% to Chaos Resistance
++(80–100) to maximum Life
+30% increased Movement Speed
+You gain 3 Grasping Vines when you take a Critical Strike
+Nearby stationary Enemies gain a Grasping Vine every 0.5 seconds
+All Damage inflicts Poison against Enemies affected by at least 3 Grasping Vines
+You take (30–50)% reduced Extra Damage from Critical Strikes by Poisoned Enemies
 ]],[[
 Nomic's Storm
 Strapped Boots
@@ -877,7 +913,6 @@ This item can be anointed by Cassia
 ]],[[
 Sundance
 Clasped Boots
-Upgrade: Upgrades to unique{Sunspite} via prophecy{Sun's Punishment}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 27, 27 Dex, 27 Int
@@ -890,7 +925,7 @@ Requires Level 27, 27 Dex, 27 Int
 ]],[[
 Sunspite
 Clasped Boots
-Source: Upgraded from unique{Sundance} via prophecy{Sun's Punishment}
+Source: No longer obtainable
 Requires Level 59, 27 Dex, 27 Int
 10% increased Attack Speed
 (260-300)% increased Evasion and Energy Shield
@@ -929,5 +964,76 @@ Requires Level 69, 82 Dex, 42 Int
 You have Phasing if you've Killed Recently
 Projectiles Chain +1 times while you have Phasing
 Celestial Footprints
+]],
+-- Boots: Ward
+[[
+Olroth's Charge
+Runic Sollerets
+League: Expedition
+Requires Level 48, 37 Str, 37 Dex, 37 Int
+(50–80)% increased Ward
+(30–50)% slower Restoration of Ward
+20% increased Movement Speed
+Gain Adrenaline for 3 seconds when Ward Breaks
+]],[[
+Vorana's March
+Runic Sabatons
+League: Expedition
+Has Alt Variant: true
+Has Alt Variant Two: true
+Selected Variant: 1
+Selected Alt Variant: 2
+Variant: Arbalist Limit
+Variant: Additional Projectiles
+Variant: Attack Speed
+Variant: Pierce additional Targets
+Variant: Fork
+Variant: Chain
+Variant: Split
+Variant: Double Damage
+Variant: Maim
+Variant: Intimidate
+Variant: Unnerve
+Variant: Fire Exposure
+Variant: Cold Exposure
+Variant: Lightning Exposure
+Variant: Crush
+Variant: Phys converted to Fire
+Variant: Phys converted to Cold
+Variant: Phys converted to Lightning
+Variant: Phys as extra Fire
+Variant: Phys as extra Cold
+Variant: Phys as extra Lightning
+Variant: Chance to inflict Bleeding
+Variant: Chance to Poison
+Variant: Chance to Freeze, Shock, and Ignite
+Requires Level 69, 46 Str, 46 Dex, 46 Int
+Has no Sockets
+Triggers Level 20 Summon Arbalists when Equipped
+25% increased Movement Speed
+{variant:1}+1 to number of Summoned Arbalists
+{variant:2}Summoned Arbalists fire (2-4) additional Projectiles
+{variant:3}Summoned Arbalists have (10-20)% increased Attack Speed
+{variant:4}Summoned Arbalists' Projectiles Pierce 2 additional Targets
+{variant:5}Summoned Arbalists' Projectiles Fork
+{variant:6}Summoned Arbalists' Projectiles Chain +2 times
+{variant:7}Summoned Arbalists' Projectiles Split into 3
+{variant:8}Summoned Arbalists have (10-20)% chance to deal Double Damage
+{variant:9}Summoned Arbalists have (10-20)% chance to Maim for 4 seconds on Hit
+{variant:10}Summoned Arbalists have (10-20)% chance to Intimidate for 4 seconds on Hit
+{variant:11}Summoned Arbalists have (10-20)% chance to Unnerve for 4 seconds on Hit
+{variant:12}Summoned Arbalists have (10-20)% chance to inflict Fire Exposure on Hit
+{variant:13}Summoned Arbalists have (10-20)% chance to inflict Cold Exposure on Hit
+{variant:14}Summoned Arbalists have (10-20)% chance to inflict Lightning Exposure on Hit
+{variant:15}Summoned Arbalists have (10-20)% chance to Crush on Hit
+{variant:16}Summoned Arbalists Convert (30-50)% of Physical Damage to Fire Damage
+{variant:17}Summoned Arbalists Convert (30-50)% of Physical Damage to Cold Damage
+{variant:18}Summoned Arbalists Convert (30-50)% of Physical Damage to Lightning Damage
+{variant:19}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Fire Damage
+{variant:20}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Cold Damage
+{variant:21}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Lightning Damage
+{variant:22}Summoned Arbalists' Attacks have (30-50)% chance to inflict Bleeding
+{variant:23}Summoned Arbalists have (30-50)% chance to Poison
+{variant:24}Summoned Arbalists have (15-25)% chance to Freeze, Shock, and Ignite
 ]],
 }

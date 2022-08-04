@@ -67,6 +67,15 @@ Adds (5-15) to (100-140) Lightning Damage to Spells
 40% increased Strength Requirement
 Damage Penetrates 20% Lightning Resistance
 ]],[[
+The Annihilating Light
+Quarterstaff
+Source: Drops from unique{The Searing Exarch}
+Requires Level 68, 78 Str, 78 Int
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+(60-70)% reduced Elemental Resistances
+Deal Triple Damage with Elemental Skills
+]],[[
 Atziri's Rule
 Judgement Staff
 Requires Level 68, 113 Str, 113 Int
@@ -101,13 +110,6 @@ Implicits: 1
 (5-10)% increased Attack Speed
 Curse Enemies with Flammability on Block, with 20% increased Effect
 Reflects (22-44) Fire Damage to Attackers on Block
-]],[[
-Cane of Kulemak
-Serpentine Staff
-Requires Level 68, 85 Str, 85 Int
-Implicits: 1
-+20% Chance to Block Attack Damage while wielding a Staff
-(60-90)% increased Unveiled Modifier magnitudes
 ]],[[
 Cane of Unravelling
 Ezomyte Staff
@@ -265,7 +267,6 @@ Implicits: 2
 ]],[[
 Fencoil
 Gnarled Branch
-Upgrade: Upgrades to unique{Mirebough} via prophecy{Trapped in the Tower}
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
@@ -303,7 +304,7 @@ Gain (30-40)% of Physical Damage as Extra Damage of a random Element while you a
 ]],[[
 Mirebough
 Gnarled Branch
-Source: Upgraded from unique{Fencoil} via prophecy{Trapped in the Tower}
+Source: No longer obtainable
 Requires Level 32
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
@@ -386,19 +387,20 @@ League: Legion
 Source: Drops from Vaal Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 68, 113 Str, 113 Int
 Implicits: 3
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}20% Chance to Block Spell Damage while wielding a Staff
+{variant:3,4}20% Chance to Block Spell Damage while wielding a Staff
 Socketed Gems are Supported by level 30 Greater Spell Echo
 (120-160)% increased Spell Damage
-100% increased maximum Mana
+{variant:1,2,3}100% increased maximum Mana
+{variant:4}50% increased maximum Mana
 ]],[[
 Realmshaper
 Iron Staff
-Upgrade: Upgrades to unique{Realm Ender} via prophecy{The Beginning and the End}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 18, 35 Str, 35 Int
@@ -414,9 +416,9 @@ Adds (10-15) to (20-25) Cold Damage
 ]],[[
 Realm Ender
 Iron Staff
-Source: Upgraded from unique{Realmshaper} using prophecy{The Beginning and the End}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 40, 35 Str, 35 Int
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
@@ -492,7 +494,6 @@ If you Consumed a Corpse Recently, you and nearby Allies regenerate 5% of Life p
 ]],[[
 The Stormheart
 Royal Staff
-Upgrade: Upgrades to unique{The Stormwall} via prophecy{The Storm Spire}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 28, 51 Str, 51 Int
@@ -509,7 +510,7 @@ Adds (1-10) to (70-90) Lightning Damage
 ]],[[
 The Stormwall
 Royal Staff
-Source: Upgraded from unique{The Stormheart} via prophecy{The Storm Spire}
+Source: Drops from any endgame map boss
 Requires Level 60, 51 Str, 51 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff

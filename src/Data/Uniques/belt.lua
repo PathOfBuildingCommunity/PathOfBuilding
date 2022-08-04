@@ -5,6 +5,8 @@ return {
 [[
 Arn's Anguish
 Cloth Belt
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68
 Implicits: 1
@@ -15,21 +17,23 @@ Implicits: 1
 Modifiers to Minimum Endurance Charges instead apply to Minimum Brutal Charges
 Maximum Brutal Charges is equal to Maximum Endurance Charges
 Gain Brutal Charges instead of Endurance Charges
+{variant:2}+1 to Maximum Endurance Charges
 ]],[[
 Ascent From Flesh
 Chain Belt
-Source: prophecy{Thaumaturgical History IV}
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 44
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
 {tags:jewellery_defense}+300 to Evasion Rating
 {variant:1}{tags:jewellery_defense}+(35-45) to maximum Energy Shield
-{variant:2}{tags:jewellery_defense}+(75-80) to maximum Energy Shield
+{variant:2,3}{tags:jewellery_defense}+(75-80) to maximum Energy Shield
 {tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
 You have Phasing if Energy Shield Recharge has started Recently
-6% chance to Dodge Attacks while Phasing
+{variant:1,2}6% increased Evasion while Phasing
+{variant:3}30% increased Evasion while Phasing
 {tags:speed}10% increased Movement Speed while Phasing
 ]],[[
 Auxium
@@ -92,7 +96,7 @@ Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:attack,physical}Adds (5-7) to (11-12) Physical Damage to Attacks
 (20-30)% increased Stun Duration on Enemies
-Nearby Enemies are Crushed while you have least 25 Rage
+Nearby Enemies are Crushed while you have at least 25 Rage
 {tags:physical}(4-6)% increased Physical Damage per 10 Rage
 +20 to Maximum Rage
 ]],[[
@@ -186,8 +190,8 @@ Variant: Current
 Implicits: 1
 Has 1 Abyssal Socket
 Has 1 Abyssal Socket
-{variant:1}50% increased Effect of Socketed Jewels
-{variant:2}75% increased Effect of Socketed Jewels
+{variant:1}50% increased Effect of Socketed Abyss Jewels
+{variant:2}75% increased Effect of Socketed Abyss Jewels
 ]],[[
 Doryani's Invitation
 Heavy Belt
@@ -282,6 +286,8 @@ Implicits: 1
 ]],[[
 The Flow Untethered
 Cloth Belt
+Variant: Pre 3.16.0
+Variant: Current
 League: Harbinger
 Upgrade: Upgrades to unique{The Torrent's Reclamation} via currency{Time-light Scroll}
 Requires Level 60
@@ -289,8 +295,10 @@ Implicits: 1
 (15-25)% increased Stun and Block Recovery
 Grants Summon Harbinger of Time Skill
 {tags:caster,attack,speed}(10-15)% increased Attack and Cast Speed
-{tags:life}(15-20)% increased Life Recovery rate
-{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
+{variant:1}{tags:life}(15-20)% increased Life Recovery rate
+{variant:2}{tags:life}(10-15)% increased Life Recovery rate
+{variant:1}{tags:jewellery_defense}(15-20)% increased Energy Shield Recovery rate
+{variant:2}{tags:jewellery_defense}(10-15)% increased Energy Shield Recovery rate
 (15-20)% increased Cooldown Recovery Speed
 Debuffs on you expire (15-20)% faster
 ]],[[
@@ -326,6 +334,8 @@ You have no Armour or Maximum Energy Shield
 ]],[[
 Graven's Secret
 Cloth Belt
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68
 Implicits: 1
@@ -336,6 +346,7 @@ Implicits: 1
 Modifiers to Minimum Power Charges instead apply to Minimum Absorption Charges
 Maximum Absorption Charges is equal to Maximum Power Charges
 Gain Absorption Charges instead of Power Charges
+{variant:2}+1 to Maximum Power Charges
 ]],[[
 Headhunter
 Leather Belt
@@ -374,7 +385,7 @@ Variant: Pre 3.11.0 (Dexterity and Intelligence)
 Variant: Pre 3.11.0 (Strength and Intelligence)
 Variant: Pre 3.11.0 (Trap Throwing Speed)
 Variant: Pre 3.11.0 (Energy Shield Regen)
-Variant: Pre 3.11.0 (Lucky Crit Chance while Focussed)
+Variant: Pre 3.11.0 (Lucky Crit Chance while Focused)
 Variant: Current (Life Regen)
 Variant: Current (Fire and Chaos Resistances)
 Variant: Current (Cold and Chaos Resistances)
@@ -384,7 +395,7 @@ Variant: Current (Dexterity and Intelligence)
 Variant: Current (Strength and Intelligence)
 Variant: Current (Trap Throwing Speed)
 Variant: Current (Energy Shield Regen)
-Variant: Current (Lucky Crit Chance while Focussed)
+Variant: Current (Lucky Crit Chance while Focused)
 Requires Level 60
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
@@ -402,7 +413,7 @@ Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
 {variant:7,17}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
 {variant:8,18}{crafted}(7-12)% increased Trap Throwing Speed
 {variant:9,19}{crafted}{tags:jewellery_defense}(15-120) Energy Shield Regenerated per second while a Rare or Unique Enemy is Nearby
-{variant:10,20}{crafted}Your Critical Strike Chance is Lucky while Focussed
+{variant:10,20}{crafted}Your Critical Strike Chance is Lucky while Focused
 ]],[[
 Immortal Flesh
 Leather Belt
@@ -434,8 +445,6 @@ Offering Skills have 50% reduced Duration
 ]],[[
 The Magnate
 Studded Belt
-Upgrade: Upgrades to unique{The Nomad} via prophecy{The Great Leader of the North}
-Upgrade: Upgrades to unique{The Tactician} via prophecy{The Great Mind of the North}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16
@@ -448,7 +457,7 @@ Implicits: 1
 ]],[[
 The Nomad
 Studded Belt
-Source: Upgraded from unique{The Magnate} via prophecy{The Great Leader of the North}
+Source: Drops from any endgame map boss
 Requires Level 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
@@ -461,7 +470,7 @@ Implicits: 1
 ]],[[
 The Tactician
 Studded Belt
-Source: Upgraded from unique{The Magnate} via prophecy{The Great Mind of the North}
+Source: Drops from any endgame map boss
 Requires Level 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
@@ -471,6 +480,18 @@ Implicits: 1
 50% increased Flask Charges gained
 {tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
 {tags:critical}(50-60)% increased Critical Strike Chance while you have at least 200 Intelligence
+]],[[
+Mageblood
+Heavy Belt
+Requires Level 44
+Implicits: 1
+{tags:jewellery_attribute}+(25-35) to Strength
+{tags:jewellery_attribute}+(30-50) to Dexterity
+{tags:jewellery_resistance}+(15-25)% to Fire Resistance
+{tags:jewellery_resistance}+(15-25)% to Cold Resistance
+Magic Utility Flask cannot be Used
+Leftmost (2-4) Magic Utility Flasks constantly apply their Flask Effects to you
+Magic Utility Flask Effects cannot be removed
 ]],[[
 Maligaro's Restraint
 Chain Belt
@@ -511,6 +532,8 @@ Minions have (50-80)% increased Flask Effect Duration
 ]],[[
 Olesya's Delight
 Cloth Belt
+Variant: Pre 3.17.0
+Variant: Current
 League: Ritual
 Requires Level 68
 Implicits: 1
@@ -521,6 +544,7 @@ Implicits: 1
 Modifiers to Minimum Frenzy Charges instead apply to Minimum Affliction Charges
 Maximum Affliction Charges is equal to Maximum Frenzy Charges
 Gain Affliction Charges instead of Frenzy Charges
+{variant:2}+1 to Maximum Frenzy Charges
 ]],[[
 Perandus Blazon
 Cloth Belt
@@ -538,13 +562,16 @@ Implicits: 1
 ]],[[
 Perseverance
 Vanguard Belt
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 78
 Implicits: 1
 {tags:jewellery_defense}+(260-320) to Armour and Evasion Rating
 {tags:life}(4-8)% increased maximum Life
 {tags:jewellery_resistance}+(20-40)% to Cold Resistance
 {tags:attack}1% increased Attack Damage per 200 of the lowest of Armour and Evasion Rating
-{tags:attack}(14-20)% chance to gain Fortify when you Stun an Enemy with Melee Damage
+{variant:1}{tags:attack}14-20% chance to gain Fortify when you Stun an Enemy with Melee Damage
+{variant:2}{tags:attack}Melee Hits which Stun Fortify
 You have Onslaught while you have Fortify
 ]],[[
 Prismweave
@@ -752,8 +779,8 @@ Heavy Belt
 League: Ritual
 Requires Level 52
 Implicits: 1
-{tags:jewellery_attribute}+(25-35)% to Strength
-{tags:jewellery_defense}+(800-1200)% to Armour
+{tags:jewellery_attribute}+(25-35) to Strength
+{tags:jewellery_defense}+(800-1200) to Armour
 {tags:life}Regenerate (50-70) Life per second
 20% increased Stun Threshold
 {tags:jewellery_defense}10% reduced Armour per 50 Strength

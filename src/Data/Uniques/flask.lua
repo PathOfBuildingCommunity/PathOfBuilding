@@ -7,11 +7,15 @@ Blood of the Karui
 Sanctified Life Flask
 League: Domination, Nemesis
 Variant: Pre 2.6.0
+Variant: Pre 3.15.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 50
-(5-20)% increased Recovery Speed
+{variant:1,2,3}(5-20)% increased Recovery Speed
+{variant:4}(35-50)% reduced Recovery Speed
 {variant:1}No Life Recovery Applies during Flask effect
 {variant:2}100% increased Amount Recovered
+{variant:3}50% increased Amount Recovered
 Recover Full Life at the end of the Flask effect
 ]],
 -- Flask: Mana
@@ -19,16 +23,23 @@ Recover Full Life at the end of the Flask effect
 Doedre's Elixir
 Greater Mana Flask
 Variant: Pre 2.0.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 12
 Implicits: 0
-Removes 20% of your maximum Energy Shield on use
-You take 10% of your maximum Life as Chaos Damage on use
-You gain a Power Charge on use
-You gain a Frenzy Charge on use
-You gain an Endurance Charge on use
+{variant:1,2}Removes 20% of your maximum Energy Shield on use
+{variant:3}Removes 80% of your maximum Energy Shield on use
+{variant:1,2}You take 10% of your maximum Life as Chaos Damage on use
+{variant:3}You take 50% of your maximum Life as Chaos Damage on use
+{variant:1,2}You gain a Power Charge on use
+{variant:1,2}You gain a Frenzy Charge on use
+{variant:1,2}You gain an Endurance Charge on use
+{variant:3}You gain (1-3) Power Charges on use
+{variant:3}You gain (1-3) Frenzy Charges on use
+{variant:3}You gain (1-3) Endurance Charge on use
 {variant:1}(50-100)% increased Charges used
 {variant:2}(120-150)% increased Charges used
+{variant:3}(250-300)% increased Charges used
 ]],[[
 Lavianga's Spirit
 Sanctified Mana Flask
@@ -65,15 +76,18 @@ Large Hybrid Flask
 Variant: Pre 1.1.0
 Variant: Pre 2.2.0
 Variant: Pre 3.5.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 30
-(40-60)% increased Rarity of Items found during Flask effect
+{variant:1,2,3,4}(40-60)% increased Rarity of Items found during Flask effect
+{variant:5}(20-30)% increased Rarity of Items found during Flask effect
 {variant:1}(20-25)% increased Quantity of Items found during Flask effect
 {variant:2,3,4}(12-18)% increased Quantity of Items found during Flask effect
+{variant:5}(8-12)% increased Quantity of Items found during Flask effect
 25% increased Light Radius during Flask effect
 {variant:1,2}+6% to all maximum Elemental Resistances during Flask effect
 {variant:3}+4% to all maximum Elemental Resistances during Flask effect
-{variant:4}+50% to all Elemental Resistances during Flask Effect
+{variant:4,5}+50% to all Elemental Resistances during Flask Effect
 ]],[[
 The Writhing Jar
 Hallowed Hybrid Flask
@@ -89,41 +103,56 @@ Atziri's Promise
 Amethyst Flask
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
 Variant: Pre 3.0.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 68
 2% of Chaos Damage Leeched as Life during Flask effect
 {variant:1}Gain (22-25)% of Physical Damage as Extra Chaos Damage during effect
 {variant:2}Gain (15-20)% of Physical Damage as Extra Chaos Damage during effect
+{variant:3}Gain (5-8)% of Physical Damage as Extra Chaos Damage during effect
 {variant:1}Gain (13-15)% of Elemental Damage as Extra Chaos Damage during effect
 {variant:2}Gain (10-15)% of Elemental Damage as Extra Chaos Damage during effect
+{variant:3}Gain (5-8)% of Elemental Damage as Extra Chaos Damage during effect
 ]],[[
 Bottled Faith
 Sulphur Flask
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
+Variant: Pre 3.15.0
+Variant: Pre 3.16.0
+Variant: Current
 Requires Level 35
 Creates Consecrated Ground on Use
-(30-50)% increased Duration
+{variant:1}(30-50)% increased Duration
+{variant:2}(20-40)% increased Duration
+{variant:3}(15-30)% reduced Duration
 Consecrated Ground created by this Flask has Tripled Radius
-+(1.0-2.0)% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
+{variant:1}+(1.0-2.0)% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
+{variant:2,3}(100-150)% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect
 Consecrated Ground created during Effect applies (7-10)% increased Damage taken to Enemies
 ]],[[
 Coralito's Signature
 Diamond Flask
 Requires Level 27
-Take 30 Chaos Damage per Second during Flask effect
+Variant: Pre 3.15.0
+Variant: Current
+{variant:1}Take 30 Chaos Damage per Second during Flask effect
+{variant:2}Take (200-300) Chaos Damage per Second during Flask effect
 25% chance to Poison on Hit during Flask effect
 Your Critical Strikes do not deal extra Damage during Flask effect
-(50-75)% increased Duration of Poisons you inflict during Flask effect
-Grants Perfect Agony during Flask effect
+{variant:1}(50-75)% increased Duration of Poisons you inflict during Flask effect
+{variant:1}Grants Perfect Agony during Flask effect
+{variant:2}Poisons you inflict with Critical Strikes have +(20-30)% to Damage over Time Multiplier
 ]],[[
 Coruscating Elixir
 Ruby Flask
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 18
 Implicits: 0
 {variant:2}100% increased Duration
+{variant:3}25% increased Duration
 Chaos Damage does not bypass Energy Shield during effect
 Removes all but one Life on use
 Removed life is regenerated as Energy Shield over 2 seconds
@@ -132,65 +161,87 @@ Cinderswallow Urn
 Silver Flask
 League: Betrayal
 Source: Drops from unique{Catarina, Master of Undeath}
+Has Alt Variant: true
 Variant: Crit Chance
 Variant: Damage Taken is Leeched as Life
 Variant: Item Rarity
 Variant: Reduced Mana Cost
 Variant: Movement Speed/Stun Avoidance
 Variant: Life Regen
+Variant: Reduced Reflected Damage Taken
+Variant: Pre 3.15.0
+Variant: Pre 3.16.0 Crit Chance
+Variant: Current
 Requires Level 22
 Implicits: 0
-Recharges 1 Charge when you consume an Ignited Corpse
-Enemies Ignited by you during Flask Effect take 10% increased Damage
-Recover (1-3)% of Life when you Kill an Enemy during Flask Effect
-Recover (1-3)% of Mana when you Kill an Enemy during Flask Effect
-Recover (1-3)% of Energy Shield when you Kill an Enemy during Flask Effect
-{variant:1}{crafted}(60-80)% increased Critical Strike Chance during Flask Effect
+{variant:8}Recharges 1 Charge when you consume an Ignited Corpse
+{variant:10}Recharges 5 Charges when you consume an Ignited Corpse
+{variant:8}Enemies Ignited by you during Flask Effect take 10% increased Damage
+{variant:10}Enemies Ignited by you during Flask Effect take (7-10)% increased Damage
+{variant:8,10}Recover (1-3)% of Life when you Kill an Enemy during Flask Effect
+{variant:8,10}Recover (1-3)% of Mana when you Kill an Enemy during Flask Effect
+{variant:8,10}Recover (1-3)% of Energy Shield when you Kill an Enemy during Flask Effect
+{variant:10}+90 to maximum charges
+{variant:10}(250-300)% increased Charges Used
+{variant:9}{crafted}(60-80)% increased Critical Strike Chance during Flask Effect
+{variant:1}{crafted}(45-55)% increased Critical Strike Chance during Flask Effect
 {variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Flask Effect
 {variant:3}{crafted}(20-30)% increased Rarity of Items found during Flask Effect
 {variant:4}{crafted}(25-20)% reduced Mana Cost of Skills during Flask Effect
 {variant:5}{crafted}(8-12)% increased Movement Speed during Flask effect
 {variant:5}{crafted}50% Chance to avoid being Stunned during Flask Effect
 {variant:6}{crafted}3% of Life Regenerated per second during Flask Effect
+{variant:7}{crafted}(60-80)% reduced Reflected Damage taken during Flask Effect
 ]],[[
 Dying Sun
 Ruby Flask
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.0.0
+Variant: Pre 3.15.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 68
-(-10-10)% increased Charges used
+{variant:2}(-10-10)% increased Charges used
+{variant:3,4}(125-150)% increased Charges used
+{variant:3}(40-60)% reduced duration
+{variant:4}(40-60)% less duration
 {variant:1}30% increased Area of Effect during Flask Effect
 {variant:2}(15-25)% increased Area of Effect during Flask Effect
+{variant:3,4}(10-20)% increased Area of Effect during Flask Effect
 2 additional Projectiles during Flask Effect
 ]],[[
 Forbidden Taste
 Quartz Flask
 Variant: Pre 1.2.3
 Variant: Pre 2.6.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 27
 {variant:1,2}50% increased Charges used
 {variant:1}Recover 50% of your maximum Life on use
 {variant:2}Recover 75% of your maximum Life on use
-{variant:3}Recover (75-100)% of your maximum Life on use
+{variant:3,4}Recover (75-100)% of your maximum Life on use
 {variant:1}15% of maximum Life taken as Chaos Damage per second
 {variant:2,3}8% of maximum Life taken as Chaos Damage per second
+{variant:4}25% of maximum Life taken as Chaos Damage per second
 ]],[[
 Kiara's Determination
 Silver Flask
 Variant: Pre 3.0.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 22
 Implicits: 0
 Immune to Freeze, Chill, Curses and Stuns during Flask Effect
 {variant:1}50% reduced Duration
 {variant:2}60% reduced Duration
+{variant:3}(60-80)% reduced Duration
 ]],[[
 Lion's Roar
 Granite Flask
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 27
 Adds Knockback to Melee Attacks during Flask effect
@@ -199,36 +250,42 @@ Adds Knockback to Melee Attacks during Flask effect
 {variant:1}30% more Melee Physical Damage during effect
 {variant:2}(30-35)% more Melee Physical Damage during effect
 {variant:3}(20-25)% more Melee Physical Damage during effect
+{variant:4}(7-10)% more Melee Physical Damage during effect
 Knocks Back Enemies in an Area on Flask use
 ]],[[
 Rotgut
 Quicksilver Flask
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 40
 {variant:1}(100-150)% increased Charges used
 {variant:2,3}(50-100)% increased Charges used
 {variant:3}50% increased Duration
+{variant:4}(30-50)% increased Duration
 {variant:1,2}15% chance to gain a Flask Charge when you deal a Critical Strike
 {variant:3}50% chance to gain a Flask Charge when you deal a Critical Strike
-(10-30)% increased Movement Speed during Flask effect
 Consumes Frenzy Charges on use
 {variant:1,2}Gain Onslaught for 1 second per Frenzy Charge on use
-{variant:3}Gain Onslaught for 2 second per Frenzy Charge on use
+{variant:3}Gain Onslaught for 2 seconds per Frenzy Charge on use
+{variant:4}Gain Onslaught for 3 seconds per Frenzy Charge on use
 ]],[[
 Rumi's Concoction
 Granite Flask
 Variant: Pre 1.3.0
 Variant: Pre 2.5.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 68
 {variant:1}(30-40)% Chance to Block during Flask effect
 {variant:2}(20-30)% Chance to Block during Flask effect
 {variant:3}(14-20)% Chance to Block during Flask effect
+{variant:4}(8-12)% Chance to Block during Flask effect
 {variant:1}(15-20)% Chance to Block Spells during Flask effect
 {variant:2}(10-15)% Chance to Block Spells during Flask effect
 {variant:3}(6-10)% Chance to Block Spells during Flask effect
+{variant:4}(4-6)% Chance to Block Spells during Flask effect
 ]],[[
 Replica Rumi's Concoction
 Granite Flask
@@ -276,14 +333,18 @@ League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Soul Ripper} via currency{Vial of the Ghost}
 Variant: Pre 3.10.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 27
 Cannot gain Mana during effect
 {variant:2}Vaal Skills have (80-120)% increased Critical Strike Chance during effect
+{variant:3}Vaal Skills have (60-80)% increased Critical Strike Chance during effect
 {variant:1}Vaal Skills deal (60-100)% increased Damage during effect
 {variant:2}Vaal Skills deal (80-120)% increased Damage during effect
+{variant:3}Vaal Skills deal (60-80)% increased Damage during effect
 {variant:1}Vaal Skills have 25% reduced Soul Cost during effect
-Vaal Skills used during effect have (20-40)% reduced Soul Gain Prevention Duration
+{variant:2}Vaal Skills used during effect have (20-40)% reduced Soul Gain Prevention Duration
+{variant:3}Vaal Skills used during effect have 10% reduced Soul Gain Prevention Duration
 ]],[[
 Soul Ripper
 Quartz Flask
@@ -305,24 +366,31 @@ Taste of Hate
 Sapphire Flask
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 18
 {variant:1}30% of Physical Damage from Hits taken as Cold Damage during Flask effect
 {variant:2,3}20% of Physical Damage from Hits taken as Cold Damage during Flask effect
+{variant:4}(10-15)% of Physical Damage from Hits taken as Cold Damage during Flask effect
 {variant:1,2}Gain (20-30)% of Physical Damage as Extra Cold Damage during effect
 {variant:3}Gain (15-20)% of Physical Damage as Extra Cold Damage during effect
+{variant:4}Gain (10-15)% of Physical Damage as Extra Cold Damage during effect
 30% chance to Avoid being Chilled during Flask effect
 30% chance to Avoid being Frozen during Flask effect
 ]],[[
 The Overflowing Chalice
 Sulphur Flask
 Requires Level 35
+Variant: Pre 3.15.0
+Variant: Current
 Implicits: 1
 Creates Consecrated Ground on Use
-100% increased Charge Recovery
-(10-20)% increased Duration
+{variant:1}100% increased Charge Recovery
+{variant:2}(40-60)% increased Charge Recovery
+{variant:1}(10-20)% increased Duration
 Gains no Charges during Effect of any Overflowing Chalice Flask
-100% increased Charges gained by Other Flasks during Flask Effect
+{variant:1}100% increased Charges gained by Other Flasks during Flask Effect
+{variant:2}(50-100)% increased Charges gained by Other Flasks during Flask Effect
 ]],[[
 Vessel of Vinktar
 Topaz Flask
@@ -337,26 +405,33 @@ Variant: Pre 3.0.0 (Attacks)
 Variant: Pre 3.0.0 (Conversion)
 Variant: Pre 3.14.0 (Spells)
 Variant: Pre 3.14.0 (Conversion)
+Variant: Pre 3.15.0 (Penetration)
+Variant: Pre 3.15.0 (Spells)
+Variant: Pre 3.15.0 (Attacks)
+Variant: Current (Conversion)
+Variant: Current (Proliferation)
 Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
-Variant: Current (Conversion)
-Variant: Current (Proliferation)
 Requires Level 68
 {variant:5,6,7,8,9,10,11,12,13,14,15}(80-100)% increased Charges used
+{variant:16,17,18}(125-150)% increased Charges used
 {variant:1,2,3,4,5,6,7,8}Shocks nearby Enemies during Flask effect
-{variant:9,10,11,12,13,14,15}Shocks nearby Enemies during Flask effect, causing 10% increased Damage taken
+{variant:9,10,11,12,13,14,15,16,17,18}Shocks nearby Enemies during Flask effect, causing 10% increased Damage taken
 {variant:1,2,3,4,5,6,7,8}You are Shocked during Flask effect
-{variant:9,10,11,12,13,14,15}You are Shocked during Flask effect, causing 50% increased Damage taken
+{variant:9,10,11,12,13,14,15,16,17,18}You are Shocked during Flask effect, causing 50% increased Damage taken
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Life during Flask effect
-{variant:5,6,7,8,9,10,11,12,13,14,15}20% of Lightning Damage Leeched as Life during Flask effect
+{variant:5,6,7,8,9,10,11,12,13,14,15,16,17,18}20% of Lightning Damage Leeched as Life during Flask effect
 {variant:1,2,3,4}30% of Lightning Damage Leeched as Mana during Flask effect
 {variant:5,6,7,8}20% of Lightning Damage Leeched as Mana during Flask effect
 {variant:1,2,3,4}Life and Mana Leech are instant during effect
 {variant:1,5,11}Damage Penetrates 10% Lightning Resistance during Flask effect
+{variant:16}Damage Penetrates 6% Lightning Resistance during Flask effect
 {variant:2,6,9}Adds (15-25) to (70-90) Lightning Damage to Spells during Flask effect
 {variant:12}Adds (25-35) to (110-130) Lightning Damage to Spells during Flask effect
+{variant:17}Adds (10-15) to (55-65) Lightning Damage to Spells during Flask effect
 {variant:3,7,13}Adds (25-35) to (110-130) Lightning Damage to Attacks during Flask effect
+{variant:18}Adds (10-15) to (55-65) Lightning Damage to Attacks during Flask effect
 {variant:4,8,10}20% of Physical Damage Converted to Lightning during Flask effect
 {variant:14}50% of Physical Damage Converted to Lightning during Flask effect
 {variant:15}(25-40)% increased Effect of Shock during Flask effect
@@ -365,22 +440,63 @@ Requires Level 68
 The Wise Oak
 Bismuth Flask
 Variant: Pre 3.0.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 8
-During Flask Effect, 10% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
+{variant:1,2}During Flask Effect, 10% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
+{variant:3}During Flask Effect, 6% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
 {variant:1}During Flask Effect, Damage Penetrates 20% Resistance of each Element for which your Uncapped Elemental Resistance is highest
 {variant:2}During Flask Effect, Damage Penetrates (10-15)% Resistance of each Element for which your Uncapped Elemental Resistance is highest
+{variant:3}During Flask Effect, Damage Penetrates (5-8)% Resistance of each Element for which your Uncapped Elemental Resistance is highest
 ]],[[
 Witchfire Brew
 Stibnite Flask
 Variant: Pre 3.0.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 48
 Implicits: 1
 Creates a Smoke Cloud on Use
-50% increased Charges used
+{variant:1,2}50% increased Charges used
+{variant:3}(-10-10)% increased Charges used
 {variant:1}(50-70)% increased Damage Over Time during Flask Effect
 {variant:2}(25-40)% increased Damage Over Time during Flask Effect
 Grants level 21 Despair Curse Aura during Flask Effect
+]],
+-- Flask: Ward
+[[
+Elixir of the Unbroken Circle
+Iron Flask
+League: Expedition
+Requires Level 40
+(20–40)% increased Duration
+Recover 4% of Life per Endurance Charge on use
+Lose all Endurance Charges on use
+Gain 1 Endurance Charge per Second during Flask Effect
+]],[[
+Olroth's Resolve
+Iron Flask
+League: Expedition
+Requires Level 40
+(40–50)% increased Charges used
+Ward does not Break during Flask effect
+70% less Ward during Flask Effect
+]],[[
+Starlight Chalice
+Iron Flask
+League: Expedition
+Requires Level 40
+(20–30)% increased Charge Recovery
+Inflict Fire, Cold and Lightning Exposure on nearby Enemies when used
+(20–30)% increased Effect of Non-Damaging Ailments you inflict during Flask Effect
+]],[[
+Vorana's Preparation
+Iron Flask
+League: Expedition
+Requires Level 40
+(-10–10)% reduced Charges used
+Debilitate nearby Enemies for 2 Seconds when Flask Effect ends
+Flask Effect is removed when Ward Breaks
+Culling Strike during Flask Effect
 ]],
 }

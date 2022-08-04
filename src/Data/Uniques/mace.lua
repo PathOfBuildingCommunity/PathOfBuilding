@@ -35,7 +35,6 @@ All Attack Damage Chills when you Stun
 ]],[[
 Cameria's Maul
 Gavel
-Upgrade: Upgrades to unique{Cameria's Avarice} via prophecy{Cold Greed}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 60, 212 Str
@@ -50,7 +49,7 @@ Adds (10-20) to (30-50) Cold Damage
 ]],[[
 Cameria's Avarice
 Gavel
-Source: Upgraded from unique{Cameria's Maul} via prophecy{Cold Greed}
+Source: Drops from any endgame map boss
 Requires Level 60, 212 Str
 Implicits: 1
 15% reduced Enemy Stun Threshold
@@ -165,20 +164,22 @@ Gavel
 Variant: Pre 2.0.0
 Variant: Pre 2.4.0
 Variant: Pre 2.6.0
+Variant: Pre 3.15.0
 Variant: Current
 Requires Level 60, 412 Str, 300 Int
 Implicits: 2
 {variant:1,2,3}40% increased Stun Duration on Enemies
-{variant:4}15% reduced Enemy Stun Threshold
+{variant:4,5}15% reduced Enemy Stun Threshold
 (80-120)% increased Physical Damage
 Skills Chain +1 times
-(30-40)% increased Lightning Damage with Attack Skills
+{variant:1,2,3,4}(30-40)% increased Lightning Damage with Attack Skills
+{variant:5}(80-100)% increased Lightning Damage
 +200 Strength Requirement
 +300 Intelligence Requirement
 {variant:1}50% chance to Cast a Socketed Lightning Spell on Hit
 {variant:2}30% chance to Cast a Socketed Lightning Spell on Hit
-{variant:3,4}Trigger a Socketed Lightning Spell on Hit
-Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
+{variant:3,4,5}Trigger a Socketed Lightning Spell on Hit, with a 0.25 second Cooldown
+{variant:1,2,3,4}Socketed Lightning Spells deal 100% increased Spell Damage if Triggered
 ]],[[
 Nebulis
 Void Sceptre
@@ -259,8 +260,8 @@ Implicits: 1
 40% increased Elemental Damage
 Grants Level 25 Scorching Ray Skill
 (12-20)% increased Cast Speed 
-Recover (1-3)% of Maximum Life on Kill 
-Recover (1-3)% of Maximum Mana on Kill
+Recover (1-3)% of Life on Kill
+Recover (1-3)% of Mana on Kill
 10% increased Scorching Ray beam length
 ]],[[
 Bitterdream
@@ -278,7 +279,7 @@ Socketed Gems are Supported by level 1 Ice Bite
 Socketed Gems are Supported by level 1 Cold Penetration
 {variant:1,2}Socketed Gems are Supported by level 1 Mana Leech
 Socketed Gems are Supported by level 10 Added Cold Damage
-Socketed Gems are Supported by level 1 Reduced Mana
+Socketed Gems are Supported by level 1 Inspiration
 ]],[[
 Replica Bitterdream
 Shadow Sceptre
@@ -307,7 +308,6 @@ Each Summoned Phantasm grants you Phantasmal Might
 ]],[[
 Breath of the Council
 Carnal Sceptre
-Source: prophecy{The Plaguemaw V}
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 66, 113 Str, 113 Int
@@ -344,6 +344,7 @@ Blood Sceptre
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
 Requires Level 47, 81 Str, 81 Int
+Implicits: 1
 24% increased Elemental Damage
 (70-100)% increased Spell Damage
 (15-20)% increased Cast Speed
@@ -586,7 +587,6 @@ Enemies you Shock have 20% reduced Movement Speed
 ]],[[
 Chober Chaber
 Great Mallet
-Upgrade: Upgrades to unique{Chaber Cairn} via prophecy{Faith Exhumed}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
@@ -605,7 +605,7 @@ Minions have (20-40)% increased maximum Life
 ]],[[
 Chaber Cairn
 Great Mallet
-Source: Upgraded from unique{Chober Chaber} via prophecy{Faith Exhumed}
+Source: Drops from any endgame map boss
 Requires Level 60, 131 Str
 Implicits: 1
 30% increased Stun Duration on Enemies
@@ -619,7 +619,6 @@ Minions have (20-40)% increased maximum Life
 ]],[[
 Geofri's Baptism
 Brass Maul
-Upgrade: Upgrades to unique{Geofri's Devotion} via prophecy{Black Devotion}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 27, 92 Str
@@ -633,7 +632,7 @@ Never deal Critical Strikes
 ]],[[
 Geofri's Devotion
 Brass Maul
-Source: Upgraded from unique{Geofri's Baptism} via prophecy{Black Devotion}
+Source: Drops from any endgame map boss
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -651,7 +650,6 @@ Never deal Critical Strikes
 ]],[[
 Hrimnor's Hymn
 Sledgehammer
-Upgrade: Upgrades to unique{Hrimnor's Dirge} via prophecy{Winter's Mournful Melodies}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 17, 62 Str
@@ -666,9 +664,9 @@ Implicits: 2
 ]],[[
 Hrimnor's Dirge
 Sledgehammer
-Source: Upgraded from unique{Hrimnor's Hymn} using prophecy{Winter's Mournful Melodies}
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Requires Level 36, 62 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
@@ -757,7 +755,6 @@ Implicits: 3
 ]],[[
 Quecholli
 Jagged Maul
-Upgrade: Upgrades to unique{Panquetzaliztli} via prophecy{The Fall of an Empire}
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 22, 77 Str
@@ -772,7 +769,7 @@ Enemies killed explode dealing 10% of their Life as Fire Damage
 ]],[[
 Panquetzaliztli
 Jagged Maul
-Source: Upgraded from unique{Quecholli} via prophecy{The Fall of an Empire}
+Source: No longer obtainable
 Requires Level 61, 77 Str
 Implicits: 1
 30% increased Stun Duration on Enemies
@@ -780,7 +777,7 @@ Implicits: 1
 Adds (94-98) to (115-121) Physical Damage
 +(25-50) to all Attributes
 Enemies killed explode dealing 10% of their Life as Fire Damage
-Recover 5% of Maximum Life on Kill
+Recover 5% of Life on Kill
 ]],[[
 Tidebreaker
 Imperial Maul
@@ -808,7 +805,7 @@ Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
 50% reduced Attack Speed
-All Attacks with this Weapon are Critical Strikes
+This Weapon's Critical Strike Chance is 100%
 ]],[[
 Replica Trypanon
 Great Mallet
@@ -817,7 +814,7 @@ Requires Level 40, 131 Str
 Implicits: 1
 30% increased Stun Duration on Enemies
 -5000 to Accuracy Rating
-All Attacks with this Weapon are Critical Strikes
+This Weapon's Critical Strike Chance is 100%
 ]],[[
 Voidhome
 Dread Maul

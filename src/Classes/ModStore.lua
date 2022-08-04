@@ -181,10 +181,11 @@ function ModStoreClass:Tabulate(modType, cfg, ...)
 end
 
 function ModStoreClass:Max(cfg, ...)
-	local max = 0
+	local max
 	for _, value in ipairs(self:Tabulate("MAX", cfg, ...)) do
-		if value.mod.value > max then
-			max = value.mod.value
+		local val = self:EvalMod(value.mod, cfg)
+		if val > (max or 0) then
+			max = val
 		end	
 	end
 	return max		
@@ -218,7 +219,28 @@ function ModStoreClass:GetMultiplier(var, cfg, noMod)
 end
 
 function ModStoreClass:GetStat(stat, cfg)
-	return (self.actor.output and self.actor.output[stat]) or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0
+	if stat == "ManaReservedPercent" then
+		local reservedPercentMana = 0
+		for _, activeSkill in ipairs(self.actor.activeSkillList) do
+			if (activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and activeSkill.buffList[1].name == cfg.skillName) then
+				local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
+				reservedPercentMana = manaBase / self.actor.output["Mana"] * 100
+				break
+			end
+		end
+		return m_min(reservedPercentMana, 100) --Don't let people get more than 100% reservation for aura effect.
+	end
+	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled
+	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
+		-- 0% reserved = total mana
+		return self.actor.output["Mana"]
+	elseif stat == "ManaUnreserved" and not self.actor.output[stat] == nil and self.actor.output[stat] < 0 then
+		-- This reverse engineers how much mana is unreserved before efficiency for accurate Arcane Cloak calcs
+		local reservedPercentBeforeEfficiency = (math.abs(self.actor.output["ManaUnreservedPercent"]) + 100) * ((100 + self.actor["ManaEfficiency"]) / 100)
+		return self.actor.output["Mana"] * (math.ceil(reservedPercentBeforeEfficiency) / 100);
+	else
+		return (self.actor.output and self.actor.output[stat]) or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0
+	end
 end
 
 function ModStoreClass:EvalMod(mod, cfg)
@@ -304,13 +326,19 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "PerStat" then
 			local base
+			local target = self
+			-- This functions similar to the above tagTypes in regard to which actor to use, but for PerStat
+			-- if the actor is 'parent', we don't want to return if we're already using 'parent', just keep using 'self'
+			if tag.actor and self.actor[tag.actor] then
+				target = self.actor[tag.actor].modDB
+			end
 			if tag.statList then
 				base = 0
 				for _, stat in ipairs(tag.statList) do
-					base = base + self:GetStat(stat, cfg)
+					base = base + target:GetStat(stat, cfg)
 				end
 			else
-				base = self:GetStat(tag.stat, cfg)
+				base = target:GetStat(tag.stat, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
@@ -488,6 +516,9 @@ function ModStoreClass:EvalMod(mod, cfg)
 			else
 				match = (tag.skillName == matchName)
 			end
+			if tag.neg then
+				match = not match
+			end
 			if not match then
 				return
 			end
@@ -517,7 +548,17 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SkillType" then
-			local match = cfg and cfg.skillTypes and cfg.skillTypes[tag.skillType]
+			local match = false
+			if tag.skillTypeList then
+				for _, type in pairs(tag.skillTypeList) do
+					if cfg and cfg.skillTypes and cfg.skillTypes[type] then
+						match = true
+						break
+					end
+				end
+			else
+				match = cfg and cfg.skillTypes and cfg.skillTypes[tag.skillType]
+			end
 			if tag.neg then
 				match = not match
 			end
@@ -525,7 +566,24 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SlotName" then
-			if not cfg or tag.slotName ~= cfg.slotName then
+			if not cfg then
+				return
+			end
+			local match = false
+			if tag.slotNameList then
+				for _, slot in ipairs(tag.slotNameList) do
+					if slot == cfg.slotName then
+						match = true
+						break
+					end
+				end
+			else
+				match = (tag.slotName == cfg.slotName)
+			end
+			if tag.neg then
+				match = not match
+			end
+			if not match then
 				return
 			end
 		elseif tag.type == "ModFlagOr" then
