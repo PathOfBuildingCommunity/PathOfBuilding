@@ -5993,6 +5993,12 @@ skills["ExpandingFireCone"] = {
 		["expanding_fire_cone_maximum_number_of_stages"] = {
 			mod("Multiplier:IncinerateMaxStages", "BASE", nil),
 		},
+		["quality_display_incinerate_is_gem_hit"] = {
+			--Display Only
+		},
+		["quality_display_incinerate_is_gem_ingite"] = {
+			--Display Only
+		},
 	},
 	baseFlags = {
 		spell = true,
