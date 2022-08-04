@@ -5,39 +5,13 @@
 --
 local pairs = pairs
 local ipairs = ipairs
+local next = next
 local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
-
-local banditDropList = {
-	{ label = "2 Passive Points", id = "None" },
-	{ label = "Oak (Life Regen, Phys.Dmg. Reduction, Phys.Dmg)", id = "Oak" },
-	{ label = "Kraityn (Attack/Cast Speed, Avoid Elemental Ailments, Move Speed)", id = "Kraityn" },
-	{ label = "Alira (Mana Regen, Crit Multiplier, Resists)", id = "Alira" },
-}
-
-local PantheonMajorGodDropList = {
-	{ label = "Nothing", id = "None" },
-	{ label = "Soul of the Brine King", id = "TheBrineKing" },
-	{ label = "Soul of Lunaris", id = "Lunaris" },
-	{ label = "Soul of Solaris", id = "Solaris" },
-	{ label = "Soul of Arakaali", id = "Arakaali" },
-}
-
-local PantheonMinorGodDropList = {
-	{ label = "Nothing", id = "None" },
-	{ label = "Soul of Gruthkul", id = "Gruthkul" },
-	{ label = "Soul of Yugul", id = "Yugul" },
-	{ label = "Soul of Abberath", id = "Abberath" },
-	{ label = "Soul of Tukohama", id = "Tukohama" },
-	{ label = "Soul of Garukhan", id = "Garukhan" },
-	{ label = "Soul of Ralakesh", id = "Ralakesh" },
-	{ label = "Soul of Ryslatha", id = "Ryslatha" },
-	{ label = "Soul of Shakari", id = "Shakari" },
-}
 
 local buildMode = new("ControlHost")
 
@@ -64,8 +38,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	-- Load build file
 	self.xmlSectionList = { }
 	self.spectreList = { }
+	self.timelessData = { jewelType = { }, conquerorType = { }, jewelSocket = { }, fallbackWeightMode = { }, searchList = "", searchListFallback = "", searchResults = { }, sharedResults = { } }
 	self.viewMode = "TREE"
-	self.characterLevel = main.defaultCharLevel or 1
+	self.characterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
 	self.targetVersion = liveTargetVersion
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
@@ -191,7 +166,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			bandit = 0
 		end
 		
-		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until catched up with quest skillpoints 
+		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
 		levelreq = math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level)
 		
 		-- Ascendency points for lab
@@ -229,7 +204,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		end
 	end
 	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
-		self.characterLevel = m_min(tonumber(buf) or 1, 100)
+		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
+		self.configTab:BuildModList()
 		self.modFlag = true
 		self.buildFlag = true
 	end)
@@ -337,18 +313,18 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
 		{ stat = "BrandAttachmentRange", label = "Attachment Range", fmt = "d", flag = "brand" },
 		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
-		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "LifeCost", label = "Life Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "ESCost", label = "Energy Shield Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "RageCost", label = "Rage Cost", fmt = "d", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "LifePercentCost", label = "Life Cost", fmt = "d%%", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "ManaPerSecondCost", label = "Mana Cost", fmt = ".2f/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "LifePerSecondCost", label = "Life Cost", fmt = ".2f/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "ManaPercentPerSecondCost", label = "Mana Cost", fmt = ".2f%%/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "LifePercentPerSecondCost", label = "Life Cost", fmt = ".2f%%/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "ESPerSecondCost", label = "Energy Shield Cost", fmt = ".2f/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "ESPercentPerSecondCost", label = "Energy Shield Cost", fmt = ".2f%%/s", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "LifeCost", label = "Life Cost", fmt = "d", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ESCost", label = "Energy Shield Cost", fmt = "d", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "RageCost", label = "Rage Cost", fmt = "d", color = colorCodes.RAGE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "LifePercentCost", label = "Life Cost", fmt = "d%%", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ManaPerSecondCost", label = "Mana Cost", fmt = ".2f/s", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "LifePerSecondCost", label = "Life Cost", fmt = ".2f/s", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ManaPercentPerSecondCost", label = "Mana Cost", fmt = ".2f%%/s", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "LifePercentPerSecondCost", label = "Life Cost", fmt = ".2f%%/s", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ESPerSecondCost", label = "Energy Shield Cost", fmt = ".2f/s", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
+		{ stat = "ESPercentPerSecondCost", label = "Energy Shield Cost", fmt = ".2f%%/s", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return v > 0 end },
 		{ },
 		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
 		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end, warnFunc = function(v) return "You do not meet the Strength requirement" end },
@@ -356,50 +332,60 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ReqDex", label = "Dexterity Required", color = colorCodes.DEXTERITY, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Dex end, warnFunc = function(v) return "You do not meet the Dexterity requirement" end },
 		{ stat = "Int", label = "Intelligence", color = colorCodes.INTELLIGENCE, fmt = "d" },
 		{ stat = "ReqInt", label = "Intelligence Required", color = colorCodes.INTELLIGENCE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Int end, warnFunc = function(v) return "You do not meet the Intelligence requirement" end },
+		{ stat = "Omni", label = "Omniscience", color = colorCodes.RARE, fmt = "d" },
+		{ stat = "ReqOmni", label = "Omniscience Required", color = colorCodes.RARE, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > (o.Omni or 0) end, warnFunc = function(v) return "You do not meet the Omniscience requirement" end },
 		{ },
 		{ stat = "Devotion", label = "Devotion", color = colorCodes.RARE, fmt = "d" },
 		{ },
-		{ stat = "Life", label = "Total Life", fmt = "d", compPercent = true },
-		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.Life > 1 end },
-		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Life is negative" end },
-		{ stat = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
-		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
-		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", compPercent = true },
-		{ stat = "LifeLeechGainPerHit", label = "Life Leech/Gain per Hit", fmt = ".1f", compPercent = true },
+		{ stat = "TotalEHP", label = "Effective Hit Pool", fmt = ".0f", compPercent = true },
+		{ stat = "PhysicalMaximumHitTaken", label = "Phys Max Hit", fmt = ".0f", color = colorCodes.PHYS, compPercent = true,  },
+		{ stat = "LightningMaximumHitTaken", label = "Elemental Max Hit", fmt = ".0f", color = colorCodes.LIGHTNING, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken == o.ColdMaximumHitTaken and o.LightningMaximumHitTaken == o.FireMaximumHitTaken end },
+		{ stat = "FireMaximumHitTaken", label = "Fire Max Hit", fmt = ".0f", color = colorCodes.FIRE, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken ~= o.ColdMaximumHitTaken or o.LightningMaximumHitTaken ~= o.FireMaximumHitTaken end },
+		{ stat = "ColdMaximumHitTaken", label = "Cold Max Hit", fmt = ".0f", color = colorCodes.COLD, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken ~= o.ColdMaximumHitTaken or o.LightningMaximumHitTaken ~= o.FireMaximumHitTaken end },
+		{ stat = "LightningMaximumHitTaken", label = "Lightning Max Hit", fmt = ".0f", color = colorCodes.LIGHTNING, compPercent = true, condFunc = function(v,o) return o.LightningMaximumHitTaken ~= o.ColdMaximumHitTaken or o.LightningMaximumHitTaken ~= o.FireMaximumHitTaken end },
+		{ stat = "ChaosMaximumHitTaken", label = "Chaos Max Hit", fmt = ".0f", color = colorCodes.CHAOS, compPercent = true },
 		{ },
-		{ stat = "Mana", label = "Total Mana", fmt = "d", compPercent = true },
-		{ stat = "Spec:ManaInc", label = "%Inc Mana from Tree", fmt = "d%%" },
-		{ stat = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", condFunc = function(v,o) return v < o.Mana end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Mana is negative" end },
-		{ stat = "ManaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", condFunc = function(v,o) return v < 100 end },
-		{ stat = "ManaRegen", label = "Mana Regen", fmt = ".1f" },
-		{ stat = "ManaLeechGainRate", label = "Mana Leech/On Hit Rate", fmt = ".1f", compPercent = true },
-		{ stat = "ManaLeechGainPerHit", label = "Mana Leech/Gain per Hit", fmt = ".1f", compPercent = true },
+		{ stat = "Life", label = "Total Life", fmt = "d", color = colorCodes.LIFE, compPercent = true },
+		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v > 0 and o.Life > 1 end },
+		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v <= 0 and "Your unreserved Life is below 1" end },
+		{ stat = "LifeRecoverable", label = "Life Recoverable", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.LifeUnreserved end, },
+		{ stat = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v < 100 end },
+		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f", color = colorCodes.LIFE },
+		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
+		{ stat = "LifeLeechGainPerHit", label = "Life Leech/Gain per Hit", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
+		{ },
+		{ stat = "Mana", label = "Total Mana", fmt = "d", color = colorCodes.MANA, compPercent = true },
+		{ stat = "Spec:ManaInc", label = "%Inc Mana from Tree", color = colorCodes.MANA, fmt = "d%%" },
+		{ stat = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", color = colorCodes.MANA, condFunc = function(v,o) return v < o.Mana end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Mana is negative" end },
+		{ stat = "ManaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", color = colorCodes.MANA, condFunc = function(v,o) return v < 100 end },
+		{ stat = "ManaRegen", label = "Mana Regen", fmt = ".1f", color = colorCodes.MANA },
+		{ stat = "ManaLeechGainRate", label = "Mana Leech/On Hit Rate", fmt = ".1f", color = colorCodes.MANA, compPercent = true },
+		{ stat = "ManaLeechGainPerHit", label = "Mana Leech/Gain per Hit", fmt = ".1f", color = colorCodes.MANA, compPercent = true },
 		{ },
 		{ stat = "TotalDegen", label = "Total Degen", fmt = ".1f", lowerIsBetter = true },
 		{ stat = "TotalNetRegen", label = "Total Net Regen", fmt = "+.1f" },
-		{ stat = "NetLifeRegen", label = "Net Life Regen", fmt = "+.1f" },
-		{ stat = "NetManaRegen", label = "Net Mana Regen", fmt = "+.1f" },
-		{ stat = "NetEnergyShieldRegen", label = "Net Energy Shield Regen", fmt = "+.1f" },
+		{ stat = "NetLifeRegen", label = "Net Life Regen", fmt = "+.1f", color = colorCodes.LIFE },
+		{ stat = "NetManaRegen", label = "Net Mana Regen", fmt = "+.1f", color = colorCodes.MANA },
+		{ stat = "NetEnergyShieldRegen", label = "Net Energy Shield Regen", fmt = "+.1f", color = colorCodes.ES },
 		{ },
-		{ stat = "Ward", label = "Ward", fmt = "d", compPercent = true },
-		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
-		{ stat = "EnergyShieldRecoveryCap", label = "Recoverable ES", fmt = "d", condFunc = function(v,o) return v ~= nil end },
-		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", fmt = "d%%" },
-		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
-		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", compPercent = true },
-		{ stat = "EnergyShieldLeechGainPerHit", label = "ES Leech/Gain per Hit", fmt = ".1f", compPercent = true },
+		{ stat = "Ward", label = "Ward", fmt = "d", color = colorCodes.WARD, compPercent = true },
+		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true },
+		{ stat = "EnergyShieldRecoveryCap", label = "Recoverable ES", color = colorCodes.ES, fmt = "d", condFunc = function(v,o) return v ~= nil end },
+		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", color = colorCodes.ES, fmt = "d%%" },
+		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", color = colorCodes.ES, fmt = ".1f" },
+		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", color = colorCodes.ES, fmt = ".1f", compPercent = true },
+		{ stat = "EnergyShieldLeechGainPerHit", label = "ES Leech/Gain per Hit", color = colorCodes.ES, fmt = ".1f", compPercent = true },
 		{ },
-		{ stat = "Evasion", label = "Evasion rating", fmt = "d", compPercent = true },
-		{ stat = "Spec:EvasionInc", label = "%Inc Evasion from Tree", fmt = "d%%" },
-		{ stat = "MeleeEvadeChance", label = "Evade Chance", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance == o.ProjectileEvadeChance end },
-		{ stat = "MeleeEvadeChance", label = "Melee Evade Chance", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
-		{ stat = "ProjectileEvadeChance", label = "Projectile Evade Chance", fmt = "d%%", condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
+		{ stat = "Evasion", label = "Evasion rating", fmt = "d", color = colorCodes.EVASION, compPercent = true },
+		{ stat = "Spec:EvasionInc", label = "%Inc Evasion from Tree", color = colorCodes.EVASION, fmt = "d%%" },
+		{ stat = "MeleeEvadeChance", label = "Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance == o.ProjectileEvadeChance end },
+		{ stat = "MeleeEvadeChance", label = "Melee Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
+		{ stat = "ProjectileEvadeChance", label = "Projectile Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
 		{ },
 		{ stat = "Armour", label = "Armour", fmt = "d", compPercent = true },
 		{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
 		{ stat = "PhysicalDamageReduction", label = "Phys. Damage Reduction", fmt = "d%%", condFunc = function() return true end },
 		{ },
-		{ stat = "EffectiveMovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true, condFunc = function() return true end },
 		{ stat = "BlockChance", label = "Block Chance", fmt = "d%%", overCapStat = "BlockChanceOverCap" },
 		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap" },
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%", overCapStat = "AttackDodgeChanceOverCap" },
@@ -416,14 +402,18 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
 		{ label = "Chaos Resistance", val = "Immune", labelStat = "ChaosResist", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end },
 		{ },
+		{ stat = "EffectiveMovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true, condFunc = function() return true end },
+		{ },
 		{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true },
 		{ },
 		{ stat = "SkillDPS", label = "Skill DPS", condFunc = function() return true end },
 	}
 	self.minionDisplayStats = {
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
-		{ stat = "Speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true },
+		{ stat = "Speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
+		{ stat = "ServerTriggerRate", label = "Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
+		{ stat = "Speed", label = "Effective Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 and o.ServerTriggerRate ~= o.Speed end },
 		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ stat = "WithDotDPS", label = "Total DPS inc. DoT", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDPS and (o.PoisonDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
@@ -440,12 +430,12 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end},
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
-		{ stat = "Life", label = "Total Life", fmt = ".1f", compPercent = true },
-		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f" },
-		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", compPercent = true },
-		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compPercent = true },
-		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f" },
-		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", compPercent = true },
+		{ stat = "Life", label = "Total Life", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
+		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f", color = colorCodes.LIFE },
+		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
+		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true },
+		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", fmt = ".1f", color = colorCodes.ES },
+		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", color = colorCodes.ES, compPercent = true },
 	}
 	self.extraSaveStats = {
 		"PowerCharges",
@@ -496,51 +486,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.viewMode = "CALCS"
 	end)
 	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
-	self.controls.bandit = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 70, 300, 16, banditDropList, function(index, value)
-		self.bandit = value.id
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.bandit.maxDroppedWidth = 500
-	self.controls.bandit:CheckDroppedWidth(true)
-	self.controls.banditLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.bandit,"TOPLEFT"}, 0, 0, 0, 14, "^7Bandit:")
-	-- The Pantheon
-	local function applyPantheonDescription(tooltip, mode, index, value)
-		tooltip:Clear()
-		if value.id == "None" then
-			return
-		end
-		local applyModes = { BODY = true, HOVER = true }
-		if applyModes[mode] then
-			local god = self.data.pantheons[value.id]
-			for _, soul in ipairs(god.souls) do
-				local name = soul.name
-				local lines = { }
-				for _, mod in ipairs(soul.mods) do
-					t_insert(lines, mod.line)
-				end
-				tooltip:AddLine(20, '^8'..name)
-				tooltip:AddLine(14, '^6'..table.concat(lines, '\n'))
-				tooltip:AddSeparator(10)
-			end
-		end
-	end
-	self.controls.pantheonMajorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 110, 300, 16, PantheonMajorGodDropList, function(index, value)
-		self.pantheonMajorGod = value.id
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.pantheonMajorGod.tooltipFunc = applyPantheonDescription
-	self.controls.pantheonMinorGod = new("DropDownControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 130, 300, 16, PantheonMinorGodDropList, function(index, value)
-		self.pantheonMinorGod = value.id
-		self.modFlag = true
-		self.buildFlag = true
-	end)
-	self.controls.pantheonMinorGod.tooltipFunc = applyPantheonDescription
-	self.controls.pantheonLabel = new("LabelControl", {"BOTTOMLEFT",self.controls.pantheonMajorGod,"TOPLEFT"}, 0, 0, 0, 14, "^7The Pantheon:")
 	-- Skills
-	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 155, 300, 16, "^7Main Skill:")
-	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
+	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 54, 300, 16, "^7Main Skill:")
+	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 18, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
 		self.buildFlag = true
@@ -552,13 +500,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			self.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 	end
-	self.controls.mainSkill = new("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 2, 300, 16, nil, function(index, value)
+	self.controls.mainSkill = new("DropDownControl", {"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, 0, 2, 300, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		mainSocketGroup.mainActiveSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillPart = new("DropDownControl", {"TOPLEFT",self.controls.mainSkill,"BOTTOMLEFT",true}, 0, 2, 200, 18, nil, function(index, value)
+	self.controls.mainSkillPart = new("DropDownControl", {"TOPLEFT",self.controls.mainSkill,"BOTTOMLEFT",true}, 0, 2, 300, 18, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		srcInstance.skillPart = index
@@ -632,7 +580,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.controls.statBox = new("TextListControl", {"TOPLEFT",self.controls.statBoxAnchor,"BOTTOMLEFT"}, 0, 2, 300, 0, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
 	self.controls.statBox.height = function(control)
 		local x, y = control:GetPos()
-		local warnHeight = #self.controls.warnings.lines > 0 and 18 or 0
+		local warnHeight = main.showWarnings and #self.controls.warnings.lines > 0 and 18 or 0
 		return main.screenH - main.mainBarHeight - 4 - y - warnHeight
 	end
 	self.controls.warnings = new("Control",{"TOPLEFT",self.controls.statBox,"BOTTOMLEFT",true}, 0, 0, 0, 18)
@@ -686,6 +634,33 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.legacyLoaders = { -- Special loaders for legacy sections
 		["Spec"] = self.treeTab,
 	}
+	
+	--special rebuild to properly initialise boss placeholders
+	self.configTab:BuildModList()
+
+	-- Initialise class dropdown
+	for classId, class in pairs(self.latestTree.classes) do
+		local ascendancies = {}
+		-- Initialise ascendancy dropdown
+		for i = 0, #class.classes do
+			local ascendClass = class.classes[i]
+			t_insert(ascendancies, {
+				label = ascendClass.name,
+				ascendClassId = i,
+			})
+		end
+		t_insert(self.controls.classDrop.list, {
+			label = class.name,
+			classId = classId,
+			ascendancies = ascendancies,
+		})
+	end
+	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
+
+	-- Load legacy bandit and pantheon choices from build section
+	for _, control in ipairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
+		self.configTab.input[control] = self[control]
+	end
 
 	-- so we ran into problems with converted trees, trying to check passive tree routes and also consider thread jewels
 	-- but we cant check jewel info because items have not been loaded yet, and they come after passives in the xml.
@@ -723,25 +698,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		-- Check for old calcs tab settings
 		self.configTab:ImportCalcSettings()
 	end
-
-	-- Initialise class dropdown
-	for classId, class in pairs(self.latestTree.classes) do
-		local ascendancies = {}
-		-- Initialise ascendancy dropdown
-		for i = 0, #class.classes do
-			local ascendClass = class.classes[i]
-			t_insert(ascendancies, {
-				label = ascendClass.name,
-				ascendClassId = i,
-			})
-		end
-		t_insert(self.controls.classDrop.list, {
-			label = class.name,
-			classId = classId,
-			ascendencies = ascendancies,
-		})
-	end
-	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
 
 	-- Build calculation output tables
 	self.outputRevision = 1
@@ -827,6 +783,28 @@ function buildMode:Load(xml, fileName)
 			if child.attrib.id and data.minions[child.attrib.id] then
 				t_insert(self.spectreList, child.attrib.id)
 			end
+		elseif child.elem == "TimelessData" then
+			self.timelessData.jewelType = {
+				label = child.attrib.jewelTypeLabel,
+				name = child.attrib.jewelTypeName,
+				id = tonumber(child.attrib.jewelTypeId)
+			}
+			self.timelessData.conquerorType = {
+				label = child.attrib.conquerorTypeLabel,
+				id = tonumber(child.attrib.conquerorTypeId)
+			}
+			self.timelessData.jewelSocket = {
+				label = child.attrib.jewelSocketLabel,
+				keystone = child.attrib.jewelSocketKeystone,
+				id = tonumber(child.attrib.jewelSocketId),
+				idx = tonumber(child.attrib.jewelSocketIdx)
+			}
+			self.timelessData.fallbackWeightMode = {
+				idx = tonumber(child.attrib.fallbackWeightModeIdx)
+			}
+			self.timelessData.socketFilter = child.attrib.socketFilter == "true"
+			self.timelessData.searchList = child.attrib.searchList
+			self.timelessData.searchListFallback = child.attrib.searchListFallback
 		end
 	end
 end
@@ -838,9 +816,9 @@ function buildMode:Save(xml)
 		level = tostring(self.characterLevel),
 		className = self.spec.curClassName,
 		ascendClassName = self.spec.curAscendClassName,
-		bandit = self.bandit,
-		pantheonMajorGod = self.pantheonMajorGod,
-		pantheonMinorGod = self.pantheonMinorGod,
+		bandit = self.configTab.input.bandit,
+		pantheonMajorGod = self.configTab.input.pantheonMajorGod,
+		pantheonMinorGod = self.configTab.input.pantheonMinorGod,
 		mainSocketGroup = tostring(self.mainSocketGroup),
 	}
 	for _, id in ipairs(self.spectreList) do
@@ -890,6 +868,25 @@ function buildMode:Save(xml)
 			end
 		end
 	end
+	local timelessData = {
+		elem = "TimelessData",
+		attrib = {
+			jewelTypeLabel = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.label),
+			jewelTypeName = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.name),
+			jewelTypeId = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.id),
+			conquerorTypeLabel = next(self.timelessData.conquerorType) and tostring(self.timelessData.conquerorType.label),
+			conquerorTypeId = next(self.timelessData.conquerorType) and tostring(self.timelessData.conquerorType.id),
+			jewelSocketLabel = next(self.timelessData.conquerorType) and tostring(self.timelessData.jewelSocket.label),
+			jewelSocketKeystone = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.keystone),
+			jewelSocketId = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.id),
+			jewelSocketIdx = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.idx),
+			fallbackWeightModeIdx = next(self.timelessData.fallbackWeightMode) and tostring(self.timelessData.fallbackWeightMode.idx),
+			socketFilter = self.timelessData.socketFilter and "true",
+			searchList = self.timelessData.searchList and tostring(self.timelessData.searchList),
+			searchListFallback = self.timelessData.searchListFallback and tostring(self.timelessData.searchListFallback)
+		}
+	}
+	t_insert(xml, timelessData)
 	self.modFlag = false
 end
 
@@ -914,11 +911,8 @@ function buildMode:OnFrame(inputEvents)
 				end
 		elseif IsKeyDown("CTRL") then
 				if event.key == "i" then
-					if self.viewMode == "IMPORT" then
-						self.importTab.controls.importCodePastebin:Click()
-					else
 						self.viewMode = "IMPORT"
-					end
+					self.importTab:SelectControl(self.importTab.controls.importCodeIn)
 				elseif event.key == "s" then
 					self:SaveDBFile()
 					inputEvents[id] = nil
@@ -938,6 +932,8 @@ function buildMode:OnFrame(inputEvents)
 					self.viewMode = "CALCS"
 				elseif event.key == "5" then
 					self.viewMode = "CONFIG"
+				elseif event.key == "6" then
+					self.viewMode = "NOTES"
 				end
 			end
 		end
@@ -945,14 +941,8 @@ function buildMode:OnFrame(inputEvents)
 	self:ProcessControlsInput(inputEvents, main.viewPort)
 
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
-	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendencies")
+	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
-
-	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
-		if self.controls[diff] then
-			self.controls[diff]:SelByValue(self[diff], "id")
-		end
-	end
 
 	local checkFabricatedGroups = self.buildFlag
 	if self.buildFlag then
@@ -1153,16 +1143,18 @@ function buildMode:OpenSpectreLibrary()
 	local controls = { }
 	controls.list = new("MinionListControl", nil, -100, 40, 190, 250, self.data, destList)
 	controls.source = new("MinionListControl", nil, 100, 40, 190, 250, self.data, sourceList, controls.list)
-	controls.save = new("ButtonControl", nil, -45, 300, 80, 20, "Save", function()
+	controls.save = new("ButtonControl", nil, -45, 330, 80, 20, "Save", function()
 		self.spectreList = destList
 		self.modFlag = true
 		self.buildFlag = true
 		main:ClosePopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 300, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 330, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(410, 330, "Spectre Library", controls)
+	controls.noteLine1 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 24, 2, 0, 16, "Spectres in your Library must be assigned to an active")
+	controls.noteLine2 = new("LabelControl", {"TOPLEFT",controls.list,"BOTTOMLEFT"}, 20, 18, 0, 16, "Raise Spectre gem for their buffs and curses to activate")
+	main:OpenPopup(410, 360, "Spectre Library", controls)
 end
 
 -- Refresh the set of controls used to select main group/skill/minion
@@ -1267,6 +1259,9 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal)
 	if type(statVal) == "table" then return "" end
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = (statVal >= 0 and "^7" or statData.chaosInoc and "^8" or colorCodes.NEGATIVE)
+	if statData.label == "Unreserved Life" and statVal == 0 then
+		color = colorCodes.NEGATIVE
+	end
 	local valStr = s_format("%"..statData.fmt, val)
 	valStr:gsub("%.", main.decimalSeparator)
 	valStr = color .. formatNumSep(valStr)
@@ -1363,6 +1358,12 @@ function buildMode:RefreshStatList()
 	end
 	if self.calcsTab.mainEnv.minion then
 		t_insert(statBoxList, { height = 18, "^7Minion:" })
+		if self.calcsTab.mainEnv.minion.mainSkill.infoMessage then
+			t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, colorCodes.CUSTOM .. self.calcsTab.mainEnv.minion.mainSkill.infoMessage})
+			if self.calcsTab.mainEnv.minion.mainSkill.infoMessage2 then
+				t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, "^8" .. self.calcsTab.mainEnv.minion.mainSkill.infoMessage2})
+			end
+		end
 		self:AddDisplayStatList(self.minionDisplayStats, self.calcsTab.mainEnv.minion)
 		t_insert(statBoxList, { height = 10 })
 		t_insert(statBoxList, { height = 18, "^7Player:" })
@@ -1438,15 +1439,30 @@ do
 		if level and level > 0 then
 			t_insert(req, s_format("^x7F7F7FLevel %s%d", main:StatColor(level, nil, self.characterLevel), level))
 		end
-		if str and (str >= 14 or str > self.calcsTab.mainOutput.Str) then
-			t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
-		end
-		if dex and (dex >= 14 or dex > self.calcsTab.mainOutput.Dex) then
-			t_insert(req, s_format("%s%d ^x7F7F7FDex", main:StatColor(dex, dexBase, self.calcsTab.mainOutput.Dex), dex))
-		end
-		if int and (int >= 14 or int > self.calcsTab.mainOutput.Int) then
-			t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
-		end
+		-- Convert normal attributes to Omni attributes
+		if self.calcsTab.mainEnv.modDB:Flag(nil, "OmniscienceRequirements") then
+			local omniSatisfy = self.calcsTab.mainEnv.modDB:Sum("INC", nil, "OmniAttributeRequirements")
+			local highestAttribute = 0
+			for i, stat in ipairs({str, dex, int}) do
+				if((stat or 0) > highestAttribute) then
+					highestAttribute = stat
+				end
+			end
+			local omni = math.floor(highestAttribute * (100/omniSatisfy))
+			if omni and (omni > 0 or omni > self.calcsTab.mainOutput.Omni) then
+				t_insert(req, s_format("%s%d ^x7F7F7FOmni", main:StatColor(omni, 0, self.calcsTab.mainOutput.Omni), omni))
+			end
+		else 
+			if str and (str >= 14 or str > self.calcsTab.mainOutput.Str) then
+				t_insert(req, s_format("%s%d ^x7F7F7FStr", main:StatColor(str, strBase, self.calcsTab.mainOutput.Str), str))
+			end
+			if dex and (dex >= 14 or dex > self.calcsTab.mainOutput.Dex) then
+				t_insert(req, s_format("%s%d ^x7F7F7FDex", main:StatColor(dex, dexBase, self.calcsTab.mainOutput.Dex), dex))
+			end
+			if int and (int >= 14 or int > self.calcsTab.mainOutput.Int) then
+				t_insert(req, s_format("%s%d ^x7F7F7FInt", main:StatColor(int, intBase, self.calcsTab.mainOutput.Int), int))
+			end
+		end	
 		if req[1] then
 			tooltip:AddLine(16, "^x7F7F7FRequires "..table.concat(req, "^x7F7F7F, "))
 			tooltip:AddSeparator(10)

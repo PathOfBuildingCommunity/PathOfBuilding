@@ -20,6 +20,10 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("ColdResistMax", "BASE", 75, "Base")
 	modDB:NewMod("LightningResistMax", "BASE", 75, "Base")
 	modDB:NewMod("ChaosResistMax", "BASE", 75, "Base")
+	modDB:NewMod("TotemFireResistMax", "BASE", 75, "Base")
+	modDB:NewMod("TotemColdResistMax", "BASE", 75, "Base")
+	modDB:NewMod("TotemLightningResistMax", "BASE", 75, "Base")
+	modDB:NewMod("TotemChaosResistMax", "BASE", 75, "Base")
 	modDB:NewMod("BlockChanceMax", "BASE", 75, "Base")
 	modDB:NewMod("SpellBlockChanceMax", "BASE", 75, "Base")
 	modDB:NewMod("SpellDodgeChanceMax", "BASE", 75, "Base")
@@ -264,7 +268,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local accelerate = specEnv and specEnv.accelerate or { }
 
 	-- environment variables
-	override = override or { }
+	local override = override or { }
 	local modDB = nil
 	local enemyDB = nil
 	local classStats = nil
@@ -274,6 +278,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.build = build
 		env.data = build.data
 		env.configInput = build.configTab.input
+		env.configPlaceholder = build.configTab.placeholder
 		env.calcsInput = build.calcsTab.input
 		env.mode = mode
 		env.spec = override.spec or build.spec
@@ -285,7 +290,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.enemyDB = enemyDB
 		env.itemModDB = new("ModDB")
 
-		env.enemyLevel = m_max(1, m_min(100, env.configInput.enemyLevel and env.configInput.enemyLevel or m_min(env.build.characterLevel, data.misc.MaxEnemyLevel)))
+		env.enemyLevel = build.configTab.enemyLevel or m_min(data.misc.MaxEnemyLevel, build.characterLevel)
 
 		-- Create player/enemy actors
 		env.player = {
@@ -378,6 +383,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("ColdResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
 		modDB:NewMod("LightningResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
 		modDB:NewMod("ChaosResist", "BASE", env.configInput.resistancePenalty or -60, "Base")
+		modDB:NewMod("TotemFireResist", "BASE", 40, "Base")
+		modDB:NewMod("TotemColdResist", "BASE", 40, "Base")
+		modDB:NewMod("TotemLightningResist", "BASE", 40, "Base")
+		modDB:NewMod("TotemChaosResist", "BASE", 20, "Base")
 		modDB:NewMod("CritChance", "INC", 40, "Base", { type = "Multiplier", var = "PowerCharge" })
 		modDB:NewMod("Speed", "INC", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 		modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
@@ -408,22 +417,21 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerBrutalTripleDamageChance", "BASE", 3, "Base")
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
-		modDB:NewMod("Multiplier:PerAllocatedNotable", "BASE", env.spec.allocatedNotableCount, "")
-		modDB:NewMod("Multiplier:PerAllocatedMastery", "BASE", env.spec.allocatedMasteryCount, "")
+		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", env.spec.allocatedNotableCount, "")
+		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", env.spec.allocatedMasteryCount, "")
 
 		-- Add bandit mods
-		if build.bandit == "Alira" then
+		if env.configInput.bandit == "Alira" then
 			modDB:NewMod("ManaRegen", "BASE", 5, "Bandit")
 			modDB:NewMod("CritMultiplier", "BASE", 20, "Bandit")
 			modDB:NewMod("ElementalResist", "BASE", 15, "Bandit")
-		elseif build.bandit == "Kraityn" then
+		elseif env.configInput.bandit == "Kraityn" then
 			modDB:NewMod("Speed", "INC", 6, "Bandit")
-			modDB:NewMod("AvoidShock", "BASE", 10, "Bandit")
-			modDB:NewMod("AvoidFreeze", "BASE", 10, "Bandit")
-			modDB:NewMod("AvoidChill", "BASE", 10, "Bandit")
-			modDB:NewMod("AvoidIgnite", "BASE", 10, "Bandit")
+			for _, ailment in ipairs(env.data.elementalAilmentTypeList) do
+				modDB:NewMod("Avoid"..ailment, "BASE", 10, "Bandit")
+			end
 			modDB:NewMod("MovementSpeed", "INC", 6, "Bandit")
-		elseif build.bandit == "Oak" then
+		elseif env.configInput.bandit == "Oak" then
 			modDB:NewMod("LifeRegenPercent", "BASE", 1, "Bandit")
 			modDB:NewMod("PhysicalDamageReduction", "BASE", 2, "Bandit")
 			modDB:NewMod("PhysicalDamage", "INC", 20, "Bandit")
@@ -434,13 +442,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Add Pantheon mods
 		local parser = modLib.parseMod
 		-- Major Gods
-		if build.pantheonMajorGod ~= "None" then
-			local majorGod = env.data.pantheons[build.pantheonMajorGod]
+		if env.configInput.pantheonMajorGod ~= "None" then
+			local majorGod = env.data.pantheons[env.configInput.pantheonMajorGod]
 			pantheon.applySoulMod(modDB, parser, majorGod)
 		end
 		-- Minor Gods
-		if build.pantheonMinorGod ~= "None" then
-			local minorGod = env.data.pantheons[build.pantheonMinorGod]
+		if env.configInput.pantheonMinorGod ~= "None" then
+			local minorGod = env.data.pantheons[env.configInput.pantheonMinorGod]
 			pantheon.applySoulMod(modDB, parser, minorGod)
 		end
 
@@ -633,6 +641,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						item.name = name
 						item.base = data.itemBases[name]
 						item.baseName = name
+						item.classRequirementModLines = { }
 						item.buffModLines = { }
 						item.enchantModLines = { }
 						item.scourgeModLines = { }
@@ -693,6 +702,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end
+				-- set conditions on restricted items
+				if item.classRestriction then
+					env.itemModDB.conditions[item.title:gsub(" ", "")] = item.classRestriction
+				end
 				if item.type ~= "Jewel" and item.type ~= "Flask" then
 					-- Update item counts
 					local key
@@ -748,14 +761,27 @@ function calcs.initEnv(build, mode, override, specEnv)
 		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 			local node = env.spec.tree.notableMap[passive]
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
-				if env.spec.nodes[node.id] and env.spec.nodes[node.id].conqueredBy and env.spec.tree.legion.editedNodes and env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id] then
-					env.allocNodes[node.id] = env.spec.tree.legion.editedNodes[env.spec.nodes[node.id].conqueredBy.id][node.id] or node
-				else
-					env.allocNodes[node.id] = node
-				end
-				--ConPrintf("GrantedPassive: " .. env.allocNodes[node.id].dn)
+				env.allocNodes[node.id] = env.spec.nodes[node.id] -- use the conquered node data, if available
 				env.grantedPassives[node.id] = true
 			end
+		end
+	end
+
+	-- Add granted ascendancy node (e.g., Forbidden Flame/Flesh combo)
+	local matchedName = { }
+	for _, ascTbl in pairs(env.modDB:List(nil, "GrantedAscendancyNode")) do
+		local name = ascTbl.name
+		if matchedName[name] and matchedName[name].side ~= ascTbl.side and matchedName[name].matched == false then
+			matchedName[name].matched = true
+			local node = env.spec.tree.ascendancyMap[name]
+			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
+				if env.itemModDB.conditions["ForbiddenFlesh"] == env.spec.curClassName and env.itemModDB.conditions["ForbiddenFlame"] == env.spec.curClassName then
+					env.allocNodes[node.id] = node
+					env.grantedPassives[node.id] = true
+				end
+			end
+		else
+			matchedName[name] = { side = ascTbl.side, matched = false }
 		end
 	end
 
@@ -882,7 +908,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		local phantomGem = nil
 		local crossLinkedSupportList = { }
 		for _, index in ipairs(indexOrder) do
-			socketGroup = build.skillsTab.socketGroupList[index]
+			local socketGroup = build.skillsTab.socketGroupList[index]
 			local socketGroupSkillList = { }
 			local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
 			socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)

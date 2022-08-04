@@ -801,7 +801,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="You and nearby Allies deal {0}% decreased Damage"
+					text="You and nearby Allies deal {0}% reduced Damage"
 				}
 			}
 		},
@@ -907,7 +907,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="You and nearby Allies deal {0}% decreased Damage with Ailments"
+					text="You and nearby Allies deal {0}% reduced Damage with Ailments"
 				}
 			}
 		},
@@ -2068,6 +2068,25 @@ return {
 							[2]="#"
 						}
 					},
+					text="Disables your Non-Blessing Skills which Reserve Mana"
+				}
+			}
+		},
+		name="aura_disables_non_blessing_reservation_skills",
+		stats={
+			[1]="skill_aura_also_disables_non_blessing_mana_reservation_skills"
+		}
+	},
+	[86]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
 					text="You and nearby Allies have {0:+d}% to Critical Strike Multiplier"
 				}
 			}
@@ -2077,7 +2096,7 @@ return {
 			[1]="skill_buff_grant_critical_strike_multiplier_+"
 		}
 	},
-	[86]={
+	[87]={
 		lang={
 			English={
 				[1]={
@@ -2109,7 +2128,7 @@ return {
 			[1]="spell_critical_strike_chance_+%"
 		}
 	},
-	[87]={
+	[88]={
 		lang={
 			English={
 				[1]={
@@ -2141,7 +2160,7 @@ return {
 			[1]="spell_damage_aura_spell_damage_+%_final"
 		}
 	},
-	[88]={
+	[89]={
 		lang={
 			English={
 				[1]={
@@ -2165,7 +2184,7 @@ return {
 			[2]="spell_maximum_added_chaos_damage"
 		}
 	},
-	[89]={
+	[90]={
 		lang={
 			English={
 				[1]={
@@ -2284,13 +2303,14 @@ return {
 	["receive_bleeding_chance_%_when_hit_by_attack"]=82,
 	["reduce_enemy_chaos_resistance_%"]=83,
 	["reduce_enemy_elemental_resistance_%"]=84,
-	["skill_buff_grant_critical_strike_multiplier_+"]=85,
-	["spell_critical_strike_chance_+%"]=86,
-	["spell_damage_aura_spell_damage_+%_final"]=87,
-	["spell_maximum_added_chaos_damage"]=88,
+	["skill_aura_also_disables_non_blessing_mana_reservation_skills"]=85,
+	["skill_buff_grant_critical_strike_multiplier_+"]=86,
+	["spell_critical_strike_chance_+%"]=87,
+	["spell_damage_aura_spell_damage_+%_final"]=88,
+	["spell_maximum_added_chaos_damage"]=89,
 	["spell_maximum_added_fire_damage"]=29,
-	["spell_minimum_added_chaos_damage"]=88,
+	["spell_minimum_added_chaos_damage"]=89,
 	["spell_minimum_added_fire_damage"]=29,
-	["summon_totem_cast_speed_+%"]=89,
+	["summon_totem_cast_speed_+%"]=90,
 	["wrath_aura_spell_lightning_damage_+%_final"]=30
 }

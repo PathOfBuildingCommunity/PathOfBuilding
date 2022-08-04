@@ -273,6 +273,7 @@ minions["RaisedSkeletonCaster"] = {
 		"SkeletonMinionProjectileLightning",
 	},
 	modList = {
+		-- SummonSkeletonsSkeletonIsMage [summoned_skeleton_is_mage = 1]
 	},
 }
 
@@ -415,11 +416,11 @@ minions["UniqueAnimatedWeapon"] = {
 	damage = 0,
 	damageSpread = 0,
 	attackTime = 1,
-	attackRange = 60,
+	attackRange = 105,
 	accuracy = 3.4,
 	skillList = {
 		"Melee",
-		"DancingDervishCyclone",
+		"DancingDervishCycloneChannelled",
 	},
 	modList = {
 		-- UniqueAnimateWeaponAura [disable_weapons = 1]
@@ -618,8 +619,8 @@ minions["SnakeSpitUniqueSummoned"] = {
 		"SummonedSnakeProjectile",
 	},
 	modList = {
-		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
 		mod("SkillData", "LIST", { key = "cannotBeEvaded", value = true }, 0, 0), -- MonsterAlwaysHits [global_always_hit = 1]
+		mod("PhysicalDamageConvertToChaos", "BASE", 30, 0, 0), -- MonsterSnakeChaos [base_physical_damage_%_to_convert_to_chaos = 30]
 	},
 }
 
@@ -747,5 +748,26 @@ minions["SummonedReaper"] = {
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+	},
+}
+
+minions["SummonedArbalists"] = {
+	name = "Summoned Arbalist",
+	life = 6.05,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.34,
+	damageSpread = 0.2,
+	attackTime = 1,
+	attackRange = 60,
+	accuracy = 1,
+	limit = "ActiveArbalistLimit",
+	skillList = {
+		"MPWExpeditionSummonedArbalestProjectile",
+	},
+	modList = {
+		-- MonsterCannotBeDamaged [cannot_be_damaged = 1]
 	},
 }

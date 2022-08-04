@@ -331,6 +331,27 @@ return {
 		}
 	},
 	AdditionalLifeScaling={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="DATFilename",
+			refTo="",
+			type="String",
+			width=240
+		},
+		[3]={
+			list=false,
+			name="DATFilepath",
+			refTo="",
+			type="String",
+			width=290
+		}
 	},
 	AdditionalLifeScalingPerLevel={
 	},
@@ -688,6 +709,8 @@ return {
 			width=150
 		}
 	},
+	AnimatedObjectFlags={
+	},
 	Animation={
 		[1]={
 			list=false,
@@ -704,6 +727,16 @@ return {
 	Archetypes={
 	},
 	ArchitectLifeScalingPerLevel={
+	},
+	ArchnemesisMetaRewards={
+	},
+	ArchnemesisModComboAchievements={
+	},
+	ArchnemesisModVisuals={
+	},
+	ArchnemesisMods={
+	},
+	ArchnemesisRecipes={
 	},
 	AreaInfluenceDoodads={
 	},
@@ -853,6 +886,8 @@ return {
 	},
 	AtlasBaseTypeDrops={
 	},
+	AtlasEntities={
+	},
 	AtlasExileBossArenas={
 	},
 	AtlasExileInfluence={
@@ -871,9 +906,17 @@ return {
 	},
 	AtlasExiles={
 	},
+	AtlasFavouredMapSlots={
+	},
 	AtlasFog={
 	},
+	AtlasInfluenceData={
+	},
+	AtlasInfluenceOutcomeTypes={
+	},
 	AtlasInfluenceOutcomes={
+	},
+	AtlasInfluenceSets={
 	},
 	AtlasModTiers={
 	},
@@ -883,7 +926,19 @@ return {
 	},
 	AtlasNodeDefinition={
 	},
+	AtlasPassiveSkillTreeGroupType={
+	},
 	AtlasPositions={
+	},
+	AtlasPrimordialAltarChoiceTypes={
+	},
+	AtlasPrimordialAltarChoices={
+	},
+	AtlasPrimordialBossInfluence={
+	},
+	AtlasPrimordialBossOptions={
+	},
+	AtlasPrimordialBosses={
 	},
 	AtlasQuadrant={
 	},
@@ -896,6 +951,8 @@ return {
 	AtlasSector={
 	},
 	AtlasSkillGraphs={
+	},
+	AtlasUpgradesInventoryLayout={
 	},
 	Attributes={
 	},
@@ -999,7 +1056,7 @@ return {
 			list=false,
 			name="Hidden",
 			refTo="",
-			type="Bool",
+			type="Int",
 			width=50
 		},
 		[15]={
@@ -1009,6 +1066,10 @@ return {
 			type="Key",
 			width=150
 		}
+	},
+	BattlePassRewards={
+	},
+	BattlePasses={
 	},
 	BestiaryCapturableMonsters={
 	},
@@ -1383,7 +1444,7 @@ return {
 		},
 		[39]={
 			list=true,
-			name="Stats",
+			name="Stats2",
 			refTo="Stats",
 			type="Key",
 			width=250
@@ -1900,6 +1961,8 @@ return {
 	},
 	Chests={
 	},
+	ClientLeagueAction={
+	},
 	ClientStrings={
 		[1]={
 			list=false,
@@ -1940,6 +2003,8 @@ return {
 	ClientUIScreens={
 	},
 	CloneShot={
+	},
+	Colours={
 	},
 	Commands={
 	},
@@ -2262,6 +2327,8 @@ return {
 			width=100
 		}
 	},
+	CraftingBenchSortCategories={
+	},
 	CraftingBenchUnlockCategories={
 		[1]={
 			list=false,
@@ -2310,6 +2377,8 @@ return {
 	CustomLeagueMods={
 	},
 	DaemonSpawningData={
+	},
+	DamageEffectVariations={
 	},
 	DamageHitEffects={
 	},
@@ -2509,6 +2578,10 @@ return {
 	},
 	Doors={
 	},
+	DroneBaseTypes={
+	},
+	DroneTypes={
+	},
 	DropEffects={
 	},
 	DropModifiers={
@@ -2542,6 +2615,8 @@ return {
 	EinharPackFallback={
 	},
 	ElderBossArenas={
+	},
+	ElderGuardians={
 	},
 	ElderMapBossOverride={
 	},
@@ -3038,6 +3113,32 @@ return {
 	},
 	ExpandingPulse={
 	},
+	ExpeditionAreas={
+	},
+	ExpeditionBalancePerLevel={
+	},
+	ExpeditionCurrency={
+	},
+	ExpeditionDealFamilies={
+	},
+	ExpeditionDeals={
+	},
+	ExpeditionFactions={
+	},
+	ExpeditionMarkersCommon={
+	},
+	ExpeditionNPCs={
+	},
+	ExpeditionRelicModCategories={
+	},
+	ExpeditionRelicMods={
+	},
+	ExpeditionRelics={
+	},
+	ExpeditionStorageLayout={
+	},
+	ExpeditionTerrainFeatures={
+	},
 	ExperienceLevels={
 	},
 	ExplodingStormBuffs={
@@ -3051,6 +3152,8 @@ return {
 	FixedHideoutDoodads={
 	},
 	FixedMissions={
+	},
+	FlaskStashBaseTypeOrdering={
 	},
 	FlaskType={
 	},
@@ -3138,7 +3241,17 @@ return {
 			width=150
 		}
 	},
+	GameObjectTasks={
+	},
 	GameStats={
+	},
+	GamepadButton={
+	},
+	GamepadButtonCombination={
+	},
+	GamepadThumbstick={
+	},
+	GamepadType={
 	},
 	GemTags={
 		[1]={
@@ -3154,6 +3267,34 @@ return {
 			refTo="",
 			type="String",
 			width=150
+		},
+		[3]={
+			list=false,
+			name="LocalLevelStat",
+			refTo="Stats",
+			type="Key",
+			width=270
+		},
+		[4]={
+			list=false,
+			name="LocalQualityStat",
+			refTo="Stats",
+			type="Key",
+			width=290
+		},
+		[5]={
+			list=false,
+			name="GlobalSpellLevelStat",
+			refTo="Stats",
+			type="Key",
+			width=230
+		},
+		[6]={
+			list=false,
+			name="GlobalSkillLevelStat",
+			refTo="Stats",
+			type="Key",
+			width=190
 		}
 	},
 	GemTypes={
@@ -3166,6 +3307,10 @@ return {
 			type="String",
 			width=150
 		}
+	},
+	GenericLeagueRewardTypeVisuals={
+	},
+	GenericLeagueRewardTypes={
 	},
 	GeometryAttack={
 	},
@@ -3257,13 +3402,171 @@ return {
 			width=170
 		}
 	},
+	GrantedEffectStatSets={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=380
+		},
+		[2]={
+			list=true,
+			name="ImplicitStats",
+			refTo="Stats",
+			type="Key",
+			width=750
+		},
+		[3]={
+			list=true,
+			name="ConstantStats",
+			refTo="Stats",
+			type="Key",
+			width=1400
+		},
+		[4]={
+			list=true,
+			name="ConstantStatsValues",
+			refTo="",
+			type="Int",
+			width=250
+		},
+		[5]={
+			list=false,
+			name="BaseEffectiveness",
+			refTo="",
+			type="Float",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="IncrementalEffectiveness",
+			refTo="",
+			type="Float",
+			width=150
+		}
+	},
+	GrantedEffectStatSetsPerLevel={
+		[1]={
+			list=false,
+			name="GrantedEffectStatSets",
+			refTo="GrantedEffectStatSets",
+			type="Key",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="GemLevel",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[3]={
+			list=false,
+			name="PlayerLevelReq",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[4]={
+			list=false,
+			name="AttackCritChance",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[5]={
+			list=false,
+			name="OffhandCritChance",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="BaseMultiplier",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[7]={
+			list=false,
+			name="DamageEffectiveness",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=true,
+			name="AdditionalBooleanStats",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[9]={
+			list=true,
+			name="FloatStats",
+			refTo="Stats",
+			type="Key",
+			width=500
+		},
+		[10]={
+			list=true,
+			name="InterpolationBases",
+			refTo="EffectivenessCostConstants",
+			type="Key",
+			width=220
+		},
+		[11]={
+			list=true,
+			name="AdditionalStats",
+			refTo="Stats",
+			type="Key",
+			width=400
+		},
+		[12]={
+			list=true,
+			name="StatInterpolations",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[13]={
+			list=true,
+			name="FloatStatsValues",
+			refTo="",
+			type="Float",
+			width=270
+		},
+		[14]={
+			list=true,
+			name="BaseResolvedValues",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[15]={
+			list=true,
+			name="AdditionalStatsValues",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[16]={
+			list=true,
+			name="GrantedEffect",
+			refTo="GrantedEffects",
+			type="Key",
+			width=190
+		}
+	},
 	GrantedEffects={
 		[1]={
 			list=false,
 			name="Id",
 			refTo="",
 			type="String",
-			width=200
+			width=300
 		},
 		[2]={
 			list=false,
@@ -3277,154 +3580,182 @@ return {
 			name="SupportTypes",
 			refTo="ActiveSkillType",
 			type="Key",
-			width=330
+			width=250
 		},
 		[4]={
-			list=false,
-			name="BaseEffectiveness",
-			refTo="",
-			type="Float",
-			width=150
-		},
-		[5]={
-			list=false,
-			name="IncrementalEffectiveness",
-			refTo="",
-			type="Float",
-			width=150
-		},
-		[6]={
 			list=false,
 			name="SupportGemLetter",
 			refTo="",
 			type="String",
 			width=100
 		},
-		[7]={
+		[5]={
 			list=false,
 			name="Attribute",
 			refTo="",
 			type="Int",
 			width=60
 		},
-		[8]={
+		[6]={
 			list=true,
 			name="AddTypes",
 			refTo="ActiveSkillType",
 			type="Key",
 			width=90
 		},
-		[9]={
+		[7]={
 			list=true,
 			name="ExcludeTypes",
 			refTo="ActiveSkillType",
 			type="Key",
-			width=200
+			width=150
 		},
-		[10]={
+		[8]={
 			list=false,
 			name="SupportGemsOnly",
 			refTo="",
 			type="Bool",
 			width=100
 		},
-		[11]={
+		[9]={
 			list=false,
 			name="Hash",
 			refTo="",
 			type="UInt",
-			width=100
+			width=50
 		},
-		[12]={
+		[10]={
 			list=true,
 			name="",
 			refTo="",
 			type="Enum",
-			width=60
+			width=20
 		},
-		[13]={
+		[11]={
 			list=false,
 			name="CannotBeSupported",
 			refTo="",
 			type="Bool",
 			width=110
 		},
-		[14]={
+		[12]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=50
 		},
-		[15]={
+		[13]={
 			list=false,
 			name="CastTime",
 			refTo="",
 			type="Int",
 			width=70
 		},
-		[16]={
+		[14]={
 			list=false,
 			name="ActiveSkill",
 			refTo="ActiveSkills",
 			type="Key",
-			width=110
+			width=250
 		},
-		[17]={
+		[15]={
 			list=false,
 			name="IgnoreMinionTypes",
 			refTo="",
 			type="Bool",
 			width=100
 		},
-		[18]={
+		[16]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[19]={
+		[17]={
 			list=true,
 			name="AddMinionTypes",
 			refTo="ActiveSkillType",
 			type="Key",
 			width=150
 		},
-		[20]={
+		[18]={
 			list=false,
 			name="Animation",
 			refTo="Animation",
 			type="Key",
-			width=120
+			width=100
 		},
-		[21]={
+		[19]={
 			list=false,
 			name="",
 			refTo="",
 			type="Key",
-			width=50
+			width=40
 		},
-		[22]={
+		[20]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=50
+			width=40
 		},
-		[23]={
+		[21]={
 			list=true,
 			name="WeaponRestrictions",
 			refTo="ItemClasses",
 			type="Key",
 			width=150
 		},
-		[24]={
+		[22]={
 			list=false,
 			name="PlusVersionOf",
 			refTo="GrantedEffects",
 			type="Key",
 			width=150
+		},
+		[23]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[24]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[25]={
+			list=false,
+			name="GrantedEffectStatSets",
+			refTo="GrantedEffectStatSets",
+			type="Key",
+			width=250
+		},
+		[26]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[27]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[28]={
+			list=false,
+			name="NextEffectName",
+			refTo="",
+			type="String",
+			width=200
 		}
 	},
 	GrantedEffectsPerLevel={
@@ -3433,384 +3764,146 @@ return {
 			name="GrantedEffect",
 			refTo="GrantedEffects",
 			type="Key",
-			width=210
+			width=250
 		},
 		[2]={
 			list=false,
 			name="Level",
 			type="Int",
-			width=40
+			width=50
 		},
 		[3]={
-			list=true,
-			name="Stats",
-			refTo="Stats",
-			type="Key",
-			width=520
+			list=false,
+			name="PlayerLevelReq",
+			refTo="",
+			type="Int",
+			width=90
 		},
 		[4]={
 			list=false,
-			name="StatEff1",
-			refTo="",
-			type="Float",
-			width=60
-		},
-		[5]={
-			list=false,
-			name="StatEff2",
-			refTo="",
-			type="Float",
-			width=60
-		},
-		[6]={
-			list=false,
-			name="StatEff3",
-			refTo="",
-			type="Float",
-			width=60
-		},
-		[7]={
-			list=false,
-			name="StatEff4",
-			refTo="",
-			type="Float",
-			width=60
-		},
-		[8]={
-			list=false,
-			name="StatEff5",
-			refTo="",
-			type="Float",
-			width=60
-		},
-		[9]={
-			list=false,
-			name="StatEff6",
-			refTo="",
-			type="Float",
-			width=60
-		},
-		[10]={
-			list=false,
-			name="StatEff7",
-			refTo="",
-			type="Float",
-			width=60
-		},
-		[11]={
-			list=false,
-			name="StatEff8",
-			refTo="",
-			type="Float",
-			width=60
-		},
-		[12]={
-			list=false,
-			name="StatEff9",
-			refTo="",
-			type="Float",
-			width=60
-		},
-		[13]={
-			list=true,
-			name="EffectivenessCost",
-			refTo="EffectivenessCostConstants",
-			type="Key",
-			width=250
-		},
-		[14]={
-			list=false,
-			name="Stat1",
-			refTo="",
-			type="Int",
-			width=60
-		},
-		[15]={
-			list=false,
-			name="Stat2",
-			refTo="",
-			type="Int",
-			width=60
-		},
-		[16]={
-			list=false,
-			name="Stat3",
-			refTo="",
-			type="Int",
-			width=60
-		},
-		[17]={
-			list=false,
-			name="Stat4",
-			refTo="",
-			type="Int",
-			width=60
-		},
-		[18]={
-			list=false,
-			name="Stat5",
-			refTo="",
-			type="Int",
-			width=60
-		},
-		[19]={
-			list=false,
-			name="Stat6",
-			refTo="",
-			type="Int",
-			width=60
-		},
-		[20]={
-			list=false,
-			name="Stat7",
-			refTo="",
-			type="Int",
-			width=60
-		},
-		[21]={
-			list=false,
-			name="Stat8",
-			refTo="",
-			type="Int",
-			width=60
-		},
-		[22]={
-			list=false,
-			name="Stat9",
-			refTo="",
-			type="Int",
-			width=60
-		},
-		[23]={
-			list=false,
-			name="PlayerLevel",
-			refTo="",
-			type="Int",
-			width=70
-		},
-		[24]={
-			list=false,
-			name="ManaMultiplier",
+			name="CostMultiplier",
 			refTo="",
 			type="Int",
 			width=80
 		},
-		[25]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=40
-		},
-		[26]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=40
-		},
-		[27]={
-			list=false,
-			name="SpellCritChance",
-			refTo="",
-			type="Int",
-			width=90
-		},
-		[28]={
-			list=false,
-			name="DamageEffectiveness",
-			refTo="",
-			type="Int",
-			width=120
-		},
-		[29]={
-			list=false,
-			name="CooldownCount",
-			refTo="",
-			type="Int",
-			width=90
-		},
-		[30]={
-			list=false,
-			name="Cooldown",
-			refTo="",
-			type="Int",
-			width=60
-		},
-		[31]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=40
-		},
-		[32]={
-			list=true,
-			name="BooleanStats",
-			refTo="Stats",
-			type="Key",
-			width=150
-		},
-		[33]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=40
-		},
-		[34]={
-			list=false,
-			name="SoulCost",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[35]={
+		[5]={
 			list=false,
 			name="StoredUses",
 			refTo="",
 			type="Int",
-			width=50
+			width=80
 		},
-		[36]={
+		[6]={
 			list=false,
-			name="",
+			name="Cooldown",
 			refTo="",
 			type="Int",
-			width=50
+			width=80
 		},
-		[37]={
+		[7]={
 			list=false,
-			name="",
+			name="CooldownBypassType",
+			refTo="CooldownBypassTypes",
+			type="Int",
+			width=130
+		},
+		[8]={
+			list=false,
+			name="VaalSouls",
+			refTo="Stats",
+			type="Int",
+			width=100
+		},
+		[9]={
+			list=false,
+			name="VaalStoredUses",
 			refTo="",
 			type="Int",
-			width=50
+			width=120
 		},
-		[38]={
+		[10]={
 			list=false,
-			name="DamageMultiplier",
+			name="CooldownGroup",
 			refTo="",
 			type="Int",
 			width=90
 		},
-		[39]={
+		[11]={
 			list=false,
-			name="",
+			name="PvPDamageMultiplier",
 			refTo="",
 			type="Int",
-			width=50
+			width=120
 		},
-		[40]={
-			list=false,
-			name="ArtVariation",
-			refTo="",
-			type="Int",
-			width=70
-		},
-		[41]={
-			list=true,
-			name="InterpolationTypes",
-			refTo="StatInterpolationTypes",
-			type="Enum",
-			width=130
-		},
-		[42]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[43]={
+		[12]={
 			list=false,
 			name="SoulGainPreventionDuration",
 			refTo="",
 			type="Int",
 			width=150
 		},
-		[44]={
-			list=false,
-			name="Duration",
-			refTo="",
-			type="Int",
-			width=80
-		},
-		[45]={
+		[13]={
 			list=false,
 			name="AttackSpeedMultiplier",
 			refTo="",
 			type="Int",
-			width=150
+			width=130
 		},
-		[46]={
+		[14]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
-			width=70
+			width=50
 		},
-		[47]={
+		[15]={
 			list=true,
 			name="CostAmounts",
 			refTo="",
 			type="Int",
-			width=90
+			width=180
 		},
-		[48]={
+		[16]={
 			list=true,
 			name="CostTypes",
 			refTo="CostTypes",
 			type="Key",
-			width=90
+			width=100
 		},
-		[49]={
+		[17]={
 			list=false,
 			name="ManaReservationFlat",
 			refTo="",
 			type="UInt",
 			width=150
 		},
-		[50]={
+		[18]={
 			list=false,
 			name="ManaReservationPercent",
 			refTo="",
 			type="UInt",
 			width=150
 		},
-		[51]={
+		[19]={
 			list=false,
 			name="LifeReservationFlat",
 			refTo="",
 			type="UInt",
 			width=150
 		},
-		[52]={
+		[20]={
 			list=false,
 			name="LifeReservationPercent",
 			refTo="",
 			type="UInt",
 			width=150
 		},
-		[53]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[54]={
-			list=false,
-			name="OffhandCritChance",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[55]={
+		[21]={
 			list=false,
 			name="AttackTime",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		}
 	},
 	GroundEffectEffectTypes={
@@ -3925,6 +4018,34 @@ return {
 	},
 	HeistValueScaling={
 	},
+	HellscapeAOReplacements={
+	},
+	HellscapeAreaPacks={
+	},
+	HellscapeExperienceLevels={
+	},
+	HellscapeFactions={
+	},
+	HellscapeImmuneMonsters={
+	},
+	HellscapeItemModificationTiers={
+	},
+	HellscapeLifeScalingPerLevel={
+	},
+	HellscapeModificationInventoryLayout={
+	},
+	HellscapeMods={
+	},
+	HellscapeMonsterPacks={
+	},
+	HellscapePassiveTree={
+	},
+	HellscapePassives={
+	},
+	HideoutDoodadCategory={
+	},
+	HideoutDoodadTags={
+	},
 	HideoutDoodads={
 	},
 	HideoutNPCs={
@@ -3988,6 +4109,8 @@ return {
 	},
 	ItemClassCategories={
 	},
+	ItemClassFlags={
+	},
 	ItemClasses={
 		[1]={
 			list=false,
@@ -4008,10 +4131,12 @@ return {
 			name="Category",
 			refTo="",
 			type="String",
-			width=150
+			width=230
 		}
 	},
 	ItemCostPerLevel={
+	},
+	ItemCosts={
 	},
 	ItemCreationTemplateCustomAction={
 	},
@@ -4124,6 +4249,8 @@ return {
 	},
 	KillstreakThresholds={
 	},
+	KiracLevels={
+	},
 	LabyrinthAreas={
 	},
 	LabyrinthBonusItems={
@@ -4166,7 +4293,11 @@ return {
 	},
 	LeagueQuestFlags={
 	},
+	LeagueStaticRewards={
+	},
 	LeagueTrophy={
+	},
+	LegacyAtlasInfluenceOutcomes={
 	},
 	LegionBalancePerLevel={
 	},
@@ -4222,7 +4353,11 @@ return {
 	},
 	MapSeriesTiers={
 	},
+	MapStashSpecialTypeEntries={
+	},
 	MapStashTabLayout={
+	},
+	MapStashUniqueMapInfo={
 	},
 	MapStatAchievements={
 	},
@@ -4241,6 +4376,15 @@ return {
 	MavenDialog={
 	},
 	MavenFights={
+	},
+	MavenJewelRadiusKeystones={
+		[1]={
+			list=false,
+			name="Keystone_Key",
+			refTo="PassiveSkills",
+			type="Key",
+			width=300
+		}
 	},
 	Melee={
 	},
@@ -4264,7 +4408,13 @@ return {
 	},
 	MicroMigrationData={
 	},
+	MicrotransactionCategory={
+	},
+	MicrotransactionCategoryId={
+	},
 	MicrotransactionCharacterPortraitVariations={
+	},
+	MicrotransactionChargeVariations={
 	},
 	MicrotransactionCombineFormula={
 	},
@@ -4276,7 +4426,11 @@ return {
 	},
 	MicrotransactionGemCategory={
 	},
+	MicrotransactionJewelVariations={
+	},
 	MicrotransactionPeriodicCharacterEffectVariations={
+	},
+	MicrotransactionPlayerShieldVariations={
 	},
 	MicrotransactionPortalVariations={
 	},
@@ -4288,6 +4442,8 @@ return {
 	},
 	MicrotransactionRecycleSalvageValues={
 	},
+	MicrotransactionSlot={
+	},
 	MicrotransactionSlotId={
 	},
 	MicrotransactionSocialFrameVariations={
@@ -4298,11 +4454,19 @@ return {
 	},
 	MiscAnimated={
 	},
+	MiscAnimatedArtVariations={
+	},
 	MiscBeams={
+	},
+	MiscBeamsArtVariations={
 	},
 	MiscEffectPacks={
 	},
+	MiscEffectPacksArtVariations={
+	},
 	MiscObjects={
+	},
+	MiscObjectsArtVariations={
 	},
 	MissionFavourPerLevel={
 	},
@@ -4824,6 +4988,13 @@ return {
 	MonsterBehavior={
 	},
 	MonsterBonuses={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=230
+		}
 	},
 	MonsterChanceToDropItemTemplate={
 	},
@@ -4846,8 +5017,120 @@ return {
 	MonsterHeights={
 	},
 	MonsterMapBossDifficulty={
+		[1]={
+			list=false,
+			name="AreaLevel",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="BossLifePercentIncrease",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="BossDamagePercentIncrease",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="BossIncItemQuantity",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="BossIncItemRarity",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="BossAilmentPercentDecrease",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	MonsterMapDifficulty={
+		[1]={
+			list=false,
+			name="AreaLevel",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[2]={
+			list=false,
+			name="LifePercentIncrease",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="DamagePercentIncrease",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
 	},
 	MonsterMortar={
 	},
@@ -4998,7 +5281,7 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=150
+			width=300
 		},
 		[2]={
 			list=false,
@@ -5140,7 +5423,7 @@ return {
 			name="Mods",
 			refTo="Mods",
 			type="Key",
-			width=200
+			width=500
 		},
 		[11]={
 			list=false,
@@ -5675,6 +5958,10 @@ return {
 			width=50
 		}
 	},
+	MonsterVarietiesArtVariations={
+	},
+	MouseCursorSizeSettings={
+	},
 	MoveDaemon={
 	},
 	MultiPartAchievementAreas={
@@ -5737,6 +6024,8 @@ return {
 	},
 	NPCShopAdditionalItems={
 	},
+	NPCShopSellPriceType={
+	},
 	NPCTalk={
 	},
 	NPCTalkCategory={
@@ -5757,6 +6046,13 @@ return {
 		}
 	},
 	NearbyMonsterConditions={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=260
+		}
 	},
 	NetTiers={
 	},
@@ -6153,6 +6449,10 @@ return {
 	},
 	PassiveSkillTreeTutorial={
 	},
+	PassiveSkillTreeUIArt={
+	},
+	PassiveSkillTrees={
+	},
 	PassiveSkillTypes={
 	},
 	PassiveSkills={
@@ -6521,11 +6821,15 @@ return {
 	},
 	PreloadPriorities={
 	},
+	PrimordialBossLifeScalingPerLevel={
+	},
 	ProjectileCollisionTypes={
 	},
 	ProjectileVariations={
 	},
 	Projectiles={
+	},
+	ProjectilesArtVariations={
 	},
 	Prophecies={
 	},
@@ -6613,7 +6917,27 @@ return {
 	},
 	Scarabs={
 	},
+	ScoutingReports={
+	},
+	SentinelCraftingCurrency={
+	},
+	SentinelDroneInventoryLayout={
+	},
+	SentinelPassiveStats={
+	},
+	SentinelPassiveTypes={
+	},
+	SentinelPassives={
+	},
+	SentinelPowerExpLevels={
+	},
+	SentinelStorageLayout={
+	},
+	SentinelTaggedMonsterStats={
+	},
 	SessionQuestFlags={
+	},
+	ShaperGuardians={
 	},
 	ShaperMemoryFragments={
 	},
@@ -6655,6 +6979,8 @@ return {
 	},
 	ShopRegion={
 	},
+	ShopTag={
+	},
 	ShopToken={
 	},
 	ShrineBuffs={
@@ -6664,6 +6990,10 @@ return {
 	Shrines={
 	},
 	SigilDisplay={
+	},
+	SingleGroundLaser={
+	},
+	SkillArtVariations={
 	},
 	SkillGemInfo={
 	},
@@ -6798,6 +7128,8 @@ return {
 	SkillTotems={
 	},
 	SkillTrapVariations={
+	},
+	SocketNotches={
 	},
 	SoundEffects={
 		[1]={
@@ -7034,6 +7366,8 @@ return {
 	},
 	SynthesisRewardTypes={
 	},
+	TableCharge={
+	},
 	TableMonsterSpawners={
 	},
 	Tags={
@@ -7090,6 +7424,14 @@ return {
 	},
 	TormentSpirits={
 	},
+	TradeMarketCategory={
+	},
+	TradeMarketCategoryGroups={
+	},
+	TradeMarketCategoryListAllClass={
+	},
+	TradeMarketCategoryStyleFlag={
+	},
 	TreasureHunterMissions={
 	},
 	TriggerBeam={
@@ -7129,6 +7471,8 @@ return {
 	UniqueStashLayout={
 	},
 	UniqueStashTypes={
+	},
+	UserInterfaceModeCondition={
 	},
 	VirtualStatContextFlags={
 		[1]={
@@ -7239,7 +7583,16 @@ return {
 	},
 	Words={
 	},
+	WorldAreaLeagueChances={
+	},
 	WorldAreas={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	WorldPopupIconTypes={
 	},

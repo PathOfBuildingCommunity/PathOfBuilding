@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Ring
@@ -116,7 +116,7 @@ Amethyst Ring
 League: Ritual
 Requires Level 49
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(17-23%)% to Chaos Resistance
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {tags:jewellery_elemental}+(8-12)% to Fire Damage over Time Multiplier
 50% reduced Ignite Duration on Enemies
 (10-15)% chance to Ignite
@@ -509,7 +509,7 @@ Implicits: 1
 League: Blight
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
 {tags:jewellery_attribute}+(20-30) to Dexterity
-{tags:chaos}25% chance to Poison on Hit
+25% chance to Poison on Hit
 {tags:chaos}(40-60)% increased Damage with Poison
 You are Chilled while you are Poisoned
 Non-Chilled Enemies you Poison are Chilled
@@ -632,7 +632,7 @@ Implicits: 1
 {tags:jewellery_elemental,attack}Adds (26-32) to (42-48) Cold Damage to Attacks
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
-(60-80)% increased Attack Damage if your other Ring is a Shaper Item
+{tags:attack}(60-80)% increased Attack Damage if your other Ring is a Shaper Item
 Cannot be Stunned by Attacks if your other Ring is an Elder Item
 20% chance to Trigger Level 20 Tentacle Whip on Kill
 Elder Item
@@ -662,7 +662,7 @@ Implicits: 1
 {variant:1}{tags:life}15% reduced maximum Life
 {variant:2}{tags:life}10% reduced maximum Life
 {variant:3}{tags:life}(5-10)% reduced maximum Life
-{variant:1{tags:jewellery_defense}}15% reduced maximum Energy Shield
+{variant:1}{tags:jewellery_defense}15% reduced maximum Energy Shield
 {variant:2}{tags:jewellery_defense}10% reduced maximum Energy Shield
 {variant:3}{tags:jewellery_defense}(5-10)% reduced maximum Energy Shield
 {tags:chaos,jewellery_resistance}+(40-50)% to Chaos Resistance
@@ -695,8 +695,8 @@ Has 1 Socket
 {variant:2,3}{tags:attack,caster,speed}Socketed Golem Skills have 20% increased Attack and Cast Speed
 {tags:attack,physical}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack,speed}(5-10)% increased Attack Speed
-{variant:1}(1-2)% chance to Dodge Attack Hits
-{variant:2}(3-5)% chance to Dodge Attack Hits
+{variant:1}(1-2)% increased Movement Speed
+{variant:2}(3-5)% increased Movement Speed
 {variant:1}Socketed Gems are Supported by Level 16 Increased Minion Speed
 {variant:2,3}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
 ]],[[
@@ -743,6 +743,19 @@ Implicits: 1
 {variant:1}{tags:jewellery_attribute}3% increased Intelligence for each Unique Item Equipped
 {variant:2}{tags:jewellery_attribute}2% increased Intelligence for each Unique Item Equipped
 3% additional chance for Slain monsters to drop Scrolls of Wisdom
+]],[[
+Polaric Devastation
+Opal Ring
+Source: Drops from unique{The Black Star}
+Requires Level 80
+Implicits: 1
+{tags:jewellery_elemental}(15-25)% increased Elemental Damage
+{tags:critical}(15-25)% increased Global Critical Strike Chance
+{tags:jewellery_resistance}+(20-40)% to Fire Resistance
+{tags:jewellery_resistance}+(20-40)% to Cold Resistance
+(10-20)% increased Duration of Ailments on Enemies
+Left Ring slot: Cover Enemies in Ash for 5 seconds when you Ignite them
+Right Ring slot: Cover Enemies in Frost for 5 seconds when you Freeze them
 ]],[[
 Praxis
 Paua Ring

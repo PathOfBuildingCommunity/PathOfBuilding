@@ -344,7 +344,7 @@ Requires Level 12, 26 Dex
 {variant:1}30% increased Movement Speed when on Low Life
 {variant:2}15% increased Movement Speed
 {variant:2}You and nearby allies have 10% increased Movement Speed
-(5-10)% of Damage taken Gained as Mana over 4 seconds when Hit
+(5-10)% of Damage taken Recouped as Mana
 ]],
 -- Boots: Energy Shield
 [[
@@ -481,14 +481,11 @@ Requires Level 32, 54 Int
 Skyforth
 Sorcerer Boots
 Energy Shield: 64
-Variant: Pre 3.16.0
-Variant: Current
 Requires Level 67, 123 Int
 +(60-120) to maximum Mana
 30% increased Movement Speed
 25% chance to gain a Power Charge on Critical Strike
-{variant:1}12% increased Mana Reservation Efficiency
-{variant:2}12% increased Reservation Efficiency
+12% increased Reservation Efficiency of Skills
 You have no Life Regeneration
 Stun Threshold is based on 500% of your Mana instead of Life
 ]],[[
@@ -627,7 +624,7 @@ Wyrmscale Boots
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
-Requires Level 51, 48 Str, 48 Dex
+Requires Level 69, 48 Str, 48 Dex
 (200-300)% increased Armour and Evasion
 {variant:1}-(15-10)% to all Elemental Resistances
 30% increased Movement Speed
@@ -863,6 +860,19 @@ Aspect of the Spider can inflict Spider's Web on Enemies an additional time
 Gain (15-20) Energy Shield for each Enemy you Hit which is affected by a Spider's Web
 (40-50)% increased Aspect of the Spider Debuff Duration
 ]],[[
+Inextricable Fate
+Fugitive Boots
+Source: Drops from unique{The Eater of Worlds}
+Requires Level 70, 56 Dex, 76 Int
+Implicits: 1
++(13–17)% to Chaos Resistance
++(80–100) to maximum Life
+30% increased Movement Speed
+You gain 3 Grasping Vines when you take a Critical Strike
+Nearby stationary Enemies gain a Grasping Vine every 0.5 seconds
+All Damage inflicts Poison against Enemies affected by at least 3 Grasping Vines
+You take (30–50)% reduced Extra Damage from Critical Strikes by Poisoned Enemies
+]],[[
 Nomic's Storm
 Strapped Boots
 Variant: Pre 2.0.0
@@ -969,12 +979,61 @@ Gain Adrenaline for 3 seconds when Ward Breaks
 Vorana's March
 Runic Sabatons
 League: Expedition
+Has Alt Variant: true
+Has Alt Variant Two: true
+Selected Variant: 1
+Selected Alt Variant: 2
+Variant: Arbalist Limit
+Variant: Additional Projectiles
+Variant: Attack Speed
+Variant: Pierce additional Targets
+Variant: Fork
+Variant: Chain
+Variant: Split
+Variant: Double Damage
+Variant: Maim
+Variant: Intimidate
+Variant: Unnerve
+Variant: Fire Exposure
+Variant: Cold Exposure
+Variant: Lightning Exposure
+Variant: Crush
+Variant: Phys converted to Fire
+Variant: Phys converted to Cold
+Variant: Phys converted to Lightning
+Variant: Phys as extra Fire
+Variant: Phys as extra Cold
+Variant: Phys as extra Lightning
+Variant: Chance to inflict Bleeding
+Variant: Chance to Poison
+Variant: Chance to Freeze, Shock, and Ignite
 Requires Level 69, 46 Str, 46 Dex, 46 Int
 Has no Sockets
 Triggers Level 20 Summon Arbalists when Equipped
 25% increased Movement Speed
-Summoned Arbalists have (10–20)% chance to inflict Cold Exposure on Hit
-Summoned Arbalists have (10–20)% chance to Intimidate for 4 seconds on Hit
-Summoned Arbalists Convert (30–50)% of Physical Damage to Fire Damage
+{variant:1}+1 to number of Summoned Arbalists
+{variant:2}Summoned Arbalists fire (2-4) additional Projectiles
+{variant:3}Summoned Arbalists have (10-20)% increased Attack Speed
+{variant:4}Summoned Arbalists' Projectiles Pierce 2 additional Targets
+{variant:5}Summoned Arbalists' Projectiles Fork
+{variant:6}Summoned Arbalists' Projectiles Chain +2 times
+{variant:7}Summoned Arbalists' Projectiles Split into 3
+{variant:8}Summoned Arbalists have (10-20)% chance to deal Double Damage
+{variant:9}Summoned Arbalists have (10-20)% chance to Maim for 4 seconds on Hit
+{variant:10}Summoned Arbalists have (10-20)% chance to Intimidate for 4 seconds on Hit
+{variant:11}Summoned Arbalists have (10-20)% chance to Unnerve for 4 seconds on Hit
+{variant:12}Summoned Arbalists have (10-20)% chance to inflict Fire Exposure on Hit
+{variant:13}Summoned Arbalists have (10-20)% chance to inflict Cold Exposure on Hit
+{variant:14}Summoned Arbalists have (10-20)% chance to inflict Lightning Exposure on Hit
+{variant:15}Summoned Arbalists have (10-20)% chance to Crush on Hit
+{variant:16}Summoned Arbalists Convert (30-50)% of Physical Damage to Fire Damage
+{variant:17}Summoned Arbalists Convert (30-50)% of Physical Damage to Cold Damage
+{variant:18}Summoned Arbalists Convert (30-50)% of Physical Damage to Lightning Damage
+{variant:19}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Fire Damage
+{variant:20}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Cold Damage
+{variant:21}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Lightning Damage
+{variant:22}Summoned Arbalists' Attacks have (30-50)% chance to inflict Bleeding
+{variant:23}Summoned Arbalists have (30-50)% chance to Poison
+{variant:24}Summoned Arbalists have (15-25)% chance to Freeze, Shock, and Ignite
 ]],
 }

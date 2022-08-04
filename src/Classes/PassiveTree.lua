@@ -101,6 +101,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Build maps of class name -> class table
 	self.classNameMap = { }
 	self.ascendNameMap = { }
+	self.classNotables = { }
+
 	for classId, class in pairs(self.classes) do
 		if versionNum >= 3.10 then
 			-- Migrate to old format
@@ -259,6 +261,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	ConPrintf("Processing tree...")
+	self.ascendancyMap = { }
 	self.keystoneMap = { }
 	self.notableMap = { }
 	self.clusterNodeMap = { }
@@ -316,6 +319,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		elseif node.ks or node.isKeystone then
 			node.type = "Keystone"
 			self.keystoneMap[node.dn] = node
+			self.keystoneMap[node.dn:lower()] = node
 		elseif node["not"] or node.isNotable then
 			node.type = "Notable"
 			if not node.ascendancyName then
@@ -327,9 +331,25 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				elseif node.g then
 					self.notableMap[node.dn:lower()] = node
 				end
+			else
+				self.ascendancyMap[node.dn:lower()] = node
+				if not self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] then
+					self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] = { }
+				end
+				if self.ascendNameMap[node.ascendancyName].class.name ~= "Scion" then
+					t_insert(self.classNotables[self.ascendNameMap[node.ascendancyName].class.name], node.dn)
+				end
 			end
 		else
 			node.type = "Normal"
+			if node.ascendancyName == "Ascendant" and not node.dn:find("Dexterity") and not node.dn:find("Intelligence") and
+				not node.dn:find("Strength") and not node.dn:find("Passive") then
+				self.ascendancyMap[node.dn:lower()] = node
+				if not self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] then
+					self.classNotables[self.ascendNameMap[node.ascendancyName].class.name] = { }
+				end
+				t_insert(self.classNotables[self.ascendNameMap[node.ascendancyName].class.name], node.dn)
+			end
 		end
 
 		-- Find the node group
@@ -398,6 +418,28 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 
+	for name, keystone in pairs(self.keystoneMap) do
+		keystone.nodesInRadius = { }
+		for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
+			keystone.nodesInRadius[radiusIndex] = { }
+			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
+			local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
+			if (keystone.x and keystone.y) then
+				for _, node in pairs(self.nodes) do
+					if node ~= keystone and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy and not node.isMastery and not node.isSocket then
+						local vX, vY = node.x - keystone.x, node.y - keystone.y
+						local euclideanDistanceSquared = vX * vX + vY * vY
+						if innerRadiusSquared <= euclideanDistanceSquared then
+							if euclideanDistanceSquared <= outerRadiusSquared then
+								keystone.nodesInRadius[radiusIndex][node.id] = node
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+
 	for classId, class in pairs(self.classes) do
 		local startNode = nodeMap[class.startNodeId]
 		for _, nodeId in ipairs(startNode.linkedId) do
@@ -433,6 +475,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 		self:ProcessStats(node)
 	end
+
+	-- Late load the Generated data so we can take advantage of a tree existing
+	buildTreeDependentUniques(self)
 end)
 
 function PassiveTreeClass:ProcessStats(node)

@@ -16,21 +16,6 @@ local realmList = {
 	{ label = "Tencent", id = "PC", realmCode = "pc", hostName = "https://poe.game.qq.com/", profileURL = "account/view-profile/" },
 }
 
--- Import/Export websites list used in dropdowns
-local importWebsiteList = {
-	{
-		label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1",
-		codeOut = "", postUrl = "https://pastebin.com/api/api_post.php", postFields = "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="
-	},
-	{ label = "PastebinP.com", id = "PastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
-	{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
-	{ label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1" },
-	{
-		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/%w+", regexURL = "pobb%.in/([%w-_]+)%s*$", downloadURL = "pobb.in/pob/%1",
-		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = ""
-	},
-}
-
 local influenceInfo = itemLib.influenceInfo
 
 local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(self, build)
@@ -166,7 +151,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end)
 
 	-- Build import/export
-	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, 0, 18, 600, 200, "Build Sharing")
+	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, 0, 18, 600, 182, "Build Sharing")
 	self.controls.generateCodeLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionBuild,"TOPLEFT"}, 6, 14, 0, 16, "^7Generate a code to share this build with other Path of Building users:")
 	self.controls.generateCode = new("ButtonControl", {"LEFT",self.controls.generateCodeLabel,"RIGHT"}, 4, 0, 80, 20, "Generate", function()
 		self.controls.generateCodeOut:SetText(common.base64.encode(Deflate(self.build:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
@@ -185,9 +170,9 @@ You can get this from your web browser's cookies while logged into the Path of E
 
 	local getExportSitesFromImportList = function()
 		local exportWebsites = { }
-		for k,v in pairs(importWebsiteList) do
+		for k,v in pairs(buildSites.websiteList) do
 			-- if entry has fields needed for Export
-			if importWebsiteList[k].postUrl and importWebsiteList[k].postFields and importWebsiteList[k].codeOut then
+			if buildSites.websiteList[k].postUrl and buildSites.websiteList[k].postFields and buildSites.websiteList[k].codeOut then
 				table.insert(exportWebsites, v)
 			end
 		end
@@ -196,41 +181,14 @@ You can get this from your web browser's cookies while logged into the Path of E
 	local exportWebsitesList = getExportSitesFromImportList()
 
 	self.controls.exportFrom = new("DropDownControl", { "LEFT", self.controls.generateCodeCopy,"RIGHT"}, 8, 0, 120, 20, exportWebsitesList, function(_, selectedWebsite)
+		main.lastExportWebsite = selectedWebsite.id
 		self.exportWebsiteSelected = selectedWebsite.id
 	end)
-	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or "Pastebin", "id")
+	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or main.lastExportWebsite or "Pastebin", "id")
 	self.controls.generateCodeByLink = new("ButtonControl", { "LEFT", self.controls.exportFrom, "RIGHT"}, 8, 0, 100, 20, "Share", function()
-		local response = ""
-		local exportWebsite = { }
-		if self.controls.exportFrom.selIndex then
-			exportWebsite = exportWebsitesList[self.controls.exportFrom.selIndex]
-			response = LaunchSubScript([[
-				local code, proxyURL = ...
-				local curl = require("lcurl.safe")
-				local page = ""
-				local easy = curl.easy()
-				easy:setopt_url(']]..exportWebsite.postUrl..[[')
-				easy:setopt(curl.OPT_POST, true)
-				easy:setopt(curl.OPT_POSTFIELDS, ']]..exportWebsite.postFields..[['..code)
-				easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
-				if proxyURL then
-					easy:setopt(curl.OPT_PROXY, proxyURL)
-				end
-				easy:setopt_writefunction(function(data)
-					page = page..data
-					return true
-				end)
-				easy:perform()
-				local res = easy:getinfo_response_code()
-				easy:close()
-				if (res == 200) then
-					return page
-				else
-					return nil, page
-				end
-			]], "", "", self.controls.generateCodeOut.buf, launch.proxyURL)
-		end
-		if response ~= "" then
+		local exportWebsite = exportWebsitesList[self.controls.exportFrom.selIndex]
+		local response = buildSites.UploadBuild(self.controls.generateCodeOut.buf, exportWebsite)
+		if response then
 			self.controls.generateCodeOut:SetText("")
 			self.controls.generateCodeByLink.label = "Creating link..."
 			launch:RegisterSubScript(response, function(pasteLink, errMsg)
@@ -244,19 +202,58 @@ You can get this from your web browser's cookies while logged into the Path of E
 		end
 	end)
 	self.controls.generateCodeByLink.enabled = function()
-		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pastebin%.com") and not self.controls.generateCodeOut.buf:match("pobb%.in")
+		for _, exportSite in ipairs(exportWebsitesList) do
+			if #self.controls.generateCodeOut.buf > 0 and self.controls.generateCodeOut.buf:match(exportSite.matchURL) then
+				return false
+			end
+		end
+		return #self.controls.generateCodeOut.buf > 0
 	end
 	self.controls.exportFrom.enabled = function()
-		return #self.controls.generateCodeOut.buf > 0 and not self.controls.generateCodeOut.buf:match("pastebin%.com") and not self.controls.generateCodeOut.buf:match("pobb%.in")
+		for _, exportSite in ipairs(exportWebsitesList) do
+			if #self.controls.generateCodeOut.buf > 0 and self.controls.generateCodeOut.buf:match(exportSite.matchURL) then
+				return false
+			end
+		end
+		return #self.controls.generateCodeOut.buf > 0
 	end
 	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share' to shrink it.")
-	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter the code here:")
-	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 250, 20, "", nil, "^%w_%-=", nil, function(buf)
+	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter URL or code here:")
+
+	local importCodeHandle = function (buf)
+		self.importCodeSite = nil
+		self.importCodeDetail = ""
+		self.importCodeXML = nil
+		self.importCodeValid = false
+
 		if #buf == 0 then
-			self.importCodeState = nil
 			return
 		end
-		self.importCodeState = "INVALID"
+
+		if not self.build.dbFileName then
+			self.controls.importCodeMode.selIndex = 2
+		end
+
+		self.importCodeDetail = colorCodes.NEGATIVE.."Invalid input"
+		local urlText = buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
+		if urlText:match("youtube%.com/redirect%?") then
+			local nested_url = urlText:gsub(".*[?&]q=([^&]+).*", "%1")
+			urlText = UrlDecode(nested_url)
+		end
+
+		for j=1,#buildSites.websiteList do
+			if urlText:match(buildSites.websiteList[j].matchURL) then
+				self.controls.importCodeIn.text = urlText
+				self.importCodeValid = true
+				self.importCodeDetail = colorCodes.POSITIVE.."URL is valid ("..buildSites.websiteList[j].label..")"
+				self.importCodeSite = j
+				if buf ~= urlText then
+					self.controls.importCodeIn:SetText(urlText, false)
+				end
+				return
+			end
+		end
+
 		local xmlText = Inflate(common.base64.decode(buf:gsub("-","+"):gsub("_","/")))
 		if not xmlText then
 			return
@@ -264,29 +261,16 @@ You can get this from your web browser's cookies while logged into the Path of E
 		if launch.devMode and IsKeyDown("SHIFT") then
 			Copy(xmlText)
 		end
-		self.importCodeState = "VALID"
+		self.importCodeValid = true
+		self.importCodeDetail = colorCodes.POSITIVE.."Code is valid"
 		self.importCodeXML = xmlText
-		if not self.build.dbFileName then
-			self.controls.importCodeMode.selIndex = 2
+	end
+
+	local importSelectedBuild = function()
+		if not self.importCodeValid or self.importCodeFetching then
+			return
 		end
-	end)
-	self.controls.importCodeIn.enterFunc = function()
-		if self.importCodeState == "VALID" then
-			self.controls.importCodeGo.onClick()
-		end
-	end
-	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 4, 0, 0, 16)
-	self.controls.importCodeState.label = function()
-		return (self.importCodeState == "VALID" and colorCodes.POSITIVE.."Code is valid") or (self.importCodeState == "INVALID" and colorCodes.NEGATIVE.."Invalid code") or ""
-	end
-	self.controls.importCodePastebin = new("ButtonControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 90, 0, 160, 20, "Import from website...", function()
-		self:OpenImportFromWebsitePopup()
-	end)
-	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Import to this build", "Import to a new build" })
-	self.controls.importCodeMode.enabled = function()
-		return self.importCodeState == "VALID" and self.build.dbFileName
-	end
-	self.controls.importCodeGo = new("ButtonControl", {"TOPLEFT",self.controls.importCodeMode,"BOTTOMLEFT"}, 0, 8, 60, 20, "Import", function()
+
 		if self.controls.importCodeMode.selIndex == 1 then
 			main:OpenConfirmPopup("Build Import", colorCodes.WARNING.."Warning:^7 Importing to the current build will erase ALL existing data for this build.", "Import", function()
 				self.build:Shutdown()
@@ -298,9 +282,51 @@ You can get this from your web browser's cookies while logged into the Path of E
 			self.build:Init(false, "Imported build", self.importCodeXML)
 			self.build.viewMode = "TREE"
 		end
+	end
+
+	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle)
+	self.controls.importCodeIn.enterFunc = function()
+		if self.importCodeValid then
+			self.controls.importCodeGo.onClick()
+		end
+	end
+	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 8, 0, 0, 16)
+	self.controls.importCodeState.label = function()
+		return self.importCodeDetail or ""
+	end
+	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Import to this build", "Import to a new build" })
+	self.controls.importCodeMode.enabled = function()
+		return self.build.dbFileName and self.importCodeValid
+	end
+	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 8, 0, 160, 20, "Import", function()
+		if self.importCodeSite and not self.importCodeXML then
+			self.importCodeFetching = true
+			local selectedWebsite = buildSites.websiteList[self.importCodeSite]
+			buildSites.DownloadBuild(self.controls.importCodeIn.buf, selectedWebsite, function(isSuccess, data)
+				self.importCodeFetching = false
+				if not isSuccess then
+					self.importCodeDetail = colorCodes.NEGATIVE..data
+					self.importCodeValid = false
+				else
+					importCodeHandle(data)
+					importSelectedBuild()
+				end
+			end)
+			return
+		end
+
+		importSelectedBuild()
 	end)
+	self.controls.importCodeGo.label = function ()
+		return self.importCodeFetching and "Retrieving paste.." or "Import"
+	end
 	self.controls.importCodeGo.enabled = function()
-		return self.importCodeState == "VALID"
+		return self.importCodeValid and not self.importCodeFetching
+	end
+	self.controls.importCodeGo.enterFunc = function()
+		if self.importCodeValid then
+			self.controls.importCodeGo.onClick()
+		end
 	end
 end)
 
@@ -347,7 +373,11 @@ function ImportTabClass:DownloadCharacterList()
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(page, errMsg)
-		if errMsg == "Response code: 403" then
+		if errMsg == "Response code: 401" then
+			self.charImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
+			self.charImportMode = "GETSESSIONID"
+			return
+		elseif errMsg == "Response code: 403" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Account profile is private."
 			self.charImportMode = "GETSESSIONID"
 			return
@@ -680,7 +710,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		if item.name:match("Energy Blade") then
 			local oneHanded = false
 			for _, p in ipairs(itemData.properties) do
-				if self.build.data.weaponTypeInfo[p.name].oneHand then
+				if self.build.data.weaponTypeInfo[p.name] and self.build.data.weaponTypeInfo[p.name].oneHand then
 					oneHanded = true
 					break
 				end
@@ -775,11 +805,14 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		for _, req in ipairs(itemData.requirements) do
 			if req.name == "Level" then
 				item.requirements.level = req.values[1][1]
+			elseif req.name == "Class:" then
+				item.classRestriction = req.values[1][1]
 			end
 		end
 	end
 	item.enchantModLines = { }
 	item.scourgeModLines = { }
+	item.classRequirementModLines = { }
 	item.implicitModLines = { }
 	item.explicitModLines = { }
 	if itemData.enchantMods then
@@ -980,57 +1013,6 @@ function UrlDecode(url)
 	url = url:gsub("+", " ")
 	url = url:gsub("%%(%x%x)", HexToChar)
 	return url
-end
-
-function ImportTabClass:OpenImportFromWebsitePopup()
-	local controls = { }
-
-	controls.importAnchorPoint = new("Control", nil, 0, 0, 280, 0)
-	controls.importFromLabel = new("LabelControl", { "TOPLEFT", controls.importAnchorPoint, "BOTTOMLEFT"}, 15, 20, 0, 16, "Import from:")
-	controls.importFrom = new("DropDownControl", {"LEFT",controls.importFromLabel,"RIGHT"}, 8, 0, 140, 20, importWebsiteList, function(_, selectedWebsite)
-		self.importWebsiteSelected = selectedWebsite.id
-	end)
-	controls.importFrom:SelByValue( self.importWebsiteSelected or "Pastebin", "id" )
-	controls.editLabel = new("LabelControl", { "TOPLEFT", controls.importAnchorPoint, "BOTTOMLEFT"}, 15, 44, 0, 16, "Enter website link:")
-	controls.edit = new("EditControl", nil, 0, 64, 250, 18, "", nil, "^%w%p%s", nil, function(buf)
-		controls.msg.label = ""
-		if #controls.edit.buf > 0 then
-			for j=1,#importWebsiteList do
-				if controls.edit.buf:match(importWebsiteList[j].matchURL) then
-					controls.importFrom:SelByValue(importWebsiteList[j].id, "id")
-				end
-			end
-		end
-	end)
-	controls.msg = new("LabelControl", nil, 0, 82, 0, 16, "")
-	controls.import = new("ButtonControl", nil, -45, 104, 80, 20, "Import", function()
-		local selectedWebsite = importWebsiteList[controls.importFrom.selIndex]
-		controls.import.enabled = false
-		controls.msg.label = "Retrieving paste..."
-		controls.edit.buf = controls.edit.buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
-		if controls.edit.buf:match("youtube%.com/redirect%?") then
-			local nested_url = controls.edit.buf:gsub(".*[?&]q=([^&]+).*", "%1")
-			controls.edit.buf = UrlDecode(nested_url)
-		end
-		launch:DownloadPage(controls.edit.buf:gsub(selectedWebsite.regexURL,selectedWebsite.downloadURL), function(page, errMsg)
-			if errMsg then
-				controls.msg.label = "^1"..errMsg
-				controls.import.enabled = true
-			else
-				self.controls.importCodeIn:SetText(page, true)
-				main:ClosePopup()
-				main:SelectControl(self.controls.importCodeIn)
-			end
-		end)
-	end)
-	controls.import.enabled = function()
-		local selectedWebsite = importWebsiteList[controls.importFrom.selIndex]
-		return #controls.edit.buf > 0 and (controls.edit.buf:match(selectedWebsite.matchURL) or controls.edit.buf:match("youtube%.com/redirect%?"))
-	end
-	controls.cancel = new("ButtonControl", nil, 45, 104, 80, 20, "Cancel", function()
-		main:ClosePopup()
-	end)
-	main:OpenPopup(280, 130, "Import from website", controls, "import", "edit")
 end
 
 function ImportTabClass:ProcessJSON(json)

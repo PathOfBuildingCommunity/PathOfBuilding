@@ -67,6 +67,15 @@ Adds (5-15) to (100-140) Lightning Damage to Spells
 40% increased Strength Requirement
 Damage Penetrates 20% Lightning Resistance
 ]],[[
+The Annihilating Light
+Quarterstaff
+Source: Drops from unique{The Searing Exarch}
+Requires Level 68, 78 Str, 78 Int
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+(60-70)% reduced Elemental Resistances
+Deal Triple Damage with Elemental Skills
+]],[[
 Atziri's Rule
 Judgement Staff
 Requires Level 68, 113 Str, 113 Int
@@ -101,13 +110,6 @@ Implicits: 1
 (5-10)% increased Attack Speed
 Curse Enemies with Flammability on Block, with 20% increased Effect
 Reflects (22-44) Fire Damage to Attackers on Block
-]],[[
-Cane of Kulemak
-Serpentine Staff
-Requires Level 68, 85 Str, 85 Int
-Implicits: 1
-+20% Chance to Block Attack Damage while wielding a Staff
-(60-90)% increased Unveiled Modifier magnitudes
 ]],[[
 Cane of Unravelling
 Ezomyte Staff

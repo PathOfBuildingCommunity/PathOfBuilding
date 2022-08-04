@@ -45,6 +45,8 @@ colorCodes = {
 	BASILISK = "^x00CB3A",
 	CRUSADER = "^x2946FC",
 	EYRIE = "^xAAB7B8",
+	CLEANSING = "^xF24141",
+	TANGLE = "^x038C8C",
 	CHILLBG = "^x151e26",
 	FREEZEBG = "^x0c262b",
 	SHOCKBG = "^x191732",
@@ -56,6 +58,14 @@ colorCodes = {
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER
 colorCodes.INTELLIGENCE = colorCodes.WITCH
+
+colorCodes.LIFE = colorCodes.MARAUDER
+colorCodes.MANA = colorCodes.WITCH
+colorCodes.ES = colorCodes.SOURCE
+colorCodes.WARD = colorCodes.RARE
+colorCodes.EVASION = colorCodes.POSITIVE
+colorCodes.RAGE = colorCodes.WARNING
+colorCodes.PHYS = colorCodes.NORMAL
 
 ModFlag = { }
 -- Damage modes
@@ -131,7 +141,7 @@ local band = bit.band
 local MatchAllMask = bit.bnot(KeywordFlag.MatchAll)
 ---@param keywordFlags number The KeywordFlags to be compared to.
 ---@param modKeywordFlags number The KeywordFlags stored in the mod.
----@return boolean Whether the KeywordFlags in the mod are satified.
+---@return boolean Whether the KeywordFlags in the mod are satisfied.
 function MatchKeywordFlags(keywordFlags, modKeywordFlags)
 	local matchAll = band(modKeywordFlags, KeywordFlag.MatchAll) ~= 0
 	modKeywordFlags = band(modKeywordFlags, MatchAllMask)
@@ -249,7 +259,7 @@ SkillType = {
 	ThresholdJewelChaining= 102,
 	Slam = 103,
 	Stance = 104,
-	NonRepeatable = 105, -- Bload and Sand + Flesh and Stone
+	NonRepeatable = 105, -- Blood and Sand + Flesh and Stone
 	OtherThingUsesSkill = 106,
 	Steel = 107,
 	Hex = 108,
@@ -263,6 +273,8 @@ SkillType = {
 	FixedCastTime = 116,
 	RequiresOffHandNotWeapon = 117,
 	Link = 118,
+	Blessing = 119,
+	ZeroReservation = 120,
 }
 
 GlobalCache = { 

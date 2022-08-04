@@ -90,6 +90,7 @@ writeMods("../Data/ModItem.lua", function(mod)
 	return (mod.Domain == 1 or mod.Domain == 16)
 			and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5 or mod.GenerationType == 25 or mod.GenerationType == 24)
 			and not mod.Id:match("^Hellscape[UpDown]+sideMap")
+			and #mod.AuraFlags == 0
 end)
 writeMods("../Data/ModFlask.lua", function(mod)
 	return mod.Domain == 2 and (mod.GenerationType == 1 or mod.GenerationType == 2)

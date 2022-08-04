@@ -183,8 +183,9 @@ end
 function ModStoreClass:Max(cfg, ...)
 	local max
 	for _, value in ipairs(self:Tabulate("MAX", cfg, ...)) do
-		if value.mod.value > (max or 0) then
-			max = value.mod.value
+		local val = self:EvalMod(value.mod, cfg)
+		if val > (max or 0) then
+			max = val
 		end	
 	end
 	return max		
@@ -218,6 +219,17 @@ function ModStoreClass:GetMultiplier(var, cfg, noMod)
 end
 
 function ModStoreClass:GetStat(stat, cfg)
+	if stat == "ManaReservedPercent" then
+		local reservedPercentMana = 0
+		for _, activeSkill in ipairs(self.actor.activeSkillList) do
+			if (activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and activeSkill.buffList[1].name == cfg.skillName) then
+				local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
+				reservedPercentMana = manaBase / self.actor.output["Mana"] * 100
+				break
+			end
+		end
+		return m_min(reservedPercentMana, 100) --Don't let people get more than 100% reservation for aura effect.
+	end
 	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled
 	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
 		-- 0% reserved = total mana
@@ -554,7 +566,24 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SlotName" then
-			if not cfg or tag.slotName ~= cfg.slotName then
+			if not cfg then
+				return
+			end
+			local match = false
+			if tag.slotNameList then
+				for _, slot in ipairs(tag.slotNameList) do
+					if slot == cfg.slotName then
+						match = true
+						break
+					end
+				end
+			else
+				match = (tag.slotName == cfg.slotName)
+			end
+			if tag.neg then
+				match = not match
+			end
+			if not match then
 				return
 			end
 		elseif tag.type == "ModFlagOr" then

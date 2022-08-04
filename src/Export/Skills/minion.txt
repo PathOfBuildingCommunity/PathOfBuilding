@@ -97,9 +97,8 @@ local skills, mod, flag, skill = ...
 #flags attack melee
 #mods
 
-#skill DancingDervishCyclone
+#skill DancingDervishCycloneChannelled
 #flags attack area melee
-#baseMod skill("dpsMultiplier", 2)
 #baseMod skill("radiusIsWeaponRange", true)
 #mods
 
@@ -129,12 +128,6 @@ local skills, mod, flag, skill = ...
 
 #skill RelicTriggeredNova Nova
 #flags spell
-	statMap = {
-		["base_life_regeneration_rate_per_minute"] = {
-			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", effectName = "Holy Relic's Boon"}),
-			div = 60,
-		},
-	},
 #baseMod skill("showAverage", true)
 #mods
 
@@ -312,4 +305,8 @@ skills["InfernalLegion"] = {
 
 #skill GASummonReaperComboLeftSlash Combo Slash
 #flags attack area
+#mods
+
+#skill MPWExpeditionSummonedArbalestProjectile Projectile Attack
+#flags attack projectile
 #mods

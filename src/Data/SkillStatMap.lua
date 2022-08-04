@@ -211,6 +211,9 @@ return {
 ["triggered_by_spiritual_cry"] = {
 	skill("triggeredByGeneralsCry", true, { type = "SkillType", skillType = SkillType.Melee }, { type = "SkillType", skillType = SkillType.Attack }),
 },
+["holy_relic_trigger_on_parent_attack_%"] = {
+	skill("triggeredByParentAttack", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+},
 ["skill_can_own_mirage_archers"] = {
 	skill("triggeredByMirageArcher", true, { type = "SkillType", skillType = SkillType.MirageArcherCanUse }),
 },
@@ -323,6 +326,9 @@ return {
 ["base_mana_cost_-%"] = {
 	mod("ManaCost", "INC", nil),
 	mult = -1,
+},
+["base_mana_cost_+"] = {
+	mod("ManaCostNoMult", "BASE", nil),
 },
 ["no_mana_cost"] = {
 	mod("ManaCost", "MORE", nil),
@@ -881,6 +887,10 @@ return {
 ["ignite_duration_+%"] = {
 	mod("EnemyIgniteDuration", "INC", nil),
 },
+["lightning_ailment_duration_+%"] = {
+	mod("EnemyShockDuration", "INC", nil),
+	mod("EnemySapDuration", "INC", nil),
+},
 ["shock_duration_+%"] = {
 	mod("EnemyShockDuration", "INC", nil),
 },
@@ -984,6 +994,24 @@ return {
 ["base_deal_no_chaos_damage"] = {
 	flag("DealNoChaos"),
 },
+["all_damage_can_ignite"] = {
+	flag("PhysicalCanIgnite"),
+	flag("LightningCanIgnite"),
+	flag("ColdCanIgnite"),
+	flag("ChaosCanIgnite"),
+},
+["all_damage_can_freeze"] = {
+	flag("PhysicalCanFreeze"),
+	flag("LightningCanFreeze"),
+	flag("FireCanFreeze"),
+	flag("ChaosCanFreeze"),
+},
+["all_damage_can_shock"] = {
+	flag("PhysicalCanShock"),
+	flag("ColdCanShock"),
+	flag("FireCanShock"),
+	flag("ChaosCanShock"),
+},
 -- Other effects
 ["enemy_phys_reduction_%_penalty_vs_hit"] = {
 	mod("EnemyPhysicalDamageReduction", "BASE", nil),
@@ -1023,7 +1051,10 @@ return {
 	mod("EnemyCurseLimit", "BASE", nil),
 },
 ["consecrated_ground_enemy_damage_taken_+%"] = {
-	mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "OnConsecratedGround" }),
+	mod("DamageTakenConsecratedGround", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "OnConsecratedGround" }),
+},
+["consecrated_ground_effect_+%"] = {
+	mod("ConsecratedGroundEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 },
 ["base_inflict_cold_exposure_on_hit_%_chance"] = {
 	mod("ColdExposureChance", "BASE", nil),
@@ -1039,6 +1070,9 @@ return {
 	mod("ProjectileSpeed", "INC", nil),
 },
 ["base_arrow_speed_+%"] = {
+	mod("ProjectileSpeed", "INC", nil),
+},
+["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
 },
 ["projectile_base_number_of_targets_to_pierce"] = {
@@ -1357,6 +1391,9 @@ return {
 -- Skill type modifier
 --
 -- Trap
+["support_trap_damage_+%_final"] = {
+	mod("Damage", "MORE", nil, 0, KeywordFlag.Trap),
+},
 ["trap_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Trap),
 },
@@ -1493,6 +1530,9 @@ return {
 ["base_number_of_golems_allowed"] = {
 	mod("ActiveGolemLimit", "BASE", nil),
 },
+["base_number_of_arbalists"] = {
+	mod("ActiveArbalistLimit", "BASE", nil),
+},
 ["base_number_of_champions_of_light_allowed"] = {
 	mod("ActiveSentinelOfPurityLimit", "BASE", nil),
 },
@@ -1528,6 +1568,9 @@ return {
 },
 ["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
+},
+["maximum_life_+%_for_corpses_you_create"] = {
+	mod("CorpseLife", "INC", nil),
 },
 --Golem
 ["golem_buff_effect_+%"] = {
@@ -1565,7 +1608,7 @@ return {
 },
 -- Aura
 ["non_curse_aura_effect_+%"] = {
-	mod("AuraEffect", "INC", nil),
+	mod("AuraEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }),
 },
 ["base_mana_reservation_+%"] = {
 	mod("ManaReserved", "INC", nil)
@@ -1598,6 +1641,8 @@ return {
 },
 ["sigil_repeat_frequency_+%"] = {
 	mod("BrandActivationFrequency", "INC", nil)
+},
+["additive_cast_speed_modifiers_apply_to_sigil_repeat_frequency"] = {
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {

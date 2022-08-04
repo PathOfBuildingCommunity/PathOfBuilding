@@ -292,19 +292,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.itemsTab:SelectControl(slot)
 				build.viewMode = "ITEMS"
 			end
-
-		--[[ Only allow node editing in these situations:
-				Vaal (Glorious Vanity): 		any non-keystone
-				Maraketh (Brutal Restraint): 	only notables, +dex already set
-				Eternal (Elegant Hubris):		only notables, other passives are blank
-				Karui (Lethal Pride):			only notables, +str already set
-				Templar (Militant Faith):		any non-keystone, non-notables add devotion or replace with devotion
-		]]--
-		elseif hoverNode and hoverNode.conqueredBy and hoverNode.type ~= "Keystone" and
-				(hoverNode.conqueredBy.conqueror.type == "vaal"
-				or hoverNode.isNotable) then
-			build.treeTab:ModifyNodePopup(hoverNode, viewPort)
-			build.buildFlag = true
 		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
 			build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 			build.buildFlag = true
@@ -719,7 +706,21 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local radData = build.data.jewelRadius[jewel.jewelRadiusIndex]
 					local outerSize = radData.outer * scale
 					local innerSize = radData.inner * scale * 1.06
-					if jewel.title == "Brutal Restraint" then
+					if jewel.title == "Impossible Escape" then
+						-- Impossible Escape ring shows on the allocated Keystone
+						for keystoneName, _ in pairs(jewel.jewelData.impossibleEscapeKeystones) do
+							local keystone = spec.tree.keystoneMap[keystoneName]
+							if keystone and keystone.x and keystone.y then
+								innerSize = 150 * scale
+								local keyX, keyY = treeToScreen(keystone.x, keystone.y)
+								SetDrawColor(0.9,0.9,1,0.7)
+								DrawImage(self.jewelShadedOuterRing, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
+								DrawImage(self.jewelShadedOuterRingFlipped, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
+								DrawImage(self.jewelShadedInnerRing, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
+								DrawImage(self.jewelShadedInnerRingFlipped, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
+							end
+						end
+					elseif jewel.title == "Brutal Restraint" then
 						DrawImage(self.maraketh1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.maraketh2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 					elseif jewel.title == "Elegant Hubris" then
@@ -915,8 +916,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	end
 
 	local function addModInfoToTooltip(node, i, line)
-		if node.mods[i].list then
-			if launch.devModeAlt then
+		if node.mods[i] then
+			if launch.devModeAlt and node.mods[i].list then
 				-- Modifier debugging info
 				local modStr
 				for _, mod in pairs(node.mods[i].list) do
@@ -929,8 +930,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 					line = line .. "  " .. modStr
 				end
 			end
+			tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
 		end
-		tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
 	end
 
 	-- If node is a Mastery node, check if compare tree is on
@@ -939,7 +940,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	-- Then continue processing as normal
 	local masteryColor = ""
 	local mNode = node
-	local compareNode = self.compareSpec and self.compareSpec.nodes[node.id].alloc or false
+	local compareNode = self.compareSpec and self.compareSpec.nodes[node.id] and self.compareSpec.nodes[node.id].alloc or false
 	if node.type == "Mastery" then
 		if not node.alloc and compareNode then
 			mNode = self.compareSpec.nodes[node.id]
@@ -995,14 +996,6 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
-	-- Conqueror node editing
-	if node and node.conqueredBy and node.type ~= "Keystone" and
-			(node.conqueredBy.conqueror.type == "vaal"
-			or node.isNotable) then
-		tooltip:AddSeparator(14)
-		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the modifiers for this node")
-	end
-
 	-- Mod differences
 	if self.showStatDifferences then
 		local calcFunc, calcBase = build.calcsTab:GetMiscCalculator(build)
@@ -1032,7 +1025,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			-- Calculated the differences caused by allocating this node and all nodes along the path to it
 			if node.type == "Mastery" and node.allMasteryOptions then
 				pathNodes[node] = nil
-				nodeOutput = calcFunc()
+				nodeOutput = calcFunc({})
 			else
 				nodeOutput = calcFunc({ addNodes = { [node] = true } })
 			end

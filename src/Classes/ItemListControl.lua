@@ -6,8 +6,8 @@
 local pairs = pairs
 local t_insert = table.insert
 
-local ItemListClass = newClass("ItemListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
-	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, itemsTab.itemOrderList)
+local ItemListClass = newClass("ItemListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab, forceTooltip)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, itemsTab.itemOrderList, forceTooltip)
 	self.itemsTab = itemsTab
 	self.label = "^7All items:"
 	self.defaultText = "^x7F7F7FThis is the list of items that have been added to this build.\nYou can add items to this list by dragging them from\none of the other lists, or by clicking 'Add to build' when\nviewing an item."
@@ -43,15 +43,8 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	self.controls.deleteUnused = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, -4, 0, 100, 18, "Delete Unused", function()
 		local delList = {}
 		for _, itemId in pairs(self.list) do
-			if itemsTab.items[itemId].type == "Jewel" then
-				if self:FindSocketedJewel(itemId, false) == "" then
-					t_insert(delList, itemId)
-				end
-			else
-				local slot, itemSet = itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId])
-				if not slot then
-					t_insert(delList, itemId)
-				end
+			if not itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId]) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
+				t_insert(delList, itemId)
 			end
 		end
 		-- Delete in reverse order so as to not delete the wrong item whilst deleting
@@ -75,29 +68,53 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 end)
 
 function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)
+	if not self.itemsTab.items[jewelId] or self.itemsTab.items[jewelId].type ~= "Jewel" then
+		return nil
+	end
 	local treeTab = self.itemsTab.build.treeTab
+	local equipTree = nil
 	local matchActive = false
-	local outputString = ""
 	for specId = #treeTab.specList, 1, -1 do
 		local spec = treeTab.specList[specId]
 		for nodeId, itemId in pairs(spec.jewels) do
 			if itemId == jewelId and spec.nodes[nodeId] and spec.nodes[nodeId].alloc then
 				if excludeActiveSpec and (specId == treeTab.activeSpec or matchActive) then
+					equipTree = nil
 					matchActive = true
-					outputString = ""
 				else
-					outputString = spec.title or "Default"
+					equipTree = spec.title or "Default"
 				end
 			end
 		end
 	end
-	return outputString
+	return equipTree
+end
+
+function ItemListClass:FindEquippedAbyssJewel(jewelId, excludeActiveSet)
+	if not self.itemsTab.items[jewelId] or self.itemsTab.items[jewelId].base.subType ~= "Abyss" then
+		return nil
+	end
+	local equipSet = nil
+	local matchActive = false
+	for _, itemSet in pairs(self.itemsTab.itemSets) do
+		for slotName, slot in pairs(itemSet) do
+			if type(slot) == "table" and slot.selItemId == jewelId then
+				if excludeActiveSet and (itemSet == self.itemsTab.activeItemSet or matchActive) then
+					equipSet = nil
+					matchActive = true
+				else
+					equipSet = itemSet.title or "Default"
+				end
+			end
+		end
+	end
+	return equipSet
 end
 
 function ItemListClass:GetRowValue(column, index, itemId)
 	local item = self.itemsTab.items[itemId]
 	if column == 1 then
-		local used = self:FindSocketedJewel(itemId, true)
+		local used = self:FindEquippedAbyssJewel(itemId, true) or self:FindSocketedJewel(itemId, true) or ""
 		if used == "" then
 			local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
 			if not slot then
@@ -176,7 +193,7 @@ end
 
 function ItemListClass:OnSelCopy(index, itemId)
 	local item = self.itemsTab.items[itemId]
-	Copy(item:BuildRaw():gsub("\n","\r\n"))
+	Copy(item:BuildRaw():gsub("\n", "\r\n"))
 end
 
 function ItemListClass:OnSelDelete(index, itemId)
@@ -190,17 +207,27 @@ function ItemListClass:OnSelDelete(index, itemId)
 			self.selValue = nil
 		end)
 	else
-		local equipTree = self:FindSocketedJewel(itemId, true)
-		if equipTree ~= "" then
-			main:OpenConfirmPopup("Delete Item", item.name.." is currently equipped in passive tree '"..equipTree.."'.\nAre you sure you want to delete it?", "Delete", function()
+		local equipSet = self:FindEquippedAbyssJewel(itemId, true)
+		if equipSet then
+			local inSet = equipSet and (" in set '"..(equipSet.title or "Default").."'") or ""
+			main:OpenConfirmPopup("Delete Item", item.name.." is currently equipped in an Abyssal Socket"..inSet..".\nAre you sure you want to delete it?", "Delete", function()
 				self.itemsTab:DeleteItem(item)
 				self.selIndex = nil
 				self.selValue = nil
 			end)
 		else
-			self.itemsTab:DeleteItem(item)
-			self.selIndex = nil
-			self.selValue = nil
+			local equipTree = self:FindSocketedJewel(itemId, true)
+			if equipTree then
+				main:OpenConfirmPopup("Delete Item", item.name.." is currently equipped in passive tree '"..equipTree.."'.\nAre you sure you want to delete it?", "Delete", function()
+					self.itemsTab:DeleteItem(item)
+					self.selIndex = nil
+					self.selValue = nil
+				end)
+			else
+				self.itemsTab:DeleteItem(item)
+				self.selIndex = nil
+				self.selValue = nil
+			end
 		end
 	end
 end

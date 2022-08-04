@@ -148,7 +148,7 @@ end
 -- Build table of stats for the given skill instance
 function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 	local stats = { }
-	if skillInstance.quality > 0 then
+	if skillInstance.quality > 0 and grantedEffect.qualityStats then
 		local qualityId = skillInstance.qualityId or "Default"
 		local qualityStats = grantedEffect.qualityStats[qualityId]
 		if not qualityStats then
@@ -162,28 +162,33 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 	local availableEffectiveness
 	local actorLevel = skillInstance.actorLevel or level.levelRequirement
 	for index, stat in ipairs(grantedEffect.stats) do
-		local statValue
-		if level.statInterpolation[index] == 3 then
-			-- Effectiveness interpolation
-			if not availableEffectiveness then
-				availableEffectiveness = 
-					(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
-					* (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)
+		-- Static value used as default (assumes statInterpolation == 1)
+		local statValue = level[index] or 1
+		if level.statInterpolation then
+			if level.statInterpolation[index] == 3 then
+				-- Effectiveness interpolation
+				if not availableEffectiveness then
+					availableEffectiveness = 
+						(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
+						* (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)
+				end
+				statValue = round(availableEffectiveness * level[index])
+			elseif level.statInterpolation[index] == 2 then
+				-- Linear interpolation; I'm actually just guessing how this works
+				local nextLevel = m_min(skillInstance.level + 1, #grantedEffect.levels)
+				local nextReq = grantedEffect.levels[nextLevel].levelRequirement
+				local prevReq = grantedEffect.levels[nextLevel - 1].levelRequirement
+				local nextStat = grantedEffect.levels[nextLevel][index]
+				local prevStat = grantedEffect.levels[nextLevel - 1][index]
+				statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
 			end
-			statValue = round(availableEffectiveness * level[index])
-		elseif level.statInterpolation[index] == 2 then
-			-- Linear interpolation; I'm actually just guessing how this works
-			local nextLevel = m_min(skillInstance.level + 1, #grantedEffect.levels)
-			local nextReq = grantedEffect.levels[nextLevel].levelRequirement
-			local prevReq = grantedEffect.levels[nextLevel - 1].levelRequirement
-			local nextStat = grantedEffect.levels[nextLevel][index]
-			local prevStat = grantedEffect.levels[nextLevel - 1][index]
-			statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
-		else
-			-- Static value
-			statValue = level[index] or 1
 		end
 		stats[stat] = (stats[stat] or 0) + statValue
+	end
+	if grantedEffect.constantStats then
+		for _, stat in ipairs(grantedEffect.constantStats) do
+			stats[stat[1]] = (stats[stat[1]] or 0) + (stat[2] or 0)
+		end
 	end
 	return stats
 end
@@ -203,6 +208,8 @@ function calcLib.getConvertedModTags(mod, multiplier, minionMods)
 			local copy = copyTable(value)
 			copy.limit = copy.limit * multiplier
 			modifiers[k] = copy
+		else
+			modifiers[k] = copyTable(value)
 		end
 	end
 	return modifiers

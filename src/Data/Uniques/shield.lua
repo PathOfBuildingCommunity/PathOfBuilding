@@ -71,6 +71,20 @@ Implicits: 1
 {variant:1,2}10% chance to Curse Non-Cursed Enemies with Enfeeble on Hit, with 80% increased Effect
 {variant:3,4}25% chance to Curse Non-Cursed Enemies with Enfeeble on Hit, with 80% increased Effect
 ]],[[
+Dawnbreaker
+Colossal Tower Shield
+Source: Drops from unique{The Searing Exarch}
+Requires Level 67, 159 Str
+Implicits: 1
++(10–20) to maximum Life
+(150–250)% increased Armour
++(20–25)% Chance to Block
+-1% Chance to Block Attack Damage for every 200 Fire Damage taken from Hits Recently
+(10–20)% of Cold Damage taken as Fire
+(10–20)% of Lightning Damage taken as Fire
+(10–20)% of Physical Damage taken as Fire
+Scorch Enemies in Close Range when you Block
+]],[[
 Lioneye's Remorse
 Pinnacle Tower Shield
 Variant: Pre 2.6.0
@@ -174,10 +188,11 @@ Tukohama's Fortress
 Ebony Tower Shield
 Variant: Pre 3.0.0
 Variant: Pre 3.7.0
+Variant: Pre 3.17.0
 Variant: Current
 Requires Level 61, 159 Str
 Implicits: 1
-{variant:2,3}+(20-30) to maximum Life
+{variant:2,3,4}+(20-30) to maximum Life
 40% increased Totem Damage
 +(80-100) to maximum Life
 Can have up to 1 additional Totem summoned at a time
@@ -187,6 +202,8 @@ Blood Magic
 ]],[[
 Replica Tukohama's Fortress
 Ebony Tower Shield
+Variant: Pre 3.17.0
+Variant: Current
 League: Heist
 Requires Level 61, 159 Str
 Implicits: 1
@@ -196,7 +213,7 @@ You can Cast an additional Brand
 20% increased Critical Strike Chance per Brand
 40% increased Brand Damage
 Blood Magic
-Mortal Conviction
+{variant:1}Mortal Conviction
 ]],
 -- Shield: Evasion
 [[
@@ -387,7 +404,7 @@ Implicits: 1
 0.4% of Physical Attack Damage Leeched as Life
 +5% Chance to Block
 Reflects 1 to 1000 Physical Damage to Attackers on Block
-{variant:2,3}10% of Damage Reflected Gained as Life
+{variant:2,3}10% of Damage you Reflect to Enemies when Hit is gained as Life
 ]],
 -- Shield: Energy Shield
 [[
