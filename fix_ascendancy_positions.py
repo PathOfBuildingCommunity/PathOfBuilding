@@ -5,7 +5,6 @@ import json
 import logging
 import os
 import pathlib
-import random
 
 logging.basicConfig(level=logging.INFO)
 
@@ -42,22 +41,31 @@ NODE_GROUPS = {
     "Ascendant": Point2D(-7800, 7200),
 }
 EXTRA_NODES = {
-	"Elementalist": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True}, 
-		"offset": Point2D(0, -1000)}],
-	"Hierophant": [{"Node": {"name": "Searing Purity", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrInt.png", "isNotable": True}, 
+	"Necromancer": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, "skill" : 27602}, 
+		"offset": Point2D(-1500, -1000)}],
+	"Guardian": [{"Node": {"name": "Searing Purity", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrInt.png", "isNotable": True, "skill" : 57568}, 
+		"offset": Point2D(-1000, 1500)}],
+	"Berserker": [{"Node": {"name": "Indomitable Resolve", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Str.png", "isNotable": True, "skill" : 52435}, 
 		"offset": Point2D(-1000, 0)}],
-	"Berserker": [{"Node": {"name": "Indomitable Resolve", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Str.png", "isNotable": True}, 
-		"offset": Point2D(-1000, 0)}],
-	"Ascendant": [{"Node": {"name": "Unleashed Potential", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/SkillPoint.png"}, 
+	"Ascendant": [{"Node": {"name": "Unleashed Potential", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/SkillPoint.png", "skill" : 19355}, 
 		"offset": Point2D(-1000, 1000)}],
-	"Champion": [{"Node": {"name": "Fatal Flourish", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrDex.png", "isNotable": True}, 
+	"Champion": [{"Node": {"name": "Fatal Flourish", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/StrDex.png", "isNotable": True, "skill" : 42469}, 
 		"offset": Point2D(0, 1000)}],
-	"Pathfinder": [{"Node": {"name": "Fury of Nature", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Dex.png", "isNotable": True}, 
-		"offset": Point2D(1000, 0)}],
-	"Trickster": [{"Node": {"name": "Soul Drinker", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/DexInt.png", "isNotable": True}, 
-		"offset": Point2D(1000, 0)}],
+	"Raider": [{"Node": {"name": "Fury of Nature", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Dex.png", "isNotable": True, "skill" : 18054}, 
+		"offset": Point2D(1000, -1500)}],
+	"Saboteur": [{"Node": {"name": "Soul Drinker", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/DexInt.png", "isNotable": True, "skill" : 45999}, 
+		"offset": Point2D(1000, -1500)}],
 }
-EXTRA_NODES_STATS = { #these should not be hardcoded here, but should by inserted later via the exporter from the ggpk
+EXTRA_NODE_IDS = { #these can be any value but for now they are hardcoded to what random numbers generated last time for consistancy, the "hash" value is what we should probs use though as its the value in the ggpk
+	"Nine Lives": {"NodeID": 33600, "GroupID" : 44472},
+	"Searing Purity": {"NodeID": 22278, "GroupID" : 50933},
+	"Soul Drinker": {"NodeID": 19264, "GroupID" : 37841},
+	"Fury of Nature": {"NodeID": 62630, "GroupID" : 56600},
+	"Fatal Flourish": {"NodeID": 11264, "GroupID" : 63033},
+	"Indomitable Resolve": {"NodeID": 15386, "GroupID" : 25519},
+	"Unleashed Potential": {"NodeID": 55193, "GroupID" : 60495},
+}
+EXTRA_NODES_STATS = { # these should not be hardcoded here, but should by inserted later via the exporter from the ggpk (they are AsendencySpecialEdlritch in PassiveSkills.dat, though reminder text seems to be missing)
 	"Nine Lives": {"stats": ["25% of Damage taken Recouped as Life, Mana and Energy Shield", "Recoup Effects instead occur over 3 seconds"], "reminderText": ["(Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"]}, 
 	"Searing Purity": {"stats": ["45% of Chaos Damage taken as Fire Damage", "45% of Chaos Damage taken as Lightning Damage"], "reminderText": []},
 	"Soul Drinker": {"stats": ["2% of Damage Leeched as Energy Shield", "20% increased Attack and Cast Speed while Leeching Energy Shield", "Energy Shield Leech effects are not removed when Energy Shield is Filled"], "reminderText": ["(Leeched Energy Shield is recovered over time. Multiple Leeches can occur simultatiously, up to a maximum rate)"]},
@@ -98,26 +106,15 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
         group["y"] += offset.y
     for ascendancy in EXTRA_NODES:
         for node in EXTRA_NODES[ascendancy]:
-            node["Node"]["skill"] = random.randint(0, 65535)
-            while str(node["Node"]["skill"]) in data["nodes"]:
-                node["Node"]["skill"] = random.randint(0, 65535)
-            newGroup = random.randint(0, 65535)
-            while str(newGroup) in data["groups"]:
-                newGroup = random.randint(0, 65535)
-            data["groups"][newGroup] = {"x": NODE_GROUPS[ascendancy].x + node["offset"].x, "y": NODE_GROUPS[ascendancy].y + node["offset"].y, "orbits": [0], "nodes": [node["Node"]["skill"]]}
-            node["Node"]["ascendancyName"] = ascendancy
-            node["Node"]["group"] = newGroup
-            node["Node"]["orbit"] = 0
-            node["Node"]["orbitIndex"] = 0
-            node["Node"]["out"] = []
-            node["Node"]["in"] = []
+            if str(EXTRA_NODE_IDS[node["Node"]["name"]]["GroupID"]) in data["groups"]: #using hardcoded value from last time, can use another method instead, like just grabbing the next avalible value
+                print("GroupID already taken")
+                return
+            node["Node"]["group"] = EXTRA_NODE_IDS[node["Node"]["name"]]["GroupID"]
+            data["groups"][node["Node"]["group"]] = {"x": NODE_GROUPS[ascendancy].x + node["offset"].x, "y": NODE_GROUPS[ascendancy].y + node["offset"].y, "orbits": [0], "nodes": [node["Node"]["skill"]]}
+            data["nodes"][node["Node"]["skill"]] = node["Node"] | {"ascendancyName": ascendancy, "orbit": 0, "orbitIndex": 0, "out": [], "in": [], "stats": [], "reminderText": []}
             if node["Node"]["name"] in EXTRA_NODES_STATS:
-                node["Node"]["stats"] = EXTRA_NODES_STATS[node["Node"]["name"]]["stats"]
-                node["Node"]["reminderText"] = EXTRA_NODES_STATS[node["Node"]["name"]]["reminderText"]
-            else:
-                node["Node"]["stats"] = []
-                node["Node"]["reminderText"] = []
-            data["nodes"][node["Node"]["skill"]] = node["Node"]
+                data["nodes"][node["Node"]["skill"]]["stats"] = EXTRA_NODES_STATS[node["Node"]["name"]]["stats"]
+                data["nodes"][node["Node"]["skill"]]["reminderText"] = EXTRA_NODES_STATS[node["Node"]["name"]]["reminderText"]
     with open(path, "w", encoding="utf-8") as o:
         json.dump(data, o, indent=4)
 
