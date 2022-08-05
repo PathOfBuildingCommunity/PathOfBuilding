@@ -6310,10 +6310,24 @@ return {
 		},
 		[5]={
 			list=false,
+			name="",
+			refTo="",
+			type="Enum",
+			width=30
+		},
+		[6]={
+			list=false,
 			name="Proxy",
 			refTo="PassiveSkills",
 			type="Key",
 			width=210
+		},
+		[7]={
+			list=true,
+			name="StartIndice",
+			refTo="",
+			type="Int",
+			width=150
 		}
 	},
 	PassiveSkillBuffs={
@@ -6684,6 +6698,20 @@ return {
 			list=false,
 			name="MasteryGroup",
 			refTo="PassiveSkillMasteryGroups",
+			type="Key",
+			width=150
+		},
+		[32]={
+			list=false,
+			name="AtlasMastery_rid",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[33]={
+			list=false,
+			name="SoundEffect",
+			refTo="SoundEffects",
 			type="Key",
 			width=150
 		}
