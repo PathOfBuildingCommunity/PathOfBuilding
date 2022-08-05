@@ -6310,24 +6310,10 @@ return {
 		},
 		[5]={
 			list=false,
-			name="",
-			refTo="",
-			type="Enum",
-			width=30
-		},
-		[6]={
-			list=false,
 			name="Proxy",
 			refTo="PassiveSkills",
 			type="Key",
 			width=210
-		},
-		[7]={
-			list=true,
-			name="StartIndice",
-			refTo="",
-			type="Int",
-			width=150
 		}
 	},
 	PassiveSkillBuffs={
