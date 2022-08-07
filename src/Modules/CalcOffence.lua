@@ -2969,7 +2969,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.BaseBleedDPS = baseVal * effectMod * rateMod * effMult
 				bleedStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.BleedDuration / output.Time)
 				if skillFlags.totem then
-					bleedStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.BleedDuration / output.Time  * activeTotems)
+					bleedStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.BleedDuration / output.Time * activeTotems)
 				end
 				local chanceToHitInOneSecInterval = 1 - m_pow(1 - (output.HitChance / 100), output.Speed)
 				output.BleedDPS = (baseVal * effectMod * rateMod * effMult) * bleedStacks * chanceToHitInOneSecInterval
