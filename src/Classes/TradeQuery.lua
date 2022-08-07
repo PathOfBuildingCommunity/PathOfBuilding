@@ -436,7 +436,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 			self.tradeQueryRequests:SearchWithQuery(self.pbLeagueRealName, query, 
 				function(items, errMsg)
 					if errMsg then
-						self:SetNotice(context.controls.pbNotice, "Error: " .. errMsg)
+						self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
 						context.controls["priceButton"..context.str_cnt].label =  "Price Item"
 						return
 					else

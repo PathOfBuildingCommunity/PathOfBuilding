@@ -100,7 +100,7 @@ function TradeQueryRequestsClass:PerformSearch(league, query, callback)
 						errMsg = response.error.message
 					end
 				else
-					ConPrintf("Found 0 results for " .. "https://www.pathofexile.com/trade/search/Standard/" .. response.id)
+					ConPrintf("Found 0 results for " .. "https://www.pathofexile.com/trade/search/" .. league .. "/" .. response.id)
 					errMsg = "No Matching Results Found"
 				end
 				return callback(response, errMsg)
