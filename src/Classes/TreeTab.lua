@@ -198,15 +198,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	-- Determine positions if one line of controls doesn't fit in the screen width
 	local twoLineHeight = 24
-	-- Calculate offset caused by compare and/or "Show Node Power" is selected
-	local offset = 0
-	if self.isComparing then
-		offset = offset + 198
-	end
-	if self.viewer.showHeatMap then
-		offset = offset + 316
-	end
-	if viewPort.width >= 1168 + offset then
+	if viewPort.width >= 1168 + (self.isComparing and 198 or 0) + (self.viewer.showHeatMap and 316 or 0) then
 		twoLineHeight = 0
 		self.controls.findTimelessJewel:SetAnchor("LEFT", self.controls.treeSearch, "RIGHT", 8, 0)
 		if self.controls.powerReportList then
