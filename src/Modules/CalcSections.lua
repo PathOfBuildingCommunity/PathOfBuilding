@@ -41,7 +41,7 @@ local fireConvert = {
 	"FireDamageGainAsChaos", "ElementalDamageGainAsChaos", "NonChaosDamageGainAsChaos"
 }
 
--- format {width, id, group, color, subection:{default hidden, label, data:{}}}
+-- format {width, id, group, color, subsection:{default hidden, label, data:{}}}
 return {
 { 3, "HitDamage", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill Hit Damage", data = {
 	extra = "{output:DisplayDamage}",
