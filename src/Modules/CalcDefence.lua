@@ -1043,20 +1043,15 @@ function calcs.defence(env, actor)
 			local reduction = modDB:Flag(nil, "SelfIgnore"..damageType.."DamageReduction") and 0 or output[damageType.."DamageReduction"]
 			output[damageType.."TakenDotMult"] = (1 - resist / 100) * (1 - reduction / 100) * (1 + takenInc / 100) * takenMore
 			if breakdown then
-				breakdown[damageType.."TakenDotMult"] = { s_format("DoT Multiplier:"), }
-				if resist ~= 0 then
-					t_insert(breakdown[damageType.."TakenDotMult"], s_format("%.2f ^8(resistance)", (1 - resist / 100)))
-				end
-				if reduction ~= 0 then
-					t_insert(breakdown[damageType.."TakenDotMult"], s_format("%.2f ^8(%s damage reduction)", (1 - reduction / 100), damageType:lower()))
-				end
-				if takenInc ~= 0 then
-					t_insert(breakdown[damageType.."TakenDotMult"], s_format("%.2f ^8(increased/reduced damage taken)", (1 + takenInc / 100)))
-				end
-				if takenMore ~= 1 then
-					t_insert(breakdown[damageType.."TakenDotMult"], s_format("%.2f ^8(more/less damage taken)", takenMore))
-				end
-				t_insert(breakdown[damageType.."TakenDotMult"], s_format("= %.2f", output[damageType.."TakenDotMult"]))
+				breakdown[damageType.."TakenDotMult"] = { }
+				breakdown.multiChain(breakdown[damageType.."TakenDotMult"], {
+					label = "DoT Multiplier:",
+					{ "%.2f ^8(resistance)", (1 - resist / 100) },
+					{ "%.2f ^8(%s damage reduction)", (1 - reduction / 100), damageType:lower() },
+					{ "%.2f ^8(increased/reduced damage taken)", (1 + takenInc / 100) },
+					{ "%.2f ^8(more/less damage taken)", takenMore },
+					total = s_format("= %.2f", output[damageType.."TakenDotMult"]),
+				})
 			end
 		end
 	end
