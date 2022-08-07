@@ -18,16 +18,17 @@ local parseVeiledModName = function(string)
 	gsub("(%d)", " %1 "))
 end
 
-local veiledModIsActive = function(mod, baseType, specificType)
+local veiledModIsActive = function(mod, baseType, specificType1, specificType2)
 	local baseIndex = isValueInTable(mod.weightKey, baseType)
-	local typeIndex = isValueInTable(mod.weightKey, specificType)
-	return (typeIndex and mod.weightVal[typeIndex] > 0) or (not typeIndex and baseIndex and mod.weightVal[baseIndex] > 0)
+	local typeIndex1 = isValueInTable(mod.weightKey, specificType1)
+	local typeIndex2 = isValueInTable(mod.weightKey, specificType2)
+	return (typeIndex1 and mod.weightVal[typeIndex1] > 0) or (typeIndex2 and mod.weightVal[typeIndex2] > 0) or (not typeIndex1 and not typeIndex2 and baseIndex and mod.weightVal[baseIndex] > 0)
 end
 
-local getVeiledMods = function (baseType, specificType, canHaveCatarinaMod)
+local getVeiledMods = function (veiledPool, baseType, specificType1, specificType2)
 	local veiledMods = { }
 	for veiledModIndex, veiledMod in pairs(data.veiledMods) do
-		if veiledModIsActive(veiledMod, baseType, specificType) then
+		if veiledModIsActive(veiledMod, baseType, specificType1, specificType2) then
 			local veiledName = parseVeiledModName(veiledModIndex)
 
 			veiledName = "("..veiledMod.type..") "..veiledName
@@ -37,7 +38,11 @@ local getVeiledMods = function (baseType, specificType, canHaveCatarinaMod)
 				veiled.veiledLines[line] = value
 			end
 
-			if (canHaveCatarinaMod or (veiledMod.affix ~= "Catarina's" and veiledMod.affix ~= "Haku's")) then
+			if veiledPool == "base" and (veiledMod.affix == "Chosen" or veiledMod.affix == "of the Order") then
+				table.insert(veiledMods, veiled)
+			elseif veiledPool == "catarina" and (veiledMod.affix == "Catarina's" or veiledMod.affix == "Chosen" or veiledMod.affix == "of the Order") then
+				table.insert(veiledMods, veiled)
+			elseif veiledPool == "all" then
 				table.insert(veiledMods, veiled)
 			end
 		end
@@ -46,14 +51,14 @@ local getVeiledMods = function (baseType, specificType, canHaveCatarinaMod)
 	return veiledMods
 end
 
-local paradoxicaMods = getVeiledMods("weapon", "one_hand_weapon", false)
+local paradoxicaMods = getVeiledMods("base", "weapon", "one_hand_weapon")
 local paradoxica = {
 	"Paradoxica",
 	"Vaal Rapier",
 	"League: Betrayal",
 	"Has Alt Variant: true",
-	"Selected Variant: 1",
-	"Selected Alt Variant: 20"
+	"Selected Variant: 4",
+	"Selected Alt Variant: 16"
 }
 
 for index, mod in pairs(paradoxicaMods) do
@@ -80,7 +85,7 @@ end
 table.insert(paradoxica, "Attacks with this Weapon deal Double Damage")
 table.insert(data.uniques.generated, table.concat(paradoxica, "\n"))
 
-local caneOfKulemakMods = getVeiledMods("weapon", "staff", true)
+local caneOfKulemakMods = getVeiledMods("catarina", "weapon", "staff", "two_hand_weapon")
 local caneOfKulemak = {
 	"Cane of Kulemak",
 	"Serpentine Staff",
@@ -107,7 +112,7 @@ end
 
 table.insert(data.uniques.generated, table.concat(caneOfKulemak, "\n"))
 
-local replicaParadoxicaMods = getVeiledMods("weapon", "one_hand_weapon", true)
+local replicaParadoxicaMods = getVeiledMods("all", "weapon", "one_hand_weapon")
 local replicaParadoxica = {
 	"Replica Paradoxica",
 	"Vaal Rapier",
@@ -141,7 +146,7 @@ end
 
 table.insert(data.uniques.generated, table.concat(replicaParadoxica, "\n"))
 
-local queensHungerMods = getVeiledMods("body_armour", "int_armour", false)
+local queensHungerMods = getVeiledMods("base", "body_armour", "int_armour")
 local queensHunger = {
 	"The Queen's Hunger",
 	"Vaal Regalia",
