@@ -1134,7 +1134,7 @@ function calcs.defence(env, actor)
 			output[damageType.."TakenReflectMult"] = finalReflect
 		end
 		if breakdown then
-			breakdown[damageType.."TakenHitMult"] = { }	
+			breakdown[damageType.."TakenHitMult"] = { }
 			if resist ~= 0 then
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format(s_format("Resistance: %.2f", 1 - resist / 100)))
 			end
