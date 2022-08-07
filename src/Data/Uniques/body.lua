@@ -1014,16 +1014,17 @@ Lacquered Garb
 Variant: Pre 1.3.0
 Variant: Pre 3.0.0
 Variant: Pre 3.5.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 52, 76 Dex, 76 Int
 {variant:1,2,3}(110-150)% increased Evasion and Energy Shield
-{variant:4}(300-400)% increased Evasion and Energy Shield
+{variant:4,5}(300-400)% increased Evasion and Energy Shield
 {variant:1,2}+(90-110) to maximum Mana
-{variant:3,4}+(100-150) to maximum Mana
+{variant:3,4,5}+(100-150) to maximum Mana
 {variant:1,2}(40-50)% increased Mana Regeneration Rate
 {variant:1}When hit, 10% of Damage is taken from Mana before Life
 {variant:3,4}10% of Damage is taken from Mana before Life
-{variant:3,4}1% of Mana Regenerated per second
+{variant:3,4,5}1% of Mana Regenerated per second
 Mind Over Matter
 ]],[[
 Dendrobate
