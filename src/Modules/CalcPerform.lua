@@ -2311,10 +2311,6 @@ function calcs.perform(env, avoidCache)
 			local maximum = m_min((m_floor(rate * duration) - 1), 7)
 			activeSkill.skillModList:NewMod("Multiplier:ScorchingRayMaxStages", "BASE", maximum, "Base")
 			activeSkill.skillModList:NewMod("Multiplier:ScorchingRayStageAfterFirst", "BASE", maximum, "Base")
-			if maximum >= 7 then
-				activeSkill.skillModList:NewMod("Condition:ScorchingRayMaxStages", "FLAG", true, "Config")
-				enemyDB:NewMod("FireResist", "BASE", -25, "Scorching Ray", { type = "GlobalEffect", effectType = "Debuff" } )
-			end
 		end
 	end
 
