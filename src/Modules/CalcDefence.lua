@@ -33,7 +33,7 @@ function calcs.hitChance(evasion, accuracy)
 	return m_max(m_min(round(rawChance), 100), 5)	
 end
 
--- Calculate physical damage reduction from armour, float
+-- Calculate damage reduction from armour, float
 function calcs.armourReductionF(armour, raw)
 	if armour == 0 and raw == 0 then
 		return 0
@@ -41,7 +41,7 @@ function calcs.armourReductionF(armour, raw)
 	return (armour / (armour + raw * 5) * 100)
 end
 
--- Calculate physical damage reduction from armour, int
+-- Calculate damage reduction from armour, int
 function calcs.armourReduction(armour, raw)
 	return round(calcs.armourReductionF(armour, raw))
 end
