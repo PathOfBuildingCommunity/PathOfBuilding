@@ -1080,8 +1080,7 @@ function calcs.defence(env, actor)
 		local damage = output[damageType.."TakenDamage"]
 		local armourReduct = 0
 		local resMult = 1 - (resist - enemyPen) / 100
-		local reductMult = (1 - m_max(m_min(output.DamageReductionMax, reduction - enemyOverwhelm), 0) / 100)
-		local baseMult = resMult * reductMult
+		local reductMult = 1
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks")
 		elseif damageCategoryConfig == "Average" then
@@ -1090,9 +1089,8 @@ function calcs.defence(env, actor)
 		if (modDB:Flag(nil, "ArmourAppliesTo"..damageType.."DamageTaken")) and not modDB:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") then
 			armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage * resMult)
 			armourReduct = m_min(output.DamageReductionMax, armourReduct)
-			reductMult = (1 - m_max(m_min(output.DamageReductionMax, armourReduct + reduction - enemyOverwhelm), 0) / 100)
-			baseMult = reductMult * resMult
 		end
+		reductMult = (1 - m_max(m_min(output.DamageReductionMax, armourReduct + reduction - enemyOverwhelm), 0) / 100)
 		output[damageType.."DamageReduction"] = 100 - reductMult * 100
 		if reductMult ~= 1 then
 			if breakdown and reductMult ~= 1 then
@@ -1113,6 +1111,7 @@ function calcs.defence(env, actor)
 				end
 			end
 		end
+		local baseMult = resMult * reductMult
 		local takenMult = output[damageType.."TakenHitMult"]
 		local spellSuppressMult = 1
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
