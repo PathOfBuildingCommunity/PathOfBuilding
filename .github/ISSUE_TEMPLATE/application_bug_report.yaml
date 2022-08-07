@@ -1,5 +1,5 @@
-name: Misc bug report
-description: Create a generic bug report to help us fix an issue
+name: Application Bug report
+description: Create a bug report to help us fix an issue in path of building
 labels: [bug]
 body:
   - type: markdown
@@ -21,27 +21,20 @@ body:
       options:
         - label: I've checked for duplicate issues by using the search function of the [issue tracker](https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues)
           required: true
-  - type: checkboxes
-    id: validity
-    attributes:
-      label: Check for support
-      options:
-        - label: I've checked that this is supposed to be supported. If it isn't please open a feature request instead (Red text is a feature request).
-          required: true
   - type: textarea
     id: expected
     attributes:
-      label: What is the behaviour/value ingame?
+      label: How is Path of Building expected to behave?
       description: Please write a clear and concise description of what should happen.
-      placeholder: E.g. When I'm clicking on [...], I expect [...].
+      placeholder: E.g. When I resize PoB all [...] should be accessible.
     validations:
       required: true
   - type: textarea
     id: actual
     attributes:
-      label: What is the behaviour/value in Path of Building?
+      label: How does Path of Building behave?
       description: Please write a clear and concise description of what actually happens.
-      placeholder: E.g. When I'm hovering over [...], PoB displays [...].
+      placeholder: E.g. When I resize PoB some [...] become inaccessible. 
     validations:
       required: true
   - type: textarea
@@ -65,7 +58,7 @@ body:
       placeholder: This can be either a code copied from the "Import/Export Build" tab or a link to a shared build.
       render: shell
     validations:
-      required: true
+      required: false
   - type: textarea
     id: context
     attributes:
