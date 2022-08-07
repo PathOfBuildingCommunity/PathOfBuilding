@@ -1161,7 +1161,7 @@ function calcs.defence(env, actor)
 				else
 					t_insert(breakdown[damageType.."TakenHitMult"], s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage))
 				end
-				t_insert(breakdown[damageType.."TakenHitMult"], s_format("- Reduction from Armour: %.2f", 1 - armourReduct / 100))
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("Reduction from Armour: %.2f", 1 - armourReduct / 100))
 			end
 			if enemyOverwhelm ~= 0 then
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("+ Enemy Overwhelm %s Damage: %.2f", damageType, enemyOverwhelm / 100))
