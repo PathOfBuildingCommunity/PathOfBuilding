@@ -2495,8 +2495,8 @@ local specialModList = {
 	["+(%d+)%% chance to suppress spell damage if your boots, helmet and gloves have evasion"] = function(num) return { 
 		mod("SpellSuppressionChance", "BASE", tonumber(num), 
 			{ type = "StatThreshold", stat = "EvasionOnBoots", threshold = 1}, 
-			{ type = "StatThreshold", stat = "EvasionOnHelmet", threshold = 1, uppper = true},
-			{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1, uppper = true}
+			{ type = "StatThreshold", stat = "EvasionOnHelmet", threshold = 1, upper = true},
+			{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1, upper = true}
 		)
 	} end,
 	["+(%d+)%% chance to suppress spell damage for each dagger you're wielding"] = function(num) return { 
