@@ -1048,7 +1048,7 @@ function calcs.defence(env, actor)
 					t_insert(breakdown[damageType.."TakenDotMult"], s_format("%.2f ^8(resistance)", (1 - resist / 100)))
 				end
 				if reduction ~= 0 then
-					t_insert(breakdown[damageType.."TakenDotMult"], s_format("%.2f ^8(%s damage reduction)", (1 - reduction / 100), damageType))
+					t_insert(breakdown[damageType.."TakenDotMult"], s_format("%.2f ^8(%s damage reduction)", (1 - reduction / 100), damageType:lower()))
 				end
 				if takenInc ~= 0 then
 					t_insert(breakdown[damageType.."TakenDotMult"], s_format("%.2f ^8(increased/reduced damage taken)", (1 + takenInc / 100)))
