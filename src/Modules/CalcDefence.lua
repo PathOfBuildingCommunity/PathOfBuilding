@@ -839,9 +839,12 @@ function calcs.defence(env, actor)
 	output.CurseEffectOnSelf = modDB:More(nil, "CurseEffectOnSelf") * (100 + modDB:Sum("INC", nil, "CurseEffectOnSelf"))
 
 	-- Ailment duration on self
-	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration"))
+	output.DebuffExpirationRate = modDB:Sum("BASE", nil, "SelfDebuffExpirationRate")
+	output.DebuffExpirationModifier = 10000 / (100 + output.DebuffExpirationRate)
+	output.showDebuffExpirationModifier = (output.DebuffExpirationModifier ~= 100)
+	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration")) * output.DebuffExpirationModifier / 100
 	for _, ailment in ipairs(data.ailmentTypeList) do
-		output["Self"..ailment.."Duration"] = modDB:More(nil, "Self"..ailment.."Duration") * (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration")) 
+		output["Self"..ailment.."Duration"] = modDB:More(nil, "Self"..ailment.."Duration") * (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration")) * 100 / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
 	end
 	output.SelfChillEffect = modDB:More(nil, "SelfChillEffect") * (100 + modDB:Sum("INC", nil, "SelfChillEffect"))
 	output.SelfShockEffect = modDB:More(nil, "SelfShockEffect") * (100 + modDB:Sum("INC", nil, "SelfShockEffect"))
