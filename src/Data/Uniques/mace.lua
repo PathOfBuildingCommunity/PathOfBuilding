@@ -268,18 +268,25 @@ Bitterdream
 Shadow Sceptre
 Variant: Pre 2.3.0
 Variant: Pre 3.11.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}15% increased Elemental Damage
-{variant:2,3}22% increased Elemental Damage
+{variant:2,3,4}22% increased Elemental Damage
 {variant:3}Socketed Gems are Supported by Level 1 Bonechill
-Socketed Gems are Supported by level 1 Hypothermia
-Socketed Gems are Supported by level 1 Ice Bite
-Socketed Gems are Supported by level 1 Cold Penetration
-{variant:1,2}Socketed Gems are Supported by level 1 Mana Leech
-Socketed Gems are Supported by level 10 Added Cold Damage
-Socketed Gems are Supported by level 1 Inspiration
+{variant:1,2,3}Socketed Gems are Supported by Level 1 Hypothermia
+{variant:1,2,3}Socketed Gems are Supported by Level 1 Ice Bite
+{variant:1,2,3}Socketed Gems are Supported by Level 1 Cold Penetration
+{variant:1,2}Socketed Gems are Supported by Level 1 Mana Leech
+{variant:1,2,3}Socketed Gems are Supported by Level 10 Added Cold Damage
+{variant:1,2,3}Socketed Gems are Supported by Level 1 Inspiration
+{variant:4}Socketed Gems are Supported by Level 15 Bonechill
+{variant:4}Socketed Gems are Supported by Level 15 Hypothermia
+{variant:4}Socketed Gems are Supported by Level 15 Ice Bite
+{variant:4}Socketed Gems are Supported by Level 15 Cold Penetration
+{variant:4}Socketed Gems are Supported by Level 15 Added Cold Damage
+{variant:4}Socketed Gems are Supported by Level 15 Inspiration
 ]],[[
 Replica Bitterdream
 Shadow Sceptre
