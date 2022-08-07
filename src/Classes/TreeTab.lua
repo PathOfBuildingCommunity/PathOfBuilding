@@ -127,7 +127,6 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 150, 20, nil, function(index, value)
 		self:SetPowerCalc(value)
 	end)
-	self.controls.treeHeatMapStatSelect.shown = false
 	self.controls.treeHeatMap.tooltipText = function()
 		local offCol, defCol = main.nodePowerTheme:match("(%a+)/(%a+)")
 		return "When enabled, an estimate of the offensive and defensive strength of\neach unallocated passive is calculated and displayed visually.\nOffensive power shows as "..offCol:lower()..", defensive power as "..defCol:lower().."."
@@ -254,6 +253,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
+	self.controls.treeHeatMapStatSelect.shown = self.viewer.showHeatMap
 	self.controls.treeHeatMapStatSelect.list = self.powerStatList
 	self.controls.treeHeatMapStatSelect.selIndex = 1
 	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
