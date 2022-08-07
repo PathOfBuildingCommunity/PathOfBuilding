@@ -57,11 +57,7 @@ local localOnlyModGroups = {
 local MAX_FILTERS = 36
 
 local function logToFile(...)
-    --ConPrintf(...)
-    --local f = io.open('../TradeQueryLog.log', 'a')
-    --f:write(string.format(...))
-    --f:write("\n")
-    --f:close()
+    ConPrintf(...)
 end
 
 local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, queryTab)

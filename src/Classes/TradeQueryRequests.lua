@@ -40,7 +40,7 @@ function TradeQueryRequestsClass:ProcessQueue()
 				if main.POESESSID ~= "" then
 					header = header .. "\nCookie: POESESSID=" .. main.POESESSID
 				end
-				launch:DownloadPage(request.url , onComplete, {
+				launch:DownloadPage(request.url, onComplete, {
 					header = header,
 					body = request.body, 
 				})
@@ -58,12 +58,13 @@ end
 ---@param params table @ params = { callbackQueryId = fun(queryId:string) }
 function TradeQueryRequestsClass:SearchWithQuery(league, query, callback, params)
 	params = params or {}
+	ConPrintf("Query json: %s", query)
 	self:PerformSearch(league, query, function(response, errMsg)
+		if params.callbackQueryId and response and response.id then
+			params.callbackQueryId(response.id)
+		end
 		if errMsg then
 			return callback(nil, errMsg)
-		end
-		if params.callbackQueryId then
-			params.callbackQueryId(response.id)
 		end
 		self:FetchResults(response.result, response.id, callback)
 	end)
@@ -84,7 +85,7 @@ function TradeQueryRequestsClass:PerformSearch(league, query, callback)
 			end
 			local response = dkjson.decode(response)
 			if not response then
-				errMsg =  "Failed to Get Trade response"
+				errMsg = "Failed to Get Trade response"
 				return callback(nil, errMsg)
 			end
 			if not response.result or #response.result == 0 then
@@ -99,9 +100,10 @@ function TradeQueryRequestsClass:PerformSearch(league, query, callback)
 						errMsg = response.error.message
 					end
 				else
+					ConPrintf("Found 0 results for " .. "https://www.pathofexile.com/trade/search/Standard/" .. response.id)
 					errMsg = "No Matching Results Found"
 				end
-				return callback(nil, errMsg)
+				return callback(response, errMsg)
 			end
 			callback(response, errMsg)
 		end,
