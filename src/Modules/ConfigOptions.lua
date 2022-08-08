@@ -1430,6 +1430,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder("", true)
 
 			local defaultPen = ""
+			build.configTab.varControls['enemyPhysicalOverwhelm']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
@@ -1459,6 +1460,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(defaultDamage / 4), true)
 
 			local defaultPen = ""
+			build.configTab.varControls['enemyPhysicalOverwhelm']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
@@ -1583,6 +1585,7 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
 
 			local defaultPen = ""
+			build.configTab.varControls['enemyPhysicalOverwhelm']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
@@ -1637,6 +1640,7 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 	{ var = "enemyCritChance", type = "integer", label = "Enemy critical strike chance:", defaultPlaceholderState = 5 },
 	{ var = "enemyCritDamage", type = "integer", label = "Enemy critical strike multiplier:", defaultPlaceholderState = 30 },
 	{ var = "enemyPhysicalDamage", type = "integer", label = "Enemy Skill Physical Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet."},
+	{ var = "enemyPhysicalOverwhelm", type = "integer", label = "Enemy Skill Physical Overwhelm:"},
 	{ var = "enemyLightningDamage", type = "integer", label = "Enemy Skill ^xADAA47Lightning Damage:"},
 	{ var = "enemyLightningPen", type = "integer", label = "Enemy Skill ^xADAA47Lightning Pen:"},
 	{ var = "enemyColdDamage", type = "integer", label = "Enemy Skill ^x3F6DB3Cold Damage:"},
