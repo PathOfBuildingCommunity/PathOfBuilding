@@ -799,6 +799,18 @@ function calcs.defence(env, actor)
 				s_format("= %.1f over %d seconds", output.ElementalEnergyShieldRecoup, quickRecoup and 3 or 4)
 			}
 		end
+		
+		for _, damageType in ipairs(dmgTypeList) do
+			LifeRecoup = modDB:Sum("BASE", nil, damageType.."LifeRecoup")
+			output[damageType.."LifeRecoup"] =  LifeRecoup * output.LifeRecoveryRateMod
+			if breakdown then
+				breakdown[damageType.."LifeRecoup"] = {
+					s_format("%.1f ^8(base)", LifeRecoup),
+					s_format("* %.2f ^8(recovery rate modifier)", output.LifeRecoveryRateMod),
+					s_format("= %.1f over %d seconds", output[damageType.."LifeRecoup"], quickRecoup and 3 or 4)
+				}
+			end
+		end
 	end
 
 	-- Ward recharge
