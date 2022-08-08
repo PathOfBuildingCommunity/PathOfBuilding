@@ -1092,22 +1092,20 @@ function calcs.defence(env, actor)
 		end
 		reductMult = (1 - m_max(m_min(output.DamageReductionMax, armourReduct + reduction - enemyOverwhelm), 0) / 100)
 		output[damageType.."DamageReduction"] = 100 - reductMult * 100
-		if reductMult ~= 1 then
-			if breakdown and reductMult ~= 1 then
-				breakdown[damageType.."DamageReduction"] = { }
-				if armourReduct ~= 0 then
-					if resMult ~= 1 then
-						t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage After Resistance: %d ^8(total incoming damage)", damage * resMult))
-					else
-						t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage))
-					end
-					t_insert(breakdown[damageType.."DamageReduction"], s_format("Reduction from Armour: %d%%", armourReduct))
+		if breakdown and reductMult ~= 1 then
+			breakdown[damageType.."DamageReduction"] = { }
+			if armourReduct ~= 0 then
+				if resMult ~= 1 then
+					t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage After Resistance: %d ^8(total incoming damage)", damage * resMult))
+				else
+					t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage))
 				end
-				if reduction ~= 0 then
-					t_insert(breakdown[damageType.."DamageReduction"], s_format("Base %s Damage Reduction: %d%%", damageType, reduction))
-					if armourReduct ~= 0 then
-						t_insert(breakdown[damageType.."DamageReduction"], s_format("Total %s Damage Reduction: %d%%", damageType, 100 - reductMult * 100))
-					end
+				t_insert(breakdown[damageType.."DamageReduction"], s_format("Reduction from Armour: %d%%", armourReduct))
+			end
+			if reduction ~= 0 then
+				t_insert(breakdown[damageType.."DamageReduction"], s_format("Base %s Damage Reduction: %d%%", damageType, reduction))
+				if armourReduct ~= 0 then
+					t_insert(breakdown[damageType.."DamageReduction"], s_format("Total %s Damage Reduction: %d%%", damageType, 100 - reductMult * 100))
 				end
 			end
 		end
@@ -1708,7 +1706,7 @@ function calcs.defence(env, actor)
 			if output.ShowBlockEffect then
 				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.2f ^8(block effect)", output.BlockEffect / 100))
 			end
-			if suppressionEffect < 1 then
+			if suppressionEffect ~= 1 then
 				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.3f ^8(suppression effect)", suppressionEffect))
 			end
 			if averageAvoidChance > 0 then
