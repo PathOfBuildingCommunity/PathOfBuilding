@@ -1642,7 +1642,7 @@ function calcs.defence(env, actor)
 		if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" or damageCategoryConfig == "Average" then
 			suppressChance = output.SpellSuppressionChance / 100
 		end
-		-- We include suppresion in damage reduction if it is 100% otherwise we handle it here.
+		-- We include suppression in damage reduction if it is 100% otherwise we handle it here.
 		if suppressChance < 1 then
 			-- unlucky config to lower the value of block, dodge, evade etc for ehp
 			if worstOf > 1 then
