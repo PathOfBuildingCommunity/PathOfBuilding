@@ -282,14 +282,18 @@ skills["BloodOffering"] = {
 		["damage_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["blood_offering_%_of_life_to_lose"] = {
+			mod("Multiplier:BloodOfferingLifeSacrificed", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable=true }, { type = "PerStat", stat = "LifeUnreserved", actor = "parent" }),
+			div = 100,
+		},
 		["blood_offering_%_of_lost_life_to_regenerate_as_life_per_second"] = {
-			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "PerStat", stat = "LifeUnreserved", actor = "parent" }),
-			mod("Multiplier:BloodOfferingSacrificedLife", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable=true }, { type = "PerStat", stat = "LifeUnreserved", actor = "parent" }),
-			div = 500,
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingLifeSacrificed" }),
+			mod("Multiplier:BloodOfferingBaseRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable=true }, { type = "Multiplier", var = "BloodOfferingLifeSacrificed" }),
+			div = 100,
 		},
 		["blood_offering_life_regenerated_+%_final_per_corpse"] = {
-			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingSacrificedLife"},  { type = "Multiplier", var = "CorpseConsumedRecently", limit = 5 }),
-			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingSacrificedLife"},  { type = "Multiplier", var = "CorpseConsumedRecently", limit = 5, actor="parent" }),
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingBaseRegen"},  { type = "Multiplier", var = "CorpseConsumedRecently", limit = 5 }),
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingBaseRegen"},  { type = "Multiplier", var = "CorpseConsumedRecently", limit = 5, actor="parent" }),
 			div = 100,
 		}
 	},
@@ -300,7 +304,6 @@ skills["BloodOffering"] = {
 	baseMods = {
 		skill("buffMinions", true),
 		skill("buffNotPlayer", true),
-		mod("Dummy", "DUMMY", 1, 0, 0, { type = "Multiplier", var = "CorpseConsumedRecently" }),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 5000 },
