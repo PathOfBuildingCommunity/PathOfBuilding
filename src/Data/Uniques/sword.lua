@@ -328,7 +328,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
 LevelReq: 61
-Implicits: 1
+Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3}40% increased Global Accuracy Rating
 100% increased Damage when on Low Life
