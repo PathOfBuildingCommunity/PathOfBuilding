@@ -1666,8 +1666,14 @@ function calcs.defence(env, actor)
 			ExtraAvoidChance = ExtraAvoidChance + output.AvoidProjectilesChance / 2
 		end
 		-- gain when hit (currently just gain on block/suppress)
-		if (DamageIn.LifeWhenHit or 0) ~= 0 or (DamageIn.ManaWhenHit or 0) ~= 0 or DamageIn.EnergyShieldWhenHit ~= 0 then
-			DamageIn.GainWhenHit = true
+		if not env.configInput.DisableEHPGainOnBlock then
+			if (DamageIn.LifeWhenHit or 0) ~= 0 or (DamageIn.ManaWhenHit or 0) ~= 0 or DamageIn.EnergyShieldWhenHit ~= 0 then
+				DamageIn.GainWhenHit = true
+			end
+		else
+			DamageIn.LifeWhenHit = 0
+			DamageIn.ManaWhenHit = 0
+			DamageIn.EnergyShieldWhenHit = 0
 		end
 		for _, damageType in ipairs(dmgTypeList) do
 			 -- Emperor's Vigilance (this needs to fail with divine flesh as it can't override it, hence the check for high bypass)
