@@ -2309,6 +2309,7 @@ local specialModList = {
 	["critical strike chance is increased by lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResist", div = 1 }) },
 	["critical strike chance is increased by overcapped lightning resistance"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "LightningResistOverCap", div = 1 }) },
 	["non%-critical strikes deal (%d+)%% damage"] = function(num) return { mod("Damage", "MORE", -100 + num, nil, ModFlag.Hit, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
+	["non%-critical strikes deal (%d+)%% less damage"] = function(num) return { mod("Damage", "MORE", -num, nil, ModFlag.Hit, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
 	["critical strikes penetrate (%d+)%% of enemy elemental resistances while affected by zealotry"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike" }, { type = "Condition", var = "AffectedByZealotry" }) } end,
 	["attack critical strikes ignore enemy monster elemental resistances"] = { flag("IgnoreElementalResistances", { type = "Condition", var = "CriticalStrike" }, { type = "SkillType", skillType = SkillType.Attack }) },
 	-- Generic Ailments
@@ -2384,6 +2385,14 @@ local specialModList = {
 		mod("ScorchAsThoughDealing", "MORE", num),
 		mod("BrittleAsThoughDealing", "MORE", num),
 		mod("SapAsThoughDealing", "MORE", num),
+	} end,
+	["non%-damaging elemental ailments you inflict have (%d+)%% more effect"] = function(num) return {
+		mod("EnemyShockEffect", "MORE", num),
+		mod("EnemyChillEffect", "MORE", num),
+		mod("EnemyFreezeEffect", "MORE", num),
+		mod("EnemyScorchEffect", "MORE", num),
+		mod("EnemyBrittleEffect", "MORE", num),
+		mod("EnemySapEffect", "MORE", num),
 	} end,
 	["immune to elemental ailments while on consecrated ground if you have at least (%d+) devotion"] = function(num)
 		local mods = { }
@@ -2890,6 +2899,7 @@ local specialModList = {
 	["damage from unblocked hits always bypasses energy shield"] = { flag("UnblockedDamageDoesBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
 	["recover (%d+) life when you block"] = function(num) return { mod("LifeOnBlock", "BASE", num) } end,
 	["recover (%d+) energy shield when you block spell damage"] = function(num) return { mod("EnergyShieldOnSpellBlock", "BASE", num) } end,
+	["recover (%d+) energy shield when you suppress spell damage"] = function(num) return { mod("EnergyShieldOnSuppress", "BASE", num) } end,
 	["recover (%d+)%% of life when you block"] = function(num) return { mod("LifeOnBlock", "BASE", 1,  { type = "PercentStat", stat = "Life", percent = num }) } end,
 	["recover (%d+)%% of life when you block attack damage while wielding a staff"] = function(num) return { mod("LifeOnBlock", "BASE", 1,  { type = "PercentStat", stat = "Life", percent = num }, { type = "Condition", var = "UsingStaff" }) } end,
 	["recover (%d+)%% of your maximum mana when you block"] = function(num) return { mod("ManaOnBlock", "BASE", 1,  { type = "PercentStat", stat = "Mana", percent = num }) } end,

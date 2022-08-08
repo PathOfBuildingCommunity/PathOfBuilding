@@ -1450,6 +1450,7 @@ return {
 	extra = "{0:output:SpellSuppressionChance}%",
 	{ label = "Suppression Ch.", { format = "{0:output:SpellSuppressionChance}% (+{0:output:SpellSuppressionChanceOverCap}%)", { modName = "SpellSuppressionChance" }, }, },
 	{ label = "Suppression Effect", { format = "{0:output:SpellSuppressionEffect}%", { modName = "SpellSuppressionEffect" }, }, },
+	{ label = "ES on Suppression", haveOutput = "EnergyShieldOnSuppress", { format = "{0:output:EnergyShieldOnSuppress}", { modName = "EnergyShieldOnSuppress" }, }, },
 } },
 } },
 { 3, "DamageTaken", 1, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Damage Taken", data = {
