@@ -1067,9 +1067,9 @@ function calcs.defence(env, actor)
 		local enemyPen = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."EnemyPen"]
 		local enemyOverwhelm = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."enemyOverwhelm"] or 0 -- or 0 is to be removed once mod is passed / added to config tab.
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
-		local percentOfArmourApplies = (damageType == "Physical" and 100) or m_min((modDB:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
 		local damage = output[damageType.."TakenDamage"]
 		local armourReduct = 0
+		local percentOfArmourApplies = (damageType == "Physical" and 100) or m_min((modDB:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
 		local resMult = 1 - (resist - enemyPen) / 100
 		local reductMult = 1
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
@@ -1078,7 +1078,7 @@ function calcs.defence(env, actor)
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2
 		end
 		if percentOfArmourApplies > 0 then
-			armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage * resMult)
+			armourReduct = calcs.armourReduction((output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense), damage * resMult)
 			armourReduct = m_min(output.DamageReductionMax, armourReduct)
 		end
 		reductMult = (1 - m_max(m_min(output.DamageReductionMax, armourReduct + reduction - enemyOverwhelm), 0) / 100)
@@ -1088,7 +1088,6 @@ function calcs.defence(env, actor)
 			if armourReduct ~= 0 then
 				if resMult ~= 1 then
 					t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage After Resistance: %d ^8(total incoming damage)", damage * resMult))
-				armourReduct = calcs.armourReduction((output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense), damage * portionArmour / 100)
 				else
 					t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage))
 				end
