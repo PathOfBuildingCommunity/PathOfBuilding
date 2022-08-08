@@ -295,7 +295,7 @@ skills["BloodOffering"] = {
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingBaseRegen"},  { type = "Multiplier", var = "CorpseConsumedRecently", limit = 5 }),
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingBaseRegen"},  { type = "Multiplier", var = "CorpseConsumedRecently", limit = 5, actor="parent" }),
 			div = 100,
-		}
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -2914,7 +2914,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 10, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, }, },
-		[25] = { 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, }, },
+		[25] = { 20, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["SummonTauntingContraption"] = {
