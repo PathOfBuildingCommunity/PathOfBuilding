@@ -103,7 +103,7 @@ function ItemClass:ParseRaw(raw)
 	if self.rawLines[l] then
 		self.name = self.rawLines[l]
 		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal item to get the base
-		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC") then
+		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or self.rawLines[#self.rawLines] == "Unidentified") then
 			l = l + 1
 		end
 	end
