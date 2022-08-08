@@ -772,10 +772,10 @@ function calcs.defence(env, actor)
 		output.ElementalEnergyShieldRecoup = ElementalEnergyShieldRecoup * output.EnergyShieldRecoveryRateMod
 		local quickRecoup = modDB:Flag(nil, "3SecondRecoup")
 		local recoupTypeList = {"Life", "Mana", "EnergyShield"}
-		if breakdown then
-			for _, recoupType in ipairs(recoupTypeList) do
-				local baseRecoup = modDB:Sum("BASE", nil, recoupType.."Recoup")
-				output[recoupType.."Recoup"] =  baseRecoup * output[recoupType.."RecoveryRateMod"]
+		for _, recoupType in ipairs(recoupTypeList) do
+			local baseRecoup = modDB:Sum("BASE", nil, recoupType.."Recoup")
+			output[recoupType.."Recoup"] =  baseRecoup * output[recoupType.."RecoveryRateMod"]
+			if breakdown then
 				if output[recoupType.."RecoveryRateMod"] ~= 1 then
 					breakdown[recoupType.."Recoup"] = {
 						s_format("%d%% ^8(base)", baseRecoup),
@@ -786,6 +786,9 @@ function calcs.defence(env, actor)
 					breakdown[recoupType.."Recoup"] = { s_format("%d%% over %d seconds", output[recoupType.."Recoup"], quickRecoup and 3 or 4) }
 				end
 			end
+		end
+		
+		if breakdown then
 			if output.EnergyShieldRecoveryRateMod ~= 1 then
 				breakdown.ElementalEnergyShieldRecoup = {
 					s_format("%d%% ^8(base)", ElementalEnergyShieldRecoup),
