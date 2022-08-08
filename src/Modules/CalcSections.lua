@@ -1029,7 +1029,7 @@ return {
 		{ modName = "ChillMax" },
 	}, },
 	{ label = "Current Chill", bgCol = colorCodes.CHILLBG, haveOutput = "CurrentChill", { format = "{0:output:CurrentChill}%",
-		{ label = "Configured Chill", modName = { "ChillVal", "BonechillEffect" }, enemy = true, modType = "BASE" },
+		{ label = "Configured Chill", modName = "ChillVal", enemy = true, modType = "BASE" },
 		{ label = "Guaranteed Chills", modName = "ChillOverride", modType = "BASE" },
 	}, },
 	{ label = "Chance to Freeze", bgCol = colorCodes.FREEZEBG, flag = "freeze", { format = "{0:output:FreezeChance}%",
