@@ -45,6 +45,8 @@ e 	     On an equipped item will open it on the edit menu on the right.
 ctrl+LMB 	Enable/disable gems
 ctrl+RMB 	Enable/disable gems from Full DPS
 mouse4/5 	Undo/Redo path respectively (in build selection menu)
+shift while scrolling on a slider makes it 5 times faster
+ctrl while scrolling on a slider makes it 5 times slower
 
 When creating an item either through item creator or adding an item pressing ctrl will add it to the first slot and ctrl+shift will add it to the second slot e.g. offhand for a weapon.
 
