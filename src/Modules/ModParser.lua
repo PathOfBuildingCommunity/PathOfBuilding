@@ -2386,6 +2386,14 @@ local specialModList = {
 		mod("BrittleAsThoughDealing", "MORE", num),
 		mod("SapAsThoughDealing", "MORE", num),
 	} end,
+	["non%-damaging elemental ailments you inflict have (%d+)%% more effect"] = function(num) return {
+		mod("EnemyShockEffect", "MORE", num),
+		mod("EnemyChillEffect", "MORE", num),
+		mod("EnemyFreezeEffect", "MORE", num),
+		mod("EnemyScorchEffect", "MORE", num),
+		mod("EnemyBrittleEffect", "MORE", num),
+		mod("EnemySapEffect", "MORE", num),
+	} end,
 	["immune to elemental ailments while on consecrated ground if you have at least (%d+) devotion"] = function(num)
 		local mods = { }
 		for i, ailment in ipairs(data.elementalAilmentTypeList) do
