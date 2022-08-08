@@ -103,7 +103,9 @@ function ItemClass:ParseRaw(raw)
 	if self.rawLines[l] then
 		self.name = self.rawLines[l]
 		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal item to get the base
-		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or self.rawLines[#self.rawLines] == "Unidentified") then
+		local unIDoffset = #self.rawLines
+		if self.rawLines[unIDoffset]:match("^Note:") then unIDoffset = unIDoffset - 2 end
+		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or self.rawLines[unIDoffset] == "Unidentified") then
 			l = l + 1
 		end
 	end
