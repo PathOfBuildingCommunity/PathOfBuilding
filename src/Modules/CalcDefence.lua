@@ -761,18 +761,73 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+	
+	-- recoup
+	do
+		local quickRecoup = modDB:Flag(nil, "3SecondRecoup")
+		local recoupTypeList = {"Life", "Mana", "EnergyShield"}
+		for _, recoupType in ipairs(recoupTypeList) do
+			local baseRecoup = modDB:Sum("BASE", nil, recoupType.."Recoup")
+			output[recoupType.."Recoup"] =  baseRecoup * output[recoupType.."RecoveryRateMod"]
+			if breakdown then
+				if output[recoupType.."RecoveryRateMod"] ~= 1 then
+					breakdown[recoupType.."Recoup"] = {
+						s_format("%d%% ^8(base)", baseRecoup),
+						s_format("* %.2f ^8(recovery rate modifier)", output[recoupType.."RecoveryRateMod"]),
+						s_format("= %.1f%% over %d seconds", output[recoupType.."Recoup"], quickRecoup and 3 or 4)
+					}
+				else
+					breakdown[recoupType.."Recoup"] = { s_format("%d%% over %d seconds", output[recoupType.."Recoup"], quickRecoup and 3 or 4) }
+				end
+			end
+		end
+
+		if modDB:Flag(nil, "UsePowerCharges") and modDB:Flag(nil, "PowerChargesConvertToAbsorptionCharges") then
+			local ElementalEnergyShieldRecoupPerAbsorptionCharges = modDB:Sum("BASE", nil, "PerAbsorptionElementalEnergyShieldRecoup")
+			modDB:NewMod("ElementalEnergyShieldRecoup", "BASE", ElementalEnergyShieldRecoupPerAbsorptionCharges, "Absorption Charges", { type = "Multiplier", var = "AbsorptionCharge" } )
+		end
+		local ElementalEnergyShieldRecoup = modDB:Sum("BASE", nil, "ElementalEnergyShieldRecoup")
+		output.ElementalEnergyShieldRecoup = ElementalEnergyShieldRecoup * output.EnergyShieldRecoveryRateMod
+		if breakdown then
+			if output.EnergyShieldRecoveryRateMod ~= 1 then
+				breakdown.ElementalEnergyShieldRecoup = {
+					s_format("%d%% ^8(base)", ElementalEnergyShieldRecoup),
+					s_format("* %.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod),
+					s_format("= %.1f%% over %d seconds", output.ElementalEnergyShieldRecoup, quickRecoup and 3 or 4)
+				}
+			else
+				breakdown.ElementalEnergyShieldRecoup = { s_format("%d%% over %d seconds", output.ElementalEnergyShieldRecoup, quickRecoup and 3 or 4) }
+			end
+		end
+		
+		for _, damageType in ipairs(dmgTypeList) do
+			local LifeRecoup = modDB:Sum("BASE", nil, damageType.."LifeRecoup")
+			output[damageType.."LifeRecoup"] =  LifeRecoup * output.LifeRecoveryRateMod
+			if breakdown then
+				if output.LifeRecoveryRateMod ~= 1 then
+					breakdown[damageType.."LifeRecoup"] = {
+						s_format("%d%% ^8(base)", LifeRecoup),
+						s_format("* %.2f ^8(recovery rate modifier)", output.LifeRecoveryRateMod),
+						s_format("= %.1f%% over %d seconds", output[damageType.."LifeRecoup"], quickRecoup and 3 or 4)
+					}
+				else
+					breakdown[damageType.."LifeRecoup"] = { s_format("%d%% over %d seconds", output[damageType.."LifeRecoup"], quickRecoup and 3 or 4) }
+				end
+			end
+		end
+	end
 
 	-- Ward recharge
 	output.WardRechargeDelay = data.misc.WardRechargeDelay / (1 + modDB:Sum("INC", nil, "WardRechargeFaster") / 100)
-		if breakdown then
-			if output.WardRechargeDelay ~= data.misc.WardRechargeDelay then
-				breakdown.WardRechargeDelay = {
-					s_format("%.2fs ^8(base)", data.misc.WardRechargeDelay),
-					s_format("/ %.2f ^8(faster start)", 1 + modDB:Sum("INC", nil, "WardRechargeFaster") / 100),
-					s_format("= %.2fs", output.WardRechargeDelay)
-				}
-			end
+	if breakdown then
+		if output.WardRechargeDelay ~= data.misc.WardRechargeDelay then
+			breakdown.WardRechargeDelay = {
+				s_format("%.2fs ^8(base)", data.misc.WardRechargeDelay),
+				s_format("/ %.2f ^8(faster start)", 1 + modDB:Sum("INC", nil, "WardRechargeFaster") / 100),
+				s_format("= %.2fs", output.WardRechargeDelay)
+			}
 		end
+	end
 
 	-- Miscellaneous: move speed, stun recovery, avoidance
 	output.MovementSpeedMod = modDB:Override(nil, "MovementSpeed") or calcLib.mod(modDB, nil, "MovementSpeed")

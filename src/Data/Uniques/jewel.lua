@@ -1288,7 +1288,7 @@ Limited to: 1
 Radius: Medium
 {variant:1}(5-10)% increased maximum Mana
 {variant:2}(7-10)% increased maximum Mana
-With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit if you've Warcried Recently
+With at least 40 Intelligence in Radius, 10% of Damage taken Recouped as Mana if you've Warcried Recently
 ]],[[
 Spreading Rot
 Cobalt Jewel
