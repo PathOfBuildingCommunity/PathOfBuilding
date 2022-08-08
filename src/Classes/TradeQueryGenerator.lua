@@ -572,6 +572,12 @@ function TradeQueryGeneratorClass:FinishQuery()
                         category = { option = self.calcContext.itemCategoryQueryStr },
                         rarity = {  option = "nonunique" }
                     }
+                },
+                misc_filters = {
+                    disabled = false,
+                    filters = {
+                        identified = { option = "true" }
+                    }
                 }
             },
             status = { option = "online" },
