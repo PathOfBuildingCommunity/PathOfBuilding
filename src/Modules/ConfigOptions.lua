@@ -31,7 +31,7 @@ end
 local function banditTooltip(tooltip, mode, index, value)
 	local banditBenefits = {
 		["None"] = "Grants 2 Passive Skill Points",
-		["Oak"] = "Regenerate 1% of Life per second\n2% additional Physical Damage Reduction\n20% icreased Physical Damage",
+		["Oak"] = "Regenerate 1% of Life per second\n2% additional Physical Damage Reduction\n20% increased Physical Damage",
 		["Kraityn"] = "6% increased Attack and Cast Speed\n10% chance to Avoid Elemental Ailments\n6% increased Movement Speed",
 		["Alira"] = "Regenerate 5 Mana per second\n+20% to Critical Strike Multiplier\n+15% to all Elemental Resistances",
 	}
@@ -183,11 +183,6 @@ return {
 	{ var = "bladestormInSandstorm", type = "check", label = "Are you in a Sandstorm?", ifSkill = "Bladestorm", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BladestormInSandstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm" })
 	end },
-	{ label = "Bonechill Support:", ifSkill = "Bonechill" },
-	{ var = "bonechillEffect", type = "count", label = "Effect of Chill:", tooltip = "The effect of ^x3F6DB3Chill ^7is automatically calculated if you have a guaranteed source of ^x3F6DB3Chill^7,\nbut you can use this to override the effect if necessary.", ifSkill = "Bonechill", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("BonechillEffect", "BASE", val, "Config", { type = "Condition", var = "Effective" })
-		enemyModList:NewMod("DesiredBonechillEffect", "BASE", val, "Config", { type = "Condition", var = "Effective" })
-	end },
 	{ label = "Boneshatter:", ifSkill = "Boneshatter" },
 	{ var = "boneshatterTraumaStacks", type = "count", label = "# of Trauma Stacks:", ifSkill = "Boneshatter", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:TraumaStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
@@ -254,10 +249,6 @@ return {
 	{ label = "Flame Wall:", ifSkill = "Flame Wall" },
 	{ var = "flameWallAddedDamage", type = "check", label = "Projectile Travelled through Flame Wall?", ifSkill = "Flame Wall", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FlameWallAddedDamage", "FLAG", true, "Config")
-	end },
-	{ label = "Frostbolt:", ifSkill = "Frostbolt" },
-	{ var = "frostboltExposure", type = "check", label = "Can you apply Exposure?", ifSkill = "Frostbolt", apply = function(val, modList, enemyModList)
-		modList:NewMod("ColdExposureChance", "BASE", 20, "Config")
 	end },
 	{ label = "Frost Shield:", ifSkill = "Frost Shield" },
 	{ var = "frostShieldStages", type = "count", label = "Stages:", ifSkill = "Frost Shield", apply = function(val, modList, enemyModList)
@@ -540,6 +531,10 @@ return {
 	end },
 	{ var = "multiplierSextant", type = "count", label = "# of Sextants affecting the area", ifMult = "Sextant", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Sextant", "BASE", m_min(val, 5), "Config")
+	end },
+	{ label = "Unique Map Modifiers:" },
+	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)
+		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
 	end },
 	{ label = "Player is cursed by:" },
 	{ var = "playerCursedWithAssassinsMark", type = "count", label = "Assassin's Mark:", tooltip = "Sets the level of Assassin's Mark to apply to the player.", apply = function(val, modList, enemyModList)
@@ -1163,6 +1158,12 @@ return {
 	{ var = "buffFanaticism", type = "check", label = "Do you have Fanaticism?", ifFlag = "Condition:CanGainFanaticism", tooltip = "This will enable the Fanaticism buff itself. (Grants 75% more cast speed, reduced ^x7070FFmana ^7cost, and increased area of effect)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Fanaticism", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanGainFanaticism" })
 	end },
+	{ var = "multiplierPvpTvalueOverride", type = "count", label = "PvP Tvalue override (ms):", ifFlag = "isPvP", tooltip = "Tvalue in milliseconds. This overrides the Tvalue of a given skill, for instance any with fixed tvalues or for traps/mines until those are supported", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PvpTvalueOverride", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "multiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier percent:", ifFlag = "isPvP", tooltip = "This multiplies the damage of a given skill in pvp, for instance any with damage multiplier specific to pvp (from skill or support or item like sire of shards)", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PvpDamage", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	-- Section: Effective DPS options
 	{ section = "For Effective DPS", col = 1 },
 	{ var = "critChanceLucky", type = "check", label = "Is your Crit Chance Lucky?", apply = function(val, modList, enemyModList)
@@ -1257,7 +1258,8 @@ return {
 		enemyModList:NewMod("Condition:Chilled", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyChilledEffect", type = "count", label = "Effect of ^x3F6DB3Chill:", ifOption = "conditionEnemyChilled", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("ChillVal", "OVERRIDE", val, "Chill", { type = "Condition", var = "Chilled" })
+		enemyModList:NewMod("ChillVal", "BASE", val, "Chill", { type = "Condition", var = "Chilled" })
+		enemyModList:NewMod("DesiredChillVal", "BASE", val, "Chill", { type = "Condition", var = "Chilled", neg = true })
 	end },
 	{ var = "conditionEnemyChilledByYourHits", type = "check", ifEnemyCond = "ChilledByYourHits", label = "Is the enemy ^x3F6DB3Chilled ^7by your Hits?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Chilled", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1370,7 +1372,7 @@ return {
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", tooltip = [[
+	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", defaultIndex = 1, tooltip = [[
 Bosses' damage is monster damage scaled to an average damage of their attacks
 This is divided by 4.25 to represent 4 damage types + some ^xD02090chaos
 ^7Fill in the exact damage numbers if more precision is needed
@@ -1409,9 +1411,9 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(defaultResist, true)
 
 			local defaultLevel = 83
-			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
-			if build.calcsTab.mainEnv then
-				defaultLevel = build.calcsTab.mainEnv.enemyLevel
+			build.configTab.varControls['enemyLevel']:SetPlaceholder("", true)
+			if build.configTab.enemyLevel then
+				defaultLevel = build.configTab.enemyLevel
 			end
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5)
@@ -1438,9 +1440,9 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyChaosResist']:SetPlaceholder(25, true)
 
 			local defaultLevel = 83
-			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
-			if build.calcsTab.mainEnv then
-				defaultLevel = build.calcsTab.mainEnv.enemyLevel
+			build.configTab.varControls['enemyLevel']:SetPlaceholder("", true)
+			if build.configTab.enemyLevel then
+				defaultLevel = build.configTab.enemyLevel
 			end
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.stdBossDPSMult)
@@ -1470,8 +1472,8 @@ Uber Pinnacle Boss adds the following modifiers:
 
 			local defaultLevel = 84
 			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
-			if build.calcsTab.mainEnv then
-				defaultLevel = m_max(build.calcsTab.mainEnv.enemyLevel, defaultLevel)
+			if build.configTab.enemyLevel then
+				defaultLevel = m_max(build.configTab.enemyLevel, defaultLevel)
 			end
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.pinnacleBossDPSMult)
@@ -1501,8 +1503,8 @@ Uber Pinnacle Boss adds the following modifiers:
 
 			local defaultLevel = 85
 			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
-			if build.calcsTab.mainEnv then
-				defaultLevel = m_max(build.calcsTab.mainEnv.enemyLevel, defaultLevel)
+			if build.configTab.enemyLevel then
+				defaultLevel = m_max(build.configTab.enemyLevel, defaultLevel)
 			end
 
 			local defaultDamage = round(data.monsterDamageTable[defaultLevel] * 1.5  * data.misc.uberBossDPSMult)
@@ -1583,8 +1585,8 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 		end
 
 		if val == "Uber Atziri Flameblast" then
-			if build.calcsTab.mainEnv then
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Uber Atziri Flameblast"].damageMult), true)
+			if build.configTab.enemyLevel then
+				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Uber Atziri Flameblast"].damageMult), true)
 				build.configTab.varControls['enemyDamageType']:SelByValue("Spell", "val")
 				build.configTab.varControls['enemyDamageType'].enabled = false
 				build.configTab.input['enemyDamageType'] = "Spell"
@@ -1594,8 +1596,8 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Uber Atziri Flameblast"].speed, true)
 			build.configTab.varControls['enemyCritChance']:SetPlaceholder(0, true)
 		elseif val == "Shaper Ball" then
-			if build.calcsTab.mainEnv then
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Shaper Ball"].damageMult), true)
+			if build.configTab.enemyLevel then
+				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Ball"].damageMult), true)
 			end
 
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(25, true)
@@ -1604,8 +1606,8 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 			build.configTab.varControls['enemyDamageType']:SelByValue("SpellProjectile", "val")
 			build.configTab.input['enemyDamageType'] = "SpellProjectile"
 		elseif val == "Shaper Slam" then
-			if build.calcsTab.mainEnv then
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult), true)
+			if build.configTab.enemyLevel then
+				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult), true)
 			end
 			build.configTab.varControls['enemyDamageType'].enabled = false
 			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
@@ -1613,8 +1615,8 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 
 			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Shaper Slam"].speed, true)
 		elseif val == "Maven Memory Game" then
-			if build.calcsTab.mainEnv then
-				local defaultEleDamage = round(data.monsterDamageTable[build.calcsTab.mainEnv.enemyLevel] * data.bossSkills["Maven Memory Game"].damageMult)
+			if build.configTab.enemyLevel then
+				local defaultEleDamage = round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Maven Memory Game"].damageMult)
 				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultEleDamage, true)
 				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultEleDamage, true)
 				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultEleDamage, true)
@@ -1627,7 +1629,7 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
 	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast time in ms:", defaultPlaceholderState = 700 },
 	{ var = "enemyCritChance", type = "integer", label = "Enemy critical strike chance:", defaultPlaceholderState = 5 },
-	{ var = "enemyCritDamage", type = "integer", label = "Enemy critical strike multipler:", defaultPlaceholderState = 30 },
+	{ var = "enemyCritDamage", type = "integer", label = "Enemy critical strike multiplier:", defaultPlaceholderState = 30 },
 	{ var = "enemyPhysicalDamage", type = "integer", label = "Enemy Skill Physical Damage:", tooltip = "This overrides the default damage amount used to estimate your damage reduction from armour.\nThe default is 1.5 times the enemy's base damage, which is the same value\nused in-game to calculate the estimate shown on the character sheet."},
 	{ var = "enemyLightningDamage", type = "integer", label = "Enemy Skill ^xADAA47Lightning Damage:"},
 	{ var = "enemyLightningPen", type = "integer", label = "Enemy Skill ^xADAA47Lightning Pen:"},

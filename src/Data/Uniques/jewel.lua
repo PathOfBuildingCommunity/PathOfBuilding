@@ -1288,7 +1288,7 @@ Limited to: 1
 Radius: Medium
 {variant:1}(5-10)% increased maximum Mana
 {variant:2}(7-10)% increased maximum Mana
-With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit if you've Warcried Recently
+With at least 40 Intelligence in Radius, 10% of Damage taken Recouped as Mana if you've Warcried Recently
 ]],[[
 Spreading Rot
 Cobalt Jewel
@@ -1433,9 +1433,9 @@ Corrupted
 ]],[[
 Blood Sacrifice
 Crimson Jewel
-1% of maximum Mana gained on Kill
-Removes 1% of Life on Kill
-Removes 1% of Energy Shield on Kill
+Lose 1% of Life on Kill
+Recover 1% of Mana on Kill
+Lose 1% of Energy Shield on Kill
 Corrupted
 ]],[[
 Replica Blood Sacrifice
@@ -1749,6 +1749,7 @@ Requires Level: 20
 Limited to: 1 Historic
 Has Alt Variant: true
 Has Alt Variant Two: true
+Selected Variant: 1
 Variant: Avarius
 Variant: Dominus
 Variant: Venarius

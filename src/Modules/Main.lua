@@ -542,6 +542,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.POESESSID then
 					self.POESESSID = node.attrib.POESESSID or ""
 				end
+				if node.attrib.invertSliderScrollDirection then
+					self.invertSliderScrollDirection = node.attrib.invertSliderScrollDirection == "true"
+				end
 			end
 		end
 	end
@@ -597,6 +600,7 @@ function main:SaveSettings()
 		showWarnings = tostring(self.showWarnings),
 		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
 		POESESSID = self.POESESSID,
+		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -745,6 +749,13 @@ function main:OpenOptionsPopup()
 		self.slotOnlyTooltips = state
 	end)
 	controls.slotOnlyTooltips.state = self.slotOnlyTooltips
+	
+	nextRow()
+	controls.invertSliderScrollDirection = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Invert slider scroll direction:", function(state)
+		self.invertSliderScrollDirection = state
+	end)
+	controls.invertSliderScrollDirection.tooltipText = "Default scroll direction is:\nScroll Up = Move right\nScroll Down = Move left"
+	controls.invertSliderScrollDirection.state = self.invertSliderScrollDirection
 
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
@@ -759,6 +770,7 @@ function main:OpenOptionsPopup()
 	local initialDefaultItemAffixQuality = self.defaultItemAffixQuality or 0.5
 	local initialShowWarnings = self.showWarnings
 	local initialSlotOnlyTooltips = self.slotOnlyTooltips
+	local initialInvertSliderScrollDirection = self.invertSliderScrollDirection
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -799,6 +811,7 @@ function main:OpenOptionsPopup()
 		self.defaultItemAffixQuality = initialDefaultItemAffixQuality
 		self.showWarnings = initialShowWarnings
 		self.slotOnlyTooltips = initialSlotOnlyTooltips
+		self.invertSliderScrollDirection = initialInvertSliderScrollDirection
 		main:ClosePopup()
 	end)
 	nextRow(1.5)

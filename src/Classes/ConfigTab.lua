@@ -20,6 +20,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 	self.input = { }
 	self.placeholder = { }
+	
+	self.enemyLevel = 1
 
 	self.sectionList = { }
 	self.varControls = { }
@@ -237,6 +239,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				self.varControls[varData.var] = control
 				self.placeholder[varData.var] = varData.defaultPlaceholderState
 				control.placeholder = varData.defaultPlaceholderState
+				if varData.defaultIndex then
+					self.input[varData.var] = varData.list[varData.defaultIndex].val
+					control.selIndex = varData.defaultIndex
+				end
 			end
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)
@@ -257,7 +263,7 @@ function ConfigTabClass:Load(xml, fileName)
 			elseif node.attrib.string then
 				if node.attrib.name == "enemyIsBoss" then
 					self.input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
-					:gsub("Uber Atziri", "Boss"):gsub("Shaper", "Pinnacle"):gsub("Sirus", "Uber")
+					:gsub("Uber Atziri", "Boss"):gsub("Shaper", "Pinnacle"):gsub("Sirus", "Pinnacle")
 				else
 					self.input[node.attrib.name] = node.attrib.string
 				end
@@ -439,6 +445,14 @@ function ConfigTabClass:BuildModList()
 	self.enemyModList = enemyModList
 	local input = self.input
 	local placeholder = self.placeholder
+	--enemy level handled here because it's needed to correctly set boss stats
+	if input.enemyLevel and input.enemyLevel > 0 then
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, input.enemyLevel)
+	elseif placeholder.enemyLevel and placeholder.enemyLevel > 0 then
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, placeholder.enemyLevel)
+	else
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, self.build.characterLevel)
+	end
 	for _, varData in ipairs(varList) do
 		if varData.apply then
 			if varData.type == "check" then

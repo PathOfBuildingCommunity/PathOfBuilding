@@ -290,17 +290,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.enemyDB = enemyDB
 		env.itemModDB = new("ModDB")
 
-		if env.configInput.enemyLevel then
-			env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.configInput.enemyLevel)
-		elseif env.configPlaceholder["enemyLevel"] then
-			if env.configInput.enemyIsBoss == "None" or env.configInput.enemyIsBoss == "Boss" then
-				env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.build.characterLevel, env.configPlaceholder["enemyLevel"])
-			else
-				env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.configPlaceholder["enemyLevel"])
-			end
-		else
-			env.enemyLevel = m_min(data.misc.MaxEnemyLevel, env.build.characterLevel)
-		end
+		env.enemyLevel = build.configTab.enemyLevel or m_min(data.misc.MaxEnemyLevel, build.characterLevel)
 
 		-- Create player/enemy actors
 		env.player = {
@@ -427,6 +417,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerBrutalTripleDamageChance", "BASE", 3, "Base")
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
+		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
 		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", env.spec.allocatedNotableCount, "")
 		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", env.spec.allocatedMasteryCount, "")
 
