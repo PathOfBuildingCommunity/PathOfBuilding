@@ -2529,9 +2529,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.EnergyShieldOnKill = 0
 			output.ManaOnKill = 0
 		else
-			output.LifeOnKill = skillModList:Sum("BASE", cfg, "LifeOnKill")
-			output.EnergyShieldOnKill = skillModList:Sum("BASE", cfg, "EnergyShieldOnKill")
-			output.ManaOnKill = skillModList:Sum("BASE", cfg, "ManaOnKill")
+			output.LifeOnKill = m_floor(skillModList:Sum("BASE", cfg, "LifeOnKill"))
+			output.EnergyShieldOnKill = m_floor(skillModList:Sum("BASE", cfg, "EnergyShieldOnKill"))
+			output.ManaOnKill = m_floor(skillModList:Sum("BASE", cfg, "ManaOnKill"))
 		end
 
 		-- Calculate average damage and final DPS
