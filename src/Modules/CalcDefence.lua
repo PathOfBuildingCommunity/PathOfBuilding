@@ -778,37 +778,57 @@ function calcs.defence(env, actor)
 		output.ElementalEnergyShieldRecoup = ElementalEnergyShieldRecoup * output.EnergyShieldRecoveryRateMod
 		local quickRecoup = modDB:Flag(nil, "3SecondRecoup")
 		if breakdown then
-			breakdown.LifeRecoup = {
-				s_format("%.1f ^8(base)", LifeRecoup),
-				s_format("* %.2f ^8(recovery rate modifier)", output.LifeRecoveryRateMod),
-				s_format("= %.1f over %d seconds", output.LifeRecoup, quickRecoup and 3 or 4)
-			}
-			breakdown.ManaRecoup = {
-				s_format("%.1f ^8(base)", ManaRecoup),
-				s_format("* %.2f ^8(recovery rate modifier)", output.ManaRecoveryRateMod),
-				s_format("= %.1f over %d seconds", output.ManaRecoup, quickRecoup and 3 or 4)
-			}
-			breakdown.EnergyShieldRecoup = {
-				s_format("%.1f ^8(base)", EnergyShieldRecoup),
-				s_format("* %.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod),
-				s_format("= %.1f over %d seconds", output.EnergyShieldRecoup, quickRecoup and 3 or 4)
-			}
-			breakdown.ElementalEnergyShieldRecoup = {
-				s_format("%.1f ^8(base)", ElementalEnergyShieldRecoup),
-				s_format("* %.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod),
-				s_format("= %.1f over %d seconds", output.ElementalEnergyShieldRecoup, quickRecoup and 3 or 4)
-			}
+			if output.LifeRecoveryRateMod ~= 1 then
+				breakdown.LifeRecoup = {
+					s_format("%d%% ^8(base)", LifeRecoup),
+					s_format("* %.2f ^8(recovery rate modifier)", output.LifeRecoveryRateMod),
+					s_format("= %.1f%% over %d seconds", output.LifeRecoup, quickRecoup and 3 or 4)
+				}
+			else
+				breakdown.LifeRecoup = { s_format("%d%% over %d seconds", output.LifeRecoup, quickRecoup and 3 or 4) }
+			end
+			if output.ManaRecoveryRateMod ~= 1 then
+				breakdown.ManaRecoup = {
+					s_format("%d%% ^8(base)", ManaRecoup),
+					s_format("* %.2f ^8(recovery rate modifier)", output.ManaRecoveryRateMod),
+					s_format("= %.1f%% over %d seconds", output.ManaRecoup, quickRecoup and 3 or 4)
+				}
+			else
+				breakdown.ManaRecoup = { s_format("%d%% over %d seconds", output.ManaRecoup, quickRecoup and 3 or 4) }
+			end
+			if output.EnergyShieldRecoveryRateMod ~= 1 then
+				breakdown.EnergyShieldRecoup = {
+					s_format("%d%% ^8(base)", EnergyShieldRecoup),
+					s_format("* %.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod),
+					s_format("= %.1f%% over %d seconds", output.EnergyShieldRecoup, quickRecoup and 3 or 4)
+				}
+			else
+				breakdown.EnergyShieldRecoup = { s_format("%d%% over %d seconds", output.EnergyShieldRecoup, quickRecoup and 3 or 4) }
+			end
+			if output.EnergyShieldRecoveryRateMod ~= 1 then
+				breakdown.ElementalEnergyShieldRecoup = {
+					s_format("%d%% ^8(base)", ElementalEnergyShieldRecoup),
+					s_format("* %.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod),
+					s_format("= %.1f%% over %d seconds", output.ElementalEnergyShieldRecoup, quickRecoup and 3 or 4)
+				}
+			else
+				breakdown.ElementalEnergyShieldRecoup = { s_format("%d%% over %d seconds", output.ElementalEnergyShieldRecoup, quickRecoup and 3 or 4) }
+			end
 		end
 		
 		for _, damageType in ipairs(dmgTypeList) do
 			LifeRecoup = modDB:Sum("BASE", nil, damageType.."LifeRecoup")
 			output[damageType.."LifeRecoup"] =  LifeRecoup * output.LifeRecoveryRateMod
 			if breakdown then
-				breakdown[damageType.."LifeRecoup"] = {
-					s_format("%.1f ^8(base)", LifeRecoup),
-					s_format("* %.2f ^8(recovery rate modifier)", output.LifeRecoveryRateMod),
-					s_format("= %.1f over %d seconds", output[damageType.."LifeRecoup"], quickRecoup and 3 or 4)
-				}
+				if output.LifeRecoveryRateMod ~= 1 then
+					breakdown[damageType.."LifeRecoup"] = {
+						s_format("%d%% ^8(base)", LifeRecoup),
+						s_format("* %.2f ^8(recovery rate modifier)", output.LifeRecoveryRateMod),
+						s_format("= %.1f%% over %d seconds", output[damageType.."LifeRecoup"], quickRecoup and 3 or 4)
+					}
+				else
+					breakdown[damageType.."LifeRecoup"] = { s_format("%d%% over %d seconds", output[damageType.."LifeRecoup"], quickRecoup and 3 or 4) }
+				end
 			end
 		end
 	end
