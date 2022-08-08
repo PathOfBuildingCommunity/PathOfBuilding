@@ -2497,6 +2497,7 @@ local specialModList = {
 	["(%d+)%% chance for poisons inflicted with this weapon to deal (%d+)%% more damage"] = function(num, _, more) return {
 		mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
 	} end,
+	["poisons on you expire (%d+)%% slower"] = function(num) return { mod("SelfPoisonDebuffExpirationRate", "BASE", -num)} end,
 	-- Suppression
 	["your chance to suppressed spell damage is lucky"] = { flag("SpellSuppressionChanceIsLucky") },
 	["your chance to suppressed spell damage is unlucky"] = { flag("SpellSuppressionChanceIsUnlucky") },
@@ -2709,6 +2710,7 @@ local specialModList = {
 	["left ring slot: cover enemies in ash for 5 seconds when you ignite them"] = { mod("CoveredInAshEffect", "BASE", 20, { type = "SlotNumber", num = 1 }, { type = "ActorCondition", actor = "enemy", var = "Ignited" }) },
 	["right ring slot: cover enemies in frost for 5 seconds when you freeze them"] = { mod("CoveredInFrostEffect", "BASE", 20, { type = "SlotNumber", num = 2 }, { type = "ActorCondition", actor = "enemy", var = "Frozen" }) },
 	["([%a%s]+) has (%d+)%% increased effect"] = function(_, skill, num) return { mod("BuffEffect", "INC", num, { type = "SkillId", skillId = gemIdLookup[skill]}) } end,
+	["debuffs on you expire (%d+)%% faster"] = function(num) return { mod("SelfDebuffExpirationRate", "BASE", num)} end,
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
