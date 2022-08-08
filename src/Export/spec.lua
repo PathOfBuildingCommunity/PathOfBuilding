@@ -491,49 +491,35 @@ return {
 			name="Stat1",
 			refTo="",
 			type="Interval",
-			width=150
+			width=70
 		},
 		[6]={
 			list=false,
-			name="Unknown6",
+			name="Stat2",
 			refTo="",
-			type="Int",
-			width=30
+			type="Interval",
+			width=70
 		},
 		[7]={
 			list=false,
-			name="Unknown7",
+			name="Stat3",
 			refTo="",
-			type="Int",
-			width=30
+			type="Interval",
+			width=70
 		},
 		[8]={
-			list=false,
-			name="Unknown8",
-			refTo="",
-			type="Int",
-			width=30
-		},
-		[9]={
-			list=false,
-			name="Unknown9",
-			refTo="",
-			type="Int",
-			width=30
-		},
-		[10]={
 			list=true,
 			name="PassiveType",
 			refTo="",
 			type="Int",
-			width=150
+			width=70
 		},
-		[11]={
+		[9]={
 			list=false,
-			name="Unknown11",
+			name="SpawnWeight",
 			refTo="",
 			type="Int",
-			width=150
+			width=90
 		}
 	},
 	AlternatePassiveSkills={
@@ -584,102 +570,88 @@ return {
 			name="Stat2",
 			refTo="",
 			type="Interval",
-			width=50
+			width=70
 		},
 		[8]={
 			list=false,
-			name="Unknown9",
+			name="Stat3",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[9]={
 			list=false,
-			name="Unknown10",
+			name="Stat4",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[10]={
 			list=false,
-			name="Unknown11",
+			name="Stat5",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[11]={
 			list=false,
-			name="Unknown12",
+			name="Stat6",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[12]={
 			list=false,
-			name="Unknown13",
-			refTo="",
-			type="Int",
-			width=70
-		},
-		[13]={
-			list=false,
-			name="Unknown14",
-			refTo="",
-			type="Int",
-			width=70
-		},
-		[14]={
-			list=false,
-			name="Unknown15",
-			refTo="",
-			type="Int",
-			width=30
-		},
-		[15]={
-			list=false,
-			name="Unknown16",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[16]={
-			list=false,
 			name="SpawnWeight",
 			refTo="",
 			type="Int",
-			width=30
+			width=90
 		},
-		[17]={
+		[13]={
 			list=false,
-			name="Unknown18",
+			name="ConquerorIndex",
 			refTo="",
-			type="Int",
-			width=150
+			type="UInt",
+			width=90
 		},
-		[18]={
+		[14]={
 			list=false,
 			name="Random",
 			refTo="",
 			type="Interval",
 			width=150
 		},
-		[19]={
+		[15]={
 			list=false,
 			name="FlavourText",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[20]={
+		[16]={
 			list=false,
 			name="DDSIcon",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[21]={
+		[17]={
 			list=true,
 			name="AchievementItemsKeys",
+			refTo="",
+			type="UInt",
+			width=150
+		},
+		[18]={
+			list=false,
+			name="ConquerorVersion",
+			refTo="",
+			type="UInt",
+			width=150
+		},
+		[19]={
+			list=false,
+			name="ConquerorSpawnWeight",
 			refTo="",
 			type="UInt",
 			width=150
@@ -707,6 +679,48 @@ return {
 			refTo="",
 			type="String",
 			width=150
+		},
+		[2]={
+			list=false,
+			name="SmallAttributeReplaced",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="SmallNormalPassiveReplaced ",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="SmallAttributePassiveSkillAdditions",
+			refTo="",
+			type="Interval",
+			width=170
+		},
+		[5]={
+			list=false,
+			name="NotableAdditions",
+			refTo="",
+			type="Interval",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="SmallNormalPassiveSkillAdditions",
+			refTo="",
+			type="Interval",
+			width=170
+		},
+		[7]={
+			list=false,
+			name="NotableReplacementSpawnWeight ",
+			refTo="",
+			type="UInt",
+			width=200
 		}
 	},
 	AnimatedObjectFlags={

@@ -144,9 +144,9 @@
 - Add support for weapon local Overwhelm mod [\#4415](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4415) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add support for self-damage breakdown for Forbidden Rite [\#4420](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4420) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add support for many helmet enchants [\#4419](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4419) ([LocalIdentity](https://github.com/LocalIdentity))
-  * Animated Guardian, Energy Blades, Ensnaring Arrow, Flame Wall, Frost Sheild, Herald of Agony, Hydrosphere, Plague Bearer, Purifying Flame, Wild Strike
+  * Animated Guardian, Energy Blades, Ensnaring Arrow, Flame Wall, Frost Shield, Herald of Agony, Hydrosphere, Plague Bearer, Purifying Flame, Wild Strike
 ### Accuracy Improvements
-- Minor EHP improvments [\#4227](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4227) ([Regisle](https://github.com/Regisle))
+- Minor EHP improvements [\#4227](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4227) ([Regisle](https://github.com/Regisle))
 - Fix Massive Thread of Hope outer radius [\#4404](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4404) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Exposure mastery stacking incorrectly [\#4396](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4396) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Painseeker disabling alt Ailments from Secrets of Suffering [\#4412](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4412) ([LocalIdentity](https://github.com/LocalIdentity))
@@ -603,8 +603,8 @@
 - Add Defiance Banner to the Config tab [\#3505](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3505) ([uilman](https://github.com/uilman))
 - Add support for the "not taken damage recently" clause [\#3504](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3504) ([Dullson](https://github.com/Dullson))
 - Add support for "Non-Projectile Chaining Lightning Skills Chain +1 times" [\#3503](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3503) ([Dullson](https://github.com/Dullson))
-- Add support for Surveillence notable [\#3501](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3501) ([Lothrik](https://github.com/Lothrik))
-- Update Transcendance Keystone to 3.16 value [\#3477](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3477) ([enizor](https://github.com/enizor))
+- Add support for Surveillance notable [\#3501](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3501) ([Lothrik](https://github.com/Lothrik))
+- Update Transcendence Keystone to 3.16 value [\#3477](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3477) ([enizor](https://github.com/enizor))
 - Add support for 3.16 Elemental Equilibrium [\#3474](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3474) ([Lothrik](https://github.com/Lothrik))
 - Add support for Gladiator Violent Retaliation and Ascendant Gladiator nodes [\#3465](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3465) ([Peechey](https://github.com/Peechey))
 - Add support complex custom modifiers [\#3462](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3462) ([SaloEater](https://github.com/SaloEater))
@@ -1255,7 +1255,7 @@
   * Add support for Inquisitor's reworked Notables
 * Add support for Battlemage mechanic
 * Add support for Blackflame's unique mechanics
-* Add support for all basic aegides
+* Add support for all basic aegises
 * Add various improvements to the accuracy of maximum hit and EHP calcs
 * Add option to show all Alternate Quality skill gems in the skill gem selection dropdown
 * Add stat comparisons to Alternate Quality skill gems on hover
