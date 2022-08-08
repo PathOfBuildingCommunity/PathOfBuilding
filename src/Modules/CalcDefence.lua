@@ -799,6 +799,8 @@ function calcs.defence(env, actor)
 	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
 	output.EnergyShieldOnSpellBlock = modDB:Sum("BASE", nil, "EnergyShieldOnSpellBlock")
 	
+	output.EnergyShieldOnSuppress = modDB:Sum("BASE", nil, "EnergyShieldOnSuppress")
+	
 	-- damage avoidances
 	for _, damageType in ipairs(dmgTypeList) do
 		output["Avoid"..damageType.."DamageChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..damageType.."DamageChance"), data.misc.AvoidChanceCap)
@@ -1640,7 +1642,8 @@ function calcs.defence(env, actor)
 		if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" or damageCategoryConfig == "Average" then
 			suppressChance = output.SpellSuppressionChance / 100
 		end
-		if suppressChance < 1 then -- We include suppresion in damage reduction if it is 100% otherwise we handle it here.
+		-- We include suppresion in damage reduction if it is 100% otherwise we handle it here.
+		if suppressChance < 1 then
 			-- unlucky config to lower the value of block, dodge, evade etc for ehp
 			if worstOf > 1 then
 				suppressChance = suppressChance * suppressChance
@@ -1651,7 +1654,10 @@ function calcs.defence(env, actor)
 			if damageCategoryConfig == "Average" then
 				suppressChance = suppressChance / 2
 			end
+			DamageIn.EnergyShieldWhenHit = (DamageIn.EnergyShieldWhenHit or 0) + output.EnergyShieldOnSuppress * suppressChance
 			suppressionEffect = 1 - suppressChance * output.SpellSuppressionEffect / 100
+		else
+			DamageIn.EnergyShieldWhenHit = (DamageIn.EnergyShieldWhenHit or 0) + output.EnergyShieldOnSuppress * ( damageCategoryConfig == "Average" and 0.5 or 1 )
 		end
 		-- extra avoid chance
 		if damageCategoryConfig == "Projectile" or damageCategoryConfig == "SpellProjectile" then
@@ -1659,11 +1665,15 @@ function calcs.defence(env, actor)
 		elseif damageCategoryConfig == "Average" then
 			ExtraAvoidChance = ExtraAvoidChance + output.AvoidProjectilesChance / 2
 		end
-		-- gain when hit (currently just gain on block)
+		-- gain when hit (currently just gain on block/suppress)
 		if not env.configInput.DisableEHPGainOnBlock then
-			if DamageIn.LifeWhenHit ~= 0 or DamageIn.ManaWhenHit ~= 0 or DamageIn.EnergyShieldWhenHit ~= 0 then
+			if (DamageIn.LifeWhenHit or 0) ~= 0 or (DamageIn.ManaWhenHit or 0) ~= 0 or DamageIn.EnergyShieldWhenHit ~= 0 then
 				DamageIn.GainWhenHit = true
 			end
+		else
+			DamageIn.LifeWhenHit = 0
+			DamageIn.ManaWhenHit = 0
+			DamageIn.EnergyShieldWhenHit = 0
 		end
 		for _, damageType in ipairs(dmgTypeList) do
 			 -- Emperor's Vigilance (this needs to fail with divine flesh as it can't override it, hence the check for high bypass)
