@@ -198,7 +198,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	-- Determine positions if one line of controls doesn't fit in the screen width
 	local twoLineHeight = 24
-	if viewPort.width >= 1484 or (viewPort.width >= 1168 and not self.viewer.showHeatMap) then
+	if viewPort.width >= 1168 + (self.isComparing and 198 or 0) + (self.viewer.showHeatMap and 316 or 0) then
 		twoLineHeight = 0
 		self.controls.findTimelessJewel:SetAnchor("LEFT", self.controls.treeSearch, "RIGHT", 8, 0)
 		if self.controls.powerReportList then
@@ -245,6 +245,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
+	self.controls.treeHeatMapStatSelect.shown = self.viewer.showHeatMap
 	self.controls.treeHeatMapStatSelect.list = self.powerStatList
 	self.controls.treeHeatMapStatSelect.selIndex = 1
 	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
