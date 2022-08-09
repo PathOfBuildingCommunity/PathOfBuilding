@@ -761,7 +761,7 @@ local skills, mod, flag, skill = ...
 			-- This is okay not indicating exert because it must be enabled by Intimidating Cry which would exert the attack
 			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Attack, 0)
 		},
-		["intimidating_cry_empowerd_attacks_deal_double_damage_display"] = {
+		["intimidating_cry_empowered_attacks_deal_double_damage_display"] = {
 		},
 	},
 #baseMod skill("radius", 60)

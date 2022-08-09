@@ -635,7 +635,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill SummonBeastialRhoa
+#skill SummonBestialRhoa
 #flags spell minion
 	fromItem = true,
 	minionList = {
@@ -650,7 +650,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
-#skill SummonBeastialSnake
+#skill SummonBestialSnake
 #flags spell minion
 	fromItem = true,
 	minionList = {
@@ -665,7 +665,7 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
-#skill SummonBeastialUrsa
+#skill SummonBestialUrsa
 #flags spell minion
 	fromItem = true,
 	minionList = {

@@ -125,11 +125,11 @@ local skills, mod, flag, skill = ...
 #flags spell projectile area
 #mods
 
-#skill FireballIncusionFire Fireball
+#skill FireballIncursionFire Fireball
 #flags spell projectile area
 #mods
 
-#skill FireballIncusionLightning Lightning Ball
+#skill FireballIncursionLightning Lightning Ball
 #flags spell projectile area
 #mods
 
@@ -736,7 +736,7 @@ local skills, mod, flag, skill = ...
 #flags spell hit triggerable area projectile
 #mods
 
-#skill AtlasCruasderJudgeFadingNova Nova Spell
+#skill AtlasCrusaderJudgeFadingNova Nova Spell
 #flags spell projectile triggerable
 #mods
 
