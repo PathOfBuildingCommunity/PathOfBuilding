@@ -1265,13 +1265,14 @@ function calcs.defence(env, actor)
 			end
 		else
 			local stunDuration = (1 + modDB:Sum("INC", nil, "StunDuration") / 100)
+			local baseStunDuration = data.misc.StunBaseDuration
 			local stunRecovery = (1 + modDB:Sum("INC", nil, "StunRecovery") / 100)
 			local stunAndBlockRecovery = (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
-			output.StunDuration = 0.35 * stunDuration / stunRecovery
-			output.BlockDuration = 0.35 * stunDuration / stunAndBlockRecovery
+			output.StunDuration = baseStunDuration * stunDuration / stunRecovery
+			output.BlockDuration = baseStunDuration * stunDuration / stunAndBlockRecovery
 			if breakdown then
-				breakdown.StunDuration = {"0.35s ^8(base)"}
-				breakdown.BlockDuration = {"0.35s ^8(base)"}
+				breakdown.StunDuration = {s_format("%.2fs ^8(base)", baseStunDuration)}
+				breakdown.BlockDuration = {s_format("%.2fs ^8(base)", baseStunDuration)}
 				if stunDuration ~= 1 then
 					t_insert(breakdown.StunDuration, s_format("* %.2f ^8(increased duration)", stunDuration))
 					t_insert(breakdown.BlockDuration, s_format("* %.2f ^8(increased duration)", stunDuration))
@@ -1282,10 +1283,10 @@ function calcs.defence(env, actor)
 				if stunAndBlockRecovery ~= 1 then
 					t_insert(breakdown.BlockDuration, s_format("/ %.2f ^8(increased/reduced block recovery)", stunAndBlockRecovery))
 				end
-				if output.StunDuration ~= 0.35 then
+				if output.StunDuration ~= baseStunDuration then
 					t_insert(breakdown.StunDuration, s_format("= %.2fs", output.StunDuration))
 				end
-				if output.BlockDuration ~= 0.35 then
+				if output.BlockDuration ~= baseStunDuration then
 					t_insert(breakdown.BlockDuration, s_format("= %.2fs", output.BlockDuration))
 				end
 			end
@@ -1293,21 +1294,21 @@ function calcs.defence(env, actor)
 		output.InterruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInterruptStun"), 100)
 		local effectiveEnemyDamage = output["totalTakenHit"] + output["PhysicalTakenHit"] * 0.25
 		if damageCategoryConfig ~= "Average" then
-			effectiveEnemyDamage = effectiveEnemyDamage * 0.8125
+			effectiveEnemyDamage = effectiveEnemyDamage * (1 + data.misc.StunNotMeleeDamageMult * 3) / 4
 		elseif damageCategoryConfig ~= "Melee" then
-			effectiveEnemyDamage = effectiveEnemyDamage * 0.75
+			effectiveEnemyDamage = effectiveEnemyDamage * data.misc.StunNotMeleeDamageMult
 		end
-		local baseStunChance = m_min(200 * effectiveEnemyDamage / output.StunThreshold, 100)
-		output.SelfStunChance = (baseStunChance > 20 and baseStunChance or 0) * notAvoidChance / 100
+		local baseStunChance = m_min(data.misc.StunBaseMult * effectiveEnemyDamage / output.StunThreshold, 100)
+		output.SelfStunChance = (baseStunChance > data.misc.MinStunChanceNeeded and baseStunChance or 0) * notAvoidChance / 100
 		if breakdown then
 			breakdown.SelfStunChance = {
-				"200% ^8(stun multiplier)",
+				s_format("%d%% ^8(stun multiplier)", data.misc.StunBaseMult),
 				s_format("* %.1f ^8(effective enemy stun damage)", effectiveEnemyDamage),
 				s_format("/ %d ^8(stun threshold)", output.StunThreshold)
 			}
-			if baseStunChance < 20 then
+			if baseStunChance < data.misc.MinStunChanceNeeded then
 				t_insert(breakdown.SelfStunChance, s_format("= %.2f%%", baseStunChance))
-				t_insert(breakdown.SelfStunChance, "Stun Chance has to be more than 20% to stun.")
+				t_insert(breakdown.SelfStunChance, s_format("Stun Chance has to be more than %d%% to stun.", data.misc.MinStunChanceNeeded))
 			else
 				if notAvoidChance ~= 100 then
 					t_insert(breakdown.SelfStunChance, s_format("* %.2f ^8(1 - chance to avoid stun)", notAvoidChance / 100))
