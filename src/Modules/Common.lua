@@ -673,6 +673,7 @@ function cacheData(uuid, env)
 		Speed = env.player.output.Speed,
 		ManaCost = env.player.output.ManaCost,
 		HitChance = env.player.output.HitChance,
+		AccuracyHitChance = env.player.output.AccuracyHitChance,
 		PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
 		CritChance = env.player.output.CritChance,
 		TotalDPS = env.player.output.TotalDPS,
