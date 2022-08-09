@@ -1292,7 +1292,7 @@ function calcs.defence(env, actor)
 		output.SelfStunChance = (noMinStunChance > 20 and noMinStunChance or 0) * stunChance / 100
 		if breakdown then
 			breakdown.SelfStunChance = {
-				"200%% ^8(stun multiplier)",
+				"200% ^8(stun multiplier)",
 				s_format("* %.1f ^8(effective enemy stun damage)", effectiveEnemyDamage),
 				s_format("/ %d ^8(stun threshold)", output.StunThreshold)
 			}
