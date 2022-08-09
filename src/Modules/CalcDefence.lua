@@ -1251,11 +1251,11 @@ function calcs.defence(env, actor)
 				t_insert(breakdown.StunThreshold, s_format("= %d", output.StunThreshold))
 			end
 		end
-		local stunChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
+		local notAvoidChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
 		if output.EnergyShield > output["totalTakenHit"] then
-			stunChance = stunChance * 0.5
+			notAvoidChance = notAvoidChance * 0.5
 		end
-		output.StunAvoidChance = 100 - stunChance
+		output.StunAvoidChance = 100 - notAvoidChance
 		if output.StunAvoidChance >= 100 then
 			output.StunDuration = 0
 			output.BlockDuration = 0
@@ -1297,20 +1297,20 @@ function calcs.defence(env, actor)
 		elseif damageCategoryConfig ~= "Melee" then
 			effectiveEnemyDamage = effectiveEnemyDamage * 0.75
 		end
-		local noMinStunChance = m_min(200 * effectiveEnemyDamage / output.StunThreshold, 100)
-		output.SelfStunChance = (noMinStunChance > 20 and noMinStunChance or 0) * stunChance / 100
+		local baseStunChance = m_min(200 * effectiveEnemyDamage / output.StunThreshold, 100)
+		output.SelfStunChance = (baseStunChance > 20 and baseStunChance or 0) * notAvoidChance / 100
 		if breakdown then
 			breakdown.SelfStunChance = {
 				"200% ^8(stun multiplier)",
 				s_format("* %.1f ^8(effective enemy stun damage)", effectiveEnemyDamage),
 				s_format("/ %d ^8(stun threshold)", output.StunThreshold)
 			}
-			if noMinStunChance < 20 then
-				t_insert(breakdown.SelfStunChance, s_format("= %.2f%%", noMinStunChance))
+			if baseStunChance < 20 then
+				t_insert(breakdown.SelfStunChance, s_format("= %.2f%%", baseStunChance))
 				t_insert(breakdown.SelfStunChance, "Stun Chance has to be more than 20% to stun.")
 			else
-				if stunChance ~= 100 then
-					t_insert(breakdown.SelfStunChance, s_format("* %.2f ^8(chance to avoid stun)", stunChance / 100))
+				if notAvoidChance ~= 100 then
+					t_insert(breakdown.SelfStunChance, s_format("* %.2f ^8(1 - chance to avoid stun)", notAvoidChance / 100))
 				end
 				t_insert(breakdown.SelfStunChance, s_format("= %.2f%%", output.SelfStunChance))
 			end

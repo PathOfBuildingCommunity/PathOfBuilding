@@ -1458,7 +1458,7 @@ return {
 		{ breakdown = "StunDuration" },
 		{ modName = { "StunDuration", "StunRecovery" } },
 	}, },
-	{ label = "Block Recovery Dur", { format = "{2:output:BlockDuration}s", 
+	{ label = "Block Stun Duration", { format = "{2:output:BlockDuration}s", 
 		{ breakdown = "BlockDuration" },
 		{ modName = { "StunDuration", "StunRecovery", "BlockRecovery" }, }, 
 	}, },
