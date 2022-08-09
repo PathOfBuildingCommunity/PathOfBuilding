@@ -13,9 +13,6 @@ local itemBases = ...
 #base Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/StormBladeOneHand
 #forceHide false
 
-#type Thrusting One Handed Sword
-#baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier
-
 #type Two Handed Sword
 #socketLimit 6
 #baseTags weapon twohand sword two_hand_weapon
@@ -24,3 +21,9 @@ local itemBases = ...
 #forceHide true
 #base Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/StormBladeTwoHand
 #forceHide false
+
+#type One Handed Sword
+#subType Thrusting
+#socketLimit 3
+#baseTags weapon onehand sword one_hand_weapon
+#baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier
