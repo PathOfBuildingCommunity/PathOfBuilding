@@ -191,15 +191,15 @@ function GemSelectClass:UpdateSortCache()
 	--local start = GetTime()
 	local sortCache = self.sortCache
 	--Don't update the cache if no settings have changed that would impact the ordering
-	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index] and 
-	  sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel 
-	  and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField 
-	  and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerAwakened == self.skillsTab.showSupportGemTypes then
+	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index] and
+		sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
+		and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField
+		and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerAwakened == self.skillsTab.showSupportGemTypes then
 		return
 	end
 
 	if sortCache and (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes 
-	  or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality) then
+		or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality) then
 		self:PopulateGemList()
 	end
 
@@ -239,7 +239,7 @@ function GemSelectClass:UpdateSortCache()
 
 	for gemId, gemData in pairs(self.gems) do
 		sortCache.dps[gemId] = baseDPS
-		--Ignore gems that don't support the active skill
+		-- Ignore gems that don't support the active skill
 		if sortCache.canSupport[gemId] or gemData.grantedEffect.hasGlobalEffect then
 			local gemList = self.skillsTab.displayGroup.gemList
 			local oldGem
@@ -247,7 +247,7 @@ function GemSelectClass:UpdateSortCache()
 				oldGem = copyTable(gemList[self.index], true)
 			else
 				gemList[self.index] = {
-					level = self.skillsTab:ProcessGemLevel(gemData),
+					level = gemData.defaultLevel,
 					qualityId = self:GetQualityType(gemId),
 					quality = self.skillsTab.defaultGemQuality or 0,
 					enabled = true,
@@ -255,16 +255,12 @@ function GemSelectClass:UpdateSortCache()
 					enableGlobal2 = true
 				}
 			end
+			-- Create gemInstance to represent the hovered gem
 			local gemInstance = gemList[self.index]
-			if gemInstance.gemData and gemInstance.gemData.defaultLevel ~= gemData.defaultLevel then
-				gemInstance.level = self.skillsTab.defaultGemLevel or gemData.defaultLevel
-			end
+			gemInstance.level = self.skillsTab:ProcessGemLevel(gemData)
 			gemInstance.gemData = gemData
-			if (gemData.grantedEffect.plusVersionOf and gemInstance.level > gemData.defaultLevel) or not gemData.grantedEffect.levels[gemInstance.level] then
-				gemInstance.level = gemData.defaultLevel
-			end
-			--Calculate the impact of using this gem
-			local output = calcFunc({}, { allocNodes = true, requirementsItems = true })
+			-- Calculate the impact of using this gem
+			local output = calcFunc({ }, { allocNodes = true, requirementsItems = true })
 			if oldGem then
 				gemInstance.gemData = oldGem.gemData
 				gemInstance.level = oldGem.level
@@ -274,7 +270,7 @@ function GemSelectClass:UpdateSortCache()
 			-- Check for nil because some fields may not be populated, default to 0
 			sortCache.dps[gemId] = (dpsField == "FullDPS" and output[dpsField] ~= nil and output[dpsField]) or (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
 		end
-		--Color based on the dps
+		-- Color based on the DPS
 		if sortCache.dps[gemId] > baseDPS then
 			sortCache.dpsColor[gemId] = "^x228866"
 		elseif sortCache.dps[gemId] < baseDPS then
@@ -425,7 +421,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 					oldGem = copyTable(gemList[self.index], true)
 				else
 					gemList[self.index] = {
-						level = self.skillsTab:ProcessGemLevel(gemData),
+						level = gemData.defaultLevel,
 						qualityId = self:GetQualityType(self.list[self.hoverSel]),
 						quality = self.skillsTab.defaultGemQuality or 0,
 						enabled = true,
@@ -435,9 +431,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				end
 				-- Create gemInstance to represent the hovered gem
 				local gemInstance = gemList[self.index]
-				if gemInstance.gemData and gemInstance.gemData.defaultLevel ~= gemData.defaultLevel then
-					gemInstance.level = self.skillsTab:ProcessGemLevel(gemData)
-				end
+				gemInstance.level = self.skillsTab:ProcessGemLevel(gemData)
 				gemInstance.gemData = gemData
 				-- Clear the displayEffect so it only displays the temporary gem instance
 				gemInstance.displayEffect = nil

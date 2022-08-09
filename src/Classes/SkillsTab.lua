@@ -28,8 +28,9 @@ local groupSlotDropList = {
 
 local defaultGemLevelList = {
 	{ label = "Match Character Level", gemLevel = "characterLevel" },
-	{ label = "Natural Maximum", gemLevel = "naturalMaximum" },
-	{ label = "Corrupted Maximum", gemLevel = "corruptMaximum" },
+	{ label = "Normal Maximum", gemLevel = "normalMaximum" },
+	{ label = "Corrupted Maximum", gemLevel = "corruptedMaximum" },
+	{ label = "Awakened Maximum", gemLevel = "awakenedMaximum" },
 }
 
 local showSupportGemTypeList = {
@@ -975,9 +976,15 @@ end
 function SkillsTabClass:ProcessGemLevel(gemData)
 	local grantedEffect = gemData.grantedEffect
 	local defaultLevel = grantedEffect.defaultLevel or gemData.defaultLevel or 1
-	if self.defaultGemLevel == "corruptMaximum" then
+	if self.defaultGemLevel == "awakenedMaximum" then
 		return defaultLevel + 1
-	elseif self.defaultGemLevel == "naturalMaximum" then
+	elseif self.defaultGemLevel == "corruptedMaximum" then
+		if grantedEffect.plusVersionOf then
+			return defaultLevel
+		else
+			return defaultLevel + 1
+		end
+	elseif self.defaultGemLevel == "normalMaximum" then
 		return defaultLevel
 	else
 		local maxGemLevel = defaultLevel
