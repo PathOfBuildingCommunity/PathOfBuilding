@@ -507,23 +507,37 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 		self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
 	end)
 	controls["changeButton"..str_cnt].shown = function() return self.resultTbl[str_cnt] end
-	controls["resultPrev"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["changeButton"..str_cnt],"TOPRIGHT"}, 8, 0, 20, row_height, "<<", function()
+	function resultPrev()
 		self.itemIndexTbl[str_cnt] = clampItemIndex(self.itemIndexTbl[str_cnt] - 1)
 		self:SetFetchResultReturn(str_cnt, self.itemIndexTbl[str_cnt])
-	end)
+	end
+	function resultNext()
+		self.itemIndexTbl[str_cnt] = clampItemIndex(self.itemIndexTbl[str_cnt] + 1)
+		self:SetFetchResultReturn(str_cnt, self.itemIndexTbl[str_cnt])
+	end
+	controls["resultPrev"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["changeButton"..str_cnt],"TOPRIGHT"}, 8, 0, 20, row_height, "<<", resultPrev) --/*320+8+*/
 	controls["resultPrev"..str_cnt].enabled = function()
 		return self.itemIndexTbl[str_cnt] ~= nil and self.itemIndexTbl[str_cnt] > 1
 	end
-	controls["resultCount"..str_cnt] = new("LabelControl", {"TOPLEFT",controls["resultPrev"..str_cnt],"TOPRIGHT"}, 8, 0, 100, 18, function()
-		return self.sortedResultTbl[str_cnt] and ("^7" .. self.itemIndexTbl[str_cnt] .. "/" .. #self.sortedResultTbl[str_cnt]) or "^7No Results"
-	end)
-	controls["resultNext"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["resultCount"..str_cnt],"TOPRIGHT"}, 8, 0, 20, row_height, ">>", function()
-		self.itemIndexTbl[str_cnt] = clampItemIndex(self.itemIndexTbl[str_cnt] + 1)
-		self:SetFetchResultReturn(str_cnt, self.itemIndexTbl[str_cnt])
-	end)
+	controls['resultCount'..str_cnt] = new("LabelTooltipControl", {"TOPLEFT",controls['resultPrev'..str_cnt],"TOPRIGHT"}, 8, 0, 100, 18,
+	function() return self.sortedResultTbl[str_cnt] and ("^7" .. self.itemIndexTbl[str_cnt] .. "/" .. #self.sortedResultTbl[str_cnt]) or "No Results" end, "Use mouse wheel to navigate between items.")
+	controls['resultCount'..str_cnt].onPrevious = resultPrev
+	controls['resultCount'..str_cnt].onNext = resultNext
+	controls['resultCount'..str_cnt].tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		if self.itemIndexTbl[str_cnt] and self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string then
+			-- TODO: item parsing bug caught here.
+			-- item.baseName is nil and throws error in the following AddItemTooltip func
+			-- if the item is unidentified
+			local item = new("Item", self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string)
+			self.itemsTab:AddItemTooltip(tooltip, item, nil, true)
+		end
+	end
+	controls['resultNext'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['resultCount'..str_cnt],"TOPRIGHT"}, 8, 0, 20, row_height, ">>", resultNext)
 	controls["resultNext"..str_cnt].enabled = function()
 		return self.itemIndexTbl[str_cnt] ~= nil and self.itemIndexTbl[str_cnt] < (self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1)
-	end controls["importButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["resultNext"..str_cnt],"TOPRIGHT"}, 8, 0, 100, row_height, "Import Item", function()
+	end 
+	controls["importButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["resultNext"..str_cnt],"TOPRIGHT"}, 8, 0, 100, row_height, "Import Item", function()
 		self.itemsTab:CreateDisplayItemFromRaw(self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string)
 		local item = self.itemsTab.displayItem
 		-- pass "true" to not auto equip it as we will have our own logic
@@ -551,7 +565,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 		return self.itemIndexTbl[str_cnt] and self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string ~= nil
 	end
 	-- Whisper so we can copy to clipboard
-	controls["whisperButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["importButton"..str_cnt],"TOPRIGHT"}, 8, 0, 200, row_height, function()
+	controls["whisperButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["importButton"..str_cnt],"TOPRIGHT"}, 8, 0, 197, row_height, function()
 		return self.totalPrice[str_cnt] and "Whisper for " .. self.totalPrice[str_cnt].amount .. " " .. self.totalPrice[str_cnt].currency or "Whisper"
 	end, function()
 		Copy(self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].whisper)

@@ -63,7 +63,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.tradeQuery = new("TradeQuery", self)
 
 	-- Set selector
-	self.controls.setSelect = new("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 8, 200, 20, nil, function(index, value)
+	self.controls.setSelect = new("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 8, 216, 20, nil, function(index, value)
 		self:SetActiveItemSet(self.itemSetOrderList[index])
 		self:AddUndoState()
 	end)
@@ -83,7 +83,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	end)
 
 	-- Price Items
-	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 34, 248, 20, "Trade for these items", function()
+	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 32, 310, 20, "Trade for these items", function()
 		self.tradeQuery:PriceItem()
 	end)
 	self.controls.priceDisplayItem.tooltipFunc = function(tooltip)
@@ -96,7 +96,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.slots = { }
 	self.orderedSlots = { }
 	self.slotOrder = { }
-	self.slotAnchor = new("Control", {"TOPLEFT",self,"TOPLEFT"}, 96, 74, 310, 0)
+	self.slotAnchor = new("Control", {"TOPLEFT",self,"TOPLEFT"}, 96, 76, 310, 0)
 	local prevSlot = self.slotAnchor
 	local function addSlot(slot)
 		prevSlot = slot
@@ -149,7 +149,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	end
 
 	-- Passive tree dropdown controls
-	self.controls.specSelect = new("DropDownControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 8, 200, 20, nil, function(index, value)
+	self.controls.specSelect = new("DropDownControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 8, 216, 20, nil, function(index, value)
 		if self.build.treeTab.specList[index] then
 			self.build.modFlag = true
 			self.build.treeTab:SetActiveSpec(index)
@@ -159,7 +159,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		return #self.controls.specSelect.list > 1
 	end
 	prevSlot = self.controls.specSelect
-	self.controls.specButton = new("ButtonControl", {"LEFT",prevSlot,"RIGHT"}, 2, 0, 90, 20, "Manage...", function()
+	self.controls.specButton = new("ButtonControl", {"LEFT",prevSlot,"RIGHT"}, 4, 0, 90, 20, "Manage...", function()
 		self.build.treeTab:OpenSpecManagePopup()
 	end)
 	self.controls.specLabel = new("LabelControl", {"RIGHT",prevSlot,"LEFT"}, -2, 0, 0, 16, "^7Passive tree:")
