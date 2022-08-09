@@ -72,6 +72,10 @@ function ItemClass:ParseRaw(raw)
 	self.rawLines = { }
 	for line in string.gmatch(self.raw .. "\r\n", "([^\r\n]*)\r?\n") do
 		line = line:gsub("^%s+",""):gsub("%s+$","")
+		-- remove "Superior" from qualitied items so base-type matches
+		if line:match("^Superior ") then
+			line = line:gsub("Superior ", "")
+		end
 		if #line > 0 then
 			t_insert(self.rawLines, line)
 		end
@@ -102,10 +106,17 @@ function ItemClass:ParseRaw(raw)
 	end
 	if self.rawLines[l] then
 		self.name = self.rawLines[l]
-		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal item to get the base
-		local unIDoffset = #self.rawLines
-		if self.rawLines[unIDoffset]:match("^Note:") then unIDoffset = unIDoffset - 2 end
-		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or self.rawLines[unIDoffset] == "Unidentified") then
+		-- Determine if "Unidentified" item
+		local unidentified = false
+		for _, line in ipairs(self.rawLines) do
+			if line == "Unidentified" then
+				unidentified = true
+				break
+			end
+		end
+
+		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal or Unidentified item to get the base
+		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) then
 			l = l + 1
 		end
 	end
@@ -345,7 +356,8 @@ function ItemClass:ParseRaw(raw)
 					self.catalystQuality = tonumber(specVal)
 				elseif specName == "Note" then
 					self.note = specVal
-				elseif specName == "Str" or specName == "Dex" or specName == "Int" then
+				elseif specName == "Str" or specName == "Strength" or specName == "Dex" or specName == "Dexterity" or
+				       specName == "Int" or specName == "Intelligence" then
 					self.requirements[specName:lower()] = tonumber(specVal)
 				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or specName == "Weapon Range" or
 				       specName == "Critical Strike Chance" or specName == "Physical Damage" or specName == "Elemental Damage" or
