@@ -963,7 +963,7 @@ end
 
 function SkillsTabClass:MatchGemLevelToCharacterLevel(gemData, fallbackGemLevel)
 	if self.matchGemLevelToCharacterLevel then
-		local maxGemLevel = m_min(self.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1)
+		local maxGemLevel = m_min(self.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel)
 		if not gemData.grantedEffect.levels[maxGemLevel] then
 			maxGemLevel = #gemData.grantedEffect.levels
 		end
@@ -1040,7 +1040,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 				gemInstance.color = colorCodes.NORMAL
 			end
 			if prevDefaultLevel and gemInstance.gemData and gemInstance.gemData.defaultLevel ~= prevDefaultLevel then
-				gemInstance.level = m_min(self.defaultGemLevel or gemInstance.gemData.defaultLevel, gemInstance.gemData.defaultLevel + 1)
+				gemInstance.level = m_min(self.defaultGemLevel, gemInstance.gemData.defaultLevel)
 				gemInstance.defaultLevel = gemInstance.level
 			end
 			calcLib.validateGemLevel(gemInstance)

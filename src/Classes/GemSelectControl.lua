@@ -246,11 +246,11 @@ function GemSelectClass:UpdateSortCache()
 			if gemList[self.index] then
 				oldGem = copyTable(gemList[self.index], true)
 			else
-				gemList[self.index] = { level = self.skillsTab.defaultGemLevel or gemData.defaultLevel, qualityId = self:GetQualityType(gemId), quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
+				gemList[self.index] = { level = self.skillsTab:MatchGemLevelToCharacterLevel(gemData, m_min(self.skillsTab.defaultGemLevel, gemData.defaultLevel)), qualityId = self:GetQualityType(gemId), quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
 			end
 			local gemInstance = gemList[self.index]
 			if gemInstance.gemData and gemInstance.gemData.defaultLevel ~= gemData.defaultLevel then
-				gemInstance.level = self.skillsTab.defaultGemLevel or gemData.defaultLevel
+				gemInstance.level = self.skillsTab:MatchGemLevelToCharacterLevel(gemData, m_min(self.skillsTab.defaultGemLevel, gemData.defaultLevel))
 			end
 			gemInstance.gemData = gemData
 			if (gemData.grantedEffect.plusVersionOf and gemInstance.level > gemData.defaultLevel) or not gemData.grantedEffect.levels[gemInstance.level] then
@@ -417,12 +417,12 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				if gemList[self.index] then
 					oldGem = copyTable(gemList[self.index], true)
 				else
-					gemList[self.index] = { level = self.skillsTab:MatchGemLevelToCharacterLevel(gemData, m_min(self.skillsTab.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1)), qualityId = self:GetQualityType(self.list[self.hoverSel]), quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
+					gemList[self.index] = { level = self.skillsTab:MatchGemLevelToCharacterLevel(gemData, m_min(self.skillsTab.defaultGemLevel, gemData.defaultLevel)), qualityId = self:GetQualityType(self.list[self.hoverSel]), quality = self.skillsTab.defaultGemQuality or 0, enabled = true, enableGlobal1 = true }
 				end
 				-- Create gemInstance to represent the hovered gem
 				local gemInstance = gemList[self.index]
 				if gemInstance.gemData and gemInstance.gemData.defaultLevel ~= gemData.defaultLevel then
-					gemInstance.level = self.skillsTab:MatchGemLevelToCharacterLevel(gemData, m_min(self.skillsTab.defaultGemLevel or gemData.defaultLevel, gemData.defaultLevel + 1))
+					gemInstance.level = self.skillsTab:MatchGemLevelToCharacterLevel(gemData, m_min(self.skillsTab.defaultGemLevel, gemData.defaultLevel))
 				end
 				gemInstance.gemData = gemData
 				-- Clear the displayEffect so it only displays the temporary gem instance
