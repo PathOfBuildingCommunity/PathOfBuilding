@@ -60,7 +60,7 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 			local mOverControl = self:GetMouseOverControl(viewPort)
 
 			-- Avoid calculating isMouseInRegion as much as possible as it's expensive
-			if mOverControl and (not selControl or mOverControl.OnHoverKeyUp) then
+			if mOverControl and (not selControl or mOverControl.OnHoverKeyUp or mOverControl.Reset) then
 				if isMouseInRegion(viewPort) then
 					if not selControl and mOverControl.OnKeyUp and mOverControl:OnKeyUp(event.key) then
 						inputEvents[id] = nil
@@ -68,6 +68,10 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 	
 					if mOverControl.OnHoverKeyUp then
 						mOverControl:OnHoverKeyUp(event.key)
+					end
+
+					if mOverControl.Reset and event.key == "RIGHTBUTTON" then
+						mOverControl:Reset()
 					end
 				end
 			end

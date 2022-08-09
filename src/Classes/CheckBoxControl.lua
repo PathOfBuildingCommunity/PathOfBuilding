@@ -9,6 +9,7 @@ local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost", func
 	self.label = label
 	self.changeFunc = changeFunc
 	self.state = initialState
+	self.initialState = initialState
 end)
 
 function CheckBoxClass:IsMouseOver()
@@ -101,4 +102,11 @@ function CheckBoxClass:OnKeyUp(key)
 		end
 	end
 	self.clicked = false
+end
+
+function CheckBoxClass:Reset()
+	self.state = self.initialState
+	if self.changeFunc then
+		self.changeFunc(self.state)
+	end
 end

@@ -102,6 +102,10 @@ function EditClass:SetPlaceholder(text, notify)
 	end
 end
 
+function EditClass:Reset()
+	self:SetText("", true)
+end
+
 function EditClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -473,7 +477,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 				self:ReplaceSel("")
 			end
 		end
-	elseif key == "v" and ctrl or key == "RIGHTBUTTON" and self.Object:IsMouseOver() then
+	elseif key == "v" and ctrl then
 		local text = Paste()
 		if text then
 			if self.pasteFilter then

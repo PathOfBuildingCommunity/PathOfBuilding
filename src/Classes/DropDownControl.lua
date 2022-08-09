@@ -383,7 +383,7 @@ function DropDownClass:OnKeyDown(key)
 	else
 		self.selControl = nil
 	end
-	if key == "LEFTBUTTON" or key == "RIGHTBUTTON" then
+	if key == "LEFTBUTTON" then
 		local mOver, mOverComp = self:IsMouseOver()
 		if not mOver or (self.dropped and mOverComp == "BODY") then
 			self.dropped = false
@@ -412,7 +412,7 @@ function DropDownClass:OnKeyUp(key)
 		end
 		return self
 	end
-	if key == "LEFTBUTTON" or key == "RIGHTBUTTON" then
+	if key == "LEFTBUTTON" then
 		local mOver, mOverComp = self:IsMouseOver()
 		if not mOver then
 			self.dropped = false
@@ -500,4 +500,9 @@ function DropDownClass:CheckDroppedWidth(enable)
 		self.droppedWidth = self.width
 		self.controls.scrollBar.x = -1
 	end
+end
+
+function DropDownClass:Reset()
+	self:SetSel(1)
+	self:ScrollSelIntoView()
 end
