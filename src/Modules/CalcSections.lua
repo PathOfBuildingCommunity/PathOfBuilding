@@ -1452,7 +1452,7 @@ return {
 } }, { defaultCollapsed = false, label = "Stun Duration", data = {
 	{ label = "Stun Avoid Chance", haveOutput = "StunAvoidChance", { format = "{0:output:StunAvoidChance}%", { modName = "AvoidStun" }, }, },
 	{ label = "Stun Threshold", { format = "{0:output:StunThreshold}", { modName = { "StunThreshold", "StunThresholdManaPercent", "StunThresholdBasedOnEnergyShieldInsteadOfLife" } }, }, },
-	{ label = "Chance to be Stun", { format = "{0:output:SelfStunChance}%", { breakdown = "SelfStunChance" }, }, },
+	{ label = "Stun Chance", { format = "{0:output:SelfStunChance}%", { breakdown = "SelfStunChance" }, }, },
 	{ label = "Interrupt Avoid Ch.", haveOutput = "InterruptStunAvoidChance", { format = "{0:output:InterruptStunAvoidChance}%", { modName = "AvoidInterruptStun" }, }, },
 	{ label = "Stun Duration", { format = "{2:output:StunDuration}s", 
 		{ breakdown = "StunDuration" },
