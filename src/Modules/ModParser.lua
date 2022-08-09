@@ -3054,9 +3054,16 @@ local specialModList = {
 	} end,
 	["cannot be ignited while on low life"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "LowLife" }) },
 	["ward does not break during flask effect"] = { flag("WardNotBreak", { type = "Condition", var = "UsingFlask" }) },
-	["stun threshold is based on energy shield instead of life"] = { flag("StunThresholdBasedOnEnergyShieldInsteadOfLife") },
+	["stun threshold is based on energy shield instead of life"] = { 
+		flag("StunThresholdBasedOnEnergyShieldInsteadOfLife"),
+		mod("StunThresholdEnergyShieldPercent", "BASE", 100),
+	},
+	["stun threshold is based on (%d+)%% of your energy shield instead of life"] = function(num) return { 
+		flag("StunThresholdBasedOnEnergyShieldInsteadOfLife"),
+		mod("StunThresholdEnergyShieldPercent", "BASE", num),
+	} end,
 	["stun threshold is based on (%d+)%% of your mana instead of life"] = function(num) return { 
-		flag("StunThresholdBasedOnManaInsteadOfLife"), 
+		flag("StunThresholdBasedOnManaInsteadOfLife"),
 		mod("StunThresholdManaPercent", "BASE", num),
 	} end,
 	-- Knockback

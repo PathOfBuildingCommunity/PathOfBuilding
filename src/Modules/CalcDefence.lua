@@ -1226,17 +1226,26 @@ function calcs.defence(env, actor)
 	-- stun
 	do
 		local stunThresholdBase = 0
+		local stunThresholdSource = nil
 		if modDB:Flag(nil, "StunThresholdBasedOnEnergyShieldInsteadOfLife") then
-			stunThresholdBase = output.EnergyShield
+			local stunThresholdMult = modDB:Sum("BASE", nil, "StunThresholdEnergyShieldPercent")
+			stunThresholdBase = output.EnergyShield * stunThresholdMult / 100
+			stunThresholdSource = stunThresholdMult.."% of Energy Shield"
 		elseif modDB:Flag(nil, "StunThresholdBasedOnManaInsteadOfLife") then
-			stunThresholdBase = output.Mana * modDB:Sum("BASE", nil, "StunThresholdManaPercent") / 100
+			local stunThresholdMult = modDB:Sum("BASE", nil, "StunThresholdManaPercent")
+			stunThresholdBase = output.Mana * stunThresholdMult / 100
+			stunThresholdSource = stunThresholdMult.."% of Mana"
+		elseif modDB:Flag(nil, "ChaosInoculation") then
+			stunThresholdBase = modDB:Sum("BASE", nil, "Life")
+			stunThresholdSource = "Life before Chaos Inoculation"
 		else
 			stunThresholdBase = output.Life
+			stunThresholdSource = "Life"
 		end
 		local StunThresholdMod = (1 + modDB:Sum("INC", nil, "StunThreshold") / 100)
 		output.StunThreshold = stunThresholdBase * StunThresholdMod
 		if breakdown then
-			breakdown.StunThreshold = { s_format("%f ^8(base)", stunThresholdBase) }
+			breakdown.StunThreshold = { s_format("%d ^8(base from %s)", stunThresholdBase, stunThresholdSource) }
 			if StunThresholdMod ~= 1 then
 				t_insert(breakdown.StunThreshold, s_format("* %.2f ^8(increased threshold)", StunThresholdMod))
 				t_insert(breakdown.StunThreshold, s_format("= %d", output.StunThreshold))
@@ -1251,8 +1260,8 @@ function calcs.defence(env, actor)
 			output.StunDuration = 0
 			output.BlockDuration = 0
 			if breakdown then
-				breakdown.StunDuration = {"cannot be stunned"}
-				breakdown.BlockDuration = {"cannot be stunned"}
+				breakdown.StunDuration = {"Cannot be Stunned"}
+				breakdown.BlockDuration = {"Cannot be Stunned"}
 			end
 		else
 			local stunDuration = (1 + modDB:Sum("INC", nil, "StunDuration") / 100)
@@ -1271,7 +1280,7 @@ function calcs.defence(env, actor)
 					t_insert(breakdown.StunDuration, s_format("/ %.2f ^8(increased/reduced recovery)", stunRecovery))
 				end
 				if stunAndBlockRecovery ~= 1 then
-					t_insert(breakdown.BlockDuration, s_format("/ %.2f ^8(increased/reduced recovery)", stunAndBlockRecovery))
+					t_insert(breakdown.BlockDuration, s_format("/ %.2f ^8(increased/reduced block recovery)", stunAndBlockRecovery))
 				end
 				if output.StunDuration ~= 0.35 then
 					t_insert(breakdown.StunDuration, s_format("= %.2fs", output.StunDuration))
@@ -1298,7 +1307,7 @@ function calcs.defence(env, actor)
 			}
 			if noMinStunChance < 20 then
 				t_insert(breakdown.SelfStunChance, s_format("= %.2f%%", noMinStunChance))
-				t_insert(breakdown.SelfStunChance, "is ignored if less than 20%")
+				t_insert(breakdown.SelfStunChance, "Stun Chance has to be more than 20% to stun.")
 			else
 				if stunChance ~= 100 then
 					t_insert(breakdown.SelfStunChance, s_format("* %.2f ^8(chance to avoid stun)", stunChance / 100))
