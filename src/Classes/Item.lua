@@ -348,7 +348,8 @@ function ItemClass:ParseRaw(raw)
 				elseif specName == "Str" or specName == "Dex" or specName == "Int" then
 					self.requirements[specName:lower()] = tonumber(specVal)
 				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or specName == "Weapon Range" or
-				       specName == "Physical Damage" or specName == "Elemental Damage" or specName == "Chaos Damage" then
+				       specName == "Critical Strike Chance" or specName == "Physical Damage" or specName == "Elemental Damage" or
+				       specName == "Chaos Damage" then
 					self.hidden_specs = true
 				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
 				elseif not (self.name:match(specName) and self.name:match(specVal)) then
@@ -359,6 +360,10 @@ function ItemClass:ParseRaw(raw)
 			if line == "Prefixes:" then
 				foundExplicit = true
 				gameModeStage = "EXPLICIT"
+			end
+			-- for weapons, when copy/pasting from trade site or importing via PoB Trader the base name of the weapon is repeated, skip it
+			if self.base and (line == self.base.type or self.base.subType and line == self.base.subType .. " " .. self.base.type) then
+				specName = line
 			end
 			if not specName or foundExplicit or foundImplicit then
 				local varSpec = line:match("{variant:([%d,]+)}")
