@@ -1826,14 +1826,14 @@ function calcs.defence(env, actor)
 	
 	-- survival time
 	do
-		local enemySkillTime = env.configInput.enemySpeed or env.configPlaceholder.enemySpeed or 700
+		output.enemySkillTime = env.configInput.enemySpeed or env.configPlaceholder.enemySpeed or 700
 		local enemyActionSpeed = calcs.actionSpeedMod(actor.enemy)
-		enemySkillTime = enemySkillTime / 1000 / enemyActionSpeed
-		output["EHPsurvivalTime"] = output["TotalNumberOfHits"] * enemySkillTime
+		output.enemySkillTime = output.enemySkillTime / 1000 / enemyActionSpeed
+		output["EHPsurvivalTime"] = output["TotalNumberOfHits"] * output.enemySkillTime
 		if breakdown then
 			breakdown["EHPsurvivalTime"] = {
 				s_format("%.2f ^8(total average number of hits you can take)", output["TotalNumberOfHits"]),
-				s_format("x %.2f ^8enemy attack/cast time", enemySkillTime),
+				s_format("x %.2f ^8enemy attack/cast time", output.enemySkillTime),
 				s_format("= %.2f seconds ^8(total time it would take to die)", output["EHPsurvivalTime"]),
 			}
 		end
@@ -1858,7 +1858,35 @@ function calcs.defence(env, actor)
 				s_format("= %.2f per second", output["LifeLossBelowHalfLostAvg"]),
 			}
 		end
+	end
+	
+	-- pvp
+	if env.configInput.PvpScaling then
+		local PvpTvalue = output.enemySkillTime
 		
+		local PvpNonElemental1 = data.misc.PvpNonElemental1
+		local PvpNonElemental2 = data.misc.PvpNonElemental2
+		local PvpElemental1 = data.misc.PvpElemental1
+		local PvpElemental2 = data.misc.PvpElemental2
+
+		local percentageNonElemental = (output["PhysicalTakenHit"] + output["ChaosTakenHit"]) / output["totalTakenHit"]
+		local percentageElemental = 1 - percentageNonElemental
+		local portionNonElemental = (output["totalTakenHit"] / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * percentageNonElemental
+		local portionElemental = (output["totalTakenHit"] / PvpTvalue / PvpElemental2 ) ^ PvpElemental1 * PvpTvalue * PvpElemental2 * percentageElemental
+		output.PvPTotalTakenHit = (portionNonElemental or 0) + (portionElemental or 0)
+
+		if breakdown then
+			breakdown.PvPTotalTakenHit = { 
+				s_format("Pvp Formula is (D/(T*M))^E*T*M*P, where D is the damage, T is the time taken," ),
+				s_format("M is the multiplier, E is the exponent and P is the percentage of that type (ele or non ele)"),
+				s_format("(M=%.1f for ele and %.1f for non-ele)(E=%.2f for ele and %.2f for non-ele)", PvpElemental2, PvpNonElemental2, PvpElemental1, PvpNonElemental1),
+				s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output["totalTakenHit"], PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, percentageNonElemental, portionNonElemental),
+				s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output["totalTakenHit"], PvpTvalue, PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, percentageElemental, portionElemental),
+				s_format("(portionNonElemental + portionElemental) * PvP multiplier"),
+				s_format("(%.1f + %.1f) * %.1f", portionNonElemental, portionElemental, 1),
+				s_format("= %.1f", output.PvPTotalTakenHit)
+			}
+		end
 	end
 
 	-- effective health pool vs dots
