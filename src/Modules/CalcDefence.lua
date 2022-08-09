@@ -829,7 +829,7 @@ function calcs.defence(env, actor)
 		end
 	end
 
-	-- Miscellaneous: move speed, stun recovery, avoidance
+	-- Miscellaneous: move speed, avoidance
 	output.MovementSpeedMod = modDB:Override(nil, "MovementSpeed") or calcLib.mod(modDB, nil, "MovementSpeed")
 	if modDB:Flag(nil, "MovementSpeedCannotBeBelowBase") then
 		output.MovementSpeedMod = m_max(output.MovementSpeedMod, 1)
@@ -862,31 +862,6 @@ function calcs.defence(env, actor)
 	end
 	output.AvoidProjectilesChance = m_min(modDB:Sum("BASE", nil, "AvoidProjectilesChance"), data.misc.AvoidChanceCap)
 	-- other avoidances etc
-	local stunChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
-	if output.EnergyShield > output.Life * 2 then
-		stunChance = stunChance * 0.5
-	end
-	output.StunAvoidChance = 100 - stunChance
-	if output.StunAvoidChance >= 100 then
-		output.StunDuration = 0
-		output.BlockDuration = 0
-	else
-		output.StunDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery") / 100)
-		output.BlockDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
-		if breakdown then
-			breakdown.StunDuration = {
-				"0.35s ^8(base)",
-				s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery") / 100),
-				s_format("= %.2fs", output.StunDuration)
-			}
-			breakdown.BlockDuration = {
-				"0.35s ^8(base)",
-				s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100),
-				s_format("= %.2fs", output.BlockDuration)
-			}
-		end
-	end
-	output.InterruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInterruptStun"), 100)
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
 	for _, ailment in ipairs(data.ailmentTypeList) do
 		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment), 100)
@@ -1244,6 +1219,91 @@ function calcs.defence(env, actor)
 				end
 				t_insert(breakdown[damageType.."TakenReflectMult"], s_format("Taken: %.3f", takenMultReflect))
 				t_insert(breakdown[damageType.."TakenReflectMult"], s_format("= %.3f", finalReflect))
+			end
+		end
+	end
+	
+	-- stun
+	do
+		local stunThresholdBase = 0
+		if modDB:Flag(nil, "StunThresholdBasedOnEnergyShieldInsteadOfLife") then
+			stunThresholdBase = output.EnergyShield
+		elseif modDB:Flag(nil, "StunThresholdBasedOnManaInsteadOfLife") then
+			stunThresholdBase = output.Mana * modDB:Sum("BASE", nil, "StunThresholdManaPercent") / 100
+		else
+			stunThresholdBase = output.Life
+		end
+		local StunThresholdMod = (1 + modDB:Sum("INC", nil, "StunThreshold") / 100)
+		output.StunThreshold = stunThresholdBase * StunThresholdMod
+		if breakdown then
+			breakdown.StunThreshold = { s_format("%f ^8(base)", stunThresholdBase) }
+			if StunThresholdMod ~= 1 then
+				t_insert(breakdown.StunThreshold, s_format("* %.2f ^8(increased threshold)", StunThresholdMod))
+				t_insert(breakdown.StunThreshold, s_format("= %d", output.StunThreshold))
+			end
+		end
+		local stunChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
+		if output.EnergyShield > output["totalTakenHit"] then
+			stunChance = stunChance * 0.5
+		end
+		output.StunAvoidChance = 100 - stunChance
+		if output.StunAvoidChance >= 100 then
+			output.StunDuration = 0
+			output.BlockDuration = 0
+			if breakdown then
+				breakdown.StunDuration = {"cannot be stunned"}
+				breakdown.BlockDuration = {"cannot be stunned"}
+			end
+		else
+			local stunDuration = (1 + modDB:Sum("INC", nil, "StunDuration") / 100)
+			local stunRecovery = (1 + modDB:Sum("INC", nil, "StunRecovery") / 100)
+			local stunAndBlockRecovery = (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
+			output.StunDuration = 0.35 * stunDuration / stunRecovery
+			output.BlockDuration = 0.35 * stunDuration / stunAndBlockRecovery
+			if breakdown then
+				breakdown.StunDuration = {"0.35s ^8(base)"}
+				breakdown.BlockDuration = {"0.35s ^8(base)"}
+				if stunDuration ~= 1 then
+					t_insert(breakdown.StunDuration, s_format("* %.2f ^8(increased duration)", stunDuration))
+					t_insert(breakdown.BlockDuration, s_format("* %.2f ^8(increased duration)", stunDuration))
+				end
+				if stunRecovery ~= 1 then
+					t_insert(breakdown.StunDuration, s_format("/ %.2f ^8(increased/reduced recovery)", stunRecovery))
+				end
+				if stunAndBlockRecovery ~= 1 then
+					t_insert(breakdown.BlockDuration, s_format("/ %.2f ^8(increased/reduced recovery)", stunAndBlockRecovery))
+				end
+				if output.StunDuration ~= 0.35 then
+					t_insert(breakdown.StunDuration, s_format("= %.2fs", output.StunDuration))
+				end
+				if output.BlockDuration ~= 0.35 then
+					t_insert(breakdown.BlockDuration, s_format("= %.2fs", output.BlockDuration))
+				end
+			end
+		end
+		output.InterruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInterruptStun"), 100)
+		local effectiveEnemyDamage = output["totalTakenHit"] + output["PhysicalTakenHit"] * 0.25
+		if damageCategoryConfig ~= "Average" then
+			effectiveEnemyDamage = effectiveEnemyDamage * 0.8125
+		elseif damageCategoryConfig ~= "Melee" then
+			effectiveEnemyDamage = effectiveEnemyDamage * 0.75
+		end
+		local noMinStunChance = m_min(200 * effectiveEnemyDamage / output.StunThreshold, 100)
+		output.SelfStunChance = (noMinStunChance > 20 and noMinStunChance or 0) * stunChance / 100
+		if breakdown then
+			breakdown.SelfStunChance = {
+				"200%% ^8(stun multiplier)",
+				s_format("* %.1f ^8(effective enemy stun damage)", effectiveEnemyDamage),
+				s_format("/ %d ^8(stun threshold)", output.StunThreshold)
+			}
+			if noMinStunChance < 20 then
+				t_insert(breakdown.SelfStunChance, s_format("= %.2f%%", noMinStunChance))
+				t_insert(breakdown.SelfStunChance, "is ignored if less than 20%")
+			else
+				if stunChance ~= 100 then
+					t_insert(breakdown.SelfStunChance, s_format("* %.2f ^8(chance to avoid stun)", stunChance / 100))
+				end
+				t_insert(breakdown.SelfStunChance, s_format("= %.2f%%", output.SelfStunChance))
 			end
 		end
 	end
