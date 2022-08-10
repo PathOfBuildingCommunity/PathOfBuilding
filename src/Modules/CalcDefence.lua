@@ -1863,6 +1863,7 @@ function calcs.defence(env, actor)
 	-- pvp
 	if env.configInput.PvpScaling then
 		local PvpTvalue = output.enemySkillTime
+		local PvpMultiplier = (env.configInput.enemyMultiplierPvpDamage or 100) / 100
 		
 		local PvpNonElemental1 = data.misc.PvpNonElemental1
 		local PvpNonElemental2 = data.misc.PvpNonElemental2
@@ -1873,7 +1874,7 @@ function calcs.defence(env, actor)
 		local percentageElemental = 1 - percentageNonElemental
 		local portionNonElemental = (output["totalTakenHit"] / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * percentageNonElemental
 		local portionElemental = (output["totalTakenHit"] / PvpTvalue / PvpElemental2 ) ^ PvpElemental1 * PvpTvalue * PvpElemental2 * percentageElemental
-		output.PvPTotalTakenHit = (portionNonElemental or 0) + (portionElemental or 0)
+		output.PvPTotalTakenHit = ((portionNonElemental or 0) + (portionElemental or 0)) * PvpMultiplier
 
 		if breakdown then
 			breakdown.PvPTotalTakenHit = { 
@@ -1883,7 +1884,7 @@ function calcs.defence(env, actor)
 				s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output["totalTakenHit"], PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, percentageNonElemental, portionNonElemental),
 				s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output["totalTakenHit"], PvpTvalue, PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, percentageElemental, portionElemental),
 				s_format("(portionNonElemental + portionElemental) * PvP multiplier"),
-				s_format("(%.1f + %.1f) * %.1f", portionNonElemental, portionElemental, 1),
+				s_format("(%.1f + %.1f) * %.1f", portionNonElemental, portionElemental, PvpMultiplier),
 				s_format("= %.1f", output.PvPTotalTakenHit)
 			}
 		end
