@@ -27,10 +27,26 @@ local groupSlotDropList = {
 }
 
 local defaultGemLevelList = {
-	{ label = "Match Character Level", gemLevel = "characterLevel" },
-	{ label = "Normal Maximum", gemLevel = "normalMaximum" },
-	{ label = "Corrupted Maximum", gemLevel = "corruptedMaximum" },
-	{ label = "Awakened Maximum", gemLevel = "awakenedMaximum" },
+	{
+		label = "Match Character Level",
+		description = "All gems default to their highest valid non-corrupted gem level that your character meets the level requirement for.",
+		gemLevel = "CharacterLevel",
+	},
+	{
+		label = "Normal Maximum",
+		description = "All gems default to their highest valid non-corrupted gem level.",
+		gemLevel = "NormalMaximum",
+	},
+	{
+		label = "Corrupted Maximum",
+		description = "Normal gems default to their highest valid corrupted gem level.\nAwakened gems default to their highest valid non-corrupted gem level.",
+		gemLevel = "CorruptedMaximum",
+	},
+	{
+		label = "Awakened Maximum",
+		description = "All gems default to their highest valid corrupted gem level.",
+		gemLevel = "AwakenedMaximum",
+	},
 }
 
 local showSupportGemTypeList = {
@@ -113,6 +129,12 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.defaultLevel = new("DropDownControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 94, 170, 20, defaultGemLevelList, function(index, value)
 		self.defaultGemLevel = value.gemLevel
 	end)
+	self.controls.defaultLevel.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value.description then
+			tooltip:AddLine(16, "^7" .. value.description)
+		end
+	end
 	self.controls.defaultLevelLabel = new("LabelControl", { "RIGHT", self.controls.defaultLevel, "LEFT" }, -4, 0, 0, 16, "^7Default gem level:")
 	self.controls.defaultQuality = new("EditControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 118, 60, 20, nil, nil, "%D", 2, function(buf)
 		self.defaultGemQuality = m_min(tonumber(buf) or 0, 23)
@@ -976,17 +998,17 @@ end
 function SkillsTabClass:ProcessGemLevel(gemData)
 	local grantedEffect = gemData.grantedEffect
 	local defaultLevel = grantedEffect.defaultLevel or gemData.defaultLevel or 1
-	if self.defaultGemLevel == "awakenedMaximum" then
+	if self.defaultGemLevel == "AwakenedMaximum" then
 		return defaultLevel + 1
-	elseif self.defaultGemLevel == "corruptedMaximum" then
+	elseif self.defaultGemLevel == "CorruptedMaximum" then
 		if grantedEffect.plusVersionOf then
 			return defaultLevel
 		else
 			return defaultLevel + 1
 		end
-	elseif self.defaultGemLevel == "normalMaximum" then
+	elseif self.defaultGemLevel == "NormalMaximum" then
 		return defaultLevel
-	else
+	else -- self.defaultGemLevel == "CharacterLevel"
 		local maxGemLevel = defaultLevel
 		if not grantedEffect.levels[maxGemLevel] then
 			maxGemLevel = #grantedEffect.levels
