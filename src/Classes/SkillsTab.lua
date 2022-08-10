@@ -30,22 +30,22 @@ local defaultGemLevelList = {
 	{
 		label = "Match Character Level",
 		description = "All gems default to their highest valid non-corrupted gem level that your character meets the level requirement for.",
-		gemLevel = "CharacterLevel",
+		gemLevel = "characterLevel",
 	},
 	{
 		label = "Normal Maximum",
 		description = "All gems default to their highest valid non-corrupted gem level.",
-		gemLevel = "NormalMaximum",
+		gemLevel = "normalMaximum",
 	},
 	{
 		label = "Corrupted Maximum",
 		description = "Normal gems default to their highest valid corrupted gem level.\nAwakened gems default to their highest valid non-corrupted gem level.",
-		gemLevel = "CorruptedMaximum",
+		gemLevel = "corruptedMaximum",
 	},
 	{
 		label = "Awakened Maximum",
 		description = "All gems default to their highest valid corrupted gem level.",
-		gemLevel = "AwakenedMaximum",
+		gemLevel = "awakenedMaximum",
 	},
 }
 
@@ -86,7 +86,6 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.sortGemsByDPSField = "CombinedDPS"
 	self.showSupportGemTypes = "ALL"
 	self.showAltQualityGems = false
-	self.matchGemLevelToCharacterLevel = false
 	self.defaultGemQuality = main.defaultGemQuality
 
 	-- Set selector
@@ -993,17 +992,17 @@ end
 function SkillsTabClass:ProcessGemLevel(gemData)
 	local grantedEffect = gemData.grantedEffect
 	local defaultLevel = grantedEffect.defaultLevel or gemData.defaultLevel or 1
-	if self.defaultGemLevel == "AwakenedMaximum" then
+	if self.defaultGemLevel == "awakenedMaximum" then
 		return defaultLevel + 1
-	elseif self.defaultGemLevel == "CorruptedMaximum" then
+	elseif self.defaultGemLevel == "corruptedMaximum" then
 		if grantedEffect.plusVersionOf then
 			return defaultLevel
 		else
 			return defaultLevel + 1
 		end
-	elseif self.defaultGemLevel == "NormalMaximum" then
+	elseif self.defaultGemLevel == "normalMaximum" then
 		return defaultLevel
-	else -- self.defaultGemLevel == "CharacterLevel"
+	else -- self.defaultGemLevel == "characterLevel"
 		local maxGemLevel = defaultLevel
 		if not grantedEffect.levels[maxGemLevel] then
 			maxGemLevel = #grantedEffect.levels
