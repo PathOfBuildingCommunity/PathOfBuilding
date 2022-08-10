@@ -626,12 +626,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		gemInstance.gemId = gemId
 		gemInstance.skillId = nil
 		self:ProcessSocketGroup(self.displayGroup)
-		-- New gems need to be constrained by matchGemLevelToCharacterLevel if enabled
-		--[[if self.matchGemLevelToCharacterLevel and gemInstance.gemData then
-			gemInstance.level = self:MatchGemLevelToCharacterLevel(gemInstance.gemData)
-			gemInstance.defaultLevel = gemInstance.level
-		end]]
-		-- WIP
+		-- New gems need to be constrained by ProcessGemLevel
 		gemInstance.level = self:ProcessGemLevel(gemInstance.gemData)
 		gemInstance.defaultLevel = gemInstance.level
 		-- Gem changed, update the list and default the quality id
