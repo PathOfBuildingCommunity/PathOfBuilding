@@ -2681,7 +2681,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	end
 
 	-- Corrupted item label
-	if item.corrupted or item.split then
+	if item.corrupted or item.split or item.mirrored then
 		if #item.explicitModLines == 0 then
 			tooltip:AddSeparator(10)
 		end
