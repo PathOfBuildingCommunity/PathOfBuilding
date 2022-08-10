@@ -12,13 +12,13 @@ Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 50
-{variant:1}(20-30)% reduced Recovery Rate
-{variant:2,3,4}(5-20)% increased Recovery Rate
-{variant:5}(35-50)% reduced Recovery Rate
-{variant:1,2}Cannot Gain Life During Flask Effect
 {variant:3}100% increased Life Recovered
 {variant:4,5}50% increased Life Recovered
+{variant:1}(20-30)% reduced Recovery rate
+{variant:2,3,4}(5-20)% increased Recovery rate
+{variant:5}(35-50)% reduced Recovery rate
 Recover Full Life at the end of the Flask effect
+{variant:1,2}Cannot gain Life during effect
 ]],
 -- Flask: Mana
 [[
@@ -48,7 +48,7 @@ Sanctified Mana Flask
 League: Domination, Nemesis
 Requires Level 50
 (30-50)% increased Amount Recovered
-100% increased Recovery Rate
+100% increased Recovery rate
 Your Skills have no Mana Cost during Flask effect
 ]],[[
 Replica Lavianga's Spirit
