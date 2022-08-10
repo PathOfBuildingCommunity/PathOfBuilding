@@ -1385,8 +1385,9 @@ skills["SupportGreaterSpellEcho"] = {
 		flag("Condition:HaveGreaterSpellEcho"),
 		mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
 		mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
-		mod("Damage", "MORE", -23.077, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "CastOnFrostbolt" }),
-		mod("Damage", "MORE", -31.0345, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "CastOnFrostbolt" }),
+		mod("Damage", "MORE", -23.077, 0, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "CastOnFrostbolt" }),
+		mod("Damage", "MORE", -31.0345, 0, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "CastOnFrostbolt" }),
+		mod("AreaOfEffect", "INC", -50, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 		
 	},
 	constantStats = {
