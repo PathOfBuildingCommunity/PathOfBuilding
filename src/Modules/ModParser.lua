@@ -3551,6 +3551,8 @@ end
 -- Modifiers that are recognised but unsupported
 local unsupportedModList = {
 	["properties are doubled while in a breach"] = true,
+	["mirrored"] = true,
+	["split"] = true,
 }
 
 -- Special lookups used for various modifier forms

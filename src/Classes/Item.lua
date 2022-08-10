@@ -651,7 +651,7 @@ end
 function ItemClass:NormaliseQuality()
 	if self.base and (self.base.armour or self.base.weapon or self.base.flask) then
 		if not self.quality then
-			self.quality = (self.corrupted or self.split or self.mirrored) and 0 or 20 
+			self.quality = 0
 		elseif not self.uniqueID and not self.corrupted and not self.split and not self.mirrored and self.quality < 20 then
 			self.quality = 20
 		end
