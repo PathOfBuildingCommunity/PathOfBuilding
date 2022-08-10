@@ -17,7 +17,7 @@ Requires Level 50
 {variant:1}(20-30)% reduced Recovery rate
 {variant:2,3,4}(5-20)% increased Recovery rate
 {variant:5}(35-50)% reduced Recovery rate
-Recover Full Life at the end of the Flask effect
+Recover Full Life at the end of the Flask Effect
 {variant:1,2}Cannot gain Life during effect
 ]],
 -- Flask: Mana
