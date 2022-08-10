@@ -783,6 +783,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			end
 		end
 	end
+	item.split = itemData.split
 	item.corrupted = itemData.corrupted
 	item.fractured = itemData.fractured
 	item.synthesised = itemData.synthesised

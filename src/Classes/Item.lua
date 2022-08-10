@@ -155,6 +155,10 @@ function ItemClass:ParseRaw(raw)
 			flaskBuffLines[line] = nil
 		elseif line == "--------" then
 			self.checkSection = true
+		elseif line == "Split" then
+			self.split = true
+		elseif line == "Mirrored" then
+			self.mirrored = true
 		elseif line == "Corrupted" then
 			self.corrupted = true
 		elseif line == "Fractured Item" then
@@ -647,8 +651,8 @@ end
 function ItemClass:NormaliseQuality()
 	if self.base and (self.base.armour or self.base.weapon or self.base.flask) then
 		if not self.quality then
-			self.quality = self.corrupted and 0 or 20 
-		elseif not self.uniqueID and not self.corrupted and self.quality < 20 then
+			self.quality = (self.corrupted or self.split or self.mirrored) and 0 or 20 
+		elseif not self.uniqueID and not self.corrupted and not self.split and not self.mirrored and self.quality < 20 then
 			self.quality = 20
 		end
 	end	
@@ -854,6 +858,12 @@ function ItemClass:BuildRaw()
 	end
 	for _, modLine in ipairs(self.explicitModLines) do
 		writeModLine(modLine)
+	end
+	if self.split then
+		t_insert(rawLines, "Split")
+	end
+	if self.mirrored then
+		t_insert(rawLines, "Mirrored")
 	end
 	if self.corrupted or self.scourge then
 		t_insert(rawLines, "Corrupted")
