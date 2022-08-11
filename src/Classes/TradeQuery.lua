@@ -257,10 +257,15 @@ function TradeQueryClass:PriceItem()
 
 	self.maxFetchPerSearchDefault = 1
 	self.controls.fetchcountEdit = new("EditControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, row_height, "", "Fetch Page Cnt", "%D", 3, function(buf)
-		self.maxFetchsPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, self.maxFetchPerSearchDefault), 5)
-		self.maxFetchPerSearch = 20 * self.maxFetchsPages
+		self.maxFetchPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, self.maxFetchPerSearchDefault), 5)
+		self.maxFetchPerSearch = 20 * self.maxFetchPages
+		self.controls.fetchcountEdit.focusValue = self.maxFetchPages
 	end)
-	self.controls.fetchcountEdit:SetText(tostring(self.maxFetchsPages or self.maxFetchPerSearchDefault))
+	self.controls.fetchcountEdit.focusValue = self.maxFetchPerSearchDefault
+	self.controls.fetchcountEdit:SetText(tostring(self.maxFetchPages or self.maxFetchPerSearchDefault))
+	function self.controls.fetchcountEdit:OnFocusLost()
+		self:SetText(tostring(self.focusValue))
+	end
 	self.controls.fetchcountEdit.tooltipFunc = function(tooltip)
 		tooltip:Clear()
 		tooltip:AddLine(16, "Specify maximum number of item pages to retrieve per search from PoE Trade.")
