@@ -1325,6 +1325,9 @@ skills["SupportCurseOnHit"] = {
 	statMap = {
 		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" })
+		},
+		["apply_linked_curses_on_hit_%"] = {
+			--Display only. Handled by SupportCurseOnHitCurse
 		}
 	},
 	qualityStats = {
@@ -1397,6 +1400,11 @@ skills["SupportCurseOnHitCurse"] = {
 	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["curse_triggered_by_hextouch"] = {
+			skill("triggeredByCurseOnHit", true),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "curse_effect_+%", 0.5 },
@@ -1468,6 +1476,11 @@ skills["SupportCurseOnHitPlus"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCurseOnHit",
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["apply_linked_curses_on_hit_%"] = {
+			--Display only. Handled by SupportCurseOnHitCursePlus
+		}
+	},
 	constantStats = {
 		{ "apply_linked_curses_on_hit_%", 100 },
 	},
@@ -1508,6 +1521,11 @@ skills["SupportCurseOnHitCursePlus"] = {
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCurseOnHitCurse",
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["curse_triggered_by_hextouch"] = {
+			skill("triggeredByCurseOnHit", true),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "curse_effect_+%", 0.5 },

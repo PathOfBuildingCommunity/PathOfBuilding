@@ -188,17 +188,35 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" })
+		},
+		["apply_linked_curses_on_hit_%"] = {
+			--Display only. Handled by SupportCurseOnHitCurse
 		}
 	},
 #mods
 
 #skill SupportCurseOnHitCurse
+	statMap = {
+		["curse_triggered_by_hextouch"] = {
+			skill("triggeredByCurseOnHit", true),
+		},
+	},
 #mods
 
 #skill SupportCurseOnHitPlus
+	statMap = {
+		["apply_linked_curses_on_hit_%"] = {
+			--Display only. Handled by SupportCurseOnHitCursePlus
+		}
+	},
 #mods
 
 #skill SupportCurseOnHitCursePlus
+	statMap = {
+		["curse_triggered_by_hextouch"] = {
+			skill("triggeredByCurseOnHit", true),
+		},
+	},
 #mods
 
 #skill SupportMinionFocusFire

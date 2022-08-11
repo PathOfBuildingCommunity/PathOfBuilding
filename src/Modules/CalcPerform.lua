@@ -14,6 +14,7 @@ local m_ceil = math.ceil
 local m_floor = math.floor
 local m_modf = math.modf
 local s_format = string.format
+local m_huge = math.huge
 local bor = bit.bor
 local band = bit.band
 
@@ -57,19 +58,38 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 		triggeredCD = triggeredCD or env.player.mainSkill.skillData.cooldown 
 	end
 	
-	local modActionCooldown = m_max(triggeredCD or 2^-31, triggerCD or 2^-31) / icdr
+	local modActionCooldown = m_max(triggeredCD or 0, triggerCD or 0) / icdr
 	
 	-- Do not apply cooldown reduction to cooldown overrides
 	if cooldownOverride then
-		modActionCooldown = m_max( cooldownOverride, (triggerCD or 2^-31) / icdr )
+		modActionCooldown = m_max( cooldownOverride, (triggerCD or 0) / icdr )
 	end
 	
 	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
-	local triggerRate = 1 / rateCapAdjusted
+	local triggerRate = m_huge
+	if rateCapAdjusted ~= 0 then
+		triggerRate = 1 / rateCapAdjusted
+	end
 	
 	if breakdown then
-		if cooldownOverride then
+		if triggerCD == nil and triggeredCD == nil then
+			if cooldownOverride == nil then
+				breakdown.ActionTriggerRate = {
+					"Triggered skill has no base cooldown",
+					"",
+					"Trigger has no base cooldown or cooldown override",
+					"",
+					"Assuming cast on every kill/attack",
+				}
+			else
+				breakdown.ActionTriggerRate = {
+					s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride),
+					"",
+					"Trigger has no base cooldown or cooldown override",
+				}
+			end
+		elseif cooldownOverride then
 			if minion then
 				env.minion.mainSkill.skillFlags.hasOverride = true
 				breakdown.ActionTriggerRate = {
@@ -2504,11 +2524,50 @@ function calcs.perform(env, avoidCache)
 			--handle normal minion skills triggered by unique items e.g Ashcaller
 			elseif uniqueTriggerName == "" and env.player.mainSkill.socketGroup and env.player.mainSkill.socketGroup.source then
 				local _, _, uniqueTriggerName = env.player.mainSkill.socketGroup.source:find(".*:.*:(.*),.*")
-				ConPrintf("[ERROR]: Unhandled Unique minion Trigger Name: " .. uniqueTriggerName)
-				env.player.mainSkill.skillData.triggeredByUnique = nil
-				skip = true
+				if uniqueTriggerName == "Ashcaller" then
+					spellCount = nil
+					triggerChance = 10
+					for _, skill in ipairs(env.player.activeSkillList) do
+						local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
+						if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill and not triggered then
+							source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+						end
+					end
+				elseif uniqueTriggerName == "Jorrhast's Blacksteel" then
+					spellCount = nil
+					triggerChance = 25
+					for _, skill in ipairs(env.player.activeSkillList) do
+						local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
+						if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill and not triggered then
+							source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+						end
+					end
+				elseif uniqueTriggerName == "Rigwald's Crest" then
+					spellCount = nil
+					triggerChance = 10
+					for _, skill in ipairs(env.player.activeSkillList) do
+						local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
+						if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill and not triggered then
+							source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+						end
+					end
+				elseif uniqueTriggerName == "Law of the Wilds" then
+					triggerName = uniqueTriggerName
+					spellCount = nil
+					triggerChance = 20
+					for _, skill in ipairs(env.player.activeSkillList) do
+						local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
+						if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Claw) > 0 and skill ~= env.player.mainSkill and not triggered then
+							source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+						end
+					end
+				else
+					ConPrintf("[ERROR]: Unhandled Unique minion Trigger Name: " .. (uniqueTriggerName or ""))
+					env.player.mainSkill.skillData.triggeredByUnique = nil
+					skip = true
+				end
 			else
-				ConPrintf("[ERROR]: Unhandled Minion Trigger Name: " .. uniqueTriggerName)
+				ConPrintf("[ERROR]: Unhandled Minion Trigger Name: " .. (uniqueTriggerName or ""))
 				actor.mainSkill.skillData.triggeredByUnique = nil
 				actor.mainSkill.skillData.triggered = nil
 				skip = true
@@ -2612,8 +2671,24 @@ function calcs.perform(env, avoidCache)
 						source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 					end
 				end
+			elseif uniqueTriggerName == "Sporeguard" then
+				spellCount = nil
+				for _, skill in ipairs(env.player.activeSkillList) do
+					local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
+					if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill and not triggered then
+						source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+					end
+				end
+			elseif env.player.mainSkill.activeEffect.grantedEffect.name == "Tawhoa's Chosen" then
+				spellCount = nil
+				for _, skill in ipairs(env.player.activeSkillList) do
+					local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
+					if skill.skillTypes[SkillType.Slam] and skill ~= env.player.mainSkill and not triggered then
+						source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+					end
+				end
 			else
-				ConPrintf("[ERROR]: Unhandled Unique Trigger Name: " .. uniqueTriggerName)
+				ConPrintf("[ERROR]: Unhandled Unique Trigger Name: " .. (uniqueTriggerName or ""))
 				env.player.mainSkill.skillData.triggeredByUnique = nil
 				skip = true
 			end
@@ -2660,7 +2735,7 @@ function calcs.perform(env, avoidCache)
 					end
 				end
 			else
-				ConPrintf("[ERROR]: Unhandled Unique Trigger Name: " .. uniqueTriggerName)
+				ConPrintf("[ERROR]: Unhandled Unique Trigger Name: " .. (uniqueTriggerName or ""))
 				env.player.mainSkill.skillData.triggeredByUnique = nil
 				skip = true
 			end
@@ -2785,6 +2860,13 @@ function calcs.perform(env, avoidCache)
 					end
 				end
 				spellCount = nil
+			elseif env.player.mainSkill.skillData.triggeredByCurseOnHit then
+				for _, skill in ipairs(env.player.activeSkillList) do
+					if skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
+						source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+					end
+				end
+				spellCount = nil
 			elseif env.player.mainSkill.skillData.triggerCounterAttack then
 				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
 				--Self trigger
@@ -2833,7 +2915,7 @@ function calcs.perform(env, avoidCache)
 					if breakdown then
 						t_insert(breakdown.Speed, s_format("x %.0f%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name))
 					end
-					if (actor.mainSkill.skillData.triggeredByCospris or actor.mainSkill.skillData.triggeredByCoC) and GlobalCache.cachedData["CACHE"][uuid] then
+					if (actor.mainSkill.skillData.triggeredByCospris or actor.mainSkill.skillData.triggeredByCoC or triggerName == "Law of the Wilds") and GlobalCache.cachedData["CACHE"][uuid] then
 						local sourceCritChance = GlobalCache.cachedData["CACHE"][uuid].CritChance
 						effectiveSourceRate = effectiveSourceRate * (sourceCritChance or 0) / 100
 						if breakdown then
@@ -2869,6 +2951,7 @@ function calcs.perform(env, avoidCache)
 					trigRate = actualTrigRate
 					actor.mainSkill.skillFlags.dontDisplay = true
 				end
+				
 				
 				--Trigger chance always applies
 				if triggerChance then
