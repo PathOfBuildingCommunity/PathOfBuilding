@@ -362,7 +362,7 @@ function ItemClass:ParseRaw(raw)
 					self.note = specVal
 				elseif specName == "Str" or specName == "Strength" or specName == "Dex" or specName == "Dexterity" or
 				       specName == "Int" or specName == "Intelligence" then
-					self.requirements[specName:lower()] = tonumber(specVal)
+					self.requirements[specName:sub(1,3):lower()] = tonumber(specVal)
 				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or specName == "Weapon Range" or
 				       specName == "Critical Strike Chance" or specName == "Physical Damage" or specName == "Elemental Damage" or
 				       specName == "Chaos Damage" or specName == "Chance to Block" or specName == "Armour" or
