@@ -398,7 +398,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local item = new("Item", tbl.item_string)
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
-			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, output.TotalDot)
+			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDot, output.CombinedAvg))
 			if self.pbSortSelectionIndex == 4 then
 				local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
 				if chaosAmount > 0 then

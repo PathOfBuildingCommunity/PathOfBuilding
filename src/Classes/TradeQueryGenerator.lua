@@ -378,7 +378,7 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
             end
 
             local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-            local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, output.TotalDot) or 0) - (self.calcContext.baseDPS or 0)
+            local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDot,output.CombinedAvg)) or 0) - (self.calcContext.baseDPS or 0)
             if meanDPSDiff > 0.01 then
                 table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanDPSDiff / modValue, meanDPSDiff = meanDPSDiff, invert = entry.sign == "-" and true or false })
                 self.alreadyWeightedMods[entry.tradeMod.id] = true
@@ -493,7 +493,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
     -- Calculate base output with a blank item
     local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
     local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
-    local compDPS = GlobalCache.useFullDPS and baseOutput.FullDPS or m_max(baseOutput.TotalDPS, baseOutput.TotalDot)
+    local compDPS = GlobalCache.useFullDPS and baseOutput.FullDPS or m_max(baseOutput.TotalDPS, m_max(baseOutput.TotalDot, baseOutput.CombinedAvg))
 
 	-- Test each mod one at a time and cache the normalized DPS diff to use as weight
     self.modWeights = { }
