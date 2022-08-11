@@ -262,6 +262,7 @@ function TradeQueryClass:PriceItem()
 		self.controls.fetchcountEdit.focusValue = self.maxFetchPages
 	end)
 	self.controls.fetchcountEdit.focusValue = self.maxFetchPerSearchDefault
+	self.maxFetchPerSearch = 20 * self.maxFetchPerSearchDefault
 	self.controls.fetchcountEdit:SetText(tostring(self.maxFetchPages or self.maxFetchPerSearchDefault))
 	function self.controls.fetchcountEdit:OnFocusLost()
 		self:SetText(tostring(self.focusValue))
