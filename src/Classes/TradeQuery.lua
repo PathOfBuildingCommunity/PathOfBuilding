@@ -520,11 +520,11 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 		self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
 	end)
 	controls["changeButton"..str_cnt].shown = function() return self.resultTbl[str_cnt] end
-	function resultPrev()
+	local function resultPrev()
 		self.itemIndexTbl[str_cnt] = clampItemIndex(self.itemIndexTbl[str_cnt] - 1)
 		self:SetFetchResultReturn(str_cnt, self.itemIndexTbl[str_cnt])
 	end
-	function resultNext()
+	local function resultNext()
 		self.itemIndexTbl[str_cnt] = clampItemIndex(self.itemIndexTbl[str_cnt] + 1)
 		self:SetFetchResultReturn(str_cnt, self.itemIndexTbl[str_cnt])
 	end
@@ -532,11 +532,11 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 	controls["resultPrev"..str_cnt].enabled = function()
 		return self.itemIndexTbl[str_cnt] ~= nil and self.itemIndexTbl[str_cnt] > 1
 	end
-	controls['resultCount'..str_cnt] = new("LabelTooltipControl", {"TOPLEFT",controls['resultPrev'..str_cnt],"TOPRIGHT"}, 8, 0, 100, 18,
+	controls["resultCount"..str_cnt] = new("LabelTooltipControl", {"TOPLEFT",controls['resultPrev'..str_cnt],"TOPRIGHT"}, 8, 0, 100, 18,
 	function() return self.sortedResultTbl[str_cnt] and ("^7" .. self.itemIndexTbl[str_cnt] .. "/" .. #self.sortedResultTbl[str_cnt]) or "No Results" end, "Use mouse wheel to navigate between items.")
-	controls['resultCount'..str_cnt].onPrevious = resultPrev
-	controls['resultCount'..str_cnt].onNext = resultNext
-	controls['resultCount'..str_cnt].tooltipFunc = function(tooltip)
+	controls["resultCount"..str_cnt].onPrevious = resultPrev
+	controls["resultCount"..str_cnt].onNext = resultNext
+	controls["resultCount"..str_cnt].tooltipFunc = function(tooltip)
 		tooltip:Clear()
 		if self.itemIndexTbl[str_cnt] and self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string then
 			-- TODO: item parsing bug caught here.
@@ -546,7 +546,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 			self.itemsTab:AddItemTooltip(tooltip, item, nil, true)
 		end
 	end
-	controls['resultNext'..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['resultCount'..str_cnt],"TOPRIGHT"}, 8, 0, 20, row_height, ">>", resultNext)
+	controls["resultNext"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['resultCount'..str_cnt],"TOPRIGHT"}, 8, 0, 20, row_height, ">>", resultNext)
 	controls["resultNext"..str_cnt].enabled = function()
 		return self.itemIndexTbl[str_cnt] ~= nil and self.itemIndexTbl[str_cnt] < (self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1)
 	end 
