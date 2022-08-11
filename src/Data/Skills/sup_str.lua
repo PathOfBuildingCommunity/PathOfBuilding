@@ -3213,8 +3213,7 @@ skills["SupportMultistrike"] = {
 		["multistrike_damage_+%_final_on_second_repeat"] = {
 		},
 		["support_multiple_attack_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.WeaponMelee),
-			mod("Damage", "MORE", nil, ModFlag.Unarmed),
+			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.WeaponMelee),
@@ -3313,8 +3312,7 @@ skills["SupportMultistrikePlus"] = {
 			div = 2,
 		},
 		["support_multiple_attack_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.WeaponMelee),
-			mod("Damage", "MORE", nil, ModFlag.Unarmed),
+			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.WeaponMelee),
