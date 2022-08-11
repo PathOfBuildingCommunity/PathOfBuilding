@@ -35,7 +35,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.lastCurrencyFileTime = { }
 	self.pbFileTimestampDiff = { }
 
-	self.tradeQueryRequests = new("TradeQueryRequests")
+	self.tradeQueryRequests = new("TradeQueryRequests", self)
 	table.insert(main.onFrameFuncs, function()
 		self.tradeQueryRequests:ProcessQueue()
 	end)
@@ -254,6 +254,19 @@ function TradeQueryClass:PriceItem()
 	self.controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
 	self.controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
 	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
+
+	self.maxFetchPerSearchDefault = 1
+	self.controls.fetchcountEdit = new("EditControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, row_height, "", "Fetch Page Cnt", "%D", 3, function(buf)
+		self.maxFetchsPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, self.maxFetchPerSearchDefault), 5)
+		self.maxFetchPerSearch = 20 * self.maxFetchsPages
+	end)
+	self.controls.fetchcountEdit:SetText(tostring(self.maxFetchsPages or self.maxFetchPerSearchDefault))
+	self.controls.fetchcountEdit.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "Specify maximum number of item pagesto retrieve per search from PoE Trade.")
+		tooltip:AddLine(16, "Each page fetches up to 20 items.")
+		tooltip:AddLine(16, "Acceptable Range is: 1 to 5")
+	end
 
 	-- League selection
 	self.controls.league = new("DropDownControl", {"TOPRIGHT", self.controls.itemSortSelectionLabel, "TOPLEFT"}, -8, 0, 100, 18, self.itemsTab.leagueDropList, function(index, value)

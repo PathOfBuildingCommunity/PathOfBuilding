@@ -7,13 +7,13 @@
 local dkjson = require "dkjson"
 
 ---@class TradeQueryRequests
-local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, rateLimiter)
+local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, tradeQuery, rateLimiter)
+	self.tradeQuery = tradeQuery
     self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter")
     self.requestQueue = {
 		["search"] = {},
 		["fetch"] = {},
 	}
-	self.maxFetchPerSearch = 20
 end)
 
 ---Main routine for processing request queue
@@ -23,12 +23,12 @@ function TradeQueryRequestsClass:ProcessQueue()
 			local policy = self.rateLimiter:GetPolicyName(key)
 			local now = os.time()
 			local timeNext = self.rateLimiter:NextRequestTime(policy, now)
-			if now >= timeNext then			
+			if now >= timeNext then
 				local request = table.remove(queue, 1)
-				local requestId = self.rateLimiter:InsertRequest(policy)			
+				local requestId = self.rateLimiter:InsertRequest(policy)
 				local onComplete = function(response, errMsg)
-					self.rateLimiter:FinishRequest(policy, requestId)				
-					self.rateLimiter:UpdateFromHeader(response.header)				
+					self.rateLimiter:FinishRequest(policy, requestId)
+					self.rateLimiter:UpdateFromHeader(response.header)
 					if response.header:match("HTTP/[%d%.]+ (%d+)") == "429" then
 						table.insert(queue, 1, request)
 						return
@@ -115,7 +115,7 @@ end
 ---@param queryId string
 ---@param callback fun(items:table, errMsg:string)
 function TradeQueryRequestsClass:FetchResults(itemHashes, queryId, callback)
-	local quantity_found = math.min(#itemHashes, self.maxFetchPerSearch)
+	local quantity_found = math.min(#itemHashes, self.tradeQuery.maxFetchPerSearch)
 	local max_block_size = 10
 	local items = {}
 	for fetch_block_start = 1, quantity_found, max_block_size do
