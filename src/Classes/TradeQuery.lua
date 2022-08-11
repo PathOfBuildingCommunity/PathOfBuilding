@@ -263,7 +263,7 @@ function TradeQueryClass:PriceItem()
 	self.controls.fetchcountEdit:SetText(tostring(self.maxFetchsPages or self.maxFetchPerSearchDefault))
 	self.controls.fetchcountEdit.tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		tooltip:AddLine(16, "Specify maximum number of item pagesto retrieve per search from PoE Trade.")
+		tooltip:AddLine(16, "Specify maximum number of item pages to retrieve per search from PoE Trade.")
 		tooltip:AddLine(16, "Each page fetches up to 20 items.")
 		tooltip:AddLine(16, "Acceptable Range is: 1 to 5")
 	end
