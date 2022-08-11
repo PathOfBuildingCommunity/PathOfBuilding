@@ -4592,7 +4592,7 @@ skills["SupportSpellEchoPlus"] = {
 	baseMods = {
 		flag("Condition:HaveSpellEcho"),
 		mod("DoubleDamageChance", "BASE", -3, ModFlag.Spell, 0, { type = "Condition", var = "HaveGreaterSpellEcho" }),
-		mod("DoubleDamageChance", "BASE", -7, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt" }),
+		mod("DoubleDamageChance", "BASE", -7, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt" }, { type = "Condition", var = "HaveGreaterSpellEcho" }),
 		mod("DoubleDamageChance", "BASE", -10, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt" }, { type = "Condition", var = "HaveGreaterSpellEcho", neg= true }),
 	},
 	qualityStats = {
