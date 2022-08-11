@@ -223,10 +223,13 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 			if err then
 				return callback(nil, "Failed to parse JSON object. ".. err)
 			end
-			local query = {query = data.state}
-			query.sort = {price = "asc"}
-			--query.sort = {}
-			--query.sort["statgroup.0"] = "desc"
+			local query = { query = data.state }
+			if data.state.stats and data.state.stats[1] and data.state.stats[1].type == "weight" then
+				query.sort = {}
+				query.sort["statgroup.0"] = "desc"
+			else
+				query.sort = { price = "asc "}
+			end
 			query.query.status = { option = query.query.status} -- works either way?
 			local queryStr = dkjson.encode(query)
 			callback(queryStr, errMsg)

@@ -430,7 +430,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
             elseif existingItem.type == "Staff" or existingItem.type:find("Two Handed") ~= nil then
                 itemCategoryQueryStr = "weapon.twomelee"
                 itemCategory = "2HWeapon"
-            elseif existingItem.type == "Wand" or existingItem.type == "Dagger" or existingItem.type == "Claw" or existingItem.type:find("One Handed") ~= nil then
+            elseif existingItem.type == "Wand" or existingItem.type == "Dagger" or existingItem.type == "Sceptre" or existingItem.type == "Claw" or existingItem.type:find("One Handed") ~= nil then
                 itemCategoryQueryStr = "weapon.one"
                 itemCategory = "1HWeapon"
             else
