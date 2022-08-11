@@ -454,7 +454,7 @@ function ItemClass:ParseRaw(raw)
 					else
 						self.enchantments = data.enchantments[self.base.type]
 					end
-					self.corruptable = self.base.type ~= "Flask"
+					self.corruptible = self.base.type ~= "Flask"
 					self.influenceTags = data.specialBaseTags[self.type]
 					self.canBeInfluenced = self.influenceTags
 					self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]

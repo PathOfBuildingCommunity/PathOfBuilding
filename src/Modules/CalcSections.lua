@@ -1466,7 +1466,7 @@ return {
 	{ label = "Avoid Projectiles Ch.", haveOutput = "AvoidProjectilesChance", { format = "{0:output:AvoidProjectilesChance}%", { modName = "AvoidProjectilesChance" }, }, },
 } }, { defaultCollapsed = true, label = "Other Avoidance", data = {
 	{ label = "Stun Avoid Chance", haveOutput = "StunAvoidChance", { format = "{0:output:StunAvoidChance}%", { modName = "AvoidStun" }, }, },
-	{ label = "Interupt Avoid Ch.", haveOutput = "InteruptStunAvoidChance", { format = "{0:output:InteruptStunAvoidChance}%", { modName = "AvoidInteruptStun" }, }, },
+	{ label = "Interrupt Avoid Ch.", haveOutput = "InterruptStunAvoidChance", { format = "{0:output:InterruptStunAvoidChance}%", { modName = "AvoidInterruptStun" }, }, },
 	{ label = "Blind Avoid Ch.", haveOutput = "BlindAvoidChance", { format = "{0:output:BlindAvoidChance}%", { modName = "AvoidBlind" }, }, },
 	{ label = "Shock Avoid Ch.", haveOutput = "ShockAvoidChance", { format = "{0:output:ShockAvoidChance}%", { modName = "AvoidShock" }, }, },
 	{ label = "Freeze Avoid Ch.", haveOutput = "FreezeAvoidChance", { format = "{0:output:FreezeAvoidChance}%", { modName = "AvoidFreeze" }, }, },
