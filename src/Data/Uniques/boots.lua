@@ -761,7 +761,7 @@ Requires Level 36, 35 Str, 35 Int
 {variant:1}20% increased Movement Speed 
 {variant:2}30% increased Movement Speed 
 {variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary 
-{variant:2}Your minimum Frenzy, Endurance and Power Charges are equal to yor maximum while you are Stationary
+{variant:2}Your minimum Frenzy, Endurance and Power Charges are equal to your maximum while you are Stationary
 Lose all Frenzy, Endurance, and Power Charges when you Move
 ]],[[
 Wake of Destruction
