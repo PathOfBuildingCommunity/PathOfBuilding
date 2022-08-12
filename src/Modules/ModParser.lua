@@ -654,6 +654,8 @@ local modNameList = {
 	["flask charges gained"] = "FlaskChargesGained",
 	["charge recovery"] = "FlaskChargeRecovery",
 	["impales you inflict last"] = "ImpaleStacksMax",
+	-- Buffs
+	["adrenaline"] = "Condition:Adrenaline",
 }
 
 -- List of modifier flags
@@ -2541,6 +2543,7 @@ local specialModList = {
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
 	["unholy might"] = { flag("Condition:UnholyMight") },
+	["adrenaline"] = { flag("Condition:Adrenaline") },
 	["your aura buffs do not affect allies"] = { flag("SelfAurasCannotAffectAllies") },
 	["auras from your skills can only affect you"] = { flag("SelfAurasOnlyAffectYou") },
 	["aura buffs from skills have (%d+)%% increased effect on you for each herald affecting you"] = function(num) return { mod("SkillAuraEffectOnSelf", "INC", num, { type = "Multiplier", var = "Herald"}) } end,
@@ -3636,6 +3639,7 @@ local regenTypes = {
 local flagTypes = {
 	["phasing"] = "Condition:Phasing",
 	["onslaught"] = "Condition:Onslaught",
+	["adrenaline"] = "Condition:Adrenaline",
 	["fortify"] = "Condition:Fortified",
 	["fortified"] = "Condition:Fortified",
 	["unholy might"] = "Condition:UnholyMight",
