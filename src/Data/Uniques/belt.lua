@@ -446,14 +446,18 @@ Offering Skills have 50% reduced Duration
 The Magnate
 Studded Belt
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 16
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{tags:physical}(25-40)% increased Physical Damage
+{variant:2}{tags:physical}(25-40)% increased Physical Damage
 {tags:jewellery_attribute}+(40-50) to Strength
 50% increased Flask Charges gained
 {variant:2}{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
+{variant:3}{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances
+{variant:3}10% chance to deal Double Damage while you have at least 200 Strength
+{variant:3}5% chance to deal Triple Damage while you have at least 400 Strength
 ]],[[
 The Nomad
 Studded Belt
