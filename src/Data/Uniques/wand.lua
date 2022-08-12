@@ -201,13 +201,16 @@ Reverberation Rod
 Spiraled Wand
 Variant: Pre 2.3.0
 Variant: Pre 3.11.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 24, 83 Int
 Implicits: 2
 {variant:1}(10-14)% increased Spell Damage
-{variant:2,3}(15-19)% increased Spell Damage
+{variant:2,3,4}(15-19)% increased Spell Damage
 {variant:1,2}+1 to Level of Socketed Gems
-{variant:3}+2 to Level of Socketed Gems
+{variant:3,4}+2 to Level of Socketed Gems
+{variant:4}Socketed Gems are Supported by Level 10 Arcane Surge
+{variant:4}Socketed Gems are Supported by Level 10 Controlled Destruction
 Socketed Gems are Supported by Level 10 Spell Echo
 +(10-30) to Intelligence
 ]],[[

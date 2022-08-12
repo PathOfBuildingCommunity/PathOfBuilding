@@ -617,10 +617,14 @@ Life Leech effects are not removed at Full Life
 ]],[[
 Repentance
 Crusader Gloves
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 66, 306 Str, 306 Int
-(0-30)% reduced Spell Damage
-(120-180)% increased Armour and Energy Shield
-+(8-16) to maximum Energy Shield
+{variant:1}(0-30)% reduced Spell Damage
+{variant:1}(120-180)% increased Armour and Energy Shield
+{variant:2}(400-500)% increased Armour and Energy Shield
+{variant:1}+(8-16) to maximum Energy Shield
+{variant:2}(6-12)% increased Strength
 500% increased Attribute Requirements
 Iron Will
 ]],[[

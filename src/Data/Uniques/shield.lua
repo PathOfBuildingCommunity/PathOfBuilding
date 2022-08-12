@@ -605,17 +605,21 @@ League: Legion
 Source: Drops from Vaal Legion
 Variant: Pre 3.4.0
 Variant: Pre 3.7.0
+Variant: 3.19.0
 Variant: Current
 Implicits: 0
 {variant:1}+(12-18)% chance to Block Spell Damage
-{variant:2,3}+(10-15)% chance to Block Spell Damage
+{variant:2,3,4}+(10-15)% chance to Block Spell Damage
 {variant:1,2}(40-60)% increased Spell Damage
 (120-160)% increased Energy Shield
 10% increased maximum Life
 {variant:1,2}+25% to Lightning Resistance
 {variant:3}Sacrifice 4% of your Life when you Use or Trigger a Spell Skill
+{variant:4}Sacrifice 10% of your Life when you Use or Trigger a Spell Skill
 {variant:3}2% increased Critical Strike Chance for Spells per 100 Player Maximum Life
+{variant:4}5% increased Critical Strike Chance for Spells per 100 Player Maximum Life
 {variant:3}2% increased Spell Damage per 100 Player Maximum Life
+{variant:4}5% increased Spell Damage per 100 Player Maximum Life
 ]],[[
 The Scales of Justice
 Chiming Spirit Shield
@@ -835,16 +839,19 @@ Rise of the Phoenix
 Mosaic Kite Shield
 Variant: Pre 1.1.0
 Variant: Pre 3.1.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
 {variant:1}+16% to all Elemental Resistances
-{variant:2,3}+8% to all Elemental Resistances
-(80-100)% increased Armour and Energy Shield
+{variant:2,3,4}+8% to all Elemental Resistances
+{variant:1,2,3}(80-100)% increased Armour and Energy Shield
+{variant:4}(240-300)% increased Armour and Energy Shield
 {variant:3}+(40-60) maximum Life
 {variant:1,2}Regenerate 6 Life per second
 {variant:3}Regenerate (15-20) Life per second
+{variant:4}Regenerate (100-200) Life per second
 {variant:1,2}+8% to maximum Fire Resistance
-{variant:3}+5% to maximum Fire Resistance
+{variant:3,4}+5% to maximum Fire Resistance
 +(20-25)% to Fire Resistance
 +25% to Fire Resistance while on Low Life
 10% increased Movement Speed when on Low Life
