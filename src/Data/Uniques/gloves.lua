@@ -91,15 +91,21 @@ Socketed Gems are Supported by level 10 Knockback
 ]],[[
 Giantsbane
 Bronze Gauntlets
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level: 23, 36 Str
-Adds (3-6) to (10-12) Physical Damage to Attacks
 +(30-40) to Strength
+{variant:1}Adds (3-6) to (10-12) Physical Damage to Attacks
+{variant:2}Adds (5-8) to (12-16) Physical Damage to Attacks
 (80-100)% increased Armour
+{variant:2}10% reduced Attack Speed
+{variant:2}Arrows Pierce 2 additional Targets
 Iron Grip
 ]],[[
 Lochtonial Caress
 Iron Gauntlets
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 (10-15)% increased Attack Speed
 {variant:1}+(10-20) to Armour
@@ -107,6 +113,7 @@ Variant: Current
 (10-15)% reduced maximum Mana
 (10-15)% increased Cast Speed
 {variant:2}10% chance to gain a Frenzy, Power or Endurance Charge on Kill
+{variant:3}(10-15)% chance to gain a Frenzy, Power or Endurance Charge on Kill
 Conduit
 ]],[[
 Meginord's Vise
@@ -167,17 +174,20 @@ Adds (8-12) to (15-20) Physical Damage to Attacks
 Hrimsorrow
 Goathide Gloves
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 9, 17 Dex
 +(20-30) to Strength
 {variant:1}50% increased Evasion Rating
-{variant:2}+(40-50) to Evasion Rating
+{variant:2,3}+(40-50) to Evasion Rating
 {variant:1}+(10-20)% to Cold Resistance
-{variant:2}+(20-30)% to Cold Resistance
+{variant:2,3}+(20-30)% to Cold Resistance
 {variant:2}Adds (5-7) to (13-15) Cold Damage to Spells and Attacks
 {variant:1}25% of Physical Damage Converted to Cold Damage
 {variant:2}50% of Physical Damage Converted to Cold Damage
-Reflects 10 Cold Damage to Melee Attackers
+{variant:3}100% of Physical Damage Converted to Cold Damage
+{variant:1,2}Reflects 10 Cold Damage to Melee Attackers
+{variant:3}Reflects 100 Cold Damage to Melee Attackers
 ]],[[
 Hrimburn
 Goathide Gloves
@@ -315,14 +325,18 @@ Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
 Doedre's Tenure
 Velvet Gloves
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 12, 21 Int
 {variant:1}(40-50)% increased Spell Damage
 {variant:2}(50-60)% increased Spell Damage
+{variant:3}100% increased Spell Damage
 {variant:1}+10 to Intelligence
 {variant:2}+20 to Intelligence
+{variant:3}+(20-50) to Intelligence
 {variant:1}20% reduced Cast Speed
 {variant:2}15% reduced Cast Speed
+{variant:3}(15-25)% reduced Cast Speed
 {variant:1}+16 to maximum Energy Shield
 {variant:2}+32 to maximum Energy Shield
 ]],[[

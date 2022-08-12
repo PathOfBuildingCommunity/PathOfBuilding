@@ -188,18 +188,20 @@ Royal Bow
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 28, 95 Dex
 Implicits: 2
 {variant:2}(6-12)% increased Elemental Damage with Attack Skills
-{variant:3,4}(20-24)% increased Elemental Damage with Attack Skills
+{variant:3,4,5}(20-24)% increased Elemental Damage with Attack Skills
 {variant:2,3}Adds (8-12) to (16-20) Physical Damage
-{variant:4}Adds (12-16) to (20-24) Physical Damage
+{variant:4,5}Adds (12-16) to (20-24) Physical Damage
 (10-14)% increased Attack Speed
 {variant:1,2,3}(30-40)% increased Critical Strike Chance
 60% increased Mana Regeneration Rate
 {variant:1,2,3}Gain 110% of Bow Physical Damage as Extra Damage of an Element
 {variant:4}Gain 100% of Bow Physical Damage as Extra Damage of an Element
+{variant:5}Gain 100% of Bow Physical Damage as Extra Damage of each Element
 ]],[[
 Doomfletch's Prism
 Royal Bow

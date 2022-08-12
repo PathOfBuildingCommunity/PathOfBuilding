@@ -484,13 +484,18 @@ Minions have 10% increased Area of Effect of Area Skills
 The Highwayman
 Gold Ring
 League: Heist
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 44
 Implicits: 1
 (6-15)% increased Rarity of Items found
 (15-25)% increased Rarity of Items found
-{tags:speed}5% increased Movement Speed
-25% chance to Steal Power, Frenzy, and Endurance Charges on Hit
-0.5% of Damage Leeched as Life while you have at least 5 total Endurance, Frenzy and Power Charges
+{variant:1}{tags:speed}5% increased Movement Speed
+{variant:2}{tags:speed}(5-10)% increased Movement Speed
+{variant:1}25% chance to Steal Power, Frenzy, and Endurance Charges on Hit
+{variant:2}100% chance to Steal Power, Frenzy, and Endurance Charges on Hit
+{variant:1}0.5% of Damage Leeched as Life while you have at least 5 total Endurance, Frenzy and Power Charges
+{variant:2}{tags:life}1% of Damage leeched as Life
 Total Recovery per second from Life Leech is Doubled
 ]],[[
 The Hungry Loop
@@ -518,12 +523,14 @@ Poisoned Enemies you Kill with Hits Shatter
 Kaom's Sign
 Coral Ring
 Variant: Pre 2.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {tags:jewellery_attribute}+(10-20) to Strength
 {variant:1}{tags:attack,life,physical}0.4% of Physical Attack Damage Leeched as Life
 {variant:2}{tags:attack,life}+(2-4) Life gained for each Enemy hit by your Attacks
+{variant:3}Grants Level 10 Enduring Cry
 +1 Maximum Endurance Charge
 ]],[[
 Kaom's Way
@@ -545,6 +552,7 @@ Kikazaru
 Topaz Ring
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 20
 Implicits: 1
@@ -552,10 +560,11 @@ Implicits: 1
 {tags:jewellery_attribute}+(10-15) to all Attributes
 {variant:1}{tags:life}(13-17) Life Regenerated per second
 {variant:2,3}{tags:life}1 Life Regenerated per second per Level
+{variant:4}{tags:life}3 Life Regenerated per second per Level
 {tags:mana}(20-40)% increased Mana Regeneration Rate
 {variant:1}{tags:caster}20% reduced Effect of Curses on You
 {variant:2}{tags:caster}40% reduced Effect of Curses on You
-{variant:3}{tags:caster}60% reduced Effect of Curses on You
+{variant:3,4}{tags:caster}60% reduced Effect of Curses on You
 ]],[[
 Le Heup of All
 Iron Ring
