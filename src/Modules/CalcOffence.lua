@@ -3946,7 +3946,6 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	
-	--need to build the newSkill again using specified attack speed
 	if activeSkill.activeEffect.grantedEffect.name == "Tawhoa's Chosen" then
 		local usedSkill = nil
 		local usedSkillBestDps = 0

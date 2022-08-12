@@ -2425,9 +2425,12 @@ function calcs.perform(env, avoidCache)
 		
 		-- 2^-31 is just a random small non zero value to avoid crashing due to division when things go wrong.
 		-- skill cooldown should still apply to focus triggers
-		local modActionCooldown = m_max( (triggeredCD or 2^-31), (triggerCD or 2^-31) ) / icdrSkill
+		local modActionCooldown = m_max( triggeredCD or 0, (triggerCD or 0) / icdrSkill )
 		local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-		local triggerRate = 1 / rateCapAdjusted
+		local triggerRate = m_huge
+		if rateCapAdjusted ~= 0 then
+			triggerRate = 1 / rateCapAdjusted
+		end
 		
 		output.ActionTriggerRate = triggerRate
 		output.SourceTriggerRate = 1 / focusTotalCD
