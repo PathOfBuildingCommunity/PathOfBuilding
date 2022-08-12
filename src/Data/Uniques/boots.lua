@@ -130,14 +130,17 @@ Requires Level 37, 67 Str
 Windscream
 Reinforced Greaves
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 33, 60 Str
 (50-80)% increased Armour
 +(10-15)% to all Elemental Resistances
 {variant:1}10% increased Movement Speed
 {variant:2}15% increased Movement Speed
+{variant:3}20% increased Movement Speed
 {variant:1}10% increased Elemental Damage
 {variant:2}(10-20)% increased Elemental Damage
+{variant:3}50% increased Area of Effect of Hex Skills
 Enemies can have 1 additional Curse
 ]],[[
 Windshriek
@@ -336,15 +339,19 @@ Requires Level 55, 97 Dex
 Victario's Flight
 Goathide Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 12, 26 Dex
 +15 to Dexterity
 +15 to Intelligence
 (100-150)% increased Evasion Rating
 {variant:1}30% increased Movement Speed when on Low Life
+{variant:3}(10-20)% increased Movement Speed when on Low Life
+{variant:3}Quicksilver Flasks you Use also apply to nearby Allies
 {variant:2}15% increased Movement Speed
+{variant:3}(10-20)% increased Movement Speed
 {variant:2}You and nearby allies have 10% increased Movement Speed
-(5-10)% of Damage taken Recouped as Mana
+{variant:1,2}(5-10)% of Damage taken Recouped as Mana
 ]],
 -- Boots: Energy Shield
 [[
@@ -515,15 +522,21 @@ Cannot be Frozen
 Wondertrap
 Velvet Slippers
 Variant: Pre 1.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 9, 21 Int
-+(5-10) to Strength
-+(5-10) to Dexterity
-+(5-10) to Intelligence
-+(10-16) to maximum Energy Shield
+{variant:1,2}+(5-10) to Strength
+{variant:3}+(5-30) to Strength
+{variant:1,2}+(5-10) to Dexterity
+{variant:3}+(5-30) to Dexterity
+{variant:1,2}+(5-10) to Intelligence
+{variant:3}+(5-30) to Intelligence
+{variant:1,2}+(10-16) to maximum Energy Shield
+{variant:3}+(5-30) to maximum Energy Shield
 100% increased Rarity of Items found when on Low Life
 {variant:1}15% increased Movement Speed
 {variant:2}10% increased Movement Speed
+{variant:3}(10-25)% increased Movement Speed
 ]],[[
 Greedtrap
 Velvet Slippers

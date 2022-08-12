@@ -497,8 +497,8 @@ Adds 1 to (275-325) Lightning Damage
 60% of Lightning Damage Converted to Chaos Damage
 10% Chance to Shock
 Your Chaos Damage can Shock
-{variant:2}Shock Enemies as though dealing 300% more Damage
-{variant:2}Your Shocks can increase Damage taken by up to a maximum of 100%
+{variant:2}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
+{variant:2}+40% to maximum Effect of Shock
 ]],[[
 Windripper
 Imperial Bow
