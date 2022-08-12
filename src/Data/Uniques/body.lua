@@ -190,6 +190,7 @@ Chaos Damage taken does not bypass Energy Shield
 Ashrend
 Buckskin Tunic
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
 {variant:2}Socketed Gems are Supported by Level 10 Added Fire Damage
@@ -197,8 +198,10 @@ Implicits: 0
 {variant:2}+(30-50) to maximum Life
 +(40-50)% to Fire Resistance
 Cannot be Ignited
-(10-15)% increased Physical Damage with Ranged Weapons
-−(5-7) Physical Damage taken from Attack Hits
+{variant:1,2}(10-15)% increased Physical Damage with Ranged Weapons
+{variant:3}(75-150)% increased Physical Damage with Ranged Weapons
+{variant:1,2}−(5-7) Physical Damage taken from Attack Hits
+{variant:3}−(30-60)Physical Damage taken from Attack Hits
 ]],[[
 Briskwrap
 Strapped Leather
@@ -417,15 +420,19 @@ Projectile Attack Skills have (40-60)% increased Critical Strike Chance
 The Beast Fur Shawl
 Vaal Regalia
 Variant: Pre 3.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
 40% increased Spell Damage
 {variant:1}+(50-65) to maximum Energy Shield
 {variant:2}+(15-25) to maximum Energy Shield
-(110-130)% increased Energy Shield
+{variant:1,2}(110-130)% increased Energy Shield
+{variant:3}(120-160)% increased Energy Shield
+{variant:1,2}(30-40)% increased Energy Shield Recovery Rate
+{variant:3}(50-100)% increased Energy Shield Recovery rate
 10% increased Area of Effect
-5% increased Damage taken
-(30-40)% increased Energy Shield Recovery Rate
+{variant:1,2}5% increased Damage taken
+{variant:3}10% increased Damage taken
 ]],[[
 Cloak of Flame
 Scholar's Robe
@@ -775,17 +782,20 @@ Crusader Chainmail
 Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
 {variant:1}(80-100)% increased Armour and Energy Shield
 {variant:2}(140-180)% increased Armour and Energy Shield
-{variant:3,4}(180-220)% increased Armour and Energy Shield
-{variant:4}+(60-80) to maximum Life
+{variant:3,4,5}(180-220)% increased Armour and Energy Shield
+{variant:4,5}+(60-80) to maximum Life
 {variant:1,2}+10% to all Elemental Resistances
-{variant:3,4}+15% to all Elemental Resistances
-Gain an Endurance Charge when you take a Critical Strike
+{variant:3,4,5}+15% to all Elemental Resistances
+{variant:1,2,3,4}Gain an Endurance Charge when you take a Critical Strike
+{variant:5}Gain up to Maximum Endurance Charge when you take a Critical Strike
 {variant:1,2,3}Regenerate 2% of Life per Second while on Low Life
 Share Endurance Charges with nearby party members
+{variant:5}Your nearby party members' maximum Endurance Charges are equal to yours.
 {variant:4}Regenerate 2% of Life per second if you have been Hit Recently
 ]],[[
 Replica Ambu's Charge

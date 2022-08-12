@@ -1203,6 +1203,7 @@ local modTagList = {
 	["if you have (%d+) primordial items socketed or equipped"] = function(num) return { tag = { type = "MultiplierThreshold", var = "PrimordialItem", threshold = num } } end,
 	-- Player status conditions
 	["wh[ie][ln]e? on low life"] = { tag = { type = "Condition", var = "LowLife" } },
+	["on reaching low life"] = { tag = { type = "Condition", var = "LowLife" } },
 	["wh[ie][ln]e? not on low life"] = { tag = { type = "Condition", var = "LowLife", neg = true } },
 	["wh[ie][ln]e? on low mana"] = { tag = { type = "Condition", var = "LowMana" } },
 	["wh[ie][ln]e? not on low mana"] = { tag = { type = "Condition", var = "LowMana", neg = true } },
@@ -2719,6 +2720,7 @@ local specialModList = {
 		mod("ShrineBuff", "LIST", { mod = mod("AreaOfEffect", "INC", 20) }) 
 	},
 	["(%d+)%% increased effect of shrine buffs on you"] = function(num) return { mod("ShrineBuffEffect", "INC", num)} end,
+	["(%d+)%% chance to cover enemies in ash on hit"] = { mod("CoveredInAshEffect", "BASE", 20) },
 	["left ring slot: cover enemies in ash for 5 seconds when you ignite them"] = { mod("CoveredInAshEffect", "BASE", 20, { type = "SlotNumber", num = 1 }, { type = "ActorCondition", actor = "enemy", var = "Ignited" }) },
 	["right ring slot: cover enemies in frost for 5 seconds when you freeze them"] = { mod("CoveredInFrostEffect", "BASE", 20, { type = "SlotNumber", num = 2 }, { type = "ActorCondition", actor = "enemy", var = "Frozen" }) },
 	["([%a%s]+) has (%d+)%% increased effect"] = function(_, skill, num) return { mod("BuffEffect", "INC", num, { type = "SkillId", skillId = gemIdLookup[skill]}) } end,
