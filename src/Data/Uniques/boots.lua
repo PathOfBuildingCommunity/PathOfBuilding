@@ -107,12 +107,18 @@ Unaffected by Burning Ground
 ]],[[
 Stormcharger
 Plated Greaves
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level: 23, 44 Str
 +(1-50)% to Lightning Resistance 
-20% increased Movement Speed
-30% of Physical Damage Converted to Lightning Damage
-50% increased Duration of Lightning Ailments
-(15-25)% increased Effect of Lightning Ailments
+{variant:1}20% increased Movement Speed
+{variant:2}(1-40)% increased Movement Speed
+{variant:1}30% of Physical Damage Converted to Lightning Damage
+{variant:2}Unaffected by Shocked Ground
+{variant:1}50% increased Duration of Lightning Ailments
+{variant:2}(1-100)% increased Duration of Lightning Ailments
+{variant:1}(15-25)% increased Effect of Lightning Ailments
+{variant:2}(1-50)% increased Effect of Lightning Ailments
 ]],[[
 Torchoak Step
 Antique Greaves
@@ -450,17 +456,19 @@ Shavronne's Pace
 Scholar Boots
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 32, 54 Int
-+10 to Dexterity
+{variant:1,2,3}+10 to Dexterity
 {variant:1}+10 to Intelligence
-{variant:2,3}+(20-30) to Intelligence
+{variant:2,3,4}+(20-30) to Intelligence
 {variant:1}(50-70)% increased Energy Shield
-{variant:2,3}(100-140)% increased Energy Shield
-{variant:3}15% increased Movement Speed
+{variant:2,3,4}(100-140)% increased Energy Shield
+{variant:3,4}15% increased Movement Speed
 {variant:1,2}35% increased Movement Speed when on Full Life
-{variant:3}20% increased Movement Speed when on Full Life
-(10-15)% increased Stun Recovery
+{variant:3,4}20% increased Movement Speed when on Full Life
+{variant:1,2,3}(10-15)% increased Stun Recovery
+{variant:4}(150-200)% increased Stun Recovery
 ]],[[
 Shavronne's Gambit
 Scholar Boots

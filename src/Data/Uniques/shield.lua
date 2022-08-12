@@ -844,16 +844,19 @@ Saffell's Frame
 Branded Kite Shield
 Variant: Pre 1.1.0
 Variant: Pre 3.4.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
 {variant:1}+8% to all Elemental Resistances
-{variant:2,3}+4% to all Elemental Resistances
+{variant:2,3,4}+4% to all Elemental Resistances
 {variant:1,2}(21-24)% Chance to Block Spell Damage
 {variant:3}(15-20)% Chance to Block Spell Damage
+{variant:4}(20-30)% Chance to Block Spell Damage
 (20-30)% increased Spell Damage
-+10% to all Elemental Resistances
+{variant:1,2,3}+10% to all Elemental Resistances
+{variant:4}+(20-30)% to all Elemental Resistances
 {variant:1}+5% to all maximum Resistances
-{variant:2,3}+4% to all maximum Resistances
+{variant:2,3,4}+4% to all maximum Resistances
 Cannot Block Attacks
 ]],[[
 Springleaf
@@ -861,17 +864,21 @@ Plank Kite Shield
 Variant: Pre 1.1.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
 {variant:1}+8% to all Elemental Resistances
-{variant:2,3,4}+4% to all Elemental Resistances
+{variant:2,3,4,5}+4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
-50% reduced Freeze Duration on you
+{variant:1,2,3,4}50% reduced Freeze Duration on you
+{variant:5}80% reduced Freeze Duration on you
 {variant:3}Regenerate 1% of Life per Second
 {variant:4}Regenerate 3% of Life per Second
+{variant:5}Regenerate (30-50) Life per Second
 {variant:1,2}Regenerate 6% of Life per Second while on Low Life
 {variant:3}Regenerate 5% of Life per Second while on Low Life
 {variant:4}Regenerate 3% of Life per Second while on Low Life
+{variant:5}Regenerate 100 Life per Second while on Low Life
 ]],[[
 The Oak
 Plank Kite Shield

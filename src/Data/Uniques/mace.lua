@@ -504,16 +504,19 @@ Enemies inflict Elemental Ailments on you instead of nearby Allies
 Singularity
 Platinum Sceptre
 Variant: Pre 2.3.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2}30% increased Elemental Damage
-Adds (30-40) to (60-70) Lightning Damage to Spells
+{variant:2,3}30% increased Elemental Damage
+{variant:1,2}Adds (30-40) to (60-70) Lightning Damage to Spells
+{variant:3}Adds (1-10) to (150-200) Lightning Damage to Spells
 (14-18)% increased Cast Speed
 (6-8)% reduced Mana Cost of Skills
 Nearby Enemies are Hindered, with 25% reduced Movement Speed
-(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
+{variant:1,2}(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
+{variant:3}100% increased Damage with Hits and Ailments against Hindered Enemies
 ]],[[
 Spine of the First Claimant
 Iron Sceptre
