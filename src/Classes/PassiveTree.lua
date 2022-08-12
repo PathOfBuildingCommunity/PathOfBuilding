@@ -128,15 +128,26 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	ConPrintf("Loading passive tree assets...")
-	for name, data in pairs(self.assets) do
-		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
+	if versionNum < 3.19 then
+		for name, data in pairs(self.assets) do
+			self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
+		end
 	end
 
 	-- Load sprite sheets and build sprite map
 	self.spriteMap = { }
 	local spriteSheets = { }
+	if versionNum >= 3.19 then
+		self.skillSprites = self.sprites
+	end
 	for type, data in pairs(self.skillSprites) do
-		local maxZoom = data[#data]
+		local maxZoom
+		if versionNum >= 3.19 then
+			maxZoom = data[0.3835] or data[1]
+		else
+			maxZoom = data[#data]
+		end
+		print(type)
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
@@ -156,6 +167,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				[3] = (coords.x + coords.w) / sheet.width,
 				[4] = (coords.y + coords.h) / sheet.height
 			}
+			--if type == "line" then print(name, type, sheet.height) end
 		end
 	end
 
@@ -187,15 +199,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 
-	local classArt = {
-		[0] = "centerscion",
-		[1] = "centermarauder",
-		[2] = "centerranger",
-		[3] = "centerwitch",
-		[4] = "centerduelist",
-		[5] = "centertemplar",
-		[6] = "centershadow"
-	}
 	self.nodeOverlay = {
 		Normal = {
 			artWidth = 40,
@@ -656,7 +659,7 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 
 	-- Generate a straight line
 	connector.type = "LineConnector"
-	local art = self.assets.LineConnectorNormal
+	local art = self.assets and self.assets.LineConnectorNormal or self.spriteMap.LineConnectorNormal.line
 	local vX, vY = node2.x - node1.x, node2.y - node1.y
 	local dist = m_sqrt(vX * vX + vY * vY)
 	local scale = art.height * 1.33 / dist
@@ -692,7 +695,11 @@ function PassiveTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
 	connector.vert = { }
 	for _, state in pairs({ "Normal", "Intermediate", "Active" }) do
 		-- The different line states have differently-sized artwork, so the vertex coords must be calculated separately for each one
-		local art = self.assets[connector.type .. state]
+		local art = self.assets and self.assets[connector.type .. state] or self.spriteMap[connector.type .. state].line
+		--print(connector.type .. state)
+		--for k,v in pairs(art) do
+		--	print(k,v)
+		--end
 		local size = art.width * 2 * 1.33
 		local oX, oY = size * m_sqrt(2) * m_sin(angle + m_pi / 4), size * m_sqrt(2) * -m_cos(angle + m_pi / 4)
 		local cX, cY = node1.group.x + oX, node1.group.y + oY

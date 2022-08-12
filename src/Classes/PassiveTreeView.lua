@@ -299,7 +299,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	end
 
 	-- Draw the background artwork
-	local bg = tree.assets.Background2 or tree.assets.Background1
+	local bg = tree.assets and (tree.assets.Background2 or tree.assets.Background1) or tree.spriteMap.Background2.background
 	if bg.width == 0 then
 		bg.width, bg.height = bg.handle:ImageSize()
 	end
@@ -337,15 +337,15 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				if group.ascendancyName ~= spec.curAscendClassName then
 					SetDrawColor(1, 1, 1, 0.25)
 				end
-				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
+				self:DrawAsset(tree.assets and tree.assets["Classes"..group.ascendancyName] or tree.spriteMap["Classes"..group.ascendancyName].ascendancyBackground, scrX, scrY, scale)
 				SetDrawColor(1, 1, 1)
 			end
 		elseif group.oo[3] then
-			self:DrawAsset(tree.assets[isExpansion and "GroupBackgroundLargeHalfAlt" or "PSGroupBackground3"], scrX, scrY, scale, true)
+			self:DrawAsset(tree.assets and tree.assets[isExpansion and "GroupBackgroundLargeHalfAlt" or "PSGroupBackground3"] or tree.spriteMap[isExpansion and "GroupBackgroundLargeHalfAlt" or "PSGroupBackground3"].groupBackground, scrX, scrY, scale, true)
 		elseif group.oo[2] then
-			self:DrawAsset(tree.assets[isExpansion and "GroupBackgroundMediumAlt" or "PSGroupBackground2"], scrX, scrY, scale)
+			self:DrawAsset(tree.assets and tree.assets[isExpansion and "GroupBackgroundMediumAlt" or "PSGroupBackground2"] or tree.spriteMap[isExpansion and "GroupBackgroundMediumAlt" or "PSGroupBackground2"].groupBackground, scrX, scrY, scale)
 		elseif group.oo[1] then
-			self:DrawAsset(tree.assets[isExpansion and "GroupBackgroundSmallAlt" or "PSGroupBackground1"], scrX, scrY, scale)
+			self:DrawAsset(tree.assets and tree.assets[isExpansion and "GroupBackgroundSmallAlt" or "PSGroupBackground1"] or tree.spriteMap[isExpansion and "GroupBackgroundSmallAlt" or "PSGroupBackground1"].groupBackground, scrX, scrY, scale)
 		end
 	end
 
@@ -410,7 +410,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			setConnectorColor(0.75, 0.75, 0.75)
 		end
 		SetDrawColor(unpack(connectorColor))
-		DrawImageQuad(tree.assets[connector.type..state].handle, unpack(connector.c))
+		DrawImageQuad(tree.assets and tree.assets[connector.type..state].handle or tree.spriteMap[connector.type..state].line.handle, unpack(connector.c))
 	end
 
 	-- Draw the connecting lines between nodes
@@ -461,13 +461,16 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		-- Determine the base and overlay images for this node based on type and state
 		local compareNode = self.compareSpec and self.compareSpec.nodes[nodeId] or nil
 
-		local base, overlay, effect
+		local base, overlay, effect, spriteExt
+		spriteExt = "frame"
 		local isAlloc = node.alloc or build.calcsTab.mainEnv.grantedPassives[nodeId] or (compareNode and compareNode.alloc)
 		SetDrawLayer(nil, 25)
 		if node.type == "ClassStart" then
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
+			spriteExt = "startNode"
 		elseif node.type == "AscendClassStart" then
 			overlay = treeVersions[tree.treeVersion].num >= 3.10 and "AscendancyMiddle" or "PassiveSkillScreenAscendancyMiddle"
+			spriteExt = "ascendancy"
 		else
 			local state
 			if self.showHeatMap or isAlloc or node == hoverNode or (self.traceMode and node == self.tracePath[#self.tracePath])then
@@ -481,7 +484,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 			if node.type == "Socket" then
 				-- Node is a jewel socket, retrieve the socketed jewel (if present) so we can display the correct art
-				base = tree.assets[node.overlay[state .. (node.expansionJewel and "Alt" or "")]]
+				base = tree.assets and tree.assets[node.overlay[state .. (node.expansionJewel and "Alt" or "")]] or tree.spriteMap[node.overlay[state .. (node.expansionJewel and "Alt" or "")]].frame
 				local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
 				if isAlloc and jewel then
 					if jewel.baseName == "Crimson Jewel" then
@@ -504,6 +507,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						overlay = "JewelSocketActiveAltRed"
 					end
 				end
+				spriteExt = "jewel"
 			elseif node.type == "Mastery" then
 				-- This is the icon that appears in the center of many groups
 				if node.masteryEffects then
@@ -523,6 +527,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				-- Normal node (includes keystones and notables)
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
 				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
+				spriteExt = "frame"
 			end
 		end
 
@@ -648,7 +653,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					end
 				end
 			end
-			self:DrawAsset(tree.assets[overlay], scrX, scrY, scale)
+			if overlay:find("AscendancyFrame") then spriteExt = "ascendancy" end
+			self:DrawAsset(tree.assets and tree.assets[overlay] or tree.spriteMap[overlay][spriteExt], scrX, scrY, scale)
+			if overlay ~= "PSSkillFrame" and overlay ~= "NotableFrameUnallocated" and not overlay:find("AscendancyFrame") and not overlay:find("KeystoneFrame") and 
+				not overlay:find("BlightedNotableFrame") and overlay ~= "AscendancyMiddle" and overlay ~= "PSStartNodeBackgroundInactive" and
+				overlay ~= "centerscion" then
+					--print(overlay, spriteExt)
+			end
 			SetDrawColor(1, 1, 1)
 		end
 		if self.searchStrResults[nodeId] then
