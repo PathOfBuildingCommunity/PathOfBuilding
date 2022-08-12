@@ -62,7 +62,7 @@ function calcs.defence(env, actor)
 	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
 	output.PhysicalDamageReduction = m_min(m_max(0, modDB:Sum("BASE", nil, "PhysicalDamageReduction")), output.DamageReductionMax)
 	output.PhysicalDamageReductionwhenHit = m_min(m_max(0, output.PhysicalDamageReduction + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit")), output.DamageReductionMax)
-	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "FLAG", true)
+	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "BASE", 100)
 	output["PhysicalResist"] = 0
 
 	-- Highest Maximum Elemental Resistance for Melding of the Flesh
@@ -761,18 +761,73 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+	
+	-- recoup
+	do
+		local quickRecoup = modDB:Flag(nil, "3SecondRecoup")
+		local recoupTypeList = {"Life", "Mana", "EnergyShield"}
+		for _, recoupType in ipairs(recoupTypeList) do
+			local baseRecoup = modDB:Sum("BASE", nil, recoupType.."Recoup")
+			output[recoupType.."Recoup"] =  baseRecoup * output[recoupType.."RecoveryRateMod"]
+			if breakdown then
+				if output[recoupType.."RecoveryRateMod"] ~= 1 then
+					breakdown[recoupType.."Recoup"] = {
+						s_format("%d%% ^8(base)", baseRecoup),
+						s_format("* %.2f ^8(recovery rate modifier)", output[recoupType.."RecoveryRateMod"]),
+						s_format("= %.1f%% over %d seconds", output[recoupType.."Recoup"], quickRecoup and 3 or 4)
+					}
+				else
+					breakdown[recoupType.."Recoup"] = { s_format("%d%% over %d seconds", output[recoupType.."Recoup"], quickRecoup and 3 or 4) }
+				end
+			end
+		end
+
+		if modDB:Flag(nil, "UsePowerCharges") and modDB:Flag(nil, "PowerChargesConvertToAbsorptionCharges") then
+			local ElementalEnergyShieldRecoupPerAbsorptionCharges = modDB:Sum("BASE", nil, "PerAbsorptionElementalEnergyShieldRecoup")
+			modDB:NewMod("ElementalEnergyShieldRecoup", "BASE", ElementalEnergyShieldRecoupPerAbsorptionCharges, "Absorption Charges", { type = "Multiplier", var = "AbsorptionCharge" } )
+		end
+		local ElementalEnergyShieldRecoup = modDB:Sum("BASE", nil, "ElementalEnergyShieldRecoup")
+		output.ElementalEnergyShieldRecoup = ElementalEnergyShieldRecoup * output.EnergyShieldRecoveryRateMod
+		if breakdown then
+			if output.EnergyShieldRecoveryRateMod ~= 1 then
+				breakdown.ElementalEnergyShieldRecoup = {
+					s_format("%d%% ^8(base)", ElementalEnergyShieldRecoup),
+					s_format("* %.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod),
+					s_format("= %.1f%% over %d seconds", output.ElementalEnergyShieldRecoup, quickRecoup and 3 or 4)
+				}
+			else
+				breakdown.ElementalEnergyShieldRecoup = { s_format("%d%% over %d seconds", output.ElementalEnergyShieldRecoup, quickRecoup and 3 or 4) }
+			end
+		end
+		
+		for _, damageType in ipairs(dmgTypeList) do
+			local LifeRecoup = modDB:Sum("BASE", nil, damageType.."LifeRecoup")
+			output[damageType.."LifeRecoup"] =  LifeRecoup * output.LifeRecoveryRateMod
+			if breakdown then
+				if output.LifeRecoveryRateMod ~= 1 then
+					breakdown[damageType.."LifeRecoup"] = {
+						s_format("%d%% ^8(base)", LifeRecoup),
+						s_format("* %.2f ^8(recovery rate modifier)", output.LifeRecoveryRateMod),
+						s_format("= %.1f%% over %d seconds", output[damageType.."LifeRecoup"], quickRecoup and 3 or 4)
+					}
+				else
+					breakdown[damageType.."LifeRecoup"] = { s_format("%d%% over %d seconds", output[damageType.."LifeRecoup"], quickRecoup and 3 or 4) }
+				end
+			end
+		end
+	end
 
 	-- Ward recharge
 	output.WardRechargeDelay = data.misc.WardRechargeDelay / (1 + modDB:Sum("INC", nil, "WardRechargeFaster") / 100)
-		if breakdown then
-			if output.WardRechargeDelay ~= data.misc.WardRechargeDelay then
-				breakdown.WardRechargeDelay = {
-					s_format("%.2fs ^8(base)", data.misc.WardRechargeDelay),
-					s_format("/ %.2f ^8(faster start)", 1 + modDB:Sum("INC", nil, "WardRechargeFaster") / 100),
-					s_format("= %.2fs", output.WardRechargeDelay)
-				}
-			end
+	if breakdown then
+		if output.WardRechargeDelay ~= data.misc.WardRechargeDelay then
+			breakdown.WardRechargeDelay = {
+				s_format("%.2fs ^8(base)", data.misc.WardRechargeDelay),
+				s_format("/ %.2f ^8(faster start)", 1 + modDB:Sum("INC", nil, "WardRechargeFaster") / 100),
+				s_format("= %.2fs", output.WardRechargeDelay)
+			}
 		end
+	end
 
 	-- Miscellaneous: move speed, stun recovery, avoidance
 	output.MovementSpeedMod = modDB:Override(nil, "MovementSpeed") or calcLib.mod(modDB, nil, "MovementSpeed")
@@ -831,7 +886,7 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
-	output.InteruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInteruptStun"), 100)
+	output.InterruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInterruptStun"), 100)
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
 	for _, ailment in ipairs(data.ailmentTypeList) do
 		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment), 100)
@@ -844,9 +899,12 @@ function calcs.defence(env, actor)
 	output.CurseEffectOnSelf = modDB:More(nil, "CurseEffectOnSelf") * (100 + modDB:Sum("INC", nil, "CurseEffectOnSelf"))
 
 	-- Ailment duration on self
-	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration"))
+	output.DebuffExpirationRate = modDB:Sum("BASE", nil, "SelfDebuffExpirationRate")
+	output.DebuffExpirationModifier = 10000 / (100 + output.DebuffExpirationRate)
+	output.showDebuffExpirationModifier = (output.DebuffExpirationModifier ~= 100)
+	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration")) * output.DebuffExpirationModifier / 100
 	for _, ailment in ipairs(data.ailmentTypeList) do
-		output["Self"..ailment.."Duration"] = modDB:More(nil, "Self"..ailment.."Duration") * (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration")) 
+		output["Self"..ailment.."Duration"] = modDB:More(nil, "Self"..ailment.."Duration") * (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration")) * 100 / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
 	end
 	output.SelfChillEffect = modDB:More(nil, "SelfChillEffect") * (100 + modDB:Sum("INC", nil, "SelfChillEffect"))
 	output.SelfShockEffect = modDB:More(nil, "SelfShockEffect") * (100 + modDB:Sum("INC", nil, "SelfShockEffect"))
@@ -1071,6 +1129,7 @@ function calcs.defence(env, actor)
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 		local damage = output[damageType.."TakenDamage"]
 		local armourReduct = 0
+		local percentOfArmourApplies = m_min((not modDB:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and modDB:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
 		local resMult = 1 - (resist - enemyPen) / 100
 		local reductMult = 1
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
@@ -1078,8 +1137,8 @@ function calcs.defence(env, actor)
 		elseif damageCategoryConfig == "Average" then
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2
 		end
-		if (modDB:Flag(nil, "ArmourAppliesTo"..damageType.."DamageTaken")) and not modDB:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") then
-			armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage * resMult)
+		if percentOfArmourApplies > 0 then
+			armourReduct = calcs.armourReduction((output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense), damage * resMult)
 			armourReduct = m_min(output.DamageReductionMax, armourReduct)
 		end
 		reductMult = (1 - m_max(m_min(output.DamageReductionMax, armourReduct + reduction - enemyOverwhelm), 0) / 100)
@@ -1091,6 +1150,9 @@ function calcs.defence(env, actor)
 					t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage After Resistance: %d ^8(total incoming damage)", damage * resMult))
 				else
 					t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage))
+				end
+				if percentOfArmourApplies ~= 100 then
+					t_insert(breakdown[damageType.."DamageReduction"], s_format("%d%% percent of armour applies", percentOfArmourApplies))
 				end
 				t_insert(breakdown[damageType.."DamageReduction"], s_format("Reduction from Armour: %d%%", armourReduct))
 			end
@@ -1141,6 +1203,9 @@ function calcs.defence(env, actor)
 					t_insert(breakdown[damageType.."TakenHitMult"], s_format("Enemy Hit Damage After Resistance: %d ^8(total incoming damage)", damage * resMult))
 				else
 					t_insert(breakdown[damageType.."TakenHitMult"], s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage))
+				end
+				if percentOfArmourApplies ~= 100 then
+					t_insert(breakdown[damageType.."TakenHitMult"], s_format("%d%% percent of armour applies", percentOfArmourApplies))
 				end
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("Reduction from Armour: %.2f", 1 - armourReduct / 100))
 			end

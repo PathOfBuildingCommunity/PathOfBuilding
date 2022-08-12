@@ -5203,7 +5203,7 @@ c["40% increased Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShiel
 c["+15 to Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=15}},nil}
 c["2% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=2}},nil}
 c["Socketed Gems fire Projectiles in a Nova"]={nil,"Socketed Gems fire Projectiles in a Nova "}
-c["35% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInteruptStun",type="BASE",value=35}},nil}
+c["35% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInterruptStun",type="BASE",value=35}},nil}
 c["Adds 1 to 24 Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningMin",type="BASE",value=1},[2]={flags=0,keywordFlags=0,name="LightningMax",type="BASE",value=24}},nil}
 c["Adds 12 to 16 Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdMin",type="BASE",value=12},[2]={flags=0,keywordFlags=0,name="ColdMax",type="BASE",value=16}},nil}
 c["Gold Amulet"]={nil,"Gold Amulet "}
@@ -5708,7 +5708,7 @@ c["Penetrating Arrow Quiver"]={nil,"Penetrating Arrow Quiver "}
 c["Cannot Leech Life from Critical Strikes"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=0,keywordFlags=0,name="CannotLeechLife",type="FLAG",value=true}},nil}
 c["50% increased Melee Damage against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=256,keywordFlags=0,name="Damage",type="INC",value=50}},nil}
 c["+2% to all Elemental Resistances per 10 Devotion"]={{[1]={[1]={div=10,stat="Devotion",type="PerStat"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=2}},nil}
-c["25% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInteruptStun",type="BASE",value=25}},nil}
+c["25% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInterruptStun",type="BASE",value=25}},nil}
 c["Agate Amulet Variant: Pre 2.5.0"]={nil,"Agate Amulet Variant: Pre 2.5.0 "}
 c["Ezomyte Blade Variant: Pre 2.6.0"]={nil,"Ezomyte Blade Variant: Pre 2.6.0 "}
 c["Ezomyte Blade"]={nil,"Ezomyte Blade "}
@@ -6217,7 +6217,7 @@ c["All Damage can Shock"]={{[1]={flags=0,keywordFlags=0,name="PhysicalCanShock",
 c["+32% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=32}},nil}
 c["Reflects 1 to 220 Lightning Damage to Attackers on Block Defences are Zero"]={nil,"Reflects 1 to 220 Lightning Damage to Attackers on Block Defences are Zero "}
 c["22% increased Stun and Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=22}},nil}
-c["15% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInteruptStun",type="BASE",value=15}},nil}
+c["15% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInterruptStun",type="BASE",value=15}},nil}
 c["Auras from your Skills grant 0.2% of Life Regenerated per second to you and Allies"]={{[1]={flags=0,keywordFlags=0,name="ExtraAuraEffect",type="LIST",value={mod={flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=0.2}}}},nil}
 c["Recover 25% of Life when you gain Adrenaline Remove all Ailments and Burning when you gain Adrenaline"]={nil,"Recover 25% of Life when you gain Adrenaline Remove all Ailments and Burning when you gain Adrenaline "}
 c["1 Added Passive Skill is Disease Vector"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Disease Vector"}},nil}
