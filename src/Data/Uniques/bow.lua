@@ -415,14 +415,17 @@ Requires Level 64, 212 Dex
 Roth's Reach
 Recurve Bow
 Variant: Pre 3.9.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 18, 71 Dex
 Implicits: 1
-{variant:2}+(15-25)% to Global Critical Strike Multiplier
+{variant:2,3}+(15-25)% to Global Critical Strike Multiplier
 (60-80)% increased Physical Damage
-(20-40)% increased Elemental Damage with Attack Skills
-(4-8)% increased Attack Speed
-Skills Chain +1 times
+{variant:1,2}(20-40)% increased Elemental Damage with Attack Skills
+{variant:3}(60-80)% increased Elemental Damage with Attack Skills
+{variant:1,2}(4-8)% increased Attack Speed
+{variant:1,2}Skills Chain +1 times
+{variant:3}Skills Chain +2 times
 30% increased Projectile Speed
 ]],[[
 Silverbranch

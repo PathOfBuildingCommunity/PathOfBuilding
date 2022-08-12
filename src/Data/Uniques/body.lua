@@ -327,15 +327,18 @@ The Rat Cage
 Sharkskin Tunic
 League: Torment
 Variant: Pre 2.6.0
+Variant: 3.19.0
 Variant: Current
 Implicits: 0
 (100-120)% increased Evasion Rating
-+(160-200) to maximum Life
+{variant:1,2}+(160-200) to maximum Life
+{variant:3}+(200-300) to maximum Life
 {variant:1}−5% to maximum Fire Resistance
 {variant:2}-50% to Fire Resistance
 15% increased Movement Speed
-20% increased Fire Damage taken
-10% of Fire Damage from Hits taken as Physical Damage
+{variant:1,2}20% increased Fire Damage taken
+{variant:1,2}10% of Fire Damage from Hits taken as Physical Damage
+{variant:3}100% of Fire Damage from Hits taken as Physical Damage
 ]],[[
 The Snowblind Grace
 Coronal Leather
@@ -1093,17 +1096,21 @@ Unaffected by Shock
 The Restless Ward
 Carnal Armour
 Variant: Pre 2.6.0
+Variant: Pre.3.19.0
 Variant: Current
 Implicits: 1
 +(20-25) to maximum Mana
 {variant:1}(120-150)% increased Evasion and Energy Shield
-{variant:2}(220-250)% increased Evasion and Energy Shield
+{variant:2,3}(220-250)% increased Evasion and Energy Shield
 {variant:1}+(40-60) to maximum Life
-{variant:2}+(60-80) to maximum Life
-1% increased Movement Speed per Frenzy Charge
+{variant:2,3}+(60-80) to maximum Life
+{variant:1,2}1% increased Movement Speed per Frenzy Charge
+{variant:3}4% increased Movement Speed per Frenzy Charge
 {variant:1}Regenerate (15.0-20.0) Life per second per Endurance Charge
 {variant:2}Regenerate (20.0-30.0) Life per second per Endurance Charge
-100% increased Endurance, Frenzy and Power Charge Duration
+{variant:3}Regenerate 75.0 Life per second per Endurance Charge
+{variant:1,2}100% increased Endurance, Frenzy and Power Charge Duration
+{variant:3}(100-200)% increased Endurance, Frenzy and Power Charge Duration
 ]],[[
 Replica Restless Ward
 Carnal Armour

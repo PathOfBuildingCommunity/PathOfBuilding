@@ -762,24 +762,33 @@ Primordial
 ]],[[
 Rashkaldor's Patience
 Jade Amulet
-Requires Level 61
+Variant: Pre 3.19.0
+Variant: Current
+Requires Level 48
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:life}+(40-80) to maximum Life
 {tags:mana}+(20-40) to maximum Mana
-{tags:jewellery_elemental}20% increased Duration of Elemental Ailments on Enemies
-Items and Gems have 10% reduced Attribute Requirements
-{tags:jewellery_elemental}5% chance to Freeze, Shock and Ignite
-Cannot gain Power Charges
+{variant:1}{tags:jewellery_elemental}20% increased Duration of Elemental Ailments on Enemies
+{variant:2}{tags:jewellery_elemental}20% reduced Duration of Elemental Ailments on Enemies
+{variant:1}Items and Gems have 10% reduced Attribute Requirements
+{variant:2}Items and Gems have 10% increased Attribute Requirements
+{variant:1}{tags:jewellery_elemental}5% chance to Freeze, Shock and Ignite
+{variant:2}Always Freeze, Shock and Ignite
+{variant:1}Cannot gain Power Charges
 ]],[[
 Retaliation Charm
 Citrine Amulet
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 30
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
-(25-40)% increased Damage with Hits and Ailments against Blinded Enemies
-{tags:critical}(30-50)% increased Critical Strike Chance against Blinded Enemies
-{tags:critical}(40-50)% chance to Blind Enemies on Critical Strike
+{variant:1}(25-40)% increased Damage with Hits and Ailments against Blinded Enemies
+{variant:1}{tags:critical}(30-50)% increased Critical Strike Chance against Blinded Enemies
+{variant:1}{tags:critical}(40-50)% chance to Blind Enemies on Critical Strike
+{variant:2}(10-20)% chance to gain a Frenzy Charge On Hit while Blinded
+{variant:2}(10-20)% chance to gain a Blind Enemies on Hit with Attacks
 Blind does not affect your Light Radius
 Blind you inflict is Reflected to you
 ]],[[

@@ -433,17 +433,19 @@ Variant: Pre 1.0.0
 Variant: Pre 1.1.0
 Variant: Pre 2.6.0
 Variant: Pre 3.4.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 53, 94 Int
 {variant:1,2,3,4}(6-7)% Chance to Block Spell Damage
 {variant:5}(4-6)% Chance to Block Spell Damage
+{variant:6}(15-20)% Chance to Block Spell Damage
 {variant:1,2}+(80-100) to maximum Mana
-{variant:3,4,5}+(40-60) to maximum Mana
+{variant:3,4,5,6}+(40-60) to maximum Mana
 {variant:1,2}(150-200)% increased Energy Shield
 {variant:3,4,5}(140-180)% increased Energy Shield
-{variant:1,3,4,5}+20% to all Elemental Resistances
+{variant:1,3,4,5,6}+20% to all Elemental Resistances
 {variant:2}+8% to all Elemental Resistances
-{variant:1,2,3}20% increased Movement Speed
+{variant:1,2,3,6}20% increased Movement Speed
 {variant:4,5}25% increased Movement Speed
 ]],[[
 Shavronne's Pace
@@ -751,11 +753,15 @@ Socketed Gems are Supported by Level 25 Divine Blessing
 ]],[[
 Ralakesh's Impatience
 Riveted Boots
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Cold Resistance 
 +(15-25)% to Chaos Resistance 
-20% increased Movement Speed 
-Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary 
+{variant:1}20% increased Movement Speed 
+{variant:2}30% increased Movement Speed 
+{variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary 
+{variant:2}Your minimum Frenzy, Endurance and Power Charges are equal to yor maximum while you are Stationary
 Lose all Frenzy, Endurance, and Power Charges when you Move
 ]],[[
 Wake of Destruction
