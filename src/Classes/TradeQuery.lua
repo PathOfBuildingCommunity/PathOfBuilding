@@ -256,7 +256,7 @@ function TradeQueryClass:PriceItem()
 	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
 
 	self.maxFetchPerSearchDefault = 1
-	self.controls.fetchcountEdit = new("EditControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, row_height, "", "Fetch Page Cnt", "%D", 3, function(buf)
+	self.controls.fetchcountEdit = new("EditControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, row_height, "", "Fetch Pages", "%D", 3, function(buf)
 		self.maxFetchPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, self.maxFetchPerSearchDefault), 5)
 		self.maxFetchPerSearch = 20 * self.maxFetchPages
 		self.controls.fetchcountEdit.focusValue = self.maxFetchPages
