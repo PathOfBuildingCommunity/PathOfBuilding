@@ -48,9 +48,9 @@ Iron Hat
 Variant: Pre 3.19.0
 Variant: Current
 {variant:1}20% increased Global Physical Damage
-+(15-25) to Armour
-{variant:1}+(25-50) to maximum Life
-{variant:2}+(75-100) to maximum Life
+{variant:1}+(15-25) to Armour
+{variant:2}+(75-100) to Armour
++(25-50) to maximum Life
 {variant:1}Cannot Evade Enemy Attacks
 {variant:2}Unwavering Stance
 {variant:2}(15-20)% increased Area of Effect
@@ -518,7 +518,7 @@ Variant: Current
 Requires Level 26, 58 Int
 +(30-50) to maximum Energy Shield
 {variant:1}Minions have (10-15)% increased Movement Speed
-{variant:2,3}Minions have (25-45)% increased Movement Speed
+{variant:2}Minions have (25-45)% increased Movement Speed
 {variant:2}Summoned Raging Spirits deal (130-150)% increased Damage
 {variant:3}Summoned Raging Spirits deal (175-250)% increased Damage
 75% reduced Maximum number of Summoned Raging Spirits
@@ -556,7 +556,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 65, 138 Int
 {variant:1}Socketed Gems are Supported by level 15 Concentrated Effect
-{variant:2,3,4}Socketed Gems are Supported by level 20 Concentrated Effect
+{variant:2,3,4,5}Socketed Gems are Supported by level 20 Concentrated Effect
 {variant:1,2,3,4}30% increased Cold Damage
 {variant:5}+(25-75) to maximum Mana
 {variant:1,2,3,4}+(40-60) to maximum Mana
@@ -565,7 +565,7 @@ Requires Level 65, 138 Int
 {variant:4}(140-160)% increased Energy Shield
 {variant:5}50% increased Energy Shield
 {variant:1}50% slower start of Energy Shield Recharge
-{variant:2,3,4}50% reduced Energy Shield Recharge Rate
+{variant:2,3,4,5}50% reduced Energy Shield Recharge Rate
 {variant:3,4}+(16-22)% to Cold Damage over Time Multiplier
 {variant:5}+50% to Cold Damage over Time Multiplier
 ]],[[
@@ -589,13 +589,16 @@ Requires Level 48, 101 Int
 ]],[[
 Thundersight
 Solaris Circlet
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 59, 122 Int
 (240-280)% increased Energy Shield
 +(30-40)% to Lightning Resistance
 (30-40)% increased Elemental Damage
-25% chance to Sap Enemies
+{variant:1}25% chance to Sap Enemies
+{variant:2}(25-50)% chance to Sap Enemies
 Cannot inflict Shock
-10% increased Elemental Damage per Sextant affecting the area
+{variant:1}10% increased Elemental Damage per Sextant affecting the area
 ]],[[
 Wraithlord
 Bone Circlet
@@ -956,7 +959,7 @@ Variant: Current
 Requires Level 68, 62 Str, 91 Int
 Adds (13-17) to (29-37) Chaos Damage
 {variant:1}+(200-250) to maximum Energy Shield
-{variant:2,3}+(150-200) to maximum Energy Shield
+{variant:2,3,4}+(150-200) to maximum Energy Shield
 +(32-40)% to Cold Resistance
 +(15-20)% to Lightning Resistance
 {variant:1,2}Regenerate 100 Energy Shield per second if all Equipped items are Corrupted
@@ -1043,15 +1046,18 @@ Requires Level 68, 62 Str, 91 Int
 Mindspiral
 Aventail Helmet
 Variant: Pre 3.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 37, 42 Str, 42 Int
-(10-15)% increased Cold Damage
-(10-15)% increased Lightning Damage
+{variant:1,2}(10-15)% increased Cold Damage
+{variant:1,2}(10-15)% increased Lightning Damage
 {variant:1}+(100-150) to maximum Mana
 {variant:2}+(100-120) to maximum Mana
 {variant:2}Gain (5-10)% of Maximum Mana as Extra Maximum Energy Shield
+{variant:3}Gain (10-15)% of Maximum Mana as Extra Maximum Energy Shield
 Enemies Cannot Leech Mana From You
-(5-10)% of Damage taken Recouped as Mana
+{variant:1,2}(5-10)% of Damage taken Recouped as Mana
+{variant:3}(10-20)% of Damage taken Recouped as Mana
 Cannot Leech Mana
 ]],[[
 Speaker's Wreath
