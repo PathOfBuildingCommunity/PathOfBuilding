@@ -2803,15 +2803,17 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		-- flask uptime
 		if not item.base.flask.life and not item.base.flask.mana then
 			local flaskChargesUsed = flaskData.chargesUsed * (1 + usedInc / 100)
+			local chanceToNotConsumeCharges = m_min(modDB:Sum("BASE", nil, "FlaskChanceNotConsumeCharges"), 100)
 			if flaskChargesUsed > 0 then
 				local flaskDuration = flaskData.duration * (1 + durInc / 100)
 				local per3Duration = flaskDuration - (flaskDuration % 3)
 				local per5Duration = flaskDuration - (flaskDuration % 5)
 				local minimumChargesGenerated = per3Duration * chargesGenerated + per5Duration * chargesGeneratedPerFlask
-				local percentageMin = math.min(minimumChargesGenerated / flaskChargesUsed * 100, 100)
-				if percentageMin < 100 then
+				local percentageMin = m_min(minimumChargesGenerated / flaskChargesUsed * 100, 100)
+				if percentageMin < 100 and chanceToNotConsumeCharges < 100 then
 					local averageChargesGenerated = (chargesGenerated + chargesGeneratedPerFlask) * flaskDuration
-					local percentageAvg = math.min(averageChargesGenerated / flaskChargesUsed * 100, 100)
+					local averageChargesUsed = flaskChargesUsed * (100 - chanceToNotConsumeCharges) / 100
+					local percentageAvg = m_min(averageChargesGenerated / averageChargesUsed * 100, 100)
 					t_insert(stats, s_format("^8Flask uptime: ^7%d%%^8 average, ^7%d%%^8 minimum", percentageAvg, percentageMin))
 				else
 					t_insert(stats, s_format("^8Flask uptime: ^7100%%^8"))
