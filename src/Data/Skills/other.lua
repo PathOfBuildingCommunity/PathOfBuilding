@@ -2995,6 +2995,11 @@ skills["SummonMirageChieftain"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	fromTree = true,
+	statMap = {
+		["skill_used_by_mirage_chieftain_damage_+%_final"] = {
+			mod("ChieftainMirageChieftainMoreDamage", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,

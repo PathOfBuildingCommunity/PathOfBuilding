@@ -2680,13 +2680,8 @@ function calcs.perform(env, avoidCache)
 					end
 				end
 			elseif env.player.mainSkill.activeEffect.grantedEffect.name == "Tawhoa's Chosen" then
-				spellCount = nil
-				for _, skill in ipairs(env.player.activeSkillList) do
-					local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
-					if skill.skillTypes[SkillType.Slam] and skill ~= env.player.mainSkill and not triggered then
-						source, trigRate = findTriggerSkill(env, skill, source, trigRate)
-					end
-				end
+				skip = true
+				--Handled in CalcOffence
 			else
 				ConPrintf("[ERROR]: Unhandled Unique Trigger Name: " .. (uniqueTriggerName or ""))
 				env.player.mainSkill.skillData.triggeredByUnique = nil

@@ -16,6 +16,7 @@ local m_min = math.min
 local m_max = math.max
 local m_sqrt = math.sqrt
 local m_pow = math.pow
+local m_huge = math.huge
 local bor = bit.bor
 local band = bit.band
 local bnot = bit.bnot
@@ -3942,6 +3943,143 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		else
 			activeSkill.infoMessage2 = "No Saviour active skill found"
+		end
+	end
+	
+	--need to build the newSkill again using specified attack speed
+	if activeSkill.activeEffect.grantedEffect.name == "Tawhoa's Chosen" then
+		local usedSkill = nil
+		local usedSkillBestDps = 0
+		local sourceAPS = 0
+		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
+		activeSkill.skillFlags.dontDisplay = true
+		
+		for _, triggerSkill in ipairs(actor.activeSkillList) do
+			if triggerSkill ~= activeSkill and triggerSkill.skillTypes[SkillType.Slam] and not skillTypes[SkillType.Vaal] then
+				-- Grab a fully-processed by calcs.perform() version of the skill that Tawhoa's Chosen will use
+				local uuid = cacheSkillUUID(triggerSkill)
+				if not GlobalCache.cachedData[calcMode][uuid] then
+					calcs.buildActiveSkill(env, calcMode, triggerSkill)
+					env.dontCache = true
+				end
+
+				if GlobalCache.cachedData[calcMode][uuid] then
+					if not usedSkill then
+						usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
+						usedSkillBestDps = GlobalCache.cachedData[calcMode][uuid].TotalDPS
+						sourceAPS = GlobalCache.cachedData[calcMode][uuid].Speed
+					else
+						if GlobalCache.cachedData[calcMode][uuid].TotalDPS > usedSkillBestDps then
+							usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
+							usedSkillBestDps = GlobalCache.cachedData[calcMode][uuid].TotalDPS
+							sourceAPS = GlobalCache.cachedData[calcMode][uuid].Speed
+						end
+					end
+				end
+			end
+		end
+		
+		if usedSkill then
+			local moreDamage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ChieftainMirageChieftainMoreDamage")
+			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
+			newSkill.skillFlags.dontDisplay = true
+			newSkill.skillData.triggered = true
+			
+			-- Calcualte trigger rate
+			local triggerCD = activeSkill.skillData.cooldown
+			local triggeredCD = newSkill.skillData.cooldown
+			local triggerDuration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
+			local icdrSkill = calcLib.mod(newSkill.skillModList, newSkill.skillCfg, "CooldownRecovery")
+			local effectiveTriggerCD = (triggerCD / icdrSkill) + triggerDuration
+			
+			local modActionCooldown = m_max( triggeredCD or 0, effectiveTriggerCD or 0 ) / icdrSkill
+			local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+			local triggerRate = m_huge
+			if modActionCooldown ~= 0 then
+				triggerRate = 1 / modActionCooldown
+			end
+			
+			-- Override attack speed with trigger rate
+			newSkill.skillData.triggerRate = m_min(sourceAPS, triggerRate)
+			
+			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
+			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Tawhoa's Chosen", activeSkill.ModFlags, activeSkill.KeywordFlags)
+
+			if usedSkill.skillPartName then
+				env.player.mainSkill.skillPart = usedSkill.skillPart
+				env.player.mainSkill.skillPartName = usedSkill.skillPartName
+				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name
+			else
+				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
+			end
+
+			-- Recalculate the offensive/defensive aspects of this new skill
+			newEnv.player.mainSkill = newSkill
+			calcs.perform(newEnv)
+			env.player.mainSkill = newSkill
+
+			env.player.mainSkill.infoMessage = "Tawhoa's Chosen using " .. usedSkill.activeEffect.grantedEffect.name
+
+			-- Re-link over the output
+			env.player.output = newEnv.player.output
+
+			-- Make any necessary corrections to output
+			env.player.output.ManaCost = 0
+			env.player.output.Speed = triggerRate
+			env.player.output.ActionTriggerRate = triggerRate
+			env.player.output.SourceTriggerRate = sourceAPS
+			env.player.output.ServerTriggerRate = m_min(triggerRate, sourceAPS)
+			
+			-- Re-link over the breakdown (if present)
+			if newEnv.player.breakdown then
+				newEnv.player.breakdown.SourceTriggerRate = {s_format("%.2f ^8(%s attacks per second)", sourceAPS, usedSkill.activeEffect.grantedEffect.name)}
+				if triggeredCD then
+					newEnv.player.breakdown.ActionTriggerRate = {
+						s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
+						s_format("= %.2f ^8(final cooldown of triggered skill)", triggeredCD / icdrSkill),
+						"",
+						s_format("%.2f ^8(Tawhoa's Chosen base cooldown)", triggerCD),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
+						s_format("+ %.2f ^8(only one Tawhoa's Chosen can be active at a time thus we add duration)", triggerDuration),
+						s_format("= %.2f ^8(effective trigger cooldown)", effectiveTriggerCD),
+						"",
+						s_format("%.2f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
+						"",
+						s_format("%.2f ^8(adjusted for server tick rate)", rateCapAdjusted),
+						"",
+						"Trigger rate:",
+						s_format("1 / %.3f", rateCapAdjusted),
+						s_format("= %.2f ^8per second", triggerRate),
+					}
+				else
+					newEnv.player.breakdown.ActionTriggerRate = {
+						"Triggered skill has no base cooldown",
+						"",
+						s_format("%.2f ^8(Tawhoa's Chosen base cooldown)", triggerCD),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
+						s_format("+ %.2f ^8(only one Tawhoa's Chosen can be active at a time thus we add duration)", triggerDuration),
+						s_format("= %.2f ^8(effective trigger cooldown)", effectiveTriggerCD),
+						"",
+						s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+						"",
+						"Trigger rate:",
+						s_format("1 / %.2f", rateCapAdjusted),
+						s_format("= %.2f ^8per second", triggerRate),
+					}		
+				end	
+					newEnv.player.breakdown.ServerTriggerRate = {
+						s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", env.player.output.ServerTriggerRate),
+					}
+				
+				env.player.breakdown = newEnv.player.breakdown
+
+				-- Make any necessary corrections to breakdown
+				env.player.breakdown.ManaCost = nil
+			end
+		else
+			activeSkill.disableReason = "No Tawhoa's Chosen active skill found"
+			skillFlags.disable = true
 		end
 	end
 
