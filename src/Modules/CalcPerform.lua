@@ -1003,7 +1003,7 @@ local function doActorMisc(env, actor)
 			condList["LeechingLife"] = true
 			env.configInput.conditionLeeching = true
 		end
-		if modDB:Flag(nil, "CanLeechLifeOnFullEnergyShield") then
+		if modDB:Flag(nil, "CanLeechEnergyShieldOnFullEnergyShield") then
 			condList["Leeching"] = true
 			condList["LeechingEnergyShield"] = true
 			env.configInput.conditionLeeching = true
@@ -1058,9 +1058,12 @@ end
 
 function calcs.actionSpeedMod(actor)
 	local modDB = actor.modDB
+	local minimumActionSpeed = modDB:Max(nil, "MinimumActionSpeed") or 0
+	local maximumActionSpeedReduction = modDB:Max(nil, "MaximumActionSpeedReduction")
 	local actionSpeedMod = 1 + (m_max(-data.misc.TemporalChainsEffectCap, modDB:Sum("INC", nil, "TemporalChainsActionSpeed")) + modDB:Sum("INC", nil, "ActionSpeed")) / 100
-	if modDB:Flag(nil, "ActionSpeedCannotBeBelowBase") then
-		actionSpeedMod = m_max(1, actionSpeedMod)
+	actionSpeedMod = m_max(minimumActionSpeed / 100, actionSpeedMod)
+	if maximumActionSpeedReduction then
+		actionSpeedMod = m_min((100 - maximumActionSpeedReduction) / 100, actionSpeedMod)
 	end
 	return actionSpeedMod
 end
