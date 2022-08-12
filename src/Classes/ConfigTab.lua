@@ -190,6 +190,12 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					return skillFlags[varData.ifFlag] or skillModList:Flag(nil, varData.ifFlag)
 				end
 				control.tooltipText = varData.tooltip
+			elseif varData.ifMod then
+				control.shown = function()
+					local skillModList = self.build.calcsTab.mainEnv.player.mainSkill.skillModList
+					return skillModList:Sum(varData.ifModType or "BASE", nil, varData.ifMod) > 0
+				end
+				control.tooltipText = varData.tooltip
 			elseif varData.ifSkill or varData.ifSkillList then
 				control.shown = function()
 					if varData.ifSkillList then
