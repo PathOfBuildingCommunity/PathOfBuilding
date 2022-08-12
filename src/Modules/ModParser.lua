@@ -52,6 +52,7 @@ local formList = {
 	["^you gain ([%d%.]+)"] = "BASE",
 	["^gains? ([%d%.]+)%% of"] = "BASE",
 	["^([%+%-]?%d+)%% chance"] = "CHANCE",
+	["^([%+%-]?%d+)%% chance to gain "] = "FLAG",
 	["^([%+%-]?%d+)%% additional chance"] = "CHANCE",
 	["penetrates? (%d+)%%"] = "PEN",
 	["penetrates (%d+)%% of"] = "PEN",
@@ -92,6 +93,9 @@ local formList = {
 	["^you have "] = "FLAG",
 	["^you are "] = "FLAG",
 	["^are "] = "FLAG",
+	["^gain "] = "FLAG",
+	["^you gain "] = "FLAG",
+	[""] = "FLAG",
 }
 
 -- Map of modifier names
@@ -654,6 +658,11 @@ local modNameList = {
 	["flask charges gained"] = "FlaskChargesGained",
 	["charge recovery"] = "FlaskChargeRecovery",
 	["impales you inflict last"] = "ImpaleStacksMax",
+	-- Buffs
+	["phasing"] = "Condition:Phasing",
+	["onslaught"] = "Condition:Onslaught",
+	["unholy might"] = "Condition:UnholyMight",
+	["elusive"] = "Condition:CanBeElusive",
 }
 
 -- List of modifier flags
@@ -2532,6 +2541,7 @@ local specialModList = {
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
 	["unholy might"] = { flag("Condition:UnholyMight") },
+	["elusive"] = { flag("Condition:CanBeElusive") },
 	["your aura buffs do not affect allies"] = { flag("SelfAurasCannotAffectAllies") },
 	["auras from your skills can only affect you"] = { flag("SelfAurasOnlyAffectYou") },
 	["aura buffs from skills have (%d+)%% increased effect on you for each herald affecting you"] = function(num) return { mod("SkillAuraEffectOnSelf", "INC", num, { type = "Multiplier", var = "Herald"}) } end,
@@ -3628,6 +3638,7 @@ local regenTypes = {
 local flagTypes = {
 	["phasing"] = "Condition:Phasing",
 	["onslaught"] = "Condition:Onslaught",
+	["elusive"] = "Condition:CanBeElusive",
 	["fortify"] = "Condition:Fortified",
 	["fortified"] = "Condition:Fortified",
 	["unholy might"] = "Condition:UnholyMight",
