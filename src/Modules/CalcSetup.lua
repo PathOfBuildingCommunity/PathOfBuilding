@@ -421,6 +421,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
 		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", env.spec.allocatedNotableCount, "")
 		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", env.spec.allocatedMasteryCount, "")
+		modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", env.spec.allocatedMasteryTypeCount, "")
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
