@@ -113,13 +113,18 @@ Meginord's Vise
 Steel Gauntlets
 Variant: Pre 1.1.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 35, 52 Str
-10% increased Physical Damage
-+100 to Strength
+{variant:1,2,3}10% increased Global Physical Damage
+{variant:1,2,3}+100 to Strength
+{variant:4}+50 to Strength
 {variant:1}(5-15)% reduced Attack Speed
 (40-60)% increased Armour
 {variant:3}2% of Life Regenerated per second with at least 400 Strength
+{variant:4}100% increased Knockback Distance
+{variant:4}Melee Hits with Strike Skills Always Knockback
+{variant:4}Melee Strike Skills deal Splash Damage to surrounding targets
 ]],[[
 Veruso's Battering Rams
 Titan Gauntlets
@@ -846,14 +851,17 @@ Lose a Power Charge each second if you have not Detonated Mines Recently
 Ondar's Clasp
 Wrapped Mitts
 Variant: Pre 1.1.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 5
 {variant:1}20% increased Attack Speed when on Full Life
-{variant:2}30% increased Attack Speed when on Full Life
-Adds 1 to 13 Lightning Damage to Attacks
-+(50-80) to Accuracy Rating
+{variant:2,3}30% increased Attack Speed when on Full Life
+{variant:1,2}Adds 1 to 13 Lightning Damage to Attacks
+{variant:3}Adds (1-4) to (30-50) Lightning Damage to Attacks
+{variant:1,2}+(50-80) to Accuracy Rating
+{variant:3}+(100-200) to Accuracy Rating
 {variant:1}(10-15)% increased Movement Speed when on Low Life
-{variant:2}20% increased Movement Speed when on Low Life
+{variant:2,3}20% increased Movement Speed when on Low Life
 ]],[[
 Malachai's Mark
 Murder Mitts
