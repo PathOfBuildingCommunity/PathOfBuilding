@@ -824,7 +824,7 @@ Wurm's Molt
 Leather Belt
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 8
+Requires Level 41
 Implicits: 1
 {tags:life}+(25-40) to Maximum Life
 {tags:jewellery_attribute}+(20-30) to Strength
