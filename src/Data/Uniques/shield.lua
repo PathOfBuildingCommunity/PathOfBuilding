@@ -884,7 +884,7 @@ Implicits: 1
 (80-120)% increased Armour and Energy Shield
 +(100-150) to maximum Life
 50% reduced Freeze Duration on you
-{variant:1}Regenerate 1% of Life per Second
+{variant:1}Regenerate 1% of Life per Second 
 {variant:2}Regenerate 3% of Life per Second
 {variant:1}Regenerate 5% of Life per Second while on Low Life
 {variant:2}Regenerate 3% of Life per Second while on Low Life
