@@ -151,27 +151,34 @@ Gain (10-20) Mana on Culling Strike
 Heartbreaker
 Royal Skean
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 50, 71 Dex, 102 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:1}(40-50)% increased Spell Damage
-{variant:2}(60-70)% increased Spell Damage
-+(40-50) to maximum Mana
-+50 to maximum Energy Shield
-10% faster start of Energy Shield Recharge
+{variant:2,3}(60-70)% increased Spell Damage
+{variant:1,2}+50 to maximum Energy Shield
+{variant:1,2}10% faster start of Energy Shield Recharge
+{variant:3}(40-80)% faster start of Energy Shield Recharge
+{variant:1,2}+(40-50) to maximum Mana
+{variant:3}+(60-100) to maximum Mana
 Your Spells have Culling Strike
 ]],[[
 Replica Heartbreaker
 Royal Skean
+Variant: Pre 3.19.0
+Variant: Current
 League: Heist
 Requires Level 50, 71 Dex, 102 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
 (60-70)% increased Spell Damage
-+50 to maximum Energy Shield
-10% faster start of Energy Shield Recharge
-+(40-50) to maximum Life
+{variant:1}+50 to maximum Energy Shield
+{variant:1}10% faster start of Energy Shield Recharge
+{variant:2}(40-80)% faster start of Energy Shield Recharge
+{variant:1}+(40-50) to maximum Life
+{variant:2}+(30-50) to maximum Life
 20% increased Impale Effect
 20% chance to Impale on Spell Hit
 ]],[[

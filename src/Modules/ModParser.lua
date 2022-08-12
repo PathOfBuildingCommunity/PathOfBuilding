@@ -3300,6 +3300,9 @@ local specialModList = {
 		flag("Condition:HaveManaStorm"),
 		mod("LightningMax", "BASE", 1, { type = "PerStat", stat = "ManaUnreserved" , div = 100 / num}, { type = "Condition", var = "SacrificeManaForLightning" }),
 	} end,
+	["attacks with this weapon have added maximum lightning damage equal to (%d+)%% of your energy shield"] = function(num) return {
+		mod("LightningMax", "BASE", 1, { type = "PerStat", stat = "EnergyShield" , div = 100 / num}, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+	} end,
 	["gain added chaos damage equal to (%d+)%% of ward"] = function(num) return {
 		mod("ChaosMin", "BASE", 1, { type = "PerStat", stat = "Ward", div = 100 / num }),
 		mod("ChaosMax", "BASE", 1, { type = "PerStat", stat = "Ward", div = 100 / num }),
