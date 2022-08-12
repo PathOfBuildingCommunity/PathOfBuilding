@@ -594,16 +594,20 @@ Requires Level 65, 62 Str, 62 Dex
 Dusktoe
 Ironscale Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 18, 19 Str, 19 Dex
-(40-60)% increased Armour and Evasion
+{variant:1,2}(40-60)% increased Armour and Evasion
+{variant:3}(60-100)% increased Armour and Evasion
 {variant:1}+(10-20) to maximum Life
 {variant:2}+(20-30) to maximum Life
 {variant:1}+(10-20) to maximum Mana
-15% increased Movement Speed
-50% increased Stun Recovery
+{variant:1,2}15% increased Movement Speed
+{variant:3}20% increased Movement Speed
+{variant:1,2}50% increased Stun and Block Recovery
 20% reduced Light Radius
 {variant:2}Adds (15-20) to (25-30) Chaos Damage to Spells and Attacks while using a Flask
+{variant:3}Adds (30-40) to (50-60) Chaos Damage to Spells and Attacks while using a Flask
 +50% to Chaos Resistance while using a Flask
 ]],[[
 Dusktoe

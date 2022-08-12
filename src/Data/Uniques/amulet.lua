@@ -517,17 +517,21 @@ Jade Amulet
 League: Synthesis
 Requires Level 64
 Variant: Pre 3.16.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Precision Skill
-{tags:jewellery_attribute}+(25-35) to Dexterity
-{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
-{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
-+(23-28)% to Global Critical Strike Multiplier
-{tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
+{variant:1,2}{tags:jewellery_attribute}+(25-35) to Dexterity
+{variant:3}{tags:jewellery_attribute}+(40-80) to Dexterity
+{variant:1,2}{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
+{variant:1,2}{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
+{variant:3}Bow Attacks have Culling Strike
+{variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
+{variant:3}{tags:critical}+(25-50)% to Global Critical Strike Multiplier
+{variant:1,2}{tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:1}Precision has 50% less Reservation
-{variant:2}Precision has 100% increased Mana Reservation Efficiency
+{variant:2,3}Precision has 100% increased Mana Reservation Efficiency
 ]],[[
 Replica Hyrri's Truth
 Jade Amulet
@@ -548,14 +552,19 @@ Grants Level 22 Hatred Skill
 ]],[[
 The Ignomon
 Gold Amulet
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 8
 Implicits: 1
 (12-20)% increased Rarity of Items found
-{tags:jewellery_attribute}+10 to Dexterity
-{tags:jewellery_elemental,attack}Adds 12 to 24 Fire Damage to Attacks
+{variant:1}{tags:jewellery_attribute}+10 to Dexterity
+{variant:1}{tags:jewellery_elemental,attack}Adds 12 to 24 Fire Damage to Attacks
+{variant:2}{tags:jewellery_elemental,attack}Adds (18-24) to (32-40) Fire Damage to Attacks
 {tags:attack}+(100-150) to Accuracy Rating
 {tags:jewellery_defense}+(100-150) to Evasion Rating
 {tags:jewellery_resistance}+20% to Fire Resistance
+{variant:2}20% to Light Radius
+{variant:2}Nearby Enemies are Blinded
 ]],[[
 The Effigon
 Gold Amulet

@@ -789,11 +789,14 @@ Create Profane Ground instead of Consecrated Ground
 Emperor's Vigilance
 Steel Kite Shield
 League: Harvest
+Variant: Pre 3.19.0
+Variant: Current
 Implicits: 0
 (16-22)% Chance to Block Spell Damage
-(300-400)% increased Armour and Energy Shield
-(10-15)% increased maximum Life
-Cannot Block while you have no Energy Shield
+{variant:1}(300-400)% increased Armour and Energy Shield
+{variant:2}1000% increased Armour and Energy Shield
+{variant:1}(10-15)% increased maximum Life
+{variant:1}Cannot Block while you have no Energy Shield
 Damage taken from Blocked Hits cannot bypass Energy Shield
 Damage taken from Unblocked hits always bypasses Energy Shield
 Glancing Blows
