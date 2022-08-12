@@ -62,16 +62,21 @@ function GemSelectClass:PopulateGemList()
 	local showAll = self.skillsTab.showSupportGemTypes == "ALL"
 	local showAwakened = self.skillsTab.showSupportGemTypes == "AWAKENED"
 	local showNormal = self.skillsTab.showSupportGemTypes == "NORMAL"
+	local matchLevel = self.skillsTab.defaultGemLevel == "characterLevel"
+	local characterLevel = self.skillsTab.build and self.skillsTab.build.characterLevel or 1
 	for gemId, gemData in pairs(self.skillsTab.build.data.gems) do
-		if (showAwakened or showAll) and gemData.grantedEffect.plusVersionOf then
-			self.gems["Default:" .. gemId] = gemData
-		elseif showNormal or showAll then
-			if self.skillsTab.showAltQualityGems and self.skillsTab.defaultGemQuality or 0 > 0 then
-				for _, altQual in ipairs(self.skillsTab:getGemAltQualityList(gemData)) do
-					self.gems[altQual.type .. ":" .. gemId] = gemData
-				end
-			else
+		local levelRequirement = gemData.grantedEffect.levels[1].levelRequirement or 1
+		if characterLevel >= levelRequirement or not matchLevel then
+			if (showAwakened or showAll) and gemData.grantedEffect.plusVersionOf then
 				self.gems["Default:" .. gemId] = gemData
+			elseif showNormal or showAll then
+				if self.skillsTab.showAltQualityGems and (self.skillsTab.defaultGemQuality or 0) > 0 then
+					for _, altQual in ipairs(self.skillsTab:getGemAltQualityList(gemData)) do
+						self.gems[altQual.type .. ":" .. gemId] = gemData
+					end
+				else
+					self.gems["Default:" .. gemId] = gemData
+				end
 			end
 		end
 	end
@@ -199,7 +204,7 @@ function GemSelectClass:UpdateSortCache()
 	end
 
 	if sortCache and (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes 
-		or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality) then
+		or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality or sortCache.characterLevel ~= self.skillsTab.build.characterLevel) then
 		self:PopulateGemList()
 	end
 
@@ -212,6 +217,7 @@ function GemSelectClass:UpdateSortCache()
 		outputRevision = self.skillsTab.build.outputRevision,
 		defaultLevel = self.skillsTab.defaultGemLevel,
 		defaultQuality = self.skillsTab.defaultGemQuality,
+		characterLevel = self.skillsTab.build and self.skillsTab.build.characterLevel or 1,
 		canSupport = { },
 		dps = { },
 		dpsColor = { },

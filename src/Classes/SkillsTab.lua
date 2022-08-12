@@ -28,24 +28,26 @@ local groupSlotDropList = {
 
 local defaultGemLevelList = {
 	{
-		label = "Match Character Level",
-		description = "All gems default to their highest valid non-corrupted gem level that your character meets the level requirement for.",
-		gemLevel = "characterLevel",
-	},
-	{
 		label = "Normal Maximum",
 		description = "All gems default to their highest valid non-corrupted gem level.",
 		gemLevel = "normalMaximum",
 	},
 	{
 		label = "Corrupted Maximum",
-		description = "Normal gems default to their highest valid corrupted gem level.\nAwakened gems default to their highest valid non-corrupted gem level.",
+		description = [[Normal gems default to their highest valid corrupted gem level.
+Awakened gems default to their highest valid non-corrupted gem level.]],
 		gemLevel = "corruptedMaximum",
 	},
 	{
 		label = "Awakened Maximum",
 		description = "All gems default to their highest valid corrupted gem level.",
 		gemLevel = "awakenedMaximum",
+	},
+	{
+		label = "Match Character Level",
+		description = [[All gems default to their highest valid non-corrupted gem level that your character meets the level requirement for.
+This hides gems with a minimum level requirement above your character level, preventing them from showing up in the dropdown list.]],
+		gemLevel = "characterLevel",
 	},
 }
 
@@ -340,7 +342,7 @@ function SkillsTabClass:Load(xml, fileName)
 	self.activeSkillSetId = 0
 	self.skillSets = { }
 	self.skillSetOrderList = { }
-	self.controls.defaultLevel:SelByValue(xml.attrib.defaultGemLevel or "characterLevel", "gemLevel")
+	self.controls.defaultLevel:SelByValue(xml.attrib.defaultGemLevel or "normalMaximum", "gemLevel")
 	self.defaultGemLevel = self.controls.defaultLevel:GetSelValue("gemLevel")
 	self.defaultGemQuality = m_max(m_min(tonumber(xml.attrib.defaultGemQuality) or 0, 23), 0)
 	self.controls.defaultQuality:SetText(self.defaultGemQuality or "")
