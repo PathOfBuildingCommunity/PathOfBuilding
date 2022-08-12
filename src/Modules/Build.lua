@@ -38,7 +38,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	-- Load build file
 	self.xmlSectionList = { }
 	self.spectreList = { }
-	self.timelessData = { jewelType = { }, conquerorType = { }, jewelSocket = { }, searchList = "", searchResults = { }, sharedResults = { } }
+	self.timelessData = { jewelType = { }, conquerorType = { }, jewelSocket = { }, fallbackWeightMode = { }, searchList = "", searchListFallback = "", searchResults = { }, sharedResults = { } }
 	self.viewMode = "TREE"
 	self.characterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
 	self.targetVersion = liveTargetVersion
@@ -166,7 +166,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			bandit = 0
 		end
 		
-		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until catched up with quest skillpoints 
+		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
 		levelreq = math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level)
 		
 		-- Ascendency points for lab
@@ -205,6 +205,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
 		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
+		self.configTab:BuildModList()
 		self.modFlag = true
 		self.buildFlag = true
 	end)
@@ -266,7 +267,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.displayStats = {
 		{ stat = "ActiveMinionLimit", label = "Active Minion Limit", fmt = "d" },
 		{ stat = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
+		{ stat = "PvpAverageHit", label = "PvP Average Hit", fmt = ".1f", compPercent = true, flag = "isPvP" },
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "attack" },
+		{ stat = "PvpAverageDamage", label = "PvP Average Damage", fmt = ".1f", compPercent = true, flag = "attackPvP" },
 		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack", condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
 		{ stat = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell", condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
 		{ stat = "ServerTriggerRate", label = "Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
@@ -282,6 +285,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return (o.CritChance or 0) > 0 end },
 		{ stat = "HitChance", label = "Hit Chance", fmt = ".0f%%", flag = "attack" },
 		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
+		{ stat = "PvpTotalDPS", label = "PvP Total DPS", fmt = ".1f", compPercent = true, flag = "notAveragePvP" },
 		{ stat = "TotalDPS", label = "Total DPS", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ stat = "WithDotDPS", label = "Total DPS inc. DoT", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.PoisonDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
@@ -302,7 +306,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "MirageDPS", label = "Total Mirage DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v > 0 end },
-		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return o.CullingDPS or 0 > 0 end },
+		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.CullingDPS or 0) > 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end },
 		{ stat = "CombinedAvg", label = "Combined Total Damage", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (v ~= o.AverageDamage and (o.TotalDot or 0) == 0) and (v ~= o.WithPoisonDPS or v ~= o.WithIgniteDPS or v ~= o.WithBleedDPS) end },
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
@@ -346,7 +350,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ },
 		{ stat = "Life", label = "Total Life", fmt = "d", color = colorCodes.LIFE, compPercent = true },
 		{ stat = "Spec:LifeInc", label = "%Inc Life from Tree", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v > 0 and o.Life > 1 end },
-		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Life is negative" end },
+		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v <= 0 and "Your unreserved Life is below 1" end },
 		{ stat = "LifeRecoverable", label = "Life Recoverable", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.LifeUnreserved end, },
 		{ stat = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v < 100 end },
 		{ stat = "LifeRegen", label = "Life Regen", fmt = ".1f", color = colorCodes.LIFE },
@@ -369,7 +373,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ },
 		{ stat = "Ward", label = "Ward", fmt = "d", color = colorCodes.WARD, compPercent = true },
 		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true },
-		{ stat = "EnergyShieldRecoveryCap", label = "Recoverable ES", color = colorCodes.ES, fmt = "d", condFunc = function(v,o) return v ~= nil end },
+		{ stat = "EnergyShieldRecoveryCap", label = "Recoverable ES", color = colorCodes.ES, fmt = "d", condFunc = function(v,o) return o.CappingES end },
 		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", color = colorCodes.ES, fmt = "d%%" },
 		{ stat = "EnergyShieldRegen", label = "Energy Shield Regen", color = colorCodes.ES, fmt = ".1f" },
 		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", color = colorCodes.ES, fmt = ".1f", compPercent = true },
@@ -633,6 +637,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.legacyLoaders = { -- Special loaders for legacy sections
 		["Spec"] = self.treeTab,
 	}
+	
+	--special rebuild to properly initialise boss placeholders
+	self.configTab:BuildModList()
 
 	-- Initialise class dropdown
 	for classId, class in pairs(self.latestTree.classes) do
@@ -648,7 +655,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		t_insert(self.controls.classDrop.list, {
 			label = class.name,
 			classId = classId,
-			ascendencies = ascendancies,
+			ascendancies = ascendancies,
 		})
 	end
 	table.sort(self.controls.classDrop.list, function(a, b) return a.label < b.label end)
@@ -659,14 +666,14 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end
 
 	-- so we ran into problems with converted trees, trying to check passive tree routes and also consider thread jewels
-	-- but we cant check jewel info because items have not been loaded yet, and they come after passives in the xml.
+	-- but we can't check jewel info because items have not been loaded yet, and they come after passives in the xml.
 	-- the simplest solution seems to be making sure passive trees (which contain jewel sockets) are loaded last.
 	local deferredPassiveTrees = { }
 	for _, node in ipairs(self.xmlSectionList) do
 		-- Check if there is a saver that can load this section
 		local saver = self.savers[node.elem] or self.legacyLoaders[node.elem]
 		if saver then
-			-- if the saver is treetab, defer it until everything is is loaded
+			-- if the saver is treeTab, defer it until everything is loaded
 			if saver == self.treeTab  then
 				t_insert(deferredPassiveTrees, node)
 			else
@@ -795,8 +802,12 @@ function buildMode:Load(xml, fileName)
 				id = tonumber(child.attrib.jewelSocketId),
 				idx = tonumber(child.attrib.jewelSocketIdx)
 			}
+			self.timelessData.fallbackWeightMode = {
+				idx = tonumber(child.attrib.fallbackWeightModeIdx)
+			}
 			self.timelessData.socketFilter = child.attrib.socketFilter == "true"
 			self.timelessData.searchList = child.attrib.searchList
+			self.timelessData.searchListFallback = child.attrib.searchListFallback
 		end
 	end
 end
@@ -872,8 +883,10 @@ function buildMode:Save(xml)
 			jewelSocketKeystone = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.keystone),
 			jewelSocketId = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.id),
 			jewelSocketIdx = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.idx),
+			fallbackWeightModeIdx = next(self.timelessData.fallbackWeightMode) and tostring(self.timelessData.fallbackWeightMode.idx),
 			socketFilter = self.timelessData.socketFilter and "true",
-			searchList = self.timelessData.searchList and tostring(self.timelessData.searchList)
+			searchList = self.timelessData.searchList and tostring(self.timelessData.searchList),
+			searchListFallback = self.timelessData.searchListFallback and tostring(self.timelessData.searchListFallback)
 		}
 	}
 	t_insert(xml, timelessData)
@@ -931,7 +944,7 @@ function buildMode:OnFrame(inputEvents)
 	self:ProcessControlsInput(inputEvents, main.viewPort)
 
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
-	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendencies")
+	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
 
 	local checkFabricatedGroups = self.buildFlag
@@ -956,9 +969,6 @@ function buildMode:OnFrame(inputEvents)
 	end
 	if main.showTitlebarName ~= self.lastShowTitlebarName then
 		self.spec:SetWindowTitleWithBuildClass()
-	end
-	if main.showWarnings ~= self.lastShowshowWarnings then
-		self:RefreshStatList()
 	end
 
 	-- Update contents of main skill dropdowns
@@ -1252,6 +1262,9 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal)
 	if type(statVal) == "table" then return "" end
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = (statVal >= 0 and "^7" or statData.chaosInoc and "^8" or colorCodes.NEGATIVE)
+	if statData.label == "Unreserved Life" and statVal == 0 then
+		color = colorCodes.NEGATIVE
+	end
 	local valStr = s_format("%"..statData.fmt, val)
 	valStr:gsub("%.", main.decimalSeparator)
 	valStr = color .. formatNumSep(valStr)
@@ -1263,7 +1276,6 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal)
 	self.lastShowThousandsSeparator = main.thousandsSeparator
 	self.lastShowDecimalSeparator = main.decimalSeparator
 	self.lastShowTitlebarName = main.showTitlebarName
-	self.lastshowWarnings = main.showWarnings
 	return valStr
 end
 
@@ -1433,13 +1445,13 @@ do
 		-- Convert normal attributes to Omni attributes
 		if self.calcsTab.mainEnv.modDB:Flag(nil, "OmniscienceRequirements") then
 			local omniSatisfy = self.calcsTab.mainEnv.modDB:Sum("INC", nil, "OmniAttributeRequirements")
-			local highestAtrribute = 0
+			local highestAttribute = 0
 			for i, stat in ipairs({str, dex, int}) do
-				if((stat or 0) > highestAtrribute) then
-					highestAtrribute = stat
+				if((stat or 0) > highestAttribute) then
+					highestAttribute = stat
 				end
 			end
-			local omni = math.floor(highestAtrribute * (100/omniSatisfy))
+			local omni = math.floor(highestAttribute * (100/omniSatisfy))
 			if omni and (omni > 0 or omni > self.calcsTab.mainOutput.Omni) then
 				t_insert(req, s_format("%s%d ^x7F7F7FOmni", main:StatColor(omni, 0, self.calcsTab.mainOutput.Omni), omni))
 			end

@@ -122,3 +122,7 @@ local minions, mod = ...
 
 #monster Metadata/Monsters/SummonedReaper/SummonedReaper SummonedReaper
 #emit
+
+#monster Metadata/Monsters/LeagueExpedition/Arbalest/SummonedArbalest SummonedArbalists
+#limit ActiveArbalistLimit
+#emit

@@ -1053,7 +1053,7 @@ local skills, mod, flag, skill = ...
 #flags spell area duration
 	statMap = {
 		["frost_globe_additional_spell_base_critical_strike_chance_per_stage"] = {
-			mod("CritChance", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "FrostShieldStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+			mod("CritChance", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "FrostShieldStage", limitVar = "FrostShieldMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
 			div = 100,
 		},
 		["energy_shield_lost_per_minute"] = {
@@ -1067,7 +1067,10 @@ local skills, mod, flag, skill = ...
 			mod("FrostGlobeDamageMitigation", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "EnemyInFrostGlobe", neg = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
 		},
 		["frost_globe_health_per_stage"] = {
-			mod("FrostGlobeHealth", "BASE", nil, 0, 0, { type = "Multiplier", var = "FrostShieldStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+			mod("FrostGlobeHealth", "BASE", nil, 0, 0, { type = "Multiplier", var = "FrostShieldStage", limitVar = "FrostShieldMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+		},
+		["frost_globe_max_stages"] = {
+			mod("Multiplier:FrostShieldMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("radius", 22)
@@ -1326,6 +1329,12 @@ local skills, mod, flag, skill = ...
 		},
 		["expanding_fire_cone_maximum_number_of_stages"] = {
 			mod("Multiplier:IncinerateMaxStages", "BASE", nil),
+		},
+		["quality_display_incinerate_is_gem_hit"] = {
+			--Display Only
+		},
+		["quality_display_incinerate_is_gem_ingite"] = {
+			--Display Only
 		},
 	},
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
@@ -1714,6 +1723,15 @@ local skills, mod, flag, skill = ...
 
 #skill FireBeam
 #flags spell duration
+	parts = {
+		{
+			name = "Manual Stages",
+			stages = true,
+		},
+		{
+			name = "Maximum Sustainable Stages",
+		},
+	},
 	statMap = {
 		["base_fire_damage_resistance_%"] = {
 			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
@@ -1723,7 +1741,7 @@ local skills, mod, flag, skill = ...
 			base = 100
 		},
 		["display_max_fire_beam_stacks"] = {
-			mod("Multiplier:ScorchingRayMaxStages", "BASE", nil),
+			mod("Multiplier:ScorchingRayMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 #baseMod mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 })
@@ -1757,19 +1775,27 @@ local skills, mod, flag, skill = ...
 			mod("ManaCost", "INC", nil, 0, 0, { type = "MultiplierThreshold", var = "SigilOfPowerStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
 		["circle_of_power_min_added_lightning_per_stage"] = {
-			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
-			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limitVar = "SigilOfPowerMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limitVar = "SigilOfPowerMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
 		["circle_of_power_max_added_lightning_per_stage"] = {
-			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
-			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limit = 4 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limitVar = "SigilOfPowerMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limitVar = "SigilOfPowerMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
+		["circle_of_power_enemy_damage_+%_final_at_max_stages"] = {
+ 			mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", actor = "enemy", var = "SigilOfPowerStage", thresholdVar = "SigilOfPowerMaxStages" }, { type = "GlobalEffect", effectType = "Debuff", effectName = "Sigil of Power" }),
+ 		},
 		["spell_damage_+%"] = {
 			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
 		["base_chance_to_shock_%_from_skill"] = {
 			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "SigilOfPowerStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
 		},
+		["circle_of_power_max_stages"] = {
+			mod("Multiplier:SigilOfPowerMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["quality_display_circle_of_power_is_gem"] = {
+        },
 	},
 #baseMod skill("radius", 30)
 #baseMod skill("buffAllies", true)

@@ -351,6 +351,79 @@ data.nonDamagingAilment = {
 	["Sap"] = { associatedType = "Lightning", alt = true, default = 6, min = 0, max = 20, precision = 0, duration = 4 },
 }
 
+-- Used in ModStoreClass:ScaleAddMod(...) to identify high precision modifiers
+data.highPrecisionMods = {
+	["CritChance"] = {
+		["BASE"] = true,
+	},
+	["LifeRegenPercent"] = {
+		["BASE"] = true,
+	},
+	["DamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["PhysicalDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["ElementalDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["FireDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["ColdDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["LightningDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["ChaosDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["DamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["PhysicalDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["ElementalDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["FireDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["ColdDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["LightningDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["ChaosDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["DamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["PhysicalDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["ElementalDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["FireDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["ColdDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["LightningDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["ChaosDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+}
+
 data.misc = { -- magic numbers
 	ServerTickTime = 0.033,
 	ServerTickRate = 1 / 0.033,
@@ -398,6 +471,30 @@ data.misc = { -- magic numbers
 	ehpCalcMaxDepth = 512,
 		-- max hits is currently depth + speedup - 1 to give as much accuracy with as few cycles as possible, but can be increased for more accuracy
 	ehpCalcMaxHitsToCalc = 519,
+	-- PvP scaling used for hogm
+	PvpElemental1 = 0.55,
+	PvpElemental2 = 150,
+	PvpNonElemental1 = 0.57,
+	PvpNonElemental2 = 90,
+	
+}
+
+data.bossSkills = {
+	["Uber Atziri Flameblast"] = {
+		damageMult = 3.48 * 10.9,
+		speed = 2500 * 10
+	},
+	["Shaper Ball"] = {
+		damageMult =  9.17,
+		speed = 1400
+	},
+	["Shaper Slam"] = {
+		damageMult =  15.2,
+		speed = 3510
+	},
+	["Maven Memory Game"] = {
+		damageMult =  24.69
+	}
 }
 
 -- Misc data tables

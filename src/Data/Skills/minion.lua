@@ -1422,3 +1422,26 @@ skills["GASummonReaperComboLeftSlash"] = {
 		[2] = { 60, levelRequirement = 80, statInterpolation = { 2, }, },
 	},
 }
+skills["MPWExpeditionSummonedArbalestProjectile"] = {
+	name = "Projectile Attack",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 145 },
+	},
+	stats = {
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}

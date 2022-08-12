@@ -26,7 +26,7 @@ body:
     id: solution
     attributes:
       label: Describe the solution you'd like
-      description: Please write a a clear and concise description of what you want to happen.
+      description: Please write a clear and concise description of what you want to happen.
       placeholder: E.g. When I'm creating a new item, there should be an option to [...].
     validations:
       required: true
