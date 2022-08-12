@@ -366,14 +366,17 @@ Thousand Teeth Temu
 Vaal Buckler
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
-{variant:3}3% increased Movement Speed
+{variant:3,4}3% increased Movement Speed
 (100-120)% increased Evasion Rating
 +(70-90) to maximum Life
 0.4% of Physical Attack Damage Leeched as Life
-+5% Chance to Block
-Reflects 1 to 1000 Physical Damage to Attackers on Block
+{variant:1,2,3}+5% Chance to Block
+{variant:4}+10% Chance to Block
+{variant:1,2,3}Reflects 1 to 1000 Physical Damage to Attackers on Block
+{variant:4}Reflects 1000 to 10000 Physical Damage to Attackers on Block
 {variant:2,3}10% of Damage you Reflect to Enemies when Hit is gained as Life
 ]],
 -- Shield: Energy Shield
@@ -726,13 +729,16 @@ Cannot be Frozen
 Wheel of the Stormsail
 Rotted Round Shield
 Variant: Pre 3.16.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 60% increased Block Recovery
-+(5-10) to Armour
+{variant:1,2}+(5-10) to Armour
+{variant:3}+(20-40) to Evasion Rating
 (30-40)% increased Rarity of Items found
 100% increased Duration of Curses on you
-+5% Chance to Block
+{variant:1,2}+5% Chance to Block
+{variant:3}(50-75)% to Lightning Resistance
 {variant:1}Curse Skills have 25% increased Skill Effect Duration
 {variant:2}Curse Skills have 100% increased Skill Effect Duration
 ]],

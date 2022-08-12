@@ -615,19 +615,30 @@ Sockets: W-W-W-W-W-W
 Thousand Ribbons
 Simple Robe
 Variant: Pre 3.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Socketed Gems are Supported by Level 5 Elemental Proliferation
-Adds 2 to 3 Fire Damage to Spells and Attacks
-Adds 2 to 3 Cold Damage to Spells and Attacks
-Adds 1 to 4 Lightning Damage to Spells and Attacks
+{variant:1,2}Adds 2 to 3 Fire Damage to Spells and Attacks
+{variant:3}Adds (2-4) to (5-9) Fire Damage to Spells and Attacks
+{variant:1,2}Adds 2 to 3 Cold Damage to Spells and Attacks
+{variant:3}Adds (2-4) to (5-9) Cold Damage to Spells and Attacks
+{variant:1,2}Adds 1 to 4 Lightning Damage to Spells and Attacks
+{variant:3}Adds 1 to (4-12) Lightning Damage to Spells and Attacks
 {variant:1}10% reduced Cast Speed
-+(10-20) to Evasion Rating
-+(10-20) to maximum Energy Shield
-+6 to maximum Life
-+6 to maximum Mana
-+(5-10)% to Fire Resistance
-+(5-10)% to Cold Resistance
-+(5-10)% to Lightning Resistance
+{variant:1,2}+(10-20) to Evasion Rating
+{variant:3}+(30-60) to Evasion Rating
+{variant:1,2}+(10-20) to maximum Energy Shield
+{variant:3}+(30-60) to maximum Energy Shield
+{variant:1,2}+6 to maximum Life
+{variant:3}+(25-50) to maximum Life
+{variant:1,2}+6 to maximum Mana
+{variant:3}+(25-50) to maximum Mana
+{variant:1,2}+(5-10)% to Fire Resistance
+{variant:3}+(15-30)% to Fire Resistance
+{variant:1,2}+(5-10)% to Cold Resistance
+{variant:3}+(15-30)% to Cold Resistance
+{variant:1,2}+(5-10)% to Lightning Resistance
+{variant:3}+(15-30)% to Lightning Resistance
 ]],[[
 Vis Mortis
 Necromancer Silks

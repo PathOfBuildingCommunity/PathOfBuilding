@@ -518,15 +518,19 @@ Vaal Caress
 Bronzescale Gauntlets
 League: Ambush, Invasion
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 27, 22 Str, 22 Dex
-+2 to Level of Socketed Vaal Gems
+{variant:1,2}+2 to Level of Socketed Vaal Gems
+{variant:3}-5 to Level of Socketed Non-Vaal Gems
+{variant:3}+5 to Level of Socketed Vaal Gems
 (120-140)% increased Armour and Evasion
 {variant:1}+(30-40) to maximum Life
-{variant:2}+(50-70) to maximum Life
+{variant:2,3}+(50-70) to maximum Life
 {variant:1}+30% to Cold Resistance
-{variant:2}+40% to Cold Resistance
-You gain Onslaught for 5 seconds on using a Vaal Skill
+{variant:2,3}+40% to Cold Resistance
+{variant:1,2}You gain Onslaught for 5 seconds on using a Vaal Skill
+{variant:3}You gain Onslaught for 20 seconds on using a Vaal Skill
 ]],[[
 Worldcarver
 Dragonscale Gauntlets
@@ -911,15 +915,19 @@ Thunderfist
 Murder Mitts
 Variant: Pre 1.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 67, 51 Dex, 51 Int
-Socketed Gems are Supported by level 18 Added Lightning Damage
+{variant:1,2,3}Socketed Gems are Supported by level 18 Added Lightning Damage
+{variant:4}Socketed Gems are Supported by level 30 Added Lightning Damage
 {variant:1,3}Adds 1 to 100 Lightning Damage to Attacks
 {variant:2}Adds 1 to 40 Lightning Damage to Attacks
 10% increased Attack Speed
-+(25-30) to maximum Energy Shield
-10% increased Stun Duration on Enemies
-100% increased Duration of Lightning Ailments
+{variant:1,2,3}+(25-30) to maximum Energy Shield
+{variant:4}(150-200)% increased Evasion and Energy Shield
+{variant:1,2,3}10% increased Stun Duration on Enemies
+{variant:1,2,3}100% increased Duration of Lightning Ailments
+{variant:4}100% increased effect of Lightning Ailments
 ]],
 -- Gloves: Ward
 [[
