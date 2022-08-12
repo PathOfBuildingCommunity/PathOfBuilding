@@ -627,6 +627,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.savers = {
 		["Config"] = self.configTab,
 		["Notes"] = self.notesTab,
+		["NotesHTML"] = self.notesTab,
 		["Tree"] = self.treeTab,
 		["TreeView"] = self.treeTab.viewer,
 		["Items"] = self.itemsTab,

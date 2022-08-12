@@ -68,17 +68,28 @@ function NotesTabClass:SetColor(color)
 end
 
 function NotesTabClass:Load(xml, fileName)
+	local elem=xml.elem
 	for _, node in ipairs(xml) do
 		if type(node) == "string" then
-			self.controls.edit:SetText(node)
+			if elem == "NotesHTML" then
+				-- Hold contents so they don't get removed
+				self.NotesHTML = node
+			else
+				self.controls.edit:SetText(node)
+			end
 		end
 	end
 	self.lastContent = self.controls.edit.buf
 end
 
 function NotesTabClass:Save(xml)
-	self:SetShowColorCodes(false)
-	t_insert(xml, self.controls.edit.buf)
+	local elem=xml.elem
+	if elem == "NotesHTML" then
+		t_insert(xml, self.NotesHTML)
+	else
+		self:SetShowColorCodes(false)
+		t_insert(xml, self.controls.edit.buf)
+	end
 	self.lastContent = self.controls.edit.buf
 end
 
