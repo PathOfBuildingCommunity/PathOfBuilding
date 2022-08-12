@@ -1875,6 +1875,11 @@ local specialModList = {
 	["hits always ignite"] = { mod("EnemyIgniteChance", "BASE", 100) },
 	["your hits always shock"] = { mod("EnemyShockChance", "BASE", 100) },
 	["hits always shock"] = { mod("EnemyShockChance", "BASE", 100) },
+	["always freeze, shock and ignite"] = {
+		mod("EnemyFreezeChance", "BASE", 100),
+		mod("EnemyShockChance", "BASE", 100) ,
+		mod("EnemyIgniteChance", "BASE", 100),
+	},
 	["all damage with hits can ignite"] = {
 		flag("PhysicalCanIgnite"),
 		flag("ColdCanIgnite"),

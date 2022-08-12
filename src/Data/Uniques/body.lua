@@ -1108,7 +1108,7 @@ Implicits: 1
 {variant:3}4% increased Movement Speed per Frenzy Charge
 {variant:1}Regenerate (15.0-20.0) Life per second per Endurance Charge
 {variant:2}Regenerate (20.0-30.0) Life per second per Endurance Charge
-{variant:3}Regenerate 75.0 Life per second per Endurance Charge
+{variant:3}Regenerate 75 Life per second per Endurance Charge
 {variant:1,2}100% increased Endurance, Frenzy and Power Charge Duration
 {variant:3}(100-200)% increased Endurance, Frenzy and Power Charge Duration
 ]],[[
