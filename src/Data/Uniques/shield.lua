@@ -566,16 +566,20 @@ equal to 25% of Sacrificed Mana for 4 seconds
 Matua Tupuna
 Tarnished Spirit Shield
 Variant: Pre 3.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
 {variant:1}5% increased Spell Damage
-{variant:2}(5-10)% increased Spell Damage
+{variant:2,3}(5-10)% increased Spell Damage
 +2 to Level of Socketed Minion Gems
 (40-80)% increased Energy Shield
 +(15-25) to maximum Mana
-10% increased effect of Non-Curse Auras from your Skills on your Minions
-Spreads Tar when you take a Critical Strike
-10% increased effect of Non-Curse Auras from your Skills
+{variant:1,2}10% increased effect of Non-Curse Auras from your Skills on your Minions
+{variant:3}20% increased effect of Non-Curse Auras from your Skills on your Minions
+{variant:1,2}Spreads Tar when you take a Critical Strike
+{variant:3}Spreads Tar when you Block
+{variant:1,2}10% increased effect of Non-Curse Auras from your Skills
+{variant:3}20% increased effect of Non-Curse Auras from your Skills
 ]],[[
 Whakatutuki o Matua
 Tarnished Spirit Shield
