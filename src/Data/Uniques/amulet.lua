@@ -853,30 +853,39 @@ Chaos Damage can Ignite, Chill and Shock
 Shaper's Seed
 Agate Amulet
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 16
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Intelligence
-{tags:mana}(30-50)% increased Mana Regeneration Rate
-{tags:life}2% of Life Regenerated per Second
+{variant:1,2}{tags:mana}(30-50)% increased Mana Regeneration Rate
+{variant:3}{tags:mana}(60-100)% increased Mana Regeneration Rate
+{variant:1,2}{tags:life}2% of Life Regenerated per Second
+{variant:3}{tags:life}4% of Life Regenerated per Second
 {variant:1}{tags:life}Nearby Allies gain 1% of Life Regenerated per Second
 {variant:2}{tags:life}Nearby Allies gain 2% of Life Regenerated per Second
-{tags:mana}Nearby Allies gain 40% increased Mana Regeneration Rate
+{variant:3}{tags:life}Nearby Allies gain 4% of Life Regenerated per Second
+{variant:1,2}{tags:mana}Nearby Allies gain 40% increased Mana Regeneration Rate
+{variant:3}{tags:mana}Nearby Allies gain 80% increased Mana Regeneration Rate
 ]],[[
 Sidhebreath
 Paua Amulet
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
 {tags:jewellery_resistance}+25% to Cold Resistance
 {variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
 {tags:life}Minions have (10-15)% increased maximum Life
-{tags:speed}Minions have (10-15)% increased Movement Speed
-{tags:jewellery_elemental}{variant:3}Minions deal 6 to 13 additional Cold Damage
+{variant:1,2,3}{tags:speed}Minions have (10-15)% increased Movement Speed
+{variant:3}{tags:jewellery_elemental}Minions deal (5-9) to (11-15) additional Cold Damage
+{variant:4}{tags:jewellery_elemental}Minions deal (25-35) to (60-65) additional Cold Damage
 {variant:1,2}Minions deal (10-15)% increased Damage
 {variant:2,3}{tags:mana}(10-15)% reduced Mana Cost of Minion Skills
+{variant:4}Minions convert 50% of Physical Damage to Cold Damage
+{variant:4}Minions deal no Non-Cold Damage
 ]],[[
 Solstice Vigil
 Onyx Amulet
@@ -916,14 +925,17 @@ Corrupted
 Stone of Lazhwar
 Lapis Amulet
 Variant: Pre 3.4.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {variant:1}+15% chance to Block Spell Damage
-{variant:2}+(12-15)% chance to Block Spell Damage
-{tags:caster}(10-15)% increased Cast Speed
-{tags:mana}+(30-50) to maximum Mana
+{variant:2,3}+(12-15)% chance to Block Spell Damage
+{variant:1,2}{tags:caster}(10-15)% increased Cast Speed
+{variant:3}{tags:caster}(15-20)% increased Cast Speed
+{variant:1,2}{tags:mana}+(30-50) to maximum Mana
+{variant:3}{tags:mana}+(40-70) to maximum Mana
 ]],[[
 Stranglegasp
 Onyx Amulet

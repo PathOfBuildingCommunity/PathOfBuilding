@@ -918,6 +918,7 @@ Moonstone Ring
 League: Anarchy, Onslaught
 Variant: Pre 1.2.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 30
 Implicits: 1
@@ -926,10 +927,13 @@ Implicits: 1
 Right ring slot: You cannot Regenerate Mana
 {variant:1}{tags:jewellery_defense}Right ring slot: 4% of Energy Shield Regenerated per second
 {variant:2,3}{tags:jewellery_defense}Right ring slot: 3% of Energy Shield Regenerated per second
+{variant:4}{tags:jewellery_defense}Right ring slot: 6% of Energy Shield Regenerated per second
 {variant:3}{tags:mana}Right ring slot: +100 to maximum Mana
+{variant:4}{tags:mana}Right ring slot: +250 to maximum Mana
 {variant:3}{tags:jewellery_defense}Left ring slot: +100 to maximum Energy Shield
+{variant:4}{tags:jewellery_defense}Left ring slot: +250 to maximum Energy Shield
 {variant:1,2}{tags:mana}Left ring slot: 100% increased Mana Regeneration Rate
-{variant:3}{tags:mana}Left ring slot: 40 Mana Regenerated per second
+{variant:3,4}{tags:mana}Left ring slot: 40 Mana Regenerated per second
 Left ring slot: You cannot Recharge or Regenerate Energy Shield
 ]],[[
 Sibyl's Lament

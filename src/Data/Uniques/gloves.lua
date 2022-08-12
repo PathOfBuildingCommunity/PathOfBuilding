@@ -692,13 +692,16 @@ Shaper Item
 Southbound
 Soldier Gloves
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 51, 40 Str, 40 Int
-Adds (30-36) to (44-50) Cold Damage to Attacks
+{variant:1,2}Adds (30-36) to (44-50) Cold Damage to Attacks
+{variant:3}Adds (60-72) to (88-100) Cold Damage to Attacks
 (12-16)% increased maximum Life
 +(40-50)% to Cold Resistance
 {variant:2}50% increased Herald of Ice Damage
-25% increased Freeze Duration on Enemies
+{variant:1,2}25% increased Freeze Duration on Enemies
+{variant:3}100% increased Freeze Duration on Enemies
 Your Hits can only Kill Frozen enemies
 ]],[[
 Triad Grip
