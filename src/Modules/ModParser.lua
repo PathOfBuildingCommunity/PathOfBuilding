@@ -95,7 +95,6 @@ local formList = {
 	["^are "] = "FLAG",
 	["^gain "] = "FLAG",
 	["^you gain "] = "FLAG",
-	[""] = "FLAG",
 }
 
 -- Map of modifier names
