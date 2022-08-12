@@ -856,7 +856,7 @@ Variant: Current
 Requires Level 5
 {variant:1}20% increased Attack Speed when on Full Life
 {variant:2,3}30% increased Attack Speed when on Full Life
-{variant:1}Adds 1 to 13 Lightning Damage to Attacks
+{variant:1,2}Adds 1 to 13 Lightning Damage to Attacks
 {variant:3}Adds (1-4) to (30-50) Lightning Damage to Attacks
 {variant:1,2}+(50-80) to Accuracy Rating
 {variant:3}+(100-200) to Accuracy Rating
