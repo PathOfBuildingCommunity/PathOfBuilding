@@ -184,7 +184,7 @@ Requires Level 20, 46 Dex
 ]],[[
 Frostferno
 Leather Hood
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 60, 46 Dex
 +2 to Level of Socketed Fire Gems
 +2 to Level of Socketed Cold Gems
@@ -258,7 +258,7 @@ Requires Level 8, 23 Int
 ]],[[
 Asenath's Chant
 Iron Circlet
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45, 23 Int
@@ -697,6 +697,7 @@ Far Shot
 ]],[[
 The Peregrine
 Visored Sallet
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
@@ -1213,7 +1214,7 @@ Blood Magic
 ]],[[
 Malachai's Awakening
 Iron Mask
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 3.7.0
 Variant: Pre 3.17.0
 Variant: Current

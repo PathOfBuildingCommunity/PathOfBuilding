@@ -530,7 +530,7 @@ Kaom's Way
 Coral Ring
 Variant: Pre 3.16.0
 Variant: Current
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 32
 Implicits: 1
 {tags:life}+(20-30) to maximum Life

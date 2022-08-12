@@ -164,7 +164,7 @@ Adds an additional Arrow
 ]],[[
 Death's Opus
 Death Bow
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 1.2.0
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
@@ -203,7 +203,7 @@ Implicits: 2
 ]],[[
 Doomfletch's Prism
 Royal Bow
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
@@ -480,7 +480,7 @@ No Physical Damage
 ]],[[
 The Tempest
 Long Bow
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 32, 38 Dex
 No Physical Damage
 100% increased Lightning Damage

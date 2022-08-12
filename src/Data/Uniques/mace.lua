@@ -49,7 +49,7 @@ Adds (10-20) to (30-50) Cold Damage
 ]],[[
 Cameria's Avarice
 Gavel
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 60, 212 Str
 Implicits: 1
 15% reduced Enemy Stun Threshold
@@ -517,7 +517,7 @@ Nearby Enemies are Hindered, with 25% reduced Movement Speed
 ]],[[
 Spine of the First Claimant
 Iron Sceptre
-Source: Drops in The Lord's Labyrinth
+Source: No longer obtainable
 Variant: Pre 2.3.0
 Variant: Pre 3.5.0
 Variant: Current
@@ -605,7 +605,7 @@ Minions have (20-40)% increased maximum Life
 ]],[[
 Chaber Cairn
 Great Mallet
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 60, 131 Str
 Implicits: 1
 30% increased Stun Duration on Enemies
@@ -632,7 +632,7 @@ Never deal Critical Strikes
 ]],[[
 Geofri's Devotion
 Brass Maul
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current

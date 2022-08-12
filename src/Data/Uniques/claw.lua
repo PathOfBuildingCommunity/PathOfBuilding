@@ -194,7 +194,7 @@ Implicits: 2
 ]],[[
 Izaro's Dilemma
 Imperial Claw
-Source: Drops in The Lord's Labyrinth
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
