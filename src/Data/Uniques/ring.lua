@@ -126,12 +126,16 @@ Withered does not expire on Enemies Ignited by you
 ]],[[
 Blackheart
 Iron Ring
+Variant: Pre 3.19.0
+Variant: Current
 Implicits: 1
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
-{tags:physical}5% increased Physical Damage
-{tags:attack,chaos}Adds 1 to 3 Chaos Damage to Attacks
-{tags:life}+(20-30) to maximum Life
-{tags:life}(2-4) Life Regenerated per second
+{variant:1}{tags:physical}5% increased Global Physical Damage
+{variant:1}{tags:attack,chaos}Adds 1 to 3 Chaos Damage to Attacks
+{variant:2}{tags:attack,chaos}Adds (10-15) to (20-25) Chaos Damage to Attacks
+{variant:1}{tags:life}+(20-30) to maximum Life
+{variant:1}{tags:life}Regenerate (2-4) Life per second
+{variant:2}{tags:life}Regenerate (10-15) Life per second
 10% chance to Cause Monsters to Flee
 ]],[[
 Voidheart

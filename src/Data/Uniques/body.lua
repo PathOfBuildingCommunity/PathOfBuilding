@@ -16,11 +16,16 @@ You have Lesser Massive Shrine Buff
 ]],[[
 Bramblejack
 Plate Vest
+Variant: Pre 3.19.0
+Variant: Current
 Implicits: 0
-Adds 2 to 4 Physical Damage to Attacks
-+(12-20) to maximum Life
-−2 Physical Damage taken from Attacks
-40% of Melee Physical Damage taken reflected to Attacker
+{variant:1}Adds 2 to 4 Physical Damage to Attacks
+{variant:1}+(12-20) to maximum Life
+{variant:2}+(30-60) to maximum Life
+{variant:1}−2 Physical Damage taken from Attacks
+{variant:2}−(10-15) Physical Damage taken from Attacks
+{variant:1}40% of Melee Physical Damage taken reflected to Attacker
+{variant:2}1000% of Melee Physical Damage taken reflected to Attacker
 ]],[[
 Wall of Brambles
 Plate Vest
@@ -201,19 +206,23 @@ Cannot be Ignited
 −(5-7) Physical Damage taken from Attack Hits
 ]],[[
 Briskwrap
-Strapped Leather
+{variant:1,2,3}Strapped Leather
+{variant:4}Sun Leather
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
+{variant:1}5% increased Dexterity
+{variant:2,3,4}15% increased Dexterity
 {variant:1,2}5% increased Attack Speed
 {variant:3}10% increased Attack Speed
 +(120-180) to Evasion Rating
 +(30-40)% to Cold Resistance
-5% increased Movement Speed
-(20-25)% increased Mana Recovery from Flasks
-{variant:1}5% increased Dexterity
-{variant:2,3}15% increased Dexterity
+{variant:1,2,3}5% increased Movement Speed
+{variant:1,2,3}(20-25)% increased Mana Recovery from Flasks
+{variant:4}(60-100)% increased Mana Recovery from Flasks
+{variant:4}1% increased Damage per 15 Dexterity
 ]],[[
 Wildwrap
 Strapped Leather
@@ -232,11 +241,14 @@ Bronn's Lithe
 Cutthroat's Garb
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
-+2 to Level of Socketed Movement Gems
+{variant:1,2,3}+2 to Level of Socketed Movement Gems
+{variant:4}+5 to Level of Socketed Movement Gems
 10% increased Attack Speed
 {variant:2,3}(35-50)% increased Damage with Movement Skills
+{variant:4}(60-100)% increased Damage with Movement Skills
 (200-250)% increased Evasion Rating
 10% increased Movement Speed
 {variant:3}15% increased Attack and Cast Speed if you've used a Movement Skill Recently
@@ -429,12 +441,18 @@ Implicits: 0
 ]],[[
 Cloak of Flame
 Scholar's Robe
+Variant: Pre 3.19.0
+Variant: Current
 Implicits: 0
-+(30-50)% to Fire Resistance
-(30-50)% increased Ignite Duration on Enemies
-10% chance to Ignite
-Reflects 15 Fire Damage to Melee Attackers
-20% of Physical Damage from Hits taken as Fire Damage
+{variant:1}+(30-50)% to Fire Resistance
+{variant:2}+(50-75)% to Fire Resistance
+{variant:1}(30-50)% increased Ignite Duration on Enemies
+{variant:2}(40-75)% increased Ignite Duration on Enemies
+{variant:1}10% chance to Ignite
+{variant:1}Reflects 15 Fire Damage to Melee Attackers
+{variant:2}Reflects 100 Fire Damage to Melee Attackers
+{variant:1}20% of Physical Damage from Hits taken as Fire Damage
+{variant:2}40% of Physical Damage taken as Fire Damage
 ]],[[
 Cloak of Tawm'r Isley
 Savant's Robe
@@ -463,17 +481,20 @@ Variant: Pre 1.0.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
-Socketed Gems are Supported by level 15 Added Chaos Damage
+{variant:1,2,3,4,5}Socketed Gems are Supported by level 15 Added Chaos Damage
+{variant:6}Socketed Gems are Supported by Level 29 Added Chaos Damage
 {variant:4,5}Socketed Gems Cost and Reserve Life instead of Mana
+{variant:6}Skills gain a Base Life cost equal to 100% of Base Mana Cost
 +(20-30) to Intelligence
 {variant:1}(125-150)% increased Energy Shield
 {variant:2}(180-220)% increased Energy Shield
 {variant:3,4}(280-320)% increased Energy Shield
-{variant:5}(210-250)% increased Energy Shield
+{variant:5,6}(210-250)% increased Energy Shield
 {variant:1,2,3}20% reduced maximum Life
-{variant:4,5}10% increased maximum Life
+{variant:4,5,6}10% increased maximum Life
 {variant:1,2,3}Blood Magic
 ]],[[
 Dialla's Malefaction
