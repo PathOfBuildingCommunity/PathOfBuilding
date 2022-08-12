@@ -702,7 +702,7 @@ Adds 1 to 80 Chaos Damage to Attacks
 {variant:1}20% increased Movement Speed
 {variant:2}25% increased Movement Speed
 {variant:1}+1 to Maximum number of Skeletons
-{variant:2}Skeleton Warriors are Permanent Minions
+{variant:2}Skeleton Warriors are Permanent Minions and Follow you
 (15-18)% increased Strength
 ]],[[
 Replica Alberon's Warpath
