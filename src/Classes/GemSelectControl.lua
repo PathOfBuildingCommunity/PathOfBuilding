@@ -21,7 +21,7 @@ local altQualMap = {
 
 local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc, forceTooltip)
 	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a':-")
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
+	self.controls.scrollBar = new("ScrollBarControl", { "TOPRIGHT", self, "TOPRIGHT" }, -1, 0, 18, 0, (height - 4) * 4)
 	self.controls.scrollBar.y = function()
 		local width, height = self:GetSize()
 		return height + 1
@@ -107,15 +107,15 @@ function GemSelectClass:BuildList(buf)
 
 		-- split the buffer using :
 		-- Remove the first entry as the name search term (can be blank)
-		tagsList = self.searchStr:split(':')
+		tagsList = self.searchStr:split(":")
 		searchTerm = tagsList[1]
-		t_remove(tagsList,1)
+		t_remove(tagsList, 1)
 
 		-- Search for gem name using increasingly broad search patterns
 		local patternList = {
-			"^ "..searchTerm:lower().."$", -- Exact match
-			"^"..searchTerm:lower():gsub("%a", " %0%%l+").."$", -- Simple abbreviation ("CtF" -> "Cold to Fire")
-			"^ "..searchTerm:lower(), -- Starts with
+			"^ " .. searchTerm:lower().."$", -- Exact match
+			"^" .. searchTerm:lower():gsub("%a", " %0%%l+") .. "$", -- Simple abbreviation ("CtF" -> "Cold to Fire")
+			"^ " .. searchTerm:lower(), -- Starts with
 			searchTerm:lower(), -- Contains
 		}
 		for i, pattern in ipairs(patternList) do
@@ -126,7 +126,7 @@ function GemSelectClass:BuildList(buf)
 					if #tagsList > 0 then
 						for _, tag in ipairs(tagsList) do
 							local tagName = tag:gsub("%s+", ""):lower()
-							local negateTag = tagName:sub(1, 1) == '-'
+							local negateTag = tagName:sub(1, 1) == "-"
 							if negateTag then tagName = tagName:sub(2) end
 							if tagName == "active" then
 								tagName = "active_skill"
@@ -139,7 +139,7 @@ function GemSelectClass:BuildList(buf)
 							end
 							-- for :melee we want to exclude gems that DON'T have this tag
 							-- for :-melee we want to exclude gems that DO have this tag
-							  -- EG: :active:fire:-aura		<-- No Anger (Calming ?)
+							-- EG: :active:fire:-aura		<-- No Anger (Calming ?)
 							if negateTag then
 								if gemData.tags[tagName] and gemData.tags[tagName] == true then addThisGem = false end
 							else
@@ -176,7 +176,7 @@ function GemSelectClass:BuildList(buf)
 			end
 		end
 	else
-		--nothing in buffer
+		-- nothing in buffer
 		for gemId, gemData in pairs(self.gems) do
 			if self:FilterSupport(gemId, gemData) then
 				t_insert(self.list, gemId)
@@ -198,9 +198,9 @@ function GemSelectClass:UpdateSortCache()
 	-- Don't update the cache if no settings have changed that would impact the ordering
 	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index]
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
-		and (sortCache.characterLevel == self.skillsTab.build.characterLevel or self.skillsTab.defaultGemLevel ~= "characterLevel")
-		and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField
-		and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerAwakened == self.skillsTab.showSupportGemTypes then
+		and sortCache.characterLevel == self.skillsTab.build.characterLevel and sortCache.defaultQuality == self.skillsTab.defaultGemQuality
+		and sortCache.sortType == self.skillsTab.sortGemsByDPSField and sortCache.considerAlternates == self.skillsTab.showAltQualityGems
+		and sortCache.considerAwakened == self.skillsTab.showSupportGemTypes then
 		return
 	end
 
@@ -515,19 +515,19 @@ function GemSelectClass:AddGemTooltip(gemInstance)
 	if secondary and (not secondary.support or gemInstance.gemData.secondaryEffectName) then
 		local grantedEffect = gemInstance.gemData.VaalGem and secondary or primary
 		local grantedEffectSecondary = gemInstance.gemData.VaalGem and primary or secondary
-		self.tooltip:AddLine(20, colorCodes.GEM..altQualMap[gemInstance.qualityId]..grantedEffect.name)
+		self.tooltip:AddLine(20, colorCodes.GEM .. altQualMap[gemInstance.qualityId]..grantedEffect.name)
 		self.tooltip:AddSeparator(10)
-		self.tooltip:AddLine(16, "^x7F7F7F"..gemInstance.gemData.tagString)
+		self.tooltip:AddLine(16, "^x7F7F7F" .. gemInstance.gemData.tagString)
 		self:AddCommonGemInfo(gemInstance, grantedEffect, true)
 		self.tooltip:AddSeparator(10)
-		self.tooltip:AddLine(20, colorCodes.GEM..(gemInstance.gemData.secondaryEffectName or grantedEffectSecondary.name))
+		self.tooltip:AddLine(20, colorCodes.GEM .. (gemInstance.gemData.secondaryEffectName or grantedEffectSecondary.name))
 		self.tooltip:AddSeparator(10)
 		self:AddCommonGemInfo(gemInstance, grantedEffectSecondary)
 	else
 		local grantedEffect = gemInstance.gemData.grantedEffect
-		self.tooltip:AddLine(20, colorCodes.GEM..altQualMap[gemInstance.qualityId]..grantedEffect.name)
+		self.tooltip:AddLine(20, colorCodes.GEM .. altQualMap[gemInstance.qualityId]..grantedEffect.name)
 		self.tooltip:AddSeparator(10)
-		self.tooltip:AddLine(16, "^x7F7F7F"..gemInstance.gemData.tagString)
+		self.tooltip:AddLine(16, "^x7F7F7F" .. gemInstance.gemData.tagString)
 		self:AddCommonGemInfo(gemInstance, grantedEffect, true, secondary and secondary.support and secondary)
 	end
 end
@@ -538,7 +538,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 	if addReq then
 		self.tooltip:AddLine(16, string.format("^x7F7F7FLevel: ^7%d%s%s",
 			gemInstance.level, 
-			((displayInstance.level > gemInstance.level) and " ("..colorCodes.MAGIC.."+"..(displayInstance.level - gemInstance.level).."^7)") or ((displayInstance.level < gemInstance.level) and " ("..colorCodes.WARNING.."-"..(gemInstance.level - displayInstance.level).."^7)") or "",
+			((displayInstance.level > gemInstance.level) and " (" .. colorCodes.MAGIC .. "+" .. (displayInstance.level - gemInstance.level) .. "^7)") or ((displayInstance.level < gemInstance.level) and " (" .. colorCodes.WARNING .. "-" .. (gemInstance.level - displayInstance.level) .. "^7)") or "",
 			(gemInstance.level >= gemInstance.gemData.defaultLevel) and " (Max)" or ""
 		))
 	end
@@ -549,7 +549,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 		local reservation
 		for name, res in pairs(self.reservationMap) do
 			if grantedEffectLevel[name] then
-				reservation = (reservation and (reservation..", ") or "")..self.costs[isValueInArrayPred(self.costs, function(v) return v.Resource == res end)].ResourceString:gsub("{0}", string.format("%d", grantedEffectLevel[name]))
+				reservation = (reservation and (reservation .. ", ") or "") .. self.costs[isValueInArrayPred(self.costs, function(v) return v.Resource == res end)].ResourceString:gsub("{0}", string.format("%d", grantedEffectLevel[name]))
 			end
 		end
 		if reservation then
@@ -562,16 +562,16 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 		local reservation
 		for name, res in pairs(self.reservationMap) do
 			if grantedEffectLevel[name] then
-				reservation = (reservation and (reservation..", ") or "")..self.costs[isValueInArrayPred(self.costs, function(v) return v.Resource == res end)].ResourceString:gsub("{0}", string.format("%d", grantedEffectLevel[name]))
+				reservation = (reservation and (reservation..", ") or "") .. self.costs[isValueInArrayPred(self.costs, function(v) return v.Resource == res end)].ResourceString:gsub("{0}", string.format("%d", grantedEffectLevel[name]))
 			end
 		end
 		if reservation then
-			self.tooltip:AddLine(16, "^x7F7F7FReservation: ^7"..reservation)
+			self.tooltip:AddLine(16, "^x7F7F7FReservation: ^7" .. reservation)
 		end
 		local cost
 		for _, res in ipairs(self.costs) do
 			if grantedEffectLevel.cost and grantedEffectLevel.cost[res.Resource] then
-				cost = (cost and (cost..", ") or "")..res.ResourceString:gsub("{0}", string.format("%g", round(grantedEffectLevel.cost[res.Resource] / res.Divisor, 2)))
+				cost = (cost and (cost..", ") or "") .. res.ResourceString:gsub("{0}", string.format("%g", round(grantedEffectLevel.cost[res.Resource] / res.Divisor, 2)))
 			end
 		end
 		if cost then
@@ -655,12 +655,12 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 					end
 					line = line .. " ^2" .. devText
 				end
-				self.tooltip:AddLine(16, colorCodes.MAGIC..line)
+				self.tooltip:AddLine(16, colorCodes.MAGIC .. line)
 			else
 				if launch.devModeAlt then
 					line = line .. " ^1" .. lineMap[line]
 				end
-				self.tooltip:AddLine(16, colorCodes.UNSUPPORTED..line)
+				self.tooltip:AddLine(16, colorCodes.UNSUPPORTED .. line)
 			end
 		end
 	end

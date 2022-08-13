@@ -507,10 +507,10 @@ end
 function SkillsTabClass:CopySocketGroup(socketGroup)
 	local skillText = ""
 	if socketGroup.label and socketGroup.label:match("%S") then
-		skillText = skillText .. "Label: "..socketGroup.label.."\r\n"
+		skillText = skillText .. "Label: " .. socketGroup.label .. "\r\n"
 	end
 	if socketGroup.slot then
-		skillText = skillText .. "Slot: "..socketGroup.slot.."\r\n"
+		skillText = skillText .. "Slot: " .. socketGroup.slot .. "\r\n"
 	end
 	for _, gemInstance in ipairs(socketGroup.gemList) do
 		skillText = skillText .. string.format("%s %d/%d %s %s %d\r\n", gemInstance.nameSpec, gemInstance.level, gemInstance.quality, gemInstance.qualityId, gemInstance.enabled and "" or "DISABLED", gemInstance.count or 1)
@@ -595,7 +595,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Delete"] = slot.delete
 
 	-- Gem name specification
-	slot.nameSpec = new("GemSelectControl", {"LEFT",slot.delete,"RIGHT"}, 2, 0, 300, 20, self, index, function(gemId, qualityId, addUndo)
+	slot.nameSpec = new("GemSelectControl", { "LEFT", slot.delete, "RIGHT" }, 2, 0, 300, 20, self, index, function(gemId, qualityId, addUndo)
 		if not self.displayGroup then
 			return
 		end
@@ -646,7 +646,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	self.controls["gemSlot"..index.."Name"] = slot.nameSpec
 
 	-- Gem level
-	slot.level = new("EditControl", {"LEFT",slot.nameSpec,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
+	slot.level = new("EditControl", { "LEFT", slot.nameSpec, "RIGHT" }, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
 			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
