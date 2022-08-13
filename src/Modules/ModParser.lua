@@ -2835,6 +2835,7 @@ local specialModList = {
 		mod("MinionModifier", "LIST", { mod = mod("EnemyShockChance", "BASE", num) }, { type = "SkillName", skillName = "Summon Arbalists" }),
 		mod("MinionModifier", "LIST", { mod = mod("EnemyIgniteChance", "BASE", num) }, { type = "SkillName", skillName = "Summon Arbalists" }),
 	} end,
+	["skeleton warriors are permanent minions and follow you"] = { flag("RaisedSkeletonPermanentDuration", { type = "SkillName", skillName = "Summon Skeleton" }) },
 	-- Projectiles
 	["skills chain %+(%d) times"] = function(num) return { mod("ChainCountMax", "BASE", num) } end,
 	["skills chain an additional time while at maximum frenzy charges"] = { mod("ChainCountMax", "BASE", 1, { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
@@ -3066,6 +3067,7 @@ local specialModList = {
 		mod("EnergyShield", "INC", num, { type = "Global" }),
 		mod("LightningResist", "INC", -num),
 	} end,
+	["phasing while on low life"] = { flag("Condition:Phasing", { type = "Condition", var = "LowLife" })},
 	["cannot be ignited while on low life"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "LowLife" }) },
 	["ward does not break during flask effect"] = { flag("WardNotBreak", { type = "Condition", var = "UsingFlask" }) },
 	-- Knockback
