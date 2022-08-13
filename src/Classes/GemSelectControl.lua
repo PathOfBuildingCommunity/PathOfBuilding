@@ -198,9 +198,9 @@ function GemSelectClass:UpdateSortCache()
 	-- Don't update the cache if no settings have changed that would impact the ordering
 	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index]
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
-		and sortCache.characterLevel == self.skillsTab.build.characterLevel and sortCache.defaultQuality == self.skillsTab.defaultGemQuality
-		and sortCache.sortType == self.skillsTab.sortGemsByDPSField and sortCache.considerAlternates == self.skillsTab.showAltQualityGems
-		and sortCache.considerAwakened == self.skillsTab.showSupportGemTypes then
+		and (sortCache.characterLevel == self.skillsTab.build.characterLevel or self.skillsTab.defaultGemLevel ~= "characterLevel")
+		and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField
+		and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerAwakened == self.skillsTab.showSupportGemTypes then
 		return
 	end
 
