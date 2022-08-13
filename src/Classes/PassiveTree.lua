@@ -11,6 +11,8 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
+local m_floor = math.floor
+local m_ceil = math.ceil
 local m_pi = math.pi
 local m_rad = math.rad
 local m_sin = math.sin
@@ -693,72 +695,113 @@ function prettyPrintSprite(sprite)
 end
 
 function PassiveTreeClass:PregenerateOrbitConnectorArcs()
-	-- We render arc connectors by cutting the arc up into segments corresponding to
-	-- orbit oidx angles and rendering one quad (representing a segment of the arc) per
-	-- oidx that falls within the arc.
+	-- Connectors for nodes that share a group/orbit are rendered by taking a sprite of a
+	-- 90 degree arc, dividing it up into 16 quad segments that run along the arc, using
+	-- rotating/mirroring to expand to 64 quad segments covering the whole orbit, and
+	-- rendering a subset of them based on the arc angle between the two nodes in question.
+	-- The two endpoint segments are clipped if they don't line up exactly with the endpoint
+	-- nodes.
 	--
-	-- This function pregenerates those those quads and their mappings to the associated
-	-- sprite for each combination of orbit and connector state.
+	-- Rendering the arc in segments like this rather than just clipping the whole arc sprite
+	-- is necessary because the arcs for different orbits overlap in the sprite sheet (as of
+    -- 3.19) - the arcs on the sprite sheet have the same center but different radii.
+	--
+	-- This function pregenerates zero-centered versions of all the quad segments for each
+	-- (orbit, connectorState) tuple. Each segment contains a treeQuad (in (0,0)-centered
+	-- tree coordinates) and a tcQuad (in texture coordinates of the sprite).
+	local segmentsPerOrbit = 64
+	local segmentAngles = self:CalcOrbitAngles(segmentsPerOrbit)
+
+	-- Our quad segments aren't infinitely thin, so our quads need to extend very slightly
+	-- further out than the arc itself. The exact extra distance required is this
+	-- outerRadiusSlopFactor * (the outer radius of the arc)
+	--
+	-- Note that this causes our texture coordinates to slightly exceed the boundaries of the
+	-- sprite for segments near the edge of the sprite. We assume that there is enough space
+	-- at the boundaries of the sprite in the sprite sheet to allow for this (or, for older
+    -- tree versions where the arcs have individual images instead of sprite sheets, we allow
+    -- this because SimpleGraphics will render transparency for textureCoordinates outside of
+	-- texture coordinates [0, 1] x [0, 1]).
+	local outerRadiusSlopFactor = (1 / m_cos(m_pi / segmentsPerOrbit)) 
+
 	self.orbitConnectorArcs = {}
-	for orbit, radius in ipairs(self.orbitRadii) do
+	self.orbitConnectorSegmentsPerOrbit = segmentsPerOrbit
+	for orbit, treeRadius in ipairs(self.orbitRadii) do
 		if self.skillsPerOrbit[orbit] < 2 then goto continue end
 
 		self.orbitConnectorArcs[orbit] = {}
 		for _, state in ipairs({ "Active", "Intermediate", "Normal" }) do
 			local spriteName = "Orbit"..(orbit - 1)..state
 			local sprite = self.spriteMap.line[spriteName]
-			local angles = self.orbitAnglesByOrbit[orbit]
 
-			-- We need to be careful about what parts of the sprite we use because (at least
-			-- in 3.19+), the different orbits' sprites overlap one another (the arcs on the
-			-- sprite sheet have the same center but different radii).
 			local arcThickness = self.spriteMap.line["LineConnector"..state].height
-			local treeRelativeArcThickness = arcThickness -- TODO research this
+			local treeArcThickness = arcThickness * 1.33
+			local treeOuterRadius = (treeRadius + (treeArcThickness / 2)) * outerRadiusSlopFactor
+			local treeInnerRadius = (treeRadius - (treeArcThickness / 2))
+			
 			local tcCenterX, tcCenterY = sprite[3], sprite[4] -- bottom-right of sprite
 			-- Be careful - the arc sprites are squares, but their sprite sheets aren't, so
 			-- in sprite texture coordinates, tcWidth ~= tcHeight
 			local tcWidth = sprite[3] - sprite[1]
-			local tcHeight = sprite[4] - sprite[2]
 			local tcWidthRelativeArcThickness = (tcWidth / sprite.width) * arcThickness
+			local tcHeight = sprite[4] - sprite[2]
 			local tcHeightRelativeArcThickness = (tcHeight / sprite.height) * arcThickness
+			-- We assume that:
+			--   * The arc is drawn equally thick in the straight line and arc sprites
+			--   * The outer edge of the arc is drawn right up against the border of the arc
+			--     sprite, ie, the center of the arc is offset (arcThickness / 2) into the sprite
+			local tcWidthRelativeCenterRadius = tcWidth - (tcWidthRelativeArcThickness / 2)
+			local tcWidthRelativeOuterRadius = (tcWidthRelativeCenterRadius + (tcWidthRelativeArcThickness / 2)) * outerRadiusSlopFactor
+			local tcWidthRelativeInnerRadius = (tcWidthRelativeCenterRadius - (tcWidthRelativeArcThickness / 2))
+			local tcHeightRelativeCenterRadius = tcHeight - (tcHeightRelativeArcThickness / 2)
+			local tcHeightRelativeOuterRadius = (tcHeightRelativeCenterRadius + (tcHeightRelativeArcThickness / 2)) * outerRadiusSlopFactor
+			local tcHeightRelativeInnerRadius = (tcHeightRelativeCenterRadius - (tcHeightRelativeArcThickness / 2))
+			
 			local segments = {}
-			for oidx, angle in ipairs(angles) do
-				local nextAngle = angles[(oidx % #angles) + 1]
-				-- The arc textures only span 90 degrees, so we need to clamp angles used for
-				-- texture coordinate calculation to that specific 90 degree quadrant. This has
-				-- the effect of rotating the texture to handle other quadrants of the arc, which
-				-- isn't quite correct - the arc sprite isn't rotationally tileable, so futher
-				-- down there's a correction that mirrors every other quadrant to make it looks
-				-- seamless.
-				local tcClampedAngle = angle % (m_pi / 2) + m_pi
-				-- We do this instead of nextAngle % (m_pi / 2) to avoid issues if the
-				-- next angle is at the boundary of the sprite's quadrant. This calculation
-				-- assumes that orbit angles will always include values at exactly 90 angles.
-				local tcClampedNextAngle = nextAngle + (angle - tcClampedAngle)
-				-- assert(tcClampedNextAngle <= m_pi / 2, "tcClampedNextAngle out of bounds")
+			for segmentIndex, segmentStartAngle in ipairs(segmentAngles) do
+				local segmentEndAngle = segmentAngles[(segmentIndex % segmentsPerOrbit) + 1]
+				local angleDelta = (segmentEndAngle - segmentStartAngle) % (2 * m_pi)
+
+				-- Quadrants 2 and 4 get mirrored compared to 1 and 3 to avoid visual seams at the
+				-- quadrant boundaries (the arc sprites aren't rotationally tileable)
+				local tcStartAngle, tcEndAngle
+				if (segmentIndex < segmentsPerOrbit / 4) or (segmentIndex >= segmentsPerOrbit / 2 and segmentIndex < segmentsPerOrbit * 3 / 2) then
+					tcStartAngle = segmentStartAngle % (m_pi / 2) + m_pi
+					tcEndAngle = tcStartAngle + angleDelta
+				else
+					tcEndAngle = (m_pi / 2 - segmentStartAngle) % (m_pi / 2) + m_pi
+					tcStartAngle = tcEndAngle + angleDelta
+				end
+				-- The sprite only contains the top-left quadrant of the circle, which corresponds
+				-- to [m_pi, 3/2 * m_pi] as-rendered
+				assert (tcStartAngle >= m_pi and tcStartAngle <= 3 * m_pi / 2, "invalid tcStartAngle "..tcStartAngle)
+				assert (tcEndAngle >= m_pi and tcEndAngle <= 3 * m_pi / 2, "invalid tcEndAngle "..tcEndAngle..", treeStartAngle="..segmentStartAngle)
+				
+				local treeStartAngle = -segmentStartAngle + m_pi
+				local treeEndAngle = -segmentEndAngle + m_pi
+
 				local segment = {
 					treeQuad = {
-						[1] = m_sin(angle) * (radius + treeRelativeArcThickness / 2),
-						[2] = m_cos(angle) * (radius + treeRelativeArcThickness / 2),
-						[3] = m_sin(angle) * (radius - treeRelativeArcThickness / 2),
-						[4] = m_cos(angle) * (radius - treeRelativeArcThickness / 2),
-						[5] = m_sin(nextAngle) * (radius + treeRelativeArcThickness / 2),
-						[6] = m_cos(nextAngle) * (radius + treeRelativeArcThickness / 2),
-						[7] = m_sin(nextAngle) * (radius - treeRelativeArcThickness / 2),
-						[8] = m_cos(nextAngle) * (radius - treeRelativeArcThickness / 2)
+						[1] = m_sin(treeStartAngle) * treeOuterRadius,
+						[2] = m_cos(treeStartAngle) * treeOuterRadius,
+						[3] = m_sin(treeStartAngle) * treeInnerRadius,
+						[4] = m_cos(treeStartAngle) * treeInnerRadius,
+						[5] = m_sin(treeEndAngle) * treeOuterRadius,
+						[6] = m_cos(treeEndAngle) * treeOuterRadius,
+						[7] = m_sin(treeEndAngle) * treeInnerRadius,
+						[8] = m_cos(treeEndAngle) * treeInnerRadius
 					},
 					tcQuad = {
-						[1] = tcCenterX + m_sin(tcClampedAngle) * (tcWidth),
-						[2] = tcCenterY + m_cos(tcClampedAngle) * (tcHeight),
-						[3] = tcCenterX + m_sin(tcClampedAngle) * (tcWidth - tcWidthRelativeArcThickness),
-						[4] = tcCenterY + m_cos(tcClampedAngle) * (tcHeight - tcHeightRelativeArcThickness),
-						[5] = tcCenterX + m_sin(tcClampedNextAngle) * (tcWidth),
-						[6] = tcCenterY + m_cos(tcClampedNextAngle) * (tcHeight),
-						[7] = tcCenterX + m_sin(tcClampedNextAngle) * (tcWidth - tcWidthRelativeArcThickness),
-						[8] = tcCenterY + m_cos(tcClampedNextAngle) * (tcHeight - tcHeightRelativeArcThickness)
+						[1] = tcCenterX + m_sin(tcStartAngle) * tcWidthRelativeOuterRadius,
+						[2] = tcCenterY + m_cos(tcStartAngle) * tcHeightRelativeOuterRadius,
+						[3] = tcCenterX + m_sin(tcStartAngle) * tcWidthRelativeInnerRadius,
+						[4] = tcCenterY + m_cos(tcStartAngle) * tcHeightRelativeInnerRadius,
+						[5] = tcCenterX + m_sin(tcEndAngle) * tcWidthRelativeOuterRadius,
+						[6] = tcCenterY + m_cos(tcEndAngle) * tcHeightRelativeOuterRadius,
+						[7] = tcCenterX + m_sin(tcEndAngle) * tcWidthRelativeInnerRadius,
+						[8] = tcCenterY + m_cos(tcEndAngle) * tcHeightRelativeInnerRadius
 					}
 				}
-				-- TODO: mirror 2 of the 4 quadrants
 				t_insert(segments, segment)
 			end
 			self.orbitConnectorArcs[orbit][state] = {
@@ -769,7 +812,8 @@ function PassiveTreeClass:PregenerateOrbitConnectorArcs()
 		::continue::
 	end
 
-	prettyPrintTable(self.orbitConnectorArcs[3].Active.segments)
+	prettyPrintTable(self.orbitConnectorArcs[3].Active.segments[1])
+	prettyPrintTable(self.orbitConnectorArcs[3].Active.segments[2])
 	local sprite = self.orbitConnectorArcs[3].Active.sprite
 	print("width="..sprite.width.." height="..sprite.height.." tc="..sprite[1]..","..sprite[2]..","..sprite[3]..","..sprite[4])
 end
@@ -790,13 +834,23 @@ function PassiveTreeClass:BuildConnectors(node1, node2)
 		}
 
 		-- Order the oidx values such that we draw along the shorter arc
-		local orbitSize = self.skillsPerOrbit[node1.o + 1]
-		local dist1To2 = (node2.oidx - node1.oidx) % orbitSize
-		if dist1To2 * 2 <= orbitSize then
-			connector.arc.oidx1, connector.arc.oidx2 = node1.oidx, node2.oidx
-		else
-			connector.arc.oidx1, connector.arc.oidx2 = node2.oidx, node1.oidx
+		local startOidx, endOidx = m_min(node1.oidx, node2.oidx), m_max(node1.oidx, node2.oidx)
+
+		-- Convert oidx to arc segment
+		local startAngle = self.orbitAnglesByOrbit[node1.o + 1][node1.oidx + 1]
+		local endAngle = self.orbitAnglesByOrbit[node1.o + 1][node2.oidx + 1]
+
+		-- Always use the shorter direction
+		if (startAngle - endAngle) % (2 * m_pi) <= m_pi then
+			startAngle, endAngle = endAngle, startAngle
 		end
+
+		-- startSegment > endSegment is normal; when rendering, it will wrap around
+		connector.arc.startSegment = m_ceil(startAngle * self.orbitConnectorSegmentsPerOrbit / (2 * m_pi))
+		connector.arc.endSegment = m_floor(endAngle * self.orbitConnectorSegmentsPerOrbit / (2 * m_pi))
+
+		assert(connector.arc.startSegment >= 0 and connector.arc.startSegment < self.orbitConnectorSegmentsPerOrbit)
+		assert(connector.arc.endSegment >= 0 and connector.arc.endSegment < self.orbitConnectorSegmentsPerOrbit)
 	else
 		-- Nodes don't share a group/orbit, build a straight line connector
 		connector.type = "LineConnector"

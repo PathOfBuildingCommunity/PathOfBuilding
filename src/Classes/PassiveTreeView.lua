@@ -394,31 +394,27 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	end
 	local function drawConnectorArc(arc, state)
 		local orbitArc = tree.orbitConnectorArcs[arc.orbit][state]
-		for oidx = arc.oidx1, arc.oidx2, 1 do
-			local arcSegment = orbitArc.segments[oidx + 1]
-			
-			local x1 = arcSegment.treeQuad[1] + arc.centerX
-			local y1 = arcSegment.treeQuad[2] + arc.centerY
-			local x2 = arcSegment.treeQuad[3] + arc.centerX
-			local y2 = arcSegment.treeQuad[4] + arc.centerY
-			local x3 = arcSegment.treeQuad[5] + arc.centerX
-			local y3 = arcSegment.treeQuad[6] + arc.centerY
-			local x4 = arcSegment.treeQuad[7] + arc.centerX
-			local y4 = arcSegment.treeQuad[8] + arc.centerY
 
-			local args = {}
-			args[1], args[2] = treeToScreen(x1, y1)
-			args[3], args[4] = treeToScreen(x2, y2)
-			args[5], args[6] = treeToScreen(x3, y3)
-			args[7], args[8] = treeToScreen(x4, y4)
-			args[9], args[10], args[11], args[12], args[13], args[14], args[15], args[16] = unpack(arcSegment.tcQuad)
+		local loopEnd = arc.endSegment 
+		if arc.startSegment > arc.endSegment then
+			loopEnd = arc.endSegment + #orbitArc.segments
+		end
+
+		for segmentIndex = arc.startSegment, loopEnd do
+			local arcSegment = orbitArc.segments[(segmentIndex % #orbitArc.segments) + 1]
+			
+			local tx1, ty1, tx2, ty2, tx3, ty3, tx4, ty4 = unpack(arcSegment.treeQuad)
+
+			local sx1, sy1 = treeToScreen(tx1 + arc.centerX, ty1 + arc.centerY)
+			local sx2, sy2 = treeToScreen(tx2 + arc.centerX, ty2 + arc.centerY)
+			local sx3, sy3 = treeToScreen(tx3 + arc.centerX, ty3 + arc.centerY)
+			local sx4, sy4 = treeToScreen(tx4 + arc.centerX, ty4 + arc.centerY)
 
 			DrawImageQuad(
 				orbitArc.sprite.handle,
-				unpack(args)
+				sx1, sy1, sx2, sy2, sx3, sy3, sx4, sy4,
+				unpack(arcSegment.tcQuad)
 			)
-
-			if (oidx + 1) >= #orbitArc.segments then oidx = -1 end
 		end
 	end
 	local function renderConnector(connector)
