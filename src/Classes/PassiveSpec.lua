@@ -864,10 +864,10 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				node.reminderText = { "Tip: Right click to select a different effect" }
 				self.tree:ProcessStats(node)
 				self.allocatedMasteryCount = self.allocatedMasteryCount + 1
-        if not self.allocatedMasteryTypes[node.name] then
-				  self.allocatedMasteryTypes[node.name] = true
-				  self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
-        end
+				if not self.allocatedMasteryTypes[node.name] then
+					self.allocatedMasteryTypes[node.name] = true
+					self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+				end
 			else
 				self.nodes[id].alloc = false
 				self.allocNodes[id] = nil
