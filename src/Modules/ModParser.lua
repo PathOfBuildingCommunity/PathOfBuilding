@@ -165,6 +165,8 @@ local modNameList = {
 	["chance to evade attack hits"] = "EvadeChance",
 	["chance to evade projectile attacks"] = "ProjectileEvadeChance",
 	["chance to evade melee attacks"] = "MeleeEvadeChance",
+	["evasion rating against melee attacks"] = "MeleeEvasion",
+	["evasion rating against projectile attacks"] = "ProjectileEvasion",
 	-- Resistances
 	["physical damage reduction"] = "PhysicalDamageReduction",
 	["physical damage reduction from hits"] = "PhysicalDamageReductionWhenHit",
@@ -2538,6 +2540,8 @@ local specialModList = {
 			{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1, upper = true}
 		)
 	} end,
+	["evasion rating is doubled against projectile attacks"] = { mod("ProjectileEvasion", "MORE", 100) },
+	["evasion rating is doubled against melee attacks"] = { mod("MeleeEvasion", "MORE", 100) },
 	["+(%d+)%% chance to suppress spell damage for each dagger you're wielding"] = function(num) return { 
 		mod("SpellSuppressionChance", "BASE", num, { type = "ModFlag", modFlags = ModFlag.Dagger } ),
 		mod("SpellSuppressionChance", "BASE", num, { type = "Condition", var = "DualWieldingDaggers" } )
