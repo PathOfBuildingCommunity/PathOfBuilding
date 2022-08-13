@@ -3003,9 +3003,7 @@ function calcs.perform(env, avoidCache)
 		["Chill"] = {
 			condition = "Chilled",
 			mods = function(num)
-				local mods = {
-					modLib.createMod("ActionSpeed", "INC", -num, "Chill", { type = "Condition", var = "Chilled" })
-				}
+				local mods = { modLib.createMod("ActionSpeed", "INC", -num, "Chill", { type = "Condition", var = "Chilled" }) }
 				if output.HasBonechill and (hasGuaranteedBonechill or enemyDB:Sum("BASE", nil, "ChillVal") > 0) then
 					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Bonechill", { type = "Condition", var = "Chilled" }))
 				end
@@ -3015,33 +3013,25 @@ function calcs.perform(env, avoidCache)
 		["Shock"] = {
 			condition = "Shocked",
 			mods = function(num)
-				return {
-					modLib.createMod("DamageTaken", "INC", num, "Shock", { type = "Condition", var = "Shocked" })
-				}
+				return { modLib.createMod("DamageTaken", "INC", num, "Shock", { type = "Condition", var = "Shocked" }) }
 			end
 		},
 		["Scorch"] = {
 			condition = "Scorched",
 			mods = function(num)
-				return {
-					modLib.createMod("ElementalResist", "BASE", -num, "Scorch", { type = "Condition", var = "Scorched" })
-				}
+				return { modLib.createMod("ElementalResist", "BASE", -num, "Scorch", { type = "Condition", var = "Scorched" }) }
 			end
 		},
 		["Brittle"] = {
 			condition = "Brittle",
 			mods = function(num)
-				return {
-					modLib.createMod("SelfCritChance", "BASE", num, "Brittle", { type = "Condition", var = "Brittle" })
-				}
+				return { modLib.createMod("SelfCritChance", "BASE", num, "Brittle", { type = "Condition", var = "Brittle" }) }
 			end
 		},
 		["Sap"] = {
 			condition = "Sapped",
 			mods = function(num)
-				return {
-					modLib.createMod("Damage", "MORE", -num, "Sap", { type = "Condition", var = "Sapped" })
-				}
+				return { modLib.createMod("Damage", "MORE", -num, "Sap", { type = "Condition", var = "Sapped" }) }
 			end
 		},
 	}
