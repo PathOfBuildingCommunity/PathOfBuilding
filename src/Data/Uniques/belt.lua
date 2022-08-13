@@ -448,6 +448,7 @@ Studded Belt
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
+LevelReq: 16
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 {variant:2}{tags:physical}(25-40)% increased Physical Damage
