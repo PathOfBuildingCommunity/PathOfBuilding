@@ -503,21 +503,24 @@ Cannot Block
 50% increased Warcry Cooldown Recovery Rate
 ]],[[
 Kongming's Stratagem
-Ivory Spirit Shield
+{variant:1,2,3,4}Ivory Spirit Shield
+{variant:5}Ancient Spirit Shield
 Variant: Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Pre 3.11.0
+Variant: Pre 3.19.0
 Variant: Current
-Implicits: 2
+Implicits: 3
 {variant:1}15% increased Spell Damage
 {variant:2,3,4}(15-20)% increased Spell Damage
+{variant:5}(5-10)% increased Spell Damage
 {Variant:1,2}Socketed Trap Skills create a Smoke Cloud when triggered
-{Variant:3,4}Trigger Level 20 Fog of War when your Trap is triggered
+{Variant:3,4,5}Trigger Level 20 Fog of War when your Trap is triggered
 +(20-30) to Intelligence
 {variant:1,2}(80-120)% increased Energy Shield
-{variant:3,4}(250-300)% increased Energy Shield
+{variant:3,4,5}(250-300)% increased Energy Shield
 {variant:1,2,3}30% increased Fire Damage with Hits and Ailments against Blinded Enemies
-{variant:4}(30-50)% increased Fire Damage with Hits and Ailments against Blinded Enemies
+{variant:4,5}(30-50)% increased Fire Damage with Hits and Ailments against Blinded Enemies
 30% reduced Spell Damage taken from Blinded Enemies
 No Chance to Block
 ]],[[
@@ -557,9 +560,13 @@ Lose all Power Charges on reaching Maximum Power Charges
 Shocks you when you reach Maximum Power Charges
 ]],[[
 Manastorm
-Fossilised Spirit Shield
-Implicits: 1
-(15-20)% increased Spell Damage
+{variant:1}Fossilised Spirit Shield
+{variant:2}Lacewood Spirit Shield
+Variant: Pre 3.19.0
+Variant: Current
+Implicits: 2
+{variant:1}(15-20)% increased Spell Damage
+{variant:2}(5-10)% increased Spell Damage
 (80-120)% increased Energy Shield
 +(50-70) to maximum Mana
 (30-50)% increased Mana Regeneration Rate
