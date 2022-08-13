@@ -169,7 +169,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
 		levelreq = math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level)
 		
-		-- Ascendency points for lab
+		-- Ascendancy points for lab
 		-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
 		local labstr = {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
 		local strAct = "Endgame"

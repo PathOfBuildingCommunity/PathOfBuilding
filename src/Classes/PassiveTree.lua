@@ -127,32 +127,18 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self.orbitAnglesByOrbit[orbit] = self:CalcOrbitAngles(skillsInOrbit)
 	end
 
-	if versionNum >= 3.19 then
-		local treeTextOLD
-		local treeFileOLD = io.open("TreeData/".. "3_18" .."/tree.lua", "r")
-		if treeFileOLD then
-			treeTextOLD = treeFileOLD:read("*a")
-			treeFileOLD:close()
-		end
-		local temp = {}
-		for k, v in pairs(assert(loadstring(treeTextOLD))()) do
-			temp[k] = v
-		end
-		self.assets = temp.assets
-		self.skillSprites = self.sprites
-	end
-	ConPrintf("Loading passive tree assets...")
-	for name, data in pairs(self.assets) do
-		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
-	end
+	local maxZoomLevel = self.imageZoomLevels[#self.imageZoomLevels]
 
+	ConPrintf("Loading passive tree sprites...")
 	-- Load sprite sheets and build sprite map
+	self.sprites = self.sprites or self.skillSprites -- renamed in 3.19
 	self.spriteMap = { }
 	local spriteSheets = { }
-	for type, data in pairs(self.skillSprites) do
+	for type, data in pairs(self.sprites) do
+		self.spriteMap[type] = {}
 		local maxZoom = data[#data]
 		if versionNum >= 3.19 then
-			maxZoom = data[0.3835] or data[1]
+			maxZoom = data[maxZoomLevel] or data[1]
 		end
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
@@ -161,10 +147,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
-			if not self.spriteMap[name] then
-				self.spriteMap[name] = { }
-			end
-			self.spriteMap[name][type] = {
+			self.spriteMap[type][name] = {
 				handle = sheet.handle,
 				width = coords.w,
 				height = coords.h,
@@ -174,6 +157,48 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				[4] = (coords.y + coords.h) / sheet.height
 			}
 		end
+	end
+
+	if versionNum < 3.19 then
+		ConPrintf("Loading pre-3.19 passive tree assets and normalizing to sprite maps...")
+		-- Prior to 3.19, many images that are now handles as sprites were instead
+		-- loaded as "assets". We normalize old tree assets as if they were full-sheet sprites
+		for name, data in pairs(self.assets) do
+			self:LoadImage(name..".png", cdnRoot..(data[maxZoomLevel] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
+
+			local type = self:InferAssetSpriteType(name)
+			if type ~= nil then	
+				if not self.spriteMap[type] then
+					self.spriteMap[type] = { }
+				end
+				self.spriteMap[type][name] = {
+					handle = data.handle,
+					width = data.width,
+					height = data.height,
+					[1] = 0,
+					[2] = 0,
+					[3] = 1,
+					[4] = 1,
+				}
+			end
+		end
+	else
+		-- GGG stopped including these with 3.19, but we still want to render them
+		self.assets = {}
+        local backupBackgrounds = {
+            "BackgroundDex",
+            "BackgroundDexInt",
+            "BackgroundInt",
+            "BackgroundStr",
+            "BackgroundStrDex",
+            "BackgroundStrInt",
+        }
+        for _, name in pairs(backupBackgrounds) do
+            self.assets[name] = { }
+            self.assets[name].handle = NewImageHandle()
+            self.assets[name].handle:Load("TreeData/" .. name .. ".png")
+            self.assets[name].width, self.assets[name].height = self.assets[name].handle:ImageSize()
+        end
 	end
 
 	-- Load legion sprite sheets and build sprite map
@@ -189,10 +214,10 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
-			if not self.spriteMap[name] then
-				self.spriteMap[name] = { }
+			if not self.spriteMap[type] then
+				self.spriteMap[type] = { }
 			end
-			self.spriteMap[name][type] = {
+			self.spriteMap[type][name] = {
 				handle = sheet.handle,
 				width = coords.w,
 				height = coords.h,
@@ -484,11 +509,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 
 		-- Assign node artwork assets
-		node.sprites = self.spriteMap[node.icon]
-		if not node.sprites then
-			--error("missing sprite "..node.icon)
-			node.sprites = { }
-		end
+		node.sprites = self:MakeNodeSprites(node.type, node.icon)
 
 		self:ProcessStats(node)
 	end
@@ -496,6 +517,45 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Late load the Generated data so we can take advantage of a tree existing
 	buildTreeDependentUniques(self)
 end)
+
+function string:contains(searchTerm)
+	return self:find(searchTerm, 1, true) ~= nil
+end
+
+function string:startswith(searchTerm)
+    return self:sub(1, #searchTerm) == searchTerm
+end
+
+-- Given a pre-3.19 asset name, infers which 3.19+ sprite type it would appear under in more recent trees.
+-- Used to normalize pre-3.19 assets into a 3.19-like spriteMap
+--
+-- nil return implies that we don't care about this sprite type
+function PassiveTreeClass:InferAssetSpriteType(name)
+	if name:startswith("Background") then
+		return "background"
+	elseif name:startswith("Classes") then
+		return "ascendancyBackground"
+	elseif name:startswith("Ascendancy") or name:startswith("Ascendency") then -- Yes, some assets have this typo
+		return "ascendancy"
+	elseif name:startswith("PSStartNode") or name:startswith("center") then
+		return "startNode"
+	elseif name:startswith("PSGroupBackground") or name:startswith("GroupBackground") then
+		return "groupBackground"
+	-- Careful, some "frame" assets start with "JewelSocket" - check for "JewelSocketActive" first
+	elseif name:startswith("JewelSocketActive") then
+		return "jewel"
+	elseif name:contains("Frame") or name:startswith("JewelSocket") then
+		return "frame"
+	elseif name:startswith("Line") or name:startswith("Orbit") or name:startswith("PSLine") then
+		return "line"
+	elseif name:contains("JewelCircle") then
+		return "jewelRadius"
+	elseif name == "PassiveMasteryConnectedButton" then
+		return "masteryActiveSelected" -- yes, not "masteryConnected"
+	end
+
+	return nil -- We doesn't use other asset types
+end
 
 function PassiveTreeClass:ProcessStats(node)
 	node.modKey = ""
@@ -571,17 +631,30 @@ function PassiveTreeClass:ProcessStats(node)
 	end
 end
 
+function PassiveTreeClass:MakeNodeSprites(type, icon)
+	local activeSpriteType = type:lower().."Active"
+	local inactiveSpriteType = type:lower().."Inactive"
+
+	return {
+		mastery = self.spriteMap.mastery and self.spriteMap.mastery[icon] or nil,
+		active = self.spriteMap[activeSpriteType] and self.spriteMap[activeSpriteType][icon] or nil,
+		inactive = self.spriteMap[inactiveSpriteType] and self.spriteMap[inactiveSpriteType][icon] or nil
+	}
+end
+
 -- Common processing code for nodes (used for both real tree nodes and subgraph nodes)
 function PassiveTreeClass:ProcessNode(node)
 	-- Assign node artwork assets
 	if node.type == "Mastery" and node.masteryEffects then
-		node.masterySprites = { activeIcon = self.spriteMap[node.activeIcon], inactiveIcon = self.spriteMap[node.inactiveIcon], activeEffectImage = self.spriteMap[node.activeEffectImage] }
+		node.masterySprites = {
+			activeIcon = self.spriteMap.masteryActiveSelected[node.activeIcon],
+			activeEffectImage = self.spriteMap.masteryActiveEffect[node.activeEffectImage],
+			connectedIcon = self.spriteMap.masteryConnected[node.inactiveIcon],
+			inactiveIcon = self.spriteMap.masteryInactive[node.inactiveIcon]
+		}
+		node.sprites = self:MakeNodeSprites(node.type, "Art/2DArt/SkillIcons/passives/MasteryBlank.png")
 	else
-		node.sprites = self.spriteMap[node.icon]
-	end
-	if not node.sprites then
-		--error("missing sprite "..node.icon)
-		node.sprites = self.spriteMap["Art/2DArt/SkillIcons/passives/MasteryBlank.png"]
+		node.sprites = self:MakeNodeSprites(node.type, node.icon)
 	end
 	node.overlay = self.nodeOverlay[node.type]
 	if node.overlay then
@@ -673,21 +746,17 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 
 	-- Generate a straight line
 	connector.type = "LineConnector"
-	local art = self.assets.LineConnectorNormal
+	local art = self.spriteMap.line.LineConnectorNormal
 	local vX, vY = node2.x - node1.x, node2.y - node1.y
 	local dist = m_sqrt(vX * vX + vY * vY)
 	local scale = art.height * 1.33 / dist
 	local nX, nY = vX * scale, vY * scale
-	local endS = dist / (art.width * 1.33)
-	connector[1], connector[2] = node1.x - nY, node1.y + nX
-	connector[3], connector[4] = node1.x + nY, node1.y - nX
-	connector[5], connector[6] = node2.x + nY, node2.y - nX
-	connector[7], connector[8] = node2.x - nY, node2.y + nX
-	connector.c[9], connector.c[10] = 0, 1
-	connector.c[11], connector.c[12] = 0, 0
-	connector.c[13], connector.c[14] = endS, 0
-	connector.c[15], connector.c[16] = endS, 1
-	connector.vert = { Normal = connector, Intermediate = connector, Active = connector }
+	local commonVert = {};
+	commonVert[1], commonVert[2] = node1.x - nY, node1.y + nX
+	commonVert[3], commonVert[4] = node1.x + nY, node1.y - nX
+	commonVert[5], commonVert[6] = node2.x + nY, node2.y - nX
+	commonVert[7], commonVert[8] = node2.x - nY, node2.y + nX
+	connector.vert = { Normal = commonVert, Intermediate = commonVert, Active = commonVert }
 	return { connector }
 end
 
@@ -709,7 +778,7 @@ function PassiveTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
 	connector.vert = { }
 	for _, state in pairs({ "Normal", "Intermediate", "Active" }) do
 		-- The different line states have differently-sized artwork, so the vertex coords must be calculated separately for each one
-		local art = self.assets[connector.type .. state]
+		local art = self.spriteMap.line[connector.type .. state]
 		local size = art.width * 2 * 1.33
 		local oX, oY = size * m_sqrt(2) * m_sin(angle + m_pi / 4), size * m_sqrt(2) * -m_cos(angle + m_pi / 4)
 		local cX, cY = node1.group.x + oX, node1.group.y + oY
