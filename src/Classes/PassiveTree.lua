@@ -29,6 +29,15 @@ local classArt = {
 	[6] = "centershadow"
 }
 
+local backupBackgrounds = {
+	"BackgroundDex",
+	"BackgroundDexInt",
+	"BackgroundInt",
+	"BackgroundStr",
+	"BackgroundStrDex",
+	"BackgroundStrInt",
+}
+
 -- These values are from the 3.6 tree; older trees are missing values for these constants
 local legacySkillsPerOrbit = { 1, 6, 12, 12, 40 }
 local legacyOrbitRadii = { 0, 82, 162, 335, 493 }
@@ -134,14 +143,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
 		end
 	else
-		local backupBackgrounds = {
-			"BackgroundDex",
-			"BackgroundDexInt",
-			"BackgroundInt",
-			"BackgroundStr",
-			"BackgroundStrDex",
-			"BackgroundStrInt",
-		}
 		for _, name in pairs(backupBackgrounds) do
 			self.assets[name] = { }
 			self.assets[name].handle = NewImageHandle()
