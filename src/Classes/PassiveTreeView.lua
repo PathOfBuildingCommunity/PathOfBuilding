@@ -341,7 +341,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawColor(1, 1, 1)
 			end
 		elseif group.oo[3] then
-			self:DrawAsset(tree.assets[isExpansion and "GroupBackgroundLargeHalfAlt" or "PSGroupBackground3"], scrX, scrY, scale, isExpansion)
+			self:DrawAsset(tree.assets[isExpansion and "GroupBackgroundLargeHalfAlt" or "PSGroupBackground3"], scrX, scrY, scale, true, treeVersions[tree.treeVersion].num)
 		elseif group.oo[2] then
 			self:DrawAsset(tree.assets[isExpansion and "GroupBackgroundMediumAlt" or "PSGroupBackground2"], scrX, scrY, scale)
 		elseif group.oo[1] then
@@ -749,7 +749,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 end
 
 -- Draws the given asset at the given position
-function PassiveTreeViewClass:DrawAsset(data, x, y, scale, isHalf)
+function PassiveTreeViewClass:DrawAsset(data, x, y, scale, isHalf, treeVersionNum)
 	if not data then
 		return
 	end
@@ -762,8 +762,13 @@ function PassiveTreeViewClass:DrawAsset(data, x, y, scale, isHalf)
 	local width = data.width * scale * 1.33
 	local height = data.height * scale * 1.33
 	if isHalf then
-		DrawImage(data.handle, x - width, y - height * 2, width * 2, height * 2)
-		DrawImage(data.handle, x - width, y, width * 2, height * 2, 0, 1, 1, 0)
+		if treeVersionNum < 3.19 then
+			DrawImage(data.handle, x - width, y - height * 2, width * 2, height * 2)
+			DrawImage(data.handle, x - width, y, width * 2, height * 2, 0, 1, 1, 0)
+		else
+			DrawImage(data.handle, x - width, y - height * 2, width * 2, height * 2, unpack(data))
+			DrawImage(data.handle, x - width, y + height * 2, width * 2, height * -2, unpack(data))
+		end
 	else
 		DrawImage(data.handle, x - width, y - height, width * 2, height * 2, unpack(data))
 	end
