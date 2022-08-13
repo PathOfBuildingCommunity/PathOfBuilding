@@ -2434,6 +2434,9 @@ local specialModList = {
 	["always scorch while affected by anger"] = { mod("EnemyScorchChance", "BASE", 100, { type = "Condition", var = "AffectedByAnger" }) },
 	["always inflict brittle while affected by hatred"] = {	mod("EnemyBrittleChance", "BASE", 100, { type = "Condition", var = "AffectedByHatred" })	},
 	["always sap while affected by wrath"] = { mod("EnemySapChance", "BASE", 100, { type = "Condition", var = "AffectedByWrath" }) },
+	["gain (%d+)%% of cold damage as extra fire damage per (%d+)%% chill effect on enemy"] = function (coldDamage, _, perChillEffect) return {
+		mod("ColdDamageGainAsFire", "BASE", coldDamage, { type = "Multiplier", actor = "enemy", var = "ChillVal", div = perChillEffect }),
+	}end,
 	-- Bleed
 	["melee attacks cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee) },
 	["attacks cause bleeding when hitting cursed enemies"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Attack, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
