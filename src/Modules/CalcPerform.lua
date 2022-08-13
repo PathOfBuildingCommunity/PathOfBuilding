@@ -3018,7 +3018,15 @@ function calcs.perform(env, avoidCache)
 					enemyDB:NewMod("Condition:"..val.condition, "FLAG", true, mod.source)
 				end
 				if mod.name == ailment.."Base" then
-					effect = effect * calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect")
+					-- If the main skill can inflict the ailment, the ailment is inflicted with a hit, and we have a node allocated that checks what our highest damage is, then
+					-- use the skill's ailment modifiers
+					-- if not, use the generic modifiers
+					if not env.player.mainSkill.skillModList:Flag(nil, "Cannot"..ailment) and env.player.mainSkill.skillFlags.hit and modDB:Flag(nil, "ChecksHighestDamage") then
+						effect = effect * calcLib.mod(env.player.mainSkill.skillModList, nil, "Enemy"..ailment.."Effect")
+					else
+						effect = effect * calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect")
+					end
+
 					modDB:NewMod(ailment.."Override", "BASE", effect, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 				end
 				override = m_max(override, effect or 0)
