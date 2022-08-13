@@ -18,7 +18,7 @@ local bor = bit.bor
 local band = bit.band
 
 
--- Identify the trigger action skill for trigger conditions, take highest Attack Per Second 
+-- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
 local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 	local uuid = cacheSkillUUID(skill)
 	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.dontUseCache then
@@ -1226,9 +1226,9 @@ function calcs.perform(env, avoidCache)
 		end
 		if (activeSkill.activeEffect.grantedEffect.name == "Vaal Lightning Trap" or activeSkill.activeEffect.grantedEffect.name == "Shock Ground") then
 			local effect = activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundEffect")
-			local shockValMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ShockEffect")
-			if shockValMultiplier < effect then
-				enemyDB:NewMod("Multiplier:ShockEffect", "BASE", effect - shockValMultiplier, "Shocked Ground", { type = "ActorCondition", var = "OnShockedGround" })
+			local shockEffectMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ShockEffect")
+			if shockEffectMultiplier < effect then
+				enemyDB:NewMod("Multiplier:ShockEffect", "BASE", effect - shockEffectMultiplier, "Shocked Ground", { type = "ActorCondition", var = "OnShockedGround" })
 			end
 			modDB:NewMod("ShockOverride", "BASE", effect, "Shocked Ground", { type = "ActorCondition", actor = "enemy", var = "OnShockedGround" } )
 		end
@@ -1238,18 +1238,18 @@ function calcs.perform(env, avoidCache)
 		if activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" then
 			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotShock") then
 				local effect = data.nonDamagingAilment.Shock.default * (1 + activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect") / 100)
-				local shockValMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ShockEffect")
-				if shockValMultiplier < effect then
-					enemyDB:NewMod("Multiplier:ShockEffect", "BASE", effect - shockValMultiplier, activeSkill.activeEffect.grantedEffect.name)
+				local shockEffectMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ShockEffect")
+				if shockEffectMultiplier < effect then
+					enemyDB:NewMod("Multiplier:ShockEffect", "BASE", effect - shockEffectMultiplier, activeSkill.activeEffect.grantedEffect.name)
 				end
 				modDB:NewMod("ShockOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 				enemyDB:NewMod("Condition:Shocked", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
 			end
 			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotChill") then
 				local effect = data.nonDamagingAilment.Chill.default * (1 + activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyChillEffect") / 100)
-				local chillValMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ChillEffect")
-				if chillValMultiplier < effect then
-					enemyDB:NewMod("Multiplier:ChillEffect", "BASE", effect - chillValMultiplier, activeSkill.activeEffect.grantedEffect.name)
+				local chillEffectMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ChillEffect")
+				if chillEffectMultiplier < effect then
+					enemyDB:NewMod("Multiplier:ChillEffect", "BASE", effect - chillEffectMultiplier, activeSkill.activeEffect.grantedEffect.name)
 				end
 				modDB:NewMod("ChillOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 				enemyDB:NewMod("Condition:Chilled", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
@@ -1259,9 +1259,9 @@ function calcs.perform(env, avoidCache)
 			end
 		elseif activeSkill.skillTypes[SkillType.ChillingArea] or (activeSkill.skillTypes[SkillType.NonHitChill] and not activeSkill.skillModList:Flag(nil, "CannotChill")) then
 			local effect = data.nonDamagingAilment.Chill.default * (1 + activeSkill.skillModList:Sum("INC", nil, "EnemyChillEffect") / 100)
-			local chillValMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ChillEffect")
-			if chillValMultiplier < effect then
-				enemyDB:NewMod("Multiplier:ChillEffect", "BASE", effect - chillValMultiplier, activeSkill.activeEffect.grantedEffect.name)
+			local chillEffectMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ChillEffect")
+			if chillEffectMultiplier < effect then
+				enemyDB:NewMod("Multiplier:ChillEffect", "BASE", effect - chillEffectMultiplier, activeSkill.activeEffect.grantedEffect.name)
 			end
 			modDB:NewMod("ChillOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 			enemyDB:NewMod("Condition:Chilled", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
@@ -3060,6 +3060,16 @@ function calcs.perform(env, avoidCache)
 			end
 			enemyDB:NewMod("Condition:Already"..val.condition, "FLAG", true, { type = "Condition", var = val.condition } ) -- Prevents ailment from applying doubly for minions
 		end
+	end
+
+	-- Cap chill and shock multipliers
+	local chillValMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ChillEffect")
+	if chillValMultiplier > output["MaximumChill"] then
+		enemyDB:NewMod("Multiplier:ChillEffect", "BASE", output["MaximumChill"] - chillValMultiplier, "Maximum Chill")
+	end
+	local shockValMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ShockEffect")
+	if shockValMultiplier > output["MaximumShock"] then
+		enemyDB:NewMod("Multiplier:ShockEffect", "BASE", output["MaximumShock"] - shockValMultiplier, "Maximum Shock")
 	end
 
 	-- Check for extra auras
