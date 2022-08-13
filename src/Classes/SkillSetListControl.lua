@@ -100,7 +100,7 @@ function SkillSetListClass:OnSelDelete(index, skillSetId)
 	if #self.list > 1 then
 		main:OpenConfirmPopup("Delete Item Set", "Are you sure you want to delete '"..(skillSet.title or "Default").."'?", "Delete", function()
 			t_remove(self.list, index)
-			t_remove(self.skillsTab.skillSets, skillSetId)
+			self.skillsTab.skillSets[skillSetId] = nil
 			self.selIndex = nil
 			self.selValue = nil
 			if skillSetId == self.skillsTab.activeSkillSetId then
