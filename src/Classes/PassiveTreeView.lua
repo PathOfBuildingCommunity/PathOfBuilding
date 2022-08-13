@@ -49,6 +49,20 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.vaal2 = NewImageHandle()
 	self.vaal2:Load("TreeData/PassiveSkillScreenVaalJewelCircle2.png", "CLAMP")
 
+	self.backgroundArtByClassId = {
+		[1] = {	name = "BackgroundStr",	x = -2750, y = 1600 },
+		[2] = { name = "BackgroundDex", x = 2550, y = 1600 },
+		[3] = { name = "BackgroundInt", x = -250, y = -2200 },
+		[4] = { name = "BackgroundStrDex", x = -150, y = 2350 },
+		[5] = { name = "BackgroundStrInt", x = -2100, y = -1500 },
+		[6] = { name = "BackgroundDexInt", x = 2350, y = -1950 }
+	}
+	for _, backgroundArt in ipairs(self.backgroundArtByClassId) do
+		backgroundArt.handle = NewImageHandle()
+		backgroundArt.handle:Load("TreeData/"..backgroundArt.name..".png")
+		backgroundArt.width, backgroundArt.height = backgroundArt.handle:ImageSize()
+	end
+
 	self.tooltip = new("Tooltip")
 
 	self.zoomLevel = 3
@@ -309,25 +323,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		DrawImage(bg.handle, viewPort.x, viewPort.y, viewPort.width, viewPort.height, (self.zoomX + viewPort.width/2) / -bgSize, (self.zoomY + viewPort.height/2) / -bgSize, (viewPort.width/2 - self.zoomX) / bgSize, (viewPort.height/2 - self.zoomY) / bgSize)
 	end
 
-	-- Hack to draw class background art, the position data is not included in the tree JSON
-	if build.spec.curClassId == 1 then
-		local scrX, scrY = treeToScreen(-2750, 1600)
-		self:DrawSprite(tree.assets.BackgroundStr, scrX, scrY, scale)
-	elseif build.spec.curClassId == 2 then
-		local scrX, scrY = treeToScreen(2550, 1600)
-		self:DrawSprite(tree.assets.BackgroundDex, scrX, scrY, scale)
-	elseif build.spec.curClassId == 3 then
-		local scrX, scrY = treeToScreen(-250, -2200)
-		self:DrawSprite(tree.assets.BackgroundInt, scrX, scrY, scale)
-	elseif build.spec.curClassId == 4 then
-		local scrX, scrY = treeToScreen(-150, 2350)
-		self:DrawSprite(tree.assets.BackgroundStrDex, scrX, scrY, scale)
-	elseif build.spec.curClassId == 5 then
-		local scrX, scrY = treeToScreen(-2100, -1500)
-		self:DrawSprite(tree.assets.BackgroundStrInt, scrX, scrY, scale)
-	elseif build.spec.curClassId == 6 then
-		local scrX, scrY = treeToScreen(2350, -1950)
-		self:DrawSprite(tree.assets.BackgroundDexInt, scrX, scrY, scale)
+	local backgroundArt = self.backgroundArtByClassId[build.spec.curClassId]
+	if backgroundArt then
+		local scrX, scrY = treeToScreen(backgroundArt.x, backgroundArt.y)
+		self:DrawSprite(backgroundArt, scrX, scrY, scale)
 	end
 
 	local function renderGroup(group, isExpansion)

@@ -182,23 +182,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				}
 			end
 		end
-	else
-		-- GGG stopped including these with 3.19, but we still want to render them
-		self.assets = {}
-        local backupBackgrounds = {
-            "BackgroundDex",
-            "BackgroundDexInt",
-            "BackgroundInt",
-            "BackgroundStr",
-            "BackgroundStrDex",
-            "BackgroundStrInt",
-        }
-        for _, name in pairs(backupBackgrounds) do
-            self.assets[name] = { }
-            self.assets[name].handle = NewImageHandle()
-            self.assets[name].handle:Load("TreeData/" .. name .. ".png")
-            self.assets[name].width, self.assets[name].height = self.assets[name].handle:ImageSize()
-        end
 	end
 
 	-- Load legion sprite sheets and build sprite map
