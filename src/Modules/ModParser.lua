@@ -2066,8 +2066,14 @@ local specialModList = {
 	["(%d+)%% chance to gain (%d+)%% of non%-chaos damage with hits as extra chaos damage"] = function(num, _, perc) return { mod("NonChaosDamageGainAsChaos", "BASE", num / 100 * tonumber(perc)) } end,
 	["movement skills cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Movement) },
 	["cannot be stunned while you have ghost shrouds"] = function(num) return { mod("AvoidStun", "BASE", 100, { type = "MultiplierThreshold", var = "GhostShroud", threshold = 1 }) } end,
-	["take (%d+)%% less damage from hits for %d+ seconds"] = function(num) return { mod("DamageTakenWhenHit", "MORE", -num, { type = "Condition", var = "HeartstopperHIT" }) } end,
-	["take (%d+)%% less damage over time for %d+ seconds"] = function(num) return { mod("DamageTakenOverTime", "MORE", -num, { type = "Condition", var = "HeartstopperDOT" }) } end,
+	["take (%d+)%% less damage from hits for (%d+) seconds"] = function(num, _, duration) return { 
+		mod("DamageTakenWhenHit", "MORE", -num, { type = "Condition", var = "HeartstopperHIT" }),
+		mod("DamageTakenWhenHit", "MORE", -num * tonumber(duration) / 10, { type = "Condition", var = "HeartstopperAVERAGE" })
+	} end,
+	["take (%d+)%% less damage over time for (%d+) seconds"] = function(num, _, duration) return { 
+		mod("DamageTakenOverTime", "MORE", -num, { type = "Condition", var = "HeartstopperDOT" }),
+		mod("DamageTakenOverTime", "MORE", -num * tonumber(duration) / 10, { type = "Condition", var = "HeartstopperAVERAGE" })
+	} end,
 	-- Item local modifiers
 	["has no sockets"] = { flag("NoSockets") },
 	["has (%d+) sockets?"] = function(num) return { mod("SocketCount", "BASE", num) } end,
