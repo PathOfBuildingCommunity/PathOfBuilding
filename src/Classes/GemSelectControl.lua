@@ -204,7 +204,9 @@ function GemSelectClass:UpdateSortCache()
 	end
 
 	if sortCache and (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes 
-		or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality or sortCache.characterLevel ~= self.skillsTab.build.characterLevel) then
+		or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality
+		or sortCache.defaultLevel ~= self.skillsTab.defaultGemLevel
+		or (sortCache.characterLevel ~= self.skillsTab.build.characterLevel and self.skillsTab.defaultGemLevel == "characterLevel")) then
 		self:PopulateGemList()
 	end
 
