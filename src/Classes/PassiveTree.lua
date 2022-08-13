@@ -406,10 +406,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				and node.ascendancyName == other.ascendancyName
 				and not node.isProxy and not other.isProxy
 				and not node.group.isProxy and not node.group.isProxy then
-					local connectors = self:BuildConnector(node, other)
-					t_insert(self.connectors, connectors[1])
-					if connectors[2] then
-						t_insert(self.connectors, connectors[2])
+					local connectors = self:BuildConnectors(node, other)
+					for _, connector in ipairs(connectors) do
+						t_insert(self.connectors, connector)
 					end
 			end
 		end
@@ -683,8 +682,8 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 	data.width, data.height = data.handle:ImageSize()
 end
 
--- Generate the quad used to render the line between the two given nodes
-function PassiveTreeClass:BuildConnector(node1, node2)
+-- Generate the quad(s) used to render the line between the two given nodes
+function PassiveTreeClass:BuildConnectors(node1, node2)
 	local connector = {
 		ascendancyName = node1.ascendancyName,
 		nodeId1 = node1.id,
