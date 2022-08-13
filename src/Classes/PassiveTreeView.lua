@@ -766,8 +766,9 @@ function PassiveTreeViewClass:DrawAsset(data, x, y, scale, isHalf, treeVersionNu
 			DrawImage(data.handle, x - width, y - height * 2, width * 2, height * 2)
 			DrawImage(data.handle, x - width, y, width * 2, height * 2, 0, 1, 1, 0)
 		else
-			DrawImage(data.handle, x - width, y - height * 2, width * 2, height * 2, unpack(data))
-			DrawImage(data.handle, x - width, y + height * 2, width * 2, height * -2, unpack(data))
+			local tcLeft, tcTop, tcRight, tcBottom = unpack(data)
+			DrawImage(data.handle, x - width, y - height * 2, width * 2, height * 2, tcLeft, tcTop, tcRight, tcBottom)
+			DrawImage(data.handle, x - width, y, width * 2, height * 2, tcLeft, tcBottom, tcRight, tcTop) -- top/bottom mirrored
 		end
 	else
 		DrawImage(data.handle, x - width, y - height, width * 2, height * 2, unpack(data))

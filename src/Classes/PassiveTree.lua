@@ -678,7 +678,7 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 
 	-- Generate a straight line
 	connector.type = "LineConnector"
-	local art = self.assets and self.assets.LineConnectorNormal or self.spriteMap.LineConnectorNormal.line
+	local art = self.assets.LineConnectorNormal
 	local vX, vY = node2.x - node1.x, node2.y - node1.y
 	local dist = m_sqrt(vX * vX + vY * vY)
 	local scale = art.height * 1.33 / dist
