@@ -1649,7 +1649,17 @@ local specialModList = {
 		mod("LifeRecovery", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num }, { type = "Condition", var = "FullLife", neg = true })
 	} end,
 	["you are blind"] = { flag("Condition:Blinded") },
-	["armour applies to fire, cold and lightning damage taken from hits instead of physical damage"] = { flag("ArmourAppliesToFireDamageTaken"), flag("ArmourAppliesToColdDamageTaken"), flag("ArmourAppliesToLightningDamageTaken"), flag("ArmourDoesNotApplyToPhysicalDamageTaken") },
+	["armour applies to fire, cold and lightning damage taken from hits instead of physical damage"] = { 
+		mod("ArmourAppliesToFireDamageTaken", "BASE", 100),
+		mod("ArmourAppliesToColdDamageTaken", "BASE", 100),
+		mod("ArmourAppliesToLightningDamageTaken", "BASE", 100),
+		flag("ArmourDoesNotApplyToPhysicalDamageTaken") 
+	},
+	["(%d+)%% armour applies to fire, cold and lightning damage taken from hits"] = function(num) return { 
+		mod("ArmourAppliesToFireDamageTaken", "BASE", num),
+		mod("ArmourAppliesToColdDamageTaken", "BASE", num),
+		mod("ArmourAppliesToLightningDamageTaken", "BASE", num),
+	} end,
 	["maximum damage reduction for any damage type is (%d+)%%"] = function(num) return { mod("DamageReductionMax", "OVERRIDE", num) } end,
 	["(%d+)%% of maximum mana is converted to twice that much armour"] = function(num) return {
 		mod("ManaConvertToArmour", "BASE", num),
@@ -1866,6 +1876,11 @@ local specialModList = {
 	["hits always ignite"] = { mod("EnemyIgniteChance", "BASE", 100) },
 	["your hits always shock"] = { mod("EnemyShockChance", "BASE", 100) },
 	["hits always shock"] = { mod("EnemyShockChance", "BASE", 100) },
+	["always freeze, shock and ignite"] = {
+		mod("EnemyFreezeChance", "BASE", 100),
+		mod("EnemyShockChance", "BASE", 100) ,
+		mod("EnemyIgniteChance", "BASE", 100),
+	},
 	["all damage with hits can ignite"] = {
 		flag("PhysicalCanIgnite"),
 		flag("ColdCanIgnite"),
@@ -2623,6 +2638,7 @@ local specialModList = {
 		mod("ExtraAura", "LIST", { mod = mod("Speed", "INC", num) }, { type = "Condition", var = "UsedWarcryRecently" }),
 		mod("ExtraAura", "LIST", { mod = mod("MovementSpeed", "INC", num) }, { type = "Condition", var = "UsedWarcryRecently" }),
 	} end,
+	["(%d+)%% increased movement speed while on full life"] = function(num) return { mod("MovementSpeed", "INC", num, { type = "Condition", var = "FullLife" }) } end,
 	["when you warcry, you and nearby allies gain onslaught for 4 seconds"] = { mod("ExtraAura", "LIST", { mod = flag("Onslaught") }, { type = "Condition", var = "UsedWarcryRecently" }) },
 	["enemies in your chilling areas take (%d+)%% increased lightning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("LightningDamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "InChillingArea" }) } end,
 	["(%d+)%% chance to sap enemies in chilling areas"] = function(num) return { mod("EnemySapChance", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "InChillingArea" } ) } end,
@@ -2781,6 +2797,40 @@ local specialModList = {
 	["s?u?m?m?o?n?e?d? ?raging spirits' hits always ignite"] = { mod("MinionModifier", "LIST", { mod = mod("EnemyIgniteChance", "BASE", 100) }, { type = "SkillName", skillName = "Summon Raging Spirit" }) },
 	["raised zombies have avatar of fire"] = { mod("MinionModifier", "LIST", { mod = mod("Keystone", "LIST", "Avatar of Fire") }, { type = "SkillName", skillName = "Raise Zombie" }) },
 	["raised zombies take ([%d%.]+)%% of their maximum life per second as fire damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("FireDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }) }, { type = "SkillName", skillName = "Raise Zombie" }) } end,
+	["minions deal no non%-physical damage"] = {
+		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
+	},
+	["minions deal no non%-lightning damage"] = {
+		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoLCold") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
+	},
+	["minions deal no non%-cold damage"] = {
+		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
+	},
+	["minions deal no non%-fire damage"] = {
+		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
+	},
+	["minions deal no non%-chaos damage"] = {
+		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
+	},
+	["minions convert (%d+)%% of physical damage to lightning damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToLightning", "BASE", num) }) } end,
+	["minions convert (%d+)%% of physical damage to cold damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToCold", "BASE", num) }) } end,
+	["minions convert (%d+)%% of physical damage to fire damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToFire", "BASE", num) }) } end,
+	["minions convert (%d+)%% of physical damage to chaos damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToChaos", "BASE", num) }) } end,
 	["summoned skeletons have avatar of fire"] = { mod("MinionModifier", "LIST", { mod = mod("Keystone", "LIST", "Avatar of Fire") }, { type = "SkillName", skillName = "Summon Skeleton" }) },
 	["summoned skeletons take ([%d%.]+)%% of their maximum life per second as fire damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("FireDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }) }, { type = "SkillName", skillName = "Summon Skeleton" }) } end,
 	["summoned skeletons have (%d+)%% chance to wither enemies for (%d+) seconds on hit"] = { mod("ExtraSkillMod", "LIST", { mod = flag("Condition:CanWither") }, { type = "SkillName", skillName = "Summon Skeleton" } ) },
@@ -2846,6 +2896,7 @@ local specialModList = {
 	["projectiles pierce (%d+) additional targets while you have phasing"] = function(num) return { mod("PierceCount", "BASE", num, { type = "Condition", var = "Phasing" }) } end,
 	["projectiles pierce all targets while you have phasing"] = { flag("PierceAllTargets", { type = "Condition", var = "Phasing" }) },
 	["arrows pierce an additional target"] = { mod("PierceCount", "BASE", 1, nil, ModFlag.Attack) },
+	["arrows pierce (%d+) additional targets"] = function(num) return { mod("PierceCount", "BASE", num, nil, ModFlag.Attack) } end,
 	["arrows pierce one target"] = { mod("PierceCount", "BASE", 1, nil, ModFlag.Attack) },
 	["arrows pierce (%d+) targets?"] = function(num) return { mod("PierceCount", "BASE", num, nil, ModFlag.Attack) } end,
 	["always pierce with arrows"] = { flag("PierceAllTargets", nil, ModFlag.Attack) },
@@ -3045,7 +3096,7 @@ local specialModList = {
 	["immune to curses while you have at least (%d+) rage"] = function(num) return { mod("AvoidCurse", "BASE", 100, { type = "MultiplierThreshold", var = "Rage", threshold = num }) } end,
 	["the effect of chill on you is reversed"] = { flag("SelfChillEffectIsReversed") },
 	["your movement speed is (%d+)%% of its base value"] = function(num) return { mod("MovementSpeed", "OVERRIDE", num / 100) } end,
-	["armour also applies to lightning damage taken from hits"] = { flag("ArmourAppliesToLightningDamageTaken") },
+	["armour also applies to lightning damage taken from hits"] = { mod("ArmourAppliesToLightningDamageTaken", "BASE", 100), },
 	["lightning resistance does not affect lightning damage taken"] = { flag("SelfIgnoreLightningResistance") },
 	["(%d+)%% increased maximum life and reduced fire resistance"] = function(num) return {
 		mod("Life", "INC", num),
@@ -3077,6 +3128,7 @@ local specialModList = {
 	["critical strikes have culling strike"] = { mod("CriticalCullPercent", "MAX", 10) },
 	["your critical strikes have culling strike"] = { mod("CriticalCullPercent", "MAX", 10) },
 	["your spells have culling strike"] = { mod("CullPercent", "MAX", 10, nil, ModFlag.Spell) },
+	["bow attacks have culling strike"] = { mod("CullPercent", "MAX", 10, nil, bor(ModFlag.Attack, ModFlag.Bow)) },
 	["culling strike against burning enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Burning" }) },
 	["culling strike against marked enemy"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Marked" }) },
 	-- Intimidate
@@ -3206,6 +3258,11 @@ local specialModList = {
 	["added small passive skills have (%d+)%% increased effect"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelIncEffect", value = num }) } end,
 	["this jewel's socket has (%d+)%% increased effect per allocated passive skill between it and your class' starting location"] = function(num) return { mod("JewelData", "LIST", { key = "jewelIncEffectFromClassStart", value = num }) } end,
 	-- Misc
+	["your minimum frenzy, endurance and power charges are equal to your maximum while you are stationary"] = {
+		flag("MinimumFrenzyChargesIsMaximumFrenzyCharges", {type = "Condition", var = "Stationary"}), 
+		flag("MinimumEnduranceChargesIsMaximumEnduranceCharges", {type = "Condition", var = "Stationary"}), 
+		flag("MinimumPowerChargesIsMaximumPowerCharges", {type = "Condition", var = "Stationary"}), 
+	},
 	["leftmost (%d+) magic utility flasks constantly apply their flask effects to you"] = function(num) return { mod("ActiveMagicUtilityFlasks", "BASE", num) } end,
 	["marauder: melee skills have (%d+)%% increased area of effect"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "Condition", var = "ConnectedToMarauderStart" }, { type = "SkillType", skillType = SkillType.Melee }) } end,
 	["intelligence provides no inherent bonus to energy shield"] = { flag("NoIntBonusToES") },

@@ -455,40 +455,47 @@ Void Sceptre
 Variant: Pre 1.2.0
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 68, 104 Str, 122 Int
 Implicits: 2
 {variant:1,2}15% increased Elemental Damage
-{variant:3,4}40% increased Elemental Damage
+{variant:3,4,5}40% increased Elemental Damage
 50% reduced maximum number of Raised Zombies
 {variant:1}Raised Zombies have +500 to maximum Life
 {variant:2,3}Raised Zombies have +2000 to maximum Life
-{variant:4}Raised Zombies have +5000 to maximum Life
+{variant:4,5}Raised Zombies have +5000 to maximum Life
 Raised Zombies have +(25-30)% to all Resistances
 25% increased Zombie Size
-Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage
+{variant:1,2,3,4}Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage
+{variant:5}Enemies killed by Zombies explode dealing 50% of their Maximum Life as Fire Damage
 {variant:1,2,3}Raised Zombies deal (80-100)% increased Physical Damage
 {variant:4}Raised Zombies deal (80-100)% more Physical Damage
+{variant:5}Raised Zombies deal (100-125)% more Physical Damage
 ]],[[
 Nycta's Lantern
 Crystal Sceptre
 Variant: Pre 2.0.0
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 41, 59 Str, 85 Int
 Implicits: 2
 {variant:1,2}20% increased Elemental Damage
-{variant:3,4}30% increased Elemental Damage
+{variant:3,4,5}30% increased Elemental Damage
 {variant:4}+2 to Level of Socketed Fire Gems
 {variant:1,2,3}Socketed Gems are Supported by level 10 Added Fire Damage
 {variant:1,2,3}Socketed Gems are Supported by level 10 Cold to Fire
-Socketed Gems are Supported by level 10 Fire Penetration
+{variant:1,2,3,4}Socketed Gems are Supported by level 10 Fire Penetration
 {variant:4}Socketed Gems deal 63 to 94 additional Fire Damage
-(20-30)% increased Spell Damage
-{variant:2,3,4}(150-200)% increased Physical Damage
-+(6-10) Life gained for each Enemy hit by Attacks
-25% increased Light Radius
+{variant:1,2,3,4}(20-30)% increased Spell Damage
+{variant:2,3,4,5}(150-200)% increased Physical Damage
+{variant:5}Adds (76-98) to (161-176) Fire Damage
+{variant:1,2,3,4}+(6-10) Life gained for each Enemy hit by Attacks
+{variant:1,2,3,4}25% increased Light Radius
+{variant:5}50% increased Light Radius
+{variant:5}Battlemage
 ]],[[
 Sign of the Sin Eater
 Tyrant's Sekhem
@@ -504,16 +511,19 @@ Enemies inflict Elemental Ailments on you instead of nearby Allies
 Singularity
 Platinum Sceptre
 Variant: Pre 2.3.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2}30% increased Elemental Damage
-Adds (30-40) to (60-70) Lightning Damage to Spells
+{variant:2,3}30% increased Elemental Damage
+{variant:1,2}Adds (30-40) to (60-70) Lightning Damage to Spells
+{variant:3}Adds (1-10) to (150-200) Lightning Damage to Spells
 (14-18)% increased Cast Speed
 (6-8)% reduced Mana Cost of Skills
 Nearby Enemies are Hindered, with 25% reduced Movement Speed
-(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
+{variant:1,2}(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
+{variant:3}100% increased Damage with Hits and Ailments against Hindered Enemies
 ]],[[
 Spine of the First Claimant
 Iron Sceptre

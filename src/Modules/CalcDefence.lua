@@ -62,7 +62,7 @@ function calcs.defence(env, actor)
 	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
 	output.PhysicalDamageReduction = m_min(m_max(0, modDB:Sum("BASE", nil, "PhysicalDamageReduction")), output.DamageReductionMax)
 	output.PhysicalDamageReductionwhenHit = m_min(m_max(0, output.PhysicalDamageReduction + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit")), output.DamageReductionMax)
-	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "FLAG", true)
+	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "BASE", 100)
 	output["PhysicalResist"] = 0
 
 	-- Highest Maximum Elemental Resistance for Melding of the Flesh
@@ -1129,6 +1129,7 @@ function calcs.defence(env, actor)
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 		local damage = output[damageType.."TakenDamage"]
 		local armourReduct = 0
+		local percentOfArmourApplies = m_min((not modDB:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and modDB:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
 		local resMult = 1 - (resist - enemyPen) / 100
 		local reductMult = 1
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
@@ -1136,8 +1137,8 @@ function calcs.defence(env, actor)
 		elseif damageCategoryConfig == "Average" then
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2
 		end
-		if (modDB:Flag(nil, "ArmourAppliesTo"..damageType.."DamageTaken")) and not modDB:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") then
-			armourReduct = calcs.armourReduction(output.Armour * (1 + output.ArmourDefense), damage * resMult)
+		if percentOfArmourApplies > 0 then
+			armourReduct = calcs.armourReduction((output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense), damage * resMult)
 			armourReduct = m_min(output.DamageReductionMax, armourReduct)
 		end
 		reductMult = (1 - m_max(m_min(output.DamageReductionMax, armourReduct + reduction - enemyOverwhelm), 0) / 100)
@@ -1149,6 +1150,9 @@ function calcs.defence(env, actor)
 					t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage After Resistance: %d ^8(total incoming damage)", damage * resMult))
 				else
 					t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage))
+				end
+				if percentOfArmourApplies ~= 100 then
+					t_insert(breakdown[damageType.."DamageReduction"], s_format("%d%% percent of armour applies", percentOfArmourApplies))
 				end
 				t_insert(breakdown[damageType.."DamageReduction"], s_format("Reduction from Armour: %d%%", armourReduct))
 			end
@@ -1199,6 +1203,9 @@ function calcs.defence(env, actor)
 					t_insert(breakdown[damageType.."TakenHitMult"], s_format("Enemy Hit Damage After Resistance: %d ^8(total incoming damage)", damage * resMult))
 				else
 					t_insert(breakdown[damageType.."TakenHitMult"], s_format("Enemy Hit Damage: %d ^8(total incoming damage)", damage))
+				end
+				if percentOfArmourApplies ~= 100 then
+					t_insert(breakdown[damageType.."TakenHitMult"], s_format("%d%% percent of armour applies", percentOfArmourApplies))
 				end
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("Reduction from Armour: %.2f", 1 - armourReduct / 100))
 			end

@@ -107,12 +107,18 @@ Unaffected by Burning Ground
 ]],[[
 Stormcharger
 Plated Greaves
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level: 23, 44 Str
 +(1-50)% to Lightning Resistance 
-20% increased Movement Speed
-30% of Physical Damage Converted to Lightning Damage
-50% increased Duration of Lightning Ailments
-(15-25)% increased Effect of Lightning Ailments
+{variant:1}20% increased Movement Speed
+{variant:2}(1-40)% increased Movement Speed
+{variant:1}30% of Physical Damage Converted to Lightning Damage
+{variant:2}Unaffected by Shocked Ground
+{variant:1}50% increased Duration of Lightning Ailments
+{variant:2}(1-100)% increased Duration of Lightning Ailments
+{variant:1}(15-25)% increased Effect of Lightning Ailments
+{variant:2}(1-50)% increased Effect of Lightning Ailments
 ]],[[
 Torchoak Step
 Antique Greaves
@@ -130,14 +136,17 @@ Requires Level 37, 67 Str
 Windscream
 Reinforced Greaves
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 33, 60 Str
 (50-80)% increased Armour
 +(10-15)% to all Elemental Resistances
 {variant:1}10% increased Movement Speed
 {variant:2}15% increased Movement Speed
+{variant:3}20% increased Movement Speed
 {variant:1}10% increased Elemental Damage
 {variant:2}(10-20)% increased Elemental Damage
+{variant:3}50% increased Area of Effect of Hex Skills
 Enemies can have 1 additional Curse
 ]],[[
 Windshriek
@@ -336,15 +345,19 @@ Requires Level 55, 97 Dex
 Victario's Flight
 Goathide Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 12, 26 Dex
 +15 to Dexterity
 +15 to Intelligence
 (100-150)% increased Evasion Rating
 {variant:1}30% increased Movement Speed when on Low Life
+{variant:3}(10-20)% increased Movement Speed when on Low Life
+{variant:3}Quicksilver Flasks you Use also apply to nearby Allies
 {variant:2}15% increased Movement Speed
+{variant:3}(10-20)% increased Movement Speed
 {variant:2}You and nearby allies have 10% increased Movement Speed
-(5-10)% of Damage taken Recouped as Mana
+{variant:1,2}(5-10)% of Damage taken Recouped as Mana
 ]],
 -- Boots: Energy Shield
 [[
@@ -433,34 +446,38 @@ Variant: Pre 1.0.0
 Variant: Pre 1.1.0
 Variant: Pre 2.6.0
 Variant: Pre 3.4.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 53, 94 Int
 {variant:1,2,3,4}(6-7)% Chance to Block Spell Damage
 {variant:5}(4-6)% Chance to Block Spell Damage
+{variant:6}(15-20)% Chance to Block Spell Damage
 {variant:1,2}+(80-100) to maximum Mana
-{variant:3,4,5}+(40-60) to maximum Mana
+{variant:3,4,5,6}+(40-60) to maximum Mana
 {variant:1,2}(150-200)% increased Energy Shield
 {variant:3,4,5}(140-180)% increased Energy Shield
-{variant:1,3,4,5}+20% to all Elemental Resistances
+{variant:1,3,4,5,6}+20% to all Elemental Resistances
 {variant:2}+8% to all Elemental Resistances
-{variant:1,2,3}20% increased Movement Speed
+{variant:1,2,3,6}20% increased Movement Speed
 {variant:4,5}25% increased Movement Speed
 ]],[[
 Shavronne's Pace
 Scholar Boots
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 32, 54 Int
-+10 to Dexterity
+{variant:1,2,3}+10 to Dexterity
 {variant:1}+10 to Intelligence
-{variant:2,3}+(20-30) to Intelligence
+{variant:2,3,4}+(20-30) to Intelligence
 {variant:1}(50-70)% increased Energy Shield
-{variant:2,3}(100-140)% increased Energy Shield
-{variant:3}15% increased Movement Speed
+{variant:2,3,4}(100-140)% increased Energy Shield
+{variant:3,4}15% increased Movement Speed
 {variant:1,2}35% increased Movement Speed when on Full Life
-{variant:3}20% increased Movement Speed when on Full Life
-(10-15)% increased Stun Recovery
+{variant:3,4}20% increased Movement Speed when on Full Life
+{variant:1,2,3}(10-15)% increased Stun Recovery
+{variant:4}(150-200)% increased Stun Recovery
 ]],[[
 Shavronne's Gambit
 Scholar Boots
@@ -515,15 +532,21 @@ Cannot be Frozen
 Wondertrap
 Velvet Slippers
 Variant: Pre 1.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 9, 21 Int
-+(5-10) to Strength
-+(5-10) to Dexterity
-+(5-10) to Intelligence
-+(10-16) to maximum Energy Shield
+{variant:1,2}+(5-10) to Strength
+{variant:3}+(5-30) to Strength
+{variant:1,2}+(5-10) to Dexterity
+{variant:3}+(5-30) to Dexterity
+{variant:1,2}+(5-10) to Intelligence
+{variant:3}+(5-30) to Intelligence
+{variant:1,2}+(10-16) to maximum Energy Shield
+{variant:3}+(5-30) to maximum Energy Shield
 100% increased Rarity of Items found when on Low Life
 {variant:1}15% increased Movement Speed
 {variant:2}10% increased Movement Speed
+{variant:3}(10-25)% increased Movement Speed
 ]],[[
 Greedtrap
 Velvet Slippers
@@ -579,16 +602,20 @@ Requires Level 65, 62 Str, 62 Dex
 Dusktoe
 Ironscale Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 18, 19 Str, 19 Dex
-(40-60)% increased Armour and Evasion
+{variant:1,2}(40-60)% increased Armour and Evasion
+{variant:3}(60-100)% increased Armour and Evasion
 {variant:1}+(10-20) to maximum Life
 {variant:2}+(20-30) to maximum Life
 {variant:1}+(10-20) to maximum Mana
-15% increased Movement Speed
-50% increased Stun Recovery
+{variant:1,2}15% increased Movement Speed
+{variant:3}20% increased Movement Speed
+{variant:1,2}50% increased Stun and Block Recovery
 20% reduced Light Radius
 {variant:2}Adds (15-20) to (25-30) Chaos Damage to Spells and Attacks while using a Flask
+{variant:3}Adds (30-40) to (50-60) Chaos Damage to Spells and Attacks while using a Flask
 +50% to Chaos Resistance while using a Flask
 ]],[[
 Dusktoe
@@ -751,11 +778,15 @@ Socketed Gems are Supported by Level 25 Divine Blessing
 ]],[[
 Ralakesh's Impatience
 Riveted Boots
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Cold Resistance 
 +(15-25)% to Chaos Resistance 
-20% increased Movement Speed 
-Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary 
+{variant:1}20% increased Movement Speed 
+{variant:2}30% increased Movement Speed 
+{variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary 
+{variant:2}Your minimum Frenzy, Endurance and Power Charges are equal to your maximum while you are Stationary
 Lose all Frenzy, Endurance, and Power Charges when you Move
 ]],[[
 Wake of Destruction

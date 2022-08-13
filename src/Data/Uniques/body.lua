@@ -257,14 +257,18 @@ Your Hexes can affect Hexproof Enemies
 Foxshade
 Wild Leather
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
 +(20-30) to Dexterity
-Adds 5 to 12 Physical Damage to Attacks
+{variant:1,2}Adds 5 to 12 Physical Damage to Attacks
 {variant:1}You gain 150 Evasion Rating when on Full Life
-{variant:2}You gain 500 Evasion Rating when on Full Life
+{variant:2}+500 to Evasion Rating while on Full Life
+{variant:3}+1000 to Evasion Rating while on Full Life
 (50-70)% increased Evasion Rating
-10% increased Movement Speed
+{variant:1,2}10% increased Movement Speed
+{variant:3}30% increased Movement Speed while on Full Life
+{variant:3}Damage of Enemies hitting you is Unlucky while you are on Full Life
 ]],[[
 Fox's Fortune
 Wild Leather
@@ -301,12 +305,17 @@ Implicits: 0
 ]],[[
 Kintsugi
 Exquisite Leather
+Variant: Pre 3.19.0
+Variant: Current
 Implicits: 0
-(100-120)% increased Evasion Rating
-+(60-80) to maximum Life
+{variant:1}(100-120)% increased Evasion Rating
+{variant:2}(120-160)% increased Evasion Rating
+{variant:1}+(60-80) to maximum Life
 +30% to Fire Resistance
-20% less Damage taken if you have not been Hit Recently
-50% increased Evasion if you have been Hit Recently
+{variant:1}20% less Damage taken if you have not been Hit Recently
+{variant:2}35% less Damage taken if you have not been Hit Recently
+{variant:1}50% increased Evasion if you have been Hit Recently
+{variant:2}100% increased Evasion if you have been Hit Recently
 ]],[[
 Queen of the Forest
 Destiny Leather
@@ -327,15 +336,18 @@ The Rat Cage
 Sharkskin Tunic
 League: Torment
 Variant: Pre 2.6.0
+Variant: 3.19.0
 Variant: Current
 Implicits: 0
 (100-120)% increased Evasion Rating
-+(160-200) to maximum Life
+{variant:1,2}+(160-200) to maximum Life
+{variant:3}+(200-300) to maximum Life
 {variant:1}−5% to maximum Fire Resistance
 {variant:2}-50% to Fire Resistance
 15% increased Movement Speed
-20% increased Fire Damage taken
-10% of Fire Damage from Hits taken as Physical Damage
+{variant:1,2}20% increased Fire Damage taken
+{variant:1,2}10% of Fire Damage from Hits taken as Physical Damage
+{variant:3}100% of Fire Damage from Hits taken as Physical Damage
 ]],[[
 The Snowblind Grace
 Coronal Leather
@@ -541,15 +553,17 @@ Infernal Mantle
 Widowsilk Robe
 Variant: Pre 3.0.0
 Variant: Pre 3.14.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
-+1 to Level of Socketed Fire Gems
-(25-35)% increased Fire Damage
+{variant:1,2,3}+1 to Level of Socketed Fire Gems
+{variant:4}+3 to Level of Socketed Fire Gems
+{variant:1,2,3}(25-35)% increased Fire Damage
 100% increased Global Critical Strike Chance
 {variant:1}(190-230)% increased Energy Shield
-{variant:2,3}(120-160)% increased Energy Shield
+{variant:2,3,4}(120-160)% increased Energy Shield
 15% of Fire Damage Converted to Chaos Damage
-{variant:1}100% increased Spell Damage taken when on Low Mana
+{variant:1,4}100% increased Spell Damage taken when on Low Mana
 {variant:2}25% increased Spell Damage taken when on Low Mana
 {variant:3}15% increased Spell Damage taken when on Low Mana
 ]],[[
@@ -615,19 +629,30 @@ Sockets: W-W-W-W-W-W
 Thousand Ribbons
 Simple Robe
 Variant: Pre 3.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Socketed Gems are Supported by Level 5 Elemental Proliferation
-Adds 2 to 3 Fire Damage to Spells and Attacks
-Adds 2 to 3 Cold Damage to Spells and Attacks
-Adds 1 to 4 Lightning Damage to Spells and Attacks
+{variant:1,2}Adds 2 to 3 Fire Damage to Spells and Attacks
+{variant:3}Adds (2-4) to (5-9) Fire Damage to Spells and Attacks
+{variant:1,2}Adds 2 to 3 Cold Damage to Spells and Attacks
+{variant:3}Adds (2-4) to (5-9) Cold Damage to Spells and Attacks
+{variant:1,2}Adds 1 to 4 Lightning Damage to Spells and Attacks
+{variant:3}Adds 1 to (4-12) Lightning Damage to Spells and Attacks
 {variant:1}10% reduced Cast Speed
-+(10-20) to Evasion Rating
-+(10-20) to maximum Energy Shield
-+6 to maximum Life
-+6 to maximum Mana
-+(5-10)% to Fire Resistance
-+(5-10)% to Cold Resistance
-+(5-10)% to Lightning Resistance
+{variant:1,2}+(10-20) to Evasion Rating
+{variant:3}+(30-60) to Evasion Rating
+{variant:1,2}+(10-20) to maximum Energy Shield
+{variant:3}+(30-60) to maximum Energy Shield
+{variant:1,2}+6 to maximum Life
+{variant:3}+(25-50) to maximum Life
+{variant:1,2}+6 to maximum Mana
+{variant:3}+(25-50) to maximum Mana
+{variant:1,2}+(5-10)% to Fire Resistance
+{variant:3}+(15-30)% to Fire Resistance
+{variant:1,2}+(5-10)% to Cold Resistance
+{variant:3}+(15-30)% to Cold Resistance
+{variant:1,2}+(5-10)% to Lightning Resistance
+{variant:3}+(15-30)% to Lightning Resistance
 ]],[[
 Vis Mortis
 Necromancer Silks
@@ -732,15 +757,19 @@ You have Onslaught while you have Cat's Agility
 Gruthkul's Pelt
 Wyrmscale Doublet
 Variant: Pre 3.5.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
 {variant:1}(60-100)% increased Global Physical Damage
-{variant:2}100% increased Global Physical Damage
+{variant:2,3}100% increased Global Physical Damage
+{variant:3}(300-400)% increased Armour and Evasion Rating
 {variant:1}+(130-160) to maximum Life
 {variant:2}+(200-240) to maximum Life
-+(20-40)% to Cold Resistance
+{variant:3}+(240-300) to maximum Life
+{variant:1,2}+(20-40)% to Cold Resistance
 {variant:1}2% of Life Regenerated per second
 {variant:2}5% of Life Regenerated per second
+{variant:3}10% of Life Regenerated per second
 15% increased Character Size
 Spell Skills deal no Damage
 Your Spells are disabled
@@ -748,6 +777,7 @@ Your Spells are disabled
 Lightning Coil
 Desert Brigandine
 Variant: Pre 1.3.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
 Adds 1 to (20-30) Lightning Damage to Attacks
@@ -756,6 +786,7 @@ Adds 1 to (20-30) Lightning Damage to Attacks
 −60% to Lightning Resistance
 {variant:1}40% of Physical Damage from Hits taken as Lightning Damage
 {variant:2}30% of Physical Damage from Hits taken as Lightning Damage
+{variant:3}50% of Physical Damage from Hits taken as Lightning Damage
 ]],[[
 Viper's Scales
 Full Scale Armour
@@ -840,16 +871,18 @@ Zealot's Oath
 Icetomb
 Latticed Ringmail
 Variant: Pre 2.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
 {variant:1}+15 to Strength
-{variant:2}+(30-40) to Strength
+{variant:2,3}+(30-40) to Strength
 {variant:1}+15 to Intelligence
-{variant:2}+(30-40) to Intelligence
+{variant:2,3}+(30-40) to Intelligence
 (140-160)% increased Armour and Energy Shield
 +(50-75)% to Cold Resistance
 Cannot be Chilled
-150% increased Chill Duration on Enemies
+{variant:1,2}150% increased Chill Duration on Enemies
+{variant:3}20% chance to Freeze Enemies for 1 second when Hit
 ]],[[
 Crystal Vault
 Latticed Ringmail
@@ -1093,17 +1126,21 @@ Unaffected by Shock
 The Restless Ward
 Carnal Armour
 Variant: Pre 2.6.0
+Variant: Pre.3.19.0
 Variant: Current
 Implicits: 1
 +(20-25) to maximum Mana
 {variant:1}(120-150)% increased Evasion and Energy Shield
-{variant:2}(220-250)% increased Evasion and Energy Shield
+{variant:2,3}(220-250)% increased Evasion and Energy Shield
 {variant:1}+(40-60) to maximum Life
-{variant:2}+(60-80) to maximum Life
-1% increased Movement Speed per Frenzy Charge
+{variant:2,3}+(60-80) to maximum Life
+{variant:1,2}1% increased Movement Speed per Frenzy Charge
+{variant:3}4% increased Movement Speed per Frenzy Charge
 {variant:1}Regenerate (15.0-20.0) Life per second per Endurance Charge
 {variant:2}Regenerate (20.0-30.0) Life per second per Endurance Charge
-100% increased Endurance, Frenzy and Power Charge Duration
+{variant:3}Regenerate 75 Life per second per Endurance Charge
+{variant:1,2}100% increased Endurance, Frenzy and Power Charge Duration
+{variant:3}(100-200)% increased Endurance, Frenzy and Power Charge Duration
 ]],[[
 Replica Restless Ward
 Carnal Armour
