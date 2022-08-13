@@ -1086,8 +1086,8 @@ Implicits: 1
 {variant:4}{tags:caster,speed}(10-15)% increased Cast Speed
 {variant:1}{tags:mana}15% reduced Mana Regeneration Rate
 {variant:2,3}{tags:mana}15% increased Mana Regeneration Rate
-{variant:4}{tags:ressource,life}(6-12)% of Damage Taken Recouped as Life
-{variant:4}{tags:ressource,mana}(6-12)% of Damage Taken Recouped as Mana
+{variant:4}{tags:resource,life}(6-12)% of Damage Taken Recouped as Life
+{variant:4}{tags:resource,mana}(6-12)% of Damage Taken Recouped as Mana
 {variant:1}{tags:jewellery_defense}+(10-25) to maximum Energy Shield
 {variant:2}{tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {variant:3}{tags:jewellery_defense}+(40-45) to maximum Energy Shield
