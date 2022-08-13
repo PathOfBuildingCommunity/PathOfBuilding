@@ -1009,6 +1009,7 @@ local modTagList = {
 	["per level"] = { tag = { type = "Multiplier", var = "Level" } },
 	["per (%d+) player levels"] = function(num) return { tag = { type = "Multiplier", var = "Level", div = num } } end,
 	["per defiance"] = { tag = { type = "Multiplier", var = "Defiance" } },
+	["per (%d+)%% (%a+) effect on enemy"] = function(num, _, effectName) return { tag = { type = "Multiplier", var = firstToUpper(effectName) .. "Effect", div = num, actor = "enemy" } } end,
 	["for each equipped normal item"] = { tag = { type = "Multiplier", var = "NormalItem" } },
 	["for each normal item equipped"] = { tag = { type = "Multiplier", var = "NormalItem" } },
 	["for each normal item you have equipped"] = { tag = { type = "Multiplier", var = "NormalItem" } },
