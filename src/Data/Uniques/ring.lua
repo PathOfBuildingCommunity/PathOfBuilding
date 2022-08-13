@@ -1320,5 +1320,19 @@ Implicits: 1
 30% chance to Avoid being Stunned
 {tags:speed}20% less Attack Speed
 Strike Skills also target the previous location they were Used
+]],[[
+Call of the Void
+Sapphire Ring
+Source: Drops from unique{Uber Elder}
+Shaper Item
+Elder Item
+Requires Level 16
+Implicits: 1
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+All Damage with Hits can Chill
+All Damage Taken from Hits can Chill you
+Enemies Chilled by your Hits can be Shattered as though Frozen
+Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect
 ]],
 }
