@@ -148,6 +148,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 		for name, coords in pairs(maxZoom.coords) do
 			self.spriteMap[type][name] = {
+				debugId = type.."."..name,
 				handle = sheet.handle,
 				width = coords.w,
 				height = coords.h,
@@ -393,6 +394,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	-- Pregenerate the polygons for the node connector lines
+	self:PregenerateOrbitConnectorArcs()
 	self.connectors = { }
 	for _, node in pairs(self.nodes) do
 		for _, otherId in pairs(node.out or {}) do
@@ -682,106 +684,137 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 	data.width, data.height = data.handle:ImageSize()
 end
 
+function prettyPrintSprite(sprite)
+	if sprite.debugId then
+		ConPrintf("[sprite %s w=%d h=%d tc=%f,%f,%f,%f]", sprite.debugId, sprite.width, sprite.height, unpack(sprite))
+	else
+		ConPrintf("[sprite w=%d h=%d tc=%f,%f,%f,%f]", sprite.width, sprite.height, unpack(sprite))
+	end
+end
+
+function PassiveTreeClass:PregenerateOrbitConnectorArcs()
+	-- We render arc connectors by cutting the arc up into segments corresponding to
+	-- orbit oidx angles and rendering one quad (representing a segment of the arc) per
+	-- oidx that falls within the arc.
+	--
+	-- This function pregenerates those those quads and their mappings to the associated
+	-- sprite for each combination of orbit and connector state.
+	self.orbitConnectorArcs = {}
+	for orbit, radius in ipairs(self.orbitRadii) do
+		if self.skillsPerOrbit[orbit] < 2 then goto continue end
+
+		self.orbitConnectorArcs[orbit] = {}
+		for _, state in ipairs({ "Active", "Intermediate", "Normal" }) do
+			local spriteName = "Orbit"..(orbit - 1)..state
+			local sprite = self.spriteMap.line[spriteName]
+			local angles = self.orbitAnglesByOrbit[orbit]
+
+			-- We need to be careful about what parts of the sprite we use because (at least
+			-- in 3.19+), the different orbits' sprites overlap one another (the arcs on the
+			-- sprite sheet have the same center but different radii).
+			local arcThickness = self.spriteMap.line["LineConnector"..state].height
+			local treeRelativeArcThickness = arcThickness -- TODO research this
+			local tcCenterX, tcCenterY = sprite[3], sprite[4] -- bottom-right of sprite
+			-- Be careful - the arc sprites are squares, but their sprite sheets aren't, so
+			-- in sprite texture coordinates, tcWidth ~= tcHeight
+			local tcWidth = sprite[3] - sprite[1]
+			local tcHeight = sprite[4] - sprite[2]
+			local tcWidthRelativeArcThickness = (tcWidth / sprite.width) * arcThickness
+			local tcHeightRelativeArcThickness = (tcHeight / sprite.height) * arcThickness
+			local segments = {}
+			for oidx, angle in ipairs(angles) do
+				local nextAngle = angles[(oidx % #angles) + 1]
+				-- The arc textures only span 90 degrees, so we need to clamp angles used for
+				-- texture coordinate calculation to that specific 90 degree quadrant. This has
+				-- the effect of rotating the texture to handle other quadrants of the arc, which
+				-- isn't quite correct - the arc sprite isn't rotationally tileable, so futher
+				-- down there's a correction that mirrors every other quadrant to make it looks
+				-- seamless.
+				local tcClampedAngle = angle % (m_pi / 2) + m_pi
+				-- We do this instead of nextAngle % (m_pi / 2) to avoid issues if the
+				-- next angle is at the boundary of the sprite's quadrant. This calculation
+				-- assumes that orbit angles will always include values at exactly 90 angles.
+				local tcClampedNextAngle = nextAngle + (angle - tcClampedAngle)
+				-- assert(tcClampedNextAngle <= m_pi / 2, "tcClampedNextAngle out of bounds")
+				local segment = {
+					treeQuad = {
+						[1] = m_sin(angle) * (radius + treeRelativeArcThickness / 2),
+						[2] = m_cos(angle) * (radius + treeRelativeArcThickness / 2),
+						[3] = m_sin(angle) * (radius - treeRelativeArcThickness / 2),
+						[4] = m_cos(angle) * (radius - treeRelativeArcThickness / 2),
+						[5] = m_sin(nextAngle) * (radius + treeRelativeArcThickness / 2),
+						[6] = m_cos(nextAngle) * (radius + treeRelativeArcThickness / 2),
+						[7] = m_sin(nextAngle) * (radius - treeRelativeArcThickness / 2),
+						[8] = m_cos(nextAngle) * (radius - treeRelativeArcThickness / 2)
+					},
+					tcQuad = {
+						[1] = tcCenterX + m_sin(tcClampedAngle) * (tcWidth),
+						[2] = tcCenterY + m_cos(tcClampedAngle) * (tcHeight),
+						[3] = tcCenterX + m_sin(tcClampedAngle) * (tcWidth - tcWidthRelativeArcThickness),
+						[4] = tcCenterY + m_cos(tcClampedAngle) * (tcHeight - tcHeightRelativeArcThickness),
+						[5] = tcCenterX + m_sin(tcClampedNextAngle) * (tcWidth),
+						[6] = tcCenterY + m_cos(tcClampedNextAngle) * (tcHeight),
+						[7] = tcCenterX + m_sin(tcClampedNextAngle) * (tcWidth - tcWidthRelativeArcThickness),
+						[8] = tcCenterY + m_cos(tcClampedNextAngle) * (tcHeight - tcHeightRelativeArcThickness)
+					}
+				}
+				-- TODO: mirror 2 of the 4 quadrants
+				t_insert(segments, segment)
+			end
+			self.orbitConnectorArcs[orbit][state] = {
+				sprite = sprite,
+				segments = segments
+			}
+		end
+		::continue::
+	end
+
+	prettyPrintTable(self.orbitConnectorArcs[3].Active.segments)
+	local sprite = self.orbitConnectorArcs[3].Active.sprite
+	print("width="..sprite.width.." height="..sprite.height.." tc="..sprite[1]..","..sprite[2]..","..sprite[3]..","..sprite[4])
+end
+
 -- Generate the quad(s) used to render the line between the two given nodes
 function PassiveTreeClass:BuildConnectors(node1, node2)
 	local connector = {
 		ascendancyName = node1.ascendancyName,
 		nodeId1 = node1.id,
 		nodeId2 = node2.id,
-		c = { } -- This array will contain the quad's data: 1-8 are the vertex coordinates, 9-16 are the texture coordinates
-				-- Only the texture coords are filled in at this time; the vertex coords need to be converted from tree-space to screen-space first
-				-- This will occur when the tree is being drawn; .vert will map line state (Normal/Intermediate/Active) to the correct tree-space coordinates 
 	}
 	if node1.g == node2.g and node1.o == node2.o then
-		-- Nodes are in the same orbit of the same group
-		-- Calculate the starting angle (node1.angle) and arc angle
-		if node1.angle > node2.angle then
-			node1, node2 = node2, node1
+		-- Nodes are in the same orbit of the same group, build an arc connector
+		connector.arc = {
+			orbit = node1.o + 1,
+			centerX = node1.group.x,
+			centerY = node1.group.y,
+		}
+
+		-- Order the oidx values such that we draw along the shorter arc
+		local orbitSize = self.skillsPerOrbit[node1.o + 1]
+		local dist1To2 = (node2.oidx - node1.oidx) % orbitSize
+		if dist1To2 * 2 <= orbitSize then
+			connector.arc.oidx1, connector.arc.oidx2 = node1.oidx, node2.oidx
+		else
+			connector.arc.oidx1, connector.arc.oidx2 = node2.oidx, node1.oidx
 		end
-		local arcAngle = node2.angle - node1.angle
-		if arcAngle >= m_pi then
-			node1, node2 = node2, node1
-			arcAngle = m_pi * 2 - arcAngle
-		end
-		if arcAngle <= m_pi then
-			-- Angle is less than 180 degrees, draw an arc
-			-- If our arc is greater than 90 degrees, we will need 2 arcs because our orbit assets are at most 90 degree arcs see below
-			-- The calling class already handles adding a second connector object in the return table if provided and omits it if nil
-			-- Establish a nil secondConnector to populate in the case that we need a second arc (>90 degree orbit)
-			local secondConnector
-			if arcAngle > (m_pi / 2) then
-				-- Angle is greater than 90 degrees.
-				-- The default behavior for a given arcAngle is to place the arc at the center point between two nodes and clip the excess
-				-- If we need a second arc of any size, we should shift the arcAngle to 25% of the distance between the nodes instead of 50%
-				arcAngle = arcAngle / 2
-				-- clone the original connector table to ensure same functionality for both of the necessary connectors
-				secondConnector = copyTableSafe(connector)
-				-- And then ask the BuildArc function to create a connector that is a mirror of the provided arcAngle
-				-- Provide the second connector as a parameter to store the mirrored arc
-				self:BuildArc(arcAngle, node1, secondConnector, true)
-			end
-			-- generate the primary arc -- this arcAngle may have been modified if we have determined that a second arc is necessary for this orbit
-			self:BuildArc(arcAngle, node1, connector)
-			return { connector, secondConnector }
-		end
+	else
+		-- Nodes don't share a group/orbit, build a straight line connector
+		connector.type = "LineConnector"
+		-- This assumes the sprites for the different LineConnector states all have the same height.
+		local art = self.spriteMap.line.LineConnectorNormal
+		local vX, vY = node2.x - node1.x, node2.y - node1.y
+		local dist = m_sqrt(vX * vX + vY * vY)
+		local scale = art.height * 1.33 / dist
+		local nX, nY = vX * scale, vY * scale
+		connector.lineQuad = {
+			[1] = node1.x - nY, [2] = node1.y + nX,
+			[3] = node1.x + nY, [4] = node1.y - nX,
+			[5] = node2.x + nY, [6] = node2.y - nX,
+			[7] = node2.x - nY, [8] = node2.y + nX
+		}
 	end
 
-	-- Generate a straight line
-	connector.type = "LineConnector"
-	local art = self.spriteMap.line.LineConnectorNormal
-	local vX, vY = node2.x - node1.x, node2.y - node1.y
-	local dist = m_sqrt(vX * vX + vY * vY)
-	local scale = art.height * 1.33 / dist
-	local nX, nY = vX * scale, vY * scale
-	local commonVert = {};
-	commonVert[1], commonVert[2] = node1.x - nY, node1.y + nX
-	commonVert[3], commonVert[4] = node1.x + nY, node1.y - nX
-	commonVert[5], commonVert[6] = node2.x + nY, node2.y - nX
-	commonVert[7], commonVert[8] = node2.x - nY, node2.y + nX
-	connector.vert = { Normal = commonVert, Intermediate = commonVert, Active = commonVert }
 	return { connector }
-end
-
-function PassiveTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
-	connector.type = "Orbit" .. node1.o
-	-- This is an arc texture mapped onto a kite-shaped quad
-	-- Calculate how much the arc needs to be clipped by
-	-- Both ends of the arc will be clipped by this amount, so 90 degree arc angle = no clipping and 30 degree arc angle = 75 degrees of clipping
-	-- The clipping is accomplished by effectively moving the bottom left and top right corners of the arc texture towards the top left corner
-	-- The arc texture only shows 90 degrees of an arc, but some arcs must go for more than 90 degrees
-	-- Fortunately there's nowhere on the tree where we can't just show the middle 90 degrees and rely on the node artwork to cover the gaps :)
-	local clipAngle = m_pi / 4 - arcAngle / 2
-	local p = 1 - m_max(m_tan(clipAngle), 0)
-	local angle = node1.angle - clipAngle
-	if isMirroredArc then
-		-- The center of the mirrored angle should be positioned at 75% of the way between nodes.
-		angle = angle + arcAngle
-	end
-	connector.vert = { }
-	for _, state in pairs({ "Normal", "Intermediate", "Active" }) do
-		-- The different line states have differently-sized artwork, so the vertex coords must be calculated separately for each one
-		local art = self.spriteMap.line[connector.type .. state]
-		local size = art.width * 2 * 1.33
-		local oX, oY = size * m_sqrt(2) * m_sin(angle + m_pi / 4), size * m_sqrt(2) * -m_cos(angle + m_pi / 4)
-		local cX, cY = node1.group.x + oX, node1.group.y + oY
-		local vert = { }
-		vert[1], vert[2] = node1.group.x, node1.group.y
-		vert[3], vert[4] = cX + (size * m_sin(angle) - oX) * p, cY + (size * -m_cos(angle) - oY) * p
-		vert[5], vert[6] = cX, cY
-		vert[7], vert[8] = cX + (size * m_cos(angle) - oX) * p, cY + (size * m_sin(angle) - oY) * p
-		if (isMirroredArc) then
-		-- Flip the quad's non-origin, non-center vertexes when drawing a mirrored arc so that the arc actually mirrored
-		-- This is required to prevent the connection of the 2 arcs appear to have a 'seam'
-			local temp1, temp2 = vert[3],vert[4]
-			vert[3],vert[4] = vert[7],vert[8]
-			vert[7],vert[8] = temp1, temp2
-		end
-		connector.vert[state] = vert
-	end
-	connector.c[9], connector.c[10] = 1, 1
-	connector.c[11], connector.c[12] = 0, p
-	connector.c[13], connector.c[14] = 0, 0
-	connector.c[15], connector.c[16] = p, 0
 end
 
 function PassiveTreeClass:CalcOrbitAngles(nodesInOrbit)

@@ -374,6 +374,53 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 		return state
 	end
+	local function drawConnectorLine(treeQuad, state)
+		-- The real game tiles the sprite for long connectors, but we
+		-- cheat a little and just stretch the sprite.
+		local sprite = tree.spriteMap.line["LineConnector"..state]
+		local tcLeft, tcTop, tcRight, tcBottom = unpack(sprite)
+
+		local args = {}
+		args[1], args[2] = treeToScreen(treeQuad[1], treeQuad[2])
+		args[3], args[4] = treeToScreen(treeQuad[3], treeQuad[4])
+		args[5], args[6] = treeToScreen(treeQuad[5], treeQuad[6])
+		args[7], args[8] = treeToScreen(treeQuad[7], treeQuad[8])
+		args[9], args[10] = tcLeft, tcBottom
+		args[11], args[12] = tcLeft, tcTop
+		args[13], args[14] = tcRight, tcTop
+		args[15], args[16] = tcRight, tcBottom
+
+		DrawImageQuad(sprite.handle, unpack(args))
+	end
+	local function drawConnectorArc(arc, state)
+		local orbitArc = tree.orbitConnectorArcs[arc.orbit][state]
+		for oidx = arc.oidx1, arc.oidx2, 1 do
+			local arcSegment = orbitArc.segments[oidx + 1]
+			
+			local x1 = arcSegment.treeQuad[1] + arc.centerX
+			local y1 = arcSegment.treeQuad[2] + arc.centerY
+			local x2 = arcSegment.treeQuad[3] + arc.centerX
+			local y2 = arcSegment.treeQuad[4] + arc.centerY
+			local x3 = arcSegment.treeQuad[5] + arc.centerX
+			local y3 = arcSegment.treeQuad[6] + arc.centerY
+			local x4 = arcSegment.treeQuad[7] + arc.centerX
+			local y4 = arcSegment.treeQuad[8] + arc.centerY
+
+			local args = {}
+			args[1], args[2] = treeToScreen(x1, y1)
+			args[3], args[4] = treeToScreen(x2, y2)
+			args[5], args[6] = treeToScreen(x3, y3)
+			args[7], args[8] = treeToScreen(x4, y4)
+			args[9], args[10], args[11], args[12], args[13], args[14], args[15], args[16] = unpack(arcSegment.tcQuad)
+
+			DrawImageQuad(
+				orbitArc.sprite.handle,
+				unpack(args)
+			)
+
+			if (oidx + 1) >= #orbitArc.segments then oidx = -1 end
+		end
+	end
 	local function renderConnector(connector)
 		local node1, node2 = spec.nodes[connector.nodeId1], spec.nodes[connector.nodeId2]
 		setConnectorColor(1, 1, 1)
@@ -394,20 +441,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			setConnectorColor(1, 0, 0)
 		end
 
-		local vert = connector.vert[state]
-		local sprite = tree.spriteMap.line[connector.type..state]
-		local tcLeft, tcTop, tcRight, tcBottom = unpack(sprite)
-
-		local quad = {}
-		quad[1], quad[2] = treeToScreen(vert[1], vert[2])
-		quad[3], quad[4] = treeToScreen(vert[3], vert[4])
-		quad[5], quad[6] = treeToScreen(vert[5], vert[6])
-		quad[7], quad[8] = treeToScreen(vert[7], vert[8])
-		quad[9], quad[10] = tcLeft, tcBottom
-		quad[11], quad[12] = tcLeft, tcTop
-		quad[13], quad[14] = tcRight, tcTop
-		quad[15], quad[16] = tcRight, tcBottom
-
 		if hoverDep and hoverDep[node1] and hoverDep[node2] then
 			-- Both nodes depend on the node currently being hovered over, so color the line red
 			setConnectorColor(1, 0, 0)
@@ -416,7 +449,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			setConnectorColor(0.75, 0.75, 0.75)
 		end
 		SetDrawColor(unpack(connectorColor))
-		DrawImageQuad(sprite.handle, unpack(quad))
+
+		if connector.arc then
+			drawConnectorArc(connector.arc, state)
+		else
+			drawConnectorLine(connector.lineQuad, state)
+		end
 	end
 
 	-- Draw the connecting lines between nodes
@@ -536,7 +574,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					base = node.sprites.inactive
 				end
 				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
-				overlaySprite = tree.spriteMap.frame[overlay]
+				overlaySprite = node.ascendancyName and tree.spriteMap.ascendancy[overlay] or tree.spriteMap.frame[overlay]
 			end
 		end
 
