@@ -288,11 +288,11 @@ Requires Level 32, 52 Str, 62 Int
 Implicits: 1
 22% increased Elemental Damage
 Socketed Gems are Supported by Level 1 Elemental Penetration
-Socketed Gems are Supported by Level 10 Immolate
-Socketed Gems are Supported by Level 1 Unbound Ailments
-Socketed Gems are Supported by Level 10 Ice Bite
-Socketed Gems are Supported by Level 1 Inspiration
-Socketed Gems are Supported by Level 10 Innervate
+Socketed Gems are Supported by Level 15 Immolate
+Socketed Gems are Supported by Level 15 Unbound Ailments
+Socketed Gems are Supported by Level 15 Ice Bite
+Socketed Gems are Supported by Level 15 Inspiration
+Socketed Gems are Supported by Level 15 Innervate
 ]],[[
 The Black Cane
 Royal Sceptre
