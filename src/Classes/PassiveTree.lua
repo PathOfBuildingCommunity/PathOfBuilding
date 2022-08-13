@@ -128,9 +128,25 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	ConPrintf("Loading passive tree assets...")
+	if not self.assets then self.assets = { } end
 	if versionNum < 3.19 then
 		for name, data in pairs(self.assets) do
 			self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
+		end
+	else
+		local backupBackgrounds = {
+			"BackgroundDex",
+			"BackgroundDexInt",
+			"BackgroundInt",
+			"BackgroundStr",
+			"BackgroundStrDex",
+			"BackgroundStrInt",
+		}
+		for _, name in pairs(backupBackgrounds) do
+			self.assets[name] = { }
+			self.assets[name].handle = NewImageHandle()
+			self.assets[name].handle:Load("TreeData/" .. name .. ".png")
+			self.assets[name].width, self.assets[name].height = self.assets[name].handle:ImageSize()
 		end
 	end
 
@@ -159,6 +175,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				self.spriteMap[name] = { }
 			end
 			self.spriteMap[name][type] = {
+				name = name,
 				handle = sheet.handle,
 				width = coords.w,
 				height = coords.h,
@@ -167,6 +184,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				[3] = (coords.x + coords.w) / sheet.width,
 				[4] = (coords.y + coords.h) / sheet.height
 			}
+			self.assets[name] = self.spriteMap[name][type]
 			--if type == "line" then print(name, type, sheet.height) end
 		end
 	end
