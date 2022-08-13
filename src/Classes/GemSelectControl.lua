@@ -195,9 +195,10 @@ end
 function GemSelectClass:UpdateSortCache()
 	--local start = GetTime()
 	local sortCache = self.sortCache
-	--Don't update the cache if no settings have changed that would impact the ordering
-	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index] and
-		sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
+	-- Don't update the cache if no settings have changed that would impact the ordering
+	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index]
+		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
+		and (sortCache.characterLevel == self.skillsTab.build.characterLevel or self.skillsTab.defaultGemLevel ~= "characterLevel")
 		and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField
 		and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerAwakened == self.skillsTab.showSupportGemTypes then
 		return
@@ -210,7 +211,7 @@ function GemSelectClass:UpdateSortCache()
 		self:PopulateGemList()
 	end
 
-	--Initialize a new sort cache
+	-- Initialize a new sort cache
 	sortCache = {
 		considerGemType = self.skillsTab.showSupportGemTypes,
 		considerAlternates = self.skillsTab.showAltQualityGems,
@@ -226,7 +227,7 @@ function GemSelectClass:UpdateSortCache()
 		sortType = self.skillsTab.sortGemsByDPSField
 	}
 	self.sortCache = sortCache
-	--Determine supports that affect the active skill
+	-- Determine supports that affect the active skill
 	if self.skillsTab.displayGroup.displaySkillList and self.skillsTab.displayGroup.displaySkillList[1] then
 		for gemId, gemData in pairs(self.gems) do
 			if gemData.grantedEffect.support then

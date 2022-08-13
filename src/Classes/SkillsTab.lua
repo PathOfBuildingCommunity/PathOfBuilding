@@ -88,6 +88,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.sortGemsByDPSField = "CombinedDPS"
 	self.showSupportGemTypes = "ALL"
 	self.showAltQualityGems = false
+	self.defaultGemLevel = "normalMaximum"
 	self.defaultGemQuality = main.defaultGemQuality
 
 	-- Set selector
