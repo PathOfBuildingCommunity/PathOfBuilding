@@ -415,14 +415,17 @@ Requires Level 64, 212 Dex
 Roth's Reach
 Recurve Bow
 Variant: Pre 3.9.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 18, 71 Dex
 Implicits: 1
-{variant:2}+(15-25)% to Global Critical Strike Multiplier
+{variant:2,3}+(15-25)% to Global Critical Strike Multiplier
 (60-80)% increased Physical Damage
-(20-40)% increased Elemental Damage with Attack Skills
-(4-8)% increased Attack Speed
-Skills Chain +1 times
+{variant:1,2}(20-40)% increased Elemental Damage with Attack Skills
+{variant:3}(60-80)% increased Elemental Damage with Attack Skills
+{variant:1,2}(4-8)% increased Attack Speed
+{variant:1,2}Skills Chain +1 times
+{variant:3}Skills Chain +2 times
 30% increased Projectile Speed
 ]],[[
 Silverbranch
@@ -497,8 +500,8 @@ Adds 1 to (275-325) Lightning Damage
 60% of Lightning Damage Converted to Chaos Damage
 10% Chance to Shock
 Your Chaos Damage can Shock
-{variant:2}Shock Enemies as though dealing 300% more Damage
-{variant:2}Your Shocks can increase Damage taken by up to a maximum of 100%
+{variant:2}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
+{variant:2}+40% to maximum Effect of Shock
 ]],[[
 Windripper
 Imperial Bow

@@ -113,13 +113,18 @@ Meginord's Vise
 Steel Gauntlets
 Variant: Pre 1.1.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 35, 52 Str
-10% increased Physical Damage
-+100 to Strength
+{variant:1,2,3}10% increased Global Physical Damage
+{variant:1,2,3}+100 to Strength
+{variant:4}+50 to Strength
 {variant:1}(5-15)% reduced Attack Speed
 (40-60)% increased Armour
 {variant:3}2% of Life Regenerated per second with at least 400 Strength
+{variant:4}100% increased Knockback Distance
+{variant:4}Melee Hits with Strike Skills Always Knockback
+{variant:4}Melee Strike Skills deal Splash Damage to surrounding targets
 ]],[[
 Veruso's Battering Rams
 Titan Gauntlets
@@ -518,15 +523,19 @@ Vaal Caress
 Bronzescale Gauntlets
 League: Ambush, Invasion
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 27, 22 Str, 22 Dex
-+2 to Level of Socketed Vaal Gems
+{variant:1,2}+2 to Level of Socketed Vaal Gems
+{variant:3}-5 to Level of Socketed Non-Vaal Gems
+{variant:3}+5 to Level of Socketed Vaal Gems
 (120-140)% increased Armour and Evasion
 {variant:1}+(30-40) to maximum Life
-{variant:2}+(50-70) to maximum Life
+{variant:2,3}+(50-70) to maximum Life
 {variant:1}+30% to Cold Resistance
-{variant:2}+40% to Cold Resistance
-You gain Onslaught for 5 seconds on using a Vaal Skill
+{variant:2,3}+40% to Cold Resistance
+{variant:1,2}You gain Onslaught for 5 seconds on using a Vaal Skill
+{variant:3}You gain Onslaught for 20 seconds on using a Vaal Skill
 ]],[[
 Worldcarver
 Dragonscale Gauntlets
@@ -608,10 +617,14 @@ Life Leech effects are not removed at Full Life
 ]],[[
 Repentance
 Crusader Gloves
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 66, 306 Str, 306 Int
-(0-30)% reduced Spell Damage
-(120-180)% increased Armour and Energy Shield
-+(8-16) to maximum Energy Shield
+{variant:1}(0-30)% reduced Spell Damage
+{variant:1}(120-180)% increased Armour and Energy Shield
+{variant:2}(400-500)% increased Armour and Energy Shield
+{variant:1}+(8-16) to maximum Energy Shield
+{variant:2}(6-12)% increased Strength
 500% increased Attribute Requirements
 Iron Will
 ]],[[
@@ -846,14 +859,17 @@ Lose a Power Charge each second if you have not Detonated Mines Recently
 Ondar's Clasp
 Wrapped Mitts
 Variant: Pre 1.1.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 5
 {variant:1}20% increased Attack Speed when on Full Life
-{variant:2}30% increased Attack Speed when on Full Life
-Adds 1 to 13 Lightning Damage to Attacks
-+(50-80) to Accuracy Rating
+{variant:2,3}30% increased Attack Speed when on Full Life
+{variant:1,2}Adds 1 to 13 Lightning Damage to Attacks
+{variant:3}Adds (1-4) to (30-50) Lightning Damage to Attacks
+{variant:1,2}+(50-80) to Accuracy Rating
+{variant:3}+(100-200) to Accuracy Rating
 {variant:1}(10-15)% increased Movement Speed when on Low Life
-{variant:2}20% increased Movement Speed when on Low Life
+{variant:2,3}20% increased Movement Speed when on Low Life
 ]],[[
 Malachai's Mark
 Murder Mitts
@@ -911,15 +927,19 @@ Thunderfist
 Murder Mitts
 Variant: Pre 1.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 67, 51 Dex, 51 Int
-Socketed Gems are Supported by level 18 Added Lightning Damage
+{variant:1,2,3}Socketed Gems are Supported by level 18 Added Lightning Damage
+{variant:4}Socketed Gems are Supported by level 30 Added Lightning Damage
 {variant:1,3}Adds 1 to 100 Lightning Damage to Attacks
 {variant:2}Adds 1 to 40 Lightning Damage to Attacks
 10% increased Attack Speed
-+(25-30) to maximum Energy Shield
-10% increased Stun Duration on Enemies
-100% increased Duration of Lightning Ailments
+{variant:1,2,3}+(25-30) to maximum Energy Shield
+{variant:4}(150-200)% increased Evasion and Energy Shield
+{variant:1,2,3}10% increased Stun Duration on Enemies
+{variant:1,2,3}100% increased Duration of Lightning Ailments
+{variant:4}100% increased effect of Lightning Ailments
 ]],
 -- Gloves: Ward
 [[

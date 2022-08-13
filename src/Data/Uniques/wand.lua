@@ -158,17 +158,18 @@ Obliteration
 Demon's Horn
 Variant: Pre 2.3.0
 Variant: Pre 3.10.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 56, 179 Int
 Implicits: 2
 {variant:1}(15-18)% increased Spell Damage
-{variant:2,3}(31-35)% increased Spell Damage
+{variant:2,3,4}(31-35)% increased Spell Damage
 {variant:1,2}Adds (24-30) to (80-92) Physical Damage
 {variant:3}Adds (25-50) to (85-125) Physical Damage
-(26-32)% increased Critical Strike Chance
-Gain (13-15)% of Physical Damage as Extra Chaos Damage
-Enemies you Kill have a 20% chance to Explode, dealing a quarter
-of their maximum Life as Chaos Damage
+{variant:1,2,3}(26-32)% increased Critical Strike Chance
+{variant:1,2,3}Gain (13-15)% of Physical Damage as Extra Chaos Damage
+{variant:4}Gain (30-40)% of Physical Damage as Extra Chaos Damage
+Enemies you Kill have a 20% chance to Explode, dealing a quarter of their maximum Life as Chaos Damage
 ]],[[
 Piscator's Vigil
 Tornado Wand
@@ -200,13 +201,16 @@ Reverberation Rod
 Spiraled Wand
 Variant: Pre 2.3.0
 Variant: Pre 3.11.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 24, 83 Int
 Implicits: 2
 {variant:1}(10-14)% increased Spell Damage
-{variant:2,3}(15-19)% increased Spell Damage
+{variant:2,3,4}(15-19)% increased Spell Damage
 {variant:1,2}+1 to Level of Socketed Gems
-{variant:3}+2 to Level of Socketed Gems
+{variant:3,4}+2 to Level of Socketed Gems
+{variant:4}Socketed Gems are Supported by Level 10 Arcane Surge
+{variant:4}Socketed Gems are Supported by Level 10 Controlled Destruction
 Socketed Gems are Supported by Level 10 Spell Echo
 +(10-30) to Intelligence
 ]],[[

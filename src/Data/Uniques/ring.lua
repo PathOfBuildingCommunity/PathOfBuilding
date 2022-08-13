@@ -655,6 +655,7 @@ Ming's Heart
 Amethyst Ring
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 69
 Implicits: 1
@@ -662,22 +663,30 @@ Implicits: 1
 {variant:1}{tags:life}15% reduced maximum Life
 {variant:2}{tags:life}10% reduced maximum Life
 {variant:3}{tags:life}(5-10)% reduced maximum Life
+{variant:4}{tags:life}25% reduced maximum Life
 {variant:1}{tags:jewellery_defense}15% reduced maximum Energy Shield
 {variant:2}{tags:jewellery_defense}10% reduced maximum Energy Shield
 {variant:3}{tags:jewellery_defense}(5-10)% reduced maximum Energy Shield
+{variant:4}{tags:jewellery_defense}25% reduced maximum Energy Shield
 {tags:chaos,jewellery_resistance}+(40-50)% to Chaos Resistance
-{tags:chaos,physical}Gain 20% of Physical Damage as Extra Chaos Damage
+{variant:1,2,3}{tags:chaos,physical}Gain 20% of Physical Damage as Extra Chaos Damage
+{variant:4}{tags:chaos,physical}Gain (40-60)% of Physical Damage as Extra Chaos Damage
 ]],[[
 Mokou's Embrace
 Ruby Ring
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{tags:jewellery_elemental}(15-25)% increased Fire Damage
+{variant:1}{tags:jewellery_elemental}(15-25)% increased Fire Damage
 {tags:jewellery_resistance}+(25-40)% to Cold Resistance
-{tags:jewellery_elemental}(5-10)% chance to Ignite
-{tags:attack,speed}20% increased Attack Speed while Ignited
-{tags:caster,speed}20% increased Cast Speed while Ignited
+{variant:1}{tags:jewellery_elemental}(5-10)% chance to Ignite
+{variant:2}{tags:jewellery_elemental}All Damage Taken from Hits can Ignite you
+{variant:1}{tags:attack,speed}20% increased Attack Speed while Ignited
+{variant:2}{tags:attack,speed}(25-40)% increased Attack Speed while Ignited
+{variant:1}{tags:caster,speed}20% increased Cast Speed while Ignited
+{variant:2}{tags:caster,speed}(25-40)% increased Cast Speed while Ignited
 {tags:jewellery_elemental}+25% chance to be Ignited
 ]],[[
 Mutewind Seal
@@ -850,14 +859,17 @@ Has 1 Socket
 Rigwald's Crest
 Two-Stone Ring
 League: Talisman
+Variant: Pre 3.19.0
+Variant: Current
 Source: Drops from unique{Rigwald, the Wolven King} (Level 60+)
 Requires Level 49
 Implicits: 1
 {tags:jewellery_resistance}+(12-16)% to Fire and Cold Resistances
-{tags:jewellery_elemental}(20-30)% increased Fire Damage
-{tags:jewellery_elemental}(20-30)% increased Cold Damage
+{variant:1}{tags:jewellery_elemental}(20-30)% increased Fire Damage
+{variant:1}{tags:jewellery_elemental}(20-30)% increased Cold Damage
 {tags:mana}(20-30)% increased Mana Regeneration Rate
-10% Chance to Trigger Level 10 Summon Spectral Wolf on Kill
+{variant:1}10% Chance to Trigger Level 10 Summon Spectral Wolf on Kill
+{variant:2}Trigger Level 10 Summon Spectral Wolf on Kill
 ]],[[
 Romira's Banquet
 Diamond Ring
@@ -1028,26 +1040,29 @@ Prismatic Ring
 Variant: Pre 1.0.0
 Variant: Pre 1.1.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 30
 Implicits: 2
 {variant:1}{tags:jewellery_resistance}+(8-12) to all Elemental Resistances
-{variant:2,3,4}{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
+{variant:2,3,4,5}{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
 {variant:1,2}(15-25)% increased Quantity of Items found
-{variant:3,4}(10-16)% increased Quantity of Items found
+{variant:3,4,5}(10-16)% increased Quantity of Items found
 Can't use other Rings
 {variant:1,2,3}{tags:jewellery_resistance}+(8-12)% to all Elemental Resistances
 {variant:4}{tags:jewellery_resistance}+(16-24)% to all Elemental Resistances
+{variant:5}{tags:jewellery_resistance}+(25-40)% to all Elemental Resistances
 {tags:caster}50% reduced Effect of Curses on You
 {variant:1,2,3}{tags:attack,life}+(20-30) Life gained for each Enemy hit by your Attacks
-{variant:4}{tags:attack,life}+(40-60) Life gained for each Enemy hit by your Attacks
+{variant:4,5}{tags:attack,life}+(40-60) Life gained for each Enemy hit by your Attacks
 {variant:1,2,3}{tags:attack,mana}+15 Mana gained for each Enemy hit by your Attacks
-{variant:4}{tags:attack,mana}+30 Mana gained for each Enemy hit by your Attacks
+{variant:4,5}{tags:attack,mana}+30 Mana gained for each Enemy hit by your Attacks
 ]],[[
 Timeclasp
 Moonstone Ring
 Variant: Pre 2.6.0
 Variant: Pre 3.17.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 22
 Implicits: 1
@@ -1055,15 +1070,19 @@ Implicits: 1
 {tags:attack,speed}(10-15)% increased Attack Speed
 {variant:1}{tags:caster,speed}(5-8)% increased Cast Speed
 {variant:2,3}{tags:caster,speed}(5-10)% increased Cast Speed
+{variant:4}{tags:caster,speed}(10-15)% increased Cast Speed
 {variant:1}{tags:mana}15% reduced Mana Regeneration Rate
 {variant:2,3}{tags:mana}15% increased Mana Regeneration Rate
+{variant:4}{tags:ressource,life}(6-12)% of Damage Taken Recouped as Life
+{variant:4}{tags:ressource,mana}(6-12)% of Damage Taken Recouped as Mana
 {variant:1}{tags:jewellery_defense}+(10-25) to maximum Energy Shield
 {variant:2}{tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {variant:3}{tags:jewellery_defense}+(40-45) to maximum Energy Shield
 {variant:1}{tags:caster}Temporal Chains has 30% reduced Effect on You
 {variant:2}{tags:caster}Temporal Chains has 50% reduced Effect on You
 {variant:3}(-10-10)% increased Skill Effect Duration
-{variant:3}Unaffected by Temporal Chains
+{variant:4}(-20-20)% increased Skill Effect Duration
+{variant:3,4}Unaffected by Temporal Chains
 ]],[[
 Timetwist
 Moonstone Ring
