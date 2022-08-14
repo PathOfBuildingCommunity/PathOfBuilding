@@ -33,7 +33,7 @@ function listMode:Init(selBuildName, subPath)
 	self.subPath = subPath or ""
 	self.list = { }
 
-	self.controls.new = new("ButtonControl", {"TOP",self.anchor,"TOP"}, -259, 0, 60, 20, "New", function()
+	self.controls.new = new("ButtonControl", {"TOP",self.anchor,"TOP"}, -293, 0, 60, 20, "New", function()
 		main:SetMode("BUILD", false, "Unnamed build")
 	end)
 	self.controls.newFolder = new("ButtonControl", {"LEFT",self.controls.new,"RIGHT"}, 8, 0, 90, 20, "New Folder", function()
@@ -42,8 +42,12 @@ function listMode:Init(selBuildName, subPath)
 	self.controls.open = new("ButtonControl", {"LEFT",self.controls.newFolder,"RIGHT"}, 8, 0, 60, 20, "Open", function()
 		self.controls.buildList:LoadBuild(self.controls.buildList.selValue)
 	end)
+	self.controls.random = new("ButtonControl", {"LEFT",self.controls.open,"RIGHT"}, 8, 0, 60, 20, "Random", function()
+		self.controls.buildList:LoadBuild(self.list[math.random(#self.list)])
+	end)
+	self.controls.random.enabled = function() return #self.list > 0 end
 	self.controls.open.enabled = function() return self.controls.buildList.selValue ~= nil end
-	self.controls.copy = new("ButtonControl", {"LEFT",self.controls.open,"RIGHT"}, 8, 0, 60, 20, "Copy", function()
+	self.controls.copy = new("ButtonControl", {"LEFT",self.controls.random,"RIGHT"}, 8, 0, 60, 20, "Copy", function()
 		self.controls.buildList:RenameBuild(self.controls.buildList.selValue, true)
 	end)
 	self.controls.copy.enabled = function() return self.controls.buildList.selValue ~= nil end
