@@ -421,9 +421,12 @@ Radius: Small
 ]],[[
 Melding of the Flesh
 Cobalt Jewel
+Variant: Pre 3.19.0
+Variant: Current
 Source: Drops from unique{The Eater of Worlds}
 Limited to: 1
 -(80-70)% to All Elemental Resistances
+{variant:2}-(4-6)% to all maximum Elemental Resistances
 Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
 ]],[[
 Might in All Forms
