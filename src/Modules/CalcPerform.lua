@@ -2781,7 +2781,7 @@ function calcs.perform(env, avoidCache)
 		end
 		if not skip then
 			--find trigger skill and triggered skills
-			if not source and not globalTrigger then
+			if triggeredSkillCond or triggerSkillCond then
 				for _, skill in ipairs(env.player.activeSkillList) do
 					local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
 					if triggerSkillCond and triggerSkillCond(env, skill) and not triggered then
