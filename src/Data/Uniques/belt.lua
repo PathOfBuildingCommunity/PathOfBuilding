@@ -423,9 +423,9 @@ LevelReq: 50
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:life}+(75-100) to maximum Life
-{variant:1,2,3}{tags:life}(67-75) Life Regenerated per second
+{variant:1,2,3}{tags:life}Regenerate (67-75) Life per second
 {variant:4}{tags:life}(200-350) Life Regenerated per second
-{tags:mana}(8-10) Mana Regenerated per second
+{tags:mana}Regenerate (8-10) Mana per second
 {variant:1}−40% to all Elemental Resistances
 {variant:3,4}−(15-25)% to all Elemental Resistances
 {variant:1}−10% to all maximum Resistances
@@ -451,9 +451,9 @@ Variant: Current
 LevelReq: 16
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
-{variant:2}{tags:physical}(25-40)% increased Physical Damage
 {tags:jewellery_attribute}+(40-50) to Strength
-{tags:physical}(25-40)% increased Global Physical Damage
+{variant:2}{tags:physical}(25-40)% increased Global Physical Damage
+{variant:1}{tags:physical}(25-40)% increased Physical Damage
 50% increased Flask Charges gained
 {variant:2}{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
 {variant:3}{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances
@@ -584,7 +584,6 @@ Variant: Current
 LevelReq: 25
 Implicits: 1
 {tags:physical}(12-24)% increased Physical Damage
-{variant:1,2}10% increased Elemental Damage with Attack Skills
 {variant:1}{tags:jewellery_elemental,attack}Adds (3-4) to (7-8) Fire Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack}Adds (7-8) to (15-16) Fire Damage to Attacks
 {variant:3}{tags:jewellery_elemental,attack}Adds (14-16) to (30-32) Fire Damage to Attacks
@@ -597,22 +596,22 @@ Implicits: 1
 {variant:1,2}{tags:jewellery_resistance}+(6-8)% to all Elemental Resistances
 {variant:3}{tags:jewellery_resistance}+(6-15)% to all Elemental Resistances
 {tags:jewellery_elemental,attack}30% increased Elemental Damage with Attack Skills during any Flask Effect
-10% increased Elemental Damage with Attack Skills
+{variant:1,2}10% increased Elemental Damage with Attack Skills
 ]],[[
 Replica Prismweave
 Rustic Sash
 League: Heist
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 25
+LevelReq: 25
 Implicits: 1
 {tags:physical}(12-24)% increased Global Physical Damage
 {variant:1}{tags:jewellery_elemental,caster}Adds (7-8) to (15-16) Fire Damage to Spells
-{variant:2}{tags:jewellery_elemental,attack}Adds (14-16) to (30-32) Fire Damage to Attacks
+{variant:2}{tags:jewellery_elemental,attack}Adds (14-16) to (30-32) Fire Damage to Spells
 {variant:1}{tags:jewellery_elemental,caster}Adds (5-6) to (12-14) Cold Damage to Spells
-{variant:2}{tags:jewellery_elemental,attack}Adds (10-12) to (24-28) Cold Damage to Attacks
+{variant:2}{tags:jewellery_elemental,attack}Adds (10-12) to (24-28) Cold Damage to Spells
 {variant:1}{tags:jewellery_elemental,caster}Adds 1 to (30-34) Lightning Damage to Spells
-{variant:2}{tags:jewellery_elemental,attack}Adds 1 to (60-68) Lightning Damage to Attacks
+{variant:2}{tags:jewellery_elemental,attack}Adds 1 to (60-68) Lightning Damage to Spells
 {variant:1}{tags:jewellery_resistance}+(6-8)% to all Elemental Resistances
 {variant:2}{tags:jewellery_resistance}+(6-15)% to all Elemental Resistances
 {variant:1}{tags:jewellery_elemental}10% increased Elemental Damage
@@ -772,7 +771,7 @@ Sunblast
 Cloth Belt
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 37
+LevelReq: 37
 Implicits: 1
 (15-25)% increased Stun Recovery
 {variant:1}(30-40)% increased Trap Damage
@@ -812,7 +811,7 @@ Wurm's Molt
 Leather Belt
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 41
+LevelReq: 41
 Implicits: 1
 {tags:life}+(25-40) to Maximum Life
 {tags:jewellery_attribute}+(20-30) to Strength
@@ -829,7 +828,7 @@ Implicits: 1
 The Burden of Truth
 Crystal Belt
 Source: Drops from unique{Sirus, Awakener of Worlds}
-Requires Level 79
+LevelReq: 79
 Implicits: 1
 {tags:jewellery_defense}+(60-80) to maximum Energy Shield
 {tags:life}(30-40)% increased Life Recovery from Flasks
