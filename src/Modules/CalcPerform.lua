@@ -74,20 +74,15 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 	
 	if breakdown then
 		if triggerCD == nil and triggeredCD == nil then
-			if cooldownOverride == nil then
-				breakdown.ActionTriggerRate = {
-					"Triggered skill has no base cooldown",
-					"",
-					"Trigger has no base cooldown or cooldown override",
-					"",
-					"Assuming cast on every kill/attack",
-				}
-			else
-				breakdown.ActionTriggerRate = {
-					s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride),
-					"",
-					"Trigger has no base cooldown or cooldown override",
-				}
+			breakdown.ActionTriggerRate = {
+				"Triggered skill has no base cooldown",
+				"",
+				"Trigger has no base cooldown or cooldown override",
+				"",
+				"Assuming cast on every kill/attack/hit",
+			}
+			if cooldownOverride ~= nil then
+				breakdown.ActionTriggerRate[1] = s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride)
 			end
 		elseif cooldownOverride then
 			if minion then
@@ -291,7 +286,11 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 				t_insert(breakdown.SourceTriggerRate, 1, "/ 2 ^8(due to dual wielding)")
 			end
 			if sourceAPS then
-				t_insert(breakdown.SourceTriggerRate, 1, s_format("%.2f ^8(%s attacks per second)", dualwieldAPS, skillName))
+				if source.skillTypes and source.skillTypes[SkillType.Spell] then
+					t_insert(breakdown.SourceTriggerRate, 1, s_format("%.2f ^8(%s casts per second)", dualwieldAPS, skillName))
+				else
+					t_insert(breakdown.SourceTriggerRate, 1, s_format("%.2f ^8(%s attacks per second)", dualwieldAPS, skillName))
+				end
 			else
 				t_insert(breakdown.SourceTriggerRate, 1, s_format("%.2f ^8(%s triggers per second)", output.ActionTriggerRate, skillName))
 			end
@@ -2565,14 +2564,16 @@ function calcs.perform(env, avoidCache)
 						end
 					end
 				else
-					ConPrintf("[ERROR]: Unhandled Unique minion Trigger Name: " .. (uniqueTriggerName or ""))
+					local unhandledName = (triggerName ~= "" and triggerName or uniqueTriggerName ~="" and uniqueTriggerName or env.player.mainSkill and env.player.mainSkill.activeEffect and env.player.mainSkill.activeEffect.grantedEffect.name)
+					ConPrintf("[ERROR]: Unhandled Unique minion Trigger Name: " .. (unhandledName or ""))
 					env.player.mainSkill.skillData.triggeredByUnique = nil
 					skip = true
 				end
-			else
-				ConPrintf("[ERROR]: Unhandled Minion Trigger Name: " .. (uniqueTriggerName or ""))
-				actor.mainSkill.skillData.triggeredByUnique = nil
+			elseif (triggerName and triggerName ~="") or (uniqueTriggerName and uniqueTriggerName ~="") then
+				ConPrintf("[ERROR]: Unhandled Minion Trigger Name: " .. (triggerName or uniqueTriggerName))
 				actor.mainSkill.skillData.triggered = nil
+				skip = true
+			else
 				skip = true
 			end
 		elseif uniqueTriggerName == "" and env.player.mainSkill.socketGroup and env.player.mainSkill.socketGroup.source then
@@ -2685,8 +2686,10 @@ function calcs.perform(env, avoidCache)
 			elseif env.player.mainSkill.activeEffect.grantedEffect.name == "Tawhoa's Chosen" then
 				skip = true
 				--Handled in CalcOffence
+				--Here to just remove the error message
 			else
-				ConPrintf("[ERROR]: Unhandled Unique Trigger Name: " .. (uniqueTriggerName or ""))
+				local unhandledName = (triggerName ~= "" and triggerName or uniqueTriggerName ~="" and uniqueTriggerName or env.player.mainSkill and env.player.mainSkill.activeEffect and env.player.mainSkill.activeEffect.grantedEffect.name)
+				ConPrintf("[ERROR]: Unhandled Unique Trigger Name (source based parsing): " .. (unhandledName or ""))
 				env.player.mainSkill.skillData.triggeredByUnique = nil
 				skip = true
 			end
