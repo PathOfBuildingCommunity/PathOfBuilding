@@ -2794,7 +2794,7 @@ skills["SupportLifetap"] = {
 	support = true,
 	requireSkillTypes = { },
 	addSkillTypes = { SkillType.Duration, },
-	excludeSkillTypes = { SkillType.Blessing, },
+	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_lifetap_damage_+%_final_while_buffed"] = {
@@ -3209,7 +3209,7 @@ skills["SupportMultistrike"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
-			mod("Damage", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("Damage", "MORE", ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
 		},
 		["multistrike_damage_+%_final_on_second_repeat"] = {
 		},

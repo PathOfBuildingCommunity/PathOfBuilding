@@ -491,7 +491,6 @@ local skills, mod, flag, skill = ...
 #skill TriggeredMoltenStrike
 #flags attack projectile area
 	fromItem = true,
-#baseMod skill("triggeredByNgamahu", 20)
 #mods
 
 #skill PhysicalAegis
@@ -534,7 +533,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "INC", nil, 0, KeywordFlag.Poison, { type = "Multiplier", var = "RaisedSpider" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Raised Spider" }),
 		},
 	},
-#baseMod skill("triggeredByArakaliFang", 100)
 #mods
 
 #skill UniqueMirageWarriors
@@ -800,7 +798,6 @@ local skills, mod, flag, skill = ...
 #flags spell area duration
 	fromItem = true,
 #baseMod skill("dotIsArea", true)
-#baseMod skill("triggeredByMarkOfShaper", 20)
 #mods
 
 #skill SummonMirageChieftain
@@ -816,8 +813,6 @@ local skills, mod, flag, skill = ...
 #skill TentacleSmash
 #flags attack area
 	fromItem = true,
-
-#baseMod skill("triggeredByMarkOfElder", 20)
 #mods
 
 #skill VampiricIcon

@@ -1747,9 +1747,6 @@ skills["TriggeredMoltenStrike"] = {
 		projectile = true,
 		area = true,
 	},
-	baseMods = {
-		skill("triggeredByNgamahu", 20),
-	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 3 },
 		{ "attack_trigger_on_melee_hit_%", 20 },
@@ -1919,9 +1916,6 @@ skills["TriggeredSummonSpider"] = {
 		spell = true,
 		minion = true,
 		duration = true,
-	},
-	baseMods = {
-		skill("triggeredByArakaliFang", 100),
 	},
 	constantStats = {
 		{ "chance_to_cast_on_kill_%_target_self", 100 },
@@ -2993,7 +2987,6 @@ skills["SummonVoidSphere"] = {
 	},
 	baseMods = {
 		skill("dotIsArea", true),
-		skill("triggeredByMarkOfShaper", 20),
 	},
 	constantStats = {
 		{ "chance_to_cast_on_kill_%", 20 },
@@ -3055,13 +3048,9 @@ skills["TentacleSmash"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
-
 	baseFlags = {
 		attack = true,
 		area = true,
-	},
-	baseMods = {
-		skill("triggeredByMarkOfElder", 20),
 	},
 	constantStats = {
 		{ "attack_trigger_on_kill_%", 20 },
