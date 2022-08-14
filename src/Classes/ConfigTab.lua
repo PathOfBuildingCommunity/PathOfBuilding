@@ -55,7 +55,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf, placeholder)
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 7, function(buf, placeholder)
 					if placeholder then
 						self.placeholder[varData.var] = tonumber(buf)
 					else
@@ -188,6 +188,12 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					local skillFlags = self.build.calcsTab.mainEnv.player.mainSkill.skillFlags
 					-- Check both the skill mods for flags and flags that are set via calcPerform
 					return skillFlags[varData.ifFlag] or skillModList:Flag(nil, varData.ifFlag)
+				end
+				control.tooltipText = varData.tooltip
+			elseif varData.ifMod then
+				control.shown = function()
+					local skillModList = self.build.calcsTab.mainEnv.player.mainSkill.skillModList
+					return skillModList:Sum(varData.ifModType or "BASE", nil, varData.ifMod) > 0
 				end
 				control.tooltipText = varData.tooltip
 			elseif varData.ifSkill or varData.ifSkillList then

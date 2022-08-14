@@ -123,10 +123,10 @@ VERSION[2.18.0][2022/06/05]
 * Add support for weapon local Overwhelm mod (LocalIdentity)
 * Add support for self-damage breakdown for Forbidden Rite (LocalIdentity)
 * Add support for many helmet enchants (LocalIdentity)
-  * Animated Guardian, Energy Blades, Ensnaring Arrow, Flame Wall, Frost Sheild, Herald of Agony, Hydrosphere, Plague Bearer, Purifying Flame, Wild Strike
+  * Animated Guardian, Energy Blades, Ensnaring Arrow, Flame Wall, Frost Shield, Herald of Agony, Hydrosphere, Plague Bearer, Purifying Flame, Wild Strike
 
 --- Accuracy Improvements ---
-* Minor EHP improvments (Regisle)
+* Minor EHP improvements (Regisle)
 * Fix Massive Thread of Hope outer radius (LocalIdentity)
 * Fix Exposure mastery stacking incorrectly (LocalIdentity)
 * Fix Painseeker disabling alt Ailments from Secrets of Suffering (LocalIdentity)
@@ -529,11 +529,11 @@ VERSION[2.11.0][2021/10/22]
 * Add support for Bastion of Hope stun avoidance (etojuice)
 * Add support for 3.16 Elemental Equilibrium (Lothrik)
 * Add support for 3.16 Wind Dancer (Zpooks)
-* Update Transcendance Keystone to 3.16 value (enizor)
+* Update Transcendence Keystone to 3.16 value (enizor)
 * Add support for Accuracy Bonus per Dexterity mastery (enizor)
 * Add support for new Mark Movement Speed mastery (sida-wang)
 * Add support for Double Damage mod on Mace masteries (uilman)
-* Add support for Surveillence notable (Lothrik)
+* Add support for Surveillance notable (Lothrik)
 * Add support for Recovering ES on Spell Block from Safeguard (jppianta)
 * Add support for new Storm Weaver Shocked/Frozen mod (Quote_a)
 * Add support for "All Damage with Maces and Sceptres inflicts Chill" (Peechey)
@@ -1074,7 +1074,7 @@ VERSION[1.4.170.21][2021/01/13]
   * Add support for Inquisitor's reworked Notables
 * Add support for Battlemage mechanic
 * Add support for Blackflame's unique mechanics
-* Add support for all basic aegides
+* Add support for all basic aegises
 * Add various improvements to the accuracy of maximum hit and EHP calcs
 * Add option to show all Alternate Quality skill gems in the skill gem selection dropdown
 * Add stat comparisons to Alternate Quality skill gems on hover

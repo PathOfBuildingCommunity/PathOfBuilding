@@ -221,6 +221,10 @@ function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
 		self.tree:ProcessStats(self.allocNodes[id])
 		self.masterySelections[id] = effectId
 		self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+		if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
+			self.allocatedMasteryTypes[self.allocNodes[id].name] = true
+			self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+		end
 	end
 end
 
@@ -640,7 +644,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								-- This node depends on Intuitive Leap-like behaviour
 								-- This flag:
 								-- 1. Prevents generation of paths from this node
-								-- 2. Prevents this node from being deallocted via dependancy
+								-- 2. Prevents this node from being deallocted via dependency
 								-- 3. Prevents allocation of path nodes when this node is being allocated
 								node.dependsOnIntuitiveLeapLike = true
 							end
@@ -766,7 +770,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 							for add, val in pairs(additions) do
 								local addition = legionAdditions[add + 1]
 								for _, addStat in ipairs(addition.sd) do
-									for k,statMod in pairs(addition.stats) do -- should only be 1 big, these didnt get changed so cant just grab index
+									for k,statMod in pairs(addition.stats) do -- should only be 1 big, these didn't get changed so can't just grab index
 										addStat = replaceHelperFunc(addStat, k, statMod, val)
 									end
 									self:NodeAdditionOrReplacementFromString(node, addStat)
@@ -849,14 +853,25 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- Add selected mastery effect mods to mastery nodes
 	self.allocatedMasteryCount = 0
 	self.allocatedNotableCount = 0
+	self.allocatedMasteryTypes = { }
+	self.allocatedMasteryTypeCount = 0
 	for id, node in pairs(self.nodes) do
 		if node.type == "Mastery" and self.masterySelections[id] then
 			local effect = self.tree.masteryEffects[self.masterySelections[id]]
-			node.sd = effect.sd
-			node.allMasteryOptions = false
-			node.reminderText = { "Tip: Right click to select a different effect" }
-			self.tree:ProcessStats(node)
-			self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+			if effect then
+				node.sd = effect.sd
+				node.allMasteryOptions = false
+				node.reminderText = { "Tip: Right click to select a different effect" }
+				self.tree:ProcessStats(node)
+				self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+				if not self.allocatedMasteryTypes[node.name] then
+					self.allocatedMasteryTypes[node.name] = true
+					self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+				end
+			else
+				self.nodes[id].alloc = false
+				self.allocNodes[id] = nil
+			end
 		elseif node.type == "Mastery" then
 			self:AddMasteryEffectOptionsToNode(node)
 		elseif node.type == "Notable" and node.alloc then

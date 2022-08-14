@@ -347,8 +347,81 @@ data.nonDamagingAilment = {
 	["Freeze"] = { associatedType = "Cold", alt = false, default = nil, min = 0.3, max = 3, precision = 2, duration = nil },
 	["Shock"] = { associatedType = "Lightning", alt = false, default = 15, min = 5, max = 50, precision = 0, duration = 2 },
 	["Scorch"] = { associatedType = "Fire", alt = true, default = 10, min = 0, max = 30, precision = 0, duration = 4 },
-	["Brittle"] = { associatedType = "Cold", alt = true, default = 5, min = 0, max = 15, precision = 2, duration = 4 },
+	["Brittle"] = { associatedType = "Cold", alt = true, default = 2, min = 0, max = 6, precision = 2, duration = 4 },
 	["Sap"] = { associatedType = "Lightning", alt = true, default = 6, min = 0, max = 20, precision = 0, duration = 4 },
+}
+
+-- Used in ModStoreClass:ScaleAddMod(...) to identify high precision modifiers
+data.highPrecisionMods = {
+	["CritChance"] = {
+		["BASE"] = true,
+	},
+	["LifeRegenPercent"] = {
+		["BASE"] = true,
+	},
+	["DamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["PhysicalDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["ElementalDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["FireDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["ColdDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["LightningDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["ChaosDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["DamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["PhysicalDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["ElementalDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["FireDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["ColdDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["LightningDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["ChaosDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["DamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["PhysicalDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["ElementalDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["FireDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["ColdDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["LightningDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["ChaosDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
 }
 
 data.misc = { -- magic numbers
@@ -365,7 +438,7 @@ data.misc = { -- magic numbers
 	AvoidChanceCap = 75,
 	EnergyShieldRechargeBase = 0.33,
 	EnergyShieldRechargeDelay = 2,
-	WardRechargeDelay = 5,
+	WardRechargeDelay = 4,
 	Transfiguration = 0.3,
 	EnemyMaxResist = 75,
 	LeechRateBase = 0.02,
@@ -383,6 +456,10 @@ data.misc = { -- magic numbers
 	MineAuraRadiusBase = 35,
 	MaxEnemyLevel = 85,
 	LowPoolThreshold = 0.5,
+	MinStunChanceNeeded = 20,
+	StunBaseMult = 200,
+	StunBaseDuration = 0.35,
+	StunNotMeleeDamageMult = 0.75,
 	AccuracyPerDexBase = 2,
 	BrandAttachmentRangeBase = 30,
 	ProjectileDistanceCap = 150,
@@ -398,6 +475,12 @@ data.misc = { -- magic numbers
 	ehpCalcMaxDepth = 512,
 		-- max hits is currently depth + speedup - 1 to give as much accuracy with as few cycles as possible, but can be increased for more accuracy
 	ehpCalcMaxHitsToCalc = 519,
+	-- PvP scaling used for hogm
+	PvpElemental1 = 0.55,
+	PvpElemental2 = 150,
+	PvpNonElemental1 = 0.57,
+	PvpNonElemental2 = 90,
+	
 }
 
 data.bossSkills = {

@@ -660,10 +660,6 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.qualityId.tooltipFunc = function(tooltip)
 		-- Reset the tooltip
 		tooltip:Clear()
-		-- Only show the tooltip if the combo box is expanded; this is to prevent multiple tooltips from appearing due to mouse being over other skills' combo boxes
-		if not slot.qualityId.dropped then
-			return
-		end
 		-- Get the gem instance from the skills
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
@@ -671,7 +667,12 @@ function SkillsTabClass:CreateGemSlot(index)
 		end
 		local gemData = gemInstance.gemData
 		-- Get the hovered quality item
-		local hoveredQuality = alternateGemQualityList[slot.qualityId.hoverSel]
+		local hoveredQuality
+		if not slot.qualityId.dropped then
+			hoveredQuality = alternateGemQualityList[slot.qualityId.selIndex]
+		else
+			hoveredQuality = alternateGemQualityList[slot.qualityId.hoverSel]
+		end
 		-- gem data may not be initialized yet, or the quality may be nil, which happens when just floating over the dropdown
 		if not gemData or not hoveredQuality then
 			return
