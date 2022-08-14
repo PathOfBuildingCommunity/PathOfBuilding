@@ -3298,14 +3298,14 @@ local specialModList = {
 	["gain her embrace for %d+ seconds when you ignite an enemy"] = { flag("Condition:CanGainHerEmbrace") },
 	["when you cast a spell, sacrifice all mana to gain added maximum lightning damage equal to (%d+)%% of sacrificed mana for 4 seconds"] = function(num) return {
 		flag("Condition:HaveManaStorm"),
-		mod("LightningMax", "BASE", 1, { type = "PerStat", stat = "ManaUnreserved" , div = 100 / num}, { type = "Condition", var = "SacrificeManaForLightning" }),
+		mod("LightningMax", "BASE", 1, { type = "PercentStat", stat = "ManaUnreserved" , percent = num }, { type = "Condition", var = "SacrificeManaForLightning" }),
 	} end,
 	["attacks with this weapon have added maximum lightning damage equal to (%d+)%% of your energy shield"] = function(num) return {
-		mod("LightningMax", "BASE", 1, { type = "PerStat", stat = "EnergyShield" , div = 100 / num}, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+		mod("LightningMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShield" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
 	} end,
 	["gain added chaos damage equal to (%d+)%% of ward"] = function(num) return {
-		mod("ChaosMin", "BASE", 1, { type = "PerStat", stat = "Ward", div = 100 / num }),
-		mod("ChaosMax", "BASE", 1, { type = "PerStat", stat = "Ward", div = 100 / num }),
+		mod("ChaosMin", "BASE", 1, { type = "PercentStat", stat = "Ward", percent = num }),
+		mod("ChaosMax", "BASE", 1, { type = "PercentStat", stat = "Ward", percent = num }),
 	}  end,
 	["every 16 seconds you gain iron reflexes for 8 seconds"] = {
 		flag("Condition:HaveArborix"),
@@ -3397,8 +3397,8 @@ local specialModList = {
 		mod("AreaOfEffect", "INC", num, { type = "Multiplier", var = "StationarySeconds", globalLimit = tonumber(limit), globalLimitKey = "ExpansiveMight" }, { type = "Condition", var = "Stationary" }),
 	} end,
 	["attack skills have added lightning damage equal to (%d+)%% of maximum mana"] = function(num) return {
-		mod("LightningMin", "BASE", 1, nil, ModFlag.Attack, { type = "PerStat", stat = "Mana", div = 100 / num }),
-		mod("LightningMax", "BASE", 1, nil, ModFlag.Attack, { type = "PerStat", stat = "Mana", div = 100 / num }),
+		mod("LightningMin", "BASE", 1, nil, ModFlag.Attack, { type = "PercentStat", stat = "Mana", percent = num }),
+		mod("LightningMax", "BASE", 1, nil, ModFlag.Attack, { type = "PercentStat", stat = "Mana", percent = num }),
 	} end,
 	["herald of thunder's storms hit enemies with (%d+)%% increased frequency"] = function(num) return { mod("HeraldStormFrequency", "INC", num), } end,
 	["your critical strikes have a (%d+)%% chance to deal double damage"] = function(num) return { mod("DoubleDamageChanceOnCrit", "BASE", num) } end,
