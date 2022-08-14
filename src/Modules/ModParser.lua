@@ -2765,6 +2765,9 @@ local specialModList = {
 	["debilitate enemies for (%d+) seconds? when you suppress their spell damage"] = { mod("DebilitateChance", "BASE", 100) },
 	["debilitate nearby enemies for (%d+) seconds? when flask effect ends"] = { mod("DebilitateChance", "BASE", 100) },
 	["counterattacks have a (%d+)%% chance to debilitate on hit for (%d+) seconds?"] = function (num) return { mod("DebilitateChance", "BASE", num) } end,
+	["eat a soul when you hit a unique enemy, no more than once every second"] = { flag("Condition:CanHaveSoulEater") },
+	["gain soul eater during any flask effect"] = { flag("Condition:CanHaveSoulEater", { type = "Condition", var = "UsingFlask" }) },
+	["gain soul eater for (%d+) seconds when you use a vaal skill"] = { flag("Condition:CanHaveSoulEater", { type = "Condition", var = "UsedVaalSkillRecently" }) },
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
@@ -3263,6 +3266,14 @@ local specialModList = {
 	} end,
 	["(%d+)%% increased critical strike chance per grand spectrum"] = function(num) return {
 		mod("CritChance", "INC", num, { type = "Multiplier", var = "GrandSpectrum" }),
+		mod("Multiplier:GrandSpectrum", "BASE", 1)
+	} end,
+	["%+(%d+) to minimum endurance charges per grand spectrum"] = function(num) return {
+		mod("EnduranceChargesMin", "BASE", num, { type = "Multiplier", var = "GrandSpectrum" }),
+		mod("Multiplier:GrandSpectrum", "BASE", 1)
+	} end,
+	["minions have %+(%d+)%% to critical strike multiplier per grand spectrum"] = function(num) return {
+		mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", num, { type = "Multiplier", actor = "parent", var = "GrandSpectrum" }) }),
 		mod("Multiplier:GrandSpectrum", "BASE", 1)
 	} end,
 	["primordial"] = { mod("Multiplier:PrimordialItem", "BASE", 1) },

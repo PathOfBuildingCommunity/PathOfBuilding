@@ -791,5 +791,17 @@ Implicits: 1
 {tags:jewellery_resistance}+(10-20)% to Cold Resistance
 {tags:attack,life,physical}0.4% of Physical Attack Damage Leeched as Life
 {tags:attack,mana,physical}0.4% of Physical Attack Damage Leeched as Mana
+]],[[
+The Burden of Truth
+Crystal Belt
+Source: Drops from unique{Sirus, Awakener of Worlds}
+Requires Level 79
+Implicits: 1
+{tags:jewellery_defense}+(60-80) to maximum Energy Shield
+{tags:life}(30-40)% increased Life Recovery from Flasks
+33% of Chaos Damage taken does not bypass Energy Shield
+33% of Non-Chaos Damage taken bypasses Energy Shield
+{tags:jewellery_defense}Gain (5-10)% of Maximum Life as Extra Maximum Energy Shield
+Supreme Decadence
 ]],
 }

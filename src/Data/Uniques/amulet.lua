@@ -1171,5 +1171,21 @@ Implicits: 1
 {tags:jewellery_elemental}(5-10)% chance to Shock
 Enemies take 5% increased Damage for each type of Ailment you have inflicted on them
 Your Elemental Damage can Shock
+]],[[
+The Eternal Struggle
+Onyx Amulet
+Source: Drops from unique{The Black Star} or unique{The Infinite Hunger}
+Searing Exarch Item
+Eater of Worlds Item
+Requires Level 61
+Implicits: 2
+9% increased Mana Reservation Efficiency of Skills
+{tags:speed}6% increased Movement Speed
+{tags:jewellery_attribute}+(20-50) to Strength
+{tags:jewellery_attribute}+(20-50) to Dexterity
+{tags:jewellery_attribute}+(20-50) to Intelligence
+{tags:jewellery_defense}(10-15)% increased Global Defences
+Critical Strikes inflict Malignant Madness if The Eater of Worlds is dominant
+Kill Enemies that have 15% or lower Life on Hit if The Searing Exarch is dominant
 ]],
 }
