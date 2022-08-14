@@ -387,6 +387,13 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
+	-- Resolve per ailment damage modifiers
+	local perShockEffect = skillModList:Sum("BASE", cfg, "PerShockDivisor") / 100
+	if perShockEffect and perShockEffect > 0 then
+		local modifierValue = skillModList:Sum("BASE", cfg, "MoreDamageFromShockEffect") / 100
+		skillModList:NewMod("Damage", "MORE", modifierValue, "Gem", { type = "Multiplier", var = "ShockEffect", div = perShockEffect, actor = "enemy" } )
+	end
+
 	runSkillFunc("initialFunc")
 
 	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack

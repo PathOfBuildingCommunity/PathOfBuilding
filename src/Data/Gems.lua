@@ -3393,6 +3393,22 @@ return {
 		reqInt = 100,
 		defaultLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemLightningConduit"] = {
+		name = "Lightning Conduit",
+		grantedEffectId = "LightningConduit",
+		tags = {
+			intelligence = true,
+			active_skill = true,
+			spell = true,
+			area = true,
+			lightning = true,
+		},
+		tagString = "Spell, AoE, Lightning",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 100,
+		defaultLevel = 20,
+	},
 	["Metadata/Items/Gems/SkillGemVaalStormCall"] = {
 		name = "Vaal Storm Call",
 		grantedEffectId = "VaalStormCall",

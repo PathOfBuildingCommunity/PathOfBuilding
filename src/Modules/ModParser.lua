@@ -1069,7 +1069,6 @@ local modTagList = {
 	["per fragile regrowth"] = { tag =  { type = "Multiplier", var = "FragileRegrowthCount" } },
 	["per allocated mastery passive skill"] = { tag = { type = "Multiplier", var = "AllocatedMastery" } },
 	["per allocated notable passive skill"] = { tag = { type = "Multiplier", var = "AllocatedNotable" } },
-	["per (%d+)%% (%a+) effect on enemy"] = function(num, _, effectName) return { tag = { type = "Multiplier", var = firstToUpper(effectName).."Effect", div = num, actor = "enemy" } } end,
 	-- Per stat
 	["per (%d+)%% of maximum mana they reserve"] = function(num) return { tag = { type = "PerStat", stat = "ManaReservedPercent", div = num } } end,
 	["per (%d+) strength"] = function(num) return { tag = { type = "PerStat", stat = "Str", div = num } } end,
@@ -1515,9 +1514,6 @@ end
 
 -- List of special modifiers
 local specialModList = {
-	--["(%d+)%% more damage per (%d+)%% (%a+) effect on enemy"] = function(num, _, div, effectName) return {
-	--	mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "MORE", num), { type = "Multiplier", var = firstToUpper(effectName).."Effect", div = tonumber(div) } }, { type = "ActorCondition", actor = "enemy", var = firstToUpper(effectName).."ed" }),
-	--} end,
 	-- Keystones
 	["(%d+)%% less damage taken for every (%d+)%% life recovery per second from leech"] = function(num, _, div)
 		return {  mod("DamageTaken", "MORE", -num, { type = "PerStat", stat = "MaxLifeLeechRatePercent", div = tonumber(div) }) }
