@@ -762,7 +762,7 @@ function PassiveTreeClass:PregenerateOrbitConnectorArcs()
 		local tcHeightRelativeCenterRadius = tcHeight - (tcHeightRelativeArcThickness / 2)
 		local tcHeightRelativeOuterRadius = (tcHeightRelativeCenterRadius + (tcHeightRelativeArcThickness / 2)) * outerRadiusSlopFactor
 		local tcHeightRelativeInnerRadius = (tcHeightRelativeCenterRadius - (tcHeightRelativeArcThickness / 2)) * innerRadiusSlopFactor
-			
+
 		self.orbitConnectorArcs[orbit] = {}
 		for _, state in ipairs({ "Active", "Intermediate", "Normal" }) do
 			local spriteName = "Orbit"..(orbit - 1)..state
