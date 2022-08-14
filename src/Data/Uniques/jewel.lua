@@ -78,11 +78,13 @@ Intelligence from Passives in Radius is Transformed to Dexterity
 ]],[[
 Cheap Construction
 Viridian Jewel
+Source: No longer obtainable
 10% reduced Trap Duration
 Can have up to 1 additional Trap placed at a time
 ]],[[
 Replica Cheap Construction
 Viridian Jewel
+Source: No longer obtainable
 League: Heist
 (100-120)% increased Critical Strike Chance with Traps
 Can have 5 fewer Traps placed at a time
@@ -358,7 +360,7 @@ Passives in Radius can be Allocated without being connected to your tree
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
-Source: Drops in The Lord's Labyrinth
+Source: No longer obtainable
 (18-25)% increased Fire Damage
 (18-25)% increased Cold Damage
 2% chance to Freeze

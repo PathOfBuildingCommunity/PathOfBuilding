@@ -598,7 +598,7 @@ Implicits: 2
 ]],[[
 Whakatutuki o Matua
 Tarnished Spirit Shield
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 LevelReq: 63
 Implicits: 1
 (5-10)% increased Spell Damage
@@ -1010,6 +1010,7 @@ Implicits: 1
 ]],[[
 Glitterdisc
 Burnished Spiked Shield
+Source: No longer obtainable
 Variant: Pre 3.0.0
 Variant: Current
 Implicits: 2

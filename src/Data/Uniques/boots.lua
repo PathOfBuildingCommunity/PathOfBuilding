@@ -151,7 +151,7 @@ Enemies can have 1 additional Curse
 ]],[[
 Windshriek
 Reinforced Greaves
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 60, 60 Str
 (200-250)% increased Armour
 +(10-15)% to all Elemental Resistances
@@ -632,7 +632,7 @@ Requires Level 18, 19 Str, 19 Dex
 ]],[[
 Duskblight
 Ironscale Boots
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 40, 19 Str, 19 Dex

@@ -196,7 +196,7 @@ Requires Level 9, 17 Dex
 ]],[[
 Hrimburn
 Goathide Gloves
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24, 17 Dex
@@ -350,7 +350,7 @@ Requires Level 12, 21 Int
 ]],[[
 Doedre's Malevolence
 Velvet Gloves
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 21 Int
@@ -556,6 +556,7 @@ Requires Level 27, 22 Str, 22 Dex
 ]],[[
 Worldcarver
 Dragonscale Gauntlets
+Source: No longer obtainable
 Requires Level 67, 51 Str, 51 Dex
 Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
 +(200-300) to Accuracy Rating

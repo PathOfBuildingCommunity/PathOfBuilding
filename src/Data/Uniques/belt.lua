@@ -454,7 +454,7 @@ Implicits: 1
 ]],[[
 The Nomad
 Studded Belt
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 LevelReq: 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
@@ -467,7 +467,7 @@ Implicits: 1
 ]],[[
 The Tactician
 Studded Belt
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 LevelReq: 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies

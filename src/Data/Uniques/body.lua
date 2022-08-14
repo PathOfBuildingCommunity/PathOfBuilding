@@ -229,7 +229,7 @@ Implicits: 0
 ]],[[
 Wildwrap
 Strapped Leather
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 LevelReq: 57
 Implicits: 0
 10% increased Attack Speed
@@ -818,7 +818,7 @@ Adds 1 to (20-30) Lightning Damage to Attacks
 ]],[[
 Viper's Scales
 Full Scale Armour
-Source: Drops in The Lord's Labyrinth
+Source: No longer obtainable
 Implicits: 0
 (80-100)% increased Armour and Evasion
 +(30-40) to maximum Life
@@ -1016,6 +1016,7 @@ Your Maximum Resistances are (70-72)%
 ]],[[
 Rotting Legion
 Loricated Ringmail
+Source: No longer obtainable
 League: Blight
 Implicits: 0
 Socketed Gems are Supported by Level 1 Meat Shield

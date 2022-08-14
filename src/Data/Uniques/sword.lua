@@ -327,7 +327,7 @@ Adds 2 to 6 Physical Damage
 ]],[[
 Dreadbeak
 Rusted Sword
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
@@ -549,6 +549,7 @@ Implicits: 3
 ]],[[
 Chitus' Needle
 Elegant Foil
+Source: No longer obtainable
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
@@ -805,7 +806,7 @@ Implicits: 2
 ]],[[
 Queen's Escape
 Ornate Sword
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current

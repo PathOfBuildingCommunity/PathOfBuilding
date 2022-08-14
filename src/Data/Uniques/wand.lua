@@ -232,7 +232,7 @@ Your Critical Strike Chance is Lucky while on Low Life
 ]],[[
 Amplification Rod
 Spiraled Wand
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 36, 83 Int
