@@ -49,7 +49,7 @@ Adds (10-20) to (30-50) Cold Damage
 ]],[[
 Cameria's Avarice
 Gavel
-Source: No longer obtainable
+Source: Vendor Recipe
 Requires Level 60, 212 Str
 Implicits: 1
 15% reduced Enemy Stun Threshold
