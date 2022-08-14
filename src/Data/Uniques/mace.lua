@@ -63,6 +63,7 @@ Trigger Level 20 Icicle Burst when you Hit a Frozen Enemy
 Clayshaper
 Rock Breaker
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 41, 134 Str
 Implicits: 2
@@ -71,9 +72,10 @@ Implicits: 2
 Grants Level 12 Summon Stone Golem Skill
 Adds (24-30) to (34-40) Physical Damage
 (8-10)% increased Attack Speed
-Minions have (20-30)% increased maximum Life
+{variant:1,2}Minions have (20-30)% increased maximum Life
 +1 to maximum number of Golems
-Minions deal (5-8) to (12-16) Added Attack Physical Damage
+{variant:1,2}Minions deal (5-8) to (12-16) Added Attack Physical Damage
+{variant:3}Golems deal (96-120) to (132-160) Added Attack Physical Damage
 ]],[[
 Flesh-Eater
 Dream Mace
@@ -590,7 +592,7 @@ Implicits: 3
 {variant:1,2}15% chance to Shock
 {variant:3}50% chance to Shock
 {variant:1,2}10% chance to Cause Monsters to Flee
-{variant:3}Shock Enemies as though dealing 300% more Damage
+{variant:3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
 Damage Penetrates 20% Lightning Resistance
 Enemies you Shock have 30% reduced Cast Speed
 Enemies you Shock have 20% reduced Movement Speed
@@ -745,23 +747,26 @@ Source: Drops from Legion Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 57, 182 Str
 Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}30% increased Stun Duration on Enemies
-{variant:4}45% increased Stun Duration on Enemies
-{variant:1,2}Socketed Gems are Supported by level 15 Increased Area of Effect
-{variant:3,4}Socketed Gems are Supported by level 15 Pulverise
+{variant:4,5}45% increased Stun Duration on Enemies
+{variant:1,2,3,4}Socketed Gems are Supported by Level 15 Pulverise
 {variant:1,2}(220-250)% increased Physical Damage
 {variant:3}(230-260)% increased Physical Damage
 {variant:4}(200-230)% increased Physical Damage
+{variant:5}(400-500)% increased Physical Damage
 {variant:1,2}Adds 10 to 20 Physical Damage
 {variant:3,4}Adds 30 to 40 Physical Damage
-10% reduced Attack Speed
--100 to Accuracy Rating
-10% reduced Movement Speed
+{variant:1,2,3,4}10% reduced Attack Speed
+{variant:5}25% reduced Attack Speed
+{variant:1,2,3,4}10% reduced Movement Speed
 (40-50)% increased Stun Duration on Enemies
+{variant:1,2,3,4}-100 to Accuracy Rating
+{variant:5}-500 to Accuracy Rating
 ]],[[
 Quecholli
 Jagged Maul

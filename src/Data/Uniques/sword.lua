@@ -63,17 +63,21 @@ Ephemeral Edge
 Dusk Blade
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
-{variant:3}40% increased Global Accuracy Rating
+{variant:3,4}40% increased Global Accuracy Rating
 +10 to Intelligence
 {variant:1}100% increased Physical Damage
 {variant:2,3}150% increased Physical Damage
+{variant:4}Adds 1 to 75 Lightning Damage
 50% increased Global Critical Strike Chance
 (40-50)% increased maximum Energy Shield
-10% reduced maximum Life
-(0.6-1)% of Physical Attack Damage Leeched as Mana
+{variant:1,2,3}10% reduced maximum Life
+{variant:4}25% reduced maximum Life
+{variant:1,2,3}(0.6-1)% of Physical Attack Damage Leeched as Mana
+{variant:4}Attacks with this Weapon have Added maximum Lightning Damage equal to 20% of your Energy Shield
 ]],[[
 The Goddess Scorned
 Elegant Sword
@@ -826,16 +830,18 @@ Highland Blade
 Variant: Pre 1.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
 {variant:3,4}+305 to Accuracy Rating
 (120-150)% increased Physical Damage
 {variant:1}10% increased Attack Speed
-{variant:2,3,4}20% increased Attack Speed
+{variant:2,3,4,5}20% increased Attack Speed
 10% increased Movement Speed
 {variant:1,2,3}+(150-200) to Accuracy Rating
-{variant:4}+(300-350) to Accuracy Rating
+{variant:4,5}+(300-350) to Accuracy Rating
+{variant:5}15% increased Movement Speed if you've Killed Recently
 ]],[[
 Shiversting
 Bastard Sword
