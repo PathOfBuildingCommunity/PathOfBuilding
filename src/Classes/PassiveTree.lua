@@ -713,9 +713,8 @@ function PassiveTreeClass:PregenerateOrbitConnectorArcs()
 	assert(segmentsPerOrbit % 4 == 0, "segmentsPerOrbit must be aligned on 90 degree quadrant boundaries")
 	local segmentAngles = self:CalcOrbitAngles(segmentsPerOrbit)
 
-	-- Our quad segments aren't infinitely thin, so our quads need to extend very slightly
-	-- further out than the arc itself. The exact extra distance required is this
-	-- outerRadiusSlopFactor * (the outer radius of the arc)
+	-- Our quad segments aren't infinitely thin, so our quads need to be a bit thicker than
+	-- the arc artwork to ensure they pick up everything even in the middles of the quads.
 	--
 	-- Note that this causes our texture coordinates to slightly exceed the boundaries of the
 	-- sprite for segments near the edge of the sprite. We assume that there is enough space
@@ -723,7 +722,10 @@ function PassiveTreeClass:PregenerateOrbitConnectorArcs()
     -- tree versions where the arcs have individual images instead of sprite sheets, we allow
     -- this because SimpleGraphics will render transparency for textureCoordinates outside of
 	-- texture coordinates [0, 1] x [0, 1]).
-	--local outerRadiusSlopFactor = (1 / m_cos(m_pi / segmentsPerOrbit)) 
+	--
+	-- In theory, there shouldn't need to be any inner slop factor, and the outer one should
+	-- only need to be ~1.002 (1 / m_cos(m_pi / segmentsPerOrbit)). In practice, we can't render
+	-- .002px at a time, so we use much higher slop factors to allow for rendering/float imprecision.
 	local outerRadiusSlopFactor = 1.1
 	local innerRadiusSlopFactor = 0.8
 
