@@ -2508,7 +2508,8 @@ function calcs.perform(env, avoidCache)
 				triggerName = "Arakaali's Fang"
 				spellCount = nil
 				for _, skill in ipairs(env.player.activeSkillList) do
-					if skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill then
+					local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
+					if skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill and not triggered then
 						source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 					end
 				end
@@ -2519,7 +2520,8 @@ function calcs.perform(env, avoidCache)
 				minion = true
 				spellCount = {{ uuid = cacheSkillUUID(actor.mainSkill), cd = actor.mainSkill.skillData.cooldown}}
 				for _, skill in ipairs(env.player.activeSkillList) do
-					if skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill then
+					local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
+					if skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill and not triggered then
 						source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 					end
 				end
@@ -2705,9 +2707,14 @@ function calcs.perform(env, avoidCache)
 					end
 				end
 			elseif uniqueTriggerName == "Maloney's Mechanism" then
+				local _, _, uniqueTriggerName = env.player.itemList[env.player.mainSkill.slotName].modSource:find(".*:.*:(.*),.*")
+				local isReplica = uniqueTriggerName:match("Replica.")
+				triggerName = uniqueTriggerName
 				for _, skill in ipairs(env.player.activeSkillList) do
 					local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
-					if skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= env.player.mainSkill and not triggered then
+					local attack = skill.skillTypes[SkillType.Attack] and (band(skill.skillCfg.flags, ModFlag.Bow) > 0) and not isReplica
+					local spell = skill.skillTypes[SkillType.Spell] and isReplica
+					if (attack or spell) and skill ~= env.player.mainSkill and not triggered then
 						source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 					end
 					if skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.RangedAttack] then
