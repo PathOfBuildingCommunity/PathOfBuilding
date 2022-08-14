@@ -1003,6 +1003,15 @@ return {
 			modList:NewMod("Condition:IgnitingConflux", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		end
 	end },
+	{ var = "buffHeartstopper", type = "list", label = "Is Heartstopper active?", ifCond = "HeartstopperHIT", list = {{val=0,label="None"},{val="AVERAGE",label="average"},{val="HIT",label="Hit"},{val="DOT",label="Damage over time"}}, apply = function(val, modList, enemyModList)
+		if val == "HIT" then
+			modList:NewMod("Condition:HeartstopperHIT", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		elseif val == "DOT" then
+			modList:NewMod("Condition:HeartstopperDOT", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		elseif val == "AVERAGE" then
+			modList:NewMod("Condition:HeartstopperAVERAGE", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		end
+	end },
 	{ var = "buffBastionOfHope", type = "check", label = "Is Bastion of Hope active?", ifCond = "BastionOfHopeActive", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BastionOfHopeActive", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
