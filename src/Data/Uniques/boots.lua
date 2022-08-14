@@ -209,15 +209,17 @@ Gore Footprints
 Deerstalker
 Deerskin Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 22, 42 Dex
-Socketed Gems are Supported by level 11 Trap
+{variant:1,2}Socketed Gems are Supported by level 11 Trap
+{variant:3}Socketed Gems are Supported by level 15 Trap
 (160-200)% increased Evasion Rating
-+(35-45) to maximum Life
+{variant:1,2}+(35-45) to maximum Life
 (14-18)% increased Trap Throwing Speed
-{variant:2}15% increased Movement Speed
+{variant:2,3}15% increased Movement Speed
 {variant:1}30% increased Movement Speed for 9 seconds on Throwing a Trap
-{variant:2}15% increased Movement Speed for 9 seconds on Throwing a Trap
+{variant:2,3}15% increased Movement Speed for 9 seconds on Throwing a Trap
 ]],[[
 Doryani's Delusion
 Slink Boots

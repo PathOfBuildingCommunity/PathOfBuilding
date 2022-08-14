@@ -352,26 +352,34 @@ Death Rush
 Amethyst Ring
 League: Onslaught
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 46
 Implicits: 1
 {tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-{tags:attack}+(300-350) to Accuracy Rating
-{tags:jewellery_defense}{variant:1}+(60-80) to Armour
-{tags:jewellery_defense}{variant:2}+(260-300) to Armour
+{variant:1,2}{tags:attack}+(300-350) to Accuracy Rating
+{variant:1}{tags:jewellery_defense}+(60-80) to Armour
+{variant:2}{tags:jewellery_defense}}+(260-300) to Armour
 {variant:2}{tags:life}+(40-50) to maximum Life
-{tags:chaos,jewellery_resistance}+(15-20)% to Chaos Resistance
-{tags:attack,life,physical}(0.6-0.8)% of Physical Attack Damage Leeched as Life
+{variant:1,2}{tags:chaos,jewellery_resistance}+(15-20)% to Chaos Resistance
+{variant:1,2}{tags:attack,life,physical}(0.6-0.8)% of Physical Attack Damage Leeched as Life
 {variant:1}You gain Onslaught for 2 seconds on Kill
 {variant:2}You gain Onslaught for 4 seconds on Kill
+{variant:3}Recover 5% of Life on Kill
+{variant:3}Gain Adrenaline for 3 seconds on kill
 ]],[[
 Doedre's Damning
 Paua Ring
+Variant: Pre 3.19.0
+Variant: Current
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
-{tags:jewellery_attribute}+(5-10) to Intelligence
-{tags:jewellery_resistance}+5% to all Elemental Resistances
-{tags:mana}+5 Mana Gained on Kill
+{variant:1}{tags:jewellery_attribute}+(5-10) to Intelligence
+{variant:2}{tags:jewellery_attribute}+(5-20) to Intelligence 
+{variant:1}{tags:jewellery_resistance}+5% to all Elemental Resistances
+{variant:2}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
+{variant:1}{tags:mana}+5 Mana Gained on Kill
+{variant:2}{tags:mana}+(5-20) Mana gained on Kill
 {tags:caster}Enemies can have 1 additional Curse
 ]],[[
 Replica Doedre's Damning

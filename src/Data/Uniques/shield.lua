@@ -663,20 +663,25 @@ Daresso's Courage
 Baroque Round Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.4.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 120% increased Block Recovery
-{variant:1,2}36% chance to Block Spell Damage while on Low Life
-{variant:3}+30% chance to Block Spell Damage while on Low Life
-20% increased Global Physical Damage
-(100-120)% increased Armour and Evasion
+{variant:1,2}+36% chance to Block Spell Damage while on Low Life
+{variant:3,4}+30% chance to Block Spell Damage while on Low Life
+{variant:1,2,3}20% increased Global Physical Damage
+{variant:1,2,3}(100-120)% increased Armour and Evasion
+{variant:4}(200-250)% increased Armour and Evasion
 {variant:1}+(10-20)% to Fire Resistance
 {variant:1}+(10-20)% to Cold Resistance
 {variant:1}+(10-20)% to Lightning Resistance
 {variant:2,3}+(10-20)% to all Elemental Resistances
-+(3-6)% Chance to Block
+{variant:4}+(20-30)% to all Elemental Resistances
+{variant:1,2,3}+(3-6)% Chance to Block
 {variant:2,3}+20% Chance to Block Attack Damage if you have Blocked Spell Damage Recently
+{variant:4}+100% Chance to Block Attack Damage if you have Blocked Spell Damage Recently
 {variant:2,3}+20% chance to Block Spell Damage if you have Blocked Attack Damage Recently
+{variant:4}+100% chance to Block Spell Damage if you have Blocked Attack Damage Recently
 ]],[[
 The Deep One's Hide
 Studded Round Shield

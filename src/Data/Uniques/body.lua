@@ -518,11 +518,16 @@ Implicits: 0
 ]],[[
 Dialla's Malefaction
 Sage's Robe
+Variant: Pre 3.19.0
+Variant: Current
 Implicits: 0
 Gems can be Socketed in this Item ignoring Socket Colour
-Gems Socketed in Red Sockets have +1 to Level
-Gems Socketed in Green Sockets have +10% to Quality
-Gems Socketed in Blue Sockets gain 25% increased Experience
+{variant:1}Gems Socketed in Red Sockets have +1 to Level
+{variant:2}Gems Socketed in Red Sockets have +2 to Level
+{variant:1}Gems Socketed in Green Sockets have +10% to Quality
+{variant:2}Gems Socketed in Green Sockets have +30% to Quality
+{variant:1}Gems Socketed in Blue Sockets gain 25% increased Experience
+{variant:2}Gems Socketed in Blue Sockets gain 100% increased Experience
 Has no Attribute Requirements
 ]],[[
 Doedre's Skin
@@ -745,19 +750,22 @@ Full Dragonscale
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Pre 3.16.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
 {variant:1,2,3}(160-200)% increased Armour and Evasion
-{variant:4}(180-220)% increased Armour and Evasion
+{variant:4,5}(180-220)% increased Armour and Evasion
 {variant:1,2}+(40-60) to maximum Life
-{variant:3,4}+(60-90) to maximum Life
-(0.4-0.6)% of Physical Attack Damage Leeched as Life
+{variant:3,4,5}+(60-90) to maximum Life
+{variant:1,2,3,4}(0.4-0.6)% of Physical Attack Damage Leeched as Life
+{variant:5}2% of Physical Attack Damage Leeched as Life
 You lose all Endurance Charges when Hit
 You gain an Endurance Charge on Kill
 {variant:1}You gain Onslaught for 1 seconds per Endurance Charge when Hit
 {variant:2}You gain Onslaught for 2 seconds per Endurance Charge when Hit
-{variant:3,4}You gain Onslaught for 5 seconds per Endurance Charge when Hit
+{variant:3,4,5}You gain Onslaught for 5 seconds per Endurance Charge when Hit
 {variant:3,4}(60-100)% increased Onslaught Effect
+{variant:5}100% increased Onslaught Effect 
 ]],[[
 Farrul's Fur
 Triumphant Lamellar

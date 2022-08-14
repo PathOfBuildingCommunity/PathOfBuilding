@@ -658,10 +658,11 @@ local modNameList = {
 	["charge recovery"] = "FlaskChargeRecovery",
 	["impales you inflict last"] = "ImpaleStacksMax",
 	-- Buffs
-	["phasing"] = "Condition:Phasing",
-	["onslaught"] = "Condition:Onslaught",
-	["unholy might"] = "Condition:UnholyMight",
+	["adrenaline"] = "Condition:Adrenaline",
 	["elusive"] = "Condition:CanBeElusive",
+	["onslaught"] = "Condition:Onslaught",
+	["phasing"] = "Condition:Phasing",
+	["unholy might"] = "Condition:UnholyMight",
 }
 
 -- List of modifier flags
@@ -995,6 +996,7 @@ local preFlagList = {
 local modTagList = {
 	["on enemies"] = { },
 	["while active"] = { },
+	["for (%d+) seconds"] = { },
 	[" on critical strike"] = { tag = { type = "Condition", var = "CriticalStrike" } },
 	["from critical strikes"] = { tag = { type = "Condition", var = "CriticalStrike" } },
 	["with critical strikes"] = { tag = { type = "Condition", var = "CriticalStrike" } },
@@ -1331,6 +1333,7 @@ local modTagList = {
 	["if you haven't killed recently"] = { tag = { type = "Condition", var = "KilledRecently", neg = true } },
 	["if you or your totems have killed recently"] = { tag = { type = "Condition", varList = { "KilledRecently","TotemsKilledRecently" } } },
 	["if you[' ]h?a?ve thrown a trap or mine recently"] = { tag = { type = "Condition", var = "TrapOrMineThrownRecently" } },
+	["on throwing a trap"] = { tag = { type = "Condition", var = "TrapOrMineThrownRecently" } },
 	["if you[' ]h?a?ve killed a maimed enemy recently"] = { tagList = { { type = "Condition", var = "KilledRecently" }, { type = "ActorCondition", actor = "enemy", var = "Maimed" } } },
 	["if you[' ]h?a?ve killed a cursed enemy recently"] = { tagList = { { type = "Condition", var = "KilledRecently" }, { type = "ActorCondition", actor = "enemy", var = "Cursed" } } },
 	["if you[' ]h?a?ve killed a bleeding enemy recently"] = { tagList = { { type = "Condition", var = "KilledRecently" }, { type = "ActorCondition", actor = "enemy", var = "Bleeding" } } },
@@ -2557,6 +2560,7 @@ local specialModList = {
 	["onslaught"] = { flag("Condition:Onslaught") },
 	["unholy might"] = { flag("Condition:UnholyMight") },
 	["elusive"] = { flag("Condition:CanBeElusive") },
+	["adrenaline"] = { flag("Condition:Adrenaline") },
 	["your aura buffs do not affect allies"] = { flag("SelfAurasCannotAffectAllies") },
 	["auras from your skills can only affect you"] = { flag("SelfAurasOnlyAffectYou") },
 	["aura buffs from skills have (%d+)%% increased effect on you for each herald affecting you"] = function(num) return { mod("SkillAuraEffectOnSelf", "INC", num, { type = "Multiplier", var = "Herald"}) } end,
@@ -3706,6 +3710,7 @@ local regenTypes = {
 local flagTypes = {
 	["phasing"] = "Condition:Phasing",
 	["onslaught"] = "Condition:Onslaught",
+	["adrenaline"] = "Condition:Adrenaline",
 	["elusive"] = "Condition:CanBeElusive",
 	["fortify"] = "Condition:Fortified",
 	["fortified"] = "Condition:Fortified",
