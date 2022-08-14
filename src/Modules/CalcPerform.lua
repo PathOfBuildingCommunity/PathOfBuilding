@@ -160,6 +160,11 @@ end
 
 -- Calculate the actual Trigger rate of active skill causing the trigger
 local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield, minion)
+	-- Check if we need to add Spell CastTime to Trigger Cooldown
+	local extraTriggerCD = 0
+	if not minion and env.player.mainSkill.skillModList:Flag(skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
+		extraTriggerCD = env.player.mainSkill.activeEffect.grantedEffect.castTime
+	end
 	-- Get action trigger rate
 	if sourceAPS == nil and source.skillTypes[SkillType.Channel] then
 		output.ActionTriggerRate = 1 / (source.skillData.triggerTime or 1)
@@ -174,9 +179,9 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		end
 	else
 		if minion then 
-			output.ActionTriggerRate = getTriggerActionTriggerRate(env.minion.mainSkill.skillData.cooldown, env, breakdown, false, minion)
+			output.ActionTriggerRate = getTriggerActionTriggerRate(env.minion.mainSkill.skillData.cooldown + extraTriggerCD, env, breakdown, false, minion)
 		else 
-			output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown, env, breakdown, false, minion)
+			output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown + extraTriggerCD, env, breakdown, false, minion)
 		end
 	end
 	local trigRate
