@@ -734,6 +734,7 @@ Ngamahu's Sign
 Ruby Ring
 League: Bloodlines
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 29
 Implicits: 1
@@ -741,11 +742,12 @@ Implicits: 1
 {tags:jewellery_attribute}+(15-25) to Strength
 {variant:1}{tags:jewellery_elemental,attack}Adds (8-10) to (12-14) Fire Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack,caster}Adds (8-10) to (12-14) Fire Damage to Spells and Attacks
-{variant:1}{tags:life}+(4-5) Life gained for each Ignited Enemy hit by your Attacks
-{variant:2}{tags:life}Recover (20-30) Life when you Ignite an Enemy
+{variant:3}{tags:jewellery_elemental,attack,caster}Adds (20-25) to (30-35) Fire Damage to Spells and Attacks
 15% increased Ignite Duration on Enemies
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
-{variant:2}{tags:jewellery_elemental}10% chance to Ignite
+{variant:2,3}{tags:jewellery_elemental}10% chance to Ignite
+{variant:1}{tags:life}+(4-5) Life gained for each Ignited Enemy hit by your Attacks
+{variant:2,3}{tags:life}Recover (20-30) Life when you Ignite an Enemy
 ]],[[
 The Pariah
 Unset Ring
