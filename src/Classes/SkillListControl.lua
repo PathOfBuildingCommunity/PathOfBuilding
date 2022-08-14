@@ -105,7 +105,7 @@ end
 
 function SkillListClass:OnSelDelete(index, socketGroup)
 	local function updateActiveSocketGroupIndex()
-		local skillsTabIndex = self.skillsTab.build.mainSocketGroup or 0
+		local skillsTabIndex = self.skillsTab.build.mainSocketGroup
 		if skillsTabIndex > self.selIndex then
 			self.skillsTab.build.mainSocketGroup = skillsTabIndex - 1
 		end
