@@ -743,7 +743,7 @@ c["Left ring slot: Projectiles from Spells Fork"]={{[1]={[1]={num=1,type="SlotNu
 c["You gain Onslaught for 2 seconds on Killing Taunted Enemies Gain Onslaught for 4 seconds when you Warcry"]={nil,"You gain Onslaught for 2 seconds on Killing Taunted Enemies Gain Onslaught for 4 seconds when you Warcry "}
 c["Champion Kite Shield"]={nil,"Champion Kite Shield "}
 c["Grants level 20 Summon Bestial Rhoa Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonBeastialRhoa"}}},nil}
-c["Your Offerings have 50% reduced Effect on you"]={{[1]={[1]={skillNameList={[1]="Bone Offering",[2]="Flesh Offering",[3]="Spirit Offering"},type="SkillName"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="BuffEffectOnPlayer",type="INC",value=-50}}}},nil}
+c["Your Offerings have 50% reduced Effect on you"]={{[1]={[1]={skillNameList={[1]="Bone Offering",[2]="Flesh Offering",[3]="Spirit Offering",[4]="Blood Offering"},type="SkillName"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="BuffEffectOnPlayer",type="INC",value=-50}}}},nil}
 c["15% increased Attack Damage"]={{[1]={flags=1,keywordFlags=0,name="Damage",type="INC",value=15}},nil}
 c["10% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=10}},nil}
 c["Adds 92 to 154 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=92},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=154}},nil}
@@ -1219,7 +1219,7 @@ c["200% increased Critical Strike Chance with arrows that Fork"]={{[1]={[1]={sta
 c["Soldier Gloves League: Bestiary"]={nil,"Soldier Gloves League: Bestiary "}
 c["90% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=90}},nil}
 c["30% increased Mana Regeneration Rate"]={{[1]={flags=0,keywordFlags=0,name="ManaRegen",type="INC",value=30}},nil}
-c["Your Offering Skills also affect you"]={{[1]={[1]={skillNameList={[1]="Bone Offering",[2]="Flesh Offering",[3]="Spirit Offering"},type="SkillName"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="buffNotPlayer",value=false}}}}},nil}
+c["Your Offering Skills also affect you"]={{[1]={[1]={skillNameList={[1]="Bone Offering",[2]="Flesh Offering",[3]="Spirit Offering",[4]="Blood Offering"},type="SkillName"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="buffNotPlayer",value=false}}}}},nil}
 c["Gain an Endurance Charge when you take a Critical Strike"]={nil,"Gain an Endurance Charge when you take a Critical Strike "}
 c["Requires Class Scion Allocates Guardian if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Guardian if you have the matching modifier on Forbidden Flame "}
 c["25% less Damage taken from other Enemies near your Marked Enemy"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="MORE",value=-25}},"  from other Enemies near your Marked Enemy "}
@@ -5203,7 +5203,7 @@ c["40% increased Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShiel
 c["+15 to Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=15}},nil}
 c["2% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=2}},nil}
 c["Socketed Gems fire Projectiles in a Nova"]={nil,"Socketed Gems fire Projectiles in a Nova "}
-c["35% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInteruptStun",type="BASE",value=35}},nil}
+c["35% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInterruptStun",type="BASE",value=35}},nil}
 c["Adds 1 to 24 Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningMin",type="BASE",value=1},[2]={flags=0,keywordFlags=0,name="LightningMax",type="BASE",value=24}},nil}
 c["Adds 12 to 16 Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdMin",type="BASE",value=12},[2]={flags=0,keywordFlags=0,name="ColdMax",type="BASE",value=16}},nil}
 c["Gold Amulet"]={nil,"Gold Amulet "}
@@ -5708,7 +5708,7 @@ c["Penetrating Arrow Quiver"]={nil,"Penetrating Arrow Quiver "}
 c["Cannot Leech Life from Critical Strikes"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=0,keywordFlags=0,name="CannotLeechLife",type="FLAG",value=true}},nil}
 c["50% increased Melee Damage against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=256,keywordFlags=0,name="Damage",type="INC",value=50}},nil}
 c["+2% to all Elemental Resistances per 10 Devotion"]={{[1]={[1]={div=10,stat="Devotion",type="PerStat"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=2}},nil}
-c["25% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInteruptStun",type="BASE",value=25}},nil}
+c["25% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInterruptStun",type="BASE",value=25}},nil}
 c["Agate Amulet Variant: Pre 2.5.0"]={nil,"Agate Amulet Variant: Pre 2.5.0 "}
 c["Ezomyte Blade Variant: Pre 2.6.0"]={nil,"Ezomyte Blade Variant: Pre 2.6.0 "}
 c["Ezomyte Blade"]={nil,"Ezomyte Blade "}
@@ -6217,7 +6217,7 @@ c["All Damage can Shock"]={{[1]={flags=0,keywordFlags=0,name="PhysicalCanShock",
 c["+32% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=32}},nil}
 c["Reflects 1 to 220 Lightning Damage to Attackers on Block Defences are Zero"]={nil,"Reflects 1 to 220 Lightning Damage to Attackers on Block Defences are Zero "}
 c["22% increased Stun and Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=22}},nil}
-c["15% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInteruptStun",type="BASE",value=15}},nil}
+c["15% chance to Avoid interruption from Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInterruptStun",type="BASE",value=15}},nil}
 c["Auras from your Skills grant 0.2% of Life Regenerated per second to you and Allies"]={{[1]={flags=0,keywordFlags=0,name="ExtraAuraEffect",type="LIST",value={mod={flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=0.2}}}},nil}
 c["Recover 25% of Life when you gain Adrenaline Remove all Ailments and Burning when you gain Adrenaline"]={nil,"Recover 25% of Life when you gain Adrenaline Remove all Ailments and Burning when you gain Adrenaline "}
 c["1 Added Passive Skill is Disease Vector"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Disease Vector"}},nil}
@@ -7044,7 +7044,7 @@ c["Studded Belt Source: Drops from any endgame map boss"]={nil,"Studded Belt Sou
 c["Searching Eye Jewel Requires Level 40"]={nil,"Searching Eye Jewel Requires Level 40 "}
 c["50% increased Flask Charges gained"]={{[1]={flags=0,keywordFlags=0,name="FlaskChargesGained",type="INC",value=50}},nil}
 c["Studded Belt Variant: Pre 2.6.0"]={nil,"Studded Belt Variant: Pre 2.6.0 "}
-c["Offering Skills have 50% reduced Duration"]={{[1]={[1]={skillNameList={[1]="Bone Offering",[2]="Flesh Offering",[3]="Spirit Offering"},type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=-50}},nil}
+c["Offering Skills have 50% reduced Duration"]={{[1]={[1]={skillNameList={[1]="Bone Offering",[2]="Flesh Offering",[3]="Spirit Offering",[4]="Blood Offering"},type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=-50}},nil}
 c["Regenerate 0.5% of Life per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=0.5}},nil}
 c["Can have up to 5 additional Traps placed at a time"]={{[1]={flags=0,keywordFlags=0,name="ActiveTrapLimit",type="BASE",value=5}},nil}
 c["Leather Belt Requires Level 49"]={nil,"Leather Belt Requires Level 49 "}
@@ -8957,7 +8957,7 @@ c["Ghastly Eye Jewel +10 to all Attributes"]={nil,"Ghastly Eye Jewel +10 to all 
 c["40% more Attack Speed with Melee Skills while you are Unencumbered"]={{[1]={[1]={type="Condition",var="Unencumbered"},flags=257,keywordFlags=0,name="Speed",type="MORE",value=40}},nil}
 c["+3% Chance to Block Attack Damage while holding a Shield"]={{[1]={[1]={type="Condition",varList={[1]="UsingShield"}},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=3}},nil}
 c["20% chance to Avoid being Stunned"]={{[1]={flags=0,keywordFlags=0,name="AvoidStun",type="BASE",value=20}},nil}
-c["20% increased effect of Offerings"]={{[1]={[1]={skillNameList={[1]="Bone Offering",[2]="Flesh Offering",[3]="Spirit Offering"},type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=20}},nil}
+c["20% increased effect of Offerings"]={{[1]={[1]={skillNameList={[1]="Bone Offering",[2]="Flesh Offering",[3]="Spirit Offering",[4]="Blood Offering"},type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=20}},nil}
 c["Rusted Hatchet"]={nil,"Rusted Hatchet "}
 c["10% reduced Flask Charges used"]={{[1]={flags=0,keywordFlags=0,name="FlaskChargesUsed",type="INC",value=-10}},nil}
 c["5% increased Recovery rate of Life and Energy Shield per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="LifeRecoveryRate",type="INC",value=5},[2]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="EnergyShieldRecoveryRate",type="INC",value=5}},nil}

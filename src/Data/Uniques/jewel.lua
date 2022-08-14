@@ -78,11 +78,13 @@ Intelligence from Passives in Radius is Transformed to Dexterity
 ]],[[
 Cheap Construction
 Viridian Jewel
+Source: No longer obtainable
 10% reduced Trap Duration
 Can have up to 1 additional Trap placed at a time
 ]],[[
 Replica Cheap Construction
 Viridian Jewel
+Source: No longer obtainable
 League: Heist
 (100-120)% increased Critical Strike Chance with Traps
 Can have 5 fewer Traps placed at a time
@@ -243,20 +245,24 @@ Cobalt Jewel
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
-Variant: Current
+Variant: Current - Crit Chance
+Variant: Current - Min Endurance Charge
 {variant:1}Gain 15 Mana per Grand Spectrum
 {variant:2}Gain 30 Mana per Grand Spectrum
 {variant:3}25% increased Critical Strike Chance per Grand Spectrum
+{variant:4}+1 to Minimum Endurance Charges per Grand Spectrum
 ]],[[
 Grand Spectrum
 Crimson Jewel
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
-Variant: Current
+Variant: Current - Elemental Resistances
+Variant: Current - Minion Crit Multi
 {variant:1}Gain 75 Armour per Grand Spectrum
 {variant:2}Gain 200 Armour per Grand Spectrum
 {variant:3}+7% to all Elemental Resistances per Grand Spectrum
+{variant:4}Minions have +10% to Critical Strike Multiplier per Grand Spectrum
 ]],[[
 Grand Spectrum
 Viridian Jewel
@@ -358,7 +364,7 @@ Passives in Radius can be Allocated without being connected to your tree
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
-Source: Drops in The Lord's Labyrinth
+Source: No longer obtainable
 (18-25)% increased Fire Damage
 (18-25)% increased Cold Damage
 2% chance to Freeze
@@ -415,9 +421,12 @@ Radius: Small
 ]],[[
 Melding of the Flesh
 Cobalt Jewel
+Variant: Pre 3.19.0
+Variant: Current
 Source: Drops from unique{The Eater of Worlds}
 Limited to: 1
 -(80-70)% to All Elemental Resistances
+{variant:2}-(4-6)% to all maximum Elemental Resistances
 Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
 ]],[[
 Might in All Forms
@@ -1288,7 +1297,7 @@ Limited to: 1
 Radius: Medium
 {variant:1}(5-10)% increased maximum Mana
 {variant:2}(7-10)% increased maximum Mana
-With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit if you've Warcried Recently
+With at least 40 Intelligence in Radius, 10% of Damage taken Recouped as Mana if you've Warcried Recently
 ]],[[
 Spreading Rot
 Cobalt Jewel
@@ -1433,9 +1442,9 @@ Corrupted
 ]],[[
 Blood Sacrifice
 Crimson Jewel
-1% of maximum Mana gained on Kill
-Removes 1% of Life on Kill
-Removes 1% of Energy Shield on Kill
+Lose 1% of Life on Kill
+Recover 1% of Mana on Kill
+Lose 1% of Energy Shield on Kill
 Corrupted
 ]],[[
 Replica Blood Sacrifice
@@ -1749,6 +1758,7 @@ Requires Level: 20
 Limited to: 1 Historic
 Has Alt Variant: true
 Has Alt Variant Two: true
+Selected Variant: 1
 Variant: Avarius
 Variant: Dominus
 Variant: Venarius

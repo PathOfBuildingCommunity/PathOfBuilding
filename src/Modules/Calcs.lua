@@ -507,7 +507,7 @@ function calcs.buildOutput(build, mode)
 			t_insert(combatList, s_format("%d Power Charges", output.PowerCharges))
 		end
 		if output.AbsorptionCharges > 0 then
-			t_insert(combatList, s_format("%d Absoprtion Charges", output.AbsorptionCharges))
+			t_insert(combatList, s_format("%d Absorption Charges", output.AbsorptionCharges))
 		end
 		if output.FrenzyCharges > 0 then
 			t_insert(combatList, s_format("%d Frenzy Charges", output.FrenzyCharges))
