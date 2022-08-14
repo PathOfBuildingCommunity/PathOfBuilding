@@ -10028,7 +10028,6 @@ skills["LightningConduit"] = {
 	constantStats = {
 		{ "lightning_coil_damage_+%_final_per_shock_divisor", 1000 },
 		{ "base_spell_shock_divisor_%", 500 },
-		{ "base_chance_to_shock_%", -100 },
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -10036,6 +10035,7 @@ skills["LightningConduit"] = {
 		"active_skill_base_radius_+",
 		"lightning_ailment_effect_+%",
 		"is_area_damage",
+		"never_shock",
 		"console_skill_dont_chase",
 	},
 	levels = {
