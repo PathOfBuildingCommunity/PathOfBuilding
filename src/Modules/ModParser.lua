@@ -2063,7 +2063,7 @@ local specialModList = {
 	["cannot be stunned while you have ghost shrouds"] = function(num) return { mod("AvoidStun", "BASE", 100, { type = "MultiplierThreshold", var = "GhostShroud", threshold = 1 }) } end,
 	["your action speed is at least (%d+)%% of base value"] = function(num) return { mod("MinimumActionSpeed", "MAX", num) } end,
 	["nearby enemy monsters' action speed is at most (%d+)%% of base value"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("MaximumActionSpeedReduction", "MAX", 100 - num)} )} end,
-	["prevent +(%+%d+)%% of suppressed spell damage while on full energy shield"] = function(num) return { mod("SpellSuppressionEffect", "BASE", num, { type = "Condition", var = "FullEnergyShield" }) } end,
+	["prevent %+(%d+)%% of suppressed spell damage while on full energy shield"] = function(num) return { mod("SpellSuppressionEffect", "BASE", num, { type = "Condition", var = "FullEnergyShield" }) } end,
 	["energy shield leech effects are not removed when energy shield is filled"] = { flag("CanLeechEnergyShieldOnFullEnergyShield") },
 	-- Item local modifiers
 	["has no sockets"] = { flag("NoSockets") },
@@ -2527,7 +2527,7 @@ local specialModList = {
 	-- Suppression
 	["your chance to suppressed spell damage is lucky"] = { flag("SpellSuppressionChanceIsLucky") },
 	["your chance to suppressed spell damage is unlucky"] = { flag("SpellSuppressionChanceIsUnlucky") },
-	["prevent +(%+%d+)%% of suppressed spell damage"] = function(num) return { mod("SpellSuppressionEffect", "BASE", num) } end,
+	["prevent %+(%d+)%% of suppressed spell damage"] = function(num) return { mod("SpellSuppressionEffect", "BASE", num) } end,
 	["critical strike chance is increased by chance to suppress spell damage"] = { mod("CritChance", "INC", 1, { type = "PerStat", stat = "SpellSuppressionChance", div = 1 }) },
 	["you take (%d+)%% reduced extra damage from suppressed critical strikes"] = function(num) return { mod("ReduceSuppressedCritExtraDamage", "BASE", num) } end,
 	["+(%d+)%% chance to suppress spell damage if your boots, helmet and gloves have evasion"] = function(num) return { 
