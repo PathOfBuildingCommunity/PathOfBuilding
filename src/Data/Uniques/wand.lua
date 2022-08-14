@@ -22,33 +22,40 @@ Opal Wand
 Variant: Pre 2.3.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 62, 212 Int
 Implicits: 2
 {variant:1}(17-20)% increased Spell Damage
-{variant:2,3,4}(38-42)% increased Spell Damage
+{variant:2,3,4,5}(38-42)% increased Spell Damage
 {variant:1,2}Adds (50-65) to (90-105) Chaos Damage to Spells
-{variant:3,4}Adds (90-130) to (140-190) Chaos Damage to Spells
+{variant:3,4,5}Adds (90-130) to (140-190) Chaos Damage to Spells
 (25-30)% increased Cast Speed
 +(5-10)% to Chaos Resistance
 {variant:1,2,3}40% increased Mana Cost of Skills
-{variant:4}Lose 40 Mana when you use a Skill
 {variant:3,4}Poisons you inflict deal Damage 20% faster
+{variant:5}Poisons you inflict deal Damage (30-50)% faster
+{variant:4,5}Lose 40 Mana when you use a Skill
 ]],[[
 Ashcaller
 Quartz Wand
 Variant: Pre 3.8.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 18, 65 Int
 Implicits: 1
 (18-22)% increased Spell Damage
-10% chance to Trigger Level 8 Summon Raging Spirit on Kill
+{variant:3}10% chance to Cover Enemies in Ash on Hit
+{variant:1,2}10% chance to Trigger Level 8 Summon Raging Spirit on Kill
+{variant:3}25% chance to Trigger Level 10 Summon Raging Spirit on Kill
 {variant:1}Adds (10-14) to (18-22) Fire Damage
+{variant:3}Adds (20-24) to (38-46) Fire Damage
 {variant:2}+(15-25)% to Fire Damage over Time Multiplier
-Adds (4-6) to (7-9) Fire Damage to Spells
+{variant:1,2}Adds (4-6) to (7-9) Fire Damage to Spells
+{variant:3}Adds (20-24) to (36-46) Fire Damage to Spells
 {variant:1}(40-50)% increased Burning Damage
 {variant:2}(20-30)% increased Burning Damage
-(16-22)% chance to Ignite
+{variant:1,2}(16-22)% chance to Ignite
 ]],[[
 Eclipse Solaris
 Crystal Wand
@@ -158,17 +165,18 @@ Obliteration
 Demon's Horn
 Variant: Pre 2.3.0
 Variant: Pre 3.10.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 56, 179 Int
 Implicits: 2
 {variant:1}(15-18)% increased Spell Damage
-{variant:2,3}(31-35)% increased Spell Damage
+{variant:2,3,4}(31-35)% increased Spell Damage
 {variant:1,2}Adds (24-30) to (80-92) Physical Damage
 {variant:3}Adds (25-50) to (85-125) Physical Damage
-(26-32)% increased Critical Strike Chance
-Gain (13-15)% of Physical Damage as Extra Chaos Damage
-Enemies you Kill have a 20% chance to Explode, dealing a quarter
-of their maximum Life as Chaos Damage
+{variant:1,2,3}(26-32)% increased Critical Strike Chance
+{variant:1,2,3}Gain (13-15)% of Physical Damage as Extra Chaos Damage
+{variant:4}Gain (30-40)% of Physical Damage as Extra Chaos Damage
+Enemies you Kill have a 20% chance to Explode, dealing a quarter of their maximum Life as Chaos Damage
 ]],[[
 Piscator's Vigil
 Tornado Wand
@@ -200,13 +208,16 @@ Reverberation Rod
 Spiraled Wand
 Variant: Pre 2.3.0
 Variant: Pre 3.11.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 24, 83 Int
 Implicits: 2
 {variant:1}(10-14)% increased Spell Damage
-{variant:2,3}(15-19)% increased Spell Damage
+{variant:2,3,4}(15-19)% increased Spell Damage
 {variant:1,2}+1 to Level of Socketed Gems
-{variant:3}+2 to Level of Socketed Gems
+{variant:3,4}+2 to Level of Socketed Gems
+{variant:4}Socketed Gems are Supported by Level 10 Arcane Surge
+{variant:4}Socketed Gems are Supported by Level 10 Controlled Destruction
 Socketed Gems are Supported by Level 10 Spell Echo
 +(10-30) to Intelligence
 ]],[[
@@ -221,7 +232,7 @@ Your Critical Strike Chance is Lucky while on Low Life
 ]],[[
 Amplification Rod
 Spiraled Wand
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 36, 83 Int

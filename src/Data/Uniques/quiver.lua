@@ -61,7 +61,7 @@ The Signal Fire
 Fire Arrow Quiver
 Variant: Pre 3.14.0
 Variant: Pre 3.17.0
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 24
 Implicits: 1
 3 to 5 Added Fire Damage with Bow Attacks
@@ -75,7 +75,7 @@ Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
 The Signal Fire
 Blazing Arrow Quiver
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 45
 Implicits: 1
 (12-15) to (24-27) Added Fire Damage with Bow Attacks
@@ -165,7 +165,7 @@ Implicits: 1
 ]],[[
 Hyrri's Demise
 Sharktooth Arrow Quiver
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 45
 Implicits: 1
 +(6-8) Life gained for each Enemy hit by your Attacks

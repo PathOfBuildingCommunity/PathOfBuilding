@@ -234,17 +234,22 @@ War Buckler
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {variant:3,4}9% increased Movement Speed
-+1 to Level of Socketed Curse Gems
+{variant:1,2,3,4}+1 to Level of Socketed Curse Gems
+{variant:5}+3 to Level of Socketed Curse Gems
 (30-50)% increased Evasion Rating
-{variant:2,3,4}+(50-70) to maximum Energy Shield
+{variant:2,3,4,5}+(50-70) to maximum Energy Shield
 {variant:2,3,4}+(40-50) to maximum Life
-+5% Chance to Block
-10% Chance to Cause Monster to Flee on Block
+{variant:1,2,3,4}+5% Chance to Block
+{variant:5}+20% chance to Block Attack Damage from Cursed Enemies
+{variant:1,2,3,4}10% Chance to Cause Monster to Flee on Block
+{variant:5}100% Chance to Cause Monster to Flee on Block
 {variant:1,2,3}Curse Skills have 100% increased Skill Effect Duration
 {variant:4}1% of Damage Leeched as Life against Cursed Enemies
+{variant:5}Inflict Decay on Enemies you Curse with Hex or Mark Skills, dealing 700 Chaos Damage per Second for 8 Seconds
 ]],[[
 Thirst for Horrors
 War Buckler
@@ -366,14 +371,17 @@ Thousand Teeth Temu
 Vaal Buckler
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
-{variant:3}3% increased Movement Speed
+{variant:3,4}3% increased Movement Speed
 (100-120)% increased Evasion Rating
 +(70-90) to maximum Life
 0.4% of Physical Attack Damage Leeched as Life
-+5% Chance to Block
-Reflects 1 to 1000 Physical Damage to Attackers on Block
+{variant:1,2,3}+5% Chance to Block
+{variant:4}+10% Chance to Block
+{variant:1,2,3}Reflects 1 to 1000 Physical Damage to Attackers on Block
+{variant:4}Reflects 1000 to 10000 Physical Damage to Attackers on Block
 {variant:2,3}10% of Damage you Reflect to Enemies when Hit is gained as Life
 ]],
 -- Shield: Energy Shield
@@ -500,21 +508,24 @@ Cannot Block
 50% increased Warcry Cooldown Recovery Rate
 ]],[[
 Kongming's Stratagem
-Ivory Spirit Shield
+{variant:1,2,3,4}Ivory Spirit Shield
+{variant:5}Ancient Spirit Shield
 Variant: Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Pre 3.11.0
+Variant: Pre 3.19.0
 Variant: Current
-Implicits: 2
+Implicits: 3
 {variant:1}15% increased Spell Damage
 {variant:2,3,4}(15-20)% increased Spell Damage
+{variant:5}(5-10)% increased Spell Damage
 {Variant:1,2}Socketed Trap Skills create a Smoke Cloud when triggered
-{Variant:3,4}Trigger Level 20 Fog of War when your Trap is triggered
+{Variant:3,4,5}Trigger Level 20 Fog of War when your Trap is triggered
 +(20-30) to Intelligence
 {variant:1,2}(80-120)% increased Energy Shield
-{variant:3,4}(250-300)% increased Energy Shield
+{variant:3,4,5}(250-300)% increased Energy Shield
 {variant:1,2,3}30% increased Fire Damage with Hits and Ailments against Blinded Enemies
-{variant:4}(30-50)% increased Fire Damage with Hits and Ailments against Blinded Enemies
+{variant:4,5}(30-50)% increased Fire Damage with Hits and Ailments against Blinded Enemies
 30% reduced Spell Damage taken from Blinded Enemies
 No Chance to Block
 ]],[[
@@ -554,9 +565,13 @@ Lose all Power Charges on reaching Maximum Power Charges
 Shocks you when you reach Maximum Power Charges
 ]],[[
 Manastorm
-Fossilised Spirit Shield
-Implicits: 1
-(15-20)% increased Spell Damage
+{variant:1}Fossilised Spirit Shield
+{variant:2}Lacewood Spirit Shield
+Variant: Pre 3.19.0
+Variant: Current
+Implicits: 2
+{variant:1}(15-20)% increased Spell Damage
+{variant:2}(5-10)% increased Spell Damage
 (80-120)% increased Energy Shield
 +(50-70) to maximum Mana
 (30-50)% increased Mana Regeneration Rate
@@ -566,20 +581,24 @@ equal to 25% of Sacrificed Mana for 4 seconds
 Matua Tupuna
 Tarnished Spirit Shield
 Variant: Pre 3.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
 {variant:1}5% increased Spell Damage
-{variant:2}(5-10)% increased Spell Damage
+{variant:2,3}(5-10)% increased Spell Damage
 +2 to Level of Socketed Minion Gems
 (40-80)% increased Energy Shield
 +(15-25) to maximum Mana
-10% increased effect of Non-Curse Auras from your Skills on your Minions
-Spreads Tar when you take a Critical Strike
-10% increased effect of Non-Curse Auras from your Skills
+{variant:1,2}10% increased effect of Non-Curse Auras from your Skills on your Minions
+{variant:3}20% increased effect of Non-Curse Auras from your Skills on your Minions
+{variant:1,2}Spreads Tar when you take a Critical Strike
+{variant:3}Spreads Tar when you Block
+{variant:1,2}10% increased effect of Non-Curse Auras from your Skills
+{variant:3}20% increased effect of Non-Curse Auras from your Skills
 ]],[[
 Whakatutuki o Matua
 Tarnished Spirit Shield
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 LevelReq: 63
 Implicits: 1
 (5-10)% increased Spell Damage
@@ -598,17 +617,21 @@ League: Legion
 Source: Drops from Vaal Legion
 Variant: Pre 3.4.0
 Variant: Pre 3.7.0
+Variant: 3.19.0
 Variant: Current
 Implicits: 0
 {variant:1}+(12-18)% chance to Block Spell Damage
-{variant:2,3}+(10-15)% chance to Block Spell Damage
+{variant:2,3,4}+(10-15)% chance to Block Spell Damage
 {variant:1,2}(40-60)% increased Spell Damage
 (120-160)% increased Energy Shield
 10% increased maximum Life
 {variant:1,2}+25% to Lightning Resistance
 {variant:3}Sacrifice 4% of your Life when you Use or Trigger a Spell Skill
+{variant:4}Sacrifice 10% of your Life when you Use or Trigger a Spell Skill
 {variant:3}2% increased Critical Strike Chance for Spells per 100 Player Maximum Life
+{variant:4}5% increased Critical Strike Chance for Spells per 100 Player Maximum Life
 {variant:3}2% increased Spell Damage per 100 Player Maximum Life
+{variant:4}5% increased Spell Damage per 100 Player Maximum Life
 ]],[[
 The Scales of Justice
 Chiming Spirit Shield
@@ -731,13 +754,16 @@ Cannot be Frozen
 Wheel of the Stormsail
 Rotted Round Shield
 Variant: Pre 3.16.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 60% increased Block Recovery
-+(5-10) to Armour
+{variant:1,2}+(5-10) to Armour
+{variant:3}+(20-40) to Evasion Rating
 (30-40)% increased Rarity of Items found
 100% increased Duration of Curses on you
-+5% Chance to Block
+{variant:1,2}+5% Chance to Block
+{variant:3}(50-75)% to Lightning Resistance
 {variant:1}Curse Skills have 25% increased Skill Effect Duration
 {variant:2}Curse Skills have 100% increased Skill Effect Duration
 ]],
@@ -780,11 +806,14 @@ Create Profane Ground instead of Consecrated Ground
 Emperor's Vigilance
 Steel Kite Shield
 League: Harvest
+Variant: Pre 3.19.0
+Variant: Current
 Implicits: 0
 (16-22)% Chance to Block Spell Damage
-(300-400)% increased Armour and Energy Shield
-(10-15)% increased maximum Life
-Cannot Block while you have no Energy Shield
+{variant:1}(300-400)% increased Armour and Energy Shield
+{variant:2}1000% increased Armour and Energy Shield
+{variant:1}(10-15)% increased maximum Life
+{variant:1}Cannot Block while you have no Energy Shield
 Damage taken from Blocked Hits cannot bypass Energy Shield
 Damage taken from Unblocked hits always bypasses Energy Shield
 Glancing Blows
@@ -830,16 +859,19 @@ Rise of the Phoenix
 Mosaic Kite Shield
 Variant: Pre 1.1.0
 Variant: Pre 3.1.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
 {variant:1}+16% to all Elemental Resistances
-{variant:2,3}+8% to all Elemental Resistances
-(80-100)% increased Armour and Energy Shield
+{variant:2,3,4}+8% to all Elemental Resistances
+{variant:1,2,3}(80-100)% increased Armour and Energy Shield
+{variant:4}(240-300)% increased Armour and Energy Shield
 {variant:3}+(40-60) maximum Life
 {variant:1,2}Regenerate 6 Life per second
 {variant:3}Regenerate (15-20) Life per second
+{variant:4}Regenerate (100-200) Life per second
 {variant:1,2}+8% to maximum Fire Resistance
-{variant:3}+5% to maximum Fire Resistance
+{variant:3,4}+5% to maximum Fire Resistance
 +(20-25)% to Fire Resistance
 +25% to Fire Resistance while on Low Life
 10% increased Movement Speed when on Low Life
@@ -849,16 +881,19 @@ Saffell's Frame
 Branded Kite Shield
 Variant: Pre 1.1.0
 Variant: Pre 3.4.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
 {variant:1}+8% to all Elemental Resistances
-{variant:2,3}+4% to all Elemental Resistances
+{variant:2,3,4}+4% to all Elemental Resistances
 {variant:1,2}(21-24)% Chance to Block Spell Damage
 {variant:3}(15-20)% Chance to Block Spell Damage
+{variant:4}(20-30)% Chance to Block Spell Damage
 (20-30)% increased Spell Damage
-+10% to all Elemental Resistances
+{variant:1,2,3}+10% to all Elemental Resistances
+{variant:4}+(20-30)% to all Elemental Resistances
 {variant:1}+5% to all maximum Resistances
-{variant:2,3}+4% to all maximum Resistances
+{variant:2,3,4}+4% to all maximum Resistances
 Cannot Block Attacks
 ]],[[
 Springleaf
@@ -866,17 +901,21 @@ Plank Kite Shield
 Variant: Pre 1.1.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
 {variant:1}+8% to all Elemental Resistances
-{variant:2,3,4}+4% to all Elemental Resistances
+{variant:2,3,4,5}+4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
-50% reduced Freeze Duration on you
+{variant:1,2,3,4}50% reduced Freeze Duration on you
+{variant:5}80% reduced Freeze Duration on you
 {variant:3}Regenerate 1% of Life per Second
 {variant:4}Regenerate 3% of Life per Second
+{variant:5}Regenerate (30-50) Life per Second
 {variant:1,2}Regenerate 6% of Life per Second while on Low Life
 {variant:3}Regenerate 5% of Life per Second while on Low Life
 {variant:4}Regenerate 3% of Life per Second while on Low Life
+{variant:5}Regenerate 100 Life per Second while on Low Life
 ]],[[
 The Oak
 Plank Kite Shield
@@ -889,7 +928,7 @@ Implicits: 1
 (80-120)% increased Armour and Energy Shield
 +(100-150) to maximum Life
 50% reduced Freeze Duration on you
-{variant:1}Regenerate 1% of Life per Second
+{variant:1}Regenerate 1% of Life per Second 
 {variant:2}Regenerate 3% of Life per Second
 {variant:1}Regenerate 5% of Life per Second while on Low Life
 {variant:2}Regenerate 3% of Life per Second while on Low Life
@@ -976,6 +1015,7 @@ Implicits: 1
 ]],[[
 Glitterdisc
 Burnished Spiked Shield
+Source: No longer obtainable
 Variant: Pre 3.0.0
 Variant: Current
 Implicits: 2
