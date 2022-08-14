@@ -1532,6 +1532,8 @@ end
 -- List of special modifiers
 local specialModList = {
 	-- Keystones
+	["(%d+) rage regenerated for every (%d+) mana regeneration per second"] = function(num, _, div) return { mod("RageRegen", "BASE", num, {type = "PerStat", stat = "WouldBeManaRegen", div = tonumber(div) }) } end,
+	["mana recovery from regeneration is not applied"] = { flag("UnaffectedByManaRegen") },
 	["(%d+)%% less damage taken for every (%d+)%% life recovery per second from leech"] = function(num, _, div)
 		return {  mod("DamageTaken", "MORE", -num, { type = "PerStat", stat = "MaxLifeLeechRatePercent", div = tonumber(div) }) }
 	end,

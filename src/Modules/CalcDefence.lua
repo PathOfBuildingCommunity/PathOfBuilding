@@ -689,6 +689,10 @@ function calcs.defence(env, actor)
 	end
 	output.EnergyShieldRegen = output.EnergyShieldRegen + modDB:Sum("BASE", nil, "EnergyShieldRecovery") * output.EnergyShieldRecoveryRateMod
 	output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
+	if modDB:Flag(nil, "UnaffectedByManaRegen") then  --Chainbreaker Flag
+		output.WouldBeManaRegen = output.ManaRegen
+		output.ManaRegen = 0
+    end
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
 		modDB:NewMod("Condition:CanGainRage", "FLAG", true, "RageRegen")
 		local base = modDB:Sum("BASE", nil, "RageRegen")
