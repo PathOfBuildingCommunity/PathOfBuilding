@@ -317,6 +317,7 @@ local modNameList = {
 	["stun recovery"] = "StunRecovery",
 	["stun and block recovery"] = "StunRecovery",
 	["block and stun recovery"] = "StunRecovery",
+	["stun duration on you"] = "StunDuration",
 	["stun threshold"] = "StunThreshold",
 	["block recovery"] = "BlockRecovery",
 	["enemy stun threshold"] = "EnemyStunThreshold",
@@ -3162,6 +3163,18 @@ local specialModList = {
 	["phasing while on low life"] = { flag("Condition:Phasing", { type = "Condition", var = "LowLife" })},
 	["cannot be ignited while on low life"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "LowLife" }) },
 	["ward does not break during flask effect"] = { flag("WardNotBreak", { type = "Condition", var = "UsingFlask" }) },
+	["stun threshold is based on energy shield instead of life"] = { 
+		flag("StunThresholdBasedOnEnergyShieldInsteadOfLife"),
+		mod("StunThresholdEnergyShieldPercent", "BASE", 100),
+	},
+	["stun threshold is based on (%d+)%% of your energy shield instead of life"] = function(num) return { 
+		flag("StunThresholdBasedOnEnergyShieldInsteadOfLife"),
+		mod("StunThresholdEnergyShieldPercent", "BASE", num),
+	} end,
+	["stun threshold is based on (%d+)%% of your mana instead of life"] = function(num) return { 
+		flag("StunThresholdBasedOnManaInsteadOfLife"),
+		mod("StunThresholdManaPercent", "BASE", num),
+	} end,
 	-- Knockback
 	["cannot knock enemies back"] = { flag("CannotKnockback") },
 	["knocks back enemies if you get a critical strike with a staff"] = { mod("EnemyKnockbackChance", "BASE", 100, nil, ModFlag.Staff, { type = "Condition", var = "CriticalStrike" }) },
