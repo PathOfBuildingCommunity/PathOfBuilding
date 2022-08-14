@@ -196,7 +196,7 @@ Requires Level 20, 46 Dex
 ]],[[
 Frostferno
 Leather Hood
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 60, 46 Dex
 +2 to Level of Socketed Fire Gems
 +2 to Level of Socketed Cold Gems
@@ -258,30 +258,33 @@ Requires Level 60, 138 Dex
 Asenath's Mark
 Iron Circlet
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 8, 23 Int
+{variant:3}Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown
+{variant:3}(30-60)% increased Spell Damage
 (10-15)% increased Attack Speed
-(10-15)% increased Cast Speed
-30% increased Mana Regeneration Rate
+{variant:1,2}(10-15)% increased Cast Speed
 {variant:1}50% increased Energy Shield
 {variant:2}+(30-50) to maximum Energy Shield
-5% increased Movement Speed
-(10-15)% increased Stun Recovery
+30% increased Mana Regeneration Rate
+{variant:1,2}5% increased Movement Speed
+{variant:1,2}(10-15)% increased Stun Recovery
 ]],[[
 Asenath's Chant
 Iron Circlet
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45, 23 Int
-{variant:1}25% chance to Trigger a Socketed Spell when you Attack with a Bow
+{variant:1}25% chance to Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown
 {variant:2}Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown
 (10-15)% increased Attack Speed
 (10-15)% increased Cast Speed
 +(100-120) to maximum Energy Shield
-(30-40)% increased Stun and Block Recovery
 30% increased Mana Regeneration Rate
 5% increased Movement Speed
+(30-40)% increased Stun and Block Recovery
 ]],[[
 Cowl of the Ceraunophile
 Solaris Circlet
@@ -740,6 +743,7 @@ Far Shot
 ]],[[
 The Peregrine
 Visored Sallet
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
@@ -1289,7 +1293,7 @@ Blood Magic
 ]],[[
 Malachai's Awakening
 Iron Mask
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 3.7.0
 Variant: Pre 3.17.0
 Variant: Current
@@ -1406,5 +1410,20 @@ Requires Level 68, 66 Str, 66 Dex, 66 Int
 Never deal Critical Strikes
 Nearby Enemies cannot deal Critical Strikes
 Battlemage
-]],
+]],[[
+Echoes of Creation
+Royal Burgonet
+Source: Drops from unique{The Shaper}
+Shaper Item
+Requires Level 65, 148 Str
+Socketed Warcry Skills have +1 Cooldown Use
+(80-120)% increased Armour
++(50-70) to maximum Life
+When you Attack, take (15-20)% of Life as Physical Damage for each Warcry Exerting the Attack
+Skills deal (10-15)% more Damage for each Warcry Exerting them
+]],[[
+Thrillsteel
+Barbute Helmet
+Onslaught
+]]
 }

@@ -462,7 +462,7 @@ Implicits: 1
 ]],[[
 The Nomad
 Studded Belt
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 LevelReq: 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
@@ -475,7 +475,7 @@ Implicits: 1
 ]],[[
 The Tactician
 Studded Belt
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 LevelReq: 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
@@ -825,5 +825,17 @@ Implicits: 1
 {variant:2}{tags:attack,mana,physical}2% of Physical Attack Damage Leeched as Mana
 {variant:2}(500-1000)% increased total Recovery per second from Life Leech
 {variant:2}(500-1000)% increased total Recovery per second from Mana Leech
+]],[[
+The Burden of Truth
+Crystal Belt
+Source: Drops from unique{Sirus, Awakener of Worlds}
+Requires Level 79
+Implicits: 1
+{tags:jewellery_defense}+(60-80) to maximum Energy Shield
+{tags:life}(30-40)% increased Life Recovery from Flasks
+33% of Chaos Damage taken does not bypass Energy Shield
+33% of Non-Chaos Damage taken bypasses Energy Shield
+{tags:jewellery_defense}Gain (5-10)% of Maximum Life as Extra Maximum Energy Shield
+Supreme Decadence
 ]],
 }
