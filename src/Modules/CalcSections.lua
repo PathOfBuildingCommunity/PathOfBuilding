@@ -1099,7 +1099,7 @@ return {
 		{ breakdown = "MainHand.ShockDPS" },
 		{ breakdown = "OffHand.ShockDPS" },
 		{ breakdown = "ShockDPS" },
-		{ label = "Player modifiers", modName = { "EnemyShockEffect", "ShockAsThoughDealing" }, cfg = "skill" },
+		{ label = "Player modifiers", modName = { "EnemyShockEffect", "ShockAsThoughDealing" }, cfg = "weapon1" },
 		{ label = "Enemy modifiers", modName = "SelfShockEffect", enemy = true },
 	}, },
 	{ label = "Chance to Shock", bgCol = colorCodes.SHOCKBG, flag = "shock", { format = "{0:output:ShockChance}%",
