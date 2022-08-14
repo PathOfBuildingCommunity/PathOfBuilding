@@ -303,7 +303,7 @@ Culling Strike
 ]],[[
 The Cauteriser
 Woodsplitter
-Source: No longer obtainable
+Source: Drops from any endgame map boss
 Variant: Pre 3.11.0
 Variant: Current
 LevelReq: 40

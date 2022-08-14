@@ -78,13 +78,11 @@ Intelligence from Passives in Radius is Transformed to Dexterity
 ]],[[
 Cheap Construction
 Viridian Jewel
-Source: No longer obtainable
 10% reduced Trap Duration
 Can have up to 1 additional Trap placed at a time
 ]],[[
 Replica Cheap Construction
 Viridian Jewel
-Source: No longer obtainable
 League: Heist
 (100-120)% increased Critical Strike Chance with Traps
 Can have 5 fewer Traps placed at a time
@@ -245,24 +243,20 @@ Cobalt Jewel
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
-Variant: Current - Crit Chance
-Variant: Current - Min Endurance Charge
+Variant: Current
 {variant:1}Gain 15 Mana per Grand Spectrum
 {variant:2}Gain 30 Mana per Grand Spectrum
 {variant:3}25% increased Critical Strike Chance per Grand Spectrum
-{variant:4}+1 to Minimum Endurance Charges per Grand Spectrum
 ]],[[
 Grand Spectrum
 Crimson Jewel
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
-Variant: Current - Elemental Resistances
-Variant: Current - Minion Crit Multi
+Variant: Current
 {variant:1}Gain 75 Armour per Grand Spectrum
 {variant:2}Gain 200 Armour per Grand Spectrum
 {variant:3}+7% to all Elemental Resistances per Grand Spectrum
-{variant:4}Minions have +10% to Critical Strike Multiplier per Grand Spectrum
 ]],[[
 Grand Spectrum
 Viridian Jewel
@@ -364,7 +358,7 @@ Passives in Radius can be Allocated without being connected to your tree
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
-Source: No longer obtainable
+Source: Drops in The Lord's Labyrinth
 (18-25)% increased Fire Damage
 (18-25)% increased Cold Damage
 2% chance to Freeze

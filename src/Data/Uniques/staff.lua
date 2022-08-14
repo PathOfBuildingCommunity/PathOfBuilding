@@ -510,7 +510,7 @@ Adds (1-10) to (70-90) Lightning Damage
 ]],[[
 The Stormwall
 Royal Staff
-Source: No longer obtainable
+Source: Drops from any endgame map boss
 Requires Level 60, 51 Str, 51 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff

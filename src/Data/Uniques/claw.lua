@@ -105,20 +105,17 @@ Cybil's Paw
 Thresher Claw
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: Pre 3.19.0
 Variant: Current
 Requires Level 37, 53 Dex, 77 Int
 Implicits: 3
 {variant:1}+15 Life gained for each Enemy hit by Attacks
 {variant:2}+21 Life gained for each Enemy hit by Attacks
-{variant:3,4}+25 Life gained for each Enemy hit by Attacks
-{variant:1,2,3}(8-12)% increased Cast Speed
-{variant:4}(15-20)% increased Cast Speed
+{variant:3}+25 Life gained for each Enemy hit by Attacks
+(8-12)% increased Cast Speed
 +(30-40) to maximum Mana
-{variant:1,2,3}+(5-8) Life gained for each Enemy hit by your Spells
-{variant:4}+(15-20) Life gained for each Enemy hit by your Spells
++(5-8) Life gained for each Enemy hit by your Spells
 {variant:1}6% increased Spell Damage per 5% Block Chance
-{variant:2,3,4}8% increased Spell Damage per 5% Block Chance
+{variant:2,3}8% increased Spell Damage per 5% Block Chance
 ]],[[
 Essentia Sanguis
 Eye Gouger
@@ -197,7 +194,7 @@ Implicits: 2
 ]],[[
 Izaro's Dilemma
 Imperial Claw
-Source: No longer obtainable
+Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current

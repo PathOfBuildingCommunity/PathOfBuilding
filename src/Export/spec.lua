@@ -6686,20 +6686,6 @@ return {
 			refTo="PassiveSkillMasteryGroups",
 			type="Key",
 			width=150
-		},
-		[32]={
-			list=false,
-			name="AtlasMastery_rid",
-			refTo="",
-			type="Key",
-			width=150
-		},
-		[33]={
-			list=false,
-			name="SoundEffect",
-			refTo="SoundEffects",
-			type="Key",
-			width=150
 		}
 	},
 	PassiveTreeExpansionJewelSizes={

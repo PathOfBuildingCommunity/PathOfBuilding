@@ -1116,7 +1116,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		local durationBase = (skillData.duration or 0) + skillModList:Sum("BASE", skillCfg, "Duration", "PrimaryDuration")
-		if durationBase > 0 and not (activeSkill.minion and skillModList:Flag(skillCfg, activeSkill.minion.type.."PermanentDuration")) then
+		if durationBase > 0 then
 			output.Duration = durationBase * output.DurationMod
 			if skillData.debuff then
 				output.Duration = output.Duration * debuffDurationMult
