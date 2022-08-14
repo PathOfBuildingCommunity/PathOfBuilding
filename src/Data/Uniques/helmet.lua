@@ -352,7 +352,7 @@ Variant: Current
 {variant:1}+(12-24) to maximum Energy Shield
 {variant:2}+(60-80) to maximum Energy Shield
 {variant:3}+(150-225) to maximum Energy Shield
-Reflects 5 Physical Damage to Melee Attackers
++5 Physical Damage taken from Attack Hits
 {variant:1,2}Take 5 Physical Damage when hit by Attacks
 {variant:3}Take 25 Physical Damage when hit by Attacks
 Pain Attunement
