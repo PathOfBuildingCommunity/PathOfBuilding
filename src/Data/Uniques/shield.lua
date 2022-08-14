@@ -234,17 +234,22 @@ War Buckler
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {variant:3,4}9% increased Movement Speed
-+1 to Level of Socketed Curse Gems
+{variant:1,2,3,4}+1 to Level of Socketed Curse Gems
+{variant:5}+3 to Level of Socketed Curse Gems
 (30-50)% increased Evasion Rating
-{variant:2,3,4}+(50-70) to maximum Energy Shield
+{variant:2,3,4,5}+(50-70) to maximum Energy Shield
 {variant:2,3,4}+(40-50) to maximum Life
-+5% Chance to Block
-10% Chance to Cause Monster to Flee on Block
+{variant:1,2,3,4}+5% Chance to Block
+{variant:5}+20% chance to Block Attack Damage from Cursed Enemies
+{variant:1,2,3,4}10% Chance to Cause Monster to Flee on Block
+{variant:5}100% Chance to Cause Monster to Flee on Block
 {variant:1,2,3}Curse Skills have 100% increased Skill Effect Duration
 {variant:4}1% of Damage Leeched as Life against Cursed Enemies
+{variant:5}Inflict Decay on Enemies you Curse with Hex or Mark Skills, dealing 700 Chaos Damage per Second for 8 Seconds
 ]],[[
 Thirst for Horrors
 War Buckler

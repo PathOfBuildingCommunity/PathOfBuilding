@@ -842,14 +842,18 @@ Triggers level 20 Death Walk when Equipped
 ]],[[
 Corpsewalker
 Carnal Boots
+Variant: Pre 3.19.0
+Variant: Current
 League: Heist
 Requires Level 55, 52 Dex, 52 Int
 Implicits: 0
 Triggers Level 20 Corpse Walk when Equipped
 (80-120)% increased Evasion and Energy Shield
 25% increased Movement Speed
-(20-40)% increased Damage if you have Consumed a corpse Recently
-For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
+{variant:1}(20-40)% increased Damage if you have Consumed a corpse Recently
+{variant:1}For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
+{variant:2}For each nearby corpse, 1% increased Movement Speed
+{variant:2}For each nearby corpse, Regenerate 8 Life per Second
 ]],[[
 Dance of the Offered
 Variant: Pre 3.14.0

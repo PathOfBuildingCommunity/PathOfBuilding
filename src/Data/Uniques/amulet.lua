@@ -228,7 +228,7 @@ Corrupted
 Blood of Corruption
 Amber Amulet
 Source: Use currency{Vaal Orb} on unique{Tear of Purity}
-Requires Level 20
+Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
 Grants level 10 Gluttony of Elements Skill
