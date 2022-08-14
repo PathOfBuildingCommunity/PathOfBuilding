@@ -352,9 +352,9 @@ Variant: Current
 {variant:1}+(12-24) to maximum Energy Shield
 {variant:2}+(60-80) to maximum Energy Shield
 {variant:3}+(150-225) to maximum Energy Shield
-+5 Physical Damage taken from Attack Hits
-{variant:1,2}Take 5 Physical Damage when hit by Attacks
-{variant:3}Take 25 Physical Damage when hit by Attacks
+Reflects 5 Physical Damage to Melee Attackers
+{variant:1,2}+5 Physical Damage taken from Attack Hits
+{variant:3}+25 Physical Damage taken from Attack Hits
 Pain Attunement
 ]],[[
 Martyr's Crown

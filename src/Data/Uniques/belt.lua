@@ -424,7 +424,7 @@ Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:life}+(75-100) to maximum Life
 {variant:1,2,3}{tags:life}Regenerate (67-75) Life per second
-{variant:4}{tags:life}(200-350) Life Regenerated per second
+{variant:4}{tags:life}Regenerate (200-350) Life per second
 {tags:mana}Regenerate (8-10) Mana per second
 {variant:1}−40% to all Elemental Resistances
 {variant:3,4}−(15-25)% to all Elemental Resistances
@@ -583,7 +583,7 @@ Variant: Pre 3.19.0
 Variant: Current
 LevelReq: 25
 Implicits: 1
-{tags:physical}(12-24)% increased Physical Damage
+{tags:physical}(12-24)% increased Global Physical Damage
 {variant:1}{tags:jewellery_elemental,attack}Adds (3-4) to (7-8) Fire Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack}Adds (7-8) to (15-16) Fire Damage to Attacks
 {variant:3}{tags:jewellery_elemental,attack}Adds (14-16) to (30-32) Fire Damage to Attacks
