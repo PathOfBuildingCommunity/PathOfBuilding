@@ -265,10 +265,13 @@ Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
 -- Gloves: Energy Shield
 [[
 Allelopathy
-Sorcerer Gloves
+{variant:1}Sorcerer Gloves
+{variant:2}Satin Gloves
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 69, 97 Int
 Grants level 22 Blight Skill
-(20-30)% increased Damage over Time
+{variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect of Area Skills
 Blight has (20-30)% increased Hinder Duration

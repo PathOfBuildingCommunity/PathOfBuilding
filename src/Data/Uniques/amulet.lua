@@ -7,33 +7,40 @@ The Anvil
 Amber Amulet
 Variant: Pre 1.3.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 45
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
+{variant:1}10% Chance to Block Attack Damage
+{variant:2,3}8% Chance to Block Attack Damage
+{variant:4}(10-15)% Chance to Block Attack Damage
 {tags:attack,speed}10% reduced Attack Speed
 {tags:caster,speed}10% reduced Cast Speed
 {tags:jewellery_defense}+(400-500) to Armour
 {variant:1}{tags:life}+(30-40) Life gained when you Block
-{variant:2,3}{tags:life}+(34-48) Life gained when you Block
+{variant:2,3,4}{tags:life}+(34-48) Life gained when you Block
 {variant:1}{tags:mana}+(10-20) Mana gained when you Block
-{variant:2,3}{tags:mana}+(10-24) Mana gained when you Block
+{variant:2,3,4}{tags:mana}+(10-24) Mana gained when you Block
 {variant:1}{tags:speed}20% reduced Movement Speed
 {variant:2}{tags:speed}10% reduced Movement Speed
-+3% to maximum Block Chance
-{variant:1}10% Chance to Block
-{variant:2,3}8% Chance to Block
++3% to maximum Chance to Block Attack Damage
 {tags:physical}{variant:1}Reflects 200 to 250 Physical Damage to Attackers on Block
-{tags:physical}{variant:2,3}Reflects 240 to 300 Physical Damage to Attackers on Block
+{tags:physical}{variant:2,3,4}Reflects 240 to 300 Physical Damage to Attackers on Block
 ]],[[
 Araku Tiki
 Coral Amulet
+Variant: Pre 3.19.0
+Variant: Current
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
-{tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
+{variant:1}{tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
+{variant:2}{tags:jewellery_defense,life}You gain (150-250) Evasion Rating when on Low Life
 {tags:life}+(30-50) to maximum Life
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{tags:life}1% of Life Regenerated per Second while on Low Life
+{variant:1}{tags:life}1% of Life Regenerated per Second while on Low Life
+{variant:2}Gain Elusive on reaching Low Life
+{variant:2}Phasing while on Low Life
 ]],[[
 Ngamahu Tiki
 Coral Amulet

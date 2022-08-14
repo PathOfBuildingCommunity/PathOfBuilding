@@ -22,33 +22,40 @@ Opal Wand
 Variant: Pre 2.3.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 62, 212 Int
 Implicits: 2
 {variant:1}(17-20)% increased Spell Damage
-{variant:2,3,4}(38-42)% increased Spell Damage
+{variant:2,3,4,5}(38-42)% increased Spell Damage
 {variant:1,2}Adds (50-65) to (90-105) Chaos Damage to Spells
-{variant:3,4}Adds (90-130) to (140-190) Chaos Damage to Spells
+{variant:3,4,5}Adds (90-130) to (140-190) Chaos Damage to Spells
 (25-30)% increased Cast Speed
 +(5-10)% to Chaos Resistance
 {variant:1,2,3}40% increased Mana Cost of Skills
-{variant:4}Lose 40 Mana when you use a Skill
 {variant:3,4}Poisons you inflict deal Damage 20% faster
+{variant:5}Poisons you inflict deal Damage (30-50)% faster
+{variant:4,5}Lose 40 Mana when you use a Skill
 ]],[[
 Ashcaller
 Quartz Wand
 Variant: Pre 3.8.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 18, 65 Int
 Implicits: 1
 (18-22)% increased Spell Damage
-10% chance to Trigger Level 8 Summon Raging Spirit on Kill
+{variant:3}10% chance to Cover Enemies in Ash on Hit
+{variant:1,2}10% chance to Trigger Level 8 Summon Raging Spirit on Kill
+{variant:3}25% chance to Trigger Level 10 Summon Raging Spirit on Kill
 {variant:1}Adds (10-14) to (18-22) Fire Damage
+{variant:3}Adds (20-24) to (38-46) Fire Damage
 {variant:2}+(15-25)% to Fire Damage over Time Multiplier
-Adds (4-6) to (7-9) Fire Damage to Spells
+{variant:1,2}Adds (4-6) to (7-9) Fire Damage to Spells
+{variant:3}Adds (20-24) to (36-46) Fire Damage to Spells
 {variant:1}(40-50)% increased Burning Damage
 {variant:2}(20-30)% increased Burning Damage
-(16-22)% chance to Ignite
+{variant:1,2}(16-22)% chance to Ignite
 ]],[[
 Eclipse Solaris
 Crystal Wand

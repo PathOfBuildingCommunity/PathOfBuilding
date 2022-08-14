@@ -246,15 +246,18 @@ Requires Level 60, 138 Dex
 Asenath's Mark
 Iron Circlet
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 8, 23 Int
+{variant:3}Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown
+{variant:3}(30-60)% increased Spell Damage
 (10-15)% increased Attack Speed
-(10-15)% increased Cast Speed
-30% increased Mana Regeneration Rate
+{variant:1,2}(10-15)% increased Cast Speed
 {variant:1}50% increased Energy Shield
 {variant:2}+(30-50) to maximum Energy Shield
-5% increased Movement Speed
-(10-15)% increased Stun Recovery
+30% increased Mana Regeneration Rate
+{variant:1,2}5% increased Movement Speed
+{variant:1,2}(10-15)% increased Stun Recovery
 ]],[[
 Asenath's Chant
 Iron Circlet
@@ -262,14 +265,14 @@ Source: Drops from any endgame map boss
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 45, 23 Int
-{variant:1}25% chance to Trigger a Socketed Spell when you Attack with a Bow
+{variant:1}25% chance to Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown
 {variant:2}Trigger a Socketed Spell when you Attack with a Bow, with a 0.3 second Cooldown
 (10-15)% increased Attack Speed
 (10-15)% increased Cast Speed
 +(100-120) to maximum Energy Shield
-(30-40)% increased Stun and Block Recovery
 30% increased Mana Regeneration Rate
 5% increased Movement Speed
+(30-40)% increased Stun and Block Recovery
 ]],[[
 Cowl of the Ceraunophile
 Solaris Circlet

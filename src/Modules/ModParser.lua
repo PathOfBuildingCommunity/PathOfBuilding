@@ -52,6 +52,7 @@ local formList = {
 	["^you gain ([%d%.]+)"] = "BASE",
 	["^gains? ([%d%.]+)%% of"] = "BASE",
 	["^([%+%-]?%d+)%% chance"] = "CHANCE",
+	["^([%+%-]?%d+)%% chance to gain "] = "FLAG",
 	["^([%+%-]?%d+)%% additional chance"] = "CHANCE",
 	["penetrates? (%d+)%%"] = "PEN",
 	["penetrates (%d+)%% of"] = "PEN",
@@ -92,6 +93,8 @@ local formList = {
 	["^you have "] = "FLAG",
 	["^you are "] = "FLAG",
 	["^are "] = "FLAG",
+	["^gain "] = "FLAG",
+	["^you gain "] = "FLAG",
 }
 
 -- Map of modifier names
@@ -654,6 +657,11 @@ local modNameList = {
 	["flask charges gained"] = "FlaskChargesGained",
 	["charge recovery"] = "FlaskChargeRecovery",
 	["impales you inflict last"] = "ImpaleStacksMax",
+	-- Buffs
+	["phasing"] = "Condition:Phasing",
+	["onslaught"] = "Condition:Onslaught",
+	["unholy might"] = "Condition:UnholyMight",
+	["elusive"] = "Condition:CanBeElusive",
 }
 
 -- List of modifier flags
@@ -1203,6 +1211,7 @@ local modTagList = {
 	["if you have (%d+) primordial items socketed or equipped"] = function(num) return { tag = { type = "MultiplierThreshold", var = "PrimordialItem", threshold = num } } end,
 	-- Player status conditions
 	["wh[ie][ln]e? on low life"] = { tag = { type = "Condition", var = "LowLife" } },
+	["on reaching low life"] = { tag = { type = "Condition", var = "LowLife" } },
 	["wh[ie][ln]e? not on low life"] = { tag = { type = "Condition", var = "LowLife", neg = true } },
 	["wh[ie][ln]e? on low mana"] = { tag = { type = "Condition", var = "LowMana" } },
 	["wh[ie][ln]e? not on low mana"] = { tag = { type = "Condition", var = "LowMana", neg = true } },
@@ -2546,6 +2555,7 @@ local specialModList = {
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
 	["unholy might"] = { flag("Condition:UnholyMight") },
+	["elusive"] = { flag("Condition:CanBeElusive") },
 	["your aura buffs do not affect allies"] = { flag("SelfAurasCannotAffectAllies") },
 	["auras from your skills can only affect you"] = { flag("SelfAurasOnlyAffectYou") },
 	["aura buffs from skills have (%d+)%% increased effect on you for each herald affecting you"] = function(num) return { mod("SkillAuraEffectOnSelf", "INC", num, { type = "Multiplier", var = "Herald"}) } end,
@@ -2875,6 +2885,7 @@ local specialModList = {
 		mod("MinionModifier", "LIST", { mod = mod("EnemyShockChance", "BASE", num) }, { type = "SkillName", skillName = "Summon Arbalists" }),
 		mod("MinionModifier", "LIST", { mod = mod("EnemyIgniteChance", "BASE", num) }, { type = "SkillName", skillName = "Summon Arbalists" }),
 	} end,
+	["skeleton warriors are permanent minions and follow you"] = { flag("RaisedSkeletonPermanentDuration", { type = "SkillName", skillName = "Summon Skeleton" }) },
 	-- Projectiles
 	["skills chain %+(%d) times"] = function(num) return { mod("ChainCountMax", "BASE", num) } end,
 	["skills chain an additional time while at maximum frenzy charges"] = { mod("ChainCountMax", "BASE", 1, { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
@@ -3107,6 +3118,7 @@ local specialModList = {
 		mod("EnergyShield", "INC", num, { type = "Global" }),
 		mod("LightningResist", "INC", -num),
 	} end,
+	["phasing while on low life"] = { flag("Condition:Phasing", { type = "Condition", var = "LowLife" })},
 	["cannot be ignited while on low life"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "LowLife" }) },
 	["ward does not break during flask effect"] = { flag("WardNotBreak", { type = "Condition", var = "UsingFlask" }) },
 	-- Knockback
@@ -3684,6 +3696,7 @@ local regenTypes = {
 local flagTypes = {
 	["phasing"] = "Condition:Phasing",
 	["onslaught"] = "Condition:Onslaught",
+	["elusive"] = "Condition:CanBeElusive",
 	["fortify"] = "Condition:Fortified",
 	["fortified"] = "Condition:Fortified",
 	["unholy might"] = "Condition:UnholyMight",
