@@ -341,7 +341,7 @@ directiveTable.skill = function(state, args, out)
 			level.extra.soulPreventionDuration = levelRow.SoulGainPreventionDuration / 1000
 		end
 		level.statInterpolation = statRow.StatInterpolations
-		local resolveInterpolation = true
+		local resolveInterpolation = false
 		local injectConstantValuesIntoEachLevel = false
 		for i, stat in ipairs(statRow.FloatStats) do
 			if not statMap[stat.Id] then
@@ -352,7 +352,7 @@ directiveTable.skill = function(state, args, out)
 				table.insert(level, statRow.BaseResolvedValues[i])
 				level.statInterpolation[i] = 1
 			else
-				table.insert(level, statRow.FloatStatsValues[i])
+				table.insert(level, statRow.FloatStatsValues[i] / math.max(statRow.InterpolationBases[i].Value, 0.00001) )
 			end
 		end
 		if injectConstantValuesIntoEachLevel then

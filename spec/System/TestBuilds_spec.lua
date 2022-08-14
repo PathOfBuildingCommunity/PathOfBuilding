@@ -15,7 +15,7 @@ local function fetchBuilds(path, buildList)
     return buildList
 end
 
-expose("test all builds", function()
+expose("test all builds #builds", function()
     local buildList = fetchBuilds("../spec/TestBuilds")
     for buildName, testBuild in pairs(buildList) do
         loadBuildFromXML(testBuild.xml, buildName)

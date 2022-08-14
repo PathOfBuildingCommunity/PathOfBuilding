@@ -27,13 +27,14 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, scroll, isMutable, list)
+local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, scroll, isMutable, list, forceTooltip)
 	self.Control(anchor, x, y, width, height)
 	self.ControlHost()
 	self.rowHeight = rowHeight
 	self.scroll = scroll
 	self.isMutable = isMutable
 	self.list = list or { }
+	self.forceTooltip = forceTooltip
 	self.colList = { { } }
 	self.tooltip = new("Tooltip")
 	self.font = "VAR"
@@ -181,7 +182,7 @@ function ListClass:Draw(viewPort, noTooltip)
 		SetDrawColor(0, 0, 0)
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
-	self:DrawControls(viewPort, noTooltip and self)
+	self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
 
 	SetViewport(x + 2, y + 2,  self.scroll and width - 20 or width, height - 4 - (self.scroll and self.scrollH and 16 or 0))
 	local textOffsetY = self.showRowSeparators and 2 or 0
@@ -292,7 +293,7 @@ function ListClass:Draw(viewPort, noTooltip)
 
 	self.hoverIndex = ttIndex
 	self.hoverValue = ttValue
-	if ttIndex and self.AddValueTooltip and not noTooltip then
+	if ttIndex and self.AddValueTooltip and (not noTooltip or self.forceTooltip) then
 		SetDrawLayer(nil, 100)
 		self:AddValueTooltip(self.tooltip, ttIndex, ttValue)
 		self.tooltip:Draw(ttX, ttY, ttWidth, rowHeight, viewPort)

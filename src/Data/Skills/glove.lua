@@ -35,7 +35,7 @@ skills["EnchantmentOfBladesOnHit"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 79, 126, critChance = 7, cooldown = 5, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 1.6000000238419, critChance = 7, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfBladesOnHit2"] = {
@@ -67,7 +67,7 @@ skills["EnchantmentOfBladesOnHit2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 381, 585, critChance = 7, cooldown = 5, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.5, 2.2999999523163, critChance = 7, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfBladesOnHit3"] = {
@@ -99,7 +99,7 @@ skills["EnchantmentOfBladesOnHit3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 985, 1477, critChance = 7, cooldown = 5, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2, 3, critChance = 7, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfBladesOnHit4"] = {
@@ -131,7 +131,7 @@ skills["EnchantmentOfBladesOnHit4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1833, 2903, critChance = 7, cooldown = 5, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, critChance = 7, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit"] = {
@@ -161,7 +161,7 @@ skills["EnchantmentOfFlamesOnHit"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 93, 140, critChance = 5, cooldown = 5, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1.2000000476837, 1.7999999523163, critChance = 5, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit2"] = {
@@ -191,7 +191,7 @@ skills["EnchantmentOfFlamesOnHit2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 409, 601, critChance = 5, cooldown = 5, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.7000000476837, 2.5, critChance = 5, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit3"] = {
@@ -221,7 +221,7 @@ skills["EnchantmentOfFlamesOnHit3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 999, 1453, critChance = 5, cooldown = 5, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2.2000000476837, 3.2000000476837, critChance = 5, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit4"] = {
@@ -251,7 +251,7 @@ skills["EnchantmentOfFlamesOnHit4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1800, 2770, critChance = 5, cooldown = 5, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.5999999046326, 4, critChance = 5, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfForceOnHit"] = {
@@ -383,7 +383,7 @@ skills["EnchantmentOfFrostOnKill"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 72, 114, critChance = 5, cooldown = 5, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 1.6000000238419, critChance = 5, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill2"] = {
@@ -415,7 +415,7 @@ skills["EnchantmentOfFrostOnKill2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 332, 509, critChance = 5, cooldown = 5, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.5, 2.2999999523163, critChance = 5, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill3"] = {
@@ -447,7 +447,7 @@ skills["EnchantmentOfFrostOnKill3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 836, 1254, critChance = 5, cooldown = 5, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2, 3, critChance = 5, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill4"] = {
@@ -479,7 +479,7 @@ skills["EnchantmentOfFrostOnKill4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1530, 2422, critChance = 5, cooldown = 5, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFuryOnHit"] = {
@@ -709,7 +709,7 @@ skills["EnchantmentOfInfernoOnKill"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 155, 249, critChance = 5, cooldown = 10, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 1.6000000238419, critChance = 5, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill2"] = {
@@ -743,7 +743,7 @@ skills["EnchantmentOfInfernoOnKill2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 722, 1107, critChance = 5, cooldown = 10, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.5, 2.2999999523163, critChance = 5, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill3"] = {
@@ -777,7 +777,7 @@ skills["EnchantmentOfInfernoOnKill3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1817, 2725, critChance = 5, cooldown = 10, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2, 3, critChance = 5, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill4"] = {
@@ -811,7 +811,7 @@ skills["EnchantmentOfInfernoOnKill4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 3324, 5263, critChance = 5, cooldown = 10, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfIreWhenHit"] = {
@@ -1494,7 +1494,7 @@ skills["EnchantmentOfTempestOnHit"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 175, 280, critChance = 7, cooldown = 10, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 1.6000000238419, critChance = 7, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit2"] = {
@@ -1525,7 +1525,7 @@ skills["EnchantmentOfTempestOnHit2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 812, 1245, critChance = 7, cooldown = 10, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.5, 2.2999999523163, critChance = 7, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit3"] = {
@@ -1556,7 +1556,7 @@ skills["EnchantmentOfTempestOnHit3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 2044, 3065, critChance = 7, cooldown = 10, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2, 3, critChance = 7, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit4"] = {
@@ -1587,7 +1587,7 @@ skills["EnchantmentOfTempestOnHit4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 3739, 5920, critChance = 7, cooldown = 10, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, critChance = 7, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill"] = {
@@ -1753,7 +1753,7 @@ skills["EnchantmentOfThunderOnKill"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 71, 114, critChance = 7, cooldown = 5, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 1.6000000238419, critChance = 7, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill2"] = {
@@ -1783,7 +1783,7 @@ skills["EnchantmentOfThunderOnKill2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 330, 506, critChance = 7, cooldown = 5, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.5, 2.2999999523163, critChance = 7, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill3"] = {
@@ -1813,7 +1813,7 @@ skills["EnchantmentOfThunderOnKill3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 830, 1245, critChance = 7, cooldown = 5, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2, 3, critChance = 7, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill4"] = {
@@ -1843,7 +1843,7 @@ skills["EnchantmentOfThunderOnKill4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1519, 2405, critChance = 7, cooldown = 5, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, critChance = 7, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfWarOnKill"] = {
@@ -2038,7 +2038,7 @@ skills["EnchantmentOfWinterWhenHit"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 48, 76, critChance = 5, cooldown = 10, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[1] = { 1, 1.6000000238419, critChance = 5, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit2"] = {
@@ -2069,7 +2069,7 @@ skills["EnchantmentOfWinterWhenHit2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 221, 340, critChance = 5, cooldown = 10, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[1] = { 1.5, 2.2999999523163, critChance = 5, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit3"] = {
@@ -2100,7 +2100,7 @@ skills["EnchantmentOfWinterWhenHit3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 557, 836, critChance = 5, cooldown = 10, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[1] = { 2, 3, critChance = 5, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit4"] = {
@@ -2131,6 +2131,6 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { 1020, 1615, critChance = 5, cooldown = 10, levelRequirement = 75, statInterpolation = { 1, 1, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 3, }, },
 	},
 }

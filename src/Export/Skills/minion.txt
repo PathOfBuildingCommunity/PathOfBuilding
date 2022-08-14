@@ -306,3 +306,7 @@ skills["InfernalLegion"] = {
 #skill GASummonReaperComboLeftSlash Combo Slash
 #flags attack area
 #mods
+
+#skill MPWExpeditionSummonedArbalestProjectile Projectile Attack
+#flags attack projectile
+#mods

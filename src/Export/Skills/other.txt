@@ -629,6 +629,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("triggerSource", "Queen's Demand")
 #mods
 
+#skill SummonArbalists
+#flags spell minion
+	fromItem = true,
+	minionList = {
+		"SummonedArbalists",
+	},
+#mods
+
 #skill SummonBeastialRhoa
 #flags spell minion
 	fromItem = true,
