@@ -666,6 +666,8 @@ local modNameList = {
 	["onslaught"] = "Condition:Onslaught",
 	["phasing"] = "Condition:Phasing",
 	["arcane surge"] = "Condition:ArcaneSurge",
+	["adrenaline"] = "Condition:Adrenaline",
+	["elusive"] = "Condition:CanBeElusive",
 	["unholy might"] = "Condition:UnholyMight",
 }
 
@@ -2590,6 +2592,8 @@ local specialModList = {
 	["elusive"] = { flag("Condition:CanBeElusive") },
 	["adrenaline"] = { flag("Condition:Adrenaline") },
 	["arcane surge"] = { flag("Condition:ArcaneSurge") },
+	["elusive"] = { flag("Condition:CanBeElusive") },
+	["adrenaline"] = { flag("Condition:Adrenaline") },
 	["your aura buffs do not affect allies"] = { flag("SelfAurasCannotAffectAllies") },
 	["auras from your skills can only affect you"] = { flag("SelfAurasOnlyAffectYou") },
 	["aura buffs from skills have (%d+)%% increased effect on you for each herald affecting you"] = function(num) return { mod("SkillAuraEffectOnSelf", "INC", num, { type = "Multiplier", var = "Herald"}) } end,
@@ -3760,6 +3764,8 @@ local flagTypes = {
 	["adrenaline"] = "Condition:Adrenaline",
 	["elusive"] = "Condition:CanBeElusive",
 	["arcane surge"] = "Condition:ArcaneSurge",
+	["adrenaline"] = "Condition:Adrenaline",
+	["elusive"] = "Condition:CanBeElusive",
 	["fortify"] = "Condition:Fortified",
 	["fortified"] = "Condition:Fortified",
 	["unholy might"] = "Condition:UnholyMight",
