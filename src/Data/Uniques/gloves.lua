@@ -196,7 +196,7 @@ Requires Level 9, 17 Dex
 ]],[[
 Hrimburn
 Goathide Gloves
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24, 17 Dex
@@ -265,10 +265,13 @@ Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
 -- Gloves: Energy Shield
 [[
 Allelopathy
-Sorcerer Gloves
+{variant:1}Sorcerer Gloves
+{variant:2}Satin Gloves
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 69, 97 Int
 Grants level 22 Blight Skill
-(20-30)% increased Damage over Time
+{variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect of Area Skills
 Blight has (20-30)% increased Hinder Duration
@@ -320,12 +323,16 @@ Socketed Projectile Spells have 80% less Skill Effect Duration
 ]],[[
 Demon Stitcher
 Satin Gloves
+Variant: Pre 3.19.0
+Variant: Current
 League: Delve
 Requires Level 41, 60 Int
 (15-20)% increased Cast Speed
-+(50-70) to maximum Energy Shield
+{variant:1}+(50-70) to maximum Energy Shield
+{variant:2}+(100-120) to maximum Energy Shield
 +(50-70) to maximum Life
-Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
+{variant:1}Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
+{variant:2}Sacrifice (5-25)% of Life to gain that much Energy Shield when you Cast a Spell
 ]],[[
 Doedre's Tenure
 Velvet Gloves
@@ -347,7 +354,7 @@ Requires Level 12, 21 Int
 ]],[[
 Doedre's Malevolence
 Velvet Gloves
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 21 Int
@@ -553,6 +560,7 @@ Requires Level 27, 22 Str, 22 Dex
 ]],[[
 Worldcarver
 Dragonscale Gauntlets
+Source: No longer obtainable
 Requires Level 67, 51 Str, 51 Dex
 Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
 +(200-300) to Accuracy Rating

@@ -151,7 +151,7 @@ Enemies can have 1 additional Curse
 ]],[[
 Windshriek
 Reinforced Greaves
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 60, 60 Str
 (200-250)% increased Armour
 +(10-15)% to all Elemental Resistances
@@ -209,15 +209,17 @@ Gore Footprints
 Deerstalker
 Deerskin Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 22, 42 Dex
-Socketed Gems are Supported by level 11 Trap
+{variant:1,2}Socketed Gems are Supported by level 11 Trap
+{variant:3}Socketed Gems are Supported by level 15 Trap
 (160-200)% increased Evasion Rating
-+(35-45) to maximum Life
+{variant:1,2}+(35-45) to maximum Life
 (14-18)% increased Trap Throwing Speed
-{variant:2}15% increased Movement Speed
+{variant:2,3}15% increased Movement Speed
 {variant:1}30% increased Movement Speed for 9 seconds on Throwing a Trap
-{variant:2}15% increased Movement Speed for 9 seconds on Throwing a Trap
+{variant:2,3}15% increased Movement Speed for 9 seconds on Throwing a Trap
 ]],[[
 Doryani's Delusion
 Slink Boots
@@ -632,7 +634,7 @@ Requires Level 18, 19 Str, 19 Dex
 ]],[[
 Duskblight
 Ironscale Boots
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 40, 19 Str, 19 Dex
@@ -719,12 +721,17 @@ Grants Level 20 Aspect of the Avian Skill
 [[
 Alberon's Warpath
 Soldier Boots
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 49, 47 Str, 47 Int
 Adds 1 to 80 Chaos Damage to Attacks
 +(180-220) to Armour
-+(9-12)% to Chaos Resistance
-20% increased Movement Speed
-+1 to Maximum number of Skeletons
+{variant:1}+(9-12)% to Chaos Resistance
+{variant:2}+(13-19)% to Chaos Resistance
+{variant:1}20% increased Movement Speed
+{variant:2}25% increased Movement Speed
+{variant:1}+1 to Maximum number of Skeletons
+{variant:2}Skeleton Warriors are Permanent Minions and Follow you
 (15-18)% increased Strength
 ]],[[
 Replica Alberon's Warpath
@@ -837,14 +844,18 @@ Triggers level 20 Death Walk when Equipped
 ]],[[
 Corpsewalker
 Carnal Boots
+Variant: Pre 3.19.0
+Variant: Current
 League: Heist
 Requires Level 55, 52 Dex, 52 Int
 Implicits: 0
 Triggers Level 20 Corpse Walk when Equipped
 (80-120)% increased Evasion and Energy Shield
 25% increased Movement Speed
-(20-40)% increased Damage if you have Consumed a corpse Recently
-For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
+{variant:1}(20-40)% increased Damage if you have Consumed a corpse Recently
+{variant:1}For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
+{variant:2}For each nearby corpse, 1% increased Movement Speed
+{variant:2}For each nearby corpse, Regenerate 8 Life per Second
 ]],[[
 Dance of the Offered
 Variant: Pre 3.14.0

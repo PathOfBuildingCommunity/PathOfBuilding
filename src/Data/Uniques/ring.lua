@@ -126,12 +126,16 @@ Withered does not expire on Enemies Ignited by you
 ]],[[
 Blackheart
 Iron Ring
+Variant: Pre 3.19.0
+Variant: Current
 Implicits: 1
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
-{tags:physical}5% increased Physical Damage
-{tags:attack,chaos}Adds 1 to 3 Chaos Damage to Attacks
-{tags:life}+(20-30) to maximum Life
-{tags:life}(2-4) Life Regenerated per second
+{variant:1}{tags:physical}5% increased Global Physical Damage
+{variant:1}{tags:attack,chaos}Adds 1 to 3 Chaos Damage to Attacks
+{variant:2}{tags:attack,chaos}Adds (10-15) to (20-25) Chaos Damage to Attacks
+{variant:1}{tags:life}+(20-30) to maximum Life
+{variant:1}{tags:life}Regenerate (2-4) Life per second
+{variant:2}{tags:life}Regenerate (10-15) Life per second
 10% chance to Cause Monsters to Flee
 ]],[[
 Voidheart
@@ -348,26 +352,34 @@ Death Rush
 Amethyst Ring
 League: Onslaught
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 46
 Implicits: 1
 {tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-{tags:attack}+(300-350) to Accuracy Rating
-{tags:jewellery_defense}{variant:1}+(60-80) to Armour
-{tags:jewellery_defense}{variant:2}+(260-300) to Armour
+{variant:1,2}{tags:attack}+(300-350) to Accuracy Rating
+{variant:1}{tags:jewellery_defense}+(60-80) to Armour
+{variant:2}{tags:jewellery_defense}}+(260-300) to Armour
 {variant:2}{tags:life}+(40-50) to maximum Life
-{tags:chaos,jewellery_resistance}+(15-20)% to Chaos Resistance
-{tags:attack,life,physical}(0.6-0.8)% of Physical Attack Damage Leeched as Life
+{variant:1,2}{tags:chaos,jewellery_resistance}+(15-20)% to Chaos Resistance
+{variant:1,2}{tags:attack,life,physical}(0.6-0.8)% of Physical Attack Damage Leeched as Life
 {variant:1}You gain Onslaught for 2 seconds on Kill
 {variant:2}You gain Onslaught for 4 seconds on Kill
+{variant:3}Recover 5% of Life on Kill
+{variant:3}Gain Adrenaline for 3 seconds on kill
 ]],[[
 Doedre's Damning
 Paua Ring
+Variant: Pre 3.19.0
+Variant: Current
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
-{tags:jewellery_attribute}+(5-10) to Intelligence
-{tags:jewellery_resistance}+5% to all Elemental Resistances
-{tags:mana}+5 Mana Gained on Kill
+{variant:1}{tags:jewellery_attribute}+(5-10) to Intelligence
+{variant:2}{tags:jewellery_attribute}+(5-20) to Intelligence 
+{variant:1}{tags:jewellery_resistance}+5% to all Elemental Resistances
+{variant:2}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
+{variant:1}{tags:mana}+5 Mana Gained on Kill
+{variant:2}{tags:mana}+(5-20) Mana gained on Kill
 {tags:caster}Enemies can have 1 additional Curse
 ]],[[
 Replica Doedre's Damning
@@ -537,7 +549,7 @@ Kaom's Way
 Coral Ring
 Variant: Pre 3.16.0
 Variant: Current
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 32
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
@@ -722,6 +734,7 @@ Ngamahu's Sign
 Ruby Ring
 League: Bloodlines
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 29
 Implicits: 1
@@ -729,11 +742,12 @@ Implicits: 1
 {tags:jewellery_attribute}+(15-25) to Strength
 {variant:1}{tags:jewellery_elemental,attack}Adds (8-10) to (12-14) Fire Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack,caster}Adds (8-10) to (12-14) Fire Damage to Spells and Attacks
-{variant:1}{tags:life}+(4-5) Life gained for each Ignited Enemy hit by your Attacks
-{variant:2}{tags:life}Recover (20-30) Life when you Ignite an Enemy
+{variant:3}{tags:jewellery_elemental,attack,caster}Adds (20-25) to (30-35) Fire Damage to Spells and Attacks
 15% increased Ignite Duration on Enemies
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
-{variant:2}{tags:jewellery_elemental}10% chance to Ignite
+{variant:2,3}{tags:jewellery_elemental}10% chance to Ignite
+{variant:1}{tags:life}+(4-5) Life gained for each Ignited Enemy hit by your Attacks
+{variant:2,3}{tags:life}Recover (20-30) Life when you Ignite an Enemy
 ]],[[
 The Pariah
 Unset Ring
@@ -1320,5 +1334,19 @@ Implicits: 1
 30% chance to Avoid being Stunned
 {tags:speed}20% less Attack Speed
 Strike Skills also target the previous location they were Used
+]],[[
+Call of the Void
+Sapphire Ring
+Source: Drops from unique{Uber Elder}
+Shaper Item
+Elder Item
+Requires Level 16
+Implicits: 1
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+All Damage with Hits can Chill
+All Damage Taken from Hits can Chill you
+Enemies Chilled by your Hits can be Shattered as though Frozen
+Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect
 ]],
 }

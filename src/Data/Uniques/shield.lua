@@ -234,17 +234,22 @@ War Buckler
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {variant:3,4}9% increased Movement Speed
-+1 to Level of Socketed Curse Gems
+{variant:1,2,3,4}+1 to Level of Socketed Curse Gems
+{variant:5}+3 to Level of Socketed Curse Gems
 (30-50)% increased Evasion Rating
-{variant:2,3,4}+(50-70) to maximum Energy Shield
+{variant:2,3,4,5}+(50-70) to maximum Energy Shield
 {variant:2,3,4}+(40-50) to maximum Life
-+5% Chance to Block
-10% Chance to Cause Monster to Flee on Block
+{variant:1,2,3,4}+5% Chance to Block
+{variant:5}+20% chance to Block Attack Damage from Cursed Enemies
+{variant:1,2,3,4}10% Chance to Cause Monster to Flee on Block
+{variant:5}100% Chance to Cause Monster to Flee on Block
 {variant:1,2,3}Curse Skills have 100% increased Skill Effect Duration
 {variant:4}1% of Damage Leeched as Life against Cursed Enemies
+{variant:5}Inflict Decay on Enemies you Curse with Hex or Mark Skills, dealing 700 Chaos Damage per Second for 8 Seconds
 ]],[[
 Thirst for Horrors
 War Buckler
@@ -503,21 +508,24 @@ Cannot Block
 50% increased Warcry Cooldown Recovery Rate
 ]],[[
 Kongming's Stratagem
-Ivory Spirit Shield
+{variant:1,2,3,4}Ivory Spirit Shield
+{variant:5}Ancient Spirit Shield
 Variant: Pre 3.0.0
 Variant: Pre 3.1.0
 Variant: Pre 3.11.0
+Variant: Pre 3.19.0
 Variant: Current
-Implicits: 2
+Implicits: 3
 {variant:1}15% increased Spell Damage
 {variant:2,3,4}(15-20)% increased Spell Damage
+{variant:5}(5-10)% increased Spell Damage
 {Variant:1,2}Socketed Trap Skills create a Smoke Cloud when triggered
-{Variant:3,4}Trigger Level 20 Fog of War when your Trap is triggered
+{Variant:3,4,5}Trigger Level 20 Fog of War when your Trap is triggered
 +(20-30) to Intelligence
 {variant:1,2}(80-120)% increased Energy Shield
-{variant:3,4}(250-300)% increased Energy Shield
+{variant:3,4,5}(250-300)% increased Energy Shield
 {variant:1,2,3}30% increased Fire Damage with Hits and Ailments against Blinded Enemies
-{variant:4}(30-50)% increased Fire Damage with Hits and Ailments against Blinded Enemies
+{variant:4,5}(30-50)% increased Fire Damage with Hits and Ailments against Blinded Enemies
 30% reduced Spell Damage taken from Blinded Enemies
 No Chance to Block
 ]],[[
@@ -557,9 +565,13 @@ Lose all Power Charges on reaching Maximum Power Charges
 Shocks you when you reach Maximum Power Charges
 ]],[[
 Manastorm
-Fossilised Spirit Shield
-Implicits: 1
-(15-20)% increased Spell Damage
+{variant:1}Fossilised Spirit Shield
+{variant:2}Lacewood Spirit Shield
+Variant: Pre 3.19.0
+Variant: Current
+Implicits: 2
+{variant:1}(15-20)% increased Spell Damage
+{variant:2}(5-10)% increased Spell Damage
 (80-120)% increased Energy Shield
 +(50-70) to maximum Mana
 (30-50)% increased Mana Regeneration Rate
@@ -586,7 +598,7 @@ Implicits: 2
 ]],[[
 Whakatutuki o Matua
 Tarnished Spirit Shield
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 LevelReq: 63
 Implicits: 1
 (5-10)% increased Spell Damage
@@ -651,20 +663,25 @@ Daresso's Courage
 Baroque Round Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.4.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 120% increased Block Recovery
-{variant:1,2}36% chance to Block Spell Damage while on Low Life
-{variant:3}+30% chance to Block Spell Damage while on Low Life
-20% increased Global Physical Damage
-(100-120)% increased Armour and Evasion
+{variant:1,2}+36% chance to Block Spell Damage while on Low Life
+{variant:3,4}+30% chance to Block Spell Damage while on Low Life
+{variant:1,2,3}20% increased Global Physical Damage
+{variant:1,2,3}(100-120)% increased Armour and Evasion
+{variant:4}(200-250)% increased Armour and Evasion
 {variant:1}+(10-20)% to Fire Resistance
 {variant:1}+(10-20)% to Cold Resistance
 {variant:1}+(10-20)% to Lightning Resistance
 {variant:2,3}+(10-20)% to all Elemental Resistances
-+(3-6)% Chance to Block
+{variant:4}+(20-30)% to all Elemental Resistances
+{variant:1,2,3}+(3-6)% Chance to Block
 {variant:2,3}+20% Chance to Block Attack Damage if you have Blocked Spell Damage Recently
+{variant:4}+100% Chance to Block Attack Damage if you have Blocked Spell Damage Recently
 {variant:2,3}+20% chance to Block Spell Damage if you have Blocked Attack Damage Recently
+{variant:4}+100% chance to Block Spell Damage if you have Blocked Attack Damage Recently
 ]],[[
 The Deep One's Hide
 Studded Round Shield
@@ -998,6 +1015,7 @@ Implicits: 1
 ]],[[
 Glitterdisc
 Burnished Spiked Shield
+Source: No longer obtainable
 Variant: Pre 3.0.0
 Variant: Current
 Implicits: 2

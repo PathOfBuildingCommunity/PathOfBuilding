@@ -150,21 +150,23 @@ Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Pre 3.17.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 32, 107 Dex
 Implicits: 1
-{variant:2,3,4,5,6}(30-50)% increased Critical Strike Chance
+{variant:2,3,4,5,6,7}(30-50)% increased Critical Strike Chance
 {variant:1,2,3,4,5}(100-125)% increased Physical Damage
-{variant:6}(90-105)% increased Physical Damage
+{variant:6,7}(90-105)% increased Physical Damage
 10% increased Attack Speed
 {variant:1,2,4}+100% to Global Critical Strike Multiplier
 {variant:3}+150% to Global Critical Strike Multiplier
-{variant:5,6}+50% to Global Critical Strike Multiplier
-Adds an additional Arrow
+{variant:5,6,7}+50% to Global Critical Strike Multiplier
+{variant:1,2,3,4,5,6}Adds an additional Arrow
+{variant:7}Bow Attacks fire 2 additional Arrows
 ]],[[
 Death's Opus
 Death Bow
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 1.2.0
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
@@ -181,7 +183,7 @@ Adds (10-20) to (30-35) Physical Damage
 {variant:1,2,4}+100% to Global Critical Strike Multiplier
 {variant:3}+150% to Global Critical Strike Multiplier
 {variant:5,6}+50% to Global Critical Strike Multiplier
-2 additional Arrows
+Bow Attacks fire 2 additional Arrows
 ]],[[
 Doomfletch
 Royal Bow
@@ -205,7 +207,7 @@ Implicits: 2
 ]],[[
 Doomfletch's Prism
 Royal Bow
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
@@ -485,7 +487,7 @@ No Physical Damage
 ]],[[
 The Tempest
 Long Bow
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 32, 38 Dex
 No Physical Damage
 100% increased Lightning Damage
