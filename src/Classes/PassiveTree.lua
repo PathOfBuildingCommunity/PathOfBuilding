@@ -710,6 +710,7 @@ function PassiveTreeClass:PregenerateOrbitConnectorArcs()
 	-- (orbit, connectorState) tuple. Each segment contains a treeQuad (in (0,0)-centered
 	-- tree coordinates) and a tcQuad (in texture coordinates of the sprite).
 	local segmentsPerOrbit = 64
+	assert(segmentsPerOrbit % 4 == 0, "segmentsPerOrbit must be aligned on 90 degree quadrant boundaries")
 	local segmentAngles = self:CalcOrbitAngles(segmentsPerOrbit)
 
 	-- Our quad segments aren't infinitely thin, so our quads need to extend very slightly
@@ -722,40 +723,50 @@ function PassiveTreeClass:PregenerateOrbitConnectorArcs()
     -- tree versions where the arcs have individual images instead of sprite sheets, we allow
     -- this because SimpleGraphics will render transparency for textureCoordinates outside of
 	-- texture coordinates [0, 1] x [0, 1]).
-	local outerRadiusSlopFactor = (1 / m_cos(m_pi / segmentsPerOrbit)) 
+	--local outerRadiusSlopFactor = (1 / m_cos(m_pi / segmentsPerOrbit)) 
+	local outerRadiusSlopFactor = 1.1
+	local innerRadiusSlopFactor = 0.8
 
 	self.orbitConnectorArcs = {}
 	self.orbitConnectorSegmentsPerOrbit = segmentsPerOrbit
 	for orbit, treeRadius in ipairs(self.orbitRadii) do
 		if self.skillsPerOrbit[orbit] < 2 then goto continue end
+		
+		-- Calculations of radius and arc thickness must all based on the "Normal" sprite
+		-- The "Active" sprite has a different width/height, but the actual artwork is
+		-- still relative to the "Normal" radius; the calculations must be synced between
+		-- the states to avoid the lines shifting around as they change state.
+		local normalArcSprite = self.spriteMap.line["Orbit"..(orbit - 1).."Normal"]
+		local normalLineSprite = self.spriteMap.line.LineConnectorNormal
 
+		local arcThickness = normalLineSprite.height
+		local treeArcThickness = arcThickness * 1.33
+		local treeOuterRadius = (treeRadius + (treeArcThickness / 2)) * outerRadiusSlopFactor
+		local treeInnerRadius = (treeRadius - (treeArcThickness / 2)) * innerRadiusSlopFactor
+
+		-- Be careful - the arc sprites are squares, but their sprite sheets aren't, so
+		-- in sprite texture coordinates, tcWidth ~= tcHeight
+		local tcWidth = normalArcSprite[3] - normalArcSprite[1]
+		local tcWidthRelativeArcThickness = (tcWidth / normalArcSprite.width) * arcThickness
+		local tcHeight = normalArcSprite[4] - normalArcSprite[2]
+		local tcHeightRelativeArcThickness = (tcHeight / normalArcSprite.height) * arcThickness
+		-- We assume that:
+		--   * The arc is drawn equally thick in the straight line and arc sprites
+		--   * The outer edge of the arc is drawn right up against the border of the arc
+		--     sprite, ie, the center of the arc is offset (arcThickness / 2) into the sprite
+		local tcWidthRelativeCenterRadius = tcWidth - (tcWidthRelativeArcThickness / 2)
+		local tcWidthRelativeOuterRadius = (tcWidthRelativeCenterRadius + (tcWidthRelativeArcThickness / 2)) * outerRadiusSlopFactor
+		local tcWidthRelativeInnerRadius = (tcWidthRelativeCenterRadius - (tcWidthRelativeArcThickness / 2)) * innerRadiusSlopFactor
+		local tcHeightRelativeCenterRadius = tcHeight - (tcHeightRelativeArcThickness / 2)
+		local tcHeightRelativeOuterRadius = (tcHeightRelativeCenterRadius + (tcHeightRelativeArcThickness / 2)) * outerRadiusSlopFactor
+		local tcHeightRelativeInnerRadius = (tcHeightRelativeCenterRadius - (tcHeightRelativeArcThickness / 2)) * innerRadiusSlopFactor
+			
 		self.orbitConnectorArcs[orbit] = {}
 		for _, state in ipairs({ "Active", "Intermediate", "Normal" }) do
 			local spriteName = "Orbit"..(orbit - 1)..state
 			local sprite = self.spriteMap.line[spriteName]
-
-			local arcThickness = self.spriteMap.line["LineConnector"..state].height
-			local treeArcThickness = arcThickness * 1.33
-			local treeOuterRadius = (treeRadius + (treeArcThickness / 2)) * outerRadiusSlopFactor
-			local treeInnerRadius = (treeRadius - (treeArcThickness / 2))
 			
 			local tcCenterX, tcCenterY = sprite[3], sprite[4] -- bottom-right of sprite
-			-- Be careful - the arc sprites are squares, but their sprite sheets aren't, so
-			-- in sprite texture coordinates, tcWidth ~= tcHeight
-			local tcWidth = sprite[3] - sprite[1]
-			local tcWidthRelativeArcThickness = (tcWidth / sprite.width) * arcThickness
-			local tcHeight = sprite[4] - sprite[2]
-			local tcHeightRelativeArcThickness = (tcHeight / sprite.height) * arcThickness
-			-- We assume that:
-			--   * The arc is drawn equally thick in the straight line and arc sprites
-			--   * The outer edge of the arc is drawn right up against the border of the arc
-			--     sprite, ie, the center of the arc is offset (arcThickness / 2) into the sprite
-			local tcWidthRelativeCenterRadius = tcWidth - (tcWidthRelativeArcThickness / 2)
-			local tcWidthRelativeOuterRadius = (tcWidthRelativeCenterRadius + (tcWidthRelativeArcThickness / 2)) * outerRadiusSlopFactor
-			local tcWidthRelativeInnerRadius = (tcWidthRelativeCenterRadius - (tcWidthRelativeArcThickness / 2))
-			local tcHeightRelativeCenterRadius = tcHeight - (tcHeightRelativeArcThickness / 2)
-			local tcHeightRelativeOuterRadius = (tcHeightRelativeCenterRadius + (tcHeightRelativeArcThickness / 2)) * outerRadiusSlopFactor
-			local tcHeightRelativeInnerRadius = (tcHeightRelativeCenterRadius - (tcHeightRelativeArcThickness / 2))
 			
 			local segments = {}
 			for segmentIndex, segmentStartAngle in ipairs(segmentAngles) do
@@ -769,8 +780,8 @@ function PassiveTreeClass:PregenerateOrbitConnectorArcs()
 					tcStartAngle = segmentStartAngle % (m_pi / 2) + m_pi
 					tcEndAngle = tcStartAngle + angleDelta
 				else
-					tcEndAngle = (m_pi / 2 - segmentStartAngle) % (m_pi / 2) + m_pi
-					tcStartAngle = tcEndAngle + angleDelta
+					tcStartAngle = (m_pi / 2 - segmentStartAngle) % (m_pi / 2) + m_pi + angleDelta
+					tcEndAngle = tcStartAngle - angleDelta
 				end
 				-- The sprite only contains the top-left quadrant of the circle, which corresponds
 				-- to [m_pi, 3/2 * m_pi] as-rendered
@@ -811,11 +822,6 @@ function PassiveTreeClass:PregenerateOrbitConnectorArcs()
 		end
 		::continue::
 	end
-
-	prettyPrintTable(self.orbitConnectorArcs[3].Active.segments[1])
-	prettyPrintTable(self.orbitConnectorArcs[3].Active.segments[2])
-	local sprite = self.orbitConnectorArcs[3].Active.sprite
-	print("width="..sprite.width.." height="..sprite.height.." tc="..sprite[1]..","..sprite[2]..","..sprite[3]..","..sprite[4])
 end
 
 -- Generate the quad(s) used to render the line between the two given nodes
@@ -832,9 +838,6 @@ function PassiveTreeClass:BuildConnectors(node1, node2)
 			centerX = node1.group.x,
 			centerY = node1.group.y,
 		}
-
-		-- Order the oidx values such that we draw along the shorter arc
-		local startOidx, endOidx = m_min(node1.oidx, node2.oidx), m_max(node1.oidx, node2.oidx)
 
 		-- Convert oidx to arc segment
 		local startAngle = self.orbitAnglesByOrbit[node1.o + 1][node1.oidx + 1]
