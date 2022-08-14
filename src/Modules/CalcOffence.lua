@@ -3266,6 +3266,15 @@ function calcs.offence(env, actor, activeSkill)
 				local PoisonDPSUncapped = baseVal * effectMod * rateMod * effMult
 				local PoisonDPSCapped = m_min(PoisonDPSUncapped, data.misc.DotDpsCap)
 				output.PoisonDPS = PoisonDPSCapped
+				local groundMult = m_max(skillModList:Max(nil, "PoisonDpsAsCausticGround") or 0, enemyDB:Max(nil, "PoisonDpsAsCausticGround") or 0)
+				if groundMult > 0 then
+					local CausticGroundDPSUncapped = baseVal * effectMod * rateMod * effMult * groundMult / 100
+					local CausticGroundDPSCapped = m_min(CausticGroundDPSUncapped, data.misc.DotDpsCap)
+					if PoisonDPSCapped + CausticGroundDPSCapped > data.misc.DotDpsCap then
+						CausticGroundDPSCapped = data.misc.DotDpsCap - CausticGroundDPSCapped
+					end
+					globalOutput.CausticGroundDPS = CausticGroundDPSCapped
+				end
 				local durationBase
 				if skillData.poisonDurationIsSkillDuration then
 					durationBase = skillData.duration
@@ -3521,6 +3530,20 @@ function calcs.offence(env, actor, activeSkill)
 				local IgniteDPSUncapped = baseVal * effectMod * rateMod * igniteStacks * effMult
 				local IgniteDPSCapped = m_min(IgniteDPSUncapped, data.misc.DotDpsCap)
 				output.IgniteDPS = IgniteDPSCapped
+				local groundMult = m_max(skillModList:Max(nil, "IgniteDpsAsBurningGround") or 0, enemyDB:Max(nil, "IgniteDpsAsBurningGround") or 0)
+				if groundMult > 0 then
+					-- Always use fire eff multi
+					local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist") * calcLib.mod(enemyDB, nil, "FireResist", "ElementalResist"), data.misc.EnemyMaxResist)
+					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
+					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
+					local fireEffMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
+					local BurningGroundDPSUncapped = baseVal * effectMod * rateMod * fireEffMult * groundMult / 100
+					local BurningGroundDPSCapped = m_min(BurningGroundDPSUncapped, data.misc.DotDpsCap)
+					if IgniteDPSCapped + BurningGroundDPSCapped > data.misc.DotDpsCap then
+						BurningGroundDPSCapped = data.misc.DotDpsCap - IgniteDPSCapped
+					end
+					globalOutput.BurningGroundDPS = BurningGroundDPSCapped
+				end
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
 					output.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration

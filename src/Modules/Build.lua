@@ -294,9 +294,11 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "WithBleedDPS", label = "Total DPS inc. Bleed", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 end },
 		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Ignite DPS exceeds in game limit" end },
 		{ stat = "IgniteDamage", label = "Total Damage per Ignite", fmt = ".1f", compPercent = true, flag = "showAverage" },
+		{ stat = "BurningGroundDPS", label = "Burning Ground DPS", fmt = ".1f", compPercent = true, warnFunc = function(v,o) return v + o.IgniteDPS >= data.misc.DotDpsCap and "Ignite + Burning Ground DPS exceeds in game limit" end },
 		{ stat = "WithIgniteDPS", label = "Total DPS inc. Ignite", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "WithIgniteAverageDamage", label = "Average Dmg. inc. Ignite", fmt = ".1f", compPercent = true },
 		{ stat = "PoisonDPS", label = "Poison DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Poison DPS exceeds in game limit" end },
+		{ stat = "CausticGroundDPS", label = "Caustic Ground DPS", fmt = ".1f", compPercent = true, warnFunc = function(v,o) return v + o.PoisonDPS >= data.misc.DotDpsCap and "Poison + Caustic Ground DPS exceeds in game limit" end },
 		{ stat = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
 		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
@@ -1346,7 +1348,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 					end
 				end
 				if statData.warnFunc and statVal and ((statData.condFunc and statData.condFunc(statVal, actor.output)) or not statData.condFunc) then 
-					local v = statData.warnFunc(statVal)
+					local v = statData.warnFunc(statVal, actor.output)
 					if v then
 						InsertIfNew(self.controls.warnings.lines, v)
 					end
