@@ -179,7 +179,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		end
 	else
 		if minion then 
-			output.ActionTriggerRate = getTriggerActionTriggerRate(env.minion.mainSkill.skillData.cooldown + extraTriggerCD, env, breakdown, false, minion)
+			output.ActionTriggerRate = getTriggerActionTriggerRate(env.minion.mainSkill.skillData.cooldown, env, breakdown, false, minion)
 		else 
 			output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown + extraTriggerCD, env, breakdown, false, minion)
 		end
