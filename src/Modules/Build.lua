@@ -892,7 +892,17 @@ function buildMode:Save(xml)
 		}
 	}
 	t_insert(xml, timelessData)
+end
+
+function buildMode:ResetModFlags()
 	self.modFlag = false
+	self.notesTab.modFlag = false
+	self.configTab.modFlag = false
+	self.treeTab.modFlag = false
+	self.spec.modFlag = false
+	self.skillsTab.modFlag = false
+	self.itemsTab.modFlag = false
+	self.calcsTab.modFlag = false
 end
 
 function buildMode:OnFrame(inputEvents)
@@ -1544,6 +1554,7 @@ function buildMode:SaveDB(fileName)
 	end
 end
 
+
 function buildMode:SaveDBFile()
 	if not self.dbFileName then
 		self:OpenSaveAsPopup()
@@ -1562,6 +1573,10 @@ function buildMode:SaveDBFile()
 	file:close()
 	local action = self.actionOnSave
 	self.actionOnSave = nil
+
+	-- Reset all modFlags
+	self:ResetModFlags()
+
 	if action == "LIST" then
 		self:CloseBuild()
 	elseif action == "EXIT" then

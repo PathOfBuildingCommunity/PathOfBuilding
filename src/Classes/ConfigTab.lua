@@ -347,7 +347,6 @@ function ConfigTabClass:Save(xml)
 		end
 		t_insert(xml, child)
 	end
-	self.modFlag = false
 end
 
 function ConfigTabClass:UpdateControls()
