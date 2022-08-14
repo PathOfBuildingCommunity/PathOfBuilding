@@ -683,7 +683,7 @@ function calcs.defence(env, actor)
 	end
 	output.EnergyShieldRegen = output.EnergyShieldRegen + modDB:Sum("BASE", nil, "EnergyShieldRecovery") * output.EnergyShieldRecoveryRateMod
 	output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
-	if modDB:Flag(nil, "NoManaRegenAppliedToYou") then  --Chainbreaker Flag
+	if modDB:Flag(nil, "UnaffectedByManaRegen") then  --Chainbreaker Flag
 		output.WouldBeManaRegen = output.ManaRegen
 		output.ManaRegen = 0
     end
