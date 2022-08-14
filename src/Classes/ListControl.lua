@@ -407,7 +407,7 @@ function ListClass:OnKeyUp(key)
 					end
 					t_insert(self.list, self.selDragIndex, self.selValue)
 					if self.OnOrderChange then
-						self:OnOrderChange()
+						self:OnOrderChange(self.selIndex, self.selDragIndex)
 					end
 					self.selValue = nil
 				elseif self.dragTarget then
