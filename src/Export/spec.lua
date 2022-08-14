@@ -1611,7 +1611,6 @@ return {
 			type="Int",
 			width=150
 		},
-		}
 	},
 	BuffVisualArtVariations={
 		[1]={
