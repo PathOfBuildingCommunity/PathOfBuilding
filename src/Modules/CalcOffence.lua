@@ -4212,7 +4212,7 @@ function calcs.offence(env, actor, activeSkill)
 	else
 		output.WithBleedDPS = baseDPS
 	end
-	local TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (output.BleedDPS or 0) + (output.DecayDPS or 0)
+	local TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (output.CausticGroundDPS or 0) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (output.BurningGroundDPS  or 0) + (output.BleedDPS or 0) + (output.DecayDPS or 0)
 	output.TotalDotDPS = m_min(TotalDotDPS, data.misc.DotDpsCap)
 	if output.TotalDotDPS ~= TotalDotDPS then
 		output.showTotalDotDPS = true
