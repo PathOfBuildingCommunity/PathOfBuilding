@@ -804,6 +804,7 @@ local skills, mod, flag, skill = ...
 		}
 	},
 #baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsBurningGround"),
 #mods
 
 #skill Firewall
