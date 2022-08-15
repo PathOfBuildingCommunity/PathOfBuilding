@@ -693,6 +693,10 @@ function calcs.defence(env, actor)
 		output.WouldBeManaRegen = output.ManaRegen
 		output.ManaRegen = 0
     end
+	if modDB:Flag(nil, "UnaffectedByLifeRegen") then  --Kaom's Spirit
+		output.WouldBeLifeRegen = output.LifeRegen
+		output.LifeRegen = 0
+    end
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
 		modDB:NewMod("Condition:CanGainRage", "FLAG", true, "RageRegen")
 		local base = modDB:Sum("BASE", nil, "RageRegen")
