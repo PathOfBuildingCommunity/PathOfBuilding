@@ -2479,7 +2479,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 		end
-		if not (skillModList:Flag(nil, "Condition:PhysicalIsHighestDamageType") or skillModList:Flag(nil, "Condition:LightningIsHighestDamageType") or skillModList:Flag(nil, "Condition:ColdIsHighestDamageType") or skillModList:Flag(nil, "Condition:FireIsHighestDamageType") or skillModList:Flag(nil, "Condition:ChaosIsHighestDamageType")) then
+		if not skillModList:Flag(nil, "IsHighestDamageTypeOVERRIDE") then
 			skillModList:NewMod("Condition:"..highestType.."IsHighestDamageType", "FLAG", true, "Config")
 		end
 
