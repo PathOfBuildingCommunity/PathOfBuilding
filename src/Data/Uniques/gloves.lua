@@ -269,7 +269,6 @@ Allelopathy
 {variant:2}Satin Gloves
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 69, 97 Int
 Grants level 22 Blight Skill
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
@@ -278,11 +277,13 @@ Blight has (20-30)% increased Hinder Duration
 You cannot be Hindered
 ]],[[
 Replica Allelopathy
-Sorcerer Gloves
+{variant:1}Sorcerer Gloves
+{variant:2}Satin Gloves
+Variant: Pre 3.19.0
+Variant: Current
 League: Heist
-Requires Level 69, 97 Int
 Grants Level 22 Wintertide Brand
-(20-30)% increased Damage over Time
+{variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect
 Immune to Chill
