@@ -1000,7 +1000,7 @@ return {
 			modList:NewMod("Condition:IgnitingConflux", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		end
 	end },
-	{ var = "highestDamageType", type = "list", ifFlag = "ChecksHighestDamage", label = "Highest damage type:", tooltip = "Determines whether modifiers that depend on the highest damage type apply.", list = {{val="NONE",label="Default"},{val="Physical",label="Physical"},{val="Lightning",label="Lightning"},{val="Cold",label="Cold"},{val="Fire",label="Fire"},{val="Chaos",label="Chaos"}}, apply = function(val, modList, enemyModList)
+	{ var = "highestDamageType", type = "list", ifFlag = "ChecksHighestDamage", label = "Highest damage type Override:", tooltip = "Determines whether modifiers that depend on the highest damage type apply.", list = {{val="NONE",label="Default"},{val="Physical",label="Physical"},{val="Lightning",label="Lightning"},{val="Cold",label="Cold"},{val="Fire",label="Fire"},{val="Chaos",label="Chaos"}}, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:"..val.."IsHighestDamageType", "FLAG", true, "Config")
 	end },
 	{ var = "buffHeartstopper", type = "list", label = "Is Heartstopper active?", ifCond = "HeartstopperHIT", list = {{val=0,label="None"},{val="AVERAGE",label="average"},{val="HIT",label="Hit"},{val="DOT",label="Damage over time"}}, apply = function(val, modList, enemyModList)

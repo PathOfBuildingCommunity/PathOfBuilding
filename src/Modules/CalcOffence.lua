@@ -2471,17 +2471,17 @@ function calcs.offence(env, actor, activeSkill)
 		for _, damageType in ipairs(dmgTypeList) do
 			if output[damageType.."HitAverage"] > 0 then
 				local portion = output[damageType.."HitAverage"] / totalHitAvg * 100
-				local highestPortion = output[highestType.."HitAverage"] / totalHitAvg * 100
-				if portion > highestPortion then
+				if output[damageType.."HitAverage"] > output[highestType.."HitAverage"] then
 					highestType = damageType
-					highestPortion = portion
 				end
 				if breakdown then
 					t_insert(breakdown[damageType], s_format("Portion of total damage: %d%%", portion))
 				end
 			end
 		end
-		skillModList:NewMod("Condition:"..highestType.."IsHighestDamageType", "FLAG", true, "Config")
+		if not (skillModList:Flag(nil, "Condition:PhysicalIsHighestDamageType") or skillModList:Flag(nil, "Condition:LightningIsHighestDamageType") or skillModList:Flag(nil, "Condition:ColdIsHighestDamageType") or skillModList:Flag(nil, "Condition:FireIsHighestDamageType") or skillModList:Flag(nil, "Condition:ChaosIsHighestDamageType")) then
+			skillModList:NewMod("Condition:"..highestType.."IsHighestDamageType", "FLAG", true, "Config")
+		end
 
 		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
 
