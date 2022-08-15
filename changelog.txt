@@ -7,6 +7,7 @@ VERSION[2.20.0][2022/08/15]
 * Add support for
   * new trickster (Lilylicious)
   * trickster node Heartstopper (Regisle)
+  * action speed caps (Lilylicious)
   * deal 10% less damage on Indomitable Resolve (Regisle)
   * armour applies to ele damage (Regisle)
   * Vorana's March (LocalIdentity)
@@ -26,7 +27,6 @@ VERSION[2.20.0][2022/08/15]
   * piecewise parsing triple damage mods. (Paliak)
   * inverted reflection stats (Nostrademous)
   * stacking max shock (Lilylicious)
-  * action speed caps (Lilylicious)
   * Ryslatha life flask charge generation (deathbeam)
   * dot DPS cap (deathbeam, Regisle, LocalIdentity)
   * Lightning Conduit's New Trigger Flag (Nostrademous)

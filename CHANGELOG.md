@@ -21,6 +21,7 @@
 - Add support for
 	- new trickster [\#4749](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4749) ([Lilylicious](https://github.com/Lilylicious))
 	- trickster node Heartstopper [\#4782](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4782) ([Regisle](https://github.com/Regisle))
+	- action speed caps [\#4749](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4749) ([Lilylicious](https://github.com/Lilylicious))
 	- deal 10% less damage on Indomitable Resolve [\#4688](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4688) ([Regisle](https://github.com/Regisle))
 	- armour applies to ele damage [\#4673](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4673) ([Regisle](https://github.com/Regisle))
 	- Vorana's March [\#4613](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4613) ([LocalIdentity](https://github.com/LocalIdentity))
@@ -40,7 +41,6 @@
 	- piecewise parsing triple damage mods. [\#4727](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4727) ([Paliak](https://github.com/Paliak))
 	- inverted reflection stats [\#4756](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4756) ([Nostrademous](https://github.com/Nostrademous))
 	- stacking max shock [\#4750](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4750) ([Lilylicious](https://github.com/Lilylicious))
-	- action speed caps [\#4749](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4749) ([Lilylicious](https://github.com/Lilylicious))
 	- Ryslatha life flask charge generation [\#4721](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4721) ([deathbeam](https://github.com/deathbeam))
 	- dot DPS cap [\#4649](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4649), [\#4808](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4808) ([deathbeam](https://github.com/deathbeam), [Regisle](https://github.com/Regisle), [LocalIdentity](https://github.com/LocalIdentity))
 	- Lightning Conduit's New Trigger Flag [\#4802](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4802) ([Nostrademous](https://github.com/Nostrademous))
