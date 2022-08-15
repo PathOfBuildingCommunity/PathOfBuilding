@@ -1014,6 +1014,7 @@ function TreeTabClass:FindTimelessJewel()
 	for idx, jewelSocket in ipairs(jewelSockets) do
 		if jewelSocket.id == timelessData.jewelSocket.id then
 			controls.socketSelect.selIndex = idx
+			break
 		end
 	end
 
