@@ -46,6 +46,8 @@
 	- Lightning Conduit's New Trigger Flag [\#4802](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4802) ([Nostrademous](https://github.com/Nostrademous))
 	- enemy overwhelm and correct minor issues with damage reduction [\#4705](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4705) ([QuickStick123](https://github.com/QuickStick123))
 	- Burning and Caustic ground and Flame Surge [\#4801](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4801) ([deathbeam](https://github.com/deathbeam))
+	- Burning and caustic ground in total/combined DPS [\#4815](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4815) ([Regisle](https://github.com/Regisle))
+	- Prevent burning and caustic ground fro mstacking [\#4820](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4820) ([Regisle](https://github.com/Regisle))
 - Add an empty stat to remove confusing red text on incinerate [\#4681](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4681) ([Paliak](https://github.com/Paliak))
 - Always use configured or base chill for bonechill and remove bonechill config [\#4453](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4453) ([deathbeam](https://github.com/deathbeam))
 - Update ward recharge speed [\#4697](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4697) ([Lexy](https://github.com/learn2draw))
@@ -93,6 +95,7 @@
 - "Save" on generate #4619 [\#4623](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4623) ([talkmill](https://github.com/talkmill))
 - Spelling and correct tooltip [\#4712](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4712) ([Regisle](https://github.com/Regisle))
 - Multistrike damage calculation with skills which have bow and melee Tag [\#4740](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4740) ([Sinured](https://github.com/Sinured))
+- Multistrike with shield crush [\#4824](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4824) ([Regisle](https://github.com/Regisle))
 - Base ailment calcs [\#4790](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4790) ([Lilylicious](https://github.com/Lilylicious))
 - Longshot affects all projectiles that hit [\#4709](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4709) ([Lilylicious](https://github.com/Lilylicious))
 ### Other changes

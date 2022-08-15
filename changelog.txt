@@ -32,6 +32,7 @@ VERSION[2.20.0][2022/08/15]
   * Lightning Conduit's New Trigger Flag (Nostrademous)
   * enemy overwhelm and correct minor issues with damage reduction (QuickStick123)
   * Burning and Caustic ground and Flame Surge (deathbeam)
+  * Burning and caustic ground in total/combined DPS (Regisle)
 * Add an empty stat to remove confusing red text on incinerate (Paliak)
 * Always use configured or base chill for bonechill and remove bonechill config (deathbeam)
 * Update ward recharge speed (Lexy)
