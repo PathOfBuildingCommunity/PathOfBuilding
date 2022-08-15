@@ -3634,8 +3634,8 @@ return {
 			}, 
 			["not"] = false, 
 			["sd"] = {
-				[1] = "Regenerate 3 Rage per second", 
-				[2] = "Increases and Reductions to Mana Regeneration Rate instead apply to Rage Regeneration Rate", 
+				[1] = "1 Rage regenerated for every 25 Mana Regeneration per second",
+				[2] = "Mana Recovery from Regeneration is not applied", 
 				[3] = "Skills Cost +3 Rage", 
 			}, 
 			["isMultipleChoiceOption"] = false, 

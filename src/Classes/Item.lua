@@ -430,7 +430,7 @@ function ItemClass:ParseRaw(raw)
 					else
 						self.enchantments = data.enchantments[self.base.type]
 					end
-					self.corruptable = self.base.type ~= "Flask"
+					self.corruptible = self.base.type ~= "Flask"
 					self.influenceTags = data.specialBaseTags[self.type]
 					self.canBeInfluenced = self.influenceTags
 					self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]
@@ -468,22 +468,13 @@ function ItemClass:ParseRaw(raw)
 				end
 				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)",""):gsub(" %(enchant%)",""):gsub(" %(scourge%)","")
 				local catalystScalar = getCatalystScalar(self.catalyst, modTags, self.catalystQuality)
-				local rangedLine
-				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
-					rangedLine = itemLib.applyRange(line, 1, catalystScalar)
-				elseif catalystScalar ~= 1 then
-					rangedLine = itemLib.applyValueScalar(line, catalystScalar, 1)
-				end
+				local rangedLine = itemLib.applyRange(line, 1, catalystScalar)
 				local modList, extra = modLib.parseMod(rangedLine or line)
 				if (not modList or extra) and self.rawLines[l+1] then
 					-- Try to combine it with the next line
 					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(fractured%)",""):gsub(" ?%(crafted%)",""):gsub(" ?%(implicit%)",""):gsub(" ?%(enchant%)",""):gsub(" ?%(scourge%)","")
 					local combLine = line.." "..nextLine
-					if combLine:match("%(%d+%-%d+ to %d+%-%d+%)") or combLine:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or combLine:match("%(%-?[%d%.]+%-[%d%.]+%)") then
-						rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
-					elseif catalystScalar ~= 1 then
-						rangedLine = itemLib.applyValueScalar(combLine, catalystScalar, 1)
-					end
+					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
 					modList, extra = modLib.parseMod(rangedLine or combLine, true)
 					if modList and not extra then
 						line = line.."\n"..nextLine
@@ -636,7 +627,7 @@ end
 function ItemClass:NormaliseQuality()
 	if self.base and (self.base.armour or self.base.weapon or self.base.flask) then
 		if not self.quality then
-			self.quality = self.corrupted and 0 or 20 
+			self.quality = 0
 		elseif not self.uniqueID and not self.corrupted and self.quality < 20 then
 			self.quality = 20
 		end

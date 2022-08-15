@@ -107,12 +107,18 @@ Unaffected by Burning Ground
 ]],[[
 Stormcharger
 Plated Greaves
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level: 23, 44 Str
 +(1-50)% to Lightning Resistance 
-20% increased Movement Speed
-30% of Physical Damage Converted to Lightning Damage
-50% increased Duration of Lightning Ailments
-(15-25)% increased Effect of Lightning Ailments
+{variant:1}20% increased Movement Speed
+{variant:2}(1-40)% increased Movement Speed
+{variant:1}30% of Physical Damage Converted to Lightning Damage
+{variant:2}Unaffected by Shocked Ground
+{variant:1}50% increased Duration of Lightning Ailments
+{variant:2}(1-100)% increased Duration of Lightning Ailments
+{variant:1}(15-25)% increased Effect of Lightning Ailments
+{variant:2}(1-50)% increased Effect of Lightning Ailments
 ]],[[
 Torchoak Step
 Antique Greaves
@@ -130,19 +136,22 @@ Requires Level 37, 67 Str
 Windscream
 Reinforced Greaves
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 33, 60 Str
 (50-80)% increased Armour
 +(10-15)% to all Elemental Resistances
 {variant:1}10% increased Movement Speed
 {variant:2}15% increased Movement Speed
+{variant:3}20% increased Movement Speed
 {variant:1}10% increased Elemental Damage
 {variant:2}(10-20)% increased Elemental Damage
+{variant:3}50% increased Area of Effect of Hex Skills
 Enemies can have 1 additional Curse
 ]],[[
 Windshriek
 Reinforced Greaves
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 60, 60 Str
 (200-250)% increased Armour
 +(10-15)% to all Elemental Resistances
@@ -200,15 +209,17 @@ Gore Footprints
 Deerstalker
 Deerskin Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 22, 42 Dex
-Socketed Gems are Supported by level 11 Trap
+{variant:1,2}Socketed Gems are Supported by level 11 Trap
+{variant:3}Socketed Gems are Supported by level 15 Trap
 (160-200)% increased Evasion Rating
-+(35-45) to maximum Life
+{variant:1,2}+(35-45) to maximum Life
 (14-18)% increased Trap Throwing Speed
-{variant:2}15% increased Movement Speed
+{variant:2,3}15% increased Movement Speed
 {variant:1}30% increased Movement Speed for 9 seconds on Throwing a Trap
-{variant:2}15% increased Movement Speed for 9 seconds on Throwing a Trap
+{variant:2,3}15% increased Movement Speed for 9 seconds on Throwing a Trap
 ]],[[
 Doryani's Delusion
 Slink Boots
@@ -336,15 +347,19 @@ Requires Level 55, 97 Dex
 Victario's Flight
 Goathide Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 12, 26 Dex
 +15 to Dexterity
 +15 to Intelligence
 (100-150)% increased Evasion Rating
 {variant:1}30% increased Movement Speed when on Low Life
+{variant:3}(10-20)% increased Movement Speed when on Low Life
+{variant:3}Quicksilver Flasks you Use also apply to nearby Allies
 {variant:2}15% increased Movement Speed
+{variant:3}(10-20)% increased Movement Speed
 {variant:2}You and nearby allies have 10% increased Movement Speed
-(5-10)% of Damage taken Recouped as Mana
+{variant:1,2}(5-10)% of Damage taken Recouped as Mana
 ]],
 -- Boots: Energy Shield
 [[
@@ -433,34 +448,38 @@ Variant: Pre 1.0.0
 Variant: Pre 1.1.0
 Variant: Pre 2.6.0
 Variant: Pre 3.4.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 53, 94 Int
 {variant:1,2,3,4}(6-7)% Chance to Block Spell Damage
 {variant:5}(4-6)% Chance to Block Spell Damage
+{variant:6}(15-20)% Chance to Block Spell Damage
 {variant:1,2}+(80-100) to maximum Mana
-{variant:3,4,5}+(40-60) to maximum Mana
+{variant:3,4,5,6}+(40-60) to maximum Mana
 {variant:1,2}(150-200)% increased Energy Shield
 {variant:3,4,5}(140-180)% increased Energy Shield
-{variant:1,3,4,5}+20% to all Elemental Resistances
+{variant:1,3,4,5,6}+20% to all Elemental Resistances
 {variant:2}+8% to all Elemental Resistances
-{variant:1,2,3}20% increased Movement Speed
+{variant:1,2,3,6}20% increased Movement Speed
 {variant:4,5}25% increased Movement Speed
 ]],[[
 Shavronne's Pace
 Scholar Boots
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 32, 54 Int
-+10 to Dexterity
+{variant:1,2,3}+10 to Dexterity
 {variant:1}+10 to Intelligence
-{variant:2,3}+(20-30) to Intelligence
+{variant:2,3,4}+(20-30) to Intelligence
 {variant:1}(50-70)% increased Energy Shield
-{variant:2,3}(100-140)% increased Energy Shield
-{variant:3}15% increased Movement Speed
+{variant:2,3,4}(100-140)% increased Energy Shield
+{variant:3,4}15% increased Movement Speed
 {variant:1,2}35% increased Movement Speed when on Full Life
-{variant:3}20% increased Movement Speed when on Full Life
-(10-15)% increased Stun Recovery
+{variant:3,4}20% increased Movement Speed when on Full Life
+{variant:1,2,3}(10-15)% increased Stun Recovery
+{variant:4}(150-200)% increased Stun Recovery
 ]],[[
 Shavronne's Gambit
 Scholar Boots
@@ -515,15 +534,21 @@ Cannot be Frozen
 Wondertrap
 Velvet Slippers
 Variant: Pre 1.0.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 9, 21 Int
-+(5-10) to Strength
-+(5-10) to Dexterity
-+(5-10) to Intelligence
-+(10-16) to maximum Energy Shield
+{variant:1,2}+(5-10) to Strength
+{variant:3}+(5-30) to Strength
+{variant:1,2}+(5-10) to Dexterity
+{variant:3}+(5-30) to Dexterity
+{variant:1,2}+(5-10) to Intelligence
+{variant:3}+(5-30) to Intelligence
+{variant:1,2}+(10-16) to maximum Energy Shield
+{variant:3}+(5-30) to maximum Energy Shield
 100% increased Rarity of Items found when on Low Life
 {variant:1}15% increased Movement Speed
 {variant:2}10% increased Movement Speed
+{variant:3}(10-25)% increased Movement Speed
 ]],[[
 Greedtrap
 Velvet Slippers
@@ -579,16 +604,20 @@ Requires Level 65, 62 Str, 62 Dex
 Dusktoe
 Ironscale Boots
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 18, 19 Str, 19 Dex
-(40-60)% increased Armour and Evasion
+{variant:1,2}(40-60)% increased Armour and Evasion
+{variant:3}(60-100)% increased Armour and Evasion
 {variant:1}+(10-20) to maximum Life
 {variant:2}+(20-30) to maximum Life
 {variant:1}+(10-20) to maximum Mana
-15% increased Movement Speed
-50% increased Stun Recovery
+{variant:1,2}15% increased Movement Speed
+{variant:3}20% increased Movement Speed
+{variant:1,2}50% increased Stun and Block Recovery
 20% reduced Light Radius
 {variant:2}Adds (15-20) to (25-30) Chaos Damage to Spells and Attacks while using a Flask
+{variant:3}Adds (30-40) to (50-60) Chaos Damage to Spells and Attacks while using a Flask
 +50% to Chaos Resistance while using a Flask
 ]],[[
 Dusktoe
@@ -605,7 +634,7 @@ Requires Level 18, 19 Str, 19 Dex
 ]],[[
 Duskblight
 Ironscale Boots
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 40, 19 Str, 19 Dex
@@ -692,12 +721,17 @@ Grants Level 20 Aspect of the Avian Skill
 [[
 Alberon's Warpath
 Soldier Boots
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 49, 47 Str, 47 Int
 Adds 1 to 80 Chaos Damage to Attacks
 +(180-220) to Armour
-+(9-12)% to Chaos Resistance
-20% increased Movement Speed
-+1 to Maximum number of Skeletons
+{variant:1}+(9-12)% to Chaos Resistance
+{variant:2}+(13-19)% to Chaos Resistance
+{variant:1}20% increased Movement Speed
+{variant:2}25% increased Movement Speed
+{variant:1}+1 to Maximum number of Skeletons
+{variant:2}Skeleton Warriors are Permanent Minions and Follow you
 (15-18)% increased Strength
 ]],[[
 Replica Alberon's Warpath
@@ -751,11 +785,15 @@ Socketed Gems are Supported by Level 25 Divine Blessing
 ]],[[
 Ralakesh's Impatience
 Riveted Boots
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Cold Resistance 
 +(15-25)% to Chaos Resistance 
-20% increased Movement Speed 
-Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary 
+{variant:1}20% increased Movement Speed 
+{variant:2}30% increased Movement Speed 
+{variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary 
+{variant:2}Your minimum Frenzy, Endurance and Power Charges are equal to your maximum while you are Stationary
 Lose all Frenzy, Endurance, and Power Charges when you Move
 ]],[[
 Wake of Destruction
@@ -806,14 +844,18 @@ Triggers level 20 Death Walk when Equipped
 ]],[[
 Corpsewalker
 Carnal Boots
+Variant: Pre 3.19.0
+Variant: Current
 League: Heist
 Requires Level 55, 52 Dex, 52 Int
 Implicits: 0
 Triggers Level 20 Corpse Walk when Equipped
 (80-120)% increased Evasion and Energy Shield
 25% increased Movement Speed
-(20-40)% increased Damage if you have Consumed a corpse Recently
-For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
+{variant:1}(20-40)% increased Damage if you have Consumed a corpse Recently
+{variant:1}For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
+{variant:2}For each nearby corpse, 1% increased Movement Speed
+{variant:2}For each nearby corpse, Regenerate 8 Life per Second
 ]],[[
 Dance of the Offered
 Variant: Pre 3.14.0
@@ -979,12 +1021,61 @@ Gain Adrenaline for 3 seconds when Ward Breaks
 Vorana's March
 Runic Sabatons
 League: Expedition
+Has Alt Variant: true
+Has Alt Variant Two: true
+Selected Variant: 1
+Selected Alt Variant: 2
+Variant: Arbalist Limit
+Variant: Additional Projectiles
+Variant: Attack Speed
+Variant: Pierce additional Targets
+Variant: Fork
+Variant: Chain
+Variant: Split
+Variant: Double Damage
+Variant: Maim
+Variant: Intimidate
+Variant: Unnerve
+Variant: Fire Exposure
+Variant: Cold Exposure
+Variant: Lightning Exposure
+Variant: Crush
+Variant: Phys converted to Fire
+Variant: Phys converted to Cold
+Variant: Phys converted to Lightning
+Variant: Phys as extra Fire
+Variant: Phys as extra Cold
+Variant: Phys as extra Lightning
+Variant: Chance to inflict Bleeding
+Variant: Chance to Poison
+Variant: Chance to Freeze, Shock, and Ignite
 Requires Level 69, 46 Str, 46 Dex, 46 Int
 Has no Sockets
 Triggers Level 20 Summon Arbalists when Equipped
 25% increased Movement Speed
-Summoned Arbalists have (10–20)% chance to inflict Cold Exposure on Hit
-Summoned Arbalists have (10–20)% chance to Intimidate for 4 seconds on Hit
-Summoned Arbalists Convert (30–50)% of Physical Damage to Fire Damage
+{variant:1}+1 to number of Summoned Arbalists
+{variant:2}Summoned Arbalists fire (2-4) additional Projectiles
+{variant:3}Summoned Arbalists have (10-20)% increased Attack Speed
+{variant:4}Summoned Arbalists' Projectiles Pierce 2 additional Targets
+{variant:5}Summoned Arbalists' Projectiles Fork
+{variant:6}Summoned Arbalists' Projectiles Chain +2 times
+{variant:7}Summoned Arbalists' Projectiles Split into 3
+{variant:8}Summoned Arbalists have (10-20)% chance to deal Double Damage
+{variant:9}Summoned Arbalists have (10-20)% chance to Maim for 4 seconds on Hit
+{variant:10}Summoned Arbalists have (10-20)% chance to Intimidate for 4 seconds on Hit
+{variant:11}Summoned Arbalists have (10-20)% chance to Unnerve for 4 seconds on Hit
+{variant:12}Summoned Arbalists have (10-20)% chance to inflict Fire Exposure on Hit
+{variant:13}Summoned Arbalists have (10-20)% chance to inflict Cold Exposure on Hit
+{variant:14}Summoned Arbalists have (10-20)% chance to inflict Lightning Exposure on Hit
+{variant:15}Summoned Arbalists have (10-20)% chance to Crush on Hit
+{variant:16}Summoned Arbalists Convert (30-50)% of Physical Damage to Fire Damage
+{variant:17}Summoned Arbalists Convert (30-50)% of Physical Damage to Cold Damage
+{variant:18}Summoned Arbalists Convert (30-50)% of Physical Damage to Lightning Damage
+{variant:19}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Fire Damage
+{variant:20}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Cold Damage
+{variant:21}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Lightning Damage
+{variant:22}Summoned Arbalists' Attacks have (30-50)% chance to inflict Bleeding
+{variant:23}Summoned Arbalists have (30-50)% chance to Poison
+{variant:24}Summoned Arbalists have (15-25)% chance to Freeze, Shock, and Ignite
 ]],
 }

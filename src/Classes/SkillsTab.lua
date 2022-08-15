@@ -415,7 +415,6 @@ function SkillsTabClass:Save(xml)
 			t_insert(child, node)
 		end
 	end
-	self.modFlag = false
 end
 
 function SkillsTabClass:Draw(viewPort, inputEvents)
@@ -581,7 +580,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			if not gemId then
 				return
 			end
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, count = 1, new = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.level:SetText(gemInstance.level)
 			slot.quality:SetText(gemInstance.quality)
@@ -618,7 +617,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.level = new("EditControl", {"LEFT",slot.nameSpec,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, count = 1, new = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 			slot.quality:SetText(gemInstance.quality)
@@ -642,7 +641,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.qualityId = new("DropDownControl",  {"LEFT",slot.level,"RIGHT"}, 2, 0, 90, 20, alternateGemQualityList, function(dropDownIndex, value)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, count = 1, new = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.level:SetText(gemInstance.level)
 			slot.enabled.state = true
@@ -660,10 +659,6 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.qualityId.tooltipFunc = function(tooltip)
 		-- Reset the tooltip
 		tooltip:Clear()
-		-- Only show the tooltip if the combo box is expanded; this is to prevent multiple tooltips from appearing due to mouse being over other skills' combo boxes
-		if not slot.qualityId.dropped then
-			return
-		end
 		-- Get the gem instance from the skills
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
@@ -671,7 +666,12 @@ function SkillsTabClass:CreateGemSlot(index)
 		end
 		local gemData = gemInstance.gemData
 		-- Get the hovered quality item
-		local hoveredQuality = alternateGemQualityList[slot.qualityId.hoverSel]
+		local hoveredQuality
+		if not slot.qualityId.dropped then
+			hoveredQuality = alternateGemQualityList[slot.qualityId.selIndex]
+		else
+			hoveredQuality = alternateGemQualityList[slot.qualityId.hoverSel]
+		end
 		-- gem data may not be initialized yet, or the quality may be nil, which happens when just floating over the dropdown
 		if not gemData or not hoveredQuality then
 			return
@@ -732,7 +732,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.quality = new("EditControl", {"LEFT",slot.qualityId,"RIGHT"}, 2, 0, 60, 20, nil, nil, "%D", 2, function(buf)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, count = 1, new = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.level:SetText(gemInstance.level)
 			slot.enabled.state = true
@@ -771,7 +771,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.enabled = new("CheckBoxControl", {"LEFT",slot.quality,"RIGHT"}, 18, 0, 20, nil, function(state)
 		local gemInstance = self.displayGroup.gemList[index]
 		if not gemInstance then
-			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, count = 1, new = true }
+			gemInstance = { nameSpec = "", level = self.defaultGemLevel or 20, quality = self.defaultGemQuality or 0, qualityId = "Default", enabled = true, enableGlobal1 = true, enableGlobal2 = true, count = 1, new = true }
 			self.displayGroup.gemList[index] = gemInstance
 			slot.level:SetText(gemInstance.level)
 			slot.quality:SetText(gemInstance.quality)
@@ -780,10 +780,10 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.count:SetText(gemInstance.count)
 		end
 		if not gemInstance.gemData.vaalGem then
-			slot.enableGlobal1.state = state
-			gemInstance.enableGlobal1 = state
-			slot.enableGlobal2.state = state
-			gemInstance.enableGlobal2 = state
+			slot.enableGlobal1.state = true
+			gemInstance.enableGlobal1 = true
+			slot.enableGlobal2.state = true
+			gemInstance.enableGlobal2 = true
 		end
 		gemInstance.enabled = state
 		self:ProcessSocketGroup(self.displayGroup)

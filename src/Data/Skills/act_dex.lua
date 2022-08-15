@@ -1684,6 +1684,7 @@ skills["PoisonArrow"] = {
 		skill("radius", 20),
 		skill("radiusSecondary", 12),
 		skill("dotIsArea", true),
+		flag("dotIsCausticGround"),
 	},
 	qualityStats = {
 		Default = {
@@ -3657,6 +3658,7 @@ skills["FireTrap"] = {
 	},
 	baseMods = {
 		skill("dotIsArea", true),
+		flag("dotIsBurningGround"),
 		skill("radius", 15),
 	},
 	qualityStats = {
@@ -4232,6 +4234,9 @@ skills["Grace"] = {
 			mod("AvoidChill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 			mod("AvoidIgnite", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidSap", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidBrittle", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidScorch", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["avoid_chaos_damage_%"] = {
 			mod("AvoidChaosDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
@@ -9483,6 +9488,15 @@ skills["Tornado"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.Area] = true, [SkillType.Orb] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
+	end,
+	statMap = {
+		["tornado_base_damage_interval_ms"] = {
+			skill("damageInterval", nil ),
+			div = 1000, 
+			},
+		},
 	baseFlags = {
 		spell = true,
 		duration = true,

@@ -315,6 +315,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 20)
 #baseMod skill("radiusSecondary", 12)
 #baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsCausticGround")
 #mods
 
 #skill ImpactingSteelReload
@@ -716,6 +717,7 @@ local skills, mod, flag, skill = ...
 #skill FireTrap
 #flags spell trap area duration
 #baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsBurningGround")
 #baseMod skill("radius", 15)
 #mods
 
@@ -800,6 +802,9 @@ local skills, mod, flag, skill = ...
 			mod("AvoidChill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 			mod("AvoidIgnite", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidSap", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidBrittle", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidScorch", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["avoid_chaos_damage_%"] = {
 			mod("AvoidChaosDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
@@ -1633,6 +1638,15 @@ local skills, mod, flag, skill = ...
 
 #skill Tornado
 #flags spell duration physical area
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
+	end,
+	statMap = {
+		["tornado_base_damage_interval_ms"] = {
+			skill("damageInterval", nil ),
+			div = 1000, 
+			},
+		},
 #mods
 
 #skill IntuitiveLink

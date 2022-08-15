@@ -9,21 +9,21 @@ changelog:
     authors:
       - github-actions
   categories:
-    - title: Implemented Enhancements
+    - title: New to Path of Building
       labels:
         - enhancement
     - title: User Interface
       labels:
         - user-interface
-    - title: New Calculations
-      labels:
-        - new-calculations
     - title: Accuracy Improvements
       labels:
-        - accuracy
+        - bug:accuracy
+        - bug:behavior
+        - bug:calculation
     - title: Fixed Bugs
       labels:
         - bug
+        - crash
     - title: Other changes
       labels:
         - "*"

@@ -536,6 +536,10 @@ return {
 ["secondary_skill_effect_duration_+%"] = {
 	mod("SecondaryDuration", "INC", nil),
 },
+["offering_skill_effect_duration_per_corpse"] = {
+	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "CorpseConsumedRecently", limit = 4 }),
+	div = 1000,
+},
 ["active_skill_quality_duration_+%_final"] = {
 	mod("Duration", "MORE", nil),
 },
@@ -1529,6 +1533,9 @@ return {
 },
 ["base_number_of_golems_allowed"] = {
 	mod("ActiveGolemLimit", "BASE", nil),
+},
+["base_number_of_arbalists"] = {
+	mod("ActiveArbalistLimit", "BASE", nil),
 },
 ["base_number_of_champions_of_light_allowed"] = {
 	mod("ActiveSentinelOfPurityLimit", "BASE", nil),

@@ -464,13 +464,13 @@ holding Shift will put it in the second.]])
 		self:CorruptDisplayItem("Corrupted")
 	end)
 	self.controls.displayItemCorrupt.shown = function()
-		return self.displayItem and self.displayItem.corruptable
+		return self.displayItem and self.displayItem.corruptible
 	end
 	self.controls.displayItemScourge = new("ButtonControl", {"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, 8, 0, 100, 20, "Scourge...", function()
 		self:CorruptDisplayItem("Scourge")
 	end)
 	self.controls.displayItemScourge.shown = function()
-		return self.displayItem and self.displayItem.corruptable
+		return self.displayItem and self.displayItem.corruptible
 	end
 
 	-- Section: Influence dropdowns
@@ -978,7 +978,6 @@ function ItemsTabClass:Save(xml)
 		end
 		t_insert(xml, child)
 	end
-	self.modFlag = false
 end
 
 function ItemsTabClass:Draw(viewPort, inputEvents)
