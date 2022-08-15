@@ -3882,6 +3882,9 @@ skills["FlameWhip"] = {
 		["active_skill_base_area_length_+"] = {
 			mod("AreaOfEffect", "BASE", nil),
 		},
+		["flame_surge_ignite_damage_as_burning_ground_damage_%"] = {
+			mod("IgniteDpsAsBurningGround", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
 	},
 	baseFlags = {
 		spell = true,
