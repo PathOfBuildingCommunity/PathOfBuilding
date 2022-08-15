@@ -302,12 +302,14 @@ function ItemClass:ParseRaw(raw)
 					self.implicit = true
 				elseif specName == "Prefix" then
 					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
+					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.prefixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
 					})
 				elseif specName == "Suffix" then
 					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
+					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.suffixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
