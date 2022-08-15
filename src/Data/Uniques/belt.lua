@@ -780,8 +780,8 @@ Implicits: 1
 {variant:2}Throw Traps randomly around targeted location
 {variant:2}Traps cannot be triggered by Enemies
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{variant:1}(50-75)% reduced Trap Duration
-{variant:2}(65-75)% reduced Trap Duration
+{variant:1}80% reduced Trap Duration
+{variant:2}(50-75)% reduced Trap Duration
 25% increased Light Radius
 ]],[[
 Survivor's Guilt
