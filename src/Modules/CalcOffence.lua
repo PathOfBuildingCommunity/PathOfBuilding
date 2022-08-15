@@ -4086,6 +4086,9 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.TotalDot, s_format("= %.1f", output.TotalDot))
 		end
 	else
+		if skillModList:Flag(nil, "DotCanStackAsTotems") and skillFlags.totem then
+			skillFlags.DotCanStack = true
+		end
 		output.TotalDot = output.TotalDotInstance
 	end
 

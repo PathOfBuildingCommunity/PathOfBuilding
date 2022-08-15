@@ -8347,6 +8347,7 @@ skills["FireBeam"] = {
 	},
 	baseMods = {
 		mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 }),
+		flag("DotCanStackAsTotems"),
 	},
 	qualityStats = {
 		Default = {
