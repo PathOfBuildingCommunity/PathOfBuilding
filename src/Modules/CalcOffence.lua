@@ -4103,6 +4103,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.CausticGroundFromPoison = false
 		end
 	else
+		if skillModList:Flag(nil, "DotCanStackAsTotems") and skillFlags.totem then
+			skillFlags.DotCanStack = true
+		end
 		output.TotalDot = output.TotalDotInstance
 		output.TotalDotCalcSection = output.TotalDotInstance
 	end

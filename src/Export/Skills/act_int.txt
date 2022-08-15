@@ -1749,6 +1749,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 })
+#baseMod flag("DotCanStackAsTotems")
 #mods
 
 #skill ShockNova
