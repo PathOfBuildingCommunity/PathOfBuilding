@@ -343,7 +343,14 @@ function SkillsTabClass:Load(xml, fileName)
 	self.activeSkillSetId = 0
 	self.skillSets = { }
 	self.skillSetOrderList = { }
-	self.controls.defaultLevel:SelByValue(xml.attrib.defaultGemLevel or "normalMaximum", "gemLevel")
+	-- Handle legacy configuration settings when loading `defaultGemLevel`
+	if xml.attrib.matchGemLevelToCharacterLevel == "true" then
+		self.controls.defaultLevel:SelByValue("characterLevel", "gemLevel")
+	elseif type(xml.attrib.defaultGemLevel) == "string" and tonumber(xml.attrib.defaultGemLevel) == nil then
+		self.controls.defaultLevel:SelByValue(xml.attrib.defaultGemLevel, "gemLevel")
+	else
+		self.controls.defaultLevel:SelByValue("normalMaximum", "gemLevel")
+	end
 	self.defaultGemLevel = self.controls.defaultLevel:GetSelValue("gemLevel")
 	self.defaultGemQuality = m_max(m_min(tonumber(xml.attrib.defaultGemQuality) or 0, 23), 0)
 	self.controls.defaultQuality:SetText(self.defaultGemQuality or "")
