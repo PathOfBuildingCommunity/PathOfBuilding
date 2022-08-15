@@ -58,6 +58,12 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 		triggeredCD = triggeredCD or env.player.mainSkill.skillData.cooldown 
 	end
 	
+	local addsCastTime = (env.player.mainSkill.skillModList:Flag(skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") and not minion )and env.player.mainSkill.activeEffect.grantedEffect.castTime
+	
+	if addsCastTime then
+		triggeredCD = (triggeredCD or 0 ) + addsCastTime
+	end
+	
 	local modActionCooldown = m_max(triggeredCD or 0, triggerCD or 0) / icdr
 	
 	-- Do not apply cooldown reduction to cooldown overrides
@@ -83,6 +89,9 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 			}
 			if cooldownOverride ~= nil then
 				breakdown.ActionTriggerRate[1] = s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride)
+			end
+			if addsCastTime then
+				t_insert(breakdown.ActionTriggerRate, 2, s_format("+ %.2f ^8(this skill adds cast time to cooldown whne triggered)", addsCastTime))
 			end
 		elseif cooldownOverride then
 			if minion then
@@ -112,6 +121,9 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 					s_format("1 / %.3f", rateCapAdjusted),
 					s_format("= %.2f ^8per second", triggerRate),
 				}
+			end
+			if addsCastTime then
+				t_insert(breakdown.ActionTriggerRate, 2, s_format("+ %.2f ^8(this skill adds cast time to cooldown whne triggered)", addsCastTime))
 			end
 		else
 			if triggeredCD then
@@ -152,6 +164,7 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 					--Self trigger; likely from unique.
 					breakdown.ActionTriggerRate = {
 						"Trigger rate based on trigger cooldown",
+						"",
 						s_format("%.2f ^8(base cooldown of trigger)", triggeredCD),
 						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 						s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr),
@@ -163,6 +176,9 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 						s_format("1 / %.3f", rateCapAdjusted),
 						s_format("= %.2f ^8per second", triggerRate),
 					}
+				end
+				if addsCastTime then
+					t_insert(breakdown.ActionTriggerRate, 3, s_format("+ %.2f ^8(this skill adds cast time to cooldown whne triggered)", addsCastTime))
 				end
 			else
 				breakdown.ActionTriggerRate = {
@@ -178,7 +194,10 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 					"Trigger rate:",
 					s_format("1 / %.3f", rateCapAdjusted),
 					s_format("= %.2f ^8per second", triggerRate),
-				}		
+				}
+				if addsCastTime then
+					t_insert(breakdown.ActionTriggerRate, 2, s_format("+ %.2f ^8(this skill adds cast time to cooldown whne triggered)", addsCastTime))
+				end				
 			end	
 		end
 	end
@@ -2565,13 +2584,6 @@ function calcs.perform(env, avoidCache)
 			if uniqueTriggerName == "Arakaali's Fang" then
 				spellCount = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
-			elseif env.minion and env.minion.mainSkill and env.minion.mainSkill.skillData.triggeredByParentAttack then
-				actor = env.minion
-				output = actor.output
-				breakdown = actor.breakdown
-				minion = true
-				spellCount = {{ uuid = cacheSkillUUID(actor.mainSkill), cd = actor.mainSkill.skillData.cooldown}}
-				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Ashcaller" then
 				spellCount = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
@@ -2614,7 +2626,7 @@ function calcs.perform(env, avoidCache)
 				env.player.mainSkill.skillData.cooldown = 1
 				spellCount = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
-			elseif env.player.mainSkill.skillData.triggeredByNgamahu then
+			elseif uniqueTriggerName == "Ngamahu's Flame" then
 				triggerName = "Molten Burst"
 				spellCount = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
@@ -2727,6 +2739,13 @@ function calcs.perform(env, avoidCache)
 				else
 					skip = true
 				end
+			elseif env.minion and env.minion.mainSkill and env.minion.mainSkill.skillData.triggeredByParentAttack then
+				actor = env.minion
+				output = actor.output
+				breakdown = actor.breakdown
+				minion = true
+				spellCount = {{ uuid = cacheSkillUUID(actor.mainSkill), cd = actor.mainSkill.skillData.cooldown}}
+				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill end
 			elseif env.player.mainSkill.skillData.triggeredWhileChannelling then
 				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Channel] and skill ~= env.player.mainSkill and slotMatch(env, skill) end
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredWhileChannelling and slotMatch(env, skill) end
