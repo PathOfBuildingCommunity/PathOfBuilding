@@ -672,6 +672,7 @@ function GemSelectClass:OnFocusLost()
 		if self.noMatches then
 			self:SetText("")
 		end
+		self:UpdateGem(true,true)
 	end
 end
 
@@ -711,6 +712,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 			self:BuildList("")
 			self.buf = self.initialBuf
 			self.selIndex = self.initialIndex
+			self:UpdateGem(false,true)
 			return
 		elseif key == "WHEELUP" then
 			self.controls.scrollBar:Scroll(-1)

@@ -1553,7 +1553,7 @@ return {
 			name="StatValues",
 			refTo="",
 			type="Int",
-			width=100
+			width=130
 		},
 		[4]={
 			list=false,
@@ -1603,7 +1603,14 @@ return {
 			refTo="Stats",
 			type="Key",
 			width=350
-		}
+		},
+		[11]={
+			list=false,
+			name="Value",
+			refTo="",
+			type="Int",
+			width=150
+		},
 	},
 	BuffVisualArtVariations={
 		[1]={
@@ -6684,6 +6691,20 @@ return {
 			list=false,
 			name="MasteryGroup",
 			refTo="PassiveSkillMasteryGroups",
+			type="Key",
+			width=150
+		},
+		[32]={
+			list=false,
+			name="AtlasMastery_rid",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[33]={
+			list=false,
+			name="SoundEffect",
+			refTo="SoundEffects",
 			type="Key",
 			width=150
 		}

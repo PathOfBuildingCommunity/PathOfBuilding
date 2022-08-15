@@ -2792,7 +2792,7 @@ skills["SupportLifetap"] = {
 	support = true,
 	requireSkillTypes = { },
 	addSkillTypes = { SkillType.Duration, },
-	excludeSkillTypes = { },
+	excludeSkillTypes = { SkillType.Blessing, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_lifetap_damage_+%_final_while_buffed"] = {
@@ -3207,7 +3207,7 @@ skills["SupportMultistrike"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
-			mod("Damage", "MORE", nil),
+			mod("Damage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
 		},
 		["multistrike_damage_+%_final_on_second_repeat"] = {
 		},
@@ -3215,7 +3215,7 @@ skills["SupportMultistrike"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack),
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
 		},
 		["multistrike_area_of_effect_+%_per_repeat"] = {
 			mod("AreaOfEffect", "INC", nil)
@@ -3305,14 +3305,14 @@ skills["SupportMultistrikePlus"] = {
 		["multistrike_damage_+%_final_on_second_repeat"] = {
 		},
 		["multistrike_damage_+%_final_on_third_repeat"] = {
-			mod("Damage", "MORE", nil),
+			mod("Damage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
 			div = 2,
 		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack),
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
 		},
 	},
 	qualityStats = {

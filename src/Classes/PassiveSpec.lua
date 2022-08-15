@@ -158,7 +158,6 @@ function PassiveSpecClass:Save(xml)
 	end
 	t_insert(xml, sockets)
 
-	self.modFlag = false
 end
 
 function PassiveSpecClass:PostLoad()
@@ -221,6 +220,10 @@ function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
 		self.tree:ProcessStats(self.allocNodes[id])
 		self.masterySelections[id] = effectId
 		self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+		if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
+			self.allocatedMasteryTypes[self.allocNodes[id].name] = true
+			self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+		end
 	end
 end
 
@@ -849,14 +852,25 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- Add selected mastery effect mods to mastery nodes
 	self.allocatedMasteryCount = 0
 	self.allocatedNotableCount = 0
+	self.allocatedMasteryTypes = { }
+	self.allocatedMasteryTypeCount = 0
 	for id, node in pairs(self.nodes) do
 		if node.type == "Mastery" and self.masterySelections[id] then
 			local effect = self.tree.masteryEffects[self.masterySelections[id]]
-			node.sd = effect.sd
-			node.allMasteryOptions = false
-			node.reminderText = { "Tip: Right click to select a different effect" }
-			self.tree:ProcessStats(node)
-			self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+			if effect then
+				node.sd = effect.sd
+				node.allMasteryOptions = false
+				node.reminderText = { "Tip: Right click to select a different effect" }
+				self.tree:ProcessStats(node)
+				self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+				if not self.allocatedMasteryTypes[node.name] then
+					self.allocatedMasteryTypes[node.name] = true
+					self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+				end
+			else
+				self.nodes[id].alloc = false
+				self.allocNodes[id] = nil
+			end
 		elseif node.type == "Mastery" then
 			self:AddMasteryEffectOptionsToNode(node)
 		elseif node.type == "Notable" and node.alloc then

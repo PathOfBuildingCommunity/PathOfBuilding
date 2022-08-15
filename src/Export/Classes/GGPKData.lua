@@ -142,6 +142,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/Characters.dat",
 		"Data/BuffDefinitions.dat",
 		"Data/BuffCategories.dat",
+		"Data/BuffTemplates.dat",
 		"Data/BuffVisuals.dat",
 		"Data/BuffVisualSets.dat",
 		"Data/BuffVisualSetEntries.dat",
