@@ -1,3 +1,9 @@
+VERSION[2.20.1][2022/08/16]
+
+--- Fixed Bugs ---
+* Revert skill costs being hidden if you reduced the cost to 0 as it was causing an error (LocalIdentity)
+* Fix Juggernaut "Armour applies to Elemental damage" node not working (Lilylicious)
+
 VERSION[2.20.0][2022/08/16]
 
 --- Implemented Enhancements ---
