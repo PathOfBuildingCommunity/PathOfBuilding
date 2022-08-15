@@ -1678,7 +1678,7 @@ local specialModList = {
 		mod("ArmourAppliesToLightningDamageTaken", "BASE", 100),
 		flag("ArmourDoesNotApplyToPhysicalDamageTaken")
 	},
-	["(%d+)%% armour applies to fire, cold and lightning damage taken from hits"] = function(num) return {
+	["(%d+)%% of armour applies to fire, cold and lightning damage taken from hits"] = function(num) return {
 		mod("ArmourAppliesToFireDamageTaken", "BASE", num),
 		mod("ArmourAppliesToColdDamageTaken", "BASE", num),
 		mod("ArmourAppliesToLightningDamageTaken", "BASE", num),
