@@ -4091,14 +4091,14 @@ function calcs.offence(env, actor, activeSkill)
 	elseif skillModList:Flag(nil, "dotIsBurningGround") then
 		output.TotalDot = 0
 		output.TotalDotCalcSection = output.TotalDotInstance
-		if not output.BurningGroundDPS or output.BurningGroundDPS < output.TotalDotInstance) then
+		if not output.BurningGroundDPS or output.BurningGroundDPS < output.TotalDotInstance then
 			output.BurningGroundDPS = m_max(output.BurningGroundDPS or 0, output.TotalDotInstance)
 			output.BurningGroundFromIgnite = false
 		end
 	elseif skillModList:Flag(nil, "dotIsCausticGround") then
 		output.TotalDot = 0
 		output.TotalDotCalcSection = output.TotalDotInstance
-		if not output.CausticGroundDPS or output.CausticGroundDPS < output.TotalDotInstance) then
+		if not output.CausticGroundDPS or output.CausticGroundDPS < output.TotalDotInstance then
 			output.CausticGroundDPS = m_max(output.CausticGroundDPS or 0, output.TotalDotInstance)
 			output.CausticGroundFromPoison = false
 		end
