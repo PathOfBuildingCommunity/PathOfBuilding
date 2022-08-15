@@ -202,6 +202,7 @@ the "Releases" section of the GitHub page.]])
 	self.showThousandsSeparators = true
 	self.thousandsSeparator = ","
 	self.decimalSeparator = "."
+	self.defaultItemAffixQuality = 0.5
 	self.showTitlebarName = true
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
