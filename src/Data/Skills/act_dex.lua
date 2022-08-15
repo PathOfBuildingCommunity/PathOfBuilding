@@ -1684,6 +1684,7 @@ skills["PoisonArrow"] = {
 		skill("radius", 20),
 		skill("radiusSecondary", 12),
 		skill("dotIsArea", true),
+		flag("dotIsCausticGround"),
 	},
 	qualityStats = {
 		Default = {
@@ -3657,6 +3658,7 @@ skills["FireTrap"] = {
 	},
 	baseMods = {
 		skill("dotIsArea", true),
+		flag("dotIsBurningGround"),
 		skill("radius", 15),
 	},
 	qualityStats = {

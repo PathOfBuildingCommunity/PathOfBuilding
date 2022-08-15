@@ -397,7 +397,7 @@ return {
 } }
 } },
 { 3, "Dot", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill Damage over Time", data = {
-	extra = "{1:output:TotalDot} total DoT",
+	extra = "{1:output:TotalDotCalcSection} total DoT",
 	flag = "dot",
 	colWidth = 95,
 	{ { format = "All Types:", }, { format = "Physical:" }, { format = colorCodes.LIGHTNING.."Lightning:" }, { format = colorCodes.COLD.."Cold:" }, { format = colorCodes.FIRE.."Fire:" }, { format = colorCodes.CHAOS.."Chaos:" }, },
@@ -456,7 +456,7 @@ return {
 		{ format = "{1:output:FireDot}", { breakdown = "FireDot" }, },
 		{ format = "{1:output:ChaosDot}", { breakdown = "ChaosDot" }, },
 	},
-	{ label = "Skill DoT DPS", { format = "{1:output:TotalDot}", { breakdown = "TotalDot" }, }, },
+	{ label = "Skill DoT DPS", { format = "{1:output:TotalDotCalcSection}", { breakdown = "TotalDot" }, }, },
 } }
 } },
 { 1, "Speed", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Attack/Cast Rate", data = {
@@ -813,7 +813,7 @@ return {
 		{ breakdown = "MainHand.PoisonDPS" },
 		{ breakdown = "OffHand.PoisonDPS" },
 	}, },
-	{ label = "Caustic Ground DPS", haveOutput = "CausticGroundDPS", { format = "{0:output:CausticGroundDPS}", { breakdown = "CausticGroundDPS" } } },
+	{ label = "Caustic Ground DPS", haveOutput = "CausticGroundFromPoison", { format = "{0:output:CausticGroundDPS}", { breakdown = "CausticGroundDPS" } } },
 	{ label = "Poison Duration", { format = "{2:output:PoisonDuration}s", 
 		{ breakdown = "PoisonDuration" },
 		{ label = "Player modifiers", modName = { "EnemyPoisonDuration", "SkillAndDamagingAilmentDuration", "PoisonFaster" }, cfg = "poison" },
@@ -877,7 +877,7 @@ return {
 		{ breakdown = "OffHand.IgniteDPS" },
 		{ modName = { "IgniteBurnRate" }, cfg = "skill" }, 
 	}, },
-	{ label = "Burning Ground DPS", haveOutput = "BurningGroundDPS", { format = "{0:output:BurningGroundDPS}", { breakdown = "BurningGroundDPS" } } },
+	{ label = "Burning Ground DPS", haveOutput = "BurningGroundFromIgnite", { format = "{0:output:BurningGroundDPS}", { breakdown = "BurningGroundDPS" } } },
 	{ label = "Ignite Duration", { format = "{2:output:IgniteDuration}s", 
 		{ breakdown = "IgniteDuration" },
 		{ label = "Player modifiers", modName = { "EnemyIgniteDuration", "SkillAndDamagingAilmentDuration", "IgniteBurnFaster", "IgniteBurnSlower" }, cfg = "skill" },

@@ -3675,6 +3675,7 @@ skills["FlameDash"] = {
 	},
 	baseMods = {
 		skill("dotIsArea", true),
+		flag("dotIsBurningGround"),
 	},
 	qualityStats = {
 		Default = {

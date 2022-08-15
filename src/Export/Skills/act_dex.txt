@@ -315,6 +315,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 20)
 #baseMod skill("radiusSecondary", 12)
 #baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsCausticGround")
 #mods
 
 #skill ImpactingSteelReload
@@ -716,6 +717,7 @@ local skills, mod, flag, skill = ...
 #skill FireTrap
 #flags spell trap area duration
 #baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsBurningGround")
 #baseMod skill("radius", 15)
 #mods
 

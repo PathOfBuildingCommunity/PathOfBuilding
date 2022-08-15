@@ -3289,6 +3289,7 @@ function calcs.offence(env, actor, activeSkill)
 						CausticGroundDPSCapped = data.misc.DotDpsCap - CausticGroundDPSCapped
 					end
 					globalOutput.CausticGroundDPS = CausticGroundDPSCapped
+					globalOutput.CausticGroundFromPoison = true
 				end
 				local durationBase
 				if skillData.poisonDurationIsSkillDuration then
@@ -3558,6 +3559,7 @@ function calcs.offence(env, actor, activeSkill)
 						BurningGroundDPSCapped = data.misc.DotDpsCap - IgniteDPSCapped
 					end
 					globalOutput.BurningGroundDPS = BurningGroundDPSCapped
+					globalOutput.BurningGroundFromIgnite = true
 				end
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
@@ -4050,9 +4052,9 @@ function calcs.offence(env, actor, activeSkill)
 			local total = baseVal * (1 + inc/100) * more * (1 + mult/100) * (aura or 1) * effMult
 			if output[damageType.."Dot"] == 0 or output[damageType.."Dot"] == nil then
 				output[damageType.."Dot"] = total
-				output.TotalDotInstance = output.TotalDotInstance + total
+				output.TotalDotInstance = m_min(output.TotalDotInstance + total, data.misc.DotDpsCap)
 			else
-				output.TotalDotInstance = output.TotalDotInstance + total + (output[damageType.."Dot"] or 0)
+				output.TotalDotInstance = m_min(output.TotalDotInstance + total + (output[damageType.."Dot"] or 0), data.misc.DotDpsCap)
 			end
 			if breakdown then
 				breakdown[damageType.."Dot"] = { }
@@ -4070,7 +4072,8 @@ function calcs.offence(env, actor, activeSkill)
 		elseif band(dotCfg.keywordFlags, KeywordFlag.Trap) ~= 0 then
 			speed = output.TrapThrowingSpeed
 		end
-		output.TotalDot = output.TotalDotInstance * speed * output.Duration * (skillData.dpsMultiplier or 1) * quantityMultiplier
+		output.TotalDot = m_min(output.TotalDotInstance * speed * output.Duration * (skillData.dpsMultiplier or 1) * quantityMultiplier, data.misc.DotDpsCap)
+		output.TotalDotCalcSection = output.TotalDot
 		if breakdown then
 			breakdown.TotalDot = {
 				s_format("%.1f ^8(Damage per Instance)", output.TotalDotInstance),
@@ -4085,8 +4088,23 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			t_insert(breakdown.TotalDot, s_format("= %.1f", output.TotalDot))
 		end
+	elseif skillModList:Flag(nil, "dotIsBurningGround") then
+		output.TotalDot = 0
+		output.TotalDotCalcSection = output.TotalDotInstance
+		if not output.BurningGroundDPS or output.BurningGroundDPS < output.TotalDotInstance then
+			output.BurningGroundDPS = m_max(output.BurningGroundDPS or 0, output.TotalDotInstance)
+			output.BurningGroundFromIgnite = false
+		end
+	elseif skillModList:Flag(nil, "dotIsCausticGround") then
+		output.TotalDot = 0
+		output.TotalDotCalcSection = output.TotalDotInstance
+		if not output.CausticGroundDPS or output.CausticGroundDPS < output.TotalDotInstance then
+			output.CausticGroundDPS = m_max(output.CausticGroundDPS or 0, output.TotalDotInstance)
+			output.CausticGroundFromPoison = false
+		end
 	else
 		output.TotalDot = output.TotalDotInstance
+		output.TotalDotCalcSection = output.TotalDotInstance
 	end
 
 	-- The Saviour
@@ -4212,7 +4230,7 @@ function calcs.offence(env, actor, activeSkill)
 	else
 		output.WithBleedDPS = baseDPS
 	end
-	local TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (output.BleedDPS or 0) + (output.DecayDPS or 0)
+	local TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (output.CausticGroundDPS or 0) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (output.BurningGroundDPS  or 0) + (output.BleedDPS or 0) + (output.DecayDPS or 0)
 	output.TotalDotDPS = m_min(TotalDotDPS, data.misc.DotDpsCap)
 	if output.TotalDotDPS ~= TotalDotDPS then
 		output.showTotalDotDPS = true
