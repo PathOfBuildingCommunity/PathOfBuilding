@@ -1,4 +1,4 @@
-VERSION[2.20.0][2022/08/15]
+VERSION[2.20.0][2022/08/16]
 
 --- Implemented Enhancements ---
 * Update skill tree to 3.19 (Regisle)

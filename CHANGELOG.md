@@ -1,6 +1,6 @@
 # Changelog
 
-## [v2.20.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.20.0) (2022/08/15)
+## [v2.20.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.20.0) (2022/08/16)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.19.2...v2.20.0)
 
