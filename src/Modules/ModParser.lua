@@ -3478,7 +3478,7 @@ local specialModList = {
 	["attacks with axes or swords grant (%d+) rage on hit, no more than once every second"] = {
 		flag("Condition:CanGainRage", { type = "Condition", varList = { "UsingAxe", "UsingSword" } }),
 	},
-	["Regenerate (%d+) rage per second for every (%d+) life recovery per second from regeneration"] = function(num, _, div) return { mod("RageRegen", "BASE", num, {type = "PerStat", stat = "WouldBeLifeRegen", div = tonumber(div) }) } end,
+	["regenerate (%d+) rage per second for every (%d+) life recovery per second from regeneration"] = function(num, _, div) return { mod("RageRegen", "BASE", num, {type = "PerStat", stat = "WouldBeLifeRegen", div = tonumber(div) }) } end,
 	["your critical strike multiplier is (%d+)%%"] = function(num) return { mod("CritMultiplier", "OVERRIDE", num) } end,
 	["base critical strike chance for attacks with weapons is ([%d%.]+)%%"] = function(num) return { mod("WeaponBaseCritChance", "OVERRIDE", num) } end,
 	["critical strike chance is (%d+)%% for hits with this weapon"] = function(num) return { mod("CritChance", "OVERRIDE", num, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) } end, 
