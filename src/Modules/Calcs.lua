@@ -78,6 +78,7 @@ local function getCalculator(build, fullInit, modFunc)
 	GlobalCache.dontUseCache = nil
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
+	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 	local baseOutput = env.player.output
 
 	env.modDB.parent = cachedPlayerDB
@@ -103,6 +104,7 @@ local function getCalculator(build, fullInit, modFunc)
 		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env})
 		env.player.output.SkillDPS = fullDPS.skills
 		env.player.output.FullDPS = fullDPS.combinedDPS
+		env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 
 		return env.player.output
 	end, baseOutput	
@@ -124,6 +126,7 @@ function calcs.getMiscCalculator(build)
 	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env})
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
+	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 
 	local baseOutput = env.player.output
 
@@ -141,6 +144,7 @@ function calcs.getMiscCalculator(build)
 			-- reset cache usage
 			env.player.output.SkillDPS = fullDPS.skills
 			env.player.output.FullDPS = fullDPS.combinedDPS
+			env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 		end
 		GlobalCache.dontUseCache = nil
 		return env.player.output
@@ -177,7 +181,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv)
 	local usedEnv = nil
 
-	local fullDPS = { combinedDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0, dotDPS = 0, cullingMulti = 0 }
+	local fullDPS = { combinedDPS = 0, TotalDotDPS = 0, skills = { }, poisonDPS = 0, impaleDPS = 0, igniteDPS = 0, bleedDPS = 0, decayDPS = 0, dotDPS = 0, cullingMulti = 0 }
 	local bleedSource = ""
 	local igniteSource = ""
 	GlobalCache.numActiveSkillInFullDPS = 0
@@ -332,7 +336,8 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		t_insert(fullDPS.skills, { name = "Full DoT DPS", dps = fullDPS.dotDPS, count = 1 })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.dotDPS
 	end
-	fullDPS.combinedDPS = fullDPS.combinedDPS + m_min(fullDPS.TotalDotDPS, data.misc.DotDpsCap)
+	fullDPS.TotalDotDPS = m_min(fullDPS.TotalDotDPS, data.misc.DotDpsCap)
+	fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.TotalDotDPS
 	if fullDPS.cullingMulti > 0 then
 		fullDPS.cullingDPS = fullDPS.combinedDPS * (fullDPS.cullingMulti - 1)
 		t_insert(fullDPS.skills, { name = "Full Culling DPS", dps = fullDPS.cullingDPS, count = 1 })
@@ -372,6 +377,7 @@ function calcs.buildOutput(build, mode)
 	-- Add Full DPS data to main `env`
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
+	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 
 	if mode == "MAIN" then
 		output.ExtraPoints = env.modDB:Sum("BASE", nil, "ExtraPoints")
