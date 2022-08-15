@@ -323,7 +323,6 @@ function TreeTabClass:Save(xml)
 		spec:Save(child)
 		t_insert(xml, child)
 	end
-	self.modFlag = false
 end
 
 function TreeTabClass:SetActiveSpec(specId)

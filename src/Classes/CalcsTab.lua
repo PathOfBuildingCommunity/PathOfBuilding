@@ -211,7 +211,6 @@ function CalcsTabClass:Save(xml)
 			} })
 		end
 	end
-	self.modFlag = false
 end
 
 function CalcsTabClass:Draw(viewPort, inputEvents)

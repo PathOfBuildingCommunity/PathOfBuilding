@@ -158,7 +158,6 @@ function PassiveSpecClass:Save(xml)
 	end
 	t_insert(xml, sockets)
 
-	self.modFlag = false
 end
 
 function PassiveSpecClass:PostLoad()
