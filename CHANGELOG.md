@@ -1,6 +1,17 @@
 # Changelog
 
-## [v2.20.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.20.0) (2022/08/15)
+## [v2.20.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.20.1) (2022/08/16)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.20.0...v2.20.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+- Revert skill costs being hidden if you reduced the cost to 0 as it was causing an error ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Juggernaut "Armour applies to Elemental damage" node not working ([Lilylicious](https://github.com/Lilylicious))
+
+## [v2.20.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.20.0) (2022/08/16)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.19.2...v2.20.0)
 
