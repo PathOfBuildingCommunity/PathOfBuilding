@@ -907,12 +907,10 @@ function main:OpenAboutPopup()
 				t_insert(helpList, { height = 18, "^7"..title.." ("..titleIndex..")" })
 			else
 				local dev = line:match("^DEV%[(.+)%]$")
-				if dev then
-					if launch.devMode then
-						t_insert(helpList, { height = 12, "^7"..dev })
-					end
-				else
-					t_insert(helpList, { height = 12, "^7"..line })
+				if not ( dev and not launch.devMode ) then
+					line = (dev or line)
+					local outdent, indent = line:match("(.*)\t+(.*)")
+					t_insert(helpList, { height = 12, "^7"..(outdent or line), "^7"..(indent or "") })
 				end
 			end
 		end
@@ -932,7 +930,7 @@ function main:OpenAboutPopup()
 	controls.helpLabel = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 600, 85, 40, 18, "^7help:", function()
 		controls.changelog.list = helpList
 	end)
-	controls.changelog = new("TextListControl", nil, 0, 103, 630, 387, nil, changeList)
+	controls.changelog = new("TextListControl", nil, 0, 103, 630, 387, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, changeList)
 	self:OpenPopup(650, 500, "About", controls)
 end
 

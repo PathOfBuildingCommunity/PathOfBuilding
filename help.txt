@@ -15,68 +15,67 @@ This file contains a list of shortcuts, and other misc things PoB has
 
 ---[Hotkeys][4]
 
-formated list here https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/Keyboard-&-Mouse-Shortcuts
+General Shortcuts:
 
-General
-Shortcut 	Action
-ctrl+1 	Jump to tree tab
-ctrl+2 	Jump to skills tab
-ctrl+3 	Jump to items tab
-ctrl+4 	Jump to calcs tab
-ctrl+5 	Jump to config tab
-ctrl+6 	Jump to notes tab
-ctrl+i 	 Jump to import tab
-ctrl+a 	Select all
-ctrl+c 	Copy
-ctrl+f 	Show find/search box (e.g. unique item / tree)
-ctrl+n 	New build (in build selection menu)
-ctrl+s 	Save build to file
-ctrl+u 	Check for update
-ctrl+v or RMB 	    Paste
-ctrl+w or mouse4 	Close Build (gives save prompt if unsaved)
-ctrl+x 	Cut
-ctrl+y 	Redo
-ctrl+z 	Undo
-ctrl+BSP/DEL 	Faster text delete
-ctrl+ +/-/0 	  Zoom in/out/reset
-F1 	    Open item/gem/etc in poewiki.net
-F2 	    Rename item, set, etc.
-e 	     On an equipped item will open it on the edit menu on the right.
-ctrl+LMB 	Enable/disable gems
-ctrl+RMB 	Enable/disable gems from Full DPS
-mouse4/5 	Undo/Redo path respectively (in build selection menu)
-shift while scrolling on a slider makes it 5 times faster
-ctrl while scrolling on a slider makes it 5 times slower
+ctrl+1	Jump to tree tab
+ctrl+2	Jump to skills tab
+ctrl+3	Jump to items tab
+ctrl+4	Jump to calcs tab
+ctrl+5	Jump to config tab
+ctrl+6	Jump to notes tab
+ctrl+i	Jump to import tab
+ctrl+a	Select all
+ctrl+c	Copy
+ctrl+f	Show find/search box (e.g. unique item / tree)
+ctrl+n	New build (in build selection menu)
+ctrl+s	Save build to file
+ctrl+u	Check for update
+ctrl+v or RMB	Paste
+ctrl+w or mouse4	Close Build (gives save prompt if unsaved)
+ctrl+x	Cut
+ctrl+y	Redo
+ctrl+z	Undo
+ctrl+BSP/DEL	Faster text delete
+ctrl+ +/-/0	Zoom in/out/reset
+F1	Open item/gem/etc in poewiki.net
+F2	Rename item, set, etc.
+e	On an equipped item will open it on the edit menu on the right.
+ctrl+LMB	Enable/disable gems
+ctrl+RMB	Enable/disable gems from Full DPS
+mouse4/5	Undo/Redo path respectively (in build selection menu)
+shift	while scrolling on a slider makes it 5 times faster
+ctrl	while scrolling on a slider makes it 5 times slower
 
 When creating an item either through item creator or adding an item pressing ctrl will add it to the first slot and ctrl+shift will add it to the second slot e.g. offhand for a weapon.
 
-Passive tree
-Shortcut 	Action
-ctrl 	Hide tooltips while held
-p 	   Toggle node power
-ctrl+d 	Toggle stat diff display
-PGUP/PGDN/MWHEEL 	Zoom in/out (hold with shift to increase amount of zoom x 3)
-ctrl+LMB 	Zoom in on mouse cursor position
-hold shift 	Enable "path trace mode" (show shortest path to mouse-overed-node)
+Passive Tree Shortcuts:
+
+ctrl	Hide tooltips while held
+p	Toggle node power
+ctrl+d	Toggle stat diff display
+PGUP/PGDN/MWHEEL	Zoom in/out (hold with shift to increase amount of zoom x 3)
+ctrl+LMB	Zoom in on mouse cursor position
+hold shift	Enable "path trace mode" (show shortest path to mouse-overed-node)
 
 Developer Use
-General
-Shortcut 	Action
-ctrl+` 	 Toggle console (console supports most standard editing shortcuts)
-pause 	Toggle profiling
+
+General Shortcuts:
+
+ctrl+`	Toggle console (console supports most standard editing shortcuts)
+pause	Toggle profiling
 DEV[ ]
-DEV[Developer Mode]
-DEV[Shortcut 	Action]
-DEV[ctrl 	          Rebuild mod cache (hold key during reload/refresh)]
-DEV[ctrl+shift 	Allow tree download]
-DEV[alt 	           Show advanced mod breakdown/passing]
-DEV[F5 	           Restart]
-DEV[F6 	           Run garbage collector]
-DEV[shift 	        Copy export xml to clipboard (hold key during export)]
+DEV[Developer Mode Shortcuts:]
+DEV[ ]
+DEV[ctrl	Rebuild mod cache (hold key during reload/refresh)]
+DEV[ctrl+shift	Allow tree download]
+DEV[alt	Show advanced mod breakdown/passing]
+DEV[F5	Restart]
+DEV[F6	Run garbage collector]
+DEV[shift	Copy export xml to clipboard (hold key during export)]
 
 ---[Other Notable Things][5]
 
-adding ^ and then a number or hexcode before text will change the colour of the text, eg ^^77 will make all text white
+Adding ^ and then a number or hexcode before text will change the colour of the text, eg ^^77 will make all text white
 
 ---[Timeless Jewels][6]
 
