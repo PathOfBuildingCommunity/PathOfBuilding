@@ -302,14 +302,12 @@ function ItemClass:ParseRaw(raw)
 					self.implicit = true
 				elseif specName == "Prefix" then
 					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
-					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.prefixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
 					})
 				elseif specName == "Suffix" then
 					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
-					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.suffixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
@@ -675,12 +673,12 @@ end
 
 function ItemClass:BuildRaw()
 	local rawLines = { }
-	t_insert(rawLines, "Rarity: "..self.rarity)
+	t_insert(rawLines, "Rarity: " .. self.rarity)
 	if self.title then
 		t_insert(rawLines, self.title)
 		t_insert(rawLines, self.baseName)
 	else
-		t_insert(rawLines, (self.namePrefix or "")..self.baseName..(self.nameSuffix or ""))
+		t_insert(rawLines, (self.namePrefix or "") .. self.baseName .. (self.nameSuffix or ""))
 	end
 	if self.armourData then
 		for _, type in ipairs({ "Armour", "Evasion", "EnergyShield", "Ward" }) do
@@ -693,52 +691,52 @@ function ItemClass:BuildRaw()
 		end
 	end
 	if self.uniqueID then
-		t_insert(rawLines, "Unique ID: "..self.uniqueID)
+		t_insert(rawLines, "Unique ID: " .. self.uniqueID)
 	end
 	if self.league then
-		t_insert(rawLines, "League: "..self.league)
+		t_insert(rawLines, "League: " .. self.league)
 	end
 	if self.unreleased then
 		t_insert(rawLines, "Unreleased: true")
 	end
 	for i, curInfluenceInfo in ipairs(influenceInfo) do
 		if self[curInfluenceInfo.key] then
-			t_insert(rawLines, curInfluenceInfo.display.." Item")
+			t_insert(rawLines, curInfluenceInfo.display .. " Item")
 		end
 	end
 	if self.crafted then
 		t_insert(rawLines, "Crafted: true")
 		for i, affix in ipairs(self.prefixes or { }) do
-			t_insert(rawLines, "Prefix: "..(affix.range and ("{range:"..round(affix.range,3).."}") or "")..affix.modId)
+			t_insert(rawLines, "Prefix: " .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
 		end
 		for i, affix in ipairs(self.suffixes or { }) do
-			t_insert(rawLines, "Suffix: "..(affix.range and ("{range:"..round(affix.range,3).."}") or "")..affix.modId)
+			t_insert(rawLines, "Suffix: " .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
 		end
 	end
 	if self.catalyst and self.catalyst > 0 then
-		t_insert(rawLines, "Catalyst: "..catalystList[self.catalyst])
+		t_insert(rawLines, "Catalyst: " .. catalystList[self.catalyst])
 	end
 	if self.catalystQuality then
-		t_insert(rawLines, "CatalystQuality: "..self.catalystQuality)
+		t_insert(rawLines, "CatalystQuality: " .. self.catalystQuality)
 	end
 	if self.clusterJewel then
 		if self.clusterJewelSkill then
-			t_insert(rawLines, "Cluster Jewel Skill: "..self.clusterJewelSkill)
+			t_insert(rawLines, "Cluster Jewel Skill: " .. self.clusterJewelSkill)
 		end
 		if self.clusterJewelNodeCount then
-			t_insert(rawLines, "Cluster Jewel Node Count: "..self.clusterJewelNodeCount)
+			t_insert(rawLines, "Cluster Jewel Node Count: " .. self.clusterJewelNodeCount)
 		end
 	end
 	if self.talismanTier then
-		t_insert(rawLines, "Talisman Tier: "..self.talismanTier)
+		t_insert(rawLines, "Talisman Tier: " .. self.talismanTier)
 	end
 	if self.itemLevel then
-		t_insert(rawLines, "Item Level: "..self.itemLevel)
+		t_insert(rawLines, "Item Level: " .. self.itemLevel)
 	end
 	local function writeModLine(modLine)
 		local line = modLine.line
 		if modLine.range and line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
-			line = "{range:"..round(modLine.range,3).."}" .. line
+			line = "{range:" .. round(modLine.range, 3) .. "}" .. line
 		end
 		if modLine.crafted then
 			line = "{crafted}" .. line
@@ -755,47 +753,47 @@ function ItemClass:BuildRaw()
 		if modLine.variantList then
 			local varSpec
 			for varId in pairs(modLine.variantList) do
-				varSpec = (varSpec and varSpec.."," or "") .. varId
+				varSpec = (varSpec and varSpec .. "," or "") .. varId
 			end
-			line = "{variant:"..varSpec.."}"..line
+			line = "{variant:" .. varSpec .. "}" .. line
 		end
 		if modLine.modTags and #modLine.modTags > 0 then
-			line = "{tags:"..table.concat(modLine.modTags, ",").."}"..line
+			line = "{tags:" .. table.concat(modLine.modTags, ",") .. "}" .. line
 		end
 		t_insert(rawLines, line)
 	end
 	if self.variantList then
 		for _, variantName in ipairs(self.variantList) do
-			t_insert(rawLines, "Variant: "..variantName)
+			t_insert(rawLines, "Variant: " .. variantName)
 		end
-		t_insert(rawLines, "Selected Variant: "..self.variant)
+		t_insert(rawLines, "Selected Variant: " .. self.variant)
 
 		for _, baseLine in pairs(self.baseLines) do
 			writeModLine(baseLine)
 		end
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
-			t_insert(rawLines, "Selected Alt Variant: "..self.variantAlt)
+			t_insert(rawLines, "Selected Alt Variant: " .. self.variantAlt)
 		end
 		if self.hasAltVariant2 then
 			t_insert(rawLines, "Has Alt Variant Two: true")
-			t_insert(rawLines, "Selected Alt Variant Two: "..self.variantAlt2)
+			t_insert(rawLines, "Selected Alt Variant Two: " .. self.variantAlt2)
 		end
 		if self.hasAltVariant3 then
 			t_insert(rawLines, "Has Alt Variant Three: true")
-			t_insert(rawLines, "Selected Alt Variant Three: "..self.variantAlt3)
+			t_insert(rawLines, "Selected Alt Variant Three: " .. self.variantAlt3)
 		end
 		if self.hasAltVariant4 then
 			t_insert(rawLines, "Has Alt Variant Four: true")
-			t_insert(rawLines, "Selected Alt Variant Four: "..self.variantAlt4)
+			t_insert(rawLines, "Selected Alt Variant Four: " .. self.variantAlt4)
 		end
 		if self.hasAltVariant5 then
 			t_insert(rawLines, "Has Alt Variant Five: true")
-			t_insert(rawLines, "Selected Alt Variant Five: "..self.variantAlt5)
+			t_insert(rawLines, "Selected Alt Variant Five: " .. self.variantAlt5)
 		end
 	end
 	if self.quality then
-		t_insert(rawLines, "Quality: "..self.quality)
+		t_insert(rawLines, "Quality: " .. self.quality)
 	end
 	if self.sockets and #self.sockets > 0 then
 		local line = "Sockets: "
@@ -808,18 +806,18 @@ function ItemClass:BuildRaw()
 		t_insert(rawLines, line)
 	end
 	if self.requirements and self.requirements.level then
-		t_insert(rawLines, "LevelReq: "..self.requirements.level)
+		t_insert(rawLines, "LevelReq: " .. self.requirements.level)
 	end
 	if self.jewelRadiusLabel then
-		t_insert(rawLines, "Radius: "..self.jewelRadiusLabel)
+		t_insert(rawLines, "Radius: " .. self.jewelRadiusLabel)
 	end
 	if self.limit then
-		t_insert(rawLines, "Limited to: "..self.limit)
+		t_insert(rawLines, "Limited to: " .. self.limit)
 	end
 	if self.classRestriction then
-		t_insert(rawLines, "Requires Class "..self.classRestriction)
+		t_insert(rawLines, "Requires Class " .. self.classRestriction)
 	end
-	t_insert(rawLines, "Implicits: "..(#self.enchantModLines + #self.implicitModLines + #self.scourgeModLines))
+	t_insert(rawLines, "Implicits: " .. (#self.enchantModLines + #self.implicitModLines + #self.scourgeModLines))
 	for _, modLine in ipairs(self.enchantModLines) do
 		writeModLine(modLine)
 	end
@@ -862,7 +860,7 @@ function ItemClass:Craft()
 	self.requirements.level = self.base.req.level
 	local statOrder = { }
 	for _, list in ipairs({self.prefixes,self.suffixes}) do
-		for i = 1, self.affixLimit/2 do
+		for i = 1, self.affixLimit / 2 do
 			local affix = list[i]
 			if not affix then
 				list[i] = { modId = "None" }
