@@ -7,6 +7,7 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local s_format = string.format
+local m_min = math.min
 
 local calcs = { }
 calcs.breakdownModule = "Modules/CalcBreakdown"
@@ -15,6 +16,19 @@ LoadModule("Modules/CalcPerform", calcs)
 LoadModule("Modules/CalcActiveSkill", calcs)
 LoadModule("Modules/CalcDefence", calcs)
 LoadModule("Modules/CalcOffence", calcs)
+
+-- Get the average value of a table -- note this is unused
+function math.average(t)
+	local sum = 0
+	local count = 0
+	for k,v in pairs(t) do
+		if type(v) == 'number' then
+			sum = sum + v
+			count = count + 1
+		end
+	end
+	return (sum / count)
+end
 
 -- Print various tables to the console
 local function infoDump(env)
@@ -292,17 +306,19 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	end
 
 	-- Re-Add ailment DPS components
+	fullDPS.TotalDotDPS = 0
 	if fullDPS.bleedDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Best Bleed DPS", dps = fullDPS.bleedDPS, count = 1, source = bleedSource })
-		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.bleedDPS
+		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.bleedDPS
 	end
 	if fullDPS.igniteDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Best Ignite DPS", dps = fullDPS.igniteDPS, count = 1, source = igniteSource })
-		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.igniteDPS
+		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.igniteDPS
 	end
 	if fullDPS.poisonDPS > 0 then
+		fullDPS.poisonDPS = m_min(fullDPS.poisonDPS, data.misc.DotDpsCap)
 		t_insert(fullDPS.skills, { name = "Full Poison DPS", dps = fullDPS.poisonDPS, count = 1 })
-		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.poisonDPS
+		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.poisonDPS
 	end
 	if fullDPS.impaleDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Full Impale DPS", dps = fullDPS.impaleDPS, count = 1 })
@@ -310,12 +326,13 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	end
 	if fullDPS.decayDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Full Decay DPS", dps = fullDPS.decayDPS, count = 1 })
-		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.decayDPS
+		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.decayDPS
 	end
 	if fullDPS.dotDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Full DoT DPS", dps = fullDPS.dotDPS, count = 1 })
-		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.dotDPS
+		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.dotDPS
 	end
+	fullDPS.combinedDPS = fullDPS.combinedDPS + m_min(fullDPS.TotalDotDPS, data.misc.DotDpsCap)
 	if fullDPS.cullingMulti > 0 then
 		fullDPS.cullingDPS = fullDPS.combinedDPS * (fullDPS.cullingMulti - 1)
 		t_insert(fullDPS.skills, { name = "Full Culling DPS", dps = fullDPS.cullingDPS, count = 1 })
