@@ -1243,6 +1243,7 @@ function calcs.offence(env, actor, activeSkill)
 		val.baseCost = val.baseCost + baseCost
 		val.totalCost = val.totalCost + totalCost
 		val.baseCostNoMult = val.baseCostNoMult + baseCostNoMult
+		output[(val.upfront and resource or resource:gsub("Minute", "Second")).."HasCost"] = (val.baseCost > 0 or val.totalCost > 0) and 1 or 0
 	end
 	for resource, val in pairs(costs) do
 		local dec = val.upfront and 0 or 2
