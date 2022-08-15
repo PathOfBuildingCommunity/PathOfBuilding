@@ -828,9 +828,6 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 	t_sort(jewelSockets, function(a, b) return a.label < b.label end)
-	for jewelSocketIdx, jewelSocket in pairs(jewelSockets) do
-		jewelSocket.idx = jewelSocketIdx
-	end
 	timelessData.jewelSocket = next(timelessData.jewelSocket) and timelessData.jewelSocket or jewelSockets[1]
 
 	local function buildMods()
@@ -1014,9 +1011,9 @@ function TreeTabClass:FindTimelessJewel()
 		self.build.modFlag = true
 	end, self.build, socketViewer)
 	-- we need to search through `jewelSockets` for the correct `id` as the `idx` can become stale due to dynamic sorting
-	for _, jewelSocket in ipairs(jewelSockets) do
+	for idx, jewelSocket in ipairs(jewelSockets) do
 		if jewelSocket.id == timelessData.jewelSocket.id then
-			controls.socketSelect.selIndex = jewelSocket.idx
+			controls.socketSelect.selIndex = idx
 		end
 	end
 
