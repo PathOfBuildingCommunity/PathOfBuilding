@@ -723,8 +723,8 @@ function main:OpenOptionsPopup()
 	end)
 	controls.defaultItemAffixQualityLabel = new("LabelControl", { "RIGHT", controls.defaultItemAffixQualitySlider, "LEFT" }, defaultLabelSpacingPx, 0, 92, 16, "^7Default item affix quality:")
 	controls.defaultItemAffixQualityValue = new("LabelControl", { "LEFT", controls.defaultItemAffixQualitySlider, "RIGHT" }, -defaultLabelSpacingPx, 0, 92, 16, "50%")
-	controls.defaultItemAffixQualitySlider.val = self.defaultItemAffixQuality or 0.5
-	controls.defaultItemAffixQualityValue.label = (controls.defaultItemAffixQualitySlider.val * 100) .. "%"
+	controls.defaultItemAffixQualitySlider.val = self.defaultItemAffixQuality
+	controls.defaultItemAffixQualityValue.label = (self.defaultItemAffixQuality * 100) .. "%"
 
 	nextRow()
 	controls.showWarnings = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show build warnings:", function(state)
