@@ -91,15 +91,21 @@ Socketed Gems are Supported by level 10 Knockback
 ]],[[
 Giantsbane
 Bronze Gauntlets
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level: 23, 36 Str
-Adds (3-6) to (10-12) Physical Damage to Attacks
 +(30-40) to Strength
+{variant:1}Adds (3-6) to (10-12) Physical Damage to Attacks
+{variant:2}Adds (5-8) to (12-16) Physical Damage to Attacks
 (80-100)% increased Armour
+{variant:2}10% reduced Attack Speed
+{variant:2}Arrows Pierce 2 additional Targets
 Iron Grip
 ]],[[
 Lochtonial Caress
 Iron Gauntlets
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 (10-15)% increased Attack Speed
 {variant:1}+(10-20) to Armour
@@ -107,19 +113,25 @@ Variant: Current
 (10-15)% reduced maximum Mana
 (10-15)% increased Cast Speed
 {variant:2}10% chance to gain a Frenzy, Power or Endurance Charge on Kill
+{variant:3}(10-15)% chance to gain a Frenzy, Power or Endurance Charge on Kill
 Conduit
 ]],[[
 Meginord's Vise
 Steel Gauntlets
 Variant: Pre 1.1.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 35, 52 Str
-10% increased Physical Damage
-+100 to Strength
+{variant:1,2,3}10% increased Global Physical Damage
+{variant:1,2,3}+100 to Strength
+{variant:4}+50 to Strength
 {variant:1}(5-15)% reduced Attack Speed
 (40-60)% increased Armour
 {variant:3}2% of Life Regenerated per second with at least 400 Strength
+{variant:4}100% increased Knockback Distance
+{variant:4}Melee Hits with Strike Skills Always Knockback
+{variant:4}Melee Strike Skills deal Splash Damage to surrounding targets
 ]],[[
 Veruso's Battering Rams
 Titan Gauntlets
@@ -167,21 +179,24 @@ Adds (8-12) to (15-20) Physical Damage to Attacks
 Hrimsorrow
 Goathide Gloves
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 9, 17 Dex
 +(20-30) to Strength
 {variant:1}50% increased Evasion Rating
-{variant:2}+(40-50) to Evasion Rating
+{variant:2,3}+(40-50) to Evasion Rating
 {variant:1}+(10-20)% to Cold Resistance
-{variant:2}+(20-30)% to Cold Resistance
+{variant:2,3}+(20-30)% to Cold Resistance
 {variant:2}Adds (5-7) to (13-15) Cold Damage to Spells and Attacks
 {variant:1}25% of Physical Damage Converted to Cold Damage
 {variant:2}50% of Physical Damage Converted to Cold Damage
-Reflects 10 Cold Damage to Melee Attackers
+{variant:3}100% of Physical Damage Converted to Cold Damage
+{variant:1,2}Reflects 10 Cold Damage to Melee Attackers
+{variant:3}Reflects 100 Cold Damage to Melee Attackers
 ]],[[
 Hrimburn
 Goathide Gloves
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24, 17 Dex
@@ -250,21 +265,25 @@ Inflict non-Damaging Ailments as though dealing (100-200)% more Damage
 -- Gloves: Energy Shield
 [[
 Allelopathy
-Sorcerer Gloves
-Requires Level 69, 97 Int
+{variant:1}Sorcerer Gloves
+{variant:2}Satin Gloves
+Variant: Pre 3.19.0
+Variant: Current
 Grants level 22 Blight Skill
-(20-30)% increased Damage over Time
+{variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect of Area Skills
 Blight has (20-30)% increased Hinder Duration
 You cannot be Hindered
 ]],[[
 Replica Allelopathy
-Sorcerer Gloves
+{variant:1}Sorcerer Gloves
+{variant:2}Satin Gloves
+Variant: Pre 3.19.0
+Variant: Current
 League: Heist
-Requires Level 69, 97 Int
 Grants Level 22 Wintertide Brand
-(20-30)% increased Damage over Time
+{variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect
 Immune to Chill
@@ -305,30 +324,38 @@ Socketed Projectile Spells have 80% less Skill Effect Duration
 ]],[[
 Demon Stitcher
 Satin Gloves
+Variant: Pre 3.19.0
+Variant: Current
 League: Delve
 Requires Level 41, 60 Int
 (15-20)% increased Cast Speed
-+(50-70) to maximum Energy Shield
+{variant:1}+(50-70) to maximum Energy Shield
+{variant:2}+(100-120) to maximum Energy Shield
 +(50-70) to maximum Life
-Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
+{variant:1}Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
+{variant:2}Sacrifice (5-25)% of Life to gain that much Energy Shield when you Cast a Spell
 ]],[[
 Doedre's Tenure
 Velvet Gloves
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 12, 21 Int
 {variant:1}(40-50)% increased Spell Damage
 {variant:2}(50-60)% increased Spell Damage
+{variant:3}100% increased Spell Damage
 {variant:1}+10 to Intelligence
 {variant:2}+20 to Intelligence
+{variant:3}+(20-50) to Intelligence
 {variant:1}20% reduced Cast Speed
 {variant:2}15% reduced Cast Speed
+{variant:3}(15-25)% reduced Cast Speed
 {variant:1}+16 to maximum Energy Shield
 {variant:2}+32 to maximum Energy Shield
 ]],[[
 Doedre's Malevolence
 Velvet Gloves
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 21 Int
@@ -518,18 +545,23 @@ Vaal Caress
 Bronzescale Gauntlets
 League: Ambush, Invasion
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 27, 22 Str, 22 Dex
-+2 to Level of Socketed Vaal Gems
+{variant:1,2}+2 to Level of Socketed Vaal Gems
+{variant:3}-5 to Level of Socketed Non-Vaal Gems
+{variant:3}+5 to Level of Socketed Vaal Gems
 (120-140)% increased Armour and Evasion
 {variant:1}+(30-40) to maximum Life
-{variant:2}+(50-70) to maximum Life
+{variant:2,3}+(50-70) to maximum Life
 {variant:1}+30% to Cold Resistance
-{variant:2}+40% to Cold Resistance
-You gain Onslaught for 5 seconds on using a Vaal Skill
+{variant:2,3}+40% to Cold Resistance
+{variant:1,2}You gain Onslaught for 5 seconds on using a Vaal Skill
+{variant:3}You gain Onslaught for 20 seconds on using a Vaal Skill
 ]],[[
 Worldcarver
 Dragonscale Gauntlets
+Source: No longer obtainable
 Requires Level 67, 51 Str, 51 Dex
 Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
 +(200-300) to Accuracy Rating
@@ -608,10 +640,14 @@ Life Leech effects are not removed at Full Life
 ]],[[
 Repentance
 Crusader Gloves
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 66, 306 Str, 306 Int
-(0-30)% reduced Spell Damage
-(120-180)% increased Armour and Energy Shield
-+(8-16) to maximum Energy Shield
+{variant:1}(0-30)% reduced Spell Damage
+{variant:1}(120-180)% increased Armour and Energy Shield
+{variant:2}(400-500)% increased Armour and Energy Shield
+{variant:1}+(8-16) to maximum Energy Shield
+{variant:2}(6-12)% increased Strength
 500% increased Attribute Requirements
 Iron Will
 ]],[[
@@ -665,13 +701,16 @@ Shaper Item
 Southbound
 Soldier Gloves
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 51, 40 Str, 40 Int
-Adds (30-36) to (44-50) Cold Damage to Attacks
+{variant:1,2}Adds (30-36) to (44-50) Cold Damage to Attacks
+{variant:3}Adds (60-72) to (88-100) Cold Damage to Attacks
 (12-16)% increased maximum Life
 +(40-50)% to Cold Resistance
 {variant:2}50% increased Herald of Ice Damage
-25% increased Freeze Duration on Enemies
+{variant:1,2}25% increased Freeze Duration on Enemies
+{variant:3}100% increased Freeze Duration on Enemies
 Your Hits can only Kill Frozen enemies
 ]],[[
 Triad Grip
@@ -846,14 +885,17 @@ Lose a Power Charge each second if you have not Detonated Mines Recently
 Ondar's Clasp
 Wrapped Mitts
 Variant: Pre 1.1.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 5
 {variant:1}20% increased Attack Speed when on Full Life
-{variant:2}30% increased Attack Speed when on Full Life
-Adds 1 to 13 Lightning Damage to Attacks
-+(50-80) to Accuracy Rating
+{variant:2,3}30% increased Attack Speed when on Full Life
+{variant:1,2}Adds 1 to 13 Lightning Damage to Attacks
+{variant:3}Adds (1-4) to (30-50) Lightning Damage to Attacks
+{variant:1,2}+(50-80) to Accuracy Rating
+{variant:3}+(100-200) to Accuracy Rating
 {variant:1}(10-15)% increased Movement Speed when on Low Life
-{variant:2}20% increased Movement Speed when on Low Life
+{variant:2,3}20% increased Movement Speed when on Low Life
 ]],[[
 Malachai's Mark
 Murder Mitts
@@ -911,15 +953,19 @@ Thunderfist
 Murder Mitts
 Variant: Pre 1.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 67, 51 Dex, 51 Int
-Socketed Gems are Supported by level 18 Added Lightning Damage
+{variant:1,2,3}Socketed Gems are Supported by level 18 Added Lightning Damage
+{variant:4}Socketed Gems are Supported by level 30 Added Lightning Damage
 {variant:1,3}Adds 1 to 100 Lightning Damage to Attacks
 {variant:2}Adds 1 to 40 Lightning Damage to Attacks
 10% increased Attack Speed
-+(25-30) to maximum Energy Shield
-10% increased Stun Duration on Enemies
-100% increased Duration of Lightning Ailments
+{variant:1,2,3}+(25-30) to maximum Energy Shield
+{variant:4}(150-200)% increased Evasion and Energy Shield
+{variant:1,2,3}10% increased Stun Duration on Enemies
+{variant:1,2,3}100% increased Duration of Lightning Ailments
+{variant:4}100% increased effect of Lightning Ailments
 ]],
 -- Gloves: Ward
 [[

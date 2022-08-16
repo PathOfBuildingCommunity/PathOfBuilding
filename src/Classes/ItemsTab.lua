@@ -994,7 +994,6 @@ function ItemsTabClass:Save(xml)
 		end
 		t_insert(xml, child)
 	end
-	self.modFlag = false
 end
 
 function ItemsTabClass:Draw(viewPort, inputEvents)

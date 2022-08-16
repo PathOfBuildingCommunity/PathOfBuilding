@@ -3675,6 +3675,7 @@ skills["FlameDash"] = {
 	},
 	baseMods = {
 		skill("dotIsArea", true),
+		flag("dotIsBurningGround"),
 	},
 	qualityStats = {
 		Default = {
@@ -3881,6 +3882,9 @@ skills["FlameWhip"] = {
 		},
 		["active_skill_base_area_length_+"] = {
 			mod("AreaOfEffect", "BASE", nil),
+		},
+		["flame_surge_ignite_damage_as_burning_ground_damage_%"] = {
+			mod("IgniteDpsAsBurningGround", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -8344,6 +8348,7 @@ skills["FireBeam"] = {
 	},
 	baseMods = {
 		mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 }),
+		flag("DotCanStackAsTotems"),
 	},
 	qualityStats = {
 		Default = {
