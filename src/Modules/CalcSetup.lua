@@ -420,9 +420,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerBrutalTripleDamageChance", "BASE", 3, "Base")
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
-		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")		
-		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", env.spec.allocatedNotableCount, "")
-		
+		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
@@ -475,8 +473,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
 
+	local allocatedNotableCount = env.spec.allocatedNotableCount
+	local newNotableCount = 0
 	local allocatedMasteryCount = env.spec.allocatedMasteryCount
-	local newCount = 0
+	local newMasteryCount = 0
 	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
 	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
 	local newTypeCount = 0
@@ -489,7 +489,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				for node in pairs(override.addNodes) do
 					nodes[node.id] = node
 					if node.type == "Mastery" then
-						newCount = newCount + 1
+						newMasteryCount = newMasteryCount + 1
 
 						if not allocatedMasteryTypes[node.name] then
 							allocatedMasteryTypes[node.name] = 1
@@ -501,6 +501,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 								newTypeCount = newTypeCount + 1
 							end
 						end
+					elseif node.type == "Notable" then
+						newNotableCount = newNotableCount - 1
 					end
 				end
 			end
@@ -509,12 +511,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 					nodes[node.id] = node
 				elseif override.removeNodes[node] then
 					if node.type == "Mastery" then
-						newCount = newCount - 1
+						newMasteryCount = newMasteryCount - 1
 
 						allocatedMasteryTypes[node.name] = allocatedMasteryTypes[node.name] - 1
 						if allocatedMasteryTypes[node.name] == 0 then
 							newTypeCount = newTypeCount - 1
 						end
+					elseif node.type == "Notable" then
+						newNotableCount = newNotableCount - 1
 					end
 				end
 			end
@@ -523,8 +527,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		env.allocNodes = nodes
 	end
-
-	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount + newCount, "")
+	
+	modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount + newNotableCount, "")
+	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount + newMasteryCount, "")
 	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount + newTypeCount, "")
 
 	-- Build and merge item modifiers, and create list of radius jewels
