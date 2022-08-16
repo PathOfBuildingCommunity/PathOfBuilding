@@ -1,6 +1,6 @@
 VERSION[2.20.2][2022/08/16]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
 
+--- Implemented Enhancements ---
 * Reintroduce Show/Hide skill cost based upon whether it has a base cost (QuickStick123)
 --- Accuracy Improvements ---
 * Use correct max shock in breakdown (Lilylicious)
