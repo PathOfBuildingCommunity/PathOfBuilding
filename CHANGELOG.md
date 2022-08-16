@@ -7,7 +7,7 @@
 <!-- Release notes generated using configuration in .github/release.yml at dev -->
 
 ## What's Changed
-### New to Path of Building### New to Path of Building
+### Implemented Enhancements
 - Reintroduce Show/Hide skill cost based upon whether it has a base cost [\#4838](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4838) ([QuickStick123](https://github.com/QuickStick123))
 ### Accuracy Improvements
 - Use correct max shock in breakdown [\#4829](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4829) ([Lilylicious](https://github.com/Lilylicious))
