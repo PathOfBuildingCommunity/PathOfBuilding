@@ -1243,6 +1243,7 @@ function calcs.offence(env, actor, activeSkill)
 		val.baseCost = val.baseCost + baseCost
 		val.totalCost = val.totalCost + totalCost
 		val.baseCostNoMult = val.baseCostNoMult + baseCostNoMult
+		output[(val.upfront and resource or resource:gsub("Minute", "Second")).."HasCost"] = val.baseCost > 0 or val.totalCost > 0 or val.baseCostNoMult > 0
 	end
 	for resource, val in pairs(costs) do
 		local dec = val.upfront and 0 or 2
@@ -3724,7 +3725,7 @@ function calcs.offence(env, actor, activeSkill)
 					output[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * debuffDurationMult
 					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect")
 					if breakdown then
-						local maximum = output["Maximum"..ailment] or ailmentData[ailment].max
+						local maximum = globalOutput["Maximum"..ailment] or ailmentData[ailment].max
 						local current = m_max(m_min(globalOutput["Current"..ailment] or 0, maximum), 0)
 						local desired = m_max(m_min(enemyDB:Sum("BASE", nil, "Desired"..ailment.."Val"), maximum), 0)
 						if ailmentData[ailment].min ~= 0 then

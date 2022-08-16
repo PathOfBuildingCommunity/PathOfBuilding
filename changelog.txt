@@ -1,3 +1,15 @@
+VERSION[2.20.2][2022/08/16]
+
+--- Implemented Enhancements ---
+* Reintroduce Show/Hide skill cost based upon whether it has a base cost (QuickStick123)
+--- Accuracy Improvements ---
+* Use correct max shock in breakdown (Lilylicious)
+--- Fixed Bugs ---
+* Fix timeless jewel socket index bug (Lothrik)
+* Fix missing unique sliders (Lothrik)
+* Filter out unused modifier line ranges (Lothrik)
+
+
 VERSION[2.20.1][2022/08/16]
 
 --- Fixed Bugs ---
