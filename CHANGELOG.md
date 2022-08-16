@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.20.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.20.2) (2022/08/16)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.20.1...v2.20.2)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building### New to Path of Building
+- Reintroduce Show/Hide skill cost based upon whether it has a base cost [\#4838](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4838) ([QuickStick123](https://github.com/QuickStick123))
+### Accuracy Improvements
+- Use correct max shock in breakdown [\#4829](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4829) ([Lilylicious](https://github.com/Lilylicious))
+### Fixed Bugs
+- Fix timeless jewel socket index bug [\#4832](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4832) ([Lothrik](https://github.com/Lothrik))
+- Fix missing unique sliders [\#4835](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4835) ([Lothrik](https://github.com/Lothrik))
+- Filter out unused modifier line ranges [\#4836](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4836) ([Lothrik](https://github.com/Lothrik))
+
 ## [v2.20.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.20.1) (2022/08/16)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.20.0...v2.20.1)
