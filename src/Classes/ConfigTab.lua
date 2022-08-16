@@ -55,7 +55,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf, placeholder)
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 7, function(buf, placeholder)
 					if placeholder then
 						self.placeholder[varData.var] = tonumber(buf)
 					else
@@ -347,7 +347,6 @@ function ConfigTabClass:Save(xml)
 		end
 		t_insert(xml, child)
 	end
-	self.modFlag = false
 end
 
 function ConfigTabClass:UpdateControls()

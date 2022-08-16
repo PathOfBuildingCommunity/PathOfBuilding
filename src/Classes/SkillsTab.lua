@@ -415,7 +415,6 @@ function SkillsTabClass:Save(xml)
 			t_insert(child, node)
 		end
 	end
-	self.modFlag = false
 end
 
 function SkillsTabClass:Draw(viewPort, inputEvents)

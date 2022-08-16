@@ -804,6 +804,7 @@ local skills, mod, flag, skill = ...
 		}
 	},
 #baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsBurningGround")
 #mods
 
 #skill Firewall
@@ -853,6 +854,9 @@ local skills, mod, flag, skill = ...
 		},
 		["active_skill_base_area_length_+"] = {
 			mod("AreaOfEffect", "BASE", nil),
+		},
+		["flame_surge_ignite_damage_as_burning_ground_damage_%"] = {
+			mod("IgniteDpsAsBurningGround", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 #baseMod skill("radius", 30)
@@ -1745,6 +1749,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 })
+#baseMod flag("DotCanStackAsTotems")
 #mods
 
 #skill ShockNova

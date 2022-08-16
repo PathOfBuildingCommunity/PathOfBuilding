@@ -19,7 +19,7 @@ local bor = bit.bor
 local band = bit.band
 
 
--- Identify the trigger action skill for trigger conditions, take highest Attack Per Second 
+-- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
 local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 	local uuid = cacheSkillUUID(skill)
 	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.dontUseCache then
@@ -1075,7 +1075,7 @@ local function doActorMisc(env, actor)
 			condList["LeechingLife"] = true
 			env.configInput.conditionLeeching = true
 		end
-		if modDB:Flag(nil, "CanLeechLifeOnFullEnergyShield") then
+		if modDB:Flag(nil, "CanLeechEnergyShieldOnFullEnergyShield") then
 			condList["Leeching"] = true
 			condList["LeechingEnergyShield"] = true
 			env.configInput.conditionLeeching = true
@@ -1130,9 +1130,12 @@ end
 
 function calcs.actionSpeedMod(actor)
 	local modDB = actor.modDB
+	local minimumActionSpeed = modDB:Max(nil, "MinimumActionSpeed") or 0
+	local maximumActionSpeedReduction = modDB:Max(nil, "MaximumActionSpeedReduction")
 	local actionSpeedMod = 1 + (m_max(-data.misc.TemporalChainsEffectCap, modDB:Sum("INC", nil, "TemporalChainsActionSpeed")) + modDB:Sum("INC", nil, "ActionSpeed")) / 100
-	if modDB:Flag(nil, "ActionSpeedCannotBeBelowBase") then
-		actionSpeedMod = m_max(1, actionSpeedMod)
+	actionSpeedMod = m_max(minimumActionSpeed / 100, actionSpeedMod)
+	if maximumActionSpeedReduction then
+		actionSpeedMod = m_min((100 - maximumActionSpeedReduction) / 100, actionSpeedMod)
 	end
 	return actionSpeedMod
 end
@@ -1194,17 +1197,13 @@ function calcs.perform(env, avoidCache)
 		env.minion.modDB:NewMod("ColdResist", "BASE", env.minion.minionData.coldResist, "Base")
 		env.minion.modDB:NewMod("LightningResist", "BASE", env.minion.minionData.lightningResist, "Base")
 		env.minion.modDB:NewMod("ChaosResist", "BASE", env.minion.minionData.chaosResist, "Base")
-		env.minion.modDB:NewMod("CritChance", "INC", 200, "Base", { type = "Multiplier", var = "PowerCharge" })
-		env.minion.modDB:NewMod("Speed", "INC", 15, "Base", { type = "Multiplier", var = "FrenzyCharge" })
+		env.minion.modDB:NewMod("CritChance", "INC", 40, "Base", { type = "Multiplier", var = "PowerCharge" })
+		env.minion.modDB:NewMod("Speed", "INC", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 		env.minion.modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
-		env.minion.modDB:NewMod("MovementSpeed", "INC", 5, "Base", { type = "Multiplier", var = "FrenzyCharge" })
-		env.minion.modDB:NewMod("PhysicalDamageReduction", "BASE", 15, "Base", { type = "Multiplier", var = "EnduranceCharge" })
-		env.minion.modDB:NewMod("ElementalResist", "BASE", 15, "Base", { type = "Multiplier", var = "EnduranceCharge" })
+		env.minion.modDB:NewMod("PhysicalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
+		env.minion.modDB:NewMod("ElementalResist", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 		env.minion.modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
 		env.minion.modDB:NewMod("MaximumFortification", "BASE", 20, "Base")
-		env.minion.modDB:NewMod("Damage", "MORE", -50, "Base", 0, KeywordFlag.Poison)
-		env.minion.modDB:NewMod("Damage", "MORE", -50, "Base", 0, KeywordFlag.Ignite)
-		env.minion.modDB:NewMod("SkillData", "LIST", { key = "bleedBasePercent", value = 70/6 }, "Base")
 		env.minion.modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" })
 		for _, mod in ipairs(env.minion.minionData.modList) do
 			env.minion.modDB:AddMod(mod)
@@ -1288,7 +1287,8 @@ function calcs.perform(env, avoidCache)
 			modDB.multipliers["HexDoom"] =  m_min(m_max(hexDoom, modDB.multipliers["HexDoom"] or 0), output.HexDoomLimit)
 		end
 		if (activeSkill.activeEffect.grantedEffect.name == "Vaal Lightning Trap" or activeSkill.activeEffect.grantedEffect.name == "Shock Ground") then
-			modDB:NewMod("ShockOverride", "BASE", activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundEffect"), "Shocked Ground", { type = "ActorCondition", actor = "enemy", var = "OnShockedGround" } )
+			local effect = activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundEffect")
+			modDB:NewMod("ShockOverride", "BASE", effect, "Shocked Ground", { type = "ActorCondition", actor = "enemy", var = "OnShockedGround" } )
 		end
 		if activeSkill.skillData.supportBonechill and (activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.NonHitChill] or not activeSkill.skillModList:Flag(nil, "CannotChill")) then
 			output.HasBonechill = true
@@ -2928,27 +2928,40 @@ function calcs.perform(env, avoidCache)
 	-- Calculate maximum and apply the strongest non-damaging ailments
 	local ailmentData = data.nonDamagingAilment
 	local ailments = {
-		["Chill"] = { condition = "Chilled", mods = function(num)
-			local mods = {
-				modLib.createMod("ActionSpeed", "INC", -num, "Chill", { type = "Condition", var = "Chilled" })
-			}
-			if output.HasBonechill and (hasGuaranteedBonechill or enemyDB:Sum("BASE", nil, "ChillVal") > 0) then
-				t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Bonechill", { type = "Condition", var = "Chilled" }))
+		["Chill"] = {
+			condition = "Chilled",
+			mods = function(num)
+				local mods = { modLib.createMod("ActionSpeed", "INC", -num, "Chill", { type = "Condition", var = "Chilled" }) }
+				if output.HasBonechill and (hasGuaranteedBonechill or enemyDB:Sum("BASE", nil, "ChillVal") > 0) then
+					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Bonechill", { type = "Condition", var = "Chilled" }))
+				end
+				return mods
 			end
-			return mods
-		end },
-		["Shock"] = { condition = "Shocked", mods = function(num) return {
-			modLib.createMod("DamageTaken", "INC", num, "Shock", { type = "Condition", var = "Shocked" })
-		} end },
-		["Scorch"] = { condition = "Scorched", mods = function(num) return {
-			modLib.createMod("ElementalResist", "BASE", -num, "Scorch", { type = "Condition", var = "Scorched" })
-		} end },
-		["Brittle"] = { condition = "Brittle", mods = function(num) return {
-			modLib.createMod("SelfCritChance", "BASE", num, "Brittle", { type = "Condition", var = "Brittle" })
-		} end },
-		["Sap"] = { condition = "Sapped", mods = function(num) return {
-			modLib.createMod("Damage", "MORE", -num, "Sap", { type = "Condition", var = "Sapped" })
-		} end },
+		},
+		["Shock"] = {
+			condition = "Shocked",
+			mods = function(num)
+				return { modLib.createMod("DamageTaken", "INC", num, "Shock", { type = "Condition", var = "Shocked" }) }
+			end
+		},
+		["Scorch"] = {
+			condition = "Scorched",
+			mods = function(num)
+				return { modLib.createMod("ElementalResist", "BASE", -num, "Scorch", { type = "Condition", var = "Scorched" }) }
+			end
+		},
+		["Brittle"] = {
+			condition = "Brittle",
+			mods = function(num)
+				return { modLib.createMod("SelfCritChance", "BASE", num, "Brittle", { type = "Condition", var = "Brittle" }) }
+			end
+		},
+		["Sap"] = {
+			condition = "Sapped",
+			mods = function(num)
+				return { modLib.createMod("Damage", "MORE", -num, "Sap", { type = "Condition", var = "Sapped" }) }
+			end
+		},
 	}
 
 	for ailment, val in pairs(ailments) do
@@ -2963,18 +2976,36 @@ function calcs.perform(env, avoidCache)
 					enemyDB:NewMod("Condition:"..val.condition, "FLAG", true, mod.source)
 				end
 				if mod.name == ailment.."Base" then
-					effect = effect * calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect")
+					-- If the main skill can inflict the ailment, the ailment is inflicted with a hit, and we have a node allocated that checks what our highest damage is, then
+					-- use the skill's ailment modifiers
+					-- if not, use the generic modifiers
+					-- Scorch/Sap/Brittle do not have guaranteed sources from hits, and therefor will only end up in this bit of code if it's not supposed to apply the skillModList, which is bad
+					if ailment ~= "Scorch" and ailment ~= "Sap" and ailment ~= "Brittle" and not env.player.mainSkill.skillModList:Flag(nil, "Cannot"..ailment) and env.player.mainSkill.skillFlags.hit and modDB:Flag(nil, "ChecksHighestDamage") then
+						effect = effect * calcLib.mod(env.player.mainSkill.skillModList, nil, "Enemy"..ailment.."Effect")
+					else
+						effect = effect * calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect")
+					end
 					modDB:NewMod(ailment.."Override", "BASE", effect, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 				end
 				override = m_max(override, effect or 0)
 			end
-			output["Maximum"..ailment] = modDB:Override(nil, ailment.."Max") or ailmentData[ailment].max
+			output["Maximum"..ailment] = modDB:Override(nil, ailment.."Max") or (ailmentData[ailment].max + modDB:Sum("BASE", nil, ailment.."Max"))
 			output["Current"..ailment] = m_floor(m_min(m_max(override, enemyDB:Sum("BASE", nil, ailment.."Val")), output["Maximum"..ailment]) * (10 ^ ailmentData[ailment].precision)) / (10 ^ ailmentData[ailment].precision)
 			for _, mod in ipairs(val.mods(output["Current"..ailment])) do
 				enemyDB:AddMod(mod)
 			end
 			enemyDB:NewMod("Condition:Already"..val.condition, "FLAG", true, { type = "Condition", var = val.condition } ) -- Prevents ailment from applying doubly for minions
 		end
+	end
+
+	-- Update chill and shock multipliers
+	local chillEffectMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ChillEffect")
+	if chillEffectMultiplier < output["CurrentChill"] then
+		enemyDB:NewMod("Multiplier:ChillEffect", "BASE", output["CurrentChill"] - chillEffectMultiplier, "")
+	end
+	local shockEffectMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ShockEffect")
+	if shockEffectMultiplier < output["CurrentShock"] then
+		enemyDB:NewMod("Multiplier:ShockEffect", "BASE", output["CurrentShock"] - shockEffectMultiplier, "")
 	end
 
 	-- Check for extra auras
