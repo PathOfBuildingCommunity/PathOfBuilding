@@ -2907,11 +2907,11 @@ function calcs.offence(env, actor, activeSkill)
 			return sourceHitDmg, sourceCritDmg
 		end
 
-		local function calcAilmentDamage(type, sourceHitDmg, sourceCritDmg)
+		local function calcAilmentDamage(type, sourceCritChance, sourceHitDmg, sourceCritDmg)
 			-- Calculate the inflict chance and base damage of a secondary effect (bleed/poison/ignite/shock/freeze)
 			local chanceOnHit, chanceOnCrit = output[type.."ChanceOnHit"], output[type.."ChanceOnCrit"]
-			local chanceFromHit = chanceOnHit * (1 - output.CritChance / 100)
-			local chanceFromCrit = chanceOnCrit * output.CritChance / 100
+			local chanceFromHit = chanceOnHit * (1 - sourceCritChance / 100)
+			local chanceFromCrit = chanceOnCrit * sourceCritChance / 100
 			local chance = chanceFromHit + chanceFromCrit
 			output[type.."Chance"] = chance
 			local baseFromHit = sourceHitDmg * chanceFromHit / (chanceFromHit + chanceFromCrit)
@@ -3079,7 +3079,8 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
-			local baseVal = calcAilmentDamage("Bleed", sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowBleedEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local ailmentCritChance = m_min(100, output.CritChance * bleedStacks)
+			local baseVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowBleedEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.bleed = true
 				skillFlags.duration = true
@@ -3096,10 +3097,11 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
 				output.BaseBleedDPS = baseVal * effectMod * rateMod * effMult
-				bleedStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.BleedDuration / output.Time)
+				bleedStacksUncapped = (output.HitChance / 100) * globalOutput.BleedDuration / output.Time
 				if skillFlags.totem then
-					bleedStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.BleedDuration / output.Time * activeTotems)
+					bleedStacksUncapped = bleedStacksUncapped * activeTotems
 				end
+				local bleedStacks = m_min(maxStacks, bleedStacksUncapped)
 				local chanceToHitInOneSecInterval = 1 - m_pow(1 - (output.HitChance / 100), output.Speed)
 				local BleedDPSUncapped = (baseVal * effectMod * rateMod) * bleedStacks * chanceToHitInOneSecInterval * effMult
 				local BleedDPSCapped = m_min(BleedDPSUncapped, data.misc.DotDpsCap)
@@ -3262,7 +3264,9 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
-			local baseVal = calcAilmentDamage("Poison", sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			-- overstacking bleed stacks increases the chance a critical ignite is present
+			local ailmentCritChance = output.CritChance
+			local baseVal = calcAilmentDamage("Poison", ailmentCritChance, sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.poison = true
 				skillFlags.duration = true
@@ -3514,7 +3518,9 @@ function calcs.offence(env, actor, activeSkill)
 					}
 				end
 			end
-			local baseVal = calcAilmentDamage("Ignite", sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			-- overstacking ignite stacks increases the chance a critical ignite is present
+			local ailmentCritChance = m_min(100, output.CritChance * igniteStacks)
+			local baseVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.ignite = true
 				local effMult = 1
@@ -3699,7 +3705,8 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
-			local baseVal = calcAilmentDamage("Freeze", calcAverageSourceDamage("Freeze")) * skillModList:More(cfg, "FreezeAsThoughDealing")
+			local ailmentCritChance = output.CritChance
+			local baseVal = calcAilmentDamage("Freeze", ailmentCritChance, calcAverageSourceDamage("Freeze")) * skillModList:More(cfg, "FreezeAsThoughDealing")
 			if baseVal > 0 then
 				skillFlags.freeze = true
 				skillFlags.chill = true
@@ -3717,7 +3724,8 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 					}
 				end
-				local damage = calcAilmentDamage(ailment, calcAverageSourceDamage(ailment)) * skillModList:More(cfg, ailment.."AsThoughDealing")
+				local ailmentCritChance = output.CritChance
+				local damage = calcAilmentDamage(ailment, ailmentCritChance, calcAverageSourceDamage(ailment)) * skillModList:More(cfg, ailment.."AsThoughDealing")
 				if damage > 0 then
 					skillFlags[string.lower(ailment)] = true
 					local incDur = skillModList:Sum("INC", cfg, "Enemy"..ailment.."Duration") + enemyDB:Sum("INC", nil, "Self"..ailment.."Duration")
