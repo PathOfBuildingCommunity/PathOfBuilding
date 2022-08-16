@@ -499,7 +499,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 						end
 					elseif node.type == "Notable" then
-						allocatedNotableCount = allocatedNotableCount - 1
+						allocatedNotableCount = allocatedNotableCount + 1
 					end
 				end
 			end
