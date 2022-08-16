@@ -1610,7 +1610,7 @@ return {
 			refTo="",
 			type="Int",
 			width=150
-		},
+		}
 	},
 	BuffVisualArtVariations={
 		[1]={

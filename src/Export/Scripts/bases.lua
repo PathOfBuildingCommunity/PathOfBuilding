@@ -33,7 +33,7 @@ directiveTable.socketLimit = function(state, args, out)
 end
 
 directiveTable.base = function(state, args, out)
-	local baseTypeId, displayName = args:match("([%w/]+) (.+)")
+	local baseTypeId, displayName = args:match("([%w/_]+) (.+)")
 	if not baseTypeId then
 		baseTypeId = args
 	end
