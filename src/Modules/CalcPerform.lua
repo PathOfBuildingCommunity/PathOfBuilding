@@ -58,7 +58,8 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 		triggeredCD = triggeredCD or env.player.mainSkill.skillData.cooldown 
 	end
 	
-	local triggeredName = env.player.mainSkill.activeEffect.grantedEffect.name and env.player.mainSkill.activeEffect.grantedEffect and env.player.mainSkill.activeEffect.grantedEffect.name
+	local triggeredName = (env.player.mainSkill.activeEffect.grantedEffect.name and env.player.mainSkill.activeEffect.grantedEffect and env.player.mainSkill.activeEffect.grantedEffect.name) or "Triggered skill"
+	local triggerName = (env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or "Trigger"
 	local addsCastTime = 0
 	if env.player.mainSkill.skillModList:Flag(skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
 		addsCastTime = env.player.mainSkill.activeEffect.grantedEffect.castTime or addsCastTime
@@ -82,24 +83,24 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 	if breakdown then
 		if triggerCD == nil and (triggeredCD == nil or (triggeredCD == nil and addsCastTime)) then
 			breakdown.ActionTriggerRate = {
-				(triggeredName or "Triggered skill") .. " has no base cooldown",
+				triggeredName .. " has no base cooldown or cooldown override",
 				"",
-				"Trigger has no base cooldown or cooldown override",
+				triggerName .. " has no base cooldown",
 				"",
 				"Assuming cast on every kill/attack/hit",
 			}
 			if cooldownOverride ~= nil then
-				breakdown.ActionTriggerRate[1] = s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride)
+				breakdown.ActionTriggerRate[1] = s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName)
 			end
-			if addsCastTime then
-				t_insert(breakdown.ActionTriggerRate, 2, s_format("+ %.2f ^8(this skill adds cast time to cooldown whne triggered)", addsCastTime))
+			if addsCastTime ~= 0 then
+				t_insert(breakdown.ActionTriggerRate, 2, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", addsCastTime))
 				t_insert(breakdown.ActionTriggerRate, 3, s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr))
 			end
 		elseif cooldownOverride then
 			if minion then
 				env.minion.mainSkill.skillFlags.hasOverride = true
 				breakdown.ActionTriggerRate = {
-					s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride),
+					s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName),
 					"",
 					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
 					"",
@@ -110,9 +111,9 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 			else
 				env.player.mainSkill.skillFlags.hasOverride = true
 				breakdown.ActionTriggerRate = {
-					s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride),
+					s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName),
 					"",
-					s_format("%.2f ^8(base cooldown of trigger)", triggerCD),
+					s_format("%.2f ^8(base cooldown of %s)", triggerCD, triggerName),
 					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 					s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
 					"",
@@ -129,7 +130,7 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 				t_insert(breakdown.ActionTriggerRate, 3, s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr))
 			end
 		else
-			if triggeredCD ~= addsCastTime and triggered ~= nil then
+			if triggeredCD ~= addsCastTime and triggeredCD ~= nil then
 				-- minion skills should always have some kind of cooldown
 				if minion then
 					breakdown.ActionTriggerRate = {
@@ -146,11 +147,11 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 					}
 				elseif triggerCD then
 					breakdown.ActionTriggerRate = {
-						s_format("%.2f ^8(base cooldown of triggered %s)", triggeredCD - addsCastTime, triggeredName or "skill"),
+						s_format("%.2f ^8(base cooldown of %s)", triggeredCD - addsCastTime, triggeredName),
 						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 						s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr),
 						"",
-						s_format("%.2f ^8(base cooldown of trigger)", triggerCD),
+						s_format("%.2f ^8(base cooldown of %s)", triggerCD, triggerName),
 						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 						s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
 						"",
@@ -166,11 +167,11 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 				else
 					--Self trigger; likely from unique.
 					breakdown.ActionTriggerRate = {
-						s_format("%.2f ^8(base cooldown of triggered %s)", triggeredCD - addsCastTime, triggeredName or "skill"),
+						s_format("%.2f ^8(base cooldown of %s)", triggeredCD - addsCastTime, triggeredName),
 						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 						s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr),
 						"",
-						s_format("Trigger rate based on %s cooldown", triggeredName or "triggered"),
+						s_format("Trigger rate based on %s cooldown", triggeredName),
 						"",
 						s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
 						s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
@@ -181,13 +182,13 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 					}
 				end
 				if addsCastTime ~= 0 then
-					t_insert(breakdown.ActionTriggerRate, 3, s_format("+ %.2f ^8(this skill adds cast time to cooldown whne triggered)", addsCastTime))
+					t_insert(breakdown.ActionTriggerRate, 3, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", addsCastTime))
 				end
 			else
 				breakdown.ActionTriggerRate = {
-					(triggeredName or "Triggered skill") .. " has no base cooldown",
+					triggeredName .. " has no base cooldown",
 					"",
-					s_format("%.2f ^8(base cooldown of trigger)", triggerCD),
+					s_format("%.2f ^8(base cooldown of %s)", triggerCD, triggerName),
 					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 					s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
 					"",
@@ -201,7 +202,7 @@ local function getTriggerActionTriggerRate(env, breakdown, minion, triggerCD, tr
 					s_format("= %.2f ^8per second", triggerRate),
 				}
 				if addsCastTime ~= 0 then
-					t_insert(breakdown.ActionTriggerRate, 2, s_format("+ %.2f ^8(this skill adds cast time to cooldown whne triggered)", addsCastTime))
+					t_insert(breakdown.ActionTriggerRate, 2, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", addsCastTime))
 					t_insert(breakdown.ActionTriggerRate, 3, s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr))
 				end				
 			end	
