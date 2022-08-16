@@ -448,6 +448,9 @@ function ItemClass:ParseRaw(raw)
 						end
 					end
 				end
+				local eater = line:match("{eater}")
+				local exarch = line:match("{exarch}")
+				local synthesis = line:match("{synthesis}")
 				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
 				local enchant = line:match(" %(enchant%)")
@@ -751,6 +754,15 @@ function ItemClass:BuildRaw()
 		end
 		if modLine.fractured then
 			line = "{fractured}" .. line
+		end
+		if modLine.exarch then
+			line = "{exarch}" .. line
+		end
+		if modLine.eater then
+			line = "{eater}" .. line
+		end
+		if modLine.synthesis then
+			line = "{synthesis}" .. line
 		end
 		if modLine.variantList then
 			local varSpec

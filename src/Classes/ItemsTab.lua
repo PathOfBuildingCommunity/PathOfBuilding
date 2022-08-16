@@ -2462,7 +2462,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 						label = table.concat(mod, "/"),
 						mod = mod,
 						affixType = mod.type,
-						type = "custom",
+						type = sourceId:lower(),
 						defaultOrder = i,
 					})
 				end
@@ -2488,7 +2488,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 						label = table.concat(mod, "/"),
 						mod = mod,
 						affixType = mod.type,
-						type = "custom",
+						type = "synthesis",
 						defaultOrder = i,
 					})
 				end
