@@ -420,9 +420,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerBrutalTripleDamageChance", "BASE", 3, "Base")
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
-		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
+		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")		
 		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", env.spec.allocatedNotableCount, "")
-		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", env.spec.allocatedMasteryCount, "")
 		modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", env.spec.allocatedMasteryTypeCount, "")
 
 		-- Add bandit mods
@@ -476,6 +475,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
 
+	local newCount = 0
+	local allocatedMasteryCount = env.spec.allocatedMasteryCount
 	if not accelerate.nodeAlloc then
 		-- Build list of passive nodes
 		local nodes
@@ -484,11 +485,18 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if override.addNodes then
 				for node in pairs(override.addNodes) do
 					nodes[node.id] = node
+					if node.type == "Mastery" then
+						newCount = newCount + 1
+					end
 				end
 			end
 			for _, node in pairs(env.spec.allocNodes) do
 				if not override.removeNodes or not override.removeNodes[node] then
 					nodes[node.id] = node
+				elseif override.removeNodes[node] then
+					if node.type == "Mastery" then
+						newCount = newCount - 1
+					end
 				end
 			end
 		else
@@ -496,6 +504,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		env.allocNodes = nodes
 	end
+
+	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount + newCount, "")
 
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
