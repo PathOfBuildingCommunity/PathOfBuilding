@@ -422,7 +422,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")		
 		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", env.spec.allocatedNotableCount, "")
-		modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", env.spec.allocatedMasteryTypeCount, "")
+		
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
@@ -475,8 +475,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
 
-	local newCount = 0
 	local allocatedMasteryCount = env.spec.allocatedMasteryCount
+	local newCount = 0
+	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
+	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
+	local newTypeCount = 0
 	if not accelerate.nodeAlloc then
 		-- Build list of passive nodes
 		local nodes
@@ -487,6 +490,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 					nodes[node.id] = node
 					if node.type == "Mastery" then
 						newCount = newCount + 1
+
+						if not allocatedMasteryTypes[node.name] then
+							allocatedMasteryTypes[node.name] = 1
+							newTypeCount = newTypeCount + 1
+						else
+							local prevCount = allocatedMasteryTypes[node.name]
+							allocatedMasteryTypes[node.name] = prevCount + 1
+							if prevCount == 0 then
+								newTypeCount = newTypeCount + 1
+							end
+						end
 					end
 				end
 			end
@@ -496,6 +510,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 				elseif override.removeNodes[node] then
 					if node.type == "Mastery" then
 						newCount = newCount - 1
+
+						allocatedMasteryTypes[node.name] = allocatedMasteryTypes[node.name] - 1
+						if allocatedMasteryTypes[node.name] == 0 then
+							newTypeCount = newTypeCount - 1
+						end
 					end
 				end
 			end
@@ -506,6 +525,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 
 	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount + newCount, "")
+	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount + newTypeCount, "")
 
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
