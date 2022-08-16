@@ -1006,7 +1006,7 @@ return {
 			modList:NewMod("IsHighestDamageTypeOVERRIDE", "FLAG", true, "Config")
 		end
 	end },
-	{ var = "buffHeartstopper", type = "list", label = "Is Heartstopper active?", ifCond = "HeartstopperHIT", list = {{val=0,label="None"},{val="AVERAGE",label="average"},{val="HIT",label="Hit"},{val="DOT",label="Damage over time"}}, apply = function(val, modList, enemyModList)
+	{ var = "buffHeartstopper", type = "list", label = "Heartstopper mode:", ifCond = "HeartstopperHIT", list = {{val=0,label="None"},{val="AVERAGE",label="Average"},{val="HIT",label="Hit"},{val="DOT",label="Damage over time"}}, apply = function(val, modList, enemyModList)
 		if val == "HIT" then
 			modList:NewMod("Condition:HeartstopperHIT", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		elseif val == "DOT" then
