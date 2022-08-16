@@ -474,12 +474,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 
 	local allocatedNotableCount = env.spec.allocatedNotableCount
-	local newNotableCount = 0
 	local allocatedMasteryCount = env.spec.allocatedMasteryCount
-	local newMasteryCount = 0
 	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
 	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
-	local newTypeCount = 0
 	if not accelerate.nodeAlloc then
 		-- Build list of passive nodes
 		local nodes
@@ -489,20 +486,20 @@ function calcs.initEnv(build, mode, override, specEnv)
 				for node in pairs(override.addNodes) do
 					nodes[node.id] = node
 					if node.type == "Mastery" then
-						newMasteryCount = newMasteryCount + 1
+						allocatedMasteryCount = allocatedMasteryCount + 1
 
 						if not allocatedMasteryTypes[node.name] then
 							allocatedMasteryTypes[node.name] = 1
-							newTypeCount = newTypeCount + 1
+							allocatedMasteryTypeCount = allocatedMasteryTypeCount + 1
 						else
 							local prevCount = allocatedMasteryTypes[node.name]
 							allocatedMasteryTypes[node.name] = prevCount + 1
 							if prevCount == 0 then
-								newTypeCount = newTypeCount + 1
+								allocatedMasteryTypeCount = allocatedMasteryTypeCount + 1
 							end
 						end
 					elseif node.type == "Notable" then
-						newNotableCount = newNotableCount - 1
+						allocatedNotableCount = allocatedNotableCount - 1
 					end
 				end
 			end
@@ -511,14 +508,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 					nodes[node.id] = node
 				elseif override.removeNodes[node] then
 					if node.type == "Mastery" then
-						newMasteryCount = newMasteryCount - 1
+						allocatedMasteryCount = allocatedMasteryCount - 1
 
 						allocatedMasteryTypes[node.name] = allocatedMasteryTypes[node.name] - 1
 						if allocatedMasteryTypes[node.name] == 0 then
-							newTypeCount = newTypeCount - 1
+							allocatedMasteryTypeCount = allocatedMasteryTypeCount - 1
 						end
 					elseif node.type == "Notable" then
-						newNotableCount = newNotableCount - 1
+						allocatedNotableCount = allocatedNotableCount - 1
 					end
 				end
 			end
@@ -528,9 +525,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.allocNodes = nodes
 	end
 	
-	modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount + newNotableCount, "")
-	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount + newMasteryCount, "")
-	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount + newTypeCount, "")
+	modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount, "")
+	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount, "")
+	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount, "")
 
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
