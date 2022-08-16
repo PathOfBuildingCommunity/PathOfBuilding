@@ -618,6 +618,10 @@ function calcs.defence(env, actor)
 		end
 		local regen = base * (1 + output.ManaRegenInc/100) * more
 		local regenRate = round(regen * output.ManaRecoveryRateMod, 1)
+		if modDB:Flag(nil, "UnaffectedByManaRegen") then  --Chainbreaker Flag
+			output.ManaRegenRateToRageRegen = regenRate
+			regenRate = 0
+		end
 		local degen = modDB:Sum("BASE", nil, "ManaDegen")
 		output.ManaRegen = regenRate - degen
 		if breakdown then
@@ -664,6 +668,10 @@ function calcs.defence(env, actor)
 		else
 			output.LifeRegen = 0
 		end
+		if modDB:Flag(nil, "UnaffectedByLifeRegen") then  --Kaom's Spirit
+			output.LifeRegenRateToRageRegen = output.LifeRegen
+			output.LifeRegen = 0
+		end
 		-- Don't add life recovery mod for this
 		if output.LifeRegen and modDB:Flag(nil, "LifeRegenerationRecoversEnergyShield") and output.EnergyShield > 0 then
 			modDB:NewMod("EnergyShieldRecovery", "BASE", lifeBase * modDB:More(nil, "LifeRegen") * (1 + modDB:Sum("INC", nil, "LifeRegen") / 100), "Life Regeneration Recovers Energy Shield")
@@ -689,14 +697,6 @@ function calcs.defence(env, actor)
 	end
 	output.EnergyShieldRegen = output.EnergyShieldRegen + modDB:Sum("BASE", nil, "EnergyShieldRecovery") * output.EnergyShieldRecoveryRateMod
 	output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
-	if modDB:Flag(nil, "UnaffectedByManaRegen") then  --Chainbreaker Flag
-		output.WouldBeManaRegen = output.ManaRegen
-		output.ManaRegen = 0
-    end
-	if modDB:Flag(nil, "UnaffectedByLifeRegen") then  --Kaom's Spirit
-		output.WouldBeLifeRegen = output.LifeRegen
-		output.LifeRegen = 0
-    end
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
 		modDB:NewMod("Condition:CanGainRage", "FLAG", true, "RageRegen")
 		local base = modDB:Sum("BASE", nil, "RageRegen")
