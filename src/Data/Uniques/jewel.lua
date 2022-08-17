@@ -1681,7 +1681,7 @@ Source: Drops from Maraketh Legion
 Requires Level: 20
 Limited to: 1 Historic
 Variant: Asenath (Dance with Death)
-Variant: Deshret (Wind Dancer) (Legacy)
+Variant: Deshret (Wind Dancer) (Pre 3.11.0)
 Variant: Nasima (Second Sight)
 Variant: Balbala (The Traitor)
 Radius: Large
@@ -1700,7 +1700,7 @@ Source: Drops from Eternal Legion
 Requires Level: 20
 Limited to: 1 Historic
 Variant: Cadiro (Supreme Decadence)
-Variant: Chitus (Supreme Ego) (Legacy)
+Variant: Chitus (Supreme Ego) (Pre 3.11.0)
 Variant: Victario (Supreme Grandstanding)
 Variant: Caspiro (Supreme Ostentation)
 Radius: Large
@@ -1720,7 +1720,7 @@ Requires Level: 20
 Limited to: 1 Historic
 Variant: Doryani (Corrupted Soul)
 Variant: Xibaqua (Divine Flesh)
-Variant: Zerphi (Eternal Youth) (Legacy)
+Variant: Zerphi (Eternal Youth) (Pre 3.11.0)
 Variant: Ahuana (Immortal Ambition)
 Radius: Large
 Implicits: 0
@@ -1738,7 +1738,7 @@ Source: Drops from Karui Legion
 Requires Level: 20
 Limited to: 1 Historic
 Variant: Kaom (Strength of Blood)
-Variant: Kiloava (Glancing Blows) (Legacy)
+Variant: Kiloava (Glancing Blows) (Pre 3.11.0)
 Variant: Rakiata (Tempered by War)
 Variant: Akoya (Chainbreaker)
 Radius: Large
@@ -1761,7 +1761,7 @@ Has Alt Variant Two: true
 Selected Variant: 1
 Variant: Avarius (Power of Purpose)
 Variant: Dominus (Inner Conviction)
-Variant: Venarius (The Agnostic) (Legacy)
+Variant: Venarius (The Agnostic) (Pre 3.11.0)
 Variant: Maxarius (Transcendence)
 Variant: Totem Damage
 Variant: Brand Damage
