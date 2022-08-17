@@ -1248,9 +1248,9 @@ Implicits: 1
 {tags:life}+(0-60) to maximum Life
 (−10 to 10)% increased Quantity of Items found
 (−40 to 40)% increased Rarity of Items found
-{tags:jewellery_resistance}+(−25 to 50)% to Fire Resistance
-{tags:jewellery_resistance}+(−25 to 50)% to Cold Resistance
-{tags:jewellery_resistance}+(−25 to 50)% to Lightning Resistance
+{tags:jewellery_resistance}+(-25-50)% to Fire Resistance
+{tags:jewellery_resistance}+(-25-50)% to Cold Resistance
+{tags:jewellery_resistance}+(-25-50)% to Lightning Resistance
 ]],[[
 Vivinsect
 Unset Ring
