@@ -1089,6 +1089,7 @@ local modTagList = {
 	["per allocated mastery passive skill"] = { tag = { type = "Multiplier", var = "AllocatedMastery" } },
 	["per allocated notable passive skill"] = { tag = { type = "Multiplier", var = "AllocatedNotable" } },
 	["for each different type of mastery you have allocated"] = { tag = { type = "Multiplier", var = "AllocatedMasteryType" } },
+	["per grand spectrum"] = { tag = { type = "Multiplier", var = "GrandSpectrum" } },
 	-- Per stat
 	["per (%d+)%% of maximum mana they reserve"] = function(num) return { tag = { type = "PerStat", stat = "ManaReservedPercent", div = num } } end,
 	["per (%d+) strength"] = function(num) return { tag = { type = "PerStat", stat = "Str", div = num } } end,
@@ -1134,7 +1135,7 @@ local modTagList = {
 	["per endurance, frenzy or power charge"] = { tag = { type = "PerStat", stat = "TotalCharges" } },
 	["per fortification"] = { tag = { type = "PerStat", stat = "FortificationStacks" } },
 	["per totem"] = { tag = { type = "PerStat", stat = "TotemsSummoned" } }, 
-	["per summoned totem"] =  { tag = { type = "PerStat", stat = "TotemsSummoned" } },
+	["per summoned totem"] = { tag = { type = "PerStat", stat = "TotemsSummoned" } },
 	["for each summoned totem"] =  { tag = { type = "PerStat", stat = "TotemsSummoned" } },
 	["for each time they have chained"] = { tag = { type = "PerStat", stat = "Chain" } },
 	["for each time it has chained"] = { tag = { type = "PerStat", stat = "Chain" } },
@@ -3291,34 +3292,6 @@ local specialModList = {
 	["only affects passives in large ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 6 }) },
 	["only affects passives in very large ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 7 }) },
 	["only affects passives in massive ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 8 }) },
-	["(%d+)%% increased elemental damage per grand spectrum"] = function(num) return {
-		mod("ElementalDamage", "INC", num, { type = "Multiplier", var = "GrandSpectrum" }),
-		mod("Multiplier:GrandSpectrum", "BASE", 1),
-	} end,
-	["gain (%d+) armour per grand spectrum"] = function(num) return {
-		mod("Armour", "BASE", num, { type = "Multiplier", var = "GrandSpectrum" }),
-		mod("Multiplier:GrandSpectrum", "BASE", 1),
-	} end,
-	["+(%d+)%% to all elemental resistances per grand spectrum"] = function(num) return {
-		mod("ElementalResist", "BASE", num, { type = "Multiplier", var = "GrandSpectrum" }),
-		mod("Multiplier:GrandSpectrum", "BASE", 1)
-	} end,
-	["gain (%d+) mana per grand spectrum"] = function(num) return {
-		mod("Mana", "BASE", num, { type = "Multiplier", var = "GrandSpectrum" }),
-		mod("Multiplier:GrandSpectrum", "BASE", 1),
-	} end,
-	["(%d+)%% increased critical strike chance per grand spectrum"] = function(num) return {
-		mod("CritChance", "INC", num, { type = "Multiplier", var = "GrandSpectrum" }),
-		mod("Multiplier:GrandSpectrum", "BASE", 1)
-	} end,
-	["%+(%d+) to minimum endurance charges per grand spectrum"] = function(num) return {
-		mod("EnduranceChargesMin", "BASE", num, { type = "Multiplier", var = "GrandSpectrum" }),
-		mod("Multiplier:GrandSpectrum", "BASE", 1)
-	} end,
-	["minions have %+(%d+)%% to critical strike multiplier per grand spectrum"] = function(num) return {
-		mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", num, { type = "Multiplier", actor = "parent", var = "GrandSpectrum" }) }),
-		mod("Multiplier:GrandSpectrum", "BASE", 1)
-	} end,
 	["primordial"] = { mod("Multiplier:PrimordialItem", "BASE", 1) },
 	["spectres have a base duration of (%d+) seconds"] = function(num) return { mod("SkillData", "LIST", { key = "duration", value = 6 }, { type = "SkillName", skillName = "Raise Spectre" }) } end,
 	["flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num) } end,
