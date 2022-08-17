@@ -809,7 +809,7 @@ function TreeTabClass:FindTimelessJewel()
 			{ label = "Caspiro (Supreme Ostentation)", id = 3 }
 		}
 	}
-	-- rebuild `timelessData.jewelType` as we only store the minimum amount of `conquerorType` data in build XML
+	-- rebuild `timelessData.conquerorType` as we only store the minimum amount of `conquerorType` data in build XML
 	if next(timelessData.conquerorType) then
 		for idx, conquerorType in ipairs(conquerorTypes[timelessData.jewelType.id]) do
 			if conquerorType.id == timelessData.conquerorType.id then
