@@ -871,10 +871,16 @@ function calcs.defence(env, actor)
 	output.EnergyShieldOnSuppress = modDB:Sum("BASE", nil, "EnergyShieldOnSuppress")
 	
 	-- damage avoidances
+	output.specificTypeAvoidance = false
 	for _, damageType in ipairs(dmgTypeList) do
 		output["Avoid"..damageType.."DamageChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..damageType.."DamageChance"), data.misc.AvoidChanceCap)
+		if output["Avoid"..damageType.."DamageChance"] > 0 then
+			output.specificTypeAvoidance = true
+		end
 	end
 	output.AvoidProjectilesChance = m_min(modDB:Sum("BASE", nil, "AvoidProjectilesChance"), data.misc.AvoidChanceCap)
+	-- hit avoidance
+	output.AvoidHitChance = m_min(modDB:Sum("BASE", nil, "AvoidHitChance"), data.misc.AvoidChanceCap)
 	-- other avoidances etc
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
 	for _, ailment in ipairs(data.ailmentTypeList) do
@@ -1837,15 +1843,18 @@ function calcs.defence(env, actor)
 			if modDB:Flag(nil, "BlockedDamageDoesntBypassES")and output[damageType.."EnergyShieldBypass"] < 100 and damageType ~= "Chaos"  then
 				DamageIn[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] * (1 - BlockChance) 
 			end
-			local AvoidChance = m_min(output["Avoid"..damageType.."DamageChance"] + ExtraAvoidChance, data.misc.AvoidChanceCap)
-			-- unlucky config to lower the value of block, dodge, evade etc for ehp
-			if worstOf > 1 then
-				AvoidChance = AvoidChance / 100 * AvoidChance
-				if worstOf == 4 then
+			local AvoidChance = 0
+			if output.specificTypeAvoidance then
+				AvoidChance = m_min(output["Avoid"..damageType.."DamageChance"] + ExtraAvoidChance, data.misc.AvoidChanceCap)
+				-- unlucky config to lower the value of block, dodge, evade etc for ehp
+				if worstOf > 1 then
 					AvoidChance = AvoidChance / 100 * AvoidChance
+					if worstOf == 4 then
+						AvoidChance = AvoidChance / 100 * AvoidChance
+					end
 				end
+				averageAvoidChance = averageAvoidChance + AvoidChance
 			end
-			averageAvoidChance = averageAvoidChance + AvoidChance
 			DamageIn[damageType] = output[damageType.."TakenHit"] * (blockEffect * suppressionEffect * (1 - AvoidChance / 100))
 		end
 		-- petrified blood degen initialisation
@@ -1876,10 +1885,10 @@ function calcs.defence(env, actor)
 	-- chance to not be hit
 	do
 		local worstOf = env.configInput.EHPUnluckyWorstOf or 1
-		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
-		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
-		output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * 100
-		output.SpellProjectileNotHitChance = output.SpellNotHitChance
+		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * (1 - output.AvoidHitChance / 100) * 100
+		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * (1 - output.AvoidHitChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
+		output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * (1 - output.AvoidHitChance / 100) * 100
+		output.SpellProjectileNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * (1 - output.AvoidHitChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
 		output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance + output.SpellProjectileNotHitChance) / 4
 		output.ConfiguredNotHitChance = output[damageCategoryConfig.."NotHitChance"]
 		-- unlucky config to lower the value of block, dodge, evade etc for ehp
@@ -1893,13 +1902,35 @@ function calcs.defence(env, actor)
 		if breakdown then
 			breakdown.ConfiguredNotHitChance = { }
 			if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail)", 1 - output[damageCategoryConfig.."EvadeChance"] / 100))
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100))
+				if output[damageCategoryConfig.."EvadeChance"] > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail)", 1 - output[damageCategoryConfig.."EvadeChance"] / 100))
+				end
+				if output.AttackDodgeChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100))
+				end
+				if damageCategoryConfig == "Projectile" and not output.specificTypeAvoidance and output.AvoidProjectilesChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 100))
+				end
 			elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100))
+				if output.SpellDodgeChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100))
+				end
+				if damageCategoryConfig == "SpellProjectile" and not output.specificTypeAvoidance and output.AvoidProjectilesChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 100))
+				end
 			elseif damageCategoryConfig == "Average" then
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail, only applies to the attack portion)", 1 - (output.MeleeEvadeChance + output.ProjectileEvadeChance) / 2 / 100))
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x%.2f ^8(chance for dodge to fail)", 1 - (output.AttackDodgeChance + output.SpellDodgeChance) / 2 / 100))
+				if output.MeleeEvadeChance > 0 or output.ProjectileEvadeChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail, only applies to the attack portion)", 1 - (output.MeleeEvadeChance + output.ProjectileEvadeChance) / 2 / 100))
+				end
+				if output.AttackDodgeChance > 0  or output.SpellDodgeChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x%.2f ^8(chance for dodge to fail)", 1 - (output.AttackDodgeChance + output.SpellDodgeChance) / 2 / 100))
+				end
+				if not output.specificTypeAvoidance and output.AvoidProjectilesChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 2 / 100))
+				end
+			end
+			if output.AvoidHitChance > 0 then
+				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for elusive avoidance to fail)", 1 - output.AvoidHitChance / 100))
 			end
 			if worstOf > 1 then
 				t_insert(breakdown["ConfiguredNotHitChance"], s_format("unlucky worst of %d", worstOf))
