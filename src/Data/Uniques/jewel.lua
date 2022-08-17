@@ -1680,10 +1680,10 @@ League: Legion
 Source: Drops from Maraketh Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Asenath
-Variant: Deshret
-Variant: Nasima
-Variant: Balbala
+Variant: Asenath (Dance with Death)
+Variant: Deshret (Wind Dancer) (Legacy)
+Variant: Nasima (Second Sight)
+Variant: Balbala (The Traitor)
 Radius: Large
 Implicits: 0
 {variant:1}Denoted service of (500-8000) dekhara in the akhara of Asenath
@@ -1699,10 +1699,10 @@ League: Legion
 Source: Drops from Eternal Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Cadiro
-Variant: Chitus
-Variant: Victario
-Variant: Caspiro
+Variant: Cadiro (Supreme Decadence)
+Variant: Chitus (Supreme Ego) (Legacy)
+Variant: Victario (Supreme Grandstanding)
+Variant: Caspiro (Supreme Ostentation)
 Radius: Large
 Implicits: 0
 {variant:1}Commissioned (2000-160000) coins to commemorate Cadiro
@@ -1718,10 +1718,10 @@ League: Legion
 Source: Drops from Vaal Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Doryani
-Variant: Xibaqua
-Variant: Zerphi
-Variant: Ahuana
+Variant: Doryani (Corrupted Soul)
+Variant: Xibaqua (Divine Flesh)
+Variant: Zerphi (Eternal Youth) (Legacy)
+Variant: Ahuana (Immortal Ambition)
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
@@ -1737,10 +1737,10 @@ League: Legion
 Source: Drops from Karui Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Kaom
-Variant: Kiloava
-Variant: Rakiata
-Variant: Akoya
+Variant: Kaom (Strength of Blood)
+Variant: Kiloava (Glancing Blows) (Legacy)
+Variant: Rakiata (Tempered by War)
+Variant: Akoya (Chainbreaker)
 Radius: Large
 Implicits: 0
 {variant:1}Commanded leadership over (10000-18000) warriors under Kaom
@@ -1759,10 +1759,10 @@ Limited to: 1 Historic
 Has Alt Variant: true
 Has Alt Variant Two: true
 Selected Variant: 1
-Variant: Avarius
-Variant: Dominus
-Variant: Venarius
-Variant: Maxarius
+Variant: Avarius (Power of Purpose)
+Variant: Dominus (Inner Conviction)
+Variant: Venarius (The Agnostic) (Legacy)
+Variant: Maxarius (Transcendence)
 Variant: Totem Damage
 Variant: Brand Damage
 Variant: Channelling Damage
