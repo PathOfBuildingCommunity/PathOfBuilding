@@ -701,7 +701,7 @@ Requires Level 33, 38 Str, 38 Dex
 +(200-300) to Armour
 {variant:2}Adds 10-20 Physical Damage to Attacks
 {variant:1,2}20% increased Melee Damage
-{variant:3}Skills which Exert an Attack to have a (20-30)% chance to not count that Attack
+{variant:3}Skills which Exert an Attack to have a (20-40)% chance to not count that Attack
 Cannot Leech when on Low Life
 ]],[[
 Deidbellow
