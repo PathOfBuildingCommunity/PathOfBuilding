@@ -202,6 +202,7 @@ the "Releases" section of the GitHub page.]])
 	self.showThousandsSeparators = true
 	self.thousandsSeparator = ","
 	self.decimalSeparator = "."
+	self.defaultItemAffixQuality = 0.5
 	self.showTitlebarName = true
 	self.showWarnings = true
 	self.slotOnlyTooltips = true
@@ -623,8 +624,6 @@ function main:OpenOptionsPopup()
 	local defaultLabelSpacingPx = -4
 	local defaultLabelPlacementX = 240
 
-
-
 	drawSectionHeader("app", "Application options")
 
 	controls.connectionProtocol = new("DropDownControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 100, 18, {
@@ -672,7 +671,6 @@ function main:OpenOptionsPopup()
 	controls.nodePowerThemeLabel = new("LabelControl", { "RIGHT", controls.nodePowerTheme, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Node Power colours:")
 	controls.nodePowerTheme.tooltipText = "Changes the colour scheme used for the node power display on the passive tree."
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
-
 
 	nextRow()
 	controls.betaTest = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Opt-in to weekly beta test builds:", function(state)
@@ -725,7 +723,8 @@ function main:OpenOptionsPopup()
 	end)
 	controls.defaultItemAffixQualityLabel = new("LabelControl", { "RIGHT", controls.defaultItemAffixQualitySlider, "LEFT" }, defaultLabelSpacingPx, 0, 92, 16, "^7Default item affix quality:")
 	controls.defaultItemAffixQualityValue = new("LabelControl", { "LEFT", controls.defaultItemAffixQualitySlider, "RIGHT" }, -defaultLabelSpacingPx, 0, 92, 16, "50%")
-	controls.defaultItemAffixQualitySlider:SetVal(self.defaultItemAffixQuality or 0.5)
+	controls.defaultItemAffixQualitySlider.val = self.defaultItemAffixQuality
+	controls.defaultItemAffixQualityValue.label = (self.defaultItemAffixQuality * 100) .. "%"
 
 	nextRow()
 	controls.showWarnings = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Show build warnings:", function(state)

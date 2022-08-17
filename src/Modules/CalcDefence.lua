@@ -60,8 +60,8 @@ function calcs.defence(env, actor)
 
 	-- Resistances
 	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
-	output.PhysicalDamageReduction = m_min(m_max(0, modDB:Sum("BASE", nil, "PhysicalDamageReduction")), output.DamageReductionMax)
-	output.PhysicalDamageReductionwhenHit = m_min(m_max(0, output.PhysicalDamageReduction + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit")), output.DamageReductionMax)
+	output.BasePhysicalDamageReduction = m_min(m_max(0, modDB:Sum("BASE", nil, "PhysicalDamageReduction")), output.DamageReductionMax)
+	output.BasePhysicalDamageReductionWhenHit = m_min(m_max(0, output.BasePhysicalDamageReduction + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit")), output.DamageReductionMax)
 	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "BASE", 100)
 	output["PhysicalResist"] = 0
 
@@ -100,7 +100,7 @@ function calcs.defence(env, actor)
 		end
 		local final = m_max(m_min(total, max), min)
 		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
-		output[elem.."DamageReduction"] = 0
+		output["Base"..elem.."DamageReduction"] = 0
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
@@ -419,6 +419,8 @@ function calcs.defence(env, actor)
 		output.ArmourDefense = (modDB:Max(nil, "ArmourDefense") or 0) / 100
 		output.RawArmourDefense = output.ArmourDefense > 0 and ((1 + output.ArmourDefense) * 100) or nil
 		output.Evasion = m_max(round(evasion), 0)
+		output.MeleeEvasion = m_max(round(evasion * calcLib.mod(modDB, nil, "MeleeEvasion")), 0)
+		output.ProjectileEvasion = m_max(round(evasion * calcLib.mod(modDB, nil, "ProjectileEvasion")), 0)
 		output.LowestOfArmourAndEvasion = m_min(output.Armour, output.Evasion)
 		output.Ward = m_max(round(ward), 0)
 		output["Gear:Ward"] = gearWard
@@ -440,9 +442,11 @@ function calcs.defence(env, actor)
 			output.ProjectileEvadeChance = 0
 		else
 			local enemyAccuracy = round(calcLib.val(enemyDB, "Accuracy"))
-			output.EvadeChance = 100 - (calcs.hitChance(output.Evasion, enemyAccuracy) - modDB:Sum("BASE", nil, "EvadeChance")) * calcLib.mod(enemyDB, nil, "HitChance")
-			output.MeleeEvadeChance = m_max(0, m_min(data.misc.EvadeChanceCap, output.EvadeChance * calcLib.mod(modDB, nil, "EvadeChance", "MeleeEvadeChance")))
-			output.ProjectileEvadeChance = m_max(0, m_min(data.misc.EvadeChanceCap, output.EvadeChance * calcLib.mod(modDB, nil, "EvadeChance", "ProjectileEvadeChance")))
+			local evadeChance = modDB:Sum("BASE", nil, "EvadeChance")
+			local hitChance = calcLib.mod(enemyDB, nil, "HitChance")
+			output.EvadeChance = 100 - (calcs.hitChance(output.Evasion, enemyAccuracy) - evadeChance) * hitChance
+			output.MeleeEvadeChance = m_max(0, m_min(data.misc.EvadeChanceCap, (100 - (calcs.hitChance(output.MeleeEvasion, enemyAccuracy) - evadeChance) * hitChance) * calcLib.mod(modDB, nil, "EvadeChance", "MeleeEvadeChance")))
+			output.ProjectileEvadeChance = m_max(0, m_min(data.misc.EvadeChanceCap, (100 - (calcs.hitChance(output.ProjectileEvasion, enemyAccuracy) - evadeChance) * hitChance) * calcLib.mod(modDB, nil, "EvadeChance", "ProjectileEvadeChance")))
 			-- Condition for displaying evade chance only if melee or projectile evade chance have the same values
 			if output.MeleeEvadeChance ~= output.ProjectileEvadeChance then
 				output.splitEvade = true
@@ -459,11 +463,13 @@ function calcs.defence(env, actor)
 				breakdown.MeleeEvadeChance = {
 					s_format("Enemy level: %d ^8(%s the Configuration tab)", env.enemyLevel, env.configInput.enemyLevel and "overridden from" or "can be overridden in"),
 					s_format("Average enemy accuracy: %d", enemyAccuracy),
+					s_format("Effective Evasion: %d", output.MeleeEvasion),
 					s_format("Approximate melee evade chance: %d%%", output.MeleeEvadeChance),
 				}
 				breakdown.ProjectileEvadeChance = {
 					s_format("Enemy level: %d ^8(%s the Configuration tab)", env.enemyLevel, env.configInput.enemyLevel and "overridden from" or "can be overridden in"),
 					s_format("Average enemy accuracy: %d", enemyAccuracy),
+					s_format("Effective Evasion: %d", output.ProjectileEvasion),
 					s_format("Approximate projectile evade chance: %d%%", output.ProjectileEvadeChance),
 				}
 			end
@@ -683,6 +689,14 @@ function calcs.defence(env, actor)
 	end
 	output.EnergyShieldRegen = output.EnergyShieldRegen + modDB:Sum("BASE", nil, "EnergyShieldRecovery") * output.EnergyShieldRecoveryRateMod
 	output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
+	if modDB:Flag(nil, "UnaffectedByManaRegen") then  --Chainbreaker Flag
+		output.WouldBeManaRegen = output.ManaRegen
+		output.ManaRegen = 0
+    end
+	if modDB:Flag(nil, "UnaffectedByLifeRegen") then  --Kaom's Spirit
+		output.WouldBeLifeRegen = output.LifeRegen
+		output.LifeRegen = 0
+    end
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
 		modDB:NewMod("Condition:CanGainRage", "FLAG", true, "RageRegen")
 		local base = modDB:Sum("BASE", nil, "RageRegen")
@@ -829,7 +843,7 @@ function calcs.defence(env, actor)
 		end
 	end
 
-	-- Miscellaneous: move speed, stun recovery, avoidance
+	-- Miscellaneous: move speed, avoidance
 	output.MovementSpeedMod = modDB:Override(nil, "MovementSpeed") or calcLib.mod(modDB, nil, "MovementSpeed")
 	if modDB:Flag(nil, "MovementSpeedCannotBeBelowBase") then
 		output.MovementSpeedMod = m_max(output.MovementSpeedMod, 1)
@@ -862,31 +876,6 @@ function calcs.defence(env, actor)
 	end
 	output.AvoidProjectilesChance = m_min(modDB:Sum("BASE", nil, "AvoidProjectilesChance"), data.misc.AvoidChanceCap)
 	-- other avoidances etc
-	local stunChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
-	if output.EnergyShield > output.Life * 2 then
-		stunChance = stunChance * 0.5
-	end
-	output.StunAvoidChance = 100 - stunChance
-	if output.StunAvoidChance >= 100 then
-		output.StunDuration = 0
-		output.BlockDuration = 0
-	else
-		output.StunDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery") / 100)
-		output.BlockDuration = 0.35 / (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
-		if breakdown then
-			breakdown.StunDuration = {
-				"0.35s ^8(base)",
-				s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery") / 100),
-				s_format("= %.2fs", output.StunDuration)
-			}
-			breakdown.BlockDuration = {
-				"0.35s ^8(base)",
-				s_format("/ %.2f ^8(increased/reduced recovery)", 1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100),
-				s_format("= %.2fs", output.BlockDuration)
-			}
-		end
-	end
-	output.InterruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInterruptStun"), 100)
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
 	for _, ailment in ipairs(data.ailmentTypeList) do
 		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment), 100)
@@ -933,6 +922,7 @@ function calcs.defence(env, actor)
 			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) -- missing taunt from allies
 			local enemyDamage = tonumber(env.configInput["enemy"..damageType.."Damage"])
 			local enemyPen = tonumber(env.configInput["enemy"..damageType.."Pen"])
+			local enemyOverwhelm = tonumber(env.configInput["enemy"..damageType.."Overwhelm"])
 			local sourceStr = enemyDamage == nil and "Default" or "Config"
 
 			if enemyDamage == nil then
@@ -941,8 +931,12 @@ function calcs.defence(env, actor)
 			if enemyPen == nil then
 				enemyPen = tonumber(env.configPlaceholder["enemy"..damageType.."Pen"]) or 0
 			end
+			if enemyOverwhelm == nil then
+				enemyOverwhelm = tonumber(env.configPlaceholder["enemy"..damageType.."enemyOverwhelm"]) or 0
+			end
 
 			output[damageType.."EnemyPen"] = enemyPen
+			output[damageType.."EnemyOverwhelm"] = enemyOverwhelm
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
 			output[damageType.."EnemyDamage"] = enemyDamage * enemyDamageMult * output["EnemyCritEffect"]
 			output["totalEnemyDamage"] = output["totalEnemyDamage"] + output[damageType.."EnemyDamage"]
@@ -1090,7 +1084,7 @@ function calcs.defence(env, actor)
 				takenMore = takenMore * modDB:More(nil, "ElementalDamageTakenOverTime")
 			end
 			local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."Resist"]
-			local reduction = modDB:Flag(nil, "SelfIgnore"..damageType.."DamageReduction") and 0 or output[damageType.."DamageReduction"]
+			local reduction = modDB:Flag(nil, "SelfIgnore".."Base"..damageType.."DamageReduction") and 0 or output["Base"..damageType.."DamageReduction"]
 			output[damageType.."TakenDotMult"] = (1 - resist / 100) * (1 - reduction / 100) * (1 + takenInc / 100) * takenMore
 			if breakdown then
 				breakdown[damageType.."TakenDotMult"] = { }
@@ -1123,9 +1117,9 @@ function calcs.defence(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		-- Calculate incoming damage multiplier
 		local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
-		local reduction = modDB:Flag(nil, "SelfIgnore"..damageType.."DamageReduction") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."DamageReduction"]
+		local reduction = modDB:Flag(nil, "SelfIgnore".."Base"..damageType.."DamageReduction") and 0 or output["Base"..damageType.."DamageReductionWhenHit"] or output["Base"..damageType.."DamageReduction"]
 		local enemyPen = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."EnemyPen"]
-		local enemyOverwhelm = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."enemyOverwhelm"] or 0 -- or 0 is to be removed once mod is passed / added to config tab.
+		local enemyOverwhelm = modDB:Flag(nil, "SelfIgnore"..damageType.."DamageReduction") and 0 or output[damageType.."EnemyOverwhelm"]
 		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 		local damage = output[damageType.."TakenDamage"]
 		local armourReduct = 0
@@ -1141,9 +1135,9 @@ function calcs.defence(env, actor)
 			armourReduct = calcs.armourReduction((output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense), damage * resMult)
 			armourReduct = m_min(output.DamageReductionMax, armourReduct)
 		end
-		reductMult = (1 - m_max(m_min(output.DamageReductionMax, armourReduct + reduction - enemyOverwhelm), 0) / 100)
+		reductMult = 1 - m_max(m_min(output.DamageReductionMax, armourReduct + reduction - enemyOverwhelm), 0) / 100
 		output[damageType.."DamageReduction"] = 100 - reductMult * 100
-		if breakdown and reductMult ~= 1 then
+		if breakdown then
 			breakdown[damageType.."DamageReduction"] = { }
 			if armourReduct ~= 0 then
 				if resMult ~= 1 then
@@ -1158,9 +1152,12 @@ function calcs.defence(env, actor)
 			end
 			if reduction ~= 0 then
 				t_insert(breakdown[damageType.."DamageReduction"], s_format("Base %s Damage Reduction: %d%%", damageType, reduction))
-				if armourReduct ~= 0 then
-					t_insert(breakdown[damageType.."DamageReduction"], s_format("Total %s Damage Reduction: %d%%", damageType, 100 - reductMult * 100))
-				end
+			end
+			if enemyOverwhelm ~= 0 then
+				t_insert(breakdown[damageType.."DamageReduction"], s_format("Enemy Overwhelm %s Damage: %d%%", damageType, enemyOverwhelm))
+			end
+			if (armourReduct ~= 0 and 1 or 0) + (reduction ~= 0 and 1 or 0) + (enemyOverwhelm ~= 0 and 1 or 0) >= 2 then
+				t_insert(breakdown[damageType.."DamageReduction"], s_format("Total %s Damage Reduction: %d%%", damageType, 100 - reductMult * 100))
 			end
 		end
 		local baseMult = resMult * reductMult
@@ -1187,13 +1184,13 @@ function calcs.defence(env, actor)
 		if breakdown then
 			breakdown[damageType.."TakenHitMult"] = { }
 			if resist ~= 0 then
-				t_insert(breakdown[damageType.."TakenHitMult"], s_format(s_format("Resistance: %.2f", 1 - resist / 100)))
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("Resistance: %.2f", 1 - resist / 100))
 			end
 			if enemyPen ~= 0 then
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("+ Enemy Pen: %.2f", enemyPen / 100))
 			end
 			if resist ~= 0 and enemyPen ~= 0 then
-				t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.2f", 1 - (resist - enemyPen) / 100))
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.2f", resMult))
 			end
 			if reduction ~= 0 then
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("Base %s Damage Reduction: %.2f", damageType, 1 - reduction / 100))
@@ -1251,6 +1248,101 @@ function calcs.defence(env, actor)
 				end
 				t_insert(breakdown[damageType.."TakenReflectMult"], s_format("Taken: %.3f", takenMultReflect))
 				t_insert(breakdown[damageType.."TakenReflectMult"], s_format("= %.3f", finalReflect))
+			end
+		end
+	end
+	
+	-- stun
+	do
+		local stunThresholdBase = 0
+		local stunThresholdSource = nil
+		if modDB:Flag(nil, "StunThresholdBasedOnEnergyShieldInsteadOfLife") then
+			local stunThresholdMult = modDB:Sum("BASE", nil, "StunThresholdEnergyShieldPercent")
+			stunThresholdBase = output.EnergyShield * stunThresholdMult / 100
+			stunThresholdSource = stunThresholdMult.."% of Energy Shield"
+		elseif modDB:Flag(nil, "StunThresholdBasedOnManaInsteadOfLife") then
+			local stunThresholdMult = modDB:Sum("BASE", nil, "StunThresholdManaPercent")
+			stunThresholdBase = output.Mana * stunThresholdMult / 100
+			stunThresholdSource = stunThresholdMult.."% of Mana"
+		elseif modDB:Flag(nil, "ChaosInoculation") then
+			stunThresholdBase = modDB:Sum("BASE", nil, "Life")
+			stunThresholdSource = "Life before Chaos Inoculation"
+		else
+			stunThresholdBase = output.Life
+			stunThresholdSource = "Life"
+		end
+		local StunThresholdMod = (1 + modDB:Sum("INC", nil, "StunThreshold") / 100)
+		output.StunThreshold = stunThresholdBase * StunThresholdMod
+		if breakdown then
+			breakdown.StunThreshold = { s_format("%d ^8(base from %s)", stunThresholdBase, stunThresholdSource) }
+			if StunThresholdMod ~= 1 then
+				t_insert(breakdown.StunThreshold, s_format("* %.2f ^8(increased threshold)", StunThresholdMod))
+				t_insert(breakdown.StunThreshold, s_format("= %d", output.StunThreshold))
+			end
+		end
+		local notAvoidChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
+		if output.EnergyShield > output["totalTakenHit"] then
+			notAvoidChance = notAvoidChance * 0.5
+		end
+		output.StunAvoidChance = 100 - notAvoidChance
+		if output.StunAvoidChance >= 100 then
+			output.StunDuration = 0
+			output.BlockDuration = 0
+			if breakdown then
+				breakdown.StunDuration = {"Cannot be Stunned"}
+				breakdown.BlockDuration = {"Cannot be Stunned"}
+			end
+		else
+			local stunDuration = (1 + modDB:Sum("INC", nil, "StunDuration") / 100)
+			local baseStunDuration = data.misc.StunBaseDuration
+			local stunRecovery = (1 + modDB:Sum("INC", nil, "StunRecovery") / 100)
+			local stunAndBlockRecovery = (1 + modDB:Sum("INC", nil, "StunRecovery", "BlockRecovery") / 100)
+			output.StunDuration = baseStunDuration * stunDuration / stunRecovery
+			output.BlockDuration = baseStunDuration * stunDuration / stunAndBlockRecovery
+			if breakdown then
+				breakdown.StunDuration = {s_format("%.2fs ^8(base)", baseStunDuration)}
+				breakdown.BlockDuration = {s_format("%.2fs ^8(base)", baseStunDuration)}
+				if stunDuration ~= 1 then
+					t_insert(breakdown.StunDuration, s_format("* %.2f ^8(increased duration)", stunDuration))
+					t_insert(breakdown.BlockDuration, s_format("* %.2f ^8(increased duration)", stunDuration))
+				end
+				if stunRecovery ~= 1 then
+					t_insert(breakdown.StunDuration, s_format("/ %.2f ^8(increased/reduced recovery)", stunRecovery))
+				end
+				if stunAndBlockRecovery ~= 1 then
+					t_insert(breakdown.BlockDuration, s_format("/ %.2f ^8(increased/reduced block recovery)", stunAndBlockRecovery))
+				end
+				if output.StunDuration ~= baseStunDuration then
+					t_insert(breakdown.StunDuration, s_format("= %.2fs", output.StunDuration))
+				end
+				if output.BlockDuration ~= baseStunDuration then
+					t_insert(breakdown.BlockDuration, s_format("= %.2fs", output.BlockDuration))
+				end
+			end
+		end
+		output.InterruptStunAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidInterruptStun"), 100)
+		local effectiveEnemyDamage = output["totalTakenHit"] + output["PhysicalTakenHit"] * 0.25
+		if damageCategoryConfig ~= "Average" then
+			effectiveEnemyDamage = effectiveEnemyDamage * (1 + data.misc.StunNotMeleeDamageMult * 3) / 4
+		elseif damageCategoryConfig ~= "Melee" then
+			effectiveEnemyDamage = effectiveEnemyDamage * data.misc.StunNotMeleeDamageMult
+		end
+		local baseStunChance = m_min(data.misc.StunBaseMult * effectiveEnemyDamage / output.StunThreshold, 100)
+		output.SelfStunChance = (baseStunChance > data.misc.MinStunChanceNeeded and baseStunChance or 0) * notAvoidChance / 100
+		if breakdown then
+			breakdown.SelfStunChance = {
+				s_format("%d%% ^8(stun multiplier)", data.misc.StunBaseMult),
+				s_format("* %.1f ^8(effective enemy stun damage)", effectiveEnemyDamage),
+				s_format("/ %d ^8(stun threshold)", output.StunThreshold)
+			}
+			if baseStunChance < data.misc.MinStunChanceNeeded then
+				t_insert(breakdown.SelfStunChance, s_format("= %.2f%%", baseStunChance))
+				t_insert(breakdown.SelfStunChance, s_format("Stun Chance has to be more than %d%% to stun.", data.misc.MinStunChanceNeeded))
+			else
+				if notAvoidChance ~= 100 then
+					t_insert(breakdown.SelfStunChance, s_format("* %.2f ^8(1 - chance to avoid stun)", notAvoidChance / 100))
+				end
+				t_insert(breakdown.SelfStunChance, s_format("= %.2f%%", output.SelfStunChance))
 			end
 		end
 	end
@@ -1833,14 +1925,14 @@ function calcs.defence(env, actor)
 	
 	-- survival time
 	do
-		local enemySkillTime = env.configInput.enemySpeed or env.configPlaceholder.enemySpeed or 700
+		output.enemySkillTime = env.configInput.enemySpeed or env.configPlaceholder.enemySpeed or 700
 		local enemyActionSpeed = calcs.actionSpeedMod(actor.enemy)
-		enemySkillTime = enemySkillTime / 1000 / enemyActionSpeed
-		output["EHPsurvivalTime"] = output["TotalNumberOfHits"] * enemySkillTime
+		output.enemySkillTime = output.enemySkillTime / 1000 / enemyActionSpeed
+		output["EHPsurvivalTime"] = output["TotalNumberOfHits"] * output.enemySkillTime
 		if breakdown then
 			breakdown["EHPsurvivalTime"] = {
 				s_format("%.2f ^8(total average number of hits you can take)", output["TotalNumberOfHits"]),
-				s_format("x %.2f ^8enemy attack/cast time", enemySkillTime),
+				s_format("x %.2f ^8enemy attack/cast time", output.enemySkillTime),
 				s_format("= %.2f seconds ^8(total time it would take to die)", output["EHPsurvivalTime"]),
 			}
 		end
@@ -1865,7 +1957,36 @@ function calcs.defence(env, actor)
 				s_format("= %.2f per second", output["LifeLossBelowHalfLostAvg"]),
 			}
 		end
+	end
+	
+	-- pvp
+	if env.configInput.PvpScaling then
+		local PvpTvalue = output.enemySkillTime
+		local PvpMultiplier = (env.configInput.enemyMultiplierPvpDamage or 100) / 100
 		
+		local PvpNonElemental1 = data.misc.PvpNonElemental1
+		local PvpNonElemental2 = data.misc.PvpNonElemental2
+		local PvpElemental1 = data.misc.PvpElemental1
+		local PvpElemental2 = data.misc.PvpElemental2
+
+		local percentageNonElemental = (output["PhysicalTakenHit"] + output["ChaosTakenHit"]) / output["totalTakenHit"]
+		local percentageElemental = 1 - percentageNonElemental
+		local portionNonElemental = (output["totalTakenHit"] / PvpTvalue / PvpNonElemental2 ) ^ PvpNonElemental1 * PvpTvalue * PvpNonElemental2 * percentageNonElemental
+		local portionElemental = (output["totalTakenHit"] / PvpTvalue / PvpElemental2 ) ^ PvpElemental1 * PvpTvalue * PvpElemental2 * percentageElemental
+		output.PvPTotalTakenHit = ((portionNonElemental or 0) + (portionElemental or 0)) * PvpMultiplier
+
+		if breakdown then
+			breakdown.PvPTotalTakenHit = { 
+				s_format("Pvp Formula is (D/(T*M))^E*T*M*P, where D is the damage, T is the time taken," ),
+				s_format("M is the multiplier, E is the exponent and P is the percentage of that type (ele or non ele)"),
+				s_format("(M=%.1f for ele and %.1f for non-ele)(E=%.2f for ele and %.2f for non-ele)", PvpElemental2, PvpNonElemental2, PvpElemental1, PvpNonElemental1),
+				s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output["totalTakenHit"], PvpTvalue, PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, percentageNonElemental, portionNonElemental),
+				s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output["totalTakenHit"], PvpTvalue, PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, percentageElemental, portionElemental),
+				s_format("(portionNonElemental + portionElemental) * PvP multiplier"),
+				s_format("(%.1f + %.1f) * %.1f", portionNonElemental, portionElemental, PvpMultiplier),
+				s_format("= %.1f", output.PvPTotalTakenHit)
+			}
+		end
 	end
 
 	-- effective health pool vs dots
