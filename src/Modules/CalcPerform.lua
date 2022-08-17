@@ -974,7 +974,7 @@ local function doActorMisc(env, actor)
 			end
 			local effect = output.ElusiveEffectMod / 100
 			condList["Elusive"] = true
-			modDB:NewMod("AvoidAllDamagefromHitsChance", "BASE", m_floor(15 * effect), "Elusive")
+			modDB:NewMod("AvoidAllDamageFromHitsChance", "BASE", m_floor(15 * effect), "Elusive")
 			modDB:NewMod("MovementSpeed", "INC", m_floor(30 * effect), "Elusive")
 		end
 		if modDB:Max(nil, "WitherEffectStack") then
