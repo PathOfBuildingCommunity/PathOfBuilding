@@ -97,14 +97,36 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 
 	-- Process support skills
 	activeSkill.effectList = { activeEffect }
-	for _, supportEffect in ipairs(supportList) do
+	local rejectedSupportsIndices = {}
+
+	for index, supportEffect in ipairs(supportList) do
 		-- Pass 1: Add skill types from compatible supports
 		if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
 			for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
 				activeSkill.skillTypes[skillType] = true
 			end
+		else
+			t_insert(rejectedSupportsIndices, index)
 		end
 	end
+
+	-- loop over rejected supports unitl none are added.
+	-- Makes sure that all skillType flags that should be added are added regardless or support gem order in group
+	local notAddedNewSupport = true
+	repeat
+		notAddedNewSupport = true
+		for index, supportEffectIndex in ipairs(rejectedSupportsIndices) do
+			local supportEffect = supportList[supportEffectIndex]
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+				notAddedNewSupport = false
+				rejectedSupportsIndices[index] = nil
+				for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
+					activeSkill.skillTypes[skillType] = true
+				end
+			end
+		end
+	until (notAddedNewSupport)
+	
 	for _, supportEffect in ipairs(supportList) do
 		-- Pass 2: Add all compatible supports
 		if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
