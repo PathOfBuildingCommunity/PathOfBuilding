@@ -771,7 +771,17 @@ function TreeTabClass:FindTimelessJewel()
 		{ label = "Militant Faith", name = "templar", id = 4 },
 		{ label = "Elegant Hubris", name = "eternal", id = 5 }
 	}
-	timelessData.jewelType = next(timelessData.jewelType) and timelessData.jewelType or jewelTypes[1]
+	-- rebuild `timelessData.jewelType` as we only store the minimum amount of `jewelType` data in build XML
+	if next(timelessData.jewelType) then
+		for idx, jewelType in ipairs(jewelTypes) do
+			if jewelType.id == timelessData.jewelType.id then
+				timelessData.jewelType = jewelType
+				break
+			end
+		end
+	else
+		timelessData.jewelType = jewelTypes[1]
+	end
 	local conquerorTypes = {
 		[1] = {
 			{ label = "Doryani (Corrupted Soul)", id = 1 },
@@ -799,7 +809,17 @@ function TreeTabClass:FindTimelessJewel()
 			{ label = "Caspiro (Supreme Ostentation)", id = 3 }
 		}
 	}
-	timelessData.conquerorType = next(timelessData.conquerorType) and timelessData.conquerorType or conquerorTypes[timelessData.jewelType.id][1]
+	-- rebuild `timelessData.jewelType` as we only store the minimum amount of `conquerorType` data in build XML
+	if next(timelessData.conquerorType) then
+		for idx, conquerorType in ipairs(conquerorTypes[timelessData.jewelType.id]) do
+			if conquerorType.id == timelessData.conquerorType.id then
+				timelessData.conquerorType = conquerorType
+				break
+			end
+		end
+	else
+		timelessData.conquerorType = conquerorTypes[timelessData.jewelType.id][1]
+	end
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
 		if socketData.isJewelSocket then
@@ -828,7 +848,17 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 	t_sort(jewelSockets, function(a, b) return a.label < b.label end)
-	timelessData.jewelSocket = next(timelessData.jewelSocket) and timelessData.jewelSocket or jewelSockets[1]
+	-- rebuild `timelessData.jewelSocket` as we only store the minimum amount of `jewelSocket` data in build XML
+	if next(timelessData.jewelSocket) then
+		for idx, jewelSocket in ipairs(jewelSockets) do
+			if jewelSocket.id == timelessData.jewelSocket.id then
+				timelessData.jewelSocket = jewelSocket
+				break
+			end
+		end
+	else
+		timelessData.jewelSocket = jewelSockets[1]
+	end
 
 	local function buildMods()
 		wipeTable(modData)
@@ -1010,13 +1040,6 @@ function TreeTabClass:FindTimelessJewel()
 		timelessData.jewelSocket = value
 		self.build.modFlag = true
 	end, self.build, socketViewer)
-	-- we need to search through `jewelSockets` for the correct `id` as the `idx` can become stale due to dynamic sorting
-	for idx, jewelSocket in ipairs(jewelSockets) do
-		if jewelSocket.id == timelessData.jewelSocket.id then
-			controls.socketSelect.selIndex = idx
-			break
-		end
-	end
 
 	controls.socketFilterLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 100, 0, 16, "^7Filter Nodes:")
 	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 18, nil, function(value)

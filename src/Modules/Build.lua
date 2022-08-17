@@ -793,7 +793,6 @@ function buildMode:Load(xml, fileName)
 			end
 		elseif child.elem == "TimelessData" then
 			self.timelessData.jewelType = {
-				name = child.attrib.jewelTypeName,
 				id = tonumber(child.attrib.jewelTypeId)
 			}
 			self.timelessData.conquerorType = {
@@ -874,7 +873,6 @@ function buildMode:Save(xml)
 	local timelessData = {
 		elem = "TimelessData",
 		attrib = {
-			jewelTypeName = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.name),
 			jewelTypeId = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.id),
 			conquerorTypeId = next(self.timelessData.conquerorType) and tostring(self.timelessData.conquerorType.id),
 			jewelSocketId = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.id),
