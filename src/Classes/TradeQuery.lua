@@ -208,7 +208,7 @@ function TradeQueryClass:PriceItem()
 	local top_pane_alignment_height = 8
 	-- Row spacing reference is now the name, which is a smaller font than the total height
 	local pane_height = (top_pane_alignment_height + row_height) * row_count - 4*row_count + 50
-	local pane_width = 750
+	local pane_width = 850
 	local cnt = 1
 
 	local newItemList = { }
@@ -255,14 +255,14 @@ function TradeQueryClass:PriceItem()
 	self.controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
 	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
 
-	self.maxFetchPerSearchDefault = 1
+	self.maxFetchPerSearchDefault = 2
 	self.controls.fetchcountEdit = new("EditControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, row_height, "", "Fetch Pages", "%D", 3, function(buf)
-		self.maxFetchPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, self.maxFetchPerSearchDefault), 5)
-		self.maxFetchPerSearch = 20 * self.maxFetchPages
+		self.maxFetchPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, 1), 10)
+		self.tradeQueryRequests.maxFetchPerSearch = 10 * self.maxFetchPages
 		self.controls.fetchcountEdit.focusValue = self.maxFetchPages
 	end)
 	self.controls.fetchcountEdit.focusValue = self.maxFetchPerSearchDefault
-	self.maxFetchPerSearch = 20 * self.maxFetchPerSearchDefault
+	self.tradeQueryRequests.maxFetchPerSearch = 10 * self.maxFetchPerSearchDefault
 	self.controls.fetchcountEdit:SetText(tostring(self.maxFetchPages or self.maxFetchPerSearchDefault))
 	function self.controls.fetchcountEdit:OnFocusLost()
 		self:SetText(tostring(self.focusValue))
@@ -270,8 +270,8 @@ function TradeQueryClass:PriceItem()
 	self.controls.fetchcountEdit.tooltipFunc = function(tooltip)
 		tooltip:Clear()
 		tooltip:AddLine(16, "Specify maximum number of item pages to retrieve per search from PoE Trade.")
-		tooltip:AddLine(16, "Each page fetches up to 20 items.")
-		tooltip:AddLine(16, "Acceptable Range is: 1 to 5")
+		tooltip:AddLine(16, "Each page fetches up to 10 items.")
+		tooltip:AddLine(16, "Acceptable Range is: 1 to 10")
 	end
 
 	-- League selection
@@ -385,14 +385,20 @@ function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
 		currency = self.resultTbl[index][pb_index].currency,
 		amount = self.resultTbl[index][pb_index].amount,
 	}
-
 	self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
+	local dropdownLabels = {}
+	for i = 1, #self.resultTbl[index] do
+		local pb_index = self.sortedResultTbl[index][i].index
+		local item = new("Item", self.resultTbl[index][pb_index].item_string)
+		table.insert(dropdownLabels, colorCodes[item.rarity]..item.name)
+	end
+	self.controls["resultDropdown"..index]:SetList(dropdownLabels)
 end
 
 -- Method to set the current result return in the pane based of an index
-function TradeQueryClass:SetFetchResultReturn(slotIndex, pb_index)
-	if self.resultTbl[slotIndex] and self.resultTbl[slotIndex][pb_index] then
-		local pb_index = self.sortedResultTbl[slotIndex][pb_index].index
+function TradeQueryClass:SetFetchResultReturn(slotIndex, index)
+	if self.resultTbl[slotIndex] and self.resultTbl[slotIndex][index] then
+		local pb_index = self.sortedResultTbl[slotIndex][index].index
 		self.totalPrice[slotIndex] = {
 			currency = self.resultTbl[slotIndex][pb_index].currency,
 			amount = self.resultTbl[slotIndex][pb_index].amount,
@@ -476,7 +482,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 	controls["bestButton"..str_cnt].enabled = function() return main.POESESSID ~= "" end
 	controls["bestButton"..str_cnt].shown = function() return not self.resultTbl[str_cnt] end
 	controls["bestButton"..str_cnt].tooltipText = "Creates a weighted search to find the highest DPS items for this slot.  This requires a valid session ID."
-	controls["uri"..str_cnt] = new("EditControl", {"TOPLEFT",controls["bestButton"..str_cnt],"TOPRIGHT"}, 8, 0, 400, row_height, nil, nil, "^%C\t\n", nil, nil, nil)
+	controls["uri"..str_cnt] = new("EditControl", {"TOPLEFT",controls["bestButton"..str_cnt],"TOPRIGHT"}, 8, 0, 518, row_height, nil, nil, "^%C\t\n", nil, nil, nil)
 	controls["uri"..str_cnt]:SetPlaceholder("Paste trade URL here...")
 	if activeSlotRef and activeSlotRef.pbURL ~= "" and activeSlotRef.pbURL ~= nil then
 		controls["uri"..str_cnt]:SetText(activeSlotRef.pbURL)
@@ -526,37 +532,22 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 		self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
 	end)
 	controls["changeButton"..str_cnt].shown = function() return self.resultTbl[str_cnt] end
-	local function resultPrev()
-		self.itemIndexTbl[str_cnt] = clampItemIndex(self.itemIndexTbl[str_cnt] - 1)
+	local dropdownLabels = {}
+	for _, sortedResult in ipairs(self.sortedResultTbl[str_cnt] or {}) do
+		local item = new("Item", self.resultTbl[str_cnt][sortedResult.index].item_string)
+		table.insert(dropdownLabels, colorCodes[item.rarity]..item.name)
+	end
+	controls["resultDropdown"..str_cnt] = new("DropDownControl", {"TOPLEFT",controls["changeButton"..str_cnt],"TOPRIGHT"}, 8, 0, 325, row_height, dropdownLabels, function(index)
+		self.itemIndexTbl[str_cnt] = self.sortedResultTbl[str_cnt][index].index
 		self:SetFetchResultReturn(str_cnt, self.itemIndexTbl[str_cnt])
-	end
-	local function resultNext()
-		self.itemIndexTbl[str_cnt] = clampItemIndex(self.itemIndexTbl[str_cnt] + 1)
-		self:SetFetchResultReturn(str_cnt, self.itemIndexTbl[str_cnt])
-	end
-	controls["resultPrev"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["changeButton"..str_cnt],"TOPRIGHT"}, 8, 0, 20, row_height, "<<", resultPrev) --/*320+8+*/
-	controls["resultPrev"..str_cnt].enabled = function()
-		return self.itemIndexTbl[str_cnt] ~= nil and self.itemIndexTbl[str_cnt] > 1
-	end
-	controls["resultCount"..str_cnt] = new("LabelTooltipControl", {"TOPLEFT",controls['resultPrev'..str_cnt],"TOPRIGHT"}, 8, 0, 100, 18,
-	function() return self.sortedResultTbl[str_cnt] and ("^7" .. self.itemIndexTbl[str_cnt] .. "/" .. #self.sortedResultTbl[str_cnt]) or "No Results" end, "Use mouse wheel to navigate between items.")
-	controls["resultCount"..str_cnt].onPrevious = resultPrev
-	controls["resultCount"..str_cnt].onNext = resultNext
-	controls["resultCount"..str_cnt].tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		if self.itemIndexTbl[str_cnt] and self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string then
-			-- TODO: item parsing bug caught here.
-			-- item.baseName is nil and throws error in the following AddItemTooltip func
-			-- if the item is unidentified
-			local item = new("Item", self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string)
-			self.itemsTab:AddItemTooltip(tooltip, item, nil, true)
+	end)
+	controls["resultDropdown"..str_cnt].tooltipFunc = function(tooltip, mode, index, itemId)
+			local pb_index = self.sortedResultTbl[str_cnt][index].index
+			local item = new("Item", self.resultTbl[str_cnt][pb_index].item_string)
+			tooltip:Clear()
+			self.itemsTab:AddItemTooltip(tooltip, item, self)
 		end
-	end
-	controls["resultNext"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls['resultCount'..str_cnt],"TOPRIGHT"}, 8, 0, 20, row_height, ">>", resultNext)
-	controls["resultNext"..str_cnt].enabled = function()
-		return self.itemIndexTbl[str_cnt] ~= nil and self.itemIndexTbl[str_cnt] < (self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1)
-	end 
-	controls["importButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["resultNext"..str_cnt],"TOPRIGHT"}, 8, 0, 100, row_height, "Import Item", function()
+	controls["importButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["resultDropdown"..str_cnt],"TOPRIGHT"}, 8, 0, 100, row_height, "Import Item", function()
 		self.itemsTab:CreateDisplayItemFromRaw(self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string)
 		local item = self.itemsTab.displayItem
 		-- pass "true" to not auto equip it as we will have our own logic
@@ -584,7 +575,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 		return self.itemIndexTbl[str_cnt] and self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string ~= nil
 	end
 	-- Whisper so we can copy to clipboard
-	controls["whisperButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["importButton"..str_cnt],"TOPRIGHT"}, 8, 0, 197, row_height, function()
+	controls["whisperButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["importButton"..str_cnt],"TOPRIGHT"}, 8, 0, 185, row_height, function()
 		return self.totalPrice[str_cnt] and "Whisper for " .. self.totalPrice[str_cnt].amount .. " " .. self.totalPrice[str_cnt].currency or "Whisper"
 	end, function()
 		Copy(self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].whisper)

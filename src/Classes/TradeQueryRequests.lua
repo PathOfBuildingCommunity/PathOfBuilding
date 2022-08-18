@@ -8,6 +8,7 @@ local dkjson = require "dkjson"
 
 ---@class TradeQueryRequests
 local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, tradeQuery, rateLimiter)
+	self.maxFetchPerSearch = 10
 	self.tradeQuery = tradeQuery
     self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter")
     self.requestQueue = {
@@ -115,7 +116,7 @@ end
 ---@param queryId string
 ---@param callback fun(items:table, errMsg:string)
 function TradeQueryRequestsClass:FetchResults(itemHashes, queryId, callback)
-	local quantity_found = math.min(#itemHashes, self.tradeQuery.maxFetchPerSearch)
+	local quantity_found = math.min(#itemHashes, self.maxFetchPerSearch)
 	local max_block_size = 10
 	local items = {}
 	for fetch_block_start = 1, quantity_found, max_block_size do
@@ -228,7 +229,7 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 				query.sort = {}
 				query.sort["statgroup.0"] = "desc"
 			else
-				query.sort = { price = "asc "}
+				query.sort = { price = "asc"}
 			end
 			query.query.status = { option = query.query.status} -- works either way?
 			local queryStr = dkjson.encode(query)
