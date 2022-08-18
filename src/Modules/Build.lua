@@ -599,6 +599,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.data = data
 	self.importTab = new("ImportTab", self)
 	self.notesTab = new("NotesTab", self)
+	self.partyTab = new("PartyTab", self)
 	self.configTab = new("ConfigTab", self)
 	self.itemsTab = new("ItemsTab", self)
 	self.treeTab = new("TreeTab", self)
@@ -609,6 +610,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.savers = {
 		["Config"] = self.configTab,
 		["Notes"] = self.notesTab,
+		["Party"] = self.partyTab,
 		["Tree"] = self.treeTab,
 		["TreeView"] = self.treeTab.viewer,
 		["Items"] = self.itemsTab,
@@ -933,6 +935,7 @@ end
 function buildMode:ResetModFlags()
 	self.modFlag = false
 	self.notesTab.modFlag = false
+	self.partyTab.modFlag = false
 	self.configTab.modFlag = false
 	self.treeTab.modFlag = false
 	self.treeTab.searchFlag = false
@@ -986,6 +989,8 @@ function buildMode:OnFrame(inputEvents)
 					self.viewMode = "CONFIG"
 				elseif event.key == "6" then
 					self.viewMode = "NOTES"
+				elseif event.key == "7" then
+					self.viewMode = "PARTY"
 				end
 			end
 		end
@@ -1038,9 +1043,11 @@ function buildMode:OnFrame(inputEvents)
 		height = main.screenH - 32
 	}
 	if self.viewMode == "IMPORT" then
-		self.importTab:Draw(tabViewPort, inputEvents)
+		self.importTab:Draw(tabViewPort, inputEvents)  
 	elseif self.viewMode == "NOTES" then
 		self.notesTab:Draw(tabViewPort, inputEvents)
+	elseif self.viewMode == "PARTY" then
+		self.partyTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "CONFIG" then
 		self.configTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "TREE" then

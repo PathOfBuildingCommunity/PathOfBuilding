@@ -1925,6 +1925,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	local minionCurses = {
 		limit = 1,
 	}
+	local allyBuffs = env.build.partyTab:ParseAuras()
 	for spectreId = 1, #env.spec.build.spectreList do
 		local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
 		for modId = 1, #spectreData.modList do
@@ -1984,6 +1985,15 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				end
 			elseif buff.type == "Aura" then
 				if env.mode_buffs then
+					local buffName = buff.name:gsub(" ","")
+					if allyBuffs[buffName] then
+						ConPrintf("aura found")
+						ConPrintf(buffName)
+						ConPrintTable(allyBuffs[buffName])
+					else
+						ConPrintf("aura not found")
+						ConPrintf(buffName)
+					end
 					-- Check for extra modifiers to apply to aura skills
 					local extraAuraModList = { }
 					for _, value in ipairs(modDB:List(skillCfg, "ExtraAuraEffect")) do
@@ -2000,31 +2010,35 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 						end
 					end
 					if not activeSkill.skillData.auraCannotAffectSelf then
-						activeSkill.buffSkill = true
-						modDB.conditions["AffectedByAura"] = true
-						if buff.name:sub(1,4) == "Vaal" then
-							modDB.conditions["AffectedBy"..buff.name:sub(6):gsub(" ","")] = true
-						end
-						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-						local srcList = new("ModList")
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect", "SkillAuraEffectOnSelf")
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect", "SkillAuraEffectOnSelf")
 						local mult = (1 + inc / 100) * more
-						srcList:ScaleAddList(buff.modList, mult)
-						srcList:ScaleAddList(extraAuraModList, mult)
-						mergeBuff(srcList, buffs, buff.name)
+						if modDB:Flag(nil, "AlliesAurasCannotAffectSelf") or (not (allyBuffs[buffName] and allyBuffs[buffName].effectMult / 100 > mult)) then
+							activeSkill.buffSkill = true
+							affectedByAura[env.player] = true
+							if buff.name:sub(1,4) == "Vaal" then
+								modDB.conditions["AffectedBy"..buff.name:sub(6):gsub(" ","")] = true
+							end
+							modDB.conditions["AffectedBy"..buffName] = true
+							local srcList = new("ModList")
+							srcList:ScaleAddList(buff.modList, mult)
+							srcList:ScaleAddList(extraAuraModList, mult)
+							mergeBuff(srcList, buffs, buff.name)
+						end
 					end
 					if env.minion and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAurasOnlyAffectYou") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
-						activeSkill.minionBuffSkill = true
-						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-						env.minion.modDB.conditions["AffectedByAura"] = true
-						local srcList = new("ModList")
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 						local mult = (1 + inc / 100) * more
-						srcList:ScaleAddList(buff.modList, mult)
-						srcList:ScaleAddList(extraAuraModList, mult)
-						mergeBuff(srcList, minionBuffs, buff.name)
+						if not(allyBuffs[buffName] and allyBuffs[buffName].effectMult / 100 > mult) then
+							activeSkill.minionBuffSkill = true
+							affectedByAura[env.minion] = true
+							env.minion.modDB.conditions["AffectedBy"..buffName] = true
+							local srcList = new("ModList")
+							srcList:ScaleAddList(buff.modList, mult)
+							srcList:ScaleAddList(extraAuraModList, mult)
+							mergeBuff(srcList, minionBuffs, buff.name)
+						end
 					end
 					if env.player.mainSkill.skillFlags.totem and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						activeSkill.totemBuffSkill = true
@@ -2224,6 +2238,23 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					end
 				end
 			end
+		end
+	end
+	for auraName, aura in pairs(allyBuffs) do
+		ConPrintTable(aura)
+		if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") and not modDB.conditions["AffectedBy"..auraName] then
+			affectedByAura[env.player] = true
+			modDB.conditions["AffectedBy"..auraName] = true
+			local srcList = new("ModList")
+			srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
+			mergeBuff(srcList, buffs, auraName)
+		end
+		if env.minion and not env.minion.modDB.conditions["AffectedBy"..auraName] then
+			affectedByAura[env.minion] = true
+			env.minion.modDB.conditions["AffectedBy"..auraName] = true
+			local srcList = new("ModList")
+			srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
+			mergeBuff(srcList, minionBuffs, auraName)
 		end
 	end
 
