@@ -1926,6 +1926,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		limit = 1,
 	}
 	local allyBuffs = env.build.partyTab:ParseAuras()
+	local buffExports = {}
 	for spectreId = 1, #env.spec.build.spectreList do
 		local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
 		for modId = 1, #spectreData.modList do
@@ -1985,15 +1986,6 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				end
 			elseif buff.type == "Aura" then
 				if env.mode_buffs then
-					local buffName = buff.name:gsub(" ","")
-					if allyBuffs[buffName] then
-						ConPrintf("aura found")
-						ConPrintf(buffName)
-						ConPrintTable(allyBuffs[buffName])
-					else
-						ConPrintf("aura not found")
-						ConPrintf(buffName)
-					end
 					-- Check for extra modifiers to apply to aura skills
 					local extraAuraModList = { }
 					for _, value in ipairs(modDB:List(skillCfg, "ExtraAuraEffect")) do
@@ -2009,6 +2001,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 							t_insert(extraAuraModList, copyTable(value.mod, true))
 						end
 					end
+					local buffName = buff.name:gsub(" ","")
 					if not activeSkill.skillData.auraCannotAffectSelf then
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect", "SkillAuraEffectOnSelf")
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect", "SkillAuraEffectOnSelf")
@@ -2026,19 +2019,25 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 							mergeBuff(srcList, buffs, buff.name)
 						end
 					end
-					if env.minion and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAurasOnlyAffectYou") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
-						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-						local mult = (1 + inc / 100) * more
-						if not(allyBuffs[buffName] and allyBuffs[buffName].effectMult / 100 > mult) then
-							activeSkill.minionBuffSkill = true
-							affectedByAura[env.minion] = true
-							env.minion.modDB.conditions["AffectedBy"..buffName] = true
-							local srcList = new("ModList")
-							srcList:ScaleAddList(buff.modList, mult)
-							srcList:ScaleAddList(extraAuraModList, mult)
-							mergeBuff(srcList, minionBuffs, buff.name)
+					if not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAurasOnlyAffectYou") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
+						if env.minion then
+							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+							local mult = (1 + inc / 100) * more
+							if not(allyBuffs[buffName] and allyBuffs[buffName].effectMult / 100 > mult) then
+								activeSkill.minionBuffSkill = true
+								affectedByAura[env.minion] = true
+								env.minion.modDB.conditions["AffectedBy"..buffName] = true
+								local srcList = new("ModList")
+								srcList:ScaleAddList(buff.modList, mult)
+								srcList:ScaleAddList(extraAuraModList, mult)
+								mergeBuff(srcList, minionBuffs, buff.name)
+							end
 						end
+						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect")
+						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect")
+						local mult = (1 + inc / 100) * more
+						buffExports[buff.name] = { effectMult = mult, modList = buff.modList }
 					end
 					if env.player.mainSkill.skillFlags.totem and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						activeSkill.totemBuffSkill = true
@@ -2241,7 +2240,6 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 	end
 	for auraName, aura in pairs(allyBuffs) do
-		ConPrintTable(aura)
 		if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") and not modDB.conditions["AffectedBy"..auraName] then
 			affectedByAura[env.player] = true
 			modDB.conditions["AffectedBy"..auraName] = true
@@ -2257,6 +2255,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			mergeBuff(srcList, minionBuffs, auraName)
 		end
 	end
+	--ConPrintTable(buffExports)
+	env.build.partyTab:setBuffExports(buffExports)
 
 	-- Limited support for handling buffs originating from Spectres
 	for _, activeSkill in ipairs(env.player.activeSkillList) do

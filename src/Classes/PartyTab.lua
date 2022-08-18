@@ -10,6 +10,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.Control()
 
 	self.build = build
+	
+	self.buffExports = {}
 
 	self.lastContent = ""
 	self.showColorCodes = false
@@ -17,7 +19,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	local notesDesc = [[^7Party stuff	]]
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, notesDesc)
 
-	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.notesDesc,"TOPLEFT"}, 0, 48, 0, 0, "", nil, "^%C\t\n", nil, nil, 16, true)
+	--self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom
+	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.notesDesc,"TOPLEFT"}, 0, 48, 0, 0, "", nil, "^%C\t\n", nil, function() self.build.buildFlag = true end, 16, true)
 	self.controls.editAuras.width = function()
 		return self.width - 16
 	end
@@ -38,6 +41,7 @@ end
 
 function PartyTabClass:Save(xml)
 	t_insert(xml, self.controls.editAuras.buf)
+	t_insert(xml, PartyTabClass:exportAuras())
 	self.lastContent = self.controls.editAuras.buf
 end
 
@@ -96,4 +100,27 @@ function PartyTabClass:ParseAuras()
 		end
 	end
 	return allyBuffs
+end
+
+function PartyTabClass:setBuffExports(buffExports)
+	self.buffExports = copyTable(buffExports, true)
+end
+
+function PartyTabClass:exportAuras()
+	if not self.buffExports then
+		return ""
+	end
+	local buf = ""
+	for buffName, buff in pairs(self.buffExports) do
+		if #buf > 0 then
+			buf = buf.."\n"
+		end
+		buf = buf..buffName.."\n"..tostring(buff.effectMult).."\n"
+		for _, mod in ipairs(buff.modList) do
+			buf = buf..modLib.formatMod(mod)
+		end
+		buf = buf.."---"
+	end
+	
+	return buf
 end
