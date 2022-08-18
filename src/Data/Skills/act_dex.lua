@@ -213,6 +213,12 @@ skills["ArcticArmour"] = {
 		["new_arctic_armour_fire_damage_taken_when_hit_+%_final"] = {
 			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "Condition", var = "Stationary" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["base_immune_to_freeze"] = {
+			--Display only
+		},
+	},
+	baseMods = {
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	baseFlags = {
 		spell = true,
@@ -6534,11 +6540,15 @@ skills["ColdImpurity"] = {
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_freeze"] = {
-			mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+			--Display only
 		},
 		["base_immune_to_chill"] = {
-			mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+			--Display only
 		},
+	},
+	baseMods = {
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	baseFlags = {
 		spell = true,

@@ -52,7 +52,11 @@ local skills, mod, flag, skill = ...
 		["new_arctic_armour_fire_damage_taken_when_hit_+%_final"] = {
 			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "Condition", var = "Stationary" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["base_immune_to_freeze"] = {
+			--Display only
+		},
 	},
+#baseMod mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 #mods
 
 #skill ArtilleryBallista
@@ -1215,12 +1219,14 @@ local skills, mod, flag, skill = ...
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_freeze"] = {
-			mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+			--Display only
 		},
 		["base_immune_to_chill"] = {
-			mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+			--Display only
 		},
 	},
+#baseMod mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+#baseMod mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 #mods
 
 #skill RainOfArrows

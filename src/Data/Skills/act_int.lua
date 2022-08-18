@@ -7558,6 +7558,9 @@ skills["Purity"] = {
 		["reduce_enemy_elemental_resistance_%"] = {
 			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["immune_to_status_ailments"] = {
+			--Display only
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -7738,8 +7741,11 @@ skills["LightningImpurity"] = {
 			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_shock"] = {
-			mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+			--Display only
 		},
+	},
+	baseMods = {
+		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	baseFlags = {
 		spell = true,
