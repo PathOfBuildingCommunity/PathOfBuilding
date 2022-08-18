@@ -1095,6 +1095,29 @@ skills["Berserk"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local dt = 0.033
+		local rage_regen = output.RageRegen and output.RageRegen or 0
+		local max_rage = output.MaximumRage
+		local rage = math.min(activeSkill.skillModList:Sum("BASE", nil, "Multiplier:RageStack"), max_rage)
+		local berserk_uptime = 0
+		local minimumRage = activeSkill.skillData.minimumRage
+		local percentRageLoss = activeSkill.skillData.percentRageLoss
+		local rageLoss = activeSkill.skillData.rageLoss
+		if rage > minimumRage then
+			while rage > 0 do
+				rage = rage - dt * rageLoss * (1 + percentRageLoss * berserk_uptime)
+				rage = rage + dt * rage_regen
+				rage = math.min(rage, max_rage)
+				berserk_uptime = berserk_uptime + dt
+			end
+		end
+		if breakdown then
+			local BerserkDuration = { "Running a small simulation to calculate duration." }
+			breakdown.BerserkDuration = BerserkDuration
+		end
+		output.BerserkDuration = berserk_uptime
+	end,
 	statMap = {
 		["berserk_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
@@ -1113,6 +1136,16 @@ skills["Berserk"] = {
 		},
 		["berserk_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["berserk_minimum_rage"] = {
+			skill("minimumRage", nil),
+		},
+		["berserk_rage_loss_+%_per_second"] = {
+			skill("percentRageLoss", nil),
+			div = 100,
+		},
+		["berserk_base_rage_loss_per_second"] = {
+			skill("rageLoss", nil),
 		},
 	},
 	baseFlags = {

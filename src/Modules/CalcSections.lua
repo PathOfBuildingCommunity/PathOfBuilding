@@ -602,6 +602,7 @@ return {
 		{ modName = { "Duration", "PrimaryDuration", "SecondaryDuration", "SkillAndDamagingAilmentDuration" }, cfg = "skill" }, 
 	}, },
 	{ label = "Skill Duration", flag = "duration", haveOutput = "Duration", { format = "{3:output:Duration}s", { breakdown = "Duration" }, }, },
+	{ label = "Skill Duration", haveOutput = "BerserkDuration", { format = "{output:BerserkDuration}s", { breakdown = "BerserkDuration" }, { modName = { "RageRegen", "MaximumRage", "Multiplier:RageStack"} } }, },
 	{ label = "Secondary Duration", flag = "duration", haveOutput = "DurationSecondary", { format = "{3:output:DurationSecondary}s", { breakdown = "DurationSecondary" }, }, },
 	{ label = "Aura Duration", haveOutput = "AuraDuration", { format = "{3:output:AuraDuration}s", { breakdown = "AuraDuration" }, }, },
 	{ label = "Reserve Duration", haveOutput = "ReserveDuration", { format = "{3:output:ReserveDuration}s", { breakdown = "ReserveDuration" }, }, },
