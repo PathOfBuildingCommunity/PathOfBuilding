@@ -2532,8 +2532,22 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		elseif sourceId == "DelveImplicit" then
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
-					t_insert(modList, {
-						label = table.concat(mod, "/"),
+					local modLabel = table.concat(mod, "/")
+					if not groupIndexs[mod.group] then
+						t_insert(modList, {})
+						t_insert(modGroups, {
+							label = modLabel,
+							mod = mod,
+							modListIndex = #modList,
+							defaultOrder = i,
+						})
+						groupIndexs[mod.group] = #modGroups
+					--elseif mod[1].len() < modGroups[groupIndexs[mod.group] ].mod[1].len() then
+					--	modGroups[groupIndexs[mod.group]].label = modLabel
+					--	modGroups[groupIndexs[mod.group]].mod = mod
+					end
+					t_insert(modList[groupIndexs[mod.group]], {
+						label = modLabel,
 						mod = mod,
 						affixType = mod.type,
 						type = "custom",
@@ -2598,10 +2612,15 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 	end
 	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
 	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 150, 18, sourceList, function(index, value)
-		buildMods(value.sourceId)
-		controls.modGroupSelect:SetSel(1)
-		controls.modSelect.list = modList[modGroups[1].modListIndex]
-		controls.modSelect:SetSel(1)
+		if value.sourceId ~= "CUSTOM" then
+			controls.modSelectLabel.y = 70
+			buildMods(value.sourceId)
+			controls.modGroupSelect:SetSel(1)
+			controls.modSelect.list = modList[modGroups[1].modListIndex]
+			controls.modSelect:SetSel(1)
+		else
+			controls.modSelectLabel.y = 45
+		end
 	end)
 	controls.source.enabled = #sourceList > 1
 	controls.modGroupSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Type:")
@@ -2609,6 +2628,9 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		controls.modSelect.list = modList[value.modListIndex]
 		controls.modSelect:SetSel(1)
 	end)
+	controls.modGroupSelectLabel.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
 	controls.modGroupSelect.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
