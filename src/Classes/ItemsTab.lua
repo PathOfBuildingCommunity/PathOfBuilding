@@ -2451,15 +2451,32 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 	local controls = { }
 	local sourceList = { }
 	local modList = { }
+	local modGroups = {}
 	---Mutates modList to contain mods from the specified source
 	---@param sourceId string @The crafting source id to build the list of mods for
 	local function buildMods(sourceId)
 		wipeTable(modList)
+		wipeTable(modGroups)
+		local groupIndexs = {}
 		if sourceId == "EXARCH" or sourceId == "EATER" then
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
-					t_insert(modList, {
-						label = table.concat(mod, "/"),
+					local modLabel = table.concat(mod, "/")
+					if not groupIndexs[mod.group] then
+						t_insert(modList, {})
+						t_insert(modGroups, {
+							label = modLabel,
+							mod = mod,
+							modListIndex = #modList,
+							defaultOrder = i,
+						})
+						groupIndexs[mod.group] = #modGroups
+					--elseif mod[1].len() < modGroups[groupIndexs[mod.group] ].mod[1].len() then
+					--	modGroups[groupIndexs[mod.group]].label = modLabel
+					--	modGroups[groupIndexs[mod.group]].mod = mod
+					end
+					t_insert(modList[groupIndexs[mod.group]], {
+						label = modLabel,
 						mod = mod,
 						affixType = mod.type,
 						type = sourceId:lower(),
@@ -2467,7 +2484,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 					})
 				end
 			end
-			table.sort(modList, function(a, b)
+			table.sort(modGroups, function(a, b)
 				local modA = a.mod
 				local modB = b.mod
 				for i = 1, m_max(#modA, #modB) do
@@ -2481,6 +2498,22 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 				end
 				return modA.level > modB.level
 			end)
+			for i, _ in pairs(modList) do
+				table.sort(modList[i], function(a, b)
+					local modA = a.mod
+					local modB = b.mod
+					for i = 1, m_max(#modA, #modB) do
+						if not modA[i] then
+							return true
+						elseif not modB[i] then
+							return false
+						elseif modA.statOrder[i] ~= modB.statOrder[i] then
+							return modA.statOrder[i] < modB.statOrder[i]
+						end
+					end
+					return modA.level > modB.level
+				end)
+			end
 		elseif sourceId == "SYNTHESIS" then
 			for i, mod in pairs(self.displayItem.affixes) do
 				if sourceId:lower() == mod.type:lower() then -- weights are missing and so are 0, how do I determine what goes on what item?, also arnt these supposed to work on jewels?
@@ -2518,7 +2551,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		t_insert(sourceList, { label = "Eater of Worlds", sourceId = "EATER" })
 	end
 	if self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Jewel" then
-		t_insert(sourceList, { label = "Synth", sourceId = "SYNTHESIS" })
+		--t_insert(sourceList, { label = "Synth", sourceId = "SYNTHESIS" }) -- synth removed untill we get proper support for where the mods go
 		t_insert(sourceList, { label = "Delve", sourceId = "DelveImplicit" })
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
@@ -2537,28 +2570,18 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 				t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
 			end
 		elseif sourceId == "EXARCH" or sourceId == "EATER" then
-			local listMod = modList[controls.modSelect.selIndex]
-			local index = nil
+			local listMod = modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex]
+			local index
 			for i, implictMod in ipairs(item.implicitModLines) do
-				for _, mod in ipairs(modList) do
-					for _, modLine in ipairs(mod.mod) do
-						if modLine == implictMod.line then
-							index = i
-							break
-						end
-					end
-					if index then
-						break
-					end
-				end
-				if index then
+				if implictMod[listMod.type] and implictMod[listMod.type] == "{"..listMod.type.."}" then
+					index = i
 					break
 				end
 			end
 			if index then
-				for _, line in ipairs(listMod.mod) do
-					item.implicitModLines[index] = { line = line, modTags = listMod.mod.modTags, [listMod.type] = true }
-				end
+				for i, line in ipairs(listMod.mod) do
+                    item.implicitModLines[index + i - 1] = { line = line, modTags = listMod.mod.modTags, [listMod.type] = true }
+                end
 			else
 				for _, line in ipairs(listMod.mod) do
 					t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
@@ -2576,11 +2599,29 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 	controls.sourceLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 20, 0, 16, "^7Source:")
 	controls.source = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 20, 150, 18, sourceList, function(index, value)
 		buildMods(value.sourceId)
+		controls.modGroupSelect:SetSel(1)
+		controls.modSelect.list = modList[modGroups[1].modListIndex]
 		controls.modSelect:SetSel(1)
 	end)
 	controls.source.enabled = #sourceList > 1
-	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Modifier:")
-	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 600, 18, modList)
+	controls.modGroupSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Type:")
+	controls.modGroupSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 600, 18, modGroups, function(index, value)
+		controls.modSelect.list = modList[value.modListIndex]
+		controls.modSelect:SetSel(1)
+	end)
+	controls.modGroupSelect.shown = function()
+		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
+	end
+	controls.modGroupSelect.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value then
+			for _, line in ipairs(value.mod) do
+				tooltip:AddLine(16, "^7"..line)
+			end
+		end
+	end
+	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 70, 0, 16, "^7Modifier:")
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 70, 600, 18, modList[modGroups[1].modListIndex])
 	controls.modSelect.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
@@ -2596,7 +2637,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 	controls.custom.shown = function()
 		return sourceList[controls.source.selIndex].sourceId == "CUSTOM"
 	end
-	controls.save = new("ButtonControl", nil, -45, 75, 80, 20, "Add", function()
+	controls.save = new("ButtonControl", nil, -45, 100, 80, 20, "Add", function()
 		self:SetDisplayItem(addModifier())
 		main:ClosePopup()
 	end)
@@ -2604,10 +2645,10 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		tooltip:Clear()
 		self:AddItemTooltip(tooltip, addModifier())
 	end	
-	controls.close = new("ButtonControl", nil, 45, 75, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, 45, 100, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(710, 105, "Add Implicit to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")	
+	main:OpenPopup(710, 130, "Add Implicit to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")	
 end
 
 function ItemsTabClass:AddItemSetTooltip(tooltip, itemSet)
