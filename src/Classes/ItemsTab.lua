@@ -2561,8 +2561,12 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		end
 	end
 	if (self.displayItem.rarity ~= "UNIQUE" and self.displayItem.rarity ~= "RELIC") and (self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots") then
-		t_insert(sourceList, { label = "Searing Exarch", sourceId = "EXARCH" })
-		t_insert(sourceList, { label = "Eater of Worlds", sourceId = "EATER" })
+		if self.displayItem.cleansing then
+			t_insert(sourceList, { label = "Searing Exarch", sourceId = "EXARCH" })
+		end
+		if self.displayItem.tangle then
+			t_insert(sourceList, { label = "Eater of Worlds", sourceId = "EATER" })
+		end
 	end
 	if self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Jewel" then
 		--t_insert(sourceList, { label = "Synth", sourceId = "SYNTHESIS" }) -- synth removed untill we get proper support for where the mods go
@@ -2602,7 +2606,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 				end
 			end
 		else
-			local listMod = modList[controls.modSelect.selIndex]
+			local listMod = modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex]
 			for _, line in ipairs(listMod.mod) do
 				t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
 			end
