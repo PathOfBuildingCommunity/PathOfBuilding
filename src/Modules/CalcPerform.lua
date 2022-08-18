@@ -1878,7 +1878,7 @@ function calcs.perform(env, avoidCache)
 						srcList:ScaleAddList(buff.modList, mult)
 						srcList:ScaleAddList(extraAuraModList, mult)
 						mergeBuff(srcList, minionBuffs, buff.name)
-						mergeBuff(buff.unscalableModList, buffs, buff.name)
+						mergeBuff(buff.unscalableModList, minionBuffs, buff.name)
 					end
 				end
 			elseif buff.type == "Debuff" or buff.type == "AuraDebuff" then
