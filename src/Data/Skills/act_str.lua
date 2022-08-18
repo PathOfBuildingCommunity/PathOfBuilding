@@ -5384,6 +5384,9 @@ skills["FireImpurity"] = {
 		["base_maximum_fire_damage_resistance_%"] = {
 			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["base_immune_to_ignite"] = {
+			mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		},
 	},
 	baseFlags = {
 		spell = true,

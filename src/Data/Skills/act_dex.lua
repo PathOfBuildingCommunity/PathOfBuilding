@@ -6533,6 +6533,12 @@ skills["ColdImpurity"] = {
 		["base_maximum_cold_damage_resistance_%"] = {
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["base_immune_to_freeze"] = {
+			mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		},
+		["base_immune_to_chill"] = {
+			mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		},
 	},
 	baseFlags = {
 		spell = true,
