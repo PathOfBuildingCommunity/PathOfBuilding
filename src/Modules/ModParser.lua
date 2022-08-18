@@ -3685,9 +3685,13 @@ local specialModList = {
 	["you take (%d+)%% reduced extra damage from critical strikes"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num) } end,
 	["you take (%d+)%% reduced extra damage from critical strikes while you have no power charges"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num, { type = "StatThreshold", stat = "PowerCharges", threshold = 0, upper = true }) } end,
 	["you take (%d+)%% reduced extra damage from critical strikes by poisoned enemies"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Poisoned" }) } end,
-	["nearby allies have (%d+)%% chance to block attack damage per (%d+) strength you have"] = function(block, _, str)
-		return {  mod("ExtraAura", "LIST",
-				{onlyAllies = true, mod = mod("BlockChance", "BASE", block)}, {type = "PerStat", stat = "Str", div = tonumber(str)})} end,
+	["nearby allies have (%d+)%% chance to block attack damage per (%d+) strength you have"] = function(block, _, str) return {
+		mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("BlockChance", "BASE", block) }, { type = "PerStat", stat = "Str", div = tonumber(str) }),
+	} end,
+	-- Kalandra
+	["lose (%d+) life per second"] = function(num) return {
+		mod("LifeDegen", "BASE", num),
+	} end,
 }
 for _, name in pairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
