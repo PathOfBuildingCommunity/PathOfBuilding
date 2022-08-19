@@ -4,7 +4,7 @@ VERSION[2.21.0][2022/08/20]
 * Add support for new 3.19 skills and mods (Nostrademous, LocalIdentity)
   * Full support for all new skills
 * Add initial support for Eldritch Implicits (Regisle)
-* Add ability to automatically calculate # of Explosive Arrow Fuses (LocalIdentity)
+* Add the ability to automatically calculate # of Explosive Arrow Fuses (LocalIdentity)
 * Add breakdowns for Burning and Caustic ground from ailments (Regisle)
 * Add the Poised Prism and Elevore uniques (QuickStick123)
 * Add new Grand Spectrum mods (deathbeam)
@@ -12,13 +12,13 @@ VERSION[2.21.0][2022/08/20]
 --- User Interface ---
 * Fix PvP Hit Taken Colour (Regisle)
 * Update Heartstopper config text (Regisle)
-* Remove Main Hand background color from global Ignite Dot Multi section (TPlant)
+* Remove Main Hand background colour from global Ignite Dot Multi section (TPlant)
 * Add Keystone names to Timeless jewel variants (Regisle)
 
 --- Accuracy Improvements ---
 * Update Replica uniques (QuickStick123)
 * Update Deidbell (QuickStick123)
-* Update Ventor's Gamble and Soul RIpper (Lothrik)
+* Update Ventor's Gamble and Soul Ripper (Lothrik)
 * Fix missing life on Demon Stitcher (QuickStick123)
 
 --- Fixed Bugs ---
