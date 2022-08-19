@@ -2369,12 +2369,17 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 	end
 	local allyCurses = {}
-	for curseName, curse in pairs(env.build.partyTab.processedInput["Curse"]["Curse"]) do
+	local allyPartyCurses = env.build.partyTab.processedInput["Curse"]
+	if allyPartyCurses["Curse"] then
+		allyCurses.limit = allyPartyCurses.limit
+	else	
+		allyPartyCurses = { Curse = {} }
+	end
+	for curseName, curse in pairs(allyPartyCurses["Curse"]) do
 		curse.name = curseName
 		curse.priority = 0
 		t_insert(allyCurses, curse) --these need to be scaled
 	end
-	allyCurses.limit = env.build.partyTab.processedInput["Curse"].limit
 	
 
 	-- Set curse limit
