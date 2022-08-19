@@ -2372,7 +2372,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	for curseName, curse in pairs(env.build.partyTab.processedInput["Curse"]["Curse"]) do
 		curse.name = curseName
 		curse.priority = 0
-		t_insert(allyCurses, curse)
+		t_insert(allyCurses, curse) --these need to be scaled
 	end
 	allyCurses.limit = env.build.partyTab.processedInput["Curse"].limit
 	
@@ -2381,6 +2381,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	output.PowerChargesMax = m_max(modDB:Sum("BASE", nil, "PowerChargesMax"), 0) -- precalculate max charges for this.
 	output.EnemyCurseLimit = modDB:Flag(nil, "CurseLimitIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "EnemyCurseLimit")
 	curses.limit = output.EnemyCurseLimit
+	env.build.partyTab.buffExports["CurseLimit"] = curses.limit
 	-- Assign curses to slots
 	local curseSlots = { }
 	env.curseSlots = curseSlots
