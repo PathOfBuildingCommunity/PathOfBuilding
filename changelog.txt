@@ -1,8 +1,7 @@
-VERSION[2.21.1][2022/08/19]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.21.1][2022/08/20]
 
-* Fix caustic ground breakdown (deathbeam)
-
+--- Fixed Bugs ---
+* Fix crash related to Alchemists Mark (deathbeam)
 
 VERSION[2.21.0][2022/08/20]
 
