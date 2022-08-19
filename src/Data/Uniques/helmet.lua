@@ -1263,11 +1263,15 @@ Requires Level 28, 33 Dex, 33 Int
 ]],[[
 Replica Leer Cast
 Festival Mask
+Variant: Pre 3.19.0
+Variant: Current
 League: Heist
 Requires Level 28, 33 Dex, 33 Int
 +(20-30) to Dexterity
-+(20-30) to maximum Life
-+(20-30) to maximum Mana
+{variant:1}+(20-30) to maximum Life
+{variant:2}+(60-100) to maximum Life
+{variant:1}+(20-30) to maximum Mana
+{variant:2}+(60-100) to maximum Mana
 60% reduced Mana Regeneration Rate
 You and nearby Allies have 30% increased Mana Regeneration Rate
 ]],[[

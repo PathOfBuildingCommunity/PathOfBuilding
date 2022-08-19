@@ -385,16 +385,20 @@ Implicits: 1
 Replica Doedre's Damning
 Paua Ring
 Variant: Pre 3.16.0
+Variant: Pre 3.19.0
 Variant: Current
 League: Heist
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
-{tags:jewellery_attribute}+(5-10) to Intelligence
-{tags:jewellery_resistance}+5% to all Elemental Resistances
-{tags:mana}+5 Mana gained on Kill
+{variant:1,2}{tags:jewellery_attribute}+(5-10) to Intelligence
+{variant:3}{tags:jewellery_attribute}+(5-20) to Intelligence 
+{variant:1,2}{tags:jewellery_resistance}+5% to all Elemental Resistances
+{variant:3}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
+{variant:1,2}{tags:mana}+5 Mana Gained on Kill
+{variant:3}{tags:mana}+(5-20) Mana gained on Kill
 {tags:caster}You can apply one fewer Curse
 {variant:1}{tags:caster}(25-35)% increased Effect of your Curses
-{variant:2}{tags:caster}(15-25)% increased Effect of your Curses
+{variant:2,3}{tags:caster}(15-25)% increased Effect of your Curses
 ]],[[
 Dream Fragments
 Sapphire Ring
