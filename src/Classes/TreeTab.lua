@@ -1040,6 +1040,13 @@ function TreeTabClass:FindTimelessJewel()
 		timelessData.jewelSocket = value
 		self.build.modFlag = true
 	end, self.build, socketViewer)
+	-- we need to search through `jewelSockets` for the correct `id` as the `idx` can become stale due to dynamic sorting
+	for idx, jewelSocket in ipairs(jewelSockets) do
+		if jewelSocket.id == timelessData.jewelSocket.id then
+			controls.socketSelect.selIndex = idx
+			break
+		end
+	end
 
 	controls.socketFilterLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 100, 0, 16, "^7Filter Nodes:")
 	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 18, nil, function(value)
