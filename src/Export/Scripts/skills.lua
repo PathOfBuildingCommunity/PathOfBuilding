@@ -108,7 +108,7 @@ local skillTypes = {
 	"Link",
 	"Blessing",
 	"ZeroReservation",
-	"DynamicCooldwon",
+	"DynamicCooldown",
 }
 
 local function mapAST(ast)
