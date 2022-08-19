@@ -711,8 +711,8 @@ skills["BallLightning"] = {
 			end
 		end
 		if dpsMultiplier ~= 1 then
-			skillData.dpsMultiplier = dpsMultiplier
-			output.SkillDPSMultiplier = dpsMultiplier
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMultiplier
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
 		end
 	end,
 	statMap = {
@@ -990,7 +990,7 @@ skills["Ember"] = {
 	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * output.ProjectileCount
 		end
 	end,
 	baseFlags = {
@@ -4386,7 +4386,7 @@ skills["ForbiddenRite"] = {
 		activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + add
 		activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + add
 		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.dpsMultiplier = output.ProjectileCount + 1
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * (output.ProjectileCount + 1)
 		end
 		if breakdown then
 			local FRDamageTaken = {}
@@ -5788,7 +5788,7 @@ skills["IceSpear"] = {
 	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 3 or activeSkill.skillPart == 4 then
-			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * output.ProjectileCount
 		end
 	end,
 	baseFlags = {
@@ -9908,7 +9908,7 @@ skills["StormBurstNew"] = {
 			-- duration * 10 / (jump * 10), instead of duration / jump to avoid floating point issues
 			local jumpPeriod = activeSkill.skillData.repeatFrequency * 10
 			-- additional 1 tick upon spawn of orb
-			activeSkill.skillData.dpsMultiplier = 1 + math.floor(duration * 10 / jumpPeriod)
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * (1 + math.floor(duration * 10 / jumpPeriod))
 		end
 	end,
 	statMap = {
