@@ -1096,6 +1096,7 @@ skills["Berserk"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output, breakdown)
+		local t_insert = table.insert
 		local dt = 0.033
 		local rageRegen = output.RageRegen or 0
 		local rageGainRate = 0 --Add support -- Sources of Rage on hit are independent of each other and do not share cooldowns/ticks.
@@ -1118,6 +1119,9 @@ skills["Berserk"] = {
 		end
 		if breakdown then
 			breakdown.Duration = { "Running a small simulation to calculate duration." }
+			if berserkUptime > 100 then
+				t_insert(breakdown.Duration, "Capped at 100 seconds")
+			end
 		end
 		output.Duration = berserkUptime
 	end,
