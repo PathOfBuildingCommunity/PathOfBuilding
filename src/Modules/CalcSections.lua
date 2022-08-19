@@ -1259,7 +1259,7 @@ return {
 		{ modName = "EnergyShieldRechargeFaster" },
 	}, },
 	{ label = "Regen", { format = "{1:output:LifeRegenRecovery} ({1:output:LifeRegenPercent}%)", 
-		{ label = "Sources", modName = { "LifeRegen", "LifeRegenPercent", "LifeDegen", "LifeDegen", "LifeRecovery" }, modType = "BASE" },
+		{ label = "Sources", modName = { "LifeRegen", "LifeRegenPercent", "LifeDegen", "LifeDegenPercent", "LifeRecovery" }, modType = "BASE" },
 		{ label = "Increased Life Regeneration Rate", modName = { "LifeRegen" }, modType = "INC" },
 		{ label = "More Life Regeneration Rate", modName = { "LifeRegen" }, modType = "MORE" },
 		{ label = "Recovery modifiers", modName = "LifeRecoveryRate" },
