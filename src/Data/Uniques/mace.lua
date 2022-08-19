@@ -49,7 +49,7 @@ Adds (10-20) to (30-50) Cold Damage
 ]],[[
 Cameria's Avarice
 Gavel
-Source: Drops from any endgame map boss
+Source: Vendor Recipe
 Requires Level 60, 212 Str
 Implicits: 1
 15% reduced Enemy Stun Threshold
@@ -63,6 +63,7 @@ Trigger Level 20 Icicle Burst when you Hit a Frozen Enemy
 Clayshaper
 Rock Breaker
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 41, 134 Str
 Implicits: 2
@@ -71,9 +72,10 @@ Implicits: 2
 Grants Level 12 Summon Stone Golem Skill
 Adds (24-30) to (34-40) Physical Damage
 (8-10)% increased Attack Speed
-Minions have (20-30)% increased maximum Life
+{variant:1,2}Minions have (20-30)% increased maximum Life
 +1 to maximum number of Golems
-Minions deal (5-8) to (12-16) Added Attack Physical Damage
+{variant:1,2}Minions deal (5-8) to (12-16) Added Attack Physical Damage
+{variant:3}Golems deal (96-120) to (132-160) Added Attack Physical Damage
 ]],[[
 Flesh-Eater
 Dream Mace
@@ -266,20 +268,15 @@ Recover (1-3)% of Mana on Kill
 ]],[[
 Bitterdream
 Shadow Sceptre
-Variant: Pre 2.3.0
-Variant: Pre 3.11.0
-Variant: Current
 Requires Level 32, 52 Str, 62 Int
-Implicits: 2
-{variant:1}15% increased Elemental Damage
-{variant:2,3}22% increased Elemental Damage
-{variant:3}Socketed Gems are Supported by Level 1 Bonechill
-Socketed Gems are Supported by level 1 Hypothermia
-Socketed Gems are Supported by level 1 Ice Bite
-Socketed Gems are Supported by level 1 Cold Penetration
-{variant:1,2}Socketed Gems are Supported by level 1 Mana Leech
-Socketed Gems are Supported by level 10 Added Cold Damage
-Socketed Gems are Supported by level 1 Inspiration
+Implicits: 1
+22% increased Elemental Damage
+Socketed Gems are Supported by Level 15 Bonechill
+Socketed Gems are Supported by Level 15 Hypothermia
+Socketed Gems are Supported by Level 15 Ice Bite
+Socketed Gems are Supported by Level 15 Cold Penetration
+Socketed Gems are Supported by Level 15 Added Cold Damage
+Socketed Gems are Supported by Level 15 Inspiration
 ]],[[
 Replica Bitterdream
 Shadow Sceptre
@@ -288,11 +285,11 @@ Requires Level 32, 52 Str, 62 Int
 Implicits: 1
 22% increased Elemental Damage
 Socketed Gems are Supported by Level 1 Elemental Penetration
-Socketed Gems are Supported by Level 10 Immolate
-Socketed Gems are Supported by Level 1 Unbound Ailments
-Socketed Gems are Supported by Level 10 Ice Bite
-Socketed Gems are Supported by Level 1 Inspiration
-Socketed Gems are Supported by Level 10 Innervate
+Socketed Gems are Supported by Level 15 Immolate
+Socketed Gems are Supported by Level 15 Unbound Ailments
+Socketed Gems are Supported by Level 15 Ice Bite
+Socketed Gems are Supported by Level 15 Inspiration
+Socketed Gems are Supported by Level 15 Innervate
 ]],[[
 The Black Cane
 Royal Sceptre
@@ -455,40 +452,47 @@ Void Sceptre
 Variant: Pre 1.2.0
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 68, 104 Str, 122 Int
 Implicits: 2
 {variant:1,2}15% increased Elemental Damage
-{variant:3,4}40% increased Elemental Damage
+{variant:3,4,5}40% increased Elemental Damage
 50% reduced maximum number of Raised Zombies
 {variant:1}Raised Zombies have +500 to maximum Life
 {variant:2,3}Raised Zombies have +2000 to maximum Life
-{variant:4}Raised Zombies have +5000 to maximum Life
+{variant:4,5}Raised Zombies have +5000 to maximum Life
 Raised Zombies have +(25-30)% to all Resistances
 25% increased Zombie Size
-Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage
+{variant:1,2,3,4}Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage
+{variant:5}Enemies killed by Zombies explode dealing 50% of their Maximum Life as Fire Damage
 {variant:1,2,3}Raised Zombies deal (80-100)% increased Physical Damage
 {variant:4}Raised Zombies deal (80-100)% more Physical Damage
+{variant:5}Raised Zombies deal (100-125)% more Physical Damage
 ]],[[
 Nycta's Lantern
 Crystal Sceptre
 Variant: Pre 2.0.0
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 41, 59 Str, 85 Int
 Implicits: 2
 {variant:1,2}20% increased Elemental Damage
-{variant:3,4}30% increased Elemental Damage
+{variant:3,4,5}30% increased Elemental Damage
 {variant:4}+2 to Level of Socketed Fire Gems
 {variant:1,2,3}Socketed Gems are Supported by level 10 Added Fire Damage
 {variant:1,2,3}Socketed Gems are Supported by level 10 Cold to Fire
-Socketed Gems are Supported by level 10 Fire Penetration
+{variant:1,2,3,4}Socketed Gems are Supported by level 10 Fire Penetration
 {variant:4}Socketed Gems deal 63 to 94 additional Fire Damage
-(20-30)% increased Spell Damage
-{variant:2,3,4}(150-200)% increased Physical Damage
-+(6-10) Life gained for each Enemy hit by Attacks
-25% increased Light Radius
+{variant:1,2,3,4}(20-30)% increased Spell Damage
+{variant:2,3,4,5}(150-200)% increased Physical Damage
+{variant:5}Adds (76-98) to (161-176) Fire Damage
+{variant:1,2,3,4}+(6-10) Life gained for each Enemy hit by Attacks
+{variant:1,2,3,4}25% increased Light Radius
+{variant:5}50% increased Light Radius
+{variant:5}Battlemage
 ]],[[
 Sign of the Sin Eater
 Tyrant's Sekhem
@@ -504,20 +508,23 @@ Enemies inflict Elemental Ailments on you instead of nearby Allies
 Singularity
 Platinum Sceptre
 Variant: Pre 2.3.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
-{variant:2}30% increased Elemental Damage
-Adds (30-40) to (60-70) Lightning Damage to Spells
+{variant:2,3}30% increased Elemental Damage
+{variant:1,2}Adds (30-40) to (60-70) Lightning Damage to Spells
+{variant:3}Adds (1-10) to (150-200) Lightning Damage to Spells
 (14-18)% increased Cast Speed
 (6-8)% reduced Mana Cost of Skills
 Nearby Enemies are Hindered, with 25% reduced Movement Speed
-(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
+{variant:1,2}(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
+{variant:3}100% increased Damage with Hits and Ailments against Hindered Enemies
 ]],[[
 Spine of the First Claimant
 Iron Sceptre
-Source: Drops in The Lord's Labyrinth
+Source: No longer obtainable
 Variant: Pre 2.3.0
 Variant: Pre 3.5.0
 Variant: Current
@@ -580,7 +587,7 @@ Implicits: 3
 {variant:1,2}15% chance to Shock
 {variant:3}50% chance to Shock
 {variant:1,2}10% chance to Cause Monsters to Flee
-{variant:3}Shock Enemies as though dealing 300% more Damage
+{variant:3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
 Damage Penetrates 20% Lightning Resistance
 Enemies you Shock have 30% reduced Cast Speed
 Enemies you Shock have 20% reduced Movement Speed
@@ -605,7 +612,7 @@ Minions have (20-40)% increased maximum Life
 ]],[[
 Chaber Cairn
 Great Mallet
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 60, 131 Str
 Implicits: 1
 30% increased Stun Duration on Enemies
@@ -632,7 +639,7 @@ Never deal Critical Strikes
 ]],[[
 Geofri's Devotion
 Brass Maul
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -735,23 +742,26 @@ Source: Drops from Legion Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 57, 182 Str
 Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}30% increased Stun Duration on Enemies
-{variant:4}45% increased Stun Duration on Enemies
-{variant:1,2}Socketed Gems are Supported by level 15 Increased Area of Effect
-{variant:3,4}Socketed Gems are Supported by level 15 Pulverise
+{variant:4,5}45% increased Stun Duration on Enemies
+{variant:1,2,3,4}Socketed Gems are Supported by Level 15 Pulverise
 {variant:1,2}(220-250)% increased Physical Damage
 {variant:3}(230-260)% increased Physical Damage
 {variant:4}(200-230)% increased Physical Damage
+{variant:5}(400-500)% increased Physical Damage
 {variant:1,2}Adds 10 to 20 Physical Damage
 {variant:3,4}Adds 30 to 40 Physical Damage
-10% reduced Attack Speed
--100 to Accuracy Rating
-10% reduced Movement Speed
+{variant:1,2,3,4}10% reduced Attack Speed
+{variant:5}25% reduced Attack Speed
+{variant:1,2,3,4}10% reduced Movement Speed
 (40-50)% increased Stun Duration on Enemies
+{variant:1,2,3,4}-100 to Accuracy Rating
+{variant:5}-500 to Accuracy Rating
 ]],[[
 Quecholli
 Jagged Maul

@@ -19,7 +19,7 @@ local altQualMap = {
 	["Alternate3"] = "Phantasmal ",
 }
 
-local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc)
+local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self, anchor, x, y, width, height, skillsTab, index, changeFunc, forceTooltip)
 	self.EditControl(anchor, x, y, width, height, nil, nil, "^ %a':-")
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
 	self.controls.scrollBar.y = function()
@@ -37,6 +37,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	self:PopulateGemList()
 	self.index = index
 	self.gemChangeFunc = changeFunc
+	self.forceTooltip = forceTooltip
 	self.list = { }
 	self.changeFunc = function()
 		if not self.dropped then
@@ -338,8 +339,8 @@ function GemSelectClass:IsMouseOver()
 	return mOver, mOverComp
 end
 
-function GemSelectClass:Draw(viewPort)
-	self.EditControl:Draw(viewPort)
+function GemSelectClass:Draw(viewPort, noTooltip)
+	self.EditControl:Draw(viewPort, noTooltip and not self.forceTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -404,7 +405,7 @@ function GemSelectClass:Draw(viewPort)
 			end
 		end
 		SetViewport()
-		self:DrawControls(viewPort)
+		self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
 		if self.hoverSel then
 			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 			if calcFunc then
@@ -465,7 +466,7 @@ function GemSelectClass:Draw(viewPort)
 			   DrawImage(nil, x, y, width, height)
 			end
 		end
-		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) then
+		if mOver and (not self.skillsTab.selControl or self.skillsTab.selControl._className ~= "GemSelectControl" or not self.skillsTab.selControl.dropped) and (not noTooltip or self.forceTooltip) then
 			local gemInstance = self.skillsTab.displayGroup.gemList[self.index]
 			SetDrawLayer(nil, 10)
 			self.tooltip:Clear()
@@ -476,7 +477,7 @@ function GemSelectClass:Draw(viewPort)
 				end
 				self:AddGemTooltip(gemInstance)
 			else
-				self.tooltip:AddLine(16, toolTipText )
+				self.tooltip:AddLine(16, toolTipText)
 			end
 			self.tooltip:Draw(x, y, width, height, viewPort)
 			SetDrawLayer(nil, 0)
@@ -671,7 +672,7 @@ function GemSelectClass:OnFocusLost()
 		if self.noMatches then
 			self:SetText("")
 		end
-		self:UpdateGem(true, true)
+		self:UpdateGem(true,true)
 	end
 end
 
@@ -696,7 +697,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 				self.selIndex = self.hoverSel
 				self:SetText(self.gems[self.list[self.selIndex]].name)
 				self:UpdateGem(false, true)
-				return self
+				return
 			end
 		elseif key == "RETURN" then
 			self.dropped = false
@@ -705,13 +706,13 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 			end
 			self.selIndex = m_max(self.selIndex, 1)
 			self:UpdateGem(true, true)
-			return self
+			return
 		elseif key == "ESCAPE" then
 			self.dropped = false
 			self:BuildList("")
 			self.buf = self.initialBuf
 			self.selIndex = self.initialIndex
-			self:UpdateGem(false, true)
+			self:UpdateGem(false,true)
 			return
 		elseif key == "WHEELUP" then
 			self.controls.scrollBar:Scroll(-1)

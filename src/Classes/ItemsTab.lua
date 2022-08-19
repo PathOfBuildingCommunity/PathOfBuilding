@@ -211,9 +211,9 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 
 	-- All items list
 	if main.portraitMode then
-		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, 0, 0, 360, 308, self)
+		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, 0, 0, 360, 308, self, true)
 	else
-		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self.slotAnchor,"TOPRIGHT"}, 20, -20, 360, 308, self)
+		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self.slotAnchor,"TOPRIGHT"}, 20, -20, 360, 308, self, true)
 	end
 
 	-- Database selector
@@ -264,7 +264,7 @@ drag it onto the slot.  This will also add it to
 your build if it's from the unique/template list.
 If there's 2 slots an item can go in, 
 holding Shift will put it in the second.]])
-	self.controls.sharedItemList = new("SharedItemListControl", {"TOPLEFT",self.controls.craftDisplayItem, "BOTTOMLEFT"}, 0, 232, 340, 308, self)
+	self.controls.sharedItemList = new("SharedItemListControl", {"TOPLEFT",self.controls.craftDisplayItem, "BOTTOMLEFT"}, 0, 232, 340, 308, self, true)
 
 	-- Display item
 	self.displayItemTooltip = new("Tooltip")
@@ -464,13 +464,13 @@ holding Shift will put it in the second.]])
 		self:CorruptDisplayItem("Corrupted")
 	end)
 	self.controls.displayItemCorrupt.shown = function()
-		return self.displayItem and self.displayItem.corruptable
+		return self.displayItem and self.displayItem.corruptible
 	end
 	self.controls.displayItemScourge = new("ButtonControl", {"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, 8, 0, 100, 20, "Scourge...", function()
 		self:CorruptDisplayItem("Scourge")
 	end)
 	self.controls.displayItemScourge.shown = function()
-		return self.displayItem and self.displayItem.corruptable
+		return self.displayItem and self.displayItem.corruptible
 	end
 
 	-- Section: Influence dropdowns
@@ -978,7 +978,6 @@ function ItemsTabClass:Save(xml)
 		end
 		t_insert(xml, child)
 	end
-	self.modFlag = false
 end
 
 function ItemsTabClass:Draw(viewPort, inputEvents)
@@ -1566,7 +1565,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	control.outputTable = outputTable
 	control.outputIndex = outputIndex
 	control.slider.shown = false
-	control.slider.val = 0.5
+	control.slider.val = main.defaultItemAffixQuality or 0.5
 	local selAffix = item[outputTable][outputIndex].modId
 	if (item.type == "Jewel" and item.base.subType ~= "Abyss") then
 		for i, modId in pairs(affixList) do
@@ -1828,7 +1827,7 @@ function ItemsTabClass:EditDisplayItemText()
 	local controls = { }
 	local function buildRaw()
 		local editBuf = controls.edit.buf
-		if editBuf:match("^Item Class: .*\nRarity: ") then
+		if editBuf:match("^Item Class: .*\nRarity: ") or editBuf:match("^Rarity: ") then
 			return editBuf
 		else
 			return "Rarity: "..controls.rarity.list[controls.rarity.selIndex].rarity.."\n"..controls.edit.buf
@@ -1843,15 +1842,13 @@ function ItemsTabClass:EditDisplayItemText()
 		controls.rarity.selIndex = 3
 	end
 	controls.edit.font = "FIXED"
-	controls.edit.pasteFilter = function(text)
-		return text:gsub("\246","o")
-	end
+	controls.edit.pasteFilter = itemLib.sanitiseItemText
 	controls.save = new("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
 		local id = self.displayItem and self.displayItem.id
 		self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
 		self.displayItem.id = id
 		main:ClosePopup()
-	end)
+	end, nil, true)
 	controls.save.enabled = function()
 		local item = new("Item", buildRaw())
 		return item.base ~= nil
@@ -2682,6 +2679,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		local output = self.build.calcsTab.mainOutput
 		local durInc = modDB:Sum("INC", nil, "FlaskDuration")
 		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
+
+		if item.rarity == "MAGIC" and not item.base.flask.life and not item.base.flask.mana then
+			effectInc = effectInc + modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
+		end
+
 		if item.base.flask.life or item.base.flask.mana then
 			local rateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
 			local instantPerc = flaskData.instantPerc
@@ -2899,7 +2901,10 @@ end
 function ItemsTabClass:CreateUndoState()
 	local state = { }
 	state.activeItemSetId = self.activeItemSetId
-	state.items = copyTableSafe(self.items, false, true)
+	state.items = { }
+	for k, v in pairs(self.items) do
+		state.items[k] = copyTableSafe(self.items[k], true, true)
+	end
 	state.itemOrderList = copyTable(self.itemOrderList)
 	state.slotSelItemId = { }
 	for slotName, slot in pairs(self.slots) do

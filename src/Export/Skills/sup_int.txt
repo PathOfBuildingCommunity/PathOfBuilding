@@ -276,11 +276,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAdditionalXP
-	statMap = {
-		["local_gem_int_requirement_+%"] = {
-			mod("IntRequirement", "INC", nil)
-		}
-	},
 #mods
 
 #skill SupportAdditionalXPPlus
@@ -520,6 +515,20 @@ local skills, mod, flag, skill = ...
 			div = 100
 		},
 		["minions_inflict_exposure_on_hit_%_chance"] = {
+		},
+	},
+#mods
+
+#skill SupportOvercharge
+	statMap = {
+		["support_pure_shock_shock_as_though_damage_+%_final"] = {
+			mod("ShockAsThoughDealing", "MORE", nil),
+		},
+		["support_pure_shock_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["shock_effect_+%_with_critical_strikes"] = {
+			mod("EnemyShockEffect", "INC", nil),
 		},
 	},
 #mods

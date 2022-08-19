@@ -249,6 +249,10 @@ return {
 	skill("corpseExplosionLifeMultiplier", nil),
 	div = 100,
 },
+["corpse_explosion_monster_life_permillage_fire"] = {
+	skill("corpseExplosionLifeMultiplier", nil),
+	div = 1000,
+},
 ["spell_base_fire_damage_%_maximum_life"] = {
 	skill("selfFireExplosionLifeMultiplier", nil),
 	div = 100,
@@ -535,6 +539,10 @@ return {
 },
 ["secondary_skill_effect_duration_+%"] = {
 	mod("SecondaryDuration", "INC", nil),
+},
+["offering_skill_effect_duration_per_corpse"] = {
+	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "CorpseConsumedRecently", limit = 4 }),
+	div = 1000,
 },
 ["active_skill_quality_duration_+%_final"] = {
 	mod("Duration", "MORE", nil),
@@ -966,6 +974,9 @@ return {
 },
 ["freeze_as_though_dealt_damage_+%"] = {
 	mod("FreezeAsThoughDealing", "MORE", nil),
+},
+["shock_maximum_magnitude_+"] = {
+	mod("ShockMax", "BASE", nil),
 },
 -- Global flags
 ["never_ignite"] = {
@@ -1530,6 +1541,9 @@ return {
 ["base_number_of_golems_allowed"] = {
 	mod("ActiveGolemLimit", "BASE", nil),
 },
+["base_number_of_arbalists"] = {
+	mod("ActiveArbalistLimit", "BASE", nil),
+},
 ["base_number_of_champions_of_light_allowed"] = {
 	mod("ActiveSentinelOfPurityLimit", "BASE", nil),
 },
@@ -1565,6 +1579,9 @@ return {
 },
 ["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
+},
+["maximum_life_+%_for_corpses_you_create"] = {
+	mod("CorpseLife", "INC", nil),
 },
 --Golem
 ["golem_buff_effect_+%"] = {
@@ -1673,6 +1690,9 @@ return {
 ["kill_enemy_on_hit_if_under_10%_life"] = {
 	mod("CullPercent", "MAX", nil), 
 	value = 10
+},
+["spell_cast_time_added_to_cooldown_if_triggered"] = {
+	flag("SpellCastTimeAddedToCooldownIfTriggered"),
 },
 --
 -- Spectre or Minion-specific stats
