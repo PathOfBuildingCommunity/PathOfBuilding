@@ -1684,6 +1684,9 @@ return {
 	mod("CullPercent", "MAX", nil), 
 	value = 10
 },
+["spell_cast_time_added_to_cooldown_if_triggered"] = {
+	flag("SpellCastTimeAddedToCooldownIfTriggered"),
+},
 --
 -- Spectre or Minion-specific stats
 --
