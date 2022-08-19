@@ -292,6 +292,19 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.itemsTab:SelectControl(slot)
 				build.viewMode = "ITEMS"
 			end
+
+		--[[ Only allow node editing in these situations:
+				Vaal (Glorious Vanity): 		any non-keystone
+				Maraketh (Brutal Restraint): 	only notables, +dex already set
+				Eternal (Elegant Hubris):		only notables, other passives are blank
+				Karui (Lethal Pride):			only notables, +str already set
+				Templar (Militant Faith):		any non-keystone, non-notables add devotion or replace with devotion
+		]]--
+		elseif hoverNode and hoverNode.conqueredBy and hoverNode.type ~= "Keystone" and
+				(hoverNode.conqueredBy.conqueror.type == "vaal"
+				or hoverNode.isNotable) then
+			build.treeTab:ModifyNodePopup(hoverNode, viewPort)
+			build.buildFlag = true
 		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
 			build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 			build.buildFlag = true
@@ -916,8 +929,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	end
 
 	local function addModInfoToTooltip(node, i, line)
-		if node.mods[i] then
-			if launch.devModeAlt and node.mods[i].list then
+		if node.mods[i].list then
+			if launch.devModeAlt then
 				-- Modifier debugging info
 				local modStr
 				for _, mod in pairs(node.mods[i].list) do
@@ -930,8 +943,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 					line = line .. "  " .. modStr
 				end
 			end
-			tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
 		end
+		tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
 	end
 
 	-- If node is a Mastery node, check if compare tree is on
@@ -994,6 +1007,14 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		for _, line in ipairs(node.reminderText) do
 			tooltip:AddLine(14, "^xA0A080"..line)
 		end
+	end
+
+	-- Conqueror node editing
+	if node and node.conqueredBy and node.type ~= "Keystone" and
+			(node.conqueredBy.conqueror.type == "vaal"
+			or node.isNotable) then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the modifiers for this node")
 	end
 
 	-- Mod differences

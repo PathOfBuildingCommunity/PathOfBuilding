@@ -33,7 +33,7 @@ body:
     id: actual
     attributes:
       label: What is the actual behaviour/value?
-      description: Please write a clear and concise description of what actually happens.
+      description: Please write a a clear and concise description of what actually happens.
       placeholder: E.g. When I'm hovering over [...], PoB displays [...].
     validations:
       required: true

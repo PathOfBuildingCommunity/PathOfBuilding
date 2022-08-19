@@ -32,7 +32,7 @@ minions["RaisedZombie"] = {
 
 minions["SummonedChaosGolem"] = {
 	name = "Chaos Golem",
-	life = 5.76,
+	life = 4.8,
 	energyShield = 0.2,
 	fireResist = 40,
 	coldResist = 40,
@@ -57,7 +57,7 @@ minions["SummonedChaosGolem"] = {
 
 minions["SummonedFlameGolem"] = {
 	name = "Flame Golem",
-	life = 4.86,
+	life = 3.75,
 	energyShield = 0.4,
 	fireResist = 70,
 	coldResist = 40,
@@ -84,7 +84,7 @@ minions["SummonedFlameGolem"] = {
 
 minions["SummonedIceGolem"] = {
 	name = "Ice Golem",
-	life = 4.86,
+	life = 4.05,
 	energyShield = 0.4,
 	fireResist = 40,
 	coldResist = 70,
@@ -109,7 +109,7 @@ minions["SummonedIceGolem"] = {
 
 minions["SummonedLightningGolem"] = {
 	name = "Lightning Golem",
-	life = 4.86,
+	life = 3.75,
 	energyShield = 0.2,
 	fireResist = 40,
 	coldResist = 40,
@@ -136,7 +136,7 @@ minions["SummonedLightningGolem"] = {
 
 minions["SummonedStoneGolem"] = {
 	name = "Stone Golem",
-	life = 6.3,
+	life = 5.25,
 	armour = 0.6,
 	fireResist = 40,
 	coldResist = 40,
@@ -161,7 +161,7 @@ minions["SummonedStoneGolem"] = {
 
 minions["SummonedRagingSpirit"] = {
 	name = "Raging Spirit",
-	life = 2.16,
+	life = 1.8,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -186,12 +186,12 @@ minions["SummonedRagingSpirit"] = {
 
 minions["SummonedEssenceSpirit"] = {
 	name = "Essence Spirit",
-	life = 2.25,
+	life = 1.8,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 1.28,
+	damage = 1.02,
 	damageSpread = 0.2,
 	attackTime = 0.57,
 	attackRange = 8,
@@ -386,12 +386,12 @@ minions["AnimatedArmour"] = {
 
 minions["IcyRagingSpirit"] = {
 	name = "Grave Spirit",
-	life = 3.75,
+	life = 3,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 2.5,
+	damage = 2,
 	damageSpread = 0.2,
 	attackTime = 0.57,
 	attackRange = 8,
@@ -408,7 +408,7 @@ minions["IcyRagingSpirit"] = {
 
 minions["UniqueAnimatedWeapon"] = {
 	name = "Dancing Dervish",
-	life = 5,
+	life = 4,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
@@ -485,7 +485,7 @@ minions["AxisEliteSoldierHeraldOfLight"] = {
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 3.04,
+	damage = 2.66,
 	damageSpread = 0.2,
 	attackTime = 0.83,
 	attackRange = 12,
@@ -578,13 +578,13 @@ minions["AbsolutionTemplarJudge"] = {
 
 minions["RhoaUniqueSummoned"] = {
 	name = "Summoned Rhoa",
-	life = 9,
+	life = 7.5,
 	armour = 0.2,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 4.28,
+	damage = 3.42,
 	damageSpread = 0.2,
 	attackTime = 0.93,
 	attackRange = 14,
@@ -603,13 +603,13 @@ minions["RhoaUniqueSummoned"] = {
 
 minions["SnakeSpitUniqueSummoned"] = {
 	name = "Summoned Cobra",
-	life = 9,
+	life = 7.5,
 	armour = 0.15,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 3.23,
+	damage = 2.55,
 	damageSpread = 0.2,
 	attackTime = 1.1,
 	attackRange = 9,
@@ -626,13 +626,13 @@ minions["SnakeSpitUniqueSummoned"] = {
 
 minions["DropBearUniqueSummoned"] = {
 	name = "Summoned Ursa",
-	life = 9,
+	life = 7.5,
 	armour = 0.5,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 3.53,
+	damage = 2.81,
 	damageSpread = 0.2,
 	attackTime = 1.1,
 	attackRange = 10,
@@ -651,7 +651,7 @@ minions["DropBearUniqueSummoned"] = {
 
 minions["SummonedCarrionGolem"] = {
 	name = "Carrion Golem",
-	life = 4.86,
+	life = 3.75,
 	energyShield = 0.4,
 	fireResist = 40,
 	coldResist = 40,
@@ -748,26 +748,5 @@ minions["SummonedReaper"] = {
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
-	},
-}
-
-minions["SummonedArbalists"] = {
-	name = "Summoned Arbalist",
-	life = 7.41,
-	fireResist = 40,
-	coldResist = 40,
-	lightningResist = 40,
-	chaosResist = 20,
-	damage = 4.29,
-	damageSpread = 0.2,
-	attackTime = 1,
-	attackRange = 60,
-	accuracy = 3.4,
-	limit = "ActiveArbalistLimit",
-	skillList = {
-		"MPWExpeditionSummonedArbalestProjectile",
-	},
-	modList = {
-		-- MonsterCannotBeDamaged [cannot_be_damaged = 1]
 	},
 }

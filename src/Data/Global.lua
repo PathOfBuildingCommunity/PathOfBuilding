@@ -275,7 +275,6 @@ SkillType = {
 	Link = 118,
 	Blessing = 119,
 	ZeroReservation = 120,
-	DynamicCooldown = 121,
 }
 
 GlobalCache = { 
