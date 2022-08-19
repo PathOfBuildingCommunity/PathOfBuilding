@@ -246,11 +246,13 @@ Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current - Crit Chance
-Variant: Current - Min Endurance Charge
+Variant: Current - Minion Crit Multi
+Variant: Current - Min Power Charge
 {variant:1}Gain 15 Mana per Grand Spectrum
 {variant:2}Gain 30 Mana per Grand Spectrum
 {variant:3}25% increased Critical Strike Chance per Grand Spectrum
-{variant:4}+1 to Minimum Endurance Charges per Grand Spectrum
+{variant:4}Minions have +10% to Critical Strike Multiplier per Grand Spectrum
+{variant:5}+1 to Minimum Power Charges per Grand Spectrum
 ]],[[
 Grand Spectrum
 Crimson Jewel
@@ -258,11 +260,13 @@ Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current - Elemental Resistances
-Variant: Current - Minion Crit Multi
+Variant: Current - Maximum Life
+Variant: Current - Min Endurance Charge
 {variant:1}Gain 75 Armour per Grand Spectrum
 {variant:2}Gain 200 Armour per Grand Spectrum
 {variant:3}+7% to all Elemental Resistances per Grand Spectrum
-{variant:4}Minions have +10% to Critical Strike Multiplier per Grand Spectrum
+{variant:4}5% increased Maximum Life per Grand Spectrum
+{variant:5}+1 to Minimum Endurance Charges per Grand Spectrum
 ]],[[
 Grand Spectrum
 Viridian Jewel
@@ -271,10 +275,14 @@ Variant: Pre 2.5.0
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current
+Variant: Current - Chance to avoid Ailments
+Variant: Current - Min Frenzy Charge
 {variant:1}5% increased Elemental Damage per Grand Spectrum
 {variant:2}4% increased Elemental Damage per Grand Spectrum
 {variant:3}12% increased Elemental Damage per Grand Spectrum
 {variant:4}15% increased Elemental Damage per Grand Spectrum
+{variant:5}15% chance to Avoid Elemental Ailments per Grand Spectrum
+{variant:6}+1 to Minimum Frenzy Charges per Grand Spectrum
 ]],[[
 The Green Dream
 Viridian Jewel

@@ -1161,6 +1161,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			flaskData[value.key] = value.value
 		end
 	elseif self.type == "Jewel" then
+		if self.name:find("Grand Spectrum") then
+			modList:NewMod("Multiplier:GrandSpectrum", "BASE", 1, self.name)
+		end
+
 		local jewelData = self.jewelData
 		for _, func in ipairs(modList:List(nil, "JewelFunc")) do
 			jewelData.funcList = jewelData.funcList or { }
