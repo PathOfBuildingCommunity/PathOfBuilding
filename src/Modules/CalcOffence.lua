@@ -4174,10 +4174,8 @@ function calcs.offence(env, actor, activeSkill)
 	
 	local baseDropsBurningGround = modDB:Sum("BASE", nil, "DropsBurningGround")
 	if baseDropsBurningGround > 0 then
-		ConPrintf("DropsBurningGround")
 		local damageType = "Fire"
 		if canDeal[damageType] then
-			ConPrintf(baseDropsBurningGround)
 			local dotCfg = {
 				flags = bor(ModFlag.Dot),
 				keywordFlags = 0
@@ -4207,7 +4205,6 @@ function calcs.offence(env, actor, activeSkill)
 			local more = round(modDB:More(dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
 			local mult = modDB:Sum("BASE", dotTypeCfg, "DotMultiplier", damageType.."DotMultiplier")
 			local total = baseDropsBurningGround * (1 + inc/100) * more * (1 + mult/100) * effMult
-			ConPrintf(baseDropsBurningGround)
 			if not output.BurningGroundDPS or output.BurningGroundDPS < total then
 				output.BurningGroundDPS = total
 				output.BurningGroundFromIgnite = false
