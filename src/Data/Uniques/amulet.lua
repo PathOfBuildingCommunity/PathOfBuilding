@@ -7,33 +7,40 @@ The Anvil
 Amber Amulet
 Variant: Pre 1.3.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 45
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
+{variant:1}10% Chance to Block Attack Damage
+{variant:2,3}8% Chance to Block Attack Damage
+{variant:4}(10-15)% Chance to Block Attack Damage
 {tags:attack,speed}10% reduced Attack Speed
 {tags:caster,speed}10% reduced Cast Speed
 {tags:jewellery_defense}+(400-500) to Armour
 {variant:1}{tags:life}+(30-40) Life gained when you Block
-{variant:2,3}{tags:life}+(34-48) Life gained when you Block
+{variant:2,3,4}{tags:life}+(34-48) Life gained when you Block
 {variant:1}{tags:mana}+(10-20) Mana gained when you Block
-{variant:2,3}{tags:mana}+(10-24) Mana gained when you Block
+{variant:2,3,4}{tags:mana}+(10-24) Mana gained when you Block
 {variant:1}{tags:speed}20% reduced Movement Speed
 {variant:2}{tags:speed}10% reduced Movement Speed
-+3% to maximum Block Chance
-{variant:1}10% Chance to Block
-{variant:2,3}8% Chance to Block
++3% to maximum Chance to Block Attack Damage
 {tags:physical}{variant:1}Reflects 200 to 250 Physical Damage to Attackers on Block
-{tags:physical}{variant:2,3}Reflects 240 to 300 Physical Damage to Attackers on Block
+{tags:physical}{variant:2,3,4}Reflects 240 to 300 Physical Damage to Attackers on Block
 ]],[[
 Araku Tiki
 Coral Amulet
+Variant: Pre 3.19.0
+Variant: Current
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
-{tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
+{variant:1}{tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
+{variant:2}{tags:jewellery_defense,life}You gain (150-250) Evasion Rating when on Low Life
 {tags:life}+(30-50) to maximum Life
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{tags:life}1% of Life Regenerated per Second while on Low Life
+{variant:1}{tags:life}1% of Life Regenerated per Second while on Low Life
+{variant:2}Gain Elusive on reaching Low Life
+{variant:2}Phasing while on Low Life
 ]],[[
 Ngamahu Tiki
 Coral Amulet
@@ -221,7 +228,7 @@ Corrupted
 Blood of Corruption
 Amber Amulet
 Source: Use currency{Vaal Orb} on unique{Tear of Purity}
-Requires Level 20
+Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
 Grants level 10 Gluttony of Elements Skill
@@ -276,13 +283,17 @@ Extra Gore
 ]],[[
 Crystallised Omniscience
 Onyx Amulet
+Variant: Pre 3.19.0
+Variant: Current
 Source: Drops from unique{The Searing Exarch}
 Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 Modifiers to Attributes instead Apply to Omniscience
-+1% to All Elemental Resistances per 10 Omniscience
-Penetrate 1% Elemental Resistances per 10 Omniscience
+{variant:1}+1% to All Elemental Resistances per 10 Omniscience
+{variant:1}Penetrate 1% Elemental Resistances per 10 Omniscience
+{variant:2}+1% to All Elemental Resistances per 15 Omniscience
+{variant:2}Penetrate 1% Elemental Resistances per 15 Omniscience
 Attribute Requirements can be satisfied by (15-25)% of Omniscience
 ]],[[
 Daresso's Salute
@@ -517,45 +528,58 @@ Jade Amulet
 League: Synthesis
 Requires Level 64
 Variant: Pre 3.16.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Precision Skill
-{tags:jewellery_attribute}+(25-35) to Dexterity
-{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
-{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
-+(23-28)% to Global Critical Strike Multiplier
-{tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
+{variant:1,2}{tags:jewellery_attribute}+(25-35) to Dexterity
+{variant:3}{tags:jewellery_attribute}+(40-80) to Dexterity
+{variant:1,2}{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
+{variant:1,2}{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
+{variant:3}Bow Attacks have Culling Strike
+{variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
+{variant:3}{tags:critical}+(25-50)% to Global Critical Strike Multiplier
+{variant:1,2}{tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:1}Precision has 50% less Reservation
-{variant:2}Precision has 100% increased Mana Reservation Efficiency
+{variant:2,3}Precision has 100% increased Mana Reservation Efficiency
 ]],[[
 Replica Hyrri's Truth
 Jade Amulet
 League: Heist
 Variant: Pre 3.16.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Hatred Skill
-{tags:jewellery_attribute}+(25-35) to Dexterity
-{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
-{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
-{tags:critical}+(23-28)% to Global Critical Strike Multiplier
-{tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
+{variant:1,2}{tags:jewellery_attribute}+(25-35) to Dexterity
+{variant:3}{tags:jewellery_attribute}+(30-55) to Dexterity
+{variant:1,2}{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
+{variant:1,2}{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
+{variant:3}Bow Attacks have Culling Strike
+{variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
+{variant:3}{tags:critical}+(18-35)% to Global Critical Strike Multiplier
+{variant:1,2}{tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
 {variant:1}Hatred has 50% less Reservation
-{variant:2}Hatred has 100% increased Mana Reservation Efficiency
+{variant:2,3}Hatred has 100% increased Mana Reservation Efficiency
 ]],[[
 The Ignomon
 Gold Amulet
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 8
 Implicits: 1
 (12-20)% increased Rarity of Items found
-{tags:jewellery_attribute}+10 to Dexterity
-{tags:jewellery_elemental,attack}Adds 12 to 24 Fire Damage to Attacks
+{variant:1}{tags:jewellery_attribute}+10 to Dexterity
+{variant:1}{tags:jewellery_elemental,attack}Adds 12 to 24 Fire Damage to Attacks
+{variant:2}{tags:jewellery_elemental,attack}Adds (18-24) to (32-40) Fire Damage to Attacks
 {tags:attack}+(100-150) to Accuracy Rating
 {tags:jewellery_defense}+(100-150) to Evasion Rating
 {tags:jewellery_resistance}+20% to Fire Resistance
+{variant:2}20% to Light Radius
+{variant:2}Nearby Enemies are Blinded
 ]],[[
 The Effigon
 Gold Amulet
@@ -762,24 +786,33 @@ Primordial
 ]],[[
 Rashkaldor's Patience
 Jade Amulet
-Requires Level 61
+Variant: Pre 3.19.0
+Variant: Current
+Requires Level 48
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:life}+(40-80) to maximum Life
 {tags:mana}+(20-40) to maximum Mana
-{tags:jewellery_elemental}20% increased Duration of Elemental Ailments on Enemies
-Items and Gems have 10% reduced Attribute Requirements
-{tags:jewellery_elemental}5% chance to Freeze, Shock and Ignite
-Cannot gain Power Charges
+{variant:1}{tags:jewellery_elemental}20% increased Duration of Elemental Ailments on Enemies
+{variant:2}{tags:jewellery_elemental}20% reduced Duration of Elemental Ailments on Enemies
+{variant:1}Items and Gems have 10% reduced Attribute Requirements
+{variant:2}Items and Gems have 10% increased Attribute Requirements
+{variant:1}{tags:jewellery_elemental}5% chance to Freeze, Shock and Ignite
+{variant:2}Always Freeze, Shock and Ignite
+{variant:1}Cannot gain Power Charges
 ]],[[
 Retaliation Charm
 Citrine Amulet
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 30
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
-(25-40)% increased Damage with Hits and Ailments against Blinded Enemies
-{tags:critical}(30-50)% increased Critical Strike Chance against Blinded Enemies
-{tags:critical}(40-50)% chance to Blind Enemies on Critical Strike
+{variant:1}(25-40)% increased Damage with Hits and Ailments against Blinded Enemies
+{variant:1}{tags:critical}(30-50)% increased Critical Strike Chance against Blinded Enemies
+{variant:1}{tags:critical}(40-50)% chance to Blind Enemies on Critical Strike
+{variant:2}(10-20)% chance to gain a Frenzy Charge On Hit while Blinded
+{variant:2}(10-20)% chance to gain a Blind Enemies on Hit with Attacks
 Blind does not affect your Light Radius
 Blind you inflict is Reflected to you
 ]],[[
@@ -835,30 +868,39 @@ Chaos Damage can Ignite, Chill and Shock
 Shaper's Seed
 Agate Amulet
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 16
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Intelligence
-{tags:mana}(30-50)% increased Mana Regeneration Rate
-{tags:life}2% of Life Regenerated per Second
+{variant:1,2}{tags:mana}(30-50)% increased Mana Regeneration Rate
+{variant:3}{tags:mana}(60-100)% increased Mana Regeneration Rate
+{variant:1,2}{tags:life}2% of Life Regenerated per Second
+{variant:3}{tags:life}4% of Life Regenerated per Second
 {variant:1}{tags:life}Nearby Allies gain 1% of Life Regenerated per Second
 {variant:2}{tags:life}Nearby Allies gain 2% of Life Regenerated per Second
-{tags:mana}Nearby Allies gain 40% increased Mana Regeneration Rate
+{variant:3}{tags:life}Nearby Allies gain 4% of Life Regenerated per Second
+{variant:1,2}{tags:mana}Nearby Allies gain 40% increased Mana Regeneration Rate
+{variant:3}{tags:mana}Nearby Allies gain 80% increased Mana Regeneration Rate
 ]],[[
 Sidhebreath
 Paua Amulet
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
 {tags:jewellery_resistance}+25% to Cold Resistance
 {variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
 {tags:life}Minions have (10-15)% increased maximum Life
-{tags:speed}Minions have (10-15)% increased Movement Speed
-{tags:jewellery_elemental}{variant:3}Minions deal 6 to 13 additional Cold Damage
+{variant:1,2,3}{tags:speed}Minions have (10-15)% increased Movement Speed
+{variant:3}{tags:jewellery_elemental}Minions deal (5-9) to (11-15) additional Cold Damage
+{variant:4}{tags:jewellery_elemental}Minions deal (25-35) to (60-65) additional Cold Damage
 {variant:1,2}Minions deal (10-15)% increased Damage
 {variant:2,3}{tags:mana}(10-15)% reduced Mana Cost of Minion Skills
+{variant:4}Minions convert 50% of Physical Damage to Cold Damage
+{variant:4}Minions deal no Non-Cold Damage
 ]],[[
 Solstice Vigil
 Onyx Amulet
@@ -898,14 +940,17 @@ Corrupted
 Stone of Lazhwar
 Lapis Amulet
 Variant: Pre 3.4.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {variant:1}+15% chance to Block Spell Damage
-{variant:2}+(12-15)% chance to Block Spell Damage
-{tags:caster}(10-15)% increased Cast Speed
-{tags:mana}+(30-50) to maximum Mana
+{variant:2,3}+(12-15)% chance to Block Spell Damage
+{variant:1,2}{tags:caster}(10-15)% increased Cast Speed
+{variant:3}{tags:caster}(15-20)% increased Cast Speed
+{variant:1,2}{tags:mana}+(30-50) to maximum Mana
+{variant:3}{tags:mana}+(40-70) to maximum Mana
 ]],[[
 Stranglegasp
 Onyx Amulet
@@ -919,28 +964,35 @@ Tavukai
 Coral Amulet
 League: Legion
 Source: Drops from Karui Legion
+Variant: Pre 3.19.0
+Variant: Current
 Requires Level 54
 Implicits: 1
 {tags:life}(2.0-4.0) Life regenerated per second
 {tags:jewellery_attribute}+(30-40) to Intelligence
 {tags:chaos,jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
 Summon Raging Spirit has (20-30)% increased Duration
-Summoned Raging Spirits deal (60-80)% increased Damage
-{tags:life}Summoned Raging Spirits have (80-100)% increased maximum Life
+{variant:1}Summoned Raging Spirits deal (60-80)% increased Damage
+{variant:2}Summoned Raging Spirits deal (25-40)% increased Damage
+{variant:1}{tags:life}Summoned Raging Spirits have (80-100)% increased maximum Life
+{variant:2}{tags:life}Summoned Raging Spirits have (25-40)% increased maximum Life
 {tags:chaos}Summoned Raging Spirits take 20% of their Maximum Life per second as Chaos Damage
 ]],[[
 Tear of Purity
 Lapis Amulet
 Variant: Pre 3.16.0
+Variant: Pre 3.19.0
 Variant: Current
-Requires Level 20
+Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 Grants level 10 Purity of Elements Skill
-{tags:jewellery_attribute}+(5-10) to all Attributes
+{variant:1,2}{tags:jewellery_attribute}+(5-10) to all Attributes
+{variant:3}{tags:jewellery_attribute}+(10-20) to all Attributes
 {tags:life}+(20-40) to maximum Life
 {variant:1}5% chance to avoid Elemental Ailments
 {variant:2}+5% to all Elemental Resistances
+{variant:3}+(5-10)% to all Elemental Resistances
 ]],[[
 Ungil's Harmony
 Turquoise Amulet
@@ -1030,18 +1082,23 @@ Gain an Endurance Charge when a Power Charge expires or is consumed
 Warped Timepiece
 Turquoise Amulet
 Variant: Pre 3.11.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 50
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
 {variant:1}{tags:attack,speed}(8-12)% increased Attack Speed
 {variant:2}{tags:attack,speed}(10-15)% increased Attack Speed
+{variant:3}{tags:attack,speed}(10-25)% increased Attack Speed
 {variant:1}{tags:caster,speed}(8-12)% increased Cast Speed
 {variant:2}{tags:caster,speed}(10-15)% increased Cast Speed
+{variant:3}{tags:caster,speed}(10-25)% increased Cast Speed
 {tags:speed}12% increased Movement Speed
 {variant:1}(8-12)% reduced Skill Effect Duration
 {variant:2}(10-15)% reduced Skill Effect Duration
-30% increased total Recovery per second from Life, Mana, or Energy Shield Leech
+{variant:3}(10-20)% reduced Skill Effect Duration
+{variant:1,2}30% increased total Recovery per second from Life, Mana, or Energy Shield Leech
+{variant:3}Debuffs on you Expire 100% Faster
 ]],[[
 Willowgift
 Jade Amulet
@@ -1122,5 +1179,21 @@ Implicits: 1
 {tags:jewellery_elemental}(5-10)% chance to Shock
 Enemies take 5% increased Damage for each type of Ailment you have inflicted on them
 Your Elemental Damage can Shock
+]],[[
+The Eternal Struggle
+Onyx Amulet
+Source: Drops from unique{The Black Star} or unique{The Infinite Hunger}
+Searing Exarch Item
+Eater of Worlds Item
+Requires Level 61
+Implicits: 2
+9% increased Mana Reservation Efficiency of Skills
+{tags:speed}6% increased Movement Speed
+{tags:jewellery_attribute}+(20-50) to Strength
+{tags:jewellery_attribute}+(20-50) to Dexterity
+{tags:jewellery_attribute}+(20-50) to Intelligence
+{tags:jewellery_defense}(10-15)% increased Global Defences
+Critical Strikes inflict Malignant Madness if The Eater of Worlds is dominant
+Kill Enemies that have 15% or lower Life on Hit if The Searing Exarch is dominant
 ]],
 }

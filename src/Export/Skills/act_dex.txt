@@ -5,6 +5,26 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill AlchemistsMark
+#flags spell curse mark area duration
+	statMap = {
+		["alchemists_mark_igniter_creates_burning_ground_%_ignite_damage"] = {
+			mod("IgniteDpsAsBurningGround", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["alchemists_mark_poisoner_creates_caustic_ground_%_poison_damage"] = {
+			mod("PoisonDpsAsCausticGround", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["alchemists_mark_grant_attacker_x_flask_charges_when_hit_once_per_3s"] = {
+			-- Uncomment below and delete subsequent line when we get "per hit" flask charge generation working
+			-- mod("FlaskChargesGenerated", "BASE", nil, 0, KeywordFlag.Hit, { type = "ActorCondition", actor = "enemy", var = "Cursed" }),
+			-- Delete this line if you uncomment the one above: this assume we are hitting the marked target as often as we can
+			mod("FlaskChargesGenerated", "BASE", nil),
+			div = 3,
+		},
+	},
+#baseMod skill("debuff", true)
+#mods
+
 #skill Ambush
 #flags spell movement duration travel
 #mods
@@ -315,6 +335,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 20)
 #baseMod skill("radiusSecondary", 12)
 #baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsCausticGround")
 #mods
 
 #skill ImpactingSteelReload
@@ -623,38 +644,45 @@ local skills, mod, flag, skill = ...
 			stages = true,
 		},
 		{
+			name = "Explosion (Maximum Sustainable Fuses)",
+			area = true,
+		},
+		{
 			name = "Arrow",
 			area = false,
-
 		},
 	},
 	statMap = {
 		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
-			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		},
 		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
-			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowStage", limitVar = "ExplosiveArrowMaxBonusRadius", limitTotal = true }),
 		},
 		["explosive_arrow_explosion_base_damage_+permyriad"] = {
-			skill("baseMultiplier", nil, { type = "SkillPart", skillPart = 1 }),
+			skill("baseMultiplier", nil, { type = "SkillPart", skillPartList = { 1, 2 } }),
 			div = -10000,
 		},
-		["explosive_arrow_hit_and_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
+		["explosive_arrow_hit_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
 		},
+		["explosive_arrow_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
+ 		},
 		["explosive_arrow_maximum_bonus_explosion_radius"] = {
 			mod("Multiplier:ExplosiveArrowMaxBonusRadius", "BASE", nil),
 		},
 		["explosive_arrow_stack_limit"] = {
-			mod("Multiplier:ExplosiveArrowMaxStages", "BASE", nil),
+			mod("Multiplier:ExplosiveArrowMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("ExplosiveArrowMaxFuseCount", "BASE", nil),
 		},
 	},
 #baseMod skill("radius", 15)
-#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 1 })
-#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }, { type = "Multiplier", var = "ExplosiveArrowStageAfterFirst" })
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } })
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStageAfterFirst" })
 #mods
 
 #skill ExplosiveConcoction
@@ -716,6 +744,7 @@ local skills, mod, flag, skill = ...
 #skill FireTrap
 #flags spell trap area duration
 #baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsBurningGround")
 #baseMod skill("radius", 15)
 #mods
 
@@ -800,6 +829,9 @@ local skills, mod, flag, skill = ...
 			mod("AvoidChill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 			mod("AvoidIgnite", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidSap", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidBrittle", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidScorch", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["avoid_chaos_damage_%"] = {
 			mod("AvoidChaosDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
@@ -1028,10 +1060,14 @@ local skills, mod, flag, skill = ...
 #flags attack melee duration vaal
 	parts = {
 		{
-			name = "Strike",
+			name = "Melee hit",
+			melee = true,
+			projectile = false,
 		},
 		{
-			name = "Beams",
+			name = "Projectiles",
+			melee = false,
+			projectile = true,
 		},
 	},
 	statMap = {
@@ -1457,7 +1493,13 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill BoneLance
-#flags spell projectile
+#flags spell projectile corpse
+	statMap = {
+		["unearth_base_corpse_level"] = {
+			mod("CorpseLevel", "BASE", nil),
+		},
+	},
+#baseMod skill("corpseMonsterVariety", "Bone Archer")
 #mods
 
 #skill SnappingAdder
@@ -1623,6 +1665,15 @@ local skills, mod, flag, skill = ...
 
 #skill Tornado
 #flags spell duration physical area
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
+	end,
+	statMap = {
+		["tornado_base_damage_interval_ms"] = {
+			skill("damageInterval", nil ),
+			div = 1000, 
+		},
+	},
 #mods
 
 #skill IntuitiveLink

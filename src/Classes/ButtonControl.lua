@@ -3,12 +3,13 @@
 -- Class: Button Control
 -- Basic button control.
 --
-local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, label, onClick, onHover)
+local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, label, onClick, onHover, forceTooltip)
 	self.Control(anchor, x, y, width, height)
 	self.TooltipHost()
 	self.label = label
 	self.onClick = onClick
 	self.onHover = onHover
+	self.forceTooltip = forceTooltip
 end)
 
 function ButtonClass:Click()
@@ -33,7 +34,7 @@ function ButtonClass:IsMouseOver()
 	return self:IsMouseInBounds()
 end
 
-function ButtonClass:Draw(viewPort)
+function ButtonClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -85,12 +86,14 @@ function ButtonClass:Draw(viewPort)
 		DrawImageQuad(nil, x + width * 0.7, y + height * 0.2, x + width * 0.8, y + height * 0.3, x + width * 0.3, y + height * 0.8, x + width * 0.2, y + height * 0.7)
 	else
 		local overSize = self.overSizeText or 0
-		DrawString(x + width / 2, y + 2 - overSize, "CENTER_X", height - 4 + overSize * 2, "VAR",label )
+		DrawString(x + width / 2, y + 2 - overSize, "CENTER_X", height - 4 + overSize * 2, "VAR", label)
 	end
 	if mOver then
-		SetDrawLayer(nil, 100)
-		self:DrawTooltip(x, y, width, height, viewPort)
-		SetDrawLayer(nil, 0)
+		if not noTooltip or self.forceTooltip then
+			SetDrawLayer(nil, 100)
+			self:DrawTooltip(x, y, width, height, viewPort)
+			SetDrawLayer(nil, 0)
+		end
 		if self.onHover ~= nil then
 			return self.onHover()
 		end

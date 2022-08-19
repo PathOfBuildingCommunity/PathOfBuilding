@@ -17,8 +17,10 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 	self.flag = subSection[1].data.flag
 	self.notFlag = subSection[1].data.notFlag
 	self.updateFunc = updateFunc
-	
+
 	for i, subSec in ipairs(self.subSection) do
+		subSec.id = subSec.label:gsub("%W", "")
+
 		for _, data in ipairs(subSec.data) do
 			for _, colData in ipairs(data) do
 				if colData.control then
@@ -134,7 +136,7 @@ function CalcSectionClass:UpdateSize()
 end
 
 function CalcSectionClass:UpdatePos()
-	if self.subSection[1].collapsed or not self.enabled then
+	if not self.enabled then
 		return
 	end
 	local x, y = self:GetPos()
@@ -210,7 +212,7 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 	return str
 end
 
-function CalcSectionClass:Draw(viewPort)
+function CalcSectionClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
@@ -244,7 +246,7 @@ function CalcSectionClass:Draw(viewPort)
 		DrawImage(nil, x + 2, lineY + 20, width - 4, 2)
 		-- Draw controls
 		SetDrawLayer(nil, 0)
-		self:DrawControls(viewPort)
+		self:DrawControls(viewPort, noTooltip and self.calcsTab.selControl)
 		if subSec.collapsed or not self.enabled then
 			if primary then
 				return
