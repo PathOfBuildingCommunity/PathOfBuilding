@@ -720,3 +720,17 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod flag("HasSeals")
 #mods
+
+#skill SupportOvercharge
+	statMap = {
+		["support_pure_shock_shock_as_though_damage_+%_final"] = {
+			mod("ShockAsThoughDealing", "MORE", nil),
+		},
+		["support_pure_shock_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["shock_effect_+%_with_critical_strikes"] = {
+			mod("EnemyShockEffect", "INC", nil),
+		},
+	},
+#mods
