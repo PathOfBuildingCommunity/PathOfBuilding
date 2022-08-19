@@ -349,6 +349,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 	end
 
 	-- Process modifier data
+	_G.GlobalArray = {}
+	_G.GlobalArrayLen = 0
 	for _, row in ipairs(rowList) do
 		if not sectionData.modType then
 			-- No modifier type specified, so format the value to convey type
@@ -409,8 +411,15 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			end
 			table.sort(flagNames)
 			row.flags = table.concat(flagNames, ", ")
+			combVal = row.displayValue .. ":" .. row.name .. ":" .. row.flags .. ":" .. row.sourceName
+			table.insert(GlobalArray, combVal)
+			GlobalArrayLen = #GlobalArray
+			row.tags = nil
+		else
+			combVal = row.displayValue .. ":" .. row.name .. ":" .. row.mod.flags .. ":" .. row.sourceName
+			table.insert(GlobalArray, combVal)
+			GlobalArrayLen = #GlobalArray
 		end
-		row.tags = nil
 		if row.mod[1] then
 			-- Format modifier tags
 			local baseVal = type(row.mod.value) == "number" and (self:FormatModBase(row.mod, row.mod.value) .. " ")
