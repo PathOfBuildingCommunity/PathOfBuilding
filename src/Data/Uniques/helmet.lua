@@ -701,7 +701,7 @@ Requires Level 33, 38 Str, 38 Dex
 +(200-300) to Armour
 {variant:2}Adds 10-20 Physical Damage to Attacks
 {variant:1,2}20% increased Melee Damage
-{variant:3}Skills which Exert an Attack to have a (20-30)% chance to not count that Attack
+{variant:3}Skills which Exert an Attack to have a (20-40)% chance to not count that Attack
 Cannot Leech when on Low Life
 ]],[[
 Deidbellow
@@ -1263,11 +1263,15 @@ Requires Level 28, 33 Dex, 33 Int
 ]],[[
 Replica Leer Cast
 Festival Mask
+Variant: Pre 3.19.0
+Variant: Current
 League: Heist
 Requires Level 28, 33 Dex, 33 Int
 +(20-30) to Dexterity
-+(20-30) to maximum Life
-+(20-30) to maximum Mana
+{variant:1}+(20-30) to maximum Life
+{variant:2}+(60-100) to maximum Life
+{variant:1}+(20-30) to maximum Mana
+{variant:2}+(60-100) to maximum Mana
 60% reduced Mana Regeneration Rate
 You and nearby Allies have 30% increased Mana Regeneration Rate
 ]],[[
