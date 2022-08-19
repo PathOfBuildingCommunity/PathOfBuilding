@@ -1925,7 +1925,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	local minionCurses = {
 		limit = 1,
 	}
-	local allyBuffs = env.build.partyTab:ParseAuras()
+	local allyBuffs = env.build.partyTab.processedInput
 	local buffExports = {}
 	for spectreId = 1, #env.spec.build.spectreList do
 		local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
