@@ -70,7 +70,7 @@ local function writeMods(outName, condFunc)
  				end
 				if string.find(mod.Id, "EldritchImplicitUniquePresence") and #stats > 0 and #orders > 0 then
 					for i, stat in ipairs(stats) do
-						stats[i] = 	"While a Unique Enemy is in your Presence, ".. stat
+						stats[i] = "While a Unique Enemy is in your Presence, ".. stat
 					end
 				end
 				if string.find(mod.Id, "EldritchImplicitPinnaclePresence") and #stats > 0 and #orders > 0 then
