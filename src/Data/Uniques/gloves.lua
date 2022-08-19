@@ -331,7 +331,8 @@ Requires Level 41, 60 Int
 (15-20)% increased Cast Speed
 {variant:1}+(50-70) to maximum Energy Shield
 {variant:2}+(100-120) to maximum Energy Shield
-+(50-70) to maximum Life
+{variant:1}+(50-70) to maximum Life
+{variant:2}+(100-120) to maximum Life
 {variant:1}Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
 {variant:2}Sacrifice (5-25)% of Life to gain that much Energy Shield when you Cast a Spell
 ]],[[
