@@ -611,14 +611,12 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 		["spell_echo_plus_chance_double_damage_%_final"] = {
-			mod("DoubleDamageChance", "BASE", nil, ModFlag.Spell, 0),
+			mod("DoubleDamageChance", "BASE", nil, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 			div = 2,
 		},
 	},
 #baseMod flag("Condition:HaveSpellEcho")
 #baseMod mod("DoubleDamageChance", "BASE", -3, ModFlag.Spell, 0, { type = "Condition", var = "HaveGreaterSpellEcho" })
-#baseMod mod("DoubleDamageChance", "BASE", -7, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt" }, { type = "Condition", var = "HaveGreaterSpellEcho" })
-#baseMod mod("DoubleDamageChance", "BASE", -10, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt" }, { type = "Condition", var = "HaveGreaterSpellEcho", neg= true })
 #mods
 
 #skill SupportSummonGhostOnKill

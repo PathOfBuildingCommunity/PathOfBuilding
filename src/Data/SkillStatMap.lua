@@ -466,9 +466,6 @@ return {
 ["active_skill_area_of_effect_+%_final_when_cast_on_frostbolt"] = {
 	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 },
-["active_skill_area_of_effect_+%_when_cast_on_frostbolt_if_repeated"] = {
-	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
-},
 ["active_skill_area_of_effect_radius_+%_final"] = {
 	mod("AreaOfEffect", "MORE", nil),
 },
