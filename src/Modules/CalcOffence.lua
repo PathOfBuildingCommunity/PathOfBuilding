@@ -3294,6 +3294,14 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					globalOutput.CausticGroundDPS = CausticGroundDPSCapped
 					globalOutput.CausticGroundFromPoison = true
+					if globalBreakdown then
+						globalBreakdown.CausticGroundFromPoison = {
+							s_format("%.1f ^8(single poison damage per second)", baseVal * effectMod * rateMod),
+							s_format("* %.1f%% ^8(percent as Caustic ground)", groundMult),
+							s_format("* %.3f ^8(effect mult)", effMult),
+							s_format("= %.1f ^8per second", globalOutput.CausticGroundFromPoison)
+						}
+					end
 				end
 				local durationBase
 				if skillData.poisonDurationIsSkillDuration then
@@ -3564,6 +3572,14 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					globalOutput.BurningGroundDPS = BurningGroundDPSCapped
 					globalOutput.BurningGroundFromIgnite = true
+					if globalBreakdown then
+						globalBreakdown.BurningGroundDPS = {
+							s_format("%.1f ^8(ignite damage per second)", baseVal * effectMod * rateMod),
+							s_format("* %.1f%% ^8(percent as burning ground)", groundMult),
+							s_format("* %.3f ^8(effect mult)", fireEffMult),
+							s_format("= %.1f ^8per second", globalOutput.BurningGroundDPS)
+						}
+					end
 				end
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then
