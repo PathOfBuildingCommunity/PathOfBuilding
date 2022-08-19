@@ -47,14 +47,17 @@ local function writeMods(outName, condFunc)
 					out:write('type = "Scourge", ')
 				end
 				out:write('affix = "', mod.Name, '", ')
-				if string.find(mod.Family, "LocalDisplayNearbyEnemy") and #stats > 1 and #orders > 1 then
-					table.remove(stats, 1)
-					table.remove(orders, 1)
-				end
+				for index, value in pairs(mod.Family) do
+					if string.find(value.Id, "LocalDisplayNearbyEnemy") and #stats > index and #orders > index then
+						table.remove(stats, index)
+						table.remove(orders, index)
+						break
+					end
+ 				end
 				out:write('"', table.concat(stats, '", "'), '", ')
 				out:write('statOrderKey = "', table.concat(orders, ','), '", ')
 				out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
-				out:write('level = ', mod.Level, ', group = "', mod.Family, '", ')
+				out:write('level = ', mod.Level, ', group = "', mod.Type.Id, '", ')
 				out:write('weightKey = { ')
 				for _, tag in ipairs(mod.SpawnTags) do
 					out:write('"', tag.Id, '", ')
@@ -105,7 +108,7 @@ writeMods("../Data/ModJewelCluster.lua", function(mod)
 	return (mod.Domain == 21 and (mod.GenerationType == 1 or mod.GenerationType == 2)) or (mod.Domain == 10 and mod.GenerationType == 5)
 end)
 writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)
-	return mod.Family == "AuraBonus" and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
+	return mod.Family[1].Id == "AuraBonus" and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
 end)
 writeMods("../Data/ModVeiled.lua", function(mod)
 	return mod.Domain == 28 and (mod.GenerationType == 1 or mod.GenerationType == 2)
