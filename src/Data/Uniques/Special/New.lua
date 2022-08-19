@@ -46,6 +46,13 @@ Implicits: 1
 Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
 Adds 1 to 2 Fire Damage to Attacks per 10 Strength
 Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
+]],[[
+Elevore
+Wolf Pelt
++23% chance to Suppress Spell Damage
+85% increased Evasion Rating
+22% chance to Avoid Elemental Ailments
+Recover 176 Life when you Suppress Spell Damage
 ]]
 -- Reworked
 
