@@ -1943,14 +1943,11 @@ local skills, mod, flag, skill = ...
 #skill SpiritOffering
 #flags spell duration
 	statMap = {
-		["physical_damage_%_to_add_as_chaos"] = {
-			mod("PhysicalDamageGainAsChaos", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["spirit_offering_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["base_resist_all_elements_%"] = {
-			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["base_chaos_damage_resistance_%"] = {
-			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		["spirit_offering_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("buffMinions", true)
