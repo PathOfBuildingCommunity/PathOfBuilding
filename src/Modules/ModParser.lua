@@ -345,6 +345,7 @@ local modNameList = {
 	["radius of auras"] = { "AreaOfEffect", keywordFlags = KeywordFlag.Aura },
 	["radius of curses"] = { "AreaOfEffect", keywordFlags = KeywordFlag.Curse },	
 	["buff effect"] = "BuffEffect",
+	["rage loss per second"] = "RageLossRate",
 	["effect of buffs on you"] = "BuffEffectOnSelf",
 	["effect of buffs granted by your golems"] = { "BuffEffect", tag = { type = "SkillType", skillType = SkillType.Golem } },
 	["effect of buffs granted by socketed golem skills"] = { "BuffEffect", addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "golem" } },

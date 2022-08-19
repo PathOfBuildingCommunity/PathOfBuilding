@@ -188,26 +188,30 @@ local skills, mod, flag, skill = ...
 #flags spell
 	preDamageFunc = function(activeSkill, output, breakdown)
 		local dt = 0.033
-		local rage_regen = output.RageRegen and output.RageRegen or 0
-		local max_rage = output.MaximumRage
-		local rage = math.min(activeSkill.skillModList:Sum("BASE", nil, "Multiplier:RageStack"), max_rage)
-		local berserk_uptime = 0
+		local rageRegen = output.RageRegen and output.RageRegen or 0
+		local rageGainRate = 0 --Add support -- Sources of Rage on hit are independent of each other and do not share cooldowns/ticks.
+		local maxRage = output.MaximumRage
+		local rage = math.min(activeSkill.skillModList:Sum("BASE", nil, "Multiplier:RageStack"), maxRage)
+		local berserkUptime = 0
 		local minimumRage = activeSkill.skillData.minimumRage
 		local percentRageLoss = activeSkill.skillData.percentRageLoss
-		local rageLoss = activeSkill.skillData.rageLoss
+		local inc = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "RageLossRate")
+		local more = activeSkill.skillModList:More(activeSkill.skillCfg, "RageLossRate")
+		local mult = (1 + inc / 100) * more
+		local rageLoss = activeSkill.skillData.rageLoss + ((rageRegen == 0 and rageGainRate == 0) and 2 or 0) --lose 2 rage per second if you don't gain any.
+		rageLoss = rageLoss * mult
 		if rage > minimumRage then
 			while rage > 0 do
-				rage = rage - dt * rageLoss * (1 + percentRageLoss * berserk_uptime)
-				rage = rage + dt * rage_regen
-				rage = math.min(rage, max_rage)
-				berserk_uptime = berserk_uptime + dt
+				rage = rage + dt * (rageRegen - rageLoss * (1 + percentRageLoss * berserkUptime))
+				rage = math.min(rage, maxRage)
+				berserkUptime = berserkUptime + dt
 			end
 		end
 		if breakdown then
 			local BerserkDuration = { "Running a small simulation to calculate duration." }
 			breakdown.BerserkDuration = BerserkDuration
 		end
-		output.BerserkDuration = berserk_uptime
+		output.BerserkDuration = berserkUptime
 	end,
 	statMap = {
 		["berserk_attack_damage_+%_final"] = {
