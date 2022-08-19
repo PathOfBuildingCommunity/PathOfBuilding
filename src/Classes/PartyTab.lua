@@ -17,7 +17,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.processedInput = { Aura = {}, Curse = {} }
 	self.buffExports = {}
 
-	self.lastContent = ""
+	self.lastContentAura = ""
+	self.lastContentCurse = ""
 	self.showColorCodes = false
 
 	local notesDesc = [[^7Party stuff	DO NOT EDIT ANY BOXES UNLESS YOU KNOW WHAT YOU ARE DOING, use copy/paste instead, or import]]
@@ -153,7 +154,8 @@ function PartyTabClass:Load(xml, fileName)
 			self:ParseBuffs(self.buffExports, node.attrib.string, "Curse")
 		end
 	end
-	self.lastContent = self.controls.editAuras.buf
+	self.lastContentAura = self.controls.editAuras.buf
+	self.lastContentCurse = self.controls.editCurses.buf
 end
 
 function PartyTabClass:Save(xml)
@@ -169,7 +171,8 @@ function PartyTabClass:Save(xml)
 	child = { elem = "ExportedBuffs", attrib = { name = "Curse" } }
 	child.attrib.string = self:exportBuffs("Curse")
 	t_insert(xml, child)
-	self.lastContent = self.controls.editAuras.buf
+	self.lastContentAura = self.controls.editAuras.buf
+	self.lastContentCurse = self.controls.editCurses.buf
 end
 
 function PartyTabClass:Draw(viewPort, inputEvents)
@@ -181,9 +184,17 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "z" and IsKeyDown("CTRL") then
-				self.controls.editAuras:Undo()
+				if self.controls.editAuras.hasFocus then
+					self.controls.editAuras:Undo()
+				elseif self.controls.editCurses.hasFocus then
+					self.controls.editCurses:Undo()
+				end
 			elseif event.key == "y" and IsKeyDown("CTRL") then
-				self.controls.editAuras:Redo()
+				if self.controls.editAuras.hasFocus then
+					self.controls.editAuras:Redo()
+				elseif self.controls.editCurses.hasFocus then
+					self.controls.editCurses:Redo()
+				end
 			end
 		end
 	end
@@ -193,7 +204,7 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 
 	self:DrawControls(viewPort)
 
-	self.modFlag = (self.lastContent ~= self.controls.editAuras.buf)
+	self.modFlag = (self.lastContentAura ~= self.controls.editAuras.buf and self.lastContentCurse ~= self.controls.editCurses.buf)
 end
 
 function PartyTabClass:ParseBuffs(list, buf, buffType)
