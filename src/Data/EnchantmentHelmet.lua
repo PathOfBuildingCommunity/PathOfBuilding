@@ -2612,7 +2612,7 @@ return {
 			"24% increased Sweep Area of Effect",
 		},
 	},
-	["Table Charge"] = {
+	["Shield Charge"] = {
 		["MERCILESS"] = {
 			"25% increased Shield Charge Damage",
 			"10% increased Shield Charge Attack Speed",
