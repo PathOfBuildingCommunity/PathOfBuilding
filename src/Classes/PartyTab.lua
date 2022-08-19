@@ -14,7 +14,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 
 	self.build = build
 	
-	self.processedInput = {}
+	self.processedInput = { Aura = {}, Curse = {} }
 	self.buffExports = {}
 
 	self.lastContent = ""
@@ -32,10 +32,6 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 
 		if #buf == 0 then
 			return
-		end
-
-		if not self.build.dbFileName then
-			self.controls.importCodeMode.selIndex = 2
 		end
 
 		self.importCodeDetail = colorCodes.NEGATIVE.."Invalid input"
@@ -62,7 +58,11 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeGo = new("ButtonControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 10, 160, 20, "Import", function()
+	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Aura", "Curse" })
+	self.controls.importCodeMode.enabled = function()
+		return self.importCodeValid
+	end
+	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 8, 0, 160, 20, "Import", function()
 		if self.importCodeSite and not self.importCodeXML then
 			return
 		end
@@ -80,10 +80,22 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		-- Load data
 		for _, node in ipairs(dbXML[1]) do
 			if type(node) == "table" and node.elem == "Party" then
-				self.controls.editAuras:SetText(node[2].attrib.string)
+				if self.controls.importCodeMode.selIndex == 1 then
+					self.controls.editAuras:SetText(node[3].attrib.string)
+					wipeTable(self.processedInput["Aura"])
+					self.processedInput["Aura"] = {}
+					self:ParseBuffs(self.processedInput["Aura"], node[3].attrib.string, "Aura")
+				elseif self.controls.importCodeMode.selIndex == 2 then
+					self.controls.editCurses:SetText(node[4].attrib.string)
+					wipeTable(self.processedInput["Curse"])
+					self.processedInput["Curse"] = {}
+					self:ParseBuffs(self.processedInput["Curse"], node[4].attrib.string, "Curse")
+				end
+				self.build.buildFlag = true 
 				break
 			end
 		end
+		
 	end)
 	self.controls.importCodeGo.enabled = function()
 		return self.importCodeValid and not self.importCodeFetching
@@ -93,16 +105,28 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			self.controls.importCodeGo.onClick()
 		end
 	end
-
-	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.importCodeGo,"TOPLEFT"}, 0, 40, 0, 0, "", nil, "^%C\t\n", nil, function() 
+	
+	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.importCodeGo,"RIGHT"}, 8, 0, 160, 20, "Rebuild", function() 
 		wipeTable(self.processedInput)
-		self.processedInput = self:ParseAuras(self.controls.editAuras.buf)
+		self.processedInput = { Aura = {}, Curse = {} }
+		self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura")
+		self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse")
 		self.build.buildFlag = true 
-	end, 16, true)
+	end)
+
+	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.importCodeMode,"TOPLEFT"}, 0, 40, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editAuras.width = function()
-		return self.width - 16
+		return self.width / 2 - self.controls.editAuras.x - 18
 	end
 	self.controls.editAuras.height = function()
+		return self.height - 148
+	end
+
+	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.editAuras,"TOPRIGHT"}, 8, 0, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editCurses.width = function()
+		return self.width / 2 - 16
+	end
+	self.controls.editCurses.height = function()
 		return self.height - 148
 	end
 	self:SelectControl(self.controls.editAuras)
@@ -113,14 +137,20 @@ function PartyTabClass:Load(xml, fileName)
 		if node.elem == "ImportedText" then
 			if not node.attrib.name then
 				ConPrintf("missing name")
+			elseif node.attrib.name == "Aura" then
+				self.controls.editAuras:SetText(node.attrib.string)
+				self:ParseBuffs(self.processedInput["Aura"], node.attrib.string, "Aura")
+			elseif node.attrib.name == "Curse" then
+				self.controls.editCurses:SetText(node.attrib.string)
+				self:ParseBuffs(self.processedInput["Curse"], node.attrib.string, "Curse")
 			end
-			self.controls.editAuras:SetText(node.attrib.string)
 		end
 		if node.elem == "ExportedBuffs" then
 			if not node.attrib.name then
 				ConPrintf("missing name")
 			end
-			buffExports = self:ParseAuras(node.attrib.string)
+			self:ParseBuffs(self.buffExports, node.attrib.string, "Aura")
+			self:ParseBuffs(self.buffExports, node.attrib.string, "Curse")
 		end
 	end
 	self.lastContent = self.controls.editAuras.buf
@@ -130,8 +160,14 @@ function PartyTabClass:Save(xml)
 	local child = { elem = "ImportedText", attrib = { name = "Aura" } }
 	child.attrib.string = self.controls.editAuras.buf
 	t_insert(xml, child)
+	child = { elem = "ImportedText", attrib = { name = "Curse" } }
+	child.attrib.string = self.controls.editCurses.buf
+	t_insert(xml, child)
 	child = { elem = "ExportedBuffs", attrib = { name = "Aura" } }
-	child.attrib.string = self:exportAuras()
+	child.attrib.string = self:exportBuffs("Aura")
+	t_insert(xml, child)
+	child = { elem = "ExportedBuffs", attrib = { name = "Curse" } }
+	child.attrib.string = self:exportBuffs("Curse")
 	t_insert(xml, child)
 	self.lastContent = self.controls.editAuras.buf
 end
@@ -160,24 +196,30 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 	self.modFlag = (self.lastContent ~= self.controls.editAuras.buf)
 end
 
-function PartyTabClass:ParseAuras(buf)
-	local allyBuffs = {}
+function PartyTabClass:ParseBuffs(list, buf, buffType)
 	local mode = "Name"
+	if buffType == "Curse" then
+		mode = "CurseLimit"
+	end
 	local currentName
+	local currentEffect
+	local currentModType = "Unknown"
 	for line in buf:gmatch("([^\n]*)\n?") do
-		if mode == "Name" and line ~= "" then
+		if mode == "CurseLimit" and line ~= "" then
+			list.limit = tonumber(line)
+			mode = "Name"
+		elseif mode == "Name" and line ~= "" then
 			currentName = line
-			allyBuffs[currentName] = {}
-			allyBuffs[currentName].modList = new("ModList")
 			mode = "Effect"
 		elseif mode == "Effect" then
-			allyBuffs[currentName].effectMult = tonumber(line)
+			currentEffect = tonumber(line)
 			mode = "Stats"
 		elseif line == "---" then
 			mode = "Name"
 		else
 			if line:find("|") then
 				local modStrings = {}
+				local modType = currentModType
 				for line2 in line:gmatch("([^|]*)|?") do
 					t_insert(modStrings, line2)
 				end
@@ -189,28 +231,46 @@ function PartyTabClass:ParseAuras(buf)
 					flags = tonumber(modStrings[5]) or 0,
 					keywordFlags = tonumber(modStrings[6]) or 0,
 				}
-				mod[1] = { -- this should be parsed from modStrings[7]
-					type = "GlobalEffect",
-					effectType = "Aura"
-				}
-				allyBuffs[currentName].modList:AddMod(mod)
-			else
-				local mods, extra = modLib.parseMod(line)
-				if mods then
-					local source = "Ally Mods"
-					for i = 1, #mods do
-						local mod = mods[i]
-
-						if mod then
-							mod = modLib.setSource(mod, source)
-							allyBuffs[currentName].modList:AddMod(mod)
-						end
-					end
+				local extraTags = {}
+				if modStrings[7]:find("type=GlobalEffect/effectType=AuraDebuff") then
+					t_insert(extraTags, {
+						type = "GlobalEffect",
+						effectType = "AuraDebuff"
+					})
+					modType = "AuraDebuff"
+					currentModType = "AuraDebuff"
+				elseif modStrings[7]:find("type=GlobalEffect/effectType=Aura") then
+					t_insert(extraTags, {
+						type = "GlobalEffect",
+						effectType = "Aura"
+					})
+					modType = "Aura"
+					currentModType = "Aura"
+				elseif modStrings[7]:find("type=GlobalEffect/effectType=Curse") then
+					t_insert(extraTags, {
+						type = "GlobalEffect",
+						effectType = "Curse"
+					})
+					modType = "Curse"
+					currentModType = "Curse"
 				end
+				mod[1] = extraTags[1]
+				if not list[modType] then
+					list[modType] = {}
+					list[modType][currentName] = {
+						modList = new("ModList"),
+						effectMult = currentEffect
+					}
+				elseif not list[modType][currentName] then
+					list[modType][currentName] = {
+						modList = new("ModList"),
+						effectMult = currentEffect
+					}
+				end
+				list[modType][currentName].modList:AddMod(mod)
 			end
 		end
 	end
-	return allyBuffs
 end
 
 function PartyTabClass:setBuffExports(buffExports)
@@ -218,15 +278,15 @@ function PartyTabClass:setBuffExports(buffExports)
 	self.buffExports = copyTable(buffExports, true)
 end
 
-function PartyTabClass:exportAuras()
-	if not self.buffExports then
+function PartyTabClass:exportBuffs(buffType)
+	if not self.buffExports or not self.buffExports[buffType] then
 		return ""
 	end
-	if self.buffExports.ConvertedToText then
-		return self.buffExports.string
+	if self.buffExports[buffType].ConvertedToText then
+		return self.buffExports[buffType].string
 	end
 	local buf = ""
-	for buffName, buff in pairs(self.buffExports) do
+	for buffName, buff in pairs(self.buffExports[buffType]) do
 		if #buf > 0 then
 			buf = buf.."\n"
 		end
@@ -238,8 +298,8 @@ function PartyTabClass:exportAuras()
 		end
 		buf = buf.."---"
 	end
-	wipeTable(self.buffExports)
-	self.buffExports = { ConvertedToText = true }
-	self.buffExports.string = buf
+	wipeTable(self.buffExports[buffType])
+	self.buffExports[buffType] = { ConvertedToText = true }
+	self.buffExports[buffType].string = buf
 	return buf
 end

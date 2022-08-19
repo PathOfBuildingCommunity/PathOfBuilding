@@ -1925,8 +1925,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	local minionCurses = {
 		limit = 1,
 	}
-	local allyBuffs = env.build.partyTab.processedInput
-	local buffExports = {}
+	local allyBuffs = env.build.partyTab.processedInput["Aura"]
+	local buffExports = { Aura = {}, Curse = {} }
 	for spectreId = 1, #env.spec.build.spectreList do
 		local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
 		for modId = 1, #spectreData.modList do
@@ -2001,18 +2001,17 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 							t_insert(extraAuraModList, copyTable(value.mod, true))
 						end
 					end
-					local buffName = buff.name:gsub(" ","")
 					if not activeSkill.skillData.auraCannotAffectSelf then
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect", "SkillAuraEffectOnSelf")
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnSelf", "AuraEffectOnSelf", "AuraBuffEffect", "SkillAuraEffectOnSelf")
 						local mult = (1 + inc / 100) * more
-						if modDB:Flag(nil, "AlliesAurasCannotAffectSelf") or (not (allyBuffs[buffName] and allyBuffs[buffName].effectMult / 100 > mult)) then
+						if modDB:Flag(nil, "AlliesAurasCannotAffectSelf") or not allyBuffs["Aura"] or not allyBuffs["Aura"][buff.name] or allyBuffs["Aura"][buff.name].effectMult / 100 <= mult then
 							activeSkill.buffSkill = true
 							affectedByAura[env.player] = true
 							if buff.name:sub(1,4) == "Vaal" then
 								modDB.conditions["AffectedBy"..buff.name:sub(6):gsub(" ","")] = true
 							end
-							modDB.conditions["AffectedBy"..buffName] = true
+							modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 							local srcList = new("ModList")
 							srcList:ScaleAddList(buff.modList, mult)
 							srcList:ScaleAddList(extraAuraModList, mult)
@@ -2024,10 +2023,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 							local mult = (1 + inc / 100) * more
-							if not(allyBuffs[buffName] and allyBuffs[buffName].effectMult / 100 > mult) then
+							if not allyBuffs["Aura"] or  not allyBuffs["Aura"][buff.name] or allyBuffs["Aura"][buff.name].effectMult / 100 <= mult then
 								activeSkill.minionBuffSkill = true
 								affectedByAura[env.minion] = true
-								env.minion.modDB.conditions["AffectedBy"..buffName] = true
+								env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 								local srcList = new("ModList")
 								srcList:ScaleAddList(buff.modList, mult)
 								srcList:ScaleAddList(extraAuraModList, mult)
@@ -2037,7 +2036,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect")
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect")
 						local mult = (1 + inc / 100) * more
-						buffExports[buff.name] = { effectMult = mult, modList = buff.modList }
+						local newModlist = new("ModList")
+						newModlist:AddList(buff.modList)
+						newModlist:AddList(extraAuraModList)
+						buffExports["Aura"][buff.name] = { effectMult = mult, modList = newModlist }
 					end
 					if env.player.mainSkill.skillFlags.totem and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						activeSkill.totemBuffSkill = true
@@ -2093,6 +2095,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							mult = (1 + inc / 100) * more
+							buffExports["Aura"][buff.name] = { effectMult = mult, modList = buff.modList }
+							if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
+								mult = 0
+							end
 						end
 					end
 					if buff.type == "Debuff" then
@@ -2123,6 +2129,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 						inc = inc + skillModList:Sum("INC", skillCfg, "AuraEffect")
 					end
 					local more = skillModList:More(skillCfg, "CurseEffect")
+					local moreMark = more
 					-- This is non-ideal, but the only More for enemy is the boss effect
 					if not curse.isMark then
 						more = more * enemyDB:More(nil, "CurseEffectOnSelf")
@@ -2134,6 +2141,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					if buff.type == "Curse" then
 						curse.modList = new("ModList")
 						curse.modList:ScaleAddList(buff.modList, mult)
+						buffExports["Curse"][buff.name] = { effectMult = curse.isMark and mult or (1 + inc / 100) * moreMark, modList = buff.modList }
 					else
 						-- Curse applies a buff; scale by curse effect, then buff effect
 						local temp = new("ModList")
@@ -2239,24 +2247,40 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			end
 		end
 	end
-	for auraName, aura in pairs(allyBuffs) do
-		if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") and not modDB.conditions["AffectedBy"..auraName] then
-			affectedByAura[env.player] = true
-			modDB.conditions["AffectedBy"..auraName] = true
-			local srcList = new("ModList")
-			srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
-			mergeBuff(srcList, buffs, auraName)
-		end
-		if env.minion and not env.minion.modDB.conditions["AffectedBy"..auraName] then
-			affectedByAura[env.minion] = true
-			env.minion.modDB.conditions["AffectedBy"..auraName] = true
-			local srcList = new("ModList")
-			srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
-			mergeBuff(srcList, minionBuffs, auraName)
+	env.build.partyTab:setBuffExports(buffExports)
+	if allyBuffs["Aura"] then
+		for auraName, aura in pairs(allyBuffs["Aura"]) do
+			local auraNameCompressed = auraName:gsub(" ","")
+			if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") and not modDB.conditions["AffectedBy"..auraNameCompressed] then
+				affectedByAura[env.player] = true
+				if auraName:sub(1,4) == "Vaal" then
+					modDB.conditions["AffectedBy"..auraName:sub(6):gsub(" ","")] = true
+				end
+				modDB.conditions["AffectedBy"..auraNameCompressed] = true
+				local srcList = new("ModList")
+				srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
+				mergeBuff(srcList, buffs, auraName)
+			end
+			if env.minion and not env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] then
+				affectedByAura[env.minion] = true
+				env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] = true
+				local srcList = new("ModList")
+				srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
+				mergeBuff(srcList, minionBuffs, auraName)
+			end
 		end
 	end
-	--ConPrintTable(buffExports)
-	env.build.partyTab:setBuffExports(buffExports)
+	if allyBuffs["AuraDebuff"] and env.mode_effective then
+		for auraName, aura in pairs(allyBuffs["AuraDebuff"]) do
+			local auraNameCompressed = auraName:gsub(" ","")
+			if not modDB.conditions["AffectedBy"..auraNameCompressed] then
+				modDB.conditions["AffectedBy"..auraNameCompressed] = true
+				local srcList = new("ModList")
+				srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
+				mergeBuff(srcList, debuffs, auraName)
+			end
+		end
+	end
 
 	-- Limited support for handling buffs originating from Spectres
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
@@ -2344,6 +2368,14 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			end
 		end
 	end
+	local allyCurses = {}
+	for curseName, curse in pairs(env.build.partyTab.processedInput["Curse"]["Curse"]) do
+		curse.name = curseName
+		curse.priority = 0
+		t_insert(allyCurses, curse)
+	end
+	allyCurses.limit = env.build.partyTab.processedInput["Curse"].limit
+	
 
 	-- Set curse limit
 	output.PowerChargesMax = m_max(modDB:Sum("BASE", nil, "PowerChargesMax"), 0) -- precalculate max charges for this.
@@ -2354,7 +2386,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	env.curseSlots = curseSlots
 	-- Currently assume only 1 mark is possible
 	local markSlotted = false
-	for _, source in ipairs({curses, minionCurses}) do
+	for _, source in ipairs({curses, minionCurses, allyCurses}) do
 		for _, curse in ipairs(source) do
 			-- Calculate curses that ignore hex limit after
 			if not curse.ignoreHexLimit and not curse.socketedCursesHexLimit then
