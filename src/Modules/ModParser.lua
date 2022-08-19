@@ -400,6 +400,7 @@ local modNameList = {
 	["life gained for each enemy hit"] = { "LifeOnHit" },
 	["life gained for each enemy hit by attacks"] = { "LifeOnHit", flags = ModFlag.Attack },
 	["life per enemy hit by attacks"] = { "LifeOnHit", flags = ModFlag.Attack },
+	["life per enemy hit with attacks"] = { "LifeOnHit", flags = ModFlag.Attack },
 	["life gained for each enemy hit by your attacks"] = { "LifeOnHit", flags = ModFlag.Attack },
 	["life gained for each enemy hit by spells"] = { "LifeOnHit", flags = ModFlag.Spell },
 	["life gained for each enemy hit by your spells"] = { "LifeOnHit", flags = ModFlag.Spell },
