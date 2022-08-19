@@ -3404,36 +3404,40 @@ skills["ExplosiveArrow"] = {
 			stages = true,
 		},
 		{
+			name = "Explosion (Maximum Sustainable Fuses)",
+			area = true,
+		},
+		{
 			name = "Arrow",
 			area = false,
-
 		},
 	},
 	statMap = {
 		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
-			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		},
 		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
-			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowStage", limitVar = "ExplosiveArrowMaxBonusRadius", limitTotal = true }),
 		},
 		["explosive_arrow_explosion_base_damage_+permyriad"] = {
-			skill("baseMultiplier", nil, { type = "SkillPart", skillPart = 1 }),
+			skill("baseMultiplier", nil, { type = "SkillPart", skillPartList = { 1, 2 } }),
 			div = -10000,
 		},
 		["explosive_arrow_hit_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "SkillPart", skillPart = 1 }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
 		},
 		["explosive_arrow_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPart = 1 }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
  		},
 		["explosive_arrow_maximum_bonus_explosion_radius"] = {
 			mod("Multiplier:ExplosiveArrowMaxBonusRadius", "BASE", nil),
 		},
 		["explosive_arrow_stack_limit"] = {
-			mod("Multiplier:ExplosiveArrowMaxStages", "BASE", nil),
+			mod("Multiplier:ExplosiveArrowMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("ExplosiveArrowMaxFuseCount", "BASE", nil),
 		},
 	},
 	baseFlags = {
@@ -3444,8 +3448,8 @@ skills["ExplosiveArrow"] = {
 	},
 	baseMods = {
 		skill("radius", 15),
-		skill("showAverage", true, { type = "SkillPart", skillPart = 1 }),
-		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }, { type = "Multiplier", var = "ExplosiveArrowStageAfterFirst" }),
+		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } }),
+		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStageAfterFirst" }),
 	},
 	qualityStats = {
 		Default = {
