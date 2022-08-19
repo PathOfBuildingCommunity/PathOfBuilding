@@ -1629,7 +1629,7 @@ function calcs.defence(env, actor)
 		else
 			numHits = 0
 		end
-		
+
 		local life = output.LifeRecoverable or 0
 		local mana = output.ManaUnreserved or 0
 		local energyShield = output.EnergyShieldRecoveryCap
@@ -1656,7 +1656,7 @@ function calcs.defence(env, actor)
 		end
 		DamageIn["LifeLossBelowHalfLost"] = DamageIn["LifeLossBelowHalfLost"] or 0
 		DamageIn["WardBypass"] = DamageIn["WardBypass"] or modDB:Sum("BASE", nil, "WardBypass") or 0
-		
+
 		local iterationMultiplier = 1
 		local maxHits = data.misc.ehpCalcMaxHitsToCalc
 		maxHits = maxHits / DamageIn["cycles"]
@@ -1741,9 +1741,6 @@ function calcs.defence(env, actor)
 					life = life - Damage[damageType]
 				end
 			end
-			if life < 0 then --don't count overkill damage
-				numHits = numHits + life / DamageAbsorbed
-			end
 			if modDB:Flag(nil, "WardNotBreak") then
 				ward = restoreWard
 			elseif ward > 0 then
@@ -1763,10 +1760,13 @@ function calcs.defence(env, actor)
 				Damage = { }
 				for _, damageType in ipairs(dmgTypeList) do
 					Damage[damageType] = DamageIn[damageType] * speedUp
-				end	
+				end
 				Damage["cycles"] = DamageIn["cycles"] * speedUp
 				iterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
-				DamageIn["cyclesRan"] = true 
+				DamageIn["cyclesRan"] = true
+			end
+			if life < 0 and DamageIn["cycles"] == 1 then --don't count overkill damage and only on final pass as to not break speedup.
+				numHits = numHits + life / DamageAbsorbed
 			end
 		end
 		if numHits >= maxHits then
