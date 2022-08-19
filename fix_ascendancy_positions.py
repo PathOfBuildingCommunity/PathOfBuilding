@@ -9,7 +9,7 @@ import pathlib
 logging.basicConfig(level=logging.INFO)
 
 
-@dataclasses.dataclass(frozen=True) #, slots=True) #, slots breaks becouse its already defined?
+@dataclasses.dataclass(frozen=True) #, slots=True) #, slots breaks because its already defined?
 class Point2D:
     """Two-dimensional point. Supports subtracting points."""
     x: int
@@ -56,7 +56,7 @@ EXTRA_NODES = {
 	"Saboteur": [{"Node": {"name": "Harness the Void", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/DexInt.png", "isNotable": True, "skill" : 57331}, 
 		"offset": Point2D(1000, -1500)}],
 }
-EXTRA_NODE_IDS = { #these can be any value but for now they are hardcoded to what random numbers generated last time for consistancy, the "hash" value is what we should probs use though as its the value in the ggpk
+EXTRA_NODE_IDS = { # these can be any value but for now they are hardcoded to what random numbers were generated last time for consistency, the "hash" value is what we should probs use though as it's the value in the ggpk
 	"Nine Lives": {"NodeID": 33600, "GroupID" : 44472},
 	"Searing Purity": {"NodeID": 22278, "GroupID" : 50933},
 	"Soul Drinker": {"NodeID": 19264, "GroupID" : 37841, "hash" : 45999},
@@ -66,7 +66,7 @@ EXTRA_NODE_IDS = { #these can be any value but for now they are hardcoded to wha
 	"Indomitable Resolve": {"NodeID": 15386, "GroupID" : 25519},
 	"Unleashed Potential": {"NodeID": 55193, "GroupID" : 60495},
 }
-EXTRA_NODES_STATS = { # these should not be hardcoded here, but should by inserted later via the exporter from the ggpk (they are AsendencySpecialEdlritch in PassiveSkills.dat, though reminder text seems to be missing)
+EXTRA_NODES_STATS = { # these should not be hardcoded here, but should be inserted later via the exporter from the ggpk (they are AscendencySpecialEldritch in PassiveSkills.dat, though reminder text seems to be missing)
 	"Nine Lives": {"stats": ["25% of Damage taken Recouped as Life, Mana and Energy Shield", "Recoup Effects instead occur over 3 seconds"], "reminderText": ["(Only Damage from Hits can be Recouped, over 4 seconds following the Hit)"]}, 
 	"Searing Purity": {"stats": ["45% of Chaos Damage taken as Fire Damage", "45% of Chaos Damage taken as Lightning Damage"], "reminderText": []},
 	"Soul Drinker": {"stats": ["2% of Damage Leeched as Energy Shield", "20% increased Attack and Cast Speed while Leeching Energy Shield", "Energy Shield Leech effects are not removed when Energy Shield is Filled"], "reminderText": ["(Leeched Energy Shield is recovered over time. Multiple Leeches can occur simultaneously, up to a maximum rate)"]},
@@ -108,7 +108,7 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
         group["y"] += offset.y
     for ascendancy in EXTRA_NODES:
         for node in EXTRA_NODES[ascendancy]:
-            if str(EXTRA_NODE_IDS[node["Node"]["name"]]["GroupID"]) in data["groups"]: #using hardcoded value from last time, can use another method instead, like just grabbing the next avalible value
+            if str(EXTRA_NODE_IDS[node["Node"]["name"]]["GroupID"]) in data["groups"]: # using hardcoded value from last time, can use another method instead, like just grabbing the next available value
                 print("GroupID already taken")
                 return
             node["Node"]["group"] = EXTRA_NODE_IDS[node["Node"]["name"]]["GroupID"]

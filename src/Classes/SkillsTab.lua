@@ -587,6 +587,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.qualityId:SelByValue(gemInstance.qualityId)
 			slot.enabled.state = true
 			slot.enableGlobal1.state = true
+			slot.enableGlobal2.state = true
 			slot.count:SetText(gemInstance.count)
 		elseif gemId == gemInstance.gemId then
 			return

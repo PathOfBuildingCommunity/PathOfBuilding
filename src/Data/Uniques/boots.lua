@@ -736,12 +736,16 @@ Adds 1 to 80 Chaos Damage to Attacks
 ]],[[
 Replica Alberon's Warpath
 Soldier Boots
+Variant: Pre 3.19.0
+Variant: Current
 League: Heist
 Requires Level 49, 47 Str, 47 Int
 (15-18)% increased Strength
 +(180-220) to Armour
-+(9-12)% to Chaos Resistance
-20% increased Movement Speed
+{variant:1}+(9-12)% to Chaos Resistance
+{variant:2}+(13-19)% to Chaos Resistance
+{variant:1}20% increased Movement Speed
+{variant:2}25% increased Movement Speed
 Cannot deal non-Chaos Damage
 Adds 1 to 80 Chaos Damage to Attacks per 80 Strength
 ]],[[

@@ -249,6 +249,10 @@ return {
 	skill("corpseExplosionLifeMultiplier", nil),
 	div = 100,
 },
+["corpse_explosion_monster_life_permillage_fire"] = {
+	skill("corpseExplosionLifeMultiplier", nil),
+	div = 1000,
+},
 ["spell_base_fire_damage_%_maximum_life"] = {
 	skill("selfFireExplosionLifeMultiplier", nil),
 	div = 100,
@@ -971,6 +975,9 @@ return {
 ["freeze_as_though_dealt_damage_+%"] = {
 	mod("FreezeAsThoughDealing", "MORE", nil),
 },
+["shock_maximum_magnitude_+"] = {
+	mod("ShockMax", "BASE", nil),
+},
 -- Global flags
 ["never_ignite"] = {
 	flag("CannotIgnite"),
@@ -1683,6 +1690,9 @@ return {
 ["kill_enemy_on_hit_if_under_10%_life"] = {
 	mod("CullPercent", "MAX", nil), 
 	value = 10
+},
+["spell_cast_time_added_to_cooldown_if_triggered"] = {
+	flag("SpellCastTimeAddedToCooldownIfTriggered"),
 },
 --
 -- Spectre or Minion-specific stats
