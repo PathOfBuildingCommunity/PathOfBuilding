@@ -1060,34 +1060,6 @@ return {
 				[1]={
 					limit={
 						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Gain {0} Flask Charge when you Hit a Cursed Enemy, no more than once every 3 seconds"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]="#"
-						}
-					},
-					text="Gain {0} Flask Charges when you Hit a Cursed Enemy, no more than once every 3 seconds"
-				}
-			}
-		},
-		name="alchemists_mark_flask_on_hit",
-		stats={
-			[1]="alchemists_mark_grant_attacker_x_flask_charges_when_hit_once_per_3s"
-		}
-	},
-	[46]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
 							[1]="#",
 							[2]="#"
 						}
@@ -1101,7 +1073,7 @@ return {
 			[1]="base_additional_physical_damage_reduction_%"
 		}
 	},
-	[47]={
+	[46]={
 		lang={
 			English={
 				[1]={
@@ -1133,7 +1105,7 @@ return {
 			[1]="base_damage_taken_+%"
 		}
 	},
-	[48]={
+	[47]={
 		lang={
 			English={
 				[1]={
@@ -1156,7 +1128,7 @@ return {
 			[1]="chance_to_be_hindered_when_hit_by_spells_%"
 		}
 	},
-	[49]={
+	[48]={
 		lang={
 			English={
 				[1]={
@@ -1179,7 +1151,7 @@ return {
 			[1]="chance_to_be_maimed_when_hit_%"
 		}
 	},
-	[50]={
+	[49]={
 		lang={
 			English={
 				[1]={
@@ -1198,7 +1170,7 @@ return {
 			[1]="curse_apply_as_curse_zone"
 		}
 	},
-	[51]={
+	[50]={
 		lang={
 			English={
 				[1]={
@@ -1217,7 +1189,7 @@ return {
 			[1]="curse_maximum_doom"
 		}
 	},
-	[52]={
+	[51]={
 		lang={
 			English={
 				[1]={
@@ -1248,7 +1220,7 @@ return {
 			[1]="curse_skill_doom_gain_per_minute"
 		}
 	},
-	[53]={
+	[52]={
 		lang={
 			English={
 				[1]={
@@ -1288,7 +1260,7 @@ return {
 			[1]="damage_taken_+%_on_low_life"
 		}
 	},
-	[54]={
+	[53]={
 		lang={
 			English={
 				[1]={
@@ -1315,7 +1287,7 @@ return {
 			[1]="debilitate_self_for_x_milliseconds_on_hit"
 		}
 	},
-	[55]={
+	[54]={
 		lang={
 			English={
 				[1]={
@@ -1334,7 +1306,7 @@ return {
 			[1]="enemy_chance_to_double_stun_duration_%_vs_self"
 		}
 	},
-	[56]={
+	[55]={
 		lang={
 			English={
 				[1]={
@@ -1357,7 +1329,7 @@ return {
 			[1]="enemy_damaging_ailments_deal_damage_+%_faster_against_self"
 		}
 	},
-	[57]={
+	[56]={
 		lang={
 			English={
 				[1]={
@@ -1376,7 +1348,7 @@ return {
 			[1]="enemy_rage_regeneration_on_stun"
 		}
 	},
-	[58]={
+	[57]={
 		lang={
 			English={
 				[1]={
@@ -1403,7 +1375,7 @@ return {
 			[1]="energy_shield_leech_on_any_damage_when_hit_permyriad"
 		}
 	},
-	[59]={
+	[58]={
 		lang={
 			English={
 				[1]={
@@ -1435,7 +1407,7 @@ return {
 			[1]="enfeeble_damage_+%_vs_rare_or_unique_final"
 		}
 	},
-	[60]={
+	[59]={
 		lang={
 			English={
 				[1]={
@@ -1463,7 +1435,7 @@ return {
 			[1]="grant_attacker_endurance_charge_when_hit_%_chance"
 		}
 	},
-	[61]={
+	[60]={
 		lang={
 			English={
 				[1]={
@@ -1491,7 +1463,7 @@ return {
 			[1]="grant_attacker_frenzy_charge_when_hit_%_chance"
 		}
 	},
-	[62]={
+	[61]={
 		lang={
 			English={
 				[1]={
@@ -1519,7 +1491,7 @@ return {
 			[1]="grant_attacker_power_charge_when_hit_%_chance"
 		}
 	},
-	[63]={
+	[62]={
 		lang={
 			English={
 				[1]={
@@ -1542,12 +1514,12 @@ return {
 				}
 			}
 		},
-		name="alchemists_mark_life_flask_on_hit",
+		name="projectile_weakness_life_flask_on_hit",
 		stats={
 			[1]="grant_attacker_x_life_flask_charges_when_hit_once_per_500ms"
 		}
 	},
-	[64]={
+	[63]={
 		lang={
 			English={
 				[1]={
@@ -1570,12 +1542,12 @@ return {
 				}
 			}
 		},
-		name="alchemists_mark_mana_flask_on_hit",
+		name="projectile_weakness_mana_flask_on_hit",
 		stats={
 			[1]="grant_attacker_x_mana_flask_charges_when_hit_once_per_500ms"
 		}
 	},
-	[65]={
+	[64]={
 		lang={
 			English={
 				[1]={
@@ -1607,7 +1579,7 @@ return {
 			[1]="mark_skills_curse_effect_+%"
 		}
 	},
-	[66]={
+	[65]={
 		lang={
 			English={
 				[1]={
@@ -1631,7 +1603,7 @@ return {
 			[2]="maximum_added_chaos_damage_taken"
 		}
 	},
-	[67]={
+	[66]={
 		lang={
 			English={
 				[1]={
@@ -1655,7 +1627,7 @@ return {
 			[2]="maximum_added_physical_damage_taken"
 		}
 	},
-	[68]={
+	[67]={
 		lang={
 			English={
 				[1]={
@@ -1687,7 +1659,7 @@ return {
 			[1]="base_physical_damage_over_time_taken_+%"
 		}
 	},
-	[69]={
+	[68]={
 		lang={
 			English={
 				[1]={
@@ -1706,7 +1678,7 @@ return {
 			[1]="projectiles_hitting_self_split_into_x"
 		}
 	},
-	[70]={
+	[69]={
 		lang={
 			English={
 				[1]={
@@ -1729,7 +1701,7 @@ return {
 			[1]="receive_bleeding_chance_%_when_hit_by_attack"
 		}
 	},
-	[71]={
+	[70]={
 		lang={
 			English={
 				[1]={
@@ -1752,7 +1724,7 @@ return {
 			[1]="punishment_reflect_%_overkill_damage_to_nearby_allies_on_death"
 		}
 	},
-	[72]={
+	[71]={
 		lang={
 			English={
 				[1]={
@@ -1792,7 +1764,7 @@ return {
 			[1]="self_elemental_status_duration_-%"
 		}
 	},
-	[73]={
+	[72]={
 		lang={
 			English={
 				[1]={
@@ -1824,7 +1796,7 @@ return {
 			[1]="temporal_chains_action_speed_+%_vs_rare_or_unique_final"
 		}
 	},
-	[74]={
+	[73]={
 		lang={
 			English={
 				[1]={
@@ -1853,15 +1825,14 @@ return {
 		}
 	},
 	["accuracy_rating_+%"]=20,
-	["alchemists_mark_grant_attacker_x_flask_charges_when_hit_once_per_3s"]=45,
-	["base_additional_physical_damage_reduction_%"]=46,
+	["base_additional_physical_damage_reduction_%"]=45,
 	["base_chaos_damage_resistance_%"]=8,
 	["base_cold_damage_resistance_%"]=6,
 	["base_critical_strike_multiplier_+"]=22,
-	["base_damage_taken_+%"]=47,
+	["base_damage_taken_+%"]=46,
 	["base_fire_damage_resistance_%"]=5,
 	["base_lightning_damage_resistance_%"]=7,
-	["base_physical_damage_over_time_taken_+%"]=68,
+	["base_physical_damage_over_time_taken_+%"]=67,
 	["base_resist_all_elements_%"]=4,
 	["base_self_critical_strike_multiplier_-%"]=26,
 	["base_self_freeze_duration_-%"]=36,
@@ -1872,10 +1843,10 @@ return {
 	["buff_time_passed_+%_other_than_temporal_chains"]=3,
 	["cannot_cast_curses"]=38,
 	["chance_to_be_frozen_%"]=9,
-	["chance_to_be_hindered_when_hit_by_spells_%"]=48,
+	["chance_to_be_hindered_when_hit_by_spells_%"]=47,
 	["chance_to_be_ignited_%"]=10,
 	["chance_to_be_knocked_back_%"]=28,
-	["chance_to_be_maimed_when_hit_%"]=49,
+	["chance_to_be_maimed_when_hit_%"]=48,
 	["chance_to_be_shocked_%"]=11,
 	["chance_to_be_stunned_%"]=31,
 	["chance_to_grant_endurance_charge_on_death_%"]=17,
@@ -1883,27 +1854,27 @@ return {
 	["chance_to_grant_power_charge_on_death_%"]=19,
 	["critical_strike_chance_+%"]=21,
 	["curse_apply_as_aura"]=44,
-	["curse_apply_as_curse_zone"]=50,
+	["curse_apply_as_curse_zone"]=49,
 	["curse_area_of_effect_+%"]=43,
-	["curse_maximum_doom"]=51,
-	["curse_skill_doom_gain_per_minute"]=52,
-	["damage_taken_+%_on_low_life"]=53,
-	["debilitate_self_for_x_milliseconds_on_hit"]=54,
+	["curse_maximum_doom"]=50,
+	["curse_skill_doom_gain_per_minute"]=51,
+	["damage_taken_+%_on_low_life"]=52,
+	["debilitate_self_for_x_milliseconds_on_hit"]=53,
 	["degen_effect_+%"]=34,
 	["enemy_additional_critical_strike_chance_against_self"]=24,
 	["enemy_additional_critical_strike_multiplier_against_self"]=25,
-	["enemy_chance_to_double_stun_duration_%_vs_self"]=55,
-	["enemy_damaging_ailments_deal_damage_+%_faster_against_self"]=56,
-	["enemy_rage_regeneration_on_stun"]=57,
-	["energy_shield_leech_on_any_damage_when_hit_permyriad"]=58,
+	["enemy_chance_to_double_stun_duration_%_vs_self"]=54,
+	["enemy_damaging_ailments_deal_damage_+%_faster_against_self"]=55,
+	["enemy_rage_regeneration_on_stun"]=56,
+	["energy_shield_leech_on_any_damage_when_hit_permyriad"]=57,
 	["enfeeble_damage_+%_final"]=23,
-	["enfeeble_damage_+%_vs_rare_or_unique_final"]=59,
+	["enfeeble_damage_+%_vs_rare_or_unique_final"]=58,
 	["evasion_rating_+%_final_from_poachers_mark"]=29,
-	["grant_attacker_endurance_charge_when_hit_%_chance"]=60,
-	["grant_attacker_frenzy_charge_when_hit_%_chance"]=61,
-	["grant_attacker_power_charge_when_hit_%_chance"]=62,
-	["grant_attacker_x_life_flask_charges_when_hit_once_per_500ms"]=63,
-	["grant_attacker_x_mana_flask_charges_when_hit_once_per_500ms"]=64,
+	["grant_attacker_endurance_charge_when_hit_%_chance"]=59,
+	["grant_attacker_frenzy_charge_when_hit_%_chance"]=60,
+	["grant_attacker_power_charge_when_hit_%_chance"]=61,
+	["grant_attacker_x_life_flask_charges_when_hit_once_per_500ms"]=62,
+	["grant_attacker_x_mana_flask_charges_when_hit_once_per_500ms"]=63,
 	["life_granted_when_hit_by_attacks"]=39,
 	["life_granted_when_killed"]=41,
 	["life_leech_on_any_damage_when_hit_by_attack_permyriad"]=13,
@@ -1912,21 +1883,21 @@ return {
 	["mana_granted_when_killed"]=42,
 	["mana_leech_on_any_damage_when_hit_by_attack_permyriad"]=15,
 	["mana_leech_on_any_damage_when_hit_permyriad"]=16,
-	["mark_skills_curse_effect_+%"]=65,
-	["maximum_added_chaos_damage_taken"]=66,
-	["maximum_added_physical_damage_taken"]=67,
-	["minimum_added_chaos_damage_taken"]=66,
-	["minimum_added_physical_damage_taken"]=67,
+	["mark_skills_curse_effect_+%"]=64,
+	["maximum_added_chaos_damage_taken"]=65,
+	["maximum_added_physical_damage_taken"]=66,
+	["minimum_added_chaos_damage_taken"]=65,
+	["minimum_added_physical_damage_taken"]=66,
 	["monster_slain_flask_charges_granted_+%"]=12,
 	parent="skill_stat_descriptions",
 	["physical_damage_taken_+%"]=33,
 	["projectile_damage_taken_+%"]=30,
 	["projectiles_always_pierce_you"]=27,
-	["projectiles_hitting_self_split_into_x"]=69,
-	["punishment_reflect_%_overkill_damage_to_nearby_allies_on_death"]=71,
-	["receive_bleeding_chance_%_when_hit_by_attack"]=70,
-	["self_elemental_status_duration_-%"]=72,
+	["projectiles_hitting_self_split_into_x"]=68,
+	["punishment_reflect_%_overkill_damage_to_nearby_allies_on_death"]=70,
+	["receive_bleeding_chance_%_when_hit_by_attack"]=69,
+	["self_elemental_status_duration_-%"]=71,
 	["temporal_chains_action_speed_+%_final"]=2,
-	["temporal_chains_action_speed_+%_vs_rare_or_unique_final"]=73,
-	["trigger_vicious_hex_explosion_when_curse_ends"]=74
+	["temporal_chains_action_speed_+%_vs_rare_or_unique_final"]=72,
+	["trigger_vicious_hex_explosion_when_curse_ends"]=73
 }
