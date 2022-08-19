@@ -3427,10 +3427,10 @@ skills["ExplosiveArrow"] = {
 			div = -10000,
 		},
 		["explosive_arrow_hit_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
 		},
 		["explosive_arrow_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPart = 1 }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
  		},
 		["explosive_arrow_maximum_bonus_explosion_radius"] = {
 			mod("Multiplier:ExplosiveArrowMaxBonusRadius", "BASE", nil),
