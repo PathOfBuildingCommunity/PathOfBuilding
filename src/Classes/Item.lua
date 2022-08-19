@@ -126,12 +126,29 @@ function ItemClass:ParseRaw(raw)
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
 
+					-- if line ~= nil then 
+				-- 	conPrintf(line) 
+				-- end
+				-- ConPrintf("asd")
+				-- 	self[curInfluenceInfo.key] = true
+				-- 	return true
+				-- end
+
 	local function processInfluenceLine(line)
 		for i, curInfluenceInfo in ipairs(influenceInfo) do
-			if line == curInfluenceInfo.display.." Item" then
+			if self.variant then
+				if line == "{variant:"..self.variant.."}"..curInfluenceInfo.display.." Item" then
+					self[curInfluenceInfo.key] = true
+					return true
+				-- elseif line == curInfluenceInfo.display.." Item" then
+				-- 	self[curInfluenceInfo.key] = true
+				-- 	return true
+				end
+			elseif line == curInfluenceInfo.display.." Item" then
 				self[curInfluenceInfo.key] = true
 				return true
 			end
+			-- self[curInfluenceInfo.key] = false
 		end
 		return false
 	end
@@ -703,7 +720,17 @@ function ItemClass:BuildRaw()
 	end
 	for i, curInfluenceInfo in ipairs(influenceInfo) do
 		if self[curInfluenceInfo.key] then
-			t_insert(rawLines, curInfluenceInfo.display.." Item")
+			-- local alreadyset = false
+			-- if rawLines then 
+			-- 	for _, line in ipairs(self.rawLines) do
+			-- 		if line == curInfluenceInfo.display.." Item" then
+			-- 			alreadyset = true
+			-- 		end
+			-- 	end
+			-- end
+			-- if alreadyset ~= true then 
+				t_insert(rawLines, curInfluenceInfo.display.." Item")
+			-- end
 		end
 	end
 	if self.crafted then

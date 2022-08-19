@@ -511,6 +511,7 @@ Non-instant Mana recovery from Flasks is also recovered as Life
 (50-60)% increased Cost of Skills for each 200 total Mana Spent Recently
 {variant:1}(50-60)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 {variant:2}(20-25)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
+{variant:2}Elder Item
 Shaper Item
 ]],[[
 Mark of the Red Covenant
