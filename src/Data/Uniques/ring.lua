@@ -1019,7 +1019,7 @@ Take 250 Lightning Damage when Herald of Thunder Hits an Enemy
 The Taming
 Prismatic Ring
 League: Domination, Nemesis
-Source: Vendor recipe
+Source: Vendor Recipe
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 30

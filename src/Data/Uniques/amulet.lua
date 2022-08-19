@@ -920,7 +920,7 @@ Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
 Star of Wraeclast
 Ruby Amulet
-Source: Vendor recipe
+Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
