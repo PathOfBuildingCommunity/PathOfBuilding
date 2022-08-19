@@ -3310,11 +3310,11 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.CausticGroundDPS = CausticGroundDPSCapped
 					globalOutput.CausticGroundFromPoison = true
 					if globalBreakdown then
-						globalBreakdown.CausticGroundFromPoison = {
+						globalBreakdown.CausticGroundDPS = {
 							s_format("%.1f ^8(single poison damage per second)", baseVal * effectMod * rateMod),
 							s_format("* %.1f%% ^8(percent as Caustic ground)", groundMult),
 							s_format("* %.3f ^8(effect mult)", effMult),
-							s_format("= %.1f ^8per second", globalOutput.CausticGroundFromPoison)
+							s_format("= %.1f ^8per second", globalOutput.CausticGroundDPS)
 						}
 					end
 				end
