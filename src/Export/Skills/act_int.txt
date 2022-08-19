@@ -1103,6 +1103,41 @@ local skills, mod, flag, skill = ...
 #baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
+#skill GalvanicField
+#flags spell area duration chaining
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
+	end,
+	parts = {
+		{
+			name = "Single Target",
+		},
+		{
+			name = "Multi Target",
+		}
+	},
+	statMap = {
+		["skill_buff_grants_shock_duration_+%"] = {
+			mod("EnemyShockDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["galvanic_field_damage_+%_final_per_5%_increased_damage_taken_from_shock"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
+		},
+		["galvanic_field_radius_+_per_10%_increased_damage_taken_from_shock"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ShockEffect", div = 10, actor = "enemy" }),
+		},
+		["galvanic_field_retargeting_delay_ms"] = {
+			skill("repeatFrequency", nil, { type = "SkillPart", skillPart = 1 }),
+			div = 1000,
+		},
+		["base_galvanic_field_beam_delay_ms"] = {
+			skill("repeatFrequency", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 1000,
+		},
+	},
+#baseMod skill("radius", 20)
+#mods
+
 #skill IceDash
 #flags spell area hit
 #baseMod skill("showAverage", true)
@@ -1388,6 +1423,16 @@ local skills, mod, flag, skill = ...
 #skill LightningTowerTrap
 #flags spell trap duration area
 #baseMod skill("radius", 24)
+#mods
+
+#skill LightningConduit
+#flags spell area
+	statMap = {
+		["energy_release_damage_+%_final_per_5%_increased_damage_taken_from_shock_on_target"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
+		},
+	},
+#baseMod skill("radius", 14)
 #mods
 
 #skill LightningTendrilsChannelled
@@ -2356,52 +2401,4 @@ local skills, mod, flag, skill = ...
 
 #skill DestructiveLink
 #flags spell duration
-#mods
-
-#skill LightningConduit
-#flags spell area
-	statMap = {
-		["energy_release_damage_+%_final_per_5%_increased_damage_taken_from_shock_on_target"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
-		},
-	},
-#baseMod skill("radius", 14)
-#mods
-
-#skill GalvanicField
-#flags spell area duration chaining
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
-	end,
-	parts = {
-		{
-			name = "Single Target",
-		},
-		{
-			name = "Multi Target",
-		}
-	},
-	statMap = {
-		["skill_buff_grants_shock_duration_+%"] = {
-			mod("EnemyShockDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["galvanic_field_damage_+%_final_per_5%_increased_damage_taken_from_shock"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
-		},
-		["galvanic_field_radius_+_per_10%_increased_damage_taken_from_shock"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "ShockEffect", div = 10, actor = "enemy" }),
-		},
-		["galvanic_field_retargeting_delay_ms"] = {
-			skill("repeatFrequency", nil, { type = "SkillPart", skillPart = 1 }),
-			div = 1000,
-		},
-		["base_galvanic_field_beam_delay_ms"] = {
-			skill("repeatFrequency", nil, { type = "SkillPart", skillPart = 2 }),
-			div = 1000,
-		},
-		["base_chance_to_shock_%_from_skill"] = {
-			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-	},
-#baseMod skill("radius", 20)
 #mods

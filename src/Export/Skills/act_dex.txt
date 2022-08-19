@@ -5,6 +5,26 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill AlchemistsMark
+#flags spell curse mark area duration
+	statMap = {
+		["alchemists_mark_igniter_creates_burning_ground_%_ignite_damage"] = {
+			mod("IgniteDpsAsBurningGround", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["alchemists_mark_poisoner_creates_caustic_ground_%_poison_damage"] = {
+			mod("PoisonDpsAsCausticGround", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["alchemists_mark_grant_attacker_x_flask_charges_when_hit_once_per_3s"] = {
+			-- Uncomment below and delete subsequent line when we get "per hit" flask charge generation working
+			-- mod("FlaskChargesGenerated", "BASE", nil, 0, KeywordFlag.Hit, { type = "ActorCondition", actor = "enemy", var = "Cursed" }),
+			-- Delete this line if you uncomment the one above: this assume we are hitting the marked target as often as we can
+			mod("FlaskChargesGenerated", "BASE", nil),
+			div = 3,
+		},
+	},
+#baseMod skill("debuff", true)
+#mods
+
 #skill Ambush
 #flags spell movement duration travel
 #mods
@@ -1658,24 +1678,4 @@ local skills, mod, flag, skill = ...
 
 #skill VampiricLink
 #flags spell duration
-#mods
-
-#skill AlchemistsMark
-#flags spell curse mark area duration
-	statMap = {
-		["alchemists_mark_igniter_creates_burning_ground_%_ignite_damage"] = {
-			mod("IgniteDpsAsBurningGround", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["alchemists_mark_poisoner_creates_caustic_ground_%_poison_damage"] = {
-			mod("PoisonDpsAsCausticGround", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["alchemists_mark_grant_attacker_x_flask_charges_when_hit_once_per_3s"] = {
-			-- Uncomment below and delete subsequent line when we get "per hit" flask charge generation working
-			-- mod("FlaskChargesGenerated", "BASE", nil, 0, KeywordFlag.Hit, { type = "ActorCondition", actor = "enemy", var = "Cursed" }),
-			-- Delete this line if you uncomment the one above: this assume we are hitting the marked target as often as we can
-			mod("FlaskChargesGenerated", "BASE", nil),
-			div = 3,
-		},
-	},
-#baseMod skill("debuff", true)
 #mods
