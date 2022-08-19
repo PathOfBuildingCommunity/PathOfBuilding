@@ -1,3 +1,9 @@
+VERSION[2.21.1][2022/08/19]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Fix caustic ground breakdown (deathbeam)
+
+
 VERSION[2.21.0][2022/08/20]
 
 --- Implemented Enhancements ---
