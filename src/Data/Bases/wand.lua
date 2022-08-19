@@ -204,9 +204,29 @@ itemBases["Accumulator Wand"] = {
 itemBases["Convoking Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, wandatlas1 = true, weapon_can_roll_minion_modifiers = true, default = true, wand = true, atlas_base_type = true, ranged = true, one_hand_weapon = true, weapon = true, },
-	implicit = "Can roll Minion Modifiers",
-	implicitModTypes = { { "minion" }, },
+	tags = { onehand = true, ranged = true, wandatlas1 = true, weapon_can_roll_minion_modifiers = true, wand = true, atlas_base_type = true, default = true, one_hand_weapon = true, weapon = true, },
+	implicit = "Minions deal (26-30)% increased Damage",
+	implicitModTypes = { { "damage", "minion" }, },
 	weapon = { PhysicalMin = 30, PhysicalMax = 55, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 72, int = 242, },
+}
+
+itemBases["Calling Wand"] = {
+	type = "Wand",
+	socketLimit = 3,
+	tags = { weapon_can_roll_minion_modifiers = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	implicit = "Minions deal (12-16)% increased Damage",
+	implicitModTypes = { { "damage", "minion" }, },
+	weapon = { PhysicalMin = 13, PhysicalMax = 25, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },
+	req = { level = 20, int = 81, },
+}
+
+itemBases["Convening Wand"] = {
+	type = "Wand",
+	socketLimit = 3,
+	tags = { weapon_can_roll_minion_modifiers = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	implicit = "Minions deal (20-24)% increased Damage",
+	implicitModTypes = { { "damage", "minion" }, },
+	weapon = { PhysicalMin = 27, PhysicalMax = 50, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },
+	req = { level = 50, int = 183, },
 }
