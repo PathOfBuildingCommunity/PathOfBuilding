@@ -1672,6 +1672,7 @@ function calcs.defence(env, actor)
 				mana = m_min(mana + DamageIn.ManaWhenHit * (gainMult - 1), gainMult * (output.ManaUnreserved or 0))
 				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * (gainMult - 1), gainMult * output.EnergyShieldRecoveryCap)
 			end
+			local lifeBeforeHit = life
 			for _, damageType in ipairs(dmgTypeList) do
 				if Damage[damageType] > 0 then
 					if frostShield > 0 then
@@ -1737,6 +1738,9 @@ function calcs.defence(env, actor)
 					end
 					life = life - Damage[damageType]
 				end
+			end
+			if life < 0 then --don't count overkill damage
+				numHits = numHits + life / (lifeBeforeHit - life) * iterationMultiplier
 			end
 			if modDB:Flag(nil, "WardNotBreak") then
 				ward = restoreWard

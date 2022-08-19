@@ -1814,7 +1814,7 @@ return {
 			{ modName = { "FrostGlobeHealth", "FrostGlobeDamageMitigation" } },
 		},
 	},
-	{ label = "Hits before death",{ format = "{output:NumberOfDamagingHits}", },
+	{ label = "Hits before death",{ format = "{2:output:NumberOfDamagingHits}", },
 	}
 }, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {
 	extra = "{0:output:TotalEHP}",
