@@ -2555,9 +2555,11 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 					})
 				end
 			end
-			table.sort(modList, function(a, b)
-				return a.defaultOrder < b.defaultOrder
-			end)
+			for i, _ in pairs(modList) do
+				table.sort(modList[i], function(a, b)
+					return a.defaultOrder < b.defaultOrder
+				end)
+			end
 		end
 	end
 	if (self.displayItem.rarity ~= "UNIQUE" and self.displayItem.rarity ~= "RELIC") and (self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots") then
