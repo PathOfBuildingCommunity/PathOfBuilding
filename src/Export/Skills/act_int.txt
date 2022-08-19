@@ -2383,7 +2383,7 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["skill_buff_grants_shock_duration_+%"] = {
-			mod("EnemyShockDuration", "INC", nil),
+			mod("EnemyShockDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["galvanic_field_damage_+%_final_per_5%_increased_damage_taken_from_shock"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
