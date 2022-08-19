@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.21.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.21.1) (2022/08/20)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.21.0...v2.21.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+- Fix crash related to Alchemists Mark [\#4931](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4931) ([deathbeam](https://github.com/deathbeam))
+
+
+
 ## [v2.21.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.21.0) (2022/08/20)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.20.2...v2.21.0)
