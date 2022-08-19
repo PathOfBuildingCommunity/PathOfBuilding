@@ -474,7 +474,7 @@ data.misc = { -- magic numbers
 	ehpCalcSpeedUp = 8,
 		-- depth needs to be a power of speedUp (in this case 8^3, will run 3 recursive calls deep)
 	ehpCalcMaxDepth = 512,
-		-- max hits is currently depth + speedup - 1 to give as much accuracy with as few cycles as possible, but can be increased for more accuracy
+		-- max hits can be increased for more accuracy
 	ehpCalcMaxHitsToCalc = 1031,
 	-- PvP scaling used for hogm
 	PvpElemental1 = 0.55,
