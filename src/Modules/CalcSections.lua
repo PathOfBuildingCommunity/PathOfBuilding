@@ -845,7 +845,7 @@ return {
 	}, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "FireDamage", "ElementalDamage" }, modType = "INC", cfg = "ignite" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Damage", "FireDamage", "ElementalDamage" }, modType = "MORE", cfg = "ignite" }, }, },
-	{ label = "Eff. DoT Multi", bgCol = colorCodes.MAINHANDBG, notFlag = "attack", haveOutput = "IgniteDotMulti", { format = "x {2:output:IgniteDotMulti}", { breakdown = "IgniteDotMulti" }, { modName = { "DotMultiplier", "FireDotMultiplier" }, modType = "BASE", cfg = "ignite" }, }, },
+	{ label = "Eff. DoT Multi", notFlag = "attack", haveOutput = "IgniteDotMulti", { format = "x {2:output:IgniteDotMulti}", { breakdown = "IgniteDotMulti" }, { modName = { "DotMultiplier", "FireDotMultiplier" }, modType = "BASE", cfg = "ignite" }, }, },
 	{ label = "MH Eff. DoT Multi", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", haveOutput = "MainHand.IgniteDotMulti", { format = "x {2:output:MainHand.IgniteDotMulti}", { breakdown = "MainHand.IgniteDotMulti" }, { modName = { "DotMultiplier", "FireDotMultiplier" }, modType = "BASE", cfg = "ignite" }, }, },
 	{ label = "OH Eff. DoT Multi", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.IgniteDotMulti", { format = "x {2:output:OffHand.IgniteDotMulti}", { breakdown = "OffHand.IgniteDotMulti" }, { modName = { "DotMultiplier", "FireDotMultiplier" }, modType = "BASE", cfg = "OHignite" }, }, },
 	{ label = "Source Physical", textSize = 12, notFlag = "attack", haveOutput = "IgnitePhysicalMax", { format = "{0:output:IgnitePhysicalMin} to {0:output:IgnitePhysicalMax}", { breakdown = "IgnitePhysical" }, }, },
