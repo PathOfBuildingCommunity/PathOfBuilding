@@ -602,7 +602,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield" }, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["energy_shield_delay_-%"] = {
-			mod("EnergyShieldRechargeFaster", "INC", nil, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("EnergyShieldRechargeFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		}
 	},
 #baseMod skill("radius", 40)
@@ -2398,6 +2398,9 @@ local skills, mod, flag, skill = ...
 		["base_galvanic_field_beam_delay_ms"] = {
 			skill("repeatFrequency", nil, { type = "SkillPart", skillPart = 2 }),
 			div = 1000,
+		},
+		["base_chance_to_shock_%_from_skill"] = {
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("radius", 20)
