@@ -1110,7 +1110,7 @@ skills["Berserk"] = {
 		local rageLoss = activeSkill.skillData.rageLoss + ((rageRegen == 0 and rageGainRate == 0) and 2 or 0) --lose 2 rage per second if you don't gain any.
 		rageLoss = rageLoss * mult
 		if rage > minimumRage then
-			while rage > 0 do
+			while rage > 0 and berserkUptime < 100 do -- cap at 100 as to not crash if infinte.
 				rage = rage + dt * (rageRegen - rageLoss * (1 + percentRageLoss * berserkUptime))
 				rage = math.min(rage, maxRage)
 				berserkUptime = berserkUptime + dt
