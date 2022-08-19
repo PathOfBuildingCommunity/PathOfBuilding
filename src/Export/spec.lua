@@ -6562,10 +6562,45 @@ return {
 		},
 		[5]={
 			list=false,
+			name="",
+			refTo="",
+			type="Enum",
+			width=150
+		},
+		[6]={
+			list=false,
 			name="Proxy",
 			refTo="PassiveSkills",
 			type="Key",
 			width=210
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
 		}
 	},
 	PassiveSkillBuffs={
@@ -7015,23 +7050,9 @@ return {
 		},
 		[8]={
 			list=false,
-			name="Art",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[9]={
-			list=false,
 			name="TotalIndicies",
 			refTo="",
 			type="Int",
-			width=80
-		},
-		[10]={
-			list=false,
-			name="SoundEffect",
-			refTo="SoundEffects",
-			type="Key",
 			width=150
 		}
 	},
