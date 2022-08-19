@@ -1097,9 +1097,9 @@ skills["Berserk"] = {
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output, breakdown)
 		local dt = 0.033
-		local rageRegen = output.RageRegen and output.RageRegen or 0
+		local rageRegen = output.RageRegen or 0
 		local rageGainRate = 0 --Add support -- Sources of Rage on hit are independent of each other and do not share cooldowns/ticks.
-		local maxRage = output.MaximumRage
+		local maxRage = output.MaximumRage or 0
 		local rage = math.min(activeSkill.skillModList:Sum("BASE", nil, "Multiplier:RageStack"), maxRage)
 		local berserkUptime = 0
 		local minimumRage = activeSkill.skillData.minimumRage
@@ -1117,10 +1117,9 @@ skills["Berserk"] = {
 			end
 		end
 		if breakdown then
-			local BerserkDuration = { "Running a small simulation to calculate duration." }
-			breakdown.BerserkDuration = BerserkDuration
+			breakdown.Duration = { "Running a small simulation to calculate duration." }
 		end
-		output.BerserkDuration = berserkUptime
+		output.Duration = berserkUptime
 	end,
 	statMap = {
 		["berserk_attack_damage_+%_final"] = {
