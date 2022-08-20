@@ -396,7 +396,11 @@ local modNameList = {
 	["charge duration"] = "ChargeDuration",
 	-- On hit/kill/leech effects
 	["life gained on kill"] = "LifeOnKill",
+	["life per enemy killed"] = "LifeOnKill",
 	["mana gained on kill"] = "ManaOnKill",
+	["mana per enemy killed"] = "ManaOnKill",
+	["energy shield gained on kill"] = "EnergyShieldOnKill",
+	["energy shield per enemy killed"] = "EnergyShieldOnKill",
 	["life gained for each enemy hit"] = { "LifeOnHit" },
 	["life gained for each enemy hit by attacks"] = { "LifeOnHit", flags = ModFlag.Attack },
 	["life per enemy hit by attacks"] = { "LifeOnHit", flags = ModFlag.Attack },
