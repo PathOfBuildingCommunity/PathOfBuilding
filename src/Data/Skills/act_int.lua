@@ -11018,6 +11018,9 @@ skills["TempestShield"] = {
 		["shield_spell_block_%"] = {
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["skill_display_buff_grants_shock_immunity"] = {
+			--Dispaly only
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -11025,7 +11028,7 @@ skills["TempestShield"] = {
 		chaining = true,
 	},
 	baseMods = {
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
