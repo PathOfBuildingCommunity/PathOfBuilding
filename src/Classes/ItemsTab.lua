@@ -1149,6 +1149,11 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 			end
 		end
 	end
+	-- TreeTab is nil the first time we get here on initial load, but we can ignore as TreeTab:Load will set the list
+	if self.build.treeTab then
+		-- Keep track of spec:itemSet updates between build saves
+		self.build.itemSetIdList[self.build.treeTab.activeSpec] = itemSetId
+	end
 	self.build.buildFlag = true
 	self:PopulateSlots()
 end

@@ -122,7 +122,7 @@ function PassiveSpecClass:Load(xml, dbFileName)
 	self:ResetUndo()
 end
 
-function PassiveSpecClass:Save(xml)
+function PassiveSpecClass:Save(xml, specId)
 	local allocNodeIdList = { }
 	for nodeId in pairs(self.allocNodes) do
 		t_insert(allocNodeIdList, nodeId)
@@ -131,14 +131,17 @@ function PassiveSpecClass:Save(xml)
 	for mastery, effect in pairs(self.masterySelections) do
 		t_insert(masterySelections, "{"..mastery..","..effect.."}")
 	end
-	xml.attrib = { 
+	xml.attrib = {
 		title = self.title,
 		treeVersion = self.treeVersion,
 		-- New format
-		classId = tostring(self.curClassId), 
-		ascendClassId = tostring(self.curAscendClassId), 
+		classId = tostring(self.curClassId),
+		ascendClassId = tostring(self.curAscendClassId),
 		nodes = table.concat(allocNodeIdList, ","),
-		masteryEffects = table.concat(masterySelections, ",")
+		masteryEffects = table.concat(masterySelections, ","),
+		-- Save ids to respective spec xml for TreeTab:Load
+		itemSetId = tostring(self.build.itemSetIdList[specId]) or "1",
+		skillSetId = tostring(self.build.skillSetIdList[specId]) or "1"
 	}
 	t_insert(xml, {
 		-- Legacy format

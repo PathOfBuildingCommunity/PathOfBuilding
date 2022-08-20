@@ -1245,4 +1245,6 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	self.controls.groupList.list = self.socketGroupList
 	self.activeSkillSetId = skillSetId
 	self.build.buildFlag = true
+	-- Track spec:skillSet updates between build saves
+	self.build.skillSetIdList[self.build.treeTab.activeSpec] = skillSetId
 end

@@ -260,7 +260,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
-
+	-- set up the lists on initial load
+	if not self["itemSetIdList"] then
+		self["itemSetIdList"], self["skillSetIdList"] = {}, {}
+		for index, spec in ipairs(self.xmlSectionList[5]) do
+			if spec.elem == "Spec" then
+				self["itemSetIdList"][index] = spec.attrib.itemSetId
+				self["skillSetIdList"][index] = spec.attrib.skillSetId
+			end
+		end
+	end
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
 	-- This may be user-customisable in the future
@@ -1062,6 +1071,15 @@ function buildMode:OpenSavePopup(mode)
 		["UPDATE"] = "before updating?",
 	}
 	local controls = { }
+	local function resetItemAndSkillSets()
+		-- Reset item/skill set updates so there are no changes to the xml
+		for index, spec in ipairs(self.xmlSectionList[5]) do
+			if spec.elem == "Spec" then
+				self.itemSetIdList[index] = spec.attrib.itemSetId
+				self.skillSetIdList[index] = spec.attrib.skillSetId
+			end
+		end
+	end
 	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7This build has unsaved changes.\nDo you want to save them "..modeDesc[mode])
 	controls.save = new("ButtonControl", nil, -90, 70, 80, 20, "Save", function()
 		main:ClosePopup()
@@ -1070,6 +1088,7 @@ function buildMode:OpenSavePopup(mode)
 	end)
 	controls.noSave = new("ButtonControl", nil, 0, 70, 80, 20, "Don't Save", function()
 		main:ClosePopup()
+		resetItemAndSkillSets()
 		if mode == "LIST" then
 			self:CloseBuild()
 		elseif mode == "EXIT" then

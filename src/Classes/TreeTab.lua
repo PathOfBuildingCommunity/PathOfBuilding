@@ -287,13 +287,17 @@ function TreeTabClass:Load(xml, dbFileName)
 		self.build.spec = self.specList[1]
 		return
 	end
-	for _, node in pairs(xml) do
+	for index, node in pairs(xml) do
 		if type(node) == "table" then
 			if node.elem == "Spec" then
 				if node.attrib.treeVersion and not treeVersions[node.attrib.treeVersion] then
 					main:OpenMessagePopup("Unknown Passive Tree Version", "The build you are trying to load uses an unrecognised version of the passive skill tree.\nYou may need to update the program before loading this build.")
 					return true
 				end
+				-- As we loop through the specs, update the lists from the xml data
+				-- Build.lua:264 handles PoB load and setting for all Tabs on init, this handles opening builds/importing builds etc
+				self.build["itemSetIdList"][index] = xml[index].attrib.itemSetId
+				self.build["skillSetIdList"][index] = xml[index].attrib.skillSetId
 				local newSpec = new("PassiveSpec", self.build, node.attrib.treeVersion or defaultTreeVersion)
 				newSpec:Load(node, dbFileName)
 				t_insert(self.specList, newSpec)
@@ -320,7 +324,7 @@ function TreeTabClass:Save(xml)
 		local child = {
 			elem = "Spec"
 		}
-		spec:Save(child)
+		spec:Save(child, specId)
 		t_insert(xml, child)
 	end
 end
@@ -355,6 +359,13 @@ function TreeTabClass:SetActiveSpec(specId)
 	end
 	-- Update the passive tree dropdown control in itemsTab
 	self.build.itemsTab.controls.specSelect.selIndex = specId
+	-- Set item and skill sets when switching passive trees
+	if self.build.itemsTab ~= nil and self.build.itemSetIdList ~= nil then
+		self.build.itemsTab:SetActiveItemSet(tonumber(self.build.itemSetIdList[specId]))
+	end
+	if self.build.skillsTab ~= nil and self.build.skillSetIdList ~= nil then
+		self.build.skillsTab:SetActiveSkillSet(tonumber(self.build.skillSetIdList[specId]))
+	end
 end
 
 function TreeTabClass:SetCompareSpec(specId)
