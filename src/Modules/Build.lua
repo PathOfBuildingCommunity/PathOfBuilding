@@ -263,7 +263,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	-- set up the lists on initial load
 	if not self["itemSetIdList"] then
 		self["itemSetIdList"], self["skillSetIdList"] = {}, {}
-		if self.xmlSectionList ~= nil then
+		if self.xmlSectionList[5] ~= nil then
 			for index, spec in ipairs(self.xmlSectionList[5]) do
 				if spec.elem == "Spec" then
 					self["itemSetIdList"][index] = spec.attrib.itemSetId
