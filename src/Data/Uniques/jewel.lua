@@ -200,12 +200,12 @@ Crimson Jewel
 Limited to: 1
 Variant: Pre 3.11.0
 Variant: Current
-{variant:1}2% of Life Regenerated per Second
+{variant:1}Regenerate 2% of Life per second
 {variant:1}10% increased Damage taken
-{variant:2}Gain 1 Fragile Regrowth each second
 {variant:2}Maximum 10 Fragile Regrowth
 {variant:2}0.7% of Life Regenerated per second per Fragile Regrowth
 {variant:2}Lose all Fragile Regrowth when Hit
+{variant:2}Gain 1 Fragile Regrowth each second
 ]],[[
 Replica Fragile Bloom
 Crimson Jewel
@@ -515,12 +515,12 @@ Radius: Large
 Pure Talent
 Viridian Jewel
 Limited to: 1
-While your Passive Skill Tree connects to a class' Starting location, you gain:
+While your Passive Skill Tree connects to a class' starting location, you gain:
 Marauder: Melee Skills have 15% increased Area of Effect
 Duelist: 1% of Attack Damage Leeched as Life
 Ranger: 7% increased Movement Speed
-Shadow: +0.5 to Critical Strike Chance
-Witch: 0.5% of Maximum Mana Regenerated per second
+Shadow: +0.5% to Critical Strike Chance
+Witch: 0.5% of Mana Regenerated per second
 Templar: Damage Penetrates 5% Elemental Resistances
 Scion: +25 to All Attributes
 ]],[[
@@ -671,13 +671,13 @@ Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
 -1 Intelligence per 1 Intelligence on Allocated Passives in Radius
-{variant:1,2}0.4% of Energy Shield Regenerated per Second for
-every 10 Intelligence on Allocated Passives in Radius
+{variant:1,2}Regenerate 0.4% of Energy Shield per Second for
+{variant:1,2}every 10 Intelligence on Allocated Passives in Radius
 {variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
 {variant:2}+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:3}+3% to Damage over Time Multiplier per 10 Intelligence on Unallocated Passives in Radius
 {variant:3}3% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius
 {variant:3}2% reduced Mana Recovery Rate per 10 Intelligence on Unallocated Passives in Radius
-{variant:3}+3% to Damage over Time Multiplier per 10 Intelligence on Unallocated Passives in Radius
 ]],[[
 Tempered Spirit
 Viridian Jewel
@@ -1504,7 +1504,7 @@ Corrupted
 ]],[[
 Fragility
 Crimson Jewel
--1 Maximum Endurance Charges
+-1 to Maximum Endurance Charges
 Corrupted
 ]],[[
 Hungry Abyss
@@ -1521,12 +1521,12 @@ Corrupted
 ]],[[
 Pacifism
 Viridian Jewel
--1 Maximum Frenzy Charges
+-1 to Maximum Frenzy Charges
 Corrupted
 ]],[[
 Powerlessness
 Cobalt Jewel
--1 Maximum Power Charges
+-1 to Maximum Power Charges
 Corrupted
 ]],[[
 Sacrificial Harvest
@@ -1618,7 +1618,7 @@ Cobalt Jewel
 Limited to: 1 Survival
 Variant: Pre 3.16.0
 Variant: Current
-{variant:1}3 Mana Regenerated per second
+{variant:1}Regenerate 3 Mana per second
 {variant:1}10% increased Elemental Damage
 {variant:2}Flasks applied to you have 20% reduced Effect
 {variant:2}Flasks gain 3 Charges every 3 seconds while they are inactive

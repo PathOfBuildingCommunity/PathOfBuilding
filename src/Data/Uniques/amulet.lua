@@ -33,12 +33,12 @@ Coral Amulet
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
-{tags:life}(2-4) Life Regenerated per second
+{tags:life}Regenerate (2.0-4.0) Life per second
 {variant:1}{tags:jewellery_defense,life}+100 to Evasion Rating while on Low Life
 {variant:2}{tags:jewellery_defense,life}+(150-250) to Evasion Rating while on Low Life
 {tags:life}+(30-50) to maximum Life
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{variant:1}{tags:life}1% of Life Regenerated per Second while on Low Life
+{variant:1}{tags:life}Regenerate 1% of Life per second while on Low Life
 {variant:2}Gain Elusive on reaching Low Life
 {variant:2}You have Phasing while on Low Life
 ]],[[
@@ -47,12 +47,12 @@ Coral Amulet
 Source: No longer obtainable
 Requires Level 36
 Implicits: 1
-{tags:life}(2-4) Life Regenerated per second
+{tags:life}Regenerate (2.0-4.0) Life per second
 {tags:jewellery_elemental}(50-70)% increased Fire Damage
-{tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
+{tags:jewellery_defense,life}+100 to Evasion Rating while on Low Life
 {tags:life}+(30-50) to maximum Life
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{tags:life}1% of Life Regenerated per Second while on Low Life
+{tags:life}Regenerate 1% of Life per second while on Low Life
 ]],[[
 The Ascetic
 Gold Amulet
@@ -237,30 +237,19 @@ Grants Level 10 Gluttony of Elements Skill
 Corrupted
 ]],[[
 Bloodgrip
-Coral Amulet
+{variant:1}Coral Amulet
+{variant:2,3}Marble Amulet
 Variant: Pre 3.0.0
-Variant: Current
-Requires Level 55
-Implicits: 1
-{tags:life}(2.0-4.0) Life Regenerated per second
-{tags:attack,physical}Adds 10 to 20 Physical Damage to Attacks
-{tags:life}+(60-70) to maximum Life
-{variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
-{variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
-{tags:life}100% increased Life Recovery from Flasks
-Moving while Bleeding doesn't cause you to take extra Damage
-]],[[
-Bloodgrip
-Marble Amulet
 Variant: Pre 3.12.0
 Variant: Current
 Requires Level 74
-Implicits: 1
-{tags:life}(1.2-1.6)% of Life Regenerated per second
+Implicits: 2
+{variant:1}{tags:life}Regenerate (2.0-4.0) Life per second
+{variant:2,3}{tags:life}Regenerate (1.2-1.6)% of Life per second
 {tags:attack,physical}Adds 10 to 20 Physical Damage to Attacks
 {tags:life}+(60-70) to maximum Life
-{variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
-{variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
+{variant:1,2}{tags:life}Regenerate (8.0-12.0) Life per second
+{variant:3}{tags:life}Regenerate (16.0-24.0) Life per second
 {tags:life}100% increased Life Recovery from Flasks
 Moving while Bleeding doesn't cause you to take extra Damage
 ]],[[
@@ -429,7 +418,7 @@ Implicits: 32
 {variant:21}20% chance to gain a Frenzy Charge on Kill
 {variant:22}20% chance to gain a Power Charge on Kill
 {variant:23}20% chance to gain a Endurance Charge on Kill
-{variant:24}4% of Life Regenerated per second
+{variant:24}Regenerate 4% of Life per second
 {variant:25}100% of Cold Damage from Hits taken as Fire Damage
 {variant:26}100% of Cold Damage from Hits taken as Lightning Damage
 {variant:27}100% of Fire Damage from Hits taken as Cold Damage
@@ -774,7 +763,7 @@ Coral Amulet
 League: Delve
 Requires Level 34
 Implicits: 1
-{tags:life}(2-4) Life Regenerated per second
+{tags:life}Regenerate (2.0-4.0) Life per second
 +3 to maximum number of Golems
 You cannot have non-Golem Minions
 25% reduced Golem Size
@@ -874,8 +863,8 @@ Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Intelligence
 {variant:1,2}{tags:mana}(30-50)% increased Mana Regeneration Rate
 {variant:3}{tags:mana}(60-100)% increased Mana Regeneration Rate
-{variant:1,2}{tags:life}2% of Life Regenerated per Second
-{variant:3}{tags:life}4% of Life Regenerated per Second
+{variant:1,2}{tags:life}Regenerate 2% of Life per second
+{variant:3}{tags:life}Regenerate 4% of Life per second
 {variant:1}{tags:life}Nearby Allies gain 1% of Life Regenerated per Second
 {variant:2}{tags:life}Nearby Allies gain 2% of Life Regenerated per Second
 {variant:3}{tags:life}Nearby Allies gain 4% of Life Regenerated per Second
@@ -912,8 +901,8 @@ Implicits: 1
 {variant:1}(20-25)% increased Damage
 {variant:2}(30-40)% increased Damage
 {tags:life}+(50-70) to maximum Life
-{variant:1}{tags:mana}(2-3) Mana Regenerated per second
-{variant:2}{tags:mana}(8-10) Mana Regenerated per second
+{variant:1}{tags:mana}Regenerate (2.0-3.0) Mana per second
+{variant:2}{tags:mana}Regenerate (8.0-10.0) Mana per second
 {tags:mana}Temporal Chains has no Reservation if Cast as an Aura
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
@@ -967,7 +956,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 54
 Implicits: 1
-{tags:life}(2.0-4.0) Life regenerated per second
+{tags:life}Regenerate (2.0-4.0) Life per second
 {tags:jewellery_attribute}+(30-40) to Intelligence
 {tags:chaos,jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
 Summon Raging Spirit has (20-30)% increased Duration
@@ -1116,6 +1105,8 @@ You do not inherently take less Damage for having Fortification
 ]],[[
 Winterheart
 Gold Amulet
+Variant: Pre 3.15.0
+Variant: Current
 Requires Level 42
 Implicits: 1
 (12-20)% increased Rarity of Items found
@@ -1123,7 +1114,8 @@ Implicits: 1
 {tags:life}+(50-70) to maximum Life
 {tags:jewellery_resistance}+75% to Cold Resistance
 Cannot be Chilled
-{tags:life}20% of Life Regenerated per Second while Frozen
+{variant:1}{tags:life}Regenerate 20% of Life per second while Frozen
+{variant:2}{tags:life}Regenerate 10% of Life per second while Frozen
 ]],[[
 Replica Winterheart
 Gold Amulet

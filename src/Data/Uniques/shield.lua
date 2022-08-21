@@ -276,7 +276,7 @@ Variant: Current
 Implicits: 1
 {variant:3}3% increased Movement Speed
 +(60-80) to maximum Life
-Regenerate (5-7.5) Life per second
+Regenerate (5.0-7.5) Life per second
 +30% to Lightning Resistance
 0.6% of Physical Attack Damage Leeched as Life
 {variant:1}+10% Chance to Block
@@ -400,8 +400,8 @@ Implicits: 1
 +(80-100) to maximum Energy Shield
 +25% chance to be Poisoned
 +3% to all maximum Resistances while Poisoned
-{variant:1}50 Energy Shield Regenerated per Second per Poison on you, up to 250 per second
-{variant:2}80 Energy Shield Regenerated per Second per Poison on you, up to 400 per second
+{variant:1}Regenerate 50 Energy Shield per Second per Poison on you, up to 400 per second
+{variant:2}Regenerate 80 Energy Shield per Second per Poison on you, up to 400 per second
 Poisons on you expire 50% slower
 ]],[[
 Apep's Supremacy
@@ -868,8 +868,8 @@ Implicits: 2
 {variant:4}(240-300)% increased Armour and Energy Shield
 {variant:3}+(40-60) maximum Life
 {variant:1,2}Regenerate 6 Life per second
-{variant:3}Regenerate (15-20) Life per second
-{variant:4}Regenerate (100-200) Life per second
+{variant:3}Regenerate (15.0-20.0) Life per second
+{variant:4}Regenerate (100.0-200.0) Life per second
 {variant:1,2}+8% to maximum Fire Resistance
 {variant:3,4}+5% to maximum Fire Resistance
 +(20-25)% to Fire Resistance
@@ -911,7 +911,7 @@ Implicits: 2
 {variant:5}80% reduced Freeze Duration on you
 {variant:3}Regenerate 1% of Life per Second
 {variant:4}Regenerate 3% of Life per Second
-{variant:5}Regenerate (30-50) Life per Second
+{variant:5}Regenerate (30.0-50.0) Life per Second
 {variant:1,2}Regenerate 6% of Life per Second while on Low Life
 {variant:3}Regenerate 5% of Life per Second while on Low Life
 {variant:4}Regenerate 3% of Life per Second while on Low Life

@@ -402,7 +402,7 @@ Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
 {variant:1,2,3,4,5,6,7,8,9,10}Focus has (15-25)% increased Cooldown Recovery Rate
 {variant:11,12,13,14,15,16,17,18,19,20}Focus has (30-50)% increased Cooldown Recovery Rate
 (50-70)% increased Damage with Hits and Ailments against Chilled Enemies
-{variant:1,11}{crafted}{tags:life}(1.0-2.0)% of Life Regenerated per second during any Flask Effect
+{variant:1,11}{crafted}{tags:life}Regenerate 2% of Life per second during any Flask Effect
 {variant:2,12}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
 {variant:3,13}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
 {variant:4,14}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
@@ -410,7 +410,7 @@ Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
 {variant:6,16}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
 {variant:7,17}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
 {variant:8,18}{crafted}(7-12)% increased Trap Throwing Speed
-{variant:9,19}{crafted}{tags:jewellery_defense}(15-120) Energy Shield Regenerated per second while a Rare or Unique Enemy is Nearby
+{variant:9,19}{crafted}{tags:jewellery_defense}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
 {variant:10,20}{crafted}Your Critical Strike Chance is Lucky while Focused
 ]],[[
 Immortal Flesh
@@ -423,9 +423,9 @@ LevelReq: 50
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:life}+(75-100) to maximum Life
-{variant:1,2,3}{tags:life}Regenerate (67-75) Life per second
-{variant:4}{tags:life}Regenerate (200-350) Life per second
-{tags:mana}Regenerate (8-10) Mana per second
+{variant:1,2,3}{tags:life}Regenerate (67.0-75.0) Life per second
+{variant:4}{tags:life}Regenerate (200.0-350.0) Life per second
+{tags:mana}Regenerate (8.0-10.0) Mana per second
 {variant:1}-40% to all Elemental Resistances
 {variant:3,4}-(15-25)% to all Elemental Resistances
 {variant:1}-10% to all maximum Resistances
@@ -791,7 +791,7 @@ LevelReq: 52
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {tags:jewellery_defense}+(800-1200) to Armour
-{tags:life}Regenerate (50-70) Life per second
+{tags:life}Regenerate (50.0-70.0) Life per second
 20% increased Stun Threshold
 {tags:jewellery_defense}10% reduced Armour per 50 Strength
 Imbalanced Guard

@@ -46,7 +46,7 @@ League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 69, 98 Str
 (150-200)% increased Armour
-(50-70) Life Regenerated per second
+Regenerate (50.0-70.0) Life per second
 +(30-40)% to Fire Resistance
 3% increased Damage per Crab Barrier
 10% chance that if you would gain a Crab Barrier, you instead gain up to
@@ -128,7 +128,7 @@ Requires Level 35, 52 Str
 {variant:4}+50 to Strength
 {variant:1}(5-15)% reduced Attack Speed
 (40-60)% increased Armour
-{variant:3}2% of Life Regenerated per second with at least 400 Strength
+{variant:3}Regenerate 2% of Life per second with at least 400 Strength
 {variant:4}100% increased Knockback Distance
 {variant:4}Melee Hits with Strike Skills Always Knockback
 {variant:4}Melee Strike Skills deal Splash Damage to surrounding targets
@@ -477,7 +477,7 @@ League: Rampage
 Requires Level 15
 (6-9)% increased Attack Speed
 (80-120)% increased Armour and Evasion
-(3-4) Life Regenerated per second
+Regenerate (3.0-4.0) Life per second
 Recover 20% of Life on Rampage
 Kills grant an additional Vaal Soul if you have Rampaged Recently
 Rampage

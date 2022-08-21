@@ -286,27 +286,17 @@ Implicits: 1
 1% increased Lightning Damage per 10 Intelligence
 ]],[[
 Scorpion's Call
-Broadhead Arrow Quiver
+{variant:1}Broadhead Arrow Quiver
+{variant:2}Heavy Arrow Quiver
 Variant: Pre 3.17.0
+Variant: Current
 League: Harvest
 Requires Level 57
-Implicits: 1
-(8-10)% increased Attack Speed
+Implicits: 2
+{variant:1}6 to 12 Added Physical Damage with Bow Attacks
+{variant:2}(12-16) to (24-27) Added Physical Damage with Bow Attacks
 +(20-40) to Dexterity
-(150-200) Life Regenerated per Second while in Blood Stance
-(40-60)% increased Projectile Damage while in Blood Stance
-+(700-1000) to Evasion Rating while in Sand Stance
-(20-30)% increased Area of Effect while in Sand Stance
-(20-30)% increased Attack Speed if you've changed Stance Recently
-]],[[
-Scorpion's Call
-Heavy Arrow Quiver
-League: Harvest
-Requires Level 61
-Implicits: 1
-(12-16) to (24-27) Added Physical Damage with Bow Attacks
-+(20-40) to Dexterity
-(150-200) Life Regenerated per Second while in Blood Stance
+(150.0-200.0) Life Regenerated per Second while in Blood Stance
 (40-60)% increased Projectile Damage while in Blood Stance
 +(700-1000) to Evasion Rating while in Sand Stance
 (20-30)% increased Area of Effect while in Sand Stance

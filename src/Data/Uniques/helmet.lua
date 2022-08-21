@@ -166,7 +166,7 @@ Requires Level 12, 27 Dex
 +(20-30)% to Lightning Resistance
 Cannot be Shocked
 {variant:1}15% increased Stun and Block Recovery
-{variant:2}You can be touched by Tormented Spirits
+{variant:2}You can be Touched by Tormented Spirits
 ]],[[
 Goldrim
 Leather Cap
@@ -979,18 +979,16 @@ Variant: Current
 {variant:2}Magistrate Crown
 League: Incursion
 Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}
-{variant:1}Requires Level 31, 36 Str, 36 Int
-{variant:2}Requires Level 58, 64 Str, 64 Int
-{variant:2}+(30-60) to maximum Energy Shield
 {variant:1}(60-80)% increased Armour and Energy Shield
 {variant:2}(140-220)% increased Armour and Energy Shield
+{variant:2}+(30-60) to maximum Energy Shield
 {variant:1}+(30-50) to maximum Life
 {variant:2}+(80-100) to maximum Life
-Your Energy Shield starts at zero
 Cannot gain Energy Shield
-50 Life Regenerated per second if you have at least 500 Maximum Energy Shield
-100 Life Regenerated per second if you have at least 1000 Maximum Energy Shield
-150 Life Regenerated per second if you have at least 1500 Maximum Energy Shield
+Regenerate 50 Life per second if you have at least 500 Maximum Energy Shield
+Regenerate 100 Life per second if you have at least 1000 Maximum Energy Shield
+Regenerate 150 Life per second if you have at least 1500 Maximum Energy Shield
+Your Energy Shield starts at zero
 ]],[[
 Mask of the Stitched Demon
 Magistrate Crown
@@ -1000,11 +998,11 @@ Requires Level 58, 64 Str, 64 Int
 +(40-50) to Intelligence
 +(160-180) to maximum Energy Shield
 Strength provides no bonus to Maximum Life
-Intelligence provides no bonus to Maximum Mana
+Intelligence provides no inherent bonus to Maximum Mana
 +1 to Maximum Life per 2 Intelligence
-Your Energy Shield starts at zero
 Cannot gain Energy Shield
-1% of Life Regenerated per second per 500 Maximum Energy Shield
+Regenerate 1% of Life per second per 500 Maximum Energy Shield
+Your Energy Shield starts at zero
 ]],[[
 Mask of the Tribunal
 Magistrate Crown

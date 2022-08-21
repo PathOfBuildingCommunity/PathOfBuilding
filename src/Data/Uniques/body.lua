@@ -277,13 +277,13 @@ Variant: Current
 Implicits: 0
 +(20-30) to Dexterity
 {variant:1,2}Adds 5 to 12 Physical Damage to Attacks
-{variant:1}You gain 150 Evasion Rating when on Full Life
+{variant:1}+150 to Evasion Rating while on Full Life}
 {variant:2}+500 to Evasion Rating while on Full Life
 {variant:3}+1000 to Evasion Rating while on Full Life
 (50-70)% increased Evasion Rating
 {variant:1,2}10% increased Movement Speed
-{variant:3}30% increased Movement Speed while on Full Life
-{variant:3}Damage of Enemies hitting you is Unlucky while you are on Full Life
+{variant:3}30% increased Movement Speed when on Full Life
+{variant:3}Damage of Enemies Hitting you is Unlucky while you are on Full Life
 ]],[[
 Fox's Fortune
 Wild Leather
@@ -553,7 +553,7 @@ Source: Drops from unique{Fenumus, First of the Night}
 Implicits: 0
 +(30-40) to Intelligence
 (120-140)% increased Energy Shield
-Regenerate (80-100) Energy Shield per second
+Regenerate (80.0-100.0) Energy Shield per second
 Enemies affected by your Spider's Webs deal 10% reduced Damage
 Enemies affected by your Spider's Webs have -10% to All Resistances
 (50-70)% increased Aspect of the Spider Area of Effect
@@ -803,9 +803,9 @@ Implicits: 0
 {variant:2}+(200-240) to maximum Life
 {variant:3}+(240-300) to maximum Life
 {variant:1,2}+(20-40)% to Cold Resistance
-{variant:1}2% of Life Regenerated per second
-{variant:2}5% of Life Regenerated per second
-{variant:3}10% of Life Regenerated per second
+{variant:1}Regenerate 2% of Life per second
+{variant:2}Regenerate 5% of Life per second
+{variant:3}Regenerate 10% of Life per second
 15% increased Character Size
 Spell Skills deal no Damage
 Your Spells are disabled
@@ -1101,9 +1101,8 @@ Implicits: 0
 {variant:1,2}+(90-110) to maximum Mana
 {variant:3,4,5}+(100-150) to maximum Mana
 {variant:1,2}(40-50)% increased Mana Regeneration Rate
-{variant:1}When hit, 10% of Damage is taken from Mana before Life
-{variant:3,4}10% of Damage is taken from Mana before Life
-{variant:3,4,5}1% of Mana Regenerated per second
+{variant:3,4,5}Regenerate 1% of Mana per second
+{variant:1,3,4}10% of Damage is taken from Mana before Life
 Mind Over Matter
 ]],[[
 Dendrobate

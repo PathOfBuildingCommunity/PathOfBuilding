@@ -155,9 +155,9 @@ Requires Level 18
 Implicits: 0
 {variant:2}100% increased Duration
 {variant:3}25% increased Duration
-Chaos Damage does not bypass Energy Shield during effect
+Chaos Damage taken does not bypass Energy Shield during effect
 Removes all but one Life on use
-Removed life is regenerated as Energy Shield over 2 seconds
+Removed life is Regenerated as Energy Shield over 2 seconds
 ]],[[
 Cinderswallow Urn
 Silver Flask
@@ -192,7 +192,7 @@ Implicits: 0
 {variant:4}{crafted}(25-20)% reduced Mana Cost of Skills during Flask Effect
 {variant:5}{crafted}(8-12)% increased Movement Speed during Flask effect
 {variant:5}{crafted}50% Chance to avoid being Stunned during Flask Effect
-{variant:6}{crafted}3% of Life Regenerated per second during Flask Effect
+{variant:6}{crafted}Regenerate 3% of Life per second during Flask Effect
 {variant:7}{crafted}(60-80)% reduced Reflected Damage taken during Flask Effect
 ]],[[
 Dying Sun

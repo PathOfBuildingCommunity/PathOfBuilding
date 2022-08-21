@@ -149,7 +149,7 @@ Implicits: 1
 {tags:physical}5% increased Physical Damage
 {tags:attack,chaos}Adds 1 to 3 Chaos Damage to Attacks
 {tags:life}+(20-30) to maximum Life
-{tags:life}(2-4) Life Regenerated per second
+{tags:life}Regenerate (2-4) Life per second
 10% chance to Cause Monsters to Flee
 {variant:1}Melee Attacks cause Bleeding
 {variant:2}{tags:attack,physical}(30-50)% chance to cause Bleeding on Melee Hit
@@ -491,10 +491,10 @@ Moonstone Ring
 Requires Level 20
 Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
-{tags:life}(10-15) Life Regenerated per second
+{tags:life}Regenerate (10-15) Life per second
 {tags:mana}(20-40)% increased Mana Regeneration Rate
 Minions have 15% increased maximum Life
-Minions have 10% increased Area of Effect of Area Skills
+Minions have 10% increased Area of Effect
 350 Physical Damage taken on Minion Death
 ]],[[
 The Highwayman
@@ -558,11 +558,11 @@ Requires Level 32
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {tags:jewellery_attribute}+(10-20) to Strength
-{variant:1}{tags:life}0.4% of maximum Life Regenerated per second per Endurance Charge
-{variant:2}{tags:life}0.2% of maximum Life Regenerated per second per Endurance Charge
+{variant:1}{tags:life}Regenerate 0.4% of Life per second per Endurance Charge
+{variant:2}{tags:life}Regenerate 0.2% of Life per second per Endurance Charge
 {variant:2}2% increased Area of Effect per Endurance Charge
 {tags:attack,life}Gain (2-4) Life per Enemy Hit with Attacks
-+1 Maximum Endurance Charge
++1 to Maximum Endurance Charges
 ]],[[
 Kikazaru
 Topaz Ring
@@ -574,13 +574,13 @@ Requires Level 20
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {tags:jewellery_attribute}+(10-15) to all Attributes
-{variant:1}{tags:life}(13-17) Life Regenerated per second
-{variant:2,3}{tags:life}1 Life Regenerated per second per Level
-{variant:4}{tags:life}3 Life Regenerated per second per Level
+{variant:1}{tags:life}Regenerate (13.0-17.0) Life per second
 {tags:mana}(20-40)% increased Mana Regeneration Rate
-{variant:1}{tags:caster}20% reduced Effect of Curses on You
-{variant:2}{tags:caster}40% reduced Effect of Curses on You
-{variant:3,4}{tags:caster}60% reduced Effect of Curses on You
+{variant:1}{tags:caster}20% reduced Effect of Curses on you
+{variant:2}{tags:caster}40% reduced Effect of Curses on you
+{variant:3,4}{tags:caster}60% reduced Effect of Curses on you
+{variant:2,3}{tags:life}Regenerate 1 Life per second per Level
+{variant:4}{tags:life}Regenerate 3 Life per second per Level
 ]],[[
 Le Heup of All
 Iron Ring
@@ -799,9 +799,9 @@ Requires Level 22
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
 {tags:mana}+(30-60) to maximum Mana
-{tags:mana}(3-6) Mana Regenerated per second
-{tags:mana}-(4-8) to Mana Cost of Skills
-{tags:mana}8% of Damage taken gained as Mana over 4 seconds when Hit
+{tags:mana}Regenerate (3.0-6.0) Mana per second
+{tags:mana}-(4-8) to Total Mana Cost of Skills
+{tags:mana}8% of Damage taken Recouped as Mana
 ]],[[
 Profane Proxy
 Unset Ring
@@ -943,16 +943,16 @@ Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {tags:jewellery_attribute}+(60-75) to Intelligence
 Right ring slot: You cannot Regenerate Mana
-{variant:1}{tags:jewellery_defense}Right ring slot: 4% of Energy Shield Regenerated per second
-{variant:2,3}{tags:jewellery_defense}Right ring slot: 3% of Energy Shield Regenerated per second
-{variant:4}{tags:jewellery_defense}Right ring slot: 6% of Energy Shield Regenerated per second
+{variant:1}{tags:jewellery_defense}Right ring slot: Regenerate 4% of Energy Shield per second
+{variant:2,3}{tags:jewellery_defense}Right ring slot: Regenerate 3% of Energy Shield per second
+{variant:4}{tags:jewellery_defense}Right ring slot: Regenerate 6% of Energy Shield per second
 {variant:3}{tags:mana}Right ring slot: +100 to maximum Mana
 {variant:4}{tags:mana}Right ring slot: +250 to maximum Mana
+Left ring slot: You cannot Recharge or Regenerate Energy Shield
+{variant:3,4}{tags:mana}Left ring slot: Regenerate 40 Mana per Second
 {variant:3}{tags:jewellery_defense}Left ring slot: +100 to maximum Energy Shield
 {variant:4}{tags:jewellery_defense}Left ring slot: +250 to maximum Energy Shield
 {variant:1,2}{tags:mana}Left ring slot: 100% increased Mana Regeneration Rate
-{variant:3,4}{tags:mana}Left ring slot: 40 Mana Regenerated per second
-Left ring slot: You cannot Recharge or Regenerate Energy Shield
 ]],[[
 Sibyl's Lament
 Coral Ring
@@ -1291,7 +1291,7 @@ Has 1 Socket
 {variant:1,2,3,4,5,6,7,8,9,10,11}Socketed Gems have 20% reduced Mana Reservation Efficiency
 {variant:13,14,15,16,17,18,19,20,21,22}Socketed Gems have 20% reduced Reservation Efficiency
 {tags:jewellery_attribute}+(15-25) to all Attributes
-{tags:life}15 Life Regenerated per second for each Uncorrupted Item Equipped
+{tags:life}Regenerate 15 Life per second for each Uncorrupted Item Equipped
 {tags:mana}-2 to Total Mana Cost of Skills for each Corrupted Item Equipped
 {variant:1,12}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
 {variant:2,13}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances

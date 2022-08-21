@@ -118,15 +118,15 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level: 60, 113 Str, 113 Int
 Implicits: 2
-{variant:1,2}18% Chance to Block Attack Damage while wielding a Staff
-{variant:3}20% Chance to Block Attack Damage while wielding a Staff
-+2 to Level of all Chaos Spell Skill Gems
+{variant:1,2}+18% Chance to Block Attack Damage while wielding a Staff
+{variant:3}+20% Chance to Block Attack Damage while wielding a Staff
+{variant:2,3}+(40-55)% to Chaos Damage over Time Multiplier
 {variant:1}(60-80)% increased Chaos Damage
 {variant:2,3}(20-30)% increased Chaos Damage
-{variant:2,3}+(40-55)% to Chaos Damage over Time Multiplier
 2% increased Cast Speed per Power Charge
-Gain a Power Charge after spending a total of 200 Mana
-2 Mana Regenerated per Second per Power Charge
++2 to Level of all Chaos Spell Skill Gems
+Gain a Power Charge after Spending a total of 200 Mana
+Regenerate 2 Mana per Second per Power Charge
 ]],[[
 Disintegrator
 Maelstrom Staff

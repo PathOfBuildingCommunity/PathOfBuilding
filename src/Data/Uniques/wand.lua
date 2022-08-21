@@ -104,7 +104,7 @@ Implicits: 1
 (5-8)% increased Cast Speed
 +(15-20) to maximum Life
 +(15-20) to maximum Mana
-Regenerate (6-8) Life over 1 second for each Spell you Cast
+Regenerate (6.0-8.0) Life over 1 second for each Spell you Cast
 ]],[[
 Midnight Bargain
 Engraved Wand

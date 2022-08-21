@@ -493,9 +493,9 @@ Requires Level 32, 54 Int
 {variant:2}15% increased Movement Speed
 {variant:1}35% increased Movement Speed when on Full Life
 {variant:2}20% increased Movement Speed when on Full Life
-{variant:1}2% of Energy Shield regenerated per second while on Low Life
-{variant:2}1% of Energy Shield regenerated per second
-(10-15)% increased Stun Recovery
+{variant:1}Regenerate 2% of Energy Shield per second while on Low Life
+{variant:2}Regenerate 1% of Energy Shield per second
+(10-15)% increased Stun and Block Recovery
 ]],[[
 Skyforth
 Sorcerer Boots
@@ -520,7 +520,7 @@ Requires Level 67, 123 Int
 30% increased Movement Speed
 20% increased Movement Speed on Shocked Ground
 50% increased Damage on Burning Ground
-2% of Life Regenerated Per Second on Chilled Ground
+Regenerate 2% of Life per second on Chilled Ground
 Unaffected by Desecrated Ground
 ]],[[
 Wanderlust
@@ -703,8 +703,8 @@ Grants Level 20 Aspect of the Avian Skill
 (100-150)% increased Armour and Evasion
 (20-30)% increased Movement Speed
 +(-2-2) seconds to Avian's Flight Duration
-100 Life Regenerated per Second while you have Avian's Flight
-12 Mana Regenerated per Second while you have Avian's Flight
+Regenerate 100 Life per Second while you have Avian's Flight
+Regenerate 12 Mana per Second while you have Avian's Flight
 ]],
 -- Boots: Armour/Energy Shield
 [[
@@ -969,7 +969,7 @@ Requires Level 59, 27 Dex, 27 Int
 20% increased Movement Speed
 (10-20)% increased Movement Speed while Ignited
 +25% chance to be Ignited
-(75-125) Life Regenerated per second while Ignited
+Regenerate (75.0-125.0) Life per second while Ignited
 ]],[[
 Voidwalker
 Murder Boots
