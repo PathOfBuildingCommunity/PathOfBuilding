@@ -58,7 +58,7 @@ Variant: Current
 Ezomyte Hold
 Iron Hat
 Source: No longer obtainable
-20% increased Physical Damage
+20% increased Global Physical Damage
 +(15-25) to Armour
 +(25-50) to maximum Life
 Cannot Evade Enemy Attacks
@@ -1246,9 +1246,9 @@ Festival Mask
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 28, 33 Dex, 33 Int
++(20-30) to Dexterity
 {variant:1}30% reduced Damage
 {variant:2}25% reduced Damage
-+(20-30) to Dexterity
 {variant:1}+(20-30) to maximum Life
 {variant:2}+(60-100) to maximum Life
 {variant:1}+(20-30) to maximum Mana

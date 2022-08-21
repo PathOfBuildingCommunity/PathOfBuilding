@@ -110,10 +110,10 @@ Variant: Current
 (10-15)% increased Attack Speed
 {variant:1}+(10-20) to Armour
 {variant:2}+(20-30) to maximum Life
-(10-15)% reduced maximum Mana
 (10-15)% increased Cast Speed
-{variant:2}10% chance to gain a Frenzy, Power or Endurance Charge on Kill
-{variant:3}(10-15)% chance to gain a Frenzy, Power or Endurance Charge on Kill
+(10-15)% reduced maximum Mana
+{variant:2}10% chance to gain a Power, Frenzy or Endurance Charge on Kill
+{variant:3}(10-15)% chance to gain a Power, Frenzy or Endurance Charge on Kill
 Conduit
 ]],[[
 Meginord's Vise

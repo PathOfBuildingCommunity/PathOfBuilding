@@ -1187,7 +1187,7 @@ Variant: Mace
 Variant: Sword
 Limited to: 1
 Radius: Medium
-{variant:1}(10-15)% increased Physical Damage
+{variant:1}(10-15)% increased Global Physical Damage
 {variant:1}With at least 40 Dexterity in Radius, Dual Strike has a 20% chance
 to deal Double Damage with the Main-Hand Weapon
 {variant:1}With at least 40 Dexterity in Radius, Dual Strike deals Off-Hand Splash Damage
@@ -1244,8 +1244,8 @@ Variant: Pre 3.3.0
 Variant: Pre 3.17.0
 Limited to: 2
 Radius: Medium
-{variant:1}(4-12)% increased Physical Damage
-{variant:2,3}(8-12)% increased Physical Damage
+{variant:1}(4-12)% increased Global Physical Damage
+{variant:2,3}(8-12)% increased Global Physical Damage
 {variant:1}With at least 40 Strength in Radius, Ground Slam has a 20% increased angle
 {variant:2}With at least 40 Strength in Radius, Ground Slam has a 35% increased angle
 {variant:3}With at least 40 Strength in Radius, Ground Slam has a 50% increased angle
@@ -1259,7 +1259,7 @@ Variant: Pre 3.17.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(10-15)% increased Physical Damage 
+(10-15)% increased Global Physical Damage 
 With at least 40 Dexterity in Radius, Ethereal Knives fires Projectiles in a Nova
 {variant:1}With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles
 {variant:2}With at least 40 Dexterity in Radius, Ethereal Knives fires 5 additional Projectiles
@@ -1390,7 +1390,7 @@ Crimson Jewel
 Source: No longer obtainable
 Limited to: 2
 Radius: Medium
-(8-12)% increased Physical Damage
+(8-12)%  Global Physical Damage
 With at least 40 Strength in Radius, Heavy Strike has a 20% chance to deal Double Damage
 ]],[[
 Wildfire

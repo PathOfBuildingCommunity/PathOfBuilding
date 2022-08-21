@@ -146,7 +146,7 @@ Variant: Pre 3.17.0
 Requires Level 48
 Implicits: 1
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
-{tags:physical}5% increased Physical Damage
+{tags:physical}5% increased Global Physical Damage
 {tags:attack,chaos}Adds 1 to 3 Chaos Damage to Attacks
 {tags:life}+(20-30) to maximum Life
 {tags:life}Regenerate (2-4) Life per second
@@ -543,11 +543,11 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
+{variant:3}Grants Level 10 Enduring Cry Skill
 {tags:jewellery_attribute}+(10-20) to Strength
 {variant:1}{tags:attack,life,physical}0.4% of Physical Attack Damage Leeched as Life
 {variant:2}{tags:attack,life}Gain (2-4) Life per Enemy Hit with Attacks
-{variant:3}Grants Level 10 Enduring Cry
-+1 Maximum Endurance Charge
++1 to Maximum Endurance Charge
 ]],[[
 Kaom's Way
 Coral Ring

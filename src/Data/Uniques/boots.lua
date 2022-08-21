@@ -814,7 +814,7 @@ Requires Level 41, 40 Dex, 40 Int
 {variant:1}+(60-80) to maximum Energy Shield
 {variant:2}+(120-150) to maximum Energy Shield
 {variant:3}+(80-100) to maximum Energy Shield
-20% increased Physical Damage
+20% increased Global Physical Damage
 {variant:1}20% increased Movement Speed
 {variant:2,3}25% increased Movement Speed
 +(20-30)% to Lightning Resistance

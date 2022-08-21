@@ -329,8 +329,8 @@ Implicits: 0
 +30% to Fire Resistance
 {variant:1}20% less Damage taken if you have not been Hit Recently
 {variant:2}35% less Damage taken if you have not been Hit Recently
-{variant:1}50% increased Evasion if you have been Hit Recently
-{variant:2}100% increased Evasion if you have been Hit Recently
+{variant:1}50% increased Evasion Rating if you have been Hit Recently
+{variant:2}100% increased Evasion Rating if you have been Hit Recently
 ]],[[
 Queen of the Forest
 Destiny Leather
@@ -583,34 +583,25 @@ Nearby Allies' Action Speed cannot be modified to below base value
 Nearby Enemies cannot deal Critical Strikes
 ]],[[
 Infernal Mantle
-Widowsilk Robe
+{variant:1}Occultist's Vestment
+{variant:2,3,4,5}Widowsilk Robe
+Variant: Pre 2.0.0
 Variant: Pre 3.0.0
 Variant: Pre 3.14.0
 Variant: Pre 3.19.0
 Variant: Current
-Implicits: 0
-{variant:1,2,3}+1 to Level of Socketed Fire Gems
-{variant:4}+3 to Level of Socketed Fire Gems
-{variant:1,2,3}(25-35)% increased Fire Damage
-100% increased Global Critical Strike Chance
-{variant:1}(190-230)% increased Energy Shield
-{variant:2,3,4}(120-160)% increased Energy Shield
-15% of Fire Damage Converted to Chaos Damage
-{variant:1,4}100% increased Spell Damage taken when on Low Mana
-{variant:2}25% increased Spell Damage taken when on Low Mana
-{variant:3}15% increased Spell Damage taken when on Low Mana
-]],[[
-Infernal Mantle
-Occultist's Vestment
-Variant: Pre 2.0.0
 Implicits: 1
-(3-10)% increased Spell Damage
-+1 to Level of Socketed Fire Gems
-(25-35)% increased Fire Damage
+{variant:1}(3-10)% increased Spell Damage
+{variant:1,2,3,4}+1 to Level of Socketed Fire Gems
+{variant:5}+3 to Level of Socketed Fire Gems
+{variant:1,2,3,4}(25-35)% increased Fire Damage
 100% increased Global Critical Strike Chance
-(190-230)% increased Energy Shield
+{variant:1,2}(190-230)% increased Energy Shield
+{variant:3,4,5}(120-160)% increased Energy Shield
 15% of Fire Damage Converted to Chaos Damage
-100% increased Spell Damage taken when on Low Mana
+{variant:1,2,5}100% increased Spell Damage taken when on Low Mana
+{variant:3}25% increased Spell Damage taken when on Low Mana
+{variant:4}15% increased Spell Damage taken when on Low Mana
 ]],[[
 Shavronne's Wrappings
 Occultist's Vestment

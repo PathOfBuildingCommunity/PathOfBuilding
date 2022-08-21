@@ -286,7 +286,7 @@ Implicits: 2
 (40-60)% increased Physical Damage
 Adds 1 to (35-45) Lightning Damage
 (15-25)% increased Mana Regeneration Rate
-+1 Maximum Power Charge
++1 to Maximum Power Charge
 (25-35)% chance to gain a Power Charge on Kill
 ]],[[
 Tulborn

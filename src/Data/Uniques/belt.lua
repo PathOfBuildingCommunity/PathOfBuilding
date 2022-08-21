@@ -206,7 +206,7 @@ Variant: Current (Lightning)
 LevelReq: 68
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
-{variant:1,5}{tags:physical}(20-30)% increased Physical Damage
+{variant:1,5}{tags:physical}(20-30)% increased Global Physical Damage
 {variant:2,6}{tags:jewellery_elemental}(20-30)% increased Fire Damage
 {variant:3,7}{tags:jewellery_elemental}(20-30)% increased Cold Damage
 {variant:4,8}{tags:jewellery_elemental}(20-30)% increased Lightning Damage
@@ -264,7 +264,7 @@ Rustic Sash
 League: Talisman Standard, Talisman Hardcore
 LevelReq: 18
 Implicits: 1
-{tags:physical}(12-24)% increased Physical Damage
+{tags:physical}(12-24)% increased Global Physical Damage
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 20% increased Projectile Damage
 30% reduced Flask Charges gained
@@ -276,7 +276,7 @@ Rustic Sash
 League: Talisman Standard, Talisman Hardcore
 LevelReq: 11
 Implicits: 1
-{tags:physical}(12-24)% increased Physical Damage
+{tags:physical}(12-24)% increased Global Physical Damage
 {tags:attack,physical}Adds 5 to 10 Physical Damage to Attacks
 {tags:life}+(20-40) to maximum Life
 {tags:attack,life,physical}0.2% of Physical Attack Damage Leeched as Life
@@ -423,14 +423,14 @@ LevelReq: 50
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:life}+(75-100) to maximum Life
-{variant:1,2,3}{tags:life}Regenerate (67.0-75.0) Life per second
+{variant:1,2,3}{tags:life}Regenerate (66.7-75.0) Life per second
 {variant:4}{tags:life}Regenerate (200.0-350.0) Life per second
 {tags:mana}Regenerate (8.0-10.0) Mana per second
 {variant:1}-40% to all Elemental Resistances
 {variant:3,4}-(15-25)% to all Elemental Resistances
 {variant:1}-10% to all maximum Resistances
 {variant:2}-5% to all maximum Resistances
-{tags:physical}-(50-40) Physical Damage taken from Attacks
+{tags:physical}-(50-40) Physical Damage taken from Attack Hits
 {tags:jewellery_defense}40% increased Armour while not Ignited, Frozen or Shocked
 ]],[[
 Leash of Oblation
@@ -452,11 +452,10 @@ LevelReq: 16
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 {tags:jewellery_attribute}+(40-50) to Strength
-{variant:2}{tags:physical}(25-40)% increased Global Physical Damage
-{variant:1}{tags:physical}(25-40)% increased Physical Damage
+{variant:1,2}{tags:physical}(25-40)% increased Global Physical Damage
+{variant:3}{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances
 50% increased Flask Charges gained
 {variant:2}{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
-{variant:3}{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances
 {variant:3}10% chance to deal Double Damage while you have at least 200 Strength
 {variant:3}5% chance to deal Triple Damage while you have at least 400 Strength
 ]],[[
