@@ -620,8 +620,8 @@ Variant: Pre 3.7.0
 Variant: 3.19.0
 Variant: Current
 Implicits: 0
-{variant:1}+(12-18)% chance to Block Spell Damage
-{variant:2,3,4}+(10-15)% chance to Block Spell Damage
+{variant:1}+(12-18)% Chance to Block Spell Damage
+{variant:2,3,4}+(10-15)% Chance to Block Spell Damage
 {variant:1,2}(40-60)% increased Spell Damage
 (120-160)% increased Energy Shield
 10% increased maximum Life
@@ -648,7 +648,7 @@ Brass Spirit Shield
 Variant: Pre 3.4.0
 Variant: Current
 Implicits: 0
-{variant:1}7% chance to Block Spell Damage
+{variant:1}7% Chance to Block Spell Damage
 {variant:2}10% Chance to Block Spell Damage
 +(20-30) to Intelligence
 (4-8)% increased Quantity of Items found
@@ -667,8 +667,8 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 120% increased Block Recovery
-{variant:1,2}+36% chance to Block Spell Damage while on Low Life
-{variant:3,4}+30% chance to Block Spell Damage while on Low Life
+{variant:1,2}+36% Chance to Block Spell Damage while on Low Life
+{variant:3,4}+30% Chance to Block Spell Damage while on Low Life
 {variant:1,2,3}20% increased Global Physical Damage
 {variant:1,2,3}(100-120)% increased Armour and Evasion
 {variant:4}(200-250)% increased Armour and Evasion
@@ -680,8 +680,8 @@ Implicits: 1
 {variant:1,2,3}+(3-6)% Chance to Block
 {variant:2,3}+20% Chance to Block Attack Damage if you have Blocked Spell Damage Recently
 {variant:4}+100% Chance to Block Attack Damage if you have Blocked Spell Damage Recently
-{variant:2,3}+20% chance to Block Spell Damage if you have Blocked Attack Damage Recently
-{variant:4}+100% chance to Block Spell Damage if you have Blocked Attack Damage Recently
+{variant:2,3}+20% Chance to Block Spell Damage if you have Blocked Attack Damage Recently
+{variant:4}+100% Chance to Block Spell Damage if you have Blocked Attack Damage Recently
 ]],[[
 The Deep One's Hide
 Studded Round Shield

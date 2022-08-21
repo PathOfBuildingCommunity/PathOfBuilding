@@ -380,7 +380,7 @@ Implicits: 1
 {variant:2}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
 {variant:1}{tags:mana}Gain 5 Mana per Enemy Killed
 {variant:2}{tags:mana}Gain (5-20) Mana per Enemy Killed
-{tags:caster}Enemies can have 1 additional Curse
+{tags:caster}You can apply an additional Curse
 ]],[[
 Replica Doedre's Damning
 Paua Ring

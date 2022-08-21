@@ -216,8 +216,8 @@ Requires Level 22, 42 Dex
 {variant:3}Socketed Gems are Supported by Level 15 Trap
 (160-200)% increased Evasion Rating
 {variant:1,2}+(35-45) to maximum Life
-(14-18)% increased Trap Throwing Speed
 {variant:2,3}15% increased Movement Speed
+(14-18)% increased Trap Throwing Speed
 {variant:1}30% increased Movement Speed for 9 seconds on Throwing a Trap
 {variant:2,3}15% increased Movement Speed for 9 seconds on Throwing a Trap
 ]],[[
@@ -602,35 +602,24 @@ Requires Level 65, 62 Str, 62 Dex
 {variant:3}10% increased Evasion Rating per Frenzy Charge
 ]],[[
 Dusktoe
-Ironscale Boots
+{variant:1}Leatherscale Boots
+{variant:2,3,4}Ironscale Boots
+Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 18, 19 Str, 19 Dex
-{variant:1,2}(40-60)% increased Armour and Evasion
-{variant:3}(60-100)% increased Armour and Evasion
-{variant:1}+(10-20) to maximum Life
-{variant:2}+(20-30) to maximum Life
-{variant:1}+(10-20) to maximum Mana
-{variant:1,2}15% increased Movement Speed
-{variant:3}20% increased Movement Speed
-{variant:1,2}50% increased Stun and Block Recovery
+{variant:1,2,3}(40-60)% increased Armour and Evasion
+{variant:4}(60-100)% increased Armour and Evasion
+{variant:1,2}+(10-20) to maximum Life
+{variant:3}+(20-30) to maximum Life
+{variant:1,2}+(10-20) to maximum Mana
+{variant:1,2,3}15% increased Movement Speed
+{variant:4}20% increased Movement Speed
+{variant:1,2,3}50% increased Stun and Block Recovery
 20% reduced Light Radius
-{variant:2}Adds (15-20) to (25-30) Chaos Damage to Spells and Attacks while using a Flask
-{variant:3}Adds (30-40) to (50-60) Chaos Damage to Spells and Attacks while using a Flask
-+50% to Chaos Resistance while using a Flask
-]],[[
-Dusktoe
-Leatherscale Boots
-Variant: Pre 2.0.0
-Requires Level 18, 19 Str, 19 Dex
-(40-60)% increased Armour and Evasion
-+(10-20) to maximum Life
-+(10-20) to maximum Mana
-15% increased Movement Speed
-50% increased Stun Recovery
-20% reduced Light Radius
-+50% to Chaos Resistance while using a Flask
+{variant:3}Adds (15-20) to (25-30) Chaos Damage to Spells and Attacks during any Flask Effect
+{variant:4}Adds (30-40) to (50-60) Chaos Damage to Spells and Attacks during any Flask Effect
++50% to Chaos Resistance during any Flask Effect
 ]],[[
 Duskblight
 Ironscale Boots

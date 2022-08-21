@@ -557,9 +557,9 @@ Reckless Defence
 Cobalt Jewel
 Variant: Pre 3.4.0
 Variant: Current
-{variant:1}+6% chance to Block Spell Damage
-{variant:2}+(2-4)% chance to Block Spell Damage
-(2-4)% chance to Block Attack Damage
+{variant:1}+6% Chance to Block Spell Damage
+{variant:2}+(2-4)% Chance to Block Spell Damage
+(2-4)% Chance to Block Attack Damage
 Hits have (140-200)% increased Critical Strike Chance against you
 ]],[[
 Replica Reckless Defence

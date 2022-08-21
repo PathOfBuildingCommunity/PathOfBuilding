@@ -117,8 +117,8 @@ Implicits: 3
 +(30-40) to maximum Mana
 {variant:1,2,3}Gain (5-8) Life per Enemy Hit with Spells
 {variant:4}Gain (15-20) Life per Enemy Hit with Spells
-{variant:1}6% increased Spell Damage per 5% Block Chance
-{variant:2,3,4}8% increased Spell Damage per 5% Block Chance
+{variant:1}6% increased Spell Damage per 5% Chance to Block Attack Damage
+{variant:2,3,4}8% increased Spell Damage per 5% Chance to Block Attack Damage
 ]],[[
 Essentia Sanguis
 Eye Gouger

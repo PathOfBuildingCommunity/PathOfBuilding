@@ -218,10 +218,10 @@ Implicits: 1
 +(20-30) to maximum Energy Shield
 +(15-30)% to Fire Resistance
 +(15-30)% to Lightning Resistance
-{variant:1}30% slower start of Energy Shield Recharge during Flask Effect
-{variant:2}50% slower start of Energy Shield Recharge during Flask Effect
-{variant:1}400% increased Energy Shield Recharge Rate during Flask Effect
-{variant:2}(150-200)% increased Energy Shield Recharge Rate during Flask Effect
+{variant:1}30% slower start of Energy Shield Recharge during any Flask Effect
+{variant:2}50% slower start of Energy Shield Recharge during any Flask Effect
+{variant:1}400% increased Energy Shield Recharge Rate during any Flask Effect
+{variant:2}(150-200)% increased Energy Shield Recharge Rate during any Flask Effect
 Corrupted
 ]],[[
 Blood of Corruption
@@ -944,8 +944,8 @@ Variant: Current
 Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
-{variant:1}+15% chance to Block Spell Damage
-{variant:2,3}+(12-15)% chance to Block Spell Damage
+{variant:1}+15% Chance to Block Spell Damage
+{variant:2,3}+(12-15)% Chance to Block Spell Damage
 {variant:1,2}{tags:caster}(10-15)% increased Cast Speed
 {variant:3}{tags:caster}(15-20)% increased Cast Speed
 {variant:1,2}{tags:mana}+(30-50) to maximum Mana

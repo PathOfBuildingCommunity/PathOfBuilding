@@ -342,12 +342,12 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 12, 21 Int
-{variant:1}(40-50)% increased Spell Damage
-{variant:2}(50-60)% increased Spell Damage
-{variant:3}100% increased Spell Damage
 {variant:1}+10 to Intelligence
 {variant:2}+20 to Intelligence
 {variant:3}+(20-50) to Intelligence
+{variant:1}(40-50)% increased Spell Damage
+{variant:2}(50-60)% increased Spell Damage
+{variant:3}100% increased Spell Damage
 {variant:1}20% reduced Cast Speed
 {variant:2}15% reduced Cast Speed
 {variant:3}(15-25)% reduced Cast Speed

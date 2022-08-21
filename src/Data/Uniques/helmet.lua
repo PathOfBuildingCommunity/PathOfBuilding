@@ -52,8 +52,8 @@ Variant: Current
 {variant:2}+(75-100) to Armour
 +(25-50) to maximum Life
 {variant:1}Cannot Evade Enemy Attacks
-{variant:2}Unwavering Stance
 {variant:2}(15-20)% increased Area of Effect
+{variant:2}Unwavering Stance
 ]],[[
 Ezomyte Hold
 Iron Hat
@@ -429,10 +429,10 @@ Requires Level 39, 83 Int
 {variant:2,3}+2 to Level of Socketed Curse Gems
 {variant:2,3}+(100-120) to maximum Energy Shield
 +(20-30) to Intelligence
-(30-50)% increased Curse Duration
 {variant:1,2}20% increased Elemental Damage
 {variant:1,2}(10-20)% increased Damage with Hits and Ailments per Curse on Enemy
-{variant:3}Adds (37-71) Chaos Damage per Curse on Enemy
+Curse Skills have (30-50)% increased Skill Effect Duration
+{variant:3}Adds 37 to 71 Chaos Damage for each Curse on the Enemy
 ]],[[
 Eber's Unification
 Hubris Circlet
@@ -701,8 +701,8 @@ Requires Level 33, 38 Str, 38 Dex
 +(200-300) to Armour
 {variant:2}Adds 10-20 Physical Damage to Attacks
 {variant:1,2}20% increased Melee Damage
-{variant:3}Skills which Exert an Attack to have a (20-40)% chance to not count that Attack
 Cannot Leech when on Low Life
+{variant:3}Skills which Exert an Attack have (20-40)% chance to not count that Attack
 ]],[[
 Deidbellow
 Gilded Sallet
@@ -841,8 +841,8 @@ Variant: Current
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 58, 64 Str, 64 Int
-{variant:1}+(7-9)% chance to Block Spell Damage
-{variant:2}+(4-6)% chance to Block Spell Damage
+{variant:1}+(7-9)% Chance to Block Spell Damage
+{variant:2}+(4-6)% Chance to Block Spell Damage
 (140-180)% increased Armour and Energy Shield
 (4-7)% increased maximum Life
 Cannot lose Crab Barriers if you have lost Crab Barriers Recently
@@ -1016,7 +1016,7 @@ Requires Level 58, 64 Str, 64 Int
 +(25-30) to all Attributes
 (150-200)% increased Armour and Energy Shield
 {variant:1}Nearby Allies have (4-6)% increased Defences per 100 Strength you have
-{variant:2}Nearby Allies have 1% chance to Block Attack Damage per 100 Strength you have
+{variant:2}Nearby Allies have 1% Chance to Block Attack Damage per 100 Strength you have
 Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
 Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
 2% increased Mana Reservation Efficiency of Skills per 250 total Attributes
