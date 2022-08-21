@@ -298,7 +298,11 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 
 					if(string.find(t[2],"Energy Shield"))then --Discipline Hander
 						if(string.find(t[2],"Recharge"))then--Second part of discipline
-							ExportAuraString = ExportAuraString .. (t[1] .. " Energy Shield Recharge Rate\n")
+							if(string.find(t[2],"Not Delayed By Damage"))then--Vaal Disc
+								--do nothing for vaal disc
+							else
+								ExportAuraString = ExportAuraString .. (t[1] .. " Energy Shield Recharge Rate\n")
+							end
 						else--first part of discipline
 							local NewString = string.gsub(t[1], " base", "")
 							ExportAuraString = ExportAuraString .. (NewString .. " to maximum Energy Shield\n")--Discipline Second Effect
