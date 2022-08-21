@@ -18,10 +18,10 @@ Implicits: 1
 {tags:attack,speed}10% reduced Attack Speed
 {tags:caster,speed}10% reduced Cast Speed
 {tags:jewellery_defense}+(400-500) to Armour
-{variant:1}{tags:life}+(30-40) Life gained when you Block
-{variant:2,3,4}{tags:life}+(34-48) Life gained when you Block
-{variant:1}{tags:mana}+(10-20) Mana gained when you Block
-{variant:2,3,4}{tags:mana}+(10-24) Mana gained when you Block
+{variant:1}{tags:life}(30-40) Life gained when you Block
+{variant:2,3,4}{tags:life}(34-48) Life gained when you Block
+{variant:1}{tags:mana}(10-20) Mana gained when you Block
+{variant:2,3,4}{tags:mana}(10-24) Mana gained when you Block
 {variant:1}{tags:speed}20% reduced Movement Speed
 {variant:2}{tags:speed}10% reduced Movement Speed
 +3% to maximum Chance to Block Attack Damage

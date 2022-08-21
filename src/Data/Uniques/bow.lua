@@ -377,7 +377,7 @@ Requires Level 5, 26 Dex
 {variant:1}50% less Damage
 {variant:2}40% less Damage
 {variant:3}30% less Damage
-{variant:2,3}+2 Mana gained for each Enemy hit by Attacks
+{variant:2,3}Gain 2 Mana per Enemy Hit with Attacks
 ]],[[
 Replica Quill Rain
 Short Bow
@@ -387,7 +387,7 @@ Socketed Gems are Supported by Level 1 Arrow Nova
 +(10-20) to Dexterity
 100% increased Physical Damage
 (25-30)% increased Attack Speed
-+2 Mana gained for each Enemy hit by Attacks
+Gain 2 Mana per Enemy Hit with Attacks
 (50-100)% increased Projectile Speed
 +(25-50) to Accuracy Rating
 ]],[[
@@ -442,7 +442,7 @@ Requires Level 2
 {variant:2}(80-100)% increased Physical Damage
 10% increased Attack Speed
 +30 to Accuracy Rating
-+10 Mana gained on Kill
+Gain 10 Mana per Enemy Killed
 ]],[[
 Silverbough
 Crude Bow
@@ -454,7 +454,7 @@ Requires Level 36
 Adds (15-25) to (50-60) Physical Damage
 10% increased Attack Speed
 +30 to Accuracy Rating
-+10 Mana gained on Kill
+Gain 10 Mana per Enemy Killed
 ]],[[
 Slivertongue
 Harbinger Bow

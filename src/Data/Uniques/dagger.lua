@@ -103,8 +103,8 @@ Implicits: 1
 (50-70)% increased Spell Damage
 {variant:1}Gain 10 Life per Enemy Killed
 {variant:2}Gain 30 Life per Enemy Killed
-{variant:1}+5 Mana gained on Kill
-{variant:2}+10 Mana gained on Kill
+{variant:1}Gain 5 Mana per Enemy Killed
+{variant:2}Gain 10 Mana per Enemy Killed
 10% increased Area of Effect of Area Skills
 {variant:2}(125-175)% increased Critical Strike Chance for Spells if you've Killed Recently
 {variant:2}+(40-60)% to Critical Strike Multiplier for Spells if you haven't Killed Recently

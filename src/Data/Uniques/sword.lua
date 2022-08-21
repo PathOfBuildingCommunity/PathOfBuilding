@@ -323,7 +323,7 @@ Implicits: 2
 Adds 2 to 6 Physical Damage
 10% increased Attack Speed
 +(20-30) to maximum Life
-+2 Life Gained for each Enemy hit by Attacks
+Gain 2 Life per Enemy Hit by Attacks
 ]],[[
 Dreadbeak
 Rusted Sword
@@ -528,7 +528,7 @@ Implicits: 2
 {variant:2}+460 to Accuracy Rating
 (40-60)% increased Physical Damage
 Adds (30-45) to (80-100) Physical Damage
-+(2-3) Mana gained for each Enemy hit by Attacks
+Gain (2-3) Mana per Enemy Hit with Attacks
 Counts as all One Handed Melee Weapon Types
 ]],
 -- Weapon: Thrusting Sword
@@ -889,7 +889,7 @@ Implicits: 2
 {variant:3}(180-220)% increased Physical Damage
 20% increased Attack Speed
 {variant:2,3}(50-75)% increased Critical Strike Chance
-+10 Mana gained on Kill
+Gain 10 Mana per Enemy Killed
 10% increased Movement Speed
 Gain a Frenzy Charge on Critical Strike
 ]],[[

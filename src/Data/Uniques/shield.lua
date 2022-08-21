@@ -461,7 +461,7 @@ Implicits: 2
 {variant:2,3,4}(8-12)% increased Cast Speed
 +(70-90) to maximum Energy Shield
 (20-40)% increased Mana Regeneration Rate
-{variant:1}Gain +3 Mana when you hit a Taunted Enemy
+{variant:1}Gain 3 Mana per Taunted Enemy Hit
 {variant:2,3}Gain 2 Power Charges on Using a Warcry
 {variant:4}Warcries grant Arcane Surge to you and Allies, with 10% increased effect per 5 power, up to 50%
 ]],[[
@@ -942,7 +942,7 @@ Implicits: 1
 Grants Summon Harbinger of Focus Skill
 +(60-80) to maximum Life
 +(10-15)% to all Elemental Resistances
-+(30-50) Mana gained when you Block
+(30-50) Mana gained when you Block
 +5% Chance to Block
 Channelling Skills deal (50-70)% increased Damage
 ]],[[
@@ -955,7 +955,7 @@ Implicits: 1
 Grants Summon Greater Harbinger of Focus Skill
 +(60-80) to maximum Life
 +(10-15)% to all Elemental Resistances
-+(30-50) Mana gained when you Block
+(30-50) Mana gained when you Block
 +5% Chance to Block
 Channelling Skills deal (50-70)% increased Damage
 ]],[[

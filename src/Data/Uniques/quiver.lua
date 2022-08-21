@@ -386,7 +386,7 @@ Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows
 Adds (30-40) to (80-100) Cold Damage to Attacks
 +(80-120) to maximum Energy Shield
 +(20-30)% to Cold Resistance
-+(20-40) Mana gained on Kill
+Gain (20-40) Mana per Enemy Killed
 30% increased Projectile Speed
 5 Maximum Void Charges
 Gain a Void Charge every 0.5 seconds
@@ -403,7 +403,7 @@ Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows
 Adds (30-40) to (80-100) Cold Damage to Attacks
 +(80-120) to maximum Energy Shield
 +(20-30)% to Cold Resistance
-+(20-40) Mana gained on Kill
+Gain (20-40) Mana per Enemy Killed
 30% increased Projectile Speed
 5 Maximum Void Charges
 Gain a Void Charge every 0.5 seconds

@@ -1319,7 +1319,7 @@ Implicits: 1
 {variant:14,15,17}+(70-80) to Maximum Energy Shield
 +(20-24)% to all Elemental Resistances
 Gain 100 Life per Enemy Killed
-+100 Mana Gained on Kill
+Gain 100 Mana per Enemy Killed
 ]],[[
 Shadowstitch
 Sacrificial Garb

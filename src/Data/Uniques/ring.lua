@@ -378,8 +378,8 @@ Implicits: 1
 {variant:2}{tags:jewellery_attribute}+(5-20) to Intelligence 
 {variant:1}{tags:jewellery_resistance}+5% to all Elemental Resistances
 {variant:2}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
-{variant:1}{tags:mana}+5 Mana Gained on Kill
-{variant:2}{tags:mana}+(5-20) Mana gained on Kill
+{variant:1}{tags:mana}Gain 5 Mana per Enemy Killed
+{variant:2}{tags:mana}Gain (5-20) Mana per Enemy Killed
 {tags:caster}Enemies can have 1 additional Curse
 ]],[[
 Replica Doedre's Damning
@@ -394,8 +394,8 @@ Implicits: 1
 {variant:3}{tags:jewellery_attribute}+(5-20) to Intelligence 
 {variant:1,2}{tags:jewellery_resistance}+5% to all Elemental Resistances
 {variant:3}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
-{variant:1,2}{tags:mana}+5 Mana Gained on Kill
-{variant:3}{tags:mana}+(5-20) Mana gained on Kill
+{variant:1,2}{tags:mana}Gain 5 Mana per Enemy Killed
+{variant:3}{tags:mana}Gain (5-20) Mana per Enemy Killed
 {tags:caster}You can apply one fewer Curse
 {variant:1}{tags:caster}(25-35)% increased Effect of your Curses
 {variant:2,3}{tags:caster}(15-25)% increased Effect of your Curses
@@ -1089,8 +1089,8 @@ Can't use other Rings
 {tags:caster}50% reduced Effect of Curses on You
 {variant:1,2,3}{tags:attack,life}Gain (20-30) Life per Enemy Hit with Attacks
 {variant:4,5}{tags:attack,life}Gain (40-60) Life per Enemy Hit with Attacks
-{variant:1,2,3}{tags:attack,mana}+15 Mana gained for each Enemy hit by your Attacks
-{variant:4,5}{tags:attack,mana}+30 Mana gained for each Enemy hit by your Attacks
+{variant:1,2,3}{tags:attack,mana}Gain 15 Mana per Enemy Hit with Attacks
+{variant:4,5}{tags:attack,mana}Gain 30 Mana per Enemy Hit with Attacks
 ]],[[
 Timeclasp
 Moonstone Ring

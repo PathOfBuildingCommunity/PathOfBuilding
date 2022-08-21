@@ -383,7 +383,7 @@ Implicits: 0
 Socketed Gems are Supported by Level 20 Increased Area of Effect
 +10 to Strength
 (120-160)% increased Physical Damage
-+10 Mana gained on Kill
+Gain 10 Mana per Enemy Killed
 {variant:1}+(50-80) to Accuracy Rating
 {variant:2}+(120-150) to Accuracy Rating
 +2 to Weapon Range
