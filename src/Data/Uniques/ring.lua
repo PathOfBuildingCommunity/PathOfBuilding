@@ -707,12 +707,12 @@ Implicits: 1
 {variant:1}{tags:jewellery_elemental}(15-25)% increased Fire Damage
 {tags:jewellery_resistance}+(25-40)% to Cold Resistance
 {variant:1}{tags:jewellery_elemental}(5-10)% chance to Ignite
-{variant:2}{tags:jewellery_elemental}All Damage Taken from Hits can Ignite you
 {variant:1}{tags:attack,speed}20% increased Attack Speed while Ignited
 {variant:2}{tags:attack,speed}(25-40)% increased Attack Speed while Ignited
 {variant:1}{tags:caster,speed}20% increased Cast Speed while Ignited
 {variant:2}{tags:caster,speed}(25-40)% increased Cast Speed while Ignited
 {tags:jewellery_elemental}+25% chance to be Ignited
+{variant:2}{tags:jewellery_elemental}All Damage Taken from Hits can Ignite you
 ]],[[
 Mutewind Seal
 Unset Ring

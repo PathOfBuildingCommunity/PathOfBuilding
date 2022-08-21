@@ -592,9 +592,9 @@ Implicits: 2
 {variant:1,2}10% increased effect of Non-Curse Auras from your Skills on your Minions
 {variant:3}20% increased effect of Non-Curse Auras from your Skills on your Minions
 {variant:1,2}Spreads Tar when you take a Critical Strike
-{variant:3}Spreads Tar when you Block
 {variant:1,2}10% increased effect of Non-Curse Auras from your Skills
 {variant:3}20% increased effect of Non-Curse Auras from your Skills
+{variant:3}Spreads Tar when you Block
 ]],[[
 Whakatutuki o Matua
 Tarnished Spirit Shield

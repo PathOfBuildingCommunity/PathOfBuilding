@@ -527,7 +527,8 @@ Requires Level 26, 58 Int
 75% reduced Maximum number of Summoned Raging Spirits
 Summoned Raging Spirits' Hits always Ignite
 {variant:1}Summoned Raging Spirits refresh their Duration when they Kill an Ignited Enemy
-{variant:2,3}Summoned Raging Spirits' Melee Strikes deal Fire-only Splash Damage to Surrounding Targets
+{variant:2,3}Summoned Raging Spirits' Melee Strikes deal Fire-only Splash
+{variant:2,3}Damage to Surrounding Targets
 ]],[[
 Maw of Conquest
 Steel Circlet
@@ -957,7 +958,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 68, 62 Str, 91 Int
 Adds (13-17) to (29-37) Chaos Damage
 {variant:1}+(200-250) to maximum Energy Shield
 {variant:2,3,4}+(150-200) to maximum Energy Shield
@@ -1051,7 +1051,7 @@ Requires Level 37, 42 Str, 42 Int
 {variant:1,2}(10-15)% increased Cold Damage
 {variant:1,2}(10-15)% increased Lightning Damage
 {variant:1}+(100-150) to maximum Mana
-{variant:2}+(100-120) to maximum Mana
+{variant:2,2}+(100-120) to maximum Mana
 {variant:2}Gain (5-10)% of Maximum Mana as Extra Maximum Energy Shield
 {variant:3}Gain (10-15)% of Maximum Mana as Extra Maximum Energy Shield
 Enemies Cannot Leech Mana From You
@@ -1278,7 +1278,6 @@ Variant: Pre 3.7.0
 Variant: Pre 3.17.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 17, 21 Dex, 21 Int
 {variant:1,2,3,4,5}(15-30)% increased Spell Damage
 +20 to Strength
 {variant:1,2,3,4,5}(20-30)% increased Lightning Damage

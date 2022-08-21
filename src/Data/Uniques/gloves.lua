@@ -123,15 +123,16 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 35, 52 Str
+{variant:4}Melee Strike Skills deal Splash Damage to surrounding targets
 {variant:1,2,3}10% increased Global Physical Damage
 {variant:1,2,3}+100 to Strength
 {variant:4}+50 to Strength
 {variant:1}(5-15)% reduced Attack Speed
-(40-60)% increased Armour
+{variant:1,2,3}(40-60)% increased Armour
+{variant:4}(150-200)% increased Armour
 {variant:3}Regenerate 2% of Life per second with at least 400 Strength
 {variant:4}100% increased Knockback Distance
-{variant:4}Melee Hits with Strike Skills Always Knockback
-{variant:4}Melee Strike Skills deal Splash Damage to surrounding targets
+{variant:4}Melee Hits with Strike Skills always Knockback
 ]],[[
 Veruso's Battering Rams
 Titan Gauntlets
