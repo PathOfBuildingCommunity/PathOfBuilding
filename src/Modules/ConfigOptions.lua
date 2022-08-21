@@ -889,6 +889,9 @@ return {
 	{ var = "multiplierShockedEnemyKilledRecently", type = "count", label = "# of ^xADAA47Shocked ^7Enemies Killed Recently:", ifMult = "ShockedEnemyKilledRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ShockedEnemyKilledRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "multiplierShockedNonShockedEnemyRecently", type = "count", label = "# of Non-^xADAA47Shocked ^7Enemies ^xADAA47Shocked ^7 Recently:", ifMult = "ShockedNonShockedEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:ShockedNonShockedEnemyRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionFrozenEnemyRecently", type = "check", label = "Have you ^x3F6DB3Frozen ^7an enemy Recently?", ifCond = "FrozenEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FrozenEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },

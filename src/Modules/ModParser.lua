@@ -1066,6 +1066,7 @@ local modTagList = {
 	["per poison on you, up to (%d+) per second"] = function(num) return { tag = { type = "Multiplier", var = "PoisonStack", limit = tonumber(num), limitTotal = true } } end,
 	["for each poison you have inflicted recently"] = { tag = { type = "Multiplier", var = "PoisonAppliedRecently" } },
 	["for each poison you have inflicted recently, up to a maximum of (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "PoisonAppliedRecently", limit = tonumber(num), limitTotal = true } } end,
+	["for each time you have shocked a non%-shocked enemy recently, up to a maximum of (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "ShockedNonShockedEnemyRecently", limit = tonumber(num), limitTotal = true } } end,
 	["for each shocked enemy you've killed recently"] = { tag = { type = "Multiplier", var = "ShockedEnemyKilledRecently" } },
 	["per enemy killed recently, up to (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "EnemyKilledRecently", limit = tonumber(num), limitTotal = true } } end,
 	["per (%d+) rampage kills"] = function(num) return { tag = { type = "Multiplier", var = "Rampage", div = num, limit = 1000 / num, limitTotal = true } } end,
