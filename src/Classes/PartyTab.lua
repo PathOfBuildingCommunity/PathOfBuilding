@@ -23,6 +23,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 
 	local notesDesc = [[^7Party stuff	DO NOT EDIT ANY BOXES UNLESS YOU KNOW WHAT YOU ARE DOING, use copy/paste instead, or import]]
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, notesDesc)
+	self.controls.notesDesc.width = function()
+		return self.width / 2 - 16
+	end
 	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter code here: (NOT URL)")
 	
 	local importCodeHandle = function (buf)
@@ -117,18 +120,29 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 
 	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.importCodeMode,"TOPLEFT"}, 0, 40, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editAuras.width = function()
-		return self.width / 2 - self.controls.editAuras.x - 18
+		return self.width / 2 - 16
 	end
 	self.controls.editAuras.height = function()
 		return self.height - 148
 	end
 
-	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.editAuras,"TOPRIGHT"}, 8, 0, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editMisc = new("EditControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editMisc.width = function()
+		return self.width / 2 - 16
+	end
+	local extraHeight = function()
+		return false
+	end
+	self.controls.editMisc.height = function()
+		return (extraHeight() and (self.height - 148) or 116)
+	end
+
+	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.editMisc,"BOTTOMLEFT"}, 0, 10, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editCurses.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.editCurses.height = function()
-		return self.height - 148
+		return (not extraHeight() and (self.height - 148) or 116)
 	end
 	self:SelectControl(self.controls.editAuras)
 end)
@@ -222,6 +236,9 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 			mode = "Name"
 		elseif mode == "Name" and line ~= "" then
 			currentName = line
+			if line == "extraAura" then
+				currentModType = "extraAura"
+			end
 			mode = "Effect"
 		elseif mode == "Effect" then
 			currentEffect = tonumber(line)
