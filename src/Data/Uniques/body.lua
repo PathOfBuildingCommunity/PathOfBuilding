@@ -921,7 +921,7 @@ Implicits: 0
 +(50-75)% to Cold Resistance
 Cannot be Chilled
 {variant:1,2}150% increased Chill Duration on Enemies
-{variant:3}20% chance to Freeze Enemies for 1 second when Hit
+{variant:3}20% chance to Freeze Enemies for 1 second when they Hit you
 ]],[[
 Crystal Vault
 Latticed Ringmail

@@ -97,8 +97,8 @@ Requires Level: 23, 36 Str
 +(30-40) to Strength
 {variant:1}Adds (3-6) to (10-12) Physical Damage to Attacks
 {variant:2}Adds (5-8) to (12-16) Physical Damage to Attacks
-(80-100)% increased Armour
 {variant:2}10% reduced Attack Speed
+(80-100)% increased Armour
 {variant:2}Arrows Pierce 2 additional Targets
 Iron Grip
 ]],[[

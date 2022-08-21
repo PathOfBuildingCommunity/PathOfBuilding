@@ -520,14 +520,15 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
-Grants Level 22 Precision Skill
+{variant:1,2}Grants Level 22 Precision Skill
+{variant:3}Grants Level 30 Precision Skill
 {variant:1,2}{tags:jewellery_attribute}+(25-35) to Dexterity
 {variant:3}{tags:jewellery_attribute}+(40-80) to Dexterity
 {variant:1,2}{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
 {variant:1,2}{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
-{variant:3}Bow Attacks have Culling Strike
 {variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {variant:3}{tags:critical}+(25-50)% to Global Critical Strike Multiplier
+{variant:3}Bow Attacks have Culling Strike
 {variant:1,2}{tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:1}Precision has 50% less Reservation
 {variant:2,3}Precision has 100% increased Mana Reservation Efficiency
@@ -566,7 +567,7 @@ Implicits: 1
 {tags:attack}+(100-150) to Accuracy Rating
 {tags:jewellery_defense}+(100-150) to Evasion Rating
 {tags:jewellery_resistance}+20% to Fire Resistance
-{variant:2}20% to Light Radius
+{variant:2}20% increased Light Radius
 {variant:2}Nearby Enemies are Blinded
 ]],[[
 The Effigon

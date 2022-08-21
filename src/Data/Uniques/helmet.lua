@@ -183,16 +183,16 @@ Variant: Current
 Requires Level 20, 46 Dex
 {variant:1}+1 to Level of Socketed Fire Gems
 {variant:1}+1 to Level of Socketed Cold Gems
-{variant:2}(20-30)% increased Cold Damage if you have used a Fire Skill Recently
-{variant:2}(20-30)% increased Fire Damage if you have used a Cold Skill Recently
-{variant:3}Gain 1% of Cold Damage as Extra Fire Damage per 1% Chill Effect on Enemy
-{variant:3}Gain 100% of Cold Damage as Extra Fire Damage against Frozen Enemies
 (80-100)% increased Evasion Rating
 60% increased Mana Regeneration Rate
 {variant:1}-(20-10)% to Fire Resistance
 {variant:2,3}+(20-30)% to Fire Resistance
 {variant:1}-(20-10)% to Cold Resistance
 {variant:2,3}+(20-30)% to Cold Resistance
+{variant:2}(20-30)% increased Cold Damage if you have used a Fire Skill Recently
+{variant:2}(20-30)% increased Fire Damage if you have used a Cold Skill Recently
+{variant:3}Gain 1% of Cold Damage as Extra Fire Damage per 1% Chill Effect on Enemy
+{variant:3}Gain 100% of Cold Damage as Extra Fire Damage against Frozen Enemies
 ]],[[
 Frostferno
 Leather Hood
@@ -879,7 +879,6 @@ Great Crown
 Variant: Pre 3.17.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 53, 59 Str, 59 Int
 {variant:1,2}+1 to Level of Socketed Gems
 {variant:2}(60-80)% increased Armour and Energy Shield
 {variant:3}(120-150)% increased Armour and Energy Shield
@@ -896,7 +895,6 @@ Requires Level 53, 59 Str, 59 Int
 Geofri's Legacy
 Great Crown
 Source: No longer obtainable
-Requires Level 62, 59 Str, 59 Int
 +1 to Level of Socketed Gems
 (60-80)% increased Armour and Energy Shield
 +(15-20)% to Fire Resistance
@@ -946,7 +944,6 @@ Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
-Requires Level 53, 59 Str, 59 Int
 Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charge
 +(10-15)% to all Elemental Resistances
 Recover (4-5)% of Life when a Spirit Charge expires or is consumed

@@ -506,12 +506,12 @@ Requires Level 44
 Implicits: 1
 (6-15)% increased Rarity of Items found
 (15-25)% increased Rarity of Items found
+{variant:2}{tags:life}1% of Damage leeched as Life
 {variant:1}{tags:speed}5% increased Movement Speed
 {variant:2}{tags:speed}(5-10)% increased Movement Speed
 {variant:1}25% chance to Steal Power, Frenzy, and Endurance Charges on Hit
-{variant:2}100% chance to Steal Power, Frenzy, and Endurance Charges on Hit
 {variant:1}0.5% of Damage Leeched as Life while you have at least 5 total Endurance, Frenzy and Power Charges
-{variant:2}{tags:life}1% of Damage leeched as Life
+{variant:2}Steal Power, Frenzy, and Endurance Charges on Hit
 Total Recovery per second from Life Leech is Doubled
 ]],[[
 The Hungry Loop
