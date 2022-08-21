@@ -109,16 +109,15 @@ Stormcharger
 Plated Greaves
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level: 23, 44 Str
 +(1-50)% to Lightning Resistance 
 {variant:1}20% increased Movement Speed
 {variant:2}(1-40)% increased Movement Speed
 {variant:1}30% of Physical Damage Converted to Lightning Damage
-{variant:2}Unaffected by Shocked Ground
 {variant:1}50% increased Duration of Lightning Ailments
 {variant:2}(1-100)% increased Duration of Lightning Ailments
 {variant:1}(15-25)% increased Effect of Lightning Ailments
 {variant:2}(1-50)% increased Effect of Lightning Ailments
+{variant:2}Unaffected by Shocked Ground
 ]],[[
 Torchoak Step
 Antique Greaves
@@ -478,8 +477,8 @@ Requires Level 32, 54 Int
 {variant:3,4}15% increased Movement Speed
 {variant:1,2}35% increased Movement Speed when on Full Life
 {variant:3,4}20% increased Movement Speed when on Full Life
-{variant:1,2,3}(10-15)% increased Stun Recovery
-{variant:4}(150-200)% increased Stun Recovery
+{variant:1,2,3}(10-15)% increased Stun and Block Recovery
+{variant:4}(150-200)% increased Stun and Block Recovery
 ]],[[
 Shavronne's Gambit
 Scholar Boots
@@ -781,13 +780,15 @@ Riveted Boots
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 36, 35 Str, 35 Int
-+(15-25)% to Cold Resistance 
-+(15-25)% to Chaos Resistance 
-{variant:1}20% increased Movement Speed 
-{variant:2}30% increased Movement Speed 
-{variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary 
-{variant:2}Your minimum Frenzy, Endurance and Power Charges are equal to your maximum while you are Stationary
++(15-25)% to Cold Resistance
++(15-25)% to Chaos Resistance
+{variant:1}20% increased Movement Speed
+{variant:2}30% increased Movement Speed
+{variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
 Lose all Frenzy, Endurance, and Power Charges when you Move
+{variant:2}Minimum Endurance Charges equal to Maximum while stationary
+{variant:2}Minimum Frenzy Charges equal to Maximum while stationary
+{variant:2}Minimum Power Charges equal to Maximum while stationary
 ]],[[
 Wake of Destruction
 Mesh Boots

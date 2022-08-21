@@ -554,7 +554,7 @@ Cloth Belt
 Variant: Pre 1.1.0
 Variant: Current
 Implicits: 1
-(15-25)% increased Stun Recovery
+(15-25)% increased Stun and Block Recovery
 {tags:jewellery_attribute}+(20-30) to all Attributes
 {variant:1}(8-12)% increased Quantity of Items found
 {variant:2}(6-8)% increased Quantity of Items found
@@ -705,7 +705,7 @@ Soulthirst
 Cloth Belt
 LevelReq: 45
 Implicits: 1
-(15-25)% increased Stun Recovery
+(15-25)% increased Stun and Block Recovery
 {tags:life}+(60-80) to maximum Life
 {tags:jewellery_resistance}+15% to all Elemental Resistances
 {tags:mana}(20-30)% increased Mana Recovery from Flasks
@@ -772,16 +772,16 @@ Variant: Pre 3.19.0
 Variant: Current
 LevelReq: 37
 Implicits: 1
-(15-25)% increased Stun Recovery
+(15-25)% increased Stun and Block Recovery
 {variant:1}(30-40)% increased Trap Damage
 {variant:1}{tags:mana}20% increased Mana Regeneration Rate
-{variant:2}Skills which Throw Traps throw up to 2 additional Traps
-{variant:2}Throw Traps randomly around targeted location
-{variant:2}Traps cannot be triggered by Enemies
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:1}80% reduced Trap Duration
 {variant:2}(50-75)% reduced Trap Duration
 25% increased Light Radius
+{variant:2}Skills which Throw Traps throw up to 2 additional Traps
+{variant:2}Traps cannot be triggered by Enemies
+{variant:2}Traps from Skills are thrown randomly around targeted location
 ]],[[
 Survivor's Guilt
 Heavy Belt

@@ -645,12 +645,12 @@ Crusader Gloves
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 66, 306 Str, 306 Int
+500% increased Attribute Requirements
+{variant:2}(6-12)% increased Strength
 {variant:1}(0-30)% reduced Spell Damage
 {variant:1}(120-180)% increased Armour and Energy Shield
 {variant:2}(400-500)% increased Armour and Energy Shield
 {variant:1}+(8-16) to maximum Energy Shield
-{variant:2}(6-12)% increased Strength
-500% increased Attribute Requirements
 Iron Will
 ]],[[
 Saqawal's Winds
@@ -670,7 +670,7 @@ Chain Gloves
 Variant: Pre 1.2.0
 Variant: Current
 Requires Level 7, 17 Dex
-(40-60)% increased Stun Recovery
+(40-60)% increased Stun and Block Recovery
 Hexes applied by Socketed Curse Skills are Reflected back to you
 You cannot be Chilled for 3 seconds after being Chilled
 You cannot be Frozen for 3 seconds after being Frozen

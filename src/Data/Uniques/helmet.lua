@@ -269,7 +269,7 @@ Requires Level 8, 23 Int
 {variant:2,3}+(30-50) to maximum Energy Shield
 30% increased Mana Regeneration Rate
 {variant:1,2}5% increased Movement Speed
-{variant:1,2}(10-15)% increased Stun Recovery
+{variant:1,2}(10-15)% increased Stun and Block Recovery
 ]],[[
 Asenath's Chant
 Iron Circlet
@@ -553,25 +553,26 @@ Spell Skills cannot deal Critical Strikes except on final Repeat
 ]],[[
 Rime Gaze
 Mind Cage
+Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 65, 138 Int
-{variant:1}Socketed Gems are Supported by Level 15 Concentrated Effect
-{variant:2,3,4,5}Socketed Gems are Supported by Level 20 Concentrated Effect
-{variant:1,2,3,4}30% increased Cold Damage
-{variant:5}+(25-75) to maximum Mana
-{variant:1,2,3,4}+(40-60) to maximum Mana
-{variant:1}(100-120)% increased Energy Shield
-{variant:2,3}(180-200)% increased Energy Shield
-{variant:4}(140-160)% increased Energy Shield
-{variant:5}50% increased Energy Shield
-{variant:1}50% slower start of Energy Shield Recharge
-{variant:2,3,4,5}50% reduced Energy Shield Recharge Rate
-{variant:3,4}+(16-22)% to Cold Damage over Time Multiplier
-{variant:5}+50% to Cold Damage over Time Multiplier
+{variant:1,2}Socketed Gems are Supported by Level 15 Concentrated Effect
+{variant:3,4,5,6}Socketed Gems are Supported by Level 20 Concentrated Effect
+{variant:4,5}+(16-22)% to Cold Damage over Time Multiplier
+{variant:6}+50% to Cold Damage over Time Multiplier
+{variant:1}10% increased Cold Damage
+{variant:2,3,4,5}30% increased Cold Damage
+{variant:1,2}(100-120)% increased Energy Shield
+{variant:3,4}(180-200)% increased Energy Shield
+{variant:5}(140-160)% increased Energy Shield
+{variant:6}50% increased Energy Shield
+50% reduced Energy Shield Recharge Rate
+{variant:1,2,3,4,5}+(40-60) to maximum Mana
+{variant:6}+(25-75) to maximum Mana
 ]],[[
 Scold's Bridle
 Mind Cage
@@ -1071,7 +1072,7 @@ Minions' Hits can only Kill Ignited Enemies
 Veil of the Night
 Great Helmet
 Requires Level 22, 27 Str, 27 Int
-(20-22)% increased Stun Recovery
+(20-22)% increased Stun and Block Recovery
 40% reduced Light Radius
 Reflects 1 to (180-220) Lightning Damage to Attackers on Block
 (18-22)% increased Global Defences

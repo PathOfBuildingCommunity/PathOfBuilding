@@ -285,7 +285,7 @@ Implicits: 2
 {variant:1,2}(100-120)% increased Physical Damage
 {variant:3}(160-180)% increased Physical Damage
 (10-15)% increased Attack Speed
-25% increased Stun Recovery
+25% increased Stun and Block Recovery
 Hits can't be Evaded
 ]],[[
 Rive

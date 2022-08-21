@@ -239,7 +239,7 @@ Implicits: 1
 (8-10)% increased Attack Speed
 +(400-450) to Armour
 (20-30)% increased Projectile Speed
-50% increased Stun Recovery
+50% increased Stun and Block Recovery
 (15-20)% increased Projectile Damage
 (20-24)% Chance to Block
 (12-15)% Chance to Block Spells
@@ -251,7 +251,7 @@ Implicits: 1
 (7-9) to (13-16) Added Physical Damage with Bow Attacks
 +(400-450) to Armour
 (20-30)% increased Projectile Speed
-50% increased Stun Recovery
+50% increased Stun and Block Recovery
 (15-20)% increased Projectile Damage
 (20-24)% Chance to Block
 (12-15)% Chance to Block Spells

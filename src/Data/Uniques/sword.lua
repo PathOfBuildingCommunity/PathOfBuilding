@@ -835,7 +835,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
-{variant:3,4}+305 to Accuracy Rating
+{variant:3,4,5}+305 to Accuracy Rating
 (120-150)% increased Physical Damage
 {variant:1}10% increased Attack Speed
 {variant:2,3,4,5}20% increased Attack Speed

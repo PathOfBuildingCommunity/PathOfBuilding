@@ -90,7 +90,7 @@ Implicits: 1
 {variant:3,4}+(20-30) to maximum Life
 {variant:1,2,3}(200-250)% increased Armour
 {variant:4}(180-220)% increased Armour
-20% increased Stun Recovery
+20% increased Stun and Block Recovery
 {variant:1}+(80-100) to maximum Life
 {variant:2,3,4}+(160-180) to maximum Life
 5% reduced Movement Speed
@@ -907,11 +907,11 @@ Implicits: 2
 {variant:1}+8% to all Elemental Resistances
 {variant:2,3,4,5}+4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
+{variant:5}Regenerate (30.0-50.0) Life per Second
 {variant:1,2,3,4}50% reduced Freeze Duration on you
 {variant:5}80% reduced Freeze Duration on you
 {variant:3}Regenerate 1% of Life per Second
 {variant:4}Regenerate 3% of Life per Second
-{variant:5}Regenerate (30.0-50.0) Life per Second
 {variant:1,2}Regenerate 6% of Life per Second while on Low Life
 {variant:3}Regenerate 5% of Life per Second while on Low Life
 {variant:4}Regenerate 3% of Life per Second while on Low Life

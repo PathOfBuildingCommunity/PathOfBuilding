@@ -797,13 +797,13 @@ Variant: Current
 Requires Level 30
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
+{variant:2}(10-20)% chance to Blind Enemies on Hit with Attacks
 {variant:1}(25-40)% increased Damage with Hits and Ailments against Blinded Enemies
 {variant:1}{tags:critical}(30-50)% increased Critical Strike Chance against Blinded Enemies
 {variant:1}{tags:critical}(40-50)% chance to Blind Enemies on Critical Strike
-{variant:2}(10-20)% chance to gain a Frenzy Charge On Hit while Blinded
-{variant:2}(10-20)% chance to gain a Blind Enemies on Hit with Attacks
 Blind does not affect your Light Radius
 Blind you inflict is Reflected to you
+{variant:2}(10-20)% chance to gain a Frenzy Charge on Hit while Blinded
 ]],[[
 Rigwald's Curse
 Wereclaw Talisman
@@ -884,11 +884,11 @@ Implicits: 1
 {variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
 {tags:life}Minions have (10-15)% increased maximum Life
 {variant:1,2,3}{tags:speed}Minions have (10-15)% increased Movement Speed
+{variant:4}Minions convert 50% of Physical Damage to Cold Damage
 {variant:3}{tags:jewellery_elemental}Minions deal (5-9) to (11-15) additional Cold Damage
 {variant:4}{tags:jewellery_elemental}Minions deal (25-35) to (60-65) additional Cold Damage
 {variant:1,2}Minions deal (10-15)% increased Damage
 {variant:2,3}{tags:mana}(10-15)% reduced Mana Cost of Minion Skills
-{variant:4}Minions convert 50% of Physical Damage to Cold Damage
 {variant:4}Minions deal no Non-Cold Damage
 ]],[[
 Solstice Vigil

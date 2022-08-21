@@ -217,8 +217,8 @@ Implicits: 2
 {variant:1,2}+1 to Level of Socketed Gems
 {variant:3,4}+2 to Level of Socketed Gems
 {variant:4}Socketed Gems are Supported by Level 10 Arcane Surge
-{variant:4}Socketed Gems are Supported by Level 10 Controlled Destruction
 Socketed Gems are Supported by Level 10 Spell Echo
+{variant:4}Socketed Gems are Supported by Level 10 Controlled Destruction
 +(10-30) to Intelligence
 ]],[[
 Relic of the Pact

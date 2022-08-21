@@ -892,11 +892,10 @@ Source: Drops from unique{Rigwald, the Wolven King} (Level 60+)
 Requires Level 49
 Implicits: 1
 {tags:jewellery_resistance}+(12-16)% to Fire and Cold Resistances
+Trigger Level 10 Summon Spectral Wolf on Kill
 {variant:1}{tags:jewellery_elemental}(20-30)% increased Fire Damage
 {variant:1}{tags:jewellery_elemental}(20-30)% increased Cold Damage
 {tags:mana}(20-30)% increased Mana Regeneration Rate
-{variant:1}10% Chance to Trigger Level 10 Summon Spectral Wolf on Kill
-{variant:2}Trigger Level 10 Summon Spectral Wolf on Kill
 ]],[[
 Romira's Banquet
 Diamond Ring
