@@ -553,7 +553,7 @@ Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Nurture} using currency{Blessing of Xoph}
 Requires Level 23, 80 Dex
 (70-90)% increased Physical Damage
-+(20-30) Life gained on Killing Ignited Enemies
+Gain (20-30) Life per Ignited Enemy Killed
 Gain 20% of Physical Damage as Extra Fire Damage
 10% chance to Ignite
 ]],[[

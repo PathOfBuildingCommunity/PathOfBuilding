@@ -212,8 +212,8 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 22, 42 Dex
-{variant:1,2}Socketed Gems are Supported by level 11 Trap
-{variant:3}Socketed Gems are Supported by level 15 Trap
+{variant:1,2}Socketed Gems are Supported by Level 11 Trap
+{variant:3}Socketed Gems are Supported by Level 15 Trap
 (160-200)% increased Evasion Rating
 {variant:1,2}+(35-45) to maximum Life
 (14-18)% increased Trap Throwing Speed
@@ -724,6 +724,7 @@ Soldier Boots
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 49, 47 Str, 47 Int
+(15-18)% increased Strength
 Adds 1 to 80 Chaos Damage to Attacks
 +(180-220) to Armour
 {variant:1}+(9-12)% to Chaos Resistance
@@ -731,8 +732,7 @@ Adds 1 to 80 Chaos Damage to Attacks
 {variant:1}20% increased Movement Speed
 {variant:2}25% increased Movement Speed
 {variant:1}+1 to Maximum number of Skeletons
-{variant:2}Skeleton Warriors are Permanent Minions and Follow you
-(15-18)% increased Strength
+{variant:2}Summoned Skeleton Warriors are Permanent and Follow you
 ]],[[
 Replica Alberon's Warpath
 Soldier Boots
@@ -808,7 +808,7 @@ Variant: Current
 Requires Level 28, 28 Str, 28 Int
 Adds 1 to 120 Lightning Damage to Attacks
 (20-60)% increased Armour and Energy Shield
-+(10-20) Life gained on Kill
+Gain (10-20) Life per Enemy Killed
 {variant:2,3}15% increased Movement Speed
 {variant:1,2}10% Chance to Cause Monsters to Flee
 {variant:3}Drops Shocked Ground while moving, lasting 2 seconds
@@ -841,7 +841,7 @@ Variant: Two Abyssal Sockets
 Requires Level 69, 82 Dex, 42 Int
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
-Triggers level 20 Death Walk when Equipped
+Triggers Level 20 Death Walk when Equipped
 (4-6)% increased maximum Life
 30% increased Movement Speed
 10% increased Damage for each type of Abyssal Jewel affecting you
@@ -858,8 +858,8 @@ Triggers Level 20 Corpse Walk when Equipped
 25% increased Movement Speed
 {variant:1}(20-40)% increased Damage if you have Consumed a corpse Recently
 {variant:1}For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
+{variant:2}For each nearby corpse, Regenerate 8.00 Life per Second
 {variant:2}For each nearby corpse, 1% increased Movement Speed
-{variant:2}For each nearby corpse, Regenerate 8 Life per Second
 ]],[[
 Dance of the Offered
 Variant: Pre 3.14.0
@@ -911,13 +911,13 @@ Fugitive Boots
 Source: Drops from unique{The Eater of Worlds}
 Requires Level 70, 56 Dex, 76 Int
 Implicits: 1
-+(13–17)% to Chaos Resistance
-+(80–100) to maximum Life
++(13-17)% to Chaos Resistance
++(80-100) to maximum Life
 30% increased Movement Speed
 You gain 3 Grasping Vines when you take a Critical Strike
 Nearby stationary Enemies gain a Grasping Vine every 0.5 seconds
 All Damage inflicts Poison against Enemies affected by at least 3 Grasping Vines
-You take (30–50)% reduced Extra Damage from Critical Strikes by Poisoned Enemies
+You take (30-50)% reduced Extra Damage from Critical Strikes by Poisoned Enemies
 ]],[[
 Nomic's Storm
 Strapped Boots
@@ -1017,8 +1017,8 @@ Olroth's Charge
 Runic Sollerets
 League: Expedition
 Requires Level 48, 37 Str, 37 Dex, 37 Int
-(50–80)% increased Ward
-(30–50)% slower Restoration of Ward
+(50-80)% increased Ward
+(30-50)% slower Restoration of Ward
 20% increased Movement Speed
 Gain Adrenaline for 3 seconds when Ward Breaks
 ]],

@@ -62,7 +62,7 @@ Socketed Gems are supported by Level 2 Chance to Flee
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
-+(5-7) Life gained on Kill
+Gain (5-7) Life per Enemy Killed
 10% increased Movement Speed
 ]],[[
 The Gryphon
@@ -77,7 +77,7 @@ Socketed Gems are supported by Level 2 Chance to Flee
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
-+(5-7) Life gained on Kill
+Gain (5-7) Life per Enemy Killed
 10% increased Movement Speed
 15% increased Movement Speed if you've Killed Recently
 ]],[[
@@ -245,7 +245,7 @@ Implicits: 0
 {variant:2,3}(160-220)% increased Physical Damage
 {variant:4}(100-140)% increased Physical Damage
 {variant:1,2}Adds (16-21) to (32-38) Fire Damage
-+20 Life gained on Kill
+Gain 20 Life per Enemy Killed
 +(150-250) to Accuracy Rating
 Culling Strike
 {variant:3,4}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
@@ -334,7 +334,7 @@ Shadow Axe
 Implicits: 0
 (100-125)% increased Physical Damage
 (30-40)% increased Rarity of Items found
-+10 Life gained on Kill
+Gain 10 Life per Enemy Killed
 15% increased Movement Speed when on Full Life
 Culling Strike
 Hits can't be Evaded

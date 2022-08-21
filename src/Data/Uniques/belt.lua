@@ -326,8 +326,8 @@ Implicits: 1
 {tags:life}+(60-80) to maximum Life
 {variant:1}Culling Strike against Enemies Cursed with Poacher's Mark
 {variant:2}You have Culling Strike against Cursed Enemies
-{variant:2}(20-28) Life gained for each Cursed Enemy hit by your Attacks
-{variant:2}(10-14) Mana gained for each Cursed Enemy hit by your Attacks
+{variant:2}Gain (20-28) Life per Cursed Enemy Hit with Attacks
+{variant:2}Gain (10-14) Mana per Cursed Enemy Hit with Attacks
 {tags:physical}Take (100-200) Physical Damage when you use a Movement Skill
 You have no Armour or Maximum Energy Shield
 ]],[[
@@ -426,11 +426,11 @@ Implicits: 1
 {variant:1,2,3}{tags:life}Regenerate (67-75) Life per second
 {variant:4}{tags:life}Regenerate (200-350) Life per second
 {tags:mana}Regenerate (8-10) Mana per second
-{variant:1}−40% to all Elemental Resistances
-{variant:3,4}−(15-25)% to all Elemental Resistances
-{variant:1}−10% to all maximum Resistances
-{variant:2}−5% to all maximum Resistances
-{tags:physical}−(50-40) Physical Damage taken from Attacks
+{variant:1}-40% to all Elemental Resistances
+{variant:3,4}-(15-25)% to all Elemental Resistances
+{variant:1}-10% to all maximum Resistances
+{variant:2}-5% to all maximum Resistances
+{tags:physical}-(50-40) Physical Damage taken from Attacks
 {tags:jewellery_defense}40% increased Armour while not Ignited, Frozen or Shocked
 ]],[[
 Leash of Oblation
@@ -561,7 +561,7 @@ Implicits: 1
 {variant:2}(6-8)% increased Quantity of Items found
 {tags:jewellery_resistance}+20% to Fire Resistance
 20% increased Flask Effect Duration
-{tags:physical}−2 Physical Damage taken from Attack Hits
+{tags:physical}-2 Physical Damage taken from Attack Hits
 ]],[[
 Perseverance
 Vanguard Belt

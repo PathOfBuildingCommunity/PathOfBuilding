@@ -117,7 +117,7 @@ Limited to: 1
 Removes all Energy Shield
 Life that would be lost by taking Damage is instead Reserved
 until you take no Damage to Life for 2 seconds
-(20–30)% more Maximum Life
+(20-30)% more Maximum Life
 ]],[[
 Divine Inferno
 Crimson Jewel
@@ -1504,7 +1504,7 @@ Corrupted
 ]],[[
 Fragility
 Crimson Jewel
-−1 Maximum Endurance Charges
+-1 Maximum Endurance Charges
 Corrupted
 ]],[[
 Hungry Abyss
@@ -1521,12 +1521,12 @@ Corrupted
 ]],[[
 Pacifism
 Viridian Jewel
-−1 Maximum Frenzy Charges
+-1 Maximum Frenzy Charges
 Corrupted
 ]],[[
 Powerlessness
 Cobalt Jewel
-−1 Maximum Power Charges
+-1 Maximum Power Charges
 Corrupted
 ]],[[
 Sacrificial Harvest

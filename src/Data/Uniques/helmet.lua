@@ -189,9 +189,9 @@ Requires Level 20, 46 Dex
 {variant:3}Gain 100% of Cold Damage as Extra Fire Damage against Frozen Enemies
 (80-100)% increased Evasion Rating
 60% increased Mana Regeneration Rate
-{variant:1}−(20-10)% to Fire Resistance
+{variant:1}-(20-10)% to Fire Resistance
 {variant:2,3}+(20-30)% to Fire Resistance
-{variant:1}−(20-10)% to Cold Resistance
+{variant:1}-(20-10)% to Cold Resistance
 {variant:2,3}+(20-30)% to Cold Resistance
 ]],[[
 Frostferno
@@ -266,7 +266,7 @@ Requires Level 8, 23 Int
 (10-15)% increased Attack Speed
 {variant:1,2}(10-15)% increased Cast Speed
 {variant:1}50% increased Energy Shield
-{variant:2}+(30-50) to maximum Energy Shield
+{variant:2,3}+(30-50) to maximum Energy Shield
 30% increased Mana Regeneration Rate
 {variant:1,2}5% increased Movement Speed
 {variant:1,2}(10-15)% increased Stun Recovery
@@ -339,7 +339,7 @@ Requires Level 69, 154 Int
 {variant:1}+(200-250) to Accuracy Rating
 {variant:2}+(300-350) to Accuracy Rating
 (120-150)% increased Energy Shield
-−30% to Fire Resistance
+-30% to Fire Resistance
 (0.4-0.8)% of Attack Damage Leeched as Life
 (0.2-0.4)% of Attack Damage Leeched as Mana
 Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value
@@ -438,7 +438,7 @@ Eber's Unification
 Hubris Circlet
 Requires Level 69, 154 Int
 Implicits: 0
-Trigger level 10 Void Gaze when you use a Skill
+Trigger Level 10 Void Gaze when you use a Skill
 +(50-80) to maximum Mana
 (120-150)% increased Energy Shield
 50% increased Stun and Block Recovery
@@ -558,8 +558,8 @@ Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 65, 138 Int
-{variant:1}Socketed Gems are Supported by level 15 Concentrated Effect
-{variant:2,3,4,5}Socketed Gems are Supported by level 20 Concentrated Effect
+{variant:1}Socketed Gems are Supported by Level 15 Concentrated Effect
+{variant:2,3,4,5}Socketed Gems are Supported by Level 20 Concentrated Effect
 {variant:1,2,3,4}30% increased Cold Damage
 {variant:5}+(25-75) to maximum Mana
 {variant:1,2,3,4}+(40-60) to maximum Mana
@@ -585,10 +585,10 @@ Sudden Dawn
 Steel Circlet
 Source: Drops from unique{The Black Star}
 Requires Level 48, 101 Int
-(300–350)% increased Energy Shield
-+(50–70) to maximum Mana
-(10–20)% chance for Energy Shield Recharge to start when you Kill an Enemy
-(30–40)% less Energy Shield Recharge Rate
+(300-350)% increased Energy Shield
++(50-70) to maximum Mana
+(10-20)% chance for Energy Shield Recharge to start when you Kill an Enemy
+(30-40)% less Energy Shield Recharge Rate
 ]],[[
 Thundersight
 Solaris Circlet
@@ -660,14 +660,14 @@ Variant: Pre 3.5.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 67, 62 Str, 85 Dex
-{variant:1,2,3,4}Socketed Gems are Supported by level 18 Melee Physical Damage
-{variant:5}Socketed Gems are Supported by level 30 Melee Physical Damage
-{variant:1,4}Socketed Gems are Supported by level 18 Faster Attacks
-{variant:5}Socketed Gems are Supported by level 30 Faster Attacks
-{variant:2,3}Socketed Gems are Supported by level 12 Faster Attacks
-{variant:1,4}Socketed Gems are Supported by level 18 Blind
-{variant:5}Socketed Gems are Supported by level 30 Blind
-{variant:2,3}Socketed Gems are Supported by level 6 Blind
+{variant:1,2,3,4}Socketed Gems are Supported by Level 18 Melee Physical Damage
+{variant:5}Socketed Gems are Supported by Level 30 Melee Physical Damage
+{variant:1,4}Socketed Gems are Supported by Level 18 Faster Attacks
+{variant:5}Socketed Gems are Supported by Level 30 Faster Attacks
+{variant:2,3}Socketed Gems are Supported by Level 12 Faster Attacks
+{variant:1,4}Socketed Gems are Supported by Level 18 Blind
+{variant:5}Socketed Gems are Supported by Level 30 Blind
+{variant:2,3}Socketed Gems are Supported by Level 6 Blind
 {variant:1,2}15% Chance to Block
 {variant:3,4,5}6% Chance to Block
 Adds 20 to 30 Physical Damage to Attacks
@@ -677,8 +677,8 @@ Adds 20 to 30 Physical Damage to Attacks
 {variant:2,3}+(120-160) to maximum Life
 {variant:1,2}10% chance to gain an Endurance Charge when you Block
 {variant:3,4,5}20% chance to gain an Endurance Charge when you Block
-Extra gore
 Can't use Chest armour
+Extra gore
 ]],[[
 Crest of Desire
 Fluted Bascinet
@@ -809,6 +809,7 @@ Requires Level 63, 85 Str, 62 Int
 {variant:2,3}(240-300)% increased Armour and Energy Shield
 {variant:1}+(50-70) to maximum Life
 {variant:2,3}+(80-100) to maximum Life
+{variant:3}+3% to maximum Cold Resistance
 {variant:1,2}+(30-50)% to Cold Resistance
 Cannot be Frozen
 {variant:1}+800 Armour while stationary
@@ -816,7 +817,6 @@ Cannot be Frozen
 {variant:2}5% reduced Cold Damage taken
 {variant:1,2}60% increased Mana Regeneration Rate while stationary
 15% chance to create Chilled Ground when Hit with an Attack
-{variant:3}+3% to maximum Cold Resistance
 ]],[[
 The Broken Crown
 Prophet Crown
@@ -824,7 +824,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 63, 85 Str, 62 Int
-Socketed Gems are supported by level 20 Cast on Death
+Socketed Gems are supported by Level 20 Cast on Death
 20% increased Damage when on Low Life
 +(10-15) to all Attributes
 (60-100)% increased Armour and Energy Shield
@@ -1218,15 +1218,15 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 38, 44 Dex, 44 Int
-{variant:2,3}Trigger level 1 Create Lesser Shrine when you Kill an Enemy
+{variant:2,3}Trigger Level 1 Create Lesser Shrine when you Kill an Enemy
 (120-150)% increased Evasion and Energy Shield
 {variant:2}+(40-65) to maximum Energy Shield
 {variant:3}+(30-45) to maximum Energy Shield
 {variant:1}+(30-40) to maximum Mana
 {variant:2,3}+(60-80) to maximum Life
 {variant:2,3}+(30-40)% to Cold Resistance
-{variant:1}+(15-20) Life gained on Kill
-{variant:1}+(10-15) Energy Shield gained on Kill
+{variant:1}Gain (15-20) Life per Enemy Killed
+{variant:1}Gain (10-15) Energy Shield per Enemy Killed
 75% increased Effect of Shrine Buffs on you
 50% increased Duration of Shrine Effects on you
 ]],[[
@@ -1388,7 +1388,7 @@ League: Heist
 Requires Level 35, 40 Dex, 40 Int
 (350-400)% increased Evasion and Energy Shield
 +5% Chance to Block Spell Damage per Power Charge
-(3-5)% increased Elemental Damage per Power charge
+(3-5)% increased Elemental Damage per Power Charge
 Gain a Power Charge every Second if you haven't lost Power Charges Recently
 Lose all Power Charges when you Block
 ]],

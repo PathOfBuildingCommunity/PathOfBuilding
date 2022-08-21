@@ -151,7 +151,7 @@ Implicits: 2
 {variant:5,6}1% increased Damage taken per Frenzy Charge
 {variant:1,2,3,4,5}12% increased Lightning Damage per Frenzy Charge
 {variant:6}(15-20)% increased Lightning Damage per Frenzy Charge
-+20 Life gained on Kill per Frenzy Charge
+20 Life gained on Kill per Frenzy Charge
 ]],[[
 Ichimonji
 Corsair Sword
@@ -341,7 +341,7 @@ Implicits: 2
 {variant:3}Adds (83-91) to (123-130) Physical Damage
 10% increased Attack Speed
 +(20-30) to maximum Life
-+2 Life gained for each Enemy hit by Attacks
+Gain 2 Life per Enemy Hit by Attacks
 You have Onslaught while on Low Life
 ]],[[
 Rigwald's Command
@@ -445,7 +445,7 @@ League: Breach
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3,4}40% increased Global Accuracy Rating
-{variant:1,2,3}Grants level 15 Envy Skill
+{variant:1,2,3}Grants Level 15 Envy Skill
 {variant:4}Grants Level 25 Envy Skill
 {variant:1,2,3}Minions deal (30-40)% increased Damage
 {variant:4}Minions deal (60-80)% increased Damage
@@ -467,7 +467,7 @@ Implicits: 2
 {variant:1}(110-120)% increased Physical Damage
 {variant:2}(180-210)% increased Physical Damage
 (10-15)% increased Attack Speed
-{variant:1}+(20-30) Life gained on Kill
+{variant:1}Gain (20-30) Life per Enemy Killed
 50% of Physical Damage from Hits with this Weapon is Converted to a random Element
 Hits with this Weapon always Ignite, Freeze, and Shock
 {variant:2}Hits with this Weapon Freeze Enemies as though dealing (150-200)% more Damage
@@ -545,7 +545,7 @@ Implicits: 3
 (120-150)% increased Physical Damage
 20% reduced Rarity of Items found
 +(40-60)% to all Elemental Resistances
-+3 Life gained for each Enemy hit by Attacks
+Gain 3 Life per Enemy Hit by Attacks
 ]],[[
 Chitus' Needle
 Elegant Foil
@@ -617,7 +617,7 @@ Implicits: 3
 No Physical Damage
 Adds 1 to (40-50) Lightning Damage
 (25-30)% increased Attack Speed
-+2 Life gained for each Enemy hit by Attacks
+Gain 2 Life per Enemy Hit by Attacks
 {variant:1,2}5% Chance to Shock
 {variant:3}(15-20)% chance to Shock
 {variant:3}Herald of Thunder has 50% increased Buff Effect
@@ -675,10 +675,10 @@ Implicits: 2
 {variant:2}(130-160)% increased Physical Damage
 (25-30)% increased Attack Speed
 5% increased Movement Speed
-Rampage
 Triggers Level 15 Manifest Dancing Dervishes on Rampage
 Manifested Dancing Dervish disables both weapon slots
 Manifested Dancing Dervish dies when Rampage ends
+Rampage
 ]],[[
 Doomsower
 Lion Sword
@@ -716,7 +716,7 @@ Implicits: 3
 {variant:2,3,4}(40-60)% increased Physical Damage
 {variant:1}(60-80)% increased Physical Damage
 Adds (60-68) to (90-102) Chaos Damage
-{variant:1}+1 Life gained on Kill per Level
+{variant:1}Gain 1 Life on Kill per Level
 {variant:1,2,4}1% increased Chaos Damage per Level
 {variant:1}1% increased Elemental Damage per Level
 {variant:2,3,4}Adds 1 to 2 Physical Damage to Attacks per Level

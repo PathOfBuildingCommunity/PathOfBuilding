@@ -101,8 +101,8 @@ Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
 (50-70)% increased Spell Damage
-{variant:1}+10 Life gained on Kill
-{variant:2}+30 Life gained on Kill
+{variant:1}Gain 10 Life per Enemy Killed
+{variant:2}Gain 30 Life per Enemy Killed
 {variant:1}+5 Mana gained on Kill
 {variant:2}+10 Mana gained on Kill
 10% increased Area of Effect of Area Skills
@@ -220,7 +220,7 @@ Implicits: 1
 (80-100)% increased Physical Damage
 Adds 12 to 24 Physical Damage
 +25 to Strength
-+10 Life gained for each Enemy hit by your Attacks
+Gain 10 Life per Enemy Hit with Attacks
 ]],[[
 Taproot
 Ambusher

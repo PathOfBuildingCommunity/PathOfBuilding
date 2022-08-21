@@ -43,7 +43,7 @@ Implicits: 1
 (6-15)% increased Rarity of Items found
 {tags:jewellery_attribute}+10 to Dexterity
 (50-70)% increased Rarity of Items found
-{tags:jewellery_resistance}−20% to all Elemental Resistances
+{tags:jewellery_resistance}-20% to all Elemental Resistances
 ]],[[
 Astral Projector
 Topaz Ring
@@ -478,7 +478,7 @@ Variant: Current
 Requires Level 28
 Implicits: 1
 {tags:critical}(20-30)% increased Global Critical Strike Chance
-{variant:2}Trigger level 10 Consecrate when you deal a Critical Strike
+{variant:2}Trigger Level 10 Consecrate when you deal a Critical Strike
 {tags:critical}(30-35)% increased Global Critical Strike Chance
 (10-15)% increased Light Radius
 {variant:1}Creates Consecrated Ground on Critical Strike
@@ -545,7 +545,7 @@ Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {tags:jewellery_attribute}+(10-20) to Strength
 {variant:1}{tags:attack,life,physical}0.4% of Physical Attack Damage Leeched as Life
-{variant:2}{tags:attack,life}+(2-4) Life gained for each Enemy hit by your Attacks
+{variant:2}{tags:attack,life}Gain (2-4) Life per Enemy Hit with Attacks
 {variant:3}Grants Level 10 Enduring Cry
 +1 Maximum Endurance Charge
 ]],[[
@@ -561,7 +561,7 @@ Implicits: 1
 {variant:1}{tags:life}0.4% of maximum Life Regenerated per second per Endurance Charge
 {variant:2}{tags:life}0.2% of maximum Life Regenerated per second per Endurance Charge
 {variant:2}2% increased Area of Effect per Endurance Charge
-{tags:attack,life}+(2-4) Life gained for each Enemy hit by your Attacks
+{tags:attack,life}Gain (2-4) Life per Enemy Hit with Attacks
 +1 Maximum Endurance Charge
 ]],[[
 Kikazaru
@@ -620,8 +620,8 @@ Sockets: W
 Requires Level 5
 Implicits: 1
 Has 1 Socket
-{variant:1}{tags:jewellery_resistance}−25% to all Elemental Resistances
-{variant:2}{tags:jewellery_resistance}−20% to all Elemental Resistances
+{variant:1}{tags:jewellery_resistance}-25% to all Elemental Resistances
+{variant:2}{tags:jewellery_resistance}-20% to all Elemental Resistances
 {tags:jewellery_resistance}+(75-100)% to Fire Resistance when Socketed with a Red Gem
 {tags:jewellery_resistance}+(75-100)% to Cold Resistance when Socketed with a Green Gem
 {tags:jewellery_resistance}+(75-100)% to Lightning Resistance when Socketed with a Blue Gem
@@ -747,10 +747,10 @@ Implicits: 1
 {variant:1}{tags:jewellery_elemental,attack}Adds (8-10) to (12-14) Fire Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack,caster}Adds (8-10) to (12-14) Fire Damage to Spells and Attacks
 {variant:3}{tags:jewellery_elemental,attack,caster}Adds (20-25) to (30-35) Fire Damage to Spells and Attacks
+{variant:1}{tags:life}Gain (4-5) Life for each Ignited Enemy hit with Attacks
 15% increased Ignite Duration on Enemies
 {variant:1}{tags:jewellery_elemental}5% chance to Ignite
 {variant:2,3}{tags:jewellery_elemental}10% chance to Ignite
-{variant:1}{tags:life}+(4-5) Life gained for each Ignited Enemy hit by your Attacks
 {variant:2,3}{tags:life}Recover (20-30) Life when you Ignite an Enemy
 ]],[[
 The Pariah
@@ -800,7 +800,7 @@ Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
 {tags:mana}+(30-60) to maximum Mana
 {tags:mana}(3-6) Mana Regenerated per second
-{tags:mana}−(4-8) to Mana Cost of Skills
+{tags:mana}-(4-8) to Mana Cost of Skills
 {tags:mana}8% of Damage taken gained as Mana over 4 seconds when Hit
 ]],[[
 Profane Proxy
@@ -1087,8 +1087,8 @@ Can't use other Rings
 {variant:4}{tags:jewellery_resistance}+(16-24)% to all Elemental Resistances
 {variant:5}{tags:jewellery_resistance}+(25-40)% to all Elemental Resistances
 {tags:caster}50% reduced Effect of Curses on You
-{variant:1,2,3}{tags:attack,life}+(20-30) Life gained for each Enemy hit by your Attacks
-{variant:4,5}{tags:attack,life}+(40-60) Life gained for each Enemy hit by your Attacks
+{variant:1,2,3}{tags:attack,life}Gain (20-30) Life per Enemy Hit with Attacks
+{variant:4,5}{tags:attack,life}Gain (40-60) Life per Enemy Hit with Attacks
 {variant:1,2,3}{tags:attack,mana}+15 Mana gained for each Enemy hit by your Attacks
 {variant:4,5}{tags:attack,mana}+30 Mana gained for each Enemy hit by your Attacks
 ]],[[
@@ -1231,7 +1231,7 @@ Implicits: 1
 {variant:2}{tags:jewellery_defense}+(30-40) to maximum Energy Shield
 {variant:1}{tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:2}{tags:jewellery_resistance}+(30-40)% to Fire Resistance
-{tags:jewellery_resistance}−40% to Cold Resistance
+{tags:jewellery_resistance}-40% to Cold Resistance
 Stun Threshold is based on Energy Shield instead of Life
 ]],[[
 Venopuncture

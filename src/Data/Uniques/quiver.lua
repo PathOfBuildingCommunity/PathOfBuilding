@@ -10,7 +10,7 @@ Variant: Pre 3.17.0
 Requires Level 36
 Implicits: 1
 (20-30)% increased Global Accuracy Rating
-{variant:2}Grants level 5 Frostbite Skill
+{variant:2}Grants Level 5 Frostbite Skill
 (8-12)% increased Attack Speed
 +(30-40)% to Cold Resistance
 (30-40)% increased Chill Duration on Enemies
@@ -24,7 +24,7 @@ Feathered Arrow Quiver
 Requires Level 20
 Implicits: 1
 (20-30)% increased Arrow Speed
-Grants level 5 Frostbite Skill
+Grants Level 5 Frostbite Skill
 (8-12)% increased Attack Speed
 +(30-40)% to Cold Resistance
 (30-40)% increased Chill Duration on Enemies
@@ -155,13 +155,13 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 14
 Implicits: 1
-+(6-8) Life gained for each Enemy hit by your Attacks
+Gain (6-8) Life per Enemy Hit with Attacks
 +(15-25) to Strength
 +(35-45) to Dexterity
 +(15-25) to Intelligence
 {variant:2}Adds 10 to 20 Cold Damage to Attacks
 (7-10)% increased Attack Speed
-+(2-3) Life gained for each Enemy hit by your Attacks
+Gain (2-3) Life per Enemy Hit with Attacks
 10% increased Area of Effect of Area Skills
 ]],[[
 Hyrri's Demise
@@ -169,10 +169,10 @@ Sharktooth Arrow Quiver
 Source: No longer obtainable
 Requires Level 45
 Implicits: 1
-+(6-8) Life gained for each Enemy hit by your Attacks
+Gain (6-8) Life per Enemy Hit with Attacks
 +(15-30) to all Attributes
 (7-10)% increased Attack Speed
-+(2-3) Life gained for each Enemy hit by your Attacks
+Gain (2-3) Life per Enemy Hit with Attacks
 10% increased Area of Effect
 Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
 Adds 1 to 2 Fire Damage to Attacks per 10 Strength
@@ -267,7 +267,7 @@ Implicits: 1
 (20-30)% increased Global Accuracy Rating
 -10% to Fire Resistance
 +(20-30)% to Lightning Resistance
-+7 Life gained for each Enemy hit by your Attacks
+Gain 7 Life per Enemy Hit with Attacks
 20% reduced Projectile Speed
 (30-50)% increased Projectile Damage
 {variant:1}Projectiles Fork

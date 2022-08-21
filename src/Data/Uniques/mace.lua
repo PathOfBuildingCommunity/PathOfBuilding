@@ -73,9 +73,9 @@ Grants Level 12 Summon Stone Golem Skill
 Adds (24-30) to (34-40) Physical Damage
 (8-10)% increased Attack Speed
 {variant:1,2}Minions have (20-30)% increased maximum Life
-+1 to maximum number of Golems
++1 to maximum number of Summoned Golems
 {variant:1,2}Minions deal (5-8) to (12-16) Added Attack Physical Damage
-{variant:3}Golems deal (96-120) to (132-160) Added Attack Physical Damage
+{variant:3}Golems have (96-120) to (132-160) Added Attack Physical Damage
 ]],[[
 Flesh-Eater
 Dream Mace
@@ -371,8 +371,8 @@ Implicits: 2
 {variant:6,7,8}10% Global chance to Blind Enemies on hit
 Blind does not affect your Chance to Hit
 Enemies Blinded by you while you are Blinded have Malediction
-{variant:1,2}+1 Mana gained on Kill per Level
-{variant:1,2}+1 Energy Shield gained on Kill per Level
+{variant:1,2}Gain 1 Mana on Kill per Level
+{variant:1,2}Gain 1 Energy Shield on Kill per Level
 {variant:3,4,6,7}+1 to maximum Life per Level
 {variant:3,5,6,8}+1 to maximum Mana per Level
 {variant:4,5,7,8}+1 to maximum Energy Shield per Level
@@ -403,7 +403,7 @@ Implicits: 2
 +(50-70) to Strength
 (15-18)% increased Cast Speed
 +(20-30) to maximum Mana
-Socketed Gems are Supported by level 30 Iron Will
+Socketed Gems are Supported by Level 30 Iron Will
 1% increased Damage per 8 Strength when in Main Hand
 1% increased Armour per 16 Strength when in Off Hand
 ]],[[
@@ -416,7 +416,7 @@ Requires Level 75, 113 Str, 113 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2}32% increased Elemental Damage
-Socketed Gems are Supported by level 20 Elemental Proliferation
+Socketed Gems are Supported by Level 20 Elemental Proliferation
 Adds (65-85) to (100-160) Physical Damage
 (11-15)% increased Attack Speed
 (6-10)% increased Cast Speed
@@ -482,14 +482,14 @@ Implicits: 2
 {variant:1,2}20% increased Elemental Damage
 {variant:3,4,5}30% increased Elemental Damage
 {variant:4}+2 to Level of Socketed Fire Gems
-{variant:1,2,3}Socketed Gems are Supported by level 10 Added Fire Damage
-{variant:1,2,3}Socketed Gems are Supported by level 10 Cold to Fire
-{variant:1,2,3,4}Socketed Gems are Supported by level 10 Fire Penetration
+{variant:1,2,3}Socketed Gems are Supported by Level 10 Added Fire Damage
+{variant:1,2,3}Socketed Gems are Supported by Level 10 Cold to Fire
+{variant:1,2,3,4}Socketed Gems are Supported by Level 10 Fire Penetration
 {variant:4}Socketed Gems deal 63 to 94 additional Fire Damage
 {variant:1,2,3,4}(20-30)% increased Spell Damage
 {variant:2,3,4,5}(150-200)% increased Physical Damage
 {variant:5}Adds (76-98) to (161-176) Fire Damage
-{variant:1,2,3,4}+(6-10) Life gained for each Enemy hit by Attacks
+{variant:1,2,3,4}Gain (6-10) Life per Enemy Hit by Attacks
 {variant:1,2,3,4}25% increased Light Radius
 {variant:5}50% increased Light Radius
 {variant:5}Battlemage
@@ -695,7 +695,7 @@ Requires Level 44, 143 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}45% increased Stun Duration on Enemies
-{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
+{variant:2}25% chance to Trigger Level 20 Animate Weapon on Kill
 (150-200)% increased Physical Damage
 (8-12)% increased Attack Speed
 (8-12)% increased Cast Speed
@@ -774,7 +774,7 @@ Implicits: 2
 (80-100)% increased Physical Damage
 Adds 5 to 25 Physical Damage
 +(25-50) to all Attributes
-+10 Life gained on Kill
+Gain 10 Life per Enemy Killed
 Enemies killed explode dealing 10% of their Life as Fire Damage
 ]],[[
 Panquetzaliztli

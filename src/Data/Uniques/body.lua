@@ -22,8 +22,8 @@ Implicits: 0
 {variant:1}Adds 2 to 4 Physical Damage to Attacks
 {variant:1}+(12-20) to maximum Life
 {variant:2}+(30-60) to maximum Life
-{variant:1}−2 Physical Damage taken from Attacks
-{variant:2}−(10-15) Physical Damage taken from Attacks
+{variant:1}-2 Physical Damage taken from Attacks
+{variant:2}-(10-15) Physical Damage taken from Attacks
 {variant:1}40% of Melee Physical Damage taken reflected to Attacker
 {variant:2}1000% of Melee Physical Damage taken reflected to Attacker
 ]],[[
@@ -35,7 +35,7 @@ Implicits: 0
 Adds 2 to 4 Physical Damage to Attacks
 +2000 to Armour
 +(12-20) to maximum Life
-−2 Physical Damage taken from Attacks
+-2 Physical Damage taken from Attacks
 40% of Melee Physical Damage taken reflected to Attacker
 ]],[[
 The Brass Dome
@@ -104,9 +104,9 @@ Golden Plate
 Implicits: 0
 (10-15)% increased Quantity of Items found
 (30-50)% increased Rarity of Items found
-−10% to Fire Resistance
+-10% to Fire Resistance
 +(20-30)% to Cold Resistance
-−20% to Lightning Resistance
+-20% to Lightning Resistance
 20% reduced Movement Speed
 30% reduced Strength Requirement
 ]],[[
@@ -187,7 +187,7 @@ Implicits: 0
 {variant:2}25% reduced Chaos Damage taken over time
 25% increased Light Radius
 Chaos Damage taken does not bypass Energy Shield
-{variant:1}−10 Chaos Damage taken
+{variant:1}-10 Chaos Damage taken
 {variant:2}-(30-40) Chaos Damage taken
 ]],
 -- Body: Evasion
@@ -205,8 +205,8 @@ Implicits: 0
 Cannot be Ignited
 {variant:1,2}(10-15)% increased Physical Damage with Ranged Weapons
 {variant:3}(75-150)% increased Physical Damage with Ranged Weapons
-{variant:1,2}−(5-7) Physical Damage taken from Attack Hits
-{variant:3}−(30-60)Physical Damage taken from Attack Hits
+{variant:1,2}-(5-7) Physical Damage taken from Attack Hits
+{variant:3}-(30-60)Physical Damage taken from Attack Hits
 ]],[[
 Briskwrap
 {variant:1,2,3}Strapped Leather
@@ -345,7 +345,7 @@ Implicits: 0
 +(11-25)% to Lightning Resistance
 25% reduced Movement Speed
 1% increased Movement Speed per 600 Evasion Rating, up to 75%
-−(50-40) Physical Damage taken from Hits by Animals
+-(50-40) Physical Damage taken from Hits by Animals
 ]],[[
 The Rat Cage
 Sharkskin Tunic
@@ -357,7 +357,7 @@ Implicits: 0
 (100-120)% increased Evasion Rating
 {variant:1,2}+(160-200) to maximum Life
 {variant:3}+(200-300) to maximum Life
-{variant:1}−5% to maximum Fire Resistance
+{variant:1}-5% to maximum Fire Resistance
 {variant:2}-50% to Fire Resistance
 15% increased Movement Speed
 {variant:1,2}20% increased Fire Damage taken
@@ -425,9 +425,9 @@ Variant: Rhoa
 Variant: Snake
 Variant: Ursa
 Implicits: 0
-{variant:1}Grants level 20 Summon Bestial Rhoa Skill
-{variant:2}Grants level 20 Summon Bestial Snake Skill
-{variant:3}Grants level 20 Summon Bestial Ursa Skill
+{variant:1}Grants Level 20 Summon Bestial Rhoa Skill
+{variant:2}Grants Level 20 Summon Bestial Snake Skill
+{variant:3}Grants Level 20 Summon Bestial Ursa Skill
 +(300-400) to Accuracy Rating
 (130-150)% increased Evasion Rating
 +(90-100) to maximum Life
@@ -503,10 +503,9 @@ Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
-{variant:1,2,3,4,5}Socketed Gems are Supported by level 15 Added Chaos Damage
+{variant:1,2,3,4,5}Socketed Gems are Supported by Level 15 Added Chaos Damage
 {variant:6}Socketed Gems are Supported by Level 29 Added Chaos Damage
 {variant:4,5}Socketed Gems Cost and Reserve Life instead of Mana
-{variant:6}Skills gain a Base Life cost equal to 100% of Base Mana Cost
 +(20-30) to Intelligence
 {variant:1}(125-150)% increased Energy Shield
 {variant:2}(180-220)% increased Energy Shield
@@ -515,6 +514,7 @@ Implicits: 0
 {variant:1,2,3}20% reduced maximum Life
 {variant:4,5,6}10% increased maximum Life
 {variant:1,2,3}Blood Magic
+{variant:6}Skills gain a Base Life Cost equal to 100% of Base Mana Cost
 ]],[[
 Dialla's Malefaction
 Sage's Robe
@@ -645,8 +645,8 @@ Variant: Pre 3.16.0
 Variant: Pre 3.17.0
 Variant: Current
 Implicits: 0
-{variant:1,2}Socketed Gems are Supported by level 14 Spell Totem
-{variant:3,4,5}Socketed Gems are Supported by level 20 Spell Totem
+{variant:1,2}Socketed Gems are Supported by Level 14 Spell Totem
+{variant:3,4,5}Socketed Gems are Supported by Level 20 Spell Totem
 (20-25)% increased Spell Damage
 (100-120)% increased Energy Shield
 {variant:1}25% increased Totem Life
@@ -819,7 +819,7 @@ Implicits: 0
 Adds 1 to (20-30) Lightning Damage to Attacks
 (90-120)% increased Armour and Evasion
 +(60-80) to maximum Life
-−60% to Lightning Resistance
+-60% to Lightning Resistance
 {variant:1}40% of Physical Damage from Hits taken as Lightning Damage
 {variant:2}30% of Physical Damage from Hits taken as Lightning Damage
 {variant:3}50% of Physical Damage from Hits taken as Lightning Damage
@@ -852,10 +852,10 @@ Implicits: 0
 {variant:1,2}+10% to all Elemental Resistances
 {variant:3,4,5}+15% to all Elemental Resistances
 {variant:1,2,3,4}Gain an Endurance Charge when you take a Critical Strike
-{variant:5}Gain up to Maximum Endurance Charge when you take a Critical Strike
+{variant:5}Gain up to maximum Endurance Charges when you take a Critical Strike
 {variant:1,2,3}Regenerate 2% of Life per Second while on Low Life
-Share Endurance Charges with nearby party members
-{variant:5}Your nearby party members' maximum Endurance Charges are equal to yours.
+{variant:1,2,3,4}Share Endurance Charges with nearby party members
+{variant:5}Your nearby party members maximum Endurance Charges is equal to yours
 {variant:4}Regenerate 2% of Life per second if you have been Hit Recently
 ]],[[
 Replica Ambu's Charge
@@ -1318,7 +1318,7 @@ Implicits: 1
 {variant:5,6,8}+(90-100) to Maximum Energy Shield
 {variant:14,15,17}+(70-80) to Maximum Energy Shield
 +(20-24)% to all Elemental Resistances
-+100 Life Gained on Kill
+Gain 100 Life per Enemy Killed
 +100 Mana Gained on Kill
 ]],[[
 Shadowstitch

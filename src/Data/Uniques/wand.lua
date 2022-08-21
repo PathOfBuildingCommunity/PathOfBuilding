@@ -14,7 +14,7 @@ Implicits: 2
 (20-30)% increased Fire Damage
 Adds (4-6) to (8-12) Fire Damage to Spells
 (40-60)% increased Global Critical Strike Chance
-+10 Life Gained on Killing Ignited Enemies
+Gain 10 Life per Ignited Enemy Killed
 25% reduced Ignite Duration on Enemies
 ]],[[
 Apep's Rage
@@ -45,7 +45,6 @@ Variant: Current
 Requires Level 18, 65 Int
 Implicits: 1
 (18-22)% increased Spell Damage
-{variant:3}10% chance to Cover Enemies in Ash on Hit
 {variant:1,2}10% chance to Trigger Level 8 Summon Raging Spirit on Kill
 {variant:3}25% chance to Trigger Level 10 Summon Raging Spirit on Kill
 {variant:1}Adds (10-14) to (18-22) Fire Damage
@@ -56,6 +55,7 @@ Implicits: 1
 {variant:1}(40-50)% increased Burning Damage
 {variant:2}(20-30)% increased Burning Damage
 {variant:1,2}(16-22)% chance to Ignite
+{variant:3}10% chance to Cover Enemies in Ash on Hit
 ]],[[
 Eclipse Solaris
 Crystal Wand
@@ -150,8 +150,8 @@ Requires Level 59, 188 Int
 Implicits: 2
 {variant:1,2}(15-19)% increased Spell Damage
 {variant:3,4}(33-37)% increased Spell Damage
-{variant:1,2,3}Socketed Gems are supported by level 5 Blind
-{variant:4}Socketed Gems are supported by level 20 Blind
+{variant:1,2,3}Socketed Gems are supported by Level 5 Blind
+{variant:4}Socketed Gems are supported by Level 20 Blind
 (30-40)% increased Spell Damage
 {variant:1}125% increased Physical Damage
 {variant:2,3}175% increased Physical Damage

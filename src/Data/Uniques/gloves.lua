@@ -33,12 +33,12 @@ Spiked Gloves
 Source: Drops from unique{The Infinite Hunger}
 Requires Level 70, 95 Str
 Implicits: 1
-(16–20)% increased Melee Damage
-Adds (2–3) to (22–26) Physical Damage to Attacks
-(100–150)% increased Armour
-(20–30)% chance to inflict Corrosion on Hit with Attacks
-(20–30)% chance to gain an Endurance Charge on Hitting an Enemy with no Armour
-(20–30)% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating
+(16-20)% increased Melee Damage
+Adds (2-3) to (22-26) Physical Damage to Attacks
+(100-150)% increased Armour
+(20-30)% chance to inflict Corrosion on Hit with Attacks
+(20-30)% chance to gain an Endurance Charge on Hitting an Enemy with no Armour
+(20-30)% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating
 ]],[[
 Craiceann's Pincers
 Titan Gauntlets
@@ -59,7 +59,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.10.0
 Variant: Current
 Requires Level 63, 100 Str
-{variant:2,3,4}Grants level 20 Doryani's Touch Skill
+{variant:2,3,4}Grants Level 20 Doryani's Touch Skill
 {variant:1,2,3}+30 to maximum Energy Shield
 {variant:4}+(80-100) to maximum Energy Shield
 {variant:1,2,3}10% chance to Shock
@@ -87,7 +87,7 @@ Goliath Gauntlets
 Requires Level 53, 76 Str
 +(400-600) to Armour
 Knockback direction is reversed
-Socketed Gems are Supported by level 10 Knockback
+Socketed Gems are Supported by Level 10 Knockback
 ]],[[
 Giantsbane
 Bronze Gauntlets
@@ -269,7 +269,7 @@ Allelopathy
 {variant:2}Satin Gloves
 Variant: Pre 3.19.0
 Variant: Current
-Grants level 22 Blight Skill
+Grants Level 22 Blight Skill
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect of Area Skills
@@ -435,7 +435,7 @@ Requires Level 55, 79 Int
 {variant:1}80% increased Mana Cost of Skills
 {variant:2,3}(40-80)% increased Mana Cost of Skills
 {variant:4}Lose (40-80) Mana when you use a Skill
-+(15-20) Energy Shield gained on Kill
+Gain (15-20) Energy Shield per Enemy Killed
 ]],
 -- Gloves: Armour/Evasion
 [[
@@ -488,7 +488,7 @@ Requires Level 59, 45 Str, 45 Dex
 Implicits: 0
 (100-150)% increased Armour and Evasion
 +(19-29)% to Chaos Resistance
-+(15-25) Life gained on kill
+Gain (15-25) Life per Enemy Killed
 Nearby Enemies Killed by anyone count as being Killed by you instead
 ]],[[
 Haemophilia
@@ -574,7 +574,7 @@ Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
 Wyrmsign
 Wyrmscale Gauntlets
 Requires Level 49, 38 Str, 38 Dex
-Socketed Gems are Supported by level 5 Concentrated Effect
+Socketed Gems are Supported by Level 5 Concentrated Effect
 (120-160)% increased Armour and Evasion
 +(50-70) to maximum Life
 4% reduced Mana Cost per Endurance Charge
@@ -903,8 +903,8 @@ Murder Mitts
 Requires Level 67, 51 Dex, 51 Int
 (80-100)% increased Evasion and Energy Shield
 +(60-80) to maximum Life
-+(15-25) Life gained on Kill
-+(15-25) Energy Shield gained on Kill
+Gain (15-25) Life per Enemy Killed
+Gain (15-25) Energy Shield per Enemy Killed
 Grants Malachai's Endurance, Frenzy and Power for 6 seconds each, in sequence
 ]],[[
 Shadows and Dust
@@ -957,8 +957,8 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 67, 51 Dex, 51 Int
-{variant:1,2,3}Socketed Gems are Supported by level 18 Added Lightning Damage
-{variant:4}Socketed Gems are Supported by level 30 Added Lightning Damage
+{variant:1,2,3}Socketed Gems are Supported by Level 18 Added Lightning Damage
+{variant:4}Socketed Gems are Supported by Level 30 Added Lightning Damage
 {variant:1,3}Adds 1 to 100 Lightning Damage to Attacks
 {variant:2}Adds 1 to 40 Lightning Damage to Attacks
 10% increased Attack Speed
@@ -975,8 +975,8 @@ Runic Gauntlets
 Requires Level 69, 38 Str, 38 Dex, 38 Int
 League: Expedition
 800% increased Attribute Requirements
-(30–50)% increased Ward
-+(15–25)% to all Elemental Resistances
+(30-50)% increased Ward
++(15-25)% to all Elemental Resistances
 80% less Flask Charges gained from Kills
 Flasks gain 1 Charge per second if you've Hit a Unique Enemy Recently
 ]],[[
@@ -986,8 +986,8 @@ Variant: Pre 3.16.0
 Variant: Current
 League: Expedition
 Requires Level 48, 31 Str, 31 Dex, 31 Int
-(33–48)% increased Ward
-+(17–23)% to Chaos Resistance
+(33-48)% increased Ward
++(17-23)% to Chaos Resistance
 {variant:1}Gain Added Chaos Damage equal to 25% of Ward
 {variant:2}Gain Added Chaos Damage equal to 20% of Ward
 75% of Damage bypasses Ward

@@ -77,11 +77,11 @@ Nailed Fist
 League: Race Events
 Sockets: W-W-W
 Implicits: 1
-+3 Life gained for each Enemy hit by Attacks
+Gain 3 Life per Enemy Hit by Attacks
 Socketed Gems have 50% reduced Mana Cost
 Grants Level 20 Hatred Skill
 Adds 2 to 6 Physical Damage
-+3 Life gained for each Enemy hit by your Spells
+Gain 3 Life per Enemy Hit with Spells
 ]],[[
 Slivers of Providence
 Serrated Arrow Quiver

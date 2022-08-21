@@ -223,7 +223,7 @@ Variant: Current
 Requires Level 66, 113 Str, 113 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
-{variant:1}Socketed Gems are supported by level 10 Life Leech
+{variant:1}Socketed Gems are supported by Level 10 Life Leech
 {variant:2}Socketed Gems are supported by Level 1 Chance to Bleed
 Grants Summon Harbinger of Brutality Skill
 5% Chance to Block Attack Damage while wielding a Staff
@@ -272,7 +272,7 @@ Variant: Current
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-Socketed Gems are Supported by level 8 Trap
+Socketed Gems are Supported by Level 8 Trap
 (40-50)% increased Damage
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
@@ -363,7 +363,7 @@ Implicits: 1
 {variant:1}Adds (130-150) to (200-250) Fire Damage to Spells
 {variant:2}Adds (230-250) to (300-350) Fire Damage to Spells
 {variant:3}Battlemage
-Grants level 15 Vengeance Skill
+Grants Level 15 Vengeance Skill
 {variant:1}100% increased Fire Damage if you have been Hit Recently
 {variant:2,3}100% increased Fire Damage
 Immune to Freeze and Chill while Ignited
@@ -394,7 +394,7 @@ Implicits: 3
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 {variant:3,4}20% Chance to Block Spell Damage while wielding a Staff
-Socketed Gems are Supported by level 30 Greater Spell Echo
+Socketed Gems are Supported by Level 30 Greater Spell Echo
 (120-160)% increased Spell Damage
 {variant:1,2,3}100% increased maximum Mana
 {variant:4}50% increased maximum Mana
@@ -409,7 +409,7 @@ Implicits: 2
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 +1 to Level of Socketed Fire Gems
 +1 to Level of Socketed Cold Gems
-Socketed Gems are Supported by level 5 Cold to Fire
+Socketed Gems are Supported by Level 5 Cold to Fire
 Adds (10-15) to (20-25) Fire Damage
 Adds (10-15) to (20-25) Cold Damage
 (30-50)% increased Elemental Damage
@@ -426,7 +426,7 @@ Implicits: 2
 +1 to Level of Socketed Fire Gems
 +1 to Level of Socketed Cold Gems
 +2 to Level of Socketed Elemental Gems
-Socketed Gems are Supported by level 5 Cold to Fire
+Socketed Gems are Supported by Level 5 Cold to Fire
 Adds (10-15) to (20-25) Fire Damage
 Adds (10-15) to (20-25) Cold Damage
 (30-50)% increased Elemental Damage
@@ -553,7 +553,7 @@ Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}18% Chance to Block Attack Damage while wielding a Staff
 {variant:3}+2 to Level of Socketed Spell Gems
-{variant:1,2}Socketed Gems are Supported by level 10 Remote Mine
+{variant:1,2}Socketed Gems are Supported by Level 10 Remote Mine
 {variant:3}Socketed Gems are Supported by Level 10 Blastchain Mine
 {variant:1,2}35% less Mine Damage
 (40-60)% increased Spell Damage
@@ -570,7 +570,7 @@ Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
 +1 to Level of Socketed Support Gems
-Grants level 1 Icestorm Skill
+Grants Level 1 Icestorm Skill
 (8-12)% increased Cast Speed
 1% increased Spell Damage per 10 Intelligence
 (14-18)% increased Intelligence

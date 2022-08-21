@@ -25,8 +25,8 @@ Implicits: 1
 {variant:1}{tags:speed}20% reduced Movement Speed
 {variant:2}{tags:speed}10% reduced Movement Speed
 +3% to maximum Chance to Block Attack Damage
-{tags:physical}{variant:1}Reflects 200 to 250 Physical Damage to Attackers on Block
-{tags:physical}{variant:2,3,4}Reflects 240 to 300 Physical Damage to Attackers on Block
+{variant:1}{tags:physical}Reflects 200 to 250 Physical Damage to Attackers on Block
+{variant:2,3,4}{tags:physical}Reflects 240 to 300 Physical Damage to Attackers on Block
 ]],[[
 Araku Tiki
 Coral Amulet
@@ -34,13 +34,13 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {tags:life}(2-4) Life Regenerated per second
-{variant:1}{tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
-{variant:2}{tags:jewellery_defense,life}You gain (150-250) Evasion Rating when on Low Life
+{variant:1}{tags:jewellery_defense,life}+100 to Evasion Rating while on Low Life
+{variant:2}{tags:jewellery_defense,life}+(150-250) to Evasion Rating while on Low Life
 {tags:life}+(30-50) to maximum Life
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:1}{tags:life}1% of Life Regenerated per Second while on Low Life
 {variant:2}Gain Elusive on reaching Low Life
-{variant:2}Phasing while on Low Life
+{variant:2}You have Phasing while on Low Life
 ]],[[
 Ngamahu Tiki
 Coral Amulet
@@ -68,10 +68,10 @@ Source: Drops from unique{The Eater of Worlds}
 Requires Level 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
-(5–10)% increased Experience Gain of Gems
-(10–20)% increased Reservation Efficiency of Skills
+(5-10)% increased Experience Gain of Gems
+(10-20)% increased Reservation Efficiency of Skills
 +1 to Level of all Skill Gems
-+(20–30)% to Quality of all Skill Gems
++(20-30)% to Quality of all Skill Gems
 ]],[[
 Astramentis
 Onyx Amulet
@@ -230,9 +230,9 @@ Source: Use currency{Vaal Orb} on unique{Tear of Purity}
 Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
-Grants level 10 Gluttony of Elements Skill
+Grants Level 10 Gluttony of Elements Skill
 {tags:attack,chaos}Adds 19-43 Chaos Damage to Attacks
-{tags:jewellery_resistance}−(10-5)% to all Elemental Resistances
+{tags:jewellery_resistance}-(10-5)% to all Elemental Resistances
 {tags:chaos,jewellery_resistance}+(17-29)% to Chaos Resistance
 Corrupted
 ]],[[
@@ -674,10 +674,10 @@ Leadership's Price
 Onyx Amulet
 Requires Level 68
 Implicits: 1
-{tags:jewellery_attribute}+(10–16) to all Attributes
-{tags:jewellery_resistance}+(-3–3)% to maximum Fire Resistance
-{tags:jewellery_resistance}+(-3–3)% to maximum Cold Resistance
-{tags:jewellery_resistance}+(-3–3)% to maximum Lightning Resistance
+{tags:jewellery_attribute}+(10-16) to all Attributes
+{tags:jewellery_resistance}+(-3-3)% to maximum Fire Resistance
+{tags:jewellery_resistance}+(-3-3)% to maximum Cold Resistance
+{tags:jewellery_resistance}+(-3-3)% to maximum Lightning Resistance
 You have Scorching Conflux, Brittle Conflux and Sapping Conflux while your two highest Attributes are equal
 Cannot Ignite, Chill, Freeze or Shock
 Corrupted
@@ -845,7 +845,7 @@ Implicits: 1
 {tags:jewellery_elemental}Adds (20-23) to (31-35) Cold Damage
 {tags:jewellery_elemental}Adds (1-3) to (47-52) Lightning Damage
 {variant:1}Gain a Power Charge when you use a Vaal Skill
-{tags:life}10 Life gained for each Enemy Hit if you have used a Vaal Skill Recently
+{tags:life}Gain 10 Life per Enemy Hit if you have used a Vaal Skill Recently
 {tags:speed}10% increased Movement Speed if you have used a Vaal Skill Recently
 {variant:2}Gain up to maximum Power Charges when you use a Vaal Skill
 ]],[[
@@ -932,7 +932,7 @@ Implicits: 1
 {variant:1}{tags:caster}30% increased Area of Effect of Hex Skills
 {variant:2,3}{tags:caster}60% increased Area of Effect of Hex Skills
 {tags:caster}You cannot be Cursed with Silence
-{variant:1,2}Grants level 20 Illusory Warp Skill
+{variant:1,2}Grants Level 20 Illusory Warp Skill
 {variant:3}{tags:caster}Frostblink has 50% increased Duration
 Corrupted
 ]],[[
@@ -985,7 +985,7 @@ Variant: Current
 Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
-Grants level 10 Purity of Elements Skill
+Grants Level 10 Purity of Elements Skill
 {variant:1,2}{tags:jewellery_attribute}+(5-10) to all Attributes
 {variant:3}{tags:jewellery_attribute}+(10-20) to all Attributes
 {tags:life}+(20-40) to maximum Life
