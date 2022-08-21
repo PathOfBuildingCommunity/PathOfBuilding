@@ -2141,7 +2141,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					if buff.type == "Curse" then
 						curse.modList = new("ModList")
 						curse.modList:ScaleAddList(buff.modList, mult)
-						buffExports["Curse"][buff.name] = { effectMult = curse.isMark and mult or (1 + inc / 100) * moreMark, modList = buff.modList }
+						buffExports["Curse"][buff.name] = { isMark = curse.isMark, effectMult = curse.isMark and mult or (1 + inc / 100) * moreMark, modList = buff.modList }
 					else
 						-- Curse applies a buff; scale by curse effect, then buff effect
 						local temp = new("ModList")
@@ -2376,9 +2376,19 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		allyPartyCurses = { Curse = {} }
 	end
 	for curseName, curse in pairs(allyPartyCurses["Curse"]) do
-		curse.name = curseName
-		curse.priority = 0
-		t_insert(allyCurses, curse) --these need to be scaled
+		local newCurse = {
+			name = curseName,
+			priority = 0,
+			modList = new("ModList")
+		}
+		local mult = curse.effectMult / 100
+		if curse.isMark then
+			newCurse.isMark = true
+		else
+			mult = mult * enemyDB:More(nil, "CurseEffectOnSelf")
+		end
+		newCurse.modList:ScaleAddList(curse.modList, mult)
+		t_insert(allyCurses, newCurse)
 	end
 	
 

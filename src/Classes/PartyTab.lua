@@ -214,6 +214,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 	end
 	local currentName
 	local currentEffect
+	local isMark
 	local currentModType = "Unknown"
 	for line in buf:gmatch("([^\n]*)\n?") do
 		if mode == "CurseLimit" and line ~= "" then
@@ -224,6 +225,13 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 			mode = "Effect"
 		elseif mode == "Effect" then
 			currentEffect = tonumber(line)
+			if buffType == "Curse" then
+				mode = "isMark"
+			else
+				mode = "Stats"
+			end
+		elseif mode == "isMark" then
+			isMark = line=="true"
 			mode = "Stats"
 		elseif line == "---" then
 			mode = "Name"
@@ -272,11 +280,17 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 						modList = new("ModList"),
 						effectMult = currentEffect
 					}
+					if isMark then
+						list[modType][currentName].isMark = true
+					end
 				elseif not list[modType][currentName] then
 					list[modType][currentName] = {
 						modList = new("ModList"),
 						effectMult = currentEffect
 					}
+					if isMark then
+						list[modType][currentName].isMark = true
+					end
 				end
 				list[modType][currentName].modList:AddMod(mod)
 			end
@@ -302,6 +316,13 @@ function PartyTabClass:exportBuffs(buffType)
 			buf = buf.."\n"
 		end
 		buf = buf..buffName.."\n"..tostring(buff.effectMult * 100).."\n"
+		if buffType == "Curse" then
+			if buff.isMark then
+				buf = buf.."true\n"
+			else
+				buf = buf.."false\n"
+			end
+		end
 		for _, mod in ipairs(buff.modList) do
 			buf = buf..tostring(mod.value).."|"..mod.source.."|"..modLib.formatModParams(mod).."\n"
 			--buf = buf..s_format("%s|%s|%s|%s|-|-|-", tostring(mod.value), mod.source, mod.name, mod.type).."\n"
