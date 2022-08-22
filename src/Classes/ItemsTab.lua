@@ -478,7 +478,7 @@ holding Shift will put it in the second.]])
 		self:AddImplicitToDisplayItem()
 	end)
 	self.controls.displayItemAddImplicit.shown = function()
-		return self.displayItem and (self.displayItem.corruptable or ((self.displayItem.type ~= "Flask" or self.displayItem.type ~= "Jewel") and (self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")))
+		return self.displayItem and (self.displayItem.corruptible or ((self.displayItem.type ~= "Flask" or self.displayItem.type ~= "Jewel") and (self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")))
 	end
 
 	-- Section: Influence dropdowns
@@ -2457,12 +2457,12 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 	local function buildMods(sourceId)
 		wipeTable(modList)
 		wipeTable(modGroups)
-		local groupIndexs = {}
+		local groupIndexes = {}
 		if sourceId == "EXARCH" or sourceId == "EATER" then
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
 					local modLabel = table.concat(mod, "/")
-					if not groupIndexs[mod.group] then
+					if not groupIndexes[mod.group] then
 						t_insert(modList, {})
 						t_insert(modGroups, {
 							label = modLabel,
@@ -2470,12 +2470,12 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 							modListIndex = #modList,
 							defaultOrder = i,
 						})
-						groupIndexs[mod.group] = #modGroups
-					--elseif mod[1].len() < modGroups[groupIndexs[mod.group] ].mod[1].len() then
-					--	modGroups[groupIndexs[mod.group]].label = modLabel
-					--	modGroups[groupIndexs[mod.group]].mod = mod
+						groupIndexes[mod.group] = #modGroups
+					--elseif mod[1].len() < modGroups[groupIndexes[mod.group] ].mod[1].len() then
+					--	modGroups[groupIndexes[mod.group]].label = modLabel
+					--	modGroups[groupIndexes[mod.group]].mod = mod
 					end
-					t_insert(modList[groupIndexs[mod.group]], {
+					t_insert(modList[groupIndexes[mod.group]], {
 						label = modLabel,
 						mod = mod,
 						affixType = mod.type,
@@ -2516,7 +2516,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			end
 		elseif sourceId == "SYNTHESIS" then
 			for i, mod in pairs(self.displayItem.affixes) do
-				if sourceId:lower() == mod.type:lower() then -- weights are missing and so are 0, how do I determine what goes on what item?, also arnt these supposed to work on jewels?
+				if sourceId:lower() == mod.type:lower() then -- weights are missing and so are 0, how do I determine what goes on what item?, also arn't these supposed to work on jewels?
 					t_insert(modList, {
 						label = table.concat(mod, "/"),
 						mod = mod,
@@ -2533,7 +2533,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
 					local modLabel = table.concat(mod, "/")
-					if not groupIndexs[mod.group] then
+					if not groupIndexes[mod.group] then
 						t_insert(modList, {})
 						t_insert(modGroups, {
 							label = modLabel,
@@ -2541,12 +2541,12 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 							modListIndex = #modList,
 							defaultOrder = i,
 						})
-						groupIndexs[mod.group] = #modGroups
-					--elseif mod[1].len() < modGroups[groupIndexs[mod.group] ].mod[1].len() then
-					--	modGroups[groupIndexs[mod.group]].label = modLabel
-					--	modGroups[groupIndexs[mod.group]].mod = mod
+						groupIndexes[mod.group] = #modGroups
+					--elseif mod[1].len() < modGroups[groupIndexes[mod.group] ].mod[1].len() then
+					--	modGroups[groupIndexes[mod.group]].label = modLabel
+					--	modGroups[groupIndexes[mod.group]].mod = mod
 					end
-					t_insert(modList[groupIndexs[mod.group]], {
+					t_insert(modList[groupIndexes[mod.group]], {
 						label = modLabel,
 						mod = mod,
 						affixType = mod.type,
@@ -2571,7 +2571,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		end
 	end
 	if self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Jewel" then
-		--t_insert(sourceList, { label = "Synth", sourceId = "SYNTHESIS" }) -- synth removed untill we get proper support for where the mods go
+		--t_insert(sourceList, { label = "Synth", sourceId = "SYNTHESIS" }) -- synth removed until we get proper support for where the mods go
 		t_insert(sourceList, { label = "Delve", sourceId = "DelveImplicit" })
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
@@ -2592,8 +2592,8 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		elseif sourceId == "EXARCH" or sourceId == "EATER" then
 			local listMod = modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex]
 			local index
-			for i, implictMod in ipairs(item.implicitModLines) do
-				if implictMod[listMod.type] and implictMod[listMod.type] == "{"..listMod.type.."}" then
+			for i, implicitMod in ipairs(item.implicitModLines) do
+				if implicitMod[listMod.type] and implicitMod[listMod.type] == "{"..listMod.type.."}" then
 					index = i
 					break
 				end
