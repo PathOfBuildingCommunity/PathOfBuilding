@@ -549,10 +549,9 @@ League: Ambush, Invasion
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 27, 22 Str, 22 Dex
 {variant:1,2}+2 to Level of Socketed Vaal Gems
-{variant:3}-5 to Level of Socketed Non-Vaal Gems
 {variant:3}+5 to Level of Socketed Vaal Gems
+{variant:3}-5 to Level of Socketed Non-Vaal Gems
 (120-140)% increased Armour and Evasion
 {variant:1}+(30-40) to maximum Life
 {variant:2,3}+(50-70) to maximum Life
@@ -967,7 +966,7 @@ Requires Level 67, 51 Dex, 51 Int
 {variant:4}(150-200)% increased Evasion and Energy Shield
 {variant:1,2,3}10% increased Stun Duration on Enemies
 {variant:1,2,3}100% increased Duration of Lightning Ailments
-{variant:4}100% increased effect of Lightning Ailments
+{variant:4}100% increased Effect of Lightning Ailments
 ]],
 -- Gloves: Ward
 [[

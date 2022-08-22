@@ -818,8 +818,8 @@ Implicits: 1
 {variant:1}{tags:jewellery_resistance}+(10-20)% to Cold Resistance
 {variant:2}{tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {variant:1}{tags:attack,life,physical}0.4% of Physical Attack Damage Leeched as Life
-{variant:1}{tags:attack,mana,physical}0.4% of Physical Attack Damage Leeched as Mana
 {variant:2}{tags:attack,life,physical}2% of Physical Attack Damage Leeched as Life
+{variant:1}{tags:attack,mana,physical}0.4% of Physical Attack Damage Leeched as Mana
 {variant:2}{tags:attack,mana,physical}2% of Physical Attack Damage Leeched as Mana
 {variant:2}(500-1000)% increased total Recovery per second from Life Leech
 {variant:2}(500-1000)% increased total Recovery per second from Mana Leech

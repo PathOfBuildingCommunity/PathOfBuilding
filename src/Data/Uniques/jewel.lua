@@ -1339,7 +1339,7 @@ Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage 
 {variant:1}With at least 40 Dexterity in Radius, Burning Arrow can inflict an additional Ignite on an Enemy
-{Variant:2}Ignited Enemies Killed by your Hits are destroyed
+{variant:2}Ignited Enemies Killed by your Hits are destroyed
 ]],[[
 Unending Hunger 
 Cobalt Jewel

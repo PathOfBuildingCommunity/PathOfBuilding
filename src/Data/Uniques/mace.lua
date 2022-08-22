@@ -576,7 +576,6 @@ Source: Drops from unique{Guardian of the Minotaur}
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 63, 212 Str
 Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
@@ -587,10 +586,10 @@ Implicits: 3
 {variant:1,2}15% chance to Shock
 {variant:3}50% chance to Shock
 {variant:1,2}10% chance to Cause Monsters to Flee
-{variant:3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
 Damage Penetrates 20% Lightning Resistance
 Enemies you Shock have 30% reduced Cast Speed
 Enemies you Shock have 20% reduced Movement Speed
+{variant:3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
 ]],[[
 Chober Chaber
 Great Mallet

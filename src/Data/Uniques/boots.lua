@@ -137,7 +137,6 @@ Reinforced Greaves
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 33, 60 Str
 (50-80)% increased Armour
 +(10-15)% to all Elemental Resistances
 {variant:1}10% increased Movement Speed
@@ -145,18 +144,18 @@ Requires Level 33, 60 Str
 {variant:3}20% increased Movement Speed
 {variant:1}10% increased Elemental Damage
 {variant:2}(10-20)% increased Elemental Damage
+You can apply an additional Curse
 {variant:3}50% increased Area of Effect of Hex Skills
-Enemies can have 1 additional Curse
 ]],[[
 Windshriek
 Reinforced Greaves
 Source: No longer obtainable
-Requires Level 60, 60 Str
+LevelReq: 60
 (200-250)% increased Armour
 +(10-15)% to all Elemental Resistances
 25% increased Movement Speed
 (10-20)% increased Elemental Damage
-Enemies can have 1 additional Curse
+You can apply an additional Curse
 60% increased Area of Effect of Hex Skills
 ]],
 -- Boots: Evasion
@@ -348,17 +347,16 @@ Goathide Boots
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 12, 26 Dex
 +15 to Dexterity
 +15 to Intelligence
 (100-150)% increased Evasion Rating
-{variant:1}30% increased Movement Speed when on Low Life
-{variant:3}(10-20)% increased Movement Speed when on Low Life
-{variant:3}Quicksilver Flasks you Use also apply to nearby Allies
 {variant:2}15% increased Movement Speed
 {variant:3}(10-20)% increased Movement Speed
-{variant:2}You and nearby allies have 10% increased Movement Speed
+{variant:1}30% increased Movement Speed when on Low Life
+{variant:3}(10-20)% increased Movement Speed when on Low Life
 {variant:1,2}(5-10)% of Damage taken Recouped as Mana
+{variant:2}10% increased Movement Speed for you and nearby Allies
+{variant:3}Quicksilver Flasks you Use also apply to nearby Allies
 ]],
 -- Boots: Energy Shield
 [[
@@ -535,7 +533,6 @@ Velvet Slippers
 Variant: Pre 1.0.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 9, 21 Int
 {variant:1,2}+(5-10) to Strength
 {variant:3}+(5-30) to Strength
 {variant:1,2}+(5-10) to Dexterity
@@ -552,7 +549,7 @@ Requires Level 9, 21 Int
 Greedtrap
 Velvet Slippers
 Source: No longer obtainable
-Requires Level 52, 21 Int
+LevelReq: 52
 +(5-10) to Strength
 +(5-10) to Dexterity
 +(5-10) to Intelligence

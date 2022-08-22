@@ -614,8 +614,8 @@ Requires Level: 34, 73 Int
 (120-150)% increased Energy Shield
 {variant:1}Minions Regenerate 1% Life per second
 {variant:1}+1000 to Spectre maximum Life
-{variant:2}Cannot have non-Spectre Minions
 {variant:2}+2 to maximum number of Spectres
+{variant:2}You cannot have Non-Spectre Minions
 ]],[[
 Wreath of Phrecia
 Iron Circlet
@@ -1092,12 +1092,11 @@ Voll's Vision
 Praetor Crown
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 68, 62 Str, 91 Int
 +(260-300) to Armour
 +(26-32)% to Fire Resistance
 +(8-16)% to Chaos Resistance
 20% increased Light Radius
-(8-12)% increased maximum Life if no Equipped Items are Corrupted
+(8-12)% increased Maximum Life if no Equipped Items are Corrupted
 {variant:1}Regenerate 100 Life per second if no Equipped Items are Corrupted
 {variant:2}Regenerate 400 Life per second if no Equipped Items are Corrupted
 ]],
@@ -1394,13 +1393,12 @@ Runic Helm
 League: Expedition
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 25, 30 Str, 30 Dex, 30 Int
 +(20-30) to Intelligence
 (25-35)% increased Ward
 {variant:1}(20-30)% faster Restoration of Ward
 {variant:2}(40-60)% faster Restoration of Ward
 (15-25)% increased Light Radius
-Increases and Reductions to maximum Energy Shield instead apply to Ward
+Increases and Reductions to Maximum Energy Shield instead apply to Ward
 ]],[[
 Cadigan's Crown
 Runic Crown

@@ -519,8 +519,8 @@ Implicits: 3
 {variant:1}15% increased Spell Damage
 {variant:2,3,4}(15-20)% increased Spell Damage
 {variant:5}(5-10)% increased Spell Damage
-{Variant:1,2}Socketed Trap Skills create a Smoke Cloud when triggered
-{Variant:3,4,5}Trigger Level 20 Fog of War when your Trap is triggered
+{variant:1,2}Traps from Socketed Skills create a Smoke Cloud when triggered
+{variant:3,4,5}Trigger Level 20 Fog of War when your Trap is triggered
 +(20-30) to Intelligence
 {variant:1,2}(80-120)% increased Energy Shield
 {variant:3,4,5}(250-300)% increased Energy Shield
@@ -759,11 +759,12 @@ Variant: Current
 Implicits: 1
 60% increased Block Recovery
 {variant:1,2}+(5-10) to Armour
+{variant:3}+(20-40) to Armour
 {variant:3}+(20-40) to Evasion Rating
 (30-40)% increased Rarity of Items found
+{variant:3}+(50-75)% to Lightning Resistance
 100% increased Duration of Curses on you
 {variant:1,2}+5% Chance to Block
-{variant:3}(50-75)% to Lightning Resistance
 {variant:1}Curse Skills have 25% increased Skill Effect Duration
 {variant:2}Curse Skills have 100% increased Skill Effect Duration
 ]],

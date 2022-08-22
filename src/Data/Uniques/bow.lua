@@ -399,7 +399,6 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 64, 212 Dex
 {variant:4,5,6}Socketed Gems are Supported by Level 20 Greater Volley
 {variant:1}(50-70)% increased Physical Damage
 {variant:2,3}(40-50)% increased Physical Damage
@@ -498,14 +497,13 @@ Voltaxic Rift
 Spine Bow
 Variant: Pre 3.9.0
 Variant: Current
-Requires Level 64, 212 Dex
 Adds 1 to (275-325) Lightning Damage
 (10-15)% increased Attack Speed
 60% of Lightning Damage Converted to Chaos Damage
-10% Chance to Shock
+10% chance to Shock
 Your Chaos Damage can Shock
 {variant:2}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
-{variant:2}+40% to maximum Effect of Shock
+{variant:2}+40% to Maximum Effect of Shock
 ]],[[
 Windripper
 Imperial Bow
