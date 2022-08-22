@@ -2357,7 +2357,7 @@ skills["MonsterProjectileWeakness"] = {
 	hidden = true,
 	color = 2,
 	baseEffectiveness = 0,
-	description = "Curses a single enemy, increasing the damage they take from projectiles, and making projectiles split when hitting them, to hit other targets around them. You can gain charges for your life and mana flasks by hitting the cursed enemy. You can only have one Mark at a time.",
+	description = "Curses a single enemy, increasing the damage they take from projectiles, and making projectiles split when hitting them, to hit other targets around them. You can only have one Mark at a time.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
@@ -2850,7 +2850,7 @@ skills["NecromancerProjectileWeakness"] = {
 	hidden = true,
 	color = 2,
 	baseEffectiveness = 0,
-	description = "Curses a single enemy, increasing the damage they take from projectiles, and making projectiles split when hitting them, to hit other targets around them. You can gain charges for your life and mana flasks by hitting the cursed enemy. You can only have one Mark at a time.",
+	description = "Curses a single enemy, increasing the damage they take from projectiles, and making projectiles split when hitting them, to hit other targets around them. You can only have one Mark at a time.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Mark] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 1.1,
@@ -4354,7 +4354,7 @@ skills["AtlasCrusaderJudgeBallLightning"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, critChance = 32, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+		[1] = { 0.5, 1.5, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["AtlasCruasderJudgeFadingNova"] = {
@@ -4825,7 +4825,7 @@ skills["HeistThugRangedExplosiveArrow"] = {
 		{ "fuse_arrow_explosion_radius_+_per_fuse_arrow_orb", 2 },
 		{ "explosive_arrow_explosion_base_damage_+permyriad", -5000 },
 		{ "explosive_arrow_maximum_bonus_explosion_radius", 12 },
-		{ "explosive_arrow_hit_and_ailment_damage_+%_final_per_stack", 3 },
+		{ "explosive_arrow_hit_damage_+%_final_per_stack", 3 },
 		{ "explosive_arrow_stack_limit", 20 },
 		{ "active_skill_area_of_effect_radius_+%_final", -40 },
 		{ "base_skill_effect_duration", 2000 },

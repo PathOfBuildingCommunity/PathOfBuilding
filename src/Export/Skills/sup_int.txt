@@ -537,6 +537,20 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportOvercharge
+	statMap = {
+		["support_pure_shock_shock_as_though_damage_+%_final"] = {
+			mod("ShockAsThoughDealing", "MORE", nil),
+		},
+		["support_pure_shock_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["shock_effect_+%_with_critical_strikes"] = {
+			mod("EnemyShockEffect", "INC", nil),
+		},
+	},
+#mods
+
 #skill SupportPhysicalToLightning
 	statMap = {
 		["enemies_you_shock_take_%_increased_physical_damage"] = {
