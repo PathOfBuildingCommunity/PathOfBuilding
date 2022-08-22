@@ -427,7 +427,7 @@ function PartyTabClass:exportBuffs(buffType)
 	if self.buffExports[buffType].ConvertedToText then
 		return self.buffExports[buffType].string
 	end
-	local buf = ((buffType == "Curse") and tostring(self.buffExports["CurseLimit"])) or ""
+	local buf = ((buffType == "Curse") and tostring(self.buffExports["CurseLimit"] or 0)) or ""
 	for buffName, buff in pairs(self.buffExports[buffType]) do
 		if #buf > 0 then
 			buf = buf.."\n"
@@ -436,9 +436,9 @@ function PartyTabClass:exportBuffs(buffType)
 		if buffType == "Curse" then
 			buf = buf.."\n"..tostring(buff.effectMult * 100)
 			if buff.isMark then
-				buf = buf.."true\n"
+				buf = buf.."\ntrue"
 			else
-				buf = buf.."false\n"
+				buf = buf.."\nfalse"
 			end
 		elseif buffType == "Aura" and buffName ~= "extraAura" then
 			buf = buf.."\n"..tostring(buff.effectMult * 100)
