@@ -498,6 +498,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Add mods from the config tab
 		env.modDB:AddList(build.configTab.modList)
 		env.enemyDB:AddList(build.configTab.enemyModList)
+		
+		-- Add mods from the party tab
+		env.enemyDB:AddList(build.partyTab.enemyModList)
 
 		cachedPlayerDB, cachedEnemyDB, cachedMinionDB = specCopy(env)
 	else

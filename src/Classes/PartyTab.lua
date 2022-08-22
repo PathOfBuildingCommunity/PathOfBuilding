@@ -15,6 +15,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.build = build
 	
 	self.processedInput = { Aura = {}, Curse = {} }
+	self.enemyModList = new("ModList")
 	self.buffExports = {}
 	self.enableExportBuffs = true
 
@@ -131,9 +132,13 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	
 	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.importCodeGo,"RIGHT"}, 8, 0, 160, 20, "Rebuild", function() 
 		wipeTable(self.processedInput)
+		wipeTable(self.enemyModList)
 		self.processedInput = { Aura = {}, Curse = {} }
+		self.enemyModList = new("ModList")
 		self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura")
 		self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse")
+		self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
+		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods")
 		self.build.buildFlag = true 
 	end)
 	self.controls.enableExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.rebuild,"RIGHT"}, 100, 0, 18, "Enable Export", function(state)
@@ -192,16 +197,18 @@ function PartyTabClass:Load(xml, fileName)
 				self:ParseBuffs(self.processedInput["Curse"], node.attrib.string, "Curse")
 			elseif node.attrib.name == "EnemyConditions" then
 				self.controls.enemyCond:SetText(node.attrib.string)
-				--self:ParseBuffs(self.processedInput["EnemyConditions"], node.attrib.string, "EnemyConditions")
+				self:ParseBuffs(self.enemyModList, node.attrib.string, "EnemyConditions")
 			elseif node.attrib.name == "EnemyMods" then
 				self.controls.enemyMods:SetText(node.attrib.string)
-				--self:ParseBuffs(self.processedInput["EnemyMods"], node.attrib.string, "EnemyMods")
+				self:ParseBuffs(self.enemyModList, node.attrib.string, "EnemyMods")
 			end
 		elseif node.elem == "ExportedBuffs" then
 			if not node.attrib.name then
 				ConPrintf("missing name")
 			end
-			self:ParseBuffs(self.buffExports, node.attrib.string, node.attrib.name)
+			if node.attrib.name ~= "EnemyConditions" and node.attrib.name ~= "EnemyMods" then
+				self:ParseBuffs(self.buffExports, node.attrib.string, node.attrib.name)
+			end
 			--self:ParseBuffs(self.buffExports, node.attrib.string, "Aura")
 			--self:ParseBuffs(self.buffExports, node.attrib.string, "Curse")
 			--self:ParseBuffs(self.buffExports, node.attrib.string, "EnemyConditions")
@@ -287,6 +294,29 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 end
 
 function PartyTabClass:ParseBuffs(list, buf, buffType)
+	if buffType == "EnemyConditions" then
+		for line in buf:gmatch("([^\n]*)\n?") do
+			list:NewMod(line:gsub("Condition:", "Condition:Party"), "FLAG", true, "Party")
+		end
+	elseif buffType == "EnemyMods" then
+		local modeName = true
+		local currentName
+		for line in buf:gmatch("([^\n]*)\n?") do
+			if modeName then
+				currentName = line
+				modeName = false
+			else
+				modeName = true
+				local modStrings = {}
+				local modType = currentModType
+				for line2 in line:gmatch("([^|]*)|?") do
+					t_insert(modStrings, line2)
+				end
+				local tags = nil -- modStrings[7]
+				list:NewMod(modStrings[3], modStrings[4], tonumber(modStrings[1]), "Party"..modStrings[2], ModFlag[modStrings[5]] or 0, KeywordFlag[modStrings[6]] or 0, tags)
+			end
+		end
+	end
 	local mode = "Name"
 	if buffType == "Curse" then
 		mode = "CurseLimit"
@@ -331,10 +361,10 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 					source = modStrings[2],
 					name = modStrings[3],
 					type = modStrings[4],
-					flags = tonumber(modStrings[5]) or 0,
-					keywordFlags = tonumber(modStrings[6]) or 0,
+					flags = ModFlag[modStrings[5]] or 0,
+					keywordFlags = KeywordFlag[modStrings[6]] or 0,
 				}
-				local extraTags = {}
+				local extraTags = {} -- should parse this correctly instead of string match
 				if modStrings[7]:find("type=GlobalEffect/effectType=AuraDebuff") then
 					t_insert(extraTags, {
 						type = "GlobalEffect",
