@@ -16,6 +16,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	
 	self.processedInput = { Aura = {}, Curse = {} }
 	self.buffExports = {}
+	self.enableExportBuffs = true
 
 	self.lastContentAura = ""
 	self.lastContentCurse = ""
@@ -130,11 +131,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.editMisc.width = function()
 		return self.width / 2 - 16
 	end
-	local extraHeight = function()
-		return false
-	end
 	self.controls.editMisc.height = function()
-		return (extraHeight() and (self.height - 148) or 116)
+		return (self.controls.editMisc.hasFocus and (self.height - 148) or 116)
 	end
 
 	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.editMisc,"BOTTOMLEFT"}, 0, 10, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
@@ -142,7 +140,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return self.width / 2 - 16
 	end
 	self.controls.editCurses.height = function()
-		return (not extraHeight() and (self.height - 148) or 116)
+		return (not self.controls.editMisc.hasFocus and (self.height - 148) or 116)
 	end
 	self:SelectControl(self.controls.editAuras)
 end)
@@ -184,6 +182,12 @@ function PartyTabClass:Save(xml)
 	t_insert(xml, child)
 	child = { elem = "ExportedBuffs", attrib = { name = "Curse" } }
 	child.attrib.string = self:exportBuffs("Curse")
+	t_insert(xml, child)
+	child = { elem = "ExportedBuffs", attrib = { name = "EnemyConditions" } }
+	child.attrib.string = self:exportBuffs("EnemyConditions")
+	t_insert(xml, child)
+	child = { elem = "ExportedBuffs", attrib = { name = "EnemyMods" } }
+	child.attrib.string = self:exportBuffs("EnemyMods")
 	t_insert(xml, child)
 	self.lastContentAura = self.controls.editAuras.buf
 	self.lastContentCurse = self.controls.editCurses.buf
@@ -238,8 +242,10 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 			currentName = line
 			if line == "extraAura" then
 				currentModType = "extraAura"
+				mode = "Stats"
+			else
+				mode = "Effect"
 			end
-			mode = "Effect"
 		elseif mode == "Effect" then
 			currentEffect = tonumber(line)
 			if buffType == "Curse" then
@@ -316,12 +322,15 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 end
 
 function PartyTabClass:setBuffExports(buffExports)
+	if not self.enableExportBuffs then
+		return
+	end
 	wipeTable(self.buffExports)
 	self.buffExports = copyTable(buffExports, true)
 end
 
 function PartyTabClass:exportBuffs(buffType)
-	if not self.buffExports or not self.buffExports[buffType] then
+	if not self.enableExportBuffs or not self.buffExports or not self.buffExports[buffType] then
 		return ""
 	end
 	if self.buffExports[buffType].ConvertedToText then
@@ -332,20 +341,25 @@ function PartyTabClass:exportBuffs(buffType)
 		if #buf > 0 then
 			buf = buf.."\n"
 		end
-		buf = buf..buffName.."\n"..tostring(buff.effectMult * 100).."\n"
+		buf = buf..buffName
 		if buffType == "Curse" then
+			buf = buf.."\n"..tostring(buff.effectMult * 100).."\n"
 			if buff.isMark then
 				buf = buf.."true\n"
 			else
 				buf = buf.."false\n"
 			end
+		elseif buffType == "Aura" and buffName ~= "extraAura" then
+			buf = buf.."\n"..tostring(buff.effectMult * 100).."\n"
 		end
-		for _, mod in ipairs(buff.modList) do
-			buf = buf..tostring(mod.value).."|"..mod.source.."|"..modLib.formatModParams(mod).."\n"
-			--buf = buf..s_format("%s|%s|%s|%s|-|-|-", tostring(mod.value), mod.source, mod.name, mod.type).."\n"
-			--ConPrintTable(mod)
+		if buffType == "Curse" or buffType == "Aura"  then
+			for _, mod in ipairs(buff.modList) do
+				buf = buf..tostring(mod.value).."|"..mod.source.."|"..modLib.formatModParams(mod).."\n"
+			end
+			buf = buf.."---"
+		elseif buffType == "EnemyMods" then
+			buf = buf.."\n"..tostring(buff.value).."|"..buff.source.."|"..modLib.formatModParams(buff)
 		end
-		buf = buf.."---"
 	end
 	wipeTable(self.buffExports[buffType])
 	self.buffExports[buffType] = { ConvertedToText = true }
