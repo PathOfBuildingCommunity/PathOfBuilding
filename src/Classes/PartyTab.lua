@@ -434,20 +434,20 @@ function PartyTabClass:exportBuffs(buffType)
 		end
 		buf = buf..buffName
 		if buffType == "Curse" then
-			buf = buf.."\n"..tostring(buff.effectMult * 100).."\n"
+			buf = buf.."\n"..tostring(buff.effectMult * 100)
 			if buff.isMark then
 				buf = buf.."true\n"
 			else
 				buf = buf.."false\n"
 			end
 		elseif buffType == "Aura" and buffName ~= "extraAura" then
-			buf = buf.."\n"..tostring(buff.effectMult * 100).."\n"
+			buf = buf.."\n"..tostring(buff.effectMult * 100)
 		end
 		if buffType == "Curse" or buffType == "Aura"  then
 			for _, mod in ipairs(buff.modList) do
-				buf = buf..tostring(mod.value).."|"..mod.source.."|"..modLib.formatModParams(mod).."\n"
+				buf = buf.."\n"..tostring(mod.value).."|"..mod.source.."|"..modLib.formatModParams(mod)
 			end
-			buf = buf.."---"
+			buf = buf.."\n---"
 		elseif buffType == "EnemyMods" then
 			buf = buf.."\n"..tostring(buff.value).."|"..buff.source.."|"..modLib.formatModParams(buff)
 		end
