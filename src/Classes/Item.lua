@@ -1174,7 +1174,9 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 	elseif self.type == "Jewel" then
 		if self.name:find("Grand Spectrum") then
-			modList:NewMod("Multiplier:GrandSpectrum", "BASE", 1, self.name)
+			local spectrumMod = modLib.createMod("Multiplier:GrandSpectrum", "BASE", 1, self.name)
+			modList:AddMod(spectrumMod)
+			modList:NewMod("MinionModifier", "LIST", { mod = spectrumMod }, self.name)
 		end
 
 		local jewelData = self.jewelData
