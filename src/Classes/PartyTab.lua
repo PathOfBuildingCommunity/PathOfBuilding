@@ -20,6 +20,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 
 	self.lastContentAura = ""
 	self.lastContentCurse = ""
+	self.lastContentEnemyCond = ""
+	self.lastContentEnemyMods = ""
+	self.lastEnableExportBuffs = true
 	self.showColorCodes = false
 
 	local notesDesc = [[^7Party stuff	DO NOT EDIT ANY BOXES UNLESS YOU KNOW WHAT YOU ARE DOING, use copy/paste instead, or import]]
@@ -63,7 +66,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Aura", "Curse" })
+	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Aura", "Curse", "EnemyConditions", "EnemyMods", "All" })
 	self.controls.importCodeMode.enabled = function()
 		return self.importCodeValid
 	end
@@ -86,15 +89,30 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		for _, node in ipairs(dbXML[1]) do
 			if type(node) == "table" and node.elem == "Party" then
 				if self.controls.importCodeMode.selIndex == 1 then
-					self.controls.editAuras:SetText(node[3].attrib.string)
+					self.controls.editAuras:SetText(node[6].attrib.string)
 					wipeTable(self.processedInput["Aura"])
 					self.processedInput["Aura"] = {}
-					self:ParseBuffs(self.processedInput["Aura"], node[3].attrib.string, "Aura")
+					self:ParseBuffs(self.processedInput["Aura"], node[6].attrib.string, "Aura")
 				elseif self.controls.importCodeMode.selIndex == 2 then
-					self.controls.editCurses:SetText(node[4].attrib.string)
+					self.controls.editCurses:SetText(node[7].attrib.string)
 					wipeTable(self.processedInput["Curse"])
 					self.processedInput["Curse"] = {}
-					self:ParseBuffs(self.processedInput["Curse"], node[4].attrib.string, "Curse")
+					self:ParseBuffs(self.processedInput["Curse"], node[7].attrib.string, "Curse")
+				elseif self.controls.importCodeMode.selIndex == 3 then
+					self.controls.enemyCond:SetText(node[8].attrib.string)
+				elseif self.controls.importCodeMode.selIndex == 4 then
+					self.controls.enemyMods:SetText(node[9].attrib.string)
+				elseif self.controls.importCodeMode.selIndex == 5 then
+					self.controls.editAuras:SetText(node[6].attrib.string)
+					wipeTable(self.processedInput["Aura"])
+					self.processedInput["Aura"] = {}
+					self:ParseBuffs(self.processedInput["Aura"], node[6].attrib.string, "Aura")
+					self.controls.editCurses:SetText(node[7].attrib.string)
+					wipeTable(self.processedInput["Curse"])
+					self.processedInput["Curse"] = {}
+					self:ParseBuffs(self.processedInput["Curse"], node[7].attrib.string, "Curse")
+					self.controls.enemyCond:SetText(node[8].attrib.string)
+					self.controls.enemyMods:SetText(node[9].attrib.string)
 				end
 				self.build.buildFlag = true 
 				break
@@ -118,6 +136,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse")
 		self.build.buildFlag = true 
 	end)
+	self.controls.enableExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.rebuild,"RIGHT"}, 100, 0, 18, "Enable Export", function(state)
+		self.enableExportBuffs = state
+	end, "Enables the exporting of auras, cruses and modifiers to the enemy", false)
 
 	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.importCodeMode,"TOPLEFT"}, 0, 40, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editAuras.width = function()
@@ -127,27 +148,40 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return self.height - 148
 	end
 
-	self.controls.editMisc = new("EditControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
-	self.controls.editMisc.width = function()
+	self.controls.enemyCond = new("EditControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.enemyCond.width = function()
 		return self.width / 2 - 16
 	end
-	self.controls.editMisc.height = function()
-		return (self.controls.editMisc.hasFocus and (self.height - 148) or 116)
+	self.controls.enemyCond.height = function()
+		return (self.controls.enemyCond.hasFocus and (self.height - 270) or 116)
 	end
 
-	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.editMisc,"BOTTOMLEFT"}, 0, 10, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.enemyMods = new("EditControl", {"TOPLEFT",self.controls.enemyCond,"BOTTOMLEFT"}, 0, 10, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.enemyMods.width = function()
+		return self.width / 2 - 16
+	end
+	self.controls.enemyMods.height = function()
+		return (self.controls.enemyMods.hasFocus and (self.height - 270) or 116)
+	end
+
+	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.enemyMods,"BOTTOMLEFT"}, 0, 10, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editCurses.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.editCurses.height = function()
-		return (not self.controls.editMisc.hasFocus and (self.height - 148) or 116)
+		return ((not self.controls.enemyCond.hasFocus and not self.controls.enemyMods.hasFocus) and (self.height - 148) or 116)
 	end
 	self:SelectControl(self.controls.editAuras)
 end)
 
 function PartyTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
-		if node.elem == "ImportedText" then
+		if node.elem == "TabStuff" then
+			if node.attrib.name == "enableExportBuffs" then
+				self.enableExportBuffs = node.attrib.string == "true"
+				self.controls.enableExportBuffs.state = self.enableExportBuffs
+			end
+		elseif node.elem == "ImportedText" then
 			if not node.attrib.name then
 				ConPrintf("missing name")
 			elseif node.attrib.name == "Aura" then
@@ -156,26 +190,46 @@ function PartyTabClass:Load(xml, fileName)
 			elseif node.attrib.name == "Curse" then
 				self.controls.editCurses:SetText(node.attrib.string)
 				self:ParseBuffs(self.processedInput["Curse"], node.attrib.string, "Curse")
+			elseif node.attrib.name == "EnemyConditions" then
+				self.controls.enemyCond:SetText(node.attrib.string)
+				--self:ParseBuffs(self.processedInput["EnemyConditions"], node.attrib.string, "EnemyConditions")
+			elseif node.attrib.name == "EnemyMods" then
+				self.controls.enemyMods:SetText(node.attrib.string)
+				--self:ParseBuffs(self.processedInput["EnemyMods"], node.attrib.string, "EnemyMods")
 			end
-		end
-		if node.elem == "ExportedBuffs" then
+		elseif node.elem == "ExportedBuffs" then
 			if not node.attrib.name then
 				ConPrintf("missing name")
 			end
-			self:ParseBuffs(self.buffExports, node.attrib.string, "Aura")
-			self:ParseBuffs(self.buffExports, node.attrib.string, "Curse")
+			self:ParseBuffs(self.buffExports, node.attrib.string, node.attrib.name)
+			--self:ParseBuffs(self.buffExports, node.attrib.string, "Aura")
+			--self:ParseBuffs(self.buffExports, node.attrib.string, "Curse")
+			--self:ParseBuffs(self.buffExports, node.attrib.string, "EnemyConditions")
+			--self:ParseBuffs(self.buffExports, node.attrib.string, "EnemyMods")
 		end
 	end
 	self.lastContentAura = self.controls.editAuras.buf
 	self.lastContentCurse = self.controls.editCurses.buf
+	self.lastContentEnemyCond = self.controls.enemyCond.buf
+	self.lastContentEnemyMods = self.controls.enemyMods.buf
+	self.lastEnableExportBuffs = self.enableExportBuffs
 end
 
 function PartyTabClass:Save(xml)
+	local child = { elem = "TabStuff", attrib = { name = "enableExportBuffs" } }
+	child.attrib.string = tostring(self.enableExportBuffs)
+	t_insert(xml, child)
 	local child = { elem = "ImportedText", attrib = { name = "Aura" } }
 	child.attrib.string = self.controls.editAuras.buf
 	t_insert(xml, child)
 	child = { elem = "ImportedText", attrib = { name = "Curse" } }
 	child.attrib.string = self.controls.editCurses.buf
+	t_insert(xml, child)
+	child = { elem = "ImportedText", attrib = { name = "EnemyConditions" } }
+	child.attrib.string = self.controls.enemyCond.buf
+	t_insert(xml, child)
+	child = { elem = "ImportedText", attrib = { name = "EnemyMods" } }
+	child.attrib.string = self.controls.enemyMods.buf
 	t_insert(xml, child)
 	child = { elem = "ExportedBuffs", attrib = { name = "Aura" } }
 	child.attrib.string = self:exportBuffs("Aura")
@@ -191,6 +245,9 @@ function PartyTabClass:Save(xml)
 	t_insert(xml, child)
 	self.lastContentAura = self.controls.editAuras.buf
 	self.lastContentCurse = self.controls.editCurses.buf
+	self.lastContentEnemyCond = self.controls.enemyCond.buf
+	self.lastContentEnemyMods = self.controls.enemyMods.buf
+	self.lastEnableExportBuffs = self.enableExportBuffs
 end
 
 function PartyTabClass:Draw(viewPort, inputEvents)
@@ -222,7 +279,11 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 
 	self:DrawControls(viewPort)
 
-	self.modFlag = (self.lastContentAura ~= self.controls.editAuras.buf and self.lastContentCurse ~= self.controls.editCurses.buf)
+	self.modFlag = (self.lastContentAura ~= self.controls.editAuras.buf 
+			and self.lastContentCurse ~= self.controls.editCurses.buf
+			and self.lastContentEnemyCond ~= self.controls.enemyCond.buf
+			and self.lastContentEnemyMods ~= self.controls.enemyMods.buf
+			and self.lastEnableExportBuffs ~= self.enableExportBuffs)
 end
 
 function PartyTabClass:ParseBuffs(list, buf, buffType)

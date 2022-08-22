@@ -1926,7 +1926,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		limit = 1,
 	}
 	local allyBuffs = env.build.partyTab.processedInput["Aura"]
-	local buffExports = { Aura = {}, Curse = {} }
+	local buffExports = { Aura = {}, Curse = {}, EnemyMods = {}, EnemyConditions = {} }
 	for spectreId = 1, #env.spec.build.spectreList do
 		local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
 		for modId = 1, #spectreData.modList do
@@ -3685,30 +3685,27 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		enemyDB:NewMod("DamageTaken", "INC", enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect, "Consecrated Ground")
 	end
 	
-	for k, v in pairs(enemyDB.mods) do
-		if (k:find("Condition")) then
-			if buffExports["EnemyConditions"] then
+	if env.build.partyTab.enableExportBuffs then
+		for k, v in pairs(enemyDB.mods) do
+			if (k:find("Condition")) then
 				buffExports["EnemyConditions"][k] = true
-			else
-				buffExports["EnemyConditions"] = { [k] = true }
 			end
 		end
-	end
-	buffExports["EnemyMods"] = {}
-	for k, v in pairs(enemyDB.mods) do
-		if (k:find("Resist") and not k:find("Totem") and not k:find("Max")) or k:find("Damage") or k:find("ActionSpeed") or k:find("SelfCrit") or (k:find("Multiplier") and not k:find("Max") and not k:find("Impale")) then
-			for k2, v2 in ipairs(v) do
-				if v2.value ~= 0 and not (v2[1] and v2[1].effectType == "Curse") then
-					if not v2[1] or ((v2[1].type ~= "Condition" or (enemyDB.mods["Condition:"..v2[1].var] and enemyDB.mods["Condition:"..v2[1].var][1].value)) and (v2[1].type ~= "Multiplier" or (enemyDB.mods["Multiplier:"..v2[1].var] and enemyDB.mods["Multiplier:"..v2[1].var][1].value))) then
-						--ConPrintf(k)
-						--ConPrintTable(v2)
-						buffExports["EnemyMods"][k] = v2
+		for k, v in pairs(enemyDB.mods) do
+			if (k:find("Resist") and not k:find("Totem") and not k:find("Max")) or k:find("Damage") or k:find("ActionSpeed") or k:find("SelfCrit") or (k:find("Multiplier") and not k:find("Max") and not k:find("Impale")) then
+				for k2, v2 in ipairs(v) do
+					if v2.value ~= 0 and not (v2[1] and v2[1].effectType == "Curse") then
+						if not v2[1] or ((v2[1].type ~= "Condition" or (enemyDB.mods["Condition:"..v2[1].var] and enemyDB.mods["Condition:"..v2[1].var][1].value)) and (v2[1].type ~= "Multiplier" or (enemyDB.mods["Multiplier:"..v2[1].var] and enemyDB.mods["Multiplier:"..v2[1].var][1].value))) then
+							--ConPrintf(k)
+							--ConPrintTable(v2)
+							buffExports["EnemyMods"][k] = v2
+						end
 					end
 				end
 			end
 		end
+		env.build.partyTab:setBuffExports(buffExports)
 	end
-	env.build.partyTab:setBuffExports(buffExports)
 
 	-- Defence/offence calculations
 	calcs.defence(env, env.player)
