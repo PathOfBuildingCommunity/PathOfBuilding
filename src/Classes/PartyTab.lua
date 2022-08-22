@@ -28,12 +28,13 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 
 	local notesDesc = [[^7Party stuff	DO NOT EDIT ANY BOXES UNLESS YOU KNOW WHAT YOU ARE DOING, use copy/paste instead, or import
 	To import a build that build must have been saved with Enable Export ticked
+	The Strongest Aura applies, but your curses override the supports regardless of strength
 	]]
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, notesDesc)
 	self.controls.notesDesc.width = function()
 		return self.width / 2 - 16
 	end
-	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter code here: (NOT URL)")
+	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 32, 0, 16, "^7To import a build, enter code here: (NOT URL)")
 	
 	local importCodeHandle = function (buf)
 		self.importCodeSite = nil
@@ -164,7 +165,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return (self.width > 1260) and 40 or 68
 	end
 	self.controls.editAuras.height = function()
-		return self.height - 148 - ((self.width > 1260) and 28 or 0)
+		return self.height - 154 - ((self.width > 1260) and 0 or 28)
 	end
 
 	self.controls.enemyCond = new("EditControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
@@ -172,7 +173,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return self.width / 2 - 16
 	end
 	self.controls.enemyCond.height = function()
-		return (self.controls.enemyCond.hasFocus and (self.height - 270) or 116)
+		return (self.controls.enemyCond.hasFocus and (self.height - 286) or 122)
 	end
 
 	self.controls.enemyMods = new("EditControl", {"TOPLEFT",self.controls.enemyCond,"BOTTOMLEFT"}, 0, 10, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
@@ -180,7 +181,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return self.width / 2 - 16
 	end
 	self.controls.enemyMods.height = function()
-		return (self.controls.enemyMods.hasFocus and (self.height - 270) or 116)
+		return (self.controls.enemyMods.hasFocus and (self.height - 286) or 122)
 	end
 
 	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.enemyMods,"BOTTOMLEFT"}, 0, 10, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
@@ -188,7 +189,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return self.width / 2 - 16
 	end
 	self.controls.editCurses.height = function()
-		return ((not self.controls.enemyCond.hasFocus and not self.controls.enemyMods.hasFocus) and (self.height - 148) or 116)
+		return ((not self.controls.enemyCond.hasFocus and not self.controls.enemyMods.hasFocus) and (self.height - 286) or 122)
 	end
 	self:SelectControl(self.controls.editAuras)
 end)
