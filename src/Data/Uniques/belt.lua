@@ -38,30 +38,25 @@ You have Phasing if Energy Shield Recharge has started Recently
 {tags:speed}10% increased Movement Speed while Phasing
 ]],[[
 Auxium
-Chain Belt
+{variant:1,2}Chain Belt
+{variant:3,4}Crystal Belt
+Variant: Pre 1.0.0
 Variant: Pre 2.6.0
-LevelReq: 70
-Implicits: 1
-{tags:jewellery_defense}+(9-20) to maximum Energy Shield
-{tags:jewellery_defense}+(60-70) to maximum Energy Shield
-{tags:mana}+(45-55) to maximum Mana
-Chill and Freeze Duration on you is based on 65% of Energy Shield
-{tags:attack,jewellery_elemental}(10-20)% increased Elemental Damage with Attack Skills
-{tags:attack,mana,physical}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
-]],[[
-Auxium
-Crystal Belt
 Variant: Pre 3.5.0
 Variant: Current
-Implicits: 1
-{tags:jewellery_defense}+(60-80) to maximum Energy Shield
+{variant:1,2}LevelReq: 70
+Implicits: 2
+{variant:1,2}{tags:jewellery_defense}+(9-20) to maximum Energy Shield
+{variant:3,4}{tags:jewellery_defense}+(60-80) to maximum Energy Shield
 {tags:jewellery_defense}+(60-70) to maximum Energy Shield
 {tags:mana}+(45-55) to maximum Mana
-{variant:1}{tags:jewellery_defense}Chill Effect and Freeze Duration on you is based on 65% of Energy Shield
-{variant:2}{tags:jewellery_defense}Chill Effect and Freeze Duration on you is based on 100% of Energy Shield
-{variant:1}{tags:attack,jewellery_elemental}(10-20)% increased Elemental Damage with Attack Skills
-{variant:2}{tags:attack,jewellery_elemental}(20-25)% increased Elemental Damage with Attack Skills per Power Charge
-{tags:attack,mana,physical}0.2% of Attack Damage Leeched as Mana per Power Charge
+{variant:1}{tags:attack,mana,physical}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
+{variant:2,3}{tags:jewellery_defense}Chill Effect and Freeze Duration on you are based on 65% of Energy Shield
+{variant:4}{tags:jewellery_defense}Chill Effect and Freeze Duration on you are based on 100% of Energy Shield
+{variant:1}{tags:attack,jewellery_elemental}(20-30)% increased Elemental Damage with Attack Skills
+{variant:2,3}{tags:attack,jewellery_elemental}(10-20)% increased Elemental Damage with Attack Skills
+{variant:4}{tags:attack,jewellery_elemental}(20-25)% increased Elemental Damage with Attack Skills per Power Charge
+{variant:2,3,4}{tags:attack,mana}0.2% of Attack Damage Leeched as Mana per Power Charge
 ]],[[
 The Burden of Truth
 Crystal Belt

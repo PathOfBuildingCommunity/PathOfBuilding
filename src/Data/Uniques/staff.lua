@@ -188,31 +188,19 @@ Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 (120-150)% increased Elemental Damage if you've dealt a Critical Strike Recently
 ]],[[
 Dying Breath
-Coiled Staff
+{variant:1}Coiled Staff
+{variant:2}Iron Staff
 Variant: Pre 2.6.0
-Requires Level 23, 34 Str, 34 Int
-(18-20)% Chance to Block Attack Damage while wielding a Staff
-18% increased Cast Speed
-18% increased maximum Mana
-18% increased Area of Effect of Aura Skills
-18% increased Area of Effect of Curse Skills
-Nearby Enemies have 18% increased Effect of Curses on them
-Nearby allies gain 18% increased Damage
-18% increased effect of Non-Curse Auras you Cast
-]],[[
-Dying Breath
-Iron Staff
 Variant: Current
-Requires Level 13, 27 Str, 27 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 18% increased Cast Speed
 18% increased maximum Mana
 18% increased Area of Effect of Aura Skills
-18% increased Area of Effect of Curse Skills
+18% increased Area of Effect of Hex Skills
 Nearby Enemies have 18% increased Effect of Curses on them
 Nearby allies gain 18% increased Damage
-18% increased effect of Non-Curse Auras you Cast
+18% increased effect of Non-Curse Auras from your Skills
 ]],[[
 The Enmity Divine
 Imperial Staff

@@ -4,13 +4,16 @@ return {
 -- Quiver
 [[
 Asphyxia's Wrath
-Two-Point Arrow Quiver
+{variant:1,2}Two-Point Arrow Quiver
+{variant:3}Feathered Arrow Quiver
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
-Requires Level 36
-Implicits: 1
-(20-30)% increased Global Accuracy Rating
-{variant:2}Grants Level 5 Frostbite Skill
+Variant: Current
+{variant:1,2}LevelReq: 10
+Implicits: 2
+{variant:1,2}(20-30)% increased Global Accuracy Rating
+{variant:3}(20-30)% increased Projectile Speed
+{variant:2,3}Grants Level 5 Frostbite Skill
 (8-12)% increased Attack Speed
 +(30-40)% to Cold Resistance
 (30-40)% increased Chill Duration on Enemies
@@ -19,43 +22,27 @@ Gain 20% of Physical Damage as Extra Cold Damage
 {variant:1}40% reduced Area of Effect of Hex Skills
 Hexes on Slain Enemies are transferred to a nearby Enemy
 ]],[[
-Asphyxia's Wrath
-Feathered Arrow Quiver
-Requires Level 20
-Implicits: 1
-(20-30)% increased Arrow Speed
-Grants Level 5 Frostbite Skill
-(8-12)% increased Attack Speed
-+(30-40)% to Cold Resistance
-(30-40)% increased Chill Duration on Enemies
-Gain 20% of Physical Damage as Extra Cold Damage
-(7-10)% chance to Freeze
-Hexes on Slain Enemies are transferred to a nearby Enemy
-]],[[
 Blackgleam
-Fire Arrow Quiver
+{variant:1}Cured Quiver
+{variant:2,3}Fire Arrow Quiver
+{variant:4}Blazing Arrow Quiver
+Variant: Pre 1.2.0
 Variant: Pre 2.0.0
 Variant: Pre 3.17.0
-Requires Level 22
-Implicits: 1
-3 to 5 Added Fire Damage with Bow Attacks
+Variant: Current
+{variant:1,2,3}LevelReq: 22
+{variant:4}LevelReq: 45
+Implicits: 3
+{variant:1}Adds 2 to 4 Fire Damage to Attacks
+{variant:2,3}4 to 8 Added Fire Damage with Bow Attacks
+{variant:4}Adds 14 to 26 Fire Damage to Attacks
 10% increased Attack Speed
-+(80-100) to Evasion Rating
+{variant:1}+20 to Evasion Rating
+{variant:2,3,4}+(80-100) to Evasion Rating
 +(10-30) to maximum Mana
-{variant:1}(30-50)% of Physical Damage Converted to Fire Damage
-{variant:2}50% of Physical Damage Converted to Fire Damage
-Adds 5 to 10 Fire Damage to Attacks with Bows
-]],[[
-Blackgleam
-Blazing Arrow Quiver
-Requires Level 45
-Implicits: 1
-(12-15) to (24-27) Added Fire Damage with Bow Attacks
-10% increased Attack Speed
-+(80-100) to Evasion Rating
-+(10-30) to maximum Mana
-50% of Physical Damage Converted to Fire Damage
-Adds 5 to 10 Fire Damage to Attacks with Bows
+{variant:1,2}(30-50)% of Physical Damage Converted to Fire Damage
+{variant:3,4}50% of Physical Damage Converted to Fire Damage
+{variant:3,4}5 to 10 Added Fire Damage with Bow Attacks
 ]],[[
 The Signal Fire
 Fire Arrow Quiver
