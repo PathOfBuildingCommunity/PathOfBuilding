@@ -26,7 +26,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.lastEnableExportBuffs = true
 	self.showColorCodes = false
 
-	local notesDesc = [[^7Party stuff	DO NOT EDIT ANY BOXES UNLESS YOU KNOW WHAT YOU ARE DOING, use copy/paste instead, or import]]
+	local notesDesc = [[^7Party stuff	DO NOT EDIT ANY BOXES UNLESS YOU KNOW WHAT YOU ARE DOING, use copy/paste instead, or import
+	To import a build that build must have been saved with Enable Export ticked
+	]]
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, notesDesc)
 	self.controls.notesDesc.width = function()
 		return self.width / 2 - 16
@@ -58,6 +60,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end
 	
 	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle)
+	self.controls.importCodeIn.width = function()
+		return (self.width > 880) and 328 or (self.width / 2 - 100)
+	end
 	self.controls.importCodeIn.enterFunc = function()
 		if self.importCodeValid then
 			self.controls.importCodeGo.onClick()
@@ -141,6 +146,12 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods")
 		self.build.buildFlag = true 
 	end)
+	self.controls.rebuild.x = function()
+		return (self.width > 1260) and 8 or (-328)
+	end
+	self.controls.rebuild.y = function()
+		return (self.width > 1260) and 0 or 28
+	end
 	self.controls.enableExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.rebuild,"RIGHT"}, 100, 0, 18, "Enable Export", function(state)
 		self.enableExportBuffs = state
 	end, "Enables the exporting of auras, cruses and modifiers to the enemy", false)
@@ -149,8 +160,11 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.editAuras.width = function()
 		return self.width / 2 - 16
 	end
+	self.controls.editAuras.y = function()
+		return (self.width > 1260) and 40 or 68
+	end
 	self.controls.editAuras.height = function()
-		return self.height - 148
+		return self.height - 148 - ((self.width > 1260) and 28 or 0)
 	end
 
 	self.controls.enemyCond = new("EditControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
@@ -427,7 +441,7 @@ function PartyTabClass:exportBuffs(buffType)
 	if self.buffExports[buffType].ConvertedToText then
 		return self.buffExports[buffType].string
 	end
-	local buf = ((buffType == "Curse") and tostring(self.buffExports["CurseLimit"] or 0)) or ""
+	local buf = ((buffType == "Curse") and tostring(self.buffExports["CurseLimit"])) or ""
 	for buffName, buff in pairs(self.buffExports[buffType]) do
 		if #buf > 0 then
 			buf = buf.."\n"
