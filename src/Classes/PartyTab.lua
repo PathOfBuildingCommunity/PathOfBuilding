@@ -296,7 +296,7 @@ end
 function PartyTabClass:ParseBuffs(list, buf, buffType)
 	if buffType == "EnemyConditions" then
 		for line in buf:gmatch("([^\n]*)\n?") do
-			list:NewMod(line:gsub("Condition:", "Condition:Party"), "FLAG", true, "Party")
+			list:NewMod(line:gsub("Condition:", "Condition:Party:"), "FLAG", true, "Party")
 		end
 	elseif buffType == "EnemyMods" then
 		local modeName = true
@@ -357,7 +357,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 					t_insert(modStrings, line2)
 				end
 				local mod = {
-					value = tonumber(modStrings[1]),
+					value = (modStrings[1] == "true" and true) or tonumber(modStrings[1]) or 0,
 					source = modStrings[2],
 					name = modStrings[3],
 					type = modStrings[4],
