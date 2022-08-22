@@ -472,6 +472,7 @@ return {
 	{ label = "Inc. Cast Speed", flag = "spell", notFlag = "triggered", { format = "{0:mod:1}%", { modName = "Speed", modType = "INC", cfg = "skill", }, }, },
 	{ label = "More Cast Speed", flag = "spell", notFlag = "triggered", { format = "{0:mod:1}%", { modName = "Speed", modType = "MORE", cfg = "skill", }, }, },
 	{ label = "Casts per second", flag = "spell", notFlag = "triggered", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
+	{ label = "Cast Time", flag = "addsCastTime", { format = "{2:output:addsCastTime}", { breakdown = "AddedCastTime" }, }, },
 	{ label = "Trigger Rate Cap", flag = "triggered", notFlagList = {"focused", "hasOverride"}, { format = "{2:output:ActionTriggerRate}", { breakdown = "ActionTriggerRate" }, { modName = "CooldownRecovery", modType = "INC", cfg = "skill", }, }, },
 	{ label = "Trigger Rate Cap", flagList = {"triggered", "hasOverride"}, notFlag = "focused", { format = "{2:output:ActionTriggerRate}", { breakdown = "ActionTriggerRate" }, { modName = "CooldownRecovery", modType = "OVERRIDE", cfg = "skill", }, }, },
 	{ label = "Trigger Rate Cap", flagList = {"triggered", "focused"}, { format = "{2:output:ActionTriggerRate}", { breakdown = "ActionTriggerRate" }, { modName = "FocusCooldownRecovery", modType = "INC", cfg = "skill", }, }, },
