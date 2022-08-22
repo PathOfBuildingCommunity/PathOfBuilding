@@ -567,8 +567,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						-- Base has not, current has, color red (Remove nodes to match)
 						SetDrawColor(1, 0, 0)
 					else
-						-- Both have or both have not, use white
-						SetDrawColor(1, 1, 1)
+						if node.type == "Mastery" and node.alloc and compareNode.alloc and node.sd[1] ~= compareNode.sd[1] then
+							-- Both have, but both have different option selected
+							SetDrawColor(0.35, 0.35, 0.35)
+						else
+							-- Both have or both have not, use white
+							SetDrawColor(1, 1, 1)
+						end
 					end
 				else
 					SetDrawColor(1, 1, 1)
@@ -592,8 +597,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					-- Base has not, current has, color red (Remove nodes to match)
 					SetDrawColor(1, 0, 0)
 				else
-					-- Both have or both have not, use white
-					SetDrawColor(1, 1, 1)
+					if node.type == "Mastery" and node.alloc and compareNode.alloc and node.sd[1] ~= compareNode.sd[1] then
+						-- Both have, but both have different option selected
+						SetDrawColor(0.35, 0.35, 0.35)
+					else
+						-- Both have or both have not, use white
+						SetDrawColor(1, 1, 1)
+					end
 				end
 			else
 				SetDrawColor(1, 1, 1)
@@ -954,9 +964,10 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		if node.alloc and compareNode then
 			mNode = self.compareSpec.nodes[node.id]
 			if node.sd[1] ~= mNode.sd[1] then
+				tooltip:AddLine(16, "")
 				for i, line in ipairs(node.sd) do
-					addModInfoToTooltip(node, i, "<- "..line)
-					masteryColor = colorCodes.DEXTERITY.."-> "
+					addModInfoToTooltip(node, i, line)
+					masteryColor = colorCodes.DEXTERITY
 				end
 			end
 		end
@@ -982,7 +993,12 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 
 	-- This stanza actives for both Mastery and non Mastery tooltips. Proof: add '"Blah "..' to addModInfoToTooltip
 	if mNode.sd[1] and not mNode.allMasteryOptions then
-		tooltip:AddLine(16, "")
+		if compareNode and node.type == "Mastery" and node.alloc and node.sd[1] ~= mNode.sd[1] then
+			tooltip:AddSeparator(16)
+			tooltip:AddLine(14, "^7This mastery node have been changed to:")
+		else
+			tooltip:AddLine(16, "")
+		end
 		for i, line in ipairs(mNode.sd) do
 			addModInfoToTooltip(mNode, i, masteryColor..line)
 		end
