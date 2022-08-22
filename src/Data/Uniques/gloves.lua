@@ -885,9 +885,9 @@ Adds (8-10) to (13-15) Chaos Damage for each Spider's Web on the Enemy
 Soul Ascension
 Carnal Mitts
 Source: Drops from unique{The Elder} (Uber Uber)
-137% increased Evasion and Energy Shield
-+26% to Chaos Resistance
-Eat a Soul when you Hit a unique Enemy, no more than once every second
+(120-150)% increased Evasion and Energy Shield
++(17-29)% to Chaos Resistance
+Eat a Soul when you Hit a Unique Enemy, no more than once every second
 Lose an Eaten Soul every 3 seconds while no Unique Enemy is in your Presence
 Maximum 50 Eaten Souls
 ]],[[

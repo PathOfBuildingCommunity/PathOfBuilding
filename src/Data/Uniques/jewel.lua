@@ -281,7 +281,7 @@ Variant: Current - Min Frenzy Charge
 {variant:2}4% increased Elemental Damage per Grand Spectrum
 {variant:3}12% increased Elemental Damage per Grand Spectrum
 {variant:4}15% increased Elemental Damage per Grand Spectrum
-{variant:5}15% chance to Avoid Elemental Ailments per Grand Spectrum
+{variant:5}12% chance to Avoid Elemental Ailments per Grand Spectrum
 {variant:6}+1 to Minimum Frenzy Charges per Grand Spectrum
 ]],[[
 The Green Dream
