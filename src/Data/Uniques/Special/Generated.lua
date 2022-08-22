@@ -202,7 +202,7 @@ local forbiddenShako = {
 	"Forbidden Shako",
 	"Great Crown",
 	"League: Harvest",
-	"Source: Drops from unique{Avatar of the Grove}",
+	"Source: Drops from unique{Oshabi, Avatar of the Grove}",
 	"Requires Level 68, 59 Str, 59 Int",
 	"Has Alt Variant: true"
 }
@@ -445,8 +445,8 @@ local impossibleEscape = {
 	"Impossible Escape",
 	"Viridian Jewel",
 	"League: Sentinel",
+	"Source: Drops from unique{The Maven}",
 	"Limited to: 1",
-	"Source: Drops from Uber unique{Maven}",
 	"Radius: Small"
 }
 for _, name in ipairs(impossibleEscapeKeystones) do
@@ -542,7 +542,7 @@ local sublimeVision = {
 [[
 Sublime Vision
 Prismatic Jewel
-Source: Drops from unique{Uber Uber Elder}
+Source: Drops from unique{The Elder} (Uber Uber) or unique{The Shaper} (Uber)
 Limited to: 1
 ]]
 }

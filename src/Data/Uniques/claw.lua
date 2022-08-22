@@ -241,7 +241,7 @@ Hellion's Paw
 Variant: Pre 3.14.0
 Variant: Current
 League: Harvest
-Source: Drops from unique{Avatar of the Grove}
+Source: Drops from unique{Oshabi, Avatar of the Grove}
 Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 1.6% of Physical Attack Damage Leeched as Life
@@ -302,7 +302,6 @@ Adds (25-35) to (50-65) Physical Damage
 ]],[[
 The Scourge
 Terror Claw
-Source: Drops from unique{Guardian of the Chimera}
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 70, 113 Dex, 113 Int

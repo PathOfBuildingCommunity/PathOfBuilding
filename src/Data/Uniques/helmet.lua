@@ -92,6 +92,17 @@ Requires Level 65, 148 Str
 {variant:1}Armour is increased by Uncapped Fire Resistance
 {variant:2}Armour is increased by Overcapped Fire Resistance
 ]],[[
+Echoes of Creation
+Royal Burgonet
+Source: Drops from unique{The Shaper}
+Shaper Item
+Requires Level 65, 148 Str
+Socketed Warcry Skills have +1 Cooldown Use
+(80-120)% increased Armour
++(50-70) to maximum Life
+When you Attack, take (15-20)% of Life as Physical Damage for each Warcry Exerting the Attack
+Skills deal (10-15)% more Damage for each Warcry Exerting them
+]],[[
 Hrimnor's Resolve
 Samnite Helmet
 Variant: Pre 2.0.0
@@ -119,6 +130,10 @@ Attacks have 15% chance to cause Bleeding
 +4% to Damage over Time Multiplier for Bleeding per Frenzy Charge
 Bleeding you inflict deals Damage 4% faster per Frenzy Charge
 (20-30)% chance to gain a Frenzy Charge on Critical Strike at Close Range
+]],[[
+Thrillsteel
+Barbute Helmet
+Onslaught
 ]],
 -- Helmet: Evasion
 [[
@@ -207,7 +222,6 @@ Socketed Gems are Supported by Level 30 Cold to Fire
 ]],[[
 Obscurantis
 Lion Pelt
-Source: Drops from unique{Guardian of the Chimera}
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 70, 150 Dex
@@ -216,6 +230,13 @@ Requires Level 70, 150 Dex
 (100-120)% increased Evasion Rating
 +(50-80) to maximum Life
 1% increased Projectile Attack Damage per 200 Accuracy Rating
+]],[[
+Elevore
+Wolf Pelt
++(20-25)% chance to Suppress Spell Damage
+(60-100)% increased Evasion Rating
+(20-25)% chance to Avoid Elemental Ailments
+Recover (100-200) Life when you Suppress Spell Damage
 ]],[[
 Rat's Nest
 Ursine Pelt
@@ -853,6 +874,7 @@ Cannot lose Crab Barriers if you have lost Crab Barriers Recently
 ]],[[
 Crown of the Inward Eye
 Prophet Crown
+Source: Drops from unique{Sirus, Awakener of Worlds}
 Requires Level 63, 85 Str, 62 Int
 333% increased Armour and Energy Shield
 (9-21)% increased maximum Life, Mana and Global Energy Shield
@@ -1030,7 +1052,6 @@ Minions are Aggressive
 ]],[[
 Memory Vault
 Praetor Crown
-Source: Drops from unique{The Enslaver}
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 68, 62 Str, 91 Int
@@ -1245,7 +1266,6 @@ Leer Cast
 Festival Mask
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 28, 33 Dex, 33 Int
 +(20-30) to Dexterity
 {variant:1}30% reduced Damage
 {variant:2}25% reduced Damage
@@ -1261,7 +1281,6 @@ Festival Mask
 Variant: Pre 3.19.0
 Variant: Current
 League: Heist
-Requires Level 28, 33 Dex, 33 Int
 +(20-30) to Dexterity
 {variant:1}+(20-30) to maximum Life
 {variant:2}+(60-100) to maximum Life
@@ -1368,6 +1387,7 @@ Socketed Gems have 50% reduced Mana Cost
 Viridi's Veil
 Praetor Crown
 League: Ritual
+Source: Drops from unique{The Maven}
 Requires Level 68, 62 Str, 91 Int
 +(1-2) to Level of Socketed Gems
 (120-160)% increased Armour and Energy Shield
@@ -1407,20 +1427,5 @@ Requires Level 68, 66 Str, 66 Dex, 66 Int
 Never deal Critical Strikes
 Nearby Enemies cannot deal Critical Strikes
 Battlemage
-]],[[
-Echoes of Creation
-Royal Burgonet
-Source: Drops from unique{The Shaper}
-Shaper Item
-Requires Level 65, 148 Str
-Socketed Warcry Skills have +1 Cooldown Use
-(80-120)% increased Armour
-+(50-70) to maximum Life
-When you Attack, take (15-20)% of Life as Physical Damage for each Warcry Exerting the Attack
-Skills deal (10-15)% more Damage for each Warcry Exerting them
-]],[[
-Thrillsteel
-Barbute Helmet
-Onslaught
-]]
+]],
 }

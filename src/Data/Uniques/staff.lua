@@ -578,6 +578,7 @@ Grants Level 1 Icestorm Skill
 Witchhunter's Judgment
 Highborn Staff
 League: Harvest
+Source: Drops from unique{Oshabi, Avatar of the Grove}
 Requires Level 68, 89 Str, 89 Int
 Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff

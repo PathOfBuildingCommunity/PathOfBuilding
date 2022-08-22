@@ -712,7 +712,7 @@ Variant: Small Ring
 Variant: Medium Ring
 Variant: Large Ring
 Variant: Very Large Ring
-Variant: Massive Ring
+Variant: Massive Ring (Uber)
 Radius: Variable
 Implicits: 0
 {variant:1}Only affects Passives in Small Ring
@@ -1538,8 +1538,8 @@ Corrupted
 Self-Flagellation
 Viridian Jewel
 Limited to: 1
-An additional Curse can be applied to you
 (10-20)% increased Damage per Curse on you
+An additional Curse can be applied to you
 Corrupted
 ]],[[
 Vaal Sentencing

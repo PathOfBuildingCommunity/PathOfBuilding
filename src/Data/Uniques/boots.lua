@@ -635,6 +635,7 @@ Requires Level 40, 19 Str, 19 Dex
 ]],[[
 Legacy of Fury
 Wyrmscale Boots
+Source: Drops from unique{The Maven}
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
@@ -708,7 +709,6 @@ Alberon's Warpath
 Soldier Boots
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 49, 47 Str, 47 Int
 (15-18)% increased Strength
 Adds 1 to 80 Chaos Damage to Attacks
 +(180-220) to Armour
@@ -724,7 +724,6 @@ Soldier Boots
 Variant: Pre 3.19.0
 Variant: Current
 League: Heist
-Requires Level 49, 47 Str, 47 Int
 (15-18)% increased Strength
 +(180-220) to Armour
 {variant:1}+(9-12)% to Chaos Resistance

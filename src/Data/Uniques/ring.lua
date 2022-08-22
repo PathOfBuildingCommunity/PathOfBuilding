@@ -977,7 +977,6 @@ Snakepit
 Sapphire Ring
 Variant: Pre 3.5.0
 Variant: Current
-Source: Drops from unique{Guardian of the Hydra}
 Requires Level 68
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
@@ -1347,7 +1346,7 @@ Strike Skills also target the previous location they were Used
 ]],[[
 Call of the Void
 Sapphire Ring
-Source: Drops from unique{Uber Elder}
+Source: Drops from unique{The Elder} (Uber)
 Shaper Item
 Elder Item
 Requires Level 16
@@ -1358,5 +1357,11 @@ All Damage with Hits can Chill
 All Damage Taken from Hits can Chill you
 Enemies Chilled by your Hits can be Shattered as though Frozen
 Enemies Chilled by your Hits lessen their Damage dealt by half of Chill Effect
+]],[[
+Kalandra's Touch
+Ring
+League: Kalandra
+Reflects your other Ring
+Mirrored
 ]],
 }

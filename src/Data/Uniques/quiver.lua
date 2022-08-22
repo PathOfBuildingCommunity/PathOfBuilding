@@ -398,5 +398,16 @@ Gain (20-40) Mana per Enemy Killed
 5 Maximum Void Charges
 Gain a Void Charge every 0.5 seconds
 Elder Item
+]],[[
+The Poised Prism
+Primal Arrow Quiver
+Implicits: 1
+(20-30)% increased Elemental Damage with Attack Skills
++(15-25)% to Fire Resistance
++(15-25)% to Cold Resistance
++(15-25)% to Lightning Resistance
+Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
+Adds 1 to 2 Fire Damage to Attacks per 10 Strength
+Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
 ]],
 }

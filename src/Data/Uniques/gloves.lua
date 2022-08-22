@@ -52,6 +52,14 @@ Regenerate (50.0-70.0) Life per second
 10% chance that if you would gain a Crab Barrier, you instead gain up to
 your maximum number of Crab Barriers
 ]],[[
+Kaom's Spirit
+Titan Gauntlets
++(50-70) to Maximum Life
++(20-30)% to Fire Resistance
+(0.3-0.5)% of Physical Attack Damage Leeched as Life
+Life Recovery from Regeneration is not applied
+Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
+]],[[
 Doryani's Fist
 Vaal Gauntlets
 Variant: Pre 3.0.0
@@ -312,7 +320,7 @@ Requires Level 25, 39 Int
 ]],[[
 Black Zenith
 Fingerless Silk Gloves
-Source: Drops from unique{The Black Star}
+Source: Drops from unique{The Infinite Hunger}
 Requires Level 70, 95 Int
 Implicits: 1
 (12-16)% increased Spell Damage
@@ -608,7 +616,7 @@ Hits Overwhelm (10-15)% of Physical Damage Reduction while you have Sacrificial 
 ]],[[
 Hands of the High Templar
 Crusader Gloves
-Requires Level 66, 51 Str, 51 Int
+Source: Drops from unique{Sirus, Awakener of Worlds}
 Can be modified while Corrupted
 Can have up to 5 Implicit Modifiers while Item has this Modifier
 (150-200)% increased Armour and Energy Shield
@@ -761,6 +769,7 @@ Chaos Skills have 20% chance to Ignite
 Abhorrent Interrogation
 Ambush Mitts
 League: Harvest
+Source: Drops from unique{Oshabi, Avatar of the Grove}
 Requires Level 45, 35 Dex, 35 Int
 (100-150)% increased Evasion and Energy Shield
 (5-7)% increased Attack and Cast Speed
@@ -872,6 +881,15 @@ Grants Level 20 Aspect of the Spider Skill
 (6-9)% increased Attack and Cast Speed
 (40-60)% increased Damage with Hits and Ailments against Enemies affected by 3 Spider's Webs
 Adds (8-10) to (13-15) Chaos Damage for each Spider's Web on the Enemy
+]],[[
+Soul Ascension
+Carnal Mitts
+Source: Drops from unique{The Elder} (Uber Uber)
+137% increased Evasion and Energy Shield
++26% to Chaos Resistance
+Eat a Soul when you Hit a unique Enemy, no more than once every second
+Lose an Eaten Soul every 3 seconds while no Unique Enemy is in your Presence
+Maximum 50 Eaten Souls
 ]],[[
 Machina Mitts
 Murder Mitts

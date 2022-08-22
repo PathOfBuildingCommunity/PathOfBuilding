@@ -40,7 +40,6 @@ Adds 2 to 4 Physical Damage to Attacks
 ]],[[
 The Brass Dome
 Gladiator Plate
-Source: Drops from unique{Guardian of the Minotaur}
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 0
@@ -91,6 +90,7 @@ Sadist Garb
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
+Source: Drops from unique{The Maven}
 Implicits: 0
 Grants Level 20 Unhinge Skill
 (40-60)% more Critical Strike Chance while Insane
@@ -711,6 +711,13 @@ Implicits: 0
 {variant:1}25% chance to create Consecrated Ground when you Block
 {variant:2}50% chance to create Consecrated Ground when you Block
 {variant:3,4}100% chance to create Consecrated Ground when you Block
+]],[[
+Ghostwrithe
+Silken Vest
++(100-200)to maximum Energy Shield
++(50-100) to maximum Life
++50% to Chaos Resistance
+50% of Maximum Life Converted to Energy Shield
 ]],
 -- Body: Armour/Evasion
 [[
@@ -1201,7 +1208,7 @@ Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allie
 Shroud of the Lightless
 Carnal Armour
 League: Abyss
-Source: Drops from Abyssal Liches
+Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
 Variant: Two Abyssal Sockets (Pre 3.12.0)
 Variant: One Abyssal Socket (Pre 3.12.0)
 Variant: Two Abyssal Sockets (Current)

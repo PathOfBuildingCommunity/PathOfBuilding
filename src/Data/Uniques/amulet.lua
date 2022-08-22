@@ -349,7 +349,6 @@ Cannot be Stunned
 ]],[[
 Eye of Innocence
 Citrine Amulet
-Source: Drops from unique{Guardian of the Phoenix}
 Requires Level 68
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
@@ -456,7 +455,6 @@ Modifiers to number of Projectiles instead apply to the number of targets Projec
 ]],[[
 Gloomfang
 Blue Pearl Amulet
-Source: Drops from unique{The Purifier}
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 77
@@ -518,6 +516,7 @@ Requires Level 64
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
+LevelReq: 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {variant:1,2}Grants Level 22 Precision Skill
@@ -538,8 +537,7 @@ Jade Amulet
 League: Heist
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
-Variant: Current
-Requires Level 64
+LevelReq: 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Hatred Skill
@@ -547,9 +545,9 @@ Grants Level 22 Hatred Skill
 {variant:3}{tags:jewellery_attribute}+(30-55) to Dexterity
 {variant:1,2}{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
 {variant:1,2}{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
-{variant:3}Bow Attacks have Culling Strike
 {variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {variant:3}{tags:critical}+(18-35)% to Global Critical Strike Multiplier
+{variant:3}Bow Attacks have Culling Strike
 {variant:1,2}{tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
 {variant:1}Hatred has 50% less Reservation
 {variant:2,3}Hatred has 100% increased Mana Reservation Efficiency
@@ -586,7 +584,7 @@ Damage Penetrates 10% Fire Resistance against Blinded Enemies
 ]],[[
 Impresence
 Onyx Amulet
-Source: Drops from unique{The Elder} (Tier 11+)
+Source: Drops from unique{The Elder}
 Variant: Physical
 Variant: Fire
 Variant: Cold
@@ -1160,7 +1158,6 @@ Avatar of Fire
 ]],[[
 Yoke of Suffering
 Onyx Amulet
-Source: Drops from unique{The Eradicator} (Tier 11+)
 Requires Level 70
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes

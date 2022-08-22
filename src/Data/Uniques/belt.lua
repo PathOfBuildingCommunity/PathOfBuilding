@@ -8,6 +8,7 @@ Cloth Belt
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
+Source: Drops from unique{The Maven}
 LevelReq: 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
@@ -61,6 +62,18 @@ Implicits: 1
 {variant:1}{tags:attack,jewellery_elemental}(10-20)% increased Elemental Damage with Attack Skills
 {variant:2}{tags:attack,jewellery_elemental}(20-25)% increased Elemental Damage with Attack Skills per Power Charge
 {tags:attack,mana,physical}0.2% of Attack Damage Leeched as Mana per Power Charge
+]],[[
+The Burden of Truth
+Crystal Belt
+Source: Drops from unique{Sirus, Awakener of Worlds}
+LevelReq: 79
+Implicits: 1
+{tags:jewellery_defense}+(60-80) to maximum Energy Shield
+{tags:life}(30-40)% increased Life Recovery from Flasks
+33% of Chaos Damage taken does not bypass Energy Shield
+33% of Non-Chaos Damage taken bypasses Energy Shield
+{tags:jewellery_defense}Gain (5-10)% of Maximum Life as Extra Maximum Energy Shield
+Supreme Decadence
 ]],[[
 Bated Breath
 Chain Belt
@@ -336,6 +349,7 @@ Cloth Belt
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
+Source: Drops from unique{The Maven}
 LevelReq: 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
@@ -538,6 +552,7 @@ Cloth Belt
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
+Source: Drops from unique{The Maven}
 LevelReq: 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
@@ -823,17 +838,5 @@ Implicits: 1
 {variant:2}{tags:attack,mana,physical}2% of Physical Attack Damage Leeched as Mana
 {variant:2}(500-1000)% increased total Recovery per second from Life Leech
 {variant:2}(500-1000)% increased total Recovery per second from Mana Leech
-]],[[
-The Burden of Truth
-Crystal Belt
-Source: Drops from unique{Sirus, Awakener of Worlds}
-LevelReq: 79
-Implicits: 1
-{tags:jewellery_defense}+(60-80) to maximum Energy Shield
-{tags:life}(30-40)% increased Life Recovery from Flasks
-33% of Chaos Damage taken does not bypass Energy Shield
-33% of Non-Chaos Damage taken bypasses Energy Shield
-{tags:jewellery_defense}Gain (5-10)% of Maximum Life as Extra Maximum Energy Shield
-Supreme Decadence
 ]],
 }

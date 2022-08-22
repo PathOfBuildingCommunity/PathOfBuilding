@@ -236,7 +236,7 @@ Lose all Frenzy Charges on reaching Maximum Frenzy Charges to make the next Bow 
 ]],[[
 Hopeshredder
 Ranger Bow
-Source: Drops from unique{The Elder} (Tier 6+)
+Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 60, 212 Dex
@@ -457,7 +457,6 @@ Gain 10 Mana per Enemy Killed
 ]],[[
 Slivertongue
 Harbinger Bow
-Source: Drops from unique{Guardian of the Hydra}
 Variant: Pre 3.5.0
 Variant: Pre 3.17.0
 Variant: Current

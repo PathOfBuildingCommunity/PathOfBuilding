@@ -268,7 +268,6 @@ Vulconus
 Demon Dagger
 Variant: Pre 3.5.0
 Variant: Current
-Source: Drops from unique{The Enslaver} (Tier 11+)
 Requires Level 68, 76 Dex, 149 Int
 Implicits: 1
 40% increased Global Critical Strike Chance 

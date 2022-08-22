@@ -206,7 +206,7 @@ Implicits: 1
 ]],[[
 Nebuloch
 Nightmare Mace
-Source: Drops from unique{The Elder} (Tier 6+)
+Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 68, 212 Str
@@ -226,7 +226,6 @@ Elder Item
 [[
 Augyre
 Void Sceptre
-Source: Drops from unique{The Purifier} (Tier 11+)
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 104 Str, 122 Int
@@ -293,7 +292,6 @@ Socketed Gems are Supported by Level 15 Innervate
 ]],[[
 The Black Cane
 Royal Sceptre
-Source: Drops from unique{Drox, the Warlord}
 Requires Level 50, 86 Str, 86 Int
 Implicits: 1
 24% increased Elemental Damage
@@ -572,7 +570,6 @@ Shepherd of Souls
 [[
 Brain Rattler 
 Meatgrinder
-Source: Drops from unique{Guardian of the Minotaur}
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current

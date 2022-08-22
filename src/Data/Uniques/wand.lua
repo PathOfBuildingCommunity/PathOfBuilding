@@ -259,7 +259,7 @@ Critical Strikes deal no Damage
 ]],[[
 Shimmeron
 Tornado Wand
-Source: Drops from unique{The Elder} (Tier 6+)
+Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 65, 212 Int
