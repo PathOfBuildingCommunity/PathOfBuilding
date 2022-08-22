@@ -308,6 +308,31 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 			and self.lastEnableExportBuffs ~= self.enableExportBuffs)
 end
 
+function PartyTabClass:ParseTags(line, currentModType) -- should parse this correctly instead of string match
+	local extraTags = {}
+	local modType = currentModType
+	if line:find("type=GlobalEffect/effectType=AuraDebuff") then
+		t_insert(extraTags, {
+			type = "GlobalEffect",
+			effectType = "AuraDebuff"
+		})
+		modType = "AuraDebuff"
+	elseif line:find("type=GlobalEffect/effectType=Aura") then
+		t_insert(extraTags, {
+			type = "GlobalEffect",
+			effectType = "Aura"
+		})
+		modType = "Aura"
+	elseif line:find("type=GlobalEffect/effectType=Curse") then
+		t_insert(extraTags, {
+			type = "GlobalEffect",
+			effectType = "Curse"
+		})
+		modType = "Curse"
+	end
+	return modType, extraTags
+end
+
 function PartyTabClass:ParseBuffs(list, buf, buffType)
 	if buffType == "EnemyConditions" then
 		for line in buf:gmatch("([^\n]*)\n?") do
@@ -367,7 +392,6 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 		else
 			if line:find("|") then
 				local modStrings = {}
-				local modType = currentModType
 				for line2 in line:gmatch("([^|]*)|?") do
 					t_insert(modStrings, line2)
 				end
@@ -379,30 +403,9 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 					flags = ModFlag[modStrings[5]] or 0,
 					keywordFlags = KeywordFlag[modStrings[6]] or 0,
 				}
-				local extraTags = {} -- should parse this correctly instead of string match
-				if modStrings[7]:find("type=GlobalEffect/effectType=AuraDebuff") then
-					t_insert(extraTags, {
-						type = "GlobalEffect",
-						effectType = "AuraDebuff"
-					})
-					modType = "AuraDebuff"
-					currentModType = "AuraDebuff"
-				elseif modStrings[7]:find("type=GlobalEffect/effectType=Aura") then
-					t_insert(extraTags, {
-						type = "GlobalEffect",
-						effectType = "Aura"
-					})
-					modType = "Aura"
-					currentModType = "Aura"
-				elseif modStrings[7]:find("type=GlobalEffect/effectType=Curse") then
-					t_insert(extraTags, {
-						type = "GlobalEffect",
-						effectType = "Curse"
-					})
-					modType = "Curse"
-					currentModType = "Curse"
-				end
-				mod[1] = extraTags[1]
+				local modType, Tags = self:ParseTags(modStrings[7], currentModType)
+				mod[1] = Tags[1]
+				currentModType = modType
 				if not list[modType] then
 					list[modType] = {}
 					list[modType][currentName] = {
