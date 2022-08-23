@@ -35,7 +35,7 @@ Variant: Current
 Implicits: 3
 {variant:1}Adds 2 to 4 Fire Damage to Attacks
 {variant:2,3}4 to 8 Added Fire Damage with Bow Attacks
-{variant:4}Adds 14 to 26 Fire Damage to Attacks
+{variant:4}Adds (12-15) to (24-27) Fire Damage to Attacks
 10% increased Attack Speed
 {variant:1}+20 to Evasion Rating
 {variant:2,3,4}+(80-100) to Evasion Rating
@@ -45,33 +45,28 @@ Implicits: 3
 {variant:3,4}5 to 10 Added Fire Damage with Bow Attacks
 ]],[[
 The Signal Fire
-Fire Arrow Quiver
-Variant: Pre 3.14.0
+{variant:1}Cured Quiver
+{variant:2,3}Fire Arrow Quiver
+{variant:4}Blazing Arrow Quiver
+Variant: Pre 1.2.0
+Variant: Pre 2.0.0
 Variant: Pre 3.17.0
+Variant: Current
 Source: No longer obtainable
-Requires Level 24
-Implicits: 1
-3 to 5 Added Fire Damage with Bow Attacks
+{variant:1,2,3}LevelReq: 24
+{variant:4}LevelReq: 45
+Implicits: 3
+{variant:1}Adds 2 to 4 Fire Damage to Attacks
+{variant:2,3}4 to 8 Added Fire Damage with Bow Attacks
+{variant:4}Adds (12-15) to (24-27) Fire Damage to Attacks
 10% increased Attack Speed
-+(80-100) to Evasion Rating
+{variant:1}+20 to Evasion Rating
+{variant:2,3,4}+(80-100) to Evasion Rating
 +(10-30) to maximum Mana
-{variant:1}Gain (25-35)% of Physical Damage as Extra Fire Damage
-{variant:2}Gain (25-35)% of Physical Attack Damage as Extra Fire Damage
-50% of Physical Damage Converted to Fire Damage
-Adds 5 to 10 Fire Damage to Attacks with Bows
-]],[[
-The Signal Fire
-Blazing Arrow Quiver
-Source: No longer obtainable
-Requires Level 45
-Implicits: 1
-(12-15) to (24-27) Added Fire Damage with Bow Attacks
-10% increased Attack Speed
-+(80-100) to Evasion Rating
-+(10-30) to maximum Mana
+{variant:1,2}(30-50)% of Physical Damage Converted to Fire Damage
+{variant:3,4}50% of Physical Damage Converted to Fire Damage
+{variant:3,4}5 to 10 Added Fire Damage with Bow Attacks
 Gain (25-35)% of Physical Attack Damage as Extra Fire Damage
-50% of Physical Damage Converted to Fire Damage
-Adds 5 to 10 Fire Damage to Attacks with Bows
 ]],[[
 Craghead
 Serrated Arrow Quiver
@@ -326,38 +321,25 @@ Adds (13-18) to (26-32) Physical Damage to Attacks
 ]],[[
 Voidfletcher
 Penetrating Arrow Quiver
-Variant: Pre 3.17.0
-Elder
-Source: Drops from unique{The Elder} (Uber)
-Requires Level 68
-Implicits: 1
-Arrows Pierce an additional Target
-Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows
-Adds (30-40) to (80-100) Cold Damage to Attacks
-+(80-120) to maximum Energy Shield
-+(20-30)% to Cold Resistance
-Gain (20-40) Mana per Enemy Killed
-30% increased Projectile Speed
-5 Maximum Void Charges
-Gain a Void Charge every 0.5 seconds
-Elder Item
-]],[[
-Voidfletcher
 Primal Arrow Quiver
-Elder
+Variant: Pre 3.5.0
+Variant: Pre 3.17.0
+Variant: Current
+Elder Item
 Source: Drops from unique{The Elder} (Uber)
-Requires Level 68
-Implicits: 1
-(20-30)% increased Elemental Damage with Attack Skills
-Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows
+{variant:1,2}LevelReq: 64
+Implicits: 2
+{variant:1,2}Arrows Pierce an additional Target
+{variant:3}(20-30)% increased Elemental Damage with Attack Skills
+Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows with a Non-Triggered Skill
 Adds (30-40) to (80-100) Cold Damage to Attacks
 +(80-120) to maximum Energy Shield
 +(20-30)% to Cold Resistance
 Gain (20-40) Mana per Enemy Killed
 30% increased Projectile Speed
 5 Maximum Void Charges
-Gain a Void Charge every 0.5 seconds
-Elder Item
+{variant:1}Gain a Void Charge every second
+{variant:2,3}Gain a Void Charge every 0.5 seconds
 ]],[[
 The Poised Prism
 Primal Arrow Quiver
