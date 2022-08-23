@@ -2630,10 +2630,16 @@ function calcs.perform(env, avoidCache)
 				env.player.mainSkill.skillData.triggeredByUnique = nil
 				skip = true
 			elseif uniqueTriggerName == "The Hidden Blade" then
-				--self trigger
-				source = env.player.mainSkill
-				spellCount = nil
-				env.player.mainSkill.skillFlags.dontDisplay = true
+				if modDB:Flag(nil, "Condition:Phasing") then
+					--self trigger
+					source = env.player.mainSkill
+					spellCount = nil
+					env.player.mainSkill.skillFlags.dontDisplay = true
+				else
+					env.player.mainSkill.skillFlags.disable = true
+					env.player.mainSkill.disableReason = "This skill is requires you to be phasing"
+					skip = true
+				end
 			elseif uniqueTriggerName == "Limbsplit" or uniqueTriggerName == "The Cauteriser" then
 				triggerName = "Gore Shockwave"
 				spellCount = nil
