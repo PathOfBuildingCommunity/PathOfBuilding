@@ -947,7 +947,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						t_insert(supportList, supportItem)
 					end
 				end
-				for _, gemInstance in ipairs(socketGroup.gemList) do
+				for gemIndex, gemInstance in ipairs(socketGroup.gemList) do
 					-- Add support gems from this group
 					if env.mode == "MAIN" then
 						gemInstance.displayEffect = nil
@@ -973,7 +973,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 								gemInstance.supportEffect = supportEffect
 							end
 							if gemInstance.gemData then
-								for _, value in ipairs(propertyModList) do
+								local socketColor = env.player.itemList[groupCfg.slotName] and env.player.itemList[groupCfg.slotName].sockets and env.player.itemList[groupCfg.slotName].sockets[gemIndex] and env.player.itemList[groupCfg.slotName].sockets[gemIndex].color
+								local socketedInColorCfg = nil
+								if socketColor then
+									socketedInColorCfg = {}
+									for k,v in pairs(groupCfg) do socketedInColorCfg[k] = v end
+									socketedInColorCfg.socketColor = socketColor
+								end
+								for _, value in ipairs(socketedInColorCfg and env.modDB:List(socketedInColorCfg, "GemProperty") or propertyModList) do
 									local match = true
 									if value.keywordList then
 										for _, keyword in ipairs(value.keywordList) do
@@ -1038,7 +1045,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 
 				-- Create active skills
-				for _, gemInstance in ipairs(socketGroup.gemList) do
+				for gemIndex, gemInstance in ipairs(socketGroup.gemList) do
 					if gemInstance.enabled and (gemInstance.gemData or gemInstance.grantedEffect) then
 						local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
 						for index, grantedEffect in ipairs(grantedEffectList) do
@@ -1052,7 +1059,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 									gemData = gemInstance.gemData,
 								}
 								if gemInstance.gemData then
-									for _, value in ipairs(propertyModList) do
+									local socketColor = env.player.itemList[groupCfg.slotName] and env.player.itemList[groupCfg.slotName].sockets and env.player.itemList[groupCfg.slotName].sockets[gemIndex] and env.player.itemList[groupCfg.slotName].sockets[gemIndex].color
+									local socketedInColorCfg = nil
+									if socketColor then
+										socketedInColorCfg = {}
+										for k,v in pairs(groupCfg) do socketedInColorCfg[k] = v end
+										socketedInColorCfg.socketColor = socketColor
+									end
+									for _, value in ipairs(socketedInColorCfg and env.modDB:List(socketedInColorCfg, "GemProperty") or propertyModList) do
 										local match = false
 										if value.keywordList then
 											match = true

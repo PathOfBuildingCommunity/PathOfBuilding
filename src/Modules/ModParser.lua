@@ -2232,6 +2232,8 @@ local specialModList = {
 		end
 		return { mod("GemProperty", "LIST", {keywordList = wordList, key = "level", value = num }) }
 	end,
+	["gems socketed in red sockets have [%+%-](%d+) to level"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}", socketColor = "R"})} end,
+	["gems socketed in green sockets have [%+%-](%d+)%% to quality"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "quality", value = num }, { type = "SocketedIn", slotName = "{SlotName}", socketColor = "G"})} end,
 	-- Extra skill/support
 	["grants (%D+)"] = function(_, skill) return grantedExtraSkill(skill, 1) end,
 	["grants level (%d+) (.+)"] = function(num, _, skill) return grantedExtraSkill(skill, num) end,
