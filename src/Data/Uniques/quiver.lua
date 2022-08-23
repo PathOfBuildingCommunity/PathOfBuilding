@@ -284,25 +284,17 @@ Attack skills can have 1 additional Totem Summoned at a time
 Steelworm
 Broadhead Arrow Quiver
 Variant: Pre 3.17.0
-Requires Level 52
-Implicits: 1
-(8-10)% increased Attack Speed
+Variant: Current
+LevelReq: 52
+Implicits: 2
+{variant:1}6 to 12 Added Physical Damage with Bow Attacks
+{variant:2}(8-10)% increased Attack Speed
 Grants Call of Steel
 (30-60)% increased Evasion Rating and Armour
 Deal no Non-Physical Damage
 Attacks that Fire Projectiles Consume up to 1 additional Steel Shard
-Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 12 Steel Shards
-]],[[
-Steelworm
-Feathered Arrow Quiver
-Requires Level 52
-Implicits: 1
-(20-30)% increased Arrow Speed
-Grants Call of Steel
-(30-60)% increased Evasion Rating and Armour
-Deal no Non-Physical Damage
-Attacks that Fire Projectiles Consume up to 1 additional Steel Shard
-Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 12 Steel Shards
+Skills Fire 3 additional Projectiles for 4 seconds after
+you consume a total of 12 Steel Shards
 ]],[[
 Soul Strike
 Spike-Point Arrow Quiver
