@@ -691,8 +691,8 @@ Requires Level 67, 62 Str, 85 Dex
 {variant:1,4}Socketed Gems are Supported by Level 18 Blind
 {variant:5}Socketed Gems are Supported by Level 30 Blind
 {variant:2,3}Socketed Gems are Supported by Level 6 Blind
-{variant:1,2}15% Chance to Block
-{variant:3,4,5}6% Chance to Block
+{variant:1,2}15% Chance to Block Attack Damage
+{variant:3,4,5}6% Chance to Block Attack Damage
 Adds 20 to 30 Physical Damage to Attacks
 (200-300)% increased Armour and Evasion
 {variant:1,4}+(200-220) to maximum Life
@@ -791,7 +791,7 @@ Requires Level 36, 42 Str, 42 Dex
 {variant:1,2}+(50-70) to maximum Life
 {variant:1,2}+(50-70) to maximum Mana
 {variant:2,3}+(10-20)% to all Elemental Resistances
-{variant:1,2}Minions have 10% Chance to Block
+{variant:1,2}Minions have 10% Chance to Block Attack Damage
 {variant:3}Minions have +25% Chance to Block Attack Damage
 {variant:1,2}Minions have +(300-350) to Armour
 {variant:1,2}Minions Regenerate 2% Life per Second

@@ -17,7 +17,7 @@ Socketed Gems are Supported by Level 12 Fortify
 +(30-50) to maximum Life
 +35 to maximum Energy Shield
 Reflects (71-90) Physical Damage to Melee Attackers
-15% Chance to Block
+15% Chance to Block Attack Damage
 ]],[[
 Replica Advancing Fortress
 Gut Ripper

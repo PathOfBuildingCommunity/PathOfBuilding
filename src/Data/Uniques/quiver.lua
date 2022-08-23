@@ -210,29 +210,19 @@ Implicits: 2
 {variant:2,3}(40-60)% increased Damage with Hits and Ailments against Blinded Enemies
 ]],[[
 Rearguard
-Broadhead Arrow Quiver
+{variant:1}Broadhead Arrow Quiver
+{variant:2}Blunt Arrow Quiver
 Variant: Pre 3.17.0
-Requires Level 49
-Implicits: 1
-(8-10)% increased Attack Speed
+Variant: Current
+Implicits: 2
+{variant:1}6 to 12 Added Physical Damage with Bow Attacks
+{variant:2}(7-9) to (13-16) Added Physical Damage with Bow Attacks
+(20-24)% Chance to Block Attack Damage
+(12-15)% Chance to Block Spell Damage
 +(400-450) to Armour
 (20-30)% increased Projectile Speed
 50% increased Stun and Block Recovery
 (15-20)% increased Projectile Damage
-(20-24)% Chance to Block
-(12-15)% Chance to Block Spells
-]],[[
-Rearguard
-Blunt Arrow Quiver
-Requires Level 31
-Implicits: 1
-(7-9) to (13-16) Added Physical Damage with Bow Attacks
-+(400-450) to Armour
-(20-30)% increased Projectile Speed
-50% increased Stun and Block Recovery
-(15-20)% increased Projectile Damage
-(20-24)% Chance to Block
-(12-15)% Chance to Block Spells
 ]],[[
 Rigwald's Quills
 Two-Point Arrow Quiver

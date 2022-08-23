@@ -94,7 +94,7 @@ Variant: Current
 Implicits: 2
 {variant:1}12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}18% Chance to Block Attack Damage while wielding a Staff
-12% Chance to Block
++12% Chance to Block Attack Damage while wielding a Staff
 100% increased Physical Damage
 (5-10)% increased Attack Speed
 Reflects (22-44) Physical Damage to Attackers on Block
@@ -582,11 +582,11 @@ Requires Level 28, 43 Str, 43 Int
 Implicits: 2
 {variant:1}18% Chance to Block Attack Damage while wielding a Staff
 {variant:2}20% Chance to Block Attack Damage while wielding a Staff
-+1 to Level of all Spell Skill Gems
-15% Chance to Block
++15% Chance to Block Attack Damage while wielding a Staff
 (60-80)% increased Spell Damage
-+(70-100) to Maximum Energy Shield
++(70-100) to maximum Energy Shield
++1 to Level of all Spell Skill Gems
 Reflects 1 to 150 Lightning Damage to Melee Attackers
-20% Chance for Energy Shield Recharge to Start when you Block
+20% chance for Energy Shield Recharge to start when you Block
 ]],
 }
