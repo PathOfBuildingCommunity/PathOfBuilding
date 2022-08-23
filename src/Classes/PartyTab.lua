@@ -205,7 +205,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have changed since loading the build or importing"
 	self.controls.enableExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.rebuild,"RIGHT"}, 100, 0, 18, "Enable Export", function(state)
 		self.enableExportBuffs = state
-	end, "Enables the exporting of auras, cruses and modifiers to the enemy", false)
+	end, "Enables the exporting of auras, curses and modifiers to the enemy", false)
 	self.controls.enableExportBuffs.x = function()
 		return (self.width > 1580) and 100 or ((self.width > 1350) and (-528) or (self.width > 910) and 100 or (-228))
 	end
