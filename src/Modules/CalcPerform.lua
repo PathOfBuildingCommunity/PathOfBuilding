@@ -2141,7 +2141,9 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					if buff.type == "Curse" then
 						curse.modList = new("ModList")
 						curse.modList:ScaleAddList(buff.modList, mult)
-						buffExports["Curse"][buff.name] = { isMark = curse.isMark, effectMult = curse.isMark and mult or (1 + inc / 100) * moreMark, modList = buff.modList }
+						if env.build.partyTab.enableExportBuffs then
+							buffExports["Curse"][buff.name] = { isMark = curse.isMark, effectMult = curse.isMark and mult or (1 + inc / 100) * moreMark, modList = buff.modList }
+						end
 					else
 						-- Curse applies a buff; scale by curse effect, then buff effect
 						local temp = new("ModList")
@@ -3685,6 +3687,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		enemyDB:NewMod("DamageTaken", "INC", enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect, "Consecrated Ground")
 	end
 	
+	-- Export modifiers to enemy conditons and stats for party tab
 	if env.build.partyTab.enableExportBuffs then
 		for k, v in pairs(enemyDB.mods) do
 			if k:find("Condition") and not k:find("Party") then

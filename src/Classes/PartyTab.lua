@@ -73,11 +73,46 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Aura", "Curse", "EnemyConditions", "EnemyMods", "All" })
+	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "All", "Aura", "Curse", "EnemyConditions", "EnemyMods" })
 	self.controls.importCodeMode.enabled = function()
 		return self.importCodeValid
 	end
-	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 8, 0, 160, 20, "Import", function()
+	self.controls.importCodeMode2 = new("DropDownControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 8, 0, 160, 20, { "Replace", "Append", "Clear" })
+	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeMode2,"RIGHT"}, 8, 0, 160, 20, "Import", function()
+		if self.controls.importCodeMode2.selIndex == 1 or self.controls.importCodeMode2.selIndex == 3 then
+			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 2 then
+				self.controls.editAuras:SetText("")
+				wipeTable(self.processedInput["Aura"])
+				self.processedInput["Aura"] = {}
+			end
+			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 3 then
+				self.controls.editCurses:SetText("")
+				wipeTable(self.processedInput["Curse"])
+				self.processedInput["Curse"] = {}
+			end
+			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 4 then
+				self.controls.enemyCond:SetText("")
+			end
+			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 5 then
+				self.controls.enemyMods:SetText("")
+			end
+			if self.controls.importCodeMode2.selIndex == 3 then
+				wipeTable(self.enemyModList)
+				self.enemyModList = new("ModList")
+				self.build.buildFlag = true 
+				return
+			end
+		else
+			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 2 then
+				wipeTable(self.processedInput["Aura"])
+				self.processedInput["Aura"] = {}
+			end
+			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 3 then
+				self.controls.editCurses:SetText("") --curses dont play nicly with append atm, need to fix
+				wipeTable(self.processedInput["Curse"])
+				self.processedInput["Curse"] = {}
+			end
+		end
 		if self.importCodeSite and not self.importCodeXML then
 			return
 		end
@@ -95,31 +130,37 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		-- Load data
 		for _, node in ipairs(dbXML[1]) do
 			if type(node) == "table" and node.elem == "Party" then
-				if self.controls.importCodeMode.selIndex == 1 then
+				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 2 then
+					if #self.controls.editAuras.buf > 0 then
+						node[6].attrib.string = self.controls.editAuras.buf.."\n"..node[6].attrib.string
+					end
 					self.controls.editAuras:SetText(node[6].attrib.string)
-					wipeTable(self.processedInput["Aura"])
-					self.processedInput["Aura"] = {}
-					self:ParseBuffs(self.processedInput["Aura"], node[6].attrib.string, "Aura")
-				elseif self.controls.importCodeMode.selIndex == 2 then
+					self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura")
+				end
+				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 3 then
+					if #self.controls.editCurses.buf > 0 then
+						node[7].attrib.string = self.controls.editCurses.buf.."\n"..node[7].attrib.string
+					end
 					self.controls.editCurses:SetText(node[7].attrib.string)
-					wipeTable(self.processedInput["Curse"])
-					self.processedInput["Curse"] = {}
-					self:ParseBuffs(self.processedInput["Curse"], node[7].attrib.string, "Curse")
-				elseif self.controls.importCodeMode.selIndex == 3 then
+					self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse")
+				end
+				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 4 then
+					if #self.controls.enemyCond.buf > 0 then
+						node[8].attrib.string = self.controls.enemyCond.buf.."\n"..node[8].attrib.string
+					end
 					self.controls.enemyCond:SetText(node[8].attrib.string)
-				elseif self.controls.importCodeMode.selIndex == 4 then
+				end
+				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 5 then
+					if #self.controls.enemyMods.buf > 0 then
+						node[9].attrib.string = self.controls.enemyMods.buf.."\n"..node[9].attrib.string
+					end
 					self.controls.enemyMods:SetText(node[9].attrib.string)
-				elseif self.controls.importCodeMode.selIndex == 5 then
-					self.controls.editAuras:SetText(node[6].attrib.string)
-					wipeTable(self.processedInput["Aura"])
-					self.processedInput["Aura"] = {}
-					self:ParseBuffs(self.processedInput["Aura"], node[6].attrib.string, "Aura")
-					self.controls.editCurses:SetText(node[7].attrib.string)
-					wipeTable(self.processedInput["Curse"])
-					self.processedInput["Curse"] = {}
-					self:ParseBuffs(self.processedInput["Curse"], node[7].attrib.string, "Curse")
-					self.controls.enemyCond:SetText(node[8].attrib.string)
-					self.controls.enemyMods:SetText(node[9].attrib.string)
+				end
+				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 4 or self.controls.importCodeMode.selIndex == 5 then
+					wipeTable(self.enemyModList)
+					self.enemyModList = new("ModList")
+					self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
+					self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods")
 				end
 				self.build.buildFlag = true 
 				break
@@ -128,7 +169,13 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		
 	end)
 	self.controls.importCodeGo.enabled = function()
-		return self.importCodeValid and not self.importCodeFetching
+		return (self.importCodeValid and not self.importCodeFetching) or self.controls.importCodeMode2.selIndex == 3
+	end
+	self.controls.importCodeGo.x = function()
+		return (self.width > 1350) and 8 or (-328)
+	end
+	self.controls.importCodeGo.y = function()
+		return (self.width > 1350) and 0 or 28
 	end
 	self.controls.importCodeGo.enterFunc = function()
 		if self.importCodeValid then
@@ -147,49 +194,54 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods")
 		self.build.buildFlag = true 
 	end)
-	self.controls.rebuild.x = function()
-		return (self.width > 1260) and 8 or (-328)
-	end
-	self.controls.rebuild.y = function()
-		return (self.width > 1260) and 0 or 28
-	end
+	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have changed since loading the build or importing"
 	self.controls.enableExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.rebuild,"RIGHT"}, 100, 0, 18, "Enable Export", function(state)
 		self.enableExportBuffs = state
 	end, "Enables the exporting of auras, cruses and modifiers to the enemy", false)
+	self.controls.enableExportBuffs.x = function()
+		return (self.width > 1580) and 100 or ((self.width > 1350) and (-528) or (self.width > 910) and 100 or (-228))
+	end
+	self.controls.enableExportBuffs.y = function()
+		return (self.width > 1580) and 0 or (self.width > 1350) and 28 or (self.width > 910) and 0 or 28
+	end
 
-	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.importCodeMode,"TOPLEFT"}, 0, 40, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.importCodeMode,"TOPLEFT"}, 0, 40, 150, 16, "^7Auras")
+	self.controls.editAurasLabel.y = function()
+		return (self.width > 1350) and 40 or 68
+	end
+	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, 0, 18, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editAuras.width = function()
 		return self.width / 2 - 16
 	end
-	self.controls.editAuras.y = function()
-		return (self.width > 1260) and 40 or 68
-	end
 	self.controls.editAuras.height = function()
-		return self.height - 154 - ((self.width > 1260) and 0 or 28)
+		return self.height - 172 - ((self.width > 1260) and 0 or 28)
 	end
 
-	self.controls.enemyCond = new("EditControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.enemyCondLabel = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 150, 16, "^7Enemy Conditions")
+	self.controls.enemyCond = new("EditControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.enemyCond.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.enemyCond.height = function()
-		return (self.controls.enemyCond.hasFocus and (self.height - 286) or 122)
+		return (self.controls.enemyCond.hasFocus and (self.height - 304) or 106)
 	end
 
-	self.controls.enemyMods = new("EditControl", {"TOPLEFT",self.controls.enemyCond,"BOTTOMLEFT"}, 0, 10, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.enemyModsLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyCond,"BOTTOMLEFT"}, 0, 8, 150, 16, "^7Enemy Modifiers")
+	self.controls.enemyMods = new("EditControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.enemyMods.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.enemyMods.height = function()
-		return (self.controls.enemyMods.hasFocus and (self.height - 286) or 122)
+		return (self.controls.enemyMods.hasFocus and (self.height - 304) or 106)
 	end
 
-	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.enemyMods,"BOTTOMLEFT"}, 0, 10, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
+	self.controls.editCursesLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyMods,"BOTTOMLEFT"}, 0, 8, 150, 16, "^7Curses")
+	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.editCursesLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editCurses.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.editCurses.height = function()
-		return ((not self.controls.enemyCond.hasFocus and not self.controls.enemyMods.hasFocus) and (self.height - 286) or 122)
+		return ((not self.controls.enemyCond.hasFocus and not self.controls.enemyMods.hasFocus) and (self.height - 304) or 106)
 	end
 	self:SelectControl(self.controls.editAuras)
 end)
