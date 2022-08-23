@@ -130,6 +130,8 @@ Regenerate 2 Mana per Second per Power Charge
 ]],[[
 Disintegrator
 Maelstrom Staff
+Shaper Item
+Elder Item
 Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
@@ -151,7 +153,6 @@ Gain 4% of Non-Chaos Damage as extra Chaos Damage per Siphoning Charge
 1% additional Physical Damage Reduction from Hits per Siphoning Charge
 0.2% of Damage Leeched as Life per Siphoning Charge
 Take 150 Physical Damage per Second per Siphoning Charge if you've used a Skill Recently
-Elder Item
 ]],[[
 Duskdawn
 Maelström Staff

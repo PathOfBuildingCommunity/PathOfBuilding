@@ -584,6 +584,7 @@ Damage Penetrates 10% Fire Resistance against Blinded Enemies
 ]],[[
 Impresence
 Onyx Amulet
+Elder Item
 Source: Drops from unique{The Elder}
 Variant: Physical
 Variant: Fire
@@ -615,7 +616,6 @@ Implicits: 1
 {variant:4}Conductivity has no Reservation if Cast as an Aura
 {variant:5}Despair has no Reservation if Cast as an Aura
 Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
-Elder Item
 ]],[[
 Karui Ward
 Jade Amulet
@@ -891,6 +891,7 @@ Implicits: 1
 ]],[[
 Solstice Vigil
 Onyx Amulet
+Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.10.0
 Variant: Current
@@ -1171,9 +1172,9 @@ Your Elemental Damage can Shock
 ]],[[
 The Eternal Struggle
 Onyx Amulet
-Source: Drops from unique{The Black Star} or unique{The Infinite Hunger}
 Searing Exarch Item
 Eater of Worlds Item
+Source: Drops from unique{The Black Star} or unique{The Infinite Hunger}
 Requires Level 61
 Implicits: 2
 9% increased Mana Reservation Efficiency of Skills

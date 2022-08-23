@@ -176,6 +176,7 @@ Implicits: 1
 ]],[[
 Cyclopean Coil
 Leather Belt
+Elder Item
 Source: Drops from unique{The Elder}
 LevelReq: 68
 Implicits: 1
@@ -186,7 +187,6 @@ Cannot be Frozen if Dexterity is higher than Intelligence
 Cannot be Ignited if Strength is higher than Dexterity
 Cannot be Shocked if Intelligence is higher than Strength
 {tags:life}1% increased Damage per 5 of your lowest Attribute
-Elder Item
 ]],[[
 Darkness Enthroned
 Stygian Vise

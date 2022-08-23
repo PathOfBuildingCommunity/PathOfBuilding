@@ -861,6 +861,7 @@ Cannot be Frozen
 ]],[[
 Starforge
 Infernal Sword
+Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.11.0
 Variant: Current
@@ -874,7 +875,6 @@ Implicits: 2
 Your Physical Damage can Shock
 20% increased Area of Effect for Attacks
 Deal no Elemental Damage
-Shaper Item
 ]],[[
 Terminus Est
 Tiger Sword
@@ -895,6 +895,8 @@ Gain a Frenzy Charge on Critical Strike
 ]],[[
 Voidforge
 Infernal Sword
+Shaper Item
+Elder Item
 Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.11.0
 Variant: Current
@@ -909,6 +911,5 @@ Your Elemental Damage can Shock
 Gain 300% of Weapon Physical Damage as Extra Damage of a random Element
 20% increased Area of Effect for Attacks
 Deal no Non-Elemental Damage
-Elder Item
 ]],
 }

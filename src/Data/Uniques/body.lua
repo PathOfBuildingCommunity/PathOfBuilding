@@ -1116,6 +1116,7 @@ Socketed Gems are Supported by Level 10 Chance to Poison
 The Eternity Shroud
 Blood Raiment
 Shaper Item
+Elder Item
 Source: Drops from unique{The Elder} (Uber)
 Implicits: 0
 Trigger Level 20 Glimpse of Eternity when Hit
@@ -1127,6 +1128,7 @@ Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Shaper Item
 ]],[[
 Replica Eternity Shroud
 Blood Raiment
+Shaper Item
 Elder Item
 League: Heist
 Implicits: 0

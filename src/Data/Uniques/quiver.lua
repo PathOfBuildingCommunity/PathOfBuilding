@@ -322,10 +322,11 @@ Adds (13-18) to (26-32) Physical Damage to Attacks
 Voidfletcher
 Penetrating Arrow Quiver
 Primal Arrow Quiver
+Shaper Item
+Elder Item
 Variant: Pre 3.5.0
 Variant: Pre 3.17.0
 Variant: Current
-Elder Item
 Source: Drops from unique{The Elder} (Uber)
 {variant:1,2}LevelReq: 64
 Implicits: 2

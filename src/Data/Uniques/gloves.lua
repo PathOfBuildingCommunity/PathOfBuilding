@@ -688,6 +688,7 @@ You grant (4-6) Frenzy Charges to allies on Death
 ]],[[
 Shaper's Touch
 Crusader Gloves
+Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 2.6.0
 Variant: Pre 3.10.0
@@ -705,7 +706,6 @@ Requires Level 66, 51 Str, 51 Int
 {variant:2,3}2% increased Evasion Rating per 10 Intelligence
 {variant:1}1% increased Melee Physical Damage per 10 Dexterity
 {variant:2,3}2% increased Melee Physical Damage per 10 Dexterity
-Shaper Item
 ]],[[
 Southbound
 Soldier Gloves
@@ -833,6 +833,7 @@ Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed
 ]],[[
 Blasphemer's Grasp
 Assassin's Mitts
+Elder Item
 Source: Drops from unique{The Elder}
 Requires Level 58, 45 Dex, 45 Int
 +(40-50) to Dexterity
@@ -842,7 +843,6 @@ Requires Level 58, 45 Dex, 45 Int
 +4% to Damage over Time Multiplier for Ailments per Elder Item Equipped
 8% increased Effect of non-Damaging Ailments per Elder Item Equipped
 Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
-Elder Item
 ]],[[
 The Embalmer
 Carnal Mitts
@@ -884,6 +884,7 @@ Adds (8-10) to (13-15) Chaos Damage for each Spider's Web on the Enemy
 ]],[[
 Soul Ascension
 Carnal Mitts
+Elder Item
 Source: Drops from unique{The Elder} (Uber Uber)
 (120-150)% increased Evasion and Energy Shield
 +(17-29)% to Chaos Resistance

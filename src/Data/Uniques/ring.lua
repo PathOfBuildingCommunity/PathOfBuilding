@@ -650,6 +650,7 @@ Has 1 Socket
 ]],[[
 Mark of the Elder
 Steel Ring
+Elder Item
 Source: Drops from unique{The Elder} (Uber)
 Requires Level 80
 Implicits: 1
@@ -660,10 +661,10 @@ Implicits: 1
 {tags:attack}(60-80)% increased Attack Damage if your other Ring is a Shaper Item
 Cannot be Stunned by Attacks if your other Ring is an Elder Item
 20% chance to Trigger Level 20 Tentacle Whip on Kill
-Elder Item
 ]],[[
 Mark of the Shaper
 Opal Ring
+Shaper Item
 Source: Drops from unique{The Elder} (Uber)
 Requires Level 80
 Implicits: 1
@@ -674,7 +675,6 @@ Implicits: 1
 {tags:caster}(60-80)% increased Spell Damage if your other Ring is an Elder Item
 Cannot be Stunned by Spells if your other Ring is a Shaper Item
 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill
-Shaper Item
 ]],[[
 Ming's Heart
 Amethyst Ring
@@ -1346,9 +1346,9 @@ Strike Skills also target the previous location they were Used
 ]],[[
 Call of the Void
 Sapphire Ring
-Source: Drops from unique{The Elder} (Uber)
 Shaper Item
 Elder Item
+Source: Drops from unique{The Elder} (Uber)
 Requires Level 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance

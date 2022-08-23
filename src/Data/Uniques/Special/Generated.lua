@@ -542,6 +542,7 @@ local sublimeVision = {
 [[
 Sublime Vision
 Prismatic Jewel
+Shaper Item
 Source: Drops from unique{The Elder} (Uber Uber) or unique{The Shaper} (Uber)
 Limited to: 1
 ]]

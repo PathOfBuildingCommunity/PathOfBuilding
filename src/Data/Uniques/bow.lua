@@ -236,6 +236,7 @@ Lose all Frenzy Charges on reaching Maximum Frenzy Charges to make the next Bow 
 ]],[[
 Hopeshredder
 Ranger Bow
+Elder Item
 Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
@@ -249,7 +250,6 @@ Adds (130-150) to (270-300) Cold Damage
 0.5% of Attack Damage Leeched as Life per Frenzy Charge
 {variant:1}400 Cold Damage taken per second per Frenzy Charge while moving
 {variant:2}200 Cold Damage taken per second per Frenzy Charge while moving
-Elder Item
 ]],[[
 Infractem
 Decimation Bow

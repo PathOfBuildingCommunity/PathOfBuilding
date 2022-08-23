@@ -206,6 +206,7 @@ Implicits: 1
 ]],[[
 Nebuloch
 Nightmare Mace
+Elder Item
 Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
@@ -220,12 +221,12 @@ Adds 5 to 8 Physical Damage per Endurance Charge
 +500 to Armour per Endurance Charge 
 {variant:1}400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 {variant:2}200 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
-Elder Item
 ]],
 -- Weapon: Sceptre
 [[
 Augyre
 Void Sceptre
+Elder Item
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 104 Str, 122 Int
@@ -238,7 +239,6 @@ Implicits: 1
 Every 16 seconds you gain Elemental Overload for 8 seconds 
 You have Resolute Technique while you do not have Elemental Overload
 {variant:2}100% increased Physical Damage while you have Resolute Technique
-Elder Item
 ]],[[
 Axiom Perpetuum
 Bronze Sceptre

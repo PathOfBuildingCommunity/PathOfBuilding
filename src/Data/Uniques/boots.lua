@@ -970,6 +970,7 @@ Regenerate (75.0-125.0) Life per second while Ignited
 ]],[[
 Voidwalker
 Murder Boots
+Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.0.0
 Variant: Current
@@ -982,7 +983,6 @@ You have Phasing if you've Killed Recently
 {variant:1}Projectiles Pierce all Targets while you have Phasing
 {variant:2}Projectiles Pierce 5 additional Targets while you have Phasing
 Celestial Footprints
-Shaper Item
 ]],[[
 Replica Voidwalker
 Murder Boots

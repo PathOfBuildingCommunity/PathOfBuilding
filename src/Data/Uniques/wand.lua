@@ -259,6 +259,7 @@ Critical Strikes deal no Damage
 ]],[[
 Shimmeron
 Tornado Wand
+Elder Item
 Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
@@ -273,7 +274,6 @@ Adds (26-35) to (95-105) Lightning Damage to Spells
 Adds 3 to 9 Lightning Damage to Spells per Power Charge 
 {variant:1}400 Lightning Damage taken per second per Power Charge if you've dealt a Critical Strike Recently
 {variant:2}200 Lightning Damage taken per second per Power Charge if your Skills have dealt a Critical Strike Recently
-Elder Item
 ]],[[
 Storm Prison
 Carved Wand

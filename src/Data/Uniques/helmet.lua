@@ -93,9 +93,9 @@ Requires Level 65, 148 Str
 {variant:2}Armour is increased by Overcapped Fire Resistance
 ]],[[
 Echoes of Creation
+Shaper Item
 Royal Burgonet
 Source: Drops from unique{The Shaper}
-Shaper Item
 Requires Level 65, 148 Str
 Socketed Warcry Skills have +1 Cooldown Use
 (80-120)% increased Armour
@@ -521,6 +521,8 @@ Recover (2-3)% of Energy Shield when you lose a Spirit Charge
 ]],[[
 Indigon
 Hubris Circlet
+Shaper Item
+Elder Item
 Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.5.0
 Variant: Current
@@ -532,7 +534,6 @@ Non-instant Mana recovery from Flasks is also recovered as Life
 (50-60)% increased Cost of Skills for each 200 total Mana Spent Recently
 {variant:1}(50-60)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
 {variant:2}(20-25)% increased Spell Damage for each 200 total Mana you have Spent Recently, up to 2000%
-Shaper Item
 ]],[[
 Mark of the Red Covenant
 Tribal Circlet
