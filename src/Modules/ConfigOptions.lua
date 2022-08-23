@@ -1722,19 +1722,19 @@ Huge sets the radius to 11.
 		end
 	end },
 	{ var = "enemyPhysicalReduction", type = "integer", label = "Enemy Phys. Damage Reduction:", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("PhysicalDamageReduction", "BASE", val, "EnemyConfig")
+		enemyModList:NewMod("PhysicalDamageReduction", "BASE", val, "Config")
 	end },
 	{ var = "enemyLightningResist", type = "integer", label = "Enemy ^xADAA47Lightning Resistance:", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("LightningResist", "BASE", val, "EnemyConfig")
+		enemyModList:NewMod("LightningResist", "BASE", val, "Config")
 	end },
 	{ var = "enemyColdResist", type = "integer", label = "Enemy ^x3F6DB3Cold Resistance:", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("ColdResist", "BASE", val, "EnemyConfig")
+		enemyModList:NewMod("ColdResist", "BASE", val, "Config")
 	end },
 	{ var = "enemyFireResist", type = "integer", label = "Enemy ^xB97123Fire Resistance:", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("FireResist", "BASE", val, "EnemyConfig")
+		enemyModList:NewMod("FireResist", "BASE", val, "Config")
 	end },
 	{ var = "enemyChaosResist", type = "integer", label = "Enemy ^xD02090Chaos Resistance:", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("ChaosResist", "BASE", val, "EnemyConfig")
+		enemyModList:NewMod("ChaosResist", "BASE", val, "Config")
 	end },
 	{ var = "enemyBlockChance", type = "integer", label = "Enemy Block Chance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("BlockChance", "BASE", val, "Config")
