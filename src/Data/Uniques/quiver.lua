@@ -189,34 +189,25 @@ Trigger a Socketed Bow Skill when you Cast a Spell while wielding a Bow
 5% chance to Blind Enemies on Hit with Attacks
 ]],[[
 Maloney's Nightfall
-Blunt Arrow Quiver
+{variant:1,2}Blunt Arrow Quiver
+{variant:3}Vile Arrow Quiver
 Variant: Pre 2.6.0
 Variant: Pre 3.17.0
-Requires Level 55
-Implicits: 1
-(7-9) to (13-16) Added Physical Damage with Bow Attacks
+Variant: Current
+LevelReq: 55
+Implicits: 2
+{variant:1,2}(25-35)% increased Stun Duration on Enemies
+{variant:3}Gain (10-15)% of Physical Damage as Extra Chaos Damage
 {variant:1}(8-10)% increased Attack Speed
-{variant:2}10% increased Attack Speed
+{variant:2,3}10% increased Attack Speed
 +(50-70) to maximum Life
 +(12-16)% to Chaos Resistance
 {variant:1}Adds (5-7) to (8-10) Physical Damage to Attacks with Bows
-{variant:2}Adds (8-10) to (14-16) Physical Damage to Attacks with Bows
+{variant:2,3}Adds (8-10) to (14-16) Physical Damage to Attacks with Bows
 {variant:1}10% chance to create a Smoke Cloud when Hit
-{variant:2}25% chance to create a Smoke Cloud when Hit
+{variant:2,3}25% chance to create a Smoke Cloud when Hit
 {variant:1}(20-40)% increased Damage with Hits and Ailments against Blinded Enemies
-{variant:2}(40-60)% increased Damage with Hits and Ailments against Blinded Enemies
-]],[[
-Maloney's Nightfall
-Vile Arrow Quiver
-Requires Level 55
-Implicits: 1
-Gain (10-15)% of Physical Damage as Extra Chaos Damage
-10% increased Attack Speed
-+(50-70) to maximum Life
-+(12-16)% to Chaos Resistance
-Adds (8-10) to (14-16) Physical Damage to Attacks with Bows
-25% chance to create a Smoke Cloud when Hit
-(40-60)% increased Damage with Hits and Ailments against Blinded Enemies
+{variant:2,3}(40-60)% increased Damage with Hits and Ailments against Blinded Enemies
 ]],[[
 Rearguard
 Broadhead Arrow Quiver
