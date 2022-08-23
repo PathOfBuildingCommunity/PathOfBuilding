@@ -357,10 +357,10 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 	self:DrawControls(viewPort)
 
 	self.modFlag = (self.lastContentAura ~= self.controls.editAuras.buf 
-			and self.lastContentCurse ~= self.controls.editCurses.buf
-			and self.lastContentEnemyCond ~= self.controls.enemyCond.buf
-			and self.lastContentEnemyMods ~= self.controls.enemyMods.buf
-			and self.lastEnableExportBuffs ~= self.enableExportBuffs)
+			or self.lastContentCurse ~= self.controls.editCurses.buf
+			or self.lastContentEnemyCond ~= self.controls.enemyCond.buf
+			or self.lastContentEnemyMods ~= self.controls.enemyMods.buf
+			or self.lastEnableExportBuffs ~= self.enableExportBuffs)
 end
 
 function PartyTabClass:ParseTags(line, currentModType) -- should parse this correctly instead of string match
