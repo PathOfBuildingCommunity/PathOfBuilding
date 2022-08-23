@@ -186,17 +186,22 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 	end
 	
-	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.importCodeGo,"RIGHT"}, 8, 0, 160, 20, "Rebuild", function() 
+	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.importCodeGo,"RIGHT"}, 8, 0, 160, 20, "Rebuild All", function() 
 		wipeTable(self.processedInput)
 		wipeTable(self.enemyModList)
 		self.processedInput = { Aura = {}, Curse = {} }
 		self.enemyModList = new("ModList")
-		self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura")
-		self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse")
-		self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
-		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods")
+		if self.controls.importCodeMode2.selIndex ~= 3 then
+			self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura")
+			self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse")
+			self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
+			self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods")
+		end
 		self.build.buildFlag = true 
 	end)
+	self.controls.rebuild.label = function()
+		return self.controls.importCodeMode2.selIndex == 3 and "Remove effects" or "Rebuild All"
+	end
 	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have changed since loading the build or importing"
 	self.controls.enableExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.rebuild,"RIGHT"}, 100, 0, 18, "Enable Export", function(state)
 		self.enableExportBuffs = state
@@ -424,7 +429,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 				for line2 in line:gmatch("([^|]*)|?") do
 					t_insert(modStrings, line2)
 				end
-				local tags = nil -- modStrings[7]
+				local tags = nil -- modStrings[7], should be done with a mdofified version of "PartyTabClass:ParseTags" where conditions check vs the party and check that the ones in the build are NOT true, such that your effects override the supports
 				list:NewMod(modStrings[3], modStrings[4], tonumber(modStrings[1]), "Party"..modStrings[2], ModFlag[modStrings[5]] or 0, KeywordFlag[modStrings[6]] or 0, tags)
 			end
 		end
