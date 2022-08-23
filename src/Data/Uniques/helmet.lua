@@ -740,8 +740,7 @@ Requires Level 33, 38 Str, 38 Dex
 {variant:2}Adds 10-20 Physical Damage to Attacks
 20% increased Melee Damage
 Cannot Leech when on Low Life
-You and nearby allies have 20% increased Attack, Cast and Movement
-Speed if you've used a Warcry Recently
+If you've Warcried Recently, you and nearby allies have 20% increased Attack, Cast and Movement Speed
 ]],[[
 Devoto's Devotion
 Nightmare Bascinet

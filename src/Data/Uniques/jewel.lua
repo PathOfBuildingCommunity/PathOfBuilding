@@ -1359,9 +1359,9 @@ Variant: Current
 Limited to: 1
 Radius: Medium
 (8-15)% increased Armour
-{variant:1}With at least 40 Strength in Radius, Vigilant Strike also Fortifies Nearby Allies for 3 seconds.
-{variant:2}With at least 40 Strength in Radius, Vigilant Strike Fortifies you and Nearby Allies for 12 seconds
-{variant:3}With at least 40 Strength in Radius, Vigilant Strike Fortifies you and Nearby Allies for 8 seconds
+{variant:1}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 3 seconds
+{variant:2}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 12 seconds
+{variant:3}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 8 seconds
 ]],[[
 Violent Dead
 Cobalt Jewel
