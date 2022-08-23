@@ -366,24 +366,41 @@ end
 function PartyTabClass:ParseTags(line, currentModType) -- should parse this correctly instead of string match
 	local extraTags = {}
 	local modType = currentModType
-	if line:find("type=GlobalEffect/effectType=AuraDebuff") then
-		t_insert(extraTags, {
-			type = "GlobalEffect",
-			effectType = "AuraDebuff"
-		})
-		modType = "AuraDebuff"
-	elseif line:find("type=GlobalEffect/effectType=Aura") then
-		t_insert(extraTags, {
-			type = "GlobalEffect",
-			effectType = "Aura"
-		})
-		modType = "Aura"
-	elseif line:find("type=GlobalEffect/effectType=Curse") then
-		t_insert(extraTags, {
-			type = "GlobalEffect",
-			effectType = "Curse"
-		})
-		modType = "Curse"
+	for line2 in line:gmatch("([^,]*),?") do
+		if line2:find("type=GlobalEffect/") then
+			if line2:find("type=GlobalEffect/effectType=AuraDebuff") then
+				t_insert(extraTags, {
+					type = "GlobalEffect",
+					effectType = "AuraDebuff"
+				})
+				modType = "AuraDebuff"
+			elseif line2:find("type=GlobalEffect/effectType=Aura") then
+				t_insert(extraTags, {
+					type = "GlobalEffect",
+					effectType = "Aura"
+				})
+				modType = "Aura"
+			elseif line2:find("type=GlobalEffect/effectType=Curse") then
+				t_insert(extraTags, {
+					type = "GlobalEffect",
+					effectType = "Curse"
+				})
+				modType = "Curse"
+			end
+		elseif line2:find("type=Condition/") then
+			if line2:find("type=Condition/neg=true/var=RareOrUnique") then
+				t_insert(extraTags, {
+					type = "Condition",
+					neg = true,
+					var = "RareOrUnique"
+				})
+			elseif line2:find("type=Condition/var=RareOrUnique") then
+				t_insert(extraTags, {
+					type = "Condition",
+					var = "RareOrUnique"
+				})
+			end
+		end
 	end
 	return modType, extraTags
 end
@@ -459,7 +476,12 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 					keywordFlags = KeywordFlag[modStrings[6]] or 0,
 				}
 				local modType, Tags = self:ParseTags(modStrings[7], currentModType)
-				mod[1] = Tags[1]
+				ConPrintf("---")
+				ConPrintTable(Tags)
+				for _, tag in ipairs(Tags) do
+					t_insert(mod, tag)
+				end
+				ConPrintTable(mod)
 				currentModType = modType
 				if not list[modType] then
 					list[modType] = {}
