@@ -168,6 +168,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 		
 	end)
+	self.controls.importCodeGo.label = function()
+		return self.controls.importCodeMode2.selIndex == 3 and "Clear" or "Import"
+	end
 	self.controls.importCodeGo.enabled = function()
 		return (self.importCodeValid and not self.importCodeFetching) or self.controls.importCodeMode2.selIndex == 3
 	end
