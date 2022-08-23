@@ -230,8 +230,6 @@ data.unarmedWeaponData = {
 	[6] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Shadow
 }
 
-data.influenceTypes = { "shaper", "elder", "adjudicator", "basilisk", "crusader", "eyrie"}
-
 data.cursePriority = {
 	["Temporal Chains"] = 1, -- Despair and Elemental Weakness override Temporal Chains.
 	["Enfeeble"] = 2, -- Elemental Weakness and Vulnerability override Enfeeble.

@@ -432,10 +432,12 @@ function ItemClass:ParseRaw(raw)
 					end
 					self.corruptible = self.base.type ~= "Flask"
 					self.influenceTags = { }
-					for _, influenceTag in ipairs(data.influenceTypes) do
-						self.influenceTags[influenceTag] = { }
+					for _, influenceTag in ipairs(influenceInfo) do
+						self.influenceTags[influenceTag.key] = { }
 						for tag, _ in pairs(self.base.tags) do
-							t_insert(self.influenceTags[influenceTag], tag..'_'..influenceTag)
+							if(tag ~= "default") then
+								t_insert(self.influenceTags[influenceTag.key], tag..'_'..influenceTag.key)
+							end
 						end
 					end
 					self.canBeInfluenced = self.influenceTags
