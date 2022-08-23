@@ -132,29 +132,29 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			if type(node) == "table" and node.elem == "Party" then
 				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 2 then
 					if #self.controls.editAuras.buf > 0 then
-						node[6].attrib.string = self.controls.editAuras.buf.."\n"..node[6].attrib.string
+						node[5].attrib.string = self.controls.editAuras.buf.."\n"..node[5].attrib.string
 					end
-					self.controls.editAuras:SetText(node[6].attrib.string)
+					self.controls.editAuras:SetText(node[5].attrib.string)
 					self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura")
 				end
 				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 3 then
 					if #self.controls.editCurses.buf > 0 then
-						node[7].attrib.string = self.controls.editCurses.buf.."\n"..node[7].attrib.string
+						node[6].attrib.string = self.controls.editCurses.buf.."\n"..node[6].attrib.string
 					end
-					self.controls.editCurses:SetText(node[7].attrib.string)
+					self.controls.editCurses:SetText(node[6].attrib.string)
 					self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse")
 				end
 				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 4 then
 					if #self.controls.enemyCond.buf > 0 then
-						node[8].attrib.string = self.controls.enemyCond.buf.."\n"..node[8].attrib.string
+						node[7].attrib.string = self.controls.enemyCond.buf.."\n"..node[7].attrib.string
 					end
-					self.controls.enemyCond:SetText(node[8].attrib.string)
+					self.controls.enemyCond:SetText(node[7].attrib.string)
 				end
 				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 5 then
 					if #self.controls.enemyMods.buf > 0 then
-						node[9].attrib.string = self.controls.enemyMods.buf.."\n"..node[9].attrib.string
+						node[8].attrib.string = self.controls.enemyMods.buf.."\n"..node[8].attrib.string
 					end
-					self.controls.enemyMods:SetText(node[9].attrib.string)
+					self.controls.enemyMods:SetText(node[8].attrib.string)
 				end
 				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 4 or self.controls.importCodeMode.selIndex == 5 then
 					wipeTable(self.enemyModList)
@@ -203,15 +203,6 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return self.controls.importCodeMode2.selIndex == 3 and "Remove effects" or "Rebuild All"
 	end
 	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have changed since loading the build or importing"
-	self.controls.enableExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.rebuild,"RIGHT"}, 100, 0, 18, "Enable Export", function(state)
-		self.enableExportBuffs = state
-	end, "Enables the exporting of auras, curses and modifiers to the enemy", false)
-	self.controls.enableExportBuffs.x = function()
-		return (self.width > 1580) and 100 or ((self.width > 1350) and (-528) or (self.width > 910) and 100 or (-228))
-	end
-	self.controls.enableExportBuffs.y = function()
-		return (self.width > 1580) and 0 or (self.width > 1350) and 28 or (self.width > 910) and 0 or 28
-	end
 
 	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.importCodeMode,"TOPLEFT"}, 0, 40, 150, 16, "^7Auras")
 	self.controls.editAurasLabel.y = function()
@@ -256,12 +247,7 @@ end)
 
 function PartyTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
-		if node.elem == "TabStuff" then
-			if node.attrib.name == "enableExportBuffs" then
-				self.enableExportBuffs = node.attrib.string == "true"
-				self.controls.enableExportBuffs.state = self.enableExportBuffs
-			end
-		elseif node.elem == "ImportedText" then
+		if node.elem == "ImportedText" then
 			if not node.attrib.name then
 				ConPrintf("missing name")
 			elseif node.attrib.name == "Aura" then
@@ -298,9 +284,6 @@ function PartyTabClass:Load(xml, fileName)
 end
 
 function PartyTabClass:Save(xml)
-	local child = { elem = "TabStuff", attrib = { name = "enableExportBuffs" } }
-	child.attrib.string = tostring(self.enableExportBuffs)
-	t_insert(xml, child)
 	local child = { elem = "ImportedText", attrib = { name = "Aura" } }
 	child.attrib.string = self.controls.editAuras.buf
 	t_insert(xml, child)

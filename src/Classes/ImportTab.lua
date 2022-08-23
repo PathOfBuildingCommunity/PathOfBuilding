@@ -26,7 +26,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 
 	self.charImportMode = "GETACCOUNTNAME"
 	self.charImportStatus = "Idle"
-	self.controls.sectionCharImport = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 600, 250, "Character Import")
+	self.controls.sectionCharImport = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 650, 250, "Character Import")
 	self.controls.charImportStatusLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 14, 200, 16, function()
 		return "^7Character import status: "..self.charImportStatus
 	end)
@@ -154,11 +154,15 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end)
 
 	-- Build import/export
-	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, 0, 18, 600, 182, "Build Sharing")
+	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, 0, 18, 650, 182, "Build Sharing")
 	self.controls.generateCodeLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionBuild,"TOPLEFT"}, 6, 14, 0, 16, "^7Generate a code to share this build with other Path of Building users:")
 	self.controls.generateCode = new("ButtonControl", {"LEFT",self.controls.generateCodeLabel,"RIGHT"}, 4, 0, 80, 20, "Generate", function()
 		self.controls.generateCodeOut:SetText(common.base64.encode(Deflate(self.build:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
 	end)
+	self.controls.enablePartyExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.generateCode,"RIGHT"}, 100, 0, 18, "Export Support", function(state)
+		self.build.enableExportBuffs = state
+		self.build.buildFlag = true 
+	end, "This is for party play, to export support character, it enables the exporting of auras, curses and modifiers to the enemy", false)
 	self.controls.generateCodeOut = new("EditControl", {"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, 0, 8, 250, 20, "", "Code", "%Z")
 	self.controls.generateCodeOut.enabled = function()
 		return #self.controls.generateCodeOut.buf > 0
@@ -337,6 +341,7 @@ function ImportTabClass:Load(xml, fileName)
 	self.lastRealm = xml.attrib.lastRealm
 	self.controls.accountRealm:SelByValue( self.lastRealm or main.lastRealm or "PC", "id" )
 	self.lastAccountHash = xml.attrib.lastAccountHash
+	self.controls.enablePartyExportBuffs.state = xml.attrib.exportParty == "true"
 	if self.lastAccountHash then
 		for accountName in pairs(main.gameAccounts) do
 			if common.sha1(accountName) == self.lastAccountHash then
@@ -352,6 +357,7 @@ function ImportTabClass:Save(xml)
 		lastRealm = self.lastRealm,
 		lastAccountHash = self.lastAccountHash,
 		lastCharacterHash = self.lastCharacterHash,
+		exportParty = tostring(self.controls.enablePartyExportBuffs.state),
 	}
 end
 
