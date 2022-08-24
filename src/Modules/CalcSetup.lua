@@ -253,6 +253,31 @@ function wipeEnv(env, accelerate)
 	end
 end
 
+local function getGemModList(env, cfg, socketColor)
+	local gemCfg = copyTable(cfg, true)
+	gemCfg.socketColor = socketColor
+	return env.modDB:List(gemCfg, "GemProperty")
+end
+
+local function applyGemMods(effect, modList)
+	for _, value in ipairs(modList) do
+		local match = true
+		if value.keywordList then
+			for _, keyword in ipairs(value.keywordList) do
+				if not calcLib.gemIsType(effect.gemData, keyword) then
+					match = false
+					break
+				end
+			end
+		elseif not calcLib.gemIsType(effect.gemData, value.keyword) then
+			match = false
+		end
+		if match then
+			effect[value.key] = (effect[value.key] or 0) + value.value
+		end
+	end
+end
+
 -- Initialise environment:
 -- 1. Initialises the player and enemy modifier databases
 -- 2. Merges modifiers for all items
@@ -919,7 +944,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if index == env.mainSocketGroup or (socketGroup.enabled and socketGroup.slotEnabled) then
 				groupCfg.slotName = socketGroup.slot and socketGroup.slot:gsub(" Swap","")
 				local propertyModList = env.modDB:List(groupCfg, "GemProperty")
-
+				
 				-- Build list of supports for this socket group
 				local supportList = { }
 				if not socketGroup.source then
@@ -974,28 +999,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 							if gemInstance.gemData then
 								local socketColor = env.player.itemList[groupCfg.slotName] and env.player.itemList[groupCfg.slotName].sockets and env.player.itemList[groupCfg.slotName].sockets[gemIndex] and env.player.itemList[groupCfg.slotName].sockets[gemIndex].color
-								local socketedInColorCfg = nil
-								if socketColor then
-									socketedInColorCfg = {}
-									for k,v in pairs(groupCfg) do socketedInColorCfg[k] = v end
-									socketedInColorCfg.socketColor = socketColor
-								end
-								for _, value in ipairs(socketedInColorCfg and env.modDB:List(socketedInColorCfg, "GemProperty") or propertyModList) do
-									local match = true
-									if value.keywordList then
-										for _, keyword in ipairs(value.keywordList) do
-											if not calcLib.gemIsType(supportEffect.gemData, keyword) then
-												match = false
-												break
-											end
-										end
-									elseif not calcLib.gemIsType(supportEffect.gemData, value.keyword) then
-										match = false
-									end
-									if match then
-										supportEffect[value.key] = (supportEffect[value.key] or 0) + value.value
-									end
-								end
+								applyGemMods(supportEffect, socketColor and getGemModList(env, groupCfg, socketColor) or propertyModList)
 							end
 							-- Validate support gem level in case there is no active skill (and no full calculation)
 							calcLib.validateGemLevel(supportEffect)
@@ -1060,29 +1064,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								}
 								if gemInstance.gemData then
 									local socketColor = env.player.itemList[groupCfg.slotName] and env.player.itemList[groupCfg.slotName].sockets and env.player.itemList[groupCfg.slotName].sockets[gemIndex] and env.player.itemList[groupCfg.slotName].sockets[gemIndex].color
-									local socketedInColorCfg = nil
-									if socketColor then
-										socketedInColorCfg = {}
-										for k,v in pairs(groupCfg) do socketedInColorCfg[k] = v end
-										socketedInColorCfg.socketColor = socketColor
-									end
-									for _, value in ipairs(socketedInColorCfg and env.modDB:List(socketedInColorCfg, "GemProperty") or propertyModList) do
-										local match = false
-										if value.keywordList then
-											match = true
-											for _, keyword in ipairs(value.keywordList) do
-												if not calcLib.gemIsType(activeEffect.gemData, keyword) then
-													match = false
-													break
-												end
-											end
-										else
-											match = calcLib.gemIsType(activeEffect.gemData, value.keyword)
-										end
-										if match then
-											activeEffect[value.key] = (activeEffect[value.key] or 0) + value.value
-										end
-									end
+									applyGemMods(activeEffect, socketColor and getGemModList(env, groupCfg, socketColor) or propertyModList)
 								end
 								if env.mode == "MAIN" then
 									gemInstance.displayEffect = activeEffect
