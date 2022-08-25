@@ -548,18 +548,22 @@ Replica Hyrri's Truth
 Jade Amulet
 League: Heist
 Variant: Pre 3.16.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Hatred Skill
-{tags:jewellery_attribute}+(25-35) to Dexterity
-{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
-{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
-{tags:critical}+(23-28)% to Global Critical Strike Multiplier
-{tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
+{variant:1,2}{tags:jewellery_attribute}+(25-35) to Dexterity
+{variant:3}{tags:jewellery_attribute}+(30-55) to Dexterity
+{variant:1,2}{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
+{variant:1,2}{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
+{variant:3}Bow Attacks have Culling Strike
+{variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
+{variant:3}{tags:critical}+(18-35)% to Global Critical Strike Multiplier
+{variant:1,2}{tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
 {variant:1}Hatred has 50% less Reservation
-{variant:2}Hatred has 100% increased Mana Reservation Efficiency
+{variant:2,3}Hatred has 100% increased Mana Reservation Efficiency
 ]],[[
 The Ignomon
 Gold Amulet
