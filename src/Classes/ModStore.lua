@@ -503,6 +503,21 @@ function ModStoreClass:EvalMod(mod, cfg)
 		elseif tag.type == "SocketedIn" then
 			if not cfg or tag.slotName ~= cfg.slotName or (tag.socketColor ~= nil and tag.socketColor ~= cfg.socketColor) or (tag.gemColor ~= nil and tag.gemColor ~= cfg.gemColor) or (tag.keyword and (not cfg or not cfg.skillGem or not calcLib.gemIsType(cfg.skillGem, tag.keyword))) then
 				return
+			elseif tag.sockets ~= nil and type(tag.sockets) == "table" then
+				if cfg.socketNum == nil then return end
+				local notFound = true
+				for _, val in ipairs(tag.sockets) do
+					if val == cfg.socketNum then
+						notFound = false
+						break
+					end
+				end
+				if tag.neg then
+					notFound = not notFound
+				end
+				if notFound then
+					return
+				end
 			end
 		elseif tag.type == "SkillName" then
 			local match = false
