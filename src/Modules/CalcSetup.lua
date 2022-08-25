@@ -279,13 +279,12 @@ local function applyGemMods(effect, modList)
 	end
 end
 
-local function applySocketMods(env, gem, groupCfg, socketNum)
+local function applySocketMods(env, gem, groupCfg, socketNum, modSource)
 	local socketCfg = copyTable(groupCfg, true)
-	socketCfg.gemColor = (gem.tags.strength and "R" or gem.tags.dexterity and "G" or gem.tags.intelligence and "B" or "W")
+	socketCfg.skillGem = gem
 	socketCfg.socketNum = socketNum
-	prettyPrintTable(socketCfg)
 	for _, value in ipairs(env.modDB:List(socketCfg, "SocketProperty")) do
-		env.player.modDB:AddMod(value.value)
+		env.player.modDB:AddMod(modLib.setSource(value.value, modSource or groupCfg.slotName or ""))
 	end
 end
 
@@ -951,6 +950,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 			local socketGroup = build.skillsTab.socketGroupList[index]
 			local socketGroupSkillList = { }
 			local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
+			--Needed to stop gems with more than one effect applying more than one socket mod
+			local processedSockets = {}
 			socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
 			if index == env.mainSocketGroup or (socketGroup.enabled and socketGroup.slotEnabled) then
 				groupCfg.slotName = socketGroup.slot and socketGroup.slot:gsub(" Swap","")
@@ -990,7 +991,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						gemInstance.supportEffect = nil
 					end
 					if gemInstance.enabled then
-						local function processGrantedEffect(grantedEffect)
+						local function processGrantedEffect(grantedEffect, isSecondary)
 							if not grantedEffect or not grantedEffect.support then
 								return
 							end
@@ -1012,7 +1013,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 								local playerItems = env.player.itemList
 								local socketedIn = playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].sockets and playerItems[groupCfg.slotName].sockets[gemIndex]
 								applyGemMods(supportEffect, socketedIn and getGemModList(env, groupCfg, socketedIn.color, gemIndex) or propertyModList)
-								applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex)
+								if not processedSockets[gemInstance] then
+									processedSockets[gemInstance] = true
+									applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
+								end
 							end
 							-- Validate support gem level in case there is no active skill (and no full calculation)
 							calcLib.validateGemLevel(supportEffect)
@@ -1079,7 +1083,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 									local playerItems = env.player.itemList
 									local socketedIn = playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].sockets and playerItems[groupCfg.slotName].sockets[gemIndex]
 									applyGemMods(activeEffect, socketedIn and getGemModList(env, groupCfg, socketedIn.color, gemIndex) or propertyModList)
-									applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex)
+									if not processedSockets[gemInstance] then
+										processedSockets[gemInstance] = true
+										applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
+									end
 								end
 								if env.mode == "MAIN" then
 									gemInstance.displayEffect = activeEffect

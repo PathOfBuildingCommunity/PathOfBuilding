@@ -2234,9 +2234,11 @@ local specialModList = {
 	end,
 	["gems socketed in red sockets have [%+%-](%d+) to level"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}", socketColor = "R"})} end,
 	["gems socketed in green sockets have [%+%-](%d+)%% to quality"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "quality", value = num }, { type = "SocketedIn", slotName = "{SlotName}", socketColor = "G"})} end,
-	["%+(%d+)%% to fire resistance when socketed with a red gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("FireResist", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", gemColor = "R", sockets = {1}})} end,
-	["%+(%d+)%% to cold resistance when socketed with a green gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("ColdResist", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", gemColor = "G", sockets = {1}})} end, 
-	["%+(%d+)%% to lightning resistance when socketed with a blue gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("LightningResist", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", gemColor = "B", sockets = {1}})} end,
+	["%+(%d+)%% to fire resistance when socketed with a red gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("FireResist", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "strength", sockets = {1}})} end,
+	["%+(%d+)%% to cold resistance when socketed with a green gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("ColdResist", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "dexterity", sockets = {1}})} end, 
+	["%+(%d+)%% to lightning resistance when socketed with a blue gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("LightningResist", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "intelligence", sockets = {1}})} end,
+	--Doomsower, Lion Sword
+	["attack skills gain (%d+)%% of physical damage as extra fire damage per socketed red gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("PhysicalDamageGainAsFire", "BASE", num, nil, ModFlag.Attack) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "strength", sockets = {1,2,3,4,5,6}})} end,
 
 	-- Extra skill/support
 	["grants (%D+)"] = function(_, skill) return grantedExtraSkill(skill, 1) end,
