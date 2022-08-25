@@ -1078,7 +1078,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								if gemInstance.gemData then
 									local playerItems = env.player.itemList
 									local socketedIn = playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].sockets and playerItems[groupCfg.slotName].sockets[gemIndex]
-									applyGemMods(supportEffect, socketedIn and getGemModList(env, groupCfg, socketedIn.color, gemIndex) or propertyModList)
+									applyGemMods(activeEffect, socketedIn and getGemModList(env, groupCfg, socketedIn.color, gemIndex) or propertyModList)
 									applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex)
 								end
 								if env.mode == "MAIN" then
