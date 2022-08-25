@@ -501,7 +501,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SocketedIn" then
-			if not cfg or tag.slotName ~= cfg.slotName or (tag.socketColor ~= nil and tag.socketColor ~= cfg.socketColor) or (tag.keyword and (not cfg or not cfg.skillGem or not calcLib.gemIsType(cfg.skillGem, tag.keyword))) then
+			if not cfg or tag.slotName ~= cfg.slotName or (tag.socketColor ~= nil and tag.socketColor ~= cfg.socketColor) or (tag.gemColor ~= nil and tag.gemColor ~= cfg.gemColor) or (tag.keyword and (not cfg or not cfg.skillGem or not calcLib.gemIsType(cfg.skillGem, tag.keyword))) then
 				return
 			end
 		elseif tag.type == "SkillName" then

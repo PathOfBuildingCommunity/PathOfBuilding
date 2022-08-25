@@ -2234,6 +2234,10 @@ local specialModList = {
 	end,
 	["gems socketed in red sockets have [%+%-](%d+) to level"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}", socketColor = "R"})} end,
 	["gems socketed in green sockets have [%+%-](%d+)%% to quality"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "quality", value = num }, { type = "SocketedIn", slotName = "{SlotName}", socketColor = "G"})} end,
+	["%+(%d+)%% to fire resistance when socketed with a red gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("FireResist", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", gemColor = "R"})} end,
+	["%+(%d+)%% to cold resistance when socketed with a green gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("ColdResist", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", gemColor = "G"})} end, 
+	["%+(%d+)%% to lightning resistance when socketed with a blue gem"] = function(num) return { mod("SocketProperty", "LIST", { value = mod("LightningResist", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", gemColor = "B"})} end,
+
 	-- Extra skill/support
 	["grants (%D+)"] = function(_, skill) return grantedExtraSkill(skill, 1) end,
 	["grants level (%d+) (.+)"] = function(num, _, skill) return grantedExtraSkill(skill, num) end,

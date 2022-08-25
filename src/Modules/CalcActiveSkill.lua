@@ -385,6 +385,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		skillCond = { },
 		skillDist = env.mode_effective and effectiveRange,
 		slotName = activeSkill.slotName,
+		gemColor = activeEffect.gemData and (activeEffect.gemData.tags.strength and "R" or activeEffect.gemData.tags.dexterity and "G" or activeEffect.gemData.tags.intelligence and "B" or "W")
 	}
 	if skillFlags.weapon1Attack then
 		activeSkill.weapon1Cfg = copyTable(activeSkill.skillCfg, true)
@@ -437,6 +438,10 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		if value.keyword == "active_skill" and activeSkill.activeEffect.gemData then
 			activeEffect[value.key] = activeEffect[value.key] + value.value
 		end
+	end
+	
+	for _, value in ipairs(env.modDB:List(activeSkill.skillCfg, "SocketProperty")) do
+		env.player.modDB:AddMod(value.value)
 	end
 
 	-- Add active gem modifiers

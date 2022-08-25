@@ -998,8 +998,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 								gemInstance.supportEffect = supportEffect
 							end
 							if gemInstance.gemData then
-								local socketColor = env.player.itemList[groupCfg.slotName] and env.player.itemList[groupCfg.slotName].sockets and env.player.itemList[groupCfg.slotName].sockets[gemIndex] and env.player.itemList[groupCfg.slotName].sockets[gemIndex].color
-								applyGemMods(supportEffect, socketColor and getGemModList(env, groupCfg, socketColor) or propertyModList)
+								local socketedIn = env.player.itemList[groupCfg.slotName] and env.player.itemList[groupCfg.slotName].sockets and env.player.itemList[groupCfg.slotName].sockets[gemIndex]
+								applyGemMods(supportEffect, socketedIn and getGemModList(env, groupCfg, socketedIn.color) or propertyModList)
 							end
 							-- Validate support gem level in case there is no active skill (and no full calculation)
 							calcLib.validateGemLevel(supportEffect)
