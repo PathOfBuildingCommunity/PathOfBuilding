@@ -2724,15 +2724,15 @@ function calcs.perform(env, avoidCache)
 				end
 			end
 			
-			local amountAboveLastBreakPoint = triggeredTotalCooldown + adjTriggerInterval - effCDTriggeredSkill
+			local timeAboveLastBreakPoint = triggeredTotalCooldown + adjTriggerInterval - effCDTriggeredSkill
 			
-			if triggeredCD and triggeredTotalCooldown > adjTriggerInterval and amountAboveLastBreakPoint < (triggeredCD / icdr) then
-				t_insert(breakdown.ActionTriggerRate, s_format("^8(extra ICDR of %d%% would reach next breakpoint)", ((((triggeredCD / icdr) / ((triggeredCD / icdr) - amountAboveLastBreakPoint)) - 1) * 100)))
+			if triggeredCD and triggeredTotalCooldown > adjTriggerInterval and timeAboveLastBreakPoint < (triggeredCD / icdr) then
+				t_insert(breakdown.ActionTriggerRate, s_format("^8(extra ICDR of %d%% would reach next breakpoint)", ((((triggeredCD / icdr) / ((triggeredCD / icdr) - timeAboveLastBreakPoint)) - 1) * 100)))
 				t_insert(breakdown.ActionTriggerRate,"")
 			end
 			
-			if output.addsCastTime and triggeredTotalCooldown > adjTriggerInterval and amountAboveLastBreakPoint < output.addsCastTime then
-				t_insert(breakdown.ActionTriggerRate, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", (((output.addsCastTime / (output.addsCastTime - amountAboveLastBreakPoint )) - 1) * 100)))
+			if output.addsCastTime and triggeredTotalCooldown > adjTriggerInterval and timeAboveLastBreakPoint < output.addsCastTime then
+				t_insert(breakdown.ActionTriggerRate, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", (((output.addsCastTime / (output.addsCastTime - timeAboveLastBreakPoint )) - 1) * 100)))
 				t_insert(breakdown.ActionTriggerRate,"")
 			end
 			
