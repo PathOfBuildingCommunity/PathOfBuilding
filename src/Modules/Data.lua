@@ -6,6 +6,10 @@
 
 LoadModule("Data/Global")
 
+local m_min = math.min
+local m_max = math.max
+local t_concat = table.concat
+
 local skillTypes = {
 	"act_str",
 	"act_dex",
@@ -92,7 +96,10 @@ data.powerStatList = {
 	{ stat="Life", label="Life" },
 	{ stat="LifeRegen", label="Life regen" },
 	{ stat="LifeLeechRate", label="Life leech" },
+	{ stat="Armour", label="Armour" },
+	{ stat="Evasion", label="Evasion" },
 	{ stat="EnergyShield", label="Energy Shield" },
+	{ stat="EnergyShieldRecoveryCap", label="Recoverable ES" },
 	{ stat="EnergyShieldRegen", label="Energy Shield regen" },
 	{ stat="EnergyShieldLeechRate", label="Energy Shield leech" },
 	{ stat="Mana", label="Mana" },
@@ -106,11 +113,8 @@ data.powerStatList = {
 	{ stat="MeleeAvoidChance", label="Melee avoid chance" },
 	{ stat="SpellAvoidChance", label="Spell avoid chance" },
 	{ stat="ProjectileAvoidChance", label="Projectile avoid chance" },
-	{ stat="PhysicalTotalEHP", label="eHP vs Physical hits" },
-	{ stat="LightningTotalEHP", label="eHP vs Lightning hits" },
-	{ stat="ColdTotalEHP", label="eHP vs Cold hits" },
-	{ stat="FireTotalEHP", label="eHP vs Fire hits" },
-	{ stat="ChaosTotalEHP", label="eHP vs Chaos hits" },
+	{ stat="TotalEHP", label="Effective Hit Pool" },
+	{ stat="SecondMinimalMaximumHitTaken", label="Eff. Maximum Hit Taken" },
 	{ stat="PhysicalTakenHitMult", label="Taken Phys dmg", transform=function(value) return 1-value end },
 	{ stat="LightningTakenDotMult", label="Taken Lightning dmg", transform=function(value) return 1-value end },
 	{ stat="ColdTakenDotMult", label="Taken Cold dmg", transform=function(value) return 1-value end },
@@ -125,22 +129,50 @@ data.powerStatList = {
 	{ stat="EffectiveMovementSpeedMod", label="Move speed" },
 	{ stat="BlockChance", label="Block Chance" },
 	{ stat="SpellBlockChance", label="Spell Block Chance" },
+	{ stat="SpellSuppressionChance", label="Spell Suppression Chance" },
 }
 
 data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }
 
-data.jewelRadius = {
-	{ inner = 0, outer = 800, col = "^xBB6600", label = "Small" },
-	{ inner = 0, outer = 1200, col = "^x66FFCC", label = "Medium" },
-	{ inner = 0, outer = 1500, col = "^x2222CC", label = "Large" },
+data.setJewelRadiiGlobally = function(treeVersion)
+	local major, minor = treeVersion:match("(%d+)_(%d+)")
+	if tonumber(major) <= 3 and tonumber(minor) <= 15 then
+		data.jewelRadius = data.jewelRadii["3_15"]
+	else
+		data.jewelRadius = data.jewelRadii["3_16"]
+	end
+end
 
-	{ inner = 850, outer = 1100, col = "^xD35400", label = "Variable" },
-	{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
-	{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
-	{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
+data.jewelRadii = {
+	["3_15"] = {
+		{ inner = 0, outer = 800, col = "^xBB6600", label = "Small" },
+		{ inner = 0, outer = 1200, col = "^x66FFCC", label = "Medium" },
+		{ inner = 0, outer = 1500, col = "^x2222CC", label = "Large" },
+
+		{ inner = 850, outer = 1100, col = "^xD35400", label = "Variable" },
+		{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
+		{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
+		{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
+		{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
+	},
+	["3_16"] = {
+		{ inner = 0, outer = 960, col = "^xBB6600", label = "Small" },
+		{ inner = 0, outer = 1440, col = "^x66FFCC", label = "Medium" },
+		{ inner = 0, outer = 1800, col = "^x2222CC", label = "Large" },
+
+		{ inner = 960, outer = 1320, col = "^xD35400", label = "Variable" },
+		{ inner = 1320, outer = 1680, col = "^x66FFCC", label = "Variable" },
+		{ inner = 1680, outer = 2040, col = "^x2222CC", label = "Variable" },
+		{ inner = 2040, outer = 2400, col = "^xC100FF", label = "Variable" },
+		{ inner = 2400, outer = 2880, col = "^x0B9300", label = "Variable" },
+	}
 }
 
+data.jewelRadius = data.setJewelRadiiGlobally(latestTreeVersion)
+
 data.enchantmentSource = {
+	{ name = "ENKINDLING", label = "Enkindling Orb" },
+	{ name = "INSTILLING", label = "Instilling Orb" },
 	{ name = "HEIST", label = "Heist" },
 	{ name = "HARVEST", label = "Harvest" },
 	{ name = "DEDICATION", label = "Dedication to the Goddess" },
@@ -223,6 +255,34 @@ data.specialBaseTags = {
 	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
 }
 
+data.cursePriority = {
+	["Temporal Chains"] = 1, -- Despair and Elemental Weakness override Temporal Chains.
+	["Enfeeble"] = 2, -- Elemental Weakness and Vulnerability override Enfeeble.
+	["Vulnerability"] = 3, -- Despair and Elemental Weakness override Vulnerability. Vulnerability was reworked in 3.1.0.
+	["Elemental Weakness"] = 4, -- Despair and Flammability override Elemental Weakness.
+	["Flammability"] = 5, -- Frostbite overrides Flammability.
+	["Frostbite"] = 6, -- Conductivity overrides Frostbite.
+	["Conductivity"] = 7,
+	["Despair"] = 8, -- Despair was created in 3.1.0.
+	["Punishment"] = 9, -- Punishment was reworked in 3.12.0.
+	["Warlord's Mark"] = 10,
+	["Assassin's Mark"] = 11,
+	["Sniper's Mark"] = 12,
+	["Poacher's Mark"] = 13,
+	["SocketPriorityBase"] = 100,
+	["Weapon 1"] = 1000,
+	["Amulet"] = 2000,
+	["Helmet"] = 3000,
+	["Weapon 2"] = 4000,
+	["Body Armour"] = 5000,
+	["Gloves"] = 6000,
+	["Boots"] = 7000,
+	["Ring 1"] = 8000,
+	["Ring 2"] = 9000,
+	["CurseFromEquipment"] = 10000,
+	["CurseFromAura"] = 20000,
+}
+
 ---@type string[] @List of all keystones not exclusive to timeless jewels.
 data.keystones = {
 	"Acrobatics",
@@ -235,19 +295,25 @@ data.keystones = {
 	"Conduit",
 	"Corrupted Soul",
 	"Crimson Dance",
-	"Doomsday",
 	"Divine Flesh",
+	"Divine Shield",
+	"Doomsday",
 	"Eldritch Battery",
 	"Elemental Equilibrium",
 	"Elemental Overload",
 	"Eternal Youth",
+	"Ghost Dance",
 	"Ghost Reaver",
 	"Glancing Blows",
 	"Hollow Palm Technique",
 	"Imbalanced Guard",
 	"Immortal Ambition",
+	"Inner Conviction",
 	"Iron Grip",
 	"Iron Reflexes",
+	"Iron Will",
+	"Lethe Shade",
+	"Magebane",
 	"Mind Over Matter",
 	"Minion Instability",
 	"Mortal Conviction",
@@ -256,16 +322,106 @@ data.keystones = {
 	"Perfect Agony",
 	"Phase Acrobatics",
 	"Point Blank",
+	"Precise Technique",
 	"Resolute Technique",
 	"Runebinder",
+	"Secrets of Suffering",
+	"Solipsism",
+	"Supreme Decadence",
 	"Supreme Ego",
 	"The Agnostic",
 	"The Impaler",
 	"Unwavering Stance",
 	"Vaal Pact",
+	"Versatile Combatant",
 	"Wicked Ward",
 	"Wind Dancer",
 	"Zealot's Oath",
+}
+
+data.ailmentTypeList = { "Bleed", "Poison", "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
+data.elementalAilmentTypeList = { "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
+
+data.nonDamagingAilment = {
+	["Chill"] = { associatedType = "Cold", alt = false, default = 10, min = 5, max = 30, precision = 0, duration = 2 },
+	["Freeze"] = { associatedType = "Cold", alt = false, default = nil, min = 0.3, max = 3, precision = 2, duration = nil },
+	["Shock"] = { associatedType = "Lightning", alt = false, default = 15, min = 5, max = 50, precision = 0, duration = 2 },
+	["Scorch"] = { associatedType = "Fire", alt = true, default = 10, min = 0, max = 30, precision = 0, duration = 4 },
+	["Brittle"] = { associatedType = "Cold", alt = true, default = 2, min = 0, max = 6, precision = 2, duration = 4 },
+	["Sap"] = { associatedType = "Lightning", alt = true, default = 6, min = 0, max = 20, precision = 0, duration = 4 },
+}
+
+-- Used in ModStoreClass:ScaleAddMod(...) to identify high precision modifiers
+data.highPrecisionMods = {
+	["CritChance"] = {
+		["BASE"] = true,
+	},
+	["LifeRegenPercent"] = {
+		["BASE"] = true,
+	},
+	["DamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["PhysicalDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["ElementalDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["FireDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["ColdDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["LightningDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["ChaosDamageLifeLeech"] = {
+		["BASE"] = true,
+	},
+	["DamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["PhysicalDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["ElementalDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["FireDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["ColdDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["LightningDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["ChaosDamageManaLeech"] = {
+		["BASE"] = true,
+	},
+	["DamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["PhysicalDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["ElementalDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["FireDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["ColdDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["LightningDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
+	["ChaosDamageEnergyShieldLeech"] = {
+		["BASE"] = true,
+	},
 }
 
 data.misc = { -- magic numbers
@@ -273,31 +429,77 @@ data.misc = { -- magic numbers
 	ServerTickRate = 1 / 0.033,
 	TemporalChainsEffectCap = 75,
 	DamageReductionCap = 90,
+	ResistFloor = -200,
 	MaxResistCap = 90,
 	EvadeChanceCap = 95,
 	DodgeChanceCap = 75,
+	SuppressionChanceCap = 100,
+	SuppressionEffect = 50,
 	AvoidChanceCap = 75,
-	EnergyShieldRechargeBase = 0.2,
+	EnergyShieldRechargeBase = 0.33,
 	EnergyShieldRechargeDelay = 2,
-	WardRechargeDelay = 5,
+	WardRechargeDelay = 4,
 	Transfiguration = 0.3,
 	EnemyMaxResist = 75,
 	LeechRateBase = 0.02,
+	DotDpsCap = 35791394, -- (2 ^ 31 - 1) / 60 (int max / 60 seconds)
 	BleedPercentBase = 70,
 	BleedDurationBase = 5,
 	PoisonPercentBase = 0.30,
 	PoisonDurationBase = 2,
-	IgnitePercentBase = 0.50,
+	IgnitePercentBase = 0.9,
 	IgniteDurationBase = 4,
+	IgniteMinDuration = 0.3,
 	ImpaleStoredDamageBase = 0.1,
 	BuffExpirationSlowCap = 0.25,
 	TrapTriggerRadiusBase = 10,
 	MineDetonationRadiusBase = 60,
 	MineAuraRadiusBase = 35,
-	PurposefulHarbingerMaxBuffPercent = 40,
-	VastPowerMaxAoEPercent = 50,
-	MaxEnemyLevel = 84,
+	MaxEnemyLevel = 85,
 	LowPoolThreshold = 0.5,
+	MinStunChanceNeeded = 20,
+	StunBaseMult = 200,
+	StunBaseDuration = 0.35,
+	StunNotMeleeDamageMult = 0.75,
+	AccuracyPerDexBase = 2,
+	BrandAttachmentRangeBase = 30,
+	ProjectileDistanceCap = 150,
+	-- Expected values to calculate EHP
+	stdBossDPSMult = 4 / 4.25,
+	pinnacleBossDPSMult = 8 / 4.25,
+	pinnacleBossPen = 25 / 5,
+	uberBossDPSMult = 10 / 4.25,
+	uberBossPen = 40 / 5,
+	-- ehp helper function magic numbers
+	ehpCalcSpeedUp = 8,
+		-- depth needs to be a power of speedUp (in this case 8^3, will run 3 recursive calls deep)
+	ehpCalcMaxDepth = 512,
+		-- max hits is currently depth + speedup - 1 to give as much accuracy with as few cycles as possible, but can be increased for more accuracy
+	ehpCalcMaxHitsToCalc = 519,
+	-- PvP scaling used for hogm
+	PvpElemental1 = 0.55,
+	PvpElemental2 = 150,
+	PvpNonElemental1 = 0.57,
+	PvpNonElemental2 = 90,
+	
+}
+
+data.bossSkills = {
+	["Uber Atziri Flameblast"] = {
+		damageMult = 3.48 * 10.9,
+		speed = 2500 * 10
+	},
+	["Shaper Ball"] = {
+		damageMult =  9.17,
+		speed = 1400
+	},
+	["Shaper Slam"] = {
+		damageMult =  15.2,
+		speed = 3510
+	},
+	["Maven Memory Game"] = {
+		damageMult =  24.69
+	}
 }
 
 -- Misc data tables
@@ -322,9 +524,19 @@ data.enchantments = {
 	["Belt"] = LoadModule("Data/EnchantmentBelt"),
 	["Body Armour"] = LoadModule("Data/EnchantmentBody"),
 	["Weapon"] = LoadModule("Data/EnchantmentWeapon"),
+	["Flask"] = LoadModule("Data/EnchantmentFlask"),
 }
 data.essences = LoadModule("Data/Essence")
+data.veiledMods = LoadModule("Data/ModVeiled")
 data.pantheons = LoadModule("Data/Pantheons")
+data.costs = LoadModule("Data/Costs")
+do
+	local map = { }
+	for i, value in ipairs(data.costs) do
+		map[value.Resource] = i
+	end
+	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
+end
 
 -- Cluster jewel data
 data.clusterJewels = LoadModule("Data/ClusterJewels")
@@ -365,6 +577,225 @@ for size, jewel in pairs(data.clusterJewels.jewels) do
 			end
 		end
 	end
+end
+
+-- Load legion jewel data
+
+local function loadJewelFile(jewelTypeName)
+	jewelTypeName = "/Data/TimelessJewelData/" .. jewelTypeName
+	local jewelData
+
+	local scriptPath = GetScriptPath()
+
+	local fileHandle = NewFileSearch(scriptPath .. jewelTypeName .. ".bin")
+	local uncompressedFileAttr = { }
+	if fileHandle then
+		uncompressedFileAttr.fileName = fileHandle:GetFileName()
+		uncompressedFileAttr.modified = fileHandle:GetFileModifiedTime()
+	end
+
+	fileHandle = NewFileSearch(scriptPath .. jewelTypeName .. ".zip")
+	local compressedFileAttr = { }
+	if fileHandle then
+		compressedFileAttr.fileName = fileHandle:GetFileName()
+		compressedFileAttr.modified = fileHandle:GetFileModifiedTime()
+	end
+
+	fileHandle = NewFileSearch(scriptPath .. jewelTypeName .. ".zip.part*")
+	local splitFile = { }
+	if fileHandle then
+		compressedFileAttr.modified = fileHandle:GetFileModifiedTime()
+	end
+	while fileHandle do
+		local fileName = fileHandle:GetFileName()
+		local file = io.open(scriptPath .. "/Data/TimelessJewelData/" .. fileName, "rb")
+		local part = tonumber(fileName:match("%.part(%d)")) or 0
+		splitFile[part + 1] = file:read("*a")
+		file:close()
+		if not fileHandle:NextFile() then
+			break
+		end
+	end
+	splitFile = t_concat(splitFile, "")
+
+	if uncompressedFileAttr.modified and uncompressedFileAttr.modified > (compressedFileAttr.modified or 0) then
+		ConPrintf("Uncompressed jewel data is up-to-date, loading " .. uncompressedFileAttr.fileName)
+		local uncompressedFile = io.open(scriptPath .. jewelTypeName .. ".bin", "rb")
+		if uncompressedFile then
+			jewelData = uncompressedFile:read("*a")
+			uncompressedFile:close()
+		end
+		if jewelData then
+			return jewelData
+		end
+	end
+
+	ConPrintf("Failed to load " .. scriptPath .. jewelTypeName .. ".bin, or data is out of date, falling back to compressed file")
+	local compressedFile = io.open(scriptPath .. jewelTypeName .. ".zip", "rb")
+	if compressedFile then
+		jewelData = Inflate(compressedFile:read("*a"))
+		compressedFile:close()
+	elseif splitFile ~= "" then
+		jewelData = Inflate(splitFile)
+	end
+
+	if jewelData == nil then
+		ConPrintf("Failed to load either file: " .. jewelTypeName .. ".zip, " .. jewelTypeName .. ".bin")
+	else
+		local uncompressedFile = io.open(scriptPath .. jewelTypeName .. ".bin", "wb+")
+		if uncompressedFile then
+			uncompressedFile:write(jewelData)
+			uncompressedFile:close()
+		end
+	end
+	return jewelData
+end
+
+-- lazy load a specific timeless jewel type
+-- valid values: "Glorious Vanity", "Lethal Pride", "Brutal Restraint", "Militant Faith", "Elegant Hubris"
+local function loadTimelessJewel(jewelType, nodeID)
+	local nodeIndex = nil
+	if nodeID and data.nodeIDList[nodeID] then
+		nodeIndex = data.nodeIDList[nodeID].index
+	end
+	-- for GV, if nodeIndex is invalid, return
+	if jewelType == 1 and nodeIndex == nil then
+		return
+	end
+	-- if LUT is already loaded, and this either isn't GV, or GV has already emptied it's raw data out, return
+	if data.timelessJewelLUTs[jewelType] and data.timelessJewelLUTs[jewelType].data and (jewelType ~= 1 or data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw == nil) then
+		return
+	end
+
+	if jewelType == 1 then
+		-- if data is already loaded but table for specific node is not created, just make table and return
+		if data.timelessJewelLUTs[jewelType] and data.timelessJewelLUTs[jewelType].data[nodeIndex + 1] and data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw then
+			local jewelData = data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw
+			local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
+			local count = 0
+			for seedOffset = 1, (seedSize + 1) do
+				local dataLength = data.timelessJewelLUTs[jewelType].sizes:byte(nodeIndex * seedSize + seedOffset)
+				data.timelessJewelLUTs[jewelType].data[nodeIndex + 1][seedOffset] = jewelData:sub(count + 1, count + dataLength)
+				count = count + dataLength
+			end
+			data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw = nil
+			return
+		end
+		data.timelessJewelLUTs[jewelType] = { data = { } }
+	else
+		data.timelessJewelLUTs[jewelType] = { }
+	end
+
+	ConPrintf("LOADING")
+
+	local jewelData = loadJewelFile(data.timelessJewelTypes[jewelType]:gsub("%s+", ""))
+
+	if jewelData then
+		if jewelType == 1 then -- "Glorious Vanity"
+			local GV_nodecount = data.nodeIDList.size
+			local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
+			local sizeOffset = GV_nodecount * seedSize
+			data.timelessJewelLUTs[jewelType].sizes = jewelData:sub(1, sizeOffset + 1)
+
+			-- Loop through nodes in order as if we were reading from a file
+			for i = 1, GV_nodecount do
+				-- Find the node this corresponds to
+				local nodeID
+				for k, v in pairs(data.nodeIDList) do
+					if type(v) == "table" and v.index == (i - 1) then
+						nodeID = k
+						break
+					end
+				end
+				-- Preliminary initialization
+				local seedDataLength = data.nodeIDList[nodeID].size
+				data.timelessJewelLUTs[jewelType].data[i] = {}
+				data.timelessJewelLUTs[jewelType].data[i].raw = jewelData:sub(sizeOffset + 1, sizeOffset + seedDataLength)
+				sizeOffset = sizeOffset + seedDataLength
+				if i == (nodeIndex + 1) then
+					-- Final initialization for this seed
+					local jewelData2 = data.timelessJewelLUTs[jewelType].data[nodeIndex + 1].raw
+					local seedOffset = 0
+					for seedKey = 1, (seedSize + 1) do
+						local dataLength = data.timelessJewelLUTs[jewelType].sizes:byte(nodeIndex * seedSize + seedKey)
+						data.timelessJewelLUTs[jewelType].data[nodeIndex + 1][seedKey] = jewelData2:sub(seedOffset + 1, seedOffset + dataLength)
+						seedOffset = seedOffset + dataLength
+					end
+					data.timelessJewelLUTs[jewelType].data[i].raw = nil
+				end
+			end
+			ConPrintf("Glorious Vanity Lookup Table Loaded! Read " .. sizeOffset .. " bytes")
+
+			--- Code for compressing existing data if it changed
+			--local compressedFileData = Deflate(jewelData)
+			--local file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "wb+"))
+			--file:write(compressedFileData)
+			--file:close()
+			return
+		else
+			data.timelessJewelLUTs[jewelType].data = jewelData
+
+			--- Code for compressing existing data if it changed
+			--local compressedFileData = Deflate(data.timelessJewelLUTs[jewelType].data)
+			--local file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "wb+"))
+			--file:write(compressedFileData)
+			--file:close()
+		end
+	end
+end
+
+data.timelessJewelTypes = {
+	[1] = "Glorious Vanity",
+	[2] = "Lethal Pride",
+	[3] = "Brutal Restraint",
+	[4] = "Militant Faith",
+	[5] = "Elegant Hubris",
+}
+data.timelessJewelSeedMin = {
+	[1] = 100,
+	[2] = 10000,
+	[3] = 500,
+	[4] = 2000,
+	[5] = 2000 / 20,
+}
+data.timelessJewelSeedMax = {
+	[1] = 8000,
+	[2] = 18000,
+	[3] = 8000,
+	[4] = 10000,
+	[5] = 160000 / 20,
+}
+data.timelessJewelAdditions = 94 -- #legionAdditions
+data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
+data.timelessJewelLUTs = { }
+data.readLUT = function(seed, nodeID, jewelType)
+	loadTimelessJewel(jewelType, nodeID)
+	if jewelType == 1 then
+		assert(next(data.timelessJewelLUTs[jewelType].data), "Error occurred loading Glorious Vanity data")
+	else
+		assert(data.timelessJewelLUTs[jewelType].data, "Error occurred loading Timeless Jewel data")
+	end
+	if jewelType == 5 then -- "Elegant Hubris"
+		seed = seed / 20
+	end
+	local seedOffset = (seed - data.timelessJewelSeedMin[jewelType])
+	local seedSize = (data.timelessJewelSeedMax[jewelType] - data.timelessJewelSeedMin[jewelType]) + 1
+	local index = data.nodeIDList[nodeID] and data.nodeIDList[nodeID].index or nil
+	if index then
+		if jewelType == 1 then  -- "Glorious Vanity"
+			local result = { }
+
+			for i = 1, data.timelessJewelLUTs[jewelType].sizes:byte(index * seedSize + seedOffset + 1) do
+				result[i] = data.timelessJewelLUTs[jewelType].data[index + 1][seedOffset + 1]:byte(i)
+			end
+			return result
+		elseif index <= data.nodeIDList["sizeNotable"] then
+			return { data.timelessJewelLUTs[jewelType].data:byte(index * seedSize + seedOffset + 1) }
+		end
+	else
+		ConPrintf("ERROR: Missing Index lookup for nodeID: "..nodeID)
+	end
+	return { }
 end
 
 -- Load skills
@@ -498,6 +929,7 @@ data.uniques = { }
 for _, type in pairs(itemTypes) do
 	data.uniques[type] = LoadModule("Data/Uniques/"..type)
 end
+data.uniques['race'] = LoadModule("Data/Uniques/Special/race")
 data.uniqueMods = { }
 data.uniqueMods["Watcher's Eye"] = { }
 local unsortedMods = LoadModule("Data/Uniques/Special/WatchersEye")

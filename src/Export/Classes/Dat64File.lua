@@ -9,20 +9,20 @@ local m_min = math.min
 
 local dataTypes = {
 	Bool = {
-		size = 1, 
-		read = function(b, o, d) 
-			return b:byte(o) == 1 
+		size = 1,
+		read = function(b, o, d)
+			return b:byte(o) == 1
 		end,
-	}, 
-	Int = { 
-		size = 4, 
+	},
+	Int = {
+		size = 4,
 		read = function(b, o, d)
 			if o > #b - 3 then return -1337 end
 			return bytesToInt(b, o)
 		end,
 	},
-	UInt = { 
-		size = 4, 
+	UInt = {
+		size = 4,
 		read = function(b, o, d)
 			if o > #b - 3 then return 1337 end
 			return bytesToUInt(b, o)
@@ -35,8 +35,8 @@ local dataTypes = {
 			return { bytesToInt(b, o), bytesToInt(b, o + 4) }
 		end,
 	},
-	Float = { 
-		size = 4, 
+	Float = {
+		size = 4,
 		read = function(b, o, d)
 			if o > #b - 3 then return -1337 end
 			return bytesToFloat(b, o)
@@ -44,26 +44,34 @@ local dataTypes = {
 	},
 	String = {
 		size = 8,
-		read = function(b, o, d) 
-			if o > #b - 3 then return "<no offset>" end
+		read = function(b, o, d)
+			if o > #b - 7 then return "<no offset>" end
 			local stro = bytesToULong(b, o)
-			if stro > #b - 3 then return "<bad offset>" end
+			if stro > #b - 7 then return "<bad offset>" end
 			return convertUTF16to8(b, d + stro)
 		end,
 	},
-	Enum = { 
-		size = 4, 
+	Enum = {
+		size = 4,
 		ref = true,
 		read = function(b, o, d)
 			if o > #b - 3 then return 1337 end
 			return bytesToUInt(b, o)
 		end,
 	},
-	Key = { 
-		size = 16, 
+	ShortKey = {
+		size = 8,
 		ref = true,
 		read = function(b, o, d)
 			if o > #b - 7 then return 1337 end
+			return bytesToULong(b, o)
+		end,
+	},
+	Key = {
+		size = 16,
+		ref = true,
+		read = function(b, o, d)
+			if o > #b - 15 then return 1337 end
 			return bytesToULong(b, o)
 		end,
 	},

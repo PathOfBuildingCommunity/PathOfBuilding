@@ -2,65 +2,65 @@ local skillTypes = {
 	"Attack",
 	"Spell",
 	"Projectile",
-	"DualWield",
+	"DualWieldOnly",
 	"Buff",
 	"Minion",
-	"Hit",
+	"Damage",
 	"Area",
 	"Duration",
-	"Shield",
-	"ProjectileDamage",
-	"ManaCostReserved",
-	"ManaCostPercent",
-	"SkillCanTrap",
-	"SkillCanTotem",
-	"SkillCanMine",
-	"CauseElementalStatus",
-	"CreateMinion",
-	"Chaining",
+	"RequiresShield",
+	"ProjectileSpeed",
+	"HasReservation",
+	"ReservationBecomesCost",
+	"Trappable",
+	"Totemable",
+	"Mineable",
+	"ElementalStatus",
+	"MinionsCanExplode",
+	"Chains",
 	"Melee",
 	"MeleeSingleTarget",
-	"SpellCanRepeat",
-	"Type27",
-	"AttackCanRepeat",
+	"Multicastable",
+	"TotemCastsAlone",
+	"Multistrikeable",
 	"CausesBurning",
-	"Totem",
-	"DamageCannotBeReflected",
-	"PhysicalSkill",
-	"FireSkill",
-	"ColdSkill",
-	"LightningSkill",
+	"SummonsTotem",
+	"TotemCastsWhenNotDetached",
+	"Physical",
+	"Fire",
+	"Cold",
+	"Lightning",
 	"Triggerable",
-	"Trap",
-	"MovementSkill",
+	"Trapped",
+	"Movement",
 	"DamageOverTime",
-	"Mine",
+	"RemoteMined",
 	"Triggered",
 	"Vaal",
 	"Aura",
-	"Type46",
-	"ProjectileAttack",
-	"ChaosSkill",
-	"Type51",
-	"Type53",
-	"MinionProjectile",
-	"Type55",
-	"AnimateWeapon",
-	"Channelled",
-	"Type59",
-	"TriggeredGrantedSkill",
+	"CanTargetUnusableCorpse",
+	"RangedAttack",
+	"Chaos",
+	"FixedSpeedProjectile",
+	"ThresholdJewelArea",
+	"ThresholdJewelProjectile",
+	"ThresholdJewelDuration",
+	"ThresholdJewelRangedAttack",
+	"Channel",
+	"DegenOnlySpellDamage",
+	"InbuiltTrigger",
 	"Golem",
 	"Herald",
-	"AuraDebuff",
-	"Type65",
-	"Type66",
-	"SpellCanCascade",
-	"SkillCanVolley",
-	"SkillCanMirageArcher",
-	"LaunchesSeriesOfProjectiles",
-	"Type71",
-	"Type72",
-	"Type73",
+	"AuraAffectsEnemies",
+	"NoRuthless",
+	"ThresholdJewelSpellDamage",
+	"Cascadable",
+	"ProjectilesFromUser",
+	"MirageArcherCanUse",
+	"ProjectileSpiral",
+	"SingleMainProjectile",
+	"MinionsPersistWhenSkillRemoved",
+	"ProjectileNumber",
 	"Warcry",
 	"Instant",
 	"Brand",
@@ -74,41 +74,45 @@ local skillTypes = {
 	"OR",
 	"AND",
 	"NOT",
-	"Maims",
+	"AppliesMaim",
 	"CreatesMinion",
-	"GuardSkill",
-	"TravelSkill",
-	"BlinkSkill",
+	"Guard",
+	"Travel",
+	"Blink",
 	"CanHaveBlessing",
-	"FiresProjectilesFromSecondaryLocation",
-	"Ballista",
-	"NovaSpell",
-	"Type91",
-	"Type92",
-	"CanDetonate",
+	"ProjectilesNotFromUser",
+	"AttackInPlaceIsDefault",
+	"Nova",
+	"InstantNoRepeatWhenHeld",
+	"InstantShiftAttackForLeftMouse",
+	"AuraNotOnCaster",
 	"Banner",
-	"FiresArrowsAtTargetLocation",
-	"SecondWindSupport",
-	"Type97",
-	"SlamSkill",
-	"StanceSkill",
-	"CreatesMirageWarrior",
-	"UsesSupportedTriggerSkill",
-	"SteelSkill",
+	"Rain",
+	"Cooldown",
+	"ThresholdJewelChaining",
+	"Slam",
+	"Stance",
+	"NonRepeatable",
+	"OtherThingUsesSkill",
+	"Steel",
 	"Hex",
 	"Mark",
 	"Aegis",
 	"Orb",
-	"Type112",
-	"Prismatic",
-	"Type114",
+	"KillNoDamageModifiers",
+	"RandomElement",
+	"LateConsumeCooldown",
 	"Arcane",
-	"Type116",
-	"CantEquipWeapon",
+	"FixedCastTime",
+	"RequiresOffHandNotWeapon",
+	"Link",
+	"Blessing",
+	"ZeroReservation",
+	"DynamicCooldown",
 }
 
 local function mapAST(ast)
-	return "SkillType."..(skillTypes[ast] or ("Unknown"..ast))
+	return "SkillType."..(skillTypes[ast._rowIndex] or ("Unknown"..ast._rowIndex))
 end
 
 local weaponClassMap = {
@@ -188,12 +192,13 @@ directiveTable.skill = function(state, args, out)
 	skill.levels = { }
 	local statMap = { }
 	skill.stats = { }
+	skill.constantStats = { }
 	out:write('\tcolor = ', granted.Attribute, ',\n')
-	if granted.BaseEffectiveness ~= 1 then
-		out:write('\tbaseEffectiveness = ', granted.BaseEffectiveness, ',\n')
+	if granted.GrantedEffectStatSets.BaseEffectiveness ~= 1 then
+		out:write('\tbaseEffectiveness = ', granted.GrantedEffectStatSets.BaseEffectiveness, ',\n')
 	end
-	if granted.IncrementalEffectiveness ~= 0 then
-		out:write('\tincrementalEffectiveness = ', granted.IncrementalEffectiveness, ',\n')
+	if granted.GrantedEffectStatSets.IncrementalEffectiveness ~= 0 then
+		out:write('\tincrementalEffectiveness = ', granted.GrantedEffectStatSets.IncrementalEffectiveness, ',\n')
 	end
 	if granted.IsSupport then
 		skill.isSupport = true
@@ -274,10 +279,12 @@ directiveTable.skill = function(state, args, out)
 			out:write('\tcannotBeSupported = true,\n')
 		end
 	end
-	for _, levelRow in ipairs(dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)) do
+	local statsPerLevel = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffect", granted)
+	for indx, levelRow in ipairs(dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)) do
+		local statRow = statsPerLevel[indx]
 		local level = { extra = { }, statInterpolation = { }, cost = { } }
 		level.level = levelRow.Level
-		level.extra.levelRequirement = levelRow.PlayerLevel
+		level.extra.levelRequirement = levelRow.PlayerLevelReq
 		for i, cost in ipairs(levelRow.CostTypes) do
 			level.cost[cost["Resource"]] = levelRow.CostAmounts[i]
 		end
@@ -293,20 +300,20 @@ directiveTable.skill = function(state, args, out)
 		if levelRow.LifeReservationPercent ~= 0 then
 			level.extra.lifeReservationPercent = levelRow.LifeReservationPercent / 100
 		end
-		if levelRow.ManaMultiplier ~= 100 then
-			level.extra.manaMultiplier = levelRow.ManaMultiplier - 100
+		if levelRow.CostMultiplier ~= 100 then
+			level.extra.manaMultiplier = levelRow.CostMultiplier - 100
 		end
-		if levelRow.DamageEffectiveness ~= 0 then
-			level.extra.damageEffectiveness = levelRow.DamageEffectiveness / 100 + 1
+		if statRow.DamageEffectiveness ~= 0 then
+			level.extra.damageEffectiveness = statRow.DamageEffectiveness / 10000 + 1
 		end
-		if levelRow.SpellCritChance ~= 0 then
-			level.extra.critChance = levelRow.SpellCritChance / 100
+		if statRow.AttackCritChance ~= 0 then
+			level.extra.critChance = statRow.AttackCritChance / 100
 		end
-		if levelRow.OffhandCritChance ~= 0 then
-			level.extra.critChance = levelRow.OffhandCritChance / 100
+		if statRow.OffhandCritChance ~= 0 then
+			level.extra.critChance = statRow.OffhandCritChance / 100
 		end
-		if levelRow.DamageMultiplier and levelRow.DamageMultiplier ~= 0 then
-			level.extra.baseMultiplier = levelRow.DamageMultiplier / 10000 + 1
+		if statRow.BaseMultiplier and statRow.BaseMultiplier ~= 0 then
+			level.extra.baseMultiplier = statRow.BaseMultiplier / 10000 + 1
 		end
 		if levelRow.AttackSpeedMultiplier and levelRow.AttackSpeedMultiplier ~= 0 then
 			level.extra.attackSpeedMultiplier = levelRow.AttackSpeedMultiplier
@@ -317,33 +324,63 @@ directiveTable.skill = function(state, args, out)
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
 			level.extra.cooldown = levelRow.Cooldown / 1000
 		end
-		if levelRow.Duration and levelRow.Duration ~= 0 then
-			level.extra.duration = levelRow.Duration / 1000
+		if levelRow.VaalSouls ~= 0 then
+			level.extra.soulCost = levelRow.VaalSouls
 		end
-		for i, stat in ipairs(levelRow.Stats) do
+		if levelRow.VaalStoredUses ~= 0 then
+			level.extra.skillUseStorage = levelRow.VaalStoredUses
+		end
+		if levelRow.SoulGainPreventionDuration ~= 0 then
+			level.extra.soulPreventionDuration = levelRow.SoulGainPreventionDuration / 1000
+		end
+		level.statInterpolation = statRow.StatInterpolations
+		local resolveInterpolation = false
+		local injectConstantValuesIntoEachLevel = false
+		for i, stat in ipairs(statRow.FloatStats) do
 			if not statMap[stat.Id] then
 				statMap[stat.Id] = #skill.stats + 1
 				table.insert(skill.stats, { id = stat.Id })
 			end
-			level.statInterpolation[i] = levelRow.InterpolationTypes[i]
-			if level.statInterpolation[i] == 3 then
-				if levelRow.EffectivenessCost[i].Value ~= 0 then
-					table.insert(level, levelRow["StatEff"..i] / levelRow.EffectivenessCost[i].Value)
-				else
-					level.statInterpolation[i] = 1
-					table.insert(level, levelRow["Stat"..i])
-				end
+			if resolveInterpolation then
+				table.insert(level, statRow.BaseResolvedValues[i])
+				level.statInterpolation[i] = 1
 			else
-				table.insert(level, levelRow["Stat"..i])
+				table.insert(level, statRow.FloatStatsValues[i] / math.max(statRow.InterpolationBases[i].Value, 0.00001) )
 			end
 		end
-		for i, stat in ipairs(levelRow.BooleanStats) do
+		if injectConstantValuesIntoEachLevel then
+			for i, stat in ipairs(granted.GrantedEffectStatSets.ConstantStats) do
+				if not statMap[stat.Id] then
+					statMap[stat.Id] = #skill.stats + #skill.constantStats + 1
+					table.insert(skill.stats, { id = stat.Id })
+				end
+				table.insert(level, granted.GrantedEffectStatSets.ConstantStatsValues[i])
+				table.insert(level.statInterpolation, #statRow.FloatStats + 1, 1)
+			end
+		end
+		for i, stat in ipairs(statRow.AdditionalStats) do
+			if not statMap[stat.Id] then
+				statMap[stat.Id] = #skill.stats + 1
+				table.insert(skill.stats, { id = stat.Id })
+			end
+			table.insert(level, statRow.AdditionalStatsValues[i])
+		end
+		for i, stat in ipairs(statRow.AdditionalBooleanStats) do
 			if not statMap[stat.Id] then
 				statMap[stat.Id] = #skill.stats + 1
 				table.insert(skill.stats, { id = stat.Id })
 			end
 		end
 		table.insert(skill.levels, level)
+	end
+	for i, stat in ipairs(granted.GrantedEffectStatSets.ImplicitStats) do
+		if not statMap[stat.Id] then
+			statMap[stat.Id] = #skill.stats + 1
+			table.insert(skill.stats, { id = stat.Id })
+		end
+	end
+	for i, stat in ipairs(granted.GrantedEffectStatSets.ConstantStats) do
+		table.insert(skill.constantStats, { stat.Id, granted.GrantedEffectStatSets.ConstantStatsValues[i] })
 	end
 	if not skill.qualityStats then
 		skill.qualityStats = { }
@@ -377,59 +414,86 @@ end
 -- Emits the skill modifiers
 directiveTable.mods = function(state, args, out)
 	local skill = state.skill
-	if not skill.isSupport then
-		out:write('\tbaseFlags = {\n')
-		for _, flag in ipairs(skill.baseFlags) do
-			out:write('\t\t', flag, ' = true,\n')
+	if not args:match("noBaseFlags") then
+		if not skill.isSupport then
+			out:write('\tbaseFlags = {\n')
+			for _, flag in ipairs(skill.baseFlags) do
+				out:write('\t\t', flag, ' = true,\n')
+			end
+			out:write('\t},\n')
+		end
+	end
+	if not args:match("noBaseMods") then
+		if next(skill.mods) ~= nil then
+			out:write('\tbaseMods = {\n')
+			for _, mod in ipairs(skill.mods) do
+				out:write('\t\t', mod, ',\n')
+			end
+			out:write('\t},\n')
+		end
+	end
+	if not args:match("noQualityStats") then
+		if next(skill.qualityStats) ~= nil then
+			out:write('\tqualityStats = {\n')
+			for i, alternates in ipairs(skill.qualityStats) do
+				if i == 1 then
+					out:write('\t\tDefault = {\n')
+				else
+					local value = i - 1
+					out:write('\t\tAlternate' .. value .. ' = {\n')
+				end
+				for _, stat in ipairs(alternates) do
+					out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+				end
+				out:write('\t\t},\n')
+			end
+			out:write('\t},\n')
+		end
+	end
+	if not args:match("noStats") then
+		if next(skill.constantStats) ~= nil then
+			-- write out constant stats that don't change per level
+			out:write('\tconstantStats = {\n')
+			for i, stat in ipairs(skill.constantStats) do
+				out:write('\t\t{ "', stat[1], '", ', stat[2], ' },\n')
+			end
+			out:write('\t},\n')
+		end
+		-- write out per level stats
+		out:write('\tstats = {\n')
+		for _, stat in ipairs(skill.stats) do
+			out:write('\t\t"', stat.id, '",\n')
 		end
 		out:write('\t},\n')
 	end
-	out:write('\tbaseMods = {\n')
-	for _, mod in ipairs(skill.mods) do
-		out:write('\t\t', mod, ',\n')
+	if not args:match("noLevels") then
+		out:write('\tlevels = {\n')
+		for index, level in ipairs(skill.levels) do
+			out:write('\t\t[', level.level, '] = { ')
+			for _, statVal in ipairs(level) do
+				out:write(tostring(statVal), ', ')
+			end
+			for k, v in pairs(level.extra) do
+				out:write(k, ' = ', tostring(v), ', ')
+			end
+			if next(level.statInterpolation) ~= nil then
+				out:write('statInterpolation = { ')
+				for _, type in ipairs(level.statInterpolation) do
+					out:write(type, ', ')
+				end
+				out:write('}, ')
+			end
+			if next(level.cost) ~= nil then
+				out:write('cost = { ')
+				for k, v in pairs(level.cost) do
+					out:write(k, ' = ', tostring(v), ', ')
+				end
+				out:write('}, ')
+			end
+			out:write('},\n')
+		end
+		out:write('\t},\n')
 	end
-	out:write('\t},\n')
-	out:write('\tqualityStats = {\n')
-	for i, alternates in ipairs(skill.qualityStats) do
-		if i == 1 then
-			out:write('\t\tDefault = {\n')
-		else
-			local value = i - 1
-			out:write('\t\tAlternate' .. value .. ' = {\n')
-		end
-		for _, stat in ipairs(alternates) do
-			out:write('\t\t\t{ "', stat[1], '", ', stat[2], ' },\n')
-		end
-		out:write('\t\t},\n')
-	end
-	out:write('\t},\n')
-	out:write('\tstats = {\n')
-	for _, stat in ipairs(skill.stats) do
-		out:write('\t\t"', stat.id, '",\n')
-	end
-	out:write('\t},\n')
-	out:write('\tlevels = {\n')
-	for index, level in ipairs(skill.levels) do
-		out:write('\t\t[', level.level, '] = { ')
-		for _, statVal in ipairs(level) do
-			out:write(tostring(statVal), ', ')
-		end
-		for k, v in pairs(level.extra) do
-			out:write(k, ' = ', tostring(v), ', ')
-		end
-		out:write('statInterpolation = { ')
-		for _, type in ipairs(level.statInterpolation) do
-			out:write(type, ', ')
-		end
-		out:write('}, ')
-		out:write('cost = { ')
-		for k, v in pairs(level.cost) do
-			out:write(k, ' = ', tostring(v), ', ')
-		end
-		out:write('}, ')
-		out:write('},\n')
-	end
-	out:write('\t},\n')
 	out:write('}')
 	state.skill = nil
 end

@@ -31,7 +31,6 @@ Steps:
 1. Run each script in the Exporter in order
 2. Revert the following changes similar to the linked examples:
     - [Fix stats on Rigwald's Pack](https://github.com/PathOfBuildingCommunity/PathOfBuilding/commit/85912cc8631bf55f999f8dfbda5fa6510252518c#diff-72415c450079cf8e5de1f00680f4918fd78e43aea4ed78dc5906d5ccf6fb66fb)
-    - Make sure "of the Underground" mods don't apply to you as well as nearby enemies in [ModItem.lua](src/Data/ModItem.lua)
     - [Make sure the description of a keystone isn't removed](src/Data/LegionPassives.lua#L3911-L3915)
 
 ## Skill tree updates
@@ -50,13 +49,14 @@ Steps:
    * `data.json`.
 4. Copy the following files from the `assets` subdirectory in the `.zip` archive to the
     new directory:
-    * `groups-3.png`
+    * `mastery-active-effect-3.png`
+    * `mastery-active-selected-3.png`
+    * `mastery-connected-3.png`
+    * `mastery-disabled-3.png`
     * `skills-3.jpg`
     * `skills-disabled-3.jpg`.
-5. Copy `./fix_ascendancy_positions.py` to the new directory and run it. This should
-   result in a new file `data_fixed.json`. Remove `data.json` and rename
-   `data_fixed.json` to `data.json`. Remove the copied `fix_ascendancy_positions.py`.
-6. Open `.src/GameVersions.lua` and update `treeVersionList` and `treeVersions`
+5. Run `./fix_ascendancy_positions.py`.
+6. Open `./src/GameVersions.lua` and update `treeVersionList` and `treeVersions`
    according to the file's format. This is important, otherwise the JSON data converter
    won't trigger.
 7. Restart Path of Building Community. This should result in a new file `tree.lua`.

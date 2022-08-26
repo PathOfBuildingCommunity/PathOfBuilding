@@ -73,10 +73,13 @@ function main:Init()
 
 	self:LoadSettings()
 
-	if USE_DAT64 then
-		self:LoadDat64Files()
-	else
-		self:LoadDatFiles()
+	self:InitGGPK()
+	if self.datSource then
+		if USE_DAT64 then
+			self:LoadDat64Files()
+		else
+			self:LoadDatFiles()
+		end
 	end
 
 	self.scriptList = { }
@@ -141,23 +144,32 @@ function main:Init()
 		return self.ggpk.txt[name]
 	end
 
-	self.typeDrop = { "Bool", "Int", "UInt", "Interval", "Float", "String", "Enum", "Key" }
+	self.typeDrop = { "Bool", "Int", "UInt", "Interval", "Float", "String", "Enum", "ShortKey", "Key" }
 
 	self.colList = { }
 
 	self.controls.datSourceLabel = new("LabelControl", nil, 10, 10, 100, 16, "^7GGPK/Steam PoE path:")
-	self.controls.datSource = new("EditControl", nil, 10, 30, 250, 18, self.datSource) {
-		enterFunc = function(buf)
-			self.datSource = buf
-			if USE_DAT64 then
-				self:LoadDat64Files()
-			else
-				self:LoadDatFiles()
-			end
-		end
-	}
+	self.controls.addSource = new("ButtonControl", nil, 10, 30, 100, 18, "Edit Sources...", function()
+		self.OpenPathPopup()
+	end)
 
-	self.controls.scripts = new("ButtonControl", nil, 160, 10, 100, 18, "Scripts >>", function()
+	self.datSources = self.datSources or { }
+	self.controls.datSource = new("DropDownControl", nil, 10, 50, 250, 18, self.datSources, function(_, value)
+		local out = io.open(self.datSource.spec..(self.datSource.spec:match("%.lua$") and "" or ".lua"), "w")
+		out:write('return ')
+		writeLuaTable(out, self.datSpecs, 1)
+		out:close()
+		self.datSource = value
+		self.datSpecs = LoadModule(self.datSource.spec)
+		self:InitGGPK()
+		if USE_DAT64 then
+			self:LoadDat64Files()
+		else
+			self:LoadDatFiles()
+		end
+	end, nil)
+
+	self.controls.scripts = new("ButtonControl", nil, 160, 30, 100, 18, "Scripts >>", function()
 		self:SetCurrentDat()
 	end)
 
@@ -172,7 +184,7 @@ function main:Init()
 		end
 	}
 
-	self.controls.datList = new("DatListControl", nil, 10, 50, 250, function() return self.screenH - 60 end)
+	self.controls.datList = new("DatListControl", nil, 10, 70, 250, function() return self.screenH - 70 end)
 
 	self.controls.specEditToggle = new("ButtonControl", nil, 270, 10, 100, 18, function() return self.editSpec and "Done <<" or "Edit >>" end, function()
 		self.editSpec = not self.editSpec
@@ -241,6 +253,7 @@ function main:Init()
 			self.curDatFile.rowFilter = buf
 		end,
 	}
+	self.controls.filter.tooltipText = "Takes a Lua expression that returns true or false for a row.\nE.g. `Id:match(\"test\")` or for a key column, `Col and Col.Id:match(\"test\")`"
 	self.controls.filterError = new("LabelControl", {"LEFT",self.controls.filter,"RIGHT"}, 4, 2, 0, 14, "")
 
 	self.controls.rowList = new("RowListControl", nil, 270, 0, 0, 0) {
@@ -274,11 +287,22 @@ function main:CanExit()
 	return true
 end
 
+function main:OpenPathPopup()
+	main:OpenPopup(370, 290, "Manage GGPK versions", {
+		new("GGPKSourceListControl", nil, 0, 50, 350, 200, self),
+		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+			main:ClosePopup()
+		end),
+	})
+end
+
 function main:Shutdown()
-	local out = io.open("spec.lua", "w")
-	out:write('return ')
-	writeLuaTable(out, self.datSpecs, 1)
-	out:close()
+	if self.datSource and self.datSource.spec then
+		local out = io.open(self.datSource.spec, "w")
+		out:write('return ')
+		writeLuaTable(out, self.datSpecs, 1)
+		out:close()
+	end
 
 	self:SaveSettings()
 end
@@ -296,6 +320,13 @@ function main:OnFrame()
 	end
 
 	self:DrawControls(self.viewPort)
+	if self.popups[1] then
+		SetDrawLayer(10)
+		SetDrawColor(0, 0, 0, 0.5)
+		DrawImage(nil, 0, 0, self.screenW, self.screenH)
+		self.popups[1]:Draw(self.viewPort)
+		SetDrawLayer(0)
+	end
 
 	wipeTable(self.inputEvents)
 end
@@ -312,7 +343,7 @@ function main:OnChar(key)
 	t_insert(self.inputEvents, { type = "Char", key = key })
 end
 
-function main:LoadDatFiles()
+function main:InitGGPK()
 	wipeTable(self.datFileList)
 	wipeTable(self.datFileByName)
 	self:SetCurrentDat()
@@ -320,50 +351,45 @@ function main:LoadDatFiles()
 
 	if not self.datSource then
 		return
-	elseif self.datSource:match("%.ggpk") or self.datSource:match("steamapps[/\\].+[/\\]Path of Exile") then
+	else
 		local now = GetTime()
-		self.ggpk = new("GGPKData", self.datSource)
-		ConPrintf("GGPK: %d ms", GetTime() - now)
-
-		now = GetTime()
-		for i, record in ipairs(self.ggpk.dat) do
-			if i == 1 then
-				ConPrintf("DAT find: %d ms", GetTime() - now)
-				now = GetTime()
-			end
-			local datFile = new("DatFile", record.name:gsub("%.dat$",""), record.data)
-			t_insert(self.datFileList, datFile)
-			self.datFileByName[datFile.name] = datFile
+		local ggpkPath = self.datSource.ggpkPath or self.datSource.path
+		if ggpkPath and (ggpkPath:match("%.ggpk") or ggpkPath:match("steamapps[/\\].+[/\\]Path of Exile")) then
+			self.ggpk = new("GGPKData", ggpkPath)
+			ConPrintf("GGPK: %d ms", GetTime() - now)
+		elseif self.datSource.datFilePath then
+			self.ggpk = new("GGPKData", nil, self.datSource.datFilePath)
+			ConPrintf("GGPK: %d ms", GetTime() - now)
 		end
-		ConPrintf("DAT read: %d ms", GetTime() - now)
 	end
 end
 
-function main:LoadDat64Files()
-	wipeTable(self.datFileList)
-	wipeTable(self.datFileByName)
-	self:SetCurrentDat()
-	self.ggpk = nil
-
-	if not self.datSource then
-		return
-	elseif self.datSource:match("%.ggpk") or self.datSource:match("steamapps[/\\].+[/\\]Path of Exile") then
-		local now = GetTime()
-		self.ggpk = new("GGPKData", self.datSource)
-		ConPrintf("GGPK: %d ms", GetTime() - now)
-
-		now = GetTime()
-		for i, record in ipairs(self.ggpk.dat) do
-			if i == 1 then
-				ConPrintf("DAT64 find: %d ms", GetTime() - now)
-				now = GetTime()
-			end
-			local datFile = new("Dat64File", record.name:gsub("%.dat64$",""), record.data)
-			t_insert(self.datFileList, datFile)
-			self.datFileByName[datFile.name] = datFile
+function main:LoadDatFiles()
+	local now = GetTime()
+	for i, record in ipairs(self.ggpk.dat) do
+		if i == 1 then
+			ConPrintf("DAT find: %d ms", GetTime() - now)
+			now = GetTime()
 		end
-		ConPrintf("DAT64 read: %d ms", GetTime() - now)
+		local datFile = new("DatFile", record.name:gsub("%.dat$",""), record.data)
+		t_insert(self.datFileList, datFile)
+		self.datFileByName[datFile.name] = datFile
 	end
+	ConPrintf("DAT read: %d ms", GetTime() - now)
+end
+
+function main:LoadDat64Files()
+	local now = GetTime()
+	for i, record in ipairs(self.ggpk.dat) do
+		if i == 1 then
+			ConPrintf("DAT64 find: %d ms", GetTime() - now)
+			now = GetTime()
+		end
+		local datFile = new("Dat64File", record.name:gsub("%.dat64$",""), record.data)
+		t_insert(self.datFileList, datFile)
+		self.datFileByName[datFile.name] = datFile
+	end
+	ConPrintf("DAT64 read: %d ms", GetTime() - now)
 end
 
 function main:SetCurrentDat(datFile)
@@ -419,15 +445,41 @@ function main:LoadSettings()
 	for _, node in ipairs(setXML[1]) do
 		if type(node) == "table" then
 			if node.elem == "DatSource" then
-				self.datSource = node.attrib.path
+				self.datSource = self.datSource or { }
+				self.datSource.ggpkPath = node.attrib.ggpkPath or node.attrib.path
+				self.datSource.datFilePath = node.attrib.datFilePath
+				self.datSource.label = node.attrib.label or "Default"
+				self.datSource.spec = node.attrib.spec or "spec.lua"
+			end
+			if node.elem == "DatSources" then
+				self.datSources = self.datSources or { }
+				for _, child in ipairs(node) do
+					t_insert(self.datSources, { ggpkPath = child.attrib.ggpkPath, datFilePath = child.attrib.datFilePath, label = child.attrib.label, spec = child.attrib.spec })
+				end
 			end
 		end
 	end
+	if type(self.datSources) ~= "table" then
+		self.datSources = { }
+	end
+	if not next(self.datSources) then
+		t_insert(self.datSources, self.datSource)
+	end
+	self.datSource = self.datSource or self.datSources[1]
 end
 
 function main:SaveSettings()
 	local setXML = { elem = "DatView" }
-	t_insert(setXML, { elem = "DatSource", attrib = { path = self.datSource } })
+	if self.datSource then
+		t_insert(setXML, { elem = "DatSource", attrib = { ggpkPath = self.datSource.ggpkPath, datFilePath = self.datSource.datFilePath, label = self.datSource.label, spec = self.datSource.spec } })
+	end
+	if self.datSources then
+		local datSources = { elem = "DatSources" }
+		for _, source in ipairs(self.datSources) do
+			t_insert(datSources, { elem = "DatSource", attrib = { ggpkPath = source.ggpkPath, datFilePath = source.datFilePath, label = source.label, spec = source.spec }})
+		end
+		t_insert(setXML, datSources)
+	end
 	local res, errMsg = common.xml.SaveXMLFile(setXML, "Settings.xml")
 	if not res then
 		launch:ShowErrMsg("Error saving 'Settings.xml': %s", errMsg)

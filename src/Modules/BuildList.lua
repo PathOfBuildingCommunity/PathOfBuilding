@@ -161,13 +161,17 @@ function listMode:BuildList()
 		build.fullFileName = main.buildPath..self.subPath..fileName
 		build.modified = handle:GetFileModifiedTime()
 		build.buildName = fileName:gsub("%.xml$","")
-		local dbXML = common.xml.LoadXMLFile(build.fullFileName)
-		if dbXML and dbXML[1] and dbXML[1].elem == "PathOfBuilding" then
-			for _, node in ipairs(dbXML[1]) do
-				if type(node) == "table" and node.elem == "Build" then
-					build.level = tonumber(node.attrib.level)
-					build.className = node.attrib.className
-					build.ascendClassName = node.attrib.ascendClassName
+		local fileHnd = io.open(build.fullFileName, "r")
+		if fileHnd then
+			local fileText = fileHnd:read("*a")
+			fileHnd:close()
+			fileText = fileText:match("(<Build.->)")
+			if fileText then
+				local xml = common.xml.ParseXML(fileText.."</Build>")
+				if xml and xml[1] then
+					build.level = tonumber(xml[1].attrib.level)
+					build.className = xml[1].attrib.className
+					build.ascendClassName = xml[1].attrib.ascendClassName
 				end
 			end
 		end

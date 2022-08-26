@@ -1,0 +1,29 @@
+# .github/release.yml
+
+changelog:
+  exclude:
+    labels:
+      - technical
+      - invalid
+      - duplicate
+    authors:
+      - github-actions
+  categories:
+    - title: New to Path of Building
+      labels:
+        - enhancement
+    - title: User Interface
+      labels:
+        - user-interface
+    - title: Accuracy Improvements
+      labels:
+        - bug:accuracy
+        - bug:behavior
+        - bug:calculation
+    - title: Fixed Bugs
+      labels:
+        - bug
+        - crash
+    - title: Other changes
+      labels:
+        - "*"

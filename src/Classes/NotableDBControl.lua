@@ -9,6 +9,7 @@ local t_insert = table.insert
 local t_sort = table.sort
 local m_max = math.max
 local m_floor = math.floor
+local m_huge = math.huge
 local s_format = string.format
 
 ---@param node table
@@ -19,7 +20,7 @@ end
 
 ---@class NotableDBControl : ListControl
 local NotableDBClass = newClass("NotableDBControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab, db, dbType)
-	self.ListControl(anchor, x, y, width, height, 16, false, false)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab
 	self.db = db
 	self.dbType = dbType
@@ -131,6 +132,7 @@ function NotableDBClass:ListBuilder()
 
 	if self.sortDetail and self.sortDetail.stat then -- stat-based
 		local cache = { }
+		local infinites = { }
 		local start = GetTime()
 		local calcFunc = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		local itemType = self.itemsTab.displayItem.base.type
@@ -141,13 +143,24 @@ function NotableDBClass:ListBuilder()
 			if node.modKey ~= "" then
 				local output = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(node) }, {})
 				node.measuredPower = self:CalculatePowerStat(self.sortDetail, output, calcBase)
-				self.sortMaxPower = m_max(self.sortMaxPower, node.measuredPower)
+				if node.measuredPower == m_huge then
+					t_insert(infinites, node)
+				else
+					self.sortMaxPower = m_max(self.sortMaxPower, node.measuredPower)
+				end
 			end
 			local now = GetTime()
 			if now - start > 50 then
 				self.defaultText = "^7Sorting... ("..m_floor(nodeIndex/#list*100).."%)"
 				coroutine.yield()
 				start = now
+			end
+		end
+		
+		if #infinites > 0 then
+			self.sortMaxPower = self.sortMaxPower * 2
+			for _, node in ipairs(infinites) do
+				node.measuredPower = self.sortMaxPower
 			end
 		end
 	end

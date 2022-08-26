@@ -111,7 +111,6 @@ Implicits: 1
 ]],[[
 Goredrill
 Skinning Knife
-Upgrade: Upgrades to unique{Sanguine Gambol} via prophecy{Crimson Hues}
 Requires Level 5, 16 Dex
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -124,7 +123,7 @@ Adds (1-2) to (3-5) Physical Damage
 ]],[[
 Sanguine Gambol
 Skinning Knife
-Source: Upgraded from unique{Goredrill} via prophecy{Crimson Hues}
+Source: No longer obtainable
 Requires Level 59
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -152,27 +151,34 @@ Gain (10-20) Mana on Culling Strike
 Heartbreaker
 Royal Skean
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 50, 71 Dex, 102 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:1}(40-50)% increased Spell Damage
-{variant:2}(60-70)% increased Spell Damage
-+(40-50) to maximum Mana
-+50 to maximum Energy Shield
-10% faster start of Energy Shield Recharge
+{variant:2,3}(60-70)% increased Spell Damage
+{variant:1,2}+50 to maximum Energy Shield
+{variant:1,2}10% faster start of Energy Shield Recharge
+{variant:3}(40-80)% faster start of Energy Shield Recharge
+{variant:1,2}+(40-50) to maximum Mana
+{variant:3}+(60-100) to maximum Mana
 Your Spells have Culling Strike
 ]],[[
 Replica Heartbreaker
 Royal Skean
+Variant: Pre 3.19.0
+Variant: Current
 League: Heist
 Requires Level 50, 71 Dex, 102 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
 (60-70)% increased Spell Damage
-+50 to maximum Energy Shield
-10% faster start of Energy Shield Recharge
-+(40-50) to maximum Life
+{variant:1}+50 to maximum Energy Shield
+{variant:1}10% faster start of Energy Shield Recharge
+{variant:2}(40-80)% faster start of Energy Shield Recharge
+{variant:1}+(40-50) to maximum Life
+{variant:2}+(30-50) to maximum Life
 20% increased Impale Effect
 20% chance to Impale on Spell Hit
 ]],[[
@@ -284,6 +290,7 @@ Every 8 seconds, gain Avatar of Fire for 4 seconds
 White Wind
 Imperial Skean
 Variant: Pre 3.11.0
+Variant: Pre 3.16.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
@@ -291,11 +298,11 @@ Implicits: 1
 Adds (160-190) to (280-320) Cold Damage
 (10-15)% increased Attack Speed
 {variant:1}+(300-400) to Evasion Rating
-{variant:2}+(1000-1500) to Evasion Rating
-{variant:1}20% chance to Dodge Attacks while your Off Hand is empty
-{variant:2}(15-25)% chance to Dodge Attacks while your Off Hand is empty
+{variant:2,3}+(1000-1500) to Evasion Rating
+{variant:1,2}(15-25)% chance to Suppress Spell Damage while your Off Hand is empty
+{variant:3}(30-40)% chance to Suppress Spell Damage while your Off Hand is empty
 {variant:1}100% increased Cold Damage while your Off Hand is empty
-{variant:2}(100-200)% increased Cold Damage while your Off Hand is empty
+{variant:2,3}(100-200)% increased Cold Damage while your Off Hand is empty
 ]],[[
 Widowmaker
 Boot Blade

@@ -10,12 +10,12 @@ local lab = {
 	[75] = "ENDGAME",
 	[83] = "DEDICATION",
 }
-local sourceOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME", "DEDICATION", "HARVEST", "HEIST" }
+local sourceOrder = { "NORMAL", "CRUEL", "MERCILESS", "ENDGAME", "DEDICATION", "ENKINDLING", "INSTILLING", "HARVEST", "HEIST" }
 
 local function doLabEnchantment(fileName, group)
 	local byDiff = { }
 	for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", 10)) do
-		if mod.Family == group and mod.SpawnWeights[1] > 0 then
+		if mod.Family[1].Id == group and mod.SpawnWeights[1] > 0 then
 			local stats, orders = describeMod(mod)
 			local diff = lab[mod.Level]
 			byDiff[diff] = byDiff[diff] or { }
@@ -42,14 +42,16 @@ doLabEnchantment("../Data/EnchantmentBoots.lua", "ConditionalBuffEnchantment")
 doLabEnchantment("../Data/EnchantmentGloves.lua", "TriggerEnchantment")
 doLabEnchantment("../Data/EnchantmentBelt.lua", "BuffEnchantment")
 
-local function doOtherEnchantment(fileName, groups)
+local function doOtherEnchantment(fileName, groupsList)
 	local byDiff = { }
-	for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", 3)) do
-		if groups[mod.Family] then
-			local stats, orders = describeMod(mod)
-			local diff = groups[mod.Family]
-			byDiff[diff] = byDiff[diff] or { }
-			table.insert(byDiff[diff], stats)
+	for generation in pairs(groupsList) do
+		for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", generation)) do
+			if groupsList[generation][mod.Family[1].Id] then
+				local stats, orders = describeMod(mod)
+				local diff = groupsList[generation][mod.Family[1].Id]
+				byDiff[diff] = byDiff[diff] or { }
+				table.insert(byDiff[diff], stats)
+			end
 		end
 	end
 	local out = io.open(fileName, "w")
@@ -68,13 +70,16 @@ local function doOtherEnchantment(fileName, groups)
 	out:close()
 end
 
--- Flask enchants stat descriptions don't read properly yet, and might need support for value ranges
---doOtherEnchantment("../Data/EnchantmentFlask.lua", { ["FlaskEnchantment"] = "HARVEST" })
-doOtherEnchantment("../Data/EnchantmentBody.lua", { ["AlternateArmourQuality"] = "HARVEST", ["EnchantmentHeistArmour"] = "HEIST" })
-doOtherEnchantment("../Data/EnchantmentWeapon.lua", { ["AlternateWeaponQuality"] = "HARVEST", ["EnchantmentHeistWeapon"] = "HEIST" })
+-- Harvest flask enchants stat descriptions don't read properly yet
+doOtherEnchantment("../Data/EnchantmentFlask.lua", { --[3] = { ["FlaskEnchantment"] = "HARVEST" },
+	[21] = { ["FlaskEnchantment"] = "ENKINDLING" },
+	[22] = { ["FlaskEnchantment"] = "INSTILLING" } })
+doOtherEnchantment("../Data/EnchantmentBody.lua", { [3] = { ["AlternateArmourQuality"] = "HARVEST", ["EnchantmentHeistArmour"] = "HEIST" } })
+doOtherEnchantment("../Data/EnchantmentWeapon.lua", { [3] = { ["AlternateWeaponQuality"] = "HARVEST", ["EnchantmentHeistWeapon"] = "HEIST" } })
 
 local skillMap = {
 	["Summone?d?RagingSpirit"] = "Summon Raging Spirit",
+	["SpiritOffering"] = "Spirit Offering",
 	["Discharge"] = "Discharge",
 	["AncestorTotem[^S][^l]"] = "Ancestral Protector",
 	["AncestorTotemSlamMelee"] = "Ancestral Warchief",
@@ -116,7 +121,6 @@ local skillMap = {
 	["ShockNova"] = "Shock Nova",
 	["SpectralThrow"] = "Spectral Throw",
 	["TectonicSlam"] = "Tectonic Slam",
-	["TornadoShot"] = "Tornado Shot",
 	["VolatileDead"] = "Volatile Dead",
 	["BoneLance"] = "Unearth",
 	["CorpseEruption"] = "Cremation",
@@ -198,11 +202,14 @@ local skillMap = {
 	["Boneshatter"] = "Boneshatter",
 	["SpectralHelix"] = "Spectral Helix",
 	["DefianceBanner"] = "Defiance Banner",
+	["EnergyBlade"] = "Energy Blade",
+	["Tornado"] = "Tornado",
+	["TornadoShot"] = "Tornado Shot",
 }
 
 local bySkill = { }
 for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", 10)) do
-	if mod.Family == "SkillEnchantment" and mod.SpawnWeights[1] > 0 then
+	if mod.Family[1].Id == "SkillEnchantment" and mod.SpawnWeights[1] > 0 then
 		local stats = { mod.Stat1, mod.Stat2, mod.Stat3, mod.Stat4, mod.Stat5, mod.Stat6 }
 		local skill
 		for _, stat in pairs(stats) do

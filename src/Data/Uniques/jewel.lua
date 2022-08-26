@@ -28,7 +28,7 @@ Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds
 Apparitions
 Viridian Jewel
 Minions have (5-10)% increased Movement Speed
-Minions have (2-5)% additional chance to Dodge Attacks
+Minions have +(2-5)% chance to Suppress Spell Damage
 ]],[[
 The Blue Dream
 Cobalt Jewel
@@ -67,7 +67,7 @@ Strength from Passives in Radius is Transformed to Intelligence
 Calamitous Visions
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Lone Messenger
 ]],[[
 Careful Planning
@@ -78,11 +78,13 @@ Intelligence from Passives in Radius is Transformed to Dexterity
 ]],[[
 Cheap Construction
 Viridian Jewel
+Source: No longer obtainable
 10% reduced Trap Duration
 Can have up to 1 additional Trap placed at a time
 ]],[[
 Replica Cheap Construction
 Viridian Jewel
+Source: No longer obtainable
 League: Heist
 (100-120)% increased Critical Strike Chance with Traps
 Can have 5 fewer Traps placed at a time
@@ -107,6 +109,22 @@ Viridian Jewel
 Radius: Large
 Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage
 Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage
+]],[[
+Dissolution of the Flesh
+Prismatic Jewel
+Source: Drops from unique{The Searing Exarch}
+Limited to: 1
+Removes all Energy Shield
+Life that would be lost by taking Damage is instead Reserved
+until you take no Damage to Life for 2 seconds
+(20–30)% more Maximum Life
+]],[[
+Divine Inferno
+Crimson Jewel
+Limited to: 1
+Radius: Medium
+With at least 40 Strength in Radius, Combust is Disabled
+With at least 40 Strength in Radius, Attacks Exerted by Infernal Cry deal (40-60)% more Damage with Ignite
 ]],[[
 Efficient Training
 Crimson Jewel
@@ -212,7 +230,7 @@ Implicits: 0
 The Front Line
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Veteran's Awareness
 ]],[[
 The Golden Rule
@@ -227,20 +245,28 @@ Cobalt Jewel
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
-Variant: Current
+Variant: Current - Crit Chance
+Variant: Current - Minion Crit Multi
+Variant: Current - Min Power Charge
 {variant:1}Gain 15 Mana per Grand Spectrum
 {variant:2}Gain 30 Mana per Grand Spectrum
 {variant:3}25% increased Critical Strike Chance per Grand Spectrum
+{variant:4}Minions have +10% to Critical Strike Multiplier per Grand Spectrum
+{variant:5}+1 to Minimum Power Charges per Grand Spectrum
 ]],[[
 Grand Spectrum
 Crimson Jewel
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
-Variant: Current
+Variant: Current - Elemental Resistances
+Variant: Current - Maximum Life
+Variant: Current - Min Endurance Charge
 {variant:1}Gain 75 Armour per Grand Spectrum
 {variant:2}Gain 200 Armour per Grand Spectrum
 {variant:3}+7% to all Elemental Resistances per Grand Spectrum
+{variant:4}5% increased Maximum Life per Grand Spectrum
+{variant:5}+1 to Minimum Endurance Charges per Grand Spectrum
 ]],[[
 Grand Spectrum
 Viridian Jewel
@@ -249,10 +275,14 @@ Variant: Pre 2.5.0
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current
+Variant: Current - Chance to avoid Ailments
+Variant: Current - Min Frenzy Charge
 {variant:1}5% increased Elemental Damage per Grand Spectrum
 {variant:2}4% increased Elemental Damage per Grand Spectrum
 {variant:3}12% increased Elemental Damage per Grand Spectrum
 {variant:4}15% increased Elemental Damage per Grand Spectrum
+{variant:5}15% chance to Avoid Elemental Ailments per Grand Spectrum
+{variant:6}+1 to Minimum Frenzy Charges per Grand Spectrum
 ]],[[
 The Green Dream
 Viridian Jewel
@@ -265,14 +295,18 @@ Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 The Green Nightmare
+Variant: Pre 3.16.0
+Variant: Current
 Viridian Jewel
 League: Breach
 Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
 Gain 5% of Cold Damage as Extra Chaos Damage
-Passives granting Cold Resistance or all Elemental Resistances in Radius
-also grant Chance to Dodge Attack Hits at 35% of its value
+{variant:1}Passives granting Cold Resistance or all Elemental Resistances in Radius
+{variant:1}also grant Chance to Suppress Spell Damage at 35% of its value
+{variant:2}Passives granting Cold Resistance or all Elemental Resistances in Radius
+{variant:2}also grant Chance to Suppress Spell Damage at 50% of its value
 Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
@@ -328,7 +362,7 @@ With 4 Notables Allocated in Radius, When you Kill a Rare monster, you gain 1 of
 The Interrogation
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Secrets of Suffering
 ]],[[
 Intuitive Leap
@@ -338,7 +372,7 @@ Passives in Radius can be Allocated without being connected to your tree
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
-Source: Drops in The Lord's Labyrinth
+Source: No longer obtainable
 (18-25)% increased Fire Damage
 (18-25)% increased Cold Damage
 2% chance to Freeze
@@ -347,7 +381,7 @@ Source: Drops in The Lord's Labyrinth
 Kitava's Teachings
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Disciple of Kitava
 ]],[[
 Lioneye's Fall
@@ -393,6 +427,16 @@ Radius: Small
 {variant:2}+(3-4) to Melee Strike Range while Unarmed
 {variant:2}Passive Skills in Radius also grant: 1% increased Unarmed Attack Speed with Melee Skills
 ]],[[
+Melding of the Flesh
+Cobalt Jewel
+Variant: Pre 3.19.0
+Variant: Current
+Source: Drops from unique{The Eater of Worlds}
+Limited to: 1
+-(80-70)% to All Elemental Resistances
+{variant:2}-(4-6)% to all maximum Elemental Resistances
+Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
+]],[[
 Might in All Forms
 Crimson Jewel
 Radius: Medium
@@ -416,13 +460,13 @@ Spells which have gained Intensity Recently lose 1 Intensity every 0.50 Seconds
 Natural Affinity
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Nature's Patience
 ]],[[
 One With Nothing
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Hollow Palm Technique
 ]],[[
 Primordial Eminence
@@ -500,8 +544,7 @@ Limited to: 1
 Radius: Medium
 Minions have (12-16)% increased Attack Speed
 Minions have (12-16)% increased Cast Speed
-Minions have (10-12)% chance to Dodge Attack Hits
-Minions have (10-12)% chance to Dodge Spell Hits
+Minions have (20-24)% chance to Suppress Spell Damage
 Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
 ]],[[
 Rain of Splinters
@@ -551,7 +594,7 @@ also grant an equal chance to gain an Endurance Charge on Kill
 The Siege
 Small Cluster Jewel
 League: Delirium
-Source: Drops from the Simulacrum Encounter
+Source: Drops from unique Delirium bosses in maps
 Adds Kineticism
 ]],[[
 Soul's Wick
@@ -669,12 +712,14 @@ Variant: Small Ring
 Variant: Medium Ring
 Variant: Large Ring
 Variant: Very Large Ring
+Variant: Massive Ring
 Radius: Variable
 Implicits: 0
 {variant:1}Only affects Passives in Small Ring
 {variant:2}Only affects Passives in Medium Ring
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
+{variant:5}Only affects Passives in Massive Ring
 Passives in Radius can be Allocated without being connected to your tree
 -(20-10)% to all Elemental Resistances
 ]],[[
@@ -1020,11 +1065,17 @@ With 40 total Dexterity and Strength in Radius, Prismatic Skills deal 50% less L
 Collateral Damage
 Viridian Jewel
 Limited to: 2
+Variant: Pre 3.9.0
+Variant: Current
 Radius: Medium
-(10-15)% increased Physical Damage
-With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
-With at least 40 Dexterity in Radius, Shrapnel Shot's
+(10-15)% increased Global Physical Damage
+{variant:1}With at least 40 Dexterity in Radius, Shrapnel Shot has 25% increased Area of Effect
+{variant:1}With at least 40 Dexterity in Radius, Shrapnel Shot's
 cone has a 50% chance to deal Double Damage
+{variant:2}With at least 40 Dexterity in Radius, Galvanic Arrow deals
+50% increased Area Damage
+{variant:2}With at least 40 Dexterity in Radius, Galvanic Arrow has
+25% increased Area of Effect
 ]],[[
 Dead Reckoning
 Cobalt Jewel
@@ -1040,12 +1091,15 @@ Minions have +(7-10)% to all Elemental Resistances
 ]],[[
 Seething Fury
 Viridian Jewel
+Variant: Pre 3.16.0
+Variant: Current
 League: Legion
 Requires Level: 20
 Limited to: 1
 Radius: Medium
 (10-15)% increased Attack Damage while holding a Shield
-+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
+{variant:1}+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
+{variant:2}+0.15% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
 +4% to Off Hand Critical Strike Multiplier per 10 Maximum Energy Shield on Shield
 ]],[[
 Fight for Survival
@@ -1059,6 +1113,7 @@ With at least 40 Dexterity in Radius, Frost Blades has 25% increased Projectile 
 ]],[[
 First Snow
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (7-10)% increased Projectile Damage 
@@ -1068,6 +1123,7 @@ you've Shattered an Enemy Recently
 ]],[[
 Frozen Trail
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (7-10)% increased Projectile Damage
@@ -1077,8 +1133,9 @@ Speed per second
 ]],[[
 Growing Agony
 Viridian Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Limited to: 1
 Radius: Medium
 {variant:1}(4-12)% increased Damage over Time
@@ -1088,12 +1145,14 @@ With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage wit
 ]],[[
 Hazardous Research
 Cobalt Jewel
+Variant: Pre 3.17.0
+Variant: Current
 Limited to: 1
 Radius: Medium
 (10-15)% increased Lightning Damage
-With at least 40 Intelligence in Radius, Spark fires 2 additional Projectiles
+{variant:1}With at least 40 Intelligence in Radius, Spark fires 2 additional Projectiles
 With at least 40 Intelligence in Radius, Spark fires Projectiles in a Nova
-(20-15)% reduced Spark Duration
+{variant:1}(20-15)% reduced Spark Duration
 ]],[[
 Inevitability
 Cobalt Jewel
@@ -1158,6 +1217,7 @@ With at least 40 Dexterity in Radius, Ice Shot has 25% increased Area of Effect
 ]],[[
 Overwhelming Odds
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 1
 Radius: Medium
 (10-15)% increased Global Physical Damage
@@ -1167,18 +1227,21 @@ With at least 40 Strength in Radius, Cleave has +1 to Radius per Nearby Enemy, u
 Pitch Darkness
 Viridian Jewel
 Variant: Pre 2.6.0
+Variant: Pre 3.16.0
 Variant: Current
 Radius: Medium
 {variant:1}(5-15)% increased Fire Damage
-{variant:2}(10-15)% increased Fire Damage
+{variant:2,3}(10-15)% increased Fire Damage
+{variant:3}+10% to Fire Damage over Time Multiplier
 With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Burning Ground if it Ignites an Enemy.
-With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
+{variant:2}With at least 40 Dexterity in Radius, Burning Arrow has a 10% chance to spread Tar if it does not Ignite an Enemy.
 ]],[[
 Rapid Expansion
 Crimson Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.3.0
-Variant: Current
+Variant: Pre 3.17.0
 Limited to: 2
 Radius: Medium
 {variant:1}(4-12)% increased Physical Damage
@@ -1192,6 +1255,7 @@ Radius: Medium
 Ring of Blades
 Viridian Jewel
 Variant: Pre 3.0.0
+Variant: Pre 3.17.0
 Variant: Current
 Limited to: 1
 Radius: Medium
@@ -1241,23 +1305,26 @@ Limited to: 1
 Radius: Medium
 {variant:1}(5-10)% increased maximum Mana
 {variant:2}(7-10)% increased maximum Mana
-With at least 40 Intelligence in Radius, 10% of Damage taken gained as Mana over 4 seconds when Hit if you've Warcried Recently
+With at least 40 Intelligence in Radius, 10% of Damage taken Recouped as Mana if you've Warcried Recently
 ]],[[
 Spreading Rot
 Cobalt Jewel
 Variant: Pre 3.6.0
+Variant: Pre 3.17.0
 Variant: Current
-Limited to: 2
+Limited to: 1
 Radius: Medium
 (7-13)% increased Chaos Damage
-With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration
+{variant:1,2}With at least 40 Intelligence in Radius, Blight has 50% increased Hinder Duration
+{variant:3}With at least 40 Intelligence in Radius, Blight has 30% reduced Cast Speed
 {variant:1}With at least 40 Intelligence in Radius, Enemies Hindered by Blight take 25% increased Chaos Damage
-{variant:2}With at least 40 Intelligence in Radius, Blight inflicts Withered for 2 seconds
+{variant:2,3}With at least 40 Intelligence in Radius, Blight inflicts Withered for 2 seconds
 ]],[[
 Steel Spirit
 Viridian Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Current
+Variant: Pre 3.17.0
 Radius: Medium
 {variant:1}(6-10)% increased Projectile Damage
 {variant:2}(7-10)% increased Projectile Damage
@@ -1265,12 +1332,14 @@ Radius: Medium
 {variant:2}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 5% increased Damage each time it Hits.
 ]],[[
 Sudden Ignition
+Variant: Pre 3.16.0
+Variant: Current
 Viridian Jewel
 Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage 
-With at least 40 Dexterity in Radius, Burning
-Arrow can inflict an additional Ignite on an Enemy
+{variant:1}With at least 40 Dexterity in Radius, Burning Arrow can inflict an additional Ignite on an Enemy
+{Variant:2}Ignited Enemies Killed by your Hits are destroyed
 ]],[[
 Unending Hunger 
 Cobalt Jewel
@@ -1318,6 +1387,7 @@ Radius: Medium
 ]],[[
 Weight of the Empire
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (8-12)% increased Physical Damage
@@ -1338,6 +1408,7 @@ Radius: Medium
 ]],[[
 Winter Burial
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (10-15)% increased Cold Damage
@@ -1379,9 +1450,9 @@ Corrupted
 ]],[[
 Blood Sacrifice
 Crimson Jewel
-1% of maximum Mana gained on Kill
-Removes 1% of maximum Life on Kill
-Removes 1% of maximum Energy Shield on Kill
+Lose 1% of Life on Kill
+Recover 1% of Mana on Kill
+Lose 1% of Energy Shield on Kill
 Corrupted
 ]],[[
 Replica Blood Sacrifice
@@ -1496,7 +1567,7 @@ Crimson Jewel
 Limited to: 1
 3% reduced Mana Cost of Skills
 4% increased Skill Effect Duration
-2% reduced Reservation of Skills
+4% increased Mana Reservation Efficiency of Skills
 ]],[[
 Replica Conqueror's Efficiency
 Crimson Jewel
@@ -1508,10 +1579,15 @@ Non-Channelling Skills have -9 to Total Mana Cost
 ]],[[
 Conqueror's Longevity
 Viridian Jewel
+Variant: Pre 3.16.0
+Variant: Current
 Limited to: 1
-3% chance to Avoid Elemental Ailments
-8% increased Life Recovery from Flasks
-2% chance to Dodge Attacks
+{variant:1}3% chance to Avoid Elemental Ailments
+{variant:2}10% chance to Avoid Elemental Ailments
+{variant:1}8% increased Life Recovery from Flasks
+{variant:2}10% increased Life Recovery from Flasks
+{variant:1}3% chance to Suppress Spell Damage
+{variant:2}5% chance to Suppress Spell Damage
 ]],[[
 Conqueror's Potency
 Cobalt Jewel
@@ -1528,27 +1604,46 @@ Projectiles Pierce an additional Target
 ]],[[
 Survival Instincts
 Viridian Jewel
-Limited to: 1
-+20 to Dexterity
-+6% to all Elemental Resistances
+Limited to: 1 Survival
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}+20 to Dexterity
+{variant:1}+6% to all Elemental Resistances
+{variant:2}20% reduced Flask Charges gained
+{variant:2}50% increased Flask Effect Duration
+Survival
 ]],[[
 Survival Secrets
 Cobalt Jewel
-Limited to: 1
-3 Mana Regenerated per second
-10% increased Elemental Damage
+Limited to: 1 Survival
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}3 Mana Regenerated per second
+{variant:1}10% increased Elemental Damage
+{variant:2}Flasks applied to you have 20% reduced Effect
+{variant:2}Flasks gain 3 Charges every 3 seconds while they are inactive
+Survival
 ]],[[
 Survival Skills
 Crimson Jewel
-Limited to: 1
-10% increased Global Physical Damage
-+50 to Armour
+Limited to: 1 Survival
+Variant: Pre 3.16.0
+Variant: Current
+{variant:1}10% increased Global Physical Damage
+{variant:1}+50 to Armour
+{variant:2}Flasks gain 2 Charges when you hit a Non-Unique Enemy, no more than once per second
+{variant:2}80% less Flask Charges gained from Kills
+Survival
 ]],[[
 Warlord's Reach
 Crimson Jewel
+Variant: Pre 3.16.0
+Variant: Current
 Limited to: 1
-8% increased Attack Damage
-+1 Melee Strike Range
+{variant:1}8% increased Attack Damage
+{variant:1}+1 Melee Strike Range
+{variant:2}10% increased Attack Damage
+{variant:2}+2 Melee Strike Range
 ]],
 -- Jewel: Labyrinth rewards
 [[
@@ -1593,10 +1688,10 @@ League: Legion
 Source: Drops from Maraketh Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Asenath
-Variant: Deshret
-Variant: Nasima
-Variant: Balbala
+Variant: Asenath (Dance with Death)
+Variant: Deshret (Wind Dancer) (Pre 3.11.0)
+Variant: Nasima (Second Sight)
+Variant: Balbala (The Traitor)
 Radius: Large
 Implicits: 0
 {variant:1}Denoted service of (500-8000) dekhara in the akhara of Asenath
@@ -1612,10 +1707,10 @@ League: Legion
 Source: Drops from Eternal Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Cadiro
-Variant: Chitus
-Variant: Victario
-Variant: Caspiro
+Variant: Cadiro (Supreme Decadence)
+Variant: Chitus (Supreme Ego) (Pre 3.11.0)
+Variant: Victario (Supreme Grandstanding)
+Variant: Caspiro (Supreme Ostentation)
 Radius: Large
 Implicits: 0
 {variant:1}Commissioned (2000-160000) coins to commemorate Cadiro
@@ -1631,10 +1726,10 @@ League: Legion
 Source: Drops from Vaal Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Doryani
-Variant: Xibaqua
-Variant: Zerphi
-Variant: Ahuana
+Variant: Doryani (Corrupted Soul)
+Variant: Xibaqua (Divine Flesh)
+Variant: Zerphi (Eternal Youth) (Pre 3.11.0)
+Variant: Ahuana (Immortal Ambition)
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
@@ -1650,10 +1745,10 @@ League: Legion
 Source: Drops from Karui Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Kaom
-Variant: Kiloava
-Variant: Rakiata
-Variant: Akoya
+Variant: Kaom (Strength of Blood)
+Variant: Kiloava (Glancing Blows) (Pre 3.11.0)
+Variant: Rakiata (Tempered by War)
+Variant: Akoya (Chainbreaker)
 Radius: Large
 Implicits: 0
 {variant:1}Commanded leadership over (10000-18000) warriors under Kaom
@@ -1671,10 +1766,11 @@ Requires Level: 20
 Limited to: 1 Historic
 Has Alt Variant: true
 Has Alt Variant Two: true
-Variant: Avarius
-Variant: Dominus
-Variant: Venarius
-Variant: Maxarius
+Selected Variant: 1
+Variant: Avarius (Power of Purpose)
+Variant: Dominus (Inner Conviction)
+Variant: Venarius (The Agnostic) (Pre 3.11.0)
+Variant: Maxarius (Transcendence)
 Variant: Totem Damage
 Variant: Brand Damage
 Variant: Channelling Damage

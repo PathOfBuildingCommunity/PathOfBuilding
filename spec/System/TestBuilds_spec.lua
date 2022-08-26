@@ -15,17 +15,19 @@ local function fetchBuilds(path, buildList)
     return buildList
 end
 
-describe("test all builds", function()
-
+expose("test all builds #builds", function()
     local buildList = fetchBuilds("../spec/TestBuilds")
     for buildName, testBuild in pairs(buildList) do
-        loadBuildFromXML(testBuild.xml)
+        loadBuildFromXML(testBuild.xml, buildName)
+        testBuild.result = {}
         for key, value in pairs(testBuild.output) do
-            it("on build: " .. buildName .. ", testing stat: " .. key, function()
-                if type(value) == "number" then
-                    assert.are.same(round(value, 4), round(build.calcsTab.mainOutput[key] or 0, 4))
+            -- Have to assign it to a temporary table here, as the tests will run later, when the 'build' isn't changing
+            testBuild.result[key] = build.calcsTab.mainOutput[key]
+            it("on build: " .. buildName .. ", key: " .. key, function()
+                if type(value) == "number" and type(testBuild.result[key]) == "number" then
+                    assert.are.same(round(value, 4), round(testBuild.result[key] or 0, 4))
                 else
-                    assert.are.same(value, build.calcsTab.mainOutput[key])
+                    assert.are.same(value, testBuild.result[key])
                 end
             end)
         end

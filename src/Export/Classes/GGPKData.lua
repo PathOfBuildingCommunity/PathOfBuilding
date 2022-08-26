@@ -30,16 +30,19 @@ end
 
 -- Path can be in any format recognized by the extractor at oozPath, ie,
 -- a .ggpk file or a Steam Path of Exile directory
-local GGPKClass = newClass("GGPKData", function(self, path)
-	self.path = path
-	self.temp = io.popen("cd"):read('*l')
-	self.oozPath = self.temp .. "\\ggpk\\"
+local GGPKClass = newClass("GGPKData", function(self, path, datPath)
+	if datPath then
+		self.oozPath = datPath:match("\\$") and datPath or (datPath .. "\\")
+	else
+		self.path = path
+		self.temp = io.popen("cd"):read('*l')
+		self.oozPath = self.temp .. "\\ggpk\\"
+		self:ExtractFiles()
+	end
 
 	self.dat = { }
 	self.txt = { }
-	
-	self:ExtractFiles()
-	
+
 	if USE_DAT64 then
 		self:AddDat64Files()
 	else
@@ -99,6 +102,8 @@ end
 function GGPKClass:GetNeededFiles()
 	local datFiles = {
 		"Data/Stats.dat",
+		"Data/StatSemantics.dat",
+		"Data/VirtualStatContextFlags.dat",
 		"Data/BaseItemTypes.dat",
 		"Data/WeaponTypes.dat",
 		"Data/ArmourTypes.dat",
@@ -107,7 +112,10 @@ function GGPKClass:GetNeededFiles()
 		"Data/ComponentCharges.dat",
 		"Data/ComponentAttributeRequirements.dat",
 		"Data/PassiveSkills.dat",
-		"Data/PassiveSkillBuffs.dat",
+		"Data/PassiveSkillTypes.dat",
+		"Data/PassiveSkillStatCategories.dat",
+		"Data/PassiveSkillMasteryGroups.dat",
+		"Data/PassiveSkillMasteryEffects.dat",
 		"Data/PassiveTreeExpansionJewelSizes.dat",
 		"Data/PassiveTreeExpansionJewels.dat",
 		"Data/PassiveJewelSlots.dat",
@@ -122,6 +130,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/ActiveSkills.dat",
 		"Data/ActiveSkillTargetTypes.dat",
 		"Data/ActiveSkillType.dat",
+		"Data/AlternateSkillTargetingBehaviours.dat",
 		"Data/Ascendancy.dat",
 		"Data/ClientStrings.dat",
 		"Data/ItemClasses.dat",
@@ -133,7 +142,15 @@ function GGPKClass:GetNeededFiles()
 		"Data/Characters.dat",
 		"Data/BuffDefinitions.dat",
 		"Data/BuffCategories.dat",
+		"Data/BuffTemplates.dat",
 		"Data/BuffVisuals.dat",
+		"Data/BuffVisualSets.dat",
+		"Data/BuffVisualSetEntries.dat",
+		"Data/BuffVisualsArtVariations.dat",
+		"Data/BuffVisualOrbs.dat",
+		"Data/BuffVisualOrbTypes.dat",
+		"Data/BuffVisualOrbArt.dat",
+		"Data/GenericBuffAuras.dat",
 		"Data/HideoutNPCs.dat",
 		"Data/NPCs.dat",
 		"Data/CraftingBenchOptions.dat",
@@ -162,7 +179,15 @@ function GGPKClass:GetNeededFiles()
 		"Data/GrantedEffectQualityStats.dat",
 		"Data/GrantedEffectGroups.dat",
 		"Data/AegisVariations.dat",
-		"Data/CostTypes.dat"
+		"Data/CostTypes.dat",
+		"Data/PassiveJewelRadii.dat",
+		"Data/SoundEffects.dat",
+		"Data/MavenJewelRadiusKeystones.dat",
+		"Data/TableCharge.dat",
+		"Data/GrantedEffectStatSets.dat",
+		"Data/GrantedEffectStatSetsPerLevel.dat",
+		"Data/MonsterMapDifficulty.dat",
+		"Data/MonsterMapBossDifficulty.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

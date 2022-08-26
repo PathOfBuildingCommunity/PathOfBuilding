@@ -71,12 +71,13 @@ directiveTable.base = function(state, args, out)
 	end
 	displayName = displayName:gsub("\195\182","o")
 	displayName = displayName:gsub("^%s*(.-)%s*$", "%1") -- trim spaces GGG might leave in by accident
+	displayName = displayName ~= "Energy Blade" and displayName or (state.type == "One Handed Sword" and "Energy Blade One Handed" or "Energy Blade Two Handed")
 	out:write('itemBases["', displayName, '"] = {\n')
 	out:write('\ttype = "', state.type, '",\n')
 	if state.subType and #state.subType > 0 then
 		out:write('\tsubType = "', state.subType, '",\n')
 	end
-	if (baseItemType.Hidden or state.forceHide) and not baseTypeId:match("Talisman") and not state.forceShow then
+	if (baseItemType.Hidden == 0 or state.forceHide) and not baseTypeId:match("Talisman") and not state.forceShow then
 		out:write('\thidden = true,\n')
 	end
 	if state.socketLimit then
@@ -131,20 +132,24 @@ directiveTable.base = function(state, args, out)
 		if shield then
 			out:write('BlockChance = ', shield.Block, ', ')
 		end
-		if armourType.Armour > 0 then
-			out:write('ArmourBase = ', armourType.Armour, ', ')
+		if armourType.ArmourMin > 0 then
+			out:write('ArmourBaseMin = ', armourType.ArmourMin, ', ')
+			out:write('ArmourBaseMax = ', armourType.ArmourMax, ', ')
 		end
-		if armourType.Evasion > 0 then
-			out:write('EvasionBase = ', armourType.Evasion, ', ')
+		if armourType.EvasionMin > 0 then
+			out:write('EvasionBaseMin = ', armourType.EvasionMin, ', ')
+			out:write('EvasionBaseMax = ', armourType.EvasionMax, ', ')
 		end
-		if armourType.EnergyShield > 0 then
-			out:write('EnergyShieldBase = ', armourType.EnergyShield, ', ')
+		if armourType.EnergyShieldMin > 0 then
+			out:write('EnergyShieldBaseMin = ', armourType.EnergyShieldMin, ', ')
+			out:write('EnergyShieldBaseMax = ', armourType.EnergyShieldMax, ', ')
 		end
 		if armourType.MovementPenalty ~= 0 then
 			out:write('MovementPenalty = ', -armourType.MovementPenalty, ', ')
 		end
-		if armourType.Ward ~= 0 then
-			out:write('WardBase = ', armourType.Ward, ', ')
+		if armourType.WardMin > 0 then
+			out:write('WardBaseMin = ', armourType.WardMin, ', ')
+			out:write('WardBaseMax = ', armourType.WardMax, ', ')
 		end
 		out:write('},\n')
 	end

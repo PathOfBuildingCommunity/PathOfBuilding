@@ -147,6 +147,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 	self.controls.breakdown = new("CalcBreakdownControl", self)
 
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
+	self.powerBuilderInitialized = nil
 end)
 
 function CalcsTabClass:Load(xml, dbFileName)
@@ -173,8 +174,13 @@ function CalcsTabClass:Load(xml, dbFileName)
 					return true
 				end
 				for _, section in ipairs(self.sectionList) do
-					if section.id == node.attrib.id then
-						section.collapsed = (node.attrib.collapsed == "true")
+					if section.id == node.attrib.id and node.attrib.subsection then
+						for _, subsection in ipairs(section.subSection) do
+							if subsection.id == node.attrib.subsection then
+								subsection.collapsed = node.attrib.collapsed == "true"
+								break
+							end
+						end
 						break
 					end
 				end
@@ -197,12 +203,14 @@ function CalcsTabClass:Save(xml)
 		t_insert(xml, child)
 	end
 	for _, section in ipairs(self.sectionList) do
-		t_insert(xml, { elem = "Section", attrib = {
-			id = section.id,
-			collapsed = tostring(section.collapsed),
-		} })
+		for _, subSection in ipairs(section.subSection) do
+			t_insert(xml, { elem = "Section", attrib = {
+				id = section.id,
+				subsection = subSection.id,
+				collapsed = tostring(subSection.collapsed),
+			} })
+		end
 	end
-	self.modFlag = false
 end
 
 function CalcsTabClass:Draw(viewPort, inputEvents)
@@ -324,7 +332,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		self.displayData = nil
 	end
 
-	self:DrawControls(viewPort)
+	self:DrawControls(viewPort, self.selControl)
 
 	if self.displayData then
 		if self.displayPinned and not self.selControl then
@@ -499,7 +507,7 @@ function CalcsTabClass:PowerBuilder()
 				end
 				node.power.defence = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) +
 								(output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) +
-								(output.EnergyShield - calcBase.EnergyShield) / m_max(3000, calcBase.EnergyShield) +
+								((output.EnergyShieldRecoveryCap or output.EnergyShield) - (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) / m_max(3000, (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) +
 								(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
 								(output.LifeRegen - calcBase.LifeRegen) / 500 +
 								(output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
@@ -555,6 +563,7 @@ function CalcsTabClass:PowerBuilder()
 		end
 	end
 	self.powerMax = newPowerMax
+	self.powerBuilderInitialized = true
 	--ConPrintf("Power Build time: %d ms", GetTime() - timer_start)
 end
 

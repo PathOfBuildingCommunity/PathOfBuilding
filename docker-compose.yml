@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+
+  busted-tests:
+    image: summ1else/poe-busted-image
+    container_name: busted-tests
+    command: bash -c "rm -f spec/test_results.log && busted --lua=luajit | tee spec/test_results.log"
+    volumes:
+      - ./:/root
+    depends_on:
+      - busted-generate-build
+
+  busted-generate-build:
+    image: summ1else/poe-busted-image
+    container_name: busted-generate-build
+    command: bash -c "rm -f spec/test_generation.log && busted --lua=luajit -r generate | tee spec/test_generation.log"
+    restart: "no"
+    volumes:
+      - ./:/root
