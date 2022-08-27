@@ -1677,7 +1677,7 @@ function calcs.defence(env, actor)
 				DamageAbsorbed = DamageAbsorbed + Damage[damageType]
 				if Damage[damageType] > 0 then
 					if frostShield > 0 then
-						local tempDamage = m_min(Damage[damageType] * output["FrostShieldDamageMitigation"] / 100 / iterationMultiplier, frostShield)
+						local tempDamage = m_min(Damage[damageType] * output["FrostShieldDamageMitigation"] / 100, frostShield)
 						frostShield = frostShield - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
@@ -1697,12 +1697,12 @@ function calcs.defence(env, actor)
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
 					if guard[damageType] > 0 then
-						local tempDamage = m_min(Damage[damageType] * output[damageType.."GuardAbsorbRate"] / 100 / iterationMultiplier, guard[damageType])
+						local tempDamage = m_min(Damage[damageType] * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
 						guard[damageType] = guard[damageType] - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
 					if guard["shared"] > 0 then
-						local tempDamage = m_min(Damage[damageType] * output["sharedGuardAbsorbRate"] / 100 / iterationMultiplier, guard["shared"])
+						local tempDamage = m_min(Damage[damageType] * output["sharedGuardAbsorbRate"] / 100, guard["shared"])
 						guard["shared"] = guard["shared"] - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
@@ -1760,6 +1760,12 @@ function calcs.defence(env, actor)
 				Damage = { }
 				for _, damageType in ipairs(dmgTypeList) do
 					Damage[damageType] = DamageIn[damageType] * speedUp
+				end
+				if DamageIn.GainWhenHit then
+					Damage.GainWhenHit = true
+					Damage.LifeWhenHit = DamageIn.LifeWhenHit
+					Damage.ManaWhenHit= DamageIn.ManaWhenHit
+					Damage.EnergyShieldWhenHit= DamageIn.EnergyShieldWhenHit
 				end
 				Damage["cycles"] = DamageIn["cycles"] * speedUp
 				iterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
