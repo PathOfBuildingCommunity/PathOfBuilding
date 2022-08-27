@@ -2519,9 +2519,15 @@ function calcs.perform(env, avoidCache)
 		-- We need to calculate the selected minion's life to use in the explosion
 		local selectedMinion = env.player.mainSkill.skillData.deathWishMinionName
 		local minionSkill
-		for i, aux in ipairs(env.auxSkillList) do
-			if aux.minion and aux.minion.type == selectedMinion then
-				minionSkill = aux
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.minion and skill.minion.type == selectedMinion then
+				minionSkill = skill
+			elseif skill.minionList then
+				for _, minionId in ipairs(skill.minionList) do
+					if minionId == selectedMinion then
+						minionSkill = skill
+					end
+				end
 			end
 		end
 
@@ -2536,7 +2542,6 @@ function calcs.perform(env, avoidCache)
 			--if not GlobalCache.cachedData[calcMode][uuid] then
 				calcs.buildActiveSkill(env, calcMode, minionSkill, true)
 			--end
-
 			if GlobalCache.cachedData[calcMode][uuid] then
 				usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
 			end

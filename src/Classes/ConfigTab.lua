@@ -349,8 +349,9 @@ function ConfigTabClass:Save(xml)
 	end
 end
 
-local function activeMinionList(control, build)
+local function activeMinionList(control, build, previousVal)
 	local list = wipeTable(control.list)
+	local previousValFound = false
 	local function addMinionData(socketGroup, minionId)
 		if not minionId then
 			return
@@ -364,7 +365,10 @@ local function activeMinionList(control, build)
 			end
 		end
 		if not duplicateMinion then
-			table.insert(list, {val = minionId, label = minionName})
+			t_insert(list, {val = minionId, label = minionName})
+			if minionId == previousVal then
+				previousValFound = true
+			end
 		end
 	end
 	if build.skillsTab == nil then
@@ -390,6 +394,17 @@ local function activeMinionList(control, build)
 			end
 		end
 	end
+	if #list == 0 then
+		t_insert(list, {val = "none", label = "<No minions added yet>"})
+		previousValFound = previousVal == "none"
+	end
+	if previousValFound then
+		control:SelByValue(previousVal, "val")
+	elseif #list > 0 then
+		control:SetSel(1)
+		-- We need to force the selFunc to be called in case it was already set to the same index
+		control.selFunc(control.selIndex, control.list[control.selIndex])
+	end
 end
 
 function ConfigTabClass:UpdateControls()
@@ -403,9 +418,10 @@ function ConfigTabClass:UpdateControls()
 			control.state = self.input[var]
 		elseif control._className == "DropDownControl" then
 			if var == "deathWishMinionName" then
-				activeMinionList(control, self.build)
+				activeMinionList(control, self.build, self.input[var])
+			else
+				control:SelByValue(self.input[var], "val")
 			end
-			control:SelByValue(self.input[var], "val")
 		end
 	end
 end
