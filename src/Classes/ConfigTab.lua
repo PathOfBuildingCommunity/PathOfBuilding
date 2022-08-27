@@ -349,6 +349,49 @@ function ConfigTabClass:Save(xml)
 	end
 end
 
+local function activeMinionList(control, build)
+	local list = wipeTable(control.list)
+	local function addMinionData(socketGroup, minionId)
+		if not minionId then
+			return
+		end
+		local minionName = data.minions[minionId].name
+		local duplicateMinion = false
+		for k, v in ipairs(list) do
+			if v.label == minionName then
+				duplicateMinion = true
+				break
+			end
+		end
+		if not duplicateMinion then
+			table.insert(list, {val = minionId, label = minionName})
+		end
+	end
+	if build.skillsTab == nil then
+		return
+	end
+	for _, socketGroup in ipairs(build.skillsTab.socketGroupList) do
+		for _, gemInstance in ipairs(socketGroup.gemList) do
+			if gemInstance.enabled then
+				addMinionData(socketGroup, gemInstance.skillMinion)
+				addMinionData(socketGroup, gemInstance.skillMinionCalcs)
+				if gemInstance.gemData then
+					if gemInstance.gemData.grantedEffect.minionList then
+						for _, minionId in ipairs(gemInstance.gemData.grantedEffect.minionList) do
+							addMinionData(socketGroup, minionId)
+						end
+					end
+					if gemInstance.gemData.grantedEffect.addMinionList then
+						for _, minionId in ipairs(gemInstance.gemData.grantedEffect.addMinionList) do
+							addMinionData(socketGroup, minionId)
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
 function ConfigTabClass:UpdateControls()
 	for var, control in pairs(self.varControls) do
 		if control._className == "EditControl" then
@@ -359,6 +402,9 @@ function ConfigTabClass:UpdateControls()
 		elseif control._className == "CheckBoxControl" then
 			control.state = self.input[var]
 		elseif control._className == "DropDownControl" then
+			if var == "deathWishMinionName" then
+				activeMinionList(control, self.build)
+			end
 			control:SelByValue(self.input[var], "val")
 		end
 	end
