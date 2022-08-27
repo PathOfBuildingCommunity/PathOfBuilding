@@ -1771,11 +1771,11 @@ function calcs.defence(env, actor)
 				iterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
 				DamageIn["cyclesRan"] = true
 			end
-			if life < 0 and DamageIn["cycles"] == 1 then --don't count overkill damage and only on final pass as to not break speedup.
+			if life < 0 and DamageIn["cycles"] == 1 and numHits ~= m_huge then -- Don't count overkill damage and only on final pass as to not break speedup.
 				numHits = numHits + life / DamageAbsorbed
 			end
 		end
-		if numHits >= maxHits then
+		if life > 0 and numHits >= maxHits then -- If still living and the number of hits exceeds the maximum then we surivived infinite hits.
 			return m_huge
 		end
 		return numHits

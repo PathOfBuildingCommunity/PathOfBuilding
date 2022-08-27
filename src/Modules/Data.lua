@@ -472,7 +472,7 @@ data.misc = { -- magic numbers
 	uberBossPen = 40 / 5,
 	-- ehp helper function magic numbers
 	ehpCalcSpeedUp = 8,
-		-- depth needs to be a power of speedUp (in this case 8^3, will run 3 recursive calls deep)
+		-- depth needs to be a power of speedUp (in this case 8^5, will run 5 recursive calls deep)
 	ehpCalcMaxDepth = 4096,
 		-- max hits can be increased for more accuracy
 	ehpCalcMaxHitsToCalc = 1031,
