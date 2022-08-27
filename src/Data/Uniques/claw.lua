@@ -294,7 +294,7 @@ Variant: Current
 Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 2% of Physical Attack Damage Leeched as Life
-{variant:1}10% Chance to Cast Level 10 Summon Spectral Wolf on Kill
+{variant:1}Trigger Level 10 Summon Spectral Wolf on Kill
 Adds (35-50) to (100-125) Physical Damage
 (10-15)% increased Attack Speed
 Minions have (10-15)% increased Attack Speed

@@ -277,7 +277,7 @@ Variant: Current
 Implicits: 0
 +(20-30) to Dexterity
 {variant:1,2}Adds 5 to 12 Physical Damage to Attacks
-{variant:1}+150 to Evasion Rating while on Full Life}
+{variant:1}+150 to Evasion Rating while on Full Life
 {variant:2}+500 to Evasion Rating while on Full Life
 {variant:3}+1000 to Evasion Rating while on Full Life
 (50-70)% increased Evasion Rating
@@ -714,7 +714,7 @@ Implicits: 0
 ]],[[
 Ghostwrithe
 Silken Vest
-+(100-200)to maximum Energy Shield
++(100-200) to maximum Energy Shield
 +(50-100) to maximum Life
 +50% to Chaos Resistance
 50% of Maximum Life Converted to Energy Shield
