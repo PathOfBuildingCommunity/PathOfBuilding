@@ -1011,6 +1011,12 @@ return {
 	{ label = "Mana Gain on Kill", haveOutput = "ManaOnKill", { format = "{1:output:ManaOnKill}", 
 		{modName = "ManaOnKill"}, 
 	}, },
+	{ label = "Rage Gain on Kill", haveOutput = "RageOnKill", { format = "{1:output:RageOnKill}", 
+		{modName = "RageOnKill"}, 
+	}, },
+	{ label = "Rage on Warcry", haveOutput = "RageOnWarcry", { format = "{1:output:RageOnWarcry}", 
+		{modName = "RageOnWarcry"}, 
+	}, },
 } }
 } },
 { 1, "EleAilments", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Non-Damaging Ailments", data = {
