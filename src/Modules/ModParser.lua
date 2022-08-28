@@ -50,9 +50,12 @@ local formList = {
 	["^([%+%-]?[%d%.]+)%%? additional"] = "BASE",
 	["cost ([%+%-]%d+)"] = "BASECOST",
 	["(%d+) additional hits?"] = "BASE",
-	["^you gain ([%d%.]+)"] = "BASE",
-	["^gains? ([%d%.]+)%% of"] = "BASE",
-	["^gain ([%d%.]+)"] = "BASE",
+	["^you gain ([%d%.]+)"] = "GAIN",
+	["^gains? ([%d%.]+)%% of"] = "GAIN",
+	["^gain ([%d%.]+)"] = "GAIN",
+	["^you lose ([%d%.]+)"] = "LOSE",
+	["^loses? ([%d%.]+)%% of"] = "LOSE",
+	["^lose ([%d%.]+)"] = "LOSE",
 	["^(%d+)"] = "BASE",
 	["^([%+%-]?%d+)%% chance"] = "CHANCE",
 	["^([%+%-]?%d+)%% chance to gain "] = "FLAG",
@@ -4350,6 +4353,11 @@ local function parseMod(line, order)
 	elseif modForm == "RED" then
 		modValue = -modValue
 		modType = "INC"
+	elseif modForm == "GAIN" then
+		modType = "BASE"
+	elseif modForm == "LOSE" then
+		modValue = -modValue
+		modType = "BASE"
 	elseif modForm == "MORE" then
 		modType = "MORE"
 	elseif modForm == "LESS" then
