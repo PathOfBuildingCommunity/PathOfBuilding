@@ -318,8 +318,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
 		{ stat = "BrandAttachmentRange", label = "Attachment Range", fmt = "d", flag = "brand" },
 		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
-		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaHasCost end },
-		{ stat = "LifeCost", label = "Life Cost", fmt = "d", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifeHasCost end },
+		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", color = colorCodes.MANA, pool = "Mana", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaHasCost end, warnFunc = function(v,o) return v > o.ManaUnreserved and "You do not have enough Mana to use a Selected Skill" end},
+		{ stat = "LifeCost", label = "Life Cost", fmt = "d", color = colorCodes.LIFE, pool = "Life", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifeHasCost end, warnFunc = function(v,o) return v > o.LifeUnreserved and "You do not have enough Mana to use a Selected Skill" end },
 		{ stat = "ESCost", label = "Energy Shield Cost", fmt = "d", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESHasCost end },
 		{ stat = "RageCost", label = "Rage Cost", fmt = "d", color = colorCodes.RAGE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RageHasCost end },
 		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPercentHasCost end },
@@ -1261,11 +1261,14 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	end
 end
 
-function buildMode:FormatStat(statData, statVal, overCapStatVal)
+function buildMode:FormatStat(statData, statVal, overCapStatVal, pool)
 	if type(statVal) == "table" then return "" end
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = (statVal >= 0 and "^7" or statData.chaosInoc and "^8" or colorCodes.NEGATIVE)
 	if statData.label == "Unreserved Life" and statVal == 0 then
+		color = colorCodes.NEGATIVE
+	end
+	if (statData.label == "Mana Cost" or statData.label == "Life Cost") and statVal and pool and statVal > pool then
 		color = colorCodes.NEGATIVE
 	end
 	local valStr = s_format("%"..statData.fmt, val)
@@ -1295,6 +1298,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 				local statVal = actor.output[statData.stat]
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
 					local overCapStatVal = actor.output[statData.overCapStat] or nil
+					local statPool = actor.output[statData.pool] or nil
 					if statData.stat == "SkillDPS" then
 						labelColor = colorCodes.CUSTOM
 						table.sort(actor.output.SkillDPS, function(a,b) return (a.dps * a.count) > (b.dps * b.count) end)
@@ -1331,11 +1335,11 @@ function buildMode:AddDisplayStatList(statList, actor)
 						t_insert(statBoxList, {
 							height = 16,
 							labelColor..statData.label..":",
-							self:FormatStat(statData, statVal, overCapStatVal),
+							self:FormatStat(statData, statVal, overCapStatVal, statPool),
 						})
 					end
 				end
-				if statData.warnFunc and statVal and ((statData.condFunc and statData.condFunc(statVal, actor.output)) or not statData.condFunc) then 
+				if statData.warnFunc and statVal and ((statData.condFunc and statData.condFunc(statVal, actor.output)) or not statData.condFunc) then
 					local v = statData.warnFunc(statVal, actor.output)
 					if v then
 						InsertIfNew(self.controls.warnings.lines, v)

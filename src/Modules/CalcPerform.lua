@@ -1782,12 +1782,6 @@ function calcs.perform(env, avoidCache)
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
 		for _, buff in ipairs(activeSkill.buffList) do
-			--Skip adding buff if reservation exceeds maximum
-			for _, value in ipairs({"Mana", "Life"}) do
-				if activeSkill.skillData[value.."ReservedBase"] and activeSkill.skillData[value.."ReservedBase"] > env.player.output[value] then
-					goto disableAura
-				end
-			end
 			if buff.cond and not skillModList:GetCondition(buff.cond, skillCfg) then
 				-- Nothing!
 			elseif buff.enemyCond and not enemyDB:GetCondition(buff.enemyCond) then
@@ -1960,7 +1954,6 @@ function calcs.perform(env, avoidCache)
 					t_insert(curses, curse)	
 				end
 			end
-			::disableAura::
 		end
 		if activeSkill.minion and activeSkill.minion.activeSkillList then
 			local castingMinion = activeSkill.minion
@@ -2153,13 +2146,6 @@ function calcs.perform(env, avoidCache)
 					if (activeSkill.buffList[1] and curse.name == activeSkill.buffList[1].name and activeSkill.skillTypes[SkillType.Aura]) then
 						if modDB:Flag(nil, "SelfAurasOnlyAffectYou") then
 							skipAddingCurse = true
-							break
-						end
-						for _, value in ipairs({"Mana", "Life"}) do
-							if activeSkill.skillData[value.."ReservedBase"] and activeSkill.skillData[value.."ReservedBase"] > env.player.output[value] then
-								skipAddingCurse = true
-								break
-							end
 						end
 						break
 					end
@@ -2333,7 +2319,7 @@ function calcs.perform(env, avoidCache)
 			activeSkill.skillModList:NewMod("Multiplier:ScorchingRayStageAfterFirst", "BASE", maximum, "Base")
 		end
 	end
-
+	
 	-- Process Triggered Skill and Set Trigger Conditions
 	-- Cospri's Malice
 	if env.player.mainSkill.skillData.triggeredByCospris and not env.player.mainSkill.skillFlags.minion then
@@ -2974,7 +2960,7 @@ function calcs.perform(env, avoidCache)
 			end
 		end
 	end
-
+	
 	-- Fix the configured impale stacks on the enemy
 	-- 		If the config is missing (blank), then use the maximum number of stacks
 	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
