@@ -71,6 +71,14 @@ local formList = {
 	["^regenerate ([%d%.]+)%% of (.-) per second"] = "REGENPERCENT",
 	["^regenerate ([%d%.]+)%% of your (.-) per second"] = "REGENPERCENT",
 	["^you regenerate ([%d%.]+)%% of (.-) per second"] = "REGENPERCENT",
+	["^([%d%.]+) (.+) lost per second"] = "NEGATIVEREGENFLAT",
+	["^([%d%.]+)%% (.+) lost per second"] = "NEGATIVEREGENPERCENT",
+	["^([%d%.]+)%% of (.+) lost per second"] = "NEGATIVEREGENPERCENT",
+	["^lose ([%d%.]+) (.-) per second"] = "NEGATIVEREGENFLAT",
+	["^lose ([%d%.]+)%% (.-) per second"] = "NEGATIVEREGENPERCENT",
+	["^lose ([%d%.]+)%% of (.-) per second"] = "NEGATIVEREGENPERCENT",
+	["^lose ([%d%.]+)%% of your (.-) per second"] = "NEGATIVEREGENPERCENT",
+	["^you lose ([%d%.]+)%% of (.-) per second"] = "NEGATIVEREGENPERCENT",
 	["^([%d%.]+) (%a+) damage taken per second"] = "DEGEN",
 	["^([%d%.]+) (%a+) damage per second"] = "DEGEN",
 	["(%d+) to (%d+) added (%a+) damage"] = "DMG",
@@ -4376,6 +4384,13 @@ local function parseMod(line, order)
 		modName = regenTypes[formCap[2]]
 		modSuffix = "Percent"
 	elseif modForm == "REGENFLAT" then
+		modName = regenTypes[formCap[2]]
+	elseif modForm == "NEGATIVEREGENPERCENT" then
+		modValue = -modValue
+		modName = regenTypes[formCap[2]]
+		modSuffix = "Percent"
+	elseif modForm == "NEGATIVEREGENFLAT" then
+		modValue = -modValue
 		modName = regenTypes[formCap[2]]
 	elseif modForm == "DEGEN" then
 		local damageType = dmgTypes[formCap[2]]
