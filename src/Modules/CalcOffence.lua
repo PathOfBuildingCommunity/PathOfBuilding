@@ -2539,11 +2539,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Calculate gain on warcry
-		if not skillFlags.warcry then
-			output.RageOnWarcry = 0
-		else
-			output.RageOnWarcry = m_floor(skillModList:Sum("BASE", cfg, "RageOnWarcry"))
-		end
+		output.RageOnWarcry = m_floor(skillModList:Sum("BASE", cfg, "RageOnWarcry"))
 
 		-- Calculate average damage and final DPS
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100

@@ -1098,8 +1098,10 @@ skills["Berserk"] = {
 	preDamageFunc = function(activeSkill, output, breakdown)
 		local t_insert = table.insert
 		local dt = 0.033
+		local maxDuration = 300
 		local rageRegen = output.RageRegen or 0
 		local rageGainRate = 0 --Add support -- Sources of Rage on hit are independent of each other and do not share cooldowns/ticks.
+		local rageOnWarcry = math.floor(activeSkill.skillModList:Sum("BASE", cfg, "RageOnWarcry"))
 		local maxRage = output.MaximumRage or 0
 		local rage = math.min(activeSkill.skillModList:Sum("BASE", nil, "Multiplier:RageStack"), maxRage)
 		local berserkUptime = 0
@@ -1108,19 +1110,22 @@ skills["Berserk"] = {
 		local inc = activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "RageLossRate")
 		local more = activeSkill.skillModList:More(activeSkill.skillCfg, "RageLossRate")
 		local mult = (1 + inc / 100) * more
-		local rageLoss = activeSkill.skillData.rageLoss + ((rageRegen == 0 and rageGainRate == 0) and 2 or 0) --lose 2 rage per second if you don't gain any.
-		rageLoss = rageLoss * mult
+		local baseRageLoss = activeSkill.skillData.rageLoss + ((rageRegen == 0 and rageGainRate == 0) and 2 or 0) --loses 1 rage every 0.5 seconds after not having gained rage or been hit recently. 
+		rageLoss = baseRageLoss * mult
 		if rage > minimumRage then
-			while rage > 0 and berserkUptime < 100 do -- cap at 100 as to not crash if infinte.
+			while rage > 0 and berserkUptime < maxDuration do -- cap as to not crash if infinte.
 				rage = rage + dt * (rageRegen - rageLoss * (1 + percentRageLoss * berserkUptime))
 				rage = math.min(rage, maxRage)
 				berserkUptime = berserkUptime + dt
 			end
+			if berserkUptime >= maxDuration then
+				berserkUptime = math.huge
+			end
 		end
 		if breakdown then
 			breakdown.Duration = { "Running a small simulation to calculate duration." }
-			if berserkUptime > 100 then
-				t_insert(breakdown.Duration, "Capped at 100 seconds")
+			if berserkUptime == math.huge then
+				t_insert(breakdown.Duration, "Assuming infinite duration as exceeded "..maxDuration.." seconds")
 			end
 		end
 		output.Duration = berserkUptime
