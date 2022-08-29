@@ -3209,6 +3209,7 @@ local specialModList = {
 	["bow attacks have culling strike"] = { mod("CullPercent", "MAX", 10, nil, bor(ModFlag.Attack, ModFlag.Bow)) },
 	["culling strike against burning enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Burning" }) },
 	["culling strike against marked enemy"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Marked" }) },
+	["nearby allies have culling strike"] = { mod("ExtraAura", "LIST", {onlyAllies = true, mod = mod("CullPercent", "MAX", 10)} ) },
 	-- Intimidate
 	["permanently intimidate enemies on block"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "Condition", var = "BlockedRecently" } )},
 	["with a murderous eye jewel socketed, intimidate enemies for (%d) seconds on hit with attacks"] = function(jewelName, num) return  { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated")}, { type = "Condition", var = "HaveMurderousEyeJewelIn{SlotName}" }) } end,

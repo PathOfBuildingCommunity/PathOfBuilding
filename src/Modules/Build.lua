@@ -436,6 +436,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "TotalDotDPS", label = "Total DoT DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDot and v ~= o.ImpaleDPS and v ~= o.TotalPoisonDPS and v ~= (o.TotalIgniteDPS or o.IgniteDPS) and v ~= o.BleedDPS end, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Minion DoT DPS exceeds in game limit" end },
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale" },
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
+		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.CullingDPS or 0) > 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end},
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
 		{ stat = "Life", label = "Total Life", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
