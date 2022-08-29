@@ -572,7 +572,6 @@ Variant: Two-Toned Boots (Evasion/Energy Shield)
 {variant:2}Two-Toned Boots (Armour/Energy Shield)
 {variant:3}Two-Toned Boots (Evasion/Energy Shield)
 League: Delirium
-Source: Drops from the Simulacrum Encounter
 Implicits: 3
 {variant:1}+(8-12)% to Fire and Cold Resistances
 {variant:2}+(8-12)% to Fire and Lightning Resistances
@@ -656,7 +655,6 @@ Requires Level 69, 48 Str, 48 Dex
 Lioneye's Paws
 Bronzescale Boots
 League: Legion
-Source: Drops from Eternal Legion
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 30, 30 Str, 30 Dex
@@ -932,6 +930,7 @@ The Stampede
 Assassin's Boots
 Requires Level 63, 62 Dex, 62 Int
 League: Blight
+Source: Drops in Blighted Maps
 (100-150)% increased Evasion and Energy Shield
 (30-40)% increased Stun and Block Recovery
 Travel Skills have (50-80)% increased Cooldown Recovery Speed

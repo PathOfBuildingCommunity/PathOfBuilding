@@ -96,7 +96,6 @@ Implicits: 1
 Divinarius
 Imperial Skean
 League: Legion
-Source: Drops from Templar Legion
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int

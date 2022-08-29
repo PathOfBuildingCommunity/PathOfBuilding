@@ -225,7 +225,6 @@ Your Cold Damage can Ignite
 Maligaro's Virtuosity
 Deerskin Gloves
 League: Legion
-Source: Drops from Eternal Legion
 Variant: Pre 1.1.0
 Variant: Pre 3.0.0
 Variant: Pre 3.7.0
@@ -304,7 +303,6 @@ Wintertide Brand has (20-30)% increased Chill Effect
 Asenath's Gentle Touch
 Silk Gloves
 League: Legion
-Source: Drops from Maraketh Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
@@ -465,12 +463,12 @@ Breathstealer
 Hydrascale Gauntlets
 Requires Level 59, 45 Str, 45 Dex
 League: Blight
+Source: Drops in Blighted Maps
 (100-150)% increased Armour and Evasion
 +(30-50) to maximum Mana
 +(10-16)% to all Elemental Resistances
 (5-10)% increased Attack and Cast Speed
 Create a Blighted Spore when you Kill a Rare Monster
-(Blighted Spores last for 10 seconds and have a random Aura)
 This item can be anointed by Cassia
 ]],[[
 Farrul's Pounce
@@ -799,7 +797,6 @@ Enemies in your Chilling Areas take (25-35)% increased Lightning Damage
 Aukuna's Will
 Clasped Mitts
 League: Legion
-Source: Drops from Maraketh Legion
 Requires Level 31, 25 Dex 25 Int
 +(30-40) to Dexterity
 (5-7)% increased Cast Speed

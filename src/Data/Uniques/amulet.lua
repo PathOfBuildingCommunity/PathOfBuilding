@@ -447,6 +447,7 @@ Implicits: 1
 Fury Valve
 Turquoise Amulet
 League: Metamorph
+Source: Drops from unique{Metamorph} in normal{Tane's Laboratory}
 Requires Level 40
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
@@ -958,7 +959,6 @@ Can have 3 additional Enchantment Modifiers
 Tavukai
 Coral Amulet
 League: Legion
-Source: Drops from Karui Legion
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 54

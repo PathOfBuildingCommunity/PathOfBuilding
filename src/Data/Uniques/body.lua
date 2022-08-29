@@ -164,7 +164,6 @@ Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10
 Perfidy
 Glorious Plate
 League: Delirium
-Source: Drops from the Simulacrum Encounter
 Has Alt Variant: true
 Variant: War Banner
 Variant: Dread Banner
@@ -1039,6 +1038,7 @@ Socketed Gems are Supported by Level 1 Meat Shield
 Sporeguard
 Saint's Hauberk
 League: Blight
+Source: Drops in Blighted Maps
 Implicits: 0
 Trigger Level 10 Contaminate when you Kill an Enemy
 (200-250)% increased Armour and Energy Shield
@@ -1051,7 +1051,6 @@ This item can be anointed by Cassia
 Voll's Protector
 Holy Chainmail
 League: Legion
-Source: Drops from Templar Legion
 Variant: Pre 3.7.0
 Variant: Current
 Implicits: 0

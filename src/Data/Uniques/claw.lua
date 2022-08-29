@@ -65,7 +65,6 @@ Enemies Taunted by you take 10% increased Damage
 Al Dhih
 Timeworn Claw
 League: Legion
-Source: Drops from Maraketh Legion
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0

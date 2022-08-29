@@ -616,7 +616,6 @@ If you have Blocked Recently, you and nearby Allies Regenerate 5% of Life per se
 Rathpith Globe
 Titanium Spirit Shield
 League: Legion
-Source: Drops from Vaal Legion
 Variant: Pre 3.4.0
 Variant: Pre 3.7.0
 Variant: 3.19.0

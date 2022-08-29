@@ -142,7 +142,6 @@ Implicits: 2
 Lavianga's Wisdom
 War Hammer
 League: Legion
-Source: Drops from Karui Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
@@ -499,7 +498,6 @@ Implicits: 2
 Sign of the Sin Eater
 Tyrant's Sekhem
 League: Legion
-Source: Drops from Templar Legion
 Requires Level 58, 99 Str, 99 Int
 Implicits: 1
 26% increased Elemental Damage
@@ -740,7 +738,6 @@ Regenerate 20% of Energy Shield per second if you've dealt a Critical Strike wit
 Marohi Erqi
 Karui Maul
 League: Legion
-Source: Drops from Legion Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0

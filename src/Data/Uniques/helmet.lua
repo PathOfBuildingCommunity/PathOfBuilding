@@ -313,6 +313,7 @@ Cowl of the Ceraunophile
 Solaris Circlet
 Requires Level 59, 122 Int
 League: Blight
+Source: Drops in Blighted Maps
 Can have a second Enchantment Modifier
 +(20-30) to all Attributes
 (60-80)% increased Energy Shield
@@ -325,6 +326,7 @@ Cowl of the Cryophile
 Silken Hood
 Requires Level 60, 138 Dex
 League: Blight
+Source: Drops in Blighted Maps
 Can have a second Enchantment Modifier
 +(20-30) to all Attributes
 (60-80)% increased Evasion Rating
@@ -337,6 +339,7 @@ Cowl of the Thermophile
 Ezomyte Burgonet
 Requires Level 60, 138 Str
 League: Blight
+Source: Drops in Blighted Maps
 Can have a second Enchantment Modifier
 +(20-30) to all Attributes
 (60-80)% increased Armour
@@ -557,7 +560,6 @@ Summoned Raging Spirits' Hits always Ignite
 Maw of Conquest
 Steel Circlet
 League: Legion
-Source: Drops from Maraketh Legion
 Requires Level 48, 101 Int
 (60-80)% increased Critical Strike Chance for Spells
 (200-250)% increased Energy Shield
@@ -645,7 +647,6 @@ Requires Level: 34, 73 Int
 Wreath of Phrecia
 Iron Circlet
 League: Legion
-Source: Drops from Eternal Legion
 Requires Level 8
 Has no Attribute Requirements
 Increases and Reductions to Light Radius also apply to Area of Effect at 50% of their value
@@ -935,7 +936,6 @@ Summoned Holy Relics have (20-25)% reduced Cooldown Recovery Speed
 Honourhome
 Soldier Helmet
 League: Legion
-Source: Drops from Eternal Legion
 Variant: Pre 3.7.0
 Variant: Pre 3.19.0
 Variant: Current

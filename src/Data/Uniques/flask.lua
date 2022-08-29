@@ -313,7 +313,6 @@ Removes Burning on use
 The Sorrow of the Divine
 Sulphur Flask
 League: Legion
-Source: Drops from Templar Legion
 Requires Level 35
 Implicits: 1
 Creates Consecrated Ground on Use

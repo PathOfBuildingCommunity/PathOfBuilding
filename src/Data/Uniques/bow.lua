@@ -119,7 +119,6 @@ Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies
 Darkscorn
 Assassin Bow
 League: Legion
-Source: Drops from Maraketh Legion
 Variant: Pre 1.2.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
