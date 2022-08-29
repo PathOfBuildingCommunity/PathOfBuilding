@@ -38,6 +38,7 @@ skills["AlchemistsMark"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
+		skill("radius", 20),
 	},
 	qualityStats = {
 		Default = {

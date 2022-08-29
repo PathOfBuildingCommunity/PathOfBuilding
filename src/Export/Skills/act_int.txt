@@ -1104,7 +1104,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill GalvanicField
-#flags spell area duration chaining
+#flags spell duration chaining
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
 	end,
@@ -1135,7 +1135,7 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 	},
-#baseMod skill("radius", 20)
+#baseMod skill("radius", 19)
 #mods
 
 #skill IceDash
@@ -1434,13 +1434,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill LightningConduit
-#flags spell area
+#flags spell
 	statMap = {
 		["energy_release_damage_+%_final_per_5%_increased_damage_taken_from_shock_on_target"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
 		},
 	},
-#baseMod skill("radius", 14)
+#baseMod skill("radius", 60)
+#baseMod skill("radiusLabel", "Targeting range:")
 #mods
 
 #skill LightningTendrilsChannelled

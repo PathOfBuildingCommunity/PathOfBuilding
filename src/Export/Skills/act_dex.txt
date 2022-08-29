@@ -23,6 +23,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("debuff", true)
+#baseMod skill("radius", 20)
 #mods
 
 #skill Ambush

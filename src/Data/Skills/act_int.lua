@@ -5019,12 +5019,11 @@ skills["GalvanicField"] = {
 	},
 	baseFlags = {
 		spell = true,
-		area = true,
 		duration = true,
 		chaining = true,
 	},
 	baseMods = {
-		skill("radius", 20),
+		skill("radius", 19),
 	},
 	qualityStats = {
 		Default = {
@@ -6515,10 +6514,10 @@ skills["LightningConduit"] = {
 	},
 	baseFlags = {
 		spell = true,
-		area = true,
 	},
 	baseMods = {
-		skill("radius", 14),
+		skill("radius", 60),
+		skill("radiusLabel", "Targeting range:"),
 	},
 	qualityStats = {
 		Default = {
