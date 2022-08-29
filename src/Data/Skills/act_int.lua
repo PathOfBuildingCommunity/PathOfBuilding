@@ -5108,6 +5108,14 @@ skills["IceDash"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.ChillingArea] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Instant] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["ice_dash_cooldown_recovery_per_nearby_normal_or_magic_enemy"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique", neg = true }),
+		},
+		["ice_dash_cooldown_recovery_per_nearby_rare_or_unique_enemy"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,

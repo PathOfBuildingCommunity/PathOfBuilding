@@ -1140,6 +1140,14 @@ local skills, mod, flag, skill = ...
 
 #skill IceDash
 #flags spell area hit
+	statMap = {
+		["ice_dash_cooldown_recovery_per_nearby_normal_or_magic_enemy"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique", neg = true }),
+		},
+		["ice_dash_cooldown_recovery_per_nearby_rare_or_unique_enemy"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
+		},
+	},
 #baseMod skill("showAverage", true)
 #baseMod skill("radius", 20)
 #baseMod skill("radiusLabel", "Area of initial explosion:")
