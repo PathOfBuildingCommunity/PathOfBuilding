@@ -1245,7 +1245,7 @@ Has 6 Abyssal Sockets
 ]],[[
 Stasis Prison
 Carnal Armour
-Source: Drops in Uber Timeless Conflict
+Source: Drops in Unrelenting Domain of Timeless Conflict
 Implicits: 1
 +(20-25) to maximum Mana
 (140-160)% increased Evasion and Energy Shield
@@ -1332,6 +1332,7 @@ Gain 100 Mana per Enemy Killed
 Shadowstitch
 Sacrificial Garb
 League: Incursion
+Source: Double Corrupting Sacrificial Garb
 Variant: Pre 3.10.0
 Variant: Current
 Implicits: 0

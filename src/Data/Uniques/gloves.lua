@@ -541,7 +541,7 @@ Requires Level 67, 51 Str, 51 Dex
 Tombfist
 Steelscale Gauntlets
 League: Abyss
-Source: Drops from Abyssal Liches
+Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
 Variant: Pre 3.6.0 One Abyssal Socket
 Variant: Pre 3.6.0 Two Abyssal Sockets
 Variant: Current One Abyssal Socket
@@ -811,6 +811,7 @@ Variant: Current
 {variant:1}Strapped Mitts
 {variant:2}Ambush Mitts
 League: Incursion
+Source: Opening normal{Fortified Casket} in normal{Defense Research Lab}
 Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
 {variant:1}Requires Level 16
 {variant:2}Requires Level 45, 35 Dex, 35 Int

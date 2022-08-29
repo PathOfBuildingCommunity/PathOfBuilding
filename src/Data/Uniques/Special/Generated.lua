@@ -334,6 +334,7 @@ local powerChargeMods = {
 local precursorsEmblem = {
 [[Precursor's Emblem
 League: Delve
+Source: Vendor Recipe
 Variant: Topaz Ring
 Variant: Sapphire Ring
 Variant: Ruby Ring

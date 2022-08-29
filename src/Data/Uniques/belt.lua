@@ -152,6 +152,7 @@ Chain Belt
 Variant: Pre 3.14.0
 Variant: Current
 League: Incursion
+Source: Opening normal{Experimental Chest} in normal{Hybridisation Chamber}
 Upgrade: Upgrades to unique{Coward's Legacy} via currency{Vial of Consequence}
 LevelReq: 22
 Implicits: 1
@@ -194,7 +195,7 @@ Cannot be Shocked if Intelligence is higher than Strength
 Darkness Enthroned
 Stygian Vise
 League: Abyss
-Source: Drops from Abyssal Liches
+Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 1
@@ -244,7 +245,6 @@ Implicits: 1
 The Druggery
 Cloth Belt
 League: Heist
-Source: Steal from a unique{Curio Display} during a Grand Heist
 LevelReq: 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
@@ -300,6 +300,7 @@ Cloth Belt
 Variant: Pre 3.16.0
 Variant: Current
 League: Harbinger
+Source: Created from item parts obtained from Boss in The Beachhead
 Upgrade: Upgrades to unique{The Torrent's Reclamation} via currency{Time-light Scroll}
 LevelReq: 60
 Implicits: 1

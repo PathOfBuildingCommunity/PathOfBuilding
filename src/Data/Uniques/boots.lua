@@ -826,7 +826,7 @@ Unaffected by Shocked Ground
 Bubonic Trail
 Murder Boots
 League: Abyss
-Source: Drops from Abyssal Liches
+Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 Requires Level 69, 82 Dex, 42 Int
@@ -858,6 +858,7 @@ Variant: Current
 {variant:1}Shackled Boots
 {variant:2}Carnal Boots
 League: Incursion
+Source: Opening normal{Thunder Coffer} in normal{Conduit of Lightning}
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
 {variant:1}Requires Level 34, 34 Dex, 34 Int
 {variant:2}Requires Level 55, 52 Dex, 52 Int

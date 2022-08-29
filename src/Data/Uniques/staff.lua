@@ -209,6 +209,7 @@ Nearby allies gain 18% increased Damage
 The Enmity Divine
 Imperial Staff
 League: Harbinger
+Source: Created from item parts obtained from Boss in The Beachhead
 Upgrade: Upgrades to unique{The Yielding Mortality} via currency{Haemocombustion Scroll}
 Variant: Pre 3.11.0
 Variant: Current

@@ -967,7 +967,7 @@ Requires Level 44, 50 Str, 50 Int
 Lightpoacher
 Great Crown
 League: Abyss
-Source: Drops from Abyssal Liches
+Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 {variant:1}Has 1 Abyssal Socket
@@ -1002,6 +1002,7 @@ Variant: Current
 {variant:1}Crusader Helmet
 {variant:2}Magistrate Crown
 League: Incursion
+Source: Opening normal{Pools Coffer} in normal{Sanctum of Immortality}
 Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}
 {variant:1}(60-80)% increased Armour and Energy Shield
 {variant:2}(140-220)% increased Armour and Energy Shield
@@ -1046,7 +1047,7 @@ Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
 Maw of Mischief
 Bone Helmet
 League: Heist
-Source: Steal from a unique{Curio Display} during a Grand Heist
+Source: Obtained from divination card normal{Cursed Words}
 Requires Level 73, 76 Str, 76 Int
 Implicits: 1
 Minions deal (15-20)% increased Damage
@@ -1350,6 +1351,7 @@ Requires Level 57, 64 Dex, 64 Int
 The Tempest's Binding
 Callous Mask
 League: Harbinger
+Source: Created from item parts obtained from Boss in The Beachhead
 Upgrade: Upgrades to unique{The Tempest's Liberation} via currency{Deregulation Scroll}
 Requires Level 45, 51 Dex, 51 Int
 Socketed Gems are Supported by Level 18 Ice Bite

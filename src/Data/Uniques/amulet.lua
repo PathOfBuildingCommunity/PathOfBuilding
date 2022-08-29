@@ -301,7 +301,6 @@ Implicits: 1
 The Ephemeral Bond
 Lapis Amulet
 League: Heist
-Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
@@ -1005,7 +1004,7 @@ Your Critical Strikes do not deal extra Damage
 ]],[[
 Uul-Netol's Vow
 Unset Amulet
-Source: Drops from Flawless Breachlords
+Source: Drops from unique{Breachlord} in a normal{Flawless Breachstone}
 Requires Level 72
 Implicits: 1
 Has 1 Socket

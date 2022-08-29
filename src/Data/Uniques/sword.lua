@@ -367,6 +367,7 @@ Adds (60-80) to (150-180) Physical Damage
 The Rippling Thoughts
 Legion Sword
 League: Harbinger
+Source: Created from item parts obtained from Boss in The Beachhead
 Upgrade: Upgrades to unique{The Surging Thoughts} via currency{Electroshock Scroll}
 Implicits: 1
 40% increased Global Accuracy Rating
@@ -463,6 +464,7 @@ Variant: Current
 {variant:1}Variscite Blade
 {variant:2}Gemstone Sword
 League: Incursion
+Source: Opening normal{Fireproof Chest} in normal{Crucible of Flame}
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
 Implicits: 2
 {variant:1}+240 to Accuracy Rating

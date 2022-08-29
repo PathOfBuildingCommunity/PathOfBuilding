@@ -141,7 +141,6 @@ Radius: Medium
 Endless Misery
 Cobalt Jewel
 League: Heist
-Source: Steal from a unique{Curio Display} during a Grand Heist
 Limited to: 1
 Radius: Medium
 (7-10)% increased Elemental Damage
@@ -396,7 +395,6 @@ Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers
 Lord of Steel
 Viridian Jewel
 League: Heist
-Source: Steal from a unique{Curio Display} during a Grand Heist
 Limited to: 1
 Variant: Impale Chance (Pre 3.13.0)
 Variant: Impale Overwhelm (Pre 3.13.0)
@@ -1660,7 +1658,7 @@ Limited to: 1
 [[
 Emperor's Cunning
 Viridian Jewel
-Source: Fastest Normal Labyrinth
+Source: Drops in The Eternal Labyrinth
 Limited to: 1
 20% increased Global Accuracy Rating
 3% increased Character Size
@@ -1668,7 +1666,7 @@ Limited to: 1
 ]],[[
 Emperor's Mastery
 Prismatic Jewel
-Source: Fastest Eternal Labyrinth
+Source: Drops in The Eternal Labyrinth
 Limited to: 1
 4% increased maximum Life
 3% increased Character Size
@@ -1677,7 +1675,7 @@ Limited to: 1
 ]],[[
 Emperor's Might
 Crimson Jewel
-Source: Fastest Merciless Labyrinth
+Source: Drops in The Eternal Labyrinth
 Limited to: 1
 10% increased Damage
 3% increased Character Size
@@ -1685,7 +1683,7 @@ Limited to: 1
 ]],[[
 Emperor's Wit
 Cobalt Jewel
-Source: Fastest Cruel Labyrinth
+Source: Drops in The Eternal Labyrinth
 Limited to: 1
 30% increased Global Critical Strike Chance
 3% increased Character Size

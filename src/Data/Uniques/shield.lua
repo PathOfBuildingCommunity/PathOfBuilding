@@ -394,6 +394,7 @@ Variant: Current
 {variant:1}Ancient Spirit Shield
 {variant:2}Vaal Spirit Shield
 League: Incursion
+Source: Opening normal{Grove Vessel} in normal{Toxic Grove}
 Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}
 Implicits: 1
 (5-10)% increased Spell Damage
@@ -940,6 +941,7 @@ Implicits: 1
 The Unshattered Will
 Archon Kite Shield
 League: Harbinger
+Source: Created from item parts obtained from Boss in The Beachhead
 Upgrade: Upgrades to unique{The Immortal Will} via currency{Specularity Scroll}
 Implicits: 1
 +12% to all Elemental Resistances
