@@ -617,7 +617,7 @@ return {
 	{ label = "Bounces Count", flag = "bounce", { format = "{output:BounceCount}", { modName = { "BounceCount", "ProjectileCount" }, cfg = "skill" }, }, },
 	{ label = "Aura Effect Mod", haveOutput = "AuraEffectMod", { format = "x {2:output:AuraEffectMod}",
 		{ breakdown = "AuraEffectMod" },
-		{ modName = "AuraEffect", cfg = "skill" },
+		{ modName = { "AuraEffect", "SkillAuraEffectOnSelf" }, cfg = "skill" },
 	}, },
 	{ label = "Mana Reserve Mod", haveOutput = "ManaReservedMod", { format = "x {2:output:ManaReservedMod}",
 		{ breakdown = "ManaReservedMod" },
