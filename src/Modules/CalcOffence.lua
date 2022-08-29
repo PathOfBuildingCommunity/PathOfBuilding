@@ -461,12 +461,14 @@ function calcs.offence(env, actor, activeSkill)
 		local critMod = calcLib.mod(skillModList, skillCfg, "EnergyBladeCritChance")
 		local speedMod = calcLib.mod(skillModList, skillCfg, "EnergyBladeAttackSpeed")
 		for slotName, weaponData in pairs({ ["Weapon 1"] = "weaponData1", ["Weapon 2"] = "weaponData2" }) do
-			if actor.itemList[slotName] and actor.itemList[slotName].weaponData and actor.itemList[slotName].weaponData[1] then
-				actor[weaponData].CritChance = actor[weaponData].CritChance * critMod
-				actor[weaponData].AttackRate = actor[weaponData].AttackRate * speedMod
+			if actor.itemList[slotName] and actor.itemList[slotName].weaponData and actor.itemList[slotName].weaponData[1] and actor[weaponData].name and data.itemBases[actor[weaponData].name] then
+				local weaponBaseData = data.itemBases[actor[weaponData].name].weapon
+				actor[weaponData].CritChance = weaponBaseData.CritChanceBase * critMod
+				actor[weaponData].AttackRate = weaponBaseData.AttackRateBase * speedMod
+				actor[weaponData].Range = weaponBaseData.Range
 				for _, damageType in ipairs(dmgTypeList) do
-					actor[weaponData][damageType.."Min"] = (actor[weaponData][damageType.."Min"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMin"..damageType) * dmgMod)
-					actor[weaponData][damageType.."Max"] = (actor[weaponData][damageType.."Max"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMax"..damageType) * dmgMod)
+					actor[weaponData][damageType.."Min"] = (weaponBaseData[damageType.."Min"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMin"..damageType) * dmgMod)
+					actor[weaponData][damageType.."Max"] = (weaponBaseData[damageType.."Max"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMax"..damageType) * dmgMod)
 				end
 			end
 		end
@@ -570,7 +572,7 @@ function calcs.offence(env, actor, activeSkill)
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = bor(ModFlag.Claw, ModFlag.Hit) }, "CritChance")) do
 			local mod = value.mod
 			if band(mod.flags, ModFlag.Claw) ~= 0 then
-            	env.minion.modDB:NewMod("CritChance", mod.type, mod.value, mod.source)
+				env.minion.modDB:NewMod("CritChance", mod.type, mod.value, mod.source)
 			end
 		end
 	end
@@ -834,9 +836,9 @@ function calcs.offence(env, actor, activeSkill)
 		calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
 	end
 	if activeSkill.skillTypes[SkillType.Aura] then
-		output.AuraEffectMod = calcLib.mod(skillModList, skillCfg, "AuraEffect")
+		output.AuraEffectMod = calcLib.mod(skillModList, skillCfg, "AuraEffect", not skillData.auraCannotAffectSelf and "SkillAuraEffectOnSelf" or nil)
 		if breakdown then
-			breakdown.AuraEffectMod = breakdown.mod(skillModList, skillCfg, "AuraEffect")
+			breakdown.AuraEffectMod = breakdown.mod(skillModList, skillCfg, "AuraEffect", not skillData.auraCannotAffectSelf and "SkillAuraEffectOnSelf" or nil)
 		end
 	end
 	if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
@@ -2023,6 +2025,21 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
+		--Calculates the max number of fuses you can sustain
+		--Does not take into account mines or traps
+		if activeSkill.activeEffect.grantedEffect.name == "Explosive Arrow" and activeSkill.skillPart == 2 then
+			local hitRate = m_floor(output.HitChance / 100 * globalOutput.Speed * globalOutput.ActionSpeedMod * (skillData.dpsMultiplier or 1)) + 1
+			if skillFlags.totem then
+				local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
+				hitRate = hitRate * activeTotems
+			end
+			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
+			local skillMax = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ExplosiveArrowMaxFuseCount")
+			local maximum = m_min(hitRate * duration, skillMax)
+			skillModList:NewMod("Multiplier:ExplosiveArrowStage", "BASE", maximum, "Base")
+			skillModList:NewMod("Multiplier:ExplosiveArrowStageAfterFirst", "BASE", maximum - 1, "Base")
+		end
+
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(nil, "NeverCrit") then
 			output.PreEffectiveCritChance = 0
@@ -2206,7 +2223,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.EnergyShieldLeechInstant = 0
 		output.ManaLeech = 0
 		output.ManaLeechInstant = 0
-        output.impaleStoredHitAvg = 0
+		output.impaleStoredHitAvg = 0
 		for pass = 1, 2 do
 			-- Pass 1 is critical strike damage, pass 2 is non-critical strike
 			cfg.skillCond["CriticalStrike"] = (pass == 1)
@@ -2665,10 +2682,13 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("ManaLeechInstantRate", "DPS")
 		combineStat("LifeOnHit", "DPS")
 		combineStat("LifeOnHitRate", "DPS")
+		combineStat("LifeOnKill", "DPS")
 		combineStat("EnergyShieldOnHit", "DPS")
 		combineStat("EnergyShieldOnHitRate", "DPS")
+		combineStat("EnergyShieldOnKill", "DPS")
 		combineStat("ManaOnHit", "DPS")
 		combineStat("ManaOnHitRate", "DPS")
+		combineStat("ManaOnKill", "DPS")
 		if skillFlags.bothWeaponAttack then
 			if breakdown then
 				breakdown.AverageDamage = { }
@@ -3286,11 +3306,16 @@ function calcs.offence(env, actor, activeSkill)
 				if groundMult > 0 then
 					local CausticGroundDPSUncapped = baseVal * effectMod * rateMod * effMult * groundMult / 100
 					local CausticGroundDPSCapped = m_min(CausticGroundDPSUncapped, data.misc.DotDpsCap)
-					if PoisonDPSCapped + CausticGroundDPSCapped > data.misc.DotDpsCap then
-						CausticGroundDPSCapped = data.misc.DotDpsCap - CausticGroundDPSCapped
-					end
 					globalOutput.CausticGroundDPS = CausticGroundDPSCapped
 					globalOutput.CausticGroundFromPoison = true
+					if globalBreakdown then
+						globalBreakdown.CausticGroundDPS = {
+							s_format("%.1f ^8(single poison damage per second)", baseVal * effectMod * rateMod),
+							s_format("* %.1f%% ^8(percent as Caustic ground)", groundMult),
+							s_format("* %.3f ^8(effect mult)", effMult),
+							s_format("= %.1f ^8per second", globalOutput.CausticGroundDPS)
+						}
+					end
 				end
 				local durationBase
 				if skillData.poisonDurationIsSkillDuration then
@@ -3556,11 +3581,16 @@ function calcs.offence(env, actor, activeSkill)
 					local fireEffMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					local BurningGroundDPSUncapped = baseVal * effectMod * rateMod * fireEffMult * groundMult / 100
 					local BurningGroundDPSCapped = m_min(BurningGroundDPSUncapped, data.misc.DotDpsCap)
-					if IgniteDPSCapped + BurningGroundDPSCapped > data.misc.DotDpsCap then
-						BurningGroundDPSCapped = data.misc.DotDpsCap - IgniteDPSCapped
-					end
 					globalOutput.BurningGroundDPS = BurningGroundDPSCapped
 					globalOutput.BurningGroundFromIgnite = true
+					if globalBreakdown then
+						globalBreakdown.BurningGroundDPS = {
+							s_format("%.1f ^8(ignite damage per second)", baseVal * effectMod * rateMod),
+							s_format("* %.1f%% ^8(percent as burning ground)", groundMult),
+							s_format("* %.3f ^8(effect mult)", fireEffMult),
+							s_format("= %.1f ^8per second", globalOutput.BurningGroundDPS)
+						}
+					end
 				end
 				globalOutput.IgniteDamage = output.IgniteDPS * globalOutput.IgniteDuration
 				if skillFlags.igniteCanStack then

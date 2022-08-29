@@ -26,8 +26,7 @@ Iron Ring
 League: Kalandra
 Reflects your other Ring
 Mirrored
-]],
-[[
+]],[[
 Kaom's Spirit
 Titan Gauntlets
 League: Kalandra
@@ -36,7 +35,25 @@ League: Kalandra
 0.44% of Physical Attack Damage Leeched as Life
 Life Recovery from Regeneration is not applied
 Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
-]],
+]],[[
+The Poised Prism
+Primal Arrow Quiver
+Implicits: 1
+(20-30)% increased Elemental Damage with Attack Skills
++(15-25)% to Fire Resistance
++(15-25)% to Cold Resistance
++(15-25)% to Lightning Resistance
+Adds 1 to 2 Cold Damage to Attacks per 10 Dexterity
+Adds 1 to 2 Fire Damage to Attacks per 10 Strength
+Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
+]],[[
+Elevore
+Wolf Pelt
++23% chance to Suppress Spell Damage
+85% increased Evasion Rating
+22% chance to Avoid Elemental Ailments
+Recover 176 Life when you Suppress Spell Damage
+]]
 -- Reworked
 
 }

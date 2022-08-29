@@ -1206,10 +1206,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodDelve"] = {
 		"VaalincursionMortar",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
-		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = {
@@ -1231,10 +1228,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearBloodChampionDelve"] = 
 		"VaalIncursionSpecialBeamCannonBlood",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
-		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
@@ -1255,10 +1249,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosDelve"] = {
 		"FireballIncursionChaos",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
-		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = {
@@ -1281,10 +1272,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearChaosChampionDelve"] = 
 		"IncursionMeteorUpheaval",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
-		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
@@ -1305,10 +1293,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireDelve"] = {
 		"FireballIncusionFire",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
-		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = {
@@ -1330,10 +1315,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearFireChampionDelve_"] = 
 		"VaalIncursionFirestorm",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
-		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
@@ -1354,10 +1336,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningDelve"] = {
 		"FireballIncusionLightning",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
-		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_"] = {
@@ -1380,10 +1359,7 @@ minions["Metadata/Monsters/KitavaCultist/VaalCultistSpearLightningChampionDelve_
 		"SummonedSparkDaemonLightning",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
-		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 -- Kitava's Herald
@@ -1484,10 +1460,7 @@ minions["Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite"] = {
 		"DelveProtovaalWhirlingCharge",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
-		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 -- Hellion
@@ -2227,10 +2200,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonBlackCaster1_"] = {
 	},
 	modList = {
 		-- MonsterNecromancerRaisable [undead_description = 1]
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
-		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/Skeletons/SkeletonBowProjectileWeaknessCurse"] = {
@@ -2275,10 +2245,7 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionC
 		"IncursionLeapSlamChampion",
 	},
 	modList = {
-		-- MonsterIncursionDropModifiers__ [monster_slain_experience_+% = 0]
-		-- MonsterIncursionDropModifiers__ [monster_dropped_item_quantity_+% = 35]
-		-- MonsterIncursionDropModifiers__ [monster_dropped_item_rarity_+% = 1250]
-		-- MonsterIncursionDropModifiers__ [monster_no_map_drops = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/Skeletons/SkeletonBowKnightElemental"] = {
@@ -2321,14 +2288,11 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
 		"SkeletonBlackAbyssBoneLance",
 	},
 	modList = {
-		-- MonsterAbyssDropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterAbyssDropModifiers [monster_dropped_item_quantity_+% = 100]
-		-- MonsterAbyssDropModifiers [monster_dropped_item_rarity_+% = 300]
-		-- MonsterAbyssDropModifiers [monster_no_map_drops = 1]
 		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 		-- VariableEmergeSpeedAbyss [emerge_speed_+% = 0]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
 minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
@@ -2743,8 +2707,6 @@ minions["Metadata/Monsters/SandLeaper/SandLeaperBreachSpectre_"] = {
 		"BreachLightningOrbsCommander",
 	},
 	modList = {
-		-- MonsterBreachQuantityCommander [monster_dropped_item_quantity_+% = 700]
-		-- MonsterBreachRarityCommander [monster_dropped_item_rarity_+% = 1000]
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 	},
@@ -2771,10 +2733,6 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer3Spectre"] = {
 		"GeometryTriggerSynthesisSoulstealer3",
 	},
 	modList = {
-		-- MonsterSynthesisLargeDropModifiers_ [monster_slain_experience_+% = 0]
-		-- MonsterSynthesisLargeDropModifiers_ [monster_dropped_item_quantity_+% = 700]
-		-- MonsterSynthesisLargeDropModifiers_ [monster_dropped_item_rarity_+% = 1500]
-		-- MonsterSynthesisLargeDropModifiers_ [monster_no_map_drops = 0]
 	},
 }
 -- Redemption Knight
@@ -2825,10 +2783,6 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre"] = {
 		"HarvestNessaCrabScreechDebuff",
 	},
 	modList = {
-		-- MonsterHarvestT3DropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterHarvestT3DropModifiers [monster_dropped_item_quantity_+% = 720]
-		-- MonsterHarvestT3DropModifiers [monster_dropped_item_rarity_+% = 1500]
-		-- MonsterHarvestT3DropModifiers [monster_no_map_drops = 0]
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 		-- MapMonsterReducedCurseEffect [unique_boss_curse_effect_on_self_+%_final = -33]
@@ -2858,10 +2812,6 @@ minions["Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre"] = {
 		"HarvestRhexScreechDebuff",
 	},
 	modList = {
-		-- MonsterHarvestT3DropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterHarvestT3DropModifiers [monster_dropped_item_quantity_+% = 720]
-		-- MonsterHarvestT3DropModifiers [monster_dropped_item_rarity_+% = 1500]
-		-- MonsterHarvestT3DropModifiers [monster_no_map_drops = 0]
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 		-- MapMonsterReducedCurseEffect [unique_boss_curse_effect_on_self_+%_final = -33]
@@ -2890,10 +2840,6 @@ minions["Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre"] = {
 	},
 	modList = {
 		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
-		-- MonsterLegionDropModifiers_ [monster_slain_experience_+% = 0]
-		-- MonsterLegionDropModifiers_ [monster_dropped_item_quantity_+% = 125]
-		-- MonsterLegionDropModifiers_ [monster_dropped_item_rarity_+% = 750]
-		-- MonsterLegionDropModifiers_ [monster_no_map_drops = 1]
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 	},
@@ -2996,10 +2942,6 @@ minions["Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre"] = {
 		"EASHeistMindControlSuicide",
 	},
 	modList = {
-		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterHarvestT1DropModifiers [monster_dropped_item_quantity_+% = 100]
-		-- MonsterHarvestT1DropModifiers [monster_dropped_item_rarity_+% = 525]
-		-- MonsterHarvestT1DropModifiers [monster_no_map_drops = 1]
 	},
 }
 -- Ashblessed Warden
@@ -3027,10 +2969,6 @@ minions["Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre"] = {
 		"ChangeToStance1Heist",
 	},
 	modList = {
-		-- MonsterHarvestT1DropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterHarvestT1DropModifiers [monster_dropped_item_quantity_+% = 100]
-		-- MonsterHarvestT1DropModifiers [monster_dropped_item_rarity_+% = 525]
-		-- MonsterHarvestT1DropModifiers [monster_no_map_drops = 1]
 	},
 }
 -- Snow Rhex
@@ -3148,10 +3086,6 @@ minions["Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre"] = {
 	},
 	modList = {
 		-- MonsterIgnoresDelveDarkness [monster_ignores_delve_darkness_mechanic = 1]
-		-- MonsterLegionDropModifiers_ [monster_slain_experience_+% = 0]
-		-- MonsterLegionDropModifiers_ [monster_dropped_item_quantity_+% = 125]
-		-- MonsterLegionDropModifiers_ [monster_dropped_item_rarity_+% = 750]
-		-- MonsterLegionDropModifiers_ [monster_no_map_drops = 1]
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 	},
@@ -3165,7 +3099,7 @@ minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spec
 	coldResist = 0,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.1,
+	damage = 2.73,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 12,
@@ -3190,7 +3124,7 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectr
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.5,
+	damage = 1.95,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 9,
@@ -3217,7 +3151,7 @@ minions["Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spe
 	coldResist = 0,
 	lightningResist = 75,
 	chaosResist = 0,
-	damage = 1.95,
+	damage = 2.54,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 12,
@@ -3242,7 +3176,7 @@ minions["Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectr
 	coldResist = 75,
 	lightningResist = 0,
 	chaosResist = 0,
-	damage = 2.24,
+	damage = 2.91,
 	damageSpread = 0.2,
 	attackTime = 1.5,
 	attackRange = 13,
@@ -3271,7 +3205,7 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spe
 	coldResist = 0,
 	lightningResist = 40,
 	chaosResist = 0,
-	damage = 1.1,
+	damage = 1.43,
 	damageSpread = 0.2,
 	attackTime = 1.17,
 	attackRange = 8,
@@ -3312,10 +3246,6 @@ minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
 		"SynthesisQuicksandStartEffect",
 	},
 	modList = {
-		-- MonsterSynthesisLargeDropModifiers_ [monster_slain_experience_+% = 0]
-		-- MonsterSynthesisLargeDropModifiers_ [monster_dropped_item_quantity_+% = 700]
-		-- MonsterSynthesisLargeDropModifiers_ [monster_dropped_item_rarity_+% = 1500]
-		-- MonsterSynthesisLargeDropModifiers_ [monster_no_map_drops = 0]
 	},
 }
 -- Ruins Hellion
@@ -3386,8 +3316,6 @@ minions["Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre"] = {
 		"SummonBreachIceTotem",
 	},
 	modList = {
-		-- MonsterBreachQuantityCommander [monster_dropped_item_quantity_+% = 700]
-		-- MonsterBreachRarityCommander [monster_dropped_item_rarity_+% = 1000]
 		-- BreachReducedBeyondPortalChance [monster_beyond_portal_chance_+%_final = -66]
 		-- BreachReducedBeyondPortalChance [monster_hellscape_charge_+% = -66]
 		-- MonsterKillTrapsMinesTotemsOnDeath [kill_traps_mines_and_totems_on_death = 1]
@@ -3413,10 +3341,6 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple"] = {
 		"MonsterChanceToTemporalChainsOnHit1",
 	},
 	modList = {
-		-- MonsterDelveLargeDropModifiers_ [monster_slain_experience_+% = 0]
-		-- MonsterDelveLargeDropModifiers_ [monster_dropped_item_quantity_+% = 200]
-		-- MonsterDelveLargeDropModifiers_ [monster_dropped_item_rarity_+% = 1000]
-		-- MonsterDelveLargeDropModifiers_ [monster_no_map_drops = 0]
 		-- MonsterChanceToTemporalChainsOnHit1 [curse_on_hit_%_temporal_chains = 100]
 		mod("EnemyCurseLimit", "BASE", 1, 0, 0), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
 	},
@@ -3441,11 +3365,8 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 		"DelveMonsterEnfeebleOnHit",
 	},
 	modList = {
-		-- MonsterDelveDropModifiers [monster_slain_experience_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_quantity_+% = 0]
-		-- MonsterDelveDropModifiers [monster_dropped_item_rarity_+% = 300]
-		-- MonsterDelveDropModifiers [monster_no_map_drops = 1]
 		-- DelveMonsterEnfeebleOnHit [curse_on_hit_level_enfeeble = 8]
 		mod("EnemyCurseLimit", "BASE", 1, 0, 0), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }

@@ -609,6 +609,7 @@ function calcs.defence(env, actor)
 	-- Mana, life, energy shield, and rage regen
 	if modDB:Flag(nil, "NoManaRegen") then
 		output.ManaRegen = 0
+		output.ManaRegenRecovery = - modDB:Sum("BASE", nil, "ManaDegen")
 	else
 		local base = modDB:Sum("BASE", nil, "ManaRegen") + output.Mana * modDB:Sum("BASE", nil, "ManaRegenPercent") / 100
 		output.ManaRegenInc = modDB:Sum("INC", nil, "ManaRegen")
@@ -619,25 +620,26 @@ function calcs.defence(env, actor)
 		local regen = base * (1 + output.ManaRegenInc/100) * more
 		local regenRate = round(regen * output.ManaRecoveryRateMod, 1)
 		local degen = modDB:Sum("BASE", nil, "ManaDegen")
-		output.ManaRegen = regenRate - degen
+		output.ManaRegen = regenRate
+		output.ManaRegenRecovery = (modDB:Flag(nil, "UnaffectedByManaRegen") and 0 or output.ManaRegen) - degen
 		if breakdown then
-			breakdown.ManaRegen = { }
-			breakdown.multiChain(breakdown.ManaRegen, {
+			breakdown.ManaRegenRecovery = { }
+			breakdown.multiChain(breakdown.ManaRegenRecovery, {
 				label = "Mana Regeneration:",
 				base = s_format("%.1f ^8(base)", base),
 				{ "%.2f ^8(increased/reduced)", 1 + output.ManaRegenInc/100 },
 				{ "%.2f ^8(more/less)", more },
 				total = s_format("= %.1f ^8per second", regen),
 			})
-			breakdown.multiChain(breakdown.ManaRegen, {
+			breakdown.multiChain(breakdown.ManaRegenRecovery, {
 				label = "Effective Mana Regeneration:",
 				base = s_format("%.1f", regen),
 				{ "%.2f ^8(recovery rate modifier)", output.ManaRecoveryRateMod },
 				total = s_format("= %.1f ^8per second", regenRate),
 			})
 			if degen ~= 0 then
-				t_insert(breakdown.ManaRegen, s_format("- %d", degen))
-				t_insert(breakdown.ManaRegen, s_format("= %.1f ^8per second", output.ManaRegen))
+				t_insert(breakdown.ManaRegenRecovery, s_format("- %d", degen))
+				t_insert(breakdown.ManaRegenRecovery, s_format("= %.1f ^8per second", output.ManaRegenRecovery))
 			end
 		end
 	end
@@ -666,14 +668,14 @@ function calcs.defence(env, actor)
 		end
 		-- Don't add life recovery mod for this
 		if output.LifeRegen and modDB:Flag(nil, "LifeRegenerationRecoversEnergyShield") and output.EnergyShield > 0 then
-			modDB:NewMod("EnergyShieldRecovery", "BASE", lifeBase * modDB:More(nil, "LifeRegen") * (1 + modDB:Sum("INC", nil, "LifeRegen") / 100), "Life Regeneration Recovers Energy Shield")
+			modDB:NewMod("EnergyShieldRecovery", "BASE",output.LifeRegen / output.LifeRecoveryRateMod, "Life Regeneration Recovers Energy Shield")
 		end
 	end
-	output.LifeRegen = output.LifeRegen - modDB:Sum("BASE", nil, "LifeDegen") + modDB:Sum("BASE", nil, "LifeRecovery") * output.LifeRecoveryRateMod
-	output.LifeRegenPercent = round(output.LifeRegen / output.Life * 100, 1)
+	output.LifeRegenRecovery = (modDB:Flag(nil, "UnaffectedByLifeRegen") and 0 or output.LifeRegen) - modDB:Sum("BASE", nil, "LifeDegen") + modDB:Sum("BASE", nil, "LifeRecovery") * output.LifeRecoveryRateMod
+	output.LifeRegenPercent = round(output.LifeRegenRecovery / output.Life * 100, 1)
 	if modDB:Flag(nil, "NoEnergyShieldRegen") then
-		output.EnergyShieldRegen = 0 - modDB:Sum("BASE", nil, "EnergyShieldDegen")
-		output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
+		output.EnergyShieldRegenRecovery = 0 - modDB:Sum("BASE", nil, "EnergyShieldDegen")
+		output.EnergyShieldRegenPercent = round(output.EnergyShieldRegenRecovery / output.EnergyShield * 100, 1)
 	else
 		local esBase = modDB:Sum("BASE", nil, "EnergyShieldRegen")
 		local esPercent = modDB:Sum("BASE", nil, "EnergyShieldRegenPercent")
@@ -681,22 +683,14 @@ function calcs.defence(env, actor)
 			esBase = esBase + output.EnergyShield * esPercent / 100
 		end
 		if esBase > 0 then
-			output.EnergyShieldRegen = esBase * output.EnergyShieldRecoveryRateMod * calcLib.mod(modDB, nil, "EnergyShieldRegen") - modDB:Sum("BASE", nil, "EnergyShieldDegen")
-			output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
+			output.EnergyShieldRegenRecovery = esBase * output.EnergyShieldRecoveryRateMod * calcLib.mod(modDB, nil, "EnergyShieldRegen") - modDB:Sum("BASE", nil, "EnergyShieldDegen")
+			output.EnergyShieldRegenPercent = round(output.EnergyShieldRegenRecovery / output.EnergyShield * 100, 1)
 		else
-			output.EnergyShieldRegen = 0 - modDB:Sum("BASE", nil, "EnergyShieldDegen")
+			output.EnergyShieldRegenRecovery = 0 - modDB:Sum("BASE", nil, "EnergyShieldDegen")
 		end
 	end
-	output.EnergyShieldRegen = output.EnergyShieldRegen + modDB:Sum("BASE", nil, "EnergyShieldRecovery") * output.EnergyShieldRecoveryRateMod
-	output.EnergyShieldRegenPercent = round(output.EnergyShieldRegen / output.EnergyShield * 100, 1)
-	if modDB:Flag(nil, "UnaffectedByManaRegen") then  --Chainbreaker Flag
-		output.WouldBeManaRegen = output.ManaRegen
-		output.ManaRegen = 0
-    end
-	if modDB:Flag(nil, "UnaffectedByLifeRegen") then  --Kaom's Spirit
-		output.WouldBeLifeRegen = output.LifeRegen
-		output.LifeRegen = 0
-    end
+	output.EnergyShieldRegenRecovery = output.EnergyShieldRegenRecovery + modDB:Sum("BASE", nil, "EnergyShieldRecovery") * output.EnergyShieldRecoveryRateMod
+	output.EnergyShieldRegenPercent = round(output.EnergyShieldRegenRecovery / output.EnergyShield * 100, 1)
 	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
 		modDB:NewMod("Condition:CanGainRage", "FLAG", true, "RageRegen")
 		local base = modDB:Sum("BASE", nil, "RageRegen")
@@ -869,12 +863,19 @@ function calcs.defence(env, actor)
 	output.EnergyShieldOnSpellBlock = modDB:Sum("BASE", nil, "EnergyShieldOnSpellBlock")
 	
 	output.EnergyShieldOnSuppress = modDB:Sum("BASE", nil, "EnergyShieldOnSuppress")
+	output.LifeOnSuppress = modDB:Sum("BASE", nil, "LifeOnSuppress")
 	
 	-- damage avoidances
+	output.specificTypeAvoidance = false
 	for _, damageType in ipairs(dmgTypeList) do
 		output["Avoid"..damageType.."DamageChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..damageType.."DamageChance"), data.misc.AvoidChanceCap)
+		if output["Avoid"..damageType.."DamageChance"] > 0 then
+			output.specificTypeAvoidance = true
+		end
 	end
 	output.AvoidProjectilesChance = m_min(modDB:Sum("BASE", nil, "AvoidProjectilesChance"), data.misc.AvoidChanceCap)
+	-- hit avoidance
+	output.AvoidAllDamageFromHitsChance = m_min(modDB:Sum("BASE", nil, "AvoidAllDamageFromHitsChance"), data.misc.AvoidChanceCap)
 	-- other avoidances etc
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
 	for _, ailment in ipairs(data.ailmentTypeList) do
@@ -1812,9 +1813,11 @@ function calcs.defence(env, actor)
 				suppressChance = suppressChance / 2
 			end
 			DamageIn.EnergyShieldWhenHit = (DamageIn.EnergyShieldWhenHit or 0) + output.EnergyShieldOnSuppress * suppressChance
+			DamageIn.LifeWhenHit = (DamageIn.LifeWhenHit or 0) + output.LifeOnSuppress * suppressChance
 			suppressionEffect = 1 - suppressChance * output.SpellSuppressionEffect / 100
 		else
 			DamageIn.EnergyShieldWhenHit = (DamageIn.EnergyShieldWhenHit or 0) + output.EnergyShieldOnSuppress * ( damageCategoryConfig == "Average" and 0.5 or 1 )
+			DamageIn.LifeWhenHit = (DamageIn.LifeWhenHit or 0) + output.LifeOnSuppress * ( damageCategoryConfig == "Average" and 0.5 or 1 )
 		end
 		-- extra avoid chance
 		if damageCategoryConfig == "Projectile" or damageCategoryConfig == "SpellProjectile" then
@@ -1837,15 +1840,18 @@ function calcs.defence(env, actor)
 			if modDB:Flag(nil, "BlockedDamageDoesntBypassES")and output[damageType.."EnergyShieldBypass"] < 100 and damageType ~= "Chaos"  then
 				DamageIn[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] * (1 - BlockChance) 
 			end
-			local AvoidChance = m_min(output["Avoid"..damageType.."DamageChance"] + ExtraAvoidChance, data.misc.AvoidChanceCap)
-			-- unlucky config to lower the value of block, dodge, evade etc for ehp
-			if worstOf > 1 then
-				AvoidChance = AvoidChance / 100 * AvoidChance
-				if worstOf == 4 then
+			local AvoidChance = 0
+			if output.specificTypeAvoidance then
+				AvoidChance = m_min(output["Avoid"..damageType.."DamageChance"] + ExtraAvoidChance, data.misc.AvoidChanceCap)
+				-- unlucky config to lower the value of block, dodge, evade etc for ehp
+				if worstOf > 1 then
 					AvoidChance = AvoidChance / 100 * AvoidChance
+					if worstOf == 4 then
+						AvoidChance = AvoidChance / 100 * AvoidChance
+					end
 				end
+				averageAvoidChance = averageAvoidChance + AvoidChance
 			end
-			averageAvoidChance = averageAvoidChance + AvoidChance
 			DamageIn[damageType] = output[damageType.."TakenHit"] * (blockEffect * suppressionEffect * (1 - AvoidChance / 100))
 		end
 		-- petrified blood degen initialisation
@@ -1853,9 +1859,9 @@ function calcs.defence(env, actor)
 			output["LifeLossBelowHalfLost"] = 0
 			DamageIn["LifeLossBelowHalfLost"] = modDB:Sum("BASE", nil, "LifeLossBelowHalfLost") / 100
 		end
-		output["NumberOfMitigatedDamagingHits"] = numberOfHitsToDie(DamageIn)
 		averageAvoidChance = averageAvoidChance / 5
 		output["ConfiguredDamageChance"] = 100 * (blockEffect * suppressionEffect * (1 - averageAvoidChance / 100))
+		output["NumberOfMitigatedDamagingHits"] = output["ConfiguredDamageChance"] ~= 100 and numberOfHitsToDie(DamageIn) or output["NumberOfDamagingHits"]
 		if breakdown then
 			breakdown["ConfiguredDamageChance"] = {
 				s_format("%.2f ^8(chance for block to fail)", 1 - BlockChance)
@@ -1876,10 +1882,10 @@ function calcs.defence(env, actor)
 	-- chance to not be hit
 	do
 		local worstOf = env.configInput.EHPUnluckyWorstOf or 1
-		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
-		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
-		output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * 100
-		output.SpellProjectileNotHitChance = output.SpellNotHitChance
+		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
+		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
+		output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
+		output.SpellProjectileNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
 		output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance + output.SpellProjectileNotHitChance) / 4
 		output.ConfiguredNotHitChance = output[damageCategoryConfig.."NotHitChance"]
 		-- unlucky config to lower the value of block, dodge, evade etc for ehp
@@ -1893,13 +1899,35 @@ function calcs.defence(env, actor)
 		if breakdown then
 			breakdown.ConfiguredNotHitChance = { }
 			if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail)", 1 - output[damageCategoryConfig.."EvadeChance"] / 100))
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100))
+				if output[damageCategoryConfig.."EvadeChance"] > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail)", 1 - output[damageCategoryConfig.."EvadeChance"] / 100))
+				end
+				if output.AttackDodgeChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100))
+				end
+				if damageCategoryConfig == "Projectile" and not output.specificTypeAvoidance and output.AvoidProjectilesChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 100))
+				end
 			elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100))
+				if output.SpellDodgeChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100))
+				end
+				if damageCategoryConfig == "SpellProjectile" and not output.specificTypeAvoidance and output.AvoidProjectilesChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 100))
+				end
 			elseif damageCategoryConfig == "Average" then
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail, only applies to the attack portion)", 1 - (output.MeleeEvadeChance + output.ProjectileEvadeChance) / 2 / 100))
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x%.2f ^8(chance for dodge to fail)", 1 - (output.AttackDodgeChance + output.SpellDodgeChance) / 2 / 100))
+				if output.MeleeEvadeChance > 0 or output.ProjectileEvadeChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail, only applies to the attack portion)", 1 - (output.MeleeEvadeChance + output.ProjectileEvadeChance) / 2 / 100))
+				end
+				if output.AttackDodgeChance > 0  or output.SpellDodgeChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x%.2f ^8(chance for dodge to fail)", 1 - (output.AttackDodgeChance + output.SpellDodgeChance) / 2 / 100))
+				end
+				if not output.specificTypeAvoidance and output.AvoidProjectilesChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 2 / 100))
+				end
+			end
+			if output.AvoidAllDamageFromHitsChance > 0 then
+				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for elusive avoidance to fail)", 1 - output.AvoidAllDamageFromHitsChance / 100))
 			end
 			if worstOf > 1 then
 				t_insert(breakdown["ConfiguredNotHitChance"], s_format("unlucky worst of %d", worstOf))
@@ -2043,9 +2071,9 @@ function calcs.defence(env, actor)
 		end
 	end
 	if output.TotalDegen then
-		output.NetLifeRegen = output.LifeRegen
-		output.NetManaRegen = output.ManaRegen
-		output.NetEnergyShieldRegen = output.EnergyShieldRegen
+		output.NetLifeRegen = output.LifeRegenRecovery
+		output.NetManaRegen = output.ManaRegenRecovery
+		output.NetEnergyShieldRegen = output.EnergyShieldRegenRecovery
 		local totalLifeDegen = 0
 		local totalManaDegen = 0
 		local totalEnergyShieldDegen = 0
@@ -2081,7 +2109,7 @@ function calcs.defence(env, actor)
 				local lifeDegen = 0
 				local manaDegen = 0
 				local takenFromMana = output[damageType.."MindOverMatter"] + output["sharedMindOverMatter"]
-				if output.EnergyShieldRegen > 0 then 
+				if output.EnergyShieldRegenRecovery > 0 then 
 					if modDB:Flag(nil, "EnergyShieldProtectsMana") then
 						lifeDegen = output[damageType.."Degen"] * (1 - takenFromMana / 100)
 						energyShieldDegen = output[damageType.."Degen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
@@ -2118,13 +2146,13 @@ function calcs.defence(env, actor)
 		output.NetEnergyShieldRegen = output.NetEnergyShieldRegen - totalEnergyShieldDegen
 		output.TotalNetRegen = output.NetLifeRegen + output.NetManaRegen + output.NetEnergyShieldRegen
 		if breakdown then
-			t_insert(breakdown.NetLifeRegen, s_format("%.1f ^8(total life regen)", output.LifeRegen))
+			t_insert(breakdown.NetLifeRegen, s_format("%.1f ^8(total life regen)", output.LifeRegenRecovery))
 			t_insert(breakdown.NetLifeRegen, s_format("- %.1f ^8(total life degen)", totalLifeDegen))
 			t_insert(breakdown.NetLifeRegen, s_format("= %.1f", output.NetLifeRegen))
-			t_insert(breakdown.NetManaRegen, s_format("%.1f ^8(total mana regen)", output.ManaRegen))
+			t_insert(breakdown.NetManaRegen, s_format("%.1f ^8(total mana regen)", output.ManaRegenRecovery))
 			t_insert(breakdown.NetManaRegen, s_format("- %.1f ^8(total mana degen)", totalManaDegen))
 			t_insert(breakdown.NetManaRegen, s_format("= %.1f", output.NetManaRegen))
-			t_insert(breakdown.NetEnergyShieldRegen, s_format("%.1f ^8(total energy shield regen)", output.EnergyShieldRegen))
+			t_insert(breakdown.NetEnergyShieldRegen, s_format("%.1f ^8(total energy shield regen)", output.EnergyShieldRegenRecovery))
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("- %.1f ^8(total energy shield degen)", totalEnergyShieldDegen))
 			t_insert(breakdown.NetEnergyShieldRegen, s_format("= %.1f", output.NetEnergyShieldRegen))
 			breakdown.TotalNetRegen = {

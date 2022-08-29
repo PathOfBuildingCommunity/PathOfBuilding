@@ -632,7 +632,7 @@ Enemies Shocked by you have (10-15)% of Physical Damage they deal converted to L
 The Retch
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
-Source: Vendor recipe
+Source: Vendor Recipe
 LevelReq: 44
 Implicits: 1
 {tags:physical}(12-24)% increased Global Physical Damage

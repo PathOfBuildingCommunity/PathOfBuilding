@@ -150,6 +150,7 @@ Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
 ]],[[
 Hyrri's Bite
 Sharktooth Arrow Quiver
+Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 14

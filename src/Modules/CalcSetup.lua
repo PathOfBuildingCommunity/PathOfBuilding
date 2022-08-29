@@ -87,10 +87,15 @@ function calcs.buildModListForNode(env, node)
 	else
 		modList:AddList(node.modList)
 	end
-
+	
+	-- Keep track of what jewels have been applied to this node to avoid applying the same jewel twice if they overlap
+	-- Ref https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues/4873
+	local appliedJewels = {}
+	
 	-- Run first pass radius jewels
 	for _, rad in pairs(env.radiusJewelList) do
-		if rad.type == "Other" and rad.nodes[node.id] then
+		if rad.type == "Other" and rad.nodes[node.id] and not appliedJewels[rad.item.name] then
+			appliedJewels[rad.item.name] = true
 			rad.func(node, modList, rad.data)
 		end
 	end
