@@ -19,6 +19,7 @@ Limited to: 1
 Apex Mode
 Cobalt Jewel
 League: Heist
+Source: Drops from unique{The Unbreakable} in normal{Contract: Breaking the Unbreakable}
 Limited to: 1
 Requires Level 20
 (20-25)% increased Spell Damage
@@ -140,6 +141,7 @@ Radius: Medium
 Endless Misery
 Cobalt Jewel
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Limited to: 1
 Radius: Medium
 (7-10)% increased Elemental Damage
@@ -210,6 +212,7 @@ Variant: Current
 Replica Fragile Bloom
 Crimson Jewel
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Limited to: 1
 Implicits: 0
 Maximum 5 Fragile Regrowth
@@ -343,6 +346,7 @@ Variant: Current
 Replica Hotheaded
 Viridian Jewel
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Limited to: 1
 (10-20)% increased Attack Speed while Chilled
 (10-20)% increased Cast Speed while Chilled
@@ -392,6 +396,7 @@ Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers
 Lord of Steel
 Viridian Jewel
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Limited to: 1
 Variant: Impale Chance (Pre 3.13.0)
 Variant: Impale Overwhelm (Pre 3.13.0)
@@ -451,6 +456,7 @@ Notable Passive Skills in Radius grant nothing
 Nadir Mode
 Cobalt Jewel
 League: Heist
+Source: Drops from unique{The Unbreakable} in normal{Contract: Breaking the Unbreakable}
 Limited to: 1
 Item Level: 82
 (20-25)% increased Spell Damage
@@ -498,6 +504,7 @@ Primordial
 Replica Primordial Might
 Crimson Jewel
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 -1 to maximum number of Golems
 (25-30)% increased Damage if you Summoned a Golem in the past 8 seconds
 Golems Summoned in the past 8 seconds deal (100-125)% increased Damage
@@ -527,6 +534,7 @@ Scion: +25 to All Attributes
 Replica Pure Talent
 Viridian Jewel
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Limited to: 1
 While your Passive Skill Tree connects to a class' starting location, you gain:
 Marauder: 1% of Life Regenerated per second
@@ -748,6 +756,7 @@ Cobalt Jewel
 Replica Unstable Payload
 Cobalt Jewel
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Recover (20-30) Life when your Trap is triggered by an Enemy
 ]],[[
@@ -1458,6 +1467,7 @@ Corrupted
 Replica Blood Sacrifice
 Crimson Jewel
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Recover 1% of Life on Kill
 Recover 1% of Energy Shield on Kill
@@ -1572,6 +1582,7 @@ Limited to: 1
 Replica Conqueror's Efficiency
 Crimson Jewel
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Limited to: 1
 4% increased Skill Effect Duration
 +5 to Maximum Rage

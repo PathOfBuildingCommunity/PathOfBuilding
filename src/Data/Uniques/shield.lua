@@ -188,6 +188,7 @@ Blood Magic
 Replica Tukohama's Fortress
 Ebony Tower Shield
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +(20-30) to maximum Life
 +(80-100) to maximum Life
@@ -339,6 +340,7 @@ You have Phasing if you have Blocked Recently
 Replica Mistwall
 Lacquered Buckler
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 6% increased Movement Speed
 (120-150)% increased Evasion Rating
@@ -725,6 +727,7 @@ You take 20% of Damage from Blocked Hits
 Shattershard
 Crimson Round Shield
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Trigger Level 20 Shield Shatter when you Block
 (120-150)% increased Armour and Evasion
@@ -989,6 +992,7 @@ Implicits: 1
 Replica Victario's Charity
 Laminated Kite Shield
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +8% to all Elemental Resistances
 +(50-70) to maximum Life
@@ -1005,6 +1009,7 @@ Mirrored Spiked Shield
 Variant: 3.16.0
 Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +5% chance to Suppress Spell Damage
 {variant:1}(500-600)% increased Evasion and Energy Shield

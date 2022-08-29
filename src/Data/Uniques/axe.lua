@@ -6,6 +6,7 @@ return {
 Actum
 Butcher Axe
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Has no Sockets
 (200-250)% increased Physical Damage
@@ -154,6 +155,7 @@ Your Physical Damage can Chill
 Replica Soul Taker
 Siege Axe
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (100-140)% increased Physical Damage
 Adds 10 to 20 Physical Damage
@@ -214,6 +216,7 @@ Gain a Flask Charge when you deal a Critical Strike
 Replica Harvest
 Jasper Chopper
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (120-140)% increased Physical Damage
 1.2% of Damage Leeched as Life on Critical Strike
@@ -391,6 +394,7 @@ Gain 10 Mana per Enemy Killed
 Replica Wings of Entropy
 Ezomyte Axe
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (7-10)% Chance to Block Spell Damage
 +(8-12)% Chance to Block Attack Damage while Dual Wielding

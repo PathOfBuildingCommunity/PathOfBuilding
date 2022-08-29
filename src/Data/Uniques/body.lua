@@ -123,6 +123,7 @@ Has no Sockets
 Replica Kaom's Heart
 Glorious Plate
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Has no Sockets
 (30-40)% increased Lightning Damage
@@ -404,6 +405,7 @@ Acrobatics
 Replica Perfect Form
 Zodiac Leather
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 0
@@ -780,6 +782,7 @@ You have Phasing while you have Cat's Stealth
 Replica Farrul's Fur
 Triumphant Lamellar
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (100-150)% increased Armour and Evasion
 +(80-100) to maximum Life
@@ -859,6 +862,7 @@ Implicits: 0
 Replica Ambu's Charge
 Crusader Chainmail
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (180-220)% increased Armour and Energy Shield
 +(60-80) to maximum Life
@@ -1008,6 +1012,7 @@ Adds (4-10) to (14-36) Physical Damage to Attacks
 Replica Loreweave
 Elegant Ringmail
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Has 6 Sockets
 +(8-24) to all Attributes
@@ -1131,6 +1136,7 @@ Blood Raiment
 Shaper Item
 Elder Item
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Trigger Level 20 Shade Form when Hit
 (100-150)% increased Evasion and Energy Shield
@@ -1142,6 +1148,7 @@ Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Elder Items
 Expedition's End
 Sentinel Jacket
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (100-150)% increased Evasion and Energy Shield
 (5-10)% increased maximum Life
@@ -1186,6 +1193,7 @@ Implicits: 1
 Replica Restless Ward
 Carnal Armour
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +(20-25) to maximum Mana
 (220-250)% increased Evasion and Energy Shield
@@ -1231,6 +1239,7 @@ Implicits: 1
 Replica Shroud of the Lightless
 Carnal Armour
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +(20-25) to maximum Mana
 Has 6 Abyssal Sockets
@@ -1276,6 +1285,7 @@ Socketed Gems have 45% increased Reservation Efficiency
 The Admiral
 Varnished Coat
 League: Heist
+Source: Drops from unique{Admiral Darnaw} in normal{Contract: Death to Darnaw}
 Implicits: 0
 +(30-40) to Intelligence
 (100-140)% increased Evasion and Energy Shield

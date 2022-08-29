@@ -86,6 +86,7 @@ Implicits: 1
 Replica Bated Breath
 Chain Belt
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 LevelReq: 22
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
@@ -135,6 +136,7 @@ Rampage
 Chains of Emancipation
 Chain Belt
 League: Heist
+Source: Drops from unique{Freidrich Tarollo, Slave Merchant} in normal{Contract: The Slaver King}
 LevelReq: 61
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
@@ -241,6 +243,7 @@ Implicits: 1
 The Druggery
 Cloth Belt
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 LevelReq: 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
@@ -371,6 +374,7 @@ When you Kill a Rare monster, you gain its Modifiers for 60 seconds
 Replica Headhunter
 Leather Belt
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 LevelReq: 40
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
@@ -383,6 +387,7 @@ Implicits: 1
 Hyperboreus
 Leather Belt
 League: Betrayal
+Source: Drops from unique{Transportation Leaders} in normal{Safehouses}
 Variant: Pre 3.11.0 (Life Regen)
 Variant: Pre 3.11.0 (Fire and Chaos Resistances)
 Variant: Pre 3.11.0 (Cold and Chaos Resistances)
@@ -610,6 +615,7 @@ Implicits: 1
 Replica Prismweave
 Rustic Sash
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.19.0
 Variant: Current
 LevelReq: 25
@@ -683,6 +689,7 @@ Your Minions spread Caustic Ground on Death, dealing 20% of their maximum Life a
 Replica Siegebreaker
 Heavy Belt
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 LevelReq: 44
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
@@ -704,6 +711,7 @@ Immortal Ambition
 Replica Soul Tether
 Cloth Belt
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 LevelReq: 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery

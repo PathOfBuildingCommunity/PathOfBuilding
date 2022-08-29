@@ -22,6 +22,7 @@ Reflects (71-90) Physical Damage to Melee Attackers
 Replica Advancing Fortress
 Gut Ripper
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 1
 Gain 44 Life per Enemy Hit by Attacks
@@ -50,6 +51,7 @@ Adds (15-20) to (30-40) Physical Damage
 Replica Allure
 Vaal Claw
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 2% of Physical Attack Damage Leeched as Life
@@ -214,6 +216,7 @@ Variant: Pre 3.14.0
 Variant: Current
 Nailed Fist
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 Gain 3 Life per Enemy Hit by Attacks
 {variant:1}50% increased Attack Speed when on Low Life

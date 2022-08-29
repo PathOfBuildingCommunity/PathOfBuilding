@@ -21,6 +21,7 @@ Requires Level 75, 100 Str
 Replica Atziri's Acuity
 Vaal Gauntlets
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 63, 100 Str
 +(60-80) to Intelligence
 (25-35)% increased Global Critical Strike Chance
@@ -291,6 +292,7 @@ Replica Allelopathy
 Variant: Pre 3.19.0
 Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Grants Level 22 Wintertide Brand
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
@@ -390,6 +392,7 @@ Minions gain 20% of Physical Damage as Extra Cold Damage
 Replica Grip of the Council
 Arcanist Gloves
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 60, 95 Int
 +30 to Strength
 +(30-50) to maximum Life
@@ -410,6 +413,7 @@ Gain +2% to Critical Strike Chance for 2 seconds when you Spend a total of 800 M
 Replica Kalisa's Grace
 Samite Gloves
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 55, 68 Int
 Socketed Gems are Supported by Level 18 Unleash
 +(20-30) to Intelligence
@@ -756,6 +760,7 @@ Requires Level 43, 34 Str, 34 Int
 Replica Volkuur's Guidance
 Zealot Gloves
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 43, 34 Str, 34 Int
 Adds (17-23) to (29-31) Chaos Damage
 +(50-70) to maximum Life

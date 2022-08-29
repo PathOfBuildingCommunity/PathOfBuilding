@@ -68,6 +68,7 @@ Gore Footprints
 Replica Red Trail
 Titan Greaves
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68, 120 Str
 (60-80)% increased Armour
 +(60-70) to maximum Life
@@ -334,6 +335,7 @@ Requires Level 55, 97 Dex
 Replica Three-step Assault
 Shagreen Boots
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 55, 97 Dex
 +(25-35) to Dexterity
 (20-40)% increased Evasion Rating
@@ -377,6 +379,7 @@ Requires Level 22, 42 Int
 Replica Bones of Ullr
 Silk Slippers
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 22, 42 Int
 (40-60)% increased Energy Shield
 +20 to maximum Life
@@ -432,6 +435,7 @@ your maximum number of Power Charges
 Replica Inya's Epiphany
 Arcanist Slippers
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 61, 119 Int
 (5-8)% increased Intelligence
 +(50-70) to maximum Life
@@ -667,6 +671,7 @@ Adds 12 to 24 Fire Damage to Attacks
 Replica Lioneye's Paws
 Bronzescale Boots
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 30, 30 Str, 30 Dex
 Trigger Level 5 Toxic Rain when you Attack with a Bow
 +(40-60) to Strength
@@ -724,6 +729,7 @@ Soldier Boots
 Variant: Pre 3.19.0
 Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 (15-18)% increased Strength
 +(180-220) to Armour
 {variant:1}+(9-12)% to Chaos Resistance
@@ -935,6 +941,7 @@ This item can be anointed by Cassia
 Replica Stampede
 Assassin's Boots
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 63, 62 Dex, 62 Int
 (100-150)% increased Evasion and Energy Shield
 (30-40)% increased Stun and Block Recovery
@@ -988,6 +995,7 @@ Replica Voidwalker
 Murder Boots
 Shaper Item
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 69, 82 Dex, 42 Int
 +(30-50) to Dexterity
 (140-180)% increased Evasion and Energy Shield

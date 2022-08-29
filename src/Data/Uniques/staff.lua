@@ -78,6 +78,7 @@ Deal Triple Damage with Elemental Skills
 ]],[[
 Atziri's Rule
 Judgement Staff
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Requires Level 68, 113 Str, 113 Int
 Implicits: 1
 +20% Chance to Block Spell Damage while wielding a Staff
@@ -103,6 +104,7 @@ Curse Enemies with Vulnerability on Block, with 20% increased Effect
 Replica Blood Thorn
 Gnarled Branch
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 +12% Chance to Block Attack Damage while wielding a Staff
@@ -178,6 +180,7 @@ Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 Replica Duskdawn
 Maelström Staff
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 64, 113 Str, 113 Int
 Implicits: 1
 +25% Chance to Block Attack Damage while wielding a Staff
@@ -269,6 +272,7 @@ Socketed Gems are Supported by Level 8 Trap
 Replica Fencoil
 Gnarled Branch
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 Socketed Gems are Supported by Level 1 Multiple Totems
@@ -279,6 +283,7 @@ Socketed Gems are Supported by Level 1 Multiple Totems
 The Fulcrum
 Ezomyte Staff
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 60, 113 Str, 113 Int
 Implicits: 1
 +20% Chance to Block Attack Damage while wielding a Staff
@@ -373,7 +378,7 @@ Implicits: 2
 Pledge of Hands
 Judgement Staff
 League: Legion
-Source: Drops from Vaal Legion
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.15.0

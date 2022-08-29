@@ -48,6 +48,7 @@ Extra Gore
 Replica Bloodplay
 Stiletto
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 15, 30 Dex, 30 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -69,6 +70,7 @@ Deal no Elemental Damage
 Replica Cold Iron Point
 Ezomyte Dagger
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 62, 95 Dex, 131 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -170,6 +172,7 @@ Royal Skean
 Variant: Pre 3.19.0
 Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 50, 71 Dex, 102 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -185,6 +188,7 @@ Implicits: 1
 The Hidden Blade
 Ambusher
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -254,6 +258,7 @@ Adds 3 to 30 Lightning Damage
 Replica Ungil's Gauche
 Boot Knife
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 20, 31 Dex, 45 Int
 Implicits: 1
 30% increased Global Critical Strike Chance

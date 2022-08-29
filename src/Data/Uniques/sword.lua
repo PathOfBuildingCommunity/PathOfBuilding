@@ -50,6 +50,7 @@ Implicits: 2
 Replica Dreamfeather
 Eternal Sword
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +475 to Accuracy Rating
 Adds (40-65) to (70-100) Physical Damage
@@ -186,6 +187,7 @@ Attacks with this Weapon Maim on hit
 Replica Innsbury Edge
 Elder Sword
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +330 to Accuracy Rating
 (100-140)% increased Physical Damage
@@ -197,6 +199,7 @@ Inflict Withered for 2 seconds on Hit with this Weapon
 The Iron Mass
 Gladius
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 40% increased Global Accuracy Rating
 (140-175)% increased Physical Damage
@@ -508,6 +511,7 @@ Gain 15% of Physical Attack Damage as Extra Lightning Damage
 Replica Tempestuous Steel
 War Sword
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 40% increased Global Accuracy Rating
 Adds (5-8) to (15-20) Physical Damage
@@ -775,6 +779,7 @@ Gain a Frenzy Charge if an Attack Ignites an Enemy
 Replica Oro's Sacrifice
 Infernal Sword
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 30% increased Elemental Damage with Attack Skills
 No Physical Damage

@@ -59,6 +59,7 @@ Bow Knockback at Close Range
 The Crimson Storm
 Steelwood Bow
 League: Betrayal
+Source: Drops from unique{Fortification Leaders} in normal{Safehouses}
 Variant: Crit Multi while Rare/Unique Nearby (Pre 3.17.0)
 Variant: Attack Speed while Rare/Unique Nearby (Pre 3.17.0)
 Variant: Damage per Power Charge (Pre 3.17.0)
@@ -278,6 +279,7 @@ Decimation Bow
 Variant: Pre 3.17.0
 Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 53, 170 Dex
 Implicits: 1
 (30-50)% increased Critical Strike Chance
@@ -306,6 +308,7 @@ Adds 1 to 3 Physical Damage to Attacks per 25 Dexterity
 Replica Iron Commander
 Death Bow
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 32, 107 Dex
 Implicits: 1
 (30-50)% increased Critical Strike Chance
@@ -382,6 +385,7 @@ Requires Level 5, 26 Dex
 Replica Quill Rain
 Short Bow
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 5, 26 Dex
 Socketed Gems are Supported by Level 1 Arrow Nova
 +(10-20) to Dexterity
@@ -533,6 +537,7 @@ Implicits: 2
 Replica Windripper
 Imperial Bow
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 66, 212 Dex
 Implicits: 1
 (20-24)% increased Elemental Damage with Attack Skills

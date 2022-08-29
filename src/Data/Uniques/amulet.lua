@@ -101,6 +101,7 @@ Paua Amulet
 Variant: Pre 3.16.0
 Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 16
 Implicits: 1
 {tags:life}Regenerate (1.00-2.00)% of Life per second
@@ -300,6 +301,7 @@ Implicits: 1
 The Ephemeral Bond
 Lapis Amulet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
@@ -535,6 +537,7 @@ Implicits: 1
 Replica Hyrri's Truth
 Jade Amulet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 LevelReq: 64
@@ -633,6 +636,7 @@ Implicits: 1
 Replica Karui Ward
 Jade Amulet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
@@ -660,6 +664,8 @@ Implicits: 1
 ]],[[
 Leadership's Price
 Onyx Amulet
+League: Heist
+Source: Drops from unique{Vic Vox} and unique{Vinny Vox} in normal{Contract: The Twins}
 Requires Level 68
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
@@ -1120,6 +1126,7 @@ Cannot be Chilled
 Replica Winterheart
 Gold Amulet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 42
 Implicits: 1
 (12-20)% increased Rarity of Items found

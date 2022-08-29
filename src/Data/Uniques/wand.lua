@@ -129,6 +129,7 @@ Cannot be used with Chaos Inoculation
 Replica Midnight Bargain
 Engraved Wand
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 40, 131 Int
 Implicits: 1
 (22-26)% increased Spell Damage
@@ -323,6 +324,7 @@ Gain a Frenzy Charge on reaching Maximum Power Charges
 Replica Tulfall
 Tornado Wand
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 65, 212 Int
 Implicits: 1
 (35-39)% increased Spell Damage
@@ -350,6 +352,7 @@ Socketed Gems fire an additional Projectile
 Replica Twyzel
 Sage Wand
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 30, 119 Int
 Implicits: 1
 (17-21)% increased Spell Damage

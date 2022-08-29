@@ -54,6 +54,7 @@ Your Skills have no Mana Cost during Flask effect
 Replica Lavianga's Spirit
 Sanctified Mana Flask
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 50
 (30-50)% increased Amount Recovered
 50% reduced Recovery rate
@@ -292,6 +293,7 @@ Requires Level 68
 Replica Rumi's Concoction
 Granite Flask
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68
 You gain an Endurance Charge on use
 +(35-50)% Chance to Block Attack Damage during Flask effect
@@ -322,6 +324,7 @@ Life Recovery from Flasks also applies to Energy Shield during Flask Effect
 Replica Sorrow of the Divine
 Sulphur Flask
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 35
 Implicits: 1
 Creates Consecrated Ground on Use

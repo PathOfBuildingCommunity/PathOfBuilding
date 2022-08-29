@@ -388,6 +388,7 @@ Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
 {variant:1,2}{tags:jewellery_attribute}+(5-10) to Intelligence
@@ -437,6 +438,7 @@ You can inflict an additional Ignite on an Enemy
 Replica Emberwake
 Ruby Ring
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
@@ -461,6 +463,7 @@ Socketed Gems Have no Reservation
 Fated End
 Paua Ring
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 38
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
@@ -631,6 +634,7 @@ Socketed Gems have Elemental Equilibrium
 Replica Malachai's Artifice
 Unset Ring
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 5
 Implicits: 1
 Has 1 Socket
@@ -1058,6 +1062,7 @@ Implicits: 1
 Replica Tasalio's Sign
 Sapphire Ring
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 20
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
@@ -1136,8 +1141,10 @@ Unaffected by Temporal Chains
 Triumvirate Authority
 Unset Ring
 Requires Level 64
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice} (3 stats) or in normal{The Alluring Abyss} (4 stats)
 Has Alt Variant: true
 Has Alt Variant Two: true
+Has Alt Variant Three: true
 Variant: More Damage
 Variant: Less souls
 Variant: Additional Use (Pre 3.15.0)
@@ -1264,6 +1271,7 @@ Implicits: 1
 Vivinsect
 Unset Ring
 League: Betrayal
+Source: Drops from unique{Research Leaders} in normal{Safehouses}
 Variant: Fire and Chaos Resistances Pre 3.16.0
 Variant: Cold and Chaos Resistances Pre 3.16.0
 Variant: Lightning and Chaos Resistances Pre 3.16.0
@@ -1318,6 +1326,7 @@ Has 1 Socket
 Replica Voideye
 Unset Ring
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 45
 Implicits: 1
 Has 1 Socket

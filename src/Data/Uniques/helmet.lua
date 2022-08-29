@@ -19,6 +19,7 @@ Adds 40 to 60 Physical Damage to Attacks
 Replica Abyssus
 Ezomyte Burgonet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 60, 138 Str
 +(20-25) to all Attributes
 Adds 40 to 75 Fire Damage to Attacks
@@ -150,6 +151,7 @@ Cannot be Frozen
 Replica Alpha's Howl
 Sinner Tricorne
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 64, 138 Dex
 +4 to Level of Socketed Herald Gems
 (80-100)% increased Evasion Rating
@@ -707,6 +709,7 @@ Extra gore
 Crest of Desire
 Fluted Bascinet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 58, 64 Str, 64 Dex
 Has 1 Socket
 +(5-8) to Level of Socketed Gems
@@ -756,7 +759,7 @@ Mercury Footprints
 The Fledgling
 Lacquered Helmet
 League: Heist
-Source: Drops from unique{Nashta, The Usurper}
+Source: Drops from unique{Nashta, The Usurper} in normal{Contract: Heart of Glory}
 Requires Level 51, 57 Str, 57 Dex
 (150-200)% increased Armour and Evasion
 (30-50)% increased Projectile Speed
@@ -1042,6 +1045,7 @@ Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
 Maw of Mischief
 Bone Helmet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 73, 76 Str, 76 Int
 Implicits: 1
 Minions deal (15-20)% increased Damage
@@ -1102,6 +1106,7 @@ Elemental Resistances are Zero
 Replica Veil of the Night
 Great Helmet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 22, 27 Str, 27 Int
 (20-22)% increased Stun and Block Recovery
 40% reduced Light Radius
@@ -1281,6 +1286,7 @@ Festival Mask
 Variant: Pre 3.19.0
 Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 +(20-30) to Dexterity
 {variant:1}+(20-30) to maximum Life
 {variant:2}+(60-100) to maximum Life

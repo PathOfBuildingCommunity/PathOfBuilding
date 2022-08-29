@@ -174,6 +174,7 @@ Trigger a Socketed Bow Skill when you Attack with a Bow, with a 1 second Cooldow
 Replica Maloney's Mechanism
 Ornate Quiver
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 45
 Implicits: 1
 Has 1 Socket
@@ -309,6 +310,7 @@ Adds (13-18) to (26-32) Chaos Damage to Attacks
 Replica Soul Strike
 Spike-Point Arrow Quiver
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 64
 Implicits: 1
 (20-30)% increased Critical Strike Chance with Bows

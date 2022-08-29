@@ -115,6 +115,7 @@ Attacks with this Weapon deal double Damage to Chilled Enemies
 Replica Frostbreath
 Ornate Mace
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 50, 161 Str
 Implicits: 1
 15% reduced Enemy Stun Threshold
@@ -197,6 +198,7 @@ Implicits: 1
 Replica Nebulis
 Void Sceptre
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
@@ -280,6 +282,7 @@ Socketed Gems are Supported by Level 15 Inspiration
 Replica Bitterdream
 Shadow Sceptre
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 32, 52 Str, 62 Int
 Implicits: 1
 22% increased Elemental Damage
@@ -436,6 +439,7 @@ Summoned Skeletons have Avatar of Fire
 Replica Earendel's Embrace
 Grinning Fetish
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 35, 62 Str, 62 Int
 Implicits: 1
 18% increased Elemental Damage
@@ -721,6 +725,7 @@ Your Critical Strikes do not deal extra Damage
 Replica Kongor's Undying Rage
 Terror Maul
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 67, 212 Str
 Implicits: 1
 25% chance to double Stun Duration
@@ -816,6 +821,7 @@ This Weapon's Critical Strike Chance is 100%
 Replica Trypanon
 Great Mallet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 40, 131 Str
 Implicits: 1
 30% increased Stun Duration on Enemies
