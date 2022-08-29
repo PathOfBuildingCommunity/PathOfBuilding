@@ -84,6 +84,7 @@ Requires Level 63, 100 Str
 Hateforge
 Ancient Gauntlets
 League: Ultimatum
+Source: Drops from unique{The Trialmaster}
 Requires Level 47, 68 Str
 Socketed Gems are Supported by Level 30 Rage
 (120-150)% increased Armour
@@ -612,6 +613,7 @@ With a Hypnotic Eye Jewel Socketed, gain Arcane Surge on Hit with Spells
 Hand of the Fervent
 Zealot Gloves
 League: Ritual
+Source: Purchase from Ritual Reward
 Requires Level 43, 34 Str, 34 Int
 (70-130)% increased Armour and Energy Shield
 +(50-70) to maximum Life

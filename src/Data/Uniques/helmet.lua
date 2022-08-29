@@ -568,6 +568,7 @@ Unaffected by Poison
 Plume of Pursuit
 Bone Circlet
 League: Harvest
+Source: Drops from unique{Janaar, the Omen} in normal{The Sacred Grove}
 Requires Level 64, 73 Int
 (30-20)% reduced Cast Speed
 (80-130)% increased Energy Shield
@@ -1186,6 +1187,7 @@ Requires Level: 62, 79 Dex, 72 Int
 Glimpse of Chaos
 Vaal Mask
 League: Ultimatum
+Source: Drops from unique{The Trialmaster}
 Requires Level 62, 79 Dex, 72 Int
 Implicits: 1
 Variant: Area of Effect
@@ -1429,6 +1431,7 @@ Increases and Reductions to Maximum Energy Shield instead apply to Ward
 Cadigan's Crown
 Runic Crown
 League: Expedition
+Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Requires Level 68, 66 Str, 66 Dex, 66 Int
 Never deal Critical Strikes
 Nearby Enemies cannot deal Critical Strikes

@@ -99,6 +99,7 @@ Implicits: 1
 Bear's Girdle
 Leather Belt
 League: Harvest
+Source: Drops from unique{Ersi, Mother of Thorns} in normal{The Sacred Grove}
 LevelReq: 68
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
@@ -804,6 +805,7 @@ Implicits: 1
 Survivor's Guilt
 Heavy Belt
 League: Ritual
+Source: Purchase from Ritual Reward
 LevelReq: 52
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength

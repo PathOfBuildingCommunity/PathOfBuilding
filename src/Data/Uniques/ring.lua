@@ -114,6 +114,7 @@ Implicits: 1
 Blackflame
 Amethyst Ring
 League: Ritual
+Source: Purchase from Ritual Reward
 Requires Level 49
 Implicits: 1
 {tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
@@ -921,6 +922,7 @@ Lose all Power Charges on Critical Strike
 Rotblood Promise
 Unset Ring
 League: Ritual
+Source: Purchase from Ritual Reward
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 56

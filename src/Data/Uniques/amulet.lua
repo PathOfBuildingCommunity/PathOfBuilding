@@ -433,6 +433,7 @@ Implicit Modifier magnitudes are doubled
 The Felbog Fang
 Citrine Amulet
 League: Harvest
+Source: Drops from unique{Namharim, Born of Night} in normal{The Sacred Grove}
 Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity

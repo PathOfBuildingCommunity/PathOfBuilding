@@ -851,6 +851,7 @@ Socketed Gems have 30% increased Reservation Efficiency
 Mahuxotl's Machination
 Steel Kite Shield
 League: Ultimatum
+Source: Drops from unique{The Trialmaster}
 Implicits: 0
 Corrupted Soul
 Divine Flesh
@@ -1098,6 +1099,7 @@ Triggers Level 20 Lightning Aegis when Equipped
 Qotra's Regulator
 Sovereign Spiked Shield
 League: Ritual
+Source: Purchase from Ritual Reward
 Implicits: 1
 +5% chance to Suppress Spell Damage
 (160-220)% increased Evasion and Energy Shield

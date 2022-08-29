@@ -473,6 +473,7 @@ Grants Level 21 Despair Curse Aura during Flask Effect
 Elixir of the Unbroken Circle
 Iron Flask
 League: Expedition
+Source: Drops from unique{Medved, Feller of Heroes} in normal{Expedition Logbook}
 Requires Level 40
 (20-40)% increased Duration
 Recover 4% of Life per Endurance Charge on use
@@ -482,6 +483,7 @@ Gain 1 Endurance Charge per Second during Flask Effect
 Olroth's Resolve
 Iron Flask
 League: Expedition
+Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Requires Level 40
 (40-50)% increased Charges used
 Ward does not Break during Flask effect
@@ -490,6 +492,7 @@ Ward does not Break during Flask effect
 Starlight Chalice
 Iron Flask
 League: Expedition
+Source: Drops from unique{Uhtred, Covetous Traitor} in normal{Expedition Logbook}
 Requires Level 40
 (20-30)% increased Charge Recovery
 Inflict Fire, Cold and Lightning Exposure on nearby Enemies when used
@@ -498,6 +501,7 @@ Inflict Fire, Cold and Lightning Exposure on nearby Enemies when used
 Vorana's Preparation
 Iron Flask
 League: Expedition
+Source: Drops from unique{Vorana, Last to Fall} in normal{Expedition Logbook}
 Requires Level 40
 (-10-10)% reduced Charges used
 Debilitate nearby Enemies for 2 Seconds when Flask Effect ends

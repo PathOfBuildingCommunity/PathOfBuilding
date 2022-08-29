@@ -556,6 +556,7 @@ local voranasMarch = {
 Vorana's March
 Runic Sabatons
 League: Expedition
+Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Has Alt Variant: true
 Has Alt Variant Two: true
 Selected Variant: 1
