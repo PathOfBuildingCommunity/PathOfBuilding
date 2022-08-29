@@ -931,9 +931,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 			env.mainSocketGroup = build.mainSocketGroup
 		end
 
-		-- Build list of active skills
-		local groupCfg = wipeTable(tempTable1)
-
 		-- Below we re-order the socket group list in order to support modifiers introduced in 3.16
 		-- which allow a Shield (Weapon 2) to link to a Main Hand and an Amulet to link to a Body Armour
 		-- as we need their support gems and effects to be processed before we cross-link them to those slots
@@ -954,6 +951,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			local processedSockets = {}
 			socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
 			if index == env.mainSocketGroup or (socketGroup.enabled and socketGroup.slotEnabled) then
+				local groupCfg = {}
 				groupCfg.slotName = socketGroup.slot and socketGroup.slot:gsub(" Swap","")
 				local propertyModList = env.modDB:List(groupCfg, "GemProperty")
 				
@@ -991,7 +989,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						gemInstance.supportEffect = nil
 					end
 					if gemInstance.enabled then
-						local function processGrantedEffect(grantedEffect, isSecondary)
+						local function processGrantedEffect(grantedEffect)
 							if not grantedEffect or not grantedEffect.support then
 								return
 							end
@@ -1016,6 +1014,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 								if not processedSockets[gemInstance] then
 									processedSockets[gemInstance] = true
 									applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
+									-- Keep track of the count of gems of each color socketed in this group
+									groupCfg["intelligenceGems"] = (groupCfg["intelligenceGems"] or 0) + (gemInstance.gemData.tags["intelligence"] and 1 or 0)
+									groupCfg["dexterityGems"] = (groupCfg["dexterityGems"] or 0) + (gemInstance.gemData.tags["dexterity"] and 1 or 0)
+									groupCfg["strengthGems"] = (groupCfg["strengthGems"] or 0) + (gemInstance.gemData.tags["strength"] and 1 or 0)
 								end
 							end
 							-- Validate support gem level in case there is no active skill (and no full calculation)
@@ -1086,6 +1088,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 									if not processedSockets[gemInstance] then
 										processedSockets[gemInstance] = true
 										applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
+										-- Keep track of the count of gems of each color socketed in this group
+										groupCfg["intelligenceGems"] = (groupCfg["intelligenceGems"] or 0) + (gemInstance.gemData.tags["intelligence"] and 1 or 0)
+										groupCfg["dexterityGems"] = (groupCfg["dexterityGems"] or 0) + (gemInstance.gemData.tags["dexterity"] and 1 or 0)
+										groupCfg["strengthGems"] = (groupCfg["strengthGems"] or 0) + (gemInstance.gemData.tags["strength"] and 1 or 0)
 									end
 								end
 								if env.mode == "MAIN" then
@@ -1110,7 +1116,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				end
-
+				
+				for _, value in ipairs(env.modDB:List(groupCfg, "GroupProperty")) do
+					env.player.modDB:AddMod(modLib.setSource(value.value, groupCfg.slotName or ""))
+				end
+				
 				if index == env.mainSocketGroup and #socketGroupSkillList > 0 then
 					-- Select the main skill from this socket group
 					local activeSkillIndex
