@@ -1397,7 +1397,7 @@ Crimson Jewel
 Source: No longer obtainable
 Limited to: 2
 Radius: Medium
-(8-12)%  Global Physical Damage
+(8-12)% increased Global Physical Damage
 With at least 40 Strength in Radius, Heavy Strike has a 20% chance to deal Double Damage
 ]],[[
 Wildfire
