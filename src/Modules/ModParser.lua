@@ -68,6 +68,14 @@ local formList = {
 	["^regenerate ([%d%.]+)%% of (.-) per second"] = "REGENPERCENT",
 	["^regenerate ([%d%.]+)%% of your (.-) per second"] = "REGENPERCENT",
 	["^you regenerate ([%d%.]+)%% of (.+) per second"] = "REGENPERCENT",
+	["^([%d%.]+) (.+) lost per second"] = "DEGENFLAT",
+	["^([%d%.]+)%% (.+) lost per second"] = "DEGENPERCENT",
+	["^([%d%.]+)%% of (.+) lost per second"] = "DEGENPERCENT",
+	["^lose ([%d%.]+) (.-) per second"] = "DEGENFLAT",
+	["^lose ([%d%.]+)%% (.-) per second"] = "DEGENPERCENT",
+	["^lose ([%d%.]+)%% of (.-) per second"] = "DEGENPERCENT",
+	["^lose ([%d%.]+)%% of your (.-) per second"] = "DEGENPERCENT",
+	["^you lose ([%d%.]+)%% of (.-) per second"] = "DEGENPERCENT",
 	["^([%d%.]+) (%a+) damage taken per second"] = "DEGEN",
 	["^([%d%.]+) (%a+) damage per second"] = "DEGEN",
 	["(%d+) to (%d+) added (%a+) damage"] = "DMG",
@@ -1033,6 +1041,7 @@ local modTagList = {
 	["per ghost shroud"] = { tag = { type = "Multiplier", var = "GhostShroud" } },
 	["per crab barrier"] = { tag = { type = "Multiplier", var = "CrabBarrier" } },
 	["per rage"] = { tag = { type = "Multiplier", var = "Rage" } },
+	["per rage while you are not losing rage"] = { tag = { type = "Multiplier", var = "Rage" } },
 	["per (%d+) rage"] = function(num) return { tag = { type = "Multiplier", var = "Rage", div = num } } end,
 	["per level"] = { tag = { type = "Multiplier", var = "Level" } },
 	["per (%d+) player levels"] = function(num) return { tag = { type = "Multiplier", var = "Level", div = num } } end,
@@ -1687,7 +1696,7 @@ local specialModList = {
 	["(%d+)%% of damage taken bypasses ward"] = function(num) return { mod("WardBypass", "BASE", num) } end,
 	["maximum energy shield is (%d+)"] = function(num) return { mod("EnergyShield", "OVERRIDE", num ) } end,
 	["while not on full life, sacrifice ([%d%.]+)%% of mana per second to recover that much life"] = function(num) return {
-		mod("ManaDegen", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num }, { type = "Condition", var = "FullLife", neg = true }),
+		mod("ManaDegenPercent", "BASE", num, { type = "Condition", var = "FullLife", neg = true }),
 		mod("LifeRecovery", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num }, { type = "Condition", var = "FullLife", neg = true })
 	} end,
 	["(%d+)%% increased maximum energy shield"] = function(num) return { mod("EnergyShield", "INC", num, { type = "Global" }) } end, -- Override as increased maximum is always global
@@ -3077,10 +3086,6 @@ local specialModList = {
 	["cannot recharge or regenerate energy shield"] = { flag("NoEnergyShieldRecharge"), flag("NoEnergyShieldRegen") },
 	["left ring slot: you cannot recharge or regenerate energy shield"] = { flag("NoEnergyShieldRecharge", { type = "SlotNumber", num = 1 }), flag("NoEnergyShieldRegen", { type = "SlotNumber", num = 1 }) },
 	["cannot gain energy shield"] = { flag("NoEnergyShieldRegen"), flag("NoEnergyShieldRecharge"), flag("CannotLeechEnergyShield") },
-	["you lose (%d+)%% of energy shield per second"] = function(num) return { mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = num }) } end,
-	["lose (%d+)%% of energy shield per second"] = function(num) return { mod("EnergyShieldDegen", "BASE", 1, { type = "PercentStat", stat = "EnergyShield", percent = num }) } end,
-	["lose (%d+)%% of life per second if you have been hit recently"] = function(num) return { mod("LifeDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }, { type = "Condition", var = "BeenHitRecently" }) } end,
-	["lose (%d+) life per second"] = function(num) return { mod("LifeDegen", "BASE", num) } end,
 	["you have no armour or energy shield"] = {
 		mod("Armour", "MORE", -100),
 		mod("EnergyShield", "MORE", -100),
@@ -3473,8 +3478,6 @@ local specialModList = {
 	["enemies blinded by you while you are blinded have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Blinded" }) }, { type = "Condition", var = "Blinded" } )},
 	["skills which throw traps have blood magic"] = { flag("BloodMagic", { type = "SkillType", skillType = SkillType.Trap }) },
 	["skills which throw traps cost life instead of mana"] = { flag("BloodMagic", { type = "SkillType", skillType = SkillType.Trap }) },
-	["lose ([%d%.]+) mana per second"] = function(num) return { mod("ManaDegen", "BASE", num) } end,
-	["lose ([%d%.]+)%% of maximum mana per second"] = function(num) return { mod("ManaDegen", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num }) } end,
 	["strength provides no bonus to maximum life"] = { flag("NoStrBonusToLife") },
 	["intelligence provides no bonus to maximum mana"] = { flag("NoIntBonusToMana") },
 	["with a ghastly eye jewel socketed, minions have %+(%d+) to accuracy rating"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Accuracy", "BASE", num) }, { type = "Condition", var = "HaveGhastlyEyeJewelIn{SlotName}" }) } end,
@@ -3782,6 +3785,17 @@ local regenTypes = {
 	["maximum energy shield"] = "EnergyShieldRegen",
 	["maximum mana and energy shield"] = { "ManaRegen", "EnergyShieldRegen" },
 	["rage"] = "RageRegen",
+}
+local degenTypes = {
+	["life"] = "LifeDegen",
+	["maximum life"] = "LifeDegen",
+	["life and mana"] = { "LifeDegen", "ManaDegen" },
+	["mana"] = "ManaDegen",
+	["maximum mana"] = "ManaDegen",
+	["energy shield"] = "EnergyShieldDegen",
+	["maximum energy shield"] = "EnergyShieldDegen",
+	["maximum mana and energy shield"] = { "ManaDegen", "EnergyShieldDegen" },
+	["rage"] = "RageDegen",
 }
 local flagTypes = {
 	["phasing"] = "Condition:Phasing",
@@ -4335,6 +4349,13 @@ local function parseMod(line, order)
 		modSuffix = "Percent"
 	elseif modForm == "REGENFLAT" then
 		modName = regenTypes[formCap[2]]
+	elseif modForm == "DEGENPERCENT" then
+		modValue = modValue
+		modName = degenTypes[formCap[2]]
+		modSuffix = "Percent"
+	elseif modForm == "DEGENFLAT" then
+		modValue = modValue
+		modName = degenTypes[formCap[2]]
 	elseif modForm == "DEGEN" then
 		local damageType = dmgTypes[formCap[2]]
 		if not damageType then
