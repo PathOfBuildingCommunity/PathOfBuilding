@@ -4368,11 +4368,6 @@ local function parseMod(line, order)
 	elseif modForm == "RED" then
 		modValue = -modValue
 		modType = "INC"
-	elseif modForm == "GAIN" then
-		modType = "BASE"
-	elseif modForm == "LOSE" then
-		modValue = -modValue
-		modType = "BASE"
 	elseif modForm == "MORE" then
 		modType = "MORE"
 	elseif modForm == "LESS" then
@@ -4386,6 +4381,13 @@ local function parseMod(line, order)
 		end
 		modName = modName.."Cost"
 		modValue = tonumber(formCap[1])
+	elseif modForm == "GAIN" then
+		modType = "BASE"
+		modSuffix, line = scan(line, suffixTypes, true)
+	elseif modForm == "LOSE" then
+		modValue = -modValue
+		modType = "BASE"
+		modSuffix, line = scan(line, suffixTypes, true)
 	elseif modForm == "CHANCE" then
 	elseif modForm == "REGENPERCENT" then
 		modName = regenTypes[formCap[2]]
