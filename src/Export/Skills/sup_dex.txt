@@ -411,9 +411,9 @@ local skills, mod, flag, skill = ...
 		["support_slower_projectiles_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
-		["projectiles_damage_+%_to_nearby_targets"] = {
+		["projectile_damage_+%_vs_nearby_enemies"] = {
 			mod("Damage", "INC", nil, ModFlag.Projectile)
-		}
+		},
 	},
 #mods
 

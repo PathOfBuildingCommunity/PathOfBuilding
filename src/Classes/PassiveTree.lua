@@ -127,6 +127,20 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self.orbitAnglesByOrbit[orbit] = self:CalcOrbitAngles(skillsInOrbit)
 	end
 
+	if versionNum >= 3.19 then
+		local treeTextOLD
+		local treeFileOLD = io.open("TreeData/".. "3_18" .."/tree.lua", "r")
+		if treeFileOLD then
+			treeTextOLD = treeFileOLD:read("*a")
+			treeFileOLD:close()
+		end
+		local temp = {}
+		for k, v in pairs(assert(loadstring(treeTextOLD))()) do
+			temp[k] = v
+		end
+		self.assets = temp.assets
+		self.skillSprites = self.sprites
+	end
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
 		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
@@ -137,6 +151,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	local spriteSheets = { }
 	for type, data in pairs(self.skillSprites) do
 		local maxZoom = data[#data]
+		if versionNum >= 3.19 then
+			maxZoom = data[0.3835] or data[1]
+		end
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }

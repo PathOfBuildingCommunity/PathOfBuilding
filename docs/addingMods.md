@@ -1,7 +1,7 @@
-In this tutorial, we'll step through the logic in `ModParser.lua`.  This module takes care of parsing mods from any item, passive node, or pantheon in the game.  This won't be comprehensive, since there are many patterns, and a lot of examples to work off of.  If you'd like to follow along, the code starts [here](https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/master/src/Modules/ModParser.lua#L3453).  Having a good understanding of [Lua patterns](https://www.lua.org/pil/20.2.html) will also be invaluable here (If you know regex, patterns will be similar, but less powerful and a different syntax).
+In this tutorial, we'll step through the logic in `ModParser.lua`.  This module takes care of parsing mods from any item, passive node, or pantheon in the game.  This won't be comprehensive, since there are many patterns, and a lot of examples to work off of.  If you'd like to follow along, the code starts [here](../src/Modules/ModParser.lua#L3453).  Having a good understanding of [Lua patterns](https://www.lua.org/pil/20.2.html) will also be invaluable here (If you know regex, patterns will be similar, but less powerful and a different syntax).
 
 #### Jewels
-The first mods parsed are mods from jewels with a radius.  Jewels with a radius care about the nodes around them.  Since PoB doesn't know where these jewels will be placed when parsing the mod, a function is prepared for when the jewel has access to this information.  Any variable data are passed along much like other mods via pattern capture (i.e. anywhere you see `cap1`, `cap2`, etc., corresponds to a captured number from the Lua pattern)  See [`CalcSetup.buildModListForNode()`](https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/master/src/Modules/CalcSetup.lua#L76) for the code that handles actually calling the function to modify any nodes.  There are several helper functions specific to each type of jewel, but they all boil down to this function (which can be used on its own, when necessary):
+The first mods parsed are mods from jewels with a radius.  Jewels with a radius care about the nodes around them.  Since PoB doesn't know where these jewels will be placed when parsing the mod, a function is prepared for when the jewel has access to this information.  Any variable data are passed along much like other mods via pattern capture (i.e. anywhere you see `cap1`, `cap2`, etc., corresponds to a captured number from the Lua pattern)  See [`CalcSetup.buildModListForNode()`](../src/Modules/CalcSetup.lua#L76) for the code that handles actually calling the function to modify any nodes.  There are several helper functions specific to each type of jewel, but they all boil down to this function (which can be used on its own, when necessary):
 - `function(node, out, data)`
   - `node`: The node that is being affected within the radius.  Can use things like `node.type` to determine notable or keystone, for example
   - `out`: Instance of `ModListClass`, used for altering or replacing the mod originally on the node
@@ -17,24 +17,24 @@ There are 4 categories of jewels that have a helper function:
       - `factor`: If the conversion shouldn't apply the full value, apply this factor instead
 - Jewels that modify themselves based on stats allocated in their radius
   - `getPerStat(dst, modType, flags, stat, factor)`
-    - The first three parameters correspond to name, modType, and flags in the [mod syntax](https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/How-does-the-Mod-syntax-work%3F), where only `ModFlag`s are used
+    - The first three parameters correspond to name, modType, and flags in the [mod syntax](./modSyntax.md), where only `ModFlag`s are used
     - `stat`: The stat we're multiplying the `dst` stat by
     - `factor`: If the stats aren't 1:1, use this factor to change that
 - Jewels that modify themselves based on stats unallocated in their radius.  This uses the same `getPerStat` function as above.
 - Threshold jewels, which give stats after 40 of that stat is reached in their radius
   - `getThreshold(attrib, name, modType, value, ...)`
     - `attrib`: The attribute we need to reach a threshold for
-    - The rest of the parameters are covered in the [mod syntax](https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/How-does-the-Mod-syntax-work%3F)
+    - The rest of the parameters are covered in the [mod syntax](./modSyntax.md)
 - Cluster jewels, which parse simply what mods to add to their nodes and which notables to add as well.
 
 ### Scanning for matching text
 
-The next steps all use the `scan` function to match text.  It looks for the "earliest and longest match from the [given] pattern list".  If a match is found, it returns the value from the list, the remaining unmatched text, and any captures associated with the matched pattern.  For example, passing in "15% increased fire damage", and a table containing the key "^(%d+)%% increased" would return the value corresponding to the key, "fire damage", and 15.
+The next steps all use the `scan` function to match text. It looks for the earliest and longest match from the given pattern list. If a match is found, it returns the value from the list, the remaining unmatched text, and any captures associated with the matched pattern.  For example, passing in "15% increased fire damage", and a table containing the key "^(%d+)%% increased" would return the value corresponding to the key, "fire damage", and 15.
 
 ### Special mods - `specialModList`
 This is the largest list of `ModParser` and it's a catch-all for mods that don't fit a standard format (and aren't numerous enough to change the parsing logic to accommodate their format).  If the mod has a component captured via Lua pattern, a function can be used to capture the number(s) or other captured text.  E.g. `["lose ([%d%.]+) mana per second"] = function(num) return { mod("ManaDegen", "BASE", num) } end,`
 
-Otherwise everything in this list can be done using the standard [mod syntax](https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/How-does-the-Mod-syntax-work%3F)
+Otherwise everything in this list can be done using the standard [mod syntax](./modSyntax.md)
 
 ***
 ## Parts of a "standard mod"
@@ -61,7 +61,7 @@ Finally we look through `modNameList` and match the remainder of our line on `["
 
 # Putting it all together #
 
-Our example is fairly simple, as some mod forms will slightly alter mod names and values to be compatible with with names used elsewhere in PoB.  Regardless, once we have the mod name, type, value, and tags, we can combine them all into a mod as defined in the [mod syntax](https://github.com/PathOfBuildingCommunity/PathOfBuilding/wiki/How-does-the-Mod-syntax-work%3F).
+Our example is fairly simple, as some mod forms will slightly alter mod names and values to be compatible with with names used elsewhere in PoB.  Regardless, once we have the mod name, type, value, and tags, we can combine them all into a mod as defined in the [mod syntax](./modSyntax.md).
 
 ## Important notes and tips ##
 
@@ -77,4 +77,4 @@ Our example is fairly simple, as some mod forms will slightly alter mod names an
 
 ### Miscellaneous
 
-There are a few flags you might see attached to mods that are defined in [this section](https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/master/src/Modules/ModParser.lua#L3662).  These have to do with enemy or minion modifiers, or mods that don't directly affect the player.
+There are a few flags you might see attached to mods that are defined in [this section](../src/Modules/ModParser.lua#L3662).  These have to do with enemy or minion modifiers, or mods that don't directly affect the player.

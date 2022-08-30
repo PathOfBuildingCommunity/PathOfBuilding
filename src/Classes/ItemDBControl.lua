@@ -69,6 +69,9 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 		self.controls.requirement = new("DropDownControl", {"LEFT",self.controls.sort,"BOTTOMLEFT"}, 0, 11, 179, 18, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
 			self.listBuildFlag = true
 		end)
+		self.controls.obtainable = new("DropDownControl", {"LEFT",self.controls.requirement,"RIGHT"}, 2, 0, 179, 18, { "Any item", "Obtainable", "Unobtainable", "Vendor Recipe", "Upgraded", "Boss Item"}, function(index, value)
+			self.listBuildFlag = true
+		end)
 	end
 	self.controls.search = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
@@ -108,6 +111,19 @@ function ItemDBClass:DoesItemMatchFilters(item)
 	end
 	if self.dbType == "UNIQUE" and self.controls.league.selIndex > 1 then
 		if (self.controls.league.selIndex == 2 and item.league) or (self.controls.league.selIndex > 2 and (not item.league or not item.league:match(self.leagueList[self.controls.league.selIndex]))) then
+			return false
+		end
+	end
+	if self.dbType == "UNIQUE" and self.controls.obtainable.selIndex > 1 then
+		local source = item.source or ""
+		local obtainable = not (source == "No longer obtainable")
+		if (self.controls.obtainable.selIndex == 2 and not obtainable) or (self.controls.obtainable.selIndex == 3 and obtainable) then
+			return false
+		elseif (self.controls.obtainable.selIndex == 4 and not (source == "Vendor Recipe")) then
+			return false
+		elseif (self.controls.obtainable.selIndex == 5 and not (string.match(source, "Upgraded from"))) then
+			return false
+		elseif (self.controls.obtainable.selIndex == 6 and not (string.match(source, "Drops from unique"))) then
 			return false
 		end
 	end

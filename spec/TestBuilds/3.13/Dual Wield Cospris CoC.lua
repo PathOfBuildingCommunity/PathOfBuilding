@@ -1321,7 +1321,7 @@ Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 ["FireDotEHP"] = 29915,
 ["CritChance"] = 100,
 ["ChillChanceOnCrit"] = 100,
-["InteruptStunAvoidChance"] = 25,
+["InterruptStunAvoidChance"] = 25,
 ["RuthlessBlowMaxCount"] = 0,
 ["ScaledDamageEffect"] = 1.1,
 ["AverageDamage"] = 305512.5906,

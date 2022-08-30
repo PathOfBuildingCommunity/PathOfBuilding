@@ -174,8 +174,13 @@ function CalcsTabClass:Load(xml, dbFileName)
 					return true
 				end
 				for _, section in ipairs(self.sectionList) do
-					if section.id == node.attrib.id then
-						section.collapsed = (node.attrib.collapsed == "true")
+					if section.id == node.attrib.id and node.attrib.subsection then
+						for _, subsection in ipairs(section.subSection) do
+							if subsection.id == node.attrib.subsection then
+								subsection.collapsed = node.attrib.collapsed == "true"
+								break
+							end
+						end
 						break
 					end
 				end
@@ -198,12 +203,14 @@ function CalcsTabClass:Save(xml)
 		t_insert(xml, child)
 	end
 	for _, section in ipairs(self.sectionList) do
-		t_insert(xml, { elem = "Section", attrib = {
-			id = section.id,
-			collapsed = tostring(section.collapsed),
-		} })
+		for _, subSection in ipairs(section.subSection) do
+			t_insert(xml, { elem = "Section", attrib = {
+				id = section.id,
+				subsection = subSection.id,
+				collapsed = tostring(subSection.collapsed),
+			} })
+		end
 	end
-	self.modFlag = false
 end
 
 function CalcsTabClass:Draw(viewPort, inputEvents)
@@ -325,7 +332,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		self.displayData = nil
 	end
 
-	self:DrawControls(viewPort)
+	self:DrawControls(viewPort, self.selControl)
 
 	if self.displayData then
 		if self.displayPinned and not self.selControl then
@@ -502,8 +509,8 @@ function CalcsTabClass:PowerBuilder()
 								(output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) +
 								((output.EnergyShieldRecoveryCap or output.EnergyShield) - (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) / m_max(3000, (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) +
 								(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
-								(output.LifeRegen - calcBase.LifeRegen) / 500 +
-								(output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
+								(output.LifeRegenRecovery - calcBase.LifeRegenRecovery) / 500 +
+								(output.EnergyShieldRegenRecovery - calcBase.EnergyShieldRegenRecovery) / 1000
 				if node.path and not node.ascendancyName then
 					newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
 					newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
