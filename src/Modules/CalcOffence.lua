@@ -1215,74 +1215,75 @@ function calcs.offence(env, actor, activeSkill)
 		["ESPerMinute"] = { type = "ES", upfront = false, percent = false, text = "ES/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
 		["ESPercentPerMinute"] = { type = "ES", upfront = false, percent = true, text = "ES/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
 	}
-	-- First pass to calculate base costs.  Used for cost conversion (e.g. Petrified Blood)
+	-- First pass to calculate base costs. Used for cost conversion (e.g. Petrified Blood)
 	for resource, val in pairs(costs) do
 		local skillCost = activeSkill.activeEffect.grantedEffectLevel.cost and activeSkill.activeEffect.grantedEffectLevel.cost[resource] or nil
 		local baseCost = round(skillCost and skillCost / data.costs[resource].Divisor or 0, 2)
-		local baseCostNoMult = skillModList:Sum("BASE", skillCfg, resource.."CostNoMult") or 0
-		local totalCost = 0
+		local baseCostNoMult = skillModList:Sum("BASE", skillCfg, resource.."CostNoMult") or 0 -- Flat cost from gem e.g. Divine Blessing
 		if val.upfront then
-			baseCost = baseCost + skillModList:Sum("BASE", skillCfg, resource.."CostBase")
-			if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then
-				baseCost = m_max(baseCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
-			end
-			totalCost = skillModList:Sum("BASE", skillCfg, resource.."Cost")
-			if activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
+			baseCost = baseCost + skillModList:Sum("BASE", skillCfg, resource.."CostBase") -- Rage Cost
+			val.totalCost = skillModList:Sum("BASE", skillCfg, resource.."Cost", "Cost")
+			if resource == "Mana" and activeSkill.skillTypes[SkillType.ReservationBecomesCost] and val.percent == false then --Divine Blessing
 				local reservedFlat = activeSkill.skillData[val.text.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationFlat"] or 0
 				baseCost = baseCost + reservedFlat
 				local reservedPercent = activeSkill.skillData[val.text.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationPercent"] or 0
 				baseCost = baseCost + (m_floor((output[resource] or 0) * reservedPercent / 100))
 			end
-		end
-		if val.type == "Mana" and skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then
-			local target = resource:gsub("Mana", "Life")
-			costs[target].baseCost = costs[target].baseCost + baseCost
-			baseCost = 0
-			costs[target].totalCost = costs[target].totalCost + totalCost
-			totalCost = 0
-			costs[target].baseCostNoMult = costs[target].baseCostNoMult + baseCostNoMult
-			baseCostNoMult = 0
-		end
-		-- Extra cost (e.g. Petrified Blood) calculations happen after cost conversion (e.g. Blood Magic)
-		if val.type == "Mana" and skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") then
-			local target = resource:gsub("Mana", "Life")
-			costs[target].baseCost = costs[target].baseCost + (baseCost + baseCostNoMult) * skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100
+			if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then -- Archmage
+				baseCost = m_max(baseCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
+			end
 		end
 		val.baseCost = val.baseCost + baseCost
-		val.totalCost = val.totalCost + totalCost
 		val.baseCostNoMult = val.baseCostNoMult + baseCostNoMult
-		output[(val.upfront and resource or resource:gsub("Minute", "Second")).."HasCost"] = val.baseCost > 0 or val.totalCost > 0 or val.baseCostNoMult > 0
+		if val.type == "Life" then
+			local manaType = resource:gsub("Life", "Mana")
+			if skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then -- Blood Magic / Lifetap
+				val.baseCost = val.baseCost + costs[manaType].baseCost
+				val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult
+				costs[manaType].baseCost = 0
+				costs[manaType].baseCostNoMult = 0
+			elseif skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") > 0 then -- Extra cost (e.g. Petrified Blood) calculations
+				local portion = skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100
+				val.baseCost = val.baseCost + costs[manaType].baseCost * portion
+				val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult * portion
+			end
+		end
 	end
 	for resource, val in pairs(costs) do
-		local dec = val.upfront and 0 or 2
-		local costName = (val.upfront and resource or resource:gsub("Minute", "Second")).."Cost"
-		local mult = floor(skillModList:More(skillCfg, "SupportManaMultiplier"), 2)
-		local more = floor(skillModList:More(skillCfg, val.type.."Cost", "Cost"), 2)
-		local inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
-		output[costName] = floor(val.baseCost * mult + val.baseCostNoMult, dec)
-		output[costName] = floor(m_abs(inc / 100) * output[costName], dec) * (inc >= 0 and 1 or -1) + output[costName]
-		output[costName] = floor(m_abs(more - 1) * output[costName], dec) * (more >= 1 and 1 or -1) + output[costName]
-		output[costName] = m_max(0, floor(output[costName] + val.totalCost, dec))
-		if breakdown then
-			breakdown[costName] = {
-				s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
-			}
-			if mult ~= 1 then
-				t_insert(breakdown[costName], s_format("x %.2f ^8(cost multiplier)", mult))
+		local resource = val.upfront and resource or resource:gsub("Minute", "Second")
+		local hasCost = val.baseCost > 0 or val.totalCost > 0 or val.baseCostNoMult > 0
+		output[resource.."HasCost"] = hasCost
+		if hasCost then
+			local dec = val.upfront and 0 or 2
+			local costName = resource.."Cost"
+			local mult = skillModList:More(skillCfg, "SupportManaMultiplier")
+			local more = skillModList:More(skillCfg, val.type.."Cost", "Cost")
+			local inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
+			output[costName] = val.baseCost * mult + val.baseCostNoMult
+			output[costName] = m_max(0, (1 + inc / 100) * output[costName])
+			output[costName] = m_max(0, more * output[costName])
+			output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
+			if breakdown then
+				breakdown[costName] = {
+					s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
+				}
+				if mult ~= 1 then
+					t_insert(breakdown[costName], s_format("x %.2f ^8(cost multiplier)", mult))
+				end
+				if val.baseCostNoMult ~= 0 then
+					t_insert(breakdown[costName], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
+				end
+				if inc ~= 0 then
+					t_insert(breakdown[costName], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
+				end
+				if more ~= 1 then
+					t_insert(breakdown[costName], s_format("x %.2f ^8(more/less "..val.text.." cost)", more))
+				end
+				if val.totalCost ~= 0 then
+					t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
+				end
+				t_insert(breakdown[costName], s_format("= %"..(val.upfront and "d" or ".2f")..(val.percent and "%%" or ""), output[costName]))
 			end
-			if val.baseCostNoMult ~= 0 then
-				t_insert(breakdown[costName], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
-			end
-			if inc ~= 0 then
-				t_insert(breakdown[costName], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
-			end
-			if more ~= 1 then
-				t_insert(breakdown[costName], s_format("x %.2f ^8(more/less "..val.text.." cost)", more))
-			end
-			if val.totalCost ~= 0 then
-				t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
-			end
-			t_insert(breakdown[costName], s_format("= %"..(val.upfront and "d" or ".2f")..(val.percent and "%%" or ""), output[costName]))
 		end
 	end
 
