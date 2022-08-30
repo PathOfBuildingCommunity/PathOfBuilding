@@ -48,6 +48,7 @@ local formList = {
 	["^([%+%-]?[%d%.]+)%%? of"] = "BASE",
 	["^([%+%-][%d%.]+)%%? base"] = "BASE",
 	["^([%+%-]?[%d%.]+)%%? additional"] = "BASE",
+	["cost ([%+%-]%d+) mana"] = "BASEMANACOST",
 	["(%d+) additional hits?"] = "BASE",
 	["^you gain ([%d%.]+)"] = "BASE",
 	["^gains? ([%d%.]+)%% of"] = "BASE",
@@ -798,6 +799,7 @@ local modFlagList = {
 	["with physical skills"] = { keywordFlags = KeywordFlag.Physical },
 	["with channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channel } },
 	["channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channel } },
+	["non-channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channel, neg = true } },
 	["with brand skills"] = { tag = { type = "SkillType", skillType = SkillType.Brand } },
 	["for stance skills"] = { tag = { type = "SkillType", skillType = SkillType.Stance } },
 	["of stance skills"] = { tag = { type = "SkillType", skillType = SkillType.Stance } },
@@ -975,6 +977,8 @@ local preFlagList = {
 	["^nearby enemies have "] = { applyToEnemy = true },
 	["^nearby enemies deal "] = { applyToEnemy = true },
 	["^nearby enemies "] = { applyToEnemy = true },
+	["against you"] = { applyToEnemy = true, actorEnemy = true},
+	["^hits against you "] = { applyToEnemy = true, flags = ModFlag.Hit },
 	["^enemies near your totems deal "] = { applyToEnemy = true },
 	-- Other
 	["^your flasks grant "] = { },
@@ -2280,6 +2284,10 @@ local specialModList = {
 		mod("ExtraSkill", "LIST", { skillId = gemIdLookup[skill], level = 1, noSupports = true, triggered = true }),
 		mod("CurseEffect", "INC", tonumber(num), { type = "SkillName", skillName = string.gsub(" "..skill, "%W%l", string.upper):sub(2) }),
 	} end,
+	["curse enemies with (%D+) on %a+, with (%d+)%% reduced effect"] = function(_, skill, num) return {
+		mod("ExtraSkill", "LIST", { skillId = gemIdLookup[skill], level = 1, noSupports = true, triggered = true }),
+		mod("CurseEffect", "INC", -tonumber(num), { type = "SkillName", skillName = string.gsub(" "..skill, "%W%l", string.upper):sub(2) }),
+	} end,
 	["%d+%% chance to curse n?o?n?%-?c?u?r?s?e?d? ?enemies with (%D+) on %a+, with (%d+)%% increased effect"] = function(_, skill, num) return {
 		mod("ExtraSkill", "LIST", { skillId = gemIdLookup[skill], level = 1, noSupports = true, triggered = true }),
 		mod("CurseEffect", "INC", tonumber(num), { type = "SkillName", skillName = string.gsub(" "..skill, "%W%l", string.upper):sub(2) }),
@@ -2489,6 +2497,10 @@ local specialModList = {
 	["shock nearby enemies for (%d+) seconds when you focus"]  = {
 		mod("ShockBase", "BASE", data.nonDamagingAilment["Shock"].default, { type = "Condition", var = "Focused" }),
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Shocked") }, { type = "Condition", var = "Focused" } ),
+	},
+	["shock yourself for (%d+) seconds when you focus"] = {
+		mod("ShockBase", "BASE", data.nonDamagingAilment["Shock"].default, { type = "Condition", var = "Focused" }),
+		flag("Condition:Shocked", { type = "Condition", var = "Focused" }),
 	},
 	["drops shocked ground while moving, lasting (%d+) seconds"] = { mod("ShockBase", "BASE", data.nonDamagingAilment["Shock"].default, { type = "ActorCondition", actor = "enemy", var = "OnShockedGround"} ) },
 	["drops scorched ground while moving, lasting (%d+) seconds"] = { mod("ScorchBase", "BASE", data.nonDamagingAilment["Scorch"].default, { type = "ActorCondition", actor = "enemy", var = "OnScorchedGround"} ) },
@@ -3514,7 +3526,7 @@ local specialModList = {
 	["you do not inherently take less damage for having fortification"] = { flag("Condition:NoFortificationMitigation") },
 	["skills supported by intensify have %+(%d) to maximum intensity"] = function(num) return { mod("Multiplier:IntensityLimit", "BASE", num) } end,
 	["spells which can gain intensity have %+(%d) to maximum intensity"] = function(num) return { mod("Multiplier:IntensityLimit", "BASE", num) } end,
-	["hexes you inflict have %+(%d+) to maximum doom"] = function(num) return { mod("MaxDoom", "BASE", num) } end,
+	["hexes you inflict have ([%+%-]%d+) to maximum doom"] = function(num) return { mod("MaxDoom", "BASE", num) } end,
 	["while stationary, gain (%d+)%% increased area of effect every second, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("AreaOfEffect", "INC", num, { type = "Multiplier", var = "StationarySeconds", globalLimit = tonumber(limit), globalLimitKey = "ExpansiveMight" }, { type = "Condition", var = "Stationary" }),
 	} end,
@@ -3547,6 +3559,7 @@ local specialModList = {
 		mod("MinionModifier", "LIST", { mod = mod("EnemyPhysicalDamageReduction", "BASE", -num) })
 	} end,
 	["focus has (%d+)%% increased cooldown recovery rate"] = function(num) return { mod("FocusCooldownRecovery", "INC", num, { type = "Condition", var = "Focused"}) } end,
+	["focus has (%d+)%% reduced cooldown recovery rate"] = function(num) return { mod("FocusCooldownRecovery", "INC", -num, { type = "Condition", var = "Focused"}) } end,
 	["(%d+)%% chance to deal double damage with attacks if attack time is longer than 1 second"] = function(num) return { 
 		mod("DoubleDamageChance", "BASE", num, 0, 0, { type = "Condition", var = "OneSecondAttackTime" })
 	} end,
@@ -4295,6 +4308,9 @@ local function parseMod(line, order)
 		modType = "MORE"
 	elseif modForm == "BASE" then
 		modSuffix, line = scan(line, suffixTypes, true)
+	elseif modForm == "BASEMANACOST" then
+		modName = "ManaCost"
+		modValue = tonumber(formCap[1])
 	elseif modForm == "CHANCE" then
 	elseif modForm == "REGENPERCENT" then
 		modName = regenTypes[formCap[2]]
@@ -4417,7 +4433,12 @@ local function parseMod(line, order)
 			end
 		elseif misc.applyToEnemy then
 			for i, effectMod in ipairs(modList) do
-				modList[i] = mod("EnemyModifier", "LIST", { mod = effectMod })
+				local newMod = effectMod
+				if effectMod[1] and type(effectMod) == "table" and misc.actorEnemy then
+					newMod = copyTable(effectMod)
+					newMod[1]["actor"] = "enemy"
+				end
+				modList[i] = mod("EnemyModifier", "LIST", { mod = newMod })
 			end
 		end
 	end
