@@ -623,8 +623,8 @@ function calcs.defence(env, actor)
 		local resource = resourceName:gsub(" ", "")
 		local pool = output[resource] or 0
 		local baseRegen = 0
-		local inc = 0
-		local more = 1
+		local inc = modDB:Sum("INC", nil, resource.."Regen")
+		local more = modDB:More(nil, resource.."Regen")
 		local regen = 0
 		local regenRate = 0
 		local recoveryRateMod = output[resource.."RecoveryRateMod"] or 1
@@ -641,16 +641,15 @@ function calcs.defence(env, actor)
 				modDB:NewMod("EnergyShieldRegenPercent", "BASE", lifePercent, "Zealot's Oath")
 			end
 		else
-			baseRegen = modDB:Sum("BASE", nil, resource.."Regen") + pool * modDB:Sum("BASE", nil, resource.."RegenPercent") / 100
-			inc = modDB:Sum("INC", nil, resource.."Regen")
-			for j=i+1,#resources do -- legacy chain breaker increase/decrease to mana regen apply to existing.
-				if modDB:Flag(nil, resource.."RegenTo"..resources[j]:gsub(" ", "").."Regen") then
-					modDB:NewMod(resources[j]:gsub(" ", "").."Regen", "INC", inc, resourceName.." instead applies to "..resources[j])
-					inc = 0
+			if inc ~= 0 then -- legacy chain breaker increase/decrease regen rate to different resource.
+				for j=i+1,#resources do
+					if modDB:Flag(nil, resource.."RegenTo"..resources[j]:gsub(" ", "").."Regen") then
+						modDB:NewMod(resources[j]:gsub(" ", "").."Regen", "INC", inc, resourceName.." instead applies to "..resources[j])
+						inc = 0
+					end
 				end
 			end
-			output[resource.."RegenInc"] = inc
-			more = modDB:More(nil, resource.."Regen")
+			baseRegen = modDB:Sum("BASE", nil, resource.."Regen") + pool * modDB:Sum("BASE", nil, resource.."RegenPercent") / 100
 			regen = baseRegen * (1 + inc/100) * more
 			if regen ~= 0 then -- Pious Path
 				for j=i+1,#resources do
@@ -662,6 +661,7 @@ function calcs.defence(env, actor)
 			regenRate = round(regen * recoveryRateMod, 1)
 			output[resource.."Regen"] = regenRate
 		end
+		output[resource.."RegenInc"] = inc
 		local baseDegen = (modDB:Sum("BASE", nil, resource.."Degen") + pool * modDB:Sum("BASE", nil, resource.."DegenPercent") / 100)
 		local degenRate = (baseDegen > 0) and baseDegen * calcLib.mod(modDB, nil, resource.."Degen") or 0
 		output[resource.."Degen"] = degenRate
@@ -695,6 +695,7 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+	
 	-- Energy Shield Recharge
 	if modDB:Flag(nil, "NoEnergyShieldRecharge") then
 		output.EnergyShieldRecharge = 0
