@@ -1049,10 +1049,11 @@ local function doActorMisc(env, actor)
 				modDB:NewMod("ChaosDamage", "MORE", 10 * effect, "Infusion")
 			end
 		end
-		if modDB:Flag(nil, "Condition:CanGainRage") or modDB:Sum("BASE", nil, "RageRegen") > 0 then
+		if modDB:Flag(nil, "Condition:CanGainRage") then
 			output.MaximumRage = modDB:Sum("BASE", skillCfg, "MaximumRage")
 			modDB.multipliers["MaxRageVortexSacrifice"] = output.MaximumRage / 4
 			modDB:NewMod("Multiplier:Rage", "BASE", 1, "Base", { type = "Multiplier", var = "RageStack", limit = output.MaximumRage })
+			output.Rage = modDB:Sum("BASE", skillCfg, "Multiplier:Rage")
 		end
 		if modDB:Sum("BASE", nil, "CoveredInAshEffect") > 0 then
 			local effect = modDB:Sum("BASE", nil, "CoveredInAshEffect")

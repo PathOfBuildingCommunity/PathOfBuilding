@@ -1382,6 +1382,8 @@ return {
 } },
 { 1, "Rage", 2, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Rage", data = {
 	extra = "{0:output:Rage}",
+	{ label = "Total", { format = "{0:output:Rage}", }, },
+	{ label = "Maximum Rage", { format = "{0:output:MaximumRage}", { modName = "MaximumRage", modType = "BASE" }, }, },
 	{ label = "Increased Regen", { format = "{0:output:RageRegenInc}%", { modName = "RageRegen", modType = "INC" }, }, },
 	{ label = "Regen", { format = "{1:output:RageRegenRecovery} ({1:output:RageRegenPercent}%)", 
 		{ breakdown = "RageRegenRecovery" }, 
