@@ -259,7 +259,7 @@ end
 -- 4. Merges modifiers for all allocated passive nodes
 -- 5. Builds a list of active skills and their supports (calcs.createActiveSkill)
 -- 6. Builds modifier lists for all active skills (calcs.buildActiveSkillModList)
-function calcs.initEnv(build, mode, override, specEnv)
+function calcs.initEnv(build, mode, override, specEnv, flag)
 	-- accelerator variables
 	local cachedPlayerDB = specEnv and specEnv.cachedPlayerDB or nil
 	local cachedEnemyDB = specEnv and specEnv.cachedEnemyDB or nil
@@ -371,6 +371,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		modDB.multipliers["Level"] = m_max(1, m_min(100, build.characterLevel))
 		calcs.initModDB(env, modDB)
+		if flag then 
+			modDB.conditions[flag] = true
+		end
 		modDB:NewMod("Life", "BASE", 12, "Base", { type = "Multiplier", var = "Level", base = 38 })
 		modDB:NewMod("Mana", "BASE", 6, "Base", { type = "Multiplier", var = "Level", base = 34 })
 		modDB:NewMod("ManaRegen", "BASE", 0.0175, "Base", { type = "PerStat", stat = "Mana", div = 1 })
@@ -636,7 +639,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							env.itemModDB:ScaleAddMod(mod, scale)
 						end
 					end
-				elseif (slotName == "Weapon 1" or slotName == "Weapon 2") and modDB:Flag(nil, "Condition:EnergyBladeActive") then
+				elseif (slotName == "Weapon 1" or slotName == "Weapon 2") and modDB.conditions["AffectedByEnergyBlade"] then
 					local type = env.player.itemList[slotName] and env.player.itemList[slotName].weaponData and env.player.itemList[slotName].weaponData[1].type
 					local info = env.data.weaponTypeInfo[type]
 					if info and type ~= "Bow" then
@@ -1127,6 +1130,16 @@ function calcs.initEnv(build, mode, override, specEnv)
 				socketGroup.displaySkillList = socketGroupSkillList
 			elseif env.mode == "CALCS" then
 				socketGroup.displaySkillListCalcs = socketGroupSkillList
+			end
+			
+			-- Check for enabled energy blade to see if we need to regenerate everything.
+			if not (modDB.conditions["AffectedByEnergyBlade"] or flag) then
+				for _, gemInstance in ipairs(socketGroup.gemList) do
+					local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
+					if grantedEffect and not grantedEffect.support and gemInstance.enabled and grantedEffect.name == "Energy Blade" then
+						return calcs.initEnv(build, mode, override, specEnv, "AffectedByEnergyBlade")
+					end
+				end
 			end
 		end
 
