@@ -645,7 +645,7 @@ function calcs.defence(env, actor)
 			inc = modDB:Sum("INC", nil, resource.."Regen")
 			for j=i+1,#resources do -- legacy chain breaker increase/decrease to mana regen apply to existing.
 				if modDB:Flag(nil, resource.."RegenTo"..resources[j]:gsub(" ", "").."Regen") then
-					modDB:NewMod(resource.."Regen", "INC", inc, resourceName.." instead applies to "..resources[j])
+					modDB:NewMod(resources[j]:gsub(" ", "").."Regen", "INC", inc, resourceName.." instead applies to "..resources[j])
 					inc = 0
 				end
 			end
