@@ -680,7 +680,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.SealGainTime = { }
 			breakdown.multiChain(breakdown.SealGainTime, {
 				label = "Gain frequency:",
-				base = s_format("%.2fs ^8(base gain frequency)", skillModList:Sum("BASE", skillCfg, "SealGainFrequency")),
+				base = { "%.2fs ^8(base gain frequency)", skillModList:Sum("BASE", skillCfg, "SealGainFrequency") },
 				{ "%.2f ^8(increased/reduced gain frequency)", 1 + skillModList:Sum("INC", skillCfg, "SealGainFrequency") / 100 },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
 				total = s_format("= %.2fs ^8per Seal", output.SealCooldown),
@@ -886,7 +886,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.TrapThrowingSpeed = { }
 			breakdown.multiChain(breakdown.TrapThrowingSpeed, {
 				label = "Throwing rate:",
-				base = s_format("%.2f ^8(base throwing rate)", baseSpeed),
+				base = { "%.2f ^8(base throwing rate)", baseSpeed },
 				{ "%.2f ^8(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed") / 100 },
 				{ "%.2f ^8(more/less throwing speed)", skillModList:More(skillCfg, "TrapThrowingSpeed") },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
@@ -897,7 +897,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.TrapThrowingTime = { }
 			breakdown.multiChain(breakdown.TrapThrowingTime, {
 				label = "Throwing time:",
-				base = s_format("%.2f ^8(base throwing time)", 1 / (output.TrapThrowingSpeed * timeMod)),
+				base = { "%.2f ^8(base throwing time)", 1 / (output.TrapThrowingSpeed * timeMod) },
 				{ "%.2f ^8(total modifier)", timeMod },
 				total = s_format("= %.2f ^8seconds per throw", output.TrapThrowingTime),
 			})
@@ -948,7 +948,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.MineLayingTime = { }
 			breakdown.multiChain(breakdown.MineLayingTime, {
 				label = "Throwing rate:",
-				base = s_format("%.2f ^8(base throwing rate)", baseSpeed),
+				base = { "%.2f ^8(base throwing rate)", baseSpeed },
 				{ "%.2f ^8(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "MineLayingSpeed") / 100 },
 				{ "%.2f ^8(more/less throwing speed)", skillModList:More(skillCfg, "MineLayingSpeed") },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
@@ -959,7 +959,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.MineThrowingTime = { }
 			breakdown.multiChain(breakdown.MineThrowingTime, {
 			label = "Throwing time:",
-				base = s_format("%.2f ^8(base throwing time)", 1 / (output.MineLayingSpeed * timeMod)),
+				base = { "%.2f ^8(base throwing time)", 1 / (output.MineLayingSpeed * timeMod) },
 				{ "%.2f ^8(total modifier)", timeMod },
 				total = s_format("= %.2f ^8seconds per throw", output.MineLayingTime),
 			})
@@ -993,7 +993,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.TotemPlacementTime = { }
 			breakdown.multiChain(breakdown.TotemPlacementTime, {
 				label = "Placement speed:",
-				base = s_format("%.2f ^8(base placement speed)", baseSpeed),
+				base = { "%.2f ^8(base placement speed)", baseSpeed },
 				{ "%.2f ^8(increased/reduced placement speed)", 1 + skillModList:Sum("INC", skillCfg, "TotemPlacementSpeed") / 100 },
 				{ "%.2f ^8(more/less placement speed)", skillModList:More(skillCfg, "TotemPlacementSpeed") },
 				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
@@ -1634,7 +1634,7 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				breakdown.Speed = { }
 				breakdown.multiChain(breakdown.Speed, {
-					base = s_format("%.2f ^8(base)", 1 / baseTime),
+					base = { "%.2f ^8(base)", 1 / baseTime },
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
 					{ "%.2f ^8(action speed modifier)", (skillFlags.totem and output.TotemActionSpeed) or (skillFlags.selfCast and globalOutput.ActionSpeedMod) or 1 },
@@ -1654,7 +1654,7 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown and calcLib.mod(skillModList, skillCfg, "SkillAttackTime") > 0 then
 				breakdown.Time = { }
 				breakdown.multiChain(breakdown.Time, {
-					base = s_format("%.2f ^8(base)", 1 / (output.Speed * calcLib.mod(skillModList, skillCfg, "SkillAttackTime") )),
+					base = { "%.2f ^8(base)", 1 / (output.Speed * calcLib.mod(skillModList, skillCfg, "SkillAttackTime") ) },
 					{ "%.2f ^8(total modifier)", calcLib.mod(skillModList, skillCfg, "SkillAttackTime")  },
 					total = s_format("= %.2f ^8seconds per attack", output.Time)
 				})
@@ -3410,7 +3410,7 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(breakdown.TotalPoisonStacks, pass.label..":")
 						end
 						breakdown.multiChain(breakdown.TotalPoisonStacks, {
-							base = s_format("%.2fs ^8(poison duration)", globalOutput.PoisonDuration),
+							base = { "%.2fs ^8(poison duration)", globalOutput.PoisonDuration },
 							{ "%.2f ^8(poison chance)", output.PoisonChance / 100 },
 							{ "%.2f ^8(hit chance)", output.HitChance / 100 },
 							{ "%.2f ^8(hits per second)", globalOutput.HitSpeed or globalOutput.Speed },
@@ -3732,7 +3732,7 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.DotChill = { }
 				breakdown.multiChain(breakdown.DotChill, {
 					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max),
-					base = s_format("%d%% ^8(base)", ailmentData.Chill.default),
+					base = { "%d%% ^8(base)", ailmentData.Chill.default },
 					{ "%.2f ^8(increased effect of chill)", 1 + output.ChillEffectMod / 100},
 					total = s_format("= %.0f%%", output.ChillSourceEffect)
 				})

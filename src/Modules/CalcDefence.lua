@@ -618,97 +618,81 @@ function calcs.defence(env, actor)
 	end
 
 	-- Regeneration
-	-- Mana
-	if modDB:Flag(nil, "NoManaRegen") then
-		output.ManaRegen = 0
-	else
-		local base = modDB:Sum("BASE", nil, "ManaRegen") + output.Mana * modDB:Sum("BASE", nil, "ManaRegenPercent") / 100
-		output.ManaRegenInc = modDB:Sum("INC", nil, "ManaRegen")
-		local more = modDB:More(nil, "ManaRegen")
-		if modDB:Flag(nil, "ManaRegenToRageRegen") then
-			output.ManaRegenInc = 0
+	local resources = {"Mana", "Life", "Energy Shield", "Rage"}
+	for i, resourceName in ipairs(resources) do
+		local resource = resourceName:gsub(" ", "")
+		local pool = output[resource] or 0
+		local baseRegen = 0
+		local inc = 0
+		local more = 1
+		local regen = 0
+		local regenRate = 0
+		local recoveryRateMod = output[resource.."RecoveryRateMod"] or 1
+		if modDB:Flag(nil, "No"..resource.."Regen") then
+			output[resource.."Regen"] = 0
+		elseif resource == "Life" and modDB:Flag(nil, "ZealotsOath") then
+			output.LifeRegen = 0
+			local lifeBase = modDB:Sum("BASE", nil, "LifeRegen")
+			if lifeBase > 0 then
+				modDB:NewMod("EnergyShieldRegen", "BASE", lifeBase, "Zealot's Oath")
+			end
+			local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent")
+			if lifePercent > 0 then
+				modDB:NewMod("EnergyShieldRegenPercent", "BASE", lifePercent, "Zealot's Oath")
+			end
+		else
+			baseRegen = modDB:Sum("BASE", nil, resource.."Regen") + pool * modDB:Sum("BASE", nil, resource.."RegenPercent") / 100
+			inc = modDB:Sum("INC", nil, resource.."Regen")
+			for j=i+1,#resources do -- legacy chain breaker increase/decrease to mana regen apply to existing.
+				if modDB:Flag(nil, resource.."RegenTo"..resources[j]:gsub(" ", "").."Regen") then
+					modDB:NewMod(resource.."Regen", "INC", inc, resourceName.." instead applies to "..resources[j])
+					inc = 0
+				end
+			end
+			output[resource.."RegenInc"] = inc
+			more = modDB:More(nil, resource.."Regen")
+			regen = baseRegen * (1 + inc/100) * more
+			if regen ~= 0 then -- Pious Path
+				for j=i+1,#resources do
+					if modDB:Flag(nil, resource.."RegenerationRecovers"..resources[j]:gsub(" ", "")) then
+						modDB:NewMod(resources[j]:gsub(" ", "").."Recovery", "BASE", regen, resourceName.." Regeneration Recovers "..resources[j])
+					end
+				end
+			end
+			regenRate = round(regen * recoveryRateMod, 1)
+			output[resource.."Regen"] = regenRate
 		end
-		local regen = base * (1 + output.ManaRegenInc/100) * more
-		local regenRate = round(regen * output.ManaRecoveryRateMod, 1)
-		output.ManaRegen = regenRate
+		local baseDegen = (modDB:Sum("BASE", nil, resource.."Degen") + pool * modDB:Sum("BASE", nil, resource.."DegenPercent") / 100)
+		local degenRate = (baseDegen > 0) and baseDegen * calcLib.mod(modDB, nil, resource.."Degen") or 0
+		output[resource.."Degen"] = degenRate
+		local recoveryRate = modDB:Sum("BASE", nil, resource.."Recovery") * recoveryRateMod
+		output[resource.."Recovery"] = recoveryRate
+		output[resource.."RegenRecovery"] = (modDB:Flag(nil, "UnaffectedBy"..resource.."Regen") and 0 or regenRate) - degenRate + recoveryRate
+		if output[resource.."RegenRecovery"] > 0 then
+			modDB:NewMod("Condition:CanGain"..resource, "FLAG", true, resourceName.."Regen")
+		end
+		output[resource.."RegenPercent"] = round(output[resource.."RegenRecovery"] / pool * 100, 1)
 		if breakdown then
-			breakdown.ManaRegenRecovery = { }
-			breakdown.multiChain(breakdown.ManaRegenRecovery, {
-				label = "Mana Regeneration:",
-				base = s_format("%.1f ^8(base)", base),
-				{ "%.2f ^8(increased/reduced)", 1 + output.ManaRegenInc/100 },
-				{ "%.2f ^8(more/less)", more },
-				total = s_format("= %.1f ^8per second", regen),
-			})
-			breakdown.multiChain(breakdown.ManaRegenRecovery, {
-				label = "Effective Mana Regeneration:",
-				base = s_format("%.1f", regen),
-				{ "%.2f ^8(recovery rate modifier)", output.ManaRecoveryRateMod },
-				total = s_format("= %.1f ^8per second", regenRate),
-			})
-		end
-	end
-	local manaBase = (modDB:Sum("BASE", nil, "ManaDegen") + output.EnergyShield * modDB:Sum("BASE", nil, "ManaDegenPercent") / 100)
-	output.ManaDegen = (manaBase > 0) and manaBase * calcLib.mod(modDB, nil, "ManaDegen") or 0
-	output.ManaRegenRecovery = (modDB:Flag(nil, "UnaffectedByManaRegen") and 0 or output.ManaRegen) - output.ManaDegen
-	output.ManaRegenPercent = round(output.ManaRegenRecovery / output.Mana * 100, 1)
-	if breakdown and output.ManaDegen ~= 0 then
-		t_insert(breakdown.ManaRegenRecovery, s_format("- %d", output.ManaDegen))
-		t_insert(breakdown.ManaRegenRecovery, s_format("= %.1f ^8per second", output.ManaRegenRecovery))
-	end
-	-- Life
-	if modDB:Flag(nil, "NoLifeRegen") then
-		output.LifeRegen = 0
-	elseif modDB:Flag(nil, "ZealotsOath") then
-		output.LifeRegen = 0
-		local lifeBase = modDB:Sum("BASE", nil, "LifeRegen")
-		if lifeBase > 0 then
-			modDB:NewMod("EnergyShieldRegen", "BASE", lifeBase, "Zealot's Oath")
-		end
-		local lifePercent = modDB:Sum("BASE", nil, "LifeRegenPercent")
-		if lifePercent > 0 then
-			modDB:NewMod("EnergyShieldRegenPercent", "BASE", lifePercent, "Zealot's Oath")
-		end
-	else
-		local lifeBase = (modDB:Sum("BASE", nil, "LifeRegen") + output.Life * modDB:Sum("BASE", nil, "LifeRegenPercent") / 100)
-		output.LifeRegen = (lifeBase > 0) and lifeBase * output.LifeRecoveryRateMod * calcLib.mod(modDB, nil, "LifeRegen") or 0
-		-- Don't add life recovery mod for this
-		if output.LifeRegen and modDB:Flag(nil, "LifeRegenerationRecoversEnergyShield") and output.EnergyShield > 0 then
-			modDB:NewMod("EnergyShieldRecovery", "BASE",output.LifeRegen / output.LifeRecoveryRateMod, "Life Regeneration Recovers Energy Shield")
-		end
-	end
-	local lifeBase = (modDB:Sum("BASE", nil, "LifeDegen") + output.Life * modDB:Sum("BASE", nil, "LifeDegenPercent") / 100)
-	output.LifeDegen = (lifeBase > 0) and lifeBase * calcLib.mod(modDB, nil, "LifeDegen") or 0
-	output.LifeRegenRecovery = (modDB:Flag(nil, "UnaffectedByLifeRegen") and 0 or output.LifeRegen) - output.LifeDegen + modDB:Sum("BASE", nil, "LifeRecovery") * output.LifeRecoveryRateMod
-	output.LifeRegenPercent = round(output.LifeRegenRecovery / output.Life * 100, 1)
-	-- Energy Shield
-	if not modDB:Flag(nil, "NoEnergyShieldRegen") then
-		local esBase = (modDB:Sum("BASE", nil, "EnergyShieldRegen") + output.EnergyShield * modDB:Sum("BASE", nil, "EnergyShieldRegenPercent") / 100)
-		output.EnergyShieldRegen = (esBase > 0) and esBase * output.EnergyShieldRecoveryRateMod * calcLib.mod(modDB, nil, "EnergyShieldRegen") or 0
-	end
-	local esBase = (modDB:Sum("BASE", nil, "EnergyShieldDegen") + output.EnergyShield * modDB:Sum("BASE", nil, "EnergyShieldDegenPercent") / 100)
-	output.EnergyShieldDegen = (esBase > 0) and esBase * calcLib.mod(modDB, nil, "EnergyShieldDegen") or 0
-	output.EnergyShieldRegenRecovery = output.EnergyShieldRegen - output.EnergyShieldDegen + modDB:Sum("BASE", nil, "EnergyShieldRecovery") * output.EnergyShieldRecoveryRateMod
-	output.EnergyShieldRegenPercent = round(output.EnergyShieldRegenRecovery / output.EnergyShield * 100, 1)
-	-- Rage
-	if modDB:Sum("BASE", nil, "RageRegen") > 0 then
-		modDB:NewMod("Condition:CanGainRage", "FLAG", true, "RageRegen")
-		local base = modDB:Sum("BASE", nil, "RageRegen")
-		if modDB:Flag(nil, "ManaRegenToRageRegen") then
-			local mana = modDB:Sum("INC", nil, "ManaRegen")
-			modDB:NewMod("RageRegen", "INC", mana, "Mana Regen to Rage Regen")
-		end
-		local inc = modDB:Sum("INC", nil, "RageRegen")
-		local more = modDB:More(nil, "RageRegen")
-		output.RageRegen = base * (1 + inc /100) * more
-		if breakdown then
-			breakdown.RageRegen = { }
-			breakdown.multiChain(breakdown.RageRegen, {
-				base = s_format("%.1f ^8(base)", base),
+			breakdown[resource.."RegenRecovery"] = { }
+			breakdown.multiChain(breakdown[resource.."RegenRecovery"], {
+				label = resourceName.." Regeneration:",
+				base = { "%.1f ^8(base)", baseRegen },
 				{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 				{ "%.2f ^8(more/less)", more },
-				total = s_format("= %.1f ^8per second", output.RageRegen),
+				{ "%.2f ^8(recovery rate modifier)", recoveryRateMod },
+				total = s_format("= %.1f ^8per second", regenRate)
 			})
+			if modDB:Flag(nil, "UnaffectedBy"..resource.."Regen") then
+				t_insert(breakdown[resource.."RegenRecovery"], "Unaffected by "..resourceName.." Regen")
+			end
+			if degenRate ~= 0 then
+				t_insert(breakdown[resource.."RegenRecovery"], s_format("- %.1f ^8(degen)", degenRate))
+				t_insert(breakdown[resource.."RegenRecovery"], s_format("= %.1f ^8per second", (modDB:Flag(nil, "UnaffectedBy"..resource.."Regen") and 0 or regenRate) - degenRate))
+			end
+			if recoveryRate ~= 0 then
+				t_insert(breakdown[resource.."RegenRecovery"], s_format("+ %.1f ^8(recovery)", recoveryRate))
+				t_insert(breakdown[resource.."RegenRecovery"], s_format("= %.1f ^8per second", output[resource.."RegenRecovery"]))
+			end
 		end
 	end
 	-- Energy Shield Recharge
@@ -725,14 +709,14 @@ function calcs.defence(env, actor)
 				breakdown.LifeRecharge = { }
 				breakdown.multiChain(breakdown.LifeRecharge, {
 					label = "Recharge rate:",
-					base = s_format("%.1f ^8(33%% per second)", output.Life * data.misc.EnergyShieldRechargeBase),
+					base = { "%.1f ^8(33%% per second)", output.Life * data.misc.EnergyShieldRechargeBase },
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
 					total = s_format("= %.1f ^8per second", recharge),
 				})
 				breakdown.multiChain(breakdown.LifeRecharge, {
 					label = "Effective Recharge rate:",
-					base = s_format("%.1f", recharge),
+					base = { "%.1f", recharge },
 					{ "%.2f ^8(recovery rate modifier)", output.LifeRecoveryRateMod },
 					total = s_format("= %.1f ^8per second", output.LifeRecharge),
 				})	
@@ -745,14 +729,14 @@ function calcs.defence(env, actor)
 				breakdown.EnergyShieldRecharge = { }
 				breakdown.multiChain(breakdown.EnergyShieldRecharge, {
 					label = "Recharge rate:",
-					base = s_format("%.1f ^8(33%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase),
+					base = { "%.1f ^8(33%% per second)", output.EnergyShield * data.misc.EnergyShieldRechargeBase },
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
 					total = s_format("= %.1f ^8per second", recharge),
 				})
 				breakdown.multiChain(breakdown.EnergyShieldRecharge, {
 					label = "Effective Recharge rate:",
-					base = s_format("%.1f", recharge),
+					base = { "%.1f", recharge },
 					{ "%.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod },
 					total = s_format("= %.1f ^8per second", output.EnergyShieldRecharge),
 				})
