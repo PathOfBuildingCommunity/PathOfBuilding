@@ -48,7 +48,7 @@ local formList = {
 	["^([%+%-]?[%d%.]+)%%? of"] = "BASE",
 	["^([%+%-][%d%.]+)%%? base"] = "BASE",
 	["^([%+%-]?[%d%.]+)%%? additional"] = "BASE",
-	["cost ([%+%-]%d+) mana"] = "BASEMANACOST",
+	["cost ([%+%-]%d+)"] = "BASECOST",
 	["(%d+) additional hits?"] = "BASE",
 	["^you gain ([%d%.]+)"] = "BASE",
 	["^gains? ([%d%.]+)%% of"] = "BASE",
@@ -4308,8 +4308,11 @@ local function parseMod(line, order)
 		modType = "MORE"
 	elseif modForm == "BASE" then
 		modSuffix, line = scan(line, suffixTypes, true)
-	elseif modForm == "BASEMANACOST" then
-		modName = "ManaCost"
+	elseif modForm == "BASECOST" then
+		if not modName then
+			return { }, line
+		end
+		modName = modName.."Cost"
 		modValue = tonumber(formCap[1])
 	elseif modForm == "CHANCE" then
 	elseif modForm == "REGENPERCENT" then
