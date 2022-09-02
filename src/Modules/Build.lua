@@ -1268,7 +1268,7 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, pool)
 	if statData.label == "Unreserved Life" and statVal == 0 then
 		color = colorCodes.NEGATIVE
 	end
-	if (statData.label == "Mana Cost" or statData.label == "Life Cost") and statVal and pool and statVal > pool then
+	if statData.label:match("Cost$") and statVal and pool and statVal > pool then
 		color = colorCodes.NEGATIVE
 	end
 	local valStr = s_format("%"..statData.fmt, val)
