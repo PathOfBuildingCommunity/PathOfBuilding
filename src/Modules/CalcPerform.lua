@@ -3161,4 +3161,23 @@ function calcs.perform(env, avoidCache)
 	if not env.dontCache then
 		cacheData(uuid, env)
 	end
+	
+	for _, skill in ipairs(env.player.activeSkillList) do
+		--Avoid inifite recusrsion by checking if a skill is triggered or is current main skill
+		if not skill.skillTypes[SkillType.Triggered] and not (skill.minion and skill.minion.mainSkill and skill.minion.mainSkill.skillTypes[SkillType.Triggered]) and skill ~= env.player.mainSkill then
+			local uuid = cacheSkillUUID(skill)
+			if not GlobalCache.cachedData["CACHE"][uuid] or avoidCache then
+				calcs.buildActiveSkill(env, "CACHE", skill)
+				env.dontCache = true
+			end
+			if GlobalCache.cachedData["CACHE"][uuid] then
+				for _, costResource in ipairs({"Life", "Mana"}) do
+					local cachedCost = GlobalCache.cachedData["CACHE"][uuid][costResource.."Cost"]
+					if cachedCost then
+						output[costResource.."CostWarning"] = output[costResource.."CostWarning"] or (output[costResource] < cachedCost)
+					end
+				end
+			end
+		end
+	end
 end
