@@ -2462,7 +2462,7 @@ function calcs.perform(env, avoidCache)
 
 	-- Mirage Archer Support
 	-- This creates and populates env.player.mainSkill.mirage table
-	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked then
+	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillData.usedByMirageArcher then
 		local usedSkill = nil
 		local uuid = cacheSkillUUID(env.player.mainSkill)
 		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
@@ -2509,7 +2509,7 @@ function calcs.perform(env, avoidCache)
 			-- Recalculate the offensive/defensive aspects of the Mirage Archer influence on skill
 			newEnv.player.mainSkill = newSkill
 			-- mark it so we don't recurse infinitely
-			newSkill.marked = true
+			newSkill.skillData.usedByMirageArcher = true
 			newEnv.dontCache = true
 			calcs.perform(newEnv)
 
@@ -2558,7 +2558,6 @@ function calcs.perform(env, avoidCache)
 		local focusCD = (skillFocus.levels[1].cooldown / icdrFocus)
 		local focusTotalCD = focusDuration + focusCD
 		
-		-- 2^-31 is just a random small non zero value to avoid crashing due to division when things go wrong.
 		-- skill cooldown should still apply to focus triggers
 		local modActionCooldown = m_max( triggeredCD or 0, (triggerCD or 0) / icdrSkill )
 		local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
