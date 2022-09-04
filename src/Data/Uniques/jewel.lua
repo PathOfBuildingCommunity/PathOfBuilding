@@ -244,6 +244,7 @@ Poison you inflict is Reflected to you
 ]],[[
 Grand Spectrum
 Cobalt Jewel
+Source: Drops in The Lord's Labyrinth
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
@@ -258,6 +259,7 @@ Variant: Current - Min Power Charge
 ]],[[
 Grand Spectrum
 Crimson Jewel
+Source: Drops in The Lord's Labyrinth
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
@@ -272,6 +274,7 @@ Variant: Current - Min Endurance Charge
 ]],[[
 Grand Spectrum
 Viridian Jewel
+Source: Drops in The Lord's Labyrinth
 Limited to: 3
 Variant: Pre 2.5.0
 Variant: Pre 3.0.0
