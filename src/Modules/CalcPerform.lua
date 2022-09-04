@@ -23,7 +23,6 @@ local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 	local uuid = cacheSkillUUID(skill)
 	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.dontUseCache then
 		calcs.buildActiveSkill(env, "CACHE", skill)
-		env.dontCache = true
 	end
 
 	if GlobalCache.cachedData["CACHE"][uuid] then
@@ -2431,7 +2430,6 @@ function calcs.perform(env, avoidCache)
 		-- cache a new copy of this skill that's affected by Mirage Archer
 		if avoidCache then
 			usedSkill = env.player.mainSkill
-			env.dontCache = true
 		else
 			if not GlobalCache.cachedData[calcMode][uuid] then
 				calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
@@ -2471,7 +2469,6 @@ function calcs.perform(env, avoidCache)
 			newEnv.player.mainSkill = newSkill
 			-- mark it so we don't recurse infinitely
 			newSkill.marked = true
-			newEnv.dontCache = true
 			calcs.perform(newEnv)
 
 			env.player.mainSkill.infoMessage = tostring(mirageCount) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
@@ -3157,27 +3154,5 @@ function calcs.perform(env, avoidCache)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
 
-	local uuid = cacheSkillUUID(env.player.mainSkill)
-	if not env.dontCache then
-		cacheData(uuid, env)
-	end
-	
-	for _, skill in ipairs(env.player.activeSkillList) do
-		--Avoid inifite recusrsion by checking if a skill is triggered or is current main skill
-		if not skill.skillTypes[SkillType.Triggered] and not (skill.minion and skill.minion.mainSkill and skill.minion.mainSkill.skillTypes[SkillType.Triggered]) and skill ~= env.player.mainSkill then
-			local uuid = cacheSkillUUID(skill)
-			if not GlobalCache.cachedData["CACHE"][uuid] or avoidCache then
-				calcs.buildActiveSkill(env, "CACHE", skill)
-				env.dontCache = true
-			end
-			if GlobalCache.cachedData["CACHE"][uuid] then
-				for _, costResource in ipairs({"Life", "Mana"}) do
-					local cachedCost = GlobalCache.cachedData["CACHE"][uuid][costResource.."Cost"]
-					if cachedCost then
-						output[costResource.."CostWarning"] = output[costResource.."CostWarning"] or (output[costResource] < cachedCost)
-					end
-				end
-			end
-		end
-	end
+	cacheData(cacheSkillUUID(env.player.mainSkill), env)
 end

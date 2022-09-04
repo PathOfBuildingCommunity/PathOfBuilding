@@ -400,6 +400,21 @@ function calcs.buildOutput(build, mode)
 	calcs.perform(env)
 
 	local output = env.player.output
+	
+	for _, skill in ipairs(env.player.activeSkillList) do
+		local uuid = cacheSkillUUID(skill)
+		if not GlobalCache.cachedData["CACHE"][uuid] then
+			calcs.buildActiveSkill(env, "CACHE", skill)
+		end
+		if GlobalCache.cachedData["CACHE"][uuid] then
+			for _, costResource in ipairs({"Life", "Mana"}) do
+				local cachedCost = GlobalCache.cachedData["CACHE"][uuid][costResource.."Cost"]
+				if cachedCost then
+					output[costResource.."CostWarning"] = output[costResource.."CostWarning"] or (output[costResource] < cachedCost)
+				end
+			end
+		end
+	end
 
 	-- Build output across all skills added to FullDPS skills
 	GlobalCache.dontUseCache = true
