@@ -2601,10 +2601,12 @@ function calcs.offence(env, actor, activeSkill)
 			if PvpTvalue then
 				PvpTvalue = PvpTvalue / 1000
 			else
-				if skillFlags.mine then
-					PvpTvalue = output.MineLayingTime*globalOutput.ActionSpeedMod
+				if skillData.cooldown then
+					PvpTvalue = skillData.cooldown
+				elseif skillFlags.mine then
+					PvpTvalue = (output.MineLayingTime or 1) / globalOutput.ActionSpeedMod
 				elseif skillFlags.trap then
-					PvpTvalue = output.TrapThrowingTime*globalOutput.ActionSpeedMod
+					PvpTvalue = (output.TrapThrowingTime or 1) / globalOutput.ActionSpeedMod
 				else
 					PvpTvalue = 1/((globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod)
 				end
