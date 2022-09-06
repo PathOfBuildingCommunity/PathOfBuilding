@@ -36,7 +36,7 @@ end)
 function ModStoreClass:ScaleAddMod(mod, scale)
 	local unscalable = false
 	for _, effects in ipairs(mod) do
-		if effects.type == "Unscalable" then
+		if effects.unscalable then
 			unscalable = true
 			break
 		end
