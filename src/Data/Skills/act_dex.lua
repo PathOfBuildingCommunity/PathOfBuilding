@@ -4701,6 +4701,10 @@ skills["Hatred"] = {
 		["hatred_aura_cold_damage_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["chill_and_freeze_duration_+%"] = {
+			mod("EnemyChillDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("EnemyFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 		["movement_velocity_+%_on_chilled_ground"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, {type = "Condition", var = "OnChilledGround"})
 		}
@@ -6633,7 +6637,7 @@ skills["ColdImpurity"] = {
 	castTime = 0,
 	statMap = {
 		["hits_ignore_my_cold_resistance"] = {
-			flag("SelfIgnoreColdResistance", { type = "GlobalEffect", effectType = "Debuff" }),
+			flag("SelfIgnoreColdResistance", { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 		["base_maximum_cold_damage_resistance_%"] = {
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),

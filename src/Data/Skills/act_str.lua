@@ -1972,6 +1972,9 @@ skills["DefianceBanner"] = {
 		["evasion_and_physical_damage_reduction_rating_+%"] = {
 			mod("ArmourAndEvasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["armour_evasion_banner_critical_strike_chance_+%"] = {
+			mod("EnemyCritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -5382,7 +5385,7 @@ skills["FireImpurity"] = {
 	castTime = 0,
 	statMap = {
 		["hits_ignore_my_fire_resistance"] = {
-			flag("SelfIgnoreFireResistance", { type = "GlobalEffect", effectType = "Debuff" })
+			flag("SelfIgnoreFireResistance", { type = "GlobalEffect", effectType = "AuraDebuff" })
 		},
 		["base_maximum_fire_damage_resistance_%"] = {
 			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),

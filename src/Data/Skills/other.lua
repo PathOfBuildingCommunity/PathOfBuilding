@@ -1335,8 +1335,14 @@ skills["VaalAuraElementalDamageHealing"] = {
 		area = true,
 		duration = true,
 	},
+	statMap = {
+		["immune_to_curses"] = {
+			--Display only
+		},
+	},
 	baseMods = {
 		skill("radius", 40),
+		mod("AvoidCurse", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 5000 },

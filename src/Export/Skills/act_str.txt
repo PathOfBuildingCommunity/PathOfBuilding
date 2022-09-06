@@ -344,6 +344,9 @@ local skills, mod, flag, skill = ...
 		["evasion_and_physical_damage_reduction_rating_+%"] = {
 			mod("ArmourAndEvasion", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["armour_evasion_banner_critical_strike_chance_+%"] = {
+			mod("EnemyCritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
@@ -953,7 +956,7 @@ local skills, mod, flag, skill = ...
 #flags spell aura area duration
 	statMap = {
 		["hits_ignore_my_fire_resistance"] = {
-			flag("SelfIgnoreFireResistance", { type = "GlobalEffect", effectType = "Debuff" })
+			flag("SelfIgnoreFireResistance", { type = "GlobalEffect", effectType = "AuraDebuff" })
 		},
 		["base_maximum_fire_damage_resistance_%"] = {
 			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),

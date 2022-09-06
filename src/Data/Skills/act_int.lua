@@ -1540,6 +1540,9 @@ skills["Clarity"] = {
 		["damage_+%_on_full_mana"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullMana" }, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["flask_mana_to_recover_+%"] = {
+			mod("FlaskManaRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -7949,7 +7952,7 @@ skills["LightningImpurity"] = {
 	castTime = 0,
 	statMap = {
 		["hits_ignore_my_lightning_resistance"] = {
-			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "Debuff" })
+			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "AuraDebuff" })
 		},
 		["base_maximum_lightning_damage_resistance_%"] = {
 			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),

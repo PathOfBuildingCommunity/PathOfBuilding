@@ -397,7 +397,13 @@ local skills, mod, flag, skill = ...
 #skill VaalAuraElementalDamageHealing
 #flags spell aura area duration
 	fromItem = true,
+	statMap = {
+		["immune_to_curses"] = {
+			--Display Only
+		},
+	},
 #baseMod skill("radius", 40)
+#baseMod mod("AvoidCurse", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 #mods
 
 #skill GoreShockwave
