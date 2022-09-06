@@ -604,8 +604,8 @@ function SkillsTabClass:CreateGemSlot(index)
 		slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 		slot.qualityId:SelByValue(qualityId or "Default", "type")
 		gemInstance.qualityId = qualityId or "Default"
-		slot.level:SetText(tostring(gemInstance.level))
-		slot.count:SetText(tostring(gemInstance.count))
+		slot.level:SetText(gemInstance.level)
+		slot.count:SetText(gemInstance.count)
 		if addUndo then
 			self:AddUndoState()
 		end
@@ -908,7 +908,7 @@ function SkillsTabClass:getGemAltQualityList(gemData)
 			t_insert(altQualList, entry)
 		end
 	end
-	return altQualList
+	return #altQualList > 0 and altQualList or {{ label = "Default", type = "Default" }}
 end
 
 -- Update the gem slot controls to reflect the currently displayed socket group
@@ -927,7 +927,7 @@ function SkillsTabClass:UpdateGemSlots()
 			slot.quality:SetText("")
 			slot.qualityId:SelByValue("Default", "type")
 			slot.enabled.state = false
-			slot.count:SetText("")
+			slot.count:SetText(1)
 		else
 			slot.nameSpec.inactiveCol = self.displayGroup.gemList[slotIndex].color
 		end
@@ -1078,7 +1078,7 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 			self.gemSlots[index].enabled.state = gemInstance.enabled
 			self.gemSlots[index].enableGlobal1.state = gemInstance.enableGlobal1
 			self.gemSlots[index].enableGlobal2.state = gemInstance.enableGlobal2
-			self.gemSlots[index].count:SetText(gemInstance.count)
+			self.gemSlots[index].count:SetText(gemInstance.count or 1)
 		end
 	end
 end
