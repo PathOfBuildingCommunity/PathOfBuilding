@@ -637,7 +637,6 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					applyNotPlayer = effectTag.applyNotPlayer,
 					applyMinions = effectTag.applyMinions,
 					modList = { },
-					unscalableModList = { },
 				}
 				if skillModList[i].source == activeGrantedEffect.modSource then
 					-- Inherit buff configuration from the active skill
@@ -650,7 +649,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				t_insert(activeSkill.buffList, buff)
 			end
 			local match = false
-			local modList = effectTag.unscalable and buff.unscalableModList or buff.modList
+			local modList = buff.modList
 			for d = 1, #modList do
 				local destMod = modList[d]
 				if modLib.compareModParams(skillModList[i], destMod) and (destMod.type == "BASE" or destMod.type == "INC") then
