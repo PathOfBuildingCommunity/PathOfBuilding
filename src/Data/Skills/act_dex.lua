@@ -317,7 +317,7 @@ skills["ArcticArmour"] = {
 		},
 	},
 	baseMods = {
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 	},
 	baseFlags = {
 		spell = true,
