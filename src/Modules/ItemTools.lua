@@ -24,11 +24,14 @@ itemLib.influenceInfo = {
 }
 
 -- Apply a value scalar to the first n of any numbers present
-function itemLib.applyValueScalar(line, valueScalar, numbers)
+function itemLib.applyValueScalar(line, valueScalar, numbers, precision)
 	if valueScalar and type(valueScalar) == "number" and valueScalar ~= 1 then
-		if line:match("(%d+%.%d*)") then
-			return line:gsub("(%d+%.%d*)", function(num)
-				local numVal = (m_floor(tonumber(num) * valueScalar * 100 + 0.001) / 100)
+		if not precision and line:match("(%d+%.%d*)") then
+			precision = 2 -- default precision is two for decimals
+		end
+		if precision then
+			return line:gsub("(%d+%.?%d*)", function(num)
+				local numVal = m_floor(tonumber(num) * valueScalar * 10 ^ precision + 0.001) / 10 ^ precision
 				return tostring(numVal)
 			end, numbers)
 		else
@@ -91,7 +94,22 @@ function itemLib.applyRange(line, range, valueScalar)
 		if numbers == 0 and line:match("(%d+)%%? ") then --If a mod contains x or x% and is not already a ranged value, then only the first number will be scalable as any following numbers will always be conditions or unscalable values.
 			numbers = 1
 		end
-	return itemLib.applyValueScalar(line, valueScalar, numbers)
+	local precision = nil
+	local modList, extra = modLib.parseMod(line)
+	if modList and not extra then
+		for _, mod in pairs(modList) do
+			if type(mod.value) == "number" then
+				if data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type] then
+					precision = data.highPrecisionMods[mod.name][mod.type]
+				end
+			elseif type(mod.value) == "table" and mod.value.mod then
+				if data.highPrecisionMods[mod.value.mod.name] and data.highPrecisionMods[mod.value.mod.name][mod.value.mod.type] then
+					precision = data.highPrecisionMods[mod.value.mod.name][mod.value.mod.type]
+				end
+			end
+		end
+	end
+	return itemLib.applyValueScalar(line, valueScalar, numbers, precision)
 end
 
 --- Clean item text by removing or replacing unsupported or redundant characters or sequences
