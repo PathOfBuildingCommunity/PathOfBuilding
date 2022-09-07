@@ -1603,14 +1603,17 @@ function calcs.offence(env, actor, activeSkill)
 			output.Repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
 
 			--Calculates the max number of trauma stacks you can sustain
-			if activeSkill.activeEffect.grantedEffect.name == "Boneshatter" and skillModList:Sum("BASE", skillCfg, "Multiplier:TraumaStacks") == 0 then
+			if activeSkill.activeEffect.grantedEffect.name == "Boneshatter" then
 				local speedPerTrauma = skillModList:Sum("INC", skillCfg, "SpeedPerTrauma")
 				local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 				local traumaPerAttack = 1 + m_min(skillModList:Sum("BASE", cfg, "ExtraTrauma"), 100) / 100
 				-- compute trauma using exact form.
 				local effectiveRate = traumaPerAttack * output.HitChance / 100 / baseTime * more * globalOutput.ActionSpeedMod / output.Repeats
 				local trauma = effectiveRate * (1 + inc / 100)  / ( 1 / duration - effectiveRate * speedPerTrauma / 100 )
-				skillModList:NewMod("Multiplier:TraumaStacks", "BASE", trauma, "Base")
+				skillModList:NewMod("Multiplier:SustainableTraumaStacks", "BASE", trauma, "Maximum Sustainable Trauma Stacks")
+			end
+			if skillModList:Sum("BASE", skillCfg, "Multiplier:TraumaStacks") == 0 then
+				skillModList:NewMod("Multiplier:TraumaStacks", "BASE", skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks"), "Maximum Sustainable Trauma Stacks")
 				inc = skillModList:Sum("INC", cfg, "Speed")
 			end
 			output.Speed = 1 / baseTime * round((1 + inc/100) * more, 2)
@@ -1685,7 +1688,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
-	output.Trauma = activeSkill.activeEffect.grantedEffect.name == "Boneshatter" and skillModList:Sum("BASE", skillCfg, "Multiplier:TraumaStacks")
+	output.SustainableTrauma = activeSkill.activeEffect.grantedEffect.name == "Boneshatter" and skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks")
 
 	if isAttack then
 		-- Combine hit chance and attack speed
