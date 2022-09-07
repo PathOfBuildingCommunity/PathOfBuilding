@@ -265,7 +265,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
 	-- This may be user-customisable in the future
 	self.displayStats = {
-		{ stat = "SustainableTrauma", label = "Sustainable Trauma", fmt = "d", color = colorCodes.RAGE },
+		{ stat = "SustainableTrauma", label = "Sustainable Trauma", fmt = "d", color = colorCodes.PHYS },
 		{ stat = "ActiveMinionLimit", label = "Active Minion Limit", fmt = "d" },
 		{ stat = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
 		{ stat = "PvpAverageHit", label = "PvP Average Hit", fmt = ".1f", compPercent = true, flag = "isPvP" },
