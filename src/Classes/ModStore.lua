@@ -39,18 +39,16 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 	else
 		scale = m_max(scale, 0)
 		local scaledMod = copyTable(mod)
-		if type(scaledMod.value) == "number" then
-			if data.highPrecisionMods[scaledMod.name] and data.highPrecisionMods[scaledMod.name][scaledMod.type] then
-				scaledMod.value = m_floor(scaledMod.value * scale * 10 ^ data.highPrecisionMods[scaledMod.name][scaledMod.type]) / 10 ^ data.highPrecisionMods[scaledMod.name][scaledMod.type]
-			else
-				scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_modf(round(scaledMod.value * scale, 2)) or scaledMod.value * scale
-			end
-		elseif type(scaledMod.value) == "table" and scaledMod.value.mod then
-			if data.highPrecisionMods[scaledMod.value.mod.name] and data.highPrecisionMods[scaledMod.value.mod.name][scaledMod.value.mod.type] then
-				scaledMod.value.mod.value = m_floor(scaledMod.value.mod.value * scale * 10 ^ data.highPrecisionMods[scaledMod.value.mod.name][scaledMod.value.mod.type]) / 10 ^ data.highPrecisionMods[scaledMod.value.mod.name][scaledMod.value.mod.type]
-			else
-				scaledMod.value.mod.value = (m_floor(scaledMod.value.mod.value) == scaledMod.value.mod.value) and m_modf(round(scaledMod.value.mod.value * scale, 2)) or scaledMod.value.mod.value * scale
-			end
+		local subMod = scaledMod
+		if type(scaledMod.value) == "table" and scaledMod.value.mod then
+			subMod = scaledMod.value.mod
+		end
+		local precision = ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) == subMod.value) and 2) or nil
+		if precision then
+			local power = 10 ^ precision
+			subMod.value = math.floor(subMod.value * scale * power) / power
+		else
+			subMod.value = m_modf(round(subMod.value * scale, 2))
 		end
 		self:AddMod(scaledMod)
 	end

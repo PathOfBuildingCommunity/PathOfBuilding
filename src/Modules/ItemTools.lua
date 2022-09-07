@@ -27,11 +27,12 @@ itemLib.influenceInfo = {
 function itemLib.applyValueScalar(line, valueScalar, numbers, precision)
 	if valueScalar and type(valueScalar) == "number" and valueScalar ~= 1 then
 		if not precision and line:match("(%d+%.%d*)") then
-			precision = 2 -- default precision is two for decimals
+			precision  = 2 -- default precision is two for decimals
 		end
 		if precision then
 			return line:gsub("(%d+%.?%d*)", function(num)
-				local numVal = m_floor(tonumber(num) * valueScalar * 10 ^ precision + 0.001) / 10 ^ precision
+				local power = 10 ^ precision
+				local numVal = m_floor(tonumber(num) * valueScalar * power) / power
 				return tostring(numVal)
 			end, numbers)
 		else
