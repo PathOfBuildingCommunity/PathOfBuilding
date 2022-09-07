@@ -99,14 +99,12 @@ function itemLib.applyRange(line, range, valueScalar)
 	local modList, extra = modLib.parseMod(line)
 	if modList and not extra then
 		for _, mod in pairs(modList) do
-			if type(mod.value) == "number" then
-				if data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type] then
-					precision = data.highPrecisionMods[mod.name][mod.type]
-				end
-			elseif type(mod.value) == "table" and mod.value.mod then
-				if data.highPrecisionMods[mod.value.mod.name] and data.highPrecisionMods[mod.value.mod.name][mod.value.mod.type] then
-					precision = data.highPrecisionMods[mod.value.mod.name][mod.value.mod.type]
-				end
+			local subMod = mod
+			if type(mod.value) == "table" and mod.value.mod then
+				subMod = mod.value.mod
+			end
+			if type(subMod.value) == "number" and data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type] then
+				precision = data.highPrecisionMods[subMod.name][subMod.type]
 			end
 		end
 	end
