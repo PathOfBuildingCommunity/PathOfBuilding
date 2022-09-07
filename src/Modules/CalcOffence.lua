@@ -1604,12 +1604,13 @@ function calcs.offence(env, actor, activeSkill)
 
 			--Calculates the max number of trauma stacks you can sustain
 			if activeSkill.activeEffect.grantedEffect.name == "Boneshatter" then
-				local speedPerTrauma = skillModList:Sum("INC", skillCfg, "SpeedPerTrauma")
 				local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 				local traumaPerAttack = 1 + m_min(skillModList:Sum("BASE", cfg, "ExtraTrauma"), 100) / 100
-				-- compute trauma using exact form.
-				local effectiveRate = traumaPerAttack * output.HitChance / 100 / baseTime * more * globalOutput.ActionSpeedMod / output.Repeats
-				local trauma = effectiveRate * (1 + inc / 100)  / ( 1 / duration - effectiveRate * speedPerTrauma / 100 )
+				local incAttackSpeedPerTrauma = skillModList:Sum("INC", skillCfg, "SpeedPerTrauma")
+				-- compute trauma using an exact form.
+				local attackSpeedBeforeInc = 1 / baseTime * globalOutput.ActionSpeedMod * more
+				local traumaRateBeforeInc = traumaPerAttack * (output.HitChance / 100) * attackSpeedBeforeInc / output.Repeats
+				local trauma = traumaRateBeforeInc * (1 + inc / 100) / ( 1 / duration - traumaRateBeforeInc * incAttackSpeedPerTrauma / 100 )
 				skillModList:NewMod("Multiplier:SustainableTraumaStacks", "BASE", trauma, "Maximum Sustainable Trauma Stacks")
 			end
 			if skillModList:Sum("BASE", skillCfg, "Multiplier:TraumaStacks") == 0 then
