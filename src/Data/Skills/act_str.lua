@@ -1499,6 +1499,7 @@ skills["Boneshatter"] = {
 		},
 		["attack_speed_+%_per_trauma"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
+			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
 		},
 		["trauma_strike_self_damage_per_trauma"] = {
 			skill("SelfDamageTakenLife", nil),

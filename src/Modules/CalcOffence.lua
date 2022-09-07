@@ -1600,9 +1600,22 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			local inc = skillModList:Sum("INC", cfg, "Speed")
 			local more = skillModList:More(cfg, "Speed")
+			output.Repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
+
+			--Calculates the max number of trauma stacks you can sustain
+			if activeSkill.activeEffect.grantedEffect.name == "Boneshatter" and skillModList:Sum("BASE", skillCfg, "Multiplier:TraumaStacks") == 0 then
+				local speedPerTrauma = skillModList:Sum("INC", skillCfg, "SpeedPerTrauma")
+				local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
+				local traumaPerAttack = 1 + m_min(skillModList:Sum("BASE", cfg, "ExtraTrauma"), 100) / 100
+				-- compute trauma using exact form.
+				local trauma = traumaPerAttack * output.HitChance / 100 / baseTime * (1 + inc / 100) * more * globalOutput.ActionSpeedMod / output.Repeats / ( 1 / duration - traumaPerAttack * output.HitChance / 100 / baseTime * speedPerTrauma / 100 * more * globalOutput.ActionSpeedMod / output.Repeats )
+				skillModList:NewMod("Multiplier:TraumaStacks", "BASE", trauma, "Base")
+				ConPrintf(trauma)
+				inc = skillModList:Sum("INC", cfg, "Speed")
+			end
+
 			output.Speed = 1 / baseTime * round((1 + inc/100) * more, 2)
 			output.CastRate = output.Speed
-			output.Repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
 			if skillFlags.selfCast then
 				-- Self-cast skill; apply action speed
 				output.Speed = output.Speed * globalOutput.ActionSpeedMod
@@ -2053,12 +2066,7 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("Multiplier:ExplosiveArrowStageAfterFirst", "BASE", maximum - 1, "Base")
 		end
 
-		--Calculates the max number of trauma stacks you can sustain
-		if activeSkill.activeEffect.grantedEffect.name == "Boneshatter" and skillModList:Sum("BASE", skillCfg, "Multiplier:TraumaStacks") == 0 then
-			local hitRate = m_floor(output.HitChance / 100 * globalOutput.Speed * globalOutput.ActionSpeedMod)
-			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
-			skillModList:NewMod("Multiplier:TraumaStacks", "BASE", hitRate * duration, "Base")
-		end
+
 
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(nil, "NeverCrit") then
