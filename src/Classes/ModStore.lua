@@ -43,7 +43,7 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 		if type(scaledMod.value) == "table" and scaledMod.value.mod then
 			subMod = scaledMod.value.mod
 		end
-		local precision = ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) == subMod.value) and data.defaultHighPrecision) or nil
+		local precision = ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) ~= subMod.value) and data.defaultHighPrecision) or nil
 		if precision then
 			local power = 10 ^ precision
 			subMod.value = math.floor(subMod.value * scale * power) / power
