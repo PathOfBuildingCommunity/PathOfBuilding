@@ -1608,7 +1608,8 @@ function calcs.offence(env, actor, activeSkill)
 				local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 				local traumaPerAttack = 1 + m_min(skillModList:Sum("BASE", cfg, "ExtraTrauma"), 100) / 100
 				-- compute trauma using exact form.
-				local trauma = traumaPerAttack * output.HitChance / 100 / baseTime * (1 + inc / 100) * more * globalOutput.ActionSpeedMod / output.Repeats / ( 1 / duration - traumaPerAttack * output.HitChance / 100 / baseTime * speedPerTrauma / 100 * more * globalOutput.ActionSpeedMod / output.Repeats )
+				local effectiveRate = traumaPerAttack * output.HitChance / 100 / baseTime * more * globalOutput.ActionSpeedMod / output.Repeats
+				local trauma = effectiveRate * (1 + inc / 100)  / ( 1 / duration - effectiveRate * speedPerTrauma / 100 )
 				skillModList:NewMod("Multiplier:TraumaStacks", "BASE", trauma, "Base")
 				inc = skillModList:Sum("INC", cfg, "Speed")
 			end
