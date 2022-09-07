@@ -352,6 +352,7 @@ data.nonDamagingAilment = {
 }
 
 -- Used in ModStoreClass:ScaleAddMod(...) to identify high precision modifiers
+data.defaultHighPrecision = 2
 data.highPrecisionMods = {
 	["CritChance"] = {
 		["BASE"] = 2,

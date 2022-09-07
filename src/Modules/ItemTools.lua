@@ -27,7 +27,7 @@ itemLib.influenceInfo = {
 function itemLib.applyValueScalar(line, valueScalar, numbers, precision)
 	if valueScalar and type(valueScalar) == "number" and valueScalar ~= 1 then
 		if not precision and line:match("(%d+%.%d*)") then
-			precision  = 2 -- default precision is two for decimals
+			precision = data.defaultHighPrecision
 		end
 		if precision then
 			return line:gsub("(%d+%.?%d*)", function(num)
