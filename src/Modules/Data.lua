@@ -378,6 +378,24 @@ data.highPrecisionMods = {
 	["EnergyShieldRegen"] = {
 		["BASE"] = 1,
 	},
+	["LifeDegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["ManaDegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["EnergyShieldDegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["LifeDegen"] = {
+		["BASE"] = 1,
+	},
+	["ManaDegen"] = {
+		["BASE"] = 1,
+	},
+	["EnergyShieldDegen"] = {
+		["BASE"] = 1,
+	},
 	["DamageLifeLeech"] = {
 		["BASE"] = 2,
 	},
