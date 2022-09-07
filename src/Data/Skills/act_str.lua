@@ -1503,6 +1503,10 @@ skills["Boneshatter"] = {
 		["trauma_strike_self_damage_per_trauma"] = {
 			skill("SelfDamageTakenLife", nil),
 		},
+		["trauma_base_duration_ms"] = {
+			skill("duration", nil),
+			div = 1000,
+		},
 	},
 	baseFlags = {
 		attack = true,

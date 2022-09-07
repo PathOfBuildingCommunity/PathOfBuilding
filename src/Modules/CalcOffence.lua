@@ -2053,6 +2053,13 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("Multiplier:ExplosiveArrowStageAfterFirst", "BASE", maximum - 1, "Base")
 		end
 
+		--Calculates the max number of trauma stacks you can sustain
+		if activeSkill.activeEffect.grantedEffect.name == "Boneshatter" and skillModList:Sum("BASE", skillCfg, "Multiplier:TraumaStacks") == 0 then
+			local hitRate = m_floor(output.HitChance / 100 * globalOutput.Speed * globalOutput.ActionSpeedMod)
+			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
+			skillModList:NewMod("Multiplier:TraumaStacks", "BASE", hitRate * duration, "Base")
+		end
+
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(nil, "NeverCrit") then
 			output.PreEffectiveCritChance = 0
