@@ -1610,10 +1610,8 @@ function calcs.offence(env, actor, activeSkill)
 				-- compute trauma using exact form.
 				local trauma = traumaPerAttack * output.HitChance / 100 / baseTime * (1 + inc / 100) * more * globalOutput.ActionSpeedMod / output.Repeats / ( 1 / duration - traumaPerAttack * output.HitChance / 100 / baseTime * speedPerTrauma / 100 * more * globalOutput.ActionSpeedMod / output.Repeats )
 				skillModList:NewMod("Multiplier:TraumaStacks", "BASE", trauma, "Base")
-				ConPrintf(trauma)
 				inc = skillModList:Sum("INC", cfg, "Speed")
 			end
-
 			output.Speed = 1 / baseTime * round((1 + inc/100) * more, 2)
 			output.CastRate = output.Speed
 			if skillFlags.selfCast then
@@ -1685,6 +1683,8 @@ function calcs.offence(env, actor, activeSkill)
 			output.HitSpeed = 1 / output.HitTime
 		end
 	end
+
+	output.Trauma = activeSkill.activeEffect.grantedEffect.name == "Boneshatter" and skillModList:Sum("BASE", skillCfg, "Multiplier:TraumaStacks")
 
 	if isAttack then
 		-- Combine hit chance and attack speed
@@ -2065,8 +2065,6 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("Multiplier:ExplosiveArrowStage", "BASE", maximum, "Base")
 			skillModList:NewMod("Multiplier:ExplosiveArrowStageAfterFirst", "BASE", maximum - 1, "Base")
 		end
-
-
 
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(nil, "NeverCrit") then
