@@ -356,6 +356,9 @@ data.highPrecisionMods = {
 	["CritChance"] = {
 		["BASE"] = 2,
 	},
+	["SelfCritChance"] = {
+		["BASE"] = 2,
+	},
 	["LifeRegenPercent"] = {
 		["BASE"] = 2,
 	},
