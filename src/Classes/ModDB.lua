@@ -96,7 +96,7 @@ function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, sour
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or ( mod.source and mod.source:match("[^:]+") == source )) then
 					if mod[1] then
 						local value = context:EvalMod(mod, cfg) or 0
 						if mod[1].globalLimit and mod[1].globalLimitKey then
