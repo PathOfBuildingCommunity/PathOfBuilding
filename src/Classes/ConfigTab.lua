@@ -55,7 +55,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 7, function(buf, placeholder)
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, varData.effectBox and 144 or 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 7, function(buf, placeholder)
 					if placeholder then
 						self.placeholder[varData.var] = tonumber(buf)
 					else
@@ -236,6 +236,37 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			if varData.tooltipFunc then
 				control.tooltipFunc = varData.tooltipFunc
 			end
+			local effectBox = nil
+			if varData.effectBox then
+				effectBox = new("EditControl", {"TOPLEFT",control,"TOPLEFT"}, 94, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 7, function(buf, placeholder)
+					if placeholder then
+						self.placeholder[varData.effectBox.var] = tonumber(buf)
+					else
+						self.input[varData.effectBox.var] = tonumber(buf)
+						self:AddUndoState()
+						self:BuildModList()
+					end
+					self.build.buildFlag = true
+				end)
+				effectBox.tooltipText = "Sets the increased effect of " .. varData.label:gsub(":", "") .. " applied to the player"
+				control.effectBox = effectBox
+				self.input[varData.effectBox.var] = varData.effectBox.defaultState
+				self.varControls[varData.effectBox.var] = effectBox
+				self.placeholder[varData.effectBox.var] = varData.effectBox.defaultPlaceholderState
+				effectBox.placeholder = varData.effectBox.defaultPlaceholderState
+				t_insert(self.controls, effectBox)
+			end
+			if varData.removeBox then
+				t_insert(self.controls, new("ButtonControl", {"LEFT",effectBox or control,"RIGHT"}, 4, 0, 20, 20, "x", function()
+					self:AddUndoState()
+					control.shown = false
+					self:BuildModList()
+					self.build.buildFlag = true
+					self.input[varData.effectBox.var] = varData.effectBox.defaultState
+					self.input[varData.var] = varData.defaultState
+					self:UpdateControls()
+				end))
+			end
 			if varData.label and varData.type ~= "check" then
 				t_insert(self.controls, new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
 			end
@@ -245,10 +276,15 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				self.varControls[varData.var] = control
 				self.placeholder[varData.var] = varData.defaultPlaceholderState
 				control.placeholder = varData.defaultPlaceholderState
+				control.dontSave = varData.dontSave
+				control.saveShown = varData.saveShown
 				if varData.defaultIndex then
 					self.input[varData.var] = varData.list[varData.defaultIndex].val
 					control.selIndex = varData.defaultIndex
 				end
+			end
+			if varData.defaultHidden then
+				control.shown = false
 			end
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)
@@ -259,6 +295,13 @@ end)
 
 function ConfigTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
+		local control = nil
+		if node.attrib.name then
+			control = self.varControls[node.attrib.name]
+			if control.showIfLoaded then
+				control.shown = true
+			end
+		end
 		if node.elem == "Input" then
 			if not node.attrib.name then
 				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing name attribute", fileName)
@@ -293,19 +336,27 @@ function ConfigTabClass:Load(xml, fileName)
 				return true
 			end
 		end
+		if node.attrib.shown == "true" then
+			control.shown = true
+		end
 	end
 	self:BuildModList()
 	self:UpdateControls()
 	self:ResetUndo()
 end
 
-function ConfigTabClass:GetDefaultState(var, varType)
+function ConfigTabClass:GetDefaultState(var, val)
+	local varType = type(val)
+	
 	if self.placeholder[var] ~= nil then
 		return self.placeholder[var]
 	end
-
+	
 	for i = 1, #varList do
 		if varList[i].var == var then
+			if varList[i].dontSave then
+				return val
+			end
 			if varType == "number" then
 				return varList[i].defaultState or 0
 			elseif varType == "boolean" then
@@ -326,7 +377,7 @@ end
 
 function ConfigTabClass:Save(xml)
 	for k, v in pairs(self.input) do
-		if v ~= self:GetDefaultState(k, type(v)) then
+		if v ~= self:GetDefaultState(k, v) then
 			local child = { elem = "Input", attrib = { name = k } }
 			if type(v) == "number" then
 				child.attrib.number = tostring(v)
@@ -334,6 +385,10 @@ function ConfigTabClass:Save(xml)
 				child.attrib.boolean = tostring(v)
 			else
 				child.attrib.string = tostring(v)
+			end
+			local control = self.varControls[k]
+			if control.saveShown and (type(control.shown) == "function" and control.shown() or control.shown) then
+				child.attrib.shown = "true"
 			end
 			t_insert(xml, child)
 		end
@@ -345,21 +400,27 @@ function ConfigTabClass:Save(xml)
 		else
 			child.attrib.string = tostring(v)
 		end
+		local control = self.varControls[k]
+		if control.saveShown and (type(control.shown) == "function" and control.shown() or control.shown) then
+			child.attrib.shown = "true"
+		end
 		t_insert(xml, child)
 	end
 end
 
 function ConfigTabClass:UpdateControls()
 	for var, control in pairs(self.varControls) do
-		if control._className == "EditControl" then
-			control:SetText(tostring(self.input[var] or ""))
-			if self.placeholder[var] then
-				control:SetPlaceholder(tostring(self.placeholder[var]))
+		if not control.dontSave then
+			if control._className == "EditControl" then
+				control:SetText(tostring(self.input[var] or ""))
+				if self.placeholder[var] then
+					control:SetPlaceholder(tostring(self.placeholder[var]))
+				end
+			elseif control._className == "CheckBoxControl" then
+				control.state = self.input[var]
+			elseif control._className == "DropDownControl" then
+				control:SelByValue(self.input[var], "val")
 			end
-		elseif control._className == "CheckBoxControl" then
-			control.state = self.input[var]
-		elseif control._className == "DropDownControl" then
-			control:SelByValue(self.input[var], "val")
 		end
 	end
 end
@@ -462,23 +523,26 @@ function ConfigTabClass:BuildModList()
 		if varData.apply then
 			if varData.type == "check" then
 				if input[varData.var] then
-					varData.apply(true, modList, enemyModList, self.build)
+					varData.apply(true, modList, enemyModList, self.build, varData.effectBox and input[varData.effectBox.var])
 				end
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
 				if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero") then
-					varData.apply(input[varData.var], modList, enemyModList, self.build)
+					varData.apply(input[varData.var], modList, enemyModList, self.build, varData.effectBox and input[varData.effectBox.var])
 				elseif placeholder[varData.var] and (placeholder[varData.var] ~= 0 or varData.type == "countAllowZero") then
-					varData.apply(placeholder[varData.var], modList, enemyModList, self.build)
+					varData.apply(placeholder[varData.var], modList, enemyModList, self.build, varData.effectBox and input[varData.effectBox.var])
 				end
 			elseif varData.type == "list" then
 				if input[varData.var] then
-					varData.apply(input[varData.var], modList, enemyModList, self.build)
+					varData.apply(input[varData.var], modList, enemyModList, self.build, varData.effectBox and input[varData.effectBox.var])
 				end
 			elseif varData.type == "text" then
 				if input[varData.var] then
-					varData.apply(input[varData.var], modList, enemyModList, self.build)
+					varData.apply(input[varData.var], modList, enemyModList, self.build, varData.effectBox and input[varData.effectBox.var])
 				end
 			end
+		end
+		if varData.dontSave then
+			input[varData.var] = nil
 		end
 	end
 end
