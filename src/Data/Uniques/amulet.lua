@@ -464,8 +464,8 @@ Requires Level 77
 Implicits: 1
 {tags:mana}(48-56)% increased Mana Regeneration Rate
 {tags:life}0.5% of Chaos Damage Leeched as Life
-{tags:caster,life}Lose (10-15) Life for each Enemy hit by your Spells
-{tags:attack,life}Lose (20-25) Life for each Enemy hit by your Attacks
+{tags:caster,life}Lose (10-15) Life per Enemy Hit with Spells
+{tags:attack,life}Lose (20-25) Life per Enemy Hit with Attacks
 Skills Chain +1 times
 {tags:speed}{variant:2}(30-40)% increased Projectile Speed
 {variant:1}{tags:chaos}Projectiles gain (15-20)% of Non-Chaos Damage as extra Chaos Damage per Chain
