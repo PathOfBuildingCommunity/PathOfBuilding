@@ -1962,7 +1962,7 @@ local specialModList = {
 		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Vengeance" }),
 	},
 	["attack damage is lucky if you[' ]h?a?ve blocked in the past (%d+) seconds"] = function(num) return {
-		flag("LuckyHits", { type = "Condition", var = "BlockedRecently"} )
+		flag("LuckyHits", nil, ModFlag.Attack, { type = "Condition", var = "BlockedRecently"} )
 	} end,
 	["hits ignore enemy monster physical damage reduction if you[' ]h?a?ve blocked in the past (%d+) seconds"] = function(num) return {
 		flag("IgnoreEnemyPhysicalDamageReduction", { type = "Condition", var = "BlockedRecently"} )
