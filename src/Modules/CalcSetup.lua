@@ -259,7 +259,7 @@ end
 -- 4. Merges modifiers for all allocated passive nodes
 -- 5. Builds a list of active skills and their supports (calcs.createActiveSkill)
 -- 6. Builds modifier lists for all active skills (calcs.buildActiveSkillModList)
-function calcs.initEnv(build, mode, override, specEnv, conditions)
+function calcs.initEnv(build, mode, override, specEnv)
 	-- accelerator variables
 	local cachedPlayerDB = specEnv and specEnv.cachedPlayerDB or nil
 	local cachedEnemyDB = specEnv and specEnv.cachedEnemyDB or nil
@@ -475,8 +475,8 @@ function calcs.initEnv(build, mode, override, specEnv, conditions)
 		end
 	end
 
-	if conditions then
-		for _, flag in ipairs(conditions) do
+	if override.conditions then
+		for _, flag in ipairs(override.conditions) do
 			modDB.conditions[flag] = true
 		end
 	end
@@ -1140,7 +1140,9 @@ function calcs.initEnv(build, mode, override, specEnv, conditions)
 				for _, gemInstance in ipairs(socketGroup.gemList) do
 					local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
 					if grantedEffect and not grantedEffect.support and gemInstance.enabled and grantedEffect.name == "Energy Blade" then
-						return calcs.initEnv(build, mode, override, specEnv, { "AffectedByEnergyBlade" })
+						override.conditions = override.conditions or { }
+						t_insert(override.conditions, "AffectedByEnergyBlade")
+						return calcs.initEnv(build, mode, override, specEnv)
 					end
 				end
 			end
