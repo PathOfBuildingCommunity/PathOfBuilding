@@ -632,7 +632,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			self:ReplaceNode(node,self.tree.nodes[id])
 		end
 
-		if node.type ~= "ClassStart" and node.type ~= "Socket" then
+		if node.type ~= "ClassStart" and node.type ~= "Socket" and not node.ascendancyName then
 			for nodeId, itemId in pairs(self.jewels) do
 				local item = self.build.itemsTab.items[itemId]
 				if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData then
