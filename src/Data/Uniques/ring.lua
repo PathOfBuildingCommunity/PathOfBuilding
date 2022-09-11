@@ -579,7 +579,7 @@ Requires Level 20
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {tags:jewellery_attribute}+(10-15) to all Attributes
-{variant:1}{tags:life}Regenerate (13.0-17.0) Life per second
+{variant:1}{tags:life}Regenerate (13-17) Life per second
 {tags:mana}(20-40)% increased Mana Regeneration Rate
 {variant:1}{tags:caster}20% reduced Effect of Curses on you
 {variant:2}{tags:caster}40% reduced Effect of Curses on you
@@ -805,7 +805,7 @@ Requires Level 22
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
 {tags:mana}+(30-60) to maximum Mana
-{tags:mana}Regenerate (3.0-6.0) Mana per second
+{tags:mana}Regenerate (3-6) Mana per second
 {tags:mana}-(4-8) to Total Mana Cost of Skills
 {tags:mana}8% of Damage taken Recouped as Mana
 ]],[[

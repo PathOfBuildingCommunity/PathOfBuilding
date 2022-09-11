@@ -439,9 +439,9 @@ LevelReq: 50
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:life}+(75-100) to maximum Life
-{variant:1,2,3}{tags:life}Regenerate (66.7-75.0) Life per second
-{variant:4}{tags:life}Regenerate (200.0-350.0) Life per second
-{tags:mana}Regenerate (8.0-10.0) Mana per second
+{variant:1,2,3}{tags:life}Regenerate (66.7-75) Life per second
+{variant:4}{tags:life}Regenerate (200-350) Life per second
+{tags:mana}Regenerate (8-10) Mana per second
 {variant:1}-40% to all Elemental Resistances
 {variant:3,4}-(15-25)% to all Elemental Resistances
 {variant:1}-10% to all maximum Resistances
@@ -812,7 +812,7 @@ LevelReq: 52
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
 {tags:jewellery_defense}+(800-1200) to Armour
-{tags:life}Regenerate (50.0-70.0) Life per second
+{tags:life}Regenerate (50-70) Life per second
 20% increased Stun Threshold
 {tags:jewellery_defense}10% reduced Armour per 50 Strength
 Imbalanced Guard

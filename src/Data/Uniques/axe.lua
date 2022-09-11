@@ -400,7 +400,7 @@ Implicits: 0
 +(8-12)% Chance to Block Attack Damage while Dual Wielding
 (60-80)% increased Physical Damage
 Counts as Dual Wielding
-+(8.00-10.00)% to Off Hand Critical Strike Chance
++(8-10)% to Off Hand Critical Strike Chance
 (50-70)% more Main Hand attack speed
 ]],[[
 Wings of Entropy

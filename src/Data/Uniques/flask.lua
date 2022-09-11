@@ -130,7 +130,7 @@ Creates Consecrated Ground on Use
 {variant:2}(20-40)% increased Duration
 {variant:3}(15-30)% reduced Duration
 Consecrated Ground created by this Flask has Tripled Radius
-{variant:1}+(1.0-2.0)% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
+{variant:1}+(1-2)% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
 {variant:2,3}(100-150)% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect
 Consecrated Ground created during Effect applies (7-10)% increased Damage taken to Enemies
 ]],[[

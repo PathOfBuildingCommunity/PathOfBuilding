@@ -33,7 +33,7 @@ Coral Amulet
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
-{tags:life}Regenerate (2.0-4.0) Life per second
+{tags:life}Regenerate (2-4) Life per second
 {variant:1}{tags:jewellery_defense,life}+100 to Evasion Rating while on Low Life
 {variant:2}{tags:jewellery_defense,life}+(150-250) to Evasion Rating while on Low Life
 {tags:life}+(30-50) to maximum Life
@@ -47,7 +47,7 @@ Coral Amulet
 Source: No longer obtainable
 Requires Level 36
 Implicits: 1
-{tags:life}Regenerate (2.0-4.0) Life per second
+{tags:life}Regenerate (2-4) Life per second
 {tags:jewellery_elemental}(50-70)% increased Fire Damage
 {tags:jewellery_defense,life}+100 to Evasion Rating while on Low Life
 {tags:life}+(30-50) to maximum Life
@@ -104,7 +104,7 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 16
 Implicits: 1
-{tags:life}Regenerate (1.00-2.00)% of Life per second
+{tags:life}Regenerate (1-2)% of Life per second
 {tags:life}+100 to maximum Life
 {variant:1}{tags:life}(20-25)% increased Life Recovery rate
 {variant:2}{tags:life}(20-25)% increased Life Regeneration rate
@@ -245,12 +245,12 @@ Variant: Pre 3.12.0
 Variant: Current
 Requires Level 74
 Implicits: 2
-{variant:1}{tags:life}Regenerate (2.0-4.0) Life per second
+{variant:1}{tags:life}Regenerate (2-4) Life per second
 {variant:2,3}{tags:life}Regenerate (1.2-1.6)% of Life per second
 {tags:attack,physical}Adds 10 to 20 Physical Damage to Attacks
 {tags:life}+(60-70) to maximum Life
-{variant:1,2}{tags:life}Regenerate (8.0-12.0) Life per second
-{variant:3}{tags:life}Regenerate (16.0-24.0) Life per second
+{variant:1,2}{tags:life}Regenerate (8-12) Life per second
+{variant:3}{tags:life}Regenerate (16-24) Life per second
 {tags:life}100% increased Life Recovery from Flasks
 Moving while Bleeding doesn't cause you to take extra Damage
 ]],[[
@@ -552,7 +552,7 @@ Grants Level 22 Hatred Skill
 {variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {variant:3}{tags:critical}+(18-35)% to Global Critical Strike Multiplier
 {variant:3}Bow Attacks have Culling Strike
-{variant:1,2}{tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
+{variant:1,2}{tags:life}(0.8-1)% of Cold Damage Leeched as Life
 {variant:1}Hatred has 50% less Reservation
 {variant:2,3}Hatred has 100% increased Mana Reservation Efficiency
 ]],[[
@@ -769,7 +769,7 @@ Coral Amulet
 League: Delve
 Requires Level 34
 Implicits: 1
-{tags:life}Regenerate (2.0-4.0) Life per second
+{tags:life}Regenerate (2-4) Life per second
 +3 to maximum number of Golems
 You cannot have non-Golem Minions
 25% reduced Golem Size
@@ -908,8 +908,8 @@ Implicits: 1
 {variant:1}(20-25)% increased Damage
 {variant:2}(30-40)% increased Damage
 {tags:life}+(50-70) to maximum Life
-{variant:1}{tags:mana}Regenerate (2.0-3.0) Mana per second
-{variant:2}{tags:mana}Regenerate (8.0-10.0) Mana per second
+{variant:1}{tags:mana}Regenerate (2-3) Mana per second
+{variant:2}{tags:mana}Regenerate (8-10) Mana per second
 {tags:mana}Temporal Chains has no Reservation if Cast as an Aura
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
@@ -962,7 +962,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 54
 Implicits: 1
-{tags:life}Regenerate (2.0-4.0) Life per second
+{tags:life}Regenerate (2-4) Life per second
 {tags:jewellery_attribute}+(30-40) to Intelligence
 {tags:chaos,jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
 Summon Raging Spirit has (20-30)% increased Duration

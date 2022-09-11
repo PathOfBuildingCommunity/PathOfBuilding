@@ -974,7 +974,7 @@ Requires Level 59, 27 Dex, 27 Int
 20% increased Movement Speed
 (10-20)% increased Movement Speed while Ignited
 +25% chance to be Ignited
-Regenerate (75.0-125.0) Life per second while Ignited
+Regenerate (75-125) Life per second while Ignited
 ]],[[
 Voidwalker
 Murder Boots

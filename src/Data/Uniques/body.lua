@@ -554,7 +554,7 @@ Source: Drops from unique{Fenumus, First of the Night}
 Implicits: 0
 +(30-40) to Intelligence
 (120-140)% increased Energy Shield
-Regenerate (80.0-100.0) Energy Shield per second
+Regenerate (80-100) Energy Shield per second
 Enemies affected by your Spider's Webs deal 10% reduced Damage
 Enemies affected by your Spider's Webs have -10% to All Resistances
 (50-70)% increased Aspect of the Spider Area of Effect
@@ -1183,8 +1183,8 @@ Implicits: 1
 {variant:2,3}+(60-80) to maximum Life
 {variant:1,2}1% increased Movement Speed per Frenzy Charge
 {variant:3}4% increased Movement Speed per Frenzy Charge
-{variant:1}Regenerate (15.0-20.0) Life per second per Endurance Charge
-{variant:2}Regenerate (20.0-30.0) Life per second per Endurance Charge
+{variant:1}Regenerate (15-20) Life per second per Endurance Charge
+{variant:2}Regenerate (20-30) Life per second per Endurance Charge
 {variant:3}Regenerate 75 Life per second per Endurance Charge
 {variant:1,2}100% increased Endurance, Frenzy and Power Charge Duration
 {variant:3}(100-200)% increased Endurance, Frenzy and Power Charge Duration
@@ -1200,7 +1200,7 @@ Implicits: 1
 6% increased Movement Speed per Frenzy Charge
 -2 to Maximum Endurance Charges
 -2 to Maximum Frenzy Charges
-Regenerate (100.0-140.0) Life per second per Endurance Charge
+Regenerate (100-140) Life per second per Endurance Charge
 ]],[[
 Saqawal's Nest
 Blood Raiment

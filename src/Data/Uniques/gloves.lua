@@ -47,7 +47,7 @@ League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 69, 98 Str
 (150-200)% increased Armour
-Regenerate (50.0-70.0) Life per second
+Regenerate (50-70) Life per second
 +(30-40)% to Fire Resistance
 3% increased Damage per Crab Barrier
 10% chance that if you would gain a Crab Barrier, you instead gain up to
@@ -489,7 +489,7 @@ League: Rampage
 Requires Level 15
 (6-9)% increased Attack Speed
 (80-120)% increased Armour and Evasion
-Regenerate (3.0-4.0) Life per second
+Regenerate (3-4) Life per second
 Recover 20% of Life on Rampage
 Kills grant an additional Vaal Soul if you have Rampaged Recently
 Rampage

@@ -277,7 +277,7 @@ Variant: Current
 Implicits: 1
 {variant:3}3% increased Movement Speed
 +(60-80) to maximum Life
-Regenerate (5.0-7.5) Life per second
+Regenerate (5-7.5) Life per second
 +30% to Lightning Resistance
 0.6% of Physical Attack Damage Leeched as Life
 {variant:1}+10% Chance to Block
@@ -873,8 +873,8 @@ Implicits: 2
 {variant:4}(240-300)% increased Armour and Energy Shield
 {variant:3}+(40-60) maximum Life
 {variant:1,2}Regenerate 6 Life per second
-{variant:3}Regenerate (15.0-20.0) Life per second
-{variant:4}Regenerate (100.0-200.0) Life per second
+{variant:3}Regenerate (15-20) Life per second
+{variant:4}Regenerate (100-200) Life per second
 {variant:1,2}+8% to maximum Fire Resistance
 {variant:3,4}+5% to maximum Fire Resistance
 +(20-25)% to Fire Resistance
@@ -912,7 +912,7 @@ Implicits: 2
 {variant:1}+8% to all Elemental Resistances
 {variant:2,3,4,5}+4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
-{variant:5}Regenerate (30.0-50.0) Life per Second
+{variant:5}Regenerate (30-50) Life per Second
 {variant:1,2,3,4}50% reduced Freeze Duration on you
 {variant:5}80% reduced Freeze Duration on you
 {variant:3}Regenerate 1% of Life per Second
@@ -1105,7 +1105,7 @@ Implicits: 1
 +5% chance to Suppress Spell Damage
 (160-220)% increased Evasion and Energy Shield
 +(40-60)% to Damage over Time Multiplier if you've dealt a Critical Strike in the past 8 seconds
-(2.0-2.5)% of Life Regenerated per Second if you've dealt a Critical Strike in the past 8 seconds
+(2-2.5)% of Life Regenerated per Second if you've dealt a Critical Strike in the past 8 seconds
 Lose (10-15)% of Energy Shield when you deal a Critical Strike
 Lose (10-15)% of Life when you deal a Critical Strike
 ]],[[
