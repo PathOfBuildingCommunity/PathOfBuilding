@@ -588,7 +588,7 @@ local skills, mod, flag, skill = ...
 #skill SupportMulticast
 	statMap = {
 		["support_echo_damage_+%_final"] = {
-			mod("Damage", "MORE", nil),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 		},
 		["support_multicast_cast_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
