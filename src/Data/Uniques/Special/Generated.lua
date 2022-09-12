@@ -384,7 +384,7 @@ for _, type in ipairs({ enduranceChargeMods, frenzyChargeMods, powerChargeMods }
 			if mod:match("[%+%-]?[%d%.]*%d+%%") then
 				mod = mod:gsub("([%d%.]*%d+)", function(num) return "(" .. num .. "-" .. tonumber(num) * tier .. ")" end)
 			elseif mod:match("%(%-?[%d%.]+%-%-?[%d%.]+%)%%") then
-				mod = mod:gsub("(%(%-?[%d%.]+%-)([%d%.]+)%)", function(preceding, higher) return preceding .. tonumber(higher) * tier .. ")" end)
+				mod = mod:gsub("(%(%-?[%d%.]+%-)(%-?[%d%.]+)%)", function(preceding, higher) return preceding .. tonumber(higher) * tier .. ")" end)
 			elseif mod:match("%(%d+%-%d+%) to %(%d+%-%d+%)") then
 				mod = mod:gsub("(%(%d+%-)(%d+)(%) to %(%d+%-)(%d+)%)", function(preceding, higher1, middle, higher2) return preceding .. higher1 * tier .. middle .. higher2 * tier .. ")" end)
 			end
