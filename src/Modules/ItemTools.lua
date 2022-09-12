@@ -100,7 +100,7 @@ function itemLib.applyRange(line, range, valueScalar)
 		end)
 		:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
 		:gsub("%-(%d+%%) more", function(num) return num.." less" end)
-		if numbers == 0 and line:match("(%d+)%%? ") then --If a mod contains x or x% and is not already a ranged value, then only the first number will be scalable as any following numbers will always be conditions or unscalable values.
+		if numbers == 0 and line:match("(%d+%.?%d*)%%? ") then --If a mod contains x or x% and is not already a ranged value, then only the first number will be scalable as any following numbers will always be conditions or unscalable values.
 			numbers = 1
 		end
 	return itemLib.applyValueScalar(line, valueScalar, numbers, precision)
