@@ -47,18 +47,12 @@ function itemLib.getLineRangeMinMax(line)
 	local rangeMin, rangeMax
 	line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
 		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
-		:gsub("(%+?)%((%-?%d+)%-(%d+)%)", 
+		:gsub("(%+?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)",
 		function(plus, min, max)
 			rangeMin = min
 			rangeMax = max
 			-- Don't need to return anything here
 			return ""
-		end)
-		:gsub("%((%d+%.?%d*)%-(%d+%.?%d*)%)",
-		function(min, max) 
-			rangeMin = min
-			rangeMax = max
-			return "" 
 		end)
 	-- may be returning nil, nil due to not being a range
 	-- will be strings if successful
@@ -68,25 +62,13 @@ end
 -- Apply range value (0 to 1) to a modifier that has a range: (x to x) or (x-x to x-x)
 function itemLib.applyRange(line, range, valueScalar)
 	local numbers = 0
-
+	local precision = nil
 	-- Create a line with ranges removed to check if the mod is a high precision mod.
 	local testLine = line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
 	:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
-	:gsub("(%+?)%((%-?%d+)%-(%d+)%)",
-	function(plus, min, max)
-		local numVal = (tonumber(min) + tonumber(max)) / 2
-		if numVal < 0 then
-			if plus == "+" then
-				plus = ""
-			end
-		end
-		return plus .. tostring(numVal)
-	end)
-	:gsub("%((%d+%.?%d*)%-(%d+%.?%d*)%)", function(min, max) return tostring((tonumber(min) + tonumber(max)) / 2) end)
+	:gsub("(%+?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", function(plus, min, max) return plus.."1" end)
 	:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
 	:gsub("%-(%d+%%) more", function(num) return num.." less" end)
-
-	local precision = nil
 	local modList, extra = modLib.parseMod(testLine)
 	if modList and not extra then
 		for _, mod in pairs(modList) do
@@ -104,7 +86,7 @@ function itemLib.applyRange(line, range, valueScalar)
 	end
 	line = line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
 		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
-		:gsub("(%+?)%((%-?%d+)%-(%d+)%)",
+		:gsub("(%+?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)",
 		function(plus, min, max)
 			numbers = numbers + 1
 			local power = 10 ^ (precision or 0)
@@ -115,13 +97,6 @@ function itemLib.applyRange(line, range, valueScalar)
 				end
 			end
 			return plus .. tostring(numVal)
-		end)
-		:gsub("%((%d+%.?%d*)%-(%d+%.?%d*)%)",
-		function(min, max)
-			numbers = numbers + 1
-			local power = 10 ^ precision
-			local numVal = m_floor((tonumber(min) + range * (tonumber(max) - tonumber(min))) * power + 0.5) / power
-			return tostring(numVal)
 		end)
 		:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
 		:gsub("%-(%d+%%) more", function(num) return num.." less" end)

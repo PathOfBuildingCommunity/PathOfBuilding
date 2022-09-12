@@ -1590,7 +1590,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 				label = label,
 				modList = { modId },
 				modId = modId,
-				haveRange = modString:match("%(%-?[%d%.]+%-[%d%.]+%)"),
+				haveRange = modString:match("%(%-?[%d%.]+%-%-?[%d%.]+%)"),
 			}
 		end
 	else
@@ -1602,7 +1602,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 				lastSeries = {
 					label = modString,
 					modList = { },
-					haveRange = modString:match("%(%-?[%d%.]+%-[%d%.]+%)"),
+					haveRange = modString:match("%(%-?[%d%.]+%-%-?[%d%.]+%)"),
 					statOrderKey = mod.statOrderKey,
 				}
 				t_insert(control.list, lastSeries)
@@ -1612,7 +1612,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 			end
 			t_insert(lastSeries.modList, 1, modId)
 			if #lastSeries.modList == 2 then
-				lastSeries.label = lastSeries.label:gsub("%d+%.?%d*","#"):gsub("%(#%-#%)","#")
+				lastSeries.label = lastSeries.label:gsub("%(%-?[%d%.]+%-%-?[%d%.]+%)","#"):gsub("%-?%d+%.?%d*","#")
 				lastSeries.haveRange = true
 			end
 		end
