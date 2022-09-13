@@ -1603,6 +1603,7 @@ function calcs.offence(env, actor, activeSkill)
 
 			--Calculates the max number of trauma stacks you can sustain
 			if activeSkill.activeEffect.grantedEffect.name == "Boneshatter" then
+				local effectiveAttackRateCap = data.misc.ServerTickRate * output.Repeats
 				local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 				local traumaPerAttack = 1 + m_min(skillModList:Sum("BASE", cfg, "ExtraTrauma"), 100) / 100
 				local incAttackSpeedPerTrauma = skillModList:Sum("INC", skillCfg, "SpeedPerTrauma")
@@ -1611,13 +1612,13 @@ function calcs.offence(env, actor, activeSkill)
 				local inc = skillModList:Sum("INC", cfg, "Speed") - incAttackSpeedPerTrauma * configTrauma -- remove trauma attack speed added by config.
 				local attackSpeedBeforeInc = 1 / baseTime * globalOutput.ActionSpeedMod * more
 				local incAttackSpeedPerTraumaCap = 0
-				if m_min(attackSpeedBeforeInc * (1 + inc / 100), data.misc.ServerTickRate) < data.misc.ServerTickRate then
-					incAttackSpeedPerTraumaCap = (data.misc.ServerTickRate - attackSpeedBeforeInc * (1 + inc / 100)) / attackSpeedBeforeInc * 100
+				if m_min(attackSpeedBeforeInc * (1 + inc / 100), effectiveAttackRateCap) < effectiveAttackRateCap then
+					incAttackSpeedPerTraumaCap = (effectiveAttackRateCap - attackSpeedBeforeInc * (1 + inc / 100)) / attackSpeedBeforeInc * 100
 				end
 				local traumaRateBeforeInc = traumaPerAttack * (output.HitChance / 100) * attackSpeedBeforeInc / output.Repeats
 				local trauma = traumaRateBeforeInc * (1 + inc / 100) / ( 1 / duration - traumaRateBeforeInc * incAttackSpeedPerTrauma / 100 )
 				if trauma < 0 or incAttackSpeedPerTrauma * trauma > incAttackSpeedPerTraumaCap then -- invalid long term trauma generation as maximum attack rate is once per tick.
-					trauma = traumaPerAttack * (output.HitChance / 100) * data.misc.ServerTickRate / output.Repeats * duration
+					trauma = traumaPerAttack * (output.HitChance / 100) * effectiveAttackRateCap / output.Repeats * duration
 				end
 				skillModList:NewMod("Multiplier:SustainableTraumaStacks", "BASE", trauma, "Maximum Sustainable Trauma Stacks")
 			end
