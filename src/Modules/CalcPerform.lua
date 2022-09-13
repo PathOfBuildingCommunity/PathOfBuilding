@@ -350,7 +350,7 @@ local function mergeBuff(src, destTable, destKey)
 	if not destTable[destKey] then
 		destTable[destKey] = new("ModList")
 	end
-	local dest = destTable[destKey]
+	local dest = destKey and destTable[destKey] or destTable
 	for _, mod in ipairs(src) do
 		local match = false
 		if mod.type ~= "LIST" then
@@ -1760,10 +1760,20 @@ function calcs.perform(env, avoidCache)
 	env.minionBuffs = minionBuffs
 	local debuffs = { }
 	env.debuffs = debuffs
-	local curses = { }
+	
+	-- Set curse limit
+	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit")
+	output.SelfCurseLimit = modDB:Sum("BASE", nil, "SelfCurseLimit")
+	local curses = {
+		limit = output.EnemyCurseLimit
+	 }
 	local minionCurses = {
 		limit = 1,
 	}
+	local playerCurses = {
+		limit = output.SelfCurseLimit
+	}
+
 	for spectreId = 1, #env.spec.build.spectreList do
 		local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
 		for modId = 1, #spectreData.modList do
@@ -1954,7 +1964,10 @@ function calcs.perform(env, avoidCache)
 							curse.minionBuffModList:ScaleAddList(temp, (1 + buffInc / 100) * buffMore)
 						end
 					end
-					t_insert(curses, curse)	
+					t_insert(curses, curse)
+					if modDB:Flag({slotName = activeSkill.slotName}, "CurseAurasAlsoAffectYou") then
+						t_insert(playerCurses, curse)
+					end
 				end
 			end
 			::disableAura::
@@ -2097,50 +2110,54 @@ function calcs.perform(env, avoidCache)
 					level = value.level,
 					quality = 0,
 				})
-				local curseModList = { }
+
+				local modScale = nil
+				if value.applyToPlayer then
+					local cfg = { skillName = grantedEffect.name }
+					local inc = modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
+					local more = modDB:More(cfg, "CurseEffectOnSelf") * gemModList:More(nil, "CurseEffectAgainstPlayer")
+					local configInc = value.effect and (1 + value.effect / 100) or 1
+					modScale = (1 + inc / 100) * more * configInc
+				else
+					modScale = (1 + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * enemyDB:More(nil, "CurseEffectOnSelf")
+				end
+				
+				local curseModList = new("ModList")
 				for _, mod in ipairs(gemModList) do
 					for _, tag in ipairs(mod) do
 						if tag.type == "GlobalEffect" and tag.effectType == "Curse" then
-							t_insert(curseModList, mod)
+							curseModList:ScaleAddMod(mod, modScale)
 							break
 						end
 					end
 				end
-				if value.applyToPlayer then
-					-- Sources for curses on the player don't usually respect any kind of limit, so there's little point bothering with slots
-					if modDB:Sum("BASE", nil, "AvoidCurse") < 100 then
-						modDB.conditions["Cursed"] = true
-						modDB.multipliers["CurseOnSelf"] = (modDB.multipliers["CurseOnSelf"] or 0) + 1
-						modDB.conditions["AffectedBy"..grantedEffect.name:gsub(" ","")] = true
-						local cfg = { skillName = grantedEffect.name }
-						local inc = modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
-						local more = modDB:More(cfg, "CurseEffectOnSelf") * gemModList:More(nil, "CurseEffectAgainstPlayer")
-						local configInc = value.effect and (1 + value.effect / 100) or 1
-						modDB:ScaleAddList(curseModList, (1 + inc / 100) * more * configInc)
-					end
+
+				local curse = {
+					name = grantedEffect.name,
+					fromPlayer = (dest == curses),
+					priority = determineCursePriority(grantedEffect.name),
+					modList = curseModList,
+				}
+				if value.applyToPlayer and ( modDB:Sum("BASE", nil, "AvoidCurse") < 100 ) then
+					modDB.conditions["Cursed"] = true
+					modDB.conditions["AffectedBy"..grantedEffect.name:gsub(" ","")] = true
+					t_insert(playerCurses, curse)
 				elseif not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") then
-					local curse = {
-						name = grantedEffect.name,
-						fromPlayer = (dest == curses),
-						priority = determineCursePriority(grantedEffect.name),
-					}
-					curse.modList = new("ModList")
-					curse.modList:ScaleAddList(curseModList, (1 + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * enemyDB:More(nil, "CurseEffectOnSelf"))
 					t_insert(dest, curse)
 				end
 			end
 		end
 	end
 
-	-- Set curse limit
-	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit")
-	curses.limit = output.EnemyCurseLimit
 	-- Assign curses to slots
 	local curseSlots = { }
 	env.curseSlots = curseSlots
+	local playerCurseSlots = {}
+	env.playerCurseSlots = playerCurseSlots
 	-- Currently assume only 1 mark is possible
 	local markSlotted = false
-	for _, source in ipairs({curses, minionCurses}) do
+
+	for source, slots in pairs({[curses] = curseSlots, [minionCurses] = curseSlots, [playerCurses] = playerCurseSlots}) do
 		for _, curse in ipairs(source) do
 			-- Calculate curses that ignore hex limit after
 			if not curse.ignoreHexLimit and not curse.socketedCursesHexLimit then
@@ -2170,26 +2187,26 @@ function calcs.perform(env, avoidCache)
 							break
 						end
 					end
-					if not curseSlots[i] then
+					if not slots[i] then
 						slot = i
 						break
-					elseif curseSlots[i].name == curse.name then
-						if curseSlots[i].priority < curse.priority then
+					elseif slots[i].name == curse.name then
+						if slots[i].priority < curse.priority then
 							slot = i
 						else
 							slot = nil
 						end
 						break
-					elseif curseSlots[i].priority < curse.priority then
+					elseif slots[i].priority < curse.priority then
 						slot = i
 					end
 				end
 				if slot then
-					if curseSlots[slot] and curseSlots[slot].isMark then
+					if slots[slot] and slots[slot].isMark then
 						markSlotted = false
 					end
 					if skipAddingCurse == false then
-						curseSlots[slot] = curse
+						slots[slot] = curse
 					end
 					if curse.isMark then
 						markSlotted = true
@@ -2199,32 +2216,32 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
-	for _, source in ipairs({curses, minionCurses}) do
+	for source, slots in pairs({[curses] = curseSlots, [minionCurses] = curseSlots, [playerCurses] = playerCurseSlots}) do
 		for _, curse in ipairs(source) do
 			if curse.ignoreHexLimit then 	
 				local skipAddingCurse = false
-				for i = 1, #curseSlots do
-					if curseSlots[i].name == curse.name then
+				for i = 1, #slots do
+					if slots[i].name == curse.name then
 						-- if curse is higher priority, replace current curse with it, otherwise if same or lower priority skip it entirely
-						if curseSlots[i].priority < curse.priority then
-							curseSlots[i] = curse
+						if slots[i].priority < curse.priority then
+							slots[i] = curse
 						end
 						skipAddingCurse = true
 						break
 					end
 				end
 				if not skipAddingCurse then
-					curseSlots[#curseSlots + 1] = curse
+					slots[#slots + 1] = curse
 				end
 			end
 			if curse.socketedCursesHexLimit then 	
 				local socketedCursesHexLimitValue = modDB:Sum("BASE", nil, "SocketedCursesHexLimitValue")
 				local skipAddingCurse = false
-				for i = 1, #curseSlots do
-					if curseSlots[i].name == curse.name then
+				for i = 1, #slots do
+					if slots[i].name == curse.name then
 						-- if curse is higher priority, replace current curse with it, otherwise if same or lower priority skip it entirely
-						if curseSlots[i].priority < curse.priority then
-							curseSlots[i] = curse
+						if slots[i].priority < curse.priority then
+							slots[i] = curse
 						end
 						skipAddingCurse = true
 						break
@@ -2234,7 +2251,7 @@ function calcs.perform(env, avoidCache)
 					end
 				end
 				if not skipAddingCurse then
-					curseSlots[#curseSlots + 1] = curse
+					slots[#slots + 1] = curse
 				end
 			end
 		end
@@ -2288,6 +2305,7 @@ function calcs.perform(env, avoidCache)
 		enemyDB:AddList(modList)
 	end
 	modDB.multipliers["CurseOnEnemy"] = #curseSlots
+	modDB.multipliers["CurseOnSelf"] = #playerCurseSlots
 	local affectedByCurse = { }
 	for _, slot in ipairs(curseSlots) do
 		enemyDB.conditions["Cursed"] = true
@@ -2305,6 +2323,17 @@ function calcs.perform(env, avoidCache)
 		end
 		if slot.minionBuffModList then
 			env.minion.modDB:AddList(slot.minionBuffModList)
+		end
+	end
+	for _, slot in ipairs(playerCurseSlots) do
+		if slot.isMark then
+			modDB.conditions["Marked"] = true
+		end
+		if slot.modList then
+			modDB:AddList(slot.modList)
+		end
+		if slot.buffModList then
+			enemyDB:AddList(slot.buffModList)
 		end
 	end
 	
