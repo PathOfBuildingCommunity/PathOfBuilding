@@ -1964,8 +1964,11 @@ function calcs.perform(env, avoidCache)
 							curse.minionBuffModList:ScaleAddList(temp, (1 + buffInc / 100) * buffMore)
 						end
 					end
-					t_insert(curses, curse)
-					if modDB:Flag({slotName = activeSkill.slotName}, "CurseAurasAlsoAffectYou") then
+					local isCurseReflected = modDB:Flag({slotName = activeSkill.slotName}, "HexesAreReflectedToYou") and not activeSkill.skillTypes[SkillType.Aura]
+					if not isCurseReflected then
+						t_insert(curses, curse)
+					end
+					if modDB:Flag({slotName = activeSkill.slotName}, "CurseAurasAlsoAffectYou") or isCurseReflected then
 						t_insert(playerCurses, curse)
 					end
 				end
