@@ -4380,7 +4380,7 @@ skills["ForbiddenRite"] = {
 		local chaosFlat = floor(round(basetakenFlat * chaosDamageTaken), 0)
 		if activeSkill.skillFlags.totem then
 			life = output.TotemLife
-			energyShield = 0
+			energyShield = output.TotemEnergyShield
 			chaosResistance = output.TotemChaosResist
 		else
 			life = output.Life
@@ -8342,7 +8342,7 @@ skills["RighteousFire"] = {
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillFlags.totem then
-			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * activeSkill.skillData.RFLifeMultiplier
+			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * activeSkill.skillData.RFLifeMultiplier + output.TotemEnergyShield * activeSkill.skillData.RFESMultiplier
 		else
 			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.Life * activeSkill.skillData.RFLifeMultiplier + output.EnergyShield * activeSkill.skillData.RFESMultiplier
 		end
