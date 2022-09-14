@@ -1310,7 +1310,7 @@ Variant: Current
 +20 to Strength
 {variant:1,2,3,4,5}(20-30)% increased Lightning Damage
 {variant:1,2,3,4,5}+10% to Lightning Resistance
-{variant:6}+(25-30)% to Lightning Resistance
+{variant:6}+(20-30)% to Lightning Resistance
 {variant:6}Spells have a 20% chance to deal Double Damage
 {variant:1}100% increased Mana Cost of Skills
 {variant:2}20% increased Mana Cost of Skills
