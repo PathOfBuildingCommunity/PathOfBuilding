@@ -947,7 +947,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			local socketGroup = build.skillsTab.socketGroupList[index]
 			local socketGroupSkillList = { }
 			local slot = socketGroup.slot and build.itemsTab.slots[socketGroup.slot]
-			--Needed to stop gems with more than one effect applying more than one socket mod
+			-- Used to stop gems with multiple effects applying multiple socket mods
 			local processedSockets = {}
 			socketGroup.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
 			if index == env.mainSocketGroup or (socketGroup.enabled and socketGroup.slotEnabled) then
@@ -1014,10 +1014,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 								if not processedSockets[gemInstance] then
 									processedSockets[gemInstance] = true
 									applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
-									-- Keep track of the count of gems of each color socketed in this group
-									groupCfg["intelligenceGems"] = (groupCfg["intelligenceGems"] or 0) + (gemInstance.gemData.tags["intelligence"] and 1 or 0)
-									groupCfg["dexterityGems"] = (groupCfg["dexterityGems"] or 0) + (gemInstance.gemData.tags["dexterity"] and 1 or 0)
-									groupCfg["strengthGems"] = (groupCfg["strengthGems"] or 0) + (gemInstance.gemData.tags["strength"] and 1 or 0)
+									-- Keep track of the gem count for each color socketed in this group
+									groupCfg.intelligenceGems = (groupCfg.intelligenceGems or 0) + (gemInstance.gemData.tags["intelligence"] and 1 or 0)
+									groupCfg.dexterityGems = (groupCfg.dexterityGems or 0) + (gemInstance.gemData.tags["dexterity"] and 1 or 0)
+									groupCfg.strengthGems = (groupCfg.strengthGems or 0) + (gemInstance.gemData.tags["strength"] and 1 or 0)
 								end
 							end
 							-- Validate support gem level in case there is no active skill (and no full calculation)
@@ -1088,7 +1088,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 									if not processedSockets[gemInstance] then
 										processedSockets[gemInstance] = true
 										applySocketMods(env, gemInstance.gemData, groupCfg, gemIndex, playerItems[groupCfg.slotName] and playerItems[groupCfg.slotName].name)
-										-- Keep track of the count of gems of each color socketed in this group
+										-- Keep track of the gem count for each color socketed in this group
 										groupCfg["intelligenceGems"] = (groupCfg["intelligenceGems"] or 0) + (gemInstance.gemData.tags["intelligence"] and 1 or 0)
 										groupCfg["dexterityGems"] = (groupCfg["dexterityGems"] or 0) + (gemInstance.gemData.tags["dexterity"] and 1 or 0)
 										groupCfg["strengthGems"] = (groupCfg["strengthGems"] or 0) + (gemInstance.gemData.tags["strength"] and 1 or 0)

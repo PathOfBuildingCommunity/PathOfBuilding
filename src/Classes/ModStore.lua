@@ -505,7 +505,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			elseif tag.sockets ~= nil and tag.sockets == "all" and tag.socketColor ~= nil then
 					local targetAtrColor = tag.socketColor == "R" and "strengthGems" or tag.socketColor == "G" and "dexterityGems" or tag.socketColor == "B" and "intelligenceGems"
-					local total = (cfg["intelligenceGems"] or 0) + (cfg["dexterityGems"] or 0) + (cfg["strengthGems"] or 0)
+					local total = (cfg.intelligenceGems or 0) + (cfg.dexterityGems or 0) + (cfg.strengthGems or 0)
 					local count = cfg[targetAtrColor] or 0
 					if total == 0 or count == 0 or total > count then
 						return
@@ -513,7 +513,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 			elseif tag.sockets ~= nil and type(tag.sockets) == "number" and tag.socketColor ~= nil then
 					local targetAtrColor = tag.socketColor == "R" and "strengthGems" or tag.socketColor == "G" and "dexterityGems" or tag.socketColor == "B" and "intelligenceGems"
 					local count = cfg[targetAtrColor] or 0
-					if target == 0 or count < tag.sockets then
+					if count == 0 or count < tag.sockets then
 						return
 					end
 			elseif tag.sockets ~= nil and type(tag.sockets) == "table" then
