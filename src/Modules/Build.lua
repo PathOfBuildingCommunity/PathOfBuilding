@@ -318,10 +318,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
 		{ stat = "BrandAttachmentRange", label = "Attachment Range", fmt = "d", flag = "brand" },
 		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
-		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", color = colorCodes.MANA, pool = "Mana", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaHasCost end, warnFunc = function(v,o) return (o.ManaCostWarning or (v > o.ManaUnreserved)) and "You do not have enough Mana to use a Selected Skill" end},
-		{ stat = "LifeCost", label = "Life Cost", fmt = "d", color = colorCodes.LIFE, pool = "Life", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifeHasCost end, warnFunc = function(v,o) return (o.LifeCostWarning or (v > o.LifeUnreserved)) and "You do not have enough Life to use a Selected Skill" end },
-		{ stat = "ESCost", label = "Energy Shield Cost", fmt = "d", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESHasCost end },
-		{ stat = "RageCost", label = "Rage Cost", fmt = "d", color = colorCodes.RAGE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RageHasCost end },
+		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", color = colorCodes.MANA, pool = "Mana", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaHasCost end, warnFunc = function(v,o) return (o.EnergyShieldProtectsMana and (v > (o.ManaUnreserved + o.EnergyShield)) or (v > o.ManaUnreserved)) and "You do not have enough Mana to use a Selected Skill" end },
+		{ stat = "LifeCost", label = "Life Cost", fmt = "d", color = colorCodes.LIFE, pool = "Life", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifeHasCost end, warnFunc = function(v,o) return (v > o.LifeUnreserved) and "You do not have enough Life to use a Selected Skill" end },
+		{ stat = "ESCost", label = "Energy Shield Cost", fmt = "d", color = colorCodes.ES, pool = "EnergyShield", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESHasCost end, warnFunc = function(v,o) return (v > o.EnergyShield) and "You do not have enough EnergyShield to use a Selected Skill" end },
+		{ stat = "RageCost", label = "Rage Cost", fmt = "d", color = colorCodes.RAGE, pool = "Rage", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RageHasCost end, warnFunc = function(v,o) return (v > o.Rage) and "You do not have enough Rage to use a Selected Skill" end },
 		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPercentHasCost end },
 		{ stat = "LifePercentCost", label = "Life Cost", fmt = "d%%", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePercentHasCost end },
 		{ stat = "ManaPerSecondCost", label = "Mana Cost", fmt = ".2f/s", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPerSecondHasCost end },
@@ -1352,6 +1352,11 @@ function buildMode:AddDisplayStatList(statList, actor)
 			elseif not statBoxList[#statBoxList] or statBoxList[#statBoxList][1] then
 				t_insert(statBoxList, { height = 6 })
 			end
+		end
+	end
+	for pool, warningFlag in pairs({["Life"] = "LifeCostWarning", ["Mana"] = "ManaCostWarning", ["Rage"] = "RageCostWarning", ["Energy Shield"] = "ESCostWarning"}) do
+		if actor.output[warningFlag] then
+			InsertIfNew(self.controls.warnings.lines, s_format("You do not have enough %s to use a Selected Skill", pool))
 		end
 	end
 end
