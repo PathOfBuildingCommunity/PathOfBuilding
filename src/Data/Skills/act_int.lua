@@ -1540,6 +1540,9 @@ skills["Clarity"] = {
 		["damage_+%_on_full_mana"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullMana" }, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["flask_mana_to_recover_+%"] = {
+			mod("FlaskManaRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -1617,7 +1620,7 @@ skills["VaalClarity"] = {
 	castTime = 0,
 	statMap = {
 		["no_mana_cost"] = {
-			mod("ManaCost", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ManaCost", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true}),
 			value = -100,
 		},
 	},
@@ -7772,6 +7775,9 @@ skills["Purity"] = {
 		["reduce_enemy_elemental_resistance_%"] = {
 			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["immune_to_status_ailments"] = {
+			--Display only
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -7780,13 +7786,13 @@ skills["Purity"] = {
 	},
 	baseMods = {
 		skill("radius", 40),
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("AvoidSap", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("AvoidBrittle", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("AvoidScorch", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidSap", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidBrittle", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidScorch", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -7946,11 +7952,17 @@ skills["LightningImpurity"] = {
 	castTime = 0,
 	statMap = {
 		["hits_ignore_my_lightning_resistance"] = {
-			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "Debuff" })
+			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "AuraDebuff" })
 		},
 		["base_maximum_lightning_damage_resistance_%"] = {
 			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["base_immune_to_shock"] = {
+			--Display only
+		},
+	},
+	baseMods = {
+		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	baseFlags = {
 		spell = true,
@@ -11215,6 +11227,9 @@ skills["TempestShield"] = {
 		["shield_spell_block_%"] = {
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["skill_display_buff_grants_shock_immunity"] = {
+			--Display only
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -11222,7 +11237,7 @@ skills["TempestShield"] = {
 		chaining = true,
 	},
 	baseMods = {
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
