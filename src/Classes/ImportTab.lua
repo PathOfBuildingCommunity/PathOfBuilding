@@ -236,7 +236,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 
 		self.importCodeDetail = colorCodes.NEGATIVE.."Invalid input"
 		local urlText = buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
-		if urlText:match("youtube%.com/redirect%?") then
+		if urlText:match("youtube%.com/redirect%?") or urlText:match("google%.com/url%?") then
 			local nested_url = urlText:gsub(".*[?&]q=([^&]+).*", "%1")
 			urlText = UrlDecode(nested_url)
 		end
