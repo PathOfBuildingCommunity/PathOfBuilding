@@ -676,7 +676,7 @@ return {
 		{ breakdown = "TotemEnergyShield" },
 		{ modName = "TotemEnergyShield", cfg = "skill" },
 	}, },
-	{ label = "Totem block chance", haveOutput = "TotemBlockChance", { format = "{0:output:TotemBlockChance}%", 
+	{ label = "Totem Block Chance", haveOutput = "TotemBlockChance", { format = "{0:output:TotemBlockChance}%", 
 		{ breakdown = "TotemBlockChance" },
 		{ modName = "TotemBlockChance", cfg = "skill" },
 	}, },
