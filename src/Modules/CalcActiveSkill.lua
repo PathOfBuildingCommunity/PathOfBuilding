@@ -110,7 +110,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 		end
 	end
 
-	-- loop over rejected supports unitl none are added.
+	-- loop over rejected supports until none are added.
 	-- Makes sure that all skillType flags that should be added are added regardless of support gem order in group
 	local notAddedNewSupport = true
 	repeat
