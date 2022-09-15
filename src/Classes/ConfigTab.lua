@@ -276,7 +276,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				self.varControls[varData.var] = control
 				self.placeholder[varData.var] = varData.defaultPlaceholderState
 				control.placeholder = varData.defaultPlaceholderState
-				control.dontSave = varData.dontSave
+				control.noSave = varData.noSave
 				control.saveShown = varData.saveShown
 				if varData.defaultIndex then
 					self.input[varData.var] = varData.list[varData.defaultIndex].val
@@ -354,7 +354,7 @@ function ConfigTabClass:GetDefaultState(var, val)
 	
 	for i = 1, #varList do
 		if varList[i].var == var then
-			if varList[i].dontSave then
+			if varList[i].noSave then
 				return val
 			end
 			if varType == "number" then
@@ -410,7 +410,7 @@ end
 
 function ConfigTabClass:UpdateControls()
 	for var, control in pairs(self.varControls) do
-		if not control.dontSave then
+		if not control.noSave then
 			if control._className == "EditControl" then
 				control:SetText(tostring(self.input[var] or ""))
 				if self.placeholder[var] then
@@ -541,7 +541,7 @@ function ConfigTabClass:BuildModList()
 				end
 			end
 		end
-		if varData.dontSave then
+		if varData.noSave then
 			input[varData.var] = nil
 		end
 	end
