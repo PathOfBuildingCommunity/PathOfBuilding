@@ -1492,6 +1492,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	local storedMainHandAccuracy = nil
+	local storedSustainedTraumaBreakdown = { }
 	for _, pass in ipairs(passList) do
 		globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
@@ -1617,10 +1618,66 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local traumaRateBeforeInc = traumaPerAttack * (output.HitChance / 100) * attackSpeedBeforeInc / output.Repeats
 				local trauma = traumaRateBeforeInc * (1 + inc / 100) / ( 1 / duration - traumaRateBeforeInc * incAttackSpeedPerTrauma / 100 )
+				local traumaBreakdown = trauma
+				local invalid = false
 				if trauma < 0 or incAttackSpeedPerTrauma * trauma > incAttackSpeedPerTraumaCap then -- invalid long term trauma generation as maximum attack rate is once per tick.
 					trauma = traumaPerAttack * (output.HitChance / 100) * effectiveAttackRateCap / output.Repeats * duration
+					invalid = true
 				end
 				skillModList:NewMod("Multiplier:SustainableTraumaStacks", "BASE", trauma, "Maximum Sustainable Trauma Stacks")
+				if breakdown then
+					storedSustainedTraumaBreakdown = { }
+					if incAttackSpeedPerTrauma == 0 then
+						breakdown.multiChain(storedSustainedTraumaBreakdown, {
+							label = "Attack Speed",
+							base = s_format("%.2f ^8(base)", 1 / baseTime),
+							{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
+							{ "%.2f ^8(more/less)", more },
+							{ "%.2f ^8(action speed modifier)", globalOutput.ActionSpeedMod },
+							total = s_format("= %.2f ^8attacks per second", attackSpeedBeforeInc * (1 + inc/100))
+						})
+						breakdown.multiChain(storedSustainedTraumaBreakdown, {
+							label = "Trauma",
+							base = s_format("%.2f ^8(base)", attackSpeedBeforeInc * (1 + inc/100)),
+							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
+							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
+							{ "%.2f ^8(duration)", duration }
+						})
+						t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
+					else
+						breakdown.multiChain(storedSustainedTraumaBreakdown, {
+							label = "Attack Speed before increased Attack Speed",
+							base = s_format("%.2f ^8(base)", 1 / baseTime),
+							{ "%.2f ^8(more/less)", more },
+							{ "%.2f ^8(action speed modifier)", globalOutput.ActionSpeedMod },
+							total = s_format("= %.2f ^8attacks per second", attackSpeedBeforeInc)
+						})
+						breakdown.multiChain(storedSustainedTraumaBreakdown, {
+							label = "Trauma per second before increased Attack Speed",
+							base = s_format("%.2f ^8(base)", attackSpeedBeforeInc),
+							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
+							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
+						})
+						t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
+						t_insert(storedSustainedTraumaBreakdown, s_format("= %.2f ^8trauma per second", traumaRateBeforeInc))
+						t_insert(storedSustainedTraumaBreakdown, "Trauma")
+						t_insert(storedSustainedTraumaBreakdown, s_format("%.2f ^8(base)", traumaRateBeforeInc))
+						t_insert(storedSustainedTraumaBreakdown, s_format("x %.2f ^8(increased/reduced)", (1 + inc / 100)))
+						t_insert(storedSustainedTraumaBreakdown, s_format("/ %.4f ^8(1 / duration - trauma per second * increased attack speed per trauma / 100)", ( 1 / duration - traumaRateBeforeInc * incAttackSpeedPerTrauma / 100 )))
+					end
+					t_insert(storedSustainedTraumaBreakdown, s_format("= "..(invalid and "^1" or "").."%d ^8(trauma)", traumaBreakdown))
+					if invalid then
+						t_insert(storedSustainedTraumaBreakdown, "Attack Speed exceeds cap recalculating")
+						breakdown.multiChain(storedSustainedTraumaBreakdown, {
+							base = s_format("%.2f ^8(base)", effectiveAttackRateCap),
+							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
+							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
+							{ "%.2f ^8(duration)", (duration) },
+						})
+						t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
+						t_insert(storedSustainedTraumaBreakdown, s_format("= %d ^8(trauma)", trauma))
+					end
+				end
 			end
 			if skillModList:Sum("BASE", skillCfg, "Multiplier:TraumaStacks") == 0 then
 				skillModList:NewMod("Multiplier:TraumaStacks", "BASE", skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks"), "Maximum Sustainable Trauma Stacks")
@@ -1697,7 +1754,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.HitSpeed = 1 / output.HitTime
 		end
 	end
-
+	if breakdown then
+		breakdown.SustainableTrauma = storedSustainedTraumaBreakdown
+	end
 	output.SustainableTrauma = activeSkill.activeEffect.grantedEffect.name == "Boneshatter" and skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks")
 
 	if isAttack then
