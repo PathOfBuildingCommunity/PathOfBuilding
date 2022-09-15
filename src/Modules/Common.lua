@@ -726,7 +726,7 @@ function wipeGlobalCache()
 	wipeTable(GlobalCache.cachedData.CACHE)
 	wipeTable(GlobalCache.excludeFullDpsList)
 	wipeTable(GlobalCache.deleteGroup)
-	GlobalCache.dontUseCache = nil
+	GlobalCache.noCache = nil
 end
 
 -- Full DPS related: add to roll-up exclusion list
