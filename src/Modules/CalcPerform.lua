@@ -2134,12 +2134,12 @@ function calcs.perform(env, avoidCache)
 						end
 					end
 				end
-
 				local curse = {
 					name = grantedEffect.name,
 					fromPlayer = (dest == curses),
 					priority = determineCursePriority(grantedEffect.name),
 					modList = curseModList,
+					ignoreHexLimit = value.ignoreHexLimit,					
 				}
 				if value.applyToPlayer and ( modDB:Sum("BASE", nil, "AvoidCurse") < 100 ) then
 					modDB.conditions["Cursed"] = true
