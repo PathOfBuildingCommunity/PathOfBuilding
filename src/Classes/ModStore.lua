@@ -511,13 +511,13 @@ function ModStoreClass:EvalMod(mod, cfg)
 					if total == 0 or count == 0 or total > count then
 						return
 					end
-				elseif tag.sockets ~= nil and type(tag.sockets) == "number" and tag.socketColor ~= nil then
+				elseif type(tag.sockets) == "number" and tag.socketColor ~= nil then
 					local targetAtrColor = tag.socketColor == "R" and "strengthGems" or tag.socketColor == "G" and "dexterityGems" or tag.socketColor == "B" and "intelligenceGems"
 					local count = cfg[targetAtrColor] or 0
 					if count == 0 or count < tag.sockets then
 						return
 					end
-				elseif tag.sockets ~= nil and type(tag.sockets) == "table" then
+				elseif type(tag.sockets) == "table" then
 					if cfg.socketNum == nil then return end
 					local notFound = true
 					for _, val in ipairs(tag.sockets) do
