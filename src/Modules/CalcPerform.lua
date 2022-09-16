@@ -934,6 +934,9 @@ local function doActorMisc(env, actor)
 			local effect = m_floor(8 * (1 + modDB:Sum("INC", nil, "TailwindEffectOnSelf", "BuffEffectOnSelf") / 100))
 			modDB:NewMod("ActionSpeed", "INC", effect, "Tailwind")
 		end
+		if modDB:Flag(nil, "Condition:TotemTailwind") then
+			modDB:NewMod("TotemActionSpeed", "INC", 8, "Tailwind")
+		end
 		if modDB:Flag(nil, "Adrenaline") then
 			local effectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
 			modDB:NewMod("Damage", "INC", m_floor(100 * effectMod), "Adrenaline")
@@ -1378,6 +1381,10 @@ function calcs.perform(env, avoidCache)
 					values.reservedFlat = values.reservedFlat * activeSkill.activeMineCount
 					values.reservedPercent = values.reservedPercent * activeSkill.activeMineCount
 				end
+				if activeSkill.activeStageCount then
+					values.reservedFlat = values.reservedFlat * (activeSkill.activeStageCount + 1)
+					values.reservedPercent = values.reservedPercent * (activeSkill.activeStageCount + 1)
+				end
 				if values.reservedFlat ~= 0 then
 					activeSkill.skillData[name.."ReservedBase"] = values.reservedFlat
 					env.player["reserved_"..name.."Base"] = env.player["reserved_"..name.."Base"] + values.reservedFlat
@@ -1592,7 +1599,6 @@ function calcs.perform(env, avoidCache)
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
-						mergeBuff(buff.unscalableModList, buffs, buff.name)
 						if activeSkill.skillData.thisIsNotABuff then
 							buffs[buff.name].notBuff = true
 						end
@@ -1605,7 +1611,6 @@ function calcs.perform(env, avoidCache)
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnMinion") * env.minion.modDB:More(nil, "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, minionBuffs, buff.name)
-						mergeBuff(buff.unscalableModList, minionBuffs, buff.name)
 					end
 				end
 			elseif buff.type == "Guard" then
@@ -1619,7 +1624,6 @@ function calcs.perform(env, avoidCache)
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, guards, buff.name)
-						mergeBuff(buff.unscalableModList, guards, buff.name)
 					end
 				end
 			elseif buff.type == "Aura" then
@@ -1665,6 +1669,36 @@ function calcs.perform(env, avoidCache)
 						srcList:ScaleAddList(buff.modList, mult)
 						srcList:ScaleAddList(extraAuraModList, mult)
 						mergeBuff(srcList, minionBuffs, buff.name)
+					end
+					if env.player.mainSkill.skillFlags.totem and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
+						activeSkill.totemBuffSkill = true
+						affectedByAura[env.player.mainSkill] = true
+						env.player.mainSkill.skillModList.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+
+						local srcList = new("ModList")
+						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect")
+						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect")
+						local lists = {extraAuraModList, buff.modList}
+						local scale = (1 + inc / 100) * more
+						scale = m_max(scale, 0)
+						
+						for _, modList in ipairs(lists) do
+							for _, mod in ipairs(modList) do
+								if mod.name == "EnergyShield" or mod.name == "Armour" or mod.name == "Evasion" or mod.name:match("Resist?M?a?x?$") then
+									local totemMod = copyTable(mod)
+									totemMod.name = "Totem"..totemMod.name
+									if scale ~= 1 then
+										if type(totemMod.value) == "number" then
+											totemMod.value = (m_floor(totemMod.value) == totemMod.value) and m_modf(round(totemMod.value * scale, 2)) or totemMod.value * scale
+										elseif type(totemMod.value) == "table" and totemMod.value.mod then
+											totemMod.value.mod.value = (m_floor(totemMod.value.mod.value) == totemMod.value.mod.value) and m_modf(round(totemMod.value.mod.value * scale, 2)) or totemMod.value.mod.value * scale
+										end
+									end
+									srcList:AddMod(totemMod)
+								end
+							end
+						end
+						mergeBuff(srcList, buffs, "Totem "..buff.name)
 					end
 				end
 			elseif buff.type == "Debuff" or buff.type == "AuraDebuff" then
@@ -1773,7 +1807,6 @@ function calcs.perform(env, avoidCache)
 								local more = modStore:More(skillCfg, "BuffEffect") * modDB:More(nil, "BuffEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, buffs, buff.name)
-								mergeBuff(buff.unscalableModList, buffs, buff.name)
 							end
 							if env.minion and (env.minion == castingMinion or buff.applyAllies) then
 				 				env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
@@ -1782,7 +1815,6 @@ function calcs.perform(env, avoidCache)
 								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, minionBuffs, buff.name)
-								mergeBuff(buff.unscalableModList, minionBuffs, buff.name)
 							end
 						end
 					elseif buff.type == "Aura" then
@@ -3080,7 +3112,7 @@ function calcs.perform(env, avoidCache)
 				end
 				override = m_max(override, effect or 0)
 			end
-			output["Maximum"..ailment] = modDB:Override(nil, ailment.."Max") or (ailmentData[ailment].max + modDB:Sum("BASE", nil, ailment.."Max"))
+			output["Maximum"..ailment] = modDB:Override(nil, ailment.."Max") or (ailmentData[ailment].max + modDB:Sum("BASE", nil, ailment.."Max") + env.player.mainSkill.baseSkillModList:Sum("BASE", nil, ailment.."Max"))
 			output["Current"..ailment] = m_floor(m_min(m_max(override, enemyDB:Sum("BASE", nil, ailment.."Val")), output["Maximum"..ailment]) * (10 ^ ailmentData[ailment].precision)) / (10 ^ ailmentData[ailment].precision)
 			for _, mod in ipairs(val.mods(output["Current"..ailment])) do
 				enemyDB:AddMod(mod)
@@ -3114,6 +3146,16 @@ function calcs.perform(env, avoidCache)
 			local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 			local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 			env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
+		end
+		local totemModBlacklist = value.mod.name and (value.mod.name == "Speed" or value.mod.name == "CritMultiplier" or value.mod.name == "CritChance")
+		if env.player.mainSkill.skillFlags.totem and not modDB:Flag(nil, "SelfAurasCannotAffectAllies") and not totemModBlacklist then
+			local totemMod = copyTable(value.mod)
+			local totemModName, matches = totemMod.name:gsub("Condition:", "Condition:Totem")
+			if matches < 1 then
+				totemModName = "Totem" .. totemMod.name
+			end
+			totemMod.name = totemModName
+			modDB:AddMod(totemMod)
 		end
 	end
 
