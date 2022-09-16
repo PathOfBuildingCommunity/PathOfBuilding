@@ -2139,7 +2139,8 @@ function calcs.perform(env, avoidCache)
 					fromPlayer = (dest == curses),
 					priority = determineCursePriority(grantedEffect.name),
 					modList = curseModList,
-					ignoreHexLimit = value.ignoreHexLimit,					
+					ignoreHexLimit = value.ignoreHexLimit or value.configCurse,
+					configCurse = value.configCurse,
 				}
 				if value.applyToPlayer and ( modDB:Sum("BASE", nil, "AvoidCurse") < 100 ) then
 					modDB.conditions["Cursed"] = true
@@ -2194,7 +2195,7 @@ function calcs.perform(env, avoidCache)
 						slot = i
 						break
 					elseif slots[i].name == curse.name then
-						if slots[i].priority < curse.priority then
+						if (slots[i].priority < curse.priority) or curse.configCurse then
 							slot = i
 						else
 							slot = nil
@@ -2226,7 +2227,7 @@ function calcs.perform(env, avoidCache)
 				for i = 1, #slots do
 					if slots[i].name == curse.name then
 						-- if curse is higher priority, replace current curse with it, otherwise if same or lower priority skip it entirely
-						if slots[i].priority < curse.priority then
+						if (slots[i].priority < curse.priority) or curse.configCurse then -- Override curse by the one set in config if needed
 							slots[i] = curse
 						end
 						skipAddingCurse = true
@@ -2243,7 +2244,7 @@ function calcs.perform(env, avoidCache)
 				for i = 1, #slots do
 					if slots[i].name == curse.name then
 						-- if curse is higher priority, replace current curse with it, otherwise if same or lower priority skip it entirely
-						if slots[i].priority < curse.priority then
+						if (slots[i].priority < curse.priority) or curse.configCurse then
 							slots[i] = curse
 						end
 						skipAddingCurse = true
