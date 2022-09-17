@@ -350,7 +350,7 @@ local function mergeBuff(src, destTable, destKey)
 	if not destTable[destKey] then
 		destTable[destKey] = new("ModList")
 	end
-	local dest = destKey and destTable[destKey] or destTable
+	local dest = destTable[destKey]
 	for _, mod in ipairs(src) do
 		local match = false
 		if mod.type ~= "LIST" then
