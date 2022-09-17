@@ -161,6 +161,7 @@ for index, mod in pairs(queensHungerMods) do
 end
 
 table.insert(queensHunger, "Requires Level 68, 194 Int")
+table.insert(queensHunger, "Implicits: 0")
 table.insert(queensHunger, "Trigger Level 20 Bone Offering, Flesh Offering or Spirit Offering every 5 seconds")
 table.insert(queensHunger, "Offering Skills Triggered this way also affect you")
 table.insert(queensHunger, "(5-10)% increased Cast Speed")
@@ -184,6 +185,7 @@ local megalomaniac = {
 	"Source: Drops from the Simulacrum Encounter",
 	"Has Alt Variant: true",
 	"Has Alt Variant Two: true",
+	"Implicits: 0",
 	"Adds 4 Passive Skills",
 	"Added Small Passive Skills grant Nothing",
 }
@@ -231,14 +233,19 @@ end
 table.sort(gems)
 for index, name in ipairs(gems) do
 	table.insert(forbiddenShako, "Variant: "..name.. " (Low Level)")
-	table.insert(forbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
 	table.insert(forbiddenShako, "Variant: "..name.. " (High Level)")
-	table.insert(forbiddenShako, "{variant:"..(index * 2).."}Socketed Gems are Supported by Level (25-35) "..name)
 	table.insert(replicaForbiddenShako, "Variant: "..name.. " (Low Level)")
-	table.insert(replicaForbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
 	table.insert(replicaForbiddenShako, "Variant: "..name.. " (High Level)")
+end
+table.insert(forbiddenShako, "Implicits: 0")
+table.insert(replicaForbiddenShako, "Implicits: 0")
+for index, name in ipairs(gems) do
+	table.insert(forbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
+	table.insert(forbiddenShako, "{variant:"..(index * 2).."}Socketed Gems are Supported by Level (25-35) "..name)
+	table.insert(replicaForbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
 	table.insert(replicaForbiddenShako, "{variant:"..(index * 2).."}Socketed Gems are Supported by Level (25-35) "..name)
 end
+
 table.insert(forbiddenShako, "+(25-30) to all Attributes")
 table.insert(replicaForbiddenShako, "+(25-30) to all Attributes")
 table.insert(data.uniques.generated, table.concat(forbiddenShako, "\n"))
@@ -453,6 +460,7 @@ for _, name in ipairs(impossibleEscapeKeystones) do
 	table.insert(impossibleEscape, "Variant: "..name)
 end
 table.insert(impossibleEscape, "Variant: Everything (QoL Test Variant)")
+table.insert(impossibleEscape, "Implicits: 0")
 local variantCount = #impossibleEscapeKeystones + 1
 for index, name in ipairs(impossibleEscapeKeystones) do
 	table.insert(impossibleEscape, "{variant:"..index..","..variantCount.."}Passives in radius of "..name.." can be allocated without being connected to your tree")
@@ -597,12 +605,16 @@ end
 
 table.insert(watchersEye,
 [[Limited to: 1
+Implicits: 0
 (4-6)% increased maximum Energy Shield
 (4-6)% increased maximum Life
 (4-6)% increased maximum Mana]])
 
+table.insert(sublimeVision, "Implicits: 0")
+
 table.insert(voranasMarch,
 [[Requires Level 69, 46 Str, 46 Dex, 46 Int
+Implicits: 0
 Has no Sockets
 Triggers Level 20 Summon Arbalists when Equipped
 25% increased Movement Speed]])

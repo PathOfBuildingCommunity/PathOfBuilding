@@ -658,12 +658,14 @@ Inflicts a random Hex on you when your Totems die, with 80% more Effect
 Tabula Rasa
 Simple Robe
 Sockets: W-W-W-W-W-W
+Implicits: 0
 ]],[[
 Thousand Ribbons
 Simple Robe
 Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
+Implicits: 0
 Socketed Gems are Supported by Level 5 Elemental Proliferation
 {variant:1,2}Adds 2 to 3 Fire Damage to Spells and Attacks
 {variant:3}Adds (2-4) to (5-9) Fire Damage to Spells and Attacks

@@ -428,6 +428,7 @@ Variant: Fire and Lightning Damage
 Variant: Energy Shield and Life
 Variant: Armour during Soul Gain Prevention
 Variant: Level of Socketed Support Gems
+Implicits: 0
 (30-50)% increased Spell Damage
 (180-220)% increased Energy Shield
 Spectres have (50-100)% increased maximum Life

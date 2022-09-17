@@ -12,6 +12,7 @@ Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 50
+Implicits: 0
 {variant:3}100% increased Life Recovered
 {variant:4,5}50% increased Life Recovered
 {variant:1}(20-30)% reduced Recovery rate
@@ -47,6 +48,7 @@ Lavianga's Spirit
 Sanctified Mana Flask
 League: Domination, Nemesis
 Requires Level 50
+Implicits: 0
 (30-50)% increased Amount Recovered
 100% increased Recovery rate
 Your Skills have no Mana Cost during Flask effect
@@ -55,6 +57,7 @@ Replica Lavianga's Spirit
 Sanctified Mana Flask
 League: Heist
 Requires Level 50
+Implicits: 0
 (30-50)% increased Amount Recovered
 50% reduced Recovery rate
 (5-15)% increased Attack Speed during Flask effect
@@ -67,6 +70,7 @@ Variant: Pre 3.2.0
 Variant: Current
 League: Perandus
 Requires Level 18
+Implicits: 0
 50% increased Charges used
 {variant:1}Grants Last Breath when you Use a Skill during Flask Effect, for 800% of Mana Cost
 {variant:2}Grants Last Breath when you Use a Skill during Flask Effect, for (450-600)% of Mana Cost
@@ -81,6 +85,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 30
+Implicits: 0
 {variant:1,2,3,4}(40-60)% increased Rarity of Items found during Flask effect
 {variant:5}(20-30)% increased Rarity of Items found during Flask effect
 {variant:1}(20-25)% increased Quantity of Items found during Flask effect
@@ -94,6 +99,7 @@ Requires Level 30
 The Writhing Jar
 Hallowed Hybrid Flask
 Requires Level 60
+Implicits: 0
 (75-65)% reduced Amount Recovered
 Instant Recovery
 2 Enemy Writhing Worms escape the Flask when used
@@ -108,6 +114,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 68
+Implicits: 0
 2% of Chaos Damage Leeched as Life during Flask effect
 {variant:1}Gain (22-25)% of Physical Damage as Extra Chaos Damage during effect
 {variant:2}Gain (15-20)% of Physical Damage as Extra Chaos Damage during effect
@@ -124,6 +131,7 @@ Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 35
+Implicits: 0
 Creates Consecrated Ground on Use
 {variant:1}(30-50)% increased Duration
 {variant:2}(20-40)% increased Duration
@@ -136,6 +144,7 @@ Consecrated Ground created during Effect applies (7-10)% increased Damage taken 
 Coralito's Signature
 Diamond Flask
 Requires Level 27
+Implicits: 0
 Variant: Pre 3.15.0
 Variant: Current
 {variant:1}Take 30 Chaos Damage per Second during Flask effect
@@ -203,6 +212,7 @@ Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 68
+Implicits: 0
 {variant:2}(-10-10)% increased Charges used
 {variant:3,4}(125-150)% increased Charges used
 {variant:3}(40-60)% reduced duration
@@ -219,6 +229,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 27
+Implicits: 0
 {variant:1,2}50% increased Charges used
 {variant:1}Recover 50% of your maximum Life on use
 {variant:2}Recover 75% of your maximum Life on use
@@ -246,6 +257,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 27
+Implicits: 0
 Adds Knockback to Melee Attacks during Flask effect
 75% chance to cause Enemies to Flee on use
 {variant:1}(70-100)% increased Charges used
@@ -262,6 +274,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 40
+Implicits: 0
 {variant:1}(100-150)% increased Charges used
 {variant:2,3}(50-100)% increased Charges used
 {variant:3}50% increased Duration
@@ -280,6 +293,7 @@ Variant: Pre 2.5.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 68
+Implicits: 0
 {variant:1}(30-40)% Chance to Block during Flask effect
 {variant:2}(20-30)% Chance to Block during Flask effect
 {variant:3}(14-20)% Chance to Block during Flask effect
@@ -293,6 +307,7 @@ Replica Rumi's Concoction
 Granite Flask
 League: Heist
 Requires Level 68
+Implicits: 0
 You gain an Endurance Charge on use
 +(35-50)% Chance to Block Attack Damage during Flask effect
 +(20-30)% Chance to Block Spell Damage during Flask effect
@@ -338,6 +353,7 @@ Variant: Pre 3.10.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 27
+Implicits: 0
 Cannot gain Mana during effect
 {variant:2}Vaal Skills have (80-120)% increased Critical Strike Chance during effect
 {variant:3}Vaal Skills have (60-80)% increased Critical Strike Chance during effect
@@ -355,6 +371,7 @@ Source: Upgraded from unique{Soul Catcher} via currency{Vial of the Ghost}
 Variant: Pre 3.10.0
 Variant: Current
 Requires Level 27
+Implicits: 0
 {variant:1}100% increased Charges used
 {variant:1}Vaal Skills deal (30-40)% more Damage during effect
 {variant:1}Vaal Skills used during effect do not apply Soul Gain Prevention
@@ -371,6 +388,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 18
+Implicits: 0
 {variant:1}30% of Physical Damage from Hits taken as Cold Damage during Flask effect
 {variant:2,3}20% of Physical Damage from Hits taken as Cold Damage during Flask effect
 {variant:4}(10-15)% of Physical Damage from Hits taken as Cold Damage during Flask effect
@@ -416,6 +434,7 @@ Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
 Requires Level 68
+Implicits: 0
 {variant:5,6,7,8,9,10,11,12,13,14,15}(80-100)% increased Charges used
 {variant:16,17,18}(125-150)% increased Charges used
 {variant:1,2,3,4,5,6,7,8}Shocks nearby Enemies during Flask effect
@@ -445,6 +464,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 8
+Implicits: 0
 {variant:1,2}During Flask Effect, 10% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
 {variant:3}During Flask Effect, 6% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
 {variant:1}During Flask Effect, Damage Penetrates 20% Resistance of each Element for which your Uncapped Elemental Resistance is highest
@@ -471,6 +491,7 @@ Elixir of the Unbroken Circle
 Iron Flask
 League: Expedition
 Requires Level 40
+Implicits: 0
 (20–40)% increased Duration
 Recover 4% of Life per Endurance Charge on use
 Lose all Endurance Charges on use
@@ -480,6 +501,7 @@ Olroth's Resolve
 Iron Flask
 League: Expedition
 Requires Level 40
+Implicits: 0
 (40–50)% increased Charges used
 Ward does not Break during Flask effect
 70% less Ward during Flask Effect
@@ -488,6 +510,7 @@ Starlight Chalice
 Iron Flask
 League: Expedition
 Requires Level 40
+Implicits: 0
 (20–30)% increased Charge Recovery
 Inflict Fire, Cold and Lightning Exposure on nearby Enemies when used
 (20–30)% increased Effect of Non-Damaging Ailments you inflict during Flask Effect
@@ -496,6 +519,7 @@ Vorana's Preparation
 Iron Flask
 League: Expedition
 Requires Level 40
+Implicits: 0
 (-10–10)% reduced Charges used
 Debilitate nearby Enemies for 2 Seconds when Flask Effect ends
 Flask Effect is removed when Ward Breaks

@@ -8,6 +8,7 @@ data.uniques.new = {
 [[
 Soul Ascension
 Carnal Mitts
+Implicits: 0
 137% increased Evasion and Energy Shield
 +26% to Chaos Resistance
 Eat a Soul when you Hit a unique Enemy, no more than once every second
@@ -16,6 +17,7 @@ Maximum 50 Eaten Souls
 ]],[[
 Ghostwrithe
 Silken Vest
+Implicits: 0
 +137 to maximum Energy Shield
 +96 to maximum Life
 +50% to Chaos Resistance
@@ -24,12 +26,14 @@ Silken Vest
 Kalandra's Touch
 Iron Ring
 League: Kalandra
+Implicits: 0
 Reflects your other Ring
 Mirrored
 ]],[[
 Kaom's Spirit
 Titan Gauntlets
 League: Kalandra
+Implicits: 0
 +(50-70) to Maximum Life
 +(20-30)% to Fire Resistance
 0.44% of Physical Attack Damage Leeched as Life
@@ -49,6 +53,7 @@ Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
 ]],[[
 Elevore
 Wolf Pelt
+Implicits: 0
 +23% chance to Suppress Spell Damage
 85% increased Evasion Rating
 22% chance to Avoid Elemental Ailments

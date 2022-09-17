@@ -228,6 +228,7 @@ The Gluttonous Tide
 Citadel Bow
 Source: Drops from unique{The Eater of Worlds}
 Requires Level 58, 185 Dex
+Implicits: 0
 (120-160)% increased Physical Damage
 (16-20)% increased Attack Speed
 Lose all Frenzy Charges on reaching Maximum Frenzy Charges to make the next Bow Attack you perform fire that many additional Arrows
@@ -240,6 +241,7 @@ Source: Drops from unique{The Elder} (Tier 6+)
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 60, 212 Dex
+Implicits: 0
 Adds (130-150) to (270-300) Cold Damage
 4% increased Movement Speed per Frenzy Charge
 +(400-500) to Accuracy Rating
@@ -340,6 +342,7 @@ Ranger Bow
 Variant: Pre 3.14.0
 Variant: Current
 Requires Level 60, 212 Dex, 212 Int
+Implicits: 0
 Adds (50-80) to (130-180) Chaos Damage
 (7-12)% increased Attack Speed
 +(7-11)% to Chaos Resistance
@@ -369,6 +372,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 5, 26 Dex
+Implicits: 0
 +(10-20) to Dexterity
 {variant:2,3}100% increased Physical Damage
 100% increased Attack Speed
@@ -383,6 +387,7 @@ Replica Quill Rain
 Short Bow
 League: Heist
 Requires Level 5, 26 Dex
+Implicits: 0
 Socketed Gems are Supported by Level 1 Arrow Nova
 +(10-20) to Dexterity
 100% increased Physical Damage
@@ -400,6 +405,7 @@ Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
 Requires Level 64, 212 Dex
+Implicits: 0
 {variant:4,5,6}Socketed Gems are Supported by Level 20 Greater Volley
 {variant:1}(50-70)% increased Physical Damage
 {variant:2,3}(40-50)% increased Physical Damage
@@ -437,6 +443,7 @@ Crude Bow
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 2
+Implicits: 0
 +1 to Level of Socketed Bow Gems
 {variant:1}(50-80)% increased Physical Damage
 {variant:2}(80-100)% increased Physical Damage
@@ -448,6 +455,7 @@ Silverbough
 Crude Bow
 Source: No longer obtainable
 Requires Level 36
+Implicits: 0
 +1 to Level of Socketed Gems
 +1 to Level of Socketed Bow Gems
 (80-100)% increased Physical Damage
@@ -480,6 +488,7 @@ Long Bow
 Variant: Pre 2.0.0
 Variant: Current
 Requires Level 9, 38 Dex
+Implicits: 0
 No Physical Damage
 {variant:1}Adds 1 to 75 Lightning Damage
 {variant:2}Adds 1 to 85 Lightning Damage
@@ -489,6 +498,7 @@ The Tempest
 Long Bow
 Source: No longer obtainable
 Requires Level 32, 38 Dex
+Implicits: 0
 No Physical Damage
 100% increased Lightning Damage
 Adds 1 to 85 Lightning Damage
@@ -499,6 +509,7 @@ Spine Bow
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 64, 212 Dex
+Implicits: 0
 Adds 1 to (275-325) Lightning Damage
 (10-15)% increased Attack Speed
 60% of Lightning Damage Converted to Chaos Damage
@@ -552,6 +563,7 @@ League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Nurture} using currency{Blessing of Xoph}
 Requires Level 23, 80 Dex
+Implicits: 0
 (70-90)% increased Physical Damage
 +(20-30) Life gained on Killing Ignited Enemies
 Gain 20% of Physical Damage as Extra Fire Damage
@@ -566,6 +578,7 @@ Variant: Pre 3.9.0
 Variant: Pre 3.17.0
 Variant: Current
 Requires Level 64, 185 Dex
+Implicits: 0
 {variant:3,4}Socketed Gems are Supported by Level 20 Ignite Proliferation
 {variant:1,2,3}(250-300)% increased Physical Damage
 {variant:4}(165-195)% increased Physical Damage

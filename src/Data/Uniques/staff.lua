@@ -191,6 +191,7 @@ Dying Breath
 Coiled Staff
 Variant: Pre 2.6.0
 Requires Level 23, 34 Str, 34 Int
+Implicits: 0
 (18-20)% Chance to Block Attack Damage while wielding a Staff
 18% increased Cast Speed
 18% increased maximum Mana

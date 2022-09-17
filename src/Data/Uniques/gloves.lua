@@ -10,6 +10,7 @@ Variant: Pre 3.1.0
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 75, 100 Str
+Implicits: 0
 +(60-80) to Intelligence
 +(60-75) to maximum Life
 (200-220)% increased Armour
@@ -22,6 +23,7 @@ Replica Atziri's Acuity
 Vaal Gauntlets
 League: Heist
 Requires Level 63, 100 Str
+Implicits: 0
 +(60-80) to Intelligence
 (25-35)% increased Global Critical Strike Chance
 (200-220)% increased Armour
@@ -45,6 +47,7 @@ Titan Gauntlets
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 69, 98 Str
+Implicits: 0
 (150-200)% increased Armour
 (50-70) Life Regenerated per second
 +(30-40)% to Fire Resistance
@@ -59,6 +62,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.10.0
 Variant: Current
 Requires Level 63, 100 Str
+Implicits: 0
 {variant:2,3,4}Grants level 20 Doryani's Touch Skill
 {variant:1,2,3}+30 to maximum Energy Shield
 {variant:4}+(80-100) to maximum Energy Shield
@@ -76,6 +80,7 @@ Hateforge
 Ancient Gauntlets
 League: Ultimatum
 Requires Level 47, 68 Str
+Implicits: 0
 Socketed Gems are Supported by Level 30 Rage
 (120-150)% increased Armour
 (10-25)% reduced Rage Cost of Skills
@@ -85,6 +90,7 @@ You cannot gain Rage during Soul Gain Prevention
 Empire's Grasp
 Goliath Gauntlets
 Requires Level 53, 76 Str
+Implicits: 0
 +(400-600) to Armour
 Knockback direction is reversed
 Socketed Gems are Supported by level 10 Knockback
@@ -94,6 +100,7 @@ Bronze Gauntlets
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level: 23, 36 Str
+Implicits: 0
 +(30-40) to Strength
 {variant:1}Adds (3-6) to (10-12) Physical Damage to Attacks
 {variant:2}Adds (5-8) to (12-16) Physical Damage to Attacks
@@ -107,6 +114,7 @@ Iron Gauntlets
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
+Implicits: 0
 (10-15)% increased Attack Speed
 {variant:1}+(10-20) to Armour
 {variant:2}+(20-30) to maximum Life
@@ -123,6 +131,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 35, 52 Str
+Implicits: 0
 {variant:1,2,3}10% increased Global Physical Damage
 {variant:1,2,3}+100 to Strength
 {variant:4}+50 to Strength
@@ -136,6 +145,7 @@ Requires Level 35, 52 Str
 Veruso's Battering Rams
 Titan Gauntlets
 Requires Level 69, 98 Str
+Implicits: 0
 (8-13)% increased Attack Speed
 (120-180)% increased Armour
 (3-5)% increased Movement Speed
@@ -159,6 +169,7 @@ Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 47, 68 Str
+Implicits: 0
 +(30-60) to maximum Life
 30% increased Projectile Speed
 {variant:1}10% reduced Movement Speed
@@ -171,6 +182,7 @@ Requires Level 47, 68 Str
 Great Old One's Tentacles
 Eelskin Gloves
 Requires Level 38, 56 Dex
+Implicits: 0
 Adds (8-12) to (15-20) Physical Damage to Attacks
 +(50-70) to maximum Life
 (10-20)% chance to Impale Enemies on Hit with Attacks
@@ -182,6 +194,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 9, 17 Dex
+Implicits: 0
 +(20-30) to Strength
 {variant:1}50% increased Evasion Rating
 {variant:2,3}+(40-50) to Evasion Rating
@@ -200,6 +213,7 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24, 17 Dex
+Implicits: 0
 +(20-30) to Strength
 {variant:1}50% increased Evasion Rating
 {variant:2}+(40-50) to Evasion Rating
@@ -220,6 +234,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 21, 33 Dex
+Implicits: 0
 +(20-30) to Dexterity
 5% increased Attack Speed
 50% increased Global Critical Strike Chance
@@ -233,6 +248,7 @@ Mercenary's Lot
 Slink Gloves
 League: Heist
 Requires Level 70, 95 Dex
+Implicits: 0
 +(80-120) to Evasion Rating
 (5-8)% increased Attack and Cast Speed
 Mark Skills have (10-15)% increased Cast Speed
@@ -244,6 +260,7 @@ Nubuck Gloves
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 52, 50 Dex
+Implicits: 0
 Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy
 (30-40)% increased Accuracy Rating
 +(40-50) to maximum Life
@@ -255,6 +272,7 @@ Trigger Level 10 Assassin's Mark when you Hit a Rare or Unique Enemy
 Painseeker
 Shagreen Gloves
 Requires Level 54, 78 Dex
+Implicits: 0
 Adds (16-19) to (25-29) Fire Damage
 Adds (16-19) to (25-29) Cold Damage
 Adds (6-10) to (33-38) Lightning Damage
@@ -269,6 +287,7 @@ Allelopathy
 {variant:2}Satin Gloves
 Variant: Pre 3.19.0
 Variant: Current
+Implicits: 0
 Grants level 22 Blight Skill
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
@@ -282,6 +301,7 @@ Replica Allelopathy
 Variant: Pre 3.19.0
 Variant: Current
 League: Heist
+Implicits: 0
 Grants Level 22 Wintertide Brand
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
@@ -297,6 +317,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 25, 39 Int
+Implicits: 0
 +(20-30) to Intelligence
 {variant:1,2}+(20-30) to maximum Life
 {variant:3}+(60-80) to maximum Life
@@ -328,6 +349,7 @@ Variant: Pre 3.19.0
 Variant: Current
 League: Delve
 Requires Level 41, 60 Int
+Implicits: 0
 (15-20)% increased Cast Speed
 {variant:1}+(50-70) to maximum Energy Shield
 {variant:2}+(100-120) to maximum Energy Shield
@@ -342,6 +364,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 12, 21 Int
+Implicits: 0
 {variant:1}(40-50)% increased Spell Damage
 {variant:2}(50-60)% increased Spell Damage
 {variant:3}100% increased Spell Damage
@@ -360,6 +383,7 @@ Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 64, 21 Int
+Implicits: 0
 (50-60)% increased Spell Damage
 +20 to Intelligence
 Adds (48-56) to (73-84) Chaos Damage to Spells
@@ -371,6 +395,7 @@ Adds (48-56) to (73-84) Chaos Damage to Spells
 Grip of the Council
 Arcanist Gloves
 Requires Level 60, 95 Int
+Implicits: 0
 +30 to Strength
 +(30-50) to maximum Life
 +(20-40)% to Cold Resistance
@@ -382,6 +407,7 @@ Replica Grip of the Council
 Arcanist Gloves
 League: Heist
 Requires Level 60, 95 Int
+Implicits: 0
 +30 to Strength
 +(30-50) to maximum Life
 +(20-40)% to Fire Resistance
@@ -392,6 +418,7 @@ Minions gain 20% of Physical Damage as Extra Fire Damage
 Kalisa's Grace
 Samite Gloves
 Requires Level 55, 68 Int
+Implicits: 0
 Socketed Gems are Supported by Level 18 Faster Casting
 +(20-30) to Intelligence
 +(50-80) to maximum Energy Shield
@@ -402,6 +429,7 @@ Replica Kalisa's Grace
 Samite Gloves
 League: Heist
 Requires Level 55, 68 Int
+Implicits: 0
 Socketed Gems are Supported by Level 18 Unleash
 +(20-30) to Intelligence
 +(50-80) to maximum Energy Shield
@@ -414,6 +442,7 @@ Variant: Pre 1.1.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 11
+Implicits: 0
 Adds 4 to 8 Fire Damage to Attacks
 Adds 1 to 13 Lightning Damage to Attacks
 +18 to maximum Energy Shield
@@ -428,6 +457,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 55, 79 Int
+Implicits: 0
 +1 to Level of Socketed Elemental Gems
 (125-150)% increased Critical Strike Chance for Spells
 {variant:1,2}(280-350)% increased Energy Shield
@@ -442,6 +472,7 @@ Requires Level 55, 79 Int
 Aurseize
 Steelscale Gauntlets
 Requires Level 36, 29 Str, 29 Dex
+Implicits: 0
 (40-60)% increased Armour and Evasion
 +15% to all Elemental Resistances
 (40-50)% increased Rarity of Items found
@@ -451,6 +482,7 @@ Breathstealer
 Hydrascale Gauntlets
 Requires Level 59, 45 Str, 45 Dex
 League: Blight
+Implicits: 0
 (100-150)% increased Armour and Evasion
 +(30-50) to maximum Mana
 +(10-16)% to all Elemental Resistances
@@ -464,6 +496,7 @@ Hydrascale Gauntlets
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
 Requires Level 59, 45 Str, 45 Dex
+Implicits: 0
 (100-140)% increased Armour and Evasion
 +(50-70) to maximum Life
 +(400-500) to Accuracy against Bleeding Enemies
@@ -475,6 +508,7 @@ Flesh and Spirit
 Ironscale Gauntlets
 League: Rampage
 Requires Level 15
+Implicits: 0
 (6-9)% increased Attack Speed
 (80-120)% increased Armour and Evasion
 (3-4) Life Regenerated per second
@@ -494,6 +528,7 @@ Nearby Enemies Killed by anyone count as being Killed by you instead
 Haemophilia
 Serpentscale Gauntlets
 Requires Level 43, 34 Str, 34 Dex
+Implicits: 0
 +(20-30) to Strength
 25% increased Damage over Time
 Attacks have 25% chance to cause Bleeding
@@ -507,6 +542,7 @@ Bronzescale Gauntlets
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 27, 22 Str, 22 Dex
+Implicits: 0
 +(40-50) to Dexterity
 {variant:1}5% increased Attack Speed
 {variant:2}(5-10)% increased Attack Speed
@@ -519,6 +555,7 @@ Dragonscale Gauntlets
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 67, 51 Str, 51 Dex
+Implicits: 0
 (90-110)% increased Armour and Evasion
 (4-7)% increased Elemental Damage per Frenzy Charge
 (4-7)% increased Physical Damage per Endurance Charge
@@ -535,6 +572,7 @@ Variant: Pre 3.6.0 Two Abyssal Sockets
 Variant: Current One Abyssal Socket
 Variant: Current Two Abyssal Sockets
 Requires Level: 36, 29 Str, 29 Int
+Implicits: 0
 {variant:1,3}Has 1 Abyssal Socket
 {variant:2,4}Has 2 Abyssal Sockets
 {variant:1,2}(6-10)% increased Attack Speed
@@ -549,6 +587,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 27, 22 Str, 22 Dex
+Implicits: 0
 {variant:1,2}+2 to Level of Socketed Vaal Gems
 {variant:3}-5 to Level of Socketed Non-Vaal Gems
 {variant:3}+5 to Level of Socketed Vaal Gems
@@ -564,6 +603,7 @@ Worldcarver
 Dragonscale Gauntlets
 Source: No longer obtainable
 Requires Level 67, 51 Str, 51 Dex
+Implicits: 0
 Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
 +(200-300) to Accuracy Rating
 (120-150)% increased Armour and Evasion
@@ -574,6 +614,7 @@ Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
 Wyrmsign
 Wyrmscale Gauntlets
 Requires Level 49, 38 Str, 38 Dex
+Implicits: 0
 Socketed Gems are Supported by level 5 Concentrated Effect
 (120-160)% increased Armour and Evasion
 +(50-70) to maximum Life
@@ -590,6 +631,7 @@ Source: Drops from unique{Kurgal, the Blackblooded}
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 Requires Level 37, 29 Str, 29 Int
+Implicits: 0
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
 (6-10)% increased Cast Speed
@@ -601,6 +643,7 @@ Hand of the Fervent
 Zealot Gloves
 League: Ritual
 Requires Level 43, 34 Str, 34 Int
+Implicits: 0
 (70-130)% increased Armour and Energy Shield
 +(50-70) to maximum Life
 Gain Sacrificial Zeal when you use a Skill, dealing you 150% of the Skill's Mana Cost as Physical Damage per Second
@@ -609,6 +652,7 @@ Hits Overwhelm (10-15)% of Physical Damage Reduction while you have Sacrificial 
 Hands of the High Templar
 Crusader Gloves
 Requires Level 66, 51 Str, 51 Int
+Implicits: 0
 Can be modified while Corrupted
 Can have up to 5 Implicit Modifiers while Item has this Modifier
 (150-200)% increased Armour and Energy Shield
@@ -619,6 +663,7 @@ Null and Void
 Legion Gloves
 League: Rampage
 Requires Level 57, 44 Str, 44 Int
+Implicits: 0
 +(20-30) to Strength
 (150-180)% increased Armour and Energy Shield
 +(50-70) to maximum Life
@@ -632,6 +677,7 @@ Legion Gloves
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Requires Level 57, 44 Str, 44 Int
+Implicits: 0
 +(15-25) to all Attributes
 (150-200)% increased Armour and Energy Shield
 50% reduced Maximum Recovery per Life Leech
@@ -644,6 +690,7 @@ Crusader Gloves
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 66, 306 Str, 306 Int
+Implicits: 0
 {variant:1}(0-30)% reduced Spell Damage
 {variant:1}(120-180)% increased Armour and Energy Shield
 {variant:2}(400-500)% increased Armour and Energy Shield
@@ -657,6 +704,7 @@ Soldier Gloves
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 51, 40 Str, 40 Int
+Implicits: 0
 (140-180)% increased Armour and Energy Shield
 +(30-60) to maximum Life
 +(20-25)% to Cold and Lightning Resistances
@@ -669,6 +717,7 @@ Chain Gloves
 Variant: Pre 1.2.0
 Variant: Current
 Requires Level 7, 17 Dex
+Implicits: 0
 (40-60)% increased Stun Recovery
 Hexes applied by Socketed Curse Skills are Reflected back to you
 You cannot be Chilled for 3 seconds after being Chilled
@@ -685,6 +734,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.10.0
 Variant: Current
 Requires Level 66, 51 Str, 51 Int
+Implicits: 0
 (80-120)% increased Armour and Energy Shield
 {variant:1}+2 Accuracy Rating per 2 Intelligence
 {variant:2,3}+4 Accuracy Rating per 2 Intelligence
@@ -705,6 +755,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 51, 40 Str, 40 Int
+Implicits: 0
 {variant:1,2}Adds (30-36) to (44-50) Cold Damage to Attacks
 {variant:3}Adds (60-72) to (88-100) Cold Damage to Attacks
 (12-16)% increased maximum Life
@@ -717,6 +768,7 @@ Your Hits can only Kill Frozen enemies
 Triad Grip
 Mesh Gloves
 Requires Level 32, 26 Str, 26 Int
+Implicits: 0
 (80-120)% increased Armour and Energy Shield
 Minions convert 25% of Physical Damage to Fire Damage per Red Socket
 Minions convert 25% of Physical Damage to Cold Damage per Green Socket
@@ -730,6 +782,7 @@ Variant: Fire
 Variant: Cold
 Variant: Lightning
 Requires Level 43, 34 Str, 34 Int
+Implicits: 0
 {variant:1}Adds (16-20) to (25-30) Fire Damage to Spells and Attacks
 {variant:2}Adds (16-20) to (25-30) Cold Damage to Spells and Attacks
 {variant:3}Adds (1-3) to (42-47) Lightning Damage to Spells and Attacks
@@ -749,6 +802,7 @@ Replica Volkuur's Guidance
 Zealot Gloves
 League: Heist
 Requires Level 43, 34 Str, 34 Int
+Implicits: 0
 Adds (17-23) to (29-31) Chaos Damage
 +(50-70) to maximum Life
 +(29-41)% to Chaos Resistance
@@ -762,6 +816,7 @@ Abhorrent Interrogation
 Ambush Mitts
 League: Harvest
 Requires Level 45, 35 Dex, 35 Int
+Implicits: 0
 (100-150)% increased Evasion and Energy Shield
 (5-7)% increased Attack and Cast Speed
 (20-25)% chance to inflict Withered for 2 seconds on Hit
@@ -774,6 +829,7 @@ Carnal Mitts
 League: Delirium
 Source: Drops from the Simulacrum Encounter
 Requires Level 50, 39 Dex, 39 Int
+Implicits: 0
 +(50-70) to maximum Energy Shield
 +(15-20)% to Cold and Lightning Resistances
 (20-30)% chance to Sap Enemies in Chilling Areas
@@ -785,6 +841,7 @@ Clasped Mitts
 League: Legion
 Source: Drops from Maraketh Legion
 Requires Level 31, 25 Dex 25 Int
+Implicits: 0
 +(30-40) to Dexterity
 (5-7)% increased Cast Speed
 (100-150)% increased Evasion and Energy Shield
@@ -799,6 +856,7 @@ Variant: Current
 {variant:2}Ambush Mitts
 League: Incursion
 Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
+Implicits: 0
 {variant:1}Requires Level 16
 {variant:2}Requires Level 45, 35 Dex, 35 Int
 +(30-40) to Dexterity
@@ -814,6 +872,7 @@ Ambush Mitts
 League: Incursion
 Source: Upgraded from unique{Architect's Hand} via currency{Vial of Dominance}
 Requires Level 45, 35 Dex, 35 Int
+Implicits: 0
 +(30-40) to Dexterity
 (200-250)% increased Evasion and Energy Shield
 (20-30)% reduced Trap Throwing Speed
@@ -826,6 +885,7 @@ Blasphemer's Grasp
 Assassin's Mitts
 Source: Drops from unique{The Elder}
 Requires Level 58, 45 Dex, 45 Int
+Implicits: 0
 +(40-50) to Dexterity
 (150-200)% increased Evasion and Energy Shield
 +(50-60) to maximum Life
@@ -838,6 +898,7 @@ Elder Item
 The Embalmer
 Carnal Mitts
 Requires Level 50, 39 Dex, 39 Int
+Implicits: 0
 Socketed Gems are Supported by Level 20 Vile Toxins
 Adds (13-17) to (23-29) Chaos Damage
 +(50-70) to maximum Life
@@ -852,6 +913,7 @@ Variant: Pre 2.5.0
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 16, 14 Dex, 14 Int
+Implicits: 0
 {variant:1,2}+60% to Global Critical Strike Multiplier
 {variant:3}+90% to Global Critical Strike Multiplier
 {variant:4}+45% to Global Critical Strike Multiplier
@@ -866,6 +928,7 @@ Carnal Mitts
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
 Requires Level 50, 39 Dex, 39 Int
+Implicits: 0
 Grants Level 20 Aspect of the Spider Skill
 (120-170)% increased Evasion and Energy Shield
 +(40-50) to maximum Life
@@ -877,6 +940,7 @@ Machina Mitts
 Murder Mitts
 Requires Level: 67
 League: Blight
+Implicits: 0
 (200-250)% increased Evasion and Energy Shield
 1% of Damage dealt by your Mines is Leeched to you as Life
 (20-30)% reduced Recovery rate of Life and Energy Shield
@@ -889,6 +953,7 @@ Variant: Pre 1.1.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 5
+Implicits: 0
 {variant:1}20% increased Attack Speed when on Full Life
 {variant:2,3}30% increased Attack Speed when on Full Life
 {variant:1,2}Adds 1 to 13 Lightning Damage to Attacks
@@ -901,6 +966,7 @@ Requires Level 5
 Malachai's Mark
 Murder Mitts
 Requires Level 67, 51 Dex, 51 Int
+Implicits: 0
 (80-100)% increased Evasion and Energy Shield
 +(60-80) to maximum Life
 +(15-25) Life gained on Kill
@@ -914,6 +980,7 @@ Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 31, 25 Dex, 25 Int
+Implicits: 0
 (20-30)% increased Global Critical Strike Chance
 {variant:1}+(15-30)% to Global Critical Strike Multiplier
 {variant:2}+(25-45)% to Global Critical Strike Multiplier
@@ -930,6 +997,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 58, 45 Dex, 45 Int
+Implicits: 0
 (150-180)% increased Evasion Rating
 +(60-70) to maximum Life
 2% increased Attack Speed per Frenzy Charge
@@ -944,6 +1012,7 @@ Assassin's Mitts
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Requires Level 58, 45 Dex, 45 Int
+Implicits: 0
 (20-30)% increased Damage over Time
 (250-300)% increased Evasion and Energy Shield
 +(20-30)% to Lightning Resistance
@@ -957,6 +1026,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 67, 51 Dex, 51 Int
+Implicits: 0
 {variant:1,2,3}Socketed Gems are Supported by level 18 Added Lightning Damage
 {variant:4}Socketed Gems are Supported by level 30 Added Lightning Damage
 {variant:1,3}Adds 1 to 100 Lightning Damage to Attacks
@@ -974,6 +1044,7 @@ Medved's Challenge
 Runic Gauntlets
 Requires Level 69, 38 Str, 38 Dex, 38 Int
 League: Expedition
+Implicits: 0
 800% increased Attribute Requirements
 (30–50)% increased Ward
 +(15–25)% to all Elemental Resistances
@@ -986,6 +1057,7 @@ Variant: Pre 3.16.0
 Variant: Current
 League: Expedition
 Requires Level 48, 31 Str, 31 Dex, 31 Int
+Implicits: 0
 (33–48)% increased Ward
 +(17–23)% to Chaos Resistance
 {variant:1}Gain Added Chaos Damage equal to 25% of Ward

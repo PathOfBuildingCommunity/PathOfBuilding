@@ -8,6 +8,7 @@ Goliath Greaves
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 54, 95 Str
+Implicits: 0
 (150-180)% increased Armour
 +(50-70) to maximum Life
 +(25-30)% to Cold Resistance
@@ -29,6 +30,7 @@ Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
 Requires Level 68, 120 Str
+Implicits: 0
 {variant:1,2,3}Grants Level 25 Purity of Fire Skill
 {variant:4,5,6}Grants Level 25 Purity of Ice Skill
 {variant:7,8,9}Grants Level 25 Purity of Lightning Skill
@@ -45,6 +47,7 @@ League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{The Red Trail} using currency{Blessing of Uul-Netol}
 Requires Level 54, 95 Str
+Implicits: 0
 +(30-60) to maximum Life
 20% increased Movement Speed
 Moving while Bleeding doesn't cause you to take extra Damage
@@ -56,6 +59,7 @@ Titan Greaves
 League: Breach
 Source: Upgraded from unique{The Infinite Pursuit} using currency{Blessing of Uul-Netol}
 Requires Level 68, 120 Str
+Implicits: 0
 (60-80)% increased Armour
 +(50-70) to maximum Life
 25% increased Movement Speed
@@ -69,6 +73,7 @@ Replica Red Trail
 Titan Greaves
 League: Heist
 Requires Level 68, 120 Str
+Implicits: 0
 (60-80)% increased Armour
 +(60-70) to maximum Life
 25% increased Movement Speed
@@ -83,6 +88,7 @@ Titan Greaves
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 68, 120 Str
+Implicits: 0
 Has no Sockets
 Cannot be Knocked Back
 {variant:1}+(120-150) to maximum Life
@@ -96,6 +102,7 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 46, 82 Str
+Implicits: 0
 {variant:2}+(50-70) to maximum Life
 Adds (2-5) to (7-10) Physical Damage to Attacks
 (5-10)% reduced Enemy Stun Threshold
@@ -110,6 +117,7 @@ Plated Greaves
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level: 23, 44 Str
+Implicits: 0
 +(1-50)% to Lightning Resistance 
 {variant:1}20% increased Movement Speed
 {variant:2}(1-40)% increased Movement Speed
@@ -125,6 +133,7 @@ Antique Greaves
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 37, 67 Str
+Implicits: 0
 (80-120)% increased Armour
 {variant:1}(30-50)% increased Totem Life
 {variant:2}(20-30)% increased Totem Life
@@ -139,6 +148,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 33, 60 Str
+Implicits: 0
 (50-80)% increased Armour
 +(10-15)% to all Elemental Resistances
 {variant:1}10% increased Movement Speed
@@ -153,6 +163,7 @@ Windshriek
 Reinforced Greaves
 Source: No longer obtainable
 Requires Level 60, 60 Str
+Implicits: 0
 (200-250)% increased Armour
 +(10-15)% to all Elemental Resistances
 25% increased Movement Speed
@@ -165,6 +176,7 @@ Enemies can have 1 additional Curse
 Abberath's Hooves
 Goathide Boots
 Requires Level 12, 26 Dex
+Implicits: 0
 Triggers Level 7 Abberath's Fury when Equipped
 +(20-30) to Strength
 15% increased Movement Speed
@@ -179,6 +191,7 @@ Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacri
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 69, 120 Dex
+Implicits: 0
 180% increased Evasion Rating
 +(55-75) to maximum Life
 30% increased Movement Speed
@@ -192,6 +205,7 @@ Variant: Pre 2.1.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 44, 79 Dex
+Implicits: 0
 +(30-40) to Dexterity
 20% increased Movement Speed
 2% increased Movement Speed per Frenzy Charge
@@ -212,6 +226,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 22, 42 Dex
+Implicits: 0
 {variant:1,2}Socketed Gems are Supported by level 11 Trap
 {variant:3}Socketed Gems are Supported by level 15 Trap
 (160-200)% increased Evasion Rating
@@ -235,6 +250,7 @@ Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
 Requires Level 69, 120 Dex
+Implicits: 0
 {variant:1,2,3}Grants Level 25 Purity of Fire Skill
 {variant:4,5,6}Grants Level 25 Purity of Ice Skill
 {variant:7,8,9}Grants Level 25 Purity of Lightning Skill
@@ -250,6 +266,7 @@ Slink Boots
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
 Requires Level 69, 120 Dex
+Implicits: 0
 Trigger Level 20 Intimidating Cry when you lose Cat's Stealth
 (110-150)% increased Evasion Rating
 +(50-70) to maximum Life
@@ -262,6 +279,7 @@ Nubuck Boots
 Variant: Pre 1.1.0
 Variant: Current
 Requires Level 34, 62 Dex
+Implicits: 0
 60% increased Mana Regeneration Rate
 {variant:1}(20-30)% increased Quantity of Items Found
 {variant:2}(14-20)% increased Quantity of Items Found
@@ -274,6 +292,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 62, 117 Dex
+Implicits: 0
 +(30-40) to Dexterity
 {variant:1}(80-120)% increased Evasion Rating
 {variant:2}(320-380)% increased Evasion Rating
@@ -287,6 +306,7 @@ Regenerate 100 Life per second while moving
 Seven-League Step
 Rawhide Boots
 League: Perandus
+Implicits: 0
 50% increased Movement Speed
 ]],[[
 Sin Trek
@@ -296,6 +316,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 62, 117 Dex
+Implicits: 0
 +(20-30) to Dexterity
 +(20-30) to Intelligence
 (80-100)% increased Evasion Rating
@@ -310,6 +331,7 @@ Temptation Step
 Shagreen Boots
 League: Ultimatum
 Requires Level 55, 97 Dex
+Implicits: 0
 (170-250)% increased Evasion Rating
 +(19-29)% to Chaos Resistance
 15% increased Damage for each Poison on you up to a maximum of 75%
@@ -322,6 +344,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 55, 97 Dex
+Implicits: 0
 +(25-35) to Dexterity
 (20-40)% increased Evasion Rating
 {variant:1}40% increased Evasion Rating while you have Onslaught
@@ -337,6 +360,7 @@ Replica Three-step Assault
 Shagreen Boots
 League: Heist
 Requires Level 55, 97 Dex
+Implicits: 0
 +(25-35) to Dexterity
 (20-40)% increased Evasion Rating
 +(50-70) to maximum Life
@@ -350,6 +374,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 12, 26 Dex
+Implicits: 0
 +15 to Dexterity
 +15 to Intelligence
 (100-150)% increased Evasion Rating
@@ -368,6 +393,7 @@ Silk Slippers
 Variant: Pre 3.8.0
 Variant: Current
 Requires Level 22, 42 Int
+Implicits: 0
 +20 to maximum Life
 +20 to maximum Mana
 (40-60)% increased Energy Shield
@@ -381,6 +407,7 @@ Replica Bones of Ullr
 Silk Slippers
 League: Heist
 Requires Level 22, 42 Int
+Implicits: 0
 (40-60)% increased Energy Shield
 +20 to maximum Life
 +20 to maximum Mana
@@ -411,6 +438,7 @@ Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
 Requires Level 67, 120 Int
+Implicits: 0
 {variant:1,2,3,10,11,12}Grants Level 25 Purity of Fire Skill
 {variant:4,5,6,13,14,15}Grants Level 25 Purity of Ice Skill
 {variant:7,8,9,16,17,18}Grants Level 25 Purity of Lightning Skill
@@ -425,6 +453,7 @@ Requires Level 67, 120 Int
 Inya's Epiphany
 Arcanist Slippers
 Requires Level 61, 119 Int
+Implicits: 0
 +(50-70) to maximum Life
 25% increased Movement Speed
 (5-8)% increased Intelligence
@@ -436,6 +465,7 @@ Replica Inya's Epiphany
 Arcanist Slippers
 League: Heist
 Requires Level 61, 119 Int
+Implicits: 0
 (5-8)% increased Intelligence
 +(50-70) to maximum Life
 5% increased Damage per Power Charge
@@ -451,6 +481,7 @@ Variant: Pre 3.4.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 53, 94 Int
+Implicits: 0
 {variant:1,2,3,4}(6-7)% Chance to Block Spell Damage
 {variant:5}(4-6)% Chance to Block Spell Damage
 {variant:6}(15-20)% Chance to Block Spell Damage
@@ -470,6 +501,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 32, 54 Int
+Implicits: 0
 {variant:1,2,3}+10 to Dexterity
 {variant:1}+10 to Intelligence
 {variant:2,3,4}+(20-30) to Intelligence
@@ -487,6 +519,7 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.17.0
 Requires Level 32, 54 Int
+Implicits: 0
 +10 to Dexterity
 +(20-30) to Intelligence
 (100-140)% increased Energy Shield
@@ -501,6 +534,7 @@ Skyforth
 Sorcerer Boots
 Energy Shield: 64
 Requires Level 67, 123 Int
+Implicits: 0
 +(60-120) to maximum Mana
 30% increased Movement Speed
 25% chance to gain a Power Charge on Critical Strike
@@ -514,6 +548,7 @@ League: Warbands
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 67, 123 Int
+Implicits: 0
 {variant:1}(110-140)% increased Energy Shield
 {variant:2}(50-80)% increased Energy Shield
 +(20-30) to maximum Energy Shield
@@ -525,6 +560,7 @@ Unaffected by Desecrated Ground
 ]],[[
 Wanderlust
 Wool Shoes
+Implicits: 0
 +5 to Dexterity
 (20-40)% increased Mana Regeneration Rate
 +(10-20) to maximum Energy Shield
@@ -537,6 +573,7 @@ Variant: Pre 1.0.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 9, 21 Int
+Implicits: 0
 {variant:1,2}+(5-10) to Strength
 {variant:3}+(5-30) to Strength
 {variant:1,2}+(5-10) to Dexterity
@@ -554,6 +591,7 @@ Greedtrap
 Velvet Slippers
 Source: No longer obtainable
 Requires Level 52, 21 Int
+Implicits: 0
 +(5-10) to Strength
 +(5-10) to Dexterity
 +(5-10) to Intelligence
@@ -591,6 +629,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 65, 62 Str, 62 Dex
+Implicits: 0
 {variant:2,3}(40-70)% increased Armour and Evasion
 +(20-40)% to Lightning Resistance
 5% increased Movement Speed per Frenzy Charge
@@ -607,6 +646,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 18, 19 Str, 19 Dex
+Implicits: 0
 {variant:1,2}(40-60)% increased Armour and Evasion
 {variant:3}(60-100)% increased Armour and Evasion
 {variant:1}+(10-20) to maximum Life
@@ -624,6 +664,7 @@ Dusktoe
 Leatherscale Boots
 Variant: Pre 2.0.0
 Requires Level 18, 19 Str, 19 Dex
+Implicits: 0
 (40-60)% increased Armour and Evasion
 +(10-20) to maximum Life
 +(10-20) to maximum Mana
@@ -638,6 +679,7 @@ Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 40, 19 Str, 19 Dex
+Implicits: 0
 {variant:1}Socketed Gems are Supported by Level 15 Added Chaos Damage
 {variant:2}Trigger Level 1 Stalking Pustule on Kill
 (120-150)% increased Armour and Evasion
@@ -654,6 +696,7 @@ Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
 Requires Level 69, 48 Str, 48 Dex
+Implicits: 0
 (200-300)% increased Armour and Evasion
 {variant:1}-(15-10)% to all Elemental Resistances
 30% increased Movement Speed
@@ -669,6 +712,7 @@ Source: Drops from Eternal Legion
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 30, 30 Str, 30 Dex
+Implicits: 0
 {variant:2}Trigger Level 5 Rain of Arrows when you Attack with a Bow
 +(40-60) to Strength
 +(40-60) to Dexterity
@@ -682,6 +726,7 @@ Replica Lioneye's Paws
 Bronzescale Boots
 League: Heist
 Requires Level 30, 30 Str, 30 Dex
+Implicits: 0
 Trigger Level 5 Toxic Rain when you Attack with a Bow
 +(40-60) to Strength
 +(40-60) to Dexterity
@@ -695,6 +740,7 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 42, 40 Str, 40 Dex
+Implicits: 0
 {variant:1}Adds (15-19) to (28-35) Cold Damage to Spells
 {variant:2}Adds (25-30) to (40-50) Cold Damage to Spells
 {variant:1}(20-40)% increased Critical Strike Chance for Spells
@@ -710,6 +756,7 @@ Hydrascale Boots
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
 Requires Level 59, 56 Str, 56 Dex
+Implicits: 0
 Grants Level 20 Aspect of the Avian Skill
 (100-150)% increased Armour and Evasion
 (20-30)% increased Movement Speed
@@ -724,6 +771,7 @@ Soldier Boots
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 49, 47 Str, 47 Int
+Implicits: 0
 Adds 1 to 80 Chaos Damage to Attacks
 +(180-220) to Armour
 {variant:1}+(9-12)% to Chaos Resistance
@@ -740,6 +788,7 @@ Variant: Pre 3.19.0
 Variant: Current
 League: Heist
 Requires Level 49, 47 Str, 47 Int
+Implicits: 0
 (15-18)% increased Strength
 +(180-220) to Armour
 {variant:1}+(9-12)% to Chaos Resistance
@@ -753,6 +802,7 @@ Death's Door
 Crusader Boots
 Source: Drops in The Eternal Labyrinth
 Requires Level 64, 62 Str, 62 Int
+Implicits: 0
 +(20-40) to Strength
 200% increased Armour and Energy Shield
 +(10-15)% to all Elemental Resistances
@@ -766,6 +816,7 @@ Legion Boots
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 58, 54 Str, 54 Int
+Implicits: 0
 (160-180)% increased Armour and Energy Shield
 +(50-60)% to Fire Resistance
 25% increased Movement Speed
@@ -780,6 +831,7 @@ Variant: Pre 3.17.0
 Variant: Current
 League: Synthesis
 Requires Level 58, 54 Str, 54 Int
+Implicits: 0
 {variant:1}+2 to Level of Socketed Aura Gems
 {variant:2}+(3-5) to Level of Socketed Aura Gems
 Socketed Gems are Supported by Level 25 Divine Blessing
@@ -792,6 +844,7 @@ Riveted Boots
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 36, 35 Str, 35 Int
+Implicits: 0
 +(15-25)% to Cold Resistance 
 +(15-25)% to Chaos Resistance 
 {variant:1}20% increased Movement Speed 
@@ -806,6 +859,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 28, 28 Str, 28 Int
+Implicits: 0
 Adds 1 to 120 Lightning Damage to Attacks
 (20-60)% increased Armour and Energy Shield
 +(10-20) Life gained on Kill
@@ -822,6 +876,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 41, 40 Dex, 40 Int
+Implicits: 0
 {variant:1}+(60-80) to maximum Energy Shield
 {variant:2}+(120-150) to maximum Energy Shield
 {variant:3}+(80-100) to maximum Energy Shield
@@ -839,6 +894,7 @@ Source: Drops from Abyssal Liches
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 Requires Level 69, 82 Dex, 42 Int
+Implicits: 0
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
 Triggers level 20 Death Walk when Equipped
@@ -870,6 +926,7 @@ League: Incursion
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
 {variant:1}Requires Level 34, 34 Dex, 34 Int
 {variant:2}Requires Level 55, 52 Dex, 52 Int
+Implicits: 0
 +(50-60) to maximum Mana
 {variant:1}+(15-20)% to Lightning Resistance
 {variant:2}+(25-30)% to Lightning Resistance
@@ -885,6 +942,7 @@ Variant: Current
 League: Incursion
 Source: Upgraded from unique{Dance of the Offered} via currency{Vial of the Ritual}
 Requires Level 55, 52 Dex, 52 Int
+Implicits: 0
 (15-20)% increased maximum Mana
 +(25-30)% to Lightning Resistance
 30% increased Movement Speed
@@ -898,6 +956,7 @@ Assassin's Boots
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
 Requires Level 63, 62 Dex, 62 Int
+Implicits: 0
 (160-200)% increased Evasion and Energy Shield
 +(20-30)% to Lightning Resistance
 +(17-23)% to Chaos Resistance
@@ -925,6 +984,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 16, 18 Dex, 18 Int
+Implicits: 0
 +(20-30) to Dexterity
 +(30-50) to Evasion Rating
 +(15-30) to maximum Energy Shield
@@ -938,6 +998,7 @@ Requires Level 16, 18 Dex, 18 Int
 The Stampede
 Assassin's Boots
 Requires Level 63, 62 Dex, 62 Int
+Implicits: 0
 League: Blight
 (100-150)% increased Evasion and Energy Shield
 (30-40)% increased Stun and Block Recovery
@@ -950,6 +1011,7 @@ Replica Stampede
 Assassin's Boots
 League: Heist
 Requires Level 63, 62 Dex, 62 Int
+Implicits: 0
 (100-150)% increased Evasion and Energy Shield
 (30-40)% increased Stun and Block Recovery
 Socketed Travel Skills deal 80% more Damage
@@ -962,6 +1024,7 @@ Clasped Boots
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 27, 27 Dex, 27 Int
+Implicits: 0
 10% increased Attack Speed
 (80-120)% increased Evasion Rating
 (20-30)% increased Rarity of Items found
@@ -973,6 +1036,7 @@ Sunspite
 Clasped Boots
 Source: No longer obtainable
 Requires Level 59, 27 Dex, 27 Int
+Implicits: 0
 10% increased Attack Speed
 (260-300)% increased Evasion and Energy Shield
 (20-30)% increased Rarity of Items found
@@ -988,6 +1052,7 @@ Source: Drops from unique{The Shaper}
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 69, 82 Dex, 42 Int
+Implicits: 0
 +(30-50) to Dexterity
 (140-180)% increased Evasion and Energy Shield
 30% increased Movement Speed
@@ -1003,6 +1068,7 @@ Murder Boots
 Shaper Item
 League: Heist
 Requires Level 69, 82 Dex, 42 Int
+Implicits: 0
 +(30-50) to Dexterity
 (140-180)% increased Evasion and Energy Shield
 30% increased Movement Speed
@@ -1017,6 +1083,7 @@ Olroth's Charge
 Runic Sollerets
 League: Expedition
 Requires Level 48, 37 Str, 37 Dex, 37 Int
+Implicits: 0
 (50–80)% increased Ward
 (30–50)% slower Restoration of Ward
 20% increased Movement Speed
