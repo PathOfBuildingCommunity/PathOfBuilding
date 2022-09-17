@@ -87,15 +87,10 @@ function calcs.buildModListForNode(env, node)
 	else
 		modList:AddList(node.modList)
 	end
-	
-	-- Keep track of what jewels have been applied to this node to avoid applying the same jewel twice if they overlap
-	-- Ref https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues/4873
-	local appliedJewels = {}
-	
+
 	-- Run first pass radius jewels
 	for _, rad in pairs(env.radiusJewelList) do
-		if rad.type == "Other" and rad.nodes[node.id] and not appliedJewels[rad.item.name] then
-			appliedJewels[rad.item.name] = true
+		if rad.type == "Other" and rad.nodes[node.id] then
 			rad.func(node, modList, rad.data)
 		end
 	end
@@ -772,7 +767,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 			local node = env.spec.tree.notableMap[passive]
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
-				env.allocNodes[node.id] = env.spec.nodes[node.id] -- use the conquered node data, if available
+				env.allocNodes[node.id] = env.spec.nodes[node.id] or node -- use the conquered node data, if available
 				env.grantedPassives[node.id] = true
 			end
 		end

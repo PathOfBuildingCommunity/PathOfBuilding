@@ -329,11 +329,13 @@ function calcs.defence(env, actor)
 				energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, nil, "EnergyShield", "Defences")
 			end
 			if breakdown then
+				local inc = modDB:Sum("INC", slotCfg, "Defences", "EnergyShield")
 				local more = modDB:More(slotCfg, "EnergyShield", "Defences")
 				t_insert(breakdown["EnergyShield"].slots, {
 					base = energyShieldBase,
+					inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
 					more = (more ~= 1) and s_format(" x %.2f", more),
-					total = s_format("%.2f", energyShieldBase * more),
+					total = s_format("%.2f", energyShieldBase * (1 + inc / 100) * more),
 					source = "Global",
 					item = actor.itemList["Global"],
 				})
@@ -881,6 +883,7 @@ function calcs.defence(env, actor)
 	for _, ailment in ipairs(data.ailmentTypeList) do
 		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment), 100)
 	end
+	output.CurseAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidCurse"), 100)
 	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
 	if breakdown then
@@ -916,9 +919,10 @@ function calcs.defence(env, actor)
 				},
 			}
 		end
-		local enemyCritChance = env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0
+		local enemyCritChance = (env.configInput["enemyCritChance"] or 0) * (1 + modDB:Sum("INC", nil, "EnemyCritChance") / 100)
 		local enemyCritDamage = env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
+		local enemyCfg = {keywordFlags = bit.bnot(KeywordFlag.MatchAll)} -- Match all keywordFlags parameter for enemy min-max damage mods
 		for _, damageType in ipairs(dmgTypeList) do
 			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) -- missing taunt from allies
 			local enemyDamage = tonumber(env.configInput["enemy"..damageType.."Damage"])
@@ -935,7 +939,10 @@ function calcs.defence(env, actor)
 			if enemyOverwhelm == nil then
 				enemyOverwhelm = tonumber(env.configPlaceholder["enemy"..damageType.."enemyOverwhelm"]) or 0
 			end
-
+			
+			-- Add min-max enemy damage from mods
+			enemyDamage = enemyDamage + (enemyDB:Sum("BASE", enemyCfg, (damageType.."Min")) + enemyDB:Sum("BASE", enemyCfg, (damageType.."Max"))) / 2
+			
 			output[damageType.."EnemyPen"] = enemyPen
 			output[damageType.."EnemyOverwhelm"] = enemyOverwhelm
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
