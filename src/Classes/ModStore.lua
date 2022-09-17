@@ -504,6 +504,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if not cfg or tag.slotName ~= cfg.slotName or (tag.socketColor ~= nil and (tag.sockets == nil or (tag.sockets ~= nil and type(tag.sockets) ~= "string")) and tag.socketColor ~= cfg.socketColor) or (tag.keyword and (not cfg or not cfg.skillGem or not calcLib.gemIsType(cfg.skillGem, tag.keyword))) then
 				return
 			elseif tag.sockets ~= nil then
+				local match = false
 				if tag.sockets == "all" and tag.socketColor ~= nil then
 					local targetAtrColor = tag.socketColor == "R" and "strengthGems" or tag.socketColor == "G" and "dexterityGems" or tag.socketColor == "B" and "intelligenceGems"
 					local total = (cfg.intelligenceGems or 0) + (cfg.dexterityGems or 0) + (cfg.strengthGems or 0)
@@ -511,27 +512,30 @@ function ModStoreClass:EvalMod(mod, cfg)
 					if total == 0 or count == 0 or total > count then
 						return
 					end
+					match = true
 				elseif type(tag.sockets) == "number" and tag.socketColor ~= nil then
 					local targetAtrColor = tag.socketColor == "R" and "strengthGems" or tag.socketColor == "G" and "dexterityGems" or tag.socketColor == "B" and "intelligenceGems"
 					local count = cfg[targetAtrColor] or 0
 					if count == 0 or count < tag.sockets then
-						return
+					return
 					end
+					match = true
 				elseif type(tag.sockets) == "table" then
-					if cfg.socketNum == nil then return end
-					local notFound = true
+					if cfg.socketNum == nil then 
+						return 
+					end
 					for _, val in ipairs(tag.sockets) do
 						if val == cfg.socketNum then
-							notFound = false
+							match = true
 							break
 						end
 					end
-					if tag.neg then
-						notFound = not notFound
-					end
-					if notFound then
-						return
-					end
+				end
+				if tag.neg then
+					match = not match
+				end
+				if not match then
+					return
 				end
 			end
 		elseif tag.type == "SkillName" then
