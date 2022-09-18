@@ -407,14 +407,15 @@ function calcs.buildOutput(build, mode)
 			calcs.buildActiveSkill(env, "CACHE", skill)
 		end
 		if GlobalCache.cachedData["CACHE"][uuid] then
-			for pool, costResource in pairs({["LifeUnreserved"] = "Life", ["ManaUnreserved"] = "Mana", ["Rage"] = "Rage", ["EnergyShield"] = "ES"}) do
-				local cachedCost = GlobalCache.cachedData["CACHE"][uuid][costResource.."Cost"]
+			local EB = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
+			for pool, costResource in pairs({["LifeUnreserved"] = "LifeCost", ["ManaUnreserved"] = "ManaCost", ["Rage"] = "RageCost", ["EnergyShield"] = "ESCost"}) do
+				local cachedCost = GlobalCache.cachedData["CACHE"][uuid][costResource]
 				if cachedCost then
-					if env.modDB:Flag(nil, "EnergyShieldProtectsMana") and costResource == "Mana" then --Handling for mana cost warnings with EB allocated
+					if EB and costResource == "Mana" then --Handling for mana cost warnings with EB allocated
 						output.EnergyShieldProtectsMana = true
-						output[costResource.."CostWarning"] = output[costResource.."CostWarning"] or ((output[pool] + output["EnergyShield"]) < cachedCost)
+						output[costResource.."Warning"] = output[costResource.."Warning"] or (((output[pool] or 0) + (output["EnergyShield"] or 0)) < cachedCost)
 					else
-						output[costResource.."CostWarning"] = output[costResource.."CostWarning"] or (output[pool] < cachedCost)
+						output[costResource.."Warning"] = output[costResource.."Warning"] or ((output[pool] or 0) < cachedCost) -- defaulting to 0 to avoid crashing
 					end
 				end
 			end
