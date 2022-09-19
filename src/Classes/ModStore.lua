@@ -501,30 +501,34 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SocketedIn" then
-			if not cfg or tag.slotName ~= cfg.slotName or (tag.socketColor ~= nil and (tag.sockets == nil or (tag.sockets ~= nil and type(tag.sockets) ~= "string")) and tag.socketColor ~= cfg.socketColor) or (tag.keyword and (not cfg or not cfg.skillGem or (not tag.neg and not calcLib.gemIsType(cfg.skillGem, tag.keyword) or tag.neg and calcLib.gemIsType(cfg.skillGem, tag.keyword)))) then
+			if not cfg or tag.slotName ~= cfg.slotName then
 				return
-			elseif tag.sockets ~= nil then
+			else
 				local match = true
-				if tag.sockets == "all" and tag.socketColor ~= nil then
-					local targetAtrColor = tag.socketColor == "R" and "strengthGems" or tag.socketColor == "G" and "dexterityGems" or tag.socketColor == "B" and "intelligenceGems"
-					local total = (cfg.intelligenceGems or 0) + (cfg.dexterityGems or 0) + (cfg.strengthGems or 0)
-					local count = cfg[targetAtrColor] or 0
-					if total == 0 or count == 0 or total > count then
+				if tag.keyword ~= nil and cfg.skillGem ~= nil and not calcLib.gemIsType(cfg.skillGem, tag.keyword) then
+					match = false
+				elseif tag.socketColor ~= cfg.socketColor then
+					match = false
+				elseif tag.sockets ~= nil then
+					if tag.socketColor ~= nil then
+						local targetAtrColor = tag.socketColor == "R" and "strengthGems" or tag.socketColor == "G" and "dexterityGems" or tag.socketColor == "B" and "intelligenceGems"
+						local count = cfg[targetAtrColor] or 0
+						if tag.sockets == "all" then
+							local total = (cfg.intelligenceGems or 0) + (cfg.dexterityGems or 0) + (cfg.strengthGems or 0)
+							if total == 0 or count == 0 or total > count then
+								match = false
+							end
+						elseif type(tag.sockets) == "number" and (count == 0 or count < tag.sockets) then
+							match = false
+						end
+					elseif type(tag.sockets) == "table" then
 						match = false
-					end
-				elseif type(tag.sockets) == "number" and tag.socketColor ~= nil then
-					local targetAtrColor = tag.socketColor == "R" and "strengthGems" or tag.socketColor == "G" and "dexterityGems" or tag.socketColor == "B" and "intelligenceGems"
-					local count = cfg[targetAtrColor] or 0
-					if count == 0 or count < tag.sockets then
-						match = false
-					end
-				elseif type(tag.sockets) == "table" then
-					if cfg.socketNum ~= nil then 
-						match = false
-						for _, val in ipairs(tag.sockets) do
-							if val == cfg.socketNum then
-								match = true
-								break
+						if cfg.socketNum ~= nil then 
+							for _, val in ipairs(tag.sockets) do
+								if val == cfg.socketNum then
+									match = true
+									break
+								end
 							end
 						end
 					end
