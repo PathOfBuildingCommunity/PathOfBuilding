@@ -1643,7 +1643,9 @@ function calcs.offence(env, actor, activeSkill)
 							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
 							{ "%.2f ^8(duration)", duration }
 						})
-						t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
+						if output.Repeats ~= 1 then
+							t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
+						end
 					else
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
 							label = "Attack Speed before increased Attack Speed",
@@ -1658,14 +1660,16 @@ function calcs.offence(env, actor, activeSkill)
 							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
 							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
 						})
-						t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
+						if output.Repeats ~= 1 then
+							t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
+						end
 						t_insert(storedSustainedTraumaBreakdown, s_format("= %.2f ^8trauma per second", traumaRateBeforeInc))
 						t_insert(storedSustainedTraumaBreakdown, "Trauma")
 						t_insert(storedSustainedTraumaBreakdown, s_format("%.2f ^8(base)", traumaRateBeforeInc))
 						t_insert(storedSustainedTraumaBreakdown, s_format("x %.2f ^8(increased/reduced)", (1 + inc / 100)))
 						t_insert(storedSustainedTraumaBreakdown, s_format("/ %.4f ^8(1 / duration - trauma per second * increased attack speed per trauma / 100)", ( 1 / duration - traumaRateBeforeInc * incAttackSpeedPerTrauma / 100 )))
 					end
-					t_insert(storedSustainedTraumaBreakdown, s_format("= "..(invalid and "^1" or "").."%d ^8(trauma)", traumaBreakdown))
+					t_insert(storedSustainedTraumaBreakdown, s_format("= "..(invalid and "^1" or "").."%d ^8trauma", traumaBreakdown))
 					if invalid then
 						t_insert(storedSustainedTraumaBreakdown, "Attack Speed exceeds cap recalculating")
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
@@ -1674,8 +1678,10 @@ function calcs.offence(env, actor, activeSkill)
 							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
 							{ "%.2f ^8(duration)", (duration) },
 						})
-						t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
-						t_insert(storedSustainedTraumaBreakdown, s_format("= %d ^8(trauma)", trauma))
+						if output.Repeats ~= 1 then
+							t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
+						end
+						t_insert(storedSustainedTraumaBreakdown, s_format("= %d ^8trauma", trauma))
 					end
 				end
 			end
