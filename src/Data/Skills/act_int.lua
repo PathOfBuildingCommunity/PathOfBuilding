@@ -6512,7 +6512,7 @@ skills["LightningConduit"] = {
 	castTime = 0.5,
 	statMap = {
 		["energy_release_damage_+%_final_per_5%_increased_damage_taken_from_shock_on_target"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
 		},
 	},
 	baseFlags = {
