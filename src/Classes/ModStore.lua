@@ -519,7 +519,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 				end
 				if tag.keyword then
 					match["keyword"] = (cfg.skillGem and calcLib.gemIsType(cfg.skillGem, tag.keyword)) or false
-				elseif tag.socketColor then
+				elseif tag.socketColor and tag.sockets ~= "all" then -- the all socket tag inherently checks for the correct color
 					match["socketColor"] = (tag.socketColor == cfg.socketColor) or false
 				end
 				if tag.sockets then
