@@ -435,7 +435,7 @@ function ItemClass:ParseRaw(raw)
 					for _, influenceTag in ipairs(influenceInfo) do
 						self.influenceTags[influenceTag.key] = { }
 						for tag, _ in pairs(self.base.tags) do
-							if(tag ~= "default") then
+							if tag ~= "default" then
 								t_insert(self.influenceTags[influenceTag.key], tag..'_'..influenceTag.key)
 							end
 						end
