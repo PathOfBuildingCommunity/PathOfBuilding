@@ -519,6 +519,8 @@ function ModStoreClass:EvalMod(mod, cfg)
 				end
 				if tag.keyword then
 					match["keyword"] = (cfg.skillGem and calcLib.gemIsType(cfg.skillGem, tag.keyword)) or false
+				elseif tag.socketColor then
+					match["socketColor"] = (tag.socketColor == cfg.socketColor) or false
 				end
 				if tag.sockets then
 					local targetAtrColor = tag.socketColor == "R" and "strengthGems" or tag.socketColor == "G" and "dexterityGems" or tag.socketColor == "B" and "intelligenceGems"
@@ -533,8 +535,6 @@ function ModStoreClass:EvalMod(mod, cfg)
 					else
 						return
 					end
-				elseif tag.socketColor then
-					match["socketColor"] = (tag.socketColor == cfg.socketColor) or false
 				end
 				for _, v in pairs(match) do
 					if (not tag.neg and not v) or (tag.neg and v) then
