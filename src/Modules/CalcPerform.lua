@@ -1976,17 +1976,13 @@ function calcs.perform(env, avoidCache)
 					if not curse.isMark then
 						more = more * enemyDB:More(nil, "CurseEffectOnSelf")
 					end
-					local mult = 0
-					if not (modDB:Flag(nil, "SelfAurasOnlyAffectYou") and activeSkill.skillTypes[SkillType.Aura]) then --If your aura only effect you blasphemy does nothing
-						mult = (1 + inc / 100) * more
-					end
 					if buff.type == "Curse" then
 						curse.modList = new("ModList")
-						curse.modList:ScaleAddList(buff.modList, mult)
+						curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 					else
 						-- Curse applies a buff; scale by curse effect, then buff effect
 						local temp = new("ModList")
-						temp:ScaleAddList(buff.modList, mult)
+						temp:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						curse.buffModList = new("ModList")
 						local buffInc = modDB:Sum("INC", skillCfg, "BuffEffectOnSelf")
 						local buffMore = modDB:More(skillCfg, "BuffEffectOnSelf")
@@ -1999,10 +1995,25 @@ function calcs.perform(env, avoidCache)
 						end
 					end
 					local isCurseReflected = modDB:Flag({slotName = activeSkill.slotName}, "HexesAreReflectedToYou") and not activeSkill.skillTypes[SkillType.Aura]
-					if not isCurseReflected then
+					local alsoCursePlayer = modDB:Flag({slotName = activeSkill.slotName}, "CurseAurasAlsoAffectYou")
+					if not isCurseReflected and not (modDB:Flag(nil, "SelfAurasOnlyAffectYou") and activeSkill.skillTypes[SkillType.Aura]) then
 						t_insert(curses, curse)
 					end
-					if modDB:Flag({slotName = activeSkill.slotName}, "CurseAurasAlsoAffectYou") or isCurseReflected then
+					if alsoCursePlayer or isCurseReflected then
+						local gemModList = new("ModList")
+						calcs.mergeSkillInstanceMods(env, gemModList, {
+							grantedEffect = activeSkill.activeEffect.grantedEffect,
+							level = activeSkill.activeEffect.level,
+							quality = activeSkill.activeEffect.quality,
+						})
+						
+						local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + modDB:Sum("INC", { skillName = buff.name }, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
+						local more = skillModList:More(skillCfg, "CurseEffect") * modDB:More({ skillName = buff.name }, "CurseEffectOnSelf") * gemModList:More(nil, "CurseEffectAgainstPlayer")
+						if activeSkill.skillTypes[SkillType.Aura] then
+							inc = inc + skillModList:Sum("INC", skillCfg, "AuraEffect")
+						end
+						curse.modList = new("ModList")
+						curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						t_insert(playerCurses, curse)
 					end
 				end
