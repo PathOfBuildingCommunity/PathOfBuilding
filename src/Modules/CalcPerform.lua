@@ -1957,13 +1957,12 @@ function calcs.perform(env, avoidCache)
 					mergeBuff(srcList, debuffs, buff.name)
 				end
 			elseif buff.type == "Curse" or buff.type == "CurseBuff" then
-				local mark = activeSkill.skillTypes[SkillType.Mark]
 				if env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof")) or mark then
 					local curse = {
 						name = buff.name,
 						fromPlayer = true,
 						priority = determineCursePriority(buff.name, activeSkill),
-						isMark = mark,
+						isMark = activeSkill.skillTypes[SkillType.Mark],
 						ignoreHexLimit = modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") and not mark or false,
 						socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
 					}
@@ -1999,7 +1998,7 @@ function calcs.perform(env, avoidCache)
 					if not isCurseReflected and not (modDB:Flag(nil, "SelfAurasOnlyAffectYou") and activeSkill.skillTypes[SkillType.Aura]) then
 						t_insert(curses, curse)
 					end
-					if alsoCursePlayer or isCurseReflected then
+					if alsoCursePlayer or ( isCurseReflected and ((modDB:Sum("BASE", nil, "AvoidCurse") < 100) or curse.isMark) ) then
 						local gemModList = new("ModList")
 						calcs.mergeSkillInstanceMods(env, gemModList, {
 							grantedEffect = activeSkill.activeEffect.grantedEffect,
@@ -2184,8 +2183,9 @@ function calcs.perform(env, avoidCache)
 					modList = curseModList,
 					ignoreHexLimit = value.ignoreHexLimit or value.configCurse,
 					configCurse = value.configCurse,
+					mark = grantedEffect.baseFlags.mark
 				}
-				if value.applyToPlayer and ( modDB:Sum("BASE", nil, "AvoidCurse") < 100 ) then
+				if value.applyToPlayer and ( (modDB:Sum("BASE", nil, "AvoidCurse") < 100) or curse.mark ) then
 					modDB.conditions["Cursed"] = true
 					modDB.conditions["AffectedBy"..grantedEffect.name:gsub(" ","")] = true
 					t_insert(playerCurses, curse)
@@ -2202,9 +2202,12 @@ function calcs.perform(env, avoidCache)
 	local playerCurseSlots = {}
 	env.playerCurseSlots = playerCurseSlots
 	-- Currently assume only 1 mark is possible
-	local markSlotted = false
-
-	for source, slots in pairs({[curses] = curseSlots, [minionCurses] = curseSlots, [playerCurses] = playerCurseSlots}) do
+	local enemyMarkSlotted = {false}
+	
+	-- Hacky way to seperate enemy mark slot from player mark slot using lua table magick 
+	for source, slots in pairs({[curses] = {curseSlots, enemyMarkSlotted}, [minionCurses] = {curseSlots, enemyMarkSlotted}, [playerCurses] = {playerCurseSlots, {false}}}) do
+		local curseSlots = slots[1]
+		local markSlot = slots[2]
 		for _, curse in ipairs(source) do
 			-- Calculate curses that ignore hex limit after
 			if not curse.ignoreHexLimit and not curse.socketedCursesHexLimit then
@@ -2229,34 +2232,34 @@ function calcs.perform(env, avoidCache)
 				for i = 1, source.limit do
 					-- Prevent multiple marks from being considered
 					if curse.isMark then
-						if markSlotted then
+						if markSlot[1] then
 							slot = nil
 							break
 						end
 					end
-					if not slots[i] then
+					if not curseSlots[i] then
 						slot = i
 						break
-					elseif slots[i].name == curse.name then
-						if (slots[i].priority < curse.priority) or curse.configCurse then
+					elseif curseSlots[i].name == curse.name then
+						if (curseSlots[i].priority < curse.priority) or curse.configCurse then
 							slot = i
 						else
 							slot = nil
 						end
 						break
-					elseif slots[i].priority < curse.priority then
+					elseif curseSlots[i].priority < curse.priority then
 						slot = i
 					end
 				end
 				if slot then
-					if slots[slot] and slots[slot].isMark then
-						markSlotted = false
+					if curseSlots[slot] and curseSlots[slot].isMark then
+						markSlot[1] = false
 					end
 					if skipAddingCurse == false then
-						slots[slot] = curse
+						curseSlots[slot] = curse
 					end
 					if curse.isMark then
-						markSlotted = true
+						markSlot[1] = true
 					end
 				end
 			end
