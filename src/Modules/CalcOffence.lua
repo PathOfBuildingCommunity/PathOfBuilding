@@ -1612,10 +1612,7 @@ function calcs.offence(env, actor, activeSkill)
 				local configTrauma = skillModList:Sum("BASE", skillCfg, "Multiplier:TraumaStacks")
 				local inc = skillModList:Sum("INC", cfg, "Speed") - incAttackSpeedPerTrauma * configTrauma -- remove trauma attack speed added by config.
 				local attackSpeedBeforeInc = 1 / baseTime * globalOutput.ActionSpeedMod * more
-				local incAttackSpeedPerTraumaCap = 0
-				if m_min(attackSpeedBeforeInc * (1 + inc / 100), effectiveAttackRateCap) < effectiveAttackRateCap then
-					incAttackSpeedPerTraumaCap = (effectiveAttackRateCap - attackSpeedBeforeInc * (1 + inc / 100)) / attackSpeedBeforeInc * 100
-				end
+				local incAttackSpeedPerTraumaCap = (effectiveAttackRateCap - attackSpeedBeforeInc * (1 + inc / 100)) / attackSpeedBeforeInc * 100
 				local traumaRateBeforeInc = traumaPerAttack * (output.HitChance / 100) * attackSpeedBeforeInc / output.Repeats
 				local trauma = traumaRateBeforeInc * (1 + inc / 100) / ( 1 / duration - traumaRateBeforeInc * incAttackSpeedPerTrauma / 100 )
 				local traumaBreakdown = trauma
