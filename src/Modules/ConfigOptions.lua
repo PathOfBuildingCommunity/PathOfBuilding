@@ -536,9 +536,8 @@ return {
 	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
 	end },
-	{ var = "externalCurseConfig", type = "list", noSave = true, label = "Player is cursed by:", list = {{val=nil,label="Select a Curse..."},{val="Despair",label="Despair"},{val="AssassinsMark",label="AssassinsMark"},{val="Conductivity",label="Conductivity"},{val="ElementalWeakness",label="ElementalWeakness"},{val="Enfeeble",label="Enfeeble"},{val="Flammability",label="Flammability"},{val="Frostbite",label="Frostbite"},{val="PoachersMark",label="PoachersMark"},{val="ProjectileWeakness",label="ProjectileWeakness"},{val="Punishment",label="Punishment"},{val="TemporalChains",label="TemporalChains"},{val="Vulnerability",label="Vulnerability"},{val="WarlordsMark",label="WarlordsMark"}}, apply = function(val, modList, enemyModList, build)
+	{ var = "externalCurseConfig", type = "list", noSave = true, label = "Player is cursed by:", list = {{val=nil,label="Select a Curse..."},{val="Despair",label="Despair"},{val="AssassinsMark",label="Assassin's Mark"},{val="Conductivity",label="Conductivity"},{val="ElementalWeakness",label="Elemental Weakness"},{val="Enfeeble",label="Enfeeble"},{val="Flammability",label="Flammability"},{val="Frostbite",label="Frostbite"},{val="PoachersMark",label="Poacher's Mark"},{val="ProjectileWeakness",label="Projectile Weakness"},{val="Punishment",label="Punishment"},{val="TemporalChains",label="Temporal Chains"},{val="Vulnerability",label="Vulnerability"},{val="WarlordsMark",label="Warlord's Mark"}}, apply = function(val, modList, enemyModList, build)
 		build.configTab.varControls['externalCurseConfig'].selIndex = 1
-		ConPrintf(tostring(val))
 		if val then
 			build.configTab.varControls['playerCursedWith' .. val].shown = true
 		end
