@@ -2692,6 +2692,7 @@ local specialModList = {
 		mod("ExtraCurse", "LIST", { skillId = gemIdLookup[skill], level = 1, applyToPlayer = true }),
 		mod("CurseEffectOnSelf", "INC", tonumber(num), { type = "SkillName", skillName = string.gsub(" "..skill, "%W%l", string.upper):sub(2) }),
 	} end,
+	["enemy hits inflict temporal chains on you"] = { mod("ExtraCurse", "LIST", { skillId = "TemporalChains", level = 1, applyToPlayer = true }, { type = "Condition", var = "BeenHitRecently" }) },
 	["you count as on low life while you are cursed with vulnerability"] = { flag("Condition:LowLife", { type = "Condition", var = "AffectedByVulnerability" }) },
 	["you count as on full life while you are cursed with vulnerability"] = { flag("Condition:FullLife", { type = "Condition", var = "AffectedByVulnerability" }) },
 	["if you consumed a corpse recently, you and nearby allies regenerate (%d+)%% of life per second"] = function (num) return { mod("ExtraAura", "LIST", { mod = mod("LifeRegenPercent", "BASE", num) }, { type = "Condition", var = "ConsumedCorpseRecently" }) } end,
