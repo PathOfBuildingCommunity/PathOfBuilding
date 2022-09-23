@@ -3794,7 +3794,7 @@ local flagTypes = {
 	["chilled"] = "Condition:Chilled",
 	["blinded"] = "Condition:Blinded",
 	["no life regeneration"] = "NoLifeRegen",
-	["hexproof"] = { name = "CurseEffectOnSelf", value = -100, type = "MORE" },
+	["hexproof"] = "Condition:Hexproof",
 	["hindered, with (%d+)%% reduced movement speed"] = "Condition:Hindered",
 	["unnerved"] = "Condition:Unnerved",
 }
