@@ -1118,6 +1118,15 @@ function calcs.offence(env, actor, activeSkill)
 		debuffDurationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skillCfg, "BuffExpireFaster"))
 		otherSelfDurationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.actor.modDB, skillCfg, "BuffExpireFaster"))
 	end
+	
+	-- Hacky way to determine wheter or not to apply temp chains expiry to stage duration granted by skill
+	local stageBuff = true
+	for _, skillPart in ipairs(activeSkill.activeEffect.grantedEffect.parts or {}) do
+		if not skillPart.stages then
+			stageBuff = false
+			break
+		end
+	end
 	do
 		output.DurationMod = calcLib.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 		if breakdown then
@@ -1129,8 +1138,11 @@ function calcs.offence(env, actor, activeSkill)
 		local durationBase = (skillData.duration or 0) + skillModList:Sum("BASE", skillCfg, "Duration", "PrimaryDuration")
 		if durationBase > 0 and not (activeSkill.minion and skillModList:Flag(skillCfg, activeSkill.minion.type.."PermanentDuration")) then
 			output.Duration = durationBase * output.DurationMod
-			output.Duration = output.Duration * (skillData.debuff and debuffDurationMult or 1)
-			output.Duration = output.Duration * (activeSkill.buffSkill and otherSelfDurationMult or 1)
+			if skillData.debuff then
+				output.Duration = output.Duration * debuffDurationMult
+			elseif activeSkill.buffSkill or stageBuff then
+				output.Duration = output.Duration * otherSelfDurationMult
+			end
 			output.Duration = m_ceil(output.Duration * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown and output.Duration ~= durationBase then
 				breakdown.Duration = {
@@ -1139,10 +1151,14 @@ function calcs.offence(env, actor, activeSkill)
 				if output.DurationMod ~= 1 then
 					t_insert(breakdown.Duration, s_format("x %.4f ^8(duration modifier)", output.DurationMod))
 				end
-				if skillData.debuff and debuffDurationMult ~= 1 then
-					t_insert(breakdown.Duration, s_format("/ %.3f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
-				elseif otherSelfDurationMult ~= 1 and activeSkill.buffSkill then
-					t_insert(breakdown.Duration, s_format("/ %.3f ^8(buff expires slower/faster)", 1 / otherSelfDurationMult))
+				if skillData.debuff then
+					if debuffDurationMult ~= 1 then
+						t_insert(breakdown.Duration, s_format("/ %.3f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+					end
+				elseif activeSkill.buffSkill or stageBuff then
+					if otherSelfDurationMult ~= 1 then
+						t_insert(breakdown.Duration, s_format("/ %.3f ^8(buff expires slower/faster)", 1 / otherSelfDurationMult))
+					end
 				end
 				t_insert(breakdown.Duration, s_format("rounded up to nearest server tick"))
 				t_insert(breakdown.Duration, s_format("= %.3fs", output.Duration))
@@ -1152,8 +1168,11 @@ function calcs.offence(env, actor, activeSkill)
 		if durationBase > 0 then
 			local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "SecondaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 			output.DurationSecondary = durationBase * durationMod
-			output.DurationSecondary = output.DurationSecondary * (skillData.debuffSecondary and debuffDurationMult or 1)
-			output.DurationSecondary = output.DurationSecondary * (activeSkill.buffSkill and otherSelfDurationMult or 1)
+			if skillData.debuff then
+				output.Duration = output.Duration * debuffDurationMult
+			elseif activeSkill.buffSkill or stageBuff then
+				output.Duration = output.Duration * otherSelfDurationMult
+			end
 			output.DurationSecondary = m_ceil(output.DurationSecondary * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown and output.DurationSecondary ~= durationBase then
 				breakdown.SecondaryDurationMod = breakdown.mod(skillModList, skillCfg, "Duration", "SecondaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
@@ -1166,10 +1185,14 @@ function calcs.offence(env, actor, activeSkill)
 				if output.DurationMod ~= 1 then
 					t_insert(breakdown.DurationSecondary, s_format("x %.4f ^8(duration modifier)", durationMod))
 				end
-				if skillData.debuffSecondary and debuffDurationMult ~= 1 then
-					t_insert(breakdown.DurationSecondary, s_format("/ %.3f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
-				elseif otherSelfDurationMult ~= 1 and activeSkill.buffSkill then
-					t_insert(breakdown.Duration, s_format("/ %.3f ^8(buff expires slower/faster)", 1 / otherSelfDurationMult))
+				if skillData.debuff then
+					if debuffDurationMult ~= 1 then
+						t_insert(breakdown.DurationSecondary, s_format("/ %.3f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+					end
+				elseif activeSkill.buffSkill or stageBuff then
+					if otherSelfDurationMult ~= 1 then
+						t_insert(breakdown.DurationSecondary, s_format("/ %.3f ^8(buff expires slower/faster)", 1 / otherSelfDurationMult))
+					end
 				end
 				t_insert(breakdown.DurationSecondary, s_format("rounded up to nearest server tick"))
 				t_insert(breakdown.DurationSecondary, s_format("= %.3fs", output.DurationSecondary))
@@ -1179,7 +1202,7 @@ function calcs.offence(env, actor, activeSkill)
 		if durationBase > 0 then
 			local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "SkillAndDamagingAilmentDuration")
 			output.AuraDuration = durationBase * durationMod
-			output.AuraDuration = output.AuraDuration * (activeSkill.buffSkill and otherSelfDurationMult or 1)
+			output.AuraDuration = output.AuraDuration * ((activeSkill.buffSkill or stageBuff) and otherSelfDurationMult or 1)
 			output.AuraDuration = m_ceil(output.AuraDuration * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown and output.AuraDuration ~= durationBase then
 				breakdown.AuraDuration = {
@@ -1188,7 +1211,7 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("rounded up to nearest server tick"),
 					s_format("= %.3fs", output.AuraDuration),
 				}
-				if otherSelfDurationMult ~= 1 and activeSkill.buffSkill then
+				if otherSelfDurationMult ~= 1 and (activeSkill.buffSkill or stageBuff) then
 					t_insert(breakdown.AuraDuration, 3, s_format("/ %.3f ^8(buff expires slower/faster)", 1 / otherSelfDurationMult))
 				end
 			end
