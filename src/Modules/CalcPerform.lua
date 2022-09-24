@@ -1995,10 +1995,10 @@ function calcs.perform(env, avoidCache)
 					end
 					local isCurseReflected = modDB:Flag({slotName = activeSkill.slotName}, "HexesAreReflectedToYou") and not activeSkill.skillTypes[SkillType.Aura]
 					local alsoCursePlayer = modDB:Flag({slotName = activeSkill.slotName}, "CurseAurasAlsoAffectYou")
-					if not isCurseReflected and not (modDB:Flag(nil, "SelfAurasOnlyAffectYou") and activeSkill.skillTypes[SkillType.Aura]) and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") or curse.isMark) then
+					if (not isCurseReflected and not (modDB:Flag(nil, "SelfAurasOnlyAffectYou") and activeSkill.skillTypes[SkillType.Aura]) and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof"))) or curse.isMark then
 						t_insert(curses, curse)
 					end
-					if alsoCursePlayer or (isCurseReflected and (modDB:Sum("BASE", nil, "AvoidCurse") < 100) and not modDB:Flag(nil, "Condition:Hexproof")) and not curse.isMark then
+					if (alsoCursePlayer or (isCurseReflected and (modDB:Sum("BASE", nil, "AvoidCurse") < 100) and not modDB:Flag(nil, "Condition:Hexproof"))) and not curse.isMark then
 						local gemModList = new("ModList")
 						calcs.mergeSkillInstanceMods(env, gemModList, {
 							grantedEffect = activeSkill.activeEffect.grantedEffect,
@@ -2185,7 +2185,7 @@ function calcs.perform(env, avoidCache)
 					configCurse = value.configCurse,
 					mark = grantedEffect.baseFlags.mark
 				}
-				if value.applyToPlayer and ( ((modDB:Sum("BASE", nil, "AvoidCurse") < 100) and not not modDB:Flag(nil, "Condition:Hexproof")) or curse.mark or curse.configCurse ) then
+				if value.applyToPlayer and ( ((modDB:Sum("BASE", nil, "AvoidCurse") < 100) and not modDB:Flag(nil, "Condition:Hexproof")) or curse.mark or curse.configCurse ) then
 					modDB.conditions["Cursed"] = true
 					modDB.conditions["AffectedBy"..grantedEffect.name:gsub(" ","")] = true
 					t_insert(playerCurses, curse)
