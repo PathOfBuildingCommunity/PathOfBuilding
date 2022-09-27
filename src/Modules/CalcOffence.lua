@@ -1125,10 +1125,10 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		
 		if skillData.debuff then
-			skillCfg.appliesDebuff = true
+			skillCfg.skillGrantsDebuff = true
 			durationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(appliesToPlayer and modDB or enemyDB, skillCfg, "BuffExpireFaster"))
 		elseif activeSkill.buffSkill or stageBuff then
-			skillCfg.appliesBuff = true
+			skillCfg.skillGrantsBuff = true
 			durationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.actor.modDB, skillCfg, "BuffExpireFaster"))
 		end
 	end
