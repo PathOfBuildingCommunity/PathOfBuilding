@@ -276,19 +276,31 @@ local function calcWarcryCastTime(skillModList, skillCfg, actor)
 	return warcryCastTime
 end
 
-function calcSkillDuration(skillModList, skillCfg, skillData, env, enemyDB)
-	local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
-	local durationBase = (skillData.duration or 0) + skillModList:Sum("BASE", skillCfg, "Duration", "PrimaryDuration")
-	local debuffDurationMult = 1
-	local otherSelfDurationMult = 1
+function calcSkillDuration(skill, env, enemyDB)
+	local durationMod = calcLib.mod(skill.skillModList, skill.skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skill.skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
+	local durationBase = (skill.skillData.duration or 0) + skill.skillModList:Sum("BASE", skill.skillCfg, "Duration", "PrimaryDuration")
+
+	local durationMult = 1
 	if env.mode_effective then
-		debuffDurationMult = 1/  m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skillCfg, "BuffExpireFaster"))
-		otherSelfDurationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(env.modDB, skillCfg, "BuffExpireFaster"))
+		local appliesToActor = skill.actor.modDB:Flag({slotName = skill.slotName}, "HexesAreReflectedToYou") and not skill.skillTypes[SkillType.Aura]
+		-- Hacky way to determine wheter or not to apply temp chains expiry to stage duration granted by skill
+		local stageBuff = true
+		for _, skillPart in ipairs(skill.activeEffect.grantedEffect.parts or {}) do
+			if not skillPart.stages then
+				stageBuff = false
+				break
+			end
+		end
+		
+		if skill.skillData.debuff then
+			skill.skillCfg.skillGrantsDebuff = true
+			durationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(appliesToActor and skill.actor.modDB or enemyDB, skill.skillCfg, "BuffExpireFaster"))
+		elseif skill.buffSkill or stageBuff then
+			skill.skillCfg.skillGrantsBuff = true
+			durationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "BuffExpireFaster"))
+		end
 	end
-	
-	local duration = durationBase * durationMod * (skillData.debuff and debuffDurationMult or 1)
-	duration = duration * (skillCfg.skillTypes[SkillType.Buff] and otherSelfDurationMult or 1)
-	return duration
+	return (durationBase * durationMod * durationMult)
 end
 
 -- Performs all offensive calculations
@@ -1114,7 +1126,7 @@ function calcs.offence(env, actor, activeSkill)
 	-- Skill duration
 	local durationMult = 1
 	if env.mode_effective then
-		local appliesToPlayer = modDB:Flag({slotName = activeSkill.slotName}, "HexesAreReflectedToYou") and not activeSkill.skillTypes[SkillType.Aura]
+		local appliesToActor = activeSkill.actor.modDB:Flag({slotName = activeSkill.slotName}, "HexesAreReflectedToYou") and not activeSkill.skillTypes[SkillType.Aura]
 		-- Hacky way to determine wheter or not to apply temp chains expiry to stage duration granted by skill
 		local stageBuff = true
 		for _, skillPart in ipairs(activeSkill.activeEffect.grantedEffect.parts or {}) do
@@ -1126,7 +1138,7 @@ function calcs.offence(env, actor, activeSkill)
 		
 		if skillData.debuff then
 			skillCfg.skillGrantsDebuff = true
-			durationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(appliesToPlayer and modDB or enemyDB, skillCfg, "BuffExpireFaster"))
+			durationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(appliesToActor and activeSkill.actor.modDB or enemyDB, skillCfg, "BuffExpireFaster"))
 		elseif activeSkill.buffSkill or stageBuff then
 			skillCfg.skillGrantsBuff = true
 			durationMult = 1 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.actor.modDB, skillCfg, "BuffExpireFaster"))
@@ -1736,7 +1748,7 @@ function calcs.offence(env, actor, activeSkill)
 			if (activeSkill.activeEffect.grantedEffect.name == "Vaal Ground Slam" or not activeSkill.skillTypes[SkillType.Vaal]) and not activeSkill.skillTypes[SkillType.Channel] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
 				for index, value in ipairs(actor.activeSkillList) do
 					if value.activeEffect.grantedEffect.name == "Ancestral Cry" and activeSkill.skillTypes[SkillType.MeleeSingleTarget] and not globalOutput.AncestralCryCalculated then
-						globalOutput.AncestralCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
+						globalOutput.AncestralCryDuration = calcSkillDuration(value, env, enemyDB)
 						globalOutput.AncestralCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 						output.GlobalWarcryCooldown = env.modDB:Sum("BASE", nil, "GlobalWarcryCooldown")
 						output.GlobalWarcryCount = env.modDB:Sum("BASE", nil, "GlobalWarcryCount")
@@ -1762,7 +1774,7 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						globalOutput.AncestralCryCalculated = true
 					elseif value.activeEffect.grantedEffect.name == "Infernal Cry" and not globalOutput.InfernalCryCalculated then
-						globalOutput.InfernalCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
+						globalOutput.InfernalCryDuration = calcSkillDuration(value, env, enemyDB)
 						globalOutput.InfernalCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 						output.GlobalWarcryCooldown = env.modDB:Sum("BASE", nil, "GlobalWarcryCooldown")
 						output.GlobalWarcryCount = env.modDB:Sum("BASE", nil, "GlobalWarcryCount")
@@ -1791,7 +1803,7 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.InfernalCryCalculated = true
 					elseif value.activeEffect.grantedEffect.name == "Intimidating Cry" and activeSkill.skillTypes[SkillType.Melee] and not globalOutput.IntimidatingCryCalculated then
 						globalOutput.CreateWarcryOffensiveCalcSection = true
-						globalOutput.IntimidatingCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
+						globalOutput.IntimidatingCryDuration = calcSkillDuration(value, env, enemyDB)
 						globalOutput.IntimidatingCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 						output.GlobalWarcryCooldown = env.modDB:Sum("BASE", nil, "GlobalWarcryCooldown")
 						output.GlobalWarcryCount = env.modDB:Sum("BASE", nil, "GlobalWarcryCount")
@@ -1840,7 +1852,7 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.IntimidatingCryCalculated = true
 					elseif value.activeEffect.grantedEffect.name == "Rallying Cry" and activeSkill.skillTypes[SkillType.Melee] and not globalOutput.RallyingCryCalculated then
 						globalOutput.CreateWarcryOffensiveCalcSection = true
-						globalOutput.RallyingCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
+						globalOutput.RallyingCryDuration = calcSkillDuration(value, env, enemyDB)
 						globalOutput.RallyingCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 						output.GlobalWarcryCooldown = env.modDB:Sum("BASE", nil, "GlobalWarcryCooldown")
 						output.GlobalWarcryCount = env.modDB:Sum("BASE", nil, "GlobalWarcryCount")
@@ -1890,7 +1902,7 @@ function calcs.offence(env, actor, activeSkill)
 
 					elseif value.activeEffect.grantedEffect.name == "Seismic Cry" and activeSkill.skillTypes[SkillType.Slam] and not globalOutput.SeismicCryCalculated then
 						globalOutput.CreateWarcryOffensiveCalcSection = true
-						globalOutput.SeismicCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
+						globalOutput.SeismicCryDuration = calcSkillDuration(value, env, enemyDB)
 						globalOutput.SeismicCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 						output.GlobalWarcryCooldown = env.modDB:Sum("BASE", nil, "GlobalWarcryCooldown")
 						output.GlobalWarcryCount = env.modDB:Sum("BASE", nil, "GlobalWarcryCount")
