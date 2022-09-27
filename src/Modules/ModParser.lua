@@ -2648,6 +2648,7 @@ local specialModList = {
 	["your damage with hits is lucky"] = { flag("LuckyHits") },
 	["elemental damage with hits is lucky while you are shocked"] = { flag("ElementalLuckHits", { type = "Condition", var = "Shocked" }) },
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
+	["hexes applied by socketed curse skills are reflected back to you"] = { flag("HexesAreReflectedToYou", { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["(%d+)%% increased effect of non%-curse auras from your skills on enemies"] = function(num) return {
 		mod("DebuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }),
 		mod("AuraEffect", "INC", num, { type = "SkillName", skillName = "Death Aura" }),
