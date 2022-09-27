@@ -3334,6 +3334,10 @@ local specialModList = {
 	["added small passive skills have (%d+)%% increased effect"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelIncEffect", value = num }) } end,
 	["this jewel's socket has (%d+)%% increased effect per allocated passive skill between it and your class' starting location"] = function(num) return { mod("JewelData", "LIST", { key = "jewelIncEffectFromClassStart", value = num }) } end,
 	-- Misc
+	["gain shaper's presence for 10 seconds when you kill a rare or unique enemy"] = {
+		flag("Condition:CanGainShaperPresence", { type = "Condition", var = "KilledUniqueEnemy" }),
+		mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("BuffExpireFaster", "INC", -20)}, { type = "Condition", var = "ShaperPresence" })
+	},
 	["your minimum frenzy, endurance and power charges are equal to your maximum while you are stationary"] = {
 		flag("MinimumFrenzyChargesIsMaximumFrenzyCharges", {type = "Condition", var = "Stationary"}),
 		flag("MinimumEnduranceChargesIsMaximumEnduranceCharges", {type = "Condition", var = "Stationary"}),

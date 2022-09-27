@@ -4523,7 +4523,7 @@ skills["Haste"] = {
 			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
 		["buff_time_passed_+%_only_buff_category"] = {
-			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+			mod("BuffExpireFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
 	},
 	baseFlags = {
@@ -8536,7 +8536,7 @@ skills["TemporalChains"] = {
 			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
 		},
 		["buff_time_passed_+%_other_than_temporal_chains"] = {
-			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("BuffExpireFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["curse_effect_+%_final_vs_players"] = {
 			mod("CurseEffectAgainstPlayer", "MORE", nil),
@@ -9531,6 +9531,9 @@ skills["TemporalRift"] = {
 		["chronomancer_buff_cooldown_speed_+%"] = {
 			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
 		},
+		["debuff_time_passed_+%"] = {
+			mod("BuffExpireFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		}
 	},
 	baseFlags = {
 		spell = true,
