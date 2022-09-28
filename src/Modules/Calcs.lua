@@ -657,9 +657,34 @@ function calcs.buildOutput(build, mode)
 				end
 			end
 		end
-		output.BuffList = table.concat(buffList, ", ")
-		output.CombatList = table.concat(combatList, ", ")
-		output.CurseList = table.concat(curseList, ", ")
+		local playerDebuffs = {}
+		env.player.breakdown.PlayerDebuffs = { modList = { } }
+		for _, slot in ipairs(env.playerCurseSlots) do
+			t_insert(playerDebuffs, slot.name)
+			if slot.modList then
+				for _, mod in ipairs(slot.modList) do
+					local value = env.player.modDB:EvalMod(mod)
+					if value and value ~= 0 then
+						t_insert(env.player.breakdown.PlayerDebuffs.modList, {
+							mod = mod,
+							value = value,
+						})
+					end
+				end
+			end
+		end
+		if #buffList > 0 then
+			output.BuffList = table.concat(buffList, ", ")
+		end
+		if #combatList > 0 then
+			output.CombatList = table.concat(combatList, ", ")
+		end
+		if #curseList > 0 then
+			output.CurseList = table.concat(curseList, ", ")
+		end
+		if #playerDebuffs > 0 then
+			output.PlayerDebuffs = table.concat(playerDebuffs, ", ")
+		end
 		if env.minion then
 			local buffList = { }
 			local combatList = { }
