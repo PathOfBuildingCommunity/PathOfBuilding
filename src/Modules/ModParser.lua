@@ -2813,7 +2813,7 @@ local specialModList = {
 	["left ring slot: cover enemies in ash for 5 seconds when you ignite them"] = { mod("CoveredInAshEffect", "BASE", 20, { type = "SlotNumber", num = 1 }, { type = "ActorCondition", actor = "enemy", var = "Ignited" }) },
 	["right ring slot: cover enemies in frost for 5 seconds when you freeze them"] = { mod("CoveredInFrostEffect", "BASE", 20, { type = "SlotNumber", num = 2 }, { type = "ActorCondition", actor = "enemy", var = "Frozen" }) },
 	["([%a%s]+) has (%d+)%% increased effect"] = function(_, skill, num) return { mod("BuffEffect", "INC", num, { type = "SkillId", skillId = gemIdLookup[skill]}) } end,
-	["debuffs on you expire (%d+)%% faster"] = function(num) return { mod("SelfDebuffExpirationRate", "BASE", num)} end,
+	["debuffs on you expire (%d+)%% faster"] = function(num) return {mod("BuffExpireFaster", "INC", num, {type = "SkillCondition", skillGrantsDebuff = true})} end,
 	["warcries debilitate enemies for (%d+) seconds?"] = { mod("DebilitateChance", "BASE", 100) },
 	["debilitate enemies for (%d+) seconds? when you suppress their spell damage"] = { mod("DebilitateChance", "BASE", 100) },
 	["debilitate nearby enemies for (%d+) seconds? when flask effect ends"] = { mod("DebilitateChance", "BASE", 100) },
@@ -3337,7 +3337,7 @@ local specialModList = {
 	-- Misc
 	["gain shaper's presence for 10 seconds when you kill a rare or unique enemy"] = {
 		flag("Condition:CanGainShaperPresence", { type = "Condition", var = "KilledUniqueEnemy" }),
-		mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("BuffExpireFaster", "INC", -20)}, { type = "Condition", var = "ShaperPresence" })
+		mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("BuffExpireFaster", "MORE", -20)}, { type = "Condition", var = "ShaperPresence" })
 	},
 	["your minimum frenzy, endurance and power charges are equal to your maximum while you are stationary"] = {
 		flag("MinimumFrenzyChargesIsMaximumFrenzyCharges", {type = "Condition", var = "Stationary"}),
