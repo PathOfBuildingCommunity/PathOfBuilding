@@ -289,8 +289,7 @@ local function getDurationMult(skill, env, enemyDB)
 		end
 		if skill.skillData.debuff then
 			skill.skillCfg.skillGrantsDebuff = true
-			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.curseAppliesToActor and skill.actor.modDB or enemyDB, skill.skillCfg, "DebuffExpireFaster"))
-			ConPrintf(tostring(durationMult))
+			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.curseAppliesToActor and skill.actor.modDB or enemyDB, skill.skillCfg, "EffectExpiresFaster"))
 			if skill.activeEffect.grantedEffect.name == "Temporal Chains" and not skill.skillTypes[SkillType.Aura] then
 				-- The duration specified by game data already includes the less debuff expiration rate but it can still be modified by changes to curse effect
 				-- the below code divides the duration multiplier by the raw expiration rate mod granted by temporal chains to account for that
@@ -300,13 +299,11 @@ local function getDurationMult(skill, env, enemyDB)
 					level = skill.activeEffect.level,
 					quality = skill.activeEffect.quality,
 				})
-				ConPrintf(tostring(calcLib.mod(gemModList, skill.skillCfg, "DebuffExpireFaster")))
-				durationMult = durationMult / calcLib.mod(gemModList, skill.skillCfg, "DebuffExpireFaster")
+				durationMult = durationMult / calcLib.mod(gemModList, skill.skillCfg, "EffectExpiresFaster")
 			end
-			ConPrintf(tostring(durationMult))
 		elseif skill.buffSkill or stageBuff then
 			skill.skillCfg.skillGrantsBuff = true
-			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "BuffExpireFaster"))
+			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "EffectExpiresFaster"))
 		end
 	end
 	return durationMult

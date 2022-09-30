@@ -1172,10 +1172,6 @@ return {
 ["degen_effect_+%"] = {
 	mod("DamageTakenOverTime", "INC", nil),
 },
-["buff_time_passed_-%"] = {
-	mod("BuffExpireFaster", "MORE", nil),
-	mult = -1,
-},
 ["additional_chance_to_take_critical_strike_%"] = {
 	mod("SelfExtraCritChance", "BASE", nil),
 },
