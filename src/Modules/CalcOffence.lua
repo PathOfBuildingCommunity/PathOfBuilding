@@ -276,10 +276,7 @@ local function calcWarcryCastTime(skillModList, skillCfg, actor)
 	return warcryCastTime
 end
 
-function calcSkillDuration(skill, env, enemyDB)
-	local durationMod = calcLib.mod(skill.skillModList, skill.skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skill.skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
-	local durationBase = (skill.skillData.duration or 0) + skill.skillModList:Sum("BASE", skill.skillCfg, "Duration", "PrimaryDuration")
-
+local function getDurationMult(skill, env, enemyDB)
 	local durationMult = 1
 	if env.mode_effective then
 		-- Hacky way to determine wheter or not to apply temp chains expiry to stage duration granted by skill
@@ -291,11 +288,34 @@ function calcSkillDuration(skill, env, enemyDB)
 			end
 		end
 		if skill.skillData.debuff then
+			skill.skillCfg.skillGrantsDebuff = true
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.curseAppliesToActor and skill.actor.modDB or enemyDB, skill.skillCfg, "DebuffExpireFaster"))
+			ConPrintf(tostring(durationMult))
+			if skill.activeEffect.grantedEffect.name == "Temporal Chains" and not skill.skillTypes[SkillType.Aura] then
+				-- The duration specified by game data already includes the less debuff expiration rate but it can still be modified by changes to curse effect
+				-- the below code divides the duration multiplier by the raw expiration rate mod granted by temporal chains to account for that
+				local gemModList = new("ModList")
+				calcs.mergeSkillInstanceMods(env, gemModList, {
+					grantedEffect = skill.activeEffect.grantedEffect,
+					level = skill.activeEffect.level,
+					quality = skill.activeEffect.quality,
+				})
+				ConPrintf(tostring(calcLib.mod(gemModList, skill.skillCfg, "DebuffExpireFaster")))
+				durationMult = durationMult / calcLib.mod(gemModList, skill.skillCfg, "DebuffExpireFaster")
+			end
+			ConPrintf(tostring(durationMult))
 		elseif skill.buffSkill or stageBuff then
+			skill.skillCfg.skillGrantsBuff = true
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "BuffExpireFaster"))
 		end
 	end
+	return durationMult
+end
+
+function calcSkillDuration(skill, env, enemyDB)
+	local durationMod = calcLib.mod(skill.skillModList, skill.skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skill.skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
+	local durationBase = (skill.skillData.duration or 0) + skill.skillModList:Sum("BASE", skill.skillCfg, "Duration", "PrimaryDuration")
+	local durationMult = getDurationMult(skill, env, enemyDB)
 	return (durationBase * durationMod / durationMult)
 end
 
@@ -1120,24 +1140,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	-- Skill duration
-	local durationMult = 1
-	if env.mode_effective then
-		local appliesToActor = activeSkill.actor.modDB:Flag({slotName = activeSkill.slotName}, "HexesAreReflectedToYou") and not activeSkill.skillTypes[SkillType.Aura]
-		-- Hacky way to determine wheter or not to apply temp chains expiry to stage duration granted by skill
-		local stageBuff = true
-		for _, skillPart in ipairs(activeSkill.activeEffect.grantedEffect.parts or {}) do
-			if not skillPart.stages then
-				stageBuff = false
-				break
-			end
-		end
-		if skillData.debuff then
-			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.curseAppliesToActor and activeSkill.actor.modDB or enemyDB, skillCfg, "DebuffExpireFaster"))
-		elseif activeSkill.buffSkill or stageBuff then
-			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.actor.modDB, skillCfg, "BuffExpireFaster"))
-		end
-	end
-	
+	local durationMult = getDurationMult(activeSkill, env, enemyDB)
 	do
 		output.DurationMod = calcLib.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 		if breakdown then
