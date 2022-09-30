@@ -301,12 +301,19 @@ local function getDurationMult(skill, env, enemyDB)
 				})
 				durationMult = durationMult / calcLib.mod(gemModList, skill.skillCfg, "EffectExpiresFaster")
 			end
+			if skill.skillData.primaryDurIsBuff then -- Some skills such as Corrupting fever have both a buff and a debuff part
+				skill.skillCfg.skillGrantsDebuff = nil
+				skill.skillCfg.skillGrantsBuff = true
+				local durationMultSecondary = 1
+				durationMultSecondary = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "EffectExpiresFaster"))
+				return durationMultSecondary, durationMult
+			end
 		elseif skill.buffSkill or stageBuff then
 			skill.skillCfg.skillGrantsBuff = true
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "EffectExpiresFaster"))
 		end
 	end
-	return durationMult
+	return durationMult, durationMult
 end
 
 function calcSkillDuration(skill, env, enemyDB)
@@ -1137,7 +1144,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	-- Skill duration
-	local durationMult = getDurationMult(activeSkill, env, enemyDB)
+	local durationMult, durationMultSecondary = getDurationMult(activeSkill, env, enemyDB)
 	do
 		output.DurationMod = calcLib.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 		if breakdown then
@@ -1167,7 +1174,7 @@ function calcs.offence(env, actor, activeSkill)
 		durationBase = (skillData.durationSecondary or 0) + skillModList:Sum("BASE", skillCfg, "Duration", "SecondaryDuration")
 		if durationBase > 0 then
 			local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "SecondaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
-			output.DurationSecondary = durationBase * durationMod / durationMult
+			output.DurationSecondary = durationBase * durationMod / durationMultSecondary
 			output.DurationSecondary = m_ceil(output.DurationSecondary * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown and output.DurationSecondary ~= durationBase then
 				breakdown.SecondaryDurationMod = breakdown.mod(skillModList, skillCfg, "Duration", "SecondaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
@@ -1180,8 +1187,8 @@ function calcs.offence(env, actor, activeSkill)
 				if output.DurationMod ~= 1 then
 					t_insert(breakdown.DurationSecondary, s_format("x %.4f ^8(duration modifier)", durationMod))
 				end
-				if durationMult ~= 1 then
-					t_insert(breakdown.DurationSecondary, s_format("/ %.3f ^8(%s expires slower/faster)", durationMult, skillCfg.appliesBuff and "buff" or "debuff"))
+				if durationMultSecondary ~= 1 then
+					t_insert(breakdown.DurationSecondary, s_format("/ %.3f ^8(%s expires slower/faster)", durationMultSecondary, skillCfg.appliesBuff and "buff" or "debuff"))
 				end
 				t_insert(breakdown.DurationSecondary, s_format("rounded up to nearest server tick"))
 				t_insert(breakdown.DurationSecondary, s_format("= %.3fs", output.DurationSecondary))

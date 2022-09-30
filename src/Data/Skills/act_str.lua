@@ -1810,6 +1810,7 @@ skills["CorruptingFever"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
+		skill("primaryDurIsBuff", true),
 		mod("Multiplier:CorruptingFeverMaxStages", "BASE", 10),
 		mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingFeverStageAfterFirst"}),
 	},
