@@ -594,23 +594,6 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if not match then
 				return
 			end
-		elseif tag.type == "SkillCondition" then
-			if not cfg then
-				return
-			end
-			local match = false
-			if tag.skillGrantsBuff and cfg.skillGrantsBuff then
-				match = true
-			end
-			if tag.skillGrantsDebuff and cfg.skillGrantsDebuff then
-				match = true
-			end
-			if tag.neg then
-				match = not match
-			end
-			if not match then
-				return
-			end
 		elseif tag.type == "ModFlagOr" then
 			if not cfg or not cfg.flags then
 				return

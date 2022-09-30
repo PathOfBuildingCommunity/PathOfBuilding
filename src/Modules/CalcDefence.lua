@@ -892,10 +892,10 @@ function calcs.defence(env, actor)
 	output.CurseEffectOnSelf = modDB:More(nil, "CurseEffectOnSelf") * (100 + modDB:Sum("INC", nil, "CurseEffectOnSelf"))
 
 	-- Ailment duration on self
-	output.DebuffExpirationRate = 100 * m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(modDB, {skillGrantsDebuff = true}, "BuffExpireFaster")) - 100
+	output.DebuffExpirationRate = 100 * m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(modDB, nil, "DebuffExpireFaster")) - 100
 	output.DebuffExpirationModifier = 10000 / (output.DebuffExpirationRate + 100)
 	output.showDebuffExpirationModifier = (output.DebuffExpirationModifier ~= 100)
-	output.BuffExpirationModifier = 100 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(modDB, {skillGrantsBuff = true}, "BuffExpireFaster"))
+	output.BuffExpirationModifier = 100 / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(modDB, nil, "BuffExpireFaster"))
 	output.showBuffExpirationModifier = (output.BuffExpirationModifier ~= 100)
 	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration")) * output.DebuffExpirationModifier / 100
 	for _, ailment in ipairs(data.ailmentTypeList) do

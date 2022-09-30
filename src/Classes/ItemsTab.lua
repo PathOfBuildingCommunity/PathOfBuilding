@@ -2971,7 +2971,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		local flaskData = item.flaskData
 		local modDB = self.build.calcsTab.mainEnv.modDB
 		local output = self.build.calcsTab.mainOutput
-		local durInc = (1 + modDB:Sum("INC", nil, "FlaskDuration") / 100) / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(modDB, {skillGrantsBuff = true}, "BuffExpireFaster"))
+		local durInc = (1 + modDB:Sum("INC", nil, "FlaskDuration") / 100) / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(modDB, nil, "BuffExpireFaster"))
 		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
 
 		if item.rarity == "MAGIC" and not item.base.flask.life and not item.base.flask.mana then

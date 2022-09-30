@@ -290,12 +290,9 @@ function calcSkillDuration(skill, env, enemyDB)
 				break
 			end
 		end
-		
 		if skill.skillData.debuff then
-			skill.skillCfg.skillGrantsDebuff = true
-			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.curseAppliesToActor and skill.actor.modDB or enemyDB, skill.skillCfg, "BuffExpireFaster"))
+			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.curseAppliesToActor and skill.actor.modDB or enemyDB, skill.skillCfg, "DebuffExpireFaster"))
 		elseif skill.buffSkill or stageBuff then
-			skill.skillCfg.skillGrantsBuff = true
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "BuffExpireFaster"))
 		end
 	end
@@ -1134,12 +1131,9 @@ function calcs.offence(env, actor, activeSkill)
 				break
 			end
 		end
-		
 		if skillData.debuff then
-			skillCfg.skillGrantsDebuff = true
-			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.curseAppliesToActor and activeSkill.actor.modDB or enemyDB, skillCfg, "BuffExpireFaster"))
+			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.curseAppliesToActor and activeSkill.actor.modDB or enemyDB, skillCfg, "DebuffExpireFaster"))
 		elseif activeSkill.buffSkill or stageBuff then
-			skillCfg.skillGrantsBuff = true
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.actor.modDB, skillCfg, "BuffExpireFaster"))
 		end
 	end
