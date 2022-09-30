@@ -282,7 +282,6 @@ function calcSkillDuration(skill, env, enemyDB)
 
 	local durationMult = 1
 	if env.mode_effective then
-		local appliesToActor = skill.actor.modDB:Flag({slotName = skill.slotName}, "HexesAreReflectedToYou") and not skill.skillTypes[SkillType.Aura]
 		-- Hacky way to determine wheter or not to apply temp chains expiry to stage duration granted by skill
 		local stageBuff = true
 		for _, skillPart in ipairs(skill.activeEffect.grantedEffect.parts or {}) do
@@ -294,7 +293,7 @@ function calcSkillDuration(skill, env, enemyDB)
 		
 		if skill.skillData.debuff then
 			skill.skillCfg.skillGrantsDebuff = true
-			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(appliesToActor and skill.actor.modDB or enemyDB, skill.skillCfg, "BuffExpireFaster"))
+			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.curseAppliesToActor and skill.actor.modDB or enemyDB, skill.skillCfg, "BuffExpireFaster"))
 		elseif skill.buffSkill or stageBuff then
 			skill.skillCfg.skillGrantsBuff = true
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "BuffExpireFaster"))
@@ -1138,7 +1137,7 @@ function calcs.offence(env, actor, activeSkill)
 		
 		if skillData.debuff then
 			skillCfg.skillGrantsDebuff = true
-			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(appliesToActor and activeSkill.actor.modDB or enemyDB, skillCfg, "BuffExpireFaster"))
+			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.curseAppliesToActor and activeSkill.actor.modDB or enemyDB, skillCfg, "BuffExpireFaster"))
 		elseif activeSkill.buffSkill or stageBuff then
 			skillCfg.skillGrantsBuff = true
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.actor.modDB, skillCfg, "BuffExpireFaster"))

@@ -1784,6 +1784,7 @@ function calcs.perform(env, avoidCache)
 						t_insert(curses, curse)
 					end
 					if (alsoCursePlayer or (isCurseReflected and (modDB:Sum("BASE", nil, "AvoidCurse") < 100) and not modDB:Flag(nil, "Condition:Hexproof"))) and not curse.isMark then
+						activeSkill.curseAppliesToActor = true
 						local gemModList = new("ModList")
 						calcs.mergeSkillInstanceMods(env, gemModList, {
 							grantedEffect = activeSkill.activeEffect.grantedEffect,
@@ -1796,6 +1797,7 @@ function calcs.perform(env, avoidCache)
 						if activeSkill.skillTypes[SkillType.Aura] then
 							inc = inc + skillModList:Sum("INC", skillCfg, "AuraEffect")
 						end
+						
 						curse.modList = new("ModList")
 						curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						t_insert(playerCurses, curse)
