@@ -2971,7 +2971,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		local flaskData = item.flaskData
 		local modDB = self.build.calcsTab.mainEnv.modDB
 		local output = self.build.calcsTab.mainOutput
-		local durInc = modDB:Sum("INC", nil, "FlaskDuration")
+		local durInc = (1 + modDB:Sum("INC", nil, "FlaskDuration") / 100) / m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(modDB, {skillGrantsBuff = true}, "BuffExpireFaster"))
 		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
 
 		if item.rarity == "MAGIC" and not item.base.flask.life and not item.base.flask.mana then
@@ -2986,8 +2986,8 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local lifeMore = modDB:More(nil, "FlaskLifeRecovery")
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
 				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100)
-				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
-				local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
+				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * durInc * output.LifeRecoveryRateMod
+				local lifeDur = flaskData.duration * durInc / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
 
 				-- LocalLifeFlaskAdditionalLifeRecovery flask mods
 				if flaskData.lifeAdditional > 0 and not self.build.configTab.input.conditionFullLife then
@@ -3034,8 +3034,8 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local manaInc = modDB:Sum("INC", nil, "FlaskManaRecovery")
 				local manaRateInc = modDB:Sum("INC", nil, "FlaskManaRecoveryRate")
 				local inst = flaskData.manaBase * instantPerc / 100 * (1 + manaInc / 100) * (1 + effectInc / 100)
-				local grad = flaskData.manaBase * (1 - instantPerc / 100) * (1 + manaInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100) * output.ManaRecoveryRateMod
-				local manaDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + manaRateInc / 100)
+				local grad = flaskData.manaBase * (1 - instantPerc / 100) * (1 + manaInc / 100) * (1 + effectInc / 100) * durInc * output.ManaRecoveryRateMod
+				local manaDur = flaskData.duration * durInc / (1 + rateInc / 100) / (1 + manaRateInc / 100)
 				if inst > 0 and grad > 0 then
 					t_insert(stats, s_format("^8Mana recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, manaDur))
 				elseif inst + grad ~= flaskData.manaTotal or (inst == 0 and manaDur ~= flaskData.duration) then
@@ -3047,8 +3047,8 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				end
 			end
 		else
-			if durInc ~= 0 then
-				t_insert(stats, s_format("^8Flask effect duration: ^7%.1f0s", flaskData.duration * (1 + durInc / 100)))
+			if durInc ~= 1 then
+				t_insert(stats, s_format("^8Flask effect duration: ^7%.1f0s", flaskData.duration * durInc))
 			end
 		end
 		local effectMod = 1 + (flaskData.effectInc + effectInc) / 100
@@ -3097,7 +3097,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		if not item.base.flask.life and not item.base.flask.mana then
 			local flaskChargesUsed = flaskData.chargesUsed * (1 + usedInc / 100)
 			if flaskChargesUsed > 0 then
-				local flaskDuration = flaskData.duration * (1 + durInc / 100)
+				local flaskDuration = flaskData.duration * durInc
 				local per3Duration = flaskDuration - (flaskDuration % 3)
 				local per5Duration = flaskDuration - (flaskDuration % 5)
 				local minimumChargesGenerated = per3Duration * chargesGenerated + per5Duration * chargesGeneratedPerFlask
