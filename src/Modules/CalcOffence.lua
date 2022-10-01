@@ -281,11 +281,15 @@ local function getDurationMult(skill, env, enemyDB)
 	if env.mode_effective then
 		-- Hacky way to determine wheter or not to apply temp chains expiry to stage duration granted by skill
 		local stageBuff = true
-		for _, skillPart in ipairs(skill.activeEffect.grantedEffect.parts or {}) do
-			if not skillPart.stages then
-				stageBuff = false
-				break
+		if skill.activeEffect.grantedEffect.parts then
+			for _, skillPart in ipairs(skill.activeEffect.grantedEffect.parts) do
+				if not skillPart.stages then
+					stageBuff = false
+					break
+				end
 			end
+		else
+			stageBuff = false
 		end
 		if skill.skillData.debuff then
 			skill.skillCfg.skillGrantsDebuff = true
