@@ -8536,7 +8536,7 @@ skills["TemporalChains"] = {
 			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
 		},
 		["buff_time_passed_+%_other_than_temporal_chains"] = {
-			mod("EffectExpiresFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("EffectExpiresFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "SkillCondition", skillGrantsBuff = true, skillGrantsDebuff = true}),
 		},
 		["curse_effect_+%_final_vs_players"] = {
 			mod("CurseEffectAgainstPlayer", "MORE", nil),
