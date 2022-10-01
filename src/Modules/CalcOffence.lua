@@ -298,17 +298,6 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 		if skill.skillData.debuff then
 			skill.skillCfg.skillGrantsDebuff = true
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.curseAppliesToActor and skill.actor.modDB or enemyDB, skill.skillCfg, "EffectExpiresFaster"))
-			if skill.activeEffect.grantedEffect.name == "Temporal Chains" and not skill.skillTypes[SkillType.Aura] then
-				-- The duration specified by game data already includes the less debuff expiration rate but it can still be modified by changes to curse effect
-				-- the below code divides the duration multiplier by the raw expiration rate mod granted by temporal chains to account for that
-				local gemModList = new("ModList")
-				calcs.mergeSkillInstanceMods(env, gemModList, {
-					grantedEffect = skill.activeEffect.grantedEffect,
-					level = skill.activeEffect.level,
-					quality = skill.activeEffect.quality,
-				})
-				durationMult = durationMult / calcLib.mod(gemModList, skill.skillCfg, "EffectExpiresFaster")
-			end
 			if skill.skillData.primaryDurIsBuff then -- Some skills such as Corrupting fever have both a buff and a debuff part
 				skill.skillCfg.skillGrantsDebuff = nil
 				skill.skillCfg.skillGrantsBuff = true
@@ -316,7 +305,7 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 				durationMultSecondary = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "EffectExpiresFaster"))
 				return durationMultSecondary, durationMult
 			end
-		elseif (skill.buffSkill and skill.skillTypes[SkillType.buff]) or stageBuff then
+		elseif (skill.buffSkill and skill.skillTypes[SkillType.Buff]) or stageBuff then
 			skill.skillCfg.skillGrantsBuff = true
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "EffectExpiresFaster"))
 		end
