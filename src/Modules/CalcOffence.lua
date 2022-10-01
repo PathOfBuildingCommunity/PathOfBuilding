@@ -312,7 +312,7 @@ local function getDurationMult(skill, env, enemyDB)
 				durationMultSecondary = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "EffectExpiresFaster"))
 				return durationMultSecondary, durationMult
 			end
-		elseif skill.buffSkill or stageBuff then
+		elseif (skill.buffSkill and skill.skillTypes[SkillType.buff]) or stageBuff then
 			skill.skillCfg.skillGrantsBuff = true
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "EffectExpiresFaster"))
 		end
