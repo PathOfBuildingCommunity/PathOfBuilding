@@ -1207,7 +1207,7 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("= %.3fs", output.AuraDuration),
 				}
 				if durationMult ~= 1 then
-					t_insert(breakdown.DurationSecondary, s_format("/ %.3f ^8(%s expires slower/faster)", durationMult, skillCfg.appliesBuff and "buff" or "debuff"))
+					t_insert(breakdown.AuraDuration, s_format("/ %.3f ^8(%s expires slower/faster)", durationMult, skillCfg.appliesBuff and "buff" or "debuff"))
 				end
 			end
 		end
