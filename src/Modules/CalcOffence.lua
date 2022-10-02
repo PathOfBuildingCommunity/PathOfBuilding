@@ -295,23 +295,31 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 		else
 			stageBuff = false
 		end
+		local output = skill.actor.output
+		local skillCfg = skill.skillCfg
 		if skill.skillData.debuff then
-			skill.skillCfg.skillGrantsDebuff = true
-			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.curseAppliesToActor and skill.actor.modDB or enemyDB, skill.skillCfg, "EffectExpiresFaster"))
+			skillCfg.skillGrantsDebuff = true
+			output.haveDebuffDurationMult = true
+			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.curseAppliesToActor and skill.actor.modDB or enemyDB, skillCfg, "EffectExpiresFaster"))
 			if skill.skillData.primaryDurIsBuff then -- Some skills such as Corrupting fever have both a buff and a debuff part
-				skill.skillCfg.skillGrantsDebuff = nil
-				skill.skillCfg.skillGrantsBuff = true
-				local durationMultSecondary = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "EffectExpiresFaster"))
+				output.haveDebuffDurationMult = nil
+				output.haveBuffDurationMult = true
+				output.haveDebuffDurationMultSecondary = true
+				skillCfg.skillGrantsDebuff = nil
+				skillCfg.skillGrantsBuff = true
+				local durationMultSecondary = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skillCfg, "EffectExpiresFaster"))
 				return durationMultSecondary, durationMult
 			end
 		elseif (skill.buffSkill and skill.skillTypes[SkillType.Buff]) or stageBuff then
-			skill.skillCfg.skillGrantsBuff = true
-			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "EffectExpiresFaster"))
+			output.haveBuffDurationMult = true
+			skillCfg.skillGrantsBuff = true
+			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skillCfg, "EffectExpiresFaster"))
 		end
 		if skill.skillData.debuffSecondary then
-			skill.skillCfg.skillGrantsBuff = nil
-			skill.skillCfg.skillGrantsDebuff = true
-			local durationMultSecondary = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skill.skillCfg, "EffectExpiresFaster"))
+			output.haveDebuffDurationMultSecondary = true
+			skillCfg.skillGrantsBuff = nil
+			skillCfg.skillGrantsDebuff = true
+			local durationMultSecondary = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skillCfg, "EffectExpiresFaster"))
 			return durationMult, durationMultSecondary
 		end
 	end
@@ -1167,7 +1175,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.Duration, s_format("x %.4f ^8(duration modifier)", output.DurationMod))
 				end
 				if durationMult ~= 1 then
-					t_insert(breakdown.Duration, s_format("/ %.3f ^8(%s expires slower/faster)", durationMult, skillCfg.appliesBuff and "buff" or "debuff"))
+					t_insert(breakdown.Duration, s_format("/ %.3f ^8(%s expires slower/faster)", durationMult, output.haveBuffDurationMult and "buff" or "debuff"))
 				end
 				t_insert(breakdown.Duration, s_format("rounded up to nearest server tick"))
 				t_insert(breakdown.Duration, s_format("= %.3fs", output.Duration))
@@ -1190,7 +1198,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.DurationSecondary, s_format("x %.4f ^8(duration modifier)", durationMod))
 				end
 				if durationMultSecondary ~= 1 then
-					t_insert(breakdown.DurationSecondary, s_format("/ %.3f ^8(%s expires slower/faster)", durationMultSecondary, skillCfg.appliesBuff and "buff" or "debuff"))
+					t_insert(breakdown.DurationSecondary, s_format("/ %.3f ^8(%s expires slower/faster)", durationMultSecondary, output.haveBuffDurationMultSecondary and "buff" or "debuff"))
 				end
 				t_insert(breakdown.DurationSecondary, s_format("rounded up to nearest server tick"))
 				t_insert(breakdown.DurationSecondary, s_format("= %.3fs", output.DurationSecondary))
@@ -1209,7 +1217,7 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("= %.3fs", output.AuraDuration),
 				}
 				if durationMult ~= 1 then
-					t_insert(breakdown.AuraDuration, s_format("/ %.3f ^8(%s expires slower/faster)", durationMult, skillCfg.appliesBuff and "buff" or "debuff"))
+					t_insert(breakdown.AuraDuration, s_format("/ %.3f ^8(%s expires slower/faster)", durationMult, output.haveBuffDuration and "buff" or "debuff"))
 				end
 			end
 		end
