@@ -1798,9 +1798,10 @@ function calcs.perform(env, avoidCache)
 							inc = inc + skillModList:Sum("INC", skillCfg, "AuraEffect")
 						end
 						
-						curse.modList = new("ModList")
-						curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
-						t_insert(playerCurses, curse)
+						local playerCurse = copyTable(curse, true)
+						playerCurse.modList = new("ModList")
+						playerCurse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						t_insert(playerCurses, playerCurse)
 					end
 				end
 			end
