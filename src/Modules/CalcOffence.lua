@@ -1186,6 +1186,10 @@ function calcs.offence(env, actor, activeSkill)
 			local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "SecondaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 			output.DurationSecondary = durationBase * durationMod / durationMultSecondary
 			output.DurationSecondary = m_ceil(output.DurationSecondary * data.misc.ServerTickRate) / data.misc.ServerTickRate
+			if output.haveBuffDurationMultSecondary == nil and output.haveDebuffDurationMultSecondary == nil then
+				output.haveBuffDurationMultSecondary = output.haveBuffDurationMult
+				output.haveDebuffDurationMultSecondary = output.haveDebuffDurationMult
+			end
 			if breakdown and output.DurationSecondary ~= durationBase then
 				breakdown.SecondaryDurationMod = breakdown.mod(skillModList, skillCfg, "Duration", "SecondaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 				if breakdown.SecondaryDurationMod then
@@ -1217,7 +1221,7 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("= %.3fs", output.AuraDuration),
 				}
 				if durationMult ~= 1 then
-					t_insert(breakdown.AuraDuration, s_format("/ %.3f ^8(%s expires slower/faster)", durationMult, output.haveBuffDuration and "buff" or "debuff"))
+					t_insert(breakdown.AuraDuration, 3, s_format("/ %.3f ^8(%s expires slower/faster)", durationMult, output.haveBuffDuration and "buff" or "debuff"))
 				end
 			end
 		end
