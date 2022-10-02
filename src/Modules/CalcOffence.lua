@@ -301,13 +301,18 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 			if skill.skillData.primaryDurIsBuff then -- Some skills such as Corrupting fever have both a buff and a debuff part
 				skill.skillCfg.skillGrantsDebuff = nil
 				skill.skillCfg.skillGrantsBuff = true
-				local durationMultSecondary = 1
-				durationMultSecondary = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "EffectExpiresFaster"))
+				local durationMultSecondary = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "EffectExpiresFaster"))
 				return durationMultSecondary, durationMult
 			end
 		elseif (skill.buffSkill and skill.skillTypes[SkillType.Buff]) or stageBuff then
 			skill.skillCfg.skillGrantsBuff = true
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skill.skillCfg, "EffectExpiresFaster"))
+		end
+		if skill.skillData.debuffSecondary then
+			skill.skillCfg.skillGrantsBuff = nil
+			skill.skillCfg.skillGrantsDebuff = true
+			local durationMultSecondary = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, skill.skillCfg, "EffectExpiresFaster"))
+			return durationMult, durationMultSecondary
 		end
 	end
 	return durationMult, durationMult
@@ -2850,11 +2855,13 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.ManaLeech = breakdown.leech(output.ManaLeechInstant, output.ManaLeechInstantRate, output.ManaLeechInstances, output.Mana, "ManaLeechRate", output.MaxManaLeechRate, output.ManaLeechDuration)
 		end
 	end
-
+	
+	local ailmentDurationMult = getDurationMult(activeSkill, env, enemyDB, true)
 	local ailmentData = data.nonDamagingAilment
 	for _, ailment in ipairs(ailmentTypeList) do
 		skillFlags[string.lower(ailment)] = false
 	end
+	
 	skillFlags.igniteCanStack = skillModList:Flag(skillCfg, "IgniteCanStack")
 	skillFlags.igniteToChaos = skillModList:Flag(skillCfg, "IgniteToChaos")
 	skillFlags.impale = false
@@ -3044,7 +3051,6 @@ function calcs.offence(env, actor, activeSkill)
 			return baseVal
 		end
 		
-		local ailmentDurationMult = getDurationMult(activeSkill, env, enemyDB, true)
 		-- Calculate bleeding chance and damage
 		if canDeal.Physical and (output.BleedChanceOnHit + output.BleedChanceOnCrit) > 0 then
 			activeSkill[pass.label ~= "Off Hand" and "bleedCfg" or "OHbleedCfg"] = {
