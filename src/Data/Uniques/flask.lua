@@ -496,7 +496,7 @@ Vorana's Preparation
 Iron Flask
 League: Expedition
 Requires Level 40
-(-10–10)% reduced Charges used
+(-10–10)% increased Charges used
 Debilitate nearby Enemies for 2 Seconds when Flask Effect ends
 Flask Effect is removed when Ward Breaks
 Culling Strike during Flask Effect
