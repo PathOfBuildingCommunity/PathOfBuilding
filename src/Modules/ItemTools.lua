@@ -68,7 +68,9 @@ function itemLib.applyRange(line, range, valueScalar)
 	:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
 	:gsub("(%+?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", function(plus, min, max) return plus.."1" end)
 	:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
+	:gsub("%-(%d+%%) reduced", function(num) return num.." increased" end)
 	:gsub("%-(%d+%%) more", function(num) return num.." less" end)
+	:gsub("%-(%d+%%) less", function(num) return num.." more" end)
 	local modList, extra = modLib.parseMod(testLine)
 	if modList and not extra then
 		for _, mod in pairs(modList) do
@@ -99,7 +101,9 @@ function itemLib.applyRange(line, range, valueScalar)
 			return plus .. tostring(numVal)
 		end)
 		:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
+		:gsub("%-(%d+%%) reduced", function(num) return num.." increased" end)
 		:gsub("%-(%d+%%) more", function(num) return num.." less" end)
+		:gsub("%-(%d+%%) less", function(num) return num.." more" end)
 		if numbers == 0 and line:match("(%d+%.?%d*)%%? ") then --If a mod contains x or x% and is not already a ranged value, then only the first number will be scalable as any following numbers will always be conditions or unscalable values.
 			numbers = 1
 		end
