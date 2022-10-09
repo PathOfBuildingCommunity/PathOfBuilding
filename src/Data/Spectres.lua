@@ -3370,3 +3370,24 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
+
+-- Armour Cruncher
+minions["Metadata/Monsters/Beasts/CurseOnHit/Vulnerability"] = {
+	name = "Armour Cruncher",
+	life = 1.68,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.095,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterCurseOnHitVulnerability [effect = 1.04 ]
+	},
+}
