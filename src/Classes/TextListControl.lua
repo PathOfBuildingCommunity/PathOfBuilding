@@ -3,6 +3,8 @@
 -- Class: Text List
 -- Simple list control for displaying a block of text
 --
+local CC = UI.CC
+
 local TextListClass = newClass("TextListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, columns, list, sectionHeights)
 	self.Control(anchor, x, y, width, height)
 	self.ControlHost()
@@ -32,9 +34,9 @@ function TextListClass:Draw(viewPort)
 		contentHeight = contentHeight + lineInfo.height
 	end
 	scrollBar:SetContentDimension(contentHeight, height - 4)
-	SetDrawColor(0.66, 0.66, 0.66)
+	SetDrawColor(CC.CONTROL_BORDER)
 	DrawImage(nil, x, y, width, height)
-	SetDrawColor(0.05, 0.05, 0.05)
+	SetDrawColor(CC.CONTROL_BACKGROUND_INACTIVE)
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	self:DrawControls(viewPort)
 	SetViewport(x + 2, y + 2, width - 20, height - 4)

@@ -5,12 +5,13 @@
 --
 local pairs = pairs
 local t_insert = table.insert
+local CC = UI.CC
 
 local ItemListClass = newClass("ItemListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab, forceTooltip)
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, itemsTab.itemOrderList, forceTooltip)
 	self.itemsTab = itemsTab
-	self.label = "^7All items:"
-	self.defaultText = "^x7F7F7FThis is the list of items that have been added to this build.\nYou can add items to this list by dragging them from\none of the other lists, or by clicking 'Add to build' when\nviewing an item."
+	self.label = CC.TEXT_PRIMARY.."All items:"
+	self.defaultText = CC.ITEM_TEXT.."This is the list of items that have been added to this build.\nYou can add items to this list by dragging them from\none of the other lists, or by clicking 'Add to build' when\nviewing an item."
 	self.dragTargetList = { }
 	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
@@ -118,14 +119,14 @@ function ItemListClass:GetRowValue(column, index, itemId)
 		if used == "" then
 			local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
 			if not slot then
-				used = "  ^9(Unused)"
+				used = CC.CONTROL_TEXT_INACTIVE.."  (Unused)"
 			elseif itemSet then
-				used = "  ^9(Used in '" .. (itemSet.title or "Default") .. "')"
+				used = CC.CONTROL_TEXT_INACTIVE.."  (Used in '"..(itemSet.title or "Default").."')"
 			end
 		else
-			used = "  ^9(Used in '" .. used .. "')"
+			used = CC.CONTROL_TEXT_INACTIVE.."  (Used in '"..used.. "')"
 		end
-		return colorCodes[item.rarity] .. item.name .. used
+		return CC["ITEM_RARITY_"..item.rarity]..item.name..used
 	end
 end
 

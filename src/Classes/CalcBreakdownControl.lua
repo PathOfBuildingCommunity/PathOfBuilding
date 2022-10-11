@@ -12,6 +12,7 @@ local m_sin = math.sin
 local m_cos = math.cos
 local m_pi = math.pi
 local band = bit.band
+local CC = UI.CC
 
 local CalcBreakdownClass = newClass("CalcBreakdownControl", "Control", "ControlHost", function(self, calcsTab)
 	self.Control()
@@ -233,7 +234,7 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 		t_insert(self.sectionList, section)
 		for _, row in pairs(section.rowList) do
 			if row.item then
-				row.sourceLabel = colorCodes[row.item.rarity]..row.item.name
+				row.sourceLabel = CC["ITEM_RARITY_"..row.item.rarity]..row.item.name
 				row.sourceLabelTooltip = function(tooltip)
 					self.calcsTab.build.itemsTab:AddItemTooltip(tooltip, row.item, row.source)
 				end
@@ -378,7 +379,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			local itemId = row.mod.source:match("Item:(%d+):.+")
 			local item = build.itemsTab.items[tonumber(itemId)]
 			if item then
-				row.sourceName = colorCodes[item.rarity]..item.name
+				row.sourceName = CC["ITEM_RARITY_"..item.rarity]..item.name
 				row.sourceNameTooltip = function(tooltip)
 					build.itemsTab:AddItemTooltip(tooltip, item, row.mod.sourceSlot)
 				end
@@ -512,7 +513,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 	local cursorX, cursorY = GetCursorPos()
 	if section.label then
 		-- Draw table label if able
-		DrawString(x + 2, y, "LEFT", 16, "VAR", "^7"..section.label..":")
+		DrawString(x + 2, y, "LEFT", 16, "VAR", CC.TEXT_SECONDARY..section.label..":")
 		y = y + 16
 	end
 	local colX = x + 4
@@ -522,10 +523,10 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 			col.x = colX
 			if index > 1 then
 				-- Skip the separator for the first column
-				SetDrawColor(0.5, 0.5, 0.5)
+				SetDrawColor(CC.CONTROL_BORDER)
 				DrawImage(nil, colX - 2, y, 1, section.height - (section.label and 16 or 0) - (section.footer and 12 or 0))
 			end
-			SetDrawColor(1, 1, 1)
+			SetDrawColor(CC.CONTROL_TEXT)
 			DrawString(colX, y + 2, "LEFT", 16, "VAR", col.label)
 			colX = colX + col.width
 		end
@@ -533,7 +534,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 	local rowY = y + 20
 	for _, row in ipairs(section.rowList) do
 		-- Draw row separator
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_BORDER)
 		DrawImage(nil, x + 2, rowY - 1, section.width - 4, 1)
 		for _, col in ipairs(section.colList) do
 			if col.width and row[col.key] then
@@ -542,18 +543,18 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 				local _, notes = string.gsub(row[col.key], " to ", " ") -- counts " to " in the string
 				local _, paren = string.gsub(row[col.key], "%b()", " ") -- counts parenthesis in the string
 				if (alpha == 0 or notes > 0 or paren > 0) and col.right then
-					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
+					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", CC.TEXT_SECONDARY..formatNumSep(tostring(row[col.key])))
 				elseif (alpha == 0 or notes > 0 or paren > 0) then
-					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..formatNumSep(tostring(row[col.key])))
+					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", CC.TEXT_SECONDARY..formatNumSep(tostring(row[col.key])))
 				else
-					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", "^7"..tostring(row[col.key]))
+					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", CC.TEXT_SECONDARY..tostring(row[col.key]))
 				end
 				local ttFunc = row[col.key.."Tooltip"]
 				local ttNode = row[col.key.."Node"]
 				if (ttFunc or ttNode) and cursorY >= viewPort.y + 2 and cursorY < viewPort.y + viewPort.height - 2 and cursorX >= col.x and cursorY >= rowY and cursorX < col.x + col.width and cursorY < rowY + 14 then
 					-- Mouse is over the cell, draw highlighting lines and show the tooltip/node location
 					SetDrawLayer(nil, 15)
-					SetDrawColor(0, 1, 0)
+					SetDrawColor(CC.TEXT_ACCENT3)
 					DrawImage(nil, col.x - 2, rowY - 1, col.width, 1)
 					DrawImage(nil, col.x - 2, rowY + 13, col.width, 1)
 					if ttFunc then
@@ -566,7 +567,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 							viewerX = col.x - 309
 						end
 						local viewerY = m_min(rowY, viewPort.y + viewPort.height - 304)
-						SetDrawColor(1, 1, 1)
+						SetDrawColor(CC.TOOLTIP_TREE_BORDER)
 						DrawImage(nil, viewerX, viewerY, 304, 304)
 						local viewer = self.nodeViewer
 						viewer.zoom = 5
@@ -576,7 +577,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 						SetViewport(viewerX + 2, viewerY + 2, 300, 300)
 						viewer:Draw(self.calcsTab.build, { x = 0, y = 0, width = 300, height = 300 }, { })
 						SetDrawLayer(nil, 30)
-						SetDrawColor(1, 0, 0)
+						SetDrawColor(CC.TOOLTIP_TREE_ITEM)
 						DrawImage(viewer.highlightRing, 135, 135, 30, 30)
 						SetViewport()
 					end
@@ -588,7 +589,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 	end
 	if section.footer then
 		-- Draw table footer if able
-		DrawString(x + 2, rowY, "LEFT", 12, "VAR", "^7"..section.footer)
+		DrawString(x + 2, rowY, "LEFT", 12, "VAR", CC.TEXT_SECONDARY..section.footer)
 	end
 end
 
@@ -606,7 +607,7 @@ function CalcBreakdownClass:DrawRadiusVisual(x, y, width, height, radius)
 		main:RenderRing(x, y, width, height, 0, 0, r, 3)
 	end
 	main:RenderCircle(x, y, width, height, 0, 0, 2)]]
-	SetDrawColor(0.5, 1, 0.5, 0.33)
+	SetDrawColor(CC.TOOLTIP_RADIUS_ITEM)
 	main:RenderCircle(x, y, width, height, 0, 0, radius)
 	--[[SetDrawColor(1, 0.5, 0.5, 0.33)
 	if not self.foo1 then
@@ -653,14 +654,14 @@ function CalcBreakdownClass:Draw(viewPort)
 	self.y = y
 	-- Draw background
 	SetDrawLayer(nil, 10)
-	SetDrawColor(0, 0, 0, 0.9)
+	SetDrawColor(CC.TOOLTIP_BACKGROUND)
 	DrawImage(nil, x + 2, y + 2, width - 4, height - 4)
 	-- Draw border (this is put in sub layer 11 so it draws over the contents, in case they don't fit the screen)
 	SetDrawLayer(nil, 11)
 	if self.pinned then
-		SetDrawColor(0.25, 1, 0.25)
+		SetDrawColor(CC.TOOLTIP_SECTION_BORDER_HOVER)
 	else
-		SetDrawColor(0.33, 0.66, 0.33)
+		SetDrawColor(CC.TOOLTIP_SECTION_BORDER)
 	end
 	DrawImage(nil, x, y, width, 2)
 	DrawImage(nil, x, y + height - 2, width, 2)
@@ -675,7 +676,7 @@ function CalcBreakdownClass:Draw(viewPort)
 		if section.type == "TEXT" then
 			local lineY = sectionY + 2
 			for i, line in ipairs(section.lines) do
-				SetDrawColor(1, 1, 1)
+				SetDrawColor(CC.CONTROL_TEXT)
 				local _, dec = string.gsub(line, "%.%d%d.", " ") -- counts decimals with 2 or more digits
 				DrawString(x + 4, lineY, "LEFT", section.textSize, "VAR", formatNumSep(line))
 				lineY = lineY + section.textSize
@@ -683,7 +684,7 @@ function CalcBreakdownClass:Draw(viewPort)
 		elseif section.type == "TABLE" then
 			self:DrawBreakdownTable(viewPort, x, sectionY, section)
 		elseif section.type == "RADIUS" then
-			SetDrawColor(1, 1, 1)
+			SetDrawColor(CC.TOOLTIP_RADIUS_BORDER)
 			DrawImage(nil, x + 2, sectionY, section.width - 4, section.height)
 			self:DrawRadiusVisual(x + 4, sectionY + 2, section.width - 8, section.height - 4, section.radius)
 		end

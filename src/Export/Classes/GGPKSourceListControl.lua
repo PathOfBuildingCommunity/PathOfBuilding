@@ -24,19 +24,19 @@ end)
 
 function GGPKSourceListClass:EditDATSource(datSource, newSource)
 	local controls = { }
-	controls.labelLabel = new("LabelControl", nil, -30, 20, 0, 16, "^7Name:")
+	controls.labelLabel = new("LabelControl", nil, -30, 20, 0, 16, "Name:")
 	controls.label = new("EditControl", nil, 85, 20, 180, 20, datSource.label, nil, nil, nil, function(buf)
 		controls.save.enabled = (controls.dat.buf:match("%S") or controls.ggpk.buf:match("%S")) and buf:match("%S")
 	end)
-	controls.ggpkLabel = new("LabelControl", nil, 0, 40, 0, 16, "^7GGPK/Steam PoE path:")
+	controls.ggpkLabel = new("LabelControl", nil, 0, 40, 0, 16, "GGPK/Steam PoE path:")
 	controls.ggpk = new("EditControl", {"TOP",controls.ggpkLabel,"TOP"}, 0, 20, 350, 20, datSource.ggpkPath, nil, nil, nil, function(buf)
 		controls.save.enabled = (buf:match("%S") or controls.dat.buf:match("%S")) and controls.label.buf:match("%S") and controls.spec.buf:match("%S")
 	end)
-	controls.datLabel = new("LabelControl", {"TOP",controls.ggpk,"TOP"}, 0, 22, 0, 16, "^7DAT File location:")
+	controls.datLabel = new("LabelControl", {"TOP",controls.ggpk,"TOP"}, 0, 22, 0, 16, "DAT File location:")
 	controls.dat = new("EditControl", {"TOP",controls.datLabel,"TOP"}, 0, 20, 350, 20, datSource.datFilePath, nil, nil, nil, function(buf)
 		controls.save.enabled = (buf:match("%S") or controls.ggpk.buf:match("%S")) and controls.label.buf:match("%S") and controls.spec.buf:match("%S")
 	end)
-	controls.specLabel = new("LabelControl", {"TOP",controls.dat,"TOP"}, 0, 22, 0, 16, "^7Spec File location:")
+	controls.specLabel = new("LabelControl", {"TOP",controls.dat,"TOP"}, 0, 22, 0, 16, "Spec File location:")
 	controls.spec = new("EditControl", {"TOP",controls.specLabel,"TOP"}, 0, 20, 350, 20, datSource.spec or "spec.lua", nil, nil, nil, function(buf)
 		controls.save.enabled = (controls.dat.buf:match("%S") or controls.ggpk.buf:match("%S")) and controls.label.buf:match("%S") and buf:match("%S")
 	end)
@@ -69,9 +69,9 @@ end
 
 function GGPKSourceListClass:GetRowValue(column, index, datSource)
 	if column == 1 then
-		return "^7"..datSource.label
+		return datSource.label
 	elseif column == 2 then
-		return "^7"..datSource.spec
+		return datSource.spec
 	end
 end
 

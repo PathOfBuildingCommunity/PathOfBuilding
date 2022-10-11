@@ -7,6 +7,7 @@
 local t_insert = table.insert
 local t_remove = table.remove
 local t_sort = table.sort
+local CC = UI.CC
 
 local PowerReportListClass = newClass("PowerReportListControl", "ListControl", function(self, anchor, x, y, width, height, nodeSelectCallback)
 	self.ListControl(anchor, x, y, width, height-50, 16, "VERTICAL", false)
@@ -23,7 +24,7 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 	self.nodeSelectCallback = nodeSelectCallback
 	self.showClusters = false
 	self.allocated = false
-	self.label = "Building Tree..."
+	self.label = CC.TEXT_PRIMARY.."Building Tree..."
 	
 	self.controls.filterSelect = new("DropDownControl", { "BOTTOMRIGHT", self, "TOPRIGHT" }, 0, -2, 200, 20,
 		{ "Show Unallocated", "Show Unallocated & Clusters", "Show Allocated" },
@@ -40,9 +41,9 @@ function PowerReportListClass:SetReport(stat, report)
 	self.originalList = report or {}
 
 	if stat and stat.stat then
-		self.label = report and "Click to focus node on tree" or "Building Tree..."
+		self.label = CC.TEXT_PRIMARY..(report and "Click to focus node on tree" or "Building Tree...")
 	else
-		self.label = "^7\""..self.powerColumn.label.."\" not supported.  Select a specific stat from the dropdown."
+		self.label = CC.TEXT_PRIMARY.."\""..self.powerColumn.label.."\" not supported.  Select a specific stat from the dropdown."
 	end
 
 	self:ReList()

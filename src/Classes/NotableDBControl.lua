@@ -11,6 +11,7 @@ local m_max = math.max
 local m_floor = math.floor
 local m_huge = math.huge
 local s_format = string.format
+local CC = UI.CC
 
 ---@param node table
 ---@return boolean
@@ -155,7 +156,7 @@ function NotableDBClass:ListBuilder()
 			end
 			local now = GetTime()
 			if now - start > 50 then
-				self.defaultText = "^7Sorting... ("..m_floor(nodeIndex/#list*100).."%)"
+				self.defaultText = CC.TEXT_PRIMARY.."Sorting... ("..m_floor(nodeIndex/#list*100).."%)"
 				coroutine.yield()
 				start = now
 			end
@@ -193,7 +194,7 @@ function NotableDBClass:ListBuilder()
 	end)
 
 	self.list = list
-	self.defaultText = "^7No notables found that match those filters."
+	self.defaultText = CC.TEXT_PRIMARY.."No notables found that match those filters."
 end
 
 ---@param viewPort table<string, number>
@@ -232,10 +233,10 @@ function NotableDBClass:GetRowValue(column, index, node)
 				local powerColor = s_format("^x%X8080", powerRed)
 				return powerColor..node.dn
 			else
-				return "^x808080"..node.dn
+				return CC.CONTROL_TEXT..node.dn
 			end
 		else
-			return colorCodes.CRAFTED..node.dn
+			return CC.ITEM_CRAFTED..node.dn
 		end
 	end
 end
@@ -257,7 +258,7 @@ function NotableDBClass:AddValueTooltip(tooltip, index, node)
 		if node.sd[1] then
 			tooltip:AddLine(16, "")
 			for i, line in ipairs(node.sd) do
-				tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and colorCodes.UNSUPPORTED or colorCodes.MAGIC)..line)
+				tooltip:AddLine(16, ((node.mods[i].extra or not node.mods[i].list) and CC.ITEM_UNSUPPORTED or CC.ITEM_RARITY_MAGIC)..line)
 			end
 		end
 
@@ -265,7 +266,7 @@ function NotableDBClass:AddValueTooltip(tooltip, index, node)
 		if node.reminderText then
 			tooltip:AddSeparator(14)
 			for _, line in ipairs(node.reminderText) do
-				tooltip:AddLine(14, "^xA0A080"..line)
+				tooltip:AddLine(14, CC.TEXT_REMINDER..line)
 			end
 		end
 

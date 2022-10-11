@@ -8,6 +8,7 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local s_upper = string.upper
+local CC = UI.CC
 
 local varList = LoadModule("Modules/ConfigOptions")
 
@@ -427,7 +428,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			end
 			local labelControl = control
 			if varData.label and varData.type ~= "check" then
-				labelControl = new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label)
+				labelControl = new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, CC.TEXT_PRIMARY..varData.label)
 				t_insert(self.controls, labelControl)
 			end
 			if varData.var then
@@ -482,7 +483,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
-						return colorCodes.NEGATIVE..StripEscapes(innerLabel)
+						return CC.BUILD_NEGATIVE..StripEscapes(innerLabel)
 					end
 					return innerLabel
 				end
@@ -503,7 +504,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
-						tooltip:AddLine(14, colorCodes.NEGATIVE.."This config option is conditional with missing source and is invalid.")
+						tooltip:AddLine(14, CC.ERROR.."This config option is conditional with missing source and is invalid.")
 					end
 				end
 			end
@@ -519,7 +520,7 @@ function ConfigTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
 		if node.elem == "Input" then
 			if not node.attrib.name then
-				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing name attribute", fileName)
+				launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'Input' element missing name attribute", fileName)
 				return true
 			end
 			if node.attrib.number then
@@ -537,12 +538,12 @@ function ConfigTabClass:Load(xml, fileName)
 			elseif node.attrib.boolean then
 				self.input[node.attrib.name] = node.attrib.boolean == "true"
 			else
-				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing number, string or boolean attribute", fileName)
+				launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'Input' element missing number, string or boolean attribute", fileName)
 				return true
 			end
 		elseif node.elem == "Placeholder" then
 			if not node.attrib.name then
-				launch:ShowErrMsg("^1Error parsing '%s': 'Placeholder' element missing name attribute", fileName)
+				launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'Placeholder' element missing name attribute", fileName)
 				return true
 			end
 			if node.attrib.number then
@@ -550,7 +551,7 @@ function ConfigTabClass:Load(xml, fileName)
 			elseif node.attrib.string then
 				self.input[node.attrib.name] = node.attrib.string
 			else
-				launch:ShowErrMsg("^1Error parsing '%s': 'Placeholder' element missing number", fileName)
+				launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'Placeholder' element missing number", fileName)
 				return true
 			end
 		end

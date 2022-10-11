@@ -5,6 +5,7 @@
 --
 local ipairs = ipairs
 local t_insert = table.insert
+local CC = UI.CC
 
 local PathClass = newClass("PathControl", "Control", "ControlHost", "UndoHandler", function(self, anchor, x, y, width, height, basePath, subPath, onChange)
 	self.Control(anchor, x, y, width, height)
@@ -69,18 +70,18 @@ end
 function PathClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
-	SetDrawColor(0.5, 0.5, 0.5)
+	SetDrawColor(CC.CONTROL_BORDER)
 	DrawImage(nil, x, y, width, height)
-	SetDrawColor(0, 0, 0)
+	SetDrawColor(CC.BACKGROUND_0)
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	self:DrawControls(viewPort)
 	for index, folder in ipairs(self.folderList) do
 		local buttonX, buttonY = folder.button:GetPos()
 		local buttonW, buttonH = folder.button:GetSize()
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_TEXT_SECONDARY)
 		main:DrawArrow(buttonX + buttonW + 6, y + height/2, 8, 8, "RIGHT")
 		if self.otherDragSource and index < #self.folderList then
-			SetDrawColor(0, 1, 0, 0.25)
+			SetDrawColor(CC.CONTROL_BACKGROUND_RECEIVE_DRAG)
 			DrawImage(nil, buttonX, buttonY, buttonW, buttonH)
 		end
 	end

@@ -7,6 +7,8 @@ local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
 local s_format = string.format
+local CC = UI.CC
+local c_format = UI.colorFormat
 
 local MinionListClass = newClass("MinionListControl", "ListControl", function(self, anchor, x, y, width, height, data, list, dest)
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", not dest, list)
@@ -14,7 +16,7 @@ local MinionListClass = newClass("MinionListControl", "ListControl", function(se
 	self.dest = dest
 	if dest then
 		self.dragTargetList = { dest }
-		self.label = "^7Available Spectres:"
+		self.label = CC.TEXT_PRIMARY.."Available Spectres:"
 		self.controls.add = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Add", function()
 			self:AddSel()
 		end)
@@ -22,7 +24,7 @@ local MinionListClass = newClass("MinionListControl", "ListControl", function(se
 			return self.selValue ~= nil and not isValueInArray(dest.list, self.selValue)
 		end
 	else
-		self.label = "^7Spectres in Build:"
+		self.label = CC.TEXT_PRIMARY.."Spectres in Build:"
 		self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Remove", function()
 			self:OnSelDelete(self.selIndex, self.selValue)
 		end)
@@ -48,25 +50,22 @@ end
 function MinionListClass:AddValueTooltip(tooltip, index, minionId)
 	if tooltip:CheckForUpdate(minionId) then
 		local minion = self.data.minions[minionId]
-		tooltip:AddLine(18, "^7"..minion.name)
-		tooltip:AddLine(14, s_format("^7Life multiplier: x%.2f", minion.life))
+		tooltip:AddLine(18, CC.TEXT_PRIMARY..minion.name)
+		tooltip:AddLine(14, c_format("{TEXT_PRIMARY}Life multiplier: x%.2f", minion.life))
 		if minion.energyShield then
-			tooltip:AddLine(14, s_format("^7Energy Shield: %d%% of base Life", minion.energyShield * 100))
+			tooltip:AddLine(14, c_format("{TEXT_PRIMARY}Energy Shield: %d%% of base Life", minion.energyShield * 100))
 		end
 		if minion.armour then
-			tooltip:AddLine(14, s_format("^7Armour multiplier: x%.2f", minion.armour))
+			tooltip:AddLine(14, c_format("{TEXT_PRIMARY}Armour multiplier: x%.2f", minion.armour))
 		end
-		tooltip:AddLine(14, s_format("^7Resistances: %s%d^7/%s%d^7/%s%d^7/%s%d", 
-			colorCodes.FIRE, minion.fireResist, 
-			colorCodes.COLD, minion.coldResist, 
-			colorCodes.LIGHTNING, minion.lightningResist, 
-			colorCodes.CHAOS, minion.chaosResist
+		tooltip:AddLine(14, c_format("{TEXT_PRIMARY}Resistances: {STAT_FIRE}%d{TEXT_PRIMARY}/{STAT_COLD}%d{TEXT_PRIMARY}/{STAT_LIGHTNING}%d{TEXT_PRIMARY}/{STAT_CHAOS}%d",
+			minion.fireResist, minion.coldResist, minion.lightningResist, minion.chaosResist
 		))
-		tooltip:AddLine(14, s_format("^7Base damage: x%.2f", minion.damage))
-		tooltip:AddLine(14, s_format("^7Base attack speed: %.2f", 1 / minion.attackTime))
+		tooltip:AddLine(14, c_format("{TEXT_PRIMARY}Base damage: x%.2f", minion.damage))
+		tooltip:AddLine(14, c_format("{TEXT_PRIMARY}Base attack speed: %.2f", 1 / minion.attackTime))
 		for _, skillId in ipairs(minion.skillList) do
 			if self.data.skills[skillId] then
-				tooltip:AddLine(14, "^7Skill: "..self.data.skills[skillId].name)
+				tooltip:AddLine(14, c_format("{TEXT_PRIMARY}Skill: ")..self.data.skills[skillId].name)
 			end
 		end
 	end

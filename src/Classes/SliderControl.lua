@@ -6,6 +6,7 @@
 local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
+local CC = UI.CC
 
 local SliderClass = newClass("SliderControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, changeFunc, scrollWheelSpeedTbl)
 	self.Control(anchor, x, y, width, height)
@@ -85,26 +86,26 @@ function SliderClass:Draw(viewPort)
 	end
 	local mOver, mOverComp = self:IsMouseOver()
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_BORDER_INACTIVE)
 	elseif self.dragging or mOver then
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_BORDER_HOVER)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_BORDER)
 	end
 	DrawImage(nil, x, y, width, height)
-	SetDrawColor(0, 0, 0)
+	SetDrawColor(CC.CONTROL_BACKGROUND)
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	if enabled then
 		if self.divCount then
-			SetDrawColor(0.33, 0.33, 0.33)
+			SetDrawColor(CC.CONTROL_ITEM_INACTIVE)
 			for d = 0, knobTravel + 0.5, knobTravel / self.divCount do
 				DrawImage(nil, x + self.knobSize/2 + d, y + 1, 2, height - 2)
 			end
 		end
 		if self.dragging or mOverComp == "KNOB" then
-			SetDrawColor(1, 1, 1)
+			SetDrawColor(CC.CONTROL_ITEM_HOVER)
 		else
-			SetDrawColor(0.5, 0.5, 0.5)
+			SetDrawColor(CC.CONTROL_ITEM)
 		end
 		local knobX = self:GetKnobXForVal()
 		if self.divCount then

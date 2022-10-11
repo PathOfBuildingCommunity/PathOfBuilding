@@ -6,6 +6,7 @@
 local pairs = pairs
 local t_insert = table.insert
 local m_min = math.min
+local CC = UI.CC
 
 local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl", function(self, anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
 	self.DropDownControl(anchor, x, y, 310, 20, { }, function(index, value)
@@ -79,7 +80,7 @@ function ItemSlotClass:Populate()
 	for _, item in pairs(self.itemsTab.items) do
 		if self.itemsTab:IsItemValidForSlot(item, self.slotName) then
 			t_insert(self.items, item.id)
-			t_insert(self.list, colorCodes[item.rarity]..item.name)
+			t_insert(self.list, CC["ITEM_RARITY_"..item.rarity]..item.name)
 			if item.id == self.selItemId then
 				self.selIndex = #self.list
 			end
@@ -121,7 +122,7 @@ end
 function ItemSlotClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
-	DrawString(x + self.labelOffset, y + 2, "RIGHT_X", height - 4, "VAR", "^7"..self.label..":")
+	DrawString(x + self.labelOffset, y + 2, "RIGHT_X", height - 4, "VAR", CC.TEXT_PRIMARY..self.label..":")
 	self.DropDownControl:Draw(viewPort)
 	self:DrawControls(viewPort)
 	if not main.popups[1] and self.nodeId and (self.dropped or (self:IsMouseOver() and (self.otherDragSource or not self.itemsTab.selControl))) then

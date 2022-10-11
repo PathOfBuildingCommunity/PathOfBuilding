@@ -29,6 +29,7 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local CC = UI.CC
 
 local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, scroll, isMutable, list, forceTooltip)
 	self.Control(anchor, x, y, width, height)
@@ -179,19 +180,19 @@ function ListClass:Draw(viewPort, noTooltip)
 		DrawString(x, y - 20, "LEFT", 16, self.font, label)
 	end
 	if self.otherDragSource and not self.CanDragToValue then
-		SetDrawColor(0.2, 0.6, 0.2)
+		SetDrawColor(CC.CONTROL_BORDER_RECEIVE_DRAG)
 	elseif self.hasFocus then
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_BORDER_HOVER)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_BORDER)
 	end
 	DrawImage(nil, x, y, width, height)
-	if self.otherDragSource and not self.CanDragToValue then
-		SetDrawColor(0, 0.05, 0)
-	else
-		SetDrawColor(0, 0, 0)
-	end
+	SetDrawColor(CC.BACKGROUND_0)
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+	if self.otherDragSource and not self.CanDragToValue then
+		SetDrawColor(CC.CONTROL_BACKGROUND_RECEIVE_DRAG)
+		DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+	end
 	self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
 
 	SetViewport(x + 2, y + 2,  self.scroll and width - 20 or width, height - 4 - (self.scroll and self.scrollH and 16 or 0))
@@ -232,41 +233,45 @@ function ListClass:Draw(viewPort, noTooltip)
 			end
 			if self.showRowSeparators then
 				if self.hasFocus and value == self.selValue then
-					SetDrawColor(1, 1, 1)
+					SetDrawColor(CC.CONTROL_BORDER_HOVER)
 				elseif value == ttValue then
-					SetDrawColor(0.8, 0.8, 0.8)
+					SetDrawColor(CC.CONTROL_BORDER_HOVER)
 				else
-					SetDrawColor(0.5, 0.5, 0.5)
+					SetDrawColor(CC.CONTROL_BORDER)
 				end
 				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)
 				if (value == self.selValue or value == ttValue) then
-					SetDrawColor(0.33, 0.33, 0.33)
-				elseif self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
-					SetDrawColor(0, 0.2, 0)
-				elseif index % 2 == 0 then
-					SetDrawColor(0.05, 0.05, 0.05)
+					SetDrawColor(CC.CONTROL_BACKGROUND_HOVER)
 				else
-					SetDrawColor(0, 0, 0)
+					SetDrawColor(CC.CONTROL_BACKGROUND)
 				end
 				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
+				if self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
+					SetDrawColor(CC.CONTROL_BACKGROUND_RECEIVE_DRAG)
+					DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
+				end
+				if index % 2 == 0 then
+					SetDrawColor(0, 0, 0, 0.05)
+					DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
+				end
 			elseif value == self.selValue or value == ttValue then
 				if self.hasFocus and value == self.selValue then
-					SetDrawColor(1, 1, 1)
+					SetDrawColor(CC.CONTROL_BORDER_HOVER)
 				elseif value == ttValue then
-					SetDrawColor(0.8, 0.8, 0.8)
+					SetDrawColor(CC.CONTROL_BORDER_HOVER)
 				else
-					SetDrawColor(0.5, 0.5, 0.5)
+					SetDrawColor(CC.CONTROL_BORDER)
 				end
 				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)
 				if self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
-					SetDrawColor(0, 0.2, 0)
+					SetDrawColor(CC.CONTROL_BACKGROUND_RECEIVE_DRAG)
 				else
-					SetDrawColor(0.15, 0.15, 0.15)
+					SetDrawColor(CC.BACKGROUND_0)
 				end
 				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
 			end
 			if not self.SetHighlightColor or not self:SetHighlightColor(index, value) then
-				SetDrawColor(1, 1, 1)
+				SetDrawColor(CC.CONTROL_TEXT)
 			end
 			-- TODO: handle icon size properly, for now assume they are 16x16
 			if icon == nil then
@@ -279,32 +284,32 @@ function ListClass:Draw(viewPort, noTooltip)
 		if self.colLabels then
 			local mOver = relX >= colOffset and relX <= colOffset + colWidth and relY >= 0 and relY <= 18
 			if mOver and self:GetColumnProperty(column, "sortable") then
-				SetDrawColor(1, 1, 1)
+				SetDrawColor(CC.CONTROL_BORDER_HOVER)
 				DrawImage(nil, colOffset, 1, colWidth, 18)
-				SetDrawColor(0.33, 0.33, 0.33)
+				SetDrawColor(CC.CONTROL_BACKGROUND_HOVER)
 				DrawImage(nil, colOffset + 1, 2, colWidth - 2, 16)
 			else
-				SetDrawColor(0.5, 0.5, 0.5)
+				SetDrawColor(CC.CONTROL_BORDER)
 				DrawImage(nil, colOffset, 1, colWidth, 18)
-				SetDrawColor(0.15, 0.15, 0.15)
+				SetDrawColor(CC.CONTROL_BACKGROUND)
 				DrawImage(nil, colOffset + 1, 2, colWidth - 2, 16)
 			end
 			local label = self:GetColumnProperty(column, "label")
 			if label and #label > 0 then
-				SetDrawColor(1, 1, 1)
+				SetDrawColor(CC.CONTROL_TEXT)
 				DrawString(colOffset + colWidth/2, 4, "CENTER_X", 12, "VAR", label)
 			end
 		end
 	end
 	if #self.list == 0 and self.defaultText then
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_TEXT)
 		DrawString(2, 2, "LEFT", 14, self.font, self.defaultText)
 	end
 	if self.selDragIndex then
 		local lineY = rowHeight * (self.selDragIndex - 1) - scrollOffsetV
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_BORDER_HOVER)
 		DrawImage(nil, 0, lineY - 1, width - 20, 3)
-		SetDrawColor(0, 0, 0)
+		SetDrawColor(CC.CONTROL_ITEM_HOVER)
 		DrawImage(nil, 0, lineY, width - 20, 1)
 	end
 	SetViewport()

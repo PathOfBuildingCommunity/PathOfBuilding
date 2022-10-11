@@ -8,6 +8,7 @@ local t_insert = table.insert
 local m_max = math.max
 local m_floor = math.floor
 local s_gmatch = string.gmatch
+local CC = UI.CC
 
 -- Constants
 
@@ -53,7 +54,7 @@ function TooltipClass:Clear()
 	end
 	self.recipe = nil
 	self.center = false
-	self.color = { 0.5, 0.3, 0 }
+	self.color = CC.TOOLTIP_BORDER
 	t_insert(self.blocks, { height = 0 })
 end
 
@@ -220,11 +221,11 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	local columns, maxColumnHeight, drawStack = self:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 
 	-- background shading currently must be drawn before text lines.  API change will allow something like the commented lines below
-	SetDrawColor(0, 0, 0, .85)
+	SetDrawColor(CC.TOOLTIP_BACKGROUND)
 	--SetDrawLayer(nil, GetDrawLayer() - 5)
 	DrawImage(nil, ttX, ttY + BORDER_WIDTH, ttW * columns - BORDER_WIDTH, maxColumnHeight - 2 * BORDER_WIDTH)
 	--SetDrawLayer(nil, GetDrawLayer())
-	SetDrawColor(1, 1, 1)
+	SetDrawColor(CC.TOOLTIP_TEXT)
 	for i, lines in ipairs(drawStack) do 
 		if #lines < 6 then
 			if(type(self.color) == "string") then

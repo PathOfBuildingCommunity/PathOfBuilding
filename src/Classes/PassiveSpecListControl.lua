@@ -6,6 +6,7 @@
 local t_insert = table.insert
 local t_remove = table.remove
 local m_max = math.max
+local CC = UI.CC
 
 local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", function(self, anchor, x, y, width, height, treeTab)
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, treeTab.specList)
@@ -44,7 +45,7 @@ end)
 
 function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 	local controls = { }
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this passive tree:")
+	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "Enter name for this passive tree:")
 	controls.edit = new("EditControl", nil, 0, 40, 350, 20, spec.title, nil, nil, 100, function(buf)
 		controls.save.enabled = buf:match("%S")
 	end)
@@ -73,7 +74,7 @@ function PassiveSpecListClass:GetRowValue(column, index, spec)
 		return (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")
 			.. (spec.title or "Default") 
 			.. " (" .. (spec.curAscendClassName ~= "None" and spec.curAscendClassName or spec.curClassName) .. ", " .. used .. " points)" 
-			.. (index == self.treeTab.activeSpec and "  ^9(Current)" or "")
+			.. (index == self.treeTab.activeSpec and CC.CONTROL_TEXT_INACTIVE.."  (Current)" or "")
 	end
 end
 

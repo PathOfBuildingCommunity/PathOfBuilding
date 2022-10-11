@@ -7,11 +7,12 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_max = math.max
 local s_format = string.format
+local CC = UI.CC
 
 local SharedItemSetListClass = newClass("SharedItemSetListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, main.sharedItemSetList)
 	self.itemsTab = itemsTab
-	self.defaultText = "^x7F7F7FThis is a list of item sets that will be shared\nbetween all of your builds.\nYou can add sets to this list by dragging them\nfrom the build's set list."
+	self.defaultText = CC.CONTROL_TEXT_MUTED.."This is a list of item sets that will be shared\nbetween all of your builds.\nYou can add sets to this list by dragging them\nfrom the build's set list."
 	self.controls.delete = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, 2, -4, 60, 18, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
@@ -28,7 +29,7 @@ end)
 
 function SharedItemSetListClass:RenameSet(sharedItemSet)
 	local controls = { }
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this item set:")
+	controls.label = new("LabelControl", nil, 0, 20, 0, 16, CC.TEXT_PRIMARY.."Enter name for this item set:")
 	controls.edit = new("EditControl", nil, 0, 40, 350, 20, sharedItemSet.title, nil, nil, 100, function(buf)
 		controls.save.enabled = buf:match("%S")
 	end)
@@ -57,7 +58,7 @@ function SharedItemSetListClass:AddValueTooltip(tooltip, index, sharedItemSet)
 			local slotName = slot.slotName
 			local item = sharedItemSet.slots[slotName]
 			if item then
-				tooltip:AddLine(16, s_format("^7%s: %s%s", self.itemsTab.slots[slotName].label, colorCodes[item.rarity], item.name))
+				tooltip:AddLine(16, CC.TEXT_PRIMARY..self.itemsTab.slots[slotName].label..":"..CC["ITEM_RARITY_"..item.rarity]..item.name)
 			end
 		end
 	end

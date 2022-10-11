@@ -9,7 +9,7 @@ end)
 
 function ScriptListClass:GetRowValue(column, index, script)
 	if column == 1 then
-		return "^7"..script
+		return UI.CC.TEXT_PRIMARY..script
 	end
 end
 

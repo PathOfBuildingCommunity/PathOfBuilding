@@ -17,6 +17,8 @@ local m_cos = math.cos
 local m_pi = math.pi
 
 LoadModule("../Modules/Common.lua")
+LoadModule("../Modules/UI.lua")
+local CC = UI.CC
 
 LoadModule("../Classes/ControlHost.lua")
 
@@ -95,7 +97,7 @@ function main:Init()
 
 	function print(text)
 		for line in text:gmatch("[^\r\n]+") do
-			t_insert(self.scriptOutput, { "^7"..line, height = 14 })
+			t_insert(self.scriptOutput, { CC.TEXT_PRIMARY..line, height = 14 })
 		end
 		self.controls.scriptOutput.controls.scrollBar.offset = 10000000
 	end
@@ -151,7 +153,7 @@ function main:Init()
 
 	self.colList = { }
 
-	self.controls.datSourceLabel = new("LabelControl", nil, 10, 10, 100, 16, "^7GGPK/Steam PoE path:")
+	self.controls.datSourceLabel = new("LabelControl", nil, 10, 10, 100, 16, "GGPK/Steam PoE path:")
 	self.controls.addSource = new("ButtonControl", nil, 10, 30, 100, 18, "Edit Sources...", function()
 		self.OpenPathPopup()
 	end)
@@ -265,7 +267,7 @@ function main:Init()
 		self:SetCurrentCol()
 	end)
 	
-	self.controls.filter = new("EditControl", nil, 270, 0, 800, 18, nil, "^8Filter") {
+	self.controls.filter = new("EditControl", nil, 270, 0, 800, 18, nil, CC.TEXT_SECONDARY.."Filter") {
 		y = function()
 			return self.editSpec and 240 or 30
 		end,
@@ -463,7 +465,7 @@ function main:LoadSettings()
 	if not setXML then
 		return true
 	elseif setXML[1].elem ~= "DatView" then
-		launch:ShowErrMsg("^1Error parsing 'Settings.xml': 'DatView' root element missing")
+		launch:ShowErrMsg(CC.ERROR.."Error parsing 'Settings.xml': 'DatView' root element missing")
 		return true
 	end
 	for _, node in ipairs(setXML[1]) do
@@ -707,7 +709,7 @@ end
 
 function main:OpenNewFolderPopup(path, onClose)
 	local controls = { }
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter folder name:")
+	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "Enter folder name:")
 	controls.edit = new("EditControl", nil, 0, 40, 350, 20, nil, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		controls.create.enabled = buf:match("%S")
 	end)

@@ -22,6 +22,8 @@ local bor = bit.bor
 local band = bit.band
 local bnot = bit.bnot
 local s_format = string.format
+local CC = UI.CC
+local c_format = UI.colorFormat
 
 local tempTable1 = { }
 local tempTable2 = { }
@@ -132,8 +134,8 @@ local function calcAilmentSourceDamage(activeSkill, output, cfg, breakdown, dama
 	local convMult = activeSkill.conversionTable[damageType].mult
 	if breakdown and convMult ~= 1 then
 		t_insert(breakdown, "Source damage:")
-		t_insert(breakdown, s_format("%d to %d ^8(total damage)", min, max))
-		t_insert(breakdown, s_format("x %g ^8(%g%% converted to other damage types)", convMult, (1-convMult)*100))
+		t_insert(breakdown, c_format("%d to %d {TEXT_SECONDARY}(total damage)", min, max))
+		t_insert(breakdown, c_format("x %g {TEXT_SECONDARY}(%g%% converted to other damage types)", convMult, (1-convMult)*100))
 		t_insert(breakdown, s_format("= %d to %d", min * convMult, max * convMult))
 	end
 	return min * convMult, max * convMult
@@ -241,10 +243,10 @@ local function setMoltenStrikeTertiaryRadiusBreakdown(breakdown, deadzoneRadius,
 			until (newDist ~= currentDist) or (newDist == 0) -- stop once we've hit a new radius breakpoint
 			return args[argIdx] * sign -- remove the sign since we want all positive numbers
 		end
-		t_insert(breakdownRadius, s_format("^8Next AoE breakpoint: %d%% increased or %d%% more", findBreakpoint(1, 1), findBreakpoint(1, 2)))
-		t_insert(breakdownRadius, s_format("^8Next Proj. Speed breakpoint: %d%% increased or %d%% more", findBreakpoint(1, 3), findBreakpoint(1, 4)))
-		t_insert(breakdownRadius, s_format("^8Previous AoE breakpoint: %d%% increased or %d%% more", findBreakpoint(-1, 1), findBreakpoint(-1, 2)))
-		t_insert(breakdownRadius, s_format("^8Previous Proj. Speed breakpoint: %d%% increased or %d%% more", findBreakpoint(-1, 3), findBreakpoint(-1, 4)))
+		t_insert(breakdownRadius, c_format("{TEXT_SECONDARY}Next AoE breakpoint: %d%% increased or %d%% more", findBreakpoint(1, 1), findBreakpoint(1, 2)))
+		t_insert(breakdownRadius, c_format("{TEXT_SECONDARY}Next Proj. Speed breakpoint: %d%% increased or %d%% more", findBreakpoint(1, 3), findBreakpoint(1, 4)))
+		t_insert(breakdownRadius, c_format("{TEXT_SECONDARY}Previous AoE breakpoint: %d%% increased or %d%% more", findBreakpoint(-1, 1), findBreakpoint(-1, 2)))
+		t_insert(breakdownRadius, c_format("{TEXT_SECONDARY}Previous Proj. Speed breakpoint: %d%% increased or %d%% more", findBreakpoint(-1, 3), findBreakpoint(-1, 4)))
 	end
 	-- This is the input variable table.
 	breakdownRadius.label = "Inputs"
@@ -390,8 +392,8 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.AreaOfEffectMod = { }
 			if output.AreaOfEffectMod ~= 1 then
 				breakdown.multiChain(breakdown.AreaOfEffectMod, {
-					{ "%.2f ^8(increased/reduced)", 1 + skillModList:Sum("INC", skillCfg, "AreaOfEffect") / 100 },
-					{ "%.2f ^8(more/less)", skillModList:More(skillCfg, "AreaOfEffect") },
+					{ "%.2f {TEXT_SECONDARY}(increased/reduced)", 1 + skillModList:Sum("INC", skillCfg, "AreaOfEffect") / 100 },
+					{ "%.2f {TEXT_SECONDARY}(more/less)", skillModList:More(skillCfg, "AreaOfEffect") },
 					total = s_format("= %.2f", output.AreaOfEffectMod),
 				})
 			end
@@ -848,10 +850,10 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.SealGainTime = { }
 			breakdown.multiChain(breakdown.SealGainTime, {
 				label = "Gain frequency:",
-				base = { "%.2fs ^8(base gain frequency)", skillModList:Sum("BASE", skillCfg, "SealGainFrequency") },
-				{ "%.2f ^8(increased/reduced gain frequency)", 1 + skillModList:Sum("INC", skillCfg, "SealGainFrequency") / 100 },
-				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
-				total = s_format("= %.2fs ^8per Seal", output.SealCooldown),
+				base = { "%.2fs {TEXT_SECONDARY}(base gain frequency)", skillModList:Sum("BASE", skillCfg, "SealGainFrequency") },
+				{ "%.2f {TEXT_SECONDARY}(increased/reduced gain frequency)", 1 + skillModList:Sum("INC", skillCfg, "SealGainFrequency") / 100 },
+				{ "%.2f {TEXT_SECONDARY}(action speed modifier)", output.ActionSpeedMod },
+				total = c_format("= %.2fs {TEXT_SECONDARY}per Seal", output.SealCooldown),
 			})
 		end
 	end
@@ -1034,11 +1036,12 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				local inc = skillModList:Sum("INC", skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
 				local more = skillModList:More(skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
-				if inc ~= 0 and more ~= 1 then
+				local eff = m_max(0, calcLib.mod(skillModList, skillCfg, pool .. "ReservationEfficiency", "ReservationEfficiency"))
+				if inc ~= 0 or more ~= 1 or eff ~= 1 then
 					breakdown[pool .. "ReservedMod"] = {
-						s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
-						s_format("x %.2f ^8(more/less)", more),
-						s_format("/ %.2f ^8(reservation efficiency)", calcLib.mod(skillModList, skillCfg, pool .. "ReservationEfficiency", "ReservationEfficiency")),
+						c_format("%.2f {TEXT_SECONDARY}(increased/reduced)", 1 + inc / 100),
+						c_format("x %.2f {TEXT_SECONDARY}(more/less)", more),
+						c_format("/ %.2f {TEXT_SECONDARY}(reservation efficiency)", eff),
 						s_format("= %.2f", output[pool .. "ReservedMod"]),
 					}
 				end
@@ -1076,20 +1079,20 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.TrapThrowingSpeed = { }
 			breakdown.multiChain(breakdown.TrapThrowingSpeed, {
 				label = "Throwing rate:",
-				base = { "%.2f ^8(base throwing rate)", baseSpeed },
-				{ "%.2f ^8(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed") / 100 },
-				{ "%.2f ^8(more/less throwing speed)", skillModList:More(skillCfg, "TrapThrowingSpeed") },
-				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
-				total = s_format("= %.2f ^8per second", output.TrapThrowingSpeed),
+				base = { "%.2f {TEXT_SECONDARY}(base throwing rate)", baseSpeed },
+				{ "%.2f {TEXT_SECONDARY}(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed") / 100 },
+				{ "%.2f {TEXT_SECONDARY}(more/less throwing speed)", skillModList:More(skillCfg, "TrapThrowingSpeed") },
+				{ "%.2f {TEXT_SECONDARY}(action speed modifier)", output.ActionSpeedMod },
+				total = c_format("= %.2f {TEXT_SECONDARY}per second", output.TrapThrowingSpeed),
 			})
 		end
 		if breakdown and timeMod > 0 then
 			breakdown.TrapThrowingTime = { }
 			breakdown.multiChain(breakdown.TrapThrowingTime, {
 				label = "Throwing time:",
-				base = { "%.2f ^8(base throwing time)", 1 / (output.TrapThrowingSpeed * timeMod) },
-				{ "%.2f ^8(total modifier)", timeMod },
-				total = s_format("= %.2f ^8seconds per throw", output.TrapThrowingTime),
+				base = { "%.2f {TEXT_SECONDARY}(base throwing time)", 1 / (output.TrapThrowingSpeed * timeMod) },
+				{ "%.2f {TEXT_SECONDARY}(total modifier)", timeMod },
+				total = c_format("= %.2f {TEXT_SECONDARY}seconds per throw", output.TrapThrowingTime),
 			})
 		end
 
@@ -1099,8 +1102,8 @@ function calcs.offence(env, actor, activeSkill)
 			output.TrapCooldown = m_ceil(output.TrapCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown then
 				breakdown.TrapCooldown = {
-					s_format("%.2fs ^8(base)", skillData.trapCooldown or skillData.cooldown or 4),
-					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
+					c_format("%.2fs {TEXT_SECONDARY}(base)", skillData.trapCooldown or skillData.cooldown or 4),
+					c_format("/ %.2f {TEXT_SECONDARY}(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
 					"rounded up to nearest server tick",
 					s_format("= %.3fs", output.TrapCooldown)
 				}
@@ -1119,8 +1122,8 @@ function calcs.offence(env, actor, activeSkill)
 		output.Cooldown = cooldown
 		if breakdown then
 			breakdown.Cooldown = {
-				s_format("%.2fs ^8(base)", skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")),
-				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
+				c_format("%.2fs {TEXT_SECONDARY}(base)", skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")),
+				c_format("/ %.2f {TEXT_SECONDARY}(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
 			}
 			if rounded then
 				t_insert(breakdown.Cooldown, s_format("rounded up to nearest server tick"))
@@ -1133,10 +1136,10 @@ function calcs.offence(env, actor, activeSkill)
 		local additionalUses = skillModList:Sum("BASE", skillCfg, "AdditionalCooldownUses")
 		output.StoredUses = baseUses + additionalUses
 		if breakdown then
-			breakdown.StoredUses = { s_format("%d ^8(skill use%s)", baseUses, baseUses == 1 and "" or "s" ) }
+			breakdown.StoredUses = { c_format("%d {TEXT_SECONDARY}(skill use%s)", baseUses, baseUses == 1 and "" or "s" ) }
 			if additionalUses ~= 0 then
-				t_insert(breakdown.StoredUses, s_format("+ %d ^8(additional use%s)", additionalUses, additionalUses == 1 and "" or "s"))
-				t_insert(breakdown.StoredUses, s_format("= %d ^8(total use%s)", output.StoredUses, output.StoredUses == 1 and "" or "s"))
+				t_insert(breakdown.StoredUses, c_format("+ %d {TEXT_SECONDARY}(additional use%s)", additionalUses, additionalUses == 1 and "" or "s"))
+				t_insert(breakdown.StoredUses, c_format("= %d {TEXT_SECONDARY}(total use%s)", output.StoredUses, output.StoredUses == 1 and "" or "s"))
 			end
 		end
 	end
@@ -1154,20 +1157,20 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.MineLayingTime = { }
 			breakdown.multiChain(breakdown.MineLayingTime, {
 				label = "Throwing rate:",
-				base = { "%.2f ^8(base throwing rate)", baseSpeed },
-				{ "%.2f ^8(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "MineLayingSpeed") / 100 },
-				{ "%.2f ^8(more/less throwing speed)", skillModList:More(skillCfg, "MineLayingSpeed") },
-				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
-				total = s_format("= %.2f ^8per second", output.MineLayingSpeed),
+				base = { "%.2f {TEXT_SECONDARY}(base throwing rate)", baseSpeed },
+				{ "%.2f {TEXT_SECONDARY}(increased/reduced throwing speed)", 1 + skillModList:Sum("INC", skillCfg, "MineLayingSpeed") / 100 },
+				{ "%.2f {TEXT_SECONDARY}(more/less throwing speed)", skillModList:More(skillCfg, "MineLayingSpeed") },
+				{ "%.2f {TEXT_SECONDARY}(action speed modifier)", output.ActionSpeedMod },
+				total = c_format("= %.2f {TEXT_SECONDARY}per second", output.MineLayingSpeed),
 			})
 		end
 		if breakdown and timeMod > 0 then
 			breakdown.MineThrowingTime = { }
 			breakdown.multiChain(breakdown.MineThrowingTime, {
 			label = "Throwing time:",
-				base = { "%.2f ^8(base throwing time)", 1 / (output.MineLayingSpeed * timeMod) },
-				{ "%.2f ^8(total modifier)", timeMod },
-				total = s_format("= %.2f ^8seconds per throw", output.MineLayingTime),
+				base = { "%.2f {TEXT_SECONDARY}(base throwing time)", 1 / (output.MineLayingSpeed * timeMod) },
+				{ "%.2f {TEXT_SECONDARY}(total modifier)", timeMod },
+				total = s_format("= %.2f {TEXT_SECONDARY}seconds per throw", output.MineLayingTime),
 			})
 		end
 
@@ -1190,6 +1193,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillFlags.totem then
+		local baseSpeed
 		if skillFlags.ballista then
 			baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "BallistaPlacementTime")
 		else
@@ -1201,18 +1205,18 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.TotemPlacementTime = { }
 			breakdown.multiChain(breakdown.TotemPlacementTime, {
 				label = "Placement speed:",
-				base = { "%.2f ^8(base placement speed)", baseSpeed },
-				{ "%.2f ^8(increased/reduced placement speed)", 1 + skillModList:Sum("INC", skillCfg, "TotemPlacementSpeed") / 100 },
-				{ "%.2f ^8(more/less placement speed)", skillModList:More(skillCfg, "TotemPlacementSpeed") },
-				{ "%.2f ^8(action speed modifier)",  output.ActionSpeedMod },
-				total = s_format("= %.2f ^8per second", output.TotemPlacementSpeed),
+				base = { "%.2f {TEXT_SECONDARY}(base placement speed)", baseSpeed },
+				{ "%.2f {TEXT_SECONDARY}(increased/reduced placement speed)", 1 + skillModList:Sum("INC", skillCfg, "TotemPlacementSpeed") / 100 },
+				{ "%.2f {TEXT_SECONDARY}(more/less placement speed)", skillModList:More(skillCfg, "TotemPlacementSpeed") },
+				{ "%.2f {TEXT_SECONDARY}(action speed modifier)", output.ActionSpeedMod },
+				total = c_format("= %.2f {TEXT_SECONDARY}per second", output.TotemPlacementSpeed),
 			})
 		end
 		output.ActiveTotemLimit = skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 		output.TotemsSummoned = env.modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
 		if breakdown then
 			breakdown.ActiveTotemLimit = {
-				"Totems Summoned: "..output.TotemsSummoned..(env.configInput.TotemsSummoned and " ^8(overridden from the Configuration tab)" or " ^8(can be overridden in the Configuration tab)"),
+				c_format("Totems Summoned: %d {TEXT_SECONDARY}", output.TotemsSummoned)..(env.configInput.TotemsSummoned and "(overridden from the Configuration tab)" or "(can be overridden in the Configuration tab)"),
 			}
 		end
 		output.TotemLifeMod = calcLib.mod(skillModList, skillCfg, "TotemLife")
@@ -1222,13 +1226,13 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotemArmour = skillModList:Sum("BASE", skillCfg, "TotemArmour")
 		if breakdown then
 			breakdown.TotemLifeMod = breakdown.mod(skillModList, skillCfg, "TotemLife")
-			breakdown.TotemLife = {
-				"Totem level: "..skillData.totemLevel,
-				env.data.monsterAllyLifeTable[skillData.totemLevel].." ^8(base life for a level "..skillData.totemLevel.." monster)",
-				"x "..env.data.totemLifeMult[activeSkill.skillTotemId].." ^8(life multiplier for this totem type)",
-				"x "..output.TotemLifeMod.." ^8(totem life modifier)",
-				"= "..output.TotemLife,
-			}
+			breakdown.TotemLife = { "Totem level: "..skillData.totemLevel }
+			breakdown.multiChain(breakdown.TotemLife, {
+				base = c_format("%d {TEXT_SECONDARY}(base life for a level %d monster)", env.data.monsterAllyLifeTable[skillData.totemLevel], skillData.totemLevel),
+				{ "%.2f {TEXT_SECONDARY}(life multiplier for this totem type)", env.data.totemLifeMult[activeSkill.skillTotemId] },
+				{ "%.2f {TEXT_SECONDARY}(totem life modifier)", output.TotemLifeMod },
+				total = s_format("= %d", output.TotemLife),
+			})
 			breakdown.TotemEnergyShield = breakdown.mod(skillModList, skillCfg, "TotemEnergyShield")
 			breakdown.TotemBlockChance = breakdown.mod(skillModList, skillCfg, "TotemBlockChance")
 			breakdown.TotemArmour = breakdown.mod(skillModList, skillCfg, "TotemArmour")
@@ -1254,12 +1258,12 @@ function calcs.offence(env, actor, activeSkill)
 		output.CorpseLife = output.BaseCorpseLife * output.CorpseLifeInc
 		if breakdown then
 			breakdown.CorpseLife = {
-				s_format("%d ^8(base life of a level %d monster)", env.data.monsterLifeTable[output.CorpseLevel or 1], output.CorpseLevel or "n/a"),
-				s_format("x %.2f ^8(%s variety multiplier)", env.data.monsterVarietyLifeMult[skillData.corpseMonsterVariety] or 1, skillData.corpseMonsterVariety),
-				s_format("x %.2f ^8(map level %d monster life multiplier from config)", env.data.mapLevelLifeMult[env.enemyLevel] or 1, env.enemyLevel),
-				s_format(" = %d ^8(base corpse life)", output.BaseCorpseLife),
+				c_format("%d {TEXT_SECONDARY}(base life of a level %d monster)", env.data.monsterLifeTable[output.CorpseLevel or 1], output.CorpseLevel or "n/a"),
+				c_format("x %.2f {TEXT_SECONDARY}(%s variety multiplier)", env.data.monsterVarietyLifeMult[skillData.corpseMonsterVariety] or 1, skillData.corpseMonsterVariety),
+				c_format("x %.2f {TEXT_SECONDARY}(map level %d monster life multiplier from config)", env.data.mapLevelLifeMult[env.enemyLevel] or 1, env.enemyLevel),
+				c_format(" = %d {TEXT_SECONDARY}(base corpse life)", output.BaseCorpseLife),
 				s_format(""),
-				s_format("x %.2f ^8(corpse maximum life increases)", output.CorpseLifeInc),
+				c_format("x %.2f {TEXT_SECONDARY}(corpse maximum life increases)", output.CorpseLifeInc),
 				s_format(" = %d", output.CorpseLife),
 			}
 		end
@@ -1345,13 +1349,13 @@ function calcs.offence(env, actor, activeSkill)
 			output.Duration = m_ceil(output.Duration * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown and output.Duration ~= durationBase then
 				breakdown.Duration = {
-					s_format("%.2fs ^8(base)", durationBase),
+					c_format("%.2fs {TEXT_SECONDARY}(base)", durationBase),
 				}
 				if output.DurationMod ~= 1 then
-					t_insert(breakdown.Duration, s_format("x %.4f ^8(duration modifier)", output.DurationMod))
+					t_insert(breakdown.Duration, c_format("x %.4f {TEXT_SECONDARY}(duration modifier)", output.DurationMod))
 				end
 				if skillData.debuff and debuffDurationMult ~= 1 then
-					t_insert(breakdown.Duration, s_format("/ %.3f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+					t_insert(breakdown.Duration, c_format("/ %.3f {TEXT_SECONDARY}(debuff expires slower/faster)", 1 / debuffDurationMult))
 				end
 				t_insert(breakdown.Duration, s_format("rounded up to nearest server tick"))
 				t_insert(breakdown.Duration, s_format("= %.3fs", output.Duration))
@@ -1372,13 +1376,13 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.SecondaryDurationMod, 1, "Secondary duration:")
 				end
 				breakdown.DurationSecondary = {
-					s_format("%.2fs ^8(base)", durationBase),
+					c_format("%.2fs {TEXT_SECONDARY}(base)", durationBase),
 				}
 				if output.DurationMod ~= 1 then
-					t_insert(breakdown.DurationSecondary, s_format("x %.4f ^8(duration modifier)", durationMod))
+					t_insert(breakdown.DurationSecondary, c_format("x %.4f {TEXT_SECONDARY}(duration modifier)", durationMod))
 				end
 				if skillData.debuffSecondary and debuffDurationMult ~= 1 then
-					t_insert(breakdown.DurationSecondary, s_format("/ %.3f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+					t_insert(breakdown.DurationSecondary, c_format("/ %.3f {TEXT_SECONDARY}(debuff expires slower/faster)", 1 / debuffDurationMult))
 				end
 				t_insert(breakdown.DurationSecondary, s_format("rounded up to nearest server tick"))
 				t_insert(breakdown.DurationSecondary, s_format("= %.3fs", output.DurationSecondary))
@@ -1392,8 +1396,8 @@ function calcs.offence(env, actor, activeSkill)
 			output.AuraDuration = m_ceil(output.AuraDuration * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown and output.AuraDuration ~= durationBase then
 				breakdown.AuraDuration = {
-					s_format("%.2fs ^8(base)", durationBase),
-					s_format("x %.4f ^8(duration modifier)", durationMod),
+					c_format("%.2fs {TEXT_SECONDARY}(base)", durationBase),
+					c_format("x %.4f {TEXT_SECONDARY}(duration modifier)", durationMod),
 					"rounded up to nearest server tick",
 					s_format("= %.3fs", output.AuraDuration),
 				}
@@ -1407,8 +1411,8 @@ function calcs.offence(env, actor, activeSkill)
 			output.ReserveDuration = m_ceil(output.ReserveDuration * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			if breakdown and output.ReserveDuration ~= durationBase then
 				breakdown.ReserveDuration = {
-					s_format("%.2fs ^8(base)", durationBase),
-					s_format("x %.4f ^8(duration modifier)", durationMod),
+					c_format("%.2fs {TEXT_SECONDARY}(base)", durationBase),
+					c_format("x %.4f {TEXT_SECONDARY}(duration modifier)", durationMod),
 					"rounded up to nearest server tick",
 					s_format("= %.3fs", output.ReserveDuration),
 				}
@@ -1422,8 +1426,8 @@ function calcs.offence(env, actor, activeSkill)
 			output.SoulGainPreventionDuration = m_max(m_ceil(output.SoulGainPreventionDuration * data.misc.ServerTickRate), 1) / data.misc.ServerTickRate
 			if breakdown and output.SoulGainPreventionDuration ~= durationBase then
 				breakdown.SoulGainPreventionDuration = {
-					s_format("%.2fs ^8(base)", durationBase),
-					s_format("x %.4f ^8(duration modifier)", durationMod),
+					c_format("%.2fs {TEXT_SECONDARY}(base)", durationBase),
+					c_format("x %.4f {TEXT_SECONDARY}(duration modifier)", durationMod),
 					s_format("rounded up to nearest server tick"),
 					s_format("= %.3fs", output.SoulGainPreventionDuration),
 				}
@@ -1436,10 +1440,10 @@ function calcs.offence(env, actor, activeSkill)
 		if breakdown then
 			breakdown.TotemDurationMod = breakdown.mod(skillModList, skillCfg, "TotemDuration")
 			breakdown.TotemDuration = {
-				s_format("%.2fs ^8(base)", TotemDurationBase),
+				c_format("%.2fs {TEXT_SECONDARY}(base)", TotemDurationBase),
 			}
 			if output.TotemDurationMod ~= 1 then
-				t_insert(breakdown.TotemDuration, s_format("x %.4f ^8(duration modifier)", output.TotemDurationMod))
+				t_insert(breakdown.TotemDuration, c_format("x %.4f {TEXT_SECONDARY}(duration modifier)", output.TotemDurationMod))
 			end
 			t_insert(breakdown.TotemDuration, s_format("rounded up to nearest server tick"))
 			t_insert(breakdown.TotemDuration, s_format("= %.3fs", output.TotemDuration))
@@ -1589,31 +1593,31 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			if breakdown and hasCost then
 				breakdown[costName] = {
-					s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
+					c_format("%.2f"..(val.percent and "%%" or "").." {TEXT_SECONDARY}(base "..val.text.." cost)", val.baseCost)
 				}
 				if mult ~= 1 then
-					t_insert(breakdown[costName], s_format("x %.4f ^8(cost multiplier)", mult))
+					t_insert(breakdown[costName], c_format("x %.4f {TEXT_SECONDARY}(cost multiplier)", mult))
 				end
 				if val.baseCostNoMult ~= 0 then
-					t_insert(breakdown[costName], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
+					t_insert(breakdown[costName], c_format("+ %d {TEXT_SECONDARY}(additional "..val.text.." cost)", val.baseCostNoMult))
 				end
 				if val.type == "Life" and (hybridLifeCost + additionalLifeCost) ~= 0 and not skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then
-					t_insert(breakdown[costName], s_format("* %.2f ^8(mana cost conversion)", hybridLifeCost + additionalLifeCost))
+					t_insert(breakdown[costName], c_format("* %.2f {TEXT_SECONDARY}(mana cost conversion)", hybridLifeCost + additionalLifeCost))
 				end
 				if inc ~= 0 then
-					t_insert(breakdown[costName], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
+					t_insert(breakdown[costName], c_format("x %.2f {TEXT_SECONDARY}(increased/reduced "..val.text.." cost)", 1 + inc/100))
 				end
 				if moreCost ~= 1 then
-					t_insert(breakdown[costName], s_format("x %.2f ^8(more/less cost)", moreCost))
+					t_insert(breakdown[costName], c_format("x %.2f {TEXT_SECONDARY}(more/less cost)", moreCost))
 				end
 				if moreType ~= 1 then
-					t_insert(breakdown[costName], s_format("x %.2f ^8(more/less "..val.text.." cost)", moreType))
+					t_insert(breakdown[costName], c_format("x %.2f {TEXT_SECONDARY}(more/less "..val.text.." cost)", moreType))
 				end
 				if val.totalCost ~= 0 then
-					t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
+					t_insert(breakdown[costName], c_format("%+d {TEXT_SECONDARY}(total "..val.text.." cost)", val.totalCost))
 				end
 				if val.type == "Mana" and hybridLifeCost > 0 then
-					t_insert(breakdown[costName], s_format("x %.2f ^8(%d%% paid for with life)", (1-hybridLifeCost), hybridLifeCost*100))
+					t_insert(breakdown[costName], c_format("x %.2f {TEXT_SECONDARY}(%d%% paid for with life)", (1-hybridLifeCost), hybridLifeCost*100))
 				end
 				t_insert(breakdown[costName], s_format("= %"..(val.upfront and "d" or ".2f")..(val.percent and "%%" or ""), output[costName]))
 			end
@@ -1777,11 +1781,11 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					t_insert(breakdown[stat], "Contribution from Main Hand:")
 					t_insert(breakdown[stat], s_format("%.1f", output.MainHand[stat]))
-					t_insert(breakdown[stat], s_format("x %.3f ^8(portion of instances created by main hand)", mainPortion))
+					t_insert(breakdown[stat], c_format("x %.3f {TEXT_SECONDARY}(portion of instances created by main hand)", mainPortion))
 					t_insert(breakdown[stat], s_format("= %.1f", output.MainHand[stat] * mainPortion))
 					t_insert(breakdown[stat], "Contribution from Off Hand:")
 					t_insert(breakdown[stat], s_format("%.1f", output.OffHand[stat]))
-					t_insert(breakdown[stat], s_format("x %.3f ^8(portion of instances created by off hand)", offPortion))
+					t_insert(breakdown[stat], c_format("x %.3f {TEXT_SECONDARY}(portion of instances created by off hand)", offPortion))
 					t_insert(breakdown[stat], s_format("= %.1f", output.OffHand[stat] * offPortion))
 					t_insert(breakdown[stat], "Total:")
 					t_insert(breakdown[stat], s_format("%.1f + %.1f", output.MainHand[stat] * mainPortion, output.OffHand[stat] * offPortion))
@@ -1859,18 +1863,18 @@ function calcs.offence(env, actor, activeSkill)
 		if breakdown then
 			breakdown.Accuracy = { }
 			breakdown.multiChain(breakdown.Accuracy, {
-				base = { "%g ^8(base)", base },
-				{ "%.2f ^8(increased/reduced)", 1 + inc / 100 },
-				{ "%.2f ^8(more/less)", more },
+				base = { "%g {TEXT_SECONDARY}(base)", base },
+				{ "%.2f {TEXT_SECONDARY}(increased/reduced)", 1 + inc / 100 },
+				{ "%.2f {TEXT_SECONDARY}(more/less)", more },
 				total = s_format("= %g", output.Accuracy)
 			})
 			if incVsEnemy ~= 0 then
 				t_insert(breakdown.Accuracy, s_format(""))
 				breakdown.multiChain(breakdown.Accuracy, {
 					label = "Effective Accuracy vs Enemy",
-					base = { "%g ^8(base)", base + baseVsEnemy },
-					{ "%.2f ^8(increased/reduced)", 1 + (inc + incVsEnemy) / 100 },
-					{ "%.2f ^8(more/less)", more },
+					base = { "%g {TEXT_SECONDARY}(base)", base + baseVsEnemy },
+					{ "%.2f {TEXT_SECONDARY}(increased/reduced)", 1 + (inc + incVsEnemy) / 100 },
+					{ "%.2f {TEXT_SECONDARY}(more/less)", more },
 					total = s_format("= %g", accuracyVsEnemy)
 				})
 			end
@@ -1894,7 +1898,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.AccuracyHitChance = calcs.hitChance(enemyEvasion, accuracyVsEnemy) * calcLib.mod(skillModList, cfg, "HitChance")
 			if breakdown then
 				breakdown.AccuracyHitChance = {
-					"Enemy level: "..env.enemyLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),
+					c_format("Enemy level: {TEXT_SECONDARY}", env.enemyLevel)..(env.configInput.enemyLevel and " (overridden from the Configuration tab" or " (can be overridden in the Configuration tab)"),
 					"Enemy evasion: "..enemyEvasion,
 					"Approximate hit chance: "..output.AccuracyHitChance.."%",
 				}
@@ -1998,56 +2002,56 @@ function calcs.offence(env, actor, activeSkill)
 					if incAttackSpeedPerTrauma == 0 then
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
 							label = "Trauma",
-							base = { "%.2f ^8(attack speed)", attackSpeedBeforeInc * (1 + inc/100) },
-							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
-							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
-							{ "%.2f ^8(duration)", duration },
+							base = { "%.2f {TEXT_SECONDARY}(attack speed)", attackSpeedBeforeInc * (1 + inc/100) },
+							{ "%.2f {TEXT_SECONDARY}(trauma per attack)", traumaPerAttack },
+							{ "%.2f {TEXT_SECONDARY}(chance to hit)", (output.HitChance / 100) },
+							{ "%.2f {TEXT_SECONDARY}(duration)", duration },
 							noTotal = true
 						})
 						if output.Repeats ~= 1 then
-							t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
+							t_insert(storedSustainedTraumaBreakdown, c_format("/ %.2f {TEXT_SECONDARY}(repeats)", output.Repeats))
 						end
 					else
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
 							label = "Attack Speed before increased Attack Speed",
-							base = { "%.2f ^8(base)", 1 / baseTime },
-							{ "%.2f ^8(more/less)", more },
-							{ "%.2f ^8(action speed modifier)", globalOutput.ActionSpeedMod },
-							total = s_format("= %.2f ^8attacks per second", attackSpeedBeforeInc)
+							base = { "%.2f {TEXT_SECONDARY}(base)", 1 / baseTime },
+							{ "%.2f {TEXT_SECONDARY}(more/less)", more },
+							{ "%.2f {TEXT_SECONDARY}(action speed modifier)", globalOutput.ActionSpeedMod },
+							total = c_format("= %.2f {TEXT_SECONDARY}attacks per second", attackSpeedBeforeInc)
 						})
 						t_insert(storedSustainedTraumaBreakdown, "")
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
 							label = "Trauma per second before increased Attack Speed",
-							base = { "%.2f ^8(base)", attackSpeedBeforeInc },
-							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
-							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
+							base = { "%.2f {TEXT_SECONDARY}(base)", attackSpeedBeforeInc },
+							{ "%.2f {TEXT_SECONDARY}(trauma per attack)", traumaPerAttack },
+							{ "%.2f {TEXT_SECONDARY}(chance to hit)", (output.HitChance / 100) },
 							noTotal = true
 						})
 						if output.Repeats ~= 1 then
-							t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
+							t_insert(storedSustainedTraumaBreakdown, c_format("/ %.2f {TEXT_SECONDARY}(repeats)", output.Repeats))
 						end
-						t_insert(storedSustainedTraumaBreakdown, s_format("= %.2f ^8trauma per second", traumaRateBeforeInc))
+						t_insert(storedSustainedTraumaBreakdown, c_format("= %.2f {TEXT_SECONDARY}trauma per second", traumaRateBeforeInc))
 						t_insert(storedSustainedTraumaBreakdown, "")
 						t_insert(storedSustainedTraumaBreakdown, "Trauma")
-						t_insert(storedSustainedTraumaBreakdown, s_format("%.2f ^8(base)", traumaRateBeforeInc))
-						t_insert(storedSustainedTraumaBreakdown, s_format("x %.2f ^8(increased/reduced)", (1 + inc / 100)))
-						t_insert(storedSustainedTraumaBreakdown, s_format("/ %.4f ^8(1 / duration - trauma per second * increased attack speed per trauma / 100)", ( 1 / duration - traumaRateBeforeInc * incAttackSpeedPerTrauma / 100 )))
+						t_insert(storedSustainedTraumaBreakdown, c_format("%.2f {TEXT_SECONDARY}(base)", traumaRateBeforeInc))
+						t_insert(storedSustainedTraumaBreakdown, c_format("x %.2f {TEXT_SECONDARY}(increased/reduced)", (1 + inc / 100)))
+						t_insert(storedSustainedTraumaBreakdown, c_format("/ %.4f {TEXT_SECONDARY}(1 / duration - trauma per second * increased attack speed per trauma / 100)", ( 1 / duration - traumaRateBeforeInc * incAttackSpeedPerTrauma / 100 )))
 					end
-					t_insert(storedSustainedTraumaBreakdown, s_format("= "..(invalid and colorCodes.NEGATIVE or "").."%d ^8trauma", traumaBreakdown))
+					t_insert(storedSustainedTraumaBreakdown, c_format("= "..(invalid and CC.BUILD_NEGATIVE or "").."%d {TEXT_SECONDARY}trauma", traumaBreakdown))
 					if invalid then
 						t_insert(storedSustainedTraumaBreakdown, "")
 						t_insert(storedSustainedTraumaBreakdown, "Attack Speed exceeds cap; Recalculating")
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
-							base = { "%.2f ^8(base)", effectiveAttackRateCap },
-							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
-							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
-							{ "%.2f ^8(duration)", (duration) },
+							base = { "%.2f {TEXT_SECONDARY}(base)", effectiveAttackRateCap },
+							{ "%.2f {TEXT_SECONDARY}(trauma per attack)", traumaPerAttack },
+							{ "%.2f {TEXT_SECONDARY}(chance to hit)", (output.HitChance / 100) },
+							{ "%.2f {TEXT_SECONDARY}(duration)", (duration) },
 							noTotal = true
 						})
 						if output.Repeats ~= 1 then
-							t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
+							t_insert(storedSustainedTraumaBreakdown, c_format("/ %.2f {TEXT_SECONDARY}(repeats)", output.Repeats))
 						end
-						t_insert(storedSustainedTraumaBreakdown, s_format("= %d ^8trauma", trauma))
+						t_insert(storedSustainedTraumaBreakdown, c_format("= %d {TEXT_SECONDARY}trauma", trauma))
 					end
 				end
 			end
@@ -2088,29 +2092,29 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				breakdown.Speed = { }
 				breakdown.multiChain(breakdown.Speed, {
-					base = { "%.2f ^8(base)", 1 / baseTime },
-					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
-					{ "%.2f ^8(more/less)", more },
-					{ "%.2f ^8(action speed modifier)", (skillFlags.totem and output.TotemActionSpeed) or (skillFlags.selfCast and globalOutput.ActionSpeedMod) or 1 },
-					total = s_format("= %.2f ^8casts per second", output.CastRate)
+					base = { "%.2f {TEXT_SECONDARY}(base)", 1 / baseTime },
+					{ "%.2f {TEXT_SECONDARY}(increased/reduced)", 1 + inc/100 },
+					{ "%.2f {TEXT_SECONDARY}(more/less)", more },
+					{ "%.2f {TEXT_SECONDARY}(action speed modifier)", (skillFlags.totem and output.TotemActionSpeed) or (skillFlags.selfCast and globalOutput.ActionSpeedMod) or 1 },
+					total = c_format("= %.2f {TEXT_SECONDARY}casts per second", output.CastRate)
 				})
 				if output.Cooldown and (1 / output.Cooldown) < output.CastRate then
-					t_insert(breakdown.Speed, s_format("\n"))
-					t_insert(breakdown.Speed, s_format("1 / %.2f ^8(skill cooldown)", output.Cooldown))
+					t_insert(breakdown.Speed, "\n")
+					t_insert(breakdown.Speed, c_format("1 / %.2f {TEXT_SECONDARY}(skill cooldown)", output.Cooldown))
 					if output.Repeats > 1 then
-						t_insert(breakdown.Speed, s_format("x %d ^8(repeat count)", output.Repeats))
+						t_insert(breakdown.Speed, c_format("x %d {TEXT_SECONDARY}(repeat count)", output.Repeats))
 					end
-					t_insert(breakdown.Speed, s_format("= %.2f ^8(casts per second)", output.Repeats / output.Cooldown))
+					t_insert(breakdown.Speed, c_format("= %.2f {TEXT_SECONDARY}(casts per second)", output.Repeats / output.Cooldown))
 					t_insert(breakdown.Speed, s_format("\n"))
-					t_insert(breakdown.Speed, s_format("= %.2f ^8(lower of cast rates)", output.Speed))
+					t_insert(breakdown.Speed, c_format("= %.2f {TEXT_SECONDARY}(lower of cast rates)", output.Speed))
 				end
 			end
 			if breakdown and calcLib.mod(skillModList, skillCfg, "SkillAttackTime") > 0 then
 				breakdown.Time = { }
 				breakdown.multiChain(breakdown.Time, {
-					base = { "%.2f ^8(base)", 1 / (output.Speed * calcLib.mod(skillModList, skillCfg, "SkillAttackTime") ) },
-					{ "%.2f ^8(total modifier)", calcLib.mod(skillModList, skillCfg, "SkillAttackTime")  },
-					total = s_format("= %.2f ^8seconds per attack", output.Time)
+					base = { "%.2f {TEXT_SECONDARY}(base)", 1 / (output.Speed * calcLib.mod(skillModList, skillCfg, "SkillAttackTime")) },
+					{ "%.2f {TEXT_SECONDARY}(total modifier)", calcLib.mod(skillModList, skillCfg, "SkillAttackTime") },
+					total = c_format("= %.2f {TEXT_SECONDARY}seconds per attack", output.Time)
 				})
 			end
 		end
@@ -2188,27 +2192,27 @@ function calcs.offence(env, actor, activeSkill)
 	if breakdown then
 		if skillData.hitTimeOverride and not skillData.triggeredOnDeath then
 			breakdown.HitSpeed = { }
-			t_insert(breakdown.HitSpeed, s_format("1 / %.2f ^8(hit time override)", output.HitTime))
+			t_insert(breakdown.HitSpeed, c_format("1 / %.2f {TEXT_SECONDARY}(hit time override)", output.HitTime))
 			t_insert(breakdown.HitSpeed, s_format("= %.2f", output.HitSpeed))
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
 			breakdown.HitTime = { }
 			if m_floor(skillData.hitTimeMultiplier) ~= skillData.hitTimeMultiplier then
-				t_insert(breakdown.HitTime, s_format(colorCodes.CUSTOM.."NOTE: First stage has a %.2fx channel time multiplier", skillData.hitTimeMultiplier - m_floor(skillData.hitTimeMultiplier)))
+				t_insert(breakdown.HitTime, c_format("{ITEM_CUSTOM}NOTE: First stage has a %.2fx channel time multiplier", skillData.hitTimeMultiplier - m_floor(skillData.hitTimeMultiplier)))
 			end
 			if isAttack then
-				t_insert(breakdown.HitTime, s_format("%.2f ^8(attack time)", output.Time))
+				t_insert(breakdown.HitTime, c_format("%.2f {TEXT_SECONDARY}(attack time)", output.Time))
 			else
-				t_insert(breakdown.HitTime, s_format("%.2f ^8(cast time)", output.Time))
+				t_insert(breakdown.HitTime, c_format("%.2f {TEXT_SECONDARY}(cast time)", output.Time))
 			end
-			t_insert(breakdown.HitTime, s_format("x %.2f ^8(channel time multiplier)", skillData.hitTimeMultiplier))
+			t_insert(breakdown.HitTime, c_format("x %.2f {TEXT_SECONDARY}(channel time multiplier)", skillData.hitTimeMultiplier))
 			t_insert(breakdown.HitTime, s_format("= %.2f", output.HitTime))
 			breakdown.HitSpeed = { }
 			if output.Cooldown and skillData.triggered then
-				t_insert(breakdown.HitSpeed, s_format("1 / min(%.2f, %.2f) ^8min(hit time, cooldown)", output.HitTime, output.Cooldown))
+				t_insert(breakdown.HitSpeed, c_format("1 / min(%.2f, %.2f) {TEXT_SECONDARY}min(hit time, cooldown)", output.HitTime, output.Cooldown))
 			elseif output.Cooldown then
-				t_insert(breakdown.HitSpeed, s_format("1 / (%.2f + %.2f) ^8(hit time + cooldown)", output.HitTime, output.Cooldown))
+				t_insert(breakdown.HitSpeed, c_format("1 / (%.2f + %.2f) {TEXT_SECONDARY}(hit time + cooldown)", output.HitTime, output.Cooldown))
 			else
-				t_insert(breakdown.HitSpeed, s_format("1 / %.2f ^8(hit time)", output.HitTime))
+				t_insert(breakdown.HitSpeed, c_format("1 / %.2f {TEXT_SECONDARY}(hit time)", output.HitTime))
 			end
 			t_insert(breakdown.HitSpeed, s_format("= %.2f", output.HitSpeed))
 		end
@@ -2253,13 +2257,13 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.AncestralUpTimeRatio = m_min(100, baseUptimeRatio * storedUses)
 						if globalBreakdown then
 							globalBreakdown.AncestralUpTimeRatio = { }
-							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.AncestralExertsCount))
-							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.Speed))
+							t_insert(globalBreakdown.AncestralUpTimeRatio, c_format("(%d {TEXT_SECONDARY}(number of exerts)", globalOutput.AncestralExertsCount))
+							t_insert(globalBreakdown.AncestralUpTimeRatio, c_format("/ %.2f) {TEXT_SECONDARY}(attacks per second)", output.Speed))
 							if globalOutput.AncestralCryCastTime > 0 then
-								t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.AncestralCryCooldown))
-								t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.AncestralCryCastTime))
+								t_insert(globalBreakdown.AncestralUpTimeRatio, c_format("/ (%.2f {TEXT_SECONDARY}(warcry cooldown)", globalOutput.AncestralCryCooldown))
+								t_insert(globalBreakdown.AncestralUpTimeRatio, c_format("+ %.2f) {TEXT_SECONDARY}(warcry casttime)", globalOutput.AncestralCryCastTime))
 							else
-								t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.AncestralCryCooldown))
+								t_insert(globalBreakdown.AncestralUpTimeRatio, c_format("/ %.2f {TEXT_SECONDARY}(average warcry cooldown)", globalOutput.AncestralCryCooldown))
 							end
 							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("= %d%%", globalOutput.AncestralUpTimeRatio))
 						end
@@ -2280,13 +2284,13 @@ function calcs.offence(env, actor, activeSkill)
 							globalOutput.InfernalUpTimeRatio = m_min(100, baseUptimeRatio * storedUses)
 							if globalBreakdown then
 								globalBreakdown.InfernalUpTimeRatio = { }
-								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.InfernalExertsCount))
-								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.Speed))
+								t_insert(globalBreakdown.InfernalUpTimeRatio, c_format("(%d {TEXT_SECONDARY}(number of exerts)", globalOutput.InfernalExertsCount))
+								t_insert(globalBreakdown.InfernalUpTimeRatio, c_format("/ %.2f) {TEXT_SECONDARY}(attacks per second)", output.Speed))
 								if globalOutput.InfernalCryCastTime > 0 then
-									t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.InfernalCryCooldown))
-									t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.InfernalCryCastTime))
+									t_insert(globalBreakdown.InfernalUpTimeRatio, c_format("/ (%.2f {TEXT_SECONDARY}(warcry cooldown)", globalOutput.InfernalCryCooldown))
+									t_insert(globalBreakdown.InfernalUpTimeRatio, c_format("+ %.2f) {TEXT_SECONDARY}(warcry casttime)", globalOutput.InfernalCryCastTime))
 								else
-									t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.InfernalCryCooldown))
+									t_insert(globalBreakdown.InfernalUpTimeRatio, c_format("/ %.2f {TEXT_SECONDARY}(average warcry cooldown)", globalOutput.InfernalCryCooldown))
 								end
 								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("= %d%%", globalOutput.InfernalUpTimeRatio))
 							end
@@ -2308,13 +2312,13 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.IntimidatingUpTimeRatio = m_min(100, baseUptimeRatio * storedUses)
 						if globalBreakdown then
 							globalBreakdown.IntimidatingUpTimeRatio = { }
-							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.IntimidatingExertsCount))
-							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.Speed))
+							t_insert(globalBreakdown.IntimidatingUpTimeRatio, c_format("(%d {TEXT_SECONDARY}(number of exerts)", globalOutput.IntimidatingExertsCount))
+							t_insert(globalBreakdown.IntimidatingUpTimeRatio, c_format("/ %.2f) {TEXT_SECONDARY}(attacks per second)", output.Speed))
 							if 	globalOutput.IntimidatingCryCastTime > 0 then
-								t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown))
-								t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.IntimidatingCryCastTime))
+								t_insert(globalBreakdown.IntimidatingUpTimeRatio, c_format("/ (%.2f {TEXT_SECONDARY}(warcry cooldown)", globalOutput.IntimidatingCryCooldown))
+								t_insert(globalBreakdown.IntimidatingUpTimeRatio, c_format("+ %.2f) {TEXT_SECONDARY}(warcry casttime)", globalOutput.IntimidatingCryCastTime))
 							else
-								t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.IntimidatingCryCooldown))
+								t_insert(globalBreakdown.IntimidatingUpTimeRatio, c_format("/ %.2f {TEXT_SECONDARY}(average warcry cooldown)", globalOutput.IntimidatingCryCooldown))
 							end
 							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("= %d%%", globalOutput.IntimidatingUpTimeRatio))
 						end
@@ -2323,8 +2327,8 @@ function calcs.offence(env, actor, activeSkill)
 						if globalBreakdown then
 							globalBreakdown.IntimidatingAvgDmg = {
 								"Average Intimidating Cry Damage:",
-								s_format("%.2f%% ^8(base double damage increase to hit 100%%)", (1 - ddChance / 100) * 100 ),
-								s_format("x %d ^8(double damage multiplier)", 2),
+								c_format("%.2f%% {TEXT_SECONDARY}(base double damage increase to hit 100%%)", (1 - ddChance / 100) * 100),
+								c_format("x %d %s(double damage multiplier)", 2),
 								s_format("= %.2f", globalOutput.IntimidatingAvgDmg),
 							}
 						end
@@ -2332,8 +2336,8 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.IntimidatingMaxHitEffect = 1 + globalOutput.IntimidatingAvgDmg
 						if globalBreakdown then
 							globalBreakdown.IntimidatingHitEffect = {
-								s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.IntimidatingAvgDmg),
-								s_format("x %.2f) ^8(uptime %%)", globalOutput.IntimidatingUpTimeRatio / 100),
+								s_format("1 + (%.2f {TEXT_SECONDARY}(average exerted damage)", globalOutput.IntimidatingAvgDmg),
+								s_format("x %.2f) {TEXT_SECONDARY}(uptime %%)", globalOutput.IntimidatingUpTimeRatio / 100),
 								s_format("= %.2f", globalOutput.IntimidatingHitEffect),
 							}
 						end
@@ -2357,13 +2361,13 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.RallyingUpTimeRatio = m_min(100, baseUptimeRatio * storedUses)
 						if globalBreakdown then
 							globalBreakdown.RallyingUpTimeRatio = { }
-							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.RallyingExertsCount))
-							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.Speed))
+							t_insert(globalBreakdown.RallyingUpTimeRatio, c_format("(%d {TEXT_SECONDARY}(number of exerts)", globalOutput.RallyingExertsCount))
+							t_insert(globalBreakdown.RallyingUpTimeRatio, c_format("/ %.2f) {TEXT_SECONDARY}(attacks per second)", output.Speed))
 							if 	globalOutput.RallyingCryCastTime > 0 then
-								t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.RallyingCryCooldown))
-								t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.RallyingCryCastTime))
+								t_insert(globalBreakdown.RallyingUpTimeRatio, c_format("/ (%.2f {TEXT_SECONDARY}(warcry cooldown)", globalOutput.RallyingCryCooldown))
+								t_insert(globalBreakdown.RallyingUpTimeRatio, c_format("+ %.2f) {TEXT_SECONDARY}(warcry casttime)", globalOutput.RallyingCryCastTime))
 							else
-								t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.RallyingCryCooldown))
+								t_insert(globalBreakdown.RallyingUpTimeRatio, c_format("/ %.2f {TEXT_SECONDARY}(average warcry cooldown)", globalOutput.RallyingCryCooldown))
 							end
 							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("= %d%%", globalOutput.RallyingUpTimeRatio))
 						end
@@ -2371,8 +2375,8 @@ function calcs.offence(env, actor, activeSkill)
 						if globalBreakdown then
 							globalBreakdown.RallyingAvgDmg = {
 								"Average Rallying Cry Damage:",
-								s_format("%.2f ^8(average damage multiplier per ally)", env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100),
-								s_format("x %d ^8(number of nearby allies (max=5))", m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5)),
+								c_format("%.2f {TEXT_SECONDARY}(average damage multiplier per ally)", env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100),
+								c_format("x %d {TEXT_SECONDARY}(number of nearby allies (max=5))", m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5)),
 								s_format("= %.2f", globalOutput.RallyingAvgDmg),
 							}
 						end
@@ -2380,8 +2384,8 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.RallyingMaxHitEffect = 1 + globalOutput.RallyingAvgDmg
 						if globalBreakdown then
 							globalBreakdown.RallyingHitEffect = {
-								s_format("1 + (%.2f ^8(average exerted damage)", globalOutput.RallyingAvgDmg),
-								s_format("x %.2f) ^8(uptime %%)", globalOutput.RallyingUpTimeRatio / 100),
+								c_format("1 + (%.2f {TEXT_SECONDARY}(average exerted damage)", globalOutput.RallyingAvgDmg),
+								c_format("x %.2f) {TEXT_SECONDARY}(uptime %%)", globalOutput.RallyingUpTimeRatio / 100),
 								s_format("= %.2f", globalOutput.RallyingHitEffect),
 							}
 						end
@@ -2407,13 +2411,13 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.SeismicUpTimeRatio = m_min(100, baseUptimeRatio * storedUses)
 						if globalBreakdown then
 							globalBreakdown.SeismicUpTimeRatio = { }
-							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.SeismicExertsCount))
-							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.Speed))
+							t_insert(globalBreakdown.SeismicUpTimeRatio, c_format("(%d {TEXT_SECONDARY}(number of exerts)", globalOutput.SeismicExertsCount))
+							t_insert(globalBreakdown.SeismicUpTimeRatio, c_format("/ %.2f) {TEXT_SECONDARY}(attacks per second)", output.Speed))
 							if 	globalOutput.SeismicCryCastTime > 0 then
-								t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.SeismicCryCooldown))
-								t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.SeismicCryCastTime))
+								t_insert(globalBreakdown.SeismicUpTimeRatio, c_format("/ (%.2f {TEXT_SECONDARY}(warcry cooldown)", globalOutput.SeismicCryCooldown))
+								t_insert(globalBreakdown.SeismicUpTimeRatio, c_format("+ %.2f) {TEXT_SECONDARY}(warcry casttime)", globalOutput.SeismicCryCastTime))
 							else
-								t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.SeismicCryCooldown))
+								t_insert(globalBreakdown.SeismicUpTimeRatio, c_format("/ %.2f {TEXT_SECONDARY}(average warcry cooldown)", globalOutput.SeismicCryCooldown))
 							end
 							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("= %d%%", globalOutput.SeismicUpTimeRatio))
 						end
@@ -2451,13 +2455,13 @@ function calcs.offence(env, actor, activeSkill)
 							globalOutput.BattlemageUpTimeRatio = m_min(100, baseUptimeRatio * storedUses)
 							if globalBreakdown then
 								globalBreakdown.BattlemageUpTimeRatio = { }
-								t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.BattleCryExertsCount))
-								t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.Speed))
+								t_insert(globalBreakdown.BattlemageUpTimeRatio, c_format("(%d {TEXT_SECONDARY}(number of exerts)", globalOutput.BattleCryExertsCount))
+								t_insert(globalBreakdown.BattlemageUpTimeRatio, c_format("/ %.2f) {TEXT_SECONDARY}(attacks per second)", output.Speed))
 								if globalOutput.BattleMageCryCastTime > 0 then
-									t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.BattleMageCryCooldown))
-									t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.BattleMageCryCastTime))
+									t_insert(globalBreakdown.BattlemageUpTimeRatio, c_format("/ (%.2f {TEXT_SECONDARY}(warcry cooldown)", globalOutput.BattleMageCryCooldown))
+									t_insert(globalBreakdown.BattlemageUpTimeRatio, c_format("+ %.2f) {TEXT_SECONDARY}(warcry casttime)", globalOutput.BattleMageCryCastTime))
 								else
-									t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.BattleMageCryCooldown))
+									t_insert(globalBreakdown.BattlemageUpTimeRatio, c_format("/ %.2f {TEXT_SECONDARY}(average warcry cooldown)", globalOutput.BattleMageCryCooldown))
 								end
 								t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("= %d%%", globalOutput.BattlemageUpTimeRatio))
 							end
@@ -2484,10 +2488,10 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if globalBreakdown then
 					globalBreakdown.ExertedAttackUptimeRatio = { }
-					t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("Maximum of:"))
+					t_insert(globalBreakdown.ExertedAttackUptimeRatio, "Maximum of:")
 					for _, cryTimeRatio in ipairs(warcryList) do
 						if globalOutput[cryTimeRatio] then
-							t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("%d%% ^8(%s Cry Uptime)", globalOutput[cryTimeRatio] or 0, cryTimeRatio:match("(.+)Up.*")))
+							t_insert(globalBreakdown.ExertedAttackUptimeRatio, c_format("%d%% {TEXT_SECONDARY}(%s Cry Uptime)", globalOutput[cryTimeRatio] or 0, cryTimeRatio:match("(.+)Up.*")))
 						end
 					end
 					t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("= %d%%", globalOutput.ExertedAttackUptimeRatio))
@@ -2511,8 +2515,8 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.ExertedAttackMaxHitEffect = globalOutput.ExertedAttackAvgDmg
 					if globalBreakdown then
 						globalBreakdown.ExertedAttackHitEffect = {
-							s_format("(%.2f ^8(average exerted damage)", globalOutput.ExertedAttackAvgDmg),
-							s_format("x %.2f) ^8(uptime %%)", globalOutput.ExertedAttackUptimeRatio / 100),
+							s_format("(%.2f {TEXT_SECONDARY}(average exerted damage)", globalOutput.ExertedAttackAvgDmg),
+							s_format("x %.2f) {TEXT_SECONDARY}(uptime %%)", globalOutput.ExertedAttackUptimeRatio / 100),
 							s_format("= %.2f", globalOutput.ExertedAttackHitEffect),
 						}
 					end
@@ -2545,8 +2549,8 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.FistOfWarUptimeRatio = m_min( (1 / output.Speed) / globalOutput.FistOfWarCooldown, 1) * 100
 				if globalBreakdown then
 					globalBreakdown.FistOfWarUptimeRatio = {
-						s_format("min( (1 / %.2f) ^8(second per attack)", output.Speed),
-						s_format("/ %.2f, 1) ^8(fist of war cooldown)", globalOutput.FistOfWarCooldown),
+						s_format("min( (1 / %.2f) {TEXT_SECONDARY}(second per attack)", output.Speed),
+						s_format("/ %.2f, 1) {TEXT_SECONDARY}(fist of war cooldown)", globalOutput.FistOfWarCooldown),
 						s_format("= %d%%", globalOutput.FistOfWarUptimeRatio),
 					}
 				end
@@ -2554,8 +2558,8 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.AvgFistOfWarHitEffect = 1 + globalOutput.FistOfWarHitMultiplier * (globalOutput.FistOfWarUptimeRatio / 100)
 				if globalBreakdown then
 					globalBreakdown.AvgFistOfWarHitEffect = {
-						s_format("1 + (%.2f ^8(fist of war hit multiplier)", globalOutput.FistOfWarHitMultiplier),
-						s_format("x %.2f) ^8(fist of war uptime ratio)", globalOutput.FistOfWarUptimeRatio / 100),
+						s_format("1 + (%.2f {TEXT_SECONDARY}(fist of war hit multiplier)", globalOutput.FistOfWarHitMultiplier),
+						s_format("x %.2f) {TEXT_SECONDARY}(fist of war uptime ratio)", globalOutput.FistOfWarUptimeRatio / 100),
 						s_format("= %.2f", globalOutput.AvgFistOfWarHitEffect),
 					}
 				end
@@ -2607,7 +2611,7 @@ function calcs.offence(env, actor, activeSkill)
 					if breakdown then
 						breakdown.CritChance = {
 							s_format("100%%"),
-							s_format("/ %d ^8(number of repeats)", output.Repeats),
+							c_format("/ %d {TEXT_SECONDARY}(number of repeats)", output.Repeats),
 							s_format("= %.2f%% average critical strike chance", output.CritChance)
 						}
 					end
@@ -2666,17 +2670,17 @@ function calcs.offence(env, actor, activeSkill)
 					breakdown.CritChance = { }
 					local baseCritFromMainHandStr = baseCritFromMainHand and " from main weapon" or baseCritFromParentMainHand and " from parent main weapon" or ""
 					if base ~= 0 then
-						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base%s)", baseCrit, base, baseCritFromMainHandStr))
+						t_insert(breakdown.CritChance, c_format("(%g + %g) {TEXT_SECONDARY}(base%s)", baseCrit, base, baseCritFromMainHandStr))
 					else
-						t_insert(breakdown.CritChance, s_format("%g ^8(base%s)", baseCrit + base, baseCritFromMainHandStr))
+						t_insert(breakdown.CritChance, c_format("%g {TEXT_SECONDARY}(base%s)", baseCrit + base, baseCritFromMainHandStr))
 					end
 					if inc ~= 0 then
-						t_insert(breakdown.CritChance, s_format("x %.2f", 1 + inc/100).." ^8(increased/reduced)")
+						t_insert(breakdown.CritChance, c_format("x %.2f {TEXT_SECONDARY}(increased/reduced)", 1 + inc / 100))
 					end
 					if more ~= 1 then
-						t_insert(breakdown.CritChance, s_format("x %.2f", more).." ^8(more/less)")
+						t_insert(breakdown.CritChance, c_format("x %.2f {TEXT_SECONDARY}(more/less)", more))
 					end
-					t_insert(breakdown.CritChance, s_format("= %.2f%% ^8(crit chance)", output.PreEffectiveCritChance))
+					t_insert(breakdown.CritChance, c_format("= %.2f%% {TEXT_SECONDARY}(crit chance)", output.PreEffectiveCritChance))
 					if preCapCritChance > 100 then
 						local overCap = preCapCritChance - 100
 						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
@@ -2689,7 +2693,7 @@ function calcs.offence(env, actor, activeSkill)
 					if env.mode_effective and output.AccuracyHitChance < 100 then
 						t_insert(breakdown.CritChance, "Crit confirmation roll:")
 						t_insert(breakdown.CritChance, s_format("%.2f%%", preHitCheckCritChance))
-						t_insert(breakdown.CritChance, s_format("x %.2f ^8(chance to hit)", output.AccuracyHitChance / 100))
+						t_insert(breakdown.CritChance, c_format("x %.2f {TEXT_SECONDARY}(chance to hit)", output.AccuracyHitChance / 100))
 						t_insert(breakdown.CritChance, s_format("= %.2f%%", output.CritChance))
 					end
 				end
@@ -2710,9 +2714,9 @@ function calcs.offence(env, actor, activeSkill)
 					extraDamage = round(extraDamage * enemyInc, 2)
 					if breakdown and enemyInc ~= 1 then
 						breakdown.CritMultiplier = {
-							s_format("%d%% ^8(additional extra damage)", (enemyDB:Sum("BASE", nil, "SelfCritMultiplier") + skillModList:Sum("BASE", cfg, "CritMultiplier")) / 100),
-							s_format("x %.2f ^8(increased/reduced extra crit damage taken by enemy)", enemyInc),
-							s_format("= %d%% ^8(extra crit damage)", extraDamage * 100),
+							c_format("%d%% {TEXT_SECONDARY}(additional extra damage)", (enemyDB:Sum("BASE", nil, "SelfCritMultiplier") + skillModList:Sum("BASE", cfg, "CritMultiplier")) / 100),
+							c_format("x %.2f {TEXT_SECONDARY}(increased/reduced extra crit damage taken by enemy)", enemyInc),
+							c_format("= %d%% {TEXT_SECONDARY}(extra crit damage)", extraDamage * 100),
 						}
 					end
 				end
@@ -2723,8 +2727,8 @@ function calcs.offence(env, actor, activeSkill)
 			output.BonusCritDotMultiplier = (skillModList:Sum("BASE", cfg, "CritMultiplier") - 50) * skillModList:Sum("BASE", cfg, "CritMultiplierAppliesToDegen") / 10000
 			if breakdown and output.CritEffect ~= 1 then
 				breakdown.CritEffect = {
-					s_format("(1 - %.4f) ^8(portion of damage from non-crits)", critChancePercentage),
-					s_format("+ [ (%.4f x %g) ^8(portion of damage from crits)", critChancePercentage, output.CritMultiplier),
+					c_format("(1 - %.4f) {TEXT_SECONDARY}(portion of damage from non-crits)", critChancePercentage),
+					c_format("+ [ (%.4f x %g) {TEXT_SECONDARY}(portion of damage from crits)", critChancePercentage, output.CritMultiplier),
 					s_format("= %.3f", output.CritEffect),
 				}
 			end
@@ -2787,19 +2791,19 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown[damageType], "Base damage:")
 					local plus = ""
 					if (source[damageTypeMin] or 0) ~= 0 or (source[damageTypeMax] or 0) ~= 0 then
-						t_insert(breakdown[damageType], s_format("%d to %d ^8(base damage from %s)", source[damageTypeMin], source[damageTypeMax], source.type and "weapon" or "skill"))
+						t_insert(breakdown[damageType], c_format("%d to %d {TEXT_SECONDARY}(base damage from %s)", source[damageTypeMin], source[damageTypeMax], source.type and "weapon" or "skill"))
 						if baseMultiplier ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(base damage multiplier)", baseMultiplier))
+							t_insert(breakdown[damageType], c_format("x %.2f {TEXT_SECONDARY}(base damage multiplier)", baseMultiplier))
 						end
 						plus = "+ "
 					end
 					if addedMin ~= 0 or addedMax ~= 0 then
-						t_insert(breakdown[damageType], s_format("%s%d to %d ^8(added damage)", plus, addedMin, addedMax))
+						t_insert(breakdown[damageType], c_format("%s%d to %d {TEXT_SECONDARY}(added damage)", plus, addedMin, addedMax))
 						if damageEffectiveness ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(damage effectiveness)", damageEffectiveness))
+							t_insert(breakdown[damageType], c_format("x %.2f {TEXT_SECONDARY}(damage effectiveness)", damageEffectiveness))
 						end
 						if addedMult ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(added damage multiplier)", addedMult))
+							t_insert(breakdown[damageType], c_format("x %.2f {TEXT_SECONDARY}(added damage multiplier)", addedMult))
 						end
 					end
 					t_insert(breakdown[damageType], s_format("= %.1f to %.1f", baseMin, baseMax))
@@ -2834,30 +2838,30 @@ function calcs.offence(env, actor, activeSkill)
 					local convMult = activeSkill.conversionTable[damageType].mult
 					if pass == 2 and breakdown then
 						t_insert(breakdown[damageType], "Hit damage:")
-						t_insert(breakdown[damageType], s_format("%d to %d ^8(total damage)", damageTypeHitMin, damageTypeHitMax))
+						t_insert(breakdown[damageType], c_format("%d to %d {TEXT_SECONDARY}(total damage)", damageTypeHitMin, damageTypeHitMax))
 						if convMult ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %g ^8(%g%% converted to other damage types)", convMult, (1-convMult)*100))
+							t_insert(breakdown[damageType], c_format("x %g {TEXT_SECONDARY}(%g%% converted to other damage types)", convMult, (1 - convMult) * 100))
 						end
 						if output.DoubleDamageEffect ~= 0 then
 							if output.TripleDamageEffect ~= 0 then
-								t_insert(breakdown[damageType], s_format("x %.2f ^8(1 + %.2f + %.2f multiplier from %.1f%% chance to deal double damage and %d%% chance to deal triple damage)", 1 + output.DoubleDamageEffect + output.TripleDamageEffect, output.DoubleDamageEffect, output.TripleDamageEffect, output.DoubleDamageChance, output.TripleDamageChance))
+								t_insert(breakdown[damageType], c_format("x %.2f {TEXT_SECONDARY}(1 + %.2f + %.2f multiplier from %.1f%% chance to deal double damage and %d%% chance to deal triple damage)", 1 + output.DoubleDamageEffect + output.TripleDamageEffect, output.DoubleDamageEffect, output.TripleDamageEffect, output.DoubleDamageChance, output.TripleDamageChance))
 							else
-								t_insert(breakdown[damageType], s_format("x %.2f ^8(multiplier from %d%% chance to deal double damage)", 1 + output.DoubleDamageEffect, output.DoubleDamageChance))
+								t_insert(breakdown[damageType], c_format("x %.2f {TEXT_SECONDARY}(multiplier from %d%% chance to deal double damage)", 1 + output.DoubleDamageEffect, output.DoubleDamageChance))
 							end
 						elseif output.TripleDamageEffect ~= 0 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(multiplier from %d%% chance to deal triple damage)", 1 + output.TripleDamageEffect, output.TripleDamageChance))
+							t_insert(breakdown[damageType], c_format("x %.2f {TEXT_SECONDARY}(multiplier from %d%% chance to deal triple damage)", 1 + output.TripleDamageEffect, output.TripleDamageChance))
 						end
 						if output.RuthlessBlowHitEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowHitEffect))
+							t_insert(breakdown[damageType], c_format("x %.2f {TEXT_SECONDARY}(ruthless blow effect modifier)", output.RuthlessBlowHitEffect))
 						end
 						if output.FistOfWarHitEffect ~= 1 then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarHitEffect))
+							t_insert(breakdown[damageType], c_format("x %.2f {TEXT_SECONDARY}(fist of war effect modifier)", output.FistOfWarHitEffect))
 						end
 						if globalOutput.OffensiveWarcryEffect ~= 1  and not activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(aggregated warcry exerted effect modifier)", globalOutput.OffensiveWarcryEffect))
+							t_insert(breakdown[damageType], c_format("x %.2f {TEXT_SECONDARY}(aggregated warcry exerted effect modifier)", globalOutput.OffensiveWarcryEffect))
 						end
 						if globalOutput.MaxOffensiveWarcryEffect ~= 1 and activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
-							t_insert(breakdown[damageType], s_format("x %.2f ^8(aggregated max warcry exerted effect modifier)", globalOutput.MaxOffensiveWarcryEffect))
+							t_insert(breakdown[damageType], c_format("x %.2f {TEXT_SECONDARY}(aggregated max warcry exerted effect modifier)", globalOutput.MaxOffensiveWarcryEffect))
 						end
 					end
 					if activeSkill.skillModList:Flag(nil, "Condition:WarcryMaxHit") then
@@ -2972,10 +2976,10 @@ function calcs.offence(env, actor, activeSkill)
 							output[damageType.."EffMult"] = effMult
 						end
 						if pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType) and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
-							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
+							t_insert(breakdown[damageType], c_format("x %.3f {TEXT_SECONDARY}(effective DPS modifier)", effMult))
 							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, useRes, invertChance)
 						elseif pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType) then
-							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
+							t_insert(breakdown[damageType], c_format("x %.3f {TEXT_SECONDARY}(effective DPS modifier)", effMult))
 							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes, useRes, invertChance)
 						end
 					end
@@ -3165,43 +3169,43 @@ function calcs.offence(env, actor, activeSkill)
 			if output.CritEffect ~= 1 then
 				breakdown.AverageHit = { }
 				if skillModList:Flag(skillCfg, "LuckyHits") then
-					t_insert(breakdown.AverageHit, s_format("(1/3) x %d + (2/3) x %d = %.1f ^8(average from non-crits)", totalHitMin, totalHitMax, totalHitAvg))
+					t_insert(breakdown.AverageHit, c_format("(1/3) x %d + (2/3) x %d = %.1f {TEXT_SECONDARY}(average from non-crits)", totalHitMin, totalHitMax, totalHitAvg))
 				end
 				if skillModList:Flag(skillCfg, "CritLucky") or skillModList:Flag(skillCfg, "LuckyHits") then
-					t_insert(breakdown.AverageHit, s_format("(1/3) x %d + (2/3) x %d = %.1f ^8(average from crits)", totalCritMin, totalCritMax, totalCritAvg))
+					t_insert(breakdown.AverageHit, c_format("(1/3) x %d + (2/3) x %d = %.1f {TEXT_SECONDARY}(average from crits)", totalCritMin, totalCritMax, totalCritAvg))
 					t_insert(breakdown.AverageHit, "")
 				end
-				t_insert(breakdown.AverageHit, s_format("%.1f x (1 - %.4f) ^8(damage from non-crits)", totalHitAvg, output.CritChance / 100))
-				t_insert(breakdown.AverageHit, s_format("+ %.1f x %.4f ^8(damage from crits)", totalCritAvg, output.CritChance / 100))
+				t_insert(breakdown.AverageHit, c_format("%.1f x (1 - %.4f) {TEXT_SECONDARY}(damage from non-crits)", totalHitAvg, output.CritChance / 100))
+				t_insert(breakdown.AverageHit, c_format("+ %.1f x %.4f {TEXT_SECONDARY}(damage from crits)", totalCritAvg, output.CritChance / 100))
 				t_insert(breakdown.AverageHit, s_format("= %.1f", output.AverageHit))
 			end
 			if output.HitChance < 100 then
 				breakdown.AverageDamage = { }
 				t_insert(breakdown.AverageDamage, s_format("%s:", pass.label))
-				t_insert(breakdown.AverageDamage, s_format("%.1f ^8(average hit)", output.AverageHit))
-				t_insert(breakdown.AverageDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+				t_insert(breakdown.AverageDamage, c_format("%.1f {TEXT_SECONDARY}(average hit)", output.AverageHit))
+				t_insert(breakdown.AverageDamage, c_format("x %.2f {TEXT_SECONDARY}(chance to hit)", output.HitChance / 100))
 				t_insert(breakdown.AverageDamage, s_format("= %.1f", output.AverageDamage))
 			end
 		end
 		if globalBreakdown and globalOutput.AverageBurstDamage > 0 then
 			globalBreakdown.AverageBurstDamage = { }
-			t_insert(globalBreakdown.AverageBurstDamage, s_format("%.1f ^8(average hit)", output.AverageHit))
+			t_insert(globalBreakdown.AverageBurstDamage, c_format("%.1f {TEXT_SECONDARY}(average hit)", output.AverageHit))
 			if output.HitChance < 100 then
-				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+				t_insert(globalBreakdown.AverageBurstDamage, c_format("x %.2f {TEXT_SECONDARY}(chance to hit)", output.HitChance / 100))
 			end
 			if repeatPenalty < 1 then
-				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(number of repeats)", globalOutput.AverageBurstHits - 1))
-				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(repeat penalty)", repeatPenalty))
-				t_insert(globalBreakdown.AverageBurstDamage, s_format("= %.1f ^8(repeat damage total)", globalOutput.AverageBurstDamage - output.AverageDamage))
+				t_insert(globalBreakdown.AverageBurstDamage, c_format("x %.2f {TEXT_SECONDARY}(number of repeats)", globalOutput.AverageBurstHits - 1))
+				t_insert(globalBreakdown.AverageBurstDamage, c_format("x %.2f {TEXT_SECONDARY}(repeat penalty)", repeatPenalty))
+				t_insert(globalBreakdown.AverageBurstDamage, c_format("= %.1f {TEXT_SECONDARY}(repeat damage total)", globalOutput.AverageBurstDamage - output.AverageDamage))
 				t_insert(globalBreakdown.AverageBurstDamage, "")
-				t_insert(globalBreakdown.AverageBurstDamage, s_format("+ %.1f ^8(first hit)", output.AverageHit))
+				t_insert(globalBreakdown.AverageBurstDamage, c_format("+ %.1f {TEXT_SECONDARY}(first hit)", output.AverageHit))
 				if output.HitChance < 100 then
-					t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+					t_insert(globalBreakdown.AverageBurstDamage, c_format("x %.2f {TEXT_SECONDARY}(chance to hit)", output.HitChance / 100))
 				end
 			else
-				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(number of hits)", globalOutput.AverageBurstHits))
+				t_insert(globalBreakdown.AverageBurstDamage, c_format("x %.2f {TEXT_SECONDARY}(number of hits)", globalOutput.AverageBurstHits))
 			end
-			t_insert(globalBreakdown.AverageBurstDamage, s_format("= %.1f ^8(total burst damage)", globalOutput.AverageBurstDamage))
+			t_insert(globalBreakdown.AverageBurstDamage, c_format("= %.1f {TEXT_SECONDARY}(total burst damage)", globalOutput.AverageBurstDamage))
 		end
 
 
@@ -3284,21 +3288,21 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.PvpAverageHit, s_format("(M= %.1f for non-ele)(E= %.2f for non-ele)", PvpNonElemental2, PvpNonElemental1))
 					t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f = %.1f", output.AverageHit, PvpTvalue,  PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, portionNonElemental))
 					if PvpMultiplier ~= 1 then
-						t_insert(breakdown.PvpAverageHit, s_format("%.1f * %g ^8(portionNonElemental * PvP multiplier)", portionNonElemental, PvpMultiplier))
+						t_insert(breakdown.PvpAverageHit, c_format("%.1f * %g {TEXT_SECONDARY}(portionNonElemental * PvP multiplier)", portionNonElemental, PvpMultiplier))
 					end
 				elseif percentageNonElemental <= 0 then
 					t_insert(breakdown.PvpAverageHit, s_format("(M= %.1f for ele)(E= %.2f for ele)", PvpElemental2, PvpElemental1))
 					t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f = %.1f", output.AverageHit, PvpTvalue,  PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, portionElemental))
 					if PvpMultiplier ~= 1 then
-						t_insert(breakdown.PvpAverageHit, s_format("%.1f * %g ^8(portionElemental * PvP multiplier)", portionElemental, PvpMultiplier))
+						t_insert(breakdown.PvpAverageHit, c_format("%.1f * %g {TEXT_SECONDARY}(portionElemental * PvP multiplier)", portionElemental, PvpMultiplier))
 					end
 				end
 				t_insert(breakdown.PvpAverageHit, s_format("= %.1f", output.PvpAverageHit))
 				if isAttack then
 					breakdown.PvpAverageDamage = { }
 					t_insert(breakdown.PvpAverageDamage, s_format("%s:", pass.label))
-					t_insert(breakdown.PvpAverageDamage, s_format("%.1f ^8(average pvp hit)", output.PvpAverageHit))
-					t_insert(breakdown.PvpAverageDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+					t_insert(breakdown.PvpAverageDamage, c_format("%.1f {TEXT_SECONDARY}(average pvp hit)", output.PvpAverageHit))
+					t_insert(breakdown.PvpAverageDamage, c_format("x %.2f {TEXT_SECONDARY}(chance to hit)", output.HitChance / 100))
 					t_insert(breakdown.PvpAverageDamage, s_format("= %.1f", output.PvpAverageDamage))
 				end
 			end
@@ -3343,18 +3347,18 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.AverageDamage = { }
 				t_insert(breakdown.AverageDamage, "Both weapons:")
 				if skillData.doubleHitsWhenDualWielding then
-					t_insert(breakdown.AverageDamage, s_format("%.1f + %.1f ^8(skill hits with both weapons at once)", output.MainHand.AverageDamage, output.OffHand.AverageDamage))
+					t_insert(breakdown.AverageDamage, c_format("%.1f + %.1f {TEXT_SECONDARY}(skill hits with both weapons at once)", output.MainHand.AverageDamage, output.OffHand.AverageDamage))
 				else
-					t_insert(breakdown.AverageDamage, s_format("(%.1f + %.1f) / 2 ^8(skill alternates weapons)", output.MainHand.AverageDamage, output.OffHand.AverageDamage))
+					t_insert(breakdown.AverageDamage, c_format("(%.1f + %.1f) / 2 {TEXT_SECONDARY}(skill alternates weapons)", output.MainHand.AverageDamage, output.OffHand.AverageDamage))
 				end
 				t_insert(breakdown.AverageDamage, s_format("= %.1f", output.AverageDamage))
 				if skillFlags.isPvP then
 					breakdown.PvpAverageDamage = { }
 					t_insert(breakdown.PvpAverageDamage, "Both weapons:")
 					if skillData.doubleHitsWhenDualWielding then
-						t_insert(breakdown.PvpAverageDamage, s_format("%.1f + %.1f ^8(skill hits with both weapons at once)", output.MainHand.PvpAverageDamage, output.OffHand.PvpAverageDamage))
+						t_insert(breakdown.PvpAverageDamage, c_format("%.1f + %.1f {TEXT_SECONDARY}(skill hits with both weapons at once)", output.MainHand.PvpAverageDamage, output.OffHand.PvpAverageDamage))
 					else
-						t_insert(breakdown.PvpAverageDamage, s_format("(%.1f + %.1f) / 2 ^8(skill alternates weapons)", output.MainHand.PvpAverageDamage, output.OffHand.PvpAverageDamage))
+						t_insert(breakdown.PvpAverageDamage, c_format("(%.1f + %.1f) / 2 {TEXT_SECONDARY}(skill alternates weapons)", output.MainHand.PvpAverageDamage, output.OffHand.PvpAverageDamage))
 					end
 					t_insert(breakdown.PvpAverageDamage, s_format("= %.1f", output.PvpAverageDamage))
 				end
@@ -3371,25 +3375,25 @@ function calcs.offence(env, actor, activeSkill)
 	if breakdown then
 		if isAttack then
 			breakdown.TotalDPS = {
-				s_format("%.1f ^8(average damage)", output.AverageDamage),
-				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
+				c_format("%.1f {TEXT_SECONDARY}(average damage)", output.AverageDamage),
+				output.HitSpeed and c_format("x %.2f {TEXT_SECONDARY}(hit rate)", output.HitSpeed) or c_format("x %.2f {TEXT_SECONDARY}(attack rate)", output.Speed),
 			}
 		elseif skillData.triggered then
 			breakdown.TotalDPS = {
-				s_format("%.1f ^8(average damage)", output.AverageDamage),
-				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(trigger rate)", output.Speed),
+				c_format("%.1f {TEXT_SECONDARY}(average damage)", output.AverageDamage),
+				output.HitSpeed and c_format("x %.2f {TEXT_SECONDARY}(hit rate)", output.HitSpeed) or c_format("x %.2f {TEXT_SECONDARY}(trigger rate)", output.Speed),
 			}
 		else
 			breakdown.TotalDPS = {
-				s_format("%.1f ^8(average hit)", output.AverageDamage),
-				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(cast rate)", output.Speed),
+				c_format("%.1f {TEXT_SECONDARY}(average hit)", output.AverageDamage),
+				output.HitSpeed and c_format("x %.2f {TEXT_SECONDARY}(hit rate)", output.HitSpeed) or c_format("x %.2f {TEXT_SECONDARY}(cast rate)", output.Speed),
 			}
 		end
 		if skillData.dpsMultiplier ~= 1 then
-			t_insert(breakdown.TotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+			t_insert(breakdown.TotalDPS, c_format("x %g {TEXT_SECONDARY}(DPS multiplier for this skill)", skillData.dpsMultiplier))
 		end
 		if quantityMultiplier > 1 then
-			t_insert(breakdown.TotalDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
+			t_insert(breakdown.TotalDPS, c_format("x %g {TEXT_SECONDARY}(quantity multiplier for this skill)", quantityMultiplier))
 		end
 		t_insert(breakdown.TotalDPS, s_format("= %.1f", output.TotalDPS))
 		if skillFlags.isPvP then
@@ -3400,14 +3404,14 @@ function calcs.offence(env, actor, activeSkill)
 				rateType = "trigger"
 			end
 			breakdown.PvpTotalDPS = {
-				s_format("%.1f ^8(average pvp hit)", output.PvpAverageDamage),
-				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, rateType),
+				c_format("%.1f {TEXT_SECONDARY}(average pvp hit)", output.PvpAverageDamage),
+				output.HitSpeed and c_format("x %.2f {TEXT_SECONDARY}(hit rate)", output.HitSpeed) or c_format("x %.2f {TEXT_SECONDARY}(%s rate)", output.Speed, rateType),
 			}
 			if skillData.dpsMultiplier ~= 1 then
-				t_insert(breakdown.PvpTotalDPS, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+				t_insert(breakdown.PvpTotalDPS, c_format("x %g {TEXT_SECONDARY}(DPS multiplier for this skill)", skillData.dpsMultiplier))
 			end
 			if quantityMultiplier > 1 then
-				t_insert(breakdown.PvpTotalDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
+				t_insert(breakdown.PvpTotalDPS, c_format("x %g {TEXT_SECONDARY}(quantity multiplier for this skill)", quantityMultiplier))
 			end
 			t_insert(breakdown.PvpTotalDPS, s_format("= %.1f", output.PvpTotalDPS))
 		end
@@ -3615,8 +3619,8 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdownChance, s_format("Chance on Crit: %d%%", chanceOnCrit))
 				if chanceOnHit ~= chanceOnCrit then
 					t_insert(breakdownChance, "Combined chance:")
-					t_insert(breakdownChance, s_format("%d x (1 - %.4f) ^8(chance from non-crits)", chanceOnHit, output.CritChance/100))
-					t_insert(breakdownChance, s_format("+ %d x %.4f ^8(chance from crits)", chanceOnCrit, output.CritChance/100))
+					t_insert(breakdownChance, c_format("%d x (1 - %.4f) {TEXT_SECONDARY}(chance from non-crits)", chanceOnHit, output.CritChance/100))
+					t_insert(breakdownChance, c_format("+ %d x %.4f {TEXT_SECONDARY}(chance from crits)", chanceOnCrit, output.CritChance/100))
 					local chancePerHit = chanceOnHit * (1 - output.CritChance / 100) + chanceOnCrit * output.CritChance / 100
 					t_insert(breakdownChance, s_format("= %.2f", chancePerHit))
 				end
@@ -3632,24 +3636,24 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if sourceHitDmg == sourceCritDmg or output.CritChance == 0 then
 					t_insert(breakdownDPS, "Total damage:")
-					t_insert(breakdownDPS, s_format("%.1f ^8(source damage)",sourceHitDmg))
+					t_insert(breakdownDPS, c_format("%.1f {TEXT_SECONDARY}(source damage)", sourceHitDmg))
 					if sourceMult > 1 then
-						t_insert(breakdownDPS, s_format("x %.2f ^8(inflicting as though dealing more damage)", sourceMult))
+						t_insert(breakdownDPS, c_format("x %.2f {TEXT_SECONDARY}(inflicting as though dealing more damage)", sourceMult))
 						t_insert(breakdownDPS, s_format("= %.1f", baseVal * sourceMult))
 					end
 				else
 					if baseFromHit > 0 then
 						t_insert(breakdownDPS, "Damage from Non-crits:")
-						t_insert(breakdownDPS, s_format("%.1f ^8(source damage from non-crits)", sourceHitDmg))
-						t_insert(breakdownDPS, s_format("x %.3f ^8(portion of instances created by non-crits)", chanceFromHit / (chanceFromHit + chanceFromCrit)))
+						t_insert(breakdownDPS, c_format("%.1f {TEXT_SECONDARY}(source damage from non-crits)", sourceHitDmg))
+						t_insert(breakdownDPS, c_format("x %.3f {TEXT_SECONDARY}(portion of instances created by non-crits)", chanceFromHit / (chanceFromHit + chanceFromCrit)))
 						if sourceMult == 1 or baseFromCrit ~= 0 then
 							t_insert(breakdownDPS, s_format("= %.1f", baseFromHit))
 						end
 					end
 					if baseFromCrit > 0 then
 						t_insert(breakdownDPS, "Damage from Crits:")
-						t_insert(breakdownDPS, s_format("%.1f ^8(source damage from crits)", sourceCritDmg))
-						t_insert(breakdownDPS, s_format("x %.3f ^8(portion of instances created by crits)", chanceFromCrit / (chanceFromHit + chanceFromCrit)))
+						t_insert(breakdownDPS, c_format("%.1f {TEXT_SECONDARY}(source damage from crits)", sourceCritDmg))
+						t_insert(breakdownDPS, c_format("x %.3f {TEXT_SECONDARY}(portion of instances created by crits)", chanceFromCrit / (chanceFromHit + chanceFromCrit)))
 						if sourceMult == 1 or baseFromHit ~= 0 then
 							t_insert(breakdownDPS, s_format("= %.1f", baseFromCrit))
 						end
@@ -3662,7 +3666,7 @@ function calcs.offence(env, actor, activeSkill)
 						end
 					end
 					if sourceMult > 1 then
-						t_insert(breakdownDPS, s_format("x %.2f ^8(inflicting as though dealing more damage)", sourceMult))
+						t_insert(breakdownDPS, c_format("x %.2f {TEXT_SECONDARY}(inflicting as though dealing more damage)", sourceMult))
 						t_insert(breakdownDPS, s_format("= %.1f", baseVal * sourceMult))
 					end
 				end
@@ -3709,26 +3713,26 @@ function calcs.offence(env, actor, activeSkill)
 			bleedStacks = m_max(bleedStacks, 1)
 			if globalBreakdown then
 				globalBreakdown.BleedStackPotential = {
-					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses a Weighted Avg formula"),
+					c_format("{TEXT_ACCENT1}NOTE: Calculation uses a Weighted Avg formula"),
 					s_format(""),
 				}
 				if overrideStackPotential then
 					if maxStacks ~= 1 then
-						t_insert(globalBreakdown.BleedStackPotential, s_format("= %d / %d ^8(stack potential override / max bleed stacks)", skillModList:Override(nil, "BleedStackPotentialOverride"), maxStacks))
-						t_insert(globalBreakdown.BleedStackPotential, s_format("= %g ^8(stack potential)", overrideStackPotential))
+						t_insert(globalBreakdown.BleedStackPotential, c_format("= %d / %d {TEXT_SECONDARY}(stack potential override / max bleed stacks)", skillModList:Override(nil, "BleedStackPotentialOverride"), maxStacks))
+						t_insert(globalBreakdown.BleedStackPotential, c_format("= %g {TEXT_SECONDARY}(stack potential)", overrideStackPotential))
 					else
-						t_insert(globalBreakdown.BleedStackPotential, s_format("= %g ^8(stack potential override)", overrideStackPotential))
+						t_insert(globalBreakdown.BleedStackPotential, c_format("= %g {TEXT_SECONDARY}(stack potential override)", overrideStackPotential))
 					end
 				else
-					t_insert(globalBreakdown.BleedStackPotential, s_format("%.2f ^8(chance to hit)", output.HitChance / 100))
-					t_insert(globalBreakdown.BleedStackPotential, s_format("* (%.2f / %.2f) ^8(Bleed duration / Attack Time)", globalOutput.BleedDuration, (output.HitTime or output.Time)))
+					t_insert(globalBreakdown.BleedStackPotential, c_format("%.2f {TEXT_SECONDARY}(chance to hit)", output.HitChance / 100))
+					t_insert(globalBreakdown.BleedStackPotential, c_format("* (%.2f / %.2f) {TEXT_SECONDARY}(Bleed duration / Attack Time)", globalOutput.BleedDuration, (output.HitTime or output.Time)))
 					if skillData.dpsMultiplier ~= 1 then
-						t_insert(globalBreakdown.BleedStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+						t_insert(globalBreakdown.BleedStackPotential, c_format("* %g {TEXT_SECONDARY}(DPS multiplier for this skill)", skillData.dpsMultiplier))
 					end
 					if skillFlags.totem then
-						t_insert(globalBreakdown.BleedStackPotential, s_format("* %d ^8(active number of Totems)", activeTotems))
+						t_insert(globalBreakdown.BleedStackPotential, c_format("* %d {TEXT_SECONDARY}(active number of Totems)", activeTotems))
 					end
-					t_insert(globalBreakdown.BleedStackPotential,s_format("/ %d ^8(max number of stacks)", maxStacks))
+					t_insert(globalBreakdown.BleedStackPotential,c_format("/ %d {TEXT_SECONDARY}(max number of stacks)", maxStacks))
 					t_insert(globalBreakdown.BleedStackPotential,s_format("= %.2f", globalOutput.BleedStackPotential))
 				end
 			end
@@ -3737,11 +3741,11 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.BleedRollAverage = bleedRollAverage
 			if globalBreakdown then
 				globalBreakdown.BleedRollAverage = {
-						s_format(colorCodes.CUSTOM.."This is the average roll of a Bleed affecting the enemy if you are constantly attacking"),
-						s_format(colorCodes.CUSTOM.."If attacking constantly, your average strongest bleed currently achieves ^7%.2f%%"..colorCodes.CUSTOM.." of its max damage", bleedRollAverage),
+						c_format("{ITEM_CUSTOM}This is the average roll of a Bleed affecting the enemy if you are constantly attacking"),
+						c_format("{ITEM_CUSTOM}If attacking constantly, your average strongest bleed currently achieves {TEXT_PRIMARY}%.2f%%{ITEM_CUSTOM} of its max damage", bleedRollAverage),
 						s_format(""),
 						s_format("Average Bleed Roll:"),
-						s_format("%.2f / (%.2f + 1) ^8Stack Potential / (Stack Potential + 1)", globalOutput.BleedStackPotential, globalOutput.BleedStackPotential),
+						c_format("%.2f / (%.2f + 1) {TEXT_SECONDARY}Stack Potential / (Stack Potential + 1)", globalOutput.BleedStackPotential, globalOutput.BleedStackPotential),
 					}
 				if globalOutput.BleedStackPotential ~= bleedStacks then
 					t_insert(globalBreakdown.BleedRollAverage, s_format("= max(%.2f%%, %.2f%%)",globalOutput.BleedStackPotential / (globalOutput.BleedStackPotential + 1) * 100,  bleedRollAverage))
@@ -3772,28 +3776,28 @@ function calcs.offence(env, actor, activeSkill)
 			if globalBreakdown then
 				if sourceHitDmg == sourceCritDmg or output.CritChance == 0 then
 					globalBreakdown.BleedDPS = {
-						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
+						c_format("{TEXT_ACCENT1}NOTE: Calculation uses new Weighted Avg Ailment formula"),
 						s_format(""),
 						s_format("Dmg Derivation:"),
 						s_format("%.0f + (%.0f - %.0f) * %.2f%%", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin, bleedRollAverage),
-						s_format("^8min source phys + (max source phys - min source phys) * average bleed roll"),
-						s_format("* %.2f ^8(Bleed DoT Multi)", output.BleedDotMulti),
+						c_format("{TEXT_SECONDARY}min source phys + (max source phys - min source phys) * average bleed roll"),
+						c_format("* %.2f {TEXT_SECONDARY}(Bleed DoT Multi)", output.BleedDotMulti),
 						s_format("= %.2f", sourceHitDmg),
 					}
 				else
 					globalBreakdown.BleedDPS = {
-						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
+						c_format("{TEXT_ACCENT1}NOTE: Calculation uses new Weighted Avg Ailment formula"),
 						s_format(""),
 						s_format("Non-Crit Dmg Derivation:"),
 						s_format("%.0f + (%.0f - %.0f) * %.2f%%", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin, bleedRollAverage),
-						s_format("^8min source phys + (max source phys - min source phys) * average bleed roll"),
-						s_format("* %.2f ^8(Bleed DoT Multi for Non-Crit)", output.BleedDotMulti),
+						c_format("{TEXT_SECONDARY}min source phys + (max source phys - min source phys) * average bleed roll"),
+						c_format("* %.2f {TEXT_SECONDARY}(Bleed DoT Multi for Non-Crit)", output.BleedDotMulti),
 						s_format("= %.0f", sourceHitDmg),
 						s_format(""),
 						s_format("Crit Dmg Derivation:"),
 						s_format("%.0f + (%.0f - %.0f) * %.2f%%", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin, bleedRollAverage),
-						s_format("^8min source phys + (max source phys - min source phys) * average bleed roll"),
-						s_format("* %.2f ^8(Bleed DoT Multi for Crit)", output.CritBleedDotMulti),
+						c_format("{TEXT_SECONDARY}min source phys + (max source phys - min source phys) * average bleed roll"),
+						c_format("* %.2f {TEXT_SECONDARY}(Bleed DoT Multi for Crit)", output.CritBleedDotMulti),
 						s_format("= %.2f", sourceCritDmg),
 					}
 				end
@@ -3845,78 +3849,78 @@ function calcs.offence(env, actor, activeSkill)
 						breakdown.BleedDotMulti = breakdown.critDot(output.BleedDotMulti, output.CritBleedDotMulti, totalFromHit, totalFromCrit)
 						output.BleedDotMulti = (output.BleedDotMulti * totalFromHit) + (output.CritBleedDotMulti * totalFromCrit)
 					end
-					t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(bleed deals %d%% per second)", basePercent/100, basePercent))
+					t_insert(breakdown.BleedDPS, c_format("x %.2f {TEXT_SECONDARY}(bleed deals %d%% per second)", basePercent / 100, basePercent))
 					if effectMod ~= 1 then
-						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ailment effect modifier)", effectMod))
+						t_insert(breakdown.BleedDPS, c_format("x %.2f {TEXT_SECONDARY}(ailment effect modifier)", effectMod))
 					end
 					if output.RuthlessBlowAilmentEffect ~= 1 then
-						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowAilmentEffect))
+						t_insert(breakdown.BleedDPS, c_format("x %.2f {TEXT_SECONDARY}(ruthless blow effect modifier)", output.RuthlessBlowAilmentEffect))
 					end
 					if output.FistOfWarAilmentEffect ~= 1 then
-						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarAilmentEffect))
+						t_insert(breakdown.BleedDPS, c_format("x %.2f {TEXT_SECONDARY}(fist of war effect modifier)", output.FistOfWarAilmentEffect))
 					end
 					if globalOutput.AilmentWarcryEffect > 1 then
-						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(combined ailment warcry effect modifier)", globalOutput.AilmentWarcryEffect))
+						t_insert(breakdown.BleedDPS, c_format("x %.2f {TEXT_SECONDARY}(combined ailment warcry effect modifier)", globalOutput.AilmentWarcryEffect))
 					end
 					t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal))
 					if baseVal ~= output.BleedDPS then
 						t_insert(breakdown.BleedDPS, "")
 						t_insert(breakdown.BleedDPS, "Average Bleed DPS:")
 						if baseVal ~= BleedDPSUncapped then
-							t_insert(breakdown.BleedDPS, s_format("%.1f ^8(base damage per second)", baseVal))
+							t_insert(breakdown.BleedDPS, c_format("%.1f {TEXT_SECONDARY}(base damage per second)", baseVal))
 						end
 						if effectMod ~= 1 then
-							t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ailment effect modifier)", effectMod))
+							t_insert(breakdown.BleedDPS, c_format("x %.2f {TEXT_SECONDARY}(ailment effect modifier)", effectMod))
 						end
 						if rateMod ~= 1 then
-							t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(damage rate modifier)", rateMod))
+							t_insert(breakdown.BleedDPS, c_format("x %.2f {TEXT_SECONDARY}(damage rate modifier)", rateMod))
 						end
 						if bleedStacks ~= 1 then
-							t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(avg bleed stacks)", bleedStacks))
+							t_insert(breakdown.BleedDPS, c_format("x %.2f {TEXT_SECONDARY}(avg bleed stacks)", bleedStacks))
 						end
 						if chanceToHitInOneSecInterval ~= 1 then
-							t_insert(breakdown.BleedDPS, s_format("%.3f ^8(bleed chance based on chance to hit each second)", chanceToHitInOneSecInterval))
+							t_insert(breakdown.BleedDPS, c_format("%.3f {TEXT_SECONDARY}(bleed chance based on chance to hit each second)", chanceToHitInOneSecInterval))
 						end
 						if effMult ~= 1 then
-							t_insert(breakdown.BleedDPS, s_format("x %.3f ^8(effective DPS modifier from enemy debuffs)", effMult))
+							t_insert(breakdown.BleedDPS, c_format("x %.3f {TEXT_SECONDARY}(effective DPS modifier from enemy debuffs)", effMult))
 						end
 						if output.BleedDPS ~= BleedDPSUncapped then
-							t_insert(breakdown.BleedDPS, s_format("= %.1f ^8(Uncapped raw Bleed DPS)", BleedDPSUncapped))
-							t_insert(breakdown.BleedDPS, s_format("^8(Raw Bleed DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", BleedDPSUncapped - BleedDPSCapped, (BleedDPSUncapped - BleedDPSCapped) / BleedDPSCapped * 100))
-							t_insert(breakdown.BleedDPS, s_format("= %d ^8(Capped Bleed DPS)", BleedDPSCapped))
+							t_insert(breakdown.BleedDPS, c_format("= %.1f {TEXT_SECONDARY}(Uncapped raw Bleed DPS)", BleedDPSUncapped))
+							t_insert(breakdown.BleedDPS, c_format("{TEXT_SECONDARY}(Raw Bleed DPS is {BUILD_NEGATIVE}overcapped {TEXT_SECONDARY}by{TEXT_PRIMARY} %.0f {TEXT_SECONDARY}:{TEXT_PRIMARY} %.1f%%{TEXT_SECONDARY})", BleedDPSUncapped - BleedDPSCapped, (BleedDPSUncapped - BleedDPSCapped) / BleedDPSCapped * 100))
+							t_insert(breakdown.BleedDPS, c_format("= %d {TEXT_SECONDARY}(Capped Bleed DPS)", BleedDPSCapped))
 						else
-							t_insert(breakdown.BleedDPS, s_format("= %.1f ^8per second", output.BleedDPS))
+							t_insert(breakdown.BleedDPS, c_format("= %.1f {TEXT_SECONDARY}per second", output.BleedDPS))
 						end
 					end
 					t_insert(breakdown.BleedDPS, s_format("%.2f%% of Maximum Bleed DPS", output.BleedDPS / MaxBleedDPSCapped * 100))
 					t_insert(breakdown.BleedDPS, "")
 					t_insert(breakdown.BleedDPS, "DPS Range:")
 					if MaxBleedDPSCapped == MaxBleedDPSUncapped and MinBleedDPSCapped == MinBleedDPSUncapped then
-						t_insert(breakdown.BleedDPS, s_format("%.0f to %.0f ^8(Bleed DPS Range)", MinBleedDPSUncapped, MaxBleedDPSUncapped))
+						t_insert(breakdown.BleedDPS, c_format("%.0f to %.0f {TEXT_SECONDARY}(Bleed DPS Range)", MinBleedDPSUncapped, MaxBleedDPSUncapped))
 					else
-						t_insert(breakdown.BleedDPS, s_format("%.0f to %.0f ^8(Uncapped Bleed DPS Range)", MinBleedDPSUncapped, MaxBleedDPSUncapped))
+						t_insert(breakdown.BleedDPS, c_format("%.0f to %.0f {TEXT_SECONDARY}(Uncapped Bleed DPS Range)", MinBleedDPSUncapped, MaxBleedDPSUncapped))
 					end
 					if MinBleedDPSCapped ~= MinBleedDPSUncapped then
-						t_insert(breakdown.BleedDPS, s_format("^8(Raw Min Bleed DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", MinBleedDPSUncapped - MinBleedDPSCapped, (MinBleedDPSUncapped - MinBleedDPSCapped) / MinBleedDPSCapped * 100))
+						t_insert(breakdown.BleedDPS, c_format("{TEXT_SECONDARY}(Raw Min Bleed DPS is {BUILD_NEGATIVE}overcapped {TEXT_SECONDARY}by{TEXT_PRIMARY} %.0f {TEXT_SECONDARY}:{TEXT_PRIMARY} %.1f%%{TEXT_SECONDARY})", MinBleedDPSUncapped - MinBleedDPSCapped, (MinBleedDPSUncapped - MinBleedDPSCapped) / MinBleedDPSCapped * 100))
 					end
 					if MaxBleedDPSCapped ~= MaxBleedDPSUncapped then
-						t_insert(breakdown.BleedDPS, s_format("^8(Raw Max Bleed DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", MaxBleedDPSUncapped - MaxBleedDPSCapped, (MaxBleedDPSUncapped - MaxBleedDPSCapped) / MaxBleedDPSCapped * 100))
+						t_insert(breakdown.BleedDPS, c_format("{TEXT_SECONDARY}(Raw Max Bleed DPS is {BUILD_NEGATIVE}overcapped {TEXT_SECONDARY}by{TEXT_PRIMARY} %.0f {TEXT_SECONDARY}:{TEXT_PRIMARY} %.1f%%{TEXT_SECONDARY})", MaxBleedDPSUncapped - MaxBleedDPSCapped, (MaxBleedDPSUncapped - MaxBleedDPSCapped) / MaxBleedDPSCapped * 100))
 					end
 					if MaxBleedDPSCapped ~= MaxBleedDPSUncapped or MinBleedDPSCapped ~= MinBleedDPSUncapped then
-						t_insert(breakdown.BleedDPS, s_format("%.0f to %.0f ^8(Capped Bleed DPS Range)", MinBleedDPSCapped, MaxBleedDPSCapped))
+						t_insert(breakdown.BleedDPS, c_format("%.0f to %.0f {TEXT_SECONDARY}(Capped Bleed DPS Range)", MinBleedDPSCapped, MaxBleedDPSCapped))
 					end
 					if globalOutput.BleedDuration ~= durationBase then
 						globalBreakdown.BleedDuration = {
-							s_format("%.2fs ^8(base duration)", durationBase)
+							c_format("%.2fs {TEXT_SECONDARY}(base duration)", durationBase)
 						}
 						if durationMod ~= 1 then
-							t_insert(globalBreakdown.BleedDuration, s_format("x %.2f ^8(duration modifier)", durationMod))
+							t_insert(globalBreakdown.BleedDuration, c_format("x %.2f {TEXT_SECONDARY}(duration modifier)", durationMod))
 						end
 						if rateMod ~= 1 then
-							t_insert(globalBreakdown.BleedDuration, s_format("/ %.2f ^8(damage rate modifier)", rateMod))
+							t_insert(globalBreakdown.BleedDuration, c_format("/ %.2f {TEXT_SECONDARY}(damage rate modifier)", rateMod))
 						end
 						if debuffDurationMult ~= 1 then
-							t_insert(globalBreakdown.BleedDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+							t_insert(globalBreakdown.BleedDuration, c_format("/ %.2f {TEXT_SECONDARY}(debuff expires slower/faster)", 1 / debuffDurationMult))
 						end
 						t_insert(globalBreakdown.BleedDuration, s_format("= %.2fs", globalOutput.BleedDuration))
 					end
@@ -4026,7 +4030,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			if globalBreakdown then
 				globalBreakdown.PoisonDPS = {
-					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+					c_format("Ailment mode: %s {TEXT_SECONDARY}(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
 			local baseMinVal = calcAilmentDamage("Poison", output.CritChance, sourceMinHitDmg, 0, true) * data.misc.PoisonPercentBase
@@ -4063,10 +4067,10 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.CausticGroundFromPoison = true
 					if globalBreakdown then
 						globalBreakdown.CausticGroundDPS = {
-							s_format("%.1f ^8(single poison damage per second)", baseVal * effectMod * rateMod),
-							s_format("* %.1f%% ^8(percent as Caustic ground)", groundMult),
-							s_format("* %.3f ^8(effect mult)", effMult),
-							s_format("= %.1f ^8per second", globalOutput.CausticGroundDPS)
+							c_format("%.1f {TEXT_SECONDARY}(single poison damage per second)", baseVal * effectMod * rateMod),
+							c_format("* %.1f%% {TEXT_SECONDARY}(percent as Caustic ground)", groundMult),
+							c_format("* %.3f {TEXT_SECONDARY}(effect mult)", effMult),
+							c_format("= %.1f {TEXT_SECONDARY}per second", globalOutput.CausticGroundDPS)
 						}
 					end
 				end
@@ -4091,62 +4095,62 @@ function calcs.offence(env, actor, activeSkill)
 						output.PoisonDotMulti = (output.PoisonDotMulti * totalFromHit) + (output.CritPoisonDotMulti * totalFromCrit)
 					end
 					if output.RuthlessBlowAilmentEffect ~= 1 then
-						t_insert(breakdown.PoisonDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowAilmentEffect))
+						t_insert(breakdown.PoisonDPS, c_format("x %.2f {TEXT_SECONDARY}(ruthless blow effect modifier)", output.RuthlessBlowAilmentEffect))
 					end
-					t_insert(breakdown.PoisonDPS, "x 0.30 ^8(poison deals 30% per second)")
+					t_insert(breakdown.PoisonDPS, c_format("x 0.30 {TEXT_SECONDARY}(poison deals 30% per second)"))
 					t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
 					if baseVal ~= output.PoisonDPS then
 						t_insert(breakdown.PoisonDPS, "")
 						t_insert(breakdown.PoisonDPS, "Poison DPS:")
 						if baseVal ~= PoisonDPSUncapped then
-							t_insert(breakdown.PoisonDPS, s_format("%.1f ^8(base damage per second)", baseVal))
+							t_insert(breakdown.PoisonDPS, c_format("%.1f {TEXT_SECONDARY}(base damage per second)", baseVal))
 						end
 						if effectMod ~= 1 then
-							t_insert(breakdown.PoisonDPS, s_format("x %.2f ^8(ailment effect modifier)", effectMod))
+							t_insert(breakdown.PoisonDPS, c_format("x %.2f {TEXT_SECONDARY}(ailment effect modifier)", effectMod))
 						end
 						if rateMod ~= 1 then
-							t_insert(breakdown.PoisonDPS, s_format("x %.2f ^8(damage rate modifier)", rateMod))
+							t_insert(breakdown.PoisonDPS, c_format("x %.2f {TEXT_SECONDARY}(damage rate modifier)", rateMod))
 						end
 						if effMult ~= 1 then
-							t_insert(breakdown.PoisonDPS, s_format("x %.3f ^8(effective DPS modifier from enemy debuffs)", effMult))
+							t_insert(breakdown.PoisonDPS, c_format("x %.3f {TEXT_SECONDARY}(effective DPS modifier from enemy debuffs)", effMult))
 						end
 						if output.PoisonDPS ~= PoisonDPSUncapped then
-							t_insert(breakdown.PoisonDPS, s_format("= %.1f ^8(Uncapped raw Poison DPS)", PoisonDPSUncapped))
-							t_insert(breakdown.PoisonDPS, s_format("^8(Raw Poison DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", PoisonDPSUncapped - PoisonDPSCapped, (PoisonDPSUncapped - PoisonDPSCapped) / PoisonDPSCapped * 100))
-							t_insert(breakdown.PoisonDPS, s_format("= %d ^8(Capped Poison DPS)", PoisonDPSCapped))
+							t_insert(breakdown.PoisonDPS, c_format("= %.1f {TEXT_SECONDARY}(Uncapped raw Poison DPS)", PoisonDPSUncapped))
+							t_insert(breakdown.PoisonDPS, c_format("{TEXT_SECONDARY}(Raw Poison DPS is {BUILD_NEGATIVE}overcapped {TEXT_SECONDARY}by{TEXT_PRIMARY} %.0f {TEXT_SECONDARY}:{TEXT_PRIMARY} %.1f%%{TEXT_SECONDARY})", PoisonDPSUncapped - PoisonDPSCapped, (PoisonDPSUncapped - PoisonDPSCapped) / PoisonDPSCapped * 100))
+							t_insert(breakdown.PoisonDPS, c_format("= %d {TEXT_SECONDARY}(Capped Poison DPS)", PoisonDPSCapped))
 						else
-							t_insert(breakdown.PoisonDPS, s_format("= %.1f ^8per second", output.PoisonDPS))
+							t_insert(breakdown.PoisonDPS, c_format("= %.1f {TEXT_SECONDARY}per second", output.PoisonDPS))
 						end
 					end
 					t_insert(breakdown.PoisonDPS, s_format("%.2f%% of Maximum Poison DPS", output.PoisonDPS / MaxPoisonDPSCapped * 100))
 					t_insert(breakdown.PoisonDPS, "")
 					t_insert(breakdown.PoisonDPS, "DPS Range:")
 					if MaxPoisonDPSCapped == MaxPoisonDPSUncapped and MinPoisonDPSCapped == MinPoisonDPSUncapped then
-						t_insert(breakdown.PoisonDPS, s_format("%.0f to %.0f ^8(Poison DPS Range)", MinPoisonDPSUncapped, MaxPoisonDPSUncapped))
+						t_insert(breakdown.PoisonDPS, c_format("%.0f to %.0f {TEXT_SECONDARY}(Poison DPS Range)", MinPoisonDPSUncapped, MaxPoisonDPSUncapped))
 					else
-						t_insert(breakdown.PoisonDPS, s_format("%.0f to %.0f ^8(Uncapped Poison DPS Range)", MinPoisonDPSUncapped, MaxPoisonDPSUncapped))
+						t_insert(breakdown.PoisonDPS, c_format("%.0f to %.0f {TEXT_SECONDARY}(Uncapped Poison DPS Range)", MinPoisonDPSUncapped, MaxPoisonDPSUncapped))
 					end
 					if MinPoisonDPSCapped ~= MinPoisonDPSUncapped then
-						t_insert(breakdown.PoisonDPS, s_format("^8(Raw Min Poison DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", MinPoisonDPSUncapped - MinPoisonDPSCapped, (MinPoisonDPSUncapped - MinPoisonDPSCapped) / MinPoisonDPSCapped * 100))
+						t_insert(breakdown.PoisonDPS, c_format("{TEXT_SECONDARY}(Raw Min Poison DPS is {BUILD_NEGATIVE}overcapped {TEXT_SECONDARY}by{TEXT_PRIMARY} %.0f {TEXT_SECONDARY}:{TEXT_PRIMARY} %.1f%%{TEXT_SECONDARY})", MinPoisonDPSUncapped - MinPoisonDPSCapped, (MinPoisonDPSUncapped - MinPoisonDPSCapped) / MinPoisonDPSCapped * 100))
 					end
 					if MaxPoisonDPSCapped ~= MaxPoisonDPSUncapped then
-						t_insert(breakdown.PoisonDPS, s_format("^8(Raw Max Poison DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", MaxPoisonDPSUncapped - MaxPoisonDPSCapped, (MaxPoisonDPSUncapped - MaxPoisonDPSCapped) / MaxPoisonDPSCapped * 100))
+						t_insert(breakdown.PoisonDPS, c_format("{TEXT_SECONDARY}(Raw Max Poison DPS is {BUILD_NEGATIVE}overcapped {TEXT_SECONDARY}by{TEXT_PRIMARY} %.0f {TEXT_SECONDARY}:{TEXT_PRIMARY} %.1f%%{TEXT_SECONDARY})", MaxPoisonDPSUncapped - MaxPoisonDPSCapped, (MaxPoisonDPSUncapped - MaxPoisonDPSCapped) / MaxPoisonDPSCapped * 100))
 					end
 					if MaxPoisonDPSCapped ~= MaxPoisonDPSUncapped or MinPoisonDPSCapped ~= MinPoisonDPSUncapped then
-						t_insert(breakdown.PoisonDPS, s_format("%.0f to %.0f ^8(Capped Poison DPS Range)", MinPoisonDPSCapped, MaxPoisonDPSCapped))
+						t_insert(breakdown.PoisonDPS, c_format("%.0f to %.0f {TEXT_SECONDARY}(Capped Poison DPS Range)", MinPoisonDPSCapped, MaxPoisonDPSCapped))
 					end
 					if globalOutput.PoisonDuration ~= 2 then
 						globalBreakdown.PoisonDuration = {
-							s_format("%.2fs ^8(base duration)", durationBase)
+							c_format("%.2fs {TEXT_SECONDARY}(base duration)", durationBase)
 						}
 						if durationMod ~= 1 then
-							t_insert(globalBreakdown.PoisonDuration, s_format("x %.2f ^8(duration modifier)", durationMod))
+							t_insert(globalBreakdown.PoisonDuration, c_format("x %.2f {TEXT_SECONDARY}(duration modifier)", durationMod))
 						end
 						if rateMod ~= 1 then
-							t_insert(globalBreakdown.PoisonDuration, s_format("/ %.2f ^8(damage rate modifier)", rateMod))
+							t_insert(globalBreakdown.PoisonDuration, c_format("/ %.2f {TEXT_SECONDARY}(damage rate modifier)", rateMod))
 						end
 						if debuffDurationMult ~= 1 then
-							t_insert(globalBreakdown.PoisonDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+							t_insert(globalBreakdown.PoisonDuration, c_format("/ %.2f {TEXT_SECONDARY}(debuff expires slower/faster)", 1 / debuffDurationMult))
 						end
 						t_insert(globalBreakdown.PoisonDuration, s_format("= %.2fs", globalOutput.PoisonDuration))
 					end
@@ -4154,22 +4158,22 @@ function calcs.offence(env, actor, activeSkill)
 					if isAttack then
 						t_insert(breakdown.PoisonDamage, pass.label..":")
 					end
-					t_insert(breakdown.PoisonDamage, s_format("%.1f ^8(damage per second)", output.PoisonDPS))
-					t_insert(breakdown.PoisonDamage, s_format("x %.2fs ^8(poison duration)", globalOutput.PoisonDuration))
-					t_insert(breakdown.PoisonDamage, s_format("= %.1f ^8damage per poison stack", output.PoisonDamage))
+					t_insert(breakdown.PoisonDamage, c_format("%.1f {TEXT_SECONDARY}(damage per second)", output.PoisonDPS))
+					t_insert(breakdown.PoisonDamage, c_format("x %.2fs {TEXT_SECONDARY}(poison duration)", globalOutput.PoisonDuration))
+					t_insert(breakdown.PoisonDamage, c_format("= %.1f {TEXT_SECONDARY}damage per poison stack", output.PoisonDamage))
 					if not skillData.showAverage then
 						breakdown.TotalPoisonStacks = { }
 						if isAttack then
 							t_insert(breakdown.TotalPoisonStacks, pass.label..":")
 						end
 						breakdown.multiChain(breakdown.TotalPoisonStacks, {
-							base = { "%.2fs ^8(poison duration)", globalOutput.PoisonDuration },
-							{ "%.2f ^8(poison chance)", output.PoisonChance / 100 },
-							{ "%.2f ^8(hit chance)", output.HitChance / 100 },
-							{ "%.2f ^8(hits per second)", globalOutput.HitSpeed or globalOutput.Speed },
-							{ "%g ^8(dps multiplier for this skill)", skillData.dpsMultiplier or 1 },
-							{ "%g ^8(stack multiplier for this skill)", skillData.stackMultiplier or 1 },
-							{ "%g ^8(quantity multiplier for this skill)", quantityMultiplier },
+							base = { "%.2fs {TEXT_SECONDARY}(poison duration)", globalOutput.PoisonDuration },
+							{ "%.2f {TEXT_SECONDARY}(poison chance)", output.PoisonChance / 100 },
+							{ "%.2f {TEXT_SECONDARY}(hit chance)", output.HitChance / 100 },
+							{ "%.2f {TEXT_SECONDARY}(hits per second)", globalOutput.HitSpeed or globalOutput.Speed },
+							{ "%g {TEXT_SECONDARY}(dps multiplier for this skill)", skillData.dpsMultiplier or 1 },
+							{ "%g {TEXT_SECONDARY}(stack multiplier for this skill)", skillData.stackMultiplier or 1 },
+							{ "%g {TEXT_SECONDARY}(quantity multiplier for this skill)", quantityMultiplier },
 							total = s_format("= %.1f", output.TotalPoisonStacks),
 						})
 						if skillModList:Flag(nil, "Condition:SinglePoison") then
@@ -4231,28 +4235,28 @@ function calcs.offence(env, actor, activeSkill)
 			igniteStacks = m_max(igniteStacks, 1)
 			if globalBreakdown then
 				globalBreakdown.IgniteStackPotential = {
-					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses a Weighted Avg formula"),
+					c_format("{TEXT_ACCENT1}NOTE: Calculation uses a Weighted Avg formula"),
 					s_format(""),
 				}
 				if skillModList:Override(nil, "IgniteStackPotentialOverride") then
 					if maxStacks ~= 1 then
-						t_insert(globalBreakdown.IgniteStackPotential, s_format("= %d / %d ^8(stack potential override / max ignite stacks)", skillModList:Override(nil, "IgniteStackPotentialOverride"), maxStacks))
-						t_insert(globalBreakdown.IgniteStackPotential, s_format("= %g ^8(stack potential)", overrideStackPotential))
+						t_insert(globalBreakdown.IgniteStackPotential, c_format("= %d / %d {TEXT_SECONDARY}(stack potential override / max ignite stacks)", skillModList:Override(nil, "IgniteStackPotentialOverride"), maxStacks))
+						t_insert(globalBreakdown.IgniteStackPotential, c_format("= %g {TEXT_SECONDARY}(stack potential)", overrideStackPotential))
 					else
-						t_insert(globalBreakdown.IgniteStackPotential, s_format("= %g ^8(stack potential override)", overrideStackPotential))
+						t_insert(globalBreakdown.IgniteStackPotential, c_format("= %g {TEXT_SECONDARY}(stack potential override)", overrideStackPotential))
 					end
 				else
 					if skillData.triggeredOnDeath then
-						t_insert(globalBreakdown.IgniteStackPotential, s_format("1 ^8Cast on Death override"))
+						t_insert(globalBreakdown.IgniteStackPotential, c_format("1 {TEXT_SECONDARY}Cast on Death override"))
 					elseif output.Cooldown then
-						t_insert(globalBreakdown.IgniteStackPotential, s_format("(%.2f / max(%.2f, %.2f) ^8(Ignite Duration / max(Cooldown, Cast Time))", globalOutput.IgniteDuration, output.Cooldown, (output.HitTime or output.Time)))
+						t_insert(globalBreakdown.IgniteStackPotential, c_format("(%.2f / max(%.2f, %.2f) {TEXT_SECONDARY}(Ignite Duration / max(Cooldown, Cast Time))", globalOutput.IgniteDuration, output.Cooldown, (output.HitTime or output.Time)))
 					else
-						t_insert(globalBreakdown.IgniteStackPotential, s_format("(%.2f / %.2f) ^8(Ignite Duration / Cast Time)", globalOutput.IgniteDuration, (globalOutput.HitTime or output.Time)))
+						t_insert(globalBreakdown.IgniteStackPotential, c_format("(%.2f / %.2f) {TEXT_SECONDARY}(Ignite Duration / Cast Time)", globalOutput.IgniteDuration, (globalOutput.HitTime or output.Time)))
 					end
 					if skillData.dpsMultiplier ~= 1 then
-						t_insert(globalBreakdown.IgniteStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+						t_insert(globalBreakdown.IgniteStackPotential, c_format("* %g {TEXT_SECONDARY}(DPS multiplier for this skill)", skillData.dpsMultiplier))
 					end
-					t_insert(globalBreakdown.IgniteStackPotential, s_format("/ %d ^8(max number of stacks)", maxStacks))
+					t_insert(globalBreakdown.IgniteStackPotential, c_format("/ %d {TEXT_SECONDARY}(max number of stacks)", maxStacks))
 					t_insert(globalBreakdown.IgniteStackPotential, s_format("= %.2f", globalOutput.IgniteStackPotential))
 				end
 			end
@@ -4261,11 +4265,11 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.IgniteRollAverage = igniteRollAverage
 			if globalBreakdown then
 				globalBreakdown.IgniteRollAverage = {
-						s_format(colorCodes.CUSTOM.."This is the average roll of an ignite affecting the enemy if you are constantly attacking"),
-						s_format(colorCodes.CUSTOM.."If attacking constantly, your average strongest Ignite currently achieves ^7%.2f%%"..colorCodes.CUSTOM.." of its max damage", igniteRollAverage),
+						c_format("{ITEM_CUSTOM}This is the average roll of an ignite affecting the enemy if you are constantly attacking"),
+						c_format("{ITEM_CUSTOM}If attacking constantly, your average strongest Ignite currently achieves {TEXT_PRIMARY}%.2f%%{ITEM_CUSTOM} of its max damage", igniteRollAverage),
 						s_format(""),
 						s_format("Average Ignite Roll:"),
-						s_format("%.2f / (%.2f + 1) ^8Stack Potential / (Stack Potential + 1)", globalOutput.IgniteStackPotential, globalOutput.IgniteStackPotential),
+						c_format("%.2f / (%.2f + 1) {TEXT_SECONDARY}Stack Potential / (Stack Potential + 1)", globalOutput.IgniteStackPotential, globalOutput.IgniteStackPotential),
 					}
 				if globalOutput.IgniteStackPotential ~= igniteStacks then
 					t_insert(globalBreakdown.IgniteRollAverage, s_format("= max(%.2f%%, %.2f%%)",globalOutput.IgniteStackPotential / (globalOutput.IgniteStackPotential + 1) * 100,  igniteRollAverage))
@@ -4333,22 +4337,22 @@ function calcs.offence(env, actor, activeSkill)
 					globalBreakdown.IgniteDPS = {
 						s_format("Dmg Derivation:"),
 						s_format("%.0f + (%.0f - %.0f) * %.2f%%", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin, igniteRollAverage),
-						s_format("^8min combined sources + (max combined sources - min combined sources) * average ignite roll"),
-						s_format("* %.2f ^8(Ignite DoT Multi)", output.IgniteDotMulti),
+						c_format("{TEXT_SECONDARY}min combined sources + (max combined sources - min combined sources) * average ignite roll"),
+						c_format("* %.2f {TEXT_SECONDARY}(Ignite DoT Multi)", output.IgniteDotMulti),
 						s_format("= %.2f", sourceHitDmg),
 					}
 				else
 					globalBreakdown.IgniteDPS = {
 						s_format("Non-Crit Dmg Derivation:"),
 						s_format("%.0f + (%.0f - %.0f) * %.2f%%", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin, igniteRollAverage),
-						s_format("^8min combined sources + (max combined sources - min combined sources) * average ignite roll"),
-						s_format("* %.2f ^8(Ignite DoT Multi for Non-Crit)", output.IgniteDotMulti),
+						c_format("{TEXT_SECONDARY}min combined sources + (max combined sources - min combined sources) * average ignite roll"),
+						c_format("* %.2f {TEXT_SECONDARY}(Ignite DoT Multi for Non-Crit)", output.IgniteDotMulti),
 						s_format("= %.2f", sourceHitDmg),
 						s_format(""),
 						s_format("Crit Dmg Derivation:"),
 						s_format("%.0f + (%.0f - %.0f) * %.2f%%", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin, igniteRollAverage),
-						s_format("^8min combined sources + (max combined sources - min combined sources) * average ignite roll"),
-						s_format("* %.2f ^8(Ignite DoT Multi for Crit)", output.CritIgniteDotMulti),
+						c_format("{TEXT_SECONDARY}min combined sources + (max combined sources - min combined sources) * average ignite roll"),
+						c_format("* %.2f {TEXT_SECONDARY}8(Ignite DoT Multi for Crit)", output.CritIgniteDotMulti),
 						s_format("= %.2f", sourceCritDmg),
 					}
 				end
@@ -4409,10 +4413,10 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.BurningGroundFromIgnite = true
 					if globalBreakdown then
 						globalBreakdown.BurningGroundDPS = {
-							s_format("%.1f ^8(ignite damage per second)", baseVal * effectMod * rateMod),
-							s_format("* %.1f%% ^8(percent as burning ground)", groundMult),
-							s_format("* %.3f ^8(effective DPS modifier)", fireEffMult),
-							s_format("= %.1f ^8per second", globalOutput.BurningGroundDPS)
+							c_format("%.1f {TEXT_SECONDARY}(ignite damage per second)", baseVal * effectMod * rateMod),
+							c_format("* %.1f%% {TEXT_SECONDARY}(percent as burning ground)", groundMult),
+							c_format("* %.3f {TEXT_SECONDARY}(effective DPS modifier)", fireEffMult),
+							c_format("= %.1f {TEXT_SECONDARY}per second", globalOutput.BurningGroundDPS)
 						}
 					end
 				end
@@ -4425,52 +4429,52 @@ function calcs.offence(env, actor, activeSkill)
 
 				if breakdown then
 					if output.RuthlessBlowAilmentEffect ~= 1 then
-						t_insert(breakdown.IgniteDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowAilmentEffect))
+						t_insert(breakdown.IgniteDPS, c_format("x %.2f {TEXT_SECONDARY}(ruthless blow effect modifier)", output.RuthlessBlowAilmentEffect))
 					end
-					t_insert(breakdown.IgniteDPS, "x 0.9 ^8(ignite deals 90% per second)")
-					t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
+					t_insert(breakdown.IgniteDPS, "x 0.9 "..CC.TEXT_SECONDARY.."ignite deals 90% per second)")
+					t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal))
 					if baseVal ~= output.IgniteDPS then
 						t_insert(breakdown.IgniteDPS, "")
 						t_insert(breakdown.IgniteDPS, "Average Ignite DPS:")
 						if baseVal ~= IgniteDPSUncapped then
-							t_insert(breakdown.IgniteDPS, s_format("%.1f ^8(base damage per second)", baseVal))
+							t_insert(breakdown.IgniteDPS, c_format("%.1f {TEXT_SECONDARY}(base damage per second)", baseVal))
 						end
 						if effectMod ~= 1 then
-							t_insert(breakdown.IgniteDPS, s_format("x %.2f ^8(ailment effect modifier)", effectMod))
+							t_insert(breakdown.IgniteDPS, c_format("x %.2f {TEXT_SECONDARY}(ailment effect modifier)", effectMod))
 						end
 						if rateMod ~= 1 then
-							t_insert(breakdown.IgniteDPS, s_format("x %.2f ^8(burn rate modifier)", rateMod))
+							t_insert(breakdown.IgniteDPS, c_format("x %.2f {TEXT_SECONDARY}(burn rate modifier)", rateMod))
 						end
 						if igniteStacks ~= 1 then
-							t_insert(breakdown.IgniteDPS, s_format("x %.2f ^8(avg ignite stacks)", igniteStacks))
+							t_insert(breakdown.IgniteDPS, c_format("x %.2f {TEXT_SECONDARY}(avg ignite stacks)", igniteStacks))
 						end
 						if effMult ~= 1 then
-							t_insert(breakdown.IgniteDPS, s_format("x %.3f ^8(effective DPS modifier from enemy debuffs)", effMult))
+							t_insert(breakdown.IgniteDPS, c_format("x %.3f {TEXT_SECONDARY}(effective DPS modifier from enemy debuffs)", effMult))
 						end
 						if output.IgniteDPS ~= IgniteDPSUncapped then
-							t_insert(breakdown.IgniteDPS, s_format("= %.1f ^8(Uncapped raw Ignite DPS)", IgniteDPSUncapped))
-							t_insert(breakdown.IgniteDPS, s_format("^8(Raw Ignite DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", IgniteDPSUncapped - IgniteDPSCapped, (IgniteDPSUncapped - IgniteDPSCapped) / IgniteDPSCapped * 100))
-							t_insert(breakdown.IgniteDPS, s_format("= %d ^8(Capped Ignite DPS)", IgniteDPSCapped))
+							t_insert(breakdown.IgniteDPS, c_format("= %.1f {TEXT_SECONDARY}(Uncapped raw Ignite DPS)", IgniteDPSUncapped))
+							t_insert(breakdown.IgniteDPS, c_format("{TEXT_SECONDARY}(Raw Ignite DPS is {BUILD_NEGATIVE}overcapped {TEXT_SECONDARY}by{TEXT_PRIMARY} %.0f {TEXT_SECONDARY}:{TEXT_PRIMARY} %.1f%%{TEXT_SECONDARY})", IgniteDPSUncapped - IgniteDPSCapped, (IgniteDPSUncapped - IgniteDPSCapped) / IgniteDPSCapped * 100))
+							t_insert(breakdown.IgniteDPS, c_format("= %d {TEXT_SECONDARY}(Capped Ignite DPS)", IgniteDPSCapped))
 						else
-							t_insert(breakdown.IgniteDPS, s_format("= %.1f ^8per second", output.IgniteDPS))
+							t_insert(breakdown.IgniteDPS, c_format("= %.1f {TEXT_SECONDARY}per second", output.IgniteDPS))
 						end
 					end
 					t_insert(breakdown.IgniteDPS, s_format("%.2f%% of Maximum Ignite DPS", output.IgniteDPS / MaxIgniteDPSCapped * 100))
 					t_insert(breakdown.IgniteDPS, "")
 					t_insert(breakdown.IgniteDPS, "DPS Range:")
 					if MaxIgniteDPSCapped == MaxIgniteDPSUncapped and MinIgniteDPSCapped == MinIgniteDPSUncapped then
-						t_insert(breakdown.IgniteDPS, s_format("%.0f to %.0f ^8(Ignite DPS Range)", MinIgniteDPSUncapped, MaxIgniteDPSUncapped))
+						t_insert(breakdown.IgniteDPS, c_format("%.0f to %.0f {TEXT_SECONDARY}(Ignite DPS Range)", MinIgniteDPSUncapped, MaxIgniteDPSUncapped))
 					else
-						t_insert(breakdown.IgniteDPS, s_format("%.0f to %.0f ^8(Uncapped Ignite DPS Range)", MinIgniteDPSUncapped, MaxIgniteDPSUncapped))
+						t_insert(breakdown.IgniteDPS, c_format("%.0f to %.0f {TEXT_SECONDARY}(Uncapped Ignite DPS Range)", MinIgniteDPSUncapped, MaxIgniteDPSUncapped))
 					end
 					if MinIgniteDPSCapped ~= MinIgniteDPSUncapped then
-						t_insert(breakdown.IgniteDPS, s_format("^8(Raw Min Ignite DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", MinIgniteDPSUncapped - MinIgniteDPSCapped, (MinIgniteDPSUncapped - MinIgniteDPSCapped) / MinIgniteDPSCapped * 100))
+						t_insert(breakdown.IgniteDPS, c_format("{TEXT_SECONDARY}(Raw Min Ignite DPS is {BUILD_NEGATIVE}overcapped {TEXT_SECONDARY}by{TEXT_PRIMARY} %.0f {TEXT_SECONDARY}:{TEXT_PRIMARY} %.1f%%{TEXT_SECONDARY})", MinIgniteDPSUncapped - MinIgniteDPSCapped, (MinIgniteDPSUncapped - MinIgniteDPSCapped) / MinIgniteDPSCapped * 100))
 					end
 					if MaxIgniteDPSCapped ~= MaxIgniteDPSUncapped then
-						t_insert(breakdown.IgniteDPS, s_format("^8(Raw Max Ignite DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", MaxIgniteDPSUncapped - MaxIgniteDPSCapped, (MaxIgniteDPSUncapped - MaxIgniteDPSCapped) / MaxIgniteDPSCapped * 100))
+						t_insert(breakdown.IgniteDPS, c_format("{TEXT_SECONDARY}(Raw Max Ignite DPS is {BUILD_NEGATIVE}overcapped {TEXT_SECONDARY}by{TEXT_PRIMARY} %.0f {TEXT_SECONDARY}:{TEXT_PRIMARY} %.1f%%{TEXT_SECONDARY})", MaxIgniteDPSUncapped - MaxIgniteDPSCapped, (MaxIgniteDPSUncapped - MaxIgniteDPSCapped) / MaxIgniteDPSCapped * 100))
 					end
 					if MaxIgniteDPSCapped ~= MaxIgniteDPSUncapped or MinIgniteDPSCapped ~= MinIgniteDPSUncapped then
-						t_insert(breakdown.IgniteDPS, s_format("%.0f to %.0f ^8(Capped Ignite DPS Range)", MinIgniteDPSCapped, MaxIgniteDPSCapped))
+						t_insert(breakdown.IgniteDPS, c_format("%.0f to %.0f {TEXT_SECONDARY}(Capped Ignite DPS Range)", MinIgniteDPSCapped, MaxIgniteDPSCapped))
 					end
 					if output.CritIgniteDotMulti and (output.CritIgniteDotMulti ~= output.IgniteDotMulti) then
 						local chanceFromHit = output.IgniteChanceOnHit / 100 * (1 - globalOutput.CritChance / 100)
@@ -4485,22 +4489,22 @@ function calcs.offence(env, actor, activeSkill)
 						if isAttack then
 							t_insert(breakdown.IgniteDamage, pass.label..":")
 						end
-						t_insert(breakdown.IgniteDamage, s_format("%.1f ^8(damage per second)", output.IgniteDPS))
-						t_insert(breakdown.IgniteDamage, s_format("x %.2fs ^8(ignite duration)", globalOutput.IgniteDuration))
-						t_insert(breakdown.IgniteDamage, s_format("= %.1f ^8damage per ignite stack", output.IgniteDamage))
+						t_insert(breakdown.IgniteDamage, c_format("%.1f {TEXT_SECONDARY}(damage per second)", output.IgniteDPS))
+						t_insert(breakdown.IgniteDamage, c_format("x %.2fs {TEXT_SECONDARY}(ignite duration)", globalOutput.IgniteDuration))
+						t_insert(breakdown.IgniteDamage, c_format("= %.1f {TEXT_SECONDARY}damage per ignite stack", output.IgniteDamage))
 					end
 					if globalOutput.IgniteDuration ~= data.misc.IgniteDurationBase then
 						globalBreakdown.IgniteDuration = {
-							s_format("%.2fs ^8(base duration)", durationBase)
+							c_format("%.2fs {TEXT_SECONDARY}(base duration)", durationBase)
 						}
 						if durationMod ~= 1 then
-							t_insert(globalBreakdown.IgniteDuration, s_format("x %.2f ^8(duration modifier)", durationMod))
+							t_insert(globalBreakdown.IgniteDuration, c_format("x %.2f {TEXT_SECONDARY}(duration modifier)", durationMod))
 						end
 						if rateMod ~= 1 then
-							t_insert(globalBreakdown.IgniteDuration, s_format("/ %.2f ^8(burn rate modifier)", rateMod))
+							t_insert(globalBreakdown.IgniteDuration, c_format("/ %.2f {TEXT_SECONDARY}(burn rate modifier)", rateMod))
 						end
 						if debuffDurationMult ~= 1 then
-							t_insert(globalBreakdown.IgniteDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+							t_insert(globalBreakdown.IgniteDuration, c_format("/ %.2f {TEXT_SECONDARY}(debuff expires slower/faster)", 1 / debuffDurationMult))
 						end
 						t_insert(globalBreakdown.IgniteDuration, s_format("= %.2fs", globalOutput.IgniteDuration))
 					end
@@ -4560,9 +4564,9 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				breakdown.DotChill = { }
 				breakdown.multiChain(breakdown.DotChill, {
-					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max),
-					base = s_format("%d%% ^8(base)", ailmentData.Chill.default),
-					{ "%.2f ^8(increased effect of chill)", 1 + output.ChillEffectMod / 100},
+					label = c_format("Effect of Chill: {TEXT_SECONDARY}(capped at %d%%)", skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max),
+					base = c_format("%d%% {TEXT_SECONDARY}(base)", ailmentData.Chill.default),
+					{ "%.2f {TEXT_SECONDARY}(increased effect of chill)", 1 + output.ChillEffectMod / 100 },
 					total = s_format("= %.0f%%", output.ChillSourceEffect)
 				})
 			end
@@ -4570,7 +4574,7 @@ function calcs.offence(env, actor, activeSkill)
 		if (output.FreezeChanceOnHit + output.FreezeChanceOnCrit) > 0 then
 			if globalBreakdown then
 				globalBreakdown.FreezeDurationMod = {
-					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+					c_format("Ailment mode: %s {TEXT_SECONDARY}(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
 			local baseVal = calcAilmentDamage("Freeze", output.CritChance, calcAverageSourceDamage("Freeze")) * skillModList:More(cfg, "FreezeAsThoughDealing")
@@ -4579,7 +4583,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.FreezeDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyFreezeDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration", "SelfElementalAilmentDuration", "SelfAilmentDuration") / 100
 				if breakdown then
 					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply for the minimum of 0.3 seconds, target must have no more than %.0f Ailment Threshold.", baseVal * 20 * output.FreezeDurationMod))
-					t_insert(breakdown.FreezeDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
+					t_insert(breakdown.FreezeDPS, c_format("{TEXT_SECONDARY}(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
 				end
 			end
 		end
@@ -4587,7 +4591,7 @@ function calcs.offence(env, actor, activeSkill)
 			if (output[ailment.."ChanceOnHit"] + output[ailment.."ChanceOnCrit"]) > 0 then
 				if globalBreakdown then
 					globalBreakdown[ailment.."EffectMod"] = {
-						s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
+						c_format("Ailment mode: %s {TEXT_SECONDARY}(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 					}
 				end
 				local damage = calcAilmentDamage(ailment, output.CritChance, calcAverageSourceDamage(ailment)) * skillModList:More(cfg, ailment.."AsThoughDealing")
@@ -4616,8 +4620,8 @@ function calcs.offence(env, actor, activeSkill)
 						if desired > 0 and not isValueInArray(val.effList, desired) and current == 0 then
 							t_insert(val.effList, desired)
 						end
-						breakdown[ailment.."DPS"].label = "Resulting ailment effect"..((current > 0 and val.ramping) and s_format(" ^8(with a ^7%s%% ^8%s on the enemy)^7", current, ailment) or "")
-						breakdown[ailment.."DPS"].footer = s_format("^8(ailment threshold is about equal to life, except on bosses that have specific ailment thresholds)\n(the above table shows that when the enemy has X ailment threshold, you ^8%s for Y)", ailment:lower())
+						breakdown[ailment.."DPS"].label = "Resulting ailment effect"..((current > 0 and val.ramping) and c_format(" {TEXT_SECONDARY}(with a {TEXT_PRIMARY}%s%% {TEXT_SECONDARY}%s on the enemy){TEXT_PRIMARY}", current, ailment) or "")
+						breakdown[ailment.."DPS"].footer = c_format("{TEXT_SECONDARY}(ailment threshold is about equal to life, except on bosses that have specific ailment thresholds)\n(the above table shows that when the enemy has X ailment threshold, you %s for Y)", ailment:lower())
 						breakdown[ailment.."DPS"].rowList = { }
 						breakdown[ailment.."DPS"].colList = {
 							{ label = "Ailment Threshold", key = "thresh" },
@@ -4630,7 +4634,7 @@ function calcs.offence(env, actor, activeSkill)
 							local precision = ailmentData[ailment].precision
 							value = m_floor(value * (10 ^ precision)) / (10 ^ precision)
 							local valueFormat = "%."..tostring(precision).."f%%"
-							local threshString = s_format("%d", thresh)..(m_floor(thresh + 0.5) == m_floor(enemyThreshold + 0.5) and s_format(" ^8(%s)", env.configInput.enemyIsBoss) or "")
+							local threshString = s_format("%d", thresh)..(m_floor(thresh + 0.5) == m_floor(enemyThreshold + 0.5) and c_format(" {TEXT_SECONDARY}(%s)", env.configInput.enemyIsBoss) or "")
 							local labels = { }
 							if decCheck == 1 and value ~= 0 then
 								if value == current then
@@ -4647,7 +4651,7 @@ function calcs.offence(env, actor, activeSkill)
 								end
 							end
 							t_insert(breakdown[ailment.."DPS"].rowList, {
-								effect = s_format(valueFormat, value)..(next(labels) ~= nil and " ^8("..table.concat(labels, ", ")..")" or ""),
+								effect = s_format(valueFormat, value)..(next(labels) ~= nil and CC.TEXT_SECONDARY.." ("..table.concat(labels, ", ")..")" or ""),
 								thresh = threshString,
 							})
 						end
@@ -4657,15 +4661,15 @@ function calcs.offence(env, actor, activeSkill)
 						if isAttack then
 							t_insert(breakdown[ailment.."Duration"], pass.label..":")
 						end
-						t_insert(breakdown[ailment.."Duration"], s_format("%.2fs ^8(base duration)", ailmentData[ailment].duration))
+						t_insert(breakdown[ailment.."Duration"], c_format("%.2fs {TEXT_SECONDARY}(base duration)", ailmentData[ailment].duration))
 						if incDur ~= 0 then
-							t_insert(breakdown[ailment.."Duration"], s_format("x %.2f ^8(increased/reduced duration)", 1 + incDur / 100))
+							t_insert(breakdown[ailment.."Duration"], c_format("x %.2f {TEXT_SECONDARY}(increased/reduced duration)", 1 + incDur / 100))
 						end
 						if moreDur ~= 1 then
-							t_insert(breakdown[ailment.."Duration"], s_format("x %.2f ^8(more/less duration)", moreDur))
+							t_insert(breakdown[ailment.."Duration"], c_format("x %.2f {TEXT_SECONDARY}(more/less duration)", moreDur))
 						end
 						if debuffDurationMult ~= 1 then
-							t_insert(breakdown[ailment.."Duration"], s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+							t_insert(breakdown[ailment.."Duration"], c_format("/ %.2f {TEXT_SECONDARY}(debuff expires slower/faster)", 1 / debuffDurationMult))
 						end
 						t_insert(breakdown[ailment.."Duration"], s_format("= %.2fs", output[ailment.."Duration"]))
 					end
@@ -4725,19 +4729,19 @@ function calcs.offence(env, actor, activeSkill)
 		if breakdown then
 			if output.EnemyStunDuration ~= base then
 				breakdown.EnemyStunDuration = {
-					s_format("%.2fs ^8(base duration)", base),
+					c_format("%.2fs {TEXT_SECONDARY}(base duration)", base),
 				}
 				if incDur ~= 0 or (incDurCrit ~= 0 and output.CritChance ~= 0) then
-					t_insert(breakdown.EnemyStunDuration, s_format("x %.2f ^8(increased/reduced stun duration)", 1 + (incDur + incDurCrit * output.CritChance / 100) / 100))
+					t_insert(breakdown.EnemyStunDuration, c_format("x %.2f {TEXT_SECONDARY}(increased/reduced stun duration)", 1 + (incDur + incDurCrit * output.CritChance / 100) / 100))
 				end
 				if moreDur ~= 1 then
-					t_insert(breakdown.EnemyStunDuration, s_format("x %.2f ^8(more/less stun duration)", moreDur))
+					t_insert(breakdown.EnemyStunDuration, c_format("x %.2f {TEXT_SECONDARY}(more/less stun duration)", moreDur))
 				end
 				if chanceToDouble ~= 0 then
-					t_insert(breakdown.EnemyStunDuration, s_format("x %.2f ^8(chance to double stun duration)", 1 + chanceToDouble / 100))
+					t_insert(breakdown.EnemyStunDuration, c_format("x %.2f {TEXT_SECONDARY}(chance to double stun duration)", 1 + chanceToDouble / 100))
 				end
 				if incRecov ~= 0 then
-					t_insert(breakdown.EnemyStunDuration, s_format("/ %.2f ^8(increased/reduced enemy stun recovery)", 1 + incRecov / 100))
+					t_insert(breakdown.EnemyStunDuration, c_format("/ %.2f {TEXT_SECONDARY}(increased/reduced enemy stun recovery)", 1 + incRecov / 100))
 				end
 				t_insert(breakdown.EnemyStunDuration, s_format("= %.2fs", output.EnemyStunDuration))
 				if minimumStunDuration ~= maximumStunDuration then
@@ -4745,7 +4749,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local enemyActionSpeed = calcs.actionSpeedMod(actor.enemy)
 				if enemyActionSpeed ~= 1 then
-					t_insert(breakdown.EnemyStunDuration, s_format("/ %.2f ^8(enemy action speed)", enemyActionSpeed))
+					t_insert(breakdown.EnemyStunDuration, c_format("/ %.2f {TEXT_SECONDARY}(enemy action speed)", enemyActionSpeed))
 					t_insert(breakdown.EnemyStunDuration, s_format("= %.2fs (note that for effects that care about duration this is ignored)", output.EnemyStunDuration / enemyActionSpeed))
 					if minimumStunDuration ~= maximumStunDuration then
 						t_insert(breakdown.EnemyStunDuration, s_format("(minimum: %.2fs, maximum: %.2fs)", minimumStunDuration / enemyActionSpeed, maximumStunDuration / enemyActionSpeed))
@@ -4786,16 +4790,16 @@ function calcs.offence(env, actor, activeSkill)
 
 			if breakdown then
 				breakdown.ImpaleStoredDamage = {}
-				t_insert(breakdown.ImpaleStoredDamage, "10% ^8(base value)")
-				t_insert(breakdown.ImpaleStoredDamage, s_format("x %.2f ^8(increased effectiveness)", storedExpectedDamageModifier))
+				t_insert(breakdown.ImpaleStoredDamage, c_format("10% {TEXT_SECONDARY}(base value)"))
+				t_insert(breakdown.ImpaleStoredDamage, c_format("x %.2f {TEXT_SECONDARY}(increased effectiveness)", storedExpectedDamageModifier))
 				t_insert(breakdown.ImpaleStoredDamage, s_format("= %.1f%%", output.ImpaleStoredDamage))
 
 				breakdown.ImpaleModifier = {}
-				t_insert(breakdown.ImpaleModifier, s_format("%d ^8(number of stacks, can be overridden in the Configuration tab)", impaleStacks))
-				t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
-				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
-				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale enemy physical damage reduction)", (1 - impaleResist / 100)))
-				t_insert(breakdown.ImpaleModifier, s_format("= %.3f ^8(impale damage multiplier)", impaleDMGModifier))
+				t_insert(breakdown.ImpaleModifier, c_format("%d {TEXT_SECONDARY}(number of stacks, can be overridden in the Configuration tab)", impaleStacks))
+				t_insert(breakdown.ImpaleModifier, c_format("x %.3f {TEXT_SECONDARY}(stored damage)", impaleStoredDamage))
+				t_insert(breakdown.ImpaleModifier, c_format("x %.2f {TEXT_SECONDARY}(impale chance)", impaleChance))
+				t_insert(breakdown.ImpaleModifier, c_format("x %.2f {TEXT_SECONDARY}(impale enemy physical damage reduction)", (1 - impaleResist / 100)))
+				t_insert(breakdown.ImpaleModifier, c_format("= %.3f {TEXT_SECONDARY}(impale damage multiplier)", impaleDMGModifier))
 			end
 		end
 	end
@@ -4881,10 +4885,10 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.dot(breakdown.DecayDPS, skillData.decay, inc, more, mult, nil, nil, effMult, output.DecayDPS)
 			if output.DecayDuration ~= 8 then
 				breakdown.DecayDuration = {
-					s_format("%.2fs ^8(base duration)", 8)
+					c_format("%.2fs {TEXT_SECONDARY}(base duration)", 8)
 				}
 				if debuffDurationMult ~= 1 then
-					t_insert(breakdown.DecayDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+					t_insert(breakdown.DecayDuration, c_format("/ %.2f {TEXT_SECONDARY}(debuff expires slower/faster)", 1 / debuffDurationMult))
 				end
 				t_insert(breakdown.DecayDuration, s_format("= %.2fs", output.DecayDuration))
 			end
@@ -5015,15 +5019,15 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotalDotCalcSection = output.TotalDot
 		if breakdown then
 			breakdown.TotalDot = {
-				s_format("%.1f ^8(Damage per Instance)", output.TotalDotInstance),
-				s_format("x %.2f ^8(hits per second)", speed),
-				s_format("x %.2f ^8(skill duration)", output.Duration),
+				c_format("%.1f {TEXT_SECONDARY}(Damage per Instance)", output.TotalDotInstance),
+				c_format("x %.2f {TEXT_SECONDARY}(hits per second)", speed),
+				c_format("x %.2f {TEXT_SECONDARY}(skill duration)", output.Duration),
 			}
 			if skillData.dpsMultiplier ~= 1 then
-				t_insert(breakdown.TotalDot, s_format("x %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+				t_insert(breakdown.TotalDot, c_format("x %g {TEXT_SECONDARY}(DPS multiplier for this skill)", skillData.dpsMultiplier))
 			end
 			if quantityMultiplier > 1 then
-				t_insert(breakdown.TotalDot, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
+				t_insert(breakdown.TotalDot, c_format("x %g {TEXT_SECONDARY}(quantity multiplier for this skill)", quantityMultiplier))
 			end
 			t_insert(breakdown.TotalDot, s_format("= %.1f", output.TotalDot))
 		end
@@ -5090,7 +5094,7 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				breakdown[usedResource.."PerSecondCost"] = copyTable(breakdown[resource.."Cost"])
 				t_remove(breakdown[usedResource.."PerSecondCost"])
-				t_insert(breakdown[usedResource.."PerSecondCost"], s_format("x %.2f ^8("..timeType.." speed)", useSpeed))
+				t_insert(breakdown[usedResource.."PerSecondCost"], c_format("x %.2f {TEXT_SECONDARY}("..timeType.." speed)", useSpeed))
 				t_insert(breakdown[usedResource.."PerSecondCost"], s_format("= %.2f per second", output[usedResource.."PerSecondCost"]))
 			end
 		end
@@ -5146,12 +5150,12 @@ function calcs.offence(env, actor, activeSkill)
 					if breakdown then
 						t_insert(damageBreakdown, damageType.." Damage Taken")
 						if damageTakenAs ~= 1 then
-							t_insert(damageBreakdown, s_format("^8=^7 %d^8 (Base Damage)^7 * %.2f^8 (Damage taken as %s)", baseDmg, damageTakenAs, damageType))
+							t_insert(damageBreakdown, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %d{TEXT_SECONDARY} (Base Damage){TEXT_PRIMARY} * %.2f{TEXT_SECONDARY} (Damage taken as %s)", baseDmg, damageTakenAs, damageType))
 						end
 						if combinedMult ~= 1 then
-							t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage)^7 * %.4f^8 (Damage taken multi)", damage, damageType, combinedMult))
+							t_insert(damageBreakdown, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %d{TEXT_SECONDARY} (%s Damage){TEXT_PRIMARY} * %.4f{TEXT_SECONDARY} (Damage taken multi)", damage, damageType, combinedMult))
 						end
-						t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage taken)", finalDamage, damageType))
+						t_insert(damageBreakdown, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %d{TEXT_SECONDARY} (%s Damage taken)", finalDamage, damageType))
 						t_insert(damageBreakdown, s_format(""))
 					end
 				end
@@ -5171,7 +5175,7 @@ function calcs.offence(env, actor, activeSkill)
 					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, dmgVal)
 					t_insert(dmgBreakdown, 1, s_format("Heartbound Loop base damage: %d", dmgVal))
 					t_insert(dmgBreakdown, 2, s_format(""))
-					t_insert(dmgBreakdown, s_format("Total Heartbound Loop damage taken per cast/attack: %.2f * %d ^8(minions per cast)^7 = %.2f",totalDmgTaken, output.SummonedMinionsPerCast, totalDmgTaken * output.SummonedMinionsPerCast))
+					t_insert(dmgBreakdown, c_format("Total Heartbound Loop damage taken per cast/attack: %.2f * %d {TEXT_SECONDARY}(minions per cast){TEXT_PRIMARY} = %.2f",totalDmgTaken, output.SummonedMinionsPerCast, totalDmgTaken * output.SummonedMinionsPerCast))
 					return dmgBreakdown, totalDmgTaken * output.SummonedMinionsPerCast
 				end
 			end,
@@ -5199,7 +5203,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if output.ManaHasCost and dmgType and dmgMult then
 					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, (output.ManaCost or 0) * dmgMult/100)
-					t_insert(dmgBreakdown, 1, s_format("Scold's Bridle base damage: %d ^8(Mana Cost)^7 * %d%% = %.2f", (output.ManaCost or 0), dmgMult, (output.ManaCost or 0) * dmgMult/100))
+					t_insert(dmgBreakdown, 1, c_format("Scold's Bridle base damage: %d {TEXT_SECONDARY}(Mana Cost){TEXT_PRIMARY} * %d%% = %.2f", (output.ManaCost or 0), dmgMult, (output.ManaCost or 0) * dmgMult/100))
 					t_insert(dmgBreakdown, 2, s_format(""))
 					t_insert(dmgBreakdown, s_format("Total Scold's Bridle damage taken per cast/attack: %.2f ", totalDmgTaken))
 					return dmgBreakdown, totalDmgTaken
@@ -5212,7 +5216,7 @@ function calcs.offence(env, actor, activeSkill)
 				local dmgVal = activeSkill.baseSkillModList:Flag(nil, "HasTrauma") and damagePerTrauma * currentTraumaStacks
 				if dmgType and dmgVal then
 					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, dmgVal)
-					t_insert(dmgBreakdown, 1, s_format("%d ^8(base %s damage)^7 * %.2f ^8(%s trauma)^7 = %.2f %s damage", damagePerTrauma, dmgType, currentTraumaStacks, activeSkill.skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks") == currentTraumaStacks and "sustainable" or "current", dmgVal, dmgType))
+					t_insert(dmgBreakdown, 1, c_format("%d {TEXT_SECONDARY}(base %s damage){TEXT_PRIMARY} * %.2f {TEXT_SECONDARY}(%s trauma){TEXT_PRIMARY} = %.2f %s damage", damagePerTrauma, dmgType, currentTraumaStacks, activeSkill.skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks") == currentTraumaStacks and "sustainable" or "current", dmgVal, dmgType))
 					t_insert(dmgBreakdown, 2, s_format(""))
 					t_insert(dmgBreakdown, s_format("Total Trauma damage taken per cast/attack: %.2f ", totalDmgTaken))
 					return dmgBreakdown, totalDmgTaken
@@ -5331,17 +5335,17 @@ function calcs.offence(env, actor, activeSkill)
 		output.CombinedDPS = output.CombinedDPS + output.ImpaleDPS
 		if breakdown then
 			breakdown.ImpaleDPS = {}
-			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit)", output.ImpaleHit))
-			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+			t_insert(breakdown.ImpaleDPS, c_format("%.2f {TEXT_SECONDARY}(average physical hit)", output.ImpaleHit))
+			t_insert(breakdown.ImpaleDPS, c_format("x %.2f {TEXT_SECONDARY}(chance to hit)", output.HitChance / 100))
 			if skillFlags.notAverage then
-				t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
+				t_insert(breakdown.ImpaleDPS, output.HitSpeed and c_format("x %.2f {TEXT_SECONDARY}(hit rate)", output.HitSpeed) or c_format("x %.2f {TEXT_SECONDARY}(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
 			end
-			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
+			t_insert(breakdown.ImpaleDPS, c_format("x %.2f {TEXT_SECONDARY}(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
 			if skillData.dpsMultiplier ~= 1 then
-				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(dps multiplier for this skill)", skillData.dpsMultiplier))
+				t_insert(breakdown.ImpaleDPS, c_format("x %g {TEXT_SECONDARY}(dps multiplier for this skill)", skillData.dpsMultiplier))
 			end
 			if quantityMultiplier > 1 then
-				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
+				t_insert(breakdown.ImpaleDPS, c_format("x %g {TEXT_SECONDARY}(quantity multiplier for this skill)", quantityMultiplier))
 			end
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
 		end

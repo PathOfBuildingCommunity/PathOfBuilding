@@ -11,7 +11,7 @@ end)
 
 function SpecColListClass:GetRowValue(column, index, specCol)
 	if column == 1 then
-		return #specCol.name > 0 and ("^7"..specCol.name) or "???"
+		return #specCol.name > 0 and (UI.CC.TEXT_PRIMARY..specCol.name) or "???"
 	end
 end
 

@@ -11,6 +11,7 @@ local m_max = math.max
 local m_floor = math.floor
 local t_insert = table.insert
 local t_concat = table.concat
+local CC = UI.CC
 
 local skillTypes = {
 	"act_str",
@@ -133,8 +134,6 @@ data.powerStatList = {
 	{ stat="SpellBlockChance", label="Spell Block Chance" },
 	{ stat="SpellSuppressionChance", label="Spell Suppression Chance" },
 }
-
-data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }
 
 data.setJewelRadiiGlobally = function(treeVersion)
 	local major, minor = treeVersion:match("(%d+)_(%d+)")
@@ -587,37 +586,6 @@ do
 	}
 
 	data.bossSkills, data.bossSkillsList = LoadModule("Data/BossSkills")
-
-	data.enemyIsBossTooltip = [[Bosses' damage is monster damage scaled to an average damage of their attacks
-This is divided by 4.40 to represent 4 damage types + some (40% as much) ^xD02090chaos
-^7Fill in the exact damage numbers if more precision is needed
-
-Bosses' armour and evasion multiplier are calculated using the average of the boss type
-
-Standard Boss adds the following modifiers:
-	+40% to enemy Elemental Resistances
-	+25% to enemy ^xD02090Chaos Resistance
-	^7]]..tostring(m_floor(data.misc.stdBossDPSMult * 100))..[[% of monster Damage of each type
-	]]..tostring(m_floor(data.misc.stdBossDPSMult * 4.4 * 100))..[[% of monster Damage total
-
-Guardian / Pinnacle Boss adds the following modifiers:
-	+50% to enemy Elemental Resistances
-	+30% to enemy ^xD02090Chaos Resistance
-	^7]]..tostring(m_floor(data.bossStats.PinnacleArmourMean))..[[% of monster Armour
-	]]..tostring(m_floor(data.bossStats.PinnacleEvasionMean))..[[% of monster ^x33FF77Evasion
-	^7]]..tostring(m_floor(data.misc.pinnacleBossDPSMult * 100))..[[% of monster Damage of each type
-	]]..tostring(m_floor(data.misc.pinnacleBossDPSMult * 4.4 * 100))..[[% of monster Damage total
-	]]..tostring(data.misc.pinnacleBossPen)..[[% penetration
-
-Uber Pinnacle Boss adds the following modifiers:
-	+50% to enemy Elemental Resistances
-	+30% to enemy ^xD02090Chaos Resistance
-	^7]]..tostring(m_floor(data.bossStats.UberArmourMean))..[[% of monster Armour
-	]]..tostring(m_floor(data.bossStats.UberEvasionMean))..[[% of monster ^x33FF77Evasion
-	^770% less to enemy Damage taken
-	]]..tostring(m_floor(data.misc.uberBossDPSMult * 100))..[[% of monster Damage of each type
-	]]..tostring(m_floor(data.misc.uberBossDPSMult * 4.25 * 100))..[[% of monster Damage total
-	]]..tostring(data.misc.uberBossPen)..[[% penetration]]
 end
 
 -- Misc data tables

@@ -9,7 +9,7 @@ end)
 
 function DatListClass:GetRowValue(column, index, datFile)
 	if column == 1 then
-		return "^7"..datFile.name
+		return UI.CC.TEXT_PRIMARY..datFile.name
 	end
 end
 

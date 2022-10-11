@@ -4,6 +4,22 @@
 -- Notes tab for the current build.
 --
 local t_insert = table.insert
+local CC = UI.CC
+
+local notesColor = {
+	NORMAL = "^xC8C8C8",
+	MAGIC = "^x8888FF",
+	RARE = "^xFFFF77",
+	UNIQUE = "^xAF6025",
+	FIRE = "^xB97123",
+	COLD = "^x3F6DB3",
+	LIGHTNING = "^xADAA47",
+	CHAOS = "^xD02090",
+	STRENGTH = "^xE05030",
+	DEXTERITY = "^x70FF70",
+	INTELLIGENCE = "^x7070FF",
+	DEFAULT = "^7",
+}
 
 local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(self, build)
 	self.ControlHost()
@@ -14,22 +30,22 @@ local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(se
 	self.lastContent = ""
 	self.showColorCodes = false
 
-	local notesDesc = [[^7You can use Ctrl +/- (or Ctrl+Scroll) to zoom in and out and Ctrl+0 to reset.
+	local notesDesc = CC.TEXT_PRIMARY..[[You can use Ctrl +/- (or Ctrl+Scroll) to zoom in and out and Ctrl+0 to reset.
 This field also supports different colors.  Using the caret symbol (^) followed by a Hex code or a number (0-9) will set the color.
 Below are some common color codes PoB uses:	]]
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, notesDesc)
-	self.controls.normal = new("ButtonControl", {"TOPLEFT",self.controls.notesDesc,"TOPLEFT"}, 0, 48, 100, 18, colorCodes.NORMAL.."NORMAL", function() self:SetColor(colorCodes.NORMAL) end)
-	self.controls.magic = new("ButtonControl", {"TOPLEFT",self.controls.normal,"TOPLEFT"}, 120, 0, 100, 18, colorCodes.MAGIC.."MAGIC", function() self:SetColor(colorCodes.MAGIC) end)
-	self.controls.rare = new("ButtonControl", {"TOPLEFT",self.controls.magic,"TOPLEFT"}, 120, 0, 100, 18, colorCodes.RARE.."RARE", function() self:SetColor(colorCodes.RARE) end)
-	self.controls.unique = new("ButtonControl", {"TOPLEFT",self.controls.rare,"TOPLEFT"}, 120, 0, 100, 18, colorCodes.UNIQUE.."UNIQUE", function() self:SetColor(colorCodes.UNIQUE) end)
-	self.controls.fire = new("ButtonControl", {"TOPLEFT",self.controls.normal,"TOPLEFT"}, 0, 18, 100, 18, colorCodes.FIRE.."FIRE", function() self:SetColor(colorCodes.FIRE) end)
-	self.controls.cold = new("ButtonControl", {"TOPLEFT",self.controls.fire,"TOPLEFT"}, 120, 0, 100, 18, colorCodes.COLD.."COLD", function() self:SetColor(colorCodes.COLD) end)
-	self.controls.lightning = new("ButtonControl", {"TOPLEFT",self.controls.cold,"TOPLEFT"}, 120, 0, 100, 18, colorCodes.LIGHTNING.."LIGHTNING", function() self:SetColor(colorCodes.LIGHTNING) end)
-	self.controls.chaos = new("ButtonControl", {"TOPLEFT",self.controls.lightning,"TOPLEFT"}, 120, 0, 100, 18, colorCodes.CHAOS.."CHAOS", function() self:SetColor(colorCodes.CHAOS) end)
-	self.controls.strength = new("ButtonControl", {"TOPLEFT",self.controls.fire,"TOPLEFT"}, 0, 18, 100, 18, colorCodes.STRENGTH.."STRENGTH", function() self:SetColor(colorCodes.STRENGTH) end)
-	self.controls.dexterity = new("ButtonControl", {"TOPLEFT",self.controls.strength,"TOPLEFT"}, 120, 0, 100, 18, colorCodes.DEXTERITY.."DEXTERITY", function() self:SetColor(colorCodes.DEXTERITY) end)
-	self.controls.intelligence = new("ButtonControl", {"TOPLEFT",self.controls.dexterity,"TOPLEFT"}, 120, 0, 100, 18, colorCodes.INTELLIGENCE.."INTELLIGENCE", function() self:SetColor(colorCodes.INTELLIGENCE) end)
-	self.controls.default = new("ButtonControl", {"TOPLEFT",self.controls.intelligence,"TOPLEFT"}, 120, 0, 100, 18, "^7DEFAULT", function() self:SetColor("^7") end)
+	self.controls.normal = new("ButtonControl", {"TOPLEFT",self.controls.notesDesc,"TOPLEFT"}, 0, 48, 100, 18, notesColor.NORMAL.."NORMAL", function() self:SetColor(notesColor.NORMAL) end)
+	self.controls.magic = new("ButtonControl", {"TOPLEFT",self.controls.normal,"TOPLEFT"}, 120, 0, 100, 18, notesColor.MAGIC.."MAGIC", function() self:SetColor(notesColor.MAGIC) end)
+	self.controls.rare = new("ButtonControl", {"TOPLEFT",self.controls.magic,"TOPLEFT"}, 120, 0, 100, 18, notesColor.RARE.."RARE", function() self:SetColor(notesColor.RARE) end)
+	self.controls.unique = new("ButtonControl", {"TOPLEFT",self.controls.rare,"TOPLEFT"}, 120, 0, 100, 18, notesColor.UNIQUE.."UNIQUE", function() self:SetColor(notesColor.UNIQUE) end)
+	self.controls.fire = new("ButtonControl", {"TOPLEFT",self.controls.normal,"TOPLEFT"}, 0, 18, 100, 18, notesColor.FIRE.."FIRE", function() self:SetColor(notesColor.FIRE) end)
+	self.controls.cold = new("ButtonControl", {"TOPLEFT",self.controls.fire,"TOPLEFT"}, 120, 0, 100, 18, notesColor.COLD.."COLD", function() self:SetColor(notesColor.COLD) end)
+	self.controls.lightning = new("ButtonControl", {"TOPLEFT",self.controls.cold,"TOPLEFT"}, 120, 0, 100, 18, notesColor.LIGHTNING.."LIGHTNING", function() self:SetColor(notesColor.LIGHTNING) end)
+	self.controls.chaos = new("ButtonControl", {"TOPLEFT",self.controls.lightning,"TOPLEFT"}, 120, 0, 100, 18, notesColor.CHAOS.."CHAOS", function() self:SetColor(notesColor.CHAOS) end)
+	self.controls.strength = new("ButtonControl", {"TOPLEFT",self.controls.fire,"TOPLEFT"}, 0, 18, 100, 18, notesColor.STRENGTH.."STRENGTH", function() self:SetColor(notesColor.STRENGTH) end)
+	self.controls.dexterity = new("ButtonControl", {"TOPLEFT",self.controls.strength,"TOPLEFT"}, 120, 0, 100, 18, notesColor.DEXTERITY.."DEXTERITY", function() self:SetColor(notesColor.DEXTERITY) end)
+	self.controls.intelligence = new("ButtonControl", {"TOPLEFT",self.controls.dexterity,"TOPLEFT"}, 120, 0, 100, 18, notesColor.INTELLIGENCE.."INTELLIGENCE", function() self:SetColor(notesColor.INTELLIGENCE) end)
+	self.controls.default = new("ButtonControl", {"TOPLEFT",self.controls.intelligence,"TOPLEFT"}, 120, 0, 100, 18, notesColor.DEFAULT.."DEFAULT", function() self:SetColor(notesColor.DEFAULT) end)
 
 	self.controls.edit = new("EditControl", {"TOPLEFT",self.controls.fire,"TOPLEFT"}, 0, 48, 0, 0, "", nil, "^%C\t\n", nil, nil, 16, true)
 	self.controls.edit.width = function()

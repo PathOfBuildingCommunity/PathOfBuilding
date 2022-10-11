@@ -3551,7 +3551,7 @@ skills["FrozenSweep"] = {
 	},
 	preDamageFunc = function(activeSkill, output, breakdown)
 		local t_insert = table.insert
-		local s_format = string.format
+		local c_format = UI.colorFormat
 		local parentSkill
 		local m_ceil = math.ceil
 		local m_max = math.max
@@ -3592,9 +3592,9 @@ skills["FrozenSweep"] = {
 		if breakdown then
 			breakdown.SkillDPSMultiplier = {}
 			t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-			t_insert(breakdown.SkillDPSMultiplier, "^8= extra statue chance / statues waited for")
-			t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%d%%^8 / ^7%.2f", extraStatueChance, statuesWaitedFor))
-			t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.3f", dpsMultiplier))
+			t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}= extra statue chance / statues waited for"))
+			t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}= {TEXT_PRIMARY}%d%%{TEXT_SECONDARY} / {TEXT_PRIMARY}%.2f", extraStatueChance, statuesWaitedFor))
+			t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}= {TEXT_PRIMARY}%.3f", dpsMultiplier))
 		end
 		if dpsMultiplier ~= 1 then
 			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * dpsMultiplier

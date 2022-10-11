@@ -32,7 +32,7 @@ return {
 		},
 		["Resistant"] = {
 			type = "list",
-			label = "Enemy has Elemental / ^xD02090Chaos ^7Resist:",
+			label = "Enemy has Elemental / {STAT_CHAOS}Chaos {TEXT_PRIMARY}Resist:",
 			tooltipLines = { "+%d%% Monster Elemental Resistances", "+%d%% Monster Chaos Resistance" },
 			values = { { 20, 15 }, { 30, 20 }, { 40, 25 } },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
@@ -207,7 +207,7 @@ return {
 		},
 		["of Congealment"] = {
 			type = "check",
-			label = "Cannot Leech ^xE05030Life ^7/ ^x7070FFMana?",
+			label = "Cannot Leech {STAT_LIFE}Life {TEXT_PRIMARY}/ {STAT_MANA}Mana?",
 			tooltipLines = { "Cannot Leech from Monsters" },
 			apply = function(val, mapModEffect, modList, enemyModList)
 				enemyModList:NewMod("CannotLeechLifeFromSelf", "FLAG", true, "Map mod of Congealment")
@@ -289,7 +289,7 @@ return {
 		},
 		["of Smothering"] = {
 			type = "list",
-			label = "Less Recovery Rate of ^xE05030Life ^7and ^x88FFFFEnergy Shield:",
+			label = "Less Recovery Rate of {STAT_LIFE}}Life {TEXT_PRIMARY}and {STAT_ES}Energy Shield:",
 			tooltipLines = { "Players have %d%% less Recovery Rate of Life and Energy Shield" },
 			values = { 20, 40, 60 },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
@@ -299,7 +299,7 @@ return {
 		},
 		["of Stasis"] = {
 			type = "check",
-			label = "Cannot Regen ^xE05030Life^7, ^x7070FFMana ^7or ^x88FFFFES?",
+			label = "Cannot Regen {STAT_LIFE}Life{TEXT_PRIMARY}, {STAT_MANA}Mana {TEXT_PRIMARY}or {STAT_ES}ES?",
 			tooltipLines = { "Players cannot Regenerate Life, Mana or Energy Shield" },
 			apply = function(val, mapModEffect, modList, enemyModList)
 				modList:NewMod("NoLifeRegen", "FLAG", true, "Map mod of Stasis")
@@ -431,7 +431,7 @@ return {
 		{ val = "of Insulation", label = "avoid Elemental Ailments:" .. "                                Enemy".."of Impotence" },
 		{ val = "of Miring", label = "Enemy has inc. Accuracy: / Players have to amount of Suppressed Spell Damage Prevented" .. "                                ".."of Miring" },
 		{ val = "of Rust", label = "Reduced Block Chance / less Armour:" .. "                                ".."of Rust" },
-		{ val = "of Smothering", label = "Less Recovery Rate of ^xE05030Life ^7and ^x88FFFFEnergy Shield:" .. "                                ".."of Smothering" },
+		{ val = "of Smothering", label = "Less Recovery Rate of {STAT_LIFE}Life {TEXT_PRIMARY}and {STAT_ES}Energy Shield:" .. "                                ".."of Smothering" },
 		{ val = "of Stasis", label = "Cannot Regen" .. "                                Life, Mana or ES".."of Stasis" },
 		{ val = "of Toughness", label = "Enemy takes red. Extra Crit Damage:" .. "                                ".."of Toughness" },
 		{ val = "of Fatigue", label = "Less Cooldown Recovery                                 Players have Rate".."of Fatigue" },

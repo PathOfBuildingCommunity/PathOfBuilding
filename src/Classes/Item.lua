@@ -9,6 +9,7 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local CC = UI.CC
 
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 local catalystList = {"Abrasive", "Accelerating", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Tempering", "Turbulent", "Unstable"}
@@ -308,7 +309,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		local rarity = self.rawLines[l]:match("^Rarity: (%a+)")
 		if rarity then
 			mode = "GAME"
-			if colorCodes[rarity:upper()] then
+			if CC["ITEM_RARITY_"..rarity:upper()] then
 				self.rarity = rarity:upper()
 			end
 			if self.rarity == "UNIQUE" then

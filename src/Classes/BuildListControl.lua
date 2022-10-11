@@ -5,6 +5,8 @@
 --
 local ipairs = ipairs
 local s_format = string.format
+local CC = UI.CC
+local c_format = UI.colorFormat
 
 local BuildListClass = newClass("BuildListControl", "ListControl", function(self, anchor, x, y, width, height, listMode)
 	self.ListControl(anchor, x, y, width, height, 20, "VERTICAL", false, listMode.list)
@@ -71,7 +73,7 @@ end
 
 function BuildListClass:RenameBuild(build, copyOnName)
 	local controls = { }
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter the new name for this "..(build.folderName and "folder:" or "build:"))
+	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "Enter the new name for this "..(build.folderName and "folder:" or "build:"))
 	controls.edit = new("EditControl", nil, 0, 40, 350, 20, build.folderName or build.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		controls.save.enabled = false
 		if build.folderName then
@@ -169,15 +171,15 @@ function BuildListClass:GetRowValue(column, index, build)
 			label = build.buildName or "?"
 		end
 		if self.cutBuild and self.cutBuild.buildName == build.buildName and self.cutBuild.folderName == build.folderName then
-			return "^xC0B0B0"..label
+			return CC.CONTROL_TEXT_MUTED..label
 		else
 			return label
 		end
 	elseif column == 2 then
 		if build.buildName then
-			return s_format("%sLevel %d %s", 
-				build.className and colorCodes[build.className:upper()] or "^7", 
-				build.level or 1, 
+			local color = build.className and "CLASS_"..build.className:upper() or "TEXT_SECONDARY"
+			return c_format("Level %d {"..color.."}%s",
+				build.level or 1,
 				(build.ascendClassName ~= "None" and build.ascendClassName) or build.className or "?"
 			)
 		else

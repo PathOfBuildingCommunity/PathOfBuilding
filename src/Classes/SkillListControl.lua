@@ -6,6 +6,7 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
+local CC = UI.CC
 local slot_map = {
 	["Weapon 1"] 		= { icon = NewImageHandle(), path = "Assets/icon_weapon.png" },
 	["Weapon 2"] 		= { icon = NewImageHandle(), path = "Assets/icon_weapon_2.png" },
@@ -28,7 +29,7 @@ local slot_map = {
 local SkillListClass = newClass("SkillListControl", "ListControl", function(self, anchor, x, y, width, height, skillsTab)
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, skillsTab.socketGroupList)
 	self.skillsTab = skillsTab
-	self.label = "^7Socket Groups:"
+	self.label = CC.TEXT_PRIMARY .. "Socket Groups:"
 	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
@@ -73,15 +74,15 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 		local currentMainSkill = self.skillsTab.build.mainSocketGroup == index
 		local disabled = not socketGroup.enabled or not socketGroup.slotEnabled
 		if disabled then
-			local colour = currentMainSkill and "" or "^x7F7F7F"
+			local colour = currentMainSkill and "" or CC.CONTROL_TEXT_INACTIVE
 			label = colour .. label .. " (Disabled)"
 		end
-		if currentMainSkill then 
+		if currentMainSkill then
 			local activeLabel = disabled and " (Forced Active)" or " (Active)"
-			label = label .. colorCodes.RELIC .. activeLabel
+			label = label .. CC.TEXT_ACCENT3 .. activeLabel
 		end
 		if socketGroup.includeInFullDPS then 
-			label = label .. colorCodes.CUSTOM .. " (FullDPS)"
+			label = label..CC.TEXT_ACCENT1.." (FullDPS)"
 		end
 		return label
 	end

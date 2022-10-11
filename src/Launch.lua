@@ -12,6 +12,24 @@ SetWindowTitle(APP_NAME)
 ConExecute("set vid_mode 8")
 ConExecute("set vid_resizable 3")
 
+local _SetDrawColor = SetDrawColor
+--- Usage: SetDrawColor(red, green, blue[, alpha]) or SetDrawColor(escapeStr)
+function SetDrawColor(r, g, b, a)
+	local arg_type = type(r)
+	if arg_type == "number" then
+		_SetDrawColor(r, g, b, a)
+	elseif arg_type == "table" then
+		_SetDrawColor(r[1], r[2], r[3], r[4])
+	else
+		if r:match("^%^xx") then
+			local r, g, b, a = tonumber(r:sub(4, 5), 16) / 255, tonumber(r:sub(6, 7), 16) / 255, tonumber(r:sub(8, 9), 16) / 255, tonumber(r:sub(10, 11), 16) / 255
+			_SetDrawColor(r, g, b, a)
+		else
+			_SetDrawColor(r)
+		end
+	end
+end
+
 launch = { }
 SetMainObject(launch)
 

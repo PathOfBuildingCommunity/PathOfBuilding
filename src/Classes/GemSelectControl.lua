@@ -10,6 +10,9 @@ local t_sort = table.sort
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local s_format = string.format
+local CC = UI.CC
+local c_format = UI.colorFormat
 
 local toolTipText = "Prefix tag searches with a colon and exclude tags with a dash. e.g. :fire:lightning:-cold:area"
 local altQualMap = {
@@ -281,11 +284,11 @@ function GemSelectClass:UpdateSortCache()
 		end
 		-- Color based on the DPS
 		if sortCache.dps[gemId] > baseDPS then
-			sortCache.dpsColor[gemId] = "^x228866"
+			sortCache.dpsColor[gemId] = CC.BUILD_POSITIVE
 		elseif sortCache.dps[gemId] < baseDPS then
-			sortCache.dpsColor[gemId] = "^xFF4422"
+			sortCache.dpsColor[gemId] = CC.BUILD_NEGATIVE
 		else
-			sortCache.dpsColor[gemId] = "^xFFFF66"
+			sortCache.dpsColor[gemId] = CC.CONTROL_ITEM
 		end
 	end
 	--ConPrintf("Gem Selector time: %d ms", GetTime() - start)
@@ -388,13 +391,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			local gemId = self.list[index]
 			local gemData = self.gems[gemId]
 			if gemData then
-				if gemData.grantedEffect.color == 1 then
-					SetDrawColor(colorCodes.STRENGTH)
-				elseif gemData.grantedEffect.color == 2 then
-					SetDrawColor(colorCodes.DEXTERITY)
-				elseif gemData.grantedEffect.color == 3 then
-					SetDrawColor(colorCodes.INTELLIGENCE)
-				end
+				SetDrawColor(UI.skillColorMap[gemData.grantedEffect.color])
 			end
 			local gemText = gemData and gemData.name or "<No matches>"
 			if gemId and gemId ~= "" then
@@ -461,7 +458,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 					gemList[self.index] = nil
 				end
 				self.tooltip:AddSeparator(10)
-				self.skillsTab.build:AddStatComparesToTooltip(self.tooltip, calcBase, output, "^7Selecting this gem will give you:")
+				self.skillsTab.build:AddStatComparesToTooltip(self.tooltip, calcBase, output, CC.TEXT_PRIMARY.."Selecting this gem will give you:")
 				self.tooltip:Draw(x, y + height + 2 + (self.hoverSel - 1) * (height - 4) - scrollBar.offset, width, height - 4, viewPort)
 			end
 		end
@@ -509,25 +506,25 @@ end
 
 function GemSelectClass:AddGemTooltip(gemInstance)
 	self.tooltip.center = true
-	self.tooltip.color = colorCodes.GEM
+	self.tooltip.color = CC.ITEM_GEM
 	local primary = gemInstance.gemData.grantedEffect
 	local secondary = gemInstance.gemData.secondaryGrantedEffect
 	if secondary and (not secondary.support or gemInstance.gemData.secondaryEffectName) then
 		local grantedEffect = gemInstance.gemData.VaalGem and secondary or primary
 		local grantedEffectSecondary = gemInstance.gemData.VaalGem and primary or secondary
-		self.tooltip:AddLine(20, colorCodes.GEM .. altQualMap[gemInstance.qualityId]..grantedEffect.name)
+		self.tooltip:AddLine(20, CC.ITEM_GEM..altQualMap[gemInstance.qualityId]..grantedEffect.name)
 		self.tooltip:AddSeparator(10)
-		self.tooltip:AddLine(16, "^x7F7F7F" .. gemInstance.gemData.tagString)
+		self.tooltip:AddLine(16, CC.ITEM_TEXT..gemInstance.gemData.tagString)
 		self:AddCommonGemInfo(gemInstance, grantedEffect, true)
 		self.tooltip:AddSeparator(10)
-		self.tooltip:AddLine(20, colorCodes.GEM .. (gemInstance.gemData.secondaryEffectName or grantedEffectSecondary.name))
+		self.tooltip:AddLine(20, CC.ITEM_GEM..(gemInstance.gemData.secondaryEffectName or grantedEffectSecondary.name))
 		self.tooltip:AddSeparator(10)
 		self:AddCommonGemInfo(gemInstance, grantedEffectSecondary)
 	else
 		local grantedEffect = gemInstance.gemData.grantedEffect
-		self.tooltip:AddLine(20, colorCodes.GEM .. altQualMap[gemInstance.qualityId]..grantedEffect.name)
+		self.tooltip:AddLine(20, CC.ITEM_GEM..altQualMap[gemInstance.qualityId]..grantedEffect.name)
 		self.tooltip:AddSeparator(10)
-		self.tooltip:AddLine(16, "^x7F7F7F" .. gemInstance.gemData.tagString)
+		self.tooltip:AddLine(16, CC.ITEM_TEXT..gemInstance.gemData.tagString)
 		self:AddCommonGemInfo(gemInstance, grantedEffect, true, secondary and secondary.support and secondary)
 	end
 end
@@ -536,29 +533,29 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 	local displayInstance = gemInstance.displayEffect or gemInstance
 	local grantedEffectLevel = grantedEffect.levels[displayInstance.level] or { }
 	if addReq then
-		self.tooltip:AddLine(16, string.format("^x7F7F7FLevel: ^7%d%s%s",
-			gemInstance.level, 
-			((displayInstance.level > gemInstance.level) and " (" .. colorCodes.MAGIC .. "+" .. (displayInstance.level - gemInstance.level) .. "^7)") or ((displayInstance.level < gemInstance.level) and " (" .. colorCodes.WARNING .. "-" .. (gemInstance.level - displayInstance.level) .. "^7)") or "",
+		self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Level: {TEXT_PRIMARY}%d%s%s",
+			gemInstance.level,
+			((displayInstance.level > gemInstance.level) and c_format(" ({ITEM_RARITY_MAGIC}+%d{TEXT_PRIMARY})", displayInstance.level - gemInstance.level)) or ((displayInstance.level < gemInstance.level) and c_format(" ({WARNING}-%d{TEXT_PRIMARY})", gemInstance.level - displayInstance.level)) or "",
 			(gemInstance.level >= gemInstance.gemData.naturalMaxLevel) and " (Max)" or ""
 		))
 	end
 	if grantedEffect.support then
 		if grantedEffectLevel.manaMultiplier then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FCost & Reservation Multiplier: ^7%d%%", grantedEffectLevel.manaMultiplier + 100))
+			self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Cost & Reservation Multiplier: {TEXT_PRIMARY}%d%%", grantedEffectLevel.manaMultiplier + 100))
 		end
 		local reservation
 		for name, res in pairs(self.reservationMap) do
 			if grantedEffectLevel[name] then
-				reservation = (reservation and (reservation .. ", ") or "") .. self.costs[isValueInArrayPred(self.costs, function(v) return v.Resource == res end)].ResourceString:gsub("{0}", string.format("%d", grantedEffectLevel[name]))
+				reservation = (reservation and (reservation .. ", ") or "") .. self.costs[isValueInArrayPred(self.costs, function(v) return v.Resource == res end)].ResourceString:gsub("{0}", s_format("%d", grantedEffectLevel[name]))
 			end
 		end
 		if reservation then
-			self.tooltip:AddLine(16, "^x7F7F7FReservation Override: ^7"..reservation)
+			self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Reservation Override: {TEXT_PRIMARY}%s", reservation))
 		end
 		if grantedEffectLevel.cooldown then
-			local string = string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown)
+			local string = c_format("{ITEM_TEXT}Cooldown Time: {TEXT_PRIMARY}%.2f sec", grantedEffectLevel.cooldown)
 			if grantedEffectLevel.storedUses and grantedEffectLevel.storedUses > 1 then
-				string = string .. string.format(" (%d uses)", grantedEffectLevel.storedUses)
+				string = string .. s_format(" (%d uses)", grantedEffectLevel.storedUses)
 			end
 			self.tooltip:AddLine(16, string)
 		end
@@ -566,62 +563,62 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 		local reservation
 		for name, res in pairs(self.reservationMap) do
 			if grantedEffectLevel[name] then
-				reservation = (reservation and (reservation..", ") or "") .. self.costs[isValueInArrayPred(self.costs, function(v) return v.Resource == res end)].ResourceString:gsub("{0}", string.format("%d", grantedEffectLevel[name]))
+				reservation = (reservation and (reservation..", ") or "") .. self.costs[isValueInArrayPred(self.costs, function(v) return v.Resource == res end)].ResourceString:gsub("{0}", s_format("%d", grantedEffectLevel[name]))
 			end
 		end
 		if reservation then
-			self.tooltip:AddLine(16, "^x7F7F7FReservation: ^7" .. reservation)
+			self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Reservation: {TEXT_PRIMARY}%s", reservation))
 		end
 		local cost
 		for _, res in ipairs(self.costs) do
 			if grantedEffectLevel.cost and grantedEffectLevel.cost[res.Resource] then
-				cost = (cost and (cost..", ") or "") .. res.ResourceString:gsub("{0}", string.format("%g", round(grantedEffectLevel.cost[res.Resource] / res.Divisor, 2)))
+				cost = (cost and (cost..", ") or "") .. res.ResourceString:gsub("{0}", s_format("%g", round(grantedEffectLevel.cost[res.Resource] / res.Divisor, 2)))
 			end
 		end
 		if cost then
-			self.tooltip:AddLine(16, "^x7F7F7FCost: ^7"..cost)
+			self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Cost: {TEXT_PRIMARY}%s", cost))
 		end
 		if grantedEffectLevel.cooldown then
-			local string = string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown)
+			local string = c_format("{ITEM_TEXT}Cooldown Time: {TEXT_PRIMARY}%.2f sec", grantedEffectLevel.cooldown)
 			if grantedEffectLevel.storedUses and grantedEffectLevel.storedUses > 1 then
-				string = string .. string.format(" (%d uses)", grantedEffectLevel.storedUses)
+				string = string .. s_format(" (%d uses)", grantedEffectLevel.storedUses)
 			end
 			self.tooltip:AddLine(16, string)
 		end
 		if grantedEffectLevel.vaalStoredUses then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FCan Store ^7%d ^x7F7F7FUse (%d Souls)", grantedEffectLevel.vaalStoredUses, grantedEffectLevel.vaalStoredUses * grantedEffectLevel.cost.Soul))
+			self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Can Store {TEXT_PRIMARY}%d {ITEM_TEXT}Use (%d Souls)", grantedEffectLevel.vaalStoredUses, grantedEffectLevel.vaalStoredUses * grantedEffectLevel.cost.Soul))
 		end
 		if grantedEffectLevel.soulPreventionDuration then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FSoul Gain Prevention: ^7%d sec", grantedEffectLevel.soulPreventionDuration))
+			self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Soul Gain Prevention: {TEXT_PRIMARY}%d sec", grantedEffectLevel.soulPreventionDuration))
 		end
 		if gemInstance.gemData.tags.attack then
 			if grantedEffectLevel.attackSpeedMultiplier then
-				self.tooltip:AddLine(16, string.format("^x7F7F7FAttack Speed: ^7%d%% of base", grantedEffectLevel.attackSpeedMultiplier + 100))
+				self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Attack Speed: {TEXT_PRIMARY}%d%% of base", grantedEffectLevel.attackSpeedMultiplier + 100))
 			end
 			if grantedEffectLevel.attackTime then
-				self.tooltip:AddLine(16, string.format("^x7F7F7FAttack Time: ^7%.2f sec", grantedEffectLevel.attackTime / 1000))
+				self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Attack Time: {TEXT_PRIMARY}%.2f sec", grantedEffectLevel.attackTime / 1000))
 			end
 			if grantedEffectLevel.baseMultiplier then
-				self.tooltip:AddLine(16, string.format("^x7F7F7FAttack Damage: ^7%g%% of base", grantedEffectLevel.baseMultiplier * 100))
+				self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Attack Damage: {TEXT_PRIMARY}%g%% of base", grantedEffectLevel.baseMultiplier * 100))
 			end
 		else
 			if grantedEffect.castTime > 0 then
-				self.tooltip:AddLine(16, string.format("^x7F7F7FCast Time: ^7%.2f sec", grantedEffect.castTime))
+				self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Cast Time: {TEXT_PRIMARY}%.2f sec", grantedEffect.castTime))
 			else
-				self.tooltip:AddLine(16, "^x7F7F7FCast Time: ^7Instant")
+				self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Cast Time: {TEXT_PRIMARY}Instant"))
 			end
 		end
 		if grantedEffectLevel.critChance then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FCritical Strike Chance: ^7%.2f%%", grantedEffectLevel.critChance))
+			self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Critical Strike Chance: {TEXT_PRIMARY}%.2f%%", grantedEffectLevel.critChance))
 		end
 		if grantedEffectLevel.damageEffectiveness then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FEffectiveness of Added Damage: ^7%d%%", grantedEffectLevel.damageEffectiveness * 100))
+			self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Effectiveness of Added Damage: {TEXT_PRIMARY}%d%%", grantedEffectLevel.damageEffectiveness * 100))
 		end
 	end
 	if addReq and displayInstance.quality > 0 then
-		self.tooltip:AddLine(16, string.format("^x7F7F7FQuality: "..colorCodes.MAGIC.."+%d%%^7%s",
+		self.tooltip:AddLine(16, c_format("{ITEM_TEXT}Quality: {ITEM_RARITY_MAGIC}+%d%%{TEXT_PRIMARY}%s",
 			gemInstance.quality,
-			(displayInstance.quality > gemInstance.quality) and " ("..colorCodes.MAGIC.."+"..(displayInstance.quality - gemInstance.quality).."^7)" or ""
+			(displayInstance.quality > gemInstance.quality) and c_format(" ({ITEM_RARITY_MAGIC}+%d{TEXT_PRIMARY})", displayInstance.quality - gemInstance.quality) or ""
 		))
 	end
 	self.tooltip:AddSeparator(10)
@@ -635,7 +632,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 	if grantedEffect.description then
 		local wrap = main:WrapString(grantedEffect.description, 16, m_max(DrawStringWidth(16, "VAR", gemInstance.gemData.tagString), 400))
 		for _, line in ipairs(wrap) do
-			self.tooltip:AddLine(16, colorCodes.GEM..line)
+			self.tooltip:AddLine(16, CC.ITEM_GEM..line)
 		end
 	end
 	if self.skillsTab.build.data.describeStats then
@@ -658,14 +655,14 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 						end
 						devText = modLib.formatMod(source[1])
 					end
-					line = line .. " ^2" .. devText
+					line = line.." "..CC.OK..devText
 				end
-				self.tooltip:AddLine(16, colorCodes.MAGIC .. line)
+				self.tooltip:AddLine(16, CC.ITEM_MOD..line)
 			else
 				if launch.devModeAlt then
-					line = line .. " ^1" .. lineMap[line]
+					line = line.." "..CC.ERROR..lineMap[line]
 				end
-				self.tooltip:AddLine(16, colorCodes.UNSUPPORTED .. line)
+				self.tooltip:AddLine(16, CC.ITEM_UNSUPPORTED..line)
 			end
 		end
 	end

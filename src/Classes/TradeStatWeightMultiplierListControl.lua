@@ -3,6 +3,7 @@
 -- Class: Trade Stat Weight Multiplier List Control
 -- Specialized UI element for listing and modifying Trade Stat Weight Multipliers.
 --
+local CC = UI.CC
 
 local TradeStatWeightMultiplierListControlClass = newClass("TradeStatWeightMultiplierListControl", "ListControl", function(self, anchor, x, y, width, height, list, indexController)
 	self.list = list
@@ -25,7 +26,7 @@ end
 function TradeStatWeightMultiplierListControlClass:AddValueTooltip(tooltip, index, data)
 	tooltip:Clear()
 	if not self.noTooltip then
-		tooltip:AddLine(16, "^7Double click to modify this stats weight multiplier.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."Double click to modify this stats weight multiplier.")
 	end
 end
 

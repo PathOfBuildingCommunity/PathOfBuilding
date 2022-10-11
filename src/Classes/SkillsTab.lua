@@ -9,6 +9,8 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
+local CC = UI.CC
+local c_format = UI.colorFormat
 
 local groupSlotDropList = {
 	{ label = "None" },
@@ -102,7 +104,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.setSelect.enabled = function()
 		return #self.skillSetOrderList > 1
 	end
-	self.controls.setLabel = new("LabelControl", { "RIGHT", self.controls.setSelect, "LEFT" }, -2, 0, 0, 16, "^7Skill set:")
+	self.controls.setLabel = new("LabelControl", { "RIGHT", self.controls.setSelect, "LEFT" }, -2, 0, 0, 16, "Skill set:")
 	self.controls.setManage = new("ButtonControl", { "LEFT", self.controls.setSelect, "RIGHT" }, 4, 0, 90, 20, "Manage...", function()
 		self:OpenSkillSetManagePopup()
 	end)
@@ -110,8 +112,8 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	-- Socket group list
 	self.controls.groupList = new("SkillListControl", { "TOPLEFT", self, "TOPLEFT" }, 20, 54, 360, 300, self)
 	self.controls.groupTip = new("LabelControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 0, 8, 0, 14, 
-[[
-^7Usage Tips:
+CC.TEXT_PRIMARY..[[
+Usage Tips:
 - You can copy/paste socket groups using Ctrl+C and Ctrl+V.
 - Ctrl + Click to enable/disable socket groups.
 - Ctrl + Right click to include/exclude in FullDPS calculations.
@@ -135,19 +137,19 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.defaultLevel.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if mode ~= "OUT" and value.description then
-			tooltip:AddLine(16, "^7" .. value.description)
+			tooltip:AddLine(16, CC.TEXT_PRIMARY..value.description)
 		end
 	end
-	self.controls.defaultLevelLabel = new("LabelControl", { "RIGHT", self.controls.defaultLevel, "LEFT" }, -4, 0, 0, 16, "^7Default gem level:")
+	self.controls.defaultLevelLabel = new("LabelControl", { "RIGHT", self.controls.defaultLevel, "LEFT" }, -4, 0, 0, 16, "Default gem level:")
 	self.controls.defaultQuality = new("EditControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 118, 60, 20, nil, nil, "%D", 2, function(buf)
 		self.defaultGemQuality = m_min(tonumber(buf) or 0, 23)
 	end)
-	self.controls.defaultQualityLabel = new("LabelControl", { "RIGHT", self.controls.defaultQuality, "LEFT" }, -4, 0, 0, 16, "^7Default gem quality:")
+	self.controls.defaultQualityLabel = new("LabelControl", { "RIGHT", self.controls.defaultQuality, "LEFT" }, -4, 0, 0, 16, "Default gem quality:")
 	self.controls.showSupportGemTypes = new("DropDownControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 142, 170, 20, showSupportGemTypeList, function(index, value)
 		self.showSupportGemTypes = value.show
 	end)
-	self.controls.showSupportGemTypesLabel = new("LabelControl", { "RIGHT", self.controls.showSupportGemTypes, "LEFT" }, -4, 0, 0, 16, "^7Show support gems:")
-	self.controls.showAltQualityGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 166, 20, "^7Show quality variants:", function(state)
+	self.controls.showSupportGemTypesLabel = new("LabelControl", { "RIGHT", self.controls.showSupportGemTypes, "LEFT" }, -4, 0, 0, 16, "Show support gems:")
+	self.controls.showAltQualityGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 166, 20, "Show quality variants:", function(state)
 		self.showAltQualityGems = state
 	end)
 
@@ -166,7 +168,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
-	self.controls.groupSlotLabel = new("LabelControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, 0, 30, 0, 16, "^7Socketed in:")
+	self.controls.groupSlotLabel = new("LabelControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, 0, 30, 0, 16, "Socketed in:")
 	self.controls.groupSlot = new("DropDownControl", { "TOPLEFT", self.anchorGroupDetail, "TOPLEFT" }, 85, 28, 130, 20, groupSlotDropList, function(index, value)
 		self.displayGroup.slot = value.slotName
 		self:AddUndoState()
@@ -219,24 +221,24 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.sourceNote.label = function()
 		local label
 		if self.displayGroup.explodeSources then
-			label = [[^7This is a special group created for the enemy explosion effect,
+			label = CC.TEXT_PRIMARY .. [[This is a special group created for the enemy explosion effect,
 which comes from the following sources:]]
 			for _, source in ipairs(self.displayGroup.explodeSources) do
-				label = label .. "\n\t" .. colorCodes[source.rarity or "NORMAL"] .. (source.name or source.dn or "???")
+				label = label .. "\n\t" .. CC["ITEM_RARITY_"..(source.rarity or "NORMAL")] .. (source.name or source.dn or "???")
 			end
-			label = label .. "^7\nYou cannot delete this group, but it will disappear if you lose the above sources."
+			label = label .. CC.TEXT_PRIMARY .. "\nYou cannot delete this group, but it will disappear if you lose the above sources."
 		else
 			local activeGem = self.displayGroup.gemList[1]
 			local sourceName
 			if self.displayGroup.sourceItem then
-				sourceName = "'" .. colorCodes[self.displayGroup.sourceItem.rarity] .. self.displayGroup.sourceItem.name
+				sourceName = "'" .. CC["ITEM_RARITY_"..self.displayGroup.sourceItem.rarity] .. self.displayGroup.sourceItem.name
 			elseif self.displayGroup.sourceNode then
-				sourceName = "'" .. colorCodes["NORMAL"] .. self.displayGroup.sourceNode.name
+				sourceName = "'" .. CC.ITEM_RARITY_NORMAL .. self.displayGroup.sourceNode.name
 			else
-				sourceName = "'" .. colorCodes["NORMAL"] .. "?"
+				sourceName = "'" .. CC.ITEM_RARITY_NORMAL .. "?"
 			end
-			sourceName = sourceName .. "^7'"
-			label = [[^7This is a special group created for the ']] .. activeGem.color .. (activeGem.grantedEffect and activeGem.grantedEffect.name or activeGem.nameSpec) .. [[^7' skill,
+			sourceName = sourceName .. CC.TEXT_PRIMARY .. "'"
+			label = CC.TEXT_PRIMARY .. [[This is a special group created for the ']] .. activeGem.color .. (activeGem.grantedEffect and activeGem.grantedEffect.name or activeGem.nameSpec) .. CC.TEXT_PRIMARY .. [[' skill,
 which is being provided by ]] .. sourceName .. [[.
 You cannot delete this group, but it will disappear if you ]] .. (self.displayGroup.sourceNode and [[un-allocate the node.]] or [[un-equip the item.]])
 			if not self.displayGroup.noSupports then
@@ -261,12 +263,12 @@ will automatically apply to the skill.]]
 	self.anchorGemSlots = new("Control", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, 0, 28 + 28 + 16, 0, 0)
 	self.gemSlots = { }
 	self:CreateGemSlot(1)
-	self.controls.gemNameHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].nameSpec, "TOPLEFT" }, 0, -2, 0, 16, "^7Gem name:")
-	self.controls.gemLevelHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].level, "TOPLEFT" }, 0, -2, 0, 16, "^7Level:")
-	self.controls.gemQualityIdHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].qualityId, "TOPLEFT" }, 0, -2, 0, 16, "^7Variant:")
-	self.controls.gemQualityHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].quality, "TOPLEFT" }, 0, -2, 0, 16, "^7Quality:")
-	self.controls.gemEnableHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].enabled, "TOPLEFT" }, -16, -2, 0, 16, "^7Enabled:")
-	self.controls.gemCountHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].count, "TOPLEFT" }, 8, -2, 0, 16, "^7Count:")
+	self.controls.gemNameHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].nameSpec, "TOPLEFT" }, 0, -2, 0, 16, "Gem name:")
+	self.controls.gemLevelHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].level, "TOPLEFT" }, 0, -2, 0, 16, "Level:")
+	self.controls.gemQualityIdHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].qualityId, "TOPLEFT" }, 0, -2, 0, 16, "Variant:")
+	self.controls.gemQualityHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].quality, "TOPLEFT" }, 0, -2, 0, 16, "Quality:")
+	self.controls.gemEnableHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].enabled, "TOPLEFT" }, -16, -2, 0, 16, "Enabled:")
+	self.controls.gemCountHeader = new("LabelControl", { "BOTTOMLEFT", self.gemSlots[1].count, "TOPLEFT" }, 8, -2, 0, 16, "Count:")
 end)
 
 -- parse real gem name and quality by omitting the first word if alt qual is set
@@ -735,9 +737,9 @@ function SkillsTabClass:CreateGemSlot(index)
 		end
 		-- Function for both granted effect and secondary such as vaal
 		local addQualityLines = function(qualityList, grantedEffect)
-			tooltip:AddLine(18, colorCodes.GEM..grantedEffect.name)
+			tooltip:AddLine(18, CC.ITEM_GEM..grantedEffect.name)
 			-- Hardcoded to use 20% quality instead of grabbing from gem, this is for consistency and so we always show something
-			tooltip:AddLine(16, colorCodes.NORMAL.."At +20% Quality:")
+			tooltip:AddLine(16, CC.ITEM_RARITY_NORMAL.."At +20% Quality:")
 			for k, qual in pairs(qualityList) do
 				-- Do the stats one at a time because we're not guaranteed to get the descriptions in the same order we look at them here
 				local stats = { }
@@ -748,9 +750,9 @@ function SkillsTabClass:CreateGemSlot(index)
 					if line then
 						-- Check if we have a handler for the mod in the gem's statMap or in the shared stat map for skills
 						if grantedEffect.statMap[qual[1]] or self.build.data.skillStatMap[qual[1]] then
-							tooltip:AddLine(16, colorCodes.MAGIC..line)
+							tooltip:AddLine(16, CC.ITEM_RARITY_MAGIC..line)
 						else
-							tooltip:AddLine(16, colorCodes.UNSUPPORTED..line)
+							tooltip:AddLine(16, CC.ITEM_UNSUPPORTED..line)
 						end
 					end
 				end
@@ -779,7 +781,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				GlobalCache.useFullDPS = storedGlobalCacheDPSView
 				self.displayGroup.gemList[index].qualityId = tempQual
 				tooltip:AddSeparator(10)
-				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Switching to this quality variant will give you:")
+				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, CC.TEXT_PRIMARY.."Switching to this quality variant will give you:")
 			end
 		end
 	end
@@ -813,7 +815,7 @@ function SkillsTabClass:CreateGemSlot(index)
 					local output = calcFunc({}, {})
 					GlobalCache.useFullDPS = storedGlobalCacheDPSView
 					self.displayGroup.gemList[index].quality = storedQuality
-					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Setting to 20 quality will give you:")
+					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, CC.TEXT_PRIMARY.."Setting to 20 quality will give you:")
 				end
 			end
 		end
@@ -858,7 +860,7 @@ function SkillsTabClass:CreateGemSlot(index)
 					local output = calcFunc({}, {})
 					GlobalCache.useFullDPS = storedGlobalCacheDPSView
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
-					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, self.displayGroup.gemList[index].enabled and "^7Disabling this gem will give you:" or "^7Enabling this gem will give you:")
+					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, CC.TEXT_PRIMARY..(self.displayGroup.gemList[index].enabled and "Disabling this gem will give you:" or "Enabling this gem will give you:"))
 				end
 			end
 		end
@@ -901,9 +903,9 @@ function SkillsTabClass:CreateGemSlot(index)
 	end
 	slot.count.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(self.build.outputRevision, self.displayGroup) then
-			tooltip:AddLine(16, "^8Note: `count` integer value scales the DPS of associated skill by a scalar.")
-			tooltip:AddLine(16, "^8To be used with totems, minions, shot-gunning of projectiles (e.g., VD, magma-orbs),")
-			tooltip:AddLine(16, "^8multi-hit projectiles (e.g. ball-lightning), traps, mines.")
+			tooltip:AddLine(16, CC.TEXT_SECONDARY .. "Note: `count` integer value scales the DPS of associated skill by a scalar.")
+			tooltip:AddLine(16, CC.TEXT_SECONDARY .. "To be used with totems, minions, shot-gunning of projectiles (e.g., VD, magma-orbs),")
+			tooltip:AddLine(16, CC.TEXT_SECONDARY .. "multi-hit projectiles (e.g. ball-lightning), traps, mines.")
 		end
 	end
 	slot.count.enabled = function()
@@ -914,7 +916,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	-- Parser/calculator error message
 	slot.errMsg = new("LabelControl", {"LEFT",slot.count,"RIGHT"}, 2, 2, 0, 16, function()
 		local gemInstance = self.displayGroup and self.displayGroup.gemList[index]
-		return "^1"..(gemInstance and gemInstance.errMsg or "")
+		return CC.ERROR .. (gemInstance and gemInstance.errMsg or "")
 	end)
 	self.controls["gemSlot"..index.."ErrMsg"] = slot.errMsg
 
@@ -1051,7 +1053,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 	-- Loop through the skill gem list
 	local data = self.build.data
 	for _, gemInstance in ipairs(socketGroup.gemList) do
-		gemInstance.color = "^8"
+		gemInstance.color = CC.TEXT_SECONDARY
 		gemInstance.nameSpec = gemInstance.nameSpec or ""
 		local prevDefaultLevel = gemInstance.gemData and gemInstance.gemData.naturalMaxLevel or (gemInstance.new and 20)
 		gemInstance.gemData, gemInstance.grantedEffect = nil
@@ -1099,15 +1101,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 		if gemInstance.gemData or gemInstance.grantedEffect then
 			gemInstance.new = nil
 			local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
-			if grantedEffect.color == 1 then
-				gemInstance.color = colorCodes.STRENGTH
-			elseif grantedEffect.color == 2 then
-				gemInstance.color = colorCodes.DEXTERITY
-			elseif grantedEffect.color == 3 then
-				gemInstance.color = colorCodes.INTELLIGENCE
-			else
-				gemInstance.color = colorCodes.NORMAL
-			end
+			gemInstance.color = UI.skillColorMap[grantedEffect.color]
 			if prevDefaultLevel and gemInstance.gemData and gemInstance.gemData.naturalMaxLevel ~= prevDefaultLevel then
 				gemInstance.level = gemInstance.gemData.naturalMaxLevel
 				gemInstance.naturalMaxLevel = gemInstance.level
@@ -1155,16 +1149,16 @@ end
 function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 	if socketGroup.explodeSources then
 		for _, source in ipairs(socketGroup.explodeSources) do
-			tooltip:AddLine(18, "^7Source: " .. colorCodes[source.rarity or "NORMAL"] .. (source.name or source.dn or "???"))
+			tooltip:AddLine(18, CC.TEXT_PRIMARY.."Source: " .. CC["ITEM_RARITY_"..(source.rarity or "NORMAL")] .. (source.name or source.dn or "???"))
 		end
 		return
 	end
 	if socketGroup.enabled and not socketGroup.slotEnabled then
-		tooltip:AddLine(16, "^7Note: this group is disabled because it is socketed in the inactive weapon set.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."Note: this group is disabled because it is socketed in the inactive weapon set.")
 	end
 	local sourceSingle = socketGroup.sourceItem or socketGroup.sourceNode
 	if sourceSingle then
-		tooltip:AddLine(18, "^7Source: " .. colorCodes[sourceSingle.rarity or "NORMAL"] .. sourceSingle.name)
+		tooltip:AddLine(18, CC.TEXT_PRIMARY.."Source: " .. CC["ITEM_RARITY_"..(sourceSingle.rarity or "NORMAL")] .. sourceSingle.name)
 		tooltip:AddSeparator(10)
 	end
 	local gemShown = { }
@@ -1172,15 +1166,14 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 		if index > 1 then
 			tooltip:AddSeparator(10)
 		end
-		tooltip:AddLine(16, "^7Active Skill #"..index..":")
+		tooltip:AddLine(16, c_format("{TEXT_PRIMARY}Active Skill #%d:", index))
 		for _, skillEffect in ipairs(activeSkill.effectList) do
-			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s",
-				data.skillColorMap[skillEffect.grantedEffect.color],
+			tooltip:AddLine(20, c_format(UI.skillColorMap[skillEffect.grantedEffect.color].."%s {TEXT_PRIMARY}%d%s/%d%s",
 				skillEffect.grantedEffect.name,
 				skillEffect.srcInstance and skillEffect.srcInstance.level or skillEffect.level,
-				(skillEffect.srcInstance and skillEffect.level > skillEffect.srcInstance.level) and colorCodes.MAGIC.."+"..(skillEffect.level - skillEffect.srcInstance.level).."^7" or "",
+				(skillEffect.srcInstance and skillEffect.level > skillEffect.srcInstance.level) and c_format("{ITEM_RARITY_MAGIC}+%d{TEXT_PRIMARY}", (skillEffect.level - skillEffect.srcInstance.level)) or "",
 				skillEffect.srcInstance and skillEffect.srcInstance.quality or skillEffect.quality,
-				(skillEffect.srcInstance and skillEffect.quality > skillEffect.srcInstance.quality) and colorCodes.MAGIC.."+"..(skillEffect.quality - skillEffect.srcInstance.quality).."^7" or ""
+				(skillEffect.srcInstance and skillEffect.quality > skillEffect.srcInstance.quality) and c_format("{ITEM_RARITY_MAGIC}+%d{TEXT_PRIMARY}", (skillEffect.quality - skillEffect.srcInstance.quality)) or ""
 			))
 			if skillEffect.srcInstance then
 				gemShown[skillEffect.srcInstance] = true
@@ -1188,15 +1181,14 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 		if activeSkill.minion then
 			tooltip:AddSeparator(10)
-			tooltip:AddLine(16, "^7Active Skill #" .. index .. "'s Main Minion Skill:")
+			tooltip:AddLine(16, c_format("{TEXT_PRIMARY}Active Skill #%d's Main Minion Skill:", index))
 			local activeEffect = activeSkill.minion.mainSkill.effectList[1]
-			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s",
-				data.skillColorMap[activeEffect.grantedEffect.color],
+			tooltip:AddLine(20, c_format(UI.skillColorMap[activeEffect.grantedEffect.color].."%s {TEXT_PRIMARY}%d%s/%d%s",
 				activeEffect.grantedEffect.name,
 				activeEffect.srcInstance and activeEffect.srcInstance.level or activeEffect.level,
-				(activeEffect.srcInstance and activeEffect.level > activeEffect.srcInstance.level) and colorCodes.MAGIC .. "+" .. (activeEffect.level - activeEffect.srcInstance.level) .. "^7" or "",
+				(activeEffect.srcInstance and activeEffect.level > activeEffect.srcInstance.level) and c_format("{ITEM_RARITY_MAGIC}+%d{TEXT_PRIMARY}", (activeEffect.level - activeEffect.srcInstance.level)) or "",
 				activeEffect.srcInstance and activeEffect.srcInstance.quality or activeEffect.quality,
-				(activeEffect.srcInstance and activeEffect.quality > activeEffect.srcInstance.quality) and colorCodes.MAGIC .. "+" .. (activeEffect.quality - activeEffect.srcInstance.quality) .. "^7" or ""
+				(activeEffect.srcInstance and activeEffect.quality > activeEffect.srcInstance.quality) and c_format("{ITEM_RARITY_MAGIC}+%d{TEXT_PRIMARY}", (activeEffect.quality - activeEffect.srcInstance.quality)) or ""
 			))
 			if activeEffect.srcInstance then
 				gemShown[activeEffect.srcInstance] = true
@@ -1209,7 +1201,7 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 			if showOtherHeader then
 				showOtherHeader = false
 				tooltip:AddSeparator(10)
-				tooltip:AddLine(16, "^7Inactive Gems:")
+				tooltip:AddLine(16, CC.TEXT_PRIMARY.."Inactive Gems:")
 			end
 			local reason = ""
 			local displayEffect = gemInstance.displayEffect or gemInstance
@@ -1226,13 +1218,13 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 					reason = "(Cannot apply to any of the active skills)"
 				end
 			end
-			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s %s",
+			tooltip:AddLine(20, c_format("%s%s {TEXT_PRIMARY}%d%s/%d%s %s",
 				gemInstance.color,
 				(gemInstance.grantedEffect and gemInstance.grantedEffect.name) or (gemInstance.gemData and gemInstance.gemData.name) or gemInstance.nameSpec,
 				displayEffect.srcInstance and displayEffect.srcInstance.level or displayEffect.level,
-				displayEffect.level > gemInstance.level and colorCodes.MAGIC .. "+" .. (displayEffect.level - gemInstance.level) .. "^7" or "",
+				displayEffect.level > gemInstance.level and c_format("{ITEM_RARITY_MAGIC}+%d{TEXT_PRIMARY}", (displayEffect.level - gemInstance.level)) or "",
 				displayEffect.srcInstance and displayEffect.srcInstance.quality or displayEffect.quality,
-				displayEffect.quality > gemInstance.quality and colorCodes.MAGIC .. "+" .. (displayEffect.quality - gemInstance.quality) .. "^7" or "",
+				displayEffect.quality > gemInstance.quality and c_format("{ITEM_RARITY_MAGIC}+%d{TEXT_PRIMARY}", (displayEffect.quality - gemInstance.quality)) or "",
 				reason
 			))
 		end

@@ -4,6 +4,7 @@
 -- Popup Dialog Box with a configurable list of controls
 --
 local m_floor = math.floor
+local CC = UI.CC
 
 local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control", function(self, width, height, title, controls, enterControl, defaultControl, escapeControl)
 	self.ControlHost()
@@ -36,19 +37,19 @@ function PopupDialogClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	-- Draw dialog background
-	SetDrawColor(0.8, 0.8, 0.8)
+	SetDrawColor(CC.SECTION_BORDER)
 	DrawImage(nil, x, y, width, height)
-	SetDrawColor(0.1, 0.1, 0.1)
+	SetDrawColor(CC.BACKGROUND_1)
 	DrawImage(nil, x + 2, y + 2, width - 4, height - 4)
 	-- Draw dialog title box
 	local title = self:GetProperty("title")
 	local titleWidth = DrawStringWidth(16, "VAR", title)
 	local titleX = x + m_floor((width - titleWidth - 8) / 2)
-	SetDrawColor(1, 1, 1)
+	SetDrawColor(CC.SECTION_BORDER)
 	DrawImage(nil, titleX, y - 10, titleWidth + 8, 24)
-	SetDrawColor(0, 0, 0)
+	SetDrawColor(CC.BACKGROUND_0)
 	DrawImage(nil, titleX + 2, y - 8, titleWidth + 4, 20)
-	SetDrawColor(1, 1, 1)
+	SetDrawColor(CC.TEXT_PRIMARY)
 	DrawString(titleX + 4, y - 7, "LEFT", 16, "VAR", title)
 	-- Draw controls
 	self:DrawControls(viewPort)

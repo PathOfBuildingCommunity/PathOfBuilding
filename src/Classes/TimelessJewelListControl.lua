@@ -62,29 +62,29 @@ function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 	tooltip:Clear()
 	if not self.noTooltip then
 		if self.list[index].label:match("B2B2B2") == nil then
-			tooltip:AddLine(16, "^7Double click to add this jewel to your build.")
+			tooltip:AddLine(16, CC.TEXT_PRIMARY .. "Double click to add this jewel to your build.")
 		else
-			tooltip:AddLine(16, "^7" .. self.sharedList.type.label .. " " .. data.seed .. " was successfully added to your build.")
+			tooltip:AddLine(16, CC.TEXT_PRIMARY .. self.sharedList.type.label .. " " .. data.seed .. " was successfully added to your build.")
 		end
 		local treeData = self.build.spec.tree
 		local sortedNodeLists = { }
 		for legionId, desiredNode in pairs(self.sharedList.desiredNodes) do
 			if self.list[index][legionId] then
 				if self.list[index][legionId].targetNodeNames and #self.list[index][legionId].targetNodeNames > 0 then
-					sortedNodeLists[desiredNode.desiredIdx] = "^7        " .. desiredNode.displayName .. ":\n^8                " .. t_concat(self.list[index][legionId].targetNodeNames, "\n                ")
+					sortedNodeLists[desiredNode.desiredIdx] = CC.TEXT_PRIMARY .. "        " .. desiredNode.displayName .. ":\n" .. CC.TEXT_SECONDARY .. "                " .. t_concat(self.list[index][legionId].targetNodeNames, "\n                ")
 				else
-					sortedNodeLists[desiredNode.desiredIdx] = "^7        " .. desiredNode.displayName .. ":\n^8                None"
+					sortedNodeLists[desiredNode.desiredIdx] = CC.TEXT_PRIMARY .. "        " .. desiredNode.displayName .. ":\n" .. CC.TEXT_SECONDARY .. "                None"
 				end
 			end
 		end
 		if next(sortedNodeLists) then
-			tooltip:AddLine(16, "^7Node List:")
+			tooltip:AddLine(16, CC.TEXT_PRIMARY .. "Node List:")
 			for _, sortedNodeList in pairs(sortedNodeLists) do
 				tooltip:AddLine(16, sortedNodeList)
 			end
 		end
 		if data.total > 0 then
-			tooltip:AddLine(16, "^7Combined Node Weight: " .. data.total)
+			tooltip:AddLine(16, CC.TEXT_PRIMARY .. "Combined Node Weight: " .. data.total)
 		end
 	end
 end

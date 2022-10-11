@@ -20,7 +20,7 @@ return {
 		speed = 25000,
 		critChance = 0,
 		earlierUber = true,
-		tooltip = "The Uber variant has 10 ^xB97123Fire^7 penetration (Applied on Pinnacle And Uber)"
+		tooltip = "The Uber variant has 10 {STAT_FIRE}Fire{TEXT_PRIMARY} penetration (Applied on Pinnacle And Uber)"
 	},
 	["Shaper Ball"] = {
 		DamageType = "SpellProjectile",
@@ -34,7 +34,7 @@ return {
 			ColdPen = 40
 		},
 		speed = 1400,
-		tooltip = "Allocating Cosmic Wounds increases the penetration to 40% (Applied on Uber) and adds 2 projectiles"
+		tooltip = "Allocating Cosmic Wounds increases the penetration to 40%% (Applied on Uber) and adds 2 projectiles"
 	},
 	["Shaper Slam"] = {
 		DamageType = "Melee",
@@ -45,7 +45,7 @@ return {
 		speed = 3510,
 		UberSpeed = 1755,
 		critChance = 0,
-		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"
+		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100%% (Applied on Uber) and cannot be blocked or dodged"
 	},
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
@@ -57,10 +57,10 @@ return {
 		},
 		UberDamageMultiplier = 1.52,
 		speed = 1500,
-		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
+		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50%% (Applied on Uber)"
 	},
 	["Exarch Ball"] = {
-		DamageType = "SpellProjectile",
+		DamageType = "Projectile",
 		DamageMultipliers = {
 			Fire = { 14.924946784635, 0.074624733923175 }
 		},
@@ -69,12 +69,12 @@ return {
 		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase"
 	},
 	["Eater Beam"] = {
-		DamageType = "Spell",
+		DamageType = "Melee",
 		DamageMultipliers = {
 			Lightning = { 12.164923902598, 0.24329847805197 }
 		},
 		speed = 2500,
-		tooltip = "Allocating Insatiable Appetite causes the beam to always shock for at least 30%"
+		tooltip = "Allocating Insatiable Appetite causes the beam to always shock for at least 30%%"
 	},
 	["Maven Fireball"] = {
 		DamageType = "SpellProjectile",
@@ -89,7 +89,7 @@ return {
 			FirePen = 30
 		},
 		speed = 3000,
-		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 ^xB97123Fire^7 penetration (Applied on Uber)"
+		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100%% (Applied on Uber) and causes the fireball to have 30 {STAT_FIRE}Fire{TEXT_PRIMARY} penetration (Applied on Uber)"
 	},
 	["Maven Memory Game"] = {
 		DamageType = "Melee",
