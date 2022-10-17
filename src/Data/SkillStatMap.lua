@@ -249,6 +249,10 @@ return {
 	skill("corpseExplosionLifeMultiplier", nil),
 	div = 100,
 },
+["corpse_explosion_monster_life_permillage_fire"] = {
+	skill("corpseExplosionLifeMultiplier", nil),
+	div = 1000,
+},
 ["spell_base_fire_damage_%_maximum_life"] = {
 	skill("selfFireExplosionLifeMultiplier", nil),
 	div = 100,
@@ -535,6 +539,10 @@ return {
 },
 ["secondary_skill_effect_duration_+%"] = {
 	mod("SecondaryDuration", "INC", nil),
+},
+["offering_skill_effect_duration_per_corpse"] = {
+	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "CorpseConsumedRecently", limit = 4 }),
+	div = 1000,
 },
 ["active_skill_quality_duration_+%_final"] = {
 	mod("Duration", "MORE", nil),
@@ -966,6 +974,9 @@ return {
 },
 ["freeze_as_though_dealt_damage_+%"] = {
 	mod("FreezeAsThoughDealing", "MORE", nil),
+},
+["shock_maximum_magnitude_+"] = {
+	mod("ShockMax", "BASE", nil),
 },
 -- Global flags
 ["never_ignite"] = {
@@ -1651,6 +1662,10 @@ return {
 ["banner_area_of_effect_+%_per_stage"] = {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
 },
+["banner_additional_base_duration_per_stage_ms"] = {
+	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
+	div = 1000,
+},
 -- Other
 ["triggered_skill_damage_+%"] = {
 	mod("TriggeredDamage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
@@ -1679,6 +1694,9 @@ return {
 ["kill_enemy_on_hit_if_under_10%_life"] = {
 	mod("CullPercent", "MAX", nil), 
 	value = 10
+},
+["spell_cast_time_added_to_cooldown_if_triggered"] = {
+	flag("SpellCastTimeAddedToCooldownIfTriggered"),
 },
 --
 -- Spectre or Minion-specific stats

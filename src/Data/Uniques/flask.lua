@@ -6,17 +6,19 @@ return {
 Blood of the Karui
 Sanctified Life Flask
 League: Domination, Nemesis
+Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 50
-{variant:1,2,3}(5-20)% increased Recovery Speed
-{variant:4}(35-50)% reduced Recovery Speed
-{variant:1}No Life Recovery Applies during Flask effect
-{variant:2}100% increased Amount Recovered
-{variant:3}50% increased Amount Recovered
-Recover Full Life at the end of the Flask effect
+{variant:3}100% increased Life Recovered
+{variant:4,5}50% increased Life Recovered
+{variant:1}(20-30)% reduced Recovery rate
+{variant:2,3,4}(5-20)% increased Recovery rate
+{variant:5}(35-50)% reduced Recovery rate
+Recover Full Life at the end of the Flask Effect
+{variant:1,2}Cannot gain Life during effect
 ]],
 -- Flask: Mana
 [[
@@ -46,7 +48,7 @@ Sanctified Mana Flask
 League: Domination, Nemesis
 Requires Level 50
 (30-50)% increased Amount Recovered
-100% increased Recovery Speed
+100% increased Recovery rate
 Your Skills have no Mana Cost during Flask effect
 ]],[[
 Replica Lavianga's Spirit
@@ -357,7 +359,7 @@ Requires Level 27
 {variant:1}Vaal Skills deal (30-40)% more Damage during effect
 {variant:1}Vaal Skills used during effect do not apply Soul Gain Prevention
 {variant:1}Gains no Charges During effect of any Soul Ripper Flask
-{variant:2}+(-40 to 90) maximum Charges
+{variant:2}+(-40-90) maximum Charges
 {variant:2}Loses all Charges when you enter a new area
 {variant:2}Consumes Maximum Charges to use
 {variant:2}Gain Vaal Souls equal to Charges Consumed when used

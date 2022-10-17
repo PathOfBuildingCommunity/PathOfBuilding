@@ -155,7 +155,7 @@ Elder Item
 ]],[[
 Duskdawn
 Maelström Staff
-Source: Vendor recipe
+Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Pre 3.11.0
@@ -510,7 +510,7 @@ Adds (1-10) to (70-90) Lightning Damage
 ]],[[
 The Stormwall
 Royal Staff
-Source: Drops from any endgame map boss
+Source: No longer obtainable
 Requires Level 60, 51 Str, 51 Int
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff

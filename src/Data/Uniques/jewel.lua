@@ -78,11 +78,13 @@ Intelligence from Passives in Radius is Transformed to Dexterity
 ]],[[
 Cheap Construction
 Viridian Jewel
+Source: No longer obtainable
 10% reduced Trap Duration
 Can have up to 1 additional Trap placed at a time
 ]],[[
 Replica Cheap Construction
 Viridian Jewel
+Source: No longer obtainable
 League: Heist
 (100-120)% increased Critical Strike Chance with Traps
 Can have 5 fewer Traps placed at a time
@@ -243,20 +245,28 @@ Cobalt Jewel
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
-Variant: Current
+Variant: Current - Crit Chance
+Variant: Current - Minion Crit Multi
+Variant: Current - Min Power Charge
 {variant:1}Gain 15 Mana per Grand Spectrum
 {variant:2}Gain 30 Mana per Grand Spectrum
 {variant:3}25% increased Critical Strike Chance per Grand Spectrum
+{variant:4}Minions have +10% to Critical Strike Multiplier per Grand Spectrum
+{variant:5}+1 to Minimum Power Charges per Grand Spectrum
 ]],[[
 Grand Spectrum
 Crimson Jewel
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
-Variant: Current
+Variant: Current - Elemental Resistances
+Variant: Current - Maximum Life
+Variant: Current - Min Endurance Charge
 {variant:1}Gain 75 Armour per Grand Spectrum
 {variant:2}Gain 200 Armour per Grand Spectrum
 {variant:3}+7% to all Elemental Resistances per Grand Spectrum
+{variant:4}5% increased Maximum Life per Grand Spectrum
+{variant:5}+1 to Minimum Endurance Charges per Grand Spectrum
 ]],[[
 Grand Spectrum
 Viridian Jewel
@@ -265,10 +275,14 @@ Variant: Pre 2.5.0
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Current
+Variant: Current - Chance to avoid Ailments
+Variant: Current - Min Frenzy Charge
 {variant:1}5% increased Elemental Damage per Grand Spectrum
 {variant:2}4% increased Elemental Damage per Grand Spectrum
 {variant:3}12% increased Elemental Damage per Grand Spectrum
 {variant:4}15% increased Elemental Damage per Grand Spectrum
+{variant:5}15% chance to Avoid Elemental Ailments per Grand Spectrum
+{variant:6}+1 to Minimum Frenzy Charges per Grand Spectrum
 ]],[[
 The Green Dream
 Viridian Jewel
@@ -358,7 +372,7 @@ Passives in Radius can be Allocated without being connected to your tree
 ]],[[
 Izaro's Turmoil
 Crimson Jewel
-Source: Drops in The Lord's Labyrinth
+Source: No longer obtainable
 (18-25)% increased Fire Damage
 (18-25)% increased Cold Damage
 2% chance to Freeze
@@ -415,9 +429,12 @@ Radius: Small
 ]],[[
 Melding of the Flesh
 Cobalt Jewel
+Variant: Pre 3.19.0
+Variant: Current
 Source: Drops from unique{The Eater of Worlds}
 Limited to: 1
 -(80-70)% to All Elemental Resistances
+{variant:2}-(4-6)% to all maximum Elemental Resistances
 Elemental Resistances are capped by your highest Maximum Elemental Resistance instead
 ]],[[
 Might in All Forms
@@ -1671,10 +1688,10 @@ League: Legion
 Source: Drops from Maraketh Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Asenath
-Variant: Deshret
-Variant: Nasima
-Variant: Balbala
+Variant: Asenath (Dance with Death)
+Variant: Deshret (Wind Dancer) (Pre 3.11.0)
+Variant: Nasima (Second Sight)
+Variant: Balbala (The Traitor)
 Radius: Large
 Implicits: 0
 {variant:1}Denoted service of (500-8000) dekhara in the akhara of Asenath
@@ -1690,10 +1707,10 @@ League: Legion
 Source: Drops from Eternal Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Cadiro
-Variant: Chitus
-Variant: Victario
-Variant: Caspiro
+Variant: Cadiro (Supreme Decadence)
+Variant: Chitus (Supreme Ego) (Pre 3.11.0)
+Variant: Victario (Supreme Grandstanding)
+Variant: Caspiro (Supreme Ostentation)
 Radius: Large
 Implicits: 0
 {variant:1}Commissioned (2000-160000) coins to commemorate Cadiro
@@ -1709,10 +1726,10 @@ League: Legion
 Source: Drops from Vaal Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Doryani
-Variant: Xibaqua
-Variant: Zerphi
-Variant: Ahuana
+Variant: Doryani (Corrupted Soul)
+Variant: Xibaqua (Divine Flesh)
+Variant: Zerphi (Eternal Youth) (Pre 3.11.0)
+Variant: Ahuana (Immortal Ambition)
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
@@ -1728,10 +1745,10 @@ League: Legion
 Source: Drops from Karui Legion
 Requires Level: 20
 Limited to: 1 Historic
-Variant: Kaom
-Variant: Kiloava
-Variant: Rakiata
-Variant: Akoya
+Variant: Kaom (Strength of Blood)
+Variant: Kiloava (Glancing Blows) (Pre 3.11.0)
+Variant: Rakiata (Tempered by War)
+Variant: Akoya (Chainbreaker)
 Radius: Large
 Implicits: 0
 {variant:1}Commanded leadership over (10000-18000) warriors under Kaom
@@ -1750,10 +1767,10 @@ Limited to: 1 Historic
 Has Alt Variant: true
 Has Alt Variant Two: true
 Selected Variant: 1
-Variant: Avarius
-Variant: Dominus
-Variant: Venarius
-Variant: Maxarius
+Variant: Avarius (Power of Purpose)
+Variant: Dominus (Inner Conviction)
+Variant: Venarius (The Agnostic) (Pre 3.11.0)
+Variant: Maxarius (Transcendence)
 Variant: Totem Damage
 Variant: Brand Damage
 Variant: Channelling Damage

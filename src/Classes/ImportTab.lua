@@ -236,7 +236,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 
 		self.importCodeDetail = colorCodes.NEGATIVE.."Invalid input"
 		local urlText = buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
-		if urlText:match("youtube%.com/redirect%?") then
+		if urlText:match("youtube%.com/redirect%?") or urlText:match("google%.com/url%?") then
 			local nested_url = urlText:gsub(".*[?&]q=([^&]+).*", "%1")
 			urlText = UrlDecode(nested_url)
 		end
@@ -433,15 +433,15 @@ function ImportTabClass:DownloadCharacterList()
 			end
 			table.sort(leagueList)
 			wipeTable(self.controls.charSelectLeague.list)
-			t_insert(self.controls.charSelectLeague.list, {
-				label = "All",
-			})
 			for _, league in ipairs(leagueList) do
 				t_insert(self.controls.charSelectLeague.list, {
 					label = league,
 					league = league,
 				})
 			end
+			t_insert(self.controls.charSelectLeague.list, {
+				label = "All",
+			})
 			if self.controls.charSelectLeague.selIndex > #self.controls.charSelectLeague.list then
 				self.controls.charSelectLeague.selIndex = 1
 			end
