@@ -614,6 +614,7 @@ return {
 		{ modName = "ProjectileSpeed", cfg = "skill" },
 	}, },
 	{ label = "Skill Self Damage", haveOutput = "FRDamageTaken", { format = "{output:FRDamageTaken}", { breakdown = "FRDamageTaken" },{ modName = { "DamageTaken", "DamageTakenWhenHit", "ChaosDamageTaken", "ChaosDamageTakenWhenHit" } } }, },
+	{ label = "Skill Self Damage", haveOutput = "BSDamageTaken", { format = "{0:output:BSDamageTaken}", { breakdown = "BSDamageTaken" },{ modName = { "DamageTaken", "DamageTakenWhenHit"} } }, },
 	{ label = "Bounces Count", flag = "bounce", { format = "{output:BounceCount}", { modName = { "BounceCount", "ProjectileCount" }, cfg = "skill" }, }, },
 	{ label = "Aura Effect Mod", haveOutput = "AuraEffectMod", { format = "x {2:output:AuraEffectMod}",
 		{ breakdown = "AuraEffectMod" },
