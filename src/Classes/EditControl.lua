@@ -434,6 +434,8 @@ function EditClass:OnKeyDown(key, doubleClick)
 			end
 			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
+		elseif ctrl and string.match(self.buf, '[a-z]*://[^ >,;]*') then
+			OpenURL(self.buf)
 		else
 			self.drag = true
 			local x, y = self:GetPos()

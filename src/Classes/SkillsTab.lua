@@ -605,7 +605,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		slot.qualityId:SelByValue(qualityId or "Default", "type")
 		gemInstance.qualityId = qualityId or "Default"
 		slot.level:SetText(gemInstance.level)
-		slot.count:SetText(gemInstance.count)
+		slot.count:SetText(gemInstance.count or 1)
 		if addUndo then
 			self:AddUndoState()
 		end
@@ -826,6 +826,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal1.state = true
 		end
 		gemInstance.count = tonumber(buf) or 1
+		slot.count.buf = tostring(gemInstance.count)
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true

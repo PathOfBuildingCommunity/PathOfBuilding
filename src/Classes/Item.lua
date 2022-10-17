@@ -72,6 +72,10 @@ function ItemClass:ParseRaw(raw)
 	self.rawLines = { }
 	for line in string.gmatch(self.raw .. "\r\n", "([^\r\n]*)\r?\n") do
 		line = line:gsub("^%s+",""):gsub("%s+$","")
+		-- remove "Superior" from qualitied items so base-type matches
+		if line:match("^Superior ") then
+			line = line:gsub("Superior ", "")
+		end
 		if #line > 0 then
 			t_insert(self.rawLines, line)
 		end
@@ -102,8 +106,17 @@ function ItemClass:ParseRaw(raw)
 	end
 	if self.rawLines[l] then
 		self.name = self.rawLines[l]
-		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal item to get the base
-		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC") then
+		-- Determine if "Unidentified" item
+		local unidentified = false
+		for _, line in ipairs(self.rawLines) do
+			if line == "Unidentified" then
+				unidentified = true
+				break
+			end
+		end
+
+		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal or Unidentified item to get the base
+		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) then
 			l = l + 1
 		end
 	end
@@ -142,6 +155,10 @@ function ItemClass:ParseRaw(raw)
 			flaskBuffLines[line] = nil
 		elseif line == "--------" then
 			self.checkSection = true
+		elseif line == "Split" then
+			self.split = true
+		elseif line == "Mirrored" then
+			self.mirrored = true
 		elseif line == "Corrupted" then
 			self.corrupted = true
 		elseif line == "Fractured Item" then
@@ -343,10 +360,13 @@ function ItemClass:ParseRaw(raw)
 					self.catalystQuality = tonumber(specVal)
 				elseif specName == "Note" then
 					self.note = specVal
-				elseif specName == "Str" or specName == "Dex" or specName == "Int" then
-					self.requirements[specName:lower()] = tonumber(specVal)
+				elseif specName == "Str" or specName == "Strength" or specName == "Dex" or specName == "Dexterity" or
+				       specName == "Int" or specName == "Intelligence" then
+					self.requirements[specName:sub(1,3):lower()] = tonumber(specVal)
 				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or specName == "Weapon Range" or
-				       specName == "Physical Damage" or specName == "Elemental Damage" or specName == "Chaos Damage" then
+				       specName == "Critical Strike Chance" or specName == "Physical Damage" or specName == "Elemental Damage" or
+				       specName == "Chaos Damage" or specName == "Chance to Block" or specName == "Armour" or
+					   specname == "Energy Shield" or specName == "Evasion" then
 					self.hidden_specs = true
 				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
 				elseif not (self.name:match(specName) and self.name:match(specVal)) then
@@ -357,6 +377,10 @@ function ItemClass:ParseRaw(raw)
 			if line == "Prefixes:" then
 				foundExplicit = true
 				gameModeStage = "EXPLICIT"
+			end
+			-- for weapons, when copy/pasting from trade site or importing via PoB Trader the base name of the weapon is repeated, skip it
+			if self.base and (line == self.base.type or self.base.subType and line == self.base.subType .. " " .. self.base.type) then
+				specName = line
 			end
 			if not specName or foundExplicit or foundImplicit then
 				local varSpec = line:match("{variant:([%d,]+)}")
@@ -631,7 +655,7 @@ function ItemClass:NormaliseQuality()
 	if self.base and (self.base.armour or self.base.weapon or self.base.flask) then
 		if not self.quality then
 			self.quality = 0
-		elseif not self.uniqueID and not self.corrupted and self.quality < 20 then
+		elseif not self.uniqueID and not self.corrupted and not self.split and not self.mirrored and self.quality < 20 then
 			self.quality = 20
 		end
 	end	
@@ -846,6 +870,12 @@ function ItemClass:BuildRaw()
 	end
 	for _, modLine in ipairs(self.explicitModLines) do
 		writeModLine(modLine)
+	end
+	if self.split then
+		t_insert(rawLines, "Split")
+	end
+	if self.mirrored then
+		t_insert(rawLines, "Mirrored")
 	end
 	if self.corrupted or self.scourge then
 		t_insert(rawLines, "Corrupted")
@@ -1305,9 +1335,9 @@ function ItemClass:BuildModList()
 		self.requirements.dexMod = 0
 		self.requirements.intMod = 0
 	else
-		self.requirements.strMod = m_floor((self.requirements.str + calcLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "StrRequirement", "INC", 0) / 100))
-		self.requirements.dexMod = m_floor((self.requirements.dex + calcLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "DexRequirement", "INC", 0) / 100))
-		self.requirements.intMod = m_floor((self.requirements.int + calcLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "IntRequirement", "INC", 0) / 100))
+		self.requirements.strMod = m_floor((self.requirements.str or 0 + calcLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "StrRequirement", "INC", 0) / 100))
+		self.requirements.dexMod = m_floor((self.requirements.dex or 0 + calcLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "DexRequirement", "INC", 0) / 100))
+		self.requirements.intMod = m_floor((self.requirements.int or 0 + calcLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "IntRequirement", "INC", 0) / 100))
 	end
 	self.grantedSkills = { }
 	for _, skill in ipairs(baseList:List(nil, "ExtraSkill")) do

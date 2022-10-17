@@ -513,7 +513,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			else
 				item = build.itemsTab.items[slot.selItemId]
 			end
-			if item then
+			if item and item.grantedSkills then
 				-- Find skills granted by this item
 				for _, skill in ipairs(item.grantedSkills) do
 					local grantedSkill = copyTable(skill)
@@ -595,7 +595,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if item then
 				env.player.itemList[slotName] = item
 				-- Merge mods for this item
-				local srcList = item.modList or item.slotModList[slot.slotNum]
+				local srcList = item.modList or (item.slotModList and item.slotModList[slot.slotNum]) or {}
 				if item.requirements and not accelerate.requirementsItems then
 					t_insert(env.requirementsTableItems, {
 						source = "Item",
