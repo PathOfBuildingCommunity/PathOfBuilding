@@ -1263,7 +1263,7 @@ function calcs.offence(env, actor, activeSkill)
 		output[costName] = floor(m_abs(inc / 100) * output[costName], dec) * (inc >= 0 and 1 or -1) + output[costName]
 		output[costName] = floor(m_abs(more - 1) * output[costName], dec) * (more >= 1 and 1 or -1) + output[costName]
 		output[costName] = m_max(0, floor(output[costName] + val.totalCost, dec))
-		if breakdown and output[costName] ~= val.baseCost then
+		if breakdown then
 			breakdown[costName] = {
 				s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
 			}
