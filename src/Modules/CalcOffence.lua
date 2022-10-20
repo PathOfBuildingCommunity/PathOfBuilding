@@ -3711,7 +3711,7 @@ function calcs.offence(env, actor, activeSkill)
 				ramping = true,
 			},
 			["Brittle"] = {
-				effList = { 5, 10 },
+				effList = { 2, 4 },
 				effect = function(damage, effectMod) return 10 * ((damage / enemyThreshold) ^ 0.4) * effectMod end,
 				thresh = function(damage, value, effectMod) return damage * ((10 * effectMod / value) ^ 2.5) end,
 				ramping = true,
