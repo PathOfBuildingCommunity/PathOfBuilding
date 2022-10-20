@@ -77,7 +77,7 @@ Implicits: 2
 {variant:1,2,3}10% reduced maximum Life
 {variant:4}25% reduced maximum Life
 {variant:1,2,3}(0.6-1)% of Physical Attack Damage Leeched as Mana
-{variant:4}Attacks with this Weapon have Added maximum Lightning Damage equal to 20% of your Energy Shield
+{variant:4}Attacks with this Weapon have Added maximum Lightning Damage equal to 20% of your Maximum Energy Shield
 ]],[[
 The Goddess Scorned
 Elegant Sword
