@@ -90,8 +90,10 @@ function main:Init()
 			if newItem.crafted then
 				if newItem.base.implicit and #newItem.implicitModLines == 0 then
 					-- Automatically add implicit
+					local implicitIndex = 1
 					for line in newItem.base.implicit:gmatch("[^\n]+") do
-						t_insert(newItem.implicitModLines, { line = line })
+						t_insert(newItem.implicitModLines, { line = line, modTags = newItem.base.implicitModTypes and newItem.base.implicitModTypes[implicitIndex] or { } })
+						implicitIndex = implicitIndex + 1
 					end
 				end
 				newItem:Craft()
