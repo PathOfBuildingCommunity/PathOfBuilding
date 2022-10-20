@@ -800,6 +800,7 @@ return {
 	}, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "ChaosDamage" }, modType = "INC", cfg = "poison" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Damage", "ChaosDamage" }, modType = "MORE", cfg = "poison" }, }, },
+	{ label = "Eff. DoT Multi", notFlag = "attack", haveOutput = "PoisonDotMulti", { format = "x {2:output:PoisonDotMulti}", { breakdown = "PoisonDotMulti" }, { modName = { "DotMultiplier", "ChaosDotMultiplier" }, modType = "BASE", cfg = "poison" }, }, },
 	{ label = "MH Eff. DoT Multi", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", haveOutput = "MainHand.PoisonDotMulti", { format = "x {2:output:MainHand.PoisonDotMulti}", { breakdown = "MainHand.PoisonDotMulti" }, { modName = { "DotMultiplier", "ChaosDotMultiplier" }, modType = "BASE", cfg = "poison" }, }, },
 	{ label = "OH Eff. DoT Multi", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.PoisonDotMulti", { format = "x {2:output:OffHand.PoisonDotMulti}", { breakdown = "OffHand.PoisonDotMulti" }, { modName = { "DotMultiplier", "ChaosDotMultiplier" }, modType = "BASE", cfg = "OHpoison" }, }, },
 	{ label = "Source Physical", textSize = 12, notFlag = "attack", haveOutput = "PoisonPhysicalMax", { format = "{0:output:PoisonPhysicalMin} to {0:output:PoisonPhysicalMax}", { breakdown = "PoisonPhysical" }, }, },
