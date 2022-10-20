@@ -1689,6 +1689,7 @@ local specialModList = {
 		mod("ManaDegen", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num }, { type = "Condition", var = "FullLife", neg = true }),
 		mod("LifeRecovery", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num }, { type = "Condition", var = "FullLife", neg = true })
 	} end,
+	["(%d+)%% increased maximum energy shield"] = function(num) return { mod("EnergyShield", "INC", num, { type = "Global" }) } end, -- Override as increased maximum is always global
 	["you are blind"] = { flag("Condition:Blinded") },
 	["armour applies to fire, cold and lightning damage taken from hits instead of physical damage"] = {
 		mod("ArmourAppliesToFireDamageTaken", "BASE", 100),
