@@ -89,7 +89,7 @@ To do so [comment out Line 54 to line 58](./src/Launch.lua#L54-L58) of the [Laun
 	--end
 ```
 
-and create a valid mainfest.xml file in the ./src directory. Then run the `./runtime/Path{space}of{space}Building.exe` as usual. You should get the typical update popup in the bottom left corner.
+and create a valid manifest.xml file in the ./src directory. Then run the `./runtime/Path{space}of{space}Building.exe` as usual. You should get the typical update popup in the bottom left corner.
 
 The manifest.xml file deserves its own in depth document, but usually copying from release and editing accordingly works well enough.
 

@@ -72,7 +72,7 @@ function ItemClass:ParseRaw(raw)
 	self.rawLines = { }
 	for line in string.gmatch(self.raw .. "\r\n", "([^\r\n]*)\r?\n") do
 		line = line:gsub("^%s+",""):gsub("%s+$","")
-		-- remove "Superior" from qualitied items so base-type matches
+		-- remove "Superior" from items with quality so base-type matches
 		if line:match("^Superior ") then
 			line = line:gsub("Superior ", "")
 		end
@@ -366,7 +366,7 @@ function ItemClass:ParseRaw(raw)
 				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or specName == "Weapon Range" or
 				       specName == "Critical Strike Chance" or specName == "Physical Damage" or specName == "Elemental Damage" or
 				       specName == "Chaos Damage" or specName == "Chance to Block" or specName == "Armour" or
-					   specname == "Energy Shield" or specName == "Evasion" then
+					   specName == "Energy Shield" or specName == "Evasion" then
 					self.hidden_specs = true
 				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
 				elseif not (self.name:match(specName) and self.name:match(specVal)) then
