@@ -607,7 +607,7 @@ function TreeTabClass:TogglePowerReport(caller)
 	self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, main.portraitMode and "BOTTOMLEFT" or "TOPRIGHT")
 	self.controls.powerReportList.shown = self.showPowerReport
 
-	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and i'm unsure how to quantify numerically
+	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and I'm unsure how to quantify numerically
 	-- especially given the heatmap's current approach of using the sqrt() of both components. that number is cryptic to users, i suspect.
 	if currentStat and currentStat.stat then
 		self.controls.powerReportList.label = "Click to focus node on tree"
