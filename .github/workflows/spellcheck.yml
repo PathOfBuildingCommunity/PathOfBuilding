@@ -36,3 +36,4 @@ jobs:
           files: '**' # needed as workaround for non-incremental runs (overrides in config still work ok)
           config: "cspell.json"
           incremental_files_only: ${{ github.event_name != 'workflow_dispatch' }}
+
