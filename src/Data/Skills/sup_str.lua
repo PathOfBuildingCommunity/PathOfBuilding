@@ -1963,7 +1963,8 @@ skills["AncestralSlamSupport"] = {
 			div = 1000,
 		},
 		["ancestral_slam_stun_threshold_reduction_+%"] = {
-			mod("EnemyStunThreshold", "INC", nil, ModFlag.Attack)
+			mod("EnemyStunThreshold", "INC", nil, ModFlag.Attack),
+			mult = -1,
 		},
 	},
 	qualityStats = {

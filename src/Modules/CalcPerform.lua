@@ -1070,7 +1070,11 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("DamageTaken", "INC", 10, "Malediction")
 			modDB:NewMod("Damage", "INC", -10, "Malediction")
 		end
-	end	
+		if modDB:Flag(nil, "Condition:CanHaveSoulEater") then
+			local max = modDB:Override(nil, "SoulEaterMax")
+			modDB:NewMod("Multiplier:SoulEater", "BASE", 1, "Base", { type = "Multiplier", var = "SoulEaterStack", limit = max })
+		end
+	end
 end
 
 function calcs.actionSpeedMod(actor)
