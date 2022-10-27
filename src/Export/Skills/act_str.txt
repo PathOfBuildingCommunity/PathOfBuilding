@@ -1039,7 +1039,7 @@ local skills, mod, flag, skill = ...
 			--Display only
 		},
 	},
-#baseMod mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+#baseMod mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
 #mods
 
 #skill RageVortex

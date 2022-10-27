@@ -5468,14 +5468,14 @@ skills["FireImpurity"] = {
 			--Display only
 		},
 	},
-	baseMods = {
-		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-	},
 	baseFlags = {
 		spell = true,
 		aura = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {

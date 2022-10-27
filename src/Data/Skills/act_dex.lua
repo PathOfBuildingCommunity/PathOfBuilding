@@ -316,12 +316,12 @@ skills["ArcticArmour"] = {
 			--Display only
 		},
 	},
-	baseMods = {
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
-	},
 	baseFlags = {
 		spell = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -337,6 +337,7 @@ skills["ArcticArmour"] = {
 	},
 	constantStats = {
 		{ "arctic_armour_chill_when_hit_duration", 500 },
+		{ "ground_ice_art_variation", 6 },
 	},
 	stats = {
 		"new_arctic_armour_physical_damage_taken_when_hit_+%_final",
@@ -6649,15 +6650,15 @@ skills["ColdImpurity"] = {
 			--Display only
 		},
 	},
-	baseMods = {
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-	},
 	baseFlags = {
 		spell = true,
 		aura = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -9127,6 +9128,7 @@ skills["WhirlingBlades"] = {
 	},
 	constantStats = {
 		{ "additional_weapon_base_attack_time_ms", 600 },
+		{ "animation_effect_variation", -1 },
 	},
 	stats = {
 		"ignores_proximity_shield",

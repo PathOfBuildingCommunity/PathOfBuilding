@@ -77,7 +77,7 @@ local skills, mod, flag, skill = ...
 			--Display only
 		},
 	},
-#baseMod mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+#baseMod mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 #mods
 
 #skill ArtilleryBallista
@@ -1257,8 +1257,8 @@ local skills, mod, flag, skill = ...
 			--Display only
 		},
 	},
-#baseMod mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-#baseMod mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+#baseMod mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
+#baseMod mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
 #mods
 
 #skill RainOfArrows

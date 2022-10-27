@@ -7777,7 +7777,7 @@ skills["Purity"] = {
 		},
 		["immune_to_status_ailments"] = {
 			--Display only
-		}
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -7961,14 +7961,14 @@ skills["LightningImpurity"] = {
 			--Display only
 		},
 	},
-	baseMods = {
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-	},
 	baseFlags = {
 		spell = true,
 		aura = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {

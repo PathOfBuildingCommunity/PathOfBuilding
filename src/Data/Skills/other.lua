@@ -1329,16 +1329,16 @@ skills["VaalAuraElementalDamageHealing"] = {
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	fromItem = true,
+	statMap = {
+		["immune_to_curses"] = {
+			--Display Only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		aura = true,
 		area = true,
 		duration = true,
-	},
-	statMap = {
-		["immune_to_curses"] = {
-			--Display only
-		},
 	},
 	baseMods = {
 		skill("radius", 40),
