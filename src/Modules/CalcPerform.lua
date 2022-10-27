@@ -407,10 +407,15 @@ local function doActorAttribsPoolsConditions(env, actor)
 		local info = env.data.weaponTypeInfo[actor.weaponData1.type]
 		condList["Using"..info.flag] = true
 		if actor.weaponData1.countsAsAll1H then
+			actor.weaponData1["AddedUsingAxe"] = not condList["UsingAxe"]
 			condList["UsingAxe"] = true
+			actor.weaponData1["AddedUsingSword"] = actor.weaponData1.name:match("Varunastra") or not condList["UsingSword"] --Varunastra is a sword
 			condList["UsingSword"] = true
+			actor.weaponData1["AddedUsingDagger"] = not condList["UsingDagger"]
 			condList["UsingDagger"] = true
+			actor.weaponData1["AddedUsingMace"] = not condList["UsingMace"]
 			condList["UsingMace"] = true
+			actor.weaponData1["AddedUsingClaw"] = not condList["UsingClaw"]
 			condList["UsingClaw"] = true
 			-- GGG stated that a single Varunastra satisfied requirement for wielding two different weapons
 			condList["WieldingDifferentWeaponTypes"] = true
@@ -428,10 +433,15 @@ local function doActorAttribsPoolsConditions(env, actor)
 		local info = env.data.weaponTypeInfo[actor.weaponData2.type]
 		condList["Using"..info.flag] = true
 		if actor.weaponData2.countsAsAll1H then
+			actor.weaponData2["AddedUsingAxe"] = not condList["UsingAxe"]
 			condList["UsingAxe"] = true
+			actor.weaponData2["AddedUsingSword"] = actor.weaponData2.name:match("Varunastra") or not condList["UsingSword"] --Varunastra is a sword
 			condList["UsingSword"] = true
+			actor.weaponData2["AddedUsingDagger"] = not condList["UsingDagger"]
 			condList["UsingDagger"] = true
+			actor.weaponData2["AddedUsingMace"] = not condList["UsingMace"]
 			condList["UsingMace"] = true
+			actor.weaponData2["AddedUsingClaw"] = not condList["UsingClaw"]
 			condList["UsingClaw"] = true
 			-- GGG stated that a single Varunastra satisfied requirement for wielding two different weapons
 			condList["WieldingDifferentWeaponTypes"] = true
