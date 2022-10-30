@@ -116,6 +116,10 @@ skills["Ambush"] = {
 		duration = true,
 		travel = true,
 	},
+	baseMods = {
+		skill("debuff", true),
+		skill("primaryDurIsBuff", true),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_cooldown_speed_+%", 0.5 },

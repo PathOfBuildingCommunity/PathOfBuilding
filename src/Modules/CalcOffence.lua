@@ -286,10 +286,12 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 		-- Hacky way to determine wheter or not to apply temp chains expiry to stage duration granted by skill
 		local stageBuff = true
 		if skill.activeEffect.grantedEffect.parts then
-			for _, skillPart in ipairs(skill.activeEffect.grantedEffect.parts) do
-				if not skillPart.stages then
-					stageBuff = false
-					break
+			if not (skill.activeEffect.grantedEffect.name == "Static Strike" or skill.activeEffect.grantedEffect.name == "Boneshatter" or skill.activeEffect.grantedEffect.name == "Venom Gyre") then
+				for _, skillPart in ipairs(skill.activeEffect.grantedEffect.parts) do
+					if not skillPart.stages then
+						stageBuff = false
+						break
+					end
 				end
 			end
 		else
@@ -310,7 +312,7 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 				local durationMultSecondary = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skillCfg, "EffectExpiresFaster"))
 				return durationMultSecondary, durationMult
 			end
-		elseif (skill.buffSkill and skill.skillTypes[SkillType.Buff]) or stageBuff then
+		elseif ((skill.buffSkill and not skill.activeEffect.grantedEffect.name == "Arctic Armour") and (skill.skillTypes[SkillType.Buff] or skill.skillTypes[SkillType.Guard] or skill.activeEffect.grantedEffect.name == "Flicker Strike") and (not (skill.skillTypes[SkillType.Aura] and skill.skillTypes[SkillType.Duration]) or (skill.skillTypes[SkillType.Aura] and skill.skillTypes[SkillType.Vaal])) and not (skill.skillTypes[SkillType.Herald] and skill.skillTypes[SkillType.Minion])) or stageBuff or skill.skillData.stages or skill.skillFlags.warcry then
 			output.haveBuffDurationMult = true
 			skillCfg.skillGrantsBuff = true
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skillCfg, "EffectExpiresFaster"))

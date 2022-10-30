@@ -28,6 +28,8 @@ local skills, mod, flag, skill = ...
 
 #skill Ambush
 #flags spell movement duration travel
+#baseMod skill("debuff", true)
+#baseMod skill("primaryDurIsBuff", true)
 #mods
 
 #skill AnimateWeapon
