@@ -2349,6 +2349,10 @@ skills["DominatingBlow"] = {
 		duration = true,
 		minion = true,
 	},
+	baseMods = {
+		skill("debuff", true),
+		skill("debuffPrimary", true),
+	},
 	qualityStats = {
 		Default = {
 			{ "damage_+%", 1 },

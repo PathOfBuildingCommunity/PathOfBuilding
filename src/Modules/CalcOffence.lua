@@ -284,18 +284,19 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 			return durationMult
 		end
 		-- Hacky way to determine wheter or not to apply temp chains expiry to stage duration granted by skill
-		local stageBuff = true
+		local stageBuffSkill = true
 		if skill.activeEffect.grantedEffect.parts then
-			if not (skill.activeEffect.grantedEffect.name == "Static Strike" or skill.activeEffect.grantedEffect.name == "Boneshatter" or skill.activeEffect.grantedEffect.name == "Venom Gyre") then
+			local skillName = skill.activeEffect.grantedEffect.name
+			if not (skillName == "Static Strike" or skillName == "Boneshatter" or skillName == "Venom Gyre" or skillName == "Blade Vortex") then
 				for _, skillPart in ipairs(skill.activeEffect.grantedEffect.parts) do
 					if not skillPart.stages then
-						stageBuff = false
+						stageBuffSkill = false
 						break
 					end
 				end
 			end
 		else
-			stageBuff = false
+			stageBuffSkill = false
 		end
 		local output = skill.actor.output
 		local skillCfg = skill.skillCfg
@@ -311,11 +312,19 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 				skillCfg.skillGrantsBuff = true
 				local durationMultSecondary = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skillCfg, "EffectExpiresFaster"))
 				return durationMultSecondary, durationMult
+			elseif skill.skillData.debuffPrimary then
+				return durationMult, 1
 			end
-		elseif ((skill.buffSkill and not skill.activeEffect.grantedEffect.name == "Arctic Armour") and (skill.skillTypes[SkillType.Buff] or skill.skillTypes[SkillType.Guard] or skill.activeEffect.grantedEffect.name == "Flicker Strike") and (not (skill.skillTypes[SkillType.Aura] and skill.skillTypes[SkillType.Duration]) or (skill.skillTypes[SkillType.Aura] and skill.skillTypes[SkillType.Vaal])) and not (skill.skillTypes[SkillType.Herald] and skill.skillTypes[SkillType.Minion])) or stageBuff or skill.skillData.stages or skill.skillFlags.warcry or skill.skillTypes[SkillType.Link] then
-			output.haveBuffDurationMult = true
-			skillCfg.skillGrantsBuff = true
-			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skillCfg, "EffectExpiresFaster"))
+		else
+			local affectedBuffSkill = not (skill.activeEffect.grantedEffect.name == "Arctic Armour") and skill.buffSkill
+			local affectedHerald = not (skill.skillTypes[SkillType.Herald] and skill.skillTypes[SkillType.Minion])
+			local affectedSkillType = (skill.skillTypes[SkillType.Buff] or skill.skillTypes[SkillType.Guard] or skill.activeEffect.grantedEffect.name == "Flicker Strike") and not skill.skillTypes[SkillType.Banner]
+			local affectedSkill = affectedBuffSkill and affectedSkillType and affectedHerald
+			if affectedSkill or stageBuffSkill or skill.skillFlags.warcry or skill.skillTypes[SkillType.Link] then
+				output.haveBuffDurationMult = true
+				skillCfg.skillGrantsBuff = true
+				durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skillCfg, "EffectExpiresFaster"))
+			end
 		end
 		if skill.skillData.debuffSecondary then
 			output.haveDebuffDurationMultSecondary = true

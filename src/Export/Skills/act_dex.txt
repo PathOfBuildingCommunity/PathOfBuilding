@@ -1696,6 +1696,8 @@ local skills, mod, flag, skill = ...
 			div = 1000, 
 		},
 	},
+#baseMod skill("debuff", true)
+#baseMod skill("debuffPrimary", true)
 #mods
 
 #skill IntuitiveLink

@@ -9628,6 +9628,10 @@ skills["Tornado"] = {
 		physical = true,
 		area = true,
 	},
+	baseMods = {
+		skill("debuff", true),
+		skill("debuffPrimary", true),
+	},
 	qualityStats = {
 		Default = {
 			{ "tornado_movement_speed_+%", 0.5 },

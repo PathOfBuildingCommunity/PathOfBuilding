@@ -472,6 +472,8 @@ local skills, mod, flag, skill = ...
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) } )
 		}
 	},
+#baseMod skill("debuff", true)
+#baseMod skill("debuffPrimary", true)
 #mods
 
 #skill PuresteelBanner
