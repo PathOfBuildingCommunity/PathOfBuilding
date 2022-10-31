@@ -283,10 +283,11 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, {skillGrantsDebuff = true}, "EffectExpiresFaster"))
 			return durationMult
 		end
-		-- Hacky way to determine wheter or not to apply temp chains expiry to stage duration granted by skill
+		
+		-- Hacky way to determine wheter or not to apply expiration rate mods to duration of stages from skill
 		local stageBuffSkill = true
+		local skillName = skill.activeEffect.grantedEffect.name
 		if skill.activeEffect.grantedEffect.parts then
-			local skillName = skill.activeEffect.grantedEffect.name
 			if not (skillName == "Static Strike" or skillName == "Boneshatter" or skillName == "Venom Gyre" or skillName == "Blade Vortex") then
 				for _, skillPart in ipairs(skill.activeEffect.grantedEffect.parts) do
 					if not skillPart.stages then
@@ -295,9 +296,10 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 					end
 				end
 			end
-		else
+		elseif skillName ~= "Cyclone" then
 			stageBuffSkill = false
 		end
+		
 		local output = skill.actor.output
 		local skillCfg = skill.skillCfg
 		if skill.skillData.debuff then
@@ -316,9 +318,9 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 				return durationMult, 1
 			end
 		else
-			local affectedBuffSkill = not (skill.activeEffect.grantedEffect.name == "Arctic Armour") and skill.buffSkill
+			local affectedBuffSkill = not (skillName == "Arctic Armour") and skill.buffSkill
 			local affectedHerald = not (skill.skillTypes[SkillType.Herald] and skill.skillTypes[SkillType.Minion])
-			local affectedSkillType = (skill.skillTypes[SkillType.Buff] or skill.skillTypes[SkillType.Guard] or skill.activeEffect.grantedEffect.name == "Flicker Strike") and not skill.skillTypes[SkillType.Banner]
+			local affectedSkillType = (skill.skillTypes[SkillType.Buff] or skill.skillTypes[SkillType.Guard] or skillName == "Flicker Strike") and not skill.skillTypes[SkillType.Banner]
 			local affectedSkill = affectedBuffSkill and affectedSkillType and affectedHerald
 			if affectedSkill or stageBuffSkill or skill.skillFlags.warcry or skill.skillTypes[SkillType.Link] then
 				output.haveBuffDurationMult = true

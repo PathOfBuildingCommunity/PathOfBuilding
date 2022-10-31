@@ -2262,6 +2262,10 @@ skills["Cyclone"] = {
 		["cyclone_melee_weapon_range_+_per_stage"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "CycloneStage" }),
 		},
+		["cyclone_stage_decay_time_ms"] = {
+			skill("duration", nil),
+			div = 1000,
+		},
 	},
 	initialFunc = function(activeSkill, output)
 		local rangePlus = 0
@@ -2277,6 +2281,7 @@ skills["Cyclone"] = {
 		attack = true,
 		melee = true,
 		area = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("radius", 11),
