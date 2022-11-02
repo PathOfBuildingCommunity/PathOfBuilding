@@ -1422,7 +1422,7 @@ skills["Boneshatter"] = {
 			area = true,
 		},
 	},
-	preDamageFunc = function(activeSkill, output, breakdown)
+	preDotFunc = function(activeSkill, output, breakdown)
 		local t_insert = table.insert
 		local s_format = string.format
 		local ipairs = ipairs
