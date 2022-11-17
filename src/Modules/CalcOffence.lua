@@ -318,7 +318,7 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 				return durationMult, 1
 			end
 		else
-			local affectedBuffSkill = (not (skillName == "Arctic Armour") and skill.buffSkill) or skillName == "Shattering Steel"
+			local affectedBuffSkill = (not (skillName == "Arctic Armour" or skillName == "Galvanic Field") and skill.buffSkill) or skillName == "Shattering Steel"
 			local affectedHerald = not (skill.skillTypes[SkillType.Herald] and skill.skillTypes[SkillType.Minion])
 			local affectedSkillType = (skill.skillTypes[SkillType.Steel] or skill.skillTypes[SkillType.Buff] or skill.skillTypes[SkillType.Guard] or skillName == "Flicker Strike") and not skill.skillTypes[SkillType.Banner]
 			local affectedSkill = affectedBuffSkill and affectedSkillType and affectedHerald
