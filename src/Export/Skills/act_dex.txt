@@ -1333,7 +1333,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ShatteringSteel
-#flags attack projectile area
+#flags attack projectile area duration
 	parts = {
 		{
 			name = "Projectile",

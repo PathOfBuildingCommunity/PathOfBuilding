@@ -7321,6 +7321,7 @@ skills["ShatteringSteel"] = {
 		attack = true,
 		projectile = true,
 		area = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("radius", 28),
