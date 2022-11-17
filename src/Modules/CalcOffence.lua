@@ -328,6 +328,10 @@ local function getDurationMult(skill, env, enemyDB, isAilement)
 				durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skillCfg, "EffectExpiresFaster"))
 			end
 		end
+		if skillName == "Smoke Mine" then --Mine skill grants movement speed buff when triggered
+			skillCfg.skillGrantsBuff = true
+			return durationMult, m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(skill.actor.modDB, skillCfg, "EffectExpiresFaster"))
+		end
 		if skill.skillData.debuffSecondary then
 			output.haveDebuffDurationMultSecondary = true
 			skillCfg.skillGrantsBuff = nil

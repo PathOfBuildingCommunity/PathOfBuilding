@@ -7695,6 +7695,7 @@ skills["SmokeMine"] = {
 		mine = true,
 		area = true,
 		buff = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("radius", 18),
