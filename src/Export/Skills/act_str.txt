@@ -477,7 +477,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PuresteelBanner
-#flags spell
+#flags spell area duration aura banner
 	statMap = {
 		["puresteel_banner_accuracy_rating_+%_final"] = {
 			mod("Accuracy", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
@@ -1422,7 +1422,7 @@ end,
 #mods
 
 #skill BloodstainedBanner
-#flags spell
+#flags spell area duration aura banner
 	statMap = {
 		["accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })

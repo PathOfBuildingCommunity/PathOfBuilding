@@ -2444,6 +2444,10 @@ skills["PuresteelBanner"] = {
 	},
 	baseFlags = {
 		spell = true,
+		area = true,
+		duration = true,
+		aura = true,
+		banner = true,
 	},
 	baseMods = {
 		skill("radius", 46),
@@ -7827,6 +7831,10 @@ skills["BloodstainedBanner"] = {
 	},
 	baseFlags = {
 		spell = true,
+		area = true,
+		duration = true,
+		aura = true,
+		banner = true,
 	},
 	baseMods = {
 		skill("radius", 46),
