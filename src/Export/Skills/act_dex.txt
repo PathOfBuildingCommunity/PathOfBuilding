@@ -1355,6 +1355,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 28)
+#baseMod mod("Duration", "MORE", 100, 0, 0, { type = "Multiplier", var = "CycloneStageAfterFirst" })
 #mods
 
 #skill PhysCascadeTrap

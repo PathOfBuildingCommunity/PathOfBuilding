@@ -2285,6 +2285,7 @@ skills["Cyclone"] = {
 	},
 	baseMods = {
 		skill("radius", 11),
+		mod("Duration", "MORE", 100, 0, 0, { type = "Multiplier", var = "CycloneStageAfterFirst" }),
 	},
 	qualityStats = {
 		Default = {
