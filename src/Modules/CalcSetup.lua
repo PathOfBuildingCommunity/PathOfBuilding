@@ -548,7 +548,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			else
 				item = build.itemsTab.items[slot.selItemId]
 			end
-			if item then
+			if item and item.grantedSkills then
 				-- Find skills granted by this item
 				for _, skill in ipairs(item.grantedSkills) do
 					local grantedSkill = copyTable(skill)
@@ -630,7 +630,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if item then
 				env.player.itemList[slotName] = item
 				-- Merge mods for this item
-				local srcList = item.modList or item.slotModList[slot.slotNum]
+				local srcList = item.modList or (item.slotModList and item.slotModList[slot.slotNum]) or {}
 				if item.requirements and not accelerate.requirementsItems then
 					t_insert(env.requirementsTableItems, {
 						source = "Item",
@@ -801,7 +801,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 			local node = env.spec.tree.notableMap[passive]
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
-				env.allocNodes[node.id] = env.spec.nodes[node.id] -- use the conquered node data, if available
+				env.allocNodes[node.id] = env.spec.nodes[node.id] or node -- use the conquered node data, if available
 				env.grantedPassives[node.id] = true
 			end
 		end

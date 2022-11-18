@@ -113,7 +113,7 @@ Magna Eclipsis
 Pinnacle Tower Shield
 Variant: Pre 3.16.0
 Variant: Current
-Source: Vendor recipe
+Source: Vendor Recipe
 Implicits: 1
 +(20-30) to maximum Life
 +2 to Level of Socketed Gems

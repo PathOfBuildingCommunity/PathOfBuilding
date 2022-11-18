@@ -38,6 +38,7 @@ skills["AlchemistsMark"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
+		skill("radius", 20),
 	},
 	qualityStats = {
 		Default = {
@@ -311,6 +312,12 @@ skills["ArcticArmour"] = {
 		["new_arctic_armour_fire_damage_taken_when_hit_+%_final"] = {
 			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "Condition", var = "Stationary" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["base_immune_to_freeze"] = {
+			--Display only
+		},
+	},
+	baseMods = {
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 	},
 	baseFlags = {
 		spell = true,
@@ -4694,6 +4701,10 @@ skills["Hatred"] = {
 		["hatred_aura_cold_damage_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["chill_and_freeze_duration_+%"] = {
+			mod("EnemyChillDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("EnemyFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 		["movement_velocity_+%_on_chilled_ground"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, {type = "Condition", var = "OnChilledGround"})
 		}
@@ -6626,11 +6637,21 @@ skills["ColdImpurity"] = {
 	castTime = 0,
 	statMap = {
 		["hits_ignore_my_cold_resistance"] = {
-			flag("SelfIgnoreColdResistance", { type = "GlobalEffect", effectType = "Debuff" }),
+			flag("SelfIgnoreColdResistance", { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 		["base_maximum_cold_damage_resistance_%"] = {
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["base_immune_to_freeze"] = {
+			--Display only
+		},
+		["base_immune_to_chill"] = {
+			--Display only
+		},
+	},
+	baseMods = {
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	baseFlags = {
 		spell = true,

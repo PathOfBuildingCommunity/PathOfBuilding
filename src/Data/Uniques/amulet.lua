@@ -144,7 +144,6 @@ Implicits: 1
 {tags:life}+(50-70) to maximum Life
 {variant:1,2,3,4,5}10% reduced Stun and Block Recovery
 {variant:6,7,8,9}Nearby Enemies grant 25% increased Flask Charges
-{tags:critical}{variant:10,11,12,13,14,15,16}2% additional Chance to receive a Critical Strike
 {variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
 {tags:critical}{variant:10,11,12,13,14,15,16}Hits against Nearby Enemies have 50% increased Critical Strike Chance
 {variant:17}{tags:jewellery_defense}(15-20)% increased Global Defences
@@ -920,7 +919,7 @@ Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
 Star of Wraeclast
 Ruby Amulet
-Source: Vendor recipe
+Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current

@@ -113,12 +113,12 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["blood_offering_%_of_life_to_lose"] = {
-			mod("Multiplier:BloodOfferingLifeSacrificed", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable=true }, { type = "PerStat", stat = "LifeUnreserved", actor = "parent" }),
+			mod("Multiplier:BloodOfferingLifeSacrificed", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "PerStat", stat = "LifeUnreserved", actor = "parent" }),
 			div = 100,
 		},
 		["blood_offering_%_of_lost_life_to_regenerate_as_life_per_second"] = {
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingLifeSacrificed" }),
-			mod("Multiplier:BloodOfferingBaseRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable=true }, { type = "Multiplier", var = "BloodOfferingLifeSacrificed" }),
+			mod("Multiplier:BloodOfferingBaseRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "BloodOfferingLifeSacrificed" }),
 			div = 100,
 		},
 		["blood_offering_life_regenerated_+%_final_per_corpse"] = {
@@ -397,7 +397,13 @@ local skills, mod, flag, skill = ...
 #skill VaalAuraElementalDamageHealing
 #flags spell aura area duration
 	fromItem = true,
+	statMap = {
+		["immune_to_curses"] = {
+			--Display Only
+		},
+	},
 #baseMod skill("radius", 40)
+#baseMod mod("AvoidCurse", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 #mods
 
 #skill GoreShockwave

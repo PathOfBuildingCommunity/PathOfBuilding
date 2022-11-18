@@ -11,7 +11,7 @@ Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
 Requires Level 62, 212 Dex
-Source: Vendor recipe
+Source: Vendor Recipe
 Implicits: 1
 {variant:3}+(15-25)% to Global Critical Strike Multiplier
 {variant:1}Adds (60-70) to (180-210) Physical Damage
