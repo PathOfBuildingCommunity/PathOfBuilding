@@ -402,6 +402,9 @@ function CalcsTabClass:CheckFlag(obj)
 			return
 		end
 	end
+	if obj.haveSkillCfgSetting and not actor.mainSkill.skillCfg[obj.haveSkillCfgSetting] then
+		return
+	end
 	return true
 end
 
