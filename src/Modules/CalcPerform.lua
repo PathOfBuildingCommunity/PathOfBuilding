@@ -928,7 +928,7 @@ local function doActorMisc(env, actor)
 		end
 		if modDB:Flag(nil, "ShaperPresence") then
 			local effect = m_floor(-20 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
-			modDB:NewMod("EffectExpiresFaster", "MORE", effect, "Shaper's Presence", { type = "SkillCondition", buff = true, debuff = true})
+			modDB:NewMod("EffectExpiresFaster", "INC", effect, "Shaper's Presence", { type = "SkillCondition", buff = true, debuff = true})
 		end
 		if modDB:Flag(nil, "UnholyMight") then
 			local effect = m_floor(30 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))

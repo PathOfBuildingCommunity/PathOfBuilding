@@ -3343,7 +3343,7 @@ local specialModList = {
 	-- Misc
 	["gain shaper's presence for 10 seconds when you kill a rare or unique enemy"] = {
 		flag("Condition:CanGainShaperPresence", { type = "Condition", var = "KilledUniqueEnemy" }),
-		mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("EffectExpiresFaster", "MORE", -20)}, { type = "Condition", var = "ShaperPresence" }, { type = "SkillCondition", buff = true, debuff = true}),
+		mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("EffectExpiresFaster", "INC", -20)}, { type = "Condition", var = "ShaperPresence" }, { type = "SkillCondition", buff = true, debuff = true}),
 	},
 	["your minimum frenzy, endurance and power charges are equal to your maximum while you are stationary"] = {
 		flag("MinimumFrenzyChargesIsMaximumFrenzyCharges", {type = "Condition", var = "Stationary"}),

@@ -3414,7 +3414,7 @@ skills["AxisTemporalChains"] = {
 			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
 		},
 		["buff_time_passed_+%_other_than_temporal_chains"] = {
-			mod("EffectExpiresFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "SkillCondition", buff = true, debuff = true}, { type = "SkillName", skillName = "Temporal Chains", neg = true }),
+			mod("EffectExpiresFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "SkillCondition", buff = true, debuff = true}, { type = "SkillName", skillName = "Temporal Chains", neg = true }),
 		},
 	},
 	baseFlags = {
@@ -6005,7 +6005,7 @@ skills["MonsterChanceToTemporalChainsOnHit1"] = {
 			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
 		},
 		["buff_time_passed_+%_other_than_temporal_chains"] = {
-			mod("EffectExpiresFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "SkillCondition", buff = true, debuff = true}, { type = "SkillName", skillName = "Temporal Chains", neg = true }),
+			mod("EffectExpiresFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "SkillCondition", buff = true, debuff = true}, { type = "SkillName", skillName = "Temporal Chains", neg = true }),
 		},
 		["curse_effect_+%_final_vs_players"] = {
 			mod("CurseEffectAgainstPlayer", "MORE", nil),
