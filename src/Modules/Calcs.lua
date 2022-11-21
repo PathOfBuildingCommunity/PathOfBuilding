@@ -202,7 +202,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local causticGroundSource = ""
 	GlobalCache.numActiveSkillInFullDPS = 0
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
+		if activeSkill.socketGroup and (activeSkill.socketGroup.hiddenFullDPS or activeSkill.socketGroup.includeInFullDPS) and not isExcludedFromFullDps(activeSkill) then
 			GlobalCache.numActiveSkillInFullDPS = GlobalCache.numActiveSkillInFullDPS + 1
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
@@ -222,7 +222,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					GlobalCache.dontUseCache = forceCache
 				end
 				local minionName = nil
-				if activeSkill.minion or usedEnv.minion then
+				if activeSkill.socketGroup.includeInFullDPS and (activeSkill.minion or usedEnv.minion) then
 					if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then
 						minionName = (activeSkill.minion and activeSkill.minion.minionData.name..": ") or (usedEnv.minion and usedEnv.minion.minionData.name..": ") or ""
 						t_insert(fullDPS.skills, { name = activeSkill.activeEffect.grantedEffect.name, dps = usedEnv.minion.output.TotalDPS, count = activeSkillCount, trigger = activeSkill.infoTrigger, skillPart = minionName..activeSkill.skillPartName })

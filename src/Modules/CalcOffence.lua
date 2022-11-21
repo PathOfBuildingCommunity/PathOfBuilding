@@ -383,7 +383,7 @@ function calcs.offence(env, actor, activeSkill)
 	local function runSkillFunc(name)
 		local func = activeSkill.activeEffect.grantedEffect[name]
 		if func then
-			func(activeSkill, output, breakdown)
+			func(activeSkill, output, breakdown, env)
 		end
 	end
 

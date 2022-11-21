@@ -525,12 +525,12 @@ local function doActorAttribsPoolsConditions(env, actor)
 					breakdown[stat] = breakdown.simple(nil, nil, output[stat], stat)
 				end
 			end
-			
-      local stats = { output.Str, output.Dex, output.Int }
-      table.sort(stats)
-      output.LowestAttribute = stats[1]
-      condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
-      
+
+			local stats = { output.Str, output.Dex, output.Int }
+			table.sort(stats)
+			output.LowestAttribute = stats[1]
+			condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
+
 			condList["DexHigherThanInt"] = output.Dex > output.Int
 			condList["StrHigherThanDex"] = output.Str > output.Dex
 			condList["IntHigherThanStr"] = output.Int > output.Str
@@ -571,7 +571,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 				modDB:NewMod("Omni", "INC", -reduction["INC"], "Reduction from Double/Triple Dipped attributes to Omniscience")
 				modDB:NewMod("Omni", "MORE", -reduction["MORE"], "Reduction from Double/Triple Dipped attributes to Omniscience")
 			end
-				
+
 			for _, stat in pairs({"Str","Dex","Int"}) do
 				local base = classStats["base_"..stat:lower()]
 				output[stat] = base
@@ -581,11 +581,11 @@ local function doActorAttribsPoolsConditions(env, actor)
 			if breakdown then
 				breakdown["Omni"] = breakdown.simple(nil, nil, output["Omni"], "Omni")
 			end
-      
-      local stats = { output.Str, output.Dex, output.Int }
-      table.sort(stats)
-      output.LowestAttribute = stats[1]
-      condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
+
+			local stats = { output.Str, output.Dex, output.Int }
+			table.sort(stats)
+			output.LowestAttribute = stats[1]
+			condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
 
 			output.LowestAttribute = m_min(output.Str, output.Dex, output.Int)
 			condList["DexHigherThanInt"] = output.Dex > output.Int
@@ -653,6 +653,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 		local more = modDB:More(nil, "Life")
 		local conv = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield")
 		output.Life = m_max(round(base * (1 + inc/100) * more * (1 - conv/100)), 1)
+		if actor.minionData then
+			GlobalCache.cachedMinionLife[actor.minionData.name] = output.Life
+		end
 		if breakdown then
 			if inc ~= 0 or more ~= 1 or conv ~= 0 then
 				breakdown.Life = { }

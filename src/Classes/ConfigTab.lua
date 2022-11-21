@@ -27,6 +27,13 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.varControls = { }
 	
 	self:BuildModList()
+	
+	local function checkRunOnceFlag(varData)
+		if varData.runOnce then
+			varData.runOnce = nil
+			varData.apply(varData.var, modList, enemyModList, build)
+		end
+	end
 
 	local lastSection
 	for _, varData in ipairs(varList) do
@@ -86,8 +93,11 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			else 
 				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
 			end
-			if varData.ifNode then
+			if varData.alwaysHide then
+				control.shown = false
+			elseif varData.ifNode then
 				control.shown = function()
+					checkRunOnceFlag(varData)
 					if self.build.spec.allocNodes[varData.ifNode] then
 						return true
 					end
@@ -101,11 +111,13 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				end
 			elseif varData.ifOption then
 				control.shown = function()
+					checkRunOnceFlag(varData)
 					return self.input[varData.ifOption]
 				end
 				control.tooltipText = varData.tooltip
 			elseif varData.ifCond or varData.ifMinionCond or varData.ifEnemyCond then
 				control.shown = function()
+					checkRunOnceFlag(varData)
 					local mainEnv = self.build.calcsTab.mainEnv
 					if self.input[varData.var] then
 						if varData.implyCondList then
@@ -150,6 +162,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				end
 			elseif varData.ifMult or varData.ifEnemyMult then
 				control.shown = function()
+					checkRunOnceFlag(varData)
 					local mainEnv = self.build.calcsTab.mainEnv
 					if self.input[varData.var] then
 						if varData.implyCondList then
@@ -184,6 +197,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				end
 			elseif varData.ifFlag then
 				control.shown = function()
+					checkRunOnceFlag(varData)
 					local skillModList = self.build.calcsTab.mainEnv.player.mainSkill.skillModList
 					local skillFlags = self.build.calcsTab.mainEnv.player.mainSkill.skillFlags
 					-- Check both the skill mods for flags and flags that are set via calcPerform
@@ -198,6 +212,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control.tooltipText = varData.tooltip
 			elseif varData.ifSkill or varData.ifSkillList then
 				control.shown = function()
+					checkRunOnceFlag(varData)
 					if varData.ifSkillList then
 						for _, skillName in ipairs(varData.ifSkillList) do
 							if self.build.calcsTab.mainEnv.skillsUsed[skillName] then
@@ -211,6 +226,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control.tooltipText = varData.tooltip
 			elseif varData.ifSkillFlag or varData.ifSkillFlagList then
 				control.shown = function()
+					checkRunOnceFlag(varData)
 					if varData.ifSkillFlagList then
 						for _, skillFlag in ipairs(varData.ifSkillFlagList) do
 							for _, activeSkill in ipairs(self.build.calcsTab.mainEnv.player.activeSkillList) do
@@ -220,7 +236,6 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 							end
 						end
 					else
-						-- print(ipairs(self.build.calcsTab.mainEnv.skillsUsed))
 						for _, activeSkill in ipairs(self.build.calcsTab.mainEnv.player.activeSkillList) do
 							if activeSkill.skillFlags[varData.ifSkillFlag] then
 								return true
@@ -358,6 +373,13 @@ function ConfigTabClass:GetDefaultState(var, varType)
 end
 
 function ConfigTabClass:Save(xml)
+	-- Store the most recent cached skill option minion life value.
+	local skillOptionMinionName = self.varControls["skillOptionMinionName"]
+	skillOptionMinionName = skillOptionMinionName.list[skillOptionMinionName.selIndex]
+	if type(skillOptionMinionName) == "table" then
+		skillOptionMinionName = skillOptionMinionName.label
+	end
+	self.varControls["skillOptionMinionLife"]:SetText(GlobalCache.cachedMinionLife[skillOptionMinionName] or 0, true)
 	for k, v in pairs(self.input) do
 		if v ~= self:GetDefaultState(k, type(v)) then
 			local child = { elem = "Input", attrib = { name = k } }

@@ -217,6 +217,50 @@ return {
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton ^xE05030Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum ^xE05030Life ^7of the Skeleton that is being targeted.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "skeletonLife", value = val }, "Config", { type = "SkillName", skillName = "Dark Pact" })
 	end },
+	{ var = "skillOptionMinionLife", type = "count", alwaysHide = true },
+	{ var = "skillOptionMinionName", type = "list", label = "Minion Name:", ifSkill = "Death Wish", tooltip = "Sets the minion being targeted by Death Wish. Assign this minion to an active skill or you will see unusual behavior.", list = GlobalCache.cachedMinionList, runOnce = true, apply = function(val, modList, enemyModList, build)
+		wipeTable(GlobalCache.cachedMinionList)
+		local function cacheMinionData(socketGroup, minionId)
+			if not minionId then
+				return
+			end
+			local minionName = data.minions[minionId].name
+			if minionName == val then
+				socketGroup.hiddenFullDPS = true
+			end
+			local duplicateMinion = false
+			for k, v in ipairs(GlobalCache.cachedMinionList) do
+				if v.label == minionName then
+					duplicateMinion = true
+					break
+				end
+			end
+			if not duplicateMinion then
+				GlobalCache.cachedMinionList[#GlobalCache.cachedMinionList + 1] = { val = minionName, label = minionName }
+			end
+		end
+		for _, socketGroup in ipairs(build.skillsTab.socketGroupList) do	
+			socketGroup.hiddenFullDPS = nil
+			for _, gemInstance in ipairs(socketGroup.gemList) do
+				if gemInstance.enabled then
+					cacheMinionData(socketGroup, gemInstance.skillMinion)
+					cacheMinionData(socketGroup, gemInstance.skillMinionCalcs)
+					if gemInstance.gemData then
+						if gemInstance.gemData.grantedEffect.minionList then
+							for _, minionId in ipairs(gemInstance.gemData.grantedEffect.minionList) do
+								cacheMinionData(socketGroup, minionId)
+							end
+						end
+						if gemInstance.gemData.grantedEffect.addMinionList then
+							for _, minionId in ipairs(gemInstance.gemData.grantedEffect.addMinionList) do
+								cacheMinionData(socketGroup, minionId)
+							end
+						end
+					end
+				end
+			end
+		end
+	end },
 	{ label = "Predator:", ifSkill = "Predator" },
 	{ var = "deathmarkDeathmarkActive", type = "check", label = "Is the enemy marked with Signal Prey?", ifSkill = "Predator", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EnemyHasDeathmark", "FLAG", true, "Config")
