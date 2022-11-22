@@ -276,10 +276,10 @@ local function calcWarcryCastTime(skillModList, skillCfg, actor)
 	return warcryCastTime
 end
 
-local function getDurationMult(skill, env, enemyDB, isAilement)
+local function getDurationMult(skill, env, enemyDB, isAilment)
 	local durationMult = 1
 	if env.mode_effective then
-		if isAilement then
+		if isAilment then
 			durationMult = m_max(data.misc.BuffExpirationSlowCap, calcLib.mod(enemyDB, {skillGrantsDebuff = true}, "EffectExpiresFaster"))
 			return durationMult
 		end
