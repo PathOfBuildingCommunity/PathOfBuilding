@@ -1546,25 +1546,25 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.uberBossPen, true)
 		end
 	end },
-	{ var = "deliriousPercentage", type = "list", label = "Delirious Effect:", list = {{val=0,label="None"},{val="20Percent",label="20% Delirious"},{val="40Percent",label="40% Delirious"},{val="60Percent",label="60% Delirious"},{val="80Percent",label="80% Delirious"},{val="100Percent",label="100% Delirious"}}, tooltip = "Delirium scales enemy 'less Damage Taken' as well as enemy 'increased Damage dealt'\nAt 100% effect:\nEnemies Deal 30% Increased Damage\nEnemies take 96% Less Damage", apply = function(val, modList, enemyModList)
+	{ var = "deliriousPercentage", type = "list", label = "Delirious Effect:", list = {{val=0,label="None"},{val="20Percent",label="20% Delirious"},{val="40Percent",label="40% Delirious"},{val="60Percent",label="60% Delirious"},{val="80Percent",label="80% Delirious"},{val="100Percent",label="100% Delirious"}}, tooltip = "Delirium scales enemy 'less Damage Taken' as well as enemy 'increased Damage dealt'\nAt 100% effect:\nEnemies Deal 30% Increased Damage\nEnemies take 80% Less Damage", apply = function(val, modList, enemyModList)
 		if val == "20Percent" then
-			enemyModList:NewMod("DamageTaken", "MORE", -19.2, "20% Delirious")
+			enemyModList:NewMod("DamageTaken", "MORE", -16, "20% Delirious")
 			enemyModList:NewMod("Damage", "INC", 6, "20% Delirious")
 		end
 		if val == "40Percent" then
-			enemyModList:NewMod("DamageTaken", "MORE", -38.4, "40% Delirious")
+			enemyModList:NewMod("DamageTaken", "MORE", -32, "40% Delirious")
 			enemyModList:NewMod("Damage", "INC", 12, "40% Delirious")
 		end
 		if val == "60Percent" then
-			enemyModList:NewMod("DamageTaken", "MORE", -57.6, "60% Delirious")
+			enemyModList:NewMod("DamageTaken", "MORE", -48, "60% Delirious")
 			enemyModList:NewMod("Damage", "INC", 18, "60% Delirious")
 		end
 		if val == "80Percent" then
-			enemyModList:NewMod("DamageTaken", "MORE", -76.8, "80% Delirious")
+			enemyModList:NewMod("DamageTaken", "MORE", -64, "80% Delirious")
 			enemyModList:NewMod("Damage", "INC", 24, "80% Delirious")
 		end
 		if val == "100Percent" then
-			enemyModList:NewMod("DamageTaken", "MORE", -96, "100% Delirious")
+			enemyModList:NewMod("DamageTaken", "MORE", -80, "100% Delirious")
 			enemyModList:NewMod("Damage", "INC", 30, "100% Delirious")
 		end
 	end },
