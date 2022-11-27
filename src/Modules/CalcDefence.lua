@@ -1617,7 +1617,7 @@ function calcs.defence(env, actor)
 	function numberOfHitsToDie(DamageIn)
 		local numHits = 0
 		DamageIn["cycles"] = DamageIn["cycles"] or 1
-		DamageIn["iterations"] = DamageIn["iterations"] or 1
+		DamageIn["iterations"] = DamageIn["iterations"] or 0
 		
 		-- check damage in isn't 0 and that ward doesn't mitigate all damage
 		for _, damageType in ipairs(dmgTypeList) do
