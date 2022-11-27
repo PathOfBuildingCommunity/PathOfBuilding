@@ -1662,8 +1662,7 @@ function calcs.defence(env, actor)
 		local damageTotal = 0
 		local maxDamage = data.misc.ehpCalcMaxDamage
 		local maxIterations = data.misc.ehpCalcMaxIterationsToCalc
-		while life > 0 and DamageIn["iterations"] < maxIterations and damageTotal < maxDamage do
-			numHits = numHits + iterationMultiplier
+		while life > 0 and DamageIn["iterations"] < maxIterations do
 			DamageIn["iterations"] = DamageIn["iterations"] + 1
 			local Damage = { }
 			damageTotal = 0
@@ -1677,9 +1676,7 @@ function calcs.defence(env, actor)
 				mana = m_min(mana + DamageIn.ManaWhenHit * (gainMult - 1), gainMult * (output.ManaUnreserved or 0))
 				energyShield = m_min(energyShield + DamageIn.EnergyShieldWhenHit * (gainMult - 1), gainMult * output.EnergyShieldRecoveryCap)
 			end
-			local DamageAbsorbed = 0
 			for _, damageType in ipairs(dmgTypeList) do
-				DamageAbsorbed = DamageAbsorbed + Damage[damageType]
 				if Damage[damageType] > 0 then
 					if frostShield > 0 then
 						local tempDamage = m_min(Damage[damageType] * output["FrostShieldDamageMitigation"] / 100, frostShield)
@@ -1746,6 +1743,9 @@ function calcs.defence(env, actor)
 					life = life - Damage[damageType]
 				end
 			end
+			if life > 0 and damageTotal >= maxDamage then -- If still living and the amount of damage exceeds maximum threshold we survived infinite number of hits.
+				return m_huge
+			end
 			if modDB:Flag(nil, "WardNotBreak") then
 				ward = restoreWard
 			elseif ward > 0 then
@@ -1774,17 +1774,24 @@ function calcs.defence(env, actor)
 				Damage["cycles"] = DamageIn["cycles"] * speedUp
 				Damage["iterations"] = DamageIn["iterations"]
 				iterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
+				if iterationMultiplier == m_huge then -- avoid unnecessary calculations if we know we survive infinite hits.
+					return m_huge
+				end
 				DamageIn["iterations"] = Damage["iterations"]
 				DamageIn["cyclesRan"] = true
 			end
-			if life < 0 and DamageIn["cycles"] == 1 and numHits ~= m_huge then -- Don't count overkill damage and only on final pass as to not break speedup.
-				numHits = numHits + life / DamageAbsorbed
-			end
-		end
-		if DamageIn["iterations"] == maxIterations then -- Apply remaining hits if ran into cap.
 			numHits = numHits + iterationMultiplier
 		end
-		if life > 0 and damageTotal >= maxDamage then -- If still living and the amount of damage exceeds maximum threshold we survived infinite number of hits.
+		if life < 0 and DamageIn["cycles"] == 1 then -- Don't count overkill damage and only on final pass as to not break speedup.
+			numHits = numHits + life / damageTotal
+			life = 0
+		end
+		-- Recalculate total hit damage
+		damageTotal = 0
+		for _, damageType in ipairs(dmgTypeList) do
+			damageTotal = damageTotal + DamageIn[damageType] * numHits
+		end
+		if life >= 0 and damageTotal >= maxDamage then -- If still living and the amount of damage exceeds maximum threshold we survived infinite number of hits.
 			return m_huge
 		end
 		return numHits
