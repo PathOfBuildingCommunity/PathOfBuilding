@@ -1617,6 +1617,7 @@ function calcs.defence(env, actor)
 	function numberOfHitsToDie(DamageIn)
 		local numHits = 0
 		DamageIn["cycles"] = DamageIn["cycles"] or 1
+		DamageIn["iterations"] = DamageIn["iterations"] or 1
 		
 		-- check damage in isn't 0 and that ward doesn't mitigate all damage
 		for _, damageType in ipairs(dmgTypeList) do
@@ -1658,13 +1659,17 @@ function calcs.defence(env, actor)
 		DamageIn["WardBypass"] = DamageIn["WardBypass"] or modDB:Sum("BASE", nil, "WardBypass") or 0
 
 		local iterationMultiplier = 1
-		local maxHits = data.misc.ehpCalcMaxHitsToCalc
-		maxHits = maxHits / DamageIn["cycles"]
-		while life > 0 and numHits < maxHits do
+		local damageTotal = 0
+		local maxDamage = data.misc.ehpCalcMaxDamage
+		local maxIterations = data.misc.ehpCalcMaxIterationsToCalc
+		while life > 0 and DamageIn["iterations"] < maxIterations and damageTotal < maxDamage do
 			numHits = numHits + iterationMultiplier
+			DamageIn["iterations"] = DamageIn["iterations"] + 1
 			local Damage = { }
+			damageTotal = 0
 			for _, damageType in ipairs(dmgTypeList) do
 				Damage[damageType] = DamageIn[damageType] * iterationMultiplier
+				damageTotal = damageTotal + Damage[damageType]
 			end
 			if DamageIn.GainWhenHit and (iterationMultiplier > 1 or DamageIn["cycles"] > 1) then
 				local gainMult = iterationMultiplier * DamageIn["cycles"]
@@ -1753,10 +1758,9 @@ function calcs.defence(env, actor)
 			end
 			iterationMultiplier = 1
 			-- to speed it up, run recursively but accelerated
-			local maxDepth = data.misc.ehpCalcMaxDepth
 			local speedUp = data.misc.ehpCalcSpeedUp
 			DamageIn["cyclesRan"] = DamageIn["cyclesRan"] or false
-			if not DamageIn["cyclesRan"] and life > 0 and DamageIn["cycles"] < maxDepth then
+			if not DamageIn["cyclesRan"] and life > 0 and DamageIn["iterations"] < maxIterations then
 				Damage = { }
 				for _, damageType in ipairs(dmgTypeList) do
 					Damage[damageType] = DamageIn[damageType] * speedUp
@@ -1768,14 +1772,16 @@ function calcs.defence(env, actor)
 					Damage.EnergyShieldWhenHit= DamageIn.EnergyShieldWhenHit
 				end
 				Damage["cycles"] = DamageIn["cycles"] * speedUp
+				Damage["iterations"] = DamageIn["iterations"]
 				iterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
+				DamageIn["iterations"] = Damage["iterations"]
 				DamageIn["cyclesRan"] = true
 			end
 			if life < 0 and DamageIn["cycles"] == 1 and numHits ~= m_huge then -- Don't count overkill damage and only on final pass as to not break speedup.
 				numHits = numHits + life / DamageAbsorbed
 			end
 		end
-		if life > 0 and numHits >= maxHits then -- If still living and the number of hits exceeds the maximum then we surivived infinite hits.
+		if life > 0 and damageTotal >= maxDamage then -- If still living and the amount of damage exceeds maximum threshold we survived infinite number of hits.
 			return m_huge
 		end
 		return numHits

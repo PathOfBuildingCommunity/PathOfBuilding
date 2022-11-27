@@ -472,10 +472,10 @@ data.misc = { -- magic numbers
 	uberBossPen = 40 / 5,
 	-- ehp helper function magic numbers
 	ehpCalcSpeedUp = 8,
-		-- depth needs to be a power of speedUp (in this case 8^3, will run 3 recursive calls deep)
-	ehpCalcMaxDepth = 512,
-		-- max hits can be increased for more accuracy
-	ehpCalcMaxHitsToCalc = 1031,
+	-- max damage can be increased for more accuracy
+	ehpCalcMaxDamage = 100000000,
+	-- max iterations can be increased for more accuracy this should be perfectly accurate unless it runs out of iterations and so high eHP values might have some precision issues.
+	ehpCalcMaxIterationsToCalc = 40,
 	-- PvP scaling used for hogm
 	PvpElemental1 = 0.55,
 	PvpElemental2 = 150,
