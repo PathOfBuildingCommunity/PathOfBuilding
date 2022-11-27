@@ -1781,6 +1781,9 @@ function calcs.defence(env, actor)
 				numHits = numHits + life / DamageAbsorbed
 			end
 		end
+		if DamageIn["iterations"] == maxIterations then -- Apply remaining hits if ran into cap.
+			numHits = numHits + iterationMultiplier
+		end
 		if life > 0 and damageTotal >= maxDamage then -- If still living and the amount of damage exceeds maximum threshold we survived infinite number of hits.
 			return m_huge
 		end

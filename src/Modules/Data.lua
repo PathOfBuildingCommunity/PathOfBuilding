@@ -475,7 +475,7 @@ data.misc = { -- magic numbers
 	-- max damage can be increased for more accuracy
 	ehpCalcMaxDamage = 100000000,
 	-- max iterations can be increased for more accuracy this should be perfectly accurate unless it runs out of iterations and so high eHP values might have some precision issues.
-	ehpCalcMaxIterationsToCalc = 40,
+	ehpCalcMaxIterationsToCalc = 50,
 	-- PvP scaling used for hogm
 	PvpElemental1 = 0.55,
 	PvpElemental2 = 150,
