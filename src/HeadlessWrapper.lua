@@ -165,7 +165,9 @@ end
 
 
 dofile("Launch.lua")
-
+--Prevents loading of ModCache
+--Allows running mod parsing related tests without pushing ModCache 
+mainObject.headlessMode = true 
 runCallback("OnInit")
 runCallback("OnFrame") -- Need at least one frame for everything to initialise
 
