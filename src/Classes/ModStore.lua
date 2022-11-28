@@ -534,7 +534,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 					local count = cfg[targetAtrColor] or 0
 					if tag.sockets == "all" then
 						local total = (cfg.intelligenceGems or 0) + (cfg.dexterityGems or 0) + (cfg.strengthGems or 0)
-						match["sockets"] = (total == count) or false			
+						match["sockets"] = (total == count) and (total > 0) or false
 					elseif type(tag.sockets) == "table" and cfg.socketNum then
 						match["sockets"] = (isValidSocket(tag.sockets, cfg.socketNum)) or false
 					elseif type(tag.sockets) == "number" then
