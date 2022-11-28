@@ -165,9 +165,12 @@ end
 
 
 dofile("Launch.lua")
+
 --Prevents loading of ModCache
---Allows running mod parsing related tests without pushing ModCache 
-mainObject.headlessMode = true 
+--Allows running mod parsing related tests without pushing ModCache
+--The CI env var will be true when ran from github workflows but should be false for other tools using the headless wrapper 
+mainObject.headlessMode = os.getenv("CI") 
+
 runCallback("OnInit")
 runCallback("OnFrame") -- Need at least one frame for everything to initialise
 
