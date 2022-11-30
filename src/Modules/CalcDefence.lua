@@ -11,6 +11,7 @@ local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local m_sqrt = math.sqrt
 local m_modf = math.modf
 local m_huge = math.huge
 local s_format = string.format
@@ -2234,7 +2235,64 @@ function calcs.defence(env, actor)
 		output[damageType.."MaximumHitTaken"] = m_huge
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			if actor.damageShiftTable[damageType][damageConvertedType] > 0 then
-				local hitTaken = output[damageConvertedType.."TotalHitPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageConvertedType.."BaseTakenHitMult"]
+				local hitTaken = 0
+				local percentOfArmourApplies = m_min((not modDB:Flag(nil, "ArmourDoesNotApplyTo"..damageConvertedType.."DamageTaken") and modDB:Sum("BASE", nil, "ArmourAppliesTo"..damageConvertedType.."DamageTaken") or 0), 100)
+
+				if percentOfArmourApplies == 0 then	-- use a simpler calculation for no armour DR
+					hitTaken = output[damageConvertedType.."TotalHitPool"] / (actor.damageShiftTable[damageType][damageConvertedType] / 100) / output[damageConvertedType.."BaseTakenHitMult"]
+				else
+					-- get relevant raw reductions and reduction modifiers
+					local takenMult = output[damageConvertedType.."TakenHitMult"]
+					local spellSuppressMult = 1
+					if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
+						takenMult = output[damageConvertedType.."AttackTakenHitMult"]
+					elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
+						takenMult = output[damageConvertedType.."SpellTakenHitMult"]
+						spellSuppressMult = output.SpellSuppressionChance == 100 and (1 - output.SpellSuppressionEffect / 100) or 1
+					elseif damageCategoryConfig == "Average" then
+						takenMult = (output[damageConvertedType.."SpellTakenHitMult"] + output[damageConvertedType.."AttackTakenHitMult"]) / 2
+						spellSuppressMult = output.SpellSuppressionChance == 100 and (1 - output.SpellSuppressionEffect / 100 / 2) or 1
+					end
+
+					local reductionPercent = modDB:Flag(nil, "SelfIgnore".."Base"..damageConvertedType.."DamageReduction") and 0 or output["Base"..damageConvertedType.."DamageReductionWhenHit"] or output["Base"..damageConvertedType.."DamageReduction"]
+					local flatDR = reductionPercent / 100
+					local enemyOverwhelmPercent = modDB:Flag(nil, "SelfIgnore"..damageConvertedType.."DamageReduction") and 0 or output[damageConvertedType.."EnemyOverwhelm"]
+
+					local resist = modDB:Flag(nil, "SelfIgnore"..damageConvertedType.."Resistance") and 0 or output[damageConvertedType.."ResistWhenHit"] or output[damageConvertedType.."Resist"]
+					local enemyPen = modDB:Flag(nil, "SelfIgnore"..damageConvertedType.."Resistance") and 0 or output[damageConvertedType.."EnemyPen"]
+
+					-- apply modifiers to reductions
+					local totalTakenMulti = takenMult * spellSuppressMult
+					local totalResistMult = 1 - (resist - enemyPen) / 100
+					local totalAppliedArmour = output.Armour * percentOfArmourApplies / 100
+
+					local totalHitPool = output[damageConvertedType.."TotalHitPool"]
+					local maximumDamageOfThisType = totalHitPool / (actor.damageShiftTable[damageType][damageConvertedType] / 100)
+
+					-- We know the damage and armour calculation chain. The important part for max hit calculations is:
+					-- 		dmgAfterRes = RAW * ResistanceMulti
+					-- 		armourDR = AppliedArmour / (AppliedArmour + 5 * dmgAfterRes)
+					-- 		totalDR = max(min(armourDR + FlatDR, MaxReduction) - Overwhelm, 0)	-- min and max is complicated to actually math out so skip caps first and tack it on later. Result should be close enough
+					-- 		dmgReceived = dmgAfterRes * (1 - totalDR)
+					-- 		damageTaken = dmgReceived * TakenMulti
+					-- If we consider damageTaken to be the total hit pool of the actor, we can go backwards in the chain until we find the max hit - the RAW damage.
+					-- Some fun math later we get:
+					-- 		5 * (1 - FlatDR + Overwhelm) * dmgAfterRes * dmgAfterRes + ((Overwhelm - FlatDR) * AppliedArmour - 5 * dmgReceived) * dmgAfterRes - AppliedArmour * dmgReceived = 0
+					-- 		dmgAfterRes = [quadratic]
+					-- 		RAW = dmgAfterRes / ResistanceMulti
+					local damageReceived = maximumDamageOfThisType / totalTakenMulti
+
+					local a = 5 * (1 - flatDR + enemyOverwhelmPercent / 100)
+					local b = (enemyOverwhelmPercent / 100 - flatDR) * totalAppliedArmour - 5 * damageReceived
+					local c = -totalAppliedArmour * damageReceived
+
+					local dmgAfterRes = (m_sqrt(b * b - 4 * a * c) - b) / (2 * a)
+					local RAW = dmgAfterRes / totalResistMult
+
+					-- tack on some caps
+					local overwhelmedReductionMulti = 1 - (output.DamageReductionMax - enemyOverwhelmPercent) / 100
+					hitTaken = m_floor(m_max(m_min(RAW, totalHitPool / totalTakenMulti / totalResistMult / overwhelmedReductionMulti), totalHitPool / totalTakenMulti / totalResistMult))
+				end
 				if hitTaken < output[damageType.."MaximumHitTaken"] then
 					output[damageType.."MaximumHitTaken"] = hitTaken
 				end
