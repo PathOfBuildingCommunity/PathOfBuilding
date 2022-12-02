@@ -93,7 +93,7 @@ Assassin's Mitts
 Grants Call of Steel
 124% increased Evasion and Energy Shield
 50% increased effects of impale inflicted by Spells
-Critical Strikes with Spell inflict Impale
+Critical Strikes with Spells inflict Impale
 ]],[[
 Firesong
 Crimson Jewel
