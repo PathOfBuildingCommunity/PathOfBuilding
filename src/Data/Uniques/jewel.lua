@@ -58,23 +58,11 @@ Crimson Jewel
 (4-6)% increased Strength
 (10-15)% reduced Intelligence
 ]],[[
-Brute Force Solution
-Cobalt Jewel
-Radius: Large
-+(16-24) to Intelligence
-Strength from Passives in Radius is Transformed to Intelligence
-]],[[
 Calamitous Visions
 Small Cluster Jewel
 League: Delirium
 Source: Drops from unique Delirium bosses in maps
 Adds Lone Messenger
-]],[[
-Careful Planning
-Viridian Jewel
-Radius: Large
-+(16-24) to Dexterity
-Intelligence from Passives in Radius is Transformed to Dexterity
 ]],[[
 Cheap Construction
 Viridian Jewel
@@ -126,12 +114,6 @@ Radius: Medium
 With at least 40 Strength in Radius, Combust is Disabled
 With at least 40 Strength in Radius, Attacks Exerted by Infernal Cry deal (40-60)% more Damage with Ignite
 ]],[[
-Efficient Training
-Crimson Jewel
-Radius: Large
-+(16-24) to Strength
-Intelligence from Passives in Radius is Transformed to Strength
-]],[[
 Eldritch Knowledge
 Cobalt Jewel
 Radius: Medium
@@ -147,53 +129,16 @@ With at least 40 Intelligence in Radius, Discharge has 60% less Area of Effect
 With at least 40 Intelligence in Radius, Discharge Cooldown is 250 ms
 With at least 40 Intelligence in Radius, Discharge deals 60% less Damage
 ]],[[
-Energised Armour
-Crimson Jewel
-Radius: Large
-(15-20)% increased Armour
-Increases and Reductions to Energy Shield in Radius are Transformed to apply to Armour at 200% of their value
-]],[[
-Energy From Within
-Cobalt Jewel
-Variant: Pre 2.5.0
-Variant: Current
-Radius: Large
-{variant:1}(8-12)% increased maximum Energy Shield
-{variant:2}(3-6)% increased maximum Energy Shield
-Increases and Reductions to Life in Radius are Transformed to apply to Energy Shield
-]],[[
-Fertile Mind
-Cobalt Jewel
-Radius: Large
-+(16-24) to Intelligence
-Dexterity from Passives in Radius is Transformed to Intelligence
-]],[[
 Fireborn
 Crimson Jewel
 Radius: Medium
 Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage
-]],[[
-Fluid Motion
-Viridian Jewel
-Radius: Large
-+(16-24) to Dexterity
-Strength from Passives in Radius is Transformed to Dexterity
 ]],[[
 Fortified Legion
 Cobalt Jewel
 Limited to: 1
 Minions have (5-15)% increased maximum Life
 Minions Recover 2% of their Maximum Life when they Block
-]],[[
-Fortress Covenant
-Cobalt Jewel
-Requires Level: 20
-Limited to: 1
-Radius: Medium
-Minions deal (35-45)% increased Damage
-Minions have +(10-12)% Chance to Block Attack Damage
-Minions have +(10-12)% Chance to Block Spell Damage
-Notable Passive Skills in Radius are Transformed to instead grant: Minions take 20% increased Damage
 ]],[[
 Fragile Bloom
 Crimson Jewel
@@ -232,13 +177,6 @@ Small Cluster Jewel
 League: Delirium
 Source: Drops from unique Delirium bosses in maps
 Adds Veteran's Awareness
-]],[[
-The Golden Rule
-Viridian Jewel
-(30-40)% increased Armour while Bleeding 
-Bleeding you inflict is Reflected to you 
-+1% to Chaos Resistance per Poison on you 
-Poison you inflict is Reflected to you 
 ]],[[
 Grand Spectrum
 Cobalt Jewel
@@ -318,18 +256,6 @@ Variant: Current
 {variant:1}(20-30)% increased Trap Trigger Radius
 {variant:2}(40-60)% increased Trap Trigger Area of Effect
 ]],[[
-Healthy Mind
-Cobalt Jewel
-Limited to: 1
-Radius: Large
-(15-20)% increased maximum Mana
-Increases and Reductions to Life in Radius are Transformed to apply to Mana at 200% of their value
-]],[[
-Hidden Potential
-Viridian Jewel
-Limited to: 1
-(20-25)% increased Damage for each Magic Item Equipped
-]],[[
 Hotheaded
 Viridian Jewel
 Limited to: 1
@@ -347,12 +273,6 @@ Limited to: 1
 (10-20)% increased Attack Speed while Chilled
 (10-20)% increased Cast Speed while Chilled
 (10-20)% increased Movement Speed while Chilled
-]],[[
-Inertia
-Crimson Jewel
-Radius: Large
-+(16-24) to Strength
-Dexterity from Passives in Radius is Transformed to Strength
 ]],[[
 Inspired Learning
 Crimson Jewel
@@ -540,31 +460,6 @@ Witch: 20% increased Skill Effect Duration
 Templar: +4% Chance to Block Attack and Spell Damage
 Scion: 30% increased Damage
 ]],[[
-Quickening Covenant
-Viridian Jewel
-Requires Level: 20
-Limited to: 1
-Radius: Medium
-Minions have (12-16)% increased Attack Speed
-Minions have (12-16)% increased Cast Speed
-Minions have (20-24)% chance to Suppress Spell Damage
-Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
-]],[[
-Rain of Splinters
-Crimson Jewel
-Limited to: 1
-(30-50)% reduced Totem Damage
-Totems Fire 2 additional Projectiles
-]],[[
-Reckless Defence
-Cobalt Jewel
-Variant: Pre 3.4.0
-Variant: Current
-{variant:1}+6% chance to Block Spell Damage
-{variant:2}+(2-4)% chance to Block Spell Damage
-(2-4)% chance to Block Attack Damage
-Hits have (140-200)% increased Critical Strike Chance against you
-]],[[
 Replica Reckless Defence
 Cobalt Jewel
 League: Heist
@@ -599,15 +494,6 @@ Small Cluster Jewel
 League: Delirium
 Source: Drops from unique Delirium bosses in maps
 Adds Kineticism
-]],[[
-Soul's Wick
-Cobalt Jewel
-Limited to: 1
-+2 to maximum number of Spectres
-(40-50)% reduced Mana Cost of Raise Spectre 
-Spectres have (800-1000)% increased Critical Strike Chance 
-Spectres have a Base Duration of 20 seconds
-Spectres do not travel between Areas 
 ]],[[
 Spire of Stone
 Crimson Jewel
@@ -725,17 +611,6 @@ Implicits: 0
 {variant:5}Only affects Passives in Massive Ring
 Passives in Radius can be Allocated without being connected to your tree
 -(20-10)% to all Elemental Resistances
-]],[[
-To Dust
-Cobalt Jewel
-Variant: Pre 3.0.0
-Variant: Current
-(10-20)% reduced Skeleton Duration
-Minions deal (8-12)% increased Damage
-{variant:1}2% increased Skeleton Attack Speed
-{variant:2}(7-10)% increased Skeleton Attack Speed
-{variant:2}(7-10)% increased Skeleton Cast speed
-{variant:2}(3-5)% increased Skeleton Movement Speed
 ]],[[
 Unnatural Instinct
 Viridian Jewel
@@ -1092,19 +967,6 @@ Minions have +(7-10)% to all Elemental Resistances
 {variant:2}With at least 40 Intelligence in Radius, can summon up to 5 Skeleton Mages with Summon Skeletons
 {variant:3}With at least 40 Intelligence in Radius, can summon up to 15 Skeleton Mages with Summon Skeletons
 ]],[[
-Seething Fury
-Viridian Jewel
-Variant: Pre 3.16.0
-Variant: Current
-League: Legion
-Requires Level: 20
-Limited to: 1
-Radius: Medium
-(10-15)% increased Attack Damage while holding a Shield
-{variant:1}+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
-{variant:2}+0.15% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
-+4% to Off Hand Critical Strike Multiplier per 10 Maximum Energy Shield on Shield
-]],[[
 Fight for Survival
 Viridian Jewel
 Limited to: 2
@@ -1440,12 +1302,14 @@ Radius: Medium
 [[
 Ancient Waystones
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 1
 60% reduced Cost of Aura Skills that summon Totems
 Corrupted
 ]],[[
 Atziri's Reign
 Crimson Jewel
+Source: Corruption Outcome
 Variant: Pre 3.14.0
 Variant: Current
 Limited to: 1
@@ -1453,8 +1317,19 @@ Limited to: 1
 {variant:2}Vaal Skills have (15-20)% chance to regain consumed Souls when used
 Corrupted
 ]],[[
+Brute Force Solution
+Cobalt Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Radius: Large
++(16-24) to Intelligence
+Strength from Passives in Radius is Transformed to Intelligence
+{variant:2}Corrupted
+]],[[
 Blood Sacrifice
 Crimson Jewel
+Source: No longer obtainable
 Lose 1% of Life on Kill
 Recover 1% of Mana on Kill
 Lose 1% of Energy Shield on Kill
@@ -1462,6 +1337,7 @@ Corrupted
 ]],[[
 Replica Blood Sacrifice
 Crimson Jewel
+Source: No longer obtainable
 League: Heist
 Implicits: 0
 Recover 1% of Life on Kill
@@ -1470,30 +1346,88 @@ Cannot Leech or Regenerate Mana
 ]],[[
 Brittle Barrier
 Cobalt Jewel
+Source: No longer obtainable
 20% faster start of Energy Shield Recharge
 10% increased Damage taken while on Full Energy Shield
 Corrupted
 ]],[[
+Careful Planning
+Viridian Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Radius: Large
++(16-24) to Dexterity
+Intelligence from Passives in Radius is Transformed to Dexterity
+{variant:2}Corrupted
+]],[[
 Chill of Corruption
 Viridian Jewel
+Source: Corruption Outcome
 Limited to: 1
 50% chance to gain an additional Vaal Soul per Enemy Shattered
 Corrupted
 ]],[[
 Combustibles
 Crimson Jewel
+Source: No longer obtainable
 10% reduced Quantity of Items found
 (20-30)% increased Burning Damage
 Corrupted
 ]],[[
 Corrupted Energy
 Cobalt Jewel
+Source: No longer obtainable
 Implicits: 0
 With 5 Corrupted Items Equipped: 50% of Chaos Damage does not bypass Energy Shield and 50% of Physical Damage bypasses Energy Shield
 Corrupted
 ]],[[
+Efficient Training
+Crimson Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Radius: Large
++(16-24) to Strength
+Intelligence from Passives in Radius is Transformed to Strength
+{variant:2}Corrupted
+]],[[
+Energised Armour
+Crimson Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Radius: Large
+(15-20)% increased Armour
+Increases and Reductions to Energy Shield in Radius are Transformed to apply to Armour at 200% of their value
+{variant:2}Corrupted
+]],[[
+Energy From Within
+Cobalt Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Variant: Pre 2.5.0
+Variant: Current
+Radius: Large
+{variant:1}(8-12)% increased maximum Energy Shield
+{variant:2}(3-6)% increased maximum Energy Shield
+Increases and Reductions to Life in Radius are Transformed to apply to Energy Shield
+{variant:2}Corrupted
+]],[[
+Fertile Mind
+Cobalt Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Radius: Large
++(16-24) to Intelligence
+Dexterity from Passives in Radius is Transformed to Intelligence
+{variant:2}Corrupted
+]],[[
 Fevered Mind
 Cobalt Jewel
+Source: Corruption Outcome
 Variant: Pre 3.10.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -1507,53 +1441,206 @@ Radius: Small
 {variant:3}Notable Passive Skills in Radius are Transformed to instead grant: 10% increased Mana Cost of Skills and 20% increased Spell Damage
 Corrupted
 ]],[[
+Fluid Motion
+Viridian Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Radius: Large
++(16-24) to Dexterity
+Strength from Passives in Radius is Transformed to Dexterity
+{variant:2}Corrupted
+]],[[
+Fortress Covenant
+Cobalt Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Requires Level: 20
+Limited to: 1
+Radius: Medium
+Minions deal (35-45)% increased Damage
+Minions have +(10-12)% Chance to Block Attack Damage
+Minions have +(10-12)% Chance to Block Spell Damage
+Notable Passive Skills in Radius are Transformed to instead grant: Minions take 20% increased Damage
+{variant:2}Corrupted
+]],[[
 Fragility
 Crimson Jewel
+Source: Corruption Outcome
 −1 Maximum Endurance Charges
 Corrupted
 ]],[[
+Healthy Mind
+Cobalt Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Limited to: 1
+Radius: Large
+(15-20)% increased maximum Mana
+Increases and Reductions to Life in Radius are Transformed to apply to Mana at 200% of their value
+{variant:2}Corrupted
+]],[[
+Hidden Potential
+Viridian Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Limited to: 1
+(20-25)% increased Damage for each Magic Item Equipped
+{variant:2}Corrupted
+]],[[
 Hungry Abyss
 Viridian Jewel
+Source: No longer obtainable
 Limited to: 1
 With 5 Corrupted Items Equipped: Life Leech recovers based on your Chaos Damage instead
 Corrupted
 ]],[[
+Inertia
+Crimson Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Radius: Large
++(16-24) to Strength
+Dexterity from Passives in Radius is Transformed to Strength
+{variant:2}Corrupted
+]],[[
 Mutated Growth
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 1
 10% increased Experience Gain of Corrupted Gems
 Corrupted
 ]],[[
 Pacifism
 Viridian Jewel
+Source: Corruption Outcome
 −1 Maximum Frenzy Charges
 Corrupted
 ]],[[
 Powerlessness
 Cobalt Jewel
+Source: Corruption Outcome
 −1 Maximum Power Charges
 Corrupted
 ]],[[
+Quickening Covenant
+Viridian Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Requires Level: 20
+Limited to: 1
+Radius: Medium
+Minions have (12-16)% increased Attack Speed
+Minions have (12-16)% increased Cast Speed
+Minions have (20-24)% chance to Suppress Spell Damage
+Notable Passive Skills in Radius are Transformed to instead grant: Minions have 25% reduced Movement Speed
+{variant:2}Corrupted
+]],[[
+Rain of Splinters
+Crimson Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Limited to: 1
+(30-50)% reduced Totem Damage
+Totems Fire 2 additional Projectiles
+{variant:2}Corrupted
+]],[[
+Reckless Defence
+Cobalt Jewel
+Source: Corruption Outcome
+Variant: Pre 3.4.0
+Variant: Pre 3.20.0
+Variant: Current
+{variant:1}+6% chance to Block Spell Damage
+{variant:2,3}+(2-4)% chance to Block Spell Damage
+(2-4)% chance to Block Attack Damage
+Hits have (140-200)% increased Critical Strike Chance against you
+{variant:3}Corrupted
+]],[[
 Sacrificial Harvest
 Viridian Jewel
+Source: No longer obtainable
 Limited to: 1
 (20-30)% chance to gain an additional Vaal Soul on Kill
 Corrupted
 ]],[[
+Seething Fury
+Viridian Jewel
+Source: Corruption Outcome
+Variant: Pre 3.16.0
+Variant: Pre 3.20.0
+Variant: Current
+League: Legion
+Requires Level: 20
+Limited to: 1
+Radius: Medium
+(10-15)% increased Attack Damage while holding a Shield
+{variant:1}+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
+{variant:2,3}+0.15% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
++4% to Off Hand Critical Strike Multiplier per 10 Maximum Energy Shield on Shield
+{variant:3}Corrupted
+]],[[
 Self-Flagellation
 Viridian Jewel
+Source: Corruption Outcome
 Limited to: 1
 An additional Curse can be applied to you
 (10-20)% increased Damage per Curse on you
 Corrupted
 ]],[[
+Soul's Wick
+Cobalt Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+Limited to: 1
++2 to maximum number of Spectres
+(40-50)% reduced Mana Cost of Raise Spectre 
+Spectres have (800-1000)% increased Critical Strike Chance 
+Spectres have a Base Duration of 20 seconds
+Spectres do not travel between Areas 
+{variant:2}Corrupted
+]],[[
+The Golden Rule
+Viridian Jewel
+Source: Corruption Outcome
+Variant: Pre 3.20.0
+Variant: Current
+(30-40)% increased Armour while Bleeding 
+Bleeding you inflict is Reflected to you 
++1% to Chaos Resistance per Poison on you 
+Poison you inflict is Reflected to you 
+{variant:2}Corrupted
+]],[[
+To Dust
+Cobalt Jewel
+Source: Corruption Outcome
+Variant: Pre 3.0.0
+Variant: Pre 3.20.0
+Variant: Current
+(10-20)% reduced Skeleton Duration
+Minions deal (8-12)% increased Damage
+{variant:1}2% increased Skeleton Attack Speed
+{variant:2,3}(7-10)% increased Skeleton Attack Speed
+{variant:2,3}(7-10)% increased Skeleton Cast speed
+{variant:2,3}(3-5)% increased Skeleton Movement Speed
+{variant:3}Corrupted
+]],[[
 Vaal Sentencing
 Cobalt Jewel
+Source: No longer obtainable
 (80-120)% increased Vaal Skill Critical Strike Chance
 Corrupted
 ]],[[
 Weight of Sin
 Viridian Jewel
+Source: No longer obtainable
 (15-20)% increased Chaos Damage
 15% reduced Movement Speed
 Corrupted
