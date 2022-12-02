@@ -536,9 +536,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 			condList["IntHigherThanStr"] = output.Int > output.Str
 			condList["StrHigherThanInt"] = output.Str > output.Int
 
-			condList["StrHighestAttribute"] = output.Str >= output.Dex  or output.Str >= output.Int
-			condList["IntHighestAttribute"] = output.Int >= output.Str  or output.Int >= output.Dex
-			condList["DexHighestAttribute"] = output.Dex >= output.Str  or output.Dex >= output.Int
+			condList["StrHighestAttribute"] = output.Str >= output.Dex and output.Str >= output.Int
+			condList["IntHighestAttribute"] = output.Int >= output.Str and output.Int >= output.Dex
+			condList["DexHighestAttribute"] = output.Dex >= output.Str and output.Dex >= output.Int
 		end
 	end
 
