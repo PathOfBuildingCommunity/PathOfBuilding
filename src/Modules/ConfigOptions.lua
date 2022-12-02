@@ -1403,13 +1403,11 @@ This is divided by 4.25 to represent 4 damage types + some ^xD02090chaos
 ^7Fill in the exact damage numbers if more precision is needed
 
 Standard Boss adds the following modifiers:
-	33% less Effect of your Hexes
 	+40% to enemy Elemental Resistances
 	+25% to enemy ^xD02090Chaos Resistance
 	^794% of monster damage
 
 Guardian / Pinnacle Boss adds the following modifiers:
-	66% less Effect of your Hexes
 	+50% to enemy Elemental Resistances
 	+30% to enemy ^xD02090Chaos Resistance
 	^7+33% to enemy Armour
@@ -1417,7 +1415,6 @@ Guardian / Pinnacle Boss adds the following modifiers:
 	5% penetration
 
 Uber Pinnacle Boss adds the following modifiers:
-	66% less Effect of your Hexes
 	+50% to enemy Elemental Resistances
 	+30% to enemy ^xD02090Chaos Resistance
 	^7+100% to enemy Armour
@@ -1455,7 +1452,6 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
 		elseif val == "Boss" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "MORE", 488, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 
@@ -1486,7 +1482,6 @@ Uber Pinnacle Boss adds the following modifiers:
 		elseif val == "Pinnacle" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 33, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "MORE", 404, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
@@ -1516,7 +1511,6 @@ Uber Pinnacle Boss adds the following modifiers:
 		elseif val == "Uber" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 100, "Boss")
 			enemyModList:NewMod("DamageTaken", "MORE", -70, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "MORE", 404, "Boss")
