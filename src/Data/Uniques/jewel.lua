@@ -514,9 +514,12 @@ Radius: Large
 ]],[[
 Pure Talent
 Viridian Jewel
+Variant: Pre 3.20.0
+Variant: Current
 Limited to: 1
 While your Passive Skill Tree connects to a class' Starting location, you gain:
-Marauder: Melee Skills have 15% increased Area of Effect
+{variant:1}Marauder: Melee Skills have 15% increased Area of Effect
+{variant:2}Marauder: Melee Skills have 25% increased Area of Effect
 Duelist: 1% of Attack Damage Leeched as Life
 Ranger: 7% increased Movement Speed
 Shadow: +0.5 to Critical Strike Chance
@@ -1290,12 +1293,14 @@ With at least 40 Strength in Radius, 20% increased Rarity of Items dropped by En
 Spirit Guards
 Viridian Jewel
 Variant: Pre 2.6.0
+Variant: Pre 3.20.0
 Variant: Current
-Limited to: 2
+Limited to: 1
 Radius: Medium
 Minions deal (8-12)% increased Damage
 {variant:1}With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 4 Ranged Weapons
-{variant:2}With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 8 Ranged Weapons
+{variant:2}With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 12 Ranged Weapons
+{variant:3}With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 20 Ranged Weapons
 ]],[[
 Spirited Response
 Cobalt Jewel
