@@ -5,6 +5,7 @@ return {
 [[
 Anatomical Knowledge
 Cobalt Jewel
+Source: No longer obtainable
 Radius: Large
 (6-8)% increased maximum Life
 Adds 1 to Maximum Life per 3 Intelligence Allocated in Radius
@@ -18,6 +19,7 @@ Limited to: 1
 ]],[[
 Apex Mode
 Cobalt Jewel
+Source: No longer obtainable
 League: Heist
 Limited to: 1
 Requires Level 20
@@ -27,6 +29,7 @@ Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds
 ]],[[
 Apparitions
 Viridian Jewel
+Source: No longer obtainable
 Minions have (5-10)% increased Movement Speed
 Minions have +(2-5)% chance to Suppress Spell Damage
 ]],[[
@@ -54,6 +57,7 @@ also grant an equal chance to gain a Power Charge on Kill
 ]],[[
 Brawn
 Crimson Jewel
+Source: No longer obtainable
 (4-6)% increased Dexterity
 (4-6)% increased Strength
 (10-15)% reduced Intelligence
@@ -79,12 +83,14 @@ Can have 5 fewer Traps placed at a time
 ]],[[
 Clear Mind
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 1
 (20-30)% increased Mana Regeneration Rate
 (40-60)% increased Spell Damage while no Mana is Reserved
 ]],[[
 Coated Shrapnel
 Crimson Jewel
+Source: No longer obtainable
 Radius: Small
 Variant: Pre 3.8.0
 Variant: Current
@@ -94,6 +100,7 @@ Traps and Mines have a 25% chance to Poison on Hit
 ]],[[
 Cold Steel
 Viridian Jewel
+Source: No longer obtainable
 Radius: Large
 Increases and Reductions to Physical Damage in Radius are Transformed to apply to Cold Damage
 Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage
@@ -109,6 +116,7 @@ until you take no Damage to Life for 2 seconds
 ]],[[
 Divine Inferno
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 1
 Radius: Medium
 With at least 40 Strength in Radius, Combust is Disabled
@@ -116,11 +124,13 @@ With at least 40 Strength in Radius, Attacks Exerted by Infernal Cry deal (40-60
 ]],[[
 Eldritch Knowledge
 Cobalt Jewel
+Source: No longer obtainable
 Radius: Medium
 5% increased Chaos Damage per 10 Intelligence from Allocated Passives in Radius
 ]],[[
 Endless Misery
 Cobalt Jewel
+Source: Vendor Recipe
 League: Heist
 Limited to: 1
 Radius: Medium
@@ -131,17 +141,20 @@ With at least 40 Intelligence in Radius, Discharge deals 60% less Damage
 ]],[[
 Fireborn
 Crimson Jewel
+Source: No longer obtainable
 Radius: Medium
 Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage
 ]],[[
 Fortified Legion
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 1
 Minions have (5-15)% increased maximum Life
 Minions Recover 2% of their Maximum Life when they Block
 ]],[[
 Fragile Bloom
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 1
 Variant: Pre 3.11.0
 Variant: Current
@@ -154,6 +167,7 @@ Variant: Current
 ]],[[
 Replica Fragile Bloom
 Crimson Jewel
+Source: No longer obtainable
 League: Heist
 Limited to: 1
 Implicits: 0
@@ -164,6 +178,7 @@ Lose 1 Fragile Regrowth each second
 ]],[[
 From Dust
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 1
 Variant: Pre 3.8.0
 Variant: Current
@@ -250,6 +265,7 @@ also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 Hair Trigger
 Viridian Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
 (15-25)% increased Trap Damage
@@ -258,6 +274,7 @@ Variant: Current
 ]],[[
 Hotheaded
 Viridian Jewel
+Source: No longer obtainable
 Limited to: 1
 Variant: Pre 3.11.0
 Variant: Current
@@ -268,6 +285,7 @@ Variant: Current
 ]],[[
 Replica Hotheaded
 Viridian Jewel
+Source: No longer obtainable
 League: Heist
 Limited to: 1
 (10-20)% increased Attack Speed while Chilled
@@ -311,6 +329,7 @@ Melee and Melee Weapon Type modifiers in Radius are Transformed to Bow Modifiers
 ]],[[
 Lord of Steel
 Viridian Jewel
+Source: No longer obtainable
 League: Heist
 Limited to: 1
 Variant: Impale Chance (Pre 3.13.0)
@@ -329,16 +348,19 @@ Variant: Impale Effect (Current)
 ]],[[
 Malicious Intent
 Cobalt Jewel
+Source: No longer obtainable
 5% chance to Gain Unholy Might for 4 seconds on Melee Kill
 ]],[[
 Mantra of Flames
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 1
 Adds (3-5) to (8-12) Fire Attack Damage per Buff on You
 Adds (2-3) to (5-8) Fire Spell Damage per Buff on You
 ]],[[
 Martial Artistry
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 1
 Variant: Pre 3.11.0
 Variant: Current
@@ -359,6 +381,7 @@ Elemental Resistances are capped by your highest Maximum Elemental Resistance in
 ]],[[
 Might in All Forms
 Crimson Jewel
+Source: No longer obtainable
 Radius: Medium
 Dexterity and Intelligence from passives in Radius count towards Strength Melee Damage bonus
 ]],[[
@@ -370,6 +393,7 @@ Notable Passive Skills in Radius grant nothing
 ]],[[
 Nadir Mode
 Cobalt Jewel
+Source: No longer obtainable
 League: Heist
 Limited to: 1
 Item Level: 82
@@ -427,6 +451,7 @@ Summoned Golems are Aggressive
 ]],[[
 Pugilist
 Viridian Jewel
+Source: No longer obtainable
 Radius: Large
 1% increased Evasion Rating per 3 Dexterity Allocated in Radius
 1% increased Claw Physical Damage per 3 Dexterity Allocated in Radius
@@ -449,6 +474,7 @@ Scion: +25 to All Attributes
 ]],[[
 Replica Pure Talent
 Viridian Jewel
+Source: No longer obtainable
 League: Heist
 Limited to: 1
 While your Passive Skill Tree connects to a class' starting location, you gain:
@@ -497,6 +523,7 @@ Adds Kineticism
 ]],[[
 Spire of Stone
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 1
 Radius: Large
 3% increased Totem Life per 10 Strength Allocated in Radius
@@ -504,6 +531,7 @@ Totems cannot be Stunned
 ]],[[
 Static Electricity
 Viridian Jewel
+Source: No longer obtainable
 Radius: Large
 Adds 1 maximum Lightning Damage to Attacks per 1 Dexterity Allocated in Radius
 Adds 1 to 2 Lightning Damage to Attacks
@@ -621,10 +649,12 @@ Grants all bonuses of Unallocated Small Passive Skills in Radius
 ]],[[
 Unstable Payload
 Cobalt Jewel
+Source: No longer obtainable
 (8-12)% Chance for Traps to Trigger an additional time
 ]],[[
 Replica Unstable Payload
 Cobalt Jewel
+Source: No longer obtainable
 League: Heist
 Implicits: 0
 Recover (20-30) Life when your Trap is triggered by an Enemy
@@ -918,6 +948,7 @@ Projectiles have 4% chance to be able to Chain when colliding with terrain per S
 [[
 Combat Focus
 Crimson Jewel
+Source: Vendor Recipe
 Limited to: 2
 Radius: Medium
 (10-15)% increased Elemental Damage with Attack Skills
@@ -926,6 +957,7 @@ With 40 total Strength and Intelligence in Radius, Prismatic Skills deal 50% les
 ]],[[
 Combat Focus
 Cobalt Jewel
+Source: Vendor Recipe
 Limited to: 2
 Radius: Medium
 (10-15)% increased Elemental Damage with Attack Skills
@@ -934,6 +966,7 @@ With 40 total Intelligence and Dexterity in Radius, Prismatic Skills deal 50% le
 ]],[[
 Combat Focus
 Viridian Jewel
+Source: Vendor Recipe
 Limited to: 2
 Radius: Medium
 (10-15)% increased Elemental Damage with Attack Skills
@@ -942,6 +975,7 @@ With 40 total Dexterity and Strength in Radius, Prismatic Skills deal 50% less L
 ]],[[
 Collateral Damage
 Viridian Jewel
+Source: No longer obtainable
 Limited to: 2
 Variant: Pre 3.9.0
 Variant: Current
@@ -957,6 +991,7 @@ cone has a 50% chance to deal Double Damage
 ]],[[
 Dead Reckoning
 Cobalt Jewel
+Source: Vendor Recipe
 Limited to: 1
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
@@ -969,6 +1004,7 @@ Minions have +(7-10)% to all Elemental Resistances
 ]],[[
 Fight for Survival
 Viridian Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (10-15)% increased Cold Damage
@@ -1010,6 +1046,7 @@ With at least 40 Dexterity in Radius, Viper Strike deals 2% increased Damage wit
 ]],[[
 Hazardous Research
 Cobalt Jewel
+Source: No longer obtainable
 Variant: Pre 3.17.0
 Variant: Current
 Limited to: 1
@@ -1021,6 +1058,7 @@ With at least 40 Intelligence in Radius, Spark fires Projectiles in a Nova
 ]],[[
 Inevitability
 Cobalt Jewel
+Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Limited to: 1
@@ -1034,6 +1072,7 @@ has 10% increased Area of Effect per Chain
 ]],[[
 The Long Winter
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 (10-15)% increased Cold Damage 
@@ -1043,6 +1082,7 @@ With 40 Intelligence in Radius, Glacial Cascade has an additional Burst
 ]],[[
 Might and Influence
 Viridian Jewel
+Source: No longer obtainable
 Has Alt Variant: true
 Variant: Pre 3.11.0
 Variant: Axe
@@ -1071,6 +1111,7 @@ Accuracy Rating while wielding a Sword
 ]],[[
 Omen on the Winds
 Viridian Jewel
+Source: No longer obtainable
 Variant: Pre 3.1.0
 Variant: Current
 Limited to: 2
@@ -1091,6 +1132,7 @@ With at least 40 Strength in Radius, Cleave has +1 to Radius per Nearby Enemy, u
 ]],[[
 Pitch Darkness
 Viridian Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
@@ -1119,6 +1161,7 @@ Radius: Medium
 ]],[[
 Ring of Blades
 Viridian Jewel
+Source: No longer obtainable
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
 Variant: Current
@@ -1131,6 +1174,7 @@ With at least 40 Dexterity in Radius, Ethereal Knives fires Projectiles in a Nov
 ]],[[
 Rolling Flames
 Cobalt Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -1145,6 +1189,7 @@ Radius: Medium
 ]],[[
 Shattered Chains
 Crimson Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
 Radius: Medium
@@ -1154,6 +1199,7 @@ With at least 40 Strength in Radius, 20% increased Rarity of Items dropped by En
 ]],[[
 Spirit Guards
 Viridian Jewel
+Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.20.0
 Variant: Current
@@ -1166,6 +1212,7 @@ Minions deal (8-12)% increased Damage
 ]],[[
 Spirited Response
 Cobalt Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
 Limited to: 1
@@ -1176,6 +1223,7 @@ With at least 40 Intelligence in Radius, 10% of Damage taken Recouped as Mana if
 ]],[[
 Spreading Rot
 Cobalt Jewel
+Source: No longer obtainable
 Variant: Pre 3.6.0
 Variant: Pre 3.17.0
 Variant: Current
@@ -1202,6 +1250,7 @@ Sudden Ignition
 Variant: Pre 3.16.0
 Variant: Current
 Viridian Jewel
+Source: No longer obtainable
 Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage 
@@ -1220,6 +1269,7 @@ With at least 40 Intelligence in Radius, Raised Spectres have a 50% chance to ga
 ]],[[
 The Vigil
 Crimson Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.14.0
 Variant: Current
@@ -1232,6 +1282,7 @@ Radius: Medium
 ]],[[
 Violent Dead
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 2
 Radius: Medium
 Minions deal (10-15)% increased Damage 
@@ -1242,6 +1293,7 @@ Attack deals 30% increased Damage
 ]],[[
 Volley Fire
 Viridian Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.9.0
 Variant: Current
@@ -1262,6 +1314,7 @@ With at least 40 Strength in Radius, Heavy Strike has a 20% chance to deal Doubl
 ]],[[
 Wildfire
 Crimson Jewel
+Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Limited to: 1
@@ -1286,6 +1339,7 @@ Hammer Physical Damage converted to Cold Damage
 ]],[[
 Winter's Bounty
 Cobalt Jewel
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.3.0
 Variant: Current
@@ -1649,6 +1703,7 @@ Corrupted
 [[
 Assassin's Haste
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 1
 10% increased Mana Regeneration Rate
 4% increased Movement Speed
@@ -1656,6 +1711,7 @@ Limited to: 1
 ]],[[
 Conqueror's Efficiency
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 1
 3% reduced Mana Cost of Skills
 4% increased Skill Effect Duration
@@ -1663,6 +1719,7 @@ Limited to: 1
 ]],[[
 Replica Conqueror's Efficiency
 Crimson Jewel
+Source: No longer obtainable
 League: Heist
 Limited to: 1
 4% increased Skill Effect Duration
@@ -1671,6 +1728,7 @@ Non-Channelling Skills have -9 to Total Mana Cost
 ]],[[
 Conqueror's Longevity
 Viridian Jewel
+Source: No longer obtainable
 Variant: Pre 3.16.0
 Variant: Current
 Limited to: 1
@@ -1683,6 +1741,7 @@ Limited to: 1
 ]],[[
 Conqueror's Potency
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 1
 4% increased Effect of your Curses
 8% increased effect of Flasks
@@ -1690,12 +1749,14 @@ Limited to: 1
 ]],[[
 Poacher's Aim
 Viridian Jewel
+Source: No longer obtainable
 Limited to: 1
 Projectiles Pierce an additional Target
 10% increased Projectile Damage
 ]],[[
 Survival Instincts
 Viridian Jewel
+Source: No longer obtainable
 Limited to: 1 Survival
 Variant: Pre 3.16.0
 Variant: Current
@@ -1707,6 +1768,7 @@ Survival
 ]],[[
 Survival Secrets
 Cobalt Jewel
+Source: No longer obtainable
 Limited to: 1 Survival
 Variant: Pre 3.16.0
 Variant: Current
@@ -1718,6 +1780,7 @@ Survival
 ]],[[
 Survival Skills
 Crimson Jewel
+Source: No longer obtainable
 Limited to: 1 Survival
 Variant: Pre 3.16.0
 Variant: Current
@@ -1729,6 +1792,7 @@ Survival
 ]],[[
 Warlord's Reach
 Crimson Jewel
+Source: No longer obtainable
 Variant: Pre 3.16.0
 Variant: Current
 Limited to: 1
