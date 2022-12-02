@@ -3542,6 +3542,10 @@ local specialModList = {
 	["create profane ground instead of consecrated ground"] = { 
 		flag("Condition:CreateProfaneGround"),
 	},
+	["(%d+)%% chance to create profane ground on critical strike if intelligence is your highest attribute"] = { 
+		flag("Condition:CreateProfaneGround", { type = "Condition", var = "IntHighestAttribute" }),
+	},
+	["you have consecrated ground around you while stationary if strength is your highest attribute"] = { },
 	["you count as dual wielding while you are unencumbered"] = { flag("Condition:DualWielding", { type = "Condition", var = "Unencumbered" }) },
 	["dual wielding does not inherently grant chance to block attack damage"] = { flag("Condition:NoInherentBlock") },
 	["you do not inherently take less damage for having fortification"] = { flag("Condition:NoFortificationMitigation") },
