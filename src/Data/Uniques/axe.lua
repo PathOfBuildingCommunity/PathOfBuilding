@@ -253,7 +253,7 @@ Culling Strike
 ]],[[
 Kingmaker
 Despot Axe
-Source: Vendor recipe
+Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.6.0
 Variant: Pre 3.11.0

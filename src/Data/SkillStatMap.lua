@@ -1677,6 +1677,10 @@ return {
 ["banner_area_of_effect_+%_per_stage"] = {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
 },
+["banner_additional_base_duration_per_stage_ms"] = {
+	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
+	div = 1000,
+},
 -- Other
 ["triggered_skill_damage_+%"] = {
 	mod("TriggeredDamage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),

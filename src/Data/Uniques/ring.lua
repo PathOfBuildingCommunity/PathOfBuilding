@@ -994,12 +994,15 @@ Implicits: 1
 ]],[[
 Stormfire
 Opal Ring
+Variant: Pre 3.17.0
+Variant: Current
 Requires Level 80
 Implicits: 1
 {tags:jewellery_elemental}(15-25)% increased Elemental Damage
 {tags:mana}(40-45)% increased Mana Regeneration Rate
 {tags:jewellery_resistance}+(20-30)% to Fire and Lightning Resistances
-{tags:jewellery_elemental}(4-6)% increased Burning Damage for each Enemy you have Shocked Recently
+{variant:1}{tags:jewellery_elemental}(4-6)% increased Burning Damage for each time you have Shocked a Non-Shocked Enemy Recently, up to a maximum of 120%
+{variant:2}{tags:jewellery_elemental}(8-12)% increased Burning Damage for each time you have Shocked a Non-Shocked Enemy Recently, up to a maximum of 120%
 {tags:jewellery_elemental}Adds (1-3) to (62-70) Lightning Damage to Hits against Ignited Enemies
 Your Lightning Damage can Ignite
 ]],[[
@@ -1019,7 +1022,7 @@ Take 250 Lightning Damage when Herald of Thunder Hits an Enemy
 The Taming
 Prismatic Ring
 League: Domination, Nemesis
-Source: Vendor recipe
+Source: Vendor Recipe
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 30

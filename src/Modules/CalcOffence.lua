@@ -462,12 +462,14 @@ function calcs.offence(env, actor, activeSkill)
 		local critMod = calcLib.mod(skillModList, skillCfg, "EnergyBladeCritChance")
 		local speedMod = calcLib.mod(skillModList, skillCfg, "EnergyBladeAttackSpeed")
 		for slotName, weaponData in pairs({ ["Weapon 1"] = "weaponData1", ["Weapon 2"] = "weaponData2" }) do
-			if actor.itemList[slotName] and actor.itemList[slotName].weaponData and actor.itemList[slotName].weaponData[1] then
-				actor[weaponData].CritChance = actor[weaponData].CritChance * critMod
-				actor[weaponData].AttackRate = actor[weaponData].AttackRate * speedMod
+			if actor.itemList[slotName] and actor.itemList[slotName].weaponData and actor.itemList[slotName].weaponData[1] and actor[weaponData].name and data.itemBases[actor[weaponData].name] then
+				local weaponBaseData = data.itemBases[actor[weaponData].name].weapon
+				actor[weaponData].CritChance = weaponBaseData.CritChanceBase * critMod
+				actor[weaponData].AttackRate = weaponBaseData.AttackRateBase * speedMod
+				actor[weaponData].Range = weaponBaseData.Range
 				for _, damageType in ipairs(dmgTypeList) do
-					actor[weaponData][damageType.."Min"] = (actor[weaponData][damageType.."Min"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMin"..damageType) * dmgMod)
-					actor[weaponData][damageType.."Max"] = (actor[weaponData][damageType.."Max"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMax"..damageType) * dmgMod)
+					actor[weaponData][damageType.."Min"] = (weaponBaseData[damageType.."Min"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMin"..damageType) * dmgMod)
+					actor[weaponData][damageType.."Max"] = (weaponBaseData[damageType.."Max"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMax"..damageType) * dmgMod)
 				end
 			end
 		end
@@ -835,9 +837,9 @@ function calcs.offence(env, actor, activeSkill)
 		calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
 	end
 	if activeSkill.skillTypes[SkillType.Aura] then
-		output.AuraEffectMod = calcLib.mod(skillModList, skillCfg, "AuraEffect")
+		output.AuraEffectMod = calcLib.mod(skillModList, skillCfg, "AuraEffect", not skillData.auraCannotAffectSelf and "SkillAuraEffectOnSelf" or nil)
 		if breakdown then
-			breakdown.AuraEffectMod = breakdown.mod(skillModList, skillCfg, "AuraEffect")
+			breakdown.AuraEffectMod = breakdown.mod(skillModList, skillCfg, "AuraEffect", not skillData.auraCannotAffectSelf and "SkillAuraEffectOnSelf" or nil)
 		end
 	end
 	if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
@@ -1008,6 +1010,9 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		output.TotemLifeMod = calcLib.mod(skillModList, skillCfg, "TotemLife")
 		output.TotemLife = round(m_floor(env.data.monsterAllyLifeTable[skillData.totemLevel] * env.data.totemLifeMult[activeSkill.skillTotemId]) * output.TotemLifeMod)
+		output.TotemEnergyShield = skillModList:Sum("BASE", skillCfg, "TotemEnergyShield")
+		output.TotemBlockChance = skillModList:Sum("BASE", skillCfg, "TotemBlockChance")
+		output.TotemArmour = skillModList:Sum("BASE", skillCfg, "TotemArmour")
 		if breakdown then
 			breakdown.TotemLifeMod = breakdown.mod(skillModList, skillCfg, "TotemLife")
 			breakdown.TotemLife = {
@@ -1017,6 +1022,9 @@ function calcs.offence(env, actor, activeSkill)
 				"x "..output.TotemLifeMod.." ^8(totem life modifier)",
 				"= "..output.TotemLife,
 			}
+			breakdown.TotemEnergyShield = breakdown.mod(skillModList, skillCfg, "TotemEnergyShield")
+			breakdown.TotemBlockChance = breakdown.mod(skillModList, skillCfg, "TotemBlockChance")
+			breakdown.TotemArmour = breakdown.mod(skillModList, skillCfg, "TotemArmour")
 		end
 	end
 	if skillFlags.brand then
@@ -1256,7 +1264,7 @@ function calcs.offence(env, actor, activeSkill)
 		output[costName] = floor(m_abs(inc / 100) * output[costName], dec) * (inc >= 0 and 1 or -1) + output[costName]
 		output[costName] = floor(m_abs(more - 1) * output[costName], dec) * (more >= 1 and 1 or -1) + output[costName]
 		output[costName] = m_max(0, floor(output[costName] + val.totalCost, dec))
-		if breakdown and output[costName] ~= val.baseCost then
+		if breakdown then
 			breakdown[costName] = {
 				s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
 			}
@@ -1619,6 +1627,13 @@ function calcs.offence(env, actor, activeSkill)
 				output.Speed = output.Speed * globalOutput.ActionSpeedMod
 				output.CastRate = output.Speed
 			end
+			if skillFlags.totem then
+				-- Totem skill. Apply action speed
+				local totemActionSpeed = 1 + (modDB:Sum("INC", nil, "TotemActionSpeed") / 100)
+				output.TotemActionSpeed = totemActionSpeed
+				output.Speed = output.Speed * totemActionSpeed
+				output.CastRate = output.Speed
+			end
 			if output.Cooldown then
 				output.Speed = m_min(output.Speed, 1 / output.Cooldown * output.Repeats)
 			end
@@ -1641,7 +1656,7 @@ function calcs.offence(env, actor, activeSkill)
 					base = s_format("%.2f ^8(base)", 1 / baseTime),
 					{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 					{ "%.2f ^8(more/less)", more },
-					{ "%.2f ^8(action speed modifier)", skillFlags.selfCast and globalOutput.ActionSpeedMod or 1 },
+					{ "%.2f ^8(action speed modifier)", (skillFlags.totem and output.TotemActionSpeed) or (skillFlags.selfCast and globalOutput.ActionSpeedMod) or 1 },
 					total = s_format("= %.2f ^8casts per second", output.CastRate)
 				})
 				if output.Cooldown and (1 / output.Cooldown) < output.CastRate then
@@ -2618,10 +2633,12 @@ function calcs.offence(env, actor, activeSkill)
 			if PvpTvalue then
 				PvpTvalue = PvpTvalue / 1000
 			else
-				if skillFlags.mine then
-					PvpTvalue = output.MineLayingTime*globalOutput.ActionSpeedMod
+				if skillData.cooldown then
+					PvpTvalue = skillData.cooldown
+				elseif skillFlags.mine then
+					PvpTvalue = (output.MineLayingTime or 1) / globalOutput.ActionSpeedMod
 				elseif skillFlags.trap then
-					PvpTvalue = output.TrapThrowingTime*globalOutput.ActionSpeedMod
+					PvpTvalue = (output.TrapThrowingTime or 1) / globalOutput.ActionSpeedMod
 				else
 					PvpTvalue = 1/((globalOutput.HitSpeed or globalOutput.Speed)/globalOutput.ActionSpeedMod)
 				end
@@ -3323,9 +3340,6 @@ function calcs.offence(env, actor, activeSkill)
 				if groundMult > 0 then
 					local CausticGroundDPSUncapped = baseVal * effectMod * rateMod * effMult * groundMult / 100
 					local CausticGroundDPSCapped = m_min(CausticGroundDPSUncapped, data.misc.DotDpsCap)
-					if PoisonDPSCapped + CausticGroundDPSCapped > data.misc.DotDpsCap then
-						CausticGroundDPSCapped = data.misc.DotDpsCap - CausticGroundDPSCapped
-					end
 					globalOutput.CausticGroundDPS = CausticGroundDPSCapped
 					globalOutput.CausticGroundFromPoison = true
 					if globalBreakdown then
@@ -3601,9 +3615,6 @@ function calcs.offence(env, actor, activeSkill)
 					local fireEffMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					local BurningGroundDPSUncapped = baseVal * effectMod * rateMod * fireEffMult * groundMult / 100
 					local BurningGroundDPSCapped = m_min(BurningGroundDPSUncapped, data.misc.DotDpsCap)
-					if IgniteDPSCapped + BurningGroundDPSCapped > data.misc.DotDpsCap then
-						BurningGroundDPSCapped = data.misc.DotDpsCap - IgniteDPSCapped
-					end
 					globalOutput.BurningGroundDPS = BurningGroundDPSCapped
 					globalOutput.BurningGroundFromIgnite = true
 					if globalBreakdown then
@@ -3719,9 +3730,9 @@ function calcs.offence(env, actor, activeSkill)
 				ramping = true,
 			},
 			["Brittle"] = {
-				effList = { 5, 10 },
-				effect = function(damage, effectMod) return 25 * ((damage / enemyThreshold) ^ 0.4) * effectMod end,
-				thresh = function(damage, value, effectMod) return damage * ((25 * effectMod / value) ^ 2.5) end,
+				effList = { 2, 4 },
+				effect = function(damage, effectMod) return 10 * ((damage / enemyThreshold) ^ 0.4) * effectMod end,
+				thresh = function(damage, value, effectMod) return damage * ((10 * effectMod / value) ^ 2.5) end,
 				ramping = true,
 			},
 			["Sap"] = {

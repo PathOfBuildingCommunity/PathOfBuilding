@@ -1541,6 +1541,9 @@ skills["Clarity"] = {
 		["damage_+%_on_full_mana"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullMana" }, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["flask_mana_to_recover_+%"] = {
+			mod("FlaskManaRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -1618,7 +1621,7 @@ skills["VaalClarity"] = {
 	castTime = 0,
 	statMap = {
 		["no_mana_cost"] = {
-			mod("ManaCost", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("ManaCost", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true}),
 			value = -100,
 		},
 	},
@@ -3031,7 +3034,7 @@ skills["EnergyBlade"] = {
 			mod("EnergyBladeCritChance", "INC", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["storm_blade_quality_chance_to_shock_%"] = {
-			mod("EnemyShockChance", "INC", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["storm_blade_quality_attack_lightning_damage_%_to_convert_to_chaos"] = {
 			mod("LightningDamageConvertToChaos", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
@@ -4378,7 +4381,7 @@ skills["ForbiddenRite"] = {
 		local chaosFlat = floor(round(basetakenFlat * chaosDamageTaken), 0)
 		if activeSkill.skillFlags.totem then
 			life = output.TotemLife
-			energyShield = 0
+			energyShield = output.TotemEnergyShield
 			chaosResistance = output.TotemChaosResist
 		else
 			life = output.Life
@@ -5020,12 +5023,11 @@ skills["GalvanicField"] = {
 	},
 	baseFlags = {
 		spell = true,
-		area = true,
 		duration = true,
 		chaining = true,
 	},
 	baseMods = {
-		skill("radius", 20),
+		skill("radius", 19),
 	},
 	qualityStats = {
 		Default = {
@@ -5109,6 +5111,14 @@ skills["IceDash"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.ChillingArea] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Instant] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["ice_dash_cooldown_recovery_per_nearby_normal_or_magic_enemy"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique", neg = true }),
+		},
+		["ice_dash_cooldown_recovery_per_nearby_rare_or_unique_enemy"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -6503,15 +6513,15 @@ skills["LightningConduit"] = {
 	castTime = 0.5,
 	statMap = {
 		["energy_release_damage_+%_final_per_5%_increased_damage_taken_from_shock_on_target"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
 		},
 	},
 	baseFlags = {
 		spell = true,
-		area = true,
 	},
 	baseMods = {
-		skill("radius", 14),
+		skill("radius", 60),
+		skill("radiusLabel", "Targeting range:"),
 	},
 	qualityStats = {
 		Default = {
@@ -7766,6 +7776,9 @@ skills["Purity"] = {
 		["reduce_enemy_elemental_resistance_%"] = {
 			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["immune_to_status_ailments"] = {
+			--Display only
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -7774,13 +7787,13 @@ skills["Purity"] = {
 	},
 	baseMods = {
 		skill("radius", 40),
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("AvoidSap", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("AvoidBrittle", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		mod("AvoidScorch", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidSap", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidBrittle", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidScorch", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -7940,10 +7953,13 @@ skills["LightningImpurity"] = {
 	castTime = 0,
 	statMap = {
 		["hits_ignore_my_lightning_resistance"] = {
-			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "Debuff" })
+			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "AuraDebuff" })
 		},
 		["base_maximum_lightning_damage_resistance_%"] = {
 			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_immune_to_shock"] = {
+			--Display only
 		},
 	},
 	baseFlags = {
@@ -7951,6 +7967,9 @@ skills["LightningImpurity"] = {
 		aura = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -8324,7 +8343,7 @@ skills["RighteousFire"] = {
 	castTime = 0,
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillFlags.totem then
-			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * activeSkill.skillData.RFLifeMultiplier
+			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * activeSkill.skillData.RFLifeMultiplier + output.TotemEnergyShield * activeSkill.skillData.RFESMultiplier
 		else
 			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.Life * activeSkill.skillData.RFLifeMultiplier + output.EnergyShield * activeSkill.skillData.RFESMultiplier
 		end
@@ -11212,6 +11231,9 @@ skills["TempestShield"] = {
 		["shield_spell_block_%"] = {
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["skill_display_buff_grants_shock_immunity"] = {
+			--Display only
+		}
 	},
 	baseFlags = {
 		spell = true,
@@ -11219,8 +11241,8 @@ skills["TempestShield"] = {
 		chaining = true,
 	},
 	baseMods = {
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }),
+		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {

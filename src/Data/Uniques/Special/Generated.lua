@@ -547,6 +547,18 @@ Limited to: 1
 ]]
 }
 
+local voranasMarch = {
+[[
+Vorana's March
+Runic Sabatons
+League: Expedition
+Has Alt Variant: true
+Has Alt Variant Two: true
+Selected Variant: 1
+Selected Alt Variant: 2
+]]
+}
+
 local abbreviateModId = function(string)
 	return (string:
 	gsub("Increased", "Inc"):
@@ -559,7 +571,7 @@ local abbreviateModId = function(string)
 end
 
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	if not mod.Id:match("^SublimeVision") then
+	if not (mod.Id:match("^SublimeVision") or mod.Id:match("^SummonArbalist")) then
 		local variantName = abbreviateModId(mod.Id):gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
 		if watchersEyeLegacyMods[mod.Id] then
 			if watchersEyeLegacyMods[mod.Id].version then
@@ -574,9 +586,12 @@ for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 		else
 			table.insert(watchersEye, "Variant:" .. variantName)
 		end
-	else
+	elseif not mod.Id:match("^SummonArbalist") then
 		local variantName = mod.Id:gsub("SublimeVision", ""):gsub("[%u%d]", " %1")
 		table.insert(sublimeVision, "Variant:" .. variantName)
+	else
+		local variantName = abbreviateModId(mod.Id):gsub("SummonArbalist", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("Percent To ", ""):gsub("Chance To ", ""):gsub("Targets To ", ""):gsub("[fF]or 4 ?[Ss]econds On Hit", ""):gsub(" Percent", ""):gsub("Number Of ", "")
+		table.insert(voranasMarch, "Variant:" .. variantName)
 	end
 end
 
@@ -586,10 +601,17 @@ table.insert(watchersEye,
 (4-6)% increased maximum Life
 (4-6)% increased maximum Mana]])
 
+table.insert(voranasMarch,
+[[Requires Level 69, 46 Str, 46 Dex, 46 Int
+Has no Sockets
+Triggers Level 20 Summon Arbalists when Equipped
+25% increased Movement Speed]])
+
 local indexWatchersEye = 1
 local indexSublimeVision = 1
+local indexVoranasMarch = 1
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
-	if not mod.Id:match("^SublimeVision") then
+	if not (mod.Id:match("^SublimeVision") or mod.Id:match("^SummonArbalist")) then
 		if watchersEyeLegacyMods[mod.Id] then
 			if watchersEyeLegacyMods[mod.Id].legacyMod then
 				table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. watchersEyeLegacyMods[mod.Id].legacyMod(mod.mod[1]))
@@ -603,16 +625,22 @@ for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 			table.insert(watchersEye, "{variant:" .. indexWatchersEye .. "}" .. mod.mod[1])
 			indexWatchersEye = indexWatchersEye + 1
 		end
-	else
+	elseif not mod.Id:match("^SummonArbalist") then
 		for i, _ in ipairs(mod.mod) do
 			table.insert(sublimeVision, "{variant:" .. indexSublimeVision .. "}" .. mod.mod[i])
 		end
 		indexSublimeVision = indexSublimeVision + 1
+	else
+		for i, _ in ipairs(mod.mod) do
+			table.insert(voranasMarch, "{variant:" .. indexVoranasMarch .. "}" .. mod.mod[i])
+		end
+		indexVoranasMarch = indexVoranasMarch + 1
 	end
 end
 
 table.insert(data.uniques.generated, table.concat(watchersEye, "\n"))
 table.insert(data.uniques.generated, table.concat(sublimeVision, "\n"))
+table.insert(data.uniques.generated, table.concat(voranasMarch, "\n"))
 
 function buildTreeDependentUniques(tree)
 	buildForbidden(tree.classNotables)

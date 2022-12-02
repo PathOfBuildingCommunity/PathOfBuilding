@@ -59,8 +59,11 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.items = { }
 	self.itemOrderList = { }
 
+	-- PoB Trader class initialization
+	self.tradeQuery = new("TradeQuery", self)
+
 	-- Set selector
-	self.controls.setSelect = new("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 8, 200, 20, nil, function(index, value)
+	self.controls.setSelect = new("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 8, 216, 20, nil, function(index, value)
 		self:SetActiveItemSet(self.itemSetOrderList[index])
 		self:AddUndoState()
 	end)
@@ -79,11 +82,21 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		self:OpenItemSetManagePopup()
 	end)
 
+	-- Price Items
+	self.controls.priceDisplayItem = new("ButtonControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 32, 310, 20, "Trade for these items", function()
+		self.tradeQuery:PriceItem()
+	end)
+	self.controls.priceDisplayItem.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Contains searches from the official trading site to help find")
+		tooltip:AddLine(16, "^7similar or better items for this build")
+	end
+
 	-- Item slots
 	self.slots = { }
 	self.orderedSlots = { }
 	self.slotOrder = { }
-	self.slotAnchor = new("Control", {"TOPLEFT",self,"TOPLEFT"}, 96, 54, 310, 0)
+	self.slotAnchor = new("Control", {"TOPLEFT",self,"TOPLEFT"}, 96, 76, 310, 0)
 	local prevSlot = self.slotAnchor
 	local function addSlot(slot)
 		prevSlot = slot
@@ -136,7 +149,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	end
 
 	-- Passive tree dropdown controls
-	self.controls.specSelect = new("DropDownControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 8, 200, 20, nil, function(index, value)
+	self.controls.specSelect = new("DropDownControl", {"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 8, 216, 20, nil, function(index, value)
 		if self.build.treeTab.specList[index] then
 			self.build.modFlag = true
 			self.build.treeTab:SetActiveSpec(index)
@@ -146,7 +159,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		return #self.controls.specSelect.list > 1
 	end
 	prevSlot = self.controls.specSelect
-	self.controls.specButton = new("ButtonControl", {"LEFT",prevSlot,"RIGHT"}, 2, 0, 90, 20, "Manage...", function()
+	self.controls.specButton = new("ButtonControl", {"LEFT",prevSlot,"RIGHT"}, 4, 0, 90, 20, "Manage...", function()
 		self.build.treeTab:OpenSpecManagePopup()
 	end)
 	self.controls.specLabel = new("LabelControl", {"RIGHT",prevSlot,"LEFT"}, -2, 0, 0, 16, "^7Passive tree:")
@@ -240,7 +253,6 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.controls.rareDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
 	end
-
 	-- Create/import item
 	self.controls.craftDisplayItem = new("ButtonControl", {"TOPLEFT",main.portraitMode and self.slotAnchor or self.controls.itemList,"TOPRIGHT"}, 20, main.portraitMode and -20 or 0, 120, 20, "Craft item...", function()
 		self:CraftItem()
@@ -478,7 +490,7 @@ holding Shift will put it in the second.]])
 		self:AddImplicitToDisplayItem()
 	end)
 	self.controls.displayItemAddImplicit.shown = function()
-		return self.displayItem and (self.displayItem.corruptable or ((self.displayItem.type ~= "Flask" or self.displayItem.type ~= "Jewel") and (self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")))
+		return self.displayItem and (self.displayItem.corruptible or ((self.displayItem.type ~= "Flask" or self.displayItem.type ~= "Jewel") and (self.displayItem.rarity == "NORMAL" or self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")))
 	end
 
 	-- Section: Influence dropdowns
@@ -889,6 +901,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 				self.items[item.id] = item
 				t_insert(self.itemOrderList, item.id)
 			end
+		-- Below is OBE and left for legacy compatibility (all Slots are part of ItemSets now)
 		elseif node.elem == "Slot" then
 			local slot = self.slots[node.attrib.name or ""]
 			if slot then
@@ -908,7 +921,11 @@ function ItemsTabClass:Load(xml, dbFileName)
 					if itemSet[slotName] then
 						itemSet[slotName].selItemId = tonumber(child.attrib.itemId)
 						itemSet[slotName].active = child.attrib.active == "true"
+						itemSet[slotName].pbURL = child.attrib.itemPbURL or ""
 					end
+				elseif child.elem == "SocketIdURL" then
+					local id = tonumber(child.attrib.nodeId)
+					itemSet[id] = { pbURL = child.attrib.itemPbURL or "" }
 				end
 			end
 			t_insert(self.itemSetOrderList, itemSet.id)
@@ -971,17 +988,16 @@ function ItemsTabClass:Save(xml)
 		end
 		t_insert(xml, child)
 	end
-	for slotName, slot in pairs(self.slots) do
-		if slot.selItemId ~= 0 and not slot.nodeId then
-			t_insert(xml, { elem = "Slot", attrib = { name = slotName, itemId = tostring(slot.selItemId), active = slot.active and "true" }})
-		end
-	end
 	for _, itemSetId in ipairs(self.itemSetOrderList) do
 		local itemSet = self.itemSets[itemSetId]
 		local child = { elem = "ItemSet", attrib = { id = tostring(itemSetId), title = itemSet.title, useSecondWeaponSet = tostring(itemSet.useSecondWeaponSet) } }
 		for slotName, slot in pairs(self.slots) do
 			if not slot.nodeId then
-				t_insert(child, { elem = "Slot", attrib = { name = slotName, itemId = tostring(itemSet[slotName].selItemId), active = itemSet[slotName].active and "true" }})
+				t_insert(child, { elem = "Slot", attrib = { name = slotName, itemId = tostring(itemSet[slotName].selItemId), itemPbURL = itemSet[slotName].pbURL or "", active = itemSet[slotName].active and "true" }})
+			else
+				if self.build.spec.allocNodes[slot.nodeId] then
+					t_insert(child, { elem = "SocketIdURL", attrib = { name = slotName, nodeId = tostring(slot.nodeId), itemPbURL = itemSet[slot.nodeId] and itemSet[slot.nodeId].pbURL or ""}})
+				end
 			end
 		end
 		t_insert(xml, child)
@@ -1831,7 +1847,7 @@ function ItemsTabClass:CraftItem()
 end
 
 -- Opens the item text editor popup
-function ItemsTabClass:EditDisplayItemText()
+function ItemsTabClass:EditDisplayItemText(alsoAddItem)
 	local controls = { }
 	local function buildRaw()
 		local editBuf = controls.edit.buf
@@ -1855,6 +1871,9 @@ function ItemsTabClass:EditDisplayItemText()
 		local id = self.displayItem and self.displayItem.id
 		self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
 		self.displayItem.id = id
+		if alsoAddItem then
+			self:AddDisplayItem()
+		end
 		main:ClosePopup()
 	end, nil, true)
 	controls.save.enabled = function()
@@ -2457,12 +2476,12 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 	local function buildMods(sourceId)
 		wipeTable(modList)
 		wipeTable(modGroups)
-		local groupIndexs = {}
+		local groupIndexes = {}
 		if sourceId == "EXARCH" or sourceId == "EATER" then
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
 					local modLabel = table.concat(mod, "/")
-					if not groupIndexs[mod.group] then
+					if not groupIndexes[mod.group] then
 						t_insert(modList, {})
 						t_insert(modGroups, {
 							label = modLabel,
@@ -2470,12 +2489,12 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 							modListIndex = #modList,
 							defaultOrder = i,
 						})
-						groupIndexs[mod.group] = #modGroups
-					--elseif mod[1].len() < modGroups[groupIndexs[mod.group] ].mod[1].len() then
-					--	modGroups[groupIndexs[mod.group]].label = modLabel
-					--	modGroups[groupIndexs[mod.group]].mod = mod
+						groupIndexes[mod.group] = #modGroups
+					--elseif mod[1].len() < modGroups[groupIndexes[mod.group] ].mod[1].len() then
+					--	modGroups[groupIndexes[mod.group]].label = modLabel
+					--	modGroups[groupIndexes[mod.group]].mod = mod
 					end
-					t_insert(modList[groupIndexs[mod.group]], {
+					t_insert(modList[groupIndexes[mod.group]], {
 						label = modLabel,
 						mod = mod,
 						affixType = mod.type,
@@ -2516,7 +2535,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			end
 		elseif sourceId == "SYNTHESIS" then
 			for i, mod in pairs(self.displayItem.affixes) do
-				if sourceId:lower() == mod.type:lower() then -- weights are missing and so are 0, how do I determine what goes on what item?, also arnt these supposed to work on jewels?
+				if sourceId:lower() == mod.type:lower() then -- weights are missing and so are 0, how do I determine what goes on what item?, also arn't these supposed to work on jewels?
 					t_insert(modList, {
 						label = table.concat(mod, "/"),
 						mod = mod,
@@ -2533,7 +2552,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
 					local modLabel = table.concat(mod, "/")
-					if not groupIndexs[mod.group] then
+					if not groupIndexes[mod.group] then
 						t_insert(modList, {})
 						t_insert(modGroups, {
 							label = modLabel,
@@ -2541,12 +2560,12 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 							modListIndex = #modList,
 							defaultOrder = i,
 						})
-						groupIndexs[mod.group] = #modGroups
-					--elseif mod[1].len() < modGroups[groupIndexs[mod.group] ].mod[1].len() then
-					--	modGroups[groupIndexs[mod.group]].label = modLabel
-					--	modGroups[groupIndexs[mod.group]].mod = mod
+						groupIndexes[mod.group] = #modGroups
+					--elseif mod[1].len() < modGroups[groupIndexes[mod.group] ].mod[1].len() then
+					--	modGroups[groupIndexes[mod.group]].label = modLabel
+					--	modGroups[groupIndexes[mod.group]].mod = mod
 					end
-					t_insert(modList[groupIndexs[mod.group]], {
+					t_insert(modList[groupIndexes[mod.group]], {
 						label = modLabel,
 						mod = mod,
 						affixType = mod.type,
@@ -2571,7 +2590,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		end
 	end
 	if self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Jewel" then
-		--t_insert(sourceList, { label = "Synth", sourceId = "SYNTHESIS" }) -- synth removed untill we get proper support for where the mods go
+		--t_insert(sourceList, { label = "Synth", sourceId = "SYNTHESIS" }) -- synth removed until we get proper support for where the mods go
 		t_insert(sourceList, { label = "Delve", sourceId = "DelveImplicit" })
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
@@ -2592,8 +2611,8 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		elseif sourceId == "EXARCH" or sourceId == "EATER" then
 			local listMod = modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex]
 			local index
-			for i, implictMod in ipairs(item.implicitModLines) do
-				if implictMod[listMod.type] and implictMod[listMod.type] == "{"..listMod.type.."}" then
+			for i, implicitMod in ipairs(item.implicitModLines) do
+				if implicitMod[listMod.type] and implicitMod[listMod.type] == "{"..listMod.type.."}" then
 					index = i
 					break
 				end
@@ -2955,11 +2974,19 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	end
 
 	-- Corrupted item label
-	if item.corrupted then
+	if item.corrupted or item.split or item.mirrored then
 		if #item.explicitModLines == 0 then
 			tooltip:AddSeparator(10)
 		end
-		tooltip:AddLine(16, "^1Corrupted")
+		if item.split then
+			tooltip:AddLine(16, "^1Split")
+		end
+		if item.mirrored then
+			tooltip:AddLine(16, "^1Mirrored")
+		end
+		if item.corrupted then
+			tooltip:AddLine(16, "^1Corrupted")
+		end
 	end
 	tooltip:AddSeparator(14)
 
@@ -3093,6 +3120,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			t_insert(stats, s_format("^8Charges generated: ^7%.2f^8 per second", totalChargesGenerated))
 		end
 
+		local chanceToNotConsumeCharges = m_min(modDB:Sum("BASE", nil, "FlaskChanceNotConsumeCharges"), 100)
+		if chanceToNotConsumeCharges ~= 0 then
+			t_insert(stats, s_format("^8Chance to not consume charges: ^7%d%%", chanceToNotConsumeCharges))
+		end
+
 		-- flask uptime
 		if not item.base.flask.life and not item.base.flask.mana then
 			local flaskChargesUsed = flaskData.chargesUsed * (1 + usedInc / 100)
@@ -3101,10 +3133,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local per3Duration = flaskDuration - (flaskDuration % 3)
 				local per5Duration = flaskDuration - (flaskDuration % 5)
 				local minimumChargesGenerated = per3Duration * chargesGenerated + per5Duration * chargesGeneratedPerFlask
-				local percentageMin = math.min(minimumChargesGenerated / flaskChargesUsed * 100, 100)
-				if percentageMin < 100 then
+				local percentageMin = m_min(minimumChargesGenerated / flaskChargesUsed * 100, 100)
+				if percentageMin < 100 and chanceToNotConsumeCharges < 100 then
 					local averageChargesGenerated = (chargesGenerated + chargesGeneratedPerFlask) * flaskDuration
-					local percentageAvg = math.min(averageChargesGenerated / flaskChargesUsed * 100, 100)
+					local averageChargesUsed = flaskChargesUsed * (100 - chanceToNotConsumeCharges) / 100
+					local percentageAvg = m_min(averageChargesGenerated / averageChargesUsed * 100, 100)
 					t_insert(stats, s_format("^8Flask uptime: ^7%d%%^8 average, ^7%d%%^8 minimum", percentageAvg, percentageMin))
 				else
 					t_insert(stats, s_format("^8Flask uptime: ^7100%%^8"))

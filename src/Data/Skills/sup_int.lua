@@ -1651,6 +1651,12 @@ skills["MinionFocusFire"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["resist_all_%"] = {
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectCond = "EnemyHasDeathmark" }),
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectCond = "EnemyHasDeathmark" }),
+		},
+	},
 	baseFlags = {
 	},
 	qualityStats = {

@@ -113,7 +113,7 @@ Magna Eclipsis
 Pinnacle Tower Shield
 Variant: Pre 3.16.0
 Variant: Current
-Source: Vendor recipe
+Source: Vendor Recipe
 Implicits: 1
 +(20-30) to maximum Life
 +2 to Level of Socketed Gems
@@ -780,8 +780,8 @@ Implicits: 0
 +10% to all Elemental Resistances
 +5% to maximum Cold Resistance
 +6% Chance to Block
-{variant:1}Replenishes Energy Shield by 4% of Armour when you Block
-{variant:2,3}Replenishes Energy Shield by 2% of Armour when you Block
+{variant:1}Recover Energy Shield equal to 4% of Armour when you Block
+{variant:2,3}Recover Energy Shield equal to 2% of Armour when you Block
 (10-20)% increased Elemental Damage with Attack Skills
 ]],[[
 Broken Faith

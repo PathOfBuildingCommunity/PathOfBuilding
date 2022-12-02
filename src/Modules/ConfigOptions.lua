@@ -655,7 +655,7 @@ return {
 		modList:NewMod("Multiplier:Rampage", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierSoulEater", type = "count", label = "# of Soul Eater Stacks:", ifFlag = "Condition:CanHaveSoulEater", tooltip = "Soul Eater grants the following\n\t5% increased attack speed\n\t5% increased cast speed\n\t1% increased character size per stack.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:SoulEater", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Multiplier:SoulEaterStack", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionFocused", type = "check", label = "Are you Focused?", ifCond = "Focused", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Focused", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -888,6 +888,9 @@ return {
 	end },
 	{ var = "multiplierShockedEnemyKilledRecently", type = "count", label = "# of ^xADAA47Shocked ^7Enemies Killed Recently:", ifMult = "ShockedEnemyKilledRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ShockedEnemyKilledRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "multiplierShockedNonShockedEnemyRecently", type = "count", label = "# of Non-^xADAA47Shocked ^7Enemies ^xADAA47Shocked ^7 Recently:", ifMult = "ShockedNonShockedEnemyRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:ShockedNonShockedEnemyRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionFrozenEnemyRecently", type = "check", label = "Have you ^x3F6DB3Frozen ^7an enemy Recently?", ifCond = "FrozenEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FrozenEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1173,7 +1176,7 @@ return {
 	{ var = "conditionHaveManaStorm", type = "check", label = "Do you have Manastorm's ^xADAA47Lightning ^7Buff?", ifFlag = "Condition:HaveManaStorm", tooltip = "This option enables Manastorm's ^xADAA47Lightning ^7Damage Buff.\n(When you cast a Spell, Sacrifice all ^x7070FFMana ^7to gain Added Maximum ^xADAA47Lightning ^7Damage\nequal to 25% of Sacrificed ^x7070FFMana ^7for 4 seconds)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SacrificeManaForLightning", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffFanaticism", type = "check", label = "Do you have Fanaticism?", ifFlag = "Condition:CanGainFanaticism", tooltip = "This will enable the Fanaticism buff itself. (Grants 75% more cast speed, reduced ^x7070FFmana ^7cost, and increased area of effect)", apply = function(val, modList, enemyModList)
+	{ var = "buffFanaticism", type = "check", label = "Do you have Fanaticism?", ifFlag = "Condition:CanGainFanaticism", tooltip = "This will enable the Fanaticism buff itself. (Grants 75% more cast speed, reduced skill cost, and increased area of effect)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Fanaticism", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanGainFanaticism" })
 	end },
 	{ var = "multiplierPvpTvalueOverride", type = "count", label = "PvP Tvalue override (ms):", ifFlag = "isPvP", tooltip = "Tvalue in milliseconds. This overrides the Tvalue of a given skill, for instance any with fixed Tvalues, or modified Tvalues", apply = function(val, modList, enemyModList)
@@ -1269,7 +1272,7 @@ return {
 	end },
 	{ var = "conditionScorchedEffect", type = "count", label = "Effect of ^xB97123Scorched:", ifOption = "conditionEnemyScorched", tooltip = "This effect will only be applied while you can inflict ^xB97123Scorched.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ScorchVal", "BASE", val, "Config", { type = "Condition", var = "ScorchedConfig" })
-		enemyModList:NewMod("DesiredScorchVal", "BASE", val, "Brittle", { type = "Condition", var = "ScorchedConfig", neg = true })
+		enemyModList:NewMod("DesiredScorchVal", "BASE", val, "Scorch", { type = "Condition", var = "ScorchedConfig", neg = true })
 	end },
 	{ var = "conditionEnemyOnScorchedGround", type = "check", label = "Is the enemy on ^xB97123Scorched ^7Ground?", tooltip = "This also implies that the enemy is ^xB97123Scorched.", ifEnemyCond = "OnScorchedGround", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1290,7 +1293,7 @@ return {
 	{ var = "conditionEnemyFrozen", type = "check", label = "Is the enemy ^x3F6DB3Frozen?", implyCond = "Chilled", tooltip = "This also implies that the enemy is ^x3F6DB3Chilled.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Frozen", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyBrittle", type = "check", ifFlag = "inflictBrittle", label = "Is the enemy ^x3F6DB3Brittle?", tooltip = "Hits against ^x3F6DB3Brittle ^7enemies have up to +15% Critical Strike Chance.\nThis option will also allow you to input the effect of ^x3F6DB3Brittle.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyBrittle", type = "check", ifFlag = "inflictBrittle", label = "Is the enemy ^x3F6DB3Brittle?", tooltip = "Hits against ^x3F6DB3Brittle ^7enemies have up to +6% Critical Strike Chance.\nThis option will also allow you to input the effect of ^x3F6DB3Brittle.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Brittle", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:BrittleConfig", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -1400,13 +1403,11 @@ This is divided by 4.25 to represent 4 damage types + some ^xD02090chaos
 ^7Fill in the exact damage numbers if more precision is needed
 
 Standard Boss adds the following modifiers:
-	33% less Effect of your Hexes
 	+40% to enemy Elemental Resistances
 	+25% to enemy ^xD02090Chaos Resistance
 	^794% of monster damage
 
 Guardian / Pinnacle Boss adds the following modifiers:
-	66% less Effect of your Hexes
 	+50% to enemy Elemental Resistances
 	+30% to enemy ^xD02090Chaos Resistance
 	^7+33% to enemy Armour
@@ -1414,7 +1415,6 @@ Guardian / Pinnacle Boss adds the following modifiers:
 	5% penetration
 
 Uber Pinnacle Boss adds the following modifiers:
-	66% less Effect of your Hexes
 	+50% to enemy Elemental Resistances
 	+30% to enemy ^xD02090Chaos Resistance
 	^7+100% to enemy Armour
@@ -1452,7 +1452,6 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
 		elseif val == "Boss" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -33, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "MORE", 488, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
 
@@ -1483,7 +1482,6 @@ Uber Pinnacle Boss adds the following modifiers:
 		elseif val == "Pinnacle" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 33, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "MORE", 404, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
@@ -1513,7 +1511,6 @@ Uber Pinnacle Boss adds the following modifiers:
 		elseif val == "Uber" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
-			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -66, "Boss")
 			enemyModList:NewMod("Armour", "MORE", 100, "Boss")
 			enemyModList:NewMod("DamageTaken", "MORE", -70, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "MORE", 404, "Boss")

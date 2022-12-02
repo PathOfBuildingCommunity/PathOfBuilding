@@ -11,6 +11,7 @@ local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local m_modf = math.modf
 local m_huge = math.huge
 local s_format = string.format
 
@@ -84,11 +85,11 @@ function calcs.defence(env, actor)
 	end
 	
 	for _, elem in ipairs(resistTypeList) do
-		local min, max, total
+		local min, max, total, totemTotal, totemMax
 		min = data.misc.ResistFloor
 		max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
-		totemMax = modDB:Override(nil, "Totem"..elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, "Totem"..elem.."ResistMax", isElemental[elem] and "TotemElementalResistMax"))
 		total = modDB:Override(nil, elem.."Resist")
+		totemMax = modDB:Override(nil, "Totem"..elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, "Totem"..elem.."ResistMax", isElemental[elem] and "TotemElementalResistMax"))
 		totemTotal = modDB:Override(nil, "Totem"..elem.."Resist")
 		if not total then
 			local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
@@ -98,6 +99,14 @@ function calcs.defence(env, actor)
 			local base = modDB:Sum("BASE", nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist")
 			totemTotal = base * calcLib.mod(modDB, nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist")
 		end
+		
+		-- Fractional resistances are truncated
+		total = m_modf(total)
+		totemTotal = m_modf(totemTotal)
+		min = m_modf(min)
+		max = m_modf(max)
+		totemMax = m_modf(totemMax)
+		
 		local final = m_max(m_min(total, max), min)
 		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
 		output["Base"..elem.."DamageReduction"] = 0
@@ -105,7 +114,7 @@ function calcs.defence(env, actor)
 		output[elem.."ResistTotal"] = total
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
 		output[elem.."ResistOver75"] = m_max(0, final - 75)
-		output["Missing"..elem.."Resist"] = m_max(0, totemMax - final)
+		output["Missing"..elem.."Resist"] = m_max(0, max - final)
 		output["Totem"..elem.."Resist"] = totemFinal
 		output["Totem"..elem.."ResistTotal"] = totemTotal
 		output["Totem"..elem.."ResistOverCap"] = m_max(0, totemTotal - totemMax)
@@ -329,11 +338,13 @@ function calcs.defence(env, actor)
 				energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, nil, "EnergyShield", "Defences")
 			end
 			if breakdown then
+				local inc = modDB:Sum("INC", slotCfg, "Defences", "EnergyShield")
 				local more = modDB:More(slotCfg, "EnergyShield", "Defences")
 				t_insert(breakdown["EnergyShield"].slots, {
 					base = energyShieldBase,
+					inc = (inc ~= 0) and s_format(" x %.2f", 1 + inc/100),
 					more = (more ~= 1) and s_format(" x %.2f", more),
-					total = s_format("%.2f", energyShieldBase * more),
+					total = s_format("%.2f", energyShieldBase * (1 + inc / 100) * more),
 					source = "Global",
 					item = actor.itemList["Global"],
 				})
@@ -866,15 +877,22 @@ function calcs.defence(env, actor)
 	output.LifeOnSuppress = modDB:Sum("BASE", nil, "LifeOnSuppress")
 	
 	-- damage avoidances
+	output.specificTypeAvoidance = false
 	for _, damageType in ipairs(dmgTypeList) do
 		output["Avoid"..damageType.."DamageChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..damageType.."DamageChance"), data.misc.AvoidChanceCap)
+		if output["Avoid"..damageType.."DamageChance"] > 0 then
+			output.specificTypeAvoidance = true
+		end
 	end
 	output.AvoidProjectilesChance = m_min(modDB:Sum("BASE", nil, "AvoidProjectilesChance"), data.misc.AvoidChanceCap)
+	-- hit avoidance
+	output.AvoidAllDamageFromHitsChance = m_min(modDB:Sum("BASE", nil, "AvoidAllDamageFromHitsChance"), data.misc.AvoidChanceCap)
 	-- other avoidances etc
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
 	for _, ailment in ipairs(data.ailmentTypeList) do
 		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment), 100)
 	end
+	output.CurseAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidCurse"), 100)
 	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
 	if breakdown then
@@ -910,9 +928,10 @@ function calcs.defence(env, actor)
 				},
 			}
 		end
-		local enemyCritChance = env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0
+		local enemyCritChance = (env.configInput["enemyCritChance"] or 0) * (1 + modDB:Sum("INC", nil, "EnemyCritChance") / 100)
 		local enemyCritDamage = env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
+		local enemyCfg = {keywordFlags = bit.bnot(KeywordFlag.MatchAll)} -- Match all keywordFlags parameter for enemy min-max damage mods
 		for _, damageType in ipairs(dmgTypeList) do
 			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) -- missing taunt from allies
 			local enemyDamage = tonumber(env.configInput["enemy"..damageType.."Damage"])
@@ -929,7 +948,10 @@ function calcs.defence(env, actor)
 			if enemyOverwhelm == nil then
 				enemyOverwhelm = tonumber(env.configPlaceholder["enemy"..damageType.."enemyOverwhelm"]) or 0
 			end
-
+			
+			-- Add min-max enemy damage from mods
+			enemyDamage = enemyDamage + (enemyDB:Sum("BASE", enemyCfg, (damageType.."Min")) + enemyDB:Sum("BASE", enemyCfg, (damageType.."Max"))) / 2
+			
 			output[damageType.."EnemyPen"] = enemyPen
 			output[damageType.."EnemyOverwhelm"] = enemyOverwhelm
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
@@ -1613,7 +1635,7 @@ function calcs.defence(env, actor)
 		local energyShield = output.EnergyShieldRecoveryCap
 		local ward = output.Ward or 0
 		local restoreWard = modDB:Flag(nil, "WardNotBreak") and ward or 0
-		-- don't apply non-perma ward for speed up calcs as it wont zero it correctly per hit
+		-- don't apply non-perma ward for speed up calcs as it won't zero it correctly per hit
 		if (not modDB:Flag(nil, "WardNotBreak")) and DamageIn["cycles"] > 1 then
 			ward = 0
 			restoreWard = 0
@@ -1834,15 +1856,18 @@ function calcs.defence(env, actor)
 			if modDB:Flag(nil, "BlockedDamageDoesntBypassES")and output[damageType.."EnergyShieldBypass"] < 100 and damageType ~= "Chaos"  then
 				DamageIn[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] * (1 - BlockChance) 
 			end
-			local AvoidChance = m_min(output["Avoid"..damageType.."DamageChance"] + ExtraAvoidChance, data.misc.AvoidChanceCap)
-			-- unlucky config to lower the value of block, dodge, evade etc for ehp
-			if worstOf > 1 then
-				AvoidChance = AvoidChance / 100 * AvoidChance
-				if worstOf == 4 then
+			local AvoidChance = 0
+			if output.specificTypeAvoidance then
+				AvoidChance = m_min(output["Avoid"..damageType.."DamageChance"] + ExtraAvoidChance, data.misc.AvoidChanceCap)
+				-- unlucky config to lower the value of block, dodge, evade etc for ehp
+				if worstOf > 1 then
 					AvoidChance = AvoidChance / 100 * AvoidChance
+					if worstOf == 4 then
+						AvoidChance = AvoidChance / 100 * AvoidChance
+					end
 				end
+				averageAvoidChance = averageAvoidChance + AvoidChance
 			end
-			averageAvoidChance = averageAvoidChance + AvoidChance
 			DamageIn[damageType] = output[damageType.."TakenHit"] * (blockEffect * suppressionEffect * (1 - AvoidChance / 100))
 		end
 		-- petrified blood degen initialisation
@@ -1850,9 +1875,9 @@ function calcs.defence(env, actor)
 			output["LifeLossBelowHalfLost"] = 0
 			DamageIn["LifeLossBelowHalfLost"] = modDB:Sum("BASE", nil, "LifeLossBelowHalfLost") / 100
 		end
-		output["NumberOfMitigatedDamagingHits"] = numberOfHitsToDie(DamageIn)
 		averageAvoidChance = averageAvoidChance / 5
 		output["ConfiguredDamageChance"] = 100 * (blockEffect * suppressionEffect * (1 - averageAvoidChance / 100))
+		output["NumberOfMitigatedDamagingHits"] = output["ConfiguredDamageChance"] ~= 100 and numberOfHitsToDie(DamageIn) or output["NumberOfDamagingHits"]
 		if breakdown then
 			breakdown["ConfiguredDamageChance"] = {
 				s_format("%.2f ^8(chance for block to fail)", 1 - BlockChance)
@@ -1873,10 +1898,10 @@ function calcs.defence(env, actor)
 	-- chance to not be hit
 	do
 		local worstOf = env.configInput.EHPUnluckyWorstOf or 1
-		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
-		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * 100
-		output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * 100
-		output.SpellProjectileNotHitChance = output.SpellNotHitChance
+		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
+		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
+		output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
+		output.SpellProjectileNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
 		output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance + output.SpellProjectileNotHitChance) / 4
 		output.ConfiguredNotHitChance = output[damageCategoryConfig.."NotHitChance"]
 		-- unlucky config to lower the value of block, dodge, evade etc for ehp
@@ -1890,13 +1915,35 @@ function calcs.defence(env, actor)
 		if breakdown then
 			breakdown.ConfiguredNotHitChance = { }
 			if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail)", 1 - output[damageCategoryConfig.."EvadeChance"] / 100))
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100))
+				if output[damageCategoryConfig.."EvadeChance"] > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail)", 1 - output[damageCategoryConfig.."EvadeChance"] / 100))
+				end
+				if output.AttackDodgeChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for dodge to fail)", 1 - output.AttackDodgeChance / 100))
+				end
+				if damageCategoryConfig == "Projectile" and not output.specificTypeAvoidance and output.AvoidProjectilesChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 100))
+				end
 			elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100))
+				if output.SpellDodgeChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for dodge to fail)", 1 - output.SpellDodgeChance / 100))
+				end
+				if damageCategoryConfig == "SpellProjectile" and not output.specificTypeAvoidance and output.AvoidProjectilesChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 100))
+				end
 			elseif damageCategoryConfig == "Average" then
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail, only applies to the attack portion)", 1 - (output.MeleeEvadeChance + output.ProjectileEvadeChance) / 2 / 100))
-				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x%.2f ^8(chance for dodge to fail)", 1 - (output.AttackDodgeChance + output.SpellDodgeChance) / 2 / 100))
+				if output.MeleeEvadeChance > 0 or output.ProjectileEvadeChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("%.2f ^8(chance for evasion to fail, only applies to the attack portion)", 1 - (output.MeleeEvadeChance + output.ProjectileEvadeChance) / 2 / 100))
+				end
+				if output.AttackDodgeChance > 0  or output.SpellDodgeChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x%.2f ^8(chance for dodge to fail)", 1 - (output.AttackDodgeChance + output.SpellDodgeChance) / 2 / 100))
+				end
+				if not output.specificTypeAvoidance and output.AvoidProjectilesChance > 0 then
+					t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - output.AvoidProjectilesChance / 2 / 100))
+				end
+			end
+			if output.AvoidAllDamageFromHitsChance > 0 then
+				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for elusive avoidance to fail)", 1 - output.AvoidAllDamageFromHitsChance / 100))
 			end
 			if worstOf > 1 then
 				t_insert(breakdown["ConfiguredNotHitChance"], s_format("unlucky worst of %d", worstOf))

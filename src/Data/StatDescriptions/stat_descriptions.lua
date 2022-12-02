@@ -52340,7 +52340,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Replenishes Energy Shield by {0}% of Armour when you Block"
+					text="Recover Energy Shield equal to {0}% of Armour when you Block"
 				}
 			}
 		},
@@ -200071,7 +200071,7 @@ return {
 					},
 					limit={
 						[1]={
-							[1]=-99,
+							[1]="#",
 							[2]=-1
 						}
 					},

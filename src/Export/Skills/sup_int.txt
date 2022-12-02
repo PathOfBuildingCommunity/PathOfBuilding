@@ -237,6 +237,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MinionFocusFire
+	statMap = {
+		["resist_all_%"] = {
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectCond = "EnemyHasDeathmark" }),
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectCond = "EnemyHasDeathmark" }),
+		},
+	},
 #mods
 
 #skill SupportDecay

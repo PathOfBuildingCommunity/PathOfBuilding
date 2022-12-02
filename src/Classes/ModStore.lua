@@ -34,7 +34,14 @@ local ModStoreClass = newClass("ModStore", function(self, parent)
 end)
 
 function ModStoreClass:ScaleAddMod(mod, scale)
-	if scale == 1 then
+	local unscalable = false
+	for _, effects in ipairs(mod) do
+		if effects.unscalable then
+			unscalable = true
+			break
+		end
+	end
+	if scale == 1 or unscalable then
 		self:AddMod(mod)
 	else
 		scale = m_max(scale, 0)

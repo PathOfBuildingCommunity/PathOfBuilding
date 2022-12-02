@@ -74,7 +74,49 @@ You can now use the shortcut to run the program from the repository. Running the
 * While in the Tree tab, holding `Alt` also highlights nodes that have unrecognised modifiers.
 * Holding `Ctrl` while launching the program will rebuild the mod cache.
 
-Note that automatic updates are disabled in Dev Mode, so you must update manually.
+Note that automatic updates are disabled in Dev Mode.
+
+### Forcing Dev Mode OFF when using dev branch
+
+Sometimes you may need to force Dev mode OFF when running from the dev branch to debug a specific part of Path of Building (e.g. the update system).
+
+To do so [comment out Line 54 to line 58](./src/Launch.lua#L54-L58) of the [Launch.lua](./src/Launch.lua) file:
+```
+	--if localManXML and not self.versionBranch and not self.versionPlatform then
+	--    -- Looks like a remote manifest, so we're probably running from a repository
+	--    -- Enable dev mode to disable updates and set user path to be the script path
+	--    self.devMode = true
+	--end
+```
+
+and create a valid mainfest.xml file in the ./src directory. Then run the `./runtime/Path{space}of{space}Building.exe` as usual. You should get the typical update popup in the bottom left corner.
+
+The manifest.xml file deserves its own in depth document, but usually copying from release and editing accordingly works well enough.
+
+## Keeping your fork up to date
+
+Note: This tutorial assumes that you are already familiar with Git and basic command line tools.
+
+Note: If you've configured a remote already, you can skip ahead to step 3.
+
+1. Add a new remote repository and name it `upstream`.
+
+       git remote add upstream https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
+2. Verify that adding the remote worked.
+
+       git remote -v
+3. Fetch all branches and their commits from upstream.
+
+       git fetch upstream
+4. Check out your local `dev` branch if you haven't already.
+
+       git checkout dev
+5. Merge all changes from `upstream/dev` into your local `dev` branch.
+
+       git rebase upstream/dev
+6. Push your updated branch to GitHub.
+
+       git push -f origin dev
 
 ## Setting up a development environment
 
@@ -86,7 +128,11 @@ They are all free and support [EmmyLua](https://github.com/EmmyLua), a Lua plugi
 It is recommended to use it over the built-in Lua plugins.
 
 Please note that EmmyLua is not available for other editors based on Visual Studio Code,
-such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.org).
+such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.org) but can be built from source if needed.
+
+Note that you will need to have java installed to use emmyLua, and have either the JAVA_HOME environment variable correctly setup or have the path to java added to the `settings.json` file. Example:
+
+```"emmylua.java.home": "C:/Program Files (x86)/Java/jre1.8.0_201/"```
 
 ### Visual Studio Code
 
@@ -106,6 +152,26 @@ dbg.tcpListen("localhost", 9966)
 5. Start Path of Building Community
 6. Attach the debugger
 
+#### Excluding directories from emmyLua
+
+Depending on the amount of system ram you have available and the amount that gets assigned to the jvm running the emmylua language server you might run into issues when trying to debug Path of building.
+Files in /Data /Export and /TreeData can be massive and cause the emmyLua language server to use a significant amount of memory. Sometimes causing the language server to crash. To avoid this and speed up initialization consider adding an `emmy.config.json` file to the .vscode folder in the root of the Path of building repository with the following content:
+
+```
+{
+    "source": [
+        {
+            "dir": "../",
+            "exclude": [
+                "src/Export/**.lua",
+                "src/Data/**.lua",
+                "src/TreeData/**.lua"
+            ]
+        }
+    ]
+}
+```
+
 ### PyCharm Community / IntelliJ Idea Community
 
 1. Create a new "Debug Configuration" of type "Emmy Debugger(NEW)".
@@ -114,6 +180,12 @@ dbg.tcpListen("localhost", 9966)
 4. Copy the generated code snippet directly below `function launch:OnInit()` in `./src/Launch.lua`.
 5. Start Path of Building Community
 6. Attach the debugger
+
+#### Miscellaneous tips
+If you're on windows, consider downloading [git for windows](https://git-scm.com/downloads) and installing git bash. Git bash comes with a variety of typical linux tools such as grep that can make navigating the code base much easier.
+
+If you're using linux you can run the ./runtime/Path{space}of{space}Building.exe executable with wine. You will need to provide a valid wine path to the emmy lua debugger directory.
+
 
 ## Testing
 
@@ -142,31 +214,6 @@ Docker alternative:
 
 1. Add the new build XML (if applicable) to the `TestBuilds` folder
 2. Run `docker-compose up -d` to generate a LUA file that contains the current stats of that build and run the tests
-
-## Keeping your fork up to date
-
-Note: This tutorial assumes that you are already familiar with Git and basic command line tools.
-
-Note: If you've configured a remote already, you can skip ahead to step 3.
-
-1. Add a new remote repository and name it `upstream`.
-
-       git remote add upstream https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
-2. Verify that adding the remote worked.
-
-       git remote -v
-3. Fetch all branches and their commits from upstream.
-
-       git fetch upstream
-4. Check out your local `dev` branch if you haven't already.
-
-       git checkout dev
-5. Merge all changes from `upstream/dev` into your local `dev` branch.
-
-       git rebase upstream/dev
-6. Push your updated branch to GitHub.
-
-       git push -f origin dev
 
 ## Path of Building development tutorials
 
