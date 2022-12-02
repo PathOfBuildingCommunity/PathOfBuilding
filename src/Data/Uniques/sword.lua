@@ -531,7 +531,7 @@ Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3}+460 to Accuracy Rating
 {variant:1,2}(40-60)% increased Physical Damage
-{variant:4}(80-100)% increased Physical Damage
+{variant:3}(80-100)% increased Physical Damage
 Adds (30-45) to (80-100) Physical Damage
 +(2-3) Mana gained for each Enemy hit by Attacks
 Counts as all One Handed Melee Weapon Types
