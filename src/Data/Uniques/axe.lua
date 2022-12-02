@@ -184,7 +184,8 @@ Implicits: 1
 {variant:3}Adds (310-330) to (370-390) Physical Damage
 (12-16)% increased Attack Speed
 25% chance to cause Bleeding on Hit
-+2 to Weapon Range
+{variant:1,2}+2 to Weapon Range
+{variant:3}+10 to Weapon Range
 ]],[[
 The Blood Reaper
 Headsman Axe
