@@ -1242,9 +1242,8 @@ Requires Level 67, 73 Dex, 88 Int
 +(40-50) to maximum Energy Shield
 {variant:1,2}(130-150)% increased Evasion and Energy Shield
 {variant:3,4}(90-110)% increased Evasion and Energy Shield
-{variant:1}+2 to Level of Socketed Curse Gems
+{variant:1,4}+2 to Level of Socketed Curse Gems
 {variant:2,3}+1 to Level of Socketed Curse Gems
-{variant:4}+1 to Level of Socketed Curse Gems
 Socketed Curse Gems are Supported by Level 22 Blasphemy
 Socketed Curse Gems have 30% increased Reservation Efficiency
 ]],[[
