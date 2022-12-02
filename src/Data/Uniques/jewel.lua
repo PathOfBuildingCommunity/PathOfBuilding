@@ -1363,7 +1363,7 @@ Corrupted
 ]],[[
 Atziri's Reign
 Crimson Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Crimson Jewel}
 Variant: Pre 3.14.0
 Variant: Current
 Limited to: 1
@@ -1373,7 +1373,7 @@ Corrupted
 ]],[[
 Brute Force Solution
 Cobalt Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Radius: Large
@@ -1407,7 +1407,7 @@ Corrupted
 ]],[[
 Careful Planning
 Viridian Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Radius: Large
@@ -1417,7 +1417,7 @@ Intelligence from Passives in Radius is Transformed to Dexterity
 ]],[[
 Chill of Corruption
 Viridian Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Limited to: 1
 50% chance to gain an additional Vaal Soul per Enemy Shattered
 Corrupted
@@ -1438,7 +1438,7 @@ Corrupted
 ]],[[
 Efficient Training
 Crimson Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Crimson Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Radius: Large
@@ -1448,7 +1448,7 @@ Intelligence from Passives in Radius is Transformed to Strength
 ]],[[
 Energised Armour
 Crimson Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Crimson Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Radius: Large
@@ -1458,20 +1458,19 @@ Increases and Reductions to Energy Shield in Radius are Transformed to apply to 
 ]],[[
 Energy From Within
 Cobalt Jewel
-Source: Corruption Outcome
-Variant: Pre 3.20.0
-Variant: Current
+Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 2.5.0
+Variant: Pre 3.20.0
 Variant: Current
 Radius: Large
 {variant:1}(8-12)% increased maximum Energy Shield
-{variant:2}(3-6)% increased maximum Energy Shield
+{variant:2,3}(3-6)% increased maximum Energy Shield
 Increases and Reductions to Life in Radius are Transformed to apply to Energy Shield
-{variant:2}Corrupted
+{variant:3}Corrupted
 ]],[[
 Fertile Mind
 Cobalt Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Radius: Large
@@ -1481,7 +1480,7 @@ Dexterity from Passives in Radius is Transformed to Intelligence
 ]],[[
 Fevered Mind
 Cobalt Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.10.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -1497,7 +1496,7 @@ Corrupted
 ]],[[
 Fluid Motion
 Viridian Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Radius: Large
@@ -1507,7 +1506,7 @@ Strength from Passives in Radius is Transformed to Dexterity
 ]],[[
 Fortress Covenant
 Cobalt Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Requires Level: 20
@@ -1521,13 +1520,13 @@ Notable Passive Skills in Radius are Transformed to instead grant: Minions take 
 ]],[[
 Fragility
 Crimson Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Crimson Jewel}
 −1 Maximum Endurance Charges
 Corrupted
 ]],[[
 Healthy Mind
 Cobalt Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Limited to: 1
@@ -1538,7 +1537,7 @@ Increases and Reductions to Life in Radius are Transformed to apply to Mana at 2
 ]],[[
 Hidden Potential
 Viridian Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Limited to: 1
@@ -1554,7 +1553,7 @@ Corrupted
 ]],[[
 Inertia
 Crimson Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Crimson Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Radius: Large
@@ -1571,19 +1570,19 @@ Corrupted
 ]],[[
 Pacifism
 Viridian Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 −1 Maximum Frenzy Charges
 Corrupted
 ]],[[
 Powerlessness
 Cobalt Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 −1 Maximum Power Charges
 Corrupted
 ]],[[
 Quickening Covenant
 Viridian Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Requires Level: 20
@@ -1597,7 +1596,7 @@ Notable Passive Skills in Radius are Transformed to instead grant: Minions have 
 ]],[[
 Rain of Splinters
 Crimson Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Crimson Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Limited to: 1
@@ -1607,7 +1606,7 @@ Totems Fire 2 additional Projectiles
 ]],[[
 Reckless Defence
 Cobalt Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.4.0
 Variant: Pre 3.20.0
 Variant: Current
@@ -1626,7 +1625,7 @@ Corrupted
 ]],[[
 Seething Fury
 Viridian Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Variant: Pre 3.16.0
 Variant: Pre 3.20.0
 Variant: Current
@@ -1642,7 +1641,7 @@ Radius: Medium
 ]],[[
 Self-Flagellation
 Viridian Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Limited to: 1
 An additional Curse can be applied to you
 (10-20)% increased Damage per Curse on you
@@ -1650,7 +1649,7 @@ Corrupted
 ]],[[
 Soul's Wick
 Cobalt Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 Limited to: 1
@@ -1663,7 +1662,7 @@ Spectres do not travel between Areas
 ]],[[
 The Golden Rule
 Viridian Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Variant: Pre 3.20.0
 Variant: Current
 (30-40)% increased Armour while Bleeding 
@@ -1674,7 +1673,7 @@ Poison you inflict is Reflected to you
 ]],[[
 To Dust
 Cobalt Jewel
-Source: Corruption Outcome
+Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.0.0
 Variant: Pre 3.20.0
 Variant: Current
