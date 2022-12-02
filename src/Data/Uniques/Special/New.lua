@@ -91,7 +91,7 @@ Effects of Profane Ground you create Linger for 4 seconds
 Entropic Devastation
 Assassin's Mitts
 Grants Call of Steel
-124%  increased Evasion and Energy Shield
+124% increased Evasion and Energy Shield
 50% increased effects of impale inflicted by Spells
 Critical Strikes with Spell inflict Impale
 ]],[[

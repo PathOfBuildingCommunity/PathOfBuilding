@@ -1093,8 +1093,8 @@ end
 -- 5. Sets conditions and calculates attributes and life/mana pools (doActorAttribsPoolsConditions)
 -- 6. Calculates reservations
 -- 7. Sets life/mana reservation (doActorLifeManaReservation)
--- 8. Processes buffs and debuffs
--- 9. Processes charges and misc buffs (doActorMisc)
+-- 8. Processes charges and misc buffs (doActorMisc)
+-- 9. Processes buffs and debuffs
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
 function calcs.perform(env, avoidCache)
 	local avoidCache = avoidCache or false
@@ -1763,6 +1763,13 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
+	-- Process misc buffs/modifiers
+	doActorMisc(env, env.player)
+	if env.minion then
+		doActorMisc(env, env.minion)
+	end
+	doActorMisc(env, env.enemy)
+	
 	-- Combine buffs/debuffs
 	local buffs = { }
 	env.buffs = buffs
@@ -2168,7 +2175,7 @@ function calcs.perform(env, avoidCache)
 	end
 
 	-- Set curse limit
-	output.EnemyCurseLimit = modDB:Sum("BASE", nil, "EnemyCurseLimit")
+	output.EnemyCurseLimit = modDB:Flag(nil, "CurseLimitIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "EnemyCurseLimit")
 	curses.limit = output.EnemyCurseLimit
 	-- Assign curses to slots
 	local curseSlots = { }
@@ -3154,13 +3161,6 @@ function calcs.perform(env, avoidCache)
 	elseif env.weaponModList1 then
 		modDB:AddList(env.weaponModList1)
 	end
-
-	-- Process misc buffs/modifiers
-	doActorMisc(env, env.player)
-	if env.minion then
-		doActorMisc(env, env.minion)
-	end
-	doActorMisc(env, env.enemy)
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillFlags.totem then
