@@ -2900,13 +2900,7 @@ skills["ElementalWeakness"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["self_elemental_status_duration_-%"] = {
-			mod("SelfIgniteDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfChillDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfShockDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfScorchDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfBrittleDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfSapDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfElementalAilmentDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 			mult = -1
 		}
 	},

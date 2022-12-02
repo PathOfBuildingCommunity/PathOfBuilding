@@ -909,8 +909,26 @@ function calcs.defence(env, actor)
 	output.DebuffExpirationModifier = 10000 / (100 + output.DebuffExpirationRate)
 	output.showDebuffExpirationModifier = (output.DebuffExpirationModifier ~= 100)
 	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration")) * output.DebuffExpirationModifier / 100
-	for _, ailment in ipairs(data.ailmentTypeList) do
-		output["Self"..ailment.."Duration"] = modDB:More(nil, "Self"..ailment.."Duration") * (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration")) * 100 / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
+	
+	if modDB:Flag(nil, "IgniteDurationAppliesToElementalAilments") then
+		-- Ignite duration conversion from Firesong
+		for _, value in ipairs(modDB:Tabulate("INC",  nil, "SelfIgniteDuration")) do
+			value.mod.name = "SelfElementalAilmentDuration"
+		end
+		for _, value in ipairs(modDB:Tabulate("MORE",  nil, "SelfIgniteDuration")) do
+			value.mod.name = "SelfElementalAilmentDuration"
+		end
+	end
+
+	for _, ailment in ipairs(data.nonElementalAilmentTypeList) do
+		local more = modDB:More(nil, "Self"..ailment.."Duration", "SelfAilmentDuration")
+		local inc = (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration", "SelfAilmentDuration")) * 100
+		output["Self"..ailment.."Duration"] = inc * more / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
+	end
+	for _, ailment in ipairs(data.elementalAilmentTypeList) do
+		local more = modDB:More(nil, "Self"..ailment.."Duration", "SelfAilmentDuration", "SelfElementalAilmentDuration")
+		local inc = (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration", "SelfAilmentDuration", "SelfElementalAilmentDuration")) * 100
+		output["Self"..ailment.."Duration"] = more * inc / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
 	end
 	output.SelfChillEffect = modDB:More(nil, "SelfChillEffect") * (100 + modDB:Sum("INC", nil, "SelfChillEffect"))
 	output.SelfShockEffect = modDB:More(nil, "SelfShockEffect") * (100 + modDB:Sum("INC", nil, "SelfShockEffect"))
