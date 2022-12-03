@@ -2571,7 +2571,7 @@ local specialModList = {
 	["(%d+)%% increased effect of impales inflicted by hits that also inflict bleeding"] = function(num) return {
 		mod("ImpaleEffectOnBleed", "INC", num, nil, 0, KeywordFlag.Hit)
 	} end,
-	["critical strikes with spells inflict impale"] = { mod("ImpaleChance", "BASE", 100, nil, ModFlag.Spell, { type = "Condition", var = "CriticalStrike" }) }, --
+	["critical strikes with spells inflict impale"] = { mod("ImpaleChance", "BASE", 100, nil, ModFlag.Spell, { type = "Condition", var = "CriticalStrike" }) },
 	-- Poison and Bleed
 	["(%d+)%% increased damage with bleeding inflicted on poisoned enemies"] = function(num) return {
 		mod("Damage", "INC", num, nil, 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Poisoned"})
@@ -3545,10 +3545,12 @@ local specialModList = {
 	["create profane ground instead of consecrated ground"] = { 
 		flag("Condition:CreateProfaneGround"),
 	},
-	["(%d+)%% chance to create profane ground on critical strike if intelligence is your highest attribute"] = { 
+	["(%d+)%% chance to create profane ground on critical strike if intelligence is your highest attribute"] = {
 		flag("Condition:CreateProfaneGround", { type = "Condition", var = "IntHighestAttribute" }),
 	},
-	["you have consecrated ground around you while stationary if strength is your highest attribute"] = { },
+	["you have consecrated ground around you while stationary if strength is your highest attribute"] = {
+		flag("Condition:OnConsecratedGround", { type = "Condition", var = "StrHighestAttribute" }, { type = "Condition", var = "Stationary" }),
+	},
 	["you count as dual wielding while you are unencumbered"] = { flag("Condition:DualWielding", { type = "Condition", var = "Unencumbered" }) },
 	["dual wielding does not inherently grant chance to block attack damage"] = { flag("Condition:NoInherentBlock") },
 	["you do not inherently take less damage for having fortification"] = { flag("Condition:NoFortificationMitigation") },
