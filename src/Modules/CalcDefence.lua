@@ -2325,9 +2325,9 @@ function calcs.defence(env, actor)
 			local takenFromCalced = takenHitFromDamage(partMin)
 			local hpToCalcedRatio = m_sqrt(output[damageType.."TotalHitPool"] / takenFromCalced)
 
-			output[damageType.."MaximumHitTaken"] = partMin * hpToCalcedRatio
+			output[damageType.."MaximumHitTaken"] = round(partMin * hpToCalcedRatio)
 		else
-			output[damageType.."MaximumHitTaken"] = partMin
+			output[damageType.."MaximumHitTaken"] = round(partMin)
 		end
 
 		if breakdown then
