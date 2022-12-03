@@ -113,6 +113,11 @@ LevelReq: 48
 28% increased Projectile Damage
 Projectiles Return to you at end of flight
 Projectiles are fired in random directions
+]],[[
+Witchbane
+Cobalt Jewel
++10 to Intelligence
+When you Kill an Enemy affected by a Non-Aura Hex, become Immune to Curses for remaining Hex Duration
 ]]
 -- Reworked
 
