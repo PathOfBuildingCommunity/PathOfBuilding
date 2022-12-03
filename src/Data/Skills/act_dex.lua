@@ -2261,14 +2261,18 @@ skills["Cyclone"] = {
 		},
 	},
 	initialFunc = function(activeSkill, output)
-		local rangePlus = 0
-		if activeSkill.skillFlags.weapon1Attack then
-			rangePlus = math.max(rangePlus, activeSkill.actor.weaponData1.range and activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") or activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange"))
+		local range = 0
+		if activeSkill.skillFlags.weapon1Attack and activeSkill.actor.weaponData1.range then
+			local weapon1RangeBonus = activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData1.rangeBonus
+			if activeSkill.skillFlags.weapon2Attack and activeSkill.actor.weaponData2.range then -- dual wield average
+				range = (weapon1RangeBonus + activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData2.rangeBonus) / 2
+			else -- primary hand attack
+				range = weapon1RangeBonus
+			end
+		else -- unarmed
+			range = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange")
 		end
-		if activeSkill.skillFlags.weapon2Attack then
-			rangePlus = math.max(rangePlus, activeSkill.actor.weaponData2.range and activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") or activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange"))
-		end
-		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", rangePlus, "Skill:Cyclone")
+		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
 	baseFlags = {
 		attack = true,
@@ -2379,14 +2383,18 @@ skills["VaalCyclone"] = {
 		},
 	},
 	initialFunc = function(activeSkill, output)
-		local rangePlus = 0
-		if activeSkill.skillFlags.weapon1Attack then
-			rangePlus = math.max(rangePlus, activeSkill.actor.weaponData1.range and activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") or activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange"))
+		local range = 0
+		if activeSkill.skillFlags.weapon1Attack and activeSkill.actor.weaponData1.range then
+			local weapon1RangeBonus = activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData1.rangeBonus
+			if activeSkill.skillFlags.weapon2Attack and activeSkill.actor.weaponData2.range then -- dual wield average
+				range = (weapon1RangeBonus + activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData2.rangeBonus) / 2
+			else -- primary hand attack
+				range = weapon1RangeBonus
+			end
+		else -- unarmed
+			range = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange")
 		end
-		if activeSkill.skillFlags.weapon2Attack then
-			rangePlus = math.max(rangePlus, activeSkill.actor.weaponData2.range and activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") or activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange"))
-		end
-		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", rangePlus, "Skill:Cyclone")
+		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
 	baseFlags = {
 		attack = true,
