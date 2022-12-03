@@ -14,16 +14,13 @@ Critical Strike Chance is (20-30)% for Hits with this Weapon
 ]],[[
 Dreadarc
 Cleaver
-Variant: Pre 2.6.0
-Variant: Current
 Implicits: 0
 Adds (5-15) to (20-25) Physical Damage
 Adds (5-15) to (20-25) Fire Damage
 (7-10)% increased Attack Speed
 +(15-25)% to Fire Resistance
 5% increased Movement Speed
-{variant:1}Curse Enemies with Flammability on Hit
-{variant:2}Curse Enemies with Flammability on Hit, with 40% increased Effect
+Curse Enemies with Flammability on Hit
 ]],[[
 Dreadsurge
 Cleaver
@@ -369,7 +366,7 @@ Upgrade: Upgrades to unique{Uul-Netol's Embrace} using currency{Blessing of Uul-
 Implicits: 0
 (140-170)% increased Physical Damage
 15% reduced Attack Speed
-25% chance to Curse Enemies with Vulnerability on Hit, with 40% increased Effect
+25% chance to Curse Enemies with Vulnerability on Hit
 Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
 ]],[[
 Uul-Netol's Embrace

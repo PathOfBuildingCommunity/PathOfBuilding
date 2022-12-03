@@ -656,7 +656,7 @@ Implicits: 0
 {variant:2,3}50% increased Totem Life
 {variant:4,5}(20-30)% increased Totem Life
 {variant:1,2,3,4}+1 to maximum number of Summoned Totems
-Inflicts a random Hex on you when your Totems die, with 80% more Effect
+Inflicts a random Hex on you when your Totems die
 ]],[[
 Tabula Rasa
 Simple Robe
