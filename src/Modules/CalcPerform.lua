@@ -2823,6 +2823,7 @@ function calcs.perform(env, avoidCache)
 		env.player.mainSkill.skillFlags.dontDisplay = true
 		output.Speed = output.ServerTriggerRate
 		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+		env.player.mainSkill.skillData.triggered = true
 		env.player.mainSkill.skillData.triggerRate = output.ServerTriggerRate
 		env.player.mainSkill.skillData.triggerSource = source
 		env.player.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
@@ -2844,27 +2845,15 @@ function calcs.perform(env, avoidCache)
 		local minion = false
 		local triggerSkillCond = nil
 		local triggeredSkillCond = nil
+		local assumingEveryHitKills = nil
 		local function slotMatch(env, skill)
 			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			return (match1 or match2)
 		end
-		
 		if uniqueTriggerName then
 			env.player.mainSkill.skillData.triggeredByUnique = true
-			if uniqueTriggerName == "Arakaali's Fang" then
-				spellCount = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
-			elseif uniqueTriggerName == "Ashcaller" then
-				spellCount = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
-			elseif uniqueTriggerName == "Jorrhast's Blacksteel" then
-				spellCount = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
-			elseif uniqueTriggerName == "Rigwald's Crest" then
-				spellCount = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
-			elseif uniqueTriggerName == "Law of the Wilds" then
+			if uniqueTriggerName == "Law of the Wilds" then
 				spellCount = nil
 				triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Claw) > 0 and skill ~= env.player.mainSkill 
@@ -2915,19 +2904,10 @@ function calcs.perform(env, avoidCache)
 				triggerName = "Bone Nova"
 				spellCount = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
-			elseif uniqueTriggerName == "Mark of the Shaper" then
+			elseif uniqueTriggerName == "Mark of the Elder" or uniqueTriggerName == "Mark of the Shaper" or uniqueTriggerName == "Sporeguard" or uniqueTriggerName == "Rigwald's Crest" or uniqueTriggerName == "Jorrhast's Blacksteel" or uniqueTriggerName == "Ashcaller" or uniqueTriggerName == "Arakaali's Fang" then
+				assumingEveryHitKills = true
 				spellCount = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
-			elseif uniqueTriggerName == "Mark of the Elder" then
-				spellCount = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
-			elseif uniqueTriggerName == "Sporeguard" then
-				spellCount = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
-			elseif env.player.mainSkill.activeEffect.grantedEffect.name == "Tawhoa's Chosen" then
-				skip = true
-				--Handled in CalcOffence
-				--Here to just remove the error message
 			elseif uniqueTriggerName == "Poet's Pen" then
 				triggerSkillCond = function(env, skill) 
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= env.player.mainSkill 
@@ -2995,11 +2975,11 @@ function calcs.perform(env, avoidCache)
 					return skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill
 				end
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCospris and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end
-			elseif triggerName or uniqueTriggerName then
-				ConPrintf("[ERROR]: Unhandled Unique Trigger Name: " .. (triggerName or uniqueTriggerName))
-				env.player.mainSkill.skillData.triggeredByUnique = nil
-				skip = true
 			else
+				--Tawhoa's Chosen is Handled in CalcOffence
+				if (triggerName or uniqueTriggerName) and not env.player.mainSkill.activeEffect.grantedEffect.name == "Tawhoa's Chosen" then
+					ConPrintf("[ERROR]: Unhandled Unique Trigger Name: " .. (triggerName or uniqueTriggerName))
+				end
 				env.player.mainSkill.skillData.triggeredByUnique = nil
 				skip = true
 			end
@@ -3042,13 +3022,13 @@ function calcs.perform(env, avoidCache)
 					return isWandAttack and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredBySpellSlinger
 				end
 			elseif env.player.mainSkill.skillData.triggerMarkOnRareOrUnique then
-				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill end
 				spellCount = nil
+				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill end
 			elseif env.player.mainSkill.skillData.triggeredByCurseOnHit then
+				spellCount = nil
 				triggerSkillCond = function(env, skill)
 					return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot
 				end
-				spellCount = nil
 			elseif env.player.mainSkill.skillData.triggerCounterAttack then
 				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
 				--Self trigger
@@ -3176,12 +3156,11 @@ function calcs.perform(env, avoidCache)
 					end
 					
 					if breakdown then
-						if actor.mainSkill.skillData.triggeredByMeleeKill or uniqueTriggerName == "Arakaali's Fang" then
+						if assumingEveryHitKills then
+							actor.mainSkill.skillFlags.dontDisplay = nil
 							t_insert(breakdown.Speed, 1, "Assuming every attack kills")
-							t_insert(breakdown.Speed, s_format("= %.3f ^8per second", trigRate))
-						else
-							t_insert(breakdown.Speed, s_format("= %.3f ^8per second", trigRate))
 						end
+						t_insert(breakdown.Speed, s_format("= %.3f ^8per second", trigRate))
 					end
 	
 					-- Account for Trigger-related INC/MORE modifiers

@@ -390,8 +390,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("initialFunc")
 
-	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack or skillData.triggeredByDamageTaken or skillData.triggeredByStuned or skillData.triggeredMarkOnRareOrUnique or skillData.triggeredBySpellSlinger or skillData.triggerCounterAttack
-	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or isTriggered
+	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
 	end
@@ -2732,7 +2731,7 @@ function calcs.offence(env, actor, activeSkill)
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
 			}
-		elseif isTriggered then
+		elseif skillData.triggered then
 			breakdown.TotalDPS = {
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(trigger rate)", output.Speed),
@@ -2754,7 +2753,7 @@ function calcs.offence(env, actor, activeSkill)
 			local rateType = "cast"
 			if isAttack then
 				rateType = "attack"
-			elseif isTriggered then
+			elseif skillData.triggered then
 				rateType = "trigger"
 			end
 			breakdown.PvpTotalDPS = {
