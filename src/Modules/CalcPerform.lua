@@ -166,7 +166,7 @@ local function getTriggerActionTriggerRate(env, breakdown, output, minion)
 				end
 				if output.addsCastTime then
 					t_insert(breakdown.ActionTriggerRate, 2, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime))
-					t_insert(breakdown.ActionTriggerRate, 4, s_format("= %.4f ^8(final cooldown of %s)", ((triggeredCD or 0) / icdr) + output.addsCastTime or 0, triggeredName))
+					t_insert(breakdown.ActionTriggerRate, 4, s_format("= %.4f ^8(final cooldown of %s)", ((triggeredCD or 0) / icdr) + (output.addsCastTime or 0), triggeredName))
 				end
 			end
 		else
@@ -195,7 +195,7 @@ local function getTriggerActionTriggerRate(env, breakdown, output, minion)
 					breakdown.ActionTriggerRate = {
 						s_format("%.2f ^8(base cooldown of %s)", triggeredCD, triggeredName),
 						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-						s_format("= %.4f ^8(final cooldown of %s)", ((triggeredCD or 0) / icdr) + output.addsCastTime or 0, triggeredName),
+						s_format("= %.4f ^8(final cooldown of %s)", ((triggeredCD or 0) / icdr) + (output.addsCastTime or 0), triggeredName),
 						"",
 						s_format("%.2f ^8(base cooldown of %s)", triggerCD, triggerName),
 						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
@@ -3164,7 +3164,7 @@ function calcs.perform(env, avoidCache)
 					end
 					
 					if breakdown then
-						if actor.mainSkill.skillData.triggeredByMeleeKill or env.player.mainSkill.skillData.triggeredByArakaliFang then
+						if actor.mainSkill.skillData.triggeredByMeleeKill or uniqueTriggerName == "Arakaali's Fang" then
 							t_insert(breakdown.Speed, 1, "Assuming every attack kills")
 							t_insert(breakdown.Speed, s_format("= %.3f ^8per second", trigRate))
 						else
