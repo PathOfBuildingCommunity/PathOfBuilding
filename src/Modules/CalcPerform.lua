@@ -350,7 +350,6 @@ end
 -- Calculate the actual Trigger rate of active skill causing the trigger
 local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield, minion)
 	local icdr = 1
-	
 	output.ActionTriggerRate, icdr = getTriggerActionTriggerRate(env, breakdown, output, minion)
 	
 	--If spell count is missing the skill likely comes from a unique and triggers it self
@@ -371,6 +370,9 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 			
 			if dualWield then
 				t_insert(breakdown.SourceTriggerRate, 1, "/ 2 ^8(due to dual wielding)")
+			end
+			if source and source.skillData.hasUnleash then
+				t_insert(breakdown.SourceTriggerRate, 1, s_format("x %.2f ^8(multiplier from Unleash)", source.skillData.hasUnleash))
 			end
 			if sourceAPS then
 				if source.skillTypes and source.skillTypes[SkillType.Spell] then
@@ -417,11 +419,15 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
 		if breakdown and sourceAPS ~= 0 then
 			breakdown.SourceTriggerRate = {
-				s_format("%.2f ^8(%s attacks per second)", output.SourceTriggerRate, (source and source.activeEffect.grantedEffect.name) or (env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or env.player.mainSkill.activeEffect.grantedEffect.name),
+				s_format("%.2f ^8(%s attacks per seconds)", (sourceAPS ~= 0 and sourceAPS /(source and source.skillData.hasUnleash or 1)) or output.ActionTriggerRate, (source and source.activeEffect.grantedEffect.name) or (env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or env.player.mainSkill.activeEffect.grantedEffect.name),
 			}
 			breakdown.ServerTriggerRate = {
 				s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
 			}
+			if source and source.skillData.hasUnleash then
+				t_insert(breakdown.SourceTriggerRate, s_format("x %.2f ^8(multiplier from Unleash)", source.skillData.hasUnleash))
+				t_insert(breakdown.SourceTriggerRate, s_format("= %.2f ^8per second", output.SourceTriggerRate))
+			end
 		end
 	end
 	--return triggerrate and whether ServerTriggerRate is sourceAPS. Used for breakdowns.
@@ -2820,7 +2826,6 @@ function calcs.perform(env, avoidCache)
 		env.player.mainSkill.skillData.triggerRate = output.ServerTriggerRate
 		env.player.mainSkill.skillData.triggerSource = source
 		env.player.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
-		env.player.mainSkill.skillData.triggerUnleash = source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire]
 		env.player.mainSkill.infoMessage = triggerName .."'s Trigger: ".. source.activeEffect.grantedEffect.name
 		env.player.infoTrigger = env.player.mainSkill.infoTrigger or triggerName
 	end
@@ -3095,6 +3100,13 @@ function calcs.perform(env, avoidCache)
 						sourceAPS, dualWield = calcDualWieldImpact(env, trigRate, source.skillData.doubleHitsWhenDualWielding)
 					end
 					
+					--Account for source unleash
+					if GlobalCache.cachedData["CACHE"][uuid] and source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire] then
+						sourceAPS = sourceAPS * (GlobalCache.cachedData["CACHE"][uuid].ActiveSkill.skillData.dpsMultiplier or 1)
+						env.player.mainSkill.skillFlags.HasSeals = true
+						source.skillData.hasUnleash = GlobalCache.cachedData["CACHE"][uuid].ActiveSkill.skillData.dpsMultiplier
+					end
+					
 					local actualTrigRate, usingSourceAps = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield, minion)
 					
 					--If usingSourceAps is true that means that the sourceAps is limiting the trigger in this case simply apply hit/crit chance to get average value
@@ -3180,7 +3192,6 @@ function calcs.perform(env, avoidCache)
 					if source and source ~= env.player.mainSkill then
 						actor.mainSkill.skillData.triggerSource = source
 						actor.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
-						actor.mainSkill.skillData.triggerUnleash = source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire]
 						actor.mainSkill.infoMessage = triggerName .. ( minion and "'s attack Trigger: " or "'s Trigger: ") .. source.activeEffect.grantedEffect.name
 					else
 						actor.mainSkill.infoMessage = triggerName .. " Trigger"
