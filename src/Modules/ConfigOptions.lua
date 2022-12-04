@@ -457,7 +457,7 @@ return {
 			enemyModList:NewMod("AvoidBleed", "BASE", val, "Config")
 		end
 	end },
-	{ var = "enemyHasResistances", type = "list", label = "Enemy has Elemental / ^xD02090Chaos ^7Resist:", tooltip = "'Resistant'", list = {{val=0,label="None"},{val="LOW",label="20% / 15% (Low tier)"},{val="MID",label="30% /2 0% (Mid tier)"},{val="HIGH",label="40% / 25% (High tier)"}}, apply = function(val, modList, enemyModList)
+	{ var = "enemyHasResistances", type = "list", label = "Enemy has Elemental / ^xD02090Chaos ^7Resist:", tooltip = "'Resistant'", list = {{val=0,label="None"},{val="LOW",label="20% / 15% (Low tier)"},{val="MID",label="30% / 20% (Mid tier)"},{val="HIGH",label="40% / 25% (High tier)"}}, apply = function(val, modList, enemyModList)
 		local map = { ["LOW"] = {20,15}, ["MID"] = {30,20}, ["HIGH"] = {40,25} }
 		if map[val] then
 			enemyModList:NewMod("ElementalResist", "BASE", map[val][1], "Config")
