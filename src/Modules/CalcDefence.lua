@@ -1154,7 +1154,8 @@ function calcs.defence(env, actor)
 			armourReduct = calcs.armourReduction(effectiveAppliedArmour, damage * resMult)
 			armourReduct = m_min(output.DamageReductionMax, armourReduct)
 		end
-		reductMult = 1 - m_max(m_min(output.DamageReductionMax, armourReduct + reduction - enemyOverwhelm), 0) / 100
+		local totalReduct = m_min(output.DamageReductionMax, armourReduct + reduction)
+		reductMult = 1 - m_max(m_min(output.DamageReductionMax, totalReduct - enemyOverwhelm), 0) / 100
 		output[damageType.."DamageReduction"] = 100 - reductMult * 100
 		if breakdown then
 			breakdown[damageType.."DamageReduction"] = { }
@@ -2224,18 +2225,7 @@ function calcs.defence(env, actor)
 		end
 	end
 	for _, damageType in ipairs(dmgTypeList) do
-		if breakdown then
-			breakdown[damageType.."MaximumHitTaken"] = { 
-				label = "Maximum Hit Taken (uses lowest value ratioed with total pool)",
-				rowList = { },
-				colList = {
-					{ label = "Type", key = "type" },
-					{ label = "TotalPool", key = "pool" },
-					{ label = "Taken", key = "taken" },
-					{ label = "Final", key = "final" },
-				},
-			}
-		end
+		local breakdownRowList = {}
 		local partMin = m_huge
 		local useConversionSmoothing = false
 		for _, damageConvertedType in ipairs(dmgTypeList) do
@@ -2245,7 +2235,7 @@ function calcs.defence(env, actor)
 				local effectiveAppliedArmour = output[damageConvertedType.."EffectiveAppliedArmour"]
 				local damageConvertedMulti = convertPercent / 100
 
-				if effectiveAppliedArmour == 0 then	-- use a simpler calculation for no armour DR
+				if effectiveAppliedArmour == 0 and convertPercent == 100 then	-- use a simpler calculation for no armour DR
 					hitTaken = output[damageConvertedType.."TotalHitPool"] / damageConvertedMulti / output[damageConvertedType.."BaseTakenHitMult"]
 				else
 					-- get relevant raw reductions and reduction modifiers
@@ -2258,10 +2248,10 @@ function calcs.defence(env, actor)
 					local totalTakenMulti = output[damageConvertedType.."AfterReductionTakenHitMulti"]
 
 					local totalHitPool = output[damageConvertedType.."TotalHitPool"]
-					local maximumDamageForThisType = totalHitPool / damageConvertedMulti
+					local maximumDamageForThisType = totalHitPool
 
 					-- We know the damage and armour calculation chain. The important part for max hit calculations is:
-					-- 		dmgAfterRes = RAW * ResistanceMulti
+					-- 		dmgAfterRes = RAW * DamageConvertedMulti * ResistanceMulti
 					-- 		armourDR = AppliedArmour / (AppliedArmour + 5 * dmgAfterRes)
 					-- 		totalDR = max(min(armourDR + FlatDR, MaxReduction) - Overwhelm, 0)	-- min and max is complicated to actually math out so skip caps first and tack it on later. Result should be close enough
 					-- 		dmgReceived = dmgAfterRes * (1 - totalDR)
@@ -2272,12 +2262,13 @@ function calcs.defence(env, actor)
 					-- Trying to solve that for RAW might require solving a polynomial equation of 6th degree, so this solution settles for solving the parts independently and then approximating the final result
 					--
 					-- To solve only one part the above can be expressed as this:
-					--		5 * (1 - FlatDR + Overwhelm) * TakenMulti * ResistanceMulti * ResistanceMulti * RAW * RAW + ((Overwhelm - FlatDR) * AppliedArmour * TakenMulti - 5 * damageTaken) * ResistanceMulti * RAW - damageTaken * AppliedArmour = 0
+					--		5 * (1 - FlatDR + Overwhelm) * TakenMulti * ResistanceMulti * ResistanceMulti * DamageConvertedMulti * DamageConvertedMulti * RAW * RAW + ((Overwhelm - FlatDR) * AppliedArmour * TakenMulti - 5 * damageTaken) * ResistanceMulti * DamageConvertedMulti * RAW - damageTaken * AppliedArmour = 0
 					-- Which means that
 					-- 		RAW = [quadratic]
 
-					local a = 5 * (1 - flatDR + enemyOverwhelmPercent / 100) * totalTakenMulti * totalResistMult * totalResistMult
-					local b = ((enemyOverwhelmPercent / 100 - flatDR) * effectiveAppliedArmour * totalTakenMulti - 5 * maximumDamageForThisType) * totalResistMult
+					local resistXConvert = totalResistMult * damageConvertedMulti
+					local a = 5 * (1 - flatDR + enemyOverwhelmPercent / 100) * totalTakenMulti * resistXConvert * resistXConvert
+					local b = ((enemyOverwhelmPercent / 100 - flatDR) * effectiveAppliedArmour * totalTakenMulti - 5 * maximumDamageForThisType) * resistXConvert
 					local c = -effectiveAppliedArmour * maximumDamageForThisType
 
 					local RAW = (m_sqrt(b * b - 4 * a * c) - b) / (2 * a)
@@ -2288,14 +2279,12 @@ function calcs.defence(env, actor)
 					useConversionSmoothing = useConversionSmoothing or convertPercent ~= 100
 				end
 				partMin = m_min(partMin, hitTaken)
-				if breakdown then
-					t_insert(breakdown[damageType.."MaximumHitTaken"].rowList, {
-						type = s_format("%d%% as %s", actor.damageShiftTable[damageType][damageConvertedType], damageConvertedType),
-						pool = s_format("x %d", output[damageConvertedType.."TotalHitPool"]),
-						taken = s_format("/ %.2f", output[damageConvertedType.."BaseTakenHitMult"]),
-						final = s_format("x %.0f", hitTaken),
-					})
-				end
+				t_insert(breakdownRowList, {
+					type = s_format("%d%% as %s", actor.damageShiftTable[damageType][damageConvertedType], damageConvertedType),
+					pool = s_format("x %d", output[damageConvertedType.."TotalHitPool"]),
+					taken = s_format("/ %.2f", output[damageConvertedType.."BaseTakenHitMult"]),
+					final = s_format("x %.0f", hitTaken),
+				})
 			end
 		end
 
@@ -2306,11 +2295,11 @@ function calcs.defence(env, actor)
 					local convertedDamage = rawDamage * convertPercent / 100
 					local totalResistMult = output[damageConvertedType.."ResistTakenHitMulti"]
 					local effectiveAppliedArmour = output[damageConvertedType.."EffectiveAppliedArmour"]
-					local armourDRPercent = m_min(output.DamageReductionMax, calcs.armourReductionF(effectiveAppliedArmour, convertedDamage * totalResistMult))
+					local armourDRPercent = calcs.armourReductionF(effectiveAppliedArmour, convertedDamage * totalResistMult)
 					local flatDRPercent = modDB:Flag(nil, "SelfIgnore".."Base"..damageConvertedType.."DamageReduction") and 0 or output["Base"..damageConvertedType.."DamageReductionWhenHit"] or output["Base"..damageConvertedType.."DamageReduction"]
+					local totalDRPercent = m_min(output.DamageReductionMax, armourDRPercent + flatDRPercent)
 					local enemyOverwhelmPercent = modDB:Flag(nil, "SelfIgnore"..damageConvertedType.."DamageReduction") and 0 or output[damageConvertedType.."EnemyOverwhelm"]
-					-- DR caps and overwhelm implemented as above, although would armourDR flatDR get capped together, then overwhelmed?
-					local totalDRMulti = 1 - m_max(m_min(output.DamageReductionMax, armourDRPercent + flatDRPercent - enemyOverwhelmPercent), 0) / 100
+					local totalDRMulti = 1 - m_max(m_min(output.DamageReductionMax, totalDRPercent - enemyOverwhelmPercent), 0) / 100
 					local totalTakenMulti = output[damageConvertedType.."AfterReductionTakenHitMulti"]
 					receivedDamageSum = receivedDamageSum + convertedDamage * totalResistMult * totalDRMulti * totalTakenMulti
 				end
@@ -2318,22 +2307,46 @@ function calcs.defence(env, actor)
 			return receivedDamageSum
 		end
 
+		local maxHitToMinPartRatio
 		if partMin == m_huge then
 			output[damageType.."MaximumHitTaken"] = m_huge
 		elseif useConversionSmoothing then
 			-- this just reduces deviation from what the result should be
-			local takenFromCalced = takenHitFromDamage(partMin)
-			local hpToCalcedRatio = m_sqrt(output[damageType.."TotalHitPool"] / takenFromCalced)
+			local noSmoothing = partMin
+			-- this sqrt pass could be repeated multiple times and each time it would produce a more accurate result.
+			local firstPassRatio = m_sqrt(takenHitFromDamage(noSmoothing) / output[damageType.."TotalHitPool"])
+			local onePass = noSmoothing / firstPassRatio
+			-- this finishing pass is special because it:
+			--	1) inverts the behaviour of misreporting - instead of over reporting it under reports, so players don't try to tank something they can't
+			--	2) near the worst case scenarios of previous smoothing ratios this *magically* makes calculations near exact. In average case scenarios it still helps.
+			local finalPassRatio = output[damageType.."TotalHitPool"] / takenHitFromDamage(onePass)
+			local finalPass = onePass * finalPassRatio
 
-			output[damageType.."MaximumHitTaken"] = round(partMin * hpToCalcedRatio)
+			maxHitToMinPartRatio = finalPassRatio / firstPassRatio
+			output[damageType.."MaximumHitTaken"] = round(finalPass)
 		else
 			output[damageType.."MaximumHitTaken"] = round(partMin)
 		end
 
 		if breakdown then
-			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Total Pool: %d", output[damageType.."TotalHitPool"]))
-			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.3f",  output[damageType.."TotalHitPool"] / output[damageType.."MaximumHitTaken"]))
-			 t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]))
+			breakdown[damageType.."MaximumHitTaken"] = {
+				label = useConversionSmoothing and s_format("Maximum Hit Taken (uses lowest value x %.3f)", maxHitToMinPartRatio) or "Maximum Hit Taken (uses lowest value)",
+				rowList = breakdownRowList,
+				colList = {
+					{ label = "Type", key = "type" },
+					{ label = "TotalPool", key = "pool" },
+					{ label = "Taken", key = "taken" },
+					{ label = "Final", key = "final" },
+				},
+			}
+			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Total Pool: %d", output[damageType.."TotalHitPool"]))
+			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.3f",  output[damageType.."TotalHitPool"] / output[damageType.."MaximumHitTaken"]))
+			if useConversionSmoothing then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Approximate maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]))
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("You would take %d damage from such a hit.", takenHitFromDamage(output[damageType.."MaximumHitTaken"])))
+			else
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]))
+			end
 		end
 	end
 
