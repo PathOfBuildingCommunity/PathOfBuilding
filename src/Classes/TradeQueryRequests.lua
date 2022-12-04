@@ -72,7 +72,7 @@ function TradeQueryRequestsClass:SearchWithQuery(league, query, callback, params
 end
 
 ---Perform search and run callback function on returned item hashes.
----Item info has to be fetched seperately 
+---Item info has to be fetched separately 
 ---@param league string
 ---@param query string
 ---@param callback fun(response:table, errMsg:string)

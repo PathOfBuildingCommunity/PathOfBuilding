@@ -408,7 +408,7 @@ function TradeQueryClass:SetFetchResultReturn(slotIndex, index)
 	end
 end
 
--- Method to sort the fetched resutls
+-- Method to sort the fetched results
 function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 	local newTbl = {}
 	if self.pbSortSelectionIndex == 1 then
