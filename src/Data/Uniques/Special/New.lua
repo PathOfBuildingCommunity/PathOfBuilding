@@ -118,6 +118,11 @@ Witchbane
 Cobalt Jewel
 +10 to Intelligence
 When you Kill an Enemy affected by a Non-Aura Hex, become Immune to Curses for remaining Hex Duration
+]],[[
+Stormshroud
+Viridian Jewel
++10% to Lightning Resistance
+Chance to Avoid being Shocked applies to all Elemental Ailments
 ]]
 -- Reworked
 

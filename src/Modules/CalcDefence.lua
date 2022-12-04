@@ -893,9 +893,21 @@ function calcs.defence(env, actor)
 	output.AvoidAllDamageFromHitsChance = m_min(modDB:Sum("BASE", nil, "AvoidAllDamageFromHitsChance"), data.misc.AvoidChanceCap)
 	-- other avoidances etc
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
-	for _, ailment in ipairs(data.ailmentTypeList) do
-		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment), 100)
+
+	if modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") then
+		-- Shock avoid conversion from Stormshroud
+		for _, value in ipairs(modDB:Tabulate("BASE",  nil, "AvoidShock")) do
+			value.mod.name = "AvoidElementalAilments"
+		end
 	end
+
+	for _, ailment in ipairs(data.nonElementalAilmentTypeList) do
+		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments"), 100)
+	end
+	for _, ailment in ipairs(data.elementalAilmentTypeList) do
+		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments", "AvoidElementalAilments"), 100)
+	end
+
 	output.CurseAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidCurse"), 100)
 	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
