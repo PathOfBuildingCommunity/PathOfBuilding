@@ -2578,6 +2578,7 @@ local specialModList = {
 		flag("LightningCanPoison", { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack })
 	},
 	["all damage inflicts poison while affected by glorious madness"] = {
+		mod("PoisonChance", "BASE", 100, { type = "Condition", var = "AffectedByGloriousMadness" }),
 		flag("FireCanPoison", { type = "Condition", var = "AffectedByGloriousMadness" }),
 		flag("ColdCanPoison", { type = "Condition", var = "AffectedByGloriousMadness" }),
 		flag("LightningCanPoison", { type = "Condition", var = "AffectedByGloriousMadness" })
