@@ -312,8 +312,7 @@ Requires Level 25, 39 Int
 {variant:3}+(60-80) to maximum Life
 {variant:1,2}+(20-30) to maximum Mana
 {variant:3}+(60-80) to maximum Mana
-{variant:1}Curse Enemies with Temporal Chains on Hit
-{variant:2,3}Curse Enemies with Temporal Chains on Hit, with 40% increased Effect
+{variant:1,2,3}Curse Enemies with Temporal Chains on Hit
 {variant:3}Non-Aura Curses you inflict are not removed from Dying Enemies
 {variant:3}Enemies near Corpses affected by your Curses are Blinded
 {variant:3}Enemies killed near Corpses affected by your Curses explode, dealing

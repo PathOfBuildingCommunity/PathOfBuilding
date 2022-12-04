@@ -64,8 +64,8 @@ Implicits: 1
 {variant:3,4}+(60-80) to maximum Life
 +(35-50)% to Fire Resistance
 25% of Physical Damage Converted to Fire Damage
-{variant:1,2}10% chance to Curse Non-Cursed Enemies with Enfeeble on Hit, with 80% increased Effect
-{variant:3,4}25% chance to Curse Non-Cursed Enemies with Enfeeble on Hit, with 80% increased Effect
+{variant:1,2}10% chance to Curse Non-Cursed Enemies with Enfeeble on Hit
+{variant:3,4}25% chance to Curse Non-Cursed Enemies with Enfeeble on Hit
 ]],[[
 Dawnbreaker
 Colossal Tower Shield
@@ -655,9 +655,9 @@ Implicits: 0
 +(20-30) to Intelligence
 (4-8)% increased Quantity of Items found
 +5% Chance to Block
-Curse Enemies with Punishment when you Block their Melee Damage, with 60% increased Effect and ignoring Curse Limit
-Curse Enemies with Temporal Chains when you Block their Projectile Attack Damage, with 60% increased Effect and ignoring Curse Limit
-Curse Enemies with Elemental Weakness when you Block their Spell Damage, with 60% increased Effect and ignoring Curse Limit
+Curse Enemies with Punishment when you Block their Melee Damage, ignoring Curse Limit
+Curse Enemies with Temporal Chains when you Block their Projectile Attack Damage, ignoring Curse Limit
+Curse Enemies with Elemental Weakness when you Block their Spell Damage, ignoring Curse Limit
 ]],
 -- Shield: Armour/Evasion
 [[
@@ -696,7 +696,7 @@ Adds 4 to 8 Physical Damage to Attacks
 {variant:2}Adds 12 to 15 Cold Damage to Attacks
 (90-130)% increased Armour and Evasion
 +(30-50)% to Fire Resistance
-Curse Enemies with Vulnerability on Block, with 20% increased Effect
+Curse Enemies with Vulnerability on Block
 ]],[[
 The Ghastly Theatre
 Teak Round Shield

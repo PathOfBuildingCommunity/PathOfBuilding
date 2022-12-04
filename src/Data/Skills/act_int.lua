@@ -3033,7 +3033,7 @@ skills["EnergyBlade"] = {
 			mod("EnergyBladeCritChance", "INC", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["storm_blade_quality_chance_to_shock_%"] = {
-			mod("EnemyShockChance", "INC", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["storm_blade_quality_attack_lightning_damage_%_to_convert_to_chaos"] = {
 			mod("LightningDamageConvertToChaos", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
@@ -7777,7 +7777,7 @@ skills["Purity"] = {
 		},
 		["immune_to_status_ailments"] = {
 			--Display only
-		}
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -7961,14 +7961,14 @@ skills["LightningImpurity"] = {
 			--Display only
 		},
 	},
-	baseMods = {
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-	},
 	baseFlags = {
 		spell = true,
 		aura = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {

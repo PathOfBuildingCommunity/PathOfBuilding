@@ -287,3 +287,4 @@ GlobalCache = {
 	useFullDPS = false,
 	numActiveSkillInFullDPS = 0,
 }
+

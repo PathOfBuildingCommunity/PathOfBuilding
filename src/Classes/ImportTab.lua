@@ -371,8 +371,7 @@ function ImportTabClass:DownloadCharacterList()
 	  -- Trim Trailing/Leading spaces
 	local accountName = self.controls.accountName.buf:gsub('%s+', '')
 	local realm = realmList[self.controls.accountRealm.selIndex]
-	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
-	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(page, errMsg)
+	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(response, errMsg)
 		if errMsg == "Response code: 401" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
 			self.charImportMode = "GETSESSIONID"
@@ -390,7 +389,7 @@ function ImportTabClass:DownloadCharacterList()
 			self.charImportMode = "GETACCOUNTNAME"
 			return
 		end
-		local charList, errMsg = self:ProcessJSON(page)
+		local charList, errMsg = self:ProcessJSON(response.body)
 		if errMsg then
 			self.charImportStatus = colorCodes.NEGATIVE.."Error processing character list, try again later"
 			self.charImportMode = "GETACCOUNTNAME"
@@ -404,13 +403,13 @@ function ImportTabClass:DownloadCharacterList()
 		end
 		-- GGG's character API has an issue where for /get-characters the account name is not case-sensitive, but for /get-passive-skills and /get-items it is.
 		-- This workaround grabs the profile page and extracts the correct account name from one of the URLs.
-		launch:DownloadPage(realm.hostName..realm.profileURL..accountName, function(page, errMsg)
+		launch:DownloadPage(realm.hostName..realm.profileURL..accountName, function(response, errMsg)
 			if errMsg then
 				self.charImportStatus = colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
 				self.charImportMode = "GETACCOUNTNAME"
 				return
 			end
-			local realAccountName = page:match("/view%-profile/([^/]+)/characters"):gsub(".", function(c) if c:byte(1) > 127 then return string.format("%%%2X",c:byte(1)) else return c end end)
+			local realAccountName = response.body:match("/view%-profile/([^/]+)/characters"):gsub(".", function(c) if c:byte(1) > 127 then return string.format("%%%2X",c:byte(1)) else return c end end)
 			if not realAccountName then
 				self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character list."
 				self.charImportMode = "GETSESSIONID"
@@ -425,7 +424,7 @@ function ImportTabClass:DownloadCharacterList()
 			self.lastAccountHash = common.sha1(accountName)
 			main.lastAccountName = accountName
 			main.gameAccounts[accountName] = main.gameAccounts[accountName] or { }
-			main.gameAccounts[accountName].sessionID = sessionID
+			main.gameAccounts[accountName].sessionID = main.POESESSID
 			local leagueList = { }
 			for i, char in ipairs(charList) do
 				if not isValueInArray(leagueList, char.league) then
@@ -448,11 +447,10 @@ function ImportTabClass:DownloadCharacterList()
 			end
 			self.lastCharList = charList
 			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValue("league"))
-
 			-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
 			self:SaveAccountHistory()
-		end, sessionID and "POESESSID="..sessionID)
-	end, sessionID and "POESESSID="..sessionID)
+		end, main.POESESSID and { header = "Cookie: POESESSID=" .. main.POESESSID })
+	end, main.POESESSID and { header = "Cookie: POESESSID=" .. main.POESESSID })
 end
 
 function ImportTabClass:BuildCharacterList(league)
@@ -496,21 +494,20 @@ function ImportTabClass:DownloadPassiveTree()
 	self.charImportStatus = "Retrieving character passive tree..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local accountName = self.controls.accountName.buf
-	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
-	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(page, errMsg)
+	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
 			self.charImportStatus = colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
 			return
-		elseif page == "false" then
+		elseif response.body == "false" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
 			return
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
-		self:ImportPassiveTreeAndJewels(page, charData)
-	end, sessionID and "POESESSID="..sessionID)
+		self:ImportPassiveTreeAndJewels(response.body, charData)
+	end, main.POESESSID and { header = "Cookie: POESESSID="..main.POESESSID })
 end
 
 function ImportTabClass:DownloadItems()
@@ -518,21 +515,20 @@ function ImportTabClass:DownloadItems()
 	self.charImportStatus = "Retrieving character items..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local accountName = self.controls.accountName.buf
-	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
-	launch:DownloadPage(realm.hostName.."character-window/get-items?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(page, errMsg)
+	launch:DownloadPage(realm.hostName.."character-window/get-items?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
 			self.charImportStatus = colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
 			return
-		elseif page == "false" then
+		elseif response.body == "false" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
 			return
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
-		self:ImportItemsAndSkills(page)
-	end, sessionID and "POESESSID="..sessionID)
+		self:ImportItemsAndSkills(response.body)
+	end, main.POESESSID and { header = "Cookie: POESESSID="..main.POESESSID })
 end
 
 function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
@@ -787,6 +783,8 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			end
 		end
 	end
+	item.split = itemData.split
+	item.mirrored = itemData.mirrored
 	item.corrupted = itemData.corrupted
 	item.fractured = itemData.fractured
 	item.synthesised = itemData.synthesised

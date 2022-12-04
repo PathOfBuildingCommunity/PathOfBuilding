@@ -11,6 +11,7 @@ local t_insert = table.insert
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local m_modf = math.modf
 local m_huge = math.huge
 local s_format = string.format
 
@@ -84,11 +85,11 @@ function calcs.defence(env, actor)
 	end
 	
 	for _, elem in ipairs(resistTypeList) do
-		local min, max, total
+		local min, max, total, totemTotal, totemMax
 		min = data.misc.ResistFloor
 		max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
-		totemMax = modDB:Override(nil, "Totem"..elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, "Totem"..elem.."ResistMax", isElemental[elem] and "TotemElementalResistMax"))
 		total = modDB:Override(nil, elem.."Resist")
+		totemMax = modDB:Override(nil, "Totem"..elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, "Totem"..elem.."ResistMax", isElemental[elem] and "TotemElementalResistMax"))
 		totemTotal = modDB:Override(nil, "Totem"..elem.."Resist")
 		if not total then
 			local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
@@ -98,6 +99,14 @@ function calcs.defence(env, actor)
 			local base = modDB:Sum("BASE", nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist")
 			totemTotal = base * calcLib.mod(modDB, nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist")
 		end
+		
+		-- Fractional resistances are truncated
+		total = m_modf(total)
+		totemTotal = m_modf(totemTotal)
+		min = m_modf(min)
+		max = m_modf(max)
+		totemMax = m_modf(totemMax)
+		
 		local final = m_max(m_min(total, max), min)
 		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
 		output["Base"..elem.."DamageReduction"] = 0
@@ -105,7 +114,7 @@ function calcs.defence(env, actor)
 		output[elem.."ResistTotal"] = total
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
 		output[elem.."ResistOver75"] = m_max(0, final - 75)
-		output["Missing"..elem.."Resist"] = m_max(0, totemMax - final)
+		output["Missing"..elem.."Resist"] = m_max(0, max - final)
 		output["Totem"..elem.."Resist"] = totemFinal
 		output["Totem"..elem.."ResistTotal"] = totemTotal
 		output["Totem"..elem.."ResistOverCap"] = m_max(0, totemTotal - totemMax)
@@ -1626,7 +1635,7 @@ function calcs.defence(env, actor)
 		local energyShield = output.EnergyShieldRecoveryCap
 		local ward = output.Ward or 0
 		local restoreWard = modDB:Flag(nil, "WardNotBreak") and ward or 0
-		-- don't apply non-perma ward for speed up calcs as it wont zero it correctly per hit
+		-- don't apply non-perma ward for speed up calcs as it won't zero it correctly per hit
 		if (not modDB:Flag(nil, "WardNotBreak")) and DamageIn["cycles"] > 1 then
 			ward = 0
 			restoreWard = 0

@@ -90,13 +90,16 @@ Implicits: 3
 Bloodseeker
 Hellion's Paw
 Variant: Pre 3.0.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 1.6% of Physical Attack Damage Leeched as Life
 {variant:1}(100-120)% increased Physical Damage
 {variant:2}(150-170)% increased Physical Damage
-Adds 10 to 12 Physical Damage
+{variant:3}(200-220)% increased Physical Damage
+{variant:1,2}Adds 10 to 12 Physical Damage
+{variant:3}Adds 25 to 30 Physical Damage
 5% increased Attack Speed
 1.2% of Physical Attack Damage Leeched as Life
 5% increased Movement Speed
@@ -123,11 +126,12 @@ Implicits: 3
 ]],[[
 Essentia Sanguis
 {variant:1,2,3}Eye Gouger
-{variant:4,5}Vaal Claw
+{variant:4,5,6}Vaal Claw
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
+Variant: Pre 3.20.0
 Variant: Current
 Implicits: 3
 {variant:1,2}0.6% of Physical Attack Damage Leeched as Life
@@ -140,12 +144,13 @@ Implicits: 3
 {variant:1}Adds 1 to 50 Lightning Damage
 {variant:2,3}Adds 1 to 80 Lightning Damage
 {variant:4,5}Adds 1 to 200 Lightning Damage
+{variant:6}Adds 1 to (500-600) Lightning Damage
 (20-30)% increased Attack Speed
 +(30-40) to maximum Energy Shield
 {variant:1,2,3,4}Leech Energy Shield instead of Life
 {variant:5}50% reduced Maximum Recovery per Energy Shield Leech
-{variant:5}Energy Shield Leech Effects from Attacks are not removed at Full Energy Shield
-{variant:5}Ghost Reaver
+{variant:5,6}Energy Shield Leech Effects from Attacks are not removed at Full Energy Shield
+{variant:5,6}Ghost Reaver
 ]],[[
 Hand of Thought and Motion
 Blinder

@@ -403,7 +403,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 40)
-#baseMod mod("AvoidCurse", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+#baseMod mod("AvoidCurse", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
 #mods
 
 #skill GoreShockwave

@@ -99,7 +99,7 @@ Implicits: 2
 100% increased Physical Damage
 (5-10)% increased Attack Speed
 Reflects (22-44) Physical Damage to Attackers on Block
-Curse Enemies with Vulnerability on Block, with 20% increased Effect
+Curse Enemies with Vulnerability on Block
 ]],[[
 Replica Blood Thorn
 Gnarled Branch
@@ -110,7 +110,7 @@ Implicits: 1
 +12% Chance to Block Attack Damage while wielding a Staff
 100% increased Fire Damage
 (5-10)% increased Attack Speed
-Curse Enemies with Flammability on Block, with 20% increased Effect
+Curse Enemies with Flammability on Block
 Reflects (22-44) Fire Damage to Attackers on Block
 ]],[[
 Cane of Unravelling

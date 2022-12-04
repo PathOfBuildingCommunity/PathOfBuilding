@@ -395,11 +395,14 @@ Adds 1 to (60-70) Lightning Damage to Spells
 ]],[[
 The Saviour
 Legion Sword
+Variant: Pre 3.20.0
+Variant: Current
 Source: Drops from unique{Sirus, Awakener of Worlds}
 Implicits: 1
 40% increased Global Accuracy Rating
 Triggers Level 20 Reflection when Equipped
-(40-50)% increased Physical Damage
+{variant:1}(40-50)% increased Physical Damage
+{variant:2}(130-150)% increased Physical Damage
 Adds (16-22) to (40-45) Physical Damage
 (8-12)% increased Attack Speed
 (8-12)% increased Critical Strike Chance
@@ -528,11 +531,13 @@ Varunastra
 Vaal Blade
 League: Perandus
 Variant: Pre 2.6.0
+Variant: Pre 3.20.0
 Variant: Current
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2}+460 to Accuracy Rating
-(40-60)% increased Physical Damage
+{variant:2,3}+460 to Accuracy Rating
+{variant:1,2}(40-60)% increased Physical Damage
+{variant:3}(80-100)% increased Physical Damage
 Adds (30-45) to (80-100) Physical Damage
 Gain (2-3) Mana per Enemy Hit with Attacks
 Counts as all One Handed Melee Weapon Types
@@ -871,12 +876,14 @@ Infernal Sword
 Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.11.0
+Variant: Pre 3.20.0
 Variant: Current
 Implicits: 2
 {variant:1}30% increased Global Accuracy Rating
-{variant:2}30% increased Global Physical Damage
+{variant:2,3}30% increased Global Physical Damage
 {variant:1}(400-500)% increased Physical Damage
 {variant:2}(200-300)% increased Physical Damage
+{variant:3}(400-450)% increased Physical Damage
 (5-8)% increased Attack Speed
 +(90-100) to maximum Life
 Your Physical Damage can Shock
@@ -906,16 +913,18 @@ Shaper Item
 Elder Item
 Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.11.0
+Variant: Pre 3.20.0
 Variant: Current
 Implicits: 2
 {variant:1}30% increased Global Accuracy Rating
-{variant:2}30% increased Elemental Damage with Attack Skills
+{variant:2,3}30% increased Elemental Damage with Attack Skills
 {variant:1}(50-100)% increased Physical Damage
 {variant:2}(30-60)% increased Physical Damage
 (5-8)% increased Attack Speed
 +(90-100) to maximum Life
 Your Elemental Damage can Shock
-Gain 300% of Weapon Physical Damage as Extra Damage of a random Element
+{variant:1,2}Gain 300% of Weapon Physical Damage as Extra Damage of a random Element
+{variant:3}Gain 700% of Weapon Physical Damage as Extra Damage of a random Element
 20% increased Area of Effect for Attacks
 Deal no Non-Elemental Damage
 ]],

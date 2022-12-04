@@ -482,12 +482,12 @@ function TreeTabClass:OpenExportPopup()
 	controls.shrink = new("ButtonControl", nil, -90, 70, 140, 20, "Shrink with PoEURL", function()
 		controls.shrink.enabled = false
 		controls.shrink.label = "Shrinking..."
-		launch:DownloadPage("http://poeurl.com/shrink.php?url="..treeLink, function(page, errMsg)
+		launch:DownloadPage("http://poeurl.com/shrink.php?url="..treeLink, function(response, errMsg)
 			controls.shrink.label = "Done"
-			if errMsg or not page:match("%S") then
+			if errMsg or not response.body:match("%S") then
 				main:OpenMessagePopup("PoEURL Shortener", "Failed to get PoEURL link. Try again later.")
 			else
-				treeLink = "http://poeurl.com/"..page
+				treeLink = "http://poeurl.com/"..response.body
 				controls.edit:SetText(treeLink)
 				popup:SelectControl(controls.edit)
 			end
@@ -607,7 +607,7 @@ function TreeTabClass:TogglePowerReport(caller)
 	self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, main.portraitMode and "BOTTOMLEFT" or "TOPRIGHT")
 	self.controls.powerReportList.shown = self.showPowerReport
 
-	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and im unsure how to quantify numerically
+	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and I'm unsure how to quantify numerically
 	-- especially given the heatmap's current approach of using the sqrt() of both components. that number is cryptic to users, i suspect.
 	if currentStat and currentStat.stat then
 		self.controls.powerReportList.label = "Click to focus node on tree"

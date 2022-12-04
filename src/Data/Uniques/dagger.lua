@@ -17,15 +17,17 @@ Adds 1 to 59 Chaos Damage
 Bino's Kitchen Knife
 Slaughter Knife
 Variant: Pre 2.2.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 65, 81 Dex, 117 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
-30% increased Damage over Time
-Adds (50-60) to (120-140) Physical Damage
+{variant:1,2}30% increased Damage over Time
+{variant:1,2}Adds (50-60) to (120-140) Physical Damage
+{variant:3}Adds (140-155) to (210-235) Physical Damage
 (40-50)% increased Critical Strike Chance
 {variant:1}+(10-15)% to Global Critical Strike Multiplier
-{variant:2}+(15-25)% to Global Critical Strike Multiplier
+{variant:2,3}+(15-25)% to Global Critical Strike Multiplier
 +(8-12)% to Chaos Resistance
 On Killing a Poisoned Enemy, nearby Enemies are Poisoned
 and nearby Allies Regenerate 200 Life per second
@@ -97,18 +99,24 @@ Divinarius
 Imperial Skean
 League: Legion
 Variant: Pre 3.7.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
-(50-70)% increased Spell Damage
+{variant:1,2}(50-70)% increased Spell Damage
+{variant:3}(100-150)% increased Spell Damage
 {variant:1}Gain 10 Life per Enemy Killed
 {variant:2}Gain 30 Life per Enemy Killed
+{variant:3}Gain (100-200) Life per Enemy Killed
 {variant:1}Gain 5 Mana per Enemy Killed
 {variant:2}Gain 10 Mana per Enemy Killed
+{variant:3}Gain (50-100) Mana per Enemy Killed
 10% increased Area of Effect of Area Skills
 {variant:2}(125-175)% increased Critical Strike Chance for Spells if you've Killed Recently
+{variant:3}(200-250)% increased Critical Strike Chance for Spells if you've Killed Recently
 {variant:2}+(40-60)% to Critical Strike Multiplier for Spells if you haven't Killed Recently
+{variant:3}+(60-100)% to Critical Strike Multiplier for Spells if you haven't Killed Recently
 ]],[[
 Goredrill
 Skinning Knife
