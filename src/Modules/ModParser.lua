@@ -348,6 +348,7 @@ local modNameList = {
 	["radius of auras"] = { "AreaOfEffect", keywordFlags = KeywordFlag.Aura },
 	["radius of curses"] = { "AreaOfEffect", keywordFlags = KeywordFlag.Curse },	
 	["buff effect"] = "BuffEffect",
+	["rage loss per second"] = "RageLossRate",
 	["effect of buffs on you"] = "BuffEffectOnSelf",
 	["effect of buffs granted by your golems"] = { "BuffEffect", tag = { type = "SkillType", skillType = SkillType.Golem } },
 	["effect of buffs granted by socketed golem skills"] = { "BuffEffect", addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "golem" } },
@@ -1761,18 +1762,30 @@ local specialModList = {
 	["(%d+)%% reduced damage taken while there are at least two rare or unique enemies nearby"] = function(num) return { mod("DamageTaken", "INC", -num, nil, 0, { type = "MultiplierThreshold", var = "NearbyRareOrUniqueEnemies", threshold = 2 }) } end,
 	["you take no extra damage from critical strikes while elusive"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", 100, { type = "Condition", var = "Elusive" }) } end,
 	-- Berserker
-	["gain %d+ rage when you kill an enemy"] = {
+	["gain (%d+) rage when you kill an enemy"] = function(num) return {
 		flag("Condition:CanGainRage"),
-	},
-	["gain %d+ rage when you use a warcry"] = {
+		mod("RageOnKill", "BASE", num),
+	} end,
+	["gain (%d+) rage when you use a warcry"] = function(num) return {
 		flag("Condition:CanGainRage"),
-	},
-	["you and nearby party members gain %d+ rage when you warcry"] = {
+		mod("RageOnWarcry", "BASE", num),
+	} end,
+	["you and nearby party members gain (%d+) rage when you warcry"] = function(num) return {
 		flag("Condition:CanGainRage"),
-	},
-	["gain %d+ rage on hit with attacks, no more than once every [%d%.]+ seconds"] = {
+		mod("RageOnWarcry", "BASE", num),
+	} end,
+	["warcries grant (%d+) rage per (%d+) power if you have less than (%d+) rage"] = function(num, _, div, _threshold) return {
 		flag("Condition:CanGainRage"),
-	},
+		mod("RageOnWarcry", "BASE", num, { type = "Multiplier", var = "WarcryPower", div = tonumber(div) }, { type = "MultiplierThreshold", var = "Rage", threshold = tonumber(_threshold), upper = true}),
+	} end,
+	["warcries sacrifice (%d+) rage if you have at least (%d+) rage"] = function(num, _, _threshold) return {
+		flag("Condition:CanGainRage"),
+		mod("RageOnWarcry", "BASE", -num, { type = "MultiplierThreshold", var = "Rage", threshold = tonumber(_threshold)}),
+	} end,
+	["gain 1 rage on hit with attacks, no more than once every ([%d%.]+) seconds"] = function(num) return {
+		flag("Condition:CanGainRage"),
+		mod("RageOnHit", "BASE", num, nil, ModFlag.Attack),
+	} end,
 	["inherent effects from having rage are tripled"] = { mod("Multiplier:RageEffect", "BASE", 2) },
 	["cannot be stunned while you have at least (%d+) rage"] = function(num) return { mod("AvoidStun", "BASE", 100, { type = "MultiplierThreshold", var = "Rage", threshold = num }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) } end,
 	["lose ([%d%.]+)%% of life per second per rage while you are not losing rage"] = function(num) return { mod("LifeDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }, { type = "Multiplier", var = "Rage"}) } end,
@@ -1780,9 +1793,6 @@ local specialModList = {
 	["gain (%d+)%% increased armour per (%d+) power for 8 seconds when you warcry, up to a maximum of (%d+)%%"] = function(num, _, div, limit) return {
 		mod("Armour", "INC", num, { type = "Multiplier", var = "WarcryPower", div = tonumber(div), globalLimit = tonumber(limit), globalLimitKey = "WarningCall" }, { type = "Condition", var = "UsedWarcryInPast8Seconds" })
 	} end,
-	["warcries grant (%d+) rage per (%d+) power if you have less than (%d+) rage"] = {
-		flag("Condition:CanGainRage"),
-	},
 	["exerted attacks deal (%d+)%% more attack damage if a warcry sacrificed rage recently"] = function(num) return { mod("ExertAttackIncrease", "MORE", num, nil, ModFlag.Attack, 0) } end,
 	["deal (%d+)%% less damage"] = function(num) return { mod("Damage", "MORE", -num) } end,
 	-- Champion

@@ -2553,17 +2553,23 @@ function calcs.offence(env, actor, activeSkill)
 		output.LifeOnHitRate = output.LifeOnHit * hitRate
 		output.EnergyShieldOnHitRate = output.EnergyShieldOnHit * hitRate
 		output.ManaOnHitRate = output.ManaOnHit * hitRate
+		-- output.RageOnHitRate = 
 		
 		-- Calculate gain on kill
 		if skillFlags.mine or skillFlags.trap or skillFlags.totem then
 			output.LifeOnKill = 0
 			output.EnergyShieldOnKill = 0
 			output.ManaOnKill = 0
+			output.RageOnKill = 0
 		else
 			output.LifeOnKill = m_floor(skillModList:Sum("BASE", cfg, "LifeOnKill"))
 			output.EnergyShieldOnKill = m_floor(skillModList:Sum("BASE", cfg, "EnergyShieldOnKill"))
 			output.ManaOnKill = m_floor(skillModList:Sum("BASE", cfg, "ManaOnKill"))
+			output.RageOnKill = m_floor(skillModList:Sum("BASE", cfg, "RageOnKill"))
 		end
+
+		-- Calculate gain on warcry
+		output.RageOnWarcry = m_floor(skillModList:Sum("BASE", cfg, "RageOnWarcry"))
 
 		-- Calculate average damage and final DPS
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
