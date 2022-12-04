@@ -21,7 +21,7 @@ local band = bit.band
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
 local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 	local uuid = cacheSkillUUID(skill)
-	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.dontUseCache then
+	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
 		calcs.buildActiveSkill(env, "CACHE", skill)
 		env.dontCache = true
 	end
