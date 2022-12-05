@@ -1553,28 +1553,6 @@ function calcs.offence(env, actor, activeSkill)
 			output.TriggerTime = output.Time
 			output.Speed = skillData.triggerRate
 			skillData.showAverage = false
-		elseif skillData.triggeredByBrand and skillData.triggered then
-			local activationFreqInc = (100 + skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency")) / 100
-			local activationFreqMore = skillModList:More(cfg, "BrandActivationFrequency")
-			local linkedSpellsCount = skillModList:Sum("BASE", cfg, "ArcanistSpellsLinked") or 1
-			
-			output.Speed = activationFreqInc * activationFreqMore / linkedSpellsCount
-			output.Time = 1 / output.Speed
-			output.TriggerTime = output.Time
-			
-			if breakdown then
-				breakdown.Speed = {
-					"1.00 ^8(base activation cooldown)",
-					s_format("/ %.2f ^8(more activation frequency)", activationFreqMore),
-					s_format("/ %.2f ^8(increased activation frequency)", activationFreqInc),
-					s_format("* %d ^8(number of linked spells)", linkedSpellsCount),
-					s_format("= %.2f ^8(trigger cooldown)", output.Time),
-					"",
-					s_format("1 / %.2f ", output.Time),
-					s_format("= %.2f ^8casts per second", output.Speed),
-				}
-			end
-			
 		else
 			local baseTime
 			if isAttack then
