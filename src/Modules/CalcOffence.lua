@@ -4216,7 +4216,7 @@ function calcs.offence(env, actor, activeSkill)
 		for _, triggerSkill in ipairs(actor.activeSkillList) do
 			local triggered = triggerSkill.skillData.triggeredByUnique or triggerSkill.skillData.triggered or triggerSkill.skillTypes[SkillType.InbuiltTrigger] or triggerSkill.skillTypes[SkillType.Triggered]
 			local isDisabled = triggerSkill.skillFlags and triggerSkill.skillFlags.disable
-			if triggerSkill ~= activeSkill and triggerSkill.skillTypes[SkillType.Slam] and triggerSkill.skillTypes[SkillType.Attack] and not triggerSkill.skillTypes[SkillType.Vaal] and not triggered and not isDisabled then
+			if triggerSkill ~= activeSkill and triggerSkill.skillTypes[SkillType.Slam] and triggerSkill.skillTypes[SkillType.Attack] and not triggerSkill.skillTypes[SkillType.Vaal] and not triggered and not isDisabled and not triggerSkill.skillTypes[SkillType.Totem] and not triggerSkill.skillTypes[SkillType.SummonsTotem] then
 				-- Grab a fully-processed by calcs.perform() version of the skill that Tawhoa's Chosen will use
 				local uuid = cacheSkillUUID(triggerSkill)
 				if not GlobalCache.cachedData[calcMode][uuid] then
