@@ -123,6 +123,14 @@ Stormshroud
 Viridian Jewel
 +10% to Lightning Resistance
 Chance to Avoid being Shocked applies to all Elemental Ailments
+]],[[
+Oriath's End
+Bismuth Flask
+LevelReq: 56
+Source: Drops from unique{Sirus, Awakener of Worlds} (Uber)
+35% increased Charge Recovery
+Enemies you Kill during Effect have a 28% chance to Explode, dealing a tenth of their
+maximum Life as damage of a Random Element
 ]]
 -- Reworked
 
