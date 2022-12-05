@@ -641,6 +641,29 @@ local function loadJewelFile(jewelTypeName)
 
 	if jewelData == nil then
 		ConPrintf("Failed to load either file: " .. jewelTypeName .. ".zip, " .. jewelTypeName .. ".bin")
+		if (data.nodeIDList[1] and (data.nodeIDList[1].rebuildLUT or 0) or 0) == 1 then
+			ConPrintf("looking for base LUT to rebuild")
+			local jewelType = 1
+			while ("/Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "")) ~= jewelTypeName and jewelType < 5 do
+				jewelType = jewelType + 1
+			end
+			local compressedFile = io.open(scriptPath .. "/Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType], "rb")
+			if compressedFile then
+				ConPrintf("base LUT found: " .. jewelTypeName)
+				jewelData = compressedFile:read("*a")
+				compressedFile:close()
+
+				--- Code for compressing existing data if it changed
+				if jewelType == 1 then
+					ConPrintf("GV needs to be split manualy")
+				else
+					local compressedFileData = Deflate(jewelData)
+					local file = assert(io.open(scriptPath .. "Data/TimelessJewelData/" .. jewelTypeName .. ".zip", "wb+"))
+					file:write(compressedFileData)
+					file:close()
+				end
+			end
+		end
 	else
 		local uncompressedFile = io.open(scriptPath .. jewelTypeName .. ".bin", "wb+")
 		if uncompressedFile then
@@ -725,21 +748,9 @@ local function loadTimelessJewel(jewelType, nodeID)
 				end
 			end
 			ConPrintf("Glorious Vanity Lookup Table Loaded! Read " .. sizeOffset .. " bytes")
-
-			--- Code for compressing existing data if it changed
-			--local compressedFileData = Deflate(jewelData)
-			--local file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "wb+"))
-			--file:write(compressedFileData)
-			--file:close()
 			return
 		else
 			data.timelessJewelLUTs[jewelType].data = jewelData
-
-			--- Code for compressing existing data if it changed
-			--local compressedFileData = Deflate(data.timelessJewelLUTs[jewelType].data)
-			--local file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "wb+"))
-			--file:write(compressedFileData)
-			--file:close()
 		end
 	end
 end
@@ -768,6 +779,81 @@ data.timelessJewelSeedMax = {
 data.timelessJewelAdditions = 94 -- #legionAdditions
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
 data.timelessJewelLUTs = { }
+-- this runs if the "size" key is missing from nodeIDList and attempts to rebuild all jewel LUTs and the nodeIDList
+-- note this should only run in dev mode
+if not data.nodeIDList.size and launch.devMode then -- this doesnt rebuilt the list with the correct sizes, likly an issue with lua indexing from 1 instead of 0, but cbf debugging so just generated the index mapping in c#
+	ConPrintf("Error NodeIndexMapping file empty")
+	data.nodeIDList = { { index = 0, rebuildLUT = 1 } }
+	for _, jewelType in ipairs({2, 3, 4, 5}) do
+		loadTimelessJewel(jewelType, 1)
+		data.nodeIDList[1].rebuildLUT = 1
+	end
+	jewelData = loadJewelFile(data.timelessJewelTypes[1]:gsub("%s+", ""))
+	if not jewelData then
+		ConPrintf("missing GV file to rebuild NodeIndexMapping")
+	else
+		ConPrintf("attempting to rebuild NodeIndexMapping")
+		local scriptPath = GetScriptPath()
+		local compressedFile = io.open(scriptPath .. "/Data/TimelessJewelData/node_indices.csv", "rb")
+		if compressedFile then
+			ConPrintf("csv found")
+			local nodeData = compressedFile:read("*a")
+			compressedFile:close()
+			
+			tempIndList = {}
+			nodeIDList["size"] = 0
+			nodeIDList["sizeNotable"] = 0
+			for line in nodeData:gmatch("([^\n]*)\n?") do
+				nodeIDList["size"] = nodeIDList["size"] + 1
+				if nodeIDList["size"] ~= 1 then
+					for split in line:gmatch("([^,]*),?") do
+						if tonumber(split) then
+							tempIndList[nodeIDList["size"] - 1] = tonumber(split)
+							if nodeIDList["size"] ~= 2 and tempIndList[nodeIDList["size"] - 1] < tempIndList[nodeIDList["size"] - 2] then
+								nodeIDList["sizeNotable"] = nodeIDList["size"] - 2
+							end
+						end
+						break
+					end
+				end
+			end
+			nodeIDList["size"] = nodeIDList["size"] - 2
+			ConPrintf(nodeIDList["sizeNotable"])
+			ConPrintf(nodeIDList["size"])
+			
+			
+			local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
+			local sizeOffset = nodeIDList.size * seedSize
+			data.timelessJewelLUTs[1] = {}
+			data.timelessJewelLUTs[1].sizes = jewelData:sub(1, sizeOffset + 1)
+			for i, nodeID in ipairs(tempIndList) do
+				local nodeIndex = i - 1
+				local count = 0
+				if i > nodeIDList["sizeNotable"] then
+					count = seedSize * 2
+				else
+					for seedOffset = 1, (seedSize + 1) do
+						local dataLength = data.timelessJewelLUTs[1].sizes:byte(nodeIndex * seedSize + seedOffset)
+						count = count + dataLength
+					end
+				end
+				nodeIDList[nodeID] = { index = nodeIndex, size = count }
+			end
+			
+			local file = assert(io.open("Data/TimelessJewelData/NodeIndexMapping.lua", "wb+"))
+			file:write("nodeIDList = { }\n")
+			file:write("nodeIDList[\"size\"] = " .. tostring(nodeIDList["size"]) .. "\n")
+			file:write("nodeIDList[\"sizeNotable\"] = " .. tostring(nodeIDList["sizeNotable"]) .. "\n")
+			for _, nodeID in ipairs(tempIndList) do
+				file:write("nodeIDList[" .. tostring(nodeID) .. "] = { index = " .. tostring(nodeIDList[nodeID].index) .. ", size = " .. tostring(nodeIDList[nodeID].size) .. " }\n")
+			end
+			file:write("return nodeIDList")
+			file:close()
+		else
+			ConPrintf("csv missing, cannot rebuild NodeIndexMapping")
+		end
+	end
+end
 data.readLUT = function(seed, nodeID, jewelType)
 	loadTimelessJewel(jewelType, nodeID)
 	if jewelType == 1 then
