@@ -450,7 +450,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
 		if breakdown and sourceAPS ~= 0 then
 			breakdown.SourceTriggerRate = {
-				s_format("%.2f ^8(%s attacks per seconds)", (sourceAPS ~= 0 and sourceAPS /(source and source.skillData.hasUnleash or 1)) or output.ActionTriggerRate, (source and source.activeEffect.grantedEffect.name) or (env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or env.player.mainSkill.activeEffect.grantedEffect.name),
+				s_format("%.2f ^8(%s attacks per seconds)", (sourceAPS ~= nil and sourceAPS ~= 0 and sourceAPS /(source and source.skillData.hasUnleash or 1)) or output.ActionTriggerRate, (source and source.activeEffect.grantedEffect.name) or (env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or env.player.mainSkill.activeEffect.grantedEffect.name),
 			}
 			breakdown.ServerTriggerRate = {
 				s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
@@ -2836,7 +2836,7 @@ function calcs.perform(env, avoidCache)
 		-- Account for Trigger-related INC/MORE modifiers
 		env.player.mainSkill.skillFlags.dontDisplay = true
 		output.Speed = output.ServerTriggerRate
-		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+		addTriggerIncMoreMods(env.player.mainSkill, source or env.player.mainSkill)
 		env.player.mainSkill.skillData.triggered = true
 		env.player.mainSkill.skillData.triggerRate = output.ServerTriggerRate
 		env.player.mainSkill.skillData.triggerSource = source
@@ -3050,7 +3050,7 @@ function calcs.perform(env, avoidCache)
 				source = env.player.mainSkill
 				spellCount = nil
 			elseif env.player.mainSkill.skillData.triggeredByBrand and not env.player.mainSkill.skillFlags.minion then
-				triggerName = "Arcanist Brand"
+				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
 				env.player.mainSkill.skillFlags.dontDisplay = true
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end
 				
@@ -3196,7 +3196,7 @@ function calcs.perform(env, avoidCache)
 	
 					-- Account for Trigger-related INC/MORE modifiers
 					output.Speed = trigRate
-					addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+					addTriggerIncMoreMods(env.player.mainSkill, source or env.player.mainSkill)
 					actor.mainSkill.skillData.triggerRate = trigRate
 					triggerName = triggerName or ((env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or env.player.mainSkill.activeEffect.grantedEffect.name)
 					if source and source ~= env.player.mainSkill then
