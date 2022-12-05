@@ -226,10 +226,10 @@ local function getTriggerActionTriggerRate(env, breakdown, output, minion)
 						s_format("= %.2f ^8per second", triggerRate),
 					}
 					if extraICDRNeeded then
-						t_insert(breakdown.ActionTriggerRate, 13, s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded))
+						t_insert(breakdown.ActionTriggerRate, 12, s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded))
 					end
 					if extraCSIncNeeded then
-						t_insert(breakdown.ActionTriggerRate, 13, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", extraCSIncNeeded))
+						t_insert(breakdown.ActionTriggerRate, 12, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", extraCSIncNeeded))
 					end
 					if env.player.mainSkill.skillData.triggeredByBrand then
 						breakdown.ActionTriggerRate[5] = s_format("%.2f ^8(base activation cooldown of %s)", triggerCD, triggerName)
