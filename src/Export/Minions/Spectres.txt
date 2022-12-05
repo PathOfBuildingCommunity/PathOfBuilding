@@ -22,6 +22,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Bandits/BanditRangedTornadoShotPetrified
 -- Beast
 #spectre Metadata/Monsters/Beasts/BeastCaveDegenAura
+#spectre Metadata/Monsters/Beasts/BeastVulnerabilityCurse
 #spectre Metadata/Monsters/Beasts/BeastCleaveEnduringCry
 -- Blood Apes
 #spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage

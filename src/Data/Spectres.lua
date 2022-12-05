@@ -329,6 +329,26 @@ minions["Metadata/Monsters/Beasts/BeastCaveDegenAura"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/Beasts/BeastVulnerabilityCurse"] = {
+	name = "Armour Cruncher",
+	life = 2.1,
+	armour = 0.6,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.095,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- MonsterCurseOnHitVulnerability [curse_on_hit_level_vulnerability = 1]
+	},
+}
 minions["Metadata/Monsters/Beasts/BeastCleaveEnduringCry"] = {
 	name = "Hairy Bonecruncher",
 	life = 2.1,
