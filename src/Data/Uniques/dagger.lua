@@ -105,14 +105,15 @@ Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:1,2}(50-70)% increased Spell Damage
-{variant:3}(100-150)% increased Spell Damage
+{variant:3}(150-200)% increased Spell Damage
 {variant:1}Gain 10 Life per Enemy Killed
 {variant:2}Gain 30 Life per Enemy Killed
 {variant:3}Gain (100-200) Life per Enemy Killed
 {variant:1}Gain 5 Mana per Enemy Killed
 {variant:2}Gain 10 Mana per Enemy Killed
 {variant:3}Gain (50-100) Mana per Enemy Killed
-10% increased Area of Effect of Area Skills
+{variant:1,2}10% increased Area of Effect
+{variant:3}30% increased Area of Effect
 {variant:2}(125-175)% increased Critical Strike Chance for Spells if you've Killed Recently
 {variant:3}(200-250)% increased Critical Strike Chance for Spells if you've Killed Recently
 {variant:2}+(40-60)% to Critical Strike Multiplier for Spells if you haven't Killed Recently

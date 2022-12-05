@@ -144,7 +144,7 @@ Implicits: 3
 {variant:1}Adds 1 to 50 Lightning Damage
 {variant:2,3}Adds 1 to 80 Lightning Damage
 {variant:4,5}Adds 1 to 200 Lightning Damage
-{variant:6}Adds 1 to (500-600) Lightning Damage
+{variant:6}Adds 1 to (600-700) Lightning Damage
 (20-30)% increased Attack Speed
 +(30-40) to maximum Energy Shield
 {variant:1,2,3,4}Leech Energy Shield instead of Life
