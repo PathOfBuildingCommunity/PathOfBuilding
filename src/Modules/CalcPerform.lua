@@ -3051,8 +3051,8 @@ function calcs.perform(env, avoidCache)
 				spellCount = nil
 			elseif env.player.mainSkill.skillData.triggeredByBrand and not env.player.mainSkill.skillFlags.minion then
 				triggerName = "Arcanist Brand"
-				env.player.mainSkill.skillModList:NewMod("BrandActivationFrequency", "INC", env.player.mainSkill.activeEffect.quality / 2, "Skill")
 				env.player.mainSkill.skillFlags.dontDisplay = true
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end
 				
 				for _, skill in ipairs(env.player.activeSkillList) do
 					if skill.activeEffect.grantedEffect.name == "Arcanist Brand" then
@@ -3060,16 +3060,12 @@ function calcs.perform(env, avoidCache)
 						break
 					end
 				end
-				
 				source = env.player.mainSkill.triggeredBy.mainSkill
-				local activationFreqInc = (100 + env.player.mainSkill.skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency")) / 100
-				local activationFreqMore = env.player.mainSkill.skillModList:More(cfg, "BrandActivationFrequency")
-				env.player.mainSkill.triggeredBy.activationFreqInc = (100 + env.player.mainSkill.skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency")) / 100
-				env.player.mainSkill.triggeredBy.activationFreqMore = env.player.mainSkill.skillModList:More(cfg, "BrandActivationFrequency")
-				
+				local activationFreqInc = (100 + env.player.mainSkill.triggeredBy.mainSkill.skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency")) / 100
+				local activationFreqMore = env.player.mainSkill.triggeredBy.mainSkill.skillModList:More(cfg, "BrandActivationFrequency")
 				trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore 
-				
-				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end
+				env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
+				env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
 			elseif env.player.mainSkill.skillData.triggeredOnDeath then
 				env.player.mainSkill.skillData.triggered = true
 				env.player.mainSkill.infoMessage = env.player.mainSkill.activeEffect.grantedEffect.name .. " Triggered on Death"
