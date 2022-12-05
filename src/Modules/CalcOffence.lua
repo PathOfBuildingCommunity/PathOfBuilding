@@ -1558,9 +1558,9 @@ function calcs.offence(env, actor, activeSkill)
 			local activationFreqMore = skillModList:More(cfg, "BrandActivationFrequency")
 			local linkedSpellsCount = skillModList:Sum("BASE", cfg, "ArcanistSpellsLinked") or 1
 			
-			output.Time = activationFreqMore * linkedSpellsCount * activationFreqInc
+			output.Speed = activationFreqMore * linkedSpellsCount * activationFreqInc
+			output.Time = 1 / output.Speed
 			output.TriggerTime = output.Time
-			output.Speed = 1 / output.Time
 			
 			if breakdown then
 				breakdown.Speed = {
