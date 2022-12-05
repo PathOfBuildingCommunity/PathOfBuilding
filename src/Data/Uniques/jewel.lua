@@ -19,7 +19,7 @@ Limited to: 1
 ]],[[
 Apex Mode
 Cobalt Jewel
-Source: No longer obtainable
+Source: Drops from unique{The Unbreakable}
 League: Heist
 Limited to: 1
 Requires Level 20
@@ -195,6 +195,7 @@ Adds Veteran's Awareness
 ]],[[
 Grand Spectrum
 Cobalt Jewel
+Source: Drops from chests in the Lord's Labyrinth 
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
@@ -209,6 +210,7 @@ Variant: Current - Min Power Charge
 ]],[[
 Grand Spectrum
 Crimson Jewel
+Source: Drops from chests in the Lord's Labyrinth 
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
@@ -223,6 +225,7 @@ Variant: Current - Min Endurance Charge
 ]],[[
 Grand Spectrum
 Viridian Jewel
+Source: Drops from chests in the Lord's Labyrinth 
 Limited to: 3
 Variant: Pre 2.5.0
 Variant: Pre 3.0.0
@@ -393,7 +396,7 @@ Notable Passive Skills in Radius grant nothing
 ]],[[
 Nadir Mode
 Cobalt Jewel
-Source: No longer obtainable
+Source: Drops from unique{The Unbreakable}
 League: Heist
 Limited to: 1
 Item Level: 82
