@@ -4155,6 +4155,16 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotalDotCalcSection = output.TotalDotInstance
 	end
 
+	for resource, val in pairs(costs) do
+		if(val.upfront and output[resource.."HasCost"] and not output[resource.."PerSecondHasCost"] and (output.Speed > 0 or output.Cooldown)) then
+			if(output.Speed) then
+				ConPrintf(resource.." Speed: "..output.Speed)
+			end
+			output[resource.."PerSecondHasCost"] = true
+			output[resource.."PerSecondCost"] = output[resource.."Cost"] * (output.Speed > 0 and output.Speed or (1 / output.Cooldown))
+		end
+	end
+
 	-- The Saviour
 	if activeSkill.activeEffect.grantedEffect.name == "Reflection" then
 		local usedSkill = nil
