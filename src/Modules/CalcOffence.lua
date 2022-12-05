@@ -1565,9 +1565,9 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				breakdown.Speed = {
 					"1.00 ^8(base activation cooldown)",
-					s_format("* %.2f ^8(more activation frequency)", activationFreqMore),
-					s_format("* %d ^8(number of linked spells)", linkedSpellsCount),
-					s_format("* %.2f ^8(increased activation frequency)", activationFreqInc),
+					s_format("/ %.2f ^8(more activation frequency)", activationFreqMore),
+					s_format("/ %d ^8(number of linked spells)", linkedSpellsCount),
+					s_format("/ %.2f ^8(increased activation frequency)", activationFreqInc),
 					s_format("= %.2f ^8(trigger cooldown)", output.Time),
 					"",
 					s_format("1 / %.2f ", output.Time),
