@@ -19,7 +19,6 @@ Limited to: 1
 ]],[[
 Apex Mode
 Cobalt Jewel
-Source: No longer obtainable
 League: Heist
 Source: Drops from unique{The Unbreakable} in normal{Contract: Breaking the Unbreakable}
 Limited to: 1
@@ -170,7 +169,6 @@ Replica Fragile Bloom
 Crimson Jewel
 Source: No longer obtainable
 League: Heist
-Source: Steal from a unique{Curio Display} during a Grand Heist
 Limited to: 1
 Implicits: 0
 Maximum 5 Fragile Regrowth
@@ -292,7 +290,6 @@ Replica Hotheaded
 Viridian Jewel
 Source: No longer obtainable
 League: Heist
-Source: Steal from a unique{Curio Display} during a Grand Heist
 Limited to: 1
 (10-20)% increased Attack Speed while Chilled
 (10-20)% increased Cast Speed while Chilled
@@ -399,7 +396,6 @@ Notable Passive Skills in Radius grant nothing
 ]],[[
 Nadir Mode
 Cobalt Jewel
-Source: No longer obtainable
 League: Heist
 Source: Drops from unique{The Unbreakable} in normal{Contract: Breaking the Unbreakable}
 Limited to: 1
@@ -484,7 +480,6 @@ Replica Pure Talent
 Viridian Jewel
 Source: No longer obtainable
 League: Heist
-Source: Steal from a unique{Curio Display} during a Grand Heist
 Limited to: 1
 While your Passive Skill Tree connects to a class' starting location, you gain:
 Marauder: 1% of Life Regenerated per second
@@ -665,7 +660,6 @@ Replica Unstable Payload
 Cobalt Jewel
 Source: No longer obtainable
 League: Heist
-Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Recover (20-30) Life when your Trap is triggered by an Enemy
 ]],[[
@@ -1403,7 +1397,6 @@ Replica Blood Sacrifice
 Crimson Jewel
 Source: No longer obtainable
 League: Heist
-Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Recover 1% of Life on Kill
 Recover 1% of Energy Shield on Kill
@@ -1731,7 +1724,6 @@ Replica Conqueror's Efficiency
 Crimson Jewel
 Source: No longer obtainable
 League: Heist
-Source: Steal from a unique{Curio Display} during a Grand Heist
 Limited to: 1
 4% increased Skill Effect Duration
 +5 to Maximum Rage
