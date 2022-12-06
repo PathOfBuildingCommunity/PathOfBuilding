@@ -1222,3 +1222,63 @@ skills["DelveMonsterEnfeebleOnHit"] = {
 		[8] = { 9700, 4, -13, -24, -12, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
+
+skills["MonsterVulnerabilityOnHit1"] = {
+	name = "Vulnerability",
+    color = 1,
+    baseEffectiveness = 0,
+    description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding, and ailments inflicted on them will deal damage faster.",
+    skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+    statDescriptionScope = "curse_skill_stat_descriptions",
+    castTime = 0.5,
+    statMap = {
+        ["receive_bleeding_chance_%_when_hit_by_attack"] = {
+            mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+        },
+        ["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
+            mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+            mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+            mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+        },
+        ["physical_damage_taken_+%"] = {
+            mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+        },
+    },
+    baseFlags = {
+        spell = true,
+        curse = true,
+        area = true,
+        duration = true,
+        hex = true,
+    },
+    baseMods = {
+        skill("debuff", true),
+        skill("radius", 22),
+        mod("MaxDoom", "BASE", 30),
+    },
+    qualityStats = {
+        Default = {
+            { "receive_bleeding_chance_%_when_hit_by_attack", 0.5 },
+        },
+        Alternate1 = {
+            { "curse_effect_+%", 0.5 },
+        },
+        Alternate2 = {
+            { "chance_to_be_maimed_when_hit_%", 0.5 },
+        },
+    },
+    constantStats = {
+        { "receive_bleeding_chance_%_when_hit_by_attack", 20 },
+        { "enemy_damaging_ailments_deal_damage_+%_faster_against_self", 20 },
+        { "base_curse_skill_doom_gain_per_minute_if_cast_yourself", 600 },
+    },
+    stats = {
+        "base_skill_effect_duration",
+        "active_skill_base_radius_+",
+        "physical_damage_taken_+%",
+        "base_deal_no_damage",
+    },
+    levels = {
+        [1] = { 9000, 0, 30, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
+    },
+}

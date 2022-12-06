@@ -344,6 +344,7 @@ minions["Metadata/Monsters/Beasts/BeastVulnerabilityCurse"] = {
 	accuracy = 1,
 	skillList = {
 		"MeleeAtAnimationSpeed",
+		"MonsterVulnerabilityOnHit1",
 	},
 	modList = {
 		-- MonsterCurseOnHitVulnerability [curse_on_hit_level_vulnerability = 1]
