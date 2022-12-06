@@ -3725,7 +3725,9 @@ function calcs.offence(env, actor, activeSkill)
 		}
 		if activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.NonHitChill] then
 			skillFlags.chill = true
-			output.ChillEffectMod = calcLib.mod(skillModList, cfg, "EnemyChillEffect") * calcLib.mod(enemyDB, cfg, "SelfChillEffect")
+			local inc = skillModList:Sum("INC", cfg, "EnemyChillEffect") + enemyDB:Sum("INC", nil, "SelfChillEffect")
+			local more = skillModList:Sum("MORE", cfg, "EnemyChillEffect") * enemyDB:Sum("MORE", nil, "SelfChillEffect")
+			output.ChillEffectMod = (1 + inc / 100) * more
 			output.ChillDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyChillDuration") / 100
 			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max, m_floor(ailmentData.Chill.default * output.ChillEffectMod))
 			if breakdown then
@@ -3767,7 +3769,9 @@ function calcs.offence(env, actor, activeSkill)
 					local incDur = skillModList:Sum("INC", cfg, "Enemy"..ailment.."Duration") + enemyDB:Sum("INC", nil, "Self"..ailment.."Duration")
 					local moreDur = skillModList:More(cfg, "Enemy"..ailment.."Duration") * enemyDB:More(nil, "Self"..ailment.."Duration")
 					output[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * debuffDurationMult
-					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect") * calcLib.mod(enemyDB, cfg, "Self"..ailment.."Effect")
+					local inc = skillModList:Sum("INC", cfg, "Enemy"..ailment.."Effect") + enemyDB:Sum("INC", nil, "Self"..ailment.."Effect")
+					local more = skillModList:Sum("MORE", cfg, "Enemy"..ailment.."Effect") * enemyDB:Sum("MORE", nil, "Self"..ailment.."Effect")
+					output[ailment.."EffectMod"] = (1 + inc / 100) * more
 					if breakdown then
 						local maximum = globalOutput["Maximum"..ailment] or ailmentData[ailment].max
 						local current = m_max(m_min(globalOutput["Current"..ailment] or 0, maximum), 0)
