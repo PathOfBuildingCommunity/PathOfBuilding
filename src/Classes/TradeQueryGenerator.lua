@@ -469,6 +469,11 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
     elseif slot.slotName:find("Jewel") ~= nil then
         itemCategoryQueryStr = "jewel"
         itemCategory = options.jewelType .. "Jewel"
+        if itemCategory == "AbyssJewel" then
+            itemCategoryQueryStr = "jewel.abyss"
+        elseif itemCategory == "BaseJewel" then
+            itemCategoryQueryStr = "jewel.base"
+        end
     else
         logToFile("'%s' is not supported for weighted trade query generation", existingItem and existingItem.type or "n/a")
         return
