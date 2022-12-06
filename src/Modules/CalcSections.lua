@@ -654,6 +654,7 @@ return {
 		{ breakdown = "BrandAttachmentRange" },
 		{ modName = "BrandAttachmentRange", cfg = "skill"},
 	}, },
+	{ label = "Max Sust. Fuses", haveOutput = "MaxExplosiveArrowFuseCalculated", { format = "{0:output:MaxExplosiveArrowFuseCalculated} Fuses", }, },
 	{ label = "Trap Throw Rate", flag = "trap", { format = "{2:output:TrapThrowingSpeed}", 
 		{ breakdown = "TrapThrowingSpeed" },
 		{ modName = "TrapThrowingSpeed", cfg = "skill" }, 

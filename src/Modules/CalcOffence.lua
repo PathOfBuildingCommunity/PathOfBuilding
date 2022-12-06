@@ -1715,6 +1715,7 @@ function calcs.offence(env, actor, activeSkill)
 		globalOutput.TheoreticalMaxOffensiveWarcryEffect = 1
 		globalOutput.RallyingHitEffect = 1
 		globalOutput.AilmentWarcryEffect = 1
+		globalOutput.MaxExplosiveArrowFuseCalculated = 1
 
 		if env.mode_buffs then
 			-- Iterative over all the active skills to account for exerted attacks provided by warcries
@@ -2051,6 +2052,9 @@ function calcs.offence(env, actor, activeSkill)
 			local maximum = m_min(hitRate * duration, skillMax)
 			skillModList:NewMod("Multiplier:ExplosiveArrowStage", "BASE", maximum, "Base")
 			skillModList:NewMod("Multiplier:ExplosiveArrowStageAfterFirst", "BASE", maximum - 1, "Base")
+			globalOutput.MaxExplosiveArrowFuseCalculated = maximum
+		else
+			globalOutput.MaxExplosiveArrowFuseCalculated = nil
 		end
 
 		-- Calculate crit chance, crit multiplier, and their combined effect
