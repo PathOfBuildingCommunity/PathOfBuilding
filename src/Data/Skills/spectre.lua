@@ -6199,6 +6199,6 @@ skills["MonsterVulnerabilityOnHit1"] = {
         "base_deal_no_damage",
     },
     levels = {
-        [1] = { 9000, 0, 30, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
+        [3] = { 9200, 1, 31, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
     },
 }
