@@ -2225,7 +2225,6 @@ function calcs.defence(env, actor)
 		end
 	end
 	for _, damageType in ipairs(dmgTypeList) do
-		local breakdownRowList = {}
 		local partMin = m_huge
 		local useConversionSmoothing = false
 		for _, damageConvertedType in ipairs(dmgTypeList) do
@@ -2279,13 +2278,19 @@ function calcs.defence(env, actor)
 					useConversionSmoothing = useConversionSmoothing or convertPercent ~= 100
 				end
 				partMin = m_min(partMin, hitTaken)
-				t_insert(breakdownRowList, {
-					type = s_format("%d%% as %s", actor.damageShiftTable[damageType][damageConvertedType], damageConvertedType),
-					pool = s_format("x %d", output[damageConvertedType.."TotalHitPool"]),
-					taken = s_format("/ %.2f", output[damageConvertedType.."BaseTakenHitMult"]),
-					final = s_format("x %.0f", hitTaken),
-				})
 			end
+		end
+
+		local function damageMultiplierForType(damage, ofType)
+			local totalResistMult = output[ofType .."ResistTakenHitMulti"]
+			local effectiveAppliedArmour = output[ofType .."EffectiveAppliedArmour"]
+			local armourDRPercent = calcs.armourReductionF(effectiveAppliedArmour, damage * totalResistMult)
+			local flatDRPercent = modDB:Flag(nil, "SelfIgnore".."Base".. ofType .."DamageReduction") and 0 or output["Base".. ofType .."DamageReductionWhenHit"] or output["Base".. ofType .."DamageReduction"]
+			local totalDRPercent = m_min(output.DamageReductionMax, armourDRPercent + flatDRPercent)
+			local enemyOverwhelmPercent = modDB:Flag(nil, "SelfIgnore".. ofType .."DamageReduction") and 0 or output[ofType .."EnemyOverwhelm"]
+			local totalDRMulti = 1 - m_max(m_min(output.DamageReductionMax, totalDRPercent - enemyOverwhelmPercent), 0) / 100
+			local totalTakenMulti = output[ofType .."AfterReductionTakenHitMulti"]
+			return totalResistMult * totalDRMulti * totalTakenMulti
 		end
 
 		local function takenHitFromDamage(rawDamage)
@@ -2293,21 +2298,12 @@ function calcs.defence(env, actor)
 			for damageConvertedType, convertPercent in pairs(actor.damageShiftTable[damageType]) do
 				if convertPercent > 0 then
 					local convertedDamage = rawDamage * convertPercent / 100
-					local totalResistMult = output[damageConvertedType.."ResistTakenHitMulti"]
-					local effectiveAppliedArmour = output[damageConvertedType.."EffectiveAppliedArmour"]
-					local armourDRPercent = calcs.armourReductionF(effectiveAppliedArmour, convertedDamage * totalResistMult)
-					local flatDRPercent = modDB:Flag(nil, "SelfIgnore".."Base"..damageConvertedType.."DamageReduction") and 0 or output["Base"..damageConvertedType.."DamageReductionWhenHit"] or output["Base"..damageConvertedType.."DamageReduction"]
-					local totalDRPercent = m_min(output.DamageReductionMax, armourDRPercent + flatDRPercent)
-					local enemyOverwhelmPercent = modDB:Flag(nil, "SelfIgnore"..damageConvertedType.."DamageReduction") and 0 or output[damageConvertedType.."EnemyOverwhelm"]
-					local totalDRMulti = 1 - m_max(m_min(output.DamageReductionMax, totalDRPercent - enemyOverwhelmPercent), 0) / 100
-					local totalTakenMulti = output[damageConvertedType.."AfterReductionTakenHitMulti"]
-					receivedDamageSum = receivedDamageSum + convertedDamage * totalResistMult * totalDRMulti * totalTakenMulti
+					receivedDamageSum = receivedDamageSum + convertedDamage * damageMultiplierForType(convertedDamage, damageConvertedType)
 				end
 			end
 			return receivedDamageSum
 		end
 
-		local maxHitToMinPartRatio
 		if partMin == m_huge then
 			output[damageType.."MaximumHitTaken"] = m_huge
 		elseif useConversionSmoothing then
@@ -2322,7 +2318,6 @@ function calcs.defence(env, actor)
 			local finalPassRatio = output[damageType.."TotalHitPool"] / takenHitFromDamage(onePass)
 			local finalPass = onePass * finalPassRatio
 
-			maxHitToMinPartRatio = finalPassRatio / firstPassRatio
 			output[damageType.."MaximumHitTaken"] = round(finalPass)
 		else
 			output[damageType.."MaximumHitTaken"] = round(partMin)
@@ -2330,15 +2325,29 @@ function calcs.defence(env, actor)
 
 		if breakdown then
 			breakdown[damageType.."MaximumHitTaken"] = {
-				label = useConversionSmoothing and s_format("Maximum Hit Taken (uses lowest value x %.3f)", maxHitToMinPartRatio) or "Maximum Hit Taken (uses lowest value)",
-				rowList = breakdownRowList,
+				label = "Maximum hit damage breakdown",
+				rowList = {},
 				colList = {
 					{ label = "Type", key = "type" },
 					{ label = "TotalPool", key = "pool" },
+					{ label = "Incoming", key = "incoming" },
+					{ label = "Multi", key = "multi" },
 					{ label = "Taken", key = "taken" },
-					{ label = "Final", key = "final" },
 				},
 			}
+			for damageConvertedType, convertPercent in pairs(actor.damageShiftTable[damageType]) do
+				if convertPercent > 0 then
+					local convertedDamage = output[damageType.."MaximumHitTaken"] * convertPercent / 100
+					local multi = damageMultiplierForType(convertedDamage, damageConvertedType)
+					t_insert(breakdown[damageType.."MaximumHitTaken"].rowList, {
+						type = s_format("%d%% as %s", convertPercent, damageConvertedType),
+						pool = s_format("%d", output[damageConvertedType.."TotalHitPool"]),
+						initial = s_format("%d", convertedDamage),
+						taken = s_format("x%.3f", multi),
+						final = s_format("%.0f", convertedDamage * multi),
+					})
+				end
+			end
 			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Total Pool: %d", output[damageType.."TotalHitPool"]))
 			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.3f",  output[damageType.."TotalHitPool"] / output[damageType.."MaximumHitTaken"]))
 			if useConversionSmoothing then
