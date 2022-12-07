@@ -2588,6 +2588,40 @@ skills["MonsterSplitIceSpear"] = {
 		[2] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 0.8, critChance = 7, levelRequirement = 68, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["MonsterViperStrike"] = {
+	name = "Viper Strike",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.64999997615814,
+	incrementalEffectiveness = 0.025499999523163,
+	description = "Hits enemies, converting some of your physical damage to chaos damage and inflicting poison which will be affected by modifiers to skill duration. If dual wielding, will strike with both weapons. Requires a claw, dagger or sword.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, },
+	weaponTypes = {
+		["Claw"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "debuff_skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "physical_damage_%_to_add_as_chaos", 10 },
+		{ "base_chance_to_poison_on_hit_%", 100 },
+		{ "base_skill_effect_duration", 4000 },
+	},
+	stats = {
+		"poison_duration_is_skill_duration",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { levelRequirement = 4, cost = { Mana = 5, }, },
+	},
+}
 skills["MonsterWarlordsMark"] = {
 	name = "Warlord's Mark",
 	hidden = true,

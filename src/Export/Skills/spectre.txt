@@ -392,6 +392,10 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
+#skill MonsterViperStrike Viper Strike
+#flags attack melee
+#mods
+
 #skill MonsterWarlordsMark Warlord's Mark
 #flags spell curse area duration
 	statMap = {
