@@ -4163,6 +4163,8 @@ function calcs.offence(env, actor, activeSkill)
 				useSpeed = m_min(output.TrapThrowingSpeed or 999999, (output.Cooldown and output.Cooldown > 0 and 1 / output.Cooldown or 999999)) / repeats
 			elseif (skillFlags.mine) then
 				useSpeed = m_min(output.MineLayingSpeed or 999999, (output.Cooldown and output.Cooldown > 0 and 1 / output.Cooldown or 999999)) / repeats
+			elseif skillModList:Flag(nil, "HasSeals") and skillModList:Flag(nil, "UseMaxUnleash") then
+				useSpeed = 1 / env.player.mainSkill.skillData.hitTimeOverride / repeats
 			else
 				useSpeed = m_min(output.Speed or 999999, (output.Cooldown and output.Cooldown > 0 and 1 / output.Cooldown or 999999)) / repeats
 			end
