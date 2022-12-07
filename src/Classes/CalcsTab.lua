@@ -123,7 +123,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 									if(string.find(t[2],"Gain As"))then
 										local NewString = string.gsub(t[1], " base", "")
 										local NewString2 = string.gsub(NewString,"+", "")
-										ExportAuraString = ExportAuraString .. (NewString2 .. "% of Physical Damage as extra Cold Damage\n")
+										ExportAuraString = ExportAuraString .. ("Gain " .. NewString2 .. "% of Physical Damage as extra Cold Damage\n")
 									else
 										ExportAuraString = ExportAuraString .. (t[1] .. " Cold Damage\n")
 									end
@@ -152,6 +152,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 							ExportAuraString = ExportAuraString .. (t[1] .. " Action Speed\n") 
 						else
 						if(string.find(t[2],"Projectile Speed"))then
+							ExportAuraString = ExportAuraString .. (t[1] .. " Projectile Speed\n") 
 						else
 						if(string.find(t[2],"Movement Speed"))then
 						else
