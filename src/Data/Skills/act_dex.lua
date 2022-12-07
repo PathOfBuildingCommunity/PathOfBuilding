@@ -7400,6 +7400,47 @@ skills["PhysCascadeTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "One wave hitting",
+		},
+		{
+			name = "Average waves hitting configured size enemy",
+		},
+		{
+			name = "All waves hitting",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "TrapThrowingSpeed") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "TrapThrowingSpeed")
+		local maxWaves = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SeismicTrapWaves")
+		local function hitChance(enemyRadius, areaDamageRadius, areaSpreadRadius) -- not to be confused with attack hit chance
+			local damagingAreaRadius = areaDamageRadius + enemyRadius - 1	-- radius where area damage can land to hit the enemy;
+			-- -1 because of two assumptions: PoE coordinates are integers and damage is not registered if the two areas only share a point or vertex. If either is not correct, then -1 is not needed.
+			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
+		end
+		if activeSkill.skillPart == 2 then
+			local enemyRadius = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "EnemyRadius")
+			local waveRadius = output.AreaOfEffectRadiusSecondary
+			local fullRadius = output.AreaOfEffectRadius
+			activeSkill.skillData.dpsMultiplier = maxWaves * hitChance(enemyRadius, waveRadius, fullRadius)
+		elseif activeSkill.skillPart == 3 then
+			activeSkill.skillData.dpsMultiplier = maxWaves
+		end
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {},
+		["phys_cascade_trap_base_interval_duration_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+		["phys_cascade_trap_number_of_cascades"] = {
+			mod("SeismicTrapWaves", "BASE", nil),
+		},
+		["seismic_trap_frequency_+%"] = {
+			mod("TrapThrowingSpeed", "INC", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
