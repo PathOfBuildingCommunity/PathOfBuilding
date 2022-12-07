@@ -328,7 +328,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "LifePerSecondCost", label = "Life Cost per second", fmt = ".2f/s", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePerSecondHasCost end },
 		{ stat = "ManaPercentPerSecondCost", label = "Mana Cost", fmt = ".2f%%/s", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPercentPerSecondHasCost end },
 		{ stat = "LifePercentPerSecondCost", label = "Life Cost", fmt = ".2f%%/s", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePercentPerSecondHasCost end },
-		{ stat = "ESPerSecondCost", label = "Energy Shield Cost", fmt = ".2f/s", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESPerSecondHasCost end },
+		{ stat = "ESPerSecondCost", label = "Energy Shield Cost per second", fmt = ".2f/s", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESPerSecondHasCost end },
 		{ stat = "ESPercentPerSecondCost", label = "Energy Shield Cost", fmt = ".2f%%/s", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESPercentPerSecondHasCost end },
 		{ },
 		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
