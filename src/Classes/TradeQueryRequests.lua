@@ -59,7 +59,7 @@ end
 ---@param params table @ params = { callbackQueryId = fun(queryId:string) }
 function TradeQueryRequestsClass:SearchWithQuery(league, query, callback, params)
 	params = params or {}
-	ConPrintf("Query json: %s", query)
+	--ConPrintf("Query json: %s", query)
 	self:PerformSearch(league, query, function(response, errMsg)
 		if params.callbackQueryId and response and response.id then
 			params.callbackQueryId(response.id)
@@ -174,7 +174,7 @@ end
 ---@param callback fun(items:table, errMsg:string)
 function TradeQueryRequestsClass:SearchWithURL(url, callback)
 	local league, queryId = url:match("https://www.pathofexile.com/trade/search/(.+)/(.+)$")
-	self:FetchSearchQueryHTML(queryId, function(query, errMsg)
+	self:FetchSearchQuery(queryId, league, function(query, errMsg)
 		if errMsg then
 			return callback(nil, errMsg)
 		end
@@ -185,8 +185,8 @@ end
 ---Fetch query data needed to perform the search
 ---@param queryId string
 ---@param callback fun(query:string, errMsg:string)
-function TradeQueryRequestsClass:FetchSearchQuery(queryId, callback)
-	local url = "https://www.pathofexile.com/api/trade/search/" .. queryId
+function TradeQueryRequestsClass:FetchSearchQuery(queryId, league, callback)
+	local url = "https://www.pathofexile.com/api/trade/search/" .. league .. "/" .. queryId
 	table.insert(self.requestQueue["search"], {
 		url = url,
 		callback = function(response, errMsg)
