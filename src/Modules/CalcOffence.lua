@@ -4156,9 +4156,19 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	for resource, val in pairs(costs) do
-		if(val.upfront and output[resource.."HasCost"] and not output[resource.."PerSecondHasCost"] and (output.Speed > 0 or output.Cooldown)) then
+		if(val.upfront and output[resource.."HasCost"] and output[resource.."Cost"] > 0 and not output[resource.."PerSecondHasCost"] and (output.Speed > 0 or output.Cooldown)) then
+			local repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
+			local useSpeed = 1
+			if (skillFlags.trap) then
+				useSpeed = m_min(output.TrapThrowingSpeed or 999999, (output.Cooldown and output.Cooldown > 0 and 1 / output.Cooldown or 999999)) / repeats
+			elseif (skillFlags.mine) then
+				useSpeed = m_min(output.MineLayingSpeed or 999999, (output.Cooldown and output.Cooldown > 0 and 1 / output.Cooldown or 999999)) / repeats
+			else
+				useSpeed = m_min(output.Speed or 999999, (output.Cooldown and output.Cooldown > 0 and 1 / output.Cooldown or 999999)) / repeats
+			end
+
 			output[resource.."PerSecondHasCost"] = true
-			output[resource.."PerSecondCost"] = output[resource.."Cost"] * (output.Speed > 0 and output.Speed or (1 / output.Cooldown))
+			output[resource.."PerSecondCost"] = output[resource.."Cost"] * useSpeed
 		end
 	end
 
