@@ -897,7 +897,9 @@ function calcs.defence(env, actor)
 	if modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") then
 		-- Shock avoid conversion from Stormshroud
 		for _, value in ipairs(modDB:Tabulate("BASE",  nil, "AvoidShock")) do
-			value.mod.name = "AvoidElementalAilments"
+			if value.mod.value ~= 100 then -- immunity or cannot be ailments don't apply as they have been changed to be unique
+				value.mod.name = "AvoidElementalAilments"
+			end
 		end
 	end
 
