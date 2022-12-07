@@ -585,7 +585,7 @@ return {
 	{ label = "Life per second", color = colorCodes.LIFE, haveOutput = "LifePerSecondHasCost", { format = "{2:output:LifePerSecondCost}/s", { breakdown = "LifePerSecondCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
 	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentPerSecondHasCost", { format = "{2:output:ManaPercentPerSecondCost}/s", { breakdown = "ManaPercentPerSecondCost" }, { modName = { "ManaCost", "Cost" }, cfg = "skill" }, }, },
 	{ label = "Life % Cost", color = colorCodes.LIFE, haveOutput = "LifePercentPerSecondHasCost", { format = "{2:output:LifePercentPerSecondCost}/s", { breakdown = "LifePercentPerSecondCost" }, { modName = { "LifeCost", "Cost" }, cfg = "skill" }, }, },
-	{ label = "ES Cost per second", color = colorCodes.ES, haveOutput = "ESPerSecondHasCost", { format = "{2:output:ESPerSecondCost}/s", { breakdown = "ESPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
+	{ label = "ES per second", color = colorCodes.ES, haveOutput = "ESPerSecondHasCost", { format = "{2:output:ESPerSecondCost}/s", { breakdown = "ESPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
 	{ label = "ES % Cost", color = colorCodes.ES, haveOutput = "ESPercentPerSecondHasCost", { format = "{2:output:ESPercentPerSecondCost}/s", { breakdown = "ESPercentPerSecondCost" }, { modName = { "ESCost", "Cost" }, cfg = "skill" }, }, },
 	{ label = "Active Minion Limit", haveOutput = "ActiveMinionLimit", { format = "{0:output:ActiveMinionLimit}" } },
 	{ label = "Quantity Multiplier", haveOutput = "QuantityMultiplier", { format = "{0:output:QuantityMultiplier}",
