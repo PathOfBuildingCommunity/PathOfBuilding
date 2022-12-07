@@ -741,7 +741,7 @@ holding Shift will put it in the second.]])
 					end
 					
 					-- Adding Mod
-					self:AddModComparisonTooltip(tooltip, { mod })
+					self:AddModComparisonTooltip(tooltip, mod)
 				end
 			end
 		end
@@ -1705,14 +1705,12 @@ function ItemsTabClass:UpdateDisplayItemRangeLines()
 	end
 end
 
-function ItemsTabClass:AddModComparisonTooltip(tooltip, mods)
+function ItemsTabClass:AddModComparisonTooltip(tooltip, mod)
 	local slotName = self.displayItem:GetPrimarySlot()
 	local newItem = new("Item", self.displayItem:BuildRaw())
 	
-	for _, mod in ipairs(mods) do
-		for _, subMod in ipairs(mod) do
-			t_insert(newItem.explicitModLines, { line = subMod, modTags = mod.modTags, [mod.type] = true })
-		end
+	for _, subMod in ipairs(mod) do
+		t_insert(newItem.explicitModLines, { line = subMod, modTags = mod.modTags, [mod.type] = true })
 	end
 
 	newItem:BuildAndParseRaw()
@@ -2276,7 +2274,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			for _, line in ipairs(value.mod) do
 				tooltip:AddLine(16, "^7"..line)
 			end
-			self:AddModComparisonTooltip(tooltip, { value.mod })
+			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
 	controls.implicit2Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 65, 0, 16, "^7Implicit #2:")
@@ -2289,7 +2287,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			for _, line in ipairs(value.mod) do
 				tooltip:AddLine(16, "^7"..line)
 			end
-			self:AddModComparisonTooltip(tooltip, { value.mod })
+			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
 	controls.implicit3Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 75, 85, 0, 16, "^7Implicit #3:")
@@ -2302,7 +2300,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			for _, line in ipairs(value.mod) do
 				tooltip:AddLine(16, "^7"..line)
 			end
-			self:AddModComparisonTooltip(tooltip, { value.mod })
+			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
 	controls.implicit3Label.shown = false
@@ -2317,7 +2315,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			for _, line in ipairs(value.mod) do
 				tooltip:AddLine(16, "^7"..line)
 			end
-			self:AddModComparisonTooltip(tooltip, { value.mod })
+			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
 	controls.implicit4Label.shown = false
@@ -2509,7 +2507,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			for _, line in ipairs(value.mod) do
 				tooltip:AddLine(16, "^7"..line)
 			end
-			self:AddModComparisonTooltip(tooltip, { value.mod })
+			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
 	controls.custom = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 440, 18)
@@ -2730,7 +2728,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			for _, line in ipairs(value.mod) do
 				tooltip:AddLine(16, "^7"..line)
 			end
-			self:AddModComparisonTooltip(tooltip, { value.mod })
+			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
 	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 70, 0, 16, "^7Modifier:")
@@ -2744,7 +2742,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			for _, line in ipairs(value.mod) do
 				tooltip:AddLine(16, "^7"..line)
 			end
-			self:AddModComparisonTooltip(tooltip, { value.mod })
+			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
 	controls.custom = new("EditControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 440, 18)
