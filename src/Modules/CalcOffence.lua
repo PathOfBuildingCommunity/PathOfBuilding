@@ -4159,10 +4159,8 @@ function calcs.offence(env, actor, activeSkill)
 		if(val.upfront and output[resource.."HasCost"] and output[resource.."Cost"] > 0 and not output[resource.."PerSecondHasCost"] and (output.Speed > 0 or output.Cooldown)) then
 			local repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
 			local useSpeed = 1
-			if (skillFlags.trap) then
-				useSpeed = m_min(output.TrapThrowingSpeed or 999999, (output.Cooldown and output.Cooldown > 0 and 1 / output.Cooldown or 999999)) / repeats
-			elseif (skillFlags.mine) then
-				useSpeed = m_min(output.MineLayingSpeed or 999999, (output.Cooldown and output.Cooldown > 0 and 1 / output.Cooldown or 999999)) / repeats
+			if (skillFlags.trap or skillFlags.mine) then
+				useSpeed = m_min(output.TrapThrowingSpeed or output.MineLayingSpeed or 999999, (output.Cooldown and output.Cooldown > 0 and 1 / output.Cooldown or 999999)) / repeats
 			elseif skillModList:Flag(nil, "HasSeals") and skillModList:Flag(nil, "UseMaxUnleash") then
 				useSpeed = 1 / env.player.mainSkill.skillData.hitTimeOverride / repeats
 			else
