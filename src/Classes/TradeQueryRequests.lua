@@ -215,7 +215,6 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 	end
 	local header = "Cookie: POESESSID=" .. main.POESESSID
 	-- the league doesn't affect query so we set it to Standard as it doesn't change
-	print(self.tradeQuery.pbLeagueRealName)
 	launch:DownloadPage("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbLeagueRealName .. "/" .. queryId, 
 		function(response, errMsg)
 			if errMsg then
