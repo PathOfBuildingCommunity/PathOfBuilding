@@ -436,9 +436,9 @@ return {
 	{ var = "VaalMoltenShellDamageMitigated", type = "count", label = "Damage mitigated:", tooltip = "Vaal Molten Shell reflects damage to the enemy,\nbased on the amount of damage it has mitigated in the last second.", ifSkill = "Vaal Molten Shell", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "VaalMoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })
 	end },
-	{ label = "Shotgunning area skills:", ifSkillList = { "Seismic Trap" } },
-	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", defaultIndex = 2, ifSkillList = { "Seismic Trap" }, tooltip = [[
-Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.
+	{ label = "Multi-part area skills:", ifSkillList = { "Seismic Trap", "Lightning Spire Trap" } },
+	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", defaultIndex = 2, ifSkillList = { "Seismic Trap", "Lightning Spire Trap" }, tooltip = [[
+Configure the radius of an enemy hitbox which is used in calculating some area multi-hitting (shotgunning) effects.
 
 Small sets the radius to 2.
 	Most monsters and the players' character are this size.
@@ -457,7 +457,7 @@ Huge sets the radius to 11.
 		elseif val == "Huge" then
 			build.configTab.varControls['enemyRadius']:SetPlaceholder(11, true)
 		end
-	end, ifSkillList = { "Seismic Trap" } },
+	end, ifSkillList = { "Seismic Trap", "Lightning Spire Trap" } },
 	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
 		modList:NewMod("EnemyRadius", "BASE", m_max(val, 1), "Config")
 	end, ifSkillList = { "Seismic Trap" } },
