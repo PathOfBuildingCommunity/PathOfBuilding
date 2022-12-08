@@ -2836,7 +2836,7 @@ function calcs.perform(env, avoidCache)
 		-- Account for Trigger-related INC/MORE modifiers
 		env.player.mainSkill.skillFlags.dontDisplay = true
 		output.Speed = output.ServerTriggerRate
-		addTriggerIncMoreMods(env.player.mainSkill, source or env.player.mainSkill)
+		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
 		env.player.mainSkill.skillData.triggered = true
 		env.player.mainSkill.skillData.triggerRate = output.ServerTriggerRate
 		env.player.mainSkill.skillData.triggerSource = source
