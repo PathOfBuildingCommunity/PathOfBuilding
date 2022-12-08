@@ -707,10 +707,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 				elseif item.name == "Kalandra's Touch, Iron Ring" then
 					if slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId] then
 						local item = build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]
-						srcList = item.modList or item.slotModList[slot.slotNum]
+						srcList = copyTable(item.modList or item.slotModList[slot.slotNum])
 					elseif slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId] then
 						local item = build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId]
-						srcList = item.modList or item.slotModList[slot.slotNum]
+						srcList = copyTable(item.modList or item.slotModList[slot.slotNum])
 					end
 					for index, mod in ipairs(srcList) do
 						modLib.setSource(mod, item.modSource)
