@@ -59,7 +59,7 @@ end
 ---@param params table @ params = { callbackQueryId = fun(queryId:string) }
 function TradeQueryRequestsClass:SearchWithQuery(league, query, callback, params)
 	params = params or {}
-	ConPrintf("Query json: %s", query)
+	--ConPrintf("Query json: %s", query)
 	self:PerformSearch(league, query, function(response, errMsg)
 		if params.callbackQueryId and response and response.id then
 			params.callbackQueryId(response.id)
@@ -172,21 +172,23 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 end
 
 ---@param callback fun(items:table, errMsg:string)
-function TradeQueryRequestsClass:SearchWithURL(url, callback)
-	local league, queryId = url:match("https://www.pathofexile.com/trade/search/(.+)/(.+)$")
+function TradeQueryRequestsClass:SearchWithURL(urlEditControl, callback)
+	local _, queryId = urlEditControl.buf:match("https://www.pathofexile.com/trade/search/(.+)/(.+)$")
 	self:FetchSearchQueryHTML(queryId, function(query, errMsg)
 		if errMsg then
 			return callback(nil, errMsg)
 		end
-		self:SearchWithQuery(league, query, callback)
+		urlEditControl:SetText("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbLeagueRealName .. "/" .. queryId)
+		self:SearchWithQuery(self.tradeQuery.pbLeagueRealName, query, callback)
 	end)
 end
 
 ---Fetch query data needed to perform the search
 ---@param queryId string
+---@param league string
 ---@param callback fun(query:string, errMsg:string)
 function TradeQueryRequestsClass:FetchSearchQuery(queryId, callback)
-	local url = "https://www.pathofexile.com/api/trade/search/" .. queryId
+	local url = "https://www.pathofexile.com/api/trade/search/" .. self.tradeQuery.pbLeagueRealName .. "/" .. queryId
 	table.insert(self.requestQueue["search"], {
 		url = url,
 		callback = function(response, errMsg)
@@ -202,15 +204,19 @@ function TradeQueryRequestsClass:FetchSearchQuery(queryId, callback)
 	})
 end
 
----EXPERIMENTAL HTML parsing to circumvent extra API call for query fetching
+--- HTML parsing to circumvent extra API call for query fetching
 --- queryId -> query fetching via Poe API call costs precious search requests
 --- But the search page HTML also contains the query object and this request is not throttled
 ---@param queryId string
 ---@param callback fun(query:string, errMsg:string)
 ---@see TradeQueryRequests#FetchSearchQuery
 function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
+	if main.POESESSID == "" then
+		return callback(nil, "Please provide your POESESSID")
+	end
+	local header = "Cookie: POESESSID=" .. main.POESESSID
 	-- the league doesn't affect query so we set it to Standard as it doesn't change
-	launch:DownloadPage("https://www.pathofexile.com/trade/search/Standard/" .. queryId, 
+	launch:DownloadPage("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbLeagueRealName .. "/" .. queryId, 
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
@@ -234,5 +240,6 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 			query.query.status = { option = query.query.status} -- works either way?
 			local queryStr = dkjson.encode(query)
 			callback(queryStr, errMsg)
-		end)
+		end,
+		{header = header})
 end
