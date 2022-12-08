@@ -9,6 +9,7 @@ local pairs = pairs
 local ipairs = ipairs
 local unpack = unpack
 local t_insert = table.insert
+local t_remove = table.remove
 local m_abs = math.abs
 local m_floor = math.floor
 local m_ceil = math.ceil
@@ -4153,6 +4154,37 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		output.TotalDot = output.TotalDotInstance
 		output.TotalDotCalcSection = output.TotalDotInstance
+	end
+
+	--Calculates and displays cost per second for skills that don't already have one (link skills)
+	for resource, val in pairs(costs) do
+		if(val.upfront and output[resource.."HasCost"] and output[resource.."Cost"] > 0 and not output[resource.."PerSecondHasCost"] and (output.Speed > 0 or output.Cooldown)) then
+			local repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
+			local useSpeed = 1
+			local timeType
+			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
+			if (skillFlags.trap or skillFlags.mine) then
+				local preSpeed = output.TrapThrowingSpeed or output.MineLayingSpeed
+				useSpeed = (output.Cooldown and output.Cooldown > 0 and (preSpeed > 0 and preSpeed or 1 / output.Cooldown) or preSpeed) / repeats
+				timeType = skillFlags.trap and "trap throwing" or "mine laying"
+			elseif skillModList:Flag(nil, "HasSeals") and skillModList:Flag(nil, "UseMaxUnleash") then
+				useSpeed = 1 / env.player.mainSkill.skillData.hitTimeOverride / repeats
+				timeType = "full unleash"
+			else
+				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.Speed > 0 and output.Speed or 1 / output.Cooldown) or output.Speed) / repeats
+				timeType = isTriggered and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
+			end
+
+			output[resource.."PerSecondHasCost"] = true
+			output[resource.."PerSecondCost"] = output[resource.."Cost"] * useSpeed
+
+			if breakdown then
+				breakdown[resource.."PerSecondCost"] = copyTable(breakdown[resource.."Cost"])
+				t_remove(breakdown[resource.."PerSecondCost"])				
+				t_insert(breakdown[resource.."PerSecondCost"], s_format("x %.2f ^8("..timeType.." speed)", useSpeed))
+				t_insert(breakdown[resource.."PerSecondCost"], s_format("= %.2f per second", output[resource.."PerSecondCost"]))
+			end
+		end
 	end
 
 	-- The Saviour
