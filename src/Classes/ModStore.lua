@@ -467,15 +467,28 @@ function ModStoreClass:EvalMod(mod, cfg)
 			value = m_min(value, tag.limit or self:GetMultiplier(tag.limitVar, cfg))
 		elseif tag.type == "Condition" then
 			local match = false
+			local allOneH = ((self.actor.weaponData1 and self.actor.weaponData1.countsAsAll1H) and self.actor.weaponData1) or ((self.actor.weaponData2 and self.actor.weaponData2.countsAsAll1H) and self.actor.weaponData2)
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
-					if self:GetCondition(var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
+					if tag.neg and allOneH and allOneH["Added"..var] ~= nil then
+						-- Varunastra adds all using weapon conditions and that causes this condition to fail when it shoouldn't
+						-- if the condition was added by Varunastra then ignore, otherwise return as the tag condition is not satisfied
+						if not allOneH["Added"..var] then
+							return
+						end
+					elseif self:GetCondition(var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
 						match = true
 						break
 					end
 				end
 			else
-				match = self:GetCondition(tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
+				if tag.neg and allOneH and allOneH["Added"..tag.var] ~= nil then
+					if not allOneH["Added"..var] then
+						return
+					end
+				else
+					match = self:GetCondition(tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
+				end
 			end
 			if tag.neg then
 				match = not match
