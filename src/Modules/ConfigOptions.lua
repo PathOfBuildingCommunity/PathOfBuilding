@@ -231,10 +231,6 @@ return {
 			modList:NewMod("LightningExposureChance", "BASE", 100, "Config")
 		end
 	end },
-	{ label = "Energy Blade:", ifSkill = "Energy Blade" },
-	{ var = "energyBladeActive", type = "check", label = "Is Energy Blade active?", ifSkill = "Energy Blade", tooltip = "Energy Blade transforms your weapons into Swords formed from energy", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:EnergyBladeActive", "FLAG", true, "Config")
-	end },
 	{ label = "Embrace Madness:", ifSkill = "Embrace Madness" },
 	{ var = "embraceMadnessActive", type = "check", label = "Is Embrace Madness active?", ifSkill = "Embrace Madness", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AffectedByGloriousMadness", "FLAG", true, "Config")
@@ -436,6 +432,35 @@ return {
 	{ var = "VaalMoltenShellDamageMitigated", type = "count", label = "Damage mitigated:", tooltip = "Vaal Molten Shell reflects damage to the enemy,\nbased on the amount of damage it has mitigated in the last second.", ifSkill = "Vaal Molten Shell", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "VaalMoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })
 	end },
+	{ label = "Multi-part area skills:", ifSkillList = { "Seismic Trap", "Lightning Spire Trap" } },
+	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", ifSkillList = { "Seismic Trap", "Lightning Spire Trap" }, defaultIndex = 2, tooltip = [[
+Configure the radius of an enemy hitbox which is used in calculating some area multi-hitting (shotgunning) effects.
+
+Small sets the radius to 2.
+	Most monsters and the players' character are this size.
+Medium sets the radius to 3.
+	This is the size of most humanoid bosses (i.e. The Maven; The Shaper; Izaro)
+Large sets the radius to 5.
+	This is the size of some larger bosses (i.e. King Kaom; Vaal Oversoul)
+Huge sets the radius to 11.
+	This is the size of some of the largest bosses (i.e. Nucleus of the Maven; Tsoagoth, The Brine King)]], list = {{val="Small",label="Small"},{val="Medium",label="Medium"},{val="Large",label="Large"},{val="Huge",label="Huge"}}, apply = function(val, modList, enemyModList, build)
+		if val == "Small" then
+			build.configTab.varControls['enemyRadius']:SetPlaceholder(2, false)
+			modList:NewMod("EnemyRadius", "BASE", 2, "Config")
+		elseif val == "Medium" then
+			build.configTab.varControls['enemyRadius']:SetPlaceholder(3, false)
+			modList:NewMod("EnemyRadius", "BASE", 3, "Config")
+		elseif val == "Large" then
+			build.configTab.varControls['enemyRadius']:SetPlaceholder(5, false)
+			modList:NewMod("EnemyRadius", "BASE", 5, "Config")
+		elseif val == "Huge" then
+			build.configTab.varControls['enemyRadius']:SetPlaceholder(11, false)
+			modList:NewMod("EnemyRadius", "BASE", 11, "Config")
+		end
+	end },
+	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", ifSkillList = { "Seismic Trap", "Lightning Spire Trap" }, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
+		modList:NewMod("EnemyRadius", "OVERRIDE", m_max(val, 1), "Config")
+	end },
 
 	-- Section: Map modifiers/curses
 	{ section = "Map Modifiers and Player Debuffs", col = 2 },
@@ -490,11 +515,15 @@ return {
 			modList:NewMod("AreaOfEffect", "MORE", -val, "Config")
 		end
 	end },
-	{ var = "enemyCanAvoidStatusAilment", type = "list", label = "Enemy avoid Elem. Status Ailments:", tooltip = "'of Insulation'", list = {{val=0,label="None"},{val=30,label="30% (Low tier)"},{val=60,label="60% (Mid tier)"},{val=90,label="90% (High tier)"}}, apply = function(val, modList, enemyModList)	
+	{ var = "enemyCanAvoidElementalAilment", type = "list", label = "Enemy avoid Elemental Ailments:", tooltip = "'of Insulation'", list = {{val=0,label="None"},{val=30,label="30% (Low tier)"},{val=50,label="50% (Mid tier)"},{val=70,label="70% (High tier)"}}, apply = function(val, modList, enemyModList)	
 		if val ~= 0 then
-			enemyModList:NewMod("AvoidIgnite", "BASE", val, "Config")
-			enemyModList:NewMod("AvoidShock", "BASE", val, "Config")
-			enemyModList:NewMod("AvoidFreeze", "BASE", val, "Config")
+			enemyModList:NewMod("AvoidElementalAilments", "BASE", val, "Config")
+		end
+	end },
+	{ var = "enemyCanAvoidnonElementalAilment", type = "list", label = "Enemy avoid Poision and Bleed:", tooltip = "'Impervious'", list = {{val=0,label="None"},{val=20,label="20% (Low tier)"},{val=35,label="35% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)	
+		if val ~= 0 then
+			enemyModList:NewMod("AvoidPoison", "BASE", val, "Config")
+			enemyModList:NewMod("AvoidBleed", "BASE", val, "Config")
 		end
 	end },
 	{ var = "enemyHasIncreasedAccuracy", type = "list", label = "Unlucky Dodge / Enemy has inc. Accuracy:", tooltip = "'of Miring'", list = {{val=0,label="None"},{val=30,label="30% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)
@@ -793,7 +822,7 @@ return {
 	{ var = "conditionSelfChill", type = "check", label = "Did you ^x3F6DB3Chill ^7yourself?", ifOption = "conditionChilled", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ChilledSelf", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionFrozen", type = "check", label = "Are you ^x3F6DB3Frozen?", ifCond = "Frozen", implyCond = "Chilled", tooltip = "This also implies that you are ^x3F6DB3Chilled.", apply = function(val, modList, enemyModList)
+	{ var = "conditionFrozen", type = "check", label = "Are you ^x3F6DB3Frozen?", ifCond = "Frozen", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Frozen", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionShocked", type = "check", label = "Are you ^xADAA47Shocked?", ifCond = "Shocked", apply = function(val, modList, enemyModList)
@@ -805,6 +834,9 @@ return {
 	end },
 	{ var = "conditionPoisoned", type = "check", label = "Are you Poisoned?", ifCond = "Poisoned", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Poisoned", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionCanBeCurseImmune", type = "check", label = "Are you Immune to Curses?", ifFlag = "Condition:CanBeCurseImmune", apply = function(val, modList, enemyModList)
+		modList:NewMod("AvoidCurse", "BASE", 100, "Config", { type = "Condition", var = "Combat" }, { type = "GlobalEffect", effectType = "Global", unscalable = true })
 	end },
 	{ var = "multiplierPoisonOnSelf", type = "count", label = "# of Poison on You:", ifMult = "PoisonStack", implyCond = "Poisoned", tooltip = "This also implies that you are Poisoned.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PoisonStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
@@ -1230,6 +1262,12 @@ return {
 	{ var = "multiplierPoisonOnEnemy", type = "count", label = "# of Poison on enemy:", implyCond = "Poisoned", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:PoisonStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionSinglePoison", type = "check", label = "Cap to Single Poison on enemy?", ifCond = "SinglePoison", tooltip = "This is for low tolerance, but will limit you to only applying a single poison on the enemy", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:SinglePoison", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "multiplierCurseExpiredOnEnemy", type = "count", label = "#% of Curse Expired on enemy:", ifEnemyMult = "CurseExpired", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Multiplier:CurseExpired", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ var = "multiplierWitheredStackCount", type = "count", label = "# of Withered Stacks:", ifFlag = "Condition:CanWither", tooltip = "Withered applies 6% increased ^xD02090Chaos ^7Damage Taken to the enemy, up to 15 stacks.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:WitheredStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -1290,7 +1328,7 @@ return {
 		enemyModList:NewMod("Condition:Chilled", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:ChilledByYourHits", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyFrozen", type = "check", label = "Is the enemy ^x3F6DB3Frozen?", implyCond = "Chilled", tooltip = "This also implies that the enemy is ^x3F6DB3Chilled.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyFrozen", type = "check", label = "Is the enemy ^x3F6DB3Frozen?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Frozen", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyBrittle", type = "check", ifFlag = "inflictBrittle", label = "Is the enemy ^x3F6DB3Brittle?", tooltip = "Hits against ^x3F6DB3Brittle ^7enemies have up to +6% Critical Strike Chance.\nThis option will also allow you to input the effect of ^x3F6DB3Brittle.", apply = function(val, modList, enemyModList)
@@ -1540,25 +1578,25 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.uberBossPen, true)
 		end
 	end },
-	{ var = "deliriousPercentage", type = "list", label = "Delirious Effect:", list = {{val=0,label="None"},{val="20Percent",label="20% Delirious"},{val="40Percent",label="40% Delirious"},{val="60Percent",label="60% Delirious"},{val="80Percent",label="80% Delirious"},{val="100Percent",label="100% Delirious"}}, tooltip = "Delirium scales enemy 'less Damage Taken' as well as enemy 'increased Damage dealt'\nAt 100% effect:\nEnemies Deal 30% Increased Damage\nEnemies take 96% Less Damage", apply = function(val, modList, enemyModList)
+	{ var = "deliriousPercentage", type = "list", label = "Delirious Effect:", list = {{val=0,label="None"},{val="20Percent",label="20% Delirious"},{val="40Percent",label="40% Delirious"},{val="60Percent",label="60% Delirious"},{val="80Percent",label="80% Delirious"},{val="100Percent",label="100% Delirious"}}, tooltip = "Delirium scales enemy 'less Damage Taken' as well as enemy 'increased Damage dealt'\nAt 100% effect:\nEnemies Deal 30% Increased Damage\nEnemies take 80% Less Damage", apply = function(val, modList, enemyModList)
 		if val == "20Percent" then
-			enemyModList:NewMod("DamageTaken", "MORE", -19.2, "20% Delirious")
+			enemyModList:NewMod("DamageTaken", "MORE", -16, "20% Delirious")
 			enemyModList:NewMod("Damage", "INC", 6, "20% Delirious")
 		end
 		if val == "40Percent" then
-			enemyModList:NewMod("DamageTaken", "MORE", -38.4, "40% Delirious")
+			enemyModList:NewMod("DamageTaken", "MORE", -32, "40% Delirious")
 			enemyModList:NewMod("Damage", "INC", 12, "40% Delirious")
 		end
 		if val == "60Percent" then
-			enemyModList:NewMod("DamageTaken", "MORE", -57.6, "60% Delirious")
+			enemyModList:NewMod("DamageTaken", "MORE", -48, "60% Delirious")
 			enemyModList:NewMod("Damage", "INC", 18, "60% Delirious")
 		end
 		if val == "80Percent" then
-			enemyModList:NewMod("DamageTaken", "MORE", -76.8, "80% Delirious")
+			enemyModList:NewMod("DamageTaken", "MORE", -64, "80% Delirious")
 			enemyModList:NewMod("Damage", "INC", 24, "80% Delirious")
 		end
 		if val == "100Percent" then
-			enemyModList:NewMod("DamageTaken", "MORE", -96, "100% Delirious")
+			enemyModList:NewMod("DamageTaken", "MORE", -80, "100% Delirious")
 			enemyModList:NewMod("Damage", "INC", 30, "100% Delirious")
 		end
 	end },

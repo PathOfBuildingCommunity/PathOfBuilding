@@ -46,17 +46,17 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 	else
 		scale = m_max(scale, 0)
 		local scaledMod = copyTable(mod)
-		if type(scaledMod.value) == "number" then
-			if data.highPrecisionMods[scaledMod.name] and data.highPrecisionMods[scaledMod.name][scaledMod.type] then
-				scaledMod.value = scaledMod.value * scale
+		local subMod = scaledMod
+		if type(scaledMod.value) == "table" and scaledMod.value.mod then
+			subMod = scaledMod.value.mod
+		end
+		if type(subMod.value) == "number" then
+			local precision = ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) ~= subMod.value) and data.defaultHighPrecision) or nil
+			if precision then
+				local power = 10 ^ precision
+				subMod.value = math.floor(subMod.value * scale * power) / power
 			else
-				scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_modf(round(scaledMod.value * scale, 2)) or scaledMod.value * scale
-			end
-		elseif type(scaledMod.value) == "table" and scaledMod.value.mod then
-			if data.highPrecisionMods[scaledMod.value.mod.name] and data.highPrecisionMods[scaledMod.value.mod.name][scaledMod.value.mod.type] then
-				scaledMod.value.mod.value = scaledMod.value.mod.value * scale
-			else
-				scaledMod.value.mod.value = (m_floor(scaledMod.value.mod.value) == scaledMod.value.mod.value) and m_modf(round(scaledMod.value.mod.value * scale, 2)) or scaledMod.value.mod.value * scale
+				subMod.value = m_modf(round(subMod.value * scale, 2))
 			end
 		end
 		self:AddMod(scaledMod)
@@ -467,15 +467,28 @@ function ModStoreClass:EvalMod(mod, cfg)
 			value = m_min(value, tag.limit or self:GetMultiplier(tag.limitVar, cfg))
 		elseif tag.type == "Condition" then
 			local match = false
+			local allOneH = ((self.actor.weaponData1 and self.actor.weaponData1.countsAsAll1H) and self.actor.weaponData1) or ((self.actor.weaponData2 and self.actor.weaponData2.countsAsAll1H) and self.actor.weaponData2)
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
-					if self:GetCondition(var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
+					if tag.neg and allOneH and allOneH["Added"..var] ~= nil then
+						-- Varunastra adds all using weapon conditions and that causes this condition to fail when it shoouldn't
+						-- if the condition was added by Varunastra then ignore, otherwise return as the tag condition is not satisfied
+						if not allOneH["Added"..var] then
+							return
+						end
+					elseif self:GetCondition(var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
 						match = true
 						break
 					end
 				end
 			else
-				match = self:GetCondition(tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
+				if tag.neg and allOneH and allOneH["Added"..tag.var] ~= nil then
+					if not allOneH["Added"..var] then
+						return
+					end
+				else
+					match = self:GetCondition(tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
+				end
 			end
 			if tag.neg then
 				match = not match
