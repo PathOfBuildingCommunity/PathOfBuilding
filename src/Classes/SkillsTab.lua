@@ -1233,6 +1233,9 @@ function SkillsTabClass:CreateUndoState()
 		state.skillSets[skillSetIndex] = newSkillSet
 	end
 	state.skillSetOrderList = copyTable(self.skillSetOrderList)
+	-- Save active socket group for both skillsTab and calcsTab to UndoState
+	state.activeSocketGroup = self.build.mainSocketGroup
+	state.activeSocketGroup2 = self.build.calcsTab.input.skill_number
 	return state
 end
 
@@ -1251,6 +1254,9 @@ function SkillsTabClass:RestoreUndoState(state)
 	if self.controls.groupList.selValue then
 		self.controls.groupList.selValue = self.socketGroupList[self.controls.groupList.selIndex]
 	end
+	-- Load active socket group for both skillsTab and calcsTab from UndoState
+	self.build.mainSocketGroup = state.activeSocketGroup
+	self.build.calcsTab.input.skill_number = state.activeSocketGroup2
 end
 
 -- Opens the skill set manager

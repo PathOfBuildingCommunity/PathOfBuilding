@@ -89,7 +89,7 @@ function calcs.buildModListForNode(env, node)
 
 	-- Run first pass radius jewels
 	for _, rad in pairs(env.radiusJewelList) do
-		if rad.type == "Other" and rad.nodes[node.id] then
+		if rad.type == "Other" and rad.nodes[node.id] and rad.nodes[node.id].type ~= "Mastery" then
 			rad.func(node, modList, rad.data)
 		end
 	end
@@ -108,7 +108,7 @@ function calcs.buildModListForNode(env, node)
 
 	-- Run second pass radius jewels
 	for _, rad in pairs(env.radiusJewelList) do
-		if rad.nodes[node.id] and (rad.type == "Threshold" or (rad.type == "Self" and env.allocNodes[node.id]) or (rad.type == "SelfUnalloc" and not env.allocNodes[node.id])) then
+		if rad.nodes[node.id] and rad.nodes[node.id].type ~= "Mastery" and (rad.type == "Threshold" or (rad.type == "Self" and env.allocNodes[node.id]) or (rad.type == "SelfUnalloc" and not env.allocNodes[node.id])) then
 			rad.func(node, modList, rad.data)
 		end
 	end
@@ -838,18 +838,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 			end
 		end
+		if override.toggleFlask then
+			if env.flasks[override.toggleFlask] then
+				env.flasks[override.toggleFlask] = nil
+			else
+				env.flasks[override.toggleFlask] = true
+			end
+		end
 	end
 
 	-- Merge env.itemModDB with env.ModDB
 	mergeDB(env.modDB, env.itemModDB)
-
-	if override.toggleFlask then
-		if env.flasks[override.toggleFlask] then
-			env.flasks[override.toggleFlask] = nil
-		else
-			env.flasks[override.toggleFlask] = true
-		end
-	end
 
 	-- Add granted passives (e.g., amulet anoints)
 	if not accelerate.nodeAlloc then
