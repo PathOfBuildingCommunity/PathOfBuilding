@@ -722,14 +722,17 @@ function calcs.defence(env, actor)
 			})
 		end
 	end
+	
+	
+	
 	-- Energy Shield Recharge
-	if modDB:Flag(nil, "NoEnergyShieldRecharge") then
-		output.EnergyShieldRecharge = 0
-	else
+	output.EnergyShieldRechargeAppliesToLife = modDB:Flag(nil, "EnergyShieldRechargeAppliesToLife")
+	output.EnergyShieldRechargeAppliesToEnergyShield = not (modDB:Flag(nil, "NoEnergyShieldRecharge") or output.EnergyShieldRechargeAppliesToLife)
+	
+	if output.EnergyShieldRechargeAppliesToLife or output.EnergyShieldRechargeAppliesToEnergyShield then
 		local inc = modDB:Sum("INC", nil, "EnergyShieldRecharge")
 		local more = modDB:More(nil, "EnergyShieldRecharge")
-		if modDB:Flag(nil, "EnergyShieldRechargeAppliesToLife") then
-			output.EnergyShieldRechargeAppliesToLife = true
+		if output.EnergyShieldRechargeAppliesToLife then
 			local recharge = output.Life * data.misc.EnergyShieldRechargeBase * (1 + inc/100) * more
 			output.LifeRecharge = round(recharge * output.LifeRecoveryRateMod)
 			if breakdown then
@@ -749,7 +752,6 @@ function calcs.defence(env, actor)
 				})	
 			end
 		else
-			output.EnergyShieldRechargeAppliesToEnergyShield = true
 			local recharge = output.EnergyShield * data.misc.EnergyShieldRechargeBase * (1 + inc/100) * more
 			output.EnergyShieldRecharge = round(recharge * output.EnergyShieldRecoveryRateMod)
 			if breakdown then
@@ -779,6 +781,8 @@ function calcs.defence(env, actor)
 				}
 			end
 		end
+	else
+		output.EnergyShieldRecharge = 0
 	end
 	
 	-- recoup

@@ -1266,7 +1266,7 @@ return {
 	{ label = "Total Recoverable", haveOutput = "CappingLife", { format = "{0:output:LifeRecoverable}", { breakdown = "LifeUnreserved" }, }, },
 	{ label = "Recharge Rate", haveOutput = "EnergyShieldRechargeAppliesToLife", { format = "{1:output:LifeRecharge}", 
 		{ breakdown = "LifeRecharge" },
-		{ modName = { "EnergyShieldRecharge", "LifeRecoveryRate", "NoEnergyShieldRecharge", "EnergyShieldRechargeAppliesToLife" }, },
+		{ modName = { "EnergyShieldRecharge", "LifeRecoveryRate", "EnergyShieldRechargeAppliesToLife" }, },
 	}, },
 	{ label = "Recharge Delay", haveOutput = "EnergyShieldRechargeAppliesToLife", { format = "{2:output:EnergyShieldRechargeDelay}s", 
 		{ breakdown = "EnergyShieldRechargeDelay" },
