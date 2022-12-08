@@ -59,7 +59,6 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Spell, { type = "Condition", var = "Unnerved"})
 	modDB:NewMod("Damage", "MORE", -10, "Base", { type = "Condition", var = "Debilitated"})
 	modDB:NewMod("Condition:Burning", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "Condition", var = "Ignited" })
-	modDB:NewMod("Condition:Chilled", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "Condition", var = "Frozen" })
 	modDB:NewMod("Condition:Poisoned", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "MultiplierThreshold", var = "PoisonStack", threshold = 1 })
 	modDB:NewMod("Blind", "FLAG", true, "Base", { type = "Condition", var = "Blinded" })
 	modDB:NewMod("Chill", "FLAG", true, "Base", { type = "Condition", var = "Chilled" })
@@ -91,7 +90,7 @@ function calcs.buildModListForNode(env, node)
 
 	-- Run first pass radius jewels
 	for _, rad in pairs(env.radiusJewelList) do
-		if rad.type == "Other" and rad.nodes[node.id] then
+		if rad.type == "Other" and rad.nodes[node.id] and rad.nodes[node.id].type ~= "Mastery" then
 			rad.func(node, modList, rad.data)
 		end
 	end
@@ -110,7 +109,7 @@ function calcs.buildModListForNode(env, node)
 
 	-- Run second pass radius jewels
 	for _, rad in pairs(env.radiusJewelList) do
-		if rad.nodes[node.id] and (rad.type == "Threshold" or (rad.type == "Self" and env.allocNodes[node.id]) or (rad.type == "SelfUnalloc" and not env.allocNodes[node.id])) then
+		if rad.nodes[node.id] and rad.nodes[node.id].type ~= "Mastery" and (rad.type == "Threshold" or (rad.type == "Self" and env.allocNodes[node.id]) or (rad.type == "SelfUnalloc" and not env.allocNodes[node.id])) then
 			rad.func(node, modList, rad.data)
 		end
 	end
@@ -423,9 +422,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
-		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", env.spec.allocatedNotableCount, "")
-		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", env.spec.allocatedMasteryCount, "")
-		modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", env.spec.allocatedMasteryTypeCount, "")
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
@@ -478,6 +474,16 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
 
+	if override.conditions then
+		for _, flag in ipairs(override.conditions) do
+			modDB.conditions[flag] = true
+		end
+	end
+
+	local allocatedNotableCount = env.spec.allocatedNotableCount
+	local allocatedMasteryCount = env.spec.allocatedMasteryCount
+	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
+	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
 	if not accelerate.nodeAlloc then
 		-- Build list of passive nodes
 		local nodes
@@ -486,11 +492,38 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if override.addNodes then
 				for node in pairs(override.addNodes) do
 					nodes[node.id] = node
+					if node.type == "Mastery" then
+						allocatedMasteryCount = allocatedMasteryCount + 1
+
+						if not allocatedMasteryTypes[node.name] then
+							allocatedMasteryTypes[node.name] = 1
+							allocatedMasteryTypeCount = allocatedMasteryTypeCount + 1
+						else
+							local prevCount = allocatedMasteryTypes[node.name]
+							allocatedMasteryTypes[node.name] = prevCount + 1
+							if prevCount == 0 then
+								allocatedMasteryTypeCount = allocatedMasteryTypeCount + 1
+							end
+						end
+					elseif node.type == "Notable" then
+						allocatedNotableCount = allocatedNotableCount + 1
+					end
 				end
 			end
 			for _, node in pairs(env.spec.allocNodes) do
 				if not override.removeNodes or not override.removeNodes[node] then
 					nodes[node.id] = node
+				elseif override.removeNodes[node] then
+					if node.type == "Mastery" then
+						allocatedMasteryCount = allocatedMasteryCount - 1
+
+						allocatedMasteryTypes[node.name] = allocatedMasteryTypes[node.name] - 1
+						if allocatedMasteryTypes[node.name] == 0 then
+							allocatedMasteryTypeCount = allocatedMasteryTypeCount - 1
+						end
+					elseif node.type == "Notable" then
+						allocatedNotableCount = allocatedNotableCount - 1
+					end
 				end
 			end
 		else
@@ -498,6 +531,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		env.allocNodes = nodes
 	end
+	
+	modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount, "")
+	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount, "")
+	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount, "")
 
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
@@ -639,7 +676,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							env.itemModDB:ScaleAddMod(mod, scale)
 						end
 					end
-				elseif (slotName == "Weapon 1" or slotName == "Weapon 2") and modDB:Flag(nil, "Condition:EnergyBladeActive") then
+				elseif (slotName == "Weapon 1" or slotName == "Weapon 2") and modDB.conditions["AffectedByEnergyBlade"] then
 					local type = env.player.itemList[slotName] and env.player.itemList[slotName].weaponData and env.player.itemList[slotName].weaponData[1].type
 					local info = env.data.weaponTypeInfo[type]
 					if info and type ~= "Bow" then
@@ -706,6 +743,24 @@ function calcs.initEnv(build, mode, override, specEnv)
 							env.itemModDB:ScaleAddMod(mod, scale)
 						end
 					end
+				elseif item.name == "Kalandra's Touch, Iron Ring" then
+					if slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId] then
+						local item = build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]
+						srcList = copyTable(item.modList or item.slotModList[slot.slotNum])
+					elseif slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId] then
+						local item = build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId]
+						srcList = copyTable(item.modList or item.slotModList[slot.slotNum])
+					end
+					for index, mod in ipairs(srcList) do
+						modLib.setSource(mod, item.modSource)
+						for _, tag in ipairs(mod) do
+							if tag.type == "SocketedIn" then
+								srcList[index] = nil
+								break
+							end
+						end
+					end
+					env.itemModDB:ScaleAddList(srcList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end
@@ -750,18 +805,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 			end
 		end
+		if override.toggleFlask then
+			if env.flasks[override.toggleFlask] then
+				env.flasks[override.toggleFlask] = nil
+			else
+				env.flasks[override.toggleFlask] = true
+			end
+		end
 	end
 
 	-- Merge env.itemModDB with env.ModDB
 	mergeDB(env.modDB, env.itemModDB)
-
-	if override.toggleFlask then
-		if env.flasks[override.toggleFlask] then
-			env.flasks[override.toggleFlask] = nil
-		else
-			env.flasks[override.toggleFlask] = true
-		end
-	end
 
 	-- Add granted passives (e.g., amulet anoints)
 	if not accelerate.nodeAlloc then
@@ -1130,6 +1184,18 @@ function calcs.initEnv(build, mode, override, specEnv)
 				socketGroup.displaySkillList = socketGroupSkillList
 			elseif env.mode == "CALCS" then
 				socketGroup.displaySkillListCalcs = socketGroupSkillList
+			end
+			
+			-- Check for enabled energy blade to see if we need to regenerate everything.
+			if not modDB.conditions["AffectedByEnergyBlade"] then
+				for _, gemInstance in ipairs(socketGroup.gemList) do
+					local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
+					if grantedEffect and not grantedEffect.support and gemInstance.enabled and grantedEffect.name == "Energy Blade" then
+						override.conditions = override.conditions or { }
+						t_insert(override.conditions, "AffectedByEnergyBlade")
+						return calcs.initEnv(build, mode, override, specEnv)
+					end
+				end
 			end
 		end
 

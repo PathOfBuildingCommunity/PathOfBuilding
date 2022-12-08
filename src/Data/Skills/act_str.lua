@@ -1422,7 +1422,7 @@ skills["Boneshatter"] = {
 			area = true,
 		},
 	},
-	preDamageFunc = function(activeSkill, output, breakdown)
+	preDotFunc = function(activeSkill, output, breakdown)
 		local t_insert = table.insert
 		local s_format = string.format
 		local ipairs = ipairs
@@ -1499,9 +1499,14 @@ skills["Boneshatter"] = {
 		},
 		["attack_speed_+%_per_trauma"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
+			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
 		},
 		["trauma_strike_self_damage_per_trauma"] = {
 			skill("SelfDamageTakenLife", nil),
+		},
+		["trauma_base_duration_ms"] = {
+			skill("duration", nil),
+			div = 1000,
 		},
 	},
 	baseFlags = {
@@ -5477,14 +5482,14 @@ skills["FireImpurity"] = {
 			--Display only
 		},
 	},
-	baseMods = {
-		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-	},
 	baseFlags = {
 		spell = true,
 		aura = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {

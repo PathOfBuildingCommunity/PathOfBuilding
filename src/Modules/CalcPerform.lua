@@ -21,7 +21,7 @@ local band = bit.band
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
 local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 	local uuid = cacheSkillUUID(skill)
-	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.dontUseCache then
+	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
 		calcs.buildActiveSkill(env, "CACHE", skill)
 		env.dontCache = true
 	end
@@ -407,10 +407,15 @@ local function doActorAttribsPoolsConditions(env, actor)
 		local info = env.data.weaponTypeInfo[actor.weaponData1.type]
 		condList["Using"..info.flag] = true
 		if actor.weaponData1.countsAsAll1H then
+			actor.weaponData1["AddedUsingAxe"] = not condList["UsingAxe"]
 			condList["UsingAxe"] = true
+			actor.weaponData1["AddedUsingSword"] = actor.weaponData1.name:match("Varunastra") or not condList["UsingSword"] --Varunastra is a sword
 			condList["UsingSword"] = true
+			actor.weaponData1["AddedUsingDagger"] = not condList["UsingDagger"]
 			condList["UsingDagger"] = true
+			actor.weaponData1["AddedUsingMace"] = not condList["UsingMace"]
 			condList["UsingMace"] = true
+			actor.weaponData1["AddedUsingClaw"] = not condList["UsingClaw"]
 			condList["UsingClaw"] = true
 			-- GGG stated that a single Varunastra satisfied requirement for wielding two different weapons
 			condList["WieldingDifferentWeaponTypes"] = true
@@ -428,10 +433,15 @@ local function doActorAttribsPoolsConditions(env, actor)
 		local info = env.data.weaponTypeInfo[actor.weaponData2.type]
 		condList["Using"..info.flag] = true
 		if actor.weaponData2.countsAsAll1H then
+			actor.weaponData2["AddedUsingAxe"] = not condList["UsingAxe"]
 			condList["UsingAxe"] = true
+			actor.weaponData2["AddedUsingSword"] = actor.weaponData2.name:match("Varunastra") or not condList["UsingSword"] --Varunastra is a sword
 			condList["UsingSword"] = true
+			actor.weaponData2["AddedUsingDagger"] = not condList["UsingDagger"]
 			condList["UsingDagger"] = true
+			actor.weaponData2["AddedUsingMace"] = not condList["UsingMace"]
 			condList["UsingMace"] = true
+			actor.weaponData2["AddedUsingClaw"] = not condList["UsingClaw"]
 			condList["UsingClaw"] = true
 			-- GGG stated that a single Varunastra satisfied requirement for wielding two different weapons
 			condList["WieldingDifferentWeaponTypes"] = true
@@ -526,15 +536,19 @@ local function doActorAttribsPoolsConditions(env, actor)
 				end
 			end
 			
-      local stats = { output.Str, output.Dex, output.Int }
-      table.sort(stats)
-      output.LowestAttribute = stats[1]
-      condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
-      
+			local stats = { output.Str, output.Dex, output.Int }
+			table.sort(stats)
+			output.LowestAttribute = stats[1]
+			condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
+		
 			condList["DexHigherThanInt"] = output.Dex > output.Int
 			condList["StrHigherThanDex"] = output.Str > output.Dex
 			condList["IntHigherThanStr"] = output.Int > output.Str
 			condList["StrHigherThanInt"] = output.Str > output.Int
+
+			condList["StrHighestAttribute"] = output.Str >= output.Dex and output.Str >= output.Int
+			condList["IntHighestAttribute"] = output.Int >= output.Str and output.Int >= output.Dex
+			condList["DexHighestAttribute"] = output.Dex >= output.Str and output.Dex >= output.Int
 		end
 	end
 
@@ -765,24 +779,24 @@ local function doActorMisc(env, actor)
 	local condList = modDB.conditions
 
 	-- Calculate current and maximum charges
-	output.PowerChargesMin = modDB:Sum("BASE", nil, "PowerChargesMin")
-	output.PowerChargesMax = modDB:Sum("BASE", nil, "PowerChargesMax")
-	output.FrenzyChargesMin = modDB:Sum("BASE", nil, "FrenzyChargesMin")
-	output.FrenzyChargesMax = modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "FrenzyChargesMax")
-	output.EnduranceChargesMin = modDB:Sum("BASE", nil, "EnduranceChargesMin")
-	output.EnduranceChargesMax = modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax")
-	output.SiphoningChargesMax = modDB:Sum("BASE", nil, "SiphoningChargesMax")
-	output.ChallengerChargesMax = modDB:Sum("BASE", nil, "ChallengerChargesMax")
-	output.BlitzChargesMax = modDB:Sum("BASE", nil, "BlitzChargesMax")
-	output.InspirationChargesMax = modDB:Sum("BASE", nil, "InspirationChargesMax")
-	output.CrabBarriersMax = modDB:Sum("BASE", nil, "CrabBarriersMax")
-	output.BrutalChargesMin = modDB:Flag(nil, "MinimumEnduranceChargesEqualsMinimumBrutalCharges") and (modDB:Flag(nil, "MinimumEnduranceChargesIsMaximumEnduranceCharges") and output.EnduranceChargesMax or output.EnduranceChargesMin) or 0 
-	output.BrutalChargesMax = modDB:Flag(nil, "MaximumEnduranceChargesEqualsMaximumBrutalCharges") and output.EnduranceChargesMax or 0
-	output.AbsorptionChargesMin = modDB:Flag(nil, "MinimumPowerChargesEqualsMinimumAbsorptionCharges") and (modDB:Flag(nil, "MinimumPowerChargesIsMaximumPowerCharges") and output.PowerChargesMax or output.PowerChargesMin) or 0
-	output.AbsorptionChargesMax = modDB:Flag(nil, "MaximumPowerChargesEqualsMaximumAbsorptionCharges") and output.PowerChargesMax or 0
-	output.AfflictionChargesMin = modDB:Flag(nil, "MinimumFrenzyChargesEqualsMinimumAfflictionCharges") and (modDB:Flag(nil, "MinimumFrenzyChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or output.FrenzyChargesMin) or 0
-	output.AfflictionChargesMax = modDB:Flag(nil, "MaximumFrenzyChargesEqualsMaximumAfflictionCharges") and output.FrenzyChargesMax or 0
-	output.BloodChargesMax = modDB:Sum("BASE", nil, "BloodChargesMax")
+	output.PowerChargesMin = m_max(modDB:Sum("BASE", nil, "PowerChargesMin"), 0)
+	output.PowerChargesMax = m_max(modDB:Sum("BASE", nil, "PowerChargesMax"), 0)
+	output.FrenzyChargesMin = m_max(modDB:Sum("BASE", nil, "FrenzyChargesMin"), 0)
+	output.FrenzyChargesMax = m_max(modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "FrenzyChargesMax"), 0)
+	output.EnduranceChargesMin = m_max(modDB:Sum("BASE", nil, "EnduranceChargesMin"), 0)
+	output.EnduranceChargesMax = m_max(modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax"), 0)
+	output.SiphoningChargesMax = m_max(modDB:Sum("BASE", nil, "SiphoningChargesMax"), 0)
+	output.ChallengerChargesMax = m_max(modDB:Sum("BASE", nil, "ChallengerChargesMax"), 0)
+	output.BlitzChargesMax = m_max(modDB:Sum("BASE", nil, "BlitzChargesMax"), 0)
+	output.InspirationChargesMax = m_max(modDB:Sum("BASE", nil, "InspirationChargesMax"), 0)
+	output.CrabBarriersMax = m_max(modDB:Sum("BASE", nil, "CrabBarriersMax"), 0)
+	output.BrutalChargesMin = m_max(modDB:Flag(nil, "MinimumEnduranceChargesEqualsMinimumBrutalCharges") and (modDB:Flag(nil, "MinimumEnduranceChargesIsMaximumEnduranceCharges") and output.EnduranceChargesMax or output.EnduranceChargesMin) or 0 , 0)
+	output.BrutalChargesMax = m_max(modDB:Flag(nil, "MaximumEnduranceChargesEqualsMaximumBrutalCharges") and output.EnduranceChargesMax or 0, 0)
+	output.AbsorptionChargesMin = m_max(modDB:Flag(nil, "MinimumPowerChargesEqualsMinimumAbsorptionCharges") and (modDB:Flag(nil, "MinimumPowerChargesIsMaximumPowerCharges") and output.PowerChargesMax or output.PowerChargesMin) or 0, 0)
+	output.AbsorptionChargesMax = m_max(modDB:Flag(nil, "MaximumPowerChargesEqualsMaximumAbsorptionCharges") and output.PowerChargesMax or 0, 0)
+	output.AfflictionChargesMin = m_max(modDB:Flag(nil, "MinimumFrenzyChargesEqualsMinimumAfflictionCharges") and (modDB:Flag(nil, "MinimumFrenzyChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or output.FrenzyChargesMin) or 0, 0)
+	output.AfflictionChargesMax = m_max(modDB:Flag(nil, "MaximumFrenzyChargesEqualsMaximumAfflictionCharges") and output.FrenzyChargesMax or 0, 0)
+	output.BloodChargesMax = m_max(modDB:Sum("BASE", nil, "BloodChargesMax"), 0)
 
 	-- Initialize Charges
 	output.PowerCharges = 0
@@ -1003,11 +1017,9 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Chill") then
 			local ailmentData = data.nonDamagingAilment
 			local chillValue = modDB:Override(nil, "ChillVal") or ailmentData.Chill.default
+			local chillEffect = calcLib.mod(modDB, nil, "SelfChillEffect") * (modDB:Flag(nil, "Condition:ChilledSelf") and calcLib.mod(modDB, nil, "EnemyChillEffect") or calcLib.mod(enemyDB, nil, "EnemyChillEffect"))
 
-			local chillSelf = (modDB:Flag(nil, "Condition:ChilledSelf") and modDB:Sum("INC", nil, "EnemyChillEffect") / 100) or 0
-			local totalChillSelfEffect = calcLib.mod(modDB, nil, "SelfChillEffect") + chillSelf
-
-			local effect = m_min(m_max(m_floor(chillValue *  totalChillSelfEffect), 0), modDB:Override(nil, "ChillMax") or ailmentData.Chill.max)
+			local effect = m_min(m_max(m_floor(chillValue * chillEffect), 0), modDB:Override(nil, "ChillMax") or ailmentData.Chill.max)
 
 			modDB:NewMod("ActionSpeed", "INC", effect * (modDB:Flag(nil, "SelfChillEffectIsReversed") and 1 or -1), "Chill")
 		end
@@ -1243,24 +1255,20 @@ function calcs.perform(env, avoidCache)
 	if env.mode_combat then
 		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
 		local flaskBuffs = { }
-		local usingFlask = false
-		local usingLifeFlask = false
-		local usingManaFlask = false
+		local flaskConditions = {}
+		local flaskBuffsPerBase = {}
 		for item in pairs(env.flasks) do
-			usingFlask = true
-			if item.baseName:match("Life Flask") then
-				usingLifeFlask = true
-			end
-			if item.baseName:match("Mana Flask") then
-				usingManaFlask = true
-			end
+			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
+			flaskConditions["UsingFlask"] = true
 			if item.baseName:match("Hybrid Flask") then
-				usingLifeFlask = true
-				usingManaFlask = true
+				flaskConditions["UsingLifeFlask"] = true
+				flaskConditions["UsingManaFlask"] = true
+			else
+				flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
 			end
 
 			local flaskEffectInc = item.flaskData.effectInc
-			if item.rarity == "MAGIC" and not (usingLifeFlask or usingManaFlask) then
+			if item.rarity == "MAGIC" and not (flaskConditions["UsingLifeFlask"] or flaskConditions["UsingManaFlask"]) then
 				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
 			end
 
@@ -1272,6 +1280,7 @@ function calcs.perform(env, avoidCache)
 				local srcList = new("ModList")
 				srcList:ScaleAddList(item.buffModList, effectMod)
 				mergeBuff(srcList, flaskBuffs, item.baseName)
+				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], item.baseName)
 			end
 			if item.modList[1] then
 				local srcList = new("ModList")
@@ -1286,23 +1295,35 @@ function calcs.perform(env, avoidCache)
 					end
 				end
 				mergeBuff(srcList, flaskBuffs, key)
+				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
 			end
 		end
 		if not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
-			modDB.conditions["UsingFlask"] = usingFlask
-			modDB.conditions["UsingLifeFlask"] = usingLifeFlask
-			modDB.conditions["UsingManaFlask"] = usingManaFlask
+			for flaskCond, status in pairs(flaskConditions) do
+				modDB.conditions[flaskCond] = status
+			end
 			for _, buffModList in pairs(flaskBuffs) do
 				modDB:AddList(buffModList)
 			end
 		end
-		if env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion") then
-			local minionModDB = env.minion.modDB
-			minionModDB.conditions["UsingFlask"] = usingFlask
-			minionModDB.conditions["UsingLifeFlask"] = usingLifeFlask
-			minionModDB.conditions["UsingManaFlask"] = usingManaFlask
-			for _, buffModList in pairs(flaskBuffs) do
-				minionModDB:AddList(buffModList)
+		if env.minion then
+			if modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion") then
+				local minionModDB = env.minion.modDB
+				for flaskCond, status in pairs(flaskConditions) do
+					minionModDB.conditions[flaskCond] = status
+				end
+				for _, buffModList in pairs(flaskBuffs) do
+					minionModDB:AddList(buffModList)
+				end
+			else -- Not all flasks apply to minions. Check if some flasks need to be selectively applied
+				if modDB:Flag(env.player.mainSkill.skillCfg, "QuickSilverAppliesToAllies") and flaskBuffsPerBase["Quicksilver Flask"] then 
+					local minionModDB = env.minion.modDB
+					minionModDB.conditions["UsingQuicksilverFlask"] = flaskConditions["UsingQuicksilverFlask"]
+					minionModDB.conditions["UsingFlask"] = flaskConditions["UsingFlask"]
+					for _, buffModList in pairs(flaskBuffsPerBase["Quicksilver Flask"]) do
+						minionModDB:AddList(buffModList)
+					end
+				end
 			end
 		end
 	end
@@ -1580,7 +1601,6 @@ function calcs.perform(env, avoidCache)
 			end
 		end
 	end
-	local affectedByAura = { }
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
@@ -1653,7 +1673,7 @@ function calcs.perform(env, avoidCache)
 					end
 					if not activeSkill.skillData.auraCannotAffectSelf then
 						activeSkill.buffSkill = true
-						affectedByAura[env.player] = true
+						modDB.conditions["AffectedByAura"] = true
 						if buff.name:sub(1,4) == "Vaal" then
 							modDB.conditions["AffectedBy"..buff.name:sub(6):gsub(" ","")] = true
 						end
@@ -1668,8 +1688,8 @@ function calcs.perform(env, avoidCache)
 					end
 					if env.minion and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAurasOnlyAffectYou") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						activeSkill.minionBuffSkill = true
-						affectedByAura[env.minion] = true
 						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+						env.minion.modDB.conditions["AffectedByAura"] = true
 						local srcList = new("ModList")
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
@@ -1680,8 +1700,8 @@ function calcs.perform(env, avoidCache)
 					end
 					if env.player.mainSkill.skillFlags.totem and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						activeSkill.totemBuffSkill = true
-						affectedByAura[env.player.mainSkill] = true
 						env.player.mainSkill.skillModList.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+						env.player.mainSkill.skillModList.conditions["AffectedByAura"] = true
 
 						local srcList = new("ModList")
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect")
@@ -1752,7 +1772,7 @@ function calcs.perform(env, avoidCache)
 						fromPlayer = true,
 						priority = determineCursePriority(buff.name, activeSkill),
 						isMark = activeSkill.skillTypes[SkillType.Mark],
-						ignoreHexLimit = modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") and not activeSkill.skillTypes[SkillType.Mark] or false,
+						ignoreHexLimit = (modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") or activeSkill.skillData.ignoreHexLimit) and not activeSkill.skillTypes[SkillType.Mark] or false,
 						socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
@@ -1988,6 +2008,12 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
+
+	-- Set curse limit
+	output.PowerChargesMax = m_max(modDB:Sum("BASE", nil, "PowerChargesMax"), 0) -- precalculate max charges for this.
+	output.EnemyCurseLimit = modDB:Flag(nil, "CurseLimitIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "EnemyCurseLimit")
+	curses.limit = output.EnemyCurseLimit
+	
 	-- Assign curses to slots
 	local curseSlots = { }
 	env.curseSlots = curseSlots
@@ -2146,16 +2172,15 @@ function calcs.perform(env, avoidCache)
 	for _, modList in pairs(debuffs) do
 		enemyDB:AddList(modList)
 	end
+	
 	modDB.multipliers["CurseOnEnemy"] = #curseSlots
 	modDB.multipliers["CurseOnSelf"] = #playerCurseSlots
 	local affectedByCurse = { }
+
 	for _, slot in ipairs(curseSlots) do
 		enemyDB.conditions["Cursed"] = true
 		if slot.isMark then
 			enemyDB.conditions["Marked"] = true
-		end
-		if slot.fromPlayer then
-			affectedByCurse[env.enemy] = true
 		end
 		if slot.modList then
 			enemyDB:AddList(slot.modList)
@@ -3129,15 +3154,19 @@ function calcs.perform(env, avoidCache)
 					-- if not, use the generic modifiers
 					-- Scorch/Sap/Brittle do not have guaranteed sources from hits, and therefor will only end up in this bit of code if it's not supposed to apply the skillModList, which is bad
 					if ailment ~= "Scorch" and ailment ~= "Sap" and ailment ~= "Brittle" and not env.player.mainSkill.skillModList:Flag(nil, "Cannot"..ailment) and env.player.mainSkill.skillFlags.hit and modDB:Flag(nil, "ChecksHighestDamage") then
-						effect = effect * calcLib.mod(env.player.mainSkill.skillModList, nil, "Enemy"..ailment.."Effect")
+						local inc = env.player.mainSkill.skillModList:Sum("INC", nil, "Enemy"..ailment.."Effect") + enemyDB:Sum("INC", nil, "Self"..ailment.."Effect")
+						local more = env.player.mainSkill.skillModList:Sum("MORE", nil, "Enemy"..ailment.."Effect") * enemyDB:Sum("MORE", nil, "Self"..ailment.."Effect")
+						effect = effect * (1 + inc / 100) * more
 					else
-						effect = effect * calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect")
+						local inc = modDB:Sum("INC", nil, "Enemy"..ailment.."Effect") + enemyDB:Sum("INC", nil, "Self"..ailment.."Effect")
+						local more = modDB:Sum("MORE", nil, "Enemy"..ailment.."Effect") * enemyDB:Sum("MORE", nil, "Self"..ailment.."Effect")
+						effect = effect * (1 + inc / 100) * more
 					end
 					modDB:NewMod(ailment.."Override", "BASE", effect, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 				end
 				override = m_max(override, effect or 0)
 			end
-			output["Maximum"..ailment] = modDB:Override(nil, ailment.."Max") or (ailmentData[ailment].max + modDB:Sum("BASE", nil, ailment.."Max") + env.player.mainSkill.baseSkillModList:Sum("BASE", nil, ailment.."Max"))
+			output["Maximum"..ailment] = modDB:Override(nil, ailment.."Max") or (ailmentData[ailment].max + env.player.mainSkill.baseSkillModList:Sum("BASE", nil, ailment.."Max"))
 			output["Current"..ailment] = m_floor(m_min(m_max(override, enemyDB:Sum("BASE", nil, ailment.."Val")), output["Maximum"..ailment]) * (10 ^ ailmentData[ailment].precision)) / (10 ^ ailmentData[ailment].precision)
 			for _, mod in ipairs(val.mods(output["Current"..ailment])) do
 				enemyDB:AddMod(mod)
@@ -3181,18 +3210,6 @@ function calcs.perform(env, avoidCache)
 			end
 			totemMod.name = totemModName
 			modDB:AddMod(totemMod)
-		end
-	end
-
-	-- Check for modifiers to apply to actors affected by player auras or curses
-	for _, value in ipairs(modDB:List(nil, "AffectedByAuraMod")) do
-		for actor in pairs(affectedByAura) do
-			actor.modDB:AddMod(value.mod)
-		end
-	end
-	for _, value in ipairs(modDB:List(nil, "AffectedByCurseMod")) do
-		for actor in pairs(affectedByCurse) do
-			actor.modDB:AddMod(value.mod)
 		end
 	end
 

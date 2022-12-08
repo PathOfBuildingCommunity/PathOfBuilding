@@ -408,7 +408,7 @@ function TradeQueryClass:SetFetchResultReturn(slotIndex, index)
 	end
 end
 
--- Method to sort the fetched resutls
+-- Method to sort the fetched results
 function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 	local newTbl = {}
 	if self.pbSortSelectionIndex == 1 then
@@ -497,7 +497,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 	controls["priceButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["uri"..str_cnt],"TOPRIGHT"}, 8, 0, 100, row_height, "Price Item",
 		function()
 			controls["priceButton"..str_cnt].label = "Searching..."
-			self.tradeQueryRequests:SearchWithURL(controls["uri"..str_cnt].buf, function(items, errMsg)
+			self.tradeQueryRequests:SearchWithURL(controls["uri"..str_cnt], function(items, errMsg)
 				if errMsg then
 					self:SetNotice(controls.pbNotice, "Error: " .. errMsg)
 				else

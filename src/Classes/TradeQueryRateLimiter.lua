@@ -63,7 +63,7 @@ end
 function TradeQueryRateLimiterClass:ParseHeader(headerString)
     local headers = {}
     for k, v in headerString:gmatch("([%a%d%-]+): ([%g ]+)") do
-        if k == nil then error("Unparseable Header") end
+        if k == nil then error("Unparsable Header") end
         headers[k] = v
     end
     return headers
@@ -150,7 +150,7 @@ function TradeQueryRateLimiterClass:NextRequestTime(policy, time)
             -- practically blocking indefinitely until rate limits are initialized
             return 1956528000
         else
-            -- first request, dont block to acquire rate limits from first response
+            -- first request, don't block to acquire rate limits from first response
             return now
         end
     end
@@ -177,7 +177,7 @@ function TradeQueryRateLimiterClass:NextRequestTime(policy, time)
                     end
                 end
                 if oldestRequestIdx == 0 then 
-                    -- state reached limit but we dont have any recent timestamps (external factors)
+                    -- state reached limit but we don't have any recent timestamps (external factors)
                     nextTime = math.max(nextTime, self.lastUpdate[policy] + rule.limits[window].timeout + 1)
                 else
                     -- the expiration time of oldest timestamp in the window
