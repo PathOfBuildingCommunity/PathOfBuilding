@@ -170,7 +170,8 @@ describe("TetsItemMods", function()
         runCallback("OnFrame")
 
         assert.are_not.equals(farDPS, build.calcsTab.mainOutput.TotalDPS)
-
+    end)
+    
     it("Kalandra's Touch mod copy", function()
         local initialInt = build.calcsTab.mainOutput.Int
 
