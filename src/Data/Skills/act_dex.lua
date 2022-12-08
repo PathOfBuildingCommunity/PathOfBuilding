@@ -7446,8 +7446,8 @@ skills["PhysCascadeTrap"] = {
 		local s_format = string.format
 
 		local baseInterval = skillData.repeatInterval
-		local incFrequency = (1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed") / 100)
-		local moreFrequency = skillModList:More(skillCfg, "TrapThrowingSpeed")
+		local incFrequency = (1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed", "SeismicPulseFrequency") / 100)
+		local moreFrequency = skillModList:More(skillCfg, "TrapThrowingSpeed", "SeismicPulseFrequency")
 		local wavePulseRate = incFrequency * moreFrequency / baseInterval
 		skillData.hitTimeOverride = 1 / wavePulseRate
 		output.WavePulseRate = wavePulseRate
@@ -7556,7 +7556,7 @@ skills["PhysCascadeTrap"] = {
 			mod("MaximumWaves", "BASE", nil),
 		},
 		["seismic_trap_frequency_+%"] = {
-			mod("TrapThrowingSpeed", "INC", nil),
+			mod("SeismicPulseFrequency", "INC", nil),
 		},
 	},
 	baseFlags = {
