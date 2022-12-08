@@ -328,6 +328,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "LifePercentPerSecondCost", label = "Life Cost per second", fmt = ".2f%%", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePercentPerSecondHasCost end },
 		{ stat = "ESCost", label = "Energy Shield Cost", fmt = "d", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESHasCost end },
 		{ stat = "RageCost", label = "Rage Cost", fmt = "d", color = colorCodes.RAGE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RageHasCost end },
+		{ stat = "RagePerSecondCost", label = "Rage Cost per second", fmt = ".2f", color = colorCodes.RAGE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RagePerSecondHasCost end },
 		{ stat = "ESPerSecondCost", label = "ES Cost per second", fmt = ".2f/s", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESPerSecondHasCost end },
 		{ stat = "ESPercentPerSecondCost", label = "ES Cost per second", fmt = ".2f%%", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESPercentPerSecondHasCost end },
 		{ },
