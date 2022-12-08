@@ -281,7 +281,7 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
-	preDamageFunc = function(activeSkill, output, breakdown)
+	preDotFunc = function(activeSkill, output, breakdown)
 		local t_insert = table.insert
 		local s_format = string.format
 		local ipairs = ipairs
@@ -358,9 +358,14 @@ local skills, mod, flag, skill = ...
 		},
 		["attack_speed_+%_per_trauma"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
+			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
 		},
 		["trauma_strike_self_damage_per_trauma"] = {
 			skill("SelfDamageTakenLife", nil),
+		},
+		["trauma_base_duration_ms"] = {
+			skill("duration", nil),
+			div = 1000,
 		},
 	},
 #baseMod skill("radius", 14, { type = "SkillPart", skillPart = 2 })
@@ -1039,7 +1044,7 @@ local skills, mod, flag, skill = ...
 			--Display only
 		},
 	},
-#baseMod mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+#baseMod mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
 #mods
 
 #skill RageVortex

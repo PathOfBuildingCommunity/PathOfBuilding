@@ -95,17 +95,19 @@ end
 function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	local result = 1
 	for i = 1, select('#', ...) do
+		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
 		local modName = select(i, ...)
 		for i = 1, #self do
 			local mod = self[i]
 			if mod.name == modName and mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 				if mod[1] then
-					result = result * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
+					modResult = modResult * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
 				else
-					result = result * (1 + mod.value / 100)
+					modResult = modResult * (1 + mod.value / 100)
 				end
 			end
 		end
+		result = result * round(modResult,2)
 	end
 	if self.parent then
 		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)

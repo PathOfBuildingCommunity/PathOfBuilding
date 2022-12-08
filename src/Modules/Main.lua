@@ -55,9 +55,9 @@ function main:Init()
 	self.buildPath = self.defaultBuildPath
 	MakeDir(self.buildPath)
 
-	if launch.devMode and IsKeyDown("CTRL") then
-		self.rebuildModCache = true
-	else
+	if launch.devMode and IsKeyDown("CTRL")  then
+		self:RebuildModCache()
+	elseif not launch.headlessMode then
 		-- Load mod cache
 		LoadModule("Data/ModCache", modLib.parseModCache)
 	end
@@ -90,8 +90,10 @@ function main:Init()
 			if newItem.crafted then
 				if newItem.base.implicit and #newItem.implicitModLines == 0 then
 					-- Automatically add implicit
+					local implicitIndex = 1
 					for line in newItem.base.implicit:gmatch("[^\n]+") do
-						t_insert(newItem.implicitModLines, { line = line })
+						t_insert(newItem.implicitModLines, { line = line, modTags = newItem.base.implicitModTypes and newItem.base.implicitModTypes[implicitIndex] or { } })
+						implicitIndex = implicitIndex + 1
 					end
 				end
 				newItem:Craft()
@@ -100,28 +102,6 @@ function main:Init()
 		elseif launch.devMode then
 			ConPrintf("Rare DB unrecognised item:\n%s", raw)
 		end
-	end
-
-	if self.rebuildModCache then
-		-- Update mod cache
-		local out = io.open("Data/ModCache.lua", "w")
-		out:write('local c=...')
-		for line, dat in pairs(modLib.parseModCache) do
-			if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
-				out:write('c["', line:gsub("\n","\\n"), '"]={')
-				if dat[1] then
-					writeLuaTable(out, dat[1])
-				else
-					out:write('nil')
-				end
-				if dat[2] then
-					out:write(',"', dat[2]:gsub("\n","\\n"), '"}\n')
-				else
-					out:write(',nil}\n')
-				end
-			end
-		end
-		out:close()
 	end
 
 	self.sharedItemList = { }
@@ -229,6 +209,28 @@ the "Releases" section of the GitHub page.]])
 	self:LoadSettings(ignoreBuild)
 
 	self.onFrameFuncs = { }
+end
+
+function main:RebuildModCache()
+	-- Update mod cache
+	local out = io.open("Data/ModCache.lua", "w")
+	out:write('local c=...')
+	for line, dat in pairs(modLib.parseModCache) do
+		if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
+			out:write('c["', line:gsub("\n","\\n"), '"]={')
+			if dat[1] then
+				writeLuaTable(out, dat[1])
+			else
+				out:write('nil')
+			end
+			if dat[2] then
+				out:write(',"', dat[2]:gsub("\n","\\n"), '"}\n')
+			else
+				out:write(',nil}\n')
+			end
+		end
+	end
+	out:close()
 end
 
 function main:LoadTree(treeVersion)
