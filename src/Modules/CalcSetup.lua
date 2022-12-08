@@ -420,9 +420,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
-		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", env.spec.allocatedNotableCount, "")
-		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", env.spec.allocatedMasteryCount, "")
-		modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", env.spec.allocatedMasteryTypeCount, "")
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
@@ -475,6 +472,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
 
+	local allocatedNotableCount = env.spec.allocatedNotableCount
+	local allocatedMasteryCount = env.spec.allocatedMasteryCount
+	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
+	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
 	if not accelerate.nodeAlloc then
 		-- Build list of passive nodes
 		local nodes
@@ -483,11 +484,38 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if override.addNodes then
 				for node in pairs(override.addNodes) do
 					nodes[node.id] = node
+					if node.type == "Mastery" then
+						allocatedMasteryCount = allocatedMasteryCount + 1
+
+						if not allocatedMasteryTypes[node.name] then
+							allocatedMasteryTypes[node.name] = 1
+							allocatedMasteryTypeCount = allocatedMasteryTypeCount + 1
+						else
+							local prevCount = allocatedMasteryTypes[node.name]
+							allocatedMasteryTypes[node.name] = prevCount + 1
+							if prevCount == 0 then
+								allocatedMasteryTypeCount = allocatedMasteryTypeCount + 1
+							end
+						end
+					elseif node.type == "Notable" then
+						allocatedNotableCount = allocatedNotableCount + 1
+					end
 				end
 			end
 			for _, node in pairs(env.spec.allocNodes) do
 				if not override.removeNodes or not override.removeNodes[node] then
 					nodes[node.id] = node
+				elseif override.removeNodes[node] then
+					if node.type == "Mastery" then
+						allocatedMasteryCount = allocatedMasteryCount - 1
+
+						allocatedMasteryTypes[node.name] = allocatedMasteryTypes[node.name] - 1
+						if allocatedMasteryTypes[node.name] == 0 then
+							allocatedMasteryTypeCount = allocatedMasteryTypeCount - 1
+						end
+					elseif node.type == "Notable" then
+						allocatedNotableCount = allocatedNotableCount - 1
+					end
 				end
 			end
 		else
@@ -495,6 +523,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		env.allocNodes = nodes
 	end
+	
+	modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount, "")
+	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount, "")
+	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount, "")
 
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
@@ -703,6 +735,24 @@ function calcs.initEnv(build, mode, override, specEnv)
 							env.itemModDB:ScaleAddMod(mod, scale)
 						end
 					end
+				elseif item.name == "Kalandra's Touch, Iron Ring" then
+					if slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId] then
+						local item = build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]
+						srcList = copyTable(item.modList or item.slotModList[slot.slotNum])
+					elseif slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId] then
+						local item = build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId]
+						srcList = copyTable(item.modList or item.slotModList[slot.slotNum])
+					end
+					for index, mod in ipairs(srcList) do
+						modLib.setSource(mod, item.modSource)
+						for _, tag in ipairs(mod) do
+							if tag.type == "SocketedIn" then
+								srcList[index] = nil
+								break
+							end
+						end
+					end
+					env.itemModDB:ScaleAddList(srcList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end
