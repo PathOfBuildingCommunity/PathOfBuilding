@@ -4159,16 +4159,53 @@ function calcs.offence(env, actor, activeSkill)
 		if(val.upfront and output[resource.."HasCost"] and output[resource.."Cost"] > 0 and not output[resource.."PerSecondHasCost"] and (output.Speed > 0 or output.Cooldown)) then
 			local repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
 			local useSpeed = 1
+			local speedRate = output.Speed > 0 and 1 / output.Speed or 0
+			local cooldownRate = (output.Cooldown and output.Cooldown > 0 and output.Cooldown or 0)
+			local timeType
+			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
 			if (skillFlags.trap or skillFlags.mine) then
 				useSpeed = m_min(output.TrapThrowingSpeed or output.MineLayingSpeed or 999999, (output.Cooldown and output.Cooldown > 0 and 1 / output.Cooldown or 999999)) / repeats
+				timeType = skillFlags.trap and "trap throwing" or "mine laying"
 			elseif skillModList:Flag(nil, "HasSeals") and skillModList:Flag(nil, "UseMaxUnleash") then
 				useSpeed = 1 / env.player.mainSkill.skillData.hitTimeOverride / repeats
+				timeType = "full unleash"
 			else
-				useSpeed = m_min(output.Speed or 999999, (output.Cooldown and output.Cooldown > 0 and 1 / output.Cooldown or 999999)) / repeats
+				useSpeed = (1 / m_max(speedRate, cooldownRate)) / repeats
+				timeType = speedRate > cooldownRate and isTriggered and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast") or "cooldown"
 			end
 
 			output[resource.."PerSecondHasCost"] = true
 			output[resource.."PerSecondCost"] = output[resource.."Cost"] * useSpeed
+
+			if breakdown then
+				local inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
+				local more = floor(skillModList:More(skillCfg, val.type.."Cost", "Cost"), 2)
+				local mult = floor(skillModList:More(skillCfg, "SupportManaMultiplier"), 2)
+				
+				breakdown[resource.."PerSecondCost"] = {
+					s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
+				}
+				if mult ~= 1 then
+					t_insert(breakdown[resource.."PerSecondCost"], s_format("x %.2f ^8(cost multiplier)", mult))
+				end
+				if val.baseCostNoMult ~= 0 then
+					t_insert(breakdown[resource.."PerSecondCost"], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
+				end
+				if inc ~= 0 then
+					t_insert(breakdown[resource.."PerSecondCost"], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
+				end
+				if more ~= 1 then
+					t_insert(breakdown[resource.."PerSecondCost"], s_format("x %.2f ^8(more/less "..val.text.." cost)", more))
+				end
+				if val.totalCost ~= 0 then
+					t_insert(breakdown[resource.."PerSecondCost"], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
+				end
+				t_insert(breakdown[resource.."PerSecondCost"], s_format("x %.2f ^8("..timeType.." speed)", useSpeed))
+				t_insert(breakdown[resource.."PerSecondCost"], s_format("= %.2f per second", output[resource.."PerSecondCost"]))
+			end
+
+
+
 		end
 	end
 
