@@ -600,12 +600,20 @@ Damage Penetrates 10% Fire Resistance against Blinded Enemies
 ]],[[
 Impresence
 Onyx Amulet
-Source: Drops from unique{The Elder} (Tier 11+)
+Source: Drops from unique{The Elder, Uber Uber Elder} (Tier 11+)
+Has Alt Variant: True
+Selected Variant: 1
+Selected Alt Variant: 6
 Variant: Physical
 Variant: Fire
 Variant: Cold
 Variant: Lightning
 Variant: Chaos
+Variant: No Curse
+Variant: Curse: Punishment
+Variant: Curse: Elemental Weakness
+Variant: Curse: Enfeeble
+Variant: Curse: Temporal Chains
 Requires Level 64
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
@@ -625,11 +633,15 @@ Implicits: 1
 {variant:3}{tags:jewellery_resistance}+(20-25)% to Cold Resistance
 {variant:4}{tags:jewellery_resistance}+(20-25)% to Lightning Resistance
 {variant:5}{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-{variant:1}Vulnerability has no Reservation if Cast as an Aura
-{variant:2}Flammability has no Reservation if Cast as an Aura
-{variant:3}Frostbite has no Reservation if Cast as an Aura
 {variant:4}Conductivity has no Reservation if Cast as an Aura
 {variant:5}Despair has no Reservation if Cast as an Aura
+{variant:8}Elemental Weakness has no Reservation if Cast as an Aura
+{variant:9}Enfeeble has no Reservation if Cast as an Aura
+{variant:2}Flammability has no Reservation if Cast as an Aura
+{variant:3}Frostbite has no Reservation if Cast as an Aura
+{variant:7}Punishment has no Reservation if Cast as an Aura
+{variant:10}Temporal Chains has no Reservation if Cast as an Aura
+{variant:1}Vulnerability has no Reservation if Cast as an Aura
 Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
 Elder Item
 ]],[[
