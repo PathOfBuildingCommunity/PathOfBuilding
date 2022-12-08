@@ -2900,13 +2900,7 @@ skills["ElementalWeakness"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["self_elemental_status_duration_-%"] = {
-			mod("SelfIgniteDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfChillDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfShockDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfScorchDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfBrittleDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfSapDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfElementalAilmentDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 			mult = -1
 		}
 	},
@@ -7934,13 +7928,7 @@ skills["Purity"] = {
 	},
 	baseMods = {
 		skill("radius", 40),
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidSap", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidBrittle", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidScorch", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidElementalAilments", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {

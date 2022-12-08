@@ -61,10 +61,6 @@ function calcs.defence(env, actor)
 	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
 
 	-- Resistances
-	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
-	output.BasePhysicalDamageReduction = m_min(m_max(0, modDB:Sum("BASE", nil, "PhysicalDamageReduction")), output.DamageReductionMax)
-	output.BasePhysicalDamageReductionWhenHit = m_min(m_max(0, output.BasePhysicalDamageReduction + modDB:Sum("BASE", nil, "PhysicalDamageReductionWhenHit")), output.DamageReductionMax)
-	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "BASE", 100)
 	output["PhysicalResist"] = 0
 
 	-- Highest Maximum Elemental Resistance for Melding of the Flesh
@@ -110,7 +106,7 @@ function calcs.defence(env, actor)
 		
 		local final = m_max(m_min(total, max), min)
 		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
-		output["Base"..elem.."DamageReduction"] = 0
+
 		output[elem.."Resist"] = final
 		output[elem.."ResistTotal"] = total
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
@@ -132,6 +128,14 @@ function calcs.defence(env, actor)
 				"Total: "..totemTotal.."%",
 			}
 		end
+	end
+
+	-- Damage Reduction
+	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
+	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "BASE", 100)
+	for _, damageType in ipairs(dmgTypeList) do
+		output["Base"..damageType.."DamageReduction"] = m_min(m_max(0, modDB:Sum("BASE", nil, damageType.."DamageReduction")), output.DamageReductionMax)
+		output["Base"..damageType.."DamageReductionWhenHit"] = m_min(m_max(0, output["Base"..damageType.."DamageReduction"] + modDB:Sum("BASE", nil, damageType.."DamageReductionWhenHit")), output.DamageReductionMax)
 	end
 
 	-- Block
@@ -894,9 +898,23 @@ function calcs.defence(env, actor)
 	output.AvoidAllDamageFromHitsChance = m_min(modDB:Sum("BASE", nil, "AvoidAllDamageFromHitsChance"), data.misc.AvoidChanceCap)
 	-- other avoidances etc
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
-	for _, ailment in ipairs(data.ailmentTypeList) do
-		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment), 100)
+
+	if modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") then
+		-- Shock avoid conversion from Stormshroud
+		for _, value in ipairs(modDB:Tabulate("BASE",  nil, "AvoidShock")) do
+			if value.mod.value ~= 100 then -- immunity or cannot be ailments don't apply as they have been changed to be unique
+				value.mod.name = "AvoidElementalAilments"
+			end
+		end
 	end
+
+	for _, ailment in ipairs(data.nonElementalAilmentTypeList) do
+		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments"), 100)
+	end
+	for _, ailment in ipairs(data.elementalAilmentTypeList) do
+		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments", "AvoidElementalAilments"), 100)
+	end
+
 	output.CurseAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidCurse"), 100)
 	output.CritExtraDamageReduction = m_min(modDB:Sum("BASE", nil, "ReduceCritExtraDamage"), 100)
 	output.LightRadiusMod = calcLib.mod(modDB, nil, "LightRadius")
@@ -910,8 +928,26 @@ function calcs.defence(env, actor)
 	output.DebuffExpirationModifier = 10000 / (100 + output.DebuffExpirationRate)
 	output.showDebuffExpirationModifier = (output.DebuffExpirationModifier ~= 100)
 	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration")) * output.DebuffExpirationModifier / 100
-	for _, ailment in ipairs(data.ailmentTypeList) do
-		output["Self"..ailment.."Duration"] = modDB:More(nil, "Self"..ailment.."Duration") * (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration")) * 100 / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
+	
+	if modDB:Flag(nil, "IgniteDurationAppliesToElementalAilments") then
+		-- Ignite duration conversion from Firesong
+		for _, value in ipairs(modDB:Tabulate("INC",  nil, "SelfIgniteDuration")) do
+			value.mod.name = "SelfElementalAilmentDuration"
+		end
+		for _, value in ipairs(modDB:Tabulate("MORE",  nil, "SelfIgniteDuration")) do
+			value.mod.name = "SelfElementalAilmentDuration"
+		end
+	end
+
+	for _, ailment in ipairs(data.nonElementalAilmentTypeList) do
+		local more = modDB:More(nil, "Self"..ailment.."Duration", "SelfAilmentDuration")
+		local inc = (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration", "SelfAilmentDuration")) * 100
+		output["Self"..ailment.."Duration"] = inc * more / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
+	end
+	for _, ailment in ipairs(data.elementalAilmentTypeList) do
+		local more = modDB:More(nil, "Self"..ailment.."Duration", "SelfAilmentDuration", "SelfElementalAilmentDuration")
+		local inc = (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration", "SelfAilmentDuration", "SelfElementalAilmentDuration")) * 100
+		output["Self"..ailment.."Duration"] = more * inc / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
 	end
 	for _, ailment in ipairs(data.elementalAilmentTypeList) do
 		output["Self"..ailment.."Effect"] = calcLib.mod(modDB, nil, "Self"..ailment.."Effect") * (modDB:Flag(nil, "Condition:"..ailment.."edSelf") and calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect") or calcLib.mod(enemyDB, nil, "Enemy"..ailment.."Effect")) * 100

@@ -292,8 +292,10 @@ local modNameList = {
 	["to avoid being frozen"] = "AvoidFreeze",
 	["to avoid being chilled"] = "AvoidChill",
 	["to avoid being ignited"] = "AvoidIgnite",
-	["to avoid elemental ailments"] = { "AvoidShock", "AvoidFreeze", "AvoidChill", "AvoidIgnite", "AvoidSap", "AvoidBrittle", "AvoidScorch" },
-	["to avoid elemental status ailments"] = { "AvoidShock", "AvoidFreeze", "AvoidChill", "AvoidIgnite", "AvoidSap", "AvoidBrittle", "AvoidScorch" },
+	["to avoid elemental ailments"] = "AvoidElementalAilments",
+	["to avoid elemental status ailments"] = "AvoidElementalAilments",
+	["to avoid ailments"] = "AvoidAilments" ,
+	["to avoid status ailments"] = "AvoidAilments",
 	["to avoid bleeding"] = "AvoidBleed",
 	["to avoid being poisoned"] = "AvoidPoison",
 	["damage is taken from mana before life"] = "DamageTakenFromManaBeforeLife",
@@ -438,6 +440,7 @@ local modNameList = {
 	["to impale on spell hit"] = { "ImpaleChance", flags = ModFlag.Spell },
 	["impale effect"] = "ImpaleEffect",
 	["effect of impales you inflict"] = "ImpaleEffect",
+	["effects of impale inflicted by spells"] = { "ImpaleEffect", flags = ModFlag.Spell },
 	-- Projectile modifiers
 	["projectile"] = "ProjectileCount",
 	["projectiles"] = "ProjectileCount",
@@ -607,14 +610,14 @@ local modNameList = {
 	["duration of ignites you inflict"] = "EnemyIgniteDuration",
 	["ignite duration on you"] = "SelfIgniteDuration",
 	["duration of ignite on you"] = "SelfIgniteDuration",
-	["duration of elemental ailments"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration", "EnemyScorchDuration", "EnemyBrittleDuration", "EnemySapDuration" },
-	["duration of elemental ailments on you"] = { "SelfShockDuration", "SelfFreezeDuration", "SelfChillDuration", "SelfIgniteDuration", "SelfScorchDuration", "SelfBrittleDuration", "SelfSapDuration" },
-	["duration of elemental status ailments"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration", "EnemyScorchDuration", "EnemyBrittleDuration", "EnemySapDuration" },
-	["duration of ailments"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration", "EnemyPoisonDuration", "EnemyBleedDuration", "EnemyScorchDuration", "EnemyBrittleDuration", "EnemySapDuration" },
-	["duration of ailments on you"] = { "SelfShockDuration", "SelfFreezeDuration", "SelfChillDuration", "SelfIgniteDuration", "SelfPoisonDuration", "SelfBleedDuration", "SelfScorchDuration", "SelfBrittleDuration", "SelfSapDuration" },
-	["elemental ailment duration on you"] = { "SelfShockDuration", "SelfFreezeDuration", "SelfChillDuration", "SelfIgniteDuration", "SelfScorchDuration", "SelfBrittleDuration", "SelfSapDuration" },
-	["duration of ailments you inflict"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration", "EnemyPoisonDuration", "EnemyBleedDuration", "EnemyScorchDuration", "EnemyBrittleDuration", "EnemySapDuration" },
-	["duration of ailments inflicted"] = { "EnemyShockDuration", "EnemyFreezeDuration", "EnemyChillDuration", "EnemyIgniteDuration", "EnemyPoisonDuration", "EnemyBleedDuration", "EnemyScorchDuration", "EnemyBrittleDuration", "EnemySapDuration" },
+	["duration of elemental ailments"] = "EnemyElementalAilmentDuration",
+	["duration of elemental ailments on you"] = "SelfElementalAilmentDuration",
+	["duration of elemental status ailments"] = "EnemyElementalAilmentDuration",
+	["duration of ailments"] = "EnemyAilmentDuration",
+	["duration of ailments on you"] = "SelfAilmentDuration",
+	["elemental ailment duration on you"] = "SelfElementalAilmentDuration",
+	["duration of ailments you inflict"] = "EnemyAilmentDuration",
+	["duration of ailments inflicted"] = "EnemyAilmentDuration",
 	-- Other ailments
 	["to poison"] = "PoisonChance",
 	["to cause poison"] = "PoisonChance",
@@ -1717,6 +1720,11 @@ local specialModList = {
 		mod("ArmourAppliesToLightningDamageTaken", "BASE", num),
 	} end,
 	["maximum damage reduction for any damage type is (%d+)%%"] = function(num) return { mod("DamageReductionMax", "OVERRIDE", num) } end,
+	["gain additional elemental damage reduction equal to half your chaos resistance"] = function(num) return { 
+		mod("FireDamageReduction", "BASE", 1, { type = "PerStat", stat = "ChaosResist", div = 2 }),
+		mod("ColdDamageReduction", "BASE", 1, { type = "PerStat", stat = "ChaosResist", div = 2 }),
+		mod("LightningDamageReduction", "BASE", 1, { type = "PerStat", stat = "ChaosResist", div = 2 })
+	} end,
 	["(%d+)%% of maximum mana is converted to twice that much armour"] = function(num) return {
 		mod("ManaConvertToArmour", "BASE", num),
 	} end,
@@ -2573,8 +2581,10 @@ local specialModList = {
 		flag("CritsDontAlwaysShock"),
 	},
 	["always scorch while affected by anger"] = { mod("EnemyScorchChance", "BASE", 100, { type = "Condition", var = "AffectedByAnger" }) },
-	["always inflict brittle while affected by hatred"] = {	mod("EnemyBrittleChance", "BASE", 100, { type = "Condition", var = "AffectedByHatred" })	},
+	["always inflict brittle while affected by hatred"] = {	mod("EnemyBrittleChance", "BASE", 100, { type = "Condition", var = "AffectedByHatred" }) },
 	["always sap while affected by wrath"] = { mod("EnemySapChance", "BASE", 100, { type = "Condition", var = "AffectedByWrath" }) },
+	["modifiers to ignite duration on you apply to all elemental ailments"] = { flag("IgniteDurationAppliesToElementalAilments") },
+	["chance to avoid being shocked applies to all elemental ailments"] = { flag("ShockAvoidAppliesToElementalAilments") },
 	-- Bleed
 	["melee attacks cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee) },
 	["attacks cause bleeding when hitting cursed enemies"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Attack, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
@@ -2593,6 +2603,7 @@ local specialModList = {
 	["(%d+)%% increased effect of impales inflicted by hits that also inflict bleeding"] = function(num) return {
 		mod("ImpaleEffectOnBleed", "INC", num, nil, 0, KeywordFlag.Hit)
 	} end,
+	["critical strikes with spells inflict impale"] = { mod("ImpaleChance", "BASE", 100, nil, ModFlag.Spell, { type = "Condition", var = "CriticalStrike" }) },
 	-- Poison and Bleed
 	["(%d+)%% increased damage with bleeding inflicted on poisoned enemies"] = function(num) return {
 		mod("Damage", "INC", num, nil, 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Poisoned"})
@@ -2746,6 +2757,7 @@ local specialModList = {
 	},
 	["your maximum endurance charges is equal to your maximum frenzy charges"] = { flag("MaximumEnduranceChargesIsMaximumFrenzyCharges") },
 	["your maximum frenzy charges is equal to your maximum power charges"] = { flag("MaximumFrenzyChargesIsMaximumPowerCharges") },
+	["your curse limit is equal to your maximum power charges"] = { flag("CurseLimitIsMaximumPowerCharges") },
 	["consecrated ground you create while affected by zealotry causes enemies to take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenConsecratedGround", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" }, { type = "Condition", var = "AffectedByZealotry" }) } end,
 	["if you've warcried recently, you and nearby allies have (%d+)%% increased attack, cast and movement speed"] = function(num) return {
 		mod("ExtraAura", "LIST", { mod = mod("Speed", "INC", num) }, { type = "Condition", var = "UsedWarcryRecently" }),
@@ -3211,6 +3223,9 @@ local specialModList = {
 	["immunity to ignite during flask effect"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "UsingFlask"}, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["immunity to bleeding during flask effect"] = { mod("AvoidBleed", "BASE", 100, { type = "Condition", var = "UsingFlask"}, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["immune to curses during flask effect"] = { mod("AvoidCurse", "BASE", 100, { type = "Condition", var = "UsingFlask"}, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["when you kill an enemy affected by a non%-aura hex, become immune to curses for remaining hex duration"] = {
+		flag("Condition:CanBeCurseImmune"),
+	},
 	["immune to freeze, chill, curses and stuns during flask effect"] = {
 		mod("AvoidFreeze", "BASE", 100, { type = "Condition", var = "UsingFlask"}, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
 		mod("AvoidChill", "BASE", 100, { type = "Condition", var = "UsingFlask"}, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
@@ -3585,6 +3600,12 @@ local specialModList = {
 	},
 	["create profane ground instead of consecrated ground"] = { 
 		flag("Condition:CreateProfaneGround"),
+	},
+	["(%d+)%% chance to create profane ground on critical strike if intelligence is your highest attribute"] = {
+		flag("Condition:CreateProfaneGround", { type = "Condition", var = "IntHighestAttribute" }),
+	},
+	["you have consecrated ground around you while stationary if strength is your highest attribute"] = {
+		flag("Condition:OnConsecratedGround", { type = "Condition", var = "StrHighestAttribute" }, { type = "Condition", var = "Stationary" }),
 	},
 	["you count as dual wielding while you are unencumbered"] = { flag("Condition:DualWielding", { type = "Condition", var = "Unencumbered" }) },
 	["dual wielding does not inherently grant chance to block attack damage"] = { flag("Condition:NoInherentBlock") },

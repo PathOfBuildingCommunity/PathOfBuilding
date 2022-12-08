@@ -341,6 +341,7 @@ data.keystones = {
 
 data.ailmentTypeList = { "Bleed", "Poison", "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
 data.elementalAilmentTypeList = { "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
+data.nonElementalAilmentTypeList = { "Bleed", "Poison" }
 
 data.nonDamagingAilment = {
 	["Chill"] = { associatedType = "Cold", alt = false, default = 10, min = 5, max = 30, precision = 0, duration = 2 },
