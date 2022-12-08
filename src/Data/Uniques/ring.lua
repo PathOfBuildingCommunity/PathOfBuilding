@@ -456,10 +456,8 @@ Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Aura Gems
 Socketed Gems Have no Reservation
-{variant:3}Your Blessing Skills are Disabled
-{variant:1}80% reduced Mana Reservation Efficiency of Skills
-{variant:2}80% reduced Reservation Efficiency
-{variant:3}80% reduced Reservation Efficiency of Skills
+Your Blessing Skills are Disabled
+80% reduced Reservation Efficiency of Skills
 ]],[[
 Fated End
 Paua Ring
