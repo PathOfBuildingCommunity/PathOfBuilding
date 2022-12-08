@@ -2008,7 +2008,7 @@ function calcs.perform(env, avoidCache)
 				-- Check if we need to disable a certain curse aura.
 				for _, activeSkill in ipairs(env.player.activeSkillList) do
 					if (activeSkill.buffList[1] and curse.name == activeSkill.buffList[1].name and activeSkill.skillTypes[SkillType.Aura]) then
-						if modDB:Flag(nil, "SelfAurasOnlyAffectYou") then
+						if modDB:Flag(nil, "SelfAurasOnlyAffectYou") and not modDB:Flag({slotName = activeSkill.slotName}, "CurseAurasAlsoAffectYou") then
 							skipAddingCurse = true
 							break
 						end

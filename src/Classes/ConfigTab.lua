@@ -55,7 +55,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, varData.effectBox and 144 or 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 7, function(buf, placeholder)
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 7, function(buf, placeholder)
 					if placeholder then
 						self.placeholder[varData.var] = tonumber(buf)
 					else
@@ -236,33 +236,12 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			if varData.tooltipFunc then
 				control.tooltipFunc = varData.tooltipFunc
 			end
-			local effectBox = nil
-			if varData.effectBox then
-				effectBox = new("EditControl", {"TOPLEFT",control,"TOPLEFT"}, 94, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 7, function(buf, placeholder)
-					if placeholder then
-						self.placeholder[varData.effectBox.var] = tonumber(buf)
-					else
-						self.input[varData.effectBox.var] = tonumber(buf)
-						self:AddUndoState()
-						self:BuildModList()
-					end
-					self.build.buildFlag = true
-				end)
-				effectBox.tooltipText = "Sets the increased effect of " .. varData.label:gsub(":", "") .. " applied to the player"
-				control.effectBox = effectBox
-				self.input[varData.effectBox.var] = varData.effectBox.defaultState
-				self.varControls[varData.effectBox.var] = effectBox
-				self.placeholder[varData.effectBox.var] = varData.effectBox.defaultPlaceholderState
-				effectBox.placeholder = varData.effectBox.defaultPlaceholderState
-				t_insert(self.controls, effectBox)
-			end
 			if varData.removeBox then
-				t_insert(self.controls, new("ButtonControl", {"LEFT",effectBox or control,"RIGHT"}, 4, 0, 20, 20, "x", function()
+				t_insert(self.controls, new("ButtonControl", {"LEFT",control,"RIGHT"}, 4, 0, 20, 20, "x", function()
 					self:AddUndoState()
 					control.shown = false
 					self:BuildModList()
 					self.build.buildFlag = true
-					self.input[varData.effectBox.var] = varData.effectBox.defaultState
 					self.input[varData.var] = varData.defaultState
 					self:UpdateControls()
 				end))
@@ -555,21 +534,21 @@ function ConfigTabClass:BuildModList()
 		if varData.apply then
 			if varData.type == "check" then
 				if input[varData.var] then
-					varData.apply(true, modList, enemyModList, self.build, varData.effectBox and input[varData.effectBox.var])
+					varData.apply(true, modList, enemyModList, self.build)
 				end
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
 				if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero") then
-					varData.apply(input[varData.var], modList, enemyModList, self.build, varData.effectBox and input[varData.effectBox.var])
+					varData.apply(input[varData.var], modList, enemyModList, self.build)
 				elseif placeholder[varData.var] and (placeholder[varData.var] ~= 0 or varData.type == "countAllowZero") then
-					varData.apply(placeholder[varData.var], modList, enemyModList, self.build, varData.effectBox and input[varData.effectBox.var])
+					varData.apply(placeholder[varData.var], modList, enemyModList, self.build)
 				end
 			elseif varData.type == "list" then
 				if input[varData.var] then
-					varData.apply(input[varData.var], modList, enemyModList, self.build, varData.effectBox and input[varData.effectBox.var])
+					varData.apply(input[varData.var], modList, enemyModList, self.build)
 				end
 			elseif varData.type == "text" then
 				if input[varData.var] then
-					varData.apply(input[varData.var], modList, enemyModList, self.build, varData.effectBox and input[varData.effectBox.var])
+					varData.apply(input[varData.var], modList, enemyModList, self.build)
 				end
 			end
 		end
