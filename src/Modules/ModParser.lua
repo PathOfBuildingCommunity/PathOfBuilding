@@ -2138,6 +2138,9 @@ local specialModList = {
 	} end,
 	-- Item local modifiers
 	["has no sockets"] = { flag("NoSockets") },
+	["reflects your other ring"] = { 
+		-- Display only. For Kalandra's Touch.
+	},
 	["has (%d+) sockets?"] = function(num) return { mod("SocketCount", "BASE", num) } end,
 	["has (%d+) abyssal sockets?"] = function(num) return { mod("AbyssalSocketCount", "BASE", num) } end,
 	["no physical damage"] = { mod("WeaponData", "LIST", { key = "PhysicalMin" }), mod("WeaponData", "LIST", { key = "PhysicalMax" }), mod("WeaponData", "LIST", { key = "PhysicalDPS" }) },
