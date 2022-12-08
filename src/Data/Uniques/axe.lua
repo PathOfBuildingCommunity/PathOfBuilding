@@ -14,16 +14,13 @@ Critical Strike Chance is (20-30)% for Hits with this Weapon
 ]],[[
 Dreadarc
 Cleaver
-Variant: Pre 2.6.0
-Variant: Current
 Implicits: 0
 Adds (5-15) to (20-25) Physical Damage
 Adds (5-15) to (20-25) Fire Damage
 (7-10)% increased Attack Speed
 +(15-25)% to Fire Resistance
 5% increased Movement Speed
-{variant:1}Curse Enemies with Flammability on Hit
-{variant:2}Curse Enemies with Flammability on Hit, with 40% increased Effect
+Curse Enemies with Flammability on Hit
 ]],[[
 Dreadsurge
 Cleaver
@@ -141,11 +138,14 @@ Adds (50-70) to (135-165) Physical Damage
 Soul Taker
 Siege Axe
 Variant: Pre 1.0.0
+Variant: Pre 3.20.0
 Variant: Current
 Implicits: 0
 {variant:1}(160-200)% increased Physical Damage
 {variant:2}(100-140)% increased Physical Damage
-Adds 10 to 20 Physical Damage
+{variant:3}(140-180)% increased Physical Damage
+{variant:1,2}Adds 10 to 20 Physical Damage
+{variant:3}Adds 30 to 40 Physical Damage
 (20-25)% increased Attack Speed
 +(20-25)% to Cold Resistance
 Insufficient Mana doesn't prevent your Melee Attacks
@@ -154,6 +154,7 @@ Your Physical Damage can Chill
 Replica Soul Taker
 Siege Axe
 League: Heist
+Source: No longer obtainable
 Implicits: 0
 (100-140)% increased Physical Damage
 Adds 10 to 20 Physical Damage
@@ -168,16 +169,20 @@ Atziri's Disfavour
 Vaal Axe
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
 Variant: Pre 3.11.0
+Variant: Pre 3.20.0
 Variant: Current
 LevelReq: 75
 Implicits: 1
-{variant:2}25% chance to Maim on Hit
-+2 to Level of Socketed Support Gems
+{variant:2,3}25% chance to Maim on Hit
+{variant:1,2}+2 to Level of Socketed Support Gems
+{variant:3}+30% to Quality of Socketed Support Gems
 {variant:1}Adds (220-235) to (270-290) Physical Damage
 {variant:2}Adds (205-220) to (250-270) Physical Damage
+{variant:3}Adds (310-330) to (370-390) Physical Damage
 (12-16)% increased Attack Speed
 25% chance to cause Bleeding on Hit
-+2 to Weapon Range
+{variant:1,2}+2 to Weapon Range
+{variant:3}+10 to Weapon Range
 ]],[[
 The Blood Reaper
 Headsman Axe
@@ -253,26 +258,28 @@ Culling Strike
 ]],[[
 Kingmaker
 Despot Axe
-Source: Vendor recipe
+Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.16.0
+Variant: Pre 3.20.0
 Variant: Current
 Implicits: 0
 {variant:1,2}(200-250)% increased Physical Damage
 {variant:3}(250-285)% increased Physical Damage
 {variant:4}(170-200)% increased Physical Damage
 {variant:5}(190-240)% increased Physical Damage
+{variant:6}(300-360)% increased Physical Damage
 (7-12)% increased Attack Speed
-{variant:2,3,4,5}(30-40)% increased Critical Strike Chance
+{variant:2,3,4,5,6}(30-40)% increased Critical Strike Chance
 {variant:1}+(100-150) to maximum Mana
 Nearby Allies have 30% increased Item Rarity
 Nearby Allies have Culling Strike
-{variant:2,3,4,5}Insufficient Mana doesn't prevent your Melee Attacks
-{variant:3,4,5}Nearby Allies have +50% to Critical Strike Multiplier
+{variant:2,3,4,5,6}Insufficient Mana doesn't prevent your Melee Attacks
+{variant:3,4,5,6}Nearby Allies have +50% to Critical Strike Multiplier
 {variant:3,4}Nearby Allies have +1 Fortification
-{variant:5}Nearby Allies have +10 Fortification
+{variant:5,6}Nearby Allies have +10 Fortification
 ]],[[
 Kitava's Feast
 Void Axe
@@ -280,7 +287,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 0
-Socketed Gems are supported by Level 25 Melee Splash
+Socketed Gems are supported by Level 30 Melee Splash
 {variant:1}(250-300)% increased Physical Damage
 {variant:2}(265-330)% increased Physical Damage
 {variant:3}(200-240)% increased Physical Damage
@@ -359,7 +366,7 @@ Upgrade: Upgrades to unique{Uul-Netol's Embrace} using currency{Blessing of Uul-
 Implicits: 0
 (140-170)% increased Physical Damage
 15% reduced Attack Speed
-25% chance to Curse Enemies with Vulnerability on Hit, with 40% increased Effect
+25% chance to Curse Enemies with Vulnerability on Hit
 Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
 ]],[[
 Uul-Netol's Embrace

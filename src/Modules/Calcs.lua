@@ -73,9 +73,9 @@ local function getCalculator(build, fullInit, modFunc)
 
 	-- Run base calculation pass
 	calcs.perform(env)
-	GlobalCache.dontUseCache = true
+	GlobalCache.noCache = true
 	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
-	GlobalCache.dontUseCache = nil
+	GlobalCache.noCache = nil
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
 	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
@@ -132,7 +132,7 @@ function calcs.getMiscCalculator(build)
 
 	return function(override, accelerate)
 		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
-		GlobalCache.dontUseCache = true
+		GlobalCache.noCache = true
 		-- we need to preserve the override somewhere for use by possible trigger-based build-outs with overrides
 		env.override = override
 		calcs.perform(env, true)
@@ -146,7 +146,7 @@ function calcs.getMiscCalculator(build)
 			env.player.output.FullDPS = fullDPS.combinedDPS
 			env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 		end
-		GlobalCache.dontUseCache = nil
+		GlobalCache.noCache = nil
 		return env.player.output
 	end, baseOutput	
 end
@@ -207,19 +207,19 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
 				local cachedData = getCachedData(activeSkill, mode)
-				if cachedData and next(override) == nil and not GlobalCache.dontUseCache then
+				if cachedData and next(override) == nil and not GlobalCache.noCache then
 					usedEnv = cachedData.Env
 					activeSkill = usedEnv.player.mainSkill
 				else
 					local forceCache = false
-					if GlobalCache.dontUseCache then 
+					if GlobalCache.noCache then 
 						forceCache = true
-						GlobalCache.dontUseCache = nil
+						GlobalCache.noCache = nil
 					end
 					fullEnv.player.mainSkill = activeSkill
 					calcs.perform(fullEnv, true)
 					usedEnv = fullEnv
-					GlobalCache.dontUseCache = forceCache
+					GlobalCache.noCache = forceCache
 				end
 				local minionName = nil
 				if activeSkill.minion or usedEnv.minion then
@@ -423,9 +423,9 @@ function calcs.buildOutput(build, mode)
 	end
 
 	-- Build output across all skills added to FullDPS skills
-	GlobalCache.dontUseCache = true
+	GlobalCache.noCache = true
 	local fullDPS = calcs.calcFullDPS(build, "CACHE", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
-	GlobalCache.dontUseCache = nil
+	GlobalCache.noCache = nil
 
 	-- Add Full DPS data to main `env`
 	env.player.output.SkillDPS = fullDPS.skills

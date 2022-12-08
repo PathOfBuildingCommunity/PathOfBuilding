@@ -3823,13 +3823,14 @@ return {
 		name = "Poacher's Mark",
 		grantedEffectId = "PoachersMark",
 		tags = {
+			physical = true,
 			dexterity = true,
 			active_skill = true,
 			spell = true,
 			curse = true,
 			mark = true,
 		},
-		tagString = "Spell, Curse, Mark",
+		tagString = "Physical, Spell, Curse, Mark",
 		reqStr = 0,
 		reqDex = 100,
 		reqInt = 0,
@@ -6372,7 +6373,7 @@ return {
 		defaultLevel = 20,
 	},
 	["Metadata/Items/Gems/SupportGemBarrage"] = {
-		name = "Barrage",
+		name = "Barrage Support",
 		grantedEffectId = "SupportBarrage",
 		tags = {
 			bow = true,

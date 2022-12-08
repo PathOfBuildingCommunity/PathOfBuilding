@@ -59,7 +59,6 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("DamageTaken", "INC", 10, "Base", ModFlag.Spell, { type = "Condition", var = "Unnerved"})
 	modDB:NewMod("Damage", "MORE", -10, "Base", { type = "Condition", var = "Debilitated"})
 	modDB:NewMod("Condition:Burning", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "Condition", var = "Ignited" })
-	modDB:NewMod("Condition:Chilled", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "Condition", var = "Frozen" })
 	modDB:NewMod("Condition:Poisoned", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "MultiplierThreshold", var = "PoisonStack", threshold = 1 })
 	modDB:NewMod("Blind", "FLAG", true, "Base", { type = "Condition", var = "Blinded" })
 	modDB:NewMod("Chill", "FLAG", true, "Base", { type = "Condition", var = "Chilled" })
@@ -421,9 +420,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
-		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", env.spec.allocatedNotableCount, "")
-		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", env.spec.allocatedMasteryCount, "")
-		modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", env.spec.allocatedMasteryTypeCount, "")
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
@@ -476,6 +472,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
 
+	local allocatedNotableCount = env.spec.allocatedNotableCount
+	local allocatedMasteryCount = env.spec.allocatedMasteryCount
+	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
+	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
 	if not accelerate.nodeAlloc then
 		-- Build list of passive nodes
 		local nodes
@@ -484,11 +484,38 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if override.addNodes then
 				for node in pairs(override.addNodes) do
 					nodes[node.id] = node
+					if node.type == "Mastery" then
+						allocatedMasteryCount = allocatedMasteryCount + 1
+
+						if not allocatedMasteryTypes[node.name] then
+							allocatedMasteryTypes[node.name] = 1
+							allocatedMasteryTypeCount = allocatedMasteryTypeCount + 1
+						else
+							local prevCount = allocatedMasteryTypes[node.name]
+							allocatedMasteryTypes[node.name] = prevCount + 1
+							if prevCount == 0 then
+								allocatedMasteryTypeCount = allocatedMasteryTypeCount + 1
+							end
+						end
+					elseif node.type == "Notable" then
+						allocatedNotableCount = allocatedNotableCount + 1
+					end
 				end
 			end
 			for _, node in pairs(env.spec.allocNodes) do
 				if not override.removeNodes or not override.removeNodes[node] then
 					nodes[node.id] = node
+				elseif override.removeNodes[node] then
+					if node.type == "Mastery" then
+						allocatedMasteryCount = allocatedMasteryCount - 1
+
+						allocatedMasteryTypes[node.name] = allocatedMasteryTypes[node.name] - 1
+						if allocatedMasteryTypes[node.name] == 0 then
+							allocatedMasteryTypeCount = allocatedMasteryTypeCount - 1
+						end
+					elseif node.type == "Notable" then
+						allocatedNotableCount = allocatedNotableCount - 1
+					end
 				end
 			end
 		else
@@ -496,6 +523,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		env.allocNodes = nodes
 	end
+	
+	modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount, "")
+	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount, "")
+	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount, "")
 
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
@@ -513,7 +544,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			else
 				item = build.itemsTab.items[slot.selItemId]
 			end
-			if item then
+			if item and item.grantedSkills then
 				-- Find skills granted by this item
 				for _, skill in ipairs(item.grantedSkills) do
 					local grantedSkill = copyTable(skill)
@@ -595,7 +626,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if item then
 				env.player.itemList[slotName] = item
 				-- Merge mods for this item
-				local srcList = item.modList or item.slotModList[slot.slotNum]
+				local srcList = item.modList or (item.slotModList and item.slotModList[slot.slotNum]) or {}
 				if item.requirements and not accelerate.requirementsItems then
 					t_insert(env.requirementsTableItems, {
 						source = "Item",
@@ -766,7 +797,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
 			local node = env.spec.tree.notableMap[passive]
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
-				env.allocNodes[node.id] = env.spec.nodes[node.id] -- use the conquered node data, if available
+				env.allocNodes[node.id] = env.spec.nodes[node.id] or node -- use the conquered node data, if available
 				env.grantedPassives[node.id] = true
 			end
 		end

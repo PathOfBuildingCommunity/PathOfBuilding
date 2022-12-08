@@ -220,6 +220,9 @@ return {
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
 },
+["poison_duration_is_skill_duration"] = {
+	skill("poisonIsSkillEffect", true),
+},
 ["area_of_effect_+%_while_not_dual_wielding"] = {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
@@ -1661,6 +1664,10 @@ return {
 },
 ["banner_area_of_effect_+%_per_stage"] = {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
+},
+["banner_additional_base_duration_per_stage_ms"] = {
+	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
+	div = 1000,
 },
 -- Other
 ["triggered_skill_damage_+%"] = {

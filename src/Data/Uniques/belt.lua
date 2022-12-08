@@ -151,7 +151,7 @@ Implicits: 1
 {tags:speed}(5-10)% increased Movement Speed
 Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
 {variant:2}{tags:life}You count as on Full Life while you are Cursed with Vulnerability
-{tags:caster}You are cursed with Vulnerability, with 40% increased Effect
+{tags:caster}You are cursed with Vulnerability
 ]],[[
 Coward's Legacy
 Chain Belt
@@ -164,7 +164,7 @@ Implicits: 1
 {tags:speed}(5-10)% increased Movement Speed
 {tags:caster}50% increased Effect of Curses on you
 {tags:life}You count as on Low Life while you are Cursed with Vulnerability
-{tags:caster}You are Cursed with Vulnerability, with 80% increased Effect
+{tags:caster}You are Cursed with Vulnerability
 ]],[[
 Cyclopean Coil
 Leather Belt
@@ -632,7 +632,7 @@ Enemies Shocked by you have (10-15)% of Physical Damage they deal converted to L
 The Retch
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
-Source: Vendor recipe
+Source: Vendor Recipe
 LevelReq: 44
 Implicits: 1
 {tags:physical}(12-24)% increased Global Physical Damage

@@ -38,6 +38,7 @@ skills["AlchemistsMark"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
+		skill("radius", 20),
 	},
 	qualityStats = {
 		Default = {
@@ -311,10 +312,16 @@ skills["ArcticArmour"] = {
 		["new_arctic_armour_fire_damage_taken_when_hit_+%_final"] = {
 			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "Condition", var = "Stationary" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["base_immune_to_freeze"] = {
+			--Display only
+		},
 	},
 	baseFlags = {
 		spell = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -330,6 +337,7 @@ skills["ArcticArmour"] = {
 	},
 	constantStats = {
 		{ "arctic_armour_chill_when_hit_duration", 500 },
+		{ "ground_ice_art_variation", 6 },
 	},
 	stats = {
 		"new_arctic_armour_physical_damage_taken_when_hit_+%_final",
@@ -2253,14 +2261,18 @@ skills["Cyclone"] = {
 		},
 	},
 	initialFunc = function(activeSkill, output)
-		local rangePlus = 0
-		if activeSkill.skillFlags.weapon1Attack then
-			rangePlus = math.max(rangePlus, activeSkill.actor.weaponData1.range and activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") or activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange"))
+		local range = 0
+		if activeSkill.skillFlags.weapon1Attack and activeSkill.actor.weaponData1.range then
+			local weapon1RangeBonus = activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData1.rangeBonus
+			if activeSkill.skillFlags.weapon2Attack and activeSkill.actor.weaponData2.range then -- dual wield average
+				range = (weapon1RangeBonus + activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData2.rangeBonus) / 2
+			else -- primary hand attack
+				range = weapon1RangeBonus
+			end
+		else -- unarmed
+			range = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange")
 		end
-		if activeSkill.skillFlags.weapon2Attack then
-			rangePlus = math.max(rangePlus, activeSkill.actor.weaponData2.range and activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") or activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange"))
-		end
-		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", rangePlus, "Skill:Cyclone")
+		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
 	baseFlags = {
 		attack = true,
@@ -2371,14 +2383,18 @@ skills["VaalCyclone"] = {
 		},
 	},
 	initialFunc = function(activeSkill, output)
-		local rangePlus = 0
-		if activeSkill.skillFlags.weapon1Attack then
-			rangePlus = math.max(rangePlus, activeSkill.actor.weaponData1.range and activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") or activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange"))
+		local range = 0
+		if activeSkill.skillFlags.weapon1Attack and activeSkill.actor.weaponData1.range then
+			local weapon1RangeBonus = activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData1.rangeBonus
+			if activeSkill.skillFlags.weapon2Attack and activeSkill.actor.weaponData2.range then -- dual wield average
+				range = (weapon1RangeBonus + activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData2.rangeBonus) / 2
+			else -- primary hand attack
+				range = weapon1RangeBonus
+			end
+		else -- unarmed
+			range = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange")
 		end
-		if activeSkill.skillFlags.weapon2Attack then
-			rangePlus = math.max(rangePlus, activeSkill.actor.weaponData2.range and activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") or activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange"))
-		end
-		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", rangePlus, "Skill:Cyclone")
+		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
 	baseFlags = {
 		attack = true,
@@ -3134,9 +3150,9 @@ skills["ElementalHit"] = {
 		projectile = true,
 	},
 	baseMods = {
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 2 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 4 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 6 }),
+		mod("AreaOfEffect", "MORE", 224, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 2 }),
+		mod("AreaOfEffect", "MORE", 224, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 4 }),
+		mod("AreaOfEffect", "MORE", 224, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 6 }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
@@ -4693,6 +4709,10 @@ skills["Hatred"] = {
 		},
 		["hatred_aura_cold_damage_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["chill_and_freeze_duration_+%"] = {
+			mod("EnemyChillDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("EnemyFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["movement_velocity_+%_on_chilled_ground"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, {type = "Condition", var = "OnChilledGround"})
@@ -6626,10 +6646,16 @@ skills["ColdImpurity"] = {
 	castTime = 0,
 	statMap = {
 		["hits_ignore_my_cold_resistance"] = {
-			flag("SelfIgnoreColdResistance", { type = "GlobalEffect", effectType = "Debuff" }),
+			flag("SelfIgnoreColdResistance", { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 		["base_maximum_cold_damage_resistance_%"] = {
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_immune_to_freeze"] = {
+			--Display only
+		},
+		["base_immune_to_chill"] = {
+			--Display only
 		},
 	},
 	baseFlags = {
@@ -6637,6 +6663,10 @@ skills["ColdImpurity"] = {
 		aura = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -8893,9 +8923,6 @@ skills["ViperStrike"] = {
 		melee = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("poisonIsSkillEffect", true),
-	},
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
@@ -9106,6 +9133,7 @@ skills["WhirlingBlades"] = {
 	},
 	constantStats = {
 		{ "additional_weapon_base_attack_time_ms", 600 },
+		{ "animation_effect_variation", -1 },
 	},
 	stats = {
 		"ignores_proximity_shield",
