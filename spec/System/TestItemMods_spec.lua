@@ -101,5 +101,30 @@ describe("TetsItemMods", function()
 
         assert.is_true(build.calcsTab.mainEnv.keystonesAdded["Vaal Pact"])
         assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("BASE", build.calcsTab.mainEnv.player.mainSkill.skillCfg, "PhysicalDamageGainAsFire") > 0)
+        
+    it("Kalandra's Touch mod copy", function()
+        local initialInt = build.calcsTab.mainOutput.Int
+
+        build.itemsTab:CreateDisplayItemFromRaw([[New Item
+        Ring
+        Quality: 0
+        LevelReq: 35
+        Implicits: 0
+        +30 to Intelligence]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        local genericRingInt = build.calcsTab.mainOutput.Int
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Kalandra's Touch
+        Iron Ring
+        League: Kalandra
+        Implicits: 0
+        Reflects your other Ring
+        Mirrored]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+        
+        assert.are.equals(genericRingInt - initialInt, build.calcsTab.mainOutput.Int - genericRingInt)
     end)
 end)

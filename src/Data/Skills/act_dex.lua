@@ -316,12 +316,12 @@ skills["ArcticArmour"] = {
 			--Display only
 		},
 	},
-	baseMods = {
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
-	},
 	baseFlags = {
 		spell = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -337,6 +337,7 @@ skills["ArcticArmour"] = {
 	},
 	constantStats = {
 		{ "arctic_armour_chill_when_hit_duration", 500 },
+		{ "ground_ice_art_variation", 6 },
 	},
 	stats = {
 		"new_arctic_armour_physical_damage_taken_when_hit_+%_final",
@@ -2260,14 +2261,18 @@ skills["Cyclone"] = {
 		},
 	},
 	initialFunc = function(activeSkill, output)
-		local rangePlus = 0
-		if activeSkill.skillFlags.weapon1Attack then
-			rangePlus = math.max(rangePlus, activeSkill.actor.weaponData1.range and activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") or activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange"))
+		local range = 0
+		if activeSkill.skillFlags.weapon1Attack and activeSkill.actor.weaponData1.range then
+			local weapon1RangeBonus = activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData1.rangeBonus
+			if activeSkill.skillFlags.weapon2Attack and activeSkill.actor.weaponData2.range then -- dual wield average
+				range = (weapon1RangeBonus + activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData2.rangeBonus) / 2
+			else -- primary hand attack
+				range = weapon1RangeBonus
+			end
+		else -- unarmed
+			range = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange")
 		end
-		if activeSkill.skillFlags.weapon2Attack then
-			rangePlus = math.max(rangePlus, activeSkill.actor.weaponData2.range and activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") or activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange"))
-		end
-		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", rangePlus, "Skill:Cyclone")
+		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
 	baseFlags = {
 		attack = true,
@@ -2378,14 +2383,18 @@ skills["VaalCyclone"] = {
 		},
 	},
 	initialFunc = function(activeSkill, output)
-		local rangePlus = 0
-		if activeSkill.skillFlags.weapon1Attack then
-			rangePlus = math.max(rangePlus, activeSkill.actor.weaponData1.range and activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") or activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange"))
+		local range = 0
+		if activeSkill.skillFlags.weapon1Attack and activeSkill.actor.weaponData1.range then
+			local weapon1RangeBonus = activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData1.rangeBonus
+			if activeSkill.skillFlags.weapon2Attack and activeSkill.actor.weaponData2.range then -- dual wield average
+				range = (weapon1RangeBonus + activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData2.rangeBonus) / 2
+			else -- primary hand attack
+				range = weapon1RangeBonus
+			end
+		else -- unarmed
+			range = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange")
 		end
-		if activeSkill.skillFlags.weapon2Attack then
-			rangePlus = math.max(rangePlus, activeSkill.actor.weaponData2.range and activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") or activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange"))
-		end
-		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", rangePlus, "Skill:Cyclone")
+		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
 	baseFlags = {
 		attack = true,
@@ -3141,9 +3150,9 @@ skills["ElementalHit"] = {
 		projectile = true,
 	},
 	baseMods = {
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 2 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 4 }),
-		mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 6 }),
+		mod("AreaOfEffect", "MORE", 224, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 2 }),
+		mod("AreaOfEffect", "MORE", 224, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Chilled", "Frozen", "Brittle" } }, { type = "SkillPart", skillPart = 4 }),
+		mod("AreaOfEffect", "MORE", 224, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Shocked", "Sapped" } }, { type = "SkillPart", skillPart = 6 }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
 		mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
@@ -3851,6 +3860,23 @@ skills["FlamethrowerTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output, breakdown)
+		-- many unknown stats. can't calculate DPS
+		local t_insert = table.insert
+		local s_format = string.format
+
+		local duration = output.Duration
+		local cooldown = output.TrapCooldown
+		local averageActiveTraps = duration / cooldown
+		output.AverageActiveTraps = averageActiveTraps
+		if breakdown then
+			breakdown.AverageActiveTraps = { }
+			t_insert(breakdown.AverageActiveTraps, "Average active traps, not considering stored cooldown uses:")
+			t_insert(breakdown.AverageActiveTraps, s_format("%.2f^8 (skill duration)", duration))
+			t_insert(breakdown.AverageActiveTraps, s_format("/ %.2f^8 (cooldown)", cooldown))
+			t_insert(breakdown.AverageActiveTraps, s_format("= %.2f traps", averageActiveTraps))
+		end
+	end,
 	statMap = {
 		["flamethrower_trap_damage_+%_final_vs_burning_enemies"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
@@ -4339,13 +4365,7 @@ skills["Grace"] = {
 			mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["avoid_all_elemental_status_%"] = {
-			mod("AvoidShock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			mod("AvoidChill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			mod("AvoidIgnite", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			mod("AvoidSap", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			mod("AvoidBrittle", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			mod("AvoidScorch", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("AvoidElementalAilments", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["avoid_chaos_damage_%"] = {
 			mod("AvoidChaosDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
@@ -6649,15 +6669,15 @@ skills["ColdImpurity"] = {
 			--Display only
 		},
 	},
-	baseMods = {
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-	},
 	baseFlags = {
 		spell = true,
 		aura = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -7399,6 +7419,148 @@ skills["PhysCascadeTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "One wave hitting",
+		},
+		{
+			name = "Average waves hitting configured size enemy",
+		},
+		{
+			name = "All waves hitting",
+		},
+		{
+			name = "Average active traps, one wave",
+		},
+		{
+			name = "Average active traps, average waves",
+		},
+		{
+			name = "Average active traps, all waves",
+		},
+	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillCfg = activeSkill.skillCfg
+		local skillData = activeSkill.skillData
+		local skillPart = activeSkill.skillPart
+		local skillModList = activeSkill.skillModList
+		local t_insert = table.insert
+		local s_format = string.format
+
+		local baseInterval = skillData.repeatInterval
+		local incFrequency = (1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed", "SeismicPulseFrequency") / 100)
+		local moreFrequency = skillModList:More(skillCfg, "TrapThrowingSpeed", "SeismicPulseFrequency")
+		local wavePulseRate = incFrequency * moreFrequency / baseInterval
+		skillData.hitTimeOverride = 1 / wavePulseRate
+		output.WavePulseRate = wavePulseRate
+		local moreDuration = skillModList:More(skillCfg, "Duration")
+		local duration = output.Duration
+		local pulses = math.floor(duration * wavePulseRate)
+		output.PulsesPerTrap = pulses
+		local effectiveDuration = pulses / wavePulseRate
+		local cooldown = output.TrapCooldown
+		local averageActiveTraps = effectiveDuration / cooldown
+		output.AverageActiveTraps = averageActiveTraps
+		local function hitChance(enemyRadius, areaDamageRadius, areaSpreadRadius) -- not to be confused with attack hit chance
+			local damagingAreaRadius = areaDamageRadius + enemyRadius - 1	-- radius where area damage can land to hit the enemy;
+			-- -1 because of two assumptions: PoE coordinates are integers and damage is not registered if the two areas only share a point or vertex. If either is not correct, then -1 is not needed.
+			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
+		end
+		local enemyRadius = skillModList:Sum("BASE", skillCfg, "EnemyRadius")
+		local waveRadius = output.AreaOfEffectRadiusSecondary
+		local fullRadius = output.AreaOfEffectRadius
+		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
+		output.OverlapChance = overlapChance * 100
+		if breakdown then
+			breakdown.OverlapChance = { }
+			t_insert(breakdown.OverlapChance, "Chance for individual wave to land within range to damage enemy:")
+			t_insert(breakdown.OverlapChance, "^8= (area where wave can spawn to damage enemy) / (total area)")
+			t_insert(breakdown.OverlapChance, "^8= (^7secondary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7radius^8 ^ 2")
+			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 + ^7%d^8 - 1) ^ 2 / ^7%d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
+			t_insert(breakdown.OverlapChance, s_format("^8= ^7%.3f^8%%", overlapChance * 100))
+			breakdown.WavePulseRate = { }
+			t_insert(breakdown.WavePulseRate, "Pulse rate:")
+			t_insert(breakdown.WavePulseRate, s_format("%.2f ^8(base pulse rate)", 1 / baseInterval))
+			t_insert(breakdown.WavePulseRate, s_format("* %.2f ^8(increased/reduced pulse frequency)", incFrequency))
+			t_insert(breakdown.WavePulseRate, s_format("* %.2f ^8(more/less pulse frequency)", moreFrequency))
+			t_insert(breakdown.WavePulseRate, s_format("= %.2f^8/s", wavePulseRate))
+			breakdown.PulsesPerTrap = { }
+			t_insert(breakdown.PulsesPerTrap, "Pulses per trap:")
+			t_insert(breakdown.PulsesPerTrap, s_format("%.3f ^8(skill duration)", duration))
+			t_insert(breakdown.PulsesPerTrap, s_format("* %.2f ^8(pulse rate)", wavePulseRate))
+			t_insert(breakdown.PulsesPerTrap, s_format("= %.2f ^8pulses", duration * wavePulseRate))
+			t_insert(breakdown.PulsesPerTrap, "^8rounded down")
+			t_insert(breakdown.PulsesPerTrap, s_format("= %d ^8pulses", pulses))
+			t_insert(breakdown.PulsesPerTrap, s_format("^8Next breakpoint: %d%% increased Trap Throwing Speed / %d%% increased Duration", math.ceil(100 * (incFrequency * (pulses + 1) / (duration * wavePulseRate) - incFrequency)), math.ceil(100 * ((pulses + 1) / wavePulseRate / skillData.duration / moreDuration  - output.DurationMod / moreDuration ))))
+			t_insert(breakdown.PulsesPerTrap, s_format("^8Previous breakpoint: %d%% reduced Trap Throwing Speed / %d%% reduced Duration", -math.ceil(100 * (incFrequency * pulses / (duration * wavePulseRate) - incFrequency) - 1), -math.ceil(100 * (pulses / wavePulseRate / skillData.duration - output.DurationMod - 0.01) * moreDuration)))
+			breakdown.AverageActiveTraps = { }
+			t_insert(breakdown.AverageActiveTraps, "Average active traps, not considering stored cooldown uses:")
+			t_insert(breakdown.AverageActiveTraps, s_format("%.2f^8 / ^7%.2f^8 (pulses / pulse rate = effective skill duration)", pulses, wavePulseRate))
+			t_insert(breakdown.AverageActiveTraps, s_format("/ %.2f ^8(cooldown)", cooldown))
+			t_insert(breakdown.AverageActiveTraps, s_format("= %.2f traps", averageActiveTraps))
+		end
+		local maxWaves = skillModList:Sum("BASE", skillCfg, "MaximumWaves")
+		local dpsMultiplier = 1
+		if skillPart == 2 then
+			dpsMultiplier = maxWaves * overlapChance
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7maximum waves^8 * ^7overlap chance^8")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%d^8 * ^7%.2f^8", maxWaves, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.3f", dpsMultiplier))
+			end
+		elseif skillPart == 3 then
+			dpsMultiplier = maxWaves
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%d (maximum waves)", dpsMultiplier))
+			end
+		elseif skillPart == 4 then
+			dpsMultiplier = averageActiveTraps
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.2f (average active traps)", dpsMultiplier))
+			end
+		elseif skillPart == 5 then
+			dpsMultiplier = averageActiveTraps * maxWaves * overlapChance
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7average active traps^8 * ^7maximum waves^8 * ^7overlap chance^8")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.2f^8 * ^7%d^8 * ^7%.2f", averageActiveTraps, maxWaves, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.3f", dpsMultiplier))
+			end
+		elseif skillPart == 6 then
+			dpsMultiplier = averageActiveTraps * maxWaves
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7average active traps^8 * ^7maximum waves")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.2f^8 * ^7%d", averageActiveTraps, maxWaves))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.3f", dpsMultiplier))
+			end
+		end
+		if dpsMultiplier ~= 1 then
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMultiplier
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
+		end
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {},
+		["phys_cascade_trap_base_interval_duration_ms"] = {
+			skill("repeatInterval", nil),
+			div = 1000,
+		},
+		["phys_cascade_trap_number_of_cascades"] = {
+			mod("MaximumWaves", "BASE", nil),
+		},
+		["seismic_trap_frequency_+%"] = {
+			mod("SeismicPulseFrequency", "INC", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -8914,9 +9076,6 @@ skills["ViperStrike"] = {
 		melee = true,
 		duration = true,
 	},
-	baseMods = {
-		skill("poisonIsSkillEffect", true),
-	},
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
@@ -9127,6 +9286,7 @@ skills["WhirlingBlades"] = {
 	},
 	constantStats = {
 		{ "additional_weapon_base_attack_time_ms", 600 },
+		{ "animation_effect_variation", -1 },
 	},
 	stats = {
 		"ignores_proximity_shield",

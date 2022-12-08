@@ -220,6 +220,9 @@ return {
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
 },
+["poison_duration_is_skill_duration"] = {
+	skill("poisonIsSkillEffect", true),
+},
 ["area_of_effect_+%_while_not_dual_wielding"] = {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
@@ -909,24 +912,10 @@ return {
 	mod("EnemyFreezeDuration", "INC", nil),
 },
 ["base_elemental_status_ailment_duration_+%"] = {
-	mod("EnemyIgniteDuration", "INC", nil), 
-	mod("EnemyShockDuration", "INC", nil), 
-	mod("EnemyChillDuration", "INC", nil), 
-	mod("EnemyFreezeDuration", "INC", nil),
-	mod("EnemyScorchDuration", "INC", nil),
-	mod("EnemyBrittleDuration", "INC", nil),
-	mod("EnemySapDuration", "INC", nil),
+	mod("EnemyElementalAilmentDuration", "INC", nil), 
 },
 ["base_all_ailment_duration_+%"] = {
-	mod("EnemyBleedDuration", "INC", nil), 
-	mod("EnemyPoisonDuration", "INC", nil), 
-	mod("EnemyIgniteDuration", "INC", nil), 
-	mod("EnemyShockDuration", "INC", nil), 
-	mod("EnemyChillDuration", "INC", nil), 
-	mod("EnemyFreezeDuration", "INC", nil),
-	mod("EnemyScorchDuration", "INC", nil),
-	mod("EnemyBrittleDuration", "INC", nil),
-	mod("EnemySapDuration", "INC", nil),
+	mod("EnemyAilmentDuration", "INC", nil), 
 },
 ["bleeding_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),

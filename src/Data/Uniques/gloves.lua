@@ -302,8 +302,7 @@ Requires Level 25, 39 Int
 {variant:3}+(60-80) to maximum Life
 {variant:1,2}+(20-30) to maximum Mana
 {variant:3}+(60-80) to maximum Mana
-{variant:1}Curse Enemies with Temporal Chains on Hit
-{variant:2,3}Curse Enemies with Temporal Chains on Hit, with 40% increased Effect
+{variant:1,2,3}Curse Enemies with Temporal Chains on Hit
 {variant:3}Non-Aura Curses you inflict are not removed from Dying Enemies
 {variant:3}Enemies near Corpses affected by your Curses are Blinded
 {variant:3}Enemies killed near Corpses affected by your Curses explode, dealing
@@ -396,7 +395,7 @@ Socketed Gems are Supported by Level 18 Faster Casting
 +(20-30) to Intelligence
 +(50-80) to maximum Energy Shield
 +(50-70) to maximum Life
-Gain +2% to Critical Strike Chance for 2 seconds when you Spend a total of 800 Mana
+Gain +2% to Critical Strike Chance for 2 seconds after Spending a total of 800 Mana
 ]],[[
 Replica Kalisa's Grace
 Samite Gloves

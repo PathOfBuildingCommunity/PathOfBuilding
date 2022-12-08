@@ -60,7 +60,7 @@ local showSupportGemTypeList = {
 local sortGemTypeList = {
 	{ label = "Full DPS", type = "FullDPS" },
 	{ label = "Combined DPS", type = "CombinedDPS" },
-	{ label = "Total DPS", type = "TotalDPS" },
+	{ label = "Hit DPS", type = "TotalDPS" },
 	{ label = "Average Hit", type = "AverageDamage" },
 	{ label = "DoT DPS", type = "TotalDot" },
 	{ label = "Bleed DPS", type = "BleedDPS" },
@@ -1153,9 +1153,9 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s",
 				data.skillColorMap[skillEffect.grantedEffect.color],
 				skillEffect.grantedEffect.name,
-				skillEffect.level,
+				skillEffect.srcInstance and skillEffect.srcInstance.level or skillEffect.level,
 				(skillEffect.srcInstance and skillEffect.level > skillEffect.srcInstance.level) and colorCodes.MAGIC.."+"..(skillEffect.level - skillEffect.srcInstance.level).."^7" or "",
-				skillEffect.quality,
+				skillEffect.srcInstance and skillEffect.srcInstance.quality or skillEffect.quality,
 				(skillEffect.srcInstance and skillEffect.quality > skillEffect.srcInstance.quality) and colorCodes.MAGIC.."+"..(skillEffect.quality - skillEffect.srcInstance.quality).."^7" or ""
 			))
 			if skillEffect.srcInstance then
@@ -1169,9 +1169,9 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s",
 				data.skillColorMap[activeEffect.grantedEffect.color],
 				activeEffect.grantedEffect.name,
-				activeEffect.level,
+				activeEffect.srcInstance and activeEffect.srcInstance.level or activeEffect.level,
 				(activeEffect.srcInstance and activeEffect.level > activeEffect.srcInstance.level) and colorCodes.MAGIC .. "+" .. (activeEffect.level - activeEffect.srcInstance.level) .. "^7" or "",
-				activeEffect.quality,
+				activeEffect.srcInstance and activeEffect.srcInstance.quality or activeEffect.quality,
 				(activeEffect.srcInstance and activeEffect.quality > activeEffect.srcInstance.quality) and colorCodes.MAGIC .. "+" .. (activeEffect.quality - activeEffect.srcInstance.quality) .. "^7" or ""
 			))
 			if activeEffect.srcInstance then

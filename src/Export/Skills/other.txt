@@ -403,7 +403,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 40)
-#baseMod mod("AvoidCurse", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+#baseMod mod("AvoidCurse", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
 #mods
 
 #skill GoreShockwave
@@ -418,12 +418,12 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 	statMap = {
 		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
-			mod("AreaOfEffect", "INC", nil),
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 		},
 	},
 #baseMod flag("Condition:HaveGreaterSpellEcho")
-#baseMod mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true })
-#baseMod mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true })
+#baseMod mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true })
+#baseMod mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true })
 #mods
 
 #skill IcestormUniqueStaff12
@@ -599,7 +599,7 @@ local skills, mod, flag, skill = ...
 #skill TriggeredShockedGround
 #flags spell area duration
 	fromItem = true,
-#baseMod mod("ShockedGroundEffect", "BASE", 15)
+#baseMod mod("ShockedGroundBase", "BASE", 15)
 #mods
 
 #skill ChannelledSnipe
