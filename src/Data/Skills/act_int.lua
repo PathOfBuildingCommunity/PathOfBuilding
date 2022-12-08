@@ -6457,7 +6457,7 @@ skills["LightningTowerTrap"] = {
         end
 
         local baseInterval = skillData.repeatInterval
-        local incFrequency = (1 + skillModList:Sum("INC", skillCfg, "Speed", "TrapThrowingSpeed") / 100)
+        local incFrequency = (1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed") / 100)
         local moreFrequency = skillModList:More(skillCfg, "TrapThrowingSpeed")
         local wavePulseRate = incFrequency * moreFrequency / baseInterval
         skillData.hitTimeOverride = 1 / wavePulseRate
