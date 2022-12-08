@@ -448,9 +448,6 @@ Implicits: 1
 ]],[[
 Essence Worm
 Unset Ring
-Variant: Pre 3.16.0
-Variant: Pre 3.17.0
-Variant: Current
 Requires Level 38
 Implicits: 1
 Has 1 Socket
