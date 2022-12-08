@@ -2608,6 +2608,7 @@ skills["MonsterViperStrike"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
+		duration = true,
 	},
 	constantStats = {
 		{ "physical_damage_%_to_add_as_chaos", 10 },
