@@ -1550,7 +1550,6 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
 		},
 	},
-#baseMod skill("poisonIsSkillEffect", true)
 #mods
 
 #skill VolatileDead
