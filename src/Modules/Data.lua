@@ -353,75 +353,112 @@ data.nonDamagingAilment = {
 }
 
 -- Used in ModStoreClass:ScaleAddMod(...) to identify high precision modifiers
+data.defaultHighPrecision = 1
 data.highPrecisionMods = {
 	["CritChance"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
+	},
+	["SelfCritChance"] = {
+		["BASE"] = 2,
 	},
 	["LifeRegenPercent"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
+	},
+	["ManaRegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["EnergyShieldRegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["LifeRegen"] = {
+		["BASE"] = 1,
+	},
+	["ManaRegen"] = {
+		["BASE"] = 1,
+	},
+	["EnergyShieldRegen"] = {
+		["BASE"] = 1,
+	},
+	["LifeDegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["ManaDegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["EnergyShieldDegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["LifeDegen"] = {
+		["BASE"] = 1,
+	},
+	["ManaDegen"] = {
+		["BASE"] = 1,
+	},
+	["EnergyShieldDegen"] = {
+		["BASE"] = 1,
 	},
 	["DamageLifeLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["PhysicalDamageLifeLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["ElementalDamageLifeLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["FireDamageLifeLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["ColdDamageLifeLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["LightningDamageLifeLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["ChaosDamageLifeLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["DamageManaLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["PhysicalDamageManaLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["ElementalDamageManaLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["FireDamageManaLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["ColdDamageManaLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["LightningDamageManaLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["ChaosDamageManaLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["DamageEnergyShieldLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["PhysicalDamageEnergyShieldLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["ElementalDamageEnergyShieldLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["FireDamageEnergyShieldLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["ColdDamageEnergyShieldLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["LightningDamageEnergyShieldLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 	["ChaosDamageEnergyShieldLeech"] = {
-		["BASE"] = true,
+		["BASE"] = 2,
 	},
 }
 
