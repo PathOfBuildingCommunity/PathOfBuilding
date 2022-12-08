@@ -393,7 +393,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterViperStrike Viper Strike
-#flags attack melee
+#flags attack melee duration
 #mods
 
 #skill MonsterWarlordsMark Warlord's Mark
