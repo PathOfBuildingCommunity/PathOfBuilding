@@ -463,6 +463,9 @@ return {
 ["warcry_speed_+%"] = {
 	mod("WarcrySpeed", "INC", nil, 0, KeywordFlag.Warcry),
 },
+["display_this_skill_cooldown_does_not_recover_during_buff"] = {
+	flag("NoCooldownRecoveryInDuration"),
+},
 -- AoE
 ["base_skill_area_of_effect_+%"] = {
 	mod("AreaOfEffect", "INC", nil),

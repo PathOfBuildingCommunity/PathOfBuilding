@@ -1201,6 +1201,39 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
+	-- Skill uptime
+	do
+		if not activeSkill.skillTypes[SkillType.Vaal] then -- exclude vaal skills as we currently don't support soul generation or gain prevention.
+			local cooldown = output.Cooldown or 0
+			for _, durationType in pairs({ "Duration", "DurationSecondary", "AuraDuration", "reserveDuration" }) do
+				local duration = output[durationType] or 0
+				if (duration ~= 0 and cooldown ~= 0) then
+					local uptime = 1
+					if skillModList:Flag(skillCfg, "NoCooldownRecoveryInDuration") then
+						uptime = duration / (cooldown + duration)
+					else
+						uptime = duration / (cooldown)
+					end
+					uptime = m_min(uptime, 1)
+					output[durationType.."Uptime"] = uptime * 100
+					if breakdown then
+						if skillModList:Flag(skillCfg, "NoCooldownRecoveryInDuration") then
+							breakdown[durationType.."Uptime"] = {
+								s_format("%.2fs / (%.2fs + %.2fs)", duration, cooldown, duration),
+								s_format("= %d%%", output[durationType.."Uptime"])
+							}
+						else
+							breakdown[durationType.."Uptime"] = {
+								s_format("%.2fs / %.2fs", duration, cooldown),
+								s_format("= %d%%", output[durationType.."Uptime"])
+							}
+						end
+					end
+				end
+			end
+		end
+	end
+
 	-- Calculate costs (may be slightly off due to rounding differences)
 	local costs = {
 		["Mana"] = { type = "Mana", upfront = true, percent = false, text = "mana", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
