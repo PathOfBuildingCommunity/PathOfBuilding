@@ -3012,6 +3012,7 @@ function calcs.perform(env, avoidCache)
 					skip = true
 				end
 			elseif env.minion and env.minion.mainSkill and env.minion.mainSkill.skillData.triggeredByParentAttack then
+				triggerName = "Summon Holy Relic"
 				actor = env.minion
 				output = actor.output
 				breakdown = actor.breakdown
