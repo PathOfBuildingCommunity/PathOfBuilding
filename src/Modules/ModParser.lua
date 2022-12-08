@@ -2751,6 +2751,7 @@ local specialModList = {
 	["nearby allies have (%d+)%% increased defences per (%d+) strength you have"] = function(num, _, div) return { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("Defences", "INC", num) }, { type = "PerStat", stat = "Str", div = tonumber(div) }) } end,
 	["nearby allies have %+(%d+)%% to critical strike multiplier per (%d+) dexterity you have"] = function(num, _, div) return { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("CritMultiplier", "BASE", num) }, { type = "PerStat", stat = "Dex", div = tonumber(div) }) } end,
 	["nearby allies have (%d+)%% increased cast speed per (%d+) intelligence you have"] = function(num, _, div) return { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("Speed", "INC", num, nil, ModFlag.Cast ) }, { type = "PerStat", stat = "Int", div = tonumber(div) }) } end,
+	["quicksilver flasks you use also apply to nearby allies"] = { flag("QuickSilverAppliesToAllies") },
 	["you gain divinity for %d+ seconds on reaching maximum divine charges"] = {
 		mod("ElementalDamage", "MORE", 50, { type = "Condition", var = "Divinity" }),
 		mod("ElementalDamageTaken", "MORE", -20, { type = "Condition", var = "Divinity" }),

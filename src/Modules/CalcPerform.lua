@@ -1469,24 +1469,20 @@ function calcs.perform(env, avoidCache)
 	if env.mode_combat then
 		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
 		local flaskBuffs = { }
-		local usingFlask = false
-		local usingLifeFlask = false
-		local usingManaFlask = false
+		local flaskConditions = {}
+		local flaskBuffsPerBase = {}
 		for item in pairs(env.flasks) do
-			usingFlask = true
-			if item.baseName:match("Life Flask") then
-				usingLifeFlask = true
-			end
-			if item.baseName:match("Mana Flask") then
-				usingManaFlask = true
-			end
+			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
+			flaskConditions["UsingFlask"] = true
 			if item.baseName:match("Hybrid Flask") then
-				usingLifeFlask = true
-				usingManaFlask = true
+				flaskConditions["UsingLifeFlask"] = true
+				flaskConditions["UsingManaFlask"] = true
+			else
+				flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
 			end
 
 			local flaskEffectInc = item.flaskData.effectInc
-			if item.rarity == "MAGIC" and not (usingLifeFlask or usingManaFlask) then
+			if item.rarity == "MAGIC" and not (flaskConditions["UsingLifeFlask"] or flaskConditions["UsingManaFlask"]) then
 				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
 			end
 
@@ -1498,6 +1494,7 @@ function calcs.perform(env, avoidCache)
 				local srcList = new("ModList")
 				srcList:ScaleAddList(item.buffModList, effectMod)
 				mergeBuff(srcList, flaskBuffs, item.baseName)
+				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], item.baseName)
 			end
 			if item.modList[1] then
 				local srcList = new("ModList")
@@ -1512,23 +1509,35 @@ function calcs.perform(env, avoidCache)
 					end
 				end
 				mergeBuff(srcList, flaskBuffs, key)
+				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
 			end
 		end
 		if not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
-			modDB.conditions["UsingFlask"] = usingFlask
-			modDB.conditions["UsingLifeFlask"] = usingLifeFlask
-			modDB.conditions["UsingManaFlask"] = usingManaFlask
+			for flaskCond, status in pairs(flaskConditions) do
+				modDB.conditions[flaskCond] = status
+			end
 			for _, buffModList in pairs(flaskBuffs) do
 				modDB:AddList(buffModList)
 			end
 		end
-		if env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion") then
-			local minionModDB = env.minion.modDB
-			minionModDB.conditions["UsingFlask"] = usingFlask
-			minionModDB.conditions["UsingLifeFlask"] = usingLifeFlask
-			minionModDB.conditions["UsingManaFlask"] = usingManaFlask
-			for _, buffModList in pairs(flaskBuffs) do
-				minionModDB:AddList(buffModList)
+		if env.minion then
+			if modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion") then
+				local minionModDB = env.minion.modDB
+				for flaskCond, status in pairs(flaskConditions) do
+					minionModDB.conditions[flaskCond] = status
+				end
+				for _, buffModList in pairs(flaskBuffs) do
+					minionModDB:AddList(buffModList)
+				end
+			else -- Not all flasks apply to minions. Check if some flasks need to be selectively applied
+				if modDB:Flag(env.player.mainSkill.skillCfg, "QuickSilverAppliesToAllies") and flaskBuffsPerBase["Quicksilver Flask"] then 
+					local minionModDB = env.minion.modDB
+					minionModDB.conditions["UsingQuicksilverFlask"] = flaskConditions["UsingQuicksilverFlask"]
+					minionModDB.conditions["UsingFlask"] = flaskConditions["UsingFlask"]
+					for _, buffModList in pairs(flaskBuffsPerBase["Quicksilver Flask"]) do
+						minionModDB:AddList(buffModList)
+					end
+				end
 			end
 		end
 	end
