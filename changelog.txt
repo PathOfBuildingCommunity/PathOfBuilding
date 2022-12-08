@@ -1,3 +1,40 @@
+VERSION[2.21.1][2022/08/20]
+
+--- Fixed Bugs ---
+* Fix crash related to Alchemists Mark (deathbeam)
+
+VERSION[2.21.0][2022/08/20]
+
+--- Implemented Enhancements ---
+* Add support for new 3.19 skills and mods (Nostrademous, LocalIdentity)
+  * Full support for all new skills
+* Add initial support for Eldritch Implicits (Regisle)
+* Add the ability to automatically calculate # of Explosive Arrow Fuses (LocalIdentity)
+* Add breakdowns for Burning and Caustic ground from ailments (Regisle)
+* Add the Poised Prism and Elevore uniques (QuickStick123)
+* Add new Grand Spectrum mods (deathbeam)
+
+--- User Interface ---
+* Fix PvP Hit Taken Colour (Regisle)
+* Update Heartstopper config text (Regisle)
+* Remove Main Hand background colour from global Ignite Dot Multi section (TPlant)
+* Add Keystone names to Timeless jewel variants (Regisle)
+
+--- Accuracy Improvements ---
+* Update Replica uniques (QuickStick123)
+* Update Deidbell (QuickStick123)
+* Update Ventor's Gamble and Soul Ripper (Lothrik)
+* Fix missing life on Demon Stitcher (QuickStick123)
+
+--- Fixed Bugs ---
+* Fix crash when adding Timeless jewel to build from tree UI (Lothrik)
+* Fix certain spells not having correct DPS with Unleash Support (Regisle)
+* Fix Timeless jewel node weight bugs (Lothrik)
+* Fix checkbox not updating when selecting Vaal skills (Paliak)
+* Fix Rage regen issues (Regisle)
+* Fix Gain on Kill not working for Attacks (Regisle)
+
+
 VERSION[2.20.2][2022/08/16]
 
 --- Implemented Enhancements ---

@@ -706,6 +706,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					local radData = build.data.jewelRadius[jewel.jewelRadiusIndex]
 					local outerSize = radData.outer * scale
 					local innerSize = radData.inner * scale * 1.06
+					SetDrawColor(1,1,1,0.7)
 					if jewel.title == "Impossible Escape" then
 						-- Impossible Escape ring shows on the allocated Keystone
 						for keystoneName, _ in pairs(jewel.jewelData.impossibleEscapeKeystones) do
@@ -713,7 +714,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 							if keystone and keystone.x and keystone.y then
 								innerSize = 150 * scale
 								local keyX, keyY = treeToScreen(keystone.x, keystone.y)
-								SetDrawColor(0.9,0.9,1,0.7)
 								DrawImage(self.jewelShadedOuterRing, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
 								DrawImage(self.jewelShadedOuterRingFlipped, keyX - outerSize, keyY - outerSize, outerSize * 2, outerSize * 2)
 								DrawImage(self.jewelShadedInnerRing, keyX - innerSize, keyY - innerSize, innerSize * 2, innerSize * 2)
@@ -736,7 +736,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						DrawImage(self.templar1, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.templar2, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 					else
-						SetDrawColor(0.9,0.9,1,0.7)
 						DrawImage(self.jewelShadedOuterRing, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.jewelShadedOuterRingFlipped, scrX - outerSize, scrY - outerSize, outerSize * 2, outerSize * 2)
 						DrawImage(self.jewelShadedInnerRing, scrX - innerSize, scrY - innerSize, innerSize * 2, innerSize * 2)

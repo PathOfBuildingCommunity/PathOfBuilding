@@ -283,12 +283,12 @@ skills["BloodOffering"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["blood_offering_%_of_life_to_lose"] = {
-			mod("Multiplier:BloodOfferingLifeSacrificed", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable=true }, { type = "PerStat", stat = "LifeUnreserved", actor = "parent" }),
+			mod("Multiplier:BloodOfferingLifeSacrificed", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "PerStat", stat = "LifeUnreserved", actor = "parent" }),
 			div = 100,
 		},
 		["blood_offering_%_of_lost_life_to_regenerate_as_life_per_second"] = {
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingLifeSacrificed" }),
-			mod("Multiplier:BloodOfferingBaseRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable=true }, { type = "Multiplier", var = "BloodOfferingLifeSacrificed" }),
+			mod("Multiplier:BloodOfferingBaseRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "BloodOfferingLifeSacrificed" }),
 			div = 100,
 		},
 		["blood_offering_life_regenerated_+%_final_per_corpse"] = {
@@ -1329,6 +1329,11 @@ skills["VaalAuraElementalDamageHealing"] = {
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	fromItem = true,
+	statMap = {
+		["immune_to_curses"] = {
+			--Display Only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		aura = true,
@@ -1337,6 +1342,7 @@ skills["VaalAuraElementalDamageHealing"] = {
 	},
 	baseMods = {
 		skill("radius", 40),
+		mod("AvoidCurse", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 5000 },
@@ -1397,13 +1403,13 @@ skills["SupportGreaterSpellEcho"] = {
 	fromItem = true,
 	statMap = {
 		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
-			mod("AreaOfEffect", "INC", nil),
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 		},
 	},
 	baseMods = {
 		flag("Condition:HaveGreaterSpellEcho"),
-		mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
-		mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }),
+		mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
+		mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 	},
 	constantStats = {
 		{ "base_spell_repeat_count", 2 },
@@ -2072,7 +2078,7 @@ skills["TriggeredShockedGround"] = {
 		duration = true,
 	},
 	baseMods = {
-		mod("ShockedGroundEffect", "BASE", 15),
+		mod("ShockedGroundBase", "BASE", 15),
 	},
 	constantStats = {
 		{ "cast_when_hit_%", 100 },
@@ -2948,7 +2954,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 100, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, }, },
-		[25] = { 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, }, },
+		[25] = { 100, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, }, }
 	},
 }
 skills["SummonTauntingContraption"] = {

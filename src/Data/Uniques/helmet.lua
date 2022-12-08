@@ -630,14 +630,16 @@ Ylfeban's Trickery
 Hubris Circlet
 League: Tempest
 Variant: Pre 2.6.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 69, 154 Int
-{variant:2}Trigger Level 10 Shock Ground when Hit
+{variant:2,3}Trigger Level 10 Shock Ground when Hit
 Adds 1 to (60-80) Lightning Damage to Spells and Attacks
 (130-170)% increased Energy Shield
 +(25-35)% to Lightning Resistance
 {variant:1}10% chance to Curse non-Cursed Enemies with a random Hex on Hit
 {variant:2}20% chance to Curse non-Cursed Enemies with a random Hex on Hit
+{variant:3}Curse Enemies which Hit you with a random Hex, ignoring Curse Limit
 {variant:1}5% chance to create Shocked Ground when Hit
 ]],
 -- Helmet: Armour/Evasion
@@ -1234,17 +1236,16 @@ Heretic's Veil
 Deicide Mask
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
-Variant: Pre 3.16.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 67, 73 Dex, 88 Int
 +(40-50) to maximum Energy Shield
 {variant:1,2}(130-150)% increased Evasion and Energy Shield
 {variant:3,4}(90-110)% increased Evasion and Energy Shield
-{variant:1}+2 to Level of Socketed Curse Gems
-{variant:2,3,4}+1 to Level of Socketed Curse Gems
+{variant:1,4}+2 to Level of Socketed Curse Gems
+{variant:2,3}+1 to Level of Socketed Curse Gems
 Socketed Curse Gems are Supported by Level 22 Blasphemy
-{variant:1,2,3}Socketed Curse Gems have 24% increased Mana Reservation Efficiency
-{variant:4}Socketed Curse Gems have 20% increased Reservation Efficiency
+Socketed Curse Gems have 30% increased Reservation Efficiency
 ]],[[
 Leer Cast
 Festival Mask
