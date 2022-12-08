@@ -437,7 +437,7 @@ return {
 		modList:NewMod("SkillData", "LIST", { key = "VaalMoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })
 	end },
 	{ label = "Multi-part area skills:", ifSkillList = { "Seismic Trap", "Lightning Spire Trap" } },
-	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", defaultIndex = 2, ifSkillList = { "Seismic Trap", "Lightning Spire Trap" }, tooltip = [[
+	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", ifSkillList = { "Seismic Trap", "Lightning Spire Trap" }, defaultIndex = 2, tooltip = [[
 Configure the radius of an enemy hitbox which is used in calculating some area multi-hitting (shotgunning) effects.
 
 Small sets the radius to 2.
@@ -457,10 +457,10 @@ Huge sets the radius to 11.
 		elseif val == "Huge" then
 			build.configTab.varControls['enemyRadius']:SetPlaceholder(11, true)
 		end
-	end, ifSkillList = { "Seismic Trap", "Lightning Spire Trap" } },
-	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
+	end },
+	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", ifSkillList = { "Seismic Trap", "Lightning Spire Trap" }, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
 		modList:NewMod("EnemyRadius", "BASE", m_max(val, 1), "Config")
-	end, ifSkillList = { "Seismic Trap" } },
+	end },
 
 	-- Section: Map modifiers/curses
 	{ section = "Map Modifiers and Player Debuffs", col = 2 },
