@@ -4483,10 +4483,6 @@ skills["HarvestNessaCrabScreechDebuff"] = {
 		area = true,
 		duration = true,
 	},
-	baseMods = {
-	},
-	qualityStats = {
-	},
 	stats = {
 		"frigid_roar_cold_damage_taken_+%",
 	},
@@ -4607,10 +4603,6 @@ skills["HarvestRhexScreechDebuff"] = {
 		spell = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-	},
-	qualityStats = {
 	},
 	stats = {
 		"thunderous_roar_lightning_damage_taken_+%",
@@ -6024,18 +6016,6 @@ skills["MonsterChanceToTemporalChainsOnHit1"] = {
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
-		mod("MaxDoom", "BASE", 30),
-	},
-	qualityStats = {
-		Default = {
-			{ "curse_effect_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "hex_doom_gain_rate_+%", 2 },
-		},
-		Alternate2 = {
-			{ "base_curse_duration_+%", 1 },
-		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -6116,18 +6096,6 @@ skills["DelveMonsterEnfeebleOnHit"] = {
 	baseMods = {
 		skill("debuff", true),
 		skill("radius", 22),
-		mod("MaxDoom", "BASE", 30),
-	},
-	qualityStats = {
-		Default = {
-			{ "curse_effect_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "hex_doom_gain_rate_+%", 2 },
-		},
-		Alternate2 = {
-			{ "curse_cast_speed_+%", 0.5 },
-		},
 	},
 	stats = {
 		"base_skill_effect_duration",
@@ -6174,18 +6142,6 @@ skills["MonsterVulnerabilityOnHit1"] = {
     baseMods = {
         skill("debuff", true),
         skill("radius", 22),
-        mod("MaxDoom", "BASE", 30),
-    },
-    qualityStats = {
-        Default = {
-            { "receive_bleeding_chance_%_when_hit_by_attack", 0.5 },
-        },
-        Alternate1 = {
-            { "curse_effect_+%", 0.5 },
-        },
-        Alternate2 = {
-            { "chance_to_be_maimed_when_hit_%", 0.5 },
-        },
     },
     constantStats = {
         { "receive_bleeding_chance_%_when_hit_by_attack", 20 },
