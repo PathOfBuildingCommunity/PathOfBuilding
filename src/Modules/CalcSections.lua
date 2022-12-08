@@ -856,6 +856,7 @@ return {
 		{ breakdown = "MainHand.TotalPoisonStacks" }, 
 		{ breakdown = "OffHand.TotalPoisonStacks" }, 
 		{ breakdown = "TotalPoisonStacks" }, 
+		{ label = "Capped to 1 poison", modName = "Condition:SinglePoison" }, 
 	}, },
 } }
 } },

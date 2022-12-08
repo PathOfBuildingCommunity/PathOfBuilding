@@ -3370,6 +3370,22 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.PoisonFire = { damageTypes = { } }
 				breakdown.PoisonChaos = { damageTypes = { } }
 			end
+			local rateMod = calcLib.mod(skillModList, cfg, "PoisonFaster") + enemyDB:Sum("INC", nil, "SelfPoisonFaster")  / 100
+			local durationBase
+			if skillData.poisonDurationIsSkillDuration then
+				durationBase = skillData.duration
+			else
+				durationBase = data.misc.PoisonDurationBase
+			end
+			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyPoisonDuration", "EnemyAilmentDuration", "SkillAndDamagingAilmentDuration", skillData.poisonIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfPoisonDuration", "SelfAilmentDuration")
+			globalOutput.PoisonDuration = durationBase * durationMod / rateMod * debuffDurationMult
+			local PoisonStacks = globalOutput.PoisonDuration * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * (skillData.stackMultiplier or 1) * quantityMultiplier
+			if PoisonStacks < 1 and (env.configInput.multiplierPoisonOnEnemy or 0) <= 1 then
+				skillModList:NewMod("Condition:SinglePoison", "FLAG", true, "poison")
+			end
+			if skillModList:Flag(nil, "Condition:SinglePoison") then
+				PoisonStacks = m_min(PoisonStacks, 1)
+			end
 			for sub_pass = 1, 2 do
 				if skillModList:Flag(dotCfg, "AilmentsAreNeverFromCrit") or sub_pass == 1 then
 					dotCfg.skillCond["CriticalStrike"] = false
@@ -3449,7 +3465,6 @@ function calcs.offence(env, actor, activeSkill)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
-				local rateMod = calcLib.mod(skillModList, cfg, "PoisonFaster") + enemyDB:Sum("INC", nil, "SelfPoisonFaster")  / 100
 				local PoisonDPSUncapped = baseVal * effectMod * rateMod * effMult
 				local PoisonDPSCapped = m_min(PoisonDPSUncapped, data.misc.DotDpsCap)
 				output.PoisonDPS = PoisonDPSCapped
@@ -3468,20 +3483,15 @@ function calcs.offence(env, actor, activeSkill)
 						}
 					end
 				end
-				local durationBase
-				if skillData.poisonDurationIsSkillDuration then
-					durationBase = skillData.duration
-				else
-					durationBase = data.misc.PoisonDurationBase
-				end
-				local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyPoisonDuration", "EnemyAilmentDuration", "SkillAndDamagingAilmentDuration", skillData.poisonIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfPoisonDuration", "SelfAilmentDuration")
-				globalOutput.PoisonDuration = durationBase * durationMod / rateMod * debuffDurationMult
 				output.PoisonDamage = output.PoisonDPS * globalOutput.PoisonDuration
 				if skillData.showAverage then
 					output.TotalPoisonAverageDamage = output.HitChance / 100 * output.PoisonChance / 100 * output.PoisonDamage
 					output.TotalPoisonDPS = output.PoisonDPS
 				else
-					output.TotalPoisonStacks = output.HitChance / 100 * output.PoisonChance / 100 * globalOutput.PoisonDuration * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * (skillData.stackMultiplier or 1) * quantityMultiplier
+					output.TotalPoisonStacks = output.HitChance / 100 * output.PoisonChance / 100 * PoisonStacks
+					if skillModList:Flag(nil, "Condition:SinglePoison") and (PoisonStacks >= 1) then
+						output.TotalPoisonStacks = 1
+					end
 					output.TotalPoisonDPS = m_min(PoisonDPSCapped * output.TotalPoisonStacks, data.misc.DotDpsCap)
 				end
 				if breakdown then
@@ -3555,6 +3565,9 @@ function calcs.offence(env, actor, activeSkill)
 							{ "%g ^8(quantity multiplier for this skill)", quantityMultiplier },
 							total = s_format("= %.1f", output.TotalPoisonStacks),
 						})
+						if skillModList:Flag(nil, "Condition:SinglePoison") then
+							t_insert(breakdown.TotalPoisonStacks, "Capped to 1")
+						end
 					end
 				end
 			end
