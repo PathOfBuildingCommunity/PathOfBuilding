@@ -30,7 +30,10 @@ local tradeStatCategoryIndices = {
     ["Explicit"] = 2,
     ["Implicit"] = 3,
     ["Corrupted"] = 3,
-    ["Scourge"] = 6
+    ["Scourge"] = 6,
+    ["Eater"] = 3,
+    ["Exarch"] = 3,
+    ["Synthesis"] = 3,
 }
 
 local influenceSuffixes = { "_shaper", "_elder", "_adjudicator", "_basilisk", "_crusader", "_eyrie"}
@@ -127,18 +130,19 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
 
             local statOrder = modLine:find("Nearby Enemies have %-") ~= nil and mod.statOrder[index + 1] or mod.statOrder[index] -- hack to get minus res mods associated with the correct statOrder
             local modType = (mod.type == "Prefix" or mod.type == "Suffix") and "Explicit" or mod.type
+            if modType == "ScourgeUpside" then modType = "Scourge" end
 
             -- Special cases
             local specialCaseData = { }
-            if statOrder == 1802 then
+            if statOrder == 1953 then
                 specialCaseData.overrideModLine = "+#% Chance to Block"
                 modLine = modLine .. " (Shields)"
-            elseif statOrder == 1725 then
+            elseif statOrder == 1876 then
                 specialCaseData.overrideModLineSingular = "You can apply an additional Curse"
                 if modLine == specialCaseData.overrideModLineSingular then
                     modLine = "You can apply 1 additional Curses"
                 end
-            elseif statOrder == 1366 then
+            elseif statOrder == 1510 then
                 specialCaseData.overrideModLineSingular = "Bow Attacks fire an additional Arrow"
                 if modLine == specialCaseData.overrideModLineSingular then
                     modLine = "Bow Attacks fire 1 additional Arrows"
@@ -146,6 +150,11 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
             end
 
             -- If this is the first tier for this mod, find matching trade mod and init the entry
+            if not self.modData[modType] then
+                logToFile("Unhandled Mod Type: %s", modType)
+                goto continue
+            end
+
             if self.modData[modType][statOrder] == nil then
                 local tradeMod = nil
                 local matchStr = modLine:gsub("[#()0-9%-%+%.]","")
@@ -233,6 +242,9 @@ function TradeQueryGeneratorClass:InitMods()
         ["Implicit"] = { },
         ["Corrupted"] = { },
         ["Scourge"] = { },
+        ["Eater"] = { },
+        ["Exarch"] = { },
+        ["Synthesis"] = { },
     }
 
     -- originates from: https://www.pathofexile.com/api/trade/data/stats
@@ -533,6 +545,13 @@ function TradeQueryGeneratorClass:ExecuteQuery()
     if self.calcContext.options.includeScourge then
         self:GenerateModWeights(self.modData["Scourge"])
     end
+    if self.calcContext.options.includeEldritch then
+        self:GenerateModWeights(self.modData["Eater"])
+        self:GenerateModWeights(self.modData["Exarch"])
+    end
+    if self.calcContext.options.includeSynthesis then
+        self:GenerateModWeights(self.modData["Synthesis"])
+    end
 end
 
 function TradeQueryGeneratorClass:FinishQuery()
@@ -629,7 +648,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 
     local controls = { }
     local options = { }
-    local popupHeight = 95
+    local popupHeight = 143
 
     local isJewelSlot = slot.slotName:find("Jewel") ~= nil
     local isAbyssalJewelSlot = slot.slotName:find("Abyssal") ~= nil
@@ -638,23 +657,29 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
     controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, 0, 30, 18, "Corrupted Mods:", function(state) end)
     controls.includeCorrupted.state = (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
 
+    controls.includeEldritch = new("CheckBoxControl", {"TOPRIGHT",controls.includeCorrupted,"BOTTOMRIGHT"}, 0, 5, 18, "Eldritch Mods:", function(state) end)
+    controls.includeEldritch.state = (self.lastIncludeEldritch == nil or self.lastIncludeEldritch == true)
+
+    controls.includeSynthesis = new("CheckBoxControl", {"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, 0, 5, 18, "Synthesis Mods:", function(state) end)
+    controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
+
     local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
     if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
-        controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",controls.includeCorrupted,"BOTTOMRIGHT"}, 0, 5, 18, "Scourge Mods:", function(state) end)
+        controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",controls.includeSynthesis,"BOTTOMRIGHT"}, 0, 5, 18, "Scourge Mods:", function(state) end)
         controls.includeScourge.state = (self.lastIncludeScourge == nil or self.lastIncludeScourge == true)
 
         popupHeight = popupHeight + 23
     end
 
     if isAmuletSlot then
-        controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",includeScourge and controls.includeScourge or controls.includeCorrupted,"BOTTOMRIGHT"}, 0, 5, 18, "Talisman Mods:", function(state) end)
+        controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",includeScourge and controls.includeScourge or controls.includeSynthesis,"BOTTOMRIGHT"}, 0, 5, 18, "Talisman Mods:", function(state) end)
         controls.includeTalisman.state = (self.lastIncludeTalisman == nil or self.lastIncludeTalisman == true)
 
         popupHeight = popupHeight + 23
     end
 
     if isJewelSlot then
-        controls.jewelType = new("DropDownControl", {"TOPLEFT",controls.includeCorrupted,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Any", "Base", "Abyss" }, function(index, value) end)
+        controls.jewelType = new("DropDownControl", {"TOPLEFT",controls.includeSynthesis,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Any", "Base", "Abyss" }, function(index, value) end)
         controls.jewelType.selIndex = self.lastJewelType or 1
         controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, -5, 0, 0, 16, "Jewel Type:")
 
@@ -676,6 +701,12 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 
         if controls.includeCorrupted then
             self.lastIncludeCorrupted, options.includeCorrupted = controls.includeCorrupted.state, controls.includeCorrupted.state
+        end
+        if controls.includeSynthesis then
+            self.lastIncludeSynthesis, options.includeSynthesis = controls.includeSynthesis.state, controls.includeSynthesis.state
+        end
+        if controls.includeEldritch then
+            self.lastIncludeEldritch, options.includeEldritch = controls.includeEldritch.state, controls.includeEldritch.state
         end
         if controls.includeScourge then
             self.lastIncludeScourge, options.includeScourge = controls.includeScourge.state, controls.includeScourge.state
