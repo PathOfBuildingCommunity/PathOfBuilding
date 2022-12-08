@@ -329,6 +329,27 @@ minions["Metadata/Monsters/Beasts/BeastCaveDegenAura"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/Beasts/BeastVulnerabilityCurse"] = {
+	name = "Armour Cruncher",
+	life = 2.1,
+	armour = 0.6,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.095,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterVulnerabilityOnHit1",
+	},
+	modList = {
+		-- MonsterCurseOnHitVulnerability [curse_on_hit_level_vulnerability = 1]
+	},
+}
 minions["Metadata/Monsters/Beasts/BeastCleaveEnduringCry"] = {
 	name = "Hairy Bonecruncher",
 	life = 2.1,
@@ -2376,6 +2397,26 @@ minions["Metadata/Monsters/Spiders/SpiderThornFlickerStrike"] = {
 	accuracy = 1,
 	skillList = {
 		"MeleeAtAnimationSpeed",
+		"MonsterFlickerStrike",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike"] = {
+	name = "Deadly Tarantula",
+	life = 2.21,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 25,
+	damage = 2.45,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrike",
 		"MonsterFlickerStrike",
 	},
 	modList = {

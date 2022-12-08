@@ -378,10 +378,6 @@ function ItemClass:ParseRaw(raw)
 				foundExplicit = true
 				gameModeStage = "EXPLICIT"
 			end
-			-- for weapons, when copy/pasting from trade site or importing via PoB Trader the base name of the weapon is repeated, skip it
-			if self.base and (line == self.base.type or self.base.subType and line == self.base.subType .. " " .. self.base.type) then
-				specName = line
-			end
 			if not specName or foundExplicit or foundImplicit then
 				local varSpec = line:match("{variant:([%d,]+)}")
 				local variantList
@@ -559,7 +555,7 @@ function ItemClass:ParseRaw(raw)
 						foundExplicit = true
 					end
 				elseif mode == "GAME" then
-					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned")) then
+					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned") and not (self.base and (line == self.base.type or self.base.subType and line == self.base.subType .. " " .. self.base.type))) then
 						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
@@ -589,7 +585,7 @@ function ItemClass:ParseRaw(raw)
 		elseif self.rarity == "MAGIC" then
 			self.affixLimit = 2
 		elseif self.rarity == "RARE" then
-			self.affixLimit = (self.type == "Jewel" and 4 or 6)
+			self.affixLimit = ((self.type == "Jewel" and not (self.base.subType == "Abyss" and self.corrupted)) and 4 or 6)
 		else
 			self.crafted = false
 		end

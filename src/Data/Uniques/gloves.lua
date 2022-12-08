@@ -395,7 +395,7 @@ Socketed Gems are Supported by Level 18 Faster Casting
 +(20-30) to Intelligence
 +(50-80) to maximum Energy Shield
 +(50-70) to maximum Life
-Gain +2% to Critical Strike Chance for 2 seconds when you Spend a total of 800 Mana
+Gain +2% to Critical Strike Chance for 2 seconds after Spending a total of 800 Mana
 ]],[[
 Replica Kalisa's Grace
 Samite Gloves

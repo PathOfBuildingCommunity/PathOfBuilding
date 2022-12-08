@@ -1003,11 +1003,9 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Chill") then
 			local ailmentData = data.nonDamagingAilment
 			local chillValue = modDB:Override(nil, "ChillVal") or ailmentData.Chill.default
+			local chillEffect = calcLib.mod(modDB, nil, "SelfChillEffect") * (modDB:Flag(nil, "Condition:ChilledSelf") and calcLib.mod(modDB, nil, "EnemyChillEffect") or calcLib.mod(enemyDB, nil, "EnemyChillEffect"))
 
-			local chillSelf = (modDB:Flag(nil, "Condition:ChilledSelf") and modDB:Sum("INC", nil, "EnemyChillEffect") / 100) or 0
-			local totalChillSelfEffect = calcLib.mod(modDB, nil, "SelfChillEffect") + chillSelf
-
-			local effect = m_min(m_max(m_floor(chillValue *  totalChillSelfEffect), 0), modDB:Override(nil, "ChillMax") or ailmentData.Chill.max)
+			local effect = m_min(m_max(m_floor(chillValue * chillEffect), 0), modDB:Override(nil, "ChillMax") or ailmentData.Chill.max)
 
 			modDB:NewMod("ActionSpeed", "INC", effect * (modDB:Flag(nil, "SelfChillEffectIsReversed") and 1 or -1), "Chill")
 		end
@@ -1237,7 +1235,9 @@ function calcs.perform(env, avoidCache)
 		end
 		if (activeSkill.activeEffect.grantedEffect.name == "Vaal Lightning Trap" or activeSkill.activeEffect.grantedEffect.name == "Shock Ground") then
 			-- Shock effect applies to shocked ground
-			local effect = activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundEffect") * (1 + activeSkill.skillModList:Sum("INC", nil, "EnemyShockEffect") / 100)
+			local inc = activeSkill.skillModList:Sum("INC", nil, "EnemyShockEffect") + enemyDB:Sum("INC", nil, "SelfShockEffect")
+			local more = activeSkill.skillModList:Sum("MORE", nil, "EnemyShockEffect") * enemyDB:Sum("MORE", nil, "SelfShockEffect")
+			local effect = activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundBase") * (1 + inc / 100) * more
 			modDB:NewMod("ShockOverride", "BASE", effect, "Shocked Ground", { type = "ActorCondition", actor = "enemy", var = "OnShockedGround" } )
 		end
 		if activeSkill.skillData.supportBonechill and (activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.NonHitChill] or not activeSkill.skillModList:Flag(nil, "CannotChill")) then
@@ -1245,12 +1245,16 @@ function calcs.perform(env, avoidCache)
 		end
 		if activeSkill.activeEffect.grantedEffect.name == "Summon Skitterbots" then
 			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotShock") then
-				local effect = data.nonDamagingAilment.Shock.default * (1 + activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect") / 100)
+				local inc = activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyShockEffect") + enemyDB:Sum("INC", nil, "SelfShockEffect")
+				local more = activeSkill.skillModList:Sum("MORE", { source = "Skill" }, "EnemyShockEffect") * enemyDB:Sum("MORE", nil, "SelfShockEffect")
+				local effect = data.nonDamagingAilment.Shock.default * (1 + inc / 100) * more
 				modDB:NewMod("ShockOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 				enemyDB:NewMod("Condition:Shocked", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
 			end
 			if not activeSkill.skillModList:Flag(nil, "SkitterbotsCannotChill") then
-				local effect = data.nonDamagingAilment.Chill.default * (1 + activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyChillEffect") / 100)
+				local inc = activeSkill.skillModList:Sum("INC", { source = "Skill" }, "EnemyChillEffect") + enemyDB:Sum("INC", nil, "SelfChillEffect")
+				local more = activeSkill.skillModList:Sum("MORE", { source = "Skill" }, "EnemyChillEffect") * enemyDB:Sum("MORE", nil, "SelfChillEffect")
+				local effect = data.nonDamagingAilment.Chill.default * (1 + inc / 100) * more
 				modDB:NewMod("ChillOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 				enemyDB:NewMod("Condition:Chilled", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
 				if activeSkill.skillData.supportBonechill then
@@ -1258,7 +1262,9 @@ function calcs.perform(env, avoidCache)
 				end
 			end
 		elseif activeSkill.skillTypes[SkillType.ChillingArea] or (activeSkill.skillTypes[SkillType.NonHitChill] and not activeSkill.skillModList:Flag(nil, "CannotChill")) then
-			local effect = data.nonDamagingAilment.Chill.default * (1 + activeSkill.skillModList:Sum("INC", nil, "EnemyChillEffect") / 100)
+			local inc = activeSkill.skillModList:Sum("INC", nil, "EnemyChillEffect") + enemyDB:Sum("INC", nil, "SelfChillEffect")
+			local more = activeSkill.skillModList:Sum("MORE", nil, "EnemyChillEffect") * enemyDB:Sum("MORE", nil, "SelfChillEffect")
+			local effect = data.nonDamagingAilment.Chill.default * (1 + inc / 100) * more
 			modDB:NewMod("ChillOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 			enemyDB:NewMod("Condition:Chilled", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
 			if activeSkill.skillData.supportBonechill then
@@ -1796,7 +1802,6 @@ function calcs.perform(env, avoidCache)
 			end
 		end
 	end
-	local affectedByAura = { }
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
@@ -1869,7 +1874,7 @@ function calcs.perform(env, avoidCache)
 					end
 					if not activeSkill.skillData.auraCannotAffectSelf then
 						activeSkill.buffSkill = true
-						affectedByAura[env.player] = true
+						modDB.conditions["AffectedByAura"] = true
 						if buff.name:sub(1,4) == "Vaal" then
 							modDB.conditions["AffectedBy"..buff.name:sub(6):gsub(" ","")] = true
 						end
@@ -1884,8 +1889,8 @@ function calcs.perform(env, avoidCache)
 					end
 					if env.minion and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAurasOnlyAffectYou") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						activeSkill.minionBuffSkill = true
-						affectedByAura[env.minion] = true
 						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+						env.minion.modDB.conditions["AffectedByAura"] = true
 						local srcList = new("ModList")
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
@@ -1896,8 +1901,8 @@ function calcs.perform(env, avoidCache)
 					end
 					if env.player.mainSkill.skillFlags.totem and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						activeSkill.totemBuffSkill = true
-						affectedByAura[env.player.mainSkill] = true
 						env.player.mainSkill.skillModList.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+						env.player.mainSkill.skillModList.conditions["AffectedByAura"] = true
 
 						local srcList = new("ModList")
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect")
@@ -1963,13 +1968,13 @@ function calcs.perform(env, avoidCache)
 				end
 			elseif buff.type == "Curse" or buff.type == "CurseBuff" then
 				local mark = activeSkill.skillTypes[SkillType.Mark]
-				if env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof")) or mark then
+				if env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") or activeSkill.skillData.ignoreHexLimit) or mark then
 					local curse = {
 						name = buff.name,
 						fromPlayer = true,
 						priority = determineCursePriority(buff.name, activeSkill),
 						isMark = mark,
-						ignoreHexLimit = modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") and not mark or false,
+						ignoreHexLimit = (modDB:Flag(activeSkill.skillCfg, "CursesIgnoreHexLimit") or activeSkill.skillData.ignoreHexLimit) and not mark or false,
 						socketedCursesHexLimit = modDB:Flag(activeSkill.skillCfg, "SocketedCursesAdditionalLimit")
 					}
 					local inc = skillModList:Sum("INC", skillCfg, "CurseEffect") + enemyDB:Sum("INC", nil, "CurseEffectOnSelf")
@@ -2334,14 +2339,10 @@ function calcs.perform(env, avoidCache)
 		enemyDB:AddList(modList)
 	end
 	modDB.multipliers["CurseOnEnemy"] = #curseSlots
-	local affectedByCurse = { }
 	for _, slot in ipairs(curseSlots) do
 		enemyDB.conditions["Cursed"] = true
 		if slot.isMark then
 			enemyDB.conditions["Marked"] = true
-		end
-		if slot.fromPlayer then
-			affectedByCurse[env.enemy] = true
 		end
 		if slot.modList then
 			enemyDB:AddList(slot.modList)
@@ -3085,9 +3086,13 @@ function calcs.perform(env, avoidCache)
 					-- if not, use the generic modifiers
 					-- Scorch/Sap/Brittle do not have guaranteed sources from hits, and therefor will only end up in this bit of code if it's not supposed to apply the skillModList, which is bad
 					if ailment ~= "Scorch" and ailment ~= "Sap" and ailment ~= "Brittle" and not env.player.mainSkill.skillModList:Flag(nil, "Cannot"..ailment) and env.player.mainSkill.skillFlags.hit and modDB:Flag(nil, "ChecksHighestDamage") then
-						effect = effect * calcLib.mod(env.player.mainSkill.skillModList, nil, "Enemy"..ailment.."Effect")
+						local inc = env.player.mainSkill.skillModList:Sum("INC", nil, "Enemy"..ailment.."Effect") + enemyDB:Sum("INC", nil, "Self"..ailment.."Effect")
+						local more = env.player.mainSkill.skillModList:Sum("MORE", nil, "Enemy"..ailment.."Effect") * enemyDB:Sum("MORE", nil, "Self"..ailment.."Effect")
+						effect = effect * (1 + inc / 100) * more
 					else
-						effect = effect * calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect")
+						local inc = modDB:Sum("INC", nil, "Enemy"..ailment.."Effect") + enemyDB:Sum("INC", nil, "Self"..ailment.."Effect")
+						local more = modDB:Sum("MORE", nil, "Enemy"..ailment.."Effect") * enemyDB:Sum("MORE", nil, "Self"..ailment.."Effect")
+						effect = effect * (1 + inc / 100) * more
 					end
 					modDB:NewMod(ailment.."Override", "BASE", effect, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 				end
@@ -3137,18 +3142,6 @@ function calcs.perform(env, avoidCache)
 			end
 			totemMod.name = totemModName
 			modDB:AddMod(totemMod)
-		end
-	end
-
-	-- Check for modifiers to apply to actors affected by player auras or curses
-	for _, value in ipairs(modDB:List(nil, "AffectedByAuraMod")) do
-		for actor in pairs(affectedByAura) do
-			actor.modDB:AddMod(value.mod)
-		end
-	end
-	for _, value in ipairs(modDB:List(nil, "AffectedByCurseMod")) do
-		for actor in pairs(affectedByCurse) do
-			actor.modDB:AddMod(value.mod)
 		end
 	end
 
