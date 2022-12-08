@@ -472,6 +472,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
 
+	if override.conditions then
+		for _, flag in ipairs(override.conditions) do
+			modDB.conditions[flag] = true
+		end
+	end
+
 	local allocatedNotableCount = env.spec.allocatedNotableCount
 	local allocatedMasteryCount = env.spec.allocatedMasteryCount
 	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
@@ -668,7 +674,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							env.itemModDB:ScaleAddMod(mod, scale)
 						end
 					end
-				elseif (slotName == "Weapon 1" or slotName == "Weapon 2") and modDB:Flag(nil, "Condition:EnergyBladeActive") then
+				elseif (slotName == "Weapon 1" or slotName == "Weapon 2") and modDB.conditions["AffectedByEnergyBlade"] then
 					local type = env.player.itemList[slotName] and env.player.itemList[slotName].weaponData and env.player.itemList[slotName].weaponData[1].type
 					local info = env.data.weaponTypeInfo[type]
 					if info and type ~= "Bow" then
@@ -1177,6 +1183,18 @@ function calcs.initEnv(build, mode, override, specEnv)
 				socketGroup.displaySkillList = socketGroupSkillList
 			elseif env.mode == "CALCS" then
 				socketGroup.displaySkillListCalcs = socketGroupSkillList
+			end
+			
+			-- Check for enabled energy blade to see if we need to regenerate everything.
+			if not modDB.conditions["AffectedByEnergyBlade"] then
+				for _, gemInstance in ipairs(socketGroup.gemList) do
+					local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
+					if grantedEffect and not grantedEffect.support and gemInstance.enabled and grantedEffect.name == "Energy Blade" then
+						override.conditions = override.conditions or { }
+						t_insert(override.conditions, "AffectedByEnergyBlade")
+						return calcs.initEnv(build, mode, override, specEnv)
+					end
+				end
 			end
 		end
 
