@@ -803,18 +803,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 			end
 		end
+		if override.toggleFlask then
+			if env.flasks[override.toggleFlask] then
+				env.flasks[override.toggleFlask] = nil
+			else
+				env.flasks[override.toggleFlask] = true
+			end
+		end
 	end
 
 	-- Merge env.itemModDB with env.ModDB
 	mergeDB(env.modDB, env.itemModDB)
-
-	if override.toggleFlask then
-		if env.flasks[override.toggleFlask] then
-			env.flasks[override.toggleFlask] = nil
-		else
-			env.flasks[override.toggleFlask] = true
-		end
-	end
 
 	-- Add granted passives (e.g., amulet anoints)
 	if not accelerate.nodeAlloc then
