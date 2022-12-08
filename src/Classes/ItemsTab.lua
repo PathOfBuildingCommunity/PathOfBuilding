@@ -224,9 +224,9 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 
 	-- All items list
 	if main.portraitMode then
-		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, 0, 0, 360, 308, self, true)
+		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.controls.specButton,"BOTTOMRIGHT"}, 0, 20, 360, 308, self, true)
 	else
-		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self.slotAnchor,"TOPRIGHT"}, 20, -20, 360, 308, self, true)
+		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self.controls.setManage,"TOPRIGHT"}, 20, 20, 360, 308, self, true)
 	end
 
 	-- Database selector
@@ -254,7 +254,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
 	end
 	-- Create/import item
-	self.controls.craftDisplayItem = new("ButtonControl", {"TOPLEFT",main.portraitMode and self.slotAnchor or self.controls.itemList,"TOPRIGHT"}, 20, main.portraitMode and -20 or 0, 120, 20, "Craft item...", function()
+	self.controls.craftDisplayItem = new("ButtonControl", {"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, 20, main.portraitMode and 0 or -20, 120, 20, "Craft item...", function()
 		self:CraftItem()
 	end)
 	self.controls.craftDisplayItem.shown = function()
@@ -281,7 +281,7 @@ holding Shift will put it in the second.]])
 	-- Display item
 	self.displayItemTooltip = new("Tooltip")
 	self.displayItemTooltip.maxWidth = 458
-	self.anchorDisplayItem = new("Control", {"TOPLEFT",main.portraitMode and self.slotAnchor or self.controls.itemList,"TOPRIGHT"}, 20, main.portraitMode and -20 or 0, 0, 0)
+	self.anchorDisplayItem = new("Control", {"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, 20, main.portraitMode and 0 or -20, 0, 0)
 	self.anchorDisplayItem.shown = function()
 		return self.displayItem ~= nil
 	end
@@ -1230,7 +1230,7 @@ function ItemsTabClass:UpdateSockets()
 	end
 
 	if main.portraitMode then
-		self.controls.itemList:SetAnchor("TOPRIGHT",self.lastSlot,"BOTTOMRIGHT", 0, 40)
+		self.controls.itemList:SetAnchor("TOPRIGHT",self.controls.specButton,"BOTTOMRIGHT", 0, 40)
 	end
 end
 
@@ -2215,9 +2215,15 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			buildImplicitList("ScourgeDownside")
 			controls.implicit3Label.shown = true
 			controls.implicit3.shown = true
+			main.popups[1].height = 147
+			controls.close.y = 117
+			controls.save.y = 117
 			if self.displayItem.rarity == "UNIQUE" or self.displayItem.rarity == "RELIC" then
 				controls.implicit4Label.shown = true
 				controls.implicit4.shown = true
+				main.popups[1].height = 165
+				controls.close.y = 135
+				controls.save.y = 135
 			end
 			controls.implicit2.y = 85
 			buildList(controls.implicit3, controls.implicit4, "ScourgeDownside")
@@ -2229,6 +2235,9 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			controls.implicit4Label.shown = false
 			controls.implicit4.shown = false
 			controls.implicit2.y = 65
+			main.popups[1].height = 129
+			controls.close.y = 99
+			controls.save.y = 99
 		end
 		buildList(controls.implicit, controls.implicit2, currentModType)
 		buildList(controls.implicit2, controls.implicit, currentModType)
@@ -2260,7 +2269,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	controls.implicit4.shown = false
 	buildList(controls.implicit, controls.implicit2, currentModType)
 	buildList(controls.implicit2, controls.implicit, currentModType)
-	controls.save = new("ButtonControl", nil, -45, 135, 80, 20, modType, function()
+	controls.save = new("ButtonControl", nil, -45, 99, 80, 20, modType, function()
 		self:SetDisplayItem(corruptItem())
 		main:ClosePopup()
 	end)
@@ -2268,11 +2277,10 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		tooltip:Clear()
 		self:AddItemTooltip(tooltip, corruptItem(), nil, true)
 	end	
-	controls.close = new("ButtonControl", nil, 45, 135, 80, 20, "Cancel", function()
+	controls.close = new("ButtonControl", nil, 45, 99, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	-- how do I access this to resize it?
-	main:OpenPopup(540, 165, modType .. " Item", controls)
+	main:OpenPopup(540, 129, modType .. " Item", controls)
 end
 
 -- Opens the custom modifier popup
@@ -2654,6 +2662,9 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		controls.modSelect:SetSel(1)
 	end)
 	controls.modGroupSelectLabel.shown = function()
+		if sourceList[controls.source.selIndex].sourceId == "CUSTOM" then
+			controls.modSelectLabel.y = 45
+		end
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
 	controls.modGroupSelect.shown = function()
@@ -2668,7 +2679,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		end
 	end
 	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 70, 0, 16, "^7Modifier:")
-	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 70, 600, 18, modList[modGroups[1].modListIndex])
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 70, 600, 18, sourceList[controls.source.selIndex].sourceId ~= "CUSTOM" and modList[modGroups[1].modListIndex] or { })
 	controls.modSelect.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
