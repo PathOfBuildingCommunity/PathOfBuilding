@@ -4155,6 +4155,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotalDotCalcSection = output.TotalDotInstance
 	end
 
+	--Calculates and displays cost per second for skills that don't already have one (link skills)
 	for resource, val in pairs(costs) do
 		if(val.upfront and output[resource.."HasCost"] and output[resource.."Cost"] > 0 and not output[resource.."PerSecondHasCost"] and (output.Speed > 0 or output.Cooldown)) then
 			local repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
