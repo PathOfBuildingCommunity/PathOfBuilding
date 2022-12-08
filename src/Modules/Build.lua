@@ -319,18 +319,18 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "BrandAttachmentRange", label = "Attachment Range", fmt = "d", flag = "brand" },
 		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
 		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", color = colorCodes.MANA, pool = "ManaUnreserved", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaHasCost end },
-		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPercentHasCost end },
-		{ stat = "ManaPerSecondCost", label = "Mana Cost", fmt = ".2f/s", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPerSecondHasCost end },
-		{ stat = "ManaPercentPerSecondCost", label = "Mana Cost", fmt = ".2f%%/s", color = colorCodes.MANA, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPercentPerSecondHasCost end },
+		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", color = colorCodes.MANA, pool = "ManaUnreservedPercent", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPercentHasCost end },
+		{ stat = "ManaPerSecondCost", label = "Mana Cost", fmt = ".2f/s", color = colorCodes.MANA, pool = "ManaUnreserved", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPerSecondHasCost end },
+		{ stat = "ManaPercentPerSecondCost", label = "Mana Cost", fmt = ".2f%%/s", color = colorCodes.MANA, pool = "ManaUnreservedPercent", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPercentPerSecondHasCost end },
 		{ stat = "LifeCost", label = "Life Cost", fmt = "d", color = colorCodes.LIFE, pool = "LifeUnreserved", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifeHasCost end },
-		{ stat = "LifePercentCost", label = "Life Cost", fmt = "d%%", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePercentHasCost end },
-		{ stat = "LifePerSecondCost", label = "Life Cost", fmt = ".2f/s", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePerSecondHasCost end },
-		{ stat = "LifePercentPerSecondCost", label = "Life Cost", fmt = ".2f%%/s", color = colorCodes.LIFE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePercentPerSecondHasCost end },
+		{ stat = "LifePercentCost", label = "Life Cost", fmt = "d%%", color = colorCodes.LIFE, pool = "LifeUnreservedPercent", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePercentHasCost end },
+		{ stat = "LifePerSecondCost", label = "Life Cost", fmt = ".2f/s", color = colorCodes.LIFE, pool = "LifeUnreserved", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePerSecondHasCost end },
+		{ stat = "LifePercentPerSecondCost", label = "Life Cost", fmt = ".2f%%/s", color = colorCodes.LIFE, pool = "LifeUnreservedPercent", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.LifePercentPerSecondHasCost end },
 		{ stat = "ESCost", label = "Energy Shield Cost", fmt = "d", color = colorCodes.ES, pool = "EnergyShield", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESHasCost end },
-		{ stat = "RageCost", label = "Rage Cost", fmt = "d", color = colorCodes.RAGE, pool = "Rage", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RageHasCost end },
-		{ stat = "RagePerSecondCost", label = "Rage Cost per second", fmt = ".2f", color = colorCodes.RAGE, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RagePerSecondHasCost end },
-		{ stat = "ESPerSecondCost", label = "ES Cost per second", fmt = ".2f", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESPerSecondHasCost end },
+		{ stat = "ESPerSecondCost", label = "ES Cost per second", fmt = ".2f", color = colorCodes.ES, pool = "EnergyShield", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESPerSecondHasCost end },
 		{ stat = "ESPercentPerSecondCost", label = "ES Cost per second", fmt = ".2f%%", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESPercentPerSecondHasCost end },
+		{ stat = "RageCost", label = "Rage Cost", fmt = "d", color = colorCodes.RAGE, pool = "Rage", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RageHasCost end },
+		{ stat = "RagePerSecondCost", label = "Rage Cost per second", fmt = ".2f", color = colorCodes.RAGE, pool = "Rage", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RagePerSecondHasCost end },
 		{ },
 		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
 		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end, warnFunc = function(v) return "You do not meet the Strength requirement" end },
@@ -1369,6 +1369,18 @@ function buildMode:AddDisplayStatList(statList, actor)
 	for pool, warningFlag in pairs({["Life"] = "LifeCostWarning", ["Mana"] = "ManaCostWarning", ["Rage"] = "RageCostWarning", ["Energy Shield"] = "ESCostWarning"}) do
 		if actor.output[warningFlag] then
 			local line = "You do not have enough "..(actor.output.EnergyShieldProtectsMana and pool == "Mana" and "Energy Shield and Mana" or pool).." to use a Selected Skill"
+			InsertIfNew(self.controls.warnings.lines, line)
+		end
+	end
+	for pool, warningFlag in pairs({["Life"] = "LifePerSecondCostPerSecondWarning", ["Mana"] = "ManaPerSecondCostPerSecondWarning", ["Rage"] = "RagePerSecondCostPerSecondWarning", ["EnergyShield"] = "ESPerSecondCostPerSecondWarning"}) do
+		if actor.output[warningFlag] then
+			local line = "You do not have enough ".. pool .." to use a Selected Skill for a second"
+			InsertIfNew(self.controls.warnings.lines, line)
+		end
+	end
+	for pool, warningFlag in pairs({["Unreserved life"] = "LifePercentCostPercentPerSecondWarning", ["Unreserved life"] = "LifePercentPerSecondCostPercentPerSecondWarning", ["Unreserved Mana"] = "ManaPercentPerSecondCostPercentPerSecondWarning", ["Unreserved Mana"] = "ManaPercentCostPercentPerSecondWarning", ["EnergyShield"] = "ESPercentPerSecondCostPercentPerSecondWarning"}) do
+		if actor.output[warningFlag] then
+			local line = "You do not have enough ".. pool .."% to use a Selected Skill"
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end
