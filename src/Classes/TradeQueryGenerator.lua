@@ -155,7 +155,8 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
                 goto continue
             end
 
-            if self.modData[modType][statOrder] == nil then
+            local uniqueIndex = tostring(statOrder).."_"..mod.group
+            if self.modData[modType][uniqueIndex] == nil then
                 local tradeMod = nil
                 local matchStr = modLine:gsub("[#()0-9%-%+%.]","")
                 for _, entry in ipairs(tradeQueryStatsParsed.result[tradeStatCategoryIndices[modType]].entries) do
@@ -170,21 +171,21 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
                     goto nextModLine
                 end
 
-                self.modData[modType][statOrder] = { tradeMod = tradeMod, specialCaseData = specialCaseData }
+                self.modData[modType][uniqueIndex] = { tradeMod = tradeMod, specialCaseData = specialCaseData }
             end
 
             -- tokenize the numerical variables for this mod and store the sign if there is one
             local tokens = { }
             local poundPos, tokenizeOffset = 0, 0
             while true do
-                poundPos = self.modData[modType][statOrder].tradeMod.text:find("#", poundPos + 1)
+                poundPos = self.modData[modType][uniqueIndex].tradeMod.text:find("#", poundPos + 1)
                 if poundPos == nil then
                     break
                 end
                 startPos, endPos, sign, min, max = modLine:find("([%+%-]?)%(?(%d+%.?%d*)%-?(%d*%.?%d*)%)?", poundPos + tokenizeOffset)
 
                 if endPos == nil then
-                    logToFile("Error extracting tokens from '%s' for tradeMod '%s'", modLine, self.modData[modType][statOrder].tradeMod.text)
+                    logToFile("[GMD] Error extracting tokens from '%s' for tradeMod '%s'", modLine, self.modData[modType][uniqueIndex].tradeMod.text)
                     goto nextModLine
                 end
 
@@ -192,7 +193,7 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
                 table.insert(tokens, min)
                 table.insert(tokens, #max > 0 and tonumber(max) or tonumber(min))
                 if sign ~= nil then
-                    self.modData[modType][statOrder].sign = sign
+                    self.modData[modType][uniqueIndex].sign = sign
                 end
             end
 
@@ -204,11 +205,11 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
             -- Update the min and max values available for each item category
             for category, tags in pairs(itemCategoryTags) do
                 if canModSpawnForItemCategory(mod, tags) then
-                    if self.modData[modType][statOrder][category] == nil then
-                        self.modData[modType][statOrder][category] = { min = 999999, max = -999999 }
+                    if self.modData[modType][uniqueIndex][category] == nil then
+                        self.modData[modType][uniqueIndex][category] = { min = 999999, max = -999999 }
                     end
 
-                    local modRange = self.modData[modType][statOrder][category]
+                    local modRange = self.modData[modType][uniqueIndex][category]
                     if #tokens == 0 then
                         modRange.min = 1
                         modRange.max = 1
@@ -286,22 +287,23 @@ function TradeQueryGeneratorClass:InitMods()
                 local statOrder = tradeMod.id
 
                 -- If this is the first tier for this mod, init the entry
-                if self.modData[modType][statOrder] == nil then
-                    self.modData[modType][statOrder] = { tradeMod = tradeMod, specialCaseData = { } }
+                local uniqueIndex = tostring(statOrder)
+                if self.modData[modType][uniqueIndex] == nil then
+                    self.modData[modType][uniqueIndex] = { tradeMod = tradeMod, specialCaseData = { } }
                 end
 
                 -- tokenize the numerical variables for this mod and store the sign if there is one
                 local tokens = { }
                 local poundPos, tokenizeOffset = 0, 0
                 while true do
-                    poundPos = self.modData[modType][statOrder].tradeMod.text:find("#", poundPos + 1)
+                    poundPos = self.modData[modType][uniqueIndex].tradeMod.text:find("#", poundPos + 1)
                     if poundPos == nil then
                         break
                     end
                     startPos, endPos, sign, min, max = modLine:find("([%+%-]?)%(?(%d+%.?%d*)%-?(%d*%.?%d*)%)?", poundPos + tokenizeOffset)
 
                     if endPos == nil then
-                        logToFile("Error extracting tokens from '%s' for tradeMod '%s'", modLine, self.modData[modType][statOrder].tradeMod.text)
+                        logToFile("[Init] Error extracting tokens from '%s' for tradeMod '%s'", modLine, self.modData[modType][uniqueIndex].tradeMod.text)
                         goto continue
                     end
 
@@ -309,7 +311,7 @@ function TradeQueryGeneratorClass:InitMods()
                     table.insert(tokens, min)
                     table.insert(tokens, #max > 0 and tonumber(max) or tonumber(min))
                     if sign ~= nil then
-                        self.modData[modType][statOrder].sign = sign
+                        self.modData[modType][uniqueIndex].sign = sign
                     end
                 end
 
@@ -329,11 +331,11 @@ function TradeQueryGeneratorClass:InitMods()
                     end
 
                     if tagMatch then
-                        if self.modData[modType][statOrder][category] == nil then
-                            self.modData[modType][statOrder][category] = { min = 999999, max = -999999, subType = entry.subType }
+                        if self.modData[modType][uniqueIndex][category] == nil then
+                            self.modData[modType][uniqueIndex][category] = { min = 999999, max = -999999, subType = entry.subType }
                         end
 
-                        local modRange = self.modData[modType][statOrder][category]
+                        local modRange = self.modData[modType][uniqueIndex][category]
                         if #tokens == 0 then
                             modRange.min = 1
                             modRange.max = 1
