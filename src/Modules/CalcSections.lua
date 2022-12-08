@@ -651,6 +651,7 @@ return {
 		{ breakdown = "BrandAttachmentRange" },
 		{ modName = "BrandAttachmentRange", cfg = "skill"},
 	}, },
+	{ label = "Max Sust. Fuses", haveOutput = "MaxExplosiveArrowFuseCalculated", { format = "{0:output:MaxExplosiveArrowFuseCalculated} Fuses", }, },
 	{ label = "Overlap Chance", haveOutput = "OverlapChance", { format = "{2:output:OverlapChance}%", { breakdown = "OverlapChance" }, }, },
 	{ label = "Trap Cooldown", haveOutput = "TrapCooldown", { format = "{3:output:TrapCooldown}s",
 		{ breakdown = "TrapCooldown" },
