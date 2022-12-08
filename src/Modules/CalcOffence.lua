@@ -9,6 +9,7 @@ local pairs = pairs
 local ipairs = ipairs
 local unpack = unpack
 local t_insert = table.insert
+local t_remove = table.remove
 local m_abs = math.abs
 local m_floor = math.floor
 local m_ceil = math.ceil
@@ -4178,28 +4179,8 @@ function calcs.offence(env, actor, activeSkill)
 			output[resource.."PerSecondCost"] = output[resource.."Cost"] * useSpeed
 
 			if breakdown then
-				local inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
-				local more = floor(skillModList:More(skillCfg, val.type.."Cost", "Cost"), 2)
-				local mult = floor(skillModList:More(skillCfg, "SupportManaMultiplier"), 2)
-				
-				breakdown[resource.."PerSecondCost"] = {
-					s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
-				}
-				if mult ~= 1 then
-					t_insert(breakdown[resource.."PerSecondCost"], s_format("x %.2f ^8(cost multiplier)", mult))
-				end
-				if val.baseCostNoMult ~= 0 then
-					t_insert(breakdown[resource.."PerSecondCost"], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
-				end
-				if inc ~= 0 then
-					t_insert(breakdown[resource.."PerSecondCost"], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
-				end
-				if more ~= 1 then
-					t_insert(breakdown[resource.."PerSecondCost"], s_format("x %.2f ^8(more/less "..val.text.." cost)", more))
-				end
-				if val.totalCost ~= 0 then
-					t_insert(breakdown[resource.."PerSecondCost"], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
-				end
+				breakdown[resource.."PerSecondCost"] = copyTable(breakdown[resource.."Cost"])
+				t_remove(breakdown[resource.."PerSecondCost"])				
 				t_insert(breakdown[resource.."PerSecondCost"], s_format("x %.2f ^8("..timeType.." speed)", useSpeed))
 				t_insert(breakdown[resource.."PerSecondCost"], s_format("= %.2f per second", output[resource.."PerSecondCost"]))
 			end
