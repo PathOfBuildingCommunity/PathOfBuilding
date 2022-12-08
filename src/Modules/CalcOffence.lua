@@ -3097,7 +3097,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
-			-- overstacking bleed stacks increases the chance a critical ignite is present
+			-- overstacking bleed stacks increases the chance a critical bleed is present
 			local ailmentCritChance = 100*(1 - m_pow(1-output.CritChance/100, bleedStacks))
 			local baseVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowBleedEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
