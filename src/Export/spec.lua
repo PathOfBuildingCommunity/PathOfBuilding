@@ -739,18 +739,263 @@ return {
 	ArchetypeRewards={
 	},
 	Archetypes={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	ArchitectLifeScalingPerLevel={
 	},
 	ArchnemesisMetaRewards={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=220
+		}
 	},
 	ArchnemesisModComboAchievements={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	ArchnemesisModVisuals={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	ArchnemesisMods={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=310
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[14]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[15]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		}
 	},
 	ArchnemesisRecipes={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	AreaInfluenceDoodads={
 	},
@@ -1553,7 +1798,7 @@ return {
 			name="StatValues",
 			refTo="",
 			type="Int",
-			width=130
+			width=100
 		},
 		[4]={
 			list=false,
@@ -1603,14 +1848,7 @@ return {
 			refTo="Stats",
 			type="Key",
 			width=350
-		},
-		[11]={
-			list=false,
-			name="Value",
-			refTo="",
-			type="Int",
-			width=150
-		},
+		}
 	},
 	BuffVisualArtVariations={
 		[1]={
@@ -4506,6 +4744,13 @@ return {
 	ModEquivalencies={
 	},
 	ModFamily={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
+		}
 	},
 	ModGenerationType={
 	},
@@ -4536,6 +4781,27 @@ return {
 			refTo="Tags",
 			type="UInt",
 			width=130
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
 		}
 	},
 	Mods={
@@ -4544,7 +4810,7 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=300
+			width=450
 		},
 		[2]={
 			list=false,
@@ -4558,7 +4824,7 @@ return {
 			name="Type",
 			refTo="ModType",
 			type="Key",
-			width=150
+			width=280
 		},
 		[4]={
 			list=false,
@@ -4572,28 +4838,28 @@ return {
 			name="Stat1",
 			refTo="Stats",
 			type="Key",
-			width=280
+			width=200
 		},
 		[6]={
 			list=false,
 			name="Stat2",
 			refTo="Stats",
 			type="Key",
-			width=280
+			width=200
 		},
 		[7]={
 			list=false,
 			name="Stat3",
 			refTo="Stats",
 			type="Key",
-			width=150
+			width=200
 		},
 		[8]={
 			list=false,
 			name="Stat4",
 			refTo="Stats",
 			type="Key",
-			width=150
+			width=200
 		},
 		[9]={
 			list=false,
@@ -4607,7 +4873,7 @@ return {
 			name="Name",
 			refTo="",
 			type="String",
-			width=130
+			width=350
 		},
 		[11]={
 			list=false,
@@ -4617,11 +4883,11 @@ return {
 			width=100
 		},
 		[12]={
-			list=false,
+			list=true,
 			name="Family",
 			refTo="ModFamily",
-			type="String",
-			width=120
+			type="Key",
+			width=300
 		},
 		[13]={
 			list=false,
@@ -4703,7 +4969,7 @@ return {
 		[24]={
 			list=true,
 			name="",
-			refTo="",
+			refTo="Modtype",
 			type="Key",
 			width=150
 		},
@@ -4815,55 +5081,55 @@ return {
 		[40]={
 			list=true,
 			name="",
-			refTo="",
+			refTo="HeistEnchant",
 			type="Key",
 			width=150
 		},
 		[41]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="Heist_SubStatValue1",
 			type="Int",
 			width=150
 		},
 		[42]={
 			list=false,
-			name="",
+			name="Heist_SubStatValue2",
 			refTo="GrantedEffectsPerLevel",
 			type="Int",
 			width=240
 		},
 		[43]={
 			list=false,
-			name="",
-			refTo="",
+			name="Heist_StatsKey0",
+			refTo="Stats",
 			type="Key",
 			width=150
 		},
 		[44]={
 			list=false,
-			name="",
-			refTo="",
+			name="Heist_StatsKey1",
+			refTo="Stats",
 			type="Key",
 			width=250
 		},
 		[45]={
 			list=false,
-			name="",
+			name="Heist_AddStatValue1",
 			refTo="",
 			type="Int",
 			width=240
 		},
 		[46]={
 			list=false,
-			name="",
+			name="Heist_AddStatValue2",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[47]={
 			list=false,
-			name="",
+			name="InfluenceTypes",
 			refTo="",
 			type="Int",
 			width=150
@@ -4879,78 +5145,78 @@ return {
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
+			type="Bool",
 			width=150
 		},
 		[50]={
 			list=false,
-			name="",
+			name="UnknownStat1",
 			refTo="",
-			type="Bool",
+			type="Interval",
 			width=150
 		},
 		[51]={
 			list=false,
-			name="",
+			name="UnknownStat2",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[52]={
 			list=false,
-			name="",
+			name="UnknownStat3",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[53]={
 			list=false,
-			name="",
+			name="UnknownStat4",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[54]={
 			list=false,
-			name="",
+			name="UnknownStat5",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[55]={
 			list=false,
-			name="",
+			name="UnknownStat6",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[56]={
 			list=false,
-			name="",
+			name="UnknownStat7",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[57]={
 			list=false,
-			name="",
+			name="UnknownStat8",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[58]={
 			list=false,
-			name="",
-			refTo="",
-			type="Int",
+			name="BuffTemplate",
+			refTo="BuffTemplates",
+			type="Key",
 			width=150
 		},
 		[59]={
 			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
+			name="ArchnemesisMinionMod",
+			refTo="Mods",
+			type="ShortKey",
+			width=290
 		},
 		[60]={
 			list=false,
@@ -4975,30 +5241,9 @@ return {
 		},
 		[63]={
 			list=false,
-			name="",
+			name="NextMod",
 			refTo="",
-			type="Int",
-			width=150
-		},
-		[64]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[65]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[66]={
-			list=false,
-			name="",
-			refTo="",
-			type="Key",
+			type="String",
 			width=150
 		}
 	},
@@ -6317,10 +6562,45 @@ return {
 		},
 		[5]={
 			list=false,
+			name="",
+			refTo="",
+			type="Enum",
+			width=150
+		},
+		[6]={
+			list=false,
 			name="Proxy",
 			refTo="PassiveSkills",
 			type="Key",
 			width=210
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
 		}
 	},
 	PassiveSkillBuffs={
@@ -6770,23 +7050,9 @@ return {
 		},
 		[8]={
 			list=false,
-			name="Art",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[9]={
-			list=false,
 			name="TotalIndicies",
 			refTo="",
 			type="Int",
-			width=80
-		},
-		[10]={
-			list=false,
-			name="SoundEffect",
-			refTo="SoundEffects",
-			type="Key",
 			width=150
 		}
 	},

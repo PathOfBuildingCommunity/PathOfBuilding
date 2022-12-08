@@ -1628,6 +1628,12 @@ skills["MinionFocusFire"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["resist_all_%"] = {
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectCond = "EnemyHasDeathmark" }),
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectCond = "EnemyHasDeathmark" }),
+		},
+	},
 	baseFlags = {
 	},
 	qualityStats = {
@@ -4023,6 +4029,87 @@ skills["SupportSummonElementalResistances"] = {
 		[40] = { 36, 4, 27, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, 1, 1, }, },
 	},
 }
+skills["SupportOvercharge"] = {
+	name = "Overcharge",
+	description = "Supports any skill that hits enemies.",
+	color = 3,
+	support = true,
+	requireSkillTypes = { SkillType.Damage, SkillType.Attack, },
+	addSkillTypes = { },
+	excludeSkillTypes = { },
+	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_pure_shock_shock_as_though_damage_+%_final"] = {
+			mod("ShockAsThoughDealing", "MORE", nil),
+		},
+		["support_pure_shock_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["shock_effect_+%_with_critical_strikes"] = {
+			mod("EnemyShockEffect", "INC", nil),
+		},
+	},
+	qualityStats = {
+		Default = {
+			{ "shock_duration_+%", 1.5 },
+		},
+		Alternate1 = {
+			{ "shock_effect_+%_with_critical_strikes", 1 },
+		},
+		Alternate2 = {
+			{ "critical_strike_chance_+%", 2 },
+		},
+	},
+	constantStats = {
+		{ "base_chance_to_shock_%", 50 },
+		{ "support_pure_shock_damage_+%_final", -25 },
+	},
+	stats = {
+		"support_pure_shock_shock_as_though_damage_+%_final",
+	},
+	levels = {
+		[1] = { 500, manaMultiplier = 20, levelRequirement = 18, statInterpolation = { 1, }, },
+		[2] = { 510, manaMultiplier = 20, levelRequirement = 22, statInterpolation = { 1, }, },
+		[3] = { 520, manaMultiplier = 20, levelRequirement = 26, statInterpolation = { 1, }, },
+		[4] = { 530, manaMultiplier = 20, levelRequirement = 29, statInterpolation = { 1, }, },
+		[5] = { 540, manaMultiplier = 20, levelRequirement = 32, statInterpolation = { 1, }, },
+		[6] = { 550, manaMultiplier = 20, levelRequirement = 35, statInterpolation = { 1, }, },
+		[7] = { 560, manaMultiplier = 20, levelRequirement = 38, statInterpolation = { 1, }, },
+		[8] = { 570, manaMultiplier = 20, levelRequirement = 41, statInterpolation = { 1, }, },
+		[9] = { 580, manaMultiplier = 20, levelRequirement = 44, statInterpolation = { 1, }, },
+		[10] = { 590, manaMultiplier = 20, levelRequirement = 47, statInterpolation = { 1, }, },
+		[11] = { 600, manaMultiplier = 20, levelRequirement = 50, statInterpolation = { 1, }, },
+		[12] = { 610, manaMultiplier = 20, levelRequirement = 53, statInterpolation = { 1, }, },
+		[13] = { 620, manaMultiplier = 20, levelRequirement = 56, statInterpolation = { 1, }, },
+		[14] = { 630, manaMultiplier = 20, levelRequirement = 58, statInterpolation = { 1, }, },
+		[15] = { 640, manaMultiplier = 20, levelRequirement = 60, statInterpolation = { 1, }, },
+		[16] = { 650, manaMultiplier = 20, levelRequirement = 62, statInterpolation = { 1, }, },
+		[17] = { 660, manaMultiplier = 20, levelRequirement = 64, statInterpolation = { 1, }, },
+		[18] = { 670, manaMultiplier = 20, levelRequirement = 66, statInterpolation = { 1, }, },
+		[19] = { 680, manaMultiplier = 20, levelRequirement = 68, statInterpolation = { 1, }, },
+		[20] = { 690, manaMultiplier = 20, levelRequirement = 70, statInterpolation = { 1, }, },
+		[21] = { 700, manaMultiplier = 20, levelRequirement = 72, statInterpolation = { 1, }, },
+		[22] = { 710, manaMultiplier = 20, levelRequirement = 74, statInterpolation = { 1, }, },
+		[23] = { 720, manaMultiplier = 20, levelRequirement = 76, statInterpolation = { 1, }, },
+		[24] = { 730, manaMultiplier = 20, levelRequirement = 78, statInterpolation = { 1, }, },
+		[25] = { 740, manaMultiplier = 20, levelRequirement = 80, statInterpolation = { 1, }, },
+		[26] = { 750, manaMultiplier = 20, levelRequirement = 82, statInterpolation = { 1, }, },
+		[27] = { 760, manaMultiplier = 20, levelRequirement = 84, statInterpolation = { 1, }, },
+		[28] = { 770, manaMultiplier = 20, levelRequirement = 86, statInterpolation = { 1, }, },
+		[29] = { 780, manaMultiplier = 20, levelRequirement = 88, statInterpolation = { 1, }, },
+		[30] = { 790, manaMultiplier = 20, levelRequirement = 90, statInterpolation = { 1, }, },
+		[31] = { 795, manaMultiplier = 20, levelRequirement = 91, statInterpolation = { 1, }, },
+		[32] = { 800, manaMultiplier = 20, levelRequirement = 92, statInterpolation = { 1, }, },
+		[33] = { 805, manaMultiplier = 20, levelRequirement = 93, statInterpolation = { 1, }, },
+		[34] = { 810, manaMultiplier = 20, levelRequirement = 94, statInterpolation = { 1, }, },
+		[35] = { 815, manaMultiplier = 20, levelRequirement = 95, statInterpolation = { 1, }, },
+		[36] = { 820, manaMultiplier = 20, levelRequirement = 96, statInterpolation = { 1, }, },
+		[37] = { 825, manaMultiplier = 20, levelRequirement = 97, statInterpolation = { 1, }, },
+		[38] = { 830, manaMultiplier = 20, levelRequirement = 98, statInterpolation = { 1, }, },
+		[39] = { 835, manaMultiplier = 20, levelRequirement = 99, statInterpolation = { 1, }, },
+		[40] = { 840, manaMultiplier = 20, levelRequirement = 100, statInterpolation = { 1, }, },
+	},
+}
 skills["SupportPhysicalToLightning"] = {
 	name = "Physical to Lightning",
 	description = "Supports any skill that hits enemies.",
@@ -4497,7 +4584,7 @@ skills["SupportMulticast"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 		["support_spell_echo_final_repeat_damage_+%_final"] = {
-			mod("Damage", "MORE", nil),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 			--Average out over the casts
 			div = 3
 		}
@@ -4585,7 +4672,7 @@ skills["SupportSpellEchoPlus"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 		["spell_echo_plus_chance_double_damage_%_final"] = {
-			mod("DoubleDamageChance", "BASE", nil, ModFlag.Spell, 0),
+			mod("DoubleDamageChance", "BASE", nil, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 			div = 2,
 		},
 	},
@@ -4671,7 +4758,7 @@ skills["SupportSummonGhostOnKill"] = {
 	},
 	constantStats = {
 		{ "support_ghost_base_duration", 15000 },
-		{ "chance_to_summon_support_ghost_on_hitting_rare_or_unique_%", 10 },
+		{ "chance_to_summon_support_ghost_on_hitting_rare_or_unique_%", 20 },
 	},
 	stats = {
 		"chance_to_summon_support_ghost_on_killing_blow_%",

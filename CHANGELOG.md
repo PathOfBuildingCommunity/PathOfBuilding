@@ -1,5 +1,50 @@
 # Changelog
 
+## [v2.21.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.21.1) (2022/08/20)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.21.0...v2.21.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+- Fix crash related to Alchemists Mark [\#4931](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4931) ([deathbeam](https://github.com/deathbeam))
+
+
+
+## [v2.21.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.21.0) (2022/08/20)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.20.2...v2.21.0)
+
+## What's Changed
+### Implemented Enhancements
+- Add support for new 3.19 skills and mods [\#4925](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4925) ([Nostrademous](https://github.com/Nostrademous), [LocalIdentity](https://github.com/LocalIdentity))
+  * Full support for all new skills
+- Add initial support for Eldritch Implicits [\#4658](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4658) ([Regisle](https://github.com/Regisle))
+- Add the ability to automatically calculate # of Explosive Arrow Fuses [\#4918](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4918) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add breakdowns for Burning and Caustic ground from ailments [\#4916](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4916) ([Regisle](https://github.com/Regisle))
+- Add the Poised Prism and Elevore uniques [\#4846](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4846) ([QuickStick123](https://github.com/QuickStick123))
+- Add new Grand Spectrum mods [\#4897](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4897) ([deathbeam](https://github.com/deathbeam))
+### User Interface
+- Fix PvP Hit Taken Colour [\#4860](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4860) ([Regisle](https://github.com/Regisle))
+- Update Heartstopper config text [\#4859](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4859) ([Regisle](https://github.com/Regisle))
+- Remove Main Hand background colour from global Ignite Dot Multi section [\#4922](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4922) ([TPlant](https://github.com/PJacek))
+- Add Keystone names to Timeless jewel variants [\#4882](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4882) ([Regisle](https://github.com/Regisle))
+### Accuracy Improvements
+- Update Replica uniques [\#4901](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4901) ([QuickStick123](https://github.com/QuickStick123))
+- Update Deidbell [\#4852](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4852) ([QuickStick123](https://github.com/QuickStick123))
+- Update Ventor's Gamble and Soul Ripper [\#4894](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4894) ([Lothrik](https://github.com/Lothrik))
+- Fix missing life on Demon Stitcher [\#4858](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4858) ([QuickStick123](https://github.com/QuickStick123))
+### Fixed Bugs
+- Fix crash when adding Timeless jewel to build from tree UI [\#4893](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4893) ([Lothrik](https://github.com/Lothrik))
+- Fix certain spells not having correct DPS with Unleash Support [\#4881](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4881) ([Regisle](https://github.com/Regisle))
+- Fix Timeless jewel node weight bugs [\#4844](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4844) ([Lothrik](https://github.com/Lothrik))
+- Fix checkbox not updating when selecting Vaal skills [\#4903](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4903) ([Paliak](https://github.com/Paliak))
+- Fix Rage regen issues [\#4880](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4880) ([Regisle](https://github.com/Regisle))
+- Fix Gain on Kill not working for Attacks [\#4857](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4857) ([Regisle](https://github.com/Regisle))
+
+
+
 ## [v2.20.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.20.2) (2022/08/16)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.20.1...v2.20.2)

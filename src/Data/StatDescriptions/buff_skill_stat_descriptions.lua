@@ -1039,6 +1039,38 @@ return {
 				[1]={
 					limit={
 						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Buff grants {0}% increased Shock Duration"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Buff grants {0}% reduced Shock Duration"
+				}
+			}
+		},
+		name="buff_grants_shock_duration",
+		stats={
+			[1]="skill_buff_grants_shock_duration_+%"
+		}
+	},
+	[42]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
 							[1]="#",
 							[2]="#"
 						}
@@ -1052,7 +1084,7 @@ return {
 			[1]="skill_display_buff_grants_shock_immunity"
 		}
 	},
-	[42]={
+	[43]={
 		lang={
 			English={
 				[1]={
@@ -1075,7 +1107,7 @@ return {
 			[1]="skill_grants_life_cost_%_mana_cost_while_not_on_low_life"
 		}
 	},
-	[43]={
+	[44]={
 		lang={
 			English={
 				[1]={
@@ -1107,7 +1139,7 @@ return {
 			[1]="soul_link_grants_damage_taken_+%_final"
 		}
 	},
-	[44]={
+	[45]={
 		lang={
 			English={
 				[1]={
@@ -1139,7 +1171,7 @@ return {
 			[1]="soul_link_grants_mana_regeneration_+%"
 		}
 	},
-	[45]={
+	[46]={
 		lang={
 			English={
 				[1]={
@@ -1158,7 +1190,7 @@ return {
 			[1]="soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"
 		}
 	},
-	[46]={
+	[47]={
 		lang={
 			English={
 				[1]={
@@ -1190,7 +1222,7 @@ return {
 			[1]="spell_damage_+%"
 		}
 	},
-	[47]={
+	[48]={
 		lang={
 			English={
 				[1]={
@@ -1222,7 +1254,7 @@ return {
 			[1]="storm_blade_energy_shield_+%_final"
 		}
 	},
-	[48]={
+	[49]={
 		lang={
 			English={
 				[1]={
@@ -1245,7 +1277,7 @@ return {
 			[1]="unaffected_by_temporal_chains"
 		}
 	},
-	[49]={
+	[50]={
 		lang={
 			English={
 				[1]={
@@ -1264,7 +1296,7 @@ return {
 			[1]="vaal_molten_shall_armour_+%_final"
 		}
 	},
-	[50]={
+	[51]={
 		lang={
 			English={
 				[1]={
@@ -1288,7 +1320,7 @@ return {
 			[2]="virtual_flame_link_maximum_fire_damage"
 		}
 	},
-	[51]={
+	[52]={
 		lang={
 			English={
 				[1]={
@@ -1312,7 +1344,7 @@ return {
 			[2]="virtual_storm_blade_maximum_lightning_damage"
 		}
 	},
-	[52]={
+	[53]={
 		lang={
 			English={
 				[1]={
@@ -1354,7 +1386,7 @@ return {
 	["damage_taken_goes_to_mana_%"]=23,
 	["display_bulwark_link_overrides_attack_block_and_maximum_attack_block"]=24,
 	["display_critical_link_overrides_main_hand_critical_strike_chance"]=25,
-	["display_link_stuff"]=52,
+	["display_link_stuff"]=53,
 	["display_skill_buff_grants_bleeding_immunity"]=26,
 	["energy_shield_lost_per_minute"]=27,
 	["flame_link_grants_chance_to_ignite_%"]=28,
@@ -1376,22 +1408,23 @@ return {
 	["skill_buff_grants_attack_and_cast_speed_+%"]=38,
 	["skill_buff_grants_chance_to_freeze_%"]=39,
 	["skill_buff_grants_damage_+%"]=40,
-	["skill_display_buff_grants_shock_immunity"]=41,
-	["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"]=42,
-	["soul_link_grants_damage_taken_+%_final"]=43,
-	["soul_link_grants_mana_regeneration_+%"]=44,
-	["soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"]=45,
-	["spell_damage_+%"]=46,
+	["skill_buff_grants_shock_duration_+%"]=41,
+	["skill_display_buff_grants_shock_immunity"]=42,
+	["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"]=43,
+	["soul_link_grants_damage_taken_+%_final"]=44,
+	["soul_link_grants_mana_regeneration_+%"]=45,
+	["soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"]=46,
+	["spell_damage_+%"]=47,
 	["spell_maximum_added_cold_damage"]=3,
 	["spell_maximum_added_lightning_damage"]=5,
 	["spell_minimum_added_cold_damage"]=3,
 	["spell_minimum_added_lightning_damage"]=5,
 	["stealth_+%"]=9,
-	["storm_blade_energy_shield_+%_final"]=47,
-	["unaffected_by_temporal_chains"]=48,
-	["vaal_molten_shall_armour_+%_final"]=49,
-	["virtual_flame_link_maximum_fire_damage"]=50,
-	["virtual_flame_link_minimum_fire_damage"]=50,
-	["virtual_storm_blade_maximum_lightning_damage"]=51,
-	["virtual_storm_blade_minimum_lightning_damage"]=51
+	["storm_blade_energy_shield_+%_final"]=48,
+	["unaffected_by_temporal_chains"]=49,
+	["vaal_molten_shall_armour_+%_final"]=50,
+	["virtual_flame_link_maximum_fire_damage"]=51,
+	["virtual_flame_link_minimum_fire_damage"]=51,
+	["virtual_storm_blade_maximum_lightning_damage"]=52,
+	["virtual_storm_blade_minimum_lightning_damage"]=52
 }

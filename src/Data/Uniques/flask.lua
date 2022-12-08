@@ -359,7 +359,7 @@ Requires Level 27
 {variant:1}Vaal Skills deal (30-40)% more Damage during effect
 {variant:1}Vaal Skills used during effect do not apply Soul Gain Prevention
 {variant:1}Gains no Charges During effect of any Soul Ripper Flask
-{variant:2}+(-40 to 90) maximum Charges
+{variant:2}+(-40-90) maximum Charges
 {variant:2}Loses all Charges when you enter a new area
 {variant:2}Consumes Maximum Charges to use
 {variant:2}Gain Vaal Souls equal to Charges Consumed when used
