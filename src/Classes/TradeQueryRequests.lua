@@ -172,12 +172,13 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 end
 
 ---@param callback fun(items:table, errMsg:string)
-function TradeQueryRequestsClass:SearchWithURL(url, callback)
-	local _, queryId = url:match("https://www.pathofexile.com/trade/search/(.+)/(.+)$")
+function TradeQueryRequestsClass:SearchWithURL(urlEditControl, callback)
+	local _, queryId = urlEditControl.buf:match("https://www.pathofexile.com/trade/search/(.+)/(.+)$")
 	self:FetchSearchQueryHTML(queryId, function(query, errMsg)
 		if errMsg then
 			return callback(nil, errMsg)
 		end
+		urlEditControl:SetText("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbLeagueRealName .. "/" .. queryId)
 		self:SearchWithQuery(self.tradeQuery.pbLeagueRealName, query, callback)
 	end)
 end
