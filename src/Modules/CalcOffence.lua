@@ -4203,9 +4203,6 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown[resource.."PerSecondCost"], s_format("x %.2f ^8("..timeType.." speed)", useSpeed))
 				t_insert(breakdown[resource.."PerSecondCost"], s_format("= %.2f per second", output[resource.."PerSecondCost"]))
 			end
-
-
-
 		end
 	end
 
