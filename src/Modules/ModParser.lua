@@ -3666,6 +3666,8 @@ local specialModList = {
 	["energy blades have (%d+)%% increased attack speed"] = function(num) return { mod("EnergyBladeAttackSpeed", "INC", num) } end,
 	["ensnaring arrow has (%d+)%% increased debuff effect"] = function(num) return { mod("DebuffEffect", "INC", num, { type = "SkillName", skillName = "Ensnaring Arrow"}) } end,
 	["unearth spawns corpses with ([%+%-]%d) level"] = function(num) return { mod("CorpseLevel", "BASE", num, { type = "SkillName", skillName = "Unearth"}) } end,
+	["seismic trap releases an additional wave"] = function() return { mod("MaximumWaves", "BASE", 1, { type = "SkillName", skillName = "Seismic Trap" }) } end,
+	["lightning spire trap strikes an additional area"] = function() return { mod("MaximumWaves", "BASE", 1, { type = "SkillName", skillName = "Lightning Spire Trap" }) } end,
 	-- Alternate Quality
 	["quality does not increase physical damage"] = { mod("AlternateQualityWeapon", "BASE", 1) },
 	["(%d+)%% increased critical strike chance per 4%% quality"] = function(num) return { mod("AlternateQualityLocalCritChancePer4Quality", "INC", num) } end,
