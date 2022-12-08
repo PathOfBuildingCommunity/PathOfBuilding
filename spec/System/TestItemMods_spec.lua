@@ -101,7 +101,8 @@ describe("TetsItemMods", function()
 
         assert.is_true(build.calcsTab.mainEnv.keystonesAdded["Vaal Pact"])
         assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("BASE", build.calcsTab.mainEnv.player.mainSkill.skillCfg, "PhysicalDamageGainAsFire") > 0)
-        
+    end)
+    
     it("Varnarustra works with nightblade", function()
         build.itemsTab:CreateDisplayItemFromRaw([[Varunastra
         Vaal Blade
