@@ -384,7 +384,7 @@ Implicits: 2
 Pledge of Hands
 Judgement Staff
 League: Legion
-Source: Drops from Vaal Legion
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.15.0

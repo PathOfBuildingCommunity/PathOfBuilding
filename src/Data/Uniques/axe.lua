@@ -167,7 +167,7 @@ Eldritch Battery
 [[
 Atziri's Disfavour
 Vaal Axe
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Current
