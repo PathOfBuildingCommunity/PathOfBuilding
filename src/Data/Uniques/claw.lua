@@ -9,8 +9,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
-{variant:1}Gain 21 Life per Enemy Hit by Attacks
-{variant:2}Gain 44 Life per Enemy Hit by Attacks
+{variant:1}Grants 21 Life per Enemy Hit
+{variant:2}Grants 44 Life per Enemy Hit
 Socketed Gems are Supported by Level 12 Fortify
 (100-120)% increased Physical Damage
 +110 to Evasion Rating
@@ -25,7 +25,7 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 1
-Gain 44 Life per Enemy Hit by Attacks
+Grants 44 Life per Enemy Hit
 Socketed Gems are Supported by Level 12 Cast when Damage Taken
 15% Chance to Block Attack Damage
 (100-120)% increased Physical Damage
@@ -73,9 +73,9 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 26, 39 Dex, 56 Int
 Implicits: 3
-{variant:1}Gain 8 Life per Enemy Hit by Attacks
+{variant:1}Grants 8 Life per Enemy Hit
 {variant:2}2% of Physical Attack Damage Leeched as Life
-{variant:3,4,5,6}Gain 19 Life per Enemy Hit by Attacks
+{variant:3,4,5,6}Grants 19 Life per Enemy Hit
 {variant:1,2,3,4}Socketed Gems have 10% chance to cause Enemies to Flee on Hit
 {variant:4,5}Trigger Level 1 Intimidating Cry on Hit
 {variant:1}(60-80)% increased Physical Damage
@@ -113,9 +113,9 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 37, 53 Dex, 77 Int
 Implicits: 3
-{variant:1}Gain 15 Life per Enemy Hit by Attacks
-{variant:2}Gain 21 Life per Enemy Hit by Attacks
-{variant:3,4}Gain 25 Life per Enemy Hit by Attacks
+{variant:1}Grants 15 Life per Enemy Hit
+{variant:2}Grants 21 Life per Enemy Hit
+{variant:3,4}Grants 25 Life per Enemy Hit
 {variant:1,2,3}(8-12)% increased Cast Speed
 {variant:4}(15-20)% increased Cast Speed
 +(30-40) to maximum Mana
@@ -135,7 +135,7 @@ Variant: Pre 3.20.0
 Variant: Current
 Implicits: 3
 {variant:1,2}0.6% of Physical Attack Damage Leeched as Life
-{variant:3}Gain 31 Life per Enemy Hit by Attacks
+{variant:3}Grants 31 Life per Enemy
 {variant:4,5}2% of Physical Attack Damage Leeched as Life
 {variant:1}+10% Chance to Block Attack Damage while Dual Wielding Claws
 {variant:2,3,4,5}+8% Chance to Block Attack Damage while Dual Wielding Claws
@@ -162,8 +162,8 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 22, 41 Dex, 41 Int
 Implicits: 2
-{variant:1}Gain 10 Life per Enemy Hit by Attacks
-{variant:2,3}Gain 12 Life per Enemy Hit by Attacks
+{variant:1}Grants 10 Life per Enemy Hit
+{variant:2,3}Grants 12 Life per Enemy Hit
 (20-25)% increased Elemental Damage with Attack Skills
 Adds 1 to (50-60) Lightning Damage
 (10-15)% increased Attack Speed
@@ -179,8 +179,8 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
-{variant:1}Gain 25 Life per Enemy Hit by Attacks
-{variant:2,3}Gain 46 Life per Enemy Hit by Attacks
+{variant:1}Grants 25 Life per Enemy Hit
+{variant:2,3}Grants 46 Life per Enemy Hit
 (20-25)% increased Elemental Damage with Attack Skills
 (8-12)% increased Dexterity
 (8-12)% increased Intelligence
@@ -196,8 +196,8 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
-{variant:1}Gain 25 Life per Enemy Hit by Attacks
-{variant:2,3}Gain 46 Life per Enemy Hit by Attacks
+{variant:1}Grants 25 Life per Enemy Hit
+{variant:2,3}Grants 46 Life per Enemy Hit
 (40-60)% increased Physical Damage
 Adds 20 to 50 Physical Damage
 (10-15)% increased Attack Speed
@@ -222,7 +222,7 @@ Nailed Fist
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
-Gain 3 Life per Enemy Hit by Attacks
+Grants 3 Life per Enemy Hit
 {variant:1}50% increased Attack Speed when on Low Life
 {variant:2}25% increased Attack Speed when on Low Life
 (80-100)% increased Physical Damage
@@ -254,7 +254,7 @@ Variant: Current
 Requires Level 34, 61 Dex, 61 Int
 Implicits: 2
 {variant:1,2}2% of Physical Attack Damage Leeched as Life
-{variant:3,4}Gain 20 Life per Enemy Hit by Attacks
+{variant:3,4}Grants 20 Life per Enemy Hit
 (75-100)% increased Physical Damage
 20% increased Attack Speed
 25% increased Critical Strike Chance
@@ -272,8 +272,8 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
-{variant:1}Gain 21 Life per Enemy Hit by Attacks
-{variant:2,3}Gain 44 Life per Enemy Hit by Attacks
+{variant:1}Grants 21 Life per Enemy Hit
+{variant:2,3}Grants 44 Life per Enemy Hit
 +1 to Level of Socketed Dexterity Gems
 {variant:3}Socketed Gems are Supported by Level 10 Faster Attacks
 {variant:1,2}(100-120)% increased Physical Damage
@@ -314,8 +314,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
-{variant:1}Gain 25 Life per Enemy Hit by Attacks
-{variant:2}Gain 46 Life per Enemy Hit by Attacks
+{variant:1}Grants 25 Life per Enemy Hit
+{variant:2}Grants 46 Life per Enemy Hit
 Adds (40-50) to (130-150) Physical Damage
 30% increased Cold Damage
 (30-40)% increased Critical Strike Chance
@@ -330,7 +330,7 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
-Gain 40 Life per Enemy Hit by Attacks
+Grants 40 Life per Enemy Hit
 (150-170)% increased Physical Damage
 (20-25)% increased Attack Speed
 (20-25)% increased Critical Strike Chance
@@ -346,8 +346,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 12, 25 Dex, 25 Int
 Implicits: 2
-{variant:1}Gain 5 Life per Enemy Hit by Attacks
-{variant:2}Gain 7 Life per Enemy Hit by Attacks
+{variant:1}Grants 5 Life per Enemy Hit
+{variant:2}Grants 7 Life per Enemy Hit
 +(10-15) to Strength
 +(10-15) to Dexterity
 15% reduced Accuracy Rating
