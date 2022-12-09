@@ -740,3 +740,9 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod flag("HasSeals")
 #mods
+
+#skill SupportCursedGround
+#mods
+
+#skill SupportHexBloom
+#mods

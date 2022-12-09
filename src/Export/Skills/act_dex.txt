@@ -1861,3 +1861,15 @@ local skills, mod, flag, skill = ...
 #skill VampiricLink
 #flags spell duration
 #mods
+
+#skill VaalCausticArrow
+#flags attack projectile area duration chaos
+#mods
+
+#skill VaalSnappingAdder
+#flags attack projectile chaos duration
+#mods
+
+#skill VaalChargedAttack
+#flags attack area channelling physical melee
+#mods
