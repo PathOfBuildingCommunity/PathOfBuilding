@@ -533,6 +533,7 @@ local modNameList = {
 	["to deal triple damage"] = "TripleDamageChance",
 	-- Buffs
 	["onslaught effect"] = "OnslaughtEffect",
+	["effect of onslaught on you"] = "OnslaughtEffect",
 	["adrenaline duration"] = "AdrenalineDuration",
 	["effect of tailwind on you"] = "TailwindEffectOnSelf",
 	["elusive effect"] = "ElusiveEffect",
