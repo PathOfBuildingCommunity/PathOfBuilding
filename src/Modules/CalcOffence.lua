@@ -1548,14 +1548,34 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		if not isAttack or skillModList:Flag(cfg, "CannotBeEvaded") or skillData.cannotBeEvaded or (env.mode_effective and enemyDB:Flag(nil, "CannotEvade")) then
-			output.HitChance = 100
+			output.AccuracyHitChance = 100
 		else
 			local enemyEvasion = m_max(round(calcLib.val(enemyDB, "Evasion")), 0)
-			output.HitChance = calcs.hitChance(enemyEvasion, output.Accuracy) * calcLib.mod(skillModList, cfg, "HitChance")
+			output.AccuracyHitChance = calcs.hitChance(enemyEvasion, output.Accuracy) * calcLib.mod(skillModList, cfg, "HitChance")
 			if breakdown then
-				breakdown.HitChance = {
+				breakdown.AccuracyHitChance = {
 					"Enemy level: "..env.enemyLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),
 					"Average enemy evasion: "..enemyEvasion,
+					"Approximate hit chance: "..output.AccuracyHitChance.."%",
+				}
+			end
+		end
+		--enemy block chance
+		output.enemyBlockChance = m_min(m_max((enemyDB:Sum("BASE", cfg, "BlockChance") or 0), 0), 100)
+		output.HitChance = output.AccuracyHitChance * (1 - output.enemyBlockChance / 100)
+		if output.enemyBlockChance > 0 and not isAttack then
+			globalOutput.enemyHasSpellBlock = true
+		end
+		if breakdown and output.enemyBlockChance > 0 then
+			if output.AccuracyHitChance < 100 then
+				breakdown.HitChance = {
+					"Accuracy Hit Chance: "..output.AccuracyHitChance.."%",
+					"Enemy Block Chance: "..output.enemyBlockChance.."%",
+					"Approximate hit chance: "..output.HitChance.."%",
+				}
+			else
+				breakdown.HitChance = {
+					"Enemy Block Chance: "..output.enemyBlockChance.."%",
 					"Approximate hit chance: "..output.HitChance.."%",
 				}
 			end
@@ -1799,6 +1819,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	if isAttack then
 		-- Combine hit chance and attack speed
+		combineStat("AccuracyHitChance", "AVERAGE")
 		combineStat("HitChance", "AVERAGE")
 		combineStat("Speed", "AVERAGE")
 		combineStat("HitSpeed", "OR")
@@ -2216,7 +2237,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				local preHitCheckCritChance = output.CritChance
 				if env.mode_effective then
-					output.CritChance = output.CritChance * output.HitChance / 100
+					output.CritChance = output.CritChance * output.AccuracyHitChance / 100
 				end
 				if breakdown and output.CritChance ~= baseCrit then
 					breakdown.CritChance = { }
@@ -2241,10 +2262,10 @@ function calcs.offence(env, actor, activeSkill)
 						t_insert(breakdown.CritChance, s_format("1 - (1 - %.4f) x (1 - %.4f)", preLuckyCritChance / 100, preLuckyCritChance / 100))
 						t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
 					end
-					if env.mode_effective and output.HitChance < 100 then
+					if env.mode_effective and output.AccuracyHitChance < 100 then
 						t_insert(breakdown.CritChance, "Crit confirmation roll:")
 						t_insert(breakdown.CritChance, s_format("%.2f%%", preHitCheckCritChance))
-						t_insert(breakdown.CritChance, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+						t_insert(breakdown.CritChance, s_format("x %.2f ^8(chance to hit)", output.AccuracyHitChance / 100))
 						t_insert(breakdown.CritChance, s_format("= %.2f%%", output.CritChance))
 					end
 				end
@@ -2711,7 +2732,7 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.AverageHit, s_format("+ %.1f x %.4f ^8(damage from crits)", totalCritAvg, output.CritChance / 100))
 				t_insert(breakdown.AverageHit, s_format("= %.1f", output.AverageHit))
 			end
-			if isAttack then
+			if output.HitChance < 100 then
 				breakdown.AverageDamage = { }
 				t_insert(breakdown.AverageDamage, s_format("%s:", pass.label))
 				t_insert(breakdown.AverageDamage, s_format("%.1f ^8(average hit)", output.AverageHit))
@@ -4171,6 +4192,43 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	
+	local baseDropsBurningGround = modDB:Sum("BASE", nil, "DropsBurningGround")
+	if baseDropsBurningGround > 0 then
+		if canDeal.Fire then
+			local dotCfg = {
+				flags = bor(ModFlag.Dot),
+				keywordFlags = 0
+			}
+			local dotTakenCfg = copyTable(dotCfg, true)
+			local dotTypeCfg = copyTable(dotCfg, true)
+			dotTypeCfg.keywordFlags = bor(dotTypeCfg.keywordFlags, KeywordFlag.FireDot)
+			local effMult = 1
+			if env.mode_effective then
+				local resist = 0
+				local takenInc = enemyDB:Sum("INC", dotTakenCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime")
+				local takenMore = enemyDB:More(dotTakenCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime")
+				if env.modDB:Flag(nil, "EnemyFireResistEqualToYours") then
+					resist = env.player.output.FireResist
+				else
+					resist = enemyDB:Sum("BASE", nil, "FireResist")
+				        local base = resist + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
+				        resist = base * calcLib.mod(enemyDB, nil, "FireResist")
+				        takenInc = takenInc + enemyDB:Sum("INC", dotTypeCfg, "ElementalDamageTaken")
+				end
+				resist = m_min(resist, data.misc.EnemyMaxResist)
+				effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
+			end
+			local inc = modDB:Sum("INC", dotTypeCfg, "Damage", "FireDamage", "ElementalDamage")
+			local more = round(modDB:More(dotTypeCfg, "Damage", "FireDamage", "ElementalDamage"), 2)
+			local mult = modDB:Sum("BASE", dotTypeCfg, "DotMultiplier", "FireDotMultiplier")
+			local total = baseDropsBurningGround * (1 + inc/100) * more * (1 + mult/100) * effMult
+			if not output.BurningGroundDPS or output.BurningGroundDPS < total then
+				output.BurningGroundDPS = total
+				output.BurningGroundFromIgnite = false
+			end
+		end
+	end
 
 	-- Calculate skill DOT components
 	local dotCfg = {
@@ -4353,7 +4411,6 @@ function calcs.offence(env, actor, activeSkill)
 				local uuid = cacheSkillUUID(triggerSkill)
 				if not GlobalCache.cachedData[calcMode][uuid] then
 					calcs.buildActiveSkill(env, calcMode, triggerSkill)
-					env.dontCache = true
 				end
 				-- We found a skill and it can crit
 				if GlobalCache.cachedData[calcMode][uuid] and GlobalCache.cachedData[calcMode][uuid].CritChance and GlobalCache.cachedData[calcMode][uuid].CritChance > 0 then
