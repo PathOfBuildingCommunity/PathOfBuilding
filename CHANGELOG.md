@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.23.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.23.0) (2022/12/09)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.22.1...v2.23.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Other changes
+- Add initial and partial support for new skill gems [\#5276](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5276) ([LocalIdentity](https://github.com/LocalIdentity))
+    * Vaal Blade Flurry is partially supported
+    * Vaal Cleave is missing the Cleave buff
+    * Frozen legion needs more work before it's completely accurate
+- Updated old skill gems with 3.20 balance changes [\#5276](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5276) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.22.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.22.1) (2022/12/09)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.22.0...v2.22.1)

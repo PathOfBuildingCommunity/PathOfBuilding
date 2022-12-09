@@ -1,3 +1,13 @@
+VERSION[2.23.0][2022/12/09]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Add initial and partial support for new skill gems (LocalIdentity)
+    * Vaal Blade Flurry is partially supported
+    * Vaal Cleave is missing the Cleave buff
+    * Frozen legion needs more work before it's completely accurate
+* Updated old skill gems with 3.20 balance changes (LocalIdentity)
+
+
 VERSION[2.22.1][2022/12/10]
 
 --- User Interface ---
