@@ -59,12 +59,12 @@ describe("TetsItemMods", function()
         build.itemsTab:AddDisplayItem()
         runCallback("OnFrame")
 
-        local lightnigResBefore = build.calcsTab.mainOutput.LightningResist
+        local lightningResBefore = build.calcsTab.mainOutput.LightningResist
 
         build.skillsTab:PasteSocketGroup("Slot: Ring 1\nWrath 20/0 Default  1\n")
         runCallback("OnFrame")
 
-        assert.are_not.equals(lightnigResBefore, build.calcsTab.mainOutput.LightningResist)
+        assert.are_not.equals(lightningResBefore, build.calcsTab.mainOutput.LightningResist)
     end)
 
     it("Doomsower vaal pact and extra phys as fire", function()
