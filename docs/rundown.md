@@ -81,7 +81,7 @@
         left: the buttons for the different tabs, bandits, pantheon, main skill, stat overview.
         Loads build, initialises all tab components, loads corresponding sections from the build file, builds calculation tab output.
         Contains functions to load/save build and input handling, popups for build version migration, saving, spectre library.
-        Contains functions to add totem/minion stats to the sidebar, refresing and building the statlist.
+        Contains functions to add totem/minion stats to the sidebar, refreshing and building the statlist.
         Contains functions for attribute requirements in tooltips and comparison of tooltips.
         Contains additional file loading/saving logic.
     * **BuildList.lua**
@@ -100,12 +100,12 @@
     * **CalcTools.lua**
         Calculates mod values and tally up increased/more modifiers, validates gems and skill types, checks if support gems can apply to active gems, determines gem type and attribute requirements, builds stat table for skill.
     * **Common.lua**
-        Contains various utilities such as a class library, character encoding converters, MurmurHash non-cryptographic hash function used in the GGPK file, type casts used for working with the GGPK file, JSON-to-Lua converter, utilities for manipulating and printing tables, functions for comparision, rounding, formatting and file manipulation
+        Contains various utilities such as a class library, character encoding converters, MurmurHash non-cryptographic hash function used in the GGPK file, type casts used for working with the GGPK file, JSON-to-Lua converter, utilities for manipulating and printing tables, functions for comparison, rounding, formatting and file manipulation
     * **ConfigOptions.lua**
         Contains specifications of the various configuration options for buffs, conditions, map mods and more.
     * **Data.lua**
-        Contains skill types, item types. Duplicates some mod creation/porcessing logic.
-        Holds common mappings such as jewel radius, moster exp multiplier, weapon and base info.
+        Contains skill types, item types. Duplicates some mod creation/processing logic.
+        Holds common mappings such as jewel radius, monster exp multiplier, weapon and base info.
         Loads uniques and all bases, skills, stat descriptions, item mods, enchantments, essences, pantheons, skills, gems, minions and builds list of item bases, loads rare items template. There are extra checks to load either the 3.0 or the 2.6 versions, if applicable.
     * **ItemTools.lua**
         Calculate the range of mods on items, replace non-ascii characters in item text and colour mod lines.

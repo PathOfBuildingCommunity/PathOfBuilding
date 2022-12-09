@@ -1,37 +1,52 @@
 name: Release next version
-on: 
+on:
   workflow_dispatch:
       inputs:
-          sinceTag:
-              description: 'Gather updates from this tag until now'
-              required: true
-              default: 'v2.0.x'
           releaseVersion:
               description: 'Version number to use for this release'
               required: true
-              default: '2.0.x + 1'
+              default: '2.x.x'
+          releaseNoteUrl:
+              description: 'Enter the location of edited release notes to use'
+              required: false
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v2.4.0
               with:
                 ref: 'dev'
-            - name: Install changelog generator
-              run: sudo gem install github_changelog_generator --version 1.15.2
             - name: Generate Release notes
-              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ github.event.inputs.releaseVersion }} --since-tag ${{ github.event.inputs.sinceTag }} --max-issues 0 --no-issues true --date-format %Y/%m/%d
+              if: ${{ github.event.inputs.releaseNoteUrl == '' }}
+              run: >
+                echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token;
+                gh release view $(basename $(gh release create v${{ github.event.inputs.releaseVersion }} --title "Release ${{ github.event.inputs.releaseVersion }}" --draft --generate-notes)) > temp_change.md
+            - name: Use existing Release notes
+              if: ${{ github.event.inputs.releaseNoteUrl != '' }}
+              run: >
+                echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token;
+                gh release view $(basename ${{ github.event.inputs.releaseNoteUrl }}) > temp_change.md
             - name: Tweak changelogs
               run: >
-                sed -i '$d' temp_change.md;
-                sed -i 's/\[Quotae\]/\[Quote_a\]/' temp_change.md;
-                echo "VERSION[${{ github.event.inputs.releaseVersion }}][`date +'%Y/%m/%d'`]" | cat - temp_change.md | sed '2,6d' | sed -e '/^\*\*.*/,+1 d' | sed -r 's/\[\\#.* \(\[(.*)\]\(.*/\(\1\)/' | sed 's/^-/*/' | cat - changelog.txt > changelog_new.txt;
+                sed -i '1,8d' temp_change.md;
+                sed -i '1h;1d;$!H;$!d;G' temp_change.md;
+                sed -i -re 's/\*\*Full Changelog\*\*: (.*)/\[Full Changelog\]\(\1\)\n/' temp_change.md;
+                sed -i '/## New Contributors/,$d' temp_change.md;
+                sed -i -re 's/^\*(.*)\sby\s@(.*)\sin\s(.*\/pull\/)(.*)/-\1 [\\#\4](\3\4) ([\2](https:\/\/github.com\/\2))/' temp_change.md;
+                sed -i 's/\[Quotae/\[Quote_a/' temp_change.md;
+                sed -i 's/\[learn2draw/\[Lexy/' temp_change.md;
+                sed -i 's/\[Voronoff/\[Tom Clancy Is Dead/' temp_change.md;
+                sed -i 's/\[PJacek/\[TPlant/' temp_change.md;
+                cp temp_change.md changelog_temp.txt;
                 cat CHANGELOG.md | sed '1d' >> temp_change.md;
-                mv temp_change.md CHANGELOG.md;
+                printf "# Changelog\n\n## [v${{ github.event.inputs.releaseVersion }}](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v${{ github.event.inputs.releaseVersion }}) ($(date +'%Y/%m/%d'))\n\n" | cat - temp_change.md > CHANGELOG.md;
+
+                sed -i -re 's/^- (.*) \[.*\) \(\[(.*)\]\(.*/* \1 (\2)/' changelog_temp.txt;
+                echo "VERSION[${{ github.event.inputs.releaseVersion }}][`date +'%Y/%m/%d'`]" | cat - changelog_temp.txt | sed '2,3d' | sed -re 's/^### (.*)\r/--- \1 ---/' | sed -e '/^##.*/,+1 d' | cat - changelog.txt > changelog_new.txt;
+                rm temp_change.md;
+                rm changelog_temp.txt;
                 mv changelog_new.txt changelog.txt
-            - name: Update manifest.xml
-              run: python3 update_manifest.py --quiet --in-place --set-version=${{ github.event.inputs.releaseVersion }}
             - name: Create Pull Request
               uses: peter-evans/create-pull-request@v3.8.0
               with:

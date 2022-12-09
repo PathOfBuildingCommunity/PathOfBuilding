@@ -2,54 +2,27 @@ name: Push beta branch
 on: 
   schedule:
     - cron: '0 0 * * 5'
+  push:
+    branches:
+      - 'master'
   workflow_dispatch:
 jobs:
   push-beta:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
+            - name: Set line endings
+              run: git config --global core.autocrlf true
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
               with:
-                ref: 'beta'
-            - name: Fetch tags
-              run: git fetch --prune --unshallow --tags
-            - name: Get current date
-              id: date
-              run: echo "::set-output name=date::$(date +'%Y/%m/%d')"
-            - name: Get current version
-              id: current-version
-              run: echo "::set-output name=ver::$(git describe --tags --abbrev=0 | sed 's/^.//')"
-            - name: Get next version
-              id: next-version
-              run: |
-                ver=`git describe --tags --abbrev=0`
-                major=$(echo $ver | sed -r 's/^v([0-9]+)\.([0-9]+)\.([0-9]+)/\1/')
-                minor=$(echo $ver | sed -r 's/^v([0-9]+)\.([0-9]+)\.([0-9]+)/\2/')
-                patch=$(echo $ver | sed -r 's/^v([0-9]+)\.([0-9]+)\.([0-9]+)/\3/')
-                let minor+=1
-                semVer="$major.$minor.$patch"
-                echo "::set-output name=ver::$(echo $semVer)"
-            - name: Update from dev
+                ref: 'dev'
+            - name: Configure bot user
               run: |
                 git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
                 git config --global user.name "github-actions[bot]"
-                git rebase -X ours origin/dev
-            - name: Install changelog generator
-              run: sudo gem install github_changelog_generator --version 1.15.2
-            - name: Generate Release notes
-              run: github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} -t ${{ secrets.GITHUB_TOKEN }} --output temp_change.md --release-branch dev --exclude-labels invalid,duplicate --future-release ${{ steps.next-version.outputs.ver }} --since-tag `echo v${{ steps.current-version.outputs.ver }}` --max-issues 0 --no-issues true --date-format %Y/%m/%d
-            - name: Tweak changelogs
-              run: |
-                sed -i '$d' temp_change.md
-                sed -i 's/\[Quotae\]/\[Quote_a\]/' temp_change.md
-                echo "VERSION[${{ steps.current-version.outputs.ver }}][${{ steps.date.outputs.date }}]" | cat - temp_change.md | sed '2,6d' | sed -e '/^\*\*.*/,+1 d' | sed -r 's/\[\\#.* \(\[(.*)\]\(.*/\(\1\)/' | sed 's/^-/*/' | cat - changelog.txt > changelog_new.txt
-                cat CHANGELOG.md | sed '1d' >> temp_change.md
-                mv temp_change.md CHANGELOG.md
-                mv changelog_new.txt changelog.txt
             - name: Update manifest.xml
-              run: python3 update_manifest.py --quiet --in-place --set-version=${{ steps.next-version.outputs.ver }}
-              
+              run: python3 update_manifest.py --quiet --in-place
             - name: Push to beta branch
               run: |
-                  git commit -am "Weekly beta-${{ steps.current-version.outputs.ver }} release" --allow-empty --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
-                  git push origin beta
+                  git commit -am "Weekly beta release" --allow-empty --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+                  git push origin HEAD:beta --force

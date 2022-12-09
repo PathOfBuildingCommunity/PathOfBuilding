@@ -22,8 +22,9 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Bandits/BanditRangedTornadoShotPetrified
 -- Beast
 #spectre Metadata/Monsters/Beasts/BeastCaveDegenAura
+#spectre Metadata/Monsters/Beasts/BeastVulnerabilityCurse # MonsterVulnerabilityOnHit1
 #spectre Metadata/Monsters/Beasts/BeastCleaveEnduringCry
--- Blood apes
+-- Blood Apes
 #spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage
 #spectre Metadata/Monsters/BloodChieftain/MonkeyChiefBloodParasite
 -- Bone Stalker
@@ -54,11 +55,11 @@ local minions, mod = ...
 -- Chimeral
 #spectre Metadata/Monsters/GemMonster/Iguana
 #spectre Metadata/Monsters/GemMonster/IguanaChrome
--- Ghost pirate
+-- Ghost Pirate
 #spectre Metadata/Monsters/GhostPirates/GhostPirateBlackBowMaps
 #spectre Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps
 #spectre Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex
--- Undying grappler
+-- Undying Grappler
 #spectre Metadata/Monsters/Grappler/Grappler
 #spectre Metadata/Monsters/Grappler/GrapplerLabyrinth
 -- Ribbon
@@ -71,7 +72,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/HolyFireElemental/HolyFireElementalSolarisBeam
 -- Construct
 #spectre Metadata/Monsters/incaminion/Fragment
--- Carrion queen
+-- Carrion Queen
 #spectre Metadata/Monsters/InsectSpawner/InsectSpawner
 -- Kaom's Warriors
 #spectre Metadata/Monsters/KaomWarrior/KaomWarrior2
@@ -96,7 +97,7 @@ local minions, mod = ...
 -- Hellion
 #spectre Metadata/Monsters/Lion/LionDesertSkinPuncture
 #spectre Metadata/Monsters/Lion/LionWolf3Champion
--- Knitted horror
+-- Knitted Horror
 #spectre Metadata/Monsters/MassSkeleton/MassSkeleton
 -- Miners
 #spectre Metadata/Monsters/Miner/MinerLantern
@@ -115,12 +116,12 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Necromancer/NecromancerElementalWeakness
 #spectre Metadata/Monsters/Necromancer/NecromancerProjectileWeakness
 #spectre Metadata/Monsters/Necromancer/NecromancerVulnerability
--- Undying bomber
+-- Undying Bomber
 #spectre Metadata/Monsters/Pyromaniac/PyromaniacFire
 #spectre Metadata/Monsters/Pyromaniac/PyromaniacPoison
--- Stygian revenant
+-- Stygian Revenant
 #spectre Metadata/Monsters/Revenant/Revenant
--- Sea witch
+-- Sea Witch
 #spectre Metadata/Monsters/Seawitch/SeaWitchFrostBolt
 #spectre Metadata/Monsters/Seawitch/SeaWitchScreech
 #spectre Metadata/Monsters/Seawitch/SeaWitchSpawnExploding
@@ -148,6 +149,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Snake/SnakeScorpionMultiShot
 -- Spider
 #spectre Metadata/Monsters/Spiders/SpiderThornFlickerStrike
+#spectre Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike
 -- Statue
 #spectre Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear
 #spectre Metadata/Monsters/Statue/StoneStatueMaleBow
@@ -177,14 +179,16 @@ local minions, mod = ...
 -- Redemption Knight
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieSeraphFighterSpectre_
 -- Primal Crushclaw
-#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre # HarvestNessaCrabScreechDebuff
+-- Primal Rhex Matriarch
+#spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre # HarvestRhexScreechDebuff
 -- Templar Tactician
 #spectre Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre
 -- Frost Auto-Scout
 #spectre Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre
 -- Syndicate Operative
 #spectre Metadata/Monsters/LeagueBetrayal/BetrayalSecretPolice2Spectre_
--- Cloud retch
+-- Cloud Retch
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieKiwethSpectre
 -- Artless Assassin
 #spectre Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre
@@ -194,5 +198,31 @@ local minions, mod = ...
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__
 -- Flickershade
 #spectre Metadata/Monsters/Maligaro/SecretDesecrateMonster
--- Trail Galecaller
+-- Trial Galecaller
 #spectre Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre
+-- Trial Windchaser
+#spectre Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdSpectre
+-- Hyrri's Watch
+#spectre Metadata/Monsters/LegionLeague/LegionKaruiArcherSpectre
+-- Demon Harpy
+#spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite1Spectre
+-- Pale Angel
+#spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite1Spectre
+-- Demon Herder
+#spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spectre
+-- Pale Seraphim
+#spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre
+-- Ravenous Mishapen
+#spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre
+-- Aurid Synthete
+#spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre
+-- Ruins Hellion
+#spectre Metadata/Monsters/Hellion/Hellion3Spectre
+-- Arena Master
+#spectre Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGrandMasterSpectre
+-- They of Tul
+#spectre Metadata/Monsters/MinerLarge/MinerLargeCommanderBreachSpectre
+-- Ancient Suffering
+#spectre Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple # MonsterChanceToTemporalChainsOnHit1
+-- Ancient Wraith
+#spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveMonsterEnfeebleOnHit

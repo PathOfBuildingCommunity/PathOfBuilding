@@ -157,7 +157,7 @@ return {
 	flag("BloodMagicReserved"),
 },
 ["base_skill_cost_life_instead_of_mana"] = {
-	flag("BloodMagicCost"),
+	flag("CostLifeInsteadOfMana"),
 },
 ["base_active_skill_totem_level"] = {
 	skill("totemLevel", nil),
@@ -169,10 +169,10 @@ return {
 	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["unique_mjolner_lightning_spells_triggered"] = {
-	skill("triggeredByMjolner", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.LightningSkill }),
+	skill("triggeredByMjolner", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Lightning }),
 },
 ["unique_cospris_malice_cold_spells_triggered"] = {
-	skill("triggeredByCospris", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "SkillType", skillType = SkillType.ColdSkill }),
+	skill("triggeredByCospris", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "SkillType", skillType = SkillType.Cold }),
 },
 ["skill_has_trigger_from_unique_item"] = {
 	skill("triggeredByUnique", nil, { type = "SkillType", skillType = SkillType.Triggerable }),
@@ -211,16 +211,25 @@ return {
 ["triggered_by_spiritual_cry"] = {
 	skill("triggeredByGeneralsCry", true, { type = "SkillType", skillType = SkillType.Melee }, { type = "SkillType", skillType = SkillType.Attack }),
 },
+["holy_relic_trigger_on_parent_attack_%"] = {
+	skill("triggeredByParentAttack", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+},
 ["skill_can_own_mirage_archers"] = {
-	skill("triggeredByMirageArcher", true, { type = "SkillType", skillType = SkillType.SkillCanMirageArcher }),
+	skill("triggeredByMirageArcher", true, { type = "SkillType", skillType = SkillType.MirageArcherCanUse }),
 },
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
+},
+["poison_duration_is_skill_duration"] = {
+	skill("poisonIsSkillEffect", true),
 },
 ["area_of_effect_+%_while_not_dual_wielding"] = {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
 ["base_spell_repeat_count"] = {
+	mod("RepeatCount", "BASE", nil),
+},
+["base_melee_attack_repeat_count"] = {
 	mod("RepeatCount", "BASE", nil),
 },
 ["display_minion_monster_level"] = {
@@ -242,6 +251,10 @@ return {
 ["corpse_explosion_monster_life_%"] = {
 	skill("corpseExplosionLifeMultiplier", nil),
 	div = 100,
+},
+["corpse_explosion_monster_life_permillage_fire"] = {
+	skill("corpseExplosionLifeMultiplier", nil),
+	div = 1000,
 },
 ["spell_base_fire_damage_%_maximum_life"] = {
 	skill("selfFireExplosionLifeMultiplier", nil),
@@ -321,6 +334,9 @@ return {
 	mod("ManaCost", "INC", nil),
 	mult = -1,
 },
+["base_mana_cost_+"] = {
+	mod("ManaCostNoMult", "BASE", nil),
+},
 ["no_mana_cost"] = {
 	mod("ManaCost", "MORE", nil),
 	value = -100,
@@ -398,7 +414,7 @@ return {
 	mod("AuraEffect", "INC", nil),
 },
 ["elusive_effect_+%"] = {
-	mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+	mod("ElusiveEffect", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 },
 ["cannot_be_stunned_while_leeching"] = {
 	mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Leeching"}),
@@ -437,12 +453,18 @@ return {
 ["base_cooldown_speed_+%"] = {
 	mod("CooldownRecovery", "INC", nil),
 },
+["base_spell_cooldown_speed_+%"] = {
+	mod("CooldownRecovery", "INC", nil),
+},
 ["additional_weapon_base_attack_time_ms"] = {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
 	div = 1000,
 },
 ["warcry_speed_+%"] = {
 	mod("WarcrySpeed", "INC", nil, 0, KeywordFlag.Warcry),
+},
+["display_this_skill_cooldown_does_not_recover_during_buff"] = {
+	flag("NoCooldownRecoveryInDuration"),
 },
 -- AoE
 ["base_skill_area_of_effect_+%"] = {
@@ -500,7 +522,7 @@ return {
 	div = 100,
 },
 ["nightblade_elusive_grants_critical_strike_multiplier_+_to_supported_skills"] = {
-	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Condition", var = "Elusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
+	mod("NightbladeElusiveCritMultiplier", "BASE", nil, 0, 0, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
 },
 ["critical_strike_chance_against_enemies_on_full_life_+%"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "FullLife" })
@@ -523,6 +545,10 @@ return {
 },
 ["secondary_skill_effect_duration_+%"] = {
 	mod("SecondaryDuration", "INC", nil),
+},
+["offering_skill_effect_duration_per_corpse"] = {
+	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "CorpseConsumedRecently", limit = 4 }),
+	div = 1000,
 },
 ["active_skill_quality_duration_+%_final"] = {
 	mod("Duration", "MORE", nil),
@@ -585,6 +611,9 @@ return {
 ["active_skill_damage_+%_final"] = {
 	mod("Damage", "MORE", nil),
 },
+["sigil_attached_target_hit_damage_+%_final"] = {
+	mod("Damage", "MORE", nil, ModFlag.Hit),
+},
 ["melee_damage_+%"] = {
 	mod("Damage", "INC", nil, ModFlag.Melee),
 },
@@ -639,6 +668,12 @@ return {
 ["global_maximum_added_fire_damage_vs_burning_enemies"] = {
 	mod("FireMax", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
 },
+["minimum_added_fire_damage_vs_ignited_enemies"] = {
+	mod("FireMin", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
+},
+["maximum_added_fire_damage_vs_ignited_enemies"] = {
+	mod("FireMax", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
+},
 ["minimum_added_cold_damage_per_frenzy_charge"] = {
 	mod("ColdMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 },
@@ -676,7 +711,7 @@ return {
 	mod("AddedDamage", "MORE", nil),
 },
 ["shield_charge_damage_+%_maximum"] = {
-	mod("Damage", "MORE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{60,1}} }),
+	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "DistanceRamp", ramp = {{0,0},{60,1}} }),
 },
 ["damage_+%_on_full_energy_shield"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield"})
@@ -694,7 +729,7 @@ return {
 	mod("Damage", "INC", nil, 0, 0, {type = "ActorCondition", actor = "enemy", var = "FullLife"})
 },
 ["hit_damage_+%"] = {
-	mod("Damage", "INC", nil, 0, KeywordFlag.Hit)
+	mod("Damage", "INC", nil, ModFlag.Hit)
 },
 ["active_skill_damage_+%_final_when_cast_on_frostbolt"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
@@ -763,9 +798,6 @@ return {
 ["skill_cold_damage_%_to_convert_to_chaos"] = {
 	mod("SkillColdDamageConvertToChaos", "BASE", nil),
 },
-["skill_lightning_damage_%_to_convert_to_chaos"] = {
-	mod("SkillLightningDamageConvertToChaos", "BASE", nil),
-},
 ["skill_fire_damage_%_to_convert_to_chaos"] = {
 	mod("SkillFireDamageConvertToChaos", "BASE", nil),
 },
@@ -817,7 +849,7 @@ return {
 	mod("EnemyFreezeChance", "BASE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
 },
 ["chance_to_scorch_%"] = {
-	mod("ScorchChance", "BASE", nil)
+	mod("EnemyScorchChance", "BASE", nil)
 },
 ["cannot_inflict_status_ailments"] = {
 	flag("CannotShock"),
@@ -869,6 +901,10 @@ return {
 ["ignite_duration_+%"] = {
 	mod("EnemyIgniteDuration", "INC", nil),
 },
+["lightning_ailment_duration_+%"] = {
+	mod("EnemyShockDuration", "INC", nil),
+	mod("EnemySapDuration", "INC", nil),
+},
 ["shock_duration_+%"] = {
 	mod("EnemyShockDuration", "INC", nil),
 },
@@ -879,24 +915,10 @@ return {
 	mod("EnemyFreezeDuration", "INC", nil),
 },
 ["base_elemental_status_ailment_duration_+%"] = {
-	mod("EnemyIgniteDuration", "INC", nil), 
-	mod("EnemyShockDuration", "INC", nil), 
-	mod("EnemyChillDuration", "INC", nil), 
-	mod("EnemyFreezeDuration", "INC", nil),
-	mod("EnemyScorchDuration", "INC", nil),
-	mod("EnemyBrittleDuration", "INC", nil),
-	mod("EnemySapDuration", "INC", nil),
+	mod("EnemyElementalAilmentDuration", "INC", nil), 
 },
 ["base_all_ailment_duration_+%"] = {
-	mod("EnemyBleedDuration", "INC", nil), 
-	mod("EnemyPoisonDuration", "INC", nil), 
-	mod("EnemyIgniteDuration", "INC", nil), 
-	mod("EnemyShockDuration", "INC", nil), 
-	mod("EnemyChillDuration", "INC", nil), 
-	mod("EnemyFreezeDuration", "INC", nil),
-	mod("EnemyScorchDuration", "INC", nil),
-	mod("EnemyBrittleDuration", "INC", nil),
-	mod("EnemySapDuration", "INC", nil),
+	mod("EnemyAilmentDuration", "INC", nil), 
 },
 ["bleeding_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
@@ -945,6 +967,9 @@ return {
 ["freeze_as_though_dealt_damage_+%"] = {
 	mod("FreezeAsThoughDealing", "MORE", nil),
 },
+["shock_maximum_magnitude_+"] = {
+	mod("ShockMax", "BASE", nil),
+},
 -- Global flags
 ["never_ignite"] = {
 	flag("CannotIgnite"),
@@ -971,6 +996,24 @@ return {
 },
 ["base_deal_no_chaos_damage"] = {
 	flag("DealNoChaos"),
+},
+["all_damage_can_ignite"] = {
+	flag("PhysicalCanIgnite"),
+	flag("LightningCanIgnite"),
+	flag("ColdCanIgnite"),
+	flag("ChaosCanIgnite"),
+},
+["all_damage_can_freeze"] = {
+	flag("PhysicalCanFreeze"),
+	flag("LightningCanFreeze"),
+	flag("FireCanFreeze"),
+	flag("ChaosCanFreeze"),
+},
+["all_damage_can_shock"] = {
+	flag("PhysicalCanShock"),
+	flag("ColdCanShock"),
+	flag("FireCanShock"),
+	flag("ChaosCanShock"),
 },
 -- Other effects
 ["enemy_phys_reduction_%_penalty_vs_hit"] = {
@@ -1011,13 +1054,28 @@ return {
 	mod("EnemyCurseLimit", "BASE", nil),
 },
 ["consecrated_ground_enemy_damage_taken_+%"] = {
-	mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "OnConsecratedGround" }),
+	mod("DamageTakenConsecratedGround", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "OnConsecratedGround" }),
+},
+["consecrated_ground_effect_+%"] = {
+	mod("ConsecratedGroundEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+},
+["base_inflict_cold_exposure_on_hit_%_chance"] = {
+	mod("ColdExposureChance", "BASE", nil),
+},
+["base_inflict_lightning_exposure_on_hit_%_chance"] = {
+	mod("LightningExposureChance", "BASE", nil),
+},
+["base_inflict_fire_exposure_on_hit_%_chance"] = {
+	mod("FireExposureChance", "BASE", nil),
 },
 -- Projectiles
 ["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
 },
 ["base_arrow_speed_+%"] = {
+	mod("ProjectileSpeed", "INC", nil),
+},
+["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
 },
 ["projectile_base_number_of_targets_to_pierce"] = {
@@ -1336,6 +1394,9 @@ return {
 -- Skill type modifier
 --
 -- Trap
+["support_trap_damage_+%_final"] = {
+	mod("Damage", "MORE", nil, 0, KeywordFlag.Trap),
+},
 ["trap_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Trap),
 },
@@ -1388,7 +1449,7 @@ return {
 	mod("ActiveTotemLimit", "BASE", nil),
 },
 ["attack_skills_additional_ballista_totems_allowed"] = {
-	mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.ProjectileAttack }),
+	mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.RangedAttack }),
 },
 ["base_number_of_totems_allowed"] = {
 	mod("ActiveTotemLimit", "BASE", nil),
@@ -1433,7 +1494,7 @@ return {
 	value=30
 },
 ["base_minion_duration_+%"] = {
-	mod("Duration", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.CreateMinion }),
+	mod("Duration", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.CreatesMinion }),
 },
 ["minion_skill_area_of_effect_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil) }),
@@ -1472,6 +1533,9 @@ return {
 ["base_number_of_golems_allowed"] = {
 	mod("ActiveGolemLimit", "BASE", nil),
 },
+["base_number_of_arbalists"] = {
+	mod("ActiveArbalistLimit", "BASE", nil),
+},
 ["base_number_of_champions_of_light_allowed"] = {
 	mod("ActiveSentinelOfPurityLimit", "BASE", nil),
 },
@@ -1505,12 +1569,11 @@ return {
 ["active_skill_minion_movement_velocity_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "MORE", nil) }),
 },
-["minion_life_regeneration_rate_per_minute_%"] = {
-	mod("MinionModifier", "LIST", { mod = mod("LifeRegen", "BASE", nil) }),
-	div = 60,
-},
 ["minions_deal_%_of_physical_damage_as_additional_chaos_damage"] = {
 	mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsChaos", "BASE", nil) }),
+},
+["maximum_life_+%_for_corpses_you_create"] = {
+	mod("CorpseLife", "INC", nil),
 },
 --Golem
 ["golem_buff_effect_+%"] = {
@@ -1548,7 +1611,7 @@ return {
 },
 -- Aura
 ["non_curse_aura_effect_+%"] = {
-	mod("AuraEffect", "INC", nil),
+	mod("AuraEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }),
 },
 ["base_mana_reservation_+%"] = {
 	mod("ManaReserved", "INC", nil)
@@ -1558,6 +1621,15 @@ return {
 },
 ["base_reservation_+%"] = {
 	mod("Reserved", "INC", nil)
+},
+["base_mana_reservation_efficiency_+%"] = {
+	mod("ManaReservationEfficiency", "INC", nil)
+},
+["base_life_reservation_efficiency_+%"] = {
+	mod("LifeReservationEfficiency", "INC", nil)
+},
+["base_reservation_efficiency_+%"] = {
+	mod("ReservationEfficiency", "INC", nil)
 },
 -- Brand
 ["sigil_attached_target_damage_+%_final"] = {
@@ -1573,6 +1645,8 @@ return {
 ["sigil_repeat_frequency_+%"] = {
 	mod("BrandActivationFrequency", "INC", nil)
 },
+["additive_cast_speed_modifiers_apply_to_sigil_repeat_frequency"] = {
+},
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {
 	mod("AuraEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
@@ -1580,12 +1654,16 @@ return {
 ["banner_area_of_effect_+%_per_stage"] = {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
 },
+["banner_additional_base_duration_per_stage_ms"] = {
+	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
+	div = 1000,
+},
 -- Other
 ["triggered_skill_damage_+%"] = {
 	mod("TriggeredDamage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 },
 ["channelled_skill_damage_+%"] = {
-	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channelled }),
+	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channel }),
 },
 ["snipe_triggered_skill_hit_damage_+%_final_per_stage"] = {
 	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SnipeStage" }),
@@ -1608,5 +1686,62 @@ return {
 ["kill_enemy_on_hit_if_under_10%_life"] = {
 	mod("CullPercent", "MAX", nil), 
 	value = 10
+},
+["spell_cast_time_added_to_cooldown_if_triggered"] = {
+	flag("SpellCastTimeAddedToCooldownIfTriggered"),
+},
+--
+-- Spectre or Minion-specific stats
+--
+["physical_damage_reduction_rating_+%"] = {
+	mod("Armour", "INC", nil),
+},
+
+--
+-- Gem Levels
+--
+--Fire
+["supported_fire_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Fire }),
+},
+--Cold
+["supported_cold_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Cold }),
+},
+--Lightning
+["supported_lightning_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Lightning }),
+},
+--Chaos
+["supported_chaos_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Chaos }),
+},
+--Physical
+["supported_physical_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Physical }),
+},
+--Active
+["supported_active_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
+},
+--Aura
+["supported_aura_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Aura }),
+},
+--Curse
+["supported_curse_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, KeywordFlag.Curse),
+},
+--Strike
+["supported_strike_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.MeleeSingleTarget }),
+},
+--Elemental
+["supported_elemental_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, bit.bor(KeywordFlag.Lightning, KeywordFlag.Cold, KeywordFlag.Fire)),
+},
+--Minion
+["supported_minion_skill_gem_level_+"] = {
+	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Minion }),
 },
 }

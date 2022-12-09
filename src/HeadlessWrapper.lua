@@ -166,6 +166,11 @@ end
 
 dofile("Launch.lua")
 
+-- Prevents loading of ModCache
+-- Allows running mod parsing related tests without pushing ModCache
+-- The CI env var will be true when run from github workflows but should be false for other tools using the headless wrapper 
+mainObject.headlessMode = os.getenv("CI") 
+
 runCallback("OnInit")
 runCallback("OnFrame") -- Need at least one frame for everything to initialise
 
@@ -184,8 +189,8 @@ function newBuild()
 	mainObject.main:SetMode("BUILD", false, "Help, I'm stuck in Path of Building!")
 	runCallback("OnFrame")
 end
-function loadBuildFromXML(xmlText)
-	mainObject.main:SetMode("BUILD", false, "", xmlText)
+function loadBuildFromXML(xmlText, name)
+	mainObject.main:SetMode("BUILD", false, name or "", xmlText)
 	runCallback("OnFrame")
 end
 function loadBuildFromJSON(getItemsJSON, getPassiveSkillsJSON)

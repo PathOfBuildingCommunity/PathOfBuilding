@@ -17,8 +17,10 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 	self.flag = subSection[1].data.flag
 	self.notFlag = subSection[1].data.notFlag
 	self.updateFunc = updateFunc
-	
+
 	for i, subSec in ipairs(self.subSection) do
+		subSec.id = subSec.label:gsub("%W", "")
+
 		for _, data in ipairs(subSec.data) do
 			for _, colData in ipairs(data) do
 				if colData.control then
@@ -134,7 +136,7 @@ function CalcSectionClass:UpdateSize()
 end
 
 function CalcSectionClass:UpdatePos()
-	if self.subSection[1].collapsed or not self.enabled then
+	if not self.enabled then
 		return
 	end
 	local x, y = self:GetPos()
@@ -210,7 +212,7 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 	return str
 end
 
-function CalcSectionClass:Draw(viewPort)
+function CalcSectionClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
@@ -244,7 +246,7 @@ function CalcSectionClass:Draw(viewPort)
 		DrawImage(nil, x + 2, lineY + 20, width - 4, 2)
 		-- Draw controls
 		SetDrawLayer(nil, 0)
-		self:DrawControls(viewPort)
+		self:DrawControls(viewPort, noTooltip and self.calcsTab.selControl)
 		if subSec.collapsed or not self.enabled then
 			if primary then
 				return
@@ -257,11 +259,15 @@ function CalcSectionClass:Draw(viewPort)
 			primary = false
 			for _, rowData in ipairs(subSec.data) do
 				if rowData.enabled then
+					local textColor = "^7"
+					if rowData.color then
+						textColor = rowData.color
+					end
 					if rowData.label then
 						-- Draw row label with background
-				SetDrawColor(rowData.bgCol or "^0")
+						SetDrawColor(rowData.bgCol or "^0")
 						DrawImage(nil, x + 2, lineY, 130, 18)
-						DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", "^7"..rowData.label.."^7:")
+						DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
 					end
 					for colour, colData in ipairs(rowData) do
 						-- Draw column separator at the left end of the cell

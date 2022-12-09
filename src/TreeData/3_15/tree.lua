@@ -9755,7 +9755,7 @@ return {
             ["ascendancyName"]= "Chieftain",
             ["stats"]= {
                 "2% of Damage dealt by your Totems is Leeched to you as Life",
-                "100% increased Effect of Buffs granted by your Active Ancestor Totems",
+                "100% increased Effect of Buffs your Ancestor Totems grant while Active",
                 "Ancestor Totems have 100% increased Activation range"
             },
             ["reminderText"]= {
@@ -29260,7 +29260,7 @@ return {
             ["stats"]= {
                 "30% increased Totem Damage",
                 "Attack Skills have +1 to maximum number of Summoned Ballista Totems",
-                "50% increased Effect of Buffs granted by your Active Ancestor Totems"
+                "50% increased Effect of Buffs your Ancestor Totems grant while Active"
             },
             ["group"]= 328,
             ["orbit"]= 3,
@@ -56064,7 +56064,7 @@ return {
             ["icon"]= "Art/2DArt/SkillIcons/passives/TotemDmgNotable.png",
             ["isNotable"]= true,
             ["stats"]= {
-                "30% increased Effect of Buffs granted by your Active Ancestor Totems",
+                "30% increased Effect of Buffs your Ancestor Totems grant while Active",
                 "Totems' Action Speed cannot be modified to below base value"
             }
         },

@@ -8,7 +8,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 
 local SkillListClass = newClass("SkillListControl", "ListControl", function(self, anchor, x, y, width, height, skillsTab)
-	self.ListControl(anchor, x, y, width, height, 16, false, true, skillsTab.socketGroupList)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, skillsTab.socketGroupList)
 	self.skillsTab = skillsTab
 	self.label = "^7Socket Groups:"
 	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, 0, -2, 60, 18, "Delete", function()
@@ -52,6 +52,12 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 		if not socketGroup.enabled or not socketGroup.slotEnabled then
 			label = "^x7F7F7F" .. label .. " (Disabled)"
 		end
+		if self.skillsTab.build.mainSocketGroup == index then 
+			label = label .. colorCodes.RELIC .. " (Active)"
+		end
+		if socketGroup.includeInFullDPS then 
+			label = label .. colorCodes.CUSTOM .. " (FullDPS)"
+		end
 		return label
 	end
 end
@@ -66,7 +72,23 @@ function SkillListClass:AddValueTooltip(tooltip, index, socketGroup)
 	end
 end
 
-function SkillListClass:OnOrderChange()
+function SkillListClass:OnOrderChange(selIndex, selDragIndex)
+	local skillsTabIndex = self.skillsTab.build.mainSocketGroup
+	if skillsTabIndex == selIndex then
+		self.skillsTab.build.mainSocketGroup = selDragIndex
+	elseif skillsTabIndex > selIndex and skillsTabIndex <= selDragIndex then
+		self.skillsTab.build.mainSocketGroup = skillsTabIndex - 1
+	elseif skillsTabIndex < selIndex and skillsTabIndex >= selDragIndex then
+		self.skillsTab.build.mainSocketGroup = skillsTabIndex + 1
+	end
+	local calcsTabIndex = self.skillsTab.build.calcsTab.input.skill_number
+	if calcsTabIndex == selIndex then
+		self.skillsTab.build.calcsTab.input.skill_number = selDragIndex
+	elseif calcsTabIndex > selIndex and calcsTabIndex <= selDragIndex then
+		self.skillsTab.build.calcsTab.input.skill_number = calcsTabIndex - 1
+	elseif calcsTabIndex < selIndex and calcsTabIndex >= selDragIndex then
+		self.skillsTab.build.calcsTab.input.skill_number = calcsTabIndex + 1
+	end
 	self.skillsTab:AddUndoState()
 	self.skillsTab.build.buildFlag = true
 end
@@ -82,6 +104,16 @@ function SkillListClass:OnSelCopy(index, socketGroup)
 end
 
 function SkillListClass:OnSelDelete(index, socketGroup)
+	local function updateActiveSocketGroupIndex()
+		local skillsTabIndex = self.skillsTab.build.mainSocketGroup
+		if skillsTabIndex > self.selIndex then
+			self.skillsTab.build.mainSocketGroup = skillsTabIndex - 1
+		end
+		local calcsTabIndex = self.skillsTab.build.calcsTab.input.skill_number
+		if calcsTabIndex > self.selIndex then
+			self.skillsTab.build.calcsTab.input.skill_number = calcsTabIndex - 1
+		end
+	end
 	if socketGroup.source then
 		main:OpenMessagePopup("Delete Socket Group", "This socket group cannot be deleted as it is created by an equipped item.")
 	elseif not socketGroup.gemList[1] then
@@ -89,6 +121,7 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 		if self.skillsTab.displayGroup == socketGroup then
 			self.skillsTab.displayGroup = nil
 		end
+		updateActiveSocketGroupIndex()
 		self.skillsTab:AddUndoState()
 		self.skillsTab.build.buildFlag = true
 		self.selValue = nil
@@ -98,9 +131,40 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 			if self.skillsTab.displayGroup == socketGroup then
 				self.skillsTab:SetDisplayGroup()
 			end
+			updateActiveSocketGroupIndex()
 			self.skillsTab:AddUndoState()
 			self.skillsTab.build.buildFlag = true
 			self.selValue = nil
 		end)
+	end
+end
+
+function SkillListClass:OnHoverKeyUp(key)
+	local item = self.ListControl:GetHoverValue()
+	if item then
+		if itemLib.wiki.matchesKey(key) then
+			-- Get the first gem in the group
+			local gem = item.gemList[1]
+			if gem then
+				itemLib.wiki.openGem(gem.gemData)
+			end
+		elseif key == "RIGHTBUTTON" then
+			if IsKeyDown("CTRL") then
+				item.includeInFullDPS = not item.includeInFullDPS
+				self.skillsTab:AddUndoState()
+				self.skillsTab.build.buildFlag = true
+			else
+				local index = self.ListControl:GetHoverIndex()
+				if index then
+					self.skillsTab.build.mainSocketGroup = index
+					self.skillsTab:AddUndoState()
+					self.skillsTab.build.buildFlag = true
+				end
+			end
+		elseif key == "LEFTBUTTON" and IsKeyDown("CTRL") then
+			item.enabled = not item.enabled
+			self.skillsTab:AddUndoState()
+			self.skillsTab.build.buildFlag = true
+		end
 	end
 end

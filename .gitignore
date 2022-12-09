@@ -2,6 +2,8 @@
 .idea/
 .vs/
 .vscode/
+*.code-workspace
+inspect.lua
 
 # Development files
 *.lnk
@@ -13,6 +15,9 @@ Settings.xml
 
 # Testing
 luajit/
+spec/test_results.log
+spec/test_generation.log
+src/luacov.stats.out
 
 # Release
 manifest-updated.xml
@@ -22,3 +27,9 @@ src/Export/ggpk/Metadata/
 src/Export/ggpk/Data/
 src/Export/ggpk/*.exe
 src/Export/ggpk/*.dll
+
+# PoB Trader
+*_currency_values.json
+
+# Timeless Jewels
+src/Data/TimelessJewelData/*.bin

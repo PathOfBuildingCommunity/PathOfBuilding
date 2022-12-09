@@ -34,15 +34,30 @@ local ModStoreClass = newClass("ModStore", function(self, parent)
 end)
 
 function ModStoreClass:ScaleAddMod(mod, scale)
-	if scale == 1 then
+	local unscalable = false
+	for _, effects in ipairs(mod) do
+		if effects.unscalable then
+			unscalable = true
+			break
+		end
+	end
+	if scale == 1 or unscalable then
 		self:AddMod(mod)
 	else
 		scale = m_max(scale, 0)
 		local scaledMod = copyTable(mod)
-		if type(scaledMod.value) == "number" then
-			scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_modf(round(scaledMod.value * scale, 2)) or scaledMod.value * scale
-		elseif type(scaledMod.value) == "table" and scaledMod.value.mod then
-			scaledMod.value.mod.value = (m_floor(scaledMod.value.mod.value) == scaledMod.value.mod.value) and m_modf(round(scaledMod.value.mod.value * scale, 2)) or scaledMod.value.mod.value * scale
+		local subMod = scaledMod
+		if type(scaledMod.value) == "table" and scaledMod.value.mod then
+			subMod = scaledMod.value.mod
+		end
+		if type(subMod.value) == "number" then
+			local precision = ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) ~= subMod.value) and data.defaultHighPrecision) or nil
+			if precision then
+				local power = 10 ^ precision
+				subMod.value = math.floor(subMod.value * scale * power) / power
+			else
+				subMod.value = m_modf(round(subMod.value * scale, 2))
+			end
 		end
 		self:AddMod(scaledMod)
 	end
@@ -58,15 +73,8 @@ function ModStoreClass:ScaleAddList(modList, scale)
 	if scale == 1 then
 		self:AddList(modList)
 	else
-		scale = m_max(scale, 0)
 		for i = 1, #modList do
-			local scaledMod = copyTable(modList[i])
-			if type(scaledMod.value) == "number" then
-				scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_modf(round(scaledMod.value * scale, 2)) or scaledMod.value * scale
-			elseif type(scaledMod.value) == "table" and scaledMod.value.mod then
-				scaledMod.value.mod.value = (m_floor(scaledMod.value.mod.value) == scaledMod.value.mod.value) and m_modf(round(scaledMod.value.mod.value * scale, 2)) or scaledMod.value.mod.value * scale
-			end
-			self:AddMod(scaledMod)
+			self:ScaleAddMod(modList[i], scale)
 		end
 	end
 end
@@ -181,10 +189,11 @@ function ModStoreClass:Tabulate(modType, cfg, ...)
 end
 
 function ModStoreClass:Max(cfg, ...)
-	local max = 0
+	local max
 	for _, value in ipairs(self:Tabulate("MAX", cfg, ...)) do
-		if value.mod.value > max then
-			max = value.mod.value
+		local val = self:EvalMod(value.mod, cfg)
+		if val > (max or 0) then
+			max = val
 		end	
 	end
 	return max		
@@ -218,7 +227,28 @@ function ModStoreClass:GetMultiplier(var, cfg, noMod)
 end
 
 function ModStoreClass:GetStat(stat, cfg)
-	return (self.actor.output and self.actor.output[stat]) or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0
+	if stat == "ManaReservedPercent" then
+		local reservedPercentMana = 0
+		for _, activeSkill in ipairs(self.actor.activeSkillList) do
+			if (activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and activeSkill.buffList[1].name == cfg.skillName) then
+				local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
+				reservedPercentMana = manaBase / self.actor.output["Mana"] * 100
+				break
+			end
+		end
+		return m_min(reservedPercentMana, 100) --Don't let people get more than 100% reservation for aura effect.
+	end
+	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled
+	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
+		-- 0% reserved = total mana
+		return self.actor.output["Mana"]
+	elseif stat == "ManaUnreserved" and not self.actor.output[stat] == nil and self.actor.output[stat] < 0 then
+		-- This reverse engineers how much mana is unreserved before efficiency for accurate Arcane Cloak calcs
+		local reservedPercentBeforeEfficiency = (math.abs(self.actor.output["ManaUnreservedPercent"]) + 100) * ((100 + self.actor["ManaEfficiency"]) / 100)
+		return self.actor.output["Mana"] * (math.ceil(reservedPercentBeforeEfficiency) / 100);
+	else
+		return (self.actor.output and self.actor.output[stat]) or (cfg and cfg.skillStats and cfg.skillStats[stat]) or 0
+	end
 end
 
 function ModStoreClass:EvalMod(mod, cfg)
@@ -437,15 +467,28 @@ function ModStoreClass:EvalMod(mod, cfg)
 			value = m_min(value, tag.limit or self:GetMultiplier(tag.limitVar, cfg))
 		elseif tag.type == "Condition" then
 			local match = false
+			local allOneH = ((self.actor.weaponData1 and self.actor.weaponData1.countsAsAll1H) and self.actor.weaponData1) or ((self.actor.weaponData2 and self.actor.weaponData2.countsAsAll1H) and self.actor.weaponData2)
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
-					if self:GetCondition(var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
+					if tag.neg and allOneH and allOneH["Added"..var] ~= nil then
+						-- Varunastra adds all using weapon conditions and that causes this condition to fail when it shoouldn't
+						-- if the condition was added by Varunastra then ignore, otherwise return as the tag condition is not satisfied
+						if not allOneH["Added"..var] then
+							return
+						end
+					elseif self:GetCondition(var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
 						match = true
 						break
 					end
 				end
 			else
-				match = self:GetCondition(tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
+				if tag.neg and allOneH and allOneH["Added"..tag.var] ~= nil then
+					if not allOneH["Added"..var] then
+						return
+					end
+				else
+					match = self:GetCondition(tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
+				end
 			end
 			if tag.neg then
 				match = not match
@@ -526,7 +569,17 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SkillType" then
-			local match = cfg and cfg.skillTypes and cfg.skillTypes[tag.skillType]
+			local match = false
+			if tag.skillTypeList then
+				for _, type in pairs(tag.skillTypeList) do
+					if cfg and cfg.skillTypes and cfg.skillTypes[type] then
+						match = true
+						break
+					end
+				end
+			else
+				match = cfg and cfg.skillTypes and cfg.skillTypes[tag.skillType]
+			end
 			if tag.neg then
 				match = not match
 			end
@@ -534,7 +587,24 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SlotName" then
-			if not cfg or tag.slotName ~= cfg.slotName then
+			if not cfg then
+				return
+			end
+			local match = false
+			if tag.slotNameList then
+				for _, slot in ipairs(tag.slotNameList) do
+					if slot == cfg.slotName then
+						match = true
+						break
+					end
+				end
+			else
+				match = (tag.slotName == cfg.slotName)
+			end
+			if tag.neg then
+				match = not match
+			end
+			if not match then
 				return
 			end
 		elseif tag.type == "ModFlagOr" then

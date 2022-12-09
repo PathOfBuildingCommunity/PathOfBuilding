@@ -12,7 +12,7 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 
 	self.originalList = report
 
-	self.ListControl(anchor, x, y, width, height-50, 16, false, false, self:ReList())
+	self.ListControl(anchor, x, y, width, height-50, 16, "VERTICAL", false, self:ReList())
 
 	self.colList = {
 		{ width = width * 0.15, label = "Type", sortable = true },

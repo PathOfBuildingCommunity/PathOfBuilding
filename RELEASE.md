@@ -31,7 +31,6 @@ Steps:
 1. Run each script in the Exporter in order
 2. Revert the following changes similar to the linked examples:
     - [Fix stats on Rigwald's Pack](https://github.com/PathOfBuildingCommunity/PathOfBuilding/commit/85912cc8631bf55f999f8dfbda5fa6510252518c#diff-72415c450079cf8e5de1f00680f4918fd78e43aea4ed78dc5906d5ccf6fb66fb)
-    - Make sure "of the Underground" mods don't apply to you as well as nearby enemies in [ModItem.lua](src/Data/ModItem.lua)
     - [Make sure the description of a keystone isn't removed](src/Data/LegionPassives.lua#L3911-L3915)
 
 ## Skill tree updates
@@ -50,14 +49,48 @@ Steps:
    * `data.json`.
 4. Copy the following files from the `assets` subdirectory in the `.zip` archive to the
     new directory:
-    * `groups-3.png`
+    * `mastery-active-effect-3.png`
+    * `mastery-active-selected-3.png`
+    * `mastery-connected-3.png`
+    * `mastery-disabled-3.png`
     * `skills-3.jpg`
     * `skills-disabled-3.jpg`.
-5. Copy `./fix_ascendancy_positions.py` to the new directory and run it. This should
-   result in a new file `data_fixed.json`. Remove `data.json` and rename
-   `data_fixed.json` to `data.json`. Remove the copied `fix_ascendancy_positions.py`.
-6. Open `.src/GameVersions.lua` and update `treeVersionList` and `treeVersions`
+5. Run `./fix_ascendancy_positions.py`.
+6. Open `./src/GameVersions.lua` and update `treeVersionList` and `treeVersions`
    according to the file's format. This is important, otherwise the JSON data converter
    won't trigger.
 7. Restart Path of Building Community. This should result in a new file `tree.lua`.
 8. Remove `data.json` from the new directory. Do not commit this file.
+
+## Installer creation
+
+Path of Building Community offers both installable and standalone releases. They're
+built with automation scripts found in the repository described below.
+
+Prerequisites:
+- Have Git 2.21.0+ installed and `git` in your `PATH`.
+  Verify by running `git --version`.
+- Have NSIS 3.07+ installed and `makensis` in your `PATH`.
+  Verify by running `makensis /version`.
+  You may have to add this manually after installation.
+- Have Python 3.7+ installed and `python` in your `PATH`.
+  Verify by running `python --version`.
+- NB: You don't have to create a virtual environment, as you don't need to install any
+  third-party libraries.
+
+Installation:
+- Clone this repository to a directory of your choice:
+
+      git clone https://github.com/PathOfBuildingCommunity/PathOfBuildingInstaller.git
+- Please note that you might not have access to this repository if you're not a Path of
+  Building Community maintainer.
+  
+Usage:
+
+      python make_release.py
+- To change the output folder or repository URL, simply edit the script file.
+- Created installers can be found in the `./Dist` directory.
+- NB: Output like the following can be safely ignored. This is due to NSIS complaining
+about including an empty directory.
+
+      AppData\Local\Temp\tmp5fo1ha19\Update -> no files found. (NSIS/Setup.nsi:158)

@@ -4,7 +4,7 @@
 -- Module: Update Check
 -- Checks for updates
 --
-local proxyURL = ...
+local connectionProtocol, proxyURL = ...
 
 local xml = require("xml")
 local sha1 = require("sha1")
@@ -22,6 +22,9 @@ local function downloadFileText(source, file)
 		local escapedUrl = source..easy:escape(file)
 		easy:setopt_url(escapedUrl)
 		easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
+		if connectionProtocol then
+			easy:setopt(curl.OPT_IPRESOLVE, connectionProtocol)
+		end
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
 		end
@@ -42,14 +45,35 @@ local function downloadFileText(source, file)
 	end
 end
 local function downloadFile(source, file, outName)
-	local text = downloadFileText(source, file)
-	if text then
-		local outFile = io.open(outName, "wb")
-		outFile:write(text)
-		outFile:close()
-	else
-		return true
+	for i = 1, 5 do
+		if i > 1 then
+			ConPrintf("Retrying... (%d of 5)", i)
+		end
+		local easy = curl.easy()
+		local escapedUrl = source..easy:escape(file)
+		easy:setopt_url(escapedUrl)
+		easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
+		if connectionProtocol then
+			easy:setopt(curl.OPT_IPRESOLVE, connectionProtocol)
+		end
+		if proxyURL then
+			easy:setopt(curl.OPT_PROXY, proxyURL)
+		end
+		local file = io.open(outName, "wb+")
+		easy:setopt_writefunction(file)
+		local _, error = easy:perform()
+		easy:close()
+		file:close()
+		if not error then
+			return true
+		end
+		ConPrintf("Download failed (%s)", error:msg())
+		if globalRetryLimit == 0 or i == 5 then
+			return nil, error:msg()
+		end
+		globalRetryLimit = globalRetryLimit - 1
 	end
+	return true
 end
 
 ConPrintf("Checking for update...")
@@ -151,7 +175,7 @@ for name, data in pairs(remoteFiles) do
 		else
 			local content = file:read("*a")
 			file:close()
-			if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n","\r\n")) then
+			if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n", "\r\n")) then
 				ConPrintf("Warning: Integrity check on '%s' failed, it will be replaced", data.name)
 				table.insert(updateFiles, data)
 			end
@@ -203,7 +227,9 @@ for index, data in ipairs(updateFiles) do
 		if zip then
 			local zippedFile = zip:OpenFile(data.name)
 			if zippedFile then
-				content = zippedFile:Read("*a")
+				local file = io.open(fileName, "wb+")
+				file:write(zippedFile:Read("*a"))
+				file:close()
 				zippedFile:Close()
 			else
 				ConPrintf("Couldn't extract '%s' from '%s' (extract failed)", data.name, zipName)
@@ -213,19 +239,18 @@ for index, data in ipairs(updateFiles) do
 		end
 	else
 		ConPrintf("Downloading %s... (%d of %d)", data.name, index, #updateFiles)
-		content = downloadFileText(source, data.name)
+		downloadFile(source, data.name, fileName)
 	end
-	if content then
-		if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n","\r\n")) then
-			ConPrintf("Hash mismatch on '%s'", data.name)
-			failedFile = true
-		else
-			local file = io.open(fileName, "w+b")
-			file:write(content)
-			file:close()
-		end
-	else
+	local file = io.open(fileName, "rb")
+	if not file then
 		failedFile = true
+	else
+		local content = file:read("*all")
+		if data.sha1 ~= sha1(content) and data.sha1 ~= sha1(content:gsub("\n", "\r\n")) then
+			ConPrintf("Hash mismatch on '%s'", fileName)
+			failedFile = true
+		end
+		file:close()
 	end
 end
 for name, zip in pairs(zipFiles) do

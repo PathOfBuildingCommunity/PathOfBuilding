@@ -9,7 +9,7 @@ itemBases["Iron Hat"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 9, },
+	armour = { ArmourBaseMin = 9, ArmourBaseMax = 13, },
 	req = { str = 9, },
 }
 itemBases["Cone Helmet"] = {
@@ -18,7 +18,7 @@ itemBases["Cone Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 38, },
+	armour = { ArmourBaseMin = 38, ArmourBaseMax = 50, },
 	req = { level = 7, str = 21, },
 }
 itemBases["Barbute Helmet"] = {
@@ -27,7 +27,7 @@ itemBases["Barbute Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 92, },
+	armour = { ArmourBaseMin = 92, ArmourBaseMax = 115, },
 	req = { level = 18, str = 42, },
 }
 itemBases["Close Helmet"] = {
@@ -36,7 +36,7 @@ itemBases["Close Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 130, },
+	armour = { ArmourBaseMin = 130, ArmourBaseMax = 150, },
 	req = { level = 26, str = 58, },
 }
 itemBases["Gladiator Helmet"] = {
@@ -45,7 +45,7 @@ itemBases["Gladiator Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 174, },
+	armour = { ArmourBaseMin = 174, ArmourBaseMax = 195, },
 	req = { level = 35, str = 75, },
 }
 itemBases["Reaver Helmet"] = {
@@ -54,7 +54,7 @@ itemBases["Reaver Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 198, },
+	armour = { ArmourBaseMin = 198, ArmourBaseMax = 233, },
 	req = { level = 40, str = 85, },
 }
 itemBases["Siege Helmet"] = {
@@ -63,7 +63,7 @@ itemBases["Siege Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 237, },
+	armour = { ArmourBaseMin = 237, ArmourBaseMax = 272, },
 	req = { level = 48, str = 101, },
 }
 itemBases["Samnite Helmet"] = {
@@ -72,7 +72,7 @@ itemBases["Samnite Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 276, },
+	armour = { ArmourBaseMin = 276, ArmourBaseMax = 325, },
 	req = { level = 55, str = 114, },
 }
 itemBases["Ezomyte Burgonet"] = {
@@ -81,7 +81,7 @@ itemBases["Ezomyte Burgonet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 346, },
+	armour = { ArmourBaseMin = 346, ArmourBaseMax = 381, },
 	req = { level = 60, str = 138, },
 }
 itemBases["Royal Burgonet"] = {
@@ -90,7 +90,7 @@ itemBases["Royal Burgonet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 377, },
+	armour = { ArmourBaseMin = 377, ArmourBaseMax = 434, },
 	req = { level = 65, str = 148, },
 }
 itemBases["Eternal Burgonet"] = {
@@ -99,7 +99,7 @@ itemBases["Eternal Burgonet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 373, },
+	armour = { ArmourBaseMin = 373, ArmourBaseMax = 429, },
 	req = { level = 69, str = 138, },
 }
 
@@ -109,7 +109,7 @@ itemBases["Leather Cap"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 19, },
+	armour = { EvasionBaseMin = 19, EvasionBaseMax = 27, },
 	req = { dex = 13, },
 }
 itemBases["Tricorne"] = {
@@ -118,7 +118,7 @@ itemBases["Tricorne"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 53, },
+	armour = { EvasionBaseMin = 53, EvasionBaseMax = 69, },
 	req = { level = 10, dex = 27, },
 }
 itemBases["Leather Hood"] = {
@@ -127,7 +127,7 @@ itemBases["Leather Hood"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 101, },
+	armour = { EvasionBaseMin = 101, EvasionBaseMax = 127, },
 	req = { level = 20, dex = 46, },
 }
 itemBases["Wolf Pelt"] = {
@@ -136,7 +136,7 @@ itemBases["Wolf Pelt"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 150, },
+	armour = { EvasionBaseMin = 150, EvasionBaseMax = 172, },
 	req = { level = 30, dex = 66, },
 }
 itemBases["Hunter Hood"] = {
@@ -145,7 +145,7 @@ itemBases["Hunter Hood"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 203, },
+	armour = { EvasionBaseMin = 203, EvasionBaseMax = 227, },
 	req = { level = 41, dex = 87, },
 }
 itemBases["Noble Tricorne"] = {
@@ -154,7 +154,7 @@ itemBases["Noble Tricorne"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 232, },
+	armour = { EvasionBaseMin = 232, EvasionBaseMax = 266, },
 	req = { level = 47, dex = 99, },
 }
 itemBases["Ursine Pelt"] = {
@@ -163,7 +163,7 @@ itemBases["Ursine Pelt"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 276, },
+	armour = { EvasionBaseMin = 276, EvasionBaseMax = 325, },
 	req = { level = 55, dex = 114, },
 }
 itemBases["Silken Hood"] = {
@@ -172,7 +172,7 @@ itemBases["Silken Hood"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 346, },
+	armour = { EvasionBaseMin = 346, EvasionBaseMax = 381, },
 	req = { level = 60, dex = 138, },
 }
 itemBases["Sinner Tricorne"] = {
@@ -181,7 +181,7 @@ itemBases["Sinner Tricorne"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 369, },
+	armour = { EvasionBaseMin = 369, EvasionBaseMax = 425, },
 	req = { level = 64, dex = 138, },
 }
 itemBases["Lion Pelt"] = {
@@ -190,7 +190,7 @@ itemBases["Lion Pelt"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 380, },
+	armour = { EvasionBaseMin = 380, EvasionBaseMax = 437, },
 	req = { level = 70, dex = 150, },
 }
 
@@ -200,7 +200,7 @@ itemBases["Vine Circlet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 6, },
+	armour = { EnergyShieldBaseMin = 7, EnergyShieldBaseMax = 10, },
 	req = { int = 13, },
 }
 itemBases["Iron Circlet"] = {
@@ -209,7 +209,7 @@ itemBases["Iron Circlet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 10, },
+	armour = { EnergyShieldBaseMin = 12, EnergyShieldBaseMax = 15, },
 	req = { level = 8, int = 23, },
 }
 itemBases["Torture Cage"] = {
@@ -218,7 +218,7 @@ itemBases["Torture Cage"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 19, },
+	armour = { EnergyShieldBaseMin = 20, EnergyShieldBaseMax = 25, },
 	req = { level = 17, int = 40, },
 }
 itemBases["Tribal Circlet"] = {
@@ -227,7 +227,7 @@ itemBases["Tribal Circlet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 27, },
+	armour = { EnergyShieldBaseMin = 28, EnergyShieldBaseMax = 33, },
 	req = { level = 26, int = 58, },
 }
 itemBases["Bone Circlet"] = {
@@ -236,7 +236,7 @@ itemBases["Bone Circlet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 34, },
+	armour = { EnergyShieldBaseMin = 36, EnergyShieldBaseMax = 40, },
 	req = { level = 34, int = 73, },
 }
 itemBases["Lunaris Circlet"] = {
@@ -245,7 +245,7 @@ itemBases["Lunaris Circlet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 38, },
+	armour = { EnergyShieldBaseMin = 41, EnergyShieldBaseMax = 48, },
 	req = { level = 39, int = 83, },
 }
 itemBases["Steel Circlet"] = {
@@ -254,7 +254,7 @@ itemBases["Steel Circlet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 46, },
+	armour = { EnergyShieldBaseMin = 49, EnergyShieldBaseMax = 55, },
 	req = { level = 48, int = 101, },
 }
 itemBases["Necromancer Circlet"] = {
@@ -263,7 +263,7 @@ itemBases["Necromancer Circlet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 52, },
+	armour = { EnergyShieldBaseMin = 55, EnergyShieldBaseMax = 64, },
 	req = { level = 54, int = 112, },
 }
 itemBases["Solaris Circlet"] = {
@@ -272,7 +272,7 @@ itemBases["Solaris Circlet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 57, },
+	armour = { EnergyShieldBaseMin = 60, EnergyShieldBaseMax = 68, },
 	req = { level = 59, int = 122, },
 }
 itemBases["Mind Cage"] = {
@@ -281,7 +281,7 @@ itemBases["Mind Cage"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 69, },
+	armour = { EnergyShieldBaseMin = 73, EnergyShieldBaseMax = 84, },
 	req = { level = 65, int = 138, },
 }
 itemBases["Hubris Circlet"] = {
@@ -290,7 +290,7 @@ itemBases["Hubris Circlet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EnergyShieldBase = 76, },
+	armour = { EnergyShieldBaseMin = 80, EnergyShieldBaseMax = 92, },
 	req = { level = 69, int = 154, },
 }
 
@@ -300,7 +300,7 @@ itemBases["Battered Helm"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 13, EvasionBase = 13, },
+	armour = { ArmourBaseMin = 13, ArmourBaseMax = 18, EvasionBaseMin = 13, EvasionBaseMax = 18, },
 	req = { str = 8, dex = 8, },
 }
 itemBases["Sallet"] = {
@@ -309,7 +309,7 @@ itemBases["Sallet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 37, EvasionBase = 37, },
+	armour = { ArmourBaseMin = 37, ArmourBaseMax = 48, EvasionBaseMin = 37, EvasionBaseMax = 48, },
 	req = { level = 13, str = 18, dex = 18, },
 }
 itemBases["Visored Sallet"] = {
@@ -318,7 +318,7 @@ itemBases["Visored Sallet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 64, EvasionBase = 64, },
+	armour = { ArmourBaseMin = 64, ArmourBaseMax = 80, EvasionBaseMin = 64, EvasionBaseMax = 80, },
 	req = { level = 23, str = 28, dex = 28, },
 }
 itemBases["Gilded Sallet"] = {
@@ -327,7 +327,7 @@ itemBases["Gilded Sallet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 90, EvasionBase = 90, },
+	armour = { ArmourBaseMin = 90, ArmourBaseMax = 97, EvasionBaseMin = 90, EvasionBaseMax = 97, },
 	req = { level = 33, str = 38, dex = 38, },
 }
 itemBases["Secutor Helm"] = {
@@ -336,7 +336,7 @@ itemBases["Secutor Helm"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 98, EvasionBase = 98, },
+	armour = { ArmourBaseMin = 98, ArmourBaseMax = 116, EvasionBaseMin = 98, EvasionBaseMax = 116, },
 	req = { level = 36, str = 42, dex = 42, },
 }
 itemBases["Fencer Helm"] = {
@@ -345,7 +345,7 @@ itemBases["Fencer Helm"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 117, EvasionBase = 117, },
+	armour = { ArmourBaseMin = 117, ArmourBaseMax = 134, EvasionBaseMin = 117, EvasionBaseMax = 134, },
 	req = { level = 43, str = 49, dex = 49, },
 }
 itemBases["Lacquered Helmet"] = {
@@ -354,7 +354,7 @@ itemBases["Lacquered Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 138, EvasionBase = 138, },
+	armour = { ArmourBaseMin = 138, ArmourBaseMax = 155, EvasionBaseMin = 138, EvasionBaseMax = 155, },
 	req = { level = 51, str = 57, dex = 57, },
 }
 itemBases["Fluted Bascinet"] = {
@@ -363,7 +363,7 @@ itemBases["Fluted Bascinet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 160, EvasionBase = 160, },
+	armour = { ArmourBaseMin = 160, ArmourBaseMax = 189, EvasionBaseMin = 160, EvasionBaseMax = 189, },
 	req = { level = 58, str = 64, dex = 64, },
 }
 itemBases["Pig-Faced Bascinet"] = {
@@ -372,7 +372,7 @@ itemBases["Pig-Faced Bascinet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 229, EvasionBase = 159, },
+	armour = { ArmourBaseMin = 229, ArmourBaseMax = 263, EvasionBaseMin = 159, EvasionBaseMax = 183, },
 	req = { level = 63, str = 85, dex = 62, },
 }
 itemBases["Nightmare Bascinet"] = {
@@ -381,7 +381,7 @@ itemBases["Nightmare Bascinet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_dex_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 162, EvasionBase = 233, },
+	armour = { ArmourBaseMin = 162, ArmourBaseMax = 187, EvasionBaseMin = 233, EvasionBaseMax = 268, },
 	req = { level = 67, str = 62, dex = 85, },
 }
 itemBases["Sorrow Mask"] = {
@@ -389,9 +389,9 @@ itemBases["Sorrow Mask"] = {
 	subType = "Armour/Evasion",
 	socketLimit = 4,
 	tags = { str_dex_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
-	implicit = "-15% additional Physical Damage Reduction\n(10-15)% increased Effect of Fortify on you\nYou are Crushed",
+	implicit = "-15% additional Physical Damage Reduction\nYou are Crushed\n+(2-3) to maximum Fortification",
 	implicitModTypes = { {  }, {  }, {  }, },
-	armour = { ArmourBase = 42, EvasionBase = 42, },
+	armour = { ArmourBaseMin = 42, ArmourBaseMax = 49, EvasionBaseMin = 42, EvasionBaseMax = 49, },
 	req = { level = 15, str = 20, dex = 20, },
 }
 itemBases["Atonement Mask"] = {
@@ -399,9 +399,9 @@ itemBases["Atonement Mask"] = {
 	subType = "Armour/Evasion",
 	socketLimit = 4,
 	tags = { str_dex_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
-	implicit = "-15% additional Physical Damage Reduction\n(10-15)% increased Effect of Fortify on you\nYou are Crushed",
+	implicit = "-15% additional Physical Damage Reduction\nYou are Crushed\n+(2-3) to maximum Fortification",
 	implicitModTypes = { {  }, {  }, {  }, },
-	armour = { ArmourBase = 122, EvasionBase = 122, },
+	armour = { ArmourBaseMin = 122, ArmourBaseMax = 140, EvasionBaseMin = 122, EvasionBaseMax = 140, },
 	req = { level = 45, str = 51, dex = 51, },
 }
 itemBases["Penitent Mask"] = {
@@ -409,9 +409,9 @@ itemBases["Penitent Mask"] = {
 	subType = "Armour/Evasion",
 	socketLimit = 4,
 	tags = { str_dex_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
-	implicit = "-15% additional Physical Damage Reduction\n(10-15)% increased Effect of Fortify on you\nYou are Crushed",
+	implicit = "-15% additional Physical Damage Reduction\nYou are Crushed\n+(2-3) to maximum Fortification",
 	implicitModTypes = { {  }, {  }, {  }, },
-	armour = { ArmourBase = 185, EvasionBase = 185, },
+	armour = { ArmourBaseMin = 185, ArmourBaseMax = 212, EvasionBaseMin = 185, EvasionBaseMax = 212, },
 	req = { level = 75, str = 79, dex = 79, },
 }
 
@@ -421,7 +421,7 @@ itemBases["Rusted Coif"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 16, EnergyShieldBase = 4, },
+	armour = { ArmourBaseMin = 16, ArmourBaseMax = 22, EnergyShieldBaseMin = 5, EnergyShieldBaseMax = 7, },
 	req = { level = 5, str = 9, int = 9, },
 }
 itemBases["Soldier Helmet"] = {
@@ -430,7 +430,7 @@ itemBases["Soldier Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 34, EnergyShieldBase = 8, },
+	armour = { ArmourBaseMin = 34, ArmourBaseMax = 45, EnergyShieldBaseMin = 8, EnergyShieldBaseMax = 11, },
 	req = { level = 12, str = 16, int = 16, },
 }
 itemBases["Great Helmet"] = {
@@ -439,7 +439,7 @@ itemBases["Great Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 61, EnergyShieldBase = 13, },
+	armour = { ArmourBaseMin = 61, ArmourBaseMax = 76, EnergyShieldBaseMin = 14, EnergyShieldBaseMax = 17, },
 	req = { level = 22, str = 27, int = 27, },
 }
 itemBases["Crusader Helmet"] = {
@@ -448,7 +448,7 @@ itemBases["Crusader Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 85, EnergyShieldBase = 17, },
+	armour = { ArmourBaseMin = 85, ArmourBaseMax = 95, EnergyShieldBaseMin = 18, EnergyShieldBaseMax = 20, },
 	req = { level = 31, str = 36, int = 36, },
 }
 itemBases["Aventail Helmet"] = {
@@ -457,7 +457,7 @@ itemBases["Aventail Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 101, EnergyShieldBase = 20, },
+	armour = { ArmourBaseMin = 101, ArmourBaseMax = 119, EnergyShieldBaseMin = 21, EnergyShieldBaseMax = 25, },
 	req = { level = 37, str = 42, int = 42, },
 }
 itemBases["Zealot Helmet"] = {
@@ -466,7 +466,7 @@ itemBases["Zealot Helmet"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 119, EnergyShieldBase = 24, },
+	armour = { ArmourBaseMin = 119, ArmourBaseMax = 137, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 29, },
 	req = { level = 44, str = 50, int = 50, },
 }
 itemBases["Great Crown"] = {
@@ -475,7 +475,7 @@ itemBases["Great Crown"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 143, EnergyShieldBase = 28, },
+	armour = { ArmourBaseMin = 143, ArmourBaseMax = 161, EnergyShieldBaseMin = 29, EnergyShieldBaseMax = 33, },
 	req = { level = 53, str = 59, int = 59, },
 }
 itemBases["Magistrate Crown"] = {
@@ -484,7 +484,7 @@ itemBases["Magistrate Crown"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 160, EnergyShieldBase = 31, },
+	armour = { ArmourBaseMin = 160, ArmourBaseMax = 189, EnergyShieldBaseMin = 33, EnergyShieldBaseMax = 39, },
 	req = { level = 58, str = 64, int = 64, },
 }
 itemBases["Prophet Crown"] = {
@@ -493,7 +493,7 @@ itemBases["Prophet Crown"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 224, EnergyShieldBase = 30, },
+	armour = { ArmourBaseMin = 224, ArmourBaseMax = 258, EnergyShieldBaseMin = 32, EnergyShieldBaseMax = 37, },
 	req = { level = 63, str = 85, int = 62, },
 }
 itemBases["Praetor Crown"] = {
@@ -502,7 +502,7 @@ itemBases["Praetor Crown"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, str_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { ArmourBase = 161, EnergyShieldBase = 48, },
+	armour = { ArmourBaseMin = 161, ArmourBaseMax = 185, EnergyShieldBaseMin = 51, EnergyShieldBaseMax = 58, },
 	req = { level = 68, str = 62, int = 91, },
 }
 itemBases["Imp Crown"] = {
@@ -512,7 +512,7 @@ itemBases["Imp Crown"] = {
 	tags = { str_int_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
 	implicit = "Socketed Skills apply Fire, Cold and Lightning Exposure on Hit\n-10% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, { "elemental", "resistance" }, },
-	armour = { ArmourBase = 42, EnergyShieldBase = 9, },
+	armour = { ArmourBaseMin = 42, ArmourBaseMax = 49, EnergyShieldBaseMin = 10, EnergyShieldBaseMax = 12, },
 	req = { level = 15, str = 20, int = 20, },
 }
 itemBases["Demon Crown"] = {
@@ -522,7 +522,7 @@ itemBases["Demon Crown"] = {
 	tags = { str_int_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
 	implicit = "Socketed Skills apply Fire, Cold and Lightning Exposure on Hit\n-10% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, { "elemental", "resistance" }, },
-	armour = { ArmourBase = 122, EnergyShieldBase = 24, },
+	armour = { ArmourBaseMin = 122, ArmourBaseMax = 140, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 29, },
 	req = { level = 45, str = 51, int = 51, },
 }
 itemBases["Archdemon Crown"] = {
@@ -532,7 +532,7 @@ itemBases["Archdemon Crown"] = {
 	tags = { str_int_armour = true, not_for_sale = true, helmet = true, armour = true, default = true, },
 	implicit = "Socketed Skills apply Fire, Cold and Lightning Exposure on Hit\n-10% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, { "elemental", "resistance" }, },
-	armour = { ArmourBase = 185, EnergyShieldBase = 36, },
+	armour = { ArmourBaseMin = 185, ArmourBaseMax = 212, EnergyShieldBaseMin = 38, EnergyShieldBaseMax = 43, },
 	req = { level = 75, str = 79, int = 79, },
 }
 itemBases["Bone Helmet"] = {
@@ -542,7 +542,7 @@ itemBases["Bone Helmet"] = {
 	tags = { str_int_armour = true, helmetatlas1 = true, not_for_sale = true, helmet = true, armour = true, atlas_base_type = true, default = true, },
 	implicit = "Minions deal (15-20)% increased Damage",
 	implicitModTypes = { { "damage", "minion" }, },
-	armour = { ArmourBase = 197, EnergyShieldBase = 38, },
+	armour = { ArmourBaseMin = 197, ArmourBaseMax = 227, EnergyShieldBaseMin = 40, EnergyShieldBaseMax = 46, },
 	req = { level = 73, str = 76, int = 76, },
 }
 
@@ -552,7 +552,7 @@ itemBases["Scare Mask"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 13, EnergyShieldBase = 4, },
+	armour = { EvasionBaseMin = 13, EvasionBaseMax = 18, EnergyShieldBaseMin = 4, EnergyShieldBaseMax = 6, },
 	req = { dex = 8, int = 8, },
 }
 itemBases["Plague Mask"] = {
@@ -561,7 +561,7 @@ itemBases["Plague Mask"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 29, EnergyShieldBase = 7, },
+	armour = { EvasionBaseMin = 29, EvasionBaseMax = 38, EnergyShieldBaseMin = 7, EnergyShieldBaseMax = 10, },
 	req = { level = 10, dex = 14, int = 14, },
 }
 itemBases["Iron Mask"] = {
@@ -570,7 +570,7 @@ itemBases["Iron Mask"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 48, EnergyShieldBase = 10, },
+	armour = { EvasionBaseMin = 48, EvasionBaseMax = 60, EnergyShieldBaseMin = 11, EnergyShieldBaseMax = 14, },
 	req = { level = 17, dex = 21, int = 21, },
 }
 itemBases["Festival Mask"] = {
@@ -579,7 +579,7 @@ itemBases["Festival Mask"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 77, EnergyShieldBase = 16, },
+	armour = { EvasionBaseMin = 77, EvasionBaseMax = 88, EnergyShieldBaseMin = 17, EnergyShieldBaseMax = 19, },
 	req = { level = 28, dex = 33, int = 33, },
 }
 itemBases["Golden Mask"] = {
@@ -588,7 +588,7 @@ itemBases["Golden Mask"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 96, EnergyShieldBase = 19, },
+	armour = { EvasionBaseMin = 96, EvasionBaseMax = 103, EnergyShieldBaseMin = 20, EnergyShieldBaseMax = 22, },
 	req = { level = 35, dex = 40, int = 40, },
 }
 itemBases["Raven Mask"] = {
@@ -597,7 +597,7 @@ itemBases["Raven Mask"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 104, EnergyShieldBase = 21, },
+	armour = { EvasionBaseMin = 104, EvasionBaseMax = 119, EnergyShieldBaseMin = 22, EnergyShieldBaseMax = 25, },
 	req = { level = 38, dex = 44, int = 44, },
 }
 itemBases["Callous Mask"] = {
@@ -606,7 +606,7 @@ itemBases["Callous Mask"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 122, EnergyShieldBase = 24, },
+	armour = { EvasionBaseMin = 122, EvasionBaseMax = 137, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 28, },
 	req = { level = 45, dex = 51, int = 51, },
 }
 itemBases["Regicide Mask"] = {
@@ -615,7 +615,7 @@ itemBases["Regicide Mask"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 141, EnergyShieldBase = 28, },
+	armour = { EvasionBaseMin = 141, EvasionBaseMax = 158, EnergyShieldBaseMin = 29, EnergyShieldBaseMax = 32, },
 	req = { level = 52, dex = 58, int = 58, },
 }
 itemBases["Harlequin Mask"] = {
@@ -624,7 +624,7 @@ itemBases["Harlequin Mask"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 157, EnergyShieldBase = 31, },
+	armour = { EvasionBaseMin = 157, EvasionBaseMax = 185, EnergyShieldBaseMin = 32, EnergyShieldBaseMax = 38, },
 	req = { level = 57, dex = 64, int = 64, },
 }
 itemBases["Vaal Mask"] = {
@@ -633,7 +633,7 @@ itemBases["Vaal Mask"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 207, EnergyShieldBase = 36, },
+	armour = { EvasionBaseMin = 207, EvasionBaseMax = 239, EnergyShieldBaseMin = 37, EnergyShieldBaseMax = 43, },
 	req = { level = 62, dex = 79, int = 72, },
 }
 itemBases["Deicide Mask"] = {
@@ -642,7 +642,7 @@ itemBases["Deicide Mask"] = {
 	socketLimit = 4,
 	tags = { helmet = true, armour = true, dex_int_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { EvasionBase = 190, EnergyShieldBase = 45, },
+	armour = { EvasionBaseMin = 190, EvasionBaseMax = 219, EnergyShieldBaseMin = 47, EnergyShieldBaseMax = 54, },
 	req = { level = 67, dex = 73, int = 88, },
 }
 itemBases["Gale Crown"] = {
@@ -652,7 +652,7 @@ itemBases["Gale Crown"] = {
 	tags = { not_for_sale = true, helmet = true, armour = true, default = true, dex_int_armour = true, },
 	implicit = "Adds (3-4) to (5-6) Cold Damage\nYour Hits treat Cold Resistance as 10% higher than actual value",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, { "elemental_damage", "damage", "elemental", "cold" }, },
-	armour = { EvasionBase = 42, EnergyShieldBase = 9, },
+	armour = { EvasionBaseMin = 42, EvasionBaseMax = 49, EnergyShieldBaseMin = 10, EnergyShieldBaseMax = 12, },
 	req = { level = 15, dex = 20, int = 20, },
 }
 itemBases["Winter Crown"] = {
@@ -662,7 +662,7 @@ itemBases["Winter Crown"] = {
 	tags = { not_for_sale = true, helmet = true, armour = true, default = true, dex_int_armour = true, },
 	implicit = "Adds (15-20) to (28-35) Cold Damage\nYour Hits treat Cold Resistance as 10% higher than actual value",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, { "elemental_damage", "damage", "elemental", "cold" }, },
-	armour = { EvasionBase = 122, EnergyShieldBase = 24, },
+	armour = { EvasionBaseMin = 122, EvasionBaseMax = 140, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 29, },
 	req = { level = 45, dex = 51, int = 51, },
 }
 itemBases["Blizzard Crown"] = {
@@ -672,7 +672,7 @@ itemBases["Blizzard Crown"] = {
 	tags = { not_for_sale = true, helmet = true, armour = true, default = true, dex_int_armour = true, },
 	implicit = "Adds (75-85) to (115-128) Cold Damage\nYour Hits treat Cold Resistance as 10% higher than actual value",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, { "elemental_damage", "damage", "elemental", "cold" }, },
-	armour = { EvasionBase = 185, EnergyShieldBase = 36, },
+	armour = { EvasionBaseMin = 185, EvasionBaseMax = 212, EnergyShieldBaseMin = 38, EnergyShieldBaseMax = 43, },
 	req = { level = 75, dex = 79, int = 79, },
 }
 
@@ -682,7 +682,7 @@ itemBases["Runic Helm"] = {
 	socketLimit = 4,
 	tags = { not_for_sale = true, helmet = true, armour = true, ward_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { WardBase = 34, },
+	armour = { WardBaseMin = 41, WardBaseMax = 47, },
 	req = { level = 25, str = 30, dex = 30, int = 30, },
 }
 itemBases["Runic Crest"] = {
@@ -691,7 +691,7 @@ itemBases["Runic Crest"] = {
 	socketLimit = 4,
 	tags = { not_for_sale = true, helmet = true, armour = true, ward_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { WardBase = 81, },
+	armour = { WardBaseMin = 97, WardBaseMax = 112, },
 	req = { level = 49, str = 55, dex = 55, int = 55, },
 }
 itemBases["Runic Crown"] = {
@@ -700,7 +700,7 @@ itemBases["Runic Crown"] = {
 	socketLimit = 4,
 	tags = { not_for_sale = true, helmet = true, armour = true, ward_armour = true, default = true, },
 	implicitModTypes = { },
-	armour = { WardBase = 137, },
+	armour = { WardBaseMin = 164, WardBaseMax = 189, },
 	req = { level = 68, str = 66, dex = 66, int = 66, },
 }
 

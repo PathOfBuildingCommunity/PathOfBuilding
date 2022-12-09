@@ -8,8 +8,8 @@ return  {
 			["Art/2DArt/SkillIcons/passives/SoulTetherKeystone.dds"]={["x"]=54,["y"]=119,["w"]=54,["h"]=54},
 
 			["Art/2DArt/SkillIcons/passives/StrengthOfBlood.dds"]={["x"]=159,["y"]=65,["w"]=53,["h"]=54},
-			["Art/2DArt/SkillIcons/passives/GlancingBlows.dds"]={["x"]=212,["y"]=65,["w"]=53,["h"]=54},
-			["Art/2DArt/SkillIcons/passives/TemperedByWar.dds"]={["x"]=265,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/GlancingBlows.dds"]={["x"]=265,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/TemperedByWar.dds"]={["x"]=212,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/FocusedRage.dds"]={["x"]=0,["y"]=119,["w"]=54,["h"]=54},
 
 			["Art/2DArt/SkillIcons/passives/WindDancer.dds"]={["x"]=318,["y"]=65,["w"]=53,["h"]=54},
@@ -38,8 +38,8 @@ return  {
 			["Art/2DArt/SkillIcons/passives/SoulTetherKeystone.dds"]={["x"]=54,["y"]=119,["w"]=54,["h"]=54},
 
 			["Art/2DArt/SkillIcons/passives/StrengthOfBlood.dds"]={["x"]=159,["y"]=65,["w"]=53,["h"]=54},
-			["Art/2DArt/SkillIcons/passives/GlancingBlows.dds"]={["x"]=212,["y"]=65,["w"]=53,["h"]=54},
-			["Art/2DArt/SkillIcons/passives/TemperedByWar.dds"]={["x"]=265,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/GlancingBlows.dds"]={["x"]=265,["y"]=65,["w"]=53,["h"]=54},
+			["Art/2DArt/SkillIcons/passives/TemperedByWar.dds"]={["x"]=212,["y"]=65,["w"]=53,["h"]=54},
 			["Art/2DArt/SkillIcons/passives/FocusedRage.dds"]={["x"]=0,["y"]=119,["w"]=54,["h"]=54},
 
 			["Art/2DArt/SkillIcons/passives/WindDancer.dds"]={["x"]=318,["y"]=65,["w"]=53,["h"]=54},

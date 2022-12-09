@@ -457,7 +457,7 @@ function isValueInArrayPred(table, predicate)
 end
 
 -- Pretty-prints a table
-function prettyPrintTable(tbl, pre)
+function prettyPrintTable(tbl, pre, outFile)
 	pre = pre or ""
 	local outNames = { }
 	for name in pairs(tbl) do
@@ -466,9 +466,13 @@ function prettyPrintTable(tbl, pre)
 	table.sort(outNames)
 	for _, name in ipairs(outNames) do
 		if type(tbl[name]) == "table" then
-			prettyPrintTable(tbl[name], pre .. name .. ".")
+			prettyPrintTable(tbl[name], pre .. name .. ".", outFile)
 		else
-			ConPrintf("%s%s = %s", pre, name, tostring(tbl[name]))
+			if outFile then
+				outFile:write(pre .. name .. " = " .. tostring(tbl[name]) .. "\n")
+			else
+				ConPrintf("%s%s = %s", pre, name, tostring(tbl[name]))
+			end
 		end
 	end
 end
@@ -524,6 +528,19 @@ function round(val, dec)
 		return m_floor(val * 10 ^ dec + 0.5) / 10 ^ dec
 	else
 		return m_floor(val + 0.5)
+	end
+end
+
+--- Rounds down a number to the nearest <dec> decimal places
+---@param val number
+---@param dec number
+---@return number
+function floor(val, dec)
+	if dec then
+		local mult = 10 ^ dec
+		return m_floor(val * mult + 0.0001) / mult
+	else
+		return m_floor(val)
 	end
 end
 
@@ -643,33 +660,28 @@ end
 
 -- Global Cache related
 function cacheData(uuid, env)
-	if GlobalCache.dontUseCache then
-		return
-	end
-
 	local mode = env.mode
+	if mode == "CALCULATOR" then return end
 
-	if not GlobalCache.cachedData[mode][uuid] or mode == "MAIN" or mode == "CALCS" then
-		-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
-		if GlobalCache.cachedData[mode][uuid] then
-			GlobalCache.cachedData[mode][uuid].ActiveSkill = nil
-			GlobalCache.cachedData[mode][uuid].Env = nil
-		end
-		GlobalCache.cachedData[mode][uuid] = {
-			Name = env.player.mainSkill.activeEffect.grantedEffect.name,
-			Speed = env.player.output.Speed,
-			ManaCost = env.player.output.ManaCost,
-			HitChance = env.player.output.HitChance,
-			PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
-			CritChance = env.player.output.CritChance,
-			TotalDPS = env.player.output.TotalDPS,
-			ActiveSkill = env.player.mainSkill,
-			Env = env,
-		}
+	-- If we previously had global data, we are about to over-ride it, set tables to `nil` for Lua Garbage Collection
+	if GlobalCache.cachedData[mode][uuid] then
+		GlobalCache.cachedData[mode][uuid].ActiveSkill = nil
+		GlobalCache.cachedData[mode][uuid].Env = nil
 	end
+	GlobalCache.cachedData[mode][uuid] = {
+		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
+		Speed = env.player.output.Speed,
+		ManaCost = env.player.output.ManaCost,
+		HitChance = env.player.output.HitChance,
+		PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
+		CritChance = env.player.output.CritChance,
+		TotalDPS = env.player.output.TotalDPS,
+		ActiveSkill = env.player.mainSkill,
+		Env = env,
+	}
 end
 
--- Obtian a stored cached processed skill identified by
+-- Obtain a stored cached processed skill identified by
 --   its UUID and pulled from an appropriate env mode (e.g., MAIN)
 function getCachedData(skill, mode)
 	local uuid = cacheSkillUUID(skill)
@@ -712,14 +724,13 @@ end
 
 -- Wipe all the tables associated with Global Cache
 function wipeGlobalCache()
-	--ConPrintf("WIPING GlobalCache.cacheData")
 	wipeTable(GlobalCache.cachedData.MAIN)
 	wipeTable(GlobalCache.cachedData.CALCS)
 	wipeTable(GlobalCache.cachedData.CALCULATOR)
 	wipeTable(GlobalCache.cachedData.CACHE)
 	wipeTable(GlobalCache.excludeFullDpsList)
 	wipeTable(GlobalCache.deleteGroup)
-	GlobalCache.dontUseCache = nil
+	GlobalCache.noCache = nil
 end
 
 -- Full DPS related: add to roll-up exclusion list
@@ -743,3 +754,50 @@ function supportEnabled(skillName, activeSkill)
 	end
 	return true
 end
+
+function stringify(thing)
+	if type(thing) == 'string' then
+		return thing
+	elseif type(thing) == 'number' then
+		return ""..thing;
+	elseif type(thing) == 'table' then
+		local s = "{";
+		for k,v in pairs(thing) do
+			s = s.."\n\t"
+			if type(k) == 'number' then
+				s = s.."["..k.."] = "
+			else
+				s = s.."[\""..k.."\"] = "
+			end
+			if type(v) == 'string' then
+				s = s.."\""..stringify(v).."\", "
+			else
+				if type(v) == "boolean" then
+					v = v and "true" or "false"
+				end
+				val = stringify(v)..", "
+				if type(v) == "table" then
+					val = string.gsub(val, "\n", "\n\t")
+				end
+				s = s..val;
+			end
+		end
+		return s.."\n}"
+	end
+end
+
+-- Class function to split a string on a single character (??) separator.
+  -- returns a list of fields, not including the separator.
+  -- Will return the first field as blank if the first character of the string is the separator
+  -- Separator defaults to colon
+function string:split(sep)
+	-- Initially from http://lua-users.org/wiki/SplitJoin
+	-- function will ignore duplicate separators
+	local sep, fields = sep or ":", {}
+	local pattern = s_format("([^%s]+)", sep)
+	-- inject a blank entry if self begins with a colon
+	if string.sub(self, 1, 1) == sep then t_insert(fields, "") end
+	self:gsub(pattern, function(c) fields[#fields+1] = c end)
+	return fields
+end
+

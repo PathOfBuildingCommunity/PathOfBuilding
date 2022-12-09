@@ -90,14 +90,23 @@ end
 
 function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
 	local result = 0
+	local globalLimits = { }
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or ( mod.source and mod.source:match("[^:]+") == source )) then
 					if mod[1] then
-						result = result + (context:EvalMod(mod, cfg) or 0)
+						local value = context:EvalMod(mod, cfg) or 0
+						if mod[1].globalLimit and mod[1].globalLimitKey then
+							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] or 0
+							if globalLimits[mod[1].globalLimitKey] + value > mod[1].globalLimit then
+								value = mod[1].globalLimit - globalLimits[mod[1].globalLimitKey]
+							end
+							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] + value
+						end
+						result = result + value
 					else
 						result = result + mod.value
 					end
@@ -115,18 +124,20 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	local result = 1
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
+		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
 				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 					if mod[1] then
-						result = result * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
+						modResult = modResult * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
 					else
-						result = result * (1 + mod.value / 100)
+						modResult = modResult * (1 + mod.value / 100)
 					end
 				end
 			end
 		end
+		result = result * round(modResult,2)
 	end
 	if self.parent then
 		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
@@ -207,6 +218,7 @@ function ModDBClass:ListInternal(context, result, cfg, flags, keywordFlags, sour
 end
 
 function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywordFlags, source, ...)
+	local globalLimits = { }
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		local modList = self.mods[modName]
@@ -216,7 +228,14 @@ function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywo
 				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 					local value
 					if mod[1] then
-						value = context:EvalMod(mod, cfg)
+						value = context:EvalMod(mod, cfg) or 0
+						if mod[1].globalLimit and mod[1].globalLimitKey then
+							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] or 0
+							if globalLimits[mod[1].globalLimitKey] + value > mod[1].globalLimit then
+								value = mod[1].globalLimit - globalLimits[mod[1].globalLimitKey]
+							end
+							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] + value
+						end
 					else
 						value = mod.value
 					end

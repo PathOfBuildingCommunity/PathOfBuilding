@@ -9,11 +9,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAddedColdDamagePlus
-	statMap = {
-		["supported_cold_skill_gem_level_+"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.ColdSkill }),
-		},
-	},
 #mods
 
 #skill SupportAdditionalAccuracy
@@ -41,10 +36,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBarrage Barrage Support
-	weaponTypes = {
-		["Bow"] = true,
-		["Wand"] = true,
-	},
 	statMap = {
 		["support_barrage_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
@@ -54,6 +45,8 @@ local skills, mod, flag, skill = ...
 		},
 		["number_of_additional_projectiles"] = {
 			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Condition", varList = { "UsingBow", "UsingWand" }}),
+		},
+		["skill_can_only_use_non_melee_weapons"] = {
 		},
 	},
 #mods
@@ -69,6 +62,8 @@ local skills, mod, flag, skill = ...
 		["support_cast_on_crit_quality_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack, 0)
 		},
+		["support_cast_on_crit_spell_damage_+%_final"] = {
+		},
 	},
 #mods
 
@@ -81,6 +76,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCastOnCritPlus
+	statMap = {
+		["support_cast_on_crit_spell_damage_+%_final"] = {
+		},
+	},
 #mods
 
 #skill SupportCastOnCritTriggeredPlus
@@ -105,6 +104,8 @@ local skills, mod, flag, skill = ...
 		},
 		["skill_effect_duration_+%_while_dead"] = {
 			mod("Duration", "INC", nil),
+		},
+		["no_cost"] = {
 		},
 	},
 #baseMod skill("triggeredOnDeath", true)
@@ -140,12 +141,21 @@ local skills, mod, flag, skill = ...
 #skill SupportSlashingWeapon
 	statMap = {
 		["support_slashing_damage_+%_final_from_distance"] = {
-			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "MeleeProximity", ramp = {1,0} }),
+		},
+		["support_slashing_buff_attack_speed_+%_final_to_grant"] = {
+			mod("Speed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Combat Rush", effectCond = "CombatRushActive" }, { type = "Condition", var = "SupportedByCloseCombat", neg = true }, { type = "SkillType", skillType = SkillType.Travel }),
 		},
 		["close_combat_damage_to_close_range_+%"] = {
-			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }, { type = "Condition", varList = { "UsingSword", "UsingAxe" }}, { type = "Condition", varList = { "UsingClaw", "UsingDagger", "UsingMace" }, neg=true} ),
+			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }),
+		},
+		["combat_rush_effect_+%"] = {
+			mod("CombatRushEffect", "INC", nil),
+		},
+		["supported_skill_can_only_use_axe_and_sword"] = {
 		},
 	},
+#baseMod flag("Condition:SupportedByCloseCombat")
 #mods
 
 #skill SupportClusterTrap
@@ -188,6 +198,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAdditionalQuality
+	statMap = {
+		["supported_active_skill_gem_quality_%"] = {
+			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "quality", value = nil }),
+		},
+	},
+#mods
+
+#skill SupportAdditionalQualityPlus
 	statMap = {
 		["supported_active_skill_gem_quality_%"] = {
 			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "quality", value = nil }),
@@ -300,6 +318,17 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportMarkOnHit
+	statMap = {
+		["mark_skills_curse_effect_+%"] = {
+			mod("CurseEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Mark }),
+		},
+		["marked_enemy_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#mods
+
 #skill SupportGemMirageArcher
 	statMap = {
 		["support_mirage_archer_base_duration"] = {
@@ -331,12 +360,11 @@ local skills, mod, flag, skill = ...
 
 #skill SupportPuncturingWeapon
 	statMap = {
-		["elusive_effect_+%"] = {
-			mod("ElusiveEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Nightblade" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true} ),
+		["supported_skill_can_only_use_dagger_and_claw"] = {
 		},
-	},	
-#baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true})
-#baseMod mod("Dummy", "DUMMY", 1, 0, 0, { type = "Condition", var = "CanBeElusive" }, { type = "Condition", varList = { "UsingClaw", "UsingDagger" } }, { type = "Condition", varList = { "UsingSword", "UsingAxe", "UsingMace" }, neg = true})
+	},
+#baseMod flag("SupportedByNightblade")
+#baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
 #skill SupportOnslaught
@@ -364,7 +392,7 @@ local skills, mod, flag, skill = ...
 			flag("PointBlank"),
 		},
 		["knockback_chance_%_at_close_range"] = {
-			mod("EnemyKnockbackChance", "BASE", nil, 0, KeywordFlag.Hit),
+			mod("EnemyKnockbackChance", "BASE", nil, ModFlag.Hit),
 		},
 	},
 #mods
@@ -383,9 +411,9 @@ local skills, mod, flag, skill = ...
 		["support_slower_projectiles_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
-		["projectiles_damage_+%_to_nearby_targets"] = {
+		["projectile_damage_+%_vs_nearby_enemies"] = {
 			mod("Damage", "INC", nil, ModFlag.Projectile)
-		}
+		},
 	},
 #mods
 
@@ -414,7 +442,7 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
-			skill("showAverage", true, { type = "SkillType", skillType = SkillType.SkillCanTrap }),
+			skill("showAverage", true, { type = "SkillType", skillType = SkillType.Trappable }),
 		},
 	},
 #mods

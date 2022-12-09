@@ -24,6 +24,27 @@ function ModListClass:AddMod(mod)
 	t_insert(self, mod)
 end
 
+---ReplaceModInternal
+---  Replaces an existing matching mod with a new mod.
+---  If no matching mod exists, then the function returns false
+---@param mod table
+---@return boolean @Whether any mod was replaced
+function ModListClass:ReplaceModInternal(mod)
+	-- Find the index of the existing mod, if it is in the table
+	for i, curMod in ipairs(self) do
+		if mod.name == curMod.name and mod.type == curMod.type and mod.flags == curMod.flags and mod.keywordFlags == curMod.keywordFlags and mod.source == curMod.source then
+			self[i] = mod
+			return true
+		end
+	end
+
+	if self.parent then
+		return self.parent:ReplaceModInternal(mod)
+	end
+	
+	return false
+end
+
 function ModListClass:MergeMod(mod)
 	if mod.type == "BASE" or mod.type == "INC" then
 		for i = 1, #self do
@@ -38,8 +59,10 @@ function ModListClass:MergeMod(mod)
 end
 
 function ModListClass:AddList(modList)
-	for i = 1, #modList do
-		t_insert(self, modList[i])
+	if modList then
+		for i = 1, #modList do
+			t_insert(self, modList[i])
+		end
 	end
 end
 
@@ -72,17 +95,19 @@ end
 function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	local result = 1
 	for i = 1, select('#', ...) do
+		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
 		local modName = select(i, ...)
 		for i = 1, #self do
 			local mod = self[i]
 			if mod.name == modName and mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 				if mod[1] then
-					result = result * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
+					modResult = modResult * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
 				else
-					result = result * (1 + mod.value / 100)
+					modResult = modResult * (1 + mod.value / 100)
 				end
 			end
 		end
+		result = result * round(modResult,2)
 	end
 	if self.parent then
 		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)

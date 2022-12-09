@@ -42,20 +42,19 @@ end
 function calcLib.validateGemLevel(gemInstance)
 	local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
 	if not grantedEffect.levels[gemInstance.level] then
-		if gemInstance.gemData and gemInstance.gemData.defaultLevel then
-			gemInstance.level = gemInstance.gemData.defaultLevel
-		else
-			-- Try limiting to the level range of the skill
-			gemInstance.level = m_max(1, gemInstance.level)
-			if #grantedEffect.levels > 0 then
-				gemInstance.level = m_min(#grantedEffect.levels, gemInstance.level)
-			end
-			if not grantedEffect.levels[gemInstance.level] then
-				-- That failed, so just grab any level
-				gemInstance.level = next(grantedEffect.levels)
-			end
+		-- Try limiting to the level range of the skill
+		gemInstance.level = m_max(1, gemInstance.level)
+		if #grantedEffect.levels > 0 then
+			gemInstance.level = m_min(#grantedEffect.levels, gemInstance.level)
 		end
-	end	
+	end
+	if not grantedEffect.levels[gemInstance.level] and gemInstance.gemData and gemInstance.gemData.defaultLevel then
+		gemInstance.level = gemInstance.gemData.defaultLevel
+	end
+	if not grantedEffect.levels[gemInstance.level] then
+		-- That failed, so just grab any level
+		gemInstance.level = next(grantedEffect.levels)
+	end
 end
 
 -- Evaluate a skill type postfix expression
@@ -90,9 +89,6 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 	if grantedEffect.supportGemsOnly and not activeSkill.activeEffect.gemData then
 		return false
 	end
-	if activeSkill.summonSkill then
-		return calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill.summonSkill)
-	end
 	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, activeSkill.skillTypes) then
 		return false
 	end
@@ -105,6 +101,8 @@ function calcLib.gemIsType(gem, type)
 			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or 
 			(type == "aoe" and gem.tags.area) or
 			(type == "trap or mine" and (gem.tags.trap or gem.tags.mine)) or
+			(type == "active skill" and gem.tags.active_skill) or
+			(type == "non-vaal" and not gem.tags.vaal) or
 			(type == gem.name:lower()) or
 			gem.tags[type])
 end
@@ -148,7 +146,7 @@ end
 -- Build table of stats for the given skill instance
 function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 	local stats = { }
-	if skillInstance.quality > 0 then
+	if skillInstance.quality > 0 and grantedEffect.qualityStats then
 		local qualityId = skillInstance.qualityId or "Default"
 		local qualityStats = grantedEffect.qualityStats[qualityId]
 		if not qualityStats then
@@ -158,32 +156,59 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 			stats[stat[1]] = (stats[stat[1]] or 0) + math.modf(stat[2] * skillInstance.quality)
 		end
 	end
-	local level = grantedEffect.levels[skillInstance.level]
+	local level = grantedEffect.levels[skillInstance.level] or { }
 	local availableEffectiveness
-	local actorLevel = skillInstance.actorLevel or level.levelRequirement
+	local actorLevel = skillInstance.actorLevel or level.levelRequirement or 1
 	for index, stat in ipairs(grantedEffect.stats) do
-		local statValue
-		if level.statInterpolation[index] == 3 then
-			-- Effectiveness interpolation
-			if not availableEffectiveness then
-				availableEffectiveness = 
-					(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
-					* (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)
+		-- Static value used as default (assumes statInterpolation == 1)
+		local statValue = level[index] or 1
+		if level.statInterpolation then
+			if level.statInterpolation[index] == 3 then
+				-- Effectiveness interpolation
+				if not availableEffectiveness then
+					availableEffectiveness = 
+						(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
+						* (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)
+				end
+				statValue = round(availableEffectiveness * level[index])
+			elseif level.statInterpolation[index] == 2 then
+				-- Linear interpolation; I'm actually just guessing how this works
+				local nextLevel = m_min(skillInstance.level + 1, #grantedEffect.levels)
+				local nextReq = grantedEffect.levels[nextLevel].levelRequirement
+				local prevReq = grantedEffect.levels[nextLevel - 1].levelRequirement
+				local nextStat = grantedEffect.levels[nextLevel][index]
+				local prevStat = grantedEffect.levels[nextLevel - 1][index]
+				statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
 			end
-			statValue = round(availableEffectiveness * level[index])
-		elseif level.statInterpolation[index] == 2 then
-			-- Linear interpolation; I'm actually just guessing how this works
-			local nextLevel = m_min(skillInstance.level + 1, #grantedEffect.levels)
-			local nextReq = grantedEffect.levels[nextLevel].levelRequirement
-			local prevReq = grantedEffect.levels[nextLevel - 1].levelRequirement
-			local nextStat = grantedEffect.levels[nextLevel][index]
-			local prevStat = grantedEffect.levels[nextLevel - 1][index]
-			statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
-		else
-			-- Static value
-			statValue = level[index] or 1
 		end
 		stats[stat] = (stats[stat] or 0) + statValue
 	end
+	if grantedEffect.constantStats then
+		for _, stat in ipairs(grantedEffect.constantStats) do
+			stats[stat[1]] = (stats[stat[1]] or 0) + (stat[2] or 0)
+		end
+	end
 	return stats
+end
+
+--- Correct the tags on conversion with multipliers so they carry over correctly
+--- @param mod table
+--- @param multiplier number
+--- @param minionMods bool @convert ActorConditions pointing at parent to normal Conditions
+--- @return table @converted multipliers
+function calcLib.getConvertedModTags(mod, multiplier, minionMods)
+	local modifiers = { }
+	for k, value in ipairs(mod) do
+		if minionMods and value.type == "ActorCondition" and value.actor == "parent" then
+			modifiers[k] = { type = "Condition", var = value.var }
+		elseif value.limitTotal then
+			-- LimitTotal can apply to 'per stat' or 'multiplier', so just copy the whole and update the limit
+			local copy = copyTable(value)
+			copy.limit = copy.limit * multiplier
+			modifiers[k] = copy
+		else
+			modifiers[k] = copyTable(value)
+		end
+	end
+	return modifiers
 end

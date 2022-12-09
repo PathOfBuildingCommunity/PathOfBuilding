@@ -3,21 +3,33 @@
 -- Class: Check Box Control
 -- Basic check box control.
 --
-local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost", function(self, anchor, x, y, size, label, changeFunc, tooltipText)
+local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost", function(self, anchor, x, y, size, label, changeFunc, tooltipText, initialState)
 	self.Control(anchor, x, y, size, size)
 	self.TooltipHost(tooltipText)
 	self.label = label
 	self.changeFunc = changeFunc
+	self.state = initialState
 end)
 
 function CheckBoxClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
 	end
-	return self:IsMouseInBounds()
+	local x, y = self:GetPos()
+	local width, height = self:GetSize()
+	local cursorX, cursorY = GetCursorPos()
+
+	-- move x left by label width, increase width by label width
+	local label = self:GetProperty("label")
+	if label then
+		local labelWidth = DrawStringWidth(height - 4, "VAR", label) + 5
+		x = x - labelWidth
+		width = width + labelWidth
+	end
+	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 end
 
-function CheckBoxClass:Draw(viewPort)
+function CheckBoxClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local size = self.width
 	local enabled = self:IsEnabled()
@@ -59,7 +71,7 @@ function CheckBoxClass:Draw(viewPort)
 	if label then
 		DrawString(x - 5, y + 2, "RIGHT_X", size - 4, "VAR", label)
 	end
-	if mOver then
+	if mOver and not noTooltip then
 		SetDrawLayer(nil, 100)
 		self:DrawTooltip(x, y, size, size, viewPort, self.state)
 		SetDrawLayer(nil, 0)

@@ -11,7 +11,7 @@ local m_floor = math.floor
 
 
 local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab, db, dbType)
-	self.ListControl(anchor, x, y, width, height, 16, false, false)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab
 	self.db = db
 	self.dbType = dbType
@@ -69,6 +69,9 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 		self.controls.requirement = new("DropDownControl", {"LEFT",self.controls.sort,"BOTTOMLEFT"}, 0, 11, 179, 18, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
 			self.listBuildFlag = true
 		end)
+		self.controls.obtainable = new("DropDownControl", {"LEFT",self.controls.requirement,"RIGHT"}, 2, 0, 179, 18, { "Any source", "Obtainable", "Unobtainable", "Vendor Recipe", "Upgraded", "Boss Item", "Corruption"}, function(index, value)
+			self.listBuildFlag = true
+		end)
 	end
 	self.controls.search = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
@@ -108,6 +111,21 @@ function ItemDBClass:DoesItemMatchFilters(item)
 	end
 	if self.dbType == "UNIQUE" and self.controls.league.selIndex > 1 then
 		if (self.controls.league.selIndex == 2 and item.league) or (self.controls.league.selIndex > 2 and (not item.league or not item.league:match(self.leagueList[self.controls.league.selIndex]))) then
+			return false
+		end
+	end
+	if self.dbType == "UNIQUE" and self.controls.obtainable.selIndex > 1 then
+		local source = item.source or ""
+		local obtainable = not (source == "No longer obtainable")
+		if (self.controls.obtainable.selIndex == 2 and not obtainable) or (self.controls.obtainable.selIndex == 3 and obtainable) then
+			return false
+		elseif (self.controls.obtainable.selIndex == 4 and not (source == "Vendor Recipe")) then
+			return false
+		elseif (self.controls.obtainable.selIndex == 5 and not (string.match(source, "Upgraded from"))) then
+			return false
+		elseif (self.controls.obtainable.selIndex == 6 and not (string.match(source, "Drops from unique"))) then
+			return false
+		elseif (self.controls.obtainable.selIndex == 7 and not (string.match(source, "Vaal Orb"))) then
 			return false
 		end
 	end
@@ -185,6 +203,7 @@ function ItemDBClass:BuildSortOrder()
 	end
 	wipeTable(self.sortOrder)
 	if self.controls.sort then
+		self.controls.sort:CheckDroppedWidth(true)
 		self.controls.sort.selIndex = 1
 		self.controls.sort:SelByValue(self.sortMode, "sortMode")
 		self.sortDetail = self.controls.sort.list[self.controls.sort.selIndex]
@@ -329,4 +348,13 @@ end
 
 function ItemDBClass:OnSelCopy(index, item)
 	Copy(item.raw:gsub("\n","\r\n"))
+end
+
+function ItemDBClass:OnHoverKeyUp(key)
+	if itemLib.wiki.matchesKey(key) then
+		local item = self.ListControl:GetHoverValue()
+		if item then
+			itemLib.wiki.openItem(item)
+		end
+	end
 end

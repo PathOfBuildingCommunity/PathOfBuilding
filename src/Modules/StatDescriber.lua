@@ -51,6 +51,8 @@ end
 local function applySpecial(val, spec)
 	if spec.k == "negate" then
 		val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
+	elseif spec.k == "negate_and_double" then
+		val[spec.v].max, val[spec.v].min = -2 * val[spec.v].min, -2 * val[spec.v].max
 	elseif spec.k == "divide_by_two_0dp" then
 		val[spec.v].min = val[spec.v].min / 2
 		val[spec.v].max = val[spec.v].max / 2
@@ -60,13 +62,25 @@ local function applySpecial(val, spec)
 	elseif spec.k == "divide_by_fifteen_0dp" then
 		val[spec.v].min = val[spec.v].min / 15
 		val[spec.v].max = val[spec.v].max / 15
+	elseif spec.k == "divide_by_five" then
+		val[spec.v].min = val[spec.v].min / 5
+		val[spec.v].max = val[spec.v].max / 5
+		val[spec.v].fmt = "g"
+	elseif spec.k == "divide_by_six" then
+		val[spec.v].min = val[spec.v].min / 6
+		val[spec.v].max = val[spec.v].max / 6
+		val[spec.v].fmt = "g"
+	elseif spec.k == "divide_by_ten_1dp_if_required" then
+		val[spec.v].min = round(val[spec.v].min / 10, 1)
+		val[spec.v].max = round(val[spec.v].max / 10, 1)
+		val[spec.v].fmt = "g"
 	elseif spec.k == "divide_by_twelve" then
-		val[spec.v].min = round(val[spec.v].min / 12, 1)
-		val[spec.v].max = round(val[spec.v].max / 12, 1)
+		val[spec.v].min = val[spec.v].min / 12
+		val[spec.v].max = val[spec.v].max / 12
 		val[spec.v].fmt = "g"
 	elseif spec.k == "divide_by_one_hundred" then
-		val[spec.v].min = round(val[spec.v].min / 100, 1)
-		val[spec.v].max = round(val[spec.v].max / 100, 1)
+		val[spec.v].min = val[spec.v].min / 100
+		val[spec.v].max = val[spec.v].max / 100
 		val[spec.v].fmt = "g"
 	elseif spec.k == "divide_by_one_hundred_2dp_if_required" or spec.k == "divide_by_one_hundred_2dp" then
 		val[spec.v].min = round(val[spec.v].min / 100, 2)
@@ -137,9 +151,15 @@ local function applySpecial(val, spec)
 	elseif spec.k == "multiply_by_four" then
 		val[spec.v].min = val[spec.v].min * 4
 		val[spec.v].max = val[spec.v].max * 4
+	elseif spec.k == "times_one_point_five" then
+		val[spec.v].min = val[spec.v].min * 1.5
+		val[spec.v].max = val[spec.v].max * 1.5
 	elseif spec.k == "times_twenty" then
 		val[spec.v].min = val[spec.v].min * 20
 		val[spec.v].max = val[spec.v].max * 20
+	elseif spec.k == "double" then
+		val[spec.v].min = val[spec.v].min * 2
+		val[spec.v].max = val[spec.v].max * 2
 	elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
 	elseif spec.k then
 		ConPrintf("Unknown description function: %s", spec.k)
@@ -174,8 +194,10 @@ return function(stats, scopeName)
 
 	-- Describe the stats
 	local out = { }
+	local lineMap = { }
 	for _, descriptor in ipairs(descOrdered) do
 		local val = { }
+		local stat
 		for i, s in ipairs(descriptor.description.stats) do
 			if stats[s] then
 				if type(stats[s]) == "number" then
@@ -183,6 +205,7 @@ return function(stats, scopeName)
 				else
 					val[i] = stats[s]
 				end
+				stat = s
 			else
 				val[i] = { min = 0, max = 0 }
 			end
@@ -230,8 +253,9 @@ return function(stats, scopeName)
 			end):gsub("%%%%","%%")
 			for line in (statDesc.."\\n"):gmatch("([^\\]+)\\n") do
 				t_insert(out, line)
+				lineMap[line] = stat
 			end
 		end
 	end
-	return out
+	return out, lineMap
 end

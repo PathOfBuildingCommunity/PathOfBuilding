@@ -71,7 +71,7 @@ end
 
 function SearchHostClass:OnSearchChar(char)
 	if char:match("%s") then
-		-- dont allow space char if search is empty or last character is already a space char
+		-- don't allow space char if search is empty or last character is already a space char
 		if self.searchTerm == "" or self.searchTerm:sub(-1):match("%s") then
 			return self
 		end

@@ -9,7 +9,7 @@ local t_remove = table.remove
 local s_format = string.format
 
 local MinionListClass = newClass("MinionListControl", "ListControl", function(self, anchor, x, y, width, height, data, list, dest)
-	self.ListControl(anchor, x, y, width, height, 16, false, not dest, list)
+	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", not dest, list)
 	self.data = data
 	self.dest = dest
 	if dest then

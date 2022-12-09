@@ -1,15 +1,41 @@
-local modMap = { }
-do
-	local lastMod
-	for line in io.lines("Minions/modmap.ini") do
-		local statName = line:match("^%[([^]]+)%]$")
-		if statName then
-			modMap[statName] = { }
-			lastMod = modMap[statName]
-		elseif line:match("^[^#].+") then
-			table.insert(lastMod, line)
+local function makeSkillMod(modName, modType, modVal, flags, keywordFlags, ...)
+	return {
+		name = modName,
+		type = modType,
+		value = modVal,
+		flags = flags or 0,
+		keywordFlags = keywordFlags or 0,
+		...
+	}
+end
+local function makeFlagMod(modName, ...)
+	return makeSkillMod(modName, "FLAG", true, 0, 0, ...)
+end
+local function makeSkillDataMod(dataKey, dataValue, ...)
+	return makeSkillMod("SkillData", "LIST", { key = dataKey, value = dataValue }, 0, 0, ...)
+end
+dofile("../Data/Global.lua")
+local skillStatMap = LoadModule("../Data/SkillStatMap.lua", makeSkillMod, makeFlagMod, makeSkillDataMod)
+
+local function tableToString(tbl, pre)
+	pre = pre or ""
+	local tableString = "{ "
+	local outNames = { }
+	for name in pairs(tbl) do
+		table.insert(outNames, name)
+	end
+	table.sort(outNames)
+	for _, name in ipairs(outNames) do
+		if type(tbl[name]) == "table" then
+			tableString = tableString .. tableToString(tbl[name], pre .. name .. ".")
+		else
+			if _ > 1 then
+				tableString = tableString .. ", "
+			end
+			tableString = tableString .. pre .. name .. " = " .. (type(tbl[name]) == "string" and '"' or '') .. tostring(tbl[name]) .. (type(tbl[name]) == "string" and '"' or '')
 		end
 	end
+	return tableString .. " }"
 end
 
 local itemClassMap = {
@@ -33,18 +59,28 @@ local itemClassMap = {
 
 local directiveTable = { }
 
--- #monster <MonsterId> [<Name>]
+-- #monster <MonsterId> [<Name>] [<ExtraSkills>]
 directiveTable.monster = function(state, args, out)
-	local varietyId, name = args:match("(%S+) (%S+)")
-	if not varietyId then
-		varietyId = args
-		name = args
-	end
-	state.varietyId = varietyId
-	state.name = name
+	state.varietyId = nil
+	state.name = nil
 	state.limit = nil
 	state.extraModList = { }
 	state.extraSkillList = { }
+	for arg in args:gmatch("%S+") do
+		if state.varietyId == nil then
+			state.varietyId = arg
+		elseif state.name == nil then
+			if arg == "#" then
+				state.name = state.varietyId
+			else
+				state.name = arg
+			end
+		else
+			table.insert(state.extraSkillList, arg)
+		end
+	end
+	state.varietyId = state.varietyId or args
+	state.name = state.name or args
 end
 
 -- #limit <LimitVarName>
@@ -125,15 +161,19 @@ directiveTable.emit = function(state, args, out)
 		local modStats = ""
 		for i = 1, 6 do
 			if mod["Stat"..i] then
-				modStats = modStats .. ' [' .. mod["Stat"..i].Id .. ' = ' .. mod["Stat"..i.."Value"][1] .. ']'
+				modStats = ' [' .. mod["Stat"..i].Id .. ' = ' .. mod["Stat"..i.."Value"][1] .. ']'
+				if skillStatMap[mod["Stat"..i].Id] then
+					local newMod = skillStatMap[mod["Stat"..i].Id][1]
+					--mod("Speed", "INC", -80, ModFlag.Cast, KeywordFlag.Curse)
+					out:write('\t\tmod("', newMod.name, '", "', newMod.type, '", ', newMod.value and tableToString(newMod.value) or (skillStatMap[mod["Stat"..i].Id].value or mod["Stat"..i.."Value"][1] * (skillStatMap[mod["Stat"..i].Id].mult or 1) / (skillStatMap[mod["Stat"..i].Id].div or 1)), ', ', newMod.flags or 0, ', ', newMod.keywordFlags or 0)
+					for _, extra in ipairs(newMod) do
+						out:write(', ', tableToString(extra))
+					end
+					out:write('), -- ', mod.Id, modStats, '\n')
+				else
+					out:write('\t\t-- ', mod.Id, modStats, '\n')
+				end
 			end
-		end
-		if modMap[mod.Id] then
-			for _, mappedMod in ipairs(modMap[mod.Id]) do
-				out:write('\t\t', mappedMod, ', -- ', mod.Id, modStats, '\n')
-			end
-		else
-			out:write('\t\t-- ', mod.Id, modStats, '\n')
 		end
 	end
 	for _, mod in ipairs(state.extraModList) do

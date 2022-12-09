@@ -1,5 +1,15 @@
 # Contributing to Path of Building
 
+# Table of contents
+1. [Reporting bugs](#reporting-bugs)
+2. [Requesting features](#requesting-features)
+3. [Contributing code](#contributing-code)
+4. [Setting up a development installation](#setting-up-a-development-installation)
+5. [Setting up a development environment](#setting-up-a-development-environment)
+6. [Keeping your fork up to date](#keeping-your-fork-up-to-date)
+7. [Path of Building development tutorials](#path-of-building-development-tutorials)
+8. [Exporting GGPK data from Path of Exile](#exporting-ggpk-data-from-path-of-exile)
+
 ## Reporting bugs
 
 ### Before creating an issue:
@@ -11,7 +21,7 @@
 * Select the "Bug Report" issue template and fill out all fields.
 * Please provide detailed instructions on how to reproduce the bug, if possible.
 * Provide a build share code for a build that is affected by the bug, if possible.
-  In the "Import/Export Build" tab, click "Generate", then "Share with Pastebin" and add the link to your post. 
+  In the "Import/Export Build" tab, click "Generate", then "Share" and add the link to your post. 
   
 Build share codes allow us to reproduce bugs much more quickly. 
 
@@ -64,46 +74,24 @@ You can now use the shortcut to run the program from the repository. Running the
 * While in the Tree tab, holding `Alt` also highlights nodes that have unrecognised modifiers.
 * Holding `Ctrl` while launching the program will rebuild the mod cache.
 
-Note that automatic updates are disabled in Dev Mode, so you must update manually.
+Note that automatic updates are disabled in Dev Mode.
 
-## Setting up a development environment
+### Forcing Dev Mode OFF when using dev branch
 
-Note: This tutorial assumes that you are already familiar with the development tool of your choice.
+Sometimes you may need to force Dev mode OFF when running from the dev branch to debug a specific part of Path of Building (e.g. the update system).
 
-If you want to use a text editor, [Visual Studio Code](https://code.visualstudio.com/) (proprietary) is recommended.
-If you want to use an IDE instead, [PyCharm Community](https://www.jetbrains.com/pycharm/) or [IntelliJ Idea Community](https://www.jetbrains.com/idea/) (open source) are recommended.
-They are all free and support [EmmyLua](https://github.com/EmmyLua), a Lua plugin that comes with a language server, debugger and many pleasant features.
-It is recommended to use it over the built-in Lua plugins.
+To do so [comment out Line 54 to line 58](./src/Launch.lua#L54-L58) of the [Launch.lua](./src/Launch.lua) file:
+```
+	--if localManXML and not self.versionBranch and not self.versionPlatform then
+	--    -- Looks like a remote manifest, so we're probably running from a repository
+	--    -- Enable dev mode to disable updates and set user path to be the script path
+	--    self.devMode = true
+	--end
+```
 
-Please note that EmmyLua is not available for other editors based on Visual Studio Code,
-such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.org).
+and create a valid manifest.xml file in the ./src directory. Then run the `./runtime/Path{space}of{space}Building.exe` as usual. You should get the typical update popup in the bottom left corner.
 
-### Visual Studio Code
-
-1. Create a new "Debug Configuration" of type "EmmyLua New Debug"
-2. Open the Visual Studio Code extensions folder. On Windows, this defaults to `%USERPROFILE%/.vscode/extensions`.
-3. Find the sub-folder that contains `emmy_core.dll`. You should find both x86 and x64; pick x86. For example, `C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86`.
-4. Paste the following code snippet directly below `function launch:OnInit()` in `./src/Launch.lua`:
-  ```lua
--- This is the path to emmy_core.dll. The ?.dll at the end is intentional.
-package.cpath = package.cpath .. ";C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86/?.dll"
-local dbg = require("emmy_core")
--- This port must match the Visual Studio Code configuration. Default is 9966.
-dbg.tcpListen("localhost", 9966)
--- Uncomment the next line if you want Path of Building to block until the debugger is attached
---dbg.waitIDE()
-  ```
-5. Start Path of Building Community
-6. Attach the debugger
-
-### PyCharm Community / IntelliJ Idea Community
-
-1. Create a new "Debug Configuration" of type "Emmy Debugger(NEW)".
-2. Select "x86" version.
-3. Select if you want the program to block (checkbox) until you attached the debugger (useful if you have to debug the startup process).
-4. Copy the generated code snippet directly below `function launch:OnInit()` in `./src/Launch.lua`.
-5. Start Path of Building Community
-6. Attach the debugger
+The manifest.xml file deserves its own in depth document, but usually copying from release and editing accordingly works well enough.
 
 ## Keeping your fork up to date
 
@@ -129,6 +117,109 @@ Note: If you've configured a remote already, you can skip ahead to step 3.
 6. Push your updated branch to GitHub.
 
        git push -f origin dev
+
+## Setting up a development environment
+
+Note: This tutorial assumes that you are already familiar with the development tool of your choice.
+
+If you want to use a text editor, [Visual Studio Code](https://code.visualstudio.com/) (proprietary) is recommended.
+If you want to use an IDE instead, [PyCharm Community](https://www.jetbrains.com/pycharm/) or [IntelliJ Idea Community](https://www.jetbrains.com/idea/) (open source) are recommended.
+They are all free and support [EmmyLua](https://github.com/EmmyLua), a Lua plugin that comes with a language server, debugger and many pleasant features.
+It is recommended to use it over the built-in Lua plugins.
+
+Please note that EmmyLua is not available for other editors based on Visual Studio Code,
+such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.org) but can be built from source if needed.
+
+Note that you will need to have java installed to use emmyLua, and have either the JAVA_HOME environment variable correctly setup or have the path to java added to the `settings.json` file. Example:
+
+```"emmylua.java.home": "C:/Program Files (x86)/Java/jre1.8.0_201/"```
+
+### Visual Studio Code
+
+1. Create a new "Debug Configuration" of type "EmmyLua New Debug"
+2. Open the Visual Studio Code extensions folder. On Windows, this defaults to `%USERPROFILE%/.vscode/extensions`.
+3. Find the sub-folder that contains `emmy_core.dll`. You should find both x86 and x64; pick x86. For example, `C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86`.
+4. Paste the following code snippet directly below `function launch:OnInit()` in `./src/Launch.lua`:
+  ```lua
+-- This is the path to emmy_core.dll. The ?.dll at the end is intentional.
+package.cpath = package.cpath .. ";C:/Users/someuser/.vscode/extensions/tangzx.emmylua-0.3.28/debugger/emmy/windows/x86/?.dll"
+local dbg = require("emmy_core")
+-- This port must match the Visual Studio Code configuration. Default is 9966.
+dbg.tcpListen("localhost", 9966)
+-- Uncomment the next line if you want Path of Building to block until the debugger is attached
+--dbg.waitIDE()
+  ```
+5. Start Path of Building Community
+6. Attach the debugger
+
+#### Excluding directories from emmyLua
+
+Depending on the amount of system ram you have available and the amount that gets assigned to the jvm running the emmylua language server you might run into issues when trying to debug Path of building.
+Files in /Data /Export and /TreeData can be massive and cause the emmyLua language server to use a significant amount of memory. Sometimes causing the language server to crash. To avoid this and speed up initialization consider adding an `emmy.config.json` file to the .vscode folder in the root of the Path of building repository with the following content:
+
+```
+{
+    "source": [
+        {
+            "dir": "../",
+            "exclude": [
+                "src/Export/**.lua",
+                "src/Data/**.lua",
+                "src/TreeData/**.lua"
+            ]
+        }
+    ]
+}
+```
+
+### PyCharm Community / IntelliJ Idea Community
+
+1. Create a new "Debug Configuration" of type "Emmy Debugger(NEW)".
+2. Select "x86" version.
+3. Select if you want the program to block (checkbox) until you attached the debugger (useful if you have to debug the startup process).
+4. Copy the generated code snippet directly below `function launch:OnInit()` in `./src/Launch.lua`.
+5. Start Path of Building Community
+6. Attach the debugger
+
+#### Miscellaneous tips
+If you're on windows, consider downloading [git for windows](https://git-scm.com/downloads) and installing git bash. Git bash comes with a variety of typical linux tools such as grep that can make navigating the code base much easier.
+
+If you're using linux you can run the ./runtime/Path{space}of{space}Building.exe executable with wine. You will need to provide a valid wine path to the emmy lua debugger directory.
+
+
+## Testing
+
+PoB uses the [Busted](https://olivinelabs.com/busted/) framework to run its tests.  Tests are stored under `spec/System` and run automatically when a PR is modified.
+More tests can be added to this folder to test specific functionality, or new test builds can be added to ensure nothing changed that wasn't intended. 
+
+### Running tests
+1. Install [LuaRocks](https://luarocks.org/)
+2. Run `luarocks install busted`
+3. Run `busted --lua=luajit` from the command line.  You may need to add `luajit` to your PATH
+
+Docker alternative:
+
+1. Install [Docker](https://www.docker.com/get-started)
+2. Run `docker-compose up -d` from the command line
+3. View last results in `spec/test_results.log`
+
+### Creating new test builds or fixing an existing build
+
+Sometimes a change will be made that intends to change the stats garnered by PoB, which will break our tests.
+1. Add the new build XML (if applicable) to the `TestBuilds` folder
+2. Run `busted --lua=luajit -r generate` to generate a LUA file that contains the current stats of that build
+3. Run `busted --lua=luajit` and the tests should pass
+
+Docker alternative:
+
+1. Add the new build XML (if applicable) to the `TestBuilds` folder
+2. Run `docker-compose up -d` to generate a LUA file that contains the current stats of that build and run the tests
+
+## Path of Building development tutorials
+
+* [How are mods parsed?](docs/addingMods.md)
+* [Mod Syntax](docs/modSyntax.md)
+* [How skills work in Path of Building](docs/addingSkills.md)
 
 ## Exporting GGPK data from Path of Exile
 

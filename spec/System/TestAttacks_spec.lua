@@ -22,4 +22,30 @@ describe("TestAttacks", function()
         runCallback("OnFrame")
         assert.are.equals(1.5 + 0.2, build.calcsTab.mainOutput.CritMultiplier)
     end)
+
+    it("correctly converts spell damage per stat to attack damage", function()
+        assert.are.equals(0, build.calcsTab.mainEnv.player.modDB:Sum("INC", { flags = ModFlag.Attack }, "Damage"))
+        build.itemsTab:CreateDisplayItemFromRaw([[
+        New Item
+        Coral Amulet
+        10% increased attack damage
+        10% increased spell damage
+        1% increased spell damage per 10 intelligence
+        ]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+        assert.are.equals(10, build.calcsTab.mainEnv.player.modDB:Sum("INC", { flags = ModFlag.Attack }, "Damage"))
+        -- Scion starts with 20 Intelligence
+        assert.are.equals(12, build.calcsTab.mainEnv.player.modDB:Sum("INC", { flags = ModFlag.Spell }, "Damage"))
+
+        build.itemsTab:CreateDisplayItemFromRaw([[
+        New Item
+        Coral Ring
+        increases and reductions to spell damage also apply to attacks
+        ]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+        assert.are.equals(22, build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("INC", { flags = ModFlag.Attack }, "Damage"))
+
+    end)
 end)

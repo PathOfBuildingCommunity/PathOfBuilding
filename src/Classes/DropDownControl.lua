@@ -30,9 +30,18 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 		return self.dropped and self.controls.scrollBar.enabled
 	end
 	self.dropHeight = 0
-	self.list = list or { }
+	self:SetList(list or { })
 	self.selIndex = 1
 	self.selFunc = selFunc
+	-- Current value of the width of the dropped component
+	self.droppedWidth = self.width
+	-- Set by the parent control. The maximum width of the dropped component will go to.
+	self.maxDroppedWidth = m_max(self.width, 300)
+	-- Set by the parent control. Activates the auto width of the dropped component.
+	self.enableDroppedWidth = false
+	-- Set by the parent control. Activates the auto width of the box component.
+	self.enableChangeBoxWidth = false
+	-- self.tag = "-"
 end)
 
 -- maps the actual dropdown row index (after eventual filtering) to the original (unfiltered) list index
@@ -56,7 +65,7 @@ function DropDownClass:DropIndexToListIndex(dropIndex)
 	end
 end
 
--- maps the the original (unfiltered) list index to the actual dropdown row index (after eventual filtering)
+-- maps the original (unfiltered) list index to the actual dropdown row index (after eventual filtering)
 function DropDownClass:ListIndexToDropIndex(listIndex, default)
 	-- 1:1
 	if not self:IsSearchActive() then
@@ -160,10 +169,16 @@ function DropDownClass:IsMouseOver()
 	local cursorX, cursorY = GetCursorPos()
 	local dropExtra = self.dropped and self.dropHeight + 2 or 0
 	local mOver
-	if self.dropUp then
-		mOver = cursorX >= x and cursorY >= y - dropExtra and cursorX < x + width and cursorY < y + height
+
+	if self.dropped then
+		width = m_max(width, self.droppedWidth)
+		if self.dropUp then
+			mOver = cursorX >= x and cursorY >= y - dropExtra and cursorX < x + width and cursorY < y + height
+		else
+			mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height + dropExtra
+		end
 	else
-		mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height + dropExtra
+		mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 	end
 	local mOverComp
 	if mOver then
@@ -176,7 +191,7 @@ function DropDownClass:IsMouseOver()
 	return mOver, mOverComp
 end
 
-function DropDownClass:Draw(viewPort)
+function DropDownClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
@@ -226,7 +241,7 @@ function DropDownClass:Draw(viewPort)
 	DrawImage(nil, x, y, width, height)
 	if self.dropped then
 		SetDrawLayer(nil, 5)
-		DrawImage(nil, x, dropY, width, dropExtra)
+		DrawImage(nil, x, dropY, self.droppedWidth, dropExtra)
 		SetDrawLayer(nil, 0)
 	end
 	if not enabled then
@@ -250,7 +265,7 @@ function DropDownClass:Draw(viewPort)
 	if self.dropped then
 		SetDrawLayer(nil, 5)
 		SetDrawColor(0, 0, 0)
-		DrawImage(nil, x + 1, dropY + 1, width - 2, dropExtra - 2)
+		DrawImage(nil, x + 1, dropY + 1, self.droppedWidth - 2, dropExtra - 2)
 		SetDrawLayer(nil, 0)
 	end
 	if self.otherDragSource then
@@ -260,7 +275,7 @@ function DropDownClass:Draw(viewPort)
 
 	-- draw dropdown bar
 	if enabled then
-		if (mOver or self.dropped) and mOverComp ~= "DROP" then
+		if (mOver or self.dropped) and mOverComp ~= "DROP" and not noTooltip then
 			SetDrawLayer(nil, 100)
 			self:DrawTooltip(
 				x, y - (self.dropped and self.dropUp and dropExtra or 0), 
@@ -291,6 +306,7 @@ function DropDownClass:Draw(viewPort)
 	if self.dropped then
 		SetDrawLayer(nil, 5)
 		self:DrawControls(viewPort)
+		width = self.droppedWidth
 
 		-- draw tooltip for hovered item
 		local cursorX, cursorY = GetCursorPos()
@@ -299,7 +315,7 @@ function DropDownClass:Draw(viewPort)
 		if self.hoverSel and not self.list[self.hoverSel] then
 			self.hoverSel = nil
 		end
-		if self.hoverSel then
+		if self.hoverSel and not noTooltip then
 			SetDrawLayer(nil, 100)
 			self:DrawTooltip(
 				x, dropY + 2 + (self.hoverSelDrop - 1) * lineHeight - scrollBar.offset,
@@ -433,4 +449,55 @@ function DropDownClass:OnKeyUp(key)
 		return self
 	end
 	return self.dropped and self
+end
+
+function DropDownClass:GetHoverIndex(key)
+	return self.hoverSel or self.selIndex
+end
+
+function DropDownClass:SetList(textList)
+	if textList then
+		wipeTable(self.list)
+		self.list = textList
+		  --check width on new list
+		self:CheckDroppedWidth(self.enableDroppedWidth)
+	end
+end
+
+function DropDownClass:CheckDroppedWidth(enable)
+	self.enableDroppedWidth = enable
+	if self.enableDroppedWidth and self.list then
+		local scrollWidth = 0
+		if self.dropped and self.controls.scrollBar.enabled then
+			scrollWidth = self.controls.scrollBar.width
+		end
+		local lineHeight = self.height - 4
+
+		  -- do not be smaller than the created width
+		local dWidth = self.width
+		for _, line in ipairs(self.list) do
+			if type(line) == "table" then
+				line = line.label
+			end
+			  -- +10 to stop clipping
+			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line) + 10)
+		end
+		  -- no greater than self.maxDroppedWidth
+		self.droppedWidth = m_min(dWidth + scrollWidth, self.maxDroppedWidth)
+		if self.enableChangeBoxWidth then
+			local line = self.list[self.selIndex]
+			if type(line) == "table" then
+				line = line.label
+			end
+			-- add 20 to account for the 'down arrow' in the box
+			local boxWidth
+			boxWidth = DrawStringWidth(lineHeight, "VAR", line or "") + 20
+			self.width = m_max(m_min(boxWidth, 390), 190)
+		end
+		
+		self.controls.scrollBar.x = self.droppedWidth - self.width - 1
+	else
+		self.droppedWidth = self.width
+		self.controls.scrollBar.x = -1
+	end
 end

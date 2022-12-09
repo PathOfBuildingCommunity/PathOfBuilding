@@ -80,6 +80,13 @@ itemBases["Ruby Amulet"] = {
 	implicitModTypes = { { "elemental", "fire", "resistance" }, },
 	req = { },
 }
+itemBases["Unset Amulet"] = {
+	type = "Amulet",
+	tags = { not_for_sale = true, default = true, amulet = true, },
+	implicit = "Has 1 Socket",
+	implicitModTypes = { {  }, },
+	req = { level = 5, },
+}
 itemBases["Blue Pearl Amulet"] = {
 	type = "Amulet",
 	tags = { amuletatlas1 = true, not_for_sale = true, atlas_base_type = true, amulet = true, default = true, },
