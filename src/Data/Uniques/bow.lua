@@ -221,8 +221,8 @@ Implicits: 2
 (10-14)% increased Attack Speed
 {variant:1,2,3}(30-40)% increased Critical Strike Chance
 60% increased Mana Regeneration Rate
-{variant:1,2,3}Gain 110% of Bow Physical Damage as Extra Damage of each Element
-{variant:4}Gain 100% of Bow Physical Damage as Extra Damage of each Element
+{variant:1,2,3}Gain 110% of Weapon Physical Damage as Extra Damage of each Element
+{variant:4}Gain 100% of Weapon Physical Damage as Extra Damage of each Element
 ]],[[
 The Gluttonous Tide
 Citadel Bow
