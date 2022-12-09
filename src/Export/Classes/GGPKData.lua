@@ -51,7 +51,7 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath)
 end)
 
 function GGPKClass:ExtractFiles()
-	local datList, txtList, otList = self:GetNeededFiles()
+	local datList, txtList, itList = self:GetNeededFiles()
 	
 	local fileList = ''
 	for _, fname in ipairs(datList) do
@@ -64,7 +64,7 @@ function GGPKClass:ExtractFiles()
 	for _, fname in ipairs(txtList) do
 		fileList = fileList .. '"' .. fname .. '" '
 	end
-	for _, fname in ipairs(otList) do
+	for _, fname in ipairs(itList) do
 		fileList = fileList .. '"' .. fname .. '" '
 	end
 	
@@ -215,46 +215,46 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/stat_descriptions.txt",
 		"Metadata/StatDescriptions/variable_duration_skill_stat_descriptions.txt",
 	}
-	local otFiles = {
-		"Metadata/Items/Quivers/AbstractQuiver.ot",
-		"Metadata/Items/Rings/AbstractRing.ot",
-		"Metadata/Items/Belts/AbstractBelt.ot",
-		"Metadata/Items/Flasks/AbstractUtilityFlask.ot",
-		"Metadata/Items/Jewels/AbstractJewel.ot",
-		"Metadata/Items/Flasks/CriticalUtilityFlask.ot",
-		"Metadata/Items/Flasks/AbstractHybridFlask.ot",
-		"Metadata/Items/Flasks/AbstractManaFlask.ot",
-		"Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractWarstaff.ot",
-		"Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/AbstractSceptre.ot",
-		"Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/AbstractOneHandSwordThrusting.ot",
-		"Metadata/Items/Weapons/OneHandWeapons/Claws/AbstractClaw.ot",
-		"Metadata/Items/Armours/Shields/AbstractShield.ot",
-		"Metadata/Items/Weapons/TwoHandWeapons/Bows/AbstractBow.ot",
-		"Metadata/Items/Weapons/TwoHandWeapons/FishingRods/AbstractFishingRod.ot",
-		"Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/AbstractTwoHandMace.ot",
-		"Metadata/Items/Armours/Boots/AbstractBoots.ot",
-		"Metadata/Items/Jewels/AbstractAbyssJewel.ot",
-		"Metadata/Items/Armours/BodyArmours/AbstractBodyArmour.ot",
-		"Metadata/Items/Armours/AbstractArmour.ot",
-		"Metadata/Items/Weapons/OneHandWeapons/Daggers/AbstractRuneDagger.ot",
-		"Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractStaff.ot",
-		"Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/AbstractTwoHandAxe.ot",
-		"Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/AbstractOneHandAxe.ot",
-		"Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/AbstractTwoHandSword.ot",
-		"Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/AbstractOneHandMace.ot",
-		"Metadata/Items/Armours/Gloves/AbstractGloves.ot",
-		"Metadata/Items/Weapons/OneHandWeapons/Daggers/AbstractDagger.ot",
-		"Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/AbstractOneHandSword.ot",
-		"Metadata/Items/Amulets/AbstractAmulet.ot",
-		"Metadata/Items/Flasks/AbstractLifeFlask.ot",
-		"Metadata/Items/Weapons/OneHandWeapons/Wands/AbstractWand.ot",
-		"Metadata/Items/Armours/Helmets/AbstractHelmet.ot",
-		"Metadata/Items/Flasks/AbstractFlask.ot",
-		"Metadata/Items/Weapons/TwoHandWeapons/AbstractTwoHandWeapon.ot",
-		"Metadata/Items/Item.ot",
-		"Metadata/Items/Weapons/OneHandWeapons/AbstractOneHandWeapon.ot",
-		"Metadata/Items/Equipment.ot",
-		"Metadata/Items/Weapons/AbstractWeapon.ot",
+	local itFiles = {
+		"Metadata/Items/Quivers/AbstractQuiver.it",
+		"Metadata/Items/Rings/AbstractRing.it",
+		"Metadata/Items/Belts/AbstractBelt.it",
+		"Metadata/Items/Flasks/AbstractUtilityFlask.it",
+		"Metadata/Items/Jewels/AbstractJewel.it",
+		"Metadata/Items/Flasks/CriticalUtilityFlask.it",
+		"Metadata/Items/Flasks/AbstractHybridFlask.it",
+		"Metadata/Items/Flasks/AbstractManaFlask.it",
+		"Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractWarstaff.it",
+		"Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/AbstractSceptre.it",
+		"Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/AbstractOneHandSwordThrusting.it",
+		"Metadata/Items/Weapons/OneHandWeapons/Claws/AbstractClaw.it",
+		"Metadata/Items/Armours/Shields/AbstractShield.it",
+		"Metadata/Items/Weapons/TwoHandWeapons/Bows/AbstractBow.it",
+		"Metadata/Items/Weapons/TwoHandWeapons/FishingRods/AbstractFishingRod.it",
+		"Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/AbstractTwoHandMace.it",
+		"Metadata/Items/Armours/Boots/AbstractBoots.it",
+		"Metadata/Items/Jewels/AbstractAbyssJewel.it",
+		"Metadata/Items/Armours/BodyArmours/AbstractBodyArmour.it",
+		"Metadata/Items/Armours/AbstractArmour.it",
+		"Metadata/Items/Weapons/OneHandWeapons/Daggers/AbstractRuneDagger.it",
+		"Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractStaff.it",
+		"Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/AbstractTwoHandAxe.it",
+		"Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/AbstractOneHandAxe.it",
+		"Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/AbstractTwoHandSword.it",
+		"Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/AbstractOneHandMace.it",
+		"Metadata/Items/Armours/Gloves/AbstractGloves.it",
+		"Metadata/Items/Weapons/OneHandWeapons/Daggers/AbstractDagger.it",
+		"Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/AbstractOneHandSword.it",
+		"Metadata/Items/Amulets/AbstractAmulet.it",
+		"Metadata/Items/Flasks/AbstractLifeFlask.it",
+		"Metadata/Items/Weapons/OneHandWeapons/Wands/AbstractWand.it",
+		"Metadata/Items/Armours/Helmets/AbstractHelmet.it",
+		"Metadata/Items/Flasks/AbstractFlask.it",
+		"Metadata/Items/Weapons/TwoHandWeapons/AbstractTwoHandWeapon.it",
+		"Metadata/Items/Item.it",
+		"Metadata/Items/Weapons/OneHandWeapons/AbstractOneHandWeapon.it",
+		"Metadata/Items/Equipment.it",
+		"Metadata/Items/Weapons/AbstractWeapon.it",
 	}
-	return datFiles, txtFiles, otFiles
+	return datFiles, txtFiles, itFiles
 end

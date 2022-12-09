@@ -483,7 +483,7 @@ itemBases["Sambar Sceptre"] = {
 itemBases["Oscillating Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { not_for_sale = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "Elemental Overload",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "critical" }, },
 	weapon = { PhysicalMin = 23, PhysicalMax = 34, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 11, },
@@ -492,7 +492,7 @@ itemBases["Oscillating Sceptre"] = {
 itemBases["Stabilising Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { not_for_sale = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "Elemental Equilibrium",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 35, PhysicalMax = 52, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 11, },
@@ -501,7 +501,7 @@ itemBases["Stabilising Sceptre"] = {
 itemBases["Alternating Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { not_for_sale = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "Secrets of Suffering",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 41, PhysicalMax = 61, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 11, },

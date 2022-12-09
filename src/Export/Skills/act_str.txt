@@ -1441,3 +1441,31 @@ end,
 #skill ProtectiveLink
 #flags spell duration
 #mods
+
+#skill FrozenLegion
+#flags spell cold attack area melee
+#mods
+
+#skill FrozenSweep
+#flags spell cold attack area melee
+#mods
+
+#skill VolcanicFissure
+#flags melee attack projectile area slam fire
+#mods
+
+#skill VaalVolcanicFissure
+#flags melee attack projectile area slam fire
+#mods
+
+#skill VaalCleave
+#flags attack area physical duration melee
+#mods
+
+#skill VaalMoltenStrike
+#flags attack projectile area melee strike fire chaining
+#mods
+
+#skill VaalSmite
+#flags attack area lightning strike duration melee aura
+#mods

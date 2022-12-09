@@ -277,8 +277,10 @@ SkillType = {
 	Blessing = 119,
 	ZeroReservation = 120,
 	DynamicCooldown = 121,
-	OwnerCannotUse = 122,
-	ProjectilesNotFired = 123,
+	Microtransaction = 122,
+	OwnerCannotUse = 123,
+	ProjectilesNotFired = 124,
+	PreventHexTransfer = 125,
 }
 
 GlobalCache = { 

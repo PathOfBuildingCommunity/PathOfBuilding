@@ -275,9 +275,9 @@ local skills, mod, flag, skill = ...
 		},
 		["cannot_cast_curses"] = {
 		},
-		["display_linked_curse_effect_+%"] = {
-		},
 		["display_linked_curse_effect_+%_final"] = {
+		},
+		["support_bane_curse_effect_+%_final"] = {
 		},
 	},
 #baseMod skill("debuff", true)
