@@ -279,7 +279,7 @@ SkillType = {
 	DynamicCooldown = 121,
 	Microtransaction = 122,
 	OwnerCannotUse = 123,
-	ProjetilesNotFired = 124,
+	ProjectilesNotFired = 124,
 	PreventHexTransfer = 125,
 }
 

@@ -111,7 +111,7 @@ local skillTypes = {
 	"DynamicCooldown",
 	"Microtransaction",
 	"OwnerCannotUse",
-	"ProjetilesNotFired",
+	"ProjectilesNotFired",
 	"PreventHexTransfer",
 }
 
