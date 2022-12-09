@@ -315,6 +315,7 @@ skills["InfernalLegion"] = {
 #baseMod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
 #baseMod mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
 #baseMod skill("buffAllies", true),
+#mods
 
 #skill MPWExpeditionSummonedArbalestProjectile Projectile Attack
 #flags attack projectile
