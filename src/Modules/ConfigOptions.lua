@@ -1622,6 +1622,9 @@ Uber Pinnacle Boss adds the following modifiers:
 	{ var = "enemyChaosResist", type = "integer", label = "Enemy ^xD02090Chaos Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ChaosResist", "BASE", val, "Config")
 	end },
+	{ var = "enemyBlockChance", type = "integer", label = "Enemy Block Chance:", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("BlockChance", "BASE", val, "Config")
+	end },
 	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltip = [[
 Used to fill in defaults for specific boss skills if the boss config is not set
 

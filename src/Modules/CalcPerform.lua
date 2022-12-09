@@ -2459,7 +2459,7 @@ function calcs.perform(env, avoidCache)
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)
 
 			-- Account for chance to hit/crit
-			local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance
+			local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].AccuracyHitChance
 			trigRate = trigRate * sourceHitChance / 100
 			if breakdown then
 				breakdown.Speed = {
@@ -2996,7 +2996,7 @@ function calcs.perform(env, avoidCache)
 				trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, env.minion.output, env.minion.breakdown, false, true)
 
 				-- Account for chance to hit
-				local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance
+				local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].AccuracyHitChance
 				trigRate = trigRate * sourceHitChance / 100
 				if env.minion.breakdown then
 					env.minion.breakdown.Speed = {
