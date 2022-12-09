@@ -1187,7 +1187,7 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextElementalStatusAilments"
+						v="ReminderTextElementalAilments"
 					},
 					limit={
 						[1]={
@@ -4940,7 +4940,7 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextElementalStatusAilments"
+						v="ReminderTextElementalAilments"
 					},
 					limit={
 						[1]={
@@ -5455,7 +5455,7 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextStatusAilments"
+						v="ReminderTextAilments"
 					},
 					limit={
 						[1]={
@@ -5472,7 +5472,7 @@ return {
 					},
 					[2]={
 						k="reminderstring",
-						v="ReminderTextStatusAilments"
+						v="ReminderTextAilments"
 					},
 					limit={
 						[1]={
@@ -7396,7 +7396,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Minion's Projectiles that have Pierced deal {0}% increased Damage"
+					text="Minions' Projectiles that have Pierced deal {0}% increased Damage"
 				},
 				[2]={
 					[1]={
@@ -7409,7 +7409,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Minion's Projectiles that have Pierced deal {0}% reduced Damage"
+					text="Minions' Projectiles that have Pierced deal {0}% reduced Damage"
 				}
 			}
 		},
@@ -7428,7 +7428,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Minions deal {0}% increased Projectile Damage with Hits to nearby Enemies"
+					text="Minions' Projectiles deal {0}% increased Damage with Hits to nearby Enemies"
 				},
 				[2]={
 					[1]={
@@ -7441,7 +7441,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Minions deal {0}% reduced Projectile Damage with Hits to nearby Enemies"
+					text="Minions' Projectiles deal {0}% reduced Damage with Hits to nearby Enemies"
 				}
 			}
 		},
@@ -8262,7 +8262,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Minions deal {0}% more Damage to the Prey"
+					text="Minions deal {0}% more Damage to the Prey with Hits and Ailments"
 				},
 				[2]={
 					[1]={
@@ -8275,7 +8275,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Minions deal {0}% less Damage to the Prey"
+					text="Minions deal {0}% less Damage to the Prey with Hits and Ailments"
 				}
 			}
 		},

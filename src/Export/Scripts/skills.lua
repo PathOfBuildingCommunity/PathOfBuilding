@@ -109,6 +109,10 @@ local skillTypes = {
 	"Blessing",
 	"ZeroReservation",
 	"DynamicCooldown",
+	"Microtransaction",
+	"OwnerCannotUse",
+	"ProjetilesNotFired",
+	"PreventHexTransfer",
 }
 
 local wellShitIGotThoseWrong = {

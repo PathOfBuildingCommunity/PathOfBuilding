@@ -47,6 +47,7 @@ directiveTable.base = function(state, args, out)
 			return {}
 		end
 		local file = getFile(baseItemType .. ".ot")
+		if not file then file = getFile(baseItemType .. ".it") end
 		if not file then return nil end
 		local text = convertUTF16to8(file)
 		local tags = {}

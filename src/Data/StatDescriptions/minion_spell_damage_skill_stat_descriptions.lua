@@ -755,7 +755,7 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextElementalStatusAilments"
+						v="ReminderTextElementalAilments"
 					},
 					limit={
 						[1]={
@@ -1098,7 +1098,7 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextElementalStatusAilments"
+						v="ReminderTextElementalAilments"
 					},
 					limit={
 						[1]={
@@ -1176,7 +1176,7 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextStatusAilments"
+						v="ReminderTextAilments"
 					},
 					limit={
 						[1]={
@@ -1193,7 +1193,7 @@ return {
 					},
 					[2]={
 						k="reminderstring",
-						v="ReminderTextStatusAilments"
+						v="ReminderTextAilments"
 					},
 					limit={
 						[1]={
