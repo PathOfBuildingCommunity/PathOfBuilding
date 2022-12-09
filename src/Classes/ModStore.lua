@@ -521,8 +521,46 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SocketedIn" then
-			if not cfg or tag.slotName ~= cfg.slotName or (tag.keyword and (not cfg or not cfg.skillGem or not calcLib.gemIsType(cfg.skillGem, tag.keyword))) then
+			if not cfg or (not tag.slotName and not tag.keyword and not tag.socketColor) then
 				return
+			else
+				local function isValidSocket(sockets, targetSocket)
+					for _, val in ipairs(sockets) do
+						if val == targetSocket then
+							return true
+						end
+					end
+					return false
+				end
+				
+				local match = {}
+				if tag.slotName then
+					match["slotName"] = (tag.slotName == cfg.slotName) or false
+				end
+				if tag.keyword then
+					match["keyword"] = (cfg.skillGem and calcLib.gemIsType(cfg.skillGem, tag.keyword)) or false
+				elseif tag.socketColor and tag.sockets ~= "all" then -- the all socket tag inherently checks for the correct color
+					match["socketColor"] = (tag.socketColor == cfg.socketColor) or false
+				end
+				if tag.sockets then
+					local targetAtrColor = tag.socketColor == "R" and "strengthGems" or tag.socketColor == "G" and "dexterityGems" or tag.socketColor == "B" and "intelligenceGems"
+					local count = cfg[targetAtrColor] or 0
+					if tag.sockets == "all" then
+						local total = (cfg.intelligenceGems or 0) + (cfg.dexterityGems or 0) + (cfg.strengthGems or 0)
+						match["sockets"] = (total == count) and (total > 0) or false
+					elseif type(tag.sockets) == "table" and cfg.socketNum then
+						match["sockets"] = (isValidSocket(tag.sockets, cfg.socketNum)) or false
+					elseif type(tag.sockets) == "number" then
+						match["sockets"] = (count < tag.sockets) or false
+					else
+						return
+					end
+				end
+				for _, v in pairs(match) do
+					if (not tag.neg and not v) or (tag.neg and v) then
+						return
+					end
+				end
 			end
 		elseif tag.type == "SkillName" then
 			local match = false
