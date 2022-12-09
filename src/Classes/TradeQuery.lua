@@ -45,7 +45,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 end)
 
----Fetch currency shortnames from Poe API (used for PoeNinja price pairing)
+---Fetch currency short-names from Poe API (used for PoeNinja price pairing)
 ---@param callback fun()
 function TradeQueryClass:FetchCurrencyConversionTable(callback)
 	launch:DownloadPage(
@@ -90,23 +90,23 @@ function TradeQueryClass:PullLeagueList()
 					return
 				end
 				self.itemsTab.leagueDropList = {
-					{ label = "Standard", name = "Standard", realname = "Standard" },
-					{ label = "Hardcore", name = "Hardcore", realname = "Hardcore" },
+					{ label = "Standard", name = "Standard", realName = "Standard" },
+					{ label = "Hardcore", name = "Hardcore", realName = "Hardcore" },
 				}
 				for _, league_data in pairs(json_data) do
 					local league_name = league_data.id
 					if league_name ~= "Standard" and league_name ~= "Hardcore" and not league_name:find("SSF") then
 						if league_name:find("Hardcore") then
-							t_insert(self.itemsTab.leagueDropList, 2, { label = "HC League" , name = "tmphardcore", realname = league_name})
+							t_insert(self.itemsTab.leagueDropList, 2, { label = "HC League" , name = "tmphardcore", realName = league_name})
 						else
-							t_insert(self.itemsTab.leagueDropList, 1, { label = "SC League" , name = "tmpstandard", realname = league_name})
+							t_insert(self.itemsTab.leagueDropList, 1, { label = "SC League" , name = "tmpstandard", realName = league_name})
 						end
 					end
 				end
 				self.controls.league:SetList(self.itemsTab.leagueDropList)
 				self.controls.league.selIndex = 1
 				self.pbLeague = self.itemsTab.leagueDropList[self.controls.league.selIndex].name
-				self.pbLeagueRealName = self.itemsTab.leagueDropList[self.controls.league.selIndex].realname
+				self.pbLeagueRealName = self.itemsTab.leagueDropList[self.controls.league.selIndex].realName
 				self:SetCurrencyConversionButton()
 			end
 		end)
@@ -137,8 +137,8 @@ function TradeQueryClass:PullPoENinjaCurrencyConversion(league)
 		self:SetNotice(self.controls.pbNotice, "PoE Ninja Rate Limit Exceeded: " .. tostring(3600 - (now - self.lastCurrencyConversionRequest)))
 		return
 	end
-	-- We are getting currency shortnames from Poe API before getting PoeNinja rates
-	-- Potentially, currency shortnames could be cached but this request runs 
+	-- We are getting currency short-names from Poe API before getting PoeNinja rates
+	-- Potentially, currency short-names could be cached but this request runs 
 	-- once per hour at most and the Poe API response is already Cloudflare cached
 	self:FetchCurrencyConversionTable(function(data, errMsg)
 		if errMsg then
@@ -257,18 +257,18 @@ function TradeQueryClass:PriceItem()
 	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
 
 	self.maxFetchPerSearchDefault = 2
-	self.controls.fetchcountEdit = new("EditControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, row_height, "", "Fetch Pages", "%D", 3, function(buf)
+	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, row_height, "", "Fetch Pages", "%D", 3, function(buf)
 		self.maxFetchPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, 1), 10)
 		self.tradeQueryRequests.maxFetchPerSearch = 10 * self.maxFetchPages
-		self.controls.fetchcountEdit.focusValue = self.maxFetchPages
+		self.controls.fetchCountEdit.focusValue = self.maxFetchPages
 	end)
-	self.controls.fetchcountEdit.focusValue = self.maxFetchPerSearchDefault
+	self.controls.fetchCountEdit.focusValue = self.maxFetchPerSearchDefault
 	self.tradeQueryRequests.maxFetchPerSearch = 10 * self.maxFetchPerSearchDefault
-	self.controls.fetchcountEdit:SetText(tostring(self.maxFetchPages or self.maxFetchPerSearchDefault))
-	function self.controls.fetchcountEdit:OnFocusLost()
+	self.controls.fetchCountEdit:SetText(tostring(self.maxFetchPages or self.maxFetchPerSearchDefault))
+	function self.controls.fetchCountEdit:OnFocusLost()
 		self:SetText(tostring(self.focusValue))
 	end
-	self.controls.fetchcountEdit.tooltipFunc = function(tooltip)
+	self.controls.fetchCountEdit.tooltipFunc = function(tooltip)
 		tooltip:Clear()
 		tooltip:AddLine(16, "Specify maximum number of item pages to retrieve per search from PoE Trade.")
 		tooltip:AddLine(16, "Each page fetches up to 10 items.")
@@ -278,7 +278,7 @@ function TradeQueryClass:PriceItem()
 	-- League selection
 	self.controls.league = new("DropDownControl", {"TOPRIGHT", self.controls.itemSortSelectionLabel, "TOPLEFT"}, -8, 0, 100, 18, self.itemsTab.leagueDropList, function(index, value)
 		self.pbLeague = value.name
-		self.pbLeagueRealName = value.realname or value.name
+		self.pbLeagueRealName = value.realName or value.name
 		self:SetCurrencyConversionButton()
 	end)
 	self.controls.league.enabled = function()
@@ -322,7 +322,7 @@ function TradeQueryClass:PriceItem()
 	else
 		self.controls.league:SelByValue(self.pbLeague, "name")
 		self.pbLeague = self.itemsTab.leagueDropList[self.controls.league.selIndex].name
-		self.pbLeagueRealName = self.itemsTab.leagueDropList[self.controls.league.selIndex].realname
+		self.pbLeagueRealName = self.itemsTab.leagueDropList[self.controls.league.selIndex].realName
 		self:SetCurrencyConversionButton()
 	end
 end
