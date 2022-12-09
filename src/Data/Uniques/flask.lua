@@ -447,11 +447,11 @@ Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 8
-{variant:1,2}during Effect, 10% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
-{variant:3}during Effect, 6% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
-{variant:1}during Effect, Damage Penetrates 20% Resistance of each Element for which your Uncapped Elemental Resistance is highest
-{variant:2}during Effect, Damage Penetrates (10-15)% Resistance of each Element for which your Uncapped Elemental Resistance is highest
-{variant:3}during Effect, Damage Penetrates (5-8)% Resistance of each Element for which your Uncapped Elemental Resistance is highest
+{variant:1,2}During Effect, 10% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
+{variant:3}During Effect, 6% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
+{variant:1}During Effect, Damage Penetrates 20% Resistance of each Element for which your Uncapped Elemental Resistance is highest
+{variant:2}During Effect, Damage Penetrates (10-15)% Resistance of each Element for which your Uncapped Elemental Resistance is highest
+{variant:3}During Effect, Damage Penetrates (5-8)% Resistance of each Element for which your Uncapped Elemental Resistance is highest
 ]],[[
 Witchfire Brew
 Stibnite Flask
