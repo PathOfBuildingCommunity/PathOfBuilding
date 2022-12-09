@@ -19,8 +19,8 @@ Limited to: 1
 ]],[[
 Apex Mode
 Cobalt Jewel
-Source: No longer obtainable
 League: Heist
+Source: Drops from unique{The Unbreakable} in normal{Contract: Breaking the Unbreakable}
 Limited to: 1
 Requires Level 20
 (20-25)% increased Spell Damage
@@ -112,7 +112,7 @@ Limited to: 1
 Removes all Energy Shield
 Life that would be lost by taking Damage is instead Reserved
 until you take no Damage to Life for 2 seconds
-(20–30)% more Maximum Life
+(20-30)% more Maximum Life
 ]],[[
 Divine Inferno
 Crimson Jewel
@@ -158,12 +158,12 @@ Source: No longer obtainable
 Limited to: 1
 Variant: Pre 3.11.0
 Variant: Current
-{variant:1}2% of Life Regenerated per Second
+{variant:1}Regenerate 2% of Life per second
 {variant:1}10% increased Damage taken
-{variant:2}Gain 1 Fragile Regrowth each second
 {variant:2}Maximum 10 Fragile Regrowth
 {variant:2}0.7% of Life Regenerated per second per Fragile Regrowth
 {variant:2}Lose all Fragile Regrowth when Hit
+{variant:2}Gain 1 Fragile Regrowth each second
 ]],[[
 Replica Fragile Bloom
 Crimson Jewel
@@ -195,6 +195,7 @@ Adds Veteran's Awareness
 ]],[[
 Grand Spectrum
 Cobalt Jewel
+Source: Drops in The Lord's Labyrinth
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
@@ -209,6 +210,7 @@ Variant: Current - Min Power Charge
 ]],[[
 Grand Spectrum
 Crimson Jewel
+Source: Drops in The Lord's Labyrinth
 Limited to: 3
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
@@ -223,6 +225,7 @@ Variant: Current - Min Endurance Charge
 ]],[[
 Grand Spectrum
 Viridian Jewel
+Source: Drops in The Lord's Labyrinth
 Limited to: 3
 Variant: Pre 2.5.0
 Variant: Pre 3.0.0
@@ -234,7 +237,7 @@ Variant: Current - Min Frenzy Charge
 {variant:2}4% increased Elemental Damage per Grand Spectrum
 {variant:3}12% increased Elemental Damage per Grand Spectrum
 {variant:4}15% increased Elemental Damage per Grand Spectrum
-{variant:5}15% chance to Avoid Elemental Ailments per Grand Spectrum
+{variant:5}12% chance to Avoid Elemental Ailments per Grand Spectrum
 {variant:6}+1 to Minimum Frenzy Charges per Grand Spectrum
 ]],[[
 The Green Dream
@@ -393,8 +396,8 @@ Notable Passive Skills in Radius grant nothing
 ]],[[
 Nadir Mode
 Cobalt Jewel
-Source: No longer obtainable
 League: Heist
+Source: Drops from unique{The Unbreakable} in normal{Contract: Breaking the Unbreakable}
 Limited to: 1
 Item Level: 82
 (20-25)% increased Spell Damage
@@ -442,6 +445,7 @@ Primordial
 Replica Primordial Might
 Crimson Jewel
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 -1 to maximum number of Golems
 (25-30)% increased Damage if you Summoned a Golem in the past 8 seconds
 Golems Summoned in the past 8 seconds deal (100-125)% increased Damage
@@ -462,13 +466,13 @@ Viridian Jewel
 Variant: Pre 3.20.0
 Variant: Current
 Limited to: 1
-While your Passive Skill Tree connects to a class' Starting location, you gain:
+While your Passive Skill Tree connects to a class' starting location, you gain:
 {variant:1}Marauder: Melee Skills have 15% increased Area of Effect
 {variant:2}Marauder: Melee Skills have 25% increased Area of Effect
 Duelist: 1% of Attack Damage Leeched as Life
 Ranger: 7% increased Movement Speed
-Shadow: +0.5 to Critical Strike Chance
-Witch: 0.5% of Maximum Mana Regenerated per second
+Shadow: +0.5% to Critical Strike Chance
+Witch: 0.5% of Mana Regenerated per second
 Templar: Damage Penetrates 5% Elemental Resistances
 Scion: +25 to All Attributes
 ]],[[
@@ -588,13 +592,13 @@ Variant: Pre 3.10.0
 Variant: Current
 Radius: Medium
 -1 Intelligence per 1 Intelligence on Allocated Passives in Radius
-{variant:1,2}0.4% of Energy Shield Regenerated per Second for
-every 10 Intelligence on Allocated Passives in Radius
+{variant:1,2}Regenerate 0.4% of Energy Shield per Second for
+{variant:1,2}every 10 Intelligence on Allocated Passives in Radius
 {variant:1}+100 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
 {variant:2}+125 to Accuracy Rating per 10 Intelligence on Unallocated Passives in Radius
+{variant:3}+3% to Damage over Time Multiplier per 10 Intelligence on Unallocated Passives in Radius
 {variant:3}3% increased Mana Recovery Rate per 10 Intelligence on Allocated Passives in Radius
 {variant:3}2% reduced Mana Recovery Rate per 10 Intelligence on Unallocated Passives in Radius
-{variant:3}+3% to Damage over Time Multiplier per 10 Intelligence on Unallocated Passives in Radius
 ]],[[
 Tempered Spirit
 Viridian Jewel
@@ -629,7 +633,7 @@ Variant: Small Ring
 Variant: Medium Ring
 Variant: Large Ring
 Variant: Very Large Ring
-Variant: Massive Ring
+Variant: Massive Ring (Uber)
 Radius: Variable
 Implicits: 0
 {variant:1}Only affects Passives in Small Ring
@@ -1092,7 +1096,7 @@ Variant: Mace
 Variant: Sword
 Limited to: 1
 Radius: Medium
-{variant:1}(10-15)% increased Physical Damage
+{variant:1}(10-15)% increased Global Physical Damage
 {variant:1}With at least 40 Dexterity in Radius, Dual Strike has a 20% chance
 to deal Double Damage with the Main-Hand Weapon
 {variant:1}With at least 40 Dexterity in Radius, Dual Strike deals Off-Hand Splash Damage
@@ -1151,8 +1155,8 @@ Variant: Pre 3.3.0
 Variant: Pre 3.17.0
 Limited to: 2
 Radius: Medium
-{variant:1}(4-12)% increased Physical Damage
-{variant:2,3}(8-12)% increased Physical Damage
+{variant:1}(4-12)% increased Global Physical Damage
+{variant:2,3}(8-12)% increased Global Physical Damage
 {variant:1}With at least 40 Strength in Radius, Ground Slam has a 20% increased angle
 {variant:2}With at least 40 Strength in Radius, Ground Slam has a 35% increased angle
 {variant:3}With at least 40 Strength in Radius, Ground Slam has a 50% increased angle
@@ -1167,7 +1171,7 @@ Variant: Pre 3.17.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-(10-15)% increased Physical Damage 
+(10-15)% increased Global Physical Damage 
 With at least 40 Dexterity in Radius, Ethereal Knives fires Projectiles in a Nova
 {variant:1}With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles
 {variant:2}With at least 40 Dexterity in Radius, Ethereal Knives fires 5 additional Projectiles
@@ -1255,7 +1259,7 @@ Limited to: 1
 Radius: Medium
 (10-15)% increased Fire Damage 
 {variant:1}With at least 40 Dexterity in Radius, Burning Arrow can inflict an additional Ignite on an Enemy
-{Variant:2}Ignited Enemies Killed by your Hits are destroyed
+{variant:2}Ignited Enemies Killed by your Hits are destroyed
 ]],[[
 Unending Hunger 
 Cobalt Jewel
@@ -1276,9 +1280,9 @@ Variant: Current
 Limited to: 1
 Radius: Medium
 (8-15)% increased Armour
-{variant:1}With at least 40 Strength in Radius, Vigilant Strike also Fortifies Nearby Allies for 3 seconds.
-{variant:2}With at least 40 Strength in Radius, Vigilant Strike Fortifies you and Nearby Allies for 12 seconds
-{variant:3}With at least 40 Strength in Radius, Vigilant Strike Fortifies you and Nearby Allies for 8 seconds
+{variant:1}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 3 seconds
+{variant:2}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 12 seconds
+{variant:3}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 8 seconds
 ]],[[
 Violent Dead
 Cobalt Jewel
@@ -1309,7 +1313,7 @@ Crimson Jewel
 Source: No longer obtainable
 Limited to: 2
 Radius: Medium
-(8-12)% increased Physical Damage
+(8-12)% increased Global Physical Damage
 With at least 40 Strength in Radius, Heavy Strike has a 20% chance to deal Double Damage
 ]],[[
 Wildfire
@@ -1521,7 +1525,7 @@ Notable Passive Skills in Radius are Transformed to instead grant: Minions take 
 Fragility
 Crimson Jewel
 Source: Use currency{Vaal Orb} on normal{Crimson Jewel}
-−1 Maximum Endurance Charges
+-1 to Maximum Endurance Charges
 Corrupted
 ]],[[
 Healthy Mind
@@ -1570,14 +1574,14 @@ Corrupted
 ]],[[
 Pacifism
 Viridian Jewel
+-1 to Maximum Frenzy Charges
 Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
-−1 Maximum Frenzy Charges
 Corrupted
 ]],[[
 Powerlessness
 Cobalt Jewel
 Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
-−1 Maximum Power Charges
+-1 to Maximum Power Charges
 Corrupted
 ]],[[
 Quickening Covenant
@@ -1610,9 +1614,9 @@ Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.4.0
 Variant: Pre 3.20.0
 Variant: Current
-{variant:1}+6% chance to Block Spell Damage
-{variant:2,3}+(2-4)% chance to Block Spell Damage
-(2-4)% chance to Block Attack Damage
+{variant:1}+6% Chance to Block Spell Damage
+{variant:2,3}+(2-4)% Chance to Block Spell Damage
+(2-4)% Chance to Block Attack Damage
 Hits have (140-200)% increased Critical Strike Chance against you
 {variant:3}Corrupted
 ]],[[
@@ -1643,8 +1647,8 @@ Self-Flagellation
 Viridian Jewel
 Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Limited to: 1
-An additional Curse can be applied to you
 (10-20)% increased Damage per Curse on you
+An additional Curse can be applied to you
 Corrupted
 ]],[[
 Soul's Wick
@@ -1771,7 +1775,7 @@ Source: No longer obtainable
 Limited to: 1 Survival
 Variant: Pre 3.16.0
 Variant: Current
-{variant:1}3 Mana Regenerated per second
+{variant:1}Regenerate 3 Mana per second
 {variant:1}10% increased Elemental Damage
 {variant:2}Flasks applied to you have 20% reduced Effect
 {variant:2}Flasks gain 3 Charges every 3 seconds while they are inactive
@@ -1804,7 +1808,7 @@ Limited to: 1
 [[
 Emperor's Cunning
 Viridian Jewel
-Source: Fastest Normal Labyrinth
+Source: Drops in The Eternal Labyrinth
 Limited to: 1
 20% increased Global Accuracy Rating
 3% increased Character Size
@@ -1812,7 +1816,7 @@ Limited to: 1
 ]],[[
 Emperor's Mastery
 Prismatic Jewel
-Source: Fastest Eternal Labyrinth
+Source: Drops in The Eternal Labyrinth
 Limited to: 1
 4% increased maximum Life
 3% increased Character Size
@@ -1821,7 +1825,7 @@ Limited to: 1
 ]],[[
 Emperor's Might
 Crimson Jewel
-Source: Fastest Merciless Labyrinth
+Source: Drops in The Eternal Labyrinth
 Limited to: 1
 10% increased Damage
 3% increased Character Size
@@ -1829,7 +1833,7 @@ Limited to: 1
 ]],[[
 Emperor's Wit
 Cobalt Jewel
-Source: Fastest Cruel Labyrinth
+Source: Drops in The Eternal Labyrinth
 Limited to: 1
 30% increased Global Critical Strike Chance
 3% increased Character Size

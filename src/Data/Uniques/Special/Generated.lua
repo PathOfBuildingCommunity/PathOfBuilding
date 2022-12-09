@@ -56,6 +56,7 @@ local paradoxica = {
 	"Paradoxica",
 	"Vaal Rapier",
 	"League: Betrayal",
+	"Source: Drops from unique{Intervention Leaders} in normal{Safehouses}",
 	"Has Alt Variant: true",
 	"Selected Variant: 4",
 	"Selected Alt Variant: 16"
@@ -71,7 +72,6 @@ for index, mod in pairs(paradoxicaMods) do
 	table.insert(paradoxica, "Variant: "..mod.veiledName)
 end
 
-table.insert(paradoxica, "Source: Drops from Bosses in Safehouse")
 table.insert(paradoxica, "Requires Level 66, 212 Dex")
 table.insert(paradoxica, "Implicits: 1")
 table.insert(paradoxica, "+25% to Global Critical Strike Multiplier")
@@ -89,6 +89,7 @@ local caneOfKulemakMods = getVeiledMods("catarina", "weapon", "staff", "two_hand
 local caneOfKulemak = {
 	"Cane of Kulemak",
 	"Serpentine Staff",
+	"Source: Drops from unique{Catarina, Master of Undeath}",
 	"Has Alt Variant: true",
 	"Has Alt Variant Two: true",
 	"Selected Variant: 1",
@@ -117,6 +118,7 @@ local replicaParadoxica = {
 	"Replica Paradoxica",
 	"Vaal Rapier",
 	"League: Heist",
+	"Source: Steal from a unique{Curio Display} during a Grand Heist",
 	"Has Alt Variant: true",
 	"Has Alt Variant Two: true",
 	"Has Alt Variant Three: true",
@@ -151,6 +153,7 @@ local queensHunger = {
 	"The Queen's Hunger",
 	"Vaal Regalia",
 	"League: Betrayal",
+	"Source: Drops from unique{Catarina, Master of Undeath}",
 	"Has Alt Variant: true",
 	"Selected Variant: 1",
 	"Selected Alt Variant: 24"
@@ -202,7 +205,7 @@ local forbiddenShako = {
 	"Forbidden Shako",
 	"Great Crown",
 	"League: Harvest",
-	"Source: Drops from unique{Avatar of the Grove}",
+	"Source: Drops from unique{Oshabi, Avatar of the Grove}",
 	"Requires Level 68, 59 Str, 59 Int",
 	"Has Alt Variant: true"
 }
@@ -331,6 +334,7 @@ local powerChargeMods = {
 local precursorsEmblem = {
 [[Precursor's Emblem
 League: Delve
+Source: Vendor Recipe
 Variant: Topaz Ring
 Variant: Sapphire Ring
 Variant: Ruby Ring
@@ -445,8 +449,8 @@ local impossibleEscape = {
 	"Impossible Escape",
 	"Viridian Jewel",
 	"League: Sentinel",
+	"Source: Drops from unique{The Maven}",
 	"Limited to: 1",
-	"Source: Drops from Uber unique{Maven}",
 	"Radius: Small"
 }
 for _, name in ipairs(impossibleEscapeKeystones) do
@@ -532,7 +536,7 @@ local watchersEye = {
 [[
 Watcher's Eye
 Prismatic Jewel
-Source: Drops from unique{The Elder}
+Source: Drops from unique{The Elder} or unique{The Elder} (Uber)
 Has Alt Variant: true
 Has Alt Variant Two: true
 ]]
@@ -542,7 +546,8 @@ local sublimeVision = {
 [[
 Sublime Vision
 Prismatic Jewel
-Source: Drops from unique{Uber Uber Elder}
+Shaper Item
+Source: Drops from unique{The Elder} (Uber Uber) or unique{The Shaper} (Uber)
 Limited to: 1
 ]]
 }
@@ -552,6 +557,7 @@ local voranasMarch = {
 Vorana's March
 Runic Sabatons
 League: Expedition
+Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Has Alt Variant: true
 Has Alt Variant Two: true
 Selected Variant: 1

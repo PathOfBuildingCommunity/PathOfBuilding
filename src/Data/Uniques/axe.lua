@@ -6,6 +6,7 @@ return {
 Actum
 Butcher Axe
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Has no Sockets
 (200-250)% increased Physical Damage
@@ -59,7 +60,7 @@ Socketed Gems are supported by Level 2 Chance to Flee
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
-+(5-7) Life gained on Kill
+Gain (5-7) Life per Enemy Killed
 10% increased Movement Speed
 ]],[[
 The Gryphon
@@ -74,7 +75,7 @@ Socketed Gems are supported by Level 2 Chance to Flee
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
-+(5-7) Life gained on Kill
+Gain (5-7) Life per Enemy Killed
 10% increased Movement Speed
 15% increased Movement Speed if you've Killed Recently
 ]],[[
@@ -167,7 +168,7 @@ Eldritch Battery
 [[
 Atziri's Disfavour
 Vaal Axe
-Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
+Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Current
@@ -219,6 +220,7 @@ Gain a Flask Charge when you deal a Critical Strike
 Replica Harvest
 Jasper Chopper
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (120-140)% increased Physical Damage
 1.2% of Damage Leeched as Life on Critical Strike
@@ -250,7 +252,7 @@ Implicits: 0
 {variant:2,3}(160-220)% increased Physical Damage
 {variant:4}(100-140)% increased Physical Damage
 {variant:1,2}Adds (16-21) to (32-38) Fire Damage
-+20 Life gained on Kill
+Gain 20 Life per Enemy Killed
 +(150-250) to Accuracy Rating
 Culling Strike
 {variant:3,4}Gain 1 Rage on Critical Hit with attacks, no more than once every 0.5 seconds
@@ -341,7 +343,7 @@ Shadow Axe
 Implicits: 0
 (100-125)% increased Physical Damage
 (30-40)% increased Rarity of Items found
-+10 Life gained on Kill
+Gain 10 Life per Enemy Killed
 15% increased Movement Speed when on Full Life
 Culling Strike
 Hits can't be Evaded
@@ -390,7 +392,7 @@ Implicits: 0
 Socketed Gems are Supported by Level 20 Increased Area of Effect
 +10 to Strength
 (120-160)% increased Physical Damage
-+10 Mana gained on Kill
+Gain 10 Mana per Enemy Killed
 {variant:1}+(50-80) to Accuracy Rating
 {variant:2}+(120-150) to Accuracy Rating
 +2 to Weapon Range
@@ -398,12 +400,13 @@ Socketed Gems are Supported by Level 20 Increased Area of Effect
 Replica Wings of Entropy
 Ezomyte Axe
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (7-10)% Chance to Block Spell Damage
 +(8-12)% Chance to Block Attack Damage while Dual Wielding
 (60-80)% increased Physical Damage
 Counts as Dual Wielding
-+(8.00-10.00)% to Off Hand Critical Strike Chance
++(8-10)% to Off Hand Critical Strike Chance
 (50-70)% more Main Hand attack speed
 ]],[[
 Wings of Entropy

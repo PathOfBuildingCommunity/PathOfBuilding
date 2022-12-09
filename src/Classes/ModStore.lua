@@ -471,7 +471,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
 					if tag.neg and allOneH and allOneH["Added"..var] ~= nil then
-						-- Varunastra adds all using weapon conditions and that causes this condition to fail when it shoouldn't
+						-- Varunastra adds all using weapon conditions and that causes this condition to fail when it shouldn't
 						-- if the condition was added by Varunastra then ignore, otherwise return as the tag condition is not satisfied
 						if not allOneH["Added"..var] then
 							return
