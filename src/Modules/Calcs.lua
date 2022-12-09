@@ -411,7 +411,7 @@ function calcs.buildOutput(build, mode)
 			for pool, costResource in pairs({["LifeUnreserved"] = "LifeCost", ["ManaUnreserved"] = "ManaCost", ["Rage"] = "RageCost", ["EnergyShield"] = "ESCost"}) do
 				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
 				if cachedCost then
-					if EB and costResource == "Mana" then --Handling for mana cost warnings with EB allocated
+					if EB and costResource == "ManaCost" then --Handling for mana cost warnings with EB allocated
 						output.EnergyShieldProtectsMana = true
 						output[costResource.."Warning"] = output[costResource.."Warning"] or (((output[pool] or 0) + (output["EnergyShield"] or 0)) < cachedCost)
 					else
@@ -422,12 +422,11 @@ function calcs.buildOutput(build, mode)
 			for pool, costResource in pairs({["LifeUnreserved"] = "LifePerSecondCost", ["ManaUnreserved"] = "ManaPerSecondCost", ["Rage"] = "RagePerSecondCost", ["EnergyShield"] = "ESPerSecondCost"}) do
 				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
 				if cachedCost then
-					if EB and costResource == "Mana" then
+					if EB and costResource == "ManaPerSecondCost" then
 						output.EnergyShieldProtectsMana = true
 						output[costResource.."PerSecondWarning"] = output[costResource.."PerSecondWarning"] or (((output[pool] or 0) + (output["EnergyShield"] or 0)) < cachedCost)
 					else
 						output[costResource.."PerSecondWarning"] = output[costResource.."PerSecondWarning"] or ((output[pool] or 0) < cachedCost)
-						ConPrintf(costResource.."PerSecondWarning".." "..(output[costResource.."PerSecondWarning"] and "true" or "false"))
 					end
 				end
 			end

@@ -1336,7 +1336,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 						local poolVal = output[statData.pool]
 						local colorOverride = nil
 						if statData.stat:match("Cost$") and statVal and poolVal then
-							if statData.stat == "ManaCost" and output.EnergyShieldProtectsMana then
+							if (statData.stat == "ManaCost" or statData.stat == "ManaPerSecondCost") and output.EnergyShieldProtectsMana then
 								if statVal > output.ManaUnreserved + output.EnergyShield then
 									colorOverride = colorCodes.NEGATIVE
 								end
