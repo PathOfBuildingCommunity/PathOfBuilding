@@ -83,6 +83,15 @@ Source: Drops from unique{Sirus, Awakener of Worlds} (Uber)
 35% increased Charge Recovery
 Enemies you Kill during Effect have a 28% chance to Explode, dealing a tenth of their
 maximum Life as damage of a Random Element
+]],[[
+Dawnstrider
+Vaal Greaves
+Source: Drops from unique{The Searing Exarch}
++94 to maximum Life
+30% increased Movement Speed
+100% increased Effect of Buffs your Ancestor Totems grant while Active
+Buffs from Active Ancestor Totems Linger for 4 seconds
+Maximum 1 Buff from an Active Ancestor Totem at a time
 ]]
 -- Reworked
 
