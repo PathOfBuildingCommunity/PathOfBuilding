@@ -188,6 +188,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/GrantedEffectStatSetsPerLevel.dat",
 		"Data/MonsterMapDifficulty.dat",
 		"Data/MonsterMapBossDifficulty.dat",
+		"Data/ReminderText.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
@@ -234,8 +235,8 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/AbstractTwoHandMace.ot",
 		"Metadata/Items/Armours/Boots/AbstractBoots.ot",
 		"Metadata/Items/Jewels/AbstractAbyssJewel.ot",
-		"Metadata/Items/Armours/BodyArmours/AbstractBodyArmour.ot",
-		"Metadata/Items/Armours/AbstractArmour.ot",
+		"Metadata/Items/Armours/BodyArmours/AbstractBodyArmour.it",
+		"Metadata/Items/Armours/AbstractArmour.it",
 		"Metadata/Items/Weapons/OneHandWeapons/Daggers/AbstractRuneDagger.ot",
 		"Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractStaff.ot",
 		"Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/AbstractTwoHandAxe.ot",
