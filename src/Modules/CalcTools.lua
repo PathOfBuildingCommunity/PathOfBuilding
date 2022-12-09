@@ -166,48 +166,39 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 			if level.statInterpolation[index] == 3 then
 				-- Effectiveness interpolation
 				if not availableEffectiveness then
-					availableEffectiveness = 
-						(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
-						* (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)
+					availableEffectiveness =
+					(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
+							* (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)
 				end
 				statValue = round(availableEffectiveness * level[index])
 			elseif level.statInterpolation[index] == 2 then
 				-- Linear interpolation; I'm actually just guessing how this works
-				local nextLevel = m_min(skillInstance.level + 1, #grantedEffect.levels)
-				local nextReq = grantedEffect.levels[nextLevel].levelRequirement
-				local prevReq = grantedEffect.levels[nextLevel - 1].levelRequirement
-				local nextStat = grantedEffect.levels[nextLevel][index]
-				local prevStat = grantedEffect.levels[nextLevel - 1][index]
-				statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
-			end
-			statValue = round(availableEffectiveness * level[index])
-		elseif level.statInterpolation[index] == 2 then
-			-- Linear interpolation; I'm actually just guessing how this works
 
-			-- Order the levels, since sometimes they skip around
-			local orderedLevels = { }
-			local currentLevelIndex
-			for level, _ in pairs(grantedEffect.levels) do
-				t_insert(orderedLevels, level)
-			end
-			table.sort(orderedLevels)
-			for idx, level in ipairs(orderedLevels) do
-				if skillInstance.level == level then
-					currentLevelIndex = idx
+				-- Order the levels, since sometimes they skip around
+				local orderedLevels = { }
+				local currentLevelIndex
+				for level, _ in pairs(grantedEffect.levels) do
+					t_insert(orderedLevels, level)
 				end
-			end
+				table.sort(orderedLevels)
+				for idx, level in ipairs(orderedLevels) do
+					if skillInstance.level == level then
+						currentLevelIndex = idx
+					end
+				end
 
-			local nextLevelIndex = m_min(currentLevelIndex + 1, #orderedLevels)
-			local nextReq = grantedEffect.levels[orderedLevels[nextLevelIndex]].levelRequirement
-			local prevReq = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]].levelRequirement
-			local nextStat = grantedEffect.levels[orderedLevels[nextLevelIndex]][index]
-			local prevStat = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]][index]
-			statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
-		else
-			-- Static value
-			statValue = level[index] or 1
+				local nextLevelIndex = m_min(currentLevelIndex + 1, #orderedLevels)
+				local nextReq = grantedEffect.levels[orderedLevels[nextLevelIndex]].levelRequirement
+				local prevReq = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]].levelRequirement
+				local nextStat = grantedEffect.levels[orderedLevels[nextLevelIndex]][index]
+				local prevStat = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]][index]
+				statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
+			else
+				-- Static value
+				statValue = level[index] or 1
+			end
+			stats[stat] = (stats[stat] or 0) + statValue
 		end
-		stats[stat] = (stats[stat] or 0) + statValue
 	end
 	if grantedEffect.constantStats then
 		for _, stat in ipairs(grantedEffect.constantStats) do
