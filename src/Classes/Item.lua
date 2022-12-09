@@ -451,7 +451,15 @@ function ItemClass:ParseRaw(raw)
 						self.enchantments = data.enchantments[self.base.type]
 					end
 					self.corruptible = self.base.type ~= "Flask"
-					self.influenceTags = data.specialBaseTags[self.type]
+					self.influenceTags = { }
+					for _, influenceTag in ipairs(influenceInfo) do
+						self.influenceTags[influenceTag.key] = { }
+						for tag, _ in pairs(self.base.tags) do
+							if tag ~= "default" then
+								t_insert(self.influenceTags[influenceTag.key], tag..'_'..influenceTag.key)
+							end
+						end
+					end
 					self.canBeInfluenced = self.influenceTags
 					self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]
 					self.requirements.str = self.base.req.str or 0
@@ -663,8 +671,12 @@ function ItemClass:GetModSpawnWeight(mod, extraTags)
 		local function HasInfluenceTag(key)
 			if self.influenceTags then
 				for _, curInfluenceInfo in ipairs(influenceInfo) do
-					if self[curInfluenceInfo.key] and self.influenceTags[curInfluenceInfo.key] == key then
-						return true
+					if self[curInfluenceInfo.key] then
+						for _, tag in ipairs(self.influenceTags[curInfluenceInfo.key]) do
+							if tag == key then
+								return true
+							end
+						end
 					end
 				end
 			end
@@ -760,7 +772,7 @@ function ItemClass:BuildRaw()
 	end
 	local function writeModLine(modLine)
 		local line = modLine.line
-		if modLine.range and line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
+		if modLine.range and line:match("%(%-?[%d%.]+%-%-?[%d%.]+%)") then
 			line = "{range:" .. round(modLine.range, 3) .. "}" .. line
 		end
 		if modLine.crafted then

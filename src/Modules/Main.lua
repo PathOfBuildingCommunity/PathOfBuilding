@@ -55,13 +55,6 @@ function main:Init()
 	self.buildPath = self.defaultBuildPath
 	MakeDir(self.buildPath)
 
-	if launch.devMode and IsKeyDown("CTRL") then
-		self.rebuildModCache = true
-	else
-		-- Load mod cache
-		LoadModule("Data/ModCache", modLib.parseModCache)
-	end
-
 	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
 		self.allowTreeDownload = true
 	end
@@ -104,26 +97,11 @@ function main:Init()
 		end
 	end
 
-	if self.rebuildModCache then
-		-- Update mod cache
-		local out = io.open("Data/ModCache.lua", "w")
-		out:write('local c=...')
-		for line, dat in pairs(modLib.parseModCache) do
-			if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
-				out:write('c["', line:gsub("\n","\\n"), '"]={')
-				if dat[1] then
-					writeLuaTable(out, dat[1])
-				else
-					out:write('nil')
-				end
-				if dat[2] then
-					out:write(',"', dat[2]:gsub("\n","\\n"), '"}\n')
-				else
-					out:write(',nil}\n')
-				end
-			end
-		end
-		out:close()
+	if launch.devMode and IsKeyDown("CTRL") then
+		self:RebuildModCache()
+	elseif not launch.headlessMode then
+		-- Load mod cache
+		LoadModule("Data/ModCache", modLib.parseModCache)
 	end
 
 	self.sharedItemList = { }
@@ -231,6 +209,28 @@ the "Releases" section of the GitHub page.]])
 	self:LoadSettings(ignoreBuild)
 
 	self.onFrameFuncs = { }
+end
+
+function main:RebuildModCache()
+	-- Update mod cache
+	local out = io.open("Data/ModCache.lua", "w")
+	out:write('local c=...')
+	for line, dat in pairs(modLib.parseModCache) do
+		if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
+			out:write('c["', line:gsub("\n","\\n"), '"]={')
+			if dat[1] then
+				writeLuaTable(out, dat[1])
+			else
+				out:write('nil')
+			end
+			if dat[2] then
+				out:write(',"', dat[2]:gsub("\n","\\n"), '"}\n')
+			else
+				out:write(',nil}\n')
+			end
+		end
+	end
+	out:close()
 end
 
 function main:LoadTree(treeVersion)

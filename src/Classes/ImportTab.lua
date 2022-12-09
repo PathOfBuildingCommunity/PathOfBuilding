@@ -81,11 +81,11 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	self.controls.sessionHeader.label = function()
 		return [[
 ^7The list of characters on ']]..self.controls.accountName.buf..[[' couldn't be retrieved. This may be because:
-1. The account name is wrong, or
-2. The account's privacy settings hide the characters tab (this is the default setting).
+1. You entered a character name instead of an account name or
+2. This account's characters tab is hidden (this is the default setting).
 If this is your account, you can either:
-1. Change your privacy settings to show you characters tab and then retry, or
-2. Enter a valid POESESSID below.
+1. Uncheck "Hide Characters" in your privacy settings or
+2. Enter a POESESSID below.
 You can get this from your web browser's cookies while logged into the Path of Exile website.
 		]]
 	end
@@ -99,6 +99,9 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.sessionCancel = new("ButtonControl", {"LEFT",self.controls.sessionRetry,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
 		self.charImportMode = "GETACCOUNTNAME"
 		self.charImportStatus = "Idle"
+	end)
+	self.controls.sessionPrivacySettings = new("ButtonControl", {"LEFT",self.controls.sessionCancel,"RIGHT"}, 8, 0, 120, 20, "Privacy Settings", function()
+		OpenURL('https://www.pathofexile.com/my-account/privacy')
 	end)
 	self.controls.sessionInput = new("EditControl", {"TOPLEFT",self.controls.sessionRetry,"BOTTOMLEFT"}, 0, 8, 350, 20, "", "POESESSID", "%X", 32)
 	self.controls.sessionGo = new("ButtonControl", {"LEFT",self.controls.sessionInput,"RIGHT"}, 8, 0, 60, 20, "Go", function()

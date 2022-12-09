@@ -2900,13 +2900,7 @@ skills["ElementalWeakness"] = {
 			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 		["self_elemental_status_duration_-%"] = {
-			mod("SelfIgniteDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfChillDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfShockDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfScorchDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfBrittleDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-			mod("SelfSapDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mod("SelfElementalAilmentDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 			mult = -1
 		}
 	},
@@ -3010,30 +3004,30 @@ skills["EnergyBlade"] = {
 	castTime = 1,
 	statMap = {
 		["storm_blade_energy_shield_+%_final"] = {
-			mod("EnergyShield", "MORE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyShield", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["storm_blade_minimum_lightning_damage_from_es_%"] = {
-			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "PerStat", stat = "EnergyShield" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield" }, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 100,
 		},
 		["storm_blade_maximum_lightning_damage_from_es_%"] = {
-			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "PerStat", stat = "EnergyShield" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield" }, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 100,
 		},
 		["storm_blade_damage_+%_final_with_two_hand_weapon"] = {
-			mod("EnergyBladeDamage", "MORE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "Condition", var = "UsingTwoHandedWeapon" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeDamage", "MORE", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["storm_blade_minimum_lightning_damage"] = {
-			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["storm_blade_maximum_lightning_damage"] = {
-			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["storm_blade_quality_local_critical_strike_chance_+%"] = {
-			mod("EnergyBladeCritChance", "INC", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeCritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["storm_blade_quality_chance_to_shock_%"] = {
-			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "Condition", var = "EnergyBladeActive" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["storm_blade_quality_attack_lightning_damage_%_to_convert_to_chaos"] = {
 			mod("LightningDamageConvertToChaos", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
@@ -6475,7 +6469,7 @@ skills["LightningTowerTrap"] = {
             -- -1 because of two assumptions: PoE coordinates are integers and damage is not registered if the two areas only share a point or vertex. If either is not correct, then -1 is not needed.
             return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
         end
-        local enemyRadius = skillModList:Sum("BASE", skillCfg, "EnemyRadius")
+		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
         local waveRadius = output.AreaOfEffectRadiusSecondary
         local fullRadius = output.AreaOfEffectRadius
         local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
@@ -6575,9 +6569,9 @@ skills["LightningTowerTrap"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
-        skill("radiusLabel", "Targeting Area:"),
-        skill("radiusSecondary", 10),
-        skill("radiusSecondaryLabel", "Impact Area:"),
+		skill("radiusLabel", "Targeting Area:"),
+		skill("radiusSecondary", 10),
+		skill("radiusSecondaryLabel", "Impact Area:"),
 	},
 	qualityStats = {
 		Default = {
@@ -6925,7 +6919,7 @@ skills["VaalLightningTrap"] = {
 	castTime = 1,
 	statMap = {
 		["shocked_ground_base_magnitude_override"] = {
-			mod("ShockedGroundEffect", "BASE", nil)
+			mod("ShockedGroundBase", "BASE", nil)
 		},
 	},
 	baseFlags = {
@@ -7934,13 +7928,7 @@ skills["Purity"] = {
 	},
 	baseMods = {
 		skill("radius", 40),
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidSap", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidBrittle", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidScorch", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		mod("AvoidElementalAilments", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
