@@ -1662,7 +1662,7 @@ function calcs.offence(env, actor, activeSkill)
 					if incAttackSpeedPerTrauma == 0 then
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
 							label = "Attack Speed",
-							base = s_format("%.2f ^8(base)", 1 / baseTime),
+							base = { "%.2f ^8(base)", 1 / baseTime },
 							{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 							{ "%.2f ^8(more/less)", more },
 							{ "%.2f ^8(action speed modifier)", globalOutput.ActionSpeedMod },
@@ -1670,7 +1670,7 @@ function calcs.offence(env, actor, activeSkill)
 						})
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
 							label = "Trauma",
-							base = s_format("%.2f ^8(base)", attackSpeedBeforeInc * (1 + inc/100)),
+							base = { "%.2f ^8(base)", attackSpeedBeforeInc * (1 + inc/100) },
 							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
 							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
 							{ "%.2f ^8(duration)", duration }
@@ -1681,14 +1681,14 @@ function calcs.offence(env, actor, activeSkill)
 					else
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
 							label = "Attack Speed before increased Attack Speed",
-							base = s_format("%.2f ^8(base)", 1 / baseTime),
+							base = { "%.2f ^8(base)", 1 / baseTime },
 							{ "%.2f ^8(more/less)", more },
 							{ "%.2f ^8(action speed modifier)", globalOutput.ActionSpeedMod },
 							total = s_format("= %.2f ^8attacks per second", attackSpeedBeforeInc)
 						})
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
 							label = "Trauma per second before increased Attack Speed",
-							base = s_format("%.2f ^8(base)", attackSpeedBeforeInc),
+							base = { "%.2f ^8(base)", attackSpeedBeforeInc },
 							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
 							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
 						})
@@ -1705,7 +1705,7 @@ function calcs.offence(env, actor, activeSkill)
 					if invalid then
 						t_insert(storedSustainedTraumaBreakdown, "Attack Speed exceeds cap recalculating")
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
-							base = s_format("%.2f ^8(base)", effectiveAttackRateCap),
+							base = { "%.2f ^8(base)", effectiveAttackRateCap },
 							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
 							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
 							{ "%.2f ^8(duration)", (duration) },
@@ -3885,7 +3885,7 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.DotChill = { }
 				breakdown.multiChain(breakdown.DotChill, {
 					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max),
-					base = s_format("%d%% ^8(base)", ailmentData.Chill.default),
+					base = { "%d%% ^8(base)", ailmentData.Chill.default },
 					{ "%.2f ^8(increased effect of chill)", output.ChillEffectMod},
 					total = s_format("= %.0f%%", output.ChillSourceEffect)
 				})
