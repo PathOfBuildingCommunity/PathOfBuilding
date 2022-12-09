@@ -135,7 +135,7 @@ Variant: Pre 3.20.0
 Variant: Current
 Implicits: 3
 {variant:1,2}0.6% of Physical Attack Damage Leeched as Life
-{variant:3}Grants 31 Life per Enemy
+{variant:3}Grants 31 Life per Enemy Hit
 {variant:4,5}2% of Physical Attack Damage Leeched as Life
 {variant:1}+10% Chance to Block Attack Damage while Dual Wielding Claws
 {variant:2,3,4,5}+8% Chance to Block Attack Damage while Dual Wielding Claws
