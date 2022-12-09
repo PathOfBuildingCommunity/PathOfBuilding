@@ -26037,6 +26037,10 @@ return {
 					text="{0}% increased Overpowered Effect"
 				},
 				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",

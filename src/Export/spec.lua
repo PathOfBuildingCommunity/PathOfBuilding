@@ -4677,8 +4677,6 @@ return {
 	},
 	MicrotransactionCombineFormula={
 	},
-	MicrotransactionCombineFormula={
-	},
 	MicrotransactionCursorVariations={
 	},
 	MicrotransactionFireworksVariations={
@@ -7155,8 +7153,6 @@ return {
 	QuestRewardType={
 	},
 	QuestRewards={
-	},
-	QuestStateCalculation={
 	},
 	QuestStateCalculation={
 	},
