@@ -73,9 +73,9 @@ local function getCalculator(build, fullInit, modFunc)
 
 	-- Run base calculation pass
 	calcs.perform(env)
-	GlobalCache.dontUseCache = true
+	GlobalCache.noCache = true
 	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
-	GlobalCache.dontUseCache = nil
+	GlobalCache.noCache = nil
 	env.player.output.SkillDPS = fullDPS.skills
 	env.player.output.FullDPS = fullDPS.combinedDPS
 	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
@@ -132,7 +132,7 @@ function calcs.getMiscCalculator(build)
 
 	return function(override, accelerate)
 		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
-		GlobalCache.dontUseCache = true
+		GlobalCache.noCache = true
 		-- we need to preserve the override somewhere for use by possible trigger-based build-outs with overrides
 		env.override = override
 		calcs.perform(env, true)
@@ -146,7 +146,7 @@ function calcs.getMiscCalculator(build)
 			env.player.output.FullDPS = fullDPS.combinedDPS
 			env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 		end
-		GlobalCache.dontUseCache = nil
+		GlobalCache.noCache = nil
 		return env.player.output
 	end, baseOutput	
 end
@@ -207,19 +207,19 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
 				local cachedData = getCachedData(activeSkill, mode)
-				if cachedData and next(override) == nil and not GlobalCache.dontUseCache then
+				if cachedData and next(override) == nil and not GlobalCache.noCache then
 					usedEnv = cachedData.Env
 					activeSkill = usedEnv.player.mainSkill
 				else
 					local forceCache = false
-					if GlobalCache.dontUseCache then 
+					if GlobalCache.noCache then 
 						forceCache = true
-						GlobalCache.dontUseCache = nil
+						GlobalCache.noCache = nil
 					end
 					fullEnv.player.mainSkill = activeSkill
 					calcs.perform(fullEnv, true)
 					usedEnv = fullEnv
-					GlobalCache.dontUseCache = forceCache
+					GlobalCache.noCache = forceCache
 				end
 				local minionName = nil
 				if activeSkill.minion or usedEnv.minion then
@@ -250,6 +250,11 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 					if usedEnv.minion.output.CullMultiplier and usedEnv.minion.output.CullMultiplier > 1 and usedEnv.minion.output.CullMultiplier > fullDPS.cullingMulti then
 						fullDPS.cullingMulti = usedEnv.minion.output.CullMultiplier
+					end
+					-- This is a fix to prevent Absolution spell hit from being counted multiple times when increasing minions count
+					if activeSkill.activeEffect.grantedEffect.name == "Absolution" and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce") then
+						activeSkillCount = 1
+						activeSkill.infoMessage2 = "Skill Damage"
 					end
 				end
 
@@ -328,7 +333,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					skills = true,
 					everything = true,
 				}
-				fullEnv, _, _, _ = calcs.initEnv(build, mode, override or {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
+				fullEnv, _, _, _ = calcs.initEnv(build, mode, override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
 			end
 		end
 	end
@@ -400,11 +405,54 @@ function calcs.buildOutput(build, mode)
 	calcs.perform(env)
 
 	local output = env.player.output
+	
+	for _, skill in ipairs(env.player.activeSkillList) do
+		local uuid = cacheSkillUUID(skill)
+		if not GlobalCache.cachedData["CACHE"][uuid] then
+			calcs.buildActiveSkill(env, "CACHE", skill)
+		end
+		if GlobalCache.cachedData["CACHE"][uuid] then
+			local EB = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
+			for pool, costResource in pairs({["LifeUnreserved"] = "LifeCost", ["ManaUnreserved"] = "ManaCost", ["Rage"] = "RageCost", ["EnergyShield"] = "ESCost"}) do
+				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
+				if cachedCost then
+					if EB and costResource == "Mana" then --Handling for mana cost warnings with EB allocated
+						output.EnergyShieldProtectsMana = true
+						output[costResource.."Warning"] = output[costResource.."Warning"] or (((output[pool] or 0) + (output["EnergyShield"] or 0)) < cachedCost)
+					else
+						output[costResource.."Warning"] = output[costResource.."Warning"] or ((output[pool] or 0) < cachedCost) -- defaulting to 0 to avoid crashing
+					end
+				end
+			end
+			for pool, costResource in pairs({["LifeUnreserved"] = "LifePerSecondCost", ["ManaUnreserved"] = "ManaPerSecondCost", ["Rage"] = "RagePerSecondCost", ["EnergyShield"] = "ESPerSecondCost"}) do
+				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
+				if cachedCost then
+					if EB and costResource == "Mana" then
+						output.EnergyShieldProtectsMana = true
+						output[costResource.."PerSecondWarning"] = output[costResource.."PerSecondWarning"] or (((output[pool] or 0) + (output["EnergyShield"] or 0)) < cachedCost)
+					else
+						output[costResource.."PerSecondWarning"] = output[costResource.."PerSecondWarning"] or ((output[pool] or 0) < cachedCost)
+						ConPrintf(costResource.."PerSecondWarning".." "..(output[costResource.."PerSecondWarning"] and "true" or "false"))
+					end
+				end
+			end
+			for pool, costResource in pairs({["LifeUnreservedPercent"] = "LifePercentCost", ["LifeUnreservedPercent"] = "LifePercentPerSecondCost", ["ManaUnreservedPercent"] = "ManaPercentPerSecondCost", ["ManaUnreservedPercent"] = "ManaPercentCost", ["ESPercentPerSecondCost"] = "ESPercentPerSecondCost"}) do
+				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
+				if cachedCost then
+					if costResource == "ESPercentPerSecondCost" then --Assuming 100% of Es is always available
+						output["ESPercentPerSecondCostPercentPerSecondWarning"] = output["ESPercentPerSecondCostPercentPerSecondWarning"] or ((output["EnergyShield"] or 0) < cachedCost)
+					else
+						output[costResource.."PercentPerSecondWarning"] = output[costResource.."PercentPerSecondWarning"] or ((output[pool] or 0) < cachedCost)
+					end
+				end
+			end
+		end
+	end
 
 	-- Build output across all skills added to FullDPS skills
-	GlobalCache.dontUseCache = true
+	GlobalCache.noCache = true
 	local fullDPS = calcs.calcFullDPS(build, "CACHE", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
-	GlobalCache.dontUseCache = nil
+	GlobalCache.noCache = nil
 
 	-- Add Full DPS data to main `env`
 	env.player.output.SkillDPS = fullDPS.skills

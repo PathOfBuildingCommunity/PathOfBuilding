@@ -33,7 +33,7 @@ local function writeMods(outName, condFunc)
 					print("[Jewel]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
-			elseif mod.GenerationType == 3 and not (mod.Domain == 16 or (mod.Domain == 1 and mod.Id:match("^Synthesis"))) then
+			elseif mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus" and mod.GenerationType == 3 and not (mod.Domain == 16 or (mod.Domain == 1 and mod.Id:match("^Synthesis"))) then
 				goto continue
 			end
 			local stats, orders = describeMod(mod)
@@ -115,7 +115,7 @@ end
 
 writeMods("../Data/ModItem.lua", function(mod)
 	return (mod.Domain == 1 or mod.Domain == 16)
-			and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 3 or mod.GenerationType == 5
+			and (mod.GenerationType == 1 or mod.GenerationType == 2 or (mod.GenerationType == 3 and (mod.Id:match("^Synthesis") or (mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus"))) or mod.GenerationType == 5
 			 or mod.GenerationType == 25 or mod.GenerationType == 24 or mod.GenerationType == 28 or mod.GenerationType == 29)
 			and not mod.Id:match("^Hellscape[UpDown]+sideMap") -- Exclude Scourge map mods
 			and #mod.AuraFlags == 0
@@ -133,7 +133,7 @@ writeMods("../Data/ModJewelCluster.lua", function(mod)
 	return (mod.Domain == 21 and (mod.GenerationType == 1 or mod.GenerationType == 2)) or (mod.Domain == 10 and mod.GenerationType == 5)
 end)
 writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)
-	return mod.Family[1].Id == "AuraBonus" and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
+	return (mod.Family[1].Id == "AuraBonus" or mod.Family[1].Id == "ArbalestBonus") and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
 end)
 writeMods("../Data/ModVeiled.lua", function(mod)
 	return mod.Domain == 28 and (mod.GenerationType == 1 or mod.GenerationType == 2)

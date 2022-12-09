@@ -34,22 +34,29 @@ local ModStoreClass = newClass("ModStore", function(self, parent)
 end)
 
 function ModStoreClass:ScaleAddMod(mod, scale)
-	if scale == 1 then
+	local unscalable = false
+	for _, effects in ipairs(mod) do
+		if effects.unscalable then
+			unscalable = true
+			break
+		end
+	end
+	if scale == 1 or unscalable then
 		self:AddMod(mod)
 	else
 		scale = m_max(scale, 0)
 		local scaledMod = copyTable(mod)
-		if type(scaledMod.value) == "number" then
-			if data.highPrecisionMods[scaledMod.name] and data.highPrecisionMods[scaledMod.name][scaledMod.type] then
-				scaledMod.value = scaledMod.value * scale
+		local subMod = scaledMod
+		if type(scaledMod.value) == "table" and scaledMod.value.mod then
+			subMod = scaledMod.value.mod
+		end
+		if type(subMod.value) == "number" then
+			local precision = ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) ~= subMod.value) and data.defaultHighPrecision) or nil
+			if precision then
+				local power = 10 ^ precision
+				subMod.value = math.floor(subMod.value * scale * power) / power
 			else
-				scaledMod.value = (m_floor(scaledMod.value) == scaledMod.value) and m_modf(round(scaledMod.value * scale, 2)) or scaledMod.value * scale
-			end
-		elseif type(scaledMod.value) == "table" and scaledMod.value.mod then
-			if data.highPrecisionMods[scaledMod.value.mod.name] and data.highPrecisionMods[scaledMod.value.mod.name][scaledMod.value.mod.type] then
-				scaledMod.value.mod.value = scaledMod.value.mod.value * scale
-			else
-				scaledMod.value.mod.value = (m_floor(scaledMod.value.mod.value) == scaledMod.value.mod.value) and m_modf(round(scaledMod.value.mod.value * scale, 2)) or scaledMod.value.mod.value * scale
+				subMod.value = m_modf(round(subMod.value * scale, 2))
 			end
 		end
 		self:AddMod(scaledMod)
@@ -460,15 +467,28 @@ function ModStoreClass:EvalMod(mod, cfg)
 			value = m_min(value, tag.limit or self:GetMultiplier(tag.limitVar, cfg))
 		elseif tag.type == "Condition" then
 			local match = false
+			local allOneH = ((self.actor.weaponData1 and self.actor.weaponData1.countsAsAll1H) and self.actor.weaponData1) or ((self.actor.weaponData2 and self.actor.weaponData2.countsAsAll1H) and self.actor.weaponData2)
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
-					if self:GetCondition(var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
+					if tag.neg and allOneH and allOneH["Added"..var] ~= nil then
+						-- Varunastra adds all using weapon conditions and that causes this condition to fail when it shouldn't
+						-- if the condition was added by Varunastra then ignore, otherwise return as the tag condition is not satisfied
+						if not allOneH["Added"..var] then
+							return
+						end
+					elseif self:GetCondition(var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
 						match = true
 						break
 					end
 				end
 			else
-				match = self:GetCondition(tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
+				if tag.neg and allOneH and allOneH["Added"..tag.var] ~= nil then
+					if not allOneH["Added"..var] then
+						return
+					end
+				else
+					match = self:GetCondition(tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
+				end
 			end
 			if tag.neg then
 				match = not match
@@ -501,8 +521,46 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "SocketedIn" then
-			if not cfg or tag.slotName ~= cfg.slotName or (tag.keyword and (not cfg or not cfg.skillGem or not calcLib.gemIsType(cfg.skillGem, tag.keyword))) then
+			if not cfg or (not tag.slotName and not tag.keyword and not tag.socketColor) then
 				return
+			else
+				local function isValidSocket(sockets, targetSocket)
+					for _, val in ipairs(sockets) do
+						if val == targetSocket then
+							return true
+						end
+					end
+					return false
+				end
+				
+				local match = {}
+				if tag.slotName then
+					match["slotName"] = (tag.slotName == cfg.slotName) or false
+				end
+				if tag.keyword then
+					match["keyword"] = (cfg.skillGem and calcLib.gemIsType(cfg.skillGem, tag.keyword)) or false
+				elseif tag.socketColor and tag.sockets ~= "all" then -- the all socket tag inherently checks for the correct color
+					match["socketColor"] = (tag.socketColor == cfg.socketColor) or false
+				end
+				if tag.sockets then
+					local targetAtrColor = tag.socketColor == "R" and "strengthGems" or tag.socketColor == "G" and "dexterityGems" or tag.socketColor == "B" and "intelligenceGems"
+					local count = cfg[targetAtrColor] or 0
+					if tag.sockets == "all" then
+						local total = (cfg.intelligenceGems or 0) + (cfg.dexterityGems or 0) + (cfg.strengthGems or 0)
+						match["sockets"] = (total == count) and (total > 0) or false
+					elseif type(tag.sockets) == "table" and cfg.socketNum then
+						match["sockets"] = (isValidSocket(tag.sockets, cfg.socketNum)) or false
+					elseif type(tag.sockets) == "number" then
+						match["sockets"] = (count < tag.sockets) or false
+					else
+						return
+					end
+				end
+				for _, v in pairs(match) do
+					if (not tag.neg and not v) or (tag.neg and v) then
+						return
+					end
+				end
 			end
 		elseif tag.type == "SkillName" then
 			local match = false

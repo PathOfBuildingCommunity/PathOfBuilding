@@ -28,5 +28,8 @@ src/Export/ggpk/Data/
 src/Export/ggpk/*.exe
 src/Export/ggpk/*.dll
 
+# PoB Trader
+*_currency_values.json
+
 # Timeless Jewels
 src/Data/TimelessJewelData/*.bin
