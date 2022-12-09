@@ -9076,6 +9076,9 @@ skills["ViperStrike"] = {
 		melee = true,
 		duration = true,
 	},
+	baseMods = {
+		skill("poisonIsSkillEffect", true),
+	},
 	qualityStats = {
 		Default = {
 			{ "attack_speed_+%", 0.5 },
