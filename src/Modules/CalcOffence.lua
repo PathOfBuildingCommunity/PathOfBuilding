@@ -4390,7 +4390,6 @@ function calcs.offence(env, actor, activeSkill)
 				local uuid = cacheSkillUUID(triggerSkill)
 				if not GlobalCache.cachedData[calcMode][uuid] then
 					calcs.buildActiveSkill(env, calcMode, triggerSkill)
-					env.dontCache = true
 				end
 				-- We found a skill and it can crit
 				if GlobalCache.cachedData[calcMode][uuid] and GlobalCache.cachedData[calcMode][uuid].CritChance and GlobalCache.cachedData[calcMode][uuid].CritChance > 0 then

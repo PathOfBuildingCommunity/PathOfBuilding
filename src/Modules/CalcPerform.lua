@@ -23,7 +23,6 @@ local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 	local uuid = cacheSkillUUID(skill)
 	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
 		calcs.buildActiveSkill(env, "CACHE", skill)
-		env.dontCache = true
 	end
 
 	if GlobalCache.cachedData["CACHE"][uuid] then
@@ -1818,12 +1817,6 @@ function calcs.perform(env, avoidCache)
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
 		for _, buff in ipairs(activeSkill.buffList) do
-			--Skip adding buff if reservation exceeds maximum
-			for _, value in ipairs({"Mana", "Life"}) do
-				if activeSkill.skillData[value.."ReservedBase"] and activeSkill.skillData[value.."ReservedBase"] > env.player.output[value] then
-					goto disableAura
-				end
-			end
 			if buff.cond and not skillModList:GetCondition(buff.cond, skillCfg) then
 				-- Nothing!
 			elseif buff.enemyCond and not enemyDB:GetCondition(buff.enemyCond) then
@@ -2023,7 +2016,6 @@ function calcs.perform(env, avoidCache)
 					t_insert(curses, curse)	
 				end
 			end
-			::disableAura::
 		end
 		if activeSkill.minion and activeSkill.minion.activeSkillList then
 			local castingMinion = activeSkill.minion
@@ -2215,13 +2207,6 @@ function calcs.perform(env, avoidCache)
 					if (activeSkill.buffList[1] and curse.name == activeSkill.buffList[1].name and activeSkill.skillTypes[SkillType.Aura]) then
 						if modDB:Flag(nil, "SelfAurasOnlyAffectYou") then
 							skipAddingCurse = true
-							break
-						end
-						for _, value in ipairs({"Mana", "Life"}) do
-							if activeSkill.skillData[value.."ReservedBase"] and activeSkill.skillData[value.."ReservedBase"] > env.player.output[value] then
-								skipAddingCurse = true
-								break
-							end
 						end
 						break
 					end
@@ -2391,7 +2376,7 @@ function calcs.perform(env, avoidCache)
 			activeSkill.skillModList:NewMod("Multiplier:ScorchingRayStageAfterFirst", "BASE", maximum, "Base")
 		end
 	end
-
+	
 	-- Process Triggered Skill and Set Trigger Conditions
 	-- Cospri's Malice
 	if env.player.mainSkill.skillData.triggeredByCospris and not env.player.mainSkill.skillFlags.minion then
@@ -2503,7 +2488,6 @@ function calcs.perform(env, avoidCache)
 		-- cache a new copy of this skill that's affected by Mirage Archer
 		if avoidCache then
 			usedSkill = env.player.mainSkill
-			env.dontCache = true
 		else
 			if not GlobalCache.cachedData[calcMode][uuid] then
 				calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
@@ -2543,7 +2527,6 @@ function calcs.perform(env, avoidCache)
 			newEnv.player.mainSkill = newSkill
 			-- mark it so we don't recurse infinitely
 			newSkill.marked = true
-			newEnv.dontCache = true
 			calcs.perform(newEnv)
 
 			env.player.mainSkill.infoMessage = tostring(mirageCount) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
@@ -3032,7 +3015,7 @@ function calcs.perform(env, avoidCache)
 			end
 		end
 	end
-
+	
 	-- Fix the configured impale stacks on the enemy
 	-- 		If the config is missing (blank), then use the maximum number of stacks
 	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
@@ -3231,8 +3214,5 @@ function calcs.perform(env, avoidCache)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
 
-	local uuid = cacheSkillUUID(env.player.mainSkill)
-	if not env.dontCache then
-		cacheData(uuid, env)
-	end
+	cacheData(cacheSkillUUID(env.player.mainSkill), env)
 end
