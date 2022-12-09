@@ -1339,8 +1339,8 @@ function buildMode:AddDisplayStatList(statList, actor)
 						local output = actor.output
 						local poolVal = output[statData.pool]
 						local colorOverride = nil
-						if statData.stat:match("Cost$") and statVal and poolVal then
-							if (statData.stat == "ManaCost" or statData.stat == "ManaPerSecondCost") and output.EnergyShieldProtectsMana then
+						if statData.stat:match("Cost$") and not statData.stat:match("PerSecondCost$") and statVal and poolVal then
+							if statData.stat == "ManaCost" and output.EnergyShieldProtectsMana then
 								if statVal > output.ManaUnreserved + output.EnergyShield then
 									colorOverride = colorCodes.NEGATIVE
 								end
@@ -1376,13 +1376,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end
-	for pool, warningFlag in pairs({["Life"] = "LifePerSecondCostPerSecondWarning", ["Mana"] = "ManaPerSecondCostPerSecondWarning", ["Rage"] = "RagePerSecondCostPerSecondWarning", ["EnergyShield"] = "ESPerSecondCostPerSecondWarning"}) do
-		if actor.output[warningFlag] then
-			local line = "You do not have enough ".. pool .." to use a Selected Skill for a second"
-			InsertIfNew(self.controls.warnings.lines, line)
-		end
-	end
-	for pool, warningFlag in pairs({["Unreserved life"] = "LifePercentCostPercentPerSecondWarning", ["Unreserved life"] = "LifePercentPerSecondCostPercentPerSecondWarning", ["Unreserved Mana"] = "ManaPercentPerSecondCostPercentPerSecondWarning", ["Unreserved Mana"] = "ManaPercentCostPercentPerSecondWarning", ["EnergyShield"] = "ESPercentPerSecondCostPercentPerSecondWarning"}) do
+	for pool, warningFlag in pairs({["Unreserved life"] = "LifePercentCostPercentCostWarning", ["Unreserved Mana"] = "ManaPercentCostPercentCostWarning"}) do
 		if actor.output[warningFlag] then
 			local line = "You do not have enough ".. pool .."% to use a Selected Skill"
 			InsertIfNew(self.controls.warnings.lines, line)

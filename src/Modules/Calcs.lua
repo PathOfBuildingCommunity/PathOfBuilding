@@ -424,25 +424,10 @@ function calcs.buildOutput(build, mode)
 					end
 				end
 			end
-			for pool, costResource in pairs({["LifeUnreserved"] = "LifePerSecondCost", ["ManaUnreserved"] = "ManaPerSecondCost", ["Rage"] = "RagePerSecondCost", ["EnergyShield"] = "ESPerSecondCost"}) do
+			for pool, costResource in pairs({["LifeUnreservedPercent"] = "LifePercentCost", ["ManaUnreservedPercent"] = "ManaPercentCost"}) do
 				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
 				if cachedCost then
-					if EB and costResource == "ManaPerSecondCost" then
-						output.EnergyShieldProtectsMana = true
-						output[costResource.."PerSecondWarning"] = output[costResource.."PerSecondWarning"] or (((output[pool] or 0) + (output["EnergyShield"] or 0)) < cachedCost)
-					else
-						output[costResource.."PerSecondWarning"] = output[costResource.."PerSecondWarning"] or ((output[pool] or 0) < cachedCost)
-					end
-				end
-			end
-			for pool, costResource in pairs({["LifeUnreservedPercent"] = "LifePercentCost", ["LifeUnreservedPercent"] = "LifePercentPerSecondCost", ["ManaUnreservedPercent"] = "ManaPercentPerSecondCost", ["ManaUnreservedPercent"] = "ManaPercentCost", ["ESPercentPerSecondCost"] = "ESPercentPerSecondCost"}) do
-				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
-				if cachedCost then
-					if costResource == "ESPercentPerSecondCost" then --Assuming 100% of Es is always available
-						output["ESPercentPerSecondCostPercentPerSecondWarning"] = output["ESPercentPerSecondCostPercentPerSecondWarning"] or ((output["EnergyShield"] or 0) < cachedCost)
-					else
-						output[costResource.."PercentPerSecondWarning"] = output[costResource.."PercentPerSecondWarning"] or ((output[pool] or 0) < cachedCost)
-					end
+					output[costResource.."PercentCostWarning"] = output[costResource.."PercentCostWarning"] or ((output[pool] or 0) < cachedCost)
 				end
 			end
 		end
