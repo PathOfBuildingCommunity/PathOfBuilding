@@ -672,7 +672,11 @@ function cacheData(uuid, env)
 		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 		Speed = env.player.output.Speed,
 		ManaCost = env.player.output.ManaCost,
+		LifeCost = env.player.output.LifeCost,
+		ESCost = env.player.output.ESCost,
+		RageCost = env.player.output.RageCost,
 		HitChance = env.player.output.HitChance,
+		AccuracyHitChance = env.player.output.AccuracyHitChance,
 		PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
 		CritChance = env.player.output.CritChance,
 		TotalDPS = env.player.output.TotalDPS,
@@ -730,7 +734,7 @@ function wipeGlobalCache()
 	wipeTable(GlobalCache.cachedData.CACHE)
 	wipeTable(GlobalCache.excludeFullDpsList)
 	wipeTable(GlobalCache.deleteGroup)
-	GlobalCache.dontUseCache = nil
+	GlobalCache.noCache = nil
 end
 
 -- Full DPS related: add to roll-up exclusion list

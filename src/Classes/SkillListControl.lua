@@ -72,7 +72,23 @@ function SkillListClass:AddValueTooltip(tooltip, index, socketGroup)
 	end
 end
 
-function SkillListClass:OnOrderChange()
+function SkillListClass:OnOrderChange(selIndex, selDragIndex)
+	local skillsTabIndex = self.skillsTab.build.mainSocketGroup
+	if skillsTabIndex == selIndex then
+		self.skillsTab.build.mainSocketGroup = selDragIndex
+	elseif skillsTabIndex > selIndex and skillsTabIndex <= selDragIndex then
+		self.skillsTab.build.mainSocketGroup = skillsTabIndex - 1
+	elseif skillsTabIndex < selIndex and skillsTabIndex >= selDragIndex then
+		self.skillsTab.build.mainSocketGroup = skillsTabIndex + 1
+	end
+	local calcsTabIndex = self.skillsTab.build.calcsTab.input.skill_number
+	if calcsTabIndex == selIndex then
+		self.skillsTab.build.calcsTab.input.skill_number = selDragIndex
+	elseif calcsTabIndex > selIndex and calcsTabIndex <= selDragIndex then
+		self.skillsTab.build.calcsTab.input.skill_number = calcsTabIndex - 1
+	elseif calcsTabIndex < selIndex and calcsTabIndex >= selDragIndex then
+		self.skillsTab.build.calcsTab.input.skill_number = calcsTabIndex + 1
+	end
 	self.skillsTab:AddUndoState()
 	self.skillsTab.build.buildFlag = true
 end
@@ -88,6 +104,16 @@ function SkillListClass:OnSelCopy(index, socketGroup)
 end
 
 function SkillListClass:OnSelDelete(index, socketGroup)
+	local function updateActiveSocketGroupIndex()
+		local skillsTabIndex = self.skillsTab.build.mainSocketGroup
+		if skillsTabIndex > self.selIndex then
+			self.skillsTab.build.mainSocketGroup = skillsTabIndex - 1
+		end
+		local calcsTabIndex = self.skillsTab.build.calcsTab.input.skill_number
+		if calcsTabIndex > self.selIndex then
+			self.skillsTab.build.calcsTab.input.skill_number = calcsTabIndex - 1
+		end
+	end
 	if socketGroup.source then
 		main:OpenMessagePopup("Delete Socket Group", "This socket group cannot be deleted as it is created by an equipped item.")
 	elseif not socketGroup.gemList[1] then
@@ -95,6 +121,7 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 		if self.skillsTab.displayGroup == socketGroup then
 			self.skillsTab.displayGroup = nil
 		end
+		updateActiveSocketGroupIndex()
 		self.skillsTab:AddUndoState()
 		self.skillsTab.build.buildFlag = true
 		self.selValue = nil
@@ -104,6 +131,7 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 			if self.skillsTab.displayGroup == socketGroup then
 				self.skillsTab:SetDisplayGroup()
 			end
+			updateActiveSocketGroupIndex()
 			self.skillsTab:AddUndoState()
 			self.skillsTab.build.buildFlag = true
 			self.selValue = nil
@@ -128,10 +156,9 @@ function SkillListClass:OnHoverKeyUp(key)
 			else
 				local index = self.ListControl:GetHoverIndex()
 				if index then
-					-- mirrors Build.lua:548
 					self.skillsTab.build.mainSocketGroup = index
+					self.skillsTab:AddUndoState()
 					self.skillsTab.build.buildFlag = true
-					self.skillsTab.build.modFlag = true
 				end
 			end
 		elseif key == "LEFTBUTTON" and IsKeyDown("CTRL") then

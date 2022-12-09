@@ -72,7 +72,7 @@ function ItemClass:ParseRaw(raw)
 	self.rawLines = { }
 	for line in string.gmatch(self.raw .. "\r\n", "([^\r\n]*)\r?\n") do
 		line = line:gsub("^%s+",""):gsub("%s+$","")
-		-- remove "Superior" from qualitied items so base-type matches
+		-- remove "Superior" from items with quality so base-type matches
 		if line:match("^Superior ") then
 			line = line:gsub("Superior ", "")
 		end
@@ -366,7 +366,7 @@ function ItemClass:ParseRaw(raw)
 				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or specName == "Weapon Range" or
 				       specName == "Critical Strike Chance" or specName == "Physical Damage" or specName == "Elemental Damage" or
 				       specName == "Chaos Damage" or specName == "Chance to Block" or specName == "Armour" or
-					   specname == "Energy Shield" or specName == "Evasion" then
+					   specName == "Energy Shield" or specName == "Evasion" then
 					self.hidden_specs = true
 				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
 				elseif not (self.name:match(specName) and self.name:match(specVal)) then
@@ -377,10 +377,6 @@ function ItemClass:ParseRaw(raw)
 			if line == "Prefixes:" then
 				foundExplicit = true
 				gameModeStage = "EXPLICIT"
-			end
-			-- for weapons, when copy/pasting from trade site or importing via PoB Trader the base name of the weapon is repeated, skip it
-			if self.base and (line == self.base.type or self.base.subType and line == self.base.subType .. " " .. self.base.type) then
-				specName = line
 			end
 			if not specName or foundExplicit or foundImplicit then
 				local varSpec = line:match("{variant:([%d,]+)}")
@@ -455,7 +451,15 @@ function ItemClass:ParseRaw(raw)
 						self.enchantments = data.enchantments[self.base.type]
 					end
 					self.corruptible = self.base.type ~= "Flask"
-					self.influenceTags = data.specialBaseTags[self.type]
+					self.influenceTags = { }
+					for _, influenceTag in ipairs(influenceInfo) do
+						self.influenceTags[influenceTag.key] = { }
+						for tag, _ in pairs(self.base.tags) do
+							if tag ~= "default" then
+								t_insert(self.influenceTags[influenceTag.key], tag..'_'..influenceTag.key)
+							end
+						end
+					end
 					self.canBeInfluenced = self.influenceTags
 					self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]
 					self.requirements.str = self.base.req.str or 0
@@ -559,7 +563,7 @@ function ItemClass:ParseRaw(raw)
 						foundExplicit = true
 					end
 				elseif mode == "GAME" then
-					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned")) then
+					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned") and not (self.base and (line == self.base.type or self.base.subType and line == self.base.subType .. " " .. self.base.type))) then
 						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
@@ -589,7 +593,7 @@ function ItemClass:ParseRaw(raw)
 		elseif self.rarity == "MAGIC" then
 			self.affixLimit = 2
 		elseif self.rarity == "RARE" then
-			self.affixLimit = (self.type == "Jewel" and 4 or 6)
+			self.affixLimit = ((self.type == "Jewel" and not (self.base.subType == "Abyss" and self.corrupted)) and 4 or 6)
 		else
 			self.crafted = false
 		end
@@ -667,8 +671,12 @@ function ItemClass:GetModSpawnWeight(mod, extraTags)
 		local function HasInfluenceTag(key)
 			if self.influenceTags then
 				for _, curInfluenceInfo in ipairs(influenceInfo) do
-					if self[curInfluenceInfo.key] and self.influenceTags[curInfluenceInfo.key] == key then
-						return true
+					if self[curInfluenceInfo.key] then
+						for _, tag in ipairs(self.influenceTags[curInfluenceInfo.key]) do
+							if tag == key then
+								return true
+							end
+						end
 					end
 				end
 			end
@@ -764,7 +772,7 @@ function ItemClass:BuildRaw()
 	end
 	local function writeModLine(modLine)
 		local line = modLine.line
-		if modLine.range and line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
+		if modLine.range and line:match("%(%-?[%d%.]+%-%-?[%d%.]+%)") then
 			line = "{range:" .. round(modLine.range, 3) .. "}" .. line
 		end
 		if modLine.crafted then
@@ -1069,7 +1077,8 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		weaponData.name = self.name
 		weaponData.AttackSpeedInc = calcLocal(modList, "Speed", "INC", ModFlag.Attack) + m_floor(self.quality / 8 * calcLocal(modList, "AlternateQualityLocalAttackSpeedPer8Quality", "INC", 0))
 		weaponData.AttackRate = round(self.base.weapon.AttackRateBase * (1 + weaponData.AttackSpeedInc / 100), 2)
-		weaponData.range = self.base.weapon.Range + calcLocal(modList, "WeaponRange", "BASE", 0) + m_floor(self.quality / 10 * calcLocal(modList, "AlternateQualityLocalWeaponRangePer10Quality", "BASE", 0))
+		weaponData.rangeBonus = calcLocal(modList, "WeaponRange", "BASE", 0) + m_floor(self.quality / 10 * calcLocal(modList, "AlternateQualityLocalWeaponRangePer10Quality", "BASE", 0))
+		weaponData.range = self.base.weapon.Range + weaponData.rangeBonus
 		for _, dmgType in pairs(dmgTypeList) do
 			local min = (self.base.weapon[dmgType.."Min"] or 0) + calcLocal(modList, dmgType.."Min", "BASE", 0)
 			local max = (self.base.weapon[dmgType.."Max"] or 0) + calcLocal(modList, dmgType.."Max", "BASE", 0)
