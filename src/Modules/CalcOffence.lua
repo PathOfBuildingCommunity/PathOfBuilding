@@ -4387,6 +4387,9 @@ function calcs.offence(env, actor, activeSkill)
 				local preSpeed = output.TrapThrowingSpeed or output.MineLayingSpeed
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (preSpeed > 0 and preSpeed or 1 / output.Cooldown) or preSpeed) / repeats
 				timeType = skillFlags.trap and "trap throwing" or "mine laying"
+			elseif skillFlags.totem then
+				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.TotemPlacementSpeed > 0 and output.TotemPlacementSpeed or 1 / output.Cooldown) or output.TotemPlacementSpeed) / repeats
+				timeType = "totem placement"
 			elseif skillModList:Flag(nil, "HasSeals") and skillModList:Flag(nil, "UseMaxUnleash") then
 				useSpeed = 1 / env.player.mainSkill.skillData.hitTimeOverride / repeats
 				timeType = "full unleash"
