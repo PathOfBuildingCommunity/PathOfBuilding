@@ -8,7 +8,7 @@ describe("TetsItemMods", function()
     end)
 
 
-    it("Varnarustra works with nightblade", function()
+    it("Varunastra works with nightblade", function()
         build.itemsTab:CreateDisplayItemFromRaw([[Varunastra
         Vaal Blade
         League: Perandus
@@ -40,7 +40,7 @@ describe("TetsItemMods", function()
         assert.are_not.equals(nonElusiveCritMult, build.calcsTab.mainOutput.CritMultiplier)
     end)
 
-    it("Varnarustra works with close combat support", function()
+    it("Varunastra works with close combat support", function()
         build.itemsTab:CreateDisplayItemFromRaw([[Varunastra
         Vaal Blade
         League: Perandus

@@ -668,7 +668,7 @@ local function loadJewelFile(jewelTypeName)
 
 				--- Code for compressing existing data if it changed
 				if jewelType == 1 then
-					ConPrintf("GV needs to be split manualy")
+					ConPrintf("GV needs to be split manually")
 				else
 					local compressedFileData = Deflate(jewelData)
 					local file = assert(io.open(scriptPath .. "Data/TimelessJewelData/" .. jewelTypeName .. ".zip", "wb+"))
@@ -794,7 +794,7 @@ data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
 data.timelessJewelLUTs = { }
 -- this runs if the "size" key is missing from nodeIDList and attempts to rebuild all jewel LUTs and the nodeIDList
 -- note this should only run in dev mode
-if not data.nodeIDList.size and launch.devMode then -- this doesnt rebuilt the list with the correct sizes, likly an issue with lua indexing from 1 instead of 0, but cbf debugging so just generated the index mapping in c#
+if not data.nodeIDList.size and launch.devMode then -- this doesn't rebuilt the list with the correct sizes, likely an issue with lua indexing from 1 instead of 0, but cbf debugging so just generated the index mapping in c#
 	ConPrintf("Error NodeIndexMapping file empty")
 	data.nodeIDList = { { index = 0, rebuildLUT = 1 } }
 	for _, jewelType in ipairs({2, 3, 4, 5}) do

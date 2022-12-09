@@ -145,7 +145,7 @@ return {
 		},
 		[15]={
 			list=false,
-			name="ManuallyCasted",
+			name="ManuallyCast",
 			refTo="",
 			type="Bool",
 			width=100
@@ -3102,7 +3102,7 @@ return {
 		},
 		[27]={
 			list=true,
-			name="MonterMods",
+			name="MonsterMods",
 			refTo="Mods",
 			type="Key",
 			width=300
@@ -4677,7 +4677,7 @@ return {
 	},
 	MicrotransactionCombineFormula={
 	},
-	MicrotransactionCombineForumula={
+	MicrotransactionCombineFormula={
 	},
 	MicrotransactionCursorVariations={
 	},
@@ -4969,7 +4969,7 @@ return {
 		[24]={
 			list=true,
 			name="",
-			refTo="Modtype",
+			refTo="ModType",
 			type="Key",
 			width=150
 		},
@@ -7156,7 +7156,7 @@ return {
 	},
 	QuestRewards={
 	},
-	QuestStateCalcuation={
+	QuestStateCalculation={
 	},
 	QuestStateCalculation={
 	},
@@ -7202,7 +7202,7 @@ return {
 	},
 	RogueExiles={
 	},
-	Rulesets={
+	RuleSets={
 	},
 	RunicCircles={
 	},
