@@ -73,9 +73,9 @@ Grants Level 12 Summon Stone Golem Skill
 Adds (24-30) to (34-40) Physical Damage
 (8-10)% increased Attack Speed
 {variant:1,2}Minions have (20-30)% increased maximum Life
-+1 to maximum number of Golems
++1 to maximum number of Summoned Golems
 {variant:1,2}Minions deal (5-8) to (12-16) Added Attack Physical Damage
-{variant:3}Golems deal (96-120) to (132-160) Added Attack Physical Damage
+{variant:3}Golems have (96-120) to (132-160) Added Attack Physical Damage
 ]],[[
 Flesh-Eater
 Dream Mace
@@ -115,6 +115,7 @@ Attacks with this Weapon deal double Damage to Chilled Enemies
 Replica Frostbreath
 Ornate Mace
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 50, 161 Str
 Implicits: 1
 15% reduced Enemy Stun Threshold
@@ -141,7 +142,6 @@ Implicits: 2
 Lavianga's Wisdom
 War Hammer
 League: Legion
-Source: Drops from Karui Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
@@ -197,6 +197,7 @@ Implicits: 1
 Replica Nebulis
 Void Sceptre
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
@@ -206,7 +207,8 @@ Implicits: 1
 ]],[[
 Nebuloch
 Nightmare Mace
-Source: Drops from unique{The Elder} (Tier 6+)
+Elder Item
+Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 68, 212 Str
@@ -220,13 +222,12 @@ Adds 5 to 8 Physical Damage per Endurance Charge
 +500 to Armour per Endurance Charge 
 {variant:1}400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 {variant:2}200 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
-Elder Item
 ]],
 -- Weapon: Sceptre
 [[
 Augyre
 Void Sceptre
-Source: Drops from unique{The Purifier} (Tier 11+)
+Elder Item
 Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 104 Str, 122 Int
@@ -239,7 +240,6 @@ Implicits: 1
 Every 16 seconds you gain Elemental Overload for 8 seconds 
 You have Resolute Technique while you do not have Elemental Overload
 {variant:2}100% increased Physical Damage while you have Resolute Technique
-Elder Item
 ]],[[
 Axiom Perpetuum
 Bronze Sceptre
@@ -281,6 +281,7 @@ Socketed Gems are Supported by Level 15 Inspiration
 Replica Bitterdream
 Shadow Sceptre
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 32, 52 Str, 62 Int
 Implicits: 1
 22% increased Elemental Damage
@@ -293,7 +294,6 @@ Socketed Gems are Supported by Level 15 Innervate
 ]],[[
 The Black Cane
 Royal Sceptre
-Source: Drops from unique{Drox, the Warlord}
 Requires Level 50, 86 Str, 86 Int
 Implicits: 1
 24% increased Elemental Damage
@@ -371,8 +371,8 @@ Implicits: 2
 {variant:6,7,8}10% Global chance to Blind Enemies on hit
 Blind does not affect your Chance to Hit
 Enemies Blinded by you while you are Blinded have Malediction
-{variant:1,2}+1 Mana gained on Kill per Level
-{variant:1,2}+1 Energy Shield gained on Kill per Level
+{variant:1,2}Gain 1 Mana on Kill per Level
+{variant:1,2}Gain 1 Energy Shield on Kill per Level
 {variant:3,4,6,7}+1 to maximum Life per Level
 {variant:3,5,6,8}+1 to maximum Mana per Level
 {variant:4,5,7,8}+1 to maximum Energy Shield per Level
@@ -403,7 +403,7 @@ Implicits: 2
 +(50-70) to Strength
 (15-18)% increased Cast Speed
 +(20-30) to maximum Mana
-Socketed Gems are Supported by level 30 Iron Will
+Socketed Gems are Supported by Level 30 Iron Will
 1% increased Damage per 8 Strength when in Main Hand
 1% increased Armour per 16 Strength when in Off Hand
 ]],[[
@@ -416,7 +416,7 @@ Requires Level 75, 113 Str, 113 Int
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2}32% increased Elemental Damage
-Socketed Gems are Supported by level 20 Elemental Proliferation
+Socketed Gems are Supported by Level 20 Elemental Proliferation
 Adds (65-85) to (100-160) Physical Damage
 (11-15)% increased Attack Speed
 (6-10)% increased Cast Speed
@@ -438,6 +438,7 @@ Summoned Skeletons have Avatar of Fire
 Replica Earendel's Embrace
 Grinning Fetish
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 35, 62 Str, 62 Int
 Implicits: 1
 18% increased Elemental Damage
@@ -463,9 +464,9 @@ Implicits: 2
 {variant:2,3}Raised Zombies have +2000 to maximum Life
 {variant:4,5}Raised Zombies have +5000 to maximum Life
 Raised Zombies have +(25-30)% to all Resistances
-25% increased Zombie Size
-{variant:1,2,3,4}Enemies killed by Zombies explode dealing 20% of their Maximum Life as Fire Damage
-{variant:5}Enemies killed by Zombies explode dealing 50% of their Maximum Life as Fire Damage
+25% increased Raised Zombie Size
+{variant:1,2,3,4}Enemies Killed by Zombies' Hits Explode, dealing 20% of their Life as Fire Damage
+{variant:5}Enemies Killed by Zombies' Hits Explode, dealing 50% of their Life as Fire Damage
 {variant:1,2,3}Raised Zombies deal (80-100)% increased Physical Damage
 {variant:4}Raised Zombies deal (80-100)% more Physical Damage
 {variant:5}Raised Zombies deal (100-125)% more Physical Damage
@@ -482,14 +483,14 @@ Implicits: 2
 {variant:1,2}20% increased Elemental Damage
 {variant:3,4,5}30% increased Elemental Damage
 {variant:4}+2 to Level of Socketed Fire Gems
-{variant:1,2,3}Socketed Gems are Supported by level 10 Added Fire Damage
-{variant:1,2,3}Socketed Gems are Supported by level 10 Cold to Fire
-{variant:1,2,3,4}Socketed Gems are Supported by level 10 Fire Penetration
+{variant:1,2,3}Socketed Gems are Supported by Level 10 Added Fire Damage
+{variant:1,2,3}Socketed Gems are Supported by Level 10 Cold to Fire
+{variant:1,2,3,4}Socketed Gems are Supported by Level 10 Fire Penetration
 {variant:4}Socketed Gems deal 63 to 94 additional Fire Damage
 {variant:1,2,3,4}(20-30)% increased Spell Damage
 {variant:2,3,4,5}(150-200)% increased Physical Damage
 {variant:5}Adds (76-98) to (161-176) Fire Damage
-{variant:1,2,3,4}+(6-10) Life gained for each Enemy hit by Attacks
+{variant:1,2,3,4}Gain (6-10) Life per Enemy Hit by Attacks
 {variant:1,2,3,4}25% increased Light Radius
 {variant:5}50% increased Light Radius
 {variant:5}Battlemage
@@ -497,7 +498,6 @@ Implicits: 2
 Sign of the Sin Eater
 Tyrant's Sekhem
 League: Legion
-Source: Drops from Templar Legion
 Requires Level 58, 99 Str, 99 Int
 Implicits: 1
 26% increased Elemental Damage
@@ -560,6 +560,7 @@ Implicits: 2
 Yaomac's Accord
 Vaal Sceptre
 League: Ultimatum
+Source: Drops from unique{The Trialmaster}
 Requires Level 64, 113 Str, 113 Int
 Implicits: 1
 32% increased Elemental Damage
@@ -572,11 +573,9 @@ Shepherd of Souls
 [[
 Brain Rattler 
 Meatgrinder
-Source: Drops from unique{Guardian of the Minotaur}
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 63, 212 Str
 Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
@@ -587,10 +586,10 @@ Implicits: 3
 {variant:1,2}15% chance to Shock
 {variant:3}50% chance to Shock
 {variant:1,2}10% chance to Cause Monsters to Flee
-{variant:3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
 Damage Penetrates 20% Lightning Resistance
 Enemies you Shock have 30% reduced Cast Speed
 Enemies you Shock have 20% reduced Movement Speed
+{variant:3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
 ]],[[
 Chober Chaber
 Great Mallet
@@ -695,7 +694,7 @@ Requires Level 44, 143 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}45% increased Stun Duration on Enemies
-{variant:2}25% chance to Trigger level 20 Animate Weapon on Kill
+{variant:2}25% chance to Trigger Level 20 Animate Weapon on Kill
 (150-200)% increased Physical Damage
 (8-12)% increased Attack Speed
 (8-12)% increased Cast Speed
@@ -725,6 +724,7 @@ Your Critical Strikes do not deal extra Damage
 Replica Kongor's Undying Rage
 Terror Maul
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 67, 212 Str
 Implicits: 1
 25% chance to double Stun Duration
@@ -738,7 +738,6 @@ Regenerate 20% of Energy Shield per second if you've dealt a Critical Strike wit
 Marohi Erqi
 Karui Maul
 League: Legion
-Source: Drops from Legion Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
@@ -776,7 +775,7 @@ Implicits: 2
 (80-100)% increased Physical Damage
 Adds 5 to 25 Physical Damage
 +(25-50) to all Attributes
-+10 Life gained on Kill
+Gain 10 Life per Enemy Killed
 Enemies killed explode dealing 10% of their Life as Fire Damage
 ]],[[
 Panquetzaliztli
@@ -822,6 +821,7 @@ This Weapon's Critical Strike Chance is 100%
 Replica Trypanon
 Great Mallet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 40, 131 Str
 Implicits: 1
 30% increased Stun Duration on Enemies
