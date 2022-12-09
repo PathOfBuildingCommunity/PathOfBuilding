@@ -137,7 +137,7 @@ Rampage
 Chains of Emancipation
 Chain Belt
 League: Heist
-Source: Drops from unique{Freidrich Tarollo, Slave Merchant} in normal{Contract: The Slaver King}
+Source: Drops from unique{Friedrich Tarollo, Slave Merchant} in normal{Contract: The Slaver King}
 LevelReq: 61
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
