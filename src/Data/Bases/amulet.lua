@@ -131,134 +131,6 @@ itemBases["Jet Amulet"] = {
 	req = { level = 12, },
 }
 
-itemBases["Avian Twins Talisman (Fire-To-Cold)"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "50% of Fire Damage from Hits taken as Cold Damage",
-	implicitModTypes = { { "elemental", "fire", "cold" }, },
-	req = { },
-}
-itemBases["Avian Twins Talisman (Fire-To-Lightning)"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "50% of Fire Damage from Hits taken as Lightning Damage",
-	implicitModTypes = { { "elemental", "fire", "lightning" }, },
-	req = { },
-}
-itemBases["Avian Twins Talisman (Cold-To-Lightning)"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "50% of Cold Damage from Hits taken as Fire Damage",
-	implicitModTypes = { { "elemental", "fire", "cold" }, },
-	req = { },
-}
-itemBases["Avian Twins Talisman (Cold-To-Fire)"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "50% of Cold Damage from Hits taken as Lightning Damage",
-	implicitModTypes = { { "elemental", "cold", "lightning" }, },
-	req = { },
-}
-itemBases["Avian Twins Talisman (Lightning-To-Cold)"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "50% of Lightning Damage from Hits taken as Cold Damage",
-	implicitModTypes = { { "elemental", "cold", "lightning" }, },
-	req = { },
-}
-itemBases["Avian Twins Talisman (Lightning-To-Fire)"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "50% of Lightning Damage from Hits taken as Fire Damage",
-	implicitModTypes = { { "elemental", "fire", "lightning" }, },
-	req = { },
-}
-itemBases["Monkey Paw Talisman (Power)"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "10% chance to gain a Power Charge on Kill",
-	implicitModTypes = { { "power_charge" }, },
-	req = { },
-}
-itemBases["Monkey Paw Talisman (Frenzy)"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "10% chance to gain a Frenzy Charge on Kill",
-	implicitModTypes = { { "frenzy_charge" }, },
-	req = { },
-}
-itemBases["Avian Twins Talisman"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "50% of Fire Damage from Hits taken as Cold Damage",
-	implicitModTypes = { { "elemental", "fire", "cold" }, },
-	req = { },
-}
-itemBases["Avian Twins Talisman"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "50% of Fire Damage from Hits taken as Lightning Damage",
-	implicitModTypes = { { "elemental", "fire", "lightning" }, },
-	req = { },
-}
-itemBases["Avian Twins Talisman"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "50% of Cold Damage from Hits taken as Fire Damage",
-	implicitModTypes = { { "elemental", "fire", "cold" }, },
-	req = { },
-}
-itemBases["Avian Twins Talisman"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "50% of Cold Damage from Hits taken as Lightning Damage",
-	implicitModTypes = { { "elemental", "cold", "lightning" }, },
-	req = { },
-}
-itemBases["Avian Twins Talisman"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "50% of Lightning Damage from Hits taken as Cold Damage",
-	implicitModTypes = { { "elemental", "cold", "lightning" }, },
-	req = { },
-}
-itemBases["Avian Twins Talisman"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "50% of Lightning Damage from Hits taken as Fire Damage",
-	implicitModTypes = { { "elemental", "fire", "lightning" }, },
-	req = { },
-}
-itemBases["Monkey Paw Talisman"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "10% chance to gain a Power Charge on Kill",
-	implicitModTypes = { { "power_charge" }, },
-	req = { },
-}
-itemBases["Monkey Paw Talisman"] = {
-	type = "Amulet",
-	subType = "Talisman",
-	tags = { default = true, talisman = true, amulet = true, },
-	implicit = "10% chance to gain a Frenzy Charge on Kill",
-	implicitModTypes = { { "frenzy_charge" }, },
-	req = { },
-}
 itemBases["Black Maw Talisman"] = {
 	type = "Amulet",
 	subType = "Talisman",
@@ -536,5 +408,61 @@ itemBases["Greatwolf Talisman"] = {
 	subType = "Talisman",
 	tags = { amulet = true, default = true, },
 	implicitModTypes = { },
+	req = { },
+}
+itemBases["Avian Twins Talisman (Fire-To-Cold)"] = {
+	type = "Amulet",
+	subType = "Talisman",
+	tags = { default = true, talisman = true, amulet = true, },
+	implicit = "50% of Fire Damage from Hits taken as Cold Damage",
+	implicitModTypes = { { "elemental", "fire", "cold" }, },
+	req = { },
+}
+itemBases["Avian Twins Talisman (Fire-To-Lightning)"] = {
+	type = "Amulet",
+	subType = "Talisman",
+	tags = { default = true, talisman = true, amulet = true, },
+	implicit = "50% of Fire Damage from Hits taken as Lightning Damage",
+	implicitModTypes = { { "elemental", "fire", "lightning" }, },
+	req = { },
+}
+itemBases["Avian Twins Talisman (Cold-To-Lightning)"] = {
+	type = "Amulet",
+	subType = "Talisman",
+	tags = { default = true, talisman = true, amulet = true, },
+	implicit = "50% of Cold Damage from Hits taken as Fire Damage",
+	implicitModTypes = { { "elemental", "fire", "cold" }, },
+	req = { },
+}
+itemBases["Avian Twins Talisman (Cold-To-Fire)"] = {
+	type = "Amulet",
+	subType = "Talisman",
+	tags = { default = true, talisman = true, amulet = true, },
+	implicit = "50% of Cold Damage from Hits taken as Lightning Damage",
+	implicitModTypes = { { "elemental", "cold", "lightning" }, },
+	req = { },
+}
+itemBases["Avian Twins Talisman (Lightning-To-Cold)"] = {
+	type = "Amulet",
+	subType = "Talisman",
+	tags = { default = true, talisman = true, amulet = true, },
+	implicit = "50% of Lightning Damage from Hits taken as Cold Damage",
+	implicitModTypes = { { "elemental", "cold", "lightning" }, },
+	req = { },
+}
+itemBases["Monkey Paw Talisman (Power)"] = {
+	type = "Amulet",
+	subType = "Talisman",
+	tags = { default = true, talisman = true, amulet = true, },
+	implicit = "10% chance to gain a Power Charge on Kill",
+	implicitModTypes = { { "power_charge" }, },
+	req = { },
+}
+itemBases["Monkey Paw Talisman (Frenzy)"] = {
+	type = "Amulet",
+	subType = "Talisman",
+	tags = { default = true, talisman = true, amulet = true, },
+	implicit = "10% chance to gain a Frenzy Charge on Kill",
+	implicitModTypes = { { "frenzy_charge" }, },
 	req = { },
 }

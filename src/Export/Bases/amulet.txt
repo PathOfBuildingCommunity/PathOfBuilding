@@ -12,8 +12,8 @@ local itemBases = ...
 #base Metadata/Items/Amulet/AmuletVictor1
 
 #subType Talisman
-#forceShow true
 #baseMatch Metadata/Items/Amulets/Talismans/Talisman
+#forceShow true
 #base Metadata/Items/Amulets/Talismans/Talisman2_6_1 Avian Twins Talisman (Fire-To-Cold)
 #base Metadata/Items/Amulets/Talismans/Talisman2_6_2 Avian Twins Talisman (Fire-To-Lightning)
 #base Metadata/Items/Amulets/Talismans/Talisman2_6_3 Avian Twins Talisman (Cold-To-Lightning)
