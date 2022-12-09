@@ -537,7 +537,7 @@ Implicits: 1
 {variant:3}Bow Attacks have Culling Strike
 {variant:1,2}{tags:attack,life,physical_damage}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:1}Precision has 50% less Reservation
-{variant:2,3}{tags:mana}PPrecision has 100% increased Mana Reservation Efficiency
+{variant:2,3}{tags:mana}Precision has 100% increased Mana Reservation Efficiency
 ]],[[
 Replica Hyrri's Truth
 Jade Amulet
