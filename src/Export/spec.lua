@@ -145,7 +145,7 @@ return {
 		},
 		[15]={
 			list=false,
-			name="ManuallyCasted",
+			name="ManuallyCast",
 			refTo="",
 			type="Bool",
 			width=100
@@ -331,6 +331,27 @@ return {
 		}
 	},
 	AdditionalLifeScaling={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="DATFilename",
+			refTo="",
+			type="String",
+			width=240
+		},
+		[3]={
+			list=false,
+			name="DATFilepath",
+			refTo="",
+			type="String",
+			width=290
+		}
 	},
 	AdditionalLifeScalingPerLevel={
 	},
@@ -470,49 +491,35 @@ return {
 			name="Stat1",
 			refTo="",
 			type="Interval",
-			width=150
+			width=70
 		},
 		[6]={
 			list=false,
-			name="Unknown6",
+			name="Stat2",
 			refTo="",
-			type="Int",
-			width=30
+			type="Interval",
+			width=70
 		},
 		[7]={
 			list=false,
-			name="Unknown7",
+			name="Stat3",
 			refTo="",
-			type="Int",
-			width=30
+			type="Interval",
+			width=70
 		},
 		[8]={
-			list=false,
-			name="Unknown8",
-			refTo="",
-			type="Int",
-			width=30
-		},
-		[9]={
-			list=false,
-			name="Unknown9",
-			refTo="",
-			type="Int",
-			width=30
-		},
-		[10]={
 			list=true,
 			name="PassiveType",
 			refTo="",
 			type="Int",
-			width=150
+			width=70
 		},
-		[11]={
+		[9]={
 			list=false,
-			name="Unknown11",
+			name="SpawnWeight",
 			refTo="",
 			type="Int",
-			width=150
+			width=90
 		}
 	},
 	AlternatePassiveSkills={
@@ -563,102 +570,88 @@ return {
 			name="Stat2",
 			refTo="",
 			type="Interval",
-			width=50
+			width=70
 		},
 		[8]={
 			list=false,
-			name="Unknown9",
+			name="Stat3",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[9]={
 			list=false,
-			name="Unknown10",
+			name="Stat4",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[10]={
 			list=false,
-			name="Unknown11",
+			name="Stat5",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[11]={
 			list=false,
-			name="Unknown12",
+			name="Stat6",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=70
 		},
 		[12]={
 			list=false,
-			name="Unknown13",
-			refTo="",
-			type="Int",
-			width=70
-		},
-		[13]={
-			list=false,
-			name="Unknown14",
-			refTo="",
-			type="Int",
-			width=70
-		},
-		[14]={
-			list=false,
-			name="Unknown15",
-			refTo="",
-			type="Int",
-			width=30
-		},
-		[15]={
-			list=false,
-			name="Unknown16",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[16]={
-			list=false,
 			name="SpawnWeight",
 			refTo="",
 			type="Int",
-			width=30
+			width=90
 		},
-		[17]={
+		[13]={
 			list=false,
-			name="Unknown18",
+			name="ConquerorIndex",
 			refTo="",
-			type="Int",
-			width=150
+			type="UInt",
+			width=90
 		},
-		[18]={
+		[14]={
 			list=false,
 			name="Random",
 			refTo="",
 			type="Interval",
 			width=150
 		},
-		[19]={
+		[15]={
 			list=false,
 			name="FlavourText",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[20]={
+		[16]={
 			list=false,
 			name="DDSIcon",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[21]={
+		[17]={
 			list=true,
 			name="AchievementItemsKeys",
+			refTo="",
+			type="UInt",
+			width=150
+		},
+		[18]={
+			list=false,
+			name="ConquerorVersion",
+			refTo="",
+			type="UInt",
+			width=150
+		},
+		[19]={
+			list=false,
+			name="ConquerorSpawnWeight",
 			refTo="",
 			type="UInt",
 			width=150
@@ -686,7 +679,51 @@ return {
 			refTo="",
 			type="String",
 			width=150
+		},
+		[2]={
+			list=false,
+			name="SmallAttributeReplaced",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="SmallNormalPassiveReplaced ",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="SmallAttributePassiveSkillAdditions",
+			refTo="",
+			type="Interval",
+			width=170
+		},
+		[5]={
+			list=false,
+			name="NotableAdditions",
+			refTo="",
+			type="Interval",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="SmallNormalPassiveSkillAdditions",
+			refTo="",
+			type="Interval",
+			width=170
+		},
+		[7]={
+			list=false,
+			name="NotableReplacementSpawnWeight ",
+			refTo="",
+			type="UInt",
+			width=200
 		}
+	},
+	AnimatedObjectFlags={
 	},
 	Animation={
 		[1]={
@@ -702,8 +739,263 @@ return {
 	ArchetypeRewards={
 	},
 	Archetypes={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	ArchitectLifeScalingPerLevel={
+	},
+	ArchnemesisMetaRewards={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=220
+		}
+	},
+	ArchnemesisModComboAchievements={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
+	ArchnemesisModVisuals={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		}
+	},
+	ArchnemesisMods={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=310
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[14]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[15]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		}
+	},
+	ArchnemesisRecipes={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	AreaInfluenceDoodads={
 	},
@@ -853,6 +1145,8 @@ return {
 	},
 	AtlasBaseTypeDrops={
 	},
+	AtlasEntities={
+	},
 	AtlasExileBossArenas={
 	},
 	AtlasExileInfluence={
@@ -871,9 +1165,17 @@ return {
 	},
 	AtlasExiles={
 	},
+	AtlasFavouredMapSlots={
+	},
 	AtlasFog={
 	},
+	AtlasInfluenceData={
+	},
+	AtlasInfluenceOutcomeTypes={
+	},
 	AtlasInfluenceOutcomes={
+	},
+	AtlasInfluenceSets={
 	},
 	AtlasModTiers={
 	},
@@ -883,7 +1185,19 @@ return {
 	},
 	AtlasNodeDefinition={
 	},
+	AtlasPassiveSkillTreeGroupType={
+	},
 	AtlasPositions={
+	},
+	AtlasPrimordialAltarChoiceTypes={
+	},
+	AtlasPrimordialAltarChoices={
+	},
+	AtlasPrimordialBossInfluence={
+	},
+	AtlasPrimordialBossOptions={
+	},
+	AtlasPrimordialBosses={
 	},
 	AtlasQuadrant={
 	},
@@ -896,6 +1210,8 @@ return {
 	AtlasSector={
 	},
 	AtlasSkillGraphs={
+	},
+	AtlasUpgradesInventoryLayout={
 	},
 	Attributes={
 	},
@@ -1009,6 +1325,10 @@ return {
 			type="Key",
 			width=150
 		}
+	},
+	BattlePassRewards={
+	},
+	BattlePasses={
 	},
 	BestiaryCapturableMonsters={
 	},
@@ -1900,6 +2220,8 @@ return {
 	},
 	Chests={
 	},
+	ClientLeagueAction={
+	},
 	ClientStrings={
 		[1]={
 			list=false,
@@ -1940,6 +2262,8 @@ return {
 	ClientUIScreens={
 	},
 	CloneShot={
+	},
+	Colours={
 	},
 	Commands={
 	},
@@ -2262,6 +2586,8 @@ return {
 			width=100
 		}
 	},
+	CraftingBenchSortCategories={
+	},
 	CraftingBenchUnlockCategories={
 		[1]={
 			list=false,
@@ -2310,6 +2636,8 @@ return {
 	CustomLeagueMods={
 	},
 	DaemonSpawningData={
+	},
+	DamageEffectVariations={
 	},
 	DamageHitEffects={
 	},
@@ -2509,6 +2837,10 @@ return {
 	},
 	Doors={
 	},
+	DroneBaseTypes={
+	},
+	DroneTypes={
+	},
 	DropEffects={
 	},
 	DropModifiers={
@@ -2542,6 +2874,8 @@ return {
 	EinharPackFallback={
 	},
 	ElderBossArenas={
+	},
+	ElderGuardians={
 	},
 	ElderMapBossOverride={
 	},
@@ -2768,7 +3102,7 @@ return {
 		},
 		[27]={
 			list=true,
-			name="MonterMods",
+			name="MonsterMods",
 			refTo="Mods",
 			type="Key",
 			width=300
@@ -3038,6 +3372,32 @@ return {
 	},
 	ExpandingPulse={
 	},
+	ExpeditionAreas={
+	},
+	ExpeditionBalancePerLevel={
+	},
+	ExpeditionCurrency={
+	},
+	ExpeditionDealFamilies={
+	},
+	ExpeditionDeals={
+	},
+	ExpeditionFactions={
+	},
+	ExpeditionMarkersCommon={
+	},
+	ExpeditionNPCs={
+	},
+	ExpeditionRelicModCategories={
+	},
+	ExpeditionRelicMods={
+	},
+	ExpeditionRelics={
+	},
+	ExpeditionStorageLayout={
+	},
+	ExpeditionTerrainFeatures={
+	},
 	ExperienceLevels={
 	},
 	ExplodingStormBuffs={
@@ -3051,6 +3411,8 @@ return {
 	FixedHideoutDoodads={
 	},
 	FixedMissions={
+	},
+	FlaskStashBaseTypeOrdering={
 	},
 	FlaskType={
 	},
@@ -3138,7 +3500,17 @@ return {
 			width=150
 		}
 	},
+	GameObjectTasks={
+	},
 	GameStats={
+	},
+	GamepadButton={
+	},
+	GamepadButtonCombination={
+	},
+	GamepadThumbstick={
+	},
+	GamepadType={
 	},
 	GemTags={
 		[1]={
@@ -3194,6 +3566,10 @@ return {
 			type="String",
 			width=150
 		}
+	},
+	GenericLeagueRewardTypeVisuals={
+	},
+	GenericLeagueRewardTypes={
 	},
 	GeometryAttack={
 	},
@@ -3396,9 +3772,9 @@ return {
 		[10]={
 			list=true,
 			name="InterpolationBases",
-			refTo="Stats",
+			refTo="EffectivenessCostConstants",
 			type="Key",
-			width=180
+			width=220
 		},
 		[11]={
 			list=true,
@@ -3901,6 +4277,34 @@ return {
 	},
 	HeistValueScaling={
 	},
+	HellscapeAOReplacements={
+	},
+	HellscapeAreaPacks={
+	},
+	HellscapeExperienceLevels={
+	},
+	HellscapeFactions={
+	},
+	HellscapeImmuneMonsters={
+	},
+	HellscapeItemModificationTiers={
+	},
+	HellscapeLifeScalingPerLevel={
+	},
+	HellscapeModificationInventoryLayout={
+	},
+	HellscapeMods={
+	},
+	HellscapeMonsterPacks={
+	},
+	HellscapePassiveTree={
+	},
+	HellscapePassives={
+	},
+	HideoutDoodadCategory={
+	},
+	HideoutDoodadTags={
+	},
 	HideoutDoodads={
 	},
 	HideoutNPCs={
@@ -3964,6 +4368,8 @@ return {
 	},
 	ItemClassCategories={
 	},
+	ItemClassFlags={
+	},
 	ItemClasses={
 		[1]={
 			list=false,
@@ -3988,6 +4394,8 @@ return {
 		}
 	},
 	ItemCostPerLevel={
+	},
+	ItemCosts={
 	},
 	ItemCreationTemplateCustomAction={
 	},
@@ -4100,6 +4508,8 @@ return {
 	},
 	KillstreakThresholds={
 	},
+	KiracLevels={
+	},
 	LabyrinthAreas={
 	},
 	LabyrinthBonusItems={
@@ -4142,7 +4552,11 @@ return {
 	},
 	LeagueQuestFlags={
 	},
+	LeagueStaticRewards={
+	},
 	LeagueTrophy={
+	},
+	LegacyAtlasInfluenceOutcomes={
 	},
 	LegionBalancePerLevel={
 	},
@@ -4198,7 +4612,11 @@ return {
 	},
 	MapSeriesTiers={
 	},
+	MapStashSpecialTypeEntries={
+	},
 	MapStashTabLayout={
+	},
+	MapStashUniqueMapInfo={
 	},
 	MapStatAchievements={
 	},
@@ -4249,11 +4667,17 @@ return {
 	},
 	MicroMigrationData={
 	},
+	MicrotransactionCategory={
+	},
+	MicrotransactionCategoryId={
+	},
 	MicrotransactionCharacterPortraitVariations={
+	},
+	MicrotransactionChargeVariations={
 	},
 	MicrotransactionCombineFormula={
 	},
-	MicrotransactionCombineForumula={
+	MicrotransactionCombineFormula={
 	},
 	MicrotransactionCursorVariations={
 	},
@@ -4261,7 +4685,11 @@ return {
 	},
 	MicrotransactionGemCategory={
 	},
+	MicrotransactionJewelVariations={
+	},
 	MicrotransactionPeriodicCharacterEffectVariations={
+	},
+	MicrotransactionPlayerShieldVariations={
 	},
 	MicrotransactionPortalVariations={
 	},
@@ -4273,6 +4701,8 @@ return {
 	},
 	MicrotransactionRecycleSalvageValues={
 	},
+	MicrotransactionSlot={
+	},
 	MicrotransactionSlotId={
 	},
 	MicrotransactionSocialFrameVariations={
@@ -4283,11 +4713,19 @@ return {
 	},
 	MiscAnimated={
 	},
+	MiscAnimatedArtVariations={
+	},
 	MiscBeams={
+	},
+	MiscBeamsArtVariations={
 	},
 	MiscEffectPacks={
 	},
+	MiscEffectPacksArtVariations={
+	},
 	MiscObjects={
+	},
+	MiscObjectsArtVariations={
 	},
 	MissionFavourPerLevel={
 	},
@@ -4306,6 +4744,13 @@ return {
 	ModEquivalencies={
 	},
 	ModFamily={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
+		}
 	},
 	ModGenerationType={
 	},
@@ -4336,6 +4781,27 @@ return {
 			refTo="Tags",
 			type="UInt",
 			width=130
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
 		}
 	},
 	Mods={
@@ -4344,7 +4810,7 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=300
+			width=450
 		},
 		[2]={
 			list=false,
@@ -4358,7 +4824,7 @@ return {
 			name="Type",
 			refTo="ModType",
 			type="Key",
-			width=150
+			width=280
 		},
 		[4]={
 			list=false,
@@ -4372,28 +4838,28 @@ return {
 			name="Stat1",
 			refTo="Stats",
 			type="Key",
-			width=280
+			width=200
 		},
 		[6]={
 			list=false,
 			name="Stat2",
 			refTo="Stats",
 			type="Key",
-			width=280
+			width=200
 		},
 		[7]={
 			list=false,
 			name="Stat3",
 			refTo="Stats",
 			type="Key",
-			width=150
+			width=200
 		},
 		[8]={
 			list=false,
 			name="Stat4",
 			refTo="Stats",
 			type="Key",
-			width=150
+			width=200
 		},
 		[9]={
 			list=false,
@@ -4407,7 +4873,7 @@ return {
 			name="Name",
 			refTo="",
 			type="String",
-			width=130
+			width=350
 		},
 		[11]={
 			list=false,
@@ -4417,11 +4883,11 @@ return {
 			width=100
 		},
 		[12]={
-			list=false,
+			list=true,
 			name="Family",
 			refTo="ModFamily",
-			type="String",
-			width=120
+			type="Key",
+			width=300
 		},
 		[13]={
 			list=false,
@@ -4503,7 +4969,7 @@ return {
 		[24]={
 			list=true,
 			name="",
-			refTo="",
+			refTo="ModType",
 			type="Key",
 			width=150
 		},
@@ -4615,55 +5081,55 @@ return {
 		[40]={
 			list=true,
 			name="",
-			refTo="",
+			refTo="HeistEnchant",
 			type="Key",
 			width=150
 		},
 		[41]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="Heist_SubStatValue1",
 			type="Int",
 			width=150
 		},
 		[42]={
 			list=false,
-			name="",
+			name="Heist_SubStatValue2",
 			refTo="GrantedEffectsPerLevel",
 			type="Int",
 			width=240
 		},
 		[43]={
 			list=false,
-			name="",
-			refTo="",
+			name="Heist_StatsKey0",
+			refTo="Stats",
 			type="Key",
 			width=150
 		},
 		[44]={
 			list=false,
-			name="",
-			refTo="",
+			name="Heist_StatsKey1",
+			refTo="Stats",
 			type="Key",
 			width=250
 		},
 		[45]={
 			list=false,
-			name="",
+			name="Heist_AddStatValue1",
 			refTo="",
 			type="Int",
 			width=240
 		},
 		[46]={
 			list=false,
-			name="",
+			name="Heist_AddStatValue2",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[47]={
 			list=false,
-			name="",
+			name="InfluenceTypes",
 			refTo="",
 			type="Int",
 			width=150
@@ -4679,78 +5145,78 @@ return {
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
+			type="Bool",
 			width=150
 		},
 		[50]={
 			list=false,
-			name="",
+			name="UnknownStat1",
 			refTo="",
-			type="Bool",
+			type="Interval",
 			width=150
 		},
 		[51]={
 			list=false,
-			name="",
+			name="UnknownStat2",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[52]={
 			list=false,
-			name="",
+			name="UnknownStat3",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[53]={
 			list=false,
-			name="",
+			name="UnknownStat4",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[54]={
 			list=false,
-			name="",
+			name="UnknownStat5",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[55]={
 			list=false,
-			name="",
+			name="UnknownStat6",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[56]={
 			list=false,
-			name="",
+			name="UnknownStat7",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[57]={
 			list=false,
-			name="",
+			name="UnknownStat8",
 			refTo="",
-			type="Int",
+			type="Interval",
 			width=150
 		},
 		[58]={
 			list=false,
-			name="",
-			refTo="",
-			type="Int",
+			name="BuffTemplate",
+			refTo="BuffTemplates",
+			type="Key",
 			width=150
 		},
 		[59]={
 			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
+			name="ArchnemesisMinionMod",
+			refTo="Mods",
+			type="ShortKey",
+			width=290
 		},
 		[60]={
 			list=false,
@@ -4775,30 +5241,9 @@ return {
 		},
 		[63]={
 			list=false,
-			name="",
+			name="NextMod",
 			refTo="",
-			type="Int",
-			width=150
-		},
-		[64]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[65]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[66]={
-			list=false,
-			name="",
-			refTo="",
-			type="Key",
+			type="String",
 			width=150
 		}
 	},
@@ -4809,6 +5254,13 @@ return {
 	MonsterBehavior={
 	},
 	MonsterBonuses={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=230
+		}
 	},
 	MonsterChanceToDropItemTemplate={
 	},
@@ -4831,8 +5283,120 @@ return {
 	MonsterHeights={
 	},
 	MonsterMapBossDifficulty={
+		[1]={
+			list=false,
+			name="AreaLevel",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="BossLifePercentIncrease",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="BossDamagePercentIncrease",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="BossIncItemQuantity",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="BossIncItemRarity",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="BossAilmentPercentDecrease",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	MonsterMapDifficulty={
+		[1]={
+			list=false,
+			name="AreaLevel",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[2]={
+			list=false,
+			name="LifePercentIncrease",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="DamagePercentIncrease",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
 	},
 	MonsterMortar={
 	},
@@ -5125,7 +5689,7 @@ return {
 			name="Mods",
 			refTo="Mods",
 			type="Key",
-			width=200
+			width=500
 		},
 		[11]={
 			list=false,
@@ -5660,6 +6224,10 @@ return {
 			width=50
 		}
 	},
+	MonsterVarietiesArtVariations={
+	},
+	MouseCursorSizeSettings={
+	},
 	MoveDaemon={
 	},
 	MultiPartAchievementAreas={
@@ -5722,6 +6290,8 @@ return {
 	},
 	NPCShopAdditionalItems={
 	},
+	NPCShopSellPriceType={
+	},
 	NPCTalk={
 	},
 	NPCTalkCategory={
@@ -5742,6 +6312,13 @@ return {
 		}
 	},
 	NearbyMonsterConditions={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=260
+		}
 	},
 	NetTiers={
 	},
@@ -5985,10 +6562,45 @@ return {
 		},
 		[5]={
 			list=false,
+			name="",
+			refTo="",
+			type="Enum",
+			width=150
+		},
+		[6]={
+			list=false,
 			name="Proxy",
 			refTo="PassiveSkills",
 			type="Key",
 			width=210
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
 		}
 	},
 	PassiveSkillBuffs={
@@ -6137,6 +6749,10 @@ return {
 		}
 	},
 	PassiveSkillTreeTutorial={
+	},
+	PassiveSkillTreeUIArt={
+	},
+	PassiveSkillTrees={
 	},
 	PassiveSkillTypes={
 	},
@@ -6357,6 +6973,20 @@ return {
 			refTo="PassiveSkillMasteryGroups",
 			type="Key",
 			width=150
+		},
+		[32]={
+			list=false,
+			name="AtlasMastery_rid",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[33]={
+			list=false,
+			name="SoundEffect",
+			refTo="SoundEffects",
+			type="Key",
+			width=150
 		}
 	},
 	PassiveTreeExpansionJewelSizes={
@@ -6420,23 +7050,9 @@ return {
 		},
 		[8]={
 			list=false,
-			name="Art",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[9]={
-			list=false,
 			name="TotalIndicies",
 			refTo="",
 			type="Int",
-			width=80
-		},
-		[10]={
-			list=false,
-			name="SoundEffect",
-			refTo="SoundEffects",
-			type="Key",
 			width=150
 		}
 	},
@@ -6506,11 +7122,15 @@ return {
 	},
 	PreloadPriorities={
 	},
+	PrimordialBossLifeScalingPerLevel={
+	},
 	ProjectileCollisionTypes={
 	},
 	ProjectileVariations={
 	},
 	Projectiles={
+	},
+	ProjectilesArtVariations={
 	},
 	Prophecies={
 	},
@@ -6536,7 +7156,7 @@ return {
 	},
 	QuestRewards={
 	},
-	QuestStateCalcuation={
+	QuestStateCalculation={
 	},
 	QuestStateCalculation={
 	},
@@ -6582,7 +7202,7 @@ return {
 	},
 	RogueExiles={
 	},
-	Rulesets={
+	RuleSets={
 	},
 	RunicCircles={
 	},
@@ -6598,7 +7218,27 @@ return {
 	},
 	Scarabs={
 	},
+	ScoutingReports={
+	},
+	SentinelCraftingCurrency={
+	},
+	SentinelDroneInventoryLayout={
+	},
+	SentinelPassiveStats={
+	},
+	SentinelPassiveTypes={
+	},
+	SentinelPassives={
+	},
+	SentinelPowerExpLevels={
+	},
+	SentinelStorageLayout={
+	},
+	SentinelTaggedMonsterStats={
+	},
 	SessionQuestFlags={
+	},
+	ShaperGuardians={
 	},
 	ShaperMemoryFragments={
 	},
@@ -6640,6 +7280,8 @@ return {
 	},
 	ShopRegion={
 	},
+	ShopTag={
+	},
 	ShopToken={
 	},
 	ShrineBuffs={
@@ -6649,6 +7291,10 @@ return {
 	Shrines={
 	},
 	SigilDisplay={
+	},
+	SingleGroundLaser={
+	},
+	SkillArtVariations={
 	},
 	SkillGemInfo={
 	},
@@ -6783,6 +7429,8 @@ return {
 	SkillTotems={
 	},
 	SkillTrapVariations={
+	},
+	SocketNotches={
 	},
 	SoundEffects={
 		[1]={
@@ -7077,6 +7725,14 @@ return {
 	},
 	TormentSpirits={
 	},
+	TradeMarketCategory={
+	},
+	TradeMarketCategoryGroups={
+	},
+	TradeMarketCategoryListAllClass={
+	},
+	TradeMarketCategoryStyleFlag={
+	},
 	TreasureHunterMissions={
 	},
 	TriggerBeam={
@@ -7116,6 +7772,8 @@ return {
 	UniqueStashLayout={
 	},
 	UniqueStashTypes={
+	},
+	UserInterfaceModeCondition={
 	},
 	VirtualStatContextFlags={
 		[1]={
@@ -7226,7 +7884,16 @@ return {
 	},
 	Words={
 	},
+	WorldAreaLeagueChances={
+	},
 	WorldAreas={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	WorldPopupIconTypes={
 	},

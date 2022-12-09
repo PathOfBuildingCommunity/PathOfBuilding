@@ -1411,7 +1411,7 @@ Implicits: 0
 ["PoisonAvoidChance"] = 0,
 ["LightningResistTotal"] = 77,
 ["Spec:EnergyShieldInc"] = 0,
-["InteruptStunAvoidChance"] = 0,
+["InterruptStunAvoidChance"] = 0,
 ["Spec:EvasionInc"] = 157,
 ["Spec:ArmourInc"] = 24,
 ["AverageDamage"] = 2468.3806,

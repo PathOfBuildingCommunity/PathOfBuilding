@@ -19,7 +19,7 @@ buildSites.websiteList = {
 		codeOut = "", postUrl = "https://poe.ninja/pob/api/api_post.php", postFields = "api_paste_code="
 	},
 	{
-		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/[%w-_]+", regexURL = "pobb%.in/([%w-_]+)%s*$", downloadURL = "pobb.in/pob/%1",
+		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/.+", regexURL = "pobb%.in/(.+)%s*$", downloadURL = "pobb.in/pob/%1",
 		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = ""
 	},
 }
@@ -72,8 +72,8 @@ function buildSites.DownloadBuild(link, websiteInfo, callback)
 	-- Only called on program start via protocol handler
 	if not websiteInfo then
 		for _, siteInfo in ipairs(buildSites.websiteList) do
-			if link:match("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(%w+)") then
-				siteCodeURL = link:gsub("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(%w+)", "https://" .. siteInfo.downloadURL)
+			if link:match("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(.+)") then
+				siteCodeURL = link:gsub("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(.+)", "https://" .. siteInfo.downloadURL)
 				websiteInfo = siteInfo
 				break
 			end
@@ -82,11 +82,11 @@ function buildSites.DownloadBuild(link, websiteInfo, callback)
 		siteCodeURL = link:gsub(websiteInfo.regexURL, websiteInfo.downloadURL)
 	end
 	if websiteInfo then
-		launch:DownloadPage(siteCodeURL, function(page, errMsg)
+		launch:DownloadPage(siteCodeURL, function(response, errMsg)
 			if errMsg then
 				callback(false, errMsg)
 			else
-				callback(true, page)
+				callback(true, response.body)
 			end
 		end)
 	else

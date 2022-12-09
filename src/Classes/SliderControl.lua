@@ -7,12 +7,13 @@ local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
 
-local SliderClass = newClass("SliderControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, changeFunc)
+local SliderClass = newClass("SliderControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, changeFunc, scrollWheelSpeedTbl)
 	self.Control(anchor, x, y, width, height)
 	self.TooltipHost()
 	self.knobSize = height - 2
 	self.val = 0
 	self.changeFunc = changeFunc
+	self.scrollWheelSpeedTbl = scrollWheelSpeedTbl or { ["SHIFT"] = 0.25, ["CTRL"] = 0.01, ["DEFAULT"] = 0.05 }
 end)
 
 function SliderClass:IsMouseOver()
@@ -159,6 +160,22 @@ function SliderClass:OnKeyUp(key)
 			self.dragging = false
 			local cursorX, cursorY = GetCursorPos()
 			self:SetValFromKnobX((cursorX - self.dragCX) + self.dragKnobX)
+		end
+	elseif (not main.invertSliderScrollDirection and key == "WHEELDOWN") or (main.invertSliderScrollDirection and  key == "WHEELUP") or key == "DOWN" or key == "LEFT" then
+		if IsKeyDown("SHIFT") then
+			self:SetVal(self.val - self.scrollWheelSpeedTbl["SHIFT"])
+		elseif IsKeyDown("CTRL") then
+			self:SetVal(self.val - self.scrollWheelSpeedTbl["CTRL"])
+		else
+			self:SetVal(self.val - self.scrollWheelSpeedTbl["DEFAULT"])
+		end
+	elseif (not main.invertSliderScrollDirection and key == "WHEELUP") or (main.invertSliderScrollDirection and key == "WHEELDOWN") or key == "UP" or key == "RIGHT" then
+		if IsKeyDown("SHIFT") then
+			self:SetVal(self.val + self.scrollWheelSpeedTbl["SHIFT"])
+		elseif IsKeyDown("CTRL") then
+			self:SetVal(self.val + self.scrollWheelSpeedTbl["CTRL"])
+		else
+			self:SetVal(self.val + self.scrollWheelSpeedTbl["DEFAULT"])
 		end
 	end
 end

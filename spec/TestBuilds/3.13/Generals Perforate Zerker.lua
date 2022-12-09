@@ -1303,7 +1303,7 @@ Gain 50 Life when you Stun an Enemy
 ["FullDPS"] = 0,
 ["MirageDPS"] = 134540497.4084,
 ["WithImpaleDPS"] = 19730363.201,
-["InteruptStunAvoidChance"] = 0,
+["InterruptStunAvoidChance"] = 0,
 ["ImpaleDPS"] = 9151079.9833,
 ["ImpaleHit"] = 585837.4997,
 ["AverageDamage"] = 579979.1247,

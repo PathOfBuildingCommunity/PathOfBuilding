@@ -810,7 +810,7 @@ Triggers Level 20 Reflection when Equipped
 ["Armour"] = 0,
 ["PoisonAvoidChance"] = 0,
 ["LightningResistTotal"] = -60,
-["InteruptStunAvoidChance"] = 0,
+["InterruptStunAvoidChance"] = 0,
 ["AverageDamage"] = 257.6858,
 ["ColdTakenHitMult"] = 1.6,
 ["PowerCharges"] = 0,

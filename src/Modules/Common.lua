@@ -457,7 +457,7 @@ function isValueInArrayPred(table, predicate)
 end
 
 -- Pretty-prints a table
-function prettyPrintTable(tbl, pre)
+function prettyPrintTable(tbl, pre, outFile)
 	pre = pre or ""
 	local outNames = { }
 	for name in pairs(tbl) do
@@ -466,9 +466,13 @@ function prettyPrintTable(tbl, pre)
 	table.sort(outNames)
 	for _, name in ipairs(outNames) do
 		if type(tbl[name]) == "table" then
-			prettyPrintTable(tbl[name], pre .. name .. ".")
+			prettyPrintTable(tbl[name], pre .. name .. ".", outFile)
 		else
-			ConPrintf("%s%s = %s", pre, name, tostring(tbl[name]))
+			if outFile then
+				outFile:write(pre .. name .. " = " .. tostring(tbl[name]) .. "\n")
+			else
+				ConPrintf("%s%s = %s", pre, name, tostring(tbl[name]))
+			end
 		end
 	end
 end
@@ -668,7 +672,11 @@ function cacheData(uuid, env)
 		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 		Speed = env.player.output.Speed,
 		ManaCost = env.player.output.ManaCost,
+		LifeCost = env.player.output.LifeCost,
+		ESCost = env.player.output.ESCost,
+		RageCost = env.player.output.RageCost,
 		HitChance = env.player.output.HitChance,
+		AccuracyHitChance = env.player.output.AccuracyHitChance,
 		PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
 		CritChance = env.player.output.CritChance,
 		TotalDPS = env.player.output.TotalDPS,
@@ -726,7 +734,7 @@ function wipeGlobalCache()
 	wipeTable(GlobalCache.cachedData.CACHE)
 	wipeTable(GlobalCache.excludeFullDpsList)
 	wipeTable(GlobalCache.deleteGroup)
-	GlobalCache.dontUseCache = nil
+	GlobalCache.noCache = nil
 end
 
 -- Full DPS related: add to roll-up exclusion list
@@ -749,6 +757,37 @@ function supportEnabled(skillName, activeSkill)
 		end
 	end
 	return true
+end
+
+function stringify(thing)
+	if type(thing) == 'string' then
+		return thing
+	elseif type(thing) == 'number' then
+		return ""..thing;
+	elseif type(thing) == 'table' then
+		local s = "{";
+		for k,v in pairs(thing) do
+			s = s.."\n\t"
+			if type(k) == 'number' then
+				s = s.."["..k.."] = "
+			else
+				s = s.."[\""..k.."\"] = "
+			end
+			if type(v) == 'string' then
+				s = s.."\""..stringify(v).."\", "
+			else
+				if type(v) == "boolean" then
+					v = v and "true" or "false"
+				end
+				val = stringify(v)..", "
+				if type(v) == "table" then
+					val = string.gsub(val, "\n", "\n\t")
+				end
+				s = s..val;
+			end
+		end
+		return s.."\n}"
+	end
 end
 
 -- Class function to split a string on a single character (??) separator.

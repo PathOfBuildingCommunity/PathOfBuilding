@@ -119,46 +119,6 @@ function PassiveSpecClass:Load(xml, dbFileName)
 	elseif url then
 		self:DecodeURL(url)
 	end
-	for _, node in pairs(xml) do
-		if type(node) == "table" then
-			if node.elem == "EditedNodes" then
-				for _, child in ipairs(node) do
-					if not child.attrib.nodeId then
-						launch:ShowErrMsg("^1Error parsing '%s': 'EditedNode' element missing 'nodeId' attribute", dbFileName)
-						return true
-					end
-					if not child.attrib.editorSeed then
-						launch:ShowErrMsg("^1Error parsing '%s': 'EditedNode' element missing 'editorSeed' attribute", dbFileName)
-						return true
-					end
-
-					local editorSeed = tonumber(child.attrib.editorSeed)
-					local nodeId = tonumber(child.attrib.nodeId)
-					if not self.tree.legion.editedNodes then
-						self.tree.legion.editedNodes = { }
-					end
-					if not self.tree.legion.editedNodes[editorSeed] then
-						self.tree.legion.editedNodes[editorSeed] = { }
-					end
-					self.tree.legion.editedNodes[editorSeed][nodeId] = copyTable(self.nodes[nodeId], true)
-					self.tree.legion.editedNodes[editorSeed][nodeId].id = nodeId
-					self.tree.legion.editedNodes[editorSeed][nodeId].dn = child.attrib.nodeName
-					self.tree.legion.editedNodes[editorSeed][nodeId].icon = child.attrib.icon
-					if self.tree.legion.nodes[child.attrib.spriteId] then
-						self.tree.legion.editedNodes[editorSeed][nodeId].spriteId = child.attrib.spriteId
-						self.tree.legion.editedNodes[editorSeed][nodeId].sprites = self.tree.legion.nodes[child.attrib.spriteId].sprites
-					end
-					local modCount = 0
-					for _, modLine in ipairs(child) do
-						for line in string.gmatch(modLine .. "\r\n", "([^\r\n\t]*)\r?\n") do
-							self:NodeAdditionOrReplacementFromString(self.tree.legion.editedNodes[editorSeed][nodeId], line, modCount == 0)
-							modCount = modCount + 1
-						end
-					end
-				end
-			end
-		end
-	end
 	self:ResetUndo()
 end
 
@@ -171,29 +131,6 @@ function PassiveSpecClass:Save(xml)
 	for mastery, effect in pairs(self.masterySelections) do
 		t_insert(masterySelections, "{"..mastery..","..effect.."}")
 	end
-	local editedNodes = {
-		elem = "EditedNodes"
-	}
-	if self.tree.legion.editedNodes then
-		for seed, nodes in pairs(self.tree.legion.editedNodes) do
-			for nodeId, node in pairs(nodes) do
-				local editedNode = { elem = "EditedNode", attrib = { nodeId = tostring(nodeId), editorSeed = tostring(seed), nodeName = node.dn, icon = node.icon, spriteId = node.spriteId } }
-				for _, modLine in ipairs(node.sd) do
-					t_insert(editedNode, modLine)
-				end
-				-- Do not save current editedNode data unless the current node is conquered
-				if self.nodes[nodeId] and self.nodes[nodeId].conqueredBy then
-					-- Do not save current editedNode data unless the current node is allocated
-					for allocNodeId in pairs(self.allocNodes) do
-						if nodeId == allocNodeId then
-							t_insert(editedNodes, editedNode)
-						end
-					end
-				end
-			end
-		end
-	end
-	t_insert(xml, editedNodes)
 	xml.attrib = { 
 		title = self.title,
 		treeVersion = self.treeVersion,
@@ -221,7 +158,6 @@ function PassiveSpecClass:Save(xml)
 	end
 	t_insert(xml, sockets)
 
-	self.modFlag = false
 end
 
 function PassiveSpecClass:PostLoad()
@@ -274,16 +210,26 @@ end
 
 function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
 	for i = 1, #masteryEffects - 1, 4 do
-
 		local effectId = masteryEffects:byte(i) * 256 + masteryEffects:byte(i + 1)
 		local id  = masteryEffects:byte(i + 2) * 256 + masteryEffects:byte(i + 3)
 
-		self.masterySelections[id] = effectId
 		local effect = self.tree.masteryEffects[effectId]
 		self.allocNodes[id].sd = effect.sd
+		self.allocNodes[id].allMasteryOptions = false
 		self.allocNodes[id].reminderText = { "Tip: Right click to select a different effect" }
 		self.tree:ProcessStats(self.allocNodes[id])
+		self.masterySelections[id] = effectId
 		self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+		if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
+			self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
+			self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+		else
+			local prevCount = self.allocatedMasteryTypes[self.allocNodes[id].name]
+			self.allocatedMasteryTypes[self.allocNodes[id].name] = prevCount + 1
+			if prevCount == 0 then
+				self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+			end
+		end
 	end
 end
 
@@ -692,7 +638,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			self:ReplaceNode(node,self.tree.nodes[id])
 		end
 
-		if node.type ~= "ClassStart" and node.type ~= "Socket" then
+		if node.type ~= "ClassStart" and node.type ~= "Socket" and not node.ascendancyName then
 			for nodeId, itemId in pairs(self.jewels) do
 				local item = self.build.itemsTab.items[itemId]
 				if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData then
@@ -703,7 +649,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 								-- This node depends on Intuitive Leap-like behaviour
 								-- This flag:
 								-- 1. Prevents generation of paths from this node
-								-- 2. Prevents this node from being deallocted via dependancy
+								-- 2. Prevents this node from being deallocted via dependency
 								-- 3. Prevents allocation of path nodes when this node is being allocated
 								node.dependsOnIntuitiveLeapLike = true
 							end
@@ -735,81 +681,208 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		if node.conqueredBy and node.type ~= "Socket" then
 			local conqueredBy = node.conqueredBy
 			local legionNodes = self.tree.legion.nodes
+			local legionAdditions = self.tree.legion.additions
 
-			-- Replace with edited node if applicable
-			if self.tree.legion.editedNodes and self.tree.legion.editedNodes[conqueredBy.id] and self.tree.legion.editedNodes[conqueredBy.id][node.id] then
-				local editedNode = self.tree.legion.editedNodes[conqueredBy.id][node.id]
-				node.dn = editedNode.dn
-				node.sd = editedNode.sd
-				node.sprites = editedNode.sprites
-				node.mods = editedNode.mods
-				node.modList = editedNode.modList
-				node.modKey = editedNode.modKey
-				node.icon = editedNode.icon
-				node.spriteId = editedNode.spriteId
-			else
-				if node.type == "Keystone" then
-					local legionNode = legionNodes[conqueredBy.conqueror.type.."_keystone_"..conqueredBy.conqueror.id]
-					self:ReplaceNode(node, legionNode)
-				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Normal"  then
-					local legionNode = legionNodes["eternal_small_blank"]
-					self:ReplaceNode(node,legionNode)
-				elseif conqueredBy.conqueror.type == "eternal" and node.type == "Notable"  then
-					local legionNode = legionNodes["eternal_notable_fire_resistance_1"]
-					node.dn = "Eternal Empire notable node"
-					node.sd = {"Right click to set mod"}
-					node.sprites = legionNode.sprites
-					node.mods = {""}
-					node.modList = new("ModList")
-					node.modKey = ""
-					node.reminderText = { }
+			-- FIXME - continue implementing
+			local jewelType = 5
+			if conqueredBy.conqueror.type == "vaal" then
+				jewelType = 1
+			elseif conqueredBy.conqueror.type == "karui" then
+				jewelType = 2
+			elseif conqueredBy.conqueror.type == "maraketh" then
+				jewelType = 3
+			elseif conqueredBy.conqueror.type == "templar" then
+				jewelType = 4
+			end
+			local seed = conqueredBy.id
+			if jewelType == 5 then
+				seed = seed / 20
+			end
+			
+			local replaceHelperFunc = function(statToFix, statKey, statMod, value)
+				if statMod.fmt == "g" then -- note the only one we actually care about is "Ritual of Flesh" life regen
+					if statKey:find("per_minute") then
+						value = round(value / 60, 1)
+					elseif statKey:find("permyriad") then
+						value = value / 100
+					elseif statKey:find("_ms") then
+						value = value / 1000
+					end
+				end
+				--if statMod.fmt == "d" then -- only ever d or g, and we want both past here
+				if statMod.min ~= statMod.max then
+					return statToFix:gsub("%(" .. statMod.min .. "%-" .. statMod.max .. "%)", value)
+				elseif statMod.min ~= value then -- only true for might/legacy of the vaal which can combine stats
+					return statToFix:gsub(statMod.min, value)
+				end
+				return statToFix -- if it doesn't need to be changed
+			end
+
+			if node.type == "Notable" then
+				local jewelDataTbl = { }
+				if seed ~= m_max(m_min(seed, data.timelessJewelSeedMax[jewelType]), data.timelessJewelSeedMin[jewelType]) then
+					ConPrintf("ERROR: Seed " .. seed .. " is outside of valid range [" .. data.timelessJewelSeedMin[jewelType] .. " - " .. data.timelessJewelSeedMax[jewelType] .. "] for jewel type: " .. data.timelessJewelTypes[jewelType])
+				else
+					jewelDataTbl = data.readLUT(conqueredBy.id, node.id, jewelType)
+				end
+				--print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
+				if not next(jewelDataTbl) then
+					ConPrintf("Missing LUT: " .. data.timelessJewelTypes[jewelType])
+				else
+					if jewelType == 1 then
+						local headerSize = #jewelDataTbl
+						-- FIXME: complete implementation of this. Need to set roll values for stats
+						--        based on their `fmt` specification 
+						if headerSize == 2 or headerSize == 3 then
+							self:ReplaceNode(node, legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions])
+
+							for i, repStat in ipairs(legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].sd) do
+								local statKey = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].sortedStats[i]
+								local statMod = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].stats[statKey]
+								repStat = replaceHelperFunc(repStat, statKey, statMod, jewelDataTbl[statMod.index + 1])
+								self:NodeAdditionOrReplacementFromString(node, repStat, i == 1) -- wipe mods on first run
+							end
+							-- should fix the stat values here (note headerSize == 3 has 2 values)
+						elseif headerSize == 6 or headerSize == 8 then
+							local bias = 0
+							for i,val in ipairs(jewelDataTbl) do
+								if i > (headerSize / 2) then
+									break
+								elseif val <= 21 then
+									bias = bias + 1
+								else
+									bias = bias - 1
+								end
+							end
+							if bias >= 0 then
+								self:ReplaceNode(node, legionNodes[77]) -- might of the vaal
+							else
+								self:ReplaceNode(node, legionNodes[78]) -- legacy of the vaal
+							end
+							local additions = {}
+							for i,val in ipairs(jewelDataTbl) do
+								if i <= (headerSize / 2) then
+									local roll = jewelDataTbl[i + headerSize / 2]
+									if not additions[val] then
+										additions[val] = roll
+									else
+										additions[val] = additions[val] + roll
+									end
+								else
+									break
+								end
+							end
+							for add, val in pairs(additions) do
+								local addition = legionAdditions[add + 1]
+								for _, addStat in ipairs(addition.sd) do
+									for k,statMod in pairs(addition.stats) do -- should only be 1 big, these didn't get changed so can't just grab index
+										addStat = replaceHelperFunc(addStat, k, statMod, val)
+									end
+									self:NodeAdditionOrReplacementFromString(node, addStat)
+								end
+							end
+						else
+							ConPrintf("Unhandled Glorious Vanity headerSize: " .. headerSize)
+						end
+					else
+						for _, jewelData in ipairs(jewelDataTbl) do
+							if jewelData >= data.timelessJewelAdditions then -- replace
+								jewelData = jewelData + 1 - data.timelessJewelAdditions
+								local legionNode = legionNodes[jewelData]
+								if legionNode then
+									self:ReplaceNode(node, legionNode)
+								else
+									ConPrintf("Unhandled 'replace' ID: " .. jewelData)
+								end
+							elseif jewelData then -- add
+								local addition = legionAdditions[jewelData + 1]
+								for _, addStat in ipairs(addition.sd) do
+									self:NodeAdditionOrReplacementFromString(node, " \n" .. addStat)
+								end
+							elseif next(jewelData) then
+								ConPrintf("Unhandled OP: " .. jewelData + 1)
+							end
+						end
+					end
+				end
+			elseif node.type == "Keystone" then
+				local matchStr = conqueredBy.conqueror.type .. "_keystone_" .. conqueredBy.conqueror.id
+				for _, legionNode in ipairs(legionNodes) do
+					if legionNode.id == matchStr then
+						self:ReplaceNode(node, legionNode)
+						break
+					end
+				end					
+			elseif node.type == "Normal" then
+				if conqueredBy.conqueror.type == "vaal" then
+					local jewelDataTbl = { }
+					if seed ~= m_max(m_min(seed, data.timelessJewelSeedMax[jewelType]), data.timelessJewelSeedMin[jewelType]) then
+						ConPrintf("ERROR: Seed " .. seed .. " is outside of valid range [" .. data.timelessJewelSeedMin[jewelType] .. " - " .. data.timelessJewelSeedMax[jewelType] .. "] for jewel type: " .. data.timelessJewelTypes[jewelType])
+					else
+						jewelDataTbl = data.readLUT(conqueredBy.id, node.id, jewelType)
+					end
+					--print("Need to Update: " .. node.id .. " [" .. node.dn .. "]")
+					if not next(jewelDataTbl) then
+						ConPrintf("Missing LUT: " .. data.timelessJewelTypes[jewelType])
+					else
+						self:ReplaceNode(node, legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions])
+						for i, repStat in ipairs(node.sd) do
+							local statKey = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].sortedStats[i]
+							local statMod = legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions].stats[statKey]
+							repStat = replaceHelperFunc(repStat, statKey, statMod, jewelDataTbl[2])
+							self:NodeAdditionOrReplacementFromString(node, repStat, true)
+						end
+					end
+				elseif conqueredBy.conqueror.type == "karui" then
+					local str = isValueInArray(attributes, node.dn) and "2" or "4"
+					self:NodeAdditionOrReplacementFromString(node, " \n+" .. str .. " to Strength")
+				elseif conqueredBy.conqueror.type == "maraketh" then
+					local dex = isValueInArray(attributes, node.dn) and "2" or "4"
+					self:NodeAdditionOrReplacementFromString(node, " \n+" .. dex .. " to Dexterity")
 				elseif conqueredBy.conqueror.type == "templar" then
 					if isValueInArray(attributes, node.dn) then
-						local legionNode =legionNodes["templar_devotion_node"]
-						self:ReplaceNode(node,legionNode)
+						local legionNode = legionNodes[91] -- templar_devotion_node
+						self:ReplaceNode(node, legionNode)
 					else
-						self:NodeAdditionOrReplacementFromString(node,"+5 to Devotion")
+						self:NodeAdditionOrReplacementFromString(node, " \n+5 to Devotion")
 					end
-				elseif conqueredBy.conqueror.type == "maraketh" and node.type == "Normal" then
-					local dex = isValueInArray(attributes, node.dn) and "2" or "4"
-					self:NodeAdditionOrReplacementFromString(node,"+"..dex.." to Dexterity")
-				elseif conqueredBy.conqueror.type == "karui" and node.type == "Normal" then
-					local str = isValueInArray(attributes, node.dn) and "2" or "4"
-					self:NodeAdditionOrReplacementFromString(node,"+"..str.." to Strength")
-				elseif conqueredBy.conqueror.type == "vaal" and node.type == "Normal" then
-					local legionNode =legionNodes["vaal_small_fire_resistance"]
-					node.dn = "Vaal small node"
-					node.sd = {"Right click to set mod"}
-					node.sprites = legionNode.sprites
-					node.mods = {""}
-					node.modList = new("ModList")
-					node.modKey = ""
-				elseif conqueredBy.conqueror.type == "vaal" and node.type == "Notable" then
-					local legionNode =legionNodes["vaal_notable_curse_1"]
-					node.dn = "Vaal notable node"
-					node.sd = {"Right click to set mod"}
-					node.sprites = legionNode.sprites
-					node.mods = {""}
-					node.modList = new("ModList")
-					node.modKey = ""
-					node.reminderText = { }
+				elseif conqueredBy.conqueror.type == "eternal" then
+					local legionNode = legionNodes[110] -- eternal_small_blank
+					self:ReplaceNode(node, legionNode)
 				end
-				self:ReconnectNodeToClassStart(node)
 			end
+			self:ReconnectNodeToClassStart(node)
 		end
 	end
 
 	-- Add selected mastery effect mods to mastery nodes
 	self.allocatedMasteryCount = 0
 	self.allocatedNotableCount = 0
+	self.allocatedMasteryTypes = { }
+	self.allocatedMasteryTypeCount = 0
 	for id, node in pairs(self.nodes) do
 		if node.type == "Mastery" and self.masterySelections[id] then
 			local effect = self.tree.masteryEffects[self.masterySelections[id]]
-			node.sd = effect.sd
-			node.allMasteryOptions = false
-			node.reminderText = { "Tip: Right click to select a different effect" }
-			self.tree:ProcessStats(node)
-			self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+			if effect then
+				node.sd = effect.sd
+				node.allMasteryOptions = false
+				node.reminderText = { "Tip: Right click to select a different effect" }
+				self.tree:ProcessStats(node)
+				self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+				if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
+					self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
+					self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+				else
+					local prevCount = self.allocatedMasteryTypes[self.allocNodes[id].name]
+					self.allocatedMasteryTypes[self.allocNodes[id].name] = prevCount + 1
+					if prevCount == 0 then
+						self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+					end
+				end
+			else
+				self.nodes[id].alloc = false
+				self.allocNodes[id] = nil
+			end
 		elseif node.type == "Mastery" then
 			self:AddMasteryEffectOptionsToNode(node)
 		elseif node.type == "Notable" and node.alloc then

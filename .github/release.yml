@@ -9,18 +9,24 @@ changelog:
     authors:
       - github-actions
   categories:
-    - title: Implemented Enhancements
+    - title: New to Path of Building
       labels:
         - enhancement
+    - title: Fixed Crashes
+      labels:
+        - crash
     - title: User Interface
       labels:
         - user-interface
-    - title: New Calculations
+    - title: Fixed Calculations
       labels:
-        - new-calculations
+        - "bug: calculation"
+    - title: Fixed Behaviours
+      labels:
+        - "bug: behaviour"
     - title: Accuracy Improvements
       labels:
-        - accuracy
+        - "bug: accuracy"
     - title: Fixed Bugs
       labels:
         - bug

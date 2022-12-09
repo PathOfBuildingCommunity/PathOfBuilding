@@ -129,10 +129,8 @@ local skills, mod, flag, skill = ...
 		["support_cruelty_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
-		["cruelty_effect_+%"] = {
-			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" }),
-			div = 100,
-			base = 1,
+		["hits_grant_cruelty"] = {
+			mod("Damage", "MORE", 1, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" }),
 		},
 	},
 #baseMod flag("Cruelty")
@@ -235,7 +233,8 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 		["ancestral_slam_stun_threshold_reduction_+%"] = {
-			mod("EnemyStunThreshold", "INC", nil, ModFlag.Attack)
+			mod("EnemyStunThreshold", "INC", nil, ModFlag.Attack),
+			mult = -1,
 		},
 	},
 #mods
@@ -370,7 +369,8 @@ local skills, mod, flag, skill = ...
 #skill SupportMultistrike
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
-			mod("Damage", "MORE", nil),
+			mod("Damage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("Damage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 		["multistrike_damage_+%_final_on_second_repeat"] = {
 		},
@@ -378,7 +378,8 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack),
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 		["multistrike_area_of_effect_+%_per_repeat"] = {
 			mod("AreaOfEffect", "INC", nil)
@@ -394,14 +395,16 @@ local skills, mod, flag, skill = ...
 		["multistrike_damage_+%_final_on_second_repeat"] = {
 		},
 		["multistrike_damage_+%_final_on_third_repeat"] = {
-			mod("Damage", "MORE", nil),
+			mod("Damage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("Damage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 			div = 2,
 		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack),
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 	},
 #mods

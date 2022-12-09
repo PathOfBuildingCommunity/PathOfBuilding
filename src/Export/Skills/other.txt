@@ -112,6 +112,20 @@ local skills, mod, flag, skill = ...
 		["damage_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+		["blood_offering_%_of_life_to_lose"] = {
+			mod("Multiplier:BloodOfferingLifeSacrificed", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "PerStat", stat = "LifeUnreserved", actor = "parent" }),
+			div = 100,
+		},
+		["blood_offering_%_of_lost_life_to_regenerate_as_life_per_second"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingLifeSacrificed" }),
+			mod("Multiplier:BloodOfferingBaseRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "BloodOfferingLifeSacrificed" }),
+			div = 100,
+		},
+		["blood_offering_life_regenerated_+%_final_per_corpse"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingBaseRegen"},  { type = "Multiplier", var = "CorpseConsumedRecently", limit = 5 }),
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingBaseRegen"},  { type = "Multiplier", var = "CorpseConsumedRecently", limit = 5, actor="parent" }),
+			div = 100,
+		},
 	},
 #baseMod skill("buffMinions", true)
 #baseMod skill("buffNotPlayer", true)
@@ -134,7 +148,10 @@ local skills, mod, flag, skill = ...
 			div = 100,
 		},
 		["flameblast_damage_+%_final_per_10_life_reserved"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.Hit, ModFlag.Ailment) }, { type = "Multiplier", var = "BloodSacramentStage" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }, { type = "Multiplier", var = "BloodSacramentStage" }),
+		},
+		["flameblast_ailment_damage_+%_final_per_10_life_reserved"] = {
+			mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }, { type = "Multiplier", var = "BloodSacramentStage" }),
 		},
 	},
 #mods
@@ -380,7 +397,13 @@ local skills, mod, flag, skill = ...
 #skill VaalAuraElementalDamageHealing
 #flags spell aura area duration
 	fromItem = true,
+	statMap = {
+		["immune_to_curses"] = {
+			--Display Only
+		},
+	},
 #baseMod skill("radius", 40)
+#baseMod mod("AvoidCurse", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
 #mods
 
 #skill GoreShockwave
@@ -395,12 +418,12 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 	statMap = {
 		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
-			mod("AreaOfEffect", "INC", nil),
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 		},
 	},
 #baseMod flag("Condition:HaveGreaterSpellEcho")
-#baseMod mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true })
-#baseMod mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true })
+#baseMod mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true })
+#baseMod mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true })
 #mods
 
 #skill IcestormUniqueStaff12
@@ -576,7 +599,7 @@ local skills, mod, flag, skill = ...
 #skill TriggeredShockedGround
 #flags spell area duration
 	fromItem = true,
-#baseMod mod("ShockedGroundEffect", "BASE", 15)
+#baseMod mod("ShockedGroundBase", "BASE", 15)
 #mods
 
 #skill ChannelledSnipe
@@ -625,6 +648,14 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	fromItem = true,
 #baseMod skill("triggerSource", "Queen's Demand")
+#mods
+
+#skill SummonArbalists
+#flags spell minion
+	fromItem = true,
+	minionList = {
+		"SummonedArbalists",
+	},
 #mods
 
 #skill SummonBeastialRhoa

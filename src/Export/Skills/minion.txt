@@ -230,6 +230,7 @@ skills["SiegebreakerCausticGround"] = {
 	baseMods = {
 		skill("ChaosDot", 1, { type = "PerStat", stat = "Life", div = 5 }),
 		skill("dotIsArea", true),
+		flag("dotIsCausticGround"),
 	},
 	qualityStats = {
 	},
@@ -252,6 +253,7 @@ skills["ReplicaSiegebreakerBurningGround"] = {
 	baseMods = {
 		skill("FireDot", 1, { type = "PerStat", stat = "Life", div = 5 }),
 		skill("dotIsArea", true),
+		flag("dotIsBurningGround"),
 	},
 	qualityStats = {
 	},
@@ -305,4 +307,15 @@ skills["InfernalLegion"] = {
 
 #skill GASummonReaperComboLeftSlash Combo Slash
 #flags attack area
+#mods
+
+#skill ReaperConsumeMinionForBuff Consume
+#flags spell
+#baseMod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+#baseMod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+#baseMod mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+#baseMod skill("buffAllies", true),
+
+#skill MPWExpeditionSummonedArbalestProjectile Projectile Attack
+#flags attack projectile
 #mods

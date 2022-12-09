@@ -15,29 +15,28 @@ local s_format = string.format
 local breakdown = { }
 
 function breakdown.multiChain(out, chain)
-	local base = chain.base
-	local lines = 0
-	for _, mult in ipairs(chain) do
-		if mult[2] and mult[2] ~= 1 then
-			if lines == 0 then
-				if base then
-					if chain.label then
-						t_insert(out, chain.label)
-					end
-					t_insert(out, base)
-					t_insert(out, "x "..s_format(unpack(mult)))
-					lines = 2
-				else
-					base = s_format(unpack(mult))
-				end
-			else
+	local base = (chain.base and chain.base[2]) or nil
+	local multiplier = 1
+	local lines = 0 -- lines is the total number of non 1 multipliers.
+	if chain.label then
+		t_insert(out, chain.label)
+	end
+	if base ~= nil then
+		t_insert(out, s_format(unpack(chain.base)))
+	end
+	if base ~= 0 then
+		for _, mult in ipairs(chain) do
+			if mult[2] and mult[2] ~= 1 then
+				multiplier = multiplier * mult[2]
 				t_insert(out, "x "..s_format(unpack(mult)))
 				lines = lines + 1
 			end
 		end
 	end
-	if lines > 0 then
+	if chain.total then
 		t_insert(out, chain.total)
+	elseif (lines > 0 and base ~= nil) or (lines > 1 and base == nil) then
+		t_insert(out, s_format("= %.2f", multiplier * (base or 1)))
 	end
 	return lines
 end
@@ -149,7 +148,7 @@ end
 
 function breakdown.dot(out, baseVal, inc, more, mult, rate, aura, effMult, total)
 	breakdown.multiChain(out, {
-		base = s_format("%.1f ^8(base damage per second)", baseVal), 
+		base = { "%.1f ^8(base damage per second)", baseVal }, 
 		{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
 		{ "%.2f ^8(more/less)", more },
 		{ "%.2f ^8(multiplier)", 1 + (mult or 0)/100 },
