@@ -77,7 +77,7 @@ directiveTable.base = function(state, args, out)
 	if state.subType and #state.subType > 0 then
 		out:write('\tsubType = "', state.subType, '",\n')
 	end
-	if (baseItemType.Hidden or state.forceHide) and not baseTypeId:match("Talisman") and not state.forceShow then
+	if (baseItemType.Hidden == 0 or state.forceHide) and not baseTypeId:match("Talisman") and not state.forceShow then
 		out:write('\thidden = true,\n')
 	end
 	if state.socketLimit then

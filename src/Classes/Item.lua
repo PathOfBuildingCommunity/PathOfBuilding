@@ -72,6 +72,10 @@ function ItemClass:ParseRaw(raw)
 	self.rawLines = { }
 	for line in string.gmatch(self.raw .. "\r\n", "([^\r\n]*)\r?\n") do
 		line = line:gsub("^%s+",""):gsub("%s+$","")
+		-- remove "Superior" from items with quality so base-type matches
+		if line:match("^Superior ") then
+			line = line:gsub("Superior ", "")
+		end
 		if #line > 0 then
 			t_insert(self.rawLines, line)
 		end
@@ -102,8 +106,17 @@ function ItemClass:ParseRaw(raw)
 	end
 	if self.rawLines[l] then
 		self.name = self.rawLines[l]
-		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal item to get the base
-		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC") then
+		-- Determine if "Unidentified" item
+		local unidentified = false
+		for _, line in ipairs(self.rawLines) do
+			if line == "Unidentified" then
+				unidentified = true
+				break
+			end
+		end
+
+		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal or Unidentified item to get the base
+		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) then
 			l = l + 1
 		end
 	end
@@ -142,6 +155,10 @@ function ItemClass:ParseRaw(raw)
 			flaskBuffLines[line] = nil
 		elseif line == "--------" then
 			self.checkSection = true
+		elseif line == "Split" then
+			self.split = true
+		elseif line == "Mirrored" then
+			self.mirrored = true
 		elseif line == "Corrupted" then
 			self.corrupted = true
 		elseif line == "Fractured Item" then
@@ -302,12 +319,14 @@ function ItemClass:ParseRaw(raw)
 					self.implicit = true
 				elseif specName == "Prefix" then
 					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
+					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.prefixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
 					})
 				elseif specName == "Suffix" then
 					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
+					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.suffixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
@@ -341,10 +360,13 @@ function ItemClass:ParseRaw(raw)
 					self.catalystQuality = tonumber(specVal)
 				elseif specName == "Note" then
 					self.note = specVal
-				elseif specName == "Str" or specName == "Dex" or specName == "Int" then
-					self.requirements[specName:lower()] = tonumber(specVal)
+				elseif specName == "Str" or specName == "Strength" or specName == "Dex" or specName == "Dexterity" or
+				       specName == "Int" or specName == "Intelligence" then
+					self.requirements[specName:sub(1,3):lower()] = tonumber(specVal)
 				elseif specName == "Critical Strike Range" or specName == "Attacks per Second" or specName == "Weapon Range" or
-				       specName == "Physical Damage" or specName == "Elemental Damage" or specName == "Chaos Damage" then
+				       specName == "Critical Strike Chance" or specName == "Physical Damage" or specName == "Elemental Damage" or
+				       specName == "Chaos Damage" or specName == "Chance to Block" or specName == "Armour" or
+					   specName == "Energy Shield" or specName == "Evasion" then
 					self.hidden_specs = true
 				-- Anything else is an explicit with a colon in it (Fortress Covenant, Pure Talent, etc) unless it's part of the custom name
 				elseif not (self.name:match(specName) and self.name:match(specVal)) then
@@ -428,8 +450,16 @@ function ItemClass:ParseRaw(raw)
 					else
 						self.enchantments = data.enchantments[self.base.type]
 					end
-					self.corruptable = self.base.type ~= "Flask"
-					self.influenceTags = data.specialBaseTags[self.type]
+					self.corruptible = self.base.type ~= "Flask"
+					self.influenceTags = { }
+					for _, influenceTag in ipairs(influenceInfo) do
+						self.influenceTags[influenceTag.key] = { }
+						for tag, _ in pairs(self.base.tags) do
+							if tag ~= "default" then
+								t_insert(self.influenceTags[influenceTag.key], tag..'_'..influenceTag.key)
+							end
+						end
+					end
 					self.canBeInfluenced = self.influenceTags
 					self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]
 					self.requirements.str = self.base.req.str or 0
@@ -446,6 +476,9 @@ function ItemClass:ParseRaw(raw)
 						end
 					end
 				end
+				local eater = line:match("{eater}")
+				local exarch = line:match("{exarch}")
+				local synthesis = line:match("{synthesis}")
 				local fractured = line:match("{fractured}") or line:match(" %(fractured%)")
 				local rangeSpec = line:match("{range:([%d.]+)}")
 				local enchant = line:match(" %(enchant%)")
@@ -464,24 +497,15 @@ function ItemClass:ParseRaw(raw)
 					foundImplicit = true
 					gameModeStage = "IMPLICIT"
 				end
-				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)",""):gsub(" %(enchant%)",""):gsub(" %(scourge%)","")
+				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)",""):gsub(" %(enchant%)",""):gsub(" %(scourge%)",""):gsub(" %(exarch%)",""):gsub(" %(eater%)",""):gsub(" %(synthesis%)","")
 				local catalystScalar = getCatalystScalar(self.catalyst, modTags, self.catalystQuality)
-				local rangedLine
-				if line:match("%(%d+%-%d+ to %d+%-%d+%)") or line:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or line:match("%(%-?[%d%.]+%-[%d%.]+%)") then
-					rangedLine = itemLib.applyRange(line, 1, catalystScalar)
-				elseif catalystScalar ~= 1 then
-					rangedLine = itemLib.applyValueScalar(line, catalystScalar)
-				end
+				local rangedLine = itemLib.applyRange(line, 1, catalystScalar)
 				local modList, extra = modLib.parseMod(rangedLine or line)
 				if (not modList or extra) and self.rawLines[l+1] then
 					-- Try to combine it with the next line
-					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(fractured%)",""):gsub(" ?%(crafted%)",""):gsub(" ?%(implicit%)",""):gsub(" ?%(enchant%)",""):gsub(" ?%(scourge%)","")
+					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(fractured%)",""):gsub(" ?%(crafted%)",""):gsub(" ?%(implicit%)",""):gsub(" ?%(enchant%)",""):gsub(" ?%(scourge%)",""):gsub(" %(exarch%)",""):gsub(" %(eater%)",""):gsub(" %(synthesis%)","")
 					local combLine = line.." "..nextLine
-					if combLine:match("%(%d+%-%d+ to %d+%-%d+%)") or combLine:match("%(%-?[%d%.]+ to %-?[%d%.]+%)") or combLine:match("%(%-?[%d%.]+%-[%d%.]+%)") then
-						rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
-					elseif catalystScalar ~= 1 then
-						rangedLine = itemLib.applyValueScalar(combLine, catalystScalar)
-					end
+					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
 					modList, extra = modLib.parseMod(rangedLine or combLine, true)
 					if modList and not extra then
 						line = line.."\n"..nextLine
@@ -525,7 +549,7 @@ function ItemClass:ParseRaw(raw)
 					modLines = self.explicitModLines
 				end
 				if modList then
-					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or 0.5), valueScalar = catalystScalar })
+					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or main.defaultItemAffixQuality), valueScalar = catalystScalar })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
@@ -539,13 +563,13 @@ function ItemClass:ParseRaw(raw)
 						foundExplicit = true
 					end
 				elseif mode == "GAME" then
-					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned")) then
-						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
+					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned") and not (self.base and (line == self.base.type or self.base.subType and line == self.base.subType .. " " .. self.base.type))) then
+						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
 				elseif foundExplicit then
-					t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, implicit = implicit })
+					t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
 				end
 			end
 		end
@@ -569,7 +593,7 @@ function ItemClass:ParseRaw(raw)
 		elseif self.rarity == "MAGIC" then
 			self.affixLimit = 2
 		elseif self.rarity == "RARE" then
-			self.affixLimit = (self.type == "Jewel" and 4 or 6)
+			self.affixLimit = ((self.type == "Jewel" and not (self.base.subType == "Abyss" and self.corrupted)) and 4 or 6)
 		else
 			self.crafted = false
 		end
@@ -634,8 +658,8 @@ end
 function ItemClass:NormaliseQuality()
 	if self.base and (self.base.armour or self.base.weapon or self.base.flask) then
 		if not self.quality then
-			self.quality = self.corrupted and 0 or 20 
-		elseif not self.uniqueID and not self.corrupted and self.quality < 20 then
+			self.quality = 0
+		elseif not self.uniqueID and not self.corrupted and not self.split and not self.mirrored and self.quality < 20 then
 			self.quality = 20
 		end
 	end	
@@ -647,8 +671,12 @@ function ItemClass:GetModSpawnWeight(mod, extraTags)
 		local function HasInfluenceTag(key)
 			if self.influenceTags then
 				for _, curInfluenceInfo in ipairs(influenceInfo) do
-					if self[curInfluenceInfo.key] and self.influenceTags[curInfluenceInfo.key] == key then
-						return true
+					if self[curInfluenceInfo.key] then
+						for _, tag in ipairs(self.influenceTags[curInfluenceInfo.key]) do
+							if tag == key then
+								return true
+							end
+						end
 					end
 				end
 			end
@@ -682,12 +710,12 @@ end
 
 function ItemClass:BuildRaw()
 	local rawLines = { }
-	t_insert(rawLines, "Rarity: "..self.rarity)
+	t_insert(rawLines, "Rarity: " .. self.rarity)
 	if self.title then
 		t_insert(rawLines, self.title)
 		t_insert(rawLines, self.baseName)
 	else
-		t_insert(rawLines, (self.namePrefix or "")..self.baseName..(self.nameSuffix or ""))
+		t_insert(rawLines, (self.namePrefix or "") .. self.baseName .. (self.nameSuffix or ""))
 	end
 	if self.armourData then
 		for _, type in ipairs({ "Armour", "Evasion", "EnergyShield", "Ward" }) do
@@ -700,52 +728,52 @@ function ItemClass:BuildRaw()
 		end
 	end
 	if self.uniqueID then
-		t_insert(rawLines, "Unique ID: "..self.uniqueID)
+		t_insert(rawLines, "Unique ID: " .. self.uniqueID)
 	end
 	if self.league then
-		t_insert(rawLines, "League: "..self.league)
+		t_insert(rawLines, "League: " .. self.league)
 	end
 	if self.unreleased then
 		t_insert(rawLines, "Unreleased: true")
 	end
 	for i, curInfluenceInfo in ipairs(influenceInfo) do
 		if self[curInfluenceInfo.key] then
-			t_insert(rawLines, curInfluenceInfo.display.." Item")
+			t_insert(rawLines, curInfluenceInfo.display .. " Item")
 		end
 	end
 	if self.crafted then
 		t_insert(rawLines, "Crafted: true")
 		for i, affix in ipairs(self.prefixes or { }) do
-			t_insert(rawLines, "Prefix: "..(affix.range and ("{range:"..round(affix.range,3).."}") or "")..affix.modId)
+			t_insert(rawLines, "Prefix: " .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
 		end
 		for i, affix in ipairs(self.suffixes or { }) do
-			t_insert(rawLines, "Suffix: "..(affix.range and ("{range:"..round(affix.range,3).."}") or "")..affix.modId)
+			t_insert(rawLines, "Suffix: " .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
 		end
 	end
 	if self.catalyst and self.catalyst > 0 then
-		t_insert(rawLines, "Catalyst: "..catalystList[self.catalyst])
+		t_insert(rawLines, "Catalyst: " .. catalystList[self.catalyst])
 	end
 	if self.catalystQuality then
-		t_insert(rawLines, "CatalystQuality: "..self.catalystQuality)
+		t_insert(rawLines, "CatalystQuality: " .. self.catalystQuality)
 	end
 	if self.clusterJewel then
 		if self.clusterJewelSkill then
-			t_insert(rawLines, "Cluster Jewel Skill: "..self.clusterJewelSkill)
+			t_insert(rawLines, "Cluster Jewel Skill: " .. self.clusterJewelSkill)
 		end
 		if self.clusterJewelNodeCount then
-			t_insert(rawLines, "Cluster Jewel Node Count: "..self.clusterJewelNodeCount)
+			t_insert(rawLines, "Cluster Jewel Node Count: " .. self.clusterJewelNodeCount)
 		end
 	end
 	if self.talismanTier then
-		t_insert(rawLines, "Talisman Tier: "..self.talismanTier)
+		t_insert(rawLines, "Talisman Tier: " .. self.talismanTier)
 	end
 	if self.itemLevel then
-		t_insert(rawLines, "Item Level: "..self.itemLevel)
+		t_insert(rawLines, "Item Level: " .. self.itemLevel)
 	end
 	local function writeModLine(modLine)
 		local line = modLine.line
-		if modLine.range then
-			line = "{range:"..round(modLine.range,3).."}" .. line
+		if modLine.range and line:match("%(%-?[%d%.]+%-%-?[%d%.]+%)") then
+			line = "{range:" .. round(modLine.range, 3) .. "}" .. line
 		end
 		if modLine.crafted then
 			line = "{crafted}" .. line
@@ -759,50 +787,59 @@ function ItemClass:BuildRaw()
 		if modLine.fractured then
 			line = "{fractured}" .. line
 		end
+		if modLine.exarch then
+			line = "{exarch}" .. line
+		end
+		if modLine.eater then
+			line = "{eater}" .. line
+		end
+		if modLine.synthesis then
+			line = "{synthesis}" .. line
+		end
 		if modLine.variantList then
 			local varSpec
 			for varId in pairs(modLine.variantList) do
-				varSpec = (varSpec and varSpec.."," or "") .. varId
+				varSpec = (varSpec and varSpec .. "," or "") .. varId
 			end
-			line = "{variant:"..varSpec.."}"..line
+			line = "{variant:" .. varSpec .. "}" .. line
 		end
 		if modLine.modTags and #modLine.modTags > 0 then
-			line = "{tags:"..table.concat(modLine.modTags, ",").."}"..line
+			line = "{tags:" .. table.concat(modLine.modTags, ",") .. "}" .. line
 		end
 		t_insert(rawLines, line)
 	end
 	if self.variantList then
 		for _, variantName in ipairs(self.variantList) do
-			t_insert(rawLines, "Variant: "..variantName)
+			t_insert(rawLines, "Variant: " .. variantName)
 		end
-		t_insert(rawLines, "Selected Variant: "..self.variant)
+		t_insert(rawLines, "Selected Variant: " .. self.variant)
 
 		for _, baseLine in pairs(self.baseLines) do
 			writeModLine(baseLine)
 		end
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
-			t_insert(rawLines, "Selected Alt Variant: "..self.variantAlt)
+			t_insert(rawLines, "Selected Alt Variant: " .. self.variantAlt)
 		end
 		if self.hasAltVariant2 then
 			t_insert(rawLines, "Has Alt Variant Two: true")
-			t_insert(rawLines, "Selected Alt Variant Two: "..self.variantAlt2)
+			t_insert(rawLines, "Selected Alt Variant Two: " .. self.variantAlt2)
 		end
 		if self.hasAltVariant3 then
 			t_insert(rawLines, "Has Alt Variant Three: true")
-			t_insert(rawLines, "Selected Alt Variant Three: "..self.variantAlt3)
+			t_insert(rawLines, "Selected Alt Variant Three: " .. self.variantAlt3)
 		end
 		if self.hasAltVariant4 then
 			t_insert(rawLines, "Has Alt Variant Four: true")
-			t_insert(rawLines, "Selected Alt Variant Four: "..self.variantAlt4)
+			t_insert(rawLines, "Selected Alt Variant Four: " .. self.variantAlt4)
 		end
 		if self.hasAltVariant5 then
 			t_insert(rawLines, "Has Alt Variant Five: true")
-			t_insert(rawLines, "Selected Alt Variant Five: "..self.variantAlt5)
+			t_insert(rawLines, "Selected Alt Variant Five: " .. self.variantAlt5)
 		end
 	end
 	if self.quality then
-		t_insert(rawLines, "Quality: "..self.quality)
+		t_insert(rawLines, "Quality: " .. self.quality)
 	end
 	if self.sockets and #self.sockets > 0 then
 		local line = "Sockets: "
@@ -815,18 +852,18 @@ function ItemClass:BuildRaw()
 		t_insert(rawLines, line)
 	end
 	if self.requirements and self.requirements.level then
-		t_insert(rawLines, "LevelReq: "..self.requirements.level)
+		t_insert(rawLines, "LevelReq: " .. self.requirements.level)
 	end
 	if self.jewelRadiusLabel then
-		t_insert(rawLines, "Radius: "..self.jewelRadiusLabel)
+		t_insert(rawLines, "Radius: " .. self.jewelRadiusLabel)
 	end
 	if self.limit then
-		t_insert(rawLines, "Limited to: "..self.limit)
+		t_insert(rawLines, "Limited to: " .. self.limit)
 	end
 	if self.classRestriction then
-		t_insert(rawLines, "Requires Class "..self.classRestriction)
+		t_insert(rawLines, "Requires Class " .. self.classRestriction)
 	end
-	t_insert(rawLines, "Implicits: "..(#self.enchantModLines + #self.implicitModLines + #self.scourgeModLines))
+	t_insert(rawLines, "Implicits: " .. (#self.enchantModLines + #self.implicitModLines + #self.scourgeModLines))
 	for _, modLine in ipairs(self.enchantModLines) do
 		writeModLine(modLine)
 	end
@@ -841,6 +878,12 @@ function ItemClass:BuildRaw()
 	end
 	for _, modLine in ipairs(self.explicitModLines) do
 		writeModLine(modLine)
+	end
+	if self.split then
+		t_insert(rawLines, "Split")
+	end
+	if self.mirrored then
+		t_insert(rawLines, "Mirrored")
 	end
 	if self.corrupted or self.scourge then
 		t_insert(rawLines, "Corrupted")
@@ -869,7 +912,7 @@ function ItemClass:Craft()
 	self.requirements.level = self.base.req.level
 	local statOrder = { }
 	for _, list in ipairs({self.prefixes,self.suffixes}) do
-		for i = 1, self.affixLimit/2 do
+		for i = 1, self.affixLimit / 2 do
 			local affix = list[i]
 			if not affix then
 				list[i] = { modId = "None" }
@@ -1034,7 +1077,8 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		weaponData.name = self.name
 		weaponData.AttackSpeedInc = calcLocal(modList, "Speed", "INC", ModFlag.Attack) + m_floor(self.quality / 8 * calcLocal(modList, "AlternateQualityLocalAttackSpeedPer8Quality", "INC", 0))
 		weaponData.AttackRate = round(self.base.weapon.AttackRateBase * (1 + weaponData.AttackSpeedInc / 100), 2)
-		weaponData.range = self.base.weapon.Range + calcLocal(modList, "WeaponRange", "BASE", 0) + m_floor(self.quality / 10 * calcLocal(modList, "AlternateQualityLocalWeaponRangePer10Quality", "BASE", 0))
+		weaponData.rangeBonus = calcLocal(modList, "WeaponRange", "BASE", 0) + m_floor(self.quality / 10 * calcLocal(modList, "AlternateQualityLocalWeaponRangePer10Quality", "BASE", 0))
+		weaponData.range = self.base.weapon.Range + weaponData.rangeBonus
 		for _, dmgType in pairs(dmgTypeList) do
 			local min = (self.base.weapon[dmgType.."Min"] or 0) + calcLocal(modList, dmgType.."Min", "BASE", 0)
 			local max = (self.base.weapon[dmgType.."Max"] or 0) + calcLocal(modList, dmgType.."Max", "BASE", 0)
@@ -1142,7 +1186,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			flaskData.instantPerc = calcLocal(modList, "FlaskInstantRecovery", "BASE", 0)
 			local recoveryMod = 1 + calcLocal(modList, "FlaskRecovery", "INC", 0) / 100
 			local rateMod = 1 + calcLocal(modList, "FlaskRecoveryRate", "INC", 0) / 100
-			flaskData.duration = self.base.flask.duration * (1 + durationInc / 100) / rateMod * durationMore
+			flaskData.duration = round(self.base.flask.duration * (1 + durationInc / 100) / rateMod * durationMore, 1)
 			if self.base.flask.life then
 				flaskData.lifeBase = self.base.flask.life * (1 + self.quality / 100) * recoveryMod
 				flaskData.lifeInstant = flaskData.lifeBase * flaskData.instantPerc / 100
@@ -1158,7 +1202,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		else
 			-- Utility flask
-			flaskData.duration = self.base.flask.duration * (1 + (durationInc + self.quality) / 100) * durationMore
+			flaskData.duration = round(self.base.flask.duration * (1 + (durationInc + self.quality) / 100) * durationMore, 1)
 		end
 		flaskData.chargesMax = self.base.flask.chargesMax + calcLocal(modList, "FlaskCharges", "BASE", 0)
 		flaskData.chargesUsed = m_floor(self.base.flask.chargesUsed * (1 + calcLocal(modList, "FlaskChargesUsed", "INC", 0) / 100))
@@ -1168,6 +1212,12 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			flaskData[value.key] = value.value
 		end
 	elseif self.type == "Jewel" then
+		if self.name:find("Grand Spectrum") then
+			local spectrumMod = modLib.createMod("Multiplier:GrandSpectrum", "BASE", 1, self.name)
+			modList:AddMod(spectrumMod)
+			modList:NewMod("MinionModifier", "LIST", { mod = spectrumMod }, self.name)
+		end
+
 		local jewelData = self.jewelData
 		for _, func in ipairs(modList:List(nil, "JewelFunc")) do
 			jewelData.funcList = jewelData.funcList or { }
@@ -1175,6 +1225,12 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 		for _, value in ipairs(modList:List(nil, "JewelData")) do
 			jewelData[value.key] = value.value
+		end
+		if modList:List(nil, "ImpossibleEscapeKeystones") then
+			jewelData.impossibleEscapeKeystones = { }
+			for _, value in ipairs(modList:List(nil, "ImpossibleEscapeKeystones")) do
+				jewelData.impossibleEscapeKeystones[value.key] = value.value
+			end
 		end
 		if self.clusterJewel then
 			jewelData.clusterJewelNotables = { }
@@ -1288,9 +1344,9 @@ function ItemClass:BuildModList()
 		self.requirements.dexMod = 0
 		self.requirements.intMod = 0
 	else
-		self.requirements.strMod = m_floor((self.requirements.str + calcLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "StrRequirement", "INC", 0) / 100))
-		self.requirements.dexMod = m_floor((self.requirements.dex + calcLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "DexRequirement", "INC", 0) / 100))
-		self.requirements.intMod = m_floor((self.requirements.int + calcLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "IntRequirement", "INC", 0) / 100))
+		self.requirements.strMod = m_floor((self.requirements.str or 0 + calcLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "StrRequirement", "INC", 0) / 100))
+		self.requirements.dexMod = m_floor((self.requirements.dex or 0 + calcLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "DexRequirement", "INC", 0) / 100))
+		self.requirements.intMod = m_floor((self.requirements.int or 0 + calcLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "IntRequirement", "INC", 0) / 100))
 	end
 	self.grantedSkills = { }
 	for _, skill in ipairs(baseList:List(nil, "ExtraSkill")) do

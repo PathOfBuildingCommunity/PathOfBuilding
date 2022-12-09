@@ -45,7 +45,7 @@ itemBases["Light Quiver"] = {
 itemBases["Serrated Arrow Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { quiver = true, default = true, },
+	tags = { trade_market_legacy_item = true, quiver = true, default = true, },
 	implicit = "1 to 4 Added Physical Damage with Bow Attacks",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 5, },
@@ -53,7 +53,7 @@ itemBases["Serrated Arrow Quiver"] = {
 itemBases["Two-Point Arrow Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { quiver = true, default = true, },
+	tags = { trade_market_legacy_item = true, quiver = true, default = true, },
 	implicit = "(20-30)% increased Global Accuracy Rating",
 	implicitModTypes = { { "attack" }, },
 	req = { level = 4, },
@@ -61,15 +61,15 @@ itemBases["Two-Point Arrow Quiver"] = {
 itemBases["Sharktooth Arrow Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { quiver = true, default = true, },
-	implicit = "+(3-4) Life gained for each Enemy hit by your Attacks",
+	tags = { trade_market_legacy_item = true, quiver = true, default = true, },
+	implicit = "Gain (3-4) Life per Enemy Hit with Attacks",
 	implicitModTypes = { { "resource", "life", "attack" }, },
 	req = { level = 10, },
 }
 itemBases["Blunt Arrow Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { quiver = true, default = true, },
+	tags = { trade_market_legacy_item = true, quiver = true, default = true, },
 	implicit = "(25-35)% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
 	req = { level = 16, },
@@ -77,7 +77,7 @@ itemBases["Blunt Arrow Quiver"] = {
 itemBases["Fire Arrow Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { quiver = true, default = true, },
+	tags = { trade_market_legacy_item = true, quiver = true, default = true, },
 	implicit = "4 to 8 Added Fire Damage with Bow Attacks",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	req = { level = 22, },
@@ -85,7 +85,7 @@ itemBases["Fire Arrow Quiver"] = {
 itemBases["Broadhead Arrow Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { quiver = true, default = true, },
+	tags = { trade_market_legacy_item = true, quiver = true, default = true, },
 	implicit = "6 to 12 Added Physical Damage with Bow Attacks",
 	implicitModTypes = { { "physical_damage", "damage", "physical", "attack" }, },
 	req = { level = 28, },
@@ -93,7 +93,7 @@ itemBases["Broadhead Arrow Quiver"] = {
 itemBases["Penetrating Arrow Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { quiver = true, default = true, },
+	tags = { trade_market_legacy_item = true, quiver = true, default = true, },
 	implicit = "Arrows Pierce an additional Target",
 	implicitModTypes = { { "attack" }, },
 	req = { level = 36, },
@@ -101,7 +101,7 @@ itemBases["Penetrating Arrow Quiver"] = {
 itemBases["Spike-Point Arrow Quiver"] = {
 	type = "Quiver",
 	hidden = true,
-	tags = { quiver = true, default = true, },
+	tags = { trade_market_legacy_item = true, quiver = true, default = true, },
 	implicit = "(20-30)% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
 	req = { level = 45, },
@@ -130,7 +130,7 @@ itemBases["Fire Arrow Quiver"] = {
 itemBases["Sharktooth Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { quiver = true, default = true, },
-	implicit = "+(6-8) Life gained for each Enemy hit by your Attacks",
+	implicit = "Gain (6-8) Life per Enemy Hit with Attacks",
 	implicitModTypes = { { "resource", "life", "attack" }, },
 	req = { level = 14, },
 }

@@ -45,6 +45,8 @@ colorCodes = {
 	BASILISK = "^x00CB3A",
 	CRUSADER = "^x2946FC",
 	EYRIE = "^xAAB7B8",
+	CLEANSING = "^xF24141",
+	TANGLE = "^x038C8C",
 	CHILLBG = "^x151e26",
 	FREEZEBG = "^x0c262b",
 	SHOCKBG = "^x191732",
@@ -63,6 +65,7 @@ colorCodes.ES = colorCodes.SOURCE
 colorCodes.WARD = colorCodes.RARE
 colorCodes.EVASION = colorCodes.POSITIVE
 colorCodes.RAGE = colorCodes.WARNING
+colorCodes.PHYS = colorCodes.NORMAL
 
 ModFlag = { }
 -- Damage modes
@@ -103,12 +106,13 @@ KeywordFlag.Aura =		0x00000001
 KeywordFlag.Curse =		0x00000002
 KeywordFlag.Warcry =	0x00000004
 KeywordFlag.Movement =	0x00000008
-KeywordFlag.Fire =		0x00000010
-KeywordFlag.Cold =		0x00000020
-KeywordFlag.Lightning =	0x00000040
-KeywordFlag.Chaos =		0x00000080
-KeywordFlag.Vaal =		0x00000100
-KeywordFlag.Bow =		0x00000200
+KeywordFlag.Physical =	0x00000010
+KeywordFlag.Fire =		0x00000020
+KeywordFlag.Cold =		0x00000040
+KeywordFlag.Lightning =	0x00000080
+KeywordFlag.Chaos =		0x00000100
+KeywordFlag.Vaal =		0x00000200
+KeywordFlag.Bow =		0x00000400
 -- Skill types
 KeywordFlag.Trap =		0x00001000
 KeywordFlag.Mine =		0x00002000
@@ -272,13 +276,15 @@ SkillType = {
 	Link = 118,
 	Blessing = 119,
 	ZeroReservation = 120,
+	DynamicCooldown = 121,
 }
 
 GlobalCache = { 
 	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, CACHE = {}, },
 	deleteGroup = { },
 	excludeFullDpsList = { },
-	dontUseCache = nil,
+	noCache = nil,
 	useFullDPS = false,
 	numActiveSkillInFullDPS = 0,
 }
+

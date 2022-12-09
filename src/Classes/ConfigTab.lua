@@ -19,6 +19,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.build = build
 
 	self.input = { }
+	self.placeholder = { }
+	
+	self.enemyLevel = 1
 
 	self.sectionList = { }
 	self.varControls = { }
@@ -52,10 +55,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf)
-					self.input[varData.var] = tonumber(buf)
-					self:AddUndoState()
-					self:BuildModList()
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 7, function(buf, placeholder)
+					if placeholder then
+						self.placeholder[varData.var] = tonumber(buf)
+					else
+						self.input[varData.var] = tonumber(buf)
+						self:AddUndoState()
+						self:BuildModList()
+					end
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "list" then
@@ -66,10 +73,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "text" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf)
-					self.input[varData.var] = tostring(buf)
-					self:AddUndoState()
-					self:BuildModList()
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf, placeholder)
+					if placeholder then
+						self.placeholder[varData.var] = tostring(buf)
+					else
+						self.input[varData.var] = tostring(buf)
+						self:AddUndoState()
+						self:BuildModList()
+					end
 					self.build.buildFlag = true
 				end, 16)
 			else 
@@ -179,6 +190,12 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					return skillFlags[varData.ifFlag] or skillModList:Flag(nil, varData.ifFlag)
 				end
 				control.tooltipText = varData.tooltip
+			elseif varData.ifMod then
+				control.shown = function()
+					local skillModList = self.build.calcsTab.mainEnv.player.mainSkill.skillModList
+					return skillModList:Sum(varData.ifModType or "BASE", nil, varData.ifMod) > 0
+				end
+				control.tooltipText = varData.tooltip
 			elseif varData.ifSkill or varData.ifSkillList then
 				control.shown = function()
 					if varData.ifSkillList then
@@ -216,6 +233,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			else
 				control.tooltipText = varData.tooltip
 			end
+			if varData.tooltipFunc then
+				control.tooltipFunc = varData.tooltipFunc
+			end
 			if varData.label and varData.type ~= "check" then
 				t_insert(self.controls, new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
 			end
@@ -223,7 +243,46 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				self.input[varData.var] = varData.defaultState
 				control.state = varData.defaultState
 				self.varControls[varData.var] = control
+				self.placeholder[varData.var] = varData.defaultPlaceholderState
+				control.placeholder = varData.defaultPlaceholderState
+				if varData.defaultIndex then
+					self.input[varData.var] = varData.list[varData.defaultIndex].val
+					control.selIndex = varData.defaultIndex
+				end
 			end
+
+			local innerShown = control.shown
+			control.shown = function()
+				local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+				return not shown and control.state ~= self:GetDefaultState(varData.var, type(control.state)) or shown
+			end
+			local innerLabel = control.label
+			control.label = function()
+				local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+				if not shown and control.state ~= self:GetDefaultState(varData.var, type(control.state)) then
+					return "^1"..innerLabel
+				end
+				return innerLabel
+			end
+			local innerTooltipFunc = control.tooltipFunc
+			control.tooltipFunc = function (tooltip, ...)
+				tooltip:Clear()
+
+				if innerTooltipFunc then
+					innerTooltipFunc(tooltip, ...)
+				else
+					local tooltipText = control:GetProperty("tooltipText")
+					if tooltipText then
+						tooltip:AddLine(14, tooltipText)
+					end
+				end
+
+				local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+				if not shown and control.state ~= self:GetDefaultState(varData.var, type(control.state)) then
+					tooltip:AddLine(14, "^1This config option is conditional with missing source and is invalid.")
+				end
+			end
+
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)
 		end
@@ -243,6 +302,7 @@ function ConfigTabClass:Load(xml, fileName)
 			elseif node.attrib.string then
 				if node.attrib.name == "enemyIsBoss" then
 					self.input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
+					:gsub("Uber Atziri", "Boss"):gsub("Shaper", "Pinnacle"):gsub("Sirus", "Pinnacle")
 				else
 					self.input[node.attrib.name] = node.attrib.string
 				end
@@ -252,6 +312,19 @@ function ConfigTabClass:Load(xml, fileName)
 				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing number, string or boolean attribute", fileName)
 				return true
 			end
+		elseif node.elem == "Placeholder" then
+			if not node.attrib.name then
+				launch:ShowErrMsg("^1Error parsing '%s': 'Placeholder' element missing name attribute", fileName)
+				return true
+			end
+			if node.attrib.number then
+				self.placeholder[node.attrib.name] = tonumber(node.attrib.number)
+			elseif node.attrib.string then
+				self.input[node.attrib.name] = node.attrib.string
+			else
+				launch:ShowErrMsg("^1Error parsing '%s': 'Placeholder' element missing number", fileName)
+				return true
+			end
 		end
 	end
 	self:BuildModList()
@@ -259,19 +332,35 @@ function ConfigTabClass:Load(xml, fileName)
 	self:ResetUndo()
 end
 
-function ConfigTabClass:GetDefaultState(var)
+function ConfigTabClass:GetDefaultState(var, varType)
+	if self.placeholder[var] ~= nil then
+		return self.placeholder[var]
+	end
+
 	for i = 1, #varList do
 		if varList[i].var == var then
-			return varList[i].defaultState
+			if varType == "number" then
+				return varList[i].defaultState or 0
+			elseif varType == "boolean" then
+				return varList[i].defaultState == true
+			else
+				return varList[i].defaultState
+			end
 		end
 	end
-	return nil
+	if varType == "number" then
+		return 0
+	elseif varType == "boolean" then
+		return false
+	else
+		return nil
+	end
 end
 
 function ConfigTabClass:Save(xml)
 	for k, v in pairs(self.input) do
-		if v ~= self:GetDefaultState(k) then
-			local child = { elem = "Input", attrib = {name = k} }
+		if v ~= self:GetDefaultState(k, type(v)) then
+			local child = { elem = "Input", attrib = { name = k } }
 			if type(v) == "number" then
 				child.attrib.number = tostring(v)
 			elseif type(v) == "boolean" then
@@ -282,13 +371,24 @@ function ConfigTabClass:Save(xml)
 			t_insert(xml, child)
 		end
 	end
-	self.modFlag = false
+	for k, v in pairs(self.placeholder) do
+		local child = { elem = "Placeholder", attrib = { name = k } }
+		if type(v) == "number" then
+			child.attrib.number = tostring(v)
+		else
+			child.attrib.string = tostring(v)
+		end
+		t_insert(xml, child)
+	end
 end
 
 function ConfigTabClass:UpdateControls()
 	for var, control in pairs(self.varControls) do
 		if control._className == "EditControl" then
 			control:SetText(tostring(self.input[var] or ""))
+			if self.placeholder[var] then
+				control:SetPlaceholder(tostring(self.placeholder[var]))
+			end
 		elseif control._className == "CheckBoxControl" then
 			control.state = self.input[var]
 		elseif control._className == "DropDownControl" then
@@ -346,7 +446,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 		if doShow then
 			local width, height = section:GetSize()
 			local col
-			if section.col and (colY[section.col] or 0) + height + 28 <= viewPort.height then
+			if section.col and (colY[section.col] or 0) + height + 28 <= viewPort.height and 10 + section.col * 370 <= viewPort.width then
 				col = section.col
 			else
 				col = 1
@@ -382,6 +482,15 @@ function ConfigTabClass:BuildModList()
 	local enemyModList = new("ModList")
 	self.enemyModList = enemyModList
 	local input = self.input
+	local placeholder = self.placeholder
+	--enemy level handled here because it's needed to correctly set boss stats
+	if input.enemyLevel and input.enemyLevel > 0 then
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, input.enemyLevel)
+	elseif placeholder.enemyLevel and placeholder.enemyLevel > 0 then
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, placeholder.enemyLevel)
+	else
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, self.build.characterLevel)
+	end
 	for _, varData in ipairs(varList) do
 		if varData.apply then
 			if varData.type == "check" then
@@ -391,6 +500,8 @@ function ConfigTabClass:BuildModList()
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
 				if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero") then
 					varData.apply(input[varData.var], modList, enemyModList, self.build)
+				elseif placeholder[varData.var] and (placeholder[varData.var] ~= 0 or varData.type == "countAllowZero") then
+					varData.apply(placeholder[varData.var], modList, enemyModList, self.build)
 				end
 			elseif varData.type == "list" then
 				if input[varData.var] then
@@ -414,6 +525,8 @@ function ConfigTabClass:ImportCalcSettings()
 	end
 	import("Cond_LowLife", "conditionLowLife")
 	import("Cond_FullLife", "conditionFullLife")
+	import("Cond_LowMana", "conditionLowMana")
+	import("Cond_FullMana", "conditionFullMana")
 	import("buff_power", "usePowerCharges")
 	import("buff_frenzy", "useFrenzyCharges")
 	import("buff_endurance", "useEnduranceCharges")

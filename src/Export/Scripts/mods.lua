@@ -33,6 +33,8 @@ local function writeMods(outName, condFunc)
 					print("[Jewel]: Skipping '" .. mod.Id .. "'")
 					goto continue
 				end
+			elseif mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus" and mod.GenerationType == 3 and not (mod.Domain == 16 or (mod.Domain == 1 and mod.Id:match("^Synthesis"))) then
+				goto continue
 			end
 			local stats, orders = describeMod(mod)
 			if #orders > 0 then
@@ -41,20 +43,45 @@ local function writeMods(outName, condFunc)
 					out:write('type = "Prefix", ')
 				elseif mod.GenerationType == 2 then
 					out:write('type = "Suffix", ')
+				elseif mod.GenerationType == 3 then
+					if mod.Domain == 1 and mod.Id:match("^Synthesis") then
+						out:write('type = "Synthesis", ')
+					elseif mod.Domain == 16 then
+						out:write('type = "DelveImplicit", ')
+					end
 				elseif mod.GenerationType == 5 then
 					out:write('type = "Corrupted", ')
-				elseif mod.GenerationType == 25 or mod.GenerationType == 24 then
-					out:write('type = "Scourge", ')
+				elseif mod.GenerationType == 24 then
+					out:write('type = "ScourgeUpside", ')
+				elseif mod.GenerationType == 25 then
+					out:write('type = "ScourgeDownside", ')
+				elseif mod.GenerationType == 28 then
+					out:write('type = "Exarch", ')
+				elseif mod.GenerationType == 29 then
+					out:write('type = "Eater", ')
 				end
 				out:write('affix = "', mod.Name, '", ')
-				if string.find(mod.Family, "LocalDisplayNearbyEnemy") and #stats > 1 and #orders > 1 then
-					table.remove(stats, 1)
-					table.remove(orders, 1)
+				for index, value in pairs(mod.Family) do
+					if string.find(value.Id, "LocalDisplayNearbyEnemy") and #stats > index and #orders > index then
+						table.remove(stats, index)
+						table.remove(orders, index)
+						break
+					end
+ 				end
+				if string.find(mod.Id, "EldritchImplicitUniquePresence") and #stats > 0 and #orders > 0 then
+					for i, stat in ipairs(stats) do
+						stats[i] = "While a Unique Enemy is in your Presence, ".. stat
+					end
+				end
+				if string.find(mod.Id, "EldritchImplicitPinnaclePresence") and #stats > 0 and #orders > 0 then
+					for i, stat in ipairs(stats) do
+						stats[i] = "While a Pinnacle Atlas Boss is in your Presence, ".. stat
+					end
 				end
 				out:write('"', table.concat(stats, '", "'), '", ')
 				out:write('statOrderKey = "', table.concat(orders, ','), '", ')
 				out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
-				out:write('level = ', mod.Level, ', group = "', mod.Family, '", ')
+				out:write('level = ', mod.Level, ', group = "', mod.Type.Id, '", ')
 				out:write('weightKey = { ')
 				for _, tag in ipairs(mod.SpawnTags) do
 					out:write('"', tag.Id, '", ')
@@ -88,8 +115,10 @@ end
 
 writeMods("../Data/ModItem.lua", function(mod)
 	return (mod.Domain == 1 or mod.Domain == 16)
-			and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 5 or mod.GenerationType == 25 or mod.GenerationType == 24)
-			and not mod.Id:match("^Hellscape[UpDown]+sideMap")
+			and (mod.GenerationType == 1 or mod.GenerationType == 2 or (mod.GenerationType == 3 and (mod.Id:match("^Synthesis") or (mod.Family[1].Id ~= "AuraBonus" and mod.Family[1].Id ~= "ArbalestBonus"))) or mod.GenerationType == 5
+			 or mod.GenerationType == 25 or mod.GenerationType == 24 or mod.GenerationType == 28 or mod.GenerationType == 29)
+			and not mod.Id:match("^Hellscape[UpDown]+sideMap") -- Exclude Scourge map mods
+			and #mod.AuraFlags == 0
 end)
 writeMods("../Data/ModFlask.lua", function(mod)
 	return mod.Domain == 2 and (mod.GenerationType == 1 or mod.GenerationType == 2)
@@ -104,7 +133,7 @@ writeMods("../Data/ModJewelCluster.lua", function(mod)
 	return (mod.Domain == 21 and (mod.GenerationType == 1 or mod.GenerationType == 2)) or (mod.Domain == 10 and mod.GenerationType == 5)
 end)
 writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)
-	return mod.Family == "AuraBonus" and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
+	return (mod.Family[1].Id == "AuraBonus" or mod.Family[1].Id == "ArbalestBonus") and mod.GenerationType == 3 and not mod.Id:match("^Synthesis")
 end)
 writeMods("../Data/ModVeiled.lua", function(mod)
 	return mod.Domain == 28 and (mod.GenerationType == 1 or mod.GenerationType == 2)

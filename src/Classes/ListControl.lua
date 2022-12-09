@@ -27,13 +27,14 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, scroll, isMutable, list)
+local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, scroll, isMutable, list, forceTooltip)
 	self.Control(anchor, x, y, width, height)
 	self.ControlHost()
 	self.rowHeight = rowHeight
 	self.scroll = scroll
 	self.isMutable = isMutable
 	self.list = list or { }
+	self.forceTooltip = forceTooltip
 	self.colList = { { } }
 	self.tooltip = new("Tooltip")
 	self.font = "VAR"
@@ -108,7 +109,7 @@ function ListClass:GetRowRegion()
 	}
 end
 
-function ListClass:Draw(viewPort)
+function ListClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local rowHeight = self.rowHeight
@@ -181,7 +182,7 @@ function ListClass:Draw(viewPort)
 		SetDrawColor(0, 0, 0)
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
-	self:DrawControls(viewPort)
+	self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
 
 	SetViewport(x + 2, y + 2,  self.scroll and width - 20 or width, height - 4 - (self.scroll and self.scrollH and 16 or 0))
 	local textOffsetY = self.showRowSeparators and 2 or 0
@@ -292,7 +293,7 @@ function ListClass:Draw(viewPort)
 
 	self.hoverIndex = ttIndex
 	self.hoverValue = ttValue
-	if ttIndex and self.AddValueTooltip then
+	if ttIndex and self.AddValueTooltip and (not noTooltip or self.forceTooltip) then
 		SetDrawLayer(nil, 100)
 		self:AddValueTooltip(self.tooltip, ttIndex, ttValue)
 		self.tooltip:Draw(ttX, ttY, ttWidth, rowHeight, viewPort)
@@ -406,7 +407,7 @@ function ListClass:OnKeyUp(key)
 					end
 					t_insert(self.list, self.selDragIndex, self.selValue)
 					if self.OnOrderChange then
-						self:OnOrderChange()
+						self:OnOrderChange(self.selIndex, self.selDragIndex)
 					end
 					self.selValue = nil
 				elseif self.dragTarget then
@@ -431,12 +432,21 @@ function ListClass:OnKeyUp(key)
 	return self
 end
 
-function ListClass:GetHoverValue(key)
+function ListClass:GetHoverIndex()
 	local x, y = self:GetPos()
 	local cursorX, cursorY = GetCursorPos()
 	local rowRegion = self:GetRowRegion()
 	if cursorX >= x + rowRegion.x and cursorY >= y + rowRegion.y and cursorX < x + rowRegion.x + rowRegion.width and cursorY < y + rowRegion.y + rowRegion.height then
 		local index = math.floor((cursorY - y - rowRegion.y + self.controls.scrollBarV.offset) / self.rowHeight) + 1
+		if self.list[index] then
+			return index
+		end
+	end
+end
+
+function ListClass:GetHoverValue(key)
+	local index = self:GetHoverIndex()
+	if index then
 		local value = self.list[index]
 		if value then
 			return value

@@ -1,6 +1,6 @@
-This syntax is used all over the codebase, but there are two locations that hold the majority of them: [ModParser](../tree/master/src/Modules/ModParser.lua) and [Skill Stats](../tree/master/src/Data/SkillStatMap.lua).
+This syntax is used all over the codebase, but there are two locations that hold the majority of them: [ModParser](../src/Modules/ModParser.lua) and [Skill Stats](../src/Data/SkillStatMap.lua).
 
-The standard format of a mod looks like this: `mod(ModName, ModType, Value, source, modFlags, keywordFlags, extraTags)`  See the function declaration [here](../tree/master/src/Modules/ModTools.lua#L20-L46)
+The standard format of a mod looks like this: `mod(ModName, ModType, Value, source, modFlags, keywordFlags, extraTags)`  See the function declaration [here](../src/Modules/ModTools.lua#L20-L46)
 
 ### ModName
 Used as a key, so you can reference this mod elsewhere in PoB.  Can really be anything, but look around the codebase to find ones you need (e.g. "Damage", "Life", "PhysicalDamageGainAsLightning", etc)
@@ -16,7 +16,7 @@ This represents the raw value of the mod.  When it's used in the skills to map f
 ### Source
 This is where the mod comes from.  Often it will be automatically filled in, coming from a tree node, gem, or item.  If you do need to specify it for some reason, it's a string, and you can use "Tree:[nodeId]" as a special value to show a tree inset on hover.
 ### Mod Flags
-These are bitwise flags that say what the mod can apply to.  See a full list [here](../tree/master/src/Data/Global.lua) under `ModFlag`.  If you want to use several flags at once, make use of `bit.bor` and `bor` (ModParser.lua uses this alias) to combine them.  When combined, all of the flags have to match.  If you only need one to match, use the "ModFlagOr" tag instead.
+These are bitwise flags that say what the mod can apply to.  See a full list [here](../src/Data/Global.lua) under `ModFlag`.  If you want to use several flags at once, make use of `bit.bor` and `bor` (ModParser.lua uses this alias) to combine them.  When combined, all of the flags have to match.  If you only need one to match, use the "ModFlagOr" tag instead.
 ### Keyword Flags
 These function similarly to the mod flags, and use the `KeywordFlag` group in `Global.lua`.  These are usually based off of the flags on the gem itself. If you want to use several flags at once, make use of `bit.bor` and `bor` (ModParser.lua uses this alias) to combine them.  When combined, only one of the flags has to match.  If you need them all to match, use the "KeywordFlagAnd" tag instead. 
 ### Extra Tags

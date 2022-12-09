@@ -9,22 +9,23 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
-{variant:1}+21 Life gained for each Enemy hit by Attacks
-{variant:2}+44 Life gained for each Enemy hit by Attacks
-Socketed Gems are Supported by level 12 Fortify
+{variant:1}Grants 21 Life per Enemy Hit
+{variant:2}Grants 44 Life per Enemy Hit
+Socketed Gems are Supported by Level 12 Fortify
 (100-120)% increased Physical Damage
 +110 to Evasion Rating
 +(30-50) to maximum Life
 +35 to maximum Energy Shield
 Reflects (71-90) Physical Damage to Melee Attackers
-15% Chance to Block
+15% Chance to Block Attack Damage
 ]],[[
 Replica Advancing Fortress
 Gut Ripper
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 1
-+44 Life gained for each Enemy hit by Attacks
+Grants 44 Life per Enemy Hit
 Socketed Gems are Supported by Level 12 Cast when Damage Taken
 15% Chance to Block Attack Damage
 (100-120)% increased Physical Damage
@@ -50,6 +51,7 @@ Adds (15-20) to (30-40) Physical Damage
 Replica Allure
 Vaal Claw
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 2% of Physical Attack Damage Leeched as Life
@@ -63,7 +65,6 @@ Enemies Taunted by you take 10% increased Damage
 Al Dhih
 Timeworn Claw
 League: Legion
-Source: Drops from Maraketh Legion
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
@@ -72,9 +73,9 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 26, 39 Dex, 56 Int
 Implicits: 3
-{variant:1}+8 Life gained for each Enemy hit by Attacks
+{variant:1}Grants 8 Life per Enemy Hit
 {variant:2}2% of Physical Attack Damage Leeched as Life
-{variant:3,4,5,6}+19 Life gained for each Enemy hit by Attacks
+{variant:3,4,5,6}Grants 19 Life per Enemy Hit
 {variant:1,2,3,4}Socketed Gems have 10% chance to cause Enemies to Flee on Hit
 {variant:4,5}Trigger Level 1 Intimidating Cry on Hit
 {variant:1}(60-80)% increased Physical Damage
@@ -89,13 +90,16 @@ Implicits: 3
 Bloodseeker
 Hellion's Paw
 Variant: Pre 3.0.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 1.6% of Physical Attack Damage Leeched as Life
 {variant:1}(100-120)% increased Physical Damage
 {variant:2}(150-170)% increased Physical Damage
-Adds 10 to 12 Physical Damage
+{variant:3}(200-220)% increased Physical Damage
+{variant:1,2}Adds 10 to 12 Physical Damage
+{variant:3}Adds 25 to 30 Physical Damage
 5% increased Attack Speed
 1.2% of Physical Attack Damage Leeched as Life
 5% increased Movement Speed
@@ -105,56 +109,48 @@ Cybil's Paw
 Thresher Claw
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 37, 53 Dex, 77 Int
 Implicits: 3
-{variant:1}+15 Life gained for each Enemy hit by Attacks
-{variant:2}+21 Life gained for each Enemy hit by Attacks
-{variant:3}+25 Life gained for each Enemy hit by Attacks
-(8-12)% increased Cast Speed
+{variant:1}Grants 15 Life per Enemy Hit
+{variant:2}Grants 21 Life per Enemy Hit
+{variant:3,4}Grants 25 Life per Enemy Hit
+{variant:1,2,3}(8-12)% increased Cast Speed
+{variant:4}(15-20)% increased Cast Speed
 +(30-40) to maximum Mana
-+(5-8) Life gained for each Enemy hit by your Spells
-{variant:1}6% increased Spell Damage per 5% Block Chance
-{variant:2,3}8% increased Spell Damage per 5% Block Chance
+{variant:1,2,3}Gain (5-8) Life per Enemy Hit with Spells
+{variant:4}Gain (15-20) Life per Enemy Hit with Spells
+{variant:1}6% increased Spell Damage per 5% Chance to Block Attack Damage
+{variant:2,3,4}8% increased Spell Damage per 5% Chance to Block Attack Damage
 ]],[[
 Essentia Sanguis
-Eye Gouger
+{variant:1,2,3}Eye Gouger
+{variant:4,5,6}Vaal Claw
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
+Variant: Pre 3.11.0
+Variant: Pre 3.20.0
 Variant: Current
-Requires Level 64, 113 Dex, 113 Int
 Implicits: 3
 {variant:1,2}0.6% of Physical Attack Damage Leeched as Life
-{variant:3}+31 Life gained for each Enemy hit by Attacks
-{variant:4}+50 Life gained for each Enemy hit by Attacks
-{variant:1}10% additional Chance to Block while Dual Wielding Claws
-{variant:2,3,4}8% additional Chance to Block while Dual Wielding Claws
+{variant:3}Grants 31 Life per Enemy
+{variant:4,5}2% of Physical Attack Damage Leeched as Life
+{variant:1}+10% Chance to Block Attack Damage while Dual Wielding Claws
+{variant:2,3,4,5}+8% Chance to Block Attack Damage while Dual Wielding Claws
 {variant:1}(80-120)% increased Physical Damage
-{variant:2,3,4}(140-180)% increased Physical Damage
+{variant:2,3,4,5}(140-180)% increased Physical Damage
 {variant:1}Adds 1 to 50 Lightning Damage
 {variant:2,3}Adds 1 to 80 Lightning Damage
-{variant:4}Adds 1 to 200 Lightning Damage
+{variant:4,5}Adds 1 to 200 Lightning Damage
+{variant:6}Adds 1 to (600-700) Lightning Damage
 (20-30)% increased Attack Speed
 +(30-40) to maximum Energy Shield
-Leech Energy Shield instead of Life
-]],[[
-Essentia Sanguis
-Vaal Claw
-Variant: Pre 3.11.0
-Variant: Current
-Requires Level 66, 95 Dex, 131 Int
-Implicits: 1
-2% of Physical Attack Damage Leeched as Life
-+8% Chance to Block Attack Damage while Dual Wielding Claws
-(140-180)% increased Physical Damage
-Adds 1 to 200 Lightning Damage
-(20-30)% increased Attack Speed
-+(30-40) to maximum Energy Shield
-{variant:1}Leech Energy Shield instead of Life
-{variant:2}50% reduced Maximum Recovery per Energy Shield Leech
-{variant:2}Energy Shield Leech Effects from Attacks are not removed at Full Energy Shield
-{variant:2}Ghost Reaver
+{variant:1,2,3,4}Leech Energy Shield instead of Life
+{variant:5}50% reduced Maximum Recovery per Energy Shield Leech
+{variant:5,6}Energy Shield Leech Effects from Attacks are not removed at Full Energy Shield
+{variant:5,6}Ghost Reaver
 ]],[[
 Hand of Thought and Motion
 Blinder
@@ -166,8 +162,8 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 22, 41 Dex, 41 Int
 Implicits: 2
-{variant:1}+10 Life gained for each Enemy hit by Attacks
-{variant:2,3}+12 Life gained for each Enemy hit by Attacks
+{variant:1}Grants 10 Life per Enemy Hit
+{variant:2,3}Grants 12 Life per Enemy Hit
 (20-25)% increased Elemental Damage with Attack Skills
 Adds 1 to (50-60) Lightning Damage
 (10-15)% increased Attack Speed
@@ -183,8 +179,8 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
-{variant:1}+25 Life gained for each Enemy hit by Attacks
-{variant:2,3}+46 Life gained for each Enemy hit by Attacks
+{variant:1}Grants 25 Life per Enemy Hit
+{variant:2,3}Grants 46 Life per Enemy Hit
 (20-25)% increased Elemental Damage with Attack Skills
 (8-12)% increased Dexterity
 (8-12)% increased Intelligence
@@ -194,14 +190,14 @@ Implicits: 2
 ]],[[
 Izaro's Dilemma
 Imperial Claw
-Source: Drops in The Lord's Labyrinth
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
-{variant:1}+25 Life gained for each Enemy hit by Attacks
-{variant:2,3}+46 Life gained for each Enemy hit by Attacks
+{variant:1}Grants 25 Life per Enemy Hit
+{variant:2,3}Grants 46 Life per Enemy Hit
 (40-60)% increased Physical Damage
 Adds 20 to 50 Physical Damage
 (10-15)% increased Attack Speed
@@ -212,7 +208,7 @@ Adds 20 to 50 Physical Damage
 Last Resort
 Nailed Fist
 Implicits: 1
-+3 Life gained for each Enemy hit by your Attacks
+Gain 3 Life per Enemy Hit with Attacks
 25% increased Attack Speed when on Low Life
 (80-100)% increased Physical Damage
 Adds 2 to 10 Physical Damage
@@ -224,8 +220,9 @@ Variant: Pre 3.14.0
 Variant: Current
 Nailed Fist
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
-+3 Life gained for each Enemy hit by Attacks
+Grants 3 Life per Enemy Hit
 {variant:1}50% increased Attack Speed when on Low Life
 {variant:2}25% increased Attack Speed when on Low Life
 (80-100)% increased Physical Damage
@@ -238,7 +235,7 @@ Hellion's Paw
 Variant: Pre 3.14.0
 Variant: Current
 League: Harvest
-Source: Drops from unique{Avatar of the Grove}
+Source: Drops from unique{Oshabi, Avatar of the Grove}
 Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 1.6% of Physical Attack Damage Leeched as Life
@@ -257,7 +254,7 @@ Variant: Current
 Requires Level 34, 61 Dex, 61 Int
 Implicits: 2
 {variant:1,2}2% of Physical Attack Damage Leeched as Life
-{variant:3,4}+20 Life gained for each Enemy hit by Attacks
+{variant:3,4}Grants 20 Life per Enemy Hit
 (75-100)% increased Physical Damage
 20% increased Attack Speed
 25% increased Critical Strike Chance
@@ -275,14 +272,14 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
-{variant:1}+21 Life gained for each Enemy hit by Attacks
-{variant:2,3}+44 Life gained for each Enemy hit by Attacks
+{variant:1}Grants 21 Life per Enemy Hit
+{variant:2,3}Grants 44 Life per Enemy Hit
 +1 to Level of Socketed Dexterity Gems
-{variant:3}Socketed Gems are Supported by level 10 Faster Attacks
+{variant:3}Socketed Gems are Supported by Level 10 Faster Attacks
 {variant:1,2}(100-120)% increased Physical Damage
 {variant:3}(160-180)% increased Physical Damage
 (10-15)% increased Attack Speed
-25% increased Stun Recovery
+25% increased Stun and Block Recovery
 Hits can't be Evaded
 ]],[[
 Rive
@@ -299,13 +296,12 @@ Adds (25-35) to (50-65) Physical Damage
 ]],[[
 The Scourge
 Terror Claw
-Source: Drops from unique{Guardian of the Chimera}
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 2% of Physical Attack Damage Leeched as Life
-{variant:1}10% Chance to Cast level 10 Summon Spectral Wolf on Kill
+{variant:1}Trigger Level 10 Summon Spectral Wolf on Kill
 Adds (35-50) to (100-125) Physical Damage
 (10-15)% increased Attack Speed
 Minions have (10-15)% increased Attack Speed
@@ -318,8 +314,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
-{variant:1}+25 Life gained for each Enemy hit by Attacks
-{variant:2}+46 Life gained for each Enemy hit by Attacks
+{variant:1}Grants 25 Life per Enemy Hit
+{variant:2}Grants 46 Life per Enemy Hit
 Adds (40-50) to (130-150) Physical Damage
 30% increased Cold Damage
 (30-40)% increased Critical Strike Chance
@@ -334,7 +330,7 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
-+40 Life gained for each Enemy hit by Attacks
+Grants 40 Life per Enemy Hit
 (150-170)% increased Physical Damage
 (20-25)% increased Attack Speed
 (20-25)% increased Critical Strike Chance
@@ -350,8 +346,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 12, 25 Dex, 25 Int
 Implicits: 2
-{variant:1}+5 Life gained for each Enemy hit by Attacks
-{variant:2}+7 Life gained for each Enemy hit by Attacks
+{variant:1}Grants 5 Life per Enemy Hit
+{variant:2}Grants 7 Life per Enemy Hit
 +(10-15) to Strength
 +(10-15) to Dexterity
 15% reduced Accuracy Rating

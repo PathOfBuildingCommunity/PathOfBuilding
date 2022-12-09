@@ -49,13 +49,14 @@ Steps:
    * `data.json`.
 4. Copy the following files from the `assets` subdirectory in the `.zip` archive to the
     new directory:
-    * `groups-3.png`
+    * `mastery-active-effect-3.png`
+    * `mastery-active-selected-3.png`
+    * `mastery-connected-3.png`
+    * `mastery-disabled-3.png`
     * `skills-3.jpg`
     * `skills-disabled-3.jpg`.
-5. Copy `./fix_ascendancy_positions.py` to the new directory and run it. This should
-   result in a new file `data_fixed.json`. Remove `data.json` and rename
-   `data_fixed.json` to `data.json`. Remove the copied `fix_ascendancy_positions.py`.
-6. Open `.src/GameVersions.lua` and update `treeVersionList` and `treeVersions`
+5. Run `./fix_ascendancy_positions.py`.
+6. Open `./src/GameVersions.lua` and update `treeVersionList` and `treeVersions`
    according to the file's format. This is important, otherwise the JSON data converter
    won't trigger.
 7. Restart Path of Building Community. This should result in a new file `tree.lua`.
