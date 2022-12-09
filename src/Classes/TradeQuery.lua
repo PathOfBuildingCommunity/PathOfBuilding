@@ -97,9 +97,9 @@ function TradeQueryClass:PullLeagueList()
 					local league_name = league_data.id
 					if league_name ~= "Standard" and league_name ~= "Hardcore" and not league_name:find("SSF") then
 						if league_name:find("Hardcore") then
-							t_insert(self.itemsTab.leagueDropList, 2, { label = "HC League" , name = "tmpHardcore", realName = league_name})
+							t_insert(self.itemsTab.leagueDropList, 2, { label = "HC League" , name = "tmphardcore", realName = league_name})
 						else
-							t_insert(self.itemsTab.leagueDropList, 1, { label = "SC League" , name = "tmpStandard", realName = league_name})
+							t_insert(self.itemsTab.leagueDropList, 1, { label = "SC League" , name = "tmpstandard", realName = league_name})
 						end
 					end
 				end
