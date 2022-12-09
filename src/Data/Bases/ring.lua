@@ -110,6 +110,13 @@ itemBases["Unset Ring"] = {
 	implicitModTypes = { {  }, },
 	req = { level = 5, },
 }
+itemBases["Bone Ring"] = {
+	type = "Ring",
+	tags = { ring = true, ring_can_roll_minion_modifiers = true, default = true, },
+	implicit = "Minions have +(10-15)% to all Elemental Resistances",
+	implicitModTypes = { { "elemental", "resistance", "minion" }, },
+	req = { level = 25, },
+}
 itemBases["Steel Ring"] = {
 	type = "Ring",
 	tags = { not_for_sale = true, ring = true, ringatlas1 = true, atlas_base_type = true, default = true, },
@@ -179,6 +186,61 @@ itemBases["Geodesic Ring"] = {
 	implicit = "+1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed",
 	implicitModTypes = { {  }, {  }, {  }, },
 	req = { level = 24, },
+}
+itemBases["Dusk Ring"] = {
+	type = "Ring",
+	tags = { ring = true, not_for_sale = true, default = true, },
+	implicit = "Left ring slot: 15% reduced Skill Effect Duration\nRight ring slot: 15% increased Skill Effect Duration",
+	implicitModTypes = { {  }, {  }, },
+	req = { level = 24, },
+}
+itemBases["Penumbra Ring"] = {
+	type = "Ring",
+	tags = { ring = true, not_for_sale = true, default = true, },
+	implicit = "Left ring slot: 30% reduced Effect of Curses on you\nRight ring slot: 30% increased Effect of Curses on you",
+	implicitModTypes = { { "curse" }, { "curse" }, },
+	req = { level = 24, },
+}
+itemBases["Gloam Ring"] = {
+	type = "Ring",
+	tags = { ring = true, ring_can_roll_minion_modifiers = true, not_for_sale = true, default = true, },
+	implicit = "Left ring slot: Minions take 15% reduced Damage\nRight ring slot: Minions take 15% increased Damage",
+	implicitModTypes = { { "minion" }, { "minion" }, },
+	req = { level = 24, },
+}
+itemBases["Tenebrous Ring"] = {
+	type = "Ring",
+	tags = { ring = true, not_for_sale = true, default = true, },
+	implicit = "Left ring slot: 30% reduced Duration of Ailments on You\nRight ring slot: 30% increased Duration of Ailments on You",
+	implicitModTypes = { { "ailment" }, { "ailment" }, },
+	req = { level = 24, },
+}
+itemBases["Shadowed Ring"] = {
+	type = "Ring",
+	tags = { ring = true, not_for_sale = true, default = true, },
+	implicit = "Left ring slot: 25% of Cold Damage from Hits taken as Fire Damage\nRight ring slot: 25% of Fire Damage from Hits taken as Cold Damage",
+	implicitModTypes = { { "elemental", "fire", "cold" }, { "elemental", "fire", "cold" }, },
+	req = { level = 24, },
+}
+itemBases["Shadowed Ring"] = {
+	type = "Ring",
+	tags = { ring = true, not_for_sale = true, default = true, },
+	implicit = "Left ring slot: 25% of Fire Damage from Hits taken as Lightning Damage\nRight ring slot: 25% of Lightning Damage from Hits taken as Fire Damage",
+	implicitModTypes = { { "elemental", "fire", "lightning" }, { "elemental", "fire", "lightning" }, },
+	req = { level = 24, },
+}
+itemBases["Shadowed Ring"] = {
+	type = "Ring",
+	tags = { ring = true, not_for_sale = true, default = true, },
+	implicit = "Left ring slot: 25% of Lightning Damage from Hits taken as Cold Damage\nRight ring slot: 25% of Cold Damage from Hits taken as Lightning Damage",
+	implicitModTypes = { { "elemental", "cold", "lightning" }, { "elemental", "cold", "lightning" }, },
+	req = { level = 24, },
+}
+itemBases["Ring"] = {
+	type = "Ring",
+	tags = { ring = true, not_for_sale = true, default = true, },
+	implicitModTypes = { },
+	req = { },
 }
 
 itemBases["Breach Ring"] = {

@@ -85,8 +85,8 @@ data.powerStatList = {
 	{ stat=nil, label="Name", itemField="Name", ignoreForNodes=true, reverseSort=true, transform=function(value) return value:gsub("^The ","") end},
 	{ stat="FullDPS", label="Full DPS" },
 	{ stat="CombinedDPS", label="Combined DPS" },
-	{ stat="TotalDPS", label="Total DPS" },
-	{ stat="WithImpaleDPS", label="Impale + Total DPS" },
+	{ stat="TotalDPS", label="Hit DPS" },
+	{ stat="WithImpaleDPS", label="Impale + Hit DPS" },
 	{ stat="AverageDamage", label="Average Hit" },
 	{ stat="Speed", label="Attack/Cast Speed" },
 	{ stat="TotalDot", label="DoT DPS" },
@@ -230,31 +230,6 @@ data.unarmedWeaponData = {
 	[6] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Shadow
 }
 
-data.specialBaseTags = {
-	["Amulet"] = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", },
-	["Ring"] = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", },
-	["Claw"] = { shaper = "claw_shaper", elder = "claw_elder", adjudicator = "claw_adjudicator", basilisk = "claw_basilisk", crusader = "claw_crusader", eyrie = "claw_eyrie", },
-	["Dagger"] = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", },
-	["Wand"] = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", },
-	["One Handed Sword"] = { shaper = "sword_shaper", elder = "sword_elder", adjudicator = "sword_adjudicator", basilisk = "sword_basilisk", crusader = "sword_crusader", eyrie = "sword_eyrie", },
-	["Thrusting One Handed Sword"] = { shaper = "sword_shaper", elder = "sword_elder", adjudicator = "sword_adjudicator", basilisk = "sword_basilisk", crusader = "sword_crusader", eyrie = "sword_eyrie", },
-	["One Handed Axe"] = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", },
-	["One Handed Mace"] = { shaper = "mace_shaper", elder = "mace_elder", adjudicator = "mace_adjudicator", basilisk = "mace_basilisk", crusader = "mace_crusader", eyrie = "mace_eyrie", },
-	["Bow"] = { shaper = "bow_shaper", elder = "bow_elder", adjudicator = "bow_adjudicator", basilisk = "bow_basilisk", crusader = "bow_crusader", eyrie = "bow_eyrie", },
-	["Staff"] = { shaper = "staff_shaper", elder = "staff_elder", adjudicator = "staff_adjudicator", basilisk = "staff_basilisk", crusader = "staff_crusader", eyrie = "staff_eyrie", },
-	["Two Handed Sword"] = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", adjudicator = "2h_sword_adjudicator", basilisk = "2h_sword_basilisk", crusader = "2h_sword_crusader", eyrie = "2h_sword_eyrie", },
-	["Two Handed Axe"] = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", },
-	["Two Handed Mace"] = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", },
-	["Quiver"] = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", },
-	["Belt"] = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", },
-	["Gloves"] = { shaper = "gloves_shaper", elder = "gloves_elder", adjudicator = "gloves_adjudicator", basilisk = "gloves_basilisk", crusader = "gloves_crusader", eyrie = "gloves_eyrie", },
-	["Boots"] = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", },
-	["Body Armour"] = { shaper = "body_armour_shaper", elder = "body_armour_elder", adjudicator = "body_armour_adjudicator", basilisk = "body_armour_basilisk", crusader = "body_armour_crusader", eyrie = "body_armour_eyrie", },
-	["Helmet"] = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", },
-	["Shield"] = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", },
-	["Sceptre"] = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", },
-}
-
 data.cursePriority = {
 	["Temporal Chains"] = 1, -- Despair and Elemental Weakness override Temporal Chains.
 	["Enfeeble"] = 2, -- Elemental Weakness and Vulnerability override Enfeeble.
@@ -341,14 +316,125 @@ data.keystones = {
 
 data.ailmentTypeList = { "Bleed", "Poison", "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
 data.elementalAilmentTypeList = { "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
+data.nonElementalAilmentTypeList = { "Bleed", "Poison" }
 
 data.nonDamagingAilment = {
 	["Chill"] = { associatedType = "Cold", alt = false, default = 10, min = 5, max = 30, precision = 0, duration = 2 },
 	["Freeze"] = { associatedType = "Cold", alt = false, default = nil, min = 0.3, max = 3, precision = 2, duration = nil },
 	["Shock"] = { associatedType = "Lightning", alt = false, default = 15, min = 5, max = 50, precision = 0, duration = 2 },
 	["Scorch"] = { associatedType = "Fire", alt = true, default = 10, min = 0, max = 30, precision = 0, duration = 4 },
-	["Brittle"] = { associatedType = "Cold", alt = true, default = 5, min = 0, max = 15, precision = 2, duration = 4 },
+	["Brittle"] = { associatedType = "Cold", alt = true, default = 2, min = 0, max = 6, precision = 2, duration = 4 },
 	["Sap"] = { associatedType = "Lightning", alt = true, default = 6, min = 0, max = 20, precision = 0, duration = 4 },
+}
+
+-- Used in ModStoreClass:ScaleAddMod(...) to identify high precision modifiers
+data.defaultHighPrecision = 1
+data.highPrecisionMods = {
+	["CritChance"] = {
+		["BASE"] = 2,
+	},
+	["SelfCritChance"] = {
+		["BASE"] = 2,
+	},
+	["LifeRegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["ManaRegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["EnergyShieldRegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["LifeRegen"] = {
+		["BASE"] = 1,
+	},
+	["ManaRegen"] = {
+		["BASE"] = 1,
+	},
+	["EnergyShieldRegen"] = {
+		["BASE"] = 1,
+	},
+	["LifeDegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["ManaDegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["EnergyShieldDegenPercent"] = {
+		["BASE"] = 2,
+	},
+	["LifeDegen"] = {
+		["BASE"] = 1,
+	},
+	["ManaDegen"] = {
+		["BASE"] = 1,
+	},
+	["EnergyShieldDegen"] = {
+		["BASE"] = 1,
+	},
+	["DamageLifeLeech"] = {
+		["BASE"] = 2,
+	},
+	["PhysicalDamageLifeLeech"] = {
+		["BASE"] = 2,
+	},
+	["ElementalDamageLifeLeech"] = {
+		["BASE"] = 2,
+	},
+	["FireDamageLifeLeech"] = {
+		["BASE"] = 2,
+	},
+	["ColdDamageLifeLeech"] = {
+		["BASE"] = 2,
+	},
+	["LightningDamageLifeLeech"] = {
+		["BASE"] = 2,
+	},
+	["ChaosDamageLifeLeech"] = {
+		["BASE"] = 2,
+	},
+	["DamageManaLeech"] = {
+		["BASE"] = 2,
+	},
+	["PhysicalDamageManaLeech"] = {
+		["BASE"] = 2,
+	},
+	["ElementalDamageManaLeech"] = {
+		["BASE"] = 2,
+	},
+	["FireDamageManaLeech"] = {
+		["BASE"] = 2,
+	},
+	["ColdDamageManaLeech"] = {
+		["BASE"] = 2,
+	},
+	["LightningDamageManaLeech"] = {
+		["BASE"] = 2,
+	},
+	["ChaosDamageManaLeech"] = {
+		["BASE"] = 2,
+	},
+	["DamageEnergyShieldLeech"] = {
+		["BASE"] = 2,
+	},
+	["PhysicalDamageEnergyShieldLeech"] = {
+		["BASE"] = 2,
+	},
+	["ElementalDamageEnergyShieldLeech"] = {
+		["BASE"] = 2,
+	},
+	["FireDamageEnergyShieldLeech"] = {
+		["BASE"] = 2,
+	},
+	["ColdDamageEnergyShieldLeech"] = {
+		["BASE"] = 2,
+	},
+	["LightningDamageEnergyShieldLeech"] = {
+		["BASE"] = 2,
+	},
+	["ChaosDamageEnergyShieldLeech"] = {
+		["BASE"] = 2,
+	},
 }
 
 data.misc = { -- magic numbers
@@ -365,10 +451,11 @@ data.misc = { -- magic numbers
 	AvoidChanceCap = 75,
 	EnergyShieldRechargeBase = 0.33,
 	EnergyShieldRechargeDelay = 2,
-	WardRechargeDelay = 5,
+	WardRechargeDelay = 4,
 	Transfiguration = 0.3,
 	EnemyMaxResist = 75,
 	LeechRateBase = 0.02,
+	DotDpsCap = 35791394, -- (2 ^ 31 - 1) / 60 (int max / 60 seconds)
 	BleedPercentBase = 70,
 	BleedDurationBase = 5,
 	PoisonPercentBase = 0.30,
@@ -383,6 +470,10 @@ data.misc = { -- magic numbers
 	MineAuraRadiusBase = 35,
 	MaxEnemyLevel = 85,
 	LowPoolThreshold = 0.5,
+	MinStunChanceNeeded = 20,
+	StunBaseMult = 200,
+	StunBaseDuration = 0.35,
+	StunNotMeleeDamageMult = 0.75,
 	AccuracyPerDexBase = 2,
 	BrandAttachmentRangeBase = 30,
 	ProjectileDistanceCap = 150,
@@ -394,10 +485,15 @@ data.misc = { -- magic numbers
 	uberBossPen = 40 / 5,
 	-- ehp helper function magic numbers
 	ehpCalcSpeedUp = 8,
-		-- depth needs to be a power of speedUp (in this case 8^3, will run 3 recursive calls deep)
-	ehpCalcMaxDepth = 512,
-		-- max hits is currently depth + speedup - 1 to give as much accuracy with as few cycles as possible, but can be increased for more accuracy
-	ehpCalcMaxHitsToCalc = 519,
+	-- max damage can be increased for more accuracy
+	ehpCalcMaxDamage = 100000000,
+	-- max iterations can be increased for more accuracy this should be perfectly accurate unless it runs out of iterations and so high eHP values will be underestimated.
+	ehpCalcMaxIterationsToCalc = 50,
+	-- PvP scaling used for hogm
+	PvpElemental1 = 0.55,
+	PvpElemental2 = 150,
+	PvpNonElemental1 = 0.57,
+	PvpNonElemental2 = 90,
 }
 
 data.bossSkills = {
@@ -557,6 +653,29 @@ local function loadJewelFile(jewelTypeName)
 
 	if jewelData == nil then
 		ConPrintf("Failed to load either file: " .. jewelTypeName .. ".zip, " .. jewelTypeName .. ".bin")
+		if (data.nodeIDList[1] and (data.nodeIDList[1].rebuildLUT or 0) or 0) == 1 then
+			ConPrintf("looking for base LUT to rebuild")
+			local jewelType = 1
+			while ("/Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "")) ~= jewelTypeName and jewelType < 5 do
+				jewelType = jewelType + 1
+			end
+			local compressedFile = io.open(scriptPath .. "/Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType], "rb")
+			if compressedFile then
+				ConPrintf("base LUT found: " .. jewelTypeName)
+				jewelData = compressedFile:read("*a")
+				compressedFile:close()
+
+				--- Code for compressing existing data if it changed
+				if jewelType == 1 then
+					ConPrintf("GV needs to be split manually")
+				else
+					local compressedFileData = Deflate(jewelData)
+					local file = assert(io.open(scriptPath .. "Data/TimelessJewelData/" .. jewelTypeName .. ".zip", "wb+"))
+					file:write(compressedFileData)
+					file:close()
+				end
+			end
+		end
 	else
 		local uncompressedFile = io.open(scriptPath .. jewelTypeName .. ".bin", "wb+")
 		if uncompressedFile then
@@ -641,21 +760,9 @@ local function loadTimelessJewel(jewelType, nodeID)
 				end
 			end
 			ConPrintf("Glorious Vanity Lookup Table Loaded! Read " .. sizeOffset .. " bytes")
-
-			--- Code for compressing existing data if it changed
-			--local compressedFileData = Deflate(jewelData)
-			--local file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "wb+"))
-			--file:write(compressedFileData)
-			--file:close()
 			return
 		else
 			data.timelessJewelLUTs[jewelType].data = jewelData
-
-			--- Code for compressing existing data if it changed
-			--local compressedFileData = Deflate(data.timelessJewelLUTs[jewelType].data)
-			--local file = assert(io.open("Data/TimelessJewelData/" .. data.timelessJewelTypes[jewelType]:gsub("%s+", "") .. ".zip", "wb+"))
-			--file:write(compressedFileData)
-			--file:close()
 		end
 	end
 end
@@ -684,6 +791,81 @@ data.timelessJewelSeedMax = {
 data.timelessJewelAdditions = 94 -- #legionAdditions
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
 data.timelessJewelLUTs = { }
+-- this runs if the "size" key is missing from nodeIDList and attempts to rebuild all jewel LUTs and the nodeIDList
+-- note this should only run in dev mode
+if not data.nodeIDList.size and launch.devMode then -- this doesn't rebuilt the list with the correct sizes, likely an issue with lua indexing from 1 instead of 0, but cbf debugging so just generated the index mapping in c#
+	ConPrintf("Error NodeIndexMapping file empty")
+	data.nodeIDList = { { index = 0, rebuildLUT = 1 } }
+	for _, jewelType in ipairs({2, 3, 4, 5}) do
+		loadTimelessJewel(jewelType, 1)
+		data.nodeIDList[1].rebuildLUT = 1
+	end
+	jewelData = loadJewelFile(data.timelessJewelTypes[1]:gsub("%s+", ""))
+	if not jewelData then
+		ConPrintf("missing GV file to rebuild NodeIndexMapping")
+	else
+		ConPrintf("attempting to rebuild NodeIndexMapping")
+		local scriptPath = GetScriptPath()
+		local compressedFile = io.open(scriptPath .. "/Data/TimelessJewelData/node_indices.csv", "rb")
+		if compressedFile then
+			ConPrintf("csv found")
+			local nodeData = compressedFile:read("*a")
+			compressedFile:close()
+			
+			tempIndList = {}
+			nodeIDList["size"] = 0
+			nodeIDList["sizeNotable"] = 0
+			for line in nodeData:gmatch("([^\n]*)\n?") do
+				nodeIDList["size"] = nodeIDList["size"] + 1
+				if nodeIDList["size"] ~= 1 then
+					for split in line:gmatch("([^,]*),?") do
+						if tonumber(split) then
+							tempIndList[nodeIDList["size"] - 1] = tonumber(split)
+							if nodeIDList["size"] ~= 2 and tempIndList[nodeIDList["size"] - 1] < tempIndList[nodeIDList["size"] - 2] then
+								nodeIDList["sizeNotable"] = nodeIDList["size"] - 2
+							end
+						end
+						break
+					end
+				end
+			end
+			nodeIDList["size"] = nodeIDList["size"] - 2
+			ConPrintf(nodeIDList["sizeNotable"])
+			ConPrintf(nodeIDList["size"])
+			
+			
+			local seedSize = data.timelessJewelSeedMax[1] - data.timelessJewelSeedMin[1] + 1
+			local sizeOffset = nodeIDList.size * seedSize
+			data.timelessJewelLUTs[1] = {}
+			data.timelessJewelLUTs[1].sizes = jewelData:sub(1, sizeOffset + 1)
+			for i, nodeID in ipairs(tempIndList) do
+				local nodeIndex = i - 1
+				local count = 0
+				if i > nodeIDList["sizeNotable"] then
+					count = seedSize * 2
+				else
+					for seedOffset = 1, (seedSize + 1) do
+						local dataLength = data.timelessJewelLUTs[1].sizes:byte(nodeIndex * seedSize + seedOffset)
+						count = count + dataLength
+					end
+				end
+				nodeIDList[nodeID] = { index = nodeIndex, size = count }
+			end
+			
+			local file = assert(io.open("Data/TimelessJewelData/NodeIndexMapping.lua", "wb+"))
+			file:write("nodeIDList = { }\n")
+			file:write("nodeIDList[\"size\"] = " .. tostring(nodeIDList["size"]) .. "\n")
+			file:write("nodeIDList[\"sizeNotable\"] = " .. tostring(nodeIDList["sizeNotable"]) .. "\n")
+			for _, nodeID in ipairs(tempIndList) do
+				file:write("nodeIDList[" .. tostring(nodeID) .. "] = { index = " .. tostring(nodeIDList[nodeID].index) .. ", size = " .. tostring(nodeIDList[nodeID].size) .. " }\n")
+			end
+			file:write("return nodeIDList")
+			file:close()
+		else
+			ConPrintf("csv missing, cannot rebuild NodeIndexMapping")
+		end
+	end
+end
 data.readLUT = function(seed, nodeID, jewelType)
 	loadTimelessJewel(jewelType, nodeID)
 	if jewelType == 1 then

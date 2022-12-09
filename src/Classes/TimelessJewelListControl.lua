@@ -67,9 +67,9 @@ Timeless Jewel
 League: Legion
 Requires Level: 20
 Limited to: 1
-Variant: Cadiro
-Variant: Victario
-Variant: Caspiro
+Variant: Cadiro (Supreme Decadence)
+Variant: Victario (Supreme Grandstanding)
+Variant: Caspiro (Supreme Ostentation)
 Selected Variant:  ]] .. variant .. [[
 Radius: Large
 Implicits: 0
@@ -86,9 +86,9 @@ Timeless Jewel
 League: Legion
 Requires Level: 20
 Limited to: 1
-Variant: Doryani
-Variant: Xibaqua
-Variant: Ahuana
+Variant: Doryani (Corrupted Soul)
+Variant: Xibaqua (Divine Flesh)
+Variant: Ahuana (Immortal Ambition)
 Selected Variant: ]] .. variant .. [[
 Radius: Large
 Implicits: 0
@@ -105,9 +105,9 @@ Timeless Jewel
 League: Legion
 Requires Level: 20
 Limited to: 1
-Variant: Kaom
-Variant: Rakiata
-Variant: Akoya
+Variant: Kaom (Strength of Blood)
+Variant: Rakiata (Tempered by War)
+Variant: Akoya (Chainbreaker)
 Selected Variant: ]] .. variant .. [[
 Radius: Large
 Implicits: 0
@@ -124,9 +124,9 @@ Timeless Jewel
 League: Legion
 Requires Level: 20
 Limited to: 1
-Variant: Asenath
-Variant: Nasima
-Variant: Balbala
+Variant: Asenath (Dance with Death)
+Variant: Nasima (Second Sight)
+Variant: Balbala (The Traitor)
 Selected Variant: ]] .. variant .. [[
 Radius: Large
 Implicits: 0
@@ -150,9 +150,9 @@ Requires Level: 20
 Limited to: 1
 Has Alt Variant: true
 Has Alt Variant Two: true
-Variant: Avarius
-Variant: Dominus
-Variant: Maxarius
+Variant: Avarius (Power of Purpose)
+Variant: Dominus (Inner Conviction)
+Variant: Maxarius (Transcendence)
 Variant: Totem Damage
 Variant: Brand Damage
 Variant: Channelling Damage

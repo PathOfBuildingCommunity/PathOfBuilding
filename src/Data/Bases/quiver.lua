@@ -62,7 +62,7 @@ itemBases["Sharktooth Arrow Quiver"] = {
 	type = "Quiver",
 	hidden = true,
 	tags = { trade_market_legacy_item = true, quiver = true, default = true, },
-	implicit = "+(3-4) Life gained for each Enemy hit by your Attacks",
+	implicit = "Gain (3-4) Life per Enemy Hit with Attacks",
 	implicitModTypes = { { "resource", "life", "attack" }, },
 	req = { level = 10, },
 }
@@ -130,7 +130,7 @@ itemBases["Fire Arrow Quiver"] = {
 itemBases["Sharktooth Arrow Quiver"] = {
 	type = "Quiver",
 	tags = { quiver = true, default = true, },
-	implicit = "+(6-8) Life gained for each Enemy hit by your Attacks",
+	implicit = "Gain (6-8) Life per Enemy Hit with Attacks",
 	implicitModTypes = { { "resource", "life", "attack" }, },
 	req = { level = 14, },
 }

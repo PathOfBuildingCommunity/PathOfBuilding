@@ -72,8 +72,8 @@ function buildSites.DownloadBuild(link, websiteInfo, callback)
 	-- Only called on program start via protocol handler
 	if not websiteInfo then
 		for _, siteInfo in ipairs(buildSites.websiteList) do
-			if link:match("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(%w+)") then
-				siteCodeURL = link:gsub("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(%w+)", "https://" .. siteInfo.downloadURL)
+			if link:match("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(.+)") then
+				siteCodeURL = link:gsub("^pob:[/\\]*" .. siteInfo.id:lower() .. "[/\\]+(.+)", "https://" .. siteInfo.downloadURL)
 				websiteInfo = siteInfo
 				break
 			end
@@ -82,11 +82,11 @@ function buildSites.DownloadBuild(link, websiteInfo, callback)
 		siteCodeURL = link:gsub(websiteInfo.regexURL, websiteInfo.downloadURL)
 	end
 	if websiteInfo then
-		launch:DownloadPage(siteCodeURL, function(page, errMsg)
+		launch:DownloadPage(siteCodeURL, function(response, errMsg)
 			if errMsg then
 				callback(false, errMsg)
 			else
-				callback(true, page)
+				callback(true, response.body)
 			end
 		end)
 	else

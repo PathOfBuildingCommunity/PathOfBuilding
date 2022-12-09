@@ -55,7 +55,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 6, function(buf, placeholder)
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 7, function(buf, placeholder)
 					if placeholder then
 						self.placeholder[varData.var] = tonumber(buf)
 					else
@@ -190,6 +190,12 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					return skillFlags[varData.ifFlag] or skillModList:Flag(nil, varData.ifFlag)
 				end
 				control.tooltipText = varData.tooltip
+			elseif varData.ifMod then
+				control.shown = function()
+					local skillModList = self.build.calcsTab.mainEnv.player.mainSkill.skillModList
+					return skillModList:Sum(varData.ifModType or "BASE", nil, varData.ifMod) > 0
+				end
+				control.tooltipText = varData.tooltip
 			elseif varData.ifSkill or varData.ifSkillList then
 				control.shown = function()
 					if varData.ifSkillList then
@@ -244,6 +250,39 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					control.selIndex = varData.defaultIndex
 				end
 			end
+
+			local innerShown = control.shown
+			control.shown = function()
+				local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+				return not shown and control.state ~= self:GetDefaultState(varData.var, type(control.state)) or shown
+			end
+			local innerLabel = control.label
+			control.label = function()
+				local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+				if not shown and control.state ~= self:GetDefaultState(varData.var, type(control.state)) then
+					return "^1"..innerLabel
+				end
+				return innerLabel
+			end
+			local innerTooltipFunc = control.tooltipFunc
+			control.tooltipFunc = function (tooltip, ...)
+				tooltip:Clear()
+
+				if innerTooltipFunc then
+					innerTooltipFunc(tooltip, ...)
+				else
+					local tooltipText = control:GetProperty("tooltipText")
+					if tooltipText then
+						tooltip:AddLine(14, tooltipText)
+					end
+				end
+
+				local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+				if not shown and control.state ~= self:GetDefaultState(varData.var, type(control.state)) then
+					tooltip:AddLine(14, "^1This config option is conditional with missing source and is invalid.")
+				end
+			end
+
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)
 		end
@@ -341,7 +380,6 @@ function ConfigTabClass:Save(xml)
 		end
 		t_insert(xml, child)
 	end
-	self.modFlag = false
 end
 
 function ConfigTabClass:UpdateControls()

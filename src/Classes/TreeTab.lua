@@ -198,7 +198,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	-- Determine positions if one line of controls doesn't fit in the screen width
 	local twoLineHeight = 24
-	if viewPort.width >= 1484 or (viewPort.width >= 1168 and not self.viewer.showHeatMap) then
+	if viewPort.width >= 1168 + (self.isComparing and 198 or 0) + (self.viewer.showHeatMap and 316 or 0) then
 		twoLineHeight = 0
 		self.controls.findTimelessJewel:SetAnchor("LEFT", self.controls.treeSearch, "RIGHT", 8, 0)
 		if self.controls.powerReportList then
@@ -245,6 +245,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
+	self.controls.treeHeatMapStatSelect.shown = self.viewer.showHeatMap
 	self.controls.treeHeatMapStatSelect.list = self.powerStatList
 	self.controls.treeHeatMapStatSelect.selIndex = 1
 	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
@@ -322,7 +323,6 @@ function TreeTabClass:Save(xml)
 		spec:Save(child)
 		t_insert(xml, child)
 	end
-	self.modFlag = false
 end
 
 function TreeTabClass:SetActiveSpec(specId)
@@ -482,12 +482,12 @@ function TreeTabClass:OpenExportPopup()
 	controls.shrink = new("ButtonControl", nil, -90, 70, 140, 20, "Shrink with PoEURL", function()
 		controls.shrink.enabled = false
 		controls.shrink.label = "Shrinking..."
-		launch:DownloadPage("http://poeurl.com/shrink.php?url="..treeLink, function(page, errMsg)
+		launch:DownloadPage("http://poeurl.com/shrink.php?url="..treeLink, function(response, errMsg)
 			controls.shrink.label = "Done"
-			if errMsg or not page:match("%S") then
+			if errMsg or not response.body:match("%S") then
 				main:OpenMessagePopup("PoEURL Shortener", "Failed to get PoEURL link. Try again later.")
 			else
-				treeLink = "http://poeurl.com/"..page
+				treeLink = "http://poeurl.com/"..response.body
 				controls.edit:SetText(treeLink)
 				popup:SelectControl(controls.edit)
 			end
@@ -607,7 +607,7 @@ function TreeTabClass:TogglePowerReport(caller)
 	self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, main.portraitMode and "BOTTOMLEFT" or "TOPRIGHT")
 	self.controls.powerReportList.shown = self.showPowerReport
 
-	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and im unsure how to quantify numerically
+	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and I'm unsure how to quantify numerically
 	-- especially given the heatmap's current approach of using the sqrt() of both components. that number is cryptic to users, i suspect.
 	if currentStat and currentStat.stat then
 		self.controls.powerReportList.label = "Click to focus node on tree"
@@ -771,7 +771,17 @@ function TreeTabClass:FindTimelessJewel()
 		{ label = "Militant Faith", name = "templar", id = 4 },
 		{ label = "Elegant Hubris", name = "eternal", id = 5 }
 	}
-	timelessData.jewelType = next(timelessData.jewelType) and timelessData.jewelType or jewelTypes[1]
+	-- rebuild `timelessData.jewelType` as we only store the minimum amount of `jewelType` data in build XML
+	if next(timelessData.jewelType) then
+		for idx, jewelType in ipairs(jewelTypes) do
+			if jewelType.id == timelessData.jewelType.id then
+				timelessData.jewelType = jewelType
+				break
+			end
+		end
+	else
+		timelessData.jewelType = jewelTypes[1]
+	end
 	local conquerorTypes = {
 		[1] = {
 			{ label = "Doryani (Corrupted Soul)", id = 1 },
@@ -799,7 +809,17 @@ function TreeTabClass:FindTimelessJewel()
 			{ label = "Caspiro (Supreme Ostentation)", id = 3 }
 		}
 	}
-	timelessData.conquerorType = next(timelessData.conquerorType) and timelessData.conquerorType or conquerorTypes[timelessData.jewelType.id][1]
+	-- rebuild `timelessData.conquerorType` as we only store the minimum amount of `conquerorType` data in build XML
+	if next(timelessData.conquerorType) then
+		for idx, conquerorType in ipairs(conquerorTypes[timelessData.jewelType.id]) do
+			if conquerorType.id == timelessData.conquerorType.id then
+				timelessData.conquerorType = conquerorType
+				break
+			end
+		end
+	else
+		timelessData.conquerorType = conquerorTypes[timelessData.jewelType.id][1]
+	end
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
 		if socketData.isJewelSocket then
@@ -828,10 +848,17 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 	t_sort(jewelSockets, function(a, b) return a.label < b.label end)
-	for jewelSocketIdx, jewelSocket in pairs(jewelSockets) do
-		jewelSocket.idx = jewelSocketIdx
+	-- rebuild `timelessData.jewelSocket` as we only store the minimum amount of `jewelSocket` data in build XML
+	if next(timelessData.jewelSocket) then
+		for idx, jewelSocket in ipairs(jewelSockets) do
+			if jewelSocket.id == timelessData.jewelSocket.id then
+				timelessData.jewelSocket = jewelSocket
+				break
+			end
+		end
+	else
+		timelessData.jewelSocket = jewelSockets[1]
 	end
-	timelessData.jewelSocket = next(timelessData.jewelSocket) and timelessData.jewelSocket or jewelSockets[1]
 
 	local function buildMods()
 		wipeTable(modData)
@@ -1013,7 +1040,13 @@ function TreeTabClass:FindTimelessJewel()
 		timelessData.jewelSocket = value
 		self.build.modFlag = true
 	end, self.build, socketViewer)
-	controls.socketSelect.selIndex = timelessData.jewelSocket.idx
+	-- we need to search through `jewelSockets` for the correct `id` as the `idx` can become stale due to dynamic sorting
+	for idx, jewelSocket in ipairs(jewelSockets) do
+		if jewelSocket.id == timelessData.jewelSocket.id then
+			controls.socketSelect.selIndex = idx
+			break
+		end
+	end
 
 	controls.socketFilterLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 100, 0, 16, "^7Filter Nodes:")
 	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 18, nil, function(value)
@@ -1120,23 +1153,23 @@ function TreeTabClass:FindTimelessJewel()
 			controls.nodeSlider.val = 1
 			controls.nodeSliderValue.label = s_format("^7%.3f", 10)
 		else
-			controls.nodeSlider.val = m_min(m_max((tonumber(sliderData[2]) or 0) / 10, 0), 10)
+			controls.nodeSlider.val = m_min(m_max((tonumber(sliderData[2]) or 0) / 10, 0), 1)
 			controls.nodeSliderValue.label = s_format("^7%.3f", controls.nodeSlider.val * 10)
 		end
-		if not controls.nodeSlider2.enabled then
-			parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
-		elseif sliderData[3] == "required" then
-			controls.nodeSlider2.val = 1
-			controls.nodeSlider2Value.label = s_format("^7%.3f", 10)
-		else
-			controls.nodeSlider2.val = m_min(m_max((tonumber(sliderData[3]) or 0) / 10, 0), 10)
-			controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
+		if controls.nodeSlider2.enabled then
+			if sliderData[3] == "required" then
+				controls.nodeSlider2.val = 1
+				controls.nodeSlider2Value.label = s_format("^7%.3f", 10)
+			else
+				controls.nodeSlider2.val = m_min(m_max((tonumber(sliderData[3]) or 0) / 10, 0), 1)
+				controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
+			end
 		end
 		if sliderData[4] == "required" then
 			controls.nodeSlider3.val = 1
 			controls.nodeSlider3Value.label = "^7Required"
 		else
-			controls.nodeSlider3.val = m_min(m_max((tonumber(sliderData[4]) or 0) / 500, 0), 500)
+			controls.nodeSlider3.val = m_min(m_max((tonumber(sliderData[4]) or 0) / 500, 0), 1)
 			controls.nodeSlider3Value.label = s_format("^7%.f", controls.nodeSlider3.val * 500)
 		end
 	end

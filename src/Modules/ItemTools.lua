@@ -24,11 +24,12 @@ itemLib.influenceInfo = {
 }
 
 -- Apply a value scalar to the first n of any numbers present
-function itemLib.applyValueScalar(line, valueScalar, numbers)
+function itemLib.applyValueScalar(line, valueScalar, numbers, precision)
 	if valueScalar and type(valueScalar) == "number" and valueScalar ~= 1 then
-		if line:match("(%d+%.%d*)") then
-			return line:gsub("(%d+%.%d*)", function(num)
-				local numVal = (m_floor(tonumber(num) * valueScalar * 100 + 0.001) / 100)
+		if precision then
+			return line:gsub("(%d+%.?%d*)", function(num)
+				local power = 10 ^ precision
+				local numVal = m_floor(tonumber(num) * valueScalar * power) / power
 				return tostring(numVal)
 			end, numbers)
 		else
@@ -46,18 +47,12 @@ function itemLib.getLineRangeMinMax(line)
 	local rangeMin, rangeMax
 	line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
 		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
-		:gsub("(%+?)%((%-?%d+)%-(%d+)%)", 
+		:gsub("(%+?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)",
 		function(plus, min, max)
 			rangeMin = min
 			rangeMax = max
 			-- Don't need to return anything here
 			return ""
-		end)
-		:gsub("%((%d+%.?%d*)%-(%d+%.?%d*)%)",
-		function(min, max) 
-			rangeMin = min
-			rangeMax = max
-			return "" 
 		end)
 	-- may be returning nil, nil due to not being a range
 	-- will be strings if successful
@@ -67,12 +62,37 @@ end
 -- Apply range value (0 to 1) to a modifier that has a range: (x to x) or (x-x to x-x)
 function itemLib.applyRange(line, range, valueScalar)
 	local numbers = 0
+	local precision = nil
+	-- Create a line with ranges removed to check if the mod is a high precision mod.
+	local testLine = line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
+	:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
+	:gsub("(%+?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", function(plus, min, max) return plus.."1" end)
+	:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
+	:gsub("%-(%d+%%) reduced", function(num) return num.." increased" end)
+	:gsub("%-(%d+%%) more", function(num) return num.." less" end)
+	:gsub("%-(%d+%%) less", function(num) return num.." more" end)
+	local modList, extra = modLib.parseMod(testLine)
+	if modList and not extra then
+		for _, mod in pairs(modList) do
+			local subMod = mod
+			if type(mod.value) == "table" and mod.value.mod then
+				subMod = mod.value.mod
+			end
+			if type(subMod.value) == "number" and data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type] then
+				precision = data.highPrecisionMods[subMod.name][subMod.type]
+			end
+		end
+	end
+	if not precision and line:match("(%d+%.%d*)") then
+		precision = data.defaultHighPrecision
+	end
 	line = line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
 		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
-		:gsub("(%+?)%((%-?%d+)%-(%d+)%)",
+		:gsub("(%+?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)",
 		function(plus, min, max)
 			numbers = numbers + 1
-			local numVal = m_floor(tonumber(min) + range * (tonumber(max) - tonumber(min)) + 0.5)
+			local power = 10 ^ (precision or 0)
+			local numVal = m_floor((tonumber(min) + range * (tonumber(max) - tonumber(min))) * power + 0.5) / power
 			if numVal < 0 then
 				if plus == "+" then
 					plus = ""
@@ -80,18 +100,14 @@ function itemLib.applyRange(line, range, valueScalar)
 			end
 			return plus .. tostring(numVal)
 		end)
-		:gsub("%((%d+%.?%d*)%-(%d+%.?%d*)%)",
-		function(min, max)
-			numbers = numbers + 1
-			local numVal = m_floor((tonumber(min) + range * (tonumber(max) - tonumber(min))) * 10 + 0.5) / 10
-			return tostring(numVal)
-		end)
 		:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
+		:gsub("%-(%d+%%) reduced", function(num) return num.." increased" end)
 		:gsub("%-(%d+%%) more", function(num) return num.." less" end)
-		if numbers == 0 and line:match("(%d+)%%? ") then --If a mod contains x or x% and is not already a ranged value, then only the first number will be scalable as any following numbers will always be conditions or unscalable values.
+		:gsub("%-(%d+%%) less", function(num) return num.." more" end)
+		if numbers == 0 and line:match("(%d+%.?%d*)%%? ") then --If a mod contains x or x% and is not already a ranged value, then only the first number will be scalable as any following numbers will always be conditions or unscalable values.
 			numbers = 1
 		end
-	return itemLib.applyValueScalar(line, valueScalar, numbers)
+	return itemLib.applyValueScalar(line, valueScalar, numbers, precision)
 end
 
 --- Clean item text by removing or replacing unsupported or redundant characters or sequences
