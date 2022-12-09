@@ -280,6 +280,7 @@ data.keystones = {
 	"Ghost Dance",
 	"Ghost Reaver",
 	"Glancing Blows",
+	"Hex Master",
 	"Hollow Palm Technique",
 	"Imbalanced Guard",
 	"Immortal Ambition",

@@ -311,6 +311,7 @@ local modNameList = {
 	["to avoid being frozen"] = "AvoidFreeze",
 	["to avoid being chilled"] = "AvoidChill",
 	["to avoid being ignited"] = "AvoidIgnite",
+	["to avoid blind"] = "AvoidBlind",
 	["to avoid elemental ailments"] = "AvoidElementalAilments",
 	["to avoid elemental status ailments"] = "AvoidElementalAilments",
 	["to avoid ailments"] = "AvoidAilments" ,
@@ -532,6 +533,7 @@ local modNameList = {
 	["to deal triple damage"] = "TripleDamageChance",
 	-- Buffs
 	["onslaught effect"] = "OnslaughtEffect",
+	["effect of onslaught on you"] = "OnslaughtEffect",
 	["adrenaline duration"] = "AdrenalineDuration",
 	["effect of tailwind on you"] = "TailwindEffectOnSelf",
 	["elusive effect"] = "ElusiveEffect",

@@ -1,6 +1,6 @@
 name: Calculation bug report
 description: Create a bug report to help us fix incorrect calculations
-labels: ["bug: calculation"]
+labels: ["bug:calculation"]
 body:
   - type: markdown
     attributes:

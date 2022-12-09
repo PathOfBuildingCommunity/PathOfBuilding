@@ -1,6 +1,6 @@
 name: Accuracy bug report
 description: Create a bug report to help us fix incorrect wordings
-labels: ["bug: accuracy"]
+labels: ["bug:accuracy"]
 body:
   - type: markdown
     attributes:
