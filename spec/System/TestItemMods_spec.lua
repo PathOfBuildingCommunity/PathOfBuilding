@@ -76,6 +76,8 @@ describe("TetsItemMods", function()
 
         assert.are_not.equals(farDPS, build.calcsTab.mainOutput.TotalDPS)
 
+    end)
+
     it("Kalandra's Touch mod copy", function()
         local initialInt = build.calcsTab.mainOutput.Int
 
@@ -98,7 +100,7 @@ describe("TetsItemMods", function()
         Mirrored]])
         build.itemsTab:AddDisplayItem()
         runCallback("OnFrame")
-        
+
         assert.are.equals(genericRingInt - initialInt, build.calcsTab.mainOutput.Int - genericRingInt)
     end)
 end)
