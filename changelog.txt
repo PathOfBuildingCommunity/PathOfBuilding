@@ -1,3 +1,16 @@
+VERSION[2.22.1][2022/12/09]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Update 3.20 skill tree (LocalIdentity)
+--- Fixed Bugs ---
+* Cost per second for totems and eldritch battery (Lilylicious)
+* Incorrect warnings when using Eldritch Battery and remove support for per-second costs (Paliak)
+* Viper Strike base Poison duration (LocalIdentity)
+* Ailments not applying correctly (Lilylicious)
+* Hex Master not working with Impossible Escape (LocalIdentity)
+* Onslaught Effect nodes on skill tree not working (LocalIdentity)
+
+
 VERSION[2.22.0][2022/12/09]
 
 --- Implemented Enhancements ---
