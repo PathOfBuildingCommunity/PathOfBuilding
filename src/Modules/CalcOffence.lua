@@ -285,7 +285,7 @@ local function getDurationMult(skill, env, enemyDB, isAilment)
 			return durationMult
 		end
 		
-		-- Hacky way to determine wheter or not to apply expiration rate mods to duration of stages from skill
+		-- Hacky way to determine whether or not to apply expiration rate mods to duration of stages from skill
 		local stageBuffSkill = true
 		local skillName = skill.activeEffect.grantedEffect.name
 		if skill.activeEffect.grantedEffect.parts then

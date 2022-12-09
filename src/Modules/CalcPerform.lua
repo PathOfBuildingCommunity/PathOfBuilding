@@ -2015,7 +2015,7 @@ function calcs.perform(env, avoidCache)
 	-- Currently assume only 1 mark is possible
 	local enemyMarkSlotted = {false}
 	
-	-- Hacky way to seperate enemy mark slot from player mark slot using lua table magick 
+	-- Hacky way to separate enemy mark slot from player mark slot using lua table magic 
 	for source, slots in pairs({[curses] = {curseSlots, enemyMarkSlotted}, [minionCurses] = {curseSlots, enemyMarkSlotted}, [playerCurses] = {playerCurseSlots, {false}}}) do
 		local curseSlots = slots[1]
 		local markSlot = slots[2]
