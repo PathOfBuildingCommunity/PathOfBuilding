@@ -14,7 +14,7 @@ Implicits: 2
 (20-30)% increased Fire Damage
 Adds (4-6) to (8-12) Fire Damage to Spells
 (40-60)% increased Global Critical Strike Chance
-+10 Life Gained on Killing Ignited Enemies
+Gain 10 Life per Ignited Enemy Killed
 25% reduced Ignite Duration on Enemies
 ]],[[
 Apep's Rage
@@ -45,7 +45,6 @@ Variant: Current
 Requires Level 18, 65 Int
 Implicits: 1
 (18-22)% increased Spell Damage
-{variant:3}10% chance to Cover Enemies in Ash on Hit
 {variant:1,2}10% chance to Trigger Level 8 Summon Raging Spirit on Kill
 {variant:3}25% chance to Trigger Level 10 Summon Raging Spirit on Kill
 {variant:1}Adds (10-14) to (18-22) Fire Damage
@@ -56,6 +55,7 @@ Implicits: 1
 {variant:1}(40-50)% increased Burning Damage
 {variant:2}(20-30)% increased Burning Damage
 {variant:1,2}(16-22)% chance to Ignite
+{variant:3}10% chance to Cover Enemies in Ash on Hit
 ]],[[
 Eclipse Solaris
 Crystal Wand
@@ -129,6 +129,7 @@ Cannot be used with Chaos Inoculation
 Replica Midnight Bargain
 Engraved Wand
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 40, 131 Int
 Implicits: 1
 (22-26)% increased Spell Damage
@@ -150,8 +151,8 @@ Requires Level 59, 188 Int
 Implicits: 2
 {variant:1,2}(15-19)% increased Spell Damage
 {variant:3,4}(33-37)% increased Spell Damage
-{variant:1,2,3}Socketed Gems are supported by level 5 Blind
-{variant:4}Socketed Gems are supported by level 20 Blind
+{variant:1,2,3}Socketed Gems are supported by Level 5 Blind
+{variant:4}Socketed Gems are supported by Level 20 Blind
 (30-40)% increased Spell Damage
 {variant:1}125% increased Physical Damage
 {variant:2,3}175% increased Physical Damage
@@ -217,13 +218,14 @@ Implicits: 2
 {variant:1,2}+1 to Level of Socketed Gems
 {variant:3,4}+2 to Level of Socketed Gems
 {variant:4}Socketed Gems are Supported by Level 10 Arcane Surge
-{variant:4}Socketed Gems are Supported by Level 10 Controlled Destruction
 Socketed Gems are Supported by Level 10 Spell Echo
+{variant:4}Socketed Gems are Supported by Level 10 Controlled Destruction
 +(10-30) to Intelligence
 ]],[[
 Relic of the Pact
 Spiraled Wand
 League: Ultimatum
+Source: Drops from unique{The Trialmaster}
 Requires Level 24, 83 Int
 Implicits: 1
 (15-19)% increased Spell Damage
@@ -259,7 +261,8 @@ Critical Strikes deal no Damage
 ]],[[
 Shimmeron
 Tornado Wand
-Source: Drops from unique{The Elder} (Tier 6+)
+Elder Item
+Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 65, 212 Int
@@ -273,7 +276,6 @@ Adds (26-35) to (95-105) Lightning Damage to Spells
 Adds 3 to 9 Lightning Damage to Spells per Power Charge 
 {variant:1}400 Lightning Damage taken per second per Power Charge if you've dealt a Critical Strike Recently
 {variant:2}200 Lightning Damage taken per second per Power Charge if your Skills have dealt a Critical Strike Recently
-Elder Item
 ]],[[
 Storm Prison
 Carved Wand
@@ -286,7 +288,7 @@ Implicits: 2
 (40-60)% increased Physical Damage
 Adds 1 to (35-45) Lightning Damage
 (15-25)% increased Mana Regeneration Rate
-+1 Maximum Power Charge
++1 to Maximum Power Charge
 (25-35)% chance to gain a Power Charge on Kill
 ]],[[
 Tulborn
@@ -323,6 +325,7 @@ Gain a Frenzy Charge on reaching Maximum Power Charges
 Replica Tulfall
 Tornado Wand
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 65, 212 Int
 Implicits: 1
 (35-39)% increased Spell Damage
@@ -350,6 +353,7 @@ Socketed Gems fire an additional Projectile
 Replica Twyzel
 Sage Wand
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 30, 119 Int
 Implicits: 1
 (17-21)% increased Spell Damage
