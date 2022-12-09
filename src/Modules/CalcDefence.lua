@@ -1669,6 +1669,7 @@ function calcs.defence(env, actor)
 	function numberOfHitsToDie(DamageIn)
 		local numHits = 0
 		DamageIn["cycles"] = DamageIn["cycles"] or 1
+		DamageIn["iterations"] = DamageIn["iterations"] or 0
 		
 		-- check damage in isn't 0 and that ward doesn't mitigate all damage
 		for _, damageType in ipairs(dmgTypeList) do
@@ -1681,7 +1682,7 @@ function calcs.defence(env, actor)
 		else
 			numHits = 0
 		end
-		
+
 		local life = output.LifeRecoverable or 0
 		local mana = output.ManaUnreserved or 0
 		local energyShield = output.EnergyShieldRecoveryCap
@@ -1708,15 +1709,18 @@ function calcs.defence(env, actor)
 		end
 		DamageIn["LifeLossBelowHalfLost"] = DamageIn["LifeLossBelowHalfLost"] or 0
 		DamageIn["WardBypass"] = DamageIn["WardBypass"] or modDB:Sum("BASE", nil, "WardBypass") or 0
-		
+
 		local iterationMultiplier = 1
-		local maxHits = data.misc.ehpCalcMaxHitsToCalc
-		maxHits = maxHits / DamageIn["cycles"]
-		while life > 0 and numHits < maxHits do
-			numHits = numHits + iterationMultiplier
+		local damageTotal = 0
+		local maxDamage = data.misc.ehpCalcMaxDamage
+		local maxIterations = data.misc.ehpCalcMaxIterationsToCalc
+		while life > 0 and DamageIn["iterations"] < maxIterations do
+			DamageIn["iterations"] = DamageIn["iterations"] + 1
 			local Damage = { }
+			damageTotal = 0
 			for _, damageType in ipairs(dmgTypeList) do
 				Damage[damageType] = DamageIn[damageType] * iterationMultiplier
+				damageTotal = damageTotal + Damage[damageType]
 			end
 			if DamageIn.GainWhenHit and (iterationMultiplier > 1 or DamageIn["cycles"] > 1) then
 				local gainMult = iterationMultiplier * DamageIn["cycles"]
@@ -1727,7 +1731,7 @@ function calcs.defence(env, actor)
 			for _, damageType in ipairs(dmgTypeList) do
 				if Damage[damageType] > 0 then
 					if frostShield > 0 then
-						local tempDamage = m_min(Damage[damageType] * output["FrostShieldDamageMitigation"] / 100 / iterationMultiplier, frostShield)
+						local tempDamage = m_min(Damage[damageType] * output["FrostShieldDamageMitigation"] / 100, frostShield)
 						frostShield = frostShield - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
@@ -1747,12 +1751,12 @@ function calcs.defence(env, actor)
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
 					if guard[damageType] > 0 then
-						local tempDamage = m_min(Damage[damageType] * output[damageType.."GuardAbsorbRate"] / 100 / iterationMultiplier, guard[damageType])
+						local tempDamage = m_min(Damage[damageType] * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
 						guard[damageType] = guard[damageType] - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
 					if guard["shared"] > 0 then
-						local tempDamage = m_min(Damage[damageType] * output["sharedGuardAbsorbRate"] / 100 / iterationMultiplier, guard["shared"])
+						local tempDamage = m_min(Damage[damageType] * output["sharedGuardAbsorbRate"] / 100, guard["shared"])
 						guard["shared"] = guard["shared"] - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
@@ -1785,10 +1789,14 @@ function calcs.defence(env, actor)
 						if DamageIn["LifeLossBelowHalfLost"] > 0 then
 							output["LifeLossBelowHalfLost"] = output["LifeLossBelowHalfLost"] + Damage[damageType] * output.preventedLifeLoss / 100
 						end
-						Damage[damageType] = Damage[damageType] * (1 - output.preventedLifeLoss / 100)
+						local tempDamage = Damage[damageType] * output.preventedLifeLoss / 100
+						Damage[damageType] = Damage[damageType] - tempDamage
 					end
 					life = life - Damage[damageType]
 				end
+			end
+			if life > 0 and damageTotal >= maxDamage then -- If still living and the amount of damage exceeds maximum threshold we survived infinite number of hits.
+				return m_huge
 			end
 			if modDB:Flag(nil, "WardNotBreak") then
 				ward = restoreWard
@@ -1802,20 +1810,40 @@ function calcs.defence(env, actor)
 			end
 			iterationMultiplier = 1
 			-- to speed it up, run recursively but accelerated
-			local maxDepth = data.misc.ehpCalcMaxDepth
 			local speedUp = data.misc.ehpCalcSpeedUp
 			DamageIn["cyclesRan"] = DamageIn["cyclesRan"] or false
-			if not DamageIn["cyclesRan"] and life > 0 and DamageIn["cycles"] < maxDepth then
+			if not DamageIn["cyclesRan"] and life > 0 and DamageIn["iterations"] < maxIterations then
 				Damage = { }
 				for _, damageType in ipairs(dmgTypeList) do
 					Damage[damageType] = DamageIn[damageType] * speedUp
-				end	
+				end
+				if DamageIn.GainWhenHit then
+					Damage.GainWhenHit = true
+					Damage.LifeWhenHit = DamageIn.LifeWhenHit
+					Damage.ManaWhenHit= DamageIn.ManaWhenHit
+					Damage.EnergyShieldWhenHit= DamageIn.EnergyShieldWhenHit
+				end
 				Damage["cycles"] = DamageIn["cycles"] * speedUp
+				Damage["iterations"] = DamageIn["iterations"]
 				iterationMultiplier = m_max((numberOfHitsToDie(Damage) - 1) * speedUp - 1, 1)
-				DamageIn["cyclesRan"] = true 
+				if iterationMultiplier == m_huge then -- avoid unnecessary calculations if we know we survive infinite hits.
+					return m_huge
+				end
+				DamageIn["iterations"] = Damage["iterations"]
+				DamageIn["cyclesRan"] = true
 			end
+			numHits = numHits + iterationMultiplier
 		end
-		if numHits >= maxHits then
+		if life < 0 and DamageIn["cycles"] == 1 then -- Don't count overkill damage and only on final pass as to not break speedup.
+			numHits = numHits + life / damageTotal
+			life = 0
+		end
+		-- Recalculate total hit damage
+		damageTotal = 0
+		for _, damageType in ipairs(dmgTypeList) do
+			damageTotal = damageTotal + DamageIn[damageType] * numHits
+		end
+		if life >= 0 and damageTotal >= maxDamage then -- If still living and the amount of damage exceeds maximum threshold we survived infinite number of hits.
 			return m_huge
 		end
 		return numHits
