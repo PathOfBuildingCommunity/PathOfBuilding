@@ -608,13 +608,13 @@ local skills, mod, flag, skill = ...
 #skill SupportMulticast
 	statMap = {
 		["support_echo_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
+			mod("Damage", "MORE", nil),
 		},
 		["support_multicast_cast_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 		["support_spell_echo_final_repeat_damage_+%_final"] = {
-			mod("Damage", "MORE", nil),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 			--Average out over the casts
 			div = 3
 		}

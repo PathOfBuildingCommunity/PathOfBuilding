@@ -23,7 +23,6 @@ local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 	local uuid = cacheSkillUUID(skill)
 	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
 		calcs.buildActiveSkill(env, "CACHE", skill)
-		env.dontCache = true
 	end
 
 	if GlobalCache.cachedData["CACHE"][uuid] then
@@ -1069,6 +1068,7 @@ local function doActorMisc(env, actor)
 			output.MaximumRage = modDB:Sum("BASE", skillCfg, "MaximumRage")
 			modDB.multipliers["MaxRageVortexSacrifice"] = output.MaximumRage / 4
 			modDB:NewMod("Multiplier:Rage", "BASE", 1, "Base", { type = "Multiplier", var = "RageStack", limit = output.MaximumRage })
+			output.Rage = modDB:Sum("BASE", skillCfg, "Multiplier:Rage")
 		end
 		if modDB:Sum("BASE", nil, "CoveredInAshEffect") > 0 then
 			local effect = modDB:Sum("BASE", nil, "CoveredInAshEffect")
@@ -1605,12 +1605,6 @@ function calcs.perform(env, avoidCache)
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
 		for _, buff in ipairs(activeSkill.buffList) do
-			--Skip adding buff if reservation exceeds maximum
-			for _, value in ipairs({"Mana", "Life"}) do
-				if activeSkill.skillData[value.."ReservedBase"] and activeSkill.skillData[value.."ReservedBase"] > env.player.output[value] then
-					goto disableAura
-				end
-			end
 			if buff.cond and not skillModList:GetCondition(buff.cond, skillCfg) then
 				-- Nothing!
 			elseif buff.enemyCond and not enemyDB:GetCondition(buff.enemyCond) then
@@ -1829,7 +1823,6 @@ function calcs.perform(env, avoidCache)
 					end
 				end
 			end
-			::disableAura::
 		end
 		if activeSkill.minion and activeSkill.minion.activeSkillList then
 			local castingMinion = activeSkill.minion
@@ -2036,13 +2029,6 @@ function calcs.perform(env, avoidCache)
 					if (activeSkill.buffList[1] and curse.name == activeSkill.buffList[1].name and activeSkill.skillTypes[SkillType.Aura]) then
 						if modDB:Flag(nil, "SelfAurasOnlyAffectYou") and not modDB:Flag({slotName = activeSkill.slotName}, "CurseAurasAlsoAffectYou") then
 							skipAddingCurse = true
-							break
-						end
-						for _, value in ipairs({"Mana", "Life"}) do
-							if activeSkill.skillData[value.."ReservedBase"] and activeSkill.skillData[value.."ReservedBase"] > env.player.output[value] then
-								skipAddingCurse = true
-								break
-							end
 						end
 						break
 					end
@@ -2423,6 +2409,109 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 	
+	local function processBuffDebuff(activeSkill)
+		local skillModList = activeSkill.skillModList
+		local skillCfg = activeSkill.skillCfg
+		local newBuffs = {}
+		local newDebuffs = {}
+		local newMinionBuffs = {}
+		for _, buff in ipairs(activeSkill.buffList) do
+			if buff.cond and not skillModList:GetCondition(buff.cond, skillCfg) then
+			elseif buff.enemyCond and not enemyDB:GetCondition(buff.enemyCond) then
+			elseif buff.type == "Buff" and not buffs[buff.name] then
+				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
+					local skillCfg = buff.activeSkillBuff and skillCfg
+					local modStore = buff.activeSkillBuff and skillModList or modDB
+					 if not buff.applyNotPlayer then
+						activeSkill.buffSkill = true
+						modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+						local srcList = new("ModList")
+						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer") + skillModList:Sum("INC", skillCfg, buff.name:gsub(" ", "").."Effect")
+						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
+						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						mergeBuff(srcList, buffs, buff.name)
+						if activeSkill.skillData.thisIsNotABuff then
+							buffs[buff.name].notBuff = true
+						end
+						mergeBuff(srcList, newBuffs, buff.name)
+						if activeSkill.skillData.thisIsNotABuff then
+							newBuffs[buff.name].notBuff = true
+						end
+					end
+					if env.minion and (buff.applyMinions or buff.applyAllies) and not minionBuffs[buff.name] then
+						activeSkill.minionBuffSkill = true
+						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+						local srcList = new("ModList")
+						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnMinion") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf")
+						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnMinion") * env.minion.modDB:More(nil, "BuffEffectOnSelf")
+						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						mergeBuff(srcList, minionBuffs, buff.name)
+						mergeBuff(srcList, newMinionBuffs, buff.name)
+					end
+				end
+			elseif (buff.type == "Debuff" or buff.type == "AuraDebuff") and not debuffs[buff.name] then
+				local stackCount
+				if buff.stackVar then
+					stackCount = skillModList:Sum("BASE", skillCfg, "Multiplier:"..buff.stackVar)
+					if buff.stackLimit then
+						stackCount = m_min(stackCount, buff.stackLimit)
+					elseif buff.stackLimitVar then
+						stackCount = m_min(stackCount, skillModList:Sum("BASE", skillCfg, "Multiplier:"..buff.stackLimitVar))
+					end
+				else
+					stackCount = activeSkill.skillData.stackCount or 1
+				end
+				if env.mode_effective and stackCount > 0 then
+					activeSkill.debuffSkill = true
+					modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+					local srcList = new("ModList")
+					local mult = 1
+					if buff.type == "AuraDebuff" then
+						mult = 0
+						if not modDB:Flag(nil, "SelfAurasOnlyAffectYou") then
+							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+							mult = (1 + inc / 100) * more
+						end
+					end
+					if buff.type == "Debuff" then
+						local inc = skillModList:Sum("INC", skillCfg, "DebuffEffect")
+						local more = skillModList:More(skillCfg, "DebuffEffect")
+						mult = (1 + inc / 100) * more
+					end
+					srcList:ScaleAddList(buff.modList, mult * stackCount)
+					if activeSkill.skillData.stackCount or buff.stackVar then
+						srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", stackCount, buff.name)
+					end
+					mergeBuff(srcList, debuffs, buff.name)
+					mergeBuff(srcList, newDebuffs, buff.name)
+				end
+			end
+		end
+		-- Apply buff/debuff modifiers
+		for _, modList in pairs(newBuffs) do
+			modDB:AddList(modList)
+			if not modList.notBuff then
+				modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
+			end
+			if env.minion then
+				for _, value in ipairs(modList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
+					if not value.type or env.minion.type == value.type then
+						env.minion.modDB:AddMod(value.mod)
+					end
+				end
+			end
+		end
+		if env.minion then
+			for _, modList in pairs(newMinionBuffs) do
+				env.minion.modDB:AddList(modList)
+			end
+		end
+		for _, modList in pairs(newDebuffs) do
+			enemyDB:AddList(modList)
+		end
+	end
+
 	for _, activeSkill in ipairs(env.player.activeSkillList) do -- Do another pass on the SkillList to catch effects of buffs, if needed
 		if activeSkill.activeEffect.grantedEffect.name == "Blight" and activeSkill.skillPart == 2 then
 			local rate = (1 / activeSkill.activeEffect.grantedEffect.castTime) * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed") * calcs.actionSpeedMod(env.player)
@@ -2430,6 +2519,7 @@ function calcs.perform(env, avoidCache)
 			local maximum = m_min((m_floor(rate * duration) - 1), 19)
 			activeSkill.skillModList:NewMod("Multiplier:BlightMaxStages", "BASE", maximum, "Base")
 			activeSkill.skillModList:NewMod("Multiplier:BlightStageAfterFirst", "BASE", maximum, "Base")
+			processBuffDebuff(activeSkill)
 		end
 		if activeSkill.activeEffect.grantedEffect.name == "Penance Brand" and activeSkill.skillPart == 2 then
 			local rate = 1 / (activeSkill.skillData.repeatFrequency / (1 + env.player.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency"))
@@ -2437,6 +2527,7 @@ function calcs.perform(env, avoidCache)
 			local ticks = m_min((m_floor(rate * duration) - 1), 19)
 			activeSkill.skillModList:NewMod("Multiplier:PenanceBrandMaxStages", "BASE", ticks, "Base")
 			activeSkill.skillModList:NewMod("Multiplier:PenanceBrandStageAfterFirst", "BASE", ticks, "Base")
+			processBuffDebuff(activeSkill)
 		end
 		if activeSkill.activeEffect.grantedEffect.name == "Scorching Ray" and activeSkill.skillPart == 2 then
 			local rate = (1 / activeSkill.activeEffect.grantedEffect.castTime) * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed") * calcs.actionSpeedMod(env.player)
@@ -2444,9 +2535,10 @@ function calcs.perform(env, avoidCache)
 			local maximum = m_min((m_floor(rate * duration) - 1), 7)
 			activeSkill.skillModList:NewMod("Multiplier:ScorchingRayMaxStages", "BASE", maximum, "Base")
 			activeSkill.skillModList:NewMod("Multiplier:ScorchingRayStageAfterFirst", "BASE", maximum, "Base")
+			processBuffDebuff(activeSkill)
 		end
 	end
-
+	
 	-- Process Triggered Skill and Set Trigger Conditions
 	-- Cospri's Malice
 	if env.player.mainSkill.skillData.triggeredByCospris and not env.player.mainSkill.skillFlags.minion then
@@ -2529,7 +2621,7 @@ function calcs.perform(env, avoidCache)
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown, dualWield)
 
 			-- Account for chance to hit/crit
-			local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance
+			local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].AccuracyHitChance
 			trigRate = trigRate * sourceHitChance / 100
 			if breakdown then
 				breakdown.Speed = {
@@ -2558,7 +2650,6 @@ function calcs.perform(env, avoidCache)
 		-- cache a new copy of this skill that's affected by Mirage Archer
 		if avoidCache then
 			usedSkill = env.player.mainSkill
-			env.dontCache = true
 		else
 			if not GlobalCache.cachedData[calcMode][uuid] then
 				calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
@@ -2598,7 +2689,6 @@ function calcs.perform(env, avoidCache)
 			newEnv.player.mainSkill = newSkill
 			-- mark it so we don't recurse infinitely
 			newSkill.marked = true
-			newEnv.dontCache = true
 			calcs.perform(newEnv)
 
 			env.player.mainSkill.infoMessage = tostring(mirageCount) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
@@ -3068,7 +3158,7 @@ function calcs.perform(env, avoidCache)
 				trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, env.minion.output, env.minion.breakdown, false, true)
 
 				-- Account for chance to hit
-				local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance
+				local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].AccuracyHitChance
 				trigRate = trigRate * sourceHitChance / 100
 				if env.minion.breakdown then
 					env.minion.breakdown.Speed = {
@@ -3087,7 +3177,7 @@ function calcs.perform(env, avoidCache)
 			end
 		end
 	end
-
+	
 	-- Fix the configured impale stacks on the enemy
 	-- 		If the config is missing (blank), then use the maximum number of stacks
 	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
@@ -3286,8 +3376,5 @@ function calcs.perform(env, avoidCache)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
 
-	local uuid = cacheSkillUUID(env.player.mainSkill)
-	if not env.dontCache then
-		cacheData(uuid, env)
-	end
+	cacheData(cacheSkillUUID(env.player.mainSkill), env)
 end

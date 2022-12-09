@@ -12824,7 +12824,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Life Recovery from Flasks also applies to Energy Shield during Flask Effect"
+					text="Life Recovery from Flasks also applies to Energy Shield during Effect"
 				}
 			}
 		},
@@ -13151,7 +13151,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Debilitate nearby Enemies for {0} Seconds when Flask Effect ends"
+					text="Debilitate nearby Enemies for {0} Seconds when Effect ends"
 				}
 			}
 		},
@@ -13169,7 +13169,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Flask effect is removed when Hit by a Player"
+					text="Effect is removed when Hit by a Player"
 				}
 			}
 		},
@@ -13191,7 +13191,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Flask effect is not removed when Unreserved Mana is Filled\nFlask effect does not Queue"
+					text="Effect is not removed when Unreserved Mana is Filled\nEffect does not Queue"
 				}
 			}
 		},
@@ -13209,7 +13209,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Mana Recovery occurs instantly at the end of the Flask effect"
+					text="Mana Recovery occurs instantly at the end of Effect"
 				}
 			}
 		},
@@ -13245,7 +13245,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Flask Effect is removed when Ward Breaks"
+					text="Effect is removed when Ward Breaks"
 				}
 			}
 		},
@@ -13263,7 +13263,7 @@ return {
 							[2]=99
 						}
 					},
-					text="Recover {0}% of Life at the end of the Flask Effect"
+					text="Recover {0}% of Life at the end of the Effect"
 				},
 				[2]={
 					limit={
@@ -13272,7 +13272,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Recover Full Life at the end of the Flask Effect"
+					text="Recover Full Life at the end of the Effect"
 				}
 			}
 		},
@@ -14243,7 +14243,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Immunity to Ignite during Flask effect\nRemoves Burning on use"
+					text="Immunity to Ignite during Effect\nRemoves Burning on use"
 				}
 			}
 		},
@@ -14668,7 +14668,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Armour during Flask effect"
+					text="{0}% increased Armour during Effect"
 				}
 			}
 		},
@@ -14686,7 +14686,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Evasion Rating during Flask effect"
+					text="{0}% increased Evasion Rating during Effect"
 				}
 			}
 		},
@@ -14704,7 +14704,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Energy Shield during Flask effect"
+					text="{0}% increased Energy Shield during Effect"
 				}
 			}
 		},
@@ -14722,7 +14722,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Ward during Flask effect"
+					text="{0}% increased Ward during Effect"
 				},
 				[2]={
 					[1]={
@@ -14735,7 +14735,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Ward during Flask effect"
+					text="{0}% reduced Ward during Effect"
 				}
 			}
 		},
@@ -14753,7 +14753,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Ward does not Break during Flask effect"
+					text="Ward does not Break during Effect"
 				}
 			}
 		},
@@ -14771,7 +14771,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Adaptation Rating during Flask effect"
+					text="{0}% increased Adaptation Rating during Effect"
 				},
 				[2]={
 					[1]={
@@ -14784,7 +14784,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Adaptation Rating during Flask effect"
+					text="{0}% reduced Adaptation Rating during Effect"
 				}
 			}
 		},
@@ -14802,7 +14802,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Adaptations apply to all Elemental Damage during Flask effect"
+					text="Adaptations apply to all Elemental Damage during Effect"
 				}
 			}
 		},
@@ -14820,7 +14820,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Accuracy Rating during Flask effect"
+					text="{0}% increased Accuracy Rating during Effect"
 				}
 			}
 		},
@@ -14838,7 +14838,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Attack Speed during Flask effect"
+					text="{0}% increased Attack Speed during Effect"
 				},
 				[2]={
 					[1]={
@@ -14851,7 +14851,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Attack Speed during Flask effect"
+					text="{0}% reduced Attack Speed during Effect"
 				}
 			}
 		},
@@ -14869,7 +14869,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Cast Speed during Flask effect"
+					text="{0}% increased Cast Speed during Effect"
 				},
 				[2]={
 					[1]={
@@ -14882,7 +14882,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Cast Speed during Flask effect"
+					text="{0}% reduced Cast Speed during Effect"
 				}
 			}
 		},
@@ -14900,7 +14900,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Movement Speed during Flask effect"
+					text="{0}% increased Movement Speed during Effect"
 				}
 			}
 		},
@@ -14918,7 +14918,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Block and Stun Recovery during Flask effect"
+					text="{0}% increased Block and Stun Recovery during Effect"
 				}
 			}
 		},
@@ -14936,7 +14936,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% additional Elemental Resistances during Flask effect"
+					text="{0}% additional Elemental Resistances during Effect"
 				}
 			}
 		},
@@ -14962,7 +14962,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Physical Attack Damage Leeched as Life during Flask effect"
+					text="{0}% of Physical Attack Damage Leeched as Life during Effect"
 				}
 			}
 		},
@@ -14988,7 +14988,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Spell Damage Leeched as Energy Shield during Flask effect"
+					text="{0}% of Spell Damage Leeched as Energy Shield during Effect"
 				}
 			}
 		},
@@ -15014,7 +15014,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Attack Damage Leeched as Life during Flask effect"
+					text="{0}% of Attack Damage Leeched as Life during Effect"
 				}
 			}
 		},
@@ -15040,7 +15040,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Physical Attack Damage Leeched as Life during Flask effect"
+					text="{0}% of Physical Attack Damage Leeched as Life during Effect"
 				}
 			}
 		},
@@ -15066,7 +15066,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Physical Attack Damage Leeched as Mana during Flask effect"
+					text="{0}% of Physical Attack Damage Leeched as Mana during Effect"
 				}
 			}
 		},
@@ -15092,7 +15092,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Physical Attack Damage Leeched as Mana during Flask effect"
+					text="{0}% of Physical Attack Damage Leeched as Mana during Effect"
 				}
 			}
 		},
@@ -15114,7 +15114,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Adds Knockback to Melee Attacks during Flask effect"
+					text="Adds Knockback to Melee Attacks during Effect"
 				}
 			}
 		},
@@ -15132,7 +15132,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Physical Damage from Hits taken as Cold Damage during Flask effect"
+					text="{0}% of Physical Damage from Hits taken as Cold Damage during Effect"
 				}
 			}
 		},
@@ -15168,7 +15168,7 @@ return {
 							[2]=99
 						}
 					},
-					text="{0}% chance to Avoid being Chilled during Flask effect"
+					text="{0}% chance to Avoid being Chilled during Effect"
 				},
 				[2]={
 					limit={
@@ -15177,7 +15177,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Cannot be Chilled during Flask effect"
+					text="Cannot be Chilled during Effect"
 				}
 			}
 		},
@@ -15213,7 +15213,7 @@ return {
 							[2]=99
 						}
 					},
-					text="{0}% chance to Avoid being Frozen during Flask effect"
+					text="{0}% chance to Avoid being Frozen during Effect"
 				},
 				[2]={
 					limit={
@@ -15222,7 +15222,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Cannot be Frozen during Flask effect"
+					text="Cannot be Frozen during Effect"
 				}
 			}
 		},
@@ -15244,7 +15244,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Grants Last Breath when you Use a Skill during Flask Effect, for {0}% of Mana Cost"
+					text="Grants Last Breath when you Use a Skill during Effect, for {0}% of Mana Cost"
 				}
 			}
 		},
@@ -15262,7 +15262,7 @@ return {
 							[2]=99
 						}
 					},
-					text="{0}% chance to Avoid being Chilled during Flask Effect"
+					text="{0}% chance to Avoid being Chilled during Effect"
 				},
 				[2]={
 					limit={
@@ -15271,7 +15271,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Cannot be Chilled during Flask Effect"
+					text="Cannot be Chilled during Effect"
 				}
 			}
 		},
@@ -15289,7 +15289,7 @@ return {
 							[2]=99
 						}
 					},
-					text="{0}% chance to Avoid being Frozen during Flask Effect"
+					text="{0}% chance to Avoid being Frozen during Effect"
 				},
 				[2]={
 					limit={
@@ -15298,7 +15298,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Cannot be Frozen during Flask Effect"
+					text="Cannot be Frozen during Effect"
 				}
 			}
 		},
@@ -15316,7 +15316,7 @@ return {
 							[2]=99
 						}
 					},
-					text="{0}% chance to Avoid being Ignited during Flask Effect"
+					text="{0}% chance to Avoid being Ignited during Effect"
 				},
 				[2]={
 					limit={
@@ -15325,7 +15325,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Cannot be Ignited during Flask Effect"
+					text="Cannot be Ignited during Effect"
 				}
 			}
 		},
@@ -15343,7 +15343,7 @@ return {
 							[2]=99
 						}
 					},
-					text="{0}% chance to Avoid being Shocked during Flask Effect"
+					text="{0}% chance to Avoid being Shocked during Effect"
 				},
 				[2]={
 					limit={
@@ -15352,7 +15352,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Cannot be Shocked during Flask Effect"
+					text="Cannot be Shocked during Effect"
 				}
 			}
 		},
@@ -15374,7 +15374,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% chance to Poison on Hit during Flask effect"
+					text="{0}% chance to Poison on Hit during Effect"
 				}
 			}
 		},
@@ -15392,7 +15392,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% additional Physical Damage Reduction during Flask Effect"
+					text="{0}% additional Physical Damage Reduction during Effect"
 				}
 			}
 		},
@@ -15414,7 +15414,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Adds Knockback during Flask effect"
+					text="Hits Knockback during Effect"
 				}
 			}
 		},
@@ -15432,7 +15432,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Area of Effect during Flask Effect"
+					text="{0}% increased Area of Effect during Effect"
 				}
 			}
 		},
@@ -15450,7 +15450,7 @@ return {
 							[2]=99
 						}
 					},
-					text="{0}% Chance to Avoid being Stunned during Flask Effect"
+					text="{0}% Chance to Avoid being Stunned during Effect"
 				},
 				[2]={
 					limit={
@@ -15459,7 +15459,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Cannot be Stunned during Flask Effect"
+					text="Cannot be Stunned during Effect"
 				}
 			}
 		},
@@ -15477,7 +15477,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Cannot be Stunned during Flask Effect"
+					text="Cannot be Stunned during Effect"
 				}
 			}
 		},
@@ -15495,7 +15495,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% chance to Freeze, Shock and Ignite during Flask effect"
+					text="{0}% chance to Freeze, Shock and Ignite during Effect"
 				}
 			}
 		},
@@ -15535,7 +15535,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Critical Strike Chance during Flask Effect"
+					text="{0}% increased Critical Strike Chance during Effect"
 				},
 				[2]={
 					[1]={
@@ -15548,7 +15548,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Critical Strike Chance during Flask Effect"
+					text="{0}% reduced Critical Strike Chance during Effect"
 				}
 			}
 		},
@@ -15570,7 +15570,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Culling Strike during Flask Effect"
+					text="Culling Strike during Effect"
 				}
 			}
 		},
@@ -15606,7 +15606,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Gain 1 Endurance Charge per Second during Flask Effect"
+					text="Gain 1 Endurance Charge per Second during Effect"
 				}
 			}
 		},
@@ -15624,7 +15624,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Immunity to Bleeding and Corrupted Blood during Flask Effect"
+					text="Immunity to Bleeding and Corrupted Blood during Effect"
 				}
 			}
 		},
@@ -15642,7 +15642,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="You are Immune to Damage during Flask Effect"
+					text="Immunity to Damage during Effect"
 				}
 			}
 		},
@@ -15660,7 +15660,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Immunity to Freeze and Chill during Flask Effect"
+					text="Immunity to Freeze and Chill during Effect"
 				}
 			}
 		},
@@ -15678,7 +15678,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Immunity to Poison during Flask Effect"
+					text="Immunity to Poison during Effect"
 				}
 			}
 		},
@@ -15696,7 +15696,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Immunity to Shock during Flask Effect"
+					text="Immunity to Shock during Effect"
 				}
 			}
 		},
@@ -15714,7 +15714,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Petrified during Flask Effect"
+					text="Petrified during Effect"
 				}
 			}
 		},
@@ -15732,7 +15732,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Rarity of Items found during Flask Effect"
+					text="{0}% increased Rarity of Items found during Effect"
 				},
 				[2]={
 					[1]={
@@ -15745,7 +15745,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Rarity of Items found during Flask Effect"
+					text="{0}% reduced Rarity of Items found during Effect"
 				}
 			}
 		},
@@ -15763,7 +15763,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Life Leech is instant during Flask Effect"
+					text="Life Leech is instant during Effect"
 				}
 			}
 		},
@@ -15789,7 +15789,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Damage Taken from Hits is Leeched as Life during Flask Effect"
+					text="{0}% of Damage Taken from Hits is Leeched as Life during Effect"
 				}
 			}
 		},
@@ -15811,7 +15811,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Regenerate {0}% of Life per second during Flask Effect"
+					text="Regenerate {0}% of Life per second during Effect"
 				}
 			}
 		},
@@ -15851,7 +15851,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Effect of Non-Damaging Ailments you inflict during Flask Effect"
+					text="{0}% increased Effect of Non-Damaging Ailments you inflict during Effect"
 				},
 				[2]={
 					[1]={
@@ -15864,7 +15864,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Effect of Non-Damaging Ailments you inflict during Flask Effect"
+					text="{0}% reduced Effect of Non-Damaging Ailments you inflict during Effect"
 				}
 			}
 		},
@@ -15882,7 +15882,7 @@ return {
 							[2]=1
 						}
 					},
-					text="Skills fire an additional Projectile during Flask Effect"
+					text="Skills fire an additional Projectile during Effect"
 				},
 				[2]={
 					limit={
@@ -15891,7 +15891,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Skills fire {0} additional Projectiles during Flask Effect"
+					text="Skills fire {0} additional Projectiles during Effect"
 				}
 			}
 		},
@@ -15909,7 +15909,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Reflected Damage taken during Flask Effect"
+					text="{0}% increased Reflected Damage taken during Effect"
 				},
 				[2]={
 					[1]={
@@ -15922,7 +15922,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Reflected Damage taken during Flask Effect"
+					text="{0}% reduced Reflected Damage taken during Effect"
 				}
 			}
 		},
@@ -15940,7 +15940,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Mana Cost of Skills during Flask Effect"
+					text="{0}% increased Mana Cost of Skills during Effect"
 				},
 				[2]={
 					[1]={
@@ -15953,7 +15953,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Mana Cost of Skills during Flask Effect"
+					text="{0}% reduced Mana Cost of Skills during Effect"
 				}
 			}
 		},
@@ -16006,7 +16006,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Your Critical Strikes do not deal extra Damage during Flask effect"
+					text="Your Critical Strikes do not deal extra Damage during Effect"
 				}
 			}
 		},
@@ -16024,7 +16024,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Duration of Poisons you inflict during Flask effect"
+					text="{0}% increased Duration of Poisons you inflict during Effect"
 				},
 				[2]={
 					[1]={
@@ -16037,7 +16037,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Duration of Poisons you inflict during Flask effect"
+					text="{0}% reduced Duration of Poisons you inflict during Effect"
 				}
 			}
 		},
@@ -16055,7 +16055,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Bleeding Duration on you during Flask Effect"
+					text="{0}% increased Bleeding Duration on you during Effect"
 				},
 				[2]={
 					[1]={
@@ -16068,7 +16068,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Bleeding Duration on you during Flask Effect"
+					text="{0}% reduced Bleeding Duration on you during Effect"
 				}
 			}
 		},
@@ -16086,7 +16086,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Effect of Chill on you during Flask Effect"
+					text="{0}% increased Effect of Chill on you during Effect"
 				},
 				[2]={
 					[1]={
@@ -16099,7 +16099,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Effect of Chill on you during Flask Effect"
+					text="{0}% reduced Effect of Chill on you during Effect"
 				}
 			}
 		},
@@ -16117,7 +16117,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Effect of Curses on you during Flask Effect"
+					text="{0}% increased Effect of Curses on you during Effect"
 				},
 				[2]={
 					[1]={
@@ -16130,7 +16130,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Effect of Curses on you during Flask Effect"
+					text="{0}% reduced Effect of Curses on you during Effect"
 				}
 			}
 		},
@@ -16148,7 +16148,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Freeze Duration on you during Flask Effect"
+					text="{0}% increased Freeze Duration on you during Effect"
 				},
 				[2]={
 					[1]={
@@ -16161,7 +16161,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Freeze Duration on you during Flask Effect"
+					text="{0}% reduced Freeze Duration on you during Effect"
 				}
 			}
 		},
@@ -16179,7 +16179,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Ignite Duration on you during Flask Effect"
+					text="{0}% increased Ignite Duration on you during Effect"
 				},
 				[2]={
 					[1]={
@@ -16192,7 +16192,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Ignite Duration on you during Flask Effect"
+					text="{0}% reduced Ignite Duration on you during Effect"
 				}
 			}
 		},
@@ -16210,7 +16210,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Poison Duration on you during Flask Effect"
+					text="{0}% increased Poison Duration on you during Effect"
 				},
 				[2]={
 					[1]={
@@ -16223,7 +16223,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Poison Duration on you during Flask Effect"
+					text="{0}% reduced Poison Duration on you during Effect"
 				}
 			}
 		},
@@ -16241,7 +16241,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Effect of Shock on you during Flask Effect"
+					text="{0}% increased Effect of Shock on you during Effect"
 				},
 				[2]={
 					[1]={
@@ -16254,7 +16254,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Effect of Shock on you during Flask Effect"
+					text="{0}% reduced Effect of Shock on you during Effect"
 				}
 			}
 		},
@@ -16272,7 +16272,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% more Ward during Flask Effect"
+					text="{0}% more Ward during Effect"
 				},
 				[2]={
 					[1]={
@@ -16285,7 +16285,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% less Ward during Flask Effect"
+					text="{0}% less Ward during Effect"
 				}
 			}
 		},
@@ -16307,7 +16307,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0:+d}% to all maximum Elemental Resistances during Flask effect"
+					text="{0:+d}% to all maximum Elemental Resistances during Effect"
 				}
 			}
 		},
@@ -16325,7 +16325,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0:+d}% Chance to Block Attack Damage during Flask effect"
+					text="{0:+d}% Chance to Block Attack Damage during Effect"
 				}
 			}
 		},
@@ -16361,7 +16361,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Charges gained by Other Flasks during Flask Effect"
+					text="{0}% increased Charges gained by Other Flasks during Effect"
 				}
 			}
 		},
@@ -16379,7 +16379,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0:+d}% to Damage over Time Multiplier for Poison from Critical Strikes during Flask effect"
+					text="{0:+d}% to Damage over Time Multiplier for Poison from Critical Strikes during Effect"
 				}
 			}
 		},
@@ -16397,7 +16397,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Critical Strike Chance against Enemies on Consecrated Ground during Flask effect"
+					text="{0}% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect"
 				},
 				[2]={
 					[1]={
@@ -16410,7 +16410,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Critical Strike Chance against Enemies on Consecrated Ground during Flask effect"
+					text="{0}% reduced Critical Strike Chance against Enemies on Consecrated Ground during Effect"
 				}
 			}
 		},
@@ -16428,7 +16428,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Damage Over Time during Flask Effect"
+					text="{0}% increased Damage Over Time during Effect"
 				},
 				[2]={
 					[1]={
@@ -16441,7 +16441,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Damage Over Time during Flask Effect"
+					text="{0}% reduced Damage Over Time during Effect"
 				}
 			}
 		},
@@ -16459,7 +16459,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Damage against Demons during Flask effect"
+					text="{0}% increased Damage against Demons during Effect"
 				},
 				[2]={
 					[1]={
@@ -16472,7 +16472,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Damage against Demons during Flask effect"
+					text="{0}% reduced Damage against Demons during Effect"
 				}
 			}
 		},
@@ -16490,7 +16490,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Damage taken from Demons during Flask effect"
+					text="{0}% increased Damage taken from Demons during Effect"
 				},
 				[2]={
 					[1]={
@@ -16503,7 +16503,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Damage taken from Demons during Flask effect"
+					text="{0}% reduced Damage taken from Demons during Effect"
 				}
 			}
 		},
@@ -16539,7 +16539,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Quantity of Items found during Flask effect"
+					text="{0}% increased Quantity of Items found during Effect"
 				}
 			}
 		},
@@ -16557,7 +16557,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Rarity of Items found during Flask effect"
+					text="{0}% increased Rarity of Items found during Effect"
 				}
 			}
 		},
@@ -16575,7 +16575,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Immune to Freeze, Chill, Curses and Stuns during Flask Effect"
+					text="Immunity to Freeze, Chill, Curses and Stuns during Effect"
 				}
 			}
 		},
@@ -16601,7 +16601,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Chaos Damage Leeched as Life during Flask effect"
+					text="{0}% of Chaos Damage Leeched as Life during Effect"
 				}
 			}
 		},
@@ -16619,7 +16619,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Light Radius during Flask effect"
+					text="{0}% increased Light Radius during Effect"
 				}
 			}
 		},
@@ -16637,7 +16637,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Grants Level {0} Despair Curse Aura during Flask Effect"
+					text="Grants Level {0} Despair Curse Aura during Effect"
 				}
 			}
 		},
@@ -16655,7 +16655,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Your Skills Cost no Mana during Flask effect"
+					text="Skills Cost no Mana during Effect"
 				}
 			}
 		},
@@ -16691,7 +16691,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0:+d}% to Elemental Resistances during Flask Effect"
+					text="{0:+d}% to Elemental Resistances during Effect"
 				}
 			}
 		},
@@ -16709,7 +16709,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0:+d}% Chance to Block Spell Damage during Flask effect"
+					text="{0:+d}% Chance to Block Spell Damage during Effect"
 				}
 			}
 		},
@@ -16926,7 +16926,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Chaos Damage Leeched as Life during Flask effect"
+					text="{0}% of Chaos Damage Leeched as Life during Effect"
 				}
 			}
 		},
@@ -16966,7 +16966,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Take {0} Chaos Damage per Second during Flask effect"
+					text="Take {0} Chaos Damage per Second during Effect"
 				}
 			}
 		},
@@ -16984,7 +16984,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Enemies Ignited by you during Flask Effect take {0}% increased Damage"
+					text="Enemies Ignited by you during Effect take {0}% increased Damage"
 				},
 				[2]={
 					[1]={
@@ -16997,7 +16997,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Enemies Ignited by you during Flask Effect take {0}% reduced Damage"
+					text="Enemies Ignited by you during Effect take {0}% reduced Damage"
 				}
 			}
 		},
@@ -17015,7 +17015,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Recover {0}% of Life when you Kill an Enemy during Flask Effect"
+					text="Recover {0}% of Life when you Kill an Enemy during Effect"
 				}
 			}
 		},
@@ -17033,7 +17033,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Recover {0}% of Mana when you Kill an Enemy during Flask Effect"
+					text="Recover {0}% of Mana when you Kill an Enemy during Effect"
 				}
 			}
 		},
@@ -17051,7 +17051,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Recover {0}% of Energy Shield when you Kill an Enemy during Flask Effect"
+					text="Recover {0}% of Energy Shield when you Kill an Enemy during Effect"
 				}
 			}
 		},
@@ -17069,7 +17069,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Attack, Cast and Movement Speed during Flask Effect"
+					text="{0}% increased Attack, Cast and Movement Speed during Effect"
 				},
 				[2]={
 					[1]={
@@ -17082,7 +17082,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Attack, Cast and Movement Speed during Flask Effect"
+					text="{0}% reduced Attack, Cast and Movement Speed during Effect"
 				}
 			}
 		},
@@ -17100,7 +17100,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Increase Attack, Cast and Movement Speed by {0}% every second during Flask Effect"
+					text="Increase Attack, Cast and Movement Speed by {0}% every second during Effect"
 				},
 				[2]={
 					[1]={
@@ -17113,7 +17113,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Reduce Attack, Cast and Movement Speed {0}% every second during Flask Effect"
+					text="Reduce Attack, Cast and Movement Speed {0}% every second during Effect"
 				}
 			}
 		},
@@ -17135,7 +17135,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Gain Unholy Might during Flask Effect"
+					text="Unholy Might during Effect"
 				}
 			}
 		},
@@ -17153,7 +17153,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Prevents Death during Flask effect"
+					text="Prevents Death during Effect"
 				}
 			}
 		},
@@ -17175,7 +17175,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="During Flask Effect, {0}% increased Damage taken of each Element for which your Uncapped Elemental Resistance is lowest"
+					text="During Effect, {0}% increased Damage taken of each Element for which your Uncapped Elemental Resistance is lowest"
 				},
 				[2]={
 					[1]={
@@ -17192,7 +17192,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="During Flask Effect, {0}% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest"
+					text="During Effect, {0}% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest"
 				}
 			}
 		},
@@ -17214,7 +17214,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="During Flask Effect, Damage Penetrates {0}% Resistance of each Element for which your Uncapped Elemental Resistance is highest"
+					text="During Effect, Damage Penetrates {0}% Resistance of each Element for which your Uncapped Elemental Resistance is highest"
 				}
 			}
 		},
@@ -17232,7 +17232,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Shocks nearby Enemies during Flask effect, causing 10% increased Damage taken"
+					text="Shocks nearby Enemies during Effect, causing 10% increased Damage taken"
 				}
 			}
 		},
@@ -17250,7 +17250,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="You are Shocked during Flask effect, causing 50% increased Damage taken"
+					text="You are Shocked during Effect, causing 50% increased Damage taken"
 				}
 			}
 		},
@@ -17268,7 +17268,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Physical Damage Converted to Lightning during Flask effect"
+					text="{0}% of Physical Damage Converted to Lightning during Effect"
 				}
 			}
 		},
@@ -17286,7 +17286,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Damage Penetrates {0}% Lightning Resistance during Flask effect"
+					text="Damage Penetrates {0}% Lightning Resistance during Effect"
 				}
 			}
 		},
@@ -17304,7 +17304,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Effect of Shocks you inflict during Flask effect"
+					text="{0}% increased Effect of Shocks you inflict during Effect"
 				},
 				[2]={
 					[1]={
@@ -17317,7 +17317,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Effect of Shocks you inflict during Flask effect"
+					text="{0}% reduced Effect of Shocks you inflict during Effect"
 				}
 			}
 		},
@@ -17335,7 +17335,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Shocks you inflict during Flask effect spread to other Enemies in a radius of {0}"
+					text="Shocks you inflict during Effect spread to other Enemies in a radius of {0}"
 				}
 			}
 		},
@@ -17357,7 +17357,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Adds {0} to {1} Lightning Damage to Attacks during Flask effect"
+					text="Adds {0} to {1} Lightning Damage to Attacks during Effect"
 				}
 			}
 		},
@@ -17380,7 +17380,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Adds {0} to {1} Lightning Damage to Spells during Flask effect"
+					text="Adds {0} to {1} Lightning Damage to Spells during Effect"
 				}
 			}
 		},
@@ -17407,7 +17407,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Lightning Damage Leeched as Life during Flask effect"
+					text="{0}% of Lightning Damage Leeched as Life during Effect"
 				}
 			}
 		},
@@ -17433,7 +17433,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% of Lightning Damage Leeched as Mana during Flask effect"
+					text="{0}% of Lightning Damage Leeched as Mana during Effect"
 				}
 			}
 		},
@@ -17473,7 +17473,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Gains no Charges during Flask Effect"
+					text="Gains no Charges during Effect"
 				}
 			}
 		},
@@ -17531,7 +17531,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Ghost Reaver during Flask effect"
+					text="Ghost Reaver during Effect"
 				}
 			}
 		},
@@ -17553,7 +17553,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Zealot's Oath during Flask effect"
+					text="Zealot's Oath during Effect"
 				}
 			}
 		},
@@ -17575,7 +17575,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Eldritch Battery during Flask effect"
+					text="Eldritch Battery during Effect"
 				}
 			}
 		},
@@ -17597,7 +17597,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Grants Perfect Agony during Flask effect"
+					text="Grants Perfect Agony during effect"
 				}
 			}
 		},
@@ -35197,7 +35197,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Gain {0} Life per Enemy Hit by Attacks"
+					text="Grants {0} Life per Enemy Hit"
 				},
 				[2]={
 					[1]={
@@ -35210,7 +35210,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Lose {0} Life per Enemy Hit by Attacks"
+					text="Lose {0} Life per Enemy Hit"
 				}
 			}
 		},
@@ -35321,7 +35321,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Gain {0} Life and Mana per Enemy Hit"
+					text="Grants {0} Life and Mana per Enemy Hit"
 				},
 				[2]={
 					[1]={
@@ -80490,7 +80490,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Damage with Weapons Penetrates {0}% Elemental Resistance"
+					text="Damage with Weapons Penetrates {0}% Elemental Resistances"
 				}
 			}
 		},
@@ -128440,7 +128440,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Damage Penetrates {0}% Elemental Resistance if you haven't Killed Recently"
+					text="Damage Penetrates {0}% Elemental Resistances if you haven't Killed Recently"
 				}
 			}
 		},
@@ -137865,6 +137865,10 @@ return {
 					text="{0}% increased Quantity of Expedition Logbooks found in Excavated Chests"
 				},
 				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
@@ -144864,7 +144868,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Cannot be Stunned if you've been Stunned during Flask effect"
+					text="Cannot be Stunned if you've been Stunned during Effect"
 				}
 			}
 		},
@@ -157454,7 +157458,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Added Small Passive Skills also grant: {0:+d}% to Elemental Resistance"
+					text="Added Small Passive Skills also grant: {0:+d}% to all Elemental Resistances"
 				}
 			}
 		},
@@ -177678,7 +177682,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="+{0}% Monster Elemental Resistance"
+					text="+{0}% Monster Elemental Resistances"
 				}
 			}
 		},

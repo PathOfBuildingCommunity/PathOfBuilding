@@ -18,41 +18,41 @@ Implicits: 1
 {tags:attack,speed}10% reduced Attack Speed
 {tags:caster,speed}10% reduced Cast Speed
 {tags:jewellery_defense}+(400-500) to Armour
-{variant:1}{tags:life}+(30-40) Life gained when you Block
-{variant:2,3,4}{tags:life}+(34-48) Life gained when you Block
-{variant:1}{tags:mana}+(10-20) Mana gained when you Block
-{variant:2,3,4}{tags:mana}+(10-24) Mana gained when you Block
+{variant:1}{tags:life}(30-40) Life gained when you Block
+{variant:2,3,4}{tags:life}(34-48) Life gained when you Block
+{variant:1}{tags:mana}(10-20) Mana gained when you Block
+{variant:2,3,4}{tags:mana}(10-24) Mana gained when you Block
 {variant:1}{tags:speed}20% reduced Movement Speed
 {variant:2}{tags:speed}10% reduced Movement Speed
 +3% to maximum Chance to Block Attack Damage
-{tags:physical}{variant:1}Reflects 200 to 250 Physical Damage to Attackers on Block
-{tags:physical}{variant:2,3,4}Reflects 240 to 300 Physical Damage to Attackers on Block
+{variant:1}{tags:physical}Reflects 200 to 250 Physical Damage to Attackers on Block
+{variant:2,3,4}{tags:physical}Reflects 240 to 300 Physical Damage to Attackers on Block
 ]],[[
 Araku Tiki
 Coral Amulet
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
-{tags:life}(2-4) Life Regenerated per second
-{variant:1}{tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
-{variant:2}{tags:jewellery_defense,life}You gain (150-250) Evasion Rating when on Low Life
+{tags:life}Regenerate (2-4) Life per second
+{variant:1}{tags:jewellery_defense,life}+100 to Evasion Rating while on Low Life
+{variant:2}{tags:jewellery_defense,life}+(150-250) to Evasion Rating while on Low Life
 {tags:life}+(30-50) to maximum Life
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{variant:1}{tags:life}1% of Life Regenerated per Second while on Low Life
+{variant:1}{tags:life}Regenerate 1% of Life per second while on Low Life
 {variant:2}Gain Elusive on reaching Low Life
-{variant:2}Phasing while on Low Life
+{variant:2}You have Phasing while on Low Life
 ]],[[
 Ngamahu Tiki
 Coral Amulet
 Source: No longer obtainable
 Requires Level 36
 Implicits: 1
-{tags:life}(2-4) Life Regenerated per second
+{tags:life}Regenerate (2-4) Life per second
 {tags:jewellery_elemental}(50-70)% increased Fire Damage
-{tags:jewellery_defense,life}You gain 100 Evasion Rating when on Low Life
+{tags:jewellery_defense,life}+100 to Evasion Rating while on Low Life
 {tags:life}+(30-50) to maximum Life
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{tags:life}1% of Life Regenerated per Second while on Low Life
+{tags:life}Regenerate 1% of Life per second while on Low Life
 ]],[[
 The Ascetic
 Gold Amulet
@@ -68,10 +68,10 @@ Source: Drops from unique{The Eater of Worlds}
 Requires Level 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
-(5–10)% increased Experience Gain of Gems
-(10–20)% increased Reservation Efficiency of Skills
+(5-10)% increased Experience Gain of Gems
+(10-20)% increased Reservation Efficiency of Skills
 +1 to Level of all Skill Gems
-+(20–30)% to Quality of all Skill Gems
++(20-30)% to Quality of all Skill Gems
 ]],[[
 Astramentis
 Onyx Amulet
@@ -101,9 +101,10 @@ Paua Amulet
 Variant: Pre 3.16.0
 Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 16
 Implicits: 1
-{tags:life}Regenerate (1.00-2.00)% of Life per second
+{tags:life}Regenerate (1-2)% of Life per second
 {tags:life}+100 to maximum Life
 {variant:1}{tags:life}(20-25)% increased Life Recovery rate
 {variant:2}{tags:life}(20-25)% increased Life Regeneration rate
@@ -218,10 +219,10 @@ Implicits: 1
 +(20-30) to maximum Energy Shield
 +(15-30)% to Fire Resistance
 +(15-30)% to Lightning Resistance
-{variant:1}30% slower start of Energy Shield Recharge during Flask Effect
-{variant:2}50% slower start of Energy Shield Recharge during Flask Effect
-{variant:1}400% increased Energy Shield Recharge Rate during Flask Effect
-{variant:2}(150-200)% increased Energy Shield Recharge Rate during Flask Effect
+{variant:1}30% slower start of Energy Shield Recharge during any Flask Effect
+{variant:2}50% slower start of Energy Shield Recharge during any Flask Effect
+{variant:1}400% increased Energy Shield Recharge Rate during any Flask Effect
+{variant:2}(150-200)% increased Energy Shield Recharge Rate during any Flask Effect
 Corrupted
 ]],[[
 Blood of Corruption
@@ -230,37 +231,26 @@ Source: Use currency{Vaal Orb} on unique{Tear of Purity}
 Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
-Grants level 10 Gluttony of Elements Skill
+Grants Level 10 Gluttony of Elements Skill
 {tags:attack,chaos}Adds 19-43 Chaos Damage to Attacks
-{tags:jewellery_resistance}−(10-5)% to all Elemental Resistances
+{tags:jewellery_resistance}-(10-5)% to all Elemental Resistances
 {tags:chaos,jewellery_resistance}+(17-29)% to Chaos Resistance
 Corrupted
 ]],[[
 Bloodgrip
-Coral Amulet
+{variant:1}Coral Amulet
+{variant:2,3}Marble Amulet
 Variant: Pre 3.0.0
-Variant: Current
-Requires Level 55
-Implicits: 1
-{tags:life}(2.0-4.0) Life Regenerated per second
-{tags:attack,physical}Adds 10 to 20 Physical Damage to Attacks
-{tags:life}+(60-70) to maximum Life
-{variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
-{variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
-{tags:life}100% increased Life Recovery from Flasks
-Moving while Bleeding doesn't cause you to take extra Damage
-]],[[
-Bloodgrip
-Marble Amulet
 Variant: Pre 3.12.0
 Variant: Current
 Requires Level 74
-Implicits: 1
-{tags:life}(1.2-1.6)% of Life Regenerated per second
+Implicits: 2
+{variant:1}{tags:life}Regenerate (2-4) Life per second
+{variant:2,3}{tags:life}Regenerate (1.2-1.6)% of Life per second
 {tags:attack,physical}Adds 10 to 20 Physical Damage to Attacks
 {tags:life}+(60-70) to maximum Life
-{variant:1}{tags:life}Regenerate (8.0-12.0) Life per second
-{variant:2}{tags:life}Regenerate (16.0-24.0) Life per second
+{variant:1,2}{tags:life}Regenerate (8-12) Life per second
+{variant:3}{tags:life}Regenerate (16-24) Life per second
 {tags:life}100% increased Life Recovery from Flasks
 Moving while Bleeding doesn't cause you to take extra Damage
 ]],[[
@@ -360,7 +350,6 @@ Cannot be Stunned
 ]],[[
 Eye of Innocence
 Citrine Amulet
-Source: Drops from unique{Guardian of the Phoenix}
 Requires Level 68
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
@@ -429,7 +418,7 @@ Implicits: 32
 {variant:21}20% chance to gain a Frenzy Charge on Kill
 {variant:22}20% chance to gain a Power Charge on Kill
 {variant:23}20% chance to gain a Endurance Charge on Kill
-{variant:24}4% of Life Regenerated per second
+{variant:24}Regenerate 4% of Life per second
 {variant:25}100% of Cold Damage from Hits taken as Fire Damage
 {variant:26}100% of Cold Damage from Hits taken as Lightning Damage
 {variant:27}100% of Fire Damage from Hits taken as Cold Damage
@@ -443,6 +432,7 @@ Implicit Modifier magnitudes are doubled
 The Felbog Fang
 Citrine Amulet
 League: Harvest
+Source: Drops from unique{Namharim, Born of Night} in normal{The Sacred Grove}
 Variant: Pre 3.20.0
 Variant: Current
 Requires Level 61
@@ -460,6 +450,7 @@ Implicits: 1
 Fury Valve
 Turquoise Amulet
 League: Metamorph
+Source: Drops from unique{Metamorph} in normal{Tane's Laboratory}
 Requires Level 40
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
@@ -471,15 +462,14 @@ Modifiers to number of Projectiles instead apply to the number of targets Projec
 ]],[[
 Gloomfang
 Blue Pearl Amulet
-Source: Drops from unique{The Purifier}
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 77
 Implicits: 1
 {tags:mana}(48-56)% increased Mana Regeneration Rate
 {tags:life}0.5% of Chaos Damage Leeched as Life
-{tags:caster,life}Lose (10-15) Life for each Enemy hit by your Spells
-{tags:attack,life}Lose (20-25) Life for each Enemy hit by your Attacks
+{tags:caster,life}Lose (10-15) Life per Enemy Hit with Spells
+{tags:attack,life}Lose (20-25) Life per Enemy Hit with Attacks
 Skills Chain +1 times
 {tags:speed}{variant:2}(30-40)% increased Projectile Speed
 {variant:1}{tags:chaos}Projectiles gain (15-20)% of Non-Chaos Damage as extra Chaos Damage per Chain
@@ -533,16 +523,18 @@ Requires Level 64
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
+LevelReq: 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
-Grants Level 22 Precision Skill
+{variant:1,2}Grants Level 22 Precision Skill
+{variant:3}Grants Level 30 Precision Skill
 {variant:1,2}{tags:jewellery_attribute}+(25-35) to Dexterity
 {variant:3}{tags:jewellery_attribute}+(40-80) to Dexterity
 {variant:1,2}{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
 {variant:1,2}{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
-{variant:3}Bow Attacks have Culling Strike
 {variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {variant:3}{tags:critical}+(25-50)% to Global Critical Strike Multiplier
+{variant:3}Bow Attacks have Culling Strike
 {variant:1,2}{tags:attack,life,physical}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:1}Precision has 50% less Reservation
 {variant:2,3}Precision has 100% increased Mana Reservation Efficiency
@@ -550,10 +542,10 @@ Grants Level 22 Precision Skill
 Replica Hyrri's Truth
 Jade Amulet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
-Variant: Current
-Requires Level 64
+LevelReq: 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Hatred Skill
@@ -561,10 +553,10 @@ Grants Level 22 Hatred Skill
 {variant:3}{tags:jewellery_attribute}+(30-55) to Dexterity
 {variant:1,2}{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
 {variant:1,2}{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
-{variant:3}Bow Attacks have Culling Strike
 {variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {variant:3}{tags:critical}+(18-35)% to Global Critical Strike Multiplier
-{variant:1,2}{tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
+{variant:3}Bow Attacks have Culling Strike
+{variant:1,2}{tags:life}(0.8-1)% of Cold Damage Leeched as Life
 {variant:1}Hatred has 50% less Reservation
 {variant:2,3}Hatred has 100% increased Mana Reservation Efficiency
 ]],[[
@@ -581,7 +573,7 @@ Implicits: 1
 {tags:attack}+(100-150) to Accuracy Rating
 {tags:jewellery_defense}+(100-150) to Evasion Rating
 {tags:jewellery_resistance}+20% to Fire Resistance
-{variant:2}20% to Light Radius
+{variant:2}20% increased Light Radius
 {variant:2}Nearby Enemies are Blinded
 ]],[[
 The Effigon
@@ -600,7 +592,8 @@ Damage Penetrates 10% Fire Resistance against Blinded Enemies
 ]],[[
 Impresence
 Onyx Amulet
-Source: Drops from unique{The Elder} (Tier 11+)
+Elder Item
+Source: Drops from unique{The Elder}
 Variant: Physical
 Variant: Fire
 Variant: Cold
@@ -631,7 +624,6 @@ Implicits: 1
 {variant:4}Conductivity has no Reservation if Cast as an Aura
 {variant:5}Despair has no Reservation if Cast as an Aura
 Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy
-Elder Item
 ]],[[
 Karui Ward
 Jade Amulet
@@ -649,6 +641,7 @@ Implicits: 1
 Replica Karui Ward
 Jade Amulet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
@@ -676,12 +669,14 @@ Implicits: 1
 ]],[[
 Leadership's Price
 Onyx Amulet
+League: Heist
+Source: Drops from unique{Vic Vox} and unique{Vinny Vox} in normal{Contract: The Twins}
 Requires Level 68
 Implicits: 1
-{tags:jewellery_attribute}+(10–16) to all Attributes
-{tags:jewellery_resistance}+(-3–3)% to maximum Fire Resistance
-{tags:jewellery_resistance}+(-3–3)% to maximum Cold Resistance
-{tags:jewellery_resistance}+(-3–3)% to maximum Lightning Resistance
+{tags:jewellery_attribute}+(10-16) to all Attributes
+{tags:jewellery_resistance}+(-3-3)% to maximum Fire Resistance
+{tags:jewellery_resistance}+(-3-3)% to maximum Cold Resistance
+{tags:jewellery_resistance}+(-3-3)% to maximum Lightning Resistance
 You have Scorching Conflux, Brittle Conflux and Sapping Conflux while your two highest Attributes are equal
 Cannot Ignite, Chill, Freeze or Shock
 Corrupted
@@ -744,7 +739,7 @@ Talisman Tier: 3
 Requires Level 44
 Implicits: 1
 (25-35)% increased Damage
-(10-15)% increased Physical Damage
+(10-15)% increased Global Physical Damage
 (25-30)% increased Fire Damage
 (20-25)% increased Cold Damage
 (15-20)% increased Lightning Damage
@@ -779,7 +774,7 @@ Coral Amulet
 League: Delve
 Requires Level 34
 Implicits: 1
-{tags:life}(2-4) Life Regenerated per second
+{tags:life}Regenerate (2-4) Life per second
 +3 to maximum number of Golems
 You cannot have non-Golem Minions
 25% reduced Golem Size
@@ -812,13 +807,13 @@ Variant: Current
 Requires Level 30
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
+{variant:2}(10-20)% chance to Blind Enemies on Hit with Attacks
 {variant:1}(25-40)% increased Damage with Hits and Ailments against Blinded Enemies
 {variant:1}{tags:critical}(30-50)% increased Critical Strike Chance against Blinded Enemies
 {variant:1}{tags:critical}(40-50)% chance to Blind Enemies on Critical Strike
-{variant:2}(10-20)% chance to gain a Frenzy Charge On Hit while Blinded
-{variant:2}(10-20)% chance to gain a Blind Enemies on Hit with Attacks
 Blind does not affect your Light Radius
 Blind you inflict is Reflected to you
+{variant:2}(10-20)% chance to gain a Frenzy Charge on Hit while Blinded
 ]],[[
 Rigwald's Curse
 Wereclaw Talisman
@@ -850,7 +845,7 @@ Implicits: 1
 {tags:jewellery_elemental}Adds (20-23) to (31-35) Cold Damage
 {tags:jewellery_elemental}Adds (1-3) to (47-52) Lightning Damage
 {variant:1}Gain a Power Charge when you use a Vaal Skill
-{tags:life}10 Life gained for each Enemy Hit if you have used a Vaal Skill Recently
+{tags:life}Gain 10 Life per Enemy Hit if you have used a Vaal Skill Recently
 {tags:speed}10% increased Movement Speed if you have used a Vaal Skill Recently
 {variant:2}Gain up to maximum Power Charges when you use a Vaal Skill
 ]],[[
@@ -879,8 +874,8 @@ Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Intelligence
 {variant:1,2}{tags:mana}(30-50)% increased Mana Regeneration Rate
 {variant:3}{tags:mana}(60-100)% increased Mana Regeneration Rate
-{variant:1,2}{tags:life}2% of Life Regenerated per Second
-{variant:3}{tags:life}4% of Life Regenerated per Second
+{variant:1,2}{tags:life}Regenerate 2% of Life per second
+{variant:3}{tags:life}Regenerate 4% of Life per second
 {variant:1}{tags:life}Nearby Allies gain 1% of Life Regenerated per Second
 {variant:2}{tags:life}Nearby Allies gain 2% of Life Regenerated per Second
 {variant:3}{tags:life}Nearby Allies gain 4% of Life Regenerated per Second
@@ -899,15 +894,16 @@ Implicits: 1
 {variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
 {tags:life}Minions have (10-15)% increased maximum Life
 {variant:1,2,3}{tags:speed}Minions have (10-15)% increased Movement Speed
+{variant:4}Minions convert 50% of Physical Damage to Cold Damage
 {variant:3}{tags:jewellery_elemental}Minions deal (5-9) to (11-15) additional Cold Damage
 {variant:4}{tags:jewellery_elemental}Minions deal (25-35) to (60-65) additional Cold Damage
 {variant:1,2}Minions deal (10-15)% increased Damage
 {variant:2,3}{tags:mana}(10-15)% reduced Mana Cost of Minion Skills
-{variant:4}Minions convert 50% of Physical Damage to Cold Damage
 {variant:4}Minions deal no Non-Cold Damage
 ]],[[
 Solstice Vigil
 Onyx Amulet
+Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.10.0
 Variant: Current
@@ -917,8 +913,8 @@ Implicits: 1
 {variant:1}(20-25)% increased Damage
 {variant:2}(30-40)% increased Damage
 {tags:life}+(50-70) to maximum Life
-{variant:1}{tags:mana}(2-3) Mana Regenerated per second
-{variant:2}{tags:mana}(8-10) Mana Regenerated per second
+{variant:1}{tags:mana}Regenerate (2-3) Mana per second
+{variant:2}{tags:mana}Regenerate (8-10) Mana per second
 {tags:mana}Temporal Chains has no Reservation if Cast as an Aura
 Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
@@ -937,7 +933,7 @@ Implicits: 1
 {variant:1}{tags:caster}30% increased Area of Effect of Hex Skills
 {variant:2,3}{tags:caster}60% increased Area of Effect of Hex Skills
 {tags:caster}You cannot be Cursed with Silence
-{variant:1,2}Grants level 20 Illusory Warp Skill
+{variant:1,2}Grants Level 20 Illusory Warp Skill
 {variant:3}{tags:caster}Frostblink has 50% increased Duration
 Corrupted
 ]],[[
@@ -949,8 +945,8 @@ Variant: Current
 Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
-{variant:1}+15% chance to Block Spell Damage
-{variant:2,3}+(12-15)% chance to Block Spell Damage
+{variant:1}+15% Chance to Block Spell Damage
+{variant:2,3}+(12-15)% Chance to Block Spell Damage
 {variant:1,2}{tags:caster}(10-15)% increased Cast Speed
 {variant:3}{tags:caster}(15-20)% increased Cast Speed
 {variant:1,2}{tags:mana}+(30-50) to maximum Mana
@@ -967,12 +963,11 @@ Can have 3 additional Enchantment Modifiers
 Tavukai
 Coral Amulet
 League: Legion
-Source: Drops from Karui Legion
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 54
 Implicits: 1
-{tags:life}(2.0-4.0) Life regenerated per second
+{tags:life}Regenerate (2-4) Life per second
 {tags:jewellery_attribute}+(30-40) to Intelligence
 {tags:chaos,jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
 Summon Raging Spirit has (20-30)% increased Duration
@@ -990,7 +985,7 @@ Variant: Current
 Requires Level 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
-Grants level 10 Purity of Elements Skill
+Grants Level 10 Purity of Elements Skill
 {variant:1,2}{tags:jewellery_attribute}+(5-10) to all Attributes
 {variant:3}{tags:jewellery_attribute}+(10-20) to all Attributes
 {tags:life}+(20-40) to maximum Life
@@ -1014,7 +1009,7 @@ Your Critical Strikes do not deal extra Damage
 ]],[[
 Uul-Netol's Vow
 Unset Amulet
-Source: Drops from Flawless Breachlords
+Source: Drops from unique{Breachlord} in a normal{Flawless Breachstone}
 Requires Level 72
 Implicits: 1
 Has 1 Socket
@@ -1121,6 +1116,8 @@ You do not inherently take less Damage for having Fortification
 ]],[[
 Winterheart
 Gold Amulet
+Variant: Pre 3.15.0
+Variant: Current
 Requires Level 42
 Implicits: 1
 (12-20)% increased Rarity of Items found
@@ -1128,11 +1125,13 @@ Implicits: 1
 {tags:life}+(50-70) to maximum Life
 {tags:jewellery_resistance}+75% to Cold Resistance
 Cannot be Chilled
-{tags:life}20% of Life Regenerated per Second while Frozen
+{variant:1}{tags:life}Regenerate 20% of Life per second while Frozen
+{variant:2}{tags:life}Regenerate 10% of Life per second while Frozen
 ]],[[
 Replica Winterheart
 Gold Amulet
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 42
 Implicits: 1
 (12-20)% increased Rarity of Items found
@@ -1172,7 +1171,6 @@ Avatar of Fire
 ]],[[
 Yoke of Suffering
 Onyx Amulet
-Source: Drops from unique{The Eradicator} (Tier 11+)
 Requires Level 70
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
@@ -1186,9 +1184,9 @@ Your Elemental Damage can Shock
 ]],[[
 The Eternal Struggle
 Onyx Amulet
-Source: Drops from unique{The Black Star} or unique{The Infinite Hunger}
 Searing Exarch Item
 Eater of Worlds Item
+Source: Drops from unique{The Black Star} or unique{The Infinite Hunger}
 Requires Level 61
 Implicits: 2
 9% increased Mana Reservation Efficiency of Skills

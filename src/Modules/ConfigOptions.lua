@@ -386,6 +386,10 @@ return {
 	{ var = "summonLightningGolemEnableWrath", type = "check", label = "Enable Wrath Aura:", ifSkill = "Summon Lightning Golem", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "LightningGolemWrath" })
 	end },
+	{ label = "Summon Reaper:", ifSkill = "Summon Reaper" },
+	{ var = "summonReaperConsumeRecently", type = "check", label = "Reaper Consumed recently?", ifSkill = "Summon Reaper", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "ReaperConsumeMinionForBuff" })
+	end },
 	{ label = "Thirst for Blood:", ifSkill = "Thirst for Blood" },
 	{ var = "nearbyBleedingEnemies", type = "count", label = "# of Nearby Bleeding Enemies:", ifSkill = "Thirst for Blood", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyBleedingEnemies", "BASE", val, "Config" )
@@ -423,6 +427,9 @@ return {
 		elseif val == "Lightning" then
 			modList:NewMod("Condition:WaveOfConvictionLightningExposureActive", "FLAG", true, "Config")
 		end
+	end },
+	{ var = "absolutionSkillDamageCountedOnce", type = "check", label = "Absolution: Count skill damage once", ifSkill = "Absolution", tooltip = "Your Absolution Skill Damage will not be scaled with Count setting.\nBy default it multiplies both minion count and skill hit count which leads to incorrect\nTotal DPS calculation since Absolution cannot inherently shotgun.\nDo not enable if you use Spell Totem support, Spell Cascade support or similar supports", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:AbsolutionSkillDamageCountedOnce", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ label = "Molten Shell:", ifSkill = "Molten Shell" },
 	{ var = "MoltenShellDamageMitigated", type = "count", label = "Damage mitigated:", tooltip = "Molten Shell reflects damage to the enemy,\nbased on the amount of damage it has mitigated.", ifSkill = "Molten Shell", apply = function(val, modList, enemyModList)
@@ -520,7 +527,7 @@ Huge sets the radius to 11.
 			enemyModList:NewMod("AvoidElementalAilments", "BASE", val, "Config")
 		end
 	end },
-	{ var = "enemyCanAvoidnonElementalAilment", type = "list", label = "Enemy avoid Poision and Bleed:", tooltip = "'Impervious'", list = {{val=0,label="None"},{val=20,label="20% (Low tier)"},{val=35,label="35% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)	
+	{ var = "enemyCanAvoidNonElementalAilment", type = "list", label = "Enemy avoid Poison and Bleed:", tooltip = "'Impervious'", list = {{val=0,label="None"},{val=20,label="20% (Low tier)"},{val=35,label="35% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)	
 		if val ~= 0 then
 			enemyModList:NewMod("AvoidPoison", "BASE", val, "Config")
 			enemyModList:NewMod("AvoidBleed", "BASE", val, "Config")
@@ -1648,6 +1655,9 @@ Uber Pinnacle Boss adds the following modifiers:
 	end },
 	{ var = "enemyChaosResist", type = "integer", label = "Enemy ^xD02090Chaos Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ChaosResist", "BASE", val, "Config")
+	end },
+	{ var = "enemyBlockChance", type = "integer", label = "Enemy Block Chance:", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("BlockChance", "BASE", val, "Config")
 	end },
 	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltip = [[
 Used to fill in defaults for specific boss skills if the boss config is not set
