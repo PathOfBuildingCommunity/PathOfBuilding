@@ -1,6 +1,6 @@
 VERSION[2.22.0][2022/12/09]
 
---- Fixed Bugs ---
+--- Implemented Enhancements ---
 * Add 3.20 Tree and Timeless jewel nodes (Regisle)
 * Add all revealed new Uniques from 3.20 (QuickStick123)
 * Add build pricing and item optimization to Items Tab (Nostrademous, Dullson)
