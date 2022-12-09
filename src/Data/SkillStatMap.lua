@@ -738,6 +738,9 @@ return {
 ["active_skill_damage_+%_final_when_cast_on_frostbolt"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 },
+["active_skill_merged_damage_+%_final_while_dual_wielding"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+},
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
 	mod("PhysicalDamageGainAsLightning", "BASE", nil),
