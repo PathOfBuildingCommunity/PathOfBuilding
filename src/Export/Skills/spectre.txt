@@ -57,6 +57,11 @@ local skills, mod, flag, skill = ...
 
 #skill BreachCleave
 #flags attack melee area
+	statMap = {
+		["active_skill_merged_damage_+%_final_while_dual_wielding"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+		},
+	},
 #mods
 
 #skill BullCharge Charge
@@ -497,11 +502,6 @@ local skills, mod, flag, skill = ...
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
-			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 	},
 #mods
 
@@ -537,11 +537,6 @@ local skills, mod, flag, skill = ...
 		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
-			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #mods
@@ -602,11 +597,6 @@ local skills, mod, flag, skill = ...
 		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
-			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #mods
@@ -1207,11 +1197,6 @@ skills["MonsterVulnerabilityOnHit1"] = {
         ["receive_bleeding_chance_%_when_hit_by_attack"] = {
             mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
         },
-        ["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
-            mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-            mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-            mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-        },
         ["physical_damage_taken_+%"] = {
             mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
         },
@@ -1228,8 +1213,7 @@ skills["MonsterVulnerabilityOnHit1"] = {
         skill("radius", 22),
     },
     constantStats = {
-        { "receive_bleeding_chance_%_when_hit_by_attack", 20 },
-        { "enemy_damaging_ailments_deal_damage_+%_faster_against_self", 20 },
+        { "receive_bleeding_chance_%_when_hit_by_attack", 25 },
         { "base_curse_skill_doom_gain_per_minute_if_cast_yourself", 600 },
     },
     stats = {

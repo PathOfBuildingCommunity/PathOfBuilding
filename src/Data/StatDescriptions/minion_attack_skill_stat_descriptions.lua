@@ -783,7 +783,7 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextElementalStatusAilments"
+						v="ReminderTextElementalAilments"
 					},
 					limit={
 						[1]={
@@ -1899,7 +1899,7 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextElementalStatusAilments"
+						v="ReminderTextElementalAilments"
 					},
 					limit={
 						[1]={
@@ -3414,7 +3414,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="This Attack and Minions Projectiles that have Pierced deal {0}% increased Damage"
+					text="Projectiles from this Attack and Minions that have Pierced deal {0}% increased Damage"
 				},
 				[2]={
 					[1]={
@@ -3427,7 +3427,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="This Attack and Minions Projectiles that have Pierced deal {0}% reduced Damage"
+					text="Projectiles from this Attack and Minions that have Pierced deal {0}% reduced Damage"
 				}
 			}
 		},

@@ -275,6 +275,10 @@ local skills, mod, flag, skill = ...
 		},
 		["cannot_cast_curses"] = {
 		},
+		["display_linked_curse_effect_+%_final"] = {
+		},
+		["support_bane_curse_effect_+%_final"] = {
+		},
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 21)
@@ -284,6 +288,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["apply_linked_curses_with_dark_ritual"] = {
 			flag("Condition:AppliedByBane"),
+		},
+		["support_bane_curse_effect_+%_final"] = {
+			mod("CurseEffect", "MORE", nil),
 		},
 	},
 #mods
@@ -474,7 +481,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill Contagion
@@ -574,7 +580,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill Discharge
@@ -663,7 +668,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill EnergyBlade
@@ -716,7 +720,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill EssenceDrain
@@ -917,7 +920,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill FleshOffering
@@ -1097,7 +1099,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill GalvanicField
@@ -1223,11 +1224,11 @@ local skills, mod, flag, skill = ...
 #skill DoomBlast
 #flags spell area
 	statMap = {
-		["hexblast_hit_damage_+%_final_per_5_doom_on_consumed_curse"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "HexDoom", div = 5 })
+		["hexblast_hit_damage_+%_final_if_hexed"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Cursed" })
 		},
-		["hexblast_ailment_damage_+%_final_per_5_doom_on_consumed_curse"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "HexDoom", div = 5 })
+		["hexblast_ailment_damage_+%_final_if_hexed"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "ActorCondition", actor = "enemy", var = "Cursed" })
 		},
 		["chaos_damage_resisted_by_lowest_resistance"] = {
 			flag("ChaosDamageUsesLowestResistance"),

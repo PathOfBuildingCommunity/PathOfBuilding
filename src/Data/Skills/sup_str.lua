@@ -3873,12 +3873,12 @@ skills["SupportRuthless"] = {
 }
 skills["SupportBluntWeapon"] = {
 	name = "Shockwave",
-	description = "Supports melee attack skills. Cannot support Triggered attacks, skills used by Totems, or skills which create minions.",
+	description = "Supports melee attack skills. Cannot support triggered attacks, attacks used by things other than you, or skills which create minions.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Melee, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Triggered, SkillType.CreatesMinion, SkillType.SummonsTotem, },
+	excludeSkillTypes = { SkillType.Triggered, SkillType.CreatesMinion, SkillType.SummonsTotem, SkillType.OtherThingUsesSkill, },
 	ignoreMinionTypes = true,
 	weaponTypes = {
 		["Two Handed Mace"] = true,
@@ -4196,12 +4196,6 @@ skills["SupportUrgentOrders"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["base_cooldown_modifier_ms"] = {
-			mod("CooldownRecovery", "BASE", nil),
-			div = 1000,
-		},
-	},
 	qualityStats = {
 		Default = {
 			{ "warcry_speed_+%", 0.5 },

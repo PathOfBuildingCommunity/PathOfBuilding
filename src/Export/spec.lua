@@ -7186,6 +7186,22 @@ return {
 	},
 	RelativeImportanceConstants={
 	},
+	ReminderText={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=350
+		},
+		[2]={
+			list=false,
+			name="Text",
+			refTo="",
+			type="String",
+			width=1000
+		}
+	},
 	RitualBalancePerLevel={
 	},
 	RitualConstants={
