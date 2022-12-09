@@ -664,30 +664,34 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 
     controls.includeSynthesis = new("CheckBoxControl", {"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, 0, 5, 18, "Synthesis Mods:", function(state) end)
     controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
-
+    
+    local lastItemAnchor = controls.includeSynthesis
     local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
+    
     if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
-        controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",controls.includeSynthesis,"BOTTOMRIGHT"}, 0, 5, 18, "Scourge Mods:", function(state) end)
+        controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Scourge Mods:", function(state) end)
         controls.includeScourge.state = (self.lastIncludeScourge == nil or self.lastIncludeScourge == true)
 
+        lastItemAnchor = controls.includeScourge
         popupHeight = popupHeight + 23
     end
 
     if isAmuletSlot then
-        controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",includeScourge and controls.includeScourge or controls.includeSynthesis,"BOTTOMRIGHT"}, 0, 5, 18, "Talisman Mods:", function(state) end)
+        controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Talisman Mods:", function(state) end)
         controls.includeTalisman.state = (self.lastIncludeTalisman == nil or self.lastIncludeTalisman == true)
 
+        lastItemAnchor = controls.includeTalisman
         popupHeight = popupHeight + 23
     end
 
     if isJewelSlot then
-        controls.jewelType = new("DropDownControl", {"TOPLEFT",controls.includeSynthesis,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Any", "Base", "Abyss" }, function(index, value) end)
+        controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Any", "Base", "Abyss" }, function(index, value) end)
         controls.jewelType.selIndex = self.lastJewelType or 1
         controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, -5, 0, 0, 16, "Jewel Type:")
 
         popupHeight = popupHeight + 23
     elseif not isAbyssalJewelSlot then
-        controls.influence1 = new("DropDownControl", {"TOPLEFT",controls.includeTalisman and controls.includeTalisman or (includeScourge and controls.includeScourge) or controls.includeCorrupted,"BOTTOMLEFT"}, 0, 5, 100, 18, influenceDropdownNames, function(index, value) end)
+        controls.influence1 = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, influenceDropdownNames, function(index, value) end)
         controls.influence1.selIndex = self.lastInfluence1 or 1
         controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, -5, 0, 0, 16, "Influence 1:")
 
