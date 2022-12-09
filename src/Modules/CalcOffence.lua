@@ -4174,36 +4174,33 @@ function calcs.offence(env, actor, activeSkill)
 	
 	local baseDropsBurningGround = modDB:Sum("BASE", nil, "DropsBurningGround")
 	if baseDropsBurningGround > 0 then
-		local damageType = "Fire"
-		if canDeal[damageType] then
+		if canDeal.Fire then
 			local dotCfg = {
 				flags = bor(ModFlag.Dot),
 				keywordFlags = 0
 			}
 			local dotTakenCfg = copyTable(dotCfg, true)
 			local dotTypeCfg = copyTable(dotCfg, true)
-			dotTypeCfg.keywordFlags = bor(dotTypeCfg.keywordFlags, KeywordFlag[damageType.."Dot"])
+			dotTypeCfg.keywordFlags = bor(dotTypeCfg.keywordFlags, KeywordFlag.FireDot)
 			local effMult = 1
 			if env.mode_effective then
 				local resist = 0
-				local takenInc = enemyDB:Sum("INC", dotTakenCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
-				local takenMore = enemyDB:More(dotTakenCfg, "DamageTaken", "DamageTakenOverTime", damageType.."DamageTaken", damageType.."DamageTakenOverTime")
-				if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
-					resist = env.player.output[damageType.."Resist"]
+				local takenInc = enemyDB:Sum("INC", dotTakenCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime")
+				local takenMore = enemyDB:More(dotTakenCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime")
+				if env.modDB:Flag(nil, "EnemyFireResistEqualToYours") then
+					resist = env.player.output.FireResist
 				else
-					resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
-					if isElemental[damageType] then
-						local base = resist + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
-						resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
-						takenInc = takenInc + enemyDB:Sum("INC", dotTypeCfg, "ElementalDamageTaken")
-					end
+					resist = enemyDB:Sum("BASE", nil, "FireResist")
+				        local base = resist + enemyDB:Sum("BASE", dotTypeCfg, "ElementalResist")
+				        resist = base * calcLib.mod(enemyDB, nil, "FireResist")
+				        takenInc = takenInc + enemyDB:Sum("INC", dotTypeCfg, "ElementalDamageTaken")
 				end
 				resist = m_min(resist, data.misc.EnemyMaxResist)
 				effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 			end
-			local inc = modDB:Sum("INC", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
-			local more = round(modDB:More(dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
-			local mult = modDB:Sum("BASE", dotTypeCfg, "DotMultiplier", damageType.."DotMultiplier")
+			local inc = modDB:Sum("INC", dotTypeCfg, "Damage", "FireDamage", "ElementalDamage")
+			local more = round(modDB:More(dotTypeCfg, "Damage", "FireDamage", "ElementalDamage"), 2)
+			local mult = modDB:Sum("BASE", dotTypeCfg, "DotMultiplier", "FireDotMultiplier")
 			local total = baseDropsBurningGround * (1 + inc/100) * more * (1 + mult/100) * effMult
 			if not output.BurningGroundDPS or output.BurningGroundDPS < total then
 				output.BurningGroundDPS = total
