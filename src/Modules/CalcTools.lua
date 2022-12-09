@@ -193,9 +193,6 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 				local nextStat = grantedEffect.levels[orderedLevels[nextLevelIndex]][index]
 				local prevStat = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]][index]
 				statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
-			else
-				-- Static value
-				statValue = level[index] or 1
 			end
 		end
 		stats[stat] = (stats[stat] or 0) + statValue
