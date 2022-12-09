@@ -1,5 +1,4 @@
 VERSION[2.23.0][2022/12/09]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
 
 * Add initial and partial support for new skill gems (LocalIdentity)
     * Vaal Blade Flurry is partially supported
