@@ -220,9 +220,6 @@ return {
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
 },
-["poison_duration_is_skill_duration"] = {
-	skill("poisonIsSkillEffect", true),
-},
 ["area_of_effect_+%_while_not_dual_wielding"] = {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
