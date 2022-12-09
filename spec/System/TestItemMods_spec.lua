@@ -102,8 +102,8 @@ describe("TetsItemMods", function()
         assert.is_true(build.calcsTab.mainEnv.keystonesAdded["Vaal Pact"])
         assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("BASE", build.calcsTab.mainEnv.player.mainSkill.skillCfg, "PhysicalDamageGainAsFire") > 0)
     end)
-    
-    it("Varnarustra works with nightblade", function()
+
+    it("Varunastra works with nightblade", function()
         build.itemsTab:CreateDisplayItemFromRaw([[Varunastra
         Vaal Blade
         League: Perandus
@@ -135,7 +135,7 @@ describe("TetsItemMods", function()
         assert.are_not.equals(nonElusiveCritMult, build.calcsTab.mainOutput.CritMultiplier)
     end)
 
-    it("Varnarustra works with close combat support", function()
+    it("Varunastra works with close combat support", function()
         build.itemsTab:CreateDisplayItemFromRaw([[Varunastra
         Vaal Blade
         League: Perandus
