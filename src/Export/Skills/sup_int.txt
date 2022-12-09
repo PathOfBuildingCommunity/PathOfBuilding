@@ -190,6 +190,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportCursedGround
+#mods
+
 #skill SupportCurseOnHit
 	statMap = {
 		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
@@ -318,6 +321,9 @@ local skills, mod, flag, skill = ...
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "FeedingFrenzyActive" }),
 		},
 	},
+#mods
+
+#skill SupportHexBloom
 #mods
 
 #skill SupportRemoteMine2
@@ -753,10 +759,4 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("HasSeals")
-#mods
-
-#skill SupportCursedGround
-#mods
-
-#skill SupportHexBloom
 #mods
