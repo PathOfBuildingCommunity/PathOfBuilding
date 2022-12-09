@@ -4530,7 +4530,7 @@ function calcs.offence(env, actor, activeSkill)
 			-- Make any necessary corrections to output
 			env.player.output.ManaCost = 0
 			env.player.output.Speed = triggerRate
-			env.player.output.ActionTriggerRate = triggerRate
+			env.player.output.TriggerRateCap = triggerRate
 			env.player.output.SourceTriggerRate = sourceAPS
 			env.player.output.ServerTriggerRate = m_min(sourceAPS, triggerRate)
 			
@@ -4538,7 +4538,7 @@ function calcs.offence(env, actor, activeSkill)
 			if newEnv.player.breakdown then
 				newEnv.player.breakdown.SourceTriggerRate = {s_format("%.2f ^8(%s attacks per second)", sourceAPS, usedSkill.activeEffect.grantedEffect.name)}
 				if triggeredCD then
-					newEnv.player.breakdown.ActionTriggerRate = {
+					newEnv.player.breakdown.TriggerRateCap = {
 						s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
 						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
 						s_format("= %.2f ^8(final cooldown of triggered skill)", triggeredCD / icdrSkill),
@@ -4557,7 +4557,7 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("= %.2f ^8per second", triggerRate),
 					}
 				else
-					newEnv.player.breakdown.ActionTriggerRate = {
+					newEnv.player.breakdown.TriggerRateCap = {
 						"Triggered skill has no base cooldown",
 						"",
 						s_format("%.2f ^8(Tawhoa's Chosen base cooldown)", triggerCD),
