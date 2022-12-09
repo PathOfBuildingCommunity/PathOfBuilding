@@ -4372,11 +4372,18 @@ function calcs.offence(env, actor, activeSkill)
 	--Calculates and displays cost per second for skills that don't already have one (link skills)
 	for resource, val in pairs(costs) do
 		if(val.upfront and output[resource.."HasCost"] and output[resource.."Cost"] > 0 and not output[resource.."PerSecondHasCost"] and (output.Speed > 0 or output.Cooldown)) then
+			local usedResource = resource
+			local EB = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
+
+			if EB and resource == "Mana" then
+				usedResource = "ES"
+			end
+			
 			local repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
 			local useSpeed = 1
 			local timeType
 			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
-			if (skillFlags.trap or skillFlags.mine) then
+			if skillFlags.trap or skillFlags.mine then
 				local preSpeed = output.TrapThrowingSpeed or output.MineLayingSpeed
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (preSpeed > 0 and preSpeed or 1 / output.Cooldown) or preSpeed) / repeats
 				timeType = skillFlags.trap and "trap throwing" or "mine laying"
@@ -4388,14 +4395,14 @@ function calcs.offence(env, actor, activeSkill)
 				timeType = isTriggered and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
 			end
 
-			output[resource.."PerSecondHasCost"] = true
-			output[resource.."PerSecondCost"] = output[resource.."Cost"] * useSpeed
+			output[usedResource.."PerSecondHasCost"] = true
+			output[usedResource.."PerSecondCost"] = output[resource.."Cost"] * useSpeed
 
 			if breakdown then
-				breakdown[resource.."PerSecondCost"] = copyTable(breakdown[resource.."Cost"])
-				t_remove(breakdown[resource.."PerSecondCost"])				
-				t_insert(breakdown[resource.."PerSecondCost"], s_format("x %.2f ^8("..timeType.." speed)", useSpeed))
-				t_insert(breakdown[resource.."PerSecondCost"], s_format("= %.2f per second", output[resource.."PerSecondCost"]))
+				breakdown[usedResource.."PerSecondCost"] = copyTable(breakdown[resource.."Cost"])
+				t_remove(breakdown[usedResource.."PerSecondCost"])				
+				t_insert(breakdown[usedResource.."PerSecondCost"], s_format("x %.2f ^8("..timeType.." speed)", useSpeed))
+				t_insert(breakdown[usedResource.."PerSecondCost"], s_format("= %.2f per second", output[usedResource.."PerSecondCost"]))
 			end
 		end
 	end
