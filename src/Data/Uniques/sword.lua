@@ -326,7 +326,7 @@ Implicits: 2
 Adds 2 to 6 Physical Damage
 10% increased Attack Speed
 +(20-30) to maximum Life
-Gain 2 Life per Enemy Hit by Attacks
+Grants 2 Life per Enemy Hit
 ]],[[
 Dreadbeak
 Rusted Sword
@@ -344,7 +344,7 @@ Implicits: 2
 {variant:3}Adds (83-91) to (123-130) Physical Damage
 10% increased Attack Speed
 +(20-30) to maximum Life
-Gain 2 Life per Enemy Hit by Attacks
+Grants 2 Life per Enemy Hit
 You have Onslaught while on Low Life
 ]],[[
 Rigwald's Command
@@ -556,7 +556,7 @@ Implicits: 3
 (120-150)% increased Physical Damage
 20% reduced Rarity of Items found
 +(40-60)% to all Elemental Resistances
-Gain 3 Life per Enemy Hit by Attacks
+Grants 3 Life per Enemy Hit
 ]],[[
 Chitus' Needle
 Elegant Foil
@@ -628,7 +628,7 @@ Implicits: 3
 No Physical Damage
 Adds 1 to (40-50) Lightning Damage
 (25-30)% increased Attack Speed
-Gain 2 Life per Enemy Hit by Attacks
+Grants 2 Life per Enemy Hit
 {variant:1,2}5% Chance to Shock
 {variant:3}(15-20)% chance to Shock
 {variant:3}Herald of Thunder has 50% increased Buff Effect

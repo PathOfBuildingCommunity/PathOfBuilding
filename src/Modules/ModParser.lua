@@ -54,6 +54,7 @@ local formList = {
 	["^you gain ([%d%.]+)"] = "GAIN",
 	["^gains? ([%d%.]+)%% of"] = "GAIN",
 	["^gain ([%d%.]+)"] = "GAIN",
+	["^grants ([%d%.]+)"] = "GRANTS",
 	["^gain %+(%d+)%% to"] = "GAIN",
 	["^you lose ([%d%.]+)"] = "LOSE",
 	["^loses? ([%d%.]+)%% of"] = "LOSE",
@@ -4447,6 +4448,10 @@ local function parseMod(line, order)
 		modValue = tonumber(formCap[1])
 	elseif modForm == "GAIN" then
 		modType = "BASE"
+		modSuffix, line = scan(line, suffixTypes, true)
+	elseif modForm == "GRANTS" then
+		modType = "BASE"
+		modFlag = modFlag or { keywordFlags = KeywordFlag.Attack }
 		modSuffix, line = scan(line, suffixTypes, true)
 	elseif modForm == "LOSE" then
 		modValue = -modValue

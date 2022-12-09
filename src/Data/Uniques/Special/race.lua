@@ -77,7 +77,7 @@ Nailed Fist
 League: Race Events
 Sockets: W-W-W
 Implicits: 1
-Gain 3 Life per Enemy Hit by Attacks
+Grants 3 Life per Enemy Hit
 Socketed Gems have 50% reduced Mana Cost
 Grants Level 20 Hatred Skill
 Adds 2 to 6 Physical Damage
