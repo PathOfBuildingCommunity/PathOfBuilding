@@ -1966,8 +1966,7 @@ function calcs.perform(env, avoidCache)
 					local cfg = { skillName = grantedEffect.name }
 					local inc = modDB:Sum("INC", cfg, "CurseEffectOnSelf") + gemModList:Sum("INC", nil, "CurseEffectAgainstPlayer")
 					local more = modDB:More(cfg, "CurseEffectOnSelf") * gemModList:More(nil, "CurseEffectAgainstPlayer")
-					local configInc = value.effect and (1 + value.effect / 100) or 1
-					modScale = (1 + inc / 100) * more * configInc
+					modScale = (1 + inc / 100) * more
 				else
 					modScale = (1 + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * enemyDB:More(nil, "CurseEffectOnSelf")
 				end
