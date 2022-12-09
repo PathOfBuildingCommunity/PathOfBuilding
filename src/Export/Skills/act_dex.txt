@@ -1663,7 +1663,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill TornadoShot

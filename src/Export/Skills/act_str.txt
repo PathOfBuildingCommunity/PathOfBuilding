@@ -388,7 +388,7 @@ local skills, mod, flag, skill = ...
 #skill Cleave
 #flags attack melee area
 	statMap = {
-		["cleave_damage_+%_final_while_dual_wielding"] = {
+		["active_skill_merged_damage_+%_final_while_dual_wielding"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
 		},
 	},
@@ -929,8 +929,8 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
-		["active_skill_damage_over_time_from_projectile_hits_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "SkillPart", skillPart = 2 })
+		["active_skill_hit_ailment_damage_with_projectile_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPart = 2 })
 		},
 	},
 #baseMod skill("projectileSpeedAppliesToMSAreaOfEffect", true)
@@ -1008,7 +1008,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#baseMod mod("MaxDoom", "BASE", 30)
 #baseMod mod("DebilitateChance", "BASE", 100)
 #mods
 
@@ -1390,18 +1389,15 @@ end,
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
 			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
-			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["self_bleed_duration_+%"] = {
+			mod("SelfBleedDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill WarlordsMark

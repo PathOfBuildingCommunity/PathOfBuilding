@@ -983,19 +983,10 @@ return {
 					limit={
 						[1]={
 							[1]=1,
-							[2]=99
-						}
-					},
-					text="You and nearby Allies have {0}% chance to Avoid being Stunned"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]=100,
 							[2]="#"
 						}
 					},
-					text="You and nearby Allies Cannot be Stunned"
+					text="You and nearby Allies have {0}% chance to Avoid being Stunned"
 				}
 			}
 		},
@@ -1789,7 +1780,7 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
-						v="ReminderTextElementalStatusAilments"
+						v="ReminderTextElementalAilments"
 					},
 					limit={
 						[1]={

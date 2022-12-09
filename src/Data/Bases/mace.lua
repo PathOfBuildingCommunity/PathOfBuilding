@@ -185,7 +185,7 @@ itemBases["Gavel"] = {
 itemBases["Legion Hammer"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, top_tier_base_item_type = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 35, PhysicalMax = 81, CritChanceBase = 5, AttackRateBase = 1.4, Range = 11, },
@@ -194,7 +194,7 @@ itemBases["Legion Hammer"] = {
 itemBases["Pernach"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, top_tier_base_item_type = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 49, PhysicalMax = 82, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
@@ -203,7 +203,7 @@ itemBases["Pernach"] = {
 itemBases["Auric Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, top_tier_base_item_type = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "15% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 65, PhysicalMax = 82, CritChanceBase = 5, AttackRateBase = 1.2, Range = 11, },
@@ -212,7 +212,7 @@ itemBases["Auric Mace"] = {
 itemBases["Nightmare Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, top_tier_base_item_type = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "10% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 38, PhysicalMax = 80, CritChanceBase = 5, AttackRateBase = 1.4, Range = 11, },
@@ -438,7 +438,7 @@ itemBases["Opal Sceptre"] = {
 itemBases["Platinum Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { top_tier_base_item_type = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "30% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 51, PhysicalMax = 76, CritChanceBase = 6, AttackRateBase = 1.25, Range = 11, },
@@ -447,7 +447,7 @@ itemBases["Platinum Sceptre"] = {
 itemBases["Vaal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { top_tier_base_item_type = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "32% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 37, PhysicalMax = 70, CritChanceBase = 6, AttackRateBase = 1.4, Range = 11, },
@@ -456,7 +456,7 @@ itemBases["Vaal Sceptre"] = {
 itemBases["Carnal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { top_tier_base_item_type = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "32% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 41, PhysicalMax = 95, CritChanceBase = 6, AttackRateBase = 1.2, Range = 11, },
@@ -465,7 +465,7 @@ itemBases["Carnal Sceptre"] = {
 itemBases["Void Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { top_tier_base_item_type = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "40% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 50, PhysicalMax = 76, CritChanceBase = 6.2, AttackRateBase = 1.25, Range = 11, },
@@ -483,7 +483,7 @@ itemBases["Sambar Sceptre"] = {
 itemBases["Oscillating Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { not_for_sale = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, not_for_sale = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "Elemental Overload",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "critical" }, },
 	weapon = { PhysicalMin = 23, PhysicalMax = 34, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 11, },
@@ -492,7 +492,7 @@ itemBases["Oscillating Sceptre"] = {
 itemBases["Stabilising Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { not_for_sale = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, not_for_sale = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "Elemental Equilibrium",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 35, PhysicalMax = 52, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 11, },
@@ -501,7 +501,7 @@ itemBases["Stabilising Sceptre"] = {
 itemBases["Alternating Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { not_for_sale = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, not_for_sale = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "Secrets of Suffering",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 41, PhysicalMax = 61, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 11, },
@@ -664,7 +664,7 @@ itemBases["Colossus Mallet"] = {
 itemBases["Piledriver"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { two_hand_weapon = true, top_tier_base_item_type = true, mace = true, weapon = true, twohand = true, default = true, },
 	implicit = "20% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 77, PhysicalMax = 115, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
@@ -673,7 +673,7 @@ itemBases["Piledriver"] = {
 itemBases["Meatgrinder"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { two_hand_weapon = true, top_tier_base_item_type = true, mace = true, weapon = true, twohand = true, default = true, },
 	implicit = "5% chance to deal Double Damage",
 	implicitModTypes = { { "damage" }, },
 	weapon = { PhysicalMin = 74, PhysicalMax = 138, CritChanceBase = 5, AttackRateBase = 1.25, Range = 13, },
@@ -682,7 +682,7 @@ itemBases["Meatgrinder"] = {
 itemBases["Imperial Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { two_hand_weapon = true, top_tier_base_item_type = true, mace = true, weapon = true, twohand = true, default = true, },
 	implicit = "10% increased Strength",
 	implicitModTypes = { { "attribute" }, },
 	weapon = { PhysicalMin = 102, PhysicalMax = 153, CritChanceBase = 5, AttackRateBase = 1.1, Range = 13, },
@@ -691,7 +691,7 @@ itemBases["Imperial Maul"] = {
 itemBases["Terror Maul"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { two_hand_weapon = true, top_tier_base_item_type = true, mace = true, weapon = true, twohand = true, default = true, },
 	implicit = "25% chance to double Stun Duration",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 101, PhysicalMax = 137, CritChanceBase = 6, AttackRateBase = 1.15, Range = 13, },

@@ -453,6 +453,10 @@ return {
 ["base_spell_cooldown_speed_+%"] = {
 	mod("CooldownRecovery", "INC", nil),
 },
+["base_cooldown_modifier_ms"] = {
+	mod("CooldownRecovery", "BASE", nil),
+	div = 1000,
+},
 ["additional_weapon_base_attack_time_ms"] = {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
 	div = 1000,
@@ -863,6 +867,9 @@ return {
 ["shock_effect_+%"] = {
 	mod("EnemyShockEffect", "INC", nil),
 },
+["active_skill_shock_effect_+%_final"] = {
+	mod("EnemyShockEffect", "MORE", nil),
+},
 ["non_damaging_ailment_effect_+%"] = {
 	mod("EnemyChillEffect", "INC", nil),
 	mod("EnemyShockEffect", "INC", nil),
@@ -1007,6 +1014,20 @@ return {
 	flag("ChaosCanFreeze"),
 },
 ["all_damage_can_shock"] = {
+	flag("PhysicalCanShock"),
+	flag("ColdCanShock"),
+	flag("FireCanShock"),
+	flag("ChaosCanShock"),
+},
+["all_damage_can_ignite_freeze_shock"] = {
+	flag("PhysicalCanIgnite"),
+	flag("LightningCanIgnite"),
+	flag("ColdCanIgnite"),
+	flag("ChaosCanIgnite"),
+	flag("PhysicalCanFreeze"),
+	flag("LightningCanFreeze"),
+	flag("FireCanFreeze"),
+	flag("ChaosCanFreeze"),
 	flag("PhysicalCanShock"),
 	flag("ColdCanShock"),
 	flag("FireCanShock"),

@@ -1465,7 +1465,7 @@ skills["TriggeredIcicleNova"] = {
 	name = "Icicle Burst",
 	hidden = true,
 	color = 4,
-	description = "This attack fires icy projectiles in a circle around enemies you kill, dealing attack damage with all physical damage converted to cold.",
+	description = "This attack fires icy projectiles in a circle around enemies you hit, dealing attack damage with all physical damage converted to cold.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Cold] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -2096,7 +2096,7 @@ skills["ChannelledSnipe"] = {
 	hidden = true,
 	color = 2,
 	description = "Channel to charge up your bow, gaining stages. Release to trigger one linked bow skill for each stage gained. Channelled Skills cannot be triggered this way. If there are no skills linked, but at least one stage was gained, this skill will fire its own arrow instead. Cannot be used by Totems.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Channel] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Channel] = true, [SkillType.Physical] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},

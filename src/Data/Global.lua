@@ -277,6 +277,8 @@ SkillType = {
 	Blessing = 119,
 	ZeroReservation = 120,
 	DynamicCooldown = 121,
+	OwnerCannotUse = 122,
+	ProjectilesNotFired = 123,
 }
 
 GlobalCache = { 
