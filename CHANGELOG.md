@@ -8,14 +8,15 @@
 
 ## What's Changed
 ### User Interface
-- Update 3.20 skill tree [\#5269](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5269) ([LocalIdentity](https://github.com/LocalIdentity))
+- Update 3.20 skill tree [\#5269
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5269) ([LocalIdentity](https://github.com/LocalIdentity))
 ### Fixed Bugs
-- Cost per second for totems and eldritch battery [\#5251](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5251) ([Lilylicious](https://github.com/Lilylicious))
-- Incorrect warnings when using Eldritch Battery and remove support for per-second costs [\#5247](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5247) ([Paliak](https://github.com/Paliak))
-- Viper Strike base Poison duration [\#5263](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5263) ([LocalIdentity](https://github.com/LocalIdentity))
-- Ailments not applying correctly [\#5264](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5264) ([Lilylicious](https://github.com/Lilylicious))
-- Hex Master not working with Impossible Escape [\#5267](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5267) ([LocalIdentity](https://github.com/LocalIdentity))
-- Onslaught Effect nodes on skill tree not working [\#5270](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5270) ([LocalIdentity](https://github.com/LocalIdentity))
+- Cost per second for totems and eldritch battery [\#5251](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5251) ([Lilylicious](https://github.com/Lilylicious))
+- Incorrect warnings when using Eldritch Battery and remove support for per-second costs [\#5247](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5247) ([Paliak](https://github.com/Paliak))
+- Viper Strike base Poison duration [\#5263](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5263) ([LocalIdentity](https://github.com/LocalIdentity))
+- Ailments not applying correctly [\#5264](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5264) ([Lilylicious](https://github.com/Lilylicious))
+- Hex Master not working with Impossible Escape [\#5267](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5267) ([LocalIdentity](https://github.com/LocalIdentity))
+- Onslaught Effect nodes on skill tree not working [\#5270](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5270) ([LocalIdentity](https://github.com/LocalIdentity))
 
 
 

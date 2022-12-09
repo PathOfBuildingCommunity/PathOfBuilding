@@ -1,7 +1,8 @@
-VERSION[2.22.1][2022/12/09]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.22.1][2022/12/10]
 
+--- User Interface ---
 * Update 3.20 skill tree (LocalIdentity)
+
 --- Fixed Bugs ---
 * Cost per second for totems and eldritch battery (Lilylicious)
 * Incorrect warnings when using Eldritch Battery and remove support for per-second costs (Paliak)
