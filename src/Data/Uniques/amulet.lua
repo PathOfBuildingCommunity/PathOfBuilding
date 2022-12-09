@@ -144,7 +144,6 @@ Implicits: 1
 {tags:life}+(50-70) to maximum Life
 {variant:1,2,3,4,5}10% reduced Stun and Block Recovery
 {variant:6,7,8,9}Nearby Enemies grant 25% increased Flask Charges
-{tags:critical}{variant:10,11,12,13,14,15,16}2% additional Chance to receive a Critical Strike
 {variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
 {tags:critical}{variant:10,11,12,13,14,15,16}Hits against Nearby Enemies have 50% increased Critical Strike Chance
 {variant:17}{tags:jewellery_defense}(15-20)% increased Global Defences
@@ -283,13 +282,17 @@ Extra Gore
 ]],[[
 Crystallised Omniscience
 Onyx Amulet
+Variant: Pre 3.19.0
+Variant: Current
 Source: Drops from unique{The Searing Exarch}
 Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 Modifiers to Attributes instead Apply to Omniscience
-+1% to All Elemental Resistances per 10 Omniscience
-Penetrate 1% Elemental Resistances per 10 Omniscience
+{variant:1}+1% to All Elemental Resistances per 10 Omniscience
+{variant:1}Penetrate 1% Elemental Resistances per 10 Omniscience
+{variant:2}+1% to All Elemental Resistances per 15 Omniscience
+{variant:2}Penetrate 1% Elemental Resistances per 15 Omniscience
 Attribute Requirements can be satisfied by (15-25)% of Omniscience
 ]],[[
 Daresso's Salute
@@ -440,15 +443,19 @@ Implicit Modifier magnitudes are doubled
 The Felbog Fang
 Citrine Amulet
 League: Harvest
+Variant: Pre 3.20.0
+Variant: Current
 Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-50) to Intelligence
 {tags:caster,speed}(10-15)% increased Cast Speed
 (10-15)% increased Area of Effect
-{tags:caster}Enemies Cursed by you are Hindered with 25% reduced Movement Speed if 25% of Curse Duration expired
+{variant:1}{tags:caster}Enemies Cursed by you are Hindered with 25% reduced Movement Speed if 25% of Curse Duration expired
+{variant:2}{tags:caster}Enemies Cursed by you are Hindered with 30% reduced Movement Speed if 25% of Curse Duration expired
 {tags:caster}Your Curses have 25% increased Effect if 50% of Curse Duration expired
-{tags:caster}Enemies Cursed by you take 25% increased Damage if 75% of Curse Duration expired
+{variant:1}{tags:caster}Enemies Cursed by you take 25% increased Damage if 75% of Curse Duration expired
+{variant:2}{tags:caster}Enemies Cursed by you take 35% increased Damage if 75% of Curse Duration expired
 ]],[[
 Fury Valve
 Turquoise Amulet
@@ -544,18 +551,22 @@ Replica Hyrri's Truth
 Jade Amulet
 League: Heist
 Variant: Pre 3.16.0
+Variant: Pre 3.19.0
 Variant: Current
 Requires Level 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 Grants Level 22 Hatred Skill
-{tags:jewellery_attribute}+(25-35) to Dexterity
-{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
-{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
-{tags:critical}+(23-28)% to Global Critical Strike Multiplier
-{tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
+{variant:1,2}{tags:jewellery_attribute}+(25-35) to Dexterity
+{variant:3}{tags:jewellery_attribute}+(30-55) to Dexterity
+{variant:1,2}{tags:attack,physical}Adds (12-15) to (24-28) Physical Damage to Attacks
+{variant:1,2}{tags:jewellery_elemental,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
+{variant:3}Bow Attacks have Culling Strike
+{variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
+{variant:3}{tags:critical}+(18-35)% to Global Critical Strike Multiplier
+{variant:1,2}{tags:life}(0.8-1.0)% of Cold Damage Leeched as Life
 {variant:1}Hatred has 50% less Reservation
-{variant:2}Hatred has 100% increased Mana Reservation Efficiency
+{variant:2,3}Hatred has 100% increased Mana Reservation Efficiency
 ]],[[
 The Ignomon
 Gold Amulet
@@ -689,6 +700,7 @@ Implicits: 1
 The Jinxed Juju
 Citrine Amulet
 Variant: Pre 3.16.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 48
 Implicits: 1
@@ -697,7 +709,7 @@ Implicits: 1
 {tags:chaos,jewellery_resistance}+(23-31)% to Chaos Resistance
 {variant:1}{tags:caster}(10-15)% increased Effect of your Curses
 {variant:2}{tags:caster}(5-10)% increased Effect of your Curses
-{variant:1}(10-15)% increased effect of Non-Curse Auras from your Skills
+{variant:1,3}(10-15)% increased effect of Non-Curse Auras from your Skills
 {variant:2}(5-10)% increased effect of Non-Curse Auras from your Skills
 10% of Damage from Hits is taken from your Spectres' Life before you
 (The damage they take will be divided evenly between them)
@@ -912,7 +924,7 @@ Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy
 ]],[[
 Star of Wraeclast
 Ruby Amulet
-Source: Vendor recipe
+Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current

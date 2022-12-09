@@ -11,7 +11,7 @@ Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
 Requires Level 62, 212 Dex
-Source: Vendor recipe
+Source: Vendor Recipe
 Implicits: 1
 {variant:3}+(15-25)% to Global Critical Strike Multiplier
 {variant:1}Adds (60-70) to (180-210) Physical Damage
@@ -322,14 +322,17 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 2
 {variant:2}(6-12)% increased Elemental Damage with Attack Skills
-{variant:3,4,5}(20-24)% increased Elemental Damage with Attack Skills
+{variant:3,4,5,6}(20-24)% increased Elemental Damage with Attack Skills
 {variant:1,2,3,4}(150-175)% increased Physical Damage
 {variant:5}(90-105)% increased Physical Damage
-Adds (6-12) to (20-32) Physical Damage
+{variant:6}(180-200)% increased Physical Damage
+{variant:1,2,3,4,5}Adds (6-12) to (20-32) Physical Damage
+{variant:6}Adds (7-14) to (24-34) Physical Damage
 (10-20)% increased Attack Speed
 +(80-100) to maximum Mana
 Hits can't be Evaded
@@ -497,15 +500,18 @@ Adds 1 to 85 Lightning Damage
 Voltaxic Rift
 Spine Bow
 Variant: Pre 3.9.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 64, 212 Dex
-Adds 1 to (275-325) Lightning Damage
+{variant:1,2}Adds 1 to (275-325) Lightning Damage
+{variant:3}Adds 1 to (600-750) Lightning Damage
 (10-15)% increased Attack Speed
-60% of Lightning Damage Converted to Chaos Damage
-10% Chance to Shock
+{variant:1,2}60% of Lightning Damage Converted to Chaos Damage
+{variant:3}100% of Lightning Damage Converted to Chaos Damage
+{variant:1,2}10% Chance to Shock
 Your Chaos Damage can Shock
-{variant:2}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
-{variant:2}+40% to maximum Effect of Shock
+{variant:2,3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
+{variant:2,3}+40% to maximum Effect of Shock
 ]],[[
 Windripper
 Imperial Bow

@@ -151,7 +151,7 @@ Implicits: 1
 {tags:speed}(5-10)% increased Movement Speed
 Damage from Enemies Hitting you is Unlucky while you are Cursed with Vulnerability
 {variant:2}{tags:life}You count as on Full Life while you are Cursed with Vulnerability
-{tags:caster}You are cursed with Vulnerability, with 40% increased Effect
+{tags:caster}You are cursed with Vulnerability
 ]],[[
 Coward's Legacy
 Chain Belt
@@ -164,7 +164,7 @@ Implicits: 1
 {tags:speed}(5-10)% increased Movement Speed
 {tags:caster}50% increased Effect of Curses on you
 {tags:life}You count as on Low Life while you are Cursed with Vulnerability
-{tags:caster}You are Cursed with Vulnerability, with 80% increased Effect
+{tags:caster}You are Cursed with Vulnerability
 ]],[[
 Cyclopean Coil
 Leather Belt
@@ -417,15 +417,17 @@ Immortal Flesh
 Leather Belt
 Variant: Pre 1.3.0
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 LevelReq: 50
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:life}+(75-100) to maximum Life
-{tags:life}Regenerate (67-75) Life per second
+{variant:1,2,3}{tags:life}Regenerate (67-75) Life per second
+{variant:4}{tags:life}Regenerate (200-350) Life per second
 {tags:mana}Regenerate (8-10) Mana per second
 {variant:1}−40% to all Elemental Resistances
-{variant:3}−(15-25)% to all Elemental Resistances
+{variant:3,4}−(15-25)% to all Elemental Resistances
 {variant:1}−10% to all maximum Resistances
 {variant:2}−5% to all maximum Resistances
 {tags:physical}−(50-40) Physical Damage taken from Attacks
@@ -444,13 +446,19 @@ Offering Skills have 50% reduced Duration
 The Magnate
 Studded Belt
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
+LevelReq: 16
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 {tags:jewellery_attribute}+(40-50) to Strength
-{tags:physical}(25-40)% increased Global Physical Damage
+{variant:2}{tags:physical}(25-40)% increased Global Physical Damage
+{variant:1}{tags:physical}(25-40)% increased Physical Damage
 50% increased Flask Charges gained
 {variant:2}{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances while you have at least 200 Strength
+{variant:3}{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances
+{variant:3}10% chance to deal Double Damage while you have at least 200 Strength
+{variant:3}5% chance to deal Triple Damage while you have at least 400 Strength
 ]],[[
 The Nomad
 Studded Belt
@@ -571,31 +579,42 @@ You have Onslaught while Fortified
 Prismweave
 Rustic Sash
 Variant: Pre 2.6.0
+Variant: Pre 3.19.0
 Variant: Current
 LevelReq: 25
 Implicits: 1
 {tags:physical}(12-24)% increased Global Physical Damage
 {variant:1}{tags:jewellery_elemental,attack}Adds (3-4) to (7-8) Fire Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack}Adds (7-8) to (15-16) Fire Damage to Attacks
+{variant:3}{tags:jewellery_elemental,attack}Adds (14-16) to (30-32) Fire Damage to Attacks
 {variant:1}{tags:jewellery_elemental,attack}Adds (2-3) to (5-7) Cold Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack}Adds (5-6) to (12-14) Cold Damage to Attacks
+{variant:3}{tags:jewellery_elemental,attack}Adds (10-12) to (24-28) Cold Damage to Attacks
 {variant:1}{tags:jewellery_elemental,attack}Adds 1 to (13-17) Lightning Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack}Adds 1 to (30-34) Lightning Damage to Attacks
-{tags:jewellery_resistance}+(6-8)% to all Elemental Resistances
+{variant:3}{tags:jewellery_elemental,attack}Adds 1 to (60-68) Lightning Damage to Attacks
+{variant:1,2}{tags:jewellery_resistance}+(6-8)% to all Elemental Resistances
+{variant:3}{tags:jewellery_resistance}+(6-15)% to all Elemental Resistances
 {tags:jewellery_elemental,attack}30% increased Elemental Damage with Attack Skills during any Flask Effect
-10% increased Elemental Damage with Attack Skills
+{variant:1,2}10% increased Elemental Damage with Attack Skills
 ]],[[
 Replica Prismweave
 Rustic Sash
 League: Heist
+Variant: Pre 3.19.0
+Variant: Current
 LevelReq: 25
 Implicits: 1
 {tags:physical}(12-24)% increased Global Physical Damage
-{tags:jewellery_elemental,caster}Adds (7-8) to (15-16) Fire Damage to Spells
-{tags:jewellery_elemental,caster}Adds (5-6) to (12-14) Cold Damage to Spells
-{tags:jewellery_elemental,caster}Adds 1 to (30-34) Lightning Damage to Spells
-{tags:jewellery_resistance}+(6-8)% to all Elemental Resistances
-{tags:jewellery_elemental}10% increased Elemental Damage
+{variant:1}{tags:jewellery_elemental,caster}Adds (7-8) to (15-16) Fire Damage to Spells
+{variant:2}{tags:jewellery_elemental,attack}Adds (14-16) to (30-32) Fire Damage to Spells
+{variant:1}{tags:jewellery_elemental,caster}Adds (5-6) to (12-14) Cold Damage to Spells
+{variant:2}{tags:jewellery_elemental,attack}Adds (10-12) to (24-28) Cold Damage to Spells
+{variant:1}{tags:jewellery_elemental,caster}Adds 1 to (30-34) Lightning Damage to Spells
+{variant:2}{tags:jewellery_elemental,attack}Adds 1 to (60-68) Lightning Damage to Spells
+{variant:1}{tags:jewellery_resistance}+(6-8)% to all Elemental Resistances
+{variant:2}{tags:jewellery_resistance}+(6-15)% to all Elemental Resistances
+{variant:1}{tags:jewellery_elemental}10% increased Elemental Damage
 {tags:jewellery_elemental}30% increased Elemental Damage during any Flask Effect
 ]],[[
 Pyroshock Clasp
@@ -613,7 +632,7 @@ Enemies Shocked by you have (10-15)% of Physical Damage they deal converted to L
 The Retch
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
-Source: Vendor recipe
+Source: Vendor Recipe
 LevelReq: 44
 Implicits: 1
 {tags:physical}(12-24)% increased Global Physical Damage
@@ -750,13 +769,19 @@ Corrupted
 ]],[[
 Sunblast
 Cloth Belt
+Variant: Pre 3.19.0
+Variant: Current
 LevelReq: 37
 Implicits: 1
 (15-25)% increased Stun Recovery
-(30-40)% increased Trap Damage
-{tags:mana}20% increased Mana Regeneration Rate
+{variant:1}(30-40)% increased Trap Damage
+{variant:1}{tags:mana}20% increased Mana Regeneration Rate
+{variant:2}Skills which Throw Traps throw up to 2 additional Traps
+{variant:2}Throw Traps randomly around targeted location
+{variant:2}Traps cannot be triggered by Enemies
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-80% reduced Trap Duration
+{variant:1}80% reduced Trap Duration
+{variant:2}(50-75)% reduced Trap Duration
 25% increased Light Radius
 ]],[[
 Survivor's Guilt
@@ -784,18 +809,26 @@ Flasks apply to your Raised Zombies and Spectres
 ]],[[
 Wurm's Molt
 Leather Belt
+Variant: Pre 3.19.0
+Variant: Current
+LevelReq: 41
 Implicits: 1
 {tags:life}+(25-40) to Maximum Life
 {tags:jewellery_attribute}+(20-30) to Strength
 {tags:jewellery_attribute}+(20-30) to Intelligence
-{tags:jewellery_resistance}+(10-20)% to Cold Resistance
-{tags:attack,life,physical}0.4% of Physical Attack Damage Leeched as Life
-{tags:attack,mana,physical}0.4% of Physical Attack Damage Leeched as Mana
+{variant:1}{tags:jewellery_resistance}+(10-20)% to Cold Resistance
+{variant:2}{tags:jewellery_resistance}+(20-30)% to Cold Resistance
+{variant:1}{tags:attack,life,physical}0.4% of Physical Attack Damage Leeched as Life
+{variant:1}{tags:attack,mana,physical}0.4% of Physical Attack Damage Leeched as Mana
+{variant:2}{tags:attack,life,physical}2% of Physical Attack Damage Leeched as Life
+{variant:2}{tags:attack,mana,physical}2% of Physical Attack Damage Leeched as Mana
+{variant:2}(500-1000)% increased total Recovery per second from Life Leech
+{variant:2}(500-1000)% increased total Recovery per second from Mana Leech
 ]],[[
 The Burden of Truth
 Crystal Belt
 Source: Drops from unique{Sirus, Awakener of Worlds}
-Requires Level 79
+LevelReq: 79
 Implicits: 1
 {tags:jewellery_defense}+(60-80) to maximum Energy Shield
 {tags:life}(30-40)% increased Life Recovery from Flasks

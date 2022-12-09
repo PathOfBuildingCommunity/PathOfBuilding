@@ -459,6 +459,9 @@ function main:LoadSettings()
 			end
 		end
 	end
+	if type(self.datSources) ~= "table" then
+		self.datSources = { }
+	end
 	if not next(self.datSources) then
 		t_insert(self.datSources, self.datSource)
 	end

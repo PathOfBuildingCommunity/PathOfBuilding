@@ -259,14 +259,17 @@ Implicits: 0
 Cospri's Will
 Assassin's Garb
 Variant: Pre 3.0.0
+Variant: Pre 3.20.0
 Variant: Current
 Implicits: 1
 3% increased Movement Speed
-(120-160)% increased Evasion Rating
-+(17-29)% to Chaos Resistance
+{variant:1,2}(120-160)% increased Evasion Rating
+{variant:3}(150-200)% increased Evasion Rating
+{variant:1,2}+(17-29)% to Chaos Resistance
+{variant:3}+(31-53)% to Chaos Resistance
 You can apply an additional Curse
 Your Hexes can affect Hexproof Enemies
-{variant:1}Poison Cursed Enemies on hit
+{variant:1,3}Poison Cursed Enemies on hit
 {variant:2}60% chance to Poison on Hit against Cursed Enemies
 ]],[[
 Foxshade
@@ -653,7 +656,7 @@ Implicits: 0
 {variant:2,3}50% increased Totem Life
 {variant:4,5}(20-30)% increased Totem Life
 {variant:1,2,3,4}+1 to maximum number of Summoned Totems
-Inflicts a random Hex on you when your Totems die, with 80% more Effect
+Inflicts a random Hex on you when your Totems die
 ]],[[
 Tabula Rasa
 Simple Robe
@@ -1093,15 +1096,17 @@ Lacquered Garb
 Variant: Pre 1.3.0
 Variant: Pre 3.0.0
 Variant: Pre 3.5.0
+Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
 {variant:1,2,3}(110-150)% increased Evasion and Energy Shield
-{variant:4}(300-400)% increased Evasion and Energy Shield
+{variant:4,5}(300-400)% increased Evasion and Energy Shield
 {variant:1,2}+(90-110) to maximum Mana
-{variant:3,4}+(100-150) to maximum Mana
+{variant:3,4,5}+(100-150) to maximum Mana
 {variant:1,2}(40-50)% increased Mana Regeneration Rate
-{variant:1,3,4}10% of Damage is taken from Mana before Life
-{variant:3,4}Regenerate 1% of Mana per second
+{variant:1}When hit, 10% of Damage is taken from Mana before Life
+{variant:3,4}10% of Damage is taken from Mana before Life
+{variant:3,4,5}1% of Mana Regenerated per second
 Mind Over Matter
 ]],[[
 Dendrobate

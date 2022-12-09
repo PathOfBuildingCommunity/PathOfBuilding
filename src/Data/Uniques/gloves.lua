@@ -269,7 +269,6 @@ Allelopathy
 {variant:2}Satin Gloves
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 69, 97 Int
 Grants level 22 Blight Skill
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
@@ -278,11 +277,13 @@ Blight has (20-30)% increased Hinder Duration
 You cannot be Hindered
 ]],[[
 Replica Allelopathy
-Sorcerer Gloves
+{variant:1}Sorcerer Gloves
+{variant:2}Satin Gloves
+Variant: Pre 3.19.0
+Variant: Current
 League: Heist
-Requires Level 69, 97 Int
 Grants Level 22 Wintertide Brand
-(20-30)% increased Damage over Time
+{variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect
 Immune to Chill
@@ -301,8 +302,7 @@ Requires Level 25, 39 Int
 {variant:3}+(60-80) to maximum Life
 {variant:1,2}+(20-30) to maximum Mana
 {variant:3}+(60-80) to maximum Mana
-{variant:1}Curse Enemies with Temporal Chains on Hit
-{variant:2,3}Curse Enemies with Temporal Chains on Hit, with 40% increased Effect
+{variant:1,2,3}Curse Enemies with Temporal Chains on Hit
 {variant:3}Non-Aura Curses you inflict are not removed from Dying Enemies
 {variant:3}Enemies near Corpses affected by your Curses are Blinded
 {variant:3}Enemies killed near Corpses affected by your Curses explode, dealing
@@ -330,7 +330,8 @@ Requires Level 41, 60 Int
 (15-20)% increased Cast Speed
 {variant:1}+(50-70) to maximum Energy Shield
 {variant:2}+(100-120) to maximum Energy Shield
-+(50-70) to maximum Life
+{variant:1}+(50-70) to maximum Life
+{variant:2}+(100-120) to maximum Life
 {variant:1}Sacrifice 5% of Life to gain that much Energy Shield when you Cast a Spell
 {variant:2}Sacrifice (5-25)% of Life to gain that much Energy Shield when you Cast a Spell
 ]],[[
@@ -394,7 +395,7 @@ Socketed Gems are Supported by Level 18 Faster Casting
 +(20-30) to Intelligence
 +(50-80) to maximum Energy Shield
 +(50-70) to maximum Life
-Gain +2% to Critical Strike Chance for 2 seconds when you Spend a total of 800 Mana
+Gain +2% to Critical Strike Chance for 2 seconds after Spending a total of 800 Mana
 ]],[[
 Replica Kalisa's Grace
 Samite Gloves

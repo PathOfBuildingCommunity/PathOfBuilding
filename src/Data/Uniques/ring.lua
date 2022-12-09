@@ -385,16 +385,22 @@ Implicits: 1
 Replica Doedre's Damning
 Paua Ring
 Variant: Pre 3.16.0
+Variant: Pre 3.19.0
+Variant: Pre 3.20.0
 Variant: Current
 League: Heist
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
-{tags:jewellery_attribute}+(5-10) to Intelligence
-{tags:jewellery_resistance}+5% to all Elemental Resistances
-{tags:mana}+5 Mana gained on Kill
+{variant:1,2}{tags:jewellery_attribute}+(5-10) to Intelligence
+{variant:3,4}{tags:jewellery_attribute}+(5-20) to Intelligence 
+{variant:1,2}{tags:jewellery_resistance}+5% to all Elemental Resistances
+{variant:3,4}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
+{variant:1,2}{tags:mana}+5 Mana Gained on Kill
+{variant:3,4}{tags:mana}+(5-20) Mana gained on Kill
 {tags:caster}You can apply one fewer Curse
 {variant:1}{tags:caster}(25-35)% increased Effect of your Curses
-{variant:2}{tags:caster}(15-25)% increased Effect of your Curses
+{variant:2,3}{tags:caster}(15-25)% increased Effect of your Curses
+{variant:4}{tags:caster}(10-15)% increased Effect of your Curses
 ]],[[
 Dream Fragments
 Sapphire Ring
@@ -444,15 +450,13 @@ Implicits: 1
 ]],[[
 Essence Worm
 Unset Ring
-Variant: Pre 3.16.0
-Variant: Current
 Requires Level 38
 Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Aura Gems
 Socketed Gems Have no Reservation
-{variant:1}80% reduced Mana Reservation Efficiency of Skills
-{variant:2}80% reduced Reservation Efficiency
+Your Blessing Skills are Disabled
+80% reduced Reservation Efficiency of Skills
 ]],[[
 Fated End
 Paua Ring
@@ -990,12 +994,15 @@ Implicits: 1
 ]],[[
 Stormfire
 Opal Ring
+Variant: Pre 3.17.0
+Variant: Current
 Requires Level 80
 Implicits: 1
 {tags:jewellery_elemental}(15-25)% increased Elemental Damage
 {tags:mana}(40-45)% increased Mana Regeneration Rate
 {tags:jewellery_resistance}+(20-30)% to Fire and Lightning Resistances
-{tags:jewellery_elemental}(4-6)% increased Burning Damage for each Enemy you have Shocked Recently
+{variant:1}{tags:jewellery_elemental}(4-6)% increased Burning Damage for each time you have Shocked a Non-Shocked Enemy Recently, up to a maximum of 120%
+{variant:2}{tags:jewellery_elemental}(8-12)% increased Burning Damage for each time you have Shocked a Non-Shocked Enemy Recently, up to a maximum of 120%
 {tags:jewellery_elemental}Adds (1-3) to (62-70) Lightning Damage to Hits against Ignited Enemies
 Your Lightning Damage can Ignite
 ]],[[
@@ -1015,7 +1022,7 @@ Take 250 Lightning Damage when Herald of Thunder Hits an Enemy
 The Taming
 Prismatic Ring
 League: Domination, Nemesis
-Source: Vendor recipe
+Source: Vendor Recipe
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 30
@@ -1246,11 +1253,11 @@ Requires Level 65
 Implicits: 1
 (6-15)% increased Rarity of Items found
 {tags:life}+(0-60) to maximum Life
-(−10 to 10)% increased Quantity of Items found
-(−40 to 40)% increased Rarity of Items found
-{tags:jewellery_resistance}+(−25 to 50)% to Fire Resistance
-{tags:jewellery_resistance}+(−25 to 50)% to Cold Resistance
-{tags:jewellery_resistance}+(−25 to 50)% to Lightning Resistance
+(-10-10)% increased Quantity of Items found
+(-40-40)% increased Rarity of Items found
+{tags:jewellery_resistance}+(-25-50)% to Fire Resistance
+{tags:jewellery_resistance}+(-25-50)% to Cold Resistance
+{tags:jewellery_resistance}+(-25-50)% to Lightning Resistance
 ]],[[
 Vivinsect
 Unset Ring

@@ -1,3 +1,155 @@
+VERSION[2.21.1][2022/08/20]
+
+--- Fixed Bugs ---
+* Fix crash related to Alchemists Mark (deathbeam)
+
+VERSION[2.21.0][2022/08/20]
+
+--- Implemented Enhancements ---
+* Add support for new 3.19 skills and mods (Nostrademous, LocalIdentity)
+  * Full support for all new skills
+* Add initial support for Eldritch Implicits (Regisle)
+* Add the ability to automatically calculate # of Explosive Arrow Fuses (LocalIdentity)
+* Add breakdowns for Burning and Caustic ground from ailments (Regisle)
+* Add the Poised Prism and Elevore uniques (QuickStick123)
+* Add new Grand Spectrum mods (deathbeam)
+
+--- User Interface ---
+* Fix PvP Hit Taken Colour (Regisle)
+* Update Heartstopper config text (Regisle)
+* Remove Main Hand background colour from global Ignite Dot Multi section (TPlant)
+* Add Keystone names to Timeless jewel variants (Regisle)
+
+--- Accuracy Improvements ---
+* Update Replica uniques (QuickStick123)
+* Update Deidbell (QuickStick123)
+* Update Ventor's Gamble and Soul Ripper (Lothrik)
+* Fix missing life on Demon Stitcher (QuickStick123)
+
+--- Fixed Bugs ---
+* Fix crash when adding Timeless jewel to build from tree UI (Lothrik)
+* Fix certain spells not having correct DPS with Unleash Support (Regisle)
+* Fix Timeless jewel node weight bugs (Lothrik)
+* Fix checkbox not updating when selecting Vaal skills (Paliak)
+* Fix Rage regen issues (Regisle)
+* Fix Gain on Kill not working for Attacks (Regisle)
+
+
+VERSION[2.20.2][2022/08/16]
+
+--- Implemented Enhancements ---
+* Reintroduce Show/Hide skill cost based upon whether it has a base cost (QuickStick123)
+--- Accuracy Improvements ---
+* Use correct max shock in breakdown (Lilylicious)
+--- Fixed Bugs ---
+* Fix timeless jewel socket index bug (Lothrik)
+* Fix missing unique sliders (Lothrik)
+* Filter out unused modifier line ranges (Lothrik)
+
+
+VERSION[2.20.1][2022/08/16]
+
+--- Fixed Bugs ---
+* Revert skill costs being hidden if you reduced the cost to 0 as it was causing an error (LocalIdentity)
+* Fix Juggernaut "Armour applies to Elemental damage" node not working (Lilylicious)
+
+VERSION[2.20.0][2022/08/16]
+
+--- Implemented Enhancements ---
+* Update skill tree to 3.19 (Regisle)
+* Add new 3.19 uniques (QuickStick123, LocalIdentity, Wires77)
+* Timeless jewel search improvements (Regisle, Lothrik)
+  * You can now auto generate weights for nodes based on skill DPS
+  * You can scroll on the horizontal scroll bars to change values (hold Ctrl/Shift to scroll slower/faster)
+* Update a wide variety of unique items (Sinured, QuickStick123, Lexy, Nightblade, Paliak, Wires77, Lothrik)
+* Add support for
+  * Damage over Time DPS cap (deathbeam, Regisle, LocalIdentity)
+  * 3.19 Trickster ascendancy (Lilylicious, Regisle)
+  * Deal 10% less damage on Indomitable Resolve (Regisle)
+  * Armour applies to Elemental damage (Regisle)
+  * Vorana's March mods (LocalIdentity)
+  * Non-critical strikes deal less damage (Regisle)
+  * More Ailment effect modifiers (Regisle)
+  * Used Life flask in the past 10 seconds (Regisle)
+  * Debuff expiration rate (Regisle)
+  * Basic recoup breakdown (Regisle)
+  * Modifiers to enemy damage (Regisle)
+  * PvP skill scaling (Regisle)
+  * PvP hit taken (Regisle)
+  * Non-Vaal gem modifiers (Nostrademous)
+  * Debilitate debuff (deathbeam)
+  * Minions have Unholy Might (QuickStick123)
+  * 3.19 Arrow Dancing Keystone (QuickStick123)
+  * Counting Mastery type allocations (Nostrademous)
+  * More triple damage mods (Paliak)
+  * Kalandra inverted stats (Nostrademous)
+  * Stacking max shock (Lilylicious)
+  * Ryslatha Pantheon Life flask charge generation (deathbeam)
+  * Lightning Conduit's new Trigger flag (Nostrademous)
+  * Enemy Overwhelm (QuickStick123)
+  * Burning and Caustic ground and Flame Surge (deathbeam)
+  * Burning and caustic ground in total/combined DPS (Regisle)
+  * Parsing of Link skill mods (QuickStick123)
+* Fix Incinerate gem tooltip (Paliak)
+* Always use configured or base chill for bonechill and remove bonechill config (deathbeam)
+* Update ward recharge speed (Lexy)
+* Update Brittle to 3.19 values (Lexy)
+* Added Thrusting as a base sword subType (Nostrademous)
+* Minion charges and ailments work like players (Lilylicious)
+* Take into account weapon conditions for shock (Lilylicious)
+* Properly support gain on kill (Regisle)
+* Update Chainbreaker wording and display Rage Regeneration (Sinured)
+
+--- User Interface ---
+* Display reservation efficiency as percentage with two decimal places instead of a full float multiplier (Paliak)
+* Display effect of active gem variant when mousing over the "Variant" drop-down selector (talkmill)
+* Change sidebar to show red numbers for unreserved life of 0 (talkmill)
+
+--- Accuracy Improvements ---
+* General improvements to "Damaging Hits" section and armour breakdown (QuickStick123)
+* Apply spell suppression to EHP calculations and add support for Instinct (Regisle)
+* Improve stun avoid calcs (Regisle)
+* Improve scaled modifier precision (Lothrik)
+* Restructure leech to apply cap later (QuickStick123)
+
+--- Fixed Bugs ---
+* Blood offering stats not calculated (talkmill)
+* Node power sorting at infinite values (Regisle)
+* Config tab being 1 change behind enemy level (Regisle)
+* Bottom bar wrapping in the tree tab (talkmill)
+* Sidebar always showing Culling DPS and Recoverable ES (LocalIdentity)
+* Evasion to armour conversion calculation not including "armour and evasion" base stats (MrCoolTheCucumber)
+* Trypanon crit chance calculations (LocalIdentity)
+* Total more multipliers not being round to nearest percent as done in game (QuickStick123)
+* Evasion as Extra Armour with Iron Reflexes (LocalIdentity)
+* Buff stages on Scorching Ray, Frost Shield, and Sigil of Power (Wires77)
+* Veiled mod pool on autogenerated unique weapons (LocalIdentity)
+* Bleed DPS when using multiple totems (LocalIdentity)
+* Alternate ailments not working with anomalous grace (QuickStick123)
+* Various spelling errors (Nightblade, Regisle)
+* Imported items variable percentages (Wires77)
+* Vaal Discipline not counting towards Aura count (LocalIdentity)
+* Enable skill tooltip visibility for non-vaal active skill gems (Lothrik)
+* Default level for pinnacles (Lilylicious)
+* Prevent invalid character level values (Lothrik)
+* Catalysts visually not scaling certain mods (QuickStick123)
+* Force rebuild to initialise boss presets and remove phys fallback (Regisle)
+* Remove parsing for Tawhoa, Forest's Strength as it is not implemented (Lilylicious)
+* Selected Mastery Tree Upconversion Error (Nostrademous)
+* Set skillset to nil instead of removing it from table and reordering it (deathbeam)
+* Build did not save on generating a build code (talkmill)
+* Multistrike damage calculation with skills which have bow and melee Tag (Sinured)
+* Guaranteed ailments were not using correct values (Lilylicious)
+* Longshot affects all projectiles that hit (Lilylicious)
+* Scorching Ray totem DoT was not stacking (Regisle)
+* Tornado was using Cast rate instead of Hit rate (Sinured)
+* Skill costs being hidden if you reduced the cost to 0 (QuickStick123)
+
+--- Preliminary changes ---
+* These changes might be changed further once the official patch is out
+* Lifetap & Blessing interaction (Sinured)
+
+
 VERSION[2.19.2][2022/07/15]
 
 --- User Interface ---
