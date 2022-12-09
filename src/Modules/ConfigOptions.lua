@@ -527,7 +527,7 @@ Huge sets the radius to 11.
 			enemyModList:NewMod("AvoidElementalAilments", "BASE", val, "Config")
 		end
 	end },
-	{ var = "enemyCanAvoidnonElementalAilment", type = "list", label = "Enemy avoid Poision and Bleed:", tooltip = "'Impervious'", list = {{val=0,label="None"},{val=20,label="20% (Low tier)"},{val=35,label="35% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)	
+	{ var = "enemyCanAvoidNonElementalAilment", type = "list", label = "Enemy avoid Poison and Bleed:", tooltip = "'Impervious'", list = {{val=0,label="None"},{val=20,label="20% (Low tier)"},{val=35,label="35% (Mid tier)"},{val=50,label="50% (High tier)"}}, apply = function(val, modList, enemyModList)	
 		if val ~= 0 then
 			enemyModList:NewMod("AvoidPoison", "BASE", val, "Config")
 			enemyModList:NewMod("AvoidBleed", "BASE", val, "Config")
