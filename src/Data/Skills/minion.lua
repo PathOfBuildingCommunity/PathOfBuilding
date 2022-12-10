@@ -1422,6 +1422,31 @@ skills["GASummonReaperComboLeftSlash"] = {
 		[2] = { 60, levelRequirement = 80, statInterpolation = { 2, }, },
 	},
 }
+skills["ReaperConsumeMinionForBuff"] = {
+	name = "Consume",
+	hidden = true,
+	color = 4,
+	skillTypes = { },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+		skill("buffAllies", true),
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 6000 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { cooldown = 25, levelRequirement = 0, },
+	},
+}
 skills["MPWExpeditionSummonedArbalestProjectile"] = {
 	name = "Projectile Attack",
 	hidden = true,

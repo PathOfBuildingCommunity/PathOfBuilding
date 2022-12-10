@@ -106,12 +106,13 @@ KeywordFlag.Aura =		0x00000001
 KeywordFlag.Curse =		0x00000002
 KeywordFlag.Warcry =	0x00000004
 KeywordFlag.Movement =	0x00000008
-KeywordFlag.Fire =		0x00000010
-KeywordFlag.Cold =		0x00000020
-KeywordFlag.Lightning =	0x00000040
-KeywordFlag.Chaos =		0x00000080
-KeywordFlag.Vaal =		0x00000100
-KeywordFlag.Bow =		0x00000200
+KeywordFlag.Physical =	0x00000010
+KeywordFlag.Fire =		0x00000020
+KeywordFlag.Cold =		0x00000040
+KeywordFlag.Lightning =	0x00000080
+KeywordFlag.Chaos =		0x00000100
+KeywordFlag.Vaal =		0x00000200
+KeywordFlag.Bow =		0x00000400
 -- Skill types
 KeywordFlag.Trap =		0x00001000
 KeywordFlag.Mine =		0x00002000
@@ -276,13 +277,18 @@ SkillType = {
 	Blessing = 119,
 	ZeroReservation = 120,
 	DynamicCooldown = 121,
+	Microtransaction = 122,
+	OwnerCannotUse = 123,
+	ProjectilesNotFired = 124,
+	PreventHexTransfer = 125,
 }
 
 GlobalCache = { 
 	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, CACHE = {}, },
 	deleteGroup = { },
 	excludeFullDpsList = { },
-	dontUseCache = nil,
+	noCache = nil,
 	useFullDPS = false,
 	numActiveSkillInFullDPS = 0,
 }
+

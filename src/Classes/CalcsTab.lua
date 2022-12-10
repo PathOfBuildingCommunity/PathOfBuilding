@@ -76,6 +76,9 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				LightningMinSmite = 0
 				LightningMaxSmite = 0
 
+				LightningMinVaalSmite = 0
+				LightningMaxVaalSmite = 0
+
 				TempStoreDamage = 0
 				TempStoreSpeed = 0
 				TempStoreCastSpeed = 0
@@ -184,9 +187,15 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 							local NewString2 = string.gsub(NewString,"+", "")
 							LightningMin = NewString2
 						else
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							LightningMinSmite = NewString2
+							if(string.find(t[4],"Vaal")) then
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString,"+", "")
+								LightningMinVaalSmite = NewString2
+							else
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString,"+", "")
+								LightningMinSmite = NewString2
+							end
 						end
 					end
 
@@ -196,9 +205,15 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 							local NewString2 = string.gsub(NewString,"+", "")
 							LightningMax = NewString2
 						else
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							LightningMaxSmite = NewString2
+							if(string.find(t[4],"Vaal")) then
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString,"+", "")
+								LightningMaxVaalSmite = NewString2
+							else
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString,"+", "")
+								LightningMaxSmite = NewString2
+							end
 						end
 					end
 
@@ -363,6 +378,9 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				end
 				if(tonumber(LightningMaxSmite) ~= 0)then
 					ExportAuraString = ExportAuraString .. (LightningMinSmite .. " to " .. LightningMaxSmite .. " added Lightning Damage\n")
+				end
+				if(tonumber(LightningMaxVaalSmite) ~= 0)then
+					ExportAuraString = ExportAuraString .. (LightningMinVaalSmite .. " to " .. LightningMaxVaalSmite .. " added Lightning Damage\n")
 				end
 				if(tonumber(LightningMax) ~= 0)then
 					ExportAuraString = ExportAuraString .. (LightningMin .. " to " .. LightningMax .. " Additional Lightning Damage with Attacks\n")

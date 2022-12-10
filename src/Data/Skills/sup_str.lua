@@ -1963,7 +1963,8 @@ skills["AncestralSlamSupport"] = {
 			div = 1000,
 		},
 		["ancestral_slam_stun_threshold_reduction_+%"] = {
-			mod("EnemyStunThreshold", "INC", nil, ModFlag.Attack)
+			mod("EnemyStunThreshold", "INC", nil, ModFlag.Attack),
+			mult = -1,
 		},
 	},
 	qualityStats = {
@@ -3209,7 +3210,7 @@ skills["SupportMultistrike"] = {
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
 			mod("Damage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
-			mod("Damage", "MORE", nil, nil, nil, { type = "SkillName", skillName = "Shield Crush" }),
+			mod("Damage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 		["multistrike_damage_+%_final_on_second_repeat"] = {
 		},
@@ -3218,7 +3219,7 @@ skills["SupportMultistrike"] = {
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
-			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillName", skillName = "Shield Crush" }),
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 		["multistrike_area_of_effect_+%_per_repeat"] = {
 			mod("AreaOfEffect", "INC", nil)
@@ -3309,7 +3310,7 @@ skills["SupportMultistrikePlus"] = {
 		},
 		["multistrike_damage_+%_final_on_third_repeat"] = {
 			mod("Damage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
-			mod("Damage", "MORE", nil, nil, nil, { type = "SkillName", skillName = "Shield Crush" }),
+			mod("Damage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 			div = 2,
 		},
 		["support_multiple_attack_damage_+%_final"] = {
@@ -3317,7 +3318,7 @@ skills["SupportMultistrikePlus"] = {
 		},
 		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
-			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillName", skillName = "Shield Crush" }),
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 	},
 	qualityStats = {
@@ -3872,12 +3873,12 @@ skills["SupportRuthless"] = {
 }
 skills["SupportBluntWeapon"] = {
 	name = "Shockwave",
-	description = "Supports melee attack skills. Cannot support Triggered attacks, skills used by Totems, or skills which create minions.",
+	description = "Supports melee attack skills. Cannot support triggered attacks, attacks used by things other than you, or skills which create minions.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Melee, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Triggered, SkillType.CreatesMinion, SkillType.SummonsTotem, },
+	excludeSkillTypes = { SkillType.Triggered, SkillType.CreatesMinion, SkillType.SummonsTotem, SkillType.OtherThingUsesSkill, },
 	ignoreMinionTypes = true,
 	weaponTypes = {
 		["Two Handed Mace"] = true,
@@ -4195,12 +4196,6 @@ skills["SupportUrgentOrders"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["base_cooldown_modifier_ms"] = {
-			mod("CooldownRecovery", "BASE", nil),
-			div = 1000,
-		},
-	},
 	qualityStats = {
 		Default = {
 			{ "warcry_speed_+%", 0.5 },

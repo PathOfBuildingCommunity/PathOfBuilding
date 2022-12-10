@@ -221,8 +221,14 @@ function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
 		self.masterySelections[id] = effectId
 		self.allocatedMasteryCount = self.allocatedMasteryCount + 1
 		if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
-			self.allocatedMasteryTypes[self.allocNodes[id].name] = true
+			self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
 			self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+		else
+			local prevCount = self.allocatedMasteryTypes[self.allocNodes[id].name]
+			self.allocatedMasteryTypes[self.allocNodes[id].name] = prevCount + 1
+			if prevCount == 0 then
+				self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+			end
 		end
 	end
 end
@@ -632,7 +638,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			self:ReplaceNode(node,self.tree.nodes[id])
 		end
 
-		if node.type ~= "ClassStart" and node.type ~= "Socket" then
+		if node.type ~= "ClassStart" and node.type ~= "Socket" and not node.ascendancyName then
 			for nodeId, itemId in pairs(self.jewels) do
 				local item = self.build.itemsTab.items[itemId]
 				if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData then
@@ -863,9 +869,15 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				node.reminderText = { "Tip: Right click to select a different effect" }
 				self.tree:ProcessStats(node)
 				self.allocatedMasteryCount = self.allocatedMasteryCount + 1
-				if not self.allocatedMasteryTypes[node.name] then
-					self.allocatedMasteryTypes[node.name] = true
+				if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
+					self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
 					self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+				else
+					local prevCount = self.allocatedMasteryTypes[self.allocNodes[id].name]
+					self.allocatedMasteryTypes[self.allocNodes[id].name] = prevCount + 1
+					if prevCount == 0 then
+						self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+					end
 				end
 			else
 				self.nodes[id].alloc = false

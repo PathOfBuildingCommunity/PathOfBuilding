@@ -33,7 +33,7 @@ directiveTable.socketLimit = function(state, args, out)
 end
 
 directiveTable.base = function(state, args, out)
-	local baseTypeId, displayName = args:match("([%w/]+) (.+)")
+	local baseTypeId, displayName = args:match("([%w/_]+) (.+)")
 	if not baseTypeId then
 		baseTypeId = args
 	end
@@ -46,7 +46,7 @@ directiveTable.base = function(state, args, out)
 		if baseItemType == "nothing" then -- base case
 			return {}
 		end
-		local file = getFile(baseItemType .. ".ot")
+		local file = getFile(baseItemType .. ".it")
 		if not file then return nil end
 		local text = convertUTF16to8(file)
 		local tags = {}

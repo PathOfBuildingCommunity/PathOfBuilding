@@ -48,114 +48,6 @@ return {
 							[2]="#"
 						}
 					},
-					text="Group Frenzy on Death"
-				}
-			}
-		},
-		stats={
-			[1]="monster_grants_frenzy_charges_to_allies_within_distance_on_death"
-		}
-	},
-	[4]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Undead"
-				}
-			}
-		},
-		stats={
-			[1]="undead_description"
-		}
-	},
-	[5]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Explodes"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]=2
-						}
-					},
-					text="Explodes when on Low Life"
-				}
-			}
-		},
-		stats={
-			[1]="monster_explodes_on_its_target_text"
-		}
-	},
-	[6]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]=1,
-							[2]=1
-						}
-					},
-					text="Explodes"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]=2,
-							[2]=2
-						}
-					},
-					text="Explodes when Killed"
-				}
-			}
-		},
-		stats={
-			[1]="monster_explodes_on_death_text"
-		}
-	},
-	[7]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Raises Undead"
-				}
-			}
-		},
-		stats={
-			[1]="monster_raises_undead_text"
-		}
-	},
-	[8]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
 					text="Burns Ground on Death"
 				}
 			}
@@ -164,7 +56,7 @@ return {
 			[1]="monster_ground_fire_on_death_%_max_damage_to_deal_per_minute"
 		}
 	},
-	[9]={
+	[4]={
 		lang={
 			English={
 				[1]={
@@ -182,7 +74,7 @@ return {
 			[1]="monster_ground_ice_on_death_base_area_of_effect_radius"
 		}
 	},
-	[10]={
+	[5]={
 		lang={
 			English={
 				[1]={
@@ -200,7 +92,7 @@ return {
 			[1]="monster_ground_tar_on_death_base_area_of_effect_radius"
 		}
 	},
-	[11]={
+	[6]={
 		lang={
 			English={
 				[1]={
@@ -218,7 +110,7 @@ return {
 			[1]="monster_caustic_cloud_on_death_%_max_damage_to_deal_per_minute"
 		}
 	},
-	[12]={
+	[7]={
 		lang={
 			English={
 				[1]={
@@ -254,43 +146,7 @@ return {
 			[1]="necromancer_additional_rarity_levels_can_be_raised"
 		}
 	},
-	[13]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Blocks Attacks"
-				}
-			}
-		},
-		stats={
-			[1]="combined_base_block_%"
-		}
-	},
-	[14]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Blocks Spells"
-				}
-			}
-		},
-		stats={
-			[1]="spell_block_%"
-		}
-	},
-	[15]={
+	[8]={
 		lang={
 			English={
 				[1]={
@@ -317,7 +173,7 @@ return {
 			[1]="base_avoid_freeze_%"
 		}
 	},
-	[16]={
+	[9]={
 		lang={
 			English={
 				[1]={
@@ -344,7 +200,7 @@ return {
 			[1]="base_avoid_chill_%"
 		}
 	},
-	[17]={
+	[10]={
 		lang={
 			English={
 				[1]={
@@ -371,7 +227,7 @@ return {
 			[1]="base_avoid_ignite_%"
 		}
 	},
-	[18]={
+	[11]={
 		lang={
 			English={
 				[1]={
@@ -398,7 +254,7 @@ return {
 			[1]="base_avoid_shock_%"
 		}
 	},
-	[19]={
+	[12]={
 		lang={
 			English={
 				[1]={
@@ -416,7 +272,7 @@ return {
 			[1]="display_monster_spike_nova_on_death_text"
 		}
 	},
-	[20]={
+	[13]={
 		lang={
 			English={
 				[1]={
@@ -434,7 +290,7 @@ return {
 			[1]="display_monster_ice_spear_nova_on_death_text"
 		}
 	},
-	[21]={
+	[14]={
 		lang={
 			English={
 				[1]={
@@ -452,7 +308,7 @@ return {
 			[1]="display_monster_casts_lightning_nova_text"
 		}
 	},
-	[22]={
+	[15]={
 		lang={
 			English={
 				[1]={
@@ -470,7 +326,7 @@ return {
 			[1]="monster_casts_fire_nova_text"
 		}
 	},
-	[23]={
+	[16]={
 		lang={
 			English={
 				[1]={
@@ -488,7 +344,7 @@ return {
 			[1]="monster_casts_flask_charge_nova_text"
 		}
 	},
-	[24]={
+	[17]={
 		lang={
 			English={
 				[1]={
@@ -506,7 +362,7 @@ return {
 			[1]="monster_casts_bleed_nova_text"
 		}
 	},
-	[25]={
+	[18]={
 		lang={
 			English={
 				[1]={
@@ -524,7 +380,7 @@ return {
 			[1]="monster_has_damage_taken_aura_text"
 		}
 	},
-	[26]={
+	[19]={
 		lang={
 			English={
 				[1]={
@@ -542,7 +398,7 @@ return {
 			[1]="monster_has_temporal_chains_aura_text"
 		}
 	},
-	[27]={
+	[20]={
 		lang={
 			English={
 				[1]={
@@ -560,7 +416,7 @@ return {
 			[1]="monster_has_movement_skill_damage_aura_text"
 		}
 	},
-	[28]={
+	[21]={
 		lang={
 			English={
 				[1]={
@@ -578,7 +434,7 @@ return {
 			[1]="monster_enrages_on_low_life_text"
 		}
 	},
-	[29]={
+	[22]={
 		lang={
 			English={
 				[1]={
@@ -596,7 +452,7 @@ return {
 			[1]="action_speed_cannot_be_reduced_below_base"
 		}
 	},
-	[30]={
+	[23]={
 		lang={
 			English={
 				[1]={
@@ -614,56 +470,7 @@ return {
 			[1]="action_speed_+%_minimum_value"
 		}
 	},
-	[31]={
-		lang={
-			English={
-				[1]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Blocks Attacks"
-				},
-				[2]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Blocks Spells"
-				},
-				[3]={
-					limit={
-						[1]={
-							[1]="#",
-							[2]="#"
-						},
-						[2]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Blocks Attacks and Spells"
-				}
-			}
-		},
-		stats={
-			[1]="monster_base_block_%",
-			[2]="base_spell_block_%"
-		}
-	},
-	[32]={
+	[24]={
 		lang={
 			English={
 				[1]={
@@ -681,7 +488,7 @@ return {
 			[1]="cannot_have_life_leeched_from"
 		}
 	},
-	[33]={
+	[25]={
 		lang={
 			English={
 				[1]={
@@ -699,7 +506,7 @@ return {
 			[1]="is_blight_chaos_monster"
 		}
 	},
-	[34]={
+	[26]={
 		lang={
 			English={
 				[1]={
@@ -717,7 +524,7 @@ return {
 			[1]="is_blight_cold_monster"
 		}
 	},
-	[35]={
+	[27]={
 		lang={
 			English={
 				[1]={
@@ -735,7 +542,7 @@ return {
 			[1]="is_blight_fire_monster"
 		}
 	},
-	[36]={
+	[28]={
 		lang={
 			English={
 				[1]={
@@ -753,7 +560,7 @@ return {
 			[1]="is_blight_lightning_monster"
 		}
 	},
-	[37]={
+	[29]={
 		lang={
 			English={
 				[1]={
@@ -771,7 +578,7 @@ return {
 			[1]="is_blight_physical_monster"
 		}
 	},
-	[38]={
+	[30]={
 		lang={
 			English={
 				[1]={
@@ -789,43 +596,34 @@ return {
 			[1]="trigger_charge_additional_block_chance_against_projectiles_%"
 		}
 	},
-	["action_speed_+%_minimum_value"]=30,
-	["action_speed_cannot_be_reduced_below_base"]=29,
-	["base_avoid_chill_%"]=16,
-	["base_avoid_freeze_%"]=15,
-	["base_avoid_ignite_%"]=17,
-	["base_avoid_shock_%"]=18,
-	["base_spell_block_%"]=31,
-	["cannot_have_life_leeched_from"]=32,
-	["combined_base_block_%"]=13,
-	["display_monster_casts_lightning_nova_text"]=21,
-	["display_monster_ice_spear_nova_on_death_text"]=20,
-	["display_monster_spike_nova_on_death_text"]=19,
+	["action_speed_+%_minimum_value"]=23,
+	["action_speed_cannot_be_reduced_below_base"]=22,
+	["base_avoid_chill_%"]=9,
+	["base_avoid_freeze_%"]=8,
+	["base_avoid_ignite_%"]=10,
+	["base_avoid_shock_%"]=11,
+	["cannot_have_life_leeched_from"]=24,
+	["display_monster_casts_lightning_nova_text"]=14,
+	["display_monster_ice_spear_nova_on_death_text"]=13,
+	["display_monster_spike_nova_on_death_text"]=12,
 	["hexproof"]=2,
 	["immune_to_curses"]=1,
-	["is_blight_chaos_monster"]=33,
-	["is_blight_cold_monster"]=34,
-	["is_blight_fire_monster"]=35,
-	["is_blight_lightning_monster"]=36,
-	["is_blight_physical_monster"]=37,
-	["monster_base_block_%"]=31,
-	["monster_casts_bleed_nova_text"]=24,
-	["monster_casts_fire_nova_text"]=22,
-	["monster_casts_flask_charge_nova_text"]=23,
-	["monster_caustic_cloud_on_death_%_max_damage_to_deal_per_minute"]=11,
-	["monster_enrages_on_low_life_text"]=28,
-	["monster_explodes_on_death_text"]=6,
-	["monster_explodes_on_its_target_text"]=5,
-	["monster_grants_frenzy_charges_to_allies_within_distance_on_death"]=3,
-	["monster_ground_fire_on_death_%_max_damage_to_deal_per_minute"]=8,
-	["monster_ground_ice_on_death_base_area_of_effect_radius"]=9,
-	["monster_ground_tar_on_death_base_area_of_effect_radius"]=10,
-	["monster_has_damage_taken_aura_text"]=25,
-	["monster_has_movement_skill_damage_aura_text"]=27,
-	["monster_has_temporal_chains_aura_text"]=26,
-	["monster_raises_undead_text"]=7,
-	["necromancer_additional_rarity_levels_can_be_raised"]=12,
-	["spell_block_%"]=14,
-	["trigger_charge_additional_block_chance_against_projectiles_%"]=38,
-	["undead_description"]=4
+	["is_blight_chaos_monster"]=25,
+	["is_blight_cold_monster"]=26,
+	["is_blight_fire_monster"]=27,
+	["is_blight_lightning_monster"]=28,
+	["is_blight_physical_monster"]=29,
+	["monster_casts_bleed_nova_text"]=17,
+	["monster_casts_fire_nova_text"]=15,
+	["monster_casts_flask_charge_nova_text"]=16,
+	["monster_caustic_cloud_on_death_%_max_damage_to_deal_per_minute"]=6,
+	["monster_enrages_on_low_life_text"]=21,
+	["monster_ground_fire_on_death_%_max_damage_to_deal_per_minute"]=3,
+	["monster_ground_ice_on_death_base_area_of_effect_radius"]=4,
+	["monster_ground_tar_on_death_base_area_of_effect_radius"]=5,
+	["monster_has_damage_taken_aura_text"]=18,
+	["monster_has_movement_skill_damage_aura_text"]=20,
+	["monster_has_temporal_chains_aura_text"]=19,
+	["necromancer_additional_rarity_levels_can_be_raised"]=7,
+	["trigger_charge_additional_block_chance_against_projectiles_%"]=30
 }
