@@ -2628,7 +2628,6 @@ local specialModList = {
 	["always inflict brittle while affected by hatred"] = {	mod("EnemyBrittleChance", "BASE", 100, { type = "Condition", var = "AffectedByHatred" }) },
 	["always sap while affected by wrath"] = { mod("EnemySapChance", "BASE", 100, { type = "Condition", var = "AffectedByWrath" }) },
 	["drops burning ground while moving, dealing (%d+) fire damage per second for %d+ seconds"] = function(num) return { mod("DropsBurningGround", "BASE", num) } end,
-	["drops burning ground while moving, dealing (%d+) fire damage per second for %d+ seconds"] = function(num) return { mod("DropsBurningGround", "BASE", num) } end,
 	["take (%d+) fire damage per second while flame%-touched"] = function(num) return { mod("FireDegen", "BASE", num, { type = "Condition", var = "FlameTouched" }) } end,
 	["gain adrenaline when you become flame%-touched"] = { flag("Condition:Adrenaline", { type = "Condition", var = "FlameTouched" }) },
 	["lose adrenaline when you cease to be flame%-touched"] = { },
@@ -3301,6 +3300,9 @@ local specialModList = {
 		mod("AvoidChill", "BASE", 100, { type = "Condition", var = "UsingFlask"}, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
 		mod("AvoidCurse", "BASE", 100, { type = "Condition", var = "UsingFlask"}, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
 		mod("AvoidStun", "BASE", 100, { type = "Condition", var = "UsingFlask"}, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
+	},
+	["cursed enemies cannot inflict elemental ailments on you"] = {
+		mod("AvoidElementalAilments", "BASE", 100, { type = "ActorCondition", actor = "enemy", var = "Cursed" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
 	},
 	["unaffected by curses"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["unaffected by curses while affected by zealotry"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "Condition", var = "AffectedByZealotry" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
