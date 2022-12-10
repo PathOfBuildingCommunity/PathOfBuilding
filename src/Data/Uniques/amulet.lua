@@ -310,6 +310,15 @@ Implicits: 1
 {tags:jewellery_elemental}(1-2) to (36-40) Lightning Damage per Power Charge
 90% less Power Charge Duration
 ]],[[
+Doedre's Tongue
+Lapis Amulet
+LevelReq: 24
+Implicits: 1
+{tags:jewellery_attribute}+(20-30) to Intelligence
+{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances
+(20-25)% chance to Freeze, Shock and Ignite
+Cursed Enemies cannot inflict Elemental Ailments on You
+]],[[
 Extractor Mentis
 Agate Amulet
 Variant: Pre 3.5.0

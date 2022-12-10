@@ -111,6 +111,14 @@ LevelReq: 68
 {variant:2}Gain (15-20)% of Physical Damage as Extra Chaos Damage during effect
 {variant:3}Gain (5-8)% of Physical Damage as Extra Chaos Damage during effect
 ]],[[
+Progenesis
+Amethyst Flask
+LevelReq: 60
+Source: Drops from unique{The Maven} (Uber)
+(10-20)% reduced Charges per use
+(-35-35)% increased Duration
+When Hit during effect, 25% of Life loss from Damage taken occurs over 4 seconds instead
+]],[[
 Bottled Faith
 Sulphur Flask
 League: Synthesis
@@ -434,6 +442,13 @@ Variant: Current
 {variant:1}During Effect, Damage Penetrates 20% Resistance of each Element for which your Uncapped Elemental Resistance is highest
 {variant:2}During Effect, Damage Penetrates (10-15)% Resistance of each Element for which your Uncapped Elemental Resistance is highest
 {variant:3}During Effect, Damage Penetrates (5-8)% Resistance of each Element for which your Uncapped Elemental Resistance is highest
+]],[[
+Oriath's End
+Bismuth Flask
+LevelReq: 56
+Source: Drops from unique{Sirus, Awakener of Worlds} (Uber)
+(20-40)% increased Charge Recovery
+Enemies you Kill during Effect have a (20-30)% chance to Explode, dealing a tenth of their maximum Life as Damage of a Random Element
 ]],[[
 Witchfire Brew
 Stibnite Flask

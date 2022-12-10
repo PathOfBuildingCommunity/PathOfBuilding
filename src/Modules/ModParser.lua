@@ -3293,7 +3293,7 @@ local specialModList = {
 	["when you kill an enemy affected by a non%-aura hex, become immune to curses for remaining hex duration"] = { -- typo / old wording change
 		flag("Condition:CanBeCurseImmune"),
 	},
-	["when you kill an enemy cursed with a non-aura hex, become immune to curses for remaining hex Duration"] = {
+	["when you kill an enemy cursed with a non%-aura hex, become immune to curses for remaining hex duration"] = {
 		flag("Condition:CanBeCurseImmune"),
 	},
 	["immun[ei]t?y? to freeze, chill, curses and stuns during f?l?a?s?k? ?effect"] = {

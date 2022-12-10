@@ -445,6 +445,14 @@ Eldritch Battery
 {variant:11,23}{crafted}Trigger Socketed Spells when you Focus
 {variant:12,24}{crafted}(81-140)% increased Duration of Ailments you inflict while Focused
 ]],[[
+Wilma's Requital
+Solaris Circlet 
++(300-500) to Accuracy Rating
+(200-250)% increased Energy Shield
+Increases and Reductions to Cast Speed apply to Attack Speed
+(20-30)% increased Elemental Damage with Attack Skills
+Ancestral Bond
+]],[[
 Doedre's Scorn
 Lunaris Circlet
 Variant: Pre 2.6.0
