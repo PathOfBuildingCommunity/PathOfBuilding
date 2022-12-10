@@ -2695,9 +2695,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.EnergyShieldOnHit = 0
 			output.ManaOnHit = 0
 		else
-			output.LifeOnHit = skillModList:Sum("BASE", cfg, "LifeOnHit") + enemyDB:Sum("BASE", cfg, "SelfLifeOnHit")
-			output.EnergyShieldOnHit = skillModList:Sum("BASE", cfg, "EnergyShieldOnHit") + enemyDB:Sum("BASE", cfg, "SelfEnergyShieldOnHit")
-			output.ManaOnHit = skillModList:Sum("BASE", cfg, "ManaOnHit") + enemyDB:Sum("BASE", cfg, "SelfManaOnHit")
+			output.LifeOnHit = not skillModList:Flag(cfg, "CannotLeechLife") and (skillModList:Sum("BASE", cfg, "LifeOnHit") + enemyDB:Sum("BASE", cfg, "SelfLifeOnHit")) or 0
+			output.EnergyShieldOnHit = not skillModList:Flag(cfg, "CannotLeechEnergyShield") and (skillModList:Sum("BASE", cfg, "EnergyShieldOnHit") + enemyDB:Sum("BASE", cfg, "SelfEnergyShieldOnHit")) or 0
+			output.ManaOnHit = not skillModList:Flag(cfg, "CannotLeechMana") and (skillModList:Sum("BASE", cfg, "ManaOnHit") + enemyDB:Sum("BASE", cfg, "SelfManaOnHit")) or 0
 		end
 		output.LifeOnHitRate = output.LifeOnHit * hitRate
 		output.EnergyShieldOnHitRate = output.EnergyShieldOnHit * hitRate
@@ -2709,9 +2709,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.EnergyShieldOnKill = 0
 			output.ManaOnKill = 0
 		else
-			output.LifeOnKill = m_floor(skillModList:Sum("BASE", cfg, "LifeOnKill"))
-			output.EnergyShieldOnKill = m_floor(skillModList:Sum("BASE", cfg, "EnergyShieldOnKill"))
-			output.ManaOnKill = m_floor(skillModList:Sum("BASE", cfg, "ManaOnKill"))
+			output.LifeOnKill = not skillModList:Flag(cfg, "CannotLeechLife") and (m_floor(skillModList:Sum("BASE", cfg, "LifeOnKill"))) or 0
+			output.EnergyShieldOnKill = not skillModList:Flag(cfg, "CannotLeechEnergyShield") and (m_floor(skillModList:Sum("BASE", cfg, "EnergyShieldOnKill"))) or 0
+			output.ManaOnKill = not skillModList:Flag(cfg, "CannotLeechMana") and (m_floor(skillModList:Sum("BASE", cfg, "ManaOnKill"))) or 0
 		end
 
 		-- Calculate average damage and final DPS

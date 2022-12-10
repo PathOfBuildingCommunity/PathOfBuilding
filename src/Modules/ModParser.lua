@@ -3178,6 +3178,11 @@ local specialModList = {
 	["cannot recharge or regenerate energy shield"] = { flag("NoEnergyShieldRecharge"), flag("NoEnergyShieldRegen") },
 	["left ring slot: you cannot recharge or regenerate energy shield"] = { flag("NoEnergyShieldRecharge", { type = "SlotNumber", num = 1 }), flag("NoEnergyShieldRegen", { type = "SlotNumber", num = 1 }) },
 	["cannot gain energy shield"] = { flag("NoEnergyShieldRegen"), flag("NoEnergyShieldRecharge"), flag("CannotLeechEnergyShield") },
+	["cannot gain life"] = { flag("NoLifeRegen"), flag("NoLifeRecharge"), flag("CannotLeechLife") },
+	["cannot gain mana"] = { flag("NoManaRegen"), flag("NoManaRecharge"), flag("CannotLeechMana") },
+	["cannot gain energy shield during f?l?a?s?k? ?effect"] = { flag("NoEnergyShieldRegen", { type = "Condition", var = "UsingFlask" }) , flag("NoEnergyShieldRecharge", { type = "Condition", var = "UsingFlask" }) , flag("CannotLeechEnergyShield", { type = "Condition", var = "UsingFlask" })  },
+	["cannot gain life during f?l?a?s?k? ?effect"] = { flag("NoLifeRegen", { type = "Condition", var = "UsingFlask" }) , flag("NoLifeRecharge", { type = "Condition", var = "UsingFlask" }) , flag("CannotLeechLife", { type = "Condition", var = "UsingFlask" })  },
+	["cannot gain mana during f?l?a?s?k? ?effect"] = { flag("NoManaRegen", { type = "Condition", var = "UsingFlask" }) , flag("NoManaRecharge", { type = "Condition", var = "UsingFlask" }) , flag("CannotLeechMana", { type = "Condition", var = "UsingFlask" })  },
 	["you have no armour or energy shield"] = {
 		mod("Armour", "MORE", -100),
 		mod("EnergyShield", "MORE", -100),
