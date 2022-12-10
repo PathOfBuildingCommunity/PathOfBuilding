@@ -636,6 +636,7 @@ local skills, mod, flag, skill = ...
 
 #skill FrozenSweep
 #flags spell attack area melee
+#baseMod skill("radius", 26)
 #mods
 
 #skill GeneralsCry

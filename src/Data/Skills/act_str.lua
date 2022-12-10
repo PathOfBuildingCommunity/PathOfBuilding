@@ -3399,6 +3399,9 @@ skills["FrozenSweep"] = {
 		area = true,
 		melee = true,
 	},
+	baseMods = {
+		skill("radius", 26),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
