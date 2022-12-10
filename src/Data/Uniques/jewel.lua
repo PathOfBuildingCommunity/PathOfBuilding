@@ -1605,7 +1605,7 @@ Variant: Pre 3.20.0
 Variant: Current
 Limited to: 1
 (30-50)% reduced Totem Damage
-Totems Fire 2 additional Projectiles
+Totems fire 2 additional Projectiles
 {variant:2}Corrupted
 ]],[[
 Reckless Defence

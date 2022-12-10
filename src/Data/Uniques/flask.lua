@@ -14,10 +14,10 @@ Variant: Current
 Requires Level 50
 {variant:3}100% increased Life Recovered
 {variant:4,5}50% increased Life Recovered
-{variant:1}(20-30)% reduced Recovery rate
+{variant:1}(30-20)% reduced Recovery rate
 {variant:2,3,4}(5-20)% increased Recovery rate
-{variant:5}(35-50)% reduced Recovery rate
-Recover Full Life at the end of the Flask Effect
+{variant:5}(50-35)% reduced Recovery rate
+Recover Full Life at the end of the Effect
 {variant:1,2}Cannot gain Life during effect
 ]],
 -- Flask: Mana
@@ -27,35 +27,32 @@ Greater Mana Flask
 Variant: Pre 2.0.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 12
 Implicits: 0
+{variant:1}(100-50)% increased Charges per use
+{variant:2}(150-120)% increased Charges per use
+{variant:3}(300-250)% increased Charges per use
 {variant:1,2}Removes 20% of your maximum Energy Shield on use
 {variant:3}Removes 80% of your maximum Energy Shield on use
 {variant:1,2}You take 10% of your maximum Life as Chaos Damage on use
 {variant:3}You take 50% of your maximum Life as Chaos Damage on use
-{variant:1,2}You gain a Power Charge on use
-{variant:1,2}You gain a Frenzy Charge on use
-{variant:1,2}You gain an Endurance Charge on use
-{variant:3}You gain (1-3) Power Charges on use
-{variant:3}You gain (1-3) Frenzy Charges on use
-{variant:3}You gain (1-3) Endurance Charge on use
-{variant:1}(100-50)% increased Charges per use
-{variant:2}(150-120)% increased Charges per use
-{variant:3}(300-250)% increased Charges per use
+{variant:1,2}Gain 1 Endurance Charge on use
+{variant:1,2}Gain 1 Frenzy Charge on use
+{variant:1,2}Gain 1 Power Charge on use
+{variant:3}Gain (1-3) Endurance Charge on use
+{variant:3}Gain (1-3) Frenzy Charge on use
+{variant:3}Gain (1-3) Power Charge on use
 ]],[[
 Lavianga's Spirit
 Sanctified Mana Flask
 League: Domination, Nemesis
-Requires Level 50
 (30-50)% increased Amount Recovered
 100% increased Recovery rate
-Your Skills have no Mana Cost during Effect
+Skills Cost no Mana during Effect
 ]],[[
 Replica Lavianga's Spirit
 Sanctified Mana Flask
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 50
 (30-50)% increased Amount Recovered
 50% reduced Recovery rate
 (5-15)% increased Attack Speed during Effect
@@ -67,7 +64,6 @@ Grand Mana Flask
 Variant: Pre 3.2.0
 Variant: Current
 League: Perandus
-Requires Level 18
 50% increased Charges per use
 {variant:1}Grants Last Breath when you Use a Skill during Effect, for 800% of Mana Cost
 {variant:2}Grants Last Breath when you Use a Skill during Effect, for (450-600)% of Mana Cost
@@ -81,24 +77,23 @@ Variant: Pre 2.2.0
 Variant: Pre 3.5.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 30
-{variant:1,2,3,4}(40-60)% increased Rarity of Items found during Effect
-{variant:5}(20-30)% increased Rarity of Items found during Effect
-{variant:1}(20-25)% increased Quantity of Items found during Effect
-{variant:2,3,4}(12-18)% increased Quantity of Items found during Effect
-{variant:5}(8-12)% increased Quantity of Items found during Effect
-25% increased Light Radius during Effect
 {variant:1,2}+6% to all maximum Elemental Resistances during Effect
 {variant:3}+4% to all maximum Elemental Resistances during Effect
-{variant:4,5}+50% to all Elemental Resistances during Effect
+{variant:1}(20-25)% increased Quantity of Items found during Effect
+{variant:2,3,4}(12-18)% increased Quantity of Items found during Effect
+{variant:1,2,3,4}(40-60)% increased Rarity of Items found during Effect
+{variant:5}(20-30)% increased Rarity of Items found during Effect
+{variant:5}(8-12)% increased Quantity of Items found during Effect
+25% increased Light Radius during Effect
+{variant:4,5}+50% to Elemental Resistances during Effect
 ]],[[
 The Writhing Jar
 Hallowed Hybrid Flask
-Requires Level 60
+(10-20)% reduced Charges per use
 (75-65)% reduced Amount Recovered
 Instant Recovery
 2 Enemy Writhing Worms escape the Flask when used
-(10-20)% reduced Charges per use
+Writhing Worms are destroyed when Hit
 ]],
 -- Flask: Utility
 [[
@@ -109,13 +104,13 @@ Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 68
+{variant:1}Gain (13-15)% of Elemental Damage as Extra Chaos Damage during effect
+{variant:2}Gain (10-15)% of Elemental Damage as Extra Chaos Damage during effect
+{variant:3}Gain (5-8)% of Elemental Damage as Extra Chaos Damage during effect
 2% of Chaos Damage Leeched as Life during Effect
 {variant:1}Gain (22-25)% of Physical Damage as Extra Chaos Damage during effect
 {variant:2}Gain (15-20)% of Physical Damage as Extra Chaos Damage during effect
 {variant:3}Gain (5-8)% of Physical Damage as Extra Chaos Damage during effect
-{variant:1}Gain (13-15)% of Elemental Damage as Extra Chaos Damage during effect
-{variant:2}Gain (10-15)% of Elemental Damage as Extra Chaos Damage during effect
-{variant:3}Gain (5-8)% of Elemental Damage as Extra Chaos Damage during effect
 ]],[[
 Bottled Faith
 Sulphur Flask
@@ -124,15 +119,14 @@ Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 35
 Creates Consecrated Ground on Use
 {variant:1}(30-50)% increased Duration
 {variant:2}(20-40)% increased Duration
 {variant:3}(30-15)% reduced Duration
 Consecrated Ground created by this Flask has Tripled Radius
 {variant:1}+(1-2)% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
-{variant:2,3}(100-150)% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect
 Consecrated Ground created during Effect applies (7-10)% increased Damage taken to Enemies
+{variant:2,3}(100-150)% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect
 ]],[[
 Coralito's Signature
 Diamond Flask
@@ -144,15 +138,14 @@ Variant: Current
 25% chance to Poison on Hit during Effect
 Your Critical Strikes do not deal extra Damage during Effect
 {variant:1}(50-75)% increased Duration of Poisons you inflict during Effect
-{variant:1}Grants Perfect Agony during Effect
-{variant:2}Poisons you inflict with Critical Strikes have +(20-30)% to Damage over Time Multiplier
+{variant:1}Grants Perfect Agony during effect
+{variant:2}+(20-30)% to Damage over Time Multiplier for Poison from Critical Strikes during Effect
 ]],[[
 Coruscating Elixir
 Ruby Flask
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 18
 Implicits: 0
 {variant:2}100% increased Duration
 {variant:3}25% increased Duration
@@ -177,20 +170,20 @@ Variant: Pre 3.16.0 Crit Chance
 Variant: Current
 Requires Level 22
 Implicits: 0
-{variant:8}Recharges 1 Charge when you consume an Ignited Corpse
-{variant:10}Recharges 5 Charges when you consume an Ignited Corpse
+{variant:10}+90 to maximum Charges
+{variant:8}Recharges 1 Charges when you Consume an Ignited corpse
+{variant:10}Recharges 5 Charges when you Consume an Ignited corpse
 {variant:8}Enemies Ignited by you during Effect take 10% increased Damage
 {variant:10}Enemies Ignited by you during Effect take (7-10)% increased Damage
 {variant:8,10}Recover (1-3)% of Life when you Kill an Enemy during Effect
 {variant:8,10}Recover (1-3)% of Mana when you Kill an Enemy during Effect
 {variant:8,10}Recover (1-3)% of Energy Shield when you Kill an Enemy during Effect
-{variant:10}+90 to maximum Charges
 {variant:10}(300-250)% increased Charges per use
 {variant:9}{crafted}(60-80)% increased Critical Strike Chance during Effect
 {variant:1}{crafted}(45-55)% increased Critical Strike Chance during Effect
 {variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Effect
 {variant:3}{crafted}(20-30)% increased Rarity of Items found during Effect
-{variant:4}{crafted}(25-20)% reduced Mana Cost of Skills during Effect
+{variant:4}{crafted}(20-25)% reduced Mana Cost of Skills during Effect
 {variant:5}{crafted}(8-12)% increased Movement Speed during Effect
 {variant:5}{crafted}50% Chance to avoid being Stunned during Effect
 {variant:6}{crafted}Regenerate 3% of Life per second during Effect
@@ -211,7 +204,7 @@ Requires Level 68
 {variant:1}30% increased Area of Effect during Effect
 {variant:2}(15-25)% increased Area of Effect during Effect
 {variant:3,4}(10-20)% increased Area of Effect during Effect
-2 additional Projectiles during Effect
+Skills fire 2 additional Projectiles during Effect
 ]],[[
 Forbidden Taste
 Quartz Flask
@@ -219,23 +212,22 @@ Variant: Pre 1.2.3
 Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 27
 {variant:1,2}50% increased Charges per use
-{variant:1}Recover 50% of your maximum Life on use
-{variant:2}Recover 75% of your maximum Life on use
-{variant:3,4}Recover (75-100)% of your maximum Life on use
+{variant:1}Recover 50% of Life on use
+{variant:2}Recover 75% of Life on use
+{variant:3,4}Recover (75-100)% of Life on use
 {variant:1}15% of maximum Life taken as Chaos Damage per second
-{variant:2,3}8% of maximum Life taken as Chaos Damage per second
-{variant:4}25% of maximum Life taken as Chaos Damage per second
+{variant:2,3}8% of Maximum Life taken as Chaos Damage per second
+{variant:4}25% of Maximum Life taken as Chaos Damage per second
 ]],[[
 Kiara's Determination
 Silver Flask
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 22
+LevelReq: 40
 Implicits: 0
-Immune to Freeze, Chill, Curses and Stuns during Effect
+Immunity to Freeze, Chill, Curses and Stuns during Effect
 {variant:1}50% reduced Duration
 {variant:2}60% reduced Duration
 {variant:3}(80-60)% reduced Duration
@@ -246,15 +238,14 @@ Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 27
-Adds Knockback to Melee Attacks during Effect
-75% chance to cause Enemies to Flee on use
 {variant:1}(100-70)% increased Charges per use
+Knocks Back Enemies in an Area when you use a Flask
+75% chance to cause Enemies to Flee on use
+Adds Knockback to Melee Attacks during Effect
 {variant:1}30% more Melee Physical Damage during effect
 {variant:2}(30-35)% more Melee Physical Damage during effect
 {variant:3}(20-25)% more Melee Physical Damage during effect
 {variant:4}(7-10)% more Melee Physical Damage during effect
-Knocks Back Enemies in an Area on Flask use
 ]],[[
 Rotgut
 Quicksilver Flask
@@ -263,16 +254,17 @@ Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 40
+{variant:1,2}15% chance to gain a Flask Charge when you deal a Critical Strike
+{variant:3}50% chance to gain a Flask Charge when you deal a Critical Strike
 {variant:1}(150-100)% increased Charges per use
 {variant:2,3}(100-50)% increased Charges per use
 {variant:3}50% increased Duration
 {variant:4}(30-50)% increased Duration
-{variant:1,2}15% chance to gain a Flask Charge when you deal a Critical Strike
-{variant:3}50% chance to gain a Flask Charge when you deal a Critical Strike
 Consumes Frenzy Charges on use
 {variant:1,2}Gain Onslaught for 1 second per Frenzy Charge on use
 {variant:3}Gain Onslaught for 2 seconds per Frenzy Charge on use
 {variant:4}Gain Onslaught for 3 seconds per Frenzy Charge on use
+(10-30)% increased Movement Speed during Effect
 ]],[[
 Rumi's Concoction
 Granite Flask
@@ -503,8 +495,8 @@ League: Expedition
 Source: Drops from unique{Vorana, Last to Fall} in normal{Expedition Logbook}
 Requires Level 40
 (-10-10)% reduced Charges per use
-Debilitate nearby Enemies for 2 Seconds when Flask Effect ends
-Flask Effect is removed when Ward Breaks
+Debilitate nearby Enemies for 2 Seconds when Effect ends
+Effect is removed when Ward Breaks
 Culling Strike during Effect
 ]],
 }
