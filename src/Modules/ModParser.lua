@@ -288,6 +288,7 @@ local modNameList = {
 	["to block spells"] = "SpellBlockChance",
 	["to block spell damage"] = "SpellBlockChance",
 	["chance to block attacks and spells"] = { "BlockChance", "SpellBlockChance" },
+	["chance to block attack and spell damage"] = { "BlockChance", "SpellBlockChance" },
 	["to block attack and spell damage"] = { "BlockChance", "SpellBlockChance" },
 	["maximum block chance"] = "BlockChanceMax",
 	["maximum chance to block attack damage"] = "BlockChanceMax",
@@ -3836,6 +3837,13 @@ local specialModList = {
 	["every (%d+) seconds, regenerate (%d+)%% of life over one second"] = function (num, _, percent) return {
 		mod("LifeRegenPercent", "BASE", tonumber(percent), { type = "Condition", var = "LifeRegenBurstFull" }),
 		mod("LifeRegenPercent", "BASE", tonumber(percent) / num, { type = "Condition", var = "LifeRegenBurstAvg" }),
+	} end,
+	["take no extra damage from critical strikes"] = { mod("ReduceCritExtraDamage", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["take no extra damage from critical strikes if you have a magic ring in left slot"] = { 
+		mod("ReduceCritExtraDamage", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "Condition", var = "MagicItemInRing 1" }) 
+	},
+	["you take (%d+)%% reduced extra damage from critical strikes while affected by determination"] = function(num) return {
+		mod("ReduceCritExtraDamage", "BASE", num, { type = "Condition", var = "AffectedByDetermination" })
 	} end,
 	["you take (%d+)%% reduced extra damage from critical strikes"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num) } end,
 	["you take (%d+)%% reduced extra damage from critical strikes while you have no power charges"] = function(num) return { mod("ReduceCritExtraDamage", "BASE", num, { type = "StatThreshold", stat = "PowerCharges", threshold = 0, upper = true }) } end,
