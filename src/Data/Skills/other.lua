@@ -3386,3 +3386,22 @@ skills["FieryImpactHeistMaceImplicit"] = {
 		[20] = { damageEffectiveness = 3, cooldown = 2, baseMultiplier = 3, levelRequirement = 70, },
 	},
 }
+skills["TouchOfFire"] = {
+	name = "Approaching Flames",
+	hidden = true,
+	color = 4,
+	description = "Become touched by the flames of the Cleansing Fire.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+	},
+	stats = {
+		"display_touch_of_fire",
+	},
+	levels = {
+		[20] = { cooldown = 5, levelRequirement = 70, },
+	},
+}
