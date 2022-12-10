@@ -39,9 +39,9 @@ Implicits: 0
 {variant:3}You gain (1-3) Power Charges on use
 {variant:3}You gain (1-3) Frenzy Charges on use
 {variant:3}You gain (1-3) Endurance Charge on use
-{variant:1}(50-100)% increased Charges used
-{variant:2}(120-150)% increased Charges used
-{variant:3}(250-300)% increased Charges used
+{variant:1}(50-100)% increased Charges per use
+{variant:2}(120-150)% increased Charges per use
+{variant:3}(250-300)% increased Charges per use
 ]],[[
 Lavianga's Spirit
 Sanctified Mana Flask
@@ -68,7 +68,7 @@ Variant: Pre 3.2.0
 Variant: Current
 League: Perandus
 Requires Level 18
-50% increased Charges used
+50% increased Charges per use
 {variant:1}Grants Last Breath when you Use a Skill during Effect, for 800% of Mana Cost
 {variant:2}Grants Last Breath when you Use a Skill during Effect, for (450-600)% of Mana Cost
 ]],
@@ -98,7 +98,7 @@ Requires Level 60
 (75-65)% reduced Amount Recovered
 Instant Recovery
 2 Enemy Writhing Worms escape the Flask when used
-(20-10)% reduced Charges used
+(10-20)% reduced Charges per use
 ]],
 -- Flask: Utility
 [[
@@ -128,7 +128,7 @@ Requires Level 35
 Creates Consecrated Ground on Use
 {variant:1}(30-50)% increased Duration
 {variant:2}(20-40)% increased Duration
-{variant:3}(15-30)% reduced Duration
+{variant:3}(30-15)% reduced Duration
 Consecrated Ground created by this Flask has Tripled Radius
 {variant:1}+(1-2)% to Critical Strike Chance against Enemies on Consecrated Ground during Effect
 {variant:2,3}(100-150)% increased Critical Strike Chance against Enemies on Consecrated Ground during Effect
@@ -185,7 +185,7 @@ Implicits: 0
 {variant:8,10}Recover (1-3)% of Mana when you Kill an Enemy during Effect
 {variant:8,10}Recover (1-3)% of Energy Shield when you Kill an Enemy during Effect
 {variant:10}+90 to maximum Charges
-{variant:10}(250-300)% increased Charges Used
+{variant:10}(300-250)% increased Charges per use
 {variant:9}{crafted}(60-80)% increased Critical Strike Chance during Effect
 {variant:1}{crafted}(45-55)% increased Critical Strike Chance during Effect
 {variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Effect
@@ -204,10 +204,10 @@ Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
 Requires Level 68
-{variant:2}(-10-10)% increased Charges used
-{variant:3,4}(125-150)% increased Charges used
-{variant:3}(40-60)% reduced duration
-{variant:4}(40-60)% less duration
+{variant:2}(-10-10)% reduced Charges per use
+{variant:3,4}(150-125)% increased Charges per use
+{variant:3}(60-40)% reduced duration
+{variant:4}(60-40)% less duration
 {variant:1}30% increased Area of Effect during Effect
 {variant:2}(15-25)% increased Area of Effect during Effect
 {variant:3,4}(10-20)% increased Area of Effect during Effect
@@ -220,7 +220,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 27
-{variant:1,2}50% increased Charges used
+{variant:1,2}50% increased Charges per use
 {variant:1}Recover 50% of your maximum Life on use
 {variant:2}Recover 75% of your maximum Life on use
 {variant:3,4}Recover (75-100)% of your maximum Life on use
@@ -238,7 +238,7 @@ Implicits: 0
 Immune to Freeze, Chill, Curses and Stuns during Effect
 {variant:1}50% reduced Duration
 {variant:2}60% reduced Duration
-{variant:3}(60-80)% reduced Duration
+{variant:3}(80-60)% reduced Duration
 ]],[[
 Lion's Roar
 Granite Flask
@@ -249,7 +249,7 @@ Variant: Current
 Requires Level 27
 Adds Knockback to Melee Attacks during Effect
 75% chance to cause Enemies to Flee on use
-{variant:1}(70-100)% increased Charges used
+{variant:1}(100-70)% increased Charges per use
 {variant:1}30% more Melee Physical Damage during effect
 {variant:2}(30-35)% more Melee Physical Damage during effect
 {variant:3}(20-25)% more Melee Physical Damage during effect
@@ -263,8 +263,8 @@ Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 40
-{variant:1}(100-150)% increased Charges used
-{variant:2,3}(50-100)% increased Charges used
+{variant:1}(150-100)% increased Charges per use
+{variant:2,3}(100-50)% increased Charges per use
 {variant:3}50% increased Duration
 {variant:4}(30-50)% increased Duration
 {variant:1,2}15% chance to gain a Flask Charge when you deal a Critical Strike
@@ -357,7 +357,7 @@ Source: Upgraded from unique{Soul Catcher} via currency{Vial of the Ghost}
 Variant: Pre 3.10.0
 Variant: Current
 Requires Level 27
-{variant:1}100% increased Charges used
+{variant:1}100% increased Charges per use
 {variant:1}Vaal Skills deal (30-40)% more Damage during effect
 {variant:1}Vaal Skills used during effect do not apply Soul Gain Prevention
 {variant:1}Gains no Charges During effect of any Soul Ripper Flask
@@ -418,8 +418,8 @@ Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
 Requires Level 68
-{variant:5,6,7,8,9,10,11,12,13,14,15}(80-100)% increased Charges used
-{variant:16,17,18}(125-150)% increased Charges used
+{variant:5,6,7,8,9,10,11,12,13,14,15}(100-80)% increased Charges per use
+{variant:16,17,18}(150-125)% increased Charges per use
 {variant:1,2,3,4,5,6,7,8}Shocks nearby Enemies during Effect
 {variant:9,10,11,12,13,14,15,16,17,18}Shocks nearby Enemies during Effect, causing 10% increased Damage taken
 {variant:1,2,3,4,5,6,7,8}You are Shocked during Effect
@@ -461,8 +461,8 @@ Variant: Current
 Requires Level 48
 Implicits: 1
 Creates a Smoke Cloud on Use
-{variant:1,2}50% increased Charges used
-{variant:3}(-10-10)% increased Charges used
+{variant:1,2}50% increased Charges per use
+{variant:3}(-10-10)% increased Charges per use
 {variant:1}(50-70)% increased Damage Over Time during Effect
 {variant:2}(25-40)% increased Damage Over Time during Effect
 Grants level 21 Despair Curse Aura during Effect
@@ -484,7 +484,7 @@ Iron Flask
 League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Requires Level 40
-(40-50)% increased Charges used
+(50-40)% increased Charges per use
 Ward does not Break during Effect
 70% less Ward during Effect
 ]],[[
@@ -502,7 +502,7 @@ Iron Flask
 League: Expedition
 Source: Drops from unique{Vorana, Last to Fall} in normal{Expedition Logbook}
 Requires Level 40
-(-10-10)% reduced Charges used
+(-10-10)% reduced Charges per use
 Debilitate nearby Enemies for 2 Seconds when Flask Effect ends
 Flask Effect is removed when Ward Breaks
 Culling Strike during Effect
