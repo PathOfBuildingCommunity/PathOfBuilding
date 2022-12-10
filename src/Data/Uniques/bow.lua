@@ -10,7 +10,7 @@ Variant: Pre 3.9.0
 Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 62, 212 Dex
+LevelReq: 62
 Source: Vendor Recipe
 Implicits: 1
 {variant:3}+(15-25)% to Global Critical Strike Multiplier
@@ -40,7 +40,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.9.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 62, 212 Dex
+LevelReq: 62
 Implicits: 2
 {variant:2,3}(6-12)% increased Elemental Damage with Attack Skills
 {variant:6,7}+(15-25)% to Global Critical Strike Multiplier
@@ -88,7 +88,7 @@ Variant: Double Damage (Current)
 Variant: Double Damage while Focused (Current)
 Variant: Socketed Spell Trigger (Current)
 Variant: Current
-Requires Level 57, 190 Dex
+LevelReq: 57
 Implicits: 1
 (4-6)% increased Movement Speed
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}(140-170)% increased Physical Damage
@@ -126,7 +126,7 @@ Variant: Pre 3.7.0
 Variant: Pre 3.9.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 62, 212 Dex
+LevelReq: 62
 Implicits: 2
 {variant:1,2}(6-12)% increased Elemental Damage with Attack Skills
 {variant:6,7}+(15-25)% to Global Critical Strike Multiplier
@@ -152,7 +152,7 @@ Variant: Pre 3.10.0
 Variant: Pre 3.17.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 32, 107 Dex
+LevelReq: 32
 Implicits: 1
 {variant:2,3,4,5,6,7}(30-50)% increased Critical Strike Chance
 {variant:1,2,3,4,5}(100-125)% increased Physical Damage
@@ -173,7 +173,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 44, 107 Dex
+LevelReq: 44
 Implicits: 1
 {variant:2,3,4,5,6}(30-50)% increased Critical Strike Chance
 {variant:1,2,3,4,5}(100-125)% increased Physical Damage
@@ -192,7 +192,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.1.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 28, 95 Dex
+LevelReq: 28
 Implicits: 2
 {variant:2}(6-12)% increased Elemental Damage with Attack Skills
 {variant:3,4,5}(20-24)% increased Elemental Damage with Attack Skills
@@ -212,7 +212,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
 Variant: Current
-Requires Level 40, 95 Dex
+LevelReq: 40
 Implicits: 2
 {variant:2}(6-12)% increased Elemental Damage with Attack Skills
 {variant:3,4}(20-24)% increased Elemental Damage with Attack Skills
@@ -227,7 +227,7 @@ Implicits: 2
 The Gluttonous Tide
 Citadel Bow
 Source: Drops from unique{The Eater of Worlds}
-Requires Level 58, 185 Dex
+LevelReq: 58
 (120-160)% increased Physical Damage
 (16-20)% increased Attack Speed
 Lose all Frenzy Charges on reaching Maximum Frenzy Charges to make the next Bow Attack you perform fire that many additional Arrows
@@ -240,7 +240,7 @@ Elder Item
 Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
-Requires Level 60, 212 Dex
+LevelReq: 60
 Adds (130-150) to (270-300) Cold Damage
 4% increased Movement Speed per Frenzy Charge
 +(400-500) to Accuracy Rating
@@ -258,7 +258,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 53, 170 Dex
+LevelReq: 53
 Implicits: 1
 (30-50)% increased Critical Strike Chance
 {variant:1,2}(90-100)% increased Physical Damage
@@ -279,7 +279,7 @@ Variant: Pre 3.17.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 53, 170 Dex
+LevelReq: 53
 Implicits: 1
 (30-50)% increased Critical Strike Chance
 +(20-30) to Dexterity
@@ -294,7 +294,7 @@ Projectiles from Attacks Fork an additional time
 ]],[[
 Iron Commander
 Death Bow
-Requires Level 32, 107 Dex
+LevelReq: 32
 Implicits: 1
 (30-50)% increased Critical Strike Chance
 Adds (8-12) to (16-24) Physical Damage
@@ -308,7 +308,7 @@ Replica Iron Commander
 Death Bow
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 32, 107 Dex
+LevelReq: 32
 Implicits: 1
 (30-50)% increased Critical Strike Chance
 Adds (8-12) to (16-24) Physical Damage
@@ -326,7 +326,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.17.0
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 66, 212 Dex
+LevelReq: 66
 Implicits: 2
 {variant:2}(6-12)% increased Elemental Damage with Attack Skills
 {variant:3,4,5,6}(20-24)% increased Elemental Damage with Attack Skills
@@ -344,7 +344,7 @@ Null's Inclination
 Ranger Bow
 Variant: Pre 3.14.0
 Variant: Current
-Requires Level 60, 212 Dex, 212 Int
+LevelReq: 60
 Adds (50-80) to (130-180) Chaos Damage
 (7-12)% increased Attack Speed
 +(7-11)% to Chaos Resistance
@@ -357,7 +357,7 @@ Nuro's Harp
 Harbinger Bow
 Variant: Pre 2.5.0
 Variant: Current
-Requires Level 68, 212 Dex
+LevelReq: 68
 Implicits: 1
 (30-50)% increased Critical Strike Chance
 No Physical Damage
@@ -373,7 +373,7 @@ Short Bow
 Variant: Pre 2.6.0
 Variant: Pre 3.9.0
 Variant: Current
-Requires Level 5, 26 Dex
+LevelReq: 5
 +(10-20) to Dexterity
 {variant:2,3}100% increased Physical Damage
 100% increased Attack Speed
@@ -388,7 +388,7 @@ Replica Quill Rain
 Short Bow
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 5, 26 Dex
+LevelReq: 5
 Socketed Gems are Supported by Level 1 Arrow Nova
 +(10-20) to Dexterity
 100% increased Physical Damage
@@ -426,7 +426,7 @@ Recurve Bow
 Variant: Pre 3.9.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 18, 71 Dex
+LevelReq: 18
 Implicits: 1
 {variant:2,3}+(15-25)% to Global Critical Strike Multiplier
 (60-80)% increased Physical Damage
@@ -441,7 +441,7 @@ Silverbranch
 Crude Bow
 Variant: Pre 2.0.0
 Variant: Current
-Requires Level 2
+LevelReq: 2
 +1 to Level of Socketed Bow Gems
 {variant:1}(50-80)% increased Physical Damage
 {variant:2}(80-100)% increased Physical Damage
@@ -452,7 +452,7 @@ Gain 10 Mana per Enemy Killed
 Silverbough
 Crude Bow
 Source: No longer obtainable
-Requires Level 36
+LevelReq: 36
 +1 to Level of Socketed Gems
 +1 to Level of Socketed Bow Gems
 (80-100)% increased Physical Damage
@@ -466,7 +466,7 @@ Harbinger Bow
 Variant: Pre 3.5.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 68, 212 Dex
+LevelReq: 68
 Implicits: 1
 (30-50)% increased Critical Strike Chance
 {variant:1}Adds (60-75) to (170-220) Physical Damage
@@ -483,7 +483,7 @@ Storm Cloud
 Long Bow
 Variant: Pre 2.0.0
 Variant: Current
-Requires Level 9, 38 Dex
+LevelReq: 9
 No Physical Damage
 {variant:1}Adds 1 to 75 Lightning Damage
 {variant:2}Adds 1 to 85 Lightning Damage
@@ -492,7 +492,7 @@ No Physical Damage
 The Tempest
 Long Bow
 Source: No longer obtainable
-Requires Level 32, 38 Dex
+LevelReq: 32
 No Physical Damage
 100% increased Lightning Damage
 Adds 1 to 85 Lightning Damage
@@ -520,7 +520,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 66, 212 Dex
+LevelReq: 66
 Implicits: 2
 {variant:3}(6-12)% increased Elemental Damage with Attack Skills
 {variant:4,5}(20-24)% increased Elemental Damage with Attack Skills
@@ -543,7 +543,7 @@ Replica Windripper
 Imperial Bow
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 66, 212 Dex
+LevelReq: 66
 Implicits: 1
 (20-24)% increased Elemental Damage with Attack Skills
 Adds (48-60) to (72-90) Cold Damage
@@ -558,7 +558,7 @@ Bone Bow
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Nurture} using currency{Blessing of Xoph}
-Requires Level 23, 80 Dex
+LevelReq: 23
 (70-90)% increased Physical Damage
 Gain (20-30) Life per Ignited Enemy Killed
 Gain 20% of Physical Damage as Extra Fire Damage
@@ -572,7 +572,7 @@ Variant: Pre 3.3.0
 Variant: Pre 3.9.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 64, 185 Dex
+LevelReq: 64
 {variant:3,4}Socketed Gems are Supported by Level 20 Ignite Proliferation
 {variant:1,2,3}(250-300)% increased Physical Damage
 {variant:4}(165-195)% increased Physical Damage

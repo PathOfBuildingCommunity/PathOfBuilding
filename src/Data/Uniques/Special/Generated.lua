@@ -72,7 +72,7 @@ for index, mod in pairs(paradoxicaMods) do
 	table.insert(paradoxica, "Variant: "..mod.veiledName)
 end
 
-table.insert(paradoxica, "Requires Level 66, 212 Dex")
+table.insert(paradoxica, "LevelReq: 66
 table.insert(paradoxica, "Implicits: 1")
 table.insert(paradoxica, "+25% to Global Critical Strike Multiplier")
 
@@ -100,7 +100,7 @@ for index, mod in pairs(caneOfKulemakMods) do
 	table.insert(caneOfKulemak, "Variant: "..mod.veiledName)
 end
 
-table.insert(caneOfKulemak, "Requires Level 68, 85 Str, 85 Int")
+table.insert(caneOfKulemak, "LevelReq: 68
 table.insert(caneOfKulemak, "Implicits: 1")
 table.insert(caneOfKulemak, "+20% Chance to Block Attack Damage while wielding a Staff")
 table.insert(caneOfKulemak, "(60-90)% increased Unveiled Modifier magnitudes")
@@ -136,7 +136,7 @@ for index, mod in pairs(replicaParadoxicaMods) do
 	table.insert(replicaParadoxica, "Variant: "..mod.veiledName)
 end
 
-table.insert(replicaParadoxica, "Requires Level 66, 212 Dex")
+table.insert(replicaParadoxica, "LevelReq: 66
 table.insert(replicaParadoxica, "Implicits: 1")
 table.insert(replicaParadoxica, "+25% to Global Critical Strike Multiplier")
 
@@ -163,7 +163,7 @@ for index, mod in pairs(queensHungerMods) do
 	table.insert(queensHunger, "Variant: "..mod.veiledName)
 end
 
-table.insert(queensHunger, "Requires Level 68, 194 Int")
+table.insert(queensHunger, "LevelReq: 68
 table.insert(queensHunger, "Trigger Level 20 Bone Offering, Flesh Offering or Spirit Offering every 5 seconds")
 table.insert(queensHunger, "Offering Skills Triggered this way also affect you")
 table.insert(queensHunger, "(5-10)% increased Cast Speed")
@@ -206,7 +206,7 @@ local forbiddenShako = {
 	"Great Crown",
 	"League: Harvest",
 	"Source: Drops from unique{Oshabi, Avatar of the Grove}",
-	"Requires Level 68, 59 Str, 59 Int",
+	"LevelReq: 68
 	"Has Alt Variant: true"
 }
 local replicaForbiddenShako = {
@@ -214,7 +214,7 @@ local replicaForbiddenShako = {
 	"Great Crown",
 	"League: Heist",
 	"Source: Steal from a unique{Curio Display} during a Grand Heist",
-	"Requires Level 68, 59 Str, 59 Int",
+	"LevelReq: 68
 	"Has Alt Variant: true"
 }
 local excludedGems = {
@@ -608,7 +608,7 @@ table.insert(watchersEye,
 (4-6)% increased maximum Mana]])
 
 table.insert(voranasMarch,
-[[Requires Level 69, 46 Str, 46 Dex, 46 Int
+[[LevelReq: 69
 Has no Sockets
 Triggers Level 20 Summon Arbalists when Equipped
 25% increased Movement Speed]])

@@ -8,7 +8,7 @@ War Hammer
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 20, 71 Str
+LevelReq: 20
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}10% reduced Enemy Stun Threshold
@@ -23,7 +23,7 @@ Callinellus Malleus
 Auric Mace
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 66, 212 Str
+LevelReq: 66
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}15% reduced Enemy Stun Threshold
@@ -37,7 +37,7 @@ Cameria's Maul
 Gavel
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 60, 212 Str
+LevelReq: 60
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}15% reduced Enemy Stun Threshold
@@ -50,7 +50,7 @@ Adds (10-20) to (30-50) Cold Damage
 Cameria's Avarice
 Gavel
 Source: Vendor Recipe
-Requires Level 60, 212 Str
+LevelReq: 60
 Implicits: 1
 15% reduced Enemy Stun Threshold
 (140-180)% increased Physical Damage
@@ -65,7 +65,7 @@ Rock Breaker
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 41, 134 Str
+LevelReq: 41
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}15% reduced Enemy Stun Threshold
@@ -81,7 +81,7 @@ Flesh-Eater
 Dream Mace
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 32, 107 Str
+LevelReq: 32
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}10% reduced Enemy Stun Threshold
@@ -99,7 +99,7 @@ Ornate Mace
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 50, 161 Str
+LevelReq: 50
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2,3}15% reduced Enemy Stun Threshold
@@ -116,7 +116,7 @@ Replica Frostbreath
 Ornate Mace
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 50, 161 Str
+LevelReq: 50
 Implicits: 1
 15% reduced Enemy Stun Threshold
 Adds (53-67) to (71-89) Chaos Damage
@@ -129,7 +129,7 @@ Gorebreaker
 Spiked Club
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 10, 41 Str
+LevelReq: 10
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}10% reduced Enemy Stun Threshold
@@ -145,7 +145,7 @@ League: Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 20, 71 Str
+LevelReq: 20
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}10% reduced Enemy Stun Threshold
@@ -168,7 +168,7 @@ Variant: Pre 2.4.0
 Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 60, 412 Str, 300 Int
+LevelReq: 60
 Implicits: 2
 {variant:1,2,3}40% increased Stun Duration on Enemies
 {variant:4,5}15% reduced Enemy Stun Threshold
@@ -187,7 +187,7 @@ Nebulis
 Void Sceptre
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
-Requires Level 68, 104 Str, 122 Int
+LevelReq: 68
 Implicits: 1
 40% increased Elemental Damage
 {fractured}(15-20)% increased Cast Speed
@@ -198,7 +198,7 @@ Replica Nebulis
 Void Sceptre
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 68, 104 Str, 122 Int
+LevelReq: 68
 Implicits: 1
 40% increased Elemental Damage
 {fractured}(15-20)% increased Cast Speed
@@ -211,7 +211,7 @@ Elder Item
 Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
-Requires Level 68, 212 Str
+LevelReq: 68
 Implicits: 1
 10% reduced Enemy Stun Threshold
 Adds (45-60) to (100-120) Physical Damage 
@@ -230,7 +230,7 @@ Void Sceptre
 Elder Item
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 68, 104 Str, 122 Int
+LevelReq: 68
 Implicits: 1
 40% increased Elemental Damage 
 (180-200)% increased Physical Damage 
@@ -245,7 +245,7 @@ Axiom Perpetuum
 Bronze Sceptre
 Variant: Pre 2.3.0
 Variant: Current
-Requires Level 10, 22 Str, 22 Int
+LevelReq: 10
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2}12% increased Elemental Damage
@@ -257,7 +257,7 @@ Adds 1 to (10-12) Lightning Damage to Spells
 ]],[[
 Balefire
 Opal Sceptre
-Requires Level 60, 95 Str, 131 Int
+LevelReq: 60
 Implicits: 1
 40% increased Elemental Damage
 Grants Level 25 Scorching Ray Skill
@@ -268,7 +268,7 @@ Recover (1-3)% of Mana on Kill
 ]],[[
 Bitterdream
 Shadow Sceptre
-Requires Level 32, 52 Str, 62 Int
+LevelReq: 32
 Implicits: 1
 22% increased Elemental Damage
 Socketed Gems are Supported by Level 15 Bonechill
@@ -282,7 +282,7 @@ Replica Bitterdream
 Shadow Sceptre
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 32, 52 Str, 62 Int
+LevelReq: 32
 Implicits: 1
 22% increased Elemental Damage
 Socketed Gems are Supported by Level 1 Elemental Penetration
@@ -294,7 +294,7 @@ Socketed Gems are Supported by Level 15 Innervate
 ]],[[
 The Black Cane
 Royal Sceptre
-Requires Level 50, 86 Str, 86 Int
+LevelReq: 50
 Implicits: 1
 24% increased Elemental Damage
 +(20-30) to Intelligence
@@ -307,7 +307,7 @@ Breath of the Council
 Carnal Sceptre
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 66, 113 Str, 113 Int
+LevelReq: 66
 Implicits: 1
 32% increased Elemental Damage
 (260-310)% increased Physical Damage
@@ -323,7 +323,7 @@ Variant: Pre 2.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 28, 51 Str, 51 Int
+LevelReq: 28
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2,3,4}16% increased Elemental Damage
@@ -340,7 +340,7 @@ Cerberus Limb
 Blood Sceptre
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
-Requires Level 47, 81 Str, 81 Int
+LevelReq: 47
 Implicits: 1
 24% increased Elemental Damage
 (70-100)% increased Spell Damage
@@ -361,7 +361,7 @@ Variant: Pre 3.11.0 (Mana/ES)
 Variant: Current (Life/Mana)
 Variant: Current (Life/ES)
 Variant: Current (Mana/ES)
-Requires Level 32, 52 Str, 62 Int
+LevelReq: 32
 Implicits: 2
 {variant:1}15% increased Elemental Damage
 {variant:2,3,4,5,6,7,8}22% increased Elemental Damage
@@ -382,7 +382,7 @@ Karui Sceptre
 Variant: Pre 2.3.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 56, 96 Str, 96 Int
+LevelReq: 56
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2,3}26% increased Elemental Damage
@@ -396,7 +396,7 @@ Doon Cuebiyari
 Vaal Sceptre
 Variant: Pre 2.3.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
+LevelReq: 64
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2}32% increased Elemental Damage
@@ -412,7 +412,7 @@ Vaal Sceptre
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
 Variant: Pre 2.3.0
 Variant: Current
-Requires Level 75, 113 Str, 113 Int
+LevelReq: 75
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2}32% increased Elemental Damage
@@ -426,7 +426,7 @@ Adds (65-85) to (100-160) Physical Damage
 ]],[[
 Earendel's Embrace
 Grinning Fetish
-Requires Level 35, 62 Str, 62 Int
+LevelReq: 35
 Implicits: 1
 18% increased Elemental Damage
 +(20-30) to all Attributes
@@ -439,7 +439,7 @@ Replica Earendel's Embrace
 Grinning Fetish
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 35, 62 Str, 62 Int
+LevelReq: 35
 Implicits: 1
 18% increased Elemental Damage
 +(20-30) to all Attributes
@@ -455,7 +455,7 @@ Variant: Pre 2.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 68, 104 Str, 122 Int
+LevelReq: 68
 Implicits: 2
 {variant:1,2}15% increased Elemental Damage
 {variant:3,4,5}40% increased Elemental Damage
@@ -478,7 +478,7 @@ Variant: Pre 2.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 41, 59 Str, 85 Int
+LevelReq: 41
 Implicits: 2
 {variant:1,2}20% increased Elemental Damage
 {variant:3,4,5}30% increased Elemental Damage
@@ -498,7 +498,7 @@ Implicits: 2
 Sign of the Sin Eater
 Tyrant's Sekhem
 League: Legion
-Requires Level 58, 99 Str, 99 Int
+LevelReq: 58
 Implicits: 1
 26% increased Elemental Damage
 +(10-30) to Strength and Intelligence
@@ -510,7 +510,7 @@ Platinum Sceptre
 Variant: Pre 2.3.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 62, 113 Str, 113 Int
+LevelReq: 62
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2,3}30% increased Elemental Damage
@@ -528,7 +528,7 @@ Source: No longer obtainable
 Variant: Pre 2.3.0
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 20, 38 Str, 38 Int
+LevelReq: 20
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2,3}14% increased Elemental Damage
@@ -545,7 +545,7 @@ Crystal Sceptre
 Variant: Pre 2.0.0
 Variant: Pre 2.3.0
 Variant: Current
-Requires Level 41, 59 Str, 136 Int
+LevelReq: 41
 Implicits: 2
 {variant:1,2}20% increased Elemental Damage
 {variant:3}30% increased Elemental Damage
@@ -561,7 +561,7 @@ Yaomac's Accord
 Vaal Sceptre
 League: Ultimatum
 Source: Drops from unique{The Trialmaster}
-Requires Level 64, 113 Str, 113 Int
+LevelReq: 64
 Implicits: 1
 32% increased Elemental Damage
 (80-120)% increased Damage with Vaal Skills
@@ -596,7 +596,7 @@ Great Mallet
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 40, 104 Str
+LevelReq: 40
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}30% increased Stun Duration on Enemies
@@ -612,7 +612,7 @@ Minions have (20-40)% increased maximum Life
 Chaber Cairn
 Great Mallet
 Source: No longer obtainable
-Requires Level 60, 131 Str
+LevelReq: 60
 Implicits: 1
 30% increased Stun Duration on Enemies
 +1 to Level of Socketed Melee Gems
@@ -627,7 +627,7 @@ Geofri's Baptism
 Brass Maul
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 27, 92 Str
+LevelReq: 27
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
@@ -642,7 +642,7 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 61, 92 Str
+LevelReq: 61
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}30% increased Stun Duration on Enemies
@@ -658,7 +658,7 @@ Hrimnor's Hymn
 Sledgehammer
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 17, 62 Str
+LevelReq: 17
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}45% increased Stun Duration on Enemies
@@ -673,7 +673,7 @@ Sledgehammer
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.17.0
-Requires Level 36, 62 Str
+LevelReq: 36
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}45% increased Stun Duration on Enemies
@@ -690,7 +690,7 @@ Steelhead
 League: Tempest
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 44, 143 Str
+LevelReq: 44
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies
 {variant:2}45% increased Stun Duration on Enemies
@@ -707,7 +707,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 67, 212 Str
+LevelReq: 67
 Implicits: 3
 {variant:1,2}20% increased Stun Duration on Enemies
 {variant:3}30% increased Stun Duration on Enemies
@@ -725,7 +725,7 @@ Replica Kongor's Undying Rage
 Terror Maul
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 67, 212 Str
+LevelReq: 67
 Implicits: 1
 25% chance to double Stun Duration
 Adds (43-56) to (330-400) Physical Damage
@@ -744,7 +744,7 @@ Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 57, 182 Str
+LevelReq: 57
 Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}30% increased Stun Duration on Enemies
@@ -768,7 +768,7 @@ Quecholli
 Jagged Maul
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 22, 77 Str
+LevelReq: 22
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
@@ -781,7 +781,7 @@ Enemies killed explode dealing 10% of their Life as Fire Damage
 Panquetzaliztli
 Jagged Maul
 Source: No longer obtainable
-Requires Level 61, 77 Str
+LevelReq: 61
 Implicits: 1
 30% increased Stun Duration on Enemies
 (80-100)% increased Physical Damage
@@ -795,7 +795,7 @@ Imperial Maul
 Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 65, 212 Str
+LevelReq: 65
 Implicits: 2
 {variant:1,2}30% increased Stun Duration on Enemies
 {variant:3}10% increased Strength
@@ -811,7 +811,7 @@ Great Mallet
 League: Perandus
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 40, 131 Str
+LevelReq: 40
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies
@@ -822,7 +822,7 @@ Replica Trypanon
 Great Mallet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 40, 131 Str
+LevelReq: 40
 Implicits: 1
 30% increased Stun Duration on Enemies
 -5000 to Accuracy Rating
@@ -832,7 +832,7 @@ Voidhome
 Dread Maul
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 54, 173 Str
+LevelReq: 54
 Implicits: 2
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2}30% increased Stun Duration on Enemies

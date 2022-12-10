@@ -7,7 +7,7 @@ Agnerod East
 Imperial Staff
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 66, 158 Str, 113 Int
+LevelReq: 66
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+18% Chance to Block Attack Damage while wielding a Staff
@@ -23,7 +23,7 @@ Agnerod North
 Imperial Staff
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 66, 158 Str, 113 Int
+LevelReq: 66
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+18% Chance to Block Attack Damage while wielding a Staff
@@ -39,7 +39,7 @@ Agnerod South
 Imperial Staff
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 66, 158 Str, 113 Int
+LevelReq: 66
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+18% Chance to Block Attack Damage while wielding a Staff
@@ -55,7 +55,7 @@ Agnerod West
 Imperial Staff
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 66, 158 Str, 113 Int
+LevelReq: 66
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+18% Chance to Block Attack Damage while wielding a Staff
@@ -70,7 +70,7 @@ Damage Penetrates 20% Lightning Resistance
 The Annihilating Light
 Quarterstaff
 Source: Drops from unique{The Searing Exarch}
-Requires Level 68, 78 Str, 78 Int
+LevelReq: 68
 Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 (60-70)% reduced Elemental Resistances
@@ -79,7 +79,7 @@ Deal Triple Damage with Elemental Skills
 Atziri's Rule
 Judgement Staff
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-Requires Level 68, 113 Str, 113 Int
+LevelReq: 68
 Implicits: 1
 +20% Chance to Block Spell Damage while wielding a Staff
 Grants Level 20 Queen's Demand Skill
@@ -139,7 +139,7 @@ Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Pre 3.13.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
+LevelReq: 64
 Implicits: 2
 {variant:1,2}+20% Chance to Block Attack Damage while wielding a Staff
 {variant:3,4}+25% Chance to Block Attack Damage while wielding a Staff
@@ -163,7 +163,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
+LevelReq: 64
 Implicits: 3
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}+20% Chance to Block Attack Damage while wielding a Staff
@@ -181,7 +181,7 @@ Replica Duskdawn
 Maelström Staff
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 64, 113 Str, 113 Int
+LevelReq: 64
 Implicits: 1
 +25% Chance to Block Attack Damage while wielding a Staff
 +10% Chance to Block Attack Damage while wielding a Staff
@@ -213,7 +213,7 @@ Source: Created from item parts obtained from Boss in The Beachhead
 Upgrade: Upgrades to unique{The Yielding Mortality} via currency{Haemocombustion Scroll}
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 66, 113 Str, 113 Int
+LevelReq: 66
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 {variant:1}Socketed Gems are supported by Level 10 Life Leech
@@ -228,7 +228,7 @@ The Yielding Mortality
 Imperial Staff
 League: Harvest
 Source: Upgraded from unique{The Enmity Divine} via currency{Haemocombustion Scroll}
-Requires Level 66, 113 Str, 113 Int
+LevelReq: 66
 Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 Socketed Gems are supported by Level 1 Chance to Bleed
@@ -243,7 +243,7 @@ Primordial Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 58, 99 Str, 99 Int
+LevelReq: 58
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}+18% Chance to Block Attack Damage while wielding a Staff
@@ -285,7 +285,7 @@ The Fulcrum
 Ezomyte Staff
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 60, 113 Str, 113 Int
+LevelReq: 60
 Implicits: 1
 +20% Chance to Block Attack Damage while wielding a Staff
 (140-180)% increased Physical Damage
@@ -300,7 +300,7 @@ Gain (30-40)% of Physical Damage as Extra Damage of a random Element while you a
 Mirebough
 Gnarled Branch
 Source: No longer obtainable
-Requires Level 32
+LevelReq: 32
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 Socketed Gems are Supported by Level 16 Trap
@@ -314,7 +314,7 @@ The Grey Spire
 Judgement Staff
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 68, 113 Str, 113 Int
+LevelReq: 68
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+20% Chance to Block Spell Damage while wielding a Staff
@@ -329,7 +329,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 68, 113 Str, 113 Int
+LevelReq: 68
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}+18% Chance to Block Attack Damage while wielding a Staff
@@ -349,7 +349,7 @@ Highborn Staff
 Variant: Pre 3.5.0
 Variant: Pre 3.13.0
 Variant: Current
-Requires Level 52, 89 Str, 89 Int
+LevelReq: 52
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 (12-16)% Chance to Block Attack Damage while wielding a Staff
@@ -368,7 +368,7 @@ Pillar of the Caged God
 Iron Staff
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 13, 27 Str, 27 Int
+LevelReq: 13
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+18% Chance to Block Attack Damage while wielding a Staff
@@ -384,7 +384,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 68, 113 Str, 113 Int
+LevelReq: 68
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+18% Chance to Block Attack Damage while wielding a Staff
@@ -398,7 +398,7 @@ Realmshaper
 Iron Staff
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 18, 35 Str, 35 Int
+LevelReq: 18
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+18% Chance to Block Attack Damage while wielding a Staff
@@ -414,7 +414,7 @@ Iron Staff
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.17.0
-Requires Level 40, 35 Str, 35 Int
+LevelReq: 40
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+18% Chance to Block Attack Damage while wielding a Staff
@@ -449,7 +449,7 @@ Sire of Shards
 Serpentine Staff
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 49, 85 Str, 85 Int
+LevelReq: 49
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+20% Chance to Block Attack Damage while wielding a Staff
@@ -465,7 +465,7 @@ Ezomyte Staff
 League: Delve
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 62, 113 Str, 113 Int
+LevelReq: 62
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+20% Chance to Block Attack Damage while wielding a Staff
@@ -480,7 +480,7 @@ The Stormheart
 Royal Staff
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 28, 51 Str, 51 Int
+LevelReq: 28
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+18% Chance to Block Attack Damage while wielding a Staff
@@ -495,7 +495,7 @@ Adds (1-10) to (70-90) Lightning Damage
 The Stormwall
 Royal Staff
 Source: No longer obtainable
-Requires Level 60, 51 Str, 51 Int
+LevelReq: 60
 Implicits: 1
 18% Chance to Block Attack Damage while wielding a Staff
 15% Chance to Block Attack Damage while wielding a Staff
@@ -513,7 +513,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
+LevelReq: 64
 Implicits: 3
 {variant:1,2}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:3}+20% Chance to Block Attack Damage while wielding a Staff
@@ -532,7 +532,7 @@ Military Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 45, 78 Str, 78 Int
+LevelReq: 45
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}+18% Chance to Block Attack Damage while wielding a Staff
@@ -549,7 +549,7 @@ The Whispering Ice
 Vile Staff
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 33, 59 Str, 59 Int
+LevelReq: 33
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+18% Chance to Block Attack Damage while wielding a Staff
@@ -563,7 +563,7 @@ Witchhunter's Judgment
 Highborn Staff
 League: Harvest
 Source: Drops from unique{Oshabi, Avatar of the Grove}
-Requires Level 68, 89 Str, 89 Int
+LevelReq: 68
 Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 Grants Level 20 Brandsurge Skill
@@ -574,7 +574,7 @@ Coiled Staff
 Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 28, 43 Str, 43 Int
+LevelReq: 28
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+20% Chance to Block Attack Damage while wielding a Staff

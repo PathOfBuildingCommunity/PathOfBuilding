@@ -72,7 +72,7 @@ Craghead
 Serrated Arrow Quiver
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 5
+LevelReq: 5
 Implicits: 1
 1 to 4 Added Physical Damage with Bow Attacks
 (20-25)% reduced Enemy Stun Threshold
@@ -84,7 +84,7 @@ Adds 6 to 10 Physical Damage to Attacks with Bows
 Cragfall
 Serrated Arrow Quiver
 Source: No longer obtainable
-Requires Level 5
+LevelReq: 5
 Implicits: 1
 1 to 4 Added Physical Damage with Bow Attacks
 (20-25)% reduced Enemy Stun Threshold
@@ -95,7 +95,7 @@ Adds 6 to 10 Physical Damage to Attacks with Bows
 ]],[[
 Drillneck
 Penetrating Arrow Quiver
-Requires Level 36
+LevelReq: 36
 Implicits: 1
 Arrows Pierce an additional Target
 (8-12)% increased Attack Speed
@@ -109,7 +109,7 @@ Blunt Arrow Quiver
 League: Harbinger
 Source: Created from item parts obtained from Boss in The Beachhead
 Upgrade: Upgrades to unique{The Shattered Divinity} via currency{Fragmentation Scroll}
-Requires Level 60
+LevelReq: 60
 Implicits: 1
 (7-9) to (13-16) Added Physical Damage with Bow Attacks
 Grants Summon Harbinger of Directions Skill
@@ -122,7 +122,7 @@ The Shattered Divinity
 Blunt Arrow Quiver
 League: Harvest
 Source: Upgraded from unique{The Fracturing Spinner} via currency{Fragmentation Scroll}
-Requires Level 60
+LevelReq: 60
 Implicits: 1
 (7-9) to (13-16) Added Physical Damage with Bow Attacks
 Grants Summon Greater Harbinger of Directions Skill
@@ -136,7 +136,7 @@ Sharktooth Arrow Quiver
 Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 14
+LevelReq: 14
 Implicits: 1
 Gain (6-8) Life per Enemy Hit with Attacks
 +(15-25) to Strength
@@ -150,7 +150,7 @@ Gain (2-3) Life per Enemy Hit with Attacks
 Hyrri's Demise
 Sharktooth Arrow Quiver
 Source: No longer obtainable
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 Gain (6-8) Life per Enemy Hit with Attacks
 +(15-30) to all Attributes
@@ -163,7 +163,7 @@ Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
 ]],[[
 Maloney's Mechanism
 Ornate Quiver
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 Has 1 Socket
 Has 2 Sockets
@@ -176,7 +176,7 @@ Replica Maloney's Mechanism
 Ornate Quiver
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 Has 1 Socket
 Has 2 Sockets
@@ -227,7 +227,7 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, The Wolven King} (Level 70+)
-Requires Level 56
+LevelReq: 56
 Implicits: 1
 (20-30)% increased Global Accuracy Rating
 -10% to Fire Resistance
@@ -240,7 +240,7 @@ Gain 7 Life per Enemy Hit with Attacks
 ]],[[
 Saemus' Gift
 Spike-Point Arrow Quiver
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 (20-30)% increased Critical Strike Chance with Bows
 +(30-40) to Dexterity
@@ -256,7 +256,7 @@ Scorpion's Call
 Variant: Pre 3.17.0
 Variant: Current
 League: Harvest
-Requires Level 57
+LevelReq: 57
 Implicits: 2
 {variant:1}6 to 12 Added Physical Damage with Bow Attacks
 {variant:2}(12-16) to (24-27) Added Physical Damage with Bow Attacks
@@ -269,7 +269,7 @@ Implicits: 2
 ]],[[
 Skirmish
 Two-Point Arrow Quiver
-Requires Level 36
+LevelReq: 36
 Implicits: 1
 (20-30)% increased Global Accuracy Rating
 +(15-25) to Intelligence
@@ -297,7 +297,7 @@ Soul Strike
 Spike-Point Arrow Quiver
 Variant: Pre 2.5.0
 Variant: Current
-Requires Level 64
+LevelReq: 64
 Implicits: 1
 (20-30)% increased Critical Strike Chance with Bows
 +30 to Dexterity
@@ -312,7 +312,7 @@ Replica Soul Strike
 Spike-Point Arrow Quiver
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 64
+LevelReq: 64
 Implicits: 1
 (20-30)% increased Critical Strike Chance with Bows
 +30 to Dexterity

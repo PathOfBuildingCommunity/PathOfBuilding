@@ -9,7 +9,7 @@ Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
 {variant:1}10% Chance to Block Attack Damage
@@ -45,7 +45,7 @@ Implicits: 1
 Ngamahu Tiki
 Coral Amulet
 Source: No longer obtainable
-Requires Level 36
+LevelReq: 36
 Implicits: 1
 {tags:life}Regenerate (2-4) Life per second
 {tags:jewellery_elemental}(50-70)% increased Fire Damage
@@ -56,7 +56,7 @@ Implicits: 1
 ]],[[
 The Ascetic
 Gold Amulet
-Requires Level 8
+LevelReq: 8
 Implicits: 1
 (12-20)% increased Rarity of Items found
 (80-100)% increased Rarity of Items found with a Normal Item equipped
@@ -65,7 +65,7 @@ Implicits: 1
 Ashes of the Stars
 Onyx Amulet
 Source: Drops from unique{The Eater of Worlds}
-Requires Level 60
+LevelReq: 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 (5-10)% increased Experience Gain of Gems
@@ -75,7 +75,7 @@ Implicits: 1
 ]],[[
 Astramentis
 Onyx Amulet
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {tags:jewellery_attribute}+(80-100) to all Attributes
@@ -85,7 +85,7 @@ Atziri's Foible
 Paua Amulet
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 16
+LevelReq: 16
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
 {variant:1}{tags:mana}+50 to maximum Mana
@@ -102,7 +102,7 @@ Variant: Pre 3.16.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 16
+LevelReq: 16
 Implicits: 1
 {tags:life}Regenerate (1-2)% of Life per second
 {tags:life}+100 to maximum Life
@@ -131,7 +131,7 @@ Variant: Intelligence: Purity of Lightning
 Variant: Intelligence: Wrath
 Variant: Intelligence: Zealotry
 Variant: Envy
-Requires Level 55
+LevelReq: 55
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {variant:1,2,3,4,5}{tags:jewellery_attribute}+(20-30) to Strength
@@ -170,7 +170,7 @@ The Aylardex
 Agate Amulet
 Variant: Pre 2.5.0
 Variant: Current
-Requires Level 32
+LevelReq: 32
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Intelligence
 {tags:life}+(30-50) to maximum Life
@@ -198,7 +198,7 @@ Gold Amulet
 Variant: Pre 3.0.0
 Variant: Pre 3.2.0
 Variant: Current
-Requires Level 30
+LevelReq: 30
 Implicits: 1
 (12-20)% increased Rarity of Items found
 {variant:1}150% increased Rarity of Items Dropped by Slain Magic Enemies
@@ -213,7 +213,7 @@ Variant: Pre 3.16.0
 Variant: Current
 League: Talisman Hardcore
 Talisman Tier: 2
-Requires Level 28
+LevelReq: 28
 Implicits: 1
 (15-25)% increased Global Defences
 +(20-30) to maximum Energy Shield
@@ -228,7 +228,7 @@ Corrupted
 Blood of Corruption
 Amber Amulet
 Source: Use currency{Vaal Orb} on unique{Tear of Purity}
-Requires Level 5
+LevelReq: 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
 Grants Level 10 Gluttony of Elements Skill
@@ -243,7 +243,7 @@ Bloodgrip
 Variant: Pre 3.0.0
 Variant: Pre 3.12.0
 Variant: Current
-Requires Level 74
+LevelReq: 74
 Implicits: 2
 {variant:1}{tags:life}Regenerate (2-4) Life per second
 {variant:2,3}{tags:life}Regenerate (1.2-1.6)% of Life per second
@@ -258,7 +258,7 @@ Carnage Heart
 Onyx Amulet
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {tags:jewellery_attribute}+(20-40) to all Attributes
@@ -275,7 +275,7 @@ Onyx Amulet
 Variant: Pre 3.19.0
 Variant: Current
 Source: Drops from unique{The Searing Exarch}
-Requires Level 61
+LevelReq: 61
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 Modifiers to Attributes instead Apply to Omniscience
@@ -288,7 +288,7 @@ Attribute Requirements can be satisfied by (15-25)% of Omniscience
 Daresso's Salute
 Citrine Amulet
 League: Anarchy
-Requires Level 16
+LevelReq: 16
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_defense}50% reduced maximum Energy Shield
@@ -301,7 +301,7 @@ Implicits: 1
 The Ephemeral Bond
 Lapis Amulet
 League: Heist
-Requires Level 68
+LevelReq: 68
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:mana}(25-40)% increased Mana Regeneration Rate
@@ -314,7 +314,7 @@ Extractor Mentis
 Agate Amulet
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 16
+LevelReq: 16
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Intelligence
 {tags:jewellery_attribute}+(30-50) to Strength
@@ -329,7 +329,7 @@ Implicits: 1
 Eye of Chayula
 Onyx Amulet
 Upgrade: Upgrades to unique{Presence of Chayula} using currency{Blessing of Chayula}
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {tags:life}20% reduced maximum Life
@@ -340,7 +340,7 @@ Presence of Chayula
 Onyx Amulet
 League: Breach
 Source: Upgraded from unique{Eye of Chayula} using currency{Blessing of Chayula}
-Requires Level 60
+LevelReq: 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 30% increased Rarity of Items found
@@ -350,7 +350,7 @@ Cannot be Stunned
 ]],[[
 Eye of Innocence
 Citrine Amulet
-Requires Level 68
+LevelReq: 68
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_elemental}10% chance to Ignite
@@ -360,7 +360,7 @@ Implicits: 1
 ]],[[
 Eyes of the Greatwolf
 Greatwolf Talisman
-Requires Level 52
+LevelReq: 52
 Has Alt Variant: true
 Variant: Attributes
 Variant: Global Defences
@@ -435,7 +435,7 @@ League: Harvest
 Source: Drops from unique{Namharim, Born of Night} in normal{The Sacred Grove}
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 61
+LevelReq: 61
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-50) to Intelligence
@@ -451,7 +451,7 @@ Fury Valve
 Turquoise Amulet
 League: Metamorph
 Source: Drops from unique{Metamorph} in normal{Tane's Laboratory}
-Requires Level 40
+LevelReq: 40
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
 {tags:jewellery_defense}(15-25)% increased Evasion Rating
@@ -464,7 +464,7 @@ Gloomfang
 Blue Pearl Amulet
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 77
+LevelReq: 77
 Implicits: 1
 {tags:mana}(48-56)% increased Mana Regeneration Rate
 {tags:life}0.5% of Chaos Damage Leeched as Life
@@ -480,7 +480,7 @@ Jade Amulet
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Pandemonius} using currency{Blessing of Tul}
-Requires Level 35
+LevelReq: 35
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_elemental}(10-20)% increased Cold Damage
@@ -493,7 +493,7 @@ The Pandemonius
 Jade Amulet
 League: Breach
 Source: Upgraded from unique{The Halcyon} using currency{Blessing of Tul}
-Requires Level 64
+LevelReq: 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_elemental}(20-30)% increased Cold Damage
@@ -504,7 +504,7 @@ Blind Chilled Enemies on Hit
 ]],[[
 Hinekora's Sight
 Onyx Amulet
-Requires Level 20
+LevelReq: 20
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 1
@@ -519,7 +519,7 @@ Cannot be Blinded
 Hyrri's Truth
 Jade Amulet
 League: Synthesis
-Requires Level 64
+LevelReq: 64
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
@@ -564,7 +564,7 @@ The Ignomon
 Gold Amulet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 8
+LevelReq: 8
 Implicits: 1
 (12-20)% increased Rarity of Items found
 {variant:1}{tags:jewellery_attribute}+10 to Dexterity
@@ -579,7 +579,7 @@ Implicits: 1
 The Effigon
 Gold Amulet
 Source: No longer obtainable
-Requires Level 57
+LevelReq: 57
 Implicits: 1
 (12-20)% increased Rarity of Items found
 {tags:jewellery_attribute}+10 to Dexterity
@@ -599,7 +599,7 @@ Variant: Fire
 Variant: Cold
 Variant: Lightning
 Variant: Chaos
-Requires Level 64
+LevelReq: 64
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {variant:1}{tags:attack,physical}Adds (12-16) to (20-25) Physical Damage
@@ -629,7 +629,7 @@ Karui Ward
 Jade Amulet
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 5
+LevelReq: 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_attribute}+(20-30) to Strength
@@ -642,7 +642,7 @@ Replica Karui Ward
 Jade Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 5
+LevelReq: 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_attribute}+(20-30) to Intelligence
@@ -656,7 +656,7 @@ Jade Amulet
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.17.0
-Requires Level 24
+LevelReq: 24
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_attribute}+(20-30) to Strength
@@ -671,7 +671,7 @@ Leadership's Price
 Onyx Amulet
 League: Heist
 Source: Drops from unique{Vic Vox} and unique{Vinny Vox} in normal{Contract: The Twins}
-Requires Level 68
+LevelReq: 68
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {tags:jewellery_resistance}+(-3-3)% to maximum Fire Resistance
@@ -683,7 +683,7 @@ Corrupted
 ]],[[
 Maligaro's Cruelty
 Turquoise Amulet
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
 {tags:life}(4-8)% increased maximum Life
@@ -697,7 +697,7 @@ Citrine Amulet
 Variant: Pre 3.16.0
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 48
+LevelReq: 48
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-40) to Intelligence
@@ -716,7 +716,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 40
+LevelReq: 40
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:attack}+(80-120) to Accuracy Rating
@@ -736,7 +736,7 @@ Natural Hierarchy
 Rotfeather Talisman
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 3
-Requires Level 44
+LevelReq: 44
 Implicits: 1
 (25-35)% increased Damage
 (10-15)% increased Global Physical Damage
@@ -750,7 +750,7 @@ Night's Hold
 Black Maw Talisman
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 1
-Requires Level 12
+LevelReq: 12
 Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Gems
@@ -761,7 +761,7 @@ Corrupted
 ]],[[
 Perquil's Toe
 Gold Amulet
-Requires Level 29
+LevelReq: 29
 Implicits: 1
 (12-20)% increased Rarity of Items found
 {tags:jewellery_attribute}+(40-50) to Dexterity
@@ -772,7 +772,7 @@ Nearby Allies' Damage with Hits is Lucky
 The Primordial Chain
 Coral Amulet
 League: Delve
-Requires Level 34
+LevelReq: 34
 Implicits: 1
 {tags:life}Regenerate (2-4) Life per second
 +3 to maximum number of Golems
@@ -787,7 +787,7 @@ Rashkaldor's Patience
 Jade Amulet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 48
+LevelReq: 48
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:life}+(40-80) to maximum Life
@@ -804,7 +804,7 @@ Retaliation Charm
 Citrine Amulet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 30
+LevelReq: 30
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {variant:2}(10-20)% chance to Blind Enemies on Hit with Attacks
@@ -821,7 +821,7 @@ League: Talisman Standard
 Variant: Pre 2.2.0
 Variant: Current
 Talisman Tier: 2
-Requires Level 28
+LevelReq: 28
 Implicits: 2
 {variant:1}+(16-24)% to Global Critical Strike Multiplier
 {variant:2}+(24-36)% to Global Critical Strike Multiplier
@@ -838,7 +838,7 @@ Variant: Current
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Zerphi's Heart} via currency{Vial of Sacrifice}
-Requires Level 32
+LevelReq: 32
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
 {tags:jewellery_elemental}Adds (22-27) to (34-38) Fire Damage
@@ -855,7 +855,7 @@ League: Incursion
 Source: Upgraded from unique{Sacrificial Heart} via currency{Vial of Sacrifice}
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 70
+LevelReq: 70
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
 {tags:chaos}Adds (48-53) to (58-60) Chaos Damage
@@ -869,7 +869,7 @@ Agate Amulet
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 16
+LevelReq: 16
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Intelligence
 {variant:1,2}{tags:mana}(30-50)% increased Mana Regeneration Rate
@@ -907,7 +907,7 @@ Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 64
+LevelReq: 64
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {variant:1}(20-25)% increased Damage
@@ -924,7 +924,7 @@ Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 28
+LevelReq: 28
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:3}Grants Level 10 Frostblink Skill
@@ -942,7 +942,7 @@ Lapis Amulet
 Variant: Pre 3.4.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 5
+LevelReq: 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {variant:1}+15% Chance to Block Spell Damage
@@ -955,7 +955,7 @@ Implicits: 1
 Stranglegasp
 Onyx Amulet
 Source: Drops in Blight-ravaged Maps
-Requires Level 52
+LevelReq: 52
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 Can have 3 additional Enchantment Modifiers
@@ -965,7 +965,7 @@ Coral Amulet
 League: Legion
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 54
+LevelReq: 54
 Implicits: 1
 {tags:life}Regenerate (2-4) Life per second
 {tags:jewellery_attribute}+(30-40) to Intelligence
@@ -982,7 +982,7 @@ Lapis Amulet
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 5
+LevelReq: 5
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 Grants Level 10 Purity of Elements Skill
@@ -997,7 +997,7 @@ Ungil's Harmony
 Turquoise Amulet
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 23
+LevelReq: 23
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
 {tags:critical}{variant:1}100% increased Global Critical Strike Chance
@@ -1010,7 +1010,7 @@ Your Critical Strikes do not deal extra Damage
 Uul-Netol's Vow
 Unset Amulet
 Source: Drops from unique{Breachlord} in a normal{Flawless Breachstone}
-Requires Level 72
+LevelReq: 72
 Implicits: 1
 Has 1 Socket
 Socketed Support Gems can also Support Skills from your Body Armour
@@ -1022,7 +1022,7 @@ Socketed Support Gems can also Support Skills from your Body Armour
 Victario's Acuity
 Turquoise Amulet
 League: Onslaught
-Requires Level 16
+LevelReq: 16
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
 {tags:jewellery_resistance}+(30-40)% to Lightning Resistance
@@ -1039,7 +1039,7 @@ Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 40
+LevelReq: 40
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 Trigger Level 12 Lightning Bolt when you deal a Critical Strike
@@ -1055,7 +1055,7 @@ Source: Upgraded from unique{Voice of the Storm} using currency{Blessing of Esh}
 Variant: Pre 3.0.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 69
+LevelReq: 69
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 Trigger Level 20 Lightning Bolt when you deal a Critical Strike
@@ -1068,7 +1068,7 @@ Trigger Level 20 Lightning Bolt when you deal a Critical Strike
 Voll's Devotion
 Agate Amulet
 League: Anarchy, Onslaught
-Requires Level 32
+LevelReq: 32
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Intelligence
 {tags:life}+(30-40) to maximum Life
@@ -1083,7 +1083,7 @@ Turquoise Amulet
 Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 50
+LevelReq: 50
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
 {variant:1}{tags:attack,speed}(8-12)% increased Attack Speed
@@ -1103,7 +1103,7 @@ Willowgift
 Jade Amulet
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 52
+LevelReq: 52
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_attribute}10% reduced Strength
@@ -1118,7 +1118,7 @@ Winterheart
 Gold Amulet
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 42
+LevelReq: 42
 Implicits: 1
 (12-20)% increased Rarity of Items found
 {tags:jewellery_attribute}+(20-30) to Dexterity
@@ -1132,7 +1132,7 @@ Replica Winterheart
 Gold Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 42
+LevelReq: 42
 Implicits: 1
 (12-20)% increased Rarity of Items found
 {tags:jewellery_attribute}+(20-30) to Dexterity
@@ -1146,7 +1146,7 @@ Amber Amulet
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Blood} using currency{Blessing of Xoph}
-Requires Level 35
+LevelReq: 35
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
 {tags:jewellery_attribute}+(20-30) to Strength
@@ -1159,7 +1159,7 @@ Xoph's Blood
 Amber Amulet
 League: Breach
 Source: Upgraded from unique{Xoph's Heart} using currency{Blessing of Xoph}
-Requires Level 64
+LevelReq: 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Strength
 {tags:life}10% increased maximum Life
@@ -1171,7 +1171,7 @@ Avatar of Fire
 ]],[[
 Yoke of Suffering
 Onyx Amulet
-Requires Level 70
+LevelReq: 70
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {tags:jewellery_resistance}+(10-20)% to Fire Resistance
@@ -1187,7 +1187,7 @@ Onyx Amulet
 Searing Exarch Item
 Eater of Worlds Item
 Source: Drops from unique{The Black Star} or unique{The Infinite Hunger}
-Requires Level 61
+LevelReq: 61
 Implicits: 2
 9% increased Mana Reservation Efficiency of Skills
 {tags:speed}6% increased Movement Speed
