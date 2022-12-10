@@ -819,6 +819,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill VaalFlickerStrike
+#flags attack melee duration
+#mods
+
 #skill Frenzy
 #flags attack melee projectile
 	statMap = {
