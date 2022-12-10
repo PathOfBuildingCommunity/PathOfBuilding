@@ -97,8 +97,8 @@ Buffs from Active Ancestor Totems Linger for 4 seconds
 Maximum 1 Buff from an Active Ancestor Totem at a time
 ]],[[
 Immutable Force
-Limited to: 1
 Crimson Jewel
+Limited to: 1
 (500-1000)% increased Stun and Block Recovery
 ]],[[
 Doedre's Tongue
@@ -117,7 +117,7 @@ Implicits: 1
 30% increased Chaos Damage
 Adds (600-650) to (750-800) Chaos Damage
 (-16-16)% increased Attack Speed
-(-200-200) to maximum Life
++(-200-200) to maximum Life
 Your Chaos Damage can Shock
 (-40-40)% increased Area of Effect for Attacks
 Deal no Physical or Elemental Damage
