@@ -465,7 +465,8 @@ local modNameList = {
 	["to impale on spell hit"] = { "ImpaleChance", flags = ModFlag.Spell },
 	["impale effect"] = "ImpaleEffect",
 	["effect of impales you inflict"] = "ImpaleEffect",
-	["effects of impale inflicted by spells"] = { "ImpaleEffect", flags = ModFlag.Spell },
+	["effects of impale inflicted"] = "ImpaleEffect", -- typo / old wording change
+	["effect of impales inflicted"] = "ImpaleEffect",
 	-- Projectile modifiers
 	["projectile"] = "ProjectileCount",
 	["projectiles"] = "ProjectileCount",
@@ -2430,6 +2431,7 @@ local specialModList = {
 	["increases and reductions to minion damage also affects? you at (%d+)%% of their value"] = function(num) return { flag("MinionDamageAppliesToPlayer"), mod("ImprovedMinionDamageAppliesToPlayer", "MAX", num) } end,
 	["increases and reductions to minion attack speed also affects? you"] = { flag("MinionAttackSpeedAppliesToPlayer"), mod("ImprovedMinionAttackSpeedAppliesToPlayer", "MAX", 100) },
 	["increases and reductions to cast speed apply to attack speed at (%d+)%% of their value"] =  function(num) return { flag("CastSpeedAppliesToAttacks"), mod("ImprovedCastSpeedAppliesToAttacks", "MAX", num) } end,
+	["increases and reductions to cast speed apply to attack speed"] =  function(num) return { flag("CastSpeedAppliesToAttacks"), mod("ImprovedCastSpeedAppliesToAttacks", "MAX", 100) } end,
 	["increases and reductions to spell damage also apply to attacks"] = { flag("SpellDamageAppliesToAttacks"), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", 100) },
 	["increases and reductions to spell damage also apply to attacks at (%d+)%% of their value"] = function(num) return { flag("SpellDamageAppliesToAttacks"), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", num) } end,
 	["increases and reductions to spell damage also apply to attacks while wielding a wand"] = { flag("SpellDamageAppliesToAttacks", { type = "Condition", var = "UsingWand" }), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", 100, { type = "Condition", var = "UsingWand" }) },
@@ -2627,7 +2629,8 @@ local specialModList = {
 	["always sap while affected by wrath"] = { mod("EnemySapChance", "BASE", 100, { type = "Condition", var = "AffectedByWrath" }) },
 	["drops burning ground while moving, dealing (%d+) fire damage per second for %d+ seconds"] = function(num) return { mod("DropsBurningGround", "BASE", num) } end,
 	["modifiers to ignite duration on you apply to all elemental ailments"] = { flag("IgniteDurationAppliesToElementalAilments") },
-	["chance to avoid being shocked applies to all elemental ailments"] = { flag("ShockAvoidAppliesToElementalAilments") },
+	["chance to avoid being shocked applies to all elemental ailments"] = { flag("ShockAvoidAppliesToElementalAilments") }, -- typo / old wording change
+	["modifiers to chance to avoid being shocked apply to all elemental ailments"] = { flag("ShockAvoidAppliesToElementalAilments") },
 	-- Bleed
 	["melee attacks cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee) },
 	["attacks cause bleeding when hitting cursed enemies"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Attack, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
@@ -3283,7 +3286,10 @@ local specialModList = {
 	["immun[ei]t?y? to ignite during f?l?a?s?k? ?effect"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "UsingFlask"}, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["immun[ei]t?y? to bleeding during f?l?a?s?k? ?effect"] = { mod("AvoidBleed", "BASE", 100, { type = "Condition", var = "UsingFlask"}, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["immun[ei]t?y? to curses during f?l?a?s?k? ?effect"] = { mod("AvoidCurse", "BASE", 100, { type = "Condition", var = "UsingFlask"}, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
-	["when you kill an enemy affected by a non%-aura hex, become immune to curses for remaining hex duration"] = {
+	["when you kill an enemy affected by a non%-aura hex, become immune to curses for remaining hex duration"] = { -- typo / old wording change
+		flag("Condition:CanBeCurseImmune"),
+	},
+	["when you kill an enemy cursed with a non-aura hex, become immune to curses for remaining hex Duration"] = {
 		flag("Condition:CanBeCurseImmune"),
 	},
 	["immun[ei]t?y? to freeze, chill, curses and stuns during f?l?a?s?k? ?effect"] = {
@@ -3495,6 +3501,7 @@ local specialModList = {
 	["deal no non%-lightning damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos") },
 	["deal no non%-physical damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos") },
 	["cannot deal non%-chaos damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoLightning") },
+	["deal no physical or elemental damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoLightning") },
 	["deal no damage when not on low life"] = {
 		flag("DealNoLightning", { type = "Condition", var = "LowLife", neg = true }),
 		flag("DealNoCold", { type = "Condition", var = "LowLife", neg = true }),
