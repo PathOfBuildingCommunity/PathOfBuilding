@@ -2628,6 +2628,10 @@ local specialModList = {
 	["always inflict brittle while affected by hatred"] = {	mod("EnemyBrittleChance", "BASE", 100, { type = "Condition", var = "AffectedByHatred" }) },
 	["always sap while affected by wrath"] = { mod("EnemySapChance", "BASE", 100, { type = "Condition", var = "AffectedByWrath" }) },
 	["drops burning ground while moving, dealing (%d+) fire damage per second for %d+ seconds"] = function(num) return { mod("DropsBurningGround", "BASE", num) } end,
+	["drops burning ground while moving, dealing (%d+) fire damage per second for %d+ seconds"] = function(num) return { mod("DropsBurningGround", "BASE", num) } end,
+	["take (%d+) fire damage per second while flame%-touched"] = function(num) return { mod("FireDegen", "BASE", num, { type = "Condition", var = "FlameTouched" }) } end,
+	["gain adrenaline when you become flame%-touched"] = { flag("Condition:Adrenaline", { type = "Condition", var = "FlameTouched" }) },
+	["lose adrenaline when you cease to be flame%-touched"] = { },
 	["modifiers to ignite duration on you apply to all elemental ailments"] = { flag("IgniteDurationAppliesToElementalAilments") },
 	["chance to avoid being shocked applies to all elemental ailments"] = { flag("ShockAvoidAppliesToElementalAilments") }, -- typo / old wording change
 	["modifiers to chance to avoid being shocked apply to all elemental ailments"] = { flag("ShockAvoidAppliesToElementalAilments") },
