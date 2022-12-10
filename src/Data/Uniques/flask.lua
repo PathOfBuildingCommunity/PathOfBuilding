@@ -11,7 +11,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 50
 {variant:3}100% increased Life Recovered
 {variant:4,5}50% increased Life Recovered
 {variant:1}(30-20)% reduced Recovery rate
@@ -103,7 +102,7 @@ Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacri
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 68
+LevelReq: 68
 {variant:1}Gain (13-15)% of Elemental Damage as Extra Chaos Damage during effect
 {variant:2}Gain (10-15)% of Elemental Damage as Extra Chaos Damage during effect
 {variant:3}Gain (5-8)% of Elemental Damage as Extra Chaos Damage during effect
@@ -131,7 +130,6 @@ Consecrated Ground created during Effect applies (7-10)% increased Damage taken 
 ]],[[
 Coralito's Signature
 Diamond Flask
-Requires Level 27
 Variant: Pre 3.15.0
 Variant: Current
 {variant:1}Take 30 Chaos Damage per Second during Effect
@@ -169,7 +167,7 @@ Variant: Reduced Reflected Damage Taken
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0 Crit Chance
 Variant: Current
-Requires Level 22
+LevelReq: 48
 Implicits: 0
 {variant:10}+90 to maximum Charges
 {variant:8}Recharges 1 Charges when you Consume an Ignited corpse
@@ -197,7 +195,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 68
+LevelReq: 68
 {variant:2}(-10-10)% reduced Charges per use
 {variant:3,4}(150-125)% increased Charges per use
 {variant:3}(60-40)% reduced duration
@@ -226,7 +224,6 @@ Silver Flask
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-LevelReq: 40
 Implicits: 0
 Immunity to Freeze, Chill, Curses and Stuns during Effect
 {variant:1}50% reduced Duration
@@ -254,7 +251,7 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 40
+LevelReq: 40
 {variant:1,2}15% chance to gain a Flask Charge when you deal a Critical Strike
 {variant:3}50% chance to gain a Flask Charge when you deal a Critical Strike
 {variant:1}(150-100)% increased Charges per use
@@ -458,7 +455,6 @@ Elixir of the Unbroken Circle
 Iron Flask
 League: Expedition
 Source: Drops from unique{Medved, Feller of Heroes} in normal{Expedition Logbook}
-Requires Level 40
 (20-40)% increased Duration
 Recover 4% of Life per Endurance Charge on use
 Lose all Endurance Charges on use
@@ -468,7 +464,6 @@ Olroth's Resolve
 Iron Flask
 League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
-Requires Level 40
 (50-40)% increased Charges per use
 Ward does not Break during Effect
 70% less Ward during Effect
@@ -477,7 +472,6 @@ Starlight Chalice
 Iron Flask
 League: Expedition
 Source: Drops from unique{Uhtred, Covetous Traitor} in normal{Expedition Logbook}
-Requires Level 40
 (20-30)% increased Charge Recovery
 Inflict Fire, Cold and Lightning Exposure on nearby Enemies when used
 (20-30)% increased Effect of Non-Damaging Ailments you inflict during Effect
@@ -486,7 +480,6 @@ Vorana's Preparation
 Iron Flask
 League: Expedition
 Source: Drops from unique{Vorana, Last to Fall} in normal{Expedition Logbook}
-Requires Level 40
 (-10-10)% reduced Charges per use
 Debilitate nearby Enemies for 2 Seconds when Effect ends
 Effect is removed when Ward Breaks
