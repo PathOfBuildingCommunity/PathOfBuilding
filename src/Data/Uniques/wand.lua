@@ -7,7 +7,7 @@ Abberath's Horn
 Goat's Horn
 Variant: Pre 2.3.0
 Variant: Current
-Requires Level 6, 29 Int
+LevelReq: 6
 Implicits: 2
 {variant:1}(9-12)% increased Spell Damage
 {variant:2}(10-14)% increased Spell Damage
@@ -24,7 +24,7 @@ Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 62, 212 Int
+LevelReq: 62
 Implicits: 2
 {variant:1}(17-20)% increased Spell Damage
 {variant:2,3,4,5}(38-42)% increased Spell Damage
@@ -42,7 +42,7 @@ Quartz Wand
 Variant: Pre 3.8.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 18, 65 Int
+LevelReq: 18
 Implicits: 1
 (18-22)% increased Spell Damage
 {variant:1,2}10% chance to Trigger Level 8 Summon Raging Spirit on Kill
@@ -63,7 +63,7 @@ Variant: Pre 2.2.0
 Variant: Pre 2.3.0
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 45, 146 Int
+LevelReq: 45
 Implicits: 2
 {variant:1,2}(14-18)% increased Spell Damage
 {variant:3,4}(29-33)% increased Spell Damage
@@ -81,7 +81,7 @@ Crystal Wand
 Source: No longer obtainable
 Variant: Pre 3.10.0
 Variant: Pre 3.17.0
-Requires Level 63, 146 Int
+LevelReq: 63
 Implicits: 1
 (29-33)% increased Spell Damage
 Triggers Level 20 Blinding Aura when Equipped
@@ -96,7 +96,7 @@ Adds (145-157) to (196-210) Fire Damage to Hits with this Weapon against Blinded
 ]],[[
 Lifesprig
 Driftwood Wand
-Requires Level 2
+LevelReq: 2
 Implicits: 1
 (8-12)% increased Spell Damage
 +1 to Level of Socketed Spell Gems
@@ -111,7 +111,7 @@ Engraved Wand
 Variant: Pre 2.3.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 40, 131 Int
+LevelReq: 40
 Implicits: 2
 {variant:1}(12-16)% increased Spell Damage
 {variant:2,3}(22-26)% increased Spell Damage
@@ -130,7 +130,7 @@ Replica Midnight Bargain
 Engraved Wand
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 40, 131 Int
+LevelReq: 40
 Implicits: 1
 (22-26)% increased Spell Damage
 Cannot be used with Chaos Inoculation
@@ -147,7 +147,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.3.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 59, 188 Int
+LevelReq: 59
 Implicits: 2
 {variant:1,2}(15-19)% increased Spell Damage
 {variant:3,4}(33-37)% increased Spell Damage
@@ -168,7 +168,7 @@ Variant: Pre 2.3.0
 Variant: Pre 3.10.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 56, 179 Int
+LevelReq: 56
 Implicits: 2
 {variant:1}(15-18)% increased Spell Damage
 {variant:2,3,4}(31-35)% increased Spell Damage
@@ -184,7 +184,7 @@ Tornado Wand
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 65, 212 Int
+LevelReq: 65
 Implicits: 2
 {variant:1}(16-19)% increased Spell Damage
 {variant:2,3}(35-39)% increased Spell Damage
@@ -197,7 +197,7 @@ Attacks with this Weapon have (100-115)% increased Elemental Damage
 ]],[[
 The Poet's Pen
 Carved Wand
-Requires Level 12, 47 Int
+LevelReq: 12
 Implicits: 1
 (11-15)% increased Spell Damage 
 +1 to Level of Socketed Active Skill Gems per 25 Player Levels 
@@ -211,7 +211,7 @@ Variant: Pre 2.3.0
 Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 24, 83 Int
+LevelReq: 24
 Implicits: 2
 {variant:1}(10-14)% increased Spell Damage
 {variant:2,3,4}(15-19)% increased Spell Damage
@@ -226,7 +226,7 @@ Relic of the Pact
 Spiraled Wand
 League: Ultimatum
 Source: Drops from unique{The Trialmaster}
-Requires Level 24, 83 Int
+LevelReq: 24
 Implicits: 1
 (15-19)% increased Spell Damage
 Grants Level 1 Blood Sacrament Skill
@@ -237,7 +237,7 @@ Spiraled Wand
 Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 36, 83 Int
+LevelReq: 36
 Implicits: 1
 (15-19)% increased Spell Damage
 {variant:1}+1 to Level of Socketed Gems
@@ -251,7 +251,7 @@ Shade of Solaris
 Sage Wand
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 30, 119 Int
+LevelReq: 30
 Implicits: 1
 (17-21)% increased Spell Damage
 Gain (10-20)% of Elemental Damage as Extra Chaos Damage
@@ -265,7 +265,7 @@ Elder Item
 Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
-Requires Level 65, 212 Int
+LevelReq: 65
 Implicits: 1
 (35-39)% increased Spell Damage 
 (30-40)% increased Spell Damage 
@@ -281,7 +281,7 @@ Storm Prison
 Carved Wand
 Variant: Pre 2.3.0
 Variant: Current
-Requires Level 12, 47 Int
+LevelReq: 12
 Implicits: 2
 {variant:1}(9-13)% increased Spell Damage
 {variant:2}(11-15)% increased Spell Damage
@@ -296,7 +296,7 @@ Spiraled Wand
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
-Requires Level 24, 83 Int
+LevelReq: 24
 Implicits: 1
 (15-19)% increased Spell Damage
 (10-15)% increased Cast Speed
@@ -310,7 +310,7 @@ Variant: Pre 3.16.0
 Variant: Current
 League: Breach
 Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
-Requires Level 65, 212 Int
+LevelReq: 65
 Implicits: 1
 (35-39)% increased Spell Damage
 (10-15)% increased Cast Speed
@@ -326,7 +326,7 @@ Replica Tulfall
 Tornado Wand
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 65, 212 Int
+LevelReq: 65
 Implicits: 1
 (35-39)% increased Spell Damage
 (15-25)% increased Cast Speed
@@ -340,7 +340,7 @@ Twyzel
 Sage Wand
 Variant: Pre 2.3.0
 Variant: Current
-Requires Level 30, 119 Int
+LevelReq: 30
 Implicits: 2
 {variant:1}(11-14)% increased Spell Damage
 {variant:2}(17-21)% increased Spell Damage
@@ -354,7 +354,7 @@ Replica Twyzel
 Sage Wand
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 30, 119 Int
+LevelReq: 30
 Implicits: 1
 (17-21)% increased Spell Damage
 (5-10)% increased Attack Speed
@@ -365,7 +365,7 @@ Void Battery
 Prophecy Wand
 Variant: Pre 2.3.0
 Variant: Current
-Requires Level 68, 245 Int
+LevelReq: 68
 Implicits: 2
 {variant:1}(16-20)% increased Spell Damage
 {variant:2}(36-40)% increased Spell Damage

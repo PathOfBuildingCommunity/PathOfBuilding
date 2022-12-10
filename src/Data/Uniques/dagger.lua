@@ -5,7 +5,7 @@ return {
 [[
 Arakaali's Fang
 Fiend Dagger
-Requires Level 53, 58 Dex, 123 Int
+LevelReq: 53
 Implicits: 1
 40% increased Global Critical Strike Chance
 100% chance to Trigger Level 1 Raise Spiders on Kill
@@ -19,7 +19,7 @@ Slaughter Knife
 Variant: Pre 2.2.0
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 65, 81 Dex, 117 Int
+LevelReq: 65
 Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:1,2}30% increased Damage over Time
@@ -36,7 +36,7 @@ Bloodplay
 Stiletto
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 15, 30 Dex, 30 Int
+LevelReq: 15
 Implicits: 1
 30% increased Global Critical Strike Chance
 +20 to Dexterity
@@ -51,7 +51,7 @@ Replica Bloodplay
 Stiletto
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 15, 30 Dex, 30 Int
+LevelReq: 15
 Implicits: 1
 30% increased Global Critical Strike Chance
 +20 to Strength
@@ -63,7 +63,7 @@ Extra gore
 ]],[[
 Cold Iron Point
 Ezomyte Dagger
-Requires Level 62, 95 Dex, 131 Int
+LevelReq: 62
 Implicits: 1
 30% increased Global Critical Strike Chance
 +3 to Level of all Physical Spell Skill Gems
@@ -73,7 +73,7 @@ Replica Cold Iron Point
 Ezomyte Dagger
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 62, 95 Dex, 131 Int
+LevelReq: 62
 Implicits: 1
 30% increased Global Critical Strike Chance
 +3 to Level of all Cold Spell Skill Gems
@@ -84,7 +84,7 @@ Fiend Dagger
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 53, 58 Dex, 123 Int
+LevelReq: 53
 Implicits: 1
 40% increased Global Critical Strike Chance
 +1 to Level of all Fire Spell Skill Gems
@@ -101,7 +101,7 @@ League: Legion
 Variant: Pre 3.7.0
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 66, 95 Dex, 131 Int
+LevelReq: 66
 Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:1,2}(50-70)% increased Spell Damage
@@ -121,7 +121,7 @@ Implicits: 1
 ]],[[
 Goredrill
 Skinning Knife
-Requires Level 5, 16 Dex
+LevelReq: 5
 Implicits: 1
 30% increased Global Critical Strike Chance
 +(10-15) to Dexterity
@@ -134,7 +134,7 @@ Adds (1-2) to (3-5) Physical Damage
 Sanguine Gambol
 Skinning Knife
 Source: No longer obtainable
-Requires Level 59
+LevelReq: 59
 Implicits: 1
 30% increased Global Critical Strike Chance
 (50-70)% increased Physical Damage
@@ -148,7 +148,7 @@ You have Crimson Dance if you have dealt a Critical Strike Recently
 Goblinedge
 Ambusher
 League: Ritual
-Requires Level 60, 113 Dex, 113 Int
+LevelReq: 60
 Implicits: 1
 30% increased Global Critical Strike Chance
 (200-250)% increased Physical Damage
@@ -163,7 +163,7 @@ Royal Skean
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 50, 71 Dex, 102 Int
+LevelReq: 50
 Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:1}(40-50)% increased Spell Damage
@@ -181,7 +181,7 @@ Variant: Pre 3.19.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 50, 71 Dex, 102 Int
+LevelReq: 50
 Implicits: 1
 30% increased Global Critical Strike Chance
 (60-70)% increased Spell Damage
@@ -197,7 +197,7 @@ The Hidden Blade
 Ambusher
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 60, 113 Dex, 113 Int
+LevelReq: 60
 Implicits: 1
 30% increased Global Critical Strike Chance
 Trigger Level 20 Unseen Strike every 0.5 seconds while Phasing
@@ -210,7 +210,7 @@ Platinum Kris
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 64, 76 Dex, 149 Int
+LevelReq: 64
 Implicits: 1
 50% increased Global Critical Strike Chance
 5% Additional Chance to Block while Dual Wielding
@@ -226,7 +226,7 @@ Implicits: 1
 ]],[[
 Mightflay
 Flaying Knife
-Requires Level 35, 73 Dex, 51 Int
+LevelReq: 35
 Implicits: 1
 30% increased Global Critical Strike Chance
 (80-100)% increased Physical Damage
@@ -236,7 +236,7 @@ Gain 10 Life per Enemy Hit with Attacks
 ]],[[
 Taproot
 Ambusher
-Requires Level 60, 113 Dex, 113 Int
+LevelReq: 60
 Implicits: 1
 30% increased Global Critical Strike Chance
 (180-200)% increased Physical Damage
@@ -252,7 +252,7 @@ Boot Knife
 Variant: Pre 1.1.0
 Variant: Pre 1.3.0
 Variant: Current
-Requires Level 20, 31 Dex, 45 Int
+LevelReq: 20
 Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:2}20% additional Chance to Block while Dual Wielding
@@ -267,7 +267,7 @@ Replica Ungil's Gauche
 Boot Knife
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 20, 31 Dex, 45 Int
+LevelReq: 20
 Implicits: 1
 30% increased Global Critical Strike Chance
 +18% Chance to Block Attack Damage while Dual Wielding
@@ -281,7 +281,7 @@ Vulconus
 Demon Dagger
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 68, 76 Dex, 149 Int
+LevelReq: 68
 Implicits: 1
 40% increased Global Critical Strike Chance 
 Adds (85-110) to (130-150) Physical Damage
@@ -304,7 +304,7 @@ Imperial Skean
 Variant: Pre 3.11.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 66, 95 Dex, 131 Int
+LevelReq: 66
 Implicits: 1
 30% increased Global Critical Strike Chance
 Adds (160-190) to (280-320) Cold Damage
@@ -320,7 +320,7 @@ Widowmaker
 Boot Blade
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 44, 63 Dex, 90 Int
+LevelReq: 44
 Implicits: 1
 30% increased Global Critical Strike Chance
 {variant:1}Adds (15-25) to (35-45) Physical Damage

@@ -7,7 +7,7 @@ Ahkeli's Meadow
 Ruby Ring
 League: Delve
 Source: Drops from unique{Aul, the Crystal King}
-Requires Level 49
+LevelReq: 49
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {tags:jewellery_attribute}+20 to Strength
@@ -18,7 +18,7 @@ Ahkeli's Mountain
 Ruby Ring
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
-Requires Level 49
+LevelReq: 49
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {tags:jewellery_attribute}+20 to Strength
@@ -29,7 +29,7 @@ Ahkeli's Valley
 Ruby Ring
 League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
-Requires Level 49
+LevelReq: 49
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {tags:jewellery_attribute}+20 to Strength
@@ -38,7 +38,7 @@ Implicits: 1
 ]],[[
 Andvarius
 Gold Ring
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 (6-15)% increased Rarity of Items found
 {tags:jewellery_attribute}+10 to Dexterity
@@ -49,7 +49,7 @@ Astral Projector
 Topaz Ring
 League: Metamorph
 Source: Drops from unique{Metamorph} in normal{Tane's Laboratory}
-Requires Level 40
+LevelReq: 40
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {tags:jewellery_attribute}+(30-50) to Intelligence
@@ -64,7 +64,7 @@ League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_resistance}+(12-16)% to Cold and Lightning Resistances
 {variant:1}{tags:jewellery_elemental}(10-15)% increased Cold Damage
@@ -83,7 +83,7 @@ Two-Stone Ring
 League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_resistance}+(12-16)% to Fire and Cold Resistances
 {variant:1}{tags:jewellery_elemental}(10-15)% increased Fire Damage
@@ -99,7 +99,7 @@ Two-Stone Ring
 League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_resistance}+(12-16)% to Fire and Lightning Resistances
 {variant:1}{tags:jewellery_elemental,attack}Adds 1 to (10-30) Fire Damage to Attacks
@@ -116,7 +116,7 @@ Blackflame
 Amethyst Ring
 League: Ritual
 Source: Purchase from Ritual Reward
-Requires Level 49
+LevelReq: 49
 Implicits: 1
 {tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {tags:jewellery_elemental}+(8-12)% to Fire Damage over Time Multiplier
@@ -145,7 +145,7 @@ Iron Ring
 Source: No longer obtainable
 Variant: Pre 2.4.0
 Variant: Pre 3.17.0
-Requires Level 48
+LevelReq: 48
 Implicits: 1
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
 {tags:physical}5% increased Global Physical Damage
@@ -163,7 +163,7 @@ Coral Ring
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.17.0
-Requires Level 24
+LevelReq: 24
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {variant:1}{tags:jewellery_elemental,attack}Adds (7-10) to (15-20) Fire Damage to Attacks
@@ -177,7 +177,7 @@ Implicits: 1
 ]],[[
 Winterweave
 Coral Ring
-Requires Level 24
+LevelReq: 24
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {tags:jewellery_elemental,attack}Adds (12-15) to (25-30) Fire Damage to Attacks
@@ -192,7 +192,7 @@ Unset Ring
 League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
@@ -210,7 +210,7 @@ Call of the Brotherhood
 Two-Stone Ring
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_resistance}+(12-16)% to Cold and Lightning Resistances
 {tags:jewellery_attribute}+(15-25) to Intelligence
@@ -224,7 +224,7 @@ Circle of Anguish
 Ruby Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
+LevelReq: 52
 Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
@@ -250,7 +250,7 @@ Circle of Fear
 Sapphire Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
+LevelReq: 52
 Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
@@ -276,7 +276,7 @@ Circle of Guilt
 Iron Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
+LevelReq: 52
 Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
@@ -302,7 +302,7 @@ Circle of Nostalgia
 Amethyst Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
+LevelReq: 52
 Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
@@ -328,7 +328,7 @@ Circle of Regret
 Topaz Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
+LevelReq: 52
 Implicits: 1
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
@@ -356,7 +356,7 @@ League: Onslaught
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 46
+LevelReq: 46
 Implicits: 1
 {tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1,2}{tags:attack}+(300-350) to Accuracy Rating
@@ -409,7 +409,7 @@ Dream Fragments
 Sapphire Ring
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 24
+LevelReq: 24
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {tags:mana}20% increased maximum Mana
@@ -424,7 +424,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.9.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 16
+LevelReq: 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:1}{tags:jewellery_elemental}(15-25)% increased Fire Damage
@@ -443,7 +443,7 @@ Replica Emberwake
 Ruby Ring
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 16
+LevelReq: 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {tags:jewellery_elemental}(30-40)% increased Fire Damage
@@ -454,7 +454,7 @@ Implicits: 1
 ]],[[
 Essence Worm
 Unset Ring
-Requires Level 38
+LevelReq: 38
 Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Aura Gems
@@ -466,7 +466,7 @@ Fated End
 Paua Ring
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 38
+LevelReq: 38
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
 {tags:jewellery_attribute}+(20-40) to Intelligence
@@ -480,7 +480,7 @@ Diamond Ring
 League: Anarchy
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 28
+LevelReq: 28
 Implicits: 1
 {tags:critical}(20-30)% increased Global Critical Strike Chance
 {variant:2}Trigger Level 10 Consecrate when you deal a Critical Strike
@@ -493,7 +493,7 @@ Implicits: 1
 ]],[[
 Heartbound Loop
 Moonstone Ring
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {tags:life}Regenerate (10-15) Life per second
@@ -507,7 +507,7 @@ Gold Ring
 League: Heist
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 44
+LevelReq: 44
 Implicits: 1
 (6-15)% increased Rarity of Items found
 (15-25)% increased Rarity of Items found
@@ -521,7 +521,7 @@ Total Recovery per second from Life Leech is Doubled
 ]],[[
 The Hungry Loop
 Unset Ring
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 Has 1 Socket
 Consumes Socketed Support Gems when they reach Maximum Level
@@ -559,7 +559,7 @@ Coral Ring
 Variant: Pre 3.16.0
 Variant: Current
 Source: No longer obtainable
-Requires Level 32
+LevelReq: 32
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {tags:jewellery_attribute}+(10-20) to Strength
@@ -575,7 +575,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {tags:jewellery_attribute}+(10-15) to all Attributes
@@ -591,7 +591,7 @@ Le Heup of All
 Iron Ring
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 24
+LevelReq: 24
 Implicits: 1
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
 {variant:1}(10-20)% increased Damage
@@ -607,7 +607,7 @@ Lori's Lantern
 Prismatic Ring
 Variant: Pre 1.0.0
 Variant: Current
-Requires Level 30
+LevelReq: 30
 Implicits: 2
 {variant:1}{tags:jewellery_resistance}+(8-12)% to all Elemental Resistances
 {variant:2}{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
@@ -622,7 +622,7 @@ Unset Ring
 Variant: Pre 2.6.0
 Variant: Current
 Sockets: W
-Requires Level 5
+LevelReq: 5
 Implicits: 1
 Has 1 Socket
 {variant:1}{tags:jewellery_resistance}-25% to all Elemental Resistances
@@ -637,7 +637,7 @@ Replica Malachai's Artifice
 Unset Ring
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 5
+LevelReq: 5
 Implicits: 1
 Has 1 Socket
 Socketed Gems have Secrets of Suffering
@@ -649,7 +649,7 @@ All Sockets are White
 ]],[[
 Mark of Submission
 Unset Ring
-Requires Level 24
+LevelReq: 24
 Implicits: 1
 Has 1 Socket
 {tags:caster}Curse Enemies with Socketed Hex Curse Gem on Hit
@@ -658,7 +658,7 @@ Mark of the Elder
 Steel Ring
 Elder Item
 Source: Drops from unique{The Elder} (Uber)
-Requires Level 80
+LevelReq: 80
 Implicits: 1
 {tags:attack,physical}Adds (3-4) to (10-14) Physical Damage to Attacks
 {tags:jewellery_elemental,attack}Adds (26-32) to (42-48) Cold Damage to Attacks
@@ -672,7 +672,7 @@ Mark of the Shaper
 Opal Ring
 Shaper Item
 Source: Drops from unique{The Elder} (Uber)
-Requires Level 80
+LevelReq: 80
 Implicits: 1
 {tags:jewellery_elemental}(15-25)% increased Elemental Damage
 {tags:jewellery_elemental,caster}Adds (13-18) to (50-56) Lightning Damage to Spells
@@ -688,7 +688,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 69
+LevelReq: 69
 Implicits: 1
 {tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1}{tags:life}15% reduced maximum Life
@@ -707,7 +707,7 @@ Mokou's Embrace
 Ruby Ring
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 16
+LevelReq: 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:1}{tags:jewellery_elemental}(15-25)% increased Fire Damage
@@ -726,7 +726,7 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
@@ -746,7 +746,7 @@ League: Bloodlines
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 29
+LevelReq: 29
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {tags:jewellery_attribute}+(15-25) to Strength
@@ -762,7 +762,7 @@ Implicits: 1
 The Pariah
 Unset Ring
 League: Warbands
-Requires Level 60
+LevelReq: 60
 Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Gems
@@ -789,7 +789,7 @@ Implicits: 1
 Polaric Devastation
 Opal Ring
 Source: Drops from unique{The Black Star}
-Requires Level 80
+LevelReq: 80
 Implicits: 1
 {tags:jewellery_elemental}(15-25)% increased Elemental Damage
 {tags:critical}(15-25)% increased Global Critical Strike Chance
@@ -801,7 +801,7 @@ Right Ring slot: Cover Enemies in Frost for 5 seconds when you Freeze them
 ]],[[
 Praxis
 Paua Ring
-Requires Level 22
+LevelReq: 22
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
 {tags:mana}+(30-60) to maximum Mana
@@ -825,7 +825,7 @@ Putembo's Meadow
 Topaz Ring
 League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
-Requires Level 49
+LevelReq: 49
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {tags:jewellery_attribute}+20 to Intelligence
@@ -836,7 +836,7 @@ Putembo's Mountain
 Topaz Ring
 League: Delve
 Source: Drops from unique{Aul, the Crystal King}
-Requires Level 49
+LevelReq: 49
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {tags:jewellery_attribute}+20 to Intelligence
@@ -847,7 +847,7 @@ Putembo's Valley
 Topaz Ring
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
-Requires Level 49
+LevelReq: 49
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {tags:jewellery_attribute}+20 to Intelligence
@@ -859,7 +859,7 @@ Sapphire Ring
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 11
+LevelReq: 11
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {tags:jewellery_resistance}+(25-35)% to Fire Resistance
@@ -875,7 +875,7 @@ Unset Ring
 League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
@@ -895,7 +895,7 @@ League: Talisman
 Variant: Pre 3.19.0
 Variant: Current
 Source: Drops from unique{Rigwald, the Wolven King} (Level 60+)
-Requires Level 49
+LevelReq: 49
 Implicits: 1
 {tags:jewellery_resistance}+(12-16)% to Fire and Cold Resistances
 Trigger Level 10 Summon Spectral Wolf on Kill
@@ -908,7 +908,7 @@ Diamond Ring
 Variant: Pre 1.1.0
 Variant: Pre 2.2.0
 Variant: Current
-Requires Level 60
+LevelReq: 60
 Implicits: 1
 {tags:critical}(20-30)% increased Global Critical Strike Chance
 {tags:attack}+333 to Accuracy Rating
@@ -926,7 +926,7 @@ League: Ritual
 Source: Purchase from Ritual Reward
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 56
+LevelReq: 56
 Implicits: 1
 Has 1 Socket
 Socketed Gems are Supported by Level 20 Blasphemy
@@ -944,7 +944,7 @@ Variant: Pre 1.2.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 30
+LevelReq: 30
 Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {tags:jewellery_attribute}+(60-75) to Intelligence
@@ -966,7 +966,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.9.0
 Variant: Current
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {tags:jewellery_elemental,attack}(20-30)% increased Elemental Damage with Attack Skills
@@ -984,7 +984,7 @@ Snakepit
 Sapphire Ring
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 68
+LevelReq: 68
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {variant:1}{tags:jewellery_elemental}(20-40)% increased Cold Damage
@@ -1001,7 +1001,7 @@ Stormfire
 Opal Ring
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 80
+LevelReq: 80
 Implicits: 1
 {tags:jewellery_elemental}(15-25)% increased Elemental Damage
 {tags:mana}(40-45)% increased Mana Regeneration Rate
@@ -1014,7 +1014,7 @@ Your Lightning Damage can Ignite
 Storm Secret
 Topaz Ring
 League: Harvest
-Requires Level 56
+LevelReq: 56
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {tags:jewellery_attribute}+(20-30) to Intelligence
@@ -1030,7 +1030,7 @@ League: Domination, Nemesis
 Source: Vendor Recipe
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 30
+LevelReq: 30
 Implicits: 1
 {tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
 {variant:1}{tags:jewellery_elemental,attack}15% increased Elemental Damage with Attack Skills
@@ -1049,7 +1049,7 @@ Sapphire Ring
 League: Bloodlines
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {variant:1}{tags:attack,jewellery_elemental,physical}Adds 10 to 15 Physical Damage to Attacks against Frozen Enemies
@@ -1066,7 +1066,7 @@ Replica Tasalio's Sign
 Sapphire Ring
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 20
+LevelReq: 20
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {tags:jewellery_elemental,attack,caster}Adds (15-20) to (25-35) Cold Damage to Spells and Attacks
@@ -1082,7 +1082,7 @@ Variant: Pre 1.1.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 30
+LevelReq: 30
 Implicits: 2
 {variant:1}{tags:jewellery_resistance}+(8-12) to all Elemental Resistances
 {variant:2,3,4,5}{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
@@ -1143,7 +1143,7 @@ Unaffected by Temporal Chains
 ]],[[
 Triumvirate Authority
 Unset Ring
-Requires Level 64
+LevelReq: 64
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice} (3 stats) or in normal{The Alluring Abyss} (4 stats)
 Has Alt Variant: true
 Has Alt Variant Two: true
@@ -1184,7 +1184,7 @@ Uzaza's Meadow
 Sapphire Ring
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
-Requires Level 49
+LevelReq: 49
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {tags:jewellery_attribute}+20 to Dexterity
@@ -1195,7 +1195,7 @@ Uzaza's Mountain
 Sapphire Ring
 League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
-Requires Level 49
+LevelReq: 49
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {tags:jewellery_attribute}+20 to Dexterity
@@ -1206,7 +1206,7 @@ Uzaza's Valley
 Sapphire Ring
 League: Delve
 Source: Drops from unique{Aul, the Crystal King}
-Requires Level 49
+LevelReq: 49
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {tags:jewellery_attribute}+20 to Dexterity
@@ -1219,7 +1219,7 @@ League: Bloodlines
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 38
+LevelReq: 38
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {variant:1}15% increased Damage with Hits against Shocked Enemies
@@ -1236,7 +1236,7 @@ Valyrium
 Moonstone Ring
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 38
+LevelReq: 38
 Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {variant:1}{tags:jewellery_defense}+(10-20) to maximum Energy Shield
@@ -1261,7 +1261,7 @@ Bleeding Enemies you Kill with Hits Shatter
 ]],[[
 Ventor's Gamble
 Gold Ring
-Requires Level 65
+LevelReq: 65
 Implicits: 1
 (6-15)% increased Rarity of Items found
 {tags:life}+(0-60) to maximum Life
@@ -1297,7 +1297,7 @@ Variant: Focus Shock Nearby Enemies
 Variant: Minimum Frenzy Charges
 Variant: Minimum Power Charges
 Variant: Minimum Endurance Charges
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 Has 1 Socket
 +5 to Level of Socketed Aura Gems
@@ -1321,7 +1321,7 @@ Has 1 Socket
 Voideye
 Unset Ring
 League: Ambush, Invasion
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 Has 1 Socket
 +5 to Level of Socketed Gems
@@ -1330,14 +1330,14 @@ Replica Voideye
 Unset Ring
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 45
+LevelReq: 45
 Implicits: 1
 Has 1 Socket
 +30% to Quality of Socketed Gems
 ]],[[
 The Warden's Brand
 Iron Ring
-Requires Level 30
+LevelReq: 30
 Implicits: 1
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
 {tags:attack,physical}Adds (5-15) to (25-50) Physical Damage to Attacks
@@ -1348,7 +1348,7 @@ Warrior's Legacy
 Ruby Ring
 League: Metamorph
 Source: Drops from unique{Metamorph} in normal{Tane's Laboratory}
-Requires Level 16
+LevelReq: 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {tags:jewellery_attribute}+(30-50) to Strength
@@ -1362,7 +1362,7 @@ Sapphire Ring
 Shaper Item
 Elder Item
 Source: Drops from unique{The Elder} (Uber)
-Requires Level 16
+LevelReq: 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance

@@ -11,7 +11,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 50
+LevelReq: 50
 {variant:3}100% increased Life Recovered
 {variant:4,5}50% increased Life Recovered
 {variant:1}(20-30)% reduced Recovery rate
@@ -27,7 +27,7 @@ Greater Mana Flask
 Variant: Pre 2.0.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 12
+LevelReq: 12
 Implicits: 0
 {variant:1,2}Removes 20% of your maximum Energy Shield on use
 {variant:3}Removes 80% of your maximum Energy Shield on use
@@ -46,7 +46,7 @@ Implicits: 0
 Lavianga's Spirit
 Sanctified Mana Flask
 League: Domination, Nemesis
-Requires Level 50
+LevelReq: 50
 (30-50)% increased Amount Recovered
 100% increased Recovery rate
 Your Skills have no Mana Cost during Effect
@@ -55,7 +55,7 @@ Replica Lavianga's Spirit
 Sanctified Mana Flask
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 50
+LevelReq: 50
 (30-50)% increased Amount Recovered
 50% reduced Recovery rate
 (5-15)% increased Attack Speed during Effect
@@ -67,7 +67,7 @@ Grand Mana Flask
 Variant: Pre 3.2.0
 Variant: Current
 League: Perandus
-Requires Level 18
+LevelReq: 18
 50% increased Charges used
 {variant:1}Grants Last Breath when you Use a Skill during Effect, for 800% of Mana Cost
 {variant:2}Grants Last Breath when you Use a Skill during Effect, for (450-600)% of Mana Cost
@@ -81,7 +81,7 @@ Variant: Pre 2.2.0
 Variant: Pre 3.5.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 30
+LevelReq: 30
 {variant:1,2,3,4}(40-60)% increased Rarity of Items found during Effect
 {variant:5}(20-30)% increased Rarity of Items found during Effect
 {variant:1}(20-25)% increased Quantity of Items found during Effect
@@ -94,7 +94,7 @@ Requires Level 30
 ]],[[
 The Writhing Jar
 Hallowed Hybrid Flask
-Requires Level 60
+LevelReq: 60
 (75-65)% reduced Amount Recovered
 Instant Recovery
 2 Enemy Writhing Worms escape the Flask when used
@@ -108,7 +108,7 @@ Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacri
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 68
+LevelReq: 68
 2% of Chaos Damage Leeched as Life during Effect
 {variant:1}Gain (22-25)% of Physical Damage as Extra Chaos Damage during effect
 {variant:2}Gain (15-20)% of Physical Damage as Extra Chaos Damage during effect
@@ -124,7 +124,7 @@ Source: Drops from unique{Synthete Nightmare} in normal{The Cortex}
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 35
+LevelReq: 35
 Creates Consecrated Ground on Use
 {variant:1}(30-50)% increased Duration
 {variant:2}(20-40)% increased Duration
@@ -136,7 +136,7 @@ Consecrated Ground created during Effect applies (7-10)% increased Damage taken 
 ]],[[
 Coralito's Signature
 Diamond Flask
-Requires Level 27
+LevelReq: 27
 Variant: Pre 3.15.0
 Variant: Current
 {variant:1}Take 30 Chaos Damage per Second during Effect
@@ -152,7 +152,7 @@ Ruby Flask
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 18
+LevelReq: 18
 Implicits: 0
 {variant:2}100% increased Duration
 {variant:3}25% increased Duration
@@ -175,7 +175,7 @@ Variant: Reduced Reflected Damage Taken
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0 Crit Chance
 Variant: Current
-Requires Level 22
+LevelReq: 22
 Implicits: 0
 {variant:8}Recharges 1 Charge when you consume an Ignited Corpse
 {variant:10}Recharges 5 Charges when you consume an Ignited Corpse
@@ -203,7 +203,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 68
+LevelReq: 68
 {variant:2}(-10-10)% increased Charges used
 {variant:3,4}(125-150)% increased Charges used
 {variant:3}(40-60)% reduced duration
@@ -219,7 +219,7 @@ Variant: Pre 1.2.3
 Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 27
+LevelReq: 27
 {variant:1,2}50% increased Charges used
 {variant:1}Recover 50% of your maximum Life on use
 {variant:2}Recover 75% of your maximum Life on use
@@ -233,7 +233,7 @@ Silver Flask
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 22
+LevelReq: 22
 Implicits: 0
 Immune to Freeze, Chill, Curses and Stuns during Effect
 {variant:1}50% reduced Duration
@@ -246,7 +246,7 @@ Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 27
+LevelReq: 27
 Adds Knockback to Melee Attacks during Effect
 75% chance to cause Enemies to Flee on use
 {variant:1}(70-100)% increased Charges used
@@ -262,7 +262,7 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 40
+LevelReq: 40
 {variant:1}(100-150)% increased Charges used
 {variant:2,3}(50-100)% increased Charges used
 {variant:3}50% increased Duration
@@ -280,7 +280,7 @@ Variant: Pre 1.3.0
 Variant: Pre 2.5.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 68
+LevelReq: 68
 {variant:1}(30-40)% Chance to Block during Effect
 {variant:2}(20-30)% Chance to Block during Effect
 {variant:3}(14-20)% Chance to Block during Effect
@@ -294,7 +294,7 @@ Replica Rumi's Concoction
 Granite Flask
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 68
+LevelReq: 68
 You gain an Endurance Charge on use
 +(35-50)% Chance to Block Attack Damage during Effect
 +(20-30)% Chance to Block Spell Damage during Effect
@@ -303,7 +303,7 @@ Petrified during Effect
 ]],[[
 Sin's Rebirth
 Stibnite Flask
-Requires Level 14
+LevelReq: 14
 Implicits: 1
 Creates a Smoke Cloud on Use
 Gain Unholy Might during Effect
@@ -313,7 +313,7 @@ Removes Burning on use
 The Sorrow of the Divine
 Sulphur Flask
 League: Legion
-Requires Level 35
+LevelReq: 35
 Implicits: 1
 Creates Consecrated Ground on Use
 (25-50)% increased Duration
@@ -324,7 +324,7 @@ Replica Sorrow of the Divine
 Sulphur Flask
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 35
+LevelReq: 35
 Implicits: 1
 Creates Consecrated Ground on Use
 (25-50)% increased Duration
@@ -339,7 +339,7 @@ Upgrade: Upgrades to unique{Soul Ripper} via currency{Vial of the Ghost}
 Variant: Pre 3.10.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 27
+LevelReq: 27
 Cannot gain Mana during effect
 {variant:2}Vaal Skills have (80-120)% increased Critical Strike Chance during effect
 {variant:3}Vaal Skills have (60-80)% increased Critical Strike Chance during effect
@@ -356,7 +356,7 @@ League: Incursion
 Source: Upgraded from unique{Soul Catcher} via currency{Vial of the Ghost}
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 27
+LevelReq: 27
 {variant:1}100% increased Charges used
 {variant:1}Vaal Skills deal (30-40)% more Damage during effect
 {variant:1}Vaal Skills used during effect do not apply Soul Gain Prevention
@@ -372,7 +372,7 @@ Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 18
+LevelReq: 18
 {variant:1}30% of Physical Damage from Hits taken as Cold Damage during Effect
 {variant:2,3}20% of Physical Damage from Hits taken as Cold Damage during Effect
 {variant:4}(10-15)% of Physical Damage from Hits taken as Cold Damage during Effect
@@ -384,7 +384,7 @@ Requires Level 18
 ]],[[
 The Overflowing Chalice
 Sulphur Flask
-Requires Level 35
+LevelReq: 35
 Variant: Pre 3.15.0
 Variant: Current
 Implicits: 1
@@ -417,7 +417,7 @@ Variant: Current (Proliferation)
 Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
-Requires Level 68
+LevelReq: 68
 {variant:5,6,7,8,9,10,11,12,13,14,15}(80-100)% increased Charges used
 {variant:16,17,18}(125-150)% increased Charges used
 {variant:1,2,3,4,5,6,7,8}Shocks nearby Enemies during Effect
@@ -446,7 +446,7 @@ Bismuth Flask
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 8
+LevelReq: 8
 {variant:1,2}During Effect, 10% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
 {variant:3}During Effect, 6% reduced Damage taken of each Element for which your Uncapped Elemental Resistance is lowest
 {variant:1}During Effect, Damage Penetrates 20% Resistance of each Element for which your Uncapped Elemental Resistance is highest
@@ -458,7 +458,7 @@ Stibnite Flask
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 48
+LevelReq: 48
 Implicits: 1
 Creates a Smoke Cloud on Use
 {variant:1,2}50% increased Charges used
@@ -473,7 +473,7 @@ Elixir of the Unbroken Circle
 Iron Flask
 League: Expedition
 Source: Drops from unique{Medved, Feller of Heroes} in normal{Expedition Logbook}
-Requires Level 40
+LevelReq: 40
 (20-40)% increased Duration
 Recover 4% of Life per Endurance Charge on use
 Lose all Endurance Charges on use
@@ -483,7 +483,7 @@ Olroth's Resolve
 Iron Flask
 League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
-Requires Level 40
+LevelReq: 40
 (40-50)% increased Charges used
 Ward does not Break during Effect
 70% less Ward during Effect
@@ -492,7 +492,7 @@ Starlight Chalice
 Iron Flask
 League: Expedition
 Source: Drops from unique{Uhtred, Covetous Traitor} in normal{Expedition Logbook}
-Requires Level 40
+LevelReq: 40
 (20-30)% increased Charge Recovery
 Inflict Fire, Cold and Lightning Exposure on nearby Enemies when used
 (20-30)% increased Effect of Non-Damaging Ailments you inflict during Effect
@@ -501,7 +501,7 @@ Vorana's Preparation
 Iron Flask
 League: Expedition
 Source: Drops from unique{Vorana, Last to Fall} in normal{Expedition Logbook}
-Requires Level 40
+LevelReq: 40
 (-10-10)% reduced Charges used
 Debilitate nearby Enemies for 2 Seconds when Flask Effect ends
 Flask Effect is removed when Ward Breaks

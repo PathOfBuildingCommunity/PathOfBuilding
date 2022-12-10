@@ -22,7 +22,7 @@ Cobalt Jewel
 League: Heist
 Source: Drops from unique{The Unbreakable} in normal{Contract: Breaking the Unbreakable}
 Limited to: 1
-Requires Level 20
+LevelReq: 20
 (20-25)% increased Spell Damage
 Spells have 10% reduced Critical Strike Chance per Intensity
 Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds
@@ -937,14 +937,14 @@ Hypnotic Eye Jewel
 ]],[[
 Tecrod's Gaze
 Murderous Eye Jewel
-Requires Level 40
+LevelReq: 40
 +(10-20) to Strength
 20% increased Main Hand Critical Strike Chance per Murderous Eye Jewel affecting you, up to a maximum of 100%
 +10% to Off Hand Critical Strike Multiplier per Murderous Eye Jewel affecting you, up to a maximum of +50%
 ]],[[
 Ulaman's Gaze
 Searching Eye Jewel
-Requires Level 40
+LevelReq: 40
 +(10-20) to Dexterity
 Projectiles have 4% chance to be able to Chain when colliding with terrain per Searching Eye Jewel affecting you, up to a maximum of 20%
 ]],
