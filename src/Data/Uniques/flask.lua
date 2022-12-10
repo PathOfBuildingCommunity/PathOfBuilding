@@ -273,25 +273,25 @@ Variant: Pre 2.5.0
 Variant: Pre 3.15.0
 Variant: Current
 Requires Level 68
-{variant:1}(30-40)% Chance to Block during Effect
-{variant:2}(20-30)% Chance to Block during Effect
-{variant:3}(14-20)% Chance to Block during Effect
-{variant:4}(8-12)% Chance to Block during Effect
-{variant:1}(15-20)% Chance to Block Spells during Effect
-{variant:2}(10-15)% Chance to Block Spells during Effect
-{variant:3}(6-10)% Chance to Block Spells during Effect
-{variant:4}(4-6)% Chance to Block Spells during Effect
+{variant:1}(30-40)% Chance to Block Attack Damage during Effect
+{variant:2}(20-30)% Chance to Block Attack Damage during Effect
+{variant:3}(14-20)% Chance to Block Attack Damage during Effect
+{variant:4}(8-12)% Chance to Block Attack Damage during Effect
+{variant:1}(15-20)% Chance to Block Spell Damage during Effect
+{variant:2}(10-15)% Chance to Block Spell Damage during Effect
+{variant:3}(6-10)% Chance to Block Spell Damage during Effect
+{variant:4}(4-6)% Chance to Block Spell Damage during Effect
 ]],[[
 Replica Rumi's Concoction
 Granite Flask
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68
-You gain an Endurance Charge on use
+90% reduced Duration
+Gain 1 Endurance Charge on use
+Petrified during Effect
 +(35-50)% Chance to Block Attack Damage during Effect
 +(20-30)% Chance to Block Spell Damage during Effect
-Petrified during Effect
-90% reduced Duration
 ]],[[
 Sin's Rebirth
 Stibnite Flask
