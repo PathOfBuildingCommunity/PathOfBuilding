@@ -455,6 +455,8 @@ Elixir of the Unbroken Circle
 Iron Flask
 League: Expedition
 Source: Drops from unique{Medved, Feller of Heroes} in normal{Expedition Logbook}
+Implicits: 1
+Restores Ward on use
 (20-40)% increased Duration
 Recover 4% of Life per Endurance Charge on use
 Lose all Endurance Charges on use
@@ -464,6 +466,8 @@ Olroth's Resolve
 Iron Flask
 League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
+Implicits: 1
+Restores Ward on use
 (50-40)% increased Charges per use
 Ward does not Break during Effect
 70% less Ward during Effect
@@ -472,6 +476,8 @@ Starlight Chalice
 Iron Flask
 League: Expedition
 Source: Drops from unique{Uhtred, Covetous Traitor} in normal{Expedition Logbook}
+Implicits: 1
+Restores Ward on use
 (20-30)% increased Charge Recovery
 Inflict Fire, Cold and Lightning Exposure on nearby Enemies when used
 (20-30)% increased Effect of Non-Damaging Ailments you inflict during Effect
@@ -480,6 +486,8 @@ Vorana's Preparation
 Iron Flask
 League: Expedition
 Source: Drops from unique{Vorana, Last to Fall} in normal{Expedition Logbook}
+Implicits: 1
+Restores Ward on use
 (-10-10)% reduced Charges per use
 Debilitate nearby Enemies for 2 Seconds when Effect ends
 Effect is removed when Ward Breaks
