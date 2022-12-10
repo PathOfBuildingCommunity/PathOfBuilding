@@ -39,9 +39,9 @@ Implicits: 0
 {variant:3}You gain (1-3) Power Charges on use
 {variant:3}You gain (1-3) Frenzy Charges on use
 {variant:3}You gain (1-3) Endurance Charge on use
-{variant:1}(50-100)% increased Charges per use
-{variant:2}(120-150)% increased Charges per use
-{variant:3}(250-300)% increased Charges per use
+{variant:1}(100-50)% increased Charges per use
+{variant:2}(150-120)% increased Charges per use
+{variant:3}(300-250)% increased Charges per use
 ]],[[
 Lavianga's Spirit
 Sanctified Mana Flask
@@ -462,7 +462,7 @@ Requires Level 48
 Implicits: 1
 Creates a Smoke Cloud on Use
 {variant:1,2}50% increased Charges per use
-{variant:3}(-10-10)% increased Charges per use
+{variant:3}(-10-10)% reduced Charges per use
 {variant:1}(50-70)% increased Damage Over Time during Effect
 {variant:2}(25-40)% increased Damage Over Time during Effect
 Grants level 21 Despair Curse Aura during Effect
