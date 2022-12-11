@@ -1290,10 +1290,13 @@ function calcs.offence(env, actor, activeSkill)
 		if hasCost then
 			local dec = val.upfront and 0 or 2
 			local costName = resource.."Cost"
-			local mult = skillModList:More(skillCfg, "SupportManaMultiplier")
+			local mult = 1
+			for _, value in ipairs(skillModList:Tabulate("MORE", skillCfg, "SupportManaMultiplier")) do
+				mult = m_floor(mult * (100 + value.mod.value)) / 100
+			end
 			local more = skillModList:More(skillCfg, val.type.."Cost", "Cost")
 			local inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
-			output[costName] = val.baseCost * mult + val.baseCostNoMult
+			output[costName] = m_floor(val.baseCost * mult + val.baseCostNoMult)
 			output[costName] = m_max(0, (1 + inc / 100) * output[costName])
 			output[costName] = m_max(0, more * output[costName])
 			output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
