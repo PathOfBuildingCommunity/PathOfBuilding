@@ -88,7 +88,7 @@ Variant: Current
 ]],[[
 The Writhing Jar
 Hallowed Hybrid Flask
-(10-20)% reduced Charges per use
+(-10--20)% increased Charges per use
 (75-65)% reduced Amount Recovered
 Instant Recovery
 2 Enemy Writhing Worms escape the Flask when used
@@ -170,7 +170,7 @@ Variant: Current
 LevelReq: 48
 Implicits: 0
 {variant:10}+90 to maximum Charges
-{variant:8}Recharges 1 Charges when you Consume an Ignited corpse
+{variant:8}Recharges 1 Charge when you Consume an Ignited corpse
 {variant:10}Recharges 5 Charges when you Consume an Ignited corpse
 {variant:8}Enemies Ignited by you during Effect take 10% increased Damage
 {variant:10}Enemies Ignited by you during Effect take (7-10)% increased Damage
@@ -196,7 +196,7 @@ Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
 LevelReq: 68
-{variant:2}(-10-10)% reduced Charges per use
+{variant:2}(10--10)% increased Charges per use
 {variant:3,4}(150-125)% increased Charges per use
 {variant:3}(60-40)% reduced duration
 {variant:4}(60-40)% less duration
@@ -444,7 +444,7 @@ LevelReq: 48
 Implicits: 1
 Creates a Smoke Cloud on Use
 {variant:1,2}50% increased Charges per use
-{variant:3}(-10-10)% reduced Charges per use
+{variant:3}(10--10)% increased Charges per use
 {variant:1}(50-70)% increased Damage Over Time during Effect
 {variant:2}(25-40)% increased Damage Over Time during Effect
 Grants Level 21 Despair Curse Aura during Effect
@@ -488,7 +488,7 @@ League: Expedition
 Source: Drops from unique{Vorana, Last to Fall} in normal{Expedition Logbook}
 Implicits: 1
 Restores Ward on use
-(-10-10)% reduced Charges per use
+(10--10)% increased Charges per use
 Debilitate nearby Enemies for 2 Seconds when Effect ends
 Effect is removed when Ward Breaks
 Culling Strike during Effect
