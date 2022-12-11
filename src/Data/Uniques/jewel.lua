@@ -425,15 +425,6 @@ Strike if Intelligence is your highest Attribute
 Effects of Consecrated Ground you create Linger for 4 seconds
 Effects of Profane Ground you create Linger for 4 seconds
 ]],[[
-The Balance of Terror
-Cobalt Jewel
-League: Sanctum
-Limited to: 1
-LevelReq: 56
-+(10-15)% to all Elemental Resistances
-+(30-40)% to Critical Strike Multiplier if you've cast Enfeeble in the past 10 seconds
-Immune to Curses if you've cast Despair in the past 10 seconds
-]],[[
 Nadir Mode
 Cobalt Jewel
 League: Heist
