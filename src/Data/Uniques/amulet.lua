@@ -181,6 +181,17 @@ Implicits: 1
 {tags:mana}1% of Damage is taken from Mana before Life per Power Charge
 {tags:critical}40% reduced Critical Strike Chance per Power Charge
 ]],[[
+Eternal Damnation
+Agate Amulet
+League: Sanctum
+LevelReq: 52
+Implicits: 1
+{tags:jewellery_attribute}+(16-24) to Strength and Intelligence
+{tags:mana}+(40-70) to maximum Mana
+{tags:jewellery_resistance}+(-13-13)% to Chaos Resistance
+{tags:jewellery_resistance}-5% to all maximum Resistances
+Gain additional Elemental Damage Reduction equal to half your Chaos Resistance
+]],[[
 Badge of the Brotherhood
 Turquoise Amulet
 Requires Level: 20
