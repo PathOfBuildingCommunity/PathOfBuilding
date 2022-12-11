@@ -412,7 +412,7 @@ You are Shocked during Effect, causing 50% increased Damage taken
 {variant:2,6,9}Adds (15-25) to (70-90) Lightning Damage to Spells during Effect
 {variant:12}Adds (25-35) to (110-130) Lightning Damage to Spells during Effect
 {variant:17}Adds (10-15) to (55-65) Lightning Damage to Spells during Effect
-{variant:3,7,13}Adds (25-35) to (110-130) Lightning Damage to Spells during Effect
+{variant:3,7,13}Adds (25-35) to (110-130) Lightning Damage to Attacks during Effect
 {variant:18}Adds (10-15) to (55-65) Lightning Damage to Attacks during Effect
 {variant:4,8,10}20% of Physical Damage Converted to Lightning during Effect
 {variant:14}50% of Physical Damage Converted to Lightning during Effect
