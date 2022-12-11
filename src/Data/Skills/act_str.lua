@@ -3329,6 +3329,14 @@ skills["FrozenLegion"] = {
 			{ "frozen_legion_%_chance_to_summon_additional_statue", 1 },
 		},
 	},
+	baseMods = {
+		mod("FrozenLegionMaxStatues", "BASE", 6)
+	},
+	statMap = {
+		["frozen_legion_%_chance_to_summon_additional_statue"] = {
+			mod("FrozenLegionExtraStatueChance", "BASE", nil)
+		}
+	},
 	constantStats = {
 		{ "ring_of_ice_placement_distance", 28 },
 	},

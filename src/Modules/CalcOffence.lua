@@ -1057,6 +1057,27 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
+	local inheritFromSkill
+	if activeSkill.activeEffect.grantedEffect.name == "Frozen Sweep" then
+		skillData.showAverage = false
+		skillFlags.showAverage = false
+		skillFlags.notAverage = true	
+		for _, skill in ipairs(actor.activeSkillList) do
+			if skill.activeEffect.grantedEffect.name == "Frozen Legion" and actor.mainSkill.socketGroup.slot == activeSkill.socketGroup.slot then
+				inheritFromSkill = skill
+				break
+			end
+		end
+		activeSkill.activeEffect.grantedEffect.castTime = 0
+		inheritFromSkill.activeEffect.grantedEffect.castTime = 0
+		output.SourceCooldown = calcSkillCooldown(inheritFromSkill.skillModList, inheritFromSkill.skillCfg, inheritFromSkill.skillData)
+		output.Cooldown = output.SourceCooldown
+		local statues = inheritFromSkill.skillModList:Sum("BASE", inheritFromSkill.skillCfg, "FrozenLegionMaxStatues") or 0
+		local extraChance = inheritFromSkill.skillModList:Sum("BASE", inheritFromSkill.skillCfg, "FrozenLegionExtraStatueChance") or 0
+	elseif activeSkill.activeEffect.grantedEffect.name == "Frozen Legion" then
+		env.player.mainSkill.infoMessage = "This data is broken, swap to frozen sweep"
+	end
+
 	-- General's Cry
 	if skillData.triggeredByGeneralsCry then
 		local mirageActiveSkill = nil
@@ -2717,7 +2738,8 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate average damage and final DPS
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
-		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * quantityMultiplier
+		local sourceCooldown = inheritFromSkill and calcSkillCooldown(inheritFromSkill.skillModList, inheritFromSkill.skillCfg, inheritFromSkill.skillData) or 0 
+		output.TotalDPS = output.AverageDamage * (sourceCooldown > 0 and 1 / sourceCooldown or globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * quantityMultiplier
 		if breakdown then
 			if output.CritEffect ~= 1 then
 				breakdown.AverageHit = { }

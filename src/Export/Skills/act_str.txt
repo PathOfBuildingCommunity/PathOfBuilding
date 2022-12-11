@@ -632,6 +632,12 @@ local skills, mod, flag, skill = ...
 
 #skill FrozenLegion
 #flags spell attack area melee
+statMap = {
+		["frozen_legion_%_chance_to_summon_additional_statue"] = {
+			mod("FrozenLegionExtraStatueChance", "BASE", nil)
+		}
+	},
+#baseMod mod("FrozenLegionMaxStatues", "BASE", 6)
 #mods
 
 #skill FrozenSweep
