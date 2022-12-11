@@ -898,3 +898,8 @@ local skills, mod, flag, skill = ...
 #flags attack area melee
 	fromItem = true,
 #mods
+
+#skill TouchOfFire
+#flags spell
+	fromItem = true,
+#mods
