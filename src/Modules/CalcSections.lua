@@ -1382,7 +1382,7 @@ return {
 	{ label = "Total Recoverable", haveOutput = "CappingES", { format = "{0:output:EnergyShieldRecoveryCap}", { breakdown = "EnergyShield" }, }, },
 	{ label = "Recharge Rate", haveOutput = "EnergyShieldRechargeAppliesToEnergyShield", { format = "{1:output:EnergyShieldRecharge}", 
 		{ breakdown = "EnergyShieldRecharge" },
-		{ modName = { "EnergyShieldRecharge", "EnergyShieldRecoveryRate", "NoEnergyShieldRecharge" }, },
+		{ modName = { "EnergyShieldRecharge", "EnergyShieldRecoveryRate", "NoEnergyShieldRecharge", "CannotGainEnergyShield" }, },
 	}, },
 	{ label = "Recharge Delay", haveOutput = "EnergyShieldRechargeAppliesToEnergyShield", { format = "{2:output:EnergyShieldRechargeDelay}s", 
 		{ breakdown = "EnergyShieldRechargeDelay" },

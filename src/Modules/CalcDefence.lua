@@ -637,7 +637,7 @@ function calcs.defence(env, actor)
 		local regen = 0
 		local regenRate = 0
 		local recoveryRateMod = output[resource.."RecoveryRateMod"] or 1
-		if modDB:Flag(nil, "No"..resource.."Regen") then
+		if modDB:Flag(nil, "No"..resource.."Regen") or modDB:Flag(nil, "CannotGain"..resource) then
 			output[resource.."Regen"] = 0
 		elseif resource == "Life" and modDB:Flag(nil, "ZealotsOath") then
 			output.LifeRegen = 0
@@ -707,7 +707,7 @@ function calcs.defence(env, actor)
 	
 	-- Energy Shield Recharge
 	output.EnergyShieldRechargeAppliesToLife = modDB:Flag(nil, "EnergyShieldRechargeAppliesToLife")
-	output.EnergyShieldRechargeAppliesToEnergyShield = not (modDB:Flag(nil, "NoEnergyShieldRecharge") or output.EnergyShieldRechargeAppliesToLife)
+	output.EnergyShieldRechargeAppliesToEnergyShield = not (modDB:Flag(nil, "NoEnergyShieldRecharge") or modDB:Flag(nil, "CannotGainEnergyShield") or output.EnergyShieldRechargeAppliesToLife)
 	
 	if output.EnergyShieldRechargeAppliesToLife or output.EnergyShieldRechargeAppliesToEnergyShield then
 		local inc = modDB:Sum("INC", nil, "EnergyShieldRecharge")
