@@ -637,6 +637,17 @@ function TradeQueryGeneratorClass:FinishQuery()
         end
     end
 
+    if options.maxPrice > 0 then
+        queryTable.query.filters.trade_filters = {
+            filters = {
+                price = {
+                    option = options.maxPriceType,
+                    max = options.maxPrice
+                }
+            }
+        }
+    end
+
     local queryJson = dkjson.encode(queryTable)
     self.requesterCallback(self.requesterContext, queryJson)
 
@@ -656,7 +667,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
     local isAbyssalJewelSlot = slot.slotName:find("Abyssal") ~= nil
     local isAmuletSlot = slot.slotName == "Amulet"
 
-    controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, 0, 30, 18, "Corrupted Mods:", function(state) end)
+    controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, -40, 30, 18, "Corrupted Mods:", function(state) end)
     controls.includeCorrupted.state = (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
 
     controls.includeEldritch = new("CheckBoxControl", {"TOPRIGHT",controls.includeCorrupted,"BOTTOMRIGHT"}, 0, 5, 18, "Eldritch Mods:", function(state) end)
@@ -664,30 +675,35 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 
     controls.includeSynthesis = new("CheckBoxControl", {"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, 0, 5, 18, "Synthesis Mods:", function(state) end)
     controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
-
+    
+    local lastItemAnchor = controls.includeSynthesis
     local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
+    
     if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
-        controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",controls.includeSynthesis,"BOTTOMRIGHT"}, 0, 5, 18, "Scourge Mods:", function(state) end)
+        controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Scourge Mods:", function(state) end)
         controls.includeScourge.state = (self.lastIncludeScourge == nil or self.lastIncludeScourge == true)
 
+        lastItemAnchor = controls.includeScourge
         popupHeight = popupHeight + 23
     end
 
     if isAmuletSlot then
-        controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",includeScourge and controls.includeScourge or controls.includeSynthesis,"BOTTOMRIGHT"}, 0, 5, 18, "Talisman Mods:", function(state) end)
+        controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Talisman Mods:", function(state) end)
         controls.includeTalisman.state = (self.lastIncludeTalisman == nil or self.lastIncludeTalisman == true)
 
+        lastItemAnchor = controls.includeTalisman
         popupHeight = popupHeight + 23
     end
 
     if isJewelSlot then
-        controls.jewelType = new("DropDownControl", {"TOPLEFT",controls.includeSynthesis,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Any", "Base", "Abyss" }, function(index, value) end)
+        controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Any", "Base", "Abyss" }, function(index, value) end)
         controls.jewelType.selIndex = self.lastJewelType or 1
         controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, -5, 0, 0, 16, "Jewel Type:")
 
+        lastItemAnchor = controls.jewelType
         popupHeight = popupHeight + 23
     elseif not isAbyssalJewelSlot then
-        controls.influence1 = new("DropDownControl", {"TOPLEFT",controls.includeTalisman and controls.includeTalisman or (includeScourge and controls.includeScourge) or controls.includeCorrupted,"BOTTOMLEFT"}, 0, 5, 100, 18, influenceDropdownNames, function(index, value) end)
+        controls.influence1 = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, influenceDropdownNames, function(index, value) end)
         controls.influence1.selIndex = self.lastInfluence1 or 1
         controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, -5, 0, 0, 16, "Influence 1:")
 
@@ -695,8 +711,38 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
         controls.influence2.selIndex = self.lastInfluence2 or 1
         controls.influence2Label = new("LabelControl", {"RIGHT",controls.influence2,"LEFT"}, -5, 0, 0, 16, "Influence 2:")
 
+        lastItemAnchor = controls.influence2
         popupHeight = popupHeight + 46
     end
+
+    -- Add max price limit selection dropbox
+    local currencyTable = {
+        { name = "Chaos Orb Equivalent", id = nil },
+        { name = "Chaos Orb", id = "chaos" },
+        { name = "Divine Orb", id = "divine" },
+        { name = "Orb of Alchemy", id = "alch" },
+        { name = "Orb of Alteration", id = "alt" },
+        { name = "Chromatic Orb", id = "chrome" },
+        { name = "Exalted Orb", id = "exalted" },
+        { name = "Blessed Orb", id = "blessed" },
+        { name = "Cartographer's Chisel", id = "chisel" },
+        { name = "Gemcutter's Prism", id = "gcp" },
+        { name = "Jeweller's Orb", id = "jewellers" },
+        { name = "Orb of Scouring", id = "scour" },
+        { name = "Orb of Regret", id = "regret" },
+        { name = "Orb of Fusing", id = "fusing" },
+        { name = "Orb of Chance", id = "chance" },
+        { name = "Regal Orb", id = "regal" },
+        { name = "Vaal Orb", id = "vaal" }
+    }
+    local currencyDropdownNames = { }
+    for _, currency in ipairs(currencyTable) do
+        table.insert(currencyDropdownNames, currency.name)
+    end
+    controls.maxPrice = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D", nil, function(buf)  end)
+    controls.maxPriceType = new("DropDownControl", {"LEFT",controls.maxPrice,"RIGHT"}, 5, 0, 150, 18, currencyDropdownNames, function(index, value) end)
+    controls.maxPriceLabel = new("LabelControl", {"RIGHT",controls.maxPrice,"LEFT"}, -5, 0, 0, 16, "Max Price:")
+    popupHeight = popupHeight + 23
 
 	controls.generateQuery = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Execute", function()
 		main:ClosePopup()
@@ -730,11 +776,15 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
             self.lastJewelType = controls.jewelType.selIndex
             options.jewelType = controls.jewelType.list[controls.jewelType.selIndex]
         end
+        if controls.maxPrice.buf then
+            options.maxPrice = tonumber(controls.maxPrice.buf)
+            options.maxPriceType = currencyTable[controls.maxPriceType.selIndex].id
+        end
 
         self:StartQuery(slot, options)
     end)
 	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 45, -10, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(280, popupHeight, "Query Options", controls)
+	main:OpenPopup(400, popupHeight, "Query Options", controls)
 end
