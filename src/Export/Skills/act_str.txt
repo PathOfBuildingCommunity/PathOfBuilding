@@ -636,7 +636,7 @@ local skills, mod, flag, skill = ...
 
 #skill FrozenSweep
 #flags spell attack area melee
-#baseMod skill("radius", 26)
+#baseMod skill("radius", 25)
 #mods
 
 #skill GeneralsCry
@@ -1402,7 +1402,7 @@ end,
 
 #skill Sweep
 #flags attack melee area
-#baseMod skill("radius", 26)
+#baseMod skill("radius", 24)
 #mods
 
 #skill EnduranceChargeSlam
