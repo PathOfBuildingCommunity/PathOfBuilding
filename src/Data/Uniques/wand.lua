@@ -267,13 +267,13 @@ Variant: Pre 3.4.0
 Variant: Current
 Requires Level 65, 212 Int
 Implicits: 1
-(35-39)% increased Spell Damage 
-(30-40)% increased Spell Damage 
-Adds (26-35) to (95-105) Lightning Damage to Spells 
-+(6-10)% to Critical Strike Multiplier per Power Charge 
-+0.3% Critical Strike Chance per Power Charge 
-2% additional Chance to Block Spells per Power Charge 
-Adds 3 to 9 Lightning Damage to Spells per Power Charge 
+(35-39)% increased Spell Damage
+(30-40)% increased Spell Damage
+Adds (26-35) to (95-105) Lightning Damage to Spells
++(6-10)% to Critical Strike Multiplier per Power Charge
++0.3% Critical Strike Chance per Power Charge
++2% Chance to Block Spell Damage per Power Charge
+Adds 3 to 9 Lightning Damage to Spells per Power Charge
 {variant:1}400 Lightning Damage taken per second per Power Charge if you've dealt a Critical Strike Recently
 {variant:2}200 Lightning Damage taken per second per Power Charge if your Skills have dealt a Critical Strike Recently
 ]],[[
