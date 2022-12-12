@@ -402,7 +402,7 @@ table.insert(data.uniques.generated, table.concat(precursorsEmblem, "\n"))
 local balanceOfTerrorMods = {
 	["Vulnerability: Double Damage"] = "(6-10)% chance to deal Double Damage if you've cast Vulnerability in the past 10 seconds",
 	["Vulnerability: Unaffected by Bleeding"] = "You are Unaffected by Bleeding if you've cast Vulnerability in the past 10 seconds",
-	["Enfeeble: Critical Strike Multiplier"] = "(30-40)% to Critical Strike Multiplier if you've cast Enfeeble in the past 10 seconds",
+	["Enfeeble: Critical Strike Multiplier"] = "+(30-40)% to Critical Strike Multiplier if you've cast Enfeeble in the past 10 seconds",
 	["Enfeeble: Take no Extra Crit Damage"] = "Take no Extra Damage from Critical Strikes if you've cast Enfeeble in the past 10 seconds",
 	["Despair: Immune to Curses"] = "Immune to Curses if you've cast Despair in the past 10 seconds",
 	["Despair: Inflict Withered"] = "Inflict Withered for 2 seconds on Hit if you've cast Despair in the past 10 seconds",
