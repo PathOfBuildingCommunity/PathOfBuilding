@@ -2203,7 +2203,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Calculate crit chance, crit multiplier, and their combined effect
-		if skillModList:Flag(nil, "NeverCrit") then
+		if skillModList:Flag(cfg, "NeverCrit") then
 			output.PreEffectiveCritChance = 0
 			output.CritChance = 0
 			output.CritMultiplier = 0
