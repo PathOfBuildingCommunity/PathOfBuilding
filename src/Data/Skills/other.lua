@@ -3395,6 +3395,11 @@ skills["TouchOfFire"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	fromItem = true,
+	statMap = {
+		["display_touch_of_fire"] = {
+			flag("FlameTouched", { type = "GlobalEffect", effectType = "Buff" })
+		}
+	},
 	baseFlags = {
 		spell = true,
 	},
