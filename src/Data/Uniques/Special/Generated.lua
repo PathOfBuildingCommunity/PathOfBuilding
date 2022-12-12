@@ -428,8 +428,8 @@ local balanceOfTerror = {
 	"Limited to: 1",
 	"LevelReq: 56",
 }
+
 for name, _ in pairs(balanceOfTerrorMods) do
-	ConPrintf(name)
 	table.insert(balanceOfTerror, "Variant: "..name)
 end
 
