@@ -303,8 +303,8 @@ local modNameList = {
 	["to avoid cold damage from hits"] = "AvoidColdDamageChance",
 	["to avoid lightning damage when hit"] = "AvoidLightningDamageChance",
 	["to avoid lightning damage from hits"] = "AvoidLightningDamageChance",
-	["to avoid elemental damage when hit"] = {"AvoidFireDamageChance", "AvoidColdDamageChance", "AvoidLightningDamageChance" },
-	["to avoid elemental damage from hits"] = {"AvoidFireDamageChance", "AvoidColdDamageChance", "AvoidLightningDamageChance" },
+	["to avoid elemental damage when hit"] = { "AvoidFireDamageChance", "AvoidColdDamageChance", "AvoidLightningDamageChance" },
+	["to avoid elemental damage from hits"] = { "AvoidFireDamageChance", "AvoidColdDamageChance", "AvoidLightningDamageChance" },
 	["to avoid projectiles"] = "AvoidProjectilesChance",
 	["to avoid being stunned"] = "AvoidStun",
 	["to avoid interruption from stuns while casting"] = "AvoidInterruptStun",
@@ -1016,7 +1016,7 @@ local preFlagList = {
 	["^hits against enemies (%a+) by you have "] = function(cond)
 		return { tag = { type = "ActorCondition", actor = "enemy", var = cond:gsub("^%a", string.upper) } }
 	end,
-	["^enemies shocked or frozen by you take "] = { tag = { type = "Condition", varList = {"Shocked","Frozen" } }, applyToEnemy = true, modSuffix = "Taken" },
+	["^enemies shocked or frozen by you take "] = { tag = { type = "Condition", varList = { "Shocked","Frozen" } }, applyToEnemy = true, modSuffix = "Taken" },
 	["^enemies affected by your spider's webs [thd][ae][avk][el] "] = { tag = { type = "MultiplierThreshold", var = "Spider's WebStack", threshold = 1 }, applyToEnemy = true },
 	["^enemies you curse take "] = { tag = { type = "Condition", var = "Cursed" }, applyToEnemy = true, modSuffix = "Taken" },
 	["^enemies you curse "] = { tag = { type = "Condition", var = "Cursed" }, applyToEnemy = true },
@@ -3871,9 +3871,9 @@ local specialModList = {
 		mod("LifeRegenPercent", "BASE", tonumber(percent) / num, { type = "Condition", var = "LifeRegenBurstAvg" }),
 	} end,
 	["take no extra damage from critical strikes"] = { mod("ReduceCritExtraDamage", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
-	["take no extra damage from critical strikes if you've cast enfeeble in the past (%d+) seconds"] = {
-		mod("ReduceCritExtraDamage", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "Condition", var = "SelfCastEnfeeble" })
-	},
+	["take no extra damage from critical strikes if you've cast (.+) in the past (%d+) seconds"] = function (_, curse) return {
+		mod("ReduceCritExtraDamage", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") })
+	} end,
 	["take no extra damage from critical strikes if you have a magic ring in left slot"] = { 
 		mod("ReduceCritExtraDamage", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "Condition", var = "MagicItemInRing 1" }) 
 	},
