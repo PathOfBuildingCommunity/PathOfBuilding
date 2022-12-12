@@ -382,7 +382,7 @@ itemBases["Corundum Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 7.5, chargesUsed = 20, chargesMax = 50, buff = { "30% increased Stun Threshold" }, },
+	flask = { duration = 7.5, chargesUsed = 20, chargesMax = 50, buff = { "30% increased Stun Threshold", "Cannot be Stunned if you've been Stunned during Effect" }, },
 	req = { level = 27, },
 }
 itemBases["Iron Flask"] = {

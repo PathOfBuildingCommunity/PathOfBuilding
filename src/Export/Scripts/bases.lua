@@ -171,6 +171,9 @@ directiveTable.base = function(state, args, out)
 			for i, stat in ipairs(flask.Buff.Stats) do
 				stats[stat.Id] = { min = flask.BuffMagnitudes[i], max = flask.BuffMagnitudes[i] }
 			end
+			for i, stat in ipairs(flask.Buff.GrantedFlags) do
+				stats[stat.Id] = { min = 1, max = 1 }
+			end
 			out:write('buff = { "', table.concat(describeStats(stats), '", "'), '" }, ')
 		end
 		out:write('},\n')
