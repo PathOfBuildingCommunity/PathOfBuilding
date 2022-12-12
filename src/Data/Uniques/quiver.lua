@@ -323,8 +323,8 @@ Adds (13-18) to (26-32) Physical Damage to Attacks
 40% increased Maximum total Recovery per second from Life Leech
 ]],[[
 Voidfletcher
-Penetrating Arrow Quiver
-Primal Arrow Quiver
+{variant:1,2}Penetrating Arrow Quiver
+{variant:3}Primal Arrow Quiver
 Shaper Item
 Elder Item
 Variant: Pre 3.5.0

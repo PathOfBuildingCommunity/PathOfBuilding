@@ -333,6 +333,13 @@ local powerChargeMods = {
 
 local precursorsEmblem = {
 [[Precursor's Emblem
+{variant:1}Topaz Ring
+{variant:2}Sapphire Ring
+{variant:3}Ruby Ring
+{variant:4}Two-Stone Ring (Cold/Lightning)
+{variant:5}Two-Stone Ring (Fire/Lightning)
+{variant:6}Two-Stone Ring (Fire/Cold)
+{variant:7}Prismatic Ring
 League: Delve
 Source: Vendor Recipe
 Variant: Topaz Ring
@@ -352,13 +359,6 @@ for _, type in ipairs({ { prefix = "Endurance - ", mods = enduranceChargeMods },
 	end
 end
 table.insert(precursorsEmblem, [[Selected Variant: 1
-{variant:1}Topaz Ring
-{variant:2}Sapphire Ring
-{variant:3}Ruby Ring
-{variant:4}Two-Stone Ring (Cold/Lightning)
-{variant:5}Two-Stone Ring (Fire/Lightning)
-{variant:6}Two-Stone Ring (Fire/Cold)
-{variant:7}Prismatic Ring
 Has Alt Variant: true
 Has Alt Variant Two: true
 Has Alt Variant Three: true
