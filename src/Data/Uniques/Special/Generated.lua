@@ -416,7 +416,7 @@ local balanceOfTerrorMods = {
 	["Conductivity: Unaffected by Shock"] = "You are Unaffected by Shock if you've cast Conductivity in the past 10 seconds",
 	["Elemental Weakness: Immune to Exposure"] = "Immune to Exposure if you've cast Elemental Weakness in the past 10 seconds",
 	["Elemental Weakness: Physical Damage as a Random Element"] = "Gain (30-40)% of Physical Damage as a Random Element if you've cast Elemental Weakness in the past 10 seconds",
-	["Temporal Chains: Cooldown Recovery Rate"] = "{0}% increased Cooldown Recovery Rate if you've cast Temporal Chains in the past 10 seconds",
+	["Temporal Chains: Cooldown Recovery Rate"] = "(20-25)% increased Cooldown Recovery Rate if you've cast Temporal Chains in the past 10 seconds",
 	["Temporal Chains: Action Speed"] = "Action Speed cannot be Slowed below Base Value if you've cast Temporal Chains in the past 10 seconds",
 }
 
