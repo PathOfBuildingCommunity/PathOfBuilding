@@ -2378,6 +2378,9 @@ local specialModList = {
 		mod("ExtraSkill", "LIST", { skillId = gemIdLookup[skill], level = 1, noSupports = true, triggered = true }),
 		mod("CurseEffect", "INC", tonumber(num), { type = "SkillName", skillName = string.gsub(" "..skill, "%W%l", string.upper):sub(2) }),
 	} end,
+	["%d+%% chance to curse n?o?n?%-?c?u?r?s?e?d? ?enemies with (%D+) on %a+"] = function(_, skill, num) return {
+		mod("ExtraSkill", "LIST", { skillId = gemIdLookup[skill], level = 1, noSupports = true, triggered = true }),
+	} end,
 	["curse enemies with level (%d+) (%D+) on %a+, which can apply to hexproof enemies"] = function(num, _, skill) return triggerExtraSkill(skill, num, true) end,
 	["curse enemies with level (%d+) (.+) on %a+"] = function(num, _, skill) return triggerExtraSkill(skill, num, true) end,
 	["[ct][ar][si][tg]g?e?r?s? (.+) on %a+"] = function(_, skill) return triggerExtraSkill(skill, 1, true) end,
@@ -2802,6 +2805,7 @@ local specialModList = {
 		mod("EnemyModifier", "LIST", { mod = mod("Accuracy", "INC", -num) }, {type = "ActorCondition", actor = "enemy", var = "Marked" }),
 	} end,
 	["you are cursed with level (%d+) (%D+)"] = function(num, _, name) return { mod("ExtraCurse", "LIST", { skillId = gemIdLookup[name], level = num, applyToPlayer = true }) } end,
+	["you are cursed with (%D+)"] = function(_, skill) return { mod("ExtraCurse", "LIST", { skillId = gemIdLookup[skill], level = 1, applyToPlayer = true }) } end,
 	["you are cursed with (%D+), with (%d+)%% increased effect"] = function(_, skill, num) return {
 		mod("ExtraCurse", "LIST", { skillId = gemIdLookup[skill], level = 1, applyToPlayer = true }),
 		mod("CurseEffectOnSelf", "INC", tonumber(num), { type = "SkillName", skillName = string.gsub(" "..skill, "%W%l", string.upper):sub(2) }),
