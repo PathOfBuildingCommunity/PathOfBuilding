@@ -1210,7 +1210,7 @@ skills["MinionInstability"] = {
 		area = true,
 		fire = true,
 	},
-	skillTypes = { [10] = true, },
+	skillTypes = { [10] = true, [11] = true },
 	baseMods = {
 		skill("FireMin", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
 		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
