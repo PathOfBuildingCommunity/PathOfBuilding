@@ -4381,7 +4381,8 @@ function calcs.offence(env, actor, activeSkill)
 			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
 			if skillFlags.trap or skillFlags.mine then
 				local preSpeed = output.TrapThrowingSpeed or output.MineLayingSpeed
-				useSpeed = (output.Cooldown and output.Cooldown > 0 and (preSpeed > 0 and preSpeed or 1 / output.Cooldown) or preSpeed) / repeats
+				local cooldown = output.TrapCooldown or output.Cooldown
+				useSpeed = (cooldown and cooldown > 0 and 1 / cooldown or preSpeed) / repeats
 				timeType = skillFlags.trap and "trap throwing" or "mine laying"
 			elseif skillFlags.totem then
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.TotemPlacementSpeed > 0 and output.TotemPlacementSpeed or 1 / output.Cooldown) or output.TotemPlacementSpeed) / repeats
