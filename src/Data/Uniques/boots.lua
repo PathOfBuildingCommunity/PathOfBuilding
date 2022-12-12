@@ -565,12 +565,12 @@ LevelReq: 52
 -- Boots: Armour/Evasion
 [[
 Beacon of Madness
-Variant: Two-Toned Boots (Armour/Evasion)
-Variant: Two-Toned Boots (Armour/Energy Shield)
-Variant: Two-Toned Boots (Evasion/Energy Shield)
 {variant:1}Two-Toned Boots (Armour/Evasion)
 {variant:2}Two-Toned Boots (Armour/Energy Shield)
 {variant:3}Two-Toned Boots (Evasion/Energy Shield)
+Variant: Two-Toned Boots (Armour/Evasion)
+Variant: Two-Toned Boots (Armour/Energy Shield)
+Variant: Two-Toned Boots (Evasion/Energy Shield)
 League: Delirium
 Implicits: 3
 {variant:1}+(8-12)% to Fire and Cold Resistances
