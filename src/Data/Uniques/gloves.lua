@@ -805,10 +805,10 @@ Raise Zombie does not require a Corpse
 Your Raised Zombies count as Corpses
 ]],[[
 Architect's Hand
-Variant: Pre 3.14.0
-Variant: Current
 {variant:1}Strapped Mitts
 {variant:2}Ambush Mitts
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
 Source: Opening normal{Fortified Casket} in normal{Defense Research Lab}
 Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}

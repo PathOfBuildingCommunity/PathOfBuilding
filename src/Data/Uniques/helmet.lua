@@ -999,10 +999,10 @@ Regenerate 35 Mana per second if all Equipped Items are Corrupted
 Corrupted
 ]],[[
 Mask of the Spirit Drinker
-Variant: Pre 3.14.0
-Variant: Current
 {variant:1}Crusader Helmet
 {variant:2}Magistrate Crown
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
 Source: Opening normal{Pools Coffer} in normal{Sanctum of Immortality}
 Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}

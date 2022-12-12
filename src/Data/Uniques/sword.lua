@@ -462,10 +462,10 @@ Minions have +29% to Chaos Resistance
 Minions Leech 5% of Damage as Life against Poisoned Enemies
 ]],[[
 Story of the Vaal
-Variant: Pre 3.14.0
-Variant: Current
 {variant:1}Variscite Blade
 {variant:2}Gemstone Sword
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
 Source: Opening normal{Fireproof Chest} in normal{Crucible of Flame}
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}

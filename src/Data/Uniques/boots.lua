@@ -853,10 +853,10 @@ Triggers Level 20 Corpse Walk when Equipped
 {variant:2}For each nearby corpse, 1% increased Movement Speed
 ]],[[
 Dance of the Offered
-Variant: Pre 3.14.0
-Variant: Current
 {variant:1}Shackled Boots
 {variant:2}Carnal Boots
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
 Source: Opening normal{Thunder Coffer} in normal{Conduit of Lightning}
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
