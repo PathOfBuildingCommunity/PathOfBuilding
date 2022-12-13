@@ -2226,7 +2226,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				output.CritChance = (baseCrit + base) * (1 + inc / 100) * more
 				local preCapCritChance = output.CritChance
-				output.CritChance = m_min(output.CritChance, 100)
+				output.CritChance = m_min(output.CritChance, skillModList:Override(nil, "CritChanceCap") or skillModList:Sum("BASE", cfg, "CritChanceCap"))
 				if (baseCrit + base) > 0 then
 					output.CritChance = m_max(output.CritChance, 0)
 				end
