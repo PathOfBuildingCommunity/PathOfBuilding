@@ -417,6 +417,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDot, output.CombinedAvg))
 			if self.pbSortSelectionIndex == 4 then
 				local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
+				--print(tbl.amount, tbl.currency, item.name)
 				if chaosAmount > 0 then
 					t_insert(newTbl, { outputAttr = newDPS / chaosAmount, index = index })
 				end
