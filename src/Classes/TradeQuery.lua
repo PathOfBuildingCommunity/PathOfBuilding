@@ -89,24 +89,15 @@ function TradeQueryClass:PullLeagueList()
 					self:SetNotice(self.controls.pbNotice, "Failed to Get PoE League List response")
 					return
 				end
-				self.itemsTab.leagueDropList = {
-					{ label = "Standard", name = "Standard", realName = "Standard" },
-					{ label = "Hardcore", name = "Hardcore", realName = "Hardcore" },
-				}
+				self.itemsTab.leagueDropList = {}
 				for _, league_data in pairs(json_data) do
-					local league_name = league_data.id
-					if league_name ~= "Standard" and league_name ~= "Hardcore" and not league_name:find("SSF") then
-						if league_name:find("Hardcore") then
-							t_insert(self.itemsTab.leagueDropList, 2, { label = "HC League" , name = "tmphardcore", realName = league_name})
-						else
-							t_insert(self.itemsTab.leagueDropList, 1, { label = "SC League" , name = "tmpstandard", realName = league_name})
-						end
+					if not league_data.id:find("SSF") then
+						t_insert(self.itemsTab.leagueDropList,league_data.id)
 					end
 				end
 				self.controls.league:SetList(self.itemsTab.leagueDropList)
 				self.controls.league.selIndex = 1
-				self.pbLeague = self.itemsTab.leagueDropList[self.controls.league.selIndex].name
-				self.pbLeagueRealName = self.itemsTab.leagueDropList[self.controls.league.selIndex].realName
+				self.pbLeague = self.itemsTab.leagueDropList[self.controls.league.selIndex]
 				self:SetCurrencyConversionButton()
 			end
 		end)
@@ -148,7 +139,7 @@ function TradeQueryClass:PullPoENinjaCurrencyConversion(league)
 		self.pbCurrencyConversion[league] = { }
 		self.lastCurrencyConversionRequest = now
 		launch:DownloadPage(
-			"https://poe.ninja/api/data/CurrencyRates?league=" .. league,	
+			"https://poe.ninja/api/data/CurrencyRates?league=" .. league:gsub(" ", "+"),	
 			function(response, errMsg)
 				if errMsg then
 					self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
@@ -276,9 +267,8 @@ function TradeQueryClass:PriceItem()
 	end
 
 	-- League selection
-	self.controls.league = new("DropDownControl", {"TOPRIGHT", self.controls.itemSortSelectionLabel, "TOPLEFT"}, -8, 0, 100, 18, self.itemsTab.leagueDropList, function(index, value)
-		self.pbLeague = value.name
-		self.pbLeagueRealName = value.realName or value.name
+	self.controls.league = new("DropDownControl", {"TOPRIGHT", self.controls.itemSortSelectionLabel, "TOPLEFT"}, -8, 0, 150, 18, self.itemsTab.leagueDropList, function(index, value)
+		self.pbLeague = value
 		self:SetCurrencyConversionButton()
 	end)
 	self.controls.league.enabled = function()
@@ -320,9 +310,8 @@ function TradeQueryClass:PriceItem()
 	if #self.itemsTab.leagueDropList == 0 then
 		self:PullLeagueList()
 	else
-		self.controls.league:SelByValue(self.pbLeague, "name")
-		self.pbLeague = self.itemsTab.leagueDropList[self.controls.league.selIndex].name
-		self.pbLeagueRealName = self.itemsTab.leagueDropList[self.controls.league.selIndex].realName
+		self.controls.league:SelByValue(self.pbLeague)
+		self.pbLeague = self.itemsTab.leagueDropList[self.controls.league.selIndex]
 		self:SetCurrencyConversionButton()
 	end
 end
@@ -459,7 +448,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query)
 			self.pbSortSelectionIndex = 1
 			context.controls["priceButton"..context.str_cnt].label = "Searching..."
-			self.tradeQueryRequests:SearchWithQuery(self.pbLeagueRealName, query, 
+			self.tradeQueryRequests:SearchWithQuery(self.pbLeague, query, 
 				function(items, errMsg)
 					if errMsg then
 						self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
@@ -474,7 +463,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 				end,
 				{
 					callbackQueryId = function(queryId)
-						controls["uri"..context.str_cnt]:SetText("https://www.pathofexile.com/trade/search/".. self.pbLeagueRealName .."/".. queryId)
+						controls["uri"..context.str_cnt]:SetText("https://www.pathofexile.com/trade/search/".. self.pbLeague:gsub(" ", "+") .."/".. queryId)
 					end
 				}
 			)

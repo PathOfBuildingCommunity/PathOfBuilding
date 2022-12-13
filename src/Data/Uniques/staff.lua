@@ -453,12 +453,12 @@ Requires Level 49, 85 Str, 85 Int
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+20% Chance to Block Attack Damage while wielding a Staff
+Socketed Gems fire 4 additional Projectiles
+Socketed Gems fire Projectiles in a Nova
 +(15-20) to All Attributes
 +(5-7)% to All Elemental Resistances
 (60-100)% increased Projectile Damage
 20% increased Light Radius
-Socketed Gems fire 4 additional Projectiles
-Socketed Gems fire Projectiles in a Nova
 ]],[[
 Soulwrest
 Ezomyte Staff

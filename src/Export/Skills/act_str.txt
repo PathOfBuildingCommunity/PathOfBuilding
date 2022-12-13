@@ -705,6 +705,7 @@ statMap = {
 			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
 		end
 	end,
+#baseMod skill("radius", 25)
 #mods
 
 #skill GeneralsCry
@@ -1290,6 +1291,9 @@ statMap = {
 		["maximum_added_lightning_damage_from_skill"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
+		["skill_buff_grants_attack_and_cast_speed_+%"] = {
+			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+		},
 	},
 #baseMod skill("radius", 15)
 #mods
@@ -1317,9 +1321,6 @@ statMap = {
 		["maximum_added_lightning_damage_from_skill"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["skill_buff_grants_attack_and_cast_speed_+%"] = {
-			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
-		}
 	},
 #baseMod skill("radius", 15)
 #mods
@@ -1470,7 +1471,7 @@ end,
 
 #skill Sweep
 #flags attack melee area
-#baseMod skill("radius", 26)
+#baseMod skill("radius", 24)
 #mods
 
 #skill EnduranceChargeSlam

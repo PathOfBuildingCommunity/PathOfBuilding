@@ -213,7 +213,7 @@ Variant: Current
 Requires Level 64, 76 Dex, 149 Int
 Implicits: 1
 50% increased Global Critical Strike Chance
-5% Additional Chance to Block while Dual Wielding
++5% Chance to Block Attack Damage while Dual Wielding
 {variant:1}(180-210)% increased Physical Damage
 {variant:2}(210-240)% increased Physical Damage
 {variant:3}(250-270)% increased Physical Damage
@@ -255,8 +255,8 @@ Variant: Current
 Requires Level 20, 31 Dex, 45 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
-{variant:2}20% additional Chance to Block while Dual Wielding
-{variant:1,3}12% additional Chance to Block while Dual Wielding
+{variant:2}+20% Chance to Block Attack Damage while Dual Wielding
+{variant:1,3}+12% Chance to Block Attack Damage while Dual Wielding
 (80-100)% increased Physical Damage
 +(10-20) to Dexterity
 Adds 3 to 30 Lightning Damage
