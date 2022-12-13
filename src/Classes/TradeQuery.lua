@@ -389,10 +389,9 @@ end
 -- Method to set the current result return in the pane based of an index
 function TradeQueryClass:SetFetchResultReturn(slotIndex, index)
 	if self.resultTbl[slotIndex] and self.resultTbl[slotIndex][index] then
-		local pb_index = self.sortedResultTbl[slotIndex][index].index
 		self.totalPrice[slotIndex] = {
-			currency = self.resultTbl[slotIndex][pb_index].currency,
-			amount = self.resultTbl[slotIndex][pb_index].amount,
+			currency = self.resultTbl[slotIndex][index].currency,
+			amount = self.resultTbl[slotIndex][index].amount,
 		}
 		self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
 	end
