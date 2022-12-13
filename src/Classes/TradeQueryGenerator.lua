@@ -637,7 +637,7 @@ function TradeQueryGeneratorClass:FinishQuery()
         end
     end
 
-    if options.maxPrice > 0 then
+    if options.maxPrice ~= nil and options.maxPrice > 0 then
         queryTable.query.filters.trade_filters = {
             filters = {
                 price = {
