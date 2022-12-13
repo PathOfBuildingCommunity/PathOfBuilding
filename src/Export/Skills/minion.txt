@@ -10,7 +10,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SandstormChaosElementalSummoned Chaos Aura
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true },
 #flags spell duration area
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill FireElementalFlameRedSummoned Immolate
@@ -202,7 +204,7 @@ skills["MinionInstability"] = {
 		area = true,
 		fire = true,
 	},
-	skillTypes = { [10] = true, [11] = true },
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
 	baseMods = {
 		skill("FireMin", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
 		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
