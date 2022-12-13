@@ -104,6 +104,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		OpenURL('https://www.pathofexile.com/my-account/privacy')
 	end)
 	self.controls.sessionInput = new("EditControl", {"TOPLEFT",self.controls.sessionRetry,"BOTTOMLEFT"}, 0, 8, 350, 20, "", "POESESSID", "%X", 32)
+	self.controls.sessionInput:SetProtected(true)
 	self.controls.sessionGo = new("ButtonControl", {"LEFT",self.controls.sessionInput,"RIGHT"}, 8, 0, 60, 20, "Go", function()
 		self:DownloadCharacterList()
 	end)
