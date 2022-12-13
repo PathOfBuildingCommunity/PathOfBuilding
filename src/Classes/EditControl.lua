@@ -6,6 +6,7 @@
 local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
+local protected_replace = "*"
 
 local function lastLine(str)
 	local lastLineIndex = 1
@@ -105,6 +106,9 @@ end
 
 function EditClass:SetProtected(bool)
 	self.protected = bool or false
+	-- set the font to be fixed to prevent strange
+	-- spacing
+	self.font = "FIXED"
 end
 
 function EditClass:IsMouseOver()
@@ -284,7 +288,7 @@ function EditClass:Draw(viewPort, noTooltip)
 		else
 			SetDrawColor(self.inactiveCol)
 			if self.protected then
-				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, string.rep("*", #self.buf))
+				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, string.rep(protected_replace, #self.buf))
 			else
 				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
 			end
@@ -361,7 +365,7 @@ function EditClass:Draw(viewPort, noTooltip)
 		local sel = self.selCol .. StripEscapes(self.buf:sub(left, right - 1))
 		local post = self.textCol .. self.buf:sub(right)
 		if self.protected then
-			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep("*", #pre))
+			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep(protected_replace, #pre-#self.textCol))
 		else
 			DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
 		end
@@ -370,12 +374,12 @@ function EditClass:Draw(viewPort, noTooltip)
 		SetDrawColor(self.selBGCol)
 		DrawImage(nil, textX, textY, selWidth, textHeight)
 		if self.protected then
-			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep("*", #sel))
+			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep(protected_replace, #sel))
 		else
 			DrawString(textX, textY, "LEFT", textHeight, self.font, sel)
 		end
-		if self.protected then
-			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep("*", #post))
+		if self.protected and #post > 0 then
+			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep(protected_replace, #post-#self.textCol))
 		else
 			DrawString(textX + selWidth, textY, "LEFT", textHeight, self.font, post)
 		end
@@ -388,13 +392,13 @@ function EditClass:Draw(viewPort, noTooltip)
 		local pre = self.textCol .. self.buf:sub(1, self.caret - 1)
 		local post = self.buf:sub(self.caret)
 		if self.protected then
-			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep("*", #pre))
+			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep(protected_replace, #pre-#self.textCol))
 		else
 			DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
 		end
 		textX = textX + DrawStringWidth(textHeight, self.font, pre)
-		if self.protected then
-			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep("*", #post))
+		if self.protected and #post > 0 then
+			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep(protected_replace, #post))
 		else
 			DrawString(textX, textY, "LEFT", textHeight, self.font, post)
 		end
