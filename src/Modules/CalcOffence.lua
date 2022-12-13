@@ -1058,7 +1058,6 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
-
 	-- General's Cry
 	if skillData.triggeredByGeneralsCry then
 		local mirageActiveSkill = nil
@@ -2208,7 +2207,6 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.MaxExplosiveArrowFuseCalculated = nil
 		end
 
-
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(nil, "NeverCrit") then
 			output.PreEffectiveCritChance = 0
@@ -2381,7 +2379,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 		end
-		
+
 		-- Calculate hit damage for each damage type
 		local totalHitMin, totalHitMax, totalHitAvg = 0, 0, 0
 		local totalCritMin, totalCritMax, totalCritAvg = 0, 0, 0
@@ -2653,7 +2651,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		
 		local highestType = "Physical"
-		
+
 		-- For each damage type, calculate percentage of total damage. Also tracks the highest damage type and outputs a Condition:TypeIsHighestDamageType flag for whichever the highest type is
 		for _, damageType in ipairs(dmgTypeList) do
 			if output[damageType.."HitAverage"] > 0 then
@@ -2720,7 +2718,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.EnergyShieldOnKill = not skillModList:Flag(cfg, "CannotGainEnergyShield") and (m_floor(skillModList:Sum("BASE", cfg, "EnergyShieldOnKill"))) or 0
 			output.ManaOnKill = not skillModList:Flag(cfg, "CannotGainMana") and (m_floor(skillModList:Sum("BASE", cfg, "ManaOnKill"))) or 0
 		end
-		
+
 		-- Calculate average damage and final DPS
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
