@@ -219,6 +219,7 @@ function TradeQueryClass:PriceItem()
 	self.controls.poesessidButton = new("ButtonControl", {"TOPLEFT", self.controls.setSelect, "BOTTOMLEFT"}, 0, 4, 200, row_height, function() return main.POESESSID ~= "" and "Change POESESSID" or colorCodes.WARNING.."Missing POESESSID" end, function()
 		local poesessid_controls = {}
 		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, main.POESESSID, nil, "%X", 32)
+		poesessid_controls.sessionInput:SetProtected(true)
 		poesessid_controls.sessionInput.placeholder = "Enter your session ID here"
 		poesessid_controls.sessionInput.tooltipText = "You can get this from your web browser's cookies while logged into the Path of Exile website."
 		poesessid_controls.save = new("ButtonControl", {"TOPRIGHT", poesessid_controls.sessionInput, "TOP"}, -8, 24, 90, row_height, "Save", function()
@@ -388,10 +389,9 @@ end
 -- Method to set the current result return in the pane based of an index
 function TradeQueryClass:SetFetchResultReturn(slotIndex, index)
 	if self.resultTbl[slotIndex] and self.resultTbl[slotIndex][index] then
-		local pb_index = self.sortedResultTbl[slotIndex][index].index
 		self.totalPrice[slotIndex] = {
-			currency = self.resultTbl[slotIndex][pb_index].currency,
-			amount = self.resultTbl[slotIndex][pb_index].amount,
+			currency = self.resultTbl[slotIndex][index].currency,
+			amount = self.resultTbl[slotIndex][index].amount,
 		}
 		self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
 	end
@@ -416,6 +416,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDot, output.CombinedAvg))
 			if self.pbSortSelectionIndex == 4 then
 				local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
+				--print(tbl.amount, tbl.currency, item.name)
 				if chaosAmount > 0 then
 					t_insert(newTbl, { outputAttr = newDPS / chaosAmount, index = index })
 				end

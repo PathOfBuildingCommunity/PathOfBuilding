@@ -58,7 +58,7 @@ local localOnlyModGroups = {
     ["DefencesPercentSuffix"] = true
 }
 
-local MAX_FILTERS = 36
+local MAX_FILTERS = 35
 
 local function logToFile(...)
     ConPrintf(...)
@@ -637,7 +637,7 @@ function TradeQueryGeneratorClass:FinishQuery()
         end
     end
 
-    if options.maxPrice > 0 then
+    if options.maxPrice and options.maxPrice > 0 then
         queryTable.query.filters.trade_filters = {
             filters = {
                 price = {
