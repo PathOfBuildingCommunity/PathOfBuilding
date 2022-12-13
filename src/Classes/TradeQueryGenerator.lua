@@ -574,7 +574,7 @@ function TradeQueryGeneratorClass:FinishQuery()
     self.calcContext.testItem:BuildAndParseRaw()
 
     local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-    local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or originalOutput.TotalDPS or 0) - (self.calcContext.baseDPS or 0)
+    local currentDPSDiff =  GlobalCache.useFullDPS and originalOutput.FullDPS or m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDot or 0, originalOutput.CombinedAvg or 0)) - (self.calcContext.baseDPS or 0)
 
     -- Restore global cache full DPS
     GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
