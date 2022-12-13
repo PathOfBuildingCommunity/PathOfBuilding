@@ -1235,9 +1235,9 @@ function calcs.perform(env, avoidCache)
 		end
 		-- The actual hexes as opposed to hex related skills all have the curse flag. TotemCastsWhenNotDetached is to remove blasphemy
 		-- Note that this doesn't work for triggers yet, insufficient support
-		if activeSkill.skillFlags.hex and activeSkill.skillFlags.curse and not activeSkill.skillTypes[SkillType.TotemCastsWhenNotDetached] then
+		if activeSkill.skillFlags.hex and activeSkill.skillFlags.curse and not activeSkill.skillTypes[SkillType.TotemCastsWhenNotDetached] and activeSkill.skillModList:Sum("BASE", nil, "MaxDoom") then
 			local hexDoom = modDB:Sum("BASE", nil, "Multiplier:HexDoomStack")
-			local maxDoom = activeSkill.skillModList:Sum("BASE", nil, "MaxDoom") or 30
+			local maxDoom = activeSkill.skillModList:Sum("BASE", nil, "MaxDoom")
 			local doomEffect = activeSkill.skillModList:More(nil, "DoomEffect")
 			-- Update the max doom limit
 			output.HexDoomLimit = m_max(maxDoom, output.HexDoomLimit or 0)
