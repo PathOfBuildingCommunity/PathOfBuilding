@@ -53,12 +53,18 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["curse_apply_as_aura"] = {
 		},
+		["support_blasphemy_curse_effect_+%_final"] = {
+			mod("CurseEffect", "MORE", nil),
+		},
 	},
 #mods
 
 #skill SupportBlasphemyPlus
 	statMap = {
 		["curse_apply_as_aura"] = {
+		},
+		["support_blasphemy_curse_effect_+%_final"] = {
+			mod("CurseEffect", "MORE", nil),
 		},
 	},
 #mods
@@ -184,21 +190,40 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportCursedGround
+#mods
+
 #skill SupportCurseOnHit
 	statMap = {
 		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" })
-		}
+		},
+		["support_hextouch_curse_effect_+%_final"] = {
+		},
 	},
 #mods
 
 #skill SupportCurseOnHitCurse
+	statMap = {
+		["support_hextouch_curse_effect_+%_final"] = {
+			mod("CurseEffect", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportCurseOnHitPlus
+	statMap = {
+		["support_hextouch_curse_effect_+%_final"] = {
+		},
+	},
 #mods
 
 #skill SupportCurseOnHitCursePlus
+	statMap = {
+		["support_hextouch_curse_effect_+%_final"] = {
+			mod("CurseEffect", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportMinionFocusFire
@@ -298,6 +323,9 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportHexBloom
+#mods
+
 #skill SupportRemoteMine2
 	addFlags = {
 		mine = true,
@@ -329,14 +357,6 @@ local skills, mod, flag, skill = ...
 
 #skill ViciousHexExplosion
 #flags spell area
-	statMap = {
-		["doom_blast_hit_damage_+%_final_per_5_doom_on_hex"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
-		},
-		["doom_blast_ailment_damage_+%_final_per_5_doom_on_hex"] = {
-			mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "HexDoom", div = 5 }),
-		},
-	},
 #baseMod skill("radius", 20)
 #baseMod skill("showAverage", true)
 #mods

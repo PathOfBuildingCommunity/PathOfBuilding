@@ -203,6 +203,15 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 14)
 #mods
 
+#skill VaalChargedAttack
+#flags attack melee area
+	statMap = {
+		["vaal_charged_attack_damage_taken_+%_final"] = {
+			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#mods
+
 #skill BladeVortex
 #flags spell area duration
 	parts = {
@@ -338,6 +347,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PoisonArrow
+#flags attack projectile area duration
+#baseMod skill("radius", 20)
+#baseMod skill("radiusSecondary", 12)
+#baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsCausticGround")
+#mods
+
+#skill VaalCausticArrow
 #flags attack projectile area duration
 #baseMod skill("radius", 20)
 #baseMod skill("radiusSecondary", 12)
@@ -802,6 +819,10 @@ local skills, mod, flag, skill = ...
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
+#mods
+
+#skill VaalFlickerStrike
+#flags attack melee duration
 #mods
 
 #skill Frenzy
@@ -1666,7 +1687,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill TornadoShot
@@ -1696,6 +1716,10 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:ReturningProjectile", { type = "SkillPart", skillPart = 2 })
 #mods
 
+#skill VaalSnappingAdder
+#flags attack projectile duration
+#mods
+
 #skill ViperStrike
 #flags attack melee duration
 	statMap = {
@@ -1706,6 +1730,7 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" }),
 		},
 	},
+#baseMod skill("poisonIsSkillEffect", true)
 #mods
 
 #skill VolatileDead

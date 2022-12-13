@@ -1,6 +1,29 @@
-VERSION[2.22.0][2022/12/09]
+VERSION[2.23.0][2022/12/09]
+
+* Add initial and partial support for new skill gems (LocalIdentity)
+    * Vaal Blade Flurry is partially supported
+    * Vaal Cleave is missing the Cleave buff
+    * Frozen legion needs more work before it's completely accurate
+* Updated old skill gems with 3.20 balance changes (LocalIdentity)
+
+
+VERSION[2.22.1][2022/12/10]
+
+--- User Interface ---
+* Update 3.20 skill tree (LocalIdentity)
 
 --- Fixed Bugs ---
+* Cost per second for totems and eldritch battery (Lilylicious)
+* Incorrect warnings when using Eldritch Battery and remove support for per-second costs (Paliak)
+* Viper Strike base Poison duration (LocalIdentity)
+* Ailments not applying correctly (Lilylicious)
+* Hex Master not working with Impossible Escape (LocalIdentity)
+* Onslaught Effect nodes on skill tree not working (LocalIdentity)
+
+
+VERSION[2.22.0][2022/12/09]
+
+--- Implemented Enhancements ---
 * Add 3.20 Tree and Timeless jewel nodes (Regisle)
 * Add all revealed new Uniques from 3.20 (QuickStick123)
 * Add build pricing and item optimization to Items Tab (Nostrademous, Dullson)

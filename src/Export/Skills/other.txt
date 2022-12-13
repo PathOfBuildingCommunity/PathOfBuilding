@@ -599,7 +599,7 @@ local skills, mod, flag, skill = ...
 #skill TriggeredShockedGround
 #flags spell area duration
 	fromItem = true,
-#baseMod mod("ShockedGroundBase", "BASE", 15)
+#baseMod mod("ShockedGroundEffect", "BASE", 15)
 #mods
 
 #skill ChannelledSnipe
@@ -896,5 +896,10 @@ local skills, mod, flag, skill = ...
 
 #skill FieryImpactHeistMaceImplicit
 #flags attack area melee
+	fromItem = true,
+#mods
+
+#skill TouchOfFire
+#flags spell
 	fromItem = true,
 #mods

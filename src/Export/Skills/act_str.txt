@@ -270,7 +270,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Boneshatter
-#flags attack melee strike area duration
+#flags attack melee area duration
 	parts = {
 		{
 			name = "Attack",
@@ -387,12 +387,11 @@ local skills, mod, flag, skill = ...
 
 #skill Cleave
 #flags attack melee area
-	statMap = {
-		["cleave_damage_+%_final_while_dual_wielding"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
-		},
-	},
 #baseMod skill("radius", 20)
+#mods
+
+#skill VaalCleave
+#flags attack area duration melee
 #mods
 
 #skill ConsecratedPath
@@ -612,6 +611,10 @@ local skills, mod, flag, skill = ...
 #baseMod mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"})
 #mods
 
+#skill FlameLink
+#flags spell duration
+#mods
+
 #skill BloodSandArmour
 #flags spell area aura
 	statMap = {
@@ -628,6 +631,15 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 28)
 #baseMod mod("Condition:Maimed", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Flesh", effectCond = "BloodStance" })
 #baseMod mod("Condition:Blinded", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Stone", effectCond = "SandStance" })
+#mods
+
+#skill FrozenLegion
+#flags spell attack area melee
+#mods
+
+#skill FrozenSweep
+#flags spell attack area melee
+#baseMod skill("radius", 25)
 #mods
 
 #skill GeneralsCry
@@ -932,8 +944,35 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
-		["active_skill_damage_over_time_from_projectile_hits_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "SkillPart", skillPart = 2 })
+		["active_skill_hit_ailment_damage_with_projectile_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPart = 2 })
+		},
+	},
+#baseMod skill("projectileSpeedAppliesToMSAreaOfEffect", true)
+#baseMod skill("radius", 9, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusLabel", "Ball area:", { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusSecondary", 2, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill VaalMoltenStrike
+#flags attack melee projectile area chaining
+	parts = {
+		{
+			name = "Melee Hit",
+			melee = true,
+			projectile = false,
+			area = false,
+			chaining = false,
+		},
+		{
+			name = "Magma Balls",
+			melee = false,
+			projectile = true,
+			area = true,
+			chaining = true,
 		},
 	},
 #baseMod skill("projectileSpeedAppliesToMSAreaOfEffect", true)
@@ -1002,6 +1041,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 40)
 #mods
 
+#skill ProtectiveLink
+#flags spell duration
+#mods
+
 #skill Punishment
 #flags spell curse area duration hex
 	statMap = {
@@ -1011,7 +1054,6 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#baseMod mod("MaxDoom", "BASE", 30)
 #baseMod mod("DebilitateChance", "BASE", 100)
 #mods
 
@@ -1185,7 +1227,34 @@ local skills, mod, flag, skill = ...
 		},
 		["skill_buff_grants_attack_and_cast_speed_+%"] = {
 			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
-		}
+		},
+	},
+#baseMod skill("radius", 15)
+#mods
+
+#skill VaalSmite
+#flags attack melee duration area
+	parts = {
+		{
+			name = "Melee Hit",
+			area = false,
+		},
+		{
+			name = "Area Hit",
+			area = true,
+			melee = false,
+		},
+	},
+	statMap = {
+		["base_chance_to_shock_%_from_skill"] = {
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["minimum_added_lightning_damage_from_skill"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["maximum_added_lightning_damage_from_skill"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
 	},
 #baseMod skill("radius", 15)
 #mods
@@ -1336,7 +1405,7 @@ end,
 
 #skill Sweep
 #flags attack melee area
-#baseMod skill("radius", 26)
+#baseMod skill("radius", 24)
 #mods
 
 #skill EnduranceChargeSlam
@@ -1387,24 +1456,58 @@ end,
 #baseMod skill("radius", 40)
 #mods
 
+#skill VolcanicFissure
+#flags melee attack projectile area slam
+	parts = {
+		{
+			name = "Ground Fissure",
+			melee = true,
+			projectile = false,
+		},
+		{
+			name = "Magma Balls",
+			melee = false,
+			projectile = true,
+		},
+	},
+	statMap = {
+		["active_skill_hit_ailment_damage_with_projectile_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPart = 2 })
+		},
+	},
+#mods
+
+#skill VaalVolcanicFissure
+#flags melee attack projectile area slam
+	parts = {
+		{
+			name = "Ground Fissure",
+			melee = true,
+			projectile = false,
+		},
+		{
+			name = "Magma Balls",
+			melee = false,
+			projectile = true,
+		},
+	},
+#mods
+
 #skill Vulnerability
 #flags spell curse area duration hex
 	statMap = {
 		["receive_bleeding_chance_%_when_hit_by_attack"] = {
 			mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
-			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["self_bleed_duration_+%"] = {
+			mod("SelfBleedDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("radius", 22)
-#baseMod mod("MaxDoom", "BASE", 30)
 #mods
 
 #skill WarlordsMark
@@ -1439,12 +1542,4 @@ end,
 #baseMod skill("radius", 46)
 #baseMod skill("manaReservationPercent", 0, { type = "Condition", var = "BannerPlanted" })
 #baseMod flag("Condition:AffectedByPlacedBanner", { type = "Condition", var = "BannerPlanted" }, { type = "GlobalEffect", effectType = "Buff" })
-#mods
-
-#skill FlameLink
-#flags spell duration fire
-#mods
-
-#skill ProtectiveLink
-#flags spell duration
 #mods
