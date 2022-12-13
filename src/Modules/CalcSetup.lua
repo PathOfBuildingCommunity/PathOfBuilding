@@ -1242,7 +1242,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 			calcs.buildActiveSkillModList(env, activeSkill)
 		end
 	end
-	
+
+	-- Always wipe dpsMultiplier
+	for _, activeSkill in pairs(env.player.activeSkillList) do
+		activeSkill.skillData.dpsMultiplier = nil
+	end
+
 	-- Merge Requirements Tables
 	env.requirementsTable = tableConcat(env.requirementsTableItems, env.requirementsTableGems)
 
