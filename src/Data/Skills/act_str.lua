@@ -3426,6 +3426,69 @@ skills["FrozenSweep"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 	},
+	parts = {
+		{
+			name = "1 charge",
+		},
+		{
+			name = "Wait for max charges",
+		},
+	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local t_insert = table.insert
+		local s_format = string.format
+		local parentSkill
+		local m_ceil = math.ceil
+		local m_max = math.max
+		activeSkill.skillData.showAverage = false
+		activeSkill.skillFlags.showAverage = false
+		activeSkill.skillFlags.notAverage = true	
+		
+		for _, skill in ipairs(activeSkill.actor.activeSkillList) do
+			if skill.activeEffect.grantedEffect.name == "Frozen Legion" and activeSkill.actor.mainSkill.socketGroup.slot == activeSkill.socketGroup.slot then
+				parentSkill = skill
+				break
+			end
+		end
+
+		if parentSkill.skillModList:Flag(parentSkill.skillCfg, "DisableSkill") and not parentSkill.skillModList:Flag(parentSkill.skillCfg, "EnableSkill") then
+			return
+		end
+		
+		activeSkill.activeEffect.grantedEffect.castTime = 0
+		parentSkill.activeEffect.grantedEffect.castTime = 0
+		
+		activeSkill.skillData.cooldown = parentSkill.skillData.cooldown
+		local cooldownOverride = parentSkill.skillModList:Override(parentSkill.skillCfg, "CooldownRecovery")
+		local cooldown = cooldownOverride or (parentSkill.skillData.cooldown + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "CooldownRecovery")) / m_max(0, calcLib.mod(parentSkill.skillModList, parentSkill.skillCfg, "CooldownRecovery"))
+		output.Cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+
+		local ExtraHitChance = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionExtraStatueChance") or 0
+		local MaxStatues = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionMaxStatues") or 1
+		
+		local statuesWaitedFor
+		local dpsMultiplier = ExtraHitChance
+
+		if activeSkill.skillPart == 1 then
+			statuesWaitedFor = 1
+		elseif activeSkill.skillPart == 2 then
+			statuesWaitedFor = MaxStatues
+		end
+		activeSkill.skillData.averageBurstHits = statuesWaitedFor + (ExtraHitChance > 0 and ExtraHitChance / 100 or 0)
+		dpsMultiplier = 1 + (ExtraHitChance > 0 and ExtraHitChance / statuesWaitedFor / 100 or 0)
+		if breakdown then
+			breakdown.SkillDPSMultiplier = {}
+			t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+			t_insert(breakdown.SkillDPSMultiplier, "^8= extra statue chance / statues waited for")
+			t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%d%%^8 / ^7%.2f", ExtraHitChance, statuesWaitedFor))
+			t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.3f", dpsMultiplier))
+		end
+		if dpsMultiplier ~= 1 then
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * dpsMultiplier
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
+		end
+	end,
 	levels = {
 		[1] = { damageEffectiveness = 1.7, attackSpeedMultiplier = -30, baseMultiplier = 1.7, levelRequirement = 39, },
 		[2] = { damageEffectiveness = 1.76, attackSpeedMultiplier = -30, baseMultiplier = 1.758, levelRequirement = 41, },

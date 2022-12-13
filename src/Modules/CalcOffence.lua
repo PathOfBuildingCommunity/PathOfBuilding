@@ -1325,7 +1325,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- account for Sacrificial Zeal
 	-- Note: Sacrificial Zeal grants Added Spell Physical Damage equal to 25% of the Skill's Mana Cost, and causes you to take Physical Damage over Time, for 4 seconds
-	if skillModList:Flag(nil, "Condition:SacrificialZeal") then
+	if skillModList:Flag(nil, "Condition:SacrificialZeal") and output.ManaHasCost then
 		local multiplier = 0.25
 		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
@@ -1533,7 +1533,11 @@ function calcs.offence(env, actor, activeSkill)
 	for _, pass in ipairs(passList) do
 		globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
-		
+
+		if skillData.averageBurstHits then
+			output.AverageBurstHits = skillData.averageBurstHits
+		end
+
 		-- Calculate hit chance 
 		output.Accuracy = m_max(0, calcLib.val(skillModList, "Accuracy", cfg))
 		if breakdown then
@@ -2204,34 +2208,6 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.MaxExplosiveArrowFuseCalculated = nil
 		end
 
-		--Calculates the presence of a parent skill and its inherited mods
-		local parentSkill
-		if activeSkill.activeEffect.grantedEffect.name == "Frozen Sweep" then
-			skillData.showAverage = false
-			skillFlags.showAverage = false
-			skillFlags.notAverage = true	
-			for _, skill in ipairs(actor.activeSkillList) do
-				if skill.activeEffect.grantedEffect.name == "Frozen Legion" and actor.mainSkill.socketGroup.slot == activeSkill.socketGroup.slot then
-					parentSkill = skill
-					break
-				end
-			end
-			activeSkill.activeEffect.grantedEffect.castTime = 0
-			parentSkill.activeEffect.grantedEffect.castTime = 0
-			output.Cooldown = calcSkillCooldown(parentSkill.skillModList, parentSkill.skillCfg, parentSkill.skillData)
-			if breakdown then
-				breakdown.Cooldown = {
-					s_format("%.2fs ^8(base)", parentSkill.skillData.cooldown + parentSkill.skillModList:Sum("BASE", skillCfg, "CooldownRecovery")),
-					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + parentSkill.skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
-					s_format("rounded up to nearest server tick"),
-					s_format("= %.3fs", output.Cooldown)
-				}
-			end
-			local extraChance = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionExtraStatueChance") or 0
-			output.AverageBurstHits = (parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionMaxStatues") or 1) + (extraChance and extraChance / 100 or 0)
-		elseif activeSkill.activeEffect.grantedEffect.name == "Frozen Legion" then
-			env.player.mainSkill.infoMessage = "This data is broken, swap to frozen sweep"
-		end
 
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(nil, "NeverCrit") then
@@ -2751,7 +2727,7 @@ function calcs.offence(env, actor, activeSkill)
 		globalOutput.AverageBurstHits = output.AverageBurstHits or 1
 		globalOutput.AverageBurstDamage = output.AverageDamage * globalOutput.AverageBurstHits or 0
 		globalOutput.ShowBurst = globalOutput.AverageBurstHits > 1
-		output.TotalDPS = output.AverageDamage * (parentSkill and output.Cooldown and 1 / output.Cooldown or globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * quantityMultiplier
+		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * quantityMultiplier
 		if breakdown then
 			if output.CritEffect ~= 1 then
 				breakdown.AverageHit = { }
