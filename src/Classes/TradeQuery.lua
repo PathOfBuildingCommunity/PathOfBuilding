@@ -219,6 +219,7 @@ function TradeQueryClass:PriceItem()
 	self.controls.poesessidButton = new("ButtonControl", {"TOPLEFT", self.controls.setSelect, "BOTTOMLEFT"}, 0, 4, 200, row_height, function() return main.POESESSID ~= "" and "Change POESESSID" or colorCodes.WARNING.."Missing POESESSID" end, function()
 		local poesessid_controls = {}
 		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, main.POESESSID, nil, "%X", 32)
+		poesessid_controls.sessionInput:SetProtected(true)
 		poesessid_controls.sessionInput.placeholder = "Enter your session ID here"
 		poesessid_controls.sessionInput.tooltipText = "You can get this from your web browser's cookies while logged into the Path of Exile website."
 		poesessid_controls.save = new("ButtonControl", {"TOPRIGHT", poesessid_controls.sessionInput, "TOP"}, -8, 24, 90, row_height, "Save", function()
