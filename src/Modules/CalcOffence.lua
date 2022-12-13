@@ -662,6 +662,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Applies DPS multiplier based on seals count
 		output.SealCooldown = skillModList:Sum("BASE", skillCfg, "SealGainFrequency") / calcLib.mod(skillModList, skillCfg, "SealGainFrequency")
 		output.SealMax = skillModList:Sum("BASE", skillCfg, "SealCount")
+		output.AverageBurstHits = output.SealMax
 		output.TimeMaxSeals = output.SealCooldown * output.SealMax
 
 		if not skillData.hitTimeOverride then
@@ -1057,26 +1058,6 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
-	local inheritFromSkill
-	if activeSkill.activeEffect.grantedEffect.name == "Frozen Sweep" then
-		skillData.showAverage = false
-		skillFlags.showAverage = false
-		skillFlags.notAverage = true	
-		for _, skill in ipairs(actor.activeSkillList) do
-			if skill.activeEffect.grantedEffect.name == "Frozen Legion" and actor.mainSkill.socketGroup.slot == activeSkill.socketGroup.slot then
-				inheritFromSkill = skill
-				break
-			end
-		end
-		activeSkill.activeEffect.grantedEffect.castTime = 0
-		inheritFromSkill.activeEffect.grantedEffect.castTime = 0
-		output.SourceCooldown = calcSkillCooldown(inheritFromSkill.skillModList, inheritFromSkill.skillCfg, inheritFromSkill.skillData)
-		output.Cooldown = output.SourceCooldown
-		local statues = inheritFromSkill.skillModList:Sum("BASE", inheritFromSkill.skillCfg, "FrozenLegionMaxStatues") or 0
-		local extraChance = inheritFromSkill.skillModList:Sum("BASE", inheritFromSkill.skillCfg, "FrozenLegionExtraStatueChance") or 0
-	elseif activeSkill.activeEffect.grantedEffect.name == "Frozen Legion" then
-		env.player.mainSkill.infoMessage = "This data is broken, swap to frozen sweep"
-	end
 
 	-- General's Cry
 	if skillData.triggeredByGeneralsCry then
@@ -2223,6 +2204,35 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.MaxExplosiveArrowFuseCalculated = nil
 		end
 
+		--Calculates the presence of a parent skill and its inherited mods
+		local parentSkill
+		if activeSkill.activeEffect.grantedEffect.name == "Frozen Sweep" then
+			skillData.showAverage = false
+			skillFlags.showAverage = false
+			skillFlags.notAverage = true	
+			for _, skill in ipairs(actor.activeSkillList) do
+				if skill.activeEffect.grantedEffect.name == "Frozen Legion" and actor.mainSkill.socketGroup.slot == activeSkill.socketGroup.slot then
+					parentSkill = skill
+					break
+				end
+			end
+			activeSkill.activeEffect.grantedEffect.castTime = 0
+			parentSkill.activeEffect.grantedEffect.castTime = 0
+			output.Cooldown = calcSkillCooldown(parentSkill.skillModList, parentSkill.skillCfg, parentSkill.skillData)
+			if breakdown then
+				breakdown.Cooldown = {
+					s_format("%.2fs ^8(base)", parentSkill.skillData.cooldown + parentSkill.skillModList:Sum("BASE", skillCfg, "CooldownRecovery")),
+					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + parentSkill.skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
+					s_format("rounded up to nearest server tick"),
+					s_format("= %.3fs", output.Cooldown)
+				}
+			end
+			local extraChance = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionExtraStatueChance") or 0
+			output.AverageBurstHits = (parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionMaxStatues") or 1) + (extraChance and extraChance / 100 or 0)
+		elseif activeSkill.activeEffect.grantedEffect.name == "Frozen Legion" then
+			env.player.mainSkill.infoMessage = "This data is broken, swap to frozen sweep"
+		end
+
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(nil, "NeverCrit") then
 			output.PreEffectiveCritChance = 0
@@ -2395,7 +2405,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 		end
-
+		
 		-- Calculate hit damage for each damage type
 		local totalHitMin, totalHitMax, totalHitAvg = 0, 0, 0
 		local totalCritMin, totalCritMax, totalCritAvg = 0, 0, 0
@@ -2667,7 +2677,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		
 		local highestType = "Physical"
-
+		
 		-- For each damage type, calculate percentage of total damage. Also tracks the highest damage type and outputs a Condition:TypeIsHighestDamageType flag for whichever the highest type is
 		for _, damageType in ipairs(dmgTypeList) do
 			if output[damageType.."HitAverage"] > 0 then
@@ -2734,12 +2744,14 @@ function calcs.offence(env, actor, activeSkill)
 			output.EnergyShieldOnKill = m_floor(skillModList:Sum("BASE", cfg, "EnergyShieldOnKill"))
 			output.ManaOnKill = m_floor(skillModList:Sum("BASE", cfg, "ManaOnKill"))
 		end
-
+		
 		-- Calculate average damage and final DPS
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
-		local sourceCooldown = inheritFromSkill and calcSkillCooldown(inheritFromSkill.skillModList, inheritFromSkill.skillCfg, inheritFromSkill.skillData) or 0 
-		output.TotalDPS = output.AverageDamage * (sourceCooldown > 0 and 1 / sourceCooldown or globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * quantityMultiplier
+		globalOutput.AverageBurstHits = output.AverageBurstHits or 1
+		globalOutput.AverageBurstDamage = output.AverageDamage * globalOutput.AverageBurstHits or 0
+		globalOutput.ShowBurst = globalOutput.AverageBurstHits > 1
+		output.TotalDPS = output.AverageDamage * (parentSkill and output.Cooldown and 1 / output.Cooldown or globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * quantityMultiplier
 		if breakdown then
 			if output.CritEffect ~= 1 then
 				breakdown.AverageHit = { }
@@ -2760,6 +2772,15 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.AverageDamage, s_format("%.1f ^8(average hit)", output.AverageHit))
 				t_insert(breakdown.AverageDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 				t_insert(breakdown.AverageDamage, s_format("= %.1f", output.AverageDamage))
+			end
+		end
+		if globalBreakdown then
+			if globalOutput.AverageBurstDamage > 0 then
+				globalBreakdown.AverageBurstDamage = { }		
+				t_insert(globalBreakdown.AverageBurstDamage, s_format("%.1f ^8(average hit)", output.AverageHit))
+				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.1f ^8(number of hits)", globalOutput.AverageBurstHits))
+				t_insert(globalBreakdown.AverageBurstDamage, s_format("= %.1f", globalOutput.AverageBurstDamage))
 			end
 		end
 		
