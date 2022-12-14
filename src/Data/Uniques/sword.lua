@@ -798,6 +798,18 @@ Adds (385-440) to (490-545) Cold Damage
 10% increased Cold Damage taken
 Gain an Endurance Charge if an Attack Freezes an Enemy
 ]],[[
+Echoforge
+Infernal Sword
+Source: Drops from unique{The Maven} (Uber)
+Implicits: 1
+30% increased Chaos Damage
+Adds (600-650) to (750-800) Chaos Damage
+(-16-16)% increased Attack Speed
++(-200-200) to maximum Life
+Your Chaos Damage can Shock
+(-40-40)% increased Area of Effect for Attacks
+Deal no Physical or Elemental Damage
+]],[[
 Queen's Decree
 Ornate Sword
 Variant: Pre 2.6.0

@@ -445,6 +445,14 @@ Eldritch Battery
 {variant:11,23}{crafted}Trigger Socketed Spells when you Focus
 {variant:12,24}{crafted}(81-140)% increased Duration of Ailments you inflict while Focused
 ]],[[
+Wilma's Requital
+Solaris Circlet 
++(300-500) to Accuracy Rating
+(200-250)% increased Energy Shield
+Increases and Reductions to Cast Speed apply to Attack Speed
+(20-30)% increased Elemental Damage with Attack Skills
+Ancestral Bond
+]],[[
 Doedre's Scorn
 Lunaris Circlet
 Variant: Pre 2.6.0
@@ -481,6 +489,15 @@ Adds (16-21) to (31-36) Chaos Damage to Spells
 (6-10)% chance to Poison per Power Charge
 (15-20)% increased Damage with Poison per Power Charge
 Aspect of the Spider inflicts Spider's Webs and Hinder every 0.5 Seconds instead
+]],[[
+Sandstorm Visage
+Necromancer Circlet
+League: Sanctum
+(8-10)% increased Cast Speed
+(200-250)% increased Energy Shield
+Avoid interruption from Stuns while Casting
+Base Critical Strike Chance of Spells is the Critical Strike Chance of your Main Hand Weapon
+Cannot deal Critical Strikes with Attacks
 ]],[[
 Flamesight
 Solaris Circlet

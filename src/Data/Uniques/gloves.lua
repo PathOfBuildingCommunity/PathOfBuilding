@@ -990,6 +990,14 @@ Requires Level 67, 51 Dex, 51 Int
 {variant:1,2,3}10% increased Stun Duration on Enemies
 {variant:1,2,3}100% increased Duration of Lightning Ailments
 {variant:4}100% increased Effect of Lightning Ailments
+]],[[
+Entropic Devastation
+Assassin's Mitts
+Source: Drops from unique{The Shaper} (Uber)
+Grants Call of Steel
+(100-150)% increased Evasion and Energy Shield
+(30-50)% increased Effect of Impales inflicted with Spells
+Critical Strikes with Spells inflict Impale
 ]],
 -- Gloves: Ward
 [[

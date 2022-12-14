@@ -158,6 +158,15 @@ LevelReq: 60
 (10-20)% increased Elemental Damage
 You can apply an additional Curse
 60% increased Area of Effect of Hex Skills
+]],[[
+Dawnstrider
+Vaal Greaves
+Source: Drops from unique{The Searing Exarch}
++(80-100) to maximum Life
+30% increased Movement Speed
+100% increased Effect of Buffs your Ancestor Totems grant while Active
+Buffs from Active Ancestor Totems Linger for 4 seconds
+Maximum 1 Buff from an Active Ancestor Totem at a time
 ]],
 -- Boots: Evasion
 [[
@@ -651,6 +660,18 @@ Requires Level 69, 48 Str, 48 Dex
 {variant:2}Nearby Enemies are Scorched
 (30-50)% increased Effect of Scorch
 (30-40)% chance when you Kill a Scorched Enemy to Burn Each surrounding Enemy for 4 seconds, dealing 8% of the Killed Enemy's Life as Fire Damage per second
+]],[[
+Annihilation's Approach
+Dragonscale Boots
+Source: Drops from unique{The Searing Exarch} (Uber)
+Grants Level 20 Approaching Flames Skill
+(60-100)% increased Armour and Evasion
+30% increased Movement Speed
+Cannot be Chilled
+Cannot be Frozen
+Take 10000 Fire Damage per Second while Flame-Touched
+Gain Adrenaline when you become Flame-Touched
+Lose Adrenaline when you cease to be Flame-Touched
 ]],[[
 Lioneye's Paws
 Bronzescale Boots
