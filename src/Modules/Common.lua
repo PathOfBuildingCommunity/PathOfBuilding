@@ -582,8 +582,7 @@ end
 
 -- Formats 1234.56 -> "1234.6" [dec=1]
 function formatRound(val, dec)
-	dec = dec or 0
-	return m_floor(val * 10 ^ dec + 0.5) / 10 ^ dec
+	return round(val, dec)
 end
 function getFormatRound(dec)
 	return function(val)
@@ -593,8 +592,7 @@ end
 
 -- Formats 12.3456 -> "1234.6%" [dec=1]
 function formatPercent(val, dec)
-	dec = dec or 0
-	return m_floor((val or 0) * 100 * 10 ^ dec + 0.5) / 10 ^ dec .. "%"
+	return round((val or 0) * 100, dec) .. "%"
 end
 function getFormatPercent(dec)
 	return function(val)

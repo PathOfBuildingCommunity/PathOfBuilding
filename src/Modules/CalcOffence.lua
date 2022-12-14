@@ -104,7 +104,7 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 	-- Combine modifiers
 	local modNames = damageStatsForTypes[typeFlags]
 	local inc = 1 + skillModList:Sum("INC", cfg, unpack(modNames)) / 100
-	local more = m_floor(skillModList:More(cfg, unpack(modNames)) * 100 + 0.50000001) / 100
+	local more = round(skillModList:More(cfg, unpack(modNames)), 2)
 	local moreMinDamage = skillModList:More(cfg, "Min"..damageType.."Damage")
 	local moreMaxDamage = skillModList:More(cfg, "Max"..damageType.."Damage")
 
@@ -141,7 +141,7 @@ end
 ---@param areaMod number
 ---@return number
 local function calcRadius(baseRadius, areaMod)
-	return m_floor(baseRadius * m_floor(100 * m_sqrt(areaMod)) / 100)
+	return m_floor(baseRadius * floor(m_sqrt(areaMod), 2))
 end
 
 ---Calculates the tertiary radius for Molten Strike, correctly handling the deadzone.
@@ -3970,13 +3970,13 @@ function calcs.offence(env, actor, activeSkill)
 						table.sort(val.effList)
 						for _, value in ipairs(val.effList) do
 							local thresh = val.thresh(damage, value, output[ailment.."EffectMod"])
-							local decCheck = value / m_floor(value)
+							local decCheck = value ~= m_floor(value)
 							local precision = ailmentData[ailment].precision
-							value = m_floor(value * (10 ^ precision)) / (10 ^ precision)
+							value = floor(value, precision)
 							local valueFormat = "%."..tostring(precision).."f%%"
-							local threshString = s_format("%d", thresh)..(m_floor(thresh + 0.5) == m_floor(enemyThreshold + 0.5) and s_format(" ^8(%s)", env.configInput.enemyIsBoss) or "")
+							local threshString = s_format("%d", thresh)..(round(thresh) == round(enemyThreshold) and s_format(" ^8(%s)", env.configInput.enemyIsBoss) or "")
 							local labels = { }
-							if decCheck == 1 and value ~= 0 then
+							if decCheck and value ~= 0 then
 								if value == current then
 									t_insert(labels, "current")
 								end

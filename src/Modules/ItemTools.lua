@@ -28,8 +28,7 @@ function itemLib.applyValueScalar(line, valueScalar, numbers, precision)
 	if valueScalar and type(valueScalar) == "number" and valueScalar ~= 1 then
 		if precision then
 			return line:gsub("(%d+%.?%d*)", function(num)
-				local power = 10 ^ precision
-				local numVal = m_floor(tonumber(num) * valueScalar * power) / power
+				local numVal = floor(tonumber(num) * valueScalar, precision)
 				return tostring(numVal)
 			end, numbers)
 		else
@@ -91,8 +90,9 @@ function itemLib.applyRange(line, range, valueScalar)
 		:gsub("(%+?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)",
 		function(plus, min, max)
 			numbers = numbers + 1
-			local power = 10 ^ (precision or 0)
-			local numVal = m_floor((tonumber(min) + range * (tonumber(max) - tonumber(min))) * power + 0.5) / power
+			local min = tonumber(min)
+			local max = tonumber(max)
+			local numVal = round((min + range * (max - min)), precision or 0)
 			if numVal < 0 then
 				if plus == "+" then
 					plus = ""
