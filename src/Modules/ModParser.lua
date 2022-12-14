@@ -49,7 +49,6 @@ local formList = {
 	["^([%+%-]?[%d%.]+)%%? of"] = "BASE",
 	["^([%+%-][%d%.]+)%%? base"] = "BASE",
 	["^([%+%-]?[%d%.]+)%%? additional"] = "BASE",
-	["cost ([%+%-]%d+)"] = "BASECOST",
 	["(%d+) additional hits?"] = "BASE",
 	["^you gain ([%d%.]+)"] = "GAIN",
 	["^gains? ([%d%.]+)%% of"] = "GAIN",
@@ -64,6 +63,7 @@ local formList = {
 	["^([%+%-]?%d+)%% chance"] = "CHANCE",
 	["^([%+%-]?%d+)%% chance to gain "] = "FLAG",
 	["^([%+%-]?%d+)%% additional chance"] = "CHANCE",
+	["costs? ([%+%-]?%d+)"] = "BASECOST",
 	["penetrates? (%d+)%%"] = "PEN",
 	["penetrates (%d+)%% of"] = "PEN",
 	["penetrates (%d+)%% of enemy"] = "PEN",
@@ -3967,28 +3967,50 @@ local penTypes = {
 	["elemental resistances"] = "ElementalPenetration",
 	["chaos resistance"] = "ChaosPenetration",
 }
-local regenTypes = {
-	["life"] = "LifeRegen",
-	["maximum life"] = "LifeRegen",
-	["life and mana"] = { "LifeRegen", "ManaRegen" },
-	["mana"] = "ManaRegen",
-	["maximum mana"] = "ManaRegen",
-	["energy shield"] = "EnergyShieldRegen",
-	["maximum energy shield"] = "EnergyShieldRegen",
-	["maximum mana and energy shield"] = { "ManaRegen", "EnergyShieldRegen" },
-	["rage"] = "RageRegen",
+local resourceTypes = {
+	["life"] = "Life",
+	["mana"] = "Mana",
+	["energy shield"] = "EnergyShield",
+	["life and mana"] = { "Life", "Mana" },
+	["life and energy shield"] = { "Life", "EnergyShield" },
+	["life, mana and energy shield"] = { "Life", "Mana", "EnergyShield" },
+	["life, energy shield and mana"] = { "Life", "Mana", "EnergyShield" },
+	["mana and life"] = { "Life", "Mana" },
+	["mana and energy shield"] = { "Mana", "EnergyShield" },
+	["mana, life and energy shield"] = { "Life", "Mana", "EnergyShield" },
+	["mana, energy shield and life"] = { "Life", "Mana", "EnergyShield" },
+	["energy shield and life"] = { "Life", "EnergyShield" },
+	["energy shield and mana"] = { "Mana", "EnergyShield" },
+	["energy shield, life and mana"] = { "Life", "Mana", "EnergyShield" },
+	["energy shield, mana and life"] = { "Life", "Mana", "EnergyShield" },
+	["rage"] = "Rage",
 }
-local degenTypes = {
-	["life"] = "LifeDegen",
-	["maximum life"] = "LifeDegen",
-	["life and mana"] = { "LifeDegen", "ManaDegen" },
-	["mana"] = "ManaDegen",
-	["maximum mana"] = "ManaDegen",
-	["energy shield"] = "EnergyShieldDegen",
-	["maximum energy shield"] = "EnergyShieldDegen",
-	["maximum mana and energy shield"] = { "ManaDegen", "EnergyShieldDegen" },
-	["rage"] = "RageDegen",
-}
+do
+	local maximumResourceTypes = { }
+	for resource, values in pairs(resourceTypes) do
+		maximumResourceTypes["maximum "..resource] = values
+	end
+	for resource, values in pairs(maximumResourceTypes) do
+		resourceTypes[resource] = values
+	end
+end
+local function appendMod(inputTable, string)
+	local table = { }
+	for subLine, mods in pairs(inputTable) do
+		if type(mods) == "string" then
+			table[subLine] = mods..string
+		else
+			table[subLine] = { }
+			for _, mod in ipairs(mods) do
+				t_insert(table[subLine], mod..string)
+			end
+		end
+	end
+	return table
+end
+local regenTypes = appendMod(resourceTypes, "Regen")
+local degenTypes = appendMod(resourceTypes, "Degen")
+local costTypes = appendMod(resourceTypes, "Cost")
 local flagTypes = {
 	["phasing"] = "Condition:Phasing",
 	["onslaught"] = "Condition:Onslaught",
@@ -4501,6 +4523,13 @@ local function parseMod(line, order)
 		end
 		local _
 		_, line = scan(line, modNameList, true)
+	elseif modForm == "BASECOST" then
+		modName, line = scan(line, costTypes, true)
+		if not modName then
+			return { }, line
+		end
+		local _
+		_, line = scan(line, modNameList, true)
 	elseif modForm == "FLAG" then
 		formCap[1], line = scan(line, flagTypes, false)
 		if not formCap[1] then
@@ -4534,12 +4563,6 @@ local function parseMod(line, order)
 		modType = "MORE"
 	elseif modForm == "BASE" then
 		modSuffix, line = scan(line, suffixTypes, true)
-	elseif modForm == "BASECOST" then
-		if not modName then
-			return { }, line
-		end
-		modName = modName.."Cost"
-		modValue = tonumber(formCap[1])
 	elseif modForm == "GAIN" then
 		modType = "BASE"
 		modSuffix, line = scan(line, suffixTypes, true)
