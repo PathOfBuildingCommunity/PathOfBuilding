@@ -2188,14 +2188,14 @@ function calcs.offence(env, actor, activeSkill)
 		--Calculates the max number of fuses you can sustain
 		--Does not take into account mines or traps
 		if activeSkill.activeEffect.grantedEffect.name == "Explosive Arrow" and activeSkill.skillPart == 2 then
-			local hitRate = m_floor(output.HitChance / 100 * globalOutput.Speed * globalOutput.ActionSpeedMod * (skillData.dpsMultiplier or 1)) + 1
+			local hitRate = output.HitChance / 100 * globalOutput.Speed * globalOutput.ActionSpeedMod * (skillData.dpsMultiplier or 1)
 			if skillFlags.totem then
 				local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 				hitRate = hitRate * activeTotems
 			end
 			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 			local skillMax = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ExplosiveArrowMaxFuseCount")
-			local maximum = m_min(hitRate * duration, skillMax)
+			local maximum = m_min(m_floor(hitRate * duration) + 1, skillMax)
 			skillModList:NewMod("Multiplier:ExplosiveArrowStage", "BASE", maximum, "Base")
 			skillModList:NewMod("Multiplier:ExplosiveArrowStageAfterFirst", "BASE", maximum - 1, "Base")
 			globalOutput.MaxExplosiveArrowFuseCalculated = maximum
