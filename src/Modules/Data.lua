@@ -950,7 +950,11 @@ for gemId, gem in pairs(data.gems) do
 	gem.id = gemId
 	gem.grantedEffect = data.skills[gem.grantedEffectId]
 	data.gemForSkill[gem.grantedEffect] = gemId
-	data.gemForBaseName[gem.name .. (gem.grantedEffect.support and " Support" or "")] = gemId
+	local baseName = gem.name
+	if gem.grantedEffect.support and gem.grantedEffectId ~= "SupportBarrage" then
+		baseName = baseName .. " Support"
+	end
+	data.gemForBaseName[baseName] = gemId
 	gem.secondaryGrantedEffect = gem.secondaryGrantedEffectId and data.skills[gem.secondaryGrantedEffectId]
 	gem.grantedEffectList = {
 		gem.grantedEffect,
