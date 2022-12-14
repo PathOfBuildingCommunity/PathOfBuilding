@@ -12,6 +12,7 @@ local m_abs = math.abs
 local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
+local m_log = math.log
 local s_format = string.format
 local s_char = string.char
 local b_rshift = bit.rshift
@@ -542,6 +543,14 @@ function floor(val, dec)
 	else
 		return m_floor(val)
 	end
+end
+
+--- Takes the logarithm of a value to a given base
+---@param val number
+---@param base number
+---@return number
+function log(val, base)
+	return m_log(val) / m_log(base)
 end
 
 ---@param n number
