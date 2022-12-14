@@ -1242,8 +1242,28 @@ function calcs.initEnv(build, mode, override, specEnv)
 		for _, activeSkill in pairs(env.player.activeSkillList) do
 			calcs.buildActiveSkillModList(env, activeSkill)
 		end
+	else
+		-- Wipe skillData and readd required data the rest of the data will be added by the rest of code this stops iterative calculations on skillData not being reset
+		for _, activeSkill in pairs(env.player.activeSkillList) do
+			local skillData = copyTable(activeSkill.skillData, true)
+			activeSkill.skillData = { }
+			for _, value in ipairs(env.modDB:List(activeSkill.skillCfg, "SkillData")) do
+				activeSkill.skillData[value.key] = value.value
+			end
+			for _, value in ipairs(activeSkill.skillModList:List(activeSkill.skillCfg, "SkillData")) do
+				activeSkill.skillData[value.key] = value.value
+			end
+			-- These mods were modified with special expressions in buildActiveSkillModList() use old one to avoid more calculations
+			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
+			activeSkill.skillData.cooldown = skillData.cooldown
+			activeSkill.skillData.CritChance = skillData.CritChance
+			activeSkill.skillData.attackTime = skillData.attackTime
+			activeSkill.skillData.totemLevel = skillData.totemLevel
+			activeSkill.skillData.damageEffectiveness = skillData.damageEffectiveness
+			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
+		end
 	end
-	
+
 	-- Merge Requirements Tables
 	env.requirementsTable = tableConcat(env.requirementsTableItems, env.requirementsTableGems)
 
