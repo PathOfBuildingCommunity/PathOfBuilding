@@ -64,7 +64,7 @@ function TradeQueryRateLimiterClass:ParseHeader(headerString)
     local headers = {}
     for k, v in headerString:gmatch("([%a%d%-]+): ([%g ]+)") do
         if k == nil then error("Unparsable Header") end
-        headers[k] = v
+        headers[k:lower()] = v
     end
     return headers
 end
@@ -72,21 +72,21 @@ end
 function TradeQueryRateLimiterClass:ParsePolicy(headerString) 
     local policies = {}
     local headers = self:ParseHeader(headerString)
-    local policyName = headers["X-Rate-Limit-Policy"]
+    local policyName = headers["x-rate-limit-policy"]
     policies[policyName] = {}
-    local retryAfter = headers["Retry-After"]
+    local retryAfter = headers["retry-after"]
     if retryAfter then
         policies[policyName].retryAfter = os.time() + retryAfter
     end
     local ruleNames = {}
-    for match in headers["X-Rate-Limit-Rules"]:gmatch("[^,]+") do
-        ruleNames[#ruleNames+1] = match
+    for match in headers["x-rate-limit-rules"]:gmatch("[^,]+") do
+        ruleNames[#ruleNames+1] = match:lower()
     end
     for _, ruleName in pairs(ruleNames) do
         policies[policyName][ruleName] = {}
         local properties = {
-            ["limits"] = "X-Rate-Limit-"..ruleName,
-            ["state"] = "X-Rate-Limit-"..ruleName.."-State",
+            ["limits"] = "x-rate-limit-"..ruleName,
+            ["state"] = "x-rate-limit-"..ruleName.."-state",
         }
         for key, headerKey in pairs(properties) do
             policies[policyName][ruleName][key] = {}

@@ -471,7 +471,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 		end
 	end
 	if env.mode_combat then		
-		if not modDB:Flag(nil, "NeverCrit") then
+		if not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
 			condList["CritInPast8Sec"] = true
 		end
 		if not actor.mainSkill.skillData.triggered and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then 
@@ -503,13 +503,13 @@ local function doActorAttribsPoolsConditions(env, actor)
 		if actor.mainSkill.skillFlags.mine then
 			condList["DetonatedMinesRecently"] = true
 		end
-		if modDB:Sum("BASE", nil, "EnemyScorchChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(nil, "NeverCrit") then
+		if modDB:Sum("BASE", nil, "EnemyScorchChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
 			condList["CanInflictScorch"] = true
 		end
-		if modDB:Sum("BASE", nil, "EnemyBrittleChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(nil, "NeverCrit") then
+		if modDB:Sum("BASE", nil, "EnemyBrittleChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
 			condList["CanInflictBrittle"] = true
 		end
-		if modDB:Sum("BASE", nil, "EnemySapChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(nil, "NeverCrit") then
+		if modDB:Sum("BASE", nil, "EnemySapChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
 			condList["CanInflictSap"] = true
 		end
 	end
@@ -1235,9 +1235,9 @@ function calcs.perform(env, avoidCache)
 		end
 		-- The actual hexes as opposed to hex related skills all have the curse flag. TotemCastsWhenNotDetached is to remove blasphemy
 		-- Note that this doesn't work for triggers yet, insufficient support
-		if activeSkill.skillFlags.hex and activeSkill.skillFlags.curse and not activeSkill.skillTypes[SkillType.TotemCastsWhenNotDetached] then
+		if activeSkill.skillFlags.hex and activeSkill.skillFlags.curse and not activeSkill.skillTypes[SkillType.TotemCastsWhenNotDetached] and activeSkill.skillModList:Sum("BASE", nil, "MaxDoom") then
 			local hexDoom = modDB:Sum("BASE", nil, "Multiplier:HexDoomStack")
-			local maxDoom = activeSkill.skillModList:Sum("BASE", nil, "MaxDoom") or 30
+			local maxDoom = activeSkill.skillModList:Sum("BASE", nil, "MaxDoom")
 			local doomEffect = activeSkill.skillModList:More(nil, "DoomEffect")
 			-- Update the max doom limit
 			output.HexDoomLimit = m_max(maxDoom, output.HexDoomLimit or 0)
@@ -1991,6 +1991,7 @@ function calcs.perform(env, avoidCache)
 				end
 			elseif buff.type == "Curse" or buff.type == "CurseBuff" then
 				local mark = activeSkill.skillTypes[SkillType.Mark]
+				modDB.conditions["SelfCast"..buff.name:gsub(" ","")] = not (activeSkill.skillTypes[SkillType.Triggered] or activeSkill.skillTypes[SkillType.Aura])
 				if env.mode_effective and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") or activeSkill.skillData.ignoreHexLimit) or mark then
 					local curse = {
 						name = buff.name,

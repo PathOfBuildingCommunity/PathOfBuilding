@@ -490,7 +490,7 @@ Implicits: 2
 {variant:1,2,3,4}(20-30)% increased Spell Damage
 {variant:2,3,4,5}(150-200)% increased Physical Damage
 {variant:5}Adds (76-98) to (161-176) Fire Damage
-{variant:1,2,3,4}Gain (6-10) Life per Enemy Hit by Attacks
+{variant:1,2,3,4}Grants (6-10) Life per Enemy Hit
 {variant:1,2,3,4}25% increased Light Radius
 {variant:5}50% increased Light Radius
 {variant:5}Battlemage
