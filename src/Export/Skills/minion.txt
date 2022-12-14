@@ -9,36 +9,12 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
-skills["SandstormChaosElementalSummoned"] = {
-	name = "Chaos Aura",
-	hidden = true,
-	color = 4,
-	baseEffectiveness = 6.1421999931335,
-	incrementalEffectiveness = 0.052099999040365,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	baseFlags = {
-		spell = true,
-		duration = true,
-		area = true,
-	},
-	baseMods = {
-		skill("dotIsArea", true),
-	},
-	constantStats = {
-		{ "base_skill_effect_duration", 5000 },
-		{ "active_skill_area_of_effect_radius_+%_final", 20 },
-	},
-	stats = {
-		"base_chaos_damage_to_deal_per_minute",
-		"is_area_damage",
-		"spell_damage_modifiers_apply_to_skill_dot",
-	},
-	levels = {
-		[1] = { 16.666667039196, cooldown = 8, levelRequirement = 3, statInterpolation = { 3, }, },
-	},
-}
+#addskillTypes DamageOverTime
+#skill SandstormChaosElementalSummoned Chaos Aura
+#flags spell duration area
+#baseMod skill("dotIsArea", true)
+#mods
+
 #skill FireElementalFlameRedSummoned Immolate
 #flags spell projectile
 #mods
