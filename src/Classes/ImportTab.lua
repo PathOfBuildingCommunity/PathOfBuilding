@@ -106,6 +106,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.sessionInput = new("EditControl", {"TOPLEFT",self.controls.sessionRetry,"BOTTOMLEFT"}, 0, 8, 350, 20, "", "POESESSID", "%X", 32)
 	self.controls.sessionInput:SetProtected(true)
 	self.controls.sessionGo = new("ButtonControl", {"LEFT",self.controls.sessionInput,"RIGHT"}, 8, 0, 60, 20, "Go", function()
+		main.POESESSID = self.controls.sessionInput.buf
 		self:DownloadCharacterList()
 	end)
 	self.controls.sessionGo.enabled = function()

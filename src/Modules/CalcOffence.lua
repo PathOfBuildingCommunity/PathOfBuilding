@@ -1261,7 +1261,7 @@ function calcs.offence(env, actor, activeSkill)
 				local reservedFlat = activeSkill.skillData[val.text.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationFlat"] or 0
 				baseCost = baseCost + reservedFlat
 				local reservedPercent = activeSkill.skillData[val.text.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationPercent"] or 0
-				baseCost = baseCost + (m_floor((output[resource] or 0) * reservedPercent / 100))
+				baseCost = baseCost + (round((output[resource] or 0) * reservedPercent / 100))
 			end
 			if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then -- Archmage
 				baseCost = m_max(baseCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
@@ -1287,37 +1287,38 @@ function calcs.offence(env, actor, activeSkill)
 		local resource = val.upfront and resource or resource:gsub("Minute", "Second")
 		local hasCost = val.baseCost > 0 or val.totalCost > 0 or val.baseCostNoMult > 0
 		output[resource.."HasCost"] = hasCost
-		if hasCost then
-			local dec = val.upfront and 0 or 2
-			local costName = resource.."Cost"
-			local mult = skillModList:More(skillCfg, "SupportManaMultiplier")
-			local more = skillModList:More(skillCfg, val.type.."Cost", "Cost")
-			local inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
-			output[costName] = val.baseCost * mult + val.baseCostNoMult
-			output[costName] = m_max(0, (1 + inc / 100) * output[costName])
-			output[costName] = m_max(0, more * output[costName])
-			output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
-			if breakdown then
-				breakdown[costName] = {
-					s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
-				}
-				if mult ~= 1 then
-					t_insert(breakdown[costName], s_format("x %.2f ^8(cost multiplier)", mult))
-				end
-				if val.baseCostNoMult ~= 0 then
-					t_insert(breakdown[costName], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
-				end
-				if inc ~= 0 then
-					t_insert(breakdown[costName], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
-				end
-				if more ~= 1 then
-					t_insert(breakdown[costName], s_format("x %.2f ^8(more/less "..val.text.." cost)", more))
-				end
-				if val.totalCost ~= 0 then
-					t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
-				end
-				t_insert(breakdown[costName], s_format("= %"..(val.upfront and "d" or ".2f")..(val.percent and "%%" or ""), output[costName]))
+		local dec = val.upfront and 0 or 2
+		local costName = resource.."Cost"
+		local mult = 1
+		for _, value in ipairs(skillModList:Tabulate("MORE", skillCfg, "SupportManaMultiplier")) do
+			mult = m_floor(mult * (100 + value.mod.value)) / 100
+		end
+		local more = skillModList:More(skillCfg, val.type.."Cost", "Cost")
+		local inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
+		output[costName] = m_floor(val.baseCost * mult + val.baseCostNoMult)
+		output[costName] = m_max(0, (1 + inc / 100) * output[costName])
+		output[costName] = m_max(0, more * output[costName])
+		output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
+		if breakdown and hasCost then
+			breakdown[costName] = {
+				s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
+			}
+			if mult ~= 1 then
+				t_insert(breakdown[costName], s_format("x %.2f ^8(cost multiplier)", mult))
 			end
+			if val.baseCostNoMult ~= 0 then
+				t_insert(breakdown[costName], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
+			end
+			if inc ~= 0 then
+				t_insert(breakdown[costName], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
+			end
+			if more ~= 1 then
+				t_insert(breakdown[costName], s_format("x %.2f ^8(more/less "..val.text.." cost)", more))
+			end
+			if val.totalCost ~= 0 then
+				t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
+			end
+			t_insert(breakdown[costName], s_format("= %"..(val.upfront and "d" or ".2f")..(val.percent and "%%" or ""), output[costName]))
 		end
 	end
 
@@ -2187,14 +2188,14 @@ function calcs.offence(env, actor, activeSkill)
 		--Calculates the max number of fuses you can sustain
 		--Does not take into account mines or traps
 		if activeSkill.activeEffect.grantedEffect.name == "Explosive Arrow" and activeSkill.skillPart == 2 then
-			local hitRate = m_floor(output.HitChance / 100 * globalOutput.Speed * globalOutput.ActionSpeedMod * (skillData.dpsMultiplier or 1)) + 1
+			local hitRate = output.HitChance / 100 * globalOutput.Speed * globalOutput.ActionSpeedMod * (skillData.dpsMultiplier or 1)
 			if skillFlags.totem then
 				local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 				hitRate = hitRate * activeTotems
 			end
 			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 			local skillMax = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ExplosiveArrowMaxFuseCount")
-			local maximum = m_min(hitRate * duration, skillMax)
+			local maximum = m_min(m_floor(hitRate * duration) + 1, skillMax)
 			skillModList:NewMod("Multiplier:ExplosiveArrowStage", "BASE", maximum, "Base")
 			skillModList:NewMod("Multiplier:ExplosiveArrowStageAfterFirst", "BASE", maximum - 1, "Base")
 			globalOutput.MaxExplosiveArrowFuseCalculated = maximum
@@ -2203,7 +2204,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Calculate crit chance, crit multiplier, and their combined effect
-		if skillModList:Flag(nil, "NeverCrit") then
+		if skillModList:Flag(cfg, "NeverCrit") then
 			output.PreEffectiveCritChance = 0
 			output.CritChance = 0
 			output.CritMultiplier = 0
@@ -2226,7 +2227,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				output.CritChance = (baseCrit + base) * (1 + inc / 100) * more
 				local preCapCritChance = output.CritChance
-				output.CritChance = m_min(output.CritChance, 100)
+				output.CritChance = m_min(output.CritChance, skillModList:Override(nil, "CritChanceCap") or skillModList:Sum("BASE", cfg, "CritChanceCap"))
 				if (baseCrit + base) > 0 then
 					output.CritChance = m_max(output.CritChance, 0)
 				end

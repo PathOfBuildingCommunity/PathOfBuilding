@@ -88,6 +88,18 @@ Queen's Demand can Trigger Level 20 Storm of Judgement
 Cannot be Stunned
 Damage cannot be Reflected
 ]],[[
+The Winds of Fate
+Foul Staff
+League: Sanctum
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+(700-800)% increased Physical Damage
++100% to Global Critical Strike Multiplier
+75% of Physical Damage converted to a random Element
+25% of Physical Damage Converted to Chaos Damage
+Maximum Critical Strike Chance is 50%
+Non-Critical Strikes deal no Damage
+]],[[
 The Blood Thorn
 Gnarled Branch
 Variant: Pre 2.6.0
