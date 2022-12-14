@@ -3399,6 +3399,9 @@ skills["FrozenSweep"] = {
 		area = true,
 		melee = true,
 	},
+	baseMods = {
+		skill("radius", 25),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
@@ -6872,7 +6875,7 @@ skills["Smite"] = {
 		},
 		["skill_buff_grants_attack_and_cast_speed_+%"] = {
 			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
-		}
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -7801,7 +7804,7 @@ skills["Sweep"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("radius", 26),
+		skill("radius", 24),
 	},
 	qualityStats = {
 		Default = {

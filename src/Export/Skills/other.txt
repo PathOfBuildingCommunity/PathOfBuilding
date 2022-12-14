@@ -36,6 +36,16 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill TouchOfFire
+#flags spell
+	fromItem = true,
+	statMap = {
+		["display_touch_of_fire"] = {
+			flag("FlameTouched", { type = "GlobalEffect", effectType = "Buff" })
+		}
+	},
+#mods
+
 #skill SupportTriggerSpellOnBowAttack Asenath's Chant
 	fromItem = true,
 #mods
@@ -189,6 +199,11 @@ local skills, mod, flag, skill = ...
 			mod("ColdAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
+#mods
+
+#skill UniqueEnchantmentOfInfernoOnCrit
+#flags spell area hit
+	fromItem = true,
 #mods
 
 #skill TriggeredConsecrate Consecrate
@@ -373,6 +388,11 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	fromItem = true,
 #baseMod skill("radius", 24)
+#mods
+
+#skill FieryImpactHeistMaceImplicit
+#flags attack area melee
+	fromItem = true,
 #mods
 
 #skill AtziriUniqueStaffFlameblast
@@ -850,14 +870,14 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportTriggerSpellOnSkillUse Trigger Craft
+	fromItem = true,
+#mods
+
 #skill AvianTornado
 #flags spell projectile duration
 	fromItem = true,
 #baseMod skill("showAverage", true)
-#mods
-
-#skill SupportTriggerSpellOnSkillUse Trigger Craft
-	fromItem = true,
 #mods
 
 #skill Unhinge
@@ -886,15 +906,5 @@ local skills, mod, flag, skill = ...
 
 #skill VoidShot
 #flags attack projectile area
-	fromItem = true,
-#mods
-
-#skill UniqueEnchantmentOfInfernoOnCrit
-#flags spell area hit
-	fromItem = true,
-#mods
-
-#skill FieryImpactHeistMaceImplicit
-#flags attack area melee
 	fromItem = true,
 #mods

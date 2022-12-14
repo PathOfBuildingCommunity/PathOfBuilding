@@ -3852,6 +3852,73 @@ skills["ShrapnelTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "One explosion hitting",
+		},
+		{
+			name = "Average explosions hitting",
+		},
+		{
+			name = "All explosions hitting",
+		},
+	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillCfg = activeSkill.skillCfg
+		local skillData = activeSkill.skillData
+		local skillPart = activeSkill.skillPart
+		local skillModList = activeSkill.skillModList
+		local t_insert = table.insert
+		local s_format = string.format
+
+		local function hitChance(enemyRadius, areaDamageRadius, areaSpreadRadius) -- not to be confused with attack hit chance
+			local damagingAreaRadius = areaDamageRadius + enemyRadius - 1	-- radius where area damage can land to hit the enemy;
+			-- -1 because of two assumptions: PoE coordinates are integers and damage is not registered if the two areas only share a point or vertex. If either is not correct, then -1 is not needed.
+			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
+		end
+		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
+		local waveRadius = output.AreaOfEffectRadiusSecondary
+		local fullRadius = output.AreaOfEffectRadius
+		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
+		output.OverlapChance = overlapChance * 100
+		local smallExplosionsPerTrap = skillModList:Sum("BASE", skillCfg, "SmallExplosions")
+		output.SmallExplosionsPerTrap = smallExplosionsPerTrap
+		if breakdown then
+			breakdown.OverlapChance = { }
+			t_insert(breakdown.OverlapChance, "Chance for individual wave to land within range to damage enemy:")
+			t_insert(breakdown.OverlapChance, "^8= (area where wave can spawn to damage enemy) / (total area)")
+			t_insert(breakdown.OverlapChance, "^8= (^7secondary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7radius^8 ^ 2")
+			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 + ^7%d^8 - 1) ^ 2 / ^7%d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
+			t_insert(breakdown.OverlapChance, s_format("^8= ^7%.3f^8%%", overlapChance * 100))
+		end
+		local dpsMultiplier = 1
+		if skillPart == 2 then
+			dpsMultiplier = 1 + smallExplosionsPerTrap * overlapChance
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= 1 + ^7small explosions^8 * ^7overlap chance^8")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= 1 + ^7%d^8 * ^7%.2f^8", smallExplosionsPerTrap, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.3f", dpsMultiplier))
+			end
+		elseif skillPart == 3 then
+			dpsMultiplier = 1 + smallExplosionsPerTrap
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= 1 + ^7%d (small explosions)", dpsMultiplier))
+			end
+		end
+		if dpsMultiplier ~= 1 then
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMultiplier
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
+		end
+	end,
+	statMap = {
+		["shrapnel_trap_number_of_secondary_explosions"] = {
+			mod("SmallExplosions", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		trap = true,
@@ -4231,6 +4298,92 @@ skills["FlickerStrike"] = {
 		[38] = { attackSpeedMultiplier = 20, cooldown = 2, damageEffectiveness = 2.6, baseMultiplier = 2.601, levelRequirement = 98, cost = { Mana = 10, }, },
 		[39] = { attackSpeedMultiplier = 20, cooldown = 2, damageEffectiveness = 2.62, baseMultiplier = 2.619, levelRequirement = 99, cost = { Mana = 10, }, },
 		[40] = { attackSpeedMultiplier = 20, cooldown = 2, damageEffectiveness = 2.64, baseMultiplier = 2.637, levelRequirement = 100, cost = { Mana = 10, }, },
+	},
+}
+skills["VaalFlickerStrike"] = {
+	name = "Vaal Flicker Strike",
+	color = 2,
+	description = "Repeatedly teleports to enemies and hits them, inflicting a wound but dealing no damage. After the repeating finishes, each enemy is hit by the total damage of their wounds, which are removed.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Movement] = true, [SkillType.Vaal] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		duration = true,
+	},
+	qualityStats = {
+		Default = {
+			{ "add_frenzy_charge_on_skill_hit_%", 0.25 },
+		},
+	},
+	constantStats = {
+		{ "base_attack_speed_+%_per_frenzy_charge", 10 },
+		{ "add_frenzy_charge_on_skill_hit_%", 30 },
+		{ "base_melee_attack_repeat_count", 25 },
+		{ "active_skill_ailment_damage_+%_final", -70 },
+	},
+	stats = {
+		"ignores_proximity_shield",
+		"base_skill_show_average_damage_instead_of_dps",
+		"melee_defer_damage_prediction",
+		"apply_cut_debuff_on_hit",
+		"skill_can_add_multiple_charges_per_action",
+	},
+	levels = {
+		[1] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.42, damageEffectiveness = 1.42, skillUseStorage = 1, soulCost = 30, levelRequirement = 10, },
+		[2] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.456, damageEffectiveness = 1.46, skillUseStorage = 1, soulCost = 30, levelRequirement = 13, },
+		[3] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.492, damageEffectiveness = 1.49, skillUseStorage = 1, soulCost = 30, levelRequirement = 17, },
+		[4] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.527, damageEffectiveness = 1.53, skillUseStorage = 1, soulCost = 30, levelRequirement = 21, },
+		[5] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.563, damageEffectiveness = 1.56, skillUseStorage = 1, soulCost = 30, levelRequirement = 25, },
+		[6] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.599, damageEffectiveness = 1.6, skillUseStorage = 1, soulCost = 30, levelRequirement = 29, },
+		[7] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.635, damageEffectiveness = 1.63, skillUseStorage = 1, soulCost = 30, levelRequirement = 33, },
+		[8] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.671, damageEffectiveness = 1.67, skillUseStorage = 1, soulCost = 30, levelRequirement = 36, },
+		[9] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.706, damageEffectiveness = 1.71, skillUseStorage = 1, soulCost = 30, levelRequirement = 39, },
+		[10] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.742, damageEffectiveness = 1.74, skillUseStorage = 1, soulCost = 30, levelRequirement = 42, },
+		[11] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.778, damageEffectiveness = 1.78, skillUseStorage = 1, soulCost = 30, levelRequirement = 45, },
+		[12] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.814, damageEffectiveness = 1.81, skillUseStorage = 1, soulCost = 30, levelRequirement = 48, },
+		[13] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.849, damageEffectiveness = 1.85, skillUseStorage = 1, soulCost = 30, levelRequirement = 51, },
+		[14] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.885, damageEffectiveness = 1.89, skillUseStorage = 1, soulCost = 30, levelRequirement = 54, },
+		[15] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.921, damageEffectiveness = 1.92, skillUseStorage = 1, soulCost = 30, levelRequirement = 57, },
+		[16] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.957, damageEffectiveness = 1.96, skillUseStorage = 1, soulCost = 30, levelRequirement = 60, },
+		[17] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 1.993, damageEffectiveness = 1.99, skillUseStorage = 1, soulCost = 30, levelRequirement = 63, },
+		[18] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.028, damageEffectiveness = 2.03, skillUseStorage = 1, soulCost = 30, levelRequirement = 66, },
+		[19] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.064, damageEffectiveness = 2.06, skillUseStorage = 1, soulCost = 30, levelRequirement = 68, },
+		[20] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.1, damageEffectiveness = 2.1, skillUseStorage = 1, soulCost = 30, levelRequirement = 70, },
+		[21] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.136, damageEffectiveness = 2.14, skillUseStorage = 1, soulCost = 30, levelRequirement = 72, },
+		[22] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.172, damageEffectiveness = 2.17, skillUseStorage = 1, soulCost = 30, levelRequirement = 74, },
+		[23] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.207, damageEffectiveness = 2.21, skillUseStorage = 1, soulCost = 30, levelRequirement = 76, },
+		[24] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.243, damageEffectiveness = 2.24, skillUseStorage = 1, soulCost = 30, levelRequirement = 78, },
+		[25] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.279, damageEffectiveness = 2.28, skillUseStorage = 1, soulCost = 30, levelRequirement = 80, },
+		[26] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.315, damageEffectiveness = 2.31, skillUseStorage = 1, soulCost = 30, levelRequirement = 82, },
+		[27] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.351, damageEffectiveness = 2.35, skillUseStorage = 1, soulCost = 30, levelRequirement = 84, },
+		[28] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.386, damageEffectiveness = 2.39, skillUseStorage = 1, soulCost = 30, levelRequirement = 86, },
+		[29] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.422, damageEffectiveness = 2.42, skillUseStorage = 1, soulCost = 30, levelRequirement = 88, },
+		[30] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.458, damageEffectiveness = 2.46, skillUseStorage = 1, soulCost = 30, levelRequirement = 90, },
+		[31] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.476, damageEffectiveness = 2.48, skillUseStorage = 1, soulCost = 30, levelRequirement = 91, },
+		[32] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.494, damageEffectiveness = 2.49, skillUseStorage = 1, soulCost = 30, levelRequirement = 92, },
+		[33] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.512, damageEffectiveness = 2.51, skillUseStorage = 1, soulCost = 30, levelRequirement = 93, },
+		[34] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.529, damageEffectiveness = 2.53, skillUseStorage = 1, soulCost = 30, levelRequirement = 94, },
+		[35] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.547, damageEffectiveness = 2.55, skillUseStorage = 1, soulCost = 30, levelRequirement = 95, },
+		[36] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.565, damageEffectiveness = 2.57, skillUseStorage = 1, soulCost = 30, levelRequirement = 96, },
+		[37] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.583, damageEffectiveness = 2.58, skillUseStorage = 1, soulCost = 30, levelRequirement = 97, },
+		[38] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.601, damageEffectiveness = 2.6, skillUseStorage = 1, soulCost = 30, levelRequirement = 98, },
+		[39] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.619, damageEffectiveness = 2.62, skillUseStorage = 1, soulCost = 30, levelRequirement = 99, },
+		[40] = { attackSpeedMultiplier = 200, soulPreventionDuration = 6, baseMultiplier = 2.637, damageEffectiveness = 2.64, skillUseStorage = 1, soulCost = 30, levelRequirement = 100, },
 	},
 }
 skills["Frenzy"] = {

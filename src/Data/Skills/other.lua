@@ -87,6 +87,30 @@ skills["AnimateGuardianWeapon"] = {
 		[20] = { 100, 126, 184, 14, cooldown = 0.05, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, }, },
 	},
 }
+skills["TouchOfFire"] = {
+	name = "Approaching Flames",
+	hidden = true,
+	color = 4,
+	description = "Become touched by the flames of the Cleansing Fire.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	statMap = {
+		["display_touch_of_fire"] = {
+			flag("FlameTouched", { type = "GlobalEffect", effectType = "Buff" })
+		}
+	},
+	baseFlags = {
+		spell = true,
+	},
+	stats = {
+		"display_touch_of_fire",
+	},
+	levels = {
+		[20] = { cooldown = 5, levelRequirement = 70, },
+	},
+}
 skills["SupportTriggerSpellOnBowAttack"] = {
 	name = "Asenath's Chant",
 	hidden = true,
@@ -500,6 +524,40 @@ skills["ColdAegis"] = {
 	},
 	levels = {
 		[20] = { levelRequirement = 1, },
+	},
+}
+skills["UniqueEnchantmentOfInfernoOnCrit"] = {
+	name = "Commandment of Inferno",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.5555999279022,
+	incrementalEffectiveness = 0.035000000149012,
+	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromItem = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 2000 },
+		{ "fire_storm_fireball_delay_ms", 100 },
+		{ "skill_override_pvp_scaling_time_ms", 450 },
+		{ "cast_on_crit_%", 100 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+		"is_area_damage",
+		"damage_cannot_be_reflected",
+	},
+	levels = {
+		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, cooldown = 3, levelRequirement = 75, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["TriggeredConsecrate"] = {
@@ -1219,6 +1277,46 @@ skills["FireBurstOnHit"] = {
 		[28] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 2.5, cooldown = 1.5, critChance = 6, levelRequirement = 86, statInterpolation = { 3, 3, }, },
 		[29] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 2.5, cooldown = 1.5, critChance = 6, levelRequirement = 88, statInterpolation = { 3, 3, }, },
 		[30] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 2.5, cooldown = 1.5, critChance = 6, levelRequirement = 90, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["FieryImpactHeistMaceImplicit"] = {
+	name = "Fiery Impact",
+	hidden = true,
+	color = 4,
+	description = "Deals attack damage in an area.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Melee] = true, [SkillType.InbuiltTrigger] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
+	},
+	stats = {
+		"is_area_damage",
+		"skill_has_trigger_from_unique_item",
+	},
+	levels = {
+		[10] = { damageEffectiveness = 2, cooldown = 2, baseMultiplier = 2, levelRequirement = 30, },
+		[15] = { damageEffectiveness = 2.5, cooldown = 2, baseMultiplier = 2.5, levelRequirement = 50, },
+		[20] = { damageEffectiveness = 3, cooldown = 2, baseMultiplier = 3, levelRequirement = 70, },
 	},
 }
 skills["AtziriUniqueStaffFlameblast"] = {
@@ -2954,7 +3052,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 100, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, }, },
-		[25] = { 100, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, }, }
+		[25] = { 100, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, }, },
 	},
 }
 skills["SummonTauntingContraption"] = {
@@ -3110,6 +3208,26 @@ skills["VampiricIcon"] = {
 		[20] = { lifeReservationPercent = 10, cooldown = 1.2, levelRequirement = 70, },
 	},
 }
+skills["SupportTriggerSpellOnSkillUse"] = {
+	name = "Trigger Craft",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	constantStats = {
+		{ "spell_has_trigger_from_crafted_item_mod", 1 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { cooldown = 8, levelRequirement = 1, manaMultiplier = 150, },
+		[2] = { cooldown = 4, levelRequirement = 1, manaMultiplier = 150, },
+	},
+}
 skills["AvianTornado"] = {
 	name = "Twister",
 	hidden = true,
@@ -3144,26 +3262,6 @@ skills["AvianTornado"] = {
 	},
 	levels = {
 		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, }, },
-	},
-}
-skills["SupportTriggerSpellOnSkillUse"] = {
-	name = "Trigger Craft",
-	hidden = true,
-	color = 4,
-	support = true,
-	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
-	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
-	statDescriptionScope = "gem_stat_descriptions",
-	fromItem = true,
-	constantStats = {
-		{ "spell_has_trigger_from_crafted_item_mod", 1 },
-	},
-	stats = {
-	},
-	levels = {
-		[1] = { cooldown = 8, levelRequirement = 1, manaMultiplier = 150, },
-		[2] = { cooldown = 4, levelRequirement = 1, manaMultiplier = 150, },
 	},
 }
 skills["Unhinge"] = {
@@ -3310,79 +3408,5 @@ skills["VoidShot"] = {
 	},
 	levels = {
 		[20] = { damageEffectiveness = 0.65, baseMultiplier = 0.65, levelRequirement = 70, },
-	},
-}
-skills["UniqueEnchantmentOfInfernoOnCrit"] = {
-	name = "Commandment of Inferno",
-	hidden = true,
-	color = 4,
-	baseEffectiveness = 3.5555999279022,
-	incrementalEffectiveness = 0.035000000149012,
-	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	cannotBeSupported = true,
-	fromItem = true,
-	baseFlags = {
-		spell = true,
-		area = true,
-		hit = true,
-	},
-	constantStats = {
-		{ "base_skill_effect_duration", 2000 },
-		{ "fire_storm_fireball_delay_ms", 100 },
-		{ "skill_override_pvp_scaling_time_ms", 450 },
-		{ "cast_on_crit_%", 100 },
-	},
-	stats = {
-		"spell_minimum_base_fire_damage",
-		"spell_maximum_base_fire_damage",
-		"base_skill_show_average_damage_instead_of_dps",
-		"is_area_damage",
-		"damage_cannot_be_reflected",
-	},
-	levels = {
-		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, cooldown = 3, levelRequirement = 75, statInterpolation = { 3, 3, }, },
-	},
-}
-skills["FieryImpactHeistMaceImplicit"] = {
-	name = "Fiery Impact",
-	hidden = true,
-	color = 4,
-	description = "Deals attack damage in an area.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Melee] = true, [SkillType.InbuiltTrigger] = true, },
-	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Two Handed Axe"] = true,
-		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
-	},
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	fromItem = true,
-	baseFlags = {
-		attack = true,
-		area = true,
-		melee = true,
-	},
-	constantStats = {
-		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
-	},
-	stats = {
-		"is_area_damage",
-		"skill_has_trigger_from_unique_item",
-	},
-	levels = {
-		[10] = { damageEffectiveness = 2, cooldown = 2, baseMultiplier = 2, levelRequirement = 30, },
-		[15] = { damageEffectiveness = 2.5, cooldown = 2, baseMultiplier = 2.5, levelRequirement = 50, },
-		[20] = { damageEffectiveness = 3, cooldown = 2, baseMultiplier = 3, levelRequirement = 70, },
 	},
 }

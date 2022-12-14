@@ -1261,7 +1261,7 @@ function calcs.offence(env, actor, activeSkill)
 				local reservedFlat = activeSkill.skillData[val.text.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationFlat"] or 0
 				baseCost = baseCost + reservedFlat
 				local reservedPercent = activeSkill.skillData[val.text.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationPercent"] or 0
-				baseCost = baseCost + (m_floor((output[resource] or 0) * reservedPercent / 100))
+				baseCost = baseCost + (round((output[resource] or 0) * reservedPercent / 100))
 			end
 			if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then -- Archmage
 				baseCost = m_max(baseCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
@@ -1287,37 +1287,38 @@ function calcs.offence(env, actor, activeSkill)
 		local resource = val.upfront and resource or resource:gsub("Minute", "Second")
 		local hasCost = val.baseCost > 0 or val.totalCost > 0 or val.baseCostNoMult > 0
 		output[resource.."HasCost"] = hasCost
-		if hasCost then
-			local dec = val.upfront and 0 or 2
-			local costName = resource.."Cost"
-			local mult = skillModList:More(skillCfg, "SupportManaMultiplier")
-			local more = skillModList:More(skillCfg, val.type.."Cost", "Cost")
-			local inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
-			output[costName] = val.baseCost * mult + val.baseCostNoMult
-			output[costName] = m_max(0, (1 + inc / 100) * output[costName])
-			output[costName] = m_max(0, more * output[costName])
-			output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
-			if breakdown then
-				breakdown[costName] = {
-					s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
-				}
-				if mult ~= 1 then
-					t_insert(breakdown[costName], s_format("x %.2f ^8(cost multiplier)", mult))
-				end
-				if val.baseCostNoMult ~= 0 then
-					t_insert(breakdown[costName], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
-				end
-				if inc ~= 0 then
-					t_insert(breakdown[costName], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
-				end
-				if more ~= 1 then
-					t_insert(breakdown[costName], s_format("x %.2f ^8(more/less "..val.text.." cost)", more))
-				end
-				if val.totalCost ~= 0 then
-					t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
-				end
-				t_insert(breakdown[costName], s_format("= %"..(val.upfront and "d" or ".2f")..(val.percent and "%%" or ""), output[costName]))
+		local dec = val.upfront and 0 or 2
+		local costName = resource.."Cost"
+		local mult = 1
+		for _, value in ipairs(skillModList:Tabulate("MORE", skillCfg, "SupportManaMultiplier")) do
+			mult = m_floor(mult * (100 + value.mod.value)) / 100
+		end
+		local more = skillModList:More(skillCfg, val.type.."Cost", "Cost")
+		local inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
+		output[costName] = m_floor(val.baseCost * mult + val.baseCostNoMult)
+		output[costName] = m_max(0, (1 + inc / 100) * output[costName])
+		output[costName] = m_max(0, more * output[costName])
+		output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
+		if breakdown and hasCost then
+			breakdown[costName] = {
+				s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
+			}
+			if mult ~= 1 then
+				t_insert(breakdown[costName], s_format("x %.2f ^8(cost multiplier)", mult))
 			end
+			if val.baseCostNoMult ~= 0 then
+				t_insert(breakdown[costName], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
+			end
+			if inc ~= 0 then
+				t_insert(breakdown[costName], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
+			end
+			if more ~= 1 then
+				t_insert(breakdown[costName], s_format("x %.2f ^8(more/less "..val.text.." cost)", more))
+			end
+			if val.totalCost ~= 0 then
+				t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
+			end
+			t_insert(breakdown[costName], s_format("= %"..(val.upfront and "d" or ".2f")..(val.percent and "%%" or ""), output[costName]))
 		end
 	end
 
@@ -2203,7 +2204,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Calculate crit chance, crit multiplier, and their combined effect
-		if skillModList:Flag(nil, "NeverCrit") then
+		if skillModList:Flag(cfg, "NeverCrit") then
 			output.PreEffectiveCritChance = 0
 			output.CritChance = 0
 			output.CritMultiplier = 0
@@ -2226,7 +2227,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				output.CritChance = (baseCrit + base) * (1 + inc / 100) * more
 				local preCapCritChance = output.CritChance
-				output.CritChance = m_min(output.CritChance, 100)
+				output.CritChance = m_min(output.CritChance, skillModList:Override(nil, "CritChanceCap") or skillModList:Sum("BASE", cfg, "CritChanceCap"))
 				if (baseCrit + base) > 0 then
 					output.CritChance = m_max(output.CritChance, 0)
 				end
@@ -2392,9 +2393,9 @@ function calcs.offence(env, actor, activeSkill)
 			local lifeLeechTotal = 0
 			local energyShieldLeechTotal = 0
 			local manaLeechTotal = 0
-			local noLifeLeech = skillModList:Flag(cfg, "CannotLeechLife") or enemyDB:Flag(nil, "CannotLeechLifeFromSelf")
-			local noEnergyShieldLeech = skillModList:Flag(cfg, "CannotLeechEnergyShield") or enemyDB:Flag(nil, "CannotLeechEnergyShieldFromSelf")
-			local noManaLeech = skillModList:Flag(cfg, "CannotLeechMana") or enemyDB:Flag(nil, "CannotLeechManaFromSelf")
+			local noLifeLeech = skillModList:Flag(cfg, "CannotLeechLife") or enemyDB:Flag(nil, "CannotLeechLifeFromSelf") or skillModList:Flag(cfg, "CannotGainLife")
+			local noEnergyShieldLeech = skillModList:Flag(cfg, "CannotLeechEnergyShield") or enemyDB:Flag(nil, "CannotLeechEnergyShieldFromSelf") or skillModList:Flag(cfg, "CannotGainEnergyShield")
+			local noManaLeech = skillModList:Flag(cfg, "CannotLeechMana") or enemyDB:Flag(nil, "CannotLeechManaFromSelf") or skillModList:Flag(cfg, "CannotGainMana")
 			for _, damageType in ipairs(dmgTypeList) do
 				local damageTypeHitMin, damageTypeHitMax, damageTypeHitAvg, damageTypeLuckyChance, damageTypeHitAvgLucky, damageTypeHitAvgNotLucky = 0, 0, 0, 0, 0
 				if skillFlags.hit and canDeal[damageType] then
@@ -2695,9 +2696,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.EnergyShieldOnHit = 0
 			output.ManaOnHit = 0
 		else
-			output.LifeOnHit = skillModList:Sum("BASE", cfg, "LifeOnHit") + enemyDB:Sum("BASE", cfg, "SelfLifeOnHit")
-			output.EnergyShieldOnHit = skillModList:Sum("BASE", cfg, "EnergyShieldOnHit") + enemyDB:Sum("BASE", cfg, "SelfEnergyShieldOnHit")
-			output.ManaOnHit = skillModList:Sum("BASE", cfg, "ManaOnHit") + enemyDB:Sum("BASE", cfg, "SelfManaOnHit")
+			output.LifeOnHit = not skillModList:Flag(cfg, "CannotGainLife") and (skillModList:Sum("BASE", cfg, "LifeOnHit") + enemyDB:Sum("BASE", cfg, "SelfLifeOnHit")) or 0
+			output.EnergyShieldOnHit = not skillModList:Flag(cfg, "CannotGainEnergyShield") and (skillModList:Sum("BASE", cfg, "EnergyShieldOnHit") + enemyDB:Sum("BASE", cfg, "SelfEnergyShieldOnHit")) or 0
+			output.ManaOnHit = not skillModList:Flag(cfg, "CannotGainMana") and (skillModList:Sum("BASE", cfg, "ManaOnHit") + enemyDB:Sum("BASE", cfg, "SelfManaOnHit")) or 0
 		end
 		output.LifeOnHitRate = output.LifeOnHit * hitRate
 		output.EnergyShieldOnHitRate = output.EnergyShieldOnHit * hitRate
@@ -2709,9 +2710,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.EnergyShieldOnKill = 0
 			output.ManaOnKill = 0
 		else
-			output.LifeOnKill = m_floor(skillModList:Sum("BASE", cfg, "LifeOnKill"))
-			output.EnergyShieldOnKill = m_floor(skillModList:Sum("BASE", cfg, "EnergyShieldOnKill"))
-			output.ManaOnKill = m_floor(skillModList:Sum("BASE", cfg, "ManaOnKill"))
+			output.LifeOnKill = not skillModList:Flag(cfg, "CannotGainLife") and (m_floor(skillModList:Sum("BASE", cfg, "LifeOnKill"))) or 0
+			output.EnergyShieldOnKill = not skillModList:Flag(cfg, "CannotGainEnergyShield") and (m_floor(skillModList:Sum("BASE", cfg, "EnergyShieldOnKill"))) or 0
+			output.ManaOnKill = not skillModList:Flag(cfg, "CannotGainMana") and (m_floor(skillModList:Sum("BASE", cfg, "ManaOnKill"))) or 0
 		end
 
 		-- Calculate average damage and final DPS
@@ -4381,7 +4382,8 @@ function calcs.offence(env, actor, activeSkill)
 			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
 			if skillFlags.trap or skillFlags.mine then
 				local preSpeed = output.TrapThrowingSpeed or output.MineLayingSpeed
-				useSpeed = (output.Cooldown and output.Cooldown > 0 and (preSpeed > 0 and preSpeed or 1 / output.Cooldown) or preSpeed) / repeats
+				local cooldown = output.TrapCooldown or output.Cooldown
+				useSpeed = (cooldown and cooldown > 0 and 1 / cooldown or preSpeed) / repeats
 				timeType = skillFlags.trap and "trap throwing" or "mine laying"
 			elseif skillFlags.totem then
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.TotemPlacementSpeed > 0 and output.TotemPlacementSpeed or 1 / output.Cooldown) or output.TotemPlacementSpeed) / repeats
