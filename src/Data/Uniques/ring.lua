@@ -502,6 +502,16 @@ Minions have 15% increased maximum Life
 Minions have 10% increased Area of Effect
 350 Physical Damage taken on Minion Death
 ]],[[
+Anathema
+Moonstone Ring
+LevelReq: 49
+Implicits: 1
+{tags:jewellery_defense}+(15-25) to maximum Energy Shield
+{tags:jewellery_attribute}+(30-40) to Intelligence
+{tags:caster}(10-15)% increased Cast Speed
+(10-20)% chance to gain a Power Charge when you Cast a Curse Spell
+Your Curse Limit is equal to your maximum Power Charges
+]],[[
 The Highwayman
 Gold Ring
 League: Heist
@@ -586,6 +596,17 @@ Implicits: 1
 {variant:3,4}{tags:caster}60% reduced Effect of Curses on you
 {variant:2,3}{tags:life}Regenerate 1 Life per second per Level
 {variant:4}{tags:life}Regenerate 3 Life per second per Level
+]],[[
+Nimis
+Topaz Ring
+Source: Drops from unique{The Eater of Worlds} (Uber)
+LevelReq: 48
+Implicits: 1
+{tags:jewellery_resistance}+(20-30)% to Lightning Resistance
+{tags:jewellery_attribute}+(30-50) to Dexterity
+(25-35)% increased Projectile Damage
+Projectiles Return to you at end of flight
+Projectiles are fired in random directions
 ]],[[
 Le Heup of All
 Iron Ring
