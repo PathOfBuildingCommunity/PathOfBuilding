@@ -89,6 +89,14 @@ function TradeQueryClass:PullLeagueList()
 					self:SetNotice(self.controls.pbNotice, "Failed to Get PoE League List response")
 					return
 				end
+				table.sort(json_data, function(a, b) 
+					if a.endAt == nil then return false end
+					if b.endAt == nil then return true end
+					if a.endAt == b.endAt then
+						return #a.id < #b.id
+					end
+					return #a.id < #b.id
+				end)
 				self.itemsTab.leagueDropList = {}
 				for _, league_data in pairs(json_data) do
 					if not league_data.id:find("SSF") then

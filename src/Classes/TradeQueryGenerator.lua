@@ -101,6 +101,12 @@ local function stripInfluenceSuffix(key)
 end
 
 local function canModSpawnForItemCategory(mod, tags)
+    -- Synthesis modifiers have an empty weightKey (i.e., = {}). This was stripped from 
+    -- client side back in league 3.10. Web-based Synthesis approximate use "stale" info.
+    -- To consider Synthesis mods we have to assume each mod can exist on any item base
+    if mod.type == "Synthesis" then
+        return true
+    end
     for i, key in ipairs(mod.weightKey) do
         local influenceStrippedKey = stripInfluenceSuffix(key)
         if key ~= "default" and mod.affix:find("Elevated") ~= nil and tags[influenceStrippedKey] == true then
