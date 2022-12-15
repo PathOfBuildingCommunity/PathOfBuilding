@@ -10,7 +10,7 @@ local m_max = math.max
 
 -- TODO generate these from data files
 local itemCategoryTags = {
-    ["Ring"] = { ["ring"] = true },
+    ["Ring"] = { ["ring"] = true, ["ring_can_roll_minion_modifiers"] = true },
     ["Amulet"] = { ["amulet"] = true },
     ["Belt"] = { ["belt"] = true },
     ["Chest"] = { ["body_armour"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
@@ -18,8 +18,8 @@ local itemCategoryTags = {
     ["Gloves"] = { ["gloves"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
     ["Boots"] = { ["boots"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
     ["Quiver"] = { ["quiver"] = true },
-    ["Shield"] = { ["shield"] = true, ["focus"] = true, ["energy_shield"] = true, ["dex_shield"] = true, ["str_shield"] = true, ["str_int_shield"] = true, ["dex_int_shield"] = true, ["str_dex_shield"] = true },
-    ["1HWeapon"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["axe"] = true, ["sword"] = true, ["rapier"] = true, ["mace"] = true, ["sceptre"] = true, ["dagger"] = true, ["rune_dagger"] = true, ["wand"] = true, ["claw"] = true },
+    ["Shield"] = { ["shield"] = true, ["focus"] = true, ["energy_shield"] = true, ["dex_shield"] = true, ["str_shield"] = true, ["str_int_shield"] = true, ["dex_int_shield"] = true, ["str_dex_shield"] = true, ["focus_can_roll_minion_modifiers"] = true },
+    ["1HWeapon"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["axe"] = true, ["sword"] = true, ["rapier"] = true, ["mace"] = true, ["sceptre"] = true, ["dagger"] = true, ["rune_dagger"] = true, ["wand"] = true, ["claw"] = true, ["weapon_can_roll_minion_modifiers"] = true },
     ["2HWeapon"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["staff"] = true, ["attack_staff"] = true, ["warstaff"] = true, ["bow"] = true,  ["axe"] = true, ["sword"] = true, ["mace"] = true, ["2h_sword"] = true, ["2h_axe"] = true, ["2h_mace"] = true },
     ["AbyssJewel"] = { ["default"] = true, ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
     ["BaseJewel"] = { ["default"] = true, ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true },
@@ -58,7 +58,7 @@ local localOnlyModGroups = {
     ["DefencesPercentSuffix"] = true
 }
 
-local MAX_FILTERS = 36
+local MAX_FILTERS = 35
 
 local function logToFile(...)
     ConPrintf(...)
@@ -134,15 +134,15 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
 
             -- Special cases
             local specialCaseData = { }
-            if statOrder == 1953 then
+            if statOrder == 1956 then
                 specialCaseData.overrideModLine = "+#% Chance to Block"
                 modLine = modLine .. " (Shields)"
-            elseif statOrder == 1876 then
+            elseif statOrder == 1881 then
                 specialCaseData.overrideModLineSingular = "You can apply an additional Curse"
                 if modLine == specialCaseData.overrideModLineSingular then
                     modLine = "You can apply 1 additional Curses"
                 end
-            elseif statOrder == 1510 then
+            elseif statOrder == 1512 then
                 specialCaseData.overrideModLineSingular = "Bow Attacks fire an additional Arrow"
                 if modLine == specialCaseData.overrideModLineSingular then
                     modLine = "Bow Attacks fire 1 additional Arrows"
@@ -574,7 +574,7 @@ function TradeQueryGeneratorClass:FinishQuery()
     self.calcContext.testItem:BuildAndParseRaw()
 
     local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-    local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or originalOutput.TotalDPS or 0) - (self.calcContext.baseDPS or 0)
+    local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDot or 0, originalOutput.CombinedAvg or 0))) - (self.calcContext.baseDPS or 0)
 
     -- Restore global cache full DPS
     GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
@@ -637,7 +637,7 @@ function TradeQueryGeneratorClass:FinishQuery()
         end
     end
 
-    if options.maxPrice > 0 then
+    if options.maxPrice and options.maxPrice > 0 then
         queryTable.query.filters.trade_filters = {
             filters = {
                 price = {

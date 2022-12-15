@@ -181,6 +181,17 @@ Implicits: 1
 {tags:mana}1% of Damage is taken from Mana before Life per Power Charge
 {tags:critical}40% reduced Critical Strike Chance per Power Charge
 ]],[[
+Eternal Damnation
+Agate Amulet
+League: Sanctum
+LevelReq: 52
+Implicits: 1
+{tags:jewellery_attribute}+(16-24) to Strength and Intelligence
+{tags:mana}+(40-70) to maximum Mana
+{tags:jewellery_resistance}+(-13-13)% to Chaos Resistance
+{tags:jewellery_resistance}-5% to all maximum Resistances
+Gain additional Elemental Damage Reduction equal to half your Chaos Resistance
+]],[[
 Badge of the Brotherhood
 Turquoise Amulet
 Requires Level: 20
@@ -309,6 +320,15 @@ Implicits: 1
 {tags:critical}+(30-40)% to Critical Strike Multiplier if you've gained a Power Charge Recently
 {tags:jewellery_elemental}(1-2) to (36-40) Lightning Damage per Power Charge
 90% less Power Charge Duration
+]],[[
+Doedre's Tongue
+Lapis Amulet
+LevelReq: 24
+Implicits: 1
+{tags:jewellery_attribute}+(20-30) to Intelligence
+{tags:jewellery_resistance}+(20-25)% to all Elemental Resistances
+(20-25)% chance to Freeze, Shock and Ignite
+Cursed Enemies cannot inflict Elemental Ailments on You
 ]],[[
 Extractor Mentis
 Agate Amulet
