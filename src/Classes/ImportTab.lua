@@ -93,7 +93,6 @@ You can get this from your web browser's cookies while logged into the Path of E
 		return self.charImportMode == "GETSESSIONID"
 	end
 	self.controls.sessionRetry = new("ButtonControl", {"TOPLEFT",self.controls.sessionHeader,"TOPLEFT"}, 0, 108, 60, 20, "Retry", function()
-		self.controls.sessionInput.buf = ""
 		self:DownloadCharacterList()
 	end)
 	self.controls.sessionCancel = new("ButtonControl", {"LEFT",self.controls.sessionRetry,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
@@ -106,7 +105,6 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.sessionInput = new("EditControl", {"TOPLEFT",self.controls.sessionRetry,"BOTTOMLEFT"}, 0, 8, 350, 20, "", "POESESSID", "%X", 32)
 	self.controls.sessionInput:SetProtected(true)
 	self.controls.sessionGo = new("ButtonControl", {"LEFT",self.controls.sessionInput,"RIGHT"}, 8, 0, 60, 20, "Go", function()
-		main.POESESSID = self.controls.sessionInput.buf
 		self:DownloadCharacterList()
 	end)
 	self.controls.sessionGo.enabled = function()
@@ -456,8 +454,8 @@ function ImportTabClass:DownloadCharacterList()
 
 			-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
 			self:SaveAccountHistory()
-		end, sessionID and "POESESSID="..sessionID)
-	end, sessionID and "POESESSID="..sessionID)
+		end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
+	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
 end
 
 function ImportTabClass:BuildCharacterList(league)
@@ -515,7 +513,7 @@ function ImportTabClass:DownloadPassiveTree()
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
 		self:ImportPassiveTreeAndJewels(response.body, charData)
-	end, sessionID and "POESESSID="..sessionID)
+	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
 end
 
 function ImportTabClass:DownloadItems()
@@ -537,7 +535,7 @@ function ImportTabClass:DownloadItems()
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
 		self:ImportItemsAndSkills(response.body)
-	end, sessionID and "POESESSID="..sessionID)
+	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
 end
 
 function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
