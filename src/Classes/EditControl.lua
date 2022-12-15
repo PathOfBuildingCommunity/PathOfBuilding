@@ -105,7 +105,7 @@ function EditClass:SetPlaceholder(text, notify)
 end
 
 function EditClass:SetProtected(bool)
-	self.protected = bool or false
+	self.protected = bool or true
 	-- set the font to be fixed to prevent strange
 	-- spacing
 	self.font = "FIXED"
@@ -365,7 +365,7 @@ function EditClass:Draw(viewPort, noTooltip)
 		local sel = self.selCol .. StripEscapes(self.buf:sub(left, right - 1))
 		local post = self.textCol .. self.buf:sub(right)
 		if self.protected then
-			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep(protected_replace, #pre-#self.textCol))
+			DrawString(textX, textY, "LEFT", textHeight, self.font, self.textCol .. string.rep(protected_replace, #pre-#self.textCol))
 		else
 			DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
 		end
@@ -374,12 +374,12 @@ function EditClass:Draw(viewPort, noTooltip)
 		SetDrawColor(self.selBGCol)
 		DrawImage(nil, textX, textY, selWidth, textHeight)
 		if self.protected then
-			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep(protected_replace, #sel))
+			DrawString(textX, textY, "LEFT", textHeight, self.font, self.selCol .. string.rep(protected_replace, #sel-#self.selCol))
 		else
 			DrawString(textX, textY, "LEFT", textHeight, self.font, sel)
 		end
 		if self.protected and #post > 0 then
-			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep(protected_replace, #post-#self.textCol))
+			DrawString(textX + selWidth, textY, "LEFT", textHeight, self.font, self.textCol .. string.rep(protected_replace, #post-#self.textCol))
 		else
 			DrawString(textX + selWidth, textY, "LEFT", textHeight, self.font, post)
 		end
@@ -392,7 +392,7 @@ function EditClass:Draw(viewPort, noTooltip)
 		local pre = self.textCol .. self.buf:sub(1, self.caret - 1)
 		local post = self.buf:sub(self.caret)
 		if self.protected then
-			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep(protected_replace, #pre-#self.textCol))
+			DrawString(textX, textY, "LEFT", textHeight, self.font, self.textCol .. string.rep(protected_replace, #pre-#self.textCol))
 		else
 			DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
 		end
@@ -499,7 +499,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 		end
 	elseif key == "a" and ctrl then
 		self:SelectAll()
-	elseif (key == "c" or key == "x") and ctrl then
+	elseif (key == "c" or key == "x") and ctrl and not self.protected then
 		if self.sel and self.sel ~= self.caret then
 			local left = m_min(self.caret, self.sel)
 			local right = m_max(self.caret, self.sel)
