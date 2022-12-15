@@ -2748,14 +2748,12 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.AverageDamage, s_format("= %.1f", output.AverageDamage))
 			end
 		end
-		if globalBreakdown then
-			if globalOutput.AverageBurstDamage > 0 then
-				globalBreakdown.AverageBurstDamage = { }		
-				t_insert(globalBreakdown.AverageBurstDamage, s_format("%.1f ^8(average hit)", output.AverageHit))
-				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
-				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.1f ^8(number of hits)", globalOutput.AverageBurstHits))
-				t_insert(globalBreakdown.AverageBurstDamage, s_format("= %.1f", globalOutput.AverageBurstDamage))
-			end
+		if globalBreakdown and globalOutput.AverageBurstDamage > 0 then
+			globalBreakdown.AverageBurstDamage = { }		
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("%.1f ^8(average hit)", output.AverageHit))
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.1f ^8(number of hits)", globalOutput.AverageBurstHits))
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("= %.1f", globalOutput.AverageBurstDamage))
 		end
 		
 		

@@ -680,24 +680,24 @@ statMap = {
 		output.Cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 		activeSkill.skillData.hitTimeOverride = output.Cooldown
 
-		local ExtraHitChance = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionExtraStatueChance") or 0
-		local MaxStatues = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionMaxStatues") or 1
+		local extraStatueChance = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionExtraStatueChance") or 0
+		local maxStatues = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionMaxStatues") or 1
 		
 		local statuesWaitedFor
-		local dpsMultiplier = ExtraHitChance
+		local dpsMultiplier = extraStatueChance
 
 		if activeSkill.skillPart == 1 then
 			statuesWaitedFor = 1
 		elseif activeSkill.skillPart == 2 then
-			statuesWaitedFor = MaxStatues
+			statuesWaitedFor = maxStatues
 		end
-		activeSkill.skillData.averageBurstHits = statuesWaitedFor + (ExtraHitChance > 0 and ExtraHitChance / 100 or 0)
-		dpsMultiplier = 1 + (ExtraHitChance > 0 and ExtraHitChance / statuesWaitedFor / 100 or 0)
+		activeSkill.skillData.averageBurstHits = statuesWaitedFor + (extraStatueChance > 0 and extraStatueChance / 100 or 0)
+		dpsMultiplier = 1 + extraStatueChance / statuesWaitedFor / 100
 		if breakdown then
 			breakdown.SkillDPSMultiplier = {}
 			t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
 			t_insert(breakdown.SkillDPSMultiplier, "^8= extra statue chance / statues waited for")
-			t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%d%%^8 / ^7%.2f", ExtraHitChance, statuesWaitedFor))
+			t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%d%%^8 / ^7%.2f", extraStatueChance, statuesWaitedFor))
 			t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.3f", dpsMultiplier))
 		end
 		if dpsMultiplier ~= 1 then
