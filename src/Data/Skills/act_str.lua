@@ -3314,9 +3314,6 @@ skills["FrozenLegion"] = {
 	castTime = 0.7,
 	baseFlags = {
 		spell = true,
-		attack = true,
-		area = true,
-		melee = true,
 	},
 	qualityStats = {
 		Default = {
@@ -3402,7 +3399,6 @@ skills["FrozenSweep"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
-		spell = true,
 		attack = true,
 		area = true,
 		melee = true,
@@ -3457,9 +3453,6 @@ skills["FrozenSweep"] = {
 		if parentSkill.skillModList:Flag(parentSkill.skillCfg, "DisableSkill") and not parentSkill.skillModList:Flag(parentSkill.skillCfg, "EnableSkill") then
 			return
 		end
-		
-		activeSkill.activeEffect.grantedEffect.castTime = 0
-		parentSkill.activeEffect.grantedEffect.castTime = 0
 		
 		activeSkill.skillData.cooldown = parentSkill.skillData.cooldown
 		local cooldownOverride = parentSkill.skillModList:Override(parentSkill.skillCfg, "CooldownRecovery")

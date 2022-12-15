@@ -631,7 +631,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FrozenLegion
-#flags spell attack area melee
+#flags spell
 statMap = {
 		["frozen_legion_%_chance_to_summon_additional_statue"] = {
 			mod("FrozenLegionExtraStatueChance", "BASE", nil)
@@ -641,7 +641,7 @@ statMap = {
 #mods
 
 #skill FrozenSweep
-#flags spell attack area melee
+#flags attack area melee
 	parts = {
 		{
 			name = "1 charge",
