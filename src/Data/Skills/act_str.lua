@@ -3468,7 +3468,7 @@ skills["FrozenSweep"] = {
 		activeSkill.skillData.hitTimeOverride = output.Cooldown
 
 		local extraStatueChance = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionExtraStatueChance") or 0
-		local maxStatues = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionMaxStatues") or 1
+		local maxStatues = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionMaxStatues") + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "AdditionalCooldownUses")
 		
 		local statuesWaitedFor
 		local dpsMultiplier = extraStatueChance
