@@ -1214,7 +1214,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 			
 			-- Check for enabled energy blade to see if we need to regenerate everything.
-			if not modDB.conditions["AffectedByEnergyBlade"] then
+			if not modDB.conditions["AffectedByEnergyBlade"] and socketGroup.enabled and socketGroup.slotEnabled then
 				for _, gemInstance in ipairs(socketGroup.gemList) do
 					local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
 					if grantedEffect and not grantedEffect.support and gemInstance.enabled and grantedEffect.name == "Energy Blade" then
