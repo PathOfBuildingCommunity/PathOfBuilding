@@ -3478,7 +3478,7 @@ skills["FrozenSweep"] = {
 		elseif activeSkill.skillPart == 2 then
 			statuesWaitedFor = maxStatues
 		end
-		activeSkill.skillData.averageBurstHits = statuesWaitedFor + (extraStatueChance > 0 and extraStatueChance / 100 or 0)
+		activeSkill.skillData.averageBurstHits = statuesWaitedFor + extraStatueChance / 100
 		dpsMultiplier = 1 + extraStatueChance / statuesWaitedFor / 100
 		if breakdown then
 			breakdown.SkillDPSMultiplier = {}
