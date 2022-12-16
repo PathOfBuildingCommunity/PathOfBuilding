@@ -240,14 +240,20 @@ function TradeQueryClass:PriceItem()
 	-- Item sort dropdown
 	self.sortSelectionList = {
 		"Highest DPS",
+		"Highest DPS / Price",
 		"Lowest Price",
 		"Highest Weight",
-		"Highest DPS / Price",
 	}
 	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, self.sortSelectionList, function(index, value)
 		self.pbSortSelectionIndex = index
 	end)
-	self.controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort using descending weighted sum\nAdditional post filtering options can be done these include:\nHighest DPS - Sort from highest to lowest DPS change of equipping item\nLowest Price - Sorts from lowest to highest price of retrieved items\nHighest Weight - Displays the order retrieved from trade\nHighest DPS / Price - Sorts from highest to lowest DPS per currency"
+	self.controls.itemSortSelection.tooltipText = 
+[[Weighted Sum searches will always sort using descending weighted sum
+Additional post filtering options can be done these include:
+Highest DPS - Sort from highest to lowest DPS change of equipping item
+Highest DPS / Price - Sorts from highest to lowest DPS per currency
+Lowest Price - Sorts from lowest to highest price of retrieved items
+Highest Weight - Displays the order retrieved from trade]]
 	self.controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
 	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
 
@@ -414,18 +420,12 @@ end
 
 -- Method to sort the fetched results
 -- 1 Highest DPS
--- 2 Highest Price
--- 3 Highest Item Weight
--- 4 Highest DPS / Price
+-- 2 Highest DPS / Price
+-- 3 Lowest Price
+-- 4 Highest Item Weight
 function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 	local newTbl = {}
-	if self.pbSortSelectionIndex == 3 then
-		for index, tbl in pairs(self.resultTbl[trade_index]) do
-			t_insert(newTbl, { outputAttr = index, index = index })
-		end
-		return newTbl
-	end
-	if self.pbSortSelectionIndex == 1 or self.pbSortSelectionIndex == 4 then
+	if self.pbSortSelectionIndex < 3 then -- DPS
 		local slot = slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
 		local slotName = slotTbl.ref and "Jewel " .. tostring(slotTbl.ref) or slotTbl.name
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
@@ -433,7 +433,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 			local item = new("Item", tbl.item_string)
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
 			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0))
-			if self.pbSortSelectionIndex == 4 then
+			if self.pbSortSelectionIndex == 2 then -- value
 				local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
 				--print(tbl.amount, tbl.currency, item.name)
 				if chaosAmount > 0 then
@@ -446,7 +446,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 			end
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	elseif self.pbSortSelectionIndex == 2 then
+	elseif self.pbSortSelectionIndex == 3 then -- price
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
 			if chaosAmount > 0 then
@@ -454,6 +454,11 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 			end
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr < b.outputAttr end)
+	else --fallback item weight
+		for index, tbl in pairs(self.resultTbl[trade_index]) do
+			t_insert(newTbl, { outputAttr = index, index = index })
+		end
+		return newTbl
 	end
 	return newTbl
 end
