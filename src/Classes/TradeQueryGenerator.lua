@@ -392,9 +392,14 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
             end
 
             local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-            local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDot,output.CombinedAvg)) or 0) - (self.calcContext.baseDPS or 0)
-            if meanDPSDiff > 0.01 then
-                table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanDPSDiff / modValue, meanDPSDiff = meanDPSDiff, invert = entry.sign == "-" and true or false })
+			local meanStatDiff = 0
+			if self.calcContext.options.statWeights[1].stat.stat == "FullDPS" and not GlobalCache.useFullDPS then
+				meanStatDiff = m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0))  - (self.calcContext.baseStatValue or 0)
+			else
+				meanStatDiff = output[self.calcContext.options.statWeights[1].stat.stat] or 0 - (self.calcContext.baseStatValue or 0)
+			end
+            if meanStatDiff > 0.01 then
+                table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
                 self.alreadyWeightedMods[entry.tradeMod.id] = true
             end
 
@@ -512,9 +517,14 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
     -- Calculate base output with a blank item
     local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
     local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
-    local compDPS = GlobalCache.useFullDPS and baseOutput.FullDPS or m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDot or 0, baseOutput.CombinedAvg or 0))
+	local compStatValue = 0
+	if options.statWeights[1].stat.stat == "FullDPS" and not GlobalCache.useFullDPS then
+		compStatValue = m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDot or 0, baseOutput.CombinedAvg or 0))
+	else
+		compStatValue = baseOutput[options.statWeights[1].stat.stat]
+	end
 
-	-- Test each mod one at a time and cache the normalized DPS diff to use as weight
+	-- Test each mod one at a time and cache the normalized Stat (configured earlier) diff to use as weight
     self.modWeights = { }
     self.alreadyWeightedMods = { }
 
@@ -522,7 +532,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
         itemCategoryQueryStr = itemCategoryQueryStr,
         itemCategory = itemCategory,
         testItem = testItem,
-        baseDPS = compDPS,
+        baseStatValue = compStatValue,
         calcFunc = calcFunc,
         options = options,
         slot = slot,
@@ -557,7 +567,7 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 end
 
 function TradeQueryGeneratorClass:FinishQuery()
-    -- Calc original item DPS without anoint or enchant, and use that diff as a basis for default min sum.
+    -- Calc original item Stats without anoint or enchant, and use that diff as a basis for default min sum.
     local originalItem = self.itemsTab.items[self.calcContext.slot.selItemId]
     self.calcContext.testItem.explicitModLines = { }
     if originalItem then
@@ -574,18 +584,23 @@ function TradeQueryGeneratorClass:FinishQuery()
     self.calcContext.testItem:BuildAndParseRaw()
 
     local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-    local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDot or 0, originalOutput.CombinedAvg or 0))) - (self.calcContext.baseDPS or 0)
+	local currentStatDiff = 0
+	if self.calcContext.options.statWeights[1].stat.stat == "FullDPS" and not GlobalCache.useFullDPS then
+		currentStatDiff = m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDot or 0, originalOutput.CombinedAvg or 0))  - (self.calcContext.baseStatValue or 0)
+	else
+		currentStatDiff = originalOutput[self.calcContext.options.statWeights[1].stat.stat] or 0 - (self.calcContext.baseStatValue or 0)
+	end
 
     -- Restore global cache full DPS
     GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
 
-    -- This DPS diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
+    -- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
     -- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
-    local minWeight = currentDPSDiff * 0.7
+    local minWeight = currentStatDiff * 0.7
 
-    -- Sort by mean DPS diff rather than weight to more accurately prioritize stats that can contribute more
+    -- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
     table.sort(self.modWeights, function(a, b)
-        return a.meanDPSDiff > b.meanDPSDiff
+        return a.meanStatDiff > b.meanStatDiff
     end)
 
 	-- Generate trade query str and open in browser
@@ -655,7 +670,7 @@ function TradeQueryGeneratorClass:FinishQuery()
     main:ClosePopup()
 end
 
-function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
+function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callback)
     self.requesterCallback = callback
     self.requesterContext = context
 
@@ -742,6 +757,11 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
     controls.maxPrice = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D", nil, function(buf)  end)
     controls.maxPriceType = new("DropDownControl", {"LEFT",controls.maxPrice,"RIGHT"}, 5, 0, 150, 18, currencyDropdownNames, function(index, value) end)
     controls.maxPriceLabel = new("LabelControl", {"RIGHT",controls.maxPrice,"LEFT"}, -5, 0, 0, 16, "Max Price:")
+	lastItemAnchor = controls.maxPrice
+    popupHeight = popupHeight + 23
+	
+    controls.sortStatType = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, statWeights[1].stat.label)
+    controls.sortStatLabel = new("LabelControl", {"RIGHT",controls.sortStatType,"LEFT"}, -5, 0, 0, 16, "Stat to Sort By:")
     popupHeight = popupHeight + 23
 
 	controls.generateQuery = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Execute", function()
@@ -780,6 +800,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
             options.maxPrice = tonumber(controls.maxPrice.buf)
             options.maxPriceType = currencyTable[controls.maxPriceType.selIndex].id
         end
+		options.statWeights = statWeights
 
         self:StartQuery(slot, options)
     end)
