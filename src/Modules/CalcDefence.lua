@@ -767,11 +767,13 @@ function calcs.defence(env, actor)
 	
 	-- recoup
 	do
+		output["anyRecoup"] = 0
 		local quickRecoup = modDB:Flag(nil, "3SecondRecoup")
 		local recoupTypeList = {"Life", "Mana", "EnergyShield"}
 		for _, recoupType in ipairs(recoupTypeList) do
 			local baseRecoup = modDB:Sum("BASE", nil, recoupType.."Recoup")
 			output[recoupType.."Recoup"] =  baseRecoup * output[recoupType.."RecoveryRateMod"]
+			output["anyRecoup"] = output["anyRecoup"] + output[recoupType.."Recoup"]
 			if breakdown then
 				if output[recoupType.."RecoveryRateMod"] ~= 1 then
 					breakdown[recoupType.."Recoup"] = {
@@ -791,6 +793,7 @@ function calcs.defence(env, actor)
 		end
 		local ElementalEnergyShieldRecoup = modDB:Sum("BASE", nil, "ElementalEnergyShieldRecoup")
 		output.ElementalEnergyShieldRecoup = ElementalEnergyShieldRecoup * output.EnergyShieldRecoveryRateMod
+		output["anyRecoup"] = output["anyRecoup"] + output.ElementalEnergyShieldRecoup
 		if breakdown then
 			if output.EnergyShieldRecoveryRateMod ~= 1 then
 				breakdown.ElementalEnergyShieldRecoup = {
@@ -806,6 +809,7 @@ function calcs.defence(env, actor)
 		for _, damageType in ipairs(dmgTypeList) do
 			local LifeRecoup = modDB:Sum("BASE", nil, damageType.."LifeRecoup")
 			output[damageType.."LifeRecoup"] =  LifeRecoup * output.LifeRecoveryRateMod
+			output["anyRecoup"] = output["anyRecoup"] + output[damageType.."LifeRecoup"]
 			if breakdown then
 				if output.LifeRecoveryRateMod ~= 1 then
 					breakdown[damageType.."LifeRecoup"] = {
@@ -1397,28 +1401,37 @@ function calcs.defence(env, actor)
 		end
 	end
 	
-	-- Prevented life loss (Petrified Blood)
+	-- Prevented life loss taken over 4 seconds (and Petrified Blood)
 	do
-		output["preventedLifeLoss"] = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented")
+		output["preventedLifeLoss"] = modDB:Sum("BASE", nil, "LifeLossPrevented")
+		output["preventedLifeLossBelowHalf"] = (1 - output["preventedLifeLoss"] / 100) * modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented")
 		local portionLife = 1
 		if not env.configInput["conditionLowLife"] then
 			--portion of life that is lowlife
 			portionLife = m_min(output.Life * data.misc.LowPoolThreshold / output.LifeRecoverable, 1)
-			output["preventedLifeLoss"] = output["preventedLifeLoss"] * portionLife
+			output["preventedLifeLossTotal"] = output["preventedLifeLoss"] + output["preventedLifeLossBelowHalf"] * portionLife
+		else
+			output["preventedLifeLossTotal"] = output["preventedLifeLoss"] + output["preventedLifeLossBelowHalf"]
 		end
 		if breakdown then
-			breakdown["preventedLifeLoss"] = {
+			breakdown["preventedLifeLossTotal"] = {
 				s_format("Total life protected:"),
 			}
-			if portionLife ~= 1 then
-				t_insert(breakdown["preventedLifeLoss"], s_format("%.2f ^8(initial portion taken from petrified blood)", output["preventedLifeLoss"] / portionLife / 100))
-				t_insert(breakdown["preventedLifeLoss"], s_format("* %.2f ^8(portion of life on low life)", portionLife))
-				t_insert(breakdown["preventedLifeLoss"], s_format("= %.2f ^8(final portion taken from petrified blood)", output["preventedLifeLoss"] / 100))
-				t_insert(breakdown["preventedLifeLoss"], s_format(""))
-			else
-				t_insert(breakdown["preventedLifeLoss"], s_format("%.2f ^8(portion taken from petrified blood)", output["preventedLifeLoss"] / 100))
+			if output["preventedLifeLoss"] ~= 0 then
+				t_insert(breakdown["preventedLifeLossTotal"], s_format("%.2f ^8(portion taken over 4 seconds instead)", output["preventedLifeLoss"] / 100))
 			end
-			t_insert(breakdown["preventedLifeLoss"], s_format("%.2f ^8(portion taken from life)", 1 - output["preventedLifeLoss"] / 100))
+			if portionLife ~= 1 then
+				if output["preventedLifeLoss"] ~= 0 then
+					t_insert(breakdown["preventedLifeLossTotal"], s_format(""))
+				end
+				t_insert(breakdown["preventedLifeLossTotal"], s_format("%.2f ^8(initial portion taken by petrified blood)", output["preventedLifeLossBelowHalf"] / 100))
+				t_insert(breakdown["preventedLifeLossTotal"], s_format("* %.2f ^8(portion of life on low life)", portionLife))
+				t_insert(breakdown["preventedLifeLossTotal"], s_format("= %.2f ^8(final portion taken by petrified blood)", output["preventedLifeLossBelowHalf"] * portionLife / 100))
+				t_insert(breakdown["preventedLifeLossTotal"], s_format(""))
+			elseif output["preventedLifeLossBelowHalf"] ~= 0 then
+				t_insert(breakdown["preventedLifeLossTotal"], s_format("%.2f ^8(portion taken by petrified blood)", output["preventedLifeLossBelowHalf"] / 100))
+			end
+			t_insert(breakdown["preventedLifeLossTotal"], s_format("%.2f ^8(portion taken from life)", 1 - output["preventedLifeLossTotal"] / 100))
 		end
 	end
 
@@ -1666,6 +1679,8 @@ function calcs.defence(env, actor)
 			restoreWard = 0
 		end
 		local frostShield = output["FrostShieldLife"] or 0
+		-- soul link is not implemented for now
+		local soulLink = 0
 		local aegis = { }
 		aegis["shared"] = output["sharedAegis"] or 0
 		aegis["sharedElemental"] = output["sharedElementalAegis"] or 0
@@ -1679,7 +1694,13 @@ function calcs.defence(env, actor)
 			end
 
 		end
-		DamageIn["LifeLossBelowHalfLost"] = DamageIn["LifeLossBelowHalfLost"] or 0
+		if DamageIn["cycles"] == 1 then
+			DamageIn["TrackLifeLoss"] = DamageIn["TrackLifeLoss"] or false
+			DamageIn["TrackLifeLossOverTime"] = DamageIn["TrackLifeLossOverTime"] or false
+		else
+			DamageIn["TrackLifeLoss"] = false
+			DamageIn["TrackLifeLossOverTime"] = false
+		end
 		DamageIn["WardBypass"] = DamageIn["WardBypass"] or modDB:Sum("BASE", nil, "WardBypass") or 0
 
 		local iterationMultiplier = 1
@@ -1706,6 +1727,16 @@ function calcs.defence(env, actor)
 						local tempDamage = m_min(Damage[damageType] * output["FrostShieldDamageMitigation"] / 100, frostShield)
 						frostShield = frostShield - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
+					end
+					-- soul link is not implemented for now
+					if soulLink > 0 then
+						local tempDamage = m_min(Damage[damageType] * output["SoulLinkMitigation"] / 100, soulLink)
+						soulLink = soulLink - tempDamage
+						Damage[damageType] = Damage[damageType] - tempDamage
+					end
+					-- frost sheild and soul link doesnt count as you taking damage
+					if DamageIn["TrackLifeLoss"] then
+						output[damageType.."LifeLossLost"] = output[damageType.."LifeLossLost"] + Damage[damageType]
 					end
 					if aegis[damageType] > 0 then
 						local tempDamage = m_min(Damage[damageType], aegis[damageType])
@@ -1757,11 +1788,21 @@ function calcs.defence(env, actor)
 							Damage[damageType] = Damage[damageType] - tempDamage
 						end
 					end
-					if output.preventedLifeLoss > 0 then
-						if DamageIn["LifeLossBelowHalfLost"] > 0 then
-							output["LifeLossBelowHalfLost"] = output["LifeLossBelowHalfLost"] + Damage[damageType] * output.preventedLifeLoss / 100
-						end
+					if output.preventedLifeLossTotal > 0 then
 						local tempDamage = Damage[damageType] * output.preventedLifeLoss / 100
+						if DamageIn["TrackLifeLossOverTime"] then
+							output["LifeLossLostOverTime"] = output["LifeLossLostOverTime"] + tempDamage
+						end
+						if output.preventedLifeLossBelowHalf ~= 0 then
+							local lowLifePercent = (life - Damage[damageType] < output.Life * data.misc.LowPoolThreshold) and 1 or 0 -- needs to calc the percent of the damage below lowlife and not assume all of it is if some of it is
+							if lowLifePercent > 0 then
+								local tempDamage2 = Damage[damageType] * output.preventedLifeLossBelowHalf * lowLifePercent / 100
+								tempDamage = tempDamage + tempDamage2
+								if DamageIn["TrackLifeLossOverTime"] then
+									output["LifeBelowHalfLossLostOverTime"] = output["LifeBelowHalfLossLostOverTime"] + tempDamage2
+								end
+							end
+						end
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
 					life = life - Damage[damageType]
@@ -1905,7 +1946,7 @@ function calcs.defence(env, actor)
 		end
 		for _, damageType in ipairs(dmgTypeList) do
 			 -- Emperor's Vigilance (this needs to fail with divine flesh as it can't override it, hence the check for high bypass)
-			if modDB:Flag(nil, "BlockedDamageDoesntBypassES")and output[damageType.."EnergyShieldBypass"] < 100 and damageType ~= "Chaos"  then
+			if modDB:Flag(nil, "BlockedDamageDoesntBypassES") and (output[damageType.."EnergyShieldBypass"] < 100 and damageType ~= "Chaos") then
 				DamageIn[damageType.."EnergyShieldBypass"] = output[damageType.."EnergyShieldBypass"] * (1 - BlockChance) 
 			end
 			local AvoidChance = 0
@@ -1922,14 +1963,22 @@ function calcs.defence(env, actor)
 			end
 			DamageIn[damageType] = output[damageType.."TakenHit"] * (blockEffect * suppressionEffect * (1 - AvoidChance / 100))
 		end
-		-- petrified blood degen initialisation
-		if output["preventedLifeLoss"] > 0 then
-			output["LifeLossBelowHalfLost"] = 0
-			DamageIn["LifeLossBelowHalfLost"] = modDB:Sum("BASE", nil, "LifeLossBelowHalfLost") / 100
+		-- recoup initialisation
+		if output["anyRecoup"] > 0 then
+			DamageIn["TrackLifeLoss"] = true
+			for _, damageType in ipairs(dmgTypeList) do
+				output[damageType.."LifeLossLost"] = 0
+			end
+		end
+		-- taken over time degen initialisation
+		if output["preventedLifeLossTotal"] > 0 then
+			DamageIn["TrackLifeLossOverTime"] = true
+			output["LifeLossLostOverTime"] = 0
+			output["LifeBelowHalfLossLostOverTime"] = 0
 		end
 		averageAvoidChance = averageAvoidChance / 5
 		output["ConfiguredDamageChance"] = 100 * (blockEffect * suppressionEffect * (1 - averageAvoidChance / 100))
-		output["NumberOfMitigatedDamagingHits"] = output["ConfiguredDamageChance"] ~= 100 and numberOfHitsToDie(DamageIn) or output["NumberOfDamagingHits"]
+		output["NumberOfMitigatedDamagingHits"] = (output["ConfiguredDamageChance"] ~= 100 or DamageIn["TrackLifeLoss"] or DamageIn["TrackLifeLossOverTime"]) and numberOfHitsToDie(DamageIn) or output["NumberOfDamagingHits"]
 		if breakdown then
 			breakdown["ConfiguredDamageChance"] = {
 				s_format("%.2f ^8(chance for block to fail)", 1 - BlockChance)
@@ -2034,21 +2083,42 @@ function calcs.defence(env, actor)
 		end
 	end
 	
+	-- recoup
+	if output["anyRecoup"] > 0 then
+		local recoupTypeList = {"Life", "Mana", "EnergyShield"}
+		output["TotalLifeRecoupRecovery"] = 0
+		output["TotalManaRecoupRecovery"] = 0
+		output["TotalEnergyShieldRecoupRecovery"] = 0
+		for _, damageType in ipairs(dmgTypeList) do
+			output["TotalLifeRecoupRecovery"] = output["TotalLifeRecoupRecovery"] + (output["LifeRecoup"] + output[damageType.."LifeRecoup"]) / 100 * output[damageType.."LifeLossLost"]
+			output["TotalManaRecoupRecovery"] = output["TotalManaRecoupRecovery"] + output["ManaRecoup"] / 100 * output[damageType.."LifeLossLost"]
+			output["TotalEnergyShieldRecoupRecovery"] = output["TotalEnergyShieldRecoupRecovery"] + (output["EnergyShieldRecoup"] + (isElemental[damageType] and output["ElementalEnergyShieldRecoup"] or 0)) / 100 * output[damageType.."LifeLossLost"]
+		end
+		local recoupTime = modDB:Flag(nil, "3SecondRecoup") and 3 or 4
+		output["LifeRecoupRecoveryMax"] = output["TotalLifeRecoupRecovery"] / recoupTime
+		output["LifeRecoupRecoveryAvg"] = output["TotalLifeRecoupRecovery"] / (output["EHPsurvivalTime"] + recoupTime)
+		output["ManaRecoupRecoveryMax"] = output["TotalManaRecoupRecovery"] / recoupTime
+		output["ManaRecoupRecoveryAvg"] = output["TotalManaRecoupRecovery"] / (output["EHPsurvivalTime"] + recoupTime)
+		output["EnergyShieldRecoupRecoveryMax"] = output["TotalEnergyShieldRecoupRecovery"] / recoupTime
+		output["EnergyShieldRecoupRecoveryAvg"] = output["TotalEnergyShieldRecoupRecovery"] / (output["EHPsurvivalTime"] + recoupTime)
+	end
 	-- petrified blood "degen"
-	if output.preventedLifeLoss > 0 then
+	if output.preventedLifeLossTotal > 0 then
 		local LifeLossBelowHalfLost = modDB:Sum("BASE", nil, "LifeLossBelowHalfLost") / 100
-		output["LifeLossBelowHalfLostMax"] = output["LifeLossBelowHalfLost"] * LifeLossBelowHalfLost / 4
-		output["LifeLossBelowHalfLostAvg"] = output["LifeLossBelowHalfLost"] * LifeLossBelowHalfLost / (output["EHPsurvivalTime"] + 4)
+		output["LifeLossBelowHalfLostMax"] = (output["LifeLossLostOverTime"] + output["LifeBelowHalfLossLostOverTime"] * LifeLossBelowHalfLost) / 4
+		output["LifeLossBelowHalfLostAvg"] = (output["LifeLossLostOverTime"] + output["LifeBelowHalfLossLostOverTime"] * LifeLossBelowHalfLost) / (output["EHPsurvivalTime"] + 4)
 		if breakdown then
 			breakdown["LifeLossBelowHalfLostMax"] = {
-				s_format("%d ^8(total damage prevented by petrified blood)", output["LifeLossBelowHalfLost"]),
-				s_format("* %.2f ^8(percent of damage taken)", LifeLossBelowHalfLost),
+				s_format("+ %d ^8(total damage prevented by Progenesis)", output["LifeLossLostOverTime"]),
+				s_format("+ %d ^8(total damage prevented by petrified blood)", output["LifeBelowHalfLossLostOverTime"]),
+				s_format("* %.2f ^8(percent of damage taken from petrified blood)", LifeLossBelowHalfLost),
 				s_format("/ %.2f ^8(over 4 seconds)", 4),
 				s_format("= %.2f per second", output["LifeLossBelowHalfLostMax"]),
 			}
 			breakdown["LifeLossBelowHalfLostAvg"] = {
-				s_format("%d ^8(total damage prevented by petrified blood)", output["LifeLossBelowHalfLost"]),
-				s_format("* %.2f ^8(percent of damage taken)", LifeLossBelowHalfLost),
+				s_format("+ %d ^8(total damage prevented by Progenesis)", output["LifeLossLostOverTime"]),
+				s_format("+ %d ^8(total damage prevented by petrified blood)", output["LifeBelowHalfLossLostOverTime"]),
+				s_format("* %.2f ^8(percent of damage taken from petrified blood)", LifeLossBelowHalfLost),
 				s_format("/ %.2f ^8(total time of the degen (survival time + 4))", (output["EHPsurvivalTime"] + 4)),
 				s_format("= %.2f per second", output["LifeLossBelowHalfLostAvg"]),
 			}
@@ -2237,8 +2307,8 @@ function calcs.defence(env, actor)
 	-- fix total pools, as they aren't used anymore
 	for _, damageType in ipairs(dmgTypeList) do
 		-- base + petrified blood
-		if output["preventedLifeLoss"] > 0 then
-			output[damageType.."TotalPool"] =  output[damageType.."TotalPool"] / (1 - output["preventedLifeLoss"] / 100)
+		if output["preventedLifeLossTotal"] > 0 then
+			output[damageType.."TotalPool"] =  output[damageType.."TotalPool"] / (1 - output["preventedLifeLossTotal"] / 100)
 		end
 		-- ward
 		local wardBypass = modDB:Sum("BASE", nil, "WardBypass") or 0

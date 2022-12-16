@@ -3432,6 +3432,7 @@ local specialModList = {
 	["grants eldritch battery during f?l?a?s?k? ?effect"] = { mod("Keystone", "LIST", "Eldritch Battery", { type = "Condition", var = "UsingFlask" }) },
 	["eldritch battery during f?l?a?s?k? ?effect"] = { mod("Keystone", "LIST", "Eldritch Battery", { type = "Condition", var = "UsingFlask" }) },
 	["chaos damage t?a?k?e?n? ?does not bypass energy shield during effect"] = { flag("ChaosNotBypassEnergyShield") },
+	["when hit during effect, (%d+)%% of life loss from damage taken occurs over 4 seconds instead"] = function(num) return { mod("LifeLossPrevented", "BASE", num, { type = "Condition", var = "UsingFlask" }) } end,
 	["y?o?u?r? ?skills [ch][oa][sv][te] no mana c?o?s?t? ?during f?l?a?s?k? ?effect"] = { mod("ManaCost", "MORE", -100, { type = "Condition", var = "UsingFlask" }) },
 	["life recovery from flasks also applies to energy shield during f?l?a?s?k? ?effect"] = { flag("LifeFlaskAppliesToEnergyShield", { type = "Condition", var = "UsingFlask" }) },
 	["consecrated ground created during effect applies (%d+)%% increased damage taken to enemies"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenConsecratedGround", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) }, { type = "Condition", var = "UsingFlask" }) } end,
