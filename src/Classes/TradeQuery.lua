@@ -283,7 +283,7 @@ function TradeQueryClass:PriceItem()
 	self.controls.realmLabel = new("LabelControl", {"TOPLEFT", self.controls.leagueLabel, "TOPLEFT"}, 8, 24, 20, 16, "^7Realm:")
 	self.controls.realm = new("DropDownControl", {"TOPLEFT", self.controls.realmLabel, "TOPRIGHT"}, 8, 0, 150, 18, realmDropList, function(index, value)
 		self.pbRealm = value:lower() .. "/"
-		if value == "pc" then self.pbRealm = "" end
+		if value == "PC" then self.pbRealm = "" end
 	end)
 
 	-- Individual slot rows
