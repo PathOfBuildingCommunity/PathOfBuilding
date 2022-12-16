@@ -35,6 +35,8 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.lastCurrencyFileTime = { }
 	self.pbFileTimestampDiff = { }
 	self.pbRealm = ""
+	self.pbRealmIndex = 1
+	self.pbLeagueIndex = 1
 
 	self.tradeQueryRequests = new("TradeQueryRequests", self)
 	table.insert(main.onFrameFuncs, function()
@@ -271,9 +273,11 @@ function TradeQueryClass:PriceItem()
 	-- League selection
 	self.controls.leagueLabel = new("LabelControl", {"TOPLEFT", self.controls.setSelect, "TOPRIGHT"}, 8, 0, 20, 16, "^7League:")
 	self.controls.league = new("DropDownControl", {"TOPLEFT", self.controls.leagueLabel, "TOPRIGHT"}, 8, 0, 150, 18, self.itemsTab.leagueDropList, function(index, value)
+		self.pbLeagueIndex = index
 		self.pbLeague = value
 		self:SetCurrencyConversionButton()
 	end)
+	self.controls.league:SetSel(self.pbLeagueIndex)
 	self.controls.league.enabled = function()
 		return #self.itemsTab.leagueDropList > 1
 	end
@@ -282,9 +286,11 @@ function TradeQueryClass:PriceItem()
 	local realmDropList = { "PC", "Xbox", "Sony" }
 	self.controls.realmLabel = new("LabelControl", {"TOPLEFT", self.controls.leagueLabel, "TOPLEFT"}, 8, 24, 20, 16, "^7Realm:")
 	self.controls.realm = new("DropDownControl", {"TOPLEFT", self.controls.realmLabel, "TOPRIGHT"}, 8, 0, 150, 18, realmDropList, function(index, value)
+		self.pbRealmIndex = index
 		self.pbRealm = value:lower() .. "/"
 		if value == "PC" then self.pbRealm = "" end
 	end)
+	self.controls.realm:SetSel(self.pbRealmIndex)
 
 	-- Individual slot rows
 	top_pane_alignment_ref = {"TOPLEFT", self.controls.poesessidButton, "BOTTOMLEFT"}
@@ -315,7 +321,7 @@ function TradeQueryClass:PriceItem()
 		self:PullPoENinjaCurrencyConversion(self.pbLeague)
 	end)
 	self.controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT", nil, "BOTTOMRIGHT"}, -8, -16, 300, 16, "")
-	main:OpenPopup(pane_width, pane_height, "Build Pricer", self.controls)
+	main:OpenPopup(pane_width, pane_height, "Trader", self.controls)
 
 	if #self.itemsTab.leagueDropList == 0 then
 		self:PullLeagueList()
