@@ -178,7 +178,7 @@ function TradeQueryRequestsClass:SearchWithURL(urlEditControl, callback)
 		if errMsg then
 			return callback(nil, errMsg)
 		end
-		urlEditControl:SetText("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbLeague .. "/" .. queryId)
+		urlEditControl:SetText("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbRealm .. "/" .. self.tradeQuery.pbLeague .. "/" .. queryId)
 		self:SearchWithQuery(self.tradeQuery.pbLeague, query, callback)
 	end)
 end
@@ -188,7 +188,7 @@ end
 ---@param league string
 ---@param callback fun(query:string, errMsg:string)
 function TradeQueryRequestsClass:FetchSearchQuery(queryId, callback)
-	local url = "https://www.pathofexile.com/api/trade/search/" .. self.tradeQuery.pbLeague .. "/" .. queryId
+	local url = "https://www.pathofexile.com/api/trade/search/" .. self.tradeQuery.pbRealm .. "/" .. self.tradeQuery.pbLeague .. "/" .. queryId
 	table.insert(self.requestQueue["search"], {
 		url = url,
 		callback = function(response, errMsg)
@@ -216,7 +216,7 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 	end
 	local header = "Cookie: POESESSID=" .. main.POESESSID
 	-- the league doesn't affect query so we set it to Standard as it doesn't change
-	launch:DownloadPage("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbLeague .. "/" .. queryId, 
+	launch:DownloadPage("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbRealm .. "/" .. self.tradeQuery.pbLeague .. "/" .. queryId, 
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
