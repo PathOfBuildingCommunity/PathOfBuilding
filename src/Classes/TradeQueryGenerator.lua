@@ -402,12 +402,17 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 				logToFile("Failed to test %s mod: %s", self.calcContext.itemCategory, modLine)
 			end
 
-			local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-			local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDotDPS,output.CombinedDPS)) or 0) - (self.calcContext.baseDPS or 0)
-			if meanDPSDiff > 0.01 then
-				table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanDPSDiff / modValue, meanDPSDiff = meanDPSDiff, invert = entry.sign == "-" and true or false })
-				self.alreadyWeightedMods[entry.tradeMod.id] = true
+            local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
+			local meanStatDiff = 0
+			if self.calcContext.options.statWeights[1].stat.stat == "FullDPS" and not GlobalCache.useFullDPS then
+				meanStatDiff = m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0))  - (self.calcContext.baseStatValue or 0)
+			else
+				meanStatDiff = output[self.calcContext.options.statWeights[1].stat.stat] or 0 - (self.calcContext.baseStatValue or 0)
 			end
+            if meanStatDiff > 0.01 then
+                table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
+                self.alreadyWeightedMods[entry.tradeMod.id] = true
+            end
 
 			local now = GetTime()
 			if now - start > 50 then
@@ -520,25 +525,30 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 
-	-- Calculate base output with a blank item
-	local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
-	local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
-	local compDPS = GlobalCache.useFullDPS and baseOutput.FullDPS or m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDotDPS or 0, baseOutput.CombinedDPS or 0))
+    -- Calculate base output with a blank item
+    local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
+    local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
+	local compStatValue = 0
+	if options.statWeights[1].stat.stat == "FullDPS" and not GlobalCache.useFullDPS then
+		compStatValue = m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDot or 0, baseOutput.CombinedAvg or 0))
+	else
+		compStatValue = baseOutput[options.statWeights[1].stat.stat]
+	end
 
-	-- Test each mod one at a time and cache the normalized DPS diff to use as weight
-	self.modWeights = { }
-	self.alreadyWeightedMods = { }
+	-- Test each mod one at a time and cache the normalized Stat (configured earlier) diff to use as weight
+    self.modWeights = { }
+    self.alreadyWeightedMods = { }
 
-	self.calcContext = {
-		itemCategoryQueryStr = itemCategoryQueryStr,
-		itemCategory = itemCategory,
-		testItem = testItem,
-		baseDPS = compDPS,
-		calcFunc = calcFunc,
-		options = options,
-		slot = slot,
-		globalCacheUseFullDPS = storedGlobalCacheDPSView
-	}
+    self.calcContext = {
+        itemCategoryQueryStr = itemCategoryQueryStr,
+        itemCategory = itemCategory,
+        testItem = testItem,
+        baseStatValue = compStatValue,
+        calcFunc = calcFunc,
+        options = options,
+        slot = slot,
+        globalCacheUseFullDPS = storedGlobalCacheDPSView
+    }
 
 	-- OnFrame will pick this up and begin the work
 	self.calcContext.co = coroutine.create(self.ExecuteQuery)
@@ -568,36 +578,41 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 end
 
 function TradeQueryGeneratorClass:FinishQuery()
-	-- Calc original item DPS without anoint or enchant, and use that diff as a basis for default min sum.
-	local originalItem = self.itemsTab.items[self.calcContext.slot.selItemId]
-	self.calcContext.testItem.explicitModLines = { }
-	if originalItem then
-		for _, modLine in ipairs(originalItem.explicitModLines) do
-			table.insert(self.calcContext.testItem.explicitModLines, modLine)
-		end
-		for _, modLine in ipairs(originalItem.scourgeModLines) do
-			table.insert(self.calcContext.testItem.explicitModLines, modLine)
-		end
-		for _, modLine in ipairs(originalItem.implicitModLines) do
-			table.insert(self.calcContext.testItem.explicitModLines, modLine)
-		end
-	end
-	self.calcContext.testItem:BuildAndParseRaw()
+    -- Calc original item Stats without anoint or enchant, and use that diff as a basis for default min sum.
+    local originalItem = self.itemsTab.items[self.calcContext.slot.selItemId]
+    self.calcContext.testItem.explicitModLines = { }
+    if originalItem then
+        for _, modLine in ipairs(originalItem.explicitModLines) do
+            table.insert(self.calcContext.testItem.explicitModLines, modLine)
+        end
+        for _, modLine in ipairs(originalItem.scourgeModLines) do
+            table.insert(self.calcContext.testItem.explicitModLines, modLine)
+        end
+        for _, modLine in ipairs(originalItem.implicitModLines) do
+            table.insert(self.calcContext.testItem.explicitModLines, modLine)
+        end
+    end
+    self.calcContext.testItem:BuildAndParseRaw()
 
-	local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-	local currentDPSDiff = (GlobalCache.useFullDPS and originalOutput.FullDPS or m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDotDPS or 0, originalOutput.CombinedDPS or 0))) - (self.calcContext.baseDPS or 0)
+    local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
+	local currentStatDiff = 0
+	if self.calcContext.options.statWeights[1].stat.stat == "FullDPS" and not GlobalCache.useFullDPS then
+		currentStatDiff = m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDot or 0, originalOutput.CombinedAvg or 0))  - (self.calcContext.baseStatValue or 0)
+	else
+		currentStatDiff = originalOutput[self.calcContext.options.statWeights[1].stat.stat] or 0 - (self.calcContext.baseStatValue or 0)
+	end
 
 	-- Restore global cache full DPS
 	GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
 
-	-- This DPS diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
-	-- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
-	local minWeight = currentDPSDiff * 0.7
+    -- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
+    -- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
+    local minWeight = currentStatDiff * 0.7
 
-	-- Sort by mean DPS diff rather than weight to more accurately prioritize stats that can contribute more
-	table.sort(self.modWeights, function(a, b)
-		return a.meanDPSDiff > b.meanDPSDiff
-	end)
+    -- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
+    table.sort(self.modWeights, function(a, b)
+        return a.meanStatDiff > b.meanStatDiff
+    end)
 
 	-- Generate trade query str and open in browser
 	local filters = 0
@@ -675,9 +690,9 @@ function TradeQueryGeneratorClass:FinishQuery()
 	main:ClosePopup()
 end
 
-function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
-	self.requesterCallback = callback
-	self.requesterContext = context
+function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callback)
+    self.requesterCallback = callback
+    self.requesterContext = context
 
 	local controls = { }
 	local options = { }
@@ -741,6 +756,9 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 		lastItemAnchor = controls.influence2
 		popupHeight = popupHeight + 46
 	end
+    controls.sortStatType = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, statWeights[1].stat.label)
+    controls.sortStatLabel = new("LabelControl", {"RIGHT",controls.sortStatType,"LEFT"}, -5, 0, 0, 16, "Stat to Sort By:")
+    popupHeight = popupHeight + 23
 
 	-- Add max price limit selection dropbox
 	local currencyTable = {
@@ -807,6 +825,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 			options.maxPrice = tonumber(controls.maxPrice.buf)
 			options.maxPriceType = currencyTable[controls.maxPriceType.selIndex].id
 		end
+		options.statWeights = statWeights
 
 		self:StartQuery(slot, options)
 	end)
