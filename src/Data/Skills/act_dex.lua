@@ -7245,6 +7245,9 @@ skills["Reave"] = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
 		},
+		["reave_additional_max_stacks"] = {
+			mod("Multiplier:ReaveMaxStages", "BASE", nil),
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -7359,7 +7362,6 @@ skills["VaalReave"] = {
 	constantStats = {
 		{ "reave_area_of_effect_+%_final_per_stage", 50 },
 		{ "reave_rotation_on_repeat", 135 },
-		{ "reave_additional_max_stacks", 4 },
 		{ "base_attack_repeat_count", 7 },
 		{ "reave_additional_starting_stacks", 4 },
 	},
