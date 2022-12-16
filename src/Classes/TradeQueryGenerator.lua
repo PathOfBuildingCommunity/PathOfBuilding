@@ -167,7 +167,6 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
                 local localMatchStr = ""
                 if isLocal then
                     localMatchStr = matchStr .. " Local"
-                    specialCaseData.overrideModLine = modLine:gsub("[0-9%.]+","#"):gsub("%([%+%-]?#%-[%+%-]?#%)","#")
                 end
 
                 -- Try to match to a local mod fallback to global if no match
@@ -175,6 +174,7 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
                     for _, entry in ipairs(tradeQueryStatsParsed.result[tradeStatCategoryIndices[modType]].entries) do
                         if entry.text:gsub("[#()0-9%-%+%.]","") == localMatchStr then
                             tradeMod = entry
+                            specialCaseData.overrideModLine = modLine:gsub("[0-9%.]+","#"):gsub("%([%+%-]?#%-[%+%-]?#%)","#")
                             break
                         end
                     end

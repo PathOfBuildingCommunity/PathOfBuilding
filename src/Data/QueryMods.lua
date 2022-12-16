@@ -10,7 +10,6 @@ return {
 				["text"] = "# to Level of Socketed Cold Gems", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Cold Gems", 
 			}, 
 			["sign"] = "+", 
 			["2HWeapon"] = {
@@ -186,7 +185,6 @@ return {
 				["text"] = "Hits with this Weapon Overwhelm #% Physical Damage Reduction", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Hits with this Weapon Overwhelm #% Physical Damage Reduction", 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 13, 
@@ -629,7 +627,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -769,7 +766,6 @@ return {
 		}, 
 		["961_LocalPhysicalDamagePercentAddedAsChaos"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -827,7 +823,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -953,7 +948,6 @@ return {
 				["text"] = "Socketed Gems are Supported by Level # Added Fire Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are Supported by Level # Added Fire Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -1287,7 +1281,6 @@ return {
 		}, 
 		["1253_LocalWardPercent"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Ward", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -1303,7 +1296,6 @@ return {
 				["text"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -1368,7 +1360,6 @@ return {
 				["text"] = "# to Level of Socketed Fire Gems", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Fire Gems", 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 1, 
@@ -1428,7 +1419,6 @@ return {
 		}, 
 		["1291_LocalBaseArmourEnergyShieldAndLife"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -1560,7 +1550,6 @@ return {
 				["text"] = "# to Strength and Dexterity", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Strength and Dexterity", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -1681,7 +1670,6 @@ return {
 				["text"] = "Attacks with this Weapon Penetrate #% Elemental Resistances", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Elemental Resistances", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -1973,7 +1961,6 @@ return {
 				["max"] = 2, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Support Gems", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -2165,7 +2152,6 @@ return {
 				["text"] = "#% to Quality", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality", 
 			}, 
 			["sign"] = "+", 
 			["Chest"] = {
@@ -2208,7 +2194,6 @@ return {
 				["text"] = "# to Level of Socketed Lightning Gems", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Lightning Gems", 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 1, 
@@ -2288,7 +2273,6 @@ return {
 		}, 
 		["721_LocalFlaskCriticalStrikeChanceDuringFlaskEffect"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Critical Strike Chance during Effect", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -2561,7 +2545,6 @@ return {
 		}, 
 		["93_LocalIncreaseSocketedFireGemLevelMaven"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Fire Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -2759,7 +2742,6 @@ return {
 		}, 
 		["6737_LocalCriticalStrikeChanceAndLocalItemQuality"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -2890,7 +2872,6 @@ return {
 		}, 
 		["3441_LocalFireDamageTwoHandAndPen"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -2915,7 +2896,6 @@ return {
 		}, 
 		["3443_LocalLightningDamageAndPen"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -3129,7 +3109,6 @@ return {
 		}, 
 		["105_LocalIncreaseSocketedAuraLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Aura Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -3214,7 +3193,6 @@ return {
 		}, 
 		["134_LocalIncreaseSocketedFireGemLevelMaven"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality of Socketed Fire Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -3281,7 +3259,6 @@ return {
 				["max"] = 17, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["sign"] = "", 
 			["Helmet"] = {
@@ -3379,7 +3356,6 @@ return {
 				["text"] = "Attacks with this Weapon Penetrate #% Chaos Resistance", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Chaos Resistance", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -3627,7 +3603,6 @@ return {
 		}, 
 		["196_LocalIncreasedPhysicalDamagePercentIronGrip"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are Supported by Level # Iron Grip", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -3792,7 +3767,6 @@ return {
 				["text"] = "Socketed Gems are Supported by Level # Faster Attacks", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are Supported by Level # Faster Attacks", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -3848,7 +3822,6 @@ return {
 		}, 
 		["214_LocalIncreasedPhysicalDamagePercentProjectileAttackDamage"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are Supported by Level # Vicious Projectiles", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -3980,7 +3953,6 @@ return {
 		}, 
 		["1104_LocalLightningDamageHybrid"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Lightning Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -3991,7 +3963,6 @@ return {
 		}, 
 		["95_LocalIncreaseSocketedLightningGemLevelMaven"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Lightning Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -4019,7 +3990,6 @@ return {
 				["max"] = 26, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -4095,7 +4065,6 @@ return {
 		}, 
 		["1093_LocalColdDamageHybrid"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Cold Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -4293,7 +4262,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -4372,7 +4340,6 @@ return {
 		}, 
 		["6737_IntelligenceAndLocalItemQuality"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -4485,7 +4452,6 @@ return {
 				["max"] = 25, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Mana", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -4864,7 +4830,6 @@ return {
 		}, 
 		["98_LocalIncreaseSocketedSpellGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Spell Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -5061,7 +5026,6 @@ return {
 		}, 
 		["130_LocalIncreaseSocketedChaosGemLevelMaven"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality of Socketed Chaos Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -5654,7 +5618,6 @@ return {
 		}, 
 		["2198_LocalLightRadiusAndAccuracy"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Light Radius", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -6025,7 +5988,6 @@ return {
 		}, 
 		["125_LocalIncreaseSocketedSupportGemLevelMaven"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality of Socketed Support Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -6040,7 +6002,6 @@ return {
 		}, 
 		["219_LocalIncreasedPhysicalDamagePercentPowerChargeOnCrit"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are Supported by Level # Power Charge On Critical Strike", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -6530,7 +6491,6 @@ return {
 				["text"] = "# to Strength and Intelligence", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Strength and Intelligence", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -6981,7 +6941,6 @@ return {
 				["max"] = 2, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Melee Gems", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -7094,7 +7053,6 @@ return {
 		}, 
 		["1112_LocalChaosDamageHybrid"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Chaos Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -7245,7 +7203,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -7303,7 +7260,6 @@ return {
 		}, 
 		["731_LocalFlaskItemFoundRarityDuringFlaskEffect"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Rarity of Items found during Effect", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -7445,7 +7401,6 @@ return {
 		}, 
 		["1188_LocalIncreasedPhysicalDamagePercentAndCritChance"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Critical Strike Chance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -7785,7 +7740,7 @@ return {
 		}, 
 		["1956_LocalPhysicalDamageReductionRatingPercentAndBlockChance"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% Chance to Block (Shields)", 
+				["overrideModLine"] = "+#% Chance to Block", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -8113,7 +8068,6 @@ return {
 				["max"] = 26, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -8408,7 +8362,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -8484,7 +8437,6 @@ return {
 		}, 
 		["1112_LocalChanceToPoisonOnHitChaosDamage"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Chaos Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -9445,7 +9397,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -9629,7 +9580,6 @@ return {
 		}, 
 		["961_LocalIncreasedPhysicalDamagePercentAndCritMulti"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -9723,7 +9673,6 @@ return {
 				["text"] = "#% increased Critical Strike Chance", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Critical Strike Chance", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -10336,7 +10285,6 @@ return {
 		}, 
 		["3442_LocalColdDamageTwoHandAndPen"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -10611,7 +10559,6 @@ return {
 				["text"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -10652,7 +10599,6 @@ return {
 				["max"] = 26, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -10842,7 +10788,6 @@ return {
 		}, 
 		["2181_LocalChanceToBleed"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% chance to cause Bleeding on Hit", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -10853,7 +10798,6 @@ return {
 		}, 
 		["961_LocalPhysicalDamagePercentOnslaught"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -11033,7 +10977,6 @@ return {
 		}, 
 		["961_LocalIncreasedPhysicalDamagePercentFasterProjectiles"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -11151,7 +11094,6 @@ return {
 		}, 
 		["131_LocalIncreaseSocketedColdGemLevelMaven"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality of Socketed Cold Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -11166,7 +11108,6 @@ return {
 		}, 
 		["717_LocalFlaskAvoidStunChanceDuringFlaskEffect"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% Chance to Avoid being Stunned during Effect", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -11354,7 +11295,6 @@ return {
 				["max"] = 17, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["sign"] = "", 
 			["Helmet"] = {
@@ -11868,7 +11808,6 @@ return {
 				["max"] = 17, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["sign"] = "", 
 			["Helmet"] = {
@@ -12059,7 +11998,6 @@ return {
 				["text"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 5, 
@@ -12198,7 +12136,6 @@ return {
 		}, 
 		["2439_LocalMeleeWeaponRange"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Weapon Range", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -12316,7 +12253,6 @@ return {
 		}, 
 		["734_LocalFlaskLifeRegenerationPerMinuteDuringFlaskEffect"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Regenerate #% of Life per second during Effect", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -12519,7 +12455,6 @@ return {
 		}, 
 		["3442_LocalColdDamageAndPen"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -12649,7 +12584,6 @@ return {
 				["text"] = "#% chance to Impale Enemies on Hit with Attacks", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% chance to Impale Enemies on Hit with Attacks", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -12749,7 +12683,6 @@ return {
 				["text"] = "#% chance to cause Bleeding on Hit", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% chance to cause Bleeding on Hit", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -12879,7 +12812,6 @@ return {
 		}, 
 		["1291_LocalBaseArmourEvasionRatingAndLife"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -13089,7 +13021,6 @@ return {
 		}, 
 		["114_LocalIncreaseSocketedActiveSkillGemLevelMaven"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Active Skill Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -13320,7 +13251,6 @@ return {
 		}, 
 		["114_LocalIncreaseSocketedActiveSkillGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Active Skill Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -13605,7 +13535,6 @@ return {
 		}, 
 		["6737_LocalAttackSpeedAndLocalItemQuality"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -13638,7 +13567,6 @@ return {
 		}, 
 		["350_LocalPhysicalDamagePercentEnduranceChargeOnStun"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are Supported by Level # Endurance Charge on Melee Stun", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -13745,7 +13673,6 @@ return {
 		}, 
 		["1253_LocalWardAndStunRecoveryPercent"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Ward", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -14987,7 +14914,6 @@ return {
 				["text"] = "#% increased Area of Effect", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Area of Effect", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -15105,7 +15031,6 @@ return {
 				["text"] = "#% chance to Blind Enemies on hit", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% chance to Blind Enemies on hit", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -15152,7 +15077,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -15230,7 +15154,6 @@ return {
 		}, 
 		["1084_LocalFireDamageHybrid"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Fire Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -15669,7 +15592,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -15757,7 +15679,6 @@ return {
 		}, 
 		["6737_StrengthAndLocalItemQuality"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -15783,7 +15704,6 @@ return {
 				["text"] = "#% chance to Trigger Level 1 Blood Rage when you Kill an Enemy", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% chance to Trigger Level # Blood Rage when you Kill an Enemy", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -15870,7 +15790,6 @@ return {
 				["max"] = 8, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality of Socketed Support Gems", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -16191,7 +16110,6 @@ return {
 				["max"] = 26, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -16335,7 +16253,6 @@ return {
 		}, 
 		["102_LocalIncreaseSocketedBowGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Bow Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -16445,7 +16362,6 @@ return {
 				["text"] = "Grants # Life per Enemy Hit", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Grants # Life per Enemy Hit", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -16459,7 +16375,6 @@ return {
 		}, 
 		["961_LocalIncreasedPhysicalDamagePercentAndCritChance"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -16502,7 +16417,6 @@ return {
 		}, 
 		["136_LocalIncreaseSocketedLightningGemLevelMaven"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality of Socketed Lightning Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -16592,7 +16506,6 @@ return {
 				["text"] = "#% to Damage over Time Multiplier for Poison inflicted with this Weapon", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Damage over Time Multiplier for Poison inflicted with this Weapon", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -16799,7 +16712,6 @@ return {
 		}, 
 		["909_IntelligenceAndLocalItemQuality"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Intelligence", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -17099,7 +17011,6 @@ return {
 				["max"] = 17, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["sign"] = "", 
 			["Helmet"] = {
@@ -17230,7 +17141,6 @@ return {
 		}, 
 		["6737_DexterityAndLocalItemQuality"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -17246,7 +17156,6 @@ return {
 				["text"] = "#% chance to Maim on Hit", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% chance to Maim on Hit", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -17296,7 +17205,6 @@ return {
 		}, 
 		["908_DexterityAndLocalItemQuality"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Dexterity", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -17376,7 +17284,6 @@ return {
 				["text"] = "#% reduced Enemy Stun Threshold", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% reduced Enemy Stun Threshold", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -17572,7 +17479,6 @@ return {
 				["text"] = "#% chance to cause Bleeding on Hit", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% chance to cause Bleeding on Hit", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -18676,7 +18582,6 @@ return {
 				["text"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -18798,7 +18703,6 @@ return {
 				["max"] = 26, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -18861,7 +18765,6 @@ return {
 				["text"] = "Socketed Gems are Supported by Level # Brutality", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are Supported by Level # Brutality", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -18890,7 +18793,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -18941,7 +18843,6 @@ return {
 				["text"] = "Socketed Gems are supported by Level # Multistrike", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are supported by Level # Multistrike", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -18955,7 +18856,6 @@ return {
 		}, 
 		["717_LocalFlaskAvoidStunChanceAndMovementSpeedDuringFlaskEffect"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% Chance to Avoid being Stunned during Effect", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -19113,7 +19013,6 @@ return {
 				["max"] = 26, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -19137,7 +19036,6 @@ return {
 		}, 
 		["961_LocalIncreasedPhysicalDamagePercentPowerChargeOnCrit"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -19232,7 +19130,6 @@ return {
 				["text"] = "#% increased Critical Strike Chance", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Critical Strike Chance", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -19309,7 +19206,6 @@ return {
 		}, 
 		["211_LocalPhysicalDamagePercentOnslaught"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are Supported by Level # Onslaught", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -19374,7 +19270,6 @@ return {
 		}, 
 		["1291_LocalIncreasedEvasionAndEnergyShieldAndLife"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -19611,7 +19506,6 @@ return {
 		}, 
 		["113_LocalIncreaseSocketedSupportGemLevelMaven"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Support Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -19938,7 +19832,6 @@ return {
 				["text"] = "#% increased Light Radius", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Light Radius", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -20306,7 +20199,6 @@ return {
 		}, 
 		["6737_LocalAccuracyRatingAndLocalItemQuality"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -20326,7 +20218,6 @@ return {
 		}, 
 		["1251_LocalWard"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Ward", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -20545,7 +20436,6 @@ return {
 				["text"] = "Socketed Gems are Supported by Level # Melee Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are Supported by Level # Melee Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -20945,7 +20835,6 @@ return {
 		}, 
 		["733_LocalFlaskLifeLeechOnDamageTakenPermyriadDuringFlaskEffect"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% of Damage Taken from Hits is Leeched as Life during Effect", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -21278,7 +21167,6 @@ return {
 		}, 
 		["110_LocalIncreaseSocketedTrapGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Trap Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -21937,7 +21825,6 @@ return {
 		}, 
 		["1619_LocalWardAndStunRecoveryPercent"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -21985,7 +21872,6 @@ return {
 				["text"] = "# to Level of Socketed Gems", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Gems", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -22103,7 +21989,6 @@ return {
 				["text"] = "#% chance for Bleeding inflicted with this Weapon to deal 100% more Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% chance for Bleeding inflicted with this Weapon to deal #% more Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -22430,7 +22315,6 @@ return {
 		}, 
 		["1652_LocalPhysicalDamagePercentAddedAsChaos"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Gain #% of Physical Damage as Extra Chaos Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -22541,7 +22425,6 @@ return {
 		}, 
 		["94_LocalIncreaseSocketedColdGemLevelMaven"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Cold Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -22723,7 +22606,6 @@ return {
 				["text"] = "Socketed Gems are Supported by Level # Ruthless", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are Supported by Level # Ruthless", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -22806,7 +22688,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -23342,7 +23223,6 @@ return {
 		}, 
 		["1188_LocalCriticalStrikeChanceAndLocalItemQuality"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Critical Strike Chance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -23700,7 +23580,6 @@ return {
 		}, 
 		["1291_LocalBaseEvasionRatingEnergyShieldAndLife"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -23760,7 +23639,6 @@ return {
 				["text"] = "#% increased Global Accuracy Rating", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Global Accuracy Rating", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -24398,7 +24276,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -24530,7 +24407,6 @@ return {
 				["text"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 5, 
@@ -24752,7 +24628,6 @@ return {
 		}, 
 		["1291_LocalBaseWardAndLife"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -24785,7 +24660,6 @@ return {
 		}, 
 		["961_LocalPhysicalDamagePercentEnduranceChargeOnStun"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -24989,7 +24863,6 @@ return {
 				["text"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -25279,7 +25152,6 @@ return {
 		}, 
 		["1619_LocalEvasionAndEnergyShieldAndStunRecovery"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -25391,7 +25263,6 @@ return {
 		}, 
 		["126_LocalIncreaseSocketedActiveSkillGemLevelMaven"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Quality of Socketed Active Skill Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -25588,7 +25459,6 @@ return {
 		}, 
 		["104_LocalIncreaseSocketedMinionGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Minion Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -25690,7 +25560,6 @@ return {
 				["text"] = "# to Dexterity and Intelligence", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Dexterity and Intelligence", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -25704,7 +25573,6 @@ return {
 		}, 
 		["3441_LocalFireDamageAndPen"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -25720,7 +25588,6 @@ return {
 				["text"] = "#% to Damage over Time Multiplier for Bleeding from Hits with this Weapon", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Damage over Time Multiplier for Bleeding from Hits with this Weapon", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -25859,7 +25726,6 @@ return {
 				["max"] = 17, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["sign"] = "", 
 			["Helmet"] = {
@@ -26009,7 +25875,6 @@ return {
 		}, 
 		["316_LocalIncreasedPhysicalDamagePercentFasterProjectiles"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are supported by Level # Faster Projectiles", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -26139,7 +26004,6 @@ return {
 				["max"] = 17, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["sign"] = "", 
 			["Helmet"] = {
@@ -26295,7 +26159,6 @@ return {
 				["text"] = "#% increased Projectile Speed", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Projectile Speed", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -26481,7 +26344,6 @@ return {
 		}, 
 		["211_LocalIncreasedAttackSpeedOnslaught"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are Supported by Level # Onslaught", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -26552,7 +26414,6 @@ return {
 		}, 
 		["1251_LocalBaseWardAndLife"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Ward", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -26572,7 +26433,6 @@ return {
 		}, 
 		["2439_LocalWeaponRangeUber"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Weapon Range", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -26611,7 +26471,6 @@ return {
 				["max"] = 38, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -26884,7 +26743,6 @@ return {
 		}, 
 		["3443_LocalLightningDamageTwoHandAndPen"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -26908,7 +26766,6 @@ return {
 				["max"] = 38, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -27097,7 +26954,6 @@ return {
 				["text"] = "#% increased Damage with Poison", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Damage with Poison", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -27231,7 +27087,6 @@ return {
 		}, 
 		["907_StrengthAndLocalItemQuality"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Strength", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -27664,7 +27519,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -28129,7 +27983,6 @@ return {
 				["max"] = 38, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -28180,7 +28033,6 @@ return {
 				["text"] = "#% chance for Poisons inflicted with this Weapon to deal 300% more Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% chance for Poisons inflicted with this Weapon to deal #% more Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -28241,7 +28093,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -28348,7 +28199,6 @@ return {
 		}, 
 		["961_LocalIncreasedPhysicalDamagePercentIronGrip"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -28421,7 +28271,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -28575,7 +28424,6 @@ return {
 		}, 
 		["1212_LocalIncreasedPhysicalDamagePercentAndCritMulti"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% to Global Critical Strike Multiplier", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -28737,7 +28585,6 @@ return {
 		}, 
 		["325_LocalPhysicalDamagePercentFortify"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Socketed Gems are Supported by Level # Fortify", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -28986,7 +28833,6 @@ return {
 				["text"] = "Attacks with this Weapon Penetrate #% Chaos Resistance", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Chaos Resistance", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -29019,7 +28865,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -29238,7 +29083,6 @@ return {
 		}, 
 		["96_LocalIncreaseSocketedChaosGemLevelMaven"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Chaos Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -29303,7 +29147,6 @@ return {
 		}, 
 		["113_LocalIncreaseSocketedSupportGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Support Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -29568,7 +29411,6 @@ return {
 		}, 
 		["961_LocalPhysicalDamagePercentFortify"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -29602,7 +29444,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -29630,7 +29471,6 @@ return {
 		}, 
 		["961_LocalIncreasedPhysicalDamagePercentProjectileAttackDamage"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -30011,7 +29851,6 @@ return {
 				["text"] = "# to Level of Socketed Chaos Gems", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Chaos Gems", 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 1, 
@@ -30085,7 +29924,6 @@ return {
 				["text"] = "Attacks with this Weapon Penetrate #% Elemental Resistances", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Elemental Resistances", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -30174,7 +30012,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -30193,7 +30030,6 @@ return {
 				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% chance to Intimidate Enemies for # seconds on Hit", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -31306,7 +31142,6 @@ return {
 		}, 
 		["93_LocalIncreaseSocketedFireGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Fire Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -31378,7 +31213,6 @@ return {
 		}, 
 		["1458_LifeGainPerTargetLocal"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Grants # Life per Enemy Hit", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -31389,7 +31223,6 @@ return {
 		}, 
 		["1159_LocalAccuracyRatingIncrease"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Global Accuracy Rating", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -31550,7 +31383,6 @@ return {
 		}, 
 		["105_LocalIncreaseSocketedAuraLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Aura Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -31830,7 +31662,6 @@ return {
 		}, 
 		["85_LocalIncreaseSocketedStrengthGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Strength Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -31860,7 +31691,6 @@ return {
 		}, 
 		["102_LocalIncreaseSocketedBowGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Bow Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -31871,7 +31701,6 @@ return {
 		}, 
 		["103_LocalIncreaseSocketedMeleeGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Melee Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -32041,7 +31870,6 @@ return {
 		}, 
 		["104_LocalIncreaseSocketedMinionGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Minion Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -32181,7 +32009,6 @@ return {
 		}, 
 		["95_LocalIncreaseSocketedLightningGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Lightning Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -32252,7 +32079,6 @@ return {
 		}, 
 		["86_LocalIncreaseSocketedDexterityGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Dexterity Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -32642,7 +32468,6 @@ return {
 		}, 
 		["1188_LocalCriticalStrikeChance"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Critical Strike Chance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -32862,7 +32687,6 @@ return {
 		}, 
 		["94_LocalIncreaseSocketedColdGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Cold Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -33314,7 +33138,6 @@ return {
 		}, 
 		["2181_LocalChanceToBleed"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% chance to cause Bleeding on Hit", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -33325,7 +33148,6 @@ return {
 		}, 
 		["961_LocalPhysicalDamagePercent"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -33366,7 +33188,6 @@ return {
 		}, 
 		["87_LocalIncreaseSocketedIntelligenceGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Intelligence Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -33837,7 +33658,6 @@ return {
 		}, 
 		["6687_LocalChanceToIntimidateOnHit"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% chance to Intimidate Enemies for # seconds on Hit", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -34079,7 +33899,6 @@ return {
 		}, 
 		["2439_LocalMeleeWeaponRange"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Weapon Range", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -34330,7 +34149,6 @@ return {
 		}, 
 		["101_LocalIncreaseSocketedProjectileGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Projectile Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -34341,7 +34159,6 @@ return {
 		}, 
 		["113_LocalIncreaseSocketedSupportGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Support Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -34792,7 +34609,6 @@ return {
 		}, 
 		["88_LocalIncreaseSocketedGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -34813,7 +34629,6 @@ return {
 		}, 
 		["96_LocalIncreaseSocketedChaosGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Chaos Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -34854,7 +34669,6 @@ return {
 		}, 
 		["3440_LocalAttackReduceEnemyElementalResistance"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Elemental Resistances", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -47491,7 +47305,6 @@ return {
 				["text"] = "#% increased Critical Strike Chance", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Critical Strike Chance", 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 14, 
@@ -48522,7 +48335,6 @@ return {
 		}, 
 		["94_LocalIncreaseSocketedColdGemLevelCorrupted"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Cold Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -48918,7 +48730,6 @@ return {
 				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -49040,7 +48851,6 @@ return {
 		}, 
 		["116_LocalSocketedWarcryGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Warcry Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -49210,7 +49020,6 @@ return {
 		}, 
 		["101_LocalIncreaseSocketedProjectileLevelCorrupted"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Projectile Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -49276,7 +49085,6 @@ return {
 				["text"] = "# to Weapon Range", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Weapon Range", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -49290,7 +49098,6 @@ return {
 		}, 
 		["93_LocalIncreaseSocketedFireGemLevelCorrupted"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Fire Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -49305,7 +49112,6 @@ return {
 		}, 
 		["105_LocalIncreaseSocketedAuraLevelCorrupted"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Aura Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -49626,7 +49432,6 @@ return {
 				["max"] = 2, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Vaal Gems", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -49640,7 +49445,6 @@ return {
 		}, 
 		["108_LocalIncreaseSocketedCurseLevelCorrupted"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Curse Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -50146,7 +49950,6 @@ return {
 		}, 
 		["104_LocalIncreaseSocketedMinionGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Minion Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -50458,7 +50261,6 @@ return {
 				["max"] = 1, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Gems", 
 			}, 
 			["sign"] = "+", 
 			["Chest"] = {
@@ -50835,7 +50637,6 @@ return {
 		}, 
 		["95_LocalIncreaseSocketedLightningGemLevelCorrupted"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Lightning Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -51503,7 +51304,6 @@ return {
 		}, 
 		["103_LocalIncreaseSocketedMeleeGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Melee Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -51740,7 +51540,6 @@ return {
 		}, 
 		["93_LocalIncreaseSocketedFireGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Fire Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -52270,7 +52069,6 @@ return {
 		}, 
 		["104_LocalIncreaseSocketedMinionGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Minion Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -52344,7 +52142,6 @@ return {
 		}, 
 		["95_LocalIncreaseSocketedLightningGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Lightning Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -52373,7 +52170,6 @@ return {
 		}, 
 		["85_LocalIncreaseSocketedStrengthGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Strength Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -53214,7 +53010,6 @@ return {
 		}, 
 		["105_LocalIncreaseSocketedAuraLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Aura Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -53497,7 +53292,6 @@ return {
 		}, 
 		["113_LocalIncreaseSocketedSupportGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Support Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -53597,7 +53391,6 @@ return {
 		}, 
 		["116_LocalSocketedWarcryGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Warcry Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -54143,7 +53936,6 @@ return {
 		}, 
 		["87_LocalIncreaseSocketedIntelligenceGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Intelligence Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -54568,7 +54360,6 @@ return {
 		}, 
 		["101_LocalIncreaseSocketedProjectileGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Projectile Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -54683,7 +54474,6 @@ return {
 		}, 
 		["86_LocalIncreaseSocketedDexterityGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Dexterity Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -54962,7 +54752,6 @@ return {
 		}, 
 		["96_LocalIncreaseSocketedChaosGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Chaos Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -55018,7 +54807,6 @@ return {
 				["text"] = "# to Weapon Range", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Weapon Range", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -55182,7 +54970,6 @@ return {
 		}, 
 		["88_LocalIncreaseSocketedGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -55317,7 +55104,6 @@ return {
 		}, 
 		["94_LocalIncreaseSocketedColdGemLevel"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Level of Socketed Cold Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
