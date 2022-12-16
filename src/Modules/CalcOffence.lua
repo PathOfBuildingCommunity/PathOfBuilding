@@ -2327,16 +2327,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.DoubleDamageChance = m_max(output.DoubleDamageChance - output.TripleDamageChance * output.DoubleDamageChance / 100, 0)
 		end
 		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
-		output.ScaledDamageEffect = output.ScaledDamageEffect * output.DoubleDamageEffect	
-		-- Calculate culling DPS
-		local criticalCull = skillModList:Max(cfg, "CriticalCullPercent") or 0
-		if criticalCull > 0 then
-			criticalCull = criticalCull * (output.CritChance / 100)
-		end
-		local regularCull = skillModList:Max(cfg, "CullPercent") or 0
-		local maxCullPercent = m_max(criticalCull, regularCull)
-		globalOutput.CullPercent = maxCullPercent
-		globalOutput.CullMultiplier = 100 / (100 - globalOutput.CullPercent)
+		output.ScaledDamageEffect = output.ScaledDamageEffect * output.DoubleDamageEffect
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
 			local damageTypeMin = damageType.."Min"
@@ -2689,6 +2680,17 @@ function calcs.offence(env, actor, activeSkill)
 		output.ManaLeech = m_min(output.ManaLeech, globalOutput.MaxManaLeechInstance)
 		output.ManaLeechDuration, output.ManaLeechInstances = getLeechInstances(output.ManaLeech, globalOutput.Mana)
 		output.ManaLeechInstantRate = output.ManaLeechInstant * hitRate
+
+		-- Calculate culling DPS
+		local criticalCull = skillModList:Max(cfg, "CriticalCullPercent") or 0
+		if criticalCull > 0 then
+			criticalCull = m_min(criticalCull, criticalCull * (1 - (1 - output.CritChance / 100) ^ hitRate))
+		end
+		local regularCull = skillModList:Max(cfg, "CullPercent") or 0
+		local maxCullPercent = m_max(criticalCull, regularCull)
+		
+		globalOutput.CullPercent = maxCullPercent
+		globalOutput.CullMultiplier = 100 / (100 - globalOutput.CullPercent)
 
 		-- Calculate gain on hit
 		if skillFlags.mine or skillFlags.trap or skillFlags.totem then
