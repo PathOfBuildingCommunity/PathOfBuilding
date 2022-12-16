@@ -399,7 +399,6 @@ function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
 		table.insert(dropdownLabels, colorCodes[item.rarity]..item.name)
 	end
 	self.controls["resultDropdown"..index]:SetList(dropdownLabels)
-	self.controls["resultDropdown"..index]:SetList(dropdownLabels)
 end
 
 -- Method to set the current result return in the pane based of an index
@@ -433,7 +432,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local item = new("Item", tbl.item_string)
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
-			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDot, output.CombinedAvg))
+			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0))
 			if self.pbSortSelectionIndex == 4 then
 				local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
 				--print(tbl.amount, tbl.currency, item.name)

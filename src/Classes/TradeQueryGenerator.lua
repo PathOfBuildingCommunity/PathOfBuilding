@@ -602,7 +602,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 
     -- This DPS diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
     -- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
-    local minWeight = currentDPSDiff * 0.1
+    local minWeight = currentDPSDiff * 0.5
 
     -- Sort by mean DPS diff rather than weight to more accurately prioritize stats that can contribute more
     table.sort(self.modWeights, function(a, b)
