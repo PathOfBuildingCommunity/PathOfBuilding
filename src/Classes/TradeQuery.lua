@@ -34,7 +34,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.lastCurrencyConversionRequest = 0
 	self.lastCurrencyFileTime = { }
 	self.pbFileTimestampDiff = { }
-	self.pbRealm = "pc"
+	self.pbRealm = ""
 
 	self.tradeQueryRequests = new("TradeQueryRequests", self)
 	table.insert(main.onFrameFuncs, function()
@@ -279,10 +279,11 @@ function TradeQueryClass:PriceItem()
 	end
 
 	-- Realm selection
-	local realmDropList = { "pc", "xbox", "ps4" }
+	local realmDropList = { "pc", "xbox", "sony" }
 	self.controls.realmLabel = new("LabelControl", {"TOPLEFT", self.controls.leagueLabel, "TOPLEFT"}, 8, 24, 20, 16, "^7Realm:")
 	self.controls.realm = new("DropDownControl", {"TOPLEFT", self.controls.realmLabel, "TOPRIGHT"}, 8, 0, 150, 18, realmDropList, function(index, value)
-		self.pbRealm = value
+		self.pbRealm = value .. "/"
+		if value == "pc" then self.pbRealm = "" end
 	end)
 
 	-- Individual slot rows
@@ -472,7 +473,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 				end,
 				{
 					callbackQueryId = function(queryId)
-						controls["uri"..context.str_cnt]:SetText("https://www.pathofexile.com/trade/search/".. self.pbRealm .."/".. self.pbLeague:gsub(" ", "+") .."/".. queryId)
+						controls["uri"..context.str_cnt]:SetText("https://www.pathofexile.com/trade/search/".. self.pbRealm .. self.pbLeague:gsub(" ", "+") .."/".. queryId)
 					end
 				}
 			)
