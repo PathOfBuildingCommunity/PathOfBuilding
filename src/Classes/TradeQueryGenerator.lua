@@ -152,9 +152,9 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
 
                 -- Try to match to a local mod fallback to global if no match
                 if mod.group:match("Local") then
-                    local strippedLocalStr = (modLine .. " (Local)"):gsub("[#()0-9%-%+%.]","")
+                    local matchLocalStr = (modLine .. " (Local)"):gsub("[#()0-9%-%+%.]","")
                     for _, entry in pairs(tradeQueryStatsParsed.localResults[tradeStatCategoryIndices[modType]].entries) do
-                        if entry.text:gsub("[#()0-9%-%+%.]","") == strippedLocalStr then
+                        if entry.text:gsub("[#()0-9%-%+%.]","") == matchLocalStr then
                             tradeMod = entry
                             specialCaseData.overrideModLine = entry.text:sub(1,-9)
                             break
@@ -162,16 +162,16 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
                     end
                 end
                 if tradeMod == nil then
-                    local strippedStr = modLine:gsub("[#()0-9%-%+%.]","")
+                    local matchStr = modLine:gsub("[#()0-9%-%+%.]","")
                     for _, entry in ipairs(tradeQueryStatsParsed.result[tradeStatCategoryIndices[modType]].entries) do
-                        if entry.text:gsub("[#()0-9%-%+%.]","") == strippedStr then
+                        if entry.text:gsub("[#()0-9%-%+%.]","") == matchStr then
                             tradeMod = entry
                             break
                         end
                     end
                 end
                 if tradeMod == nil then
-                    -- logToFile("Unable to match %s mod: %s", modType, modLine)
+                    logToFile("Unable to match %s mod: %s", modType, modLine)
                     goto nextModLine
                 end
 
