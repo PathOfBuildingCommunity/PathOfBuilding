@@ -28,7 +28,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.itemIndexTbl = { }
 
 	-- default set of calc sort selection
-	self.pbCalcSortSelectionIndex = 1
+	self.pbStatSortSelectionIndex = 1
 	
 	-- default set of trade item sort selection
 	self.pbItemSortSelectionIndex = 1
@@ -238,22 +238,22 @@ function TradeQueryClass:PriceItem()
 	end)
 	
 	-- Calc sort dropdown
-	self.calcSortSelectionList = { }
+	self.statSortSelectionList = { }
 	for id, stat in pairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
-			t_insert(self.calcSortSelectionList, {
+			t_insert(self.statSortSelectionList, {
 				label = stat.label,
 				stat = stat.stat,
 				transform = stat.transform,
 			})
 		end
 	end
-	self.controls.calcSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, self.calcSortSelectionList, function(index, value)
-		self.pbCalcSortSelectionIndex = index
+	self.controls.statSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, self.statSortSelectionList, function(index, value)
+		self.pbStatSortSelectionIndex = index
 	end)
-	self.controls.calcSortSelection.tooltipText = "Type of calc to sort by"
-	self.controls.calcSortSelection:SetSel(self.pbCalcSortSelectionIndex)
-	self.controls.calcSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.calcSortSelection, "TOPLEFT"}, -4, 0, 100, 16, "^7Sort Calc By:")
+	self.controls.statSortSelection.tooltipText = "Type of calc to sort by"
+	self.controls.statSortSelection:SetSel(self.pbStatSortSelectionIndex)
+	self.controls.statSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.statSortSelection, "TOPLEFT"}, -4, 0, 100, 16, "^7Sort Calc By:")
 	
 
 	-- Item sort dropdown
@@ -263,7 +263,7 @@ function TradeQueryClass:PriceItem()
 		"Highest DPS",
 		"DPS / Price",
 	}
-	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",self.controls.calcSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, 18, self.itemSortSelectionList, function(index, value)
+	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",self.controls.statSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, 18, self.itemSortSelectionList, function(index, value)
 		self.pbItemSortSelectionIndex = index
 	end)
 	self.controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
@@ -290,7 +290,7 @@ function TradeQueryClass:PriceItem()
 	end
 
 	-- League selection
-	self.controls.league = new("DropDownControl", {"TOPRIGHT", self.controls.calcSortSelectionLabel, "TOPLEFT"}, -8, 0, 150, 18, self.itemsTab.leagueDropList, function(index, value)
+	self.controls.league = new("DropDownControl", {"TOPRIGHT", self.controls.statSortSelectionLabel, "TOPLEFT"}, -8, 0, 150, 18, self.itemsTab.leagueDropList, function(index, value)
 		self.pbLeague = value
 		self:SetCurrencyConversionButton()
 	end)
@@ -432,15 +432,15 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 		local slot = slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
 		local slotName = slotTbl.ref and "Jewel " .. tostring(slotTbl.ref) or slotTbl.name
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
-		local newCalcedType = self.calcSortSelectionList[self.pbCalcSortSelectionIndex].stat
+		local newCalcedType = self.statSortSelectionList[self.pbStatSortSelectionIndex].stat
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local item = new("Item", tbl.item_string)
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
 			local newStatValue = 0
 			if newCalcedType == "FullDPS" and not GlobalCache.useFullDPS then
-				newStatValue = m_max(output.TotalDPS, m_max(output.TotalDot, output.CombinedAvg))
+				newStatValue = m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0))
 			else
-				newStatValue = output[newCalcedType]
+				newStatValue = output[newCalcedType] or 0
 			end
 			if self.pbItemSortSelectionIndex == 4 then
 				local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
@@ -474,7 +474,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 	local activeSlotRef = slotTbl.ref and self.itemsTab.activeItemSet[slotTbl.ref] or self.itemsTab.activeItemSet[slotTbl.name]
 	controls["name"..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^7"..slotTbl.name)
 	controls["bestButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["name"..str_cnt],"TOPLEFT"}, 100 + 8, 0, 80, row_height, "Find best", function()
-		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, { { stat = self.calcSortSelectionList[self.pbCalcSortSelectionIndex], weight = 1 } }, function(context, query)
+		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, { { stat = self.statSortSelectionList[self.pbStatSortSelectionIndex], weight = 1 } }, function(context, query)
 			self.pbItemSortSelectionIndex = 1
 			context.controls["priceButton"..context.str_cnt].label = "Searching..."
 			self.tradeQueryRequests:SearchWithQuery(self.pbLeague, query, 
