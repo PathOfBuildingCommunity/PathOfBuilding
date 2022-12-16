@@ -27,8 +27,11 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.sortedResultTbl = { }
 	self.itemIndexTbl = { }
 
+	-- default set of calc sort selection
+	self.pbCalcSortSelectionIndex = 1
+	
 	-- default set of trade item sort selection
-	self.pbSortSelectionIndex = 1
+	self.pbItemSortSelectionIndex = 1
 	self.pbCurrencyConversion = { }
 	self.currencyConversionTradeMap = { }
 	self.lastCurrencyConversionRequest = 0
@@ -254,6 +257,25 @@ function TradeQueryClass:PriceItem()
 	self.controls.poesessidButton.tooltipText = [[
 The Trader feature supports two modes of operation depending on the POESESSID availability.
 You can click this button to enter your POESESSID.
+	
+	-- Calc sort dropdown
+	self.calcSortSelectionList = { }
+	for id, stat in pairs(data.powerStatList) do
+		if not stat.ignoreForItems and stat.label ~= "Name" then
+			t_insert(self.calcSortSelectionList, {
+				label = stat.label,
+				stat = stat.stat,
+				transform = stat.transform,
+			})
+		end
+	end
+	self.controls.calcSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, self.calcSortSelectionList, function(index, value)
+		self.pbCalcSortSelectionIndex = index
+	end)
+	self.controls.calcSortSelection.tooltipText = "Type of calc to sort by"
+	self.controls.calcSortSelection:SetSel(self.pbCalcSortSelectionIndex)
+	self.controls.calcSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.calcSortSelection, "TOPLEFT"}, -4, 0, 100, 16, "^7Sort Calc By:")
+	
 
 ^2Session Mode^7
 - Requires POESESSID.
@@ -279,18 +301,18 @@ on trade site to work on other leagues and realms)]]
 		self.sortModes.PRICEASC,
 		self.sortModes.WEIGHT,
 	}
-	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 100, 18, self.sortSelectionList, function(index, value)
-		self.pbSortSelectionIndex = index
+	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",self.controls.calcSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, 18, self.itemSortSelectionList, function(index, value)
+		self.pbItemSortSelectionIndex = index
 		for index, _ in pairs(self.resultTbl) do
 			self:UpdateControlsWithItems({name = baseSlots[index]}, index)
 		end
 	end)
 	self.controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
-	self.controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
-	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
+	self.controls.itemSortSelection:SetSel(self.pbItemSortSelectionIndex)
+	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 100, 16, "^7Sort Items By:")
 
 	self.maxFetchPerSearchDefault = 2
-	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, row_height, "", "Fetch Pages", "%D", 3, function(buf)
+	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT", self.controls.itemSortSelectionLabel, "TOPLEFT"}, -8, 0, 150, row_height, "", "Fetch Pages", "%D", 3, function(buf)
 		self.maxFetchPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, 1), 10)
 		self.tradeQueryRequests.maxFetchPerSearch = 10 * self.maxFetchPages
 		self.controls.fetchCountEdit.focusValue = self.maxFetchPages
@@ -471,7 +493,7 @@ function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
 	end
 	self.sortedResultTbl[index] = sortedItems
 	self.itemIndexTbl[index] = 1
-	self.controls["priceButton"..index].tooltipText = "Sorted by " .. self.sortSelectionList[self.pbSortSelectionIndex]
+	self.controls["priceButton"..index].tooltipText = "Sorted by " .. self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local pb_index = self.sortedResultTbl[index][1].index
 	self.totalPrice[index] = {
 		currency = self.resultTbl[index][pb_index].currency,
@@ -499,16 +521,40 @@ function TradeQueryClass:SetFetchResultReturn(slotIndex, index)
 	end
 end
 
-function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
-	local function getDpsTable()
-		local out = {}
+-- Method to sort the fetched results
+function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
+	local newTbl = {}
+	if self.pbItemSortSelectionIndex == 1 then
+		for index, tbl in pairs(self.resultTbl[trade_index]) do
+			t_insert(newTbl, { outputAttr = index, index = index })
+		end
+		return newTbl
+	end
+	if self.pbItemSortSelectionIndex > 2 then
+		local slot = slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
 		local slotName = slotTbl.ref and "Jewel " .. tostring(slotTbl.ref) or slotTbl.name
-		local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
+		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
+		local newCalcedType = self.calcSortSelectionList[self.pbCalcSortSelectionIndex].stat
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local item = new("Item", tbl.item_string)
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
-			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDot, output.CombinedAvg))
-			out[index] = newDPS
+			local newStatValue = 0
+			if newCalcedType == "FullDPS" and not GlobalCache.useFullDPS then
+				newStatValue = m_max(output.TotalDPS, m_max(output.TotalDot, output.CombinedAvg))
+			else
+				newStatValue = output[newCalcedType]
+			end
+			if self.pbItemSortSelectionIndex == 4 then
+				local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
+				--print(tbl.amount, tbl.currency, item.name)
+				if chaosAmount > 0 then
+					t_insert(newTbl, { outputAttr = newStatValue / chaosAmount, index = index })
+				end
+			else
+				if tbl.amount > 0 then
+					t_insert(newTbl, { outputAttr = newStatValue, index = index })
+				end
+			end
 		end
 		return out
 	end
@@ -583,7 +629,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 	local activeSlotRef = slotTbl.ref and self.itemsTab.activeItemSet[slotTbl.ref] or self.itemsTab.activeItemSet[slotTbl.name]
 	controls["name"..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^7"..slotTbl.name)
 	controls["bestButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["name"..str_cnt],"TOPLEFT"}, 100 + 8, 0, 80, row_height, "Find best", function()
-		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query, errMsg)
+		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, { { stat = self.calcSortSelectionList[self.pbCalcSortSelectionIndex], weight = 1 } }, function(context, query)
 			if errMsg then
 				self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
 				return
@@ -596,7 +642,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 				controls["uri"..context.str_cnt]:SetText(url, true)
 				return
 			end
-			self.pbSortSelectionIndex = 1
+			self.pbItemSortSelectionIndex = 1
 			context.controls["priceButton"..context.str_cnt].label = "Searching..."
 			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query, 
 				function(items, errMsg)
