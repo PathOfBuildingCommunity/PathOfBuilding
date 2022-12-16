@@ -10,6 +10,7 @@ return {
 				["text"] = "# to Level of Socketed Cold Gems", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Cold Gems", 
 			}, 
 			["sign"] = "+", 
 			["2HWeapon"] = {
@@ -115,19 +116,14 @@ return {
 				["max"] = 13, 
 			}, 
 		}, 
-		["8309_SpellDamagePer16Strength"] = {
+		["8797_IronWill"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4249521944", 
-				["text"] = "#% increased Spell Damage per 16 Strength", 
+				["id"] = "explicit.stat_4092697134", 
+				["text"] = "Iron Will", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["sign"] = "", 
 		}, 
 		["1318_ItemFoundRarityIncrease"] = {
 			["Gloves"] = {
@@ -190,6 +186,7 @@ return {
 				["text"] = "Hits with this Weapon Overwhelm #% Physical Damage Reduction", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "Hits with this Weapon Overwhelm #% Physical Damage Reduction", 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 13, 
@@ -202,14 +199,22 @@ return {
 			["sign"] = "", 
 		}, 
 		["1212_CriticalStrikeMultiplier"] = {
+			["Helmet"] = {
+				["min"] = 11, 
+				["max"] = 24, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_3556824919", 
 				["text"] = "#% to Global Critical Strike Multiplier", 
 			}, 
-			["Helmet"] = {
-				["min"] = 11, 
-				["max"] = 24, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 38, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 38, 
 			}, 
 			["specialCaseData"] = {
 			}, 
@@ -359,27 +364,16 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2495_ColdLightningResistanceForJewel"] = {
+		["1098_LocalColdDamageAndPen"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Cold Damage", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4277795662", 
-				["text"] = "#% to Cold and Lightning Resistances", 
+				["id"] = "explicit.stat_1037193709", 
+				["text"] = "Adds # to # Cold Damage (Local)", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
-			}, 
+			["sign"] = "", 
 		}, 
 		["1644_TrapSpeedCooldownSupported"] = {
 			["specialCaseData"] = {
@@ -551,6 +545,17 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
+		["1271_LocalBaseEvasionRatingEnergyShieldAndLife"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Evasion Rating", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_53045048", 
+				["text"] = "# to Evasion Rating (Local)", 
+			}, 
+			["sign"] = "+", 
+		}, 
 		["1130_SpellAddedFireSuffix"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -615,6 +620,25 @@ return {
 			["Amulet"] = {
 				["min"] = 3, 
 				["max"] = 7, 
+			}, 
+		}, 
+		["961_LocalPhysicalDamagePercentAddedFireDamage"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 101, 
+				["max"] = 134, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 101, 
+				["max"] = 134, 
 			}, 
 		}, 
 		["7685_MinionAttacksBlindOnHitChance"] = {
@@ -743,27 +767,16 @@ return {
 				["max"] = 38, 
 			}, 
 		}, 
-		["1794_AddedFireDamageWithClaws"] = {
+		["961_LocalPhysicalDamagePercentAddedAsChaos"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2154290807", 
-				["text"] = "# to # Added Fire Damage with Claw Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 25, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 25, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 25, 
-			}, 
 		}, 
 		["243_ChanceToFreezeShockIgniteUnboundAilments"] = {
 			["specialCaseData"] = {
@@ -806,6 +819,25 @@ return {
 				["max"] = 10, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["961_LocalIncreasedPhysicalDamageAndBleedChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 120, 
+				["max"] = 139, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 120, 
+				["max"] = 139, 
+			}, 
 		}, 
 		["7773_MovementSpeedIfNotDamagedRecently"] = {
 			["tradeMod"] = {
@@ -857,6 +889,33 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1271_LocalBaseEvasionRatingAndEnergyShield"] = {
+			["Gloves"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_53045048", 
+				["text"] = "# to Evasion Rating (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Evasion Rating", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+			["Boots"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+		}, 
 		["4391_AttacksBlindOnHitChance"] = {
 			["AbyssJewel"] = {
 				["min"] = 3, 
@@ -887,26 +946,23 @@ return {
 				["max"] = 6, 
 			}, 
 		}, 
-		["959_DualWieldingSpellDamageForJewel"] = {
+		["300_LocalPhysicalDamagePercentAddedFireDamage"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1678690824", 
-				["text"] = "#% increased Spell Damage while Dual Wielding", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+				["id"] = "explicit.stat_2572192375", 
+				["text"] = "Socketed Gems are Supported by Level # Added Fire Damage", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are Supported by Level # Added Fire Damage", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["1HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["2HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
 		}, 
 		["7942_ReducedPhysicalReflectTakenMaven"] = {
@@ -1229,15 +1285,35 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1130_FireDamageWeaponPrefixAndFlat"] = {
+		["1253_LocalWardPercent"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Ward", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1133016593", 
-				["text"] = "Adds # to # Fire Damage to Spells", 
+				["id"] = "explicit.stat_830161081", 
+				["text"] = "#% increased Ward", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["3442_LocalColdPenetration"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1740229525", 
+				["text"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 9, 
+				["max"] = 15, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 9, 
+				["max"] = 15, 
+			}, 
 		}, 
 		["1690_MinionDamageAndMinionMaximumLife"] = {
 			["tradeMod"] = {
@@ -1285,36 +1361,42 @@ return {
 				["max"] = 28.5, 
 			}, 
 		}, 
-		["3074_ColdDamageTakenPercentage"] = {
-			["specialCaseData"] = {
-			}, 
+		["93_LocalIncreaseSocketedFireGemLevel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3303114033", 
-				["text"] = "#% reduced Cold Damage taken", 
+				["id"] = "explicit.stat_339179093", 
+				["text"] = "# to Level of Socketed Fire Gems", 
 			}, 
-			["sign"] = "", 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Fire Gems", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["sign"] = "+", 
+			["Boots"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
 		}, 
-		["1577_FreezeChanceAndDurationForJewel"] = {
+		["1139_LocalIncreasedAttackSpeedFasterAttacks"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1073942215", 
-				["text"] = "#% increased Freeze Duration on Enemies", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 12, 
-				["max"] = 16, 
+				["id"] = "explicit.stat_210067635", 
+				["text"] = "#% increased Attack Speed (Local)", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Attack Speed", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 12, 
-				["max"] = 16, 
+			["1HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 21, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 12, 
-				["max"] = 16, 
+			["2HWeapon"] = {
+				["min"] = 17, 
+				["max"] = 21, 
 			}, 
 		}, 
 		["2338_EnergyShieldRegenerationPerMinuteMaven"] = {
@@ -1344,27 +1426,30 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["7770_MovementSpeedIfHitRecently"] = {
+		["1291_LocalBaseArmourEnergyShieldAndLife"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3178542354", 
-				["text"] = "#% increased Movement Speed if you've Hit an Enemy Recently", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
+		}, 
+		["7694_MinionCriticalStrikeMultiplier"] = {
 			["specialCaseData"] = {
 			}, 
-			["2HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 15, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1854213750", 
+				["text"] = "Minions have #% to Critical Strike Multiplier", 
 			}, 
 			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 10, 
+				["min"] = 10, 
+				["max"] = 38, 
 			}, 
-			["Boots"] = {
-				["min"] = 4, 
-				["max"] = 6, 
-			}, 
+			["sign"] = "+", 
 		}, 
 		["1301_IncreasedManaAndReservation"] = {
 			["specialCaseData"] = {
@@ -1375,6 +1460,25 @@ return {
 				["text"] = "# to maximum Mana", 
 			}, 
 			["sign"] = "+", 
+		}, 
+		["1109_LocalLightningDamage"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3336890334", 
+				["text"] = "Adds # to # Lightning Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Lightning Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 3, 
+				["max"] = 182.5, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 3, 
+				["max"] = 182.5, 
+			}, 
 		}, 
 		["1352_ColdResistanceForJewel"] = {
 			["tradeMod"] = {
@@ -1398,6 +1502,44 @@ return {
 				["max"] = 15, 
 			}, 
 		}, 
+		["1263_LocalBaseArmourEnergyShieldAndLife"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Armour", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3484657501", 
+				["text"] = "# to Armour (Local)", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1263_LocalBaseArmourAndEnergyShield"] = {
+			["Gloves"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3484657501", 
+				["text"] = "# to Armour (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Armour", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+			["Boots"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+		}, 
 		["5059_ConsecratedGroundStationaryMaven"] = {
 			["specialCaseData"] = {
 			}, 
@@ -1409,6 +1551,25 @@ return {
 			["Chest"] = {
 				["min"] = 1, 
 				["max"] = 1, 
+			}, 
+		}, 
+		["910_LocalAccuracyRatingStrengthDexterity"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_538848803", 
+				["text"] = "# to Strength and Dexterity", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Strength and Dexterity", 
+			}, 
+			["sign"] = "+", 
+			["1HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 28, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 28, 
 			}, 
 		}, 
 		["4357_AddedLightningDamagePerIntelligence"] = {
@@ -1513,6 +1674,25 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
+		["3440_LocalElementalPenetration"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4064396395", 
+				["text"] = "Attacks with this Weapon Penetrate #% Elemental Resistances", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Elemental Resistances", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 12, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 12, 
+			}, 
+		}, 
 		["231_ProjectileDamageSupported"] = {
 			["specialCaseData"] = {
 			}, 
@@ -1527,22 +1707,26 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2781_VaalSkillDamage"] = {
+		["1302_MaximumManaIncreasePercent"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2257141320", 
-				["text"] = "#% increased Damage with Vaal Skills", 
+				["id"] = "explicit.stat_2748665614", 
+				["text"] = "#% increased maximum Mana", 
+			}, 
+			["Quiver"] = {
+				["min"] = 20, 
+				["max"] = 30, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Ring"] = {
-				["min"] = 20, 
-				["max"] = 40, 
+			["Chest"] = {
+				["min"] = 9, 
+				["max"] = 18, 
 			}, 
-			["Belt"] = {
-				["min"] = 20, 
-				["max"] = 40, 
+			["Helmet"] = {
+				["min"] = 9, 
+				["max"] = 18, 
 			}, 
 		}, 
 		["6908_ManaGainedOnSpellHit"] = {
@@ -1605,13 +1789,18 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["2313_MapExtraInvasionBosses"] = {
+		["2436_FlaskEffect"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_279246355", 
-				["text"] = "Area is inhabited by an additional Invasion Boss", 
+				["id"] = "explicit.stat_114734841", 
+				["text"] = "Flasks applied to you have #% increased Effect", 
+			}, 
+			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 4, 
+				["max"] = 12, 
 			}, 
 		}, 
 		["1254_WardDelayRecovery"] = {
@@ -1680,6 +1869,37 @@ return {
 				["max"] = 8, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["1276_LocalArmourAndEvasion"] = {
+			["Gloves"] = {
+				["min"] = 15, 
+				["max"] = 100, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2451402625", 
+				["text"] = "#% increased Armour and Evasion (Local)", 
+			}, 
+			["Shield"] = {
+				["min"] = 101, 
+				["max"] = 110, 
+			}, 
+			["Chest"] = {
+				["min"] = 15, 
+				["max"] = 110, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour and Evasion", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 15, 
+				["max"] = 100, 
+			}, 
+			["Boots"] = {
+				["min"] = 15, 
+				["max"] = 100, 
+			}, 
 		}, 
 		["1796_AddedFireDamageWithMaces"] = {
 			["tradeMod"] = {
@@ -1753,6 +1973,7 @@ return {
 				["max"] = 2, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Support Gems", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -1764,17 +1985,17 @@ return {
 				["max"] = 2, 
 			}, 
 		}, 
-		["6919_MaximumManaOnKillPercentMaven"] = {
+		["5466_EnemiesExplodeOnDeathPhysicalMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_630994130", 
-				["text"] = "#% increased Mana Recovery Rate if you haven't Killed Recently", 
+				["id"] = "explicit.stat_1220361974", 
+				["text"] = "Enemies you Kill Explode, dealing #% of their Life as Physical Damage", 
 			}, 
 			["Chest"] = {
 				["min"] = 5, 
-				["max"] = 10, 
+				["max"] = 5, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -1944,6 +2165,7 @@ return {
 				["text"] = "#% to Quality", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality", 
 			}, 
 			["sign"] = "+", 
 			["Chest"] = {
@@ -1986,6 +2208,7 @@ return {
 				["text"] = "# to Level of Socketed Lightning Gems", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Lightning Gems", 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 1, 
@@ -2015,42 +2238,30 @@ return {
 				["max"] = 35, 
 			}, 
 		}, 
-		["1568_ChanceToAvoidPoison"] = {
-			["BaseJewel"] = {
-				["min"] = 31, 
-				["max"] = 50, 
+		["1674_ConvertPhysicalToCold"] = {
+			["Gloves"] = {
+				["min"] = 18, 
+				["max"] = 35, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2133341901", 
+				["text"] = "#% of Physical Damage Converted to Cold Damage", 
+			}, 
+			["Quiver"] = {
+				["min"] = 18, 
+				["max"] = 25, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 50, 
-				["max"] = 50, 
+			["1HWeapon"] = {
+				["min"] = 23, 
+				["max"] = 30, 
 			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4053951709", 
-				["text"] = "#% chance to Avoid being Poisoned", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 31, 
-				["max"] = 50, 
-			}, 
-			["Helmet"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 31, 
-				["max"] = 50, 
-			}, 
-			["Chest"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
-			["Shield"] = {
-				["min"] = 50, 
-				["max"] = 50, 
+			["2HWeapon"] = {
+				["min"] = 23, 
+				["max"] = 30, 
 			}, 
 		}, 
 		["8767_HexMaster"] = {
@@ -2074,6 +2285,17 @@ return {
 				["min"] = 1, 
 				["max"] = 1, 
 			}, 
+		}, 
+		["721_LocalFlaskCriticalStrikeChanceDuringFlaskEffect"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Critical Strike Chance during Effect", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2008255263", 
+				["text"] = "#% increased Critical Strike Chance during Effect", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["364_SocketedSkillsCriticalChance"] = {
 			["specialCaseData"] = {
@@ -2113,6 +2335,33 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1281_LocalBaseEvasionRatingAndEnergyShield"] = {
+			["Gloves"] = {
+				["min"] = 3, 
+				["max"] = 80, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4052037485", 
+				["text"] = "# to maximum Energy Shield (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 3, 
+				["max"] = 80, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Energy Shield", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 3, 
+				["max"] = 80, 
+			}, 
+			["Boots"] = {
+				["min"] = 3, 
+				["max"] = 80, 
+			}, 
+		}, 
 		["8641_WarcryAreaOfEffectMaven"] = {
 			["specialCaseData"] = {
 			}, 
@@ -2127,45 +2376,37 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1171_IncreasedCastSpeed"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2891184298", 
-				["text"] = "#% increased Cast Speed", 
-			}, 
-			["Amulet"] = {
-				["min"] = 5, 
-				["max"] = 20, 
-			}, 
-			["Ring"] = {
-				["min"] = 5, 
-				["max"] = 16, 
-			}, 
+		["2206_ManaRegenerationWhileShocked"] = {
 			["specialCaseData"] = {
 			}, 
-			["2HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 49, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 32, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2076519255", 
+				["text"] = "#% increased Mana Regeneration Rate while Shocked", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["2149_PhysicalDamageTakenAsChaosUberMaven"] = {
-			["specialCaseData"] = {
-			}, 
+		["2321_EnduranceChargeOnKillChanceMaven"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4129825612", 
-				["text"] = "#% of Physical Damage from Hits taken as Chaos Damage", 
+				["id"] = "explicit.stat_1054322244", 
+				["text"] = "#% chance to gain an Endurance Charge on Kill", 
 			}, 
-			["Chest"] = {
-				["min"] = 16, 
-				["max"] = 18, 
+			["2HWeapon"] = {
+				["min"] = 7, 
+				["max"] = 10, 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 7, 
+				["max"] = 10, 
+			}, 
+			["Boots"] = {
+				["min"] = 7, 
+				["max"] = 10, 
+			}, 
 		}, 
 		["2674_SpellAddedLightningDamagePenetrationHybrid"] = {
 			["tradeMod"] = {
@@ -2259,21 +2500,17 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1741_ChanceToFreeze"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2309614417", 
-				["text"] = "#% chance to Freeze", 
-			}, 
+		["7656_GlobalAddedLightningDamagePerPowerCharge"] = {
 			["specialCaseData"] = {
 			}, 
-			["2HWeapon"] = {
-				["min"] = 20, 
-				["max"] = 30, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1917107159", 
+				["text"] = "# to # Lightning Damage per Power Charge", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 20, 
+			["Ring"] = {
+				["min"] = 3.5, 
+				["max"] = 6.5, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -2324,6 +2561,7 @@ return {
 		}, 
 		["93_LocalIncreaseSocketedFireGemLevelMaven"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Fire Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -2456,6 +2694,37 @@ return {
 				["max"] = 5, 
 			}, 
 		}, 
+		["1282_LocalEnergyShieldPercent"] = {
+			["Gloves"] = {
+				["min"] = 11, 
+				["max"] = 100, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4015621042", 
+				["text"] = "#% increased Energy Shield (Local)", 
+			}, 
+			["Shield"] = {
+				["min"] = 101, 
+				["max"] = 110, 
+			}, 
+			["Chest"] = {
+				["min"] = 11, 
+				["max"] = 110, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Energy Shield", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 11, 
+				["max"] = 100, 
+			}, 
+			["Boots"] = {
+				["min"] = 11, 
+				["max"] = 100, 
+			}, 
+		}, 
 		["1301_IncreasedManaAndRegen"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -2488,6 +2757,17 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["6737_LocalCriticalStrikeChanceAndLocalItemQuality"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2016708976", 
+				["text"] = "#% to Quality", 
+			}, 
+			["sign"] = "+", 
+		}, 
 		["5239_ColdResistanceAilments"] = {
 			["specialCaseData"] = {
 			}, 
@@ -2498,15 +2778,19 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1301_IncreasedManaAndCost"] = {
+		["144_AreaOfEffectSupported"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1050105434", 
-				["text"] = "# to maximum Mana", 
+				["id"] = "explicit.stat_3720936304", 
+				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect", 
 			}, 
-			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 16, 
+				["max"] = 25, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["1925_CurseCastSpeedForJewel"] = {
 			["specialCaseData"] = {
@@ -2563,6 +2847,33 @@ return {
 				["text"] = "Rhoa Feather Lure", 
 			}, 
 		}, 
+		["1276_LocalArmourAndEvasionAndStunRecovery"] = {
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2451402625", 
+				["text"] = "#% increased Armour and Evasion (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour and Evasion", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+		}, 
 		["350_SupportedByEnduranceChargeOnStunWeapon"] = {
 			["specialCaseData"] = {
 			}, 
@@ -2577,13 +2888,14 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1131_TwoHandColdDamageWeaponPrefixAndFlat"] = {
+		["3441_LocalFireDamageTwoHandAndPen"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2469416729", 
-				["text"] = "Adds # to # Cold Damage to Spells", 
+				["id"] = "explicit.stat_3398283493", 
+				["text"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -2598,6 +2910,17 @@ return {
 			["Gloves"] = {
 				["min"] = 45, 
 				["max"] = 50, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3443_LocalLightningDamageAndPen"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2387539034", 
+				["text"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -2660,6 +2983,25 @@ return {
 				["max"] = 38, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["1089_LocalFireDamageTwoHand"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_709508406", 
+				["text"] = "Adds # to # Fire Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Fire Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 4.5, 
+				["max"] = 307.5, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 4.5, 
+				["max"] = 307.5, 
+			}, 
 		}, 
 		["1095_AddedFireAndColdDamage"] = {
 			["tradeMod"] = {
@@ -2725,46 +3067,69 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["6719_NearbyEnemyLightningDamageResistance"] = {
-			["specialCaseData"] = {
-			}, 
+		["1736_LocalAccuracyRating"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1849749435", 
-				["text"] = "Nearby Enemies have #% to Lightning Resistance", 
+				["id"] = "explicit.stat_691932474", 
+				["text"] = "# to Accuracy Rating (Local)", 
 			}, 
-			["Helmet"] = {
-				["min"] = 9, 
-				["max"] = 12, 
-			}, 
-			["sign"] = "-", 
-		}, 
-		["192_CriticalStrikeChanceSpellsSupported"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Accuracy Rating", 
 			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2259700079", 
-				["text"] = "Socketed Gems are Supported by Level # Increased Critical Strikes", 
-			}, 
+			["sign"] = "+", 
 			["1HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 20, 
+				["min"] = 80, 
+				["max"] = 780, 
 			}, 
-			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 80, 
+				["max"] = 780, 
+			}, 
 		}, 
-		["1870_LifeLeechSpeed"] = {
+		["4454_ColdDamageESLeech"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2633745731", 
-				["text"] = "#% increased total Recovery per second from Life Leech", 
+				["id"] = "explicit.stat_1939452467", 
+				["text"] = "#% of Cold Damage Leeched as Energy Shield", 
+			}, 
+			["Amulet"] = {
+				["min"] = 0.2, 
+				["max"] = 0.4, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["1273_LocalEvasionRatingAndStunRecoveryIncreasePercent"] = {
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_124859000", 
+				["text"] = "#% increased Evasion Rating (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Evasion Rating", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
 		}, 
 		["105_LocalIncreaseSocketedAuraLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Aura Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -2849,6 +3214,7 @@ return {
 		}, 
 		["134_LocalIncreaseSocketedFireGemLevelMaven"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality of Socketed Fire Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -2861,17 +3227,14 @@ return {
 				["max"] = 7, 
 			}, 
 		}, 
-		["1302_MaximumManaIncreaseShaper"] = {
+		["1089_LocalFireDamageTwoHandAndPen"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Fire Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2748665614", 
-				["text"] = "#% increased maximum Mana", 
-			}, 
-			["Chest"] = {
-				["min"] = 9, 
-				["max"] = 18, 
+				["id"] = "explicit.stat_709508406", 
+				["text"] = "Adds # to # Fire Damage (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -2901,6 +3264,33 @@ return {
 			["Belt"] = {
 				["min"] = 6, 
 				["max"] = 10, 
+			}, 
+		}, 
+		["1619_LocalArmourAndEvasionAndEnergyShieldAndStunRecovery"] = {
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2511217560", 
+				["text"] = "#% increased Stun and Block Recovery", 
+			}, 
+			["Chest"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Stun and Block Recovery", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 17, 
 			}, 
 		}, 
 		["1875_MaximumMinionCountAndMinionLife"] = {
@@ -2937,6 +3327,33 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1281_LocalBaseEnergyShieldAndLife"] = {
+			["Gloves"] = {
+				["min"] = 8, 
+				["max"] = 30, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4052037485", 
+				["text"] = "# to maximum Energy Shield (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 8, 
+				["max"] = 30, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Energy Shield", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 8, 
+				["max"] = 30, 
+			}, 
+			["Boots"] = {
+				["min"] = 8, 
+				["max"] = 30, 
+			}, 
+		}, 
 		["2506_GlobalChanceToBlindOnHitMaven"] = {
 			["Gloves"] = {
 				["min"] = 20, 
@@ -2955,22 +3372,23 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1738_ChanceToIgnite"] = {
+		["6688_LocalChaosPenetration"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1335054179", 
-				["text"] = "#% chance to Ignite", 
+				["id"] = "explicit.stat_3762412853", 
+				["text"] = "Attacks with this Weapon Penetrate #% Chaos Resistance", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Chaos Resistance", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 20, 
+				["min"] = 6, 
+				["max"] = 16, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 20, 
-				["max"] = 30, 
+				["min"] = 6, 
+				["max"] = 16, 
 			}, 
 		}, 
 		["1759_IncreasedAttackAndCastSpeedSupported"] = {
@@ -3109,30 +3527,22 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1690_MinionDamage"] = {
-			["Gloves"] = {
-				["min"] = 18, 
-				["max"] = 45, 
-			}, 
+		["1355_MaximumLightningResistance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1589917703", 
-				["text"] = "Minions deal #% increased Damage", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+				["id"] = "explicit.stat_1011760251", 
+				["text"] = "#% to maximum Lightning Resistance", 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["Ring"] = {
-				["min"] = 5, 
-				["max"] = 42, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 1, 
+				["max"] = 3, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["Shield"] = {
+				["min"] = 1, 
+				["max"] = 3, 
 			}, 
 		}, 
 		["1763_AccuracyRatingPerFrenzyChargeUber"] = {
@@ -3212,6 +3622,17 @@ return {
 			["1HWeapon"] = {
 				["min"] = 20, 
 				["max"] = 20, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["196_LocalIncreasedPhysicalDamagePercentIronGrip"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are Supported by Level # Iron Grip", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_251446805", 
+				["text"] = "Socketed Gems are Supported by Level # Iron Grip", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -3364,6 +3785,25 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["307_LocalIncreasedAttackSpeedFasterAttacks"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_928701213", 
+				["text"] = "Socketed Gems are Supported by Level # Faster Attacks", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are Supported by Level # Faster Attacks", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
+			}, 
+		}, 
 		["7587_LifeAddedAsEnergyShield"] = {
 			["specialCaseData"] = {
 			}, 
@@ -3405,6 +3845,17 @@ return {
 				["min"] = 18, 
 				["max"] = 25, 
 			}, 
+		}, 
+		["214_LocalIncreasedPhysicalDamagePercentProjectileAttackDamage"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are Supported by Level # Vicious Projectiles", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2513293614", 
+				["text"] = "Socketed Gems are Supported by Level # Vicious Projectiles", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["304_ChanceToFreezeShockIgniteProliferation"] = {
 			["specialCaseData"] = {
@@ -3527,26 +3978,20 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["5253_DamageWithNonVaalSkillsDuringSoulGainPrevention"] = {
-			["Gloves"] = {
-				["min"] = 71, 
-				["max"] = 80, 
+		["1104_LocalLightningDamageHybrid"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Lightning Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1583385065", 
-				["text"] = "#% increased Damage with Non-Vaal Skills during Soul Gain Prevention", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_2231156303", 
+				["text"] = "#% increased Lightning Damage", 
 			}, 
 			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 71, 
-				["max"] = 80, 
-			}, 
 		}, 
 		["95_LocalIncreaseSocketedLightningGemLevelMaven"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Lightning Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -3559,19 +4004,32 @@ return {
 				["max"] = 2, 
 			}, 
 		}, 
-		["1747_AreaDamageAndAreaOfEffect"] = {
-			["specialCaseData"] = {
+		["1291_LocalIncreasedDefencesAndLife"] = {
+			["Gloves"] = {
+				["min"] = 17, 
+				["max"] = 26, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4251717817", 
-				["text"] = "#% increased Area Damage", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
 			}, 
-			["Amulet"] = {
+			["Chest"] = {
 				["min"] = 17, 
-				["max"] = 20, 
+				["max"] = 26, 
 			}, 
-			["sign"] = "", 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
+			["Boots"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
 		}, 
 		["1357_LightningResistanceAilments"] = {
 			["specialCaseData"] = {
@@ -3635,17 +4093,14 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
-		["1485_MinionLifeMaven"] = {
+		["1093_LocalColdDamageHybrid"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Cold Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_770672621", 
-				["text"] = "Minions have #% increased maximum Life", 
-			}, 
-			["Helmet"] = {
-				["min"] = 36, 
-				["max"] = 40, 
+				["id"] = "explicit.stat_3291658075", 
+				["text"] = "#% increased Cold Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -3688,23 +4143,19 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["319_CriticalStrikeMultiplierSupported"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1108755349", 
-				["text"] = "Socketed Gems are supported by Level # Increased Critical Damage", 
-			}, 
+		["5760_MaximumFrenzyChargesMaven"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2119664154", 
+				["text"] = "#% chance that if you would gain Frenzy Charges, you instead gain up to your maximum number of Frenzy Charges", 
+			}, 
+			["Gloves"] = {
+				["min"] = 10, 
+				["max"] = 10, 
+			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 20, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 20, 
-			}, 
 		}, 
 		["8129_RemoveIgniteOnFlaskUse"] = {
 			["specialCaseData"] = {
@@ -3769,6 +4220,16 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
+		["7680_MinionAttackAndCastSpeedIfEnemySlainRecently"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4227567885", 
+				["text"] = "Minions have #% increased Attack and Cast Speed if you or your Minions have Killed Recently", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1674_ColdDamagePhysConvertedToCold"] = {
 			["specialCaseData"] = {
 			}, 
@@ -3825,18 +4286,23 @@ return {
 				["max"] = 26, 
 			}, 
 		}, 
-		["2910_MovementVelocityAndMovementVelocityIfNotHitRecently"] = {
-			["specialCaseData"] = {
-			}, 
+		["961_LocalPhysicalDamagePercentRuthless"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1177358866", 
-				["text"] = "#% increased Movement Speed if you haven't been Hit Recently", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 10, 
-				["max"] = 12, 
+			["1HWeapon"] = {
+				["min"] = 101, 
+				["max"] = 134, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 101, 
+				["max"] = 134, 
 			}, 
 		}, 
 		["8750_BloodMagic"] = {
@@ -3847,6 +4313,16 @@ return {
 				["id"] = "explicit.stat_2801937280", 
 				["text"] = "Blood Magic", 
 			}, 
+		}, 
+		["1293_LifeAndEnergyShieldForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_983749596", 
+				["text"] = "#% increased maximum Life", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["5172_AdditionalCurseOnEnemiesMaven"] = {
 			["specialCaseData"] = {
@@ -3862,6 +4338,28 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1802_AddedColdDamageWithClaws"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2848646243", 
+				["text"] = "# to # Added Cold Damage with Claw Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6.5, 
+				["max"] = 21.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 6.5, 
+				["max"] = 21.5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6.5, 
+				["max"] = 21.5, 
+			}, 
+		}, 
 		["7985_PrideReservation"] = {
 			["specialCaseData"] = {
 			}, 
@@ -3871,6 +4369,35 @@ return {
 				["text"] = "Pride has #% increased Mana Reservation Efficiency", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["6737_IntelligenceAndLocalItemQuality"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2016708976", 
+				["text"] = "#% to Quality", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["4374_AttackSpeedIfCriticalStrikeDealtRecently"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1585344030", 
+				["text"] = "#% increased Attack Speed if you've dealt a Critical Strike Recently", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
 		}, 
 		["1084_FireDamagePrefixFirePenetration"] = {
 			["specialCaseData"] = {
@@ -3921,6 +4448,82 @@ return {
 				["text"] = "Your Cold Damage can Ignite", 
 			}, 
 		}, 
+		["5006_AbyssJewelChillEffect"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1793818220", 
+				["text"] = "#% increased Effect of Cold Ailments", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["1301_LocalBaseEnergyShieldAndMana"] = {
+			["Gloves"] = {
+				["min"] = 11, 
+				["max"] = 25, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1050105434", 
+				["text"] = "# to maximum Mana", 
+			}, 
+			["Chest"] = {
+				["min"] = 11, 
+				["max"] = 25, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Mana", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 11, 
+				["max"] = 25, 
+			}, 
+			["Boots"] = {
+				["min"] = 11, 
+				["max"] = 25, 
+			}, 
+		}, 
+		["1263_LocalPhysicalDamageReductionRating"] = {
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 500, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3484657501", 
+				["text"] = "# to Armour (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 6, 
+				["max"] = 500, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Armour", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 500, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 500, 
+			}, 
+		}, 
 		["558_TriggerOnRareWarlordsMark"] = {
 			["specialCaseData"] = {
 			}, 
@@ -3931,22 +4534,99 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["3062_UnholyMightOnKillPercentChance"] = {
+		["4161_ReducedPhysicalDamageTakenIfNotHitRecently"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3991482957", 
-				["text"] = "#% chance to gain Unholy Might for 10 seconds on Kill", 
+				["id"] = "explicit.stat_3603666270", 
+				["text"] = "#% additional Physical Damage Reduction if you weren't Damaged by a Hit Recently", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2, 
+				["max"] = 2, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 25, 
+			["AnyJewel"] = {
+				["min"] = 2, 
+				["max"] = 2, 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 25, 
+		}, 
+		["7821_IncreasedAilmentDurationMaven"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_782230869", 
+				["text"] = "#% increased Effect of Non-Damaging Ailments", 
+			}, 
+			["Gloves"] = {
+				["min"] = 13, 
+				["max"] = 15, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1565_AvoidIgnite"] = {
+			["AbyssJewel"] = {
+				["min"] = 31, 
+				["max"] = 50, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1783006896", 
+				["text"] = "#% chance to Avoid being Ignited", 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 31, 
+				["max"] = 50, 
+			}, 
+			["Quiver"] = {
+				["min"] = 51, 
+				["max"] = 80, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 31, 
+				["max"] = 50, 
+			}, 
+			["Boots"] = {
+				["min"] = 51, 
+				["max"] = 80, 
+			}, 
+		}, 
+		["1956_IncreasedShieldBlockPercentage"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+#% Chance to Block", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4253454700", 
+				["text"] = "#% Chance to Block (Shields)", 
+			}, 
+			["sign"] = "+", 
+			["Shield"] = {
+				["min"] = 1, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["3936_MovementSpeedIfEnemySlainRecently"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_279227559", 
+				["text"] = "#% increased Movement Speed if you've Killed Recently", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 2, 
+				["max"] = 4, 
 			}, 
 		}, 
 		["3955_ElusiveOnCriticalStrike"] = {
@@ -3961,6 +4641,51 @@ return {
 			["Boots"] = {
 				["min"] = 5, 
 				["max"] = 10, 
+			}, 
+		}, 
+		["1786_AddedPhysicalDamageWithMaces"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3882662078", 
+				["text"] = "# to # Added Physical Damage with Mace or Sceptre Attacks", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+		}, 
+		["1371_LifeLeechLocalPermyriad"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_55876295", 
+				["text"] = "#% of Physical Attack Damage Leeched as Life (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% of Physical Attack Damage Leeched as Life", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 0.2, 
+				["max"] = 1.2, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 0.2, 
+				["max"] = 1.2, 
 			}, 
 		}, 
 		["2537_FishingLineStrength"] = {
@@ -3989,6 +4714,32 @@ return {
 			["Chest"] = {
 				["min"] = 9, 
 				["max"] = 12, 
+			}, 
+		}, 
+		["3058_FireDamageAvoidance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_42242677", 
+				["text"] = "#% chance to Avoid Fire Damage from Hits", 
+			}, 
+			["Chest"] = {
+				["min"] = 8, 
+				["max"] = 10, 
+			}, 
+			["Quiver"] = {
+				["min"] = 8, 
+				["max"] = 10, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 5, 
+				["max"] = 10, 
+			}, 
+			["Boots"] = {
+				["min"] = 5, 
+				["max"] = 10, 
 			}, 
 		}, 
 		["1485_MinionLife"] = {
@@ -4021,6 +4772,28 @@ return {
 				["max"] = 40, 
 			}, 
 		}, 
+		["1815_AddedLightningDamageWithWands"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2787733863", 
+				["text"] = "# to # Added Lightning Damage with Wand Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+		}, 
 		["1391_EnemyFireDamageLifeLeechPermyriad"] = {
 			["specialCaseData"] = {
 			}, 
@@ -4030,6 +4803,24 @@ return {
 				["text"] = "#% of Fire Damage Leeched by Enemy as Life", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["6272_LifeRegenerationRateWhileMoving"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_908516597", 
+				["text"] = "Regenerate #% of Life per second while moving", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 0.5, 
+				["max"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 0.5, 
+				["max"] = 1, 
+			}, 
 		}, 
 		["1582_StunDurationAndThresholdUber"] = {
 			["tradeMod"] = {
@@ -4049,8 +4840,31 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
+		["2187_BleedChanceAndDurationForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1923879260", 
+				["text"] = "Attacks have #% chance to cause Bleeding", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
+		}, 
 		["98_LocalIncreaseSocketedSpellGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Spell Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -4059,19 +4873,102 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["6720_NearbyEnemyPhysicalDamageTaken"] = {
+		["2606_MinionElementalResistance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1423639565", 
+				["text"] = "Minions have #% to all Elemental Resistances", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["Ring"] = {
+				["min"] = 11, 
+				["max"] = 30, 
+			}, 
+			["Shield"] = {
+				["min"] = 11, 
+				["max"] = 30, 
+			}, 
+		}, 
+		["8039_Quiver2AdditionalPierceOld"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_415837237", 
-				["text"] = "Nearby Enemies take #% increased Physical Damage", 
-			}, 
-			["Helmet"] = {
-				["min"] = 9, 
-				["max"] = 12, 
+				["id"] = "explicit.stat_2067062068", 
+				["text"] = "Projectiles Pierce # additional Targets", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["7645_AddedColdDamageIfCritRecently"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3370223014", 
+				["text"] = "Adds # to # Cold Damage if you've dealt a Critical Strike Recently", 
+			}, 
+			["Gloves"] = {
+				["min"] = 19, 
+				["max"] = 37.5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1814_AddedLightningDamageWithSwords"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1237708713", 
+				["text"] = "# to # Added Lightning Damage with Sword Attacks", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+		}, 
+		["1139_LocalAttackSpeedAndLocalItemQuality"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Attack Speed", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_210067635", 
+				["text"] = "#% increased Attack Speed (Local)", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2860_AbyssMinionPoisonOnHitChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1974445926", 
+				["text"] = "Minions have #% chance to Poison Enemies on Hit", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
 		}, 
 		["2867_PoisonDamageAddedChaosToSpells"] = {
 			["specialCaseData"] = {
@@ -4113,13 +5010,39 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
-		["1565_AvoidIgniteForJewel"] = {
+		["1810_AddedLightningDamageWithClaws"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4231842891", 
+				["text"] = "# to # Added Lightning Damage with Claw Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+		}, 
+		["1139_AttackSpeedKilledRecently"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1783006896", 
-				["text"] = "#% chance to Avoid being Ignited", 
+				["id"] = "explicit.stat_681332047", 
+				["text"] = "#% increased Attack Speed", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 21, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -4134,6 +5057,39 @@ return {
 			["Chest"] = {
 				["min"] = 1, 
 				["max"] = 1, 
+			}, 
+		}, 
+		["130_LocalIncreaseSocketedChaosGemLevelMaven"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality of Socketed Chaos Gems", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2062835769", 
+				["text"] = "#% to Quality of Socketed Chaos Gems", 
+			}, 
+			["sign"] = "+", 
+			["Boots"] = {
+				["min"] = 3, 
+				["max"] = 7, 
+			}, 
+		}, 
+		["994_AddedPhysicalSuffix"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3032590688", 
+				["text"] = "Adds # to # Physical Damage to Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2, 
+				["max"] = 6, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 2, 
+				["max"] = 6, 
 			}, 
 		}, 
 		["908_Dexterity"] = {
@@ -4182,18 +5138,40 @@ return {
 				["max"] = 55, 
 			}, 
 		}, 
-		["3955_ElusiveOnCriticalStrikeMaven"] = {
-			["specialCaseData"] = {
-			}, 
+		["6771_ChanceToMaimSupported"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2896192589", 
-				["text"] = "#% chance to gain Elusive on Critical Strike", 
+				["id"] = "explicit.stat_2763429652", 
+				["text"] = "#% chance to Maim on Hit", 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 11, 
+			["1HWeapon"] = {
+				["min"] = 15, 
 				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 20, 
+			}, 
+		}, 
+		["4755_CastSpeedIfMinionKilledRecently"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3110907148", 
+				["text"] = "#% increased Cast Speed if a Minion has been Killed Recently", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 7, 
+				["max"] = 10, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 7, 
+				["max"] = 10, 
 			}, 
 		}, 
 		["5429_IncreasedWeaponElementalDamagePercent"] = {
@@ -4240,13 +5218,52 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["8772_Magebane"] = {
+		["5501_EnchantmentIntimidate"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1919892065", 
+				["text"] = "Enemies Intimidated by you have #% increased duration of stuns against them", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
 			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["1935_ManaReservationEfficiency"] = {
+			["BaseJewel"] = {
+				["min"] = 2, 
+				["max"] = 3, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4180925106", 
-				["text"] = "Magebane", 
+				["id"] = "explicit.stat_4237190083", 
+				["text"] = "#% increased Mana Reservation Efficiency of Skills", 
+			}, 
+			["Helmet"] = {
+				["min"] = 4, 
+				["max"] = 14, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2, 
+				["max"] = 3, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 4, 
+				["max"] = 14, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2, 
+				["max"] = 3, 
 			}, 
 		}, 
 		["1641_MineDetonationSpeedAndDuration"] = {
@@ -4293,6 +5310,46 @@ return {
 			["Boots"] = {
 				["min"] = 8, 
 				["max"] = 10, 
+			}, 
+		}, 
+		["4165_ReducedPhysicalDamageTakenVsAbyssMonsters"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_287491423", 
+				["text"] = "#% additional Physical Damage Reduction against Abyssal Monsters", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
+		}, 
+		["1691_MinionDamageIfMinionSkillUsedRecently"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_412745376", 
+				["text"] = "Minions deal #% increased Damage if you've used a Minion Skill Recently", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 15, 
+				["max"] = 20, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 15, 
+				["max"] = 20, 
 			}, 
 		}, 
 		["2855_BleedOnHitAndDamage"] = {
@@ -4347,6 +5404,20 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1895_BeltIncreasedFlaskChargesGained"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1452809865", 
+				["text"] = "#% increased Flask Charges gained", 
+			}, 
+			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 5, 
+				["max"] = 40, 
+			}, 
+		}, 
 		["1568_AvoidBleedAndPoison"] = {
 			["specialCaseData"] = {
 			}, 
@@ -4361,6 +5432,24 @@ return {
 				["max"] = 70, 
 			}, 
 		}, 
+		["5202_DamagePenetratesElementalResistancesIfNoEnemySlainRecently"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_455556407", 
+				["text"] = "Damage Penetrates #% Elemental Resistances if you haven't Killed Recently", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
+		}, 
 		["4717_CorruptedBloodImmunity"] = {
 			["specialCaseData"] = {
 			}, 
@@ -4368,6 +5457,82 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1658498488", 
 				["text"] = "Corrupted Blood cannot be inflicted on you", 
+			}, 
+		}, 
+		["7710_FlatMinionLifeRegeneration"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3062329212", 
+				["text"] = "Minions Regenerate # Life per second", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 22, 
+				["max"] = 60, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 22, 
+				["max"] = 60, 
+			}, 
+		}, 
+		["7675_MinionAccuracyRatingFlat"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1661151735", 
+				["text"] = "Minions have # to Accuracy Rating", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 95, 
+				["max"] = 250, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["AnyJewel"] = {
+				["min"] = 95, 
+				["max"] = 250, 
+			}, 
+		}, 
+		["1829_SpellAddedLightningDamageWhileHoldingAShield"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1801889979", 
+				["text"] = "# to # Added Spell Lightning Damage while holding a Shield", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 3.5, 
+				["max"] = 28.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 3.5, 
+				["max"] = 28.5, 
+			}, 
+		}, 
+		["2855_BleedDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1294118672", 
+				["text"] = "#% increased Damage with Bleeding", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
 		}, 
 		["8308_SpellDamagePer16Intelligence"] = {
@@ -4384,15 +5549,32 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1104_TwoHandLightningDamageWeaponPrefixAndFlat"] = {
+		["8771_LetheShade"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2231156303", 
-				["text"] = "#% increased Lightning Damage", 
+				["id"] = "explicit.stat_1678358883", 
+				["text"] = "Lethe Shade", 
+			}, 
+		}, 
+		["5212_DamageIfEnemySlainRecently"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1072119541", 
+				["text"] = "#% increased Damage if you've Killed Recently", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 15, 
+				["max"] = 20, 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 15, 
+				["max"] = 20, 
+			}, 
 		}, 
 		["1301_LifeAndManaForJewel"] = {
 			["specialCaseData"] = {
@@ -4404,19 +5586,104 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1360_PhysicalDamageTakenAsChaosUberMaven"] = {
+		["7924_PhysicalDamageReductionRatingIfYouHaveHitAnEnemyRecently"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2368149582", 
+				["text"] = "# to Armour if you've Hit an Enemy Recently", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 500, 
+				["max"] = 1000, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 250, 
+				["max"] = 300, 
+			}, 
 			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["1HWeapon"] = {
+				["min"] = 500, 
+				["max"] = 1000, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 250, 
+				["max"] = 300, 
+			}, 
+		}, 
+		["1783_PhysicalDamageWithBowsJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1760576992", 
+				["text"] = "# to # Added Physical Damage with Bow Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+		}, 
+		["1825_SpellAddedFireDamageWhileDualWielding"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_662691280", 
+				["text"] = "# to # Added Spell Fire Damage while Dual Wielding", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 3.5, 
+				["max"] = 29.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 3.5, 
+				["max"] = 29.5, 
+			}, 
+		}, 
+		["2198_LocalLightRadiusAndAccuracy"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Light Radius", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1301765461", 
-				["text"] = "#% to maximum Chaos Resistance", 
+				["id"] = "explicit.stat_1263695895", 
+				["text"] = "#% increased Light Radius", 
 			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["sign"] = "", 
+		}, 
+		["1813_AddedLightningDamageWithStaves"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3212481075", 
+				["text"] = "# to # Added Lightning Damage with Staff Attacks", 
 			}, 
-			["sign"] = "+", 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
 		}, 
 		["1645_MineLaySpeedForJewel"] = {
 			["tradeMod"] = {
@@ -4436,6 +5703,38 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
+		["953_WeaponSpellDamageReducedMana"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2974417149", 
+				["text"] = "#% increased Spell Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1577_FreezeChanceAndDurationForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1073942215", 
+				["text"] = "#% increased Freeze Duration on Enemies", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 12, 
+				["max"] = 16, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 12, 
+				["max"] = 16, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 12, 
+				["max"] = 16, 
+			}, 
+		}, 
 		["371_SocketedAttackCriticalMultiplier"] = {
 			["specialCaseData"] = {
 			}, 
@@ -4450,19 +5749,23 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1552_FrenzyChargeOnHitChanceMaven"] = {
-			["specialCaseData"] = {
-			}, 
+		["7622_MeleeWeaponRangeIfKilledRecently"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2323242761", 
-				["text"] = "#% chance to gain a Frenzy Charge on Hit", 
+				["id"] = "explicit.stat_3255961830", 
+				["text"] = "# to Melee Strike Range if you have Killed Recently", 
 			}, 
-			["Chest"] = {
-				["min"] = 10, 
-				["max"] = 10, 
+			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
+			["1HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 3, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 3, 
+			}, 
 		}, 
 		["1346_FireResistancePhysTakenAsFire"] = {
 			["specialCaseData"] = {
@@ -4473,6 +5776,32 @@ return {
 				["text"] = "#% to Fire Resistance", 
 			}, 
 			["sign"] = "+", 
+		}, 
+		["1808_AddedLightningDamageWithAxes"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1582068183", 
+				["text"] = "# to # Added Lightning Damage with Axe Attacks", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
 		}, 
 		["1132_TwoHandLightningDamageWeaponPrefixAndFlat"] = {
 			["specialCaseData"] = {
@@ -4553,6 +5882,24 @@ return {
 				["max"] = 5, 
 			}, 
 		}, 
+		["1087_AddedFireSuffix"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1573130764", 
+				["text"] = "Adds # to # Fire Damage to Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 7, 
+				["max"] = 21.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 7, 
+				["max"] = 21.5, 
+			}, 
+		}, 
 		["8471_TailwindOnCriticalStrike"] = {
 			["specialCaseData"] = {
 			}, 
@@ -4564,6 +5911,28 @@ return {
 			["Boots"] = {
 				["min"] = 1, 
 				["max"] = 1, 
+			}, 
+		}, 
+		["1805_AddedColdDamageWithStaves"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1261958804", 
+				["text"] = "# to # Added Cold Damage with Staff Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6.5, 
+				["max"] = 21.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 6.5, 
+				["max"] = 21.5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6.5, 
+				["max"] = 21.5, 
 			}, 
 		}, 
 		["953_SpellDamageAndNonChaosDamageToAddAsChaosDamage"] = {
@@ -4608,6 +5977,38 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
+		["5097_CritChanceShockedEnemies"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_276103140", 
+				["text"] = "#% increased Critical Strike Chance against Shocked Enemies", 
+			}, 
+			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 30, 
+				["max"] = 45, 
+			}, 
+		}, 
+		["1184_CriticalChanceAndAddedChaosDamageIfHaveCritRecently"] = {
+			["Gloves"] = {
+				["min"] = 20, 
+				["max"] = 22, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_587431675", 
+				["text"] = "#% increased Global Critical Strike Chance", 
+			}, 
+			["Quiver"] = {
+				["min"] = 20, 
+				["max"] = 22, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+		}, 
 		["6887_GlobalMaimOnHit"] = {
 			["specialCaseData"] = {
 			}, 
@@ -4624,6 +6025,7 @@ return {
 		}, 
 		["125_LocalIncreaseSocketedSupportGemLevelMaven"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality of Socketed Support Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -4636,23 +6038,16 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1599_SkillAreaOfEffectPercentAndAreaOfEffectGemLevel"] = {
-			["Gloves"] = {
-				["min"] = 8, 
-				["max"] = 10, 
+		["219_LocalIncreasedPhysicalDamagePercentPowerChargeOnCrit"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are Supported by Level # Power Charge On Critical Strike", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_280731498", 
-				["text"] = "#% increased Area of Effect", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_4015918489", 
+				["text"] = "Socketed Gems are Supported by Level # Power Charge On Critical Strike", 
 			}, 
 			["sign"] = "", 
-			["Helmet"] = {
-				["min"] = 8, 
-				["max"] = 10, 
-			}, 
 		}, 
 		["1661_LifeRegenerationRatePercentage"] = {
 			["Gloves"] = {
@@ -4702,11 +6097,12 @@ return {
 		}, 
 		["6781_LocalChanceToPoisonOnHit"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to Poison on Hit", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_795138349", 
-				["text"] = "#% chance to Poison on Hit", 
+				["id"] = "explicit.stat_3885634897", 
+				["text"] = "#% chance to Poison on Hit (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -4732,19 +6128,39 @@ return {
 				["max"] = 3, 
 			}, 
 		}, 
-		["1300_LifeRecoveryRateMaven"] = {
+		["87_DelveIntelligenceGemLevel"] = {
+			["Gloves"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["Boots"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3240073117", 
-				["text"] = "#% increased Life Recovery rate", 
+				["id"] = "explicit.stat_1719423857", 
+				["text"] = "# to Level of Socketed Intelligence Gems", 
+			}, 
+			["Helmet"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["Chest"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
 		}, 
 		["1084_TwoHandFireDamageWeaponPrefixAndFlat"] = {
 			["specialCaseData"] = {
@@ -4778,17 +6194,43 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
-		["5527_MaximumEnergyShieldOnKillPercentMaven"] = {
+		["1788_AddedPhysicalDamageWithSwords"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1040189894", 
+				["text"] = "# to # Added Physical Damage with Sword Attacks", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+		}, 
+		["349_WeaponSpellDamageControlledDestruction"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2698606393", 
-				["text"] = "#% increased Energy Shield Recovery Rate if you haven't Killed Recently", 
+				["id"] = "explicit.stat_3718597497", 
+				["text"] = "Socketed Gems are Supported by Level # Controlled Destruction", 
 			}, 
-			["Chest"] = {
-				["min"] = 5, 
-				["max"] = 10, 
+			["1HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -4806,6 +6248,38 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["5318_DeterminationReservationEfficiency"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_325889252", 
+				["text"] = "Determination has #% increased Mana Reservation Efficiency", 
+			}, 
+			["Amulet"] = {
+				["min"] = 40, 
+				["max"] = 50, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["7727_MinionSpellsHinderOnHitChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2323739383", 
+				["text"] = "Minions have #% chance to Hinder Enemies on Hit with Spells", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 3, 
+				["max"] = 8, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 3, 
+				["max"] = 8, 
+			}, 
+		}, 
 		["5631_GlobalFireGemLevel"] = {
 			["specialCaseData"] = {
 			}, 
@@ -4820,6 +6294,28 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
+		["1084_FireDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3962278098", 
+				["text"] = "#% increased Fire Damage", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+		}, 
 		["1893_IgnoreArmourMovementPenalties"] = {
 			["specialCaseData"] = {
 			}, 
@@ -4831,6 +6327,24 @@ return {
 			["Helmet"] = {
 				["min"] = 1, 
 				["max"] = 1, 
+			}, 
+		}, 
+		["7690_AbyssMinionIgniteOnHitChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3945908658", 
+				["text"] = "Minions have #% chance to Ignite", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 15, 
 			}, 
 		}, 
 		["8657_WrathReservation"] = {
@@ -4956,6 +6470,28 @@ return {
 				["max"] = 18, 
 			}, 
 		}, 
+		["1797_AddedFireDamageWithStaves"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3220927448", 
+				["text"] = "# to # Added Fire Damage with Staff Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+		}, 
 		["5720_CastSpeedAndGainArcaneSurgeOnKillChance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -4987,6 +6523,101 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
+		["911_LocalCriticalStrikeChanceStrengthIntelligence"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1535626285", 
+				["text"] = "# to Strength and Intelligence", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Strength and Intelligence", 
+			}, 
+			["sign"] = "+", 
+			["1HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 28, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 28, 
+			}, 
+		}, 
+		["1084_FireDamageAndChanceToIgnite"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3962278098", 
+				["text"] = "#% increased Fire Damage", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 70, 
+				["max"] = 109, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 70, 
+				["max"] = 109, 
+			}, 
+		}, 
+		["1567_IntelligenceAndAvoidShock"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1871765599", 
+				["text"] = "#% chance to Avoid being Shocked", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Chest"] = {
+				["min"] = 21, 
+				["max"] = 25, 
+			}, 
+			["Shield"] = {
+				["min"] = 21, 
+				["max"] = 25, 
+			}, 
+		}, 
+		["1131_SpellAddedColdSuffix"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2469416729", 
+				["text"] = "Adds # to # Cold Damage to Spells", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 7.5, 
+				["max"] = 27.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 7.5, 
+				["max"] = 27.5, 
+			}, 
+		}, 
+		["1794_AddedFireDamageWithClaws"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2154290807", 
+				["text"] = "# to # Added Fire Damage with Claw Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+		}, 
 		["2226_CurseOnHitDespairMod"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5014,6 +6645,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1107_AddedLightningSuffix"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1754445556", 
+				["text"] = "Adds # to # Lightning Damage to Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 26, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 26, 
+			}, 
+		}, 
 		["5549_DodgeChanceDuringFocus"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -5030,6 +6679,55 @@ return {
 			["Boots"] = {
 				["min"] = 30, 
 				["max"] = 32, 
+			}, 
+		}, 
+		["1276_LocalIncreasedArmourAndEvasionAndLife"] = {
+			["Gloves"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2451402625", 
+				["text"] = "#% increased Armour and Evasion (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour and Evasion", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
+			["Boots"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
+		}, 
+		["1789_AddedPhysicalDamageWithWands"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_133683091", 
+				["text"] = "# to # Added Physical Damage with Wand Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
 			}, 
 		}, 
 		["1352_ColdDamageAvoidanceMaven"] = {
@@ -5082,6 +6780,28 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1817_AddedChaosDamageWithClaws"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4191067677", 
+				["text"] = "# to # Added Chaos Damage with Claw Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6.5, 
+				["max"] = 18.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 6.5, 
+				["max"] = 18.5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6.5, 
+				["max"] = 18.5, 
+			}, 
+		}, 
 		["2147_PhysicalDamageTakenAsLightningUberMaven"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5110,6 +6830,54 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1799_AddedFireDamageWithWands"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_87098247", 
+				["text"] = "# to # Added Fire Damage with Wand Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+		}, 
+		["1284_EnergyShieldDelay"] = {
+			["Gloves"] = {
+				["min"] = 27, 
+				["max"] = 66, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1782086450", 
+				["text"] = "#% faster start of Energy Shield Recharge", 
+			}, 
+			["Chest"] = {
+				["min"] = 27, 
+				["max"] = 66, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 27, 
+				["max"] = 66, 
+			}, 
+			["Boots"] = {
+				["min"] = 27, 
+				["max"] = 66, 
+			}, 
+		}, 
 		["8240_ManaCostTotalNonChannelled"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -5127,6 +6895,16 @@ return {
 				["min"] = 10, 
 				["max"] = 9, 
 			}, 
+		}, 
+		["1272_ArmourEvasionForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2106365538", 
+				["text"] = "#% increased Evasion Rating", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["995_SelfPhysicalDamageTaken"] = {
 			["specialCaseData"] = {
@@ -5166,15 +6944,54 @@ return {
 				["max"] = 15, 
 			}, 
 		}, 
-		["1932_CurseAreaOfEffect"] = {
-			["specialCaseData"] = {
-			}, 
+		["1792_AddedFireDamageWithAxes"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_153777645", 
-				["text"] = "#% increased Area of Effect of Hex Skills", 
+				["id"] = "explicit.stat_2461965653", 
+				["text"] = "# to # Added Fire Damage with Axe Attacks", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+		}, 
+		["103_LocalIncreaseSocketedMeleeGemLevel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_829382474", 
+				["text"] = "# to Level of Socketed Melee Gems", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Melee Gems", 
+			}, 
+			["sign"] = "+", 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["Shield"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
 		}, 
 		["1112_SpellAddedChaosDamageHybrid"] = {
 			["specialCaseData"] = {
@@ -5183,6 +7000,20 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_736967255", 
 				["text"] = "#% increased Chaos Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["347_PoisonDamageSupported"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_228165595", 
+				["text"] = "Socketed Gems are Supported by Level # Chance to Poison", 
+			}, 
+			["Gloves"] = {
+				["min"] = 16, 
+				["max"] = 25, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -5232,6 +7063,25 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1139_LocalIncreasedPhysicalDamagePercentAndAttackSpeed"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_210067635", 
+				["text"] = "#% increased Attack Speed (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Attack Speed", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 3, 
+				["max"] = 4, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 3, 
+				["max"] = 4, 
+			}, 
+		}, 
 		["1301_IncreasedManaAndBaseCost"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5242,6 +7092,39 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
+		["1112_LocalChaosDamageHybrid"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Chaos Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_736967255", 
+				["text"] = "#% increased Chaos Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1784_AddedPhysicalDamageWithClaws"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3303015", 
+				["text"] = "# to # Added Physical Damage with Claw Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+		}, 
 		["1264_ArmourEnergyShieldForJewel"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5251,6 +7134,33 @@ return {
 				["text"] = "#% increased Armour", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["1278_LocalArmourAndEvasionAndEnergyShieldAndStunRecovery"] = {
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3523867985", 
+				["text"] = "#% increased Armour, Evasion and Energy Shield (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour, Evasion and Energy Shield", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
 		}, 
 		["85_PercentageStrengthMaven"] = {
 			["tradeMod"] = {
@@ -5296,6 +7206,24 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
+		["1738_ChanceToIgnite"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1335054179", 
+				["text"] = "#% chance to Ignite", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 20, 
+				["max"] = 30, 
+			}, 
+		}, 
 		["1212_CriticalStrikeChanceIfNoCriticalStrikeDealtRecentlyUber"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5309,6 +7237,25 @@ return {
 				["max"] = 25, 
 			}, 
 			["sign"] = "+", 
+		}, 
+		["961_LocalIncreasedPhysicalDamagePercentAndAttackSpeed"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
 		}, 
 		["4945_ChanceToUnnerveOnHit"] = {
 			["Gloves"] = {
@@ -5352,6 +7299,35 @@ return {
 			["AnyJewel"] = {
 				["min"] = 8, 
 				["max"] = 10, 
+			}, 
+		}, 
+		["731_LocalFlaskItemFoundRarityDuringFlaskEffect"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Rarity of Items found during Effect", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1740200922", 
+				["text"] = "#% increased Rarity of Items found during Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2769_ChanceToGainUnholyMightOnKillAbyss"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3166317791", 
+				["text"] = "#% chance to Gain Unholy Might for 4 seconds on Melee Kill", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2, 
+				["max"] = 5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 2, 
+				["max"] = 5, 
 			}, 
 		}, 
 		["953_WeaponSpellDamage"] = {
@@ -5413,6 +7389,28 @@ return {
 				["max"] = 50, 
 			}, 
 		}, 
+		["1850_DamageOverTimeWhileWieldingTwoHandedWeapon"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4193088553", 
+				["text"] = "#% increased Damage over Time while wielding a Two Handed Weapon", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 18, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 10, 
+				["max"] = 18, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 18, 
+			}, 
+		}, 
 		["2146_PhysicalDamageTakenAsCold"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5420,6 +7418,43 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1871056256", 
 				["text"] = "#% of Physical Damage from Hits taken as Cold Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1785_AddedPhysicalDamageWithDaggers"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1298238534", 
+				["text"] = "# to # Added Physical Damage with Dagger Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+		}, 
+		["1188_LocalIncreasedPhysicalDamagePercentAndCritChance"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Critical Strike Chance", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2375316951", 
+				["text"] = "#% increased Critical Strike Chance", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 10, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -5446,58 +7481,95 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1304_AddedManaRegenerationMaven"] = {
+		["1131_ColdDamageWeaponPrefixAndFlat"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4291461939", 
-				["text"] = "Regenerate # Mana per second", 
-			}, 
-			["Helmet"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+				["id"] = "explicit.stat_2469416729", 
+				["text"] = "Adds # to # Cold Damage to Spells", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1657_ColdAddedAsChaos"] = {
+		["1809_AddedLightningDamageWithBows"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2915373966", 
-				["text"] = "Gain #% of Cold Damage as Extra Chaos Damage", 
+				["id"] = "explicit.stat_1040269876", 
+				["text"] = "# to # Added Lightning Damage with Bow Attacks", 
 			}, 
-			["sign"] = "", 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
 			["specialCaseData"] = {
 			}, 
+			["sign"] = "", 
 			["2HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 20, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 9, 
-				["max"] = 10, 
-			}, 
-			["Shield"] = {
-				["min"] = 9, 
-				["max"] = 10, 
-			}, 
-		}, 
-		["1644_TrapThrowSpeedForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_118398748", 
-				["text"] = "#% increased Trap Throwing Speed", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+				["min"] = 10, 
+				["max"] = 27.5, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+		}, 
+		["4371_AttackSpeedKilledRecently"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1507059769", 
+				["text"] = "#% increased Attack Speed if you've Killed Recently", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 20, 
+				["max"] = 20, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1419_ManaLeechPermyriad"] = {
+			["Gloves"] = {
+				["min"] = 0.2, 
+				["max"] = 0.4, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3237948413", 
+				["text"] = "#% of Physical Attack Damage Leeched as Mana", 
+			}, 
+			["Quiver"] = {
+				["min"] = 0.2, 
+				["max"] = 0.4, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 0.2, 
+				["max"] = 0.8, 
+			}, 
+			["Ring"] = {
+				["min"] = 0.2, 
+				["max"] = 0.4, 
+			}, 
+		}, 
+		["6781_LocalIncreasedPhysicalDamageAndPoisonChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3885634897", 
+				["text"] = "#% chance to Poison on Hit (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to Poison on Hit", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 25, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 25, 
 			}, 
 		}, 
 		["2192_AddedPhysicalDamageVsBleedingEnemies"] = {
@@ -5514,15 +7586,77 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1655_ChaosDamageAsPortionOfLightningDamage"] = {
+		["340_ColdDamagePrefixColdPenetration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2402136583", 
-				["text"] = "Gain #% of Lightning Damage as Extra Chaos Damage", 
+				["id"] = "explicit.stat_1991958615", 
+				["text"] = "Socketed Gems are Supported by Level # Cold Penetration", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["1798_AddedFireDamageWithSwords"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_601249293", 
+				["text"] = "# to # Added Fire Damage with Sword Attacks", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+		}, 
+		["1139_AttackSpeedDoubleDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_681332047", 
+				["text"] = "#% increased Attack Speed", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 21, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1096_AddedColdSuffix"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4067062424", 
+				["text"] = "Adds # to # Cold Damage to Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6, 
+				["max"] = 19.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 6, 
+				["max"] = 19.5, 
+			}, 
 		}, 
 		["2181_CausesBleedingChance"] = {
 			["specialCaseData"] = {
@@ -5533,6 +7667,39 @@ return {
 				["text"] = "#% chance to cause Bleeding on Hit", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["2436_FlaskEffectAndFlaskChargesGained"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_114734841", 
+				["text"] = "Flasks applied to you have #% increased Effect", 
+			}, 
+			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 15, 
+				["max"] = 18, 
+			}, 
+		}, 
+		["1116_LocalChaosDamageTwoHand"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2223678961", 
+				["text"] = "Adds # to # Chaos Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Chaos Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 140.5, 
+				["max"] = 214.5, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 140.5, 
+				["max"] = 214.5, 
+			}, 
 		}, 
 		["6281_AbyssJewelShockEffect"] = {
 			["tradeMod"] = {
@@ -5556,6 +7723,24 @@ return {
 				["max"] = 15, 
 			}, 
 		}, 
+		["5537_FlatEnergyShieldRegeneration"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2561836520", 
+				["text"] = "Regenerate # Energy Shield per second", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 9, 
+				["max"] = 20, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 9, 
+				["max"] = 20, 
+			}, 
+		}, 
 		["953_WeaponSpellDamageAndMana"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5570,6 +7755,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["4407_EnchantmentElusive"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2662268382", 
+				["text"] = "#% chance to Avoid Elemental Ailments while you have Elusive", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 8, 
+				["max"] = 10, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 8, 
+				["max"] = 10, 
+			}, 
+		}, 
 		["2521_OnslaughtWhenHitForDuration"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5579,6 +7782,17 @@ return {
 				["text"] = "You gain Onslaught for # seconds when Hit", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["1956_LocalPhysicalDamageReductionRatingPercentAndBlockChance"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+#% Chance to Block (Shields)", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4253454700", 
+				["text"] = "#% Chance to Block (Shields)", 
+			}, 
+			["sign"] = "+", 
 		}, 
 		["913_PercentageAllAttributes"] = {
 			["tradeMod"] = {
@@ -5602,6 +7816,28 @@ return {
 				["max"] = 12, 
 			}, 
 		}, 
+		["1301_AbyssJewelMana"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1050105434", 
+				["text"] = "# to maximum Mana", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 21, 
+				["max"] = 40, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 21, 
+				["max"] = 40, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 21, 
+				["max"] = 40, 
+			}, 
+		}, 
 		["1219_CriticalStrikeMultiplierWithBows"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5614,6 +7850,50 @@ return {
 			["Quiver"] = {
 				["min"] = 8, 
 				["max"] = 38, 
+			}, 
+		}, 
+		["1133_SpellAddedChaosSuffix"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2300399854", 
+				["text"] = "Adds # to # Chaos Damage to Spells", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 4.5, 
+				["max"] = 19, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 4.5, 
+				["max"] = 19, 
+			}, 
+		}, 
+		["1782_AddedPhysicalDamageWithAxes"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_311030839", 
+				["text"] = "# to # Added Physical Damage with Axe Attacks", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
 			}, 
 		}, 
 		["1280_EvasionRatingAndEnergyShield"] = {
@@ -5694,6 +7974,60 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1826_SpellAddedFireDamageWhileHoldingAShield"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_44182350", 
+				["text"] = "# to # Added Spell Fire Damage while holding a Shield", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 3.5, 
+				["max"] = 29.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 3.5, 
+				["max"] = 29.5, 
+			}, 
+		}, 
+		["989_ChaosDamageOverTimeMultiplierWithAttacks"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3913282911", 
+				["text"] = "#% to Chaos Damage over Time Multiplier with Attack Skills", 
+			}, 
+			["sign"] = "+", 
+			["Quiver"] = {
+				["min"] = 16, 
+				["max"] = 25, 
+			}, 
+		}, 
+		["1811_AddedLightningDamageWithDaggers"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3479683016", 
+				["text"] = "# to # Added Lightning Damage with Dagger Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+		}, 
 		["1105_SelfColdAndLightningDamageTaken"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5745,6 +8079,51 @@ return {
 				["text"] = "#% chance to Avoid being Frozen", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["906_AllAttributes"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1379411836", 
+				["text"] = "# to all Attributes", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["Amulet"] = {
+				["min"] = 1, 
+				["max"] = 35, 
+			}, 
+			["Ring"] = {
+				["min"] = 1, 
+				["max"] = 16, 
+			}, 
+		}, 
+		["1291_LocalIncreasedArmourAndLife"] = {
+			["Gloves"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
+			}, 
+			["Chest"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
+			["Boots"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
 		}, 
 		["3056_PhysicalDamageAvoidance"] = {
 			["tradeMod"] = {
@@ -5827,6 +8206,28 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
+		["1787_AddedPhysicalDamageWithStaves"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_69898010", 
+				["text"] = "# to # Added Physical Damage with Staff Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+		}, 
 		["1046_IncreasedDaggerDamageForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -5905,6 +8306,50 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1803_AddedColdDamageWithDaggers"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1263342750", 
+				["text"] = "# to # Added Cold Damage with Dagger Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6.5, 
+				["max"] = 21.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 6.5, 
+				["max"] = 21.5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6.5, 
+				["max"] = 21.5, 
+			}, 
+		}, 
+		["1576_ShockChanceAndDurationForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3668351662", 
+				["text"] = "#% increased Shock Duration on Enemies", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 12, 
+				["max"] = 16, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 12, 
+				["max"] = 16, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 12, 
+				["max"] = 16, 
+			}, 
+		}, 
 		["8789_SupremeEgo"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5924,6 +8369,28 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1816_AddedChaosDamageWithBows"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3478075311", 
+				["text"] = "# to # Added Chaos Damage with Bow Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6.5, 
+				["max"] = 18.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 6.5, 
+				["max"] = 18.5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6.5, 
+				["max"] = 18.5, 
+			}, 
+		}, 
 		["1171_IncreasedCastSpeedAddedChaos"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5933,6 +8400,65 @@ return {
 				["text"] = "#% increased Cast Speed", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["961_LocalPhysicalDamagePercentMeleePhysicalDamage"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 101, 
+				["max"] = 134, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 101, 
+				["max"] = 134, 
+			}, 
+		}, 
+		["3116_MinionAttacksTauntOnHitChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2911442053", 
+				["text"] = "Minions have #% chance to Taunt on Hit with Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 3, 
+				["max"] = 8, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 3, 
+				["max"] = 8, 
+			}, 
+		}, 
+		["1467_EnergyShieldGainPerTargetForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_211381198", 
+				["text"] = "Gain # Energy Shield per Enemy Hit with Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2, 
+				["max"] = 3, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 2, 
+				["max"] = 3, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2, 
+				["max"] = 3, 
+			}, 
 		}, 
 		["1233_ElementalCritMultiplierForJewel"] = {
 			["tradeMod"] = {
@@ -5958,6 +8484,7 @@ return {
 		}, 
 		["1112_LocalChanceToPoisonOnHitChaosDamage"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Chaos Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -5966,18 +8493,19 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8126_RemoveFreezeOnFlaskUse"] = {
+		["3464_RegenerateLifeOver1Second"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3296873305", 
-				["text"] = "Remove Chill and Freeze when you use a Flask", 
+				["id"] = "explicit.stat_1242155304", 
+				["text"] = "Every 4 seconds, Regenerate #% of Life over one second", 
 			}, 
-			["Belt"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Chest"] = {
+				["min"] = 15, 
+				["max"] = 25, 
 			}, 
+			["sign"] = "", 
 		}, 
 		["891_SpellBlockAndBlockUber"] = {
 			["specialCaseData"] = {
@@ -5992,6 +8520,60 @@ return {
 				["max"] = 12, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["3448_MinionAddedChaosDamage"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2889601781", 
+				["text"] = "Minions deal # to # additional Chaos Damage", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 3.5, 
+				["max"] = 32.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 3.5, 
+				["max"] = 32.5, 
+			}, 
+		}, 
+		["1821_SpellAddedChaosDamageWhileWieldingTwoHandedWeapon"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1743759111", 
+				["text"] = "# to # Added Spell Chaos Damage while wielding a Two Handed Weapon", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2, 
+				["max"] = 20.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 2, 
+				["max"] = 20.5, 
+			}, 
+		}, 
+		["1824_SpellAddedColdDamageWhileWieldingTwoHandedWeapon"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2464689927", 
+				["text"] = "# to # Added Spell Cold Damage while wielding a Two Handed Weapon", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 3.5, 
+				["max"] = 29.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 3.5, 
+				["max"] = 29.5, 
+			}, 
 		}, 
 		["1346_FireResistanceEnemyLeech"] = {
 			["specialCaseData"] = {
@@ -6031,6 +8613,46 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["3450_MinionAddedFireDamage"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3351784991", 
+				["text"] = "Minions deal # to # additional Fire Damage", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 5.5, 
+				["max"] = 43, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 5.5, 
+				["max"] = 43, 
+			}, 
+		}, 
+		["1485_MinionLifeForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_770672621", 
+				["text"] = "Minions have #% increased maximum Life", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 8, 
+				["max"] = 12, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 8, 
+				["max"] = 12, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 8, 
+				["max"] = 12, 
+			}, 
+		}, 
 		["1352_ColdResistanceEnemyLeech"] = {
 			["specialCaseData"] = {
 			}, 
@@ -6059,6 +8681,20 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
+		["201_LightningDamagePrefixLightningPenetration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3354027870", 
+				["text"] = "Socketed Gems are Supported by Level # Lightning Penetration", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1672_FireDamagePhysConvertedToFire"] = {
 			["specialCaseData"] = {
 			}, 
@@ -6068,6 +8704,62 @@ return {
 				["text"] = "#% of Physical Damage Converted to Fire Damage", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["325_SupportedByFortifyWeapon"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_107118693", 
+				["text"] = "Socketed Gems are Supported by Level # Fortify", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1838_EnduranceChargeDurationForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1170174456", 
+				["text"] = "#% increased Endurance Charge Duration", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8241_ManaCostBaseNonChannelled"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_407482587", 
+				["text"] = "Non-Channelling Skills Cost # Mana", 
+			}, 
+			["sign"] = "-", 
+		}, 
+		["1883_CurseEffectOnYouJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3407849389", 
+				["text"] = "#% reduced Effect of Curses on you", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 25, 
+				["max"] = 30, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 25, 
+				["max"] = 30, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 25, 
+				["max"] = 30, 
+			}, 
 		}, 
 		["1240_StunThresholdReduction"] = {
 			["tradeMod"] = {
@@ -6090,6 +8782,42 @@ return {
 				["min"] = 5, 
 				["max"] = 15, 
 			}, 
+		}, 
+		["7677_MinionAccuracyRatingForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1718147982", 
+				["text"] = "#% increased Minion Accuracy Rating", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 22, 
+				["max"] = 26, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 22, 
+				["max"] = 26, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 22, 
+				["max"] = 26, 
+			}, 
+		}, 
+		["1171_IncreasedCastSpeedTwoHandedKilledRecently"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2891184298", 
+				["text"] = "#% increased Cast Speed", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 20, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["2339_EnergyShieldAndDegenGracePeriod"] = {
 			["specialCaseData"] = {
@@ -6165,22 +8893,13 @@ return {
 				["max"] = 35, 
 			}, 
 		}, 
-		["5243_DamageOnFullLife"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_592020238", 
-				["text"] = "#% increased Damage when on Full Life", 
-			}, 
+		["8765_KeystoneGhostReaver"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 50, 
-				["max"] = 120, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 50, 
-				["max"] = 120, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4272248216", 
+				["text"] = "Ghost Reaver", 
 			}, 
 		}, 
 		["882_StaffSpellBlockForJewel"] = {
@@ -6215,6 +8934,28 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1419_ManaLeechPermyriadForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3237948413", 
+				["text"] = "#% of Physical Attack Damage Leeched as Mana", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 0.2, 
+				["max"] = 0.4, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 0.2, 
+				["max"] = 0.4, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 0.2, 
+				["max"] = 0.4, 
+			}, 
+		}, 
 		["8730_ZeroChaosResistanceDelve"] = {
 			["specialCaseData"] = {
 			}, 
@@ -6222,6 +8963,15 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_2439129490", 
 				["text"] = "Chaos Resistance is Zero", 
+			}, 
+		}, 
+		["3946_NearbyEnemiesChilledOnBlock"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_583277599", 
+				["text"] = "Chill Nearby Enemies when you Block", 
 			}, 
 		}, 
 		["1874_MaximumMinionCount"] = {
@@ -6272,6 +9022,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["5532_EnergyShieldRegenerationRatePerMinuteIfRareOrUniqueEnemyNearby"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2238019079", 
+				["text"] = "Regenerate # Energy Shield per second while a Rare or Unique Enemy is Nearby", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Chest"] = {
+				["min"] = 200, 
+				["max"] = 200, 
+			}, 
+			["Belt"] = {
+				["min"] = 200, 
+				["max"] = 200, 
+			}, 
+		}, 
 		["1093_SpellAddedColdDamageHybrid"] = {
 			["specialCaseData"] = {
 			}, 
@@ -6295,6 +9063,32 @@ return {
 				["max"] = 14, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["1066_IncreasedSwordDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_83050999", 
+				["text"] = "#% increased Damage with Swords", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
 		}, 
 		["5109_ReducedShockEffectOnSelfMaven"] = {
 			["specialCaseData"] = {
@@ -6378,17 +9172,18 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5705_GainAccuracyEqualToStrength"] = {
+		["4104_GainArmourIfBlockedRecently"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1575519214", 
-				["text"] = "Gain Accuracy Rating equal to your Strength", 
+				["id"] = "explicit.stat_4091848539", 
+				["text"] = "# Armour if you've Blocked Recently", 
 			}, 
-			["Helmet"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["sign"] = "+", 
+			["Shield"] = {
+				["min"] = 500, 
+				["max"] = 800, 
 			}, 
 		}, 
 		["3048_WrathAuraEffect"] = {
@@ -6408,6 +9203,16 @@ return {
 				["min"] = 48, 
 				["max"] = 60, 
 			}, 
+		}, 
+		["1219_CritMultiplierWithBowForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1712221299", 
+				["text"] = "#% to Critical Strike Multiplier with Bows", 
+			}, 
+			["sign"] = "+", 
 		}, 
 		["915_PercentageDexterity"] = {
 			["Gloves"] = {
@@ -6471,19 +9276,18 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["4242_EnduranceChargeIfHitRecentlyMaven"] = {
+		["5705_GainAccuracyEqualToStrengthMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2448279015", 
-				["text"] = "#% increased Area of Effect per Endurance Charge", 
+				["id"] = "explicit.stat_1575519214", 
+				["text"] = "Gain Accuracy Rating equal to your Strength", 
 			}, 
-			["Chest"] = {
-				["min"] = 3, 
-				["max"] = 3, 
+			["Helmet"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
 		}, 
 		["8073_RareOrUniqueMonsterDroppedItemRarity"] = {
 			["specialCaseData"] = {
@@ -6522,6 +9326,16 @@ return {
 				["min"] = 10, 
 				["max"] = 15, 
 			}, 
+		}, 
+		["1198_TrapCritChanceForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1192661666", 
+				["text"] = "#% increased Critical Strike Chance with Traps", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["8125_RemoveBleedingOnWarcry"] = {
 			["specialCaseData"] = {
@@ -6602,6 +9416,47 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1184_AccuracyAndCritsForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_587431675", 
+				["text"] = "#% increased Global Critical Strike Chance", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6, 
+				["max"] = 10, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 6, 
+				["max"] = 10, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6, 
+				["max"] = 10, 
+			}, 
+		}, 
+		["961_LocalIncreasedPhysicalDamagePercentAndProjSpeed"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+		}, 
 		["1188_GainEnduranceChargeOnCritUber"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -6620,6 +9475,28 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
+		["1759_AttackAndCastSpeedForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2672805335", 
+				["text"] = "#% increased Attack and Cast Speed", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+		}, 
 		["1485_MaximumMinionCountAndMinionLife"] = {
 			["specialCaseData"] = {
 			}, 
@@ -6634,23 +9511,19 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["6781_ChanceToPoisonSupported"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_795138349", 
-				["text"] = "#% chance to Poison on Hit", 
-			}, 
+		["155_SupportedByCastOnMeleeKillWeapon"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 15, 
-				["max"] = 20, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3312593243", 
+				["text"] = "Socketed Gems are Supported by Level # Cast On Melee Kill", 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 15, 
+				["min"] = 18, 
 				["max"] = 20, 
 			}, 
+			["sign"] = "", 
 		}, 
 		["1084_FireDamagePercentagePrefix"] = {
 			["tradeMod"] = {
@@ -6698,6 +9571,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1145_OneHandedMeleeAttackSpeedForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1813451228", 
+				["text"] = "#% increased Attack Speed with One Handed Melee Weapons", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
+		}, 
 		["1980_MinionPhysicalDamageReduction"] = {
 			["specialCaseData"] = {
 			}, 
@@ -6733,6 +9624,21 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_2458962764", 
 				["text"] = "#% of Maximum Life Converted to Energy Shield", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["961_LocalIncreasedPhysicalDamagePercentAndCritMulti"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -6772,6 +9678,20 @@ return {
 				["max"] = 18, 
 			}, 
 		}, 
+		["875_SpellDamageSuppressed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4116705863", 
+				["text"] = "Prevent #% of Suppressed Spell Damage", 
+			}, 
+			["Amulet"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
+			["sign"] = "+", 
+		}, 
 		["2978_OnslaughtEffect"] = {
 			["specialCaseData"] = {
 			}, 
@@ -6782,17 +9702,57 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["345_ShockEffectSupported"] = {
+		["2859_PoisonOnHitAndDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1106668565", 
-				["text"] = "Socketed Gems are Supported by Level # Innervate", 
+				["id"] = "explicit.stat_795138349", 
+				["text"] = "#% chance to Poison on Hit", 
 			}, 
-			["Helmet"] = {
-				["min"] = 16, 
-				["max"] = 25, 
+			["sign"] = "", 
+			["Quiver"] = {
+				["min"] = 15, 
+				["max"] = 20, 
+			}, 
+		}, 
+		["1188_LocalCriticalStrikeChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2375316951", 
+				["text"] = "#% increased Critical Strike Chance", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Critical Strike Chance", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 38, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 38, 
+			}, 
+		}, 
+		["1738_ChanceToIgniteForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1335054179", 
+				["text"] = "#% chance to Ignite", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1109_LocalLightningDamageRanged"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Lightning Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3336890334", 
+				["text"] = "Adds # to # Lightning Damage (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -6820,33 +9780,79 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["892_BlockWhileDualWielding"] = {
+		["1287_EnergyShieldRechargeRateForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2166444903", 
-				["text"] = "#% Chance to Block Attack Damage while Dual Wielding", 
+				["id"] = "explicit.stat_2339757871", 
+				["text"] = "#% increased Energy Shield Recharge Rate", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["1HWeapon"] = {
-				["min"] = 2, 
-				["max"] = 9, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 2, 
-				["max"] = 9, 
-			}, 
-		}, 
-		["2826_ChillEnemiesWhenHit"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2459809121", 
-				["text"] = "Chill Enemy for # second when Hit, reducing their Action Speed by 30%", 
 			}, 
 			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+		}, 
+		["1276_LocalArmourAndEvasionSuffix"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour and Evasion", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2451402625", 
+				["text"] = "#% increased Armour and Evasion (Local)", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1263_LocalBaseArmourAndLife"] = {
+			["Gloves"] = {
+				["min"] = 20, 
+				["max"] = 144, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3484657501", 
+				["text"] = "# to Armour (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 20, 
+				["max"] = 144, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Armour", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 20, 
+				["max"] = 144, 
+			}, 
+			["Boots"] = {
+				["min"] = 20, 
+				["max"] = 144, 
+			}, 
+		}, 
+		["2872_MovementSpeedDuringFlaskEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_304970526", 
+				["text"] = "#% increased Movement Speed during any Flask Effect", 
+			}, 
+			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 6, 
+				["max"] = 10, 
+			}, 
 		}, 
 		["7905_PhysicalDamageAddedAsExtraFireIfCriticalStrikeDealtRecently"] = {
 			["tradeMod"] = {
@@ -6864,6 +9870,32 @@ return {
 			["AnyJewel"] = {
 				["min"] = 2, 
 				["max"] = 4, 
+			}, 
+		}, 
+		["1035_IncreasedStaffDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4087089130", 
+				["text"] = "#% increased Damage with Staves", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 		}, 
 		["1203_MeleeCritChanceForJewel"] = {
@@ -6895,6 +9927,16 @@ return {
 			["Chest"] = {
 				["min"] = 1, 
 				["max"] = 1, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1840_FrenzyChargeDurationForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3338298622", 
+				["text"] = "#% increased Frenzy Charge Duration", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -6953,6 +9995,16 @@ return {
 				["text"] = "Vaal Pact", 
 			}, 
 		}, 
+		["1855_PowerChargeDurationForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3872306017", 
+				["text"] = "#% increased Power Charge Duration", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["8586_SupportedByItemRarityUnique"] = {
 			["specialCaseData"] = {
 			}, 
@@ -6981,6 +10033,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1005_IncreasedDualWieldlingDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_444174528", 
+				["text"] = "#% increased Attack Damage while Dual Wielding", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 12, 
+				["max"] = 14, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 12, 
+				["max"] = 14, 
+			}, 
+		}, 
 		["4382_ManaGainPerTargetMaven"] = {
 			["Gloves"] = {
 				["min"] = 10, 
@@ -6998,6 +10068,38 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+		}, 
+		["1215_SpellCritMultiplierForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_274716455", 
+				["text"] = "#% to Critical Strike Multiplier for Spell Damage", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["2162_BlockVsProjectiles"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3416410609", 
+				["text"] = "#% Chance to Block Projectile Attack Damage", 
+			}, 
+			["sign"] = "+", 
 		}, 
 		["7686_MinionDamageOnWeaponDoubleDamage"] = {
 			["specialCaseData"] = {
@@ -7052,6 +10154,28 @@ return {
 			["AnyJewel"] = {
 				["min"] = 6.5, 
 				["max"] = 18.5, 
+			}, 
+		}, 
+		["1690_MinionDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1589917703", 
+				["text"] = "Minions deal #% increased Damage", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 		}, 
 		["2860_MinionsPoisonEnemiesOnHit"] = {
@@ -7116,6 +10240,90 @@ return {
 				["max"] = 52, 
 			}, 
 		}, 
+		["2495_ColdLightningResistanceForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4277795662", 
+				["text"] = "#% to Cold and Lightning Resistances", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 12, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 10, 
+				["max"] = 12, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 12, 
+			}, 
+		}, 
+		["1563_AvoidChillForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3483999943", 
+				["text"] = "#% chance to Avoid being Chilled", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1052_IncreasedMaceDamageForJewel"] = {
+			["2HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1181419800", 
+				["text"] = "#% increased Damage with Maces or Sceptres", 
+			}, 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+		}, 
+		["1093_ColdDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3291658075", 
+				["text"] = "#% increased Cold Damage", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+		}, 
 		["3161_TrapAreaOfEffect"] = {
 			["specialCaseData"] = {
 			}, 
@@ -7126,23 +10334,36 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["963_MeleeDamageAndMeleeRange"] = {
-			["Gloves"] = {
-				["min"] = 13, 
-				["max"] = 16, 
+		["3442_LocalColdDamageTwoHandAndPen"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1002362373", 
-				["text"] = "#% increased Melee Damage", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_1740229525", 
+				["text"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
 			}, 
 			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 17, 
-				["max"] = 20, 
+		}, 
+		["1283_EvasionEnergyShieldForJewel"] = {
+			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2482852589", 
+				["text"] = "#% increased maximum Energy Shield", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1272_EvasionEnergyShieldForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2106365538", 
+				["text"] = "#% increased Evasion Rating", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["4457_LightningDamageESLeech"] = {
 			["specialCaseData"] = {
@@ -7226,19 +10447,49 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["145_SupportedByArcaneSurgeWeapon"] = {
-			["specialCaseData"] = {
-			}, 
+		["5137_CriticalStrikeMultiplierIfEnemySlainRecently"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2287264161", 
-				["text"] = "Socketed Gems are Supported by Level # Arcane Surge", 
+				["id"] = "explicit.stat_2937483991", 
+				["text"] = "#% to Critical Strike Multiplier if you've Killed Recently", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["AbyssJewel"] = {
+				["min"] = 8, 
+				["max"] = 14, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["1HWeapon"] = {
+				["min"] = 26, 
+				["max"] = 35, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 8, 
+				["max"] = 14, 
+			}, 
+		}, 
+		["1207_ColdCritChanceForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3337344042", 
+				["text"] = "#% increased Critical Strike Chance with Cold Skills", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 14, 
+				["max"] = 18, 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 18, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 18, 
+			}, 
 		}, 
 		["1522_MinimumEnduranceChargesAndOnKillLose"] = {
 			["specialCaseData"] = {
@@ -7250,17 +10501,14 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["8026_PurityOfFireReservationEfficiency"] = {
+		["1275_LocalArmourAndEnergyShieldSuffix"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour and Energy Shield", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3003688066", 
-				["text"] = "Purity of Fire has #% increased Mana Reservation Efficiency", 
-			}, 
-			["Amulet"] = {
-				["min"] = 50, 
-				["max"] = 60, 
+				["id"] = "explicit.stat_3321629045", 
+				["text"] = "#% increased Armour and Energy Shield (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -7292,6 +10540,56 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["912_DexterityIntelligenceForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2300185227", 
+				["text"] = "# to Dexterity and Intelligence", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 8, 
+				["max"] = 10, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 8, 
+				["max"] = 10, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 8, 
+				["max"] = 10, 
+			}, 
+		}, 
+		["1576_ShockDurationForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3668351662", 
+				["text"] = "#% increased Shock Duration on Enemies", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1201_TwoHandCritMultiplierForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_252507949", 
+				["text"] = "#% to Critical Strike Multiplier with Two Handed Melee Weapons", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 15, 
+				["max"] = 18, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 15, 
+				["max"] = 18, 
+			}, 
+		}, 
 		["1131_SpellAddedColdDamage"] = {
 			["specialCaseData"] = {
 			}, 
@@ -7306,19 +10604,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["872_BlockPercentMaven"] = {
-			["specialCaseData"] = {
-			}, 
+		["3443_LocalLightningDamagePenetrationHybrid"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2530372417", 
-				["text"] = "#% Chance to Block Attack Damage", 
+				["id"] = "explicit.stat_2387539034", 
+				["text"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
 			}, 
-			["Gloves"] = {
-				["min"] = 4, 
-				["max"] = 5, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 7, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 7, 
+			}, 
 		}, 
 		["1338_MinionGlobalSkillLevel"] = {
 			["specialCaseData"] = {
@@ -7334,39 +10637,134 @@ return {
 				["max"] = 2, 
 			}, 
 		}, 
-		["1103_ColdGemCastSpeedForJewel"] = {
+		["1291_LocalIncreasedArmourAndEnergyShieldAndLife"] = {
+			["Gloves"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_928238845", 
-				["text"] = "#% increased Cast Speed with Cold Skills", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
+			}, 
+			["Chest"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
+			["Boots"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
+		}, 
+		["1158_IncreasedAccuracyForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_803737631", 
+				["text"] = "# to Accuracy Rating", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["2636_IncreasedWandDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_379328644", 
+				["text"] = "#% increased Damage with Wands", 
+			}, 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+		}, 
+		["1840_FrenzyChargeOnKillChanceMaven"] = {
+			["Gloves"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3338298622", 
+				["text"] = "#% increased Frenzy Charge Duration", 
+			}, 
+			["Quiver"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+		}, 
+		["1493_TotemLifeForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_686254215", 
+				["text"] = "#% increased Totem Life", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 8, 
+				["max"] = 12, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["BaseJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+				["min"] = 8, 
+				["max"] = 12, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+				["min"] = 8, 
+				["max"] = 12, 
 			}, 
 		}, 
-		["1171_IncreasedCastSpeedTwoHandedKilledRecently"] = {
+		["1302_PercentageLifeAndManaForJewel"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2891184298", 
-				["text"] = "#% increased Cast Speed", 
+				["id"] = "explicit.stat_2748665614", 
+				["text"] = "#% increased maximum Mana", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 15, 
-				["max"] = 20, 
+			["sign"] = "", 
+		}, 
+		["1293_PercentageLifeAndManaForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_983749596", 
+				["text"] = "#% increased maximum Life", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -7394,22 +10792,18 @@ return {
 				["max"] = 25, 
 			}, 
 		}, 
-		["2146_PhysicalDamageTakenAsColdUber"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1871056256", 
-				["text"] = "#% of Physical Damage from Hits taken as Cold Damage", 
-			}, 
+		["1979_ReducedPhysicalDamageTakenMaven"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["Chest"] = {
-				["min"] = 5, 
-				["max"] = 15, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3771516363", 
+				["text"] = "#% additional Physical Damage Reduction", 
 			}, 
-			["Helmet"] = {
-				["min"] = 4, 
-				["max"] = 13, 
+			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 2, 
+				["max"] = 4, 
 			}, 
 		}, 
 		["1346_FireResistance"] = {
@@ -7448,6 +10842,7 @@ return {
 		}, 
 		["2181_LocalChanceToBleed"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to cause Bleeding on Hit", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -7456,31 +10851,16 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1035_IncreasedStaffDamageForJewel"] = {
+		["961_LocalPhysicalDamagePercentOnslaught"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4087089130", 
-				["text"] = "#% increased Damage with Staves", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
 		}, 
 		["1132_SpellAddedLightningSuffix"] = {
 			["tradeMod"] = {
@@ -7500,30 +10880,137 @@ return {
 				["max"] = 25.5, 
 			}, 
 		}, 
-		["3058_FireDamageAvoidance"] = {
+		["1148_ClawAttackSpeedForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_42242677", 
-				["text"] = "#% chance to Avoid Fire Damage from Hits", 
+				["id"] = "explicit.stat_1421645223", 
+				["text"] = "#% increased Attack Speed with Claws", 
 			}, 
-			["Chest"] = {
-				["min"] = 8, 
-				["max"] = 10, 
+			["BaseJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
-			["Quiver"] = {
-				["min"] = 8, 
-				["max"] = 10, 
+			["AbyssJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Shield"] = {
-				["min"] = 5, 
-				["max"] = 10, 
+			["1HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+		}, 
+		["1271_LocalBaseEvasionRatingAndLife"] = {
+			["Gloves"] = {
+				["min"] = 14, 
+				["max"] = 120, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_53045048", 
+				["text"] = "# to Evasion Rating (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 14, 
+				["max"] = 120, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Evasion Rating", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 14, 
+				["max"] = 120, 
 			}, 
 			["Boots"] = {
-				["min"] = 5, 
-				["max"] = 10, 
+				["min"] = 14, 
+				["max"] = 120, 
+			}, 
+		}, 
+		["5265_LifeRecoupForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1444556985", 
+				["text"] = "#% of Damage taken Recouped as Life", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
+		}, 
+		["1159_IncreasedAccuracyPercentForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_624954515", 
+				["text"] = "#% increased Global Accuracy Rating", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 14, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 10, 
+				["max"] = 14, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 14, 
+			}, 
+		}, 
+		["7663_AttackImpaleChanceMaven"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1455766505", 
+				["text"] = "Adds # to # Physical Damage for each Impale on Enemy", 
+			}, 
+			["Gloves"] = {
+				["min"] = 2, 
+				["max"] = 3.5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2606_MinionElementalResistancesForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1423639565", 
+				["text"] = "Minions have #% to all Elemental Resistances", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6, 
+				["max"] = 15, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 11, 
+				["max"] = 15, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6, 
+				["max"] = 15, 
 			}, 
 		}, 
 		["1562_AvoidElementalStatusAilments"] = {
@@ -7542,6 +11029,44 @@ return {
 			["Boots"] = {
 				["min"] = 31, 
 				["max"] = 45, 
+			}, 
+		}, 
+		["961_LocalIncreasedPhysicalDamagePercentFasterProjectiles"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1282_LocalIncreasedEnergyShieldAndLife"] = {
+			["Gloves"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4015621042", 
+				["text"] = "#% increased Energy Shield (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Energy Shield", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
+			["Boots"] = {
+				["min"] = 24, 
+				["max"] = 28, 
 			}, 
 		}, 
 		["1801_AddedColdDamageWithBows"] = {
@@ -7566,25 +11091,47 @@ return {
 				["max"] = 21.5, 
 			}, 
 		}, 
-		["131_LocalIncreaseSocketedColdGemLevelMaven"] = {
+		["1264_ArmourEvasionForJewel"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1164882313", 
-				["text"] = "#% to Quality of Socketed Cold Gems", 
+				["id"] = "explicit.stat_2866361420", 
+				["text"] = "#% increased Armour", 
 			}, 
-			["sign"] = "+", 
-			["Boots"] = {
-				["min"] = 3, 
-				["max"] = 7, 
-			}, 
+			["sign"] = "", 
 		}, 
-		["2187_BleedChanceAndDurationForJewel"] = {
+		["1151_BowAttackSpeedForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1923879260", 
-				["text"] = "Attacks have #% chance to cause Bleeding", 
+				["id"] = "explicit.stat_3759735052", 
+				["text"] = "#% increased Attack Speed with Bows", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+		}, 
+		["1103_ColdGemCastSpeedForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_928238845", 
+				["text"] = "#% increased Cast Speed with Cold Skills", 
 			}, 
 			["AbyssJewel"] = {
 				["min"] = 3, 
@@ -7602,23 +11149,83 @@ return {
 				["max"] = 5, 
 			}, 
 		}, 
-		["3051_HatredAuraEffect"] = {
+		["131_LocalIncreaseSocketedColdGemLevelMaven"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality of Socketed Cold Gems", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3742945352", 
-				["text"] = "Hatred has #% increased Aura Effect", 
+				["id"] = "explicit.stat_1164882313", 
+				["text"] = "#% to Quality of Socketed Cold Gems", 
+			}, 
+			["sign"] = "+", 
+			["Boots"] = {
+				["min"] = 3, 
+				["max"] = 7, 
+			}, 
+		}, 
+		["717_LocalFlaskAvoidStunChanceDuringFlaskEffect"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% Chance to Avoid being Stunned during Effect", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2312652600", 
+				["text"] = "#% Chance to Avoid being Stunned during Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1098_LocalColdDamageTwoHandAndPen"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Cold Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1037193709", 
+				["text"] = "Adds # to # Cold Damage (Local)", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1318_ItemRarityForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3917489142", 
+				["text"] = "#% increased Rarity of Items found", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 4, 
+				["max"] = 6, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 28, 
-				["max"] = 40, 
+			["BaseJewel"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
+		}, 
+		["1098_LocalColdDamagePenetrationHybrid"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1037193709", 
+				["text"] = "Adds # to # Cold Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Cold Damage", 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 48, 
-				["max"] = 60, 
+				["min"] = 10.5, 
+				["max"] = 80.5, 
 			}, 
+			["1HWeapon"] = {
+				["min"] = 10.5, 
+				["max"] = 43.5, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["2323_FrenzyChargeOnKillChance"] = {
 			["Gloves"] = {
@@ -7672,23 +11279,110 @@ return {
 				["max"] = 21, 
 			}, 
 		}, 
-		["3140_IncreasedDamageFromAuras"] = {
+		["1146_AxeAttackSpeedForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3729445224", 
-				["text"] = "Auras from your Skills grant #% increased Damage to you and Allies", 
+				["id"] = "explicit.stat_3550868361", 
+				["text"] = "#% increased Attack Speed with Axes", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["BaseJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+		}, 
+		["86_DelveDexterityGemLevel"] = {
+			["Gloves"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["Boots"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2718698372", 
+				["text"] = "# to Level of Socketed Dexterity Gems", 
+			}, 
+			["Helmet"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+		}, 
+		["1619_LocalEvasionRatingAndStunRecoveryIncreasePercent"] = {
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2511217560", 
+				["text"] = "#% increased Stun and Block Recovery", 
+			}, 
+			["Chest"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Stun and Block Recovery", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+		}, 
+		["2793_VaalSkillCriticalStrikeChance"] = {
+			["Gloves"] = {
+				["min"] = 80, 
+				["max"] = 120, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3165492062", 
+				["text"] = "#% increased Vaal Skill Critical Strike Chance", 
+			}, 
+			["Quiver"] = {
+				["min"] = 80, 
+				["max"] = 120, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
 		}, 
 		["5866_HatredReservation"] = {
 			["specialCaseData"] = {
@@ -7699,6 +11393,104 @@ return {
 				["text"] = "Hatred has #% increased Mana Reservation Efficiency", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["1225_MeleeCritMultiplierForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4237442815", 
+				["text"] = "#% to Melee Critical Strike Multiplier", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["1442_EnergyShieldLeechPermyriad"] = {
+			["Gloves"] = {
+				["min"] = 0.3, 
+				["max"] = 0.3, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_11106713", 
+				["text"] = "#% of Spell Damage Leeched as Energy Shield", 
+			}, 
+			["Chest"] = {
+				["min"] = 0.3, 
+				["max"] = 0.3, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 0.3, 
+				["max"] = 0.3, 
+			}, 
+			["Boots"] = {
+				["min"] = 0.3, 
+				["max"] = 0.3, 
+			}, 
+		}, 
+		["1272_IncreasedEvasionForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2106365538", 
+				["text"] = "#% increased Evasion Rating", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 14, 
+				["max"] = 18, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 18, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 18, 
+			}, 
+		}, 
+		["3950_AddedFireDamageIfBlockedRecently"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3623716321", 
+				["text"] = "Adds # to # Fire Damage if you've Blocked Recently", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1184_CritChanceForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_587431675", 
+				["text"] = "#% increased Global Critical Strike Chance", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 8, 
+				["max"] = 12, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 8, 
+				["max"] = 12, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 8, 
+				["max"] = 12, 
+			}, 
 		}, 
 		["8364_StatusAilmentsYouInflictDurationWhileFocused"] = {
 			["specialCaseData"] = {
@@ -7724,6 +11516,24 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
+		["963_MeleeDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1002362373", 
+				["text"] = "#% increased Melee Damage", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 10, 
+				["max"] = 12, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 12, 
+			}, 
+		}, 
 		["1305_IncreasedManaAndDegenGracePeriod"] = {
 			["specialCaseData"] = {
 			}, 
@@ -7743,6 +11553,20 @@ return {
 				["text"] = "Runebinder", 
 			}, 
 		}, 
+		["2145_PhysicalDamageTakenAsFireAndLightningPercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3342989455", 
+				["text"] = "#% of Physical Damage from Hits taken as Fire Damage", 
+			}, 
+			["Chest"] = {
+				["min"] = 8, 
+				["max"] = 9, 
+			}, 
+			["sign"] = "", 
+		}, 
 		["8641_WarcryAreaOfEffect"] = {
 			["specialCaseData"] = {
 			}, 
@@ -7757,19 +11581,46 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["6914_RecoverManaPercentOnBlock"] = {
+		["1273_LocalEvasionRatingIncreasePercent"] = {
+			["Gloves"] = {
+				["min"] = 15, 
+				["max"] = 100, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_124859000", 
+				["text"] = "#% increased Evasion Rating (Local)", 
+			}, 
+			["Shield"] = {
+				["min"] = 101, 
+				["max"] = 110, 
+			}, 
+			["Chest"] = {
+				["min"] = 15, 
+				["max"] = 110, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Evasion Rating", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 15, 
+				["max"] = 100, 
+			}, 
+			["Boots"] = {
+				["min"] = 15, 
+				["max"] = 100, 
+			}, 
+		}, 
+		["517_CurseOnHitCriticalWeakness"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3041288981", 
-				["text"] = "Recover #% of your maximum Mana when you Block", 
+				["id"] = "explicit.stat_3924520095", 
+				["text"] = "Trigger Level # Assassin's Mark when you Hit a Rare or Unique Enemy and have no Mark", 
 			}, 
 			["sign"] = "", 
-			["Shield"] = {
-				["min"] = 3, 
-				["max"] = 5, 
-			}, 
 		}, 
 		["1649_ConvertPhysicalToFireMaven"] = {
 			["Gloves"] = {
@@ -7789,19 +11640,45 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1599_SupportedBySpellCascadeArea"] = {
+		["1306_IncreasedManaRegenForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_789117908", 
+				["text"] = "#% increased Mana Regeneration Rate", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
 			["specialCaseData"] = {
 			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["1599_SupportedBySpiritStrikeArea"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_280731498", 
 				["text"] = "#% increased Area of Effect", 
 			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
 			["1HWeapon"] = {
 				["min"] = 5, 
 				["max"] = 15, 
 			}, 
-			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 15, 
+			}, 
 		}, 
 		["8746_PerfectAgony"] = {
 			["specialCaseData"] = {
@@ -7811,6 +11688,42 @@ return {
 				["id"] = "explicit.stat_3884934810", 
 				["text"] = "Perfect Agony", 
 			}, 
+		}, 
+		["960_PhysicalDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1310194496", 
+				["text"] = "#% increased Global Physical Damage", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+		}, 
+		["1159_IncreasedAccuracyPercentSupported"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_624954515", 
+				["text"] = "#% increased Global Accuracy Rating", 
+			}, 
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 20, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["293_AdditionalTrapsThrownSupported"] = {
 			["specialCaseData"] = {
@@ -7825,6 +11738,16 @@ return {
 				["max"] = 25, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["125_IncreaseSocketedSupportGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1328548975", 
+				["text"] = "#% to Quality of Socketed Support Gems", 
+			}, 
+			["sign"] = "+", 
 		}, 
 		["1795_AddedFireDamageWithDaggers"] = {
 			["tradeMod"] = {
@@ -7848,6 +11771,60 @@ return {
 				["max"] = 25, 
 			}, 
 		}, 
+		["4913_GainEnduranceChargeOnHittingBleedingEnemy"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1536266147", 
+				["text"] = "#% chance to gain an Endurance Charge when you Hit a Bleeding Enemy", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 10, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 10, 
+			}, 
+		}, 
+		["1346_FireResistanceForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3372524247", 
+				["text"] = "#% to Fire Resistance", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["211_SupportedByOnslaughtWeapon"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3237923082", 
+				["text"] = "Socketed Gems are Supported by Level # Onslaught", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 10, 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1300_LifeRecoveryRate"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -7864,6 +11841,43 @@ return {
 			["Belt"] = {
 				["min"] = 7, 
 				["max"] = 12, 
+			}, 
+		}, 
+		["1931_AuraRadiusForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_895264825", 
+				["text"] = "#% increased Area of Effect of Aura Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1619_LocalArmourAndEnergyShieldAndStunRecovery"] = {
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2511217560", 
+				["text"] = "#% increased Stun and Block Recovery", 
+			}, 
+			["Chest"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Stun and Block Recovery", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 17, 
 			}, 
 		}, 
 		["2262_FasterIgniteDamage"] = {
@@ -7902,6 +11916,38 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1567_AvoidShockForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1871765599", 
+				["text"] = "#% chance to Avoid being Shocked", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 31, 
+				["max"] = 50, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 31, 
+				["max"] = 50, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 31, 
+				["max"] = 50, 
+			}, 
+		}, 
+		["7657_AddedLightningDamagePerShockedEnemyKilled"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4222857095", 
+				["text"] = "Adds # to # Lightning Damage for each Shocked Enemy you've Killed Recently", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1301_IncreasedManaForJewel"] = {
 			["specialCaseData"] = {
 			}, 
@@ -7911,6 +11957,54 @@ return {
 				["text"] = "# to maximum Mana", 
 			}, 
 			["sign"] = "+", 
+		}, 
+		["1361_ChaosResistanceForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2923486259", 
+				["text"] = "#% to Chaos Resistance", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 7, 
+				["max"] = 13, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 7, 
+				["max"] = 13, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 7, 
+				["max"] = 13, 
+			}, 
+		}, 
+		["1147_StaffAttackSpeedForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1394963553", 
+				["text"] = "#% increased Attack Speed with Staves", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
 		}, 
 		["8725_ZealotryAuraEffect"] = {
 			["tradeMod"] = {
@@ -7940,6 +12034,108 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["3023_IncreasedOneHandedMeleeDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1010549321", 
+				["text"] = "#% increased Damage with One Handed Weapons", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 12, 
+				["max"] = 14, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 12, 
+				["max"] = 14, 
+			}, 
+		}, 
+		["3442_LocalColdDamagePenetrationHybrid"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1740229525", 
+				["text"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 7, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 7, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["926_MineDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2137912951", 
+				["text"] = "#% increased Mine Damage", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+		}, 
+		["1302_PercentageLifeAndMana"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2748665614", 
+				["text"] = "#% increased maximum Mana", 
+			}, 
+			["Chest"] = {
+				["min"] = 9, 
+				["max"] = 10, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1171_IncreasedCastSpeedForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2891184298", 
+				["text"] = "#% increased Cast Speed", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+		}, 
+		["1116_LocalIncreasedAttackSpeedAddedChaos"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Chaos Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2223678961", 
+				["text"] = "Adds # to # Chaos Damage (Local)", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["4210_AngerReservation"] = {
 			["specialCaseData"] = {
 			}, 
@@ -7950,114 +12146,97 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["7680_MinionAttackAndCastSpeedIfEnemySlainRecently"] = {
-			["specialCaseData"] = {
-			}, 
+		["3939_DualWieldingCritMultiplierForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4227567885", 
-				["text"] = "Minions have #% increased Attack and Cast Speed if you or your Minions have Killed Recently", 
+				["id"] = "explicit.stat_2546185479", 
+				["text"] = "#% to Critical Strike Multiplier while Dual Wielding", 
 			}, 
-			["sign"] = "", 
-		}, 
-		["3891_ChanceToAvoidBleeding"] = {
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
 			["BaseJewel"] = {
-				["min"] = 31, 
-				["max"] = 50, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1618589784", 
-				["text"] = "#% chance to Avoid Bleeding", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 31, 
-				["max"] = 50, 
-			}, 
-			["Helmet"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 31, 
-				["max"] = 50, 
-			}, 
-			["Chest"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
-			["Shield"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
-		}, 
-		["1802_AddedColdDamageWithClaws"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2848646243", 
-				["text"] = "# to # Added Cold Damage with Claw Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 6.5, 
-				["max"] = 21.5, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 6.5, 
-				["max"] = 21.5, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 6.5, 
-				["max"] = 21.5, 
-			}, 
-		}, 
-		["4374_AttackSpeedIfCriticalStrikeDealtRecently"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1585344030", 
-				["text"] = "#% increased Attack Speed if you've dealt a Critical Strike Recently", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-		}, 
-		["953_SpellDamage"] = {
-			["Gloves"] = {
-				["min"] = 18, 
-				["max"] = 38, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2974417149", 
-				["text"] = "#% increased Spell Damage", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 3, 
-				["max"] = 26, 
-			}, 
-			["Ring"] = {
 				["min"] = 15, 
-				["max"] = 25, 
+				["max"] = 18, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 15, 
+				["max"] = 18, 
+			}, 
+		}, 
+		["4394_ImpaleChanceForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3739863694", 
+				["text"] = "#% chance to Impale Enemies on Hit with Attacks", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 5, 
+				["max"] = 7, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 5, 
+				["max"] = 7, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 5, 
+				["max"] = 7, 
+			}, 
+		}, 
+		["3942_ElementalPenetrationDuringFlaskEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3392890360", 
+				["text"] = "Damage Penetrates #% Elemental Resistances during any Flask Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2439_LocalMeleeWeaponRange"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Weapon Range", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_350598685", 
+				["text"] = "# to Weapon Range", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1130_SpellAddedFireDamageTwoHand"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1133016593", 
+				["text"] = "Adds # to # Fire Damage to Spells", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 121.5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5802_GainVaalPactWhileFocused"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2022851697", 
+				["text"] = "You have Vaal Pact while Focused", 
+			}, 
+		}, 
+		["8759_ElementalEquilibrium"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1263158408", 
+				["text"] = "Elemental Equilibrium", 
 			}, 
 		}, 
 		["2179_CausesBleeding25PercentChance"] = {
@@ -8070,37 +12249,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2436_FlaskEffect"] = {
+		["8738_MinionLargerAggroRadius"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_114734841", 
-				["text"] = "Flasks applied to you have #% increased Effect", 
-			}, 
-			["sign"] = "", 
-			["Belt"] = {
-				["min"] = 4, 
-				["max"] = 12, 
+				["id"] = "explicit.stat_128585622", 
+				["text"] = "Minions are Aggressive", 
 			}, 
 		}, 
-		["4161_ReducedPhysicalDamageTakenIfNotHitRecently"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3603666270", 
-				["text"] = "#% additional Physical Damage Reduction if you weren't Damaged by a Hit Recently", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2, 
-				["max"] = 2, 
-			}, 
+		["1932_CurseRadiusForJewel"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_153777645", 
+				["text"] = "#% increased Area of Effect of Hex Skills", 
 			}, 
+			["sign"] = "", 
 		}, 
 		["1390_FireDamageLifeLeechPermyriad"] = {
 			["tradeMod"] = {
@@ -8148,55 +12314,48 @@ return {
 				["max"] = 15, 
 			}, 
 		}, 
-		["379_SocketedGemsDealAdditionalFireDamage"] = {
+		["734_LocalFlaskLifeRegenerationPerMinuteDuringFlaskEffect"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Regenerate #% of Life per second during Effect", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1289910726", 
-				["text"] = "Socketed Gems deal # to # Added Fire Damage", 
+				["id"] = "explicit.stat_871270154", 
+				["text"] = "Regenerate #% of Life per second during Effect", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["103_LocalIncreaseSocketedMeleeGemLevel"] = {
+		["1230_FireCritMultiplierForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_829382474", 
-				["text"] = "# to Level of Socketed Melee Gems", 
+				["id"] = "explicit.stat_2307547323", 
+				["text"] = "#% to Critical Strike Multiplier with Fire Skills", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 2, 
+			["AbyssJewel"] = {
+				["min"] = 15, 
+				["max"] = 18, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 2, 
+			["BaseJewel"] = {
+				["min"] = 15, 
+				["max"] = 18, 
 			}, 
-			["Shield"] = {
-				["min"] = 1, 
-				["max"] = 2, 
+			["AnyJewel"] = {
+				["min"] = 15, 
+				["max"] = 18, 
 			}, 
 		}, 
-		["3936_MovementSpeedIfEnemySlainRecently"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_279227559", 
-				["text"] = "#% increased Movement Speed if you've Killed Recently", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2, 
-				["max"] = 4, 
-			}, 
+		["4889_CrushOnHitChance"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2228892313", 
+				["text"] = "#% chance to Crush on Hit", 
 			}, 
+			["sign"] = "", 
 		}, 
 		["1914_AttackerTakesDamageNoRange"] = {
 			["tradeMod"] = {
@@ -8278,86 +12437,70 @@ return {
 				["max"] = 25, 
 			}, 
 		}, 
-		["1786_AddedPhysicalDamageWithMaces"] = {
+		["2494_FireLightningResistanceForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3882662078", 
-				["text"] = "# to # Added Physical Damage with Mace or Sceptre Attacks", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+				["id"] = "explicit.stat_3441501978", 
+				["text"] = "#% to Fire and Lightning Resistances", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
-		}, 
-		["987_ChaosDamageOverTimeMultiplier"] = {
-			["Gloves"] = {
-				["min"] = 11, 
-				["max"] = 25, 
-			}, 
-			["BaseJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+				["min"] = 10, 
+				["max"] = 12, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 10, 
+				["max"] = 12, 
+			}, 
 			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4055307827", 
-				["text"] = "#% to Chaos Damage over Time Multiplier", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 24, 
-				["max"] = 75, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 48, 
-			}, 
-			["Amulet"] = {
-				["min"] = 11, 
-				["max"] = 25, 
+				["min"] = 10, 
+				["max"] = 12, 
 			}, 
 		}, 
-		["1815_AddedLightningDamageWithWands"] = {
+		["1206_LightningCritChanceForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2787733863", 
-				["text"] = "# to # Added Lightning Damage with Wand Attacks", 
+				["id"] = "explicit.stat_1186596295", 
+				["text"] = "#% increased Critical Strike Chance with Lightning Skills", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+				["min"] = 14, 
+				["max"] = 18, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 18, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+				["min"] = 14, 
+				["max"] = 18, 
+			}, 
+		}, 
+		["959_DualWieldingSpellDamageForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1678690824", 
+				["text"] = "#% increased Spell Damage while Dual Wielding", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 		}, 
 		["363_DisplaySocketedSkillsChain"] = {
@@ -8374,98 +12517,99 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["6272_LifeRegenerationRateWhileMoving"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_908516597", 
-				["text"] = "Regenerate #% of Life per second while moving", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 0.5, 
-				["max"] = 1, 
-			}, 
+		["3442_LocalColdDamageAndPen"] = {
 			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 0.5, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["1665_ChaosResistanceDamageOverTime"] = {
-			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3762784591", 
-				["text"] = "#% reduced Chaos Damage taken over time", 
+				["id"] = "explicit.stat_1740229525", 
+				["text"] = "Attacks with this Weapon Penetrate #% Cold Resistance", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1814_AddedLightningDamageWithSwords"] = {
+		["1204_DualWieldingCritChanceForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1237708713", 
-				["text"] = "# to # Added Lightning Damage with Sword Attacks", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+				["id"] = "explicit.stat_3702513529", 
+				["text"] = "#% increased Attack Critical Strike Chance while Dual Wielding", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 18, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+				["min"] = 14, 
+				["max"] = 18, 
 			}, 
 		}, 
-		["2860_AbyssMinionPoisonOnHitChance"] = {
+		["2481_TotemElementalResistancesForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1974445926", 
-				["text"] = "Minions have #% chance to Poison Enemies on Hit", 
+				["id"] = "explicit.stat_1809006367", 
+				["text"] = "Totems gain #% to all Elemental Resistances", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+				["min"] = 6, 
+				["max"] = 10, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 6, 
+				["max"] = 10, 
+			}, 
 			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+				["min"] = 6, 
+				["max"] = 10, 
 			}, 
 		}, 
-		["1810_AddedLightningDamageWithClaws"] = {
+		["1578_IgniteChanceAndDurationForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4231842891", 
-				["text"] = "# to # Added Lightning Damage with Claw Attacks", 
+				["id"] = "explicit.stat_1086147743", 
+				["text"] = "#% increased Ignite Duration on Enemies", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+			["BaseJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+		}, 
+		["1619_StunRecoveryForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2511217560", 
+				["text"] = "#% increased Stun and Block Recovery", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 25, 
+				["max"] = 35, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 25, 
+				["max"] = 35, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 25, 
+				["max"] = 35, 
 			}, 
 		}, 
 		["1517_MovementVelocitySpellDodge"] = {
@@ -8478,58 +12622,43 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2859_PoisonChanceAndDurationForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_795138349", 
-				["text"] = "#% chance to Poison on Hit", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
-			}, 
-		}, 
-		["1593_ReducedFreezeDurationMaven"] = {
+		["1565_AvoidIgniteForJewel"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2160282525", 
-				["text"] = "#% reduced Freeze Duration on you", 
-			}, 
-			["Helmet"] = {
-				["min"] = 51, 
-				["max"] = 60, 
+				["id"] = "explicit.stat_1783006896", 
+				["text"] = "#% chance to Avoid being Ignited", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["994_AddedPhysicalSuffix"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3032590688", 
-				["text"] = "Adds # to # Physical Damage to Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2, 
-				["max"] = 6, 
-			}, 
+		["4472_MinionDuration"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_999511066", 
+				["text"] = "#% increased Minion Duration", 
+			}, 
 			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 2, 
-				["max"] = 6, 
+		}, 
+		["6677_LocalIncreasedPhysicalDamageAndImpaleChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3739863694", 
+				["text"] = "#% chance to Impale Enemies on Hit with Attacks", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to Impale Enemies on Hit with Attacks", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 25, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 25, 
 			}, 
 		}, 
 		["1599_AreaDamageAndAreaOfEffect"] = {
@@ -8564,18 +12693,16 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["5059_ConsecratedGroundStationary"] = {
+		["1089_LocalFireDamageRanged"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Fire Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_880970200", 
-				["text"] = "You have Consecrated Ground around you while stationary", 
+				["id"] = "explicit.stat_709508406", 
+				["text"] = "Adds # to # Fire Damage (Local)", 
 			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
+			["sign"] = "", 
 		}, 
 		["886_BlockingBlocksSpells"] = {
 			["specialCaseData"] = {
@@ -8615,22 +12742,23 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["4755_CastSpeedIfMinionKilledRecently"] = {
+		["2181_LocalIncreasedPhysicalDamageAndBleedChance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3110907148", 
-				["text"] = "#% increased Cast Speed if a Minion has been Killed Recently", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 7, 
-				["max"] = 10, 
+				["id"] = "explicit.stat_1519615863", 
+				["text"] = "#% chance to cause Bleeding on Hit", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to cause Bleeding on Hit", 
 			}, 
 			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 7, 
-				["max"] = 10, 
+			["1HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 25, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 25, 
 			}, 
 		}, 
 		["5584_LuckyCriticalsDuringFocusCDR"] = {
@@ -8646,22 +12774,30 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["5501_EnchantmentIntimidate"] = {
+		["1040_IncreasedClawDamageForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1919892065", 
-				["text"] = "Enemies Intimidated by you have #% increased duration of stuns against them", 
+				["id"] = "explicit.stat_1069260037", 
+				["text"] = "#% increased Damage with Claws", 
+			}, 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
 			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 		}, 
 		["8758_EldritchBattery"] = {
@@ -8705,26 +12841,26 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["4165_ReducedPhysicalDamageTakenVsAbyssMonsters"] = {
+		["892_BlockDualWieldingForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_287491423", 
-				["text"] = "#% additional Physical Damage Reduction against Abyssal Monsters", 
+				["id"] = "explicit.stat_2166444903", 
+				["text"] = "#% Chance to Block Attack Damage while Dual Wielding", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 			["BaseJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["5665_LuckyCriticalsDuringFocusCDR"] = {
@@ -8741,54 +12877,59 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
-		["1691_MinionDamageIfMinionSkillUsedRecently"] = {
+		["1291_LocalBaseArmourEvasionRatingAndLife"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_412745376", 
-				["text"] = "Minions deal #% increased Damage if you've used a Minion Skill Recently", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["940_DamageOverTimeForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_967627487", 
+				["text"] = "#% increased Damage over Time", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 15, 
-				["max"] = 20, 
+				["min"] = 10, 
+				["max"] = 12, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 10, 
+				["max"] = 12, 
+			}, 
 			["AnyJewel"] = {
-				["min"] = 15, 
-				["max"] = 20, 
+				["min"] = 10, 
+				["max"] = 12, 
 			}, 
 		}, 
-		["340_ColdDamagePrefixColdPenetration"] = {
-			["specialCaseData"] = {
-			}, 
+		["1357_LightningResistanceForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1991958615", 
-				["text"] = "Socketed Gems are Supported by Level # Cold Penetration", 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["5202_DamagePenetratesElementalResistancesIfNoEnemySlainRecently"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_455556407", 
-				["text"] = "Damage Penetrates #% Elemental Resistances if you haven't Killed Recently", 
+				["id"] = "explicit.stat_1671376347", 
+				["text"] = "#% to Lightning Resistance", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+				["min"] = 12, 
+				["max"] = 15, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
 			["AnyJewel"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+				["min"] = 12, 
+				["max"] = 15, 
 			}, 
 		}, 
 		["1104_TwoHandLightningDamageWeaponPrefix"] = {
@@ -8910,15 +13051,19 @@ return {
 				["max"] = 12, 
 			}, 
 		}, 
-		["1657_ChaosDamageAsPortionOfColdDamage"] = {
+		["5452_ElusiveOnCriticalStrikeMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2915373966", 
-				["text"] = "Gain #% of Cold Damage as Extra Chaos Damage", 
+				["id"] = "explicit.stat_240857668", 
+				["text"] = "#% increased Elusive Effect", 
 			}, 
 			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 5, 
+				["max"] = 10, 
+			}, 
 		}, 
 		["1184_CriticalStrikeChance"] = {
 			["Gloves"] = {
@@ -8944,6 +13089,7 @@ return {
 		}, 
 		["114_LocalIncreaseSocketedActiveSkillGemLevelMaven"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Active Skill Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -8956,40 +13102,50 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["7710_FlatMinionLifeRegeneration"] = {
+		["1277_LocalEvasionAndEnergyShield"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3062329212", 
-				["text"] = "Minions Regenerate # Life per second", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 22, 
-				["max"] = 60, 
+				["id"] = "explicit.stat_1999113824", 
+				["text"] = "#% increased Evasion and Energy Shield (Local)", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Evasion and Energy Shield", 
 			}, 
 			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 22, 
-				["max"] = 60, 
+			["Chest"] = {
+				["min"] = 101, 
+				["max"] = 110, 
+			}, 
+			["Shield"] = {
+				["min"] = 101, 
+				["max"] = 110, 
 			}, 
 		}, 
-		["7675_MinionAccuracyRatingFlat"] = {
+		["1281_LocalBaseArmourAndEnergyShield"] = {
+			["Gloves"] = {
+				["min"] = 3, 
+				["max"] = 80, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1661151735", 
-				["text"] = "Minions have # to Accuracy Rating", 
+				["id"] = "explicit.stat_4052037485", 
+				["text"] = "# to maximum Energy Shield (Local)", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 95, 
-				["max"] = 250, 
+			["Chest"] = {
+				["min"] = 3, 
+				["max"] = 80, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Energy Shield", 
 			}, 
 			["sign"] = "+", 
-			["AnyJewel"] = {
-				["min"] = 95, 
-				["max"] = 250, 
+			["Helmet"] = {
+				["min"] = 3, 
+				["max"] = 80, 
+			}, 
+			["Boots"] = {
+				["min"] = 3, 
+				["max"] = 80, 
 			}, 
 		}, 
 		["1131_SpellAddedColdDamageTwoHand"] = {
@@ -9016,22 +13172,26 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1829_SpellAddedLightningDamageWhileHoldingAShield"] = {
+		["1172_CastSpeedWhileDualWieldingForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1801889979", 
-				["text"] = "# to # Added Spell Lightning Damage while holding a Shield", 
+				["id"] = "explicit.stat_2382196858", 
+				["text"] = "#% increased Cast Speed while Dual Wielding", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 3.5, 
-				["max"] = 28.5, 
+				["min"] = 3, 
+				["max"] = 5, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
 			["AnyJewel"] = {
-				["min"] = 3.5, 
-				["max"] = 28.5, 
+				["min"] = 3, 
+				["max"] = 5, 
 			}, 
 		}, 
 		["7635_MineDetonationSpeedAndDuration"] = {
@@ -9044,44 +13204,48 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1789_AddedPhysicalDamageWithWands"] = {
+		["1710_ProjectileDamageForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_133683091", 
-				["text"] = "# to # Added Physical Damage with Wand Attacks", 
+				["id"] = "explicit.stat_1839076647", 
+				["text"] = "#% increased Projectile Damage", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+				["min"] = 10, 
+				["max"] = 12, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+			["BaseJewel"] = {
+				["min"] = 10, 
+				["max"] = 12, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+				["min"] = 10, 
+				["max"] = 12, 
 			}, 
 		}, 
-		["5212_DamageIfEnemySlainRecently"] = {
+		["1104_LightningDamageForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1072119541", 
-				["text"] = "#% increased Damage if you've Killed Recently", 
+				["id"] = "explicit.stat_2231156303", 
+				["text"] = "#% increased Lightning Damage", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 15, 
-				["max"] = 20, 
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
 			["AnyJewel"] = {
-				["min"] = 15, 
-				["max"] = 20, 
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 		}, 
 		["389_SocketedSpellCriticalStrikeChance"] = {
@@ -9136,30 +13300,27 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1783_PhysicalDamageWithBowsJewel"] = {
+		["1644_TrapThrowSpeedForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1760576992", 
-				["text"] = "# to # Added Physical Damage with Bow Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+				["id"] = "explicit.stat_118398748", 
+				["text"] = "#% increased Trap Throwing Speed", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["2HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+			["BaseJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 		}, 
 		["114_LocalIncreaseSocketedActiveSkillGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Active Skill Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -9172,45 +13333,37 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1825_SpellAddedFireDamageWhileDualWielding"] = {
+		["1136_IncreasedAttackSpeedForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_662691280", 
-				["text"] = "# to # Added Spell Fire Damage while Dual Wielding", 
+				["id"] = "explicit.stat_681332047", 
+				["text"] = "#% increased Attack Speed", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 3.5, 
-				["max"] = 29.5, 
+				["min"] = 3, 
+				["max"] = 5, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
 			["AnyJewel"] = {
-				["min"] = 3.5, 
-				["max"] = 29.5, 
+				["min"] = 3, 
+				["max"] = 5, 
 			}, 
 		}, 
-		["1813_AddedLightningDamageWithStaves"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3212481075", 
-				["text"] = "# to # Added Lightning Damage with Staff Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
-			}, 
+		["1676_LightningDamagePhysConvertedToLightning"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3240769289", 
+				["text"] = "#% of Physical Damage Converted to Lightning Damage", 
+			}, 
 			["sign"] = "", 
-			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
-			}, 
 		}, 
 		["3947_SelfColdDamageTakenPerFrenzy"] = {
 			["specialCaseData"] = {
@@ -9268,44 +13421,48 @@ return {
 				["max"] = 73, 
 			}, 
 		}, 
-		["219_SupportedByPowerChargeOnCritWeapon"] = {
-			["specialCaseData"] = {
-			}, 
+		["1212_CritMultiplierForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4015918489", 
-				["text"] = "Socketed Gems are Supported by Level # Power Charge On Critical Strike", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 10, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1808_AddedLightningDamageWithAxes"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1582068183", 
-				["text"] = "# to # Added Lightning Damage with Axe Attacks", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+				["id"] = "explicit.stat_3556824919", 
+				["text"] = "#% to Global Critical Strike Multiplier", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+				["min"] = 9, 
+				["max"] = 12, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 9, 
+				["max"] = 12, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 9, 
+				["max"] = 12, 
+			}, 
+		}, 
+		["1293_PercentIncreasedLifeForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_983749596", 
+				["text"] = "#% increased maximum Life", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 5, 
+				["max"] = 7, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+			["BaseJewel"] = {
+				["min"] = 5, 
+				["max"] = 7, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+				["min"] = 5, 
+				["max"] = 7, 
 			}, 
 		}, 
 		["877_ChanceToSuppressSpells"] = {
@@ -9334,22 +13491,26 @@ return {
 				["max"] = 22, 
 			}, 
 		}, 
-		["1087_AddedFireSuffix"] = {
+		["5281_FasterAilmentDamageForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1573130764", 
-				["text"] = "Adds # to # Fire Damage to Attacks", 
+				["id"] = "explicit.stat_538241406", 
+				["text"] = "Damaging Ailments deal damage #% faster", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 7, 
-				["max"] = 21.5, 
+				["min"] = 4, 
+				["max"] = 6, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
 			["AnyJewel"] = {
-				["min"] = 7, 
-				["max"] = 21.5, 
+				["min"] = 4, 
+				["max"] = 6, 
 			}, 
 		}, 
 		["2683_ChanceToGainOnslaughtOnKill"] = {
@@ -9392,41 +13553,33 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1805_AddedColdDamageWithStaves"] = {
+		["924_TrapDamageForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1261958804", 
-				["text"] = "# to # Added Cold Damage with Staff Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 6.5, 
-				["max"] = 21.5, 
+				["id"] = "explicit.stat_2941585404", 
+				["text"] = "#% increased Trap Damage", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["2HWeapon"] = {
-				["min"] = 6.5, 
-				["max"] = 21.5, 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 6.5, 
-				["max"] = 21.5, 
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 		}, 
-		["94_LocalIncreaseSocketedColdGemLevelMaven"] = {
+		["2597_MinionBlockForJewel"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1645459191", 
-				["text"] = "# to Level of Socketed Cold Gems", 
+				["id"] = "explicit.stat_3374054207", 
+				["text"] = "Minions have #% Chance to Block Attack Damage", 
 			}, 
 			["sign"] = "+", 
-			["Boots"] = {
-				["min"] = 2, 
-				["max"] = 2, 
-			}, 
 		}, 
 		["1159_IncreasedAccuracyPercent"] = {
 			["Gloves"] = {
@@ -9450,71 +13603,49 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["1293_PercentIncreasedLifeForJewel"] = {
+		["6737_LocalAttackSpeedAndLocalItemQuality"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_983749596", 
-				["text"] = "#% increased maximum Life", 
+				["id"] = "explicit.stat_2016708976", 
+				["text"] = "#% to Quality", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["873_BlockShieldForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4061558269", 
+				["text"] = "#% Chance to Block Attack Damage while holding a Shield", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 5, 
-				["max"] = 7, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 			["BaseJewel"] = {
-				["min"] = 5, 
-				["max"] = 7, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 5, 
-				["max"] = 7, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
-		["2181_LocalAddedPhysicalDamageAndCausesBleeding"] = {
+		["350_LocalPhysicalDamagePercentEnduranceChargeOnStun"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are Supported by Level # Endurance Charge on Melee Stun", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1519615863", 
-				["text"] = "#% chance to cause Bleeding on Hit", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_3375208082", 
+				["text"] = "Socketed Gems are Supported by Level # Endurance Charge on Melee Stun", 
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 40, 
-				["max"] = 40, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 40, 
-				["max"] = 40, 
-			}, 
-		}, 
-		["1788_AddedPhysicalDamageWithSwords"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1040189894", 
-				["text"] = "# to # Added Physical Damage with Sword Attacks", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
 		}, 
 		["1302_PercentIncreasedManaForJewel"] = {
 			["tradeMod"] = {
@@ -9590,54 +13721,52 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["3081_NearbyEnemiesAreBlindedMaven"] = {
-			["specialCaseData"] = {
-			}, 
+		["2859_PoisonChanceAndDurationForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2826979740", 
-				["text"] = "Nearby Enemies are Blinded", 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["7727_MinionSpellsHinderOnHitChance"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2323739383", 
-				["text"] = "Minions have #% chance to Hinder Enemies on Hit with Spells", 
+				["id"] = "explicit.stat_795138349", 
+				["text"] = "#% chance to Poison on Hit", 
 			}, 
 			["AbyssJewel"] = {
 				["min"] = 3, 
-				["max"] = 8, 
+				["max"] = 5, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
 			["AnyJewel"] = {
 				["min"] = 3, 
-				["max"] = 8, 
+				["max"] = 5, 
 			}, 
 		}, 
-		["7690_AbyssMinionIgniteOnHitChance"] = {
+		["1253_LocalWardAndStunRecoveryPercent"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Ward", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3945908658", 
-				["text"] = "Minions have #% chance to Ignite", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 15, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_830161081", 
+				["text"] = "#% increased Ward", 
 			}, 
 			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+		}, 
+		["218_PoisonDurationWeaponSupported"] = {
+			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2228279620", 
+				["text"] = "Socketed Gems are Supported by Level # Critical Strike Affliction", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["8238_ManaCostTotalChannelled"] = {
 			["tradeMod"] = {
@@ -9657,116 +13786,140 @@ return {
 				["max"] = 4, 
 			}, 
 		}, 
-		["1797_AddedFireDamageWithStaves"] = {
+		["956_StaffSpellDamageForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3220927448", 
-				["text"] = "# to # Added Fire Damage with Staff Attacks", 
+				["id"] = "explicit.stat_3496944181", 
+				["text"] = "#% increased Spell Damage while wielding a Staff", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 25, 
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["2HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 25, 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 25, 
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 		}, 
-		["892_BlockDualWieldingForJewel"] = {
+		["1340_AllResistancesForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2166444903", 
-				["text"] = "#% Chance to Block Attack Damage while Dual Wielding", 
+				["id"] = "explicit.stat_2901986750", 
+				["text"] = "#% to all Elemental Resistances", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["min"] = 8, 
+				["max"] = 10, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
 			["BaseJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["min"] = 8, 
+				["max"] = 10, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["min"] = 8, 
+				["max"] = 10, 
 			}, 
 		}, 
-		["1883_CurseEffectOnYouJewel"] = {
+		["1205_FireCritChanceForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3407849389", 
-				["text"] = "#% reduced Effect of Curses on you", 
+				["id"] = "explicit.stat_1104796138", 
+				["text"] = "#% increased Critical Strike Chance with Fire Skills", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 25, 
-				["max"] = 30, 
+				["min"] = 14, 
+				["max"] = 18, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["BaseJewel"] = {
-				["min"] = 25, 
-				["max"] = 30, 
+				["min"] = 14, 
+				["max"] = 18, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 25, 
-				["max"] = 30, 
+				["min"] = 14, 
+				["max"] = 18, 
 			}, 
 		}, 
-		["1131_SpellAddedColdSuffix"] = {
+		["910_StrengthDexterityForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2469416729", 
-				["text"] = "Adds # to # Cold Damage to Spells", 
+				["id"] = "explicit.stat_538848803", 
+				["text"] = "# to Strength and Dexterity", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 7.5, 
-				["max"] = 27.5, 
+				["min"] = 8, 
+				["max"] = 10, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 8, 
+				["max"] = 10, 
+			}, 
 			["AnyJewel"] = {
-				["min"] = 7.5, 
-				["max"] = 27.5, 
+				["min"] = 8, 
+				["max"] = 10, 
 			}, 
 		}, 
-		["1676_LightningDamagePhysConvertedToLightning"] = {
+		["5826_ChanceToFreezeAddedDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3240769289", 
-				["text"] = "#% of Physical Damage Converted to Lightning Damage", 
+				["id"] = "explicit.stat_2233361223", 
+				["text"] = "Adds # to # Cold Damage against Chilled or Frozen Enemies", 
+			}, 
+			["Ring"] = {
+				["min"] = 26, 
+				["max"] = 37, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1107_AddedLightningSuffix"] = {
+		["1150_MaceAttackSpeedForJewel"] = {
+			["2HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1754445556", 
-				["text"] = "Adds # to # Lightning Damage to Attacks", 
+				["id"] = "explicit.stat_2515515064", 
+				["text"] = "#% increased Attack Speed with Maces or Sceptres", 
+			}, 
+			["BaseJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 26, 
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
 			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 26, 
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 		}, 
 		["331_MinionLifeSupported"] = {
@@ -9783,15 +13936,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1610_IncreaseManaCostFlat"] = {
+		["1741_ChanceToFreezeForJewel"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3736589033", 
-				["text"] = "# to Total Mana Cost of Skills", 
+				["id"] = "explicit.stat_2309614417", 
+				["text"] = "#% chance to Freeze", 
 			}, 
-			["sign"] = "-", 
+			["sign"] = "", 
 		}, 
 		["1549_PowerChargeOnCriticalStrikeChance"] = {
 			["specialCaseData"] = {
@@ -9807,22 +13960,26 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1132_SpellAddedLightningDamagePenetrationHybrid"] = {
+		["1488_MinionMovementSpeed"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2831165374", 
-				["text"] = "Adds # to # Lightning Damage to Spells", 
+				["id"] = "explicit.stat_174664100", 
+				["text"] = "Minions have #% increased Movement Speed", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6, 
+				["max"] = 10, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 11, 
-				["max"] = 41.5, 
+			["Ring"] = {
+				["min"] = 6, 
+				["max"] = 30, 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 16.5, 
-				["max"] = 62, 
+			["AnyJewel"] = {
+				["min"] = 6, 
+				["max"] = 10, 
 			}, 
 		}, 
 		["1304_AddedManaRegeneration"] = {
@@ -9877,27 +14034,15 @@ return {
 				["max"] = 21.5, 
 			}, 
 		}, 
-		["1817_AddedChaosDamageWithClaws"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4191067677", 
-				["text"] = "# to # Added Chaos Damage with Claw Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 6.5, 
-				["max"] = 18.5, 
-			}, 
+		["1283_ArmourEnergyShieldForJewel"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2482852589", 
+				["text"] = "#% increased maximum Energy Shield", 
+			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 6.5, 
-				["max"] = 18.5, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 6.5, 
-				["max"] = 18.5, 
-			}, 
 		}, 
 		["3945_PowerChargeOnBlock"] = {
 			["specialCaseData"] = {
@@ -9923,26 +14068,26 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1799_AddedFireDamageWithWands"] = {
+		["1264_IncreasedArmourForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_87098247", 
-				["text"] = "# to # Added Fire Damage with Wand Attacks", 
+				["id"] = "explicit.stat_2866361420", 
+				["text"] = "#% increased Armour", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 25, 
+				["min"] = 14, 
+				["max"] = 18, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 25, 
+			["BaseJewel"] = {
+				["min"] = 14, 
+				["max"] = 18, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 25, 
+				["min"] = 14, 
+				["max"] = 18, 
 			}, 
 		}, 
 		["1301_IncreasedManaAndCostNew"] = {
@@ -9969,23 +14114,19 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["93_LocalIncreaseSocketedFireGemLevel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_339179093", 
-				["text"] = "# to Level of Socketed Fire Gems", 
-			}, 
+		["1549_CriticalStrikeChanceSpellsTwoHandedPowerCharge"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3814876985", 
+				["text"] = "#% chance to gain a Power Charge on Critical Strike", 
+			}, 
 			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 2, 
+				["min"] = 10, 
+				["max"] = 10, 
 			}, 
-			["sign"] = "+", 
-			["Boots"] = {
-				["min"] = 2, 
-				["max"] = 2, 
-			}, 
+			["sign"] = "", 
 		}, 
 		["2867_PoisonDamage"] = {
 			["specialCaseData"] = {
@@ -10015,30 +14156,26 @@ return {
 				["max"] = 109, 
 			}, 
 		}, 
-		["1792_AddedFireDamageWithAxes"] = {
+		["1111_LightningGemCastSpeedForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2461965653", 
-				["text"] = "# to # Added Fire Damage with Axe Attacks", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 25, 
+				["id"] = "explicit.stat_1788635023", 
+				["text"] = "#% increased Cast Speed with Lightning Skills", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 25, 
+				["min"] = 3, 
+				["max"] = 5, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 25, 
+			["BaseJewel"] = {
+				["min"] = 3, 
+				["max"] = 5, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 25, 
+				["min"] = 3, 
+				["max"] = 5, 
 			}, 
 		}, 
 		["7923_PhysicalDamageReductionRatingDuringSoulGainPrevention"] = {
@@ -10059,26 +14196,26 @@ return {
 				["max"] = 4000, 
 			}, 
 		}, 
-		["1784_AddedPhysicalDamageWithClaws"] = {
+		["907_StrengthForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3303015", 
-				["text"] = "# to # Added Physical Damage with Claw Attacks", 
+				["id"] = "explicit.stat_4080418644", 
+				["text"] = "# to Strength", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+				["min"] = 12, 
+				["max"] = 16, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+			["sign"] = "+", 
+			["BaseJewel"] = {
+				["min"] = 12, 
+				["max"] = 16, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+				["min"] = 12, 
+				["max"] = 16, 
 			}, 
 		}, 
 		["1183_SpellCriticalStrikeChance"] = {
@@ -10117,26 +14254,26 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1306_IncreasedManaRegenForJewel"] = {
+		["1464_ManaGainPerTargetForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_789117908", 
-				["text"] = "#% increased Mana Regeneration Rate", 
+				["id"] = "explicit.stat_820939409", 
+				["text"] = "Gain # Mana per Enemy Hit with Attacks", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 1, 
+				["max"] = 2, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["BaseJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 1, 
+				["max"] = 2, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 1, 
+				["max"] = 2, 
 			}, 
 		}, 
 		["3986_ElementalDamageTakenWhileStationary"] = {
@@ -10233,45 +14370,25 @@ return {
 				["max"] = 15, 
 			}, 
 		}, 
-		["2769_ChanceToGainUnholyMightOnKillAbyss"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3166317791", 
-				["text"] = "#% chance to Gain Unholy Might for 4 seconds on Melee Kill", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2, 
-				["max"] = 5, 
-			}, 
+		["1302_EnergyShieldAndManaForJewel"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 2, 
-				["max"] = 5, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2748665614", 
+				["text"] = "#% increased maximum Mana", 
 			}, 
+			["sign"] = "", 
 		}, 
-		["1850_DamageOverTimeWhileWieldingTwoHandedWeapon"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4193088553", 
-				["text"] = "#% increased Damage over Time while wielding a Two Handed Weapon", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 18, 
-			}, 
+		["1283_EnergyShieldAndManaForJewel"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2482852589", 
+				["text"] = "#% increased maximum Energy Shield", 
+			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 10, 
-				["max"] = 18, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 18, 
-			}, 
 		}, 
 		["2649_GlobalChanceToBlindOnHit"] = {
 			["Gloves"] = {
@@ -10306,10 +14423,11 @@ return {
 		["6781_PoisonDamageAndLocalChanceOnHit"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_795138349", 
-				["text"] = "#% chance to Poison on Hit", 
+				["id"] = "explicit.stat_3885634897", 
+				["text"] = "#% chance to Poison on Hit (Local)", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to Poison on Hit", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -10537,14 +14655,15 @@ return {
 				["max"] = 15, 
 			}, 
 		}, 
-		["7341_MapMonsterPacksVaalMapWorlds"] = {
+		["3156_ChanceToLoseManaOnSkillUse"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2609768284", 
-				["text"] = "Area is inhabited by the Vaal", 
+				["id"] = "explicit.stat_2858930612", 
+				["text"] = "#% chance to lose 10% of Mana when you use a Skill", 
 			}, 
+			["sign"] = "", 
 		}, 
 		["296_TrapDamageMineSupported"] = {
 			["specialCaseData"] = {
@@ -10560,44 +14679,32 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1131_SpellAddedColdDamagePenetrationHybrid"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2469416729", 
-				["text"] = "Adds # to # Cold Damage to Spells", 
-			}, 
+		["1135_AddedLightningDamageSpellsAndAttacks"] = {
 			["specialCaseData"] = {
 			}, 
-			["2HWeapon"] = {
-				["min"] = 11.5, 
-				["max"] = 47, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 7.5, 
-				["max"] = 31.5, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2885144362", 
+				["text"] = "Adds # to # Lightning Damage to Spells and Attacks", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1785_AddedPhysicalDamageWithDaggers"] = {
+		["3024_IncreasedTwoHandedMeleeDamageForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1298238534", 
-				["text"] = "# to # Added Physical Damage with Dagger Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+				["id"] = "explicit.stat_1836374041", 
+				["text"] = "#% increased Damage with Two Handed Weapons", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+			["BaseJewel"] = {
+				["min"] = 12, 
+				["max"] = 14, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+				["min"] = 12, 
+				["max"] = 14, 
 			}, 
 		}, 
 		["8477_WarcryTauntedEnemiesTakeIncreasedDamage"] = {
@@ -10610,27 +14717,19 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1809_AddedLightningDamageWithBows"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1040269876", 
-				["text"] = "# to # Added Lightning Damage with Bow Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
-			}, 
+		["384_SocketedSkillsAttackSpeed"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2881124988", 
+				["text"] = "Socketed Skills have #% increased Attack Speed", 
+			}, 
+			["Gloves"] = {
+				["min"] = 18, 
+				["max"] = 18, 
+			}, 
 			["sign"] = "", 
-			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
-			}, 
 		}, 
 		["1344_MaximumFireResist"] = {
 			["tradeMod"] = {
@@ -10660,31 +14759,19 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1798_AddedFireDamageWithSwords"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_601249293", 
-				["text"] = "# to # Added Fire Damage with Sword Attacks", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 25, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 25, 
-			}, 
+		["5171_OLDAdditionalCurseOnEnemiesMaven"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_443165947", 
+				["text"] = "#% increased Mana Reservation Efficiency of Curse Aura Skills", 
+			}, 
+			["Chest"] = {
+				["min"] = 20, 
+				["max"] = 20, 
+			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 25, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 25, 
-			}, 
 		}, 
 		["1188_CriticalStrikeChanceTwoHandedCritMultiRecently"] = {
 			["specialCaseData"] = {
@@ -10749,22 +14836,50 @@ return {
 				["text"] = "Solipsism", 
 			}, 
 		}, 
-		["1096_AddedColdSuffix"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4067062424", 
-				["text"] = "Adds # to # Cold Damage to Attacks", 
+		["910_StrengthAndDexterity"] = {
+			["Gloves"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 19.5, 
+			["Quiver"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 19.5, 
+			["sign"] = "+", 
+			["Belt"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_538848803", 
+				["text"] = "# to Strength and Dexterity", 
+			}, 
+			["Boots"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Chest"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Helmet"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Ring"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Amulet"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Shield"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
 		}, 
 		["6308_GlobalLightningGemLevel"] = {
@@ -10781,27 +14896,53 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1301_BaseManaAndLifeDegenGracePeriod"] = {
-			["specialCaseData"] = {
-			}, 
+		["1131_SpellAddedColdDamagePenetrationHybrid"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1050105434", 
-				["text"] = "# to maximum Mana", 
+				["id"] = "explicit.stat_2469416729", 
+				["text"] = "Adds # to # Cold Damage to Spells", 
 			}, 
-			["sign"] = "+", 
-		}, 
-		["2735_MapMonsterPacksVaalMapWorlds"] = {
 			["specialCaseData"] = {
 			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_728267040", 
-				["text"] = "Found Items have #% chance to drop Corrupted in Area", 
+			["2HWeapon"] = {
+				["min"] = 11.5, 
+				["max"] = 47, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 7.5, 
+				["max"] = 31.5, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["5665_SkillsCostNoManaWhileFocusedCDR"] = {
+		["2294_CurseEffectiveness"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2353576063", 
+				["text"] = "#% increased Effect of your Curses", 
+			}, 
+			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 8, 
+				["max"] = 12, 
+			}, 
+		}, 
+		["1262_ArmourAndEnergyShield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_809229260", 
+				["text"] = "# to Armour", 
+			}, 
+			["sign"] = "+", 
+			["Belt"] = {
+				["min"] = 365, 
+				["max"] = 400, 
+			}, 
+		}, 
+		["5665_FocusCooldownRecovery"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
@@ -10810,23 +14951,9 @@ return {
 				["text"] = "Focus has #% increased Cooldown Recovery Rate", 
 			}, 
 			["sign"] = "", 
-		}, 
-		["5537_FlatEnergyShieldRegeneration"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2561836520", 
-				["text"] = "Regenerate # Energy Shield per second", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 9, 
-				["max"] = 20, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 9, 
-				["max"] = 20, 
+			["Boots"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
 		}, 
 		["169_WeaponSpellDamageEfficacy"] = {
@@ -10843,103 +14970,84 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["4407_EnchantmentElusive"] = {
+		["1610_IncreaseManaCostFlat"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2662268382", 
-				["text"] = "#% chance to Avoid Elemental Ailments while you have Elusive", 
+				["id"] = "explicit.stat_3736589033", 
+				["text"] = "# to Total Mana Cost of Skills", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
+			["sign"] = "-", 
+		}, 
+		["1599_LocalIncreasedPhysicalDamagePercentAndArea"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_280731498", 
+				["text"] = "#% increased Area of Effect", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Area of Effect", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["1565_StrengthAndAvoidIgnite"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1783006896", 
+				["text"] = "#% chance to Avoid being Ignited", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
-			}, 
-		}, 
-		["347_PoisonDamageSupported"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_228165595", 
-				["text"] = "Socketed Gems are Supported by Level # Chance to Poison", 
-			}, 
-			["Gloves"] = {
-				["min"] = 16, 
+			["Chest"] = {
+				["min"] = 21, 
 				["max"] = 25, 
 			}, 
-			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 21, 
+				["max"] = 25, 
+			}, 
 		}, 
-		["1301_AbyssJewelMana"] = {
+		["907_StrengthAndAvoidIgnite"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1050105434", 
-				["text"] = "# to maximum Mana", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 21, 
-				["max"] = 40, 
+				["id"] = "explicit.stat_4080418644", 
+				["text"] = "# to Strength", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 21, 
-				["max"] = 40, 
+			["Chest"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 21, 
-				["max"] = 40, 
-			}, 
-		}, 
-		["1133_SpellAddedChaosSuffix"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2300399854", 
-				["text"] = "Adds # to # Chaos Damage to Spells", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 4.5, 
-				["max"] = 19, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 4.5, 
-				["max"] = 19, 
+			["Shield"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
 		}, 
-		["1782_AddedPhysicalDamageWithAxes"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_311030839", 
-				["text"] = "# to # Added Physical Damage with Axe Attacks", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
+		["1747_AreaDamageAndAreaOfEffect"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4251717817", 
+				["text"] = "#% increased Area Damage", 
+			}, 
+			["Amulet"] = {
+				["min"] = 17, 
+				["max"] = 20, 
+			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
 		}, 
 		["124_SocketedGemQuality"] = {
 			["tradeMod"] = {
@@ -10963,33 +15071,51 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
-		["1826_SpellAddedFireDamageWhileHoldingAShield"] = {
+		["1273_LocalIncreasedEvasionAndLife"] = {
+			["Gloves"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_44182350", 
-				["text"] = "# to # Added Spell Fire Damage while holding a Shield", 
+				["id"] = "explicit.stat_124859000", 
+				["text"] = "#% increased Evasion Rating (Local)", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 3.5, 
-				["max"] = 29.5, 
+			["Chest"] = {
+				["min"] = 24, 
+				["max"] = 28, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Evasion Rating", 
 			}, 
 			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 3.5, 
-				["max"] = 29.5, 
+			["Helmet"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
+			["Boots"] = {
+				["min"] = 24, 
+				["max"] = 28, 
 			}, 
 		}, 
-		["1352_ColdResistanceAilments"] = {
-			["specialCaseData"] = {
-			}, 
+		["1969_LocalIncreasedPhysicalDamageAndBlindChance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4220027924", 
-				["text"] = "#% to Cold Resistance", 
+				["id"] = "explicit.stat_2301191210", 
+				["text"] = "#% chance to Blind Enemies on hit", 
 			}, 
-			["sign"] = "+", 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to Blind Enemies on hit", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 25, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 25, 
+			}, 
 		}, 
 		["1112_IncreasedChaosAndPhysicalDamage"] = {
 			["specialCaseData"] = {
@@ -11019,41 +15145,42 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1811_AddedLightningDamageWithDaggers"] = {
+		["961_LocalIncreasedPhysicalDamageAndBlindChance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3479683016", 
-				["text"] = "# to # Added Lightning Damage with Dagger Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+				["min"] = 120, 
+				["max"] = 139, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+			["2HWeapon"] = {
+				["min"] = 120, 
+				["max"] = 139, 
 			}, 
 		}, 
-		["3464_RegenerateLifeOver1Second"] = {
-			["specialCaseData"] = {
+		["2232_MeleeRangeAndMeleeGemLevel"] = {
+			["Gloves"] = {
+				["min"] = 2, 
+				["max"] = 2, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1242155304", 
-				["text"] = "Every 4 seconds, Regenerate #% of Life over one second", 
+				["id"] = "explicit.stat_2264295449", 
+				["text"] = "# to Melee Strike Range", 
 			}, 
-			["Chest"] = {
-				["min"] = 15, 
-				["max"] = 25, 
+			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
 		}, 
 		["2391_DamageRemovedFromManaBeforeLife"] = {
 			["specialCaseData"] = {
@@ -11069,79 +15196,48 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1674_ConvertPhysicalToCold"] = {
+		["103_MeleeRangeAndMeleeGemLevel"] = {
 			["Gloves"] = {
-				["min"] = 18, 
-				["max"] = 35, 
+				["min"] = 2, 
+				["max"] = 2, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2133341901", 
-				["text"] = "#% of Physical Damage Converted to Cold Damage", 
-			}, 
-			["Quiver"] = {
-				["min"] = 18, 
-				["max"] = 25, 
+				["id"] = "explicit.stat_829382474", 
+				["text"] = "# to Level of Socketed Melee Gems", 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 23, 
-				["max"] = 30, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 23, 
-				["max"] = 30, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 2, 
+				["max"] = 2, 
 			}, 
 		}, 
-		["1148_ClawAttackSpeedForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1421645223", 
-				["text"] = "#% increased Attack Speed with Claws", 
-			}, 
-			["BaseJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
+		["170_ElementalDamagePrefixElementalFocus"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1169422227", 
+				["text"] = "Socketed Gems are Supported by Level # Elemental Focus", 
+			}, 
 			["1HWeapon"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-		}, 
-		["1171_IncreasedCastSpeedForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2891184298", 
-				["text"] = "#% increased Cast Speed", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2, 
-				["max"] = 4, 
-			}, 
-			["specialCaseData"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+		}, 
+		["1084_LocalFireDamageHybrid"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Fire Damage", 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3962278098", 
+				["text"] = "#% increased Fire Damage", 
 			}, 
+			["sign"] = "", 
 		}, 
 		["6715_NearbyEnemyChaosDamageResistance"] = {
 			["specialCaseData"] = {
@@ -11157,79 +15253,59 @@ return {
 			}, 
 			["sign"] = "-", 
 		}, 
-		["1787_AddedPhysicalDamageWithStaves"] = {
+		["1599_SkillAreaOfEffectPercentAndAreaOfEffectGemLevel"] = {
+			["Gloves"] = {
+				["min"] = 8, 
+				["max"] = 10, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_69898010", 
-				["text"] = "# to # Added Physical Damage with Staff Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+				["id"] = "explicit.stat_280731498", 
+				["text"] = "#% increased Area of Effect", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["2HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
+			["Helmet"] = {
+				["min"] = 8, 
+				["max"] = 10, 
 			}, 
 		}, 
-		["1803_AddedColdDamageWithDaggers"] = {
+		["8751_CallToArms"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1263342750", 
-				["text"] = "# to # Added Cold Damage with Dagger Attacks", 
+				["id"] = "explicit.stat_3292262540", 
+				["text"] = "Call to Arms", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 6.5, 
-				["max"] = 21.5, 
-			}, 
+		}, 
+		["2910_MovementVelocityAndMovementVelocityIfNotHitRecently"] = {
 			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1177358866", 
+				["text"] = "#% increased Movement Speed if you haven't been Hit Recently", 
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 6.5, 
-				["max"] = 21.5, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 6.5, 
-				["max"] = 21.5, 
+			["Boots"] = {
+				["min"] = 10, 
+				["max"] = 12, 
 			}, 
 		}, 
-		["1816_AddedChaosDamageWithBows"] = {
+		["1517_MovementVelocityAndMovementVelocityIfNotHitRecently"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3478075311", 
-				["text"] = "# to # Added Chaos Damage with Bow Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 6.5, 
-				["max"] = 18.5, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_2250533757", 
+				["text"] = "#% increased Movement Speed", 
 			}, 
 			["sign"] = "", 
-			["2HWeapon"] = {
-				["min"] = 6.5, 
-				["max"] = 18.5, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 6.5, 
-				["max"] = 18.5, 
-			}, 
-		}, 
-		["8765_KeystoneGhostReaver"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4272248216", 
-				["text"] = "Ghost Reaver", 
+			["Boots"] = {
+				["min"] = 25, 
+				["max"] = 30, 
 			}, 
 		}, 
 		["1570_AvoidStun"] = {
@@ -11297,23 +15373,19 @@ return {
 				["max"] = 60, 
 			}, 
 		}, 
-		["3448_MinionAddedChaosDamage"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2889601781", 
-				["text"] = "Minions deal # to # additional Chaos Damage", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 3.5, 
-				["max"] = 32.5, 
-			}, 
+		["1710_ProjectileDamageAndProjectileSpeed"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 3.5, 
-				["max"] = 32.5, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1839076647", 
+				["text"] = "#% increased Projectile Damage", 
 			}, 
+			["Amulet"] = {
+				["min"] = 17, 
+				["max"] = 20, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["2683_ChanceToGainOnslaughtOnKillMaven"] = {
 			["tradeMod"] = {
@@ -11351,23 +15423,19 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
-		["1821_SpellAddedChaosDamageWhileWieldingTwoHandedWeapon"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1743759111", 
-				["text"] = "# to # Added Spell Chaos Damage while wielding a Two Handed Weapon", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2, 
-				["max"] = 20.5, 
-			}, 
+		["1515_ProjectileDamageAndProjectileSpeed"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 2, 
-				["max"] = 20.5, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3759663284", 
+				["text"] = "#% increased Projectile Speed", 
 			}, 
+			["Amulet"] = {
+				["min"] = 23, 
+				["max"] = 25, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["4332_ChanceToGainOnslaughtOnKillMaven"] = {
 			["tradeMod"] = {
@@ -11387,22 +15455,34 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
-		["1824_SpellAddedColdDamageWhileWieldingTwoHandedWeapon"] = {
+		["2674_LightningResistancePenetration"] = {
+			["Amulet"] = {
+				["min"] = 4, 
+				["max"] = 10, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2464689927", 
-				["text"] = "# to # Added Spell Cold Damage while wielding a Two Handed Weapon", 
+				["id"] = "explicit.stat_818778753", 
+				["text"] = "Damage Penetrates #% Lightning Resistance", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 15, 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 3.5, 
-				["max"] = 29.5, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 8, 
+			}, 
 			["AnyJewel"] = {
-				["min"] = 3.5, 
-				["max"] = 29.5, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["1235_ReducedExtraDamageFromCrits"] = {
@@ -11419,22 +15499,17 @@ return {
 				["max"] = 60, 
 			}, 
 		}, 
-		["3450_MinionAddedFireDamage"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3351784991", 
-				["text"] = "Minions deal # to # additional Fire Damage", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 5.5, 
-				["max"] = 43, 
-			}, 
+		["5802_LifeLeechFromAnyDamagePermyriadWhileFocusedAndVaalPact"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 5.5, 
-				["max"] = 43, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2022851697", 
+				["text"] = "You have Vaal Pact while Focused", 
+			}, 
+			["Amulet"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["1153_WandAttackSpeedForJewel"] = {
@@ -11499,69 +15574,77 @@ return {
 				["max"] = 27.5, 
 			}, 
 		}, 
-		["155_SupportedByCastOnMeleeKillWeapon"] = {
-			["specialCaseData"] = {
-			}, 
+		["1267_EvasionRatingAndEnergyShield"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3312593243", 
-				["text"] = "Socketed Gems are Supported by Level # Cast On Melee Kill", 
+				["id"] = "explicit.stat_2144192055", 
+				["text"] = "# to Evasion Rating", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 20, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1838_EnduranceChargeDurationForJewel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1170174456", 
-				["text"] = "#% increased Endurance Charge Duration", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["7677_MinionAccuracyRatingForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1718147982", 
-				["text"] = "#% increased Minion Accuracy Rating", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 22, 
-				["max"] = 26, 
+			["Quiver"] = {
+				["min"] = 365, 
+				["max"] = 400, 
 			}, 
 			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 22, 
-				["max"] = 26, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 22, 
-				["max"] = 26, 
-			}, 
-		}, 
-		["1346_FireResistanceLeech"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3372524247", 
-				["text"] = "#% to Fire Resistance", 
 			}, 
 			["sign"] = "+", 
+			["Belt"] = {
+				["min"] = 365, 
+				["max"] = 400, 
+			}, 
 		}, 
-		["1293_LifeAndEnergyShieldForJewel"] = {
+		["2321_MinimumEnduranceChargesAndOnKillChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1054322244", 
+				["text"] = "#% chance to gain an Endurance Charge on Kill", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 3, 
+				["max"] = 4, 
+			}, 
+			["Ring"] = {
+				["min"] = 3, 
+				["max"] = 4, 
+			}, 
+		}, 
+		["219_SupportedByPowerChargeOnCritWeapon"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_983749596", 
-				["text"] = "#% increased maximum Life", 
+				["id"] = "explicit.stat_4015918489", 
+				["text"] = "Socketed Gems are Supported by Level # Power Charge On Critical Strike", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 10, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5665_TriggerSocketedSpellWhenYouFocusCDR"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3610263531", 
+				["text"] = "Focus has #% increased Cooldown Recovery Rate", 
+			}, 
+			["Helmet"] = {
+				["min"] = 5, 
+				["max"] = 8, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2322_MinimumEnduranceChargesAndOnKillLose"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_627015097", 
+				["text"] = "#% chance to lose an Endurance Charge on Kill", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -11579,26 +15662,23 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1419_ManaLeechPermyriadForJewel"] = {
+		["961_LocalIncreasedPhysicalDamageAndPoisonChance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3237948413", 
-				["text"] = "#% of Physical Attack Damage Leeched as Mana", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 0.2, 
-				["max"] = 0.4, 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 0.2, 
-				["max"] = 0.4, 
+			["1HWeapon"] = {
+				["min"] = 120, 
+				["max"] = 139, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 0.2, 
-				["max"] = 0.4, 
+			["2HWeapon"] = {
+				["min"] = 120, 
+				["max"] = 139, 
 			}, 
 		}, 
 		["1527_MinimumFrenzyChargesAndOnKillLose"] = {
@@ -11675,19 +15755,16 @@ return {
 				["max"] = 16, 
 			}, 
 		}, 
-		["5228_DamagePerBlockChance"] = {
+		["6737_StrengthAndLocalItemQuality"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3400437584", 
-				["text"] = "#% increased Damage per 1% Chance to Block Attack Damage", 
+				["id"] = "explicit.stat_2016708976", 
+				["text"] = "#% to Quality", 
 			}, 
-			["sign"] = "", 
-			["Shield"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
+			["sign"] = "+", 
 		}, 
 		["1939_IncreasedManaAndReservation"] = {
 			["specialCaseData"] = {
@@ -11699,41 +15776,43 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1066_IncreasedSwordDamageForJewel"] = {
+		["545_LocalAttackSpeedAndLocalDisplayTriggerLevel1BloodRageOnKillChance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_83050999", 
-				["text"] = "#% increased Damage with Swords", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+				["id"] = "explicit.stat_205619502", 
+				["text"] = "#% chance to Trigger Level 1 Blood Rage when you Kill an Enemy", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to Trigger Level # Blood Rage when you Kill an Enemy", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+				["min"] = 15, 
+				["max"] = 15, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["2HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 15, 
 			}, 
 		}, 
-		["1293_PercentageLifeAndManaForJewel"] = {
-			["specialCaseData"] = {
-			}, 
+		["1371_LocalIncreasedPhysicalDamagePercentAndLeech"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_983749596", 
-				["text"] = "#% increased maximum Life", 
+				["id"] = "explicit.stat_55876295", 
+				["text"] = "#% of Physical Attack Damage Leeched as Life (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% of Physical Attack Damage Leeched as Life", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 0.6, 
+				["max"] = 0.6, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 0.6, 
+				["max"] = 0.6, 
+			}, 
 		}, 
 		["3076_FlaskChargeOnCrit"] = {
 			["specialCaseData"] = {
@@ -11762,25 +15841,46 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1219_CritMultiplierWithBowForJewel"] = {
-			["specialCaseData"] = {
-			}, 
+		["1532_MinimumPowerChargesAndOnKillChance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1712221299", 
-				["text"] = "#% to Critical Strike Multiplier with Bows", 
+				["id"] = "explicit.stat_1999711879", 
+				["text"] = "# to Minimum Power Charges", 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-		}, 
-		["1198_TrapCritChanceForJewel"] = {
-			["specialCaseData"] = {
+			["Amulet"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
+			["Ring"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+		}, 
+		["125_LocalIncreaseSocketedSupportGemLevelAndQuality"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1192661666", 
-				["text"] = "#% increased Critical Strike Chance with Traps", 
+				["id"] = "explicit.stat_1328548975", 
+				["text"] = "#% to Quality of Socketed Support Gems", 
 			}, 
-			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 8, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality of Socketed Support Gems", 
+			}, 
+			["sign"] = "+", 
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 8, 
+			}, 
+			["Shield"] = {
+				["min"] = 5, 
+				["max"] = 8, 
+			}, 
 		}, 
 		["1085_SelfFireAndColdDamageTaken"] = {
 			["specialCaseData"] = {
@@ -11792,48 +15892,60 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1184_AccuracyAndCritsForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_587431675", 
-				["text"] = "#% increased Global Critical Strike Chance", 
+		["1304_BaseLifeAndManaRegen"] = {
+			["Gloves"] = {
+				["min"] = 5.3, 
+				["max"] = 5.3, 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 10, 
+			["Quiver"] = {
+				["min"] = 5.3, 
+				["max"] = 5.3, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 6, 
-				["max"] = 10, 
+			["Belt"] = {
+				["min"] = 5.3, 
+				["max"] = 5.3, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 10, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4291461939", 
+				["text"] = "Regenerate # Mana per second", 
+			}, 
+			["Helmet"] = {
+				["min"] = 5.3, 
+				["max"] = 5.3, 
+			}, 
+			["Ring"] = {
+				["min"] = 5.3, 
+				["max"] = 5.3, 
+			}, 
+			["Amulet"] = {
+				["min"] = 5.3, 
+				["max"] = 5.3, 
+			}, 
+			["Boots"] = {
+				["min"] = 5.3, 
+				["max"] = 5.3, 
 			}, 
 		}, 
-		["1759_AttackAndCastSpeedForJewel"] = {
+		["1738_FireDamageAndChanceToIgnite"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2672805335", 
-				["text"] = "#% increased Attack and Cast Speed", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+				["id"] = "explicit.stat_1335054179", 
+				["text"] = "#% chance to Ignite", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+			["1HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 40, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+			["2HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 40, 
 			}, 
 		}, 
 		["984_ColdDamageOverTimeMultiplier"] = {
@@ -11870,22 +15982,50 @@ return {
 				["max"] = 25, 
 			}, 
 		}, 
-		["1145_OneHandedMeleeAttackSpeedForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1813451228", 
-				["text"] = "#% increased Attack Speed with One Handed Melee Weapons", 
+		["912_DexterityAndIntelligence"] = {
+			["Gloves"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Quiver"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
+			["sign"] = "+", 
+			["Belt"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2300185227", 
+				["text"] = "# to Dexterity and Intelligence", 
+			}, 
+			["Boots"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Chest"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Helmet"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Ring"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Amulet"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Shield"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
 		}, 
 		["1287_EnergyShieldRegenerationPerMinuteMaven"] = {
@@ -11974,23 +16114,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1645_MineLayingSpeed"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1896971621", 
-				["text"] = "#% increased Mine Throwing Speed", 
-			}, 
+		["1870_LifeLeechSpeed"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2633745731", 
+				["text"] = "#% increased total Recovery per second from Life Leech", 
+			}, 
 			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["Helmet"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
 		}, 
 		["5239_DamageChilledEnemies"] = {
 			["specialCaseData"] = {
@@ -12006,59 +16138,92 @@ return {
 				["max"] = 40, 
 			}, 
 		}, 
-		["1467_EnergyShieldGainPerTargetForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_211381198", 
-				["text"] = "Gain # Energy Shield per Enemy Hit with Attacks", 
+		["1301_BaseManaAndLifeRegen"] = {
+			["Gloves"] = {
+				["min"] = 55, 
+				["max"] = 60, 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 2, 
-				["max"] = 3, 
+			["Quiver"] = {
+				["min"] = 55, 
+				["max"] = 60, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 2, 
-				["max"] = 3, 
+			["sign"] = "+", 
+			["Belt"] = {
+				["min"] = 55, 
+				["max"] = 60, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 2, 
-				["max"] = 3, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1050105434", 
+				["text"] = "# to maximum Mana", 
+			}, 
+			["Helmet"] = {
+				["min"] = 55, 
+				["max"] = 60, 
+			}, 
+			["Ring"] = {
+				["min"] = 55, 
+				["max"] = 60, 
+			}, 
+			["Amulet"] = {
+				["min"] = 55, 
+				["max"] = 60, 
+			}, 
+			["Boots"] = {
+				["min"] = 55, 
+				["max"] = 60, 
 			}, 
 		}, 
-		["1287_EnergyShieldRechargeRateForJewel"] = {
+		["1291_LocalIncreasedEnergyShieldAndLife"] = {
+			["Gloves"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2339757871", 
-				["text"] = "#% increased Energy Shield Recharge Rate", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+			["Chest"] = {
+				["min"] = 17, 
+				["max"] = 26, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
 			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 17, 
+				["max"] = 26, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+			["Boots"] = {
+				["min"] = 17, 
+				["max"] = 26, 
 			}, 
 		}, 
-		["1840_FrenzyChargeDurationForJewel"] = {
-			["specialCaseData"] = {
+		["953_SpellDamage"] = {
+			["Gloves"] = {
+				["min"] = 18, 
+				["max"] = 38, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3338298622", 
-				["text"] = "#% increased Frenzy Charge Duration", 
+				["id"] = "explicit.stat_2974417149", 
+				["text"] = "#% increased Spell Damage", 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 3, 
+				["max"] = 26, 
+			}, 
+			["Ring"] = {
+				["min"] = 15, 
+				["max"] = 25, 
+			}, 
 		}, 
 		["307_IncreasedAttackSpeedSupported"] = {
 			["specialCaseData"] = {
@@ -12168,15 +16333,20 @@ return {
 				["max"] = 6, 
 			}, 
 		}, 
-		["1855_PowerChargeDurationForJewel"] = {
+		["102_LocalIncreaseSocketedBowGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Bow Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3872306017", 
-				["text"] = "#% increased Power Charge Duration", 
+				["id"] = "explicit.stat_2027269580", 
+				["text"] = "# to Level of Socketed Bow Gems", 
 			}, 
-			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["sign"] = "+", 
 		}, 
 		["1291_IncreasedLife"] = {
 			["Shield"] = {
@@ -12208,83 +16378,7 @@ return {
 				["max"] = 99, 
 			}, 
 		}, 
-		["1005_IncreasedDualWieldlingDamageForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_444174528", 
-				["text"] = "#% increased Attack Damage while Dual Wielding", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 12, 
-				["max"] = 14, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 12, 
-				["max"] = 14, 
-			}, 
-		}, 
-		["1215_SpellCritMultiplierForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_274716455", 
-				["text"] = "#% to Critical Strike Multiplier for Spell Damage", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
-			}, 
-		}, 
-		["7600_StrikeSkillsAdditionalTarget"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1661253443", 
-				["text"] = "Strike Skills target # additional nearby Enemy", 
-			}, 
-			["Gloves"] = {
-				["min"] = 1, 
-				["max"] = 2, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1690_MinionDamageForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1589917703", 
-				["text"] = "Minions deal #% increased Damage", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-		}, 
-		["1563_AvoidChillForJewel"] = {
+		["1563_MovementVelocityAndCannotBeChilled"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
@@ -12293,57 +16387,107 @@ return {
 				["text"] = "#% chance to Avoid being Chilled", 
 			}, 
 			["sign"] = "", 
-		}, 
-		["1052_IncreasedMaceDamageForJewel"] = {
-			["2HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["Boots"] = {
+				["min"] = 100, 
+				["max"] = 100, 
 			}, 
+		}, 
+		["4377_AttackSpeedPercentIfRareOrUniqueEnemyNearby"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1181419800", 
-				["text"] = "#% increased Damage with Maces or Sceptres", 
-			}, 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+				["id"] = "explicit.stat_314741699", 
+				["text"] = "#% increased Attack Speed while a Rare or Unique Enemy is Nearby", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+				["min"] = 12, 
+				["max"] = 15, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["2HWeapon"] = {
+				["min"] = 27, 
+				["max"] = 30, 
 			}, 
 		}, 
-		["1093_ColdDamageForJewel"] = {
+		["960_IncreasedChaosAndPhysicalDamage"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3291658075", 
-				["text"] = "#% increased Cold Damage", 
+				["id"] = "explicit.stat_1310194496", 
+				["text"] = "#% increased Global Physical Damage", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["Ring"] = {
+				["min"] = 20, 
+				["max"] = 22, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1104_IncreasedFireAndLightningDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2231156303", 
+				["text"] = "#% increased Lightning Damage", 
+			}, 
+			["Ring"] = {
+				["min"] = 20, 
+				["max"] = 22, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1458_LifeGainPerTargetLocal"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_821021828", 
+				["text"] = "Grants # Life per Enemy Hit", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Grants # Life per Enemy Hit", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 5, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 5, 
+			}, 
+		}, 
+		["961_LocalIncreasedPhysicalDamagePercentAndCritChance"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2323_MinimumFrenzyChargesAndOnKillChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1826802197", 
+				["text"] = "#% chance to gain a Frenzy Charge on Kill", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["Amulet"] = {
+				["min"] = 3, 
+				["max"] = 4, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["Ring"] = {
+				["min"] = 3, 
+				["max"] = 4, 
 			}, 
 		}, 
 		["2704_IncreasedDamagePerCurse"] = {
@@ -12358,6 +16502,7 @@ return {
 		}, 
 		["136_LocalIncreaseSocketedLightningGemLevelMaven"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality of Socketed Lightning Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -12370,25 +16515,41 @@ return {
 				["max"] = 7, 
 			}, 
 		}, 
-		["1283_EvasionEnergyShieldForJewel"] = {
-			["specialCaseData"] = {
-			}, 
+		["1527_MinimumFrenzyChargesAndOnKillChance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2482852589", 
-				["text"] = "#% increased maximum Energy Shield", 
+				["id"] = "explicit.stat_658456881", 
+				["text"] = "# to Minimum Frenzy Charges", 
 			}, 
-			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["Amulet"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Ring"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 		}, 
-		["1272_EvasionEnergyShieldForJewel"] = {
-			["specialCaseData"] = {
-			}, 
+		["1564_DexterityAndAvoidFreeze"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2106365538", 
-				["text"] = "#% increased Evasion Rating", 
+				["id"] = "explicit.stat_1514829491", 
+				["text"] = "#% chance to Avoid being Frozen", 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["Chest"] = {
+				["min"] = 21, 
+				["max"] = 25, 
+			}, 
+			["Shield"] = {
+				["min"] = 21, 
+				["max"] = 25, 
+			}, 
 		}, 
 		["1306_ManaRegeneration"] = {
 			["specialCaseData"] = {
@@ -12424,149 +16585,129 @@ return {
 				["max"] = 69, 
 			}, 
 		}, 
-		["1207_ColdCritChanceForJewel"] = {
+		["992_LocalPoisonDamageOverTimeMultiplier"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3337344042", 
-				["text"] = "#% increased Critical Strike Chance with Cold Skills", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
+				["id"] = "explicit.stat_4096656097", 
+				["text"] = "#% to Damage over Time Multiplier for Poison inflicted with this Weapon", 
 			}, 
 			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
-			}, 
-		}, 
-		["912_DexterityIntelligenceForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2300185227", 
-				["text"] = "# to Dexterity and Intelligence", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
-			}, 
-			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Damage over Time Multiplier for Poison inflicted with this Weapon", 
 			}, 
 			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
-			}, 
-		}, 
-		["2856_PoisonDurationWeaponSupported"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2011656677", 
-				["text"] = "#% increased Poison Duration", 
-			}, 
 			["1HWeapon"] = {
-				["min"] = 6, 
-				["max"] = 14, 
+				["min"] = 37, 
+				["max"] = 59, 
 			}, 
-			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 37, 
+				["max"] = 59, 
+			}, 
 		}, 
-		["1576_ShockDurationForJewel"] = {
-			["specialCaseData"] = {
-			}, 
+		["908_DexterityAndAvoidFreeze"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3668351662", 
-				["text"] = "#% increased Shock Duration on Enemies", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1201_TwoHandCritMultiplierForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_252507949", 
-				["text"] = "#% to Critical Strike Multiplier with Two Handed Melee Weapons", 
+				["id"] = "explicit.stat_3261801346", 
+				["text"] = "# to Dexterity", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 15, 
-				["max"] = 18, 
+			["Chest"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 15, 
-				["max"] = 18, 
+			["Shield"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
 		}, 
-		["1158_IncreasedAccuracyForJewel"] = {
-			["specialCaseData"] = {
-			}, 
+		["1747_SupportedByMeleeSplashDamage"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_803737631", 
-				["text"] = "# to Accuracy Rating", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["2636_IncreasedWandDamageForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_379328644", 
-				["text"] = "#% increased Damage with Wands", 
-			}, 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+				["id"] = "explicit.stat_4251717817", 
+				["text"] = "#% increased Area Damage", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+				["min"] = 23, 
+				["max"] = 37, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["2HWeapon"] = {
+				["min"] = 23, 
+				["max"] = 37, 
 			}, 
 		}, 
-		["1493_TotemLifeForJewel"] = {
+		["963_MeleeDamageAndMeleeRange"] = {
+			["Gloves"] = {
+				["min"] = 13, 
+				["max"] = 16, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_686254215", 
-				["text"] = "#% increased Totem Life", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 12, 
+				["id"] = "explicit.stat_1002362373", 
+				["text"] = "#% increased Melee Damage", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 8, 
-				["max"] = 12, 
+			["Amulet"] = {
+				["min"] = 17, 
+				["max"] = 20, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 12, 
+		}, 
+		["5527_MaximumEnergyShieldOnKillPercentMaven"] = {
+			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2698606393", 
+				["text"] = "#% increased Energy Shield Recovery Rate if you haven't Killed Recently", 
+			}, 
+			["Chest"] = {
+				["min"] = 5, 
+				["max"] = 10, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5553_EvasionIncreasedByUncappedColdResistance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2358015838", 
+				["text"] = "Evasion Rating is increased by Overcapped Cold Resistance", 
+			}, 
+		}, 
+		["1517_MovementVelocityAndOnslaughtOnKill"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2250533757", 
+				["text"] = "#% increased Movement Speed", 
+			}, 
+			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 25, 
+				["max"] = 30, 
+			}, 
+		}, 
+		["1485_MinionLifeMaven"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_770672621", 
+				["text"] = "Minions have #% increased maximum Life", 
+			}, 
+			["Helmet"] = {
+				["min"] = 36, 
+				["max"] = 40, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["6926_ManaRegeneratedIfYouveHitRecently"] = {
 			["tradeMod"] = {
@@ -12590,15 +16731,16 @@ return {
 				["max"] = 0.4, 
 			}, 
 		}, 
-		["1302_PercentageLifeAndManaForJewel"] = {
+		["1736_LocalAccuracyRatingAndLocalItemQuality"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Accuracy Rating", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2748665614", 
-				["text"] = "#% increased maximum Mana", 
+				["id"] = "explicit.stat_691932474", 
+				["text"] = "# to Accuracy Rating (Local)", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["8792_VersatileCombatant"] = {
 			["specialCaseData"] = {
@@ -12655,27 +16797,16 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1084_FireDamageForJewel"] = {
+		["909_IntelligenceAndLocalItemQuality"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Intelligence", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3962278098", 
-				["text"] = "#% increased Fire Damage", 
+				["id"] = "explicit.stat_328541901", 
+				["text"] = "# to Intelligence", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
+			["sign"] = "+", 
 		}, 
 		["1820_SpellAddedChaosDamageWhileHoldingAShield"] = {
 			["tradeMod"] = {
@@ -12705,27 +16836,16 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1159_IncreasedAccuracyPercentForJewel"] = {
+		["1278_LocalArmourAndEvasionAndEnergyShieldSuffix"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour, Evasion and Energy Shield", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_624954515", 
-				["text"] = "#% increased Global Accuracy Rating", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 14, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_3523867985", 
+				["text"] = "#% increased Armour, Evasion and Energy Shield (Local)", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 10, 
-				["max"] = 14, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 14, 
-			}, 
 		}, 
 		["4237_AreaOfEffectIfStunnedEnemyRecently"] = {
 			["tradeMod"] = {
@@ -12759,22 +16879,31 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["3440_LocalAttackReduceEnemyElementalResistance"] = {
+		["1265_LocalIncreasedArmourAndLife"] = {
+			["Gloves"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4064396395", 
-				["text"] = "Attacks with this Weapon Penetrate #% Elemental Resistances", 
+				["id"] = "explicit.stat_1062208444", 
+				["text"] = "#% increased Armour (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 24, 
+				["max"] = 28, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour", 
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["Helmet"] = {
+				["min"] = 24, 
+				["max"] = 28, 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["Boots"] = {
+				["min"] = 24, 
+				["max"] = 28, 
 			}, 
 		}, 
 		["2543_FishingRarity"] = {
@@ -12787,26 +16916,50 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2606_MinionElementalResistancesForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1423639565", 
-				["text"] = "Minions have #% to all Elemental Resistances", 
+		["911_StrengthAndIntelligence"] = {
+			["Gloves"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 15, 
+			["Quiver"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 11, 
-				["max"] = 15, 
+			["Belt"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 15, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1535626285", 
+				["text"] = "# to Strength and Intelligence", 
+			}, 
+			["Boots"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Chest"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Helmet"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Ring"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Amulet"] = {
+				["min"] = 31, 
+				["max"] = 35, 
+			}, 
+			["Shield"] = {
+				["min"] = 31, 
+				["max"] = 35, 
 			}, 
 		}, 
 		["1711_ProjectileAttackDamage"] = {
@@ -12921,51 +17074,61 @@ return {
 				["max"] = 0.4, 
 			}, 
 		}, 
-		["7565_FortifyEffect"] = {
-			["Gloves"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+		["4227_ArcticArmourReservationCost"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_335507772", 
-				["text"] = "# to maximum Fortification", 
+				["id"] = "explicit.stat_2351239732", 
+				["text"] = "Arctic Armour has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1619_LocalPhysicalDamageReductionRatingAndStunRecoveryPercent"] = {
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2511217560", 
+				["text"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["Chest"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+				["min"] = 6, 
+				["max"] = 17, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Stun and Block Recovery", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 			["Helmet"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+				["min"] = 6, 
+				["max"] = 17, 
 			}, 
 			["Boots"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+				["min"] = 6, 
+				["max"] = 17, 
 			}, 
 		}, 
-		["1272_ArmourEvasionForJewel"] = {
-			["specialCaseData"] = {
-			}, 
+		["1139_LocalAttackSpeedAndLocalDisplayTriggerLevel1BloodRageOnKillChance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2106365538", 
-				["text"] = "#% increased Evasion Rating", 
+				["id"] = "explicit.stat_210067635", 
+				["text"] = "#% increased Attack Speed (Local)", 
 			}, 
-			["sign"] = "", 
-		}, 
-		["1264_ArmourEvasionForJewel"] = {
 			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2866361420", 
-				["text"] = "#% increased Armour", 
+				["overrideModLine"] = "#% increased Attack Speed", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 12, 
+				["max"] = 22, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 12, 
+				["max"] = 22, 
+			}, 
 		}, 
 		["1568_MovementVelocitySpellDodge"] = {
 			["specialCaseData"] = {
@@ -13021,30 +17184,26 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["1151_BowAttackSpeedForJewel"] = {
+		["4899_ChanceToDealDoubleDamageWhileFocused"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3759735052", 
-				["text"] = "#% increased Attack Speed with Bows", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_2908886986", 
+				["text"] = "#% chance to deal Double Damage while Focused", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+			["specialCaseData"] = {
 			}, 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+			["2HWeapon"] = {
+				["min"] = 36, 
+				["max"] = 40, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
+			}, 
+			["Shield"] = {
+				["min"] = 18, 
+				["max"] = 20, 
 			}, 
 		}, 
 		["1283_GlobalEnergyShieldPercent"] = {
@@ -13069,44 +17228,34 @@ return {
 				["max"] = 15, 
 			}, 
 		}, 
-		["1318_ItemRarityForJewel"] = {
+		["6737_DexterityAndLocalItemQuality"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3917489142", 
-				["text"] = "#% increased Rarity of Items found", 
+				["id"] = "explicit.stat_2016708976", 
+				["text"] = "#% to Quality", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
-			}, 
+			["sign"] = "+", 
 		}, 
-		["4377_AttackSpeedPercentIfRareOrUniqueEnemyNearby"] = {
+		["6771_LocalChanceToMaimPhysicalDamage"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_314741699", 
-				["text"] = "#% increased Attack Speed while a Rare or Unique Enemy is Nearby", 
+				["id"] = "explicit.stat_2763429652", 
+				["text"] = "#% chance to Maim on Hit", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to Maim on Hit", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 10, 
+				["max"] = 20, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 27, 
-				["max"] = 30, 
+				["min"] = 10, 
+				["max"] = 20, 
 			}, 
 		}, 
 		["2878_NoExtraBleedDamageWhileMoving"] = {
@@ -13145,43 +17294,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1146_AxeAttackSpeedForJewel"] = {
+		["908_DexterityAndLocalItemQuality"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Dexterity", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3550868361", 
-				["text"] = "#% increased Attack Speed with Axes", 
+				["id"] = "explicit.stat_3261801346", 
+				["text"] = "# to Dexterity", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-			["BaseJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
+			["sign"] = "+", 
 		}, 
-		["5705_GainAccuracyEqualToStrengthMaven"] = {
+		["8243_SkillsCostNoManaWhileFocusedCDR"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1575519214", 
-				["text"] = "Gain Accuracy Rating equal to your Strength", 
-			}, 
-			["Helmet"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["id"] = "explicit.stat_849152640", 
+				["text"] = "Non-Aura Skills Cost no Mana or Life while Focused", 
 			}, 
 		}, 
 		["8747_AncestralBond"] = {
@@ -13193,23 +17323,15 @@ return {
 				["text"] = "Ancestral Bond", 
 			}, 
 		}, 
-		["1225_MeleeCritMultiplierForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4237442815", 
-				["text"] = "#% to Melee Critical Strike Multiplier", 
-			}, 
+		["5665_SkillsCostNoManaWhileFocusedCDR"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3610263531", 
+				["text"] = "Focus has #% increased Cooldown Recovery Rate", 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
-			}, 
+			["sign"] = "", 
 		}, 
 		["2527_AllDefences"] = {
 			["tradeMod"] = {
@@ -13229,84 +17351,114 @@ return {
 				["max"] = 6, 
 			}, 
 		}, 
-		["891_SpellBlockPercentage"] = {
-			["Gloves"] = {
-				["min"] = 3, 
-				["max"] = 4, 
+		["1171_CastSpeedAndGainArcaneSurgeOnKillChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2891184298", 
+				["text"] = "#% increased Cast Speed", 
 			}, 
 			["specialCaseData"] = {
 			}, 
+			["2HWeapon"] = {
+				["min"] = 26, 
+				["max"] = 31, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 22, 
+			}, 
 			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 3, 
-				["max"] = 4, 
+		}, 
+		["1240_LocalIncreasedPhysicalDamagePercentAndStun"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1443060084", 
+				["text"] = "#% reduced Enemy Stun Threshold", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% reduced Enemy Stun Threshold", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+		}, 
+		["1265_LocalPhysicalDamageReductionRatingAndStunRecoveryPercent"] = {
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 42, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_561307714", 
-				["text"] = "#% Chance to Block Spell Damage", 
-			}, 
-			["Helmet"] = {
-				["min"] = 3, 
-				["max"] = 6, 
+				["id"] = "explicit.stat_1062208444", 
+				["text"] = "#% increased Armour (Local)", 
 			}, 
 			["Chest"] = {
-				["min"] = 3, 
-				["max"] = 10, 
+				["min"] = 6, 
+				["max"] = 42, 
 			}, 
-			["Amulet"] = {
-				["min"] = 4, 
-				["max"] = 7, 
-			}, 
-			["Shield"] = {
-				["min"] = 4, 
-				["max"] = 15, 
-			}, 
-		}, 
-		["520_CurseOnHitWarlordsMark"] = {
 			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2021420128", 
-				["text"] = "Trigger Level # Warlords's Mark when you Hit a Rare or Unique Enemy and have no Mark", 
+				["overrideModLine"] = "#% increased Armour", 
 			}, 
 			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
 		}, 
-		["1710_ProjectileDamageAndProjectileSpeed"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1839076647", 
-				["text"] = "#% increased Projectile Damage", 
-			}, 
-			["Amulet"] = {
-				["min"] = 17, 
+		["6283_LightningAndChaosDamageResistance"] = {
+			["Gloves"] = {
+				["min"] = 16, 
 				["max"] = 20, 
 			}, 
-			["sign"] = "", 
-		}, 
-		["1184_CritChanceForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_587431675", 
-				["text"] = "#% increased Global Critical Strike Chance", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 12, 
+			["Quiver"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 8, 
-				["max"] = 12, 
+			["sign"] = "+", 
+			["Belt"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 12, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3465022881", 
+				["text"] = "#% to Lightning and Chaos Resistances", 
+			}, 
+			["Boots"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["Chest"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["Helmet"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["Ring"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["Amulet"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["Shield"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
 		}, 
 		["1577_FreezeChanceAndDuration"] = {
@@ -13323,22 +17475,50 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["963_MeleeDamageForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1002362373", 
-				["text"] = "#% increased Melee Damage", 
+		["5008_ColdAndChaosDamageResistance"] = {
+			["Gloves"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["Quiver"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
+			["sign"] = "+", 
+			["Belt"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3393628375", 
+				["text"] = "#% to Cold and Chaos Resistances", 
+			}, 
+			["Boots"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["Chest"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["Helmet"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["Ring"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["Amulet"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["Shield"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
 		}, 
 		["2605_MinionLifeRegeneration"] = {
@@ -13385,58 +17565,60 @@ return {
 				["max"] = 35, 
 			}, 
 		}, 
-		["960_PhysicalDamageForJewel"] = {
+		["2181_LocalAddedPhysicalDamageAndCausesBleeding"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1310194496", 
-				["text"] = "#% increased Global Physical Damage", 
+				["id"] = "explicit.stat_1519615863", 
+				["text"] = "#% chance to cause Bleeding on Hit", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to cause Bleeding on Hit", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 40, 
+				["max"] = 40, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 40, 
+				["max"] = 40, 
+			}, 
+		}, 
+		["1003_LocalAddedPhysicalDamageAndCausesBleeding"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1940865751", 
+				["text"] = "Adds # to # Physical Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 17, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 21.5, 
+				["max"] = 24, 
+			}, 
+		}, 
+		["1745_LightningDamageAndChanceToShock"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1538773178", 
+				["text"] = "#% chance to Shock", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["1HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 40, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-		}, 
-		["5410_CriticalChanceAndElementalDamagePercentIfHaveCritRecently"] = {
-			["Gloves"] = {
-				["min"] = 27, 
-				["max"] = 30, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2379781920", 
-				["text"] = "#% increased Elemental Damage if you've dealt a Critical Strike Recently", 
-			}, 
-			["Quiver"] = {
-				["min"] = 27, 
-				["max"] = 30, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-		}, 
-		["4104_GainArmourIfBlockedRecently"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4091848539", 
-				["text"] = "# Armour if you've Blocked Recently", 
-			}, 
-			["sign"] = "+", 
-			["Shield"] = {
-				["min"] = 500, 
-				["max"] = 800, 
+			["2HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 40, 
 			}, 
 		}, 
 		["7815_SpellDamageAndNonChaosDamageToAddAsChaosDamage"] = {
@@ -13457,75 +17639,46 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1576_ShockChanceAndDurationForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3668351662", 
-				["text"] = "#% increased Shock Duration on Enemies", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 12, 
-				["max"] = 16, 
-			}, 
+		["5059_ConsecratedGroundStationary"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 12, 
-				["max"] = 16, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_880970200", 
+				["text"] = "You have Consecrated Ground around you while stationary", 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 12, 
-				["max"] = 16, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
-		["1695_ElementalDamagePercent"] = {
-			["Ring"] = {
-				["min"] = 25, 
-				["max"] = 30, 
+		["4439_FasterBleedDamageMaven"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3141070085", 
-				["text"] = "#% increased Elemental Damage", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 37, 
-				["max"] = 94, 
-			}, 
-			["Helmet"] = {
-				["min"] = 12, 
-				["max"] = 22, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_1459321413", 
+				["text"] = "#% increased Bleeding Duration", 
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 19, 
-				["max"] = 49, 
-			}, 
-			["Belt"] = {
-				["min"] = 11, 
-				["max"] = 30, 
+			["Boots"] = {
+				["min"] = 10, 
+				["max"] = 20, 
 			}, 
 		}, 
-		["3024_IncreasedTwoHandedMeleeDamageForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1836374041", 
-				["text"] = "#% increased Damage with Two Handed Weapons", 
-			}, 
+		["2855_BleedingDamageSupported"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1294118672", 
+				["text"] = "#% increased Damage with Bleeding", 
+			}, 
+			["Gloves"] = {
+				["min"] = 20, 
+				["max"] = 35, 
+			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 12, 
-				["max"] = 14, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 12, 
-				["max"] = 14, 
-			}, 
 		}, 
 		["2493_FireColdResistanceForJewel"] = {
 			["tradeMod"] = {
@@ -13567,26 +17720,31 @@ return {
 				["max"] = 25, 
 			}, 
 		}, 
-		["1346_FireResistanceForJewel"] = {
+		["1278_LocalIncreasedDefencesAndLife"] = {
+			["Gloves"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3372524247", 
-				["text"] = "#% to Fire Resistance", 
+				["id"] = "explicit.stat_3523867985", 
+				["text"] = "#% increased Armour, Evasion and Energy Shield (Local)", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+			["Chest"] = {
+				["min"] = 24, 
+				["max"] = 28, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour, Evasion and Energy Shield", 
 			}, 
-			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 24, 
+				["max"] = 28, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+			["Boots"] = {
+				["min"] = 24, 
+				["max"] = 28, 
 			}, 
 		}, 
 		["1396_EnemyColdDamageLifeLeechPermyriad"] = {
@@ -13640,19 +17798,24 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1579_IncreasedAilmentDuration"] = {
-			["specialCaseData"] = {
-			}, 
+		["1421_ManaLeechLocalPermyriad"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2419712247", 
-				["text"] = "#% increased Duration of Ailments on Enemies", 
+				["id"] = "explicit.stat_669069897", 
+				["text"] = "#% of Physical Attack Damage Leeched as Mana (Local)", 
 			}, 
-			["Gloves"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% of Physical Attack Damage Leeched as Mana", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 0.2, 
+				["max"] = 0.4, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 0.2, 
+				["max"] = 0.4, 
+			}, 
 		}, 
 		["953_WeaponSpellDamagePowerChargeOnCrit"] = {
 			["specialCaseData"] = {
@@ -13700,29 +17863,46 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1931_AuraRadiusForJewel"] = {
+		["5138_CritChanceAndCriticalStrikeMultiplierIfEnemyShatteredRecently"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_895264825", 
-				["text"] = "#% increased Area of Effect of Aura Skills", 
+				["id"] = "explicit.stat_536929014", 
+				["text"] = "#% to Critical Strike Multiplier if you've Shattered an Enemy Recently", 
 			}, 
-			["sign"] = "", 
-		}, 
-		["7943_GlobalPhysicalGemLevel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_619213329", 
-				["text"] = "# to Level of all Physical Skill Gems", 
-			}, 
-			["Amulet"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Ring"] = {
+				["min"] = 27, 
+				["max"] = 30, 
 			}, 
 			["sign"] = "+", 
+		}, 
+		["1275_LocalIncreasedArmourAndEnergyShieldAndLife"] = {
+			["Gloves"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3321629045", 
+				["text"] = "#% increased Armour and Energy Shield (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour and Energy Shield", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
+			["Boots"] = {
+				["min"] = 24, 
+				["max"] = 28, 
+			}, 
 		}, 
 		["1363_AllResistancesMaven"] = {
 			["tradeMod"] = {
@@ -13768,26 +17948,26 @@ return {
 				["max"] = 6, 
 			}, 
 		}, 
-		["1567_AvoidShockForJewel"] = {
+		["1106_AddedColdAndLightningDamage"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1871765599", 
-				["text"] = "#% chance to Avoid being Shocked", 
+				["id"] = "explicit.stat_1334060246", 
+				["text"] = "Adds # to # Lightning Damage", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 31, 
-				["max"] = 50, 
+			["Quiver"] = {
+				["min"] = 17, 
+				["max"] = 19, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 31, 
-				["max"] = 50, 
+			["Ring"] = {
+				["min"] = 17, 
+				["max"] = 19, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 31, 
-				["max"] = 50, 
+			["Shield"] = {
+				["min"] = 17, 
+				["max"] = 19, 
 			}, 
 		}, 
 		["4919_ChanceToGainOnslaughtOnFlaskUse"] = {
@@ -13812,84 +17992,64 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
-		["1549_CriticalStrikeChanceSpellsTwoHandedPowerCharge"] = {
+		["1105_SelfFireAndLightningDamageTaken"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3814876985", 
-				["text"] = "#% chance to gain a Power Charge on Critical Strike", 
+				["id"] = "explicit.stat_2923069345", 
+				["text"] = "Adds # to # Lightning Damage to Hits against you", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1615_ChaosDamageAndChaosSkillDuration"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_289885185", 
+				["text"] = "Chaos Skills have #% increased Skill Effect Duration", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 13, 
+				["max"] = 30, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 10, 
+				["min"] = 13, 
+				["max"] = 30, 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1361_ChaosResistanceForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2923486259", 
-				["text"] = "#% to Chaos Resistance", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 7, 
-				["max"] = 13, 
-			}, 
+		["317_SupportedByLifeLeech"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 7, 
-				["max"] = 13, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 7, 
-				["max"] = 13, 
-			}, 
-		}, 
-		["1147_StaffAttackSpeedForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1394963553", 
-				["text"] = "#% increased Attack Speed with Staves", 
+				["id"] = "explicit.stat_891277550", 
+				["text"] = "Socketed Gems are supported by Level # Life Leech", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 15, 
+				["max"] = 20, 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+		}, 
+		["960_PhysicalDamagePercentPrefix"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1310194496", 
+				["text"] = "#% increased Global Physical Damage", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+			["Amulet"] = {
+				["min"] = 20, 
+				["max"] = 30, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-		}, 
-		["3023_IncreasedOneHandedMeleeDamageForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1010549321", 
-				["text"] = "#% increased Damage with One Handed Weapons", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 12, 
-				["max"] = 14, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 12, 
-				["max"] = 14, 
+			["Belt"] = {
+				["min"] = 16, 
+				["max"] = 30, 
 			}, 
 		}, 
 		["5113_GainAccuracyEqualToStrengthMaven"] = {
@@ -13906,50 +18066,46 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["926_MineDamageForJewel"] = {
+		["1562_AvoidStunAndElementalStatusAilments"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2137912951", 
-				["text"] = "#% increased Mine Damage", 
+				["id"] = "explicit.stat_3005472710", 
+				["text"] = "#% chance to Avoid Elemental Ailments", 
+			}, 
+			["Chest"] = {
+				["min"] = 30, 
+				["max"] = 35, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["738_FlaskReflectReductionDuringFlaskEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3842373291", 
+				["text"] = "#% reduced Reflected Damage taken during Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5253_DamageWithNonVaalSkillsDuringSoulGainPrevention"] = {
+			["Gloves"] = {
+				["min"] = 71, 
+				["max"] = 80, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1583385065", 
+				["text"] = "#% increased Damage with Non-Vaal Skills during Soul Gain Prevention", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-		}, 
-		["1741_ChanceToFreezeForJewel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2309614417", 
-				["text"] = "#% chance to Freeze", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["3939_DualWieldingCritMultiplierForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2546185479", 
-				["text"] = "#% to Critical Strike Multiplier while Dual Wielding", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 15, 
-				["max"] = 18, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 15, 
-				["max"] = 18, 
+			["Boots"] = {
+				["min"] = 71, 
+				["max"] = 80, 
 			}, 
 		}, 
 		["7565_FortifyEffectMaven"] = {
@@ -13966,39 +18122,23 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["4394_ImpaleChanceForJewel"] = {
+		["2324_MinimumFrenzyChargesAndOnKillLose"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3739863694", 
-				["text"] = "#% chance to Impale Enemies on Hit with Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 5, 
-				["max"] = 7, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_2142803347", 
+				["text"] = "#% chance to lose a Frenzy Charge on Kill", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 5, 
-				["max"] = 7, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 5, 
-				["max"] = 7, 
-			}, 
 		}, 
-		["341_DisplaySupportedByManaLeech"] = {
+		["1094_SelfFireAndColdDamageTaken"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2608615082", 
-				["text"] = "Socketed Gems are Supported by Level # Mana Leech", 
-			}, 
-			["Gloves"] = {
-				["min"] = 15, 
-				["max"] = 15, 
+				["id"] = "explicit.stat_3482587079", 
+				["text"] = "Adds # to # Cold Damage to Hits against you", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -14064,53 +18204,55 @@ return {
 				["max"] = 48, 
 			}, 
 		}, 
-		["2228_FlammabilityOnHitLevel"] = {
+		["7742_MinionsRecoverMaximumLifeWhenYouFocusCDR"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_338121249", 
-				["text"] = "Curse Enemies with Flammability on Hit", 
+				["id"] = "explicit.stat_3500359417", 
+				["text"] = "Minions Recover #% of their Life when you Focus", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["Ring"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["8306_SpellDamagePer10Strength"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4249521944", 
-				["text"] = "#% increased Spell Damage per 16 Strength", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Gloves"] = {
+				["min"] = 100, 
+				["max"] = 100, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["103_MeleeRangeAndMeleeGemLevel"] = {
-			["Gloves"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+		["1478_GainManaOnBlock"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_829382474", 
-				["text"] = "# to Level of Socketed Melee Gems", 
+				["id"] = "explicit.stat_2122183138", 
+				["text"] = "# Mana gained when you Block", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1281_LocalEnergyShield"] = {
+			["Gloves"] = {
+				["min"] = 3, 
+				["max"] = 100, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4052037485", 
+				["text"] = "# to maximum Energy Shield (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 3, 
+				["max"] = 100, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Energy Shield", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+				["min"] = 3, 
+				["max"] = 100, 
+			}, 
+			["Boots"] = {
+				["min"] = 3, 
+				["max"] = 100, 
 			}, 
 		}, 
 		["2398_EnemiesExplodeOnDeath"] = {
@@ -14153,36 +18295,36 @@ return {
 				["max"] = 35, 
 			}, 
 		}, 
-		["1086_GlobalAddedFireDamage"] = {
+		["2296_MarkEffect"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_321077055", 
-				["text"] = "Adds # to # Fire Damage", 
-			}, 
-			["Gloves"] = {
-				["min"] = 23, 
-				["max"] = 30, 
+				["id"] = "explicit.stat_803185500", 
+				["text"] = "#% increased Effect of your Marks", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["6687_LocalChanceToIntimidateOnHit"] = {
+		["6938_ManaRegenerationRateWhileMoving"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2089652545", 
-				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
+				["id"] = "explicit.stat_1327522346", 
+				["text"] = "#% increased Mana Regeneration Rate while moving", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 20, 
+				["max"] = 25, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 7, 
-				["max"] = 15, 
+			["AnyJewel"] = {
+				["min"] = 20, 
+				["max"] = 25, 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 7, 
-				["max"] = 15, 
+			["Boots"] = {
+				["min"] = 50, 
+				["max"] = 70, 
 			}, 
 		}, 
 		["4415_ChanceToAvoidProjectilesMaven"] = {
@@ -14241,68 +18383,56 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1932_CurseRadiusForJewel"] = {
+		["6720_NearbyEnemyPhysicalDamageTaken"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_153777645", 
-				["text"] = "#% increased Area of Effect of Hex Skills", 
+				["id"] = "explicit.stat_415837237", 
+				["text"] = "Nearby Enemies take #% increased Physical Damage", 
+			}, 
+			["Helmet"] = {
+				["min"] = 9, 
+				["max"] = 12, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1230_FireCritMultiplierForJewel"] = {
+		["1291_BaseLifeAndManaDegenGracePeriod"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2307547323", 
-				["text"] = "#% to Critical Strike Multiplier with Fire Skills", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 15, 
-				["max"] = 18, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
 			}, 
 			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 15, 
-				["max"] = 18, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 15, 
-				["max"] = 18, 
-			}, 
 		}, 
-		["8243_SkillsCostNoManaWhileFocusedCDR"] = {
+		["5764_GainOnslaughtDuringSoulGainPrevention"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_849152640", 
-				["text"] = "Non-Aura Skills Cost no Mana or Life while Focused", 
+				["id"] = "explicit.stat_1572897579", 
+				["text"] = "You have Onslaught during Soul Gain Prevention", 
+			}, 
+			["Gloves"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Boots"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
-		["2494_FireLightningResistanceForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3441501978", 
-				["text"] = "#% to Fire and Lightning Resistances", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
-			}, 
+		["8239_ManaCostBaseChannelled"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1178188780", 
+				["text"] = "Channelling Skills Cost # Mana", 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
-			}, 
+			["sign"] = "-", 
 		}, 
 		["4950_ChaosResistanceAgainstDamageOverTime"] = {
 			["tradeMod"] = {
@@ -14326,27 +18456,20 @@ return {
 				["max"] = 40, 
 			}, 
 		}, 
-		["1206_LightningCritChanceForJewel"] = {
+		["1139_LocalIncreasedAttackSpeedOnslaught"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Attack Speed", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1186596295", 
-				["text"] = "#% increased Critical Strike Chance with Lightning Skills", 
+				["id"] = "explicit.stat_210067635", 
+				["text"] = "#% increased Attack Speed (Local)", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
-			}, 
-			["specialCaseData"] = {
+			["1HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 12, 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
-			}, 
 		}, 
 		["1357_LightningResistance"] = {
 			["Quiver"] = {
@@ -14382,36 +18505,32 @@ return {
 				["max"] = 48, 
 			}, 
 		}, 
-		["302_TotemSpeedSpellSupported"] = {
+		["5317_DeterminationReservation"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2962840349", 
-				["text"] = "Socketed Gems are Supported by Level # Spell Totem", 
+				["id"] = "explicit.stat_325889252", 
+				["text"] = "Determination has #% increased Mana Reservation Efficiency", 
 			}, 
 			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 18, 
-				["max"] = 25, 
-			}, 
 		}, 
-		["1204_DualWieldingCritChanceForJewel"] = {
+		["1645_MineLayingSpeed"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3702513529", 
-				["text"] = "#% increased Attack Critical Strike Chance while Dual Wielding", 
+				["id"] = "explicit.stat_1896971621", 
+				["text"] = "#% increased Mine Throwing Speed", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
+			["Amulet"] = {
 				["min"] = 14, 
-				["max"] = 18, 
+				["max"] = 16, 
 			}, 
-			["AnyJewel"] = {
+			["Helmet"] = {
 				["min"] = 14, 
-				["max"] = 18, 
+				["max"] = 16, 
 			}, 
 		}, 
 		["175_SupportedByEnlighten"] = {
@@ -14424,27 +18543,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2481_TotemElementalResistancesForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1809006367", 
-				["text"] = "Totems gain #% to all Elemental Resistances", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 10, 
-			}, 
+		["1131_TwoHandColdDamageWeaponPrefixAndFlat"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 6, 
-				["max"] = 10, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2469416729", 
+				["text"] = "Adds # to # Cold Damage to Spells", 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 10, 
-			}, 
+			["sign"] = "", 
 		}, 
 		["4394_AttackImpaleChanceMaven"] = {
 			["specialCaseData"] = {
@@ -14460,35 +18567,31 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1578_IgniteChanceAndDurationForJewel"] = {
+		["1602_ManaAndManaCostPercent"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1086147743", 
-				["text"] = "#% increased Ignite Duration on Enemies", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+				["id"] = "explicit.stat_474294393", 
+				["text"] = "#% reduced Mana Cost of Skills", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
+			["Amulet"] = {
 				["min"] = 6, 
-				["max"] = 8, 
+				["max"] = 7, 
 			}, 
-			["AnyJewel"] = {
+			["Ring"] = {
 				["min"] = 6, 
-				["max"] = 8, 
+				["max"] = 7, 
 			}, 
 		}, 
-		["3156_ChanceToLoseManaOnSkillUse"] = {
+		["1104_TwoHandLightningDamageWeaponPrefixAndFlat"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2858930612", 
-				["text"] = "#% chance to lose 10% of Mana when you use a Skill", 
+				["id"] = "explicit.stat_2231156303", 
+				["text"] = "#% increased Lightning Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -14506,30 +18609,26 @@ return {
 				["max"] = 40, 
 			}, 
 		}, 
-		["1040_IncreasedClawDamageForJewel"] = {
+		["916_PercentageIntelligence"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1069260037", 
-				["text"] = "#% increased Damage with Claws", 
+				["id"] = "explicit.stat_656461285", 
+				["text"] = "#% increased Intelligence", 
 			}, 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 12, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["Amulet"] = {
+				["min"] = 5, 
+				["max"] = 12, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["Chest"] = {
+				["min"] = 5, 
+				["max"] = 12, 
 			}, 
 		}, 
 		["1291_BaseLifeAndManaRegen"] = {
@@ -14570,15 +18669,24 @@ return {
 				["max"] = 60, 
 			}, 
 		}, 
-		["1738_ChanceToIgniteForJewel"] = {
-			["specialCaseData"] = {
-			}, 
+		["3443_LocalLightningPenetration"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1335054179", 
-				["text"] = "#% chance to Ignite", 
+				["id"] = "explicit.stat_2387539034", 
+				["text"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 9, 
+				["max"] = 15, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 9, 
+				["max"] = 15, 
+			}, 
 		}, 
 		["2867_PoisonDamageWeaponSupported"] = {
 			["specialCaseData"] = {
@@ -14661,93 +18769,66 @@ return {
 				["max"] = 19, 
 			}, 
 		}, 
-		["940_DamageOverTimeForJewel"] = {
+		["2276_TotemSpeedSpellSupported"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_967627487", 
-				["text"] = "#% increased Damage over Time", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_3374165039", 
+				["text"] = "#% increased Totem Placement speed", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
+			["Boots"] = {
+				["min"] = 8, 
+				["max"] = 20, 
 			}, 
 		}, 
-		["1357_LightningResistanceForJewel"] = {
+		["1291_LocalIncreasedEvasionAndLife"] = {
+			["Gloves"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1671376347", 
-				["text"] = "#% to Lightning Resistance", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+			["Chest"] = {
+				["min"] = 17, 
+				["max"] = 26, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+			["Helmet"] = {
+				["min"] = 17, 
+				["max"] = 26, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 12, 
-				["max"] = 15, 
-			}, 
-		}, 
-		["1172_CastSpeedWhileDualWieldingForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2382196858", 
-				["text"] = "#% increased Cast Speed while Dual Wielding", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+			["Boots"] = {
+				["min"] = 17, 
+				["max"] = 26, 
 			}, 
 		}, 
-		["1710_ProjectileDamageForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1839076647", 
-				["text"] = "#% increased Projectile Damage", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
-			}, 
+		["2326_MinimumPowerChargesAndOnKillLose"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2939195168", 
+				["text"] = "#% chance to lose a Power Charge on Kill", 
+			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
+		}, 
+		["1532_MinimumPowerChargesAndOnKillLose"] = {
+			["specialCaseData"] = {
 			}, 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 12, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1999711879", 
+				["text"] = "# to Minimum Power Charges", 
 			}, 
+			["sign"] = "+", 
 		}, 
 		["1942_FlatPhysicalDamageTaken"] = {
 			["specialCaseData"] = {
@@ -14763,79 +18844,62 @@ return {
 			}, 
 			["sign"] = "-", 
 		}, 
-		["1104_LightningDamageForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2231156303", 
-				["text"] = "#% increased Lightning Damage", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-		}, 
-		["1136_IncreasedAttackSpeedForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_681332047", 
-				["text"] = "#% increased Attack Speed", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
-			}, 
-		}, 
-		["8751_CallToArms"] = {
+		["1301_BaseManaAndLifeDegenGracePeriod"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3292262540", 
-				["text"] = "Call to Arms", 
-			}, 
-		}, 
-		["1212_CritMultiplierForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3556824919", 
-				["text"] = "#% to Global Critical Strike Multiplier", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 9, 
-				["max"] = 12, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_1050105434", 
+				["text"] = "# to maximum Mana", 
 			}, 
 			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 9, 
-				["max"] = 12, 
+		}, 
+		["153_LocalPhysicalDamagePercentBrutality"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_715256302", 
+				["text"] = "Socketed Gems are Supported by Level # Brutality", 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 9, 
-				["max"] = 12, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are Supported by Level # Brutality", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+		}, 
+		["1297_BaseManaAndLifeDegenGracePeriod"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_771127912", 
+				["text"] = "Lose # Life per second", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["961_LocalIncreasedPhysicalDamageAndImpaleChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 120, 
+				["max"] = 139, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 120, 
+				["max"] = 139, 
 			}, 
 		}, 
 		["347_PoisonDurationSupported"] = {
@@ -14852,55 +18916,53 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5281_FasterAilmentDamageForJewel"] = {
+		["5410_CriticalChanceAndElementalDamagePercentIfHaveCritRecently"] = {
+			["Gloves"] = {
+				["min"] = 27, 
+				["max"] = 30, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_538241406", 
-				["text"] = "Damaging Ailments deal damage #% faster", 
+				["id"] = "explicit.stat_2379781920", 
+				["text"] = "#% increased Elemental Damage if you've dealt a Critical Strike Recently", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
+			["Quiver"] = {
+				["min"] = 27, 
+				["max"] = 30, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
-			}, 
 		}, 
-		["924_TrapDamageForJewel"] = {
+		["315_LocalIncreasedAttackSpeedMultistrike"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2941585404", 
-				["text"] = "#% increased Trap Damage", 
+				["id"] = "explicit.stat_2501237765", 
+				["text"] = "Socketed Gems are supported by Level # Multistrike", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are supported by Level # Multistrike", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["1HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["2HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
 			}, 
 		}, 
-		["2597_MinionBlockForJewel"] = {
+		["717_LocalFlaskAvoidStunChanceAndMovementSpeedDuringFlaskEffect"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% Chance to Avoid being Stunned during Effect", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3374054207", 
-				["text"] = "Minions have #% Chance to Block Attack Damage", 
+				["id"] = "explicit.stat_2312652600", 
+				["text"] = "#% Chance to Avoid being Stunned during Effect", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["1400_LightningResistanceEnemyLeech"] = {
 			["specialCaseData"] = {
@@ -14912,26 +18974,26 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["873_BlockShieldForJewel"] = {
+		["1106_AddedFireAndLightningDamage"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4061558269", 
-				["text"] = "#% Chance to Block Attack Damage while holding a Shield", 
+				["id"] = "explicit.stat_1334060246", 
+				["text"] = "Adds # to # Lightning Damage", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Quiver"] = {
+				["min"] = 17, 
+				["max"] = 19, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["sign"] = "", 
+			["Ring"] = {
+				["min"] = 17, 
+				["max"] = 19, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Shield"] = {
+				["min"] = 17, 
+				["max"] = 19, 
 			}, 
 		}, 
 		["4904_AdditionalChanceToEvade"] = {
@@ -14960,26 +19022,26 @@ return {
 				["max"] = 2, 
 			}, 
 		}, 
-		["5265_LifeRecoupForJewel"] = {
+		["1086_AddedFireAndLightningDamage"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1444556985", 
-				["text"] = "#% of Damage taken Recouped as Life", 
+				["id"] = "explicit.stat_321077055", 
+				["text"] = "Adds # to # Fire Damage", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
+			["Quiver"] = {
+				["min"] = 17, 
+				["max"] = 19, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
+			["Ring"] = {
+				["min"] = 17, 
+				["max"] = 19, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 4, 
-				["max"] = 6, 
+			["Shield"] = {
+				["min"] = 17, 
+				["max"] = 19, 
 			}, 
 		}, 
 		["4270_IncreasedArmourIfNoEnemySlainRecently"] = {
@@ -15000,98 +19062,67 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["6283_LightningAndChaosDamageResistance"] = {
-			["Gloves"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["Quiver"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Belt"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
+		["2153_ManaAndDamageTakenGoesToManaPercent"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3465022881", 
-				["text"] = "#% to Lightning and Chaos Resistances", 
-			}, 
-			["Boots"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["Chest"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["Helmet"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["Ring"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["Amulet"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["Shield"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-		}, 
-		["956_StaffSpellDamageForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3496944181", 
-				["text"] = "#% increased Spell Damage while wielding a Staff", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+				["id"] = "explicit.stat_472520716", 
+				["text"] = "#% of Damage taken Recouped as Mana", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["Amulet"] = {
+				["min"] = 7, 
+				["max"] = 8, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+			["Ring"] = {
+				["min"] = 7, 
+				["max"] = 8, 
 			}, 
 		}, 
-		["1340_AllResistancesForJewel"] = {
+		["1301_ManaAndDamageTakenGoesToManaPercent"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2901986750", 
-				["text"] = "#% to all Elemental Resistances", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
+				["id"] = "explicit.stat_1050105434", 
+				["text"] = "# to maximum Mana", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
+			["Amulet"] = {
+				["min"] = 51, 
+				["max"] = 55, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
+			["Ring"] = {
+				["min"] = 51, 
+				["max"] = 55, 
+			}, 
+		}, 
+		["1291_LocalIncreasedArmourAndEvasionAndLife"] = {
+			["Gloves"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
+			}, 
+			["Chest"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 17, 
+				["max"] = 26, 
+			}, 
+			["Boots"] = {
+				["min"] = 17, 
+				["max"] = 26, 
 			}, 
 		}, 
 		["8198_ShockYourselfOnFocusCDR"] = {
@@ -15104,27 +19135,16 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1205_FireCritChanceForJewel"] = {
+		["961_LocalIncreasedPhysicalDamagePercentPowerChargeOnCrit"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1104796138", 
-				["text"] = "#% increased Critical Strike Chance with Fire Skills", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
-			}, 
 		}, 
 		["8727_ZealotryReservationEfficiency"] = {
 			["specialCaseData"] = {
@@ -15140,26 +19160,22 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["910_StrengthDexterityForJewel"] = {
+		["5439_ReducedElementalReflectTaken"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_538848803", 
-				["text"] = "# to Strength and Dexterity", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
+				["id"] = "explicit.stat_2160417795", 
+				["text"] = "You and your Minions take #% reduced Reflected Elemental Damage", 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
+			["sign"] = "", 
+			["Chest"] = {
+				["min"] = 100, 
+				["max"] = 100, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
+			["Ring"] = {
+				["min"] = 31, 
+				["max"] = 55, 
 			}, 
 		}, 
 		["4645_AttackBlockIfBlockedAttackRecently"] = {
@@ -15176,23 +19192,24 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
-		["1171_CastSpeedAndGainArcaneSurgeOnKillChance"] = {
+		["1139_LocalIncreasedAttackSpeed"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2891184298", 
-				["text"] = "#% increased Cast Speed", 
+				["id"] = "explicit.stat_210067635", 
+				["text"] = "#% increased Attack Speed (Local)", 
 			}, 
 			["specialCaseData"] = {
-			}, 
-			["2HWeapon"] = {
-				["min"] = 26, 
-				["max"] = 31, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 22, 
+				["overrideModLine"] = "#% increased Attack Speed", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 27, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 27, 
+			}, 
 		}, 
 		["4439_BleedDamageAndDuration"] = {
 			["specialCaseData"] = {
@@ -15208,34 +19225,23 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1150_MaceAttackSpeedForJewel"] = {
-			["2HWeapon"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
+		["1188_LocalCriticalStrikeChanceStrengthIntelligence"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2515515064", 
-				["text"] = "#% increased Attack Speed with Maces or Sceptres", 
-			}, 
-			["BaseJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+				["id"] = "explicit.stat_2375316951", 
+				["text"] = "#% increased Critical Strike Chance", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Critical Strike Chance", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+				["min"] = 28, 
+				["max"] = 32, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+			["2HWeapon"] = {
+				["min"] = 28, 
+				["max"] = 32, 
 			}, 
 		}, 
 		["953_SpellDamageForJewel"] = {
@@ -15290,58 +19296,44 @@ return {
 				["max"] = 18, 
 			}, 
 		}, 
-		["2855_BleedDamageForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1294118672", 
-				["text"] = "#% increased Damage with Bleeding", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
+		["1116_LocalChaosDamageHybrid"] = {
 			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-		}, 
-		["1283_ArmourEnergyShieldForJewel"] = {
-			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Chaos Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2482852589", 
-				["text"] = "#% increased maximum Energy Shield", 
+				["id"] = "explicit.stat_2223678961", 
+				["text"] = "Adds # to # Chaos Damage (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1264_IncreasedArmourForJewel"] = {
+		["211_LocalPhysicalDamagePercentOnslaught"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are Supported by Level # Onslaught", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2866361420", 
-				["text"] = "#% increased Armour", 
+				["id"] = "explicit.stat_3237923082", 
+				["text"] = "Socketed Gems are Supported by Level # Onslaught", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
+			["sign"] = "", 
+		}, 
+		["1093_ColdDamageAndBaseChanceToFreeze"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3291658075", 
+				["text"] = "#% increased Cold Damage", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
+			["1HWeapon"] = {
+				["min"] = 70, 
+				["max"] = 109, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
+			["2HWeapon"] = {
+				["min"] = 70, 
+				["max"] = 109, 
 			}, 
 		}, 
 		["8241_IncreasedManaAndBaseCost"] = {
@@ -15380,19 +19372,16 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
-		["5826_ChanceToFreezeAddedDamage"] = {
+		["1291_LocalIncreasedEvasionAndEnergyShieldAndLife"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2233361223", 
-				["text"] = "Adds # to # Cold Damage against Chilled or Frozen Enemies", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
 			}, 
-			["Ring"] = {
-				["min"] = 26, 
-				["max"] = 37, 
-			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["1112_IncreasedChaosDamage"] = {
 			["tradeMod"] = {
@@ -15412,19 +19401,24 @@ return {
 				["max"] = 19, 
 			}, 
 		}, 
-		["4753_IncreasedCastSpeedTwoHandedKilledRecently"] = {
-			["specialCaseData"] = {
-			}, 
+		["1116_LocalChaosDamage"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2072625596", 
-				["text"] = "#% increased Cast Speed if you've Killed Recently", 
+				["id"] = "explicit.stat_2223678961", 
+				["text"] = "Adds # to # Chaos Damage (Local)", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 20, 
-				["max"] = 20, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Chaos Damage", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 80.5, 
+				["max"] = 123.5, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 80.5, 
+				["max"] = 123.5, 
+			}, 
 		}, 
 		["2855_BleedDamageAndDuration"] = {
 			["specialCaseData"] = {
@@ -15440,27 +19434,16 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["907_StrengthForJewel"] = {
+		["1277_LocalIncreasedEvasionAndEnergyShieldAndLife"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Evasion and Energy Shield", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4080418644", 
-				["text"] = "# to Strength", 
+				["id"] = "explicit.stat_1999113824", 
+				["text"] = "#% increased Evasion and Energy Shield (Local)", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 12, 
-				["max"] = 16, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 12, 
-				["max"] = 16, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 12, 
-				["max"] = 16, 
-			}, 
+			["sign"] = "", 
 		}, 
 		["1296_BaseManaAndLifeRegen"] = {
 			["Gloves"] = {
@@ -15500,27 +19483,19 @@ return {
 				["max"] = 33.3, 
 			}, 
 		}, 
-		["1464_ManaGainPerTargetForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_820939409", 
-				["text"] = "Gain # Mana per Enemy Hit with Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 1, 
-				["max"] = 2, 
-			}, 
+		["5554_LifeRegenerationPerEvasionDuringFocus"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3244118730", 
+				["text"] = "#% of Evasion Rating is Regenerated as Life per second while Focused", 
+			}, 
+			["Chest"] = {
+				["min"] = 1.5, 
+				["max"] = 1.5, 
+			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 1, 
-				["max"] = 2, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 1, 
-				["max"] = 2, 
-			}, 
 		}, 
 		["1264_ReducedPhysicalDamageTakenMaven"] = {
 			["specialCaseData"] = {
@@ -15536,15 +19511,23 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["1302_EnergyShieldAndManaForJewel"] = {
-			["specialCaseData"] = {
-			}, 
+		["2325_MinimumPowerChargesAndOnKillChance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2748665614", 
-				["text"] = "#% increased maximum Mana", 
+				["id"] = "explicit.stat_2483795307", 
+				["text"] = "#% chance to gain a Power Charge on Kill", 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 3, 
+				["max"] = 4, 
+			}, 
+			["Ring"] = {
+				["min"] = 3, 
+				["max"] = 4, 
+			}, 
 		}, 
 		["3941_ArmourAndEvasionRating"] = {
 			["tradeMod"] = {
@@ -15578,37 +19561,41 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["7657_AddedLightningDamagePerShockedEnemyKilled"] = {
-			["specialCaseData"] = {
-			}, 
+		["158_ChanceToBleedSupported"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4222857095", 
-				["text"] = "Adds # to # Lightning Damage for each Shocked Enemy you've Killed Recently", 
+				["id"] = "explicit.stat_4197676934", 
+				["text"] = "Socketed Gems are Supported by Level # Chance To Bleed", 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
+			}, 
 		}, 
-		["1549_PowerChargeOnCriticalStrikeChanceMaven"] = {
+		["1352_ColdResistanceAilments"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3814876985", 
-				["text"] = "#% chance to gain a Power Charge on Critical Strike", 
+				["id"] = "explicit.stat_4220027924", 
+				["text"] = "#% to Cold Resistance", 
 			}, 
-			["Chest"] = {
-				["min"] = 15, 
-				["max"] = 15, 
-			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
-		["1283_EnergyShieldAndManaForJewel"] = {
+		["3157_ChanceToRecoverManaOnSkillUse"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2482852589", 
-				["text"] = "#% increased maximum Energy Shield", 
+				["id"] = "explicit.stat_308309328", 
+				["text"] = "#% chance to Recover 10% of Mana when you use a Skill", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -15624,6 +19611,7 @@ return {
 		}, 
 		["113_LocalIncreaseSocketedSupportGemLevelMaven"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Support Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -15716,28 +19704,6 @@ return {
 				["max"] = 12, 
 			}, 
 		}, 
-		["1485_MinionLifeForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_770672621", 
-				["text"] = "Minions have #% increased maximum Life", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 12, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 8, 
-				["max"] = 12, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 12, 
-			}, 
-		}, 
 		["8724_SpellsAdditionalUnleashSeal"] = {
 			["specialCaseData"] = {
 			}, 
@@ -15752,6 +19718,17 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
+		["1282_LocalEnergyShieldPercentSuffix"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Energy Shield", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4015621042", 
+				["text"] = "#% increased Energy Shield (Local)", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1189_CritChanceWithBowForJewel"] = {
 			["specialCaseData"] = {
 			}, 
@@ -15762,125 +19739,84 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2232_MeleeRangeAndMeleeGemLevel"] = {
-			["Gloves"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+		["4720_CannotBeShockedOrIgnitedWhileMoving"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2264295449", 
-				["text"] = "# to Melee Strike Range", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Helmet"] = {
-				["min"] = 2, 
-				["max"] = 2, 
-			}, 
-		}, 
-		["5532_EnergyShieldRegenerationRatePerMinuteIfRareOrUniqueEnemyNearby"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2238019079", 
-				["text"] = "Regenerate # Energy Shield per second while a Rare or Unique Enemy is Nearby", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Chest"] = {
-				["min"] = 200, 
-				["max"] = 200, 
-			}, 
-			["Belt"] = {
-				["min"] = 200, 
-				["max"] = 200, 
-			}, 
-		}, 
-		["910_StrengthAndDexterity"] = {
-			["Gloves"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Quiver"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Belt"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_538848803", 
-				["text"] = "# to Strength and Dexterity", 
-			}, 
-			["Boots"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Chest"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Helmet"] = {
-				["min"] = 31, 
-				["max"] = 35, 
+				["id"] = "explicit.stat_3592330380", 
+				["text"] = "Cannot be Shocked or Ignited while moving", 
 			}, 
 			["Ring"] = {
-				["min"] = 31, 
-				["max"] = 35, 
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+		}, 
+		["358_DisplaySupportedSkillsHaveAChanceToIgnite"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3984519770", 
+				["text"] = "Socketed Gems have #% chance to Ignite", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5329_DisciplineReservationEfficiency"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2081344089", 
+				["text"] = "Discipline has #% increased Mana Reservation Efficiency", 
 			}, 
 			["Amulet"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Shield"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-		}, 
-		["2338_EnergyShieldAndRegen"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3594640492", 
-				["text"] = "Regenerate #% of Energy Shield per second", 
+				["min"] = 50, 
+				["max"] = 60, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1262_ArmourAndEnergyShield"] = {
+		["1593_ReducedFreezeDurationMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_809229260", 
-				["text"] = "# to Armour", 
+				["id"] = "explicit.stat_2160282525", 
+				["text"] = "#% reduced Freeze Duration on you", 
 			}, 
-			["sign"] = "+", 
-			["Belt"] = {
-				["min"] = 365, 
-				["max"] = 400, 
-			}, 
-		}, 
-		["5665_FocusCooldownRecovery"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3610263531", 
-				["text"] = "Focus has #% increased Cooldown Recovery Rate", 
+			["Helmet"] = {
+				["min"] = 51, 
+				["max"] = 60, 
 			}, 
 			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 31, 
-				["max"] = 35, 
+		}, 
+		["1095_GlobalAddedColdDamage"] = {
+			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2387423236", 
+				["text"] = "Adds # to # Cold Damage", 
+			}, 
+			["Gloves"] = {
+				["min"] = 23, 
+				["max"] = 30, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3757_DamageDuringFlaskEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2947215268", 
+				["text"] = "#% increased Damage during any Flask Effect", 
+			}, 
+			["Gloves"] = {
+				["min"] = 36, 
+				["max"] = 40, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["544_SummonWolfOnKillOld"] = {
 			["specialCaseData"] = {
@@ -15895,19 +19831,31 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["5214_ReducedBurnDurationMaven"] = {
-			["specialCaseData"] = {
+		["1690_MinionDamage"] = {
+			["Gloves"] = {
+				["min"] = 18, 
+				["max"] = 45, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_430821956", 
-				["text"] = "#% increased Damage if you've been Ignited Recently", 
+				["id"] = "explicit.stat_1589917703", 
+				["text"] = "Minions deal #% increased Damage", 
 			}, 
-			["Helmet"] = {
-				["min"] = 36, 
-				["max"] = 50, 
+			["AbyssJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["Ring"] = {
+				["min"] = 5, 
+				["max"] = 42, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
 		}, 
 		["1579_IncreasedAilmentDurationMaven"] = {
 			["specialCaseData"] = {
@@ -15983,18 +19931,23 @@ return {
 				["max"] = 29, 
 			}, 
 		}, 
-		["352_DisplaySocketedGemsGetReducedReservation"] = {
-			["specialCaseData"] = {
-			}, 
+		["2198_LocalLightRadiusAndAccuracyPercent"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3289633055", 
-				["text"] = "Socketed Gems have #% increased Reservation Efficiency", 
+				["id"] = "explicit.stat_1263695895", 
+				["text"] = "#% increased Light Radius", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Light Radius", 
 			}, 
 			["sign"] = "", 
-			["Shield"] = {
-				["min"] = 20, 
-				["max"] = 30, 
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 15, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 15, 
 			}, 
 		}, 
 		["2146_ColdResistancePhysTakenAsCold"] = {
@@ -16017,41 +19970,33 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1565_StrengthAndAvoidIgnite"] = {
+		["1453_DisplaySupportedByManaLeechMaven"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1783006896", 
-				["text"] = "#% chance to Avoid being Ignited", 
+				["id"] = "explicit.stat_96977651", 
+				["text"] = "#% increased Maximum total Mana Recovery per second from Leech", 
 			}, 
-			["specialCaseData"] = {
+			["Gloves"] = {
+				["min"] = 20, 
+				["max"] = 30, 
 			}, 
 			["sign"] = "", 
-			["Chest"] = {
-				["min"] = 21, 
-				["max"] = 25, 
-			}, 
-			["Shield"] = {
-				["min"] = 21, 
-				["max"] = 25, 
-			}, 
 		}, 
-		["907_StrengthAndAvoidIgnite"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4080418644", 
-				["text"] = "# to Strength", 
-			}, 
+		["341_DisplaySupportedByManaLeechMaven"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
-			["Chest"] = {
-				["min"] = 31, 
-				["max"] = 35, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2608615082", 
+				["text"] = "Socketed Gems are Supported by Level # Mana Leech", 
 			}, 
-			["Shield"] = {
-				["min"] = 31, 
-				["max"] = 35, 
+			["Gloves"] = {
+				["min"] = 20, 
+				["max"] = 20, 
 			}, 
+			["sign"] = "", 
 		}, 
 		["5598_FireAndChaosDamageResistance"] = {
 			["Gloves"] = {
@@ -16117,27 +20062,32 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["145_WeaponSpellDamageArcaneSurge"] = {
+		["1881_OLDAdditionalCurseOnEnemiesMaven"] = {
 			["specialCaseData"] = {
+				["overrideModLineSingular"] = "You can apply an additional Curse", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2287264161", 
-				["text"] = "Socketed Gems are Supported by Level # Arcane Surge", 
+				["id"] = "explicit.stat_30642521", 
+				["text"] = "You can apply # additional Curses", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1517_MovementVelocityAndMovementVelocityIfNotHitRecently"] = {
+		["2989_ChaosResistanceWhileUsingFlask"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2250533757", 
-				["text"] = "#% increased Movement Speed", 
+				["id"] = "explicit.stat_392168009", 
+				["text"] = "#% to Chaos Resistance during any Flask Effect", 
 			}, 
-			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 25, 
+			["sign"] = "+", 
+			["Belt"] = {
+				["min"] = 20, 
 				["max"] = 30, 
 			}, 
 		}, 
@@ -16163,17 +20113,17 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
-		["1515_ProjectileDamageAndProjectileSpeed"] = {
+		["2262_IgniteChanceAndDamageMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3759663284", 
-				["text"] = "#% increased Projectile Speed", 
+				["id"] = "explicit.stat_2443492284", 
+				["text"] = "Ignites you inflict deal Damage #% faster", 
 			}, 
-			["Amulet"] = {
-				["min"] = 23, 
-				["max"] = 25, 
+			["Helmet"] = {
+				["min"] = 10, 
+				["max"] = 15, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -16282,28 +20232,24 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["5802_LifeLeechFromAnyDamagePermyriadWhileFocusedAndVaalPact"] = {
+		["512_GrantsEssenceMinion"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2022851697", 
-				["text"] = "You have Vaal Pact while Focused", 
-			}, 
-			["Amulet"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["id"] = "explicit.stat_470688636", 
+				["text"] = "Triggers Level 20 Spectral Spirits when Equipped", 
 			}, 
 		}, 
-		["1352_ColdResistancePrefix"] = {
+		["1368_EnemyLifeLeechPermyriad"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4220027924", 
-				["text"] = "#% to Cold Resistance", 
+				["id"] = "explicit.stat_2693705594", 
+				["text"] = "#% of Physical Attack Damage Leeched by Enemy as Life", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["2225_ConductivityOnHitLevel"] = {
 			["specialCaseData"] = {
@@ -16322,17 +20268,17 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["2145_PhysicalDamageTakenAsFireAndLightningPercent"] = {
+		["953_WeaponSpellDamageEfficacy"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3342989455", 
-				["text"] = "#% of Physical Damage from Hits taken as Fire Damage", 
+				["id"] = "explicit.stat_2974417149", 
+				["text"] = "#% increased Spell Damage", 
 			}, 
-			["Chest"] = {
-				["min"] = 8, 
-				["max"] = 9, 
+			["1HWeapon"] = {
+				["min"] = 45, 
+				["max"] = 60, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -16358,47 +20304,36 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["8241_ManaCostBaseNonChannelled"] = {
+		["6737_LocalAccuracyRatingAndLocalItemQuality"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_407482587", 
-				["text"] = "Non-Channelling Skills Cost # Mana", 
-			}, 
-			["sign"] = "-", 
-		}, 
-		["2436_FlaskEffectAndFlaskChargesGained"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_114734841", 
-				["text"] = "Flasks applied to you have #% increased Effect", 
-			}, 
-			["sign"] = "", 
-			["Belt"] = {
-				["min"] = 15, 
-				["max"] = 18, 
-			}, 
-		}, 
-		["1267_EvasionRatingAndEnergyShield"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2144192055", 
-				["text"] = "# to Evasion Rating", 
-			}, 
-			["Quiver"] = {
-				["min"] = 365, 
-				["max"] = 400, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_2016708976", 
+				["text"] = "#% to Quality", 
 			}, 
 			["sign"] = "+", 
-			["Belt"] = {
-				["min"] = 365, 
-				["max"] = 400, 
+		}, 
+		["2313_MapExtraInvasionBosses"] = {
+			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_279246355", 
+				["text"] = "Area is inhabited by an additional Invasion Boss", 
+			}, 
+		}, 
+		["1251_LocalWard"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Ward", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_774059442", 
+				["text"] = "# to Ward", 
+			}, 
+			["sign"] = "+", 
 		}, 
 		["241_TrapDamageCooldownSupported"] = {
 			["specialCaseData"] = {
@@ -16462,55 +20397,45 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["2321_MinimumEnduranceChargesAndOnKillChance"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1054322244", 
-				["text"] = "#% chance to gain an Endurance Charge on Kill", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 3, 
-				["max"] = 4, 
-			}, 
-			["Ring"] = {
-				["min"] = 3, 
-				["max"] = 4, 
-			}, 
-		}, 
-		["1747_SupportedByMeleeSplashDamage"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4251717817", 
-				["text"] = "#% increased Area Damage", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 23, 
-				["max"] = 37, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 23, 
-				["max"] = 37, 
-			}, 
-		}, 
-		["5665_TriggerSocketedSpellWhenYouFocusCDR"] = {
+		["1745_ShockChanceAndEffectMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3610263531", 
-				["text"] = "Focus has #% increased Cooldown Recovery Rate", 
+				["id"] = "explicit.stat_1538773178", 
+				["text"] = "#% chance to Shock", 
 			}, 
 			["Helmet"] = {
-				["min"] = 5, 
-				["max"] = 8, 
+				["min"] = 10, 
+				["max"] = 15, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["3081_NearbyEnemiesAreBlindedMaven"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2826979740", 
+				["text"] = "Nearby Enemies are Blinded", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+		}, 
+		["2665_NearbyEnemiesAreBlindedMaven"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1436284579", 
+				["text"] = "Cannot be Blinded", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 		}, 
 		["1361_ChaosResistanceDamageOverTime"] = {
 			["specialCaseData"] = {
@@ -16522,15 +20447,27 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["2322_MinimumEnduranceChargesAndOnKillLose"] = {
-			["specialCaseData"] = {
-			}, 
+		["7770_MovementSpeedIfHitRecently"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_627015097", 
-				["text"] = "#% chance to lose an Endurance Charge on Kill", 
+				["id"] = "explicit.stat_3178542354", 
+				["text"] = "#% increased Movement Speed if you've Hit an Enemy Recently", 
 			}, 
 			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["2HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 15, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 10, 
+			}, 
+			["Boots"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
 		}, 
 		["916_PercentageIntelligenceMaven"] = {
 			["tradeMod"] = {
@@ -16550,26 +20487,17 @@ return {
 				["max"] = 12, 
 			}, 
 		}, 
-		["125_LocalIncreaseSocketedSupportGemLevelAndQuality"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1328548975", 
-				["text"] = "#% to Quality of Socketed Support Gems", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 8, 
-			}, 
+		["387_DisplaySocketedSkillsFork"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
-			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 8, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1519665289", 
+				["text"] = "Projectiles from Socketed Gems Fork", 
 			}, 
-			["Shield"] = {
-				["min"] = 5, 
-				["max"] = 8, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["5110_CriticalStrikeChanceIfNoCriticalStrikeDealtRecentlyUber"] = {
@@ -16596,106 +20524,63 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1304_BaseLifeAndManaRegen"] = {
-			["Gloves"] = {
-				["min"] = 5.3, 
-				["max"] = 5.3, 
+		["4915_GainEnduranceChargeOnTauntingEnemies"] = {
+			["specialCaseData"] = {
 			}, 
-			["Quiver"] = {
-				["min"] = 5.3, 
-				["max"] = 5.3, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1657549833", 
+				["text"] = "#% chance to gain an Endurance Charge when you Taunt an Enemy", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 30, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["306_LocalPhysicalDamagePercentMeleePhysicalDamage"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2985291457", 
+				["text"] = "Socketed Gems are Supported by Level # Melee Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are Supported by Level # Melee Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+		}, 
+		["872_BlockPercent"] = {
+			["Gloves"] = {
+				["min"] = 2, 
+				["max"] = 5, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2530372417", 
+				["text"] = "#% Chance to Block Attack Damage", 
+			}, 
+			["Chest"] = {
+				["min"] = 3, 
+				["max"] = 9, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Belt"] = {
-				["min"] = 5.3, 
-				["max"] = 5.3, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4291461939", 
-				["text"] = "Regenerate # Mana per second", 
-			}, 
 			["Helmet"] = {
-				["min"] = 5.3, 
-				["max"] = 5.3, 
-			}, 
-			["Ring"] = {
-				["min"] = 5.3, 
-				["max"] = 5.3, 
-			}, 
-			["Amulet"] = {
-				["min"] = 5.3, 
-				["max"] = 5.3, 
+				["min"] = 3, 
+				["max"] = 4, 
 			}, 
 			["Boots"] = {
-				["min"] = 5.3, 
-				["max"] = 5.3, 
-			}, 
-		}, 
-		["912_DexterityAndIntelligence"] = {
-			["Gloves"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Quiver"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Belt"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2300185227", 
-				["text"] = "# to Dexterity and Intelligence", 
-			}, 
-			["Boots"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Chest"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Helmet"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Ring"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Amulet"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Shield"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-		}, 
-		["1567_IntelligenceAndAvoidShock"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1871765599", 
-				["text"] = "#% chance to Avoid being Shocked", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Chest"] = {
-				["min"] = 21, 
-				["max"] = 25, 
-			}, 
-			["Shield"] = {
-				["min"] = 21, 
-				["max"] = 25, 
+				["min"] = 3, 
+				["max"] = 4, 
 			}, 
 		}, 
 		["4904_AdditionalChanceToEvadeMaven"] = {
@@ -16712,103 +20597,62 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1755_AlwaysHits"] = {
-			["specialCaseData"] = {
-			}, 
+		["1116_LocalChaosDamagePenetrationHybrid"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4126210832", 
-				["text"] = "Hits can't be Evaded", 
+				["id"] = "explicit.stat_2223678961", 
+				["text"] = "Adds # to # Chaos Damage (Local)", 
 			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Chaos Damage", 
+			}, 
+			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["min"] = 8, 
+				["max"] = 34.5, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["min"] = 8, 
+				["max"] = 64.5, 
 			}, 
 		}, 
-		["87_DelveIntelligenceGemLevel"] = {
-			["Gloves"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
+		["5867_HatredReservationEfficiency"] = {
 			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Boots"] = {
-				["min"] = 1, 
-				["max"] = 1, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1719423857", 
-				["text"] = "# to Level of Socketed Intelligence Gems", 
-			}, 
-			["Helmet"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["1301_BaseManaAndLifeRegen"] = {
-			["Gloves"] = {
-				["min"] = 55, 
-				["max"] = 60, 
-			}, 
-			["Quiver"] = {
-				["min"] = 55, 
-				["max"] = 60, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Belt"] = {
-				["min"] = 55, 
-				["max"] = 60, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1050105434", 
-				["text"] = "# to maximum Mana", 
-			}, 
-			["Helmet"] = {
-				["min"] = 55, 
-				["max"] = 60, 
-			}, 
-			["Ring"] = {
-				["min"] = 55, 
-				["max"] = 60, 
+				["id"] = "explicit.stat_2156140483", 
+				["text"] = "Hatred has #% increased Mana Reservation Efficiency", 
 			}, 
 			["Amulet"] = {
-				["min"] = 55, 
-				["max"] = 60, 
+				["min"] = 40, 
+				["max"] = 50, 
 			}, 
-			["Boots"] = {
-				["min"] = 55, 
-				["max"] = 60, 
-			}, 
+			["sign"] = "", 
 		}, 
-		["5802_GainVaalPactWhileFocused"] = {
+		["1579_IncreasedAilmentDuration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2022851697", 
-				["text"] = "You have Vaal Pact while Focused", 
+				["id"] = "explicit.stat_2419712247", 
+				["text"] = "#% increased Duration of Ailments on Enemies", 
 			}, 
+			["Gloves"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3987_PhysicalDamageReductionWhileNotMoving"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2181129193", 
+				["text"] = "#% additional Physical Damage Reduction while stationary", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["2321_EnduranceChargeOnKillChance"] = {
 			["tradeMod"] = {
@@ -16832,49 +20676,45 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
-		["1006_DualWieldingPhysicalDamage"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1274831335", 
-				["text"] = "#% increased Physical Attack Damage while Dual Wielding", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 23, 
-				["max"] = 37, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 23, 
-				["max"] = 37, 
-			}, 
-		}, 
-		["1563_MovementVelocityAndCannotBeChilled"] = {
+		["4171_AdditionalPhysicalDamageReductionWhileMoving"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3483999943", 
-				["text"] = "#% chance to Avoid being Chilled", 
+				["id"] = "explicit.stat_2713357573", 
+				["text"] = "#% additional Physical Damage Reduction while moving", 
 			}, 
 			["sign"] = "", 
 			["Boots"] = {
-				["min"] = 100, 
-				["max"] = 100, 
+				["min"] = 3, 
+				["max"] = 5, 
 			}, 
 		}, 
-		["960_IncreasedChaosAndPhysicalDamage"] = {
+		["1106_GlobalAddedLightningDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1310194496", 
-				["text"] = "#% increased Global Physical Damage", 
+				["id"] = "explicit.stat_1334060246", 
+				["text"] = "Adds # to # Lightning Damage", 
 			}, 
-			["Ring"] = {
-				["min"] = 20, 
-				["max"] = 22, 
+			["Gloves"] = {
+				["min"] = 24.5, 
+				["max"] = 30.5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["233_SupportedBySpellCascadeArea"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_503990161", 
+				["text"] = "Socketed Gems are Supported by Level # Spell Cascade", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 20, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -16912,22 +20752,22 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["2604_MinionLifeLeech"] = {
+		["8599_VaalSoulCost"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2770782267", 
-				["text"] = "Minions Leech #% of Damage as Life", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 0.3, 
-				["max"] = 0.5, 
+				["id"] = "explicit.stat_678245679", 
+				["text"] = "Non-Aura Vaal Skills require #% reduced Souls Per Use", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 0.3, 
-				["max"] = 0.5, 
+			["1HWeapon"] = {
+				["min"] = 20, 
+				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 40, 
+				["max"] = 40, 
 			}, 
 		}, 
 		["2855_BleedingDamageChance"] = {
@@ -16940,29 +20780,37 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1104_IncreasedFireAndLightningDamage"] = {
+		["1759_IncreasedAttackAndCastSpeedSupportedMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2231156303", 
-				["text"] = "#% increased Lightning Damage", 
+				["id"] = "explicit.stat_2672805335", 
+				["text"] = "#% increased Attack and Cast Speed", 
 			}, 
-			["Ring"] = {
-				["min"] = 20, 
-				["max"] = 22, 
+			["Gloves"] = {
+				["min"] = 13, 
+				["max"] = 14, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1301_IncreasedManaAndPercent"] = {
-			["specialCaseData"] = {
-			}, 
+		["192_CriticalStrikeChanceSupported"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1050105434", 
-				["text"] = "# to maximum Mana", 
+				["id"] = "explicit.stat_2259700079", 
+				["text"] = "Socketed Gems are Supported by Level # Increased Critical Strikes", 
 			}, 
-			["sign"] = "+", 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
+			}, 
 		}, 
 		["1084_FireDamageWeaponPrefixAndFlat"] = {
 			["specialCaseData"] = {
@@ -16974,38 +20822,38 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2323_MinimumFrenzyChargesAndOnKillChance"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1826802197", 
-				["text"] = "#% chance to gain a Frenzy Charge on Kill", 
-			}, 
+		["154_SupportedByCastOnDamageTaken"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 3, 
-				["max"] = 4, 
-			}, 
-			["Ring"] = {
-				["min"] = 3, 
-				["max"] = 4, 
-			}, 
-		}, 
-		["1527_MinimumFrenzyChargesAndOnKillChance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_658456881", 
-				["text"] = "# to Minimum Frenzy Charges", 
+				["id"] = "explicit.stat_3036440332", 
+				["text"] = "Socketed Gems are Supported by Level # Cast when Damage Taken", 
+			}, 
+			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 5, 
+				["max"] = 5, 
+			}, 
+		}, 
+		["1336_GlobalIncreaseMinionSpellSkillGemLevel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2162097452", 
+				["text"] = "# to Level of all Minion Skill Gems", 
+			}, 
+			["Helmet"] = {
+				["min"] = 1, 
+				["max"] = 2, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-			["Amulet"] = {
+			["1HWeapon"] = {
 				["min"] = 1, 
 				["max"] = 1, 
 			}, 
-			["Ring"] = {
+			["Shield"] = {
 				["min"] = 1, 
 				["max"] = 1, 
 			}, 
@@ -17032,145 +20880,93 @@ return {
 				["max"] = 45, 
 			}, 
 		}, 
-		["1564_DexterityAndAvoidFreeze"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1514829491", 
-				["text"] = "#% chance to Avoid being Frozen", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Chest"] = {
-				["min"] = 21, 
-				["max"] = 25, 
-			}, 
-			["Shield"] = {
-				["min"] = 21, 
-				["max"] = 25, 
-			}, 
-		}, 
-		["908_DexterityAndAvoidFreeze"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3261801346", 
-				["text"] = "# to Dexterity", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Chest"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Shield"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-		}, 
-		["6938_ManaRegenerationRateWhileMoving"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1327522346", 
-				["text"] = "#% increased Mana Regeneration Rate while moving", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
-			}, 
-			["Boots"] = {
-				["min"] = 50, 
-				["max"] = 70, 
-			}, 
-		}, 
-		["1517_MovementVelocityAndOnslaughtOnKill"] = {
+		["1755_AlwaysHits"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2250533757", 
-				["text"] = "#% increased Movement Speed", 
-			}, 
-			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 25, 
-				["max"] = 30, 
-			}, 
-		}, 
-		["911_StrengthAndIntelligence"] = {
-			["Gloves"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Quiver"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Belt"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1535626285", 
-				["text"] = "# to Strength and Intelligence", 
-			}, 
-			["Boots"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Chest"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Helmet"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Ring"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Amulet"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-			["Shield"] = {
-				["min"] = 31, 
-				["max"] = 35, 
-			}, 
-		}, 
-		["4899_ChanceToDealDoubleDamageWhileFocused"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2908886986", 
-				["text"] = "#% chance to deal Double Damage while Focused", 
-			}, 
-			["sign"] = "", 
-			["specialCaseData"] = {
-			}, 
-			["2HWeapon"] = {
-				["min"] = 36, 
-				["max"] = 40, 
+				["id"] = "explicit.stat_4126210832", 
+				["text"] = "Hits can't be Evaded", 
 			}, 
 			["1HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 20, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["Shield"] = {
-				["min"] = 18, 
-				["max"] = 20, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
+		}, 
+		["3062_UnholyMightOnKillPercentChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3991482957", 
+				["text"] = "#% chance to gain Unholy Might for 10 seconds on Kill", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 25, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 25, 
+			}, 
+		}, 
+		["7646_ColdDamageToAttacksPerDexterity"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_769783486", 
+				["text"] = "Adds # to # Cold Damage to Attacks per 10 Dexterity", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2232_MeleeDamageAndMeleeRange"] = {
+			["Gloves"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2264295449", 
+				["text"] = "# to Melee Strike Range", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["Amulet"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
+		}, 
+		["733_LocalFlaskLifeLeechOnDamageTakenPermyriadDuringFlaskEffect"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% of Damage Taken from Hits is Leeched as Life during Effect", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3824033729", 
+				["text"] = "#% of Damage Taken from Hits is Leeched as Life during Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["385_SocketedSkillsCastSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3425934849", 
+				["text"] = "Socketed Skills have #% increased Cast Speed", 
+			}, 
+			["Gloves"] = {
+				["min"] = 18, 
+				["max"] = 18, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["193_SkillEffectDurationSupported"] = {
 			["specialCaseData"] = {
@@ -17236,23 +21032,22 @@ return {
 				["max"] = 16, 
 			}, 
 		}, 
-		["1464_ManaGainPerTargetMaven"] = {
-			["Gloves"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+		["6695_CullingStrikeOnBleedingEnemiesUber"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_820939409", 
-				["text"] = "Gain # Mana per Enemy Hit with Attacks", 
+				["id"] = "explicit.stat_2558253923", 
+				["text"] = "Hits with this Weapon have Culling Strike against Bleeding Enemies", 
 			}, 
-			["Quiver"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["specialCaseData"] = {
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
 		}, 
 		["2856_PoisonChanceAndDurationForJewel"] = {
 			["tradeMod"] = {
@@ -17294,50 +21089,23 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5008_ColdAndChaosDamageResistance"] = {
-			["Gloves"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["Quiver"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Belt"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
+		["1736_LocalAccuracyRatingStrengthDexterity"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3393628375", 
-				["text"] = "#% to Cold and Chaos Resistances", 
+				["id"] = "explicit.stat_691932474", 
+				["text"] = "# to Accuracy Rating (Local)", 
 			}, 
-			["Boots"] = {
-				["min"] = 16, 
-				["max"] = 20, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Accuracy Rating", 
 			}, 
-			["Chest"] = {
-				["min"] = 16, 
-				["max"] = 20, 
+			["sign"] = "+", 
+			["1HWeapon"] = {
+				["min"] = 311, 
+				["max"] = 350, 
 			}, 
-			["Helmet"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["Ring"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["Amulet"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["Shield"] = {
-				["min"] = 16, 
-				["max"] = 20, 
+			["2HWeapon"] = {
+				["min"] = 311, 
+				["max"] = 350, 
 			}, 
 		}, 
 		["1308_ManaRecoveryRateMaven"] = {
@@ -17426,66 +21194,47 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
-		["1003_LocalAddedPhysicalDamageAndCausesBleeding"] = {
+		["375_DisplaySupportedSkillsDealDamageOnLowLife"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_960081730", 
-				["text"] = "Adds # to # Physical Damage", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_1235873320", 
+				["text"] = "Socketed Gems deal #% more Damage while on Low Life", 
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 15, 
-				["max"] = 17, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 21.5, 
-				["max"] = 24, 
-			}, 
 		}, 
-		["1745_LightningDamageAndChanceToShock"] = {
+		["3073_LightningDamageTaken"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1538773178", 
-				["text"] = "#% chance to Shock", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_1276918229", 
+				["text"] = "#% reduced Lightning Damage taken", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["5328_DisciplineReservation"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2081344089", 
+				["text"] = "Discipline has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1599_SupportedBySpellCascadeArea"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_280731498", 
+				["text"] = "#% increased Area of Effect", 
+			}, 
 			["1HWeapon"] = {
-				["min"] = 21, 
-				["max"] = 40, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 21, 
-				["max"] = 40, 
-			}, 
-		}, 
-		["512_GrantsEssenceMinion"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_470688636", 
-				["text"] = "Triggers Level 20 Spectral Spirits when Equipped", 
-			}, 
-		}, 
-		["1184_CriticalChanceAndAddedChaosDamageIfHaveCritRecently"] = {
-			["Gloves"] = {
-				["min"] = 20, 
-				["max"] = 22, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_587431675", 
-				["text"] = "#% increased Global Critical Strike Chance", 
-			}, 
-			["Quiver"] = {
-				["min"] = 20, 
-				["max"] = 22, 
-			}, 
-			["specialCaseData"] = {
+				["min"] = 5, 
+				["max"] = 15, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -17499,19 +21248,15 @@ return {
 			}, 
 			["sign"] = "-", 
 		}, 
-		["5138_CritChanceAndCriticalStrikeMultiplierIfEnemyShatteredRecently"] = {
+		["1655_ChaosDamageAsPortionOfLightningDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_536929014", 
-				["text"] = "#% to Critical Strike Multiplier if you've Shattered an Enemy Recently", 
+				["id"] = "explicit.stat_2402136583", 
+				["text"] = "Gain #% of Lightning Damage as Extra Chaos Damage", 
 			}, 
-			["Ring"] = {
-				["min"] = 27, 
-				["max"] = 30, 
-			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["1212_CriticalStrikeMultiplierSupported"] = {
 			["tradeMod"] = {
@@ -17531,27 +21276,16 @@ return {
 				["max"] = 29, 
 			}, 
 		}, 
-		["1106_AddedColdAndLightningDamage"] = {
+		["110_LocalIncreaseSocketedTrapGemLevel"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Trap Gems", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1334060246", 
-				["text"] = "Adds # to # Lightning Damage", 
+				["id"] = "explicit.stat_407139870", 
+				["text"] = "# to Level of Socketed Trap Gems", 
 			}, 
-			["Quiver"] = {
-				["min"] = 17, 
-				["max"] = 19, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Ring"] = {
-				["min"] = 17, 
-				["max"] = 19, 
-			}, 
-			["Shield"] = {
-				["min"] = 17, 
-				["max"] = 19, 
-			}, 
+			["sign"] = "+", 
 		}, 
 		["1468_LifeGainedFromEnemyDeath"] = {
 			["Gloves"] = {
@@ -17633,23 +21367,31 @@ return {
 				["max"] = 134, 
 			}, 
 		}, 
-		["1296_LifeRegenerationAndPercent"] = {
+		["8658_WrathReservationEfficiency"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3325883026", 
-				["text"] = "Regenerate # Life per second", 
+				["id"] = "explicit.stat_3444518809", 
+				["text"] = "Wrath has #% increased Mana Reservation Efficiency", 
+			}, 
+			["Amulet"] = {
+				["min"] = 40, 
+				["max"] = 50, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1105_SelfFireAndLightningDamageTaken"] = {
+		["6767_LifeGainPerBlindedEnemyHit"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2923069345", 
-				["text"] = "Adds # to # Lightning Damage to Hits against you", 
+				["id"] = "explicit.stat_1649099067", 
+				["text"] = "Gain # Life per Blinded Enemy Hit with this Weapon", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 35, 
+				["max"] = 50, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -17685,23 +21427,20 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1615_ChaosDamageAndChaosSkillDuration"] = {
+		["1881_AdditionalCurseOnEnemiesMaven"] = {
+			["specialCaseData"] = {
+				["overrideModLineSingular"] = "You can apply an additional Curse", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_289885185", 
-				["text"] = "Chaos Skills have #% increased Skill Effect Duration", 
+				["id"] = "explicit.stat_30642521", 
+				["text"] = "You can apply # additional Curses", 
 			}, 
-			["specialCaseData"] = {
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 13, 
-				["max"] = 30, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 13, 
-				["max"] = 30, 
-			}, 
 		}, 
 		["1114_ChaosDamage"] = {
 			["specialCaseData"] = {
@@ -17731,39 +21470,39 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1567_ReducedShockChance"] = {
+		["111_IncreasedSocketedTrapOrMineGemLevel"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1871765599", 
-				["text"] = "#% chance to Avoid being Shocked", 
+				["id"] = "explicit.stat_150668988", 
+				["text"] = "# to Level of Socketed Trap or Mine Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["2826_ChillEnemiesWhenHit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2459809121", 
+				["text"] = "Chill Enemy for # second when Hit, reducing their Action Speed by 30%", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1130_TwoHandFireDamageWeaponPrefixAndFlat"] = {
+		["891_SpellBlockPercentageMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1133016593", 
-				["text"] = "Adds # to # Fire Damage to Spells", 
+				["id"] = "explicit.stat_561307714", 
+				["text"] = "#% Chance to Block Spell Damage", 
+			}, 
+			["Helmet"] = {
+				["min"] = 5, 
+				["max"] = 6, 
 			}, 
 			["sign"] = "", 
-		}, 
-		["2262_FasterIgniteDamageMaven"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2443492284", 
-				["text"] = "Ignites you inflict deal Damage #% faster", 
-			}, 
-			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 11, 
-				["max"] = 15, 
-			}, 
 		}, 
 		["4893_DoubleDamageChance"] = {
 			["tradeMod"] = {
@@ -17787,13 +21526,13 @@ return {
 				["max"] = 7, 
 			}, 
 		}, 
-		["2324_MinimumFrenzyChargesAndOnKillLose"] = {
+		["376_SocketedGemsDealMoreElementalDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2142803347", 
-				["text"] = "#% chance to lose a Frenzy Charge on Kill", 
+				["id"] = "explicit.stat_3835899275", 
+				["text"] = "Socketed Gems deal #% more Elemental Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -17853,29 +21592,29 @@ return {
 				["max"] = 14, 
 			}, 
 		}, 
-		["1094_SelfFireAndColdDamageTaken"] = {
+		["1101_AddedColdDamageToSpellsAndAttacks"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3482587079", 
-				["text"] = "Adds # to # Cold Damage to Hits against you", 
+				["id"] = "explicit.stat_1662717006", 
+				["text"] = "Adds # to # Cold Damage to Spells and Attacks", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["7742_MinionsRecoverMaximumLifeWhenYouFocusCDR"] = {
+		["4752_CastSpeedDuringFlaskEffect"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3500359417", 
-				["text"] = "Minions Recover #% of their Life when you Focus", 
-			}, 
-			["Gloves"] = {
-				["min"] = 100, 
-				["max"] = 100, 
+				["id"] = "explicit.stat_252194507", 
+				["text"] = "#% increased Cast Speed during any Flask Effect", 
 			}, 
 			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 8, 
+				["max"] = 14, 
+			}, 
 		}, 
 		["1644_TrapThrowSpeedOnWeapon"] = {
 			["specialCaseData"] = {
@@ -17897,35 +21636,40 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8777_PointBlank"] = {
-			["specialCaseData"] = {
-			}, 
+		["4396_AddedColdDamagePerDexterity"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2896346114", 
-				["text"] = "Point Blank", 
-			}, 
-		}, 
-		["1293_MaximumLifeIncreasePercent"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_983749596", 
-				["text"] = "#% increased maximum Life", 
-			}, 
-			["Chest"] = {
-				["min"] = 5, 
-				["max"] = 15, 
+				["id"] = "explicit.stat_149574107", 
+				["text"] = "Adds # to # Cold Damage to Attacks with this Weapon per 10 Dexterity", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Shield"] = {
-				["min"] = 3, 
-				["max"] = 10, 
+			["1HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 3, 
 			}, 
-			["Belt"] = {
-				["min"] = 3, 
-				["max"] = 10, 
+			["2HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+		}, 
+		["4234_CullingStrikeMaven"] = {
+			["Gloves"] = {
+				["min"] = 15, 
+				["max"] = 25, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1785568076", 
+				["text"] = "#% increased Area of Effect if you've dealt a Culling Strike Recently", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 25, 
 			}, 
 		}, 
 		["2153_PercentDamageGoesToMana"] = {
@@ -17946,37 +21690,36 @@ return {
 				["max"] = 3, 
 			}, 
 		}, 
-		["941_PhysicalDamageOverTimePrefix"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1692565595", 
-				["text"] = "#% increased Physical Damage over Time", 
-			}, 
+		["1751_CullingStrikeMaven"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 60, 
-				["max"] = 94, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2524254339", 
+				["text"] = "Culling Strike", 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 60, 
-				["max"] = 134, 
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Gloves"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
-		["2496_ChanceToFreezeShockIgniteProliferation"] = {
+		["3914_MaximumEnduranceChargesMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_800141891", 
-				["text"] = "#% chance to Freeze, Shock and Ignite", 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 10, 
+				["id"] = "explicit.stat_2713233613", 
+				["text"] = "#% chance that if you would gain Endurance Charges, you instead gain up to maximum Endurance Charges", 
 			}, 
 			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 10, 
+				["max"] = 10, 
+			}, 
 		}, 
 		["328_IncreasedCastSpeedFasterCasting"] = {
 			["specialCaseData"] = {
@@ -17992,32 +21735,29 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5764_GainOnslaughtDuringSoulGainPrevention"] = {
+		["1695_ElementalDamagePercentMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1572897579", 
-				["text"] = "You have Onslaught during Soul Gain Prevention", 
+				["id"] = "explicit.stat_3141070085", 
+				["text"] = "#% increased Elemental Damage", 
 			}, 
-			["Gloves"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Helmet"] = {
+				["min"] = 19, 
+				["max"] = 22, 
 			}, 
-			["Boots"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
+			["sign"] = "", 
 		}, 
-		["8239_ManaCostBaseChannelled"] = {
+		["1280_EnergyShieldAndDegenGracePeriod"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1178188780", 
-				["text"] = "Channelling Skills Cost # Mana", 
+				["id"] = "explicit.stat_3489782002", 
+				["text"] = "# to maximum Energy Shield", 
 			}, 
-			["sign"] = "-", 
+			["sign"] = "+", 
 		}, 
 		["908_DexterityForJewel"] = {
 			["tradeMod"] = {
@@ -18041,51 +21781,50 @@ return {
 				["max"] = 16, 
 			}, 
 		}, 
-		["144_AreaOfEffectSupported"] = {
+		["6703_PowerChargeOnManaSpent"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3720936304", 
-				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect", 
+				["id"] = "explicit.stat_3269060224", 
+				["text"] = "Gain a Power Charge after Spending a total of 200 Mana", 
 			}, 
-			["Helmet"] = {
-				["min"] = 16, 
-				["max"] = 25, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1602_ManaAndManaCostPercent"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_474294393", 
-				["text"] = "#% reduced Mana Cost of Skills", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 6, 
-				["max"] = 7, 
-			}, 
-			["Ring"] = {
-				["min"] = 6, 
-				["max"] = 7, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
-		["1453_DisplaySupportedByManaLeechMaven"] = {
+		["2181_ChanceToBleedSupported"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1519615863", 
+				["text"] = "#% chance to cause Bleeding on Hit", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["2856_FasterPoisonDamageMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_96977651", 
-				["text"] = "#% increased Maximum total Mana Recovery per second from Leech", 
-			}, 
-			["Gloves"] = {
-				["min"] = 20, 
-				["max"] = 30, 
+				["id"] = "explicit.stat_2011656677", 
+				["text"] = "#% increased Poison Duration", 
 			}, 
 			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 10, 
+				["max"] = 20, 
+			}, 
 		}, 
 		["1896_BeltReducedFlaskChargesUsed"] = {
 			["specialCaseData"] = {
@@ -18101,13 +21840,13 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["924_TrapDamageOnWeapon"] = {
+		["1130_TwoHandFireDamageWeaponPrefixAndFlat"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2941585404", 
-				["text"] = "#% increased Trap Damage", 
+				["id"] = "explicit.stat_1133016593", 
+				["text"] = "Adds # to # Fire Damage to Spells", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -18153,31 +21892,33 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["8775_TheAgnostic"] = {
+		["1003_LocalPhysicalDamageTwoHanded"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_462691314", 
-				["text"] = "The Agnostic", 
-			}, 
-		}, 
-		["6688_LocalChaosPenetration"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3762412853", 
-				["text"] = "Attacks with this Weapon Penetrate #% Chaos Resistance", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+				["id"] = "explicit.stat_1940865751", 
+				["text"] = "Adds # to # Physical Damage (Local)", 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+				["min"] = 3, 
+				["max"] = 65.5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1961_AdditionalTotems"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_429867172", 
+				["text"] = "# to maximum number of Summoned Totems", 
+			}, 
+			["sign"] = "+", 
+			["Shield"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["7650_AddedFireDamageIfCritRecently"] = {
@@ -18194,40 +21935,33 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1738_FireDamageAndChanceToIgnite"] = {
+		["1619_LocalWardAndStunRecoveryPercent"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Stun and Block Recovery", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1335054179", 
-				["text"] = "#% chance to Ignite", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_2511217560", 
+				["text"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 21, 
-				["max"] = 40, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 21, 
-				["max"] = 40, 
-			}, 
 		}, 
-		["1084_FireDamageAndChanceToIgnite"] = {
+		["1006_DualWieldingPhysicalDamage"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3962278098", 
-				["text"] = "#% increased Fire Damage", 
+				["id"] = "explicit.stat_1274831335", 
+				["text"] = "#% increased Physical Attack Damage while Dual Wielding", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 70, 
-				["max"] = 109, 
+				["min"] = 23, 
+				["max"] = 37, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 70, 
-				["max"] = 109, 
+				["min"] = 23, 
+				["max"] = 37, 
 			}, 
 		}, 
 		["2145_PhysicalDamageTakenAsFireUberMaven"] = {
@@ -18251,6 +21985,7 @@ return {
 				["text"] = "# to Level of Socketed Gems", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Gems", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -18286,19 +22021,19 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["7655_AddedLightningDamageIfCritRecently"] = {
+		["2262_FasterIgniteDamageMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_935623115", 
-				["text"] = "Adds # to # Lightning Damage if you've dealt a Critical Strike Recently", 
-			}, 
-			["Gloves"] = {
-				["min"] = 21, 
-				["max"] = 45.5, 
+				["id"] = "explicit.stat_2443492284", 
+				["text"] = "Ignites you inflict deal Damage #% faster", 
 			}, 
 			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 11, 
+				["max"] = 15, 
+			}, 
 		}, 
 		["926_MineDamageOnWeapon"] = {
 			["specialCaseData"] = {
@@ -18362,14 +22097,23 @@ return {
 			}, 
 		}, 
 		["6683_LocalChanceForBleedingDamage100FinalInflictedWithThisWeapon"] = {
-			["specialCaseData"] = {
-			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1560880986", 
 				["text"] = "#% chance for Bleeding inflicted with this Weapon to deal 100% more Damage", 
 			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance for Bleeding inflicted with this Weapon to deal #% more Damage", 
+			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 60, 
+				["max"] = 60, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 60, 
+				["max"] = 60, 
+			}, 
 		}, 
 		["5226_DamagePer15Intelligence"] = {
 			["specialCaseData"] = {
@@ -18385,25 +22129,30 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2326_MinimumPowerChargesAndOnKillLose"] = {
+		["1578_FasterIgniteDamageMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2939195168", 
-				["text"] = "#% chance to lose a Power Charge on Kill", 
+				["id"] = "explicit.stat_1086147743", 
+				["text"] = "#% increased Ignite Duration on Enemies", 
 			}, 
 			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 10, 
+				["max"] = 20, 
+			}, 
 		}, 
-		["1532_MinimumPowerChargesAndOnKillLose"] = {
+		["1089_LocalFireDamageAndPen"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Fire Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1999711879", 
-				["text"] = "# to Minimum Power Charges", 
+				["id"] = "explicit.stat_709508406", 
+				["text"] = "Adds # to # Fire Damage (Local)", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["1650_PhysicalAddedAsCold"] = {
 			["2HWeapon"] = {
@@ -18487,13 +22236,13 @@ return {
 				["max"] = 20.5, 
 			}, 
 		}, 
-		["1297_BaseManaAndLifeDegenGracePeriod"] = {
+		["1418_EnemyManaLeechPermyriad"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_771127912", 
-				["text"] = "Lose # Life per second", 
+				["id"] = "explicit.stat_407390981", 
+				["text"] = "#% of Physical Attack Damage Leeched by Enemy as Mana", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -18519,111 +22268,80 @@ return {
 				["max"] = 0.4, 
 			}, 
 		}, 
-		["1106_AddedFireAndLightningDamage"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1334060246", 
-				["text"] = "Adds # to # Lightning Damage", 
-			}, 
-			["Quiver"] = {
-				["min"] = 17, 
-				["max"] = 19, 
-			}, 
+		["1346_FireResistanceLeech"] = {
 			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Ring"] = {
-				["min"] = 17, 
-				["max"] = 19, 
-			}, 
-			["Shield"] = {
-				["min"] = 17, 
-				["max"] = 19, 
-			}, 
-		}, 
-		["1086_AddedFireAndLightningDamage"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_321077055", 
-				["text"] = "Adds # to # Fire Damage", 
-			}, 
-			["Quiver"] = {
-				["min"] = 17, 
-				["max"] = 19, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Ring"] = {
-				["min"] = 17, 
-				["max"] = 19, 
-			}, 
-			["Shield"] = {
-				["min"] = 17, 
-				["max"] = 19, 
-			}, 
-		}, 
-		["1840_FrenzyChargeOnKillChanceMaven"] = {
-			["Gloves"] = {
-				["min"] = 50, 
-				["max"] = 50, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3338298622", 
-				["text"] = "#% increased Frenzy Charge Duration", 
-			}, 
-			["Quiver"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
-		}, 
-		["2153_ManaAndDamageTakenGoesToManaPercent"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_472520716", 
-				["text"] = "#% of Damage taken Recouped as Mana", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 7, 
-				["max"] = 8, 
-			}, 
-			["Ring"] = {
-				["min"] = 7, 
-				["max"] = 8, 
-			}, 
-		}, 
-		["1301_ManaAndDamageTakenGoesToManaPercent"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1050105434", 
-				["text"] = "# to maximum Mana", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_3372524247", 
+				["text"] = "#% to Fire Resistance", 
 			}, 
 			["sign"] = "+", 
-			["Amulet"] = {
-				["min"] = 51, 
-				["max"] = 55, 
+		}, 
+		["1703_BlockPercentMaven"] = {
+			["specialCaseData"] = {
 			}, 
-			["Ring"] = {
-				["min"] = 51, 
-				["max"] = 55, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4124805414", 
+				["text"] = "#% to maximum Chance to Block Attack Damage", 
 			}, 
+			["Gloves"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["872_BlockPercentMaven"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2530372417", 
+				["text"] = "#% Chance to Block Attack Damage", 
+			}, 
+			["Gloves"] = {
+				["min"] = 4, 
+				["max"] = 5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1271_LocalEvasionRating"] = {
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 500, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_53045048", 
+				["text"] = "# to Evasion Rating (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 6, 
+				["max"] = 500, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Evasion Rating", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 500, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 500, 
+			}, 
+		}, 
+		["379_SocketedGemsDealAdditionalFireDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1289910726", 
+				["text"] = "Socketed Gems deal # to # Added Fire Damage", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["5618_PhysicalDamageTakenAsFireUberMaven"] = {
 			["specialCaseData"] = {
@@ -18665,36 +22383,34 @@ return {
 				["max"] = 21.5, 
 			}, 
 		}, 
-		["1302_PercentageLifeAndMana"] = {
+		["323_WeaponSpellDamageReducedMana"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2748665614", 
-				["text"] = "#% increased maximum Mana", 
-			}, 
-			["Chest"] = {
-				["min"] = 9, 
-				["max"] = 10, 
+				["id"] = "explicit.stat_749770518", 
+				["text"] = "Socketed Gems are Supported by Level # Inspiration", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["8776_PainAttunement"] = {
+		["6781_LocalChanceToPoisonOnHitChaosDamage"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to Poison on Hit", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_98977150", 
-				["text"] = "Pain Attunement", 
+				["id"] = "explicit.stat_3885634897", 
+				["text"] = "#% chance to Poison on Hit (Local)", 
 			}, 
+			["sign"] = "", 
 		}, 
-		["7646_ColdDamageToAttacksPerDexterity"] = {
+		["1130_FireDamageWeaponPrefixAndFlat"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_769783486", 
-				["text"] = "Adds # to # Cold Damage to Attacks per 10 Dexterity", 
+				["id"] = "explicit.stat_1133016593", 
+				["text"] = "Adds # to # Fire Damage to Spells", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -18712,23 +22428,16 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1093_ColdDamageAndBaseChanceToFreeze"] = {
+		["1652_LocalPhysicalDamagePercentAddedAsChaos"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Gain #% of Physical Damage as Extra Chaos Damage", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3291658075", 
-				["text"] = "#% increased Cold Damage", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_3319896421", 
+				["text"] = "Gain #% of Physical Damage as Extra Chaos Damage", 
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 70, 
-				["max"] = 109, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 70, 
-				["max"] = 109, 
-			}, 
 		}, 
 		["2145_PhysicalDamageTakenAsFirePercent"] = {
 			["specialCaseData"] = {
@@ -18744,36 +22453,45 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5554_LifeRegenerationPerEvasionDuringFocus"] = {
+		["1290_EnergyShieldRecoveryRateMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3244118730", 
-				["text"] = "#% of Evasion Rating is Regenerated as Life per second while Focused", 
+				["id"] = "explicit.stat_988575597", 
+				["text"] = "#% increased Energy Shield Recovery rate", 
 			}, 
 			["Chest"] = {
-				["min"] = 1.5, 
-				["max"] = 1.5, 
+				["min"] = 12, 
+				["max"] = 15, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["2325_MinimumPowerChargesAndOnKillChance"] = {
+		["1278_LocalArmourAndEvasionAndEnergyShield"] = {
+			["Gloves"] = {
+				["min"] = 27, 
+				["max"] = 100, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2483795307", 
-				["text"] = "#% chance to gain a Power Charge on Kill", 
+				["id"] = "explicit.stat_3523867985", 
+				["text"] = "#% increased Armour, Evasion and Energy Shield (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 27, 
+				["max"] = 110, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour, Evasion and Energy Shield", 
 			}, 
 			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 3, 
-				["max"] = 4, 
+			["Helmet"] = {
+				["min"] = 27, 
+				["max"] = 100, 
 			}, 
-			["Ring"] = {
-				["min"] = 3, 
-				["max"] = 4, 
+			["Boots"] = {
+				["min"] = 27, 
+				["max"] = 100, 
 			}, 
 		}, 
 		["1509_AdditionalPierce"] = {
@@ -18812,63 +22530,55 @@ return {
 				["max"] = 12, 
 			}, 
 		}, 
-		["1532_MinimumPowerChargesAndOnKillChance"] = {
+		["4265_ArmourIncreasedByUncappedFireResistance"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1999711879", 
-				["text"] = "# to Minimum Power Charges", 
+				["id"] = "explicit.stat_2129352930", 
+				["text"] = "Armour is increased by Overcapped Fire Resistance", 
 			}, 
+		}, 
+		["94_LocalIncreaseSocketedColdGemLevelMaven"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Cold Gems", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1645459191", 
+				["text"] = "# to Level of Socketed Cold Gems", 
 			}, 
 			["sign"] = "+", 
-			["Amulet"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["Ring"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Boots"] = {
+				["min"] = 2, 
+				["max"] = 2, 
 			}, 
 		}, 
-		["4467_FireExposureOnHit"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3602667353", 
-				["text"] = "#% chance to inflict Fire Exposure on Hit", 
-			}, 
+		["1741_FreezeChanceAndDuration"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2309614417", 
+				["text"] = "#% chance to Freeze", 
+			}, 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
 			["sign"] = "", 
+		}, 
+		["3091_CriticalChanceAgainstBlindedEnemies"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1939202111", 
+				["text"] = "#% increased Critical Strike Chance against Blinded Enemies", 
+			}, 
 			["1HWeapon"] = {
-				["min"] = 11, 
-				["max"] = 20, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 11, 
-				["max"] = 20, 
-			}, 
-		}, 
-		["3157_ChanceToRecoverManaOnSkillUse"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_308309328", 
-				["text"] = "#% chance to Recover 10% of Mana when you use a Skill", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["384_SocketedSkillsAttackSpeed"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2881124988", 
-				["text"] = "Socketed Skills have #% increased Attack Speed", 
-			}, 
-			["Gloves"] = {
-				["min"] = 18, 
-				["max"] = 18, 
+				["min"] = 80, 
+				["max"] = 100, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -18894,23 +22604,15 @@ return {
 				["max"] = 16, 
 			}, 
 		}, 
-		["4913_GainEnduranceChargeOnHittingBleedingEnemy"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1536266147", 
-				["text"] = "#% chance to gain an Endurance Charge when you Hit a Bleeding Enemy", 
-			}, 
+		["1950_ChaosDamageTakenPercentage"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2960683632", 
+				["text"] = "#% reduced Chaos Damage taken", 
+			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 10, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 10, 
-			}, 
 		}, 
 		["5827_ChanceToIgniteAddedDamage"] = {
 			["specialCaseData"] = {
@@ -18926,19 +22628,27 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["170_ElementalDamagePrefixElementalFocus"] = {
-			["specialCaseData"] = {
-			}, 
+		["1332_GlobalIncreaseFireSpellSkillGemLevel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1169422227", 
-				["text"] = "Socketed Gems are Supported by Level # Elemental Focus", 
+				["id"] = "explicit.stat_591105508", 
+				["text"] = "# to Level of all Fire Spell Skill Gems", 
+			}, 
+			["sign"] = "+", 
+			["specialCaseData"] = {
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 3, 
 			}, 
 			["1HWeapon"] = {
-				["min"] = 16, 
-				["max"] = 20, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 		}, 
 		["1107_LightningDamagePhysConvertedToLightning"] = {
 			["specialCaseData"] = {
@@ -18968,44 +22678,70 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["4720_CannotBeShockedOrIgnitedWhileMoving"] = {
+		["3891_ChanceToAvoidBleeding"] = {
+			["BaseJewel"] = {
+				["min"] = 31, 
+				["max"] = 50, 
+			}, 
 			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3592330380", 
-				["text"] = "Cannot be Shocked or Ignited while moving", 
-			}, 
-			["Ring"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["5329_DisciplineReservationEfficiency"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2081344089", 
-				["text"] = "Discipline has #% increased Mana Reservation Efficiency", 
-			}, 
-			["Amulet"] = {
-				["min"] = 50, 
-				["max"] = 60, 
 			}, 
 			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1618589784", 
+				["text"] = "#% chance to Avoid Bleeding", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 31, 
+				["max"] = 50, 
+			}, 
+			["Helmet"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 31, 
+				["max"] = 50, 
+			}, 
+			["Chest"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["Shield"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
 		}, 
-		["341_DisplaySupportedByManaLeechMaven"] = {
+		["228_LocalPhysicalDamagePercentRuthless"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3796013729", 
+				["text"] = "Socketed Gems are Supported by Level # Ruthless", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are Supported by Level # Ruthless", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 20, 
+			}, 
+		}, 
+		["1567_ReducedShockChance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2608615082", 
-				["text"] = "Socketed Gems are Supported by Level # Mana Leech", 
-			}, 
-			["Gloves"] = {
-				["min"] = 20, 
-				["max"] = 20, 
+				["id"] = "explicit.stat_1871765599", 
+				["text"] = "#% chance to Avoid being Shocked", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -19019,17 +22755,17 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1095_GlobalAddedColdDamage"] = {
+		["8309_SpellDamagePer16Strength"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2387423236", 
-				["text"] = "Adds # to # Cold Damage", 
+				["id"] = "explicit.stat_4249521944", 
+				["text"] = "#% increased Spell Damage per 16 Strength", 
 			}, 
-			["Gloves"] = {
-				["min"] = 23, 
-				["max"] = 30, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -19063,33 +22799,38 @@ return {
 				["max"] = 11, 
 			}, 
 		}, 
-		["3757_DamageDuringFlaskEffect"] = {
-			["specialCaseData"] = {
-			}, 
+		["961_LocalPhysicalDamagePercentBrutality"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2947215268", 
-				["text"] = "#% increased Damage during any Flask Effect", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
 			}, 
-			["Gloves"] = {
-				["min"] = 36, 
-				["max"] = 40, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 101, 
+				["max"] = 134, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 101, 
+				["max"] = 134, 
+			}, 
 		}, 
-		["2856_FasterPoisonDamageMaven"] = {
+		["2149_PhysicalDamageTakenAsChaosUberMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2011656677", 
-				["text"] = "#% increased Poison Duration", 
+				["id"] = "explicit.stat_4129825612", 
+				["text"] = "#% of Physical Damage from Hits taken as Chaos Damage", 
+			}, 
+			["Chest"] = {
+				["min"] = 16, 
+				["max"] = 18, 
 			}, 
 			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 10, 
-				["max"] = 20, 
-			}, 
 		}, 
 		["1346_FireResistanceAilments"] = {
 			["specialCaseData"] = {
@@ -19101,19 +22842,19 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["953_WeaponSpellDamageEfficacy"] = {
+		["1360_PhysicalDamageTakenAsChaosUberMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2974417149", 
-				["text"] = "#% increased Spell Damage", 
+				["id"] = "explicit.stat_1301765461", 
+				["text"] = "#% to maximum Chaos Resistance", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 45, 
-				["max"] = 60, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["1301_ManaAndManaCostPercent"] = {
 			["tradeMod"] = {
@@ -19161,19 +22902,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5171_OLDAdditionalCurseOnEnemiesMaven"] = {
-			["specialCaseData"] = {
-			}, 
+		["1109_LocalLightningDamagePenetrationHybrid"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_443165947", 
-				["text"] = "#% increased Mana Reservation Efficiency of Curse Aura Skills", 
+				["id"] = "explicit.stat_3336890334", 
+				["text"] = "Adds # to # Lightning Damage (Local)", 
 			}, 
-			["Chest"] = {
-				["min"] = 20, 
-				["max"] = 20, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Lightning Damage", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 13.5, 
+				["max"] = 53.5, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 13.5, 
+				["max"] = 99, 
+			}, 
 		}, 
 		["310_SupportedByCastOnCritWeapon"] = {
 			["specialCaseData"] = {
@@ -19217,18 +22963,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1881_OLDAdditionalCurseOnEnemiesMaven"] = {
+		["3074_ColdDamageTakenPercentage"] = {
 			["specialCaseData"] = {
-				["overrideModLineSingular"] = "You can apply an additional Curse", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_30642521", 
-				["text"] = "You can apply # additional Curses", 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["id"] = "explicit.stat_3303114033", 
+				["text"] = "#% reduced Cold Damage taken", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -19254,19 +22995,23 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["2232_MeleeWeaponAndUnarmedRange"] = {
-			["specialCaseData"] = {
-			}, 
+		["4467_FireExposureOnHit"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2264295449", 
-				["text"] = "# to Melee Strike Range", 
+				["id"] = "explicit.stat_3602667353", 
+				["text"] = "#% chance to inflict Fire Exposure on Hit", 
 			}, 
-			["Gloves"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 11, 
+				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 11, 
+				["max"] = 20, 
+			}, 
 		}, 
 		["1290_EnergyShieldRecoveryRate"] = {
 			["tradeMod"] = {
@@ -19296,13 +23041,17 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["3950_AddedFireDamageIfBlockedRecently"] = {
+		["347_PoisonDamageWeaponSupported"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3623716321", 
-				["text"] = "Adds # to # Fire Damage if you've Blocked Recently", 
+				["id"] = "explicit.stat_228165595", 
+				["text"] = "Socketed Gems are Supported by Level # Chance to Poison", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -19320,17 +23069,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2262_IgniteChanceAndDamageMaven"] = {
+		["1293_IncreasedLifeAndPercent"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2443492284", 
-				["text"] = "Ignites you inflict deal Damage #% faster", 
-			}, 
-			["Helmet"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+				["id"] = "explicit.stat_983749596", 
+				["text"] = "#% increased maximum Life", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -19402,27 +23147,16 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["914_PercentageStrength"] = {
+		["1736_LocalLightRadiusAndAccuracy"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Accuracy Rating", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_734614379", 
-				["text"] = "#% increased Strength", 
+				["id"] = "explicit.stat_691932474", 
+				["text"] = "# to Accuracy Rating (Local)", 
 			}, 
-			["Chest"] = {
-				["min"] = 5, 
-				["max"] = 12, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 5, 
-				["max"] = 12, 
-			}, 
-			["Boots"] = {
-				["min"] = 6, 
-				["max"] = 12, 
-			}, 
+			["sign"] = "+", 
 		}, 
 		["1171_IncreasedCastSpeedSpellEcho"] = {
 			["specialCaseData"] = {
@@ -19452,48 +23186,43 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1881_AdditionalCurseOnEnemiesMaven"] = {
+		["8026_PurityOfFireReservationEfficiency"] = {
 			["specialCaseData"] = {
-				["overrideModLineSingular"] = "You can apply an additional Curse", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_30642521", 
-				["text"] = "You can apply # additional Curses", 
+				["id"] = "explicit.stat_3003688066", 
+				["text"] = "Purity of Fire has #% increased Mana Reservation Efficiency", 
 			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Amulet"] = {
+				["min"] = 50, 
+				["max"] = 60, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["7663_AttackImpaleChanceMaven"] = {
+		["1304_AddedManaRegenerationMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1455766505", 
-				["text"] = "Adds # to # Physical Damage for each Impale on Enemy", 
+				["id"] = "explicit.stat_4291461939", 
+				["text"] = "Regenerate # Mana per second", 
 			}, 
-			["Gloves"] = {
-				["min"] = 2, 
-				["max"] = 3.5, 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["96_LocalIncreaseSocketedChaosGemLevelMaven"] = {
+		["1517_MovementVelocityDodge"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2675603254", 
-				["text"] = "# to Level of Socketed Chaos Gems", 
+				["id"] = "explicit.stat_2250533757", 
+				["text"] = "#% increased Movement Speed", 
 			}, 
-			["sign"] = "+", 
-			["Boots"] = {
-				["min"] = 2, 
-				["max"] = 2, 
-			}, 
+			["sign"] = "", 
 		}, 
 		["1543_GainPowerChargeOnKillingFrozenEnemy"] = {
 			["specialCaseData"] = {
@@ -19505,17 +23234,17 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1745_ShockChanceAndEffectMaven"] = {
+		["2856_PoisonDurationWeaponSupported"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1538773178", 
-				["text"] = "#% chance to Shock", 
+				["id"] = "explicit.stat_2011656677", 
+				["text"] = "#% increased Poison Duration", 
 			}, 
-			["Helmet"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+			["1HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 14, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -19583,18 +23312,19 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2665_NearbyEnemiesAreBlindedMaven"] = {
+		["145_SupportedByArcaneSurgeWeapon"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1436284579", 
-				["text"] = "Cannot be Blinded", 
+				["id"] = "explicit.stat_2287264161", 
+				["text"] = "Socketed Gems are Supported by Level # Arcane Surge", 
 			}, 
-			["Chest"] = {
+			["2HWeapon"] = {
 				["min"] = 1, 
 				["max"] = 1, 
 			}, 
+			["sign"] = "", 
 		}, 
 		["8029_PurityOfIceReservationEfficiency"] = {
 			["specialCaseData"] = {
@@ -19610,18 +23340,16 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["387_DisplaySocketedSkillsFork"] = {
+		["1188_LocalCriticalStrikeChanceAndLocalItemQuality"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Critical Strike Chance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1519665289", 
-				["text"] = "Projectiles from Socketed Gems Fork", 
+				["id"] = "explicit.stat_2375316951", 
+				["text"] = "#% increased Critical Strike Chance", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
+			["sign"] = "", 
 		}, 
 		["5466_EnemiesExplodeOnDeathPhysical"] = {
 			["specialCaseData"] = {
@@ -19633,19 +23361,43 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["4915_GainEnduranceChargeOnTauntingEnemies"] = {
+		["1568_ChanceToAvoidPoison"] = {
+			["BaseJewel"] = {
+				["min"] = 31, 
+				["max"] = 50, 
+			}, 
 			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 50, 
+				["max"] = 50, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1657549833", 
-				["text"] = "#% chance to gain an Endurance Charge when you Taunt an Enemy", 
+				["id"] = "explicit.stat_4053951709", 
+				["text"] = "#% chance to Avoid being Poisoned", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 15, 
-				["max"] = 30, 
+			["AbyssJewel"] = {
+				["min"] = 31, 
+				["max"] = 50, 
 			}, 
-			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 31, 
+				["max"] = 50, 
+			}, 
+			["Chest"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["Shield"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
 		}, 
 		["1130_SpellAddedFireDamage"] = {
 			["specialCaseData"] = {
@@ -19661,22 +23413,30 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["4396_AddedColdDamagePerDexterity"] = {
+		["1899_BeltIncreasedFlaskDuration"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_149574107", 
-				["text"] = "Adds # to # Cold Damage to Attacks with this Weapon per 10 Dexterity", 
+				["id"] = "explicit.stat_3741323227", 
+				["text"] = "#% increased Flask Effect Duration", 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 6, 
+				["max"] = 10, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 6, 
+				["max"] = 10, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 2, 
-				["max"] = 3, 
+			["BaseJewel"] = {
+				["min"] = 6, 
+				["max"] = 10, 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+			["Belt"] = {
+				["min"] = 4, 
+				["max"] = 33, 
 			}, 
 		}, 
 		["7677_MinionAccuracyRating"] = {
@@ -19715,137 +23475,146 @@ return {
 				["max"] = 31, 
 			}, 
 		}, 
-		["4180_MaximumManaIncreasePercentMaven"] = {
+		["8109_ReflectDamageTaken"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2571899044", 
-				["text"] = "Transfiguration of Mind", 
-			}, 
-			["Helmet"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["5867_HatredReservationEfficiency"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2156140483", 
-				["text"] = "Hatred has #% increased Mana Reservation Efficiency", 
-			}, 
-			["Amulet"] = {
-				["min"] = 40, 
-				["max"] = 50, 
+				["id"] = "explicit.stat_3577248251", 
+				["text"] = "You and your Minions take #% reduced Reflected Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1093_ColdDamageWeaponPrefix"] = {
+		["3051_HatredAuraEffect"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3291658075", 
-				["text"] = "#% increased Cold Damage", 
+				["id"] = "explicit.stat_3742945352", 
+				["text"] = "Hatred has #% increased Aura Effect", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 109, 
+				["min"] = 28, 
+				["max"] = 40, 
 			}, 
-			["Shield"] = {
-				["min"] = 10, 
-				["max"] = 109, 
+			["2HWeapon"] = {
+				["min"] = 48, 
+				["max"] = 60, 
 			}, 
 		}, 
-		["3987_PhysicalDamageReductionWhileNotMoving"] = {
+		["2781_VaalSkillDamage"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2257141320", 
+				["text"] = "#% increased Damage with Vaal Skills", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Ring"] = {
+				["min"] = 20, 
+				["max"] = 40, 
+			}, 
+			["Belt"] = {
+				["min"] = 20, 
+				["max"] = 40, 
+			}, 
+		}, 
+		["1159_LightRadiusAndAccuracyPercent"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_624954515", 
+				["text"] = "#% increased Global Accuracy Rating", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Ring"] = {
+				["min"] = 9, 
+				["max"] = 20, 
+			}, 
+			["Helmet"] = {
+				["min"] = 9, 
+				["max"] = 20, 
+			}, 
+		}, 
+		["2146_PhysicalDamageTakenAsColdUberMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2181129193", 
-				["text"] = "#% additional Physical Damage Reduction while stationary", 
+				["id"] = "explicit.stat_1871056256", 
+				["text"] = "#% of Physical Damage from Hits taken as Cold Damage", 
+			}, 
+			["Chest"] = {
+				["min"] = 16, 
+				["max"] = 18, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["4171_AdditionalPhysicalDamageReductionWhileMoving"] = {
+		["1300_LifeRecoveryRateMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2713357573", 
-				["text"] = "#% additional Physical Damage Reduction while moving", 
+				["id"] = "explicit.stat_3240073117", 
+				["text"] = "#% increased Life Recovery rate", 
+			}, 
+			["Chest"] = {
+				["min"] = 12, 
+				["max"] = 15, 
 			}, 
 			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 3, 
-				["max"] = 5, 
-			}, 
 		}, 
-		["1106_GlobalAddedLightningDamage"] = {
+		["192_CriticalStrikeChanceSpellsSupported"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1334060246", 
-				["text"] = "Adds # to # Lightning Damage", 
+				["id"] = "explicit.stat_2259700079", 
+				["text"] = "Socketed Gems are Supported by Level # Increased Critical Strikes", 
 			}, 
-			["Gloves"] = {
-				["min"] = 24.5, 
-				["max"] = 30.5, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1759_IncreasedAttackAndCastSpeedSupportedMaven"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2672805335", 
-				["text"] = "#% increased Attack and Cast Speed", 
-			}, 
-			["Gloves"] = {
-				["min"] = 13, 
-				["max"] = 14, 
+			["1HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["154_SupportedByCastOnDamageTaken"] = {
-			["specialCaseData"] = {
-			}, 
+		["6781_ChanceToPoisonSupported"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3036440332", 
-				["text"] = "Socketed Gems are Supported by Level # Cast when Damage Taken", 
+				["id"] = "explicit.stat_795138349", 
+				["text"] = "#% chance to Poison on Hit", 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Shield"] = {
+			["1HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 20, 
+			}, 
+		}, 
+		["1538_GainEnduranceChargeOnCritUber"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2542650946", 
+				["text"] = "#% chance to gain an Endurance Charge on Critical Strike", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
 				["min"] = 5, 
-				["max"] = 5, 
+				["max"] = 10, 
 			}, 
-		}, 
-		["1336_GlobalIncreaseMinionSpellSkillGemLevel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2162097452", 
-				["text"] = "# to Level of all Minion Skill Gems", 
-			}, 
-			["Helmet"] = {
-				["min"] = 1, 
-				["max"] = 2, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["Shield"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["2HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 10, 
 			}, 
 		}, 
 		["1084_SpellAddedFireDamageHybrid"] = {
@@ -19888,23 +23657,19 @@ return {
 				["max"] = 18, 
 			}, 
 		}, 
-		["1350_MaximumColdResist"] = {
-			["Gloves"] = {
-				["min"] = 1, 
-				["max"] = 3, 
+		["7661_AddedPhysicalDamageIfCritRecently"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3676141501", 
-				["text"] = "#% to maximum Cold Resistance", 
+				["id"] = "explicit.stat_2723101291", 
+				["text"] = "Adds # to # Physical Damage if you've dealt a Critical Strike Recently", 
 			}, 
-			["specialCaseData"] = {
+			["Gloves"] = {
+				["min"] = 5, 
+				["max"] = 14, 
 			}, 
-			["sign"] = "+", 
-			["Shield"] = {
-				["min"] = 1, 
-				["max"] = 3, 
-			}, 
+			["sign"] = "", 
 		}, 
 		["1741_ColdDamageAndBaseChanceToFreeze"] = {
 			["tradeMod"] = {
@@ -19933,23 +23698,16 @@ return {
 				["text"] = "Iron Grip", 
 			}, 
 		}, 
-		["2232_MeleeDamageAndMeleeRange"] = {
-			["Gloves"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+		["1291_LocalBaseEvasionRatingEnergyShieldAndLife"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2264295449", 
-				["text"] = "# to Melee Strike Range", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
 			}, 
 			["sign"] = "+", 
-			["Amulet"] = {
-				["min"] = 2, 
-				["max"] = 2, 
-			}, 
 		}, 
 		["5102_CriticalChanceIncreasedByUncappedLightningResistance"] = {
 			["specialCaseData"] = {
@@ -19960,15 +23718,16 @@ return {
 				["text"] = "Critical Strike Chance is increased by Overcapped Lightning Resistance", 
 			}, 
 		}, 
-		["4889_CrushOnHitChance"] = {
+		["1281_LocalBaseEvasionRatingEnergyShieldAndLife"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Energy Shield", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2228892313", 
-				["text"] = "#% chance to Crush on Hit", 
+				["id"] = "explicit.stat_4052037485", 
+				["text"] = "# to maximum Energy Shield (Local)", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["1704_SpellBlockPercentageMaven"] = {
 			["specialCaseData"] = {
@@ -19984,59 +23743,45 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["2606_MinionElementalResistance"] = {
+		["1352_ColdResistancePrefix"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1423639565", 
-				["text"] = "Minions have #% to all Elemental Resistances", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_4220027924", 
+				["text"] = "#% to Cold Resistance", 
 			}, 
 			["sign"] = "+", 
-			["Ring"] = {
-				["min"] = 11, 
-				["max"] = 30, 
-			}, 
-			["Shield"] = {
-				["min"] = 11, 
-				["max"] = 30, 
-			}, 
 		}, 
-		["5595_FasterPoisonDamage"] = {
+		["1159_LocalLightRadiusAndAccuracyPercent"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2907156609", 
-				["text"] = "Poisons you inflict deal Damage #% faster", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 25, 
+				["id"] = "explicit.stat_624954515", 
+				["text"] = "#% increased Global Accuracy Rating", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Global Accuracy Rating", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 15, 
+				["min"] = 9, 
+				["max"] = 20, 
 			}, 
-			["Boots"] = {
-				["min"] = 7, 
-				["max"] = 12, 
+			["2HWeapon"] = {
+				["min"] = 9, 
+				["max"] = 20, 
 			}, 
 		}, 
-		["6695_CullingStrikeOnBleedingEnemiesUber"] = {
+		["5228_DamagePerBlockChance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2558253923", 
-				["text"] = "Hits with this Weapon have Culling Strike against Bleeding Enemies", 
+				["id"] = "explicit.stat_3400437584", 
+				["text"] = "#% increased Damage per 1% Chance to Block Attack Damage", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["2HWeapon"] = {
+			["sign"] = "", 
+			["Shield"] = {
 				["min"] = 1, 
 				["max"] = 1, 
 			}, 
@@ -20067,29 +23812,24 @@ return {
 				["max"] = 16, 
 			}, 
 		}, 
-		["325_SupportedByFortifyWeapon"] = {
+		["8772_Magebane"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_107118693", 
-				["text"] = "Socketed Gems are Supported by Level # Fortify", 
+				["id"] = "explicit.stat_4180925106", 
+				["text"] = "Magebane", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["sign"] = "", 
 		}, 
-		["211_SupportedByOnslaughtWeapon"] = {
+		["1552_FrenzyChargeOnHitChanceMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3237923082", 
-				["text"] = "Socketed Gems are Supported by Level # Onslaught", 
+				["id"] = "explicit.stat_2323242761", 
+				["text"] = "#% chance to gain a Frenzy Charge on Hit", 
 			}, 
-			["2HWeapon"] = {
+			["Chest"] = {
 				["min"] = 10, 
 				["max"] = 10, 
 			}, 
@@ -20109,32 +23849,36 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["375_DisplaySupportedSkillsDealDamageOnLowLife"] = {
+		["1399_LightningResistanceLeech"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1235873320", 
-				["text"] = "Socketed Gems deal #% more Damage while on Low Life", 
+				["id"] = "explicit.stat_80079005", 
+				["text"] = "#% of Lightning Damage Leeched as Life", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["5108_CriticalStrikeChanceIfKilledRecently"] = {
+		["2974_DamagePerFrenzyCharge"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3914638685", 
-				["text"] = "#% increased Critical Strike Chance if you have Killed Recently", 
+				["id"] = "explicit.stat_902747843", 
+				["text"] = "#% increased Damage per Frenzy Charge", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 7, 
+				["max"] = 8, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 31, 
-				["max"] = 100, 
+			["Amulet"] = {
+				["min"] = 3, 
+				["max"] = 6, 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 80, 
-				["max"] = 100, 
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 10, 
 			}, 
 		}, 
 		["1235_ReducedCriticalStrikeDamageTaken"] = {
@@ -20147,25 +23891,25 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["3073_LightningDamageTaken"] = {
+		["520_CurseOnHitWarlordsMark"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1276918229", 
-				["text"] = "#% reduced Lightning Damage taken", 
+				["id"] = "explicit.stat_2021420128", 
+				["text"] = "Trigger Level # Warlords's Mark when you Hit a Rare or Unique Enemy and have no Mark", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["5328_DisciplineReservation"] = {
+		["1301_IncreasedManaAndCost"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2081344089", 
-				["text"] = "Discipline has #% increased Mana Reservation Efficiency", 
+				["id"] = "explicit.stat_1050105434", 
+				["text"] = "# to maximum Mana", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["1695_ElementalDamagePrefixElementalFocus"] = {
 			["specialCaseData"] = {
@@ -20181,13 +23925,14 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1293_IncreasedLifeAndPercent"] = {
+		["1109_LocalLightningDamageHybrid"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Lightning Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_983749596", 
-				["text"] = "#% increased maximum Life", 
+				["id"] = "explicit.stat_3336890334", 
+				["text"] = "Adds # to # Lightning Damage (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -20205,37 +23950,40 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8109_ReflectDamageTaken"] = {
-			["specialCaseData"] = {
-			}, 
+		["1386_PhysicalDamageLifeLeechPermyriad"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3577248251", 
-				["text"] = "You and your Minions take #% reduced Reflected Damage", 
+				["id"] = "explicit.stat_3764265320", 
+				["text"] = "#% of Physical Damage Leeched as Life", 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 0.3, 
+				["max"] = 0.5, 
+			}, 
+			["Ring"] = {
+				["min"] = 0.2, 
+				["max"] = 0.2, 
+			}, 
 		}, 
-		["110_LocalIncreaseSocketedTrapGemLevel"] = {
+		["7341_MapMonsterPacksVaalMapWorlds"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_407139870", 
-				["text"] = "# to Level of Socketed Trap Gems", 
+				["id"] = "explicit.stat_2609768284", 
+				["text"] = "Area is inhabited by the Vaal", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["6767_LifeGainPerBlindedEnemyHit"] = {
+		["2735_MapMonsterPacksVaalMapWorlds"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1649099067", 
-				["text"] = "Gain # Life per Blinded Enemy Hit with this Weapon", 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 35, 
-				["max"] = 50, 
+				["id"] = "explicit.stat_728267040", 
+				["text"] = "Found Items have #% chance to drop Corrupted in Area", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -20263,37 +24011,54 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["111_IncreasedSocketedTrapOrMineGemLevel"] = {
+		["993_GlobalAddedPhysicalDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_150668988", 
-				["text"] = "# to Level of Socketed Trap or Mine Gems", 
+				["id"] = "explicit.stat_960081730", 
+				["text"] = "Adds # to # Physical Damage", 
 			}, 
-			["sign"] = "+", 
-		}, 
-		["891_SpellBlockPercentageMaven"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_561307714", 
-				["text"] = "#% Chance to Block Spell Damage", 
-			}, 
-			["Helmet"] = {
-				["min"] = 5, 
-				["max"] = 6, 
+			["Gloves"] = {
+				["min"] = 7.5, 
+				["max"] = 9.5, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["376_SocketedGemsDealMoreElementalDamage"] = {
-			["specialCaseData"] = {
-			}, 
+		["1523_MaximumEnduranceCharges"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3835899275", 
-				["text"] = "Socketed Gems deal #% more Elemental Damage", 
+				["id"] = "explicit.stat_1515657623", 
+				["text"] = "# to Maximum Endurance Charges", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Boots"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+		}, 
+		["1089_LocalFireDamagePenetrationHybrid"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_709508406", 
+				["text"] = "Adds # to # Fire Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Fire Damage", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 11.5, 
+				["max"] = 89.5, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 11.5, 
+				["max"] = 48, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -20307,77 +24072,82 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1101_AddedColdDamageToSpellsAndAttacks"] = {
+		["2604_MinionLifeLeech"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2770782267", 
+				["text"] = "Minions Leech #% of Damage as Life", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 0.3, 
+				["max"] = 0.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 0.3, 
+				["max"] = 0.5, 
+			}, 
+		}, 
+		["2855_BleedingDamageChanceWeaponSuffix"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1294118672", 
+				["text"] = "#% increased Damage with Bleeding", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 50, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 21, 
+				["max"] = 50, 
+			}, 
+		}, 
+		["1549_PowerChargeOnCriticalStrikeChanceMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1662717006", 
-				["text"] = "Adds # to # Cold Damage to Spells and Attacks", 
+				["id"] = "explicit.stat_3814876985", 
+				["text"] = "#% chance to gain a Power Charge on Critical Strike", 
+			}, 
+			["Chest"] = {
+				["min"] = 15, 
+				["max"] = 15, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["4752_CastSpeedDuringFlaskEffect"] = {
+		["4372_AttackSpeedHitRecently"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_252194507", 
-				["text"] = "#% increased Cast Speed during any Flask Effect", 
+				["id"] = "explicit.stat_4137521191", 
+				["text"] = "#% increased Attack Speed if you've been Hit Recently", 
 			}, 
-			["sign"] = "", 
-			["Belt"] = {
+			["Ring"] = {
 				["min"] = 8, 
-				["max"] = 14, 
-			}, 
-		}, 
-		["4234_CullingStrikeMaven"] = {
-			["Gloves"] = {
-				["min"] = 15, 
-				["max"] = 25, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1785568076", 
-				["text"] = "#% increased Area of Effect if you've dealt a Culling Strike Recently", 
-			}, 
-			["specialCaseData"] = {
+				["max"] = 12, 
 			}, 
 			["sign"] = "", 
-			["2HWeapon"] = {
-				["min"] = 15, 
-				["max"] = 25, 
-			}, 
 		}, 
-		["1751_CullingStrikeMaven"] = {
+		["1360_MaximumChaosResistance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2524254339", 
-				["text"] = "Culling Strike", 
+				["id"] = "explicit.stat_1301765461", 
+				["text"] = "#% to maximum Chaos Resistance", 
 			}, 
-			["2HWeapon"] = {
+			["sign"] = "+", 
+			["Shield"] = {
 				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["Gloves"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["3914_MaximumEnduranceChargesMaven"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2713233613", 
-				["text"] = "#% chance that if you would gain Endurance Charges, you instead gain up to maximum Endurance Charges", 
-			}, 
-			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 10, 
-				["max"] = 10, 
+				["max"] = 3, 
 			}, 
 		}, 
 		["7679_MinionAttackSpeedAndCastSpeed"] = {
@@ -20436,42 +24206,52 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1695_ElementalDamagePercentMaven"] = {
+		["1277_LocalEvasionAndEnergyShieldSuffix"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Evasion and Energy Shield", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3141070085", 
-				["text"] = "#% increased Elemental Damage", 
-			}, 
-			["Helmet"] = {
-				["min"] = 19, 
-				["max"] = 22, 
+				["id"] = "explicit.stat_1999113824", 
+				["text"] = "#% increased Evasion and Energy Shield (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1280_EnergyShieldAndDegenGracePeriod"] = {
-			["specialCaseData"] = {
+		["7565_FortifyEffect"] = {
+			["Gloves"] = {
+				["min"] = 3, 
+				["max"] = 5, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3489782002", 
-				["text"] = "# to maximum Energy Shield", 
+				["id"] = "explicit.stat_335507772", 
+				["text"] = "# to maximum Fortification", 
+			}, 
+			["Chest"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
+			["Boots"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
 		}, 
-		["6703_PowerChargeOnManaSpent"] = {
+		["1657_ChaosDamageAsPortionOfColdDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3269060224", 
-				["text"] = "Gain a Power Charge after Spending a total of 200 Mana", 
+				["id"] = "explicit.stat_2915373966", 
+				["text"] = "Gain #% of Cold Damage as Extra Chaos Damage", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
+			["sign"] = "", 
 		}, 
 		["5006_ChillEffectSupported"] = {
 			["specialCaseData"] = {
@@ -20487,13 +24267,17 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["323_WeaponSpellDamageReducedMana"] = {
+		["1578_IgnitingConfluxMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_749770518", 
-				["text"] = "Socketed Gems are Supported by Level # Inspiration", 
+				["id"] = "explicit.stat_1086147743", 
+				["text"] = "#% increased Ignite Duration on Enemies", 
+			}, 
+			["Helmet"] = {
+				["min"] = 20, 
+				["max"] = 30, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -20583,19 +24367,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1961_AdditionalTotems"] = {
+		["5097_LightningResistanceAilments"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_429867172", 
-				["text"] = "# to maximum number of Summoned Totems", 
+				["id"] = "explicit.stat_276103140", 
+				["text"] = "#% increased Critical Strike Chance against Shocked Enemies", 
 			}, 
-			["sign"] = "+", 
-			["Shield"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
+			["sign"] = "", 
 		}, 
 		["1563_AvoidFreezeAndChill"] = {
 			["specialCaseData"] = {
@@ -20611,33 +24391,35 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["1562_AvoidStunAndElementalStatusAilments"] = {
-			["specialCaseData"] = {
-			}, 
+		["961_LocalPhysicalDamagePercent"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3005472710", 
-				["text"] = "#% chance to Avoid Elemental Ailments", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
 			}, 
-			["Chest"] = {
-				["min"] = 30, 
-				["max"] = 35, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 40, 
+				["max"] = 179, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 40, 
+				["max"] = 179, 
+			}, 
 		}, 
-		["1578_FasterIgniteDamageMaven"] = {
+		["1109_LocalLightningDamageTwoHandAndPen"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Lightning Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1086147743", 
-				["text"] = "#% increased Ignite Duration on Enemies", 
+				["id"] = "explicit.stat_3336890334", 
+				["text"] = "Adds # to # Lightning Damage (Local)", 
 			}, 
 			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 10, 
-				["max"] = 20, 
-			}, 
 		}, 
 		["1650_ConvertPhysicalToColdMaven"] = {
 			["Gloves"] = {
@@ -20671,19 +24453,23 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["385_SocketedSkillsCastSpeed"] = {
-			["specialCaseData"] = {
-			}, 
+		["86_PercentageDexterityMaven"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3425934849", 
-				["text"] = "Socketed Skills have #% increased Cast Speed", 
+				["id"] = "explicit.stat_2718698372", 
+				["text"] = "# to Level of Socketed Dexterity Gems", 
 			}, 
-			["Gloves"] = {
-				["min"] = 18, 
-				["max"] = 18, 
+			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
+			["Amulet"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 		}, 
 		["8288_AdditionalCriticalStrikeChanceWithSpells"] = {
 			["specialCaseData"] = {
@@ -20699,27 +24485,31 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["358_DisplaySupportedSkillsHaveAChanceToIgnite"] = {
+		["3955_ElusiveOnCriticalStrikeMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3984519770", 
-				["text"] = "Socketed Gems have #% chance to Ignite", 
+				["id"] = "explicit.stat_2896192589", 
+				["text"] = "#% chance to gain Elusive on Critical Strike", 
 			}, 
 			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 11, 
+				["max"] = 20, 
+			}, 
 		}, 
-		["7661_AddedPhysicalDamageIfCritRecently"] = {
+		["341_DisplaySupportedByManaLeech"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2723101291", 
-				["text"] = "Adds # to # Physical Damage if you've dealt a Critical Strike Recently", 
+				["id"] = "explicit.stat_2608615082", 
+				["text"] = "Socketed Gems are Supported by Level # Mana Leech", 
 			}, 
 			["Gloves"] = {
-				["min"] = 5, 
-				["max"] = 14, 
+				["min"] = 15, 
+				["max"] = 15, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -20733,17 +24523,22 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["201_LightningDamagePrefixLightningPenetration"] = {
-			["specialCaseData"] = {
-			}, 
+		["3441_LocalFireDamagePenetrationHybrid"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3354027870", 
-				["text"] = "Socketed Gems are Supported by Level # Lightning Penetration", 
+				["id"] = "explicit.stat_3398283493", 
+				["text"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 7, 
 			}, 
 			["1HWeapon"] = {
-				["min"] = 16, 
-				["max"] = 20, 
+				["min"] = 5, 
+				["max"] = 7, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -20789,40 +24584,33 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1442_EnergyShieldLeechPermyriad"] = {
-			["Gloves"] = {
-				["min"] = 0.3, 
-				["max"] = 0.3, 
+		["2496_ChanceToFreezeShockIgniteProliferation"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_11106713", 
-				["text"] = "#% of Spell Damage Leeched as Energy Shield", 
+				["id"] = "explicit.stat_800141891", 
+				["text"] = "#% chance to Freeze, Shock and Ignite", 
 			}, 
-			["Chest"] = {
-				["min"] = 0.3, 
-				["max"] = 0.3, 
-			}, 
-			["specialCaseData"] = {
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 10, 
 			}, 
 			["sign"] = "", 
-			["Helmet"] = {
-				["min"] = 0.3, 
-				["max"] = 0.3, 
-			}, 
-			["Boots"] = {
-				["min"] = 0.3, 
-				["max"] = 0.3, 
-			}, 
 		}, 
-		["8738_MinionLargerAggroRadius"] = {
+		["4753_IncreasedCastSpeedTwoHandedKilledRecently"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_128585622", 
-				["text"] = "Minions are Aggressive", 
+				["id"] = "explicit.stat_2072625596", 
+				["text"] = "#% increased Cast Speed if you've Killed Recently", 
 			}, 
+			["2HWeapon"] = {
+				["min"] = 20, 
+				["max"] = 20, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["1578_BurnDurationForJewel"] = {
 			["specialCaseData"] = {
@@ -20834,19 +24622,23 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1703_BlockPercentMaven"] = {
-			["specialCaseData"] = {
-			}, 
+		["5243_DamageOnFullLife"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4124805414", 
-				["text"] = "#% to maximum Chance to Block Attack Damage", 
+				["id"] = "explicit.stat_592020238", 
+				["text"] = "#% increased Damage when on Full Life", 
 			}, 
-			["Gloves"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 50, 
+				["max"] = 120, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 50, 
+				["max"] = 120, 
+			}, 
 		}, 
 		["5565_EvasionRatingWhileMoving"] = {
 			["tradeMod"] = {
@@ -20875,13 +24667,17 @@ return {
 				["text"] = "Permanently Intimidate Enemies on Block", 
 			}, 
 		}, 
-		["953_WeaponSpellDamageReducedMana"] = {
+		["953_TwoHandWeaponSpellDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_2974417149", 
 				["text"] = "#% increased Spell Damage", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 164, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -20917,15 +24713,14 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["6781_LocalChanceToPoisonOnHitChaosDamage"] = {
+		["8776_PainAttunement"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_795138349", 
-				["text"] = "#% chance to Poison on Hit", 
+				["id"] = "explicit.stat_98977150", 
+				["text"] = "Pain Attunement", 
 			}, 
-			["sign"] = "", 
 		}, 
 		["326_MineDamageSupported"] = {
 			["specialCaseData"] = {
@@ -20955,19 +24750,16 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1290_EnergyShieldRecoveryRateMaven"] = {
+		["1291_LocalBaseWardAndLife"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_988575597", 
-				["text"] = "#% increased Energy Shield Recovery rate", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
 			}, 
-			["Chest"] = {
-				["min"] = 12, 
-				["max"] = 15, 
-			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["1741_FreezeChanceAndDurationForJewel"] = {
 			["tradeMod"] = {
@@ -20991,14 +24783,16 @@ return {
 				["max"] = 5, 
 			}, 
 		}, 
-		["4265_ArmourIncreasedByUncappedFireResistance"] = {
+		["961_LocalPhysicalDamagePercentEnduranceChargeOnStun"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2129352930", 
-				["text"] = "Armour is increased by Overcapped Fire Resistance", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
 			}, 
+			["sign"] = "", 
 		}, 
 		["971_GlobalDamageOverTimeMultiplier"] = {
 			["BaseJewel"] = {
@@ -21034,52 +24828,73 @@ return {
 				["max"] = 26, 
 			}, 
 		}, 
-		["8759_ElementalEquilibrium"] = {
-			["specialCaseData"] = {
-			}, 
+		["1596_BurnDamage"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1263158408", 
-				["text"] = "Elemental Equilibrium", 
+				["id"] = "explicit.stat_1175385867", 
+				["text"] = "#% increased Burning Damage", 
 			}, 
-		}, 
-		["3091_CriticalChanceAgainstBlindedEnemies"] = {
 			["specialCaseData"] = {
 			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1939202111", 
-				["text"] = "#% increased Critical Strike Chance against Blinded Enemies", 
-			}, 
+			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 80, 
-				["max"] = 100, 
+				["min"] = 26, 
+				["max"] = 40, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 31, 
+				["max"] = 60, 
+			}, 
+		}, 
+		["1112_IncreasedChaosDamagePrefix"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_736967255", 
+				["text"] = "#% increased Chaos Damage", 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 20, 
+				["max"] = 30, 
+			}, 
+			["Belt"] = {
+				["min"] = 16, 
+				["max"] = 30, 
+			}, 
 		}, 
-		["3942_ElementalPenetrationDuringFlaskEffect"] = {
+		["1093_ColdDamageWeaponPrefix"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3291658075", 
+				["text"] = "#% increased Cold Damage", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 109, 
+			}, 
+			["Shield"] = {
+				["min"] = 10, 
+				["max"] = 109, 
+			}, 
+		}, 
+		["8445_AddedFireBurningEnemies"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3392890360", 
-				["text"] = "Damage Penetrates #% Elemental Resistances during any Flask Effect", 
+				["id"] = "explicit.stat_165402179", 
+				["text"] = "# to # added Fire Damage against Burning Enemies", 
 			}, 
 			["sign"] = "", 
-		}, 
-		["1747_AreaDamageSupported"] = {
-			["specialCaseData"] = {
+			["Belt"] = {
+				["min"] = 31.5, 
+				["max"] = 47, 
 			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4251717817", 
-				["text"] = "#% increased Area Damage", 
-			}, 
-			["Helmet"] = {
-				["min"] = 15, 
-				["max"] = 25, 
-			}, 
-			["sign"] = "", 
 		}, 
 		["1672_ConvertPhysicalToFire"] = {
 			["Gloves"] = {
@@ -21107,32 +24922,41 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["1950_ChaosDamageTakenPercentage"] = {
+		["1086_GlobalAddedFireDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2960683632", 
-				["text"] = "#% reduced Chaos Damage taken", 
+				["id"] = "explicit.stat_321077055", 
+				["text"] = "Adds # to # Fire Damage", 
+			}, 
+			["Gloves"] = {
+				["min"] = 23, 
+				["max"] = 30, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["4636_OnHitBlindChilledEnemies"] = {
+		["302_TotemSpeedSpellSupported"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3450276548", 
-				["text"] = "Blind Chilled Enemies on Hit", 
+				["id"] = "explicit.stat_2962840349", 
+				["text"] = "Socketed Gems are Supported by Level # Spell Totem", 
+			}, 
+			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 18, 
+				["max"] = 25, 
 			}, 
 		}, 
-		["1135_AddedLightningDamageSpellsAndAttacks"] = {
+		["2338_EnergyShieldAndRegen"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2885144362", 
-				["text"] = "Adds # to # Lightning Damage to Spells and Attacks", 
+				["id"] = "explicit.stat_3594640492", 
+				["text"] = "Regenerate #% of Energy Shield per second", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -21158,41 +24982,46 @@ return {
 				["max"] = 3, 
 			}, 
 		}, 
-		["1460_LifeGainPerTarget"] = {
-			["Gloves"] = {
-				["min"] = 2, 
-				["max"] = 2, 
-			}, 
+		["3441_LocalFirePenetration"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2797971005", 
-				["text"] = "Gain # Life per Enemy Hit with Attacks", 
+				["id"] = "explicit.stat_3398283493", 
+				["text"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 9, 
+				["max"] = 15, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 9, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["1264_GlobalPhysicalDamageReductionRatingPercent"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2866361420", 
+				["text"] = "#% increased Armour", 
+			}, 
+			["Ring"] = {
+				["min"] = 7, 
+				["max"] = 15, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["Amulet"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+				["min"] = 4, 
+				["max"] = 36, 
 			}, 
-			["Ring"] = {
-				["min"] = 2, 
-				["max"] = 20, 
+			["Belt"] = {
+				["min"] = 7, 
+				["max"] = 15, 
 			}, 
-		}, 
-		["5108_CriticalStrikeChanceTwoHandedCritChanceRecently"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3914638685", 
-				["text"] = "#% increased Critical Strike Chance if you have Killed Recently", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
-			["sign"] = "", 
 		}, 
 		["953_WeaponSpellDamageArcaneSurge"] = {
 			["specialCaseData"] = {
@@ -21204,46 +25033,75 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["953_TwoHandWeaponSpellDamage"] = {
+		["1485_MinionLifeSupported"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2974417149", 
-				["text"] = "#% increased Spell Damage", 
+				["id"] = "explicit.stat_770672621", 
+				["text"] = "Minions have #% increased maximum Life", 
 			}, 
-			["2HWeapon"] = {
+			["Helmet"] = {
 				["min"] = 15, 
-				["max"] = 164, 
+				["max"] = 25, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["7694_MinionCriticalStrikeMultiplier"] = {
-			["specialCaseData"] = {
+		["1275_LocalArmourAndEnergyShield"] = {
+			["Gloves"] = {
+				["min"] = 15, 
+				["max"] = 100, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1854213750", 
-				["text"] = "Minions have #% to Critical Strike Multiplier", 
+				["id"] = "explicit.stat_3321629045", 
+				["text"] = "#% increased Armour and Energy Shield (Local)", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 38, 
+			["Shield"] = {
+				["min"] = 101, 
+				["max"] = 110, 
+			}, 
+			["Chest"] = {
+				["min"] = 15, 
+				["max"] = 110, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour and Energy Shield", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 15, 
+				["max"] = 100, 
+			}, 
+			["Boots"] = {
+				["min"] = 15, 
+				["max"] = 100, 
+			}, 
+		}, 
+		["1262_PhysicalDamageReductionRating"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_809229260", 
+				["text"] = "# to Armour", 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 36, 
+				["max"] = 250, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 36, 
+				["max"] = 250, 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-		}, 
-		["8445_AddedFireBurningEnemies"] = {
-			["specialCaseData"] = {
+			["BaseJewel"] = {
+				["min"] = 36, 
+				["max"] = 250, 
 			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_165402179", 
-				["text"] = "# to # added Fire Damage against Burning Enemies", 
-			}, 
-			["sign"] = "", 
 			["Belt"] = {
-				["min"] = 31.5, 
-				["max"] = 47, 
+				["min"] = 3, 
+				["max"] = 540, 
 			}, 
 		}, 
 		["1522_MinimumEnduranceChargesAndOnKillChance"] = {
@@ -21264,28 +25122,26 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["8471_TailwindOnCriticalStrikeMaven"] = {
+		["1131_SpellAddedColdDamageHybrid"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1085545682", 
-				["text"] = "You have Tailwind if you have dealt a Critical Strike Recently", 
+				["id"] = "explicit.stat_2469416729", 
+				["text"] = "Adds # to # Cold Damage to Spells", 
 			}, 
-			["Boots"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
+			["sign"] = "", 
 		}, 
-		["2162_BlockVsProjectiles"] = {
+		["1139_LocalIncreasedAttackSpeedAddedChaos"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Attack Speed", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3416410609", 
-				["text"] = "#% Chance to Block Projectile Attack Damage", 
+				["id"] = "explicit.stat_210067635", 
+				["text"] = "#% increased Attack Speed (Local)", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["1396_ColdResistanceEnemyLeech"] = {
 			["specialCaseData"] = {
@@ -21297,32 +25153,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["125_IncreaseSocketedSupportGemQuality"] = {
+		["1271_LocalBaseArmourEvasionRatingAndLife"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Evasion Rating", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1328548975", 
-				["text"] = "#% to Quality of Socketed Support Gems", 
+				["id"] = "explicit.stat_53045048", 
+				["text"] = "# to Evasion Rating (Local)", 
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1596_BurnDamage"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1175385867", 
-				["text"] = "#% increased Burning Damage", 
-			}, 
+		["8757_DivineShield"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 26, 
-				["max"] = 40, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 31, 
-				["max"] = 60, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2048995720", 
+				["text"] = "Divine Shield", 
 			}, 
 		}, 
 		["2187_BleedingDamageChance"] = {
@@ -21374,19 +25222,18 @@ return {
 				["max"] = 12, 
 			}, 
 		}, 
-		["347_PoisonDamageWeaponSupported"] = {
+		["4180_MaximumManaIncreasePercentMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_228165595", 
-				["text"] = "Socketed Gems are Supported by Level # Chance to Poison", 
+				["id"] = "explicit.stat_2571899044", 
+				["text"] = "Transfiguration of Mind", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 20, 
+			["Helmet"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
 		}, 
 		["3948_AddedColdDamagePerFrenzyCharge"] = {
 			["tradeMod"] = {
@@ -21406,17 +25253,13 @@ return {
 				["max"] = 5.5, 
 			}, 
 		}, 
-		["5318_DeterminationReservationEfficiency"] = {
+		["1932_CurseAreaOfEffect"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_325889252", 
-				["text"] = "Determination has #% increased Mana Reservation Efficiency", 
-			}, 
-			["Amulet"] = {
-				["min"] = 40, 
-				["max"] = 50, 
+				["id"] = "explicit.stat_153777645", 
+				["text"] = "#% increased Area of Effect of Hex Skills", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -21434,17 +25277,14 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1459_LifeGainedOnSpellHit"] = {
+		["1619_LocalEvasionAndEnergyShieldAndStunRecovery"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2018035324", 
-				["text"] = "Gain # Life per Enemy Hit with Spells", 
-			}, 
-			["Ring"] = {
-				["min"] = 8, 
-				["max"] = 15, 
+				["id"] = "explicit.stat_2511217560", 
+				["text"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -21472,22 +25312,23 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["960_PhysicalDamagePercentPrefix"] = {
+		["1736_LocalIncreasedPhysicalDamagePercentAndAccuracyRating"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1310194496", 
-				["text"] = "#% increased Global Physical Damage", 
+				["id"] = "explicit.stat_691932474", 
+				["text"] = "# to Accuracy Rating (Local)", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Accuracy Rating", 
 			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 20, 
-				["max"] = 30, 
-			}, 
-			["Belt"] = {
+			["sign"] = "+", 
+			["1HWeapon"] = {
 				["min"] = 16, 
-				["max"] = 30, 
+				["max"] = 200, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 200, 
 			}, 
 		}, 
 		["1284_EnergyShieldDelayForJewel"] = {
@@ -21530,26 +25371,27 @@ return {
 				["max"] = 80, 
 			}, 
 		}, 
-		["86_PercentageDexterityMaven"] = {
+		["3140_IncreasedDamageFromAuras"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2718698372", 
-				["text"] = "# to Level of Socketed Dexterity Gems", 
+				["id"] = "explicit.stat_3729445224", 
+				["text"] = "Auras from your Skills grant #% increased Damage to you and Allies", 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
-			["Amulet"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 2, 
 			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["2HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 4, 
 			}, 
 		}, 
 		["126_LocalIncreaseSocketedActiveSkillGemLevelMaven"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Quality of Socketed Active Skill Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -21594,19 +25436,27 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["7821_IncreasedAilmentDurationMaven"] = {
-			["specialCaseData"] = {
-			}, 
+		["1293_MaximumLifeIncreasePercent"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_782230869", 
-				["text"] = "#% increased Effect of Non-Damaging Ailments", 
+				["id"] = "explicit.stat_983749596", 
+				["text"] = "#% increased maximum Life", 
 			}, 
-			["Gloves"] = {
-				["min"] = 13, 
+			["Chest"] = {
+				["min"] = 5, 
 				["max"] = 15, 
 			}, 
+			["specialCaseData"] = {
+			}, 
 			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 3, 
+				["max"] = 10, 
+			}, 
+			["Belt"] = {
+				["min"] = 3, 
+				["max"] = 10, 
+			}, 
 		}, 
 		["2988_AttackSpeedDuringFlaskEffect"] = {
 			["specialCaseData"] = {
@@ -21655,33 +25505,54 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5317_DeterminationReservation"] = {
-			["specialCaseData"] = {
-			}, 
+		["2325_PowerChargeOnKillChanceMaven"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_325889252", 
-				["text"] = "Determination has #% increased Mana Reservation Efficiency", 
+				["id"] = "explicit.stat_2483795307", 
+				["text"] = "#% chance to gain a Power Charge on Kill", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 11, 
+				["max"] = 15, 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 11, 
+				["max"] = 15, 
+			}, 
+			["Helmet"] = {
+				["min"] = 11, 
+				["max"] = 15, 
+			}, 
 		}, 
-		["2793_VaalSkillCriticalStrikeChance"] = {
+		["1275_LocalArmourAndEnergyShieldAndStunRecovery"] = {
 			["Gloves"] = {
-				["min"] = 80, 
-				["max"] = 120, 
+				["min"] = 6, 
+				["max"] = 42, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3165492062", 
-				["text"] = "#% increased Vaal Skill Critical Strike Chance", 
+				["id"] = "explicit.stat_3321629045", 
+				["text"] = "#% increased Armour and Energy Shield (Local)", 
 			}, 
-			["Quiver"] = {
-				["min"] = 80, 
-				["max"] = 120, 
+			["Chest"] = {
+				["min"] = 6, 
+				["max"] = 42, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour and Energy Shield", 
 			}, 
 			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
 		}, 
 		["936_DamageWhileHoldingAShieldForJewel"] = {
 			["tradeMod"] = {
@@ -21717,6 +25588,7 @@ return {
 		}, 
 		["104_LocalIncreaseSocketedMinionGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Minion Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -21739,47 +25611,35 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1131_SpellAddedColdDamageHybrid"] = {
+		["1296_LifeRegenerationAndPercent"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2469416729", 
-				["text"] = "Adds # to # Cold Damage to Spells", 
+				["id"] = "explicit.stat_3325883026", 
+				["text"] = "Regenerate # Life per second", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1360_MaximumChaosResistance"] = {
+		["1277_LocalEvasionAndEnergyShieldAndStunRecovery"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Evasion and Energy Shield", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1301765461", 
-				["text"] = "#% to maximum Chaos Resistance", 
-			}, 
-			["sign"] = "+", 
-			["Shield"] = {
-				["min"] = 1, 
-				["max"] = 3, 
-			}, 
-		}, 
-		["3043_AngerAuraEffect"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1592278124", 
-				["text"] = "Anger has #% increased Aura Effect", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["2HWeapon"] = {
-				["min"] = 48, 
-				["max"] = 60, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 28, 
-				["max"] = 40, 
+				["id"] = "explicit.stat_1999113824", 
+				["text"] = "#% increased Evasion and Energy Shield (Local)", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["248_SocketedTriggeredSkillsDoubleDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4021083819", 
+				["text"] = "Socketed Triggered Skills deal Double Damage", 
+			}, 
 		}, 
 		["5594_FasterBleedDamageMaven"] = {
 			["specialCaseData"] = {
@@ -21795,13 +25655,17 @@ return {
 				["max"] = 15, 
 			}, 
 		}, 
-		["1273_LocalEvasionRatingIncreasePercentSuffix"] = {
+		["5697_GainRareMonsterModsOnKillChance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2106365538", 
-				["text"] = "#% increased Evasion Rating", 
+				["id"] = "explicit.stat_2736829661", 
+				["text"] = "When you Kill a Rare Monster, #% chance to gain one of its Modifiers for 10 seconds", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 40, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -21819,50 +25683,53 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1690_MinionDamageOnWeaponAndMana"] = {
-			["specialCaseData"] = {
-			}, 
+		["912_LocalAttackSpeedDexterityIntelligence"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1589917703", 
-				["text"] = "Minions deal #% increased Damage", 
+				["id"] = "explicit.stat_2300185227", 
+				["text"] = "# to Dexterity and Intelligence", 
 			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Dexterity and Intelligence", 
+			}, 
+			["sign"] = "+", 
 			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 39, 
+				["min"] = 25, 
+				["max"] = 28, 
 			}, 
-			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 28, 
+			}, 
 		}, 
-		["2294_CurseEffectiveness"] = {
+		["3441_LocalFireDamageAndPen"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2353576063", 
-				["text"] = "#% increased Effect of your Curses", 
+				["id"] = "explicit.stat_3398283493", 
+				["text"] = "Attacks with this Weapon Penetrate #% Fire Resistance", 
 			}, 
 			["sign"] = "", 
-			["Shield"] = {
-				["min"] = 8, 
-				["max"] = 12, 
-			}, 
 		}, 
-		["1159_LightRadiusAndAccuracyPercent"] = {
+		["6681_LocalBleedDamageOverTimeMultiplier"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_624954515", 
-				["text"] = "#% increased Global Accuracy Rating", 
+				["id"] = "explicit.stat_951608773", 
+				["text"] = "#% to Damage over Time Multiplier for Bleeding from Hits with this Weapon", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Damage over Time Multiplier for Bleeding from Hits with this Weapon", 
 			}, 
-			["sign"] = "", 
-			["Ring"] = {
-				["min"] = 9, 
-				["max"] = 20, 
+			["sign"] = "+", 
+			["1HWeapon"] = {
+				["min"] = 37, 
+				["max"] = 59, 
 			}, 
-			["Helmet"] = {
-				["min"] = 9, 
-				["max"] = 20, 
+			["2HWeapon"] = {
+				["min"] = 37, 
+				["max"] = 59, 
 			}, 
 		}, 
 		["1224_OneHandCritMultiplierForJewel"] = {
@@ -21977,52 +25844,49 @@ return {
 				["max"] = 6, 
 			}, 
 		}, 
-		["2276_TotemSpeedSpellSupported"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3374165039", 
-				["text"] = "#% increased Totem Placement speed", 
-			}, 
-			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 8, 
-				["max"] = 20, 
-			}, 
-		}, 
-		["86_DelveDexterityGemLevel"] = {
+		["1619_LocalEnergyShieldAndStunRecoveryPercent"] = {
 			["Gloves"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Boots"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["min"] = 6, 
+				["max"] = 17, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2718698372", 
-				["text"] = "# to Level of Socketed Dexterity Gems", 
-			}, 
-			["Helmet"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["id"] = "explicit.stat_2511217560", 
+				["text"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Stun and Block Recovery", 
+			}, 
+			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+		}, 
+		["1132_SpellAddedLightningDamagePenetrationHybrid"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2831165374", 
+				["text"] = "Adds # to # Lightning Damage to Spells", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 11, 
+				["max"] = 41.5, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 16.5, 
+				["max"] = 62, 
 			}, 
 		}, 
 		["296_MineDamageTrapSupported"] = {
@@ -22079,18 +25943,22 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["5097_CritChanceShockedEnemies"] = {
-			["specialCaseData"] = {
-			}, 
+		["5108_CriticalStrikeChanceIfKilledRecently"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_276103140", 
-				["text"] = "#% increased Critical Strike Chance against Shocked Enemies", 
+				["id"] = "explicit.stat_3914638685", 
+				["text"] = "#% increased Critical Strike Chance if you have Killed Recently", 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Belt"] = {
-				["min"] = 30, 
-				["max"] = 45, 
+			["1HWeapon"] = {
+				["min"] = 31, 
+				["max"] = 100, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 80, 
+				["max"] = 100, 
 			}, 
 		}, 
 		["1549_CriticalMultiplierSupportedTwoHanded"] = {
@@ -22107,19 +25975,27 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["875_SpellDamageSuppressed"] = {
-			["specialCaseData"] = {
-			}, 
+		["5235_IncreasedDamagePerPowerCharge"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4116705863", 
-				["text"] = "Prevent #% of Suppressed Spell Damage", 
+				["id"] = "explicit.stat_2034658008", 
+				["text"] = "#% increased Damage per Power Charge", 
 			}, 
 			["Amulet"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+				["min"] = 3, 
+				["max"] = 6, 
 			}, 
-			["sign"] = "+", 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 10, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 7, 
+				["max"] = 17, 
+			}, 
 		}, 
 		["1665_ChaosDamageOverTimeTaken"] = {
 			["specialCaseData"] = {
@@ -22131,41 +26007,30 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1655_LightningAddedAsChaos"] = {
+		["316_LocalIncreasedPhysicalDamagePercentFasterProjectiles"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are supported by Level # Faster Projectiles", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2402136583", 
-				["text"] = "Gain #% of Lightning Damage as Extra Chaos Damage", 
+				["id"] = "explicit.stat_99089516", 
+				["text"] = "Socketed Gems are supported by Level # Faster Projectiles", 
 			}, 
 			["sign"] = "", 
-			["specialCaseData"] = {
-			}, 
-			["2HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 20, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 9, 
-				["max"] = 10, 
-			}, 
-			["Shield"] = {
-				["min"] = 9, 
-				["max"] = 10, 
-			}, 
 		}, 
-		["5452_ElusiveOnCriticalStrikeMaven"] = {
+		["5214_ReducedBurnDurationMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_240857668", 
-				["text"] = "#% increased Elusive Effect", 
+				["id"] = "explicit.stat_430821956", 
+				["text"] = "#% increased Damage if you've been Ignited Recently", 
+			}, 
+			["Helmet"] = {
+				["min"] = 36, 
+				["max"] = 50, 
 			}, 
 			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 5, 
-				["max"] = 10, 
-			}, 
 		}, 
 		["2276_TotemSpeedAttackSupported"] = {
 			["specialCaseData"] = {
@@ -22217,36 +26082,28 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
-		["5734_EnduranceChargeIfHitRecently"] = {
+		["883_BlockingBlocksSpellsUber"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2894476716", 
-				["text"] = "Gain # Endurance Charge every second if you've been Hit Recently", 
+				["id"] = "explicit.stat_1778298516", 
+				["text"] = "#% Chance to Block Attack Damage while wielding a Staff", 
 			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
-		["8295_SpellsDoubleDamageChance"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2813626504", 
-				["text"] = "Spells have a #% chance to deal Double Damage", 
-			}, 
+		["352_DisplaySocketedGemsGetReducedReservation"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 4, 
-				["max"] = 7, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3289633055", 
+				["text"] = "Socketed Gems have #% increased Reservation Efficiency", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 14, 
+			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 20, 
+				["max"] = 30, 
 			}, 
 		}, 
 		["944_ChaosDamageOverTimePrefix"] = {
@@ -22267,48 +26124,53 @@ return {
 				["max"] = 134, 
 			}, 
 		}, 
-		["5697_GainRareMonsterModsOnKillChance"] = {
-			["specialCaseData"] = {
+		["1619_LocalArmourAndEvasionAndStunRecovery"] = {
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 17, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2736829661", 
-				["text"] = "When you Kill a Rare Monster, #% chance to gain one of its Modifiers for 10 seconds", 
+				["id"] = "explicit.stat_2511217560", 
+				["text"] = "#% increased Stun and Block Recovery", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 15, 
-				["max"] = 40, 
+			["Chest"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Stun and Block Recovery", 
 			}, 
 			["sign"] = "", 
-		}, 
-		["1935_ManaReservationEfficiency"] = {
-			["BaseJewel"] = {
-				["min"] = 2, 
-				["max"] = 3, 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 17, 
 			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 17, 
+			}, 
+		}, 
+		["1133_SpellAddedChaosDamage"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4237190083", 
-				["text"] = "#% increased Mana Reservation Efficiency of Skills", 
+				["id"] = "explicit.stat_2300399854", 
+				["text"] = "Adds # to # Chaos Damage to Spells", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 56, 
+				["max"] = 97.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 34, 
+				["max"] = 60, 
 			}, 
 			["Helmet"] = {
-				["min"] = 4, 
-				["max"] = 14, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2, 
-				["max"] = 3, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 4, 
-				["max"] = 14, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 2, 
-				["max"] = 3, 
+				["min"] = 20.5, 
+				["max"] = 50, 
 			}, 
 		}, 
 		["1586_SelfStatusAilmentDuration"] = {
@@ -22341,59 +26203,23 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["909_Intelligence"] = {
-			["Gloves"] = {
-				["min"] = 8, 
-				["max"] = 55, 
-			}, 
+		["928_AttackDamage"] = {
 			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Boots"] = {
-				["min"] = 8, 
-				["max"] = 55, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_328541901", 
-				["text"] = "# to Intelligence", 
+				["id"] = "explicit.stat_2843214518", 
+				["text"] = "#% increased Attack Damage", 
 			}, 
-			["Amulet"] = {
-				["min"] = 8, 
-				["max"] = 55, 
-			}, 
-			["Ring"] = {
-				["min"] = 8, 
-				["max"] = 55, 
-			}, 
-			["Helmet"] = {
-				["min"] = 8, 
-				["max"] = 60, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 55, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 55, 
-			}, 
-			["Chest"] = {
-				["min"] = 8, 
-				["max"] = 55, 
-			}, 
+			["sign"] = "", 
 		}, 
-		["6281_ShockChanceAndEffect"] = {
+		["886_BlockingBlocksSpellsUber"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3081816887", 
-				["text"] = "#% increased Effect of Lightning Ailments", 
-			}, 
-			["Helmet"] = {
-				["min"] = 8, 
-				["max"] = 15, 
+				["id"] = "explicit.stat_561307714", 
+				["text"] = "#% Chance to Block Spell Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -22415,26 +26241,23 @@ return {
 				["max"] = 80, 
 			}, 
 		}, 
-		["1272_IncreasedEvasionForJewel"] = {
+		["1139_LocalAttackSpeedDexterityIntelligence"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2106365538", 
-				["text"] = "#% increased Evasion Rating", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
+				["id"] = "explicit.stat_210067635", 
+				["text"] = "#% increased Attack Speed (Local)", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Attack Speed", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
+			["1HWeapon"] = {
+				["min"] = 12, 
+				["max"] = 22, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 14, 
-				["max"] = 18, 
+			["2HWeapon"] = {
+				["min"] = 12, 
+				["max"] = 22, 
 			}, 
 		}, 
 		["316_ProjectileSpeedSupported"] = {
@@ -22451,40 +26274,46 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["3946_NearbyEnemiesChilledOnBlock"] = {
+		["7655_AddedLightningDamageIfCritRecently"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_583277599", 
-				["text"] = "Chill Nearby Enemies when you Block", 
+				["id"] = "explicit.stat_935623115", 
+				["text"] = "Adds # to # Lightning Damage if you've dealt a Critical Strike Recently", 
+			}, 
+			["Gloves"] = {
+				["min"] = 21, 
+				["max"] = 45.5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1515_LocalIncreasedPhysicalDamagePercentAndProjSpeed"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3759663284", 
+				["text"] = "#% increased Projectile Speed", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Projectile Speed", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 20, 
+				["max"] = 25, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 20, 
+				["max"] = 25, 
 			}, 
 		}, 
-		["1362_MaximumResistances"] = {
+		["1645_MineLayingSpeedOnWeapon"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_569299859", 
-				["text"] = "#% to all maximum Resistances", 
-			}, 
-			["sign"] = "+", 
-			["Shield"] = {
-				["min"] = 1, 
-				["max"] = 2, 
-			}, 
-		}, 
-		["1306_ManaRegenerationMaven"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_789117908", 
-				["text"] = "#% increased Mana Regeneration Rate", 
-			}, 
-			["Helmet"] = {
-				["min"] = 56, 
-				["max"] = 70, 
+				["id"] = "explicit.stat_1896971621", 
+				["text"] = "#% increased Mine Throwing Speed", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -22508,31 +26337,41 @@ return {
 		}, 
 		["1265_LocalPhysicalDamageReductionRatingPercentSuffix"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2866361420", 
-				["text"] = "#% increased Armour", 
+				["id"] = "explicit.stat_1062208444", 
+				["text"] = "#% increased Armour (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["4472_MinionDuration"] = {
+		["1003_LocalPhysicalDamage"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Physical Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1940865751", 
+				["text"] = "Adds # to # Physical Damage (Local)", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 1.5, 
+				["max"] = 40.5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5108_CriticalStrikeChanceTwoHandedCritChanceRecently"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_999511066", 
-				["text"] = "#% increased Minion Duration", 
+				["id"] = "explicit.stat_3914638685", 
+				["text"] = "#% increased Critical Strike Chance if you have Killed Recently", 
 			}, 
-			["sign"] = "", 
-		}, 
-		["5177_CurseDuration"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1435748744", 
-				["text"] = "Curse Skills have #% increased Skill Effect Duration", 
+			["2HWeapon"] = {
+				["min"] = 50, 
+				["max"] = 50, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -22604,41 +26443,54 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["1517_MovementVelocityDodge"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2250533757", 
-				["text"] = "#% increased Movement Speed", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["8032_PurityOfLightningReservationEfficiency"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3411256933", 
-				["text"] = "Purity of Lightning has #% increased Mana Reservation Efficiency", 
-			}, 
-			["Amulet"] = {
-				["min"] = 50, 
-				["max"] = 60, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1485_MinionLifeSupported"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_770672621", 
-				["text"] = "Minions have #% increased maximum Life", 
-			}, 
-			["Helmet"] = {
-				["min"] = 15, 
+		["1674_ConvertPhysicalToColdMaven"] = {
+			["Gloves"] = {
+				["min"] = 22, 
 				["max"] = 25, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2133341901", 
+				["text"] = "#% of Physical Damage Converted to Cold Damage", 
+			}, 
+			["Quiver"] = {
+				["min"] = 22, 
+				["max"] = 25, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+		}, 
+		["1464_ManaGainPerTargetMaven"] = {
+			["Gloves"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_820939409", 
+				["text"] = "Gain # Mana per Enemy Hit with Attacks", 
+			}, 
+			["Quiver"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+		}, 
+		["211_LocalIncreasedAttackSpeedOnslaught"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are Supported by Level # Onslaught", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3237923082", 
+				["text"] = "Socketed Gems are Supported by Level # Onslaught", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -22666,63 +26518,48 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1488_MinionMovementSpeed"] = {
+		["914_PercentageStrength"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_174664100", 
-				["text"] = "Minions have #% increased Movement Speed", 
+				["id"] = "explicit.stat_734614379", 
+				["text"] = "#% increased Strength", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 10, 
+			["Chest"] = {
+				["min"] = 5, 
+				["max"] = 12, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Ring"] = {
-				["min"] = 6, 
-				["max"] = 30, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 10, 
-			}, 
-		}, 
-		["2325_PowerChargeOnKillChanceMaven"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2483795307", 
-				["text"] = "#% chance to gain a Power Charge on Kill", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 11, 
-				["max"] = 15, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 11, 
-				["max"] = 15, 
-			}, 
-			["Helmet"] = {
-				["min"] = 11, 
-				["max"] = 15, 
-			}, 
-		}, 
-		["4456_FireDamageESLeech"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3885409671", 
-				["text"] = "#% of Fire Damage Leeched as Energy Shield", 
-			}, 
 			["Amulet"] = {
-				["min"] = 0.2, 
-				["max"] = 0.4, 
+				["min"] = 5, 
+				["max"] = 12, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 12, 
+			}, 
+		}, 
+		["2222_CurseLevel10VulnerabilityOnHit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2213584313", 
+				["text"] = "#% chance to Curse Enemies with Vulnerability on Hit", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["1251_LocalBaseWardAndLife"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Ward", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_774059442", 
+				["text"] = "# to Ward", 
+			}, 
+			["sign"] = "+", 
 		}, 
 		["8764_GhostDance"] = {
 			["specialCaseData"] = {
@@ -22735,6 +26572,7 @@ return {
 		}, 
 		["2439_LocalWeaponRangeUber"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Weapon Range", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -22743,36 +26581,46 @@ return {
 			}, 
 			["2HWeapon"] = {
 				["min"] = 1, 
-				["max"] = 2, 
+				["max"] = 3, 
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1361_ChaosResistancePrefix"] = {
+		["1109_LocalLightningDamageAndPen"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Lightning Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2923486259", 
-				["text"] = "#% to Chaos Resistance", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["5439_ReducedElementalReflectTaken"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2160417795", 
-				["text"] = "You and your Minions take #% reduced Reflected Elemental Damage", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_3336890334", 
+				["text"] = "Adds # to # Lightning Damage (Local)", 
 			}, 
 			["sign"] = "", 
-			["Chest"] = {
-				["min"] = 100, 
-				["max"] = 100, 
+		}, 
+		["1291_LocalBaseArmourAndLife"] = {
+			["Gloves"] = {
+				["min"] = 18, 
+				["max"] = 38, 
 			}, 
-			["Ring"] = {
-				["min"] = 31, 
-				["max"] = 55, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
+			}, 
+			["Chest"] = {
+				["min"] = 18, 
+				["max"] = 38, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 18, 
+				["max"] = 38, 
+			}, 
+			["Boots"] = {
+				["min"] = 18, 
+				["max"] = 38, 
 			}, 
 		}, 
 		["2145_FireResistancePhysTakenAsFire"] = {
@@ -22785,49 +26633,54 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["883_BlockingBlocksSpellsUber"] = {
+		["5177_CurseDuration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1778298516", 
-				["text"] = "#% Chance to Block Attack Damage while wielding a Staff", 
+				["id"] = "explicit.stat_1435748744", 
+				["text"] = "Curse Skills have #% increased Skill Effect Duration", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1357_LightningResistanceEnemyLeech"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1671376347", 
+				["text"] = "#% to Lightning Resistance", 
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1262_PhysicalDamageReductionRating"] = {
+		["1649_PhysicalAddedAsFire"] = {
+			["2HWeapon"] = {
+				["min"] = 7, 
+				["max"] = 30, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_809229260", 
-				["text"] = "# to Armour", 
+				["id"] = "explicit.stat_369494213", 
+				["text"] = "Gain #% of Physical Damage as Extra Fire Damage", 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 36, 
-				["max"] = 250, 
+			["1HWeapon"] = {
+				["min"] = 7, 
+				["max"] = 20, 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 36, 
-				["max"] = 250, 
+			["Quiver"] = {
+				["min"] = 5, 
+				["max"] = 15, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
-			["BaseJewel"] = {
-				["min"] = 36, 
-				["max"] = 250, 
+			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 5, 
+				["max"] = 15, 
 			}, 
-			["Belt"] = {
+			["Boots"] = {
 				["min"] = 3, 
-				["max"] = 540, 
-			}, 
-		}, 
-		["8797_IronWill"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4092697134", 
-				["text"] = "Iron Will", 
+				["max"] = 11, 
 			}, 
 		}, 
 		["5110_CriticalStrikeChanceIfNoCriticalStrikeDealtRecently"] = {
@@ -22848,66 +26701,96 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["5553_EvasionIncreasedByUncappedColdResistance"] = {
+		["6719_NearbyEnemyLightningDamageResistance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2358015838", 
-				["text"] = "Evasion Rating is increased by Overcapped Cold Resistance", 
-			}, 
-		}, 
-		["928_AttackDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2843214518", 
-				["text"] = "#% increased Attack Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["886_BlockingBlocksSpellsUber"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_561307714", 
-				["text"] = "#% Chance to Block Spell Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1133_SpellAddedChaosDamage"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2300399854", 
-				["text"] = "Adds # to # Chaos Damage to Spells", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 56, 
-				["max"] = 97.5, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 34, 
-				["max"] = 60, 
+				["id"] = "explicit.stat_1849749435", 
+				["text"] = "Nearby Enemies have #% to Lightning Resistance", 
 			}, 
 			["Helmet"] = {
-				["min"] = 20.5, 
-				["max"] = 50, 
+				["min"] = 9, 
+				["max"] = 12, 
 			}, 
+			["sign"] = "-", 
 		}, 
-		["1131_ColdDamageWeaponPrefixAndFlat"] = {
+		["5734_EnduranceChargeIfHitRecently"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2469416729", 
-				["text"] = "Adds # to # Cold Damage to Spells", 
+				["id"] = "explicit.stat_2894476716", 
+				["text"] = "Gain # Endurance Charge every second if you've been Hit Recently", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["1350_MaximumColdResist"] = {
+			["Gloves"] = {
+				["min"] = 1, 
+				["max"] = 3, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3676141501", 
+				["text"] = "#% to maximum Cold Resistance", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["Shield"] = {
+				["min"] = 1, 
+				["max"] = 3, 
+			}, 
+		}, 
+		["8634_WarcryEffect"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3037553757", 
+				["text"] = "#% increased Warcry Buff Effect", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["2HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 25, 
+			}, 
+			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 18, 
+				["max"] = 25, 
+			}, 
+		}, 
+		["1281_LocalBaseEnergyShieldAndMana"] = {
+			["Gloves"] = {
+				["min"] = 8, 
+				["max"] = 30, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4052037485", 
+				["text"] = "# to maximum Energy Shield (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 8, 
+				["max"] = 30, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Energy Shield", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 8, 
+				["max"] = 30, 
+			}, 
+			["Boots"] = {
+				["min"] = 8, 
+				["max"] = 30, 
+			}, 
 		}, 
 		["2601_MinionAttackAndCastSpeed"] = {
 			["tradeMod"] = {
@@ -22999,60 +26882,42 @@ return {
 			}, 
 			["sign"] = "-", 
 		}, 
-		["1482_ManaGainedFromEnemyDeath"] = {
-			["Gloves"] = {
-				["min"] = 1, 
-				["max"] = 6, 
-			}, 
-			["Quiver"] = {
-				["min"] = 1, 
-				["max"] = 6, 
-			}, 
+		["3443_LocalLightningDamageTwoHandAndPen"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
 			}, 
-			["sign"] = "", 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1368271171", 
-				["text"] = "Gain # Mana per Enemy Killed", 
+				["id"] = "explicit.stat_2387539034", 
+				["text"] = "Attacks with this Weapon Penetrate #% Lightning Resistance", 
 			}, 
-			["Ring"] = {
-				["min"] = 1, 
-				["max"] = 6, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 6, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 6, 
-			}, 
-			["Amulet"] = {
-				["min"] = 1, 
-				["max"] = 6, 
-			}, 
+			["sign"] = "", 
 		}, 
-		["2974_DamagePerFrenzyCharge"] = {
+		["1291_LocalBaseEvasionRatingAndLife"] = {
+			["Gloves"] = {
+				["min"] = 18, 
+				["max"] = 38, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_902747843", 
-				["text"] = "#% increased Damage per Frenzy Charge", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 7, 
-				["max"] = 8, 
+			["Chest"] = {
+				["min"] = 18, 
+				["max"] = 38, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
 			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 3, 
-				["max"] = 6, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 18, 
+				["max"] = 38, 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 10, 
+			["Boots"] = {
+				["min"] = 18, 
+				["max"] = 38, 
 			}, 
 		}, 
 		["388_SocketedSpellsDamageFinal"] = {
@@ -23153,23 +27018,19 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["3247_AuraEffect"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1880071428", 
-				["text"] = "#% increased effect of Non-Curse Auras from your Skills", 
-			}, 
+		["6295_PhysicalDamageTakenAsLightningUberMaven"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["Chest"] = {
-				["min"] = 15, 
-				["max"] = 30, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2970621759", 
+				["text"] = "#% of Lightning Damage taken Recouped as Life", 
 			}, 
-			["Shield"] = {
-				["min"] = 5, 
+			["Chest"] = {
+				["min"] = 7, 
 				["max"] = 10, 
 			}, 
+			["sign"] = "", 
 		}, 
 		["2867_PoisonOnHitAndDamage"] = {
 			["specialCaseData"] = {
@@ -23185,33 +27046,49 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["1131_SpellAddedColdDamageUber"] = {
-			["specialCaseData"] = {
-			}, 
+		["1272_GlobalEvasionRatingPercent"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2469416729", 
-				["text"] = "Adds # to # Cold Damage to Spells", 
+				["id"] = "explicit.stat_2106365538", 
+				["text"] = "#% increased Evasion Rating", 
 			}, 
-			["Helmet"] = {
-				["min"] = 20.5, 
-				["max"] = 50, 
+			["Ring"] = {
+				["min"] = 7, 
+				["max"] = 15, 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-		}, 
-		["1084_TwoHandFireDamageWeaponPrefix"] = {
-			["specialCaseData"] = {
+			["Amulet"] = {
+				["min"] = 4, 
+				["max"] = 36, 
 			}, 
+			["Belt"] = {
+				["min"] = 7, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["1855_PowerChargeOnKillChanceMaven"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3962278098", 
-				["text"] = "#% increased Fire Damage", 
+				["id"] = "explicit.stat_3872306017", 
+				["text"] = "#% increased Power Charge Duration", 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 15, 
-				["max"] = 164, 
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["Helmet"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
 		}, 
 		["2867_PoisonDamageAndLocalChanceOnHit"] = {
 			["tradeMod"] = {
@@ -23220,6 +27097,7 @@ return {
 				["text"] = "#% increased Damage with Poison", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Damage with Poison", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
@@ -23231,14 +27109,15 @@ return {
 				["max"] = 50, 
 			}, 
 		}, 
-		["8757_DivineShield"] = {
+		["1690_MinionDamageOnWeaponDoubleDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2048995720", 
-				["text"] = "Divine Shield", 
+				["id"] = "explicit.stat_1589917703", 
+				["text"] = "Minions deal #% increased Damage", 
 			}, 
+			["sign"] = "", 
 		}, 
 		["1564_ChanceToAvoidFreezeAndChill"] = {
 			["tradeMod"] = {
@@ -23262,15 +27141,19 @@ return {
 				["max"] = 50, 
 			}, 
 		}, 
-		["2222_CurseLevel10VulnerabilityOnHit"] = {
+		["6914_RecoverManaPercentOnBlock"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2213584313", 
-				["text"] = "#% chance to Curse Enemies with Vulnerability on Hit", 
+				["id"] = "explicit.stat_3041288981", 
+				["text"] = "Recover #% of your maximum Mana when you Block", 
 			}, 
 			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
 		}, 
 		["6212_LifeRecoveryRateMaven"] = {
 			["specialCaseData"] = {
@@ -23286,19 +27169,23 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["293_TrapDamageSupported"] = {
-			["specialCaseData"] = {
-			}, 
+		["3247_AuraEffect"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1122134690", 
-				["text"] = "Socketed Gems are Supported by Level # Trap", 
+				["id"] = "explicit.stat_1880071428", 
+				["text"] = "#% increased effect of Non-Curse Auras from your Skills", 
 			}, 
-			["Gloves"] = {
-				["min"] = 18, 
-				["max"] = 25, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["Chest"] = {
+				["min"] = 15, 
+				["max"] = 30, 
+			}, 
+			["Shield"] = {
+				["min"] = 5, 
+				["max"] = 10, 
+			}, 
 		}, 
 		["6718_NearbyEnemyFireDamageResistance"] = {
 			["specialCaseData"] = {
@@ -23314,30 +27201,22 @@ return {
 			}, 
 			["sign"] = "-", 
 		}, 
-		["1284_EnergyShieldDelay"] = {
-			["Gloves"] = {
-				["min"] = 27, 
-				["max"] = 66, 
-			}, 
+		["319_CriticalStrikeMultiplierSupported"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1782086450", 
-				["text"] = "#% faster start of Energy Shield Recharge", 
-			}, 
-			["Chest"] = {
-				["min"] = 27, 
-				["max"] = 66, 
+				["id"] = "explicit.stat_1108755349", 
+				["text"] = "Socketed Gems are supported by Level # Increased Critical Damage", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Helmet"] = {
-				["min"] = 27, 
-				["max"] = 66, 
+			["1HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
 			}, 
-			["Boots"] = {
-				["min"] = 27, 
-				["max"] = 66, 
+			["2HWeapon"] = {
+				["min"] = 18, 
+				["max"] = 20, 
 			}, 
 		}, 
 		["7632_MineAreaOfEffect"] = {
@@ -23350,67 +27229,61 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["6771_ChanceToMaimSupported"] = {
+		["907_StrengthAndLocalItemQuality"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Strength", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2763429652", 
-				["text"] = "#% chance to Maim on Hit", 
+				["id"] = "explicit.stat_4080418644", 
+				["text"] = "# to Strength", 
 			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 15, 
-				["max"] = 20, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 15, 
-				["max"] = 20, 
-			}, 
+			["sign"] = "+", 
 		}, 
-		["8634_WarcryEffect"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3037553757", 
-				["text"] = "#% increased Warcry Buff Effect", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["2HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 25, 
-			}, 
-			["sign"] = "", 
-			["Shield"] = {
-				["min"] = 18, 
-				["max"] = 25, 
-			}, 
-		}, 
-		["1899_BeltIncreasedFlaskDuration"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3741323227", 
-				["text"] = "#% increased Flask Effect Duration", 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 6, 
-				["max"] = 10, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 6, 
-				["max"] = 10, 
+		["891_SpellBlockPercentage"] = {
+			["Gloves"] = {
+				["min"] = 3, 
+				["max"] = 4, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 6, 
+			["Boots"] = {
+				["min"] = 3, 
+				["max"] = 4, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_561307714", 
+				["text"] = "#% Chance to Block Spell Damage", 
+			}, 
+			["Helmet"] = {
+				["min"] = 3, 
+				["max"] = 6, 
+			}, 
+			["Chest"] = {
+				["min"] = 3, 
 				["max"] = 10, 
 			}, 
-			["Belt"] = {
+			["Amulet"] = {
 				["min"] = 4, 
-				["max"] = 33, 
+				["max"] = 7, 
 			}, 
+			["Shield"] = {
+				["min"] = 4, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["1265_LocalPhysicalDamageReductionRatingPercentAndBlockChance"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1062208444", 
+				["text"] = "#% increased Armour (Local)", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["5665_MinionsRecoverMaximumLifeWhenYouFocusCDR"] = {
 			["specialCaseData"] = {
@@ -23494,39 +27367,57 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["8039_Quiver2AdditionalPierceOld"] = {
-			["specialCaseData"] = {
-			}, 
+		["1655_LightningAddedAsChaos"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2067062068", 
-				["text"] = "Projectiles Pierce # additional Targets", 
+				["id"] = "explicit.stat_2402136583", 
+				["text"] = "Gain #% of Lightning Damage as Extra Chaos Damage", 
 			}, 
 			["sign"] = "", 
-		}, 
-		["1132_LightningDamageWeaponPrefixAndFlat"] = {
 			["specialCaseData"] = {
 			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2831165374", 
-				["text"] = "Adds # to # Lightning Damage to Spells", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["218_PoisonDurationWeaponSupported"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2228279620", 
-				["text"] = "Socketed Gems are Supported by Level # Critical Strike Affliction", 
-			}, 
-			["1HWeapon"] = {
+			["2HWeapon"] = {
 				["min"] = 18, 
 				["max"] = 20, 
 			}, 
+			["1HWeapon"] = {
+				["min"] = 9, 
+				["max"] = 10, 
+			}, 
+			["Shield"] = {
+				["min"] = 9, 
+				["max"] = 10, 
+			}, 
+		}, 
+		["1281_LocalBaseArmourEnergyShieldAndLife"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Energy Shield", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4052037485", 
+				["text"] = "# to maximum Energy Shield (Local)", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1139_LocalIncreasedAttackSpeedMultistrike"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_210067635", 
+				["text"] = "#% increased Attack Speed (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Attack Speed", 
+			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 17, 
+				["max"] = 21, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 17, 
+				["max"] = 21, 
+			}, 
 		}, 
 		["1088_SelfFireDamageTaken"] = {
 			["specialCaseData"] = {
@@ -23538,19 +27429,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["6295_PhysicalDamageTakenAsLightningUberMaven"] = {
-			["specialCaseData"] = {
-			}, 
+		["1098_LocalColdDamageTwoHand"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2970621759", 
-				["text"] = "#% of Lightning Damage taken Recouped as Life", 
+				["id"] = "explicit.stat_1037193709", 
+				["text"] = "Adds # to # Cold Damage (Local)", 
 			}, 
-			["Chest"] = {
-				["min"] = 7, 
-				["max"] = 10, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Cold Damage", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 4, 
+				["max"] = 276, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 4, 
+				["max"] = 276, 
+			}, 
 		}, 
 		["8745_Acrobatics"] = {
 			["specialCaseData"] = {
@@ -23561,52 +27457,39 @@ return {
 				["text"] = "Acrobatics", 
 			}, 
 		}, 
-		["1355_MaximumLightningResistance"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1011760251", 
-				["text"] = "#% to maximum Lightning Resistance", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Helmet"] = {
-				["min"] = 1, 
-				["max"] = 3, 
-			}, 
-			["Shield"] = {
-				["min"] = 1, 
-				["max"] = 3, 
-			}, 
-		}, 
-		["1649_PhysicalAddedAsFire"] = {
-			["2HWeapon"] = {
-				["min"] = 7, 
-				["max"] = 30, 
+		["1460_LifeGainPerTarget"] = {
+			["Gloves"] = {
+				["min"] = 2, 
+				["max"] = 2, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_369494213", 
-				["text"] = "Gain #% of Physical Damage as Extra Fire Damage", 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 7, 
-				["max"] = 20, 
-			}, 
-			["Quiver"] = {
-				["min"] = 5, 
-				["max"] = 15, 
+				["id"] = "explicit.stat_2797971005", 
+				["text"] = "Gain # Life per Enemy Hit with Attacks", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["Amulet"] = {
-				["min"] = 5, 
-				["max"] = 15, 
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+			["Ring"] = {
+				["min"] = 2, 
+				["max"] = 20, 
+			}, 
+		}, 
+		["8549_BurningGroundEffectEffectiveness"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1643688236", 
+				["text"] = "Unaffected by Burning Ground", 
 			}, 
 			["Boots"] = {
-				["min"] = 3, 
-				["max"] = 11, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["1202_OneHandedCritChanceForJewel"] = {
@@ -23627,45 +27510,32 @@ return {
 				["max"] = 18, 
 			}, 
 		}, 
-		["1855_PowerChargeOnKillChanceMaven"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3872306017", 
-				["text"] = "#% increased Power Charge Duration", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
+		["8126_RemoveFreezeOnFlaskUse"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 50, 
-				["max"] = 50, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3296873305", 
+				["text"] = "Remove Chill and Freeze when you use a Flask", 
 			}, 
-			["Helmet"] = {
-				["min"] = 50, 
-				["max"] = 50, 
+			["Belt"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
-		["1599_SupportedBySpiritStrikeArea"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_280731498", 
-				["text"] = "#% increased Area of Effect", 
-			}, 
+		["1131_SpellAddedColdDamageUber"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2469416729", 
+				["text"] = "Adds # to # Cold Damage to Spells", 
+			}, 
+			["Helmet"] = {
+				["min"] = 20.5, 
+				["max"] = 50, 
+			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 15, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 15, 
-			}, 
 		}, 
 		["7785_MovementSpeedOnBurningChilledShockedGround"] = {
 			["specialCaseData"] = {
@@ -23704,59 +27574,34 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["517_CurseOnHitCriticalWeakness"] = {
+		["1361_ChaosResistancePrefix"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3924520095", 
-				["text"] = "Trigger Level # Assassin's Mark when you Hit a Rare or Unique Enemy and have no Mark", 
+				["id"] = "explicit.stat_2923486259", 
+				["text"] = "#% to Chaos Resistance", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
-		["5734_EnduranceChargeIfHitRecentlyMaven"] = {
+		["4948_ChaosDamageDoesNotBypassESNotLowLifeOrMana"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2894476716", 
-				["text"] = "Gain # Endurance Charge every second if you've been Hit Recently", 
+				["id"] = "explicit.stat_887556907", 
+				["text"] = "Chaos Damage taken does not bypass Energy Shield while not on Low Life", 
 			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["sign"] = "", 
 		}, 
-		["2674_LightningResistancePenetration"] = {
-			["Amulet"] = {
-				["min"] = 4, 
-				["max"] = 10, 
+		["5842_GraceReservation"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_818778753", 
-				["text"] = "Damage Penetrates #% Lightning Resistance", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 15, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_900639351", 
+				["text"] = "Grace has #% increased Mana Reservation Efficiency", 
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 8, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
 		}, 
 		["5504_EnchantmentWither"] = {
 			["tradeMod"] = {
@@ -23776,74 +27621,71 @@ return {
 				["max"] = 2, 
 			}, 
 		}, 
-		["1512_AdditionalArrows"] = {
+		["2629_PhysicalDamageAddedAsRandomElement"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_742529963", 
-				["text"] = "Bow Attacks fire # additional Arrows", 
-			}, 
-			["Quiver"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["id"] = "explicit.stat_3753703249", 
+				["text"] = "Gain #% of Physical Damage as Extra Damage of a random Element", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLineSingular"] = "Bow Attacks fire an additional Arrow", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 7, 
+				["max"] = 15, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 2, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2989_ChaosResistanceWhileUsingFlask"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_392168009", 
-				["text"] = "#% to Chaos Resistance during any Flask Effect", 
-			}, 
-			["sign"] = "+", 
-			["Belt"] = {
-				["min"] = 20, 
-				["max"] = 30, 
+				["min"] = 7, 
+				["max"] = 15, 
 			}, 
 		}, 
-		["2859_PoisonOnHitAndDamage"] = {
-			["specialCaseData"] = {
-			}, 
+		["2146_PhysicalDamageTakenAsColdUber"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_795138349", 
-				["text"] = "#% chance to Poison on Hit", 
+				["id"] = "explicit.stat_1871056256", 
+				["text"] = "#% of Physical Damage from Hits taken as Cold Damage", 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Quiver"] = {
-				["min"] = 15, 
+			["Chest"] = {
+				["min"] = 5, 
+				["max"] = 15, 
+			}, 
+			["Helmet"] = {
+				["min"] = 4, 
+				["max"] = 13, 
+			}, 
+		}, 
+		["961_LocalChanceToMaimPhysicalDamage"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
 				["max"] = 20, 
 			}, 
 		}, 
-		["5006_AbyssJewelChillEffect"] = {
+		["1089_LocalFireDamageHybrid"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Fire Damage", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1793818220", 
-				["text"] = "#% increased Effect of Cold Ailments", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 15, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_709508406", 
+				["text"] = "Adds # to # Fire Damage (Local)", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 10, 
-				["max"] = 15, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 15, 
-			}, 
 		}, 
 		["1833_SpellAddedPhysicalDamageWhileWieldingTwoHandedWeapon"] = {
 			["tradeMod"] = {
@@ -23887,17 +27729,17 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["7656_GlobalAddedLightningDamagePerPowerCharge"] = {
+		["1747_AreaDamageSupported"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1917107159", 
-				["text"] = "# to # Lightning Damage per Power Charge", 
+				["id"] = "explicit.stat_4251717817", 
+				["text"] = "#% increased Area Damage", 
 			}, 
-			["Ring"] = {
-				["min"] = 3.5, 
-				["max"] = 6.5, 
+			["Helmet"] = {
+				["min"] = 15, 
+				["max"] = 25, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -23959,38 +27801,71 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
-		["8549_BurningGroundEffectEffectiveness"] = {
-			["specialCaseData"] = {
-			}, 
+		["1741_ChanceToFreeze"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1643688236", 
-				["text"] = "Unaffected by Burning Ground", 
+				["id"] = "explicit.stat_2309614417", 
+				["text"] = "#% chance to Freeze", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["2HWeapon"] = {
+				["min"] = 20, 
+				["max"] = 30, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 20, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["372_SocketedAttacksManaCost"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2264586521", 
+				["text"] = "Socketed Attacks have # to Total Mana Cost", 
+			}, 
+			["Shield"] = {
+				["min"] = 15, 
+				["max"] = 15, 
+			}, 
+			["Chest"] = {
+				["min"] = 15, 
+				["max"] = 15, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "-", 
+			["Helmet"] = {
+				["min"] = 15, 
+				["max"] = 15, 
 			}, 
 			["Boots"] = {
+				["min"] = 15, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["1334_GlobalIncreaseLightningSpellSkillGemLevel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1545858329", 
+				["text"] = "# to Level of all Lightning Spell Skill Gems", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 3, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["1HWeapon"] = {
 				["min"] = 1, 
 				["max"] = 1, 
 			}, 
-		}, 
-		["5842_GraceReservation"] = {
-			["specialCaseData"] = {
+			["Shield"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_900639351", 
-				["text"] = "Grace has #% increased Mana Reservation Efficiency", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1418_EnemyManaLeechPermyriad"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_407390981", 
-				["text"] = "#% of Physical Attack Damage Leeched by Enemy as Mana", 
-			}, 
-			["sign"] = "", 
 		}, 
 		["4938_ChanceToIntimidateOnHit"] = {
 			["specialCaseData"] = {
@@ -24006,32 +27881,31 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1979_ReducedPhysicalDamageTakenMaven"] = {
+		["5024_PhysicalDamageTakenAsColdUberMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3771516363", 
-				["text"] = "#% additional Physical Damage Reduction", 
+				["id"] = "explicit.stat_3679418014", 
+				["text"] = "#% of Cold Damage taken Recouped as Life", 
+			}, 
+			["Chest"] = {
+				["min"] = 7, 
+				["max"] = 10, 
 			}, 
 			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 2, 
-				["max"] = 4, 
-			}, 
 		}, 
-		["317_SupportedByLifeLeech"] = {
+		["4490_DesecratedGroundEffectEffectivenessMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_891277550", 
-				["text"] = "Socketed Gems are supported by Level # Life Leech", 
+				["id"] = "explicit.stat_1953432004", 
+				["text"] = "Unaffected by Poison", 
 			}, 
-			["sign"] = "", 
 			["Boots"] = {
-				["min"] = 15, 
-				["max"] = 20, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["1644_TrapThrowSpeed"] = {
@@ -24052,48 +27926,48 @@ return {
 				["max"] = 16, 
 			}, 
 		}, 
-		["872_BlockPercent"] = {
-			["Gloves"] = {
-				["min"] = 2, 
-				["max"] = 5, 
+		["1649_FireDamageAsPortionOfDamage"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2530372417", 
-				["text"] = "#% Chance to Block Attack Damage", 
-			}, 
-			["Chest"] = {
-				["min"] = 3, 
-				["max"] = 9, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_369494213", 
+				["text"] = "Gain #% of Physical Damage as Extra Fire Damage", 
 			}, 
 			["sign"] = "", 
-			["Helmet"] = {
-				["min"] = 3, 
-				["max"] = 4, 
-			}, 
-			["Boots"] = {
-				["min"] = 3, 
-				["max"] = 4, 
-			}, 
 		}, 
-		["1112_IncreasedChaosDamagePrefix"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_736967255", 
-				["text"] = "#% increased Chaos Damage", 
+		["987_ChaosDamageOverTimeMultiplier"] = {
+			["Gloves"] = {
+				["min"] = 11, 
+				["max"] = 25, 
+			}, 
+			["BaseJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 20, 
-				["max"] = 30, 
+			["sign"] = "+", 
+			["AnyJewel"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
-			["Belt"] = {
-				["min"] = 16, 
-				["max"] = 30, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4055307827", 
+				["text"] = "#% to Chaos Damage over Time Multiplier", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 24, 
+				["max"] = 75, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 48, 
+			}, 
+			["Amulet"] = {
+				["min"] = 11, 
+				["max"] = 25, 
 			}, 
 		}, 
 		["921_AllDamage"] = {
@@ -24114,13 +27988,21 @@ return {
 				["max"] = 25, 
 			}, 
 		}, 
-		["1690_MinionDamageOnWeaponDoubleDamage"] = {
-			["specialCaseData"] = {
-			}, 
+		["3043_AngerAuraEffect"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1589917703", 
-				["text"] = "Minions deal #% increased Damage", 
+				["id"] = "explicit.stat_1592278124", 
+				["text"] = "Anger has #% increased Aura Effect", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["2HWeapon"] = {
+				["min"] = 48, 
+				["max"] = 60, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 28, 
+				["max"] = 40, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -24162,40 +28044,36 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1130_SpellAddedFireDamageTwoHand"] = {
+		["8306_SpellDamagePer10Strength"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1133016593", 
-				["text"] = "Adds # to # Fire Damage to Spells", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 121.5, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1334_GlobalIncreaseLightningSpellSkillGemLevel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1545858329", 
-				["text"] = "# to Level of all Lightning Spell Skill Gems", 
+				["id"] = "explicit.stat_4249521944", 
+				["text"] = "#% increased Spell Damage per 16 Strength", 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 1, 
-				["max"] = 3, 
+				["max"] = 1, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["892_BlockWhileDualWielding"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2166444903", 
+				["text"] = "#% Chance to Block Attack Damage while Dual Wielding", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["min"] = 2, 
+				["max"] = 9, 
 			}, 
-			["Shield"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["2HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 9, 
 			}, 
 		}, 
 		["1301_IncreasedManaAndDegenGracePeriod"] = {
@@ -24208,17 +28086,17 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["2856_PoisonDamageAndDuration"] = {
+		["345_ShockEffectSupported"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2011656677", 
-				["text"] = "#% increased Poison Duration", 
+				["id"] = "explicit.stat_1106668565", 
+				["text"] = "Socketed Gems are Supported by Level # Innervate", 
 			}, 
-			["Ring"] = {
-				["min"] = 5, 
-				["max"] = 10, 
+			["Helmet"] = {
+				["min"] = 16, 
+				["max"] = 25, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -24236,29 +28114,42 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["130_LocalIncreaseSocketedChaosGemLevelMaven"] = {
-			["specialCaseData"] = {
+		["1291_LocalBaseEnergyShieldAndLife"] = {
+			["Gloves"] = {
+				["min"] = 18, 
+				["max"] = 38, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2062835769", 
-				["text"] = "#% to Quality of Socketed Chaos Gems", 
+				["id"] = "explicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
+			}, 
+			["Chest"] = {
+				["min"] = 18, 
+				["max"] = 38, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Life", 
 			}, 
 			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 18, 
+				["max"] = 38, 
+			}, 
 			["Boots"] = {
-				["min"] = 3, 
-				["max"] = 7, 
+				["min"] = 18, 
+				["max"] = 38, 
 			}, 
 		}, 
-		["1649_FireDamageAsPortionOfDamage"] = {
+		["1301_IncreasedManaAndPercent"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_369494213", 
-				["text"] = "Gain #% of Physical Damage as Extra Fire Damage", 
+				["id"] = "explicit.stat_1050105434", 
+				["text"] = "# to maximum Mana", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["1331_GlobalIncreasePhysicalSpellSkillGemLevel"] = {
 			["tradeMod"] = {
@@ -24283,60 +28174,98 @@ return {
 			}, 
 		}, 
 		["6684_LocalChanceForPoisonDamage100FinalInflictedWithThisWeapon"] = {
-			["specialCaseData"] = {
-			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_768124628", 
 				["text"] = "#% chance for Poisons inflicted with this Weapon to deal 300% more Damage", 
 			}, 
-			["sign"] = "", 
-		}, 
-		["1645_MineLayingSpeedOnWeapon"] = {
 			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1896971621", 
-				["text"] = "#% increased Mine Throwing Speed", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["192_CriticalStrikeChanceSupported"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2259700079", 
-				["text"] = "Socketed Gems are Supported by Level # Increased Critical Strikes", 
-			}, 
-			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance for Poisons inflicted with this Weapon to deal #% more Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 20, 
+				["min"] = 60, 
+				["max"] = 60, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 20, 
+				["min"] = 60, 
+				["max"] = 60, 
 			}, 
 		}, 
-		["2855_BleedingDamageChanceWeaponSuffix"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1294118672", 
-				["text"] = "#% increased Damage with Bleeding", 
+		["909_Intelligence"] = {
+			["Gloves"] = {
+				["min"] = 8, 
+				["max"] = 55, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 21, 
-				["max"] = 50, 
+			["sign"] = "+", 
+			["Boots"] = {
+				["min"] = 8, 
+				["max"] = 55, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_328541901", 
+				["text"] = "# to Intelligence", 
+			}, 
+			["Amulet"] = {
+				["min"] = 8, 
+				["max"] = 55, 
+			}, 
+			["Ring"] = {
+				["min"] = 8, 
+				["max"] = 55, 
+			}, 
+			["Helmet"] = {
+				["min"] = 8, 
+				["max"] = 60, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 21, 
-				["max"] = 50, 
+				["min"] = 8, 
+				["max"] = 55, 
 			}, 
+			["1HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 55, 
+			}, 
+			["Chest"] = {
+				["min"] = 8, 
+				["max"] = 55, 
+			}, 
+		}, 
+		["961_LocalIncreasedPhysicalDamagePercentAndLeech"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+		}, 
+		["4242_EnduranceChargeIfHitRecentlyMaven"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2448279015", 
+				["text"] = "#% increased Area of Effect per Endurance Charge", 
+			}, 
+			["Chest"] = {
+				["min"] = 3, 
+				["max"] = 3, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["4754_CastSpeedIfCriticalStrikeDealtRecently"] = {
 			["tradeMod"] = {
@@ -24356,18 +28285,17 @@ return {
 				["max"] = 7, 
 			}, 
 		}, 
-		["2872_MovementSpeedDuringFlaskEffect"] = {
+		["5705_GainAccuracyEqualToStrength"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_304970526", 
-				["text"] = "#% increased Movement Speed during any Flask Effect", 
+				["id"] = "explicit.stat_1575519214", 
+				["text"] = "Gain Accuracy Rating equal to your Strength", 
 			}, 
-			["sign"] = "", 
-			["Belt"] = {
-				["min"] = 6, 
-				["max"] = 10, 
+			["Helmet"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["3060_LightningDamageAvoidance"] = {
@@ -24418,17 +28346,14 @@ return {
 				["max"] = 5, 
 			}, 
 		}, 
-		["1159_IncreasedAccuracyPercentSupported"] = {
+		["961_LocalIncreasedPhysicalDamagePercentIronGrip"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_624954515", 
-				["text"] = "#% increased Global Accuracy Rating", 
-			}, 
-			["Gloves"] = {
-				["min"] = 6, 
-				["max"] = 20, 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -24475,33 +28400,38 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1895_BeltIncreasedFlaskChargesGained"] = {
+		["2232_MeleeWeaponAndUnarmedRange"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1452809865", 
-				["text"] = "#% increased Flask Charges gained", 
+				["id"] = "explicit.stat_2264295449", 
+				["text"] = "# to Melee Strike Range", 
 			}, 
-			["sign"] = "", 
-			["Belt"] = {
-				["min"] = 5, 
-				["max"] = 40, 
+			["Gloves"] = {
+				["min"] = 2, 
+				["max"] = 4, 
 			}, 
+			["sign"] = "+", 
 		}, 
-		["2146_PhysicalDamageTakenAsColdUberMaven"] = {
-			["specialCaseData"] = {
-			}, 
+		["961_LocalIncreasedPhysicalDamagePercentAndPierce"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1871056256", 
-				["text"] = "#% of Physical Damage from Hits taken as Cold Damage", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
 			}, 
-			["Chest"] = {
-				["min"] = 16, 
-				["max"] = 18, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
 		}, 
 		["1528_MaximumFrenzyChargesMaven"] = {
 			["specialCaseData"] = {
@@ -24531,17 +28461,17 @@ return {
 				["max"] = 2, 
 			}, 
 		}, 
-		["328_IncreasedCastSpeedSupported"] = {
+		["1690_MinionDamageOnWeaponAndMana"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2169938251", 
-				["text"] = "Socketed Gems are Supported by Level # Faster Casting", 
+				["id"] = "explicit.stat_1589917703", 
+				["text"] = "Minions deal #% increased Damage", 
 			}, 
-			["Gloves"] = {
-				["min"] = 16, 
-				["max"] = 25, 
+			["1HWeapon"] = {
+				["min"] = 5, 
+				["max"] = 39, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -24563,74 +28493,71 @@ return {
 				["max"] = 99, 
 			}, 
 		}, 
-		["1956_IncreasedShieldBlockPercentage"] = {
+		["8032_PurityOfLightningReservationEfficiency"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+#% Chance to Block", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4253454700", 
-				["text"] = "#% Chance to Block (Shields)", 
+				["id"] = "explicit.stat_3411256933", 
+				["text"] = "Purity of Lightning has #% increased Mana Reservation Efficiency", 
+			}, 
+			["Amulet"] = {
+				["min"] = 50, 
+				["max"] = 60, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1271_LocalBaseArmourAndEvasionRating"] = {
+			["Gloves"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_53045048", 
+				["text"] = "# to Evasion Rating (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Evasion Rating", 
 			}, 
 			["sign"] = "+", 
-			["Shield"] = {
-				["min"] = 1, 
-				["max"] = 15, 
+			["Helmet"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+			["Boots"] = {
+				["min"] = 5, 
+				["max"] = 375, 
 			}, 
 		}, 
-		["3116_MinionAttacksTauntOnHitChance"] = {
+		["1098_LocalColdDamageHybrid"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Cold Damage", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2911442053", 
-				["text"] = "Minions have #% chance to Taunt on Hit with Attacks", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 3, 
-				["max"] = 8, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_1037193709", 
+				["text"] = "Adds # to # Cold Damage (Local)", 
 			}, 
 			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 3, 
-				["max"] = 8, 
-			}, 
 		}, 
-		["1272_GlobalEvasionRatingPercent"] = {
+		["1459_LifeGainedOnSpellHit"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2106365538", 
-				["text"] = "#% increased Evasion Rating", 
+				["id"] = "explicit.stat_2018035324", 
+				["text"] = "Gain # Life per Enemy Hit with Spells", 
 			}, 
 			["Ring"] = {
-				["min"] = 7, 
+				["min"] = 8, 
 				["max"] = 15, 
 			}, 
-			["specialCaseData"] = {
-			}, 
 			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 4, 
-				["max"] = 36, 
-			}, 
-			["Belt"] = {
-				["min"] = 7, 
-				["max"] = 15, 
-			}, 
-		}, 
-		["4439_FasterBleedDamageMaven"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1459321413", 
-				["text"] = "#% increased Bleeding Duration", 
-			}, 
-			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 10, 
-				["max"] = 20, 
-			}, 
 		}, 
 		["1527_MinimumFrenzyCharges"] = {
 			["specialCaseData"] = {
@@ -24646,77 +28573,83 @@ return {
 				["max"] = 2, 
 			}, 
 		}, 
-		["1419_ManaLeechPermyriad"] = {
-			["Gloves"] = {
-				["min"] = 0.2, 
-				["max"] = 0.4, 
+		["1212_LocalIncreasedPhysicalDamagePercentAndCritMulti"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+#% to Global Critical Strike Multiplier", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3237948413", 
-				["text"] = "#% of Physical Attack Damage Leeched as Mana", 
+				["id"] = "explicit.stat_3556824919", 
+				["text"] = "#% to Global Critical Strike Multiplier", 
 			}, 
-			["Quiver"] = {
-				["min"] = 0.2, 
-				["max"] = 0.4, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 0.2, 
-				["max"] = 0.8, 
-			}, 
-			["Ring"] = {
-				["min"] = 0.2, 
-				["max"] = 0.4, 
-			}, 
-		}, 
-		["4948_ChaosDamageDoesNotBypassESNotLowLifeOrMana"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_887556907", 
-				["text"] = "Chaos Damage taken does not bypass Energy Shield while not on Low Life", 
-			}, 
-		}, 
-		["1741_FreezeChanceAndDuration"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2309614417", 
-				["text"] = "#% chance to Freeze", 
-			}, 
-			["Helmet"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1478_GainManaOnBlock"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2122183138", 
-				["text"] = "# Mana gained when you Block", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["4139_AdditionalBlockWith5NearbyEnemies"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1214532298", 
-				["text"] = "#% Chance to Block Attack Damage if there are at least 5 nearby Enemies", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 15, 
 			}, 
 			["sign"] = "+", 
-			["Shield"] = {
-				["min"] = 2, 
-				["max"] = 5, 
+		}, 
+		["1263_LocalBaseArmourAndEvasionRating"] = {
+			["Gloves"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3484657501", 
+				["text"] = "# to Armour (Local)", 
+			}, 
+			["Chest"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Armour", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+			["Boots"] = {
+				["min"] = 5, 
+				["max"] = 375, 
+			}, 
+		}, 
+		["1512_AdditionalArrows"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_742529963", 
+				["text"] = "Bow Attacks fire # additional Arrows", 
+			}, 
+			["Quiver"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLineSingular"] = "Bow Attacks fire an additional Arrow", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8775_TheAgnostic"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_462691314", 
+				["text"] = "The Agnostic", 
+			}, 
+		}, 
+		["1557_CannotBeFrozen"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_876831634", 
+				["text"] = "Cannot be Frozen", 
 			}, 
 		}, 
 		["5257_DamageRemovedFromManaBeforeLifeWhileFocused"] = {
@@ -24752,18 +28685,19 @@ return {
 				["text"] = "Your Hits inflict Decay, dealing 700 Chaos Damage per second for 8 seconds", 
 			}, 
 		}, 
-		["4490_DesecratedGroundEffectEffectivenessMaven"] = {
+		["1306_ManaRegenerationMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1953432004", 
-				["text"] = "Unaffected by Poison", 
+				["id"] = "explicit.stat_789117908", 
+				["text"] = "#% increased Mana Regeneration Rate", 
 			}, 
-			["Boots"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Helmet"] = {
+				["min"] = 56, 
+				["max"] = 70, 
 			}, 
+			["sign"] = "", 
 		}, 
 		["1747_SupportedByIncreasedAreaOfEffectDamage"] = {
 			["specialCaseData"] = {
@@ -24801,36 +28735,30 @@ return {
 				["max"] = 12, 
 			}, 
 		}, 
-		["1557_CannotBeFrozen"] = {
+		["325_LocalPhysicalDamagePercentFortify"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Socketed Gems are Supported by Level # Fortify", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_876831634", 
-				["text"] = "Cannot be Frozen", 
-			}, 
-		}, 
-		["1264_GlobalPhysicalDamageReductionRatingPercent"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2866361420", 
-				["text"] = "#% increased Armour", 
-			}, 
-			["Ring"] = {
-				["min"] = 7, 
-				["max"] = 15, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "explicit.stat_107118693", 
+				["text"] = "Socketed Gems are Supported by Level # Fortify", 
 			}, 
 			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 4, 
-				["max"] = 36, 
+		}, 
+		["7600_StrikeSkillsAdditionalTarget"] = {
+			["specialCaseData"] = {
 			}, 
-			["Belt"] = {
-				["min"] = 7, 
-				["max"] = 15, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1661253443", 
+				["text"] = "Strike Skills target # additional nearby Enemy", 
 			}, 
+			["Gloves"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["883_PowerChargeOnBlockUber"] = {
 			["specialCaseData"] = {
@@ -24846,22 +28774,26 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1523_MaximumEnduranceCharges"] = {
+		["1657_ColdAddedAsChaos"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1515657623", 
-				["text"] = "# to Maximum Endurance Charges", 
+				["id"] = "explicit.stat_2915373966", 
+				["text"] = "Gain #% of Cold Damage as Extra Chaos Damage", 
 			}, 
+			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
 			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["min"] = 18, 
+				["max"] = 20, 
 			}, 
-			["Boots"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["1HWeapon"] = {
+				["min"] = 9, 
+				["max"] = 10, 
+			}, 
+			["Shield"] = {
+				["min"] = 9, 
+				["max"] = 10, 
 			}, 
 		}, 
 		["174_SupportedByEnhance"] = {
@@ -24874,26 +28806,38 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5235_IncreasedDamagePerPowerCharge"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2034658008", 
-				["text"] = "#% increased Damage per Power Charge", 
+		["1482_ManaGainedFromEnemyDeath"] = {
+			["Gloves"] = {
+				["min"] = 1, 
+				["max"] = 6, 
 			}, 
-			["Amulet"] = {
-				["min"] = 3, 
+			["Quiver"] = {
+				["min"] = 1, 
 				["max"] = 6, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 10, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1368271171", 
+				["text"] = "Gain # Mana per Enemy Killed", 
+			}, 
+			["Ring"] = {
+				["min"] = 1, 
+				["max"] = 6, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 7, 
-				["max"] = 17, 
+				["min"] = 1, 
+				["max"] = 6, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 6, 
+			}, 
+			["Amulet"] = {
+				["min"] = 1, 
+				["max"] = 6, 
 			}, 
 		}, 
 		["1819_SpellAddedChaosDamageWhileDualWielding"] = {
@@ -24928,40 +28872,57 @@ return {
 				["max"] = 25, 
 			}, 
 		}, 
-		["5439_ReducedElementalReflectTakenMaven"] = {
-			["specialCaseData"] = {
+		["1282_LocalEnergyShieldAndStunRecoveryPercent"] = {
+			["Gloves"] = {
+				["min"] = 6, 
+				["max"] = 42, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2160417795", 
-				["text"] = "You and your Minions take #% reduced Reflected Elemental Damage", 
+				["id"] = "explicit.stat_4015621042", 
+				["text"] = "#% increased Energy Shield (Local)", 
 			}, 
 			["Chest"] = {
-				["min"] = 100, 
-				["max"] = 100, 
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Energy Shield", 
 			}, 
 			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 42, 
+			}, 
 		}, 
-		["1332_GlobalIncreaseFireSpellSkillGemLevel"] = {
+		["1517_MovementVelocity"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_591105508", 
-				["text"] = "# to Level of all Fire Spell Skill Gems", 
+				["id"] = "explicit.stat_2250533757", 
+				["text"] = "#% increased Movement Speed", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
+			["Quiver"] = {
+				["min"] = 3, 
+				["max"] = 10, 
+			}, 
 			["specialCaseData"] = {
 			}, 
 			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 3, 
+				["min"] = 3, 
+				["max"] = 10, 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Amulet"] = {
+				["min"] = 3, 
+				["max"] = 10, 
 			}, 
-			["Shield"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Boots"] = {
+				["min"] = 10, 
+				["max"] = 35, 
 			}, 
 		}, 
 		["3245_ChanceForDoubleStunDuration"] = {
@@ -25018,88 +28979,91 @@ return {
 				["max"] = 100, 
 			}, 
 		}, 
-		["1674_ConvertPhysicalToColdMaven"] = {
-			["Gloves"] = {
-				["min"] = 22, 
-				["max"] = 25, 
-			}, 
+		["6688_LocalChaosDamagePenetrationHybrid"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2133341901", 
-				["text"] = "#% of Physical Damage Converted to Cold Damage", 
-			}, 
-			["Quiver"] = {
-				["min"] = 22, 
-				["max"] = 25, 
+				["id"] = "explicit.stat_3762412853", 
+				["text"] = "Attacks with this Weapon Penetrate #% Chaos Resistance", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Chaos Resistance", 
 			}, 
 			["sign"] = "", 
-		}, 
-		["906_AllAttributes"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1379411836", 
-				["text"] = "# to all Attributes", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Amulet"] = {
-				["min"] = 1, 
-				["max"] = 35, 
-			}, 
-			["Ring"] = {
-				["min"] = 1, 
-				["max"] = 16, 
-			}, 
-		}, 
-		["2878_NoExtraDamageFromBleedMoving"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_935326447", 
-				["text"] = "Moving while Bleeding doesn't cause you to take extra Damage", 
-			}, 
-		}, 
-		["1517_MovementVelocity"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2250533757", 
-				["text"] = "#% increased Movement Speed", 
-			}, 
-			["sign"] = "", 
-			["Quiver"] = {
-				["min"] = 3, 
-				["max"] = 10, 
-			}, 
-			["specialCaseData"] = {
+			["1HWeapon"] = {
+				["min"] = 4, 
+				["max"] = 6, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 3, 
-				["max"] = 10, 
-			}, 
-			["Amulet"] = {
-				["min"] = 3, 
-				["max"] = 10, 
-			}, 
-			["Boots"] = {
-				["min"] = 10, 
-				["max"] = 35, 
+				["min"] = 4, 
+				["max"] = 6, 
 			}, 
 		}, 
-		["5760_MaximumFrenzyChargesMaven"] = {
+		["5734_EnduranceChargeIfHitRecentlyMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2119664154", 
-				["text"] = "#% chance that if you would gain Frenzy Charges, you instead gain up to your maximum number of Frenzy Charges", 
+				["id"] = "explicit.stat_2894476716", 
+				["text"] = "Gain # Endurance Charge every second if you've been Hit Recently", 
 			}, 
-			["Gloves"] = {
-				["min"] = 10, 
-				["max"] = 10, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["961_LocalIncreasedPhysicalDamagePercentAndArea"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+		}, 
+		["5595_FasterPoisonDamage"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2907156609", 
+				["text"] = "Poisons you inflict deal Damage #% faster", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 25, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 15, 
+			}, 
+			["Boots"] = {
+				["min"] = 7, 
+				["max"] = 12, 
+			}, 
+		}, 
+		["4456_FireDamageESLeech"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3885409671", 
+				["text"] = "#% of Fire Damage Leeched as Energy Shield", 
+			}, 
+			["Amulet"] = {
+				["min"] = 0.2, 
+				["max"] = 0.4, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -25117,22 +29081,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1386_PhysicalDamageLifeLeechPermyriad"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3764265320", 
-				["text"] = "#% of Physical Damage Leeched as Life", 
-			}, 
+		["8777_PointBlank"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 0.3, 
-				["max"] = 0.5, 
-			}, 
-			["Ring"] = {
-				["min"] = 0.2, 
-				["max"] = 0.2, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2896346114", 
+				["text"] = "Point Blank", 
 			}, 
 		}, 
 		["8199_ShockNearbyEnemiesOnFocusCDR"] = {
@@ -25195,17 +29150,13 @@ return {
 				["max"] = 2, 
 			}, 
 		}, 
-		["5265_DamageTakenGainedAsLife"] = {
+		["1132_LightningDamageWeaponPrefixAndFlat"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1444556985", 
-				["text"] = "#% of Damage taken Recouped as Life", 
-			}, 
-			["Ring"] = {
-				["min"] = 4, 
-				["max"] = 15, 
+				["id"] = "explicit.stat_2831165374", 
+				["text"] = "Adds # to # Lightning Damage to Spells", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -25223,13 +29174,17 @@ return {
 				["max"] = 35, 
 			}, 
 		}, 
-		["1399_LightningResistanceLeech"] = {
+		["328_IncreasedCastSpeedSupported"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_80079005", 
-				["text"] = "#% of Lightning Damage Leeched as Life", 
+				["id"] = "explicit.stat_2169938251", 
+				["text"] = "Socketed Gems are Supported by Level # Faster Casting", 
+			}, 
+			["Gloves"] = {
+				["min"] = 16, 
+				["max"] = 25, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -25267,33 +29222,34 @@ return {
 				["max"] = 35, 
 			}, 
 		}, 
-		["2980_CriticalStrikeChanceAgainstPoisonedEnemies"] = {
+		["2856_PoisonDamageAndDuration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1345659139", 
-				["text"] = "#% increased Critical Strike Chance against Poisoned Enemies", 
+				["id"] = "explicit.stat_2011656677", 
+				["text"] = "#% increased Poison Duration", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 80, 
-				["max"] = 100, 
+			["Ring"] = {
+				["min"] = 5, 
+				["max"] = 10, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["2855_BleedingDamageSupported"] = {
+		["96_LocalIncreaseSocketedChaosGemLevelMaven"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Chaos Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1294118672", 
-				["text"] = "#% increased Damage with Bleeding", 
+				["id"] = "explicit.stat_2675603254", 
+				["text"] = "# to Level of Socketed Chaos Gems", 
 			}, 
-			["Gloves"] = {
-				["min"] = 20, 
-				["max"] = 35, 
+			["sign"] = "+", 
+			["Boots"] = {
+				["min"] = 2, 
+				["max"] = 2, 
 			}, 
-			["sign"] = "", 
 		}, 
 		["1594_ReducedBurnDuration"] = {
 			["specialCaseData"] = {
@@ -25309,18 +29265,18 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["989_ChaosDamageOverTimeMultiplierWithAttacks"] = {
+		["1362_MaximumResistances"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3913282911", 
-				["text"] = "#% to Chaos Damage over Time Multiplier with Attack Skills", 
+				["id"] = "explicit.stat_569299859", 
+				["text"] = "#% to all maximum Resistances", 
 			}, 
 			["sign"] = "+", 
-			["Quiver"] = {
-				["min"] = 16, 
-				["max"] = 25, 
+			["Shield"] = {
+				["min"] = 1, 
+				["max"] = 2, 
 			}, 
 		}, 
 		["1582_StunDurationForJewel"] = {
@@ -25347,6 +29303,7 @@ return {
 		}, 
 		["113_LocalIncreaseSocketedSupportGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Support Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -25359,19 +29316,14 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["349_WeaponSpellDamageControlledDestruction"] = {
+		["2878_NoExtraDamageFromBleedMoving"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3718597497", 
-				["text"] = "Socketed Gems are Supported by Level # Controlled Destruction", 
+				["id"] = "explicit.stat_935326447", 
+				["text"] = "Moving while Bleeding doesn't cause you to take extra Damage", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 16, 
-				["max"] = 20, 
-			}, 
-			["sign"] = "", 
 		}, 
 		["909_IntelligenceAndAvoidShock"] = {
 			["tradeMod"] = {
@@ -25415,95 +29367,96 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["7622_MeleeWeaponRangeIfKilledRecently"] = {
+		["1171_IncreasedCastSpeed"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3255961830", 
-				["text"] = "# to Melee Strike Range if you have Killed Recently", 
+				["id"] = "explicit.stat_2891184298", 
+				["text"] = "#% increased Cast Speed", 
 			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["1HWeapon"] = {
-				["min"] = 2, 
-				["max"] = 3, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 3, 
-			}, 
-		}, 
-		["993_GlobalAddedPhysicalDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_960081730", 
-				["text"] = "Adds # to # Physical Damage", 
-			}, 
-			["Gloves"] = {
-				["min"] = 7.5, 
-				["max"] = 9.5, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["233_SupportedBySpellCascadeArea"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_503990161", 
-				["text"] = "Socketed Gems are Supported by Level # Spell Cascade", 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 16, 
+			["Amulet"] = {
+				["min"] = 5, 
 				["max"] = 20, 
 			}, 
-			["sign"] = "", 
-		}, 
-		["1357_LightningResistanceEnemyLeech"] = {
+			["Ring"] = {
+				["min"] = 5, 
+				["max"] = 16, 
+			}, 
 			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1671376347", 
-				["text"] = "#% to Lightning Resistance", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["7924_PhysicalDamageReductionRatingIfYouHaveHitAnEnemyRecently"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2368149582", 
-				["text"] = "# to Armour if you've Hit an Enemy Recently", 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 500, 
-				["max"] = 1000, 
+				["min"] = 8, 
+				["max"] = 49, 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 250, 
-				["max"] = 300, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
 			["1HWeapon"] = {
-				["min"] = 500, 
-				["max"] = 1000, 
+				["min"] = 5, 
+				["max"] = 32, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 250, 
-				["max"] = 300, 
-			}, 
+			["sign"] = "", 
 		}, 
-		["8771_LetheShade"] = {
+		["6281_ShockChanceAndEffect"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1678358883", 
-				["text"] = "Lethe Shade", 
+				["id"] = "explicit.stat_3081816887", 
+				["text"] = "#% increased Effect of Lightning Ailments", 
+			}, 
+			["Helmet"] = {
+				["min"] = 8, 
+				["max"] = 15, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["145_WeaponSpellDamageArcaneSurge"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2287264161", 
+				["text"] = "Socketed Gems are Supported by Level # Arcane Surge", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1089_LocalFireDamage"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_709508406", 
+				["text"] = "Adds # to # Fire Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Fire Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 165.5, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 165.5, 
+			}, 
+		}, 
+		["4139_AdditionalBlockWith5NearbyEnemies"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1214532298", 
+				["text"] = "#% Chance to Block Attack Damage if there are at least 5 nearby Enemies", 
+			}, 
+			["sign"] = "+", 
+			["Shield"] = {
+				["min"] = 2, 
+				["max"] = 5, 
+			}, 
+		}, 
+		["4636_OnHitBlindChilledEnemies"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3450276548", 
+				["text"] = "Blind Chilled Enemies on Hit", 
 			}, 
 		}, 
 		["1599_AreaOfEffect"] = {
@@ -25582,130 +29535,137 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2296_MarkEffect"] = {
+		["8471_TailwindOnCriticalStrikeMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_803185500", 
-				["text"] = "#% increased Effect of your Marks", 
+				["id"] = "explicit.stat_1085545682", 
+				["text"] = "You have Tailwind if you have dealt a Critical Strike Recently", 
 			}, 
-			["sign"] = "", 
-		}, 
-		["248_SocketedTriggeredSkillsDoubleDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_4021083819", 
-				["text"] = "Socketed Triggered Skills deal Double Damage", 
+			["Boots"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
-		["1133_IncreasedCastSpeedAddedChaos"] = {
-			["specialCaseData"] = {
-			}, 
+		["8295_SpellsDoubleDamageChance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2300399854", 
-				["text"] = "Adds # to # Chaos Damage to Spells", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2629_PhysicalDamageAddedAsRandomElement"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3753703249", 
-				["text"] = "Gain #% of Physical Damage as Extra Damage of a random Element", 
+				["id"] = "explicit.stat_2813626504", 
+				["text"] = "Spells have a #% chance to deal Double Damage", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 7, 
-				["max"] = 15, 
+				["min"] = 4, 
+				["max"] = 7, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 7, 
-				["max"] = 15, 
+				["min"] = 10, 
+				["max"] = 14, 
 			}, 
 		}, 
-		["8658_WrathReservationEfficiency"] = {
+		["961_LocalPhysicalDamagePercentFortify"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3444518809", 
-				["text"] = "Wrath has #% increased Mana Reservation Efficiency", 
-			}, 
-			["Amulet"] = {
-				["min"] = 40, 
-				["max"] = 50, 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["7645_AddedColdDamageIfCritRecently"] = {
+		["941_PhysicalDamageOverTimePrefix"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1692565595", 
+				["text"] = "#% increased Physical Damage over Time", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 60, 
+				["max"] = 94, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 60, 
+				["max"] = 134, 
+			}, 
+		}, 
+		["961_LocalIncreasedPhysicalDamagePercentAndStun"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+		}, 
+		["5439_ReducedElementalReflectTakenMaven"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3370223014", 
-				["text"] = "Adds # to # Cold Damage if you've dealt a Critical Strike Recently", 
+				["id"] = "explicit.stat_2160417795", 
+				["text"] = "You and your Minions take #% reduced Reflected Elemental Damage", 
+			}, 
+			["Chest"] = {
+				["min"] = 100, 
+				["max"] = 100, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["961_LocalIncreasedPhysicalDamagePercentProjectileAttackDamage"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["293_TrapDamageSupported"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1122134690", 
+				["text"] = "Socketed Gems are Supported by Level # Trap", 
 			}, 
 			["Gloves"] = {
-				["min"] = 19, 
-				["max"] = 37.5, 
+				["min"] = 18, 
+				["max"] = 25, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["2206_ManaRegenerationWhileShocked"] = {
+		["7943_GlobalPhysicalGemLevel"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2076519255", 
-				["text"] = "#% increased Mana Regeneration Rate while Shocked", 
+				["id"] = "explicit.stat_619213329", 
+				["text"] = "# to Level of all Physical Skill Gems", 
 			}, 
-			["sign"] = "", 
-		}, 
-		["372_SocketedAttacksManaCost"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2264586521", 
-				["text"] = "Socketed Attacks have # to Total Mana Cost", 
+			["Amulet"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["Shield"] = {
-				["min"] = 15, 
-				["max"] = 15, 
-			}, 
-			["Chest"] = {
-				["min"] = 15, 
-				["max"] = 15, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "-", 
-			["Helmet"] = {
-				["min"] = 15, 
-				["max"] = 15, 
-			}, 
-			["Boots"] = {
-				["min"] = 15, 
-				["max"] = 15, 
-			}, 
-		}, 
-		["5024_PhysicalDamageTakenAsColdUberMaven"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3679418014", 
-				["text"] = "#% of Cold Damage taken Recouped as Life", 
-			}, 
-			["Chest"] = {
-				["min"] = 7, 
-				["max"] = 10, 
-			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["156_SupportedByCastWhileChannellingWeapon"] = {
 			["specialCaseData"] = {
@@ -25735,45 +29695,33 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2181_ChanceToBleedSupported"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1519615863", 
-				["text"] = "#% chance to cause Bleeding on Hit", 
-			}, 
+		["1084_TwoHandFireDamageWeaponPrefix"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3962278098", 
+				["text"] = "#% increased Fire Damage", 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 15, 
-			}, 
-		}, 
-		["916_PercentageIntelligence"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_656461285", 
-				["text"] = "#% increased Intelligence", 
-			}, 
-			["Helmet"] = {
-				["min"] = 6, 
-				["max"] = 12, 
-			}, 
-			["specialCaseData"] = {
+				["min"] = 15, 
+				["max"] = 164, 
 			}, 
 			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 5, 
-				["max"] = 12, 
+		}, 
+		["4893_AttackSpeedDoubleDamage"] = {
+			["specialCaseData"] = {
 			}, 
-			["Chest"] = {
-				["min"] = 5, 
-				["max"] = 12, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1172810729", 
+				["text"] = "#% chance to deal Double Damage", 
 			}, 
+			["2HWeapon"] = {
+				["min"] = 4, 
+				["max"] = 6, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["1395_ColdResistanceLeech"] = {
 			["specialCaseData"] = {
@@ -25839,17 +29787,14 @@ return {
 				["max"] = 16, 
 			}, 
 		}, 
-		["5466_EnemiesExplodeOnDeathPhysicalMaven"] = {
+		["1273_LocalEvasionRatingIncreasePercentSuffix"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Evasion Rating", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1220361974", 
-				["text"] = "Enemies you Kill Explode, dealing #% of their Life as Physical Damage", 
-			}, 
-			["Chest"] = {
-				["min"] = 5, 
-				["max"] = 5, 
+				["id"] = "explicit.stat_124859000", 
+				["text"] = "#% increased Evasion Rating (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -25884,27 +29829,16 @@ return {
 				["max"] = 16, 
 			}, 
 		}, 
-		["1619_StunRecoveryForJewel"] = {
+		["1263_LocalBaseArmourEvasionRatingAndLife"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Armour", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2511217560", 
-				["text"] = "#% increased Stun and Block Recovery", 
+				["id"] = "explicit.stat_3484657501", 
+				["text"] = "# to Armour (Local)", 
 			}, 
-			["AbyssJewel"] = {
-				["min"] = 25, 
-				["max"] = 35, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 25, 
-				["max"] = 35, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 25, 
-				["max"] = 35, 
-			}, 
+			["sign"] = "+", 
 		}, 
 		["518_CurseOnHitPoachersMark"] = {
 			["specialCaseData"] = {
@@ -25964,23 +29898,19 @@ return {
 				["max"] = 25, 
 			}, 
 		}, 
-		["8599_VaalSoulCost"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_678245679", 
-				["text"] = "Non-Aura Vaal Skills require #% reduced Souls Per Use", 
-			}, 
+		["5265_DamageTakenGainedAsLife"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1444556985", 
+				["text"] = "#% of Damage taken Recouped as Life", 
+			}, 
+			["Ring"] = {
+				["min"] = 4, 
+				["max"] = 15, 
+			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 20, 
-				["max"] = 20, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 40, 
-				["max"] = 40, 
-			}, 
 		}, 
 		["1108_SelfLightningDamageTaken"] = {
 			["specialCaseData"] = {
@@ -26006,85 +29936,71 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["4227_ArcticArmourReservationCost"] = {
+		["1665_ChaosResistanceDamageOverTime"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2351239732", 
-				["text"] = "Arctic Armour has #% increased Mana Reservation Efficiency", 
+				["id"] = "explicit.stat_3762784591", 
+				["text"] = "#% reduced Chaos Damage taken over time", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1565_AvoidIgnite"] = {
-			["AbyssJewel"] = {
-				["min"] = 31, 
-				["max"] = 50, 
+		["1302_MaximumManaIncreaseShaper"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1783006896", 
-				["text"] = "#% chance to Avoid being Ignited", 
+				["id"] = "explicit.stat_2748665614", 
+				["text"] = "#% increased maximum Mana", 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 31, 
-				["max"] = 50, 
-			}, 
-			["Quiver"] = {
-				["min"] = 51, 
-				["max"] = 80, 
-			}, 
-			["specialCaseData"] = {
+			["Chest"] = {
+				["min"] = 9, 
+				["max"] = 18, 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 31, 
-				["max"] = 50, 
-			}, 
-			["Boots"] = {
-				["min"] = 51, 
-				["max"] = 80, 
-			}, 
 		}, 
-		["158_ChanceToBleedSupported"] = {
+		["1098_LocalColdDamage"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4197676934", 
-				["text"] = "Socketed Gems are Supported by Level # Chance To Bleed", 
+				["id"] = "explicit.stat_1037193709", 
+				["text"] = "Adds # to # Cold Damage (Local)", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Cold Damage", 
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 20, 
+				["min"] = 2, 
+				["max"] = 150, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 18, 
-				["max"] = 20, 
+				["min"] = 2, 
+				["max"] = 150, 
 			}, 
 		}, 
-		["1368_EnemyLifeLeechPermyriad"] = {
+		["2980_CriticalStrikeChanceAgainstPoisonedEnemies"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2693705594", 
-				["text"] = "#% of Physical Attack Damage Leeched by Enemy as Life", 
+				["id"] = "explicit.stat_1345659139", 
+				["text"] = "#% increased Critical Strike Chance against Poisoned Enemies", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 80, 
+				["max"] = 100, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["4454_ColdDamageESLeech"] = {
+		["1098_LocalColdDamageRanged"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Cold Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1939452467", 
-				["text"] = "#% of Cold Damage Leeched as Energy Shield", 
-			}, 
-			["Amulet"] = {
-				["min"] = 0.2, 
-				["max"] = 0.4, 
+				["id"] = "explicit.stat_1037193709", 
+				["text"] = "Adds # to # Cold Damage (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -26095,6 +30011,7 @@ return {
 				["text"] = "# to Level of Socketed Chaos Gems", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Chaos Gems", 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 1, 
@@ -26142,37 +30059,43 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["1111_LightningGemCastSpeedForJewel"] = {
+		["1109_LocalLightningDamageTwoHand"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1788635023", 
-				["text"] = "#% increased Cast Speed with Lightning Skills", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+				["id"] = "explicit.stat_3336890334", 
+				["text"] = "Adds # to # Lightning Damage (Local)", 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Lightning Damage", 
 			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+			["1HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 338, 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+			["2HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 338, 
 			}, 
 		}, 
-		["1291_BaseLifeAndManaDegenGracePeriod"] = {
-			["specialCaseData"] = {
-			}, 
+		["3440_LocalAttackReduceEnemyElementalResistance"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3299347043", 
-				["text"] = "# to maximum Life", 
+				["id"] = "explicit.stat_4064396395", 
+				["text"] = "Attacks with this Weapon Penetrate #% Elemental Resistances", 
 			}, 
-			["sign"] = "+", 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Elemental Resistances", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 9, 
+				["max"] = 16, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 9, 
+				["max"] = 16, 
+			}, 
 		}, 
 		["8143_RestoreManaAndEnergyShieldOnFocus"] = {
 			["specialCaseData"] = {
@@ -26188,17 +30111,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1578_IgnitingConfluxMaven"] = {
+		["924_TrapDamageOnWeapon"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1086147743", 
-				["text"] = "#% increased Ignite Duration on Enemies", 
-			}, 
-			["Helmet"] = {
-				["min"] = 20, 
-				["max"] = 30, 
+				["id"] = "explicit.stat_2941585404", 
+				["text"] = "#% increased Trap Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -26248,29 +30167,43 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["102_LocalIncreaseSocketedBowGemLevel"] = {
-			["specialCaseData"] = {
-			}, 
+		["961_LocalIncreasedPhysicalDamagePercentAndAccuracyRating"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2027269580", 
-				["text"] = "# to Level of Socketed Bow Gems", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 2, 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["5097_LightningResistanceAilments"] = {
 			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_276103140", 
-				["text"] = "#% increased Critical Strike Chance against Shocked Enemies", 
+				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 79, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 79, 
+			}, 
+		}, 
+		["6687_LocalChanceToIntimidateOnHit"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2089652545", 
+				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to Intimidate Enemies for # seconds on Hit", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 7, 
+				["max"] = 15, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 7, 
+				["max"] = 15, 
+			}, 
 		}, 
 		["4269_FortifyEffectMaven"] = {
 			["specialCaseData"] = {
@@ -26299,27 +30232,15 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["2321_EnduranceChargeOnKillChanceMaven"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1054322244", 
-				["text"] = "#% chance to gain an Endurance Charge on Kill", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 7, 
-				["max"] = 10, 
-			}, 
+		["1133_IncreasedCastSpeedAddedChaos"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2300399854", 
+				["text"] = "Adds # to # Chaos Damage to Spells", 
+			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 7, 
-				["max"] = 10, 
-			}, 
-			["Boots"] = {
-				["min"] = 7, 
-				["max"] = 10, 
-			}, 
 		}, 
 		["8704_ConsecratedGroundStationaryMaven"] = {
 			["specialCaseData"] = {
@@ -26376,48 +30297,51 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5137_CriticalStrikeMultiplierIfEnemySlainRecently"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2937483991", 
-				["text"] = "#% to Critical Strike Multiplier if you've Killed Recently", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 14, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["1HWeapon"] = {
-				["min"] = 26, 
-				["max"] = 35, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 14, 
-			}, 
-		}, 
-		["1302_MaximumManaIncreasePercent"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2748665614", 
-				["text"] = "#% increased maximum Mana", 
-			}, 
-			["Quiver"] = {
-				["min"] = 20, 
+		["1695_ElementalDamagePercent"] = {
+			["Ring"] = {
+				["min"] = 25, 
 				["max"] = 30, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3141070085", 
+				["text"] = "#% increased Elemental Damage", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 37, 
+				["max"] = 94, 
+			}, 
+			["Helmet"] = {
+				["min"] = 12, 
+				["max"] = 22, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Chest"] = {
-				["min"] = 9, 
-				["max"] = 18, 
+			["1HWeapon"] = {
+				["min"] = 19, 
+				["max"] = 49, 
 			}, 
-			["Helmet"] = {
-				["min"] = 9, 
-				["max"] = 18, 
+			["Belt"] = {
+				["min"] = 11, 
+				["max"] = 30, 
+			}, 
+		}, 
+		["2228_FlammabilityOnHitLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_338121249", 
+				["text"] = "Curse Enemies with Flammability on Hit", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Ring"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["1745_ChanceToShock"] = {
@@ -26438,23 +30362,19 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
-		["1538_GainEnduranceChargeOnCritUber"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2542650946", 
-				["text"] = "#% chance to gain an Endurance Charge on Critical Strike", 
-			}, 
+		["6919_MaximumManaOnKillPercentMaven"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_630994130", 
+				["text"] = "#% increased Mana Recovery Rate if you haven't Killed Recently", 
+			}, 
+			["Chest"] = {
+				["min"] = 5, 
+				["max"] = 10, 
+			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 10, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 10, 
-			}, 
 		}, 
 		["6079_HitAndAilmentDamageCursedEnemies"] = {
 			["specialCaseData"] = {
@@ -26498,19 +30418,36 @@ return {
 				["max"] = 18, 
 			}, 
 		}, 
-		["4372_AttackSpeedHitRecently"] = {
-			["specialCaseData"] = {
+		["1265_LocalPhysicalDamageReductionRatingPercent"] = {
+			["Gloves"] = {
+				["min"] = 15, 
+				["max"] = 100, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4137521191", 
-				["text"] = "#% increased Attack Speed if you've been Hit Recently", 
+				["id"] = "explicit.stat_1062208444", 
+				["text"] = "#% increased Armour (Local)", 
 			}, 
-			["Ring"] = {
-				["min"] = 8, 
-				["max"] = 12, 
+			["Shield"] = {
+				["min"] = 101, 
+				["max"] = 110, 
+			}, 
+			["Chest"] = {
+				["min"] = 15, 
+				["max"] = 110, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour", 
 			}, 
 			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 15, 
+				["max"] = 100, 
+			}, 
+			["Boots"] = {
+				["min"] = 15, 
+				["max"] = 100, 
+			}, 
 		}, 
 		["1280_ArmourAndEnergyShield"] = {
 			["specialCaseData"] = {
@@ -26848,13 +30785,14 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5624_FireDamageSpellSkills"] = {
+		["6781_LocalChanceToPoisonOnHit"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to Poison on Hit", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_361162316", 
-				["text"] = "#% increased Fire Damage with Spell Skills", 
+				["id"] = "implicit.stat_3885634897", 
+				["text"] = "#% chance to Poison on Hit (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -26868,14 +30806,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2228_FlammabilityOnHitLevel"] = {
+		["8032_PurityOfLightningReservationEfficiency"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_338121249", 
-				["text"] = "Curse Enemies with Flammability on Hit", 
+				["id"] = "implicit.stat_3411256933", 
+				["text"] = "Purity of Lightning has #% increased Mana Reservation Efficiency", 
 			}, 
+			["sign"] = "", 
 		}, 
 		["1344_MaximumFireResistanceImplicit"] = {
 			["specialCaseData"] = {
@@ -27175,15 +31114,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1136_IncreasedAttackSpeed"] = {
+		["6782_AllElementalResistanceCorruptedItem"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_681332047", 
-				["text"] = "#% increased Attack Speed", 
+				["id"] = "implicit.stat_3731630482", 
+				["text"] = "#% to all Elemental Resistances if Corrupted", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["354_SocketedSkillsManaMultiplier"] = {
 			["specialCaseData"] = {
@@ -27255,15 +31194,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["984_ColdDamageOverTimeMultiplier"] = {
+		["1399_LightningDamageLifeLeechPermyriad"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1950806024", 
-				["text"] = "#% to Cold Damage over Time Multiplier", 
+				["id"] = "implicit.stat_80079005", 
+				["text"] = "#% of Lightning Damage Leeched as Life", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["1674_ConvertPhysicalToColdImplicit"] = {
 			["specialCaseData"] = {
@@ -27367,6 +31306,7 @@ return {
 		}, 
 		["93_LocalIncreaseSocketedFireGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Fire Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -27385,15 +31325,25 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8288_AdditionalCriticalStrikeChanceWithSpells"] = {
+		["1291_IncreasedLife"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_791835907", 
-				["text"] = "#% to Spell Critical Strike Chance", 
+				["id"] = "implicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
 			}, 
 			["sign"] = "+", 
+		}, 
+		["1469_MaximumLifeOnKillPercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2023107756", 
+				["text"] = "Recover #% of Life on Kill", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["5006_ChillEffect"] = {
 			["specialCaseData"] = {
@@ -27405,8 +31355,30 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["1136_IncreasedAttackSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_681332047", 
+				["text"] = "#% increased Attack Speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1116_LocalChaosDamageTwoHand"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Chaos Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2223678961", 
+				["text"] = "Adds # to # Chaos Damage (Local)", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1458_LifeGainPerTargetLocal"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Grants # Life per Enemy Hit", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -27417,11 +31389,33 @@ return {
 		}, 
 		["1159_LocalAccuracyRatingIncrease"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Global Accuracy Rating", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
 				["id"] = "implicit.stat_624954515", 
 				["text"] = "#% increased Global Accuracy Rating", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1419_ManaLeechPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3237948413", 
+				["text"] = "#% of Physical Attack Damage Leeched as Mana", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1109_LocalLightningDamage"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Lightning Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3336890334", 
+				["text"] = "Adds # to # Lightning Damage (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -27432,6 +31426,16 @@ return {
 				["type"] = "implicit", 
 				["id"] = "implicit.stat_734614379", 
 				["text"] = "#% increased Strength", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8307_SpellDamagePer16Dexterity"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2612056840", 
+				["text"] = "#% increased Spell Damage per 16 Dexterity", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -27455,6 +31459,16 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["2432_SpellDamagePer10Intelligence"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3961014595", 
+				["text"] = "#% increased Spell Damage per 16 Intelligence", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1467_EnergyShieldGainPerTarget"] = {
 			["specialCaseData"] = {
 			}, 
@@ -27464,6 +31478,16 @@ return {
 				["text"] = "Gain # Energy Shield per Enemy Hit with Attacks", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["3665_AnimateGuardianResistances"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2094281311", 
+				["text"] = "#% to Animated Guardian Elemental Resistances", 
+			}, 
+			["sign"] = "+", 
 		}, 
 		["4357_AddedLightningDamagePerIntelligence"] = {
 			["specialCaseData"] = {
@@ -27485,6 +31509,26 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
+		["7917_PhysicalDamageWithUnholyMight"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1609570656", 
+				["text"] = "#% increased Physical Damage while you have Unholy Might", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2649_GlobalChanceToBlindOnHit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2221570601", 
+				["text"] = "#% Global chance to Blind Enemies on hit", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["8790_UnwaveringStance"] = {
 			["specialCaseData"] = {
 			}, 
@@ -27501,6 +31545,27 @@ return {
 				["type"] = "implicit", 
 				["id"] = "implicit.stat_795138349", 
 				["text"] = "#% chance to Poison on Hit", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["105_LocalIncreaseSocketedAuraLevel"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Aura Gems", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2452998583", 
+				["text"] = "# to Level of Socketed Aura Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["3324_ZombieIncreasedDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2228518621", 
+				["text"] = "Raised Zombies deal #% increased Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -27544,13 +31609,62 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["4237_AreaOfEffectIfStunnedEnemyRecently"] = {
+		["1528_MaximumFrenzyCharges"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_430248187", 
-				["text"] = "#% increased Area of Effect if you have Stunned an Enemy Recently", 
+				["id"] = "implicit.stat_4078695", 
+				["text"] = "# to Maximum Frenzy Charges", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["100_IncreasedSocketedAoEGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2551600084", 
+				["text"] = "# to Level of Socketed AoE Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["8137_RemoveShockOnFlaskUse"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_561861132", 
+				["text"] = "Remove Shock when you use a Flask", 
+			}, 
+		}, 
+		["2781_VaalSkillDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2257141320", 
+				["text"] = "#% increased Damage with Vaal Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["6779_MovementVelocityCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2880601380", 
+				["text"] = "#% increased Movement Speed if Corrupted", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5429_IncreasedWeaponElementalDamagePercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_387439868", 
+				["text"] = "#% increased Elemental Damage with Attack Skills", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -27564,6 +31678,26 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["3686_CurseEffectConductivity"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3395908304", 
+				["text"] = "#% increased Conductivity Curse Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8306_SpellDamagePer10Strength"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4249521944", 
+				["text"] = "#% increased Spell Damage per 16 Strength", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["7937_PhysicalDamageSpellSkills"] = {
 			["specialCaseData"] = {
 			}, 
@@ -27574,13 +31708,22 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1166_DaggerIncreasedAccuracyRating"] = {
+		["1557_CannotBeFrozen"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2054715690", 
-				["text"] = "#% increased Accuracy Rating with Daggers", 
+				["id"] = "implicit.stat_876831634", 
+				["text"] = "Cannot be Frozen", 
+			}, 
+		}, 
+		["916_PercentageIntelligence"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_656461285", 
+				["text"] = "#% increased Intelligence", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -27615,35 +31758,35 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1469_MaximumLifeOnKillPercent"] = {
+		["1284_EnergyShieldDelay"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2023107756", 
-				["text"] = "Recover #% of Life on Kill", 
+				["id"] = "implicit.stat_1782086450", 
+				["text"] = "#% faster start of Energy Shield Recharge", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["101_LocalIncreaseSocketedProjectileGemLevel"] = {
+		["6675_AttackDamageCorruptedItem"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2176571093", 
-				["text"] = "# to Level of Socketed Projectile Gems", 
+				["id"] = "implicit.stat_2347923784", 
+				["text"] = "#% increased Attack Damage if Corrupted", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
-		["86_LocalIncreaseSocketedDexterityGemLevel"] = {
+		["6773_IncreasedEnergyShieldCorruptedItem"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2718698372", 
-				["text"] = "# to Level of Socketed Dexterity Gems", 
+				["id"] = "implicit.stat_1025108940", 
+				["text"] = "#% increased maximum Energy Shield if Corrupted", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["891_SpellBlockPercentage"] = {
 			["specialCaseData"] = {
@@ -27665,45 +31808,46 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8307_SpellDamagePer16Dexterity"] = {
+		["5318_DeterminationReservationEfficiency"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2612056840", 
-				["text"] = "#% increased Spell Damage per 16 Dexterity", 
+				["id"] = "implicit.stat_325889252", 
+				["text"] = "Determination has #% increased Mana Reservation Efficiency", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1283_GlobalEnergyShieldPercent"] = {
+		["3948_AddedColdDamagePerFrenzyCharge"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2482852589", 
-				["text"] = "#% increased maximum Energy Shield", 
+				["id"] = "implicit.stat_3648858570", 
+				["text"] = "# to # Added Cold Damage per Frenzy Charge", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["2432_SpellDamagePer10Intelligence"] = {
+		["85_LocalIncreaseSocketedStrengthGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Strength Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3961014595", 
-				["text"] = "#% increased Spell Damage per 16 Intelligence", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["3665_AnimateGuardianResistances"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2094281311", 
-				["text"] = "#% to Animated Guardian Elemental Resistances", 
+				["id"] = "implicit.stat_916797432", 
+				["text"] = "# to Level of Socketed Strength Gems", 
 			}, 
 			["sign"] = "+", 
+		}, 
+		["1952_DegenDamageTaken"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1101403182", 
+				["text"] = "#% reduced Damage taken from Damage Over Time", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["8126_RemoveFreezeOnFlaskUse"] = {
 			["specialCaseData"] = {
@@ -27714,8 +31858,20 @@ return {
 				["text"] = "Remove Chill and Freeze when you use a Flask", 
 			}, 
 		}, 
+		["102_LocalIncreaseSocketedBowGemLevel"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Bow Gems", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2027269580", 
+				["text"] = "# to Level of Socketed Bow Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
 		["103_LocalIncreaseSocketedMeleeGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Melee Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -27724,33 +31880,22 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["2649_GlobalChanceToBlindOnHit"] = {
+		["8552_ChilledGroundEffectEffectiveness"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2221570601", 
-				["text"] = "#% Global chance to Blind Enemies on hit", 
+				["id"] = "implicit.stat_3653191834", 
+				["text"] = "Unaffected by Chilled Ground", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["105_LocalIncreaseSocketedAuraLevel"] = {
+		["1148_ClawIncreasedAttackSpeed"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2452998583", 
-				["text"] = "# to Level of Socketed Aura Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["3324_ZombieIncreasedDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2228518621", 
-				["text"] = "Raised Zombies deal #% increased Damage", 
+				["id"] = "implicit.stat_1421645223", 
+				["text"] = "#% increased Attack Speed with Claws", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -27774,15 +31919,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1528_MaximumFrenzyCharges"] = {
+		["1159_IncreasedAccuracyPercent"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_4078695", 
-				["text"] = "# to Maximum Frenzy Charges", 
+				["id"] = "implicit.stat_624954515", 
+				["text"] = "#% increased Global Accuracy Rating", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["1034_StaffIncreasedPhysicalDamage"] = {
 			["specialCaseData"] = {
@@ -27794,15 +31939,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["909_IntelligenceImplicit"] = {
+		["3270_ColdPenetrationWeapon"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_328541901", 
-				["text"] = "# to Intelligence", 
+				["id"] = "implicit.stat_1211769158", 
+				["text"] = "Damage with Weapons Penetrates #% Cold Resistance", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["1293_MaximumLifeIncreasePercent"] = {
 			["specialCaseData"] = {
@@ -27814,22 +31959,23 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8137_RemoveShockOnFlaskUse"] = {
+		["2323_FrenzyChargeOnKillChance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_561861132", 
-				["text"] = "Remove Shock when you use a Flask", 
+				["id"] = "implicit.stat_1826802197", 
+				["text"] = "#% chance to gain a Frenzy Charge on Kill", 
 			}, 
+			["sign"] = "", 
 		}, 
-		["6779_MovementVelocityCorruptedItem"] = {
+		["1747_AreaDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2880601380", 
-				["text"] = "#% increased Movement Speed if Corrupted", 
+				["id"] = "implicit.stat_4251717817", 
+				["text"] = "#% increased Area Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -27863,13 +32009,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1425_AttackDamageManaLeech"] = {
+		["2198_LightRadius"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_350069479", 
-				["text"] = "#% of Attack Damage Leeched as Mana", 
+				["id"] = "implicit.stat_1263695895", 
+				["text"] = "#% increased Light Radius", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -27895,6 +32041,7 @@ return {
 		}, 
 		["104_LocalIncreaseSocketedMinionGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Minion Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -27903,13 +32050,13 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["3686_CurseEffectConductivity"] = {
+		["5734_EnduranceChargeIfHitRecently"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3395908304", 
-				["text"] = "#% increased Conductivity Curse Effect", 
+				["id"] = "implicit.stat_2894476716", 
+				["text"] = "Gain # Endurance Charge every second if you've been Hit Recently", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -27952,6 +32099,25 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["8549_BurningGroundEffectEffectiveness"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1643688236", 
+				["text"] = "Unaffected by Burning Ground", 
+			}, 
+		}, 
+		["7565_FortifyEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_335507772", 
+				["text"] = "# to maximum Fortification", 
+			}, 
+			["sign"] = "+", 
+		}, 
 		["1451_MaximumLifeLeechRate"] = {
 			["specialCaseData"] = {
 			}, 
@@ -27959,26 +32125,6 @@ return {
 				["type"] = "implicit", 
 				["id"] = "implicit.stat_4118987751", 
 				["text"] = "#% increased Maximum total Life Recovery per second from Leech", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["5429_IncreasedWeaponElementalDamagePercent"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_387439868", 
-				["text"] = "#% increased Elemental Damage with Attack Skills", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["4355_AddedFireDamagePerStrength"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1060540099", 
-				["text"] = "Adds # to # Fire Damage to Attacks with this Weapon per 10 Strength", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28004,11 +32150,12 @@ return {
 		}, 
 		["1421_ManaLeechLocalPermyriad"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% of Physical Attack Damage Leeched as Mana", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3237948413", 
-				["text"] = "#% of Physical Attack Damage Leeched as Mana", 
+				["id"] = "implicit.stat_669069897", 
+				["text"] = "#% of Physical Attack Damage Leeched as Mana (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28034,6 +32181,7 @@ return {
 		}, 
 		["95_LocalIncreaseSocketedLightningGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Lightning Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -28052,13 +32200,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5227_DamagePer15Strength"] = {
+		["1384_LifeLeechFromAttacksPermyriad"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_4274080377", 
-				["text"] = "#% increased Damage per 100 Strength", 
+				["id"] = "implicit.stat_141810208", 
+				["text"] = "#% of Attack Damage Leeched as Life", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28072,13 +32220,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1174_CastSpeedWithStaff"] = {
+		["6929_AddedManaRegenWithDualWield"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2066542501", 
-				["text"] = "#% increased Cast Speed while wielding a Staff", 
+				["id"] = "implicit.stat_1361343333", 
+				["text"] = "Regenerate # Mana per Second while Dual Wielding", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28102,13 +32250,14 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["85_LocalIncreaseSocketedStrengthGemLevel"] = {
+		["86_LocalIncreaseSocketedDexterityGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Dexterity Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_916797432", 
-				["text"] = "# to Level of Socketed Strength Gems", 
+				["id"] = "implicit.stat_2718698372", 
+				["text"] = "# to Level of Socketed Dexterity Gems", 
 			}, 
 			["sign"] = "+", 
 		}, 
@@ -28151,25 +32300,25 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1952_DegenDamageTaken"] = {
+		["1838_EnduranceChargeDuration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1101403182", 
-				["text"] = "#% reduced Damage taken from Damage Over Time", 
+				["id"] = "implicit.stat_1170174456", 
+				["text"] = "#% increased Endurance Charge Duration", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["102_LocalIncreaseSocketedBowGemLevel"] = {
+		["1679_PhysicalDamageConvertToChaosImplicit"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2027269580", 
-				["text"] = "# to Level of Socketed Bow Gems", 
+				["id"] = "implicit.stat_490098963", 
+				["text"] = "#% of Physical Damage Converted to Chaos Damage", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["8609_VitalityReservation"] = {
 			["specialCaseData"] = {
@@ -28201,32 +32350,33 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8552_ChilledGroundEffectEffectiveness"] = {
+		["1042_ClawIncreasedPhysicalDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3653191834", 
-				["text"] = "Unaffected by Chilled Ground", 
-			}, 
-		}, 
-		["1148_ClawIncreasedAttackSpeed"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1421645223", 
-				["text"] = "#% increased Attack Speed with Claws", 
+				["id"] = "implicit.stat_635761691", 
+				["text"] = "#% increased Physical Damage with Claws", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["916_PercentageIntelligence"] = {
+		["1425_AttackDamageManaLeech"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_656461285", 
-				["text"] = "#% increased Intelligence", 
+				["id"] = "implicit.stat_350069479", 
+				["text"] = "#% of Attack Damage Leeched as Mana", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3692_CurseEffectVulnerability"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1065909420", 
+				["text"] = "#% increased Vulnerability Curse Effect", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28240,14 +32390,15 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1557_CannotBeFrozen"] = {
+		["5227_DamagePer15Strength"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_876831634", 
-				["text"] = "Cannot be Frozen", 
+				["id"] = "implicit.stat_4274080377", 
+				["text"] = "#% increased Damage per 100 Strength", 
 			}, 
+			["sign"] = "", 
 		}, 
 		["1586_SelfStatusAilmentDuration"] = {
 			["specialCaseData"] = {
@@ -28261,21 +32412,22 @@ return {
 		}, 
 		["1281_LocalEnergyShield"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Energy Shield", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3489782002", 
-				["text"] = "# to maximum Energy Shield", 
+				["id"] = "implicit.stat_4052037485", 
+				["text"] = "# to maximum Energy Shield (Local)", 
 			}, 
 			["sign"] = "+", 
 		}, 
-		["2323_FrenzyChargeOnKillChance"] = {
+		["5624_FireDamageSpellSkills"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1826802197", 
-				["text"] = "#% chance to gain a Frenzy Charge on Kill", 
+				["id"] = "implicit.stat_361162316", 
+				["text"] = "#% increased Fire Damage with Spell Skills", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28319,64 +32471,64 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1747_AreaDamage"] = {
+		["2257_ItemDropsOnGuardianDeath"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_4251717817", 
-				["text"] = "#% increased Area Damage", 
+				["id"] = "implicit.stat_3909846940", 
+				["text"] = "Item drops on Death if Equipped by an Animated Guardian", 
+			}, 
+		}, 
+		["1560_CannotBeShocked"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_491899612", 
+				["text"] = "Cannot be Shocked", 
+			}, 
+		}, 
+		["7587_LifeAddedAsEnergyShield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_67280387", 
+				["text"] = "Gain #% of Maximum Life as Extra Maximum Energy Shield", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["100_IncreasedSocketedAoEGemLevel"] = {
+		["4291_AdditionalCriticalStrikeChanceWithAttacks"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2551600084", 
-				["text"] = "# to Level of Socketed AoE Gems", 
+				["id"] = "implicit.stat_2572042788", 
+				["text"] = "Attacks have #% to Critical Strike Chance", 
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1218_AxeCriticalStrikeMultiplier"] = {
+		["1003_LocalPhysicalDamage"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_4219746989", 
-				["text"] = "#% to Critical Strike Multiplier with Axes", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1676_ConvertPhysicalToLightningImplicit"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3240769289", 
-				["text"] = "#% of Physical Damage Converted to Lightning Damage", 
+				["id"] = "implicit.stat_1940865751", 
+				["text"] = "Adds # to # Physical Damage (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["8549_BurningGroundEffectEffectiveness"] = {
+		["3060_LightningDamageAvoidance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1643688236", 
-				["text"] = "Unaffected by Burning Ground", 
+				["id"] = "implicit.stat_2889664727", 
+				["text"] = "#% chance to Avoid Lightning Damage from Hits", 
 			}, 
-		}, 
-		["7565_FortifyEffect"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_335507772", 
-				["text"] = "# to maximum Fortification", 
-			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["1113_GlobalAddedChaosDamage"] = {
 			["specialCaseData"] = {
@@ -28438,13 +32590,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["6929_AddedManaRegenWithDualWield"] = {
+		["5125_SpellCriticalChanceWithDualWield"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1361343333", 
-				["text"] = "Regenerate # Mana per Second while Dual Wielding", 
+				["id"] = "implicit.stat_1218939541", 
+				["text"] = "#% increased Critical Strike Chance for Spells while Dual Wielding", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28478,35 +32630,36 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1838_EnduranceChargeDuration"] = {
+		["1703_MaximumBlockChance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1170174456", 
-				["text"] = "#% increased Endurance Charge Duration", 
+				["id"] = "implicit.stat_4124805414", 
+				["text"] = "#% to maximum Chance to Block Attack Damage", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1188_LocalCriticalStrikeChance"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Critical Strike Chance", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2375316951", 
+				["text"] = "#% increased Critical Strike Chance", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1679_PhysicalDamageConvertToChaosImplicit"] = {
+		["5151_SpellCriticalMultiplierWithShield"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_490098963", 
-				["text"] = "#% of Physical Damage Converted to Chaos Damage", 
+				["id"] = "implicit.stat_2311200892", 
+				["text"] = "#% to Critical Strike Multiplier for Spells while holding a Shield", 
 			}, 
-			["sign"] = "", 
-		}, 
-		["7917_PhysicalDamageWithUnholyMight"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1609570656", 
-				["text"] = "#% increased Physical Damage while you have Unholy Might", 
-			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["1106_GlobalAddedLightningDamage"] = {
 			["specialCaseData"] = {
@@ -28548,13 +32701,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1042_ClawIncreasedPhysicalDamage"] = {
+		["4439_BleedDuration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_635761691", 
-				["text"] = "#% increased Physical Damage with Claws", 
+				["id"] = "implicit.stat_1459321413", 
+				["text"] = "#% increased Bleeding Duration", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28568,23 +32721,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5623_FireDamageAttackSkills"] = {
+		["1098_LocalColdDamage"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Cold Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2468413380", 
-				["text"] = "#% increased Fire Damage with Attack Skills", 
+				["id"] = "implicit.stat_1037193709", 
+				["text"] = "Adds # to # Cold Damage (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["8300_SpellDamagePerMana"] = {
+		["6697_DamageTakenCorruptedItem"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3555662994", 
-				["text"] = "#% increased Spell Damage per 500 Maximum Mana", 
+				["id"] = "implicit.stat_3309607228", 
+				["text"] = "#% reduced Damage taken if Corrupted", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28598,34 +32752,34 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1560_CannotBeShocked"] = {
+		["8569_ShockedGroundEffectEffectiveness"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_491899612", 
-				["text"] = "Cannot be Shocked", 
+				["id"] = "implicit.stat_2234049899", 
+				["text"] = "Unaffected by Shocked Ground", 
 			}, 
 		}, 
-		["7587_LifeAddedAsEnergyShield"] = {
+		["1283_GlobalEnergyShieldPercent"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_67280387", 
-				["text"] = "Gain #% of Maximum Life as Extra Maximum Energy Shield", 
+				["id"] = "implicit.stat_2482852589", 
+				["text"] = "#% increased maximum Energy Shield", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["4291_AdditionalCriticalStrikeChanceWithAttacks"] = {
+		["3891_ChanceToAvoidBleeding"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2572042788", 
-				["text"] = "Attacks have #% to Critical Strike Chance", 
+				["id"] = "implicit.stat_1618589784", 
+				["text"] = "#% chance to Avoid Bleeding", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["1578_BurnDuration"] = {
 			["specialCaseData"] = {
@@ -28647,13 +32801,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1173_CastSpeedWithShield"] = {
+		["1060_BowIncreasedPhysicalDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1612163368", 
-				["text"] = "#% increased Cast Speed while holding a Shield", 
+				["id"] = "implicit.stat_402920808", 
+				["text"] = "#% increased Physical Damage with Bows", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28667,23 +32821,22 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["958_SpellDamageWithShield"] = {
+		["3890_BleedingImmunity"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1766142294", 
-				["text"] = "#% increased Spell Damage while holding a Shield", 
+				["id"] = "implicit.stat_1901158930", 
+				["text"] = "Bleeding cannot be inflicted on you", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["8306_SpellDamagePer10Strength"] = {
+		["4355_AddedFireDamagePerStrength"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_4249521944", 
-				["text"] = "#% increased Spell Damage per 16 Strength", 
+				["id"] = "implicit.stat_1060540099", 
+				["text"] = "Adds # to # Fire Damage to Attacks with this Weapon per 10 Strength", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28707,15 +32860,16 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1284_EnergyShieldDelay"] = {
+		["94_LocalIncreaseSocketedColdGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Cold Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1782086450", 
-				["text"] = "#% faster start of Energy Shield Recharge", 
+				["id"] = "implicit.stat_1645459191", 
+				["text"] = "# to Level of Socketed Cold Gems", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["5535_DisciplineEnergyShieldRegen"] = {
 			["specialCaseData"] = {
@@ -28737,13 +32891,13 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["5125_SpellCriticalChanceWithDualWield"] = {
+		["1314_ItemFoundQuantityIncrease"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1218939541", 
-				["text"] = "#% increased Critical Strike Chance for Spells while Dual Wielding", 
+				["id"] = "implicit.stat_884586851", 
+				["text"] = "#% increased Quantity of Items found", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28766,13 +32920,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1419_ManaLeechPermyriad"] = {
+		["8610_VitalityReservationEfficiency"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3237948413", 
-				["text"] = "#% of Physical Attack Damage Leeched as Mana", 
+				["id"] = "implicit.stat_3972739758", 
+				["text"] = "Vitality has #% increased Mana Reservation Efficiency", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28786,73 +32940,74 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1703_MaximumBlockChance"] = {
+		["1173_CastSpeedWithShield"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_4124805414", 
-				["text"] = "#% to maximum Chance to Block Attack Damage", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["5151_SpellCriticalMultiplierWithShield"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2311200892", 
-				["text"] = "#% to Critical Strike Multiplier for Spells while holding a Shield", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["87_LocalIncreaseSocketedIntelligenceGemLevel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1719423857", 
-				["text"] = "# to Level of Socketed Intelligence Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["4439_BleedDuration"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1459321413", 
-				["text"] = "#% increased Bleeding Duration", 
+				["id"] = "implicit.stat_1612163368", 
+				["text"] = "#% increased Cast Speed while holding a Shield", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1386_PhysicalDamageLifeLeechPermyriad"] = {
+		["3271_FirePenetrationWeapon"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3764265320", 
-				["text"] = "#% of Physical Damage Leeched as Life", 
+				["id"] = "implicit.stat_1123291426", 
+				["text"] = "Damage with Weapons Penetrates #% Fire Resistance", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["5025_FlatColdDamageTaken"] = {
+		["5152_SpellCriticalMultiplierWithStaff"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_261654754", 
-				["text"] = "# Cold Damage taken from Hits", 
+				["id"] = "implicit.stat_3629080637", 
+				["text"] = "#% to Critical Strike Multiplier for Spells while wielding a Staff", 
 			}, 
-			["sign"] = "-", 
+			["sign"] = "+", 
 		}, 
-		["2262_FasterIgniteDamage"] = {
+		["5623_FireDamageAttackSkills"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2443492284", 
-				["text"] = "Ignites you inflict deal Damage #% faster", 
+				["id"] = "implicit.stat_2468413380", 
+				["text"] = "#% increased Fire Damage with Attack Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["128_SocketedAuraGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2276941637", 
+				["text"] = "#% to Quality of Socketed Aura Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1139_LocalIncreasedAttackSpeed"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Attack Speed", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_210067635", 
+				["text"] = "#% increased Attack Speed (Local)", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1565_AvoidIgnite"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1783006896", 
+				["text"] = "#% chance to Avoid being Ignited", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28886,22 +33041,23 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["8569_ShockedGroundEffectEffectiveness"] = {
+		["2629_PhysicalDamageAddedAsRandomElement"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2234049899", 
-				["text"] = "Unaffected by Shocked Ground", 
+				["id"] = "implicit.stat_3753703249", 
+				["text"] = "Gain #% of Physical Damage as Extra Damage of a random Element", 
 			}, 
+			["sign"] = "", 
 		}, 
-		["1371_LifeLeechLocalPermyriad"] = {
+		["2671_ElementalPenetration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3593843976", 
-				["text"] = "#% of Physical Attack Damage Leeched as Life", 
+				["id"] = "implicit.stat_2101383955", 
+				["text"] = "Damage Penetrates #% Elemental Resistances", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28915,23 +33071,23 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1104_LightningDamagePercentage"] = {
+		["909_IntelligenceImplicit"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2231156303", 
-				["text"] = "#% increased Lightning Damage", 
+				["id"] = "implicit.stat_328541901", 
+				["text"] = "# to Intelligence", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
-		["1442_EnergyShieldLeechPermyriad"] = {
+		["1899_BeltIncreasedFlaskDuration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_11106713", 
-				["text"] = "#% of Spell Damage Leeched as Energy Shield", 
+				["id"] = "implicit.stat_3741323227", 
+				["text"] = "#% increased Flask Effect Duration", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28955,25 +33111,25 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["4338_AttackDamagePerMana"] = {
+		["959_SpellDamageWithDualWield"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_4134865890", 
-				["text"] = "#% increased Attack Damage per 500 Maximum Mana", 
+				["id"] = "implicit.stat_1678690824", 
+				["text"] = "#% increased Spell Damage while Dual Wielding", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["94_LocalIncreaseSocketedColdGemLevel"] = {
+		["1549_PowerChargeOnCriticalStrikeChance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1645459191", 
-				["text"] = "# to Level of Socketed Cold Gems", 
+				["id"] = "implicit.stat_3814876985", 
+				["text"] = "#% chance to gain a Power Charge on Critical Strike", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["6691_GlobalCriticalStrikeChanceCorruptedItem"] = {
 			["specialCaseData"] = {
@@ -28985,23 +33141,23 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1314_ItemFoundQuantityIncrease"] = {
+		["1896_BeltReducedFlaskChargesUsed"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_884586851", 
-				["text"] = "#% increased Quantity of Items found", 
+				["id"] = "implicit.stat_644456512", 
+				["text"] = "#% reduced Flask Charges used", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["6773_IncreasedEnergyShieldCorruptedItem"] = {
+		["1406_ElementalDamageLeechedAsLifePermyriad"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1025108940", 
-				["text"] = "#% increased maximum Energy Shield if Corrupted", 
+				["id"] = "implicit.stat_720395808", 
+				["text"] = "#% of Elemental Damage Leeched as Life", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29025,13 +33181,14 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8610_VitalityReservationEfficiency"] = {
+		["1089_LocalFireDamageTwoHand"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Fire Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3972739758", 
-				["text"] = "Vitality has #% increased Mana Reservation Efficiency", 
+				["id"] = "implicit.stat_709508406", 
+				["text"] = "Adds # to # Fire Damage (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29075,25 +33232,25 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["3271_FirePenetrationWeapon"] = {
+		["5028_ColdDamageSpellSkills"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1123291426", 
-				["text"] = "Damage with Weapons Penetrates #% Fire Resistance", 
+				["id"] = "implicit.stat_2186994986", 
+				["text"] = "#% increased Cold Damage with Spell Skills", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["5152_SpellCriticalMultiplierWithStaff"] = {
+		["1853_IncreasedSpellDamagePerPowerCharge"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3629080637", 
-				["text"] = "#% to Critical Strike Multiplier for Spells while wielding a Staff", 
+				["id"] = "implicit.stat_827329571", 
+				["text"] = "#% increased Spell Damage per Power Charge", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["960_PhysicalDamagePercent"] = {
 			["specialCaseData"] = {
@@ -29115,15 +33272,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8225_BrandAttachmentRange"] = {
+		["2156_AdditionalBlock"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_4223377453", 
-				["text"] = "#% increased Brand Attachment range", 
+				["id"] = "implicit.stat_2530372417", 
+				["text"] = "#% Chance to Block Attack Damage", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["1308_ManaRecoveryRate"] = {
 			["specialCaseData"] = {
@@ -29135,13 +33292,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["3049_IncreasedAuraEffectGraceCorrupted"] = {
+		["2719_AttackAndCastSpeedWithOnslaught"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_397427740", 
-				["text"] = "Grace has #% increased Aura Effect", 
+				["id"] = "implicit.stat_2320884914", 
+				["text"] = "#% increased Attack and Cast Speed during Onslaught", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29155,33 +33312,35 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["128_SocketedAuraGemQuality"] = {
+		["2181_LocalChanceToBleed"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to cause Bleeding on Hit", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2276941637", 
-				["text"] = "#% to Quality of Socketed Aura Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1565_AvoidIgnite"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1783006896", 
-				["text"] = "#% chance to Avoid being Ignited", 
+				["id"] = "implicit.stat_1519615863", 
+				["text"] = "#% chance to cause Bleeding on Hit", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["5318_DeterminationReservationEfficiency"] = {
+		["961_LocalPhysicalDamagePercent"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1402_ChaosDamageLifeLeechPermyriad"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_325889252", 
-				["text"] = "Determination has #% increased Mana Reservation Efficiency", 
+				["id"] = "implicit.stat_744082851", 
+				["text"] = "#% of Chaos Damage Leeched as Life", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29205,15 +33364,16 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2629_PhysicalDamageAddedAsRandomElement"] = {
+		["87_LocalIncreaseSocketedIntelligenceGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Intelligence Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3753703249", 
-				["text"] = "Gain #% of Physical Damage as Extra Damage of a random Element", 
+				["id"] = "implicit.stat_1719423857", 
+				["text"] = "# to Level of Socketed Intelligence Gems", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["5842_GraceReservation"] = {
 			["specialCaseData"] = {
@@ -29225,15 +33385,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2671_ElementalPenetration"] = {
+		["1532_MinimumPowerCharges"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2101383955", 
-				["text"] = "Damage Penetrates #% Elemental Resistances", 
+				["id"] = "implicit.stat_1999711879", 
+				["text"] = "# to Minimum Power Charges", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["1855_IncreasedPowerChargeDuration"] = {
 			["specialCaseData"] = {
@@ -29265,13 +33425,14 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1549_PowerChargeOnCriticalStrikeChance"] = {
+		["1371_LifeLeechLocalPermyriad"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% of Physical Attack Damage Leeched as Life", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3814876985", 
-				["text"] = "#% chance to gain a Power Charge on Critical Strike", 
+				["id"] = "implicit.stat_55876295", 
+				["text"] = "#% of Physical Attack Damage Leeched as Life (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29285,15 +33446,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1896_BeltReducedFlaskChargesUsed"] = {
+		["1216_DaggerCriticalStrikeMultiplier"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_644456512", 
-				["text"] = "#% reduced Flask Charges used", 
+				["id"] = "implicit.stat_3998601568", 
+				["text"] = "#% to Critical Strike Multiplier with Daggers", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["1150_MaceIncreasedAttackSpeed"] = {
 			["specialCaseData"] = {
@@ -29305,23 +33466,23 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1406_ElementalDamageLeechedAsLifePermyriad"] = {
+		["1104_LightningDamagePercentage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_720395808", 
-				["text"] = "#% of Elemental Damage Leeched as Life", 
+				["id"] = "implicit.stat_2231156303", 
+				["text"] = "#% increased Lightning Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["3060_LightningDamageAvoidance"] = {
+		["5328_DisciplineReservation"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2889664727", 
-				["text"] = "#% chance to Avoid Lightning Damage from Hits", 
+				["id"] = "implicit.stat_2081344089", 
+				["text"] = "Discipline has #% increased Mana Reservation Efficiency", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29355,13 +33516,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5028_ColdDamageSpellSkills"] = {
+		["1235_ReducedExtraDamageFromCrits"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2186994986", 
-				["text"] = "#% increased Cold Damage with Spell Skills", 
+				["id"] = "implicit.stat_3855016469", 
+				["text"] = "You take #% reduced Extra Damage from Critical Strikes", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29375,15 +33536,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1853_IncreasedSpellDamagePerPowerCharge"] = {
+		["1357_LightningResistance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_827329571", 
-				["text"] = "#% increased Spell Damage per Power Charge", 
+				["id"] = "implicit.stat_1671376347", 
+				["text"] = "#% to Lightning Resistance", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["2147_PhysicalDamageTakenAsLightningPercent"] = {
 			["specialCaseData"] = {
@@ -29405,42 +33566,43 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2257_ItemDropsOnGuardianDeath"] = {
+		["1158_IncreasedAccuracy"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3909846940", 
-				["text"] = "Item drops on Death if Equipped by an Animated Guardian", 
+				["id"] = "implicit.stat_803737631", 
+				["text"] = "# to Accuracy Rating", 
 			}, 
+			["sign"] = "+", 
 		}, 
-		["1171_IncreasedCastSpeed"] = {
+		["1482_ManaGainedFromEnemyDeath"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2891184298", 
-				["text"] = "#% increased Cast Speed", 
+				["id"] = "implicit.stat_1368271171", 
+				["text"] = "Gain # Mana per Enemy Killed", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["3687_CurseEffectElementalWeakness"] = {
+		["4237_AreaOfEffectIfStunnedEnemyRecently"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3348324479", 
-				["text"] = "#% increased Elemental Weakness Curse Effect", 
+				["id"] = "implicit.stat_430248187", 
+				["text"] = "#% increased Area of Effect if you have Stunned an Enemy Recently", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1384_LifeLeechFromAttacksPermyriad"] = {
+		["2752_DamageWhileLeeching"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_141810208", 
-				["text"] = "#% of Attack Damage Leeched as Life", 
+				["id"] = "implicit.stat_310246444", 
+				["text"] = "#% increased Damage while Leeching", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29453,25 +33615,25 @@ return {
 				["text"] = "Curse Enemies with Despair on Hit", 
 			}, 
 		}, 
-		["1532_MinimumPowerCharges"] = {
+		["1576_ShockDuration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1999711879", 
-				["text"] = "# to Minimum Power Charges", 
+				["id"] = "implicit.stat_3668351662", 
+				["text"] = "#% increased Shock Duration on Enemies", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
-		["1216_DaggerCriticalStrikeMultiplier"] = {
+		["2338_EnergyShieldRegenerationPerMinute"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3998601568", 
-				["text"] = "#% to Critical Strike Multiplier with Daggers", 
+				["id"] = "implicit.stat_3594640492", 
+				["text"] = "Regenerate #% of Energy Shield per second", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["2225_ConductivityOnHitLevel"] = {
 			["specialCaseData"] = {
@@ -29482,13 +33644,13 @@ return {
 				["text"] = "Curse Enemies with Conductivity on Hit", 
 			}, 
 		}, 
-		["5328_DisciplineReservation"] = {
+		["1676_ConvertPhysicalToLightningImplicit"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2081344089", 
-				["text"] = "Discipline has #% increased Mana Reservation Efficiency", 
+				["id"] = "implicit.stat_3240769289", 
+				["text"] = "#% of Physical Damage Converted to Lightning Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29502,13 +33664,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1235_ReducedExtraDamageFromCrits"] = {
+		["1567_AvoidShock"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3855016469", 
-				["text"] = "You take #% reduced Extra Damage from Critical Strikes", 
+				["id"] = "implicit.stat_1871765599", 
+				["text"] = "#% chance to Avoid being Shocked", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29532,33 +33694,34 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["3948_AddedColdDamagePerFrenzyCharge"] = {
+		["6296_FlatLightningDamageTaken"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3648858570", 
-				["text"] = "# to # Added Cold Damage per Frenzy Charge", 
+				["id"] = "implicit.stat_465051235", 
+				["text"] = "# Lightning Damage taken from Hits", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "-", 
 		}, 
-		["1482_ManaGainedFromEnemyDeath"] = {
+		["1165_ClawIncreasedAccuracyRating"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1368271171", 
-				["text"] = "Gain # Mana per Enemy Killed", 
+				["id"] = "implicit.stat_1297965523", 
+				["text"] = "#% increased Accuracy Rating with Claws", 
 			}, 
 			["sign"] = "", 
 		}, 
 		["1273_LocalEvasionRatingIncreasePercent"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Evasion Rating", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2106365538", 
-				["text"] = "#% increased Evasion Rating", 
+				["id"] = "implicit.stat_124859000", 
+				["text"] = "#% increased Evasion Rating (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29572,35 +33735,35 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["3059_ColdDamageAvoidance"] = {
+		["140_SocketedStrengthGemQuality"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3743375737", 
-				["text"] = "#% chance to Avoid Cold Damage from Hits", 
+				["id"] = "implicit.stat_122841557", 
+				["text"] = "#% to Quality of Socketed Strength Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["4432_AilmentDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_690707482", 
+				["text"] = "#% increased Damage with Ailments", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["2752_DamageWhileLeeching"] = {
+		["1523_MaximumEnduranceCharges"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_310246444", 
-				["text"] = "#% increased Damage while Leeching", 
+				["id"] = "implicit.stat_1515657623", 
+				["text"] = "# to Maximum Endurance Charges", 
 			}, 
-			["sign"] = "", 
-		}, 
-		["3692_CurseEffectVulnerability"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1065909420", 
-				["text"] = "#% increased Vulnerability Curse Effect", 
-			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["131_SocketedColdGemQuality"] = {
 			["specialCaseData"] = {
@@ -29612,23 +33775,23 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1165_ClawIncreasedAccuracyRating"] = {
+		["3059_ColdDamageAvoidance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1297965523", 
-				["text"] = "#% increased Accuracy Rating with Claws", 
+				["id"] = "implicit.stat_3743375737", 
+				["text"] = "#% chance to Avoid Cold Damage from Hits", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["6675_AttackDamageCorruptedItem"] = {
+		["1485_MinionLife"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2347923784", 
-				["text"] = "#% increased Attack Damage if Corrupted", 
+				["id"] = "implicit.stat_770672621", 
+				["text"] = "Minions have #% increased maximum Life", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29672,13 +33835,14 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1567_AvoidShock"] = {
+		["6687_LocalChanceToIntimidateOnHit"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% chance to Intimidate Enemies for # seconds on Hit", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1871765599", 
-				["text"] = "#% chance to Avoid being Shocked", 
+				["id"] = "implicit.stat_78985352", 
+				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29712,25 +33876,25 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8026_PurityOfFireReservationEfficiency"] = {
+		["1442_EnergyShieldLeechPermyriad"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3003688066", 
-				["text"] = "Purity of Fire has #% increased Mana Reservation Efficiency", 
+				["id"] = "implicit.stat_11106713", 
+				["text"] = "#% of Spell Damage Leeched as Energy Shield", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1527_MinimumFrenzyCharges"] = {
+		["2262_FasterIgniteDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_658456881", 
-				["text"] = "# to Minimum Frenzy Charges", 
+				["id"] = "implicit.stat_2443492284", 
+				["text"] = "Ignites you inflict deal Damage #% faster", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["2321_EnduranceChargeOnKillChance"] = {
 			["specialCaseData"] = {
@@ -29742,33 +33906,33 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["4963_ChaosDamageAttackSkills"] = {
+		["1218_AxeCriticalStrikeMultiplier"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1959092146", 
-				["text"] = "#% increased Chaos Damage with Attack Skills", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["140_SocketedStrengthGemQuality"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_122841557", 
-				["text"] = "#% to Quality of Socketed Strength Gems", 
+				["id"] = "implicit.stat_4219746989", 
+				["text"] = "#% to Critical Strike Multiplier with Axes", 
 			}, 
 			["sign"] = "+", 
 		}, 
-		["8032_PurityOfLightningReservationEfficiency"] = {
+		["1170_WandIncreasedAccuracyRating"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3411256933", 
-				["text"] = "Purity of Lightning has #% increased Mana Reservation Efficiency", 
+				["id"] = "implicit.stat_2150183156", 
+				["text"] = "#% increased Accuracy Rating with Wands", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1563_AvoidChill"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3483999943", 
+				["text"] = "#% chance to Avoid being Chilled", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29782,13 +33946,13 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1523_MaximumEnduranceCharges"] = {
+		["5150_SpellCriticalMultiplierWithDualWield"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1515657623", 
-				["text"] = "# to Maximum Endurance Charges", 
+				["id"] = "implicit.stat_2349237916", 
+				["text"] = "#% to Critical Strike Multiplier for Spells while Dual Wielding", 
 			}, 
 			["sign"] = "+", 
 		}, 
@@ -29842,55 +34006,56 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2338_EnergyShieldRegenerationPerMinute"] = {
+		["1575_ChillAndFreezeDuration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3594640492", 
-				["text"] = "Regenerate #% of Energy Shield per second", 
+				["id"] = "implicit.stat_3485067555", 
+				["text"] = "#% increased Chill Duration on Enemies", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["5734_EnduranceChargeIfHitRecently"] = {
+		["1386_PhysicalDamageLifeLeechPermyriad"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2894476716", 
-				["text"] = "Gain # Endurance Charge every second if you've been Hit Recently", 
+				["id"] = "implicit.stat_3764265320", 
+				["text"] = "#% of Physical Damage Leeched as Life", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["6687_LocalChanceToIntimidateOnHit"] = {
+		["1166_DaggerIncreasedAccuracyRating"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2089652545", 
-				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
+				["id"] = "implicit.stat_2054715690", 
+				["text"] = "#% increased Accuracy Rating with Daggers", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["2198_LightRadius"] = {
+		["1527_MinimumFrenzyCharges"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1263695895", 
-				["text"] = "#% increased Light Radius", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["6782_AllElementalResistanceCorruptedItem"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3731630482", 
-				["text"] = "#% to all Elemental Resistances if Corrupted", 
+				["id"] = "implicit.stat_658456881", 
+				["text"] = "# to Minimum Frenzy Charges", 
 			}, 
 			["sign"] = "+", 
+		}, 
+		["1116_LocalChaosDamage"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Chaos Damage", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2223678961", 
+				["text"] = "Adds # to # Chaos Damage (Local)", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["5235_IncreasedDamagePerPowerCharge"] = {
 			["specialCaseData"] = {
@@ -29912,73 +34077,74 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["3891_ChanceToAvoidBleeding"] = {
+		["2439_LocalMeleeWeaponRange"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Weapon Range", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1618589784", 
-				["text"] = "#% chance to Avoid Bleeding", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1170_WandIncreasedAccuracyRating"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2150183156", 
-				["text"] = "#% increased Accuracy Rating with Wands", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["6914_RecoverManaPercentOnBlock"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3041288981", 
-				["text"] = "Recover #% of your maximum Mana when you Block", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["5150_SpellCriticalMultiplierWithDualWield"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2349237916", 
-				["text"] = "#% to Critical Strike Multiplier for Spells while Dual Wielding", 
+				["id"] = "implicit.stat_350598685", 
+				["text"] = "# to Weapon Range", 
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1402_ChaosDamageLifeLeechPermyriad"] = {
+		["8288_AdditionalCriticalStrikeChanceWithSpells"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_744082851", 
-				["text"] = "#% of Chaos Damage Leeched as Life", 
+				["id"] = "implicit.stat_791835907", 
+				["text"] = "#% to Spell Critical Strike Chance", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["4338_AttackDamagePerMana"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4134865890", 
+				["text"] = "#% increased Attack Damage per 500 Maximum Mana", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1300_LifeRecoveryRate"] = {
+		["1072_WandIncreasedPhysicalDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3240073117", 
-				["text"] = "#% increased Life Recovery rate", 
+				["id"] = "implicit.stat_2769075491", 
+				["text"] = "#% increased Physical Damage with Wands", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1575_ChillAndFreezeDuration"] = {
+		["949_DamageWhileLeechingMana"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3485067555", 
-				["text"] = "#% increased Chill Duration on Enemies", 
+				["id"] = "implicit.stat_1994684426", 
+				["text"] = "#% increased Damage while Leeching Mana", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3049_IncreasedAuraEffectGraceCorrupted"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_397427740", 
+				["text"] = "Grace has #% increased Aura Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5843_GraceReservationEfficiency"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_900639351", 
+				["text"] = "Grace has #% increased Mana Reservation Efficiency", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30002,43 +34168,43 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["6697_DamageTakenCorruptedItem"] = {
+		["1302_MaximumManaIncreasePercent"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3309607228", 
-				["text"] = "#% reduced Damage taken if Corrupted", 
+				["id"] = "implicit.stat_2748665614", 
+				["text"] = "#% increased maximum Mana", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1899_BeltIncreasedFlaskDuration"] = {
+		["1171_IncreasedCastSpeed"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3741323227", 
-				["text"] = "#% increased Flask Effect Duration", 
+				["id"] = "implicit.stat_2891184298", 
+				["text"] = "#% increased Cast Speed", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["5843_GraceReservationEfficiency"] = {
+		["1596_BurnDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_900639351", 
-				["text"] = "Grace has #% increased Mana Reservation Efficiency", 
+				["id"] = "implicit.stat_1175385867", 
+				["text"] = "#% increased Burning Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["4432_AilmentDamage"] = {
+		["1478_GainManaOnBlock"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_690707482", 
-				["text"] = "#% increased Damage with Ailments", 
+				["id"] = "implicit.stat_2122183138", 
+				["text"] = "# Mana gained when you Block", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30081,13 +34247,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1478_GainManaOnBlock"] = {
+		["915_PercentageDexterity"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2122183138", 
-				["text"] = "# Mana gained when you Block", 
+				["id"] = "implicit.stat_4139681126", 
+				["text"] = "#% increased Dexterity", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30121,33 +34287,34 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1159_IncreasedAccuracyPercent"] = {
+		["1300_LifeRecoveryRate"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_624954515", 
-				["text"] = "#% increased Global Accuracy Rating", 
+				["id"] = "implicit.stat_3240073117", 
+				["text"] = "#% increased Life Recovery rate", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1576_ShockDuration"] = {
+		["5025_FlatColdDamageTaken"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3668351662", 
-				["text"] = "#% increased Shock Duration on Enemies", 
+				["id"] = "implicit.stat_261654754", 
+				["text"] = "# Cold Damage taken from Hits", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "-", 
 		}, 
-		["915_PercentageDexterity"] = {
+		["1109_LocalLightningDamageTwoHand"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Lightning Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_4139681126", 
-				["text"] = "#% increased Dexterity", 
+				["id"] = "implicit.stat_3336890334", 
+				["text"] = "Adds # to # Lightning Damage (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30161,18 +34328,20 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1563_AvoidChill"] = {
+		["101_LocalIncreaseSocketedProjectileGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Projectile Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3483999943", 
-				["text"] = "#% chance to Avoid being Chilled", 
+				["id"] = "implicit.stat_2176571093", 
+				["text"] = "# to Level of Socketed Projectile Gems", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["113_LocalIncreaseSocketedSupportGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Support Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -30191,25 +34360,26 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["940_DegenerationDamage"] = {
+		["6298_LightningDamageSpellSkills"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_967627487", 
-				["text"] = "#% increased Damage over Time", 
+				["id"] = "implicit.stat_3935031607", 
+				["text"] = "#% increased Lightning Damage with Spell Skills", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["130_SocketedChaosGemQuality"] = {
+		["1098_LocalColdDamageTwoHand"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Cold Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2062835769", 
-				["text"] = "#% to Quality of Socketed Chaos Gems", 
+				["id"] = "implicit.stat_1037193709", 
+				["text"] = "Adds # to # Cold Damage (Local)", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["2229_FrostbiteOnHitLevel"] = {
 			["specialCaseData"] = {
@@ -30220,15 +34390,15 @@ return {
 				["text"] = "Curse Enemies with Frostbite on Hit", 
 			}, 
 		}, 
-		["1649_PhysicalAddedAsFire"] = {
+		["984_ColdDamageOverTimeMultiplier"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_369494213", 
-				["text"] = "Gain #% of Physical Damage as Extra Fire Damage", 
+				["id"] = "implicit.stat_1950806024", 
+				["text"] = "#% to Cold Damage over Time Multiplier", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["6930_AddedManaRegenWithShield"] = {
 			["specialCaseData"] = {
@@ -30250,23 +34420,24 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["88_LocalIncreaseSocketedGemLevel"] = {
+		["1089_LocalFireDamage"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Fire Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2843100721", 
-				["text"] = "# to Level of Socketed Gems", 
+				["id"] = "implicit.stat_709508406", 
+				["text"] = "Adds # to # Fire Damage (Local)", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
-		["1596_BurnDamage"] = {
+		["958_SpellDamageWithShield"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1175385867", 
-				["text"] = "#% increased Burning Damage", 
+				["id"] = "implicit.stat_1766142294", 
+				["text"] = "#% increased Spell Damage while holding a Shield", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30319,13 +34490,13 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1302_MaximumManaIncreasePercent"] = {
+		["940_DegenerationDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2748665614", 
-				["text"] = "#% increased maximum Mana", 
+				["id"] = "implicit.stat_967627487", 
+				["text"] = "#% increased Damage over Time", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30359,15 +34530,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["6296_FlatLightningDamageTaken"] = {
+		["1174_CastSpeedWithStaff"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_465051235", 
-				["text"] = "# Lightning Damage taken from Hits", 
+				["id"] = "implicit.stat_2066542501", 
+				["text"] = "#% increased Cast Speed while wielding a Staff", 
 			}, 
-			["sign"] = "-", 
+			["sign"] = "", 
 		}, 
 		["1362_MaximumElementalResistanceImplicit"] = {
 			["specialCaseData"] = {
@@ -30379,13 +34550,13 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["8025_PurityOfFireReservation"] = {
+		["3247_AuraEffect"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3003688066", 
-				["text"] = "Purity of Fire has #% increased Mana Reservation Efficiency", 
+				["id"] = "implicit.stat_1880071428", 
+				["text"] = "#% increased effect of Non-Curse Auras from your Skills", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30409,14 +34580,15 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["3890_BleedingImmunity"] = {
+		["1296_LifeRegeneration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1901158930", 
-				["text"] = "Bleeding cannot be inflicted on you", 
+				["id"] = "implicit.stat_3325883026", 
+				["text"] = "Regenerate # Life per second", 
 			}, 
+			["sign"] = "", 
 		}, 
 		["30_HasXSockets"] = {
 			["specialCaseData"] = {
@@ -30427,13 +34599,13 @@ return {
 				["text"] = "Has 1 Socket", 
 			}, 
 		}, 
-		["2719_AttackAndCastSpeedWithOnslaught"] = {
+		["1745_ChanceToShock"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2320884914", 
-				["text"] = "#% increased Attack and Cast Speed during Onslaught", 
+				["id"] = "implicit.stat_1538773178", 
+				["text"] = "#% chance to Shock", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30477,13 +34649,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1296_LifeRegeneration"] = {
+		["1649_PhysicalAddedAsFire"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3325883026", 
-				["text"] = "Regenerate # Life per second", 
+				["id"] = "implicit.stat_369494213", 
+				["text"] = "Gain #% of Physical Damage as Extra Fire Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30517,13 +34689,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["3247_AuraEffect"] = {
+		["8300_SpellDamagePerMana"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1880071428", 
-				["text"] = "#% increased effect of Non-Curse Auras from your Skills", 
+				["id"] = "implicit.stat_3555662994", 
+				["text"] = "#% increased Spell Damage per 500 Maximum Mana", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30557,25 +34729,26 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["6298_LightningDamageSpellSkills"] = {
+		["1003_LocalPhysicalDamageTwoHanded"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Physical Damage", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3935031607", 
-				["text"] = "#% increased Lightning Damage with Spell Skills", 
+				["id"] = "implicit.stat_1940865751", 
+				["text"] = "Adds # to # Physical Damage (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1357_LightningResistance"] = {
+		["8026_PurityOfFireReservationEfficiency"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1671376347", 
-				["text"] = "#% to Lightning Resistance", 
+				["id"] = "implicit.stat_3003688066", 
+				["text"] = "Purity of Fire has #% increased Mana Reservation Efficiency", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["1298_LifeRegenerationPercentPerEnduranceCharge"] = {
 			["specialCaseData"] = {
@@ -30597,35 +34770,36 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1291_IncreasedLife"] = {
+		["4963_ChaosDamageAttackSkills"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3299347043", 
-				["text"] = "# to maximum Life", 
+				["id"] = "implicit.stat_1959092146", 
+				["text"] = "#% increased Chaos Damage with Attack Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8025_PurityOfFireReservation"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3003688066", 
+				["text"] = "Purity of Fire has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["88_LocalIncreaseSocketedGemLevel"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Gems", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2843100721", 
+				["text"] = "# to Level of Socketed Gems", 
 			}, 
 			["sign"] = "+", 
-		}, 
-		["2781_VaalSkillDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2257141320", 
-				["text"] = "#% increased Damage with Vaal Skills", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1485_MinionLife"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_770672621", 
-				["text"] = "Minions have #% increased maximum Life", 
-			}, 
-			["sign"] = "", 
 		}, 
 		["3272_LightningPenetrationWeapon"] = {
 			["specialCaseData"] = {
@@ -30639,6 +34813,7 @@ return {
 		}, 
 		["96_LocalIncreaseSocketedChaosGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Chaos Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -30647,15 +34822,15 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1738_ChanceToIgnite"] = {
+		["130_SocketedChaosGemQuality"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1335054179", 
-				["text"] = "#% chance to Ignite", 
+				["id"] = "implicit.stat_2062835769", 
+				["text"] = "#% to Quality of Socketed Chaos Gems", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["1301_IncreasedMana"] = {
 			["specialCaseData"] = {
@@ -30677,33 +34852,34 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["5595_FasterPoisonDamage"] = {
+		["3440_LocalAttackReduceEnemyElementalResistance"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "Attacks with this Weapon Penetrate #% Elemental Resistances", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2907156609", 
-				["text"] = "Poisons you inflict deal Damage #% faster", 
+				["id"] = "implicit.stat_4064396395", 
+				["text"] = "Attacks with this Weapon Penetrate #% Elemental Resistances", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["3270_ColdPenetrationWeapon"] = {
+		["3687_CurseEffectElementalWeakness"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1211769158", 
-				["text"] = "Damage with Weapons Penetrates #% Cold Resistance", 
+				["id"] = "implicit.stat_3348324479", 
+				["text"] = "#% increased Elemental Weakness Curse Effect", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1072_WandIncreasedPhysicalDamage"] = {
+		["1658_FireAddedAsChaos"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2769075491", 
-				["text"] = "#% increased Physical Damage with Wands", 
+				["id"] = "implicit.stat_1599775597", 
+				["text"] = "Gain #% of Fire Damage as Extra Chaos Damage", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30757,13 +34933,13 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1060_BowIncreasedPhysicalDamage"] = {
+		["5595_FasterPoisonDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_402920808", 
-				["text"] = "#% increased Physical Damage with Bows", 
+				["id"] = "implicit.stat_2907156609", 
+				["text"] = "Poisons you inflict deal Damage #% faster", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30777,23 +34953,22 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1399_LightningDamageLifeLeechPermyriad"] = {
+		["2228_FlammabilityOnHitLevel"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_80079005", 
-				["text"] = "#% of Lightning Damage Leeched as Life", 
+				["id"] = "implicit.stat_338121249", 
+				["text"] = "Curse Enemies with Flammability on Hit", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1658_FireAddedAsChaos"] = {
+		["6914_RecoverManaPercentOnBlock"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1599775597", 
-				["text"] = "Gain #% of Fire Damage as Extra Chaos Damage", 
+				["id"] = "implicit.stat_3041288981", 
+				["text"] = "Recover #% of your maximum Mana when you Block", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30817,15 +34992,15 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["2156_AdditionalBlock"] = {
+		["1738_ChanceToIgnite"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2530372417", 
-				["text"] = "#% Chance to Block Attack Damage", 
+				["id"] = "implicit.stat_1335054179", 
+				["text"] = "#% chance to Ignite", 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["1095_GlobalAddedColdDamage"] = {
 			["specialCaseData"] = {
@@ -30837,25 +35012,27 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1158_IncreasedAccuracy"] = {
+		["1263_LocalPhysicalDamageReductionRating"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Armour", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_803737631", 
-				["text"] = "# to Accuracy Rating", 
+				["id"] = "implicit.stat_3484657501", 
+				["text"] = "# to Armour (Local)", 
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1745_ChanceToShock"] = {
+		["1271_LocalEvasionRating"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Evasion Rating", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1538773178", 
-				["text"] = "#% chance to Shock", 
+				["id"] = "implicit.stat_53045048", 
+				["text"] = "# to Evasion Rating (Local)", 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["2223_CurseOnHitLevelElementalWeakness"] = {
 			["specialCaseData"] = {
@@ -30885,33 +35062,35 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["959_SpellDamageWithDualWield"] = {
+		["8225_BrandAttachmentRange"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1678690824", 
-				["text"] = "#% increased Spell Damage while Dual Wielding", 
+				["id"] = "implicit.stat_4223377453", 
+				["text"] = "#% increased Brand Attachment range", 
 			}, 
 			["sign"] = "", 
 		}, 
 		["1265_LocalPhysicalDamageReductionRatingPercent"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Armour", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2866361420", 
-				["text"] = "#% increased Armour", 
+				["id"] = "implicit.stat_1062208444", 
+				["text"] = "#% increased Armour (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["949_DamageWhileLeechingMana"] = {
+		["1282_LocalEnergyShieldPercent"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Energy Shield", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1994684426", 
-				["text"] = "#% increased Damage while Leeching Mana", 
+				["id"] = "implicit.stat_4015621042", 
+				["text"] = "#% increased Energy Shield (Local)", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -33474,7 +37653,7 @@ return {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2089652545", 
+				["id"] = "implicit.stat_78985352", 
 				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
 			}, 
 			["Gloves"] = {
@@ -43305,6 +47484,25 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
+		["1188_LocalCriticalStrikeChance"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2375316951", 
+				["text"] = "#% increased Critical Strike Chance", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Critical Strike Chance", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 18, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 18, 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1783_AddedPhysicalDamageToBowAttacksCorrupted"] = {
 			["specialCaseData"] = {
 			}, 
@@ -43679,6 +47877,25 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
+		["1116_LocalChaosDamage"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2223678961", 
+				["text"] = "Adds # to # Chaos Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Chaos Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 17, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 17, 
+			}, 
+		}, 
 		["1563_ChanceToAvoidFreezeAndChill"] = {
 			["specialCaseData"] = {
 			}, 
@@ -43935,6 +48152,70 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
+		["1567_AvoidShock"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1871765599", 
+				["text"] = "#% chance to Avoid being Shocked", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 20, 
+				["max"] = 25, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 20, 
+				["max"] = 25, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 20, 
+				["max"] = 25, 
+			}, 
+		}, 
+		["1592_ReducedShockDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_99927264", 
+				["text"] = "#% reduced Shock Duration on you", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2785_ChaosDamagePerCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4004011170", 
+				["text"] = "#% increased Chaos Damage for each Corrupted Item Equipped", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1184_CriticalStrikeChance"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_587431675", 
+				["text"] = "#% increased Global Critical Strike Chance", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 8, 
+				["max"] = 10, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 8, 
+				["max"] = 10, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 8, 
+				["max"] = 10, 
+			}, 
+		}, 
 		["1235_ReducedExtraDamageFromCrits"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -43953,6 +48234,16 @@ return {
 				["max"] = 30, 
 			}, 
 		}, 
+		["2786_LifeLeechRatePerCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3815042054", 
+				["text"] = "#% increased total Recovery per second from Life Leech for each Corrupted Item Equipped", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["99_IncreaseSocketedDurationGemLevel"] = {
 			["specialCaseData"] = {
 			}, 
@@ -43962,6 +48253,27 @@ return {
 				["text"] = "# to Level of Socketed Duration Gems", 
 			}, 
 			["sign"] = "+", 
+		}, 
+		["8679_YouCannotBeHindered"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_721014846", 
+				["text"] = "You cannot be Hindered", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["BaseJewel"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 		}, 
 		["1533_IncreasedMaximumPowerCharges"] = {
 			["tradeMod"] = {
@@ -43980,6 +48292,28 @@ return {
 				["max"] = 1, 
 			}, 
 			["sign"] = "+", 
+		}, 
+		["1570_AvoidStun"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4262448838", 
+				["text"] = "#% chance to Avoid being Stunned", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 20, 
+				["max"] = 25, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 20, 
+				["max"] = 25, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 20, 
+				["max"] = 25, 
+			}, 
 		}, 
 		["8194_ShockEffect"] = {
 			["specialCaseData"] = {
@@ -44066,27 +48400,37 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
-		["1567_AvoidShock"] = {
+		["1937_ReservationEfficiencyForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1871765599", 
-				["text"] = "#% chance to Avoid being Shocked", 
+				["id"] = "implicit.stat_2587176568", 
+				["text"] = "#% increased Reservation Efficiency of Skills", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
+				["min"] = 2, 
+				["max"] = 2, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["BaseJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
+				["min"] = 2, 
+				["max"] = 2, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
+				["min"] = 2, 
+				["max"] = 2, 
 			}, 
+		}, 
+		["2781_VaalSkillDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2257141320", 
+				["text"] = "#% increased Damage with Vaal Skills", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["316_SupportedByProjectileSpeed"] = {
 			["specialCaseData"] = {
@@ -44142,38 +48486,54 @@ return {
 				["max"] = 95, 
 			}, 
 		}, 
-		["2226_CurseOnHitDespair"] = {
+		["5699_GainFrenzyChargeAfterSpending200Mana"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2764915899", 
-				["text"] = "Curse Enemies with Despair on Hit", 
+				["id"] = "implicit.stat_3868549606", 
+				["text"] = "Gain a Frenzy Charge after Spending a total of 200 Mana", 
 			}, 
-			["Gloves"] = {
+			["1HWeapon"] = {
 				["min"] = 1, 
 				["max"] = 1, 
 			}, 
 		}, 
-		["1592_ReducedShockDuration"] = {
-			["specialCaseData"] = {
-			}, 
+		["4413_AvoidMaimChance"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_99927264", 
-				["text"] = "#% reduced Shock Duration on you", 
+				["id"] = "implicit.stat_1126826428", 
+				["text"] = "You cannot be Maimed", 
 			}, 
-			["sign"] = "", 
+			["AbyssJewel"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["BaseJewel"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 		}, 
-		["2785_ChaosDamagePerCorruptedItem"] = {
+		["94_LocalIncreaseSocketedColdGemLevelCorrupted"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Cold Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_4004011170", 
-				["text"] = "#% increased Chaos Damage for each Corrupted Item Equipped", 
+				["id"] = "implicit.stat_1645459191", 
+				["text"] = "# to Level of Socketed Cold Gems", 
 			}, 
-			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
+			["sign"] = "+", 
 		}, 
 		["1517_MovementVelocity"] = {
 			["tradeMod"] = {
@@ -44193,43 +48553,35 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
-		["1184_CriticalStrikeChance"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_587431675", 
-				["text"] = "#% increased Global Critical Strike Chance", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 8, 
-				["max"] = 10, 
-			}, 
-		}, 
-		["2786_LifeLeechRatePerCorruptedItem"] = {
+		["1593_ReducedFreezeDuration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3815042054", 
-				["text"] = "#% increased total Recovery per second from Life Leech for each Corrupted Item Equipped", 
+				["id"] = "implicit.stat_2160282525", 
+				["text"] = "#% reduced Freeze Duration on you", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["2674_LightningResistancePenetration"] = {
+		["1114_ChaosDamage"] = {
+			["specialCaseData"] = {
+			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_818778753", 
-				["text"] = "Damage Penetrates #% Lightning Resistance", 
+				["id"] = "implicit.stat_674553446", 
+				["text"] = "Adds # to # Chaos Damage to Attacks", 
+			}, 
+			["Ring"] = {
+				["min"] = 1.5, 
+				["max"] = 11, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["4717_CorruptedBloodImmunity"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1658498488", 
+				["text"] = "Corrupted Blood cannot be inflicted on you", 
 			}, 
 			["AbyssJewel"] = {
 				["min"] = 1, 
@@ -44237,7 +48589,6 @@ return {
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
 			["BaseJewel"] = {
 				["min"] = 1, 
 				["max"] = 1, 
@@ -44260,48 +48611,36 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["1570_AvoidStun"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4262448838", 
-				["text"] = "#% chance to Avoid being Stunned", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
-			}, 
+		["1365_ChillEffectivenessOnSelf"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1478653032", 
+				["text"] = "#% reduced Effect of Chill on you", 
+			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
-			}, 
 		}, 
-		["1937_ReservationEfficiencyForJewel"] = {
+		["3891_ChanceToAvoidBleeding"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2587176568", 
-				["text"] = "#% increased Reservation Efficiency of Skills", 
+				["id"] = "implicit.stat_1618589784", 
+				["text"] = "#% chance to Avoid Bleeding", 
 			}, 
 			["AbyssJewel"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+				["min"] = 20, 
+				["max"] = 25, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["BaseJewel"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+				["min"] = 20, 
+				["max"] = 25, 
 			}, 
 			["AnyJewel"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+				["min"] = 20, 
+				["max"] = 25, 
 			}, 
 		}, 
 		["1399_LightningDamageLifeLeechPermyriad"] = {
@@ -44334,21 +48673,43 @@ return {
 				["max"] = 0.5, 
 			}, 
 		}, 
-		["2781_VaalSkillDamage"] = {
+		["1883_CurseEffectOnYouJewel"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2257141320", 
-				["text"] = "#% increased Damage with Vaal Skills", 
+				["id"] = "implicit.stat_3407849389", 
+				["text"] = "#% reduced Effect of Curses on you", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["4413_AvoidMaimChance"] = {
+		["1568_ChanceToAvoidPoison"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1126826428", 
-				["text"] = "You cannot be Maimed", 
+				["id"] = "implicit.stat_4053951709", 
+				["text"] = "#% chance to Avoid being Poisoned", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 20, 
+				["max"] = 25, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["BaseJewel"] = {
+				["min"] = 20, 
+				["max"] = 25, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 20, 
+				["max"] = 25, 
+			}, 
+		}, 
+		["2674_LightningResistancePenetration"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_818778753", 
+				["text"] = "Damage Penetrates #% Lightning Resistance", 
 			}, 
 			["AbyssJewel"] = {
 				["min"] = 1, 
@@ -44356,6 +48717,7 @@ return {
 			}, 
 			["specialCaseData"] = {
 			}, 
+			["sign"] = "", 
 			["BaseJewel"] = {
 				["min"] = 1, 
 				["max"] = 1, 
@@ -44363,20 +48725,6 @@ return {
 			["AnyJewel"] = {
 				["min"] = 1, 
 				["max"] = 1, 
-			}, 
-		}, 
-		["6254_LifeRegenerationWhileMoving"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2841027131", 
-				["text"] = "Regenerate # Life per second while moving", 
-			}, 
-			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 100, 
-				["max"] = 100, 
 			}, 
 		}, 
 		["311_SupportedByCastOnStun"] = {
@@ -44415,30 +48763,31 @@ return {
 				["max"] = 6, 
 			}, 
 		}, 
-		["8796_ResoluteTechnique"] = {
-			["specialCaseData"] = {
-			}, 
+		["1676_MonsterConvertPhysicalDamageToLightning"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3943945975", 
-				["text"] = "Resolute Technique", 
+				["id"] = "implicit.stat_3240769289", 
+				["text"] = "#% of Physical Damage Converted to Lightning Damage", 
 			}, 
+			["Quiver"] = {
+				["min"] = 10, 
+				["max"] = 20, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["min"] = 10, 
+				["max"] = 20, 
 			}, 
 		}, 
-		["1593_ReducedFreezeDuration"] = {
+		["2788_ManaLeechRatePerCorrupteditem"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2160282525", 
-				["text"] = "#% reduced Freeze Duration on you", 
+				["id"] = "implicit.stat_2679819855", 
+				["text"] = "#% increased total Recovery per second from Mana Leech for each Corrupted Item Equipped", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -44504,21 +48853,25 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1171_IncreasedCastSpeedFishing"] = {
+		["304_DisplaySocketedGemGetsElementalProliferation"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2891184298", 
-				["text"] = "#% increased Cast Speed", 
+				["id"] = "implicit.stat_2929101122", 
+				["text"] = "Socketed Gems are Supported by Level # Elemental Proliferation", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["4717_CorruptedBloodImmunity"] = {
+		["2672_FireResistancePenetration"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1658498488", 
-				["text"] = "Corrupted Blood cannot be inflicted on you", 
+				["id"] = "implicit.stat_2653955271", 
+				["text"] = "Damage Penetrates #% Fire Resistance", 
 			}, 
 			["AbyssJewel"] = {
 				["min"] = 1, 
@@ -44526,6 +48879,7 @@ return {
 			}, 
 			["specialCaseData"] = {
 			}, 
+			["sign"] = "", 
 			["BaseJewel"] = {
 				["min"] = 1, 
 				["max"] = 1, 
@@ -44557,15 +48911,24 @@ return {
 				["max"] = 2, 
 			}, 
 		}, 
-		["1365_ChillEffectivenessOnSelf"] = {
-			["specialCaseData"] = {
-			}, 
+		["961_LocalPhysicalDamagePercent"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1478653032", 
-				["text"] = "#% reduced Effect of Chill on you", 
+				["id"] = "implicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Physical Damage", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 20, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 20, 
+			}, 
 		}, 
 		["2782_DamageWhileDead"] = {
 			["specialCaseData"] = {
@@ -44591,37 +48954,29 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1883_CurseEffectOnYouJewel"] = {
+		["1940_ReducedReservationForJewel"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3407849389", 
-				["text"] = "#% reduced Effect of Curses on you", 
+				["id"] = "implicit.stat_2587176568", 
+				["text"] = "#% increased Reservation Efficiency of Skills", 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1568_ChanceToAvoidPoison"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4053951709", 
-				["text"] = "#% chance to Avoid being Poisoned", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
-			}, 
+		["325_SupportedByFortify"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_107118693", 
+				["text"] = "Socketed Gems are Supported by Level # Fortify", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 10, 
+			}, 
 			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
-			}, 
 		}, 
 		["8288_AdditionalCriticalStrikeChanceWithSpells"] = {
 			["specialCaseData"] = {
@@ -44685,6 +49040,7 @@ return {
 		}, 
 		["116_LocalSocketedWarcryGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Warcry Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -44693,156 +49049,19 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1507_AdditionalArrowChain"] = {
+		["5105_IncreasedCriticalStrikeUnderFlaskEffect"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1001077145", 
-				["text"] = "Arrows Chain # times", 
-			}, 
-			["sign"] = "+", 
-			["Quiver"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["2788_ManaLeechRatePerCorrupteditem"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2679819855", 
-				["text"] = "#% increased total Recovery per second from Mana Leech for each Corrupted Item Equipped", 
+				["id"] = "implicit.stat_2898434123", 
+				["text"] = "#% increased Critical Strike Chance during any Flask Effect", 
 			}, 
 			["sign"] = "", 
-		}, 
-		["1340_AllResistancesCorrupted"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2901986750", 
-				["text"] = "#% to all Elemental Resistances", 
-			}, 
-			["Ring"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Amulet"] = {
-				["min"] = 14, 
-				["max"] = 16, 
-			}, 
 			["Belt"] = {
-				["min"] = 14, 
-				["max"] = 16, 
+				["min"] = 35, 
+				["max"] = 40, 
 			}, 
-		}, 
-		["2672_FireResistancePenetration"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2653955271", 
-				["text"] = "Damage Penetrates #% Fire Resistance", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["323_SupportedByReducedMana"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1866911844", 
-				["text"] = "Socketed Gems are Supported by Level # Inspiration", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 10, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 10, 
-			}, 
-		}, 
-		["1940_ReducedReservationForJewel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2587176568", 
-				["text"] = "#% increased Reservation Efficiency of Skills", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["100_IncreasedSocketedAoEGemLevel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2551600084", 
-				["text"] = "# to Level of Socketed AoE Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["872_MonsterBlock"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2530372417", 
-				["text"] = "#% Chance to Block Attack Damage", 
-			}, 
-			["Amulet"] = {
-				["min"] = 4, 
-				["max"] = 5, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["8679_YouCannotBeHindered"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_721014846", 
-				["text"] = "You cannot be Hindered", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["BaseJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["101_LocalIncreaseSocketedProjectileLevelCorrupted"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2176571093", 
-				["text"] = "# to Level of Socketed Projectile Gems", 
-			}, 
-			["sign"] = "+", 
 		}, 
 		["1515_ProjectileSpeed"] = {
 			["specialCaseData"] = {
@@ -44892,6 +49111,25 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
+		["1109_LocalLightningDamage"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3336890334", 
+				["text"] = "Adds # to # Lightning Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Lightning Damage", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 58, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 41, 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1212_CriticalStrikeMultiplier"] = {
 			["specialCaseData"] = {
 			}, 
@@ -44906,76 +49144,80 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["3891_ChanceToAvoidBleeding"] = {
+		["323_SupportedByReducedMana"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1618589784", 
-				["text"] = "#% chance to Avoid Bleeding", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["BaseJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 20, 
-				["max"] = 25, 
-			}, 
-		}, 
-		["2139_EnemiesCantLifeLeech"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4293455942", 
-				["text"] = "Enemies Cannot Leech Life From you", 
-			}, 
-			["Helmet"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["1754_HitsCauseMonsterFlee"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3181974858", 
-				["text"] = "#% chance to Cause Monsters to Flee", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 5, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 5, 
-			}, 
-		}, 
-		["314_SupportedByAccuracy"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1567462963", 
-				["text"] = "Socketed Gems are supported by Level # Additional Accuracy", 
+				["id"] = "implicit.stat_1866911844", 
+				["text"] = "Socketed Gems are Supported by Level # Inspiration", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["1HWeapon"] = {
 				["min"] = 10, 
-				["max"] = 12, 
+				["max"] = 10, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 10, 
-				["max"] = 12, 
+				["max"] = 10, 
 			}, 
+		}, 
+		["2145_PhysicalDamageTakenAsFirePercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3342989455", 
+				["text"] = "#% of Physical Damage from Hits taken as Fire Damage", 
+			}, 
+			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+		}, 
+		["872_MonsterBlock"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2530372417", 
+				["text"] = "#% Chance to Block Attack Damage", 
+			}, 
+			["Amulet"] = {
+				["min"] = 4, 
+				["max"] = 5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["872_BlockPercent"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2530372417", 
+				["text"] = "#% Chance to Block Attack Damage", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["2HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+			["Amulet"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["101_LocalIncreaseSocketedProjectileLevelCorrupted"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Projectile Gems", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2176571093", 
+				["text"] = "# to Level of Socketed Projectile Gems", 
+			}, 
+			["sign"] = "+", 
 		}, 
 		["1674_ConvertPhysicalToCold"] = {
 			["tradeMod"] = {
@@ -44995,13 +49237,13 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["105_LocalIncreaseSocketedAuraLevelCorrupted"] = {
+		["100_IncreasedSocketedAoEGemLevel"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2452998583", 
-				["text"] = "# to Level of Socketed Aura Gems", 
+				["id"] = "implicit.stat_2551600084", 
+				["text"] = "# to Level of Socketed AoE Gems", 
 			}, 
 			["sign"] = "+", 
 		}, 
@@ -45025,6 +49267,119 @@ return {
 			["Belt"] = {
 				["min"] = 4, 
 				["max"] = 6, 
+			}, 
+		}, 
+		["2439_LocalMeleeWeaponRange"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_350598685", 
+				["text"] = "# to Weapon Range", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Weapon Range", 
+			}, 
+			["sign"] = "+", 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+		}, 
+		["93_LocalIncreaseSocketedFireGemLevelCorrupted"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Fire Gems", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_339179093", 
+				["text"] = "# to Level of Socketed Fire Gems", 
+			}, 
+			["Helmet"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["105_LocalIncreaseSocketedAuraLevelCorrupted"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Aura Gems", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2452998583", 
+				["text"] = "# to Level of Socketed Aura Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["314_SupportedByAccuracy"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1567462963", 
+				["text"] = "Socketed Gems are supported by Level # Additional Accuracy", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 12, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 12, 
+			}, 
+		}, 
+		["144_DisplaySocketedGemGetsIncreasedAreaOfEffectLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3720936304", 
+				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["876_ChanceToSuppressSpellsOld"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3680664274", 
+				["text"] = "#% chance to Suppress Spell Damage", 
+			}, 
+			["sign"] = "+", 
+			["Boots"] = {
+				["min"] = 3, 
+				["max"] = 6, 
+			}, 
+		}, 
+		["1318_IncreasedItemRarity"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3917489142", 
+				["text"] = "#% increased Rarity of Items found", 
+			}, 
+			["Ring"] = {
+				["min"] = 20, 
+				["max"] = 30, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 20, 
+				["max"] = 30, 
+			}, 
+			["Belt"] = {
+				["min"] = 20, 
+				["max"] = 30, 
 			}, 
 		}, 
 		["1390_FireDamageLifeLeechPermyriad"] = {
@@ -45071,23 +49426,27 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
-		["872_BlockPercent"] = {
+		["1340_AllResistancesCorrupted"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2530372417", 
-				["text"] = "#% Chance to Block Attack Damage", 
+				["id"] = "implicit.stat_2901986750", 
+				["text"] = "#% to all Elemental Resistances", 
+			}, 
+			["Ring"] = {
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["2HWeapon"] = {
-				["min"] = 2, 
-				["max"] = 4, 
-			}, 
+			["sign"] = "+", 
 			["Amulet"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+				["min"] = 14, 
+				["max"] = 16, 
 			}, 
-			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 14, 
+				["max"] = 16, 
+			}, 
 		}, 
 		["1672_ConvertPhysicalToFire"] = {
 			["tradeMod"] = {
@@ -45107,32 +49466,36 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["144_DisplaySocketedGemGetsIncreasedAreaOfEffectLevel"] = {
-			["specialCaseData"] = {
-			}, 
+		["2189_ChanceToBleedOnHitAndIncreasedDamageToBleedingTargets"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3720936304", 
-				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect", 
+				["id"] = "implicit.stat_3944782785", 
+				["text"] = "#% increased Attack Damage against Bleeding Enemies", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 30, 
+				["max"] = 40, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 30, 
+				["max"] = 40, 
+			}, 
 		}, 
-		["876_ChanceToSuppressSpellsOld"] = {
+		["2146_PhysicalDamageTakenAsCold"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3680664274", 
-				["text"] = "#% chance to Suppress Spell Damage", 
+				["id"] = "implicit.stat_1871056256", 
+				["text"] = "#% of Physical Damage from Hits taken as Cold Damage", 
 			}, 
-			["sign"] = "+", 
-			["Boots"] = {
-				["min"] = 3, 
-				["max"] = 6, 
+			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 		}, 
 		["1528_MaximumFrenzyCharges"] = {
@@ -45171,26 +49534,18 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1318_IncreasedItemRarity"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3917489142", 
-				["text"] = "#% increased Rarity of Items found", 
-			}, 
-			["Ring"] = {
-				["min"] = 20, 
-				["max"] = 30, 
-			}, 
+		["6254_LifeRegenerationWhileMoving"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 20, 
-				["max"] = 30, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2841027131", 
+				["text"] = "Regenerate # Life per second while moving", 
 			}, 
-			["Belt"] = {
-				["min"] = 20, 
-				["max"] = 30, 
+			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 100, 
+				["max"] = 100, 
 			}, 
 		}, 
 		["2543_FishingRarity"] = {
@@ -45224,54 +49579,68 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["94_LocalIncreaseSocketedColdGemLevelCorrupted"] = {
-			["specialCaseData"] = {
-			}, 
+		["1754_HitsCauseMonsterFlee"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1645459191", 
-				["text"] = "# to Level of Socketed Cold Gems", 
-			}, 
-			["Helmet"] = {
-				["min"] = 2, 
-				["max"] = 2, 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["8329_DodgeSpellHitsWhileMoving"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2907896585", 
-				["text"] = "#% chance to Suppress Spell Damage while moving", 
-			}, 
-			["sign"] = "+", 
-			["Boots"] = {
-				["min"] = 6, 
-				["max"] = 10, 
-			}, 
-		}, 
-		["1361_ChaosResistance"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2923486259", 
-				["text"] = "#% to Chaos Resistance", 
+				["id"] = "implicit.stat_3181974858", 
+				["text"] = "#% chance to Cause Monsters to Flee", 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 			["1HWeapon"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+				["min"] = 5, 
+				["max"] = 5, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+				["min"] = 5, 
+				["max"] = 5, 
+			}, 
+		}, 
+		["1171_IncreasedCastSpeedFishing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2891184298", 
+				["text"] = "#% increased Cast Speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["112_LocalIncreaseSocketedVaalGemLevel"] = {
+			["Gloves"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1170386874", 
+				["text"] = "# to Level of Socketed Vaal Gems", 
+			}, 
+			["Shield"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Vaal Gems", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["Boots"] = {
+				["min"] = 1, 
+				["max"] = 2, 
 			}, 
 		}, 
 		["108_LocalIncreaseSocketedCurseLevelCorrupted"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Curse Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -45333,37 +49702,41 @@ return {
 				["max"] = 36, 
 			}, 
 		}, 
-		["2189_ChanceToBleedOnHitAndIncreasedDamageToBleedingTargets"] = {
+		["3048_IncreasedAuraEffectWrathCorrupted"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3944782785", 
-				["text"] = "#% increased Attack Damage against Bleeding Enemies", 
+				["id"] = "implicit.stat_2181791238", 
+				["text"] = "Wrath has #% increased Aura Effect", 
+			}, 
+			["Ring"] = {
+				["min"] = 15, 
+				["max"] = 20, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 30, 
-				["max"] = 40, 
+			["Amulet"] = {
+				["min"] = 15, 
+				["max"] = 20, 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 30, 
-				["max"] = 40, 
+			["Belt"] = {
+				["min"] = 15, 
+				["max"] = 20, 
 			}, 
 		}, 
-		["2146_PhysicalDamageTakenAsCold"] = {
+		["3073_LightningDamageTaken"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1871056256", 
-				["text"] = "#% of Physical Damage from Hits taken as Cold Damage", 
+				["id"] = "implicit.stat_1276918229", 
+				["text"] = "#% reduced Lightning Damage taken", 
+			}, 
+			["Chest"] = {
+				["min"] = 4, 
+				["max"] = 6, 
 			}, 
 			["sign"] = "", 
-			["Shield"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
 		}, 
 		["891_SpellBlockPercentage"] = {
 			["tradeMod"] = {
@@ -45409,17 +49782,18 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["1114_ChaosDamage"] = {
+		["1881_AdditionalCurseOnEnemies"] = {
 			["specialCaseData"] = {
+				["overrideModLineSingular"] = "You can apply an additional Curse", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_674553446", 
-				["text"] = "Adds # to # Chaos Damage to Attacks", 
+				["id"] = "implicit.stat_30642521", 
+				["text"] = "You can apply # additional Curses", 
 			}, 
-			["Ring"] = {
-				["min"] = 1.5, 
-				["max"] = 11, 
+			["Amulet"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -45437,19 +49811,19 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
-		["325_SupportedByFortify"] = {
+		["1507_AdditionalArrowChain"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_107118693", 
-				["text"] = "Socketed Gems are Supported by Level # Fortify", 
+				["id"] = "implicit.stat_1001077145", 
+				["text"] = "Arrows Chain # times", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 10, 
+			["sign"] = "+", 
+			["Quiver"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
 		}, 
 		["1362_MaximumResistances"] = {
 			["tradeMod"] = {
@@ -45469,54 +49843,55 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["3048_IncreasedAuraEffectWrathCorrupted"] = {
+		["1089_LocalFireDamage"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2181791238", 
-				["text"] = "Wrath has #% increased Aura Effect", 
+				["id"] = "implicit.stat_709508406", 
+				["text"] = "Adds # to # Fire Damage (Local)", 
 			}, 
-			["Ring"] = {
-				["min"] = 15, 
-				["max"] = 20, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Fire Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 11.5, 
+				["max"] = 38, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 11.5, 
+				["max"] = 50, 
+			}, 
+		}, 
+		["309_SupportedByMeleeSplash"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1811422871", 
+				["text"] = "Socketed Gems are supported by Level # Melee Splash", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 10, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["886_BlockingBlocksSpells"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_561307714", 
+				["text"] = "#% Chance to Block Spell Damage", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["Amulet"] = {
-				["min"] = 15, 
-				["max"] = 20, 
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
-			["Belt"] = {
-				["min"] = 15, 
-				["max"] = 20, 
-			}, 
-		}, 
-		["3073_LightningDamageTaken"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1276918229", 
-				["text"] = "#% reduced Lightning Damage taken", 
-			}, 
-			["Chest"] = {
-				["min"] = 4, 
-				["max"] = 6, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["5105_IncreasedCriticalStrikeUnderFlaskEffect"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2898434123", 
-				["text"] = "#% increased Critical Strike Chance during any Flask Effect", 
-			}, 
-			["sign"] = "", 
-			["Belt"] = {
-				["min"] = 35, 
-				["max"] = 40, 
+			["Shield"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 		}, 
 		["1599_AreaOfEffect"] = {
@@ -45553,19 +49928,18 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
-		["309_SupportedByMeleeSplash"] = {
+		["1511_AdditionalProjectilesCorrupted"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1811422871", 
-				["text"] = "Socketed Gems are supported by Level # Melee Splash", 
+				["id"] = "implicit.stat_74338099", 
+				["text"] = "Skills fire an additional Projectile", 
 			}, 
 			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 10, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
 		}, 
 		["5825_AddedEvasionWhileMovingCorrupted"] = {
 			["specialCaseData"] = {
@@ -45622,15 +49996,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1558_CannotBeIgnited"] = {
+		["2226_CurseOnHitDespair"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_331731406", 
-				["text"] = "Cannot be Ignited", 
+				["id"] = "implicit.stat_2764915899", 
+				["text"] = "Curse Enemies with Despair on Hit", 
 			}, 
-			["Ring"] = {
+			["Gloves"] = {
 				["min"] = 1, 
 				["max"] = 1, 
 			}, 
@@ -45663,15 +50037,15 @@ return {
 				["max"] = 12, 
 			}, 
 		}, 
-		["1511_AdditionalProjectilesCorrupted"] = {
+		["2139_EnemiesCantLifeLeech"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_74338099", 
-				["text"] = "Skills fire an additional Projectile", 
+				["id"] = "implicit.stat_4293455942", 
+				["text"] = "Enemies Cannot Leech Life From you", 
 			}, 
-			["1HWeapon"] = {
+			["Helmet"] = {
 				["min"] = 1, 
 				["max"] = 1, 
 			}, 
@@ -45703,22 +50077,22 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["200_SocketedGemsSupportedByLifetap"] = {
+		["310_SupportedByCastOnCrit"] = {
+			["Gloves"] = {
+				["min"] = 12, 
+				["max"] = 12, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1079239905", 
-				["text"] = "Socketed Gems are Supported by Level # Lifetap", 
+				["id"] = "implicit.stat_2325632050", 
+				["text"] = "Socketed Gems are supported by Level # Cast On Critical Strike", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Helmet"] = {
+				["min"] = 12, 
+				["max"] = 12, 
 			}, 
 		}, 
 		["2153_PercentDamageGoesToMana"] = {
@@ -45757,38 +50131,22 @@ return {
 				["max"] = 12, 
 			}, 
 		}, 
-		["1171_IncreasedCastSpeed"] = {
-			["Gloves"] = {
-				["min"] = 4, 
-				["max"] = 10, 
+		["1558_CannotBeIgnited"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2891184298", 
-				["text"] = "#% increased Cast Speed", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["id"] = "implicit.stat_331731406", 
+				["text"] = "Cannot be Ignited", 
 			}, 
 			["Ring"] = {
-				["min"] = 4, 
-				["max"] = 10, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 12, 
-				["max"] = 15, 
-			}, 
-			["Shield"] = {
-				["min"] = 4, 
-				["max"] = 6, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["104_LocalIncreaseSocketedMinionGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Minion Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -45797,19 +50155,19 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["320_SupportedByFork"] = {
+		["4291_AdditionalCriticalStrikeChanceWithAttacks"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2062753054", 
-				["text"] = "Socketed Gems are supported by Level # Fork", 
+				["id"] = "implicit.stat_2572042788", 
+				["text"] = "Attacks have #% to Critical Strike Chance", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Gloves"] = {
+				["min"] = 0.5, 
+				["max"] = 0.8, 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["1395_ColdDamageLifeLeechPermyriad"] = {
 			["Helmet"] = {
@@ -45871,18 +50229,18 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["1793_AddedFireDamageToBowAttacksCorrupted"] = {
+		["8329_DodgeSpellHitsWhileMoving"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3120164895", 
-				["text"] = "# to # Added Fire Damage with Bow Attacks", 
+				["id"] = "implicit.stat_2907896585", 
+				["text"] = "#% chance to Suppress Spell Damage while moving", 
 			}, 
-			["sign"] = "", 
-			["Quiver"] = {
-				["min"] = 16, 
-				["max"] = 54, 
+			["sign"] = "+", 
+			["Boots"] = {
+				["min"] = 6, 
+				["max"] = 10, 
 			}, 
 		}, 
 		["1614_SkillEffectDuration"] = {
@@ -45912,19 +50270,19 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["93_LocalIncreaseSocketedFireGemLevelCorrupted"] = {
+		["1793_AddedFireDamageToBowAttacksCorrupted"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_339179093", 
-				["text"] = "# to Level of Socketed Fire Gems", 
+				["id"] = "implicit.stat_3120164895", 
+				["text"] = "# to # Added Fire Damage with Bow Attacks", 
 			}, 
-			["Helmet"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+			["sign"] = "", 
+			["Quiver"] = {
+				["min"] = 16, 
+				["max"] = 54, 
 			}, 
-			["sign"] = "+", 
 		}, 
 		["3062_UnholyMightOnKillPercentChance"] = {
 			["specialCaseData"] = {
@@ -45940,35 +50298,49 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2220_CurseOnHitLevelTemporalChains"] = {
+		["1956_IncreasedShieldBlockPercentage"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+#% Chance to Block", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3433724931", 
-				["text"] = "Curse Enemies with Temporal Chains on Hit", 
-			}, 
-			["Gloves"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["1523_MaximumEnduranceCharges"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1515657623", 
-				["text"] = "# to Maximum Endurance Charges", 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "implicit.stat_4253454700", 
+				["text"] = "#% Chance to Block (Shields)", 
 			}, 
 			["sign"] = "+", 
-			["Belt"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Shield"] = {
+				["min"] = 4, 
+				["max"] = 5, 
 			}, 
-			["Boots"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+		}, 
+		["1171_IncreasedCastSpeed"] = {
+			["Gloves"] = {
+				["min"] = 4, 
+				["max"] = 10, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2891184298", 
+				["text"] = "#% increased Cast Speed", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
+			["Ring"] = {
+				["min"] = 4, 
+				["max"] = 10, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 12, 
+				["max"] = 15, 
+			}, 
+			["Shield"] = {
+				["min"] = 4, 
+				["max"] = 6, 
 			}, 
 		}, 
 		["4752_CastSpeedDuringFlaskEffect"] = {
@@ -45985,35 +50357,36 @@ return {
 				["max"] = 12, 
 			}, 
 		}, 
-		["5699_GainFrenzyChargeAfterSpending200Mana"] = {
+		["3987_PhysicalDamageReductionWhileNotMoving"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3868549606", 
-				["text"] = "Gain a Frenzy Charge after Spending a total of 200 Mana", 
+				["id"] = "implicit.stat_2181129193", 
+				["text"] = "#% additional Physical Damage Reduction while stationary", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Chest"] = {
+				["min"] = 3, 
+				["max"] = 5, 
 			}, 
+			["sign"] = "", 
 		}, 
-		["886_BlockingBlocksSpells"] = {
+		["300_DisplaySocketedGemsGetAddedFireDamage"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_561307714", 
-				["text"] = "#% Chance to Block Spell Damage", 
+				["id"] = "implicit.stat_2572192375", 
+				["text"] = "Socketed Gems are Supported by Level # Added Fire Damage", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+			["1HWeapon"] = {
+				["min"] = 12, 
+				["max"] = 12, 
 			}, 
-			["Shield"] = {
-				["min"] = 6, 
-				["max"] = 8, 
+			["2HWeapon"] = {
+				["min"] = 12, 
+				["max"] = 12, 
 			}, 
 		}, 
 		["1567_ReducedShockChance"] = {
@@ -46085,6 +50458,7 @@ return {
 				["max"] = 1, 
 			}, 
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Gems", 
 			}, 
 			["sign"] = "+", 
 			["Chest"] = {
@@ -46096,20 +50470,23 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["1881_AdditionalCurseOnEnemies"] = {
-			["specialCaseData"] = {
-				["overrideModLineSingular"] = "You can apply an additional Curse", 
-			}, 
+		["200_SocketedGemsSupportedByLifetap"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_30642521", 
-				["text"] = "You can apply # additional Curses", 
+				["id"] = "implicit.stat_1079239905", 
+				["text"] = "Socketed Gems are Supported by Level # Lifetap", 
 			}, 
-			["Amulet"] = {
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
 				["min"] = 1, 
 				["max"] = 1, 
 			}, 
-			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 		}, 
 		["915_IncreasedIntelligenceDexterityCorrupted"] = {
 			["tradeMod"] = {
@@ -46133,54 +50510,59 @@ return {
 				["max"] = 6, 
 			}, 
 		}, 
-		["300_DisplaySocketedGemsGetAddedFireDamage"] = {
+		["1523_MaximumEnduranceCharges"] = {
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_2572192375", 
-				["text"] = "Socketed Gems are Supported by Level # Added Fire Damage", 
+				["id"] = "implicit.stat_1515657623", 
+				["text"] = "# to Maximum Endurance Charges", 
 			}, 
 			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 12, 
-				["max"] = 12, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 12, 
-				["max"] = 12, 
-			}, 
-		}, 
-		["1676_MonsterConvertPhysicalDamageToLightning"] = {
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3240769289", 
-				["text"] = "#% of Physical Damage Converted to Lightning Damage", 
-			}, 
-			["Quiver"] = {
-				["min"] = 10, 
-				["max"] = 20, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 20, 
-			}, 
-		}, 
-		["1703_MaximumBlockChance"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4124805414", 
-				["text"] = "#% to maximum Chance to Block Attack Damage", 
 			}, 
 			["sign"] = "+", 
-			["Shield"] = {
+			["Belt"] = {
 				["min"] = 1, 
 				["max"] = 1, 
+			}, 
+			["Boots"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+		}, 
+		["1361_ChaosResistance"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2923486259", 
+				["text"] = "#% to Chaos Resistance", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["1HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 4, 
+			}, 
+		}, 
+		["1139_LocalIncreasedAttackSpeed"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_210067635", 
+				["text"] = "#% increased Attack Speed (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "#% increased Attack Speed", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 3, 
+				["max"] = 7, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 3, 
+				["max"] = 7, 
 			}, 
 		}, 
 		["2221_CurseOnHitLevelVulnerability"] = {
@@ -46214,34 +50596,17 @@ return {
 				["max"] = 9, 
 			}, 
 		}, 
-		["112_LocalIncreaseSocketedVaalGemLevel"] = {
-			["Gloves"] = {
-				["min"] = 1, 
-				["max"] = 2, 
+		["2220_CurseOnHitLevelTemporalChains"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_1170386874", 
-				["text"] = "# to Level of Socketed Vaal Gems", 
+				["id"] = "implicit.stat_3433724931", 
+				["text"] = "Curse Enemies with Temporal Chains on Hit", 
 			}, 
-			["Shield"] = {
+			["Gloves"] = {
 				["min"] = 1, 
-				["max"] = 2, 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 2, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Helmet"] = {
-				["min"] = 1, 
-				["max"] = 2, 
-			}, 
-			["Boots"] = {
-				["min"] = 1, 
-				["max"] = 2, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["2683_ChanceToGainOnslaughtOnKill"] = {
@@ -46255,6 +50620,81 @@ return {
 			["1HWeapon"] = {
 				["min"] = 10, 
 				["max"] = 15, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1098_LocalColdDamage"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1037193709", 
+				["text"] = "Adds # to # Cold Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Cold Damage", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 9.5, 
+				["max"] = 43.5, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 9.5, 
+				["max"] = 31.5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1703_MaximumBlockChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4124805414", 
+				["text"] = "#% to maximum Chance to Block Attack Damage", 
+			}, 
+			["sign"] = "+", 
+			["Shield"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+		}, 
+		["320_SupportedByFork"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2062753054", 
+				["text"] = "Socketed Gems are supported by Level # Fork", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["328_DisplaySocketedGemsGetFasterCast"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2169938251", 
+				["text"] = "Socketed Gems are Supported by Level # Faster Casting", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 10, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["319_SupportedByCriticalMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1108755349", 
+				["text"] = "Socketed Gems are supported by Level # Increased Critical Damage", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 14, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -46285,80 +50725,6 @@ return {
 				["min"] = 35, 
 				["max"] = 322, 
 			}, 
-		}, 
-		["3987_PhysicalDamageReductionWhileNotMoving"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2181129193", 
-				["text"] = "#% additional Physical Damage Reduction while stationary", 
-			}, 
-			["Chest"] = {
-				["min"] = 3, 
-				["max"] = 5, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["319_SupportedByCriticalMultiplier"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1108755349", 
-				["text"] = "Socketed Gems are supported by Level # Increased Critical Damage", 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 14, 
-				["max"] = 14, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["304_DisplaySocketedGemGetsElementalProliferation"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2929101122", 
-				["text"] = "Socketed Gems are Supported by Level # Elemental Proliferation", 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["310_SupportedByCastOnCrit"] = {
-			["Gloves"] = {
-				["min"] = 12, 
-				["max"] = 12, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2325632050", 
-				["text"] = "Socketed Gems are supported by Level # Cast On Critical Strike", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Helmet"] = {
-				["min"] = 12, 
-				["max"] = 12, 
-			}, 
-		}, 
-		["4291_AdditionalCriticalStrikeChanceWithAttacks"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2572042788", 
-				["text"] = "Attacks have #% to Critical Strike Chance", 
-			}, 
-			["Gloves"] = {
-				["min"] = 0.5, 
-				["max"] = 0.8, 
-			}, 
-			["sign"] = "+", 
 		}, 
 		["1283_MaximumEnergyShieldPercent"] = {
 			["specialCaseData"] = {
@@ -46469,6 +50835,7 @@ return {
 		}, 
 		["95_LocalIncreaseSocketedLightningGemLevelCorrupted"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Lightning Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -46505,33 +50872,41 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["2145_PhysicalDamageTakenAsFirePercent"] = {
+		["8796_ResoluteTechnique"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
-				["id"] = "implicit.stat_3342989455", 
-				["text"] = "#% of Physical Damage from Hits taken as Fire Damage", 
-			}, 
-			["sign"] = "", 
-			["Shield"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-		}, 
-		["328_DisplaySocketedGemsGetFasterCast"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2169938251", 
-				["text"] = "Socketed Gems are Supported by Level # Faster Casting", 
+				["id"] = "implicit.stat_3943945975", 
+				["text"] = "Resolute Technique", 
 			}, 
 			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 10, 
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+		}, 
+		["1003_LocalPhysicalDamage"] = {
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1940865751", 
+				["text"] = "Adds # to # Physical Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Physical Damage", 
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 1.5, 
+				["max"] = 9.5, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1.5, 
+				["max"] = 11, 
+			}, 
 		}, 
 	}, 
 	["Scourge"] = {
@@ -47128,6 +51503,7 @@ return {
 		}, 
 		["103_LocalIncreaseSocketedMeleeGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Melee Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -47168,21 +51544,31 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1751_CullingStrike"] = {
-			["specialCaseData"] = {
+		["1263_LocalPhysicalDamageReductionRating"] = {
+			["Gloves"] = {
+				["min"] = 30, 
+				["max"] = 150, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_2524254339", 
-				["text"] = "Culling Strike", 
+				["id"] = "scourge.stat_3484657501", 
+				["text"] = "# to Armour (Local)", 
 			}, 
-			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Chest"] = {
+				["min"] = 30, 
+				["max"] = 150, 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Armour", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 30, 
+				["max"] = 150, 
+			}, 
+			["Boots"] = {
+				["min"] = 30, 
+				["max"] = 150, 
 			}, 
 		}, 
 		["1136_IncreasedAttackSpeed"] = {
@@ -47235,23 +51621,19 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["984_ColdDamageOverTimeMultiplier"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_1950806024", 
-				["text"] = "#% to Cold Damage over Time Multiplier", 
-			}, 
+		["1399_LightningDamageLifeLeechPermyriad"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "+", 
-			["1HWeapon"] = {
-				["min"] = 11, 
-				["max"] = 16, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_80079005", 
+				["text"] = "#% of Lightning Damage Leeched as Life", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 16, 
-				["max"] = 24, 
+			["Amulet"] = {
+				["min"] = 0.2, 
+				["max"] = 0.5, 
 			}, 
+			["sign"] = "", 
 		}, 
 		["4979_ChanceToChillAttackersOnBlock"] = {
 			["specialCaseData"] = {
@@ -47358,6 +51740,7 @@ return {
 		}, 
 		["93_LocalIncreaseSocketedFireGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Fire Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -47405,17 +51788,36 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["2521_OnslaughtWhenHitForDuration"] = {
+		["1109_LocalLightningDamage"] = {
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_3336890334", 
+				["text"] = "Adds # to # Lightning Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Lightning Damage", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 30.5, 
+				["max"] = 113, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 20.5, 
+				["max"] = 59.5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["914_PercentageStrength"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_2764164760", 
-				["text"] = "You gain Onslaught for # seconds when Hit", 
+				["id"] = "scourge.stat_734614379", 
+				["text"] = "#% increased Strength", 
 			}, 
-			["Chest"] = {
-				["min"] = 2, 
-				["max"] = 4, 
+			["Amulet"] = {
+				["min"] = 4, 
+				["max"] = 7, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -47490,33 +51892,36 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["2859_PoisonOnHit"] = {
-			["specialCaseData"] = {
-			}, 
+		["2483_TotemPhysicalDamageReduction"] = {
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_795138349", 
-				["text"] = "#% chance to Poison on Hit", 
+				["id"] = "scourge.stat_3616562963", 
+				["text"] = "Totems have #% additional Physical Damage Reduction", 
 			}, 
-			["Gloves"] = {
-				["min"] = 12, 
-				["max"] = 20, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 11, 
+				["max"] = 25, 
+			}, 
+			["Boots"] = {
+				["min"] = 11, 
+				["max"] = 25, 
+			}, 
 		}, 
-		["971_GlobalDamageOverTimeMultiplier"] = {
+		["8792_VersatileCombatant"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_3988349707", 
-				["text"] = "#% to Damage over Time Multiplier", 
+				["id"] = "scourge.stat_593845252", 
+				["text"] = "Versatile Combatant", 
 			}, 
-			["Amulet"] = {
-				["min"] = 8, 
-				["max"] = 16, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "+", 
 		}, 
 		["1645_MineLayingSpeed"] = {
 			["specialCaseData"] = {
@@ -47629,18 +52034,30 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["1873_MaximumZombieCount"] = {
-			["specialCaseData"] = {
+		["1369_LifeLeechPermyriad"] = {
+			["Gloves"] = {
+				["min"] = 0.2, 
+				["max"] = 0.5, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_1652515349", 
-				["text"] = "# to maximum number of Raised Zombies", 
+				["id"] = "scourge.stat_3593843976", 
+				["text"] = "#% of Physical Attack Damage Leeched as Life", 
 			}, 
-			["sign"] = "+", 
-			["Boots"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Quiver"] = {
+				["min"] = 0.2, 
+				["max"] = 0.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 0.2, 
+				["max"] = 0.5, 
+			}, 
+			["Ring"] = {
+				["min"] = 0.2, 
+				["max"] = 0.5, 
 			}, 
 		}, 
 		["1512_AdditionalArrows"] = {
@@ -47803,15 +52220,31 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2541_FishingCastDistance"] = {
-			["specialCaseData"] = {
-			}, 
+		["1582_StunDurationIncreasePercent"] = {
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_170497091", 
-				["text"] = "#% increased Fishing Range", 
+				["id"] = "scourge.stat_2517001139", 
+				["text"] = "#% increased Stun Duration on Enemies", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 17, 
+				["max"] = 25, 
+			}, 
+			["Quiver"] = {
+				["min"] = 17, 
+				["max"] = 25, 
+			}, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 17, 
+				["max"] = 25, 
+			}, 
+			["Belt"] = {
+				["min"] = 17, 
+				["max"] = 25, 
+			}, 
 		}, 
 		["1240_StunThresholdReduction"] = {
 			["tradeMod"] = {
@@ -47837,6 +52270,7 @@ return {
 		}, 
 		["104_LocalIncreaseSocketedMinionGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Minion Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -47910,6 +52344,7 @@ return {
 		}, 
 		["95_LocalIncreaseSocketedLightningGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Lightning Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -47938,6 +52373,7 @@ return {
 		}, 
 		["85_LocalIncreaseSocketedStrengthGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Strength Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -47968,17 +52404,17 @@ return {
 				["max"] = 18, 
 			}, 
 		}, 
-		["1568_ChanceToAvoidPoison"] = {
+		["1674_ConvertPhysicalToCold"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_4053951709", 
-				["text"] = "#% chance to Avoid being Poisoned", 
+				["id"] = "scourge.stat_2133341901", 
+				["text"] = "#% of Physical Damage Converted to Cold Damage", 
 			}, 
-			["Ring"] = {
-				["min"] = 26, 
-				["max"] = 40, 
+			["Gloves"] = {
+				["min"] = 25, 
+				["max"] = 25, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -47996,19 +52432,18 @@ return {
 				["max"] = 6, 
 			}, 
 		}, 
-		["1747_AreaDamage"] = {
+		["8767_HexMaster"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_4251717817", 
-				["text"] = "#% increased Area Damage", 
+				["id"] = "scourge.stat_3849554033", 
+				["text"] = "Hex Master", 
 			}, 
-			["Amulet"] = {
-				["min"] = 11, 
-				["max"] = 30, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
 		}, 
 		["915_PercentageDexterity"] = {
 			["specialCaseData"] = {
@@ -48118,6 +52553,25 @@ return {
 			["2HWeapon"] = {
 				["min"] = 10, 
 				["max"] = 18, 
+			}, 
+		}, 
+		["1003_LocalPhysicalDamage"] = {
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_1940865751", 
+				["text"] = "Adds # to # Physical Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Physical Damage", 
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 3.5, 
+				["max"] = 10.5, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 6.5, 
+				["max"] = 20.5, 
 			}, 
 		}, 
 		["5452_ElusiveEffect"] = {
@@ -48458,22 +52912,46 @@ return {
 				["max"] = 79, 
 			}, 
 		}, 
-		["1104_LightningDamagePercentage"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2231156303", 
-				["text"] = "#% increased Lightning Damage", 
+		["909_IntelligenceImplicit"] = {
+			["Gloves"] = {
+				["min"] = 20, 
+				["max"] = 35, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 23, 
-				["max"] = 50, 
+			["sign"] = "+", 
+			["Boots"] = {
+				["min"] = 20, 
+				["max"] = 35, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_328541901", 
+				["text"] = "# to Intelligence", 
+			}, 
+			["Amulet"] = {
+				["min"] = 20, 
+				["max"] = 35, 
+			}, 
+			["Ring"] = {
+				["min"] = 20, 
+				["max"] = 35, 
+			}, 
+			["Helmet"] = {
+				["min"] = 20, 
+				["max"] = 35, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 34, 
-				["max"] = 75, 
+				["min"] = 20, 
+				["max"] = 35, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 20, 
+				["max"] = 35, 
+			}, 
+			["Chest"] = {
+				["min"] = 20, 
+				["max"] = 35, 
 			}, 
 		}, 
 		["908_DexterityImplicit"] = {
@@ -48539,6 +53017,25 @@ return {
 				["min"] = 34, 
 				["max"] = 75, 
 			}, 
+		}, 
+		["1116_LocalChaosDamage"] = {
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2223678961", 
+				["text"] = "Adds # to # Chaos Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Chaos Damage", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 13, 
+				["max"] = 46, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 9, 
+				["max"] = 24, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["1460_LifeGainPerTarget"] = {
 			["specialCaseData"] = {
@@ -48625,22 +53122,18 @@ return {
 				["max"] = 26.7, 
 			}, 
 		}, 
-		["8225_BrandAttachmentRange"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_4223377453", 
-				["text"] = "#% increased Brand Attachment range", 
-			}, 
+		["2156_AdditionalBlock"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 12, 
-				["max"] = 20, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_1702195217", 
+				["text"] = "#% Chance to Block Attack Damage", 
 			}, 
-			["Boots"] = {
-				["min"] = 12, 
-				["max"] = 20, 
+			["sign"] = "+", 
+			["Shield"] = {
+				["min"] = 2, 
+				["max"] = 9, 
 			}, 
 		}, 
 		["1308_ManaRecoveryRate"] = {
@@ -48721,6 +53214,7 @@ return {
 		}, 
 		["105_LocalIncreaseSocketedAuraLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Aura Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -48771,6 +53265,25 @@ return {
 			["Gloves"] = {
 				["min"] = 7, 
 				["max"] = 15, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1098_LocalColdDamage"] = {
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_1037193709", 
+				["text"] = "Adds # to # Cold Damage (Local)", 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Cold Damage", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 23, 
+				["max"] = 74, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 14, 
+				["max"] = 50, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -48940,19 +53453,19 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["1355_MaximumLightningResistance"] = {
+		["1690_MinionDamage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_1011760251", 
-				["text"] = "#% to maximum Lightning Resistance", 
+				["id"] = "scourge.stat_1589917703", 
+				["text"] = "Minions deal #% increased Damage", 
 			}, 
-			["sign"] = "+", 
-			["Shield"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Gloves"] = {
+				["min"] = 8, 
+				["max"] = 15, 
 			}, 
+			["sign"] = "", 
 		}, 
 		["1522_MinimumEnduranceCharges"] = {
 			["specialCaseData"] = {
@@ -48968,37 +53481,61 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1300_LifeRecoveryRate"] = {
+		["3116_MinionAttacksTauntOnHitChance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_3240073117", 
-				["text"] = "#% increased Life Recovery rate", 
+				["id"] = "scourge.stat_2911442053", 
+				["text"] = "Minions have #% chance to Taunt on Hit with Attacks", 
+			}, 
+			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 11, 
+				["max"] = 19, 
+			}, 
+		}, 
+		["113_LocalIncreaseSocketedSupportGemLevel"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Support Gems", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_4154259475", 
+				["text"] = "# to Level of Socketed Support Gems", 
 			}, 
 			["Chest"] = {
-				["min"] = 5, 
-				["max"] = 10, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
-		["2262_FasterIgniteDamage"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2443492284", 
-				["text"] = "Ignites you inflict deal Damage #% faster", 
-			}, 
+		["8747_AncestralBond"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 4, 
-				["max"] = 9, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2648570028", 
+				["text"] = "Ancestral Bond", 
 			}, 
-			["2HWeapon"] = {
-				["min"] = 8, 
-				["max"] = 13, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
+		}, 
+		["1527_MinimumFrenzyCharges"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_658456881", 
+				["text"] = "# to Minimum Frenzy Charges", 
+			}, 
+			["Ring"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["sign"] = "+", 
 		}, 
 		["2321_EnduranceChargeOnKillChance"] = {
 			["specialCaseData"] = {
@@ -49014,8 +53551,53 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["2217_TemporalChainsOnHit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_4139135963", 
+				["text"] = "Curse Enemies with Temporal Chains on Hit", 
+			}, 
+			["Gloves"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+		}, 
+		["1751_CullingStrike"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2524254339", 
+				["text"] = "Culling Strike", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+		}, 
+		["99_IncreaseSocketedDurationGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2115168758", 
+				["text"] = "# to Level of Socketed Duration Gems", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["sign"] = "+", 
+		}, 
 		["116_LocalSocketedWarcryGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Warcry Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -49041,19 +53623,31 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["113_LocalIncreaseSocketedSupportGemLevel"] = {
-			["specialCaseData"] = {
-			}, 
+		["5429_IncreasedWeaponElementalDamagePercent"] = {
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_4154259475", 
-				["text"] = "# to Level of Socketed Support Gems", 
+				["id"] = "scourge.stat_387439868", 
+				["text"] = "#% increased Elemental Damage with Attack Skills", 
 			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Ring"] = {
+				["min"] = 8, 
+				["max"] = 24, 
 			}, 
-			["sign"] = "+", 
+			["Quiver"] = {
+				["min"] = 8, 
+				["max"] = 24, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 8, 
+				["max"] = 24, 
+			}, 
+			["Belt"] = {
+				["min"] = 8, 
+				["max"] = 24, 
+			}, 
 		}, 
 		["2604_MinionLifeLeech"] = {
 			["specialCaseData"] = {
@@ -49069,13 +53663,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8747_AncestralBond"] = {
+		["8762_EternalYouth"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_2648570028", 
-				["text"] = "Ancestral Bond", 
+				["id"] = "scourge.stat_1308467455", 
+				["text"] = "Eternal Youth", 
 			}, 
 			["Chest"] = {
 				["min"] = 1, 
@@ -49113,59 +53707,6 @@ return {
 				["max"] = 13, 
 			}, 
 		}, 
-		["2217_TemporalChainsOnHit"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_4139135963", 
-				["text"] = "Curse Enemies with Temporal Chains on Hit", 
-			}, 
-			["Gloves"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["99_IncreaseSocketedDurationGemLevel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2115168758", 
-				["text"] = "# to Level of Socketed Duration Gems", 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["8762_EternalYouth"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_1308467455", 
-				["text"] = "Eternal Youth", 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["8755_CrimsonDance"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_300702212", 
-				["text"] = "Crimson Dance", 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
 		["1875_MaximumSkeletonCount"] = {
 			["specialCaseData"] = {
 			}, 
@@ -49193,6 +53734,61 @@ return {
 				["min"] = 1, 
 				["max"] = 1, 
 			}, 
+		}, 
+		["1509_AdditionalPierce"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2067062068", 
+				["text"] = "Projectiles Pierce # additional Targets", 
+			}, 
+			["sign"] = "", 
+			["Quiver"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
+		}, 
+		["8789_SupremeEgo"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_1421267186", 
+				["text"] = "Supreme Ego", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+		}, 
+		["1579_IncreasedAilmentDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2419712247", 
+				["text"] = "#% increased Duration of Ailments on Enemies", 
+			}, 
+			["Gloves"] = {
+				["min"] = 7, 
+				["max"] = 12, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1568_ChanceToAvoidPoison"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_4053951709", 
+				["text"] = "#% chance to Avoid being Poisoned", 
+			}, 
+			["Ring"] = {
+				["min"] = 26, 
+				["max"] = 40, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["2597_MinionBlockChance"] = {
 			["specialCaseData"] = {
@@ -49222,59 +53818,64 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1509_AdditionalPierce"] = {
+		["2541_FishingCastDistance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_2067062068", 
-				["text"] = "Projectiles Pierce # additional Targets", 
+				["id"] = "scourge.stat_170497091", 
+				["text"] = "#% increased Fishing Range", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1515_ProjectileSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_3759663284", 
+				["text"] = "#% increased Projectile Speed", 
 			}, 
 			["sign"] = "", 
 			["Quiver"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+				["min"] = 14, 
+				["max"] = 25, 
 			}, 
 		}, 
-		["8789_SupremeEgo"] = {
+		["1355_MaximumLightningResistance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_1421267186", 
-				["text"] = "Supreme Ego", 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["1527_MinimumFrenzyCharges"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_658456881", 
-				["text"] = "# to Minimum Frenzy Charges", 
-			}, 
-			["Ring"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["id"] = "scourge.stat_1011760251", 
+				["text"] = "#% to maximum Lightning Resistance", 
 			}, 
 			["sign"] = "+", 
-		}, 
-		["1619_StunRecovery"] = {
-			["specialCaseData"] = {
+			["Shield"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
+		}, 
+		["1340_AllResistances"] = {
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_2511217560", 
-				["text"] = "#% increased Stun and Block Recovery", 
+				["id"] = "scourge.stat_2901986750", 
+				["text"] = "#% to all Elemental Resistances", 
 			}, 
-			["sign"] = "", 
-			["Belt"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+			["Ring"] = {
+				["min"] = 6, 
+				["max"] = 12, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "+", 
+			["Amulet"] = {
+				["min"] = 6, 
+				["max"] = 12, 
+			}, 
+			["Shield"] = {
+				["min"] = 6, 
+				["max"] = 12, 
 			}, 
 		}, 
 		["7942_ReducedPhysicalReflectTaken"] = {
@@ -49291,13 +53892,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8774_MinionInstability"] = {
+		["8772_Magebane"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_433293234", 
-				["text"] = "Minion Instability", 
+				["id"] = "scourge.stat_4180925106", 
+				["text"] = "Magebane", 
 			}, 
 			["Chest"] = {
 				["min"] = 1, 
@@ -49318,17 +53919,22 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["8772_Magebane"] = {
-			["specialCaseData"] = {
-			}, 
+		["1104_LightningDamagePercentage"] = {
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_4180925106", 
-				["text"] = "Magebane", 
+				["id"] = "scourge.stat_2231156303", 
+				["text"] = "#% increased Lightning Damage", 
 			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 23, 
+				["max"] = 50, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 34, 
+				["max"] = 75, 
 			}, 
 		}, 
 		["8779_MonsterNemesisOndarsGuile"] = {
@@ -49344,78 +53950,63 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["5429_IncreasedWeaponElementalDamagePercent"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_387439868", 
-				["text"] = "#% increased Elemental Damage with Attack Skills", 
-			}, 
-			["Ring"] = {
-				["min"] = 8, 
-				["max"] = 24, 
-			}, 
-			["Quiver"] = {
-				["min"] = 8, 
-				["max"] = 24, 
-			}, 
+		["971_GlobalDamageOverTimeMultiplier"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_3988349707", 
+				["text"] = "#% to Damage over Time Multiplier", 
+			}, 
 			["Amulet"] = {
 				["min"] = 8, 
-				["max"] = 24, 
+				["max"] = 16, 
 			}, 
-			["Belt"] = {
-				["min"] = 8, 
-				["max"] = 24, 
-			}, 
+			["sign"] = "+", 
 		}, 
-		["1361_ChaosResistance"] = {
-			["Quiver"] = {
-				["min"] = 10, 
-				["max"] = 25, 
+		["979_FireDamageOverTimeMultiplier"] = {
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_3382807662", 
+				["text"] = "#% to Fire Damage over Time Multiplier", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-			["Belt"] = {
-				["min"] = 10, 
-				["max"] = 25, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2923486259", 
-				["text"] = "#% to Chaos Resistance", 
-			}, 
-			["Ring"] = {
-				["min"] = 10, 
-				["max"] = 25, 
+			["1HWeapon"] = {
+				["min"] = 11, 
+				["max"] = 16, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 25, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 25, 
-			}, 
-			["Amulet"] = {
-				["min"] = 10, 
-				["max"] = 25, 
+				["min"] = 16, 
+				["max"] = 24, 
 			}, 
 		}, 
-		["3116_MinionAttacksTauntOnHitChance"] = {
-			["specialCaseData"] = {
+		["1281_LocalEnergyShield"] = {
+			["Gloves"] = {
+				["min"] = 8, 
+				["max"] = 30, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_2911442053", 
-				["text"] = "Minions have #% chance to Taunt on Hit with Attacks", 
+				["id"] = "scourge.stat_4052037485", 
+				["text"] = "# to maximum Energy Shield (Local)", 
 			}, 
-			["sign"] = "", 
-			["Belt"] = {
-				["min"] = 11, 
-				["max"] = 19, 
+			["Chest"] = {
+				["min"] = 8, 
+				["max"] = 30, 
+			}, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to maximum Energy Shield", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 8, 
+				["max"] = 30, 
+			}, 
+			["Boots"] = {
+				["min"] = 8, 
+				["max"] = 30, 
 			}, 
 		}, 
 		["1914_AttackerTakesDamageNoRange"] = {
@@ -49488,33 +54079,6 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["8796_ResoluteTechnique"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_3943945975", 
-				["text"] = "Resolute Technique", 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["5439_ReducedElementalReflectTaken"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2160417795", 
-				["text"] = "You and your Minions take #% reduced Reflected Elemental Damage", 
-			}, 
-			["Chest"] = {
-				["min"] = 41, 
-				["max"] = 60, 
-			}, 
-			["sign"] = "", 
-		}, 
 		["1352_ColdResistance"] = {
 			["Quiver"] = {
 				["min"] = 18, 
@@ -49549,8 +54113,37 @@ return {
 				["max"] = 35, 
 			}, 
 		}, 
+		["5439_ReducedElementalReflectTaken"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2160417795", 
+				["text"] = "You and your Minions take #% reduced Reflected Elemental Damage", 
+			}, 
+			["Chest"] = {
+				["min"] = 41, 
+				["max"] = 60, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["100_IncreasedSocketedAoEGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2551600084", 
+				["text"] = "# to Level of Socketed AoE Gems", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["sign"] = "+", 
+		}, 
 		["87_LocalIncreaseSocketedIntelligenceGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Intelligence Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -49563,40 +54156,35 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1741_ChanceToFreeze"] = {
+		["8225_BrandAttachmentRange"] = {
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_2309614417", 
-				["text"] = "#% chance to Freeze", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 10, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 7, 
-				["max"] = 15, 
-			}, 
-		}, 
-		["1493_IncreasedTotemLife"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_686254215", 
-				["text"] = "#% increased Totem Life", 
+				["id"] = "scourge.stat_4223377453", 
+				["text"] = "#% increased Brand Attachment range", 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["Amulet"] = {
-				["min"] = 7, 
-				["max"] = 15, 
+				["min"] = 12, 
+				["max"] = 20, 
 			}, 
 			["Boots"] = {
-				["min"] = 7, 
-				["max"] = 15, 
+				["min"] = 12, 
+				["max"] = 20, 
+			}, 
+		}, 
+		["8796_ResoluteTechnique"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_3943945975", 
+				["text"] = "Resolute Technique", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["1594_ReducedBurnDuration"] = {
@@ -49613,36 +54201,31 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["979_FireDamageOverTimeMultiplier"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_3382807662", 
-				["text"] = "#% to Fire Damage over Time Multiplier", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["1HWeapon"] = {
-				["min"] = 11, 
-				["max"] = 16, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 16, 
-				["max"] = 24, 
-			}, 
-		}, 
-		["1562_AvoidElementalStatusAilments"] = {
+		["2605_MinionLifeRegeneration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_3005472710", 
-				["text"] = "#% chance to Avoid Elemental Ailments", 
+				["id"] = "scourge.stat_2479683456", 
+				["text"] = "Minions Regenerate #% of Life per second", 
+			}, 
+			["Helmet"] = {
+				["min"] = 2, 
+				["max"] = 3.5, 
 			}, 
 			["sign"] = "", 
-			["Shield"] = {
-				["min"] = 17, 
-				["max"] = 25, 
+		}, 
+		["8791_VaalPact"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2257118425", 
+				["text"] = "Vaal Pact", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["1497_TotemDuration"] = {
@@ -49663,50 +54246,47 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["1399_LightningDamageLifeLeechPermyriad"] = {
+		["1619_StunRecovery"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_80079005", 
-				["text"] = "#% of Lightning Damage Leeched as Life", 
+				["id"] = "scourge.stat_2511217560", 
+				["text"] = "#% increased Stun and Block Recovery", 
+			}, 
+			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["6720_NearbyEnemyPhysicalDamageTaken"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_415837237", 
+				["text"] = "Nearby Enemies take #% increased Physical Damage", 
+			}, 
+			["Helmet"] = {
+				["min"] = 3, 
+				["max"] = 4, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1395_ColdDamageLifeLeechPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_3999401129", 
+				["text"] = "#% of Cold Damage Leeched as Life", 
 			}, 
 			["Amulet"] = {
 				["min"] = 0.2, 
 				["max"] = 0.5, 
 			}, 
 			["sign"] = "", 
-		}, 
-		["8773_ManaShield"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_373964381", 
-				["text"] = "Mind Over Matter", 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["2683_ChanceToGainOnslaughtOnKill"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_3023957681", 
-				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill", 
-			}, 
-			["Quiver"] = {
-				["min"] = 5, 
-				["max"] = 10, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["Boots"] = {
-				["min"] = 5, 
-				["max"] = 10, 
-			}, 
 		}, 
 		["8769_Impaler"] = {
 			["specialCaseData"] = {
@@ -49752,63 +54332,68 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["2483_TotemPhysicalDamageReduction"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_3616562963", 
-				["text"] = "Totems have #% additional Physical Damage Reduction", 
-			}, 
+		["1747_AreaDamage"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_4251717817", 
+				["text"] = "#% increased Area Damage", 
+			}, 
 			["Amulet"] = {
 				["min"] = 11, 
-				["max"] = 25, 
-			}, 
-			["Boots"] = {
-				["min"] = 11, 
-				["max"] = 25, 
-			}, 
-		}, 
-		["1674_ConvertPhysicalToCold"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2133341901", 
-				["text"] = "#% of Physical Damage Converted to Cold Damage", 
-			}, 
-			["Gloves"] = {
-				["min"] = 25, 
-				["max"] = 25, 
+				["max"] = 30, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1395_ColdDamageLifeLeechPermyriad"] = {
-			["specialCaseData"] = {
-			}, 
+		["1089_LocalFireDamage"] = {
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_3999401129", 
-				["text"] = "#% of Cold Damage Leeched as Life", 
+				["id"] = "scourge.stat_709508406", 
+				["text"] = "Adds # to # Fire Damage (Local)", 
 			}, 
-			["Amulet"] = {
-				["min"] = 0.2, 
-				["max"] = 0.5, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "Adds # to # Fire Damage", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 26.5, 
+				["max"] = 81.5, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 17, 
+				["max"] = 53.5, 
 			}, 
 			["sign"] = "", 
 		}, 
-		["1485_MinionLife"] = {
+		["1084_FireDamagePercentage"] = {
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_3962278098", 
+				["text"] = "#% increased Fire Damage", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["2HWeapon"] = {
+				["min"] = 34, 
+				["max"] = 75, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 23, 
+				["max"] = 50, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1469_MaximumLifeOnKillPercent"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_770672621", 
-				["text"] = "Minions have #% increased maximum Life", 
+				["id"] = "scourge.stat_2023107756", 
+				["text"] = "Recover #% of Life on Kill", 
 			}, 
-			["Helmet"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+			["Chest"] = {
+				["min"] = 3, 
+				["max"] = 4, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -49826,30 +54411,18 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1369_LifeLeechPermyriad"] = {
-			["Gloves"] = {
-				["min"] = 0.2, 
-				["max"] = 0.5, 
+		["1478_GainManaOnBlock"] = {
+			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_3593843976", 
-				["text"] = "#% of Physical Attack Damage Leeched as Life", 
-			}, 
-			["Quiver"] = {
-				["min"] = 0.2, 
-				["max"] = 0.5, 
-			}, 
-			["specialCaseData"] = {
+				["id"] = "scourge.stat_2122183138", 
+				["text"] = "# Mana gained when you Block", 
 			}, 
 			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 0.2, 
-				["max"] = 0.5, 
-			}, 
-			["Ring"] = {
-				["min"] = 0.2, 
-				["max"] = 0.5, 
+			["Shield"] = {
+				["min"] = 31, 
+				["max"] = 60, 
 			}, 
 		}, 
 		["8758_EldritchBattery"] = {
@@ -49966,19 +54539,19 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["3905_FlaskChanceToNotConsumeCharges"] = {
+		["2859_PoisonOnHit"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_311641062", 
-				["text"] = "#% chance for Flasks you use to not consume Charges", 
+				["id"] = "scourge.stat_795138349", 
+				["text"] = "#% chance to Poison on Hit", 
+			}, 
+			["Gloves"] = {
+				["min"] = 12, 
+				["max"] = 20, 
 			}, 
 			["sign"] = "", 
-			["Belt"] = {
-				["min"] = 5, 
-				["max"] = 8, 
-			}, 
 		}, 
 		["8750_BloodMagic"] = {
 			["specialCaseData"] = {
@@ -49993,19 +54566,20 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["2605_MinionLifeRegeneration"] = {
+		["101_LocalIncreaseSocketedProjectileGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Projectile Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_2479683456", 
-				["text"] = "Minions Regenerate #% of Life per second", 
+				["id"] = "scourge.stat_2176571093", 
+				["text"] = "# to Level of Socketed Projectile Gems", 
 			}, 
-			["Helmet"] = {
-				["min"] = 2, 
-				["max"] = 3.5, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
+			["sign"] = "+", 
 		}, 
 		["8777_PointBlank"] = {
 			["specialCaseData"] = {
@@ -50034,33 +54608,32 @@ return {
 				["max"] = 25, 
 			}, 
 		}, 
-		["1579_IncreasedAilmentDuration"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2419712247", 
-				["text"] = "#% increased Duration of Ailments on Enemies", 
-			}, 
+		["1271_LocalEvasionRating"] = {
 			["Gloves"] = {
-				["min"] = 7, 
-				["max"] = 12, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["914_PercentageStrength"] = {
-			["specialCaseData"] = {
+				["min"] = 30, 
+				["max"] = 150, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_734614379", 
-				["text"] = "#% increased Strength", 
+				["id"] = "scourge.stat_53045048", 
+				["text"] = "# to Evasion Rating (Local)", 
 			}, 
-			["Amulet"] = {
-				["min"] = 4, 
-				["max"] = 7, 
+			["Chest"] = {
+				["min"] = 30, 
+				["max"] = 150, 
 			}, 
-			["sign"] = "", 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Evasion Rating", 
+			}, 
+			["sign"] = "+", 
+			["Helmet"] = {
+				["min"] = 30, 
+				["max"] = 150, 
+			}, 
+			["Boots"] = {
+				["min"] = 30, 
+				["max"] = 150, 
+			}, 
 		}, 
 		["3062_UnholyMightOnKillPercentChance"] = {
 			["tradeMod"] = {
@@ -50080,6 +54653,20 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
+		["1562_AvoidElementalStatusAilments"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_3005472710", 
+				["text"] = "#% chance to Avoid Elemental Ailments", 
+			}, 
+			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 17, 
+				["max"] = 25, 
+			}, 
+		}, 
 		["916_PercentageIntelligence"] = {
 			["specialCaseData"] = {
 			}, 
@@ -50096,6 +54683,7 @@ return {
 		}, 
 		["86_LocalIncreaseSocketedDexterityGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Dexterity Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -50149,33 +54737,32 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["2156_AdditionalBlock"] = {
+		["3240_BasePenetrateElementalResistances"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_1702195217", 
-				["text"] = "#% Chance to Block Attack Damage", 
+				["id"] = "scourge.stat_697807915", 
+				["text"] = "Damage Penetrates #% of Enemy Elemental Resistances", 
 			}, 
-			["sign"] = "+", 
-			["Shield"] = {
-				["min"] = 2, 
-				["max"] = 9, 
-			}, 
-		}, 
-		["1464_ManaGainPerTarget"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_820939409", 
-				["text"] = "Gain # Mana per Enemy Hit with Attacks", 
-			}, 
-			["Gloves"] = {
-				["min"] = 2, 
+			["Amulet"] = {
+				["min"] = 3, 
 				["max"] = 5, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["8773_ManaShield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_373964381", 
+				["text"] = "Mind Over Matter", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 		}, 
 		["8783_SacredBastion"] = {
 			["specialCaseData"] = {
@@ -50190,19 +54777,19 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
-		["3240_BasePenetrateElementalResistances"] = {
+		["1873_MaximumZombieCount"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_697807915", 
-				["text"] = "Damage Penetrates #% of Enemy Elemental Resistances", 
+				["id"] = "scourge.stat_1652515349", 
+				["text"] = "# to maximum number of Raised Zombies", 
 			}, 
-			["Amulet"] = {
-				["min"] = 3, 
-				["max"] = 5, 
+			["sign"] = "+", 
+			["Boots"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
 		}, 
 		["1565_AvoidIgnite"] = {
 			["specialCaseData"] = {
@@ -50218,23 +54805,19 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1084_FireDamagePercentage"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_3962278098", 
-				["text"] = "#% increased Fire Damage", 
-			}, 
+		["3905_FlaskChanceToNotConsumeCharges"] = {
 			["specialCaseData"] = {
 			}, 
-			["2HWeapon"] = {
-				["min"] = 34, 
-				["max"] = 75, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 23, 
-				["max"] = 50, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_311641062", 
+				["text"] = "#% chance for Flasks you use to not consume Charges", 
 			}, 
 			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 5, 
+				["max"] = 8, 
+			}, 
 		}, 
 		["975_PhysicalDamageOverTimeMultiplier"] = {
 			["tradeMod"] = {
@@ -50309,74 +54892,23 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1478_GainManaOnBlock"] = {
-			["specialCaseData"] = {
-			}, 
+		["984_ColdDamageOverTimeMultiplier"] = {
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_2122183138", 
-				["text"] = "# Mana gained when you Block", 
+				["id"] = "scourge.stat_1950806024", 
+				["text"] = "#% to Cold Damage over Time Multiplier", 
 			}, 
-			["sign"] = "", 
-			["Shield"] = {
-				["min"] = 31, 
-				["max"] = 60, 
-			}, 
-		}, 
-		["8791_VaalPact"] = {
 			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2257118425", 
-				["text"] = "Vaal Pact", 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-		}, 
-		["88_LocalIncreaseSocketedGemLevel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2843100721", 
-				["text"] = "# to Level of Socketed Gems", 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
 			}, 
 			["sign"] = "+", 
-		}, 
-		["100_IncreasedSocketedAoEGemLevel"] = {
-			["specialCaseData"] = {
+			["1HWeapon"] = {
+				["min"] = 11, 
+				["max"] = 16, 
 			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2551600084", 
-				["text"] = "# to Level of Socketed AoE Gems", 
+			["2HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 24, 
 			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["96_LocalIncreaseSocketedChaosGemLevel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2675603254", 
-				["text"] = "# to Level of Socketed Chaos Gems", 
-			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
-			}, 
-			["sign"] = "+", 
 		}, 
 		["1129_SpellAddedPhysicalDamage"] = {
 			["tradeMod"] = {
@@ -50393,6 +54925,67 @@ return {
 			["1HWeapon"] = {
 				["min"] = 17, 
 				["max"] = 30.5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1485_MinionLife"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_770672621", 
+				["text"] = "Minions have #% increased maximum Life", 
+			}, 
+			["Helmet"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2262_FasterIgniteDamage"] = {
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2443492284", 
+				["text"] = "Ignites you inflict deal Damage #% faster", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 4, 
+				["max"] = 9, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 8, 
+				["max"] = 13, 
+			}, 
+		}, 
+		["96_LocalIncreaseSocketedChaosGemLevel"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Chaos Gems", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2675603254", 
+				["text"] = "# to Level of Socketed Chaos Gems", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1464_ManaGainPerTarget"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_820939409", 
+				["text"] = "Gain # Mana per Enemy Hit with Attacks", 
+			}, 
+			["Gloves"] = {
+				["min"] = 2, 
+				["max"] = 5, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -50418,32 +55011,38 @@ return {
 				["max"] = 40, 
 			}, 
 		}, 
-		["101_LocalIncreaseSocketedProjectileGemLevel"] = {
-			["specialCaseData"] = {
-			}, 
+		["2439_LocalMeleeWeaponRange"] = {
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_2176571093", 
-				["text"] = "# to Level of Socketed Projectile Gems", 
+				["id"] = "scourge.stat_350598685", 
+				["text"] = "# to Weapon Range", 
 			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Weapon Range", 
 			}, 
 			["sign"] = "+", 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 4, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 4, 
+			}, 
 		}, 
-		["8792_VersatileCombatant"] = {
+		["2521_OnslaughtWhenHitForDuration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_593845252", 
-				["text"] = "Versatile Combatant", 
+				["id"] = "scourge.stat_2764164760", 
+				["text"] = "You gain Onslaught for # seconds when Hit", 
 			}, 
 			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+				["min"] = 2, 
+				["max"] = 4, 
 			}, 
+			["sign"] = "", 
 		}, 
 		["877_ChanceToSuppressSpells"] = {
 			["Gloves"] = {
@@ -50471,51 +55070,55 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
-		["1469_MaximumLifeOnKillPercent"] = {
-			["specialCaseData"] = {
-			}, 
+		["1741_ChanceToFreeze"] = {
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_2023107756", 
-				["text"] = "Recover #% of Life on Kill", 
+				["id"] = "scourge.stat_2309614417", 
+				["text"] = "#% chance to Freeze", 
 			}, 
-			["Chest"] = {
-				["min"] = 3, 
-				["max"] = 4, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
-		}, 
-		["6720_NearbyEnemyPhysicalDamageTaken"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_415837237", 
-				["text"] = "Nearby Enemies take #% increased Physical Damage", 
-			}, 
-			["Helmet"] = {
-				["min"] = 3, 
-				["max"] = 4, 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2439_LocalMeleeWeaponRange"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_350598685", 
-				["text"] = "# to Weapon Range", 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
 			["1HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 4, 
+				["min"] = 5, 
+				["max"] = 10, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 1, 
-				["max"] = 4, 
+				["min"] = 7, 
+				["max"] = 15, 
 			}, 
+		}, 
+		["2683_ChanceToGainOnslaughtOnKill"] = {
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_3023957681", 
+				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill", 
+			}, 
+			["Quiver"] = {
+				["min"] = 5, 
+				["max"] = 10, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 5, 
+				["max"] = 10, 
+			}, 
+		}, 
+		["1300_LifeRecoveryRate"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_3240073117", 
+				["text"] = "#% increased Life Recovery rate", 
+			}, 
+			["Chest"] = {
+				["min"] = 5, 
+				["max"] = 10, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["2187_ChanceToBleed"] = {
 			["specialCaseData"] = {
@@ -50577,37 +55180,38 @@ return {
 				["max"] = 25, 
 			}, 
 		}, 
-		["4444_BaseChanceToDealTripleDamage"] = {
+		["88_LocalIncreaseSocketedGemLevel"] = {
+			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Gems", 
+			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_2445189705", 
-				["text"] = "#% chance to deal Triple Damage", 
+				["id"] = "scourge.stat_2843100721", 
+				["text"] = "# to Level of Socketed Gems", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1493_IncreasedTotemLife"] = {
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_686254215", 
+				["text"] = "#% increased Totem Life", 
 			}, 
 			["specialCaseData"] = {
-			}, 
-			["2HWeapon"] = {
-				["min"] = 5, 
-				["max"] = 7, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 3, 
-				["max"] = 5, 
 			}, 
 			["sign"] = "", 
-		}, 
-		["1690_MinionDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_1589917703", 
-				["text"] = "Minions deal #% increased Damage", 
-			}, 
-			["Gloves"] = {
-				["min"] = 8, 
+			["Amulet"] = {
+				["min"] = 7, 
 				["max"] = 15, 
 			}, 
-			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 7, 
+				["max"] = 15, 
+			}, 
 		}, 
 		["1479_GainEnergyShieldOnBlock"] = {
 			["specialCaseData"] = {
@@ -50659,48 +55263,61 @@ return {
 				["max"] = 12, 
 			}, 
 		}, 
-		["1515_ProjectileSpeed"] = {
+		["4444_BaseChanceToDealTripleDamage"] = {
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2445189705", 
+				["text"] = "#% chance to deal Triple Damage", 
+			}, 
 			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_3759663284", 
-				["text"] = "#% increased Projectile Speed", 
-			}, 
-			["sign"] = "", 
-			["Quiver"] = {
-				["min"] = 14, 
-				["max"] = 25, 
-			}, 
-		}, 
-		["1582_StunDurationIncreasePercent"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2517001139", 
-				["text"] = "#% increased Stun Duration on Enemies", 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 17, 
-				["max"] = 25, 
+				["min"] = 5, 
+				["max"] = 7, 
 			}, 
+			["1HWeapon"] = {
+				["min"] = 3, 
+				["max"] = 5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1361_ChaosResistance"] = {
 			["Quiver"] = {
-				["min"] = 17, 
+				["min"] = 10, 
 				["max"] = 25, 
 			}, 
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["1HWeapon"] = {
-				["min"] = 17, 
+			["sign"] = "+", 
+			["Belt"] = {
+				["min"] = 10, 
 				["max"] = 25, 
 			}, 
-			["Belt"] = {
-				["min"] = 17, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_2923486259", 
+				["text"] = "#% to Chaos Resistance", 
+			}, 
+			["Ring"] = {
+				["min"] = 10, 
+				["max"] = 25, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 25, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 25, 
+			}, 
+			["Amulet"] = {
+				["min"] = 10, 
 				["max"] = 25, 
 			}, 
 		}, 
 		["94_LocalIncreaseSocketedColdGemLevel"] = {
 			["specialCaseData"] = {
+				["overrideModLine"] = "+# to Level of Socketed Cold Gems", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -50745,46 +55362,17 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["909_IntelligenceImplicit"] = {
-			["Gloves"] = {
-				["min"] = 20, 
-				["max"] = 35, 
-			}, 
+		["8755_CrimsonDance"] = {
 			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Boots"] = {
-				["min"] = 20, 
-				["max"] = 35, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "scourge", 
-				["id"] = "scourge.stat_328541901", 
-				["text"] = "# to Intelligence", 
-			}, 
-			["Amulet"] = {
-				["min"] = 20, 
-				["max"] = 35, 
-			}, 
-			["Ring"] = {
-				["min"] = 20, 
-				["max"] = 35, 
-			}, 
-			["Helmet"] = {
-				["min"] = 20, 
-				["max"] = 35, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 20, 
-				["max"] = 35, 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 20, 
-				["max"] = 35, 
+				["id"] = "scourge.stat_300702212", 
+				["text"] = "Crimson Dance", 
 			}, 
 			["Chest"] = {
-				["min"] = 20, 
-				["max"] = 35, 
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["2518_ReturningAttackProjectiles"] = {
@@ -50814,28 +55402,6 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1340_AllResistances"] = {
-			["tradeMod"] = {
-				["type"] = "scourge", 
-				["id"] = "scourge.stat_2901986750", 
-				["text"] = "#% to all Elemental Resistances", 
-			}, 
-			["Ring"] = {
-				["min"] = 6, 
-				["max"] = 12, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "+", 
-			["Amulet"] = {
-				["min"] = 6, 
-				["max"] = 12, 
-			}, 
-			["Shield"] = {
-				["min"] = 6, 
-				["max"] = 12, 
-			}, 
-		}, 
 		["1334_GlobalIncreaseLightningSpellSkillGemLevel"] = {
 			["tradeMod"] = {
 				["type"] = "scourge", 
@@ -50853,6 +55419,19 @@ return {
 				["max"] = 1, 
 			}, 
 			["sign"] = "+", 
+		}, 
+		["8774_MinionInstability"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "scourge", 
+				["id"] = "scourge.stat_433293234", 
+				["text"] = "Minion Instability", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 		}, 
 	}, 
 }

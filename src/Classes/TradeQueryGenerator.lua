@@ -123,10 +123,7 @@ end
 
 function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
     for modId, mod in pairs(mods) do
-        if localOnlyModGroups[mod.group] == true or (modId:find("Local") ~= nil and modId:find("Socketed") == nil) then -- skip all local mods other than socket level mods
-            --logToFile("Skipping local mod: %s", modId)
-            goto continue
-        elseif modId:find("HellscapeDownside") ~= nil then -- skip scourge downsides, they often don't follow standard parsing rules, and should basically never be beneficial anyways
+        if modId:find("HellscapeDownside") ~= nil then -- skip scourge downsides, they often don't follow standard parsing rules, and should basically never be beneficial anyways
             goto continue
         end
 
@@ -165,14 +162,31 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
             local uniqueIndex = tostring(statOrder).."_"..mod.group
             if self.modData[modType][uniqueIndex] == nil then
                 local tradeMod = nil
+                local isLocal = mod.group:match("Local")
                 local matchStr = modLine:gsub("[#()0-9%-%+%.]","")
-                for _, entry in ipairs(tradeQueryStatsParsed.result[tradeStatCategoryIndices[modType]].entries) do
-                    if entry.text:gsub("[#()0-9%-%+%.]","") == matchStr then
-                        tradeMod = entry
-                        break
-                    end
+                local localMatchStr = ""
+                if isLocal then
+                    localMatchStr = matchStr .. " Local"
+                    specialCaseData.overrideModLine = modLine:gsub("[0-9%.]+","#"):gsub("%([%+%-]?#%-[%+%-]?#%)","#")
                 end
 
+                -- Try to match to a local mod fallback to global if no match
+                if isLocal then
+                    for _, entry in ipairs(tradeQueryStatsParsed.result[tradeStatCategoryIndices[modType]].entries) do
+                        if entry.text:gsub("[#()0-9%-%+%.]","") == localMatchStr then
+                            tradeMod = entry
+                            break
+                        end
+                    end
+                end
+                if tradeMod == nil then
+                    for _, entry in ipairs(tradeQueryStatsParsed.result[tradeStatCategoryIndices[modType]].entries) do
+                        if entry.text:gsub("[#()0-9%-%+%.]","") == matchStr then
+                            tradeMod = entry
+                            break
+                        end
+                    end
+                end
                 if tradeMod == nil then
                     logToFile("Unable to match %s mod: %s", modType, modLine)
                     goto nextModLine
@@ -588,7 +602,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 
     -- This DPS diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
     -- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
-    local minWeight = currentDPSDiff * 0.7
+    local minWeight = currentDPSDiff * 0.1
 
     -- Sort by mean DPS diff rather than weight to more accurately prioritize stats that can contribute more
     table.sort(self.modWeights, function(a, b)
