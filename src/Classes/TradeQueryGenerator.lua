@@ -44,19 +44,6 @@ for i, curInfluenceInfo in ipairs(itemLib.influenceInfo) do
     hasInfluenceModIds[i] = "pseudo.pseudo_has_" .. string.lower(curInfluenceInfo.display) .. "_influence"
 end
 
--- This is not a complete list as most mods get caught with the find "Local" check, or don't overlap with non-local mods so we don't care. Some groups
--- are also shared between local and non-local mods, so a group only approach is not viable.
-local localOnlyModGroups = {
-    ["BaseLocalDefences"] = true,
-    ["BaseLocalDefencesAndLife"] = true,
-    ["LocalIncreasedPhysicalDamagePercentAndAccuracyRating"] = true,
-    ["LocalPhysicalDamagePercent"] = true,
-    ["DefencesPercent"] = true,
-    ["DefencesPercentAndStunRecovery"] = true,
-    ["LocalAttributeRequirements"] = true,
-    ["DefencesPercentSuffix"] = true
-}
-
 -- slots that allow eldritch mods (non-unique only)
 local eldritchModSlots = {
     ["Body Armour"] = true,
@@ -162,33 +149,29 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
             local uniqueIndex = tostring(statOrder).."_"..mod.group
             if self.modData[modType][uniqueIndex] == nil then
                 local tradeMod = nil
-                local isLocal = mod.group:match("Local")
-                local matchStr = modLine:gsub("[#()0-9%-%+%.]","")
-                local localMatchStr = ""
-                if isLocal then
-                    localMatchStr = matchStr .. " Local"
-                end
 
                 -- Try to match to a local mod fallback to global if no match
-                if isLocal then
-                    for _, entry in ipairs(tradeQueryStatsParsed.result[tradeStatCategoryIndices[modType]].entries) do
-                        if entry.text:gsub("[#()0-9%-%+%.]","") == localMatchStr then
+                if mod.group:match("Local") then
+                    local strippedLocalStr = (modLine .. " (Local)"):gsub("[#()0-9%-%+%.]","")
+                    for _, entry in pairs(tradeQueryStatsParsed.localResults[tradeStatCategoryIndices[modType]].entries) do
+                        if entry.text:gsub("[#()0-9%-%+%.]","") == strippedLocalStr then
                             tradeMod = entry
-                            specialCaseData.overrideModLine = modLine:gsub("[0-9%.]+","#"):gsub("%([%+%-]?#%-[%+%-]?#%)","#")
+                            specialCaseData.overrideModLine = entry.text:sub(1,-9)
                             break
                         end
                     end
                 end
                 if tradeMod == nil then
+                    local strippedStr = modLine:gsub("[#()0-9%-%+%.]","")
                     for _, entry in ipairs(tradeQueryStatsParsed.result[tradeStatCategoryIndices[modType]].entries) do
-                        if entry.text:gsub("[#()0-9%-%+%.]","") == matchStr then
+                        if entry.text:gsub("[#()0-9%-%+%.]","") == strippedStr then
                             tradeMod = entry
                             break
                         end
                     end
                 end
                 if tradeMod == nil then
-                    logToFile("Unable to match %s mod: %s", modType, modLine)
+                    -- logToFile("Unable to match %s mod: %s", modType, modLine)
                     goto nextModLine
                 end
 
@@ -273,6 +256,19 @@ function TradeQueryGeneratorClass:InitMods()
     local tradeStats = fetchStats()
     tradeStats:gsub("\n", " ")
     local tradeQueryStatsParsed = dkjson.decode(tradeStats)
+
+    -- Create second table only containing local mods this should speedup generation slightly
+    tradeQueryStatsParsed.localResults = { }
+    for modTypeId, modType in ipairs(tradeQueryStatsParsed.result) do
+        tradeQueryStatsParsed.localResults[modTypeId] = { label = modType.label, entries = { } }
+        for modId, mod in ipairs(modType.entries) do
+            if mod.text:match("(Local)") then
+                tradeQueryStatsParsed.localResults[modTypeId].entries[modId] = mod
+            end
+        end
+    end
+
+    
 
     -- explicit, corrupted, scourge, and jewel mods
     self:GenerateModData(data.itemMods.Item, tradeQueryStatsParsed)

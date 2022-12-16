@@ -545,7 +545,7 @@ return {
 		}, 
 		["1271_LocalBaseEvasionRatingEnergyShieldAndLife"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Evasion Rating", 
+				["overrideModLine"] = "# to Evasion Rating", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -899,7 +899,7 @@ return {
 				["max"] = 375, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Evasion Rating", 
+				["overrideModLine"] = "# to Evasion Rating", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -1494,7 +1494,7 @@ return {
 		}, 
 		["1263_LocalBaseArmourEnergyShieldAndLife"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Armour", 
+				["overrideModLine"] = "# to Armour", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -1518,7 +1518,7 @@ return {
 				["max"] = 375, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Armour", 
+				["overrideModLine"] = "# to Armour", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -2334,7 +2334,7 @@ return {
 				["max"] = 80, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Energy Shield", 
+				["overrideModLine"] = "# to maximum Energy Shield", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -3054,7 +3054,7 @@ return {
 				["text"] = "# to Accuracy Rating (Local)", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Accuracy Rating", 
+				["overrideModLine"] = "# to Accuracy Rating", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -3319,7 +3319,7 @@ return {
 				["max"] = 30, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Energy Shield", 
+				["overrideModLine"] = "# to maximum Energy Shield", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -4478,7 +4478,7 @@ return {
 				["max"] = 500, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Armour", 
+				["overrideModLine"] = "# to Armour", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -9777,7 +9777,7 @@ return {
 				["max"] = 144, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Armour", 
+				["overrideModLine"] = "# to Armour", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -10865,7 +10865,7 @@ return {
 				["max"] = 120, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Evasion Rating", 
+				["overrideModLine"] = "# to Evasion Rating", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -13067,7 +13067,7 @@ return {
 				["max"] = 80, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Energy Shield", 
+				["overrideModLine"] = "# to maximum Energy Shield", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -16646,7 +16646,7 @@ return {
 		}, 
 		["1736_LocalAccuracyRatingAndLocalItemQuality"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Accuracy Rating", 
+				["overrideModLine"] = "# to Accuracy Rating", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -18149,7 +18149,7 @@ return {
 				["max"] = 100, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Energy Shield", 
+				["overrideModLine"] = "# to maximum Energy Shield", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -20985,7 +20985,7 @@ return {
 				["text"] = "# to Accuracy Rating (Local)", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Accuracy Rating", 
+				["overrideModLine"] = "# to Accuracy Rating", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -22206,7 +22206,7 @@ return {
 				["max"] = 500, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Evasion Rating", 
+				["overrideModLine"] = "# to Evasion Rating", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -23030,7 +23030,7 @@ return {
 		}, 
 		["1736_LocalLightRadiusAndAccuracy"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Accuracy Rating", 
+				["overrideModLine"] = "# to Accuracy Rating", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -23599,7 +23599,7 @@ return {
 		}, 
 		["1281_LocalBaseEvasionRatingEnergyShieldAndLife"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Energy Shield", 
+				["overrideModLine"] = "# to maximum Energy Shield", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -25028,7 +25028,7 @@ return {
 		}, 
 		["1271_LocalBaseArmourEvasionRatingAndLife"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Evasion Rating", 
+				["overrideModLine"] = "# to Evasion Rating", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -25191,7 +25191,7 @@ return {
 				["text"] = "# to Accuracy Rating (Local)", 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Accuracy Rating", 
+				["overrideModLine"] = "# to Accuracy Rating", 
 			}, 
 			["sign"] = "+", 
 			["1HWeapon"] = {
@@ -26639,7 +26639,7 @@ return {
 				["max"] = 30, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Energy Shield", 
+				["overrideModLine"] = "# to maximum Energy Shield", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -27246,7 +27246,7 @@ return {
 		}, 
 		["1281_LocalBaseArmourEnergyShieldAndLife"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Energy Shield", 
+				["overrideModLine"] = "# to maximum Energy Shield", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -28371,7 +28371,7 @@ return {
 				["max"] = 375, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Evasion Rating", 
+				["overrideModLine"] = "# to Evasion Rating", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -28451,7 +28451,7 @@ return {
 				["max"] = 375, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Armour", 
+				["overrideModLine"] = "# to Armour", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -29671,7 +29671,7 @@ return {
 		}, 
 		["1263_LocalBaseArmourEvasionRatingAndLife"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Armour", 
+				["overrideModLine"] = "# to Armour", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -32238,7 +32238,7 @@ return {
 		}, 
 		["1281_LocalEnergyShield"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Energy Shield", 
+				["overrideModLine"] = "# to maximum Energy Shield", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -34828,7 +34828,7 @@ return {
 		}, 
 		["1263_LocalPhysicalDamageReductionRating"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Armour", 
+				["overrideModLine"] = "# to Armour", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -34839,7 +34839,7 @@ return {
 		}, 
 		["1271_LocalEvasionRating"] = {
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Evasion Rating", 
+				["overrideModLine"] = "# to Evasion Rating", 
 			}, 
 			["tradeMod"] = {
 				["type"] = "implicit", 
@@ -51359,7 +51359,7 @@ return {
 				["max"] = 150, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Armour", 
+				["overrideModLine"] = "# to Armour", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -53790,7 +53790,7 @@ return {
 				["max"] = 30, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to maximum Energy Shield", 
+				["overrideModLine"] = "# to maximum Energy Shield", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
@@ -54414,7 +54414,7 @@ return {
 				["max"] = 150, 
 			}, 
 			["specialCaseData"] = {
-				["overrideModLine"] = "+# to Evasion Rating", 
+				["overrideModLine"] = "# to Evasion Rating", 
 			}, 
 			["sign"] = "+", 
 			["Helmet"] = {
