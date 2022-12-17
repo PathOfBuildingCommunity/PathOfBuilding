@@ -1734,7 +1734,7 @@ function calcs.defence(env, actor)
 						soulLink = soulLink - tempDamage
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
-					-- frost sheild and soul link doesnt count as you taking damage
+					-- frost shield and soul link does not count as you taking damage
 					if DamageIn["TrackLifeLoss"] then
 						output[damageType.."LifeLossLost"] = output[damageType.."LifeLossLost"] + Damage[damageType]
 					end
