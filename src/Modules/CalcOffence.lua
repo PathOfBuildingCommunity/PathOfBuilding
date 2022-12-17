@@ -1601,19 +1601,19 @@ function calcs.offence(env, actor, activeSkill)
 		skillModList.conditions[condName] = output.Accuracy > env.player.output.Life
 
 		
-		output.TempUptimeVariable =  tempUptimeVariable
+		output.TempUptimeVariable = tempUptimeVariable
 		-- Calculate attack/cast speed
 		if activeSkill.activeEffect.grantedEffect.castTime == 0 and not skillData.castTimeOverride then
 			output.Time = 0
 			output.Speed = 0
-			output.DisplaySpeed = 0
+			output.SpeedWithoutUptime = 0
 		elseif skillData.timeOverride then
 			output.Time = skillData.timeOverride
-			output.DisplaySpeed = 1 / output.Time
+			output.SpeedWithoutUptime = 1 / output.Time
 			output.Speed = 1 / output.Time *  output.TempUptimeVariable
 		elseif skillData.fixedCastTime then
 			output.Time = activeSkill.activeEffect.grantedEffect.castTime
-			output.DisplaySpeed = 1 / output.Time
+			output.SpeedWithoutUptime = 1 / output.Time
 			output.Speed = 1 / output.Time *  output.TempUptimeVariable
 		elseif skillData.triggerTime and skillData.triggered then
 			local activeSkillsLinked = skillModList:Sum("BASE", cfg, "ActiveSkillsLinkedToTrigger")
@@ -1623,7 +1623,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.Time = skillData.triggerTime / (1 + skillModList:Sum("INC", cfg, "CooldownRecovery") / 100)
 			end
 			output.TriggerTime = output.Time
-			output.DisplaySpeed = 1 / output.Time
+			output.SpeedWithoutUptime = 1 / output.Time
 			output.Speed = 1 / output.Time *  output.TempUptimeVariable
 		elseif skillData.triggerRate and skillData.triggered then
 			-- Account for trigger unleash
@@ -1655,13 +1655,13 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			output.Time = 1 / skillData.triggerRate
 			output.TriggerTime = output.Time
-			output.Speed = skillData.triggerRate
-			output.DisplaySpeed = output.Speed
+			output.Speed = skillData.triggerRate * output.TempUptimeVariable
+			output.SpeedWithoutUptime = skillData.triggerRate
 			skillData.showAverage = false
 		elseif skillData.triggeredByBrand and skillData.triggered then
 			output.Time = 1 / (1 + skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency") / 100) / skillModList:More(cfg, "BrandActivationFrequency") * (skillModList:Sum("BASE", cfg, "ArcanistSpellsLinked") or 1)
 			output.TriggerTime = output.Time
-			output.DisplaySpeed = 1 / output.Time
+			output.SpeedWithoutUptime = 1 / output.Time
 			output.Speed = 1 / output.Time *  output.TempUptimeVariable
 		else
 			local baseTime
@@ -1794,7 +1794,7 @@ function calcs.offence(env, actor, activeSkill)
 			if output.Speed == 0 then 
 				output.Time = 0
 			else 
-				output.DisplaySpeed = output.Speed
+				output.SpeedWithoutUptime = output.Speed
 				output.DisplayTime = 1 / output.Speed
 				output.Speed = output.Speed *  output.TempUptimeVariable
 				output.Time = 1 / output.Speed
@@ -1816,7 +1816,7 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					t_insert(breakdown.Speed, s_format("= %.2f ^8(casts per second)", output.Repeats / output.Cooldown))
 					t_insert(breakdown.Speed, s_format("\n"))
-					t_insert(breakdown.Speed, s_format("= %.2f ^8(lower of cast rates)", output.DisplaySpeed))
+					t_insert(breakdown.Speed, s_format("= %.2f ^8(lower of cast rates)", output.SpeedWithoutUptime))
 				end
 				if  output.TempUptimeVariable < 1 then
 					t_insert(breakdown.Speed, s_format("x %.2f ^8(offensive uptime)",  output.TempUptimeVariable))
@@ -1825,7 +1825,7 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown and calcLib.mod(skillModList, skillCfg, "SkillAttackTime") > 0 then
 				breakdown.Time = { }
 				breakdown.multiChain(breakdown.Time, {
-					base = { "%.2f ^8(base)", 1 / (output.DisplaySpeed * calcLib.mod(skillModList, skillCfg, "SkillAttackTime") ) },
+					base = { "%.2f ^8(base)", 1 / (output.SpeedWithoutUptime * calcLib.mod(skillModList, skillCfg, "SkillAttackTime") ) },
 					{ "%.2f ^8(total modifier)", calcLib.mod(skillModList, skillCfg, "SkillAttackTime")  },
 					total = s_format("= %.2f ^8seconds per attack", output.DisplayTime)
 				})
@@ -1834,7 +1834,7 @@ function calcs.offence(env, actor, activeSkill)
 		if skillData.hitTimeOverride and not skillData.triggeredOnDeath then
 			output.HitTime = skillData.hitTimeOverride
 			output.HitSpeed = 1 / output.HitTime *  output.TempUptimeVariable
-			output.DisplayHitSpeed = 1 / skillData.HitTime
+			output.DisplayHitSpeed = 1 / output.HitTime
 			--Brands always have hitTimeOverride
 			if skillCfg.skillName and skillCfg.skillName:match("Brand") then
 				output.BrandTicks = m_floor(output.Duration * output.HitSpeed)
@@ -1856,12 +1856,12 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("HitChance", "AVERAGE")
 		combineStat("Speed", "AVERAGE")
 		combineStat("HitSpeed", "OR")
-		combineStat("DisplaySpeed", "AVERAGE")
+		combineStat("SpeedWithoutUptime", "AVERAGE")
 		combineStat("DisplayHitSpeed", "OR")
 		if output.Speed == 0 then
 			output.Time = 0
 		else
-			output.DisplayTime = 1 / output.DisplaySpeed
+			output.DisplayTime = 1 / output.SpeedWithoutUptime
 			output.Time = 1 / output.Speed
 		end
 		if output.DisplayTime > 1 then
@@ -1871,8 +1871,8 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				breakdown.Speed = {
 					"Both weapons:",
-					s_format("(%.2f + %.2f) / 2", output.MainHand.DisplaySpeed, output.OffHand.DisplaySpeed),
-					s_format("= %.2f", output.DisplaySpeed),
+					s_format("(%.2f + %.2f) / 2", output.MainHand.SpeedWithoutUptime, output.OffHand.SpeedWithoutUptime),
+					s_format("= %.2f", output.SpeedWithoutUptime),
 				}
 			end
 		end
@@ -1918,7 +1918,7 @@ function calcs.offence(env, actor, activeSkill)
 						if globalBreakdown then
 							globalBreakdown.AncestralUpTimeRatio = { }
 							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.AncestralExertsCount))
-							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.DisplaySpeed))
+							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.SpeedWithoutUptime))
 							if globalOutput.AncestralCryCastTime > 0 then
 								t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.AncestralCryCooldown))
 								t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.AncestralCryCastTime))
@@ -1939,13 +1939,13 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.InfernalCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
 						if activeSkill.skillTypes[SkillType.Melee] then
 							globalOutput.InfernalExertsCount = env.modDB:Sum("BASE", nil, "NumInfernalExerts") or 0
-							local baseUptimeRatio = m_min((globalOutput.InfernalExertsCount / output.DisplaySpeed) / (globalOutput.InfernalCryCooldown + globalOutput.InfernalCryCastTime), 1) * 100			
+							local baseUptimeRatio = m_min((globalOutput.InfernalExertsCount / output.SpeedWithoutUptime) / (globalOutput.InfernalCryCooldown + globalOutput.InfernalCryCastTime), 1) * 100			
 							local additionalCooldownUses = value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
 							globalOutput.InfernalUpTimeRatio = m_min(100, baseUptimeRatio * (additionalCooldownUses + 1))
 							if globalBreakdown then
 								globalBreakdown.InfernalUpTimeRatio = { }
 								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.InfernalExertsCount))
-								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.DisplaySpeed))
+								t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.SpeedWithoutUptime))
 								if globalOutput.InfernalCryCastTime > 0 then
 									t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.InfernalCryCooldown))
 									t_insert(globalBreakdown.InfernalUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.InfernalCryCastTime))
@@ -1973,7 +1973,7 @@ function calcs.offence(env, actor, activeSkill)
 						if globalBreakdown then
 							globalBreakdown.IntimidatingUpTimeRatio = { }
 							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.IntimidatingExertsCount))
-							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.DisplaySpeed))
+							t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.SpeedWithoutUptime))
 							if 	globalOutput.IntimidatingCryCastTime > 0 then
 								t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.IntimidatingCryCooldown))
 								t_insert(globalBreakdown.IntimidatingUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.IntimidatingCryCastTime))
@@ -2022,7 +2022,7 @@ function calcs.offence(env, actor, activeSkill)
 						if globalBreakdown then
 							globalBreakdown.RallyingUpTimeRatio = { }
 							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.RallyingExertsCount))
-							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.DisplaySpeed))
+							t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.SpeedWithoutUptime))
 							if 	globalOutput.RallyingCryCastTime > 0 then
 								t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.RallyingCryCooldown))
 								t_insert(globalBreakdown.RallyingUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.RallyingCryCastTime))
@@ -2072,7 +2072,7 @@ function calcs.offence(env, actor, activeSkill)
 						if globalBreakdown then
 							globalBreakdown.SeismicUpTimeRatio = { }
 							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.SeismicExertsCount))
-							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.DisplaySpeed))
+							t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.SpeedWithoutUptime))
 							if 	globalOutput.SeismicCryCastTime > 0 then
 								t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.SeismicCryCooldown))
 								t_insert(globalBreakdown.SeismicUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.SeismicCryCastTime))
@@ -3619,7 +3619,7 @@ function calcs.offence(env, actor, activeSkill)
 							base = { "%.2fs ^8(poison duration)", globalOutput.PoisonDuration },
 							{ "%.2f ^8(poison chance)", output.PoisonChance / 100 },
 							{ "%.2f ^8(hit chance)", output.HitChance / 100 },
-							{ "%.2f ^8(hits per second)", globalOutput.DisplayHitSpeed or globalOutput.DisplaySpeed },
+							{ "%.2f ^8(hits per second)", globalOutput.DisplayHitSpeed or globalOutput.SpeedWithoutUptime },
 							{ "%g ^8(dps multiplier for this skill)", skillData.dpsMultiplier or 1 },
 							{ "%g ^8(stack multiplier for this skill)", skillData.stackMultiplier or 1 },
 							{ "%g ^8(quantity multiplier for this skill)", quantityMultiplier },
@@ -4604,7 +4604,7 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit)", output.ImpaleHit))
 			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 			if skillFlags.notAverage then
-				t_insert(breakdown.ImpaleDPS, output.DisplayHitSpeed and s_format("x %.2f ^8(hit rate)", output.DisplayHitSpeed) or s_format("x %.2f ^8(%s rate)", output.DisplaySpeed, skillFlags.attack and "attack" or "cast"))
+				t_insert(breakdown.ImpaleDPS, output.DisplayHitSpeed and s_format("x %.2f ^8(hit rate)", output.DisplayHitSpeed) or s_format("x %.2f ^8(%s rate)", output.SpeedWithoutUptime, skillFlags.attack and "attack" or "cast"))
 			end
 			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
 			if skillData.dpsMultiplier then
