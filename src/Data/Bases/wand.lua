@@ -5,7 +5,7 @@ local itemBases = ...
 itemBases["Driftwood Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(8-12)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 5, PhysicalMax = 9, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },
@@ -14,7 +14,7 @@ itemBases["Driftwood Wand"] = {
 itemBases["Goat's Horn"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(10-14)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 9, PhysicalMax = 16, CritChanceBase = 7, AttackRateBase = 1.2, Range = 120, },
@@ -23,7 +23,7 @@ itemBases["Goat's Horn"] = {
 itemBases["Carved Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(11-15)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 9, PhysicalMax = 17, CritChanceBase = 7, AttackRateBase = 1.5, Range = 120, },
@@ -32,7 +32,7 @@ itemBases["Carved Wand"] = {
 itemBases["Quartz Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(18-22)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 14, PhysicalMax = 27, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
@@ -41,7 +41,7 @@ itemBases["Quartz Wand"] = {
 itemBases["Spiraled Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(15-19)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 12, PhysicalMax = 37, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
@@ -50,7 +50,7 @@ itemBases["Spiraled Wand"] = {
 itemBases["Sage Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(17-21)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 23, PhysicalMax = 42, CritChanceBase = 8, AttackRateBase = 1.2, Range = 120, },
@@ -59,7 +59,7 @@ itemBases["Sage Wand"] = {
 itemBases["Pagan Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { maraketh = true, not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["maraketh"] = true, ["not_for_sale"] = true, ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "10% increased Cast Speed",
 	implicitModTypes = { { "caster", "speed" }, },
 	weapon = { PhysicalMin = 22, PhysicalMax = 40, CritChanceBase = 7, AttackRateBase = 1.35, Range = 120, },
@@ -68,7 +68,7 @@ itemBases["Pagan Wand"] = {
 itemBases["Faun's Horn"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(20-24)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 26, PhysicalMax = 48, CritChanceBase = 7, AttackRateBase = 1.2, Range = 120, },
@@ -77,7 +77,7 @@ itemBases["Faun's Horn"] = {
 itemBases["Engraved Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(22-26)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 21, PhysicalMax = 38, CritChanceBase = 7, AttackRateBase = 1.5, Range = 120, },
@@ -86,7 +86,7 @@ itemBases["Engraved Wand"] = {
 itemBases["Crystal Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(29-33)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 28, PhysicalMax = 52, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
@@ -95,7 +95,7 @@ itemBases["Crystal Wand"] = {
 itemBases["Serpent Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(26-30)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 21, PhysicalMax = 64, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
@@ -104,7 +104,7 @@ itemBases["Serpent Wand"] = {
 itemBases["Omen Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(27-31)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 33, PhysicalMax = 61, CritChanceBase = 8, AttackRateBase = 1.2, Range = 120, },
@@ -113,7 +113,7 @@ itemBases["Omen Wand"] = {
 itemBases["Heathen Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { maraketh = true, not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["maraketh"] = true, ["not_for_sale"] = true, ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "10% increased Cast Speed",
 	implicitModTypes = { { "caster", "speed" }, },
 	weapon = { PhysicalMin = 31, PhysicalMax = 57, CritChanceBase = 7, AttackRateBase = 1.35, Range = 120, },
@@ -122,7 +122,7 @@ itemBases["Heathen Wand"] = {
 itemBases["Demon's Horn"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(31-35)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 38, PhysicalMax = 71, CritChanceBase = 7, AttackRateBase = 1.2, Range = 120, },
@@ -131,7 +131,7 @@ itemBases["Demon's Horn"] = {
 itemBases["Imbued Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(33-37)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 29, PhysicalMax = 53, CritChanceBase = 7, AttackRateBase = 1.5, Range = 120, },
@@ -140,7 +140,7 @@ itemBases["Imbued Wand"] = {
 itemBases["Opal Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { top_tier_base_item_type = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["top_tier_base_item_type"] = true, ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(38-42)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 35, PhysicalMax = 65, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
@@ -149,7 +149,7 @@ itemBases["Opal Wand"] = {
 itemBases["Tornado Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { top_tier_base_item_type = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["top_tier_base_item_type"] = true, ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(35-39)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 25, PhysicalMax = 75, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
@@ -158,7 +158,7 @@ itemBases["Tornado Wand"] = {
 itemBases["Prophecy Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { top_tier_base_item_type = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["top_tier_base_item_type"] = true, ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "(36-40)% increased Spell Damage",
 	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 35, PhysicalMax = 64, CritChanceBase = 8, AttackRateBase = 1.2, Range = 120, },
@@ -167,7 +167,7 @@ itemBases["Prophecy Wand"] = {
 itemBases["Profane Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { maraketh = true, not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["maraketh"] = true, ["not_for_sale"] = true, ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "14% increased Cast Speed",
 	implicitModTypes = { { "caster", "speed" }, },
 	weapon = { PhysicalMin = 33, PhysicalMax = 61, CritChanceBase = 7, AttackRateBase = 1.35, Range = 120, },
@@ -176,7 +176,7 @@ itemBases["Profane Wand"] = {
 itemBases["Assembler Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["not_for_sale"] = true, ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "Gain an Endurance, Frenzy or Power Charge every 6 seconds",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 16, PhysicalMax = 30, CritChanceBase = 7.5, AttackRateBase = 1.4, Range = 120, },
@@ -185,7 +185,7 @@ itemBases["Assembler Wand"] = {
 itemBases["Congregator Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["not_for_sale"] = true, ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "Gain an Endurance, Frenzy or Power Charge every 6 seconds",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 25, PhysicalMax = 46, CritChanceBase = 7.5, AttackRateBase = 1.4, Range = 120, },
@@ -194,7 +194,7 @@ itemBases["Congregator Wand"] = {
 itemBases["Accumulator Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["not_for_sale"] = true, ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "Gain an Endurance, Frenzy or Power Charge every 6 seconds",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 29, PhysicalMax = 54, CritChanceBase = 7.5, AttackRateBase = 1.4, Range = 120, },
@@ -204,7 +204,7 @@ itemBases["Accumulator Wand"] = {
 itemBases["Convoking Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { onehand = true, ranged = true, wandatlas1 = true, weapon_can_roll_minion_modifiers = true, top_tier_base_item_type = true, wand = true, atlas_base_type = true, default = true, one_hand_weapon = true, weapon = true, },
+	tags = { ["onehand"] = true, ["ranged"] = true, ["wandatlas1"] = true, ["weapon_can_roll_minion_modifiers"] = true, ["top_tier_base_item_type"] = true, ["wand"] = true, ["atlas_base_type"] = true, ["default"] = true, ["one_hand_weapon"] = true, ["weapon"] = true, },
 	implicit = "Minions deal (26-30)% increased Damage",
 	implicitModTypes = { { "damage", "minion" }, },
 	weapon = { PhysicalMin = 30, PhysicalMax = 55, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },
@@ -214,7 +214,7 @@ itemBases["Convoking Wand"] = {
 itemBases["Calling Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { weapon_can_roll_minion_modifiers = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["weapon_can_roll_minion_modifiers"] = true, ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "Minions deal (12-16)% increased Damage",
 	implicitModTypes = { { "damage", "minion" }, },
 	weapon = { PhysicalMin = 13, PhysicalMax = 25, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },
@@ -224,7 +224,7 @@ itemBases["Calling Wand"] = {
 itemBases["Convening Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { weapon_can_roll_minion_modifiers = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
+	tags = { ["weapon_can_roll_minion_modifiers"] = true, ["onehand"] = true, ["wand"] = true, ["weapon"] = true, ["ranged"] = true, ["one_hand_weapon"] = true, ["default"] = true, },
 	implicit = "Minions deal (20-24)% increased Damage",
 	implicitModTypes = { { "damage", "minion" }, },
 	weapon = { PhysicalMin = 27, PhysicalMax = 50, CritChanceBase = 7, AttackRateBase = 1.4, Range = 120, },

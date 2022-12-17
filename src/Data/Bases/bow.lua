@@ -5,7 +5,7 @@ local itemBases = ...
 itemBases["Crude Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 5, PhysicalMax = 13, CritChanceBase = 5, AttackRateBase = 1.4, Range = 120, },
 	req = { dex = 14, },
@@ -13,7 +13,7 @@ itemBases["Crude Bow"] = {
 itemBases["Short Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 6, PhysicalMax = 16, CritChanceBase = 5, AttackRateBase = 1.5, Range = 120, },
 	req = { level = 5, dex = 26, },
@@ -21,7 +21,7 @@ itemBases["Short Bow"] = {
 itemBases["Long Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 8, PhysicalMax = 33, CritChanceBase = 6, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 9, dex = 38, },
@@ -29,7 +29,7 @@ itemBases["Long Bow"] = {
 itemBases["Composite Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 16, PhysicalMax = 34, CritChanceBase = 6, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 14, dex = 53, },
@@ -37,7 +37,7 @@ itemBases["Composite Bow"] = {
 itemBases["Recurve Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "+(15-25)% to Global Critical Strike Multiplier",
 	implicitModTypes = { { "damage", "critical" }, },
 	weapon = { PhysicalMin = 15, PhysicalMax = 45, CritChanceBase = 6.7, AttackRateBase = 1.25, Range = 120, },
@@ -46,7 +46,7 @@ itemBases["Recurve Bow"] = {
 itemBases["Bone Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 15, PhysicalMax = 45, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 23, dex = 80, },
@@ -54,7 +54,7 @@ itemBases["Bone Bow"] = {
 itemBases["Royal Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
 	weapon = { PhysicalMin = 14, PhysicalMax = 56, CritChanceBase = 5, AttackRateBase = 1.45, Range = 120, },
@@ -63,7 +63,7 @@ itemBases["Royal Bow"] = {
 itemBases["Death Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "(30-50)% increased Critical Strike Chance",
 	implicitModTypes = { { "attack", "critical" }, },
 	weapon = { PhysicalMin = 28, PhysicalMax = 73, CritChanceBase = 5, AttackRateBase = 1.2, Range = 120, },
@@ -72,7 +72,7 @@ itemBases["Death Bow"] = {
 itemBases["Reflex Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, maraketh = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["maraketh"] = true, ["not_for_sale"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "6% increased Movement Speed",
 	implicitModTypes = { { "speed" }, },
 	weapon = { PhysicalMin = 37, PhysicalMax = 56, CritChanceBase = 5.5, AttackRateBase = 1.4, Range = 120, },
@@ -81,7 +81,7 @@ itemBases["Reflex Bow"] = {
 itemBases["Grove Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 20, PhysicalMax = 61, CritChanceBase = 5, AttackRateBase = 1.5, Range = 120, },
 	req = { level = 35, dex = 116, },
@@ -89,7 +89,7 @@ itemBases["Grove Bow"] = {
 itemBases["Decurve Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 24, PhysicalMax = 96, CritChanceBase = 6, AttackRateBase = 1.25, Range = 120, },
 	req = { level = 38, dex = 125, },
@@ -97,7 +97,7 @@ itemBases["Decurve Bow"] = {
 itemBases["Compound Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 37, PhysicalMax = 76, CritChanceBase = 6, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 41, dex = 134, },
@@ -105,7 +105,7 @@ itemBases["Compound Bow"] = {
 itemBases["Sniper Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "+(15-25)% to Global Critical Strike Multiplier",
 	implicitModTypes = { { "damage", "critical" }, },
 	weapon = { PhysicalMin = 32, PhysicalMax = 96, CritChanceBase = 6.7, AttackRateBase = 1.25, Range = 120, },
@@ -114,7 +114,7 @@ itemBases["Sniper Bow"] = {
 itemBases["Ivory Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 29, PhysicalMax = 86, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 47, dex = 152, },
@@ -122,7 +122,7 @@ itemBases["Ivory Bow"] = {
 itemBases["Highborn Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
 	weapon = { PhysicalMin = 24, PhysicalMax = 94, CritChanceBase = 5, AttackRateBase = 1.45, Range = 120, },
@@ -131,7 +131,7 @@ itemBases["Highborn Bow"] = {
 itemBases["Decimation Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "(30-50)% increased Critical Strike Chance",
 	implicitModTypes = { { "attack", "critical" }, },
 	weapon = { PhysicalMin = 44, PhysicalMax = 116, CritChanceBase = 5, AttackRateBase = 1.2, Range = 120, },
@@ -140,7 +140,7 @@ itemBases["Decimation Bow"] = {
 itemBases["Steelwood Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, maraketh = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["maraketh"] = true, ["not_for_sale"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "6% increased Movement Speed",
 	implicitModTypes = { { "speed" }, },
 	weapon = { PhysicalMin = 58, PhysicalMax = 86, CritChanceBase = 5.5, AttackRateBase = 1.4, Range = 120, },
@@ -149,7 +149,7 @@ itemBases["Steelwood Bow"] = {
 itemBases["Thicket Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 32, PhysicalMax = 96, CritChanceBase = 5, AttackRateBase = 1.5, Range = 120, },
 	req = { level = 56, dex = 179, },
@@ -157,7 +157,7 @@ itemBases["Thicket Bow"] = {
 itemBases["Citadel Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 36, PhysicalMax = 144, CritChanceBase = 6, AttackRateBase = 1.25, Range = 120, },
 	req = { level = 58, dex = 185, },
@@ -165,7 +165,7 @@ itemBases["Citadel Bow"] = {
 itemBases["Ranger Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 56, PhysicalMax = 117, CritChanceBase = 6, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 60, dex = 212, },
@@ -173,7 +173,7 @@ itemBases["Ranger Bow"] = {
 itemBases["Assassin Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, top_tier_base_item_type = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["top_tier_base_item_type"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "+(15-25)% to Global Critical Strike Multiplier",
 	implicitModTypes = { { "damage", "critical" }, },
 	weapon = { PhysicalMin = 43, PhysicalMax = 130, CritChanceBase = 6.7, AttackRateBase = 1.25, Range = 120, },
@@ -182,7 +182,7 @@ itemBases["Assassin Bow"] = {
 itemBases["Spine Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, top_tier_base_item_type = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["top_tier_base_item_type"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 38, PhysicalMax = 115, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 64, dex = 212, },
@@ -190,7 +190,7 @@ itemBases["Spine Bow"] = {
 itemBases["Imperial Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, top_tier_base_item_type = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["top_tier_base_item_type"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "(20-24)% increased Elemental Damage with Attack Skills",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
 	weapon = { PhysicalMin = 29, PhysicalMax = 117, CritChanceBase = 5, AttackRateBase = 1.45, Range = 120, },
@@ -199,7 +199,7 @@ itemBases["Imperial Bow"] = {
 itemBases["Harbinger Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, top_tier_base_item_type = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["top_tier_base_item_type"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "(30-50)% increased Critical Strike Chance",
 	implicitModTypes = { { "attack", "critical" }, },
 	weapon = { PhysicalMin = 50, PhysicalMax = 133, CritChanceBase = 5, AttackRateBase = 1.2, Range = 120, },
@@ -208,7 +208,7 @@ itemBases["Harbinger Bow"] = {
 itemBases["Maraketh Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, maraketh = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["maraketh"] = true, ["not_for_sale"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "10% increased Movement Speed",
 	implicitModTypes = { { "speed" }, },
 	weapon = { PhysicalMin = 61, PhysicalMax = 92, CritChanceBase = 5.5, AttackRateBase = 1.4, Range = 120, },
@@ -217,7 +217,7 @@ itemBases["Maraketh Bow"] = {
 itemBases["Hedron Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["not_for_sale"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "Adds (40-48) to (60-72) Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	weapon = { PhysicalMin = 9, PhysicalMax = 13, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },
@@ -226,7 +226,7 @@ itemBases["Hedron Bow"] = {
 itemBases["Foundry Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["not_for_sale"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "Adds (70-84) to (110-124) Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	weapon = { PhysicalMin = 13, PhysicalMax = 20, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },
@@ -235,7 +235,7 @@ itemBases["Foundry Bow"] = {
 itemBases["Solarine Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { ["two_hand_weapon"] = true, ["not_for_sale"] = true, ["ranged"] = true, ["weapon"] = true, ["default"] = true, ["twohand"] = true, ["bow"] = true, },
 	implicit = "Adds (105-116) to (160-172) Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	weapon = { PhysicalMin = 16, PhysicalMax = 24, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },

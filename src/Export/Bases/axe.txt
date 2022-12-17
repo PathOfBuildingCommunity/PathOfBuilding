@@ -7,6 +7,6 @@ local itemBases = ...
 #baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe
 
 #type Two Handed Axe
-#baseTags weapon twohand axe two_hand_weapon
+#baseTags weapon twohand axe two_hand_weapon 2h_axe
 #socketLimit 6
 #baseMatch Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe

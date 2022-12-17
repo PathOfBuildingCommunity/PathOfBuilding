@@ -10,6 +10,6 @@ local itemBases = ...
 #baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre
 
 #type Two Handed Mace
-#baseTags weapon twohand mace two_hand_weapon
+#baseTags weapon twohand mace two_hand_weapon 2h_mace
 #socketLimit 6
 #baseMatch Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace

@@ -95,7 +95,7 @@ directiveTable.base = function(state, args, out)
 		combinedTags[tag.Id] = tag.Id
 	end
 	for _, tag in pairs(combinedTags) do
-		out:write(tag, ' = true, ')
+		out:write('["', tag, '"] = true, ')
 	end
 	out:write('},\n')
 	local movementPenalty

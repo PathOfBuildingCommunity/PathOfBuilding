@@ -4,25 +4,25 @@ local itemBases = ...
 
 itemBases["Crimson Jewel"] = {
 	type = "Jewel",
-	tags = { strjewel = true, not_dex = true, not_for_sale = true, not_int = true, jewel = true, default = true, },
+	tags = { ["strjewel"] = true, ["not_dex"] = true, ["not_for_sale"] = true, ["not_int"] = true, ["jewel"] = true, ["default"] = true, },
 	implicitModTypes = { },
 	req = { },
 }
 itemBases["Viridian Jewel"] = {
 	type = "Jewel",
-	tags = { dexjewel = true, not_for_sale = true, jewel = true, not_int = true, not_str = true, default = true, },
+	tags = { ["dexjewel"] = true, ["not_for_sale"] = true, ["jewel"] = true, ["not_int"] = true, ["not_str"] = true, ["default"] = true, },
 	implicitModTypes = { },
 	req = { },
 }
 itemBases["Cobalt Jewel"] = {
 	type = "Jewel",
-	tags = { not_dex = true, not_for_sale = true, intjewel = true, not_str = true, jewel = true, default = true, },
+	tags = { ["not_dex"] = true, ["not_for_sale"] = true, ["intjewel"] = true, ["not_str"] = true, ["jewel"] = true, ["default"] = true, },
 	implicitModTypes = { },
 	req = { },
 }
 itemBases["Prismatic Jewel"] = {
 	type = "Jewel",
-	tags = { dexjewel = true, not_for_sale = true, strjewel = true, jewel = true, default = true, intjewel = true, },
+	tags = { ["dexjewel"] = true, ["not_for_sale"] = true, ["strjewel"] = true, ["jewel"] = true, ["default"] = true, ["intjewel"] = true, },
 	implicitModTypes = { },
 	req = { },
 }
@@ -30,28 +30,28 @@ itemBases["Prismatic Jewel"] = {
 itemBases["Ghastly Eye Jewel"] = {
 	type = "Jewel",
 	subType = "Abyss",
-	tags = { abyss_jewel = true, default = true, abyss_jewel_summoner = true, not_for_sale = true, },
+	tags = { ["abyss_jewel"] = true, ["default"] = true, ["abyss_jewel_summoner"] = true, ["not_for_sale"] = true, },
 	implicitModTypes = { },
 	req = { },
 }
 itemBases["Hypnotic Eye Jewel"] = {
 	type = "Jewel",
 	subType = "Abyss",
-	tags = { abyss_jewel = true, abyss_jewel_caster = true, default = true, not_for_sale = true, },
+	tags = { ["abyss_jewel"] = true, ["abyss_jewel_caster"] = true, ["default"] = true, ["not_for_sale"] = true, },
 	implicitModTypes = { },
 	req = { },
 }
 itemBases["Murderous Eye Jewel"] = {
 	type = "Jewel",
 	subType = "Abyss",
-	tags = { abyss_jewel = true, abyss_jewel_melee = true, default = true, not_for_sale = true, },
+	tags = { ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["default"] = true, ["not_for_sale"] = true, },
 	implicitModTypes = { },
 	req = { },
 }
 itemBases["Searching Eye Jewel"] = {
 	type = "Jewel",
 	subType = "Abyss",
-	tags = { abyss_jewel = true, abyss_jewel_ranged = true, default = true, not_for_sale = true, },
+	tags = { ["abyss_jewel"] = true, ["abyss_jewel_ranged"] = true, ["default"] = true, ["not_for_sale"] = true, },
 	implicitModTypes = { },
 	req = { },
 }
@@ -59,21 +59,21 @@ itemBases["Searching Eye Jewel"] = {
 itemBases["Large Cluster Jewel"] = {
 	type = "Jewel",
 	subType = "Cluster",
-	tags = { not_for_sale = true, jewel = true, expansion_jewel_large = true, default = true, },
+	tags = { ["not_for_sale"] = true, ["jewel"] = true, ["expansion_jewel_large"] = true, ["default"] = true, },
 	implicitModTypes = { },
 	req = { },
 }
 itemBases["Medium Cluster Jewel"] = {
 	type = "Jewel",
 	subType = "Cluster",
-	tags = { expansion_jewel_medium = true, jewel = true, not_for_sale = true, default = true, },
+	tags = { ["expansion_jewel_medium"] = true, ["jewel"] = true, ["not_for_sale"] = true, ["default"] = true, },
 	implicitModTypes = { },
 	req = { },
 }
 itemBases["Small Cluster Jewel"] = {
 	type = "Jewel",
 	subType = "Cluster",
-	tags = { not_for_sale = true, jewel = true, expansion_jewel_small = true, default = true, },
+	tags = { ["not_for_sale"] = true, ["jewel"] = true, ["expansion_jewel_small"] = true, ["default"] = true, },
 	implicitModTypes = { },
 	req = { },
 }
@@ -81,7 +81,7 @@ itemBases["Small Cluster Jewel"] = {
 itemBases["Timeless Jewel"] = {
 	type = "Jewel",
 	subType = "Timeless",
-	tags = { dexjewel = true, not_for_sale = true, strjewel = true, jewel = true, default = true, intjewel = true, },
+	tags = { ["dexjewel"] = true, ["not_for_sale"] = true, ["strjewel"] = true, ["jewel"] = true, ["default"] = true, ["intjewel"] = true, },
 	implicitModTypes = { },
 	req = { },
 }
