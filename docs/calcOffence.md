@@ -5,8 +5,11 @@ At the most basic level, an output is a collection of values that belong to an a
 In CalcOffence a number of [passes](../src/Modules/CalcOffence.lua#L1393) are made. For attacks, it's a pass for main hand and one for off hand if it exists. For non-attacks, it's just the one pass. For attacks this means that the output is set to the output of the weapon, so `output.MainHand` rather than output. The consequence of this is that any value added to output inside of a damage pass may not be added onto the main or global output.
 
 The places passes are iterated through are:
+
 [hit speed and accuracy](../src/Modules/CalcOffence.lua#L1532)
+
 [damage](../src/Modules/CalcOffence.lua#L1853)
+
 [ailments and debuffs](../src/Modules/CalcOffence.lua#L2989)
 
 
@@ -17,6 +20,6 @@ Inside the for loops for the passes, when using an attack, `output.VeryCoolVar` 
 In order to add a variable to `actor.output` while inside the passes, you have two options. 
 
 1) Add it to `globalOutput`, which points to `actor.output`. This is great when it's a stat not connected to a hand, so there's no point calculating it for both hands.
-2) Combine the stats. The function `combineStat` takes the specified stat from both `actor.output.MainHand.stat` and `actor.output.OffHand.stat` and combines them into `actor.output.stat`. This is already done for other stats after every loop that iterates over the passes.
+2) Combine the stats. The function `combineStat` takes the specified stat from both `actor.output.MainHand.stat` and `actor.output.OffHand.stat` and combines them into `actor.output.stat`. This is already done for other stats after every loop that iterates over the passes. To reiterate, while inside the passes as an attack, the local variable `output` is already set to `actor.output.MainHand` or OffHand. All you need to do is add `output.VeryCoolVar` inside the pass, and then `combineStat("VeryCoolVar", type)` after the passes are done.
 
 If you're trying to add something to an output and it's not showing up, it's likely you're adding it to the wrong output. Double check where you are in the code and what output is behind the currently local `output` variable.
