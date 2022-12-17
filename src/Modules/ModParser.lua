@@ -4696,7 +4696,8 @@ local function parseMod(line, order)
 						tagList[i] = tag
 					end
 				end
-				modList[i] = mod("MinionModifier", "LIST", { mod = effectMod }, unpack(tagList), misc.addToMinionTag)
+				t_insert(tagList, misc.addToMinionTag)
+				modList[i] = mod("MinionModifier", "LIST", { mod = effectMod }, unpack(tagList))
 			end
 		elseif misc.addToSkill then
 			-- Skill enchants or socketed gem modifiers that add additional effects
