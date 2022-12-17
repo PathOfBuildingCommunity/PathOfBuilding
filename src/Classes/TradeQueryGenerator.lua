@@ -404,11 +404,14 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 
             local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
 			local meanStatDiff = 0
-			if self.calcContext.options.statWeights[1].stat.stat == "FullDPS" and not GlobalCache.useFullDPS then
-				meanStatDiff = m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0))  - (self.calcContext.baseStatValue or 0)
-			else
-				meanStatDiff = output[self.calcContext.options.statWeights[1].stat.stat] or 0 - (self.calcContext.baseStatValue or 0)
+			for _, statTable in ipairs(self.calcContext.options.statWeights) do
+				if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
+					meanStatDiff = meanStatDiff + m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0)) * statTable.weightMult
+				else
+					meanStatDiff = meanStatDiff + ( output[statTable.stat] or 0 ) * statTable.weightMult
+				end
 			end
+			meanStatDiff = meanStatDiff - (self.calcContext.baseStatValue or 0)
             if meanStatDiff > 0.01 then
                 table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
                 self.alreadyWeightedMods[entry.tradeMod.id] = true
@@ -529,10 +532,12 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
     local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
     local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
 	local compStatValue = 0
-	if options.statWeights[1].stat.stat == "FullDPS" and not GlobalCache.useFullDPS then
-		compStatValue = m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDot or 0, baseOutput.CombinedAvg or 0))
-	else
-		compStatValue = baseOutput[options.statWeights[1].stat.stat]
+	for _, statTable in ipairs(options.statWeights) do
+		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
+			compStatValue = compStatValue + m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDot or 0, baseOutput.CombinedAvg or 0)) * statTable.weightMult
+		else
+			compStatValue = compStatValue + (baseOutput[statTable.stat] or 0) * statTable.weightMult
+		end
 	end
 
 	-- Test each mod one at a time and cache the normalized Stat (configured earlier) diff to use as weight
@@ -596,11 +601,14 @@ function TradeQueryGeneratorClass:FinishQuery()
 
     local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
 	local currentStatDiff = 0
-	if self.calcContext.options.statWeights[1].stat.stat == "FullDPS" and not GlobalCache.useFullDPS then
-		currentStatDiff = m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDot or 0, originalOutput.CombinedAvg or 0))  - (self.calcContext.baseStatValue or 0)
-	else
-		currentStatDiff = originalOutput[self.calcContext.options.statWeights[1].stat.stat] or 0 - (self.calcContext.baseStatValue or 0)
+	for _, statTable in ipairs(self.calcContext.options.statWeights) do
+		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
+			currentStatDiff = currentStatDiff + m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDot or 0, originalOutput.CombinedAvg or 0)) * statTable.weightMult
+		else
+			currentStatDiff = currentStatDiff + ( originalOutput[statTable.stat] or 0 ) * statTable.weightMult
+		end
 	end
+	currentStatDiff = currentStatDiff - (self.calcContext.baseStatValue or 0)
 
 	-- Restore global cache full DPS
 	GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
@@ -756,7 +764,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		lastItemAnchor = controls.influence2
 		popupHeight = popupHeight + 46
 	end
-    controls.sortStatType = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, statWeights[1].stat.label)
+    controls.sortStatType = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, statWeights[1].label)
     controls.sortStatLabel = new("LabelControl", {"RIGHT",controls.sortStatType,"LEFT"}, -5, 0, 0, 16, "Stat to Sort By:")
     popupHeight = popupHeight + 23
 
