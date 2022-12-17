@@ -1794,7 +1794,7 @@ function calcs.defence(env, actor)
 							output["LifeLossLostOverTime"] = output["LifeLossLostOverTime"] + tempDamage
 						end
 						if output.preventedLifeLossBelowHalf ~= 0 then
-							local lowLifePercent = (life - Damage[damageType] < output.Life * data.misc.LowPoolThreshold) and 1 or 0 -- needs to calc the percent of the damage below lowlife and not assume all of it is if some of it is
+							local lowLifePercent = m_max((output.Life * data.misc.LowPoolThreshold + Damage[damageType] - life) / Damage[damageType], 1)
 							if lowLifePercent > 0 then
 								local tempDamage2 = Damage[damageType] * output.preventedLifeLossBelowHalf * lowLifePercent / 100
 								tempDamage = tempDamage + tempDamage2
@@ -2102,26 +2102,54 @@ function calcs.defence(env, actor)
 		output["EnergyShieldRecoupRecoveryMax"] = output["TotalEnergyShieldRecoupRecovery"] / recoupTime
 		output["EnergyShieldRecoupRecoveryAvg"] = output["TotalEnergyShieldRecoupRecovery"] / (output["EHPsurvivalTime"] + recoupTime)
 	end
+	
 	-- petrified blood "degen"
 	if output.preventedLifeLossTotal > 0 then
 		local LifeLossBelowHalfLost = modDB:Sum("BASE", nil, "LifeLossBelowHalfLost") / 100
-		output["LifeLossBelowHalfLostMax"] = (output["LifeLossLostOverTime"] + output["LifeBelowHalfLossLostOverTime"] * LifeLossBelowHalfLost) / 4
-		output["LifeLossBelowHalfLostAvg"] = (output["LifeLossLostOverTime"] + output["LifeBelowHalfLossLostOverTime"] * LifeLossBelowHalfLost) / (output["EHPsurvivalTime"] + 4)
+		output["LifeLossLostMax"] = (output["LifeLossLostOverTime"] + output["LifeBelowHalfLossLostOverTime"] * LifeLossBelowHalfLost) / 4
+		output["LifeLossLostAvg"] = (output["LifeLossLostOverTime"] + output["LifeBelowHalfLossLostOverTime"] * LifeLossBelowHalfLost) / (output["EHPsurvivalTime"] + 4)
 		if breakdown then
-			breakdown["LifeLossBelowHalfLostMax"] = {
-				s_format("+ %d ^8(total damage prevented by Progenesis)", output["LifeLossLostOverTime"]),
-				s_format("+ %d ^8(total damage prevented by petrified blood)", output["LifeBelowHalfLossLostOverTime"]),
-				s_format("* %.2f ^8(percent of damage taken from petrified blood)", LifeLossBelowHalfLost),
-				s_format("/ %.2f ^8(over 4 seconds)", 4),
-				s_format("= %.2f per second", output["LifeLossBelowHalfLostMax"]),
-			}
-			breakdown["LifeLossBelowHalfLostAvg"] = {
-				s_format("+ %d ^8(total damage prevented by Progenesis)", output["LifeLossLostOverTime"]),
-				s_format("+ %d ^8(total damage prevented by petrified blood)", output["LifeBelowHalfLossLostOverTime"]),
-				s_format("* %.2f ^8(percent of damage taken from petrified blood)", LifeLossBelowHalfLost),
-				s_format("/ %.2f ^8(total time of the degen (survival time + 4))", (output["EHPsurvivalTime"] + 4)),
-				s_format("= %.2f per second", output["LifeLossBelowHalfLostAvg"]),
-			}
+			breakdown["LifeLossLostMax"] = { }
+			if output["LifeLossLostOverTime"] ~= 0 then
+				t_insert(breakdown["LifeLossLostMax"], s_format("( %d ^8(total damage prevented by Progenesis)", output["LifeLossLostOverTime"]))
+			end
+			if output["LifeBelowHalfLossLostOverTime"] ~= 0 then
+				t_insert(breakdown["LifeLossLostMax"], s_format("%s %d ^8(total damage prevented by petrified blood)", output["LifeLossLostOverTime"] ~= 0 and "+" or "(", output["LifeBelowHalfLossLostOverTime"]))
+				t_insert(breakdown["LifeLossLostMax"], s_format("* %.2f ^8(percent of damage taken from petrified blood)", LifeLossBelowHalfLost))
+			end
+			t_insert(breakdown["LifeLossLostMax"], s_format(") / %.2f ^8(over 4 seconds)", 4))
+			t_insert(breakdown["LifeLossLostMax"], s_format("= %.2f per second", output["LifeLossLostMax"]))
+			breakdown["LifeLossLostAvg"] = { }
+			if output["LifeLossLostOverTime"] ~= 0 then
+				t_insert(breakdown["LifeLossLostAvg"], s_format("( %d ^8(total damage prevented by Progenesis)", output["LifeLossLostOverTime"]))
+			end
+			if output["LifeBelowHalfLossLostOverTime"] ~= 0 then
+				t_insert(breakdown["LifeLossLostAvg"], s_format("%s %d ^8(total damage prevented by petrified blood)", output["LifeLossLostOverTime"] ~= 0 and "+" or "(", output["LifeBelowHalfLossLostOverTime"]))
+				t_insert(breakdown["LifeLossLostAvg"], s_format("* %.2f ^8(percent of damage taken from petrified blood)", LifeLossBelowHalfLost))
+			end
+			t_insert(breakdown["LifeLossLostAvg"], s_format(") / %.2f ^8(total time of the degen (survival time + 4 seconds))", (output["EHPsurvivalTime"] + 4)))
+			t_insert(breakdown["LifeLossLostAvg"], s_format("= %.2f per second", output["LifeLossLostAvg"]))
+		end
+	end
+	
+	-- net recovery over time from enemy hits
+	if (output["LifeRecoupRecoveryAvg"] or 0) > 0 or output.preventedLifeLossTotal > 0 then
+		output["netLifeRecoupAndLossLostOverTimeMax"] = (output["LifeRecoupRecoveryMax"] or 0) - (output["LifeLossLostMax"] or 0)
+		output["netLifeRecoupAndLossLostOverTimeAvg"] = (output["LifeRecoupRecoveryAvg"] or 0) - (output["LifeLossLostAvg"] or 0)
+		if (output["LifeRecoupRecoveryAvg"] or 0) > 0 and output.preventedLifeLossTotal > 0 then
+			output["showNetRecoup"] = true
+			if breakdown then
+				breakdown["netLifeRecoupAndLossLostOverTimeMax"] = {
+					s_format("%d ^8(total life recouped per second)", output["LifeRecoupRecoveryMax"]),
+					s_format("- %d ^8(total life taken over time per second)", output["LifeLossLostMax"]),
+					s_format("= %.2f per second", output["netLifeRecoupAndLossLostOverTimeMax"]),
+				}
+				breakdown["netLifeRecoupAndLossLostOverTimeAvg"] = {
+					s_format("%d ^8(total life recouped per second)", output["LifeRecoupRecoveryAvg"]),
+					s_format("- %d ^8(total life taken over time per second)", output["LifeLossLostAvg"]),
+					s_format("= %.2f per second", output["netLifeRecoupAndLossLostOverTimeAvg"]),
+				}
+			end
 		end
 	end
 	
