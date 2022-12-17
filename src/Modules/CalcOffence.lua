@@ -1832,17 +1832,17 @@ function calcs.offence(env, actor, activeSkill)
 			end 
 		end
 		if skillData.hitTimeOverride and not skillData.triggeredOnDeath then
-			output.HitTime = skillData.hitTimeOverride *  output.TempUptimeVariable
-			output.HitSpeed = 1 / output.HitTime
-			output.DisplayHitSpeed = 1 / skillData.hitTimeOverride
+			output.HitTime = skillData.hitTimeOverride
+			output.HitSpeed = 1 / output.HitTime *  output.TempUptimeVariable
+			output.DisplayHitSpeed = 1 / skillData.HitTime
 			--Brands always have hitTimeOverride
 			if skillCfg.skillName and skillCfg.skillName:match("Brand") then
 				output.BrandTicks = m_floor(output.Duration * output.HitSpeed)
 			end
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
-			output.HitTime = output.Time * skillData.hitTimeMultiplier *  output.TempUptimeVariable
-			output.HitSpeed = 1 / output.HitTime
-			output.DisplayHitSpeed = 1 / output.Time * skillData.hitTimeMultiplier
+			output.HitTime = output.Time * skillData.hitTimeMultiplier
+			output.HitSpeed = 1 / output.HitTime *  output.TempUptimeVariable
+			output.DisplayHitSpeed = 1 / output.HitTime
 		end
 	end
 	if breakdown then
@@ -1861,7 +1861,7 @@ function calcs.offence(env, actor, activeSkill)
 		if output.Speed == 0 then
 			output.Time = 0
 		else
-			output.DisplayTime = 1 / output.Speed *  output.TempUptimeVariable
+			output.DisplayTime = 1 / output.DisplaySpeed
 			output.Time = 1 / output.Speed
 		end
 		if output.DisplayTime > 1 then
