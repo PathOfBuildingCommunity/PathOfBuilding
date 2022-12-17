@@ -590,8 +590,8 @@ skills["BallLightning"] = {
 					local breakdownDpsMult = {}
 					t_insert(breakdownDpsMult, "Average DPS multiplier")
 					t_insert(breakdownDpsMult, s_format("^8= 1 * (^7super chance^8) + 1.5 * (1 - ^7super chance^8)"))
-					t_insert(breakdownDpsMult, s_format("^8= 1 * ^7%d%%^8 + 1.5 * ^7%d%%^8", superchance * 100, 100 - superchance * 100))
-					t_insert(breakdownDpsMult, s_format("^7= ^7%.3f", dpsMultiplier))
+					t_insert(breakdownDpsMult, s_format("^8= 1 *^7 %d%%^8 + 1.5 *^7 %d%%^8", superchance * 100, 100 - superchance * 100))
+					t_insert(breakdownDpsMult, s_format("^7=^7 %.3f", dpsMultiplier))
 					breakdown.SkillDPSMultiplier = breakdownDpsMult
 				end
 			else
@@ -669,10 +669,10 @@ skills["BallLightning"] = {
 					if superchance > 0 then
 						t_insert(breakdownHits, "Applicable to all balls:")
 					end
-					t_insert(breakdownHits, s_format("^8Balls travel at ^7%.2f^8 units/sec.", ballDistPerSec))
-					t_insert(breakdownHits, s_format("^8Lightning bolts strike all nearby enemies every ^7%.2f^8 seconds (^7%.2f^8 strikes/sec).", secsPerStrike, 1 / secsPerStrike))
-					t_insert(breakdownHits, s_format("^8Balls travel ^7%.2f^8 units between each bolt strike.", ballDistPerStrike))
-					t_insert(breakdownHits, s_format("^8Assumes balls are cast ^7%d^8 units from the enemy.", castDist))
+					t_insert(breakdownHits, s_format("^8Balls travel at^7 %.2f^8 units/sec.", ballDistPerSec))
+					t_insert(breakdownHits, s_format("^8Lightning bolts strike all nearby enemies every^7 %.2f^8 seconds (^7%.2f^8 strikes/sec).", secsPerStrike, 1 / secsPerStrike))
+					t_insert(breakdownHits, s_format("^8Balls travel^7 %.2f^8 units between each bolt strike.", ballDistPerStrike))
+					t_insert(breakdownHits, s_format("^8Assumes balls are cast^7 %d^8 units from the enemy.", castDist))
 					if superchance > 0 then
 						if isSuperball then
 							t_insert(breakdownHits, "Applicable to supercharged balls only:")
@@ -680,14 +680,14 @@ skills["BallLightning"] = {
 							t_insert(breakdownHits, "Applicable to normal balls only:")
 						end
 					end
-					t_insert(breakdownHits, s_format("^8Balls can strike enemies up to ^7%d^8 units away from themselves.", strikeRadius))
-					t_insert(breakdownHits, s_format("^8The first strike is at ^7%.2f^8 seconds after it is cast, when the ball is ^7%d^8 units from the cast point.", firstStrikeIdxThatHits * secsPerStrike, firstStrikeIdxThatHits * ballDistPerStrike))
-					t_insert(breakdownHits, s_format("^8The last strike is at ^7%.2f^8 seconds after it is cast, when the ball is ^7%d^8 units from the cast point.", lastStrikeIdxThatHits * secsPerStrike, lastStrikeIdxThatHits * ballDistPerStrike))
+					t_insert(breakdownHits, s_format("^8Balls can strike enemies up to^7 %d^8 units away from themselves.", strikeRadius))
+					t_insert(breakdownHits, s_format("^8The first strike is at^7 %.2f^8 seconds after it is cast, when the ball is^7 %d^8 units from the cast point.", firstStrikeIdxThatHits * secsPerStrike, firstStrikeIdxThatHits * ballDistPerStrike))
+					t_insert(breakdownHits, s_format("^8The last strike is at^7 %.2f^8 seconds after it is cast, when the ball is^7 %d^8 units from the cast point.", lastStrikeIdxThatHits * secsPerStrike, lastStrikeIdxThatHits * ballDistPerStrike))
 					if superchance > 0 then
 						if isSuperball then
-							t_insert(breakdownHits, s_format("^8Balls have a(n) ^7%.1f%%^8 chance to be supercharged.", superchance * 100))
+							t_insert(breakdownHits, s_format("^8Balls have a(n)^7 %.1f%%^8 chance to be supercharged.", superchance * 100))
 						else
-							t_insert(breakdownHits, s_format("^8Balls have a(n) ^7%.1f%%^8 chance to be normal.", 100 - superchance * 100))
+							t_insert(breakdownHits, s_format("^8Balls have a(n)^7 %.1f%%^8 chance to be normal.", 100 - superchance * 100))
 						end
 					end
 					if isSuperball then
@@ -704,8 +704,8 @@ skills["BallLightning"] = {
 					local breakdownDpsMult = {}
 					t_insert(breakdownDpsMult, "Average DPS multiplier")
 					t_insert(breakdownDpsMult, s_format("^8= 1 * (^7normal hits/cast^8) + 1.5 * (^7super hits/cast^8)"))
-					t_insert(breakdownDpsMult, s_format("^8= 1 * ^7%.3f^8 + 1.5 * ^7%.3f^8", output.NormalHitsPerCast, output.SuperchargedHitsPerCast))
-					t_insert(breakdownDpsMult, s_format("^8= ^7%.3f", dpsMultiplier))
+					t_insert(breakdownDpsMult, s_format("^8= 1 *^7 %.3f^8 + 1.5 *^7 %.3f^8", output.NormalHitsPerCast, output.SuperchargedHitsPerCast))
+					t_insert(breakdownDpsMult, s_format("^8=^7 %.3f", dpsMultiplier))
 					breakdown.SkillDPSMultiplier = breakdownDpsMult
 				end
 			end
@@ -4382,16 +4382,16 @@ skills["ForbiddenRite"] = {
 		if breakdown then
 			local FRDamageTaken = {}
 			t_insert(FRDamageTaken, "Damage Taken per Cast")
-			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Life) * ^7%d%%^8 (of Life taken as Chaos Damage)", life, activeSkill.skillData.SelfDamageTakenLife * 100))
+			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Life) *^7 %d%%^8 (of Life taken as Chaos Damage)", life, activeSkill.skillData.SelfDamageTakenLife * 100))
 			if energyShield ~= 0 then
-				t_insert(FRDamageTaken, s_format("^8+^7 %d^8 (ES) * ^7%d%%^8 (of ES taken as Chaos Damage)", energyShield, activeSkill.skillData.SelfDamageTakenES * 100))
+				t_insert(FRDamageTaken, s_format("^8+^7 %d^8 (ES) *^7 %d%%^8 (of ES taken as Chaos Damage)", energyShield, activeSkill.skillData.SelfDamageTakenES * 100))
 			end
-			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Chaos Damage) * ^7%d%%^8 (Chaos Resistance)", life * activeSkill.skillData.SelfDamageTakenLife + energyShield * activeSkill.skillData.SelfDamageTakenES, chaosResistance))
+			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Chaos Damage) *^7 %d%%^8 (Chaos Resistance)", life * activeSkill.skillData.SelfDamageTakenLife + energyShield * activeSkill.skillData.SelfDamageTakenES, chaosResistance))
 			if chaosFlat ~= 0 then
 				t_insert(FRDamageTaken, s_format("^8 -^7 %d^8 (Flat Damage reduction)", -basetakenFlat))
 			end
 			if chaosDamageTaken ~= 1 then
-				t_insert(FRDamageTaken, s_format("^8 * ^7%.2f^8 (Damage taken Multiplier)", chaosDamageTaken))
+				t_insert(FRDamageTaken, s_format("^8 *^7 %.2f^8 (Damage taken Multiplier)", chaosDamageTaken))
 			end
 			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Damage taken)", SelfDamageTakenLife + SelfDamageTakenES + chaosFlat))
 			breakdown.FRDamageTaken = FRDamageTaken
