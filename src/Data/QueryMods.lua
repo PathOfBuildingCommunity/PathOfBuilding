@@ -25,6 +25,16 @@ return {
 				["max"] = 2, 
 			}, 
 		}, 
+		["659_LocalLifeFlaskHinderNearbyEnemies"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1462364052", 
+				["text"] = "Hinders nearby Enemies with #% reduced Movement Speed if used while not on Full Life", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["4115_AccuracyIfNoEnemySlainRecently"] = {
 			["specialCaseData"] = {
 			}, 
@@ -1051,6 +1061,16 @@ return {
 			["Chest"] = {
 				["min"] = 8, 
 				["max"] = 9, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["654_LocalFlaskImmuneToMaimAndHinder"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4232582040", 
+				["text"] = "Grants Immunity to Maim for # seconds if used while Maimed", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -2912,6 +2932,15 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["702_FlaskBuffKnockbackWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_251342217", 
+				["text"] = "Adds Knockback to Melee Attacks during Effect", 
+			}, 
+		}, 
 		["2541_FishingCastDistance"] = {
 			["specialCaseData"] = {
 			}, 
@@ -3172,6 +3201,16 @@ return {
 			}, 
 			["specialCaseData"] = {
 			}, 
+		}, 
+		["604_FlaskIncreasedRecoveryAmount"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_700317374", 
+				["text"] = "#% increased Amount Recovered", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["8767_HexMaster"] = {
 			["specialCaseData"] = {
@@ -3917,6 +3956,20 @@ return {
 				["max"] = 1, 
 			}, 
 		}, 
+		["682_FlaskEffectReducedDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2448920197", 
+				["text"] = "#% increased effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 25, 
+				["max"] = 25, 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1276_LocalArmourAndEvasionAndStunRecovery"] = {
 			["Gloves"] = {
 				["min"] = 6, 
@@ -3984,6 +4037,28 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["961_LocalIncreasedPhysicalDamagePercentAndCritChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1509134228", 
+				["text"] = "#% increased Physical Damage", 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Dagger"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+			["Claw"] = {
+				["min"] = 25, 
+				["max"] = 69, 
+			}, 
+		}, 
 		["4316_AttackAndCastSpeedWhileFocused"] = {
 			["specialCaseData"] = {
 			}, 
@@ -3995,6 +4070,48 @@ return {
 			["Gloves"] = {
 				["min"] = 45, 
 				["max"] = 50, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["695_FlaskBuffResistancesWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_962725504", 
+				["text"] = "#% additional Elemental Resistances during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 21, 
+				["max"] = 40, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["683_FlaskBuffArmourWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1693613464", 
+				["text"] = "#% increased Armour during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 41, 
+				["max"] = 60, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["721_FlaskBuffCriticalWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2008255263", 
+				["text"] = "#% increased Critical Strike Chance during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 26, 
+				["max"] = 55, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -4025,6 +4142,20 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1476643878", 
 				["text"] = "#% increased Cast Speed with Fire Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1562_AvoidStunAndElementalStatusAilments"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3005472710", 
+				["text"] = "#% chance to Avoid Elemental Ailments", 
+			}, 
+			["Chest"] = {
+				["min"] = 30, 
+				["max"] = 35, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -4133,6 +4264,30 @@ return {
 				["max"] = 19, 
 			}, 
 		}, 
+		["696_FlaskBuffLifeLeechWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3111255591", 
+				["text"] = "#% of Physical Attack Damage Leeched as Life during Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["595_FlaskIncreasedRecoveryReducedEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3196823591", 
+				["text"] = "#% increased Charge Recovery", 
+			}, 
+			["Flask"] = {
+				["min"] = 37, 
+				["max"] = 66, 
+			}, 
+			["sign"] = "", 
+		}, 
 		["963_MeleeDamage"] = {
 			["Gloves"] = {
 				["min"] = 18, 
@@ -4150,6 +4305,30 @@ return {
 				["min"] = 15, 
 				["max"] = 25, 
 			}, 
+		}, 
+		["690_FlaskBuffAccuracyWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3337754340", 
+				["text"] = "#% increased Accuracy Rating during Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["686_FlaskBuffWardWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2891175306", 
+				["text"] = "#% increased Ward during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 19, 
+				["max"] = 30, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["2856_PoisonDurationSupported"] = {
 			["specialCaseData"] = {
@@ -4174,6 +4353,46 @@ return {
 				["text"] = "Malevolence has #% increased Mana Reservation Efficiency", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["691_FlaskBuffAttackSpeedWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_968369591", 
+				["text"] = "#% increased Attack Speed during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 9, 
+				["max"] = 17, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3891_ChanceToAvoidBleeding"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1618589784", 
+				["text"] = "#% chance to Avoid Bleeding", 
+			}, 
+			["Shield"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["Helmet"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Chest"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
+			["Boots"] = {
+				["min"] = 50, 
+				["max"] = 50, 
+			}, 
 		}, 
 		["1736_LocalAccuracyRating"] = {
 			["1HSword"] = {
@@ -4238,6 +4457,77 @@ return {
 				["overrideModLine"] = "# to Accuracy Rating", 
 			}, 
 		}, 
+		["6720_NearbyEnemyPhysicalDamageTaken"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_415837237", 
+				["text"] = "Nearby Enemies take #% increased Physical Damage", 
+			}, 
+			["Helmet"] = {
+				["min"] = 9, 
+				["max"] = 12, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1293_LifeAndEnergyShieldForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_983749596", 
+				["text"] = "#% increased maximum Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["698_FlaskBuffAttackLifeLeechWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1173558568", 
+				["text"] = "#% of Attack Damage Leeched as Life during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 0.4, 
+				["max"] = 0.8, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["712_FlaskBuffAvoidShock"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3642618258", 
+				["text"] = "#% chance to Avoid being Shocked during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 31, 
+				["max"] = 55, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["653_LocalFlaskImmuneToMaimAndHinder"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4003593289", 
+				["text"] = "Grants Immunity to Hinder for # seconds if used while Hindered", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["655_FlaskDispellsPoison"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3596333054", 
+				["text"] = "Grants Immunity to Poison for 4 seconds if used while Poisoned", 
+			}, 
+		}, 
 		["4454_ColdDamageESLeech"] = {
 			["specialCaseData"] = {
 			}, 
@@ -4249,6 +4539,26 @@ return {
 			["Amulet"] = {
 				["min"] = 0.2, 
 				["max"] = 0.4, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["605_FlaskIncreasedRecoverySpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_173226756", 
+				["text"] = "#% increased Recovery rate", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["591_FlaskFullRechargeOnCrit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2961372685", 
+				["text"] = "Recharges # Charge when you deal a Critical Strike", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -4303,6 +4613,24 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["4755_CastSpeedIfMinionKilledRecently"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3110907148", 
+				["text"] = "#% increased Cast Speed if a Minion has been Killed Recently", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 7, 
+				["max"] = 10, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 7, 
+				["max"] = 10, 
+			}, 
+		}, 
 		["6717_NearbyEnemyElementalDamageTaken"] = {
 			["specialCaseData"] = {
 			}, 
@@ -4330,6 +4658,56 @@ return {
 				["min"] = 16, 
 				["max"] = 18, 
 			}, 
+		}, 
+		["699_FlaskBuffLifeLeechPermyriadWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3111255591", 
+				["text"] = "#% of Physical Attack Damage Leeched as Life during Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1783_PhysicalDamageWithBowsJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1760576992", 
+				["text"] = "# to # Added Physical Damage with Bow Attacks", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Bow"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 2.5, 
+				["max"] = 9, 
+			}, 
+		}, 
+		["693_FlaskBuffMovementSpeedWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3182498570", 
+				["text"] = "#% increased Movement Speed during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 6, 
+				["max"] = 14, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["1200_TwoHandedCritChanceForJewel"] = {
 			["tradeMod"] = {
@@ -4381,6 +4759,16 @@ return {
 				["max"] = 7, 
 			}, 
 		}, 
+		["701_FlaskBuffManaLeechPermyriadWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_374891408", 
+				["text"] = "#% of Physical Attack Damage Leeched as Mana during Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1089_LocalFireDamageTwoHandAndPen"] = {
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Fire Damage", 
@@ -4391,6 +4779,15 @@ return {
 				["text"] = "Adds # to # Fire Damage (Local)", 
 			}, 
 			["sign"] = "", 
+		}, 
+		["645_FlaskCurseImmunity"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3895393544", 
+				["text"] = "Removes Curses on use", 
+			}, 
 		}, 
 		["2337_EnergyShieldRecoveryRateMaven"] = {
 			["specialCaseData"] = {
@@ -4470,6 +4867,29 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["607_FlaskUtilityIncreasedDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1256719186", 
+				["text"] = "#% increased Duration", 
+			}, 
+			["Flask"] = {
+				["min"] = 16, 
+				["max"] = 40, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["656_FlaskPoisonImmunity"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3596333054", 
+				["text"] = "Grants Immunity to Poison for 4 seconds if used while Poisoned", 
+			}, 
+		}, 
 		["3248_AuraEffectOnEnemies"] = {
 			["specialCaseData"] = {
 			}, 
@@ -4477,6 +4897,20 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1636209393", 
 				["text"] = "#% increased Effect of Non-Curse Auras from your Skills on Enemies", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1578_IgnitingConfluxMaven"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1086147743", 
+				["text"] = "#% increased Ignite Duration on Enemies", 
+			}, 
+			["Helmet"] = {
+				["min"] = 20, 
+				["max"] = 30, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -4585,6 +5019,34 @@ return {
 				["max"] = 16, 
 			}, 
 			["specialCaseData"] = {
+			}, 
+		}, 
+		["1293_PercentageLifeAndManaForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_983749596", 
+				["text"] = "#% increased maximum Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["953_TwoHandWeaponSpellDamage"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2974417149", 
+				["text"] = "#% increased Spell Damage", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 15, 
+				["max"] = 164, 
+			}, 
+			["Staff"] = {
+				["min"] = 15, 
+				["max"] = 164, 
 			}, 
 		}, 
 		["1759_IncreasedAttackAndCastSpeedSupported"] = {
@@ -4737,6 +5199,16 @@ return {
 			["specialCaseData"] = {
 			}, 
 		}, 
+		["604_FlaskManaRecoveryAtEnd"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_700317374", 
+				["text"] = "#% increased Amount Recovered", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["7639_CriticalChanceAndAddedChaosDamageIfHaveCritRecently"] = {
 			["Gloves"] = {
 				["min"] = 25, 
@@ -4776,6 +5248,26 @@ return {
 			["Amulet"] = {
 				["min"] = 4, 
 				["max"] = 10, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["619_FlaskExtraManaCostsLife"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_959641748", 
+				["text"] = "Removes #% of Mana Recovered from Life when used", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["603_FlaskExtraManaCostsLife"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1811130680", 
+				["text"] = "#% increased Mana Recovered", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -4871,6 +5363,30 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
+		["587_FlaskExtraMaxCharges"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1437957544", 
+				["text"] = "# to Maximum Charges", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["875_SpellDamageSuppressed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4116705863", 
+				["text"] = "Prevent #% of Suppressed Spell Damage", 
+			}, 
+			["Amulet"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
+			["sign"] = "+", 
+		}, 
 		["5505_EnemiesHaveReducedEvasionIfHitRecently"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -4887,6 +5403,34 @@ return {
 			["Claw"] = {
 				["min"] = 20, 
 				["max"] = 20, 
+			}, 
+		}, 
+		["595_FlaskIncreasedChargesAdded"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3196823591", 
+				["text"] = "#% increased Charge Recovery", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1147_StaffAttackSpeedForJewel"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1394963553", 
+				["text"] = "#% increased Attack Speed with Staves", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["2HWeapon"] = {
+				["min"] = 6, 
+				["max"] = 8, 
+			}, 
+			["Staff"] = {
+				["min"] = 6, 
+				["max"] = 8, 
 			}, 
 		}, 
 		["196_LocalIncreasedPhysicalDamagePercentIronGrip"] = {
@@ -4936,6 +5480,20 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_3041288981", 
 				["text"] = "Recover #% of your maximum Mana when you Block", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["711_FlaskBuffAvoidIgnite"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_20251177", 
+				["text"] = "#% chance to Avoid being Ignited during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 31, 
+				["max"] = 55, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -5009,6 +5567,20 @@ return {
 				["max"] = 28, 
 			}, 
 		}, 
+		["719_FlaskBuffFreezeShockIgniteChanceWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_97064873", 
+				["text"] = "#% chance to Freeze, Shock and Ignite during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 19, 
+				["max"] = 34, 
+			}, 
+			["sign"] = "", 
+		}, 
 		["911_StrengthIntelligenceForJewel"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -5053,6 +5625,37 @@ return {
 				["max"] = 10, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["2860_AbyssMinionPoisonOnHitChance"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1974445926", 
+				["text"] = "Minions have #% chance to Poison Enemies on Hit", 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 15, 
+			}, 
+		}, 
+		["728_FlaskPoisonImmunityDuringEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1349296959", 
+				["text"] = "Immunity to Poison during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 		}, 
 		["8519_TrapAndMineThrowSpeed"] = {
 			["specialCaseData"] = {
@@ -5118,6 +5721,33 @@ return {
 			["specialCaseData"] = {
 			}, 
 		}, 
+		["710_FlaskBuffAvoidChillFreeze"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2872815301", 
+				["text"] = "#% chance to Avoid being Frozen during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 31, 
+				["max"] = 55, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5059_ConsecratedGroundStationary"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_880970200", 
+				["text"] = "You have Consecrated Ground around you while stationary", 
+			}, 
+			["Chest"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+		}, 
 		["7587_LifeAddedAsEnergyShield"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5125,6 +5755,16 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_67280387", 
 				["text"] = "Gain #% of Maximum Life as Extra Maximum Energy Shield", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1759_AttackAndCastSpeedForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2672805335", 
+				["text"] = "#% increased Attack and Cast Speed", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -5152,6 +5792,19 @@ return {
 			["2HWeapon"] = {
 				["min"] = 20, 
 				["max"] = 25, 
+			}, 
+		}, 
+		["725_FlaskBleedingAndCorruptedBloodImmunityDuringEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3965637181", 
+				["text"] = "Immunity to Bleeding and Corrupted Blood during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["223_TotemSpeedAttackSupported"] = {
@@ -5210,6 +5863,26 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
+		["592_FlaskChanceRechargeOnCrit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3738001379", 
+				["text"] = "#% chance to gain a Flask Charge when you deal a Critical Strike", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["611_FlaskPartialInstantRecovery"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2503377690", 
+				["text"] = "#% of Recovery applied Instantly", 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1340_AllResistancesMaven"] = {
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -5227,6 +5900,40 @@ return {
 				["min"] = 19, 
 				["max"] = 22, 
 			}, 
+		}, 
+		["605_FlaskPartialInstantRecovery"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_173226756", 
+				["text"] = "#% increased Recovery rate", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["7655_AddedLightningDamageIfCritRecently"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_935623115", 
+				["text"] = "Adds # to # Lightning Damage if you've dealt a Critical Strike Recently", 
+			}, 
+			["Gloves"] = {
+				["min"] = 21, 
+				["max"] = 45.5, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["596_FlaskIncreasedHealingCharges"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_388617051", 
+				["text"] = "#% increased Charges per use", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["8760_ElementalOverload"] = {
 			["specialCaseData"] = {
@@ -5288,6 +5995,42 @@ return {
 				["min"] = 6.5, 
 				["max"] = 21.5, 
 			}, 
+		}, 
+		["1809_AddedLightningDamageWithBows"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1040269876", 
+				["text"] = "# to # Added Lightning Damage with Bow Attacks", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["AbyssJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Bow"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 10, 
+				["max"] = 27.5, 
+			}, 
+		}, 
+		["609_FlaskIncreasedRecoveryOnLowLife"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_886931978", 
+				["text"] = "#% more Recovery if used while on Low Life", 
+			}, 
+			["sign"] = "", 
 		}, 
 		["391_SocketedSpellsManaCost"] = {
 			["tradeMod"] = {
@@ -5359,6 +6102,24 @@ return {
 			["Boots"] = {
 				["min"] = 17, 
 				["max"] = 26, 
+			}, 
+		}, 
+		["960_PhysicalDamagePercentPrefix"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1310194496", 
+				["text"] = "#% increased Global Physical Damage", 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 20, 
+				["max"] = 30, 
+			}, 
+			["Belt"] = {
+				["min"] = 16, 
+				["max"] = 30, 
 			}, 
 		}, 
 		["1357_LightningResistanceAilments"] = {
@@ -5439,6 +6200,20 @@ return {
 				["max"] = 8, 
 			}, 
 		}, 
+		["744_FlaskBuffChillFreezeDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2434101731", 
+				["text"] = "#% reduced Effect of Chill on you during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 36, 
+				["max"] = 65, 
+			}, 
+			["sign"] = "", 
+		}, 
 		["1093_LocalColdDamageHybrid"] = {
 			["specialCaseData"] = {
 			}, 
@@ -5469,6 +6244,20 @@ return {
 				["min"] = 1, 
 				["max"] = 1, 
 			}, 
+		}, 
+		["697_FlaskBuffSpellEnergyShieldLeechWhileHealing"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1456464057", 
+				["text"] = "#% of Spell Damage Leeched as Energy Shield during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 0.4, 
+				["max"] = 0.8, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["1335_GlobalIncreaseChaosSpellSkillGemLevel"] = {
 			["Wand"] = {
@@ -5517,6 +6306,29 @@ return {
 				["max"] = 10, 
 			}, 
 			["sign"] = "", 
+		}, 
+		["745_FlaskBuffCurseEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4265534424", 
+				["text"] = "#% reduced Effect of Curses on you during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 36, 
+				["max"] = 65, 
+			}, 
+			["sign"] = "", 
+		}, 
+		["610_FlaskInstantRecoveryOnLowLife"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3812107348", 
+				["text"] = "Instant Recovery when on Low Life", 
+			}, 
 		}, 
 		["8129_RemoveIgniteOnFlaskUse"] = {
 			["specialCaseData"] = {
@@ -5718,13 +6530,13 @@ return {
 				["text"] = "Blood Magic", 
 			}, 
 		}, 
-		["1293_LifeAndEnergyShieldForJewel"] = {
+		["600_FlaskHealsMinions"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_983749596", 
-				["text"] = "#% increased maximum Life", 
+				["id"] = "explicit.stat_2416869319", 
+				["text"] = "Grants #% of Life Recovery to Minions", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -6413,22 +7225,17 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["2860_AbyssMinionPoisonOnHitChance"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1974445926", 
-				["text"] = "Minions have #% chance to Poison Enemies on Hit", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 15, 
-			}, 
+		["727_FlaskFreezeAndChillImmunityDuringEffect"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3838369929", 
+				["text"] = "Immunity to Freeze and Chill during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["2867_PoisonDamageAddedChaosToSpells"] = {
@@ -6708,23 +7515,19 @@ return {
 			["specialCaseData"] = {
 			}, 
 		}, 
-		["4755_CastSpeedIfMinionKilledRecently"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_3110907148", 
-				["text"] = "#% increased Cast Speed if a Minion has been Killed Recently", 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 7, 
-				["max"] = 10, 
-			}, 
+		["646_LocalLifeFlaskAdditionalLifeRecovery"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["AnyJewel"] = {
-				["min"] = 7, 
-				["max"] = 10, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_307410279", 
+				["text"] = "Recover an additional #% of Flask's Life Recovery Amount over 10 seconds if used while not on Full Life", 
 			}, 
+			["Flask"] = {
+				["min"] = 11, 
+				["max"] = 40, 
+			}, 
+			["sign"] = "", 
 		}, 
 		["5429_IncreasedWeaponElementalDamagePercent"] = {
 			["2HMace"] = {
@@ -7220,31 +8023,15 @@ return {
 				["max"] = 1000, 
 			}, 
 		}, 
-		["1783_PhysicalDamageWithBowsJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1760576992", 
-				["text"] = "# to # Added Physical Damage with Bow Attacks", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
+		["660_LocalManaFlaskHinderNearbyEnemies"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2313899959", 
+				["text"] = "Hinders nearby Enemies with #% reduced Movement Speed if used while not on Full Mana", 
+			}, 
 			["sign"] = "", 
-			["Bow"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 2.5, 
-				["max"] = 9, 
-			}, 
 		}, 
 		["1825_SpellAddedFireDamageWhileDualWielding"] = {
 			["tradeMod"] = {
@@ -9518,30 +10305,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1809_AddedLightningDamageWithBows"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1040269876", 
-				["text"] = "# to # Added Lightning Damage with Bow Attacks", 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
-			}, 
-			["AbyssJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
-			}, 
+		["616_FlaskFullInstantRecovery"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["Bow"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
-			}, 
-			["AnyJewel"] = {
-				["min"] = 10, 
-				["max"] = 27.5, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1526933524", 
+				["text"] = "Instant Recovery", 
 			}, 
 		}, 
 		["4371_AttackSpeedKilledRecently"] = {
@@ -11778,15 +12548,14 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["1759_AttackAndCastSpeedForJewel"] = {
+		["657_FlaskRemovesShock"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_2672805335", 
-				["text"] = "#% increased Attack and Cast Speed", 
+				["id"] = "explicit.stat_1823903967", 
+				["text"] = "Grants Immunity to Shock for 4 seconds if used while Shocked", 
 			}, 
-			["sign"] = "", 
 		}, 
 		["1485_MaximumMinionCountAndMinionLife"] = {
 			["specialCaseData"] = {
@@ -12000,19 +12769,19 @@ return {
 				["max"] = 18, 
 			}, 
 		}, 
-		["875_SpellDamageSuppressed"] = {
+		["684_FlaskBuffEvasionWhileHealing"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_4116705863", 
-				["text"] = "Prevent #% of Suppressed Spell Damage", 
+				["id"] = "explicit.stat_299054775", 
+				["text"] = "#% increased Evasion Rating during Effect", 
 			}, 
-			["Amulet"] = {
-				["min"] = 2, 
-				["max"] = 2, 
+			["Flask"] = {
+				["min"] = 41, 
+				["max"] = 60, 
 			}, 
-			["sign"] = "+", 
+			["sign"] = "", 
 		}, 
 		["2978_OnslaughtEffect"] = {
 			["specialCaseData"] = {
@@ -13212,15 +13981,14 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1293_PercentageLifeAndManaForJewel"] = {
+		["658_FlaskShockImmunity"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_983749596", 
-				["text"] = "#% increased maximum Life", 
+				["id"] = "explicit.stat_1823903967", 
+				["text"] = "Grants Immunity to Shock for 4 seconds if used while Shocked", 
 			}, 
-			["sign"] = "", 
 		}, 
 		["6274_LifeRegenerationRatePerMinuteWhileUsingFlask"] = {
 			["specialCaseData"] = {
@@ -14543,23 +15311,15 @@ return {
 			}, 
 			["sign"] = "+", 
 		}, 
-		["1147_StaffAttackSpeedForJewel"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1394963553", 
-				["text"] = "#% increased Attack Speed with Staves", 
-			}, 
+		["590_FlaskFullRechargeOnHit"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1582728645", 
+				["text"] = "Gain # Charge when you are Hit by an Enemy", 
+			}, 
 			["sign"] = "", 
-			["2HWeapon"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
-			["Staff"] = {
-				["min"] = 6, 
-				["max"] = 8, 
-			}, 
 		}, 
 		["8725_ZealotryAuraEffect"] = {
 			["1HMace"] = {
@@ -19901,27 +20661,19 @@ return {
 			["specialCaseData"] = {
 			}, 
 		}, 
-		["961_LocalIncreasedPhysicalDamagePercentAndCritChance"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1509134228", 
-				["text"] = "#% increased Physical Damage", 
-			}, 
-			["1HWeapon"] = {
-				["min"] = 25, 
-				["max"] = 69, 
-			}, 
+		["692_FlaskBuffCastSpeedWhileHealing"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3256116097", 
+				["text"] = "#% increased Cast Speed during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 9, 
+				["max"] = 17, 
+			}, 
 			["sign"] = "", 
-			["Dagger"] = {
-				["min"] = 25, 
-				["max"] = 69, 
-			}, 
-			["Claw"] = {
-				["min"] = 25, 
-				["max"] = 69, 
-			}, 
 		}, 
 		["2323_MinimumFrenzyChargesAndOnKillChance"] = {
 			["tradeMod"] = {
@@ -21689,18 +22441,19 @@ return {
 				["max"] = 10, 
 			}, 
 		}, 
-		["5059_ConsecratedGroundStationary"] = {
+		["709_FlaskBuffAvoidChillFreeze"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_880970200", 
-				["text"] = "You have Consecrated Ground around you while stationary", 
+				["id"] = "explicit.stat_1053326368", 
+				["text"] = "#% chance to Avoid being Chilled during Effect", 
 			}, 
-			["Chest"] = {
-				["min"] = 1, 
-				["max"] = 1, 
+			["Flask"] = {
+				["min"] = 31, 
+				["max"] = 55, 
 			}, 
+			["sign"] = "", 
 		}, 
 		["4439_FasterBleedDamageMaven"] = {
 			["specialCaseData"] = {
@@ -22248,23 +23001,19 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["960_PhysicalDamagePercentPrefix"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1310194496", 
-				["text"] = "#% increased Global Physical Damage", 
-			}, 
+		["717_FlaskBuffAvoidStunWhileHealing"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2312652600", 
+				["text"] = "#% Chance to Avoid being Stunned during Effect", 
+			}, 
+			["Flask"] = {
+				["min"] = 31, 
+				["max"] = 55, 
+			}, 
 			["sign"] = "", 
-			["Amulet"] = {
-				["min"] = 20, 
-				["max"] = 30, 
-			}, 
-			["Belt"] = {
-				["min"] = 16, 
-				["max"] = 30, 
-			}, 
 		}, 
 		["5113_GainAccuracyEqualToStrengthMaven"] = {
 			["specialCaseData"] = {
@@ -22280,17 +23029,17 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1562_AvoidStunAndElementalStatusAilments"] = {
+		["694_FlaskBuffStunRecoveryWhileHealing"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_3005472710", 
-				["text"] = "#% chance to Avoid Elemental Ailments", 
+				["id"] = "explicit.stat_3479987487", 
+				["text"] = "#% increased Block and Stun Recovery during Effect", 
 			}, 
-			["Chest"] = {
-				["min"] = 30, 
-				["max"] = 35, 
+			["Flask"] = {
+				["min"] = 51, 
+				["max"] = 80, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -22657,17 +23406,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["6720_NearbyEnemyPhysicalDamageTaken"] = {
+		["599_FlaskExtraLifeCostsMana"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_415837237", 
-				["text"] = "Nearby Enemies take #% increased Physical Damage", 
-			}, 
-			["Helmet"] = {
-				["min"] = 9, 
-				["max"] = 12, 
+				["id"] = "explicit.stat_1261982764", 
+				["text"] = "#% increased Life Recovered", 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -28385,31 +29130,15 @@ return {
 				["max"] = 20, 
 			}, 
 		}, 
-		["3891_ChanceToAvoidBleeding"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1618589784", 
-				["text"] = "#% chance to Avoid Bleeding", 
-			}, 
-			["Shield"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
-			["Helmet"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
+		["621_FlaskExtraLifeCostsMana"] = {
 			["specialCaseData"] = {
 			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_648019518", 
+				["text"] = "Removes #% of Life Recovered from Mana when used", 
+			}, 
 			["sign"] = "", 
-			["Chest"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
-			["Boots"] = {
-				["min"] = 50, 
-				["max"] = 50, 
-			}, 
 		}, 
 		["228_LocalPhysicalDamagePercentRuthless"] = {
 			["2HMace"] = {
@@ -30513,19 +31242,18 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["1578_IgnitingConfluxMaven"] = {
+		["729_FlaskShockImmunityDuringEffect"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1086147743", 
-				["text"] = "#% increased Ignite Duration on Enemies", 
+				["id"] = "explicit.stat_589991690", 
+				["text"] = "Immunity to Shock during Effect", 
 			}, 
-			["Helmet"] = {
-				["min"] = 20, 
-				["max"] = 30, 
+			["Flask"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
-			["sign"] = "", 
 		}, 
 		["4438_ChanceToAvoidProjectiles"] = {
 			["specialCaseData"] = {
@@ -31071,22 +31799,13 @@ return {
 				["text"] = "Permanently Intimidate Enemies on Block", 
 			}, 
 		}, 
-		["953_TwoHandWeaponSpellDamage"] = {
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2974417149", 
-				["text"] = "#% increased Spell Damage", 
-			}, 
+		["615_FlaskManaRecoveryAtEnd"] = {
 			["specialCaseData"] = {
 			}, 
-			["sign"] = "", 
-			["2HWeapon"] = {
-				["min"] = 15, 
-				["max"] = 164, 
-			}, 
-			["Staff"] = {
-				["min"] = 15, 
-				["max"] = 164, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4204954479", 
+				["text"] = "Mana Recovery occurs instantly at the end of Effect", 
 			}, 
 		}, 
 		["5595_FasterPoisonDamageMaven"] = {
@@ -33274,17 +33993,13 @@ return {
 			}, 
 			["sign"] = "", 
 		}, 
-		["7655_AddedLightningDamageIfCritRecently"] = {
+		["604_FlaskIncreasedHealingCharges"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_935623115", 
-				["text"] = "Adds # to # Lightning Damage if you've dealt a Critical Strike Recently", 
-			}, 
-			["Gloves"] = {
-				["min"] = 21, 
-				["max"] = 45.5, 
+				["id"] = "explicit.stat_700317374", 
+				["text"] = "#% increased Amount Recovered", 
 			}, 
 			["sign"] = "", 
 		}, 
