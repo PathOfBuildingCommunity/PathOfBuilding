@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
 	<Version number="2.24.0" />
-	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
-	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
-	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
+	<Source part="default" url="https://raw.githubusercontent.com/pocifik/PathOfBuilding-pogcifik/{branch}/" />
+	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/pocifik/PathOfBuilding-pogcifik/{branch}/runtime/" />
+	<Source part="program" url="https://raw.githubusercontent.com/pocifik/PathOfBuilding-pogcifik/{branch}/src/" />
+	<Source part="tree" url="https://raw.githubusercontent.com/pocifik/PathOfBuilding-pogcifik/{branch}/src/" />
 	<File name="changelog.txt" part="default" sha1="b59c3748335fe7bfa6566791a179c2424ef2d60f" />
 	<File name="LICENSE.md" part="default" sha1="eacedd00e9707defe051bd7151466d223376afa6" />
 	<File name="Assets/game_ui_small.png" part="program" sha1="3e3f01a7c21ffe5ee7dfb644e9f3b7188c319d4d" />
@@ -60,16 +60,16 @@
 	<File name="Classes/SkillListControl.lua" part="program" sha1="e0314749fcc2ee7c335e7841a8d451d0d67f0ad4" />
 	<File name="Classes/SkillSetListControl.lua" part="program" sha1="7a47ccdede9b3b61d9dc58fedfd8ea712f63b5fd" />
 	<File name="Classes/SkillsTab.lua" part="program" sha1="83d50043515ce9291fd2a377297a5e1a97452975" />
-	<File name="Classes/SliderControl.lua" part="program" sha1="53d3177c25209823b58cf7235847429cd82a4b34" />
+	<File name="Classes/SliderControl.lua" part="program" sha1="c07c6b8f977d5f039543ddebd44e21d533f9c4d6" />
 	<File name="Classes/TextListControl.lua" part="program" sha1="bb62a34443d64f21c5f0e3e00cae736a8eb6bd87" />
 	<File name="Classes/TimelessJewelListControl.lua" part="program" sha1="d8e5b92390a8a5d26b6d90f33ebb27606d5e4efa" />
 	<File name="Classes/TimelessJewelSocketControl.lua" part="program" sha1="b4c795282944da4d0a7dbc3a6bf5e44c791681ac" />
 	<File name="Classes/Tooltip.lua" part="program" sha1="ecf26fdd31c2b74ebdec52161b1ce271a715d21b" />
 	<File name="Classes/TooltipHost.lua" part="program" sha1="23274906162877c09d2119237414b6747a0e6cea" />
 	<File name="Classes/TradeQuery.lua" part="program" sha1="f743b01c6c4da1f47d004cf2a1a6237e74df4f70" />
-	<File name="Classes/TradeQueryGenerator.lua" part="program" sha1="162aa44ca08a5d648e4c017d3a1770163344d52b" />
+	<File name="Classes/TradeQueryGenerator.lua" part="program" sha1="a73195bb641d4b48be795b1c6cd8253954086f9b" />
 	<File name="Classes/TradeQueryRateLimiter.lua" part="program" sha1="85c8a28c7d2bacf5bf91a97165a2ebd89bc238c0" />
-	<File name="Classes/TradeQueryRequests.lua" part="program" sha1="c45a44e47af2975a4b44be82442b2da2794bce0c" />
+	<File name="Classes/TradeQueryRequests.lua" part="program" sha1="44e5e95774636e4fd009ddbeb95f2dc814c46a40" />
 	<File name="Classes/TreeTab.lua" part="program" sha1="3114ea6991128d4ceb9c6c94b4d6c1e1a5f90be6" />
 	<File name="Classes/UndoHandler.lua" part="program" sha1="ce4835c384c834da0de47b0302b1e774c8300c6b" />
 	<File name="Data/Bases/amulet.lua" part="program" sha1="ac63a9173f25ba42651e4e36b965cec46b774e40" />
@@ -184,7 +184,7 @@
 	<File name="Data/Uniques/sword.lua" part="program" sha1="7dfc1e9838d9307f874d2845c2bda6399023b85b" />
 	<File name="Data/Uniques/wand.lua" part="program" sha1="d2ff4e3c875553a3f8a6c27f36dfc060f82d72d7" />
 	<File name="GameVersions.lua" part="program" sha1="2705deb5e48d2ab3df62d7f1f88d923e5418775b" />
-	<File name="Launch.lua" part="program" sha1="29794d47be1b98d32ab01665accdd301517062de" />
+	<File name="Launch.lua" part="program" sha1="2f8e87834dcd82516950c44ef8615a575f4d38ad" />
 	<File name="Modules/Build.lua" part="program" sha1="e8dc6d039cfb1b2584aa19aaae77be58da674e98" />
 	<File name="Modules/BuildList.lua" part="program" sha1="5c5ee46b6dee4feb5bbfc2f5ef753073fa9303a9" />
 	<File name="Modules/BuildSiteTools.lua" part="program" sha1="1d50a342b6f428f796858a5ca8f6d1be24387be1" />
@@ -206,6 +206,7 @@
 	<File name="Modules/ModTools.lua" part="program" sha1="6b6ebeccf7d13593546f5408096187e0afa0ecbf" />
 	<File name="Modules/PantheonTools.lua" part="program" sha1="ebe91a7d8f8444a6061acf4758da0e775cc8c314" />
 	<File name="Modules/StatDescriber.lua" part="program" sha1="0b2d6debdd1770b7e0b7cbb76521efaeabcafba1" />
+	<File name="test.txt" part="program" sha1="a955cc7e775c826a9bbfc6bb2f0579d04e625680" />
 	<File name="UpdateApply.lua" part="program" sha1="4dd42f413cb89a963e4ae1b40e214985b909c05b" />
 	<File name="UpdateCheck.lua" part="program" sha1="f43b012b0379868c5df520c3efb4426a868c031d" />
 	<File name="lcurl.dll" part="runtime" runtime="win32" sha1="fe399dbe89c02c597bbad8323ef5c29b24af4870" />

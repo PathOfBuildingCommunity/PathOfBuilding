@@ -54,7 +54,7 @@ function launch:OnInit()
 	if localManXML and not self.versionBranch and not self.versionPlatform then
 		-- Looks like a remote manifest, so we're probably running from a repository
 		-- Enable dev mode to disable updates and set user path to be the script path
-		self.devMode = true
+		-- self.devMode = true
 	end
 	local installedFile = io.open("installed.cfg", "r")
 	if installedFile then

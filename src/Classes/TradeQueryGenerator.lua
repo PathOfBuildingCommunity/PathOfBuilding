@@ -7,6 +7,7 @@
 local dkjson = require "dkjson"
 local curl = require("lcurl.safe")
 local m_max = math.max
+local s_format = string.format
 
 -- TODO generate these from data files
 local itemCategoryTags = {
@@ -393,8 +394,17 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 
             local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
             local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDot,output.CombinedAvg)) or 0) - (self.calcContext.baseDPS or 0)
-            if meanDPSDiff > 0.01 then
-                table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanDPSDiff / modValue, meanDPSDiff = meanDPSDiff, invert = entry.sign == "-" and true or false })
+
+            local totalEvaluatedDiff = meanDPSDiff
+            
+            if (self.calcContext.options.evaluateDefenses) then
+                totalEvaluatedDiff = totalEvaluatedDiff * self.calcContext.options.evaluateDefensesCoefficient;
+                local meanEHPDiff = (output.TotalEHP or 0) - (self.calcContext.baseEHP or 0)
+                totalEvaluatedDiff = totalEvaluatedDiff + meanEHPDiff
+            end
+
+            if totalEvaluatedDiff > 0.01 then
+                table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = totalEvaluatedDiff / modValue, totalEvaluatedDiff = totalEvaluatedDiff, invert = entry.sign == "-" and true or false })
                 self.alreadyWeightedMods[entry.tradeMod.id] = true
             end
 
@@ -513,6 +523,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
     local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
     local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
     local compDPS = GlobalCache.useFullDPS and baseOutput.FullDPS or m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDot or 0, baseOutput.CombinedAvg or 0))
+    local compEHP = baseOutput.TotalEHP or 0
 
 	-- Test each mod one at a time and cache the normalized DPS diff to use as weight
     self.modWeights = { }
@@ -523,6 +534,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
         itemCategory = itemCategory,
         testItem = testItem,
         baseDPS = compDPS,
+        baseEHP = compEHP,
         calcFunc = calcFunc,
         options = options,
         slot = slot,
@@ -576,16 +588,24 @@ function TradeQueryGeneratorClass:FinishQuery()
     local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
     local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDot or 0, originalOutput.CombinedAvg or 0))) - (self.calcContext.baseDPS or 0)
 
+    local totalEvaluatedDiff = currentDPSDiff
+
+    if (self.calcContext.options.evaluateDefenses) then
+        --totalEvaluatedDiff = totalEvaluatedDiff * self.calcContext.options.evaluateDefensesCoefficient;
+        local meanEHPDiff = (originalOutput.TotalEHP or 0) - (self.calcContext.baseEHP or 0)
+        totalEvaluatedDiff = totalEvaluatedDiff + meanEHPDiff
+    end
+
     -- Restore global cache full DPS
     GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
 
     -- This DPS diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
     -- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
-    local minWeight = currentDPSDiff * 0.7
+    local minWeight = totalEvaluatedDiff * (self.calcContext.options.minWeightSumCoefficient * 10) -- totalEvaluatedDiff * 0.7 -- 0.7
 
     -- Sort by mean DPS diff rather than weight to more accurately prioritize stats that can contribute more
     table.sort(self.modWeights, function(a, b)
-        return a.meanDPSDiff > b.meanDPSDiff
+        return a.totalEvaluatedDiff > b.totalEvaluatedDiff
     end)
 
 	-- Generate trade query str and open in browser
@@ -648,6 +668,8 @@ function TradeQueryGeneratorClass:FinishQuery()
         }
     end
 
+    --queryTable.query.stats[1].value.min = 5;
+
     local queryJson = dkjson.encode(queryTable)
     self.requesterCallback(self.requesterContext, queryJson)
 
@@ -661,7 +683,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 
     local controls = { }
     local options = { }
-    local popupHeight = 143
+    local popupHeight = 210
 
     local isJewelSlot = slot.slotName:find("Jewel") ~= nil
     local isAbyssalJewelSlot = slot.slotName:find("Abyssal") ~= nil
@@ -675,8 +697,30 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 
     controls.includeSynthesis = new("CheckBoxControl", {"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, 0, 5, 18, "Synthesis Mods:", function(state) end)
     controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
+
+    -- Defenses
+    controls.evaluateDefenses = new("CheckBoxControl", {"TOPRIGHT",controls.includeSynthesis,"BOTTOMRIGHT"}, 0, 5, 18,  "Evaluate Defense Mods:", function(state) end)
+    controls.evaluateDefenses.state = (self.lastEvaluateDefenses == nil or self.lastEvaluateDefenses == true)
+
+    controls.evaluateDefensesCoefficientLabel = new("LabelControl", {"TOPLEFT",controls.evaluateDefenses,"TOPLEFT"}, 26, 3, 100, 14, "DPS Coefficient: 25.0%")
+
+    controls.evaluateDefensesCoefficient = new("SliderControl", {"TOPLEFT",controls.evaluateDefensesCoefficientLabel,"TOPLEFT"}, 140, -3, 130, 18, function(val)
+		controls.evaluateDefensesCoefficientLabel.label = s_format("DPS Coefficient: %.1f%%", val * 100)
+	end)
+
+    controls.evaluateDefensesCoefficient.val = self.lastEvaluateDefensesCoefficientVal or 0.25
+    controls.evaluateDefensesCoefficient.changeFunc(controls.evaluateDefensesCoefficient.val)
+
+    controls.minWeightSumLabel = new("LabelControl", {"TOPRIGHT",controls.evaluateDefenses,"BOTTOMRIGHT"}, 0, 10, 200, 14, "Min Weight Sum Coefficient: 100.0%")
+
+    controls.minWeightSumCoefficient = new("SliderControl", {"TOPLEFT",controls.evaluateDefenses,"TOPLEFT"}, 40, 26, 250, 18, function(val)
+		controls.minWeightSumLabel.label = s_format("Min Weight Sum Coefficient: %.1f%%", val * 1000)
+	end, nil, "Increase this value if u have too much results.\r\nReduce this value if you don't have any results.")
+
+    controls.minWeightSumCoefficient.val = self.lastMinWeightSumCoefficientVal or 0.1
+    controls.minWeightSumCoefficient.changeFunc(controls.minWeightSumCoefficient.val)
     
-    local lastItemAnchor = controls.includeSynthesis
+    local lastItemAnchor = controls.minWeightSumCoefficient
     local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
     
     if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
@@ -776,15 +820,23 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
             self.lastJewelType = controls.jewelType.selIndex
             options.jewelType = controls.jewelType.list[controls.jewelType.selIndex]
         end
+        if controls.evaluateDefenses then
+            self.lastEvaluateDefenses, options.evaluateDefenses = controls.evaluateDefenses.state, controls.evaluateDefenses.state
+            self.lastEvaluateDefensesCoefficientVal, options.evaluateDefensesCoefficient = controls.evaluateDefensesCoefficient.val, controls.evaluateDefensesCoefficient.val
+        end
         if controls.maxPrice.buf then
             options.maxPrice = tonumber(controls.maxPrice.buf)
             options.maxPriceType = currencyTable[controls.maxPriceType.selIndex].id
         end
+
+        self.lastMinWeightSumCoefficientVal, options.minWeightSumCoefficient = controls.minWeightSumCoefficient.val, controls.minWeightSumCoefficient.val
+
+        main.lastAccountName = accountName
 
         self:StartQuery(slot, options)
     end)
 	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 45, -10, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(400, popupHeight, "Query Options", controls)
+	main:OpenPopup(520, popupHeight, "Query Options", controls)
 end

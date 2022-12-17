@@ -7,9 +7,9 @@ local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
 
-local SliderClass = newClass("SliderControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, changeFunc, scrollWheelSpeedTbl)
+local SliderClass = newClass("SliderControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, changeFunc, scrollWheelSpeedTbl, tooltipText)
 	self.Control(anchor, x, y, width, height)
-	self.TooltipHost()
+	self.TooltipHost(tooltipText or nil)
 	self.knobSize = height - 2
 	self.val = 0
 	self.changeFunc = changeFunc

@@ -89,6 +89,9 @@ function TradeQueryRequestsClass:PerformSearch(league, query, callback)
 				errMsg = "Failed to Get Trade response"
 				return callback(nil, errMsg)
 			end
+			if (response.total >= 10000) then
+				return callback(nil, "Too many results. Try to increase min weight sum")
+			end
 			if not response.result or #response.result == 0 then
 				if response.error then
 					if response.error.code == 2 then
@@ -102,7 +105,7 @@ function TradeQueryRequestsClass:PerformSearch(league, query, callback)
 					end
 				else
 					ConPrintf("Found 0 results for " .. "https://www.pathofexile.com/trade/search/" .. league .. "/" .. response.id)
-					errMsg = "No Matching Results Found"
+					errMsg = "No results. Try to reduce min wight sum"
 				end
 				return callback(response, errMsg)
 			end
@@ -222,6 +225,9 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 				return callback(nil, errMsg)
 			end
 			-- full json state obj from HTML
+			if string.find(response.body, "10000%+ matched") then
+				return callback(nil, "Too many results. Try to increase min weight sum")
+			end
 			local dataStr = response.body:match('require%(%["main"%].+ t%((.+)%);}%);}%);')
 			if not dataStr then
 				return callback(nil, "JSON object not found on the page.")
