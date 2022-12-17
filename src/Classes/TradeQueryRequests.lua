@@ -91,14 +91,20 @@ function TradeQueryRequestsClass:PerformSearch(league, query, callback)
 			end
 			if not response.result or #response.result == 0 then
 				if response.error then
-					if response.error.code == 2 then
+					if not (response.error.code and response.error.message) then
+						errMsg = "Encountered unknown error, check console for details."
+						ConPrintf("Unknown error: %s", stringify(response.error))
+						callback(response, errMsg)
+					end
+					if response.error.message:find("Logging in will increase this limit") then
 						if main.POESESSID ~= "" then
 							errMsg = "POESESSID is invalid. Please Re-Log and reset"
 						else
-							errMsg = "Complex Query - Please provide your POESESSID"
+							errMsg = "Session is invalid. Please add your POESESSID"
 						end
-					elseif response.error.message then
-						errMsg = response.error.message
+					else
+						-- Report unhandled error
+						errMsg = "[ " .. response.error.code .. ": " .. response.error.message .. " ]"
 					end
 				else
 					ConPrintf("Found 0 results for " .. "https://www.pathofexile.com/trade/search/" .. league .. "/" .. response.id)
@@ -220,6 +226,10 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
+			end
+			-- check if response.header includes "Cache-Control: must-revalidate" which indicates an invalid session
+			if response.header:lower():match("cache%-control:.+must%-revalidate") then
+				return callback(nil, "Failed to get search query, check POESESSID")
 			end
 			-- full json state obj from HTML
 			local dataStr = response.body:match('require%(%["main"%].+ t%((.+)%);}%);}%);')
