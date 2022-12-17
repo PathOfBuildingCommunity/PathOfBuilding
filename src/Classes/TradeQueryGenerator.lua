@@ -648,8 +648,17 @@ function TradeQueryGeneratorClass:FinishQuery()
         }
     end
 
+    local errMsg = nil
+    if #queryTable.query.stats[1].filters == 0 then
+        -- No mods to filter
+        errMsg = "Could not generate search, found no mods to search for"
+        if GlobalCache.numActiveSkillInFullDPS == 0 then
+            errMsg = "Could not generate search, change active skill or enable FullDPS on some skills"
+        end
+    end
+
     local queryJson = dkjson.encode(queryTable)
-    self.requesterCallback(self.requesterContext, queryJson)
+    self.requesterCallback(self.requesterContext, queryJson, errMsg)
 
     -- Close blocker popup
     main:ClosePopup()
