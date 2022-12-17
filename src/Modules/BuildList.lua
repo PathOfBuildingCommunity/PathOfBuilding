@@ -165,13 +165,15 @@ function listMode:BuildList()
 		if fileHnd then
 			local fileText = fileHnd:read("*a")
 			fileHnd:close()
-			fileText = fileText:match("(<Build.->)")
 			if fileText then
-				local xml = common.xml.ParseXML(fileText.."</Build>")
-				if xml and xml[1] then
-					build.level = tonumber(xml[1].attrib.level)
-					build.className = xml[1].attrib.className
-					build.ascendClassName = xml[1].attrib.ascendClassName
+				fileText = fileText:match("(<Build.->)")
+				if fileText then
+					local xml = common.xml.ParseXML(fileText.."</Build>")
+					if xml and xml[1] then
+						build.level = tonumber(xml[1].attrib.level)
+						build.className = xml[1].attrib.className
+						build.ascendClassName = xml[1].attrib.ascendClassName
+					end
 				end
 			end
 		end

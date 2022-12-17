@@ -626,7 +626,11 @@ function copyFile(srcName, dstName)
 	if not outFile then
 		return nil, "Couldn't create '"..dstName.."': "..msg
 	end
-	outFile:write(inFile:read("*a"))
+	local fileText = inFile:read("*a")
+	if not fileText then
+		return nil, "Couldn't read '"..srcName.."': "..msg
+	end	
+	outFile:write(fileText)
 	inFile:close()
 	outFile:close()
 	return true

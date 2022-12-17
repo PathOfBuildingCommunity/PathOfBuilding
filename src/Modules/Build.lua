@@ -1547,6 +1547,10 @@ function buildMode:LoadDBFile()
 		return true
 	end
 	local xmlText = file:read("*a")
+	if not xmlText then
+		self.dbFileName = nil
+		return true
+	end
 	file:close()
 	return self:LoadDB(xmlText, self.dbFileName)
 end
