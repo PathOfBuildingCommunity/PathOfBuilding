@@ -21,9 +21,22 @@ local itemCategoryTags = {
     ["Shield"] = { ["shield"] = true, ["focus"] = true, ["energy_shield"] = true, ["dex_shield"] = true, ["str_shield"] = true, ["str_int_shield"] = true, ["dex_int_shield"] = true, ["str_dex_shield"] = true, ["focus_can_roll_minion_modifiers"] = true },
     ["1HWeapon"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["axe"] = true, ["sword"] = true, ["rapier"] = true, ["mace"] = true, ["sceptre"] = true, ["dagger"] = true, ["rune_dagger"] = true, ["wand"] = true, ["claw"] = true, ["weapon_can_roll_minion_modifiers"] = true },
     ["2HWeapon"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["staff"] = true, ["attack_staff"] = true, ["warstaff"] = true, ["bow"] = true,  ["axe"] = true, ["sword"] = true, ["mace"] = true, ["2h_sword"] = true, ["2h_axe"] = true, ["2h_mace"] = true },
-    ["AbyssJewel"] = { ["default"] = true, ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
-    ["BaseJewel"] = { ["default"] = true, ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true },
-    ["AnyJewel"] = { ["default"] = true, ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true, ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true }
+    ["1HAxe"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["axe"] = true},
+    ["1HSword"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["sword"] = true, ["rapier"] = true },
+    ["1HMace"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["mace"] = true, ["sceptre"] = true },
+    ["Dagger"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["dagger"] = true, ["rune_dagger"] = true },
+    ["Wand"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["wand"] = true, ["weapon_can_roll_minion_modifiers"] = true },
+    ["Claw"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["claw"] = true },
+    ["Staff"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["staff"] = true, ["attack_staff"] = true, ["warstaff"] = true },
+    ["Bow"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["bow"] = true },
+    ["2HAxe"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["axe"] = true, ["2h_axe"] = true },
+    ["2HSword"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["sword"] = true, ["2h_sword"] = true },
+    ["2HMace"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["mace"] = true, ["2h_mace"] = true },
+    ["FishingRod"] = { ["fishing_rod"] = true },
+    ["AbyssJewel"] = { ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
+    ["BaseJewel"] = { ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true },
+    ["AnyJewel"] = { ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true, ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
+    ["Flask"] = { ["flask"] = true, ["hybrid_flask"] = true, ["utility_flask"] = true, ["mana_flask"] = true, ["life_flask"] = true, ["expedition_flask"] = true, ["critical_utility_flask"] = true }
 }
 
 local tradeStatCategoryIndices = {
@@ -447,6 +460,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
     local testItemType = existingItem and existingItem.baseName or "Unset Amulet"
     local itemCategoryQueryStr
     local itemCategory
+    -- trade site item codes https://pastebin.com/3W7hT9BE
     if slot.slotName == "Weapon 2" or slot.slotName == "Weapon 1" then
         if existingItem then
             if existingItem.type == "Shield" then
@@ -457,11 +471,44 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
                 itemCategory = "Quiver"
             elseif existingItem.type == "Bow" then
                 itemCategoryQueryStr = "weapon.bow"
-                itemCategory = "2HWeapon"
-            elseif existingItem.type == "Staff" or existingItem.type:find("Two Handed") ~= nil then
+                itemCategory = "Bow"
+            elseif existingItem.type == "Staff" then
+                itemCategoryQueryStr = "weapon.staff"
+                itemCategory = "Staff"
+            elseif existingItem.type == "Two Handed Sword" then
+                itemCategoryQueryStr = "weapon.twosword"
+                itemCategory = "2HSword"
+            elseif existingItem.type == "Two Handed Axe" then
+                itemCategoryQueryStr = "weapon.twoaxe"
+                itemCategory = "2HAxe"
+            elseif existingItem.type == "Two Handed Mace" then
+                itemCategoryQueryStr = "weapon.twomace"
+                itemCategory = "2HMace"
+            elseif existingItem.type == "Fishing Rod" then
+                itemCategoryQueryStr = "weapon.rod"
+                itemCategory = "FishingRod"
+            elseif existingItem.type == "One Handed Sword" then
+                itemCategoryQueryStr = "weapon.onesword"
+                itemCategory = "1HSword"
+            elseif existingItem.type == "One Handed Axe" then
+                itemCategoryQueryStr = "weapon.oneaxe"
+                itemCategory = "1HAxe"
+            elseif existingItem.type == "One Handed Mace" or existingItem.type == "Sceptre" then
+                itemCategoryQueryStr = "weapon.onemace"
+                itemCategory = "1HMace"
+            elseif existingItem.type == "Wand" then
+                itemCategoryQueryStr = "weapon.wand"
+                itemCategory = "Wand"
+            elseif existingItem.type == "Dagger" then
+                itemCategoryQueryStr = "weapon.dagger"
+                itemCategory = "Dagger"
+            elseif existingItem.type == "Claw" then
+                itemCategoryQueryStr = "weapon.claw"
+                itemCategory = "Claw"
+            elseif existingItem.type:find("Two Handed") ~= nil then
                 itemCategoryQueryStr = "weapon.twomelee"
                 itemCategory = "2HWeapon"
-            elseif existingItem.type == "Wand" or existingItem.type == "Dagger" or existingItem.type == "Sceptre" or existingItem.type == "Claw" or existingItem.type:find("One Handed") ~= nil then
+            elseif existingItem.type:find("One Handed") ~= nil then
                 itemCategoryQueryStr = "weapon.one"
                 itemCategory = "1HWeapon"
             else
@@ -505,6 +552,9 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
         elseif itemCategory == "BaseJewel" then
             itemCategoryQueryStr = "jewel.base"
         end
+    elseif slot.slotName:find("Flask") ~= nil then
+        itemCategoryQueryStr = "flask"
+        itemCategory = "Flask"
     else
         logToFile("'%s' is not supported for weighted trade query generation", existingItem and existingItem.type or "n/a")
         return
