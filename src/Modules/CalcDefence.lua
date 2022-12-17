@@ -1794,7 +1794,7 @@ function calcs.defence(env, actor)
 							output["LifeLossLostOverTime"] = output["LifeLossLostOverTime"] + tempDamage
 						end
 						if output.preventedLifeLossBelowHalf ~= 0 then
-							local lowLifePercent = m_min((output.Life * data.misc.LowPoolThreshold + Damage[damageType] - life) / Damage[damageType], 1)
+							local lowLifePercent = m_min(m_max((output.Life * data.misc.LowPoolThreshold + Damage[damageType] - life), 0) / Damage[damageType], 1)
 							if lowLifePercent > 0 then
 								local tempDamage2 = Damage[damageType] * output.preventedLifeLossBelowHalf * lowLifePercent / 100
 								tempDamage = tempDamage + tempDamage2
