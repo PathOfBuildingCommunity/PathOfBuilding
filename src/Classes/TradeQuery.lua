@@ -13,6 +13,7 @@ local t_remove = table.remove
 local m_max = math.max
 local m_min = math.min
 local m_ceil = math.ceil
+local s_format = string.format
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
@@ -26,9 +27,6 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.resultTbl = { }
 	self.sortedResultTbl = { }
 	self.itemIndexTbl = { }
-
-	-- default set of calc sort selection
-	self.pbStatSortSelectionIndex = 1
 	
 	-- default set of trade item sort selection
 	self.pbItemSortSelectionIndex = 1
@@ -272,24 +270,11 @@ function TradeQueryClass:PriceItem()
 The Trader feature supports two modes of operation depending on the POESESSID availability.
 You can click this button to enter your POESESSID.
 	
-	-- Calc sort dropdown
+	-- Stat sort popup button
 	self.statSortSelectionList = { }
-	for id, stat in pairs(data.powerStatList) do
-		if not stat.ignoreForItems and stat.label ~= "Name" then
-			t_insert(self.statSortSelectionList, {
-				label = stat.label,
-				stat = stat.stat,
-				transform = stat.transform,
-			})
-		end
-	end
-	self.controls.statSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, self.statSortSelectionList, function(index, value)
-		self.pbStatSortSelectionIndex = index
+	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, "^7Sort Calc By:", function()
+		self:SetStatWeights()
 	end)
-	self.controls.statSortSelection.tooltipText = "Type of calc to sort by"
-	self.controls.statSortSelection:SetSel(self.pbStatSortSelectionIndex)
-	self.controls.statSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.statSortSelection, "TOPLEFT"}, -4, 0, 100, 16, "^7Sort Calc By:")
-	
 
 ^2Session Mode^7
 - Requires POESESSID.
@@ -315,7 +300,7 @@ on trade site to work on other leagues and realms)]]
 		self.sortModes.PRICE_ASCENDING,
 		self.sortModes.WEIGHT,
 	}
-	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",self.controls.statSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, 18, self.itemSortSelectionList, function(index, value)
+	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",self.controls.StatWeightMultipliersButton,"BOTTOMRIGHT"}, 0, 4, 154, 18, self.itemSortSelectionList, function(index, value)
 		self.pbItemSortSelectionIndex = index
 		for index, _ in pairs(self.resultTbl) do
 			self:UpdateControlsWithItems(slotTables[index], index)
@@ -416,6 +401,76 @@ on trade site to work on other leagues and realms)]]
 	self.controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT", nil, "BOTTOMRIGHT"}, -8, -16, 300, 16, "")
 	main:OpenPopup(pane_width, pane_height, "Trader", self.controls)
 end
+
+-- Method to SetStatWeights
+function TradeQueryClass:SetStatWeights()
+	--self.requesterCallback = callback
+    --self.requesterContext = context
+
+    local controls = { }
+    local statList = { }
+    local popupHeight = 70
+	local lastItemAnchor = { new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 760, 5, 0, 16, ""), new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 940, 5, 0, 16, ""), new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 1100, 5, 0, 16, "") }
+	
+	
+	for id, stat in pairs(data.powerStatList) do
+		if not stat.ignoreForItems and stat.label ~= "Name" then
+			statList[stat.stat] = {
+				label = stat.label,
+				stat = stat.stat,
+				transform = stat.transform,
+				weightMult = 0,
+			}
+			controls[stat.label.."SliderLabel"] = new("LabelControl", { "TOPLEFT", lastItemAnchor[1], "BOTTOMLEFT" }, 0, 5, 0, 16, "^7"..stat.label..":")
+			controls[stat.label.."Slider"] = new("SliderControl", { "TOPLEFT", lastItemAnchor[2], "BOTTOMLEFT" }, 0, 5, 150, 16, function(value)
+				if value == 0 then
+					controls[stat.label.."SliderValue"].label = "^7Disabled"
+					statList[stat.stat].weightMult = 0
+				else
+					controls[stat.label.."SliderValue"].label = s_format("^7%.2f", 0.01 + value * 0.99)
+					statList[stat.stat].weightMult = 0.01 + value * 0.99
+				end
+			end)
+			controls[stat.label.."SliderValue"] = new("LabelControl", { "TOPLEFT", lastItemAnchor[3], "BOTTOMLEFT" }, 0, 5, 0, 16, "^7Disabled")
+			controls[stat.label.."Slider"].tooltip.realDraw = controls[stat.label.."Slider"].tooltip.Draw
+			controls[stat.label.."Slider"].tooltip.Draw = function(self, x, y, width, height, viewPort)
+				local sliderOffsetX = round(184 * (1 - controls[stat.label.."Slider"].val))
+				local tooltipWidth, tooltipHeight = self:GetSize()
+				if main.screenW >= 1338 - sliderOffsetX then
+					return controls[stat.label.."Slider"].tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
+				end
+				return controls[stat.label.."Slider"].tooltip.realDraw(self, x, y, width, height, viewPort)
+			end
+			if stat.label == "Full DPS" then
+				controls[stat.label.."Slider"]:SetVal(1.0)
+				statList[stat.stat].weightMult = 1.0
+			elseif stat.label == "Effective Hit Pool" then
+				controls[stat.label.."Slider"]:SetVal(0.49)
+				statList[stat.stat].weightMult = 0.49
+			end
+			lastItemAnchor = { controls[stat.label.."SliderLabel"], controls[stat.label.."Slider"], controls[stat.label.."SliderValue"] }
+			popupHeight = popupHeight + 21
+		end
+	end
+
+	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Save", function()
+		main:ClosePopup()
+		
+		-- this needs to save the weights somewhere, maybe the XML?
+		local statSortSelectionList = {}
+		for stat, statTable in pairs(statList) do
+			if statTable.weightMult > 0 then
+				t_insert(statSortSelectionList, statTable)
+			end
+		end
+		self.statSortSelectionList = statSortSelectionList
+    end)
+	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 45, -10, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(420, popupHeight, "Stat Weight Multipliers", controls)
+end
+
 
 -- Method to update the Currency Conversion button label
 function TradeQueryClass:SetCurrencyConversionButton()
@@ -536,15 +591,16 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 		local slot = slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
 		local slotName = slotTbl.ref and "Jewel " .. tostring(slotTbl.ref) or slotTbl.name
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
-		local newCalcedType = self.statSortSelectionList[self.pbStatSortSelectionIndex].stat
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local item = new("Item", tbl.item_string)
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
 			local newStatValue = 0
-			if newCalcedType == "FullDPS" and not GlobalCache.useFullDPS then
-				newStatValue = m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0))
-			else
-				newStatValue = output[newCalcedType] or 0
+			for _, statTable in ipairs(self.statSortSelectionList) do
+				if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
+					newStatValue = newStatValue + m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0)) * statTable.weightMult
+				else
+					newStatValue = newStatValue + ( output[statTable.stat] or 0 ) * statTable.weightMult
+				end
 			end
 			if self.pbItemSortSelectionIndex == 4 then
 				local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
@@ -631,7 +687,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 	local activeSlotRef = slotTbl.ref and self.itemsTab.activeItemSet[slotTbl.ref] or self.itemsTab.activeItemSet[slotTbl.name]
 	controls["name"..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^7"..slotTbl.name)
 	controls["bestButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["name"..str_cnt],"TOPLEFT"}, 100 + 8, 0, 80, row_height, "Find best", function()
-		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, { { stat = self.statSortSelectionList[self.pbStatSortSelectionIndex], weight = 1 } }, function(context, query)
+		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, self.statSortSelectionList, function(context, query)
 			if errMsg then
 				self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
 				return
