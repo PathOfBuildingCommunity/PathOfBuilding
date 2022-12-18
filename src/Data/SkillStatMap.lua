@@ -235,9 +235,6 @@ return {
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
 },
-["poison_duration_is_skill_duration"] = {
-	skill("poisonIsSkillEffect", true),
-},
 ["area_of_effect_+%_while_not_dual_wielding"] = {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
@@ -431,6 +428,9 @@ return {
 ["elusive_effect_+%"] = {
 	mod("ElusiveEffect", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 },
+["blind_effect_+%"] = {
+	mod("BlindEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Vaal Blade Flurry" }),
+},
 ["cannot_be_stunned_while_leeching"] = {
 	mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Leeching"}),
 },
@@ -470,6 +470,10 @@ return {
 },
 ["base_spell_cooldown_speed_+%"] = {
 	mod("CooldownRecovery", "INC", nil),
+},
+["base_cooldown_modifier_ms"] = {
+	mod("CooldownRecovery", "BASE", nil),
+	div = 1000,
 },
 ["additional_weapon_base_attack_time_ms"] = {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
@@ -749,6 +753,9 @@ return {
 ["active_skill_damage_+%_final_when_cast_on_frostbolt"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 },
+["active_skill_merged_damage_+%_final_while_dual_wielding"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+},
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
 	mod("PhysicalDamageGainAsLightning", "BASE", nil),
@@ -880,6 +887,9 @@ return {
 },
 ["shock_effect_+%"] = {
 	mod("EnemyShockEffect", "INC", nil),
+},
+["active_skill_shock_effect_+%_final"] = {
+	mod("EnemyShockEffect", "MORE", nil),
 },
 ["non_damaging_ailment_effect_+%"] = {
 	mod("EnemyChillEffect", "INC", nil),
@@ -1025,6 +1035,20 @@ return {
 	flag("ChaosCanFreeze"),
 },
 ["all_damage_can_shock"] = {
+	flag("PhysicalCanShock"),
+	flag("ColdCanShock"),
+	flag("FireCanShock"),
+	flag("ChaosCanShock"),
+},
+["all_damage_can_ignite_freeze_shock"] = {
+	flag("PhysicalCanIgnite"),
+	flag("LightningCanIgnite"),
+	flag("ColdCanIgnite"),
+	flag("ChaosCanIgnite"),
+	flag("PhysicalCanFreeze"),
+	flag("LightningCanFreeze"),
+	flag("FireCanFreeze"),
+	flag("ChaosCanFreeze"),
 	flag("PhysicalCanShock"),
 	flag("ColdCanShock"),
 	flag("FireCanShock"),

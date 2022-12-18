@@ -1,9 +1,72 @@
-VERSION[2.22.0][2022/12/09]
+VERSION[2.24.0][2022/12/14]
+
+--- Implemented Enhancements ---
+* Update and add support for all new uniques (QuickStick123)
+* Add price cap option to the PoB Trader (Dullson)
+* Add support for Vaal Flicker Strike (Nostrademous)
+* Add support for Critical Strike chance cap on new Winds of Fate Unique (Lilylicious)
+* Add support for Explosive Trap DPS (QuickStick123)
+* Add support for many new flask-specific mods (QuickStick123)
+* Add support for new curse mods without increased effect (QuickStick123)
+
+--- Fixed Crashes ---
+* Fix crash when using Hand of the Fervent with a life cost (QuickStick123)
+* Fix crash related to base cost mod parsing and overhaul resource relating parsing to be more generic (QuickStick123)
+
+--- User Interface ---
+* Hide character input in POESESSID input box for privacy reasons (Nostrademous)
+* Fix spacing issue in portrait mode on the Items tab (Wires77)
+
+--- Accuracy Improvements ---
+* Improve accuracy of mana cost calculations (QuickStick123)
+* Update all unique flasks with 3.20 wording changes (QuickStick123)
+* Update Corundum flask with "Cannot be Stunned" affix (Nostrademous)
+* Update Fated End (QuickStick123)
+* Fix Phantasmal Smite quality not working (Nostrademous)
+* Fix Frozen Legion radius numbers (Nostrademous)
+* Use trap cooldown for Mana cost per second (Lilylicious)
 
 --- Fixed Bugs ---
+* PoB Trader did not list the correct league names (Dullson)
+* PoB Trader had overlapping UI on the Query Options box (Dullson)
+* PoB Trader wasn't generating a sufficient minimum weight for some builds (Dolmur)
+* PoB Trader did not work on Linux due to an issue with curl (Turmfalke2)
+* Private character importing when using your session ID (Wires77)
+* FullDPS causing some skills to not work correctly with the node power colours on the tree (QuickStick123)
+* Importing characters that used Barrage Support in skill links (raylu)
+* Area damage supports not working with Minion Instability (Paliak)
+
+
+VERSION[2.23.0][2022/12/09]
+
+--- Implemented Enhancements ---
+* Add initial and partial support for new skill gems (LocalIdentity)
+    * Vaal Blade Flurry is partially supported
+    * Vaal Cleave is missing the Cleave buff
+    * Frozen legion needs more work before it's completely accurate
+* Updated old skill gems with 3.20 balance changes (LocalIdentity)
+
+
+VERSION[2.22.1][2022/12/10]
+
+--- User Interface ---
+* Update 3.20 skill tree (LocalIdentity)
+
+--- Fixed Bugs ---
+* Cost per second for totems and eldritch battery (Lilylicious)
+* Incorrect warnings when using Eldritch Battery and remove support for per-second costs (Paliak)
+* Viper Strike base Poison duration (LocalIdentity)
+* Ailments not applying correctly (Lilylicious)
+* Hex Master not working with Impossible Escape (LocalIdentity)
+* Onslaught Effect nodes on skill tree not working (LocalIdentity)
+
+
+VERSION[2.22.0][2022/12/09]
+
+--- Implemented Enhancements ---
 * Add 3.20 Tree and Timeless jewel nodes (Regisle)
 * Add all revealed new Uniques from 3.20 (QuickStick123)
-* Add build pricing and item optimization to Items Tab (Nostrademous, Dullson)
+* Add build pricing and item optimization to Items Tab (Dolmur, Nostrademous, Dullson)
 * Add support for
 	* Seismic / Lightning Spire Trap DPS (Edvinas-Smita)
 	* Mod tooltips to display stat differences when hovering over mods in the item crafter (QuickStick123)

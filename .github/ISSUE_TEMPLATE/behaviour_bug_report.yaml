@@ -1,6 +1,6 @@
 name: Behaviour bug report
 description: Create a bug report to help us fix incorrectly behaviour or logic
-labels: ["bug: behaviour"]
+labels: ["bug:behaviour"]
 body:
   - type: markdown
     attributes:

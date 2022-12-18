@@ -276,13 +276,18 @@ skills["BreachCleave"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["active_skill_merged_damage_+%_final_while_dual_wielding"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
 	},
 	constantStats = {
-		{ "cleave_damage_+%_final_while_dual_wielding", -40 },
+		{ "active_skill_merged_damage_+%_final_while_dual_wielding", -40 },
 		{ "physical_damage_+%", 29 },
 		{ "monster_penalty_against_minions_damage_+%_final_vs_player_minions", -20 },
 		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
@@ -1354,7 +1359,7 @@ skills["KaomWarriorMoltenStrike"] = {
 	color = 1,
 	baseEffectiveness = 0.69999998807907,
 	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will explode, causing AoE attack damage to enemies where they land.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.ThresholdJewelChaining] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.ThresholdJewelChaining] = true, [SkillType.Multistrikeable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -2483,7 +2488,7 @@ skills["MonsterShockNova"] = {
 	constantStats = {
 		{ "newshocknova_first_ring_damage_+%_final", -50 },
 		{ "base_chance_to_shock_%", 50 },
-		{ "shock_effect_+%", 20 },
+		{ "active_skill_shock_effect_+%_final", 20 },
 		{ "active_skill_area_of_effect_radius_+%_final", 5 },
 	},
 	stats = {
@@ -2946,7 +2951,7 @@ skills["NecromancerVulnerability"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding, and ailments inflicted on them will deal damage faster.",
+	description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 1.1,
@@ -2956,11 +2961,6 @@ skills["NecromancerVulnerability"] = {
 		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
-			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
@@ -2972,8 +2972,7 @@ skills["NecromancerVulnerability"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 6000 },
 		{ "physical_damage_taken_+%", 50 },
-		{ "receive_bleeding_chance_%_when_hit_by_attack", 20 },
-		{ "enemy_damaging_ailments_deal_damage_+%_faster_against_self", 20 },
+		{ "receive_bleeding_chance_%_when_hit_by_attack", 25 },
 		{ "active_skill_area_of_effect_radius_+%_final", 24 },
 	},
 	stats = {
@@ -3154,7 +3153,7 @@ skills["SeawitchVulnerability"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding, and ailments inflicted on them will deal damage faster.",
+	description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.75,
@@ -3164,11 +3163,6 @@ skills["SeawitchVulnerability"] = {
 		},
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
-			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
@@ -3180,8 +3174,7 @@ skills["SeawitchVulnerability"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 4000 },
 		{ "physical_damage_taken_+%", 50 },
-		{ "receive_bleeding_chance_%_when_hit_by_attack", 20 },
-		{ "enemy_damaging_ailments_deal_damage_+%_faster_against_self", 20 },
+		{ "receive_bleeding_chance_%_when_hit_by_attack", 25 },
 		{ "active_skill_area_of_effect_radius_+%_final", 24 },
 	},
 	stats = {
@@ -3476,7 +3469,7 @@ skills["SkeletonVulnerability"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding, and ailments inflicted on them will deal damage faster.",
+	description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
@@ -3487,11 +3480,6 @@ skills["SkeletonVulnerability"] = {
 		["physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
-			mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }), 
-			mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -3500,10 +3488,9 @@ skills["SkeletonVulnerability"] = {
 		duration = true,
 	},
 	constantStats = {
-		{ "base_skill_effect_duration", 10900 },
+		{ "base_skill_effect_duration", 10000 },
 		{ "physical_damage_taken_+%", 50 },
 		{ "receive_bleeding_chance_%_when_hit_by_attack", 20 },
-		{ "enemy_damaging_ailments_deal_damage_+%_faster_against_self", 20 },
 		{ "active_skill_area_of_effect_radius_+%_final", 24 },
 	},
 	stats = {
@@ -3753,7 +3740,7 @@ skills["WickerManMoltenStrike"] = {
 	color = 1,
 	baseEffectiveness = 0.69999998807907,
 	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will explode, causing AoE attack damage to enemies where they land.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.ThresholdJewelChaining] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.ThresholdJewelChaining] = true, [SkillType.Multistrikeable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -6059,11 +6046,10 @@ skills["MonsterChanceToTemporalChainsOnHit1"] = {
 		"buff_time_passed_+%_other_than_temporal_chains",
 		"curse_effect_+%_final_vs_players",
 		"temporal_chains_action_speed_+%_vs_rare_or_unique_final",
-		"base_curse_skill_doom_gain_per_minute_if_cast_yourself",
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 5000, 0, -20, -40, -50, -10, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 5000, 0, -20, -40, -50, -10, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 
@@ -6138,11 +6124,10 @@ skills["DelveMonsterEnfeebleOnHit"] = {
 		"accuracy_rating_+%",
 		"enfeeble_damage_+%_final",
 		"enfeeble_damage_+%_vs_rare_or_unique_final",
-		"base_curse_skill_doom_gain_per_minute_if_cast_yourself",
 		"base_deal_no_damage",
 	},
 	levels = {
-		[8] = { 9700, 4, -13, -24, -12, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[8] = { 9700, 4, -13, -24, -12, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 
@@ -6157,11 +6142,6 @@ skills["MonsterVulnerabilityOnHit1"] = {
     statMap = {
         ["receive_bleeding_chance_%_when_hit_by_attack"] = {
             mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-        },
-        ["enemy_damaging_ailments_deal_damage_+%_faster_against_self"] = {
-            mod("SelfIgniteBurnFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-            mod("SelfBleedFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-            mod("SelfPoisonFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
         },
         ["physical_damage_taken_+%"] = {
             mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
@@ -6179,9 +6159,7 @@ skills["MonsterVulnerabilityOnHit1"] = {
         skill("radius", 22),
     },
     constantStats = {
-        { "receive_bleeding_chance_%_when_hit_by_attack", 20 },
-        { "enemy_damaging_ailments_deal_damage_+%_faster_against_self", 20 },
-        { "base_curse_skill_doom_gain_per_minute_if_cast_yourself", 600 },
+        { "receive_bleeding_chance_%_when_hit_by_attack", 25 },
     },
     stats = {
         "base_skill_effect_duration",

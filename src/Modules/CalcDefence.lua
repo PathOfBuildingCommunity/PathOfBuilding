@@ -637,7 +637,7 @@ function calcs.defence(env, actor)
 		local regen = 0
 		local regenRate = 0
 		local recoveryRateMod = output[resource.."RecoveryRateMod"] or 1
-		if modDB:Flag(nil, "No"..resource.."Regen") then
+		if modDB:Flag(nil, "No"..resource.."Regen") or modDB:Flag(nil, "CannotGain"..resource) then
 			output[resource.."Regen"] = 0
 		elseif resource == "Life" and modDB:Flag(nil, "ZealotsOath") then
 			output.LifeRegen = 0
@@ -707,7 +707,7 @@ function calcs.defence(env, actor)
 	
 	-- Energy Shield Recharge
 	output.EnergyShieldRechargeAppliesToLife = modDB:Flag(nil, "EnergyShieldRechargeAppliesToLife")
-	output.EnergyShieldRechargeAppliesToEnergyShield = not (modDB:Flag(nil, "NoEnergyShieldRecharge") or output.EnergyShieldRechargeAppliesToLife)
+	output.EnergyShieldRechargeAppliesToEnergyShield = not (modDB:Flag(nil, "NoEnergyShieldRecharge") or modDB:Flag(nil, "CannotGainEnergyShield") or output.EnergyShieldRechargeAppliesToLife)
 	
 	if output.EnergyShieldRechargeAppliesToLife or output.EnergyShieldRechargeAppliesToEnergyShield then
 		local inc = modDB:Sum("INC", nil, "EnergyShieldRecharge")
@@ -924,9 +924,10 @@ function calcs.defence(env, actor)
 		local inc = (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration", "SelfAilmentDuration", "SelfElementalAilmentDuration")) * 100
 		output["Self"..ailment.."Duration"] = more * inc / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
 	end
-	for _, ailment in ipairs(data.elementalAilmentTypeList) do
+	for _, ailment in ipairs(data.ailmentTypeList) do
 		output["Self"..ailment.."Effect"] = calcLib.mod(modDB, nil, "Self"..ailment.."Effect") * (modDB:Flag(nil, "Condition:"..ailment.."edSelf") and calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect") or calcLib.mod(enemyDB, nil, "Enemy"..ailment.."Effect")) * 100
 	end
+
 	--Enemy damage input and modifications
 	do
 		output["totalEnemyDamage"] = 0

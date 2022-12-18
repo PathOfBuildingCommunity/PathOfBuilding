@@ -1,5 +1,85 @@
 # Changelog
 
+## [v2.24.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.24.0) (2022/12/14)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.23.0...v2.24.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Implemented Enhancements
+- Update and add support for all new uniques [\#5279](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5279) ([QuickStick123](https://github.com/QuickStick123))
+- Add price cap option to the PoB Trader [\#5280](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5280) ([Dullson](https://github.com/Dullson))
+- Add support for Vaal Flicker Strike [\#5284](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5284) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for Critical Strike chance cap on new Winds of Fate Unique [\#5324](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5324) ([Lilylicious](https://github.com/Lilylicious))
+- Add support for Explosive Trap DPS [\#5309](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5309) ([QuickStick123](https://github.com/QuickStick123))
+- Add support for many new flask-specific mods [\#5281](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5281) ([QuickStick123](https://github.com/QuickStick123))
+- Add support for new curse mods without increased effect [\#5308](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5308) ([QuickStick123](https://github.com/QuickStick123))
+### Fixed Crashes
+- Fix crash when using Hand of the Fervent with a life cost [\#5291](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5291) ([QuickStick123](https://github.com/QuickStick123))
+- Fix crash related to base cost mod parsing and overhaul resource relating parsing to be more generic [\#5307](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5307) ([QuickStick123](https://github.com/QuickStick123))
+### User Interface
+- Hide character input in POESESSID input box for privacy reasons [\#5314](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5314) ([Nostrademous](https://github.com/Nostrademous))
+- Fix spacing issue in portrait mode on the Items tab [\#5345](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5345) ([Wires77](https://github.com/Wires77))
+### Accuracy Improvements
+- Improve accuracy of mana cost calculations [\#5289](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5289) ([QuickStick123](https://github.com/QuickStick123))
+- Update all unique flasks with 3.20 wording changes [\#5281](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5281) ([QuickStick123](https://github.com/QuickStick123))
+- Update Corundum flask with "Cannot be Stunned" affix [\#5301](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5301) ([Nostrademous](https://github.com/Nostrademous))
+- Update Fated End [\#5315](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5315) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Phantasmal Smite quality not working [\#5284](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5284) ([Nostrademous](https://github.com/Nostrademous))
+- Fix Frozen Legion radius numbers [\#5298](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5298) ([Nostrademous](https://github.com/Nostrademous))
+- Use trap cooldown for Mana cost per second [\#5294](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5294) ([Lilylicious](https://github.com/Lilylicious))
+### Fixed Bugs
+- PoB Trader did not list the correct league names [\#5280](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5280) ([Dullson](https://github.com/Dullson))
+- PoB Trader had overlapping UI on the Query Options box [\#5280](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5280) ([Dullson](https://github.com/Dullson))
+- PoB Trader wasn't generating a sufficient minimum weight for some builds [\#5340](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5340) ([Dolmur](https://github.com/Dolmur))
+- PoB Trader did not work on Linux due to an issue with curl [\#5344](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5344) ([Turmfalke2](https://github.com/Turmfalke2))
+- Private character importing when using your session ID [\#5343](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5343) ([Wires77](https://github.com/Wires77))
+- FullDPS causing some skills to not work correctly with the node power colours on the tree [\#5317](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5317) ([QuickStick123](https://github.com/QuickStick123))
+- Importing characters that used Barrage Support in skill links [\#5312](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5312) ([raylu](https://github.com/raylu))
+- Area damage supports not working with Minion Instability [\#5303](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5303) ([Paliak](https://github.com/Paliak))
+
+
+## [v2.23.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.23.0) (2022/12/09)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.22.1...v2.23.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Other changes
+- Add initial and partial support for new skill gems [\#5276
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5276
+) ([LocalIdentity](https://github.com/LocalIdentity))
+    * Vaal Blade Flurry is partially supported
+    * Vaal Cleave is missing the Cleave buff
+    * Frozen legion needs more work before it's completely accurate
+- Updated old skill gems with 3.20 balance changes [\#5276
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5276
+) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
+## [v2.22.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.22.1) (2022/12/09)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.22.0...v2.22.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### User Interface
+- Update 3.20 skill tree [\#5269
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5269) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Bugs
+- Cost per second for totems and eldritch battery [\#5251](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5251) ([Lilylicious](https://github.com/Lilylicious))
+- Incorrect warnings when using Eldritch Battery and remove support for per-second costs [\#5247](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5247) ([Paliak](https://github.com/Paliak))
+- Viper Strike base Poison duration [\#5263](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5263) ([LocalIdentity](https://github.com/LocalIdentity))
+- Ailments not applying correctly [\#5264](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5264) ([Lilylicious](https://github.com/Lilylicious))
+- Hex Master not working with Impossible Escape [\#5267](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5267) ([LocalIdentity](https://github.com/LocalIdentity))
+- Onslaught Effect nodes on skill tree not working [\#5270](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5270) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.22.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.22.0) (2022/12/09)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.21.1...v2.22.0)
@@ -10,7 +90,7 @@
 ### Implemented Enhancements
 - Add 3.20 Tree and Timeless jewel nodes [\#5188](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5188) ([Regisle](https://github.com/Regisle))
 - Add all revealed new Uniques from 3.20 [\#5185](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5185), [\#5235](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5235) ([QuickStick123](https://github.com/QuickStick123))
-- Add build pricing and item optimization to Items Tab [\#3885](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3885), [\#5210](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5210), [\#5205](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5205), [\#5217](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5217), [\#5224](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5224) ([Nostrademous](https://github.com/Nostrademous), [Dullson](https://github.com/Dullson))
+- Add build pricing and item optimization to Items Tab [\#3885](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/3885), [\#5210](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5210), [\#5205](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5205), [\#5217](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5217), [\#5224](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5224) ([Dolmur](https://github.com/Dolmur), [Nostrademous](https://github.com/Nostrademous), [Dullson](https://github.com/Dullson))
 - Add support for
 	- Seismic / Lightning Spire Trap DPS [\#5212](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5212) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
 	- Mod tooltips to display stat differences when hovering over mods in the item crafter [\#5203](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5203) ([QuickStick123](https://github.com/QuickStick123))

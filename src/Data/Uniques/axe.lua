@@ -120,7 +120,7 @@ Adds (3-5) to (7-10) Physical Damage
 {variant:2}2% of Physical Attack Damage Leeched as Life
 Culling Strike
 You gain Onslaught for 3 seconds on Culling Strike
-Cannot be Chilled during Onslaught
+100% chance to Avoid being Chilled during Onslaught
 ]],[[
 Rigwald's Savagery
 Royal Axe

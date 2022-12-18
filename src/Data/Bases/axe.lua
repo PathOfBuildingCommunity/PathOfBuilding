@@ -167,7 +167,7 @@ itemBases["Reaver Axe"] = {
 itemBases["Butcher Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, onehand = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 47, PhysicalMax = 87, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 63, str = 149, dex = 76, },
@@ -175,7 +175,7 @@ itemBases["Butcher Axe"] = {
 itemBases["Vaal Hatchet"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, onehand = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 30, PhysicalMax = 90, CritChanceBase = 5, AttackRateBase = 1.4, Range = 11, },
 	req = { level = 65, str = 140, dex = 86, },
@@ -183,7 +183,7 @@ itemBases["Vaal Hatchet"] = {
 itemBases["Royal Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, onehand = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 54, PhysicalMax = 100, CritChanceBase = 5, AttackRateBase = 1.2, Range = 11, },
 	req = { level = 67, str = 167, dex = 57, },
@@ -191,7 +191,7 @@ itemBases["Royal Axe"] = {
 itemBases["Infernal Axe"] = {
 	type = "One Handed Axe",
 	socketLimit = 3,
-	tags = { axe = true, onehand = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { axe = true, onehand = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 51, PhysicalMax = 85, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 69, str = 158, dex = 76, },
@@ -375,7 +375,7 @@ itemBases["Sundering Axe"] = {
 itemBases["Ezomyte Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, top_tier_base_item_type = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 87, PhysicalMax = 131, CritChanceBase = 5.7, AttackRateBase = 1.35, Range = 13, },
 	req = { level = 62, str = 140, dex = 86, },
@@ -383,7 +383,7 @@ itemBases["Ezomyte Axe"] = {
 itemBases["Vaal Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, top_tier_base_item_type = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
 	implicit = "25% chance to Maim on Hit",
 	implicitModTypes = { { "attack" }, },
 	weapon = { PhysicalMin = 104, PhysicalMax = 174, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
@@ -392,7 +392,7 @@ itemBases["Vaal Axe"] = {
 itemBases["Despot Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, top_tier_base_item_type = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 90, PhysicalMax = 122, CritChanceBase = 5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 66, str = 140, dex = 86, },
@@ -400,7 +400,7 @@ itemBases["Despot Axe"] = {
 itemBases["Void Axe"] = {
 	type = "Two Handed Axe",
 	socketLimit = 6,
-	tags = { axe = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
+	tags = { axe = true, top_tier_base_item_type = true, two_hand_weapon = true, weapon = true, twohand = true, default = true, },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 96, PhysicalMax = 144, CritChanceBase = 6, AttackRateBase = 1.25, Range = 13, },
 	req = { level = 68, str = 149, dex = 76, },
