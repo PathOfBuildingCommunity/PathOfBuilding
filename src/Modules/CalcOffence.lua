@@ -2214,8 +2214,8 @@ function calcs.offence(env, actor, activeSkill)
 			local critOverride = skillModList:Override(cfg, "CritChance")
 			local baseCrit = critOverride or source.CritChance or 0
 
-			local baseSpellCritFromMainHand = skillModList:Flag(cfg, "BaseSpellCritFromMainHand")
-			if baseSpellCritFromMainHand then
+			local baseCritFromMainHand = skillModList:Flag(cfg, "BaseCritFromMainHand")
+			if baseCritFromMainHand then
 				if actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
 					baseCrit = actor.weaponData1.CritChance
 				end
@@ -2250,11 +2250,11 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if breakdown and output.CritChance ~= baseCrit then
 					breakdown.CritChance = { }
-					local spellBaseFromMainHandStr = baseSpellCritFromMainHand and " from main weapon" or ""
+					local baseCritFromMainHandStr = baseCritFromMainHand and " from main weapon" or ""
 					if base ~= 0 then
-						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base%s)", baseCrit, base, spellBaseFromMainHandStr))
+						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base%s)", baseCrit, base, baseCritFromMainHandStr))
 					else
-						t_insert(breakdown.CritChance, s_format("%g ^8(base%s)", baseCrit + base, spellBaseFromMainHandStr))
+						t_insert(breakdown.CritChance, s_format("%g ^8(base%s)", baseCrit + base, baseCritFromMainHandStr))
 					end
 					if inc ~= 0 then
 						t_insert(breakdown.CritChance, s_format("x %.2f", 1 + inc/100).." ^8(increased/reduced)")
