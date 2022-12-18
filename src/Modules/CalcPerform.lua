@@ -381,7 +381,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		if sourceAPS == 0 then
 			output.EffectiveRateOfTrigger = 0
 		else
-			_, output.EffectiveRateOfTrigger, wasted = calcMultiSpellRotationImpact(env, {{ cd = triggerCD }}, sourceAPS, icdr)
+			_, output.EffectiveRateOfTrigger, wasted = calcMultiSpellRotationImpact(env, {{ cd = triggerCD or triggeredCD }}, sourceAPS, icdr)
 			if breakdown then
 				t_insert(breakdown.EffectiveRateOfTrigger, s_format("/ %.2f ^8(estimated impact of source rate and trigger cooldown alighnement)", m_max(sourceAPS / output.EffectiveRateOfTrigger.rates[1].rate, 1)))
 				t_insert(breakdown.EffectiveRateOfTrigger, "")
@@ -460,15 +460,6 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		end
 	else
 		output.SkillTriggerRate = output.EffectiveRateOfTrigger
-		if breakdown and sourceAPS ~= 0 then
-			breakdown.EffectiveRateOfTrigger = {
-				s_format("%.2f ^8(%s attacks per seconds)", (sourceAPS ~= nil and sourceAPS ~= 0 and sourceAPS /(source and source.skillData.hasUnleash or 1)) or output.TriggerRateCap, (source and source.activeEffect.grantedEffect.name) or (env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or env.player.mainSkill.activeEffect.grantedEffect.name),
-			}
-			if source and source.skillData.hasUnleash then
-				t_insert(breakdown.EffectiveRateOfTrigger, s_format("x %.2f ^8(multiplier from Unleash)", source.skillData.hasUnleash))
-				t_insert(breakdown.EffectiveRateOfTrigger, s_format("= %.2f ^8per second", output.SkillTriggerRate))
-			end
-		end
 	end
 
 	return output.SkillTriggerRate
@@ -3227,10 +3218,10 @@ function calcs.perform(env, avoidCache)
 					if breakdown then
 						breakdown.EffectiveRateOfTrigger = {}
 						if trigRate then
-							t_insert(breakdown.EffectiveRateOfTrigger, s_format("%.2f ^8(%s attack rate)", trigRate, source.activeEffect.grantedEffect.name))
 							if assumingEveryHitKills then
 								t_insert(breakdown.EffectiveRateOfTrigger, "Assuming every attack kills")
 							end
+							t_insert(breakdown.EffectiveRateOfTrigger, s_format("%.2f ^8(%s attack rate)", trigRate, source.activeEffect.grantedEffect.name))
 						end
 					end
 					
@@ -3245,11 +3236,11 @@ function calcs.perform(env, avoidCache)
 					
 					--Account for source unleash
 					if source and GlobalCache.cachedData["CACHE"][uuid] and source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire] then
-						trigRate = trigRate * (GlobalCache.cachedData["CACHE"][uuid].ActiveSkill.skillData.dpsMultiplier or 1)
+						local unleashDpsMult = GlobalCache.cachedData["CACHE"][uuid].ActiveSkill.skillData.dpsMultiplier or 1
+						trigRate = trigRate * unleashDpsMult
 						env.player.mainSkill.skillFlags.HasSeals = true
-						source.skillData.hasUnleash = GlobalCache.cachedData["CACHE"][uuid].ActiveSkill.skillData.dpsMultiplier
 						if breakdown then
-							t_insert(breakdown.EffectiveRateOfTrigger, s_format("x %.2f ^8(multiplier from Unleash)", source.skillData.hasUnleash))
+							t_insert(breakdown.EffectiveRateOfTrigger, s_format("x %.2f ^8(multiplier from Unleash)", unleashDpsMult))
 						end
 					end
 					
