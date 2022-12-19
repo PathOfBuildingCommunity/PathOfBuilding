@@ -216,9 +216,9 @@ Adds 2 to 10 Physical Damage
 100% increased Accuracy Rating when on Low Life
 ]],[[
 Replica Last Resort
+Nailed Fist
 Variant: Pre 3.14.0
 Variant: Current
-Nailed Fist
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1

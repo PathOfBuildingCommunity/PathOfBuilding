@@ -251,9 +251,9 @@ Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 The Green Nightmare
+Viridian Jewel
 Variant: Pre 3.16.0
 Variant: Current
-Viridian Jewel
 League: Breach
 Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula}
 Limited to: 1
@@ -1282,9 +1282,9 @@ Radius: Medium
 {variant:2}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 5% increased Damage each time it Hits.
 ]],[[
 Sudden Ignition
+Viridian Jewel
 Variant: Pre 3.16.0
 Variant: Current
-Viridian Jewel
 Source: No longer obtainable
 Limited to: 1
 Radius: Medium
