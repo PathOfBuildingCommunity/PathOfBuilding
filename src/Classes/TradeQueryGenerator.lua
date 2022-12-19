@@ -44,7 +44,6 @@ for i, curInfluenceInfo in ipairs(itemLib.influenceInfo) do
     hasInfluenceModIds[i] = "pseudo.pseudo_has_" .. string.lower(curInfluenceInfo.display) .. "_influence"
 end
 
-
 -- This is not a complete list as most mods get caught with the find "Local" check, or don't overlap with non-local mods so we don't care. Some groups
 -- are also shared between local and non-local mods, so a group only approach is not viable.
 local localOnlyModGroups = {
@@ -56,6 +55,14 @@ local localOnlyModGroups = {
     ["DefencesPercentAndStunRecovery"] = true,
     ["LocalAttributeRequirements"] = true,
     ["DefencesPercentSuffix"] = true
+}
+
+-- slots that allow eldritch mods (non-unique only)
+local eldritchModSlots = {
+    ["Body Armour"] = true,
+    ["Helmet"] = true,
+    ["Gloves"] = true,
+    ["Boots"] = true
 }
 
 local MAX_FILTERS = 35
@@ -670,22 +677,21 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 
     local controls = { }
     local options = { }
-    local popupHeight = 143
+    local popupHeight = 97
 
     local isJewelSlot = slot.slotName:find("Jewel") ~= nil
     local isAbyssalJewelSlot = slot.slotName:find("Abyssal") ~= nil
     local isAmuletSlot = slot.slotName == "Amulet"
+    local isEldritchModSlot = eldritchModSlots[slot.slotName] == true
 
     controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, -40, 30, 18, "Corrupted Mods:", function(state) end)
     controls.includeCorrupted.state = (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
 
-    controls.includeEldritch = new("CheckBoxControl", {"TOPRIGHT",controls.includeCorrupted,"BOTTOMRIGHT"}, 0, 5, 18, "Eldritch Mods:", function(state) end)
-    controls.includeEldritch.state = (self.lastIncludeEldritch == nil or self.lastIncludeEldritch == true)
-
-    controls.includeSynthesis = new("CheckBoxControl", {"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, 0, 5, 18, "Synthesis Mods:", function(state) end)
-    controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
+    -- removing checkbox until synthesis mods are supported
+    --controls.includeSynthesis = new("CheckBoxControl", {"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, 0, 5, 18, "Synthesis Mods:", function(state) end)
+    --controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
     
-    local lastItemAnchor = controls.includeSynthesis
+    local lastItemAnchor = controls.includeCorrupted
     local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
     
     if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
@@ -701,6 +707,14 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
         controls.includeTalisman.state = (self.lastIncludeTalisman == nil or self.lastIncludeTalisman == true)
 
         lastItemAnchor = controls.includeTalisman
+        popupHeight = popupHeight + 23
+    end
+
+    if isEldritchModSlot then
+        controls.includeEldritch = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Eldritch Mods:", function(state) end)
+        controls.includeEldritch.state = (self.lastIncludeEldritch == true)
+
+        lastItemAnchor = controls.includeEldritch
         popupHeight = popupHeight + 23
     end
 
