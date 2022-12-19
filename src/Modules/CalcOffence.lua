@@ -4348,7 +4348,6 @@ function calcs.offence(env, actor, activeSkill)
 			local repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
 			local useSpeed = 1
 			local timeType
-			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
 			if skillFlags.trap or skillFlags.mine then
 				local preSpeed = output.TrapThrowingSpeed or output.MineLayingSpeed
 				local cooldown = output.TrapCooldown or output.Cooldown
@@ -4362,7 +4361,7 @@ function calcs.offence(env, actor, activeSkill)
 				timeType = "full unleash"
 			else
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.Speed > 0 and output.Speed or 1 / output.Cooldown) or output.Speed) / repeats
-				timeType = isTriggered and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
+				timeType = skillData.triggered and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
 			end
 
 			output[usedResource.."PerSecondHasCost"] = true
@@ -4494,7 +4493,6 @@ function calcs.offence(env, actor, activeSkill)
 		if usedSkill then
 			local moreDamage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ChieftainMirageChieftainMoreDamage")
 			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
-			newSkill.skillFlags.dontDisplay = true
 			newSkill.skillData.triggered = true
 			
 			-- Calcualte trigger rate
@@ -4506,13 +4504,69 @@ function calcs.offence(env, actor, activeSkill)
 			
 			local modActionCooldown = m_max( triggeredCD or 0, effectiveTriggerCD or 0 ) / icdrSkill
 			local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-			local triggerRate = m_huge
+			local triggerRateCap = m_huge
 			if modActionCooldown ~= 0 then
-				triggerRate = 1 / modActionCooldown
+				triggerRateCap = 1 / modActionCooldown
+			end
+			
+			local BreakdownEffectiveRateOfTrigger = {}
+			local EffectiveRateOfTrigger
+			local BreakdownSkillTriggerRate = {}
+			local SkillTriggerRate
+			local BreakdownSimData
+			local simBreakdown
+			
+			if sourceAPS == 0 then
+				EffectiveRateOfTrigger = 0
+				SkillTriggerRate = {
+					s_format("The trigger needs to be triggered for any skill to be triggered."),
+				}
+			else
+				_, EffectiveRateOfTrigger = calcMultiSpellRotationImpact(env, {{ cd = effectiveTriggerCD }}, sourceAPS, icdrSkill)
+				if breakdown then
+					BreakdownEffectiveRateOfTrigger = {
+						s_format("%.2f ^8(%s attack rate)", sourceAPS, newSkill.activeEffect.grantedEffect.name),
+						s_format("/ %.2f ^8(estimated impact of source rate and trigger cooldown alighnement)", m_max(sourceAPS / EffectiveRateOfTrigger.rates[1].rate, 1)),
+						s_format("= %.2f ^8(Effective Trigger rate of Trigger)", EffectiveRateOfTrigger.rates[1].rate),
+						"",
+						EffectiveRateOfTrigger.extraSimInfo,
+					}
+				end
+				EffectiveRateOfTrigger = EffectiveRateOfTrigger.rates[1].rate
+			end
+			
+			if output.EffectiveRateOfTrigger ~= 0 then
+				SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(activeSkill), cd = triggeredCD }}, EffectiveRateOfTrigger, icdrSkill)
+				if breakdown then
+					BreakdownSkillTriggerRate = {
+						s_format("%.2f ^8(effective trigger rate of trigger)", EffectiveRateOfTrigger),
+						s_format("/ %.2f ^8(simulated impact of linked spells)", m_max(EffectiveRateOfTrigger / SkillTriggerRate, 1)),
+						s_format("= %.2f ^8per second", SkillTriggerRate),
+						"",
+						"Simulation Breakdown",
+						s_format("Simulation Duration: %.2f", simBreakdown.simTime),
+					}
+					
+					local skillName = "Tawhoa's Chosen"
+
+					BreakdownSkillTriggerRate[1] = s_format("%.2f ^8(%s triggers per second)", EffectiveRateOfTrigger, skillName)
+					
+					if simBreakdown.extraSimInfo then
+						t_insert(BreakdownSkillTriggerRate, "")
+						t_insert(BreakdownSkillTriggerRate, simBreakdown.extraSimInfo)
+					end
+				end
+			else
+				if breakdown then
+					BreakdownSkillTriggerRate = {
+						s_format("The trigger needs to be triggered for any skill to be triggered."),
+					}
+				end
+				SkillTriggerRate = 0
 			end
 			
 			-- Override attack speed with trigger rate
-			newSkill.skillData.triggerRate = m_min(sourceAPS, triggerRate)
+			newSkill.skillData.triggerRate = SkillTriggerRate
 			
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Tawhoa's Chosen", activeSkill.ModFlags, activeSkill.KeywordFlags)
@@ -4537,14 +4591,15 @@ function calcs.offence(env, actor, activeSkill)
 
 			-- Make any necessary corrections to output
 			env.player.output.ManaCost = 0
-			env.player.output.Speed = triggerRate
-			env.player.output.TriggerRateCap = triggerRate
-			env.player.output.SourceTriggerRate = sourceAPS
-			env.player.output.ServerTriggerRate = m_min(sourceAPS, triggerRate)
+			env.player.output.Speed = EffectiveRateOfTrigger
+			env.player.output.TriggerRateCap = triggerRateCap
+			env.player.output.EffectiveRateOfTrigger = EffectiveRateOfTrigger
+			env.player.output.SkillTriggerRate = SkillTriggerRate
 			
 			-- Re-link over the breakdown (if present)
 			if newEnv.player.breakdown then
-				newEnv.player.breakdown.SourceTriggerRate = {s_format("%.2f ^8(%s attacks per second)", sourceAPS, usedSkill.activeEffect.grantedEffect.name)}
+				newEnv.player.breakdown.SkillTriggerRate = BreakdownSkillTriggerRate
+				newEnv.player.breakdown.EffectiveRateOfTrigger = BreakdownEffectiveRateOfTrigger
 				if triggeredCD then
 					newEnv.player.breakdown.TriggerRateCap = {
 						s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
@@ -4562,7 +4617,7 @@ function calcs.offence(env, actor, activeSkill)
 						"",
 						"Trigger rate:",
 						s_format("1 / %.3f", rateCapAdjusted),
-						s_format("= %.2f ^8per second", triggerRate),
+						s_format("= %.2f ^8per second", triggerRateCap),
 					}
 				else
 					newEnv.player.breakdown.TriggerRateCap = {
@@ -4577,12 +4632,9 @@ function calcs.offence(env, actor, activeSkill)
 						"",
 						"Trigger rate:",
 						s_format("1 / %.2f", rateCapAdjusted),
-						s_format("= %.2f ^8per second", triggerRate),
+						s_format("= %.2f ^8per second", triggerRateCap),
 					}		
 				end	
-					newEnv.player.breakdown.ServerTriggerRate = {
-						s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", env.player.output.ServerTriggerRate),
-					}
 				
 				env.player.breakdown = newEnv.player.breakdown
 

@@ -300,7 +300,7 @@ end
 
 -- Calculate Trigger Rate
 -- This is achieved by simulating a 100 second cast rotation
-local function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS, icdr)
+function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS, icdr)
 	local SIM_TIME = 100.0
 	local TIME_STEP = 0.0001
 	local index = 1
@@ -419,7 +419,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 					t_insert(breakdown.SkillTriggerRate, 1, s_format("%.2f ^8(%s activations per second)", dualwieldAPS, source.activeEffect.grantedEffect.name))
 				else
 					if not sourceAPS then
-						breakdown.SkillTriggerRate[1] = s_format("%.2f ^8(%s triggers per second)", output.TriggerRateCap, skillName)
+						breakdown.SkillTriggerRate[1] = s_format("%.2f ^8(%s triggers per second)", output.EffectiveRateOfTrigger, skillName)
 					end
 				end
 				if simBreakdown.extraSimInfo then
