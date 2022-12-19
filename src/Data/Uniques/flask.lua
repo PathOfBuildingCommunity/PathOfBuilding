@@ -261,7 +261,7 @@ Variant: Pre 3.15.0
 Variant: Current
 LevelReq: 40
 {variant:1,2}15% chance to gain a Flask Charge when you deal a Critical Strike
-{variant:3}50% chance to gain a Flask Charge when you deal a Critical Strike
+{variant:3,4}50% chance to gain a Flask Charge when you deal a Critical Strike
 {variant:1}(150-100)% increased Charges per use
 {variant:2,3}(100-50)% increased Charges per use
 {variant:3}50% increased Duration
@@ -270,7 +270,7 @@ Consumes Frenzy Charges on use
 {variant:1,2}Gain Onslaught for 1 second per Frenzy Charge on use
 {variant:3}Gain Onslaught for 2 seconds per Frenzy Charge on use
 {variant:4}Gain Onslaught for 3 seconds per Frenzy Charge on use
-(10-30)% increased Movement Speed during Effect
+{variant:1,2,3}(10-30)% increased Movement Speed during Effect
 ]],[[
 Rumi's Concoction
 Granite Flask
