@@ -369,8 +369,8 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
                 goto continue
             end
 
-            -- Test with a value halfway between the min and max available for this mod in this slot. Note that this can generate slightly different values for the same mod as implicit vs explicit.
-            local modValue = math.ceil((entry[self.calcContext.itemCategory].max - entry[self.calcContext.itemCategory].min) / 2 + entry[self.calcContext.itemCategory].min)
+            -- Test with a value halfway (or configured default Item Affix Quality) between the min and max available for this mod in this slot. Note that this can generate slightly different values for the same mod as implicit vs explicit.
+            local modValue = math.ceil((entry[self.calcContext.itemCategory].max - entry[self.calcContext.itemCategory].min) * ( main.defaultItemAffixQuality or 0.5 ) + entry[self.calcContext.itemCategory].min)
             local modValueStr = (entry.sign and entry.sign or "") .. tostring(modValue)
 
             -- Apply override text for special cases
