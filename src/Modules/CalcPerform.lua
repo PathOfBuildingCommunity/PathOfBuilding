@@ -931,14 +931,16 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Onslaught") then
 			local effect
 			--Loop detects if a Silver flask is used to grant Onslaught. If statement adds flask effect to claculation if one is being used
-			local onslaughtFromFlask			
+			local onslaughtFromFlask
+			local flaskEffectInc			
 			for item in pairs(env.flasks) do
 				if item.baseName:match("Silver Flask") then
 					onslaughtFromFlask = true
+					flaskEffectInc =  (item.flaskData.effectInc + modDB:Sum("INC", nil, "FlaskEffect")) / 100
 				end
 			end
 			if onslaughtFromFlask then
-				effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf", "FlaskEffect") / 100))
+				effect = m_floor(20 * (1 + flaskEffectInc + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100))
 			else
 				effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100))
 			end
