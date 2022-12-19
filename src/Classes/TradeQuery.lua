@@ -34,6 +34,9 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.lastCurrencyConversionRequest = 0
 	self.lastCurrencyFileTime = { }
 	self.pbFileTimestampDiff = { }
+	self.pbRealm = ""
+	self.pbRealmIndex = 1
+	self.pbLeagueIndex = 1
 
 	self.tradeQueryRequests = new("TradeQueryRequests", self)
 	table.insert(main.onFrameFuncs, function()
@@ -268,14 +271,26 @@ function TradeQueryClass:PriceItem()
 	end
 
 	-- League selection
-	self.controls.league = new("DropDownControl", {"TOPRIGHT", self.controls.itemSortSelectionLabel, "TOPLEFT"}, -8, 0, 150, 18, self.itemsTab.leagueDropList, function(index, value)
+	self.controls.leagueLabel = new("LabelControl", {"TOPLEFT", self.controls.setSelect, "TOPRIGHT"}, 8, 0, 20, 16, "^7League:")
+	self.controls.league = new("DropDownControl", {"TOPLEFT", self.controls.leagueLabel, "TOPRIGHT"}, 8, 0, 150, 18, self.itemsTab.leagueDropList, function(index, value)
+		self.pbLeagueIndex = index
 		self.pbLeague = value
 		self:SetCurrencyConversionButton()
 	end)
+	self.controls.league:SetSel(self.pbLeagueIndex)
 	self.controls.league.enabled = function()
 		return #self.itemsTab.leagueDropList > 1
 	end
-	self.controls.leagueLabel = new("LabelControl", {"TOPRIGHT", self.controls.league, "TOPLEFT"}, -4, 0, 20, 16, "^7League:")
+
+	-- Realm selection
+	local realmDropList = { "PC", "Xbox", "Sony" }
+	self.controls.realmLabel = new("LabelControl", {"TOPLEFT", self.controls.leagueLabel, "TOPLEFT"}, 8, 24, 20, 16, "^7Realm:")
+	self.controls.realm = new("DropDownControl", {"TOPLEFT", self.controls.realmLabel, "TOPRIGHT"}, 8, 0, 150, 18, realmDropList, function(index, value)
+		self.pbRealmIndex = index
+		self.pbRealm = value:lower() .. "/"
+		if value == "PC" then self.pbRealm = "" end
+	end)
+	self.controls.realm:SetSel(self.pbRealmIndex)
 
 	-- Individual slot rows
 	top_pane_alignment_ref = {"TOPLEFT", self.controls.poesessidButton, "BOTTOMLEFT"}
@@ -306,7 +321,7 @@ function TradeQueryClass:PriceItem()
 		self:PullPoENinjaCurrencyConversion(self.pbLeague)
 	end)
 	self.controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT", nil, "BOTTOMRIGHT"}, -8, -16, 300, 16, "")
-	main:OpenPopup(pane_width, pane_height, "Build Pricer", self.controls)
+	main:OpenPopup(pane_width, pane_height, "Trader", self.controls)
 
 	if #self.itemsTab.leagueDropList == 0 then
 		self:PullLeagueList()
@@ -446,7 +461,13 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 	local activeSlotRef = slotTbl.ref and self.itemsTab.activeItemSet[slotTbl.ref] or self.itemsTab.activeItemSet[slotTbl.name]
 	controls["name"..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^7"..slotTbl.name)
 	controls["bestButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["name"..str_cnt],"TOPLEFT"}, 100 + 8, 0, 80, row_height, "Find best", function()
-		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query)
+		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query, errMsg)
+			if errMsg then
+				self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
+				return
+			else
+				self:SetNotice(context.controls.pbNotice, "")
+			end
 			self.pbSortSelectionIndex = 1
 			context.controls["priceButton"..context.str_cnt].label = "Searching..."
 			self.tradeQueryRequests:SearchWithQuery(self.pbLeague, query, 
@@ -464,7 +485,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 				end,
 				{
 					callbackQueryId = function(queryId)
-						controls["uri"..context.str_cnt]:SetText("https://www.pathofexile.com/trade/search/".. self.pbLeague:gsub(" ", "+") .."/".. queryId)
+						controls["uri"..context.str_cnt]:SetText("https://www.pathofexile.com/trade/search/".. self.pbRealm .. self.pbLeague:gsub(" ", "+") .."/".. queryId)
 					end
 				}
 			)

@@ -757,6 +757,7 @@ return {
 		{ breakdown = "CorpseLife" },
 		{ modName = "CorpseLife", cfg = "skill" },
 	}, },
+	{ label = "Burst Damage", haveOutput = "ShowBurst", { format = "{1:output:AverageBurstDamage}", { breakdown = "AverageBurstDamage" }, }, },
 } }
 } },
 { 1, "HitChance", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Accuracy", data = {
