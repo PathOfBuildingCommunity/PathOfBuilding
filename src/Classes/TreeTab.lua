@@ -1768,9 +1768,6 @@ function TreeTabClass:FindTimelessJewel()
 			return
 		end
 
-		controls.searchTradeButton.label = "Searching..."
-		controls.searchTradeButton.enabled = false
-
 		local seedTrades = {}
 		local maxSeeds = main.POESESSID ~= "" and 50 or 10
 		local page = controls.searchTradeButton.page
@@ -1807,21 +1804,13 @@ function TreeTabClass:FindTimelessJewel()
 			}
 		}
 
-		local league = "Sanctum"
 
-		self.tradeQueryRequests:PerformSearch(league, dkjson.encode(search), function(result, err)
-			controls.searchTradeButton.enabled = true
-			if not result or not result.id then
-				controls.searchTradeButton.label = "Trade Search"
-				error(dkjson.encode(result or {err}))
-				-- TODO
-				return
-			end
+		Copy("https://www.pathofexile.com/trade/search/?q=" .. (string.gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
+			return string.format("%%%02X", string.byte(a))
+		end)))
 
-			controls.searchTradeButton.label = "Copied Page #" .. controls.searchTradeButton.page
-			controls.searchTradeButton.page = controls.searchTradeButton.page + 1
-			Copy("https://www.pathofexile.com/trade/search/" .. league .. "/" .. result.id)
-		end)
+		controls.searchTradeButton.label = "Copied Page #" .. controls.searchTradeButton.page
+		controls.searchTradeButton.page = controls.searchTradeButton.page + 1
 	end)
 	controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
 	controls.searchTradeButton.page = 1
