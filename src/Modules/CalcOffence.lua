@@ -662,6 +662,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Applies DPS multiplier based on seals count
 		output.SealCooldown = skillModList:Sum("BASE", skillCfg, "SealGainFrequency") / calcLib.mod(skillModList, skillCfg, "SealGainFrequency")
 		output.SealMax = skillModList:Sum("BASE", skillCfg, "SealCount")
+		output.AverageBurstHits = output.SealMax
 		output.TimeMaxSeals = output.SealCooldown * output.SealMax
 
 		if not skillData.hitTimeOverride then
@@ -1324,7 +1325,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- account for Sacrificial Zeal
 	-- Note: Sacrificial Zeal grants Added Spell Physical Damage equal to 25% of the Skill's Mana Cost, and causes you to take Physical Damage over Time, for 4 seconds
-	if skillModList:Flag(nil, "Condition:SacrificialZeal") then
+	if skillModList:Flag(nil, "Condition:SacrificialZeal") and output.ManaHasCost then
 		local multiplier = 0.25
 		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
@@ -1532,7 +1533,11 @@ function calcs.offence(env, actor, activeSkill)
 	for _, pass in ipairs(passList) do
 		globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
-		
+
+		if skillData.averageBurstHits then
+			output.AverageBurstHits = skillData.averageBurstHits
+		end
+
 		-- Calculate hit chance 
 		output.Accuracy = m_max(0, calcLib.val(skillModList, "Accuracy", cfg))
 		if breakdown then
@@ -2213,6 +2218,14 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			local critOverride = skillModList:Override(cfg, "CritChance")
 			local baseCrit = critOverride or source.CritChance or 0
+
+			local baseCritFromMainHand = skillModList:Flag(cfg, "BaseCritFromMainHand")
+			if baseCritFromMainHand then
+				if actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
+					baseCrit = actor.weaponData1.CritChance
+				end
+			end
+
 			if critOverride == 100 then
 				output.PreEffectiveCritChance = 100
 				output.CritChance = 100
@@ -2242,10 +2255,11 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if breakdown and output.CritChance ~= baseCrit then
 					breakdown.CritChance = { }
+					local baseCritFromMainHandStr = baseCritFromMainHand and " from main weapon" or ""
 					if base ~= 0 then
-						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base)", baseCrit, base))
+						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base%s)", baseCrit, base, baseCritFromMainHandStr))
 					else
-						t_insert(breakdown.CritChance, s_format("%g ^8(base)", baseCrit + base))
+						t_insert(breakdown.CritChance, s_format("%g ^8(base%s)", baseCrit + base, baseCritFromMainHandStr))
 					end
 					if inc ~= 0 then
 						t_insert(breakdown.CritChance, s_format("x %.2f", 1 + inc/100).." ^8(increased/reduced)")
@@ -2327,16 +2341,20 @@ function calcs.offence(env, actor, activeSkill)
 			output.DoubleDamageChance = m_max(output.DoubleDamageChance - output.TripleDamageChance * output.DoubleDamageChance / 100, 0)
 		end
 		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
-		output.ScaledDamageEffect = output.ScaledDamageEffect * output.DoubleDamageEffect	
+		output.ScaledDamageEffect = output.ScaledDamageEffect * output.DoubleDamageEffect
+
+		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+
 		-- Calculate culling DPS
 		local criticalCull = skillModList:Max(cfg, "CriticalCullPercent") or 0
 		if criticalCull > 0 then
-			criticalCull = criticalCull * (output.CritChance / 100)
+			criticalCull = m_min(criticalCull, criticalCull * (1 - (1 - output.CritChance / 100) ^ hitRate))
 		end
 		local regularCull = skillModList:Max(cfg, "CullPercent") or 0
 		local maxCullPercent = m_max(criticalCull, regularCull)
 		globalOutput.CullPercent = maxCullPercent
 		globalOutput.CullMultiplier = 100 / (100 - globalOutput.CullPercent)
+
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
 			local damageTypeMin = damageType.."Min"
@@ -2664,8 +2682,6 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("Condition:"..highestType.."IsHighestDamageType", "FLAG", true, "Config")
 		end
 
-		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
-
 		-- Calculate leech
 		local function getLeechInstances(amount, total)
 			if total == 0 then
@@ -2718,6 +2734,9 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate average damage and final DPS
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
+		globalOutput.AverageBurstHits = output.AverageBurstHits or 1
+		globalOutput.AverageBurstDamage = output.AverageDamage * globalOutput.AverageBurstHits or 0
+		globalOutput.ShowBurst = globalOutput.AverageBurstHits > 1
 		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * quantityMultiplier
 		if breakdown then
 			if output.CritEffect ~= 1 then
@@ -2740,6 +2759,13 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.AverageDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 				t_insert(breakdown.AverageDamage, s_format("= %.1f", output.AverageDamage))
 			end
+		end
+		if globalBreakdown and globalOutput.AverageBurstDamage > 0 then
+			globalBreakdown.AverageBurstDamage = { }		
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("%.1f ^8(average hit)", output.AverageHit))
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(number of hits)", globalOutput.AverageBurstHits))
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("= %.1f", globalOutput.AverageBurstDamage))
 		end
 		
 		
