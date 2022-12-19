@@ -446,7 +446,13 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 	local activeSlotRef = slotTbl.ref and self.itemsTab.activeItemSet[slotTbl.ref] or self.itemsTab.activeItemSet[slotTbl.name]
 	controls["name"..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^7"..slotTbl.name)
 	controls["bestButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["name"..str_cnt],"TOPLEFT"}, 100 + 8, 0, 80, row_height, "Find best", function()
-		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query)
+		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query, errMsg)
+			if errMsg then
+				self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
+				return
+			else
+				self:SetNotice(context.controls.pbNotice, "")
+			end
 			self.pbSortSelectionIndex = 1
 			context.controls["priceButton"..context.str_cnt].label = "Searching..."
 			self.tradeQueryRequests:SearchWithQuery(self.pbLeague, query, 

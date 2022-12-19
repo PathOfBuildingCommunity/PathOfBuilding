@@ -78,7 +78,7 @@ end
 ---@param callback fun(response:table, errMsg:string)
 function TradeQueryRequestsClass:PerformSearch(league, query, callback)
 	table.insert(self.requestQueue["search"], {
-		url = "https://www.pathofexile.com/api/trade/search/"..league,
+		url = "https://www.pathofexile.com/api/trade/search/"..league:gsub(" ", "+"),
 		body = query,
 		callback = function(response, errMsg)
 			if errMsg and not errMsg:find("Response code: 400") then
@@ -91,14 +91,20 @@ function TradeQueryRequestsClass:PerformSearch(league, query, callback)
 			end
 			if not response.result or #response.result == 0 then
 				if response.error then
-					if response.error.code == 2 then
+					if not (response.error.code and response.error.message) then
+						errMsg = "Encountered unknown error, check console for details."
+						ConPrintf("Unknown error: %s", stringify(response.error))
+						callback(response, errMsg)
+					end
+					if response.error.message:find("Logging in will increase this limit") then
 						if main.POESESSID ~= "" then
 							errMsg = "POESESSID is invalid. Please Re-Log and reset"
 						else
-							errMsg = "Complex Query - Please provide your POESESSID"
+							errMsg = "Session is invalid. Please add your POESESSID"
 						end
-					elseif response.error.message then
-						errMsg = response.error.message
+					else
+						-- Report unhandled error
+						errMsg = "[ " .. response.error.code .. ": " .. response.error.message .. " ]"
 					end
 				else
 					ConPrintf("Found 0 results for " .. "https://www.pathofexile.com/trade/search/" .. league .. "/" .. response.id)
@@ -178,7 +184,7 @@ function TradeQueryRequestsClass:SearchWithURL(urlEditControl, callback)
 		if errMsg then
 			return callback(nil, errMsg)
 		end
-		urlEditControl:SetText("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbLeague .. "/" .. queryId)
+		urlEditControl:SetText("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbLeague:gsub(" ", "+") .. "/" .. queryId)
 		self:SearchWithQuery(self.tradeQuery.pbLeague, query, callback)
 	end)
 end
@@ -188,7 +194,7 @@ end
 ---@param league string
 ---@param callback fun(query:string, errMsg:string)
 function TradeQueryRequestsClass:FetchSearchQuery(queryId, callback)
-	local url = "https://www.pathofexile.com/api/trade/search/" .. self.tradeQuery.pbLeague .. "/" .. queryId
+	local url = "https://www.pathofexile.com/api/trade/search/" .. self.tradeQuery.pbLeague:gsub(" ", "+") .. "/" .. queryId
 	table.insert(self.requestQueue["search"], {
 		url = url,
 		callback = function(response, errMsg)
@@ -216,10 +222,14 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 	end
 	local header = "Cookie: POESESSID=" .. main.POESESSID
 	-- the league doesn't affect query so we set it to Standard as it doesn't change
-	launch:DownloadPage("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbLeague .. "/" .. queryId, 
+	launch:DownloadPage("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbLeague:gsub(" ", "+") .. "/" .. queryId, 
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
+			end
+			-- check if response.header includes "Cache-Control: must-revalidate" which indicates an invalid session
+			if response.header:lower():match("cache%-control:.+must%-revalidate") then
+				return callback(nil, "Failed to get search query, check POESESSID")
 			end
 			-- full json state obj from HTML
 			local dataStr = response.body:match('require%(%["main"%].+ t%((.+)%);}%);}%);')
