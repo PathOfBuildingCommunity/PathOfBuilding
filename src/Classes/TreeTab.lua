@@ -1769,7 +1769,7 @@ function TreeTabClass:FindTimelessJewel()
 		end
 
 		local seedTrades = {}
-		local maxSeeds = main.POESESSID ~= "" and 50 or 10
+		local maxSeeds = 50
 		local page = controls.searchTradeButton.page
 		for i = (page - 1) * maxSeeds + 1, math.min(#timelessData.searchResults, page * maxSeeds) do
 			local result = timelessData.searchResults[i]
