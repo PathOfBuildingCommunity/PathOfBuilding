@@ -5,6 +5,8 @@
 --
 
 local m_random = math.random
+local m_min = math.min
+local m_max = math.max
 local t_concat = table.concat
 
 local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, build)
@@ -18,6 +20,24 @@ end)
 function TimelessJewelListControlClass:Draw(viewPort, noTooltip)
 	self.noTooltip = noTooltip
 	self.ListControl.Draw(self, viewPort)
+end
+
+function TimelessJewelListControlClass:IsRowHighlighted(index, value)
+	if not self.highlightIndex or not self.selIndex then
+		return false
+	end
+	return m_min(self.selIndex, self.highlightIndex) <= index and m_max(self.selIndex, self.highlightIndex) >= index
+end
+
+function TimelessJewelListControlClass:OverrideSelectIndex(index)
+	if (IsKeyDown("SHIFT") and self.selIndex) then
+		self.highlightIndex = index
+		return true
+	else
+		self.highlightIndex = nil
+	end
+
+	return false
 end
 
 function TimelessJewelListControlClass:GetRowValue(column, index, data)

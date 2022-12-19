@@ -12,6 +12,8 @@ local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
 local s_format = string.format
+local s_gsub = string.gsub
+local s_byte = string.byte
 local dkjson = require "dkjson"
 
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
@@ -28,6 +30,11 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self:SetCompareSpec(1)
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
+	
+	self.tradeQueryRequests = new("TradeQueryRequests", self)
+	table.insert(main.onFrameFuncs, function()
+		self.tradeQueryRequests:ProcessQueue()
+	end)
 
 	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
@@ -1477,10 +1484,80 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 250, 0, 16, "^7Search Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 275, 438, 200, self.build)
 
-	local width = 130
+	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 130, 20, "Copy Trade URL", function()
+		if (not controls.searchTradeButton.enabled) then
+			return
+		end
+
+		local seedTrades = {}
+		controls.searchResults:SelectIndex()
+		local startRow = controls.searchResults.selIndex
+		if (not startRow) then
+			startRow = 1
+			controls.searchResults:SelectIndex(startRow)
+		end
+
+		local seedCount = controls.searchResults.highlightIndex and controls.searchResults.highlightIndex - startRow + 1 or 10
+		seedCount = m_min(#timelessData.searchResults - startRow + 1, seedCount)
+		-- update if not highlighted already
+		controls.searchResults.highlightIndex = startRow + seedCount - 1
+
+		local prevSearch = controls.searchTradeButton.lastSearch
+		if (prevSearch and prevSearch[1] == startRow and prevSearch[2] == seedCount) then
+			startRow = startRow + seedCount
+			if (startRow > #timelessData.searchResults) then
+				return
+			end
+			controls.searchResults.selIndex = startRow
+			seedCount = m_min(#timelessData.searchResults - startRow + 1, seedCount)
+			controls.searchResults.highlightIndex = startRow + seedCount - 1
+		end
+
+		controls.searchTradeButton.lastSearch = {startRow, seedCount}
+
+		for i = startRow, startRow + seedCount - 1 do
+			local result = timelessData.searchResults[i]
+
+			t_insert(seedTrades, {
+				id = timelessData.sharedResults.conqueror.tradeId,
+				value = {
+					min = result.seed,
+					max = result.seed
+				},
+				disabled = false
+			})
+		end
+
+		local search = {
+			query = {
+				status = {
+					option = "online"
+				},
+				stats = {
+					{
+						filters = seedTrades,
+						type = "count",
+						value = {
+							min = 1
+						}
+					}
+				}
+			},
+			sort = {
+				price = "asc"
+			}
+		}
+
+		Copy("https://www.pathofexile.com/trade/search/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
+			return s_format("%%%02X", s_byte(a))
+		end)))
+	end)
+	controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
+
+	local width = 80
 	local divider = 10
-	local buttons = 4
-	local totalWidth = math.floor(width * buttons + divider * (buttons - 1))
+	local buttons = 3
+	local totalWidth = m_floor(width * buttons + divider * (buttons - 1))
 	local buttonX = -totalWidth / 2 + width / 2
 
 	controls.searchButton = new("ButtonControl", nil, buttonX, 485, width, 20, "Search", function()
@@ -1745,9 +1822,8 @@ function TreeTabClass:FindTimelessJewel()
 				end
 			end
 			t_sort(timelessData.searchResults, function(a, b) return a.total > b.total end)
-			controls.searchTradeButton.searching = "Trade Search"
 			controls.searchTradeButton.enabled = true
-			controls.searchTradeButton.page = 1
+			controls.searchTradeButton.lastSearch = nil
 		end
 	end)
 	controls.resetButton = new("ButtonControl", nil, buttonX + (width + divider), 485, width, 20, "Reset", function()
@@ -1758,57 +1834,6 @@ function TreeTabClass:FindTimelessJewel()
 	controls.closeButton = new("ButtonControl", nil, buttonX + (width + divider) * 2, 485, width, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	controls.searchTradeButton = new("ButtonControl", nil, buttonX + (width + divider) * 3, 485, width, 20, "Trade Search", function()
-		if (not controls.searchTradeButton.enabled) then
-			return
-		end
-
-		local seedTrades = {}
-		local maxSeeds = 50
-		local page = controls.searchTradeButton.page
-		for i = (page - 1) * maxSeeds + 1, math.min(#timelessData.searchResults, page * maxSeeds) do
-			local result = timelessData.searchResults[i]
-
-			t_insert(seedTrades, {
-				id = timelessData.sharedResults.conqueror.tradeId,
-				value = {
-					min = result.seed,
-					max = result.seed
-				},
-				disabled = false
-			})
-		end
-
-		local search = {
-			query = {
-				status = {
-					option = "online"
-				},
-				stats = {
-					{
-						filters = seedTrades,
-						type = "count",
-						value = {
-							min = 1
-						}
-					}
-				}
-			},
-			sort = {
-				price = "asc"
-			}
-		}
-
-
-		Copy("https://www.pathofexile.com/trade/search/?q=" .. (string.gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
-			return string.format("%%%02X", string.byte(a))
-		end)))
-
-		controls.searchTradeButton.label = "Copied Page #" .. controls.searchTradeButton.page
-		controls.searchTradeButton.page = controls.searchTradeButton.page + 1
-	end)
-	controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
-	controls.searchTradeButton.page = 1
 
 	main:OpenPopup(910, 517, "Find a Timeless Jewel", controls)
 end
