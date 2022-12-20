@@ -1484,7 +1484,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 250, 0, 16, "^7Search Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 275, 438, 200, self.build)
 
-	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 130, 20, "Copy Trade URL", function()
+	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 170, 20, "Copy Trade URL", function()
 		local seedTrades = {}
 		controls.searchResults:SelectIndex()
 		local startRow = controls.searchResults.selIndex
@@ -1547,6 +1547,8 @@ function TreeTabClass:FindTimelessJewel()
 		Copy("https://www.pathofexile.com/trade/search/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
 			return s_format("%%%02X", s_byte(a))
 		end)))
+
+		controls.searchTradeButton.label = "Copy Next Trade URL"
 	end)
 	controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
 
@@ -1820,6 +1822,8 @@ function TreeTabClass:FindTimelessJewel()
 			t_sort(timelessData.searchResults, function(a, b) return a.total > b.total end)
 			controls.searchTradeButton.enabled = true
 			controls.searchTradeButton.lastSearch = nil
+			controls.searchTradeButton.label = "Copy Trade URL"
+			controls.searchResults.highlightIndex = nil
 		end
 	end)
 	controls.resetButton = new("ButtonControl", nil, buttonX + (width + divider), 485, width, 20, "Reset", function()
