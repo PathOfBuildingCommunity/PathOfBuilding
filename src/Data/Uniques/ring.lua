@@ -377,7 +377,7 @@ Variant: Current
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
 {variant:1}{tags:jewellery_attribute}+(5-10) to Intelligence
-{variant:2}{tags:jewellery_attribute}+(5-20) to Intelligence 
+{variant:2}{tags:jewellery_attribute}+(5-20) to Intelligence
 {variant:1}{tags:jewellery_resistance}+5% to all Elemental Resistances
 {variant:2}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
 {variant:1}{tags:mana}Gain 5 Mana per Enemy Killed
@@ -395,7 +395,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
 {variant:1,2}{tags:jewellery_attribute}+(5-10) to Intelligence
-{variant:3,4}{tags:jewellery_attribute}+(5-20) to Intelligence 
+{variant:3,4}{tags:jewellery_attribute}+(5-20) to Intelligence
 {variant:1,2}{tags:jewellery_resistance}+5% to all Elemental Resistances
 {variant:3,4}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
 {variant:1,2}{tags:mana}Gain 5 Mana per Enemy Killed
@@ -499,7 +499,7 @@ Implicits: 1
 {tags:mana}(20-40)% increased Mana Regeneration Rate
 Minions have 15% increased maximum Life
 Minions have 10% increased Area of Effect
-350 Physical Damage taken on Minion Death
+{tags:physical}350 Physical Damage taken on Minion Death
 ]],[[
 Anathema
 Moonstone Ring
