@@ -91,6 +91,7 @@ Damage cannot be Reflected
 The Winds of Fate
 Foul Staff
 League: Sanctum
+Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 (700-800)% increased Physical Damage

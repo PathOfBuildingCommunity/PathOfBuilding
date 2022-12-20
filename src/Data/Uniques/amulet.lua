@@ -184,6 +184,7 @@ Implicits: 1
 Eternal Damnation
 Agate Amulet
 League: Sanctum
+Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 LevelReq: 52
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Intelligence
