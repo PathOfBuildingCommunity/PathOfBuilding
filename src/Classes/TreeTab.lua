@@ -1485,14 +1485,10 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 275, 438, 200, self.build)
 
 	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 130, 20, "Copy Trade URL", function()
-		if (not controls.searchTradeButton.enabled) then
-			return
-		end
-
 		local seedTrades = {}
 		controls.searchResults:SelectIndex()
 		local startRow = controls.searchResults.selIndex
-		if (not startRow) then
+		if not startRow then
 			startRow = 1
 			controls.searchResults:SelectIndex(startRow)
 		end
@@ -1503,7 +1499,7 @@ function TreeTabClass:FindTimelessJewel()
 		controls.searchResults.highlightIndex = startRow + seedCount - 1
 
 		local prevSearch = controls.searchTradeButton.lastSearch
-		if (prevSearch and prevSearch[1] == startRow and prevSearch[2] == seedCount) then
+		if prevSearch and prevSearch[1] == startRow and prevSearch[2] == seedCount then
 			startRow = startRow + seedCount
 			if (startRow > #timelessData.searchResults) then
 				return
