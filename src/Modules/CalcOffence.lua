@@ -2221,9 +2221,7 @@ function calcs.offence(env, actor, activeSkill)
 
 			local baseCritFromMainHand = skillModList:Flag(cfg, "BaseCritFromMainHand")
 			if baseCritFromMainHand then
-				if actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
-					baseCrit = actor.weaponData1.CritChance
-				end
+				baseCrit = actor.weaponData1.CritChance
 			end
 
 			if critOverride == 100 then
