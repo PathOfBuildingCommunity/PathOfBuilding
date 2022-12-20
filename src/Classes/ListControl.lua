@@ -20,7 +20,7 @@
 -- :OnSelDelete(index, value)  [Called when backspace or delete is pressed while a list value is selected]
 -- :OnSelKeyDown(index, value)  [Called when any other key is pressed while a list value is selected]
 -- :OverrideSelectIndex(index) [Called when an index is selected, return true to prevent default action]
--- :IsRowHighlighted(index, value) [Called when querying if a row is highlighted by parent element class]
+-- :SetHighlightColor(index, value) [Called when querying if a row is highlighted by parent element class]
 --
 local ipairs = ipairs
 local t_insert = table.insert
@@ -258,9 +258,7 @@ function ListClass:Draw(viewPort, noTooltip)
 				end
 				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
 			end
-			if (self.IsRowHighlighted and self:IsRowHighlighted(index, value)) then
-				SetDrawColor(1, 1, 0)
-			else
+			if (not self.SetHighlightColor or not self:SetHighlightColor(index, value)) then
 				SetDrawColor(1, 1, 1)
 			end
 			DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)

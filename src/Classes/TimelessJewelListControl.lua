@@ -22,11 +22,23 @@ function TimelessJewelListControlClass:Draw(viewPort, noTooltip)
 	self.ListControl.Draw(self, viewPort)
 end
 
-function TimelessJewelListControlClass:IsRowHighlighted(index, value)
+function TimelessJewelListControlClass:SetHighlightColor(index, value)
 	if not self.highlightIndex or not self.selIndex then
 		return false
 	end
-	return m_min(self.selIndex, self.highlightIndex) <= index and m_max(self.selIndex, self.highlightIndex) >= index
+	local isHighlighted = m_min(self.selIndex, self.highlightIndex) <= index and m_max(self.selIndex, self.highlightIndex) >= index
+
+	if isHighlighted then
+		if self.selIndex == index or self.highlightIndex == index then
+			SetDrawColor(1, 0.5, 0)
+		else
+			SetDrawColor(1, 1, 0)
+		end
+
+		return true
+	end
+
+	return false
 end
 
 function TimelessJewelListControlClass:OverrideSelectIndex(index)
