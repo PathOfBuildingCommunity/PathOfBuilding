@@ -11,6 +11,7 @@ local t_concat = table.concat
 local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
+local m_abs = math.abs
 local s_format = string.format
 local s_gsub = string.gsub
 local s_byte = string.byte
@@ -1486,27 +1487,27 @@ function TreeTabClass:FindTimelessJewel()
 
 	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 170, 20, "Copy Trade URL", function()
 		local seedTrades = {}
-		local startRow = controls.searchResults.selIndex
-		if not startRow then
-			startRow = 1
-			controls.searchResults:SelectIndex(startRow)
+		local startRow = controls.searchResults.selIndex or 1
+		local endRow = startRow + 10
+		if controls.searchResults.highlightIndex then
+			startRow = m_min(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
+			endRow = m_max(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
 		end
 
-		local seedCount = controls.searchResults.highlightIndex and controls.searchResults.highlightIndex - startRow + 1 or 10
-		seedCount = m_min(#timelessData.searchResults - startRow + 1, seedCount)
+		local seedCount = m_min(#timelessData.searchResults - startRow, endRow - startRow) + 1
 		-- update if not highlighted already
-		controls.searchResults.highlightIndex = startRow + seedCount - 1
 
 		local prevSearch = controls.searchTradeButton.lastSearch
 		if prevSearch and prevSearch[1] == startRow and prevSearch[2] == seedCount then
-			startRow = startRow + seedCount
+			startRow = endRow + 1
 			if (startRow > #timelessData.searchResults) then
 				return
 			end
-			controls.searchResults.selIndex = startRow
 			seedCount = m_min(#timelessData.searchResults - startRow + 1, seedCount)
-			controls.searchResults.highlightIndex = startRow + seedCount - 1
+			endRow = startRow + seedCount - 1
 		end
+		controls.searchResults.selIndex = startRow
+		controls.searchResults.highlightIndex = endRow
 
 		controls.searchTradeButton.lastSearch = {startRow, seedCount}
 
