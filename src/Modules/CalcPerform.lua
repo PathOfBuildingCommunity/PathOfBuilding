@@ -937,6 +937,7 @@ local function doActorMisc(env, actor)
 				if item.baseName:match("Silver Flask") then
 					onslaughtFromFlask = true
 					flaskEffectInc =  (item.flaskData.effectInc + modDB:Sum("INC", nil, "FlaskEffect")) / 100
+					break
 				end
 			end
 			if onslaughtFromFlask then
