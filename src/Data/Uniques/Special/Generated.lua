@@ -424,6 +424,7 @@ local balanceOfTerror = {
 	"The Balance of Terror",
 	"Cobalt Jewel",
 	"League: Sanctum",
+	"Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}",
 	"Has Alt Variant: true",
 	"Limited to: 1",
 	"LevelReq: 56",
