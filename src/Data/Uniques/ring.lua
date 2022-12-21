@@ -370,6 +370,16 @@ Implicits: 1
 {variant:3}Recover 5% of Life on Kill
 {variant:3}Gain Adrenaline for 3 seconds on kill
 ]],[[
+Original Sin
+Amethyst Ring
+League: Sanctum
+Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond} while unique{The Original Scripture} is active in the normal{Relic Altar}
+LevelReq: 52
+Implicits: 1
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+All Elemental Damage Converted to Chaos Damage
+Nearby Enemies' Chaos Resistance is 0
+]],[[
 Doedre's Damning
 Paua Ring
 Variant: Pre 3.19.0

@@ -1660,6 +1660,11 @@ local specialModList = {
 		mod("LightningDamageConvertToFire", "BASE", num),
 		mod("ColdDamageConvertToFire", "BASE", num),
 	} end,
+	["all elemental damage converted to chaos damage"] = {
+		mod("ColdDamageConvertToChaos", "BASE", 100),
+		mod("FireDamageConvertToChaos", "BASE", 100),
+		mod("LightningDamageConvertToChaos", "BASE", 100),
+	},
 	["removes all mana%. spend life instead of mana for skills"] = { mod("Mana", "MORE", -100), flag("BloodMagic") },
 	["removes all mana"] = { mod("Mana", "MORE", -100) },
 	["removes all energy shield"] = { mod("EnergyShield", "MORE", -100) },
@@ -3234,6 +3239,9 @@ local specialModList = {
 	["chaos resistance is zero"] = {
 		mod("ChaosResist", "OVERRIDE", 0),
 	},
+	["nearby enemies' chaos resistance is (%d+)"] = function(num) return {
+		mod("EnemyModifier", "LIST", { mod = mod("ChaosResist", "OVERRIDE", num) }),
+	} end,
 	["your maximum resistances are (%d+)%%"] = function(num) return {
 		mod("FireResistMax", "OVERRIDE", num),
 		mod("ColdResistMax", "OVERRIDE", num),
