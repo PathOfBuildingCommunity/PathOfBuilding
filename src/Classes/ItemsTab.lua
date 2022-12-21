@@ -1716,8 +1716,11 @@ function ItemsTabClass:AddModComparisonTooltip(tooltip, mod)
 	newItem:BuildAndParseRaw()
 
 	local calcFunc = self.build.calcsTab:GetMiscCalculator()
+	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 	local outputBase = calcFunc({ repSlotName = slotName, repItem = self.displayItem }, {})
 	local outputNew = calcFunc({ repSlotName = slotName, repItem = newItem }, {})
+	GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, "\nAdding this mod will give: ")	
 end
 
@@ -2119,8 +2122,11 @@ function ItemsTabClass:AppendAnointTooltip(tooltip, node, actionText)
 		header = "^7"..actionText.." nothing will give you: "
 	end
 	local calcFunc = self.build.calcsTab:GetMiscCalculator()
+	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 	local outputBase = calcFunc({ repSlotName = "Amulet", repItem = self.displayItem }, {})
 	local outputNew = calcFunc({ repSlotName = "Amulet", repItem = self:anointItem(node) }, {})
+	GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	local numChanges = self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, header)
 	if node and numChanges == 0 then
 		tooltip:AddLine(14, "^7"..actionText.." "..node.dn.." changes nothing.")
