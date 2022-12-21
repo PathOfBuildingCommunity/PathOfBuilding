@@ -67,6 +67,21 @@ describe("TestDefence", function()
         assert.are.equals(2400, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
         assert.are.equals(2400, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
         assert.are.equals(2400, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+
+        build.configTab.input.customMods = "\z
+        +200 to all resistances\n\z
+        +200 to all maximum resistances\n\z
+        50% reduced damage taken\n\z
+        50% less damage taken\n\z
+        Nearby enemies deal 20% less damage\n\z
+        "
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+        assert.are.equals(300, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
+        assert.are.equals(3000, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+        assert.are.equals(3000, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
+        assert.are.equals(3000, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
+        assert.are.equals(3000, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
     end)
 
     -- a small helper function to calculate damage taken from limited test parameters
