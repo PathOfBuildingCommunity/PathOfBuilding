@@ -244,7 +244,7 @@ function TradeQueryClass:PriceItem()
 		"Lowest Price",
 		"Highest Weight",
 	}
-	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, self.sortSelectionList, function(index, value)
+	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 130, 18, self.sortSelectionList, function(index, value)
 		self.pbSortSelectionIndex = index
 	end)
 	self.controls.itemSortSelection.tooltipText = 
@@ -256,9 +256,14 @@ Lowest Price - Sorts from lowest to highest price of retrieved items
 Highest Weight - Displays the order retrieved from trade]]
 	self.controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
 	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
+	
+	-- Use Enchant in DPS sorting
+	self.controls.enchantInSort = new("CheckBoxControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, row_height, "Include Enchant:", function(state)
+		self.enchantInSort = state
+	end)
 
 	self.maxFetchPerSearchDefault = 2
-	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, 154, row_height, "", "Fetch Pages", "%D", 3, function(buf)
+	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT", self.controls.enchantInSort, "TOPLEFT"}, -8 - self.controls.enchantInSort.labelWidth, 0, 154, row_height, "", "Fetch Pages", "%D", 3, function(buf)
 		self.maxFetchPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, 1), 10)
 		self.tradeQueryRequests.maxFetchPerSearch = 10 * self.maxFetchPages
 		self.controls.fetchCountEdit.focusValue = self.maxFetchPages
@@ -434,10 +439,13 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
-			-- Calc item DPS without anoint or enchant as these can generally be added after.
 			local item = new("Item", tbl.item_string)
-			item.enchantModLines = { }
-			item:BuildAndParseRaw()
+			
+			-- Calc item DPS without anoint or enchant as these can generally be added after.
+			if not self.enchantInSort then
+				item.enchantModLines = { }
+				item:BuildAndParseRaw()
+			end
 
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
 			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0))
