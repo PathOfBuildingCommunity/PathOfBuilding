@@ -261,6 +261,7 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls.enchantInSort = new("CheckBoxControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, row_height, "Include Enchant:", function(state)
 		self.enchantInSort = state
 	end)
+	self.controls.enchantInSort.tooltipText = "This includes enchants in sorting that occurs after trade results have been retrieved"
 
 	self.maxFetchPerSearchDefault = 2
 	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT", self.controls.enchantInSort, "TOPLEFT"}, -8 - self.controls.enchantInSort.labelWidth, 0, 154, row_height, "", "Fetch Pages", "%D", 3, function(buf)
