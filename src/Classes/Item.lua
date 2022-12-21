@@ -95,7 +95,7 @@ function ItemClass:ParseRaw(raw)
 			if self.rarity == "UNIQUE" then
 				-- Hack for relics
 				for _, line in ipairs(self.rawLines) do
-					if line == "Relic Unique" then
+					if line == "Foil Unique" then
 						self.rarity = "RELIC"
 						break
 					end
