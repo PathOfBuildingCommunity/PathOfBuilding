@@ -432,7 +432,7 @@ end
 -- 4 Highest Item Weight
 function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 	local newTbl = {}
-	if self.pbSortSelectionIndex < 3 then -- DPS
+	if self.pbSortSelectionIndex <= 2 then -- DPS
 		local slot = slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
 		local slotName = slotTbl.ref and "Jewel " .. tostring(slotTbl.ref) or slotTbl.name
 		local storedFullDPS = GlobalCache.useFullDPS
