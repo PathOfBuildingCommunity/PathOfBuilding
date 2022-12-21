@@ -258,7 +258,7 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
 	
 	-- Use Enchant in DPS sorting
-	self.controls.enchantInSort = new("CheckBoxControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, row_height, "Include Enchant:", function(state)
+	self.controls.enchantInSort = new("CheckBoxControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, row_height, "Include Enchants:", function(state)
 		self.enchantInSort = state
 	end)
 	self.controls.enchantInSort.tooltipText = "This includes enchants in sorting that occurs after trade results have been retrieved"
