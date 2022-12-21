@@ -430,9 +430,15 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 	if self.pbSortSelectionIndex < 3 then -- DPS
 		local slot = slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
 		local slotName = slotTbl.ref and "Jewel " .. tostring(slotTbl.ref) or slotTbl.name
+		local storedFullDPS = GlobalCache.useFullDPS
+		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
+			-- Calc item DPS without anoint or enchant as these can generally be added after.
 			local item = new("Item", tbl.item_string)
+			item.enchantModLines = { }
+			item:BuildAndParseRaw()
+
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
 			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0))
 			if self.pbSortSelectionIndex == 2 then -- value
@@ -447,6 +453,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 				end
 			end
 		end
+		GlobalCache.useFullDPS = storedFullDPS
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
 	elseif self.pbSortSelectionIndex == 3 then -- price
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
