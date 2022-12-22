@@ -397,7 +397,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	if breakdown then
 		t_insert(breakdown.EffectiveRateOfTrigger, #breakdown.EffectiveRateOfTrigger-1, s_format("= %.2f ^8(Effective Trigger rate of Trigger)", output.EffectiveRateOfTrigger))
 	end
-	
+		
 	--If spell count is missing the skill likely comes from a unique and /or triggers it self
 	if spellCount and not env.minion then
 		if output.EffectiveRateOfTrigger ~= 0 then
@@ -3080,7 +3080,14 @@ function calcs.perform(env, avoidCache)
 			elseif env.player.mainSkill.skillData.triggeredByManaSpent then
 				triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance")
 				triggerName = "Kitava's Thirst"
-				spellCount = nil
+				local addsCastTime = nil
+				if env.player.mainSkill.skillModList:Flag(env.player.mainSkill.skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
+					baseCastTime = env.player.mainSkill.skillData.castTimeOverride or env.player.mainSkill.activeEffect.grantedEffect.castTime or 1
+					local inc = env.player.mainSkill.skillModList:Sum("INC", skill.skillCfg, "Speed")
+					local more = env.player.mainSkill.skillModList:More(env.player.mainSkill.skillCfg, "Speed")
+					addsCastTime = baseCastTime / round((1 + inc/100) * more, 2)
+				end
+				spellCount = {{ uuid = cacheSkillUUID(env.player.mainSkill), cd = env.player.mainSkill.skillData.cooldown, cdOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery"), addsCastTime = addsCastTime}}
 				triggerSkillCond = function(env, skill) return not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredByManaSpent end
 			elseif env.player.mainSkill.skillData.triggeredByMjolner then
 				triggerSkillCond = function(env, skill)
