@@ -187,7 +187,7 @@ return {
 ["support_cast_on_mana_spent"] = {
 	skill("triggeredByManaSpent", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
-["support_cast_on_damage_taken"] = {
+["cast_on_damage_taken_threshold"] = {
 	skill("triggeredByDamageTaken", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 ["display_mirage_warriors_no_spirit_strikes"] = {

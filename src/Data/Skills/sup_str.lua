@@ -954,7 +954,6 @@ skills["SupportCastOnDamageTaken"] = {
 		{ "cast_on_damage_taken_%", 100 },
 	},
 	stats = {
-		"support_cast_on_damage_taken",
 		"cast_on_damage_taken_threshold",
 		"cast_on_damage_taken_damage_+%_final",
 		"local_support_gem_max_skill_level_requirement_to_support",
