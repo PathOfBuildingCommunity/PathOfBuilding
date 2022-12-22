@@ -93,7 +93,6 @@ You can get this from your web browser's cookies while logged into the Path of E
 		return self.charImportMode == "GETSESSIONID"
 	end
 	self.controls.sessionRetry = new("ButtonControl", {"TOPLEFT",self.controls.sessionHeader,"TOPLEFT"}, 0, 108, 60, 20, "Retry", function()
-		self.controls.sessionInput.buf = ""
 		self:DownloadCharacterList()
 	end)
 	self.controls.sessionCancel = new("ButtonControl", {"LEFT",self.controls.sessionRetry,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
@@ -106,7 +105,6 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.sessionInput = new("EditControl", {"TOPLEFT",self.controls.sessionRetry,"BOTTOMLEFT"}, 0, 8, 350, 20, "", "POESESSID", "%X", 32)
 	self.controls.sessionInput:SetProtected(true)
 	self.controls.sessionGo = new("ButtonControl", {"LEFT",self.controls.sessionInput,"RIGHT"}, 8, 0, 60, 20, "Go", function()
-		main.POESESSID = self.controls.sessionInput.buf
 		self:DownloadCharacterList()
 	end)
 	self.controls.sessionGo.enabled = function()
@@ -376,6 +374,7 @@ function ImportTabClass:DownloadCharacterList()
 	  -- Trim Trailing/Leading spaces
 	local accountName = self.controls.accountName.buf:gsub('%s+', '')
 	local realm = realmList[self.controls.accountRealm.selIndex]
+	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(response, errMsg)
 		if errMsg == "Response code: 401" then
 			self.charImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
@@ -429,7 +428,7 @@ function ImportTabClass:DownloadCharacterList()
 			self.lastAccountHash = common.sha1(accountName)
 			main.lastAccountName = accountName
 			main.gameAccounts[accountName] = main.gameAccounts[accountName] or { }
-			main.gameAccounts[accountName].sessionID = main.POESESSID
+			main.gameAccounts[accountName].sessionID = sessionID
 			local leagueList = { }
 			for i, char in ipairs(charList) do
 				if not isValueInArray(leagueList, char.league) then
@@ -452,10 +451,11 @@ function ImportTabClass:DownloadCharacterList()
 			end
 			self.lastCharList = charList
 			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValue("league"))
+
 			-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
 			self:SaveAccountHistory()
-		end, main.POESESSID and { header = "Cookie: POESESSID=" .. main.POESESSID })
-	end, main.POESESSID and { header = "Cookie: POESESSID=" .. main.POESESSID })
+		end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
+	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
 end
 
 function ImportTabClass:BuildCharacterList(league)
@@ -499,6 +499,7 @@ function ImportTabClass:DownloadPassiveTree()
 	self.charImportStatus = "Retrieving character passive tree..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local accountName = self.controls.accountName.buf
+	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
 	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
@@ -512,7 +513,7 @@ function ImportTabClass:DownloadPassiveTree()
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
 		self:ImportPassiveTreeAndJewels(response.body, charData)
-	end, main.POESESSID and { header = "Cookie: POESESSID="..main.POESESSID })
+	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
 end
 
 function ImportTabClass:DownloadItems()
@@ -520,6 +521,7 @@ function ImportTabClass:DownloadItems()
 	self.charImportStatus = "Retrieving character items..."
 	local realm = realmList[self.controls.accountRealm.selIndex]
 	local accountName = self.controls.accountName.buf
+	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	local charSelect = self.controls.charSelect
 	local charData = charSelect.list[charSelect.selIndex].char
 	launch:DownloadPage(realm.hostName.."character-window/get-items?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
@@ -533,7 +535,7 @@ function ImportTabClass:DownloadItems()
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
 		self:ImportItemsAndSkills(response.body)
-	end, main.POESESSID and { header = "Cookie: POESESSID="..main.POESESSID })
+	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
 end
 
 function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)

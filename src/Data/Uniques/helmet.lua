@@ -493,10 +493,11 @@ Aspect of the Spider inflicts Spider's Webs and Hinder every 0.5 Seconds instead
 Sandstorm Visage
 Necromancer Circlet
 League: Sanctum
+Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 (8-10)% increased Cast Speed
 (200-250)% increased Energy Shield
 Avoid interruption from Stuns while Casting
-Base Critical Strike Chance of Spells is the Critical Strike Chance of your Main Hand Weapon
+Base Critical Strike Chance of Spells is the Critical Strike Chance of Main Hand Weapon
 Cannot deal Critical Strikes with Attacks
 ]],[[
 Flamesight
@@ -1016,10 +1017,10 @@ Regenerate 35 Mana per second if all Equipped Items are Corrupted
 Corrupted
 ]],[[
 Mask of the Spirit Drinker
-Variant: Pre 3.14.0
-Variant: Current
 {variant:1}Crusader Helmet
 {variant:2}Magistrate Crown
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
 Source: Opening normal{Pools Coffer} in normal{Sanctum of Immortality}
 Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Summoning}

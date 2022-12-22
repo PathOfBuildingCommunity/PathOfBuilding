@@ -225,6 +225,8 @@ function ItemDBClass:ListBuilder()
 	if self.sortDetail and self.sortDetail.stat then -- stat-based
 		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
+		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		for itemIndex, item in ipairs(list) do
 			item.measuredPower = 0
 			for slotName, slot in pairs(self.itemsTab.slots) do
@@ -244,6 +246,7 @@ function ItemDBClass:ListBuilder()
 				start = now
 			end
 		end
+		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	end
 
 	table.sort(list, function(a, b)
