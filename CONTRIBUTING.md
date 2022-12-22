@@ -130,9 +130,17 @@ It is recommended to use it over the built-in Lua plugins.
 Please note that EmmyLua is not available for other editors based on Visual Studio Code,
 such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.org) but can be built from source if needed.
 
-Note that you will need to have java installed to use emmyLua, and have either the JAVA_HOME environment variable correctly setup or have the path to java added to the `settings.json` file. Example:
+Note that you will need to have [Java](https://www.java.com/) installed to use emmyLua, and have either the JAVA_HOME environment variable correctly setup or have the path to java added to the `settings.json` file. Example:
 
 ```"emmylua.java.home": "C:/Program Files (x86)/Java/jre1.8.0_201/"```
+
+To do this in VSCode find the Java installation folder on your computer as displayed above.
+Navigate to extensions inside VScode
+Click the cog icon next to EmmyLua->Extension Settings
+Find "Java: Home"->Edit settings
+Place the directory address between the quotes
+File->Save
+
 
 ### Visual Studio Code
 
