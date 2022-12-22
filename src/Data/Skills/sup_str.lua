@@ -954,11 +954,12 @@ skills["SupportCastOnDamageTaken"] = {
 		{ "cast_on_damage_taken_%", 100 },
 	},
 	stats = {
+		"support_cast_on_damage_taken",
 		"cast_on_damage_taken_threshold",
 		"cast_on_damage_taken_damage_+%_final",
 		"local_support_gem_max_skill_level_requirement_to_support",
 		"spell_uncastable_if_triggerable",
-		"base_skill_show_average_damage_instead_of_dps",
+        "base_skill_show_average_damage_instead_of_dps",
 	},
 	levels = {
 		[1] = { 528, -65, 38, cooldown = 0.25, levelRequirement = 38, manaMultiplier = 150, statInterpolation = { 1, 1, 1, }, },
