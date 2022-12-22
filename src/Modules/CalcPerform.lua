@@ -377,7 +377,10 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	local icdr, triggerCD, triggeredCD
 	output.TriggerRateCap, icdr, triggerCD, triggeredCD = getTriggerRateCap(env, breakdown, output, minion)
 	
-	if(sourceAPS ~= nil) then
+	if env.player.mainSkill.skillData.sourceRateIsFinal then
+		output.EffectiveRateOfTrigger = sourceAPS
+		env.player.mainSkill.skillFlags.globalTrigger = true
+	elseif sourceAPS ~= nil then
 		if sourceAPS == 0 then
 			output.EffectiveRateOfTrigger = 0
 		else
@@ -3055,7 +3058,7 @@ function calcs.perform(env, avoidCache)
 				end
 			elseif uniqueTriggerName == "Queen's Demand" then
 				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
-				env.player.mainSkill.skillFlags.dontDisplay = true
+				env.player.mainSkill.skillData.sourceRateIsFinal = true
 				triggerSkillCond = function(env, skill) return skill.activeEffect.grantedEffect.name == uniqueTriggerName end
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end
 			elseif env.player.mainSkill.skillData.triggeredByCraft then
