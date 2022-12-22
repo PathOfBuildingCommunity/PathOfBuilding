@@ -383,7 +383,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		else
 			_, output.EffectiveRateOfTrigger, wasted = calcMultiSpellRotationImpact(env, {{ cd = (triggerCD or triggeredCD) / icdr }}, sourceAPS, icdr)
 			if breakdown then
-				t_insert(breakdown.EffectiveRateOfTrigger, s_format("/ %.2f ^8(estimated impact of source rate and trigger cooldown alighnement)", m_max(sourceAPS / output.EffectiveRateOfTrigger.rates[1].rate, 1)))
+				t_insert(breakdown.EffectiveRateOfTrigger, s_format("/ %.2f ^8(estimated impact of source rate and trigger cooldown alignment)", m_max(sourceAPS / output.EffectiveRateOfTrigger.rates[1].rate, 1)))
 				t_insert(breakdown.EffectiveRateOfTrigger, "")
 				t_insert(breakdown.EffectiveRateOfTrigger, output.EffectiveRateOfTrigger.extraSimInfo)
 			end
