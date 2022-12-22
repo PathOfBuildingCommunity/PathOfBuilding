@@ -4526,7 +4526,7 @@ function calcs.offence(env, actor, activeSkill)
 				if breakdown then
 					BreakdownEffectiveRateOfTrigger = {
 						s_format("%.2f ^8(%s attack rate)", sourceAPS, newSkill.activeEffect.grantedEffect.name),
-						s_format("/ %.2f ^8(estimated impact of source rate and trigger cooldown alighnement)", m_max(sourceAPS / EffectiveRateOfTrigger.rates[1].rate, 1)),
+						s_format("/ %.2f ^8(estimated impact of source rate and trigger cooldown alignment)", m_max(sourceAPS / EffectiveRateOfTrigger.rates[1].rate, 1)),
 						s_format("= %.2f ^8(Effective Trigger rate of Trigger)", EffectiveRateOfTrigger.rates[1].rate),
 						"",
 						EffectiveRateOfTrigger.extraSimInfo,

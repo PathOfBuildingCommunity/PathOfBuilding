@@ -381,7 +381,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		if sourceAPS == 0 then
 			output.EffectiveRateOfTrigger = 0
 		else
-			_, output.EffectiveRateOfTrigger, wasted = calcMultiSpellRotationImpact(env, {{ cd = triggerCD or triggeredCD }}, sourceAPS, icdr)
+			_, output.EffectiveRateOfTrigger, wasted = calcMultiSpellRotationImpact(env, {{ cd = (triggerCD or triggeredCD) / icdr }}, sourceAPS, icdr)
 			if breakdown then
 				t_insert(breakdown.EffectiveRateOfTrigger, s_format("/ %.2f ^8(estimated impact of source rate and trigger cooldown alighnement)", m_max(sourceAPS / output.EffectiveRateOfTrigger.rates[1].rate, 1)))
 				t_insert(breakdown.EffectiveRateOfTrigger, "")
@@ -390,7 +390,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 			output.EffectiveRateOfTrigger = output.EffectiveRateOfTrigger.rates[1].rate
 		end
 	else
-		output.EffectiveRateOfTrigger = data.misc.ServerTickRate / m_ceil( triggerCD * data.misc.ServerTickRate)
+		output.EffectiveRateOfTrigger = data.misc.ServerTickRate / m_ceil( triggerCD / icdr * data.misc.ServerTickRate)
 		env.player.mainSkill.skillFlags.globalTrigger = true
 	end
 	
@@ -412,7 +412,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 					s_format("Simulation Duration: %.2f", simBreakdown.simTime),
 				}
 				
-				local dualwieldAPS = (sourceAPS and dualWield and sourceAPS*2) or sourceAPS or 1 / triggerCD
+				local dualwieldAPS = (sourceAPS and dualWield and sourceAPS*2) or sourceAPS or 1 / triggerCD / icdr
 				local skillName = (source and source.activeEffect.grantedEffect.name) or (env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or env.player.mainSkill.activeEffect.grantedEffect.name
 				
 				if env.player.mainSkill.skillData.triggeredByBrand then
